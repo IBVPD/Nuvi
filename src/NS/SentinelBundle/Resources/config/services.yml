@@ -1,0 +1,7 @@
+parameters:
+#    ns_sentinel.example.class: NS\SentinelBundle\Example
+
+services:
+#    ns_sentinel.example:
+#        class: %ns_sentinel.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
