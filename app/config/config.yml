@@ -52,7 +52,18 @@ doctrine:
         # if using pdo_sqlite as your database driver, add the path in parameters.yml
         # e.g. database_path: %kernel.root_dir%/data/data.db3
         # path:     %database_path%
-
+        types:
+            TripleChoice: NS\SentinelBundle\Entity\Type\TripleChoice
+            Doses: NS\SentinelBundle\Entity\Type\Doses
+            Diagnosis: NS\SentinelBundle\Entity\Type\Diagnosis
+            CXRResult: NS\SentinelBundle\Entity\Type\CXRResult
+            DischargeOutcome: NS\SentinelBundle\Entity\Type\DischargeOutcome
+        mapping_types:
+            TripleChoice: TripleChoice
+            Doses: Doses
+            Diagnosis: Diagnosis
+            CXRResult: CXRResult
+            DischargeOutcome: DischargeOutcome
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true

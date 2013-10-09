@@ -2,14 +2,26 @@
 
 namespace NS\SentinelBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+use NS\SentinelBundle\Form\Type\TripleChoice;
+
 /**
  * Description of Meningitis
  *
  * @author gnat
+ * @ORM\Entity
+ * @ORM\Table(name="meningitis_cases")
  */
 class Meningitis
 {
+    /**
+     * @var integer $id
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(name="id",type="integer")
+     */
     private $id;
+
     /**
      * @var DateTime $dob
      * @ORM\Column(name="dob",type="date",nullable=true)
@@ -35,8 +47,8 @@ class Meningitis
     private $hibDoses;
 
     /**
-     * @var TripleChoice $hibReceived
-     * @ORM\Column(name="hibReceived",type="TripleChoice",nullable=true)
+     * @var TripleChoice $pcvReceived
+     * @ORM\Column(name="pcvReceived",type="TripleChoice",nullable=true)
      */
     private $pcvReceived;
 
@@ -76,7 +88,17 @@ class Meningitis
      * @ORM\Column(name="admDate",type="date",nullable=true)
      */
     private $admDate;
+    
+    /**
+     * @var Diagnosis $admDx
+     * @ORM\Column(name="admDx",type="Diagnosis",nullable=true)
+     */
     private $admDx;
+
+    /**
+     * @var string $admDxOther
+     * @ORM\Column(name="admDxOther",type="string",nullable=true)
+     */
     private $admDxOther;
 //MENINGITIS
     /**
@@ -188,40 +210,127 @@ class Meningitis
      */
     private $pneuSymptomOther;
 //Case-based Specimen Collection Data
-
+    
+    /**
+     * @var DateTime $csfCollected
+     * @ORM\Column(name="csfCollected",type="boolean",nullable=true)
+     */
     private $csfCollected;
+    
     private $csfId;
 
     /**
      * @var DateTime $csfCollectDateTime
-     * @ORM\Column(name="admDate",type="datetime",nullable=true)
+     * @ORM\Column(name="csfCollectDateTime",type="datetime",nullable=true)
      */
     private $csfCollectDateTime;
+    
+    /**
+     * @var DateTime $csfAppearance
+     * @ORM\Column(name="csfAppearance",type="date",nullable=true)
+     */
     private $csfAppearance;
     /**
      * @var DateTime $csfLabDateTime
      * @ORM\Column(name="csfLabDateTime",type="datetime",nullable=true)
      */
     private $csfLabDateTime;
-    private $csfLabTime;
+//    private $csfLabTime;
+    
+    /**
+     * @var boolean $bloodCollected
+     * @ORM\Column(name="bloodCollected", type="boolean",nullable=true)
+     */
     private $bloodCollected;
     private $bloodId;
 //Case-based Laboratory Data
+
+    /**
+     * @var boolean $csfWcc
+     * @ORM\Column(name="csfWcc", type="integer",nullable=true)
+     */
     private $csfWcc;
+    
+    /**
+     * @var boolean $csfGlucose
+     * @ORM\Column(name="csfGlucose", type="integer",nullable=true)
+     */    
     private $csfGlucose;
+
+    /**
+     * @var boolean $csfProtein
+     * @ORM\Column(name="csfProtein", type="integer",nullable=true)
+     */    
     private $csfProtein;
+    
+    /**
+     * @var TripleChoice $csfCultDone
+     * @ORM\Column(name="csfCultDone",type="TripleChoice",nullable=true)
+     */    
     private $csfCultDone;
+    
+    /**
+     * @var TripleChoice $csfGramDone
+     * @ORM\Column(name="csfGramDone",type="TripleChoice",nullable=true)
+     */    
     private $csfGramDone;
+    
+    /**
+     * @var TripleChoice $csfBinaxDone
+     * @ORM\Column(name="csfBinaxDone",type="TripleChoice",nullable=true)
+     */    
     private $csfBinaxDone;
+    
+    /**
+     * @var TripleChoice $csfLatDone
+     * @ORM\Column(name="csfLatDone",type="TripleChoice",nullable=true)
+     */
     private $csfLatDone;
+    
+    /**
+     * @var TripleChoice $csfPcrDone
+     * @ORM\Column(name="csfPcrDone",type="TripleChoice",nullable=true)
+     */    
     private $csfPcrDone;
+    
+    /**
+     * @var TripleChoice $bloodCultDone
+     * @ORM\Column(name="bloodCultDone",type="TripleChoice",nullable=true)
+     */
     private $bloodCultDone;
+    
+    /**
+     * @var TripleChoice $bloodGramDone
+     * @ORM\Column(name="bloodGramDone",type="TripleChoice",nullable=true)
+     */
     private $bloodGramDone;
+    
+    /**
+     * @var TripleChoice $bloodPcrDone
+     * @ORM\Column(name="bloodPcrDone",type="TripleChoice",nullable=true)
+     */    
     private $bloodPcrDone;
+    
+    /**
+     * @var TripleChoice $otherCultDone
+     * @ORM\Column(name="otherCultDone",type="TripleChoice",nullable=true)
+     */
     private $otherCultDone;
+    
+    /**
+     * @var TripleChoice $otherTestDone
+     * @ORM\Column(name="otherTestDone",type="TripleChoice",nullable=true)
+     */
     private $otherTestDone;
+
     private $csfCultResult;
+    
+    /**
+     * @var string $csfCultOther
+     * @ORM\Column(name="csfCultOther",type="string",nullable=true)
+     */
     private $csfCultOther;
+    
     private $csfGramResult;
     private $csfBinaxResult;
     private $csfLatResult;
@@ -248,18 +357,64 @@ class Meningitis
     private $rrlIsolDate;
     private $csfStore;
     private $isolStore;
+    /**
+     * @var string $rrlName
+     * @ORM\Column(name="rrlName",type="string",nullable=true)
+     */    
     private $rrlName;
+    
+    /**
+     * @var string $spnSerotype
+     * @ORM\Column(name="spnSerotype",type="string",nullable=true)
+     */
     private $spnSerotype;
+    
+    /**
+     * @var string $hiSerotyoe
+     * @ORM\Column(name="hiSerotyoe",type="string",nullable=true)
+     */    
     private $hiSerotype;
+    
+    /**
+     * @var string $nmSerogroup
+     * @ORM\Column(name="nmSerogroup",type="string",nullable=true)
+     */    
     private $nmSerogroup;
 //PNEUMONIA / SEPSIS (In addition to above)
+    /**
+     * @var TripleChoice $cxrDone
+     * @ORM\Column(name="cxrDone",type="TripleChoice",nullable=true)
+     */    
     private $cxrDone;
+        
+    /**
+     * @var CXRResult $cxrResult
+     * @ORM\Column(name="cxrResult",type="CXRResult",nullable=true)
+     */
     private $cxrResult;
 //Case-based Outcome Data
+    /**
+     * @var DishchargeOutcome $dischOutcome
+     * @ORM\Column(name="dischOutcome",type="DischargeOutcome",nullable=true)
+     */
     private $dischOutcome;
+
+    /**
+     * @var Diagnosis $dischDx
+     * @ORM\Column(name="dischDx",type="Diagnosis",nullable=true)
+     */
     private $dischDx;
     private $dischDxOther;
-    private $dischSequelae;
-    private $comment;
     
+    /**
+     * @var TripleChoice $dischSequelae
+     * @ORM\Column(name="dischSequelae",type="TripleChoice",nullable=true)
+     */
+    private $dischSequelae;
+    
+    /**
+     * @var string $comment
+     * @ORM\Column(name="comment",type="text",nullable=true)
+     */
+    private $comment;
 }
