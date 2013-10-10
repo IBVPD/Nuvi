@@ -4,7 +4,7 @@ imports:
 
 framework:
     #esi:             ~
-    #translator:      { fallback: %locale% }
+    translator:      { fallback: %locale% }
     secret:          %secret%
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -17,7 +17,9 @@ framework:
         #assets_version: SomeVersionScheme
     default_locale:  "%locale%"
     trusted_proxies: ~
-    session:         ~
+    session:
+      name: WorldHealtOrganizationSentinelNetwork
+      save_path: /tmp/nedco
     fragments:       ~
     http_method_override: true
 
@@ -25,6 +27,11 @@ framework:
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
+    form:
+      resources:
+        - 'NSTemplatesBundle:Form:fields.html.twig'
+        - 'NSUtilBundle:Form:fields.html.twig'
+        - 'NobletSolutionsNedcoBundle:Form:fields.html.twig'
 
 # Assetic Configuration
 assetic:
