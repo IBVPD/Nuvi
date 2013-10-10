@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "718781d137af08bbc210671651fa98da",
+    "hash": "a71b7b6dffb565ad7e7ff461e0ba3e6e",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1208,21 +1208,21 @@
         },
         {
             "name": "symfony/icu",
-            "version": "1.2.x-dev",
+            "version": "1.1.x-dev",
             "target-dir": "Symfony/Component/Icu",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Icu.git",
-                "reference": "98e197da54df1f966dd5e8a4992135703569c987"
+                "reference": "0b82950ece96c1f091dcdb088298bd72dbc83a47"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Icu/zipball/98e197da54df1f966dd5e8a4992135703569c987",
-                "reference": "98e197da54df1f966dd5e8a4992135703569c987",
+                "url": "https://api.github.com/repos/symfony/Icu/zipball/0b82950ece96c1f091dcdb088298bd72dbc83a47",
+                "reference": "0b82950ece96c1f091dcdb088298bd72dbc83a47",
                 "shasum": ""
             },
             "require": {
-                "lib-icu": ">=4.4",
+                "lib-icu": ">=3.8",
                 "php": ">=5.3.3",
                 "symfony/intl": "~2.3"
             },
@@ -1252,7 +1252,7 @@
                 "icu",
                 "intl"
             ],
-            "time": "2013-10-04 10:06:38"
+            "time": "2013-10-04 10:05:23"
         },
         {
             "name": "symfony/monolog-bundle",
@@ -1373,12 +1373,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "77a961d04046351fb08235f23c1d4f1538a3c8cd"
+                "reference": "f3bd125aed5a78a6d06be588823e5e4feb636011"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/77a961d04046351fb08235f23c1d4f1538a3c8cd",
-                "reference": "77a961d04046351fb08235f23c1d4f1538a3c8cd",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/f3bd125aed5a78a6d06be588823e5e4feb636011",
+                "reference": "f3bd125aed5a78a6d06be588823e5e4feb636011",
                 "shasum": ""
             },
             "require": {
@@ -1473,7 +1473,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2013-10-09 20:51:36"
+            "time": "2013-10-10 14:16:40"
         },
         {
             "name": "twig/extensions",
@@ -1580,6 +1580,7 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
+        "symfony/icu": 20,
         "ns/templates-bundle": 20
     },
     "platform": {
