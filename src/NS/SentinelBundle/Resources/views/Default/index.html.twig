@@ -1,1 +1,41 @@
-Hello {{ name }}!
+{%extends "NSSentinelBundle::layout.html.twig" %}
+
+{% block body %}
+<div class="layoutSection">
+    <div class="column span4">
+        <div class="panel dataPanel">
+            <h3 class="panelTitle">Cases</h3>
+            <div class="panelContent">
+                <table class="dataTable highlightRow zebra">
+                    <colgroup span="1"></colgroup>
+                    <colgroup span="3"></colgroup>
+                    <colgroup span="1"></colgroup>
+
+                    <tbody>
+                    <tr class="odd">
+                        <th>DOB</th>
+                        <th>Age In Months</th>
+                        <th>HIB Received</th>
+                        <th>HIB Doses</th>
+                        <th>Actions</th>
+                    </tr>
+
+                    {% for row in rows %}
+                        <tr class="{{ cycle(['odd', 'even'], loop.index) }}">
+                            <td class="highlight alignLeft">{{ row.dob.format('Y-m-d') }}</td>
+                            <td>{{ row.ageInMonths }}</td>
+                            <td>{{ row.hibReceived }}</td>
+                            <td>{{ row.hibDoses }}</td>
+                            <td><a href="{{path('createOrEdit',{'id':row.id})}}">Edit</a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                    <div class="formRow alignRight">
+                        <a href="{{path('createOrEdit')}}" class="button">Create</a>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

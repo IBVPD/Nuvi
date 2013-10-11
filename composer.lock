@@ -793,12 +793,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "b5fa119527f25b787fbb20e75593e0671b0ea079"
+                "reference": "8e5a671eef6e1096d764e6f3524e6f732afa53b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/b5fa119527f25b787fbb20e75593e0671b0ea079",
-                "reference": "b5fa119527f25b787fbb20e75593e0671b0ea079",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/8e5a671eef6e1096d764e6f3524e6f732afa53b4",
+                "reference": "8e5a671eef6e1096d764e6f3524e6f732afa53b4",
                 "shasum": ""
             },
             "require": {
@@ -848,7 +848,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2013-10-03 15:23:01"
+            "time": "2013-10-11 16:18:40"
         },
         {
             "name": "ns/templates-bundle",
@@ -889,7 +889,7 @@
             "source": {
                 "type": "git",
                 "url": "gitolite@git.noblet.ca:/symfony/ns/utils.git",
-                "reference": "bc265545a0cfe7effc43a3921e6fb1e787a9556f"
+                "reference": "b6e04e1bcea23f512566ab335da0848f65d9c61d"
             },
             "require": {
                 "ext-mbstring": "*",
@@ -913,7 +913,7 @@
                 }
             ],
             "description": "Various Utilitity Services and Classes",
-            "time": "2013-09-10 16:51:45"
+            "time": "2013-10-10 19:56:29"
         },
         {
             "name": "psr/log",
@@ -1373,12 +1373,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "f3bd125aed5a78a6d06be588823e5e4feb636011"
+                "reference": "e219481579f5058b6ccaa29efa76b32b119d8792"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/f3bd125aed5a78a6d06be588823e5e4feb636011",
-                "reference": "f3bd125aed5a78a6d06be588823e5e4feb636011",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/e219481579f5058b6ccaa29efa76b32b119d8792",
+                "reference": "e219481579f5058b6ccaa29efa76b32b119d8792",
                 "shasum": ""
             },
             "require": {
@@ -1473,7 +1473,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2013-10-10 14:16:40"
+            "time": "2013-10-11 11:59:44"
         },
         {
             "name": "twig/extensions",

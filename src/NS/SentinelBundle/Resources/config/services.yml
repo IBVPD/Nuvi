@@ -2,6 +2,30 @@ parameters:
 #    ns_sentinel.example.class: NS\SentinelBundle\Example
 
 services:
+    ns.sentinel.form.type.tripe_choice:
+      class: NS\SentinelBundle\Form\Type\TripleChoice
+      tags:
+        - { name: form.type, alias: triple_choice }
+    ns.sentinel.form.type.diagnosis:
+      class: NS\SentinelBundle\Form\Type\Diagnosis
+      tags:
+        - { name: form.type, alias: Diagnosis }
+    ns.sentinel.form.type.dischargeOutcome:
+      class: NS\SentinelBundle\Form\Type\DischargeOutcome
+      tags:
+        - { name: form.type, alias: DischargeOutcome }
+    ns.sentinel.form.type.doses:
+      class: NS\SentinelBundle\Form\Type\Doses
+      tags:
+        - { name: form.type, alias: Doses }
+    ns.sentinel.form.type.cxr_result:
+      class: NS\SentinelBundle\Form\Type\CXRResult
+      tags:
+        - { name: form.type, alias: CXRResult }
+    ns.sentinel.form.type.CSFAppearance:
+      class: NS\SentinelBundle\Form\Type\CSFAppearance
+      tags:
+        - { name: form.type, alias: CSFAppearance }
 #    ns_sentinel.example:
 #        class: %ns_sentinel.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]

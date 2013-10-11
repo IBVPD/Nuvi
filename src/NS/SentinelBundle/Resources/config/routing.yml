@@ -1,3 +1,3 @@
-ns_sentinel_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: NSSentinelBundle:Default:index }
+ns_sentinel:
+    resource: "@NSSentinelBundle/Controller/"
+    type:     annotation

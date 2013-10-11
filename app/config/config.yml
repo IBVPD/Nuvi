@@ -31,7 +31,6 @@ twig:
       resources:
         - 'NSTemplatesBundle:Form:fields.html.twig'
         - 'NSUtilBundle:Form:fields.html.twig'
-        - 'NobletSolutionsNedcoBundle:Form:fields.html.twig'
 
 # Assetic Configuration
 assetic:
@@ -65,12 +64,14 @@ doctrine:
             Diagnosis: NS\SentinelBundle\Entity\Type\Diagnosis
             CXRResult: NS\SentinelBundle\Entity\Type\CXRResult
             DischargeOutcome: NS\SentinelBundle\Entity\Type\DischargeOutcome
+            CSFAppearance: NS\SentinelBundle\Entity\Type\CSFAppearance
         mapping_types:
             TripleChoice: TripleChoice
             Doses: Doses
             Diagnosis: Diagnosis
             CXRResult: CXRResult
             DischargeOutcome: DischargeOutcome
+            CSFAppearance: CSFAppearance
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
@@ -82,3 +83,14 @@ swiftmailer:
     username:  %mailer_user%
     password:  %mailer_password%
     spool:     { type: memory }
+
+services:
+  ns.form.types.autocomplete:
+      class: NS\UtilBundle\Form\Types\Autocomplete
+      arguments: [ "@doctrine.orm.entity_manager", "@router" ]
+      tags:
+        - { name: form.type, alias: ns_autocomplete }
+  ns.ajax_autocompleter:
+    class: NS\UtilBundle\Service\Ajax
+    arguments: [ "@doctrine.orm.entity_manager", "@request", "@templating" ]
+    scope: request

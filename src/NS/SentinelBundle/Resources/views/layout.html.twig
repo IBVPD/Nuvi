@@ -1,0 +1,22 @@
+{%extends "NSTemplatesBundle::layout.html.twig" %}
+
+    {% block stylesheets %}
+        {{ parent() }}
+        <link rel="stylesheet" type="text/css" media="screen" href="/bundles/nsutil/css/pikaday.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="/bundles/nsutil/css/autocomplete.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="/bundles/nsutil/css/clockpicker.css" />
+    {%endblock %}
+
+    {% block htmltitle %}
+        WHO Sentinel Network
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ parent() }}
+        <script type="text/javascript" src="/bundles/nsutil/js/moment.min.js"></script>
+        <script type="text/javascript" src="/bundles/nsutil/js/pikaday.js"></script>
+        <script type="text/javascript" src="/bundles/nsutil/js/autocomplete.js"></script>
+        <script type="text/javascript" src="/bundles/nsutil/js/jda.utils.js"></script>
+        <script type="text/javascript" src="/bundles/nsutil/js/clockpicker.js"></script>
+        <script type="text/javascript" src="/bundles/nsutil/js/clockBuilder.js"></script>
+    {% endblock %}
