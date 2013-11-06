@@ -21,7 +21,8 @@
 	"symfony/icu": "1.1.x-dev",
         "incenteev/composer-parameter-handler": "~2.0",
         "ns/templates-bundle": "dev-master",
-        "ns/util-bundle": "master"
+        "ns/util-bundle": "master",
+        "jms/translation-bundle": "1.1.x-dev"
     },
     "scripts": {
         "post-install-cmd": [
