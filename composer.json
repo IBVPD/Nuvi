@@ -22,7 +22,8 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "ns/templates-bundle": "dev-master",
         "ns/util-bundle": "master",
-        "jms/translation-bundle": "1.1.x-dev"
+        "jms/translation-bundle": "1.1.x-dev",
+        "ns/security-bundle": "master"
     },
     "scripts": {
         "post-install-cmd": [

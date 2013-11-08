@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "e7a57b0f6ec3d30b78c0f7e0566d2cc2",
+    "hash": "b28621f0ed9de49783bb582dadcd1d21",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -968,6 +968,34 @@
                 "php"
             ],
             "time": "2012-04-23 22:52:11"
+        },
+        {
+            "name": "ns/security-bundle",
+            "version": "dev-master",
+            "target-dir": "NS/SecurityBundle",
+            "source": {
+                "type": "git",
+                "url": "gitolite@git.noblet.ca:/symfony/ns/security.git",
+                "reference": "6a9112b52d5a4c073d08e6d9d99a3e25405840cd"
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/symfony": ">=2.1,<2.4"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "NS\\SecurityBundle": ""
+                }
+            },
+            "authors": [
+                {
+                    "name": "Nathanael David Noblet",
+                    "email": "nathanael@noblet.ca"
+                }
+            ],
+            "description": "This Bundle provides a basic database row level ACL system",
+            "time": "2013-08-28 14:37:46"
         },
         {
             "name": "ns/templates-bundle",

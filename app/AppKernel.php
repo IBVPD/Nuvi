@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new NS\UtilBundle\NSUtilBundle(),
             new NS\TemplatesBundle\NSTemplatesBundle(),
             new JMS\TranslationBundle\JMSTranslationBundle(),
+            new NS\SecurityBundle\NSSecurityBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
