@@ -21,9 +21,9 @@
 	"symfony/icu": "1.1.x-dev",
         "incenteev/composer-parameter-handler": "~2.0",
         "ns/templates-bundle": "dev-master",
-        "ns/util-bundle": "master",
+        "ns/util-bundle": "dev-master",
         "jms/translation-bundle": "1.1.x-dev",
-        "ns/security-bundle": "master"
+        "ns/security-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
@@ -44,7 +44,7 @@
     "config": {
         "bin-dir": "bin"
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "extra": {
         "symfony-app-dir": "app",
         "symfony-web-dir": "web",
