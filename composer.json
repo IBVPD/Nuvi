@@ -20,6 +20,16 @@
         "sensio/generator-bundle": "2.3.*",
 	"symfony/icu": "1.1.x-dev",
         "incenteev/composer-parameter-handler": "~2.0",
+
+        "knplabs/knp-menu-bundle": "1.1.*",
+        "sonata-project/admin-bundle": "2.2.x-dev",
+        "sonata-project/cache-bundle": "2.1.*@dev",
+        "sonata-project/block-bundle": "2.2.x-dev",
+        "sonata-project/jquery-bundle": "1.8.*",
+        "sonata-project/doctrine-orm-admin-bundle": "2.2.x-dev",
+        "sonata-project/intl-bundle": "2.2.x-dev",
+        "sonata-project/exporter": "1.1.*",
+
         "ns/templates-bundle": "dev-master",
         "ns/util-bundle": "dev-master",
         "jms/translation-bundle": "1.1.x-dev",

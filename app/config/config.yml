@@ -65,6 +65,7 @@ doctrine:
             CXRResult: NS\SentinelBundle\Entity\Type\CXRResult
             DischargeOutcome: NS\SentinelBundle\Entity\Type\DischargeOutcome
             CSFAppearance: NS\SentinelBundle\Entity\Type\CSFAppearance
+            Role: NS\SentinelBundle\Entity\Type\Role
         mapping_types:
             TripleChoice: TripleChoice
             Doses: Doses
@@ -72,6 +73,7 @@ doctrine:
             CXRResult: CXRResult
             DischargeOutcome: DischargeOutcome
             CSFAppearance: CSFAppearance
+            Role: Role
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
@@ -83,6 +85,33 @@ swiftmailer:
     username:  %mailer_user%
     password:  %mailer_password%
     spool:     { type: memory }
+
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        sonata.admin.block.admin_list:
+            contexts:   [admin]
+
+        #sonata.admin_doctrine_orm.block.audit:
+        #    contexts:   [admin]
+
+        sonata.block.service.text:
+        sonata.block.service.rss:
+
+        # Some specific block from the SonataMediaBundle
+        #sonata.media.block.media:
+        #sonata.media.block.gallery:
+        #sonata.media.block.feature_media:
+
+knp_menu:
+    twig:  # use "twig: false" to disable the Twig extension and the TwigRenderer
+        template: NobletSolutionsNedcoBundle:Menu:menu.html.twig
+    templating: false # if true, enables the helper for PHP templates
+    default_renderer: twig # The renderer to use, list is also available by default
+
+sonata_admin:
+    title:      NUVI Sentinel Network Administration
+#    title_logo: /bundles/nobletsolutionsnedco/images/logo.png
 
 services:
   ns.form.types.autocomplete:
