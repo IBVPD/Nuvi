@@ -26,7 +26,7 @@ class ACL extends BaseACL
      * @param \Role $type
      * @return ACL
      */
-    public function setType(\Role $type)
+    public function setType($type)
     {
         $this->type = $type;
     
