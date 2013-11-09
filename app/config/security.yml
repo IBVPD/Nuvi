@@ -23,16 +23,22 @@ security:
             security: false
 
         login:
-            pattern:  ^/login$
             security: false
 
         secured_area:
-            pattern:    ^/
-            form_login:
-                check_path: _security_check
-                login_path: _login
-            logout:
-                path:   _logout
+            anonymous: ~
+            
+#        login:
+#            pattern:  ^/login$
+#            security: false
+
+#        secured_area:
+#            pattern:    ^/
+#            form_login:
+#                check_path: _security_check
+#                login_path: _login
+#            logout:
+#                path:   _logout
 #                target: _demo
             #anonymous: ~
             #http_basic:
@@ -41,5 +47,6 @@ security:
     access_control:
 #        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: ROLE_ADMIN }
         
