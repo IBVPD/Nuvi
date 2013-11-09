@@ -29,3 +29,21 @@ services:
 #    ns_sentinel.example:
 #        class: %ns_sentinel.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
+
+    ns_sentinel.admin.region:
+        class: NS\SentinelBundle\Admin\RegionAdmin
+        arguments: [~, NS\SentinelBundle\Entity\Region, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: Region}
+
+    ns_sentinel.admin.site:
+        class: NS\SentinelBundle\Admin\SiteAdmin
+        arguments: [~, NS\SentinelBundle\Entity\Site, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: Site}
+
+    ns_sentinel.admin.country:
+        class: NS\SentinelBundle\Admin\CountryAdmin
+        arguments: [~, NS\SentinelBundle\Entity\Country, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: Country}

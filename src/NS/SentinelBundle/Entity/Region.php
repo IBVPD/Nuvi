@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Region
  *
- * @ORM\Table()
+ * @ORM\Table(name="regions")
  * @ORM\Entity
  */
 class Region
@@ -28,7 +28,14 @@ class Region
      */
     private $name;
 
+    /**
+     * @var Country
+     * 
+     * @ORM\OneToMany(targetEntity="Country",mappedBy="region")
+     */
 
+    private $countries;
+    
     /**
      * Get id
      *
@@ -60,5 +67,48 @@ class Region
     public function getName()
     {
         return $this->name;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->countries = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    public function __toString() {
+        return $this->name;
+    }
+    /**
+     * Add countries
+     *
+     * @param \NS\SentinelBundle\Entity\Country $countries
+     * @return Region
+     */
+    public function addCountrie(\NS\SentinelBundle\Entity\Country $countries)
+    {
+        $this->countries[] = $countries;
+    
+        return $this;
+    }
+
+    /**
+     * Remove countries
+     *
+     * @param \NS\SentinelBundle\Entity\Country $countries
+     */
+    public function removeCountrie(\NS\SentinelBundle\Entity\Country $countries)
+    {
+        $this->countries->removeElement($countries);
+    }
+
+    /**
+     * Get countries
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCountries()
+    {
+        return $this->countries;
     }
 }

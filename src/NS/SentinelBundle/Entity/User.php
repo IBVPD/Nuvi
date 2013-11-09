@@ -8,8 +8,8 @@ use \Symfony\Component\Security\Core\User\AdvancedUserInterface;
 /**
  * User
  *
- * @ORM\Table()
- * @ORM\Entity(repositoryClass="NS\SentinelBundle\Entity\UserRepository")
+ * @ORM\Table(name="users")
+ * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\User")
  */
 class User implements AdvancedUserInterface
 {

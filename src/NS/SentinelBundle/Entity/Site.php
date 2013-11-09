@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Site
  *
- * @ORM\Table()
+ * @ORM\Table(name="sites")
  * @ORM\Entity
  */
 class Site
@@ -28,7 +28,14 @@ class Site
      */
     private $name;
 
+    /**
+     * @var Country
+     * 
+     * @ORM\ManyToOne(targetEntity="Country",inversedBy="sites")
+     */
 
+    private $country;
+    
     /**
      * Get id
      *
@@ -38,6 +45,10 @@ class Site
     {
         return $this->id;
     }
+
+    public function __toString() {
+        return $this->name;
+    }    
 
     /**
      * Set name
@@ -60,5 +71,28 @@ class Site
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set country
+     *
+     * @param \NS\SentinelBundle\Entity\Country $country
+     * @return Site
+     */
+    public function setCountry(\NS\SentinelBundle\Entity\Country $country = null)
+    {
+        $this->country = $country;
+    
+        return $this;
+    }
+
+    /**
+     * Get country
+     *
+     * @return \NS\SentinelBundle\Entity\Country 
+     */
+    public function getCountry()
+    {
+        return $this->country;
     }
 }
