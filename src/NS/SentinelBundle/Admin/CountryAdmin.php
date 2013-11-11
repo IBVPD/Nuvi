@@ -17,6 +17,8 @@ class CountryAdmin extends Admin
     {
         $datagridMapper
             ->add('name')
+            ->add('code')
+            ->add('isActive')
         ;
     }
 
@@ -26,7 +28,9 @@ class CountryAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
+            ->add('code')
             ->add('name')
+            ->add('isActive')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -43,7 +47,9 @@ class CountryAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
+            ->add('code')
             ->add('name')
+            ->add('isActive',null,array('required' => false))
             ->add('region')
         ;
     }
@@ -54,7 +60,9 @@ class CountryAdmin extends Admin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
+            ->add('code')
             ->add('name')
+            ->add('isActive')
             ->add('region')
             ->add('sites')
         ;

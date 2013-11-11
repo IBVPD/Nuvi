@@ -7,13 +7,13 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Country
  *
- * @ORM\Table(name="countries")
+ * @ORM\Table(name="countries",uniqueConstraints={@ORM\UniqueConstraint(name="code_idx", columns={"code"})})
  * @ORM\Entity
  */
 class Country
 {
     /**
-     * @var integer
+     * @var string
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -21,6 +21,20 @@ class Country
      */
     private $id;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="code", type="string", length=4)
+     */
+    private $code;
+
+    /**
+     * @var boolean
+     * 
+     * @ORM\Column(name="isActive",type="boolean")
+     */
+    private $isActive;
+    
     /**
      * @var string
      *
@@ -43,16 +57,6 @@ class Country
      */
 
     private $region;
-        
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Set name
@@ -88,6 +92,11 @@ class Country
         return $this->name;
     }
     
+    public function getId()
+    {
+        return $this->id;
+    }
+
     /**
      * Add sites
      *
@@ -142,5 +151,51 @@ class Country
     public function getRegion()
     {
         return $this->region;
+    }
+
+    /**
+     * Set isActive
+     *
+     * @param boolean $isActive
+     * @return Country
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+    
+        return $this;
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return boolean 
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * Set code
+     *
+     * @param string $code
+     * @return Country
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+    
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return string 
+     */
+    public function getCode()
+    {
+        return $this->code;
     }
 }

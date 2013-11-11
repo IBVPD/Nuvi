@@ -28,6 +28,8 @@ class SiteAdmin extends Admin
     {
         $listMapper
             ->add('name')
+            ->add('country')
+            ->add('country.region')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -57,6 +59,8 @@ class SiteAdmin extends Admin
         $showMapper
             ->add('name')
             ->add('country')
+            ->add('country.region')
+
         ;
     }
 }
