@@ -84,11 +84,9 @@ class Role extends ArrayChoice
             case self::COUNTRY:
                 return $class."\Country";
                 break;
+            case self::LAB:
             case self::SITE:
                 return $class."\SITE";
-                break;
-            case self::LAB:
-                return $class."\Lab";
                 break;
             default:
                 return null;

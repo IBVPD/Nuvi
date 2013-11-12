@@ -29,7 +29,7 @@ class SiteAdmin extends Admin
         $listMapper
             ->add('name')
             ->add('country')
-            ->add('country.region')
+            ->add('country.region',null,array('label'=>'Region'))
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),

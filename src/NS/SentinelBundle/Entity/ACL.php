@@ -14,6 +14,14 @@ use \NS\SecurityBundle\Entity\BaseACL;
 class ACL extends BaseACL
 {
     /**
+     * @var User $user
+     * 
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="acls")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $user;
+
+    /**
      * @var Role $type
      *
      * @ORM\Column(name="type",type="Role")
@@ -41,5 +49,28 @@ class ACL extends BaseACL
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \NS\SentinelBundle\Entity\User $user
+     * @return ACL
+     */
+    public function setUser(\NS\SentinelBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+    
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \NS\SentinelBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

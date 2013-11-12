@@ -1,0 +1,15 @@
+{% extends 'SonataAdminBundle:CRUD:base_edit.html.twig' %}
+{% block javascripts %}
+  {{ parent() }}
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/prototype/1.7.0.0/prototype.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/scriptaculous/1.8.3/scriptaculous.js"></script>
+  <script type="text/javascript" src="/bundles/nsutil/js/autocomplete.js"></script>
+  <script type="text/javascript" src="/bundles/nsutil/js/moment.min.js"></script>
+  <script type="text/javascript" src="/bundles/nsutil/js/pikaday.js"></script> 
+{% endblock %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" type="text/css" media="screen" href="/bundles/nsutil/css/autocomplete.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/bundles/nsutil/css/pikaday.css" />
+{% endblock %}

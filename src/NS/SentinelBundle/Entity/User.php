@@ -4,6 +4,7 @@ namespace NS\SentinelBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use \Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
@@ -50,7 +51,24 @@ class User implements AdvancedUserInterface
      */
     private $password;
 
+    /**
+     * @Assert\Length(
+     *              min = "6",
+     *              minMessage = "Your password must be at least 6 characters")
+     *
+     * @var type
+     */
+    protected $plainPassword;
 
+    /**
+     *
+     * @var ACL $acls
+     * 
+     * @ORM\OneToMany(targetEntity="ACL", mappedBy="user", fetch="EAGER",cascade={"persist"}, orphanRemoval=true)
+     * @ORM\JoinColumn(name="id",referencedColumnName="user_id")
+     */
+    protected $acls;
+    
     /**
      * Get id
      *
@@ -153,6 +171,29 @@ class User implements AdvancedUserInterface
         return $this->password;
     }
 
+    /**
+     * Set password
+     *
+     * @param string $password
+     * @return User
+     */
+    public function setPlainPassword($password)
+    {
+        $this->plainPassword = $password;
+    
+        return $this;
+    }
+
+    /**
+     * Get password
+     *
+     * @return string 
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
     public function eraseCredentials() {
 
     }
@@ -181,4 +222,44 @@ class User implements AdvancedUserInterface
         return true;
     }
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->acls = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add acls
+     *
+     * @param \NS\SentinelBundle\Entity\ACL $acls
+     * @return User
+     */
+    public function addAcl(\NS\SentinelBundle\Entity\ACL $acls)
+    {
+        $this->acls[] = $acls;
+    
+        return $this;
+    }
+
+    /**
+     * Remove acls
+     *
+     * @param \NS\SentinelBundle\Entity\ACL $acls
+     */
+    public function removeAcl(\NS\SentinelBundle\Entity\ACL $acls)
+    {
+        $this->acls->removeElement($acls);
+    }
+
+    /**
+     * Get acls
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAcls()
+    {
+        return $this->acls;
+    }
 }

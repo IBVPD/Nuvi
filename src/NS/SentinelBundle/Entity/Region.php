@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Region
  *
  * @ORM\Table(name="regions")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="\NS\SentinelBundle\Repository\Region")
  */
 class Region
 {
