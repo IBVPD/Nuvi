@@ -15,10 +15,10 @@ class MeningitisType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('dob',null,array('required'=>false))
-            ->add('ageInMonths',null,array('required'=>false))
-            ->add('hibReceived','triple_choice',array('required'=>false))
-            ->add('hibDoses','Doses',array('required'=>false))
+            ->add('dob',null,array('required'=>false,'label'=>'form.date-of-birth'))
+            ->add('ageInMonths',null,array('required'=>false,'label'=>'form.age-in-months'))
+            ->add('hibReceived','triple_choice',array('required'=>false,'label'=>'form.hib-received'))
+            ->add('hibDoses','Doses',array('required'=>false,'label'=>'form.hib-doses'))
             ->add('pcvReceived','triple_choice',array('required'=>false))
             ->add('pcvDoses','Doses',array('required'=>false))
             ->add('meningReceived','triple_choice',array('required'=>false))

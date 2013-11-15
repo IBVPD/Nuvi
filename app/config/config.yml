@@ -113,13 +113,22 @@ sonata_admin:
     title:      NUVI Sentinel Network Administration
 #    title_logo: /bundles/nobletsolutionsnedco/images/logo.png
 
+sonata_doctrine_orm_admin:
+  templates:
+    form:
+      - NSUtilBundle:Form:SonataDoctrineORM/form_admin_fields.html.twig
+
 services:
   ns.form.types.autocomplete:
-      class: NS\UtilBundle\Form\Types\Autocomplete
-      arguments: [ "@doctrine.orm.entity_manager", "@router" ]
-      tags:
-        - { name: form.type, alias: ns_autocomplete }
+    class: NS\UtilBundle\Form\Types\Autocomplete
+    arguments: [ "@doctrine.orm.entity_manager", "@router" ]
+    tags:
+      - { name: form.type, alias: ns_autocomplete }
   ns.ajax_autocompleter:
     class: NS\UtilBundle\Service\Ajax
     arguments: [ "@doctrine.orm.entity_manager", "@request", "@templating" ]
     scope: request
+  twig.text_extension:
+    class: Twig_Extensions_Extension_Text
+    tags:
+      - name: twig.extension

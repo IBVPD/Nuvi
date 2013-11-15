@@ -194,12 +194,20 @@ class User implements AdvancedUserInterface
         return $this->plainPassword;
     }
 
-    public function eraseCredentials() {
+    public function eraseCredentials()
+    {
 
     }
 
-    public function getRoles() {
-        
+    public function getRoles()
+    {
+        $roles = array();
+
+        // what happens if this returns null??
+        foreach($this->acls as $acl)
+            $roles = array_merge($roles,$acl->getType()->getAsCredential());
+
+        return array_unique($roles);
     }
 
     public function getUsername() {

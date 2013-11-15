@@ -15,20 +15,15 @@ class Common extends EntityRepository implements AjaxAutocompleteRepositoryInter
     public function getForAutoComplete($fields, array $value, $limit)
     {
         $alias = 'd';
-        $qb1   = $this->_em->createQueryBuilder()
+        $qb    = $this->_em->createQueryBuilder()
                               ->select($alias)
                               ->from($this->getClassName(), $alias)
                               ->setMaxResults($limit);
 
         if(!empty($value) && $value['value'][0]=='*') {
-            return $qb1->getQuery();
+            return $qb->getQuery();
         }
         
-        $qb = $this->secure($qb1);
-        if($qb == null) {
-            $qb = $qb1;
-        }
-
         if(!empty($value))
         {
             if(is_array($fields))

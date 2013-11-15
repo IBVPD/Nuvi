@@ -2,11 +2,12 @@
 
 namespace NS\SentinelBundle\Controller;
 
-use Sonata\AdminBundle\Controller\CRUDController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use NS\SentinelBundle\Form\Type\Role;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
-class UserAdminController extends CRUDController
+class UserAdminController extends Controller
 {
     /**
      * @Route("/ajax/acls", name="adminACLAjaxAutocomplete")

@@ -1,0 +1,37 @@
+{% extends "NSSentinelBundle::layout.html.twig" %}
+
+{% block body %}
+<div class="layoutSection">
+    <div class="column span2 offset1">
+        <div class="panel dataPanel">
+            <h3 class="panelTitle">{{'Login'|trans}}</h3>
+            <div class="panelContent">
+                <form  class="bookingForm" id="login_form" action="{{ path('login_check') }}" method="post">
+                    {% if error %}
+                        <p class="error">{{ error.message }}</p>
+                    {% endif %}
+
+                    <div class="formRow">
+                        <label for="username">{{'Email'|trans}}:</label>
+                        <input type="text" id="username" name="_username" required class="text" value="{{ last_username }}" />
+                    </div>
+                    <div class="formRow">
+                        <label for="password">{{'Password'|trans}}:</label>
+                        <input type="password" id="password" class="text" required name="_password" />
+                    </div>
+                    <div class="formRow">
+                        <a class="panelSwitch fieldSwitch adminSwitch" data-target="admin_user_login">Admin</a>
+                        <div class="fieldExpander" id="admin_user_login">
+                            <label for="user_e">{{'User'|trans}}:</label>
+                            <input type="text" id="user_e" name="_user" class="text" />
+                        </div>
+                    </div>
+                    <div class="formRow">
+                        <button type="submit">{{'Login'|trans}}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
