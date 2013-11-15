@@ -1289,7 +1289,7 @@
             "source": {
                 "type": "git",
                 "url": "gitolite@git.noblet.ca:/symfony/ns/security.git",
-                "reference": "9f7fa878f209e9b6167d4266a4bef3c82a879c25"
+                "reference": "b750944341dfe22ccbff38bd2b36ae3ca6d641d8"
             },
             "require": {
                 "php": ">=5.3.2",
@@ -1308,7 +1308,7 @@
                 }
             ],
             "description": "This Bundle provides a basic database row level ACL system",
-            "time": "2013-11-08 19:17:45"
+            "time": "2013-11-15 06:04:51"
         },
         {
             "name": "ns/templates-bundle",
@@ -1349,7 +1349,7 @@
             "source": {
                 "type": "git",
                 "url": "gitolite@git.noblet.ca:/symfony/ns/utils.git",
-                "reference": "32e7bc3a25eba44fb84a0c73b240f4aeac05870b"
+                "reference": "3beec5c856edae3def6d5a3defb385fc409f8f2c"
             },
             "require": {
                 "ext-mbstring": "*",
@@ -1373,7 +1373,7 @@
                 }
             ],
             "description": "Various Utilitity Services and Classes",
-            "time": "2013-11-08 19:17:09"
+            "time": "2013-11-15 05:09:05"
         },
         {
             "name": "psr/log",
