@@ -33,7 +33,8 @@
         "ns/templates-bundle": "dev-master",
         "ns/util-bundle": "dev-master",
         "jms/translation-bundle": "1.1.x-dev",
-        "ns/security-bundle": "dev-master"
+        "ns/security-bundle": "dev-master",
+        "jms/di-extra-bundle": "~1.1"
     },
     "scripts": {
         "post-install-cmd": [

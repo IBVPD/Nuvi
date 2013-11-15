@@ -21,7 +21,8 @@ class AppKernel extends Kernel
             new NS\TemplatesBundle\NSTemplatesBundle(),
             new JMS\TranslationBundle\JMSTranslationBundle(),
             new NS\SecurityBundle\NSSecurityBundle(),
-
+            new JMS\DiExtraBundle\JMSDiExtraBundle($this),
+            new JMS\AopBundle\JMSAopBundle(),
           //new Sonata\CacheBundle\SonataCacheBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
             new Sonata\jQueryBundle\SonatajQueryBundle(),
