@@ -1,9 +1,9 @@
 <?php
 
-namespace \NS\SentinelBundle\Repository;
+namespace NS\SentinelBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use \NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
+use NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
 
 /**
  * Description of Common

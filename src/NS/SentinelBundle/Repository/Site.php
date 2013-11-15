@@ -1,6 +1,6 @@
 <?php
 
-namespace \NS\SentinelBundle\Repository;
+namespace NS\SentinelBundle\Repository;
 
 use NS\SentinelBundle\Repository\Common as CommonRepository;
 
