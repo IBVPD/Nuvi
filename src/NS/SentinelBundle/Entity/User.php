@@ -201,7 +201,7 @@ class User implements AdvancedUserInterface
 
     public function getRoles()
     {
-        $roles = array();
+        $roles = array('ROLE_USER');
 
         // what happens if this returns null??
         foreach($this->acls as $acl)
