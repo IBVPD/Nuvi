@@ -35,7 +35,8 @@
         "jms/translation-bundle": "1.1.x-dev",
         "ns/security-bundle": "dev-master",
         "jms/di-extra-bundle": "~1.1",
-        "doctrine/doctrine-fixtures-bundle": "dev-master"
+        "doctrine/doctrine-fixtures-bundle": "dev-master",
+        "gedmo/doctrine-extensions": "2.2.x"
     },
     "scripts": {
         "post-install-cmd": [

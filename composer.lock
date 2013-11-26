@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "e9e1467dd53a62040f7981829fdbad4a",
+    "hash": "d23833360d0af4778ac2634d080319a2",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -727,6 +727,61 @@
                 "orm"
             ],
             "time": "2013-05-11 07:51:12"
+        },
+        {
+            "name": "gedmo/doctrine-extensions",
+            "version": "v2.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/l3pp4rd/DoctrineExtensions.git",
+                "reference": "c39402a5a41034c7d9b8c6a3af8c6daa3b42cefc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/l3pp4rd/DoctrineExtensions/zipball/c39402a5a41034c7d9b8c6a3af8c6daa3b42cefc",
+                "reference": "c39402a5a41034c7d9b8c6a3af8c6daa3b42cefc",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/common": ">=2.1",
+                "php": ">=5.3.2"
+            },
+            "suggest": {
+                "doctrine/mongodb-odm": "*",
+                "doctrine/orm": ">=2.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Gedmo": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gediminas Morkevicius",
+                    "email": "gediminas.morkevicius@gmail.com"
+                }
+            ],
+            "description": "Doctrine2 behavioral extensions",
+            "homepage": "http://gediminasm.org/",
+            "keywords": [
+                "behaviors",
+                "doctrine2",
+                "extensions",
+                "gedmo",
+                "loggable",
+                "nestedset",
+                "sluggable",
+                "sortable",
+                "timestampable",
+                "translatable",
+                "tree"
+            ],
+            "time": "2012-06-15 13:44:05"
         },
         {
             "name": "incenteev/composer-parameter-handler",

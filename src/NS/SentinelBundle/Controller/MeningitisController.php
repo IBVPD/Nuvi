@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use NS\SentinelBundle\Form\MeningitisType;
 
-class DefaultController extends Controller
+class MeningitisController extends Controller
 {
     /**
      * @Route("/",name="homepage")

@@ -77,6 +77,12 @@ doctrine:
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
+        mappings:
+          loggable:
+            type: annotation
+            alias: Gedmo
+            prefix: Gedmo\Loggable\Entity
+            dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Loggable/Entity"
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -141,3 +147,16 @@ services:
     class: Twig_Extensions_Extension_Text
     tags:
       - name: twig.extension
+  extension.listener:
+    class: NS\SentinelBundle\Listeners\DoctrineExtensionListener
+    calls:
+      - [ setContainer, [ @service_container ] ]
+    tags:
+      # loggable hooks user username if one is in security context
+      - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+  gedmo.listener.loggable:
+    class: Gedmo\Loggable\LoggableListener
+    tags:
+      - { name: doctrine.event_subscriber, connection: default }
+    calls:
+      - [ setAnnotationReader, [ @annotation_reader ] ]

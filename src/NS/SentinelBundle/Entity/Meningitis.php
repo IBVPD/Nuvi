@@ -10,12 +10,14 @@ use NS\SentinelBundle\Form\Type\CXRResult;
 use NS\SentinelBundle\Form\Type\Diagnosis;
 use NS\SentinelBundle\Form\Type\DischargeOutcome;
 use NS\SentinelBundle\Form\Type\Doses;
+use Gedmo\Mapping\Annotation as Gedmo; // gedmo annotations
 
 /**
  * Description of Meningitis
  * @author gnat
  * @ORM\Entity
  * @ORM\Table(name="meningitis_cases")
+ * @Gedmo\Loggable
  */
 class Meningitis
 {
