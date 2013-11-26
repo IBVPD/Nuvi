@@ -30,7 +30,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $encoder = $factory->getEncoder($adminUser);
         $adminUser->setSalt(md5(time().$adminUser->getEmail().$adminUser->getName()));
         
-        $password = $encoder->encodePassword("19mada98",$adminUser->getSalt());
+        $password = $encoder->encodePassword("GnatAndDaveInIndia",$adminUser->getSalt());
         $adminUser->setPassword($password);
 //        $acl = new ACL();
 //        $acl->setObjectId(1);
