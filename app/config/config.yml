@@ -118,6 +118,15 @@ sonata_doctrine_orm_admin:
     form:
       - NSUtilBundle:Form:SonataDoctrineORM/form_admin_fields.html.twig
 
+jms_translation:
+  configs:
+    sentinel:
+      output_dir: %kernel.root_dir%/../src/NS/SentinelBundle/Resources/translations        
+      dirs: [ "%kernel.root_dir%/../src/NS/SentinelBundle" ]
+      excluded_names: [ "*TestCase.php", "*Test.php" ]
+      excluded_dirs: [ cache, data, logs ]
+      output_format: xliff
+
 services:
   ns.form.types.autocomplete:
     class: NS\UtilBundle\Form\Types\Autocomplete
