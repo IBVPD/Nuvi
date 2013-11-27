@@ -17,8 +17,8 @@ class ACLAdmin extends Admin
     {
         $datagridMapper
             ->add('type','role')
-            ->add('valid_from','datepicker')
-            ->add('valid_to','datepicker')
+            ->add('valid_from','datepicker',array('required'=>false))
+            ->add('valid_to','datepicker',array('required'=>false))
         ;
     }
 

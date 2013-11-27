@@ -194,6 +194,16 @@ class User implements AdvancedUserInterface
         return $this->plainPassword;
     }
 
+    public function resetSalt()
+    {
+        $this->salt = User::_resetSalt(array($this->name,$this->email));
+    }
+
+    static public function _resetSalt($fields = array())
+    {
+        return sha1(implode("",$fields).microtime());
+    }
+
     public function eraseCredentials()
     {
 

@@ -6,7 +6,7 @@ use NS\UtilBundle\Entity\Types\ArrayChoice;
 
 class Role extends ArrayChoice
 {
-    protected $convert_class = '\NobletSolutions\NedcoBundle\Form\Type\Role';
+    protected $convert_class = '\NS\SentinelBundle\Form\Type\Role';
 
     public function getName()
     {

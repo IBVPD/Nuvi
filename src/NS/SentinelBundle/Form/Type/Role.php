@@ -86,7 +86,7 @@ class Role extends ArrayChoice
                 break;
             case self::LAB:
             case self::SITE:
-                return $class."\SITE";
+                return $class."\Site";
                 break;
             default:
                 return null;
