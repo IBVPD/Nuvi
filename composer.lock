@@ -1518,7 +1518,7 @@
             "source": {
                 "type": "git",
                 "url": "gitolite@git.noblet.ca:/symfony/ns/utils.git",
-                "reference": "b49364cfe55ea90ae4f1c88bc2b07ee963a328b9"
+                "reference": "a2c842864e620c5987d749ece232d66da9db1636"
             },
             "require": {
                 "ext-mbstring": "*",
@@ -1542,7 +1542,7 @@
                 }
             ],
             "description": "Various Utilitity Services and Classes",
-            "time": "2013-11-20 16:49:32"
+            "time": "2013-11-27 03:56:41"
         },
         {
             "name": "psr/log",
