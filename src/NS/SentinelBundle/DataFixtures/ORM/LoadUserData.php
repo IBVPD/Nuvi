@@ -25,26 +25,88 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $adminUser = new User();
         $adminUser->setEmail('superadmin@noblet.ca');
         $adminUser->setName('NS Admin User');
+        $adminUser->resetSalt();
+        $adminUser->setIsAdmin(true);
         
         $factory = $this->container->get('security.encoder_factory');
         $encoder = $factory->getEncoder($adminUser);
-        $adminUser->setSalt(md5(time().$adminUser->getEmail().$adminUser->getName()));
-        
-        $password = $encoder->encodePassword("GnatAndDaveInIndia",$adminUser->getSalt());
-        $adminUser->setPassword($password);
-        $adminUser->setIsAdmin(true);
-//        $acl = new ACL();
-//        $acl->setObjectId(1);
-//        $acl->setUser($adminUser);
-//        $acl->setType(1);
-//        
-//        $adminUser->addAcl($acl);
+                
+        $adminUser->setPassword($encoder->encodePassword("GnatAndDaveInIndia",$adminUser->getSalt()));
+
         $manager->persist($adminUser);
-//        $manager->persist($acl);
+
+        $naUser = new User();
+        $naUser->setIsActive(true);
+        $naUser->setEmail('na@noblet.ca');
+        $naUser->setName('NA User');
+        $naUser->resetSalt();
+        $naUser->setPassword($encoder->encodePassword("1234567-na",$naUser->getSalt()));
+        $acl = new ACL();
+        $acl->setUser($naUser);
+        $acl->setType(new Role(Role::REGION));
+        $acl->setObjectId($this->getReference('region-na')->getId());
+
+        $manager->persist($naUser);
+        $manager->persist($acl);
+
+        $usUser = new User();
+        $usUser->setIsActive(true);
+        $usUser->setEmail('us@noblet.ca');
+        $usUser->setName('NA User');
+        $usUser->resetSalt();
+        $usUser->setPassword($encoder->encodePassword("1234567-us",$usUser->getSalt()));
+        $acl = new ACL();
+        $acl->setUser($usUser);
+        $acl->setType(new Role(Role::COUNTRY));
+        $acl->setObjectId($this->getReference('country-us')->getId());
+        
+        $manager->persist($usUser);
+        $manager->persist($acl);
+        
+        
+        $caUser = new User();
+        $caUser->setIsActive(true);
+        $caUser->setEmail('ca@noblet.ca');
+        $caUser->setName('NA User');
+        $caUser->resetSalt();
+        $caUser->setPassword($encoder->encodePassword("1234567-ca",$caUser->getSalt()));
+        $acl = new ACL();
+        $acl->setUser($caUser);
+        $acl->setType(new Role(Role::COUNTRY));
+        $acl->setObjectId($this->getReference('country-ca')->getId());
+
+        $manager->persist($caUser);
+        $manager->persist($acl);
+        
+        $siteSUser = new User();
+        $siteSUser->setIsActive(true);
+        $siteSUser->setEmail('site-alberta@noblet.ca');
+        $siteSUser->setName('NA User');
+        $siteSUser->resetSalt();
+        $siteSUser->setPassword($encoder->encodePassword("1234567-alberta",$siteSUser->getSalt()));
+        $acl = new ACL();
+        $acl->setUser($siteSUser);
+        $acl->setType(new Role(Role::SITE));
+        $acl->setObjectId($this->getReference('site-alberta')->getId());
+
+        $manager->persist($siteSUser);
+        $manager->persist($acl);
+        
+        $siteSUser = new User();
+        $siteSUser->setIsActive(true);
+        $siteSUser->setEmail('site-seattle@noblet.ca');
+        $siteSUser->setName('NA User');
+        $siteSUser->resetSalt();
+        $siteSUser->setPassword($encoder->encodePassword("1234567-seattle",$siteSUser->getSalt()));
+        $acl = new ACL();
+        $acl->setUser($siteSUser);
+        $acl->setType(new Role(Role::SITE));
+        $acl->setObjectId($this->getReference('site-alberta')->getId());
+
+        $manager->persist($siteSUser);
+        $manager->persist($acl);        
         
         $manager->flush();
-        
-//        $this->addReference('testuser', $testUser);
     }
     
     public function setContainer(\Symfony\Component\DependencyInjection\ContainerInterface $container = null)

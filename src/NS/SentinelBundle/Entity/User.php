@@ -75,6 +75,13 @@ class User implements AdvancedUserInterface
      * @ORM\Column(name="isAdmin", type="boolean")
      */
     private $isAdmin = false;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="isActive", type="boolean")
+     */
+    private $isActive = false;
     
     private $ttl = 0;
     
@@ -220,33 +227,41 @@ class User implements AdvancedUserInterface
 
     public function getRoles()
     {
-        $roles = array('ROLE_USER');
+        $roles = array();
 
         // what happens if this returns null??
         foreach($this->acls as $acl)
             $roles = array_merge($roles,$acl->getType()->getAsCredential());
 
+        if($this->isAdmin)
+            $roles[] = 'ROLE_ADMIN';
+
         return array_unique($roles);
     }
 
-    public function getUsername() {
+    public function getUsername()
+    {
         return $this->email;
     }
 
-    public function isAccountNonExpired() {
+    public function isAccountNonExpired() 
+    {
         return true;
     }
 
-    public function isAccountNonLocked() {
+    public function isAccountNonLocked() 
+    {
+        return $this->isActive;
+    }
+
+    public function isCredentialsNonExpired() 
+    {
         return true;
     }
 
-    public function isCredentialsNonExpired() {
-        return true;
-    }
-
-    public function isEnabled() {
-        return true;
+    public function isEnabled() 
+    {
+        return $this->isActive;
     }
 
     /**
@@ -321,6 +336,18 @@ class User implements AdvancedUserInterface
     public function setTTL($ttl)
     {
         $this->ttl = $ttl;
+        return $this;
+    }
+
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+
         return $this;
     }
 }
