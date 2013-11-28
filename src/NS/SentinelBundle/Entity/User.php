@@ -74,7 +74,7 @@ class User implements AdvancedUserInterface
      *
      * @ORM\Column(name="isAdmin", type="boolean")
      */
-    protected $isAdmin;
+    protected $isAdmin = false;
     
     /**
      * Get id
