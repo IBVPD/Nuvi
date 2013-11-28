@@ -7,6 +7,7 @@ use Symfony\Component\Security\Core\SecurityContext;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
+use \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class SecurityController extends Controller
 {    
@@ -45,5 +46,26 @@ class SecurityController extends Controller
 
         $session->set('_locale', $locale);
         return $this->redirect($this->generateUrl('user_dashboard',array('_locale'=>$locale)));
+    }
+    
+    /**
+     * @Route("/",name="homepage")
+     */
+    public function homepageAction()
+    {
+        $sc = $this->get('security.context');
+        
+        if($sc->isGranted('ROLE_REGION'))
+            return $this->forward ("NSSentinelBundle:User:regionDashboard");
+        if($sc->isGranted('ROLE_COUNTRY'))
+            return $this->forward ("NSSentinelBundle:User:countryDashboard");
+        if($sc->isGranted('ROLE_SITE'))
+            return $this->forward ("NSSentinelBundle:User:siteDashboard");
+        if($sc->isGranted('ROLE_LAB'))
+            return $this->forward ("NSSentinelBundle:User:labDashboard");
+        if($sc->isGranted('ROLE_ADMIN'))
+            return $this->redirect ($this->generateUrl ('sonata_admin_dashboard'));
+
+        throw new UnauthorizedHttpException(null, "You have no roles!");
     }
 }
