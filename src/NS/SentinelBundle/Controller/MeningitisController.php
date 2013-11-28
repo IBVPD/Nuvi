@@ -8,10 +8,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use NS\SentinelBundle\Form\MeningitisType;
 
+/**
+ * @Route("/{_locale}/meningitis")
+ */
 class MeningitisController extends Controller
 {
     /**
-     * @Route("/",name="homepage")
+     * @Route("/",name="meningitisIndex")
      * @Template()
      */
     public function indexAction()
@@ -22,7 +25,7 @@ class MeningitisController extends Controller
     }
 
     /**
-     * @Route("/edit/{id}",name="createOrEdit",defaults={"id"=null})
+     * @Route("/edit/{id}",name="meningitisCreateOrEdit",defaults={"id"=null})
      * @Template()
      */
     public function editAction(Request $request,$id)

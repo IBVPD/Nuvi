@@ -4,7 +4,7 @@
 <div class="layoutSection">
     <div class="column span3">
         <div class="panel dataPanel">
-            <h3 class="panelTitle">Cases</h3>
+            <h3 class="panelTitle">{{'Latest Meningitis Cases'|trans}}</h3>
             <div class="panelContent">
                 <table class="dataTable highlightRow zebra">
                     <colgroup span="1"></colgroup>
@@ -26,13 +26,13 @@
                             <td>{{ row.ageInMonths }}</td>
                             <td>{{ row.hibReceived }}</td>
                             <td>{{ row.hibDoses }}</td>
-                            <td><a href="{{path('createOrEdit',{'id':row.id})}}">Edit</a></td>
+                            <td><a href="{{path('meningitisCreateOrEdit',{'id':row.id})}}">Edit</a></td>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
                     <div class="formRow alignRight">
-                        <a href="{{path('createOrEdit')}}" class="button">Create</a>
+                        <a href="{{path('meningitisCreateOrEdit')}}" class="button">Create</a>
                     </div>
             </div>
         </div>
