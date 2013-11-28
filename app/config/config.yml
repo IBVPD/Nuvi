@@ -125,6 +125,7 @@ sonata_doctrine_orm_admin:
       - NSUtilBundle:Form:SonataDoctrineORM/form_admin_fields.html.twig
 
 jms_translation:
+  locales: [ en, es, pt, fr, hi ]
   configs:
     sentinel:
       output_dir: %kernel.root_dir%/../src/NS/SentinelBundle/Resources/translations        
