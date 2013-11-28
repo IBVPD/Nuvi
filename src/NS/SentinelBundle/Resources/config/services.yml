@@ -32,6 +32,10 @@ services:
       class: NS\SentinelBundle\Form\Type\Doses
       tags:
         - { name: form.type, alias: Doses }
+    ns.sentinel.form.type.gender:
+      class: NS\SentinelBundle\Form\Type\Gender
+      tags:
+        - { name: form.type, alias: Gender }        
     ns.sentinel.form.type.cxr_result:
       class: NS\SentinelBundle\Form\Type\CXRResult
       tags:

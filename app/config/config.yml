@@ -66,6 +66,7 @@ doctrine:
             DischargeOutcome: NS\SentinelBundle\Entity\Type\DischargeOutcome
             CSFAppearance: NS\SentinelBundle\Entity\Type\CSFAppearance
             Role: NS\SentinelBundle\Entity\Type\Role
+            Gender: NS\SentinelBundle\Entity\Type\Gender
         mapping_types:
             TripleChoice: TripleChoice
             Doses: Doses
@@ -74,6 +75,7 @@ doctrine:
             DischargeOutcome: DischargeOutcome
             CSFAppearance: CSFAppearance
             Role: Role
+            Gender: Gender
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true

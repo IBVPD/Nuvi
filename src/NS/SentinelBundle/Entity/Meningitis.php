@@ -10,6 +10,7 @@ use NS\SentinelBundle\Form\Type\CXRResult;
 use NS\SentinelBundle\Form\Type\Diagnosis;
 use NS\SentinelBundle\Form\Type\DischargeOutcome;
 use NS\SentinelBundle\Form\Type\Doses;
+use NS\SentinelBundle\Form\Type\Gender;
 use Gedmo\Mapping\Annotation as Gedmo; // gedmo annotations
 
 /**
@@ -34,11 +35,13 @@ class Meningitis
      * @ORM\ManyToOne(targetEntity="Region")
      */
     private $region;
+
     /**
      * @var Country
      * @ORM\ManyToOne(targetEntity="Country")
      */
     private $country;
+
     /**
      * @var Site
      * @ORM\ManyToOne(targetEntity="Site")
@@ -50,11 +53,18 @@ class Meningitis
      * @ORM\Column(name="dob",type="date",nullable=true)
      */
     private $dob;
+
     /**
      * @var integer $ageInMonths
      * @ORM\Column(name="ageInMonths",type="integer",nullable=true)
      */
     private $ageInMonths;
+    
+    /**
+     * @var Gender $gender
+     * @ORM\Column(name="gender",type="Gender",nullable=true)
+     */
+    private $gender;
 
 //Case-based Vaccination History
     /**
@@ -1253,5 +1263,16 @@ class Meningitis
     public function getSite()
     {
         return $this->site;
+    }
+
+    public function getGender()
+    {
+        return $this->gender;
+    }
+
+    public function setGender(Gender $gender)
+    {
+        $this->gender = $gender;
+        return $this;
     }
 }

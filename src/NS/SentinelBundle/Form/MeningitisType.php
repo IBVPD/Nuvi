@@ -17,6 +17,7 @@ class MeningitisType extends AbstractType
         $builder
             ->add('dob',null,array('required'=>false,'label'=>'meningitis-form.date-of-birth'))
             ->add('ageInMonths',null,array('required'=>false,'label'=>'meningitis-form.age-in-months'))
+            ->add('gender',null,array('required'=>false,'label'=>'meningitis-form.gender'))
             ->add('hibReceived','triple_choice',array('required'=>false,'label'=>'meningitis-form.hib-received'))
             ->add('hibDoses','Doses',array('required'=>false,'label'=>'meningitis-form.hib-doses'))
             ->add('pcvReceived','triple_choice',array('required'=>false,'label'=>'meningitis-form.pcv-received'))
