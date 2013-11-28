@@ -17,6 +17,7 @@ class RegionAdmin extends Admin
     {
         $datagridMapper
             ->add('name')
+            ->add('code')
         ;
     }
 
@@ -27,6 +28,7 @@ class RegionAdmin extends Admin
     {
         $listMapper
             ->add('name')
+            ->add('code')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -44,6 +46,7 @@ class RegionAdmin extends Admin
     {
         $formMapper
             ->add('name')
+            ->add('code')
         ;
     }
 
@@ -54,6 +57,7 @@ class RegionAdmin extends Admin
     {
         $showMapper
             ->add('name')
+            ->add('code')                
             ->add('countries')
         ;
     }

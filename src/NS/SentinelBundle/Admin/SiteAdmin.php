@@ -17,6 +17,7 @@ class SiteAdmin extends Admin
     {
         $datagridMapper
             ->add('name')
+            ->add('code')
             ->add('country')
         ;
     }
@@ -28,6 +29,7 @@ class SiteAdmin extends Admin
     {
         $listMapper
             ->add('name')
+            ->add('code')
             ->add('country')
             ->add('country.region',null,array('label'=>'Region'))
             ->add('_action', 'actions', array(
@@ -47,6 +49,7 @@ class SiteAdmin extends Admin
     {
         $formMapper
             ->add('name')
+            ->add('code')
             ->add('country')
         ;
     }
@@ -58,6 +61,7 @@ class SiteAdmin extends Admin
     {
         $showMapper
             ->add('name')
+            ->add('code')
             ->add('country')
             ->add('country.region')
 

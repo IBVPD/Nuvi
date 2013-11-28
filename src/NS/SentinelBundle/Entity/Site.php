@@ -29,6 +29,13 @@ class Site
     private $name;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="code", type="string", length=255)
+     */
+    private $code;
+    
+    /**
      * @var Country
      * 
      * @ORM\ManyToOne(targetEntity="Country",inversedBy="sites")
@@ -94,5 +101,28 @@ class Site
     public function getCountry()
     {
         return $this->country;
+    }
+
+    /**
+     * Set code
+     *
+     * @param string $code
+     * @return Site
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+    
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return string 
+     */
+    public function getCode()
+    {
+        return $this->code;
     }
 }

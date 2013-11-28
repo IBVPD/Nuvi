@@ -30,6 +30,22 @@ class Meningitis
     private $id;
 
     /**
+     * @var Region
+     * @ORM\ManyToOne(targetEntity="Region")
+     */
+    private $region;
+    /**
+     * @var Country
+     * @ORM\ManyToOne(targetEntity="Country")
+     */
+    private $country;
+    /**
+     * @var Site
+     * @ORM\ManyToOne(targetEntity="Site")
+     */
+    private $site;
+
+    /**
      * @var DateTime $dob
      * @ORM\Column(name="dob",type="date",nullable=true)
      */
@@ -426,6 +442,14 @@ class Meningitis
     private $comment;
     public function getId() {
         return $this->id;
+    }
+
+    public function getCaseId()
+    {
+        if($this->id)
+            return $this->region->getCode().$this->country->getCode().$this->site->getCode().str_pad($this->id,4,"0",STR_PAD_LEFT);
+        else
+            return 'Unassigned';
     }
 
     public function setId($id) {
@@ -1160,5 +1184,74 @@ class Meningitis
     public function setComment($comment) {
         $this->comment = $comment;
         return $this;
+    }
+
+    /**
+     * Set region
+     *
+     * @param \NS\SentinelBundle\Entity\Region $region
+     * @return Meningitis
+     */
+    public function setRegion(\NS\SentinelBundle\Entity\Region $region = null)
+    {
+        $this->region = $region;
+    
+        return $this;
+    }
+
+    /**
+     * Get region
+     *
+     * @return \NS\SentinelBundle\Entity\Region 
+     */
+    public function getRegion()
+    {
+        return $this->region;
+    }
+
+    /**
+     * Set country
+     *
+     * @param \NS\SentinelBundle\Entity\Country $country
+     * @return Meningitis
+     */
+    public function setCountry(\NS\SentinelBundle\Entity\Country $country = null)
+    {
+        $this->country = $country;
+    
+        return $this;
+    }
+
+    /**
+     * Get country
+     *
+     * @return \NS\SentinelBundle\Entity\Country 
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * Set site
+     *
+     * @param \NS\SentinelBundle\Entity\Site $site
+     * @return Meningitis
+     */
+    public function setSite(\NS\SentinelBundle\Entity\Site $site = null)
+    {
+        $this->site = $site;
+    
+        return $this;
+    }
+
+    /**
+     * Get site
+     *
+     * @return \NS\SentinelBundle\Entity\Site 
+     */
+    public function getSite()
+    {
+        return $this->site;
     }
 }

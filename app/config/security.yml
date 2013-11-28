@@ -12,7 +12,7 @@ security:
 
     providers:
         users:
-            entity: { class: 'NSSentinelBundle:User', property: email }        
+            id: ns.sentinel.user_provider
 
     firewalls:
         dev:

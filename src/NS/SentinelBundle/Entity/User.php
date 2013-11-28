@@ -70,6 +70,13 @@ class User implements AdvancedUserInterface
     protected $acls;
     
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="isAdmin", type="boolean")
+     */
+    protected $isAdmin;
+    
+    /**
      * Get id
      *
      * @return integer 
@@ -279,5 +286,28 @@ class User implements AdvancedUserInterface
     public function getAcls()
     {
         return $this->acls;
+    }
+
+    /**
+     * Set isAdmin
+     *
+     * @param boolean $isAdmin
+     * @return User
+     */
+    public function setIsAdmin($isAdmin)
+    {
+        $this->isAdmin = $isAdmin;
+    
+        return $this;
+    }
+
+    /**
+     * Get isAdmin
+     *
+     * @return boolean 
+     */
+    public function getIsAdmin()
+    {
+        return $this->isAdmin;
     }
 }
