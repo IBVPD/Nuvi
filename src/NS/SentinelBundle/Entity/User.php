@@ -58,7 +58,7 @@ class User implements AdvancedUserInterface
      *
      * @var type
      */
-    protected $plainPassword;
+    private $plainPassword;
 
     /**
      *
@@ -67,14 +67,16 @@ class User implements AdvancedUserInterface
      * @ORM\OneToMany(targetEntity="ACL", mappedBy="user", fetch="EAGER",cascade={"persist"}, orphanRemoval=true)
      * @ORM\JoinColumn(name="id",referencedColumnName="user_id")
      */
-    protected $acls;
+    private $acls;
     
     /**
      * @var boolean
      *
      * @ORM\Column(name="isAdmin", type="boolean")
      */
-    protected $isAdmin = false;
+    private $isAdmin = false;
+    
+    private $ttl = 0;
     
     /**
      * Get id
@@ -309,5 +311,16 @@ class User implements AdvancedUserInterface
     public function getIsAdmin()
     {
         return $this->isAdmin;
+    }
+    
+    public function getTTL()
+    {
+        return $this->ttl;
+    }
+
+    public function setTTL($ttl)
+    {
+        $this->ttl = $ttl;
+        return $this;
     }
 }

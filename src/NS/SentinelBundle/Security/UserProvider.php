@@ -34,6 +34,7 @@ class UserProvider implements UserProviderInterface
             if (null === $user)
                 throw new UsernameNotFoundException(sprintf('User "%s" not found.', $username));
 
+            $user->setTTL(time()+3600);
             return $user;
         }
         catch(Doctrine\ORM\NonUniqueResultException $e)
@@ -45,11 +46,9 @@ class UserProvider implements UserProviderInterface
     public function refreshUser(UserInterface $user) 
     {
         if (!$user instanceof User) 
-        {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
-        }
 
-        return $this->loadUserByUsername($user->getUsername());        
+        return (time() > $user->getTTL()) ? $this->loadUserByUsername($user->getUsername()): $user;
     }
 
     public function supportsClass($class) 
