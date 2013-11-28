@@ -2,10 +2,21 @@ parameters:
 #    ns_sentinel.example.class: NS\SentinelBundle\Example
 
 services:
+    ns.sentinel.menu_builder:
+      class: NS\SentinelBundle\Menu\Builder
+      arguments: [ "@knp_menu.factory", "@security.context" ]
+    ns.sentinel.menu.user:
+      class: Knp\Menu\MenuItem # the service definition requires setting the class
+      factory_service: ns.sentinel.menu_builder
+      factory_method: userMenu
+      arguments: ["@request"]
+      scope: request # needed as we have the request as a dependency here
+      tags:
+        - { name: knp_menu.menu, alias: user } # The alias is what is used to retrieve the menu    
     ns.sentinel.user_provider:
       class: NS\SentinelBundle\Security\UserProvider
       arguments: [ "@doctrine.orm.entity_manager" ]
-    ns.sentinel.form.type.tripe_choice:
+    ns.sentinel.form.type.triple_choice:
       class: NS\SentinelBundle\Form\Type\TripleChoice
       tags:
         - { name: form.type, alias: triple_choice }

@@ -20,3 +20,9 @@
         <script type="text/javascript" src="/bundles/nsutil/js/clockpicker.js"></script>
         <script type="text/javascript" src="/bundles/nsutil/js/clockBuilder.js"></script>
     {% endblock %}
+        
+    {%block header %}
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {{ knp_menu_render('user') }}
+        {% endif %}
+    {% endblock %}        
