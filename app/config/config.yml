@@ -18,8 +18,8 @@ framework:
     default_locale:  "%locale%"
     trusted_proxies: ~
     session:
-      name: WorldHealtOrganizationSentinelNetwork
-      save_path: /tmp/nedco
+      name: WorldHealthOrganizationSentinelNetwork
+      save_path: /tmp/nuvi
     fragments:       ~
     http_method_override: true
 
