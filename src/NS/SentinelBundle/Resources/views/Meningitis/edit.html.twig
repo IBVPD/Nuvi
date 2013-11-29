@@ -1,15 +1,15 @@
 {%extends "NSSentinelBundle::layout.html.twig" %}
 
 {% block body %}
-<form method="POST" action="{{path('meningitisCreateOrEdit',{'id':id})}}">
+<form method="POST" action="{{path('meningitisEdit',{'id':id})}}">
 <div class="layoutSection">
-
+{{form_errors(form)}}
     <div class="column span1" >
         <div class="panel dataPanel">
             <h3 class="panelTitle">Case Based Demographics</h3>
             <div class="panelContent">
                 {{form_row(form.dob)}}
-                {{form_row(form.ageInMonths)}}
+                {{form_row(form.gender)}}
             </div>
         </div>
     </div>

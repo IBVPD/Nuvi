@@ -44,6 +44,13 @@ class Region
     private $countries;
     
     /**
+     *
+     * @var Meningitis
+     * @ORM\OneToMany(targetEntity="Meningitis",mappedBy="region")
+     */
+    private $cases;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -140,5 +147,38 @@ class Region
     public function getCode()
     {
         return $this->code;
+    }
+
+    /**
+     * Add cases
+     *
+     * @param \NS\SentinelBundle\Entity\Meningitis $cases
+     * @return Region
+     */
+    public function addCase(\NS\SentinelBundle\Entity\Meningitis $cases)
+    {
+        $this->cases[] = $cases;
+    
+        return $this;
+    }
+
+    /**
+     * Remove cases
+     *
+     * @param \NS\SentinelBundle\Entity\Meningitis $cases
+     */
+    public function removeCase(\NS\SentinelBundle\Entity\Meningitis $cases)
+    {
+        $this->cases->removeElement($cases);
+    }
+
+    /**
+     * Get cases
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCases()
+    {
+        return $this->cases;
     }
 }

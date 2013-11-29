@@ -25,13 +25,14 @@ class MeningitisController extends Controller
     }
 
     /**
-     * @Route("/edit/{id}",name="meningitisCreateOrEdit",defaults={"id"=null})
+     * @Route("/create",name="meningitisCreate")
+     * @Route("/edit/{id}",name="meningitisEdit",defaults={"id"=null})
      * @Template()
      */
-    public function editAction(Request $request,$id)
+    public function editAction(Request $request,$id = null)
     {
-        $record = ($id > 0) ? $this->getDoctrine()->getManager()->getRepository('NSSentinelBundle:Meningitis')->find($id): $id;
-        $form   = $this->createForm(new MeningitisType(),$record);
+        $record = ($id > 0) ? $this->getDoctrine()->getManager()->getRepository('NSSentinelBundle:Meningitis')->find($id): null;
+        $form   = $this->createForm('meningitis',$record);
 
         if($request->getMethod() == 'POST')
         {
@@ -43,7 +44,7 @@ class MeningitisController extends Controller
                 $em->persist($record);
                 $em->flush();
 
-                return $this->redirect($this->generateUrl("homepage"));
+                return $this->redirect($this->generateUrl("meningitisIndex"));
             }
         }
 

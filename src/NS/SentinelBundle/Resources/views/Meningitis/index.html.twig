@@ -5,34 +5,48 @@
     <div class="column span3">
         <div class="panel dataPanel">
             <h3 class="panelTitle">{{'Latest Meningitis Cases'|trans}}</h3>
+            <div class="filters open">
+                <div class="filterCol">
+                    <input type="search" />
+                    <button type="reset">{{'Reset'|trans}}</button>
+                    <button class="filter" type="submit">{{'Filter'|trans}}</button>
+                    {% if is_granted('ROLE_SITE') %}
+                    <a href="{{path('meningitisCreate')}}" class="button">Create</a>
+                    {% endif %}
+                </div>
+            </div>
+            
             <div class="panelContent">
                 <table class="dataTable highlightRow zebra">
-                    <colgroup span="1"></colgroup>
+                    <colgroup span="3"></colgroup>
                     <colgroup span="3"></colgroup>
                     <colgroup span="1"></colgroup>
 
                     <tbody>
                     <tr class="odd">
-                        <th>DOB</th>
-                        <th>Age In Months</th>
-                        <th>HIB Received</th>
-                        <th>HIB Doses</th>
-                        <th>Actions</th>
+                        <th>{{'Case ID'|trans}}</th>
+                        <th>{{'Gender'|trans}}</th>
+                        <th>{{'Age In Months'|trans}}</th>
+                        <th>{{'EPI'|trans}}</th>
+                        <th>{{'LAB'|trans}}</th>
+                        <th>{{'RRL'|trans}}</th>
+                        <th>{{'Actions'|trans}}</th>
                     </tr>
 
                     {% for row in rows %}
                         <tr class="{{ cycle(['odd', 'even'], loop.index) }}">
-                            <td class="highlight alignLeft">{{ row.dob.format('Y-m-d') }}</td>
+                            <td class="highlight alignLeft">{{ row.caseId }}</td>
+                            <td>{{ row.gender }}</td>
                             <td>{{ row.ageInMonths }}</td>
-                            <td>{{ row.hibReceived }}</td>
-                            <td>{{ row.hibDoses }}</td>
-                            <td><a href="{{path('meningitisCreateOrEdit',{'id':row.id})}}">Edit</a></td>
+                            <td>{{cycle(['<img src="/bundles/nssentinel/images/remove_16x16.png" />','<img src="/bundles/nssentinel/images/check_mark_16x16.png" />'], loop.index)|raw}}</td>
+                            <td>{{cycle(['<img src="/bundles/nssentinel/images/delete_16x16.png" />','<img src="/bundles/nssentinel/images/check_mark_16x16.png" />'], loop.index)|raw}}</td>
+                            <td>{{cycle(['<img src="/bundles/nssentinel/images/remove_16x16.png" />','<img src="/bundles/nssentinel/images/delete_16x16.png" />'], loop.index)|raw}}</td>
+                            <td><a href="{{path('meningitisEdit',{'id':row.id})}}">Edit</a></td>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
                     <div class="formRow alignRight">
-                        <a href="{{path('meningitisCreateOrEdit')}}" class="button">Create</a>
                     </div>
             </div>
         </div>

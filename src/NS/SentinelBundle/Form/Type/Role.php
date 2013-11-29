@@ -110,12 +110,12 @@ class Role extends ArrayChoice
     public function equal($to)
     {
         if(is_numeric($to))
-            return ($to === $this->current);
+            return ($to == $this->current);
         else if(is_string($to))
             return (array($to) == $this->getAsCredential());
         else if($to instanceof Role)
             return ($to->getValue () == $this->current);
-        
+
         return false;
     }
 }

@@ -16,6 +16,11 @@ services:
     ns.sentinel.user_provider:
       class: NS\SentinelBundle\Security\UserProvider
       arguments: [ "@doctrine.orm.entity_manager" ]
+    ns.sentinel.form.type.meningitis:
+      class: NS\SentinelBundle\Form\MeningitisType
+      arguments: [ "@security.context", "@session", "@doctrine.orm.entity_manager" ]
+      tags:
+        - { name: form.type, alias: meningitis }
     ns.sentinel.form.type.triple_choice:
       class: NS\SentinelBundle\Form\Type\TripleChoice
       tags:
@@ -44,9 +49,6 @@ services:
       class: NS\SentinelBundle\Form\Type\CSFAppearance
       tags:
         - { name: form.type, alias: CSFAppearance }
-#    ns_sentinel.example:
-#        class: %ns_sentinel.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
     ns.sentinel.form.type.role:
         class: NS\SentinelBundle\Form\Type\Role
         tags:

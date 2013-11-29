@@ -42,6 +42,13 @@ class Site
      */
 
     private $country;
+
+    /**
+     *
+     * @var Meningitis
+     * @ORM\OneToMany(targetEntity="Meningitis",mappedBy="site")
+     */
+    private $cases;
     
     /**
      * Get id
@@ -124,5 +131,45 @@ class Site
     public function getCode()
     {
         return $this->code;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->cases = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add cases
+     *
+     * @param \NS\SentinelBundle\Entity\Meningitis $cases
+     * @return Site
+     */
+    public function addCase(\NS\SentinelBundle\Entity\Meningitis $cases)
+    {
+        $this->cases[] = $cases;
+    
+        return $this;
+    }
+
+    /**
+     * Remove cases
+     *
+     * @param \NS\SentinelBundle\Entity\Meningitis $cases
+     */
+    public function removeCase(\NS\SentinelBundle\Entity\Meningitis $cases)
+    {
+        $this->cases->removeElement($cases);
+    }
+
+    /**
+     * Get cases
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCases()
+    {
+        return $this->cases;
     }
 }

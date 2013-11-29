@@ -31,20 +31,26 @@ class Meningitis
     private $id;
 
     /**
+     * @var string $caseId
+     * @ORM\Column(name="caseId",type="string")
+     */
+    private $caseId;
+
+    /**
      * @var Region
-     * @ORM\ManyToOne(targetEntity="Region")
+     * @ORM\ManyToOne(targetEntity="Region",inversedBy="cases")
      */
     private $region;
 
     /**
      * @var Country
-     * @ORM\ManyToOne(targetEntity="Country")
+     * @ORM\ManyToOne(targetEntity="Country",inversedBy="cases")
      */
     private $country;
 
     /**
      * @var Site
-     * @ORM\ManyToOne(targetEntity="Site")
+     * @ORM\ManyToOne(targetEntity="Site",inversedBy="cases")
      */
     private $site;
 
@@ -454,14 +460,6 @@ class Meningitis
         return $this->id;
     }
 
-    public function getCaseId()
-    {
-        if($this->id)
-            return $this->region->getCode().$this->country->getCode().$this->site->getCode().str_pad($this->id,4,"0",STR_PAD_LEFT);
-        else
-            return 'Unassigned';
-    }
-
     public function setId($id) {
         $this->id = $id;
         return $this;
@@ -471,8 +469,13 @@ class Meningitis
         return $this->dob;
     }
 
-    public function setDob($dob) {
+    public function setDob($dob) 
+    {
         $this->dob = $dob;
+    
+        $interval = $dob->diff(new \DateTime());
+        $this->setAgeInMonths(($interval->format('%a')/30));
+
         return $this;
     }
 
@@ -1229,6 +1232,8 @@ class Meningitis
     {
         $this->country = $country;
     
+        $this->setRegion($country->getRegion());
+
         return $this;
     }
 
@@ -1251,6 +1256,10 @@ class Meningitis
     public function setSite(\NS\SentinelBundle\Entity\Site $site = null)
     {
         $this->site = $site;
+        
+        $this->setCountry($site->getCountry());
+        
+        $this->setCaseId(sprintf("%s-%s-%s-",$this->getRegion()->getCode(),$this->country->getCode(),$this->site->getCode()));
     
         return $this;
     }
@@ -1275,4 +1284,15 @@ class Meningitis
         $this->gender = $gender;
         return $this;
     }
+    
+    public function setCaseId($caseId)
+    {
+        $this->caseId = $caseId;
+        return $this;
+    }
+
+    public function getCaseId()
+    {
+        return $this->caseId.str_pad($this->id,6,"0",STR_PAD_LEFT);
+    }   
 }
