@@ -36,6 +36,13 @@ class Region
     private $code;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="website", type="string", length=255)
+     */
+    private $website;
+
+    /**
      * @var Country
      * 
      * @ORM\OneToMany(targetEntity="Country",mappedBy="region")
@@ -90,9 +97,11 @@ class Region
         $this->countries = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
-    public function __toString() {
+    public function __toString()
+    {
         return $this->name;
     }
+
     /**
      * Add countries
      *
@@ -180,5 +189,28 @@ class Region
     public function getCases()
     {
         return $this->cases;
+    }
+
+    /**
+     * Set website
+     *
+     * @param string $website
+     * @return Region
+     */
+    public function setWebsite($website)
+    {
+        $this->website = $website;
+    
+        return $this;
+    }
+
+    /**
+     * Get website
+     *
+     * @return string 
+     */
+    public function getWebsite()
+    {
+        return $this->website;
     }
 }

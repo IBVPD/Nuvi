@@ -28,6 +28,8 @@ class IdToReference implements DataTransformerInterface
 
     public function reverseTransform($value)
     {
+//        die("TRANSFORMING '$value'!");
+
         if(is_object($value) && $value instanceof \NS\SentinelBundle\Entity\Site)
             return $value->getId();
         
@@ -36,32 +38,24 @@ class IdToReference implements DataTransformerInterface
 
     public function transform($id)
     {
+//        die("TRANSFORMING '$id'!!!");
         if (null === $id)
             return "";
 
         $sites = $this->session->get('sites',array());
-        $site  = null;
-
-        if(!empty($sites))
+        $site  = isset($sites[$id]) ? $site:null;
+        
+        if(!$em->contains($site))
         {
-            $sCount = count($sites);
-            if($sCount > 1)
-            {
-                foreach($sites as $s)
-                {
-                    if($s->getId() == $id)
-                        return $site;
-                }
-            }
-            else if($sCount == 1 && $sites[0]->getId() == $id)
-                return $sites[0];
+            $uow = $em->getUnitOfWork();
+            $c = $site->getCountry();
+            $r = $c->getRegion();
+
+            $uow->registerManaged($site,array('id'=>$site->getId()),array('id'=>$site->getId(),'code'=>$site->getCode()));
+            $uow->registerManaged($c,array('id'=>$c->getId()),array('id'=>$c->getId(),'code'=>$c->getCode()));
+            $uow->registerManaged($r,array('id'=>$r->getId()),array('id'=>$r->getId(),'code'=>$r->getCode()));
         }
 
-        $site  = $this->em->getRepository('NSSentinelBundle:Site')->getChains($id);
-        $sites = (!empty($sites)) ? array_merge ($sites,$site) : $site;
-        
-        $this->session->set('sites',$sites);
-
-        return array_pop($site);
+        return $site;
     }
 }

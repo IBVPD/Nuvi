@@ -43,6 +43,26 @@ class Country
     private $name;
 
     /**
+     *
+     * @var GAVIEligible
+     * @ORM\Column(name="gaviEligible",type="GAVIEligible")
+     */
+    private $gaviEligible;
+    
+    /**
+     * @var integer $population
+     * @ORM\Column(name="population",type="integer")
+     */
+    private $population;
+    
+    /**
+     * @var integer $populationUnderFive
+     * @ORM\Column(name="populationUnderFive",type="integer")
+     */
+    private $populationUnderFive;
+    
+    
+    /**
      * @var Site
      * 
      * @ORM\OneToMany(targetEntity="Site", mappedBy="country")
@@ -95,7 +115,8 @@ class Country
         $this->sites = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->name;
     }
     
@@ -237,5 +258,74 @@ class Country
     public function getCases()
     {
         return $this->cases;
+    }
+
+    /**
+     * Set gaviEligible
+     *
+     * @param \GAVIEligible $gaviEligible
+     * @return Country
+     */
+    public function setGaviEligible(\GAVIEligible $gaviEligible)
+    {
+        $this->gaviEligible = $gaviEligible;
+    
+        return $this;
+    }
+
+    /**
+     * Get gaviEligible
+     *
+     * @return \GAVIEligible 
+     */
+    public function getGaviEligible()
+    {
+        return $this->gaviEligible;
+    }
+
+    /**
+     * Set population
+     *
+     * @param integer $population
+     * @return Country
+     */
+    public function setPopulation($population)
+    {
+        $this->population = $population;
+    
+        return $this;
+    }
+
+    /**
+     * Get population
+     *
+     * @return integer 
+     */
+    public function getPopulation()
+    {
+        return $this->population;
+    }
+
+    /**
+     * Set populationUnderFive
+     *
+     * @param integer $populationUnderFive
+     * @return Country
+     */
+    public function setPopulationUnderFive($populationUnderFive)
+    {
+        $this->populationUnderFive = $populationUnderFive;
+    
+        return $this;
+    }
+
+    /**
+     * Get populationUnderFive
+     *
+     * @return integer 
+     */
+    public function getPopulationUnderFive()
+    {
+        return $this->populationUnderFive;
     }
 }

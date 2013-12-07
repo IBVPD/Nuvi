@@ -2,6 +2,19 @@
 
 {% block body %}
 <form method="POST" action="{{path('meningitisEdit',{'id':id})}}">
+{% if form.site is defined %}
+<div class="layoutSection">
+    <div class="column span4" >
+        <div class="panel dataPanel">
+            <h3 class="panelTitle">Site</h3>
+            <div class="panelContent">
+                {{form_row(form.site)}}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+    
 <div class="layoutSection">
 {{form_errors(form)}}
     <div class="column span1" >

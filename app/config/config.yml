@@ -67,6 +67,7 @@ doctrine:
             CSFAppearance: NS\SentinelBundle\Entity\Type\CSFAppearance
             Role: NS\SentinelBundle\Entity\Type\Role
             Gender: NS\SentinelBundle\Entity\Type\Gender
+            GAVIEligible: NS\SentinelBundle\Entity\Types\GAVIEligible
         mapping_types:
             TripleChoice: TripleChoice
             Doses: Doses
@@ -76,6 +77,7 @@ doctrine:
             CSFAppearance: CSFAppearance
             Role: Role
             Gender: Gender
+            GAVIEligible: GAVIEligible
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true

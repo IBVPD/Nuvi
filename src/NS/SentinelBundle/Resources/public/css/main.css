@@ -1,0 +1,10 @@
+/* 
+    Created on : Dec 7, 2013, 9:07:16 AM
+    Author     : gnat
+*/
+
+div.filterCol input[type=search] {
+    display: inline;}
+
+div.filterCol button.create {
+    display: inline;}

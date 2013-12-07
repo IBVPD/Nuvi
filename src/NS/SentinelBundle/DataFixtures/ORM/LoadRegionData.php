@@ -125,7 +125,8 @@ class LoadRegionData extends AbstractFixture implements OrderedFixtureInterface,
         $this->addReference('region-in', $r2);
         $this->addReference('country-us',$c2);
         $this->addReference('site-alberta', $s);
-        $this->addReference('site-seattle', $s);
+        $this->addReference('site-toronto', $s1);
+        $this->addReference('site-seattle', $s3);
     }
     
     public function setContainer(\Symfony\Component\DependencyInjection\ContainerInterface $container = null)

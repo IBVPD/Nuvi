@@ -63,7 +63,6 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $manager->persist($usUser);
         $manager->persist($acl);
         
-        
         $caUser = new User();
         $caUser->setIsActive(true);
         $caUser->setEmail('ca@noblet.ca');
@@ -101,10 +100,31 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $acl = new ACL();
         $acl->setUser($siteSUser);
         $acl->setType(new Role(Role::SITE));
-        $acl->setObjectId($this->getReference('site-alberta')->getId());
+        $acl->setObjectId($this->getReference('site-seattle')->getId());
 
         $manager->persist($siteSUser);
         $manager->persist($acl);        
+
+        
+        $mUser = new User();
+        $mUser->setIsActive(true);
+        $mUser->setEmail('site-multiple@noblet.ca');
+        $mUser->setName('Multiple User');
+        $mUser->resetSalt();
+        $mUser->setPassword($encoder->encodePassword("1234567-multi",$mUser->getSalt()));
+        $acl = new ACL();
+        $acl->setUser($mUser);
+        $acl->setType(new Role(Role::SITE));
+        $acl->setObjectId($this->getReference('site-alberta')->getId());
+
+        $acl1 = new ACL();
+        $acl1->setUser($mUser);
+        $acl1->setType(new Role(Role::SITE));
+        $acl1->setObjectId($this->getReference('site-toronto')->getId());
+        
+        $manager->persist($mUser);
+        $manager->persist($acl);
+        $manager->persist($acl1);
         
         $manager->flush();
     }

@@ -32,9 +32,12 @@ class Builder
         $menu->addChild('NUVI');
         if( $this->securityContext->isGranted('IS_AUTHENTICATED_FULLY') )
         {
-            $menu->addChild('Data Entry', array('label'=> 'menu.data-entry'));
+            $d = $menu->addChild('Data Entry', array('label'=> 'menu.data-entry'));
+            $d->addChild('Meningitis',array('label'=>'menu.meningitis','route'=>'meningitisIndex'));
+            $d->addChild('Rotavirus');
+            
             $menu->addChild('Reports', array('label'=> 'menu.data-reports'));
-            $menu->addChild('Admin', array('label'=> 'menu.data-admin'));
+            $menu->addChild('Admin', array('label'=> 'menu.data-admin','route'=>'sonata_admin_dashboard'));
             $menu->addChild('Logout',array('route' => 'logout'))->setExtra('translation_domain', 'NSSentinelBundle');
         }
         else

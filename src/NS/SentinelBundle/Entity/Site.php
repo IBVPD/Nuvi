@@ -34,7 +34,46 @@ class Site
      * @ORM\Column(name="code", type="string", length=255)
      */
     private $code;
-    
+
+    /**
+     * @var integer $rvYearIntro
+     * @ORM\Column(name="rvYearIntro",type="integer")
+     */
+    private $rvYearIntro;
+
+    /**
+     * @var integer $ibdYearIntro
+     * @ORM\Column(name="ibdYearIntro",type="integer")
+     */
+    private $ibdYearIntro;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="street", type="string", length=255)
+     */
+    private $street;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="city", type="string", length=255)
+     */
+    private $city;
+
+    /**
+     * @var integer $numberOfBeds
+     * @ORM\Column(name="numberOfBeds",type="integer")
+     */
+    private $numberOfBeds;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="website", type="string", length=255)
+     */
+    private $website;    
+
     /**
      * @var Country
      * 
@@ -60,7 +99,8 @@ class Site
         return $this->id;
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->name;
     }    
 
@@ -171,5 +211,143 @@ class Site
     public function getCases()
     {
         return $this->cases;
+    }
+
+    /**
+     * Set rvYearIntro
+     *
+     * @param integer $rvYearIntro
+     * @return Site
+     */
+    public function setRvYearIntro($rvYearIntro)
+    {
+        $this->rvYearIntro = $rvYearIntro;
+    
+        return $this;
+    }
+
+    /**
+     * Get rvYearIntro
+     *
+     * @return integer 
+     */
+    public function getRvYearIntro()
+    {
+        return $this->rvYearIntro;
+    }
+
+    /**
+     * Set ibdYearIntro
+     *
+     * @param integer $ibdYearIntro
+     * @return Site
+     */
+    public function setIbdYearIntro($ibdYearIntro)
+    {
+        $this->ibdYearIntro = $ibdYearIntro;
+    
+        return $this;
+    }
+
+    /**
+     * Get ibdYearIntro
+     *
+     * @return integer 
+     */
+    public function getIbdYearIntro()
+    {
+        return $this->ibdYearIntro;
+    }
+
+    /**
+     * Set street
+     *
+     * @param string $street
+     * @return Site
+     */
+    public function setStreet($street)
+    {
+        $this->street = $street;
+    
+        return $this;
+    }
+
+    /**
+     * Get street
+     *
+     * @return string 
+     */
+    public function getStreet()
+    {
+        return $this->street;
+    }
+
+    /**
+     * Set city
+     *
+     * @param string $city
+     * @return Site
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+    
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string 
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * Set numberOfBeds
+     *
+     * @param integer $numberOfBeds
+     * @return Site
+     */
+    public function setNumberOfBeds($numberOfBeds)
+    {
+        $this->numberOfBeds = $numberOfBeds;
+    
+        return $this;
+    }
+
+    /**
+     * Get numberOfBeds
+     *
+     * @return integer 
+     */
+    public function getNumberOfBeds()
+    {
+        return $this->numberOfBeds;
+    }
+
+    /**
+     * Set website
+     *
+     * @param string $website
+     * @return Site
+     */
+    public function setWebsite($website)
+    {
+        $this->website = $website;
+    
+        return $this;
+    }
+
+    /**
+     * Get website
+     *
+     * @return string 
+     */
+    public function getWebsite()
+    {
+        return $this->website;
     }
 }

@@ -103,14 +103,11 @@ class MeningitisType extends AbstractType
 
         $builder->addEventListener(
                         FormEvents::PRE_SET_DATA,
-                        function(FormEvent $event) use($factory,$sc,$se,$em)
+                        function(FormEvent $event) use($factory,$builder,$sc,$se,$em)
                         {
                             $form        = $event->getForm();
-                            $data        = $event->getData();
                             $user        = $sc->getToken()->getUser();
                             $sites       = $se->get('sites',array());
-                            $transformer = new \NS\SentinelBundle\Form\Transformer\IdToReference($em,$se);
-
                             
                             if(count($sites) == 0)
                             {
@@ -125,10 +122,14 @@ class MeningitisType extends AbstractType
                                 $se->set('sites',$sites);
                             }
 
-                            if($user->getAcls()->count() > 1) 
+                            if($user->getAcls()->count() > 1)
                             {
-                                $field = $factory->createNamed('site','choice',null,array('required'=>true,'label'=>'meningitis-form.site','choices'=>$sites,'auto_initialize'=>false));
-                                $form->add($field);
+                                $transformer = new \NS\SentinelBundle\Form\Transformer\IdToReference($em,$se);
+                                $form->add($factory->createNamed('site','choice',null,array('required' => true, 
+                                                                                          'empty_value' => 'Please Select...', 
+                                                                                          'label' => 'meningitis-form.site', 
+                                                                                          'choices' => $sites,
+                                                                                          'auto_initialize' => false)));
                             }
                         }
             );
@@ -140,7 +141,7 @@ class MeningitisType extends AbstractType
                             if($user->getAcls()->count() > 1) // they'll be choosing so exit
                                 return;
                             
-                            $data  = $event->getData();
+                            $data = $event->getData();
                             if($data->getId() > 0)// no editing of sites
                                 return;
                             

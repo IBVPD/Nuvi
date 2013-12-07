@@ -16,7 +16,7 @@ class Site extends CommonRepository
     {
         $qb = $this->_em->createQueryBuilder()
                 ->select('s,c,r')
-                ->from('NSSentinelBundle:Site','s')
+                ->from('NSSentinelBundle:Site','s','s.id')
                 ->innerJoin('s.country', 'c')
                 ->innerJoin('c.region', 'r');
 

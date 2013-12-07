@@ -473,7 +473,7 @@ class Meningitis
     {
         $this->dob = $dob;
     
-        $interval = $dob->diff(new \DateTime());
+        $interval = ($this->admDate) ? $dob->diff($this->admDate):$dob->diff(new \DateTime());
         $this->setAgeInMonths(($interval->format('%a')/30));
 
         return $this;
@@ -564,8 +564,16 @@ class Meningitis
         return $this->admDate;
     }
 
-    public function setAdmDate($admDate) {
+    public function setAdmDate($admDate) 
+    {
         $this->admDate = $admDate;
+
+        if(($this->admDate && $this->dob))
+        {
+            $interval = $this->dob->diff($this->admDate);
+            $this->setAgeInMonths(($interval->format('%a')/30));
+        }
+        
         return $this;
     }
 

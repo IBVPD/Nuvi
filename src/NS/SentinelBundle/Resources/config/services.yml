@@ -16,11 +16,20 @@ services:
     ns.sentinel.user_provider:
       class: NS\SentinelBundle\Security\UserProvider
       arguments: [ "@doctrine.orm.entity_manager" ]
+    ns.sentinel.form.type.site:
+      class: NS\SentinelBundle\Form\Type\SiteType
+      arguments: [ "@doctrine.orm.entity_manager", "@session" ]
+      tags:
+        - { name: form.type, alias: site_select }
     ns.sentinel.form.type.meningitis:
       class: NS\SentinelBundle\Form\MeningitisType
       arguments: [ "@security.context", "@session", "@doctrine.orm.entity_manager" ]
       tags:
         - { name: form.type, alias: meningitis }
+    ns.sentinel.form.type.gavi:
+      class: NS\SentinelBundle\Form\Types\GAVIEligible
+      tags:
+        - { name: form.type, alias: GAVIEligible }
     ns.sentinel.form.type.triple_choice:
       class: NS\SentinelBundle\Form\Type\TripleChoice
       tags:
