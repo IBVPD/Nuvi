@@ -52,7 +52,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $usUser = new User();
         $usUser->setIsActive(true);
         $usUser->setEmail('us@noblet.ca');
-        $usUser->setName('NA User');
+        $usUser->setName('US User');
         $usUser->resetSalt();
         $usUser->setPassword($encoder->encodePassword("1234567-us",$usUser->getSalt()));
         $acl = new ACL();
@@ -66,7 +66,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $caUser = new User();
         $caUser->setIsActive(true);
         $caUser->setEmail('ca@noblet.ca');
-        $caUser->setName('NA User');
+        $caUser->setName('Canada User');
         $caUser->resetSalt();
         $caUser->setPassword($encoder->encodePassword("1234567-ca",$caUser->getSalt()));
         $acl = new ACL();
@@ -80,7 +80,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $siteSUser = new User();
         $siteSUser->setIsActive(true);
         $siteSUser->setEmail('site-alberta@noblet.ca');
-        $siteSUser->setName('NA User');
+        $siteSUser->setName('Alberta Site User');
         $siteSUser->resetSalt();
         $siteSUser->setPassword($encoder->encodePassword("1234567-alberta",$siteSUser->getSalt()));
         $acl = new ACL();
@@ -94,7 +94,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $siteSUser = new User();
         $siteSUser->setIsActive(true);
         $siteSUser->setEmail('site-seattle@noblet.ca');
-        $siteSUser->setName('NA User');
+        $siteSUser->setName('Seattle Site User');
         $siteSUser->resetSalt();
         $siteSUser->setPassword($encoder->encodePassword("1234567-seattle",$siteSUser->getSalt()));
         $acl = new ACL();
