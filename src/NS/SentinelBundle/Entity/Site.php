@@ -37,40 +37,40 @@ class Site
 
     /**
      * @var integer $rvYearIntro
-     * @ORM\Column(name="rvYearIntro",type="integer")
+     * @ORM\Column(name="rvYearIntro",type="integer",nullable=true)
      */
     private $rvYearIntro;
 
     /**
      * @var integer $ibdYearIntro
-     * @ORM\Column(name="ibdYearIntro",type="integer")
+     * @ORM\Column(name="ibdYearIntro",type="integer",nullable=true)
      */
     private $ibdYearIntro;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="street", type="string", length=255)
+     * @ORM\Column(name="street", type="string", length=255,nullable=true)
      */
     private $street;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="city", type="string", length=255)
+     * @ORM\Column(name="city", type="string", length=255,nullable=true)
      */
     private $city;
 
     /**
      * @var integer $numberOfBeds
-     * @ORM\Column(name="numberOfBeds",type="integer")
+     * @ORM\Column(name="numberOfBeds",type="integer",nullable=true)
      */
     private $numberOfBeds;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="website", type="string", length=255)
+     * @ORM\Column(name="website", type="string", length=255,nullable=true)
      */
     private $website;    
 

@@ -59,18 +59,23 @@ class ImportCommand extends ContainerAwareCommand
 
         $regions   = $this->processRegions($files['region'],$output);
         $output->writeln("Added ".count($regions)." Regions");
-        $countries = $this->processCountries($file['country'], $regions);
+        $countries = $this->processCountries($files['country'], $regions);
         $output->writeln("Added ".count($countries)." Countries");
-        $sites     = $this->processSites($file['site'], $countries);
+        $sites     = $this->processSites($files['site'], $countries);
         $output->writeln("Added ".count($sites)." Sites");
     }
     
-    private function processRegions($file)
+    private function processRegions($file,$output)
     {
         $fd = fopen($file,'r');
         $regions = array();
-        while(($row = fgetcsv($fd)) !== NULL)
+        while(true)
         {
+            $row = fgetcsv($fd);
+
+            if($row== null)
+                break;
+
             if(!empty($row[1]))
             {
                 $region = new \NS\SentinelBundle\Entity\Region();
@@ -81,6 +86,8 @@ class ImportCommand extends ContainerAwareCommand
                 $this->em->flush();
                 $regions[$row[0]] = $region;
             }
+            else
+                $output->writeln("Row[1] is empty!");
         }
         
         fclose($fd);
@@ -93,19 +100,28 @@ class ImportCommand extends ContainerAwareCommand
         $countries = array();
         $fd        = fopen($file,'r');
         
-        while(($row = fgetcsv($fd)) !== NULL)
+        while(true)
         {
-            $c = new \NS\SentinelBundle\Entity\Country();
-            $c->setName($row[1]);
-            $c->setCode($row[2]);
-            $c->setPopulation($row[3]);
-            $c->setPopulationUnderFive($row[4]);
-            $c->setGaviEligible(new \NS\SentinelBundle\Form\Types\GAVIEligible($row[5]));
-            $c->setRegion($regions[$row[0]]);
+            $row = fgetcsv($fd);
 
-            $this->em->persist($c);
-            $this->em->flush();
-            $countries[$row[2]] = $c;
+            if($row== null)
+                break;
+
+            if(isset($regions[$row[0]]) && !empty($row[2]) && !empty($row[0]) && !empty($row[1]))
+            {
+                $c = new \NS\SentinelBundle\Entity\Country();
+                $c->setName($row[1]);
+                $c->setCode($row[2]);
+                $c->setPopulation($row[3]);
+                $c->setPopulationUnderFive($row[4]);
+                $c->setGaviEligible(new \NS\SentinelBundle\Form\Types\GAVIEligible($row[5]));
+                $c->setIsActive(true);
+                $c->setRegion($regions[$row[0]]);
+
+                $this->em->persist($c);
+                $this->em->flush();
+                $countries[$row[2]] = $c;
+            }
         }
         
         fclose($fd);
@@ -118,8 +134,13 @@ class ImportCommand extends ContainerAwareCommand
         $sites = array();
         $fd    = fopen($file,'r');
         $x     = 1;
-        while(($row = fgetcsv($fd)) !== NULL)
+        while(true)
         {
+            $row = fgetcsv($fd);
+
+            if($row== null)
+                break;
+
             $c = new \NS\SentinelBundle\Entity\Site();
             $c->setName($row[2]);
             $c->setCode("{$row[1]}$x");

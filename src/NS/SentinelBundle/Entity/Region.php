@@ -38,7 +38,7 @@ class Region
     /**
      * @var string
      *
-     * @ORM\Column(name="website", type="string", length=255)
+     * @ORM\Column(name="website", type="string", length=255,nullable=true)
      */
     private $website;
 

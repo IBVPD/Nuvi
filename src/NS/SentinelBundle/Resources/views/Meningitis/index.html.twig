@@ -11,6 +11,8 @@
                     <button type="reset">{{'Reset'|trans}}</button>
                     <button class="filter" type="submit">{{'Filter'|trans}}</button>
                     {% if is_granted('ROLE_SITE') %}
+                </div>
+                <div class="filterCol">
                     <a href="{{path('meningitisCreate')}}" class="button">Create</a>
                     {% endif %}
                 </div>

@@ -3,6 +3,7 @@
 namespace NS\SentinelBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use NS\SentinelBundle\Form\Types\GAVIEligible;
 
 /**
  * Country
@@ -45,19 +46,19 @@ class Country
     /**
      *
      * @var GAVIEligible
-     * @ORM\Column(name="gaviEligible",type="GAVIEligible")
+     * @ORM\Column(name="gaviEligible",type="GAVIEligible",nullable=true)
      */
     private $gaviEligible;
     
     /**
      * @var integer $population
-     * @ORM\Column(name="population",type="integer")
+     * @ORM\Column(name="population",type="integer",nullable=true,nullable=true)
      */
     private $population;
     
     /**
      * @var integer $populationUnderFive
-     * @ORM\Column(name="populationUnderFive",type="integer")
+     * @ORM\Column(name="populationUnderFive",type="integer",nullable=true)
      */
     private $populationUnderFive;
     
@@ -266,7 +267,7 @@ class Country
      * @param \GAVIEligible $gaviEligible
      * @return Country
      */
-    public function setGaviEligible(\GAVIEligible $gaviEligible)
+    public function setGaviEligible(GAVIEligible $gaviEligible)
     {
         $this->gaviEligible = $gaviEligible;
     

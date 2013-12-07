@@ -28,7 +28,7 @@ security:
             admin-login:
                 check_path: /login_check
                 login_path: /login
-                default_target_path: /
+                default_target_path: /en/meningitis
                 always_use_default_target_path: true
             logout:
                 path:   /logout
