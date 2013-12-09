@@ -9,7 +9,7 @@ use \Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
 use NS\SentinelBundle\Entity\User;
 use NS\SentinelBundle\Entity\ACL;
-use NS\SentinelBundle\Form\Type\Role;
+use NS\SentinelBundle\Form\Types\Role;
 
 class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {

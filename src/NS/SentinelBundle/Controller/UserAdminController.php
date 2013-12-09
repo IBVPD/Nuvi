@@ -3,7 +3,7 @@
 namespace NS\SentinelBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use NS\SentinelBundle\Form\Type\Role;
+use NS\SentinelBundle\Form\Types\Role;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 

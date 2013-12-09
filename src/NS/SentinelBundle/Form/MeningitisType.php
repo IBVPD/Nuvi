@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
-use NS\SentinelBundle\Form\Type\Role;
+use NS\SentinelBundle\Form\Types\Role;
 
 class MeningitisType extends AbstractType
 {

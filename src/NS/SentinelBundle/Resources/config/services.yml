@@ -17,7 +17,7 @@ services:
       class: NS\SentinelBundle\Security\UserProvider
       arguments: [ "@doctrine.orm.entity_manager" ]
     ns.sentinel.form.type.site:
-      class: NS\SentinelBundle\Form\Type\SiteType
+      class: NS\SentinelBundle\Form\Types\SiteType
       arguments: [ "@doctrine.orm.entity_manager", "@session" ]
       tags:
         - { name: form.type, alias: site_select }
@@ -31,35 +31,35 @@ services:
       tags:
         - { name: form.type, alias: GAVIEligible }
     ns.sentinel.form.type.triple_choice:
-      class: NS\SentinelBundle\Form\Type\TripleChoice
+      class: NS\SentinelBundle\Form\Types\TripleChoice
       tags:
         - { name: form.type, alias: triple_choice }
     ns.sentinel.form.type.diagnosis:
-      class: NS\SentinelBundle\Form\Type\Diagnosis
+      class: NS\SentinelBundle\Form\Types\Diagnosis
       tags:
         - { name: form.type, alias: Diagnosis }
     ns.sentinel.form.type.dischargeOutcome:
-      class: NS\SentinelBundle\Form\Type\DischargeOutcome
+      class: NS\SentinelBundle\Form\Types\DischargeOutcome
       tags:
         - { name: form.type, alias: DischargeOutcome }
     ns.sentinel.form.type.doses:
-      class: NS\SentinelBundle\Form\Type\Doses
+      class: NS\SentinelBundle\Form\Types\Doses
       tags:
         - { name: form.type, alias: Doses }
     ns.sentinel.form.type.gender:
-      class: NS\SentinelBundle\Form\Type\Gender
+      class: NS\SentinelBundle\Form\Types\Gender
       tags:
         - { name: form.type, alias: Gender }        
     ns.sentinel.form.type.cxr_result:
-      class: NS\SentinelBundle\Form\Type\CXRResult
+      class: NS\SentinelBundle\Form\Types\CXRResult
       tags:
         - { name: form.type, alias: CXRResult }
     ns.sentinel.form.type.CSFAppearance:
-      class: NS\SentinelBundle\Form\Type\CSFAppearance
+      class: NS\SentinelBundle\Form\Types\CSFAppearance
       tags:
         - { name: form.type, alias: CSFAppearance }
     ns.sentinel.form.type.role:
-        class: NS\SentinelBundle\Form\Type\Role
+        class: NS\SentinelBundle\Form\Types\Role
         tags:
           - { name: form.type, alias: role }
     ns_sentinel.admin.region:

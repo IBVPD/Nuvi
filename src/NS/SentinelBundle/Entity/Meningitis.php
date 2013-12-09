@@ -3,22 +3,31 @@
 namespace NS\SentinelBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use NS\SentinelBundle\Form\Type\TripleChoice;
+use NS\SentinelBundle\Form\Types\TripleChoice;
+use NS\SentinelBundle\Form\Types\CSFAppearance;
+use NS\SentinelBundle\Form\Types\CXRResult;
+use NS\SentinelBundle\Form\Types\Diagnosis;
+use NS\SentinelBundle\Form\Types\DischargeOutcome;
+use NS\SentinelBundle\Form\Types\Doses;
+use NS\SentinelBundle\Form\Types\Gender;
+use NS\SentinelBundle\Form\Types\Role;
 
-use NS\SentinelBundle\Form\Type\CSFAppearance;
-use NS\SentinelBundle\Form\Type\CXRResult;
-use NS\SentinelBundle\Form\Type\Diagnosis;
-use NS\SentinelBundle\Form\Type\DischargeOutcome;
-use NS\SentinelBundle\Form\Type\Doses;
-use NS\SentinelBundle\Form\Type\Gender;
-use Gedmo\Mapping\Annotation as Gedmo; // gedmo annotations
+// Annotations
+use Gedmo\Mapping\Annotation as Gedmo;
+use \NS\SecurityBundle\Annotation\Secured;
+use \NS\SecurityBundle\Annotation\SecuredCondition;
 
 /**
  * Description of Meningitis
  * @author gnat
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\Meningitis")
  * @ORM\Table(name="meningitis_cases")
  * @Gedmo\Loggable
+ * @Secured(conditions={
+ *      @SecuredCondition(roles={"ROLE_REGION"},relation="region",class="NSSentinelBundle:Region"),
+ *      @SecuredCondition(roles={"ROLE_COUNTRY"},relation="country",class="NSSentinelBundle:Country"),
+ *      @SecuredCondition(roles={"ROLE_SITE"},relation="site",class="NSSentinelBundle:Site"),
+ *      })
  */
 class Meningitis
 {
@@ -37,19 +46,19 @@ class Meningitis
     private $caseId;
 
     /**
-     * @var Region
+     * @var Region $region
      * @ORM\ManyToOne(targetEntity="Region",inversedBy="cases")
      */
     private $region;
 
     /**
-     * @var Country
+     * @var Country $country
      * @ORM\ManyToOne(targetEntity="Country",inversedBy="cases")
      */
     private $country;
 
     /**
-     * @var Site
+     * @var Site $site
      * @ORM\ManyToOne(targetEntity="Site",inversedBy="cases")
      */
     private $site;
@@ -65,13 +74,12 @@ class Meningitis
      * @ORM\Column(name="ageInMonths",type="integer",nullable=true)
      */
     private $ageInMonths;
-    
+
     /**
      * @var Gender $gender
      * @ORM\Column(name="gender",type="Gender",nullable=true)
      */
     private $gender;
-
 //Case-based Vaccination History
     /**
      * @var TripleChoice $hibReceived
@@ -120,14 +128,13 @@ class Meningitis
      * @ORM\Column(name="dtpDoses",type="Doses",nullable=true)
      */
     private $dtpDoses;
-    
 //Case-based Clinical Data
     /**
      * @var DateTime $admDate
      * @ORM\Column(name="admDate",type="date",nullable=true)
      */
     private $admDate;
-    
+
     /**
      * @var Diagnosis $admDx
      * @ORM\Column(name="admDx",type="Diagnosis",nullable=true)
@@ -249,13 +256,12 @@ class Meningitis
      */
     private $pneuSymptomOther;
 //Case-based Specimen Collection Data
-    
+
     /**
      * @var DateTime $csfCollected
      * @ORM\Column(name="csfCollected",type="boolean",nullable=true)
      */
     private $csfCollected;
-    
     private $csfId;
 
     /**
@@ -263,19 +269,20 @@ class Meningitis
      * @ORM\Column(name="csfCollectDateTime",type="datetime",nullable=true)
      */
     private $csfCollectDateTime;
-    
+
     /**
      * @var DateTime $csfAppearance
      * @ORM\Column(name="csfAppearance",type="CSFAppearance",nullable=true)
      */
     private $csfAppearance;
+
     /**
      * @var DateTime $csfLabDateTime
      * @ORM\Column(name="csfLabDateTime",type="datetime",nullable=true)
      */
     private $csfLabDateTime;
 //    private $csfLabTime;
-    
+
     /**
      * @var boolean $bloodCollected
      * @ORM\Column(name="bloodCollected", type="boolean",nullable=true)
@@ -289,87 +296,85 @@ class Meningitis
      * @ORM\Column(name="csfWcc", type="integer",nullable=true)
      */
     private $csfWcc;
-    
+
     /**
      * @var boolean $csfGlucose
      * @ORM\Column(name="csfGlucose", type="integer",nullable=true)
-     */    
+     */
     private $csfGlucose;
 
     /**
      * @var boolean $csfProtein
      * @ORM\Column(name="csfProtein", type="integer",nullable=true)
-     */    
+     */
     private $csfProtein;
-    
+
     /**
      * @var TripleChoice $csfCultDone
      * @ORM\Column(name="csfCultDone",type="TripleChoice",nullable=true)
-     */    
+     */
     private $csfCultDone;
-    
+
     /**
      * @var TripleChoice $csfGramDone
      * @ORM\Column(name="csfGramDone",type="TripleChoice",nullable=true)
-     */    
+     */
     private $csfGramDone;
-    
+
     /**
      * @var TripleChoice $csfBinaxDone
      * @ORM\Column(name="csfBinaxDone",type="TripleChoice",nullable=true)
-     */    
+     */
     private $csfBinaxDone;
-    
+
     /**
      * @var TripleChoice $csfLatDone
      * @ORM\Column(name="csfLatDone",type="TripleChoice",nullable=true)
      */
     private $csfLatDone;
-    
+
     /**
      * @var TripleChoice $csfPcrDone
      * @ORM\Column(name="csfPcrDone",type="TripleChoice",nullable=true)
-     */    
+     */
     private $csfPcrDone;
-    
+
     /**
      * @var TripleChoice $bloodCultDone
      * @ORM\Column(name="bloodCultDone",type="TripleChoice",nullable=true)
      */
     private $bloodCultDone;
-    
+
     /**
      * @var TripleChoice $bloodGramDone
      * @ORM\Column(name="bloodGramDone",type="TripleChoice",nullable=true)
      */
     private $bloodGramDone;
-    
+
     /**
      * @var TripleChoice $bloodPcrDone
      * @ORM\Column(name="bloodPcrDone",type="TripleChoice",nullable=true)
-     */    
+     */
     private $bloodPcrDone;
-    
+
     /**
      * @var TripleChoice $otherCultDone
      * @ORM\Column(name="otherCultDone",type="TripleChoice",nullable=true)
      */
     private $otherCultDone;
-    
+
     /**
      * @var TripleChoice $otherTestDone
      * @ORM\Column(name="otherTestDone",type="TripleChoice",nullable=true)
      */
     private $otherTestDone;
-
     private $csfCultResult;
-    
+
     /**
      * @var string $csfCultOther
      * @ORM\Column(name="csfCultOther",type="string",nullable=true)
      */
     private $csfCultOther;
-    
     private $csfGramResult;
     private $csfBinaxResult;
     private $csfLatResult;
@@ -383,6 +388,7 @@ class Meningitis
     private $otherCultOther;
     private $otherTestResult;
     private $otherTestOther;
+
     /**
      * @var DateTime $rrlCsfDate
      * @ORM\Column(name="rrlCsfDate",type="date",nullable=true)
@@ -396,36 +402,37 @@ class Meningitis
     private $rrlIsolDate;
     private $csfStore;
     private $isolStore;
+
     /**
      * @var string $rrlName
      * @ORM\Column(name="rrlName",type="string",nullable=true)
-     */    
+     */
     private $rrlName;
-    
+
     /**
      * @var string $spnSerotype
      * @ORM\Column(name="spnSerotype",type="string",nullable=true)
      */
     private $spnSerotype;
-    
+
     /**
      * @var string $hiSerotyoe
      * @ORM\Column(name="hiSerotyoe",type="string",nullable=true)
-     */    
+     */
     private $hiSerotype;
-    
+
     /**
      * @var string $nmSerogroup
      * @ORM\Column(name="nmSerogroup",type="string",nullable=true)
-     */    
+     */
     private $nmSerogroup;
 //PNEUMONIA / SEPSIS (In addition to above)
     /**
      * @var TripleChoice $cxrDone
      * @ORM\Column(name="cxrDone",type="TripleChoice",nullable=true)
-     */    
+     */
     private $cxrDone;
-        
+
     /**
      * @var CXRResult $cxrResult
      * @ORM\Column(name="cxrResult",type="CXRResult",nullable=true)
@@ -443,766 +450,945 @@ class Meningitis
      * @ORM\Column(name="dischDx",type="Diagnosis",nullable=true)
      */
     private $dischDx;
-    private $dischDxOther;
     
+    /**
+     *
+     * @var $dischDxOther
+     * @ORM\Column(name="dischDxOther",type="string",nullable=true)
+     */
+    private $dischDxOther;
+
     /**
      * @var TripleChoice $dischSequelae
      * @ORM\Column(name="dischSequelae",type="TripleChoice",nullable=true)
      */
     private $dischSequelae;
-    
+
     /**
      * @var string $comment
      * @ORM\Column(name="comment",type="text",nullable=true)
      */
     private $comment;
-    public function getId() {
+
+    public function __construct()
+    {
+        $this->dob                = new \DateTime();
+        $this->admDate            = new \DateTime();
+        $this->csfAppearance      = new \DateTime();
+        $this->csfCollectDateTime = new \DateTime();
+        $this->csfCollected       = new \DateTime();
+        $this->csfLabDateTime     = new \DateTime();
+    }
+
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function setId($id) {
+    public function setId($id)
+    {
         $this->id = $id;
         return $this;
     }
 
-    public function getDob() {
+    public function getDob()
+    {
         return $this->dob;
     }
 
-    public function setDob($dob) 
+    public function setDob($dob)
     {
         $this->dob = $dob;
-    
-        $interval = ($this->admDate) ? $dob->diff($this->admDate):$dob->diff(new \DateTime());
-        $this->setAgeInMonths(($interval->format('%a')/30));
+
+        $interval = ($this->admDate) ? $dob->diff($this->admDate) : $dob->diff(new \DateTime());
+        $this->setAgeInMonths(($interval->format('%a') / 30));
 
         return $this;
     }
 
-    public function getAgeInMonths() {
+    public function getAgeInMonths()
+    {
         return $this->ageInMonths;
     }
 
-    public function setAgeInMonths($ageInMonths) {
+    public function setAgeInMonths($ageInMonths)
+    {
         $this->ageInMonths = $ageInMonths;
         return $this;
     }
 
-    public function getHibReceived() {
+    public function getHibReceived()
+    {
         return $this->hibReceived;
     }
 
-    public function setHibReceived(TripleChoice $hibReceived) {
+    public function setHibReceived(TripleChoice $hibReceived)
+    {
         $this->hibReceived = $hibReceived;
         return $this;
     }
 
-    public function getHibDoses() {
+    public function getHibDoses()
+    {
         return $this->hibDoses;
     }
 
-    public function setHibDoses(Doses $hibDoses) {
+    public function setHibDoses(Doses $hibDoses)
+    {
         $this->hibDoses = $hibDoses;
         return $this;
     }
 
-    public function getPcvReceived() {
+    public function getPcvReceived()
+    {
         return $this->pcvReceived;
     }
 
-    public function setPcvReceived(TripleChoice $pcvReceived) {
+    public function setPcvReceived(TripleChoice $pcvReceived)
+    {
         $this->pcvReceived = $pcvReceived;
         return $this;
     }
 
-    public function getPcvDoses() {
+    public function getPcvDoses()
+    {
         return $this->pcvDoses;
     }
 
-    public function setPcvDoses(Doses $pcvDoses) {
+    public function setPcvDoses(Doses $pcvDoses)
+    {
         $this->pcvDoses = $pcvDoses;
         return $this;
     }
 
-    public function getMeningReceived() {
+    public function getMeningReceived()
+    {
         return $this->meningReceived;
     }
 
-    public function setMeningReceived(TripleChoice $meningReceived) {
+    public function setMeningReceived(TripleChoice $meningReceived)
+    {
         $this->meningReceived = $meningReceived;
         return $this;
     }
 
-    public function getMeningDoses() {
+    public function getMeningDoses()
+    {
         return $this->meningDoses;
     }
 
-    public function setMeningDoses(Doses $meningDoses) {
+    public function setMeningDoses(Doses $meningDoses)
+    {
         $this->meningDoses = $meningDoses;
         return $this;
     }
 
-    public function getDtpReceived() {
+    public function getDtpReceived()
+    {
         return $this->dtpReceived;
     }
 
-    public function setDtpReceived(TripleChoice $dtpReceived) {
+    public function setDtpReceived(TripleChoice $dtpReceived)
+    {
         $this->dtpReceived = $dtpReceived;
         return $this;
     }
 
-    public function getDtpDoses() {
+    public function getDtpDoses()
+    {
         return $this->dtpDoses;
     }
 
-    public function setDtpDoses(Doses $dtpDoses) {
+    public function setDtpDoses(Doses $dtpDoses)
+    {
         $this->dtpDoses = $dtpDoses;
         return $this;
     }
 
-    public function getAdmDate() {
+    public function getAdmDate()
+    {
         return $this->admDate;
     }
 
-    public function setAdmDate($admDate) 
+    public function setAdmDate($admDate)
     {
         $this->admDate = $admDate;
 
-        if(($this->admDate && $this->dob))
+        if (($this->admDate && $this->dob))
         {
             $interval = $this->dob->diff($this->admDate);
-            $this->setAgeInMonths(($interval->format('%a')/30));
+            $this->setAgeInMonths(($interval->format('%a') / 30));
         }
-        
+
         return $this;
     }
 
-    public function getAdmDx() {
+    public function getAdmDx()
+    {
         return $this->admDx;
     }
 
-    public function setAdmDx(Diagnosis $admDx) {
+    public function setAdmDx(Diagnosis $admDx)
+    {
         $this->admDx = $admDx;
         return $this;
     }
 
-    public function getAdmDxOther() {
+    public function getAdmDxOther()
+    {
         return $this->admDxOther;
     }
 
-    public function setAdmDxOther($admDxOther) {
+    public function setAdmDxOther($admDxOther)
+    {
         $this->admDxOther = $admDxOther;
         return $this;
     }
 
-    public function getMenSeizures() {
+    public function getMenSeizures()
+    {
         return $this->menSeizures;
     }
 
-    public function setMenSeizures(TripleChoice $menSeizures) {
+    public function setMenSeizures(TripleChoice $menSeizures)
+    {
         $this->menSeizures = $menSeizures;
         return $this;
     }
 
-    public function getMenFever() {
+    public function getMenFever()
+    {
         return $this->menFever;
     }
 
-    public function setMenFever(TripleChoice $menFever) {
+    public function setMenFever(TripleChoice $menFever)
+    {
         $this->menFever = $menFever;
         return $this;
     }
 
-    public function getMenAltConscious() {
+    public function getMenAltConscious()
+    {
         return $this->menAltConscious;
     }
 
-    public function setMenAltConscious(TripleChoice $menAltConscious) {
+    public function setMenAltConscious(TripleChoice $menAltConscious)
+    {
         $this->menAltConscious = $menAltConscious;
         return $this;
     }
 
-    public function getMenInabilityFeed() {
+    public function getMenInabilityFeed()
+    {
         return $this->menInabilityFeed;
     }
 
-    public function setMenInabilityFeed(TripleChoice $menInabilityFeed) {
+    public function setMenInabilityFeed(TripleChoice $menInabilityFeed)
+    {
         $this->menInabilityFeed = $menInabilityFeed;
         return $this;
     }
 
-    public function getMenStridor() {
+    public function getMenStridor()
+    {
         return $this->menStridor;
     }
 
-    public function setMenStridor(TripleChoice $menStridor) {
+    public function setMenStridor(TripleChoice $menStridor)
+    {
         $this->menStridor = $menStridor;
         return $this;
     }
 
-    public function getMenNeckStiff() {
+    public function getMenNeckStiff()
+    {
         return $this->menNeckStiff;
     }
 
-    public function setMenNeckStiff(TripleChoice $menNeckStiff) {
+    public function setMenNeckStiff(TripleChoice $menNeckStiff)
+    {
         $this->menNeckStiff = $menNeckStiff;
         return $this;
     }
 
-    public function getMenRash() {
+    public function getMenRash()
+    {
         return $this->menRash;
     }
 
-    public function setMenRash(TripleChoice $menRash) {
+    public function setMenRash(TripleChoice $menRash)
+    {
         $this->menRash = $menRash;
         return $this;
     }
 
-    public function getMenFontanelleBulge() {
+    public function getMenFontanelleBulge()
+    {
         return $this->menFontanelleBulge;
     }
 
-    public function setMenFontanelleBulge(TripleChoice $menFontanelleBulge) {
+    public function setMenFontanelleBulge(TripleChoice $menFontanelleBulge)
+    {
         $this->menFontanelleBulge = $menFontanelleBulge;
         return $this;
     }
 
-    public function getMenLethargy() {
+    public function getMenLethargy()
+    {
         return $this->menLethargy;
     }
 
-    public function setMenLethargy(TripleChoice $menLethargy) {
+    public function setMenLethargy(TripleChoice $menLethargy)
+    {
         $this->menLethargy = $menLethargy;
         return $this;
     }
 
-    public function getMenPoorSucking() {
+    public function getMenPoorSucking()
+    {
         return $this->menPoorSucking;
     }
 
-    public function setMenPoorSucking(TripleChoice $menPoorSucking) {
+    public function setMenPoorSucking(TripleChoice $menPoorSucking)
+    {
         $this->menPoorSucking = $menPoorSucking;
         return $this;
     }
 
-    public function getMenIrritability() {
+    public function getMenIrritability()
+    {
         return $this->menIrritability;
     }
 
-    public function setMenIrritability(TripleChoice $menIrritability) {
+    public function setMenIrritability(TripleChoice $menIrritability)
+    {
         $this->menIrritability = $menIrritability;
         return $this;
     }
 
-    public function getMenSymptomOther() {
+    public function getMenSymptomOther()
+    {
         return $this->menSymptomOther;
     }
 
-    public function setMenSymptomOther($menSymptomOther) {
+    public function setMenSymptomOther($menSymptomOther)
+    {
         $this->menSymptomOther = $menSymptomOther;
         return $this;
     }
 
-    public function getPneuDiffBreathe() {
+    public function getPneuDiffBreathe()
+    {
         return $this->pneuDiffBreathe;
     }
 
-    public function setPneuDiffBreathe(TripleChoice $pneuDiffBreathe) {
+    public function setPneuDiffBreathe(TripleChoice $pneuDiffBreathe)
+    {
         $this->pneuDiffBreathe = $pneuDiffBreathe;
         return $this;
     }
 
-    public function getPneuChestIndraw() {
+    public function getPneuChestIndraw()
+    {
         return $this->pneuChestIndraw;
     }
 
-    public function setPneuChestIndraw(TripleChoice $pneuChestIndraw) {
+    public function setPneuChestIndraw(TripleChoice $pneuChestIndraw)
+    {
         $this->pneuChestIndraw = $pneuChestIndraw;
         return $this;
     }
 
-    public function getPneuCough() {
+    public function getPneuCough()
+    {
         return $this->pneuCough;
     }
 
-    public function setPneuCough(TripleChoice $pneuCough) {
+    public function setPneuCough(TripleChoice $pneuCough)
+    {
         $this->pneuCough = $pneuCough;
         return $this;
     }
 
-    public function getPneuCyanosis() {
+    public function getPneuCyanosis()
+    {
         return $this->pneuCyanosis;
     }
 
-    public function setPneuCyanosis(TripleChoice $pneuCyanosis) {
+    public function setPneuCyanosis(TripleChoice $pneuCyanosis)
+    {
         $this->pneuCyanosis = $pneuCyanosis;
         return $this;
     }
 
-    public function getPneuRespRate() {
+    public function getPneuRespRate()
+    {
         return $this->pneuRespRate;
     }
 
-    public function setPneuRespRate($pneuRespRate) {
+    public function setPneuRespRate($pneuRespRate)
+    {
         $this->pneuRespRate = $pneuRespRate;
         return $this;
     }
 
-    public function getPneuSymptomOther() {
+    public function getPneuSymptomOther()
+    {
         return $this->pneuSymptomOther;
     }
 
-    public function setPneuSymptomOther($pneuSymptomOther) {
+    public function setPneuSymptomOther($pneuSymptomOther)
+    {
         $this->pneuSymptomOther = $pneuSymptomOther;
         return $this;
     }
 
-    public function getCsfCollected() {
+    public function getCsfCollected()
+    {
         return $this->csfCollected;
     }
 
-    public function setCsfCollected($csfCollected) {
+    public function setCsfCollected($csfCollected)
+    {
         $this->csfCollected = $csfCollected;
         return $this;
     }
 
-    public function getCsfId() {
+    public function getCsfId()
+    {
         return $this->csfId;
     }
 
-    public function setCsfId($csfId) {
+    public function setCsfId($csfId)
+    {
         $this->csfId = $csfId;
         return $this;
     }
 
-    public function getCsfCollectDateTime() {
+    public function getCsfCollectDateTime()
+    {
         return $this->csfCollectDateTime;
     }
 
-    public function setCsfCollectDateTime($csfCollectDateTime) {
+    public function setCsfCollectDateTime($csfCollectDateTime)
+    {
         $this->csfCollectDateTime = $csfCollectDateTime;
         return $this;
     }
 
-    public function getCsfAppearance() {
+    public function getCsfAppearance()
+    {
         return $this->csfAppearance;
     }
 
-    public function setCsfAppearance(CSFAppearance $csfAppearance) {
+    public function setCsfAppearance(CSFAppearance $csfAppearance)
+    {
         $this->csfAppearance = $csfAppearance;
         return $this;
     }
 
-    public function getCsfLabDateTime() {
+    public function getCsfLabDateTime()
+    {
         return $this->csfLabDateTime;
     }
 
-    public function setCsfLabDateTime( $csfLabDateTime) {
+    public function setCsfLabDateTime($csfLabDateTime)
+    {
         $this->csfLabDateTime = $csfLabDateTime;
         return $this;
     }
 
-    public function getBloodCollected() {
+    public function getBloodCollected()
+    {
         return $this->bloodCollected;
     }
 
-    public function setBloodCollected($bloodCollected) {
+    public function setBloodCollected($bloodCollected)
+    {
         $this->bloodCollected = $bloodCollected;
         return $this;
     }
 
-    public function getBloodId() {
+    public function getBloodId()
+    {
         return $this->bloodId;
     }
 
-    public function setBloodId($bloodId) {
+    public function setBloodId($bloodId)
+    {
         $this->bloodId = $bloodId;
         return $this;
     }
 
-    public function getCsfWcc() {
+    public function getCsfWcc()
+    {
         return $this->csfWcc;
     }
 
-    public function setCsfWcc($csfWcc) {
+    public function setCsfWcc($csfWcc)
+    {
         $this->csfWcc = $csfWcc;
         return $this;
     }
 
-    public function getCsfGlucose() {
+    public function getCsfGlucose()
+    {
         return $this->csfGlucose;
     }
 
-    public function setCsfGlucose($csfGlucose) {
+    public function setCsfGlucose($csfGlucose)
+    {
         $this->csfGlucose = $csfGlucose;
         return $this;
     }
 
-    public function getCsfProtein() {
+    public function getCsfProtein()
+    {
         return $this->csfProtein;
     }
 
-    public function setCsfProtein($csfProtein) {
+    public function setCsfProtein($csfProtein)
+    {
         $this->csfProtein = $csfProtein;
         return $this;
     }
 
-    public function getCsfCultDone() {
+    public function getCsfCultDone()
+    {
         return $this->csfCultDone;
     }
 
-    public function setCsfCultDone(TripleChoice $csfCultDone) {
+    public function setCsfCultDone(TripleChoice $csfCultDone)
+    {
         $this->csfCultDone = $csfCultDone;
         return $this;
     }
 
-    public function getCsfGramDone() {
+    public function getCsfGramDone()
+    {
         return $this->csfGramDone;
     }
 
-    public function setCsfGramDone(TripleChoice $csfGramDone) {
+    public function setCsfGramDone(TripleChoice $csfGramDone)
+    {
         $this->csfGramDone = $csfGramDone;
         return $this;
     }
 
-    public function getCsfBinaxDone() {
+    public function getCsfBinaxDone()
+    {
         return $this->csfBinaxDone;
     }
 
-    public function setCsfBinaxDone(TripleChoice $csfBinaxDone) {
+    public function setCsfBinaxDone(TripleChoice $csfBinaxDone)
+    {
         $this->csfBinaxDone = $csfBinaxDone;
         return $this;
     }
 
-    public function getCsfLatDone() {
+    public function getCsfLatDone()
+    {
         return $this->csfLatDone;
     }
 
-    public function setCsfLatDone(TripleChoice $csfLatDone) {
+    public function setCsfLatDone(TripleChoice $csfLatDone)
+    {
         $this->csfLatDone = $csfLatDone;
         return $this;
     }
 
-    public function getCsfPcrDone() {
+    public function getCsfPcrDone()
+    {
         return $this->csfPcrDone;
     }
 
-    public function setCsfPcrDone(TripleChoice $csfPcrDone) {
+    public function setCsfPcrDone(TripleChoice $csfPcrDone)
+    {
         $this->csfPcrDone = $csfPcrDone;
         return $this;
     }
 
-    public function getBloodCultDone() {
+    public function getBloodCultDone()
+    {
         return $this->bloodCultDone;
     }
 
-    public function setBloodCultDone(TripleChoice $bloodCultDone) {
+    public function setBloodCultDone(TripleChoice $bloodCultDone)
+    {
         $this->bloodCultDone = $bloodCultDone;
         return $this;
     }
 
-    public function getBloodGramDone() {
+    public function getBloodGramDone()
+    {
         return $this->bloodGramDone;
     }
 
-    public function setBloodGramDone(TripleChoice $bloodGramDone) {
+    public function setBloodGramDone(TripleChoice $bloodGramDone)
+    {
         $this->bloodGramDone = $bloodGramDone;
         return $this;
     }
 
-    public function getBloodPcrDone() {
+    public function getBloodPcrDone()
+    {
         return $this->bloodPcrDone;
     }
 
-    public function setBloodPcrDone(TripleChoice $bloodPcrDone) {
+    public function setBloodPcrDone(TripleChoice $bloodPcrDone)
+    {
         $this->bloodPcrDone = $bloodPcrDone;
         return $this;
     }
 
-    public function getOtherCultDone() {
+    public function getOtherCultDone()
+    {
         return $this->otherCultDone;
     }
 
-    public function setOtherCultDone( $otherCultDone) {
+    public function setOtherCultDone($otherCultDone)
+    {
         $this->otherCultDone = $otherCultDone;
         return $this;
     }
 
-    public function getOtherTestDone() {
+    public function getOtherTestDone()
+    {
         return $this->otherTestDone;
     }
 
-    public function setOtherTestDone(TripleChoice $otherTestDone) {
+    public function setOtherTestDone(TripleChoice $otherTestDone)
+    {
         $this->otherTestDone = $otherTestDone;
         return $this;
     }
 
-    public function getCsfCultResult() {
+    public function getCsfCultResult()
+    {
         return $this->csfCultResult;
     }
 
-    public function setCsfCultResult($csfCultResult) {
+    public function setCsfCultResult($csfCultResult)
+    {
         $this->csfCultResult = $csfCultResult;
         return $this;
     }
 
-    public function getCsfCultOther() {
+    public function getCsfCultOther()
+    {
         return $this->csfCultOther;
     }
 
-    public function setCsfCultOther($csfCultOther) {
+    public function setCsfCultOther($csfCultOther)
+    {
         $this->csfCultOther = $csfCultOther;
         return $this;
     }
 
-    public function getCsfGramResult() {
+    public function getCsfGramResult()
+    {
         return $this->csfGramResult;
     }
 
-    public function setCsfGramResult($csfGramResult) {
+    public function setCsfGramResult($csfGramResult)
+    {
         $this->csfGramResult = $csfGramResult;
         return $this;
     }
 
-    public function getCsfBinaxResult() {
+    public function getCsfBinaxResult()
+    {
         return $this->csfBinaxResult;
     }
 
-    public function setCsfBinaxResult($csfBinaxResult) {
+    public function setCsfBinaxResult($csfBinaxResult)
+    {
         $this->csfBinaxResult = $csfBinaxResult;
         return $this;
     }
 
-    public function getCsfLatResult() {
+    public function getCsfLatResult()
+    {
         return $this->csfLatResult;
     }
 
-    public function setCsfLatResult($csfLatResult) {
+    public function setCsfLatResult($csfLatResult)
+    {
         $this->csfLatResult = $csfLatResult;
         return $this;
     }
 
-    public function getCsfLatOther() {
+    public function getCsfLatOther()
+    {
         return $this->csfLatOther;
     }
 
-    public function setCsfLatOther($csfLatOther) {
+    public function setCsfLatOther($csfLatOther)
+    {
         $this->csfLatOther = $csfLatOther;
         return $this;
     }
 
-    public function getCsfPcrResult() {
+    public function getCsfPcrResult()
+    {
         return $this->csfPcrResult;
     }
 
-    public function setCsfPcrResult($csfPcrResult) {
+    public function setCsfPcrResult($csfPcrResult)
+    {
         $this->csfPcrResult = $csfPcrResult;
         return $this;
     }
 
-    public function getBloodCultResult() {
+    public function getBloodCultResult()
+    {
         return $this->bloodCultResult;
     }
 
-    public function setBloodCultResult($bloodCultResult) {
+    public function setBloodCultResult($bloodCultResult)
+    {
         $this->bloodCultResult = $bloodCultResult;
         return $this;
     }
 
-    public function getBloodCultOther() {
+    public function getBloodCultOther()
+    {
         return $this->bloodCultOther;
     }
 
-    public function setBloodCultOther($bloodCultOther) {
+    public function setBloodCultOther($bloodCultOther)
+    {
         $this->bloodCultOther = $bloodCultOther;
         return $this;
     }
 
-    public function getBloodGramResult() {
+    public function getBloodGramResult()
+    {
         return $this->bloodGramResult;
     }
 
-    public function setBloodGramResult($bloodGramResult) {
+    public function setBloodGramResult($bloodGramResult)
+    {
         $this->bloodGramResult = $bloodGramResult;
         return $this;
     }
 
-    public function getBloodPcrResult() {
+    public function getBloodPcrResult()
+    {
         return $this->bloodPcrResult;
     }
 
-    public function setBloodPcrResult($bloodPcrResult) {
+    public function setBloodPcrResult($bloodPcrResult)
+    {
         $this->bloodPcrResult = $bloodPcrResult;
         return $this;
     }
 
-    public function getOtherCultResult() {
+    public function getOtherCultResult()
+    {
         return $this->otherCultResult;
     }
 
-    public function setOtherCultResult($otherCultResult) {
+    public function setOtherCultResult($otherCultResult)
+    {
         $this->otherCultResult = $otherCultResult;
         return $this;
     }
 
-    public function getOtherCultOther() {
+    public function getOtherCultOther()
+    {
         return $this->otherCultOther;
     }
 
-    public function setOtherCultOther($otherCultOther) {
+    public function setOtherCultOther($otherCultOther)
+    {
         $this->otherCultOther = $otherCultOther;
         return $this;
     }
 
-    public function getOtherTestResult() {
+    public function getOtherTestResult()
+    {
         return $this->otherTestResult;
     }
 
-    public function setOtherTestResult($otherTestResult) {
+    public function setOtherTestResult($otherTestResult)
+    {
         $this->otherTestResult = $otherTestResult;
         return $this;
     }
 
-    public function getOtherTestOther() {
+    public function getOtherTestOther()
+    {
         return $this->otherTestOther;
     }
 
-    public function setOtherTestOther($otherTestOther) {
+    public function setOtherTestOther($otherTestOther)
+    {
         $this->otherTestOther = $otherTestOther;
         return $this;
     }
 
-    public function getRrlCsfDate() {
+    public function getRrlCsfDate()
+    {
         return $this->rrlCsfDate;
     }
 
-    public function setRrlCsfDate($rrlCsfDate) {
+    public function setRrlCsfDate($rrlCsfDate)
+    {
         $this->rrlCsfDate = $rrlCsfDate;
         return $this;
     }
 
-    public function getRrlIsolDate() {
+    public function getRrlIsolDate()
+    {
         return $this->rrlIsolDate;
     }
 
-    public function setRrlIsolDate($rrlIsolDate) {
+    public function setRrlIsolDate($rrlIsolDate)
+    {
         $this->rrlIsolDate = $rrlIsolDate;
         return $this;
     }
 
-    public function getCsfStore() {
+    public function getCsfStore()
+    {
         return $this->csfStore;
     }
 
-    public function setCsfStore($csfStore) {
+    public function setCsfStore($csfStore)
+    {
         $this->csfStore = $csfStore;
         return $this;
     }
 
-    public function getIsolStore() {
+    public function getIsolStore()
+    {
         return $this->isolStore;
     }
 
-    public function setIsolStore($isolStore) {
+    public function setIsolStore($isolStore)
+    {
         $this->isolStore = $isolStore;
         return $this;
     }
 
-    public function getRrlName() {
+    public function getRrlName()
+    {
         return $this->rrlName;
     }
 
-    public function setRrlName($rrlName) {
+    public function setRrlName($rrlName)
+    {
         $this->rrlName = $rrlName;
         return $this;
     }
 
-    public function getSpnSerotype() {
+    public function getSpnSerotype()
+    {
         return $this->spnSerotype;
     }
 
-    public function setSpnSerotype($spnSerotype) {
+    public function setSpnSerotype($spnSerotype)
+    {
         $this->spnSerotype = $spnSerotype;
         return $this;
     }
 
-    public function getHiSerotype() {
+    public function getHiSerotype()
+    {
         return $this->hiSerotype;
     }
 
-    public function setHiSerotype($hiSerotype) {
+    public function setHiSerotype($hiSerotype)
+    {
         $this->hiSerotype = $hiSerotype;
         return $this;
     }
 
-    public function getNmSerogroup() {
+    public function getNmSerogroup()
+    {
         return $this->nmSerogroup;
     }
 
-    public function setNmSerogroup($nmSerogroup) {
+    public function setNmSerogroup($nmSerogroup)
+    {
         $this->nmSerogroup = $nmSerogroup;
         return $this;
     }
 
-    public function getCxrDone() {
+    public function getCxrDone()
+    {
         return $this->cxrDone;
     }
 
-    public function setCxrDone(TripleChoice $cxrDone) {
+    public function setCxrDone(TripleChoice $cxrDone)
+    {
         $this->cxrDone = $cxrDone;
         return $this;
     }
 
-    public function getCxrResult() {
+    public function getCxrResult()
+    {
         return $this->cxrResult;
     }
 
-    public function setCxrResult(CXRResult $cxrResult) {
+    public function setCxrResult(CXRResult $cxrResult)
+    {
         $this->cxrResult = $cxrResult;
         return $this;
     }
 
-    public function getDischOutcome() {
+    public function getDischOutcome()
+    {
         return $this->dischOutcome;
     }
 
-    public function setDischOutcome($dischOutcome) {
+    public function setDischOutcome($dischOutcome)
+    {
         $this->dischOutcome = $dischOutcome;
         return $this;
     }
 
-    public function getDischDx() {
+    public function getDischDx()
+    {
         return $this->dischDx;
     }
 
-    public function setDischDx(Diagnosis $dischDx) {
+    public function setDischDx(Diagnosis $dischDx)
+    {
         $this->dischDx = $dischDx;
         return $this;
     }
 
-    public function getDischDxOther() {
+    public function getDischDxOther()
+    {
         return $this->dischDxOther;
     }
 
-    public function setDischDxOther($dischDxOther) {
+    public function setDischDxOther($dischDxOther)
+    {
         $this->dischDxOther = $dischDxOther;
         return $this;
     }
 
-    public function getDischSequelae() {
+    public function getDischSequelae()
+    {
         return $this->dischSequelae;
     }
 
-    public function setDischSequelae(TripleChoice $dischSequelae) {
+    public function setDischSequelae(TripleChoice $dischSequelae)
+    {
         $this->dischSequelae = $dischSequelae;
         return $this;
     }
 
-    public function getComment() {
+    public function getComment()
+    {
         return $this->comment;
     }
 
-    public function setComment($comment) {
+    public function setComment($comment)
+    {
         $this->comment = $comment;
         return $this;
     }
@@ -1216,7 +1402,7 @@ class Meningitis
     public function setRegion(\NS\SentinelBundle\Entity\Region $region = null)
     {
         $this->region = $region;
-    
+
         return $this;
     }
 
@@ -1239,7 +1425,7 @@ class Meningitis
     public function setCountry(\NS\SentinelBundle\Entity\Country $country = null)
     {
         $this->country = $country;
-    
+
         $this->setRegion($country->getRegion());
 
         return $this;
@@ -1264,11 +1450,11 @@ class Meningitis
     public function setSite(\NS\SentinelBundle\Entity\Site $site = null)
     {
         $this->site = $site;
-        
+
         $this->setCountry($site->getCountry());
-        
-        $this->setCaseId(sprintf("%s-%s-%s-",$this->getRegion()->getCode(),$this->country->getCode(),$this->site->getCode()));
-    
+
+        $this->setCaseId(sprintf("%s-%s-%s-", $this->getRegion()->getCode(), $this->country->getCode(), $this->site->getCode()));
+
         return $this;
     }
 
@@ -1292,7 +1478,7 @@ class Meningitis
         $this->gender = $gender;
         return $this;
     }
-    
+
     public function setCaseId($caseId)
     {
         $this->caseId = $caseId;
@@ -1301,6 +1487,6 @@ class Meningitis
 
     public function getCaseId()
     {
-        return $this->caseId.str_pad($this->id,6,"0",STR_PAD_LEFT);
-    }   
+        return $this->caseId . str_pad($this->id, 6, "0", STR_PAD_LEFT);
+    }
 }

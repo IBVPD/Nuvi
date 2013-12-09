@@ -19,7 +19,7 @@ class MeningitisController extends Controller
      */
     public function indexAction()
     {
-        $rows = $this->getDoctrine()->getManager()->getRepository("NSSentinelBundle:Meningitis")->findAll();
+        $rows = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:Meningitis")->getLatest();
 
         return array('rows'=>$rows);
     }

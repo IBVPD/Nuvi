@@ -5,6 +5,8 @@ namespace NS\SentinelBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use \Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use NS\SecurityBundle\Model\SecuredEntityInterface;
+use NS\SentinelBundle\Form\Types\Role;
 
 /**
  * User
@@ -12,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\User")
  */
-class User implements AdvancedUserInterface
+class User implements AdvancedUserInterface, SecuredEntityInterface
 {
     /**
      * @var integer
@@ -349,5 +351,27 @@ class User implements AdvancedUserInterface
         $this->isActive = $isActive;
 
         return $this;
+    }
+
+    public function getACLObjectIdsForRole($irole)
+    {
+        $object_ids = array();
+
+        try
+        {
+            $role = new Role($irole);
+        }
+        catch(\UnexpectedValueException $e)
+        {
+            return null;
+        }
+        
+        foreach($this->acls as $acl)
+        {
+            if($acl->getType()->equal($role)) // found an object id for this role
+                $object_ids[] = $acl->getObjectId();
+        }
+
+        return $object_ids;        
     }
 }
