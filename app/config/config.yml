@@ -59,14 +59,14 @@ doctrine:
         # e.g. database_path: %kernel.root_dir%/data/data.db3
         # path:     %database_path%
         types:
-            TripleChoice: NS\SentinelBundle\Entity\Type\TripleChoice
-            Doses: NS\SentinelBundle\Entity\Type\Doses
-            Diagnosis: NS\SentinelBundle\Entity\Type\Diagnosis
-            CXRResult: NS\SentinelBundle\Entity\Type\CXRResult
-            DischargeOutcome: NS\SentinelBundle\Entity\Type\DischargeOutcome
-            CSFAppearance: NS\SentinelBundle\Entity\Type\CSFAppearance
-            Role: NS\SentinelBundle\Entity\Type\Role
-            Gender: NS\SentinelBundle\Entity\Type\Gender
+            TripleChoice: NS\SentinelBundle\Entity\Types\TripleChoice
+            Doses: NS\SentinelBundle\Entity\Types\Doses
+            Diagnosis: NS\SentinelBundle\Entity\Types\Diagnosis
+            CXRResult: NS\SentinelBundle\Entity\Types\CXRResult
+            DischargeOutcome: NS\SentinelBundle\Entity\Types\DischargeOutcome
+            CSFAppearance: NS\SentinelBundle\Entity\Types\CSFAppearance
+            Role: NS\SentinelBundle\Entity\Types\Role
+            Gender: NS\SentinelBundle\Entity\Types\Gender
             GAVIEligible: NS\SentinelBundle\Entity\Types\GAVIEligible
         mapping_types:
             TripleChoice: TripleChoice

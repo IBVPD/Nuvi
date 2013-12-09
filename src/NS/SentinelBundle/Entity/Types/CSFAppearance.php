@@ -1,6 +1,6 @@
 <?php
 
-namespace NS\SentinelBundle\Entity\Type;
+namespace NS\SentinelBundle\Entity\Types;
 
 use NS\UtilBundle\Entity\Types\ArrayChoice;
 
@@ -11,7 +11,7 @@ use NS\UtilBundle\Entity\Types\ArrayChoice;
  */
 class CSFAppearance extends ArrayChoice
 {
-    protected $convert_class = '\NS\SentinelBundle\Form\Type\CSFAppearance';
+    protected $convert_class = '\NS\SentinelBundle\Form\Types\CSFAppearance';
 
     public function getName()
     {

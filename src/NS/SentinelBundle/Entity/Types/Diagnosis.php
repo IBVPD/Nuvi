@@ -1,6 +1,6 @@
 <?php
 
-namespace NS\SentinelBundle\Entity\Type;
+namespace NS\SentinelBundle\Entity\Types;
 
 use NS\UtilBundle\Entity\Types\ArrayChoice;
 
@@ -9,9 +9,9 @@ use NS\UtilBundle\Entity\Types\ArrayChoice;
  *
  * @author gnat
  */
-class Doses extends ArrayChoice
+class Diagnosis extends ArrayChoice
 {
-    protected $convert_class = '\NS\SentinelBundle\Form\Type\Doses';
+    protected $convert_class = '\NS\SentinelBundle\Form\Types\Diagnosis';
 
     public function getName()
     {

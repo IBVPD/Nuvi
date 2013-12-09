@@ -1,12 +1,12 @@
 <?php
 
-namespace NS\SentinelBundle\Entity\Type;
+namespace NS\SentinelBundle\Entity\Types;
 
 use NS\UtilBundle\Entity\Types\ArrayChoice;
 
 class Role extends ArrayChoice
 {
-    protected $convert_class = '\NS\SentinelBundle\Form\Type\Role';
+    protected $convert_class = '\NS\SentinelBundle\Form\Types\Role';
 
     public function getName()
     {
