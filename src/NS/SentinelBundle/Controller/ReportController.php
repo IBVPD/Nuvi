@@ -19,11 +19,19 @@ class ReportController extends Controller
      */
     public function byCountryGraphAction()
     {
-        return array('reports' => array( 
-                                    array('name' => 'Canada','numberOfCases'=>30),
-                                    array('name' => 'United States','numberOfCases'=>10),
-                                    array('name' => 'Mexico','numberOfCases'=>50),
-                                    ));
+        $reports = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:Meningitis")->getByCountry();
+
+        return array('reports' => $reports);
+    }
+
+    /**
+     * @Template()
+     */
+    public function bySiteGraphAction()
+    {
+        $reports = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:Meningitis")->getBySite();
+
+        return array('reports' => $reports);
     }
 
     /**
@@ -32,6 +40,16 @@ class ReportController extends Controller
     public function generalStatsAction()
     {
         $reports = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:Meningitis")->getStats();
+       
+        return array('reports' => $reports);
+    }
+    
+    /**
+     * @Template()
+     */
+    public function byDiagnosisGraphAction()
+    {
+        $reports = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:Meningitis")->getByDiagnosis();
        
         return array('reports' => $reports);
     }

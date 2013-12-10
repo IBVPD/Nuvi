@@ -4,6 +4,7 @@ namespace NS\SentinelBundle\Repository;
 
 use NS\SecurityBundle\Doctrine\SecuredEntityRepository;
 use NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
+use Doctrine\ORM\Query;
 
 /**
  * Description of Common
@@ -84,5 +85,27 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
 //                   ->orderBy('m.created','DESC')
                    ->setMaxResults($limit);
         return $this->secure($qb)->getQuery()->getResult();
+    }
+    
+    public function getByCountry()
+    {
+        $qb = $this->_em->createQueryBuilder()
+                   ->select('COUNT(m) as numberOfCases, partial m.{id,admDate}, c')
+                   ->from($this->getClassName(),'m')
+                   ->innerJoin('m.country', 'c')
+                   ->groupBy('m.country');
+
+        return $this->secure($qb)->getQuery()->getResult(Query::HYDRATE_ARRAY);
+    }
+    
+    public function getBySite()
+    {
+        $qb = $this->_em->createQueryBuilder()
+                   ->select('COUNT(m) as numberOfCases, partial m.{id,admDate}, s ')
+                   ->from($this->getClassName(),'m')
+                   ->innerJoin('m.site', 's')
+                   ->groupBy('m.site');
+
+        return $this->secure($qb)->getQuery()->getResult(Query::HYDRATE_ARRAY);
     }
 }

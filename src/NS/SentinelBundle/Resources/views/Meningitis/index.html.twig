@@ -59,6 +59,10 @@
             <div class="panelContent">
                 {{ render_hinclude(controller('NSSentinelBundle:Report:generalStats')) }}
 
+                {% if is_granted('ROLE_COUNTRY') %}
+                    {{ render_hinclude(controller('NSSentinelBundle:Report:bySiteGraph')) }}
+                {% endif %}
+
                 {% if is_granted('ROLE_REGION') %}
                     {{ render_hinclude(controller('NSSentinelBundle:Report:byCountryGraph')) }}
                 {% endif %}

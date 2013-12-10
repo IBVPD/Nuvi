@@ -15,7 +15,7 @@
                         {%endfor%}
                         {%endspaceless%}
                     ]);
-//    formatter = new google.visualization.NumberFormat({negativeParens: true, fractionDigits: 0, groupingSymbol: ','});
-//    formatter.format(c['data'], 1);
+    var formatter = new google.visualization.NumberFormat({negativeParens: true, fractionDigits: 0, groupingSymbol: ','});
+    formatter.format(c['data'], 1);
     google_charts.push(c);
 </script>
