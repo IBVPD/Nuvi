@@ -281,7 +281,6 @@ class Meningitis
      * @ORM\Column(name="csfLabDateTime",type="datetime",nullable=true)
      */
     private $csfLabDateTime;
-//    private $csfLabTime;
 
     /**
      * @var boolean $bloodCollected
@@ -474,9 +473,7 @@ class Meningitis
     {
         $this->dob                = new \DateTime();
         $this->admDate            = new \DateTime();
-        $this->csfAppearance      = new \DateTime();
         $this->csfCollectDateTime = new \DateTime();
-        $this->csfCollected       = new \DateTime();
         $this->csfLabDateTime     = new \DateTime();
     }
 

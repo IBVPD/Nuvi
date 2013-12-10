@@ -53,5 +53,17 @@
             </div>
         </div>
     </div>
+    <div class="column span1">
+        <div class="panel dataPanel">
+            <h3 class="panelTitle">{{'Report'|trans}}</h3>
+            <div class="panelContent">
+                {{ render_hinclude(controller('NSSentinelBundle:Report:generalStats')) }}
+
+                {% if is_granted('ROLE_REGION') %}
+                    {{ render_hinclude(controller('NSSentinelBundle:Report:byCountryGraph')) }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
 </div>
-{% endblock %}
+ {% endblock %}

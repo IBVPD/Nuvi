@@ -1,0 +1,21 @@
+*.txt
+.git*
+deps
+README.md
+- app/cache/*
+- app/logs/*
+- app/bootstrap.php.cache
+- web/.htaccess
+- app/config/parameters*.yml
+*.csv
+.buildpath
+.settings
+.project
+vendor
+web/bundles
+web/cfiles
+web/uploads
+nbproject
+app/data
+*[vV]agrant*
+src/NS/SentinelBundle/Resources/translations

@@ -21,7 +21,7 @@ class MeningitisController extends Controller
     {
         $rows = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:Meningitis")->getLatest();
 
-        return array('rows'=>$rows);
+        return array('rows' => $rows);
     }
 
     /**

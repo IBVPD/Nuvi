@@ -12,6 +12,37 @@ use NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
  */
 class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepositoryInterface
 {
+    public function getStats(\DateTime $start = null, \DateTime $end = null)
+    {
+        $results = array();
+        $qb      = $this->_em
+                   ->createQueryBuilder()
+                   ->select('COUNT(m.id) theCount')
+                   ->from($this->getClassName(),'m')
+                   ->where('m.cxrDone = :cxr')
+                   ->setParameter('cxr', \NS\SentinelBundle\Form\Types\TripleChoice::YES);
+
+        $results['cxr'] = $this->secure($qb)->getQuery()->getSingleScalarResult();
+
+        $qb      = $this->_em
+                   ->createQueryBuilder()
+                   ->select('m.csfCollected, COUNT(m.csfCollected) theCount')
+                   ->from($this->getClassName(),'m')
+                   ->groupBy('m.csfCollected');
+        
+        $res     = $this->secure($qb)->getQuery()->getResult();
+
+        foreach($res as $r)
+        {
+            if($r['csfCollected'])
+                $results['csfCollected'] = $r['theCount'];
+            else
+                $results['csfNotCollected'] = $r['theCount'];
+        }
+        
+        return $results;
+    }
+
     public function getForAutoComplete($fields, array $value, $limit)
     {
         $alias = 'd';

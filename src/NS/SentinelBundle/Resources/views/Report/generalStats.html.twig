@@ -1,0 +1,21 @@
+<div class="formRow">
+    <h3>{{'General Statistics'|trans}}</h3>
+    <div id="generalStatistics"></div>
+</div>
+
+<script>
+    var c        = new Array();
+    c['element'] = $('generalStatistics');
+    c['chart']   = new google.visualization.BarChart(c['element']);
+    c['data']    = google.visualization.arrayToDataTable([
+                    ['Type','Number'],
+                        {%spaceless%}
+                        {%for k,s in reports %}
+                            ['{{k|e('js')}}', {{s}}]{%if not loop.last %},{%endif%}
+                        {%endfor%}
+                        {%endspaceless%}
+                    ]);
+//    formatter = new google.visualization.NumberFormat({negativeParens: true, fractionDigits: 0, groupingSymbol: ','});
+//    formatter.format(c['data'], 1);
+    google_charts.push(c);
+</script>
