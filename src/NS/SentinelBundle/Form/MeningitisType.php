@@ -106,30 +106,34 @@ class MeningitisType extends AbstractType
                         function(FormEvent $event) use($factory,$builder,$sc,$se,$em)
                         {
                             $form        = $event->getForm();
+                            $data        = $event->getData();
                             $user        = $sc->getToken()->getUser();
                             $sites       = $se->get('sites',array());
                             
-                            if(count($sites) == 0)
+                            if(!$data->getId())
                             {
-                                foreach($user->getAcls() as $acl)
+                                if(count($sites) == 0)
                                 {
-                                    if($acl->getType()->equal(Role::SITE))
-                                        $sites[] = $acl->getObjectId();
+                                    foreach($user->getAcls() as $acl)
+                                    {
+                                        if($acl->getType()->equal(Role::SITE))
+                                            $sites[] = $acl->getObjectId();
+                                    }
+
+                                    $sites = $em->getRepository('NSSentinelBundle:Site')->getChain((count($sites) > 1) ? $sites : array_pop($sites));
+
+                                    $se->set('sites',$sites);
                                 }
 
-                                $sites = $em->getRepository('NSSentinelBundle:Site')->getChain((count($sites) > 1) ? $sites : array_pop($sites));
-
-                                $se->set('sites',$sites);
-                            }
-
-                            if($user->getAcls()->count() > 1)
-                            {
-                                $transformer = new \NS\SentinelBundle\Form\Transformer\IdToReference($em,$se);
-                                $form->add($factory->createNamed('site','choice',null,array('required' => true, 
-                                                                                          'empty_value' => 'Please Select...', 
-                                                                                          'label' => 'meningitis-form.site', 
-                                                                                          'choices' => $sites,
-                                                                                          'auto_initialize' => false)));
+                                if($user->getAcls()->count() > 1)
+                                {
+                                    $transformer = new \NS\SentinelBundle\Form\Transformer\IdToReference($em,$se);
+                                    $form->add($factory->createNamed('site','choice',null,array('required' => true, 
+                                                                                              'empty_value' => 'Please Select...', 
+                                                                                              'label' => 'meningitis-form.site', 
+                                                                                              'choices' => $sites,
+                                                                                              'auto_initialize' => false)));
+                                }
                             }
                         }
             );

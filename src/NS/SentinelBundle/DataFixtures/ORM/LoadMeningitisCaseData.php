@@ -9,6 +9,7 @@ use \Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use \Symfony\Component\DependencyInjection\ContainerInterface;
 use \NS\SentinelBundle\Entity\Meningitis;
 use \NS\SentinelBundle\Form\Types\TripleChoice;
+use \NS\SentinelBundle\Form\Types\Gender;
 
 class LoadMeningitisCaseData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
@@ -21,6 +22,8 @@ class LoadMeningitisCaseData extends AbstractFixture implements OrderedFixtureIn
 
     public function load(ObjectManager $manager)
     {
+        ini_set('memory_limit','768M');
+
         $done  = new TripleChoice(TripleChoice::YES);
         $nDone = new TripleChoice(TripleChoice::NO);
         
@@ -28,8 +31,10 @@ class LoadMeningitisCaseData extends AbstractFixture implements OrderedFixtureIn
         $s     = $this->getReference('site-seattle');
         $t     = $this->getReference('site-toronto');
         $mx    = $this->getReference('site-mexico');
+        $male  = new Gender(Gender::MALE);
+        $fmale = new Gender(Gender::FEMALE);
 
-        for($x = 0; $x < 2000; $x++)
+        for($x = 0; $x < 2700; $x++)
         {
             $dob = $this->getRandomDate();
             $m = new Meningitis();
@@ -37,7 +42,9 @@ class LoadMeningitisCaseData extends AbstractFixture implements OrderedFixtureIn
             $m->setAdmDate($this->getRandomDate(null,$dob));
             $m->setCsfCollected((($x % 3) == 0));
             $m->setCxrDone(($x%5) == 0 ? $done:$nDone);
-            
+
+            $m->setGender(($x%7)?$fmale:$male);
+
             if(($x % 3) == 0 )
                 $m->setSite($a);
             else if(($x % 5) == 0 )
