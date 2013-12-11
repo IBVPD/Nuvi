@@ -7,14 +7,16 @@
             <h3 class="panelTitle">{{'Latest Meningitis Cases'|trans}}</h3>
             <div class="filters open">
                 <div class="filterCol">
-                    <input type="search" />
-                    <button type="reset">{{'Reset'|trans}}</button>
-                    <button class="filter" type="submit">{{'Filter'|trans}}</button>
-                    {% if is_granted('ROLE_SITE') %}
+                    <form method="POST" action="{{path('meningitisSearch')}}">
+                    {{form_widget(form.caseId)}}
+                    <button class="filter" type="submit">{{'Find'|trans}}</button>
+                    {{form_rest(form)}}
+                    </form>
+                {% if is_granted('ROLE_SITE') %}
                 </div>
                 <div class="filterCol">
-                    <a href="{{path('meningitisCreate')}}" class="button">Create</a>
-                    {% endif %}
+                    <a href="{{path('meningitisCreate')}}" class="button">{{'Create'|trans}}</a>
+                {% endif %}
                 </div>
             </div>
             
@@ -43,7 +45,10 @@
                             <td>{{cycle(['<img src="/bundles/nssentinel/images/remove_16x16.png" />','<img src="/bundles/nssentinel/images/check_mark_16x16.png" />'], loop.index)|raw}}</td>
                             <td>{{cycle(['<img src="/bundles/nssentinel/images/delete_16x16.png" />','<img src="/bundles/nssentinel/images/check_mark_16x16.png" />'], loop.index)|raw}}</td>
                             <td>{{cycle(['<img src="/bundles/nssentinel/images/remove_16x16.png" />','<img src="/bundles/nssentinel/images/delete_16x16.png" />'], loop.index)|raw}}</td>
-                            <td><a href="{{path('meningitisEdit',{'id':row.id})}}">Edit</a></td>
+                            <td>
+                                <a href="{{path('meningitisEdit',{'id':row.id})}}">{{'Edit'|trans}}</a> &nbsp;
+                                <a href="{{path('meningitisShow',{'id':row.id})}}">{{'Show'|trans}}</a> 
+                            </td>
                         </tr>
                     {% endfor %}
                     </tbody>

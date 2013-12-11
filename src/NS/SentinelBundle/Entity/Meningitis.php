@@ -32,9 +32,9 @@ use \NS\SecurityBundle\Annotation\SecuredCondition;
 class Meningitis
 {
     /**
-     * @var integer $id
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @var integer $id
      * @ORM\Column(name="id",type="integer")
      */
     private $id;
@@ -475,6 +475,11 @@ class Meningitis
         $this->admDate            = new \DateTime();
         $this->csfCollectDateTime = new \DateTime();
         $this->csfLabDateTime     = new \DateTime();
+    }
+
+    public function __toString()
+    {
+        return $this->getCaseId();
     }
 
     public function getId()
@@ -1396,7 +1401,7 @@ class Meningitis
      * @param \NS\SentinelBundle\Entity\Region $region
      * @return Meningitis
      */
-    public function setRegion(\NS\SentinelBundle\Entity\Region $region = null)
+    public function setRegion(Region $region = null)
     {
         $this->region = $region;
 
@@ -1419,7 +1424,7 @@ class Meningitis
      * @param \NS\SentinelBundle\Entity\Country $country
      * @return Meningitis
      */
-    public function setCountry(\NS\SentinelBundle\Entity\Country $country = null)
+    public function setCountry(Country $country = null)
     {
         $this->country = $country;
 
@@ -1444,7 +1449,7 @@ class Meningitis
      * @param \NS\SentinelBundle\Entity\Site $site
      * @return Meningitis
      */
-    public function setSite(\NS\SentinelBundle\Entity\Site $site = null)
+    public function setSite(Site $site = null)
     {
         $this->site = $site;
 
@@ -1478,7 +1483,19 @@ class Meningitis
 
     public function setCaseId($caseId)
     {
-        $this->caseId = $caseId;
+        if(is_null($caseId))
+            return; //throw new \Exception("CaseId is NULL!?? $caseId");
+
+        $tokens = explode('-',$caseId);
+        if(count($tokens) == 4 && !empty($tokens[4]))
+        {
+            $this->id  = (int)$tokens[3];
+            unset($tokens[3]);
+            $this->caseId = implode('-', $tokens).'-';
+        }
+        else
+            $this->caseId = $caseId;
+
         return $this;
     }
 

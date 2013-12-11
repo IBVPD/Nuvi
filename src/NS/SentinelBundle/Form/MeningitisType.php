@@ -110,7 +110,7 @@ class MeningitisType extends AbstractType
                             $user        = $sc->getToken()->getUser();
                             $sites       = $se->get('sites',array());
                             
-                            if(!$data->getId())
+                            if($data && !$data->getId())
                             {
                                 if(count($sites) == 0)
                                 {

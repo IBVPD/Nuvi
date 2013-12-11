@@ -19,7 +19,7 @@
 {{form_errors(form)}}
     <div class="column span1" >
         <div class="panel dataPanel">
-            <h3 class="panelTitle">Case Based Demographics</h3>
+            <h3 class="panelTitle">{{'Case Based Demographics'|trans}}</h3>
             <div class="panelContent">
                 {{form_row(form.dob)}}
                 {{form_row(form.gender)}}
@@ -29,7 +29,7 @@
 
     <div class="column span2" >
         <div class="panel dataPanel">
-            <h3 class="panelTitle">Vaccination History</h3>
+            <h3 class="panelTitle">{{'Vaccination History'|trans}}</h3>
             <div class="panelContent">
                 <table style="width: 100%;">
                     <tr>
@@ -53,7 +53,7 @@
 
     <div class="column span1">
         <div class="panel dataPanel">
-            <h3 class="panelTitle">Clinical Data</h3>
+            <h3 class="panelTitle">{{'Clinical Data'|trans}}</h3>
             <div class="panelContent">
                 {{form_row(form.admDate)}}
                 {{form_row(form.admDx)}}
@@ -65,7 +65,7 @@
 <div class="layoutSection">
     <div class="column span2">
         <div class="panel dataPanel">
-            <h3 class="panelTitle">Meningigtis</h3>
+            <h3 class="panelTitle">{{'Meningigtis'|trans}}</h3>
             <div class="panelContent">
                 <table style="width: 100%;">
                     <tr>
@@ -90,7 +90,7 @@
     </div>
     <div class="column span2">
         <div class="panel dataPanel">
-            <h3 class="panelTitle">Pneumonia / Sepsis</h3>
+            <h3 class="panelTitle">{{'Pneumonia / Sepsis'|trans}}</h3>
             <div class="panelContent">
             {{form_row(form.pneuDiffBreathe)}}
             {{form_row(form.pneuChestIndraw)}}
@@ -105,7 +105,7 @@
 <div class="layoutSection">
     <div class="column span1">
         <div class="panel dataPanel">
-            <h3 class="panelTitle">Specimen Collection Data</h3>
+            <h3 class="panelTitle">{{'Specimen Collection Data'|trans}}</h3>
             <div class="panelContent">
             {{form_row(form.csfCollected)}}
             {{form_row(form.csfCollectDateTime)}}
@@ -117,7 +117,7 @@
     </div>
     <div class="column span3">
         <div class="panel dataPanel">
-            <h3 class="panelTitle">Lab Data</h3>
+            <h3 class="panelTitle">{{'Lab Data'|trans}}</h3>
             <div class="panelContent">
                 <table style="width: 100%;">
                     <tr>
@@ -157,11 +157,11 @@
 <div class="layoutSection">
     <div class="column span4">
         <div class="panel dataPanel">
-            <h3 class="panelTitle">Outcoume Data</h3>
+            <h3 class="panelTitle">{{'Outcoume Data'|trans}}</h3>
             <div class="panelContent">
                 {{form_rest(form)}}
                 <div class="formRow">
-                    <button type="submit">Save</button>
+                    <button type="submit">{{'Save'|trans}}</button>
                 </div>
             </div>
         </div>

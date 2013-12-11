@@ -108,4 +108,31 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
 
         return $this->secure($qb)->getQuery()->getResult(Query::HYDRATE_ARRAY);
     }
+    
+    public function get($id)
+    {
+        $qb = $this->_em->createQueryBuilder()
+                        ->select('m,s,c,r')
+                        ->from($this->getClassName(),'m')
+                        ->innerJoin('m.site', 's')
+                        ->innerJoin('s.country', 'c')
+                        ->innerJoin('m.region', 'r');
+
+        if(is_numeric($id))
+            $qb->where('m.id = :id')->setParameter('id',$id);
+        else if(is_string($id))
+        {
+            $tokens = explode('-',$id);
+            $id  = (int)$tokens[3];
+            unset($tokens[3]);
+            $cId = implode('-', $tokens).'-';
+
+            $qb->where('m.id = :id AND m.caseId = :caseId')
+               ->setParameters(array('id' => $id, 'caseId' => $cId));
+        }
+        else
+            throw new \UnexpectedValueException("$id is neither an number nor string");
+        
+        return $this->secure($qb)->getQuery()->getSingleResult();
+    }
 }
