@@ -97,7 +97,17 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
 
         return $this->secure($qb)->getQuery()->getResult(Query::HYDRATE_ARRAY);
     }
-    
+
+    public function getByDiagnosis()
+    {
+        $qb = $this->_em->createQueryBuilder()
+                   ->select('COUNT(m) as numberOfCases, partial m.{id,dischDx}')
+                   ->from($this->getClassName(),'m')
+                   ->groupBy('m.dischDx');
+
+        return $this->secure($qb)->getQuery()->getResult(Query::HYDRATE_ARRAY);
+    }
+
     public function getBySite()
     {
         $qb = $this->_em->createQueryBuilder()

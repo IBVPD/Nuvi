@@ -98,6 +98,7 @@ class MeningitisController extends Controller
      */
     public function ajaxAutoComplete()
     {
-        return $this->get('ns.ajax_autocompleter')->getAutocomplete('NSSentinelBundle:Meningitis','caseId');
+        return $this->get('ns.ajax_autocompleter')
+                    ->getAutocomplete('NSSentinelBundle:Meningitis','caseId');
     }
 }

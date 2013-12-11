@@ -10,6 +10,7 @@ use \Symfony\Component\DependencyInjection\ContainerInterface;
 use \NS\SentinelBundle\Entity\Meningitis;
 use \NS\SentinelBundle\Form\Types\TripleChoice;
 use \NS\SentinelBundle\Form\Types\Gender;
+use \NS\SentinelBundle\Form\Types\Diagnosis;
 
 class LoadMeningitisCaseData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
@@ -33,6 +34,10 @@ class LoadMeningitisCaseData extends AbstractFixture implements OrderedFixtureIn
         $mx    = $this->getReference('site-mexico');
         $male  = new Gender(Gender::MALE);
         $fmale = new Gender(Gender::FEMALE);
+        $dx[]  = new Diagnosis(Diagnosis::MENINGITIS);
+        $dx[]   = new Diagnosis(Diagnosis::PNEUMONIA);
+        $dx[]   = new Diagnosis(Diagnosis::SEPSIS);
+        $dx[]   = new Diagnosis(Diagnosis::OTHER);
 
         for($x = 0; $x < 2700; $x++)
         {
@@ -44,6 +49,9 @@ class LoadMeningitisCaseData extends AbstractFixture implements OrderedFixtureIn
             $m->setCxrDone(($x%5) == 0 ? $done:$nDone);
 
             $m->setGender(($x%7)?$fmale:$male);
+
+            $dxKey = array_rand($dx);
+            $m->setDischDx($dx[$dxKey]);
 
             if(($x % 3) == 0 )
                 $m->setSite($a);
