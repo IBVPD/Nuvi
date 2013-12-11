@@ -187,6 +187,10 @@
                         <td><strong>{{'meningitis-form.comment'|trans}}</strong>: {{record.nmSerogroup}}</td>
                     </tr>
                 </table>
+                <div class="formRow alignRight">
+                    <a class="button cancel" href="{{path('meningitisIndex')}}">{{'Return To List'|trans}}</a>
+                    <a class="button" href="{{path('meningitisEdit',{'id':record.id})}}">{{'Edit'|trans}}</a>
+                </div>
             </div>
         </div>
     </div>
