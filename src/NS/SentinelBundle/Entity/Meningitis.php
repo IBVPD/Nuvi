@@ -46,6 +46,11 @@ class Meningitis
     private $caseId;
 
     /**
+     * @ORM\OneToOne(targetEntity="MeningitisLab")
+     */
+    private $lab;
+
+    /**
      * @var Region $region
      * @ORM\ManyToOne(targetEntity="Region",inversedBy="cases")
      */
@@ -1502,5 +1507,28 @@ class Meningitis
     public function getCaseId()
     {
         return $this->caseId . str_pad($this->id, 6, "0", STR_PAD_LEFT);
+    }
+
+    /**
+     * Set lab
+     *
+     * @param \NS\SentinelBundle\Entity\MeningitisLab $lab
+     * @return Meningitis
+     */
+    public function setLab(\NS\SentinelBundle\Entity\MeningitisLab $lab = null)
+    {
+        $this->lab = $lab;
+    
+        return $this;
+    }
+
+    /**
+     * Get lab
+     *
+     * @return \NS\SentinelBundle\Entity\MeningitisLab 
+     */
+    public function getLab()
+    {
+        return $this->lab;
     }
 }
