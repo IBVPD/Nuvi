@@ -68,6 +68,7 @@ class UserAdmin extends Admin
                            'second_options'  => array('label' => 'Repeat Password'),
                            )
                        )
+            ->add('isActive')
             ->add('acls', 'sonata_type_collection', array('by_reference'=>true),array('edit'=>'inline','inline'=>'table'))
         ;
     }

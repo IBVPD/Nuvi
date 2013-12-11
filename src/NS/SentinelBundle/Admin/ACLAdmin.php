@@ -17,8 +17,6 @@ class ACLAdmin extends Admin
     {
         $datagridMapper
             ->add('type','role')
-            ->add('valid_from','datepicker',array('required'=>false))
-            ->add('valid_to','datepicker',array('required'=>false))
         ;
     }
 
@@ -30,8 +28,6 @@ class ACLAdmin extends Admin
         $listMapper
             ->add('type')
             ->add('object_id')
-            ->add('valid_from')
-            ->add('valid_to')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -57,8 +53,6 @@ class ACLAdmin extends Admin
                                                         'required'            => false,
                                                         'use_datatransformer' => true,
                                                         'secondary-field'     => array('s' => 'object_id','r' => 'type')))    
-            ->add('valid_from','datepicker')
-            ->add('valid_to','datepicker')
         ;
     }
 
@@ -68,11 +62,8 @@ class ACLAdmin extends Admin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('id')
-            ->add('user_id')
+            ->add('user')
             ->add('object_id')
-            ->add('valid_from')
-            ->add('valid_to')
             ->add('type')
         ;
     }
