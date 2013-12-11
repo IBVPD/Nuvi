@@ -46,7 +46,7 @@ class Meningitis
     private $caseId;
 
     /**
-     * @ORM\OneToOne(targetEntity="MeningitisLab")
+     * @ORM\OneToOne(targetEntity="ReferenceLab")
      */
     private $lab;
 
@@ -372,6 +372,11 @@ class Meningitis
      * @ORM\Column(name="otherTestDone",type="TripleChoice",nullable=true)
      */
     private $otherTestDone;
+
+    /**
+     * @var LatResult $csfCultResult
+     * @ORM\Column(name="csfCultResult",type="LatResult",nullable=true)
+     */
     private $csfCultResult;
 
     /**
@@ -379,18 +384,83 @@ class Meningitis
      * @ORM\Column(name="csfCultOther",type="string",nullable=true)
      */
     private $csfCultOther;
+
+    /**
+     *
+     * @var GramStain
+     * @ORM\Column(name="csfGramResult",type="GramStain",nullable=true)
+     */
     private $csfGramResult;
+    
+    /**
+     * @var BinaxResult
+     * @ORM\Column(name="csfBinaxResult",type="BinaxResult",nullable=true)
+     */
     private $csfBinaxResult;
+    
+    /**
+     * @var LatResult
+     * @ORM\Column(name="csfLatResult",type="LatResult",nullable=true)
+     */
     private $csfLatResult;
+    
+    /**
+     * @var string
+     * @ORM\Column(name="csfLatOther",type="string",nullable=true)
+     */
     private $csfLatOther;
+    
+    /**
+     * @var PCRResult
+     * @ORM\Column(name="csfPcrResult",type="PCRResult",nullable=true)
+     */
     private $csfPcrResult;
+
+    /**
+     * @var LatResult
+     * @ORM\Column(name="bloodCultResult",type="LatResult",nullable=true)
+     */
     private $bloodCultResult;
+
+    /**
+     * @var string
+     * @ORM\Column(name="bloodCultOther",type="string",nullable=true)
+     */
     private $bloodCultOther;
+
+    /**
+     * @var GramStain
+     * @ORM\Column(name="bloodGramResult",type="GramStain",nullable=true)
+     */
     private $bloodGramResult;
+    /**
+     * @var PCRResult
+     * @ORM\Column(name="bloodPcrResult",type="PCRResult",nullable=true)
+     */
     private $bloodPcrResult;
+
+    /**
+     * @var LatResult
+     * @ORM\Column(name="otherCultResult",type="LatResult",nullable=true)
+     */
     private $otherCultResult;
+
+    /**
+     * @var string
+     * @ORM\Column(name="otherCultOther",type="string",nullable=true)
+     */
     private $otherCultOther;
+
+    /**
+     * @var PCRResult
+     * @ORM\Column(name="otherTestResult",type="PCRResult",nullable=true)
+     */    
     private $otherTestResult;
+    
+    /**
+     * @var string
+     * @ORM\Column(name="otherTestOther",type="string",nullable=true)
+     */
     private $otherTestOther;
 
     /**
@@ -404,7 +474,17 @@ class Meningitis
      * @ORM\Column(name="rrlIsoDate",type="date",nullable=true)
      */
     private $rrlIsolDate;
+
+    /**
+     * @var TripleChoice $csfStore
+     * @ORM\Column(name="csfStore",type="TripleChoice",nullable=true)
+     */
     private $csfStore;
+    
+    /**
+     * @var TripleChoice $csfStore
+     * @ORM\Column(name="isolStore",type="TripleChoice",nullable=true)
+     */
     private $isolStore;
 
     /**
@@ -1512,10 +1592,10 @@ class Meningitis
     /**
      * Set lab
      *
-     * @param \NS\SentinelBundle\Entity\MeningitisLab $lab
+     * @param \NS\SentinelBundle\Entity\ReferenceLab $lab
      * @return Meningitis
      */
-    public function setLab(\NS\SentinelBundle\Entity\MeningitisLab $lab = null)
+    public function setLab(\NS\SentinelBundle\Entity\ReferenceLab $lab = null)
     {
         $this->lab = $lab;
     
@@ -1525,7 +1605,7 @@ class Meningitis
     /**
      * Get lab
      *
-     * @return \NS\SentinelBundle\Entity\MeningitisLab 
+     * @return \NS\SentinelBundle\Entity\ReferenceLab 
      */
     public function getLab()
     {

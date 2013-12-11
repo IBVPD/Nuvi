@@ -68,6 +68,15 @@ doctrine:
             Role: NS\SentinelBundle\Entity\Types\Role
             Gender: NS\SentinelBundle\Entity\Types\Gender
             GAVIEligible: NS\SentinelBundle\Entity\Types\GAVIEligible
+            BinaxResult: NS\SentinelBundle\Entity\Types\BinaxResult
+            LatResult: NS\SentinelBundle\Entity\Types\LatResult
+            PCRResult: NS\SentinelBundle\Entity\Types\PCRResult
+            GramStain: NS\SentinelBundle\Entity\Types\GramStain
+            IsolateType: NS\SentinelBundle\Entity\Types\IsolateType
+            SampleType: NS\SentinelBundle\Entity\Types\SampleType
+            Volume: NS\SentinelBundle\Entity\Types\Volume
+            SerotypeIdentifier: NS\SentinelBundle\Entity\Types\SerotypeIdentifier
+            PathogenIdentifier: NS\SentinelBundle\Entity\Types\PathogenIdentifier
         mapping_types:
             TripleChoice: TripleChoice
             Doses: Doses
@@ -78,6 +87,15 @@ doctrine:
             Role: Role
             Gender: Gender
             GAVIEligible: GAVIEligible
+            BinaxResult: BinaxResult
+            LatResult: LatResult
+            PCRResult: PCRResult
+            GramStain: GramStain
+            IsolateType: IsolateType
+            SampleType: SampleType
+            Volume: Volume
+            SerotypeIdentifier: SerotypeIdentifier
+            PathogenIdentifier: PathogenIdentifier
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true

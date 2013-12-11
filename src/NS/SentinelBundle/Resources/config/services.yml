@@ -26,6 +26,35 @@ services:
       arguments: [ "@security.context", "@session", "@doctrine.orm.entity_manager" ]
       tags:
         - { name: form.type, alias: meningitis }
+    
+    ns.sentinel.form.type.pathogenidentifier:
+      class: NS\SentinelBundle\Form\Types\PathogenIdentifier
+      tags:
+        - { name: form.type, alias: PathogenIdentifier }
+    ns.sentinel.form.type.serotypeidentifier:
+      class: NS\SentinelBundle\Form\Types\SerotypeIdentifier
+      tags:
+        - { name: form.type, alias: SerotypeIdentifier }
+    ns.sentinel.form.type.volume:
+      class: NS\SentinelBundle\Form\Types\Volume
+      tags:
+        - { name: form.type, alias: Volume }
+    ns.sentinel.form.type.sampletype:
+      class: NS\SentinelBundle\Form\Types\SampleType
+      tags:
+        - { name: form.type, alias: SampleType }
+    ns.sentinel.form.type.isolatetype:
+      class: NS\SentinelBundle\Form\Types\IsolateType
+      tags:
+        - { name: form.type, alias: IsolateType }
+    ns.sentinel.form.type.latresult:
+      class: NS\SentinelBundle\Form\Types\LatResult
+      tags:
+        - { name: form.type, alias: LatResult }
+    ns.sentinel.form.type.binaxresult:
+      class: NS\SentinelBundle\Form\Types\BinaxResult
+      tags:
+        - { name: form.type, alias: BinaxResult }
     ns.sentinel.form.type.gavi:
       class: NS\SentinelBundle\Form\Types\GAVIEligible
       tags:
