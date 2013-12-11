@@ -6,9 +6,11 @@
         <div class="panel dataPanel">
             <h3 class="panelTitle">{{'Case Based Demographics'|trans}}</h3>
             <div class="panelContent">
-                <strong>{{'meningitis-form.caseId'|trans}}</strong>: {{record.caseId}}<br />
-                <strong>{{'meningitis-form.'|trans}}{{record.dob|date}}<br />
-                <strong>{{'meningitis-form.'|trans}}{{record.gender}}<br />
+                <table>
+                    <tr><td><strong>{{'meningitis-form.caseId'|trans}}</strong>: {{record.caseId}}</td></tr>
+                    <tr><td><strong>{{'meningitis-form.dob'|trans}}</strong>: {{record.dob|date}}</td></tr>
+                    <tr><td><strong>{{'meningitis-form.gender'|trans}}</strong>: {{record.gender}}</td></tr>
+                </table>
             </div>
         </div>
     </div>
@@ -20,10 +22,10 @@
                 <table style="width: 100%;">
                     <tr>
                         <td>
-                            <strong>{{'meningitis-form.hibReceived'|trans}}</strong>: {{record.hibReceived}}<br />
-                            <strong>{{'meningitis-form.hibDoses'|trans}}</strong>: {{record.hibDoses}}<br />
-                            <strong>{{'meningitis-form.pcvReceived'|trans}}</strong>: {{record.pcvReceived}}<br />
-                            <strong>{{'meningitis-form.pcvDoses'|trans}}</strong>: {{record.pcvDoses}}<br />
+                            <strong>{{'meningitis-form.hib-received'|trans}}</strong>: {{record.hibReceived}}<br />
+                            <strong>{{'meningitis-form.hib-doses'|trans}}</strong>: {{record.hibDoses}}<br />
+                            <strong>{{'meningitis-form.pcv-received'|trans}}</strong>: {{record.pcvReceived}}<br />
+                            <strong>{{'meningitis-form.pcv-doses'|trans}}</strong>: {{record.pcvDoses}}<br />
                         </td>
                         <td>
                             <strong>{{'meningitis-form.mening-received'|trans}}</strong>: {{record.meningReceived}}<br />
@@ -41,9 +43,11 @@
         <div class="panel dataPanel">
             <h3 class="panelTitle">{{'Clinical Data'|trans}}</h3>
             <div class="panelContent">
-                <strong>{{'meningitis-form.admDate'|trans}}</strong>: {{record.admDate|date}}<br />
-                <strong>{{'meningitis-form.admDx'|trans}}</strong>: {{record.admDx}}<br />
-                <strong>{{'meningitis-form.admDxOther'|trans}}</strong>: {{record.admDxOther}}<br />
+                <table>
+                    <tr><td><strong>{{'meningitis-form.adm-date'|trans}}</strong>: {{record.admDate|date}}</td></tr>
+                    <tr><td><strong>{{'meningitis-form.adm-dx'|trans}}</strong>: {{record.admDx}}</td></tr>
+                    <tr><td><strong>{{'meningitis-form.adm-dx-other'|trans}}</strong>: {{record.admDxOther}}</td></tr>    
+                </table>
             </div>
         </div>
     </div>
@@ -56,20 +60,20 @@
                 <table style="width: 100%;">
                     <tr>
                         <td>
-                            <strong>{{'meningitis-form.menSeizures'|trans}}</strong>: {{record.menSeizures}}<br />
-                            <strong>{{'meningitis-form.menFever'|trans}}</strong>: {{record.menFever}}<br />
-                            <strong>{{'meningitis-form.menAltConscious'|trans}}</strong>: {{record.menAltConscious}}<br />
-                            <strong>{{'meningitis-form.menInabilityFeed'|trans}}</strong>: {{record.menInabilityFeed}}<br />
-                            <strong>{{'meningitis-form.menStridor'|trans}}</strong>: {{record.menStridor}}<br />
-                            <strong>{{'meningitis-form.menNeckStiff'|trans}}</strong>: {{record.menNeckStiff}}<br />
+                            <strong>{{'meningitis-form.men-seizures'|trans}}</strong>: {{record.menSeizures}}<br />
+                            <strong>{{'meningitis-form.men-fever'|trans}}</strong>: {{record.menFever}}<br />
+                            <strong>{{'meningitis-form.men-alt-conscious'|trans}}</strong>: {{record.menAltConscious}}<br />
+                            <strong>{{'meningitis-form.men-inability-feed'|trans}}</strong>: {{record.menInabilityFeed}}<br />
+                            <strong>{{'meningitis-form.men-stridor'|trans}}</strong>: {{record.menStridor}}<br />
+                            <strong>{{'meningitis-form.men-neck-stiff'|trans}}</strong>: {{record.menNeckStiff}}<br />
                         </td>
                         <td>
-                            <strong>{{'meningitis-form.menRash'|trans}}</strong>: {{record.menRash}}<br />
-                            <strong>{{'meningitis-form.menFontanelleBulge'|trans}}</strong>: {{record.menFontanelleBulge}}<br />
-                            <strong>{{'meningitis-form.menLethargy'|trans}}</strong>: {{record.menLethargy}}<br />
-                            <strong>{{'meningitis-form.menPoorSucking'|trans}}</strong>: {{record.menPoorSucking}}<br />
-                            <strong>{{'meningitis-form.menIrritability'|trans}}</strong>: {{record.menIrritability}}<br />
-                            <strong>{{'meningitis-form.menSymptomOther'|trans}}</strong>: {{record.menSymptomOther}}<br />
+                            <strong>{{'meningitis-form.men-rash'|trans}}</strong>: {{record.menRash}}<br />
+                            <strong>{{'meningitis-form.men-fontanelle-bulge'|trans}}</strong>: {{record.menFontanelleBulge}}<br />
+                            <strong>{{'meningitis-form.men-lethargy'|trans}}</strong>: {{record.menLethargy}}<br />
+                            <strong>{{'meningitis-form.men-poor-sucking'|trans}}</strong>: {{record.menPoorSucking}}<br />
+                            <strong>{{'meningitis-form.men-irritability'|trans}}</strong>: {{record.menIrritability}}<br />
+                            <strong>{{'meningitis-form.men-symptom-other'|trans}}</strong>: {{record.menSymptomOther}}<br />
                         </td>
                     </tr>
                 </table>
@@ -80,12 +84,26 @@
         <div class="panel dataPanel">
             <h3 class="panelTitle">{{'Pneumonia / Sepsis'|trans}}</h3>
             <div class="panelContent">
-            <strong>{{'meningitis-form.pneuDiffBreathe'|trans}}</strong>: {{record.pneuDiffBreathe}}<br />
-            <strong>{{'meningitis-form.pneuChestIndraw'|trans}}</strong>: {{record.pneuChestIndraw}}<br />
-            <strong>{{'meningitis-form.pneuCough'|trans}}</strong>: {{record.pneuCough}}<br />
-            <strong>{{'meningitis-form.pneuCyanosis'|trans}}</strong>: {{record.pneuCyanosis}}<br />
-            <strong>{{'meningitis-form.pneuRespRate'|trans}}</strong>: {{record.pneuRespRate}}<br />
-            <strong>{{'meningitis-form.pneuSymptomOther'|trans}}</strong>: {{record.pneuSymptomOther}}<br />
+                <table>
+                    <tr>
+                        <td><strong>{{'meningitis-form.pneu-diff-breathe'|trans}}</strong>: {{record.pneuDiffBreathe}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{'meningitis-form.pneu-chest-indraw'|trans}}</strong>: {{record.pneuChestIndraw}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{'meningitis-form.pneu-cough'|trans}}</strong>: {{record.pneuCough}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{'meningitis-form.pneu-cyanosis'|trans}}</strong>: {{record.pneuCyanosis}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{'meningitis-form.pneu-respRate'|trans}}</strong>: {{record.pneuRespRate}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{'meningitis-form.pneu-symptom-other'|trans}}</strong>: {{record.pneuSymptomOther}}</td>
+                    </tr>                    
+                </table>
             </div>
         </div>
     </div>
@@ -95,11 +113,13 @@
         <div class="panel dataPanel">
             <h3 class="panelTitle">{{'Specimen Collection Data'|trans}}</h3>
             <div class="panelContent">
-            <strong>{{'meningitis-form.csfCollected'|trans}}</strong>: {{record.csfCollected}}<br />
-            <strong>{{'meningitis-form.csfCollectDateTime'|trans}}</strong>: {{record.csfCollectDateTime|date}}<br />
-            <strong>{{'meningitis-form.csfAppearance'|trans}}</strong>: {{record.csfAppearance}}<br />
-            <strong>{{'meningitis-form.csfLabDateTime'|trans}}</strong>: {{record.csfLabDateTime|date}}<br />
-            <strong>{{'meningitis-form.bloodCollected'|trans}}</strong>: {{record.bloodCollected}}<br />
+                <table>
+                    <tr><td><strong>{{'meningitis-form.csf-collected'|trans}}</strong>: {{record.csfCollected}}</td></tr>
+                    <tr><td><strong>{{'meningitis-form.csf-collect-datetime'|trans}}</strong>: {{record.csfCollectDateTime|date}}</td></tr>
+                    <tr><td><strong>{{'meningitis-form.csf-appearance'|trans}}</strong>: {{record.csfAppearance}}</td></tr>
+                    <tr><td><strong>{{'meningitis-form.csf-lab-datetime'|trans}}</strong>: {{record.csfLabDateTime|date}}</td></tr>
+                    <tr><td><strong>{{'meningitis-form.blood-collected'|trans}}</strong>: {{record.bloodCollected}}</td></tr>
+                </table>
             </div>
         </div>
     </div>
@@ -110,30 +130,30 @@
                 <table style="width: 100%;">
                     <tr>
                         <td style="vertical-align: top;">
-                            <strong>{{'meningitis-form.csfWcc'|trans}}</strong>: {{record.csfWcc}}<br />
-                            <strong>{{'meningitis-form.csfGlucose'|trans}}</strong>: {{record.csfGlucose}}<br />
-                            <strong>{{'meningitis-form.csfProtein'|trans}}</strong>: {{record.csfProtein}}<br />
-                            <strong>{{'meningitis-form.csfCultDone'|trans}}</strong>: {{record.csfCultDone}}<br />
-                            <strong>{{'meningitis-form.csfGramDone'|trans}}</strong>: {{record.csfGramDone}}<br />
-                            <strong>{{'meningitis-form.csfBinaxDone'|trans}}</strong>: {{record.csfBinaxDone}}<br />
-                            <strong>{{'meningitis-form.csfLatDone'|trans}}</strong>: {{record.csfLatDone}}<br />
-                            <strong>{{'meningitis-form.csfPcrDone'|trans}}</strong>: {{record.csfPcrDone}}<br />
+                            <strong>{{'meningitis-form.csf-wcc'|trans}}</strong>: {{record.csfWcc}}<br />
+                            <strong>{{'meningitis-form.csf-glucose'|trans}}</strong>: {{record.csfGlucose}}<br />
+                            <strong>{{'meningitis-form.csf-protein'|trans}}</strong>: {{record.csfProtein}}<br />
+                            <strong>{{'meningitis-form.csf-cult-done'|trans}}</strong>: {{record.csfCultDone}}<br />
+                            <strong>{{'meningitis-form.csf-gram-done'|trans}}</strong>: {{record.csfGramDone}}<br />
+                            <strong>{{'meningitis-form.csf-binax-done'|trans}}</strong>: {{record.csfBinaxDone}}<br />
+                            <strong>{{'meningitis-form.csf-lat-done'|trans}}</strong>: {{record.csfLatDone}}<br />
+                            <strong>{{'meningitis-form.csf-pcr-done'|trans}}</strong>: {{record.csfPcrDone}}<br />
                         </td>
                         <td style="vertical-align: top;">
-                            <strong>{{'meningitis-form.bloodCultDone'|trans}}</strong>: {{record.bloodCultDone}}<br />
-                            <strong>{{'meningitis-form.bloodGramDone'|trans}}</strong>: {{record.bloodGramDone}}<br />
-                            <strong>{{'meningitis-form.bloodPcrDone'|trans}}</strong>: {{record.bloodPcrDone}}<br />
-                            <strong>{{'meningitis-form.otherCultDone'|trans}}</strong>: {{record.otherCultDone}}<br />
-                            <strong>{{'meningitis-form.otherTestDone'|trans}}</strong>: {{record.otherTestDone}}<br />
-                            <strong>{{'meningitis-form.csfCultOther'|trans}}</strong>: {{record.csfCultOther}}<br />
+                            <strong>{{'meningitis-form.blood-cult-done'|trans}}</strong>: {{record.bloodCultDone}}<br />
+                            <strong>{{'meningitis-form.blood-gram-done'|trans}}</strong>: {{record.bloodGramDone}}<br />
+                            <strong>{{'meningitis-form.blood-pcr-done'|trans}}</strong>: {{record.bloodPcrDone}}<br />
+                            <strong>{{'meningitis-form.other-cult-done'|trans}}</strong>: {{record.otherCultDone}}<br />
+                            <strong>{{'meningitis-form.other-test-done'|trans}}</strong>: {{record.otherTestDone}}<br />
+                            <strong>{{'meningitis-form.csf-cult-other'|trans}}</strong>: {{record.csfCultOther}}<br />
                         </td>
                         <td style="vertical-align: top;">
-                            <strong>{{'meningitis-form.rrlCsfDate'|trans}}</strong>: {{record.rrlCsfDate|date}}<br />
-                            <strong>{{'meningitis-form.rrlIsolDate'|trans}}</strong>: {{record.rrlIsolDate|date}}<br />
-                            <strong>{{'meningitis-form.rrlName'|trans}}</strong>: {{record.rrlName}}<br />
-                            <strong>{{'meningitis-form.spnSerotype'|trans}}</strong>: {{record.spnSerotype}}<br />
-                            <strong>{{'meningitis-form.hiSerotype'|trans}}</strong>: {{record.hiSerotype}}<br />
-                            <strong>{{'meningitis-form.nmSerogroup'|trans}}</strong>: {{record.nmSerogroup}}<br />
+                            <strong>{{'meningitis-form.rrl-csf-date'|trans}}</strong>: {{record.rrlCsfDate|date}}<br />
+                            <strong>{{'meningitis-form.rrl-isol-date'|trans}}</strong>: {{record.rrlIsolDate|date}}<br />
+                            <strong>{{'meningitis-form.rrl-name'|trans}}</strong>: {{record.rrlName}}<br />
+                            <strong>{{'meningitis-form.spn-serotype'|trans}}</strong>: {{record.spnSerotype}}<br />
+                            <strong>{{'meningitis-form.hi-serotype'|trans}}</strong>: {{record.hiSerotype}}<br />
+                            <strong>{{'meningitis-form.nm-serogroup'|trans}}</strong>: {{record.nmSerogroup}}<br />
                         </td>
                     </tr>
                 </table>
@@ -147,15 +167,28 @@
         <div class="panel dataPanel">
             <h3 class="panelTitle">{{'Outcoume Data'|trans}}</h3>
             <div class="panelContent">
-                <strong>{{'meningitis-form.cxr-done'|trans}}</strong>: {{record.rrlCsfDate|date}}<br />
-                <strong>{{'meningitis-form.cxr-result'|trans}}</strong>: {{record.rrlIsolDate|date}}<br />
-                <strong>{{'meningitis-form.discharge-outcome'|trans}}</strong>: {{record.rrlName}}<br />
-                <strong>{{'meningitis-form.discharge-diagnosis'|trans}}</strong>: {{record.spnSerotype}}<br />
-                <strong>{{'meningitis-form.discharge-sequelae'|trans}}</strong>: {{record.hiSerotype}}<br />
-                <strong>{{'meningitis-form.comment'|trans}}</strong>: {{record.nmSerogroup}}<br />                
+                <table>
+                    <tr>
+                        <td><strong>{{'meningitis-form.cxr-done'|trans}}</strong>: {{record.rrlCsfDate|date}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{'meningitis-form.cxr-result'|trans}}</strong>: {{record.rrlIsolDate|date}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{'meningitis-form.discharge-outcome'|trans}}</strong>: {{record.rrlName}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{'meningitis-form.discharge-diagnosis'|trans}}</strong>: {{record.spnSerotype}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{'meningitis-form.discharge-sequelae'|trans}}</strong>: {{record.hiSerotype}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{'meningitis-form.comment'|trans}}</strong>: {{record.nmSerogroup}}</td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
 </div>
-</form>
 {% endblock %}
