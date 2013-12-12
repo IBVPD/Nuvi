@@ -7,11 +7,25 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use \Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use \Symfony\Component\Security\Core\SecurityContextInterface;
 
 class UserAdmin extends Admin
 {
 //    protected $baseRouteName = 'Users';
 //    protected $baseRoutePattern = 'Users';
+    private $factory;
+
+    public function setEncoderFactory(EncoderFactoryInterface $factory )
+    {
+        $this->factory = $factory;
+    }
+
+    private $securityContext;
+    public function setSecurityContext(SecurityContextInterface $sc )
+    {
+        $this->securityContext = $sc;
+    }
 
     public function getTemplate($name)
     {
@@ -84,13 +98,6 @@ class UserAdmin extends Admin
         ;
     }
 
-    private $factory;
-
-    public function setEncoderFactory( $factory )
-    {
-        $this->factory = $factory;
-    }
-
     public function prePersist($user)
     {
         $encoder = $this->factory->getEncoder($user);
@@ -125,5 +132,18 @@ class UserAdmin extends Admin
         
         return $user;
     }
-    
+
+    public function createQuery($context = 'list')
+    {
+        $query   = parent::createQuery($context);
+        $role    = new \NS\SentinelBundle\Form\Types\Role();
+        $highest = $role->getHighest($this->securityContext->getToken()->getRoles());
+
+        $ralias = $query->getRootAlias();
+        $query->innerJoin("$ralias.acls",'a')
+              ->where('a.type >= :type')
+              ->setParameter('type',$highest);
+
+        return $query;
+    }
 }

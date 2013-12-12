@@ -18,12 +18,14 @@ class Role extends ArrayChoice
     const COUNTRY = 2;
     const SITE    = 3;
     const LAB     = 4;
+    const RRL_LAB = 5;
 
     protected $values = array(
                                 self::REGION     => 'Region',
                                 self::COUNTRY    => 'Country',
                                 self::SITE       => 'Site',
                                 self::LAB        => 'Lab',
+                                self::RRL_LAB    => 'RRL',
                              );
 
     protected $rolemapping = array(
@@ -31,6 +33,7 @@ class Role extends ArrayChoice
                                 'ROLE_COUNTRY'  => self::COUNTRY,
                                 'ROLE_SITE'     => self::SITE,
                                 'ROLE_LAB'      => self::LAB,
+                                'ROLE_RRL_LAB'  => self::RRL_LAB,
                               );
     
     public function __construct($value = null)
@@ -55,19 +58,16 @@ class Role extends ArrayChoice
     {
         switch($this->current)
         {
-            case self::REGION;
+            case self::REGION:
                 return array('ROLE_REGION');
-                break;
-            case self::COUNTRY;
+            case self::COUNTRY:
                 return array('ROLE_COUNTRY');
-                break;
-            case self::SITE;
+            case self::SITE:
                 return array('ROLE_SITE');
-                break;
-            case self::LAB;
+            case self::LAB:
                 return array('ROLE_LAB');
-                break;
-
+            case self::RRL_LAB:
+                return array('ROLE_RRL_LAB');
             default:
                 return null;
         }
@@ -80,14 +80,12 @@ class Role extends ArrayChoice
         {
             case self::REGION:
                 return $class."\Region";
-                break;
             case self::COUNTRY:
                 return $class."\Country";
-                break;
+            case self::RRL_LAB:
             case self::LAB:
             case self::SITE:
                 return $class."\Site";
-                break;
             default:
                 return null;
         }
@@ -98,13 +96,49 @@ class Role extends ArrayChoice
         $this->_securityContext = $context;
     }
 
+    public function getHighest(array $roles)
+    {
+        $highest = null;
+
+        foreach($roles as $r)
+        {
+            if(isset($this->rolemapping[$r->getRole()]))
+            {
+                if($highest == null)
+                    $highest = $this->rolemapping[$r->getRole()];
+                else if ($highest > $this->rolemapping[$r->getRole()])//highest is actually 1...
+                    $highest = $this->rolemapping[$r->getRole()];
+            }
+        }
+
+        return $highest;
+    }
+
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         parent::setDefaultOptions($resolver);
-        $resolver->setDefaults(array(
-            'choices'     => $this->values,
-            'empty_value' => 'Please Select...',
-        ));
+
+        $highest = $this->getHighest($this->_securityContext->getToken()->getRoles());
+
+        if(!is_null($highest) && $highest != self::REGION)
+        {
+            $values = $this->values;
+            foreach($values as $k=>$v)
+            {
+                if($k < $highest)
+                    unset($values[$k]);
+            }
+
+            $resolver->setDefaults(array(
+                'choices'     => $values,
+                'empty_value' => 'Please Select...',
+            ));
+        }
+        else
+            $resolver->setDefaults(array(
+                'choices'     => $this->values,
+                'empty_value' => 'Please Select...',
+            ));
     }
 
     public function equal($to)

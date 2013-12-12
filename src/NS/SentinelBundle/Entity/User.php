@@ -11,7 +11,7 @@ use NS\SentinelBundle\Form\Types\Role;
 /**
  * User
  *
- * @ORM\Table(name="users")
+ * @ORM\Table(name="users",uniqueConstraints={@ORM\UniqueConstraint(name="email_idx",columns={"email"})})
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\User")
  */
 class User implements AdvancedUserInterface, SecuredEntityInterface

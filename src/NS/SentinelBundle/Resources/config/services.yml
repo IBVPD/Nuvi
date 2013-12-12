@@ -89,6 +89,8 @@ services:
         - { name: form.type, alias: CSFAppearance }
     ns.sentinel.form.type.role:
         class: NS\SentinelBundle\Form\Types\Role
+        calls:
+          - [ setSecurityContext, [ "@security.context" ] ]
         tags:
           - { name: form.type, alias: role }
     ns_sentinel.admin.region:
@@ -114,6 +116,7 @@ services:
         arguments: [~, NS\SentinelBundle\Entity\User, SonataAdminBundle:CRUD]
         calls:
             - [ setEncoderFactory, [ "@security.encoder_factory" ] ]
+            - [ setSecurityContext, [ "@security.context" ] ]
         tags:
             - {name: sonata.admin, manager_type: orm, group: Users, label: User}
 

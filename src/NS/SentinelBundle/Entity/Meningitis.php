@@ -46,7 +46,7 @@ class Meningitis
     private $caseId;
 
     /**
-     * @ORM\OneToOne(targetEntity="ReferenceLab")
+     * @ORM\OneToOne(targetEntity="ReferenceLab", inversedBy="case")
      */
     private $lab;
 
