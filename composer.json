@@ -29,6 +29,7 @@
         "sonata-project/doctrine-orm-admin-bundle": "~2.2",
         "sonata-project/intl-bundle": "~2.2",
         "sonata-project/exporter": "~1.1",
+	"sonata-project/core-bundle": "~2.2@dev",
 
         "ns/templates-bundle": "dev-master",
         "ns/util-bundle": "dev-master",
@@ -36,7 +37,8 @@
         "ns/security-bundle": "dev-master",
         "jms/di-extra-bundle": "~1.1",
         "doctrine/doctrine-fixtures-bundle": "dev-master",
-        "gedmo/doctrine-extensions": "2.2.x"
+        "gedmo/doctrine-extensions": "~2.3",
+        "stof/doctrine-extensions-bundle": "1.1.x-dev"
     },
     "scripts": {
         "post-install-cmd": [
