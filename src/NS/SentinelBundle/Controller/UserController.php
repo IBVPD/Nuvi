@@ -22,7 +22,7 @@ class UserController extends Controller
     {
         return array();
     }
-    
+
     /**
      * @Template()
      */
@@ -30,20 +30,20 @@ class UserController extends Controller
     {
         return array();
     }
-    
+
     /**
      * @Template()
      */
     public function siteDashboardAction()
     {
         return array();
-    }    
-    
+    }
+
     /**
      * @Template()
      */
     public function labDashboardAction()
     {
         return array();
-    }    
+    }
 }
