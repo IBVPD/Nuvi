@@ -156,6 +156,12 @@ jms_translation:
       excluded_dirs: [ cache, data, logs ]
       output_format: xliff
 
+stof_doctrine_extensions:
+  default_locale: en_US
+  orm:
+    default:
+      tree: true
+
 services:
   ns.form.types.autocomplete:
     class: NS\UtilBundle\Form\Types\Autocomplete
