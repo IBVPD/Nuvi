@@ -1,37 +1,57 @@
-{% extends "NSSentinelBundle::layout.html.twig" %}
+{% extends "NSAceBundle::login.html.twig" %}
 
 {% block body %}
-<div class="layoutSection">
-    <div class="column span2 offset1">
-        <div class="panel dataPanel">
-            <h3 class="panelTitle">{{'Login'|trans}}</h3>
-            <div class="panelContent">
-                <form  class="bookingForm" id="login_form" action="{{ path('login_check') }}" method="post">
-                    {% if error %}
-                        <p class="error">{{ error.message }}</p>
-                    {% endif %}
+<div class="login-container">
+    <div class="center">
+        <h1><i class="icon-leaf green"></i> <span class="red">NUVI</span> <span class="white">Sentinel</span></h1>
+        <h7 class="blue">&copy; New Level Thinking & Noblet Solutions</h7>
+    </div>
 
-                    <div class="formRow">
-                        <label for="username">{{'Email'|trans}}:</label>
-                        <input type="text" id="username" name="_username" required class="text" value="{{ last_username }}" />
+    <div class="space-6"></div>
+
+    <div class="position-relative">
+        <div id="login-box" class="login-box visible widget-box no-border">
+            <div class="widget-body">
+                 <div class="widget-main">
+                    <h4 class="header blue lighter bigger"><i class="icon-coffee green"></i> Please Enter Your Information</h4>
+                        <div class="space-6"></div>
+                        <form id="login_form" action="{{ path('login_check') }}" method="post">
+                            <fieldset>
+                                <label class="block clearfix">
+                                    <span class="block input-icon input-icon-right">
+                                        <input type="text" id="username" name="_username" required class="form-control" placeholder="Username / Email" value="{{ last_username }}" />
+                                        <i class="icon-user"></i>
+                                    </span>
+                                </label>
+
+                                <label class="block clearfix">
+                                    <span class="block input-icon input-icon-right">
+                                        <input type="password" class="form-control" required name="_password" placeholder="Password" />
+                                        <i class="icon-lock"></i>
+                                    </span>
+                                </label>
+
+                                <div class="space"></div>
+
+                                <div class="clearfix">
+<!--                                <label class="inline"><input type="checkbox" class="ace" /><span class="lbl"> Remember Me</span></label>-->
+                                    <button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
+                                        <i class="icon-key"></i>Login
+                                    </button>
+                                </div>
+
+                                <div class="space-4"></div>
+                            </fieldset>
+                        </form>
+                 </div><!--/widget-main-->
+
+                 <div class="toolbar clearfix">
+                    <div>
+                        <a href="#" class="forgot-password-link"><i class="icon-arrow-left"></i> I forgot my password</a>
                     </div>
-                    <div class="formRow">
-                        <label for="password">{{'Password'|trans}}:</label>
-                        <input type="password" id="password" class="text" required name="_password" />
-                    </div>
-                    <div class="formRow">
-                        <a class="panelSwitch fieldSwitch adminSwitch" data-target="admin_user_login">Admin</a>
-                        <div class="fieldExpander" id="admin_user_login">
-                            <label for="user_e">{{'User'|trans}}:</label>
-                            <input type="text" id="user_e" name="_user" class="text" />
-                        </div>
-                    </div>
-                    <div class="formRow">
-                        <button type="submit">{{'Login'|trans}}</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+                 </div>
+            </div><!--/widget-body-->
+        </div><!--/login-box-->
     </div>
 </div>
 {% endblock %}

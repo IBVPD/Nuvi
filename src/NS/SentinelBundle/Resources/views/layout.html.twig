@@ -1,36 +1,18 @@
-{%extends "NSTemplatesBundle::layout.html.twig" %}
+{%extends "NSAceBundle::base.html.twig" %}
 
-    {% block stylesheets %}
-        {{ parent() }}
-        <link rel="stylesheet" type="text/css" media="screen" href="/bundles/nssentinel/css/main.css" />
-        <link rel="stylesheet" type="text/css" media="screen" href="/bundles/nsutil/css/pikaday.css" />
-        <link rel="stylesheet" type="text/css" media="screen" href="/bundles/nsutil/css/autocomplete.css" />
-        <link rel="stylesheet" type="text/css" media="screen" href="/bundles/nsutil/css/clockpicker.css" />
-    {%endblock %}
-
-    {% block htmltitle %}
+    {% block sitebrand_text %}
+        NUVI Sentinel Network
+    {%endblock%}
+    {% block sitetitle %}
         WHO Sentinel Network
     {% endblock %}
-
-    {% block javascripts %}
-        {{ parent() }}
-        <script type="text/javascript" src="/bundles/nsutil/js/moment.min.js"></script>
-        <script type="text/javascript" src="/bundles/nsutil/js/pikaday.js"></script>
-        <script type="text/javascript" src="/bundles/nsutil/js/autocomplete.js"></script>
-        <script type="text/javascript" src="/bundles/nsutil/js/jda.utils.js"></script>
-        <script type="text/javascript" src="/bundles/nsutil/js/clockpicker.js"></script>
-        <script type="text/javascript" src="/bundles/nsutil/js/clockBuilder.js"></script>
-        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-        <script type="text/javascript">
-            google.load("visualization", "1", {packages:["corechart"]});
-            var google_charts   = new Array();
-        </script>
-        <script type="text/javascript" src="/bundles/nssentinel/js/charts.js"></script>
-        <script type="text/javascript" src="/bundles/nssentinel/js/main.js"></script>
-    {% endblock %}
         
-    {%block header %}
+    {%block sidenav_menu %}
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        {{ knp_menu_render('user') }}
+        {{ knp_menu_render('sidebar',{'template': 'NSAceBundle:Menu:menu.html.twig'}) }}
         {% endif %}
-    {% endblock %}        
+    {% endblock %}
+    
+    {% block topbar_user_menu%}
+        {{ knp_menu_render('user',{'template': 'NSAceBundle:Menu:menu.html.twig'}) }}
+    {% endblock %}

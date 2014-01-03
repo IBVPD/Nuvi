@@ -1,0 +1,23 @@
+parameters:
+#    ns_ace.example.class: NS\AceBundle\Example
+
+services:
+    ns_ace.form.type.switch:
+      class: NS\AceBundle\Form\SwitchType
+      tags:
+        - { name: form.type, alias: switch }
+
+    ns_ace.form.type.slider:
+      class: NS\AceBundle\Form\SliderType
+      tags:
+        - { name: form.type, alias: slider }
+
+    ns_ace.form.type.acedate:
+      class: NS\AceBundle\Form\DateType
+      tags:
+        - { name: form.type, alias: acedate }
+
+    ns_ace.form.type.acedatepicker:
+      class: NS\AceBundle\Form\DatePickerType
+      tags:
+        - { name: form.type, alias: acedatepicker }

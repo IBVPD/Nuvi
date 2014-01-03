@@ -32,7 +32,7 @@ class MeningitisType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('dob',null,array('required'=>false,'label'=>'meningitis-form.date-of-birth'))
+            ->add('dob','acedatepicker',array('required'=>false,'label'=>'meningitis-form.date-of-birth','widget'=>'single_text','format'=>'yyyy-MM-dd'))
             ->add('gender','Gender',array('required'=>false,'label'=>'meningitis-form.gender'))
             ->add('hibReceived','triple_choice',array('required'=>false,'label'=>'meningitis-form.hib-received'))
             ->add('hibDoses','Doses',array('required'=>false,'label'=>'meningitis-form.hib-doses'))
@@ -63,11 +63,11 @@ class MeningitisType extends AbstractType
             ->add('pneuCyanosis','triple_choice',array('required'=>false,'label'=>'meningitis-form.pneu-cyanosis'))
             ->add('pneuRespRate',null,array('required'=>false,'label'=>'meningitis-form.pneu-resp-rate'))
             ->add('pneuSymptomOther',null,array('required'=>false,'label'=>'meningitis-form.pneu-symptom-other'))
-            ->add('csfCollected',null,array('required'=>false,'label'=>'meningitis-form.csf-collected'))
-            ->add('csfCollectDateTime','dateclockpicker',array('required'=>false,'label'=>'meningitis-form.csf-collect-datetime'))
+            ->add('csfCollected','switch',array('required'=>false,'label'=>'meningitis-form.csf-collected','switchtype'=>2))
+            ->add('csfCollectDateTime','acedate',array('required'=>false,'label'=>'meningitis-form.csf-collect-datetime'))
             ->add('csfAppearance','CSFAppearance',array('required'=>false,'label'=>'meningitis-form.csf-appearance'))
             ->add('csfLabDateTime','dateclockpicker',array('required'=>false,'label'=>'meningitis-form.csf-lab-datetime'))
-            ->add('bloodCollected',null, array('required'=>false,'label'=>'meningitis-form.blood-collected'))
+            ->add('bloodCollected','switch', array('required'=>false,'label'=>'meningitis-form.blood-collected','switchtype'=>2))
             ->add('csfWcc',null,array('required'=>false,'label'=>'meningitis-form.csf-wcc'))
             ->add('csfGlucose',null,array('required'=>false,'label'=>'meningitis-form.csf-glucose'))
             ->add('csfProtein',null,array('required'=>false,'label'=>'meningitis-form.csf-protein'))

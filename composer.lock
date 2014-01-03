@@ -912,24 +912,29 @@
         },
         {
             "name": "jms/aop-bundle",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "target-dir": "JMS/AopBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/JMSAopBundle.git",
-                "reference": "8ef7db0043188f58da18f931937008f95b308921"
+                "reference": "93f41ab85ed409430bc3bab2e0b7c7677f152aa8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/JMSAopBundle/zipball/8ef7db0043188f58da18f931937008f95b308921",
-                "reference": "8ef7db0043188f58da18f931937008f95b308921",
+                "url": "https://api.github.com/repos/schmittjoh/JMSAopBundle/zipball/93f41ab85ed409430bc3bab2e0b7c7677f152aa8",
+                "reference": "93f41ab85ed409430bc3bab2e0b7c7677f152aa8",
                 "shasum": ""
             },
             "require": {
-                "jms/cg": "1.0.0",
+                "jms/cg": "1.*",
                 "symfony/framework-bundle": "2.*"
             },
             "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "JMS\\AopBundle": ""
@@ -952,7 +957,7 @@
                 "annotations",
                 "aop"
             ],
-            "time": "2012-01-02 20:50:26"
+            "time": "2013-07-29 09:34:26"
         },
         {
             "name": "jms/cg",
@@ -1545,7 +1550,7 @@
             "source": {
                 "type": "git",
                 "url": "gitolite@git.noblet.ca:/symfony/ns/utils.git",
-                "reference": "61bac78d52177032410e8a6225e6f8db7fb41882"
+                "reference": "adfe79ef17e75e8d4744c5006144877cd8e36a99"
             },
             "require": {
                 "ext-mbstring": "*",
@@ -1569,7 +1574,7 @@
                 }
             ],
             "description": "Various Utilitity Services and Classes",
-            "time": "2013-12-11 17:21:38"
+            "time": "2013-12-17 20:00:37"
         },
         {
             "name": "psr/log",
@@ -1966,15 +1971,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataCoreBundle.git",
-                "reference": "adc6d47a1b1c8721a09f4a4f453f783de4b6f89f"
+                "reference": "6c5da368355a0012462cda3c3595dac4e34635c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/adc6d47a1b1c8721a09f4a4f453f783de4b6f89f",
-                "reference": "adc6d47a1b1c8721a09f4a4f453f783de4b6f89f",
+                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/6c5da368355a0012462cda3c3595dac4e34635c5",
+                "reference": "6c5da368355a0012462cda3c3595dac4e34635c5",
                 "shasum": ""
             },
             "require": {
+                "symfony/config": "~2.0",
                 "symfony/form": "~2.2",
                 "symfony/http-foundation": "~2.2",
                 "symfony/translation": "~2.2",
@@ -2014,7 +2020,7 @@
             "keywords": [
                 "sonata"
             ],
-            "time": "2013-12-13 16:08:49"
+            "time": "2013-12-19 14:04:45"
         },
         {
             "name": "sonata-project/doctrine-orm-admin-bundle",
@@ -2578,16 +2584,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v2.3.7",
+            "version": "v2.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "2829b471871c2564228fe9f0832a0f928a8ffaa1"
+                "reference": "b0b421908d569e5024372ded65857707c409e0f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/2829b471871c2564228fe9f0832a0f928a8ffaa1",
-                "reference": "2829b471871c2564228fe9f0832a0f928a8ffaa1",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/b0b421908d569e5024372ded65857707c409e0f7",
+                "reference": "b0b421908d569e5024372ded65857707c409e0f7",
                 "shasum": ""
             },
             "require": {
@@ -2682,7 +2688,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2013-11-14 07:58:51"
+            "time": "2013-12-16 14:36:05"
         },
         {
             "name": "twig/extensions",

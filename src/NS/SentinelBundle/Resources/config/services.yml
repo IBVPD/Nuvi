@@ -8,11 +8,19 @@ services:
     ns.sentinel.menu.user:
       class: Knp\Menu\MenuItem # the service definition requires setting the class
       factory_service: ns.sentinel.menu_builder
-      factory_method: userMenu
+      factory_method: user
       arguments: ["@request"]
       scope: request # needed as we have the request as a dependency here
       tags:
-        - { name: knp_menu.menu, alias: user } # The alias is what is used to retrieve the menu    
+        - { name: knp_menu.menu, alias: user } # The alias is what is used to retrieve the menu  
+    ns.sentinel.menu.sidebar:
+      class: Knp\Menu\MenuItem # the service definition requires setting the class
+      factory_service: ns.sentinel.menu_builder
+      factory_method: sidebar
+      arguments: ["@request"]
+      scope: request # needed as we have the request as a dependency here
+      tags:
+        - { name: knp_menu.menu, alias: sidebar } # The alias is what is used to retrieve the menu    
     ns.sentinel.user_provider:
       class: NS\SentinelBundle\Security\UserProvider
       arguments: [ "@doctrine.orm.entity_manager" ]

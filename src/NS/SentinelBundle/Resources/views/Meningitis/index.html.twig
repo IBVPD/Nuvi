@@ -1,63 +1,57 @@
 {%extends "NSSentinelBundle::layout.html.twig" %}
 
 {% block body %}
-<div class="layoutSection">
-    <div class="column span3">
-        <div class="panel dataPanel">
-            <h3 class="panelTitle">{{'Latest Meningitis Cases'|trans}}</h3>
-            <div class="filters open">
-                <div class="filterCol">
-                    <form method="POST" action="{{path('meningitisSearch')}}">
-                    {{form_widget(form.caseId)}}
-                    <button class="filter" type="submit">{{'Find'|trans}}</button>
-                    {{form_rest(form)}}
-                    </form>
-                {% if is_granted('ROLE_SITE') %}
-                </div>
-                <div class="filterCol">
-                    <a href="{{path('meningitisCreate')}}" class="button">{{'Create'|trans}}</a>
-                {% endif %}
-                </div>
-            </div>
-            
-            <div class="panelContent">
-                <table class="dataTable highlightRow zebra">
-                    <colgroup span="3"></colgroup>
-                    <colgroup span="3"></colgroup>
-                    <colgroup span="1"></colgroup>
-
-                    <tbody>
-                    <tr class="odd">
+<div class="row">
+    <div class="col-xs-12">
+        <div class="table-header">{{'Latest Meningitis Cases'|trans}}</div>
+        <div class="table-responsive">
+            <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
                         <th>{{'Case ID'|trans}}</th>
                         <th>{{'Gender'|trans}}</th>
                         <th>{{'Age In Months'|trans}}</th>
-                        <th>{{'EPI'|trans}}</th>
-                        <th>{{'LAB'|trans}}</th>
-                        <th>{{'RRL'|trans}}</th>
+                        <th class="hidden-480">{{'Status'|trans}}</th>
                         <th>{{'Actions'|trans}}</th>
                     </tr>
+                </thead>
+									
+                <tbody>
+                {% for row in rows %}
+                    <tr>
+                        <td>{{ row.caseId }}</td>
+                        <td>{{ row.gender }}</td>
+                        <td>{{ row.ageInMonths }}</td>
+                        <td class='hidden-480'>
+                            <span class='label label-sm label-success'>{{'EPI'|trans}}</span>
+                            <span class='label label-sm label-warning'>{{'LAB'|trans}}</span>
+                            <span class='label label-sm label-danger'>{{'RRL'|trans}}</span>
+                        </td>
+                        <td>
+                            <div class='visible-md visible-lg hidden-sm hidden-xs btn-group'>
+                                <a href="{{path('meningitisEdit',{'id':row.id})}}" class='btn btn-xs btn-success'><i class='icon-cog bigger-120'></i></a>
+                                <a href="{{path('meningitisShow',{'id':row.id})}}" class='btn btn-xs btn-info'><i class='icon-edit bigger-120'></i></a>
+                            </div>
+                            <div class='visible-xs visible-sm hidden-md hidden-lg'>
+                                <div class="inline position-relative">
+                                    <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown"><i class="icon-cog icon-only bigger-110"></i></button>
+                                    <ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
+                                        <li><a href="#" class="tooltip-info" data-rel="tooltip" title="View"><span class="blue"><i class="icon-zoom-in bigger-120"></i></span></a></li>
+                                        <li><a href="#" class="tooltip-success" data-rel="tooltip" title="Edit"><span class="green"><i class="icon-edit bigger-120"></i></span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div><!--/.table-responsive-->
+    </div><!--/span-->
+</div><!--/row-->
 
-                    {% for row in rows %}
-                        <tr class="{{ cycle(['odd', 'even'], loop.index) }}">
-                            <td class="highlight alignLeft">{{ row.caseId }}</td>
-                            <td>{{ row.gender }}</td>
-                            <td>{{ row.ageInMonths }}</td>
-                            <td>{{cycle(['<img src="/bundles/nssentinel/images/remove_16x16.png" />','<img src="/bundles/nssentinel/images/check_mark_16x16.png" />'], loop.index)|raw}}</td>
-                            <td>{{cycle(['<img src="/bundles/nssentinel/images/delete_16x16.png" />','<img src="/bundles/nssentinel/images/check_mark_16x16.png" />'], loop.index)|raw}}</td>
-                            <td>{{cycle(['<img src="/bundles/nssentinel/images/remove_16x16.png" />','<img src="/bundles/nssentinel/images/delete_16x16.png" />'], loop.index)|raw}}</td>
-                            <td>
-                                <a href="{{path('meningitisEdit',{'id':row.id})}}">{{'Edit'|trans}}</a> &nbsp;
-                                <a href="{{path('meningitisShow',{'id':row.id})}}">{{'Show'|trans}}</a> 
-                            </td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-                    <div class="formRow alignRight">
-                    </div>
-            </div>
-        </div>
-    </div>
+
+<div class="layoutSection">
     <div class="column span1">
         <div class="panel dataPanel">
             <h3 class="panelTitle">{{'Report'|trans}}</h3>

@@ -3,169 +3,186 @@
 {% block body %}
 <form method="POST" action="{{path('meningitisEdit',{'id':id})}}">
 {% if form.site is defined %}
-<div class="layoutSection">
-    <div class="column span4" >
-        <div class="panel dataPanel">
-            <h3 class="panelTitle">Site</h3>
-            <div class="panelContent">
+<div class="row">
+    <div class="col-sm-4" >
+        <div class="widget-box">
+            <div class="widget-header"><h4 class="panelTitle">Site</h4></div>
+            <div class="widget-body"><div class="widget-main">
                 {{form_row(form.site)}}
-            </div>
+            </div></div>
         </div>
     </div>
 </div>
 {% endif %}
     
-<div class="layoutSection">
+<div class="row">
 {{form_errors(form)}}
-    <div class="column span1" >
-        <div class="panel dataPanel">
-            <h3 class="panelTitle">{{'Case Based Demographics'|trans}}</h3>
-            <div class="panelContent">
+    <div class="col-sm-4" >
+        <div class="widget-box">
+            <div class="widget-header"><h4 class="panelTitle">{{'Case Based Demographics'|trans}}</h4></div>
+            <div class="widget-body"><div class="widget-main">
                 {{form_row(form.dob)}}
                 {{form_row(form.gender)}}
-            </div>
+            </div></div>
         </div>
     </div>
 
-    <div class="column span2" >
-        <div class="panel dataPanel">
-            <h3 class="panelTitle">{{'Vaccination History'|trans}}</h3>
-            <div class="panelContent">
-                <table style="width: 100%;">
-                    <tr>
-                        <td>
+    <div class="col-sm-4" >
+        <div class="widget-box">
+            <div class="widget-header"><h4 class="panelTitle">{{'Vaccination History'|trans}}</h4></div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    <div class="row">
+                        <div class="col-sm-6">
                             {{form_row(form.hibReceived)}}
                             {{form_row(form.hibDoses)}}
                             {{form_row(form.pcvReceived)}}
                             {{form_row(form.pcvDoses)}}
-                        </td>
-                        <td>
+                        </div>
+                        <div class="col-sm-6">
                             {{form_row(form.meningReceived)}}
                             {{form_row(form.meningDoses)}}
                             {{form_row(form.dtpReceived)}}
                             {{form_row(form.dtpDoses)}}
-                        </td>
-                    </tr>
-                </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="column span1">
-        <div class="panel dataPanel">
-            <h3 class="panelTitle">{{'Clinical Data'|trans}}</h3>
-            <div class="panelContent">
+    <div class="col-sm-4">
+        <div class="widget-box">
+            <div class="widget-header"><h4 class="panelTitle">{{'Clinical Data'|trans}}</h4></div>
+            <div class="widget-body"><div class="widget-main">
                 {{form_row(form.admDate)}}
                 {{form_row(form.admDx)}}
                 {{form_row(form.admDxOther)}}
-            </div>
-        </div>
-    </div>
-</div>
-<div class="layoutSection">
-    <div class="column span2">
-        <div class="panel dataPanel">
-            <h3 class="panelTitle">{{'Meningigtis'|trans}}</h3>
-            <div class="panelContent">
-                <table style="width: 100%;">
-                    <tr>
-                        <td>
-                {{form_row(form.menSeizures)}}
-                {{form_row(form.menFever)}}
-                {{form_row(form.menAltConscious)}}
-                {{form_row(form.menInabilityFeed)}}
-                {{form_row(form.menStridor)}}
-                {{form_row(form.menNeckStiff)}}
-                        </td><td>
-                {{form_row(form.menRash)}}
-                {{form_row(form.menFontanelleBulge)}}
-                {{form_row(form.menLethargy)}}
-                {{form_row(form.menPoorSucking)}}
-                {{form_row(form.menIrritability)}}
-                {{form_row(form.menSymptomOther)}}
-                                </td></tr>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div class="column span2">
-        <div class="panel dataPanel">
-            <h3 class="panelTitle">{{'Pneumonia / Sepsis'|trans}}</h3>
-            <div class="panelContent">
-            {{form_row(form.pneuDiffBreathe)}}
-            {{form_row(form.pneuChestIndraw)}}
-            {{form_row(form.pneuCough)}}
-            {{form_row(form.pneuCyanosis)}}
-            {{form_row(form.pneuRespRate)}}
-            {{form_row(form.pneuSymptomOther)}}
-            </div>
-        </div>
-    </div>
-</div>
-<div class="layoutSection">
-    <div class="column span1">
-        <div class="panel dataPanel">
-            <h3 class="panelTitle">{{'Specimen Collection Data'|trans}}</h3>
-            <div class="panelContent">
-            {{form_row(form.csfCollected)}}
-            {{form_row(form.csfCollectDateTime)}}
-            {{form_row(form.csfAppearance)}}
-            {{form_row(form.csfLabDateTime)}}
-            {{form_row(form.bloodCollected)}}
-            </div>
-        </div>
-    </div>
-    <div class="column span3">
-        <div class="panel dataPanel">
-            <h3 class="panelTitle">{{'Lab Data'|trans}}</h3>
-            <div class="panelContent">
-                <table style="width: 100%;">
-                    <tr>
-                        <td style="vertical-align: top;">
-                            {{form_row(form.csfWcc)}}
-                            {{form_row(form.csfGlucose)}}
-                            {{form_row(form.csfProtein)}}
-                            {{form_row(form.csfCultDone)}}
-                            {{form_row(form.csfGramDone)}}
-                            {{form_row(form.csfBinaxDone)}}
-                            {{form_row(form.csfLatDone)}}
-                            {{form_row(form.csfPcrDone)}}
-                        </td>
-                        <td style="vertical-align: top;">
-                            {{form_row(form.bloodCultDone)}}
-                            {{form_row(form.bloodGramDone)}}
-                            {{form_row(form.bloodPcrDone)}}
-                            {{form_row(form.otherCultDone)}}
-                            {{form_row(form.otherTestDone)}}
-                            {{form_row(form.csfCultOther)}}
-                        </td>
-                        <td style="vertical-align: top;">
-                            {{form_row(form.rrlCsfDate)}}
-                            {{form_row(form.rrlIsolDate)}}
-                            {{form_row(form.rrlName)}}
-                            {{form_row(form.spnSerotype)}}
-                            {{form_row(form.hiSerotype)}}
-                            {{form_row(form.nmSerogroup)}}
-                        </td>
-                    </tr>
-                </table>
-            </div>
+            </div></div>
         </div>
     </div>
 </div>
 
-<div class="layoutSection">
-    <div class="column span4">
-        <div class="panel dataPanel">
-            <h3 class="panelTitle">{{'Outcoume Data'|trans}}</h3>
-            <div class="panelContent">
-                {{form_rest(form)}}
-                <div class="formRow">
-                    <button type="submit">{{'Save'|trans}}</button>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="widget-box">
+            <div class="widget-header"><h4 class="panelTitle">{{'Meningitis'|trans}}</h4></div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            {{form_row(form.menSeizures)}}
+                            {{form_row(form.menFever)}}
+                            {{form_row(form.menAltConscious)}}
+                            {{form_row(form.menInabilityFeed)}}
+                            {{form_row(form.menStridor)}}
+                            {{form_row(form.menNeckStiff)}}
+                        </div>
+                        <div class="col-sm-6">
+                            {{form_row(form.menRash)}}
+                            {{form_row(form.menFontanelleBulge)}}
+                            {{form_row(form.menLethargy)}}
+                            {{form_row(form.menPoorSucking)}}
+                            {{form_row(form.menIrritability)}}
+                            {{form_row(form.menSymptomOther)}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="widget-box">
+            <div class="widget-header"><h4 class="panelTitle">{{'Pneumonia / Sepsis'|trans}}</h4></div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            {{form_row(form.pneuDiffBreathe)}}
+                            {{form_row(form.pneuChestIndraw)}}
+                            {{form_row(form.pneuCough)}}
+                            {{form_row(form.pneuCyanosis)}}
+                            {{form_row(form.pneuRespRate)}}
+                            {{form_row(form.pneuSymptomOther)}}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+    
+<div class="row">
+    <div class="col-sm-4">
+        <div class="widget-box">
+            <div class="widget-header"><h4 class="panelTitle">{{'Specimen Collection Data'|trans}}</h4></div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    {{form_row(form.csfCollected)}}
+                    {{form_row(form.csfCollectDateTime)}}
+                    {{form_row(form.csfAppearance)}}
+                    {{form_row(form.csfLabDateTime)}}
+                    {{form_row(form.bloodCollected)}}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-sm-8">
+        <div class="widget-box">
+            <div class="widget-header"><h4 class="panelTitle">{{'Lab Data'|trans}}</h4></div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    <div class="row">
+                    <div class="col-sm-4">
+                        {{form_row(form.csfWcc)}}
+                        {{form_row(form.csfGlucose)}}
+                        {{form_row(form.csfProtein)}}
+                        {{form_row(form.csfCultDone)}}
+                        {{form_row(form.csfGramDone)}}
+                        {{form_row(form.csfBinaxDone)}}
+                        {{form_row(form.csfLatDone)}}
+                        {{form_row(form.csfPcrDone)}}
+                    </div>
+                    <div class="col-sm-4">
+                        {{form_row(form.bloodCultDone)}}
+                        {{form_row(form.bloodGramDone)}}
+                        {{form_row(form.bloodPcrDone)}}
+                        {{form_row(form.otherCultDone)}}
+                        {{form_row(form.otherTestDone)}}
+                        {{form_row(form.csfCultOther)}}
+                    </div>
+                    <div class="col-sm-4">
+                        {{form_row(form.rrlCsfDate)}}
+                        {{form_row(form.rrlIsolDate)}}
+                        {{form_row(form.rrlName)}}
+                        {{form_row(form.spnSerotype)}}
+                        {{form_row(form.hiSerotype)}}
+                        {{form_row(form.nmSerogroup)}}
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="widget-box">
+            <div class="widget-header"><h4 class="panelTitle">{{'Outcome Data'|trans}}</h4></div>
+            <div class="widget-body">
+                <div class="widget-main">
+                {{form_rest(form)}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="form-actions center">
+    <button type="button" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
+</div>
+
 </form>
 {% endblock %}
