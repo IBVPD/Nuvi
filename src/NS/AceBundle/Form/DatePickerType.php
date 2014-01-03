@@ -33,7 +33,7 @@ class DatePickerType extends AbstractType
         else
             $view->vars['attr']['class'] = 'form-control date-picker';
         
-        $view->vars['attr']['data-date-format'] = $options['pattern'];
+        $view->vars['attr']['data-date-format'] = $options['format'];
         $view->vars['type'] = 'text';
     }
     

@@ -28,7 +28,7 @@
     
 {% block linkElement %}
 {%spaceless%}
-<a href="{%- if item.uri is not empty and (not item.current or options.currentAsLink) %}{{ item.uri }}{%else%}#{%endif%}"{{ _self.attributes(item.linkAttributes) }} data-toggle="dropdown">
+<a href="{%- if item.uri is not empty and (not item.current or options.currentAsLink) %}{{ item.uri }}{%else%}#{%endif%}"{{ _self.attributes(item.linkAttributes) }} {{ item.hasChildren?'class="dropdown-toggle" data-toggle="dropdown"':'' }}>
     {% if item.getExtra('icon', false) %}
     <i class="{{ item.getExtra('icon')}}"></i>
     {%endif %}
@@ -36,7 +36,7 @@
     {%- if item.uri is empty or item.current or not options.currentAsLink %}
         <span class="menu-text" {{ _self.attributes(item.labelAttributes) }}> {{block('label')}} </span>
     {% else%}
-        {{block('label')}}
+        <span class="menu-text">{{block('label')}}</span>
     {% endif %}
 
     {% if item.hasChildren %}
