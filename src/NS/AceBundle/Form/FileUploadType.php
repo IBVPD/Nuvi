@@ -19,7 +19,7 @@ class FileUploadType extends AbstractType
         parent::setDefaultOptions($resolver);
         $resolver->setDefaults( array('multiple' => false));
 
-        $resolver->setAllowedValues(array('multiple'=>  array(true, false));
+        $resolver->setAllowedValues(array('multiple'=>  array(true, false)));
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options)
