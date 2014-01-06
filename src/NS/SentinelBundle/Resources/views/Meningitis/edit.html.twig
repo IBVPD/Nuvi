@@ -1,5 +1,13 @@
 {%extends "NSSentinelBundle::layout.html.twig" %}
 
+{% block pagetitle %}
+{%if id > 0%}
+{{'View Case %case.id%'|trans({'%case.id%': form.vars.data.caseId})}}
+{%else%}
+{{'Create New Case'|trans}}
+{%endif%}
+{%endblock %}
+
 {% block body %}
 <form method="POST" action="{{path('meningitisEdit',{'id':id})}}">
 {% if form.site is defined %}
