@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
 	<meta charset="utf-8" />
-        <title>{% block pagetitle %}{% endblock %}{%block sitetitle %}{%endblock %}</title>
+        <title>{%block sitetitle %}{%endblock %} {% block pagetitle %}{% endblock %}</title>
 <!--	<meta name="description" content="{ {page.description} }" />-->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -128,11 +128,13 @@
             <div class="main-content">
                 {%block breadcrumbs %}{%endblock%}
                 <div class="page-content">
-                    <!--{ {^page.no-header} }{ {!if no such thing as "no-header", then print header} }-->
-                    <div class="page-header">
-                        <h1>{ {page.title} } { { # page.description} }<small><i class="icon-double-angle-right"></i> { { page.description} }</small>{ {/page.description} }</h1>
-                    </div><!--/.page-header-->
-                    <!--{ {/page.no-header} }-->
+                    {% set _ptitle = block('pagetitle') %}
+                    {% set _pdescription = block('pagedescription') %}
+                    {% if _ptitle is not empty %}
+                        <div class="page-header">
+                            <h1>{{ _ptitle|raw }} {%if _pdescription is not empty %}<small><i class="icon-double-angle-right"></i> {{_pdescription|raw}}</small>{%endif%}</h1>
+                        </div>
+                    {% endif %}
 
                     <div class="row">
                         <div class="col-xs-12">
