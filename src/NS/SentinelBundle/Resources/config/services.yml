@@ -29,6 +29,14 @@ services:
       arguments: [ "@doctrine.orm.entity_manager", "@session" ]
       tags:
         - { name: form.type, alias: site_select }
+    ns.sentinel.form.type.meningitis_rrl:
+      class: NS\SentinelBundle\Form\ReferenceLabType
+      tags:
+        - { name: form.type, alias: meningitis_referencelab }
+    ns.sentinel.form.type.meningitis_sitelab:
+      class: NS\SentinelBundle\Form\MeningitisSiteLabType
+      tags:
+        - { name: form.type, alias: meningitis_sitelab }
     ns.sentinel.form.type.meningitis:
       class: NS\SentinelBundle\Form\MeningitisType
       arguments: [ "@security.context", "@session", "@doctrine.orm.entity_manager" ]
@@ -70,7 +78,7 @@ services:
     ns.sentinel.form.type.triple_choice:
       class: NS\SentinelBundle\Form\Types\TripleChoice
       tags:
-        - { name: form.type, alias: triple_choice }
+        - { name: form.type, alias: TripleChoice }
     ns.sentinel.form.type.diagnosis:
       class: NS\SentinelBundle\Form\Types\Diagnosis
       tags:

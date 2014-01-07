@@ -6,6 +6,35 @@
     <div class="col-xs-12">
         <div class="table-header">{{'Latest Meningitis Cases'|trans}}</div>
         <div class="table-responsive">
+            <div id="sample-table-2_wrapper" class="dataTables_wrapper" role="grid">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div id="sample-table-2_length" class="dataTables_length">
+                            <label>Display 
+                                    <select size="1" name="sample-table-2_length" aria-controls="sample-table-2">
+                                    <option value="10" selected="selected">10</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                    </select> records
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="dataTables_filter" id="sample-table-2_filter">
+                            <label>Search: <input type="text" aria-controls="sample-table-2"></label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="dataTables_filter" id="sample-table-2_filter">
+                            <form method="POST" action="{{path('meningitisSearch')}}">
+                                {{form_widget(form.caseId)}}
+                                <button class="filter" type="submit">{{'Find'|trans}}</button>
+                                {{form_rest(form)}}
+                            </form>
+                        </div>
+                    </div>
+                </div>
             <table id="sample-table-1" class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
@@ -25,12 +54,12 @@
                         <td>{{ row.ageInMonths }}</td>
                         <td class='hidden-480'>
                             <span class='label label-sm label-success'>{{'EPI'|trans}}</span>
-                            <span class='label label-sm label-warning'>{{'LAB'|trans}}</span>
-                            <span class='label label-sm label-danger'>{{'RRL'|trans}}</span>
+                            <span class="label label-sm label-warning">{{'LAB'|trans}}</span>
+                            <span class="label label-sm label-{{row.lab is defined and row.lab is not empty ? 'success':'danger'}}">{{'RRL'|trans}}</span>
                         </td>
                         <td>
                             <div class='visible-md visible-lg hidden-sm hidden-xs btn-group'>
-                                <a href="{{path('meningitisEdit',{'id':row.id})}}" class='btn btn-xs btn-success'><i class='icon-cog bigger-120'></i></a>
+                                <a href="{{path(route~'Edit',{'id':row.id})}}" class='btn btn-xs btn-success'><i class='icon-cog bigger-120'></i></a>
                                 <a href="{{path('meningitisShow',{'id':row.id})}}" class='btn btn-xs btn-info'><i class='icon-edit bigger-120'></i></a>
                             </div>
                             <div class='visible-xs visible-sm hidden-md hidden-lg'>
@@ -38,7 +67,7 @@
                                     <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown"><i class="icon-cog icon-only bigger-110"></i></button>
                                     <ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
                                         <li><a href="{{path('meningitisShow',{'id':row.id})}}" class="tooltip-info" data-rel="tooltip" title="View"><span class="blue"><i class="icon-zoom-in bigger-120"></i></span></a></li>
-                                        <li><a href="{{path('meningitisEdit',{'id':row.id})}}" class="tooltip-success" data-rel="tooltip" title="Edit"><span class="green"><i class="icon-edit bigger-120"></i></span></a></li>
+                                        <li><a href="{{path(route~'Edit',{'id':row.id})}}" class="tooltip-success" data-rel="tooltip" title="Edit"><span class="green"><i class="icon-edit bigger-120"></i></span></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -47,6 +76,10 @@
                 {% endfor %}
                 </tbody>
             </table>
+            <div class="align-right">
+                <a href="{{path(route~'Create')}}" class="btn btn-sm btn-default">{{'Create'}}<i class="icon-plus-sign icon-on-right bigger-110"></i></a>
+            </div>
+            </div>
         </div><!--/.table-responsive-->
     </div><!--/span-->
 </div><!--/row-->

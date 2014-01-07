@@ -33,12 +33,13 @@ class Builder
         if( $this->securityContext->isGranted('IS_AUTHENTICATED_FULLY') )
         {
             $d = $menu->addChild('Data Entry', array('label'=> 'menu.data-entry'))->setExtra('icon','icon-edit');
-//            $d->setChildrenAttribute('class', 'submenu');
             $d->addChild('Meningitis',array('label'=>'menu.meningitis','route'=>'meningitisIndex'));
             $d->addChild('Rotavirus');
             
-            $menu->addChild('Reports', array('label'=> 'menu.data-reports'));
-            $menu->addChild('Admin', array('label'=> 'menu.data-admin','route'=>'sonata_admin_dashboard'));
+            $menu->addChild('Reports', array('label'=> 'menu.data-reports'))->setExtra('icon','icon-dashboard');
+            $admin = $menu->addChild('Admin', array('label'=> 'menu.data-admin'))->setExtra('icon','icon-desktop');
+            $admin->addChild('Admin', array('label'=> 'menu.data-admin','route'=>'sonata_admin_dashboard'));
+            $admin->addChild('Translation',array('label'=> 'menu.translation','route'=>'jms_translation_index'));
         }
 
         return $menu;
@@ -50,6 +51,7 @@ class Builder
         $menu->setChildrenAttribute('class', 'nav ace-nav');
         $p = $menu->addChild('Profile');
         $p->setChildrenAttribute('class', 'user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close');
+        $p->addChild('Profile')->setExtra('icon', 'icon-profile');
         $p->addChild('Settings')->setExtra('icon', 'icon-cog');
         $p->addChild(' ')->setAttribute('class', 'divider');
         $p->addChild('Logout',array('route' => 'logout'))->setExtra('icon','icon-off');

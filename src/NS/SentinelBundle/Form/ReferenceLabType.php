@@ -15,24 +15,24 @@ class ReferenceLabType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('sampleType')
-            ->add('dateReceived')
-            ->add('volume')
-            ->add('DNAExtractionDate')
-            ->add('DNAVolume')
-            ->add('isolateViable')
-            ->add('isolateType')
-            ->add('pathogenIdentifierMethod')
-            ->add('pathogenIdentierOther')
-            ->add('serotypeIdentifier')
-            ->add('serotypeIdentifierOther')
-            ->add('lytA')
-            ->add('sodC')
-            ->add('hpd')
-            ->add('rNaseP')
-            ->add('spnSerotype')
-            ->add('hiSerotype')
-            ->add('nmSerogroup')
+            ->add('sampleType','SampleType',array('label'=>'meningitis-rrl-form.sample-type','required'=>false))
+            ->add('dateReceived','acedatepicker',array('label'=>'meningitis-rrl-form.date-received','required'=>false))
+            ->add('volume','Volume',array('label'=>'meningitis-rrl-form.volume','required'=>false))
+            ->add('DNAExtractionDate','acedatepicker',array('label'=>'meningitis-rrl-form.dna-extraction-date','required'=>false))
+            ->add('DNAVolume',null,array('label'=>'meningitis-rrl-form.dna-volume','required'=>false))
+            ->add('isolateViable','TripleChoice',array('label'=>'meningitis-rrl-form.isolate-viable','required'=>false))
+            ->add('isolateType','IsolateType',array('label'=>'meningitis-rrl-form.isolate-type','required'=>false))
+            ->add('pathogenIdentifierMethod','PathogenIdentifier',array('label'=>'meningitis-rrl-form.pathogen-id-method','required'=>false))
+            ->add('pathogenIdentierOther',null,array('label'=>'meningitis-rrl-form.pathogen-id-other','required'=>false))
+            ->add('serotypeIdentifier','SerotypeIdentifier',array('label'=>'meningitis-rrl-form.serotype-id-method','required'=>false))
+            ->add('serotypeIdentifierOther',null,array('label'=>'meningitis-rrl-form.serotype-id-other','required'=>false))
+            ->add('lytA',null,array('label'=>'meningitis-rrl-form.lytA','required'=>false))
+            ->add('sodC',null,array('label'=>'meningitis-rrl-form.sodC','required'=>false))
+            ->add('hpd',null,array('label'=>'meningitis-rrl-form.hpd','required'=>false))
+            ->add('rNaseP',null,array('label'=>'meningitis-rrl-form.rNasP','required'=>false))
+            ->add('spnSerotype',null,array('label'=>'meningitis-rrl-form.spnSerotype','required'=>false))
+            ->add('hiSerotype',null,array('label'=>'meningitis-rrl-form.hiSerotype','required'=>false))
+            ->add('nmSerogroup',null,array('label'=>'meningitis-rrl-form.nmSerogroup','required'=>false))
         ;
     }
     
@@ -51,6 +51,6 @@ class ReferenceLabType extends AbstractType
      */
     public function getName()
     {
-        return 'ns_sentinelbundle_referencelab';
+        return 'meningitis_referencelab';
     }
 }

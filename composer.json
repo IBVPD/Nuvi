@@ -31,7 +31,6 @@
         "sonata-project/exporter": "~1.1",
 	"sonata-project/core-bundle": "~2.2@dev",
 
-        "ns/templates-bundle": "dev-master",
         "ns/util-bundle": "dev-master",
         "jms/translation-bundle": "1.1.x-dev",
         "ns/security-bundle": "dev-master",

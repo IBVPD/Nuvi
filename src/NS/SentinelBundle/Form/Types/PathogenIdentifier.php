@@ -24,6 +24,6 @@ class PathogenIdentifier extends ArrayChoice
 
     public function getName()
     {
-        return 'pathogenidentifier';
+        return 'PathogenIdentifier';
     }
 }

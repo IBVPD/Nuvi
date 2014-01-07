@@ -26,6 +26,6 @@ class IsolateType extends ArrayChoice
 
     public function getName()
     {
-        return 'isolatetype';
+        return 'IsolateType';
     }
 }

@@ -30,6 +30,6 @@ class SampleType extends ArrayChoice
 
     public function getName()
     {
-        return 'sampletype';
+        return 'SampleType';
     }
 }

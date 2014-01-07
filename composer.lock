@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "ed8c0141de742d36eebfffb148853c07",
+    "hash": "c3111ac622e9aaa75c4f5b2c1b7f652e",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -490,12 +490,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineFixturesBundle.git",
-                "reference": "3caec4826e58fe47520b591f965b4adcdfc8a6c8"
+                "reference": "42ac886c2c669d793dc9d6258a7296edb0d5e933"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineFixturesBundle/zipball/3caec4826e58fe47520b591f965b4adcdfc8a6c8",
-                "reference": "3caec4826e58fe47520b591f965b4adcdfc8a6c8",
+                "url": "https://api.github.com/repos/doctrine/DoctrineFixturesBundle/zipball/42ac886c2c669d793dc9d6258a7296edb0d5e933",
+                "reference": "42ac886c2c669d793dc9d6258a7296edb0d5e933",
                 "shasum": ""
             },
             "require": {
@@ -539,7 +539,7 @@
                 "Fixture",
                 "persistence"
             ],
-            "time": "2013-09-16 10:15:05"
+            "time": "2013-12-31 08:56:10"
         },
         {
             "name": "doctrine/inflector",
@@ -1512,38 +1512,6 @@
             "time": "2013-12-09 20:51:19"
         },
         {
-            "name": "ns/templates-bundle",
-            "version": "dev-master",
-            "target-dir": "NS/TemplatesBundle",
-            "source": {
-                "type": "git",
-                "url": "gitolite@git.noblet.ca:/symfony/ns/templates.git",
-                "reference": "27e353c0ad011da69b6f9e5eb86d24c487a76aa9"
-            },
-            "require": {
-                "php": ">=5.3.2",
-                "symfony/symfony": ">=2.1,<2.4"
-            },
-            "type": "symfony-bundle",
-            "autoload": {
-                "psr-0": {
-                    "NS\\TemplatesBundle": ""
-                }
-            },
-            "authors": [
-                {
-                    "name": "Nathanael David Noblet",
-                    "email": "nathanael@noblet.ca"
-                },
-                {
-                    "name": "Mark Woynarski",
-                    "email": "mark.woynarski@nobletdesign.com"
-                }
-            ],
-            "description": "This Bundle provides basic templates",
-            "time": "2013-11-08 19:18:23"
-        },
-        {
             "name": "ns/util-bundle",
             "version": "dev-master",
             "target-dir": "NS/UtilBundle",
@@ -1971,12 +1939,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataCoreBundle.git",
-                "reference": "6c5da368355a0012462cda3c3595dac4e34635c5"
+                "reference": "fadf268d4b2c23220b27c33389b6a6132085159e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/6c5da368355a0012462cda3c3595dac4e34635c5",
-                "reference": "6c5da368355a0012462cda3c3595dac4e34635c5",
+                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/fadf268d4b2c23220b27c33389b6a6132085159e",
+                "reference": "fadf268d4b2c23220b27c33389b6a6132085159e",
                 "shasum": ""
             },
             "require": {
@@ -2020,7 +1988,7 @@
             "keywords": [
                 "sonata"
             ],
-            "time": "2013-12-19 14:04:45"
+            "time": "2014-01-07 11:35:59"
         },
         {
             "name": "sonata-project/doctrine-orm-admin-bundle",
@@ -2584,16 +2552,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v2.3.8",
+            "version": "v2.3.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "b0b421908d569e5024372ded65857707c409e0f7"
+                "reference": "ee1e0f2ef882ccd6a53ff91e5ffc39a22b6a6b74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/b0b421908d569e5024372ded65857707c409e0f7",
-                "reference": "b0b421908d569e5024372ded65857707c409e0f7",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/ee1e0f2ef882ccd6a53ff91e5ffc39a22b6a6b74",
+                "reference": "ee1e0f2ef882ccd6a53ff91e5ffc39a22b6a6b74",
                 "shasum": ""
             },
             "require": {
@@ -2688,7 +2656,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2013-12-16 14:36:05"
+            "time": "2014-01-05 01:24:54"
         },
         {
             "name": "twig/extensions",
@@ -2797,7 +2765,6 @@
     "stability-flags": {
         "symfony/icu": 20,
         "sonata-project/core-bundle": 20,
-        "ns/templates-bundle": 20,
         "ns/util-bundle": 20,
         "jms/translation-bundle": 20,
         "ns/security-bundle": 20,

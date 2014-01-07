@@ -26,7 +26,7 @@ use \NS\SecurityBundle\Annotation\SecuredCondition;
  * @Secured(conditions={
  *      @SecuredCondition(roles={"ROLE_REGION"},relation="region",class="NSSentinelBundle:Region"),
  *      @SecuredCondition(roles={"ROLE_COUNTRY"},relation="country",class="NSSentinelBundle:Country"),
- *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},relation="site",class="NSSentinelBundle:Site"),
+ *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB","ROLE_RRL_LAB"},relation="site",class="NSSentinelBundle:Site"),
  *      })
  */
 class Meningitis
@@ -46,7 +46,7 @@ class Meningitis
     private $caseId;
 
     /**
-     * @ORM\OneToOne(targetEntity="ReferenceLab", inversedBy="case")
+     * @ORM\OneToOne(targetEntity="ReferenceLab", mappedBy="case")
      */
     private $lab;
 

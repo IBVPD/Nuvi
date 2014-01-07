@@ -16,7 +16,7 @@ use \NS\SecurityBundle\Annotation\Secured;
 use \NS\SecurityBundle\Annotation\SecuredCondition;
 
 /**
- * Description of MeningitisLab
+ * Description of ReferenceLab
  * @author gnat
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\ReferenceLab")
  * @ORM\Table(name="meningitis_labs")
@@ -24,13 +24,13 @@ use \NS\SecurityBundle\Annotation\SecuredCondition;
  * @Secured(conditions={
  *      @SecuredCondition(roles={"ROLE_REGION"},through="case",relation="region",class="NSSentinelBundle:Region"),
  *      @SecuredCondition(roles={"ROLE_COUNTRY"},through="case",relation="country",class="NSSentinelBundle:Country"),
- *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},through="case",relation="site",class="NSSentinelBundle:Site"),
+ *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB","ROLE_RRL_LAB"},through="case",relation="site",class="NSSentinelBundle:Site"),
  *      })
  */
 class ReferenceLab
 {
     /**
-     * @ORM\OneToOne(targetEntity="Meningitis",mappedBy="lab")
+     * @ORM\OneToOne(targetEntity="Meningitis",inversedBy="lab")
      */
     private $case;
     /**

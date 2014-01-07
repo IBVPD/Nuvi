@@ -21,3 +21,8 @@ services:
       class: NS\AceBundle\Form\DatePickerType
       tags:
         - { name: form.type, alias: acedatepicker }
+
+    ns_ace.form.type.acedatetimepicker:
+      class: NS\AceBundle\Form\DateTimePickerType
+      tags:
+        - { name: form.type, alias: acedatetime }

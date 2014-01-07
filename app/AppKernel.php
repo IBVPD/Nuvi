@@ -18,7 +18,6 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new NS\SentinelBundle\NSSentinelBundle(),
             new NS\UtilBundle\NSUtilBundle(),
-            new NS\TemplatesBundle\NSTemplatesBundle(),
             new NS\SecurityBundle\NSSecurityBundle(),
             new JMS\TranslationBundle\JMSTranslationBundle(),
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),

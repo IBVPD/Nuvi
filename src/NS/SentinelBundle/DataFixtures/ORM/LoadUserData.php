@@ -93,6 +93,20 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
 
         $siteSUser = new User();
         $siteSUser->setIsActive(true);
+        $siteSUser->setEmail('rrl-alberta@noblet.ca');
+        $siteSUser->setName('Alberta RRL User');
+        $siteSUser->resetSalt();
+        $siteSUser->setPassword($encoder->encodePassword("1234567-alberta-rrl",$siteSUser->getSalt()));
+        $acl = new ACL();
+        $acl->setUser($siteSUser);
+        $acl->setType(new Role(Role::RRL_LAB));
+        $acl->setObjectId($this->getReference('site-alberta')->getId());
+
+        $manager->persist($siteSUser);
+        $manager->persist($acl);
+
+        $siteSUser = new User();
+        $siteSUser->setIsActive(true);
         $siteSUser->setEmail('site-seattle@noblet.ca');
         $siteSUser->setName('Seattle Site User');
         $siteSUser->resetSalt();

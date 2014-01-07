@@ -80,8 +80,9 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
     public function getLatest($limit = 10)
     {
         $qb = $this->_em->createQueryBuilder()
-                   ->select('m')
+                   ->select('m,l')
                    ->from($this->getClassName(),'m')
+                   ->leftJoin('m.lab', 'l')
 //                   ->orderBy('m.created','DESC')
                    ->setMaxResults($limit);
         return $this->secure($qb)->getQuery()->getResult();
@@ -133,16 +134,30 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
         else if(is_string($id))
         {
             $tokens = explode('-',$id);
-            $id  = (int)$tokens[3];
-            unset($tokens[3]);
-            $cId = implode('-', $tokens).'-';
+            if(count($tokens) == 3 && !empty($tokens[3]))
+            {
+                $id  = (int)$tokens[3];
+                unset($tokens[3]);
+                $cId = implode('-', $tokens).'-';
 
-            $qb->where('m.id = :id AND m.caseId = :caseId')
-               ->setParameters(array('id' => $id, 'caseId' => $cId));
+                $qb->where('m.id = :id AND m.caseId = :caseId')->setParameters(array('id' => $id, 'caseId' => $cId));
+            }
+            else
+                throw new \UnexpectedValueException("$id is a malformed case id");
         }
         else
             throw new \UnexpectedValueException("$id is neither an number nor string");
         
         return $this->secure($qb)->getQuery()->getSingleResult();
+    }
+    
+    public function search($search)
+    {
+        $qb = $this->_em->createQueryBuilder()
+                        ->select('m,s,c,r')
+                        ->from($this->getClassName(),'m')
+                        ->innerJoin('m.site', 's')
+                        ->innerJoin('s.country', 'c')
+                        ->innerJoin('m.region', 'r');
     }
 }
