@@ -27,10 +27,10 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $adminUser->setName('NS Admin User');
         $adminUser->resetSalt();
         $adminUser->setIsAdmin(true);
-        
+
         $factory = $this->container->get('security.encoder_factory');
         $encoder = $factory->getEncoder($adminUser);
-                
+
         $adminUser->setPassword($encoder->encodePassword("GnatAndDaveInIndia",$adminUser->getSalt()));
 
         $manager->persist($adminUser);
@@ -59,10 +59,10 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $acl->setUser($usUser);
         $acl->setType(new Role(Role::COUNTRY));
         $acl->setObjectId($this->getReference('country-us')->getId());
-        
+
         $manager->persist($usUser);
         $manager->persist($acl);
-        
+
         $caUser = new User();
         $caUser->setIsActive(true);
         $caUser->setEmail('ca@noblet.ca');
@@ -76,7 +76,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
 
         $manager->persist($caUser);
         $manager->persist($acl);
-        
+
         $siteSUser = new User();
         $siteSUser->setIsActive(true);
         $siteSUser->setEmail('site-alberta@noblet.ca');
@@ -90,7 +90,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
 
         $manager->persist($siteSUser);
         $manager->persist($acl);
-        
+
         $siteSUser = new User();
         $siteSUser->setIsActive(true);
         $siteSUser->setEmail('site-seattle@noblet.ca');
@@ -105,7 +105,6 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $manager->persist($siteSUser);
         $manager->persist($acl);        
 
-        
         $mUser = new User();
         $mUser->setIsActive(true);
         $mUser->setEmail('site-multiple@noblet.ca');
@@ -121,11 +120,11 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $acl1->setUser($mUser);
         $acl1->setType(new Role(Role::SITE));
         $acl1->setObjectId($this->getReference('site-toronto')->getId());
-        
+
         $manager->persist($mUser);
         $manager->persist($acl);
         $manager->persist($acl1);
-        
+
         $manager->flush();
     }
     
