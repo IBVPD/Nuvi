@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "c3111ac622e9aaa75c4f5b2c1b7f652e",
+    "hash": "71bcc4a1854155dc04e09fb22bb9a4b3",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1545,6 +1545,72 @@
             "time": "2013-12-17 20:00:37"
         },
         {
+            "name": "oneup/uploader-bundle",
+            "version": "v1.0.1",
+            "target-dir": "Oneup/UploaderBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/1up-lab/OneupUploaderBundle.git",
+                "reference": "0a0bb1e9cb0d44cd6ea4dd9dfc6fe619e226adfe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/1up-lab/OneupUploaderBundle/zipball/0a0bb1e9cb0d44cd6ea4dd9dfc6fe619e226adfe",
+                "reference": "0a0bb1e9cb0d44cd6ea4dd9dfc6fe619e226adfe",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/finder": ">=2.2.0",
+                "symfony/framework-bundle": ">=2.2"
+            },
+            "require-dev": {
+                "amazonwebservices/aws-sdk-for-php": "1.5.*",
+                "knplabs/gaufrette": "0.2.*@dev",
+                "phpunit/phpunit": "3.7.*",
+                "sensio/framework-extra-bundle": "2.*",
+                "symfony/browser-kit": "2.*",
+                "symfony/class-loader": "2.*",
+                "symfony/security-bundle": "2.*"
+            },
+            "suggest": {
+                "knplabs/knp-gaufrette-bundle": "0.1.*"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Oneup\\UploaderBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jim Schmid",
+                    "email": "js@1up.io",
+                    "homepage": "http://1up.io",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Handles multi file uploads in Symfony2. Features included: Chunked upload, Orphans management, Gaufrette support.",
+            "homepage": "http://1up.io",
+            "keywords": [
+                "FancyUpload",
+                "FineUploader",
+                "MooUpload",
+                "Uploadify",
+                "YUI3 Uploader",
+                "blueimp",
+                "dropzone",
+                "fileupload",
+                "jQuery File Uploader",
+                "plupload",
+                "upload"
+            ],
+            "time": "2013-11-06 18:09:25"
+        },
+        {
             "name": "psr/log",
             "version": "1.0.0",
             "source": {
@@ -1581,6 +1647,68 @@
                 "psr-3"
             ],
             "time": "2012-12-21 11:40:51"
+        },
+        {
+            "name": "punkave/symfony2-file-uploader-bundle",
+            "version": "dev-master",
+            "target-dir": "PunkAve/FileUploaderBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/punkave/symfony2-file-uploader-bundle.git",
+                "reference": "988bb59597c4a8685ab7ba92f0f1784935e9fe23"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/punkave/symfony2-file-uploader-bundle/zipball/988bb59597c4a8685ab7ba92f0f1784935e9fe23",
+                "reference": "988bb59597c4a8685ab7ba92f0f1784935e9fe23",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "symfony/framework-bundle": "2.*"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "PunkAve\\FileUploaderBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Thomas Boutell",
+                    "email": "tom@punkave.com"
+                },
+                {
+                    "name": "Wes John-Alder",
+                    "email": "wes@punkave.com"
+                }
+            ],
+            "description": "Multiple file uploads for Symfony2 with the BlueImp uploader. Also scales uploaded images",
+            "homepage": "https://github.com/punkave/symfony2-file-uploader-bundle",
+            "keywords": [
+                "Image transform",
+                "Symfony Bundle",
+                "blueimp",
+                "bundle",
+                "file",
+                "multiple file upload",
+                "punkave",
+                "symfony",
+                "symfony-2.0",
+                "symfony-2.1",
+                "upload",
+                "uploader"
+            ],
+            "time": "2013-12-04 16:15:35"
         },
         {
             "name": "sensio/distribution-bundle",
@@ -2769,7 +2897,9 @@
         "jms/translation-bundle": 20,
         "ns/security-bundle": 20,
         "doctrine/doctrine-fixtures-bundle": 20,
-        "stof/doctrine-extensions-bundle": 20
+        "stof/doctrine-extensions-bundle": 20,
+        "punkave/symfony2-file-uploader-bundle": 20,
+        "oneup/uploader-bundle": 20
     },
     "platform": {
         "php": ">=5.3.3"
