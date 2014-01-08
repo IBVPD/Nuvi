@@ -26,3 +26,8 @@ services:
       class: NS\AceBundle\Form\DateTimePickerType
       tags:
         - { name: form.type, alias: acedatetime }
+
+    ns_ace.form.type.fileupload:
+      class: NS\AceBundle\Form\FileUploadType
+      tags:
+        - { name: form.type, alias: fileupload }

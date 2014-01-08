@@ -38,6 +38,7 @@
             <link rel="stylesheet" href="{{asset('/bundles/nsace/css/ace.min.css')}}" />
             <link rel="stylesheet" href="{{asset('/bundles/nsace/css/ace-rtl.min.css')}}" />
             <link rel="stylesheet" href="{{asset('/bundles/nsace/css/ace-skins.min.css')}}" />
+            <link rel="stylesheet" href="{{asset('/bundles/nsace/css/ns.css')}}" />
 
             <!--[if lte IE 8]>
               <link rel="stylesheet" href="{{asset('/bundles/nsace/css/ace-ie.min.css')}}" />
@@ -233,7 +234,12 @@
 
     <script src="{{asset('/bundles/nsace/js/ace-elements.min.js')}}"></script>
     <script src="{{asset('/bundles/nsace/js/ace.min.js')}}"></script>
+    <script src="{{asset('/bundles/nsace/js/underscore-min.js')}}"></script>
+    <script src="{{asset('/bundles/punkavefileuploader/js/jquery.fileupload.js')}}"></script>
+    <script src="{{asset('/bundles/punkavefileuploader/js/jquery.iframe-transport.js')}}"></script>
+    <script src="{{asset('/bundles/nsace/js/nsFileUploader.js')}}"></script>
     <script src="{{asset('/bundles/nsace/js/nsbootstrap.js')}}"></script>
     {% endblock %}
+    {% include "PunkAveFileUploaderBundle:Default:templates.html.twig" %}
 </body>
 </html>

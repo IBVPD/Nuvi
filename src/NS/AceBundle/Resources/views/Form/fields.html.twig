@@ -76,9 +76,11 @@
 </div>
 {%endblock %}
 
-{% block file_row %}
+{% block fileupload_row %}
 <div class="form-group">
     {{form_label(form)}}
-    <input type="file" {{ block('widget_attributes') }} />
+    <div class="nsFileUpload" {{ block('widget_attributes') }}>
+        <div class="nsUploader"></div>
+    </div>
 </div>
 {% endblock %}

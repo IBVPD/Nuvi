@@ -17,21 +17,22 @@ class FileUploadType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         parent::setDefaultOptions($resolver);
-        $resolver->setDefaults( array('multiple' => false));
-
-        $resolver->setAllowedValues(array('multiple'=>  array(true, false)));
+        $resolver->setDefaults( array('uploadUrl' => false, 'viewUrl'=>false));
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         parent::buildView($view, $form, $options);
 
-//        if($options['multiple'])
-//            $view->vars['attr']['multiple'] = true;
+        if($options['uploadUrl'])
+            $view->vars['attr']['data-uploadUrl'] = $options['uploadUrl'];
+
+        if($options['viewUrl'])
+            $view->vars['attr']['data-viewUrl'] = $options['viewUrl'];
     }
 
-    public function getName()
+    public function getParent()
     {
-        return 'fileupload';
+        return 'file';
     }
 }

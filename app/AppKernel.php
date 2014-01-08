@@ -31,6 +31,7 @@ class AppKernel extends Kernel
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
             new \Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new NS\AceBundle\NSAceBundle(),
+            new \PunkAve\FileUploaderBundle\PunkAveFileUploaderBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
