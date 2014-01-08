@@ -9,7 +9,7 @@
         
     {%block sidenav_menu %}
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        {{ knp_menu_render('sidebar',{'template': 'NSAceBundle:Menu:menu.html.twig'}) }}
+        {{ knp_menu_render('sidebar') }}
         {% endif %}
     {% endblock %}
     

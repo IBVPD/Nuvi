@@ -8,6 +8,8 @@
 {%- endfor -%}
 {% endmacro %}
 
+{% block label %}{{ item.label|trans }}{% endblock %}
+
 {% block item %}
 {% if item.displayed %}
 {# building the class of the item #}
@@ -15,10 +17,10 @@
     {# removed class handling of current, ancestor classes #}
     {%- set attributes = item.attributes %}
 
-{# displaying the item #}
+    {# displaying the item #}
     <li{{ _self.attributes(attributes) }}>
         {{ block('linkElement') }}
-{# render the list of children#}
+        {# render the list of children#}
         {%- set childrenClasses = item.childrenAttribute('class') is not empty ? [item.childrenAttribute('class')] : ['submenu'] %}
         {%- set listAttributes = item.childrenAttributes|merge({'class': childrenClasses|join(' ') }) %}
         {{ block('list') }}
@@ -33,11 +35,7 @@
     <i class="{{ item.getExtra('icon')}}"></i>
     {%endif %}
     
-    {%- if item.uri is empty or item.current or not options.currentAsLink %}
-        <span class="menu-text" {{ _self.attributes(item.labelAttributes) }}> {{block('label')}} </span>
-    {% else%}
-        <span class="menu-text">{{block('label')}}</span>
-    {% endif %}
+    <span class="menu-text" {%- if item.uri is empty or item.current or not options.currentAsLink %}{{ _self.attributes(item.labelAttributes) }}{%endif%}>{{block('label')}}</span>
 
     {% if item.hasChildren %}
     <b class="arrow icon-angle-down"></b>
