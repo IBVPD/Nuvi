@@ -35,4 +35,9 @@ class FileUploadType extends AbstractType
     {
         return 'file';
     }
+
+    public function getName()
+    {
+        return 'fileupload';
+    }
 }
