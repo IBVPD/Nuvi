@@ -34,4 +34,10 @@ $(document).ready(function() {
             'delaySubmitWhileUploading': '.edit-form'
         });
     });
+
+    $('input.nsTag').each(function(i, el)
+    {
+        console.log($(el).data('options'));
+        $(el).tokenInput($(el).data('autocompleteurl'), $(el).data('options'));
+    });
 });

@@ -31,3 +31,8 @@ services:
       class: NS\AceBundle\Form\FileUploadType
       tags:
         - { name: form.type, alias: fileupload }
+
+    ns_ace.form.type.tag:
+      class: NS\AceBundle\Form\TagType
+      tags:
+        - { name: form.type, alias: tag }

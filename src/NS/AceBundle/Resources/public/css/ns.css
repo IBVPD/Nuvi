@@ -67,3 +67,46 @@ div.uploader div.controls span.uploader-file-name i.icon-file {
     background-color: #EFAD62;
     height: auto;
 }
+
+ul.token-input-list {
+    border: 1px solid #D5D5D5;
+}
+
+ul.token-input-list li {
+    float: left;
+}
+
+li.token-input-token {
+    color: #ffffff;
+    background: #91B8D0;
+    font-weight: normal;
+    float: left;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
+    vertical-align: baseline;
+    font-size: 13px;
+}
+
+li.token-input-token p {
+    line-height: 20px;
+}
+
+li.token-input-input-token {
+    float: none;
+    clear: both;
+}
+
+li.token-input-token span.token-input-delete-token {
+    color: #ffffff;
+    font-size: 15px;
+    padding-left: 0.5em;
+    line-height: 20px;
+}
+
+div.token-input-dropdown p {
+    font-weight: normal;
+}
+
+div.token-input-dropdown ul li.token-input-selected-dropdown-item {
+    background-color: #2283C5;
+    color: #ffffff;
+}
