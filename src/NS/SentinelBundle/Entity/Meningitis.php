@@ -11,6 +11,7 @@ use NS\SentinelBundle\Form\Types\DischargeOutcome;
 use NS\SentinelBundle\Form\Types\Doses;
 use NS\SentinelBundle\Form\Types\Gender;
 use NS\SentinelBundle\Form\Types\Role;
+use \NS\SentinelBundle\Interfaces\IdentityAssignmentInterface;
 
 // Annotations
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -29,21 +30,16 @@ use \NS\SecurityBundle\Annotation\SecuredCondition;
  *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB","ROLE_RRL_LAB"},relation="site",class="NSSentinelBundle:Site"),
  *      })
  */
-class Meningitis
+class Meningitis implements IdentityAssignmentInterface
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * @var integer $id
-     * @ORM\Column(name="id",type="integer")
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class="\NS\SentinelBundle\Generator\Custom")
+     * @var string $id
+     * @ORM\Column(name="id",type="string")
      */
     private $id;
-
-    /**
-     * @var string $caseId
-     * @ORM\Column(name="caseId",type="string")
-     */
-    private $caseId;
 
     /**
      * @ORM\OneToOne(targetEntity="ReferenceLab", mappedBy="case")
@@ -564,7 +560,7 @@ class Meningitis
 
     public function __toString()
     {
-        return $this->getCaseId();
+        return $this->id;
     }
 
     public function getId()
@@ -1540,9 +1536,12 @@ class Meningitis
 
         $this->setCountry($site->getCountry());
 
-        $this->setCaseId(sprintf("%s-%s-%s-", $this->getRegion()->getCode(), $this->country->getCode(), $this->site->getCode()));
-
         return $this;
+    }
+
+    public function getFullIdentifier($id)
+    {
+        return sprintf("%s-%s-%s-%06d", $this->getRegion()->getCode(), $this->country->getCode(), $this->site->getCode(),$id);
     }
 
     /**
@@ -1566,27 +1565,9 @@ class Meningitis
         return $this;
     }
 
-    public function setCaseId($caseId)
-    {
-        if(is_null($caseId))
-            return; //throw new \Exception("CaseId is NULL!?? $caseId");
-
-        $tokens = explode('-',$caseId);
-        if(count($tokens) == 4 && !empty($tokens[4]))
-        {
-            $this->id  = (int)$tokens[3];
-            unset($tokens[3]);
-            $this->caseId = implode('-', $tokens).'-';
-        }
-        else
-            $this->caseId = $caseId;
-
-        return $this;
-    }
-
     public function getCaseId()
     {
-        return $this->caseId . str_pad($this->id, 6, "0", STR_PAD_LEFT);
+        return $this->id;
     }
 
     /**

@@ -82,6 +82,13 @@ class Site
     private $website;    
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="currentCaseId", type="integer")
+     */
+    private $currentCaseId = 1;
+
+    /**
      * @var Country
      * 
      * @ORM\ManyToOne(targetEntity="Country",inversedBy="sites")
@@ -356,5 +363,16 @@ class Site
     public function getWebsite()
     {
         return $this->website;
+    }
+
+    public function getCurrentCaseId()
+    {
+        return $this->currentCaseId;
+    }
+
+    public function setCurrentCaseId($currentCaseId)
+    {
+        $this->currentCaseId = $currentCaseId;
+        return $this;
     }
 }
