@@ -25,10 +25,10 @@ class FileUploadType extends AbstractType
         parent::buildView($view, $form, $options);
 
         if($options['uploadUrl'])
-            $view->vars['attr']['data-uploadUrl'] = $options['uploadUrl'];
+            $view->vars['attr']['data-uploadurl'] = $options['uploadUrl'];
 
         if($options['viewUrl'])
-            $view->vars['attr']['data-viewUrl'] = $options['viewUrl'];
+            $view->vars['attr']['data-viewurl'] = $options['viewUrl'];
     }
 
     public function getParent()
