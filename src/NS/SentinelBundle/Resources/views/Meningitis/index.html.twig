@@ -54,8 +54,8 @@
                         <td>{{ row.ageInMonths }}</td>
                         <td class='hidden-480'>
                             <span class="label label-sm label-success icon icon-ok"> {{'EPI'|trans}} </span>
-                            <span class="label label-sm label-warning icon icon-warning-sign"> {{'LAB'|trans}} </span>
-                            <span class="label label-sm label-{{ row.hasLab ? 'success icon icon-ok':'danger icon icon-exclamation-sign'}}"> {{'RRL'|trans}} </a> </span>
+                            <span class="label label-sm label-{{ row.hasSiteLab ? 'success icon icon-ok':'danger icon icon-exclamation-sign'}}"> {{'LAB'|trans}} </span>
+                            <span class="label label-sm label-{{ row.hasReferenceLab ? 'success icon icon-ok':'danger icon icon-exclamation-sign'}}"> {{'RRL'|trans}} </span>
                         </td>
                         <td>{% include t.template %}</td>
                     </tr>

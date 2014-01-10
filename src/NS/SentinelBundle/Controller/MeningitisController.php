@@ -56,7 +56,7 @@ class MeningitisController extends Controller
     }
 
     /**
-     * @Route("/lab/create",name="meningitisLabCreate")
+     * @Route("/lab/create/{id}",name="meningitisLabCreate")
      * @Route("/lab/edit/{id}",name="meningitisLabEdit",defaults={"id"=null})
      * @Template()
      */
@@ -76,8 +76,8 @@ class MeningitisController extends Controller
                     $form   = $this->createForm('meningitis',$record);
                     break;
                 case 'lab':
-                    $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:Meningitis')->find($id): null;
-                    $form   = $this->createForm('meningitis',$record);
+                    $record = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:SiteLab')->findOrCreateNew($id);
+                    $form   = $this->createForm('meningitis_sitelab',$record);
                     break;
                 case 'rrl':
                     $record = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:ReferenceLab')->findOrCreateNew($id);
@@ -86,11 +86,11 @@ class MeningitisController extends Controller
                 default:
                     throw new \Exception("Unknown type");
             }
-        } 
+        }
         catch (\NS\SentinelBundle\Exceptions\NonExistentCase $ex) 
         {
             // TODO Flash service required
-            return $this->render('NSSentinelBundle:User:unknownCase.html.twig',array('message'=>$ex->getMessage()));
+            return $this->render('NSSentinelBundle:User:unknownCase.html.twig',array('message' => $ex->getMessage()));
         }
 
         if($request->getMethod() == 'POST')

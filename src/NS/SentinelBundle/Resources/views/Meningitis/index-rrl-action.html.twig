@@ -1,5 +1,5 @@
 <div class='visible-md visible-lg hidden-sm hidden-xs btn-group'>
-    {%if row.hasLab %}
+    {%if row.hasReferenceLab %}
         <a href="{{path('meningitisRRLEdit',{'id':row.id})}}" class='btn btn-xs btn-success'><i class='icon-edit bigger-120'></i></a>
     {%else %}
         <a href="{{path('meningitisRRLCreate',{'id':row.id})}}" class='btn btn-xs btn-success'><i class='icon-plus bigger-120'></i></a>

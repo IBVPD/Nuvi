@@ -19,7 +19,7 @@ use \NS\SecurityBundle\Annotation\SecuredCondition;
  * Description of ReferenceLab
  * @author gnat
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\ReferenceLab")
- * @ORM\Table(name="meningitis_labs")
+ * @ORM\Table(name="meningitis_reference_labs")
  * @Gedmo\Loggable
  * @Secured(conditions={
  *      @SecuredCondition(roles={"ROLE_REGION"},through="case",relation="region",class="NSSentinelBundle:Region"),
