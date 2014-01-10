@@ -1,5 +1,9 @@
 <div class='visible-md visible-lg hidden-sm hidden-xs btn-group'>
-    <a href="{{path('meningitisRRLEdit',{'id':row.caseId})}}" class='btn btn-xs btn-success'><i class='icon-edit bigger-120'></i></a>
+    {%if row.hasLab %}
+        <a href="{{path('meningitisRRLEdit',{'id':row.id})}}" class='btn btn-xs btn-success'><i class='icon-edit bigger-120'></i></a>
+    {%else %}
+        <a href="{{path('meningitisRRLCreate',{'id':row.id})}}" class='btn btn-xs btn-success'><i class='icon-plus bigger-120'></i></a>
+    {%endif %}
     <a href="{{path('meningitisShow',{'id':row.id})}}" class='btn btn-xs btn-info'><i class='icon-zoom-in bigger-120'></i></a>
 </div>
 <div class='visible-xs visible-sm hidden-md hidden-lg'>

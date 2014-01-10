@@ -5,6 +5,8 @@ namespace NS\SentinelBundle\Repository;
 use NS\SecurityBundle\Doctrine\SecuredEntityRepository;
 use NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
 use Doctrine\ORM\Query;
+use \NS\SentinelBundle\Exceptions\NonExistentCase;
+use \Doctrine\ORM\NoResultException;
 
 /**
  * Description of Common
@@ -119,7 +121,7 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
 
         return $this->secure($qb)->getQuery()->getResult(Query::HYDRATE_ARRAY);
     }
-    
+
     public function get($id)
     {
         $qb = $this->_em->createQueryBuilder()
@@ -129,10 +131,56 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
                         ->innerJoin('s.country', 'c')
                         ->innerJoin('m.region', 'r')
                         ->where('m.id = :id')->setParameter('id',$id);
-        
+
         return $this->secure($qb)->getQuery()->getSingleResult();
     }
-    
+
+    public function checkExistence($id)
+    {
+        try 
+        {
+            $qb = $this->_em
+                      ->createQueryBuilder('m')
+                      ->select('m')
+                      ->from($this->getClassName(),'m')
+                      ->where('m.id = :id')
+                      ->setParameter('id', $id);
+            
+            if($this->hasSecuredQuery())
+                return $this->secure($qb)
+                            ->getQuery()
+                            ->getSingleResult();
+            else
+                return $qb->getQuery()->getSingleResult();
+        }
+        catch(NoResultException $e)
+        {
+            throw new NonExistentCase("This case does not exist!");
+        }
+    }
+
+    public function find($id)
+    {
+        try
+        {
+            $qb = $this->_em
+                       ->createQueryBuilder()
+                       ->select('m')
+                       ->from($this->getClassName(),'m')
+                       ->where('m.id = :id')
+                       ->setParameter('id', $id);
+
+            if($this->hasSecuredQuery())
+                return $this->secure($qb)->getQuery()->getSingleResult();
+            else
+                return $qb->getQuery()->getSingleResult();
+        }
+        catch(NoResultException $e)
+        {
+            throw new NonExistentCase("This case does not exist!");
+        }
+    }
+
     public function search($search)
     {
         $qb = $this->_em->createQueryBuilder()

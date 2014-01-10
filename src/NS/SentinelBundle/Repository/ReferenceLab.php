@@ -4,7 +4,6 @@ namespace NS\SentinelBundle\Repository;
 
 use NS\SecurityBundle\Doctrine\SecuredEntityRepository;
 use NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
-use Doctrine\ORM\Query;
 
 /**
  * MeningitisLab
@@ -46,7 +45,7 @@ class ReferenceLab extends SecuredEntityRepository implements AjaxAutocompleteRe
 
         return $this->secure($qb)->getQuery();
     }
-    
+
     public function findOrCreateNew($id)
     {
         $r = parent::find($id);
@@ -54,9 +53,28 @@ class ReferenceLab extends SecuredEntityRepository implements AjaxAutocompleteRe
             return $r;
 
         $record = new \NS\SentinelBundle\Entity\ReferenceLab();
-        $m = $this->_em->getReference('NSSentinelBundle:Meningitis',$id);
+        $m      = $this->_em->getRepository('NSSentinelBundle:Meningitis')->checkExistence($id);
         $record->setCase($m);
 
         return $record;
+    }
+    
+    public function find($id)
+    {
+        try
+        {
+            $qb = $this->_em
+                       ->createQueryBuilder()
+                       ->select('m')
+                       ->from($this->getClassName(),'m')
+                       ->where('m.id = :id')
+                       ->setParameter('id', $id);
+
+            return $this->secure($qb)->getQuery()->getSingleResult();    
+        }
+        catch(NoResultException $e)
+        {
+            throw new NonExistentCase("This case does not exist!");
+        }
     }
 }

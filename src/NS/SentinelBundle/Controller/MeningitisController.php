@@ -65,24 +65,32 @@ class MeningitisController extends Controller
         return $this->edit('lab',$request,$id);
     }
 
-    private function edit($type,Request $request,$id)
+    private function edit($type, Request $request, $id)
     {
-        switch($type)
+        try 
         {
-            case 'meningitis':
-                $record = $id ? $this->getDoctrine()->getManager()->getRepository('NSSentinelBundle:Meningitis')->find($id): null;
-                $form   = $this->createForm('meningitis',$record);
-                break;
-            case 'lab':
-                $record = $id ? $this->getDoctrine()->getManager()->getRepository('NSSentinelBundle:Meningitis')->find($id): null;
-                $form   = $this->createForm('meningitis',$record);
-                break;
-            case 'rrl':
-                $record = $this->getDoctrine()->getManager()->getRepository('NSSentinelBundle:ReferenceLab')->findOrCreateNew($id);
-                $form   = $this->createForm('meningitis_referencelab',$record);
-                break;
-            default:
-                throw new \Exception("Unknown type");
+            switch($type)
+            {
+                case 'meningitis':
+                    $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:Meningitis')->find($id): null;
+                    $form   = $this->createForm('meningitis',$record);
+                    break;
+                case 'lab':
+                    $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:Meningitis')->find($id): null;
+                    $form   = $this->createForm('meningitis',$record);
+                    break;
+                case 'rrl':
+                    $record = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:ReferenceLab')->findOrCreateNew($id);
+                    $form   = $this->createForm('meningitis_referencelab',$record);
+                    break;
+                default:
+                    throw new \Exception("Unknown type");
+            }
+        } 
+        catch (\NS\SentinelBundle\Exceptions\NonExistentCase $ex) 
+        {
+            // TODO Flash service required
+            return $this->render('NSSentinelBundle:User:unknownCase.html.twig',array('message'=>$ex->getMessage()));
         }
 
         if($request->getMethod() == 'POST')
@@ -90,10 +98,20 @@ class MeningitisController extends Controller
             $form->handleRequest($request);
             if($form->isValid())
             {
-                $em = $this->getDoctrine()->getManager();
+                $em     = $this->getDoctrine()->getManager();
                 $record = $form->getData();
                 $em->persist($record);
-                $em->flush();
+
+                try
+                {
+                    $em->flush();
+                }
+                catch(\Exception $e)
+                {
+                    // TODO Flash service required
+                    return array('form' => $form->createView(),'id'=>$id);
+                }
+
                 // TODO Flash service required
                 return $this->redirect($this->generateUrl("meningitisIndex"));
             }

@@ -13,6 +13,45 @@
         {% endif %}
     {% endblock %}
     
+    {% block flash %}
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="alert alert-block alert-error">
+                <button type="button" class="close" data-dismiss="alert">
+                    <i class="icon-remove"></i>
+                </button>
+                <i class="icon-ok green"></i>
+                {{flashMessage.message}}
+            </div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('warning') %}
+            <div class="alert alert-block alert-warning">
+                <button type="button" class="close" data-dismiss="alert">
+                    <i class="icon-remove"></i>
+                </button>
+                <i class="icon-ok green"></i>
+                {{flashMessage.message}}
+            </div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('success') %}
+            <div class="alert alert-block alert-success">
+                <button type="button" class="close" data-dismiss="alert">
+                    <i class="icon-remove"></i>
+                </button>
+                <i class="icon-ok green"></i>
+                {{flashMessage.message}}
+            </div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('message') %}
+            <div class="alert alert-block">
+                <button type="button" class="close" data-dismiss="alert">
+                    <i class="icon-remove"></i>
+                </button>
+                <i class="icon-ok green"></i>
+                {{flashMessage.message}}
+            </div>        
+        {% endfor %}        
+    {% endblock %}
+
     {% block navbarheader %}
         <div class="navbar-header pull-right" role="navigation">
             <ul class="nav ace-nav">
