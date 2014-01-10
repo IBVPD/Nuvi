@@ -11,8 +11,9 @@ use NS\UtilBundle\Form\Types\ArrayChoice;
  */
 class Diagnosis extends ArrayChoice
 {
-    const NO_SELECTION   = 0;
+    const NO_SELECTION   = -1;
 
+    const NA         = 0;
     const MENINGITIS = 1;
     const PNEUMONIA  = 2;
     const SEPSIS     = 3;
@@ -20,7 +21,7 @@ class Diagnosis extends ArrayChoice
     const UNKNOWN    = 99;
 
     protected $values = array(
-                            self::NO_SELECTION => 'N/A',
+                            self::NA          => 'N/A',
                             self::MENINGITIS  => 'Meningitis', 
                             self::PNEUMONIA   => 'Pneumonia', 
                             self::SEPSIS      => 'Sepsis',
