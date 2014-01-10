@@ -1,20 +1,16 @@
 {%extends "NSSentinelBundle::layout.html.twig" %}
 
 {% block pagetitle %}
-{%if id > 0%}
-{{'View Case %case.id%'|trans({'%case.id%': form.vars.data.caseId})}}
-{%else%}
-{{'Create New Case'|trans}}
-{%endif%}
-{%endblock %}
+{%if id %}{{'View Case %id%'|trans({'%id%': id})}}{%else%}{{'Create New Case'|trans}}{%endif%}
+{% endblock %}
 
 {% block body %}
-<form method="POST" action="{{path('meningitisEdit',{'id':id})}}">
+<form method="POST" action="{{path(t.action,{'id':id})}}">
 {% if form.site is defined %}
 <div class="row">
     <div class="col-sm-4" >
         <div class="widget-box">
-            <div class="widget-header"><h4 class="panelTitle">Site</h4></div>
+            <div class="widget-header"><h4 class="panelTitle">{{'Site'|trans}}</h4></div>
             <div class="widget-body"><div class="widget-main">
                 {{form_row(form.site)}}
             </div></div>
@@ -24,7 +20,7 @@
 {% endif %}
     
 <div class="row">
-{{form_errors(form)}}
+    {{form_errors(form)}}
     <div class="col-sm-4" >
         <div class="widget-box">
             <div class="widget-header"><h4 class="panelTitle">{{'Case Based Demographics'|trans}}</h4></div>

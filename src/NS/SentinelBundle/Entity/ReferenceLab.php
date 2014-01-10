@@ -30,15 +30,17 @@ use \NS\SecurityBundle\Annotation\SecuredCondition;
 class ReferenceLab
 {
     /**
-     * @ORM\OneToOne(targetEntity="Meningitis",inversedBy="lab")
-     */
-    private $case;
-    /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Meningitis",inversedBy="lab")
+     * @ORM\JoinColumn(nullable=false,unique=true)
+     */
+    private $case;
 
 // From Sentinel Site
 //    private $ISO3Code;

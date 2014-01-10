@@ -574,6 +574,11 @@ class Meningitis implements IdentityAssignmentInterface
         return $this;
     }
 
+    public function hasId()
+    {
+        return !empty($this->id);
+    }
+
     public function getDob()
     {
         return $this->dob;
@@ -581,6 +586,9 @@ class Meningitis implements IdentityAssignmentInterface
 
     public function setDob($dob)
     {
+        if(!$dob instanceOf \DateTime)
+            return;
+
         $this->dob = $dob;
 
         $interval = ($this->admDate) ? $dob->diff($this->admDate) : $dob->diff(new \DateTime());
@@ -1591,5 +1599,10 @@ class Meningitis implements IdentityAssignmentInterface
     public function getLab()
     {
         return $this->lab;
+    }
+
+    public function hasLab()
+    {
+        return ($this->lab instanceof ReferenceLab);
     }
 }

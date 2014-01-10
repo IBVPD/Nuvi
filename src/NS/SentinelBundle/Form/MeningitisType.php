@@ -32,7 +32,7 @@ class MeningitisType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('dob','acedatepicker',array('required'=>false,'label'=>'meningitis-form.date-of-birth','widget'=>'single_text','format'=>'yyyy-MM-dd'))
+            ->add('dob','acedatepicker',array('required'=>false,'label'=>'meningitis-form.date-of-birth','widget'=>'single_text'))
             ->add('gender','Gender',array('required'=>false,'label'=>'meningitis-form.gender'))
             ->add('hibReceived','TripleChoice',array('required'=>false,'label'=>'meningitis-form.hib-received'))
             ->add('hibDoses','Doses',array('required'=>false,'label'=>'meningitis-form.hib-doses'))
@@ -81,16 +81,16 @@ class MeningitisType extends AbstractType
 
         $builder->addEventListener(
                         FormEvents::PRE_SET_DATA,
-                        function(FormEvent $event) use($factory,$builder,$sc,$se,$em)
+                        function(FormEvent $event) use($factory,$sc,$se,$em)
                         {
                             $form        = $event->getForm();
                             $data        = $event->getData();
                             $user        = $sc->getToken()->getUser();
                             $sites       = $se->get('sites',array());
-                            
-                            if($data && !$data->getId())
+
+                            if(!$data) // new object
                             {
-                                if(count($sites) == 0)
+                                if(count($sites) == 0) // empty session site array so build and store
                                 {
                                     foreach($user->getAcls() as $acl)
                                     {
@@ -124,17 +124,17 @@ class MeningitisType extends AbstractType
                                 return;
                             
                             $data = $event->getData();
-                            if($data->getId() > 0)// no editing of sites
+                            if(!$data || $data->hasId()) // no editing of sites
                                 return;
-                            
-                            $sites = $se->get('sites',array()); //should be array with single site
+
+                            $sites = $se->get('sites',array()); // should be array with single site
                             $site = array_pop($sites);
 
                             if(!$em->contains($site))
                             {
                                 $uow = $em->getUnitOfWork();
-                                $c = $site->getCountry();
-                                $r = $c->getRegion();
+                                $c   = $site->getCountry();
+                                $r   = $c->getRegion();
 
                                 $uow->registerManaged($site,array('id'=>$site->getId()),array('id'=>$site->getId(),'code'=>$site->getCode()));
                                 $uow->registerManaged($c,array('id'=>$c->getId()),array('id'=>$c->getId(),'code'=>$c->getCode()));

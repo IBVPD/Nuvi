@@ -57,28 +57,16 @@
                             <span class="label label-sm label-warning">{{'LAB'|trans}}</span>
                             <span class="label label-sm label-{{row.lab is defined and row.lab is not empty ? 'success':'danger'}}">{{'RRL'|trans}}</span>
                         </td>
-                        <td>
-                            <div class='visible-md visible-lg hidden-sm hidden-xs btn-group'>
-                                <a href="{{path(route~'Edit',{'id':row.id})}}" class='btn btn-xs btn-success'><i class='icon-cog bigger-120'></i></a>
-                                <a href="{{path('meningitisShow',{'id':row.id})}}" class='btn btn-xs btn-info'><i class='icon-edit bigger-120'></i></a>
-                            </div>
-                            <div class='visible-xs visible-sm hidden-md hidden-lg'>
-                                <div class="inline position-relative">
-                                    <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown"><i class="icon-cog icon-only bigger-110"></i></button>
-                                    <ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
-                                        <li><a href="{{path('meningitisShow',{'id':row.id})}}" class="tooltip-info" data-rel="tooltip" title="View"><span class="blue"><i class="icon-zoom-in bigger-120"></i></span></a></li>
-                                        <li><a href="{{path(route~'Edit',{'id':row.id})}}" class="tooltip-success" data-rel="tooltip" title="Edit"><span class="green"><i class="icon-edit bigger-120"></i></span></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </td>
+                        <td>{% include t.template %}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
-            <div class="align-right">
-                <a href="{{path(route~'Create')}}" class="btn btn-sm btn-default">{{'Create'}}<i class="icon-plus-sign icon-on-right bigger-110"></i></a>
-            </div>
+            {% if t.canCreate %}
+                <div class="align-right">
+                    <a href="{{path('meningitisCreate')}}" class="btn btn-sm btn-default">{{'Create'}}<i class="icon-plus-sign icon-on-right bigger-110"></i></a>
+                </div>
+            {% endif %}
             </div>
         </div><!--/.table-responsive-->
     </div><!--/span-->

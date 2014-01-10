@@ -23,8 +23,15 @@ class MeningitisController extends Controller
     {
         $rows = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:Meningitis")->getLatest();
         $form = $this->createForm(new MeningitisSearch());
-        
-        return array('rows' => $rows,'form' => $form->createView());
+        $sc   = $this->get('security.context');
+        if($sc->isGranted('ROLE_SITE'))
+            $t = array('template' => 'NSSentinelBundle:Meningitis:index-action.html.twig', 'action' => 'meningitisEdit','canCreate'=>true);
+        else if($sc->isGranted('ROLE_LAB'))
+            $t = array('template' => 'NSSentinelBundle:Meningitis:index-lab-action.html.twig', 'action' => 'meningitisLabEdit','canCreate'=>false);
+        else if($sc->isGranted('ROLE_RRL_LAB'))
+            $t = array('template' => 'NSSentinelBundle:Meningitis:index-rrl-action.html.twig', 'action' => 'meningitisRRLCreate','canCreate'=>false);
+
+        return array('rows' => $rows,'form' => $form->createView(),'t'=>$t);
     }
 
     /**
@@ -34,20 +41,60 @@ class MeningitisController extends Controller
      */
     public function editAction(Request $request,$id = null)
     {
-        $record = ($id > 0) ? $this->getDoctrine()->getManager()->getRepository('NSSentinelBundle:Meningitis')->find($id): null;
-        $form   = $this->createForm('meningitis',$record);
-        $form->add('file', 'fileupload', array('mapped'=>false, 'uploadUrl'=>'/app_dev.php/gallery/upload?editId=089075009', 'viewUrl'=>'/uploads/tmp/attachments/089075009'));
+        $s = $request->getSession()->get('sites',false);
+        return $this->edit('meningitis',$request,$id);
+    }
+
+    /**
+     * @Route("/rrl/create/{id}",name="meningitisRRLCreate")
+     * @Route("/rrl/edit/{id}",name="meningitisRRLEdit",defaults={"id"=null})
+     * @Template()
+     */
+    public function editRRLAction(Request $request,$id = null)
+    {
+        return $this->edit('rrl',$request,$id);
+    }
+
+    /**
+     * @Route("/lab/create",name="meningitisLabCreate")
+     * @Route("/lab/edit/{id}",name="meningitisLabEdit",defaults={"id"=null})
+     * @Template()
+     */
+    public function editLabAction(Request $request,$id = null)
+    {
+        return $this->edit('lab',$request,$id);
+    }
+
+    private function edit($type,Request $request,$id)
+    {
+        switch($type)
+        {
+            case 'meningitis':
+                $record = $id ? $this->getDoctrine()->getManager()->getRepository('NSSentinelBundle:Meningitis')->find($id): null;
+                $form   = $this->createForm('meningitis',$record);
+                break;
+            case 'lab':
+                $record = $id ? $this->getDoctrine()->getManager()->getRepository('NSSentinelBundle:Meningitis')->find($id): null;
+                $form   = $this->createForm('meningitis',$record);
+                break;
+            case 'rrl':
+                $record = $this->getDoctrine()->getManager()->getRepository('NSSentinelBundle:ReferenceLab')->findOrCreateNew($id);
+                $form   = $this->createForm('meningitis_referencelab',$record);
+                break;
+            default:
+                throw new \Exception("Unknown type");
+        }
 
         if($request->getMethod() == 'POST')
         {
-            $form->bind($request);
+            $form->handleRequest($request);
             if($form->isValid())
             {
                 $em = $this->getDoctrine()->getManager();
                 $record = $form->getData();
                 $em->persist($record);
                 $em->flush();
-
+                // TODO Flash service required
                 return $this->redirect($this->generateUrl("meningitisIndex"));
             }
         }

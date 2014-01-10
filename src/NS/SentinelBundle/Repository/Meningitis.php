@@ -83,7 +83,7 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
                    ->select('m,l')
                    ->from($this->getClassName(),'m')
                    ->leftJoin('m.lab', 'l')
-//                   ->orderBy('m.created','DESC')
+                   ->orderBy('m.id','DESC')
                    ->setMaxResults($limit);
         return $this->secure($qb)->getQuery()->getResult();
     }
@@ -127,26 +127,8 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
                         ->from($this->getClassName(),'m')
                         ->innerJoin('m.site', 's')
                         ->innerJoin('s.country', 'c')
-                        ->innerJoin('m.region', 'r');
-
-        if(is_numeric($id))
-            $qb->where('m.id = :id')->setParameter('id',$id);
-        else if(is_string($id))
-        {
-            $tokens = explode('-',$id);
-            if(count($tokens) == 3 && !empty($tokens[3]))
-            {
-                $id  = (int)$tokens[3];
-                unset($tokens[3]);
-                $cId = implode('-', $tokens).'-';
-
-                $qb->where('m.id = :id AND m.caseId = :caseId')->setParameters(array('id' => $id, 'caseId' => $cId));
-            }
-            else
-                throw new \UnexpectedValueException("$id is a malformed case id");
-        }
-        else
-            throw new \UnexpectedValueException("$id is neither an number nor string");
+                        ->innerJoin('m.region', 'r')
+                        ->where('m.id = :id')->setParameter('id',$id);
         
         return $this->secure($qb)->getQuery()->getSingleResult();
     }

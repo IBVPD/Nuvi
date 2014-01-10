@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-<form method="POST" action="{{path('meningitisRRLEdit',{'id':id})}}" novalidate>
+<form method="POST" action="{{path(meningitisLabEdit,{'id':id})}}" novalidate>
 <div class="row">
     {{form_errors(form)}}
     {{form_rest(form)}}
