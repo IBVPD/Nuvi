@@ -36,3 +36,8 @@ services:
       class: NS\AceBundle\Form\TagType
       tags:
         - { name: form.type, alias: tag }
+
+    ns_ace.form.type.spinner:
+      class: NS\AceBundle\Form\SpinnerType
+      tags:
+        - { name: form.type, alias: spinner }

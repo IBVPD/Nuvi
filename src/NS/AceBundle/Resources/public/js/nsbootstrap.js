@@ -37,7 +37,11 @@ $(document).ready(function() {
 
     $('input.nsTag').each(function(i, el)
     {
-        console.log($(el).data('options'));
         $(el).tokenInput($(el).data('autocompleteurl'), $(el).data('options'));
+    });
+
+    $('input.nsSpinner').each(function(i, el)
+    {
+        $(el).ace_spinner($(el).data('options'));
     });
 });

@@ -93,3 +93,12 @@
     </div>
 </div>
 {% endblock %}
+
+{% block spinner_row %}
+<div class="form-group">
+    {{form_label(form)}}
+    <div class="input-group">
+        <input class="nsSpinner" type="text" {{ block('widget_attributes') }} />
+    </div>
+</div>
+{% endblock %}
