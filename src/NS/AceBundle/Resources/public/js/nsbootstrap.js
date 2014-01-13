@@ -44,4 +44,6 @@ $(document).ready(function() {
     {
         $(el).ace_spinner($(el).data('options'));
     });
+
+    $('input.nsKnob').knob();
 });

@@ -102,3 +102,12 @@
     </div>
 </div>
 {% endblock %}
+
+{% block knob_row %}
+<div class="form-group">
+    {{form_label(form)}}
+    <div class="input-group">
+        <input class="input-small nsKnob" type="text" {{ block('widget_attributes') }} />
+    </div>
+</div>
+{% endblock %}

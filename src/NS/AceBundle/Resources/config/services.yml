@@ -41,3 +41,8 @@ services:
       class: NS\AceBundle\Form\SpinnerType
       tags:
         - { name: form.type, alias: spinner }
+
+    ns_ace.form.type.knob:
+      class: NS\AceBundle\Form\KnobType
+      tags:
+        - { name: form.type, alias: knob }
