@@ -111,3 +111,12 @@
     </div>
 </div>
 {% endblock %}
+
+{% block masked_row %}
+<div class="form-group">
+    {{form_label(form)}}
+    <div class="input-group">
+        <input class="nsMasked" type="text" {{ block('widget_attributes') }} />
+    </div>
+</div>
+{% endblock %}

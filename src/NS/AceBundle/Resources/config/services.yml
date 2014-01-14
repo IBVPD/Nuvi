@@ -46,3 +46,8 @@ services:
       class: NS\AceBundle\Form\KnobType
       tags:
         - { name: form.type, alias: knob }
+
+    ns_ace.form.type.masked:
+      class: NS\AceBundle\Form\MaskedType
+      tags:
+        - { name: form.type, alias: masked }
