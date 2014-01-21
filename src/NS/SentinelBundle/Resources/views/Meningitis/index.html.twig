@@ -22,14 +22,9 @@
                     </div>
                     <div class="col-sm-3">
                         <div class="dataTables_filter" id="sample-table-2_filter">
-                            <label>Search: <input type="text" aria-controls="sample-table-2"></label>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="dataTables_filter" id="sample-table-2_filter">
                             <form method="POST" action="{{path('meningitisSearch')}}">
                                 {{form_widget(form.id)}}
-                                <button class="filter" type="submit">{{'Find'|trans}}</button>
+                                {{form_widget(form.find)}}
                                 {{form_rest(form)}}
                             </form>
                         </div>

@@ -135,6 +135,16 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
         return $this->secure($qb)->getQuery()->getSingleResult();
     }
 
+    public function search($id)
+    {
+        $qb = $this->_em->createQueryBuilder()
+                        ->select('m')
+                        ->from($this->getClassName(),'m')
+                        ->where('m.id LIKE :id')->setParameter('id',"%$id%");
+
+        return $this->secure($qb)->getQuery()->getResult();
+    }
+
     public function checkExistence($id)
     {
         try 
@@ -179,15 +189,5 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
         {
             throw new NonExistentCase("This case does not exist!");
         }
-    }
-
-    public function search($search)
-    {
-        $qb = $this->_em->createQueryBuilder()
-                        ->select('m,s,c,r')
-                        ->from($this->getClassName(),'m')
-                        ->innerJoin('m.site', 's')
-                        ->innerJoin('s.country', 'c')
-                        ->innerJoin('m.region', 'r');
     }
 }

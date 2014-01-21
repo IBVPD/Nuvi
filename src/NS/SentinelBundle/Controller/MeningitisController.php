@@ -145,9 +145,24 @@ class MeningitisController extends Controller
                 $params = $request->request->get('meningitis_search');
                 $record = $this->get('ns.model_manager')
                                ->getRepository('NSSentinelBundle:Meningitis')
-                               ->get($params['id']);
+                               ->search($params['id']);
 
-                return $this->render('NSSentinelBundle:Meningitis:show.html.twig', array('record' => $record));
+                if($record instanceof \NS\SentinelBundle\Entity\Meningitis)
+                    return $this->render('NSSentinelBundle:Meningitis:show.html.twig', array('record' => $record));
+                else
+                {
+                    $sc = $this->get('security.context');
+                    if($sc->isGranted('ROLE_SITE'))
+                        $t = array('template' => 'NSSentinelBundle:Meningitis:index-action.html.twig', 'action' => 'meningitisEdit','canCreate'=>true);
+                    else if($sc->isGranted('ROLE_LAB'))
+                        $t = array('template' => 'NSSentinelBundle:Meningitis:index-lab-action.html.twig', 'action' => 'meningitisLabEdit','canCreate'=>false);
+                    else if($sc->isGranted('ROLE_RRL_LAB'))
+                        $t = array('template' => 'NSSentinelBundle:Meningitis:index-rrl-action.html.twig', 'action' => 'meningitisRRLCreate','canCreate'=>false);
+                    else
+                        $t = array('template' => 'NSSentinelBundle:Meningitis:index-rrl-action.html.twig', 'action' => 'meningitisRRLCreate','canCreate'=>false);
+
+                    return $this->render('NSSentinelBundle:Meningitis:index.html.twig',array('rows' => $record,'form' => $form->createView(),'t'=>$t));
+                }
             }
             catch(\Exception $e)
             {
