@@ -28,7 +28,7 @@
                     <div class="col-sm-3">
                         <div class="dataTables_filter" id="sample-table-2_filter">
                             <form method="POST" action="{{path('meningitisSearch')}}">
-                                {{form_widget(form.caseId)}}
+                                {{form_widget(form.id)}}
                                 <button class="filter" type="submit">{{'Find'|trans}}</button>
                                 {{form_rest(form)}}
                             </form>
@@ -49,7 +49,7 @@
                 <tbody>
                 {% for row in rows %}
                     <tr>
-                        <td>{{ row.caseId }}</td>
+                        <td>{{ row.id }}</td>
                         <td>{{ row.gender }}</td>
                         <td>{{ row.ageInMonths }}</td>
                         <td class='hidden-480'>

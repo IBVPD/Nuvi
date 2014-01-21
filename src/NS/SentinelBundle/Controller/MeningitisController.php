@@ -145,7 +145,7 @@ class MeningitisController extends Controller
                 $params = $request->request->get('meningitis_search');
                 $record = $this->get('ns.model_manager')
                                ->getRepository('NSSentinelBundle:Meningitis')
-                               ->get($params['caseId']);
+                               ->get($params['id']);
 
                 return $this->render('NSSentinelBundle:Meningitis:show.html.twig', array('record' => $record));
             }
@@ -165,6 +165,6 @@ class MeningitisController extends Controller
     public function ajaxAutoComplete()
     {
         return $this->get('ns.ajax_autocompleter')
-                    ->getAutocomplete('NSSentinelBundle:Meningitis','caseId');
+                    ->getAutocomplete('NSSentinelBundle:Meningitis','id');
     }
 }

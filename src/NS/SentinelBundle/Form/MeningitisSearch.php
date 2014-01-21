@@ -15,7 +15,7 @@ class MeningitisSearch extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('caseId','ns_autocomplete',array('required' => true,
+            ->add('id','ns_autocomplete',array('required' => true,
                                                    'route'    => 'ajaxMeningitisAutoComplete', 
                                                    'tokenize' => false, 
                                                    'class'    => 'NSSentinelBundle:Meningitis'));
