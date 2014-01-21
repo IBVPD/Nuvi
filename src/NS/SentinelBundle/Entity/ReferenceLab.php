@@ -37,7 +37,7 @@ class ReferenceLab
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="Meningitis",inversedBy="lab")
+     * @ORM\OneToOne(targetEntity="Meningitis",inversedBy="referenceLab")
      * @ORM\JoinColumn(nullable=false,unique=true)
      */
     private $case;

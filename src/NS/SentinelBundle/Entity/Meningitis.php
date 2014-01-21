@@ -43,6 +43,7 @@ class Meningitis implements IdentityAssignmentInterface
 
     /**
      * @ORM\OneToOne(targetEntity="ReferenceLab", mappedBy="case")
+     * @ORM\JoinColumn(nullable=false,unique=true)
      */
     private $referenceLab;
 
