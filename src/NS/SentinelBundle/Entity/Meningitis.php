@@ -915,11 +915,6 @@ class Meningitis implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function getCaseId()
-    {
-        return $this->id;
-    }
-
     /**
      * Set SiteLab
      *
