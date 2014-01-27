@@ -46,7 +46,15 @@ class LoadMeningitisCaseData extends AbstractFixture implements OrderedFixtureIn
             $m->setDob($dob);
             $m->setAdmDate($this->getRandomDate(null,$dob));
             $m->setCsfCollected((($x % 3) == 0));
-            $m->setCxrDone(($x%5) == 0 ? $done:$nDone);
+            if($x%12 == 0)
+            {
+                $site = new \NS\SentinelBundle\Entity\SiteLab();
+                $site->setCase($m);
+                $site->setCxrDone($done);
+                $m->setSiteLab($site);
+                
+                $manager->persist($site);
+            }
 
             $m->setGender(($x%7)?$fmale:$male);
 
