@@ -11,7 +11,7 @@ use \NS\SentinelBundle\Form\MeningitisType;
 use \NS\SentinelBundle\Form\MeningitisSearch;
 
 /**
- * @Route("/{_locale}/meningitis")
+ * @Route("/{_locale}/ibd")
  */
 class MeningitisController extends Controller
 {
@@ -30,7 +30,9 @@ class MeningitisController extends Controller
             $t = array('template' => 'NSSentinelBundle:Meningitis:index-lab-action.html.twig', 'action' => 'meningitisLabEdit','canCreate'=>false);
         else if($sc->isGranted('ROLE_RRL_LAB'))
             $t = array('template' => 'NSSentinelBundle:Meningitis:index-rrl-action.html.twig', 'action' => 'meningitisRRLCreate','canCreate'=>false);
-
+        else if($sc->isGranted('ROLE_REGION'))
+            $t = array('template' => 'NSSentinelBundle:Meningitis:index-action.html.twig', 'action' => '', 'canCreate'=>false);
+        
         return array('rows' => $rows,'form' => $form->createView(),'t'=>$t);
     }
 
