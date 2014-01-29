@@ -7,6 +7,6 @@ namespace NS\SentinelBundle\Exceptions;
  *
  * @author gnat
  */
-class NonExistentCase extends \Exception
+class NonExistentCase extends \RuntimeException
 {
 }
