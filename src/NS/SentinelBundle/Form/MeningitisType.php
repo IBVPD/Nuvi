@@ -66,7 +66,6 @@ class MeningitisType extends AbstractType
             ->add('csfCollected','switch',array('required'=>false,'label'=>'meningitis-form.csf-collected','switchtype'=>2))
             ->add('csfCollectDateTime','acedatetime',array('required'=>false,'label'=>'meningitis-form.csf-collect-datetime'))
             ->add('csfAppearance','CSFAppearance',array('required'=>false,'label'=>'meningitis-form.csf-appearance'))
-            ->add('csfLabDateTime','dateclockpicker',array('required'=>false,'label'=>'meningitis-form.csf-lab-datetime'))
             ->add('bloodCollected','switch', array('required'=>false,'label'=>'meningitis-form.blood-collected','switchtype'=>2))
             ->add('dischOutcome','DischargeOutcome',array('required'=>false,'label'=>'meningitis-form.discharge-outcome'))
             ->add('dischDx','Diagnosis',array('required'=>false,'label'=>'meningitis-form.discharge-diagnosis'))
