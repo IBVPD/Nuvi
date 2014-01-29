@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use \NS\SentinelBundle\Form\MeningitisType;
 use \NS\SentinelBundle\Form\MeningitisSearch;
+use \NS\SentinelBundle\Exceptions\NonExistentCase;
 
 /**
  * @Route("/{_locale}/ibd")
@@ -43,7 +44,6 @@ class MeningitisController extends Controller
      */
     public function editAction(Request $request,$id = null)
     {
-        $s = $request->getSession()->get('sites',false);
         return $this->edit('meningitis',$request,$id);
     }
 
@@ -89,7 +89,7 @@ class MeningitisController extends Controller
                     throw new \Exception("Unknown type");
             }
         }
-        catch (\NS\SentinelBundle\Exceptions\NonExistentCase $ex) 
+        catch (NonExistentCase $ex) 
         {
             // TODO Flash service required
             return $this->render('NSSentinelBundle:User:unknownCase.html.twig',array('message' => $ex->getMessage()));
