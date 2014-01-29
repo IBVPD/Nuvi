@@ -8,7 +8,18 @@
     </div>
 
     <div class="space-6"></div>
-
+    
+    {% if error %}
+    <div class="alert alert-danger">
+        <strong>
+            <i class="icon-remove"></i>
+            Oh snap!
+        </strong>
+        {{error.message}}
+        <br>
+    </div>
+    {%endif%}
+    
     <div class="position-relative">
         <div id="login-box" class="login-box visible widget-box no-border">
             <div class="widget-body">
