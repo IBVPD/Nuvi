@@ -19,24 +19,21 @@ class Custom extends AbstractIdGenerator
     public function generate(EntityManager $em, $entity)
     {
         if(!$entity instanceOf IdentityAssignmentInterface)
-            throw new \Exception("Entity must implement IdentityAssignmentInterface");
+            throw new \InvalidArgumentException("Entity must implement IdentityAssignmentInterface");
 
         $site = $entity->getSite();
 
         if(is_null($site))
-            throw new \Exception ("Can't generate an id for meningitis entities without an assigned site");
+            throw new \UnexpectedValueException("Can't generate an id for meningitis entities without an assigned site");
 
-        $sId  = $site->getId();
-
-        $em->getConnection()->beginTransaction();
         $rsm = new ResultSetMapping();
         $rsm->addEntityResult('NS\SentinelBundle\Entity\Site', 's');
         $rsm->addFieldResult('s', 'currentCaseId', 'currentCaseId');
 
-        $id = $em->createNativeQuery('SELECT s.currentCaseId FROM sites s WHERE s.id = '.$sId, $rsm)->getResult(Query::HYDRATE_SINGLE_SCALAR);
-
-        $em->getConnection()->executeUpdate('UPDATE sites SET currentCaseId = currentCaseId +1 WHERE id = :id', array('id'=>$sId));
-        $em->getConnection()->commit();
+        $em->beginTransaction();
+        $id = $em->createNativeQuery('SELECT s.currentCaseId FROM sites s WHERE s.id = '.$site->getId(), $rsm)->getResult(Query::HYDRATE_SINGLE_SCALAR);
+        $em->getConnection()->executeUpdate('UPDATE sites SET currentCaseId = currentCaseId +1 WHERE id = :id', array('id'=>$site->getId()));
+        $em->commit();
 
         return $entity->getFullIdentifier($id);
     }
