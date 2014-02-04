@@ -1,9 +1,5 @@
 <div class='visible-md visible-lg hidden-sm hidden-xs btn-group'>
-    {%if row.hasSiteLab %}
-        <a href="{{path('meningitisLabEdit',{'id':row.id})}}" class='btn btn-xs btn-success'><i class='icon-edit bigger-120'></i></a>
-    {%else %}
-        <a href="{{path('meningitisLabCreate',{'id':row.id})}}" class='btn btn-xs btn-success'><i class='icon-plus bigger-120'></i></a>
-    {%endif %}
+    <a href="{{path('meningitisLabEdit',{'id':row.id})}}" class='btn btn-xs btn-success'><i class='{%if row.hasSiteLab %}icon-edit{%else%}icon-plus{%endif%} bigger-120'></i></a>
     <a href="{{path('meningitisShow',{'id':row.id})}}" class='btn btn-xs btn-info'><i class='icon-zoom-in bigger-120'></i></a>
 </div>
 <div class='visible-xs visible-sm hidden-md hidden-lg'>
@@ -11,7 +7,7 @@
         <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown"><i class="icon-cog icon-only bigger-110"></i></button>
         <ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
             <li><a href="{{path('meningitisShow',{'id':row.id})}}" class="tooltip-info" data-rel="tooltip" title="View"><span class="blue"><i class="icon-zoom-in bigger-120"></i></span></a></li>
-            <li><a href="{{path('meningitisLabEdit',{'id':row.id})}}" class="tooltip-success" data-rel="tooltip" title="Edit"><span class="green"><i class="icon-edit bigger-120"></i></span></a></li>
+            <li><a href="{{path('meningitisLabEdit',{'id':row.id})}}" class="tooltip-success" data-rel="tooltip" title="Edit"><span class="green"><i class="{%if row.hasSiteLab %}icon-edit{%else%}icon-plus{%endif%} bigger-120"></i></span></a></li>
         </ul>
     </div>
 </div>
