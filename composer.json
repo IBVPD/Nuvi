@@ -39,8 +39,7 @@
         "gedmo/doctrine-extensions": "~2.3",
         "stof/doctrine-extensions-bundle": "1.1.x-dev",
         "punkave/symfony2-file-uploader-bundle": "dev-master",
-        "oneup/uploader-bundle": "1.0.*@dev",
-        "jms/security-extra-bundle": "1.5.x-dev"
+        "oneup/uploader-bundle": "1.0.*@dev"
     },
     "scripts": {
         "post-install-cmd": [

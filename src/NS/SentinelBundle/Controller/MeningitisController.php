@@ -6,8 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use JMS\SecurityExtraBundle\Annotation\Secure;
-
 use Symfony\Component\HttpFoundation\Request;
 use \NS\SentinelBundle\Form\MeningitisType;
 use \NS\SentinelBundle\Form\MeningitisSearch;
@@ -44,7 +42,6 @@ class MeningitisController extends Controller
      * @Route("/create",name="meningitisCreate")
      * @Route("/edit/{id}",name="meningitisEdit",defaults={"id"=null})
      * @Template()
-     * @Secure(roles="ROLE_CAN_CREATE_CASE")
      */
     public function editAction(Request $request,$id = null)
     {
