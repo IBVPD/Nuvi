@@ -365,7 +365,7 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
         {
             return null;
         }
-        
+
         foreach($this->acls as $acl)
         {
             if($acl->getType()->equal($role)) // found an object id for this role
