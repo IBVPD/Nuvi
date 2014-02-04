@@ -2,6 +2,12 @@ parameters:
 #    ns_ace.example.class: NS\AceBundle\Example
 
 services:
+    ns_ace.access_denied:
+      class: NS\AceBundle\Listener\AccessDenied
+      arguments: [ @twig ]
+      tags:
+        - { name: kernel.event_listener, event: security.kernel_response, method: handle }
+
     ns_ace.form.type.switch:
       class: NS\AceBundle\Form\SwitchType
       tags:
