@@ -33,7 +33,7 @@ class MeningitisController extends Controller
             $t = array('template' => 'NSSentinelBundle:Meningitis:index-rrl-action.html.twig', 'action' => 'meningitisRRLCreate','canCreate'=>false);
         else if($sc->isGranted('ROLE_REGION'))
             $t = array('template' => 'NSSentinelBundle:Meningitis:index-action.html.twig', 'action' => '', 'canCreate'=>false);
-        
+
         return array('rows' => $rows,'form' => $form->createView(),'t'=>$t);
     }
 
