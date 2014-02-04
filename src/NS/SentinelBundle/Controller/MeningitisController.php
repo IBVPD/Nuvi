@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use JMS\SecurityExtraBundle\Annotation\Secure;
+
 use Symfony\Component\HttpFoundation\Request;
 use \NS\SentinelBundle\Form\MeningitisType;
 use \NS\SentinelBundle\Form\MeningitisSearch;
@@ -25,14 +27,15 @@ class MeningitisController extends Controller
         $rows = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:Meningitis")->getLatest();
         $form = $this->createForm(new MeningitisSearch());
         $sc   = $this->get('security.context');
+
         if($sc->isGranted('ROLE_SITE'))
-            $t = array('template' => 'NSSentinelBundle:Meningitis:index-action.html.twig', 'action' => 'meningitisEdit','canCreate'=>true);
+            $t = array('template' => 'NSSentinelBundle:Meningitis:index-action.html.twig', 'action' => 'meningitisEdit');
         else if($sc->isGranted('ROLE_LAB'))
-            $t = array('template' => 'NSSentinelBundle:Meningitis:index-lab-action.html.twig', 'action' => 'meningitisLabEdit','canCreate'=>false);
+            $t = array('template' => 'NSSentinelBundle:Meningitis:index-lab-action.html.twig', 'action' => 'meningitisLabEdit');
         else if($sc->isGranted('ROLE_RRL_LAB'))
-            $t = array('template' => 'NSSentinelBundle:Meningitis:index-rrl-action.html.twig', 'action' => 'meningitisRRLCreate','canCreate'=>false);
+            $t = array('template' => 'NSSentinelBundle:Meningitis:index-rrl-action.html.twig', 'action' => 'meningitisRRLCreate');
         else if($sc->isGranted('ROLE_REGION'))
-            $t = array('template' => 'NSSentinelBundle:Meningitis:index-action.html.twig', 'action' => '', 'canCreate'=>false);
+            $t = array('template' => 'NSSentinelBundle:Meningitis:index-action.html.twig', 'action' => '');
 
         return array('rows' => $rows,'form' => $form->createView(),'t'=>$t);
     }
@@ -41,6 +44,7 @@ class MeningitisController extends Controller
      * @Route("/create",name="meningitisCreate")
      * @Route("/edit/{id}",name="meningitisEdit",defaults={"id"=null})
      * @Template()
+     * @Secure(roles="ROLE_CAN_CREATE_CASE")
      */
     public function editAction(Request $request,$id = null)
     {

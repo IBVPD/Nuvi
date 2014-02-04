@@ -3,7 +3,7 @@ security:
         NS\SentinelBundle\Entity\User: sha512
 
     role_hierarchy:
-        ROLE_SITE:        ROLE_USER
+        ROLE_SITE:        [ ROLE_USER, ROLE_CAN_CREATE_CASE ]
         ROLE_LAB:         ROLE_USER
         ROLE_RRL_LAB:     ROLE_USER
         ROLE_COUNTRY:     ROLE_USER
