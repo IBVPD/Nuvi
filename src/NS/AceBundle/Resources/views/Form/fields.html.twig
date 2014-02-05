@@ -1,3 +1,5 @@
+{% extends 'form_div_layout.html.twig' %}
+
 {% block form_row %}
 {% spaceless %}
 <div class="form-group">
@@ -119,4 +121,26 @@
         <input class="nsMasked" type="text" {{ block('widget_attributes') }} />
     </div>
 </div>
+{% endblock %}
+
+{% block recordsperpage_row %}
+    <label>Display 
+        {% if required and empty_value is none and not empty_value_in_choices %}
+            {% set required = false %}
+        {% endif %}
+        <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %} onchange="this.form.submit();">
+            {% if empty_value is not none %}
+                <option value=""{% if required and value is empty %} selected="selected"{% endif %}>{{ empty_value|trans({}, translation_domain) }}</option>
+            {% endif %}
+            {% if preferred_choices|length > 0 %}
+                {% set options = preferred_choices %}
+                {{ block('choice_widget_options') }}
+                {% if choices|length > 0 and separator is not none %}
+                    <option disabled="disabled">{{ separator }}</option>
+                {% endif %}
+            {% endif %}
+            {% set options = choices %}
+            {{ block('choice_widget_options') }}
+        </select> records
+    </label>
 {% endblock %}

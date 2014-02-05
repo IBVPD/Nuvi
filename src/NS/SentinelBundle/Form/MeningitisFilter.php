@@ -10,6 +10,7 @@ use NS\SecurityBundle\Doctrine\SecuredQuery;
 use \Symfony\Component\Form\FormEvent;
 use \Symfony\Component\Form\FormEvents;
 use \Doctrine\Common\Persistence\ObjectManager;
+use \Lexik\Bundle\FormFilterBundle\Filter\FilterOperands;
 
 class MeningitisFilter extends AbstractType
 {
@@ -32,10 +33,10 @@ class MeningitisFilter extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('id',     'filter_text',array('required'=>false,'condition_pattern'=>  \Lexik\Bundle\FormFilterBundle\Filter\FilterOperands::STRING_STARTS))
-//                ->add('site',   'filter_entity',array('required'=>false))
-//                ->add('country','filter_entity',array('required'=>false))
-//                ->add('region', 'filter_entity',array('required'=>false))
+        $builder->add('id', 'filter_text', array(
+                                            'required'          => false,
+                                            'condition_pattern' => FilterOperands::STRING_BOTH,
+                                            'label'             => 'Case Id'))
                 ;
 
         $securityContext = $this->securityContext;
@@ -58,7 +59,6 @@ class MeningitisFilter extends AbstractType
                             $form->add('site','filter_entity',  array('class'         => 'NSSentinelBundle:Site',
                                                                       'multiple'      => true,
                                                                       'query_builder' => $securedQuery->secure($qb)));
-
                         }
 
                         if($securityContext->isGranted('ROLE_COUNTRY'))

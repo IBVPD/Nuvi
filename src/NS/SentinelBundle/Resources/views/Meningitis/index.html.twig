@@ -10,18 +10,9 @@
                 <div class="row">
                     <div class="col-sm-3">
                         <div class="dataTables_length">
-                            <form id="result_per_page_form" method="GET" action="{{path('meningitisIndex')}}">
-                                <label>Display 
-                                    <select size="1" id="result_per_page_field" name="result_per_page">
-                                        <option value="5">5</option>
-                                        <option value="10" selected="selected">10</option>
-                                        <option value="25">25</option>
-                                        <option value="50">50</option>
-                                        <option value="100">100</option>
-                                    </select> records
-                                </label>
+                            <form method="POST" action="{{path('meningitisIndex')}}">
+                                {{form_rest(form)}}
                             </form>
-                            
                         </div>
                     </div>
                     <div class="col-sm-5">
@@ -68,7 +59,6 @@
     </div>
 </div><!--/row-->
 
-
 <div class="layoutSection">
     <div class="column span1">
         <div class="panel dataPanel">
@@ -88,13 +78,4 @@
         </div>
     </div>
 </div>
- {% endblock %}
-
-{% block javascripts %}
-{{parent()}}
-<script type="text/javascript">
-    $(document).ready(function(){
-        $('#result_per_page_field').change(function(){this.form.submit();});
-     });
-</script>
 {% endblock %}

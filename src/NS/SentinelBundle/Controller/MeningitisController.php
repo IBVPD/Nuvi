@@ -17,10 +17,10 @@ use \NS\SentinelBundle\Exceptions\NonExistentCase;
 class MeningitisController extends Controller
 {
     /**
-     * @Route("/",name="meningitisIndex")
+     * @Route("/{page}",name="meningitisIndex",defaults={"page"=1},requirements={"page"="\d+"})
      * @Template()
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request,$page)
     {
         $paginator = $this->get('knp_paginator');
 
@@ -30,7 +30,7 @@ class MeningitisController extends Controller
             $query = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:Meningitis")->getLatestQuery();
 
         $pagination = $paginator->paginate( $query,
-                                            $request->query->get('page', 1),
+                                            $page,
                                             $request->getSession()->get('result_per_page',10) );
 
         $sc = $this->get('security.context');
@@ -44,7 +44,7 @@ class MeningitisController extends Controller
         else if($sc->isGranted('ROLE_REGION'))
             $t = array('template' => 'NSSentinelBundle:Meningitis:index-action.html.twig', 'action' => '');
 
-        return array('pagination' => $pagination, 't'=>$t);
+        return array('pagination' => $pagination, 't' => $t, 'form' => $this->createForm('results_per_page')->createView());
     }
 
     /**
@@ -142,60 +142,6 @@ class MeningitisController extends Controller
     }
 
     /**
-     * @Route("/search",name="meningitisSearch")
-     * @Method({"POST"})
-     */
-    public function searchAction(Request $request)
-    {
-        $form = $this->createForm(new MeningitisSearch());
-        $form->submit($request);
-
-        if($form->isValid())
-        {
-            try
-            {
-                $params = $request->request->get('meningitis_search');
-                $record = $this->get('ns.model_manager')
-                               ->getRepository('NSSentinelBundle:Meningitis')
-                               ->search($params['id']);
-
-                if($record instanceof \NS\SentinelBundle\Entity\Meningitis)
-                    return $this->render('NSSentinelBundle:Meningitis:show.html.twig', array('record' => $record));
-                else
-                {
-                    $sc = $this->get('security.context');
-                    if($sc->isGranted('ROLE_SITE'))
-                        $t = array('template' => 'NSSentinelBundle:Meningitis:index-action.html.twig', 'action' => 'meningitisEdit');
-                    else if($sc->isGranted('ROLE_LAB'))
-                        $t = array('template' => 'NSSentinelBundle:Meningitis:index-lab-action.html.twig', 'action' => 'meningitisLabEdit');
-                    else if($sc->isGranted('ROLE_RRL_LAB'))
-                        $t = array('template' => 'NSSentinelBundle:Meningitis:index-rrl-action.html.twig', 'action' => 'meningitisRRLCreate');
-                    else
-                        $t = array('template' => 'NSSentinelBundle:Meningitis:index-rrl-action.html.twig', 'action' => 'meningitisRRLCreate');
-
-                    return $this->render('NSSentinelBundle:Meningitis:index.html.twig',array('rows' => $record,'form' => $form->createView(),'t'=>$t));
-                }
-            }
-            catch(\Exception $e)
-            {
-                throw $this->createNotFoundException(__LINE__.' Case does not exist: '.$e->getMessage());
-            }
-        }
-
-        throw $this->createNotFoundException(__LINE__.' Case does not exist: '.$form->getErrorsAsString());
-    }
-
-    /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @Route("/ajax/meningitis",name="ajaxMeningitisAutoComplete")
-     */
-    public function ajaxAutoComplete()
-    {
-        return $this->get('ns.ajax_autocompleter')
-                    ->getAutocomplete('NSSentinelBundle:Meningitis','id');
-    }
-
-    /**
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @Route("/filter",name="meningitisFilter")
      * @Template()
@@ -212,10 +158,10 @@ class MeningitisController extends Controller
                           ->getFilterQueryBuilder();
 
             // build the query from the given form object
-            $qb = $this->get('lexik_form_filter.query_builder_updater');
+            $qb    = $this->get('lexik_form_filter.query_builder_updater');
             $qb->addFilterConditions($filterForm, $query, 'm');
 
-
+            // No need to get parameters from query since the lexik builder doesn't use parameters
             $request->getSession()->set('meningitis/filter',$query->getDql());
 
             return $this->redirect($this->generateUrl('meningitisIndex'));

@@ -2,6 +2,12 @@ parameters:
 #    ns_ace.example.class: NS\AceBundle\Example
 
 services:
+    ns_ace.form.record_page:
+      class: NS\AceBundle\Form\RecordsPerPageType
+      arguments: [ "@session" ]
+      tags:
+        - { name: form.type, alias: recordsperpage }
+
     ns_ace.access_denied:
       class: NS\AceBundle\Listener\AccessDenied
       arguments: [ @twig ]
