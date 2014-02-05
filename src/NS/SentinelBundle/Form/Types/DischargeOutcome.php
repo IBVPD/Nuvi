@@ -11,8 +11,9 @@ use NS\UtilBundle\Form\Types\ArrayChoice;
  */
 class DischargeOutcome extends ArrayChoice
 {
-    const NO_SELECTION   = 0;
+    const NO_SELECTION   = -1;
 
+    const NA          = 0;
     const DISCHARGED  = 1;
     const DIED        = 2;
     const TRANSFERRED = 3;
@@ -20,7 +21,7 @@ class DischargeOutcome extends ArrayChoice
     const UNKNOWN     = 99;
 
     protected $values = array(
-                            self::NO_SELECTION => 'N/A',
+                            self::NA          => 'N/A',
                             self::DISCHARGED  => 'No', 
                             self::DIED        => 'Yes', 
                             self::TRANSFERRED => 'Transferred',

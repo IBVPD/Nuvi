@@ -1,0 +1,59 @@
+parameters:
+#    ns_ace.example.class: NS\AceBundle\Example
+
+services:
+    ns_ace.access_denied:
+      class: NS\AceBundle\Listener\AccessDenied
+      arguments: [ @twig ]
+      tags:
+        - { name: kernel.event_listener, event: security.kernel_response, method: handle }
+
+    ns_ace.form.type.switch:
+      class: NS\AceBundle\Form\SwitchType
+      tags:
+        - { name: form.type, alias: switch }
+
+    ns_ace.form.type.slider:
+      class: NS\AceBundle\Form\SliderType
+      tags:
+        - { name: form.type, alias: slider }
+
+    ns_ace.form.type.acedate:
+      class: NS\AceBundle\Form\DateType
+      tags:
+        - { name: form.type, alias: acedate }
+
+    ns_ace.form.type.acedatepicker:
+      class: NS\AceBundle\Form\DatePickerType
+      tags:
+        - { name: form.type, alias: acedatepicker }
+
+    ns_ace.form.type.acedatetimepicker:
+      class: NS\AceBundle\Form\DateTimePickerType
+      tags:
+        - { name: form.type, alias: acedatetime }
+
+    ns_ace.form.type.fileupload:
+      class: NS\AceBundle\Form\FileUploadType
+      tags:
+        - { name: form.type, alias: fileupload }
+
+    ns_ace.form.type.tag:
+      class: NS\AceBundle\Form\TagType
+      tags:
+        - { name: form.type, alias: tag }
+
+    ns_ace.form.type.spinner:
+      class: NS\AceBundle\Form\SpinnerType
+      tags:
+        - { name: form.type, alias: spinner }
+
+    ns_ace.form.type.knob:
+      class: NS\AceBundle\Form\KnobType
+      tags:
+        - { name: form.type, alias: knob }
+
+    ns_ace.form.type.masked:
+      class: NS\AceBundle\Form\MaskedType
+      tags:
+        - { name: form.type, alias: masked }

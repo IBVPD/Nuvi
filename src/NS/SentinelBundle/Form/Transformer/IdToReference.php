@@ -28,8 +28,6 @@ class IdToReference implements DataTransformerInterface
 
     public function reverseTransform($value)
     {
-//        die("TRANSFORMING '$value'!");
-
         if(is_object($value) && $value instanceof \NS\SentinelBundle\Entity\Site)
             return $value->getId();
         
@@ -38,7 +36,6 @@ class IdToReference implements DataTransformerInterface
 
     public function transform($id)
     {
-//        die("TRANSFORMING '$id'!!!");
         if (null === $id)
             return "";
 

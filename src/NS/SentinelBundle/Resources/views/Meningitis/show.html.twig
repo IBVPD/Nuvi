@@ -1,195 +1,190 @@
 {%extends "NSSentinelBundle::layout.html.twig" %}
+{% block pagetitle %}{{'View Case %id%'|trans({'%id%': record.id})}}{%endblock %}
 
 {% block body %}
-<div class="layoutSection">
-    <div class="column span1" >
-        <div class="panel dataPanel">
-            <h3 class="panelTitle">{{'Case Based Demographics'|trans}}</h3>
-            <div class="panelContent">
-                <table>
-                    <tr><td><strong>{{'meningitis-form.caseId'|trans}}</strong>: {{record.caseId}}</td></tr>
-                    <tr><td><strong>{{'meningitis-form.dob'|trans}}</strong>: {{record.dob|date}}</td></tr>
-                    <tr><td><strong>{{'meningitis-form.gender'|trans}}</strong>: {{record.gender}}</td></tr>
-                </table>
-            </div>
-        </div>
-    </div>
+<div class="col-sm-12">
+    <div class="tabbable tabs-left">
+        <ul class="nav nav-tabs" id="myTab2">
+            <li class="active"><a data-toggle="tab" href="#demographics">{{'Case Based Demographics'|trans}}</a></li>
+            <li><a data-toggle="tab" href="#vacination">{{'Vaccination History'|trans}}</a></li>
+            <li><a data-toggle="tab" href="#clinical">{{'Clinical Data'|trans}}</a></li>
+            <li><a data-toggle="tab" href="#meningitis">{{'Meningitis'|trans}}</a></li>
+            <li><a data-toggle="tab" href="#pneumonia">{{'Pneumonia / Sepsis'|trans}}</a></li>
+            <li><a data-toggle="tab" href="#collectionData">{{'Specimen Collection Data'|trans}}</a></li>
+        </ul>
 
-    <div class="column span2" >
-        <div class="panel dataPanel">
-            <h3 class="panelTitle">{{'Vaccination History'|trans}}</h3>
-            <div class="panelContent">
-                <table style="width: 100%;">
-                    <tr>
-                        <td>
-                            <strong>{{'meningitis-form.hib-received'|trans}}</strong>: {{record.hibReceived}}<br />
-                            <strong>{{'meningitis-form.hib-doses'|trans}}</strong>: {{record.hibDoses}}<br />
-                            <strong>{{'meningitis-form.pcv-received'|trans}}</strong>: {{record.pcvReceived}}<br />
-                            <strong>{{'meningitis-form.pcv-doses'|trans}}</strong>: {{record.pcvDoses}}<br />
-                        </td>
-                        <td>
-                            <strong>{{'meningitis-form.mening-received'|trans}}</strong>: {{record.meningReceived}}<br />
-                            <strong>{{'meningitis-form.mening-doses'|trans}}</strong>: {{record.meningDoses}}<br />
-                            <strong>{{'meningitis-form.dtp-received'|trans}}</strong>: {{record.dtpReceived}}<br />
-                            <strong>{{'meningitis-form.dtp-doses'|trans}}</strong>: {{record.dtpDoses}}<br />
-                        </td>
-                    </tr>
-                </table>
+        <div class="tab-content">
+            <div id="demographics" class="tab-pane active">
+                <div class="profile-user-info profile-user-info-striped">
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">{{'meningitis-form.caseId'|trans}}</div>
+                        <div class="profile-info-value">&nbsp;{{record.caseId}}</div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">{{'meningitis-form.dob'|trans}}</div>
+                        <div class="profile-info-value">&nbsp;{{record.dob|date}}</div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">{{'meningitis-form.gender'|trans}}</div>
+                        <div class="profile-info-value">&nbsp;{{record.gender}}</div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
 
-    <div class="column span1">
-        <div class="panel dataPanel">
-            <h3 class="panelTitle">{{'Clinical Data'|trans}}</h3>
-            <div class="panelContent">
-                <table>
-                    <tr><td><strong>{{'meningitis-form.adm-date'|trans}}</strong>: {{record.admDate|date}}</td></tr>
-                    <tr><td><strong>{{'meningitis-form.adm-dx'|trans}}</strong>: {{record.admDx}}</td></tr>
-                    <tr><td><strong>{{'meningitis-form.adm-dx-other'|trans}}</strong>: {{record.admDxOther}}</td></tr>    
-                </table>
+            <div id="vacination" class="tab-pane">
+                <div class="profile-user-info profile-user-info-striped">
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">{{'meningitis-form.hib-received'|trans}}</div>
+                        <div class="profile-info-value">&nbsp;{{record.hibReceived}}</div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">{{'meningitis-form.hib-doses'|trans}}</div>
+                        <div class="profile-info-value">&nbsp;{{record.hibDoses}}</div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">{{'meningitis-form.pcv-received'|trans}}</div>
+                        <div class="profile-info-value">&nbsp;{{record.pcvReceived}}</div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">{{'meningitis-form.pcv-doses'|trans}}</div>
+                        <div class="profile-info-value">&nbsp;{{record.pcvDoses}}</div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">{{'meningitis-form.mening-received'|trans}}</div>
+                        <div class="profile-info-value">&nbsp;{{record.meningReceived}}</div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">{{'meningitis-form.mening-doses'|trans}}</div>
+                        <div class="profile-info-value">&nbsp;{{record.meningDoses}}</div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">{{'meningitis-form.dtp-received'|trans}}</div>
+                        <div class="profile-info-value">&nbsp;{{record.dtpReceived}}</div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">{{'meningitis-form.dtp-doses'|trans}}</div>
+                        <div class="profile-info-value">&nbsp;{{record.dtpDoses}}</div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</div>
-<div class="layoutSection">
-    <div class="column span2">
-        <div class="panel dataPanel">
-            <h3 class="panelTitle">{{'Meningigtis'|trans}}</h3>
-            <div class="panelContent">
-                <table style="width: 100%;">
-                    <tr>
-                        <td>
-                            <strong>{{'meningitis-form.men-seizures'|trans}}</strong>: {{record.menSeizures}}<br />
-                            <strong>{{'meningitis-form.men-fever'|trans}}</strong>: {{record.menFever}}<br />
-                            <strong>{{'meningitis-form.men-alt-conscious'|trans}}</strong>: {{record.menAltConscious}}<br />
-                            <strong>{{'meningitis-form.men-inability-feed'|trans}}</strong>: {{record.menInabilityFeed}}<br />
-                            <strong>{{'meningitis-form.men-stridor'|trans}}</strong>: {{record.menStridor}}<br />
-                            <strong>{{'meningitis-form.men-neck-stiff'|trans}}</strong>: {{record.menNeckStiff}}<br />
-                        </td>
-                        <td>
-                            <strong>{{'meningitis-form.men-rash'|trans}}</strong>: {{record.menRash}}<br />
-                            <strong>{{'meningitis-form.men-fontanelle-bulge'|trans}}</strong>: {{record.menFontanelleBulge}}<br />
-                            <strong>{{'meningitis-form.men-lethargy'|trans}}</strong>: {{record.menLethargy}}<br />
-                            <strong>{{'meningitis-form.men-poor-sucking'|trans}}</strong>: {{record.menPoorSucking}}<br />
-                            <strong>{{'meningitis-form.men-irritability'|trans}}</strong>: {{record.menIrritability}}<br />
-                            <strong>{{'meningitis-form.men-symptom-other'|trans}}</strong>: {{record.menSymptomOther}}<br />
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div class="column span2">
-        <div class="panel dataPanel">
-            <h3 class="panelTitle">{{'Pneumonia / Sepsis'|trans}}</h3>
-            <div class="panelContent">
-                <table>
-                    <tr>
-                        <td><strong>{{'meningitis-form.pneu-diff-breathe'|trans}}</strong>: {{record.pneuDiffBreathe}}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>{{'meningitis-form.pneu-chest-indraw'|trans}}</strong>: {{record.pneuChestIndraw}}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>{{'meningitis-form.pneu-cough'|trans}}</strong>: {{record.pneuCough}}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>{{'meningitis-form.pneu-cyanosis'|trans}}</strong>: {{record.pneuCyanosis}}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>{{'meningitis-form.pneu-respRate'|trans}}</strong>: {{record.pneuRespRate}}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>{{'meningitis-form.pneu-symptom-other'|trans}}</strong>: {{record.pneuSymptomOther}}</td>
-                    </tr>                    
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="layoutSection">
-    <div class="column span1">
-        <div class="panel dataPanel">
-            <h3 class="panelTitle">{{'Specimen Collection Data'|trans}}</h3>
-            <div class="panelContent">
-                <table>
-                    <tr><td><strong>{{'meningitis-form.csf-collected'|trans}}</strong>: {{record.csfCollected}}</td></tr>
-                    <tr><td><strong>{{'meningitis-form.csf-collect-datetime'|trans}}</strong>: {{record.csfCollectDateTime|date}}</td></tr>
-                    <tr><td><strong>{{'meningitis-form.csf-appearance'|trans}}</strong>: {{record.csfAppearance}}</td></tr>
-                    <tr><td><strong>{{'meningitis-form.csf-lab-datetime'|trans}}</strong>: {{record.csfLabDateTime|date}}</td></tr>
-                    <tr><td><strong>{{'meningitis-form.blood-collected'|trans}}</strong>: {{record.bloodCollected}}</td></tr>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div class="column span3">
-        <div class="panel dataPanel">
-            <h3 class="panelTitle">{{'Lab Data'|trans}}</h3>
-            <div class="panelContent">
-                <table style="width: 100%;">
-                    <tr>
-                        <td style="vertical-align: top;">
-                            <strong>{{'meningitis-form.csf-wcc'|trans}}</strong>: {{record.csfWcc}}<br />
-                            <strong>{{'meningitis-form.csf-glucose'|trans}}</strong>: {{record.csfGlucose}}<br />
-                            <strong>{{'meningitis-form.csf-protein'|trans}}</strong>: {{record.csfProtein}}<br />
-                            <strong>{{'meningitis-form.csf-cult-done'|trans}}</strong>: {{record.csfCultDone}}<br />
-                            <strong>{{'meningitis-form.csf-gram-done'|trans}}</strong>: {{record.csfGramDone}}<br />
-                            <strong>{{'meningitis-form.csf-binax-done'|trans}}</strong>: {{record.csfBinaxDone}}<br />
-                            <strong>{{'meningitis-form.csf-lat-done'|trans}}</strong>: {{record.csfLatDone}}<br />
-                            <strong>{{'meningitis-form.csf-pcr-done'|trans}}</strong>: {{record.csfPcrDone}}<br />
-                        </td>
-                        <td style="vertical-align: top;">
-                            <strong>{{'meningitis-form.blood-cult-done'|trans}}</strong>: {{record.bloodCultDone}}<br />
-                            <strong>{{'meningitis-form.blood-gram-done'|trans}}</strong>: {{record.bloodGramDone}}<br />
-                            <strong>{{'meningitis-form.blood-pcr-done'|trans}}</strong>: {{record.bloodPcrDone}}<br />
-                            <strong>{{'meningitis-form.other-cult-done'|trans}}</strong>: {{record.otherCultDone}}<br />
-                            <strong>{{'meningitis-form.other-test-done'|trans}}</strong>: {{record.otherTestDone}}<br />
-                            <strong>{{'meningitis-form.csf-cult-other'|trans}}</strong>: {{record.csfCultOther}}<br />
-                        </td>
-                        <td style="vertical-align: top;">
-                            <strong>{{'meningitis-form.rrl-csf-date'|trans}}</strong>: {{record.rrlCsfDate|date}}<br />
-                            <strong>{{'meningitis-form.rrl-isol-date'|trans}}</strong>: {{record.rrlIsolDate|date}}<br />
-                            <strong>{{'meningitis-form.rrl-name'|trans}}</strong>: {{record.rrlName}}<br />
-                            <strong>{{'meningitis-form.spn-serotype'|trans}}</strong>: {{record.spnSerotype}}<br />
-                            <strong>{{'meningitis-form.hi-serotype'|trans}}</strong>: {{record.hiSerotype}}<br />
-                            <strong>{{'meningitis-form.nm-serogroup'|trans}}</strong>: {{record.nmSerogroup}}<br />
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div class="layoutSection">
-    <div class="column span4">
-        <div class="panel dataPanel">
-            <h3 class="panelTitle">{{'Outcoume Data'|trans}}</h3>
-            <div class="panelContent">
-                <table>
-                    <tr>
-                        <td><strong>{{'meningitis-form.cxr-done'|trans}}</strong>: {{record.rrlCsfDate|date}}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>{{'meningitis-form.cxr-result'|trans}}</strong>: {{record.rrlIsolDate|date}}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>{{'meningitis-form.discharge-outcome'|trans}}</strong>: {{record.rrlName}}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>{{'meningitis-form.discharge-diagnosis'|trans}}</strong>: {{record.spnSerotype}}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>{{'meningitis-form.discharge-sequelae'|trans}}</strong>: {{record.hiSerotype}}</td>
-                    </tr>
-                    <tr>
-                        <td><strong>{{'meningitis-form.comment'|trans}}</strong>: {{record.nmSerogroup}}</td>
-                    </tr>
-                </table>
-                <div class="formRow alignRight">
-                    <a class="button cancel" href="{{path('meningitisIndex')}}">{{'Return To List'|trans}}</a>
-                    <a class="button" href="{{path('meningitisEdit',{'id':record.id})}}">{{'Edit'|trans}}</a>
+            <div id="clinical" class="tab-pane">
+                <div class="profile-user-info profile-user-info-striped">
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">{{'meningitis-form.adm-date'|trans}}</div>
+                        <div class="profile-info-value">&nbsp;{{record.admDate|date}}</div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">{{'meningitis-form.adm-dx'|trans}}</div>
+                        <div class="profile-info-value">&nbsp;{{record.admDx}}</div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">{{'meningitis-form.adm-dx-other'|trans}}</div>
+                        <div class="profile-info-value">&nbsp;{{record.admDxOther}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="meningitis" class="tab-pane">
+                <div class="profile-user-info profile-user-info-striped">
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">{{'meningitis-form.men-seizures'|trans}}</div>
+                        <div class="profile-info-value">&nbsp;{{record.menSeizures}}</div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">{{'meningitis-form.men-fever'|trans}}</div>
+                        <div class="profile-info-value">&nbsp;{{record.menFever}}</div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">{{'meningitis-form.men-alt-conscious'|trans}}</div>
+                        <div class="profile-info-value">&nbsp;{{record.menAltConscious}}</div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">{{'meningitis-form.men-inability-feed'|trans}}</div>
+                        <div class="profile-info-value">&nbsp;{{record.menInabilityFeed}}</div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">{{'meningitis-form.men-stridor'|trans}}</div>
+                        <div class="profile-info-value">&nbsp;{{record.menStridor}}</div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">{{'meningitis-form.men-neck-stiff'|trans}}</div>
+                        <div class="profile-info-value">&nbsp;{{record.menNeckStiff}}</div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">{{'meningitis-form.men-rash'|trans}}</div>
+                        <div class="profile-info-value">&nbsp;{{record.menRash}}</div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">{{'meningitis-form.men-fontanelle-bulge'|trans}}</div>
+                        <div class="profile-info-value">&nbsp;{{record.menFontanelleBulge}}</div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">{{'meningitis-form.men-lethargy'|trans}}</div>
+                        <div class="profile-info-value">&nbsp;{{record.menLethargy}}</div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">{{'meningitis-form.men-poor-sucking'|trans}}</div>
+                        <div class="profile-info-value">&nbsp;{{record.menPoorSucking}}</div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">{{'meningitis-form.men-irritability'|trans}}</div>
+                        <div class="profile-info-value">&nbsp;{{record.menIrritability}}</div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">{{'meningitis-form.men-symptom-other'|trans}}</div>
+                        <div class="profile-info-value">&nbsp;{{record.menSymptomOther}}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="pneumonia" class="tab-pane">
+                <div class="profile-user-info profile-user-info-striped">
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">{{'meningitis-form.pneu-diff-breathe'|trans}}</div>
+                        <div class="profile-info-value">&nbsp;{{record.pneuDiffBreathe}}</div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">{{'meningitis-form.pneu-chest-indraw'|trans}}</div>
+                        <div class="profile-info-value">&nbsp;{{record.pneuChestIndraw}}</div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">{{'meningitis-form.pneu-cough'|trans}}</div>
+                        <div class="profile-info-value">&nbsp;{{record.pneuCough}}</div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">{{'meningitis-form.pneu-cyanosis'|trans}}</div>
+                        <div class="profile-info-value">&nbsp;{{record.pneuCyanosis}}</div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">{{'meningitis-form.pneu-respRate'|trans}}</div>
+                        <div class="profile-info-value">&nbsp;{{record.pneuRespRate}}</div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">{{'meningitis-form.pneu-symptom-other'|trans}}</div>
+                        <div class="profile-info-value">&nbsp;{{record.pneuSymptomOther}}</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="collectionData" class="tab-pane">
+                <div class="profile-user-info profile-user-info-striped">
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">{{'meningitis-form.csf-collected'|trans}}</div>
+                        <div class="profile-info-value">&nbsp;{{record.csfCollected}}</div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">{{'meningitis-form.csf-collect-datetime'|trans}}</div>
+                        <div class="profile-info-value">&nbsp;{{record.csfCollectDateTime|date}}</div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">{{'meningitis-form.csf-appearance'|trans}}</div>
+                        <div class="profile-info-value">&nbsp;{{record.csfAppearance}}</div>
+                    </div>
+                    <div class="profile-info-row">
+                        <div class="profile-info-name">{{'meningitis-form.blood-collected'|trans}}</div>
+                        <div class="profile-info-value">&nbsp;{{record.bloodCollected}}</div>
+                    </div>
                 </div>
             </div>
         </div>

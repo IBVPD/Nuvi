@@ -22,6 +22,6 @@ class TripleChoice extends ArrayChoice
     
     public function getName()
     {
-        return 'triple_choice';
+        return 'TripleChoice';
     }
 }

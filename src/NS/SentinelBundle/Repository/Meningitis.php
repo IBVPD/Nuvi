@@ -5,6 +5,8 @@ namespace NS\SentinelBundle\Repository;
 use NS\SecurityBundle\Doctrine\SecuredEntityRepository;
 use NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
 use Doctrine\ORM\Query;
+use \NS\SentinelBundle\Exceptions\NonExistentCase;
+use \Doctrine\ORM\NoResultException;
 
 /**
  * Description of Common
@@ -76,13 +78,24 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
 
         return $qb->getQuery();        
     }
-    
+
+    public function getLatestQuery()
+    {
+        $qb = $this->_em->createQueryBuilder()
+                   ->select('m,l,rl')
+                   ->from($this->getClassName(),'m')
+                   ->leftJoin('m.lab', 'l')
+                   ->leftJoin('m.referenceLab','rl');
+        return $this->secure($qb);
+    }
+
     public function getLatest($limit = 10)
     {
         $qb = $this->_em->createQueryBuilder()
-                   ->select('m')
+                   ->select('m,l')
                    ->from($this->getClassName(),'m')
-//                   ->orderBy('m.created','DESC')
+                   ->leftJoin('m.lab', 'l')
+                   ->orderBy('m.id','DESC')
                    ->setMaxResults($limit);
         return $this->secure($qb)->getQuery()->getResult();
     }
@@ -118,7 +131,7 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
 
         return $this->secure($qb)->getQuery()->getResult(Query::HYDRATE_ARRAY);
     }
-    
+
     public function get($id)
     {
         $qb = $this->_em->createQueryBuilder()
@@ -126,23 +139,76 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
                         ->from($this->getClassName(),'m')
                         ->innerJoin('m.site', 's')
                         ->innerJoin('s.country', 'c')
-                        ->innerJoin('m.region', 'r');
+                        ->innerJoin('m.region', 'r')
+                        ->where('m.id = :id')->setParameter('id',$id);
 
-        if(is_numeric($id))
-            $qb->where('m.id = :id')->setParameter('id',$id);
-        else if(is_string($id))
-        {
-            $tokens = explode('-',$id);
-            $id  = (int)$tokens[3];
-            unset($tokens[3]);
-            $cId = implode('-', $tokens).'-';
-
-            $qb->where('m.id = :id AND m.caseId = :caseId')
-               ->setParameters(array('id' => $id, 'caseId' => $cId));
-        }
-        else
-            throw new \UnexpectedValueException("$id is neither an number nor string");
-        
         return $this->secure($qb)->getQuery()->getSingleResult();
+    }
+
+    public function search($id)
+    {
+        $qb = $this->_em->createQueryBuilder()
+                        ->select('m')
+                        ->from($this->getClassName(),'m')
+                        ->where('m.id LIKE :id')->setParameter('id',"%$id%");
+
+        return $this->secure($qb)->getQuery()->getResult();
+    }
+
+    public function checkExistence($id)
+    {
+        try 
+        {
+            $qb = $this->_em
+                      ->createQueryBuilder('m')
+                      ->select('m')
+                      ->from($this->getClassName(),'m')
+                      ->where('m.id = :id')
+                      ->setParameter('id', $id);
+            
+            if($this->hasSecuredQuery())
+                return $this->secure($qb)
+                            ->getQuery()
+                            ->getSingleResult();
+            else
+                return $qb->getQuery()->getSingleResult();
+        }
+        catch(NoResultException $e)
+        {
+            throw new NonExistentCase("This case does not exist!");
+        }
+    }
+
+    public function find($id)
+    {
+        try
+        {
+            $qb = $this->_em
+                       ->createQueryBuilder()
+                       ->select('m')
+                       ->from($this->getClassName(),'m')
+                       ->where('m.id = :id')
+                       ->setParameter('id', $id);
+
+            if($this->hasSecuredQuery())
+                return $this->secure($qb)->getQuery()->getSingleResult();
+            else
+                return $qb->getQuery()->getSingleResult();
+        }
+        catch(NoResultException $e)
+        {
+            throw new NonExistentCase("This case does not exist!");
+        }
+    }
+
+    public function getFilterQueryBuilder($alias = 'm')
+    {
+        return $this->_em
+                    ->createQueryBuilder()
+                    ->select($alias)
+                    ->from($this->getClassName(),$alias)
+//                    ->leftJoin("$alias.referenceLab", "rl")
+//                    ->leftJoin("$alias.lab",'l')
+                    ;
     }
 }

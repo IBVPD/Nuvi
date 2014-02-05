@@ -22,6 +22,6 @@ class Volume extends ArrayChoice
 
     public function getName()
     {
-        return 'volume';
+        return 'Volume';
     }
 }

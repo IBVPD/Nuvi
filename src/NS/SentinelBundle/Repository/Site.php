@@ -21,17 +21,11 @@ class Site extends CommonRepository
                 ->innerJoin('c.region', 'r');
 
         if(is_array($ids))
-        {
-            $qb->add('where', $qb->expr()->in('s.id', '?1'))
-               ->setParameter(1, $ids);
-            
-        }
+            $qb->add('where', $qb->expr()->in('s.id', '?1'))->setParameter(1, $ids);
         else if(is_numeric($ids))
-        {
             $qb->where('s.id = :id')->setParameter('id',$ids);
-        }
         else
-            throw new \InvalidArgumentException(sprintf("Must provide an array of ids or single integers Received: %s",gettype($ids)));
+            throw new \InvalidArgumentException(sprintf("Must provide an array of ids or single integers. Received: %s",gettype($ids)));
         
         return $qb->getQuery()->getResult();
     }

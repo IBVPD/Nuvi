@@ -39,7 +39,11 @@ class UserProvider implements UserProviderInterface
         }
         catch(Doctrine\ORM\NonUniqueResultException $e)
         {
-            throw new UsernameNotFoundException(sprintf("Username %s is not unique",$username));
+            throw new UsernameNotFoundException(sprintf("Username %s is not unique",$username),0, $e);
+        }
+        catch(\Doctrine\ORM\NoResultException $e)
+        {
+            throw new UsernameNotFoundException("User not found", 0, $e);
         }
     }
 

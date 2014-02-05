@@ -2,17 +2,34 @@ parameters:
 #    ns_sentinel.example.class: NS\SentinelBundle\Example
 
 services:
+    ns.sentinel.result_per_page:
+      class: NS\SentinelBundle\Listeners\ResultPerPage
+      tags:
+        - { name: kernel.event_listener, event: kernel.request, method: onRequest }
+    ns.sentinel.meningitis.filter:
+      class: NS\SentinelBundle\Form\MeningitisFilter
+      arguments: [ "@security.context" ]
+      tags:
+        - { name: form.type, alias: meningitis_filter_form }
     ns.sentinel.menu_builder:
       class: NS\SentinelBundle\Menu\Builder
       arguments: [ "@knp_menu.factory", "@security.context" ]
     ns.sentinel.menu.user:
       class: Knp\Menu\MenuItem # the service definition requires setting the class
       factory_service: ns.sentinel.menu_builder
-      factory_method: userMenu
+      factory_method: user
       arguments: ["@request"]
       scope: request # needed as we have the request as a dependency here
       tags:
-        - { name: knp_menu.menu, alias: user } # The alias is what is used to retrieve the menu    
+        - { name: knp_menu.menu, alias: user } # The alias is what is used to retrieve the menu  
+    ns.sentinel.menu.sidebar:
+      class: Knp\Menu\MenuItem # the service definition requires setting the class
+      factory_service: ns.sentinel.menu_builder
+      factory_method: sidebar
+      arguments: ["@request"]
+      scope: request # needed as we have the request as a dependency here
+      tags:
+        - { name: knp_menu.menu, alias: sidebar } # The alias is what is used to retrieve the menu    
     ns.sentinel.user_provider:
       class: NS\SentinelBundle\Security\UserProvider
       arguments: [ "@doctrine.orm.entity_manager" ]
@@ -21,6 +38,14 @@ services:
       arguments: [ "@doctrine.orm.entity_manager", "@session" ]
       tags:
         - { name: form.type, alias: site_select }
+    ns.sentinel.form.type.meningitis_rrl:
+      class: NS\SentinelBundle\Form\ReferenceLabType
+      tags:
+        - { name: form.type, alias: meningitis_referencelab }
+    ns.sentinel.form.type.meningitis_sitelab:
+      class: NS\SentinelBundle\Form\MeningitisSiteLabType
+      tags:
+        - { name: form.type, alias: meningitis_sitelab }
     ns.sentinel.form.type.meningitis:
       class: NS\SentinelBundle\Form\MeningitisType
       arguments: [ "@security.context", "@session", "@doctrine.orm.entity_manager" ]
@@ -62,7 +87,7 @@ services:
     ns.sentinel.form.type.triple_choice:
       class: NS\SentinelBundle\Form\Types\TripleChoice
       tags:
-        - { name: form.type, alias: triple_choice }
+        - { name: form.type, alias: TripleChoice }
     ns.sentinel.form.type.diagnosis:
       class: NS\SentinelBundle\Form\Types\Diagnosis
       tags:

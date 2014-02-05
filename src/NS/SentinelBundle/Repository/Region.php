@@ -12,4 +12,9 @@ use NS\SentinelBundle\Repository\Common as CommonRepository;
  */
 class Region extends CommonRepository
 {
+    public function getAllForTree()
+    {
+        return $this->_em
+                    ->createQuery("SELECT r,c,s FROM ".$this->getClassName()." r LEFT JOIN r.countries c LEFT JOIN c.sites s");
+    }
 }

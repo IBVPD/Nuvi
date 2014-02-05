@@ -1,0 +1,112 @@
+/* File Upload */
+.nsFileUpload {
+    position: relative;
+}
+
+.nsFileUpload .ace-file-input {
+    margin-bottom: 0;
+}
+
+div.nsUploader {
+    position: relative;
+    z-index: 10;
+}
+
+div.nsUploader .uploader {
+    margin: 0 !important;
+}
+
+div.nsUploader input {
+    width: 100%;
+    padding: 0.5em 0;
+    opacity: 0;
+}
+
+.nsFileUpload .ace-file-input {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 9;
+}
+
+div.nsUploader:hover + .ace-file-input label {
+    border-color: #f59942;}
+
+div.uploader div.controls span.uploader-file-name {
+    color: #666666;
+    display: block;
+    height: auto;
+    max-width: 100%;
+    padding: 0;
+    position: relative;
+    text-align: left;
+    width: auto;
+    font-size: 13px;
+    line-height: 28px;
+    overflow: hidden;
+    vertical-align: top;
+    white-space: nowrap;
+}
+
+div.uploader div.controls span.uploader-file-name i.icon-file {
+    line-height: 24px;
+    margin-left: 2px;
+    margin-right: 4px;
+    position: relative;
+    border: 2px solid #FFFFFF;
+    bottom: 0;
+    color: #FFFFFF;
+    display: inline-block;
+    font-family: FontAwesome;
+    font-size: 13px;
+    left: 0;
+    text-align: center;
+    top: 0;
+    transition: all 0.1s ease 0s;
+    width: 26px;
+    background-color: #EFAD62;
+    height: auto;
+}
+
+ul.token-input-list {
+    border: 1px solid #D5D5D5;
+}
+
+ul.token-input-list li {
+    float: left;
+}
+
+li.token-input-token {
+    color: #ffffff;
+    background: #91B8D0;
+    font-weight: normal;
+    float: left;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
+    vertical-align: baseline;
+    font-size: 13px;
+}
+
+li.token-input-token p {
+    line-height: 20px;
+}
+
+li.token-input-input-token {
+    float: none;
+    clear: both;
+}
+
+li.token-input-token span.token-input-delete-token {
+    color: #ffffff;
+    font-size: 15px;
+    padding-left: 0.5em;
+    line-height: 20px;
+}
+
+div.token-input-dropdown p {
+    font-weight: normal;
+}
+
+div.token-input-dropdown ul li.token-input-selected-dropdown-item {
+    background-color: #2283C5;
+    color: #ffffff;
+}

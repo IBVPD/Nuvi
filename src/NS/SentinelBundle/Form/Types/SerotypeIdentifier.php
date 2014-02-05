@@ -26,6 +26,6 @@ class SerotypeIdentifier extends ArrayChoice
 
     public function getName()
     {
-        return 'serotypeidentifier';
+        return 'SerotypeIdentifier';
     }
 }

@@ -1,0 +1,122 @@
+{% block form_row %}
+{% spaceless %}
+<div class="form-group">
+    {{form_label(form)}}
+    <div class="input-group">
+        {{form_widget(form)}}
+    </div>
+    {{form_errors(form)}}
+</div>
+{% endspaceless %}
+{% endblock form_row %}
+
+{%block switch_row %}
+<div class="form_group">
+    {% if label is not sameas(false) %}
+        {% if not compound %}
+            {% set label_attr = label_attr|merge({'for': id}) %}
+        {% endif %}
+        {% if required %}
+            {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+        {% endif %}
+        {% if label is empty %}
+            {% set label = name|humanize %}
+        {% endif %}
+        <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ label|trans({}, translation_domain) }}
+            {{form_widget(form)}}
+            <span class="lbl"></span>
+        </label>
+    {% endif %}    
+</div>
+{%endblock %}
+
+{%block slider_row %}
+<div id="slider-range" class="ui-slider ui-slider-vertical ui-widget ui-widget-content ui-corner-all" aria-disabled="false" style="height: 200px;">
+    <div class="ui-slider-range ui-widget-header ui-corner-all" style="bottom: 17%; height: 70%;"></div>
+    <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="bottom: 17%;"></a>
+    <a class="ui-slider-handle ui-state-default ui-corner-all" href="#" style="bottom: 87%;">
+        <div class="tooltip right in" style="left: 16px; top: -6px; display: none;">
+            <div class="tooltip-arrow"></div>
+            <div class="tooltip-inner">87</div>
+        </div>
+    </a>
+</div>
+{%endblock %}
+
+{% block acedate_label %}
+    <label for="form-field-mask-1">
+        Date
+        <small class="text-success">99/99/9999</small>
+    </label>
+{% endblock %}
+
+{%block acedate_row %}
+<div class="form-group">
+    {{form_label(form)}}
+    <div class="input-group">
+        <input class="form-control input-mask-date" type="text" id="form-field-mask-1" />
+        <span class="input-group-btn">
+            <button class="btn btn-sm btn-default" type="button">
+                <i class="icon-calendar bigger-110"></i>Go!
+            </button>
+        </span>
+    </div>
+</div>
+{%endblock %}
+
+{%block acedatepicker_row %}
+<div class="form-group">
+    {{form_label(form)}}
+    <div class="input-group">
+        <input type="text" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+        <span class="input-group-addon">
+            <i class="icon-calendar bigger-110"></i>
+        </span>
+    </div>
+</div>
+{%endblock %}
+
+{% block fileupload_row %}
+<div class="form-group">
+    {{form_label(form)}}
+    <div class="nsFileUpload" {{ block('widget_attributes') }}>
+        <div class="nsUploader"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block tag_row %}
+<div class="form-group">
+    {{form_label(form)}}
+    <div class="input-group">
+        <input class="nsTag" type="text" {{ block('widget_attributes') }} />
+    </div>
+</div>
+{% endblock %}
+
+{% block spinner_row %}
+<div class="form-group">
+    {{form_label(form)}}
+    <div class="input-group">
+        <input class="nsSpinner" type="text" {{ block('widget_attributes') }} />
+    </div>
+</div>
+{% endblock %}
+
+{% block knob_row %}
+<div class="form-group">
+    {{form_label(form)}}
+    <div class="input-group">
+        <input class="input-small nsKnob" type="text" {{ block('widget_attributes') }} />
+    </div>
+</div>
+{% endblock %}
+
+{% block masked_row %}
+<div class="form-group">
+    {{form_label(form)}}
+    <div class="input-group">
+        <input class="nsMasked" type="text" {{ block('widget_attributes') }} />
+    </div>
+</div>
+{% endblock %}

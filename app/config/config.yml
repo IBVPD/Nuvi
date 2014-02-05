@@ -29,8 +29,7 @@ twig:
     strict_variables: %kernel.debug%
     form:
       resources:
-        - 'NSTemplatesBundle:Form:fields.html.twig'
-        - 'NSUtilBundle:Form:fields.html.twig'
+        - 'NSAceBundle:Form:fields.html.twig'
 
 # Assetic Configuration
 assetic:
@@ -133,7 +132,7 @@ sonata_block:
 
 knp_menu:
     twig:  # use "twig: false" to disable the Twig extension and the TwigRenderer
-        template: NSSentinelBundle:Menu:menu.html.twig
+        template: NSAceBundle:Menu:menu.html.twig
     templating: false # if true, enables the helper for PHP templates
     default_renderer: twig # The renderer to use, list is also available by default
 
@@ -156,6 +155,10 @@ jms_translation:
       excluded_dirs: [ cache, data, logs ]
       output_format: xliff
 
+knp_paginator:
+  template:
+    pagination: NSAceBundle:Form:pagination.html.twig
+        
 services:
   ns.form.types.autocomplete:
     class: NS\UtilBundle\Form\Types\Autocomplete

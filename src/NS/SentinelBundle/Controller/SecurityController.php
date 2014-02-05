@@ -61,7 +61,7 @@ class SecurityController extends Controller
             return $this->forward ("NSSentinelBundle:User:countryDashboard");
         if($sc->isGranted('ROLE_SITE'))
             return $this->forward ("NSSentinelBundle:User:siteDashboard");
-        if($sc->isGranted('ROLE_LAB'))
+        if($sc->isGranted('ROLE_LAB')||$sc->isGranted('ROLE_RRL_LAB'))
             return $this->forward ("NSSentinelBundle:User:labDashboard");
         if($sc->isGranted('ROLE_ADMIN'))
             return $this->redirect ($this->generateUrl ('sonata_admin_dashboard'));

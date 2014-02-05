@@ -29,14 +29,19 @@
         "sonata-project/doctrine-orm-admin-bundle": "~2.2",
         "sonata-project/intl-bundle": "~2.2",
         "sonata-project/exporter": "~1.1",
+	"sonata-project/core-bundle": "~2.2@dev",
 
-        "ns/templates-bundle": "dev-master",
         "ns/util-bundle": "dev-master",
         "jms/translation-bundle": "1.1.x-dev",
         "ns/security-bundle": "dev-master",
         "jms/di-extra-bundle": "~1.1",
         "doctrine/doctrine-fixtures-bundle": "dev-master",
-        "gedmo/doctrine-extensions": "2.2.x"
+        "gedmo/doctrine-extensions": "~2.3",
+        "stof/doctrine-extensions-bundle": "1.1.x-dev",
+        "punkave/symfony2-file-uploader-bundle": "dev-master",
+        "oneup/uploader-bundle": "1.0.*@dev",
+        "lexik/form-filter-bundle": "dev-master",
+        "knplabs/knp-paginator-bundle": "~2.4"
     },
     "scripts": {
         "post-install-cmd": [

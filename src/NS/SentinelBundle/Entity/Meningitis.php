@@ -11,6 +11,7 @@ use NS\SentinelBundle\Form\Types\DischargeOutcome;
 use NS\SentinelBundle\Form\Types\Doses;
 use NS\SentinelBundle\Form\Types\Gender;
 use NS\SentinelBundle\Form\Types\Role;
+use \NS\SentinelBundle\Interfaces\IdentityAssignmentInterface;
 
 // Annotations
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -26,27 +27,27 @@ use \NS\SecurityBundle\Annotation\SecuredCondition;
  * @Secured(conditions={
  *      @SecuredCondition(roles={"ROLE_REGION"},relation="region",class="NSSentinelBundle:Region"),
  *      @SecuredCondition(roles={"ROLE_COUNTRY"},relation="country",class="NSSentinelBundle:Country"),
- *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},relation="site",class="NSSentinelBundle:Site"),
+ *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB","ROLE_RRL_LAB"},relation="site",class="NSSentinelBundle:Site"),
  *      })
  */
-class Meningitis
+class Meningitis implements IdentityAssignmentInterface
 {
     /**
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * @var integer $id
-     * @ORM\Column(name="id",type="integer")
+     * @ORM\GeneratedValue(strategy="CUSTOM")
+     * @ORM\CustomIdGenerator(class="\NS\SentinelBundle\Generator\Custom")
+     * @var string $id
+     * @ORM\Column(name="id",type="string")
      */
     private $id;
 
     /**
-     * @var string $caseId
-     * @ORM\Column(name="caseId",type="string")
+     * @ORM\OneToOne(targetEntity="ReferenceLab", mappedBy="case")
      */
-    private $caseId;
+    private $referenceLab;
 
     /**
-     * @ORM\OneToOne(targetEntity="ReferenceLab", inversedBy="case")
+     * @ORM\OneToOne(targetEntity="SiteLab", mappedBy="case")
      */
     private $lab;
 
@@ -282,246 +283,12 @@ class Meningitis
     private $csfAppearance;
 
     /**
-     * @var DateTime $csfLabDateTime
-     * @ORM\Column(name="csfLabDateTime",type="datetime",nullable=true)
-     */
-    private $csfLabDateTime;
-
-    /**
      * @var boolean $bloodCollected
      * @ORM\Column(name="bloodCollected", type="boolean",nullable=true)
      */
     private $bloodCollected;
     private $bloodId;
-//Case-based Laboratory Data
 
-    /**
-     * @var boolean $csfWcc
-     * @ORM\Column(name="csfWcc", type="integer",nullable=true)
-     */
-    private $csfWcc;
-
-    /**
-     * @var boolean $csfGlucose
-     * @ORM\Column(name="csfGlucose", type="integer",nullable=true)
-     */
-    private $csfGlucose;
-
-    /**
-     * @var boolean $csfProtein
-     * @ORM\Column(name="csfProtein", type="integer",nullable=true)
-     */
-    private $csfProtein;
-
-    /**
-     * @var TripleChoice $csfCultDone
-     * @ORM\Column(name="csfCultDone",type="TripleChoice",nullable=true)
-     */
-    private $csfCultDone;
-
-    /**
-     * @var TripleChoice $csfGramDone
-     * @ORM\Column(name="csfGramDone",type="TripleChoice",nullable=true)
-     */
-    private $csfGramDone;
-
-    /**
-     * @var TripleChoice $csfBinaxDone
-     * @ORM\Column(name="csfBinaxDone",type="TripleChoice",nullable=true)
-     */
-    private $csfBinaxDone;
-
-    /**
-     * @var TripleChoice $csfLatDone
-     * @ORM\Column(name="csfLatDone",type="TripleChoice",nullable=true)
-     */
-    private $csfLatDone;
-
-    /**
-     * @var TripleChoice $csfPcrDone
-     * @ORM\Column(name="csfPcrDone",type="TripleChoice",nullable=true)
-     */
-    private $csfPcrDone;
-
-    /**
-     * @var TripleChoice $bloodCultDone
-     * @ORM\Column(name="bloodCultDone",type="TripleChoice",nullable=true)
-     */
-    private $bloodCultDone;
-
-    /**
-     * @var TripleChoice $bloodGramDone
-     * @ORM\Column(name="bloodGramDone",type="TripleChoice",nullable=true)
-     */
-    private $bloodGramDone;
-
-    /**
-     * @var TripleChoice $bloodPcrDone
-     * @ORM\Column(name="bloodPcrDone",type="TripleChoice",nullable=true)
-     */
-    private $bloodPcrDone;
-
-    /**
-     * @var TripleChoice $otherCultDone
-     * @ORM\Column(name="otherCultDone",type="TripleChoice",nullable=true)
-     */
-    private $otherCultDone;
-
-    /**
-     * @var TripleChoice $otherTestDone
-     * @ORM\Column(name="otherTestDone",type="TripleChoice",nullable=true)
-     */
-    private $otherTestDone;
-
-    /**
-     * @var LatResult $csfCultResult
-     * @ORM\Column(name="csfCultResult",type="LatResult",nullable=true)
-     */
-    private $csfCultResult;
-
-    /**
-     * @var string $csfCultOther
-     * @ORM\Column(name="csfCultOther",type="string",nullable=true)
-     */
-    private $csfCultOther;
-
-    /**
-     *
-     * @var GramStain
-     * @ORM\Column(name="csfGramResult",type="GramStain",nullable=true)
-     */
-    private $csfGramResult;
-    
-    /**
-     * @var BinaxResult
-     * @ORM\Column(name="csfBinaxResult",type="BinaxResult",nullable=true)
-     */
-    private $csfBinaxResult;
-    
-    /**
-     * @var LatResult
-     * @ORM\Column(name="csfLatResult",type="LatResult",nullable=true)
-     */
-    private $csfLatResult;
-    
-    /**
-     * @var string
-     * @ORM\Column(name="csfLatOther",type="string",nullable=true)
-     */
-    private $csfLatOther;
-    
-    /**
-     * @var PCRResult
-     * @ORM\Column(name="csfPcrResult",type="PCRResult",nullable=true)
-     */
-    private $csfPcrResult;
-
-    /**
-     * @var LatResult
-     * @ORM\Column(name="bloodCultResult",type="LatResult",nullable=true)
-     */
-    private $bloodCultResult;
-
-    /**
-     * @var string
-     * @ORM\Column(name="bloodCultOther",type="string",nullable=true)
-     */
-    private $bloodCultOther;
-
-    /**
-     * @var GramStain
-     * @ORM\Column(name="bloodGramResult",type="GramStain",nullable=true)
-     */
-    private $bloodGramResult;
-    /**
-     * @var PCRResult
-     * @ORM\Column(name="bloodPcrResult",type="PCRResult",nullable=true)
-     */
-    private $bloodPcrResult;
-
-    /**
-     * @var LatResult
-     * @ORM\Column(name="otherCultResult",type="LatResult",nullable=true)
-     */
-    private $otherCultResult;
-
-    /**
-     * @var string
-     * @ORM\Column(name="otherCultOther",type="string",nullable=true)
-     */
-    private $otherCultOther;
-
-    /**
-     * @var PCRResult
-     * @ORM\Column(name="otherTestResult",type="PCRResult",nullable=true)
-     */    
-    private $otherTestResult;
-    
-    /**
-     * @var string
-     * @ORM\Column(name="otherTestOther",type="string",nullable=true)
-     */
-    private $otherTestOther;
-
-    /**
-     * @var DateTime $rrlCsfDate
-     * @ORM\Column(name="rrlCsfDate",type="date",nullable=true)
-     */
-    private $rrlCsfDate;
-
-    /**
-     * @var DateTime $rrlIsoDate
-     * @ORM\Column(name="rrlIsoDate",type="date",nullable=true)
-     */
-    private $rrlIsolDate;
-
-    /**
-     * @var TripleChoice $csfStore
-     * @ORM\Column(name="csfStore",type="TripleChoice",nullable=true)
-     */
-    private $csfStore;
-    
-    /**
-     * @var TripleChoice $csfStore
-     * @ORM\Column(name="isolStore",type="TripleChoice",nullable=true)
-     */
-    private $isolStore;
-
-    /**
-     * @var string $rrlName
-     * @ORM\Column(name="rrlName",type="string",nullable=true)
-     */
-    private $rrlName;
-
-    /**
-     * @var string $spnSerotype
-     * @ORM\Column(name="spnSerotype",type="string",nullable=true)
-     */
-    private $spnSerotype;
-
-    /**
-     * @var string $hiSerotyoe
-     * @ORM\Column(name="hiSerotyoe",type="string",nullable=true)
-     */
-    private $hiSerotype;
-
-    /**
-     * @var string $nmSerogroup
-     * @ORM\Column(name="nmSerogroup",type="string",nullable=true)
-     */
-    private $nmSerogroup;
-//PNEUMONIA / SEPSIS (In addition to above)
-    /**
-     * @var TripleChoice $cxrDone
-     * @ORM\Column(name="cxrDone",type="TripleChoice",nullable=true)
-     */
-    private $cxrDone;
-
-    /**
-     * @var CXRResult $cxrResult
-     * @ORM\Column(name="cxrResult",type="CXRResult",nullable=true)
-     */
-    private $cxrResult;
 //Case-based Outcome Data
     /**
      * @var DishchargeOutcome $dischOutcome
@@ -564,7 +331,7 @@ class Meningitis
 
     public function __toString()
     {
-        return $this->getCaseId();
+        return $this->id;
     }
 
     public function getId()
@@ -578,6 +345,11 @@ class Meningitis
         return $this;
     }
 
+    public function hasId()
+    {
+        return !empty($this->id);
+    }
+
     public function getDob()
     {
         return $this->dob;
@@ -585,6 +357,9 @@ class Meningitis
 
     public function setDob($dob)
     {
+        if(!$dob instanceOf \DateTime)
+            return;
+
         $this->dob = $dob;
 
         $interval = ($this->admDate) ? $dob->diff($this->admDate) : $dob->diff(new \DateTime());
@@ -974,17 +749,6 @@ class Meningitis
         return $this;
     }
 
-    public function getCsfLabDateTime()
-    {
-        return $this->csfLabDateTime;
-    }
-
-    public function setCsfLabDateTime($csfLabDateTime)
-    {
-        $this->csfLabDateTime = $csfLabDateTime;
-        return $this;
-    }
-
     public function getBloodCollected()
     {
         return $this->bloodCollected;
@@ -1004,424 +768,6 @@ class Meningitis
     public function setBloodId($bloodId)
     {
         $this->bloodId = $bloodId;
-        return $this;
-    }
-
-    public function getCsfWcc()
-    {
-        return $this->csfWcc;
-    }
-
-    public function setCsfWcc($csfWcc)
-    {
-        $this->csfWcc = $csfWcc;
-        return $this;
-    }
-
-    public function getCsfGlucose()
-    {
-        return $this->csfGlucose;
-    }
-
-    public function setCsfGlucose($csfGlucose)
-    {
-        $this->csfGlucose = $csfGlucose;
-        return $this;
-    }
-
-    public function getCsfProtein()
-    {
-        return $this->csfProtein;
-    }
-
-    public function setCsfProtein($csfProtein)
-    {
-        $this->csfProtein = $csfProtein;
-        return $this;
-    }
-
-    public function getCsfCultDone()
-    {
-        return $this->csfCultDone;
-    }
-
-    public function setCsfCultDone(TripleChoice $csfCultDone)
-    {
-        $this->csfCultDone = $csfCultDone;
-        return $this;
-    }
-
-    public function getCsfGramDone()
-    {
-        return $this->csfGramDone;
-    }
-
-    public function setCsfGramDone(TripleChoice $csfGramDone)
-    {
-        $this->csfGramDone = $csfGramDone;
-        return $this;
-    }
-
-    public function getCsfBinaxDone()
-    {
-        return $this->csfBinaxDone;
-    }
-
-    public function setCsfBinaxDone(TripleChoice $csfBinaxDone)
-    {
-        $this->csfBinaxDone = $csfBinaxDone;
-        return $this;
-    }
-
-    public function getCsfLatDone()
-    {
-        return $this->csfLatDone;
-    }
-
-    public function setCsfLatDone(TripleChoice $csfLatDone)
-    {
-        $this->csfLatDone = $csfLatDone;
-        return $this;
-    }
-
-    public function getCsfPcrDone()
-    {
-        return $this->csfPcrDone;
-    }
-
-    public function setCsfPcrDone(TripleChoice $csfPcrDone)
-    {
-        $this->csfPcrDone = $csfPcrDone;
-        return $this;
-    }
-
-    public function getBloodCultDone()
-    {
-        return $this->bloodCultDone;
-    }
-
-    public function setBloodCultDone(TripleChoice $bloodCultDone)
-    {
-        $this->bloodCultDone = $bloodCultDone;
-        return $this;
-    }
-
-    public function getBloodGramDone()
-    {
-        return $this->bloodGramDone;
-    }
-
-    public function setBloodGramDone(TripleChoice $bloodGramDone)
-    {
-        $this->bloodGramDone = $bloodGramDone;
-        return $this;
-    }
-
-    public function getBloodPcrDone()
-    {
-        return $this->bloodPcrDone;
-    }
-
-    public function setBloodPcrDone(TripleChoice $bloodPcrDone)
-    {
-        $this->bloodPcrDone = $bloodPcrDone;
-        return $this;
-    }
-
-    public function getOtherCultDone()
-    {
-        return $this->otherCultDone;
-    }
-
-    public function setOtherCultDone($otherCultDone)
-    {
-        $this->otherCultDone = $otherCultDone;
-        return $this;
-    }
-
-    public function getOtherTestDone()
-    {
-        return $this->otherTestDone;
-    }
-
-    public function setOtherTestDone(TripleChoice $otherTestDone)
-    {
-        $this->otherTestDone = $otherTestDone;
-        return $this;
-    }
-
-    public function getCsfCultResult()
-    {
-        return $this->csfCultResult;
-    }
-
-    public function setCsfCultResult($csfCultResult)
-    {
-        $this->csfCultResult = $csfCultResult;
-        return $this;
-    }
-
-    public function getCsfCultOther()
-    {
-        return $this->csfCultOther;
-    }
-
-    public function setCsfCultOther($csfCultOther)
-    {
-        $this->csfCultOther = $csfCultOther;
-        return $this;
-    }
-
-    public function getCsfGramResult()
-    {
-        return $this->csfGramResult;
-    }
-
-    public function setCsfGramResult($csfGramResult)
-    {
-        $this->csfGramResult = $csfGramResult;
-        return $this;
-    }
-
-    public function getCsfBinaxResult()
-    {
-        return $this->csfBinaxResult;
-    }
-
-    public function setCsfBinaxResult($csfBinaxResult)
-    {
-        $this->csfBinaxResult = $csfBinaxResult;
-        return $this;
-    }
-
-    public function getCsfLatResult()
-    {
-        return $this->csfLatResult;
-    }
-
-    public function setCsfLatResult($csfLatResult)
-    {
-        $this->csfLatResult = $csfLatResult;
-        return $this;
-    }
-
-    public function getCsfLatOther()
-    {
-        return $this->csfLatOther;
-    }
-
-    public function setCsfLatOther($csfLatOther)
-    {
-        $this->csfLatOther = $csfLatOther;
-        return $this;
-    }
-
-    public function getCsfPcrResult()
-    {
-        return $this->csfPcrResult;
-    }
-
-    public function setCsfPcrResult($csfPcrResult)
-    {
-        $this->csfPcrResult = $csfPcrResult;
-        return $this;
-    }
-
-    public function getBloodCultResult()
-    {
-        return $this->bloodCultResult;
-    }
-
-    public function setBloodCultResult($bloodCultResult)
-    {
-        $this->bloodCultResult = $bloodCultResult;
-        return $this;
-    }
-
-    public function getBloodCultOther()
-    {
-        return $this->bloodCultOther;
-    }
-
-    public function setBloodCultOther($bloodCultOther)
-    {
-        $this->bloodCultOther = $bloodCultOther;
-        return $this;
-    }
-
-    public function getBloodGramResult()
-    {
-        return $this->bloodGramResult;
-    }
-
-    public function setBloodGramResult($bloodGramResult)
-    {
-        $this->bloodGramResult = $bloodGramResult;
-        return $this;
-    }
-
-    public function getBloodPcrResult()
-    {
-        return $this->bloodPcrResult;
-    }
-
-    public function setBloodPcrResult($bloodPcrResult)
-    {
-        $this->bloodPcrResult = $bloodPcrResult;
-        return $this;
-    }
-
-    public function getOtherCultResult()
-    {
-        return $this->otherCultResult;
-    }
-
-    public function setOtherCultResult($otherCultResult)
-    {
-        $this->otherCultResult = $otherCultResult;
-        return $this;
-    }
-
-    public function getOtherCultOther()
-    {
-        return $this->otherCultOther;
-    }
-
-    public function setOtherCultOther($otherCultOther)
-    {
-        $this->otherCultOther = $otherCultOther;
-        return $this;
-    }
-
-    public function getOtherTestResult()
-    {
-        return $this->otherTestResult;
-    }
-
-    public function setOtherTestResult($otherTestResult)
-    {
-        $this->otherTestResult = $otherTestResult;
-        return $this;
-    }
-
-    public function getOtherTestOther()
-    {
-        return $this->otherTestOther;
-    }
-
-    public function setOtherTestOther($otherTestOther)
-    {
-        $this->otherTestOther = $otherTestOther;
-        return $this;
-    }
-
-    public function getRrlCsfDate()
-    {
-        return $this->rrlCsfDate;
-    }
-
-    public function setRrlCsfDate($rrlCsfDate)
-    {
-        $this->rrlCsfDate = $rrlCsfDate;
-        return $this;
-    }
-
-    public function getRrlIsolDate()
-    {
-        return $this->rrlIsolDate;
-    }
-
-    public function setRrlIsolDate($rrlIsolDate)
-    {
-        $this->rrlIsolDate = $rrlIsolDate;
-        return $this;
-    }
-
-    public function getCsfStore()
-    {
-        return $this->csfStore;
-    }
-
-    public function setCsfStore($csfStore)
-    {
-        $this->csfStore = $csfStore;
-        return $this;
-    }
-
-    public function getIsolStore()
-    {
-        return $this->isolStore;
-    }
-
-    public function setIsolStore($isolStore)
-    {
-        $this->isolStore = $isolStore;
-        return $this;
-    }
-
-    public function getRrlName()
-    {
-        return $this->rrlName;
-    }
-
-    public function setRrlName($rrlName)
-    {
-        $this->rrlName = $rrlName;
-        return $this;
-    }
-
-    public function getSpnSerotype()
-    {
-        return $this->spnSerotype;
-    }
-
-    public function setSpnSerotype($spnSerotype)
-    {
-        $this->spnSerotype = $spnSerotype;
-        return $this;
-    }
-
-    public function getHiSerotype()
-    {
-        return $this->hiSerotype;
-    }
-
-    public function setHiSerotype($hiSerotype)
-    {
-        $this->hiSerotype = $hiSerotype;
-        return $this;
-    }
-
-    public function getNmSerogroup()
-    {
-        return $this->nmSerogroup;
-    }
-
-    public function setNmSerogroup($nmSerogroup)
-    {
-        $this->nmSerogroup = $nmSerogroup;
-        return $this;
-    }
-
-    public function getCxrDone()
-    {
-        return $this->cxrDone;
-    }
-
-    public function setCxrDone(TripleChoice $cxrDone)
-    {
-        $this->cxrDone = $cxrDone;
-        return $this;
-    }
-
-    public function getCxrResult()
-    {
-        return $this->cxrResult;
-    }
-
-    public function setCxrResult(CXRResult $cxrResult)
-    {
-        $this->cxrResult = $cxrResult;
         return $this;
     }
 
@@ -1540,9 +886,12 @@ class Meningitis
 
         $this->setCountry($site->getCountry());
 
-        $this->setCaseId(sprintf("%s-%s-%s-", $this->getRegion()->getCode(), $this->country->getCode(), $this->site->getCode()));
-
         return $this;
+    }
+
+    public function getFullIdentifier($id)
+    {
+        return sprintf("%s-%s-%s-%06d", $this->getRegion()->getCode(), $this->country->getCode(), $this->site->getCode(),$id);
     }
 
     /**
@@ -1566,36 +915,13 @@ class Meningitis
         return $this;
     }
 
-    public function setCaseId($caseId)
-    {
-        if(is_null($caseId))
-            return; //throw new \Exception("CaseId is NULL!?? $caseId");
-
-        $tokens = explode('-',$caseId);
-        if(count($tokens) == 4 && !empty($tokens[4]))
-        {
-            $this->id  = (int)$tokens[3];
-            unset($tokens[3]);
-            $this->caseId = implode('-', $tokens).'-';
-        }
-        else
-            $this->caseId = $caseId;
-
-        return $this;
-    }
-
-    public function getCaseId()
-    {
-        return $this->caseId . str_pad($this->id, 6, "0", STR_PAD_LEFT);
-    }
-
     /**
-     * Set lab
+     * Set SiteLab
      *
-     * @param \NS\SentinelBundle\Entity\ReferenceLab $lab
+     * @param \NS\SentinelBundle\Entity\SiteLab $lab
      * @return Meningitis
      */
-    public function setLab(\NS\SentinelBundle\Entity\ReferenceLab $lab = null)
+    public function setSiteLab(\NS\SentinelBundle\Entity\SiteLab $lab = null)
     {
         $this->lab = $lab;
     
@@ -1603,12 +929,45 @@ class Meningitis
     }
 
     /**
-     * Get lab
+     * Get SiteLab
      *
-     * @return \NS\SentinelBundle\Entity\ReferenceLab 
+     * @return \NS\SentinelBundle\Entity\SiteLab 
      */
-    public function getLab()
+    public function getSiteLab()
     {
         return $this->lab;
     }
+
+    public function hasSiteLab()
+    {
+        return ($this->lab instanceof SiteLab);
+    }
+    
+    /**
+     * Set ReferenceLab
+     *
+     * @param \NS\SentinelBundle\Entity\ReferenceLab $lab
+     * @return Meningitis
+     */
+    public function setReferenceLab(\NS\SentinelBundle\Entity\ReferenceLab $lab = null)
+    {
+        $this->referenceLab = $lab;
+    
+        return $this;
+    }
+
+    /**
+     * Get ReferenceLab
+     *
+     * @return \NS\SentinelBundle\Entity\ReferenceLab 
+     */
+    public function getReferenceLab()
+    {
+        return $this->referenceLab;
+    }
+
+    public function hasReferenceLab()
+    {
+        return ($this->referenceLab instanceof ReferenceLab);
+    }    
 }

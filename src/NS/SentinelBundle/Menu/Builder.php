@@ -25,24 +25,39 @@ class Builder
         $this->securityContext = $securityContext;
     }
     
-    public function userMenu()
+    public function sidebar()
     {
-        $menu = $this->factory->createItem('root')->setExtra('translation_domain', 'NSSentinelBundle');
-        $menu->setChildrenAttribute('class','nav');
-        $menu->addChild('NUVI');
+        $menu = $this->factory->createItem('root');
+
+        $menu->setChildrenAttribute('class','nav nav-list');
         if( $this->securityContext->isGranted('IS_AUTHENTICATED_FULLY') )
         {
-            $d = $menu->addChild('Data Entry', array('label'=> 'menu.data-entry'));
+            $d = $menu->addChild('Data Entry', array('label'=> 'menu.data-entry'))
+                      ->setExtra('icon','icon-edit');
             $d->addChild('Meningitis',array('label'=>'menu.meningitis','route'=>'meningitisIndex'));
-            $d->addChild('Rotavirus');
-            
-            $menu->addChild('Reports', array('label'=> 'menu.data-reports'));
-            $menu->addChild('Admin', array('label'=> 'menu.data-admin','route'=>'sonata_admin_dashboard'));
-            $menu->addChild('Logout',array('route' => 'logout'))->setExtra('translation_domain', 'NSSentinelBundle');
+            $d->addChild('Rotavirus')->setExtra('translation_domain', 'NSSentinelBundle');
+
+            $menu->addChild('Reports', array('label'=> 'menu.data-reports'))->setExtra('icon','icon-dashboard');
+            $admin = $menu->addChild('Admin', array('label'=> 'menu.data-admin'))->setExtra('icon','icon-desktop');
+            $admin->addChild('Admin', array('label'=> 'menu.data-admin','route'=>'sonata_admin_dashboard'));
+            $admin->addChild('Translation',array('label'=> 'menu.translation','route'=>'jms_translation_index'));
         }
-        else
-            $menu->addChild('Login', array('route' => 'login'))->setExtra('translation_domain', 'NSSentinelBundle');
 
         return $menu;
-    }    
+    }
+    
+    public function user()
+    {
+        $menu = $this->factory->createItem('root');
+        $menu->setChildrenAttribute('class', 'nav ace-nav');
+
+        $p = $menu->addChild('Profile')->setExtra('icon', 'icon-profile');
+        $p->setChildrenAttribute('class', 'user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close');
+
+        $p->addChild('Settings')->setExtra('icon', 'icon-cog');
+        $p->addChild(' ')->setAttribute('class', 'divider');
+        $p->addChild('Logout',array('route' => 'logout'))->setExtra('icon','icon-off');
+        
+        return $menu;
+    }
 }

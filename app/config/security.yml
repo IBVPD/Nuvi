@@ -3,7 +3,7 @@ security:
         NS\SentinelBundle\Entity\User: sha512
 
     role_hierarchy:
-        ROLE_SITE:        ROLE_USER
+        ROLE_SITE:        [ ROLE_USER, ROLE_CAN_CREATE_CASE ]
         ROLE_LAB:         ROLE_USER
         ROLE_RRL_LAB:     ROLE_USER
         ROLE_COUNTRY:     ROLE_USER
@@ -29,7 +29,7 @@ security:
             admin-login:
                 check_path: /login_check
                 login_path: /login
-                default_target_path: /en/meningitis
+                default_target_path: /
                 always_use_default_target_path: true
             logout:
                 path:   /logout
@@ -41,7 +41,9 @@ security:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/_trans, roles: ROLE_USER }
         - { path: ^/admin, roles: ROLE_USER }
-        - { path: '^/[^/]+/meningitis/edit', roles: ROLE_SITE }
-        - { path: '^/[^/]+meningitis/create', roles: ROLE_SITE }
-        - { path: '^/[^/]+meningitis/show', roles: [ ROLE_COUNTRY, ROLE_SITE, ROLE_LAB ] }
+        - { path: '^/[^/]+/ibd/edit', roles: ROLE_CAN_CREATE_CASE }
+        - { path: '^/[^/]+/ibd/create', roles: ROLE_CAN_CREATE_CASE }
+        - { path: '^/[^/]+/ibd/rrl', roles: ROLE_RRL_LAB }
+        - { path: '^/[^/]+/ibd/lab', roles: ROLE_LAB }
+        - { path: '^/[^/]+/ibd/show', roles: [ ROLE_REGION, ROLE_COUNTRY, ROLE_SITE, ROLE_LAB, ROLE_RRL_LAB ] }
         - { path: ^/, roles: ROLE_USER }

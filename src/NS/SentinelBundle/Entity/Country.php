@@ -2,14 +2,21 @@
 
 namespace NS\SentinelBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use NS\SentinelBundle\Form\Types\GAVIEligible;
+use \Doctrine\ORM\Mapping as ORM;
+use \NS\SentinelBundle\Form\Types\GAVIEligible;
+use \NS\SecurityBundle\Annotation\Secured;
+use \NS\SecurityBundle\Annotation\SecuredCondition;
 
 /**
  * Country
  *
  * @ORM\Table(name="countries",uniqueConstraints={@ORM\UniqueConstraint(name="code_idx", columns={"code"})})
  * @ORM\Entity(repositoryClass="\NS\SentinelBundle\Repository\Country")
+ * @Secured(conditions={
+ *      @SecuredCondition(roles={"ROLE_REGION"},relation="region",class="NSSentinelBundle:Region"),
+ *      @SecuredCondition(roles={"ROLE_COUNTRY"},field="id"),
+ *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},relation="sites",class="NSSentinelBundle:Site"),
+ *      })
  */
 class Country
 {
@@ -68,7 +75,6 @@ class Country
      * 
      * @ORM\OneToMany(targetEntity="Site", mappedBy="country")
      */
-
     private $sites;
     
     /**
@@ -76,7 +82,6 @@ class Country
      * 
      * @ORM\ManyToOne(targetEntity="Region",inversedBy="countries")
      */
-
     private $region;
 
     /**

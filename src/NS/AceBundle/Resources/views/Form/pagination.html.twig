@@ -1,0 +1,24 @@
+{% if pageCount > 1 %}
+<div class="dataTables_paginate paging_bootstrap">
+    <ul class="pagination">
+        {% if previous is defined %}
+            <li class="prev disabled">
+                <a href="{{ path(route, query|merge({(pageParameterName): previous})) }}"><i class="icon-double-angle-left"></i></a>
+            </li>
+        {% endif %}
+    {% for page in pagesInRange %}
+        {% if page != current %}
+        <li>
+        {% else %}
+        <li class="active">
+        {% endif %}
+            <a href="{{ path(route, query|merge({(pageParameterName): page})) }}">{{ page }}</a>
+        </li>
+    {% endfor %}
+    {% if next is defined %}
+        <li class="next"><a href="{{ path(route, query|merge({(pageParameterName): next})) }}"><i class="icon-double-angle-right"></i></a></li>
+    {% endif %}            
+    </ul>
+</div>
+
+{% endif %}

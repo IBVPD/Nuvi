@@ -3,12 +3,19 @@
 namespace NS\SentinelBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use \NS\SecurityBundle\Annotation\Secured;
+use \NS\SecurityBundle\Annotation\SecuredCondition;
 
 /**
  * Site
  *
  * @ORM\Table(name="sites")
  * @ORM\Entity(repositoryClass="\NS\SentinelBundle\Repository\Site")
+ * @Secured(conditions={
+ *      @SecuredCondition(roles={"ROLE_REGION"},relation="region",through={"country"},class="NSSentinelBundle:Region"),
+ *      @SecuredCondition(roles={"ROLE_COUNTRY"},relation="country",class="NSSentinelBundle:Country"),
+ *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},field="id"),
+ *      }) 
  */
 class Site
 {
@@ -73,6 +80,13 @@ class Site
      * @ORM\Column(name="website", type="string", length=255,nullable=true)
      */
     private $website;    
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="currentCaseId", type="integer")
+     */
+    private $currentCaseId = 1;
 
     /**
      * @var Country
@@ -349,5 +363,16 @@ class Site
     public function getWebsite()
     {
         return $this->website;
+    }
+
+    public function getCurrentCaseId()
+    {
+        return $this->currentCaseId;
+    }
+
+    public function setCurrentCaseId($currentCaseId)
+    {
+        $this->currentCaseId = $currentCaseId;
+        return $this;
     }
 }

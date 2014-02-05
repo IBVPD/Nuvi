@@ -1,0 +1,45 @@
+{%extends "knp_menu.html.twig" %}
+
+{% macro attributes(attributes) %}
+{% for name, value in attributes %}
+    {%- if value is not none and value is not sameas(false) -%}
+        {{- ' %s="%s"'|format(name, value is sameas(true) ? name|e : value|e)|raw -}}
+    {%- endif -%}
+{%- endfor -%}
+{% endmacro %}
+
+{% block label %}{{ item.label|trans }}{% endblock %}
+
+{% block item %}
+{% if item.displayed %}
+{# building the class of the item #}
+    {%- set classes = item.attribute('class') is not empty ? [item.attribute('class')] : [] %}
+    {# removed class handling of current, ancestor classes #}
+    {%- set attributes = item.attributes %}
+
+    {# displaying the item #}
+    <li{{ _self.attributes(attributes) }}>
+        {{ block('linkElement') }}
+        {# render the list of children#}
+        {%- set childrenClasses = item.childrenAttribute('class') is not empty ? [item.childrenAttribute('class')] : ['submenu'] %}
+        {%- set listAttributes = item.childrenAttributes|merge({'class': childrenClasses|join(' ') }) %}
+        {{ block('list') }}
+    </li>
+{% endif %}
+{% endblock %}
+    
+{% block linkElement %}
+{%spaceless%}
+<a href="{%- if item.uri is not empty and (not item.current or options.currentAsLink) %}{{ item.uri }}{%else%}#{%endif%}"{{ _self.attributes(item.linkAttributes) }} {{ item.hasChildren?'class="dropdown-toggle" data-toggle="dropdown"':'' }}>
+    {% if item.getExtra('icon', false) %}
+    <i class="{{ item.getExtra('icon')}}"></i>
+    {%endif %}
+    
+    <span class="menu-text" {%- if item.uri is empty or item.current or not options.currentAsLink %}{{ _self.attributes(item.labelAttributes) }}{%endif%}>{{block('label')}}</span>
+
+    {% if item.hasChildren %}
+    <b class="arrow icon-angle-down"></b>
+    {% endif %}
+</a>
+{%endspaceless%}
+{% endblock %}
