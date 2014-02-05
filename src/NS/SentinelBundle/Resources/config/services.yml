@@ -8,7 +8,7 @@ services:
         - { name: kernel.event_listener, event: kernel.request, method: onRequest }
     ns.sentinel.meningitis.filter:
       class: NS\SentinelBundle\Form\MeningitisFilter
-      arguments: [ "@security.context" ]
+      arguments: [ "@security.context", "@ns.security.query", "@doctrine.orm.entity_manager" ]
       tags:
         - { name: form.type, alias: meningitis_filter_form }
     ns.sentinel.menu_builder:

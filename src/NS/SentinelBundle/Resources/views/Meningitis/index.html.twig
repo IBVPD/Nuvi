@@ -3,10 +3,10 @@
 {% block pagedescription %}{{'Lists the last 10 meningitis cases'|trans}}{%endblock %}
 {% block body %}
 <div class="row">
-    <div class="col-xs-10">
+    <div class="col-xs-9">
         <div class="table-header">{{'Latest Meningitis Cases'|trans}}</div>
         <div class="table-responsive">
-            <div id="sample-table-2_wrapper" class="dataTables_wrapper" role="grid">
+            <div class="dataTables_wrapper" role="grid">
                 <div class="row">
                     <div class="col-sm-3">
                         <div class="dataTables_length">
@@ -24,17 +24,11 @@
                             
                         </div>
                     </div>
-                    <div class="col-sm-3">
-                        <div class="dataTables_filter" id="sample-table-2_filter">
-                            <form method="POST" action="{{path('meningitisSearch')}}">
-                                {{form_widget(form.id)}}
-                                {{form_widget(form.find)}}
-                                {{form_rest(form)}}
-                            </form>
-                        </div>
+                    <div class="col-sm-5">
+                        {{ knp_pagination_render(pagination) }}
                     </div>
                 </div>
-                <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+                <table class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
                             <th>{{'Case ID'|trans}}</th>
@@ -61,9 +55,6 @@
                     {% endfor %}
                     </tbody>
                 </table>
-                <div class="navigation">
-                    {{ knp_pagination_render(pagination) }}
-                </div>
             {% if is_granted('ROLE_CAN_CREATE_CASE') %}
                 <div class="align-right">
                     <a href="{{path('meningitisCreate')}}" class="btn btn-sm btn-default">{{'Create'}}<i class="icon-plus-sign icon-on-right bigger-110"></i></a>
@@ -72,7 +63,7 @@
             </div>
         </div><!--/.table-responsive-->
     </div><!--/span-->
-    <div class="col-xs-2">
+    <div class="col-xs-3 widget-container-span">
         {{render(controller('NSSentinelBundle:Meningitis:filter'))}}
     </div>
 </div><!--/row-->

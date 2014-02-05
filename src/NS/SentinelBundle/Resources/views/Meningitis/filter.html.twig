@@ -1,3 +1,10 @@
-<form method="POST" action="{{path('meningitisFilter')}}" >
-{{form_rest(form)}}
-</form>
+<div class="widget-box">
+        <div class="table-header">{{'Filters'|trans}}</div>
+    <div class="widget-body">
+        <div class="widget-main">
+            <form method="POST" action="{{path('meningitisFilter')}}" >
+            {{form_rest(form)}}
+            </form>
+        </div>
+    </div>
+</div>

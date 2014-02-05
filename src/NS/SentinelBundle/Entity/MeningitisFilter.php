@@ -763,7 +763,7 @@ class MeningitisFilter
      * @param \NS\SentinelBundle\Entity\Region $region
      * @return Meningitis
      */
-    public function setRegion(Region $region = null)
+    public function setRegion($region = null)
     {
         $this->region = $region;
 
@@ -786,11 +786,9 @@ class MeningitisFilter
      * @param \NS\SentinelBundle\Entity\Country $country
      * @return Meningitis
      */
-    public function setCountry(Country $country = null)
+    public function setCountry( $country = null)
     {
         $this->country = $country;
-
-        $this->setRegion($country->getRegion());
 
         return $this;
     }
@@ -811,18 +809,11 @@ class MeningitisFilter
      * @param \NS\SentinelBundle\Entity\Site $site
      * @return Meningitis
      */
-    public function setSite(Site $site = null)
+    public function setSite($site = null)
     {
         $this->site = $site;
 
-        $this->setCountry($site->getCountry());
-
         return $this;
-    }
-
-    public function getFullIdentifier($id)
-    {
-        return sprintf("%s-%s-%s-%06d", $this->getRegion()->getCode(), $this->country->getCode(), $this->site->getCode(),$id);
     }
 
     /**
@@ -852,7 +843,7 @@ class MeningitisFilter
      * @param \NS\SentinelBundle\Entity\SiteLab $lab
      * @return Meningitis
      */
-    public function setSiteLab(\NS\SentinelBundle\Entity\SiteLab $lab = null)
+    public function setSiteLab($lab = null)
     {
         $this->lab = $lab;
     
@@ -880,7 +871,7 @@ class MeningitisFilter
      * @param \NS\SentinelBundle\Entity\ReferenceLab $lab
      * @return Meningitis
      */
-    public function setReferenceLab(\NS\SentinelBundle\Entity\ReferenceLab $lab = null)
+    public function setReferenceLab($lab = null)
     {
         $this->referenceLab = $lab;
     

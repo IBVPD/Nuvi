@@ -218,8 +218,11 @@ class MeningitisController extends Controller
             $qb = $this->get('lexik_form_filter.query_builder_updater');
             $qb->addFilterConditions($filterForm, $filterBuilder, 'm');
 
+            $paginator  = $this->get('knp_paginator');
+            $pagination = $paginator->paginate($filterBuilder, $request->query->get('page', 1), $request->getSession()->get('result_per_page',10) );
+
             $form = $this->createForm(new MeningitisSearch());
-            return $this->render("NSSentinelBundle:Meningitis:index.html.twig",array('rows' => $filterBuilder->getQuery()->setMaxResults(10)->getResult(), 'form' => $form->createView(), 't' => $t ));
+            return $this->render("NSSentinelBundle:Meningitis:index.html.twig",array('pagination' => $pagination, 'form' => $form->createView(), 't' => $t ));
         }
 
         return array('form'=>$filterForm->createView());
