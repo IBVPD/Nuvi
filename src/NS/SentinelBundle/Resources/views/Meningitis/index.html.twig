@@ -3,21 +3,25 @@
 {% block pagedescription %}{{'Lists the last 10 meningitis cases'|trans}}{%endblock %}
 {% block body %}
 <div class="row">
-    <div class="col-xs-12">
+    <div class="col-xs-10">
         <div class="table-header">{{'Latest Meningitis Cases'|trans}}</div>
         <div class="table-responsive">
             <div id="sample-table-2_wrapper" class="dataTables_wrapper" role="grid">
                 <div class="row">
                     <div class="col-sm-3">
-                        <div id="sample-table-2_length" class="dataTables_length">
-                            <label>Display 
-                                    <select size="1" name="sample-table-2_length" aria-controls="sample-table-2">
-                                    <option value="10" selected="selected">10</option>
-                                    <option value="25">25</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
+                        <div class="dataTables_length">
+                            <form id="result_per_page_form" method="GET" action="{{path('meningitisIndex')}}">
+                                <label>Display 
+                                    <select size="1" id="result_per_page_field" name="result_per_page">
+                                        <option value="5">5</option>
+                                        <option value="10" selected="selected">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
                                     </select> records
-                            </label>
+                                </label>
+                            </form>
+                            
                         </div>
                     </div>
                     <div class="col-sm-3">
@@ -42,7 +46,7 @@
                     </thead>
 
                     <tbody>
-                    {% for row in rows %}
+                    {% for row in pagination %}
                         <tr>
                             <td>{{ row.id }}</td>
                             <td>{{ row.gender }}</td>
@@ -57,6 +61,9 @@
                     {% endfor %}
                     </tbody>
                 </table>
+                <div class="navigation">
+                    {{ knp_pagination_render(pagination) }}
+                </div>
             {% if is_granted('ROLE_CAN_CREATE_CASE') %}
                 <div class="align-right">
                     <a href="{{path('meningitisCreate')}}" class="btn btn-sm btn-default">{{'Create'}}<i class="icon-plus-sign icon-on-right bigger-110"></i></a>
@@ -65,6 +72,9 @@
             </div>
         </div><!--/.table-responsive-->
     </div><!--/span-->
+    <div class="col-xs-2">
+        {{render(controller('NSSentinelBundle:Meningitis:filter'))}}
+    </div>
 </div><!--/row-->
 
 
@@ -88,3 +98,12 @@
     </div>
 </div>
  {% endblock %}
+
+{% block javascripts %}
+{{parent()}}
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#result_per_page_field').change(function(){this.form.submit();});
+     });
+</script>
+{% endblock %}

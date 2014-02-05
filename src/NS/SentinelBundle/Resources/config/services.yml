@@ -2,6 +2,15 @@ parameters:
 #    ns_sentinel.example.class: NS\SentinelBundle\Example
 
 services:
+    ns.sentinel.result_per_page:
+      class: NS\SentinelBundle\Listeners\ResultPerPage
+      tags:
+        - { name: kernel.event_listener, event: kernel.request, method: onRequest }
+    ns.sentinel.meningitis.filter:
+      class: NS\SentinelBundle\Form\MeningitisFilter
+      arguments: [ "@security.context" ]
+      tags:
+        - { name: form.type, alias: meningitis_filter_form }
     ns.sentinel.menu_builder:
       class: NS\SentinelBundle\Menu\Builder
       arguments: [ "@knp_menu.factory", "@security.context" ]

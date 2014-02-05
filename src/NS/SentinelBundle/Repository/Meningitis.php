@@ -78,7 +78,17 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
 
         return $qb->getQuery();        
     }
-    
+
+    public function getLatestQuery()
+    {
+        $qb = $this->_em->createQueryBuilder()
+                   ->select('m,l,rl')
+                   ->from($this->getClassName(),'m')
+                   ->leftJoin('m.lab', 'l')
+                   ->leftJoin('m.referenceLab','rl');
+        return $this->secure($qb);
+    }
+
     public function getLatest($limit = 10)
     {
         $qb = $this->_em->createQueryBuilder()
@@ -189,5 +199,16 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
         {
             throw new NonExistentCase("This case does not exist!");
         }
+    }
+
+    public function getFilterQueryBuilder($alias = 'm')
+    {
+        return $this->_em
+                    ->createQueryBuilder()
+                    ->select($alias)
+                    ->from($this->getClassName(),$alias)
+//                    ->leftJoin("$alias.referenceLab", "rl")
+//                    ->leftJoin("$alias.lab",'l')
+                    ;
     }
 }

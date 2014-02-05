@@ -20,9 +20,12 @@ class MeningitisController extends Controller
      * @Route("/",name="meningitisIndex")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $rows = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:Meningitis")->getLatest();
+        $query      = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:Meningitis")->getLatestQuery();
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($query, $request->query->get('page', 1), $request->getSession()->get('result_per_page',10) );
+
         $form = $this->createForm(new MeningitisSearch());
         $sc   = $this->get('security.context');
 
@@ -35,7 +38,7 @@ class MeningitisController extends Controller
         else if($sc->isGranted('ROLE_REGION'))
             $t = array('template' => 'NSSentinelBundle:Meningitis:index-action.html.twig', 'action' => '');
 
-        return array('rows' => $rows,'form' => $form->createView(),'t'=>$t);
+        return array('pagination' => $pagination,'form' => $form->createView(),'t'=>$t);
     }
 
     /**
@@ -156,13 +159,13 @@ class MeningitisController extends Controller
                 {
                     $sc = $this->get('security.context');
                     if($sc->isGranted('ROLE_SITE'))
-                        $t = array('template' => 'NSSentinelBundle:Meningitis:index-action.html.twig', 'action' => 'meningitisEdit','canCreate'=>true);
+                        $t = array('template' => 'NSSentinelBundle:Meningitis:index-action.html.twig', 'action' => 'meningitisEdit');
                     else if($sc->isGranted('ROLE_LAB'))
-                        $t = array('template' => 'NSSentinelBundle:Meningitis:index-lab-action.html.twig', 'action' => 'meningitisLabEdit','canCreate'=>false);
+                        $t = array('template' => 'NSSentinelBundle:Meningitis:index-lab-action.html.twig', 'action' => 'meningitisLabEdit');
                     else if($sc->isGranted('ROLE_RRL_LAB'))
-                        $t = array('template' => 'NSSentinelBundle:Meningitis:index-rrl-action.html.twig', 'action' => 'meningitisRRLCreate','canCreate'=>false);
+                        $t = array('template' => 'NSSentinelBundle:Meningitis:index-rrl-action.html.twig', 'action' => 'meningitisRRLCreate');
                     else
-                        $t = array('template' => 'NSSentinelBundle:Meningitis:index-rrl-action.html.twig', 'action' => 'meningitisRRLCreate','canCreate'=>false);
+                        $t = array('template' => 'NSSentinelBundle:Meningitis:index-rrl-action.html.twig', 'action' => 'meningitisRRLCreate');
 
                     return $this->render('NSSentinelBundle:Meningitis:index.html.twig',array('rows' => $record,'form' => $form->createView(),'t'=>$t));
                 }
@@ -184,5 +187,41 @@ class MeningitisController extends Controller
     {
         return $this->get('ns.ajax_autocompleter')
                     ->getAutocomplete('NSSentinelBundle:Meningitis','id');
+    }
+
+    /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @Route("/filter",name="meningitisFilter")
+     * @Template()
+     */
+    public function filterAction(Request $request)
+    {
+        $filterForm = $this->createForm('meningitis_filter_form');
+        $filterForm->handleRequest($request);
+        if($filterForm->isValid() && $filterForm->isSubmitted())
+        {
+            $filterBuilder = $this->get('doctrine.orm.entity_manager')
+                                  ->getRepository('NSSentinelBundle:Meningitis')
+                                  ->getFilterQueryBuilder();
+
+            $sc = $this->get('security.context');
+            if($sc->isGranted('ROLE_SITE'))
+                $t = array('template' => 'NSSentinelBundle:Meningitis:index-action.html.twig', 'action' => 'meningitisEdit');
+            else if($sc->isGranted('ROLE_LAB'))
+                $t = array('template' => 'NSSentinelBundle:Meningitis:index-lab-action.html.twig', 'action' => 'meningitisLabEdit');
+            else if($sc->isGranted('ROLE_RRL_LAB'))
+                $t = array('template' => 'NSSentinelBundle:Meningitis:index-rrl-action.html.twig', 'action' => 'meningitisRRLCreate');
+            else if($sc->isGranted('ROLE_REGION'))
+                $t = array('template' => 'NSSentinelBundle:Meningitis:index-action.html.twig', 'action' => '');
+
+            // build the query from the given form object
+            $qb = $this->get('lexik_form_filter.query_builder_updater');
+            $qb->addFilterConditions($filterForm, $filterBuilder, 'm');
+
+            $form = $this->createForm(new MeningitisSearch());
+            return $this->render("NSSentinelBundle:Meningitis:index.html.twig",array('rows' => $filterBuilder->getQuery()->setMaxResults(10)->getResult(), 'form' => $form->createView(), 't' => $t ));
+        }
+
+        return array('form'=>$filterForm->createView());
     }
 }

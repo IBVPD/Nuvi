@@ -32,6 +32,8 @@ class AppKernel extends Kernel
             new \Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new NS\AceBundle\NSAceBundle(),
             new \PunkAve\FileUploaderBundle\PunkAveFileUploaderBundle(),
+            new Lexik\Bundle\FormFilterBundle\LexikFormFilterBundle(),
+            new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
