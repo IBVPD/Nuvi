@@ -124,7 +124,7 @@
 {% endblock %}
 
 {% block recordsperpage_row %}
-    <label>Display 
+    <label>{{'Display'|trans}}
         {% if required and empty_value is none and not empty_value_in_choices %}
             {% set required = false %}
         {% endif %}
@@ -141,6 +141,6 @@
             {% endif %}
             {% set options = choices %}
             {{ block('choice_widget_options') }}
-        </select> records
+        </select> {{'records'|trans}}
     </label>
 {% endblock %}
