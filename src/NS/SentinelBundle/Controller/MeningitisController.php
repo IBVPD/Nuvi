@@ -22,12 +22,18 @@ class MeningitisController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $query      = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:Meningitis")->getLatestQuery();
-        $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($query, $request->query->get('page', 1), $request->getSession()->get('result_per_page',10) );
+        $paginator = $this->get('knp_paginator');
 
-        $form = $this->createForm(new MeningitisSearch());
-        $sc   = $this->get('security.context');
+        if($request->getSession()->has('meningitis/filter'))
+            $query = $this->get('doctrine.orm.entity_manager')->createQuery($request->getSession()->get('meningitis/filter'));
+        else
+            $query = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:Meningitis")->getLatestQuery();
+
+        $pagination = $paginator->paginate( $query,
+                                            $request->query->get('page', 1),
+                                            $request->getSession()->get('result_per_page',10) );
+
+        $sc = $this->get('security.context');
 
         if($sc->isGranted('ROLE_SITE'))
             $t = array('template' => 'NSSentinelBundle:Meningitis:index-action.html.twig', 'action' => 'meningitisEdit');
@@ -38,7 +44,7 @@ class MeningitisController extends Controller
         else if($sc->isGranted('ROLE_REGION'))
             $t = array('template' => 'NSSentinelBundle:Meningitis:index-action.html.twig', 'action' => '');
 
-        return array('pagination' => $pagination,'form' => $form->createView(),'t'=>$t);
+        return array('pagination' => $pagination, 't'=>$t);
     }
 
     /**
@@ -198,31 +204,21 @@ class MeningitisController extends Controller
     {
         $filterForm = $this->createForm('meningitis_filter_form');
         $filterForm->handleRequest($request);
+
         if($filterForm->isValid() && $filterForm->isSubmitted())
         {
-            $filterBuilder = $this->get('doctrine.orm.entity_manager')
-                                  ->getRepository('NSSentinelBundle:Meningitis')
-                                  ->getFilterQueryBuilder();
-
-            $sc = $this->get('security.context');
-            if($sc->isGranted('ROLE_SITE'))
-                $t = array('template' => 'NSSentinelBundle:Meningitis:index-action.html.twig', 'action' => 'meningitisEdit');
-            else if($sc->isGranted('ROLE_LAB'))
-                $t = array('template' => 'NSSentinelBundle:Meningitis:index-lab-action.html.twig', 'action' => 'meningitisLabEdit');
-            else if($sc->isGranted('ROLE_RRL_LAB'))
-                $t = array('template' => 'NSSentinelBundle:Meningitis:index-rrl-action.html.twig', 'action' => 'meningitisRRLCreate');
-            else if($sc->isGranted('ROLE_REGION'))
-                $t = array('template' => 'NSSentinelBundle:Meningitis:index-action.html.twig', 'action' => '');
+            $query = $this->get('doctrine.orm.entity_manager')
+                          ->getRepository('NSSentinelBundle:Meningitis')
+                          ->getFilterQueryBuilder();
 
             // build the query from the given form object
             $qb = $this->get('lexik_form_filter.query_builder_updater');
-            $qb->addFilterConditions($filterForm, $filterBuilder, 'm');
+            $qb->addFilterConditions($filterForm, $query, 'm');
 
-            $paginator  = $this->get('knp_paginator');
-            $pagination = $paginator->paginate($filterBuilder, $request->query->get('page', 1), $request->getSession()->get('result_per_page',10) );
 
-            $form = $this->createForm(new MeningitisSearch());
-            return $this->render("NSSentinelBundle:Meningitis:index.html.twig",array('pagination' => $pagination, 'form' => $form->createView(), 't' => $t ));
+            $request->getSession()->set('meningitis/filter',$query->getDql());
+
+            return $this->redirect($this->generateUrl('meningitisIndex'));
         }
 
         return array('form'=>$filterForm->createView());
