@@ -205,10 +205,10 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
     {
         return $this->_em
                     ->createQueryBuilder()
-                    ->select($alias)
+                    ->select("$alias,rl,l")
                     ->from($this->getClassName(),$alias)
-//                    ->leftJoin("$alias.referenceLab", "rl")
-//                    ->leftJoin("$alias.lab",'l')
+                    ->leftJoin("$alias.referenceLab", "rl")
+                    ->leftJoin("$alias.lab",'l')
                     ;
     }
 }
