@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2013-12-10T21:16:05Z" source-language="en" target-language="fr" datatype="plaintext" original="not.available">
+  <file date="2014-01-29T09:07:51Z" source-language="en" target-language="fr" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -8,7 +8,7 @@
     <body>
       <trans-unit id="c3cd636a585b20c40ac2df5ffb403e83cb2eef51" resname="Actions">
         <source>Actions</source>
-        <target state="new">Actions</target>
+        <target>Actions</target>
         <jms:reference-file line="37">views/Meningitis/index.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="64fed3e90d308e2a97b17bab99cd5c8e17e39754" resname="Age In Months">
@@ -93,7 +93,7 @@
       </trans-unit>
       <trans-unit id="15a3133efaf10d95733f0567cf9b4485a5090aa7" resname="Latest Meningitis Cases">
         <source>Latest Meningitis Cases</source>
-        <target state="new">Latest Meningitis Cases</target>
+        <target>Latest IBD Cases</target>
         <jms:reference-file line="7">views/Meningitis/index.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="4e5a2893bdcc7d239c1db72e4c4ffbe4bea73174" resname="Login">
@@ -104,7 +104,7 @@
       </trans-unit>
       <trans-unit id="3b0adb43b33b1fe3655e1f4fd240d9b77acd0f7d" resname="Meningigtis">
         <source>Meningigtis</source>
-        <target state="new">Meningigtis</target>
+        <target>IBD</target>
         <jms:reference-file line="58">views/Meningitis/show.html.twig</jms:reference-file>
         <jms:reference-file line="68">views/Meningitis/edit.html.twig</jms:reference-file>
       </trans-unit>
@@ -624,7 +624,7 @@
       </trans-unit>
       <trans-unit id="cc19664b64336d18c98237a18b15aa4c2eb352b7" resname="menu.meningitis">
         <source>menu.meningitis</source>
-        <target state="new">menu.meningitis</target>
+        <target>IBD</target>
         <jms:reference-file line="36">SentinelBundle/Menu/Builder.php</jms:reference-file>
       </trans-unit>
     </body>
