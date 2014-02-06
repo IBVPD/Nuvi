@@ -102,7 +102,7 @@ class MeningitisFilter extends AbstractType
                             }
                         }
 
-                        $form->add('find','submit',array('attr'=>array('class'=>'filter','label'=>'Find')));
+                        $form->add('find','iconbutton',array('type'=>'submit', 'icon' => 'icon-search','attr'=>array('class'=>'btn btn-success')));
                     }
                     );
     }

@@ -2,6 +2,11 @@ parameters:
 #    ns_ace.example.class: NS\AceBundle\Example
 
 services:
+    ns_ace.form.iconbutton:
+      class: NS\AceBundle\Form\IconButtonType
+      tags:
+        - { name: form.type, alias: iconbutton }
+
     ns_ace.form.record_page:
       class: NS\AceBundle\Form\RecordsPerPageType
       arguments: [ "@session" ]
