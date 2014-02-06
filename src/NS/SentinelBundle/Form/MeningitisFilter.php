@@ -11,6 +11,7 @@ use \Symfony\Component\Form\FormEvent;
 use \Symfony\Component\Form\FormEvents;
 use \Doctrine\Common\Persistence\ObjectManager;
 use \Lexik\Bundle\FormFilterBundle\Filter\FilterOperands;
+use NS\SentinelBundle\Entity\User;
 
 class MeningitisFilter extends AbstractType
 {
@@ -36,8 +37,7 @@ class MeningitisFilter extends AbstractType
         $builder->add('id', 'filter_text', array(
                                             'required'          => false,
                                             'condition_pattern' => FilterOperands::STRING_BOTH,
-                                            'label'             => 'Case Id'))
-                ;
+                                            'label'             => 'Case Id'));
 
         $securityContext = $this->securityContext;
         $securedQuery    = $this->securedQuery;
@@ -48,9 +48,20 @@ class MeningitisFilter extends AbstractType
                     function(FormEvent $event) use($securityContext,$securedQuery,$entityManager)
                     {
                         $form = $event->getForm();
+                        $user = $securityContext->getToken()->getUser();
 
                         if($securityContext->isGranted('ROLE_REGION'))
                         {
+                            $objectIds = $user->getACLObjectIdsForRole('ROLE_REGION');
+                            if(count($objectIds) > 1)
+                            {
+                                $qb = $entityManager->getRepository('NSSentinelBundle:Region')->createQueryBuilder('c')->select('s')->from('NSSentinelBundle:Region','s');
+                                $form->add('country','filter_entity',array('class'           => 'NSSentinelBundle:Region',
+                                                                           'multiple'      => true,
+                                                                           'query_builder' => $securedQuery->secure($qb)));
+
+                            }
+
                             $qb = $entityManager->getRepository('NSSentinelBundle:Country')->createQueryBuilder('c')->select('s')->from('NSSentinelBundle:Country','s');
                             $form->add('country','filter_entity',array('class'           => 'NSSentinelBundle:Country',
                                                                          'multiple'      => true,
@@ -63,6 +74,16 @@ class MeningitisFilter extends AbstractType
 
                         if($securityContext->isGranted('ROLE_COUNTRY'))
                         {
+                            $objectIds = $user->getACLObjectIdsForRole('ROLE_COUNTRY');
+                            if(count($objectIds) > 1)
+                            {
+                                $qb = $entityManager->getRepository('NSSentinelBundle:Country')->createQueryBuilder('c')->select('s')->from('NSSentinelBundle:Country','s');
+                                $form->add('country','filter_entity',array('class'           => 'NSSentinelBundle:Country',
+                                                                           'multiple'      => true,
+                                                                           'query_builder' => $securedQuery->secure($qb)));
+
+                            }
+
                             $qb = $entityManager->getRepository('NSSentinelBundle:Site')->createQueryBuilder('c')->select('s')->from('NSSentinelBundle:Site','s');
                             $form->add('site','filter_entity',array('class'         => 'NSSentinelBundle:Site',
                                                                     'multiple'      => true,
@@ -71,10 +92,14 @@ class MeningitisFilter extends AbstractType
 
                         if($securityContext->isGranted('ROLE_SITE'))
                         {
-                            $qb = $entityManager->getRepository('NSSentinelBundle:Site')->createQueryBuilder('c')->select('s')->from('NSSentinelBundle:Site','s');
-                            $form->add('site','filter_entity',  array('class'         => 'NSSentinelBundle:Site',
-                                                                      'multiple'      => true,
-                                                                      'query_builder' => $securedQuery->secure($qb)));
+                            $objectIds = $user->getACLObjectIdsForRole('ROLE_SITE');
+                            if(count($objectIds) > 1)
+                            {
+                                $qb = $entityManager->getRepository('NSSentinelBundle:Site')->createQueryBuilder('c')->select('s')->from('NSSentinelBundle:Site','s');
+                                $form->add('site','filter_entity',  array('class'         => 'NSSentinelBundle:Site',
+                                                                          'multiple'      => true,
+                                                                          'query_builder' => $securedQuery->secure($qb)));
+                            }
                         }
 
                         $form->add('find','submit',array('attr'=>array('class'=>'filter','label'=>'Find')));
