@@ -110,3 +110,7 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item {
     background-color: #2283C5;
     color: #ffffff;
 }
+
+.widget-toolbar .dataTables_paginate .pagination{
+    vertical-align: middle
+}
