@@ -1504,12 +1504,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/lexik/LexikFormFilterBundle.git",
-                "reference": "3b6a8770cd9008f2a4b2d06084baa645b0d9480c"
+                "reference": "0a8e4c9ef502d3e6f5422d63cd1d0298d98284f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lexik/LexikFormFilterBundle/zipball/3b6a8770cd9008f2a4b2d06084baa645b0d9480c",
-                "reference": "3b6a8770cd9008f2a4b2d06084baa645b0d9480c",
+                "url": "https://api.github.com/repos/lexik/LexikFormFilterBundle/zipball/0a8e4c9ef502d3e6f5422d63cd1d0298d98284f4",
+                "reference": "0a8e4c9ef502d3e6f5422d63cd1d0298d98284f4",
                 "shasum": ""
             },
             "require": {
@@ -1547,7 +1547,7 @@
                 "filter",
                 "form"
             ],
-            "time": "2014-02-03 09:43:48"
+            "time": "2014-02-06 13:03:29"
         },
         {
             "name": "monolog/monolog",
@@ -2240,12 +2240,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataCoreBundle.git",
-                "reference": "8d690530d3dbb99465a552beb81e811860bdc7fa"
+                "reference": "7c3e7c8815ca286924164a0d9ce8a4a5806b013e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/8d690530d3dbb99465a552beb81e811860bdc7fa",
-                "reference": "8d690530d3dbb99465a552beb81e811860bdc7fa",
+                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/7c3e7c8815ca286924164a0d9ce8a4a5806b013e",
+                "reference": "7c3e7c8815ca286924164a0d9ce8a4a5806b013e",
                 "shasum": ""
             },
             "require": {
@@ -2291,7 +2291,7 @@
             "keywords": [
                 "sonata"
             ],
-            "time": "2014-02-04 16:53:38"
+            "time": "2014-02-06 11:03:10"
         },
         {
             "name": "sonata-project/doctrine-orm-admin-bundle",
