@@ -113,7 +113,8 @@ class MeningitisFilter extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'NS\SentinelBundle\Entity\MeningitisFilter'
+            'data_class'      => 'NS\SentinelBundle\Entity\MeningitisFilter',
+            'csrf_protection' => false,
         ));
     }
 

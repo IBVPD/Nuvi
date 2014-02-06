@@ -5,6 +5,7 @@ namespace NS\SentinelBundle\Listeners;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernel;
 use \Symfony\Component\Form\FormFactoryInterface;
+use \Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Description of ResultPerPage
@@ -32,12 +33,8 @@ class ResultPerPage
         if($request->request->has($this->form->getName()))
         {
             $this->form->handleRequest($request);
-
-            if(!$this->form->isValid())
-                die("FORM IS INVALID! ".$this->form->getErrorsAsString()." Requests ".print_r($request->request->all(),true));
-
             $request->getSession()->set('result_per_page',$this->form->get('recordsperpage')->getData());
-            $r = new \Symfony\Component\HttpFoundation\RedirectResponse($this->router->generate($this->form->get('target')->getData()));
+            $r = new RedirectResponse($this->router->generate($this->form->get('target')->getData(),$request->query->all()));
             $event->setResponse($r);
         }
 

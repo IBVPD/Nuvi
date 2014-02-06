@@ -6,6 +6,7 @@ use \Symfony\Component\Form\AbstractType;
 use \Symfony\Component\Form\FormBuilderInterface;
 use \Symfony\Component\Form\FormEvents;
 use \Symfony\Component\Form\FormEvent;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Description of ResultPerPage
@@ -32,6 +33,16 @@ class ResultPerPage extends AbstractType
                     $form = $event->getForm();
                     $form->add('target','hidden',array('data'=>$target));
                 });
+    }
+
+    /**
+     * @param OptionsResolverInterface $resolver
+     */
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'csrf_protection' => false,
+        ));
     }
 
     public function getName()
