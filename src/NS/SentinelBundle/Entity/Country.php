@@ -18,7 +18,7 @@ use \NS\SecurityBundle\Annotation\SecuredCondition;
  *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},relation="sites",class="NSSentinelBundle:Site"),
  *      })
  */
-class Country
+class Country implements \Serializable
 {
     /**
      * @var string
@@ -334,4 +334,30 @@ class Country
     {
         return $this->populationUnderFive;
     }
+
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->code,
+            $this->isActive,
+            $this->name,
+            $this->gaviEligible,
+            $this->population,
+            $this->populationUnderFive,
+            ));
+    }
+
+    public function unserialize($serialized)
+    {
+        list($this->id,
+            $this->code,
+            $this->isActive,
+            $this->name,
+            $this->gaviEligible,
+            $this->population,
+            $this->populationUnderFive) = unserialize($serialized);
+    }
+
+
 }

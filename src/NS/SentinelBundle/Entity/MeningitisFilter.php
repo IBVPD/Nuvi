@@ -16,7 +16,7 @@ use NS\SentinelBundle\Form\Types\Role;
  * Description of Meningitis
  * @author gnat
  */
-class MeningitisFilter
+class MeningitisFilter implements \Serializable
 {
     /**
      * @var string $id
@@ -891,5 +891,15 @@ class MeningitisFilter
     public function hasReferenceLab()
     {
         return ($this->referenceLab instanceof ReferenceLab);
-    }    
+    }
+
+    public function serialize()
+    {
+        return serialize(array($this->id,$this->region,$this->country,$this->site));
+    }
+
+    public function unserialize($serialized)
+    {
+        list($this->id,$this->region,$this->country,$this->site) = unserialize($serialized);
+    }
 }

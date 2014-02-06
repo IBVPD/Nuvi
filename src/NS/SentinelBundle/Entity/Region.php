@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="regions")
  * @ORM\Entity(repositoryClass="\NS\SentinelBundle\Repository\Region")
  */
-class Region
+class Region implements \Serializable
 {
     /**
      * @var integer
@@ -212,5 +212,25 @@ class Region
     public function getWebsite()
     {
         return $this->website;
+    }
+
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->name,
+            $this->code,
+            $this->website,
+        ));
+    }
+
+    public function unserialize($serialized)
+    {
+        list(
+            $this->id,
+            $this->name,
+            $this->code,
+            $this->website,
+             ) = unserialize($serialized);
     }
 }

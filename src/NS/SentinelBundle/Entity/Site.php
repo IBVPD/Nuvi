@@ -17,7 +17,7 @@ use \NS\SecurityBundle\Annotation\SecuredCondition;
  *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},field="id"),
  *      }) 
  */
-class Site
+class Site implements \Serializable
 {
     /**
      * @var integer
@@ -374,5 +374,35 @@ class Site
     {
         $this->currentCaseId = $currentCaseId;
         return $this;
+    }
+
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->name,
+            $this->code,
+            $this->website,
+            $this->rvYearIntro,
+            $this->ibdYearIntro,
+            $this->street,
+            $this->city,
+            $this->numberOfBeds,
+        ));
+    }
+
+    public function unserialize($serialized)
+    {
+        list(
+            $this->id,
+            $this->name,
+            $this->code,
+            $this->website,
+            $this->rvYearIntro,
+            $this->ibdYearIntro,
+            $this->street,
+            $this->city,
+            $this->numberOfBeds,
+             ) = unserialize($serialized);
     }
 }
