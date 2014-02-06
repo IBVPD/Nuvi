@@ -144,3 +144,12 @@
         </select> {{'records'|trans}}
     </label>
 {% endblock %}
+
+{% block iconbutton_widget %}
+{% spaceless %}
+    {% if label is empty %}
+        {% set label = name|humanize %}
+    {% endif %}
+    <button type="{{ type|default('button') }}" {{ block('button_attributes') }}>{%if icon is defined %}<i class="{{icon}}"></i>{%endif%}{{ label|trans({}, translation_domain) }}</button>
+{% endspaceless %}
+{% endblock iconbutton_widget %}
