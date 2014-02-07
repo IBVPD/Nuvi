@@ -345,6 +345,7 @@ class Country implements \Serializable
             $this->gaviEligible,
             $this->population,
             $this->populationUnderFive,
+            $this->region,
             ));
     }
 
@@ -356,7 +357,9 @@ class Country implements \Serializable
             $this->name,
             $this->gaviEligible,
             $this->population,
-            $this->populationUnderFive) = unserialize($serialized);
+            $this->populationUnderFive,
+            $this->region
+            ) = unserialize($serialized);
     }
 
 

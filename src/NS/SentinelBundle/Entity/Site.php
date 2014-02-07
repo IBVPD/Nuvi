@@ -388,6 +388,7 @@ class Site implements \Serializable
             $this->street,
             $this->city,
             $this->numberOfBeds,
+            $this->country,
         ));
     }
 
@@ -403,6 +404,7 @@ class Site implements \Serializable
             $this->street,
             $this->city,
             $this->numberOfBeds,
+            $this->country,
              ) = unserialize($serialized);
     }
 }
