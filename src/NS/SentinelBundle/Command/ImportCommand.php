@@ -5,7 +5,15 @@ namespace NS\SentinelBundle\Command;
 use \Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use \Symfony\Component\Console\Input\InputInterface;
 use \Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
+use \Symfony\Component\Console\Input\InputArgument;
+
+use NS\SentinelBundle\Entity\Region;
+use NS\SentinelBundle\Entity\Country;
+use NS\SentinelBundle\Entity\Site;
+use NS\SentinelBundle\Form\Types\GAVIEligible;
+use NS\SentinelBundle\Entity\User;
+use NS\SentinelBundle\Entity\ACL;
+use NS\SentinelBundle\Form\Types\Role;
 
 /**
  * Description of ImportCommand
@@ -63,6 +71,8 @@ class ImportCommand extends ContainerAwareCommand
         $output->writeln("Added ".count($countries)." Countries");
         $sites     = $this->processSites($files['site'], $countries);
         $output->writeln("Added ".count($sites)." Sites");
+        $users     = $this->processUsers($regions,$countries,$sites);
+        $output->writeln("Added $users Users");
     }
     
     private function processRegions($file,$output)
@@ -78,7 +88,7 @@ class ImportCommand extends ContainerAwareCommand
 
             if(!empty($row[1]))
             {
-                $region = new \NS\SentinelBundle\Entity\Region();
+                $region = new Region();
                 $region->setName($row[1]);
                 $region->setCode($row[0]);
                 $region->setWebsite($row[2]);
@@ -109,12 +119,12 @@ class ImportCommand extends ContainerAwareCommand
 
             if(isset($regions[$row[0]]) && !empty($row[2]) && !empty($row[0]) && !empty($row[1]))
             {
-                $c = new \NS\SentinelBundle\Entity\Country();
+                $c = new Country();
                 $c->setName($row[1]);
                 $c->setCode($row[2]);
                 $c->setPopulation($row[3]);
                 $c->setPopulationUnderFive($row[4]);
-                $c->setGaviEligible(new \NS\SentinelBundle\Form\Types\GAVIEligible($row[5]));
+                $c->setGaviEligible(new GAVIEligible($row[5]));
                 $c->setIsActive(true);
                 $c->setRegion($regions[$row[0]]);
 
@@ -141,7 +151,7 @@ class ImportCommand extends ContainerAwareCommand
             if($row== null)
                 break;
 
-            $c = new \NS\SentinelBundle\Entity\Site();
+            $c = new Site();
             $c->setName($row[2]);
             $c->setCode("{$row[1]}$x");
             $c->setRvYearIntro($row[3]);
@@ -162,5 +172,108 @@ class ImportCommand extends ContainerAwareCommand
         
         return $sites;
     }
-    
+
+    private function processUsers($regions,$countries, $sites)
+    {
+        $users     = 1;
+        $adminUser = new User();
+        $adminUser->setEmail('superadmin@who.int');
+        $adminUser->setName('NS Admin User');
+        $adminUser->resetSalt();
+        $adminUser->setIsAdmin(true);
+
+        $factory = $this->getContainer()->get('security.encoder_factory');
+        $encoder = $factory->getEncoder($adminUser);
+
+        $adminUser->setPassword($encoder->encodePassword("GnatAndDaveWho",$adminUser->getSalt()));
+
+        $this->em->persist($adminUser);
+
+        foreach($regions as $obj)
+        {
+            $user = new User();
+            $user->setIsActive(true);
+            $user->setEmail($obj->getCode()."@who.int");
+            $user->setName($obj->getcode()." User");
+            $user->resetSalt();
+            $user->setPassword($encoder->encodePassword("1234567-".$obj->getCode(),$user->getSalt()));
+            $acl = new ACL();
+            $acl->setUser($user);
+            $acl->setType(new Role(Role::REGION));
+            $acl->setObjectId($obj->getId());
+            $this->em->persist($acl);
+            $this->em->persist($user);
+            ++$users;
+        }
+
+        $this->em->flush();
+        foreach($countries as $obj)
+        {
+            $user = new User();
+            $user->setIsActive(true);
+            $user->setEmail($obj->getCode()."@who.int");
+            $user->setName($obj->getcode()." User");
+            $user->resetSalt();
+            $user->setPassword($encoder->encodePassword("1234567-".$obj->getCode(),$user->getSalt()));
+            $acl = new ACL();
+            $acl->setUser($user);
+            $acl->setType(new Role(Role::COUNTRY));
+            $acl->setObjectId($obj->getId());
+            $this->em->persist($acl);
+            $this->em->persist($user);
+            ++$users;
+        }
+
+        $this->em->flush();
+        foreach($sites as $obj)
+        {
+            $user = new User();
+            $user->setIsActive(true);
+            $user->setEmail($obj->getCode()."@who.int");
+            $user->setName($obj->getcode()." User");
+            $user->resetSalt();
+            $user->setPassword($encoder->encodePassword("1234567-".$obj->getCode(),$user->getSalt()));
+            $acl = new ACL();
+            $acl->setUser($user);
+            $acl->setType(new Role(Role::SITE));
+            $acl->setObjectId($obj->getId());
+            $this->em->persist($acl);
+            $this->em->persist($user);
+
+            ++$users;
+
+            $labUser = new User();
+            $labUser->setIsActive(true);
+            $labUser->setEmail($obj->getCode()."-lab@who.int");
+            $labUser->setName($obj->getcode()." Lab User");
+            $labUser->resetSalt();
+            $labUser->setPassword($encoder->encodePassword("1234567-lab-".$obj->getCode(),$labUser->getSalt()));
+            $labacl = new ACL();
+            $labacl->setUser($labUser);
+            $labacl->setType(new Role(Role::LAB));
+            $labacl->setObjectId($obj->getId());
+            $this->em->persist($labacl);
+            $this->em->persist($labUser);
+
+            ++$users;
+            $rrlUser = new User();
+            $rrlUser->setIsActive(true);
+            $rrlUser->setEmail($obj->getCode()."-rrl@who.int");
+            $rrlUser->setName($obj->getcode()." RRL User");
+            $rrlUser->resetSalt();
+            $rrlUser->setPassword($encoder->encodePassword("1234567-rrl".$obj->getCode(),$rrlUser->getSalt()));
+            $acl = new ACL();
+            $acl->setUser($rrlUser);
+            $acl->setType(new Role(Role::RRL_LAB));
+            $acl->setObjectId($obj->getId());
+            $this->em->persist($acl);
+            $this->em->persist($rrlUser);
+
+            ++$users;
+        }
+
+        $this->em->flush();
+
+        return $users;
+    }
 }
