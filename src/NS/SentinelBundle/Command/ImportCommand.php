@@ -261,7 +261,7 @@ class ImportCommand extends ContainerAwareCommand
             $rrlUser->setEmail($obj->getCode()."-rrl@who.int");
             $rrlUser->setName($obj->getcode()." RRL User");
             $rrlUser->resetSalt();
-            $rrlUser->setPassword($encoder->encodePassword("1234567-rrl".$obj->getCode(),$rrlUser->getSalt()));
+            $rrlUser->setPassword($encoder->encodePassword("1234567-rrl-".$obj->getCode(),$rrlUser->getSalt()));
             $acl = new ACL();
             $acl->setUser($rrlUser);
             $acl->setType(new Role(Role::RRL_LAB));
