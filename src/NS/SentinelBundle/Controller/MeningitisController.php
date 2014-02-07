@@ -52,7 +52,7 @@ class MeningitisController extends Controller
             $t = array('template' => 'NSSentinelBundle:Meningitis:index-lab-action.html.twig', 'action' => 'meningitisLabEdit');
         else if($sc->isGranted('ROLE_RRL_LAB'))
             $t = array('template' => 'NSSentinelBundle:Meningitis:index-rrl-action.html.twig', 'action' => 'meningitisRRLCreate');
-        else if($sc->isGranted('ROLE_REGION'))
+        else if($sc->isGranted('ROLE_REGION')|| $sc->isGranted('ROLE_COUNTRY'))
             $t = array('template' => 'NSSentinelBundle:Meningitis:index-action.html.twig', 'action' => '');
 
         return array('pagination' => $pagination, 't' => $t, 'form' => $this->createForm('results_per_page')->createView(),'filterForm'=>$filterForm->createView());
