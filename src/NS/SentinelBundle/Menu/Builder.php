@@ -38,9 +38,12 @@ class Builder
             $d->addChild('Rotavirus')->setExtra('translation_domain', 'NSSentinelBundle');
 
             $menu->addChild('Reports', array('label'=> 'menu.data-reports'))->setExtra('icon','icon-dashboard');
-            $admin = $menu->addChild('Admin', array('label'=> 'menu.data-admin'))->setExtra('icon','icon-desktop');
-            $admin->addChild('Admin', array('label'=> 'menu.data-admin','route'=>'sonata_admin_dashboard'));
-            $admin->addChild('Translation',array('label'=> 'menu.translation','route'=>'jms_translation_index'));
+            if($this->securityContext->isGranted('ROLE_ADMIN'))
+            {
+                $admin = $menu->addChild('Admin', array('label'=> 'menu.data-admin'))->setExtra('icon','icon-desktop');
+                $admin->addChild('Admin', array('label'=> 'menu.data-admin','route'=>'sonata_admin_dashboard'));
+                $admin->addChild('Translation',array('label'=> 'menu.translation','route'=>'jms_translation_index'));
+            }
         }
 
         return $menu;
