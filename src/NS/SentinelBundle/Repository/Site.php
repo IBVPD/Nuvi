@@ -29,4 +29,22 @@ class Site extends CommonRepository
         
         return $qb->getQuery()->getResult();
     }
+
+    public function getChainByCode($codes)
+    {
+        $qb = $this->_em->createQueryBuilder()
+                ->select('s,c,r')
+                ->from('NSSentinelBundle:Site','s','s.id')
+                ->innerJoin('s.country', 'c')
+                ->innerJoin('c.region', 'r');
+
+        if(is_array($codes))
+            $qb->add('where', $qb->expr()->in('s.code', '?1'))->setParameter(1, $codes);
+        else if(is_string($codes))
+            $qb->where('s.code = :codes')->setParameter('codes',$codes);
+        else
+            throw new \InvalidArgumentException(sprintf("Must provide an array of codes or single code. Received: %s",gettype($codes)));
+
+        return $qb->getQuery()->getResult();
+    }
 }
