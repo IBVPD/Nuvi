@@ -73,5 +73,8 @@
             "dev-master": "2.3-dev"
         }
     },
-    "repositories": [ { "type": "composer", "url": "http://packages.noblet.ca/" } ]
+    "repositories": [ 
+			{ "type": "composer", "url": "http://packages.noblet.ca/" },
+			{ "type": "vcs", "url": "https://github.com/gnat42/JMSTranslationBundle" } 
+		    ]
 }

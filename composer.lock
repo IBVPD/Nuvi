@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "6401de211e67107ec2f2028ddb6f1c19",
+    "hash": "d13ee7b847d8e818ab452ea7ab4bd7b7",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1125,12 +1125,12 @@
             "target-dir": "JMS/TranslationBundle",
             "source": {
                 "type": "git",
-                "url": "https://github.com/schmittjoh/JMSTranslationBundle.git",
+                "url": "https://github.com/gnat42/JMSTranslationBundle.git",
                 "reference": "eb4d61c8f55c2c355728edef66777196879188ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/JMSTranslationBundle/zipball/eb4d61c8f55c2c355728edef66777196879188ba",
+                "url": "https://api.github.com/repos/gnat42/JMSTranslationBundle/zipball/eb4d61c8f55c2c355728edef66777196879188ba",
                 "reference": "eb4d61c8f55c2c355728edef66777196879188ba",
                 "shasum": ""
             },
@@ -1167,16 +1167,13 @@
                     "JMS\\TranslationBundle": ""
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "Apache2"
             ],
             "authors": [
                 {
-                    "name": "Johannes Schmitt",
-                    "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
-                    "role": "Developer of wrapped JMSSerializerBundle"
+                    "name": "Johannes M. Schmitt",
+                    "email": "schmittjoh@gmail.com"
                 }
             ],
             "description": "Puts the Symfony2 Translation Component on steroids",
@@ -1191,6 +1188,9 @@
                 "ui",
                 "webinterface"
             ],
+            "support": {
+                "source": "https://github.com/gnat42/JMSTranslationBundle/tree/ControllerAsService"
+            },
             "time": "2014-01-08 20:53:42"
         },
         {
