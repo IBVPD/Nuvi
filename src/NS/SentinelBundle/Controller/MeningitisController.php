@@ -29,7 +29,7 @@ class MeningitisController extends Controller
 
         if($filterForm->isValid() && $filterForm->isSubmitted())
         {
-            $query = $this->get('doctrine.orm.entity_manager')
+            $query = $this->get('ns.model_manager')
                           ->getRepository('NSSentinelBundle:Meningitis')
                           ->getFilterQueryBuilder();
 
