@@ -138,7 +138,10 @@ knp_menu:
 
 sonata_admin:
     title:      NUVI Sentinel Network Administration
-#    title_logo: /bundles/nobletsolutionsnedco/images/logo.png
+    templates:
+        layout: NSSentinelBundle:Sonata:layout.html.twig
+        pager_links: NSSentinelBundle:Sonata:pager.html.twig
+        list: NSSentinelBundle:Sonata:list.html.twig
 
 sonata_doctrine_orm_admin:
   templates:
