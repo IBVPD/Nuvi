@@ -6,7 +6,7 @@
         <p><abbr title="{{ id }}">{{ id|truncate(20) }}</abbr></p>
     </td>
     <td>
-        <textarea data-id="{{ id }}" class="span6"{% if isWriteable is sameas(false) %} readonly="readonly"{% endif %}>{{ message.localeString }}</textarea>
+        <textarea data-id="{{ id }}" class="col-sm-12 col-md-12 col-lg-12"{% if isWriteable is sameas(false) %} readonly="readonly"{% endif %}>{{ message.localeString }}</textarea>
     </td>
     <td>
         {% if message.meaning is not empty %}
@@ -32,7 +32,7 @@
 
         {% if message.sources|length > 0 %}
         <div class="widget-box collapsed no-border">
-            <div class="widget-header widget-header-small header-color-blue2">
+            <div class="widget-header widget-header-small header-color-grey">
                 <h6 class="smaller">Sources</h6>
                 <div class="widget-toolbar">
                     <a href="#" data-action="collapse"><i class="icon-chevron-down"></i></a>

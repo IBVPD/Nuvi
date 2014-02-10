@@ -1,0 +1,4 @@
+parameters:
+#    ns_sentinel.example.class: NS\SentinelBundle\Example
+
+services:
