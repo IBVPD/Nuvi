@@ -74,5 +74,7 @@
             "dev-master": "2.3-dev"
         }
     },
-    "repositories": [ { "type": "composer", "url": "http://packages.noblet.ca/" } ]
+    "repositories": [ 
+			{ "type": "composer", "url": "http://packages.noblet.ca/" }
+		    ]
 }

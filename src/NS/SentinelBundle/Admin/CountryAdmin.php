@@ -18,6 +18,7 @@ class CountryAdmin extends Admin
         $datagridMapper
             ->add('name')
             ->add('code')
+            ->add('region')
             ->add('isActive')
         ;
     }

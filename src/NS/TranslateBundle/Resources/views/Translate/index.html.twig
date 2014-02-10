@@ -1,0 +1,170 @@
+{% extends "NSSentinelBundle::layout.html.twig" %}
+
+{% block javascripts %}
+    {{ parent() }}
+    
+    <script language="javascript" type="text/javascript">
+        $(document).ready(function() {
+            var updateMessagePath = {{ path("jms_translation_update_message", {"config": selectedConfig, "domain": selectedDomain, "locale": selectedLocale})|json_encode|raw }};
+        
+            $('#config select').change(function() {
+                $(this).parent().submit();
+            });
+            
+            {% if isWriteable is sameas(true) %}
+            $('textarea')
+                .blur(function() {
+                    var self = this;
+                    $.ajax(updateMessagePath + '?id=' + encodeURIComponent($(this).data('id')), {
+                        type: 'POST',
+                        headers: {'X-HTTP-METHOD-OVERRIDE': 'PUT'},
+                        data: {'_method': 'PUT', 'message': $(this).val()},
+                        beforeSend: function() {
+                            $(self).parent().closest('td').prev('td').children('.alert-message').remove();
+                        },
+                        error: function() {
+                            $(self).parent().closest('td').prev('td').append('<div class="alert alert-block alert-error"><button type="button" class="close" data-dismiss="alert"><i class="icon-remove"></i></button><p>Could not be saved.</p></div>');
+                        },
+                        success: function() {
+                            $(self).parent().closest('td').prev('td').append('<div class="alert alert-block alert-success"><button type="button" class="close" data-dismiss="alert"><i class="icon-remove"></i></button><p>Translation was saved.</p></div>');
+                        },
+                        complete: function() {
+                            var parent = $(self).parent();
+                            $(self).data('timeoutId', setTimeout(function() {
+                                $(self).data('timeoutId', undefined);
+                                parent.closest('td').prev('td').children('.alert-message').fadeOut(300, function() { $(this).remove(); });
+                            }, 10000));
+                        }
+                    });
+                })
+                .focus(function() {
+                    this.select();
+                    
+                    var timeoutId = $(this).data('timeoutId');
+                    if (timeoutId) {
+                        clearTimeout(timeoutId);
+                        $(this).data('timeoutId', undefined);
+                    }
+                    
+                    $(this).parent().children('.alert-message').remove();
+                })
+            ;
+            {% endif %}
+        });
+    </script>
+{% endblock %}
+
+{% block pagetitle %}{{'Translation Interface'|trans}}{%endblock %}
+{% block pagedescription %}{{'Messages in %selectedConfig%'|trans({'%selectedConfig%':selectedLocale})}}{%endblock %}
+
+{% block body %}
+    {% if isWriteable is sameas(false) %}
+        <div class="alert-message error">
+            The translation file "<strong>{{ file }}</strong>" is not writable.
+        </div>
+    {% endif %}
+    
+    {% if "xliff" != format %}
+        <div class="alert-message warning">
+            Due to limitations of the different loaders/dumpers, some features are unfortunately limited to the XLIFF format. 
+
+            <br /><br />
+
+            However, you can easily convert your existing translation files to the XLIFF format by running:<br />
+            <code>php app/console translation:extract {{ selectedLocale }} --config={{ selectedConfig }} --output-format=xliff</code>
+        </div>
+    {% endif %}
+    
+    <div class="row">
+    {% if newMessages is not empty %}
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 widget-container-span ui-sortable">
+            <div class="widget-box">
+                <div class="widget-header header-color-blue">
+                    <h5 class="bigger lighter">New Messages</h5>
+                </div>
+
+                <div class="widget-body">
+                    <div class="widget-main no-padding">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead class="thin-border-bottom">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Translation</th>
+                                    <th class="hidden-480">Additional Information</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% include "JMSTranslationBundle:Translate:messages.html.twig" with {"messages": newMessages} %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <div class="widget-box">
+                <div class="widget-header header-color-blue">
+                    <h5 class="bigger lighter">Change Messages or Language</h5>
+                </div>
+                <div class="widget-body">
+                    <div class="widget-main">
+                        <form id="config" action="{{ path("jms_translation_index") }}" method="get">
+                            <select name="config" class="span3">
+                                {% for config in configs %}
+                                <option value="{{ config }}"{% if config == selectedConfig %} selected="selected"{% endif %}>{{ config }}</option>
+                                {% endfor %}
+                            </select>
+
+                            <select name="domain" class="span3">
+                                {% for domain in domains %}
+                                <option value="{{ domain }}"{% if domain == selectedDomain %} selected="selected"{% endif %}>{{ domain }}</option>
+                                {% endfor %}
+                            </select>
+
+                            <select name="locale" class="span2">
+                                {% for locale in locales %}
+                                <option value="{{ locale }}"{% if locale == selectedLocale %} selected="selected"{% endif %}>{{ locale }}</option>
+                                {% endfor %}
+                            </select>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+    {% if existingMessages is not empty %}
+    <div class="row">
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 widget-container-span ui-sortable">
+            <div class="widget-box">
+                <div class="widget-header header-color-blue">
+                    <h5 class="bigger lighter">Existing Messages</h5>
+                </div>
+
+                <div class="widget-body">
+                    <div class="widget-main no-padding">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead class="thin-border-bottom">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Translation</th>
+                                    <th class="hidden-480">Additional Information</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% include "JMSTranslationBundle:Translate:messages.html.twig" with {"messages": existingMessages} %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+    {% endif %}
+
+{% endblock %}
