@@ -54,4 +54,10 @@ $(document).ready(function() {
     });
 
     $('input.nsKnob').knob();
+
+    $('a.filter_legend').click(function(event)
+    {
+        console.log('what');
+        $('div.filter_container .sonata-filter-option').toggle();
+    });
 });

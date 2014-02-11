@@ -39,7 +39,6 @@
         {% endblock %}
 
         {% block javascripts %}
-            {{parent()}}
             <script type="text/javascript">
                 window.SONATA_CONFIG = {
                     CONFIRM_EXIT: {% if admin_pool is defined and admin_pool.getOption('confirm_exit') %}true{% else %}false{% endif %},
@@ -53,6 +52,8 @@
             <script src="{{ asset('bundles/sonatajquery/jquery-ui-1.8.23.js') }}" type="text/javascript"></script>
             <script src="{{ asset('bundles/sonatajquery/jquery-ui-i18n.js') }}" type="text/javascript"></script>
 
+            {{parent()}}
+            
             <script src="{{ asset('bundles/sonataadmin/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
 
             {% if admin_pool is defined and admin_pool.getOption('use_select2') %}
@@ -77,65 +78,69 @@
                 {% endfor %}
             {% endblock %}
 
-            <div class="row">
-                {% if _breadcrumb is not empty or action is defined %}
-                    <div class="col-sm-8 col-md-8 col-lg-8">
-                        <ul class="breadcrumb">
-                            {% if _breadcrumb is empty %}
-                                {% if action is defined %}
-                                    {% for menu in admin.breadcrumbs(action) %}
-                                        {% if not loop.last  %}
-                                            <li>
-                                                {% if menu.uri is not empty %}
-                                                    <a href="{{ menu.uri }}">{{ menu.label }}</a>
-                                                {% else %}
-                                                    {{ menu.label }}
-                                                {% endif %}
-                                                <span class="divider">/</span>
-                                            </li>
-                                        {% else %}
-                                            <li class="active">{{ menu.label }}</li>
-                                        {% endif %}
-                                    {% endfor %}
-                                {% endif %}
-                            {% else %}
-                                {{ _breadcrumb|raw }}
-                            {% endif %}
-                        </ul>
-                    </div>
-                {% endif %}
-
-                {% if _actions is not empty %}
-                    <div class="col-sm-4 col-md-4 col-lg-4 align-right">
-                        {{ _actions|raw }}
-                    </div>
-                {% endif %}
-            </div>
-
             <div class="row-fluid">
 
                 <div class="content {{ _side_menu is not empty ? ' span10' : 'span12' }}">
                     {% block sonata_admin_content %}
 
                         {% if _preview is not empty %}
-                            <div class="sonata-ba-preview">{{ _preview|raw }}</div>
+                            <div class="sonata-ba-preview">
+                                {% if _actions is not empty %}
+                                    <div class="widget-header">
+                                        <div class="widget-toolbar">
+                                            {{ _actions|raw }}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                {{ _preview|raw }}</div>
                         {% endif %}
 
                         {% if _content is not empty %}
-                            <div class="sonata-ba-content">{{ _content|raw }}</div>
+                            <div class="sonata-ba-content">
+                                {% if _actions is not empty %}
+                                    <div class="widget-header">
+                                        <div class="widget-toolbar">
+                                            {{ _actions|raw }}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                {{ _content|raw }}</div>
                         {% endif %}
 
                         {% if _show is not empty %}
-                            <div class="sonata-ba-show">{{ _show|raw }}</div>
+                            <div class="sonata-ba-show">
+                                {% if _actions is not empty %}
+                                    <div class="widget-header">
+                                        <div class="widget-toolbar">
+                                            {{ _actions|raw }}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {{ _show|raw }}</div>
                         {% endif %}
 
                         {% if _form is not empty %}
-                            <div class="sonata-ba-form">{{ _form|raw }}</div>
+                            <div class="sonata-ba-form">
+                                {% if _actions is not empty %}
+                                    <div class="widget-header">
+                                        <div class="widget-toolbar">
+                                            {{ _actions|raw }}
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                {{ _form|raw }}</div>
                         {% endif %}
 
                         {% if _list_table is not empty or _list_filters is not empty %}
                             <div class="row-fluid">
                                 <div class="sonata-ba-list col-sm-9 col-md-9 col-lg-9">
+                                    {% if _actions is not empty %}
+                                        <div class="widget-header">
+                                            <div class="widget-toolbar">
+                                                {{ _actions|raw }}
+                                            </div>
+                                        </div>
+                                    {% endif %}
                                     {{ _list_table|raw }}
                                 </div>
                                 <div class="sonata-ba-filter col-sm-3 col-md-3 col-lg-3">
@@ -149,4 +154,35 @@
             </div>
 
         {% endblock %}
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+    {% if _breadcrumb is not empty or action is defined %}
+        <div class="col-sm-8 col-md-8 col-lg-8">
+            <ul class="breadcrumb">
+                {% if _breadcrumb is empty %}
+                    {% if action is defined %}
+                        {% for menu in admin.breadcrumbs(action) %}
+                            {% if not loop.last  %}
+                                <li>
+                                    {% if menu.uri is not empty %}
+                                        <a href="{{ menu.uri }}">{{ menu.label }}</a>
+                                    {% else %}
+                                        {{ menu.label }}
+                                    {% endif %}
+                                    <span class="divider">/</span>
+                                </li>
+                            {% else %}
+                                <li class="active">{{ menu.label }}</li>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% else %}
+                    {{ _breadcrumb|raw }}
+                {% endif %}
+            </ul>
+        </div>
+    {% endif %}
+</div>
 {% endblock %}

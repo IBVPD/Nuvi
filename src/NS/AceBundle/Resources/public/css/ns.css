@@ -114,3 +114,7 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item {
 .widget-toolbar .dataTables_paginate .pagination {
     vertical-align: middle
 }
+
+legend.btn {
+    width: auto;
+}

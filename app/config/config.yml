@@ -142,7 +142,6 @@ sonata_admin:
         layout: NSSentinelBundle:Sonata:layout.html.twig
         pager_links: NSSentinelBundle:Sonata:pager.html.twig
         list: NSSentinelBundle:Sonata:list.html.twig
-        action: NSSentinelBundle:Sonata:action.html.twig
 
 sonata_doctrine_orm_admin:
   templates:

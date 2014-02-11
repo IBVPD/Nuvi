@@ -55,6 +55,64 @@
             <script src="{{asset('/bundles/nsace/js/html5shiv.js')}}"></script>
             <script src="{{asset('/bundles/nsace/js/respond.min.js')}}"></script>
 	<![endif]-->
+        {% block javascripts %}
+
+            <!--[if !IE]> -->
+            <script src="{{app.request.scheme}}://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+            <!-- <![endif]-->
+            <!--[if IE]>
+            <script src="{{app.request.scheme}}://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+            <![endif]-->
+
+            <!--[if !IE]> -->
+            <script type="text/javascript">
+             window.jQuery || document.write("<script src='{{asset('/bundles/nsace/js/jquery-2.0.3.min.js')}}'>"+"<"+"/script>");
+            </script>
+            <!-- <![endif]-->
+            <!--[if IE]>
+            <script type="text/javascript">
+             window.jQuery || document.write("<script src='{{asset('/bundles/nsace/js/jquery-1.10.2.min.js')}}'>"+"<"+"/script>");
+            </script>
+            <![endif]-->
+
+            <script type="text/javascript">
+                    if("ontouchend" in document) document.write("<script src='{{asset('/bundles/nsace/js/jquery.mobile.custom.min.js')}}'>"+"<"+"/script>");
+            </script>
+
+            <script src="{{asset('/bundles/nsace/js/bootstrap.min.js')}}"></script>
+            <script src="{{asset('/bundles/nsace/js/typeahead-bs2.min.js')}}"></script>
+
+            <!-- page specific plugin scripts -->
+
+            <!--[if lte IE 8]>
+              <script src="{{asset('/bundles/nsace/js/excanvas.min.js')}}"></script>
+            <![endif]-->
+
+            <script src="{{asset('/bundles/nsace/js/jquery-ui-1.10.3.custom.min.js')}}"></script>
+            <script src="{{asset('/bundles/nsace/js/jquery.ui.touch-punch.min.js')}}"></script>
+            <script src="{{asset('/bundles/nsace/js/chosen.jquery.min.js')}}"></script>
+            <script src="{{asset('/bundles/nsace/js/fuelux/fuelux.spinner.min.js')}}"></script>
+            <script src="{{asset('/bundles/nsace/js/date-time/bootstrap-datepicker.min.js')}}"></script>
+            <script src="{{asset('/bundles/nsace/js/date-time/bootstrap-timepicker.min.js')}}"></script>
+            <script src="{{asset('/bundles/nsace/js/date-time/moment.min.js')}}"></script>
+            <script src="{{asset('/bundles/nsace/js/date-time/daterangepicker.min.js')}}"></script>
+            <script src="{{asset('/bundles/nsace/js/bootstrap-colorpicker.min.js')}}"></script>
+            <script src="{{asset('/bundles/nsace/js/jquery.knob.min.js')}}"></script>
+            <script src="{{asset('/bundles/nsace/js/jquery.autosize.min.js')}}"></script>
+            <script src="{{asset('/bundles/nsace/js/jquery.inputlimiter.1.3.1.min.js')}}"></script>
+            <script src="{{asset('/bundles/nsace/js/jquery.maskedinput.min.js')}}"></script>
+            <script src="{{asset('/bundles/nsace/js/jquery.tokeninput.js')}}"></script>
+
+            <!-- ace scripts -->
+
+            <script src="{{asset('/bundles/nsace/js/ace-elements.min.js')}}"></script>
+            <script src="{{asset('/bundles/nsace/js/ace.min.js')}}"></script>
+            <script src="{{asset('/bundles/nsace/js/underscore-min.js')}}"></script>
+            <script src="{{asset('/bundles/punkavefileuploader/js/jquery.fileupload.js')}}"></script>
+            <script src="{{asset('/bundles/punkavefileuploader/js/jquery.iframe-transport.js')}}"></script>
+            <script src="{{asset('/bundles/nsace/js/nsFileUploader.js')}}"></script>
+            <script src="{{asset('/bundles/nsace/js/nsbootstrap.js')}}"></script>
+        {% endblock %}
 </head>
 <body>
     {%block topbar%}
@@ -183,63 +241,8 @@
 
     {%block footer %}{%endblock footer %}
         
-    {% block javascripts %}
-    <!--[if !IE]> -->
-    <script src="{{app.request.scheme}}://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <!-- <![endif]-->
-    <!--[if IE]>
-    <script src="{{app.request.scheme}}://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <![endif]-->
 
-    <!--[if !IE]> -->
-    <script type="text/javascript">
-     window.jQuery || document.write("<script src='{{asset('/bundles/nsace/js/jquery-2.0.3.min.js')}}'>"+"<"+"/script>");
-    </script>
-    <!-- <![endif]-->
-    <!--[if IE]>
-    <script type="text/javascript">
-     window.jQuery || document.write("<script src='{{asset('/bundles/nsace/js/jquery-1.10.2.min.js')}}'>"+"<"+"/script>");
-    </script>
-    <![endif]-->
+        {% include "PunkAveFileUploaderBundle:Default:templates.html.twig" %}
 
-    <script type="text/javascript">
-            if("ontouchend" in document) document.write("<script src='{{asset('/bundles/nsace/js/jquery.mobile.custom.min.js')}}'>"+"<"+"/script>");
-    </script>
-
-    <script src="{{asset('/bundles/nsace/js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('/bundles/nsace/js/typeahead-bs2.min.js')}}"></script>
-
-    <!-- page specific plugin scripts -->
-
-    <!--[if lte IE 8]>
-      <script src="{{asset('/bundles/nsace/js/excanvas.min.js')}}"></script>
-    <![endif]-->
-
-    <script src="{{asset('/bundles/nsace/js/jquery-ui-1.10.3.custom.min.js')}}"></script>
-    <script src="{{asset('/bundles/nsace/js/jquery.ui.touch-punch.min.js')}}"></script>
-    <script src="{{asset('/bundles/nsace/js/chosen.jquery.min.js')}}"></script>
-    <script src="{{asset('/bundles/nsace/js/fuelux/fuelux.spinner.min.js')}}"></script>
-    <script src="{{asset('/bundles/nsace/js/date-time/bootstrap-datepicker.min.js')}}"></script>
-    <script src="{{asset('/bundles/nsace/js/date-time/bootstrap-timepicker.min.js')}}"></script>
-    <script src="{{asset('/bundles/nsace/js/date-time/moment.min.js')}}"></script>
-    <script src="{{asset('/bundles/nsace/js/date-time/daterangepicker.min.js')}}"></script>
-    <script src="{{asset('/bundles/nsace/js/bootstrap-colorpicker.min.js')}}"></script>
-    <script src="{{asset('/bundles/nsace/js/jquery.knob.min.js')}}"></script>
-    <script src="{{asset('/bundles/nsace/js/jquery.autosize.min.js')}}"></script>
-    <script src="{{asset('/bundles/nsace/js/jquery.inputlimiter.1.3.1.min.js')}}"></script>
-    <script src="{{asset('/bundles/nsace/js/jquery.maskedinput.min.js')}}"></script>
-    <script src="{{asset('/bundles/nsace/js/jquery.tokeninput.js')}}"></script>
-
-    <!-- ace scripts -->
-
-    <script src="{{asset('/bundles/nsace/js/ace-elements.min.js')}}"></script>
-    <script src="{{asset('/bundles/nsace/js/ace.min.js')}}"></script>
-    <script src="{{asset('/bundles/nsace/js/underscore-min.js')}}"></script>
-    <script src="{{asset('/bundles/punkavefileuploader/js/jquery.fileupload.js')}}"></script>
-    <script src="{{asset('/bundles/punkavefileuploader/js/jquery.iframe-transport.js')}}"></script>
-    <script src="{{asset('/bundles/nsace/js/nsFileUploader.js')}}"></script>
-    <script src="{{asset('/bundles/nsace/js/nsbootstrap.js')}}"></script>
-    {% endblock %}
-    {% include "PunkAveFileUploaderBundle:Default:templates.html.twig" %}
 </body>
 </html>
