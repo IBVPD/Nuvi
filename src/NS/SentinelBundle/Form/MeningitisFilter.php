@@ -17,14 +17,11 @@ class MeningitisFilter extends AbstractType
 {
     private $securityContext;
 
-    private $securedQuery;
-
     private $entityManager;
 
-    public function __construct(SecurityContext $securityContext, SecuredQuery $securedQuery, ObjectManager $entityManager)
+    public function __construct(SecurityContext $securityContext, ObjectManager $entityManager)
     {
         $this->securityContext = $securityContext;
-        $this->securedQuery    = $securedQuery;
         $this->entityManager   = $entityManager;
     }
 
@@ -40,12 +37,11 @@ class MeningitisFilter extends AbstractType
                                             'label'             => 'Case Id'));
 
         $securityContext = $this->securityContext;
-        $securedQuery    = $this->securedQuery;
         $entityManager   = $this->entityManager;
 
         $builder->addEventListener(
                     FormEvents::PRE_SET_DATA,
-                    function(FormEvent $event) use($securityContext,$securedQuery,$entityManager)
+                    function(FormEvent $event) use($securityContext,$entityManager)
                     {
                         $form = $event->getForm();
                         $user = $securityContext->getToken()->getUser();
@@ -55,21 +51,21 @@ class MeningitisFilter extends AbstractType
                             $objectIds = $user->getACLObjectIdsForRole('ROLE_REGION');
                             if(count($objectIds) > 1)
                             {
-                                $qb = $entityManager->getRepository('NSSentinelBundle:Region')->createQueryBuilder('c')->select('s')->from('NSSentinelBundle:Region','s');
+                                $qb = $entityManager->getRepository('NSSentinelBundle:Region')->getAllSecuredQueryBuilder();
                                 $form->add('country','filter_entity',array('class'           => 'NSSentinelBundle:Region',
                                                                            'multiple'      => true,
-                                                                           'query_builder' => $securedQuery->secure($qb)));
+                                                                           'query_builder' => $qb));
 
                             }
 
-                            $qb = $entityManager->getRepository('NSSentinelBundle:Country')->createQueryBuilder('c')->select('s')->from('NSSentinelBundle:Country','s');
+                            $qb = $entityManager->getRepository('NSSentinelBundle:Country')->getAllSecuredQueryBuilder();
                             $form->add('country','filter_entity',array('class'           => 'NSSentinelBundle:Country',
                                                                          'multiple'      => true,
-                                                                         'query_builder' => $securedQuery->secure($qb)));
-                            $qb = $entityManager->getRepository('NSSentinelBundle:Site')->createQueryBuilder('c')->select('s')->from('NSSentinelBundle:Site','s');
+                                                                         'query_builder' => $qb));
+                            $qb = $entityManager->getRepository('NSSentinelBundle:Site')->getAllSecuredQueryBuilder();
                             $form->add('site','filter_entity',  array('class'         => 'NSSentinelBundle:Site',
                                                                       'multiple'      => true,
-                                                                      'query_builder' => $securedQuery->secure($qb)));
+                                                                      'query_builder' => $qb));
                         }
 
                         if($securityContext->isGranted('ROLE_COUNTRY'))
@@ -77,17 +73,16 @@ class MeningitisFilter extends AbstractType
                             $objectIds = $user->getACLObjectIdsForRole('ROLE_COUNTRY');
                             if(count($objectIds) > 1)
                             {
-                                $qb = $entityManager->getRepository('NSSentinelBundle:Country')->createQueryBuilder('c')->select('s')->from('NSSentinelBundle:Country','s');
+                                $qb = $entityManager->getRepository('NSSentinelBundle:Country')->getAllSecuredQueryBuilder();
                                 $form->add('country','filter_entity',array('class'           => 'NSSentinelBundle:Country',
-                                                                           'multiple'      => true,
-                                                                           'query_builder' => $securedQuery->secure($qb)));
-
+                                                                             'multiple'      => true,
+                                                                             'query_builder' => $qb));
                             }
 
-                            $qb = $entityManager->getRepository('NSSentinelBundle:Site')->createQueryBuilder('c')->select('s')->from('NSSentinelBundle:Site','s');
-                            $form->add('site','filter_entity',array('class'         => 'NSSentinelBundle:Site',
-                                                                    'multiple'      => true,
-                                                                    'query_builder' => $securedQuery->secure($qb)));
+                            $qb = $entityManager->getRepository('NSSentinelBundle:Site')->getAllSecuredQueryBuilder();
+                            $form->add('site','filter_entity',  array('class'         => 'NSSentinelBundle:Site',
+                                                                      'multiple'      => true,
+                                                                      'query_builder' => $qb));
                         }
 
                         if($securityContext->isGranted('ROLE_SITE'))
@@ -95,10 +90,10 @@ class MeningitisFilter extends AbstractType
                             $objectIds = $user->getACLObjectIdsForRole('ROLE_SITE');
                             if(count($objectIds) > 1)
                             {
-                                $qb = $entityManager->getRepository('NSSentinelBundle:Site')->createQueryBuilder('c')->select('s')->from('NSSentinelBundle:Site','s');
+                                $qb = $entityManager->getRepository('NSSentinelBundle:Site')->getAllSecuredQueryBuilder();
                                 $form->add('site','filter_entity',  array('class'         => 'NSSentinelBundle:Site',
                                                                           'multiple'      => true,
-                                                                          'query_builder' => $securedQuery->secure($qb)));
+                                                                          'query_builder' => $qb));
                             }
                         }
 
