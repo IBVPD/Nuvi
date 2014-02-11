@@ -57,6 +57,7 @@
     {% block navbarheader %}
         <div class="navbar-header pull-right" role="navigation">
             <ul class="nav ace-nav">
+            {{ locale_switcher(null,null,'::switcher_links.html.twig') }}
 <!--                <li class="grey">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <i class="icon-tasks"></i>
@@ -269,7 +270,6 @@
                     </ul>
                 </li>
             </ul>
-            {{ locale_switcher(null,null,'::switcher_links.html.twig') }}
 {#
             {% block topbar_tasks %}<ul class="nav ace-nav"><li>{ {> layout.topbar.tasks} }</li></ul>{%endblock%}
             {% block topbar_notifications %}<ul class="nav ace-nav"><li>{ {> layout.topbar.notifications} }</li></ul>{%endblock%}
