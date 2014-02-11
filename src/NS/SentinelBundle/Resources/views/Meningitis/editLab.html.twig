@@ -6,10 +6,85 @@
 
 {% block body %}
 <form method="POST" action="{{path('meningitisLabEdit',{'id':id})}}" novalidate>
-<div class="row">
     {{form_errors(form)}}
-    {{form_rest(form)}}
+<div class="row">
+    <div class="col-sm-4" >
+        <div class="widget-box">
+            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Case Based Demographics'|trans}}</h6></div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    {{form_row(form.csfLabDateTime)}}
+                    {{form_row(form.rrlCsfDate)}}
+                    {{form_row(form.rrlIsolDate)}}
+                    {{form_row(form.csfStore)}}
+                    {{form_row(form.isolStore)}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4" >
+        <div class="widget-box">
+            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Blood'|trans}}</h6></div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    {{form_row(form.csfWcc)}}
+                    {{form_row(form.csfGlucose)}}
+                    {{form_row(form.csfProtein)}}
+                    {{form_row(form.csfWcc)}}
+                    {{form_row(form.bloodCultDone)}}
+                    {{form_row(form.bloodGramDone)}}
+                    {{form_row(form.bloodPcrDone)}}                    
+                </div>
+            </div>
+        </div>
+    </div>                    
 </div>
+
+<div class="row">
+    <div class="col-sm-4" >
+        <div class="widget-box">
+            <div class="widget-header widget-header-small header-color-blue"><h6>{{'CSF'|trans}}</h6></div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    {{form_row(form.csfCultDone)}}
+                    {{form_row(form.csfGramDone)}}
+                    {{form_row(form.csfBinaxDone)}}
+                    {{form_row(form.csfLatDone)}}
+                    {{form_row(form.csfPcrDone)}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4" >
+        <div class="widget-box">
+            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Blood Type'|trans}}</h6></div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    {{form_row(form.spnSerotype)}}
+                    {{form_row(form.hiSerotype)}}
+                    {{form_row(form.nmSerogroup)}}
+                    {{form_row(form.cxrDone)}}
+                    {{form_row(form.cxrResult)}}
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>
+<div class="row">
+    <div class="col-sm-4" >
+        <div class="widget-box">
+            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Other Tests'|trans}}</h6></div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    {{form_row(form.otherCultDone)}}
+                    {{form_row(form.otherTestDone)}}
+                    {{form_row(form.csfCultOther)}}
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>
+{{form_rest(form)}}
 
 <div class="form-actions center">
     <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
