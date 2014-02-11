@@ -36,6 +36,7 @@ class AppKernel extends Kernel
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Lunetics\LocaleBundle\LuneticsLocaleBundle(),
             new NS\TranslateBundle\NSTranslateBundle(),
+            new NS\SonataBundle\NSSonataBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -1,0 +1,20 @@
+{% extends admin.getTemplate('base_list_field') %}
+
+{% block field %}
+    <div class="btn-group visible-md visible-lg hidden-sm hidden-xs btn-group">
+        {% for actions in field_description.options.actions %}
+            {% include actions.template %}
+        {% endfor %}
+    </div>
+
+    <div class='visible-xs visible-sm hidden-md hidden-lg'>
+        <div class="inline position-relative">
+            <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown"><i class="icon-cog icon-only bigger-110"></i></button>
+            <ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
+                {% for actions in field_description.options.actions %}
+                <li>{% include actions.template %}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
