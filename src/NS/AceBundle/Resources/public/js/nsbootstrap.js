@@ -54,4 +54,12 @@ $(document).ready(function() {
     });
 
     $('input.nsKnob').knob();
+
+    $('input.time-picker').timepicker({
+					minuteStep: 1,
+					showSeconds: ($(this).data('showSeconds') === 'true'),
+					showMeridian: ($(this).data('showMeridian') === 'true')
+				}).next().on(ace.click_event, function(){
+					$(this).prev().focus();
+				});
 });

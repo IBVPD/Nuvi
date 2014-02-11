@@ -138,6 +138,8 @@ class MeningitisController extends Controller
                 // TODO Flash service required
                 return $this->redirect($this->generateUrl("meningitisIndex"));
             }
+            else
+                die("<pre>".print_r($form->getErrorsAsString(), true)."</pre>");
         }
 
         return array('form' => $form->createView(),'id'=>$id);

@@ -20,9 +20,11 @@ class DateTimePickerType extends AbstractType
         $resolver->setDefaults(array(
             'date_widget'    => 'single_text',
             'date_format'    => 'yyyy-MM-dd',
+            'time_widget'    => 'single_text',
+            'attr'           => array('date'=>array('class'=>'form-control date-picker')),
         ));
     }
-    
+
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         parent::buildView($view, $form, $options);
@@ -31,7 +33,8 @@ class DateTimePickerType extends AbstractType
             $view->vars['attr']['class'] .= 'form-control date-picker';
         else
             $view->vars['attr']['class'] = 'form-control date-picker';
-        
+
+        $view->vars['date']['attr']['class'] = 'form-control date-picker';
         $view->vars['attr']['data-date-format'] = $this->dateformatToJQueryUI($options['format']);
         $view->vars['type'] = 'text';
     }
