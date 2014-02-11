@@ -1,8 +1,8 @@
 <div class='visible-md visible-lg hidden-sm hidden-xs btn-group'>
     {% if is_granted('ROLE_CAN_CREATE_CASE') %}
-    <a href="{{path('meningitisEdit',{'id':row.id})}}" class='btn btn-xs btn-success'><i class='icon-cog bigger-120'></i></a>
+    <a href="{{path('meningitisEdit',{'id':row.id})}}" class='btn btn-xs btn-success'><i class='icon-edit bigger-120'></i></a>
     {% endif %}
-    <a href="{{path('meningitisShow',{'id':row.id})}}" class='btn btn-xs btn-info'><i class='icon-edit bigger-120'></i></a>
+    <a href="{{path('meningitisShow',{'id':row.id})}}" class='btn btn-xs btn-info'><i class='icon-zoom-in bigger-120'></i></a>
 </div>
 <div class='visible-xs visible-sm hidden-md hidden-lg'>
     <div class="inline position-relative">
