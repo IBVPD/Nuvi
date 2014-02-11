@@ -41,7 +41,8 @@
         "punkave/symfony2-file-uploader-bundle": "dev-master",
         "oneup/uploader-bundle": "1.0.*@dev",
         "lexik/form-filter-bundle": "dev-master",
-        "knplabs/knp-paginator-bundle": "~2.4"
+        "knplabs/knp-paginator-bundle": "~2.4",
+        "lunetics/locale-bundle": "~2.2"
     },
     "scripts": {
         "post-install-cmd": [
@@ -74,7 +75,6 @@
         }
     },
     "repositories": [ 
-			{ "type": "composer", "url": "http://packages.noblet.ca/" },
-			{ "type": "vcs", "url": "https://github.com/gnat42/JMSTranslationBundle" } 
+			{ "type": "composer", "url": "http://packages.noblet.ca/" }
 		    ]
 }

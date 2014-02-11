@@ -1,5 +1,7 @@
 {%extends "NSAceBundle::base.html.twig" %}
 
+    {%block ace_settings %}{% endblock %}
+
     {% block sitebrand_text %}
         NUVI Sentinel Network
     {%endblock%}
@@ -55,6 +57,7 @@
     {% block navbarheader %}
         <div class="navbar-header pull-right" role="navigation">
             <ul class="nav ace-nav">
+            {{ locale_switcher(null,null,'::switcher_links.html.twig') }}
 <!--                <li class="grey">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <i class="icon-tasks"></i>

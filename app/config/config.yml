@@ -146,7 +146,7 @@ sonata_doctrine_orm_admin:
       - NSUtilBundle:Form:SonataDoctrineORM/form_admin_fields.html.twig
 
 jms_translation:
-  locales: [ en, es, pt, fr, hi ]
+  locales: %locales%
   configs:
     sentinel:
       output_dir: %kernel.root_dir%/../src/NS/SentinelBundle/Resources/translations        
@@ -154,12 +154,21 @@ jms_translation:
       excluded_names: [ "*TestCase.php", "*Test.php" ]
       excluded_dirs: [ cache, data, logs ]
       output_format: xliff
-  template: NSSentinelBundle:Translate:index.html.twig
 
 knp_paginator:
   template:
     pagination: NSAceBundle:Form:pagination.html.twig
-        
+
+lunetics_locale:
+    strict_mode: true
+    guessing_order:
+        - router
+        - cookie
+        - browser
+    allowed_locales: %locales%
+    switcher:
+        show_current_locale: true
+
 services:
   ns.form.types.autocomplete:
     class: NS\UtilBundle\Form\Types\Autocomplete
