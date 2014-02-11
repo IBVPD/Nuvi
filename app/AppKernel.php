@@ -34,6 +34,7 @@ class AppKernel extends Kernel
             new \PunkAve\FileUploaderBundle\PunkAveFileUploaderBundle(),
             new Lexik\Bundle\FormFilterBundle\LexikFormFilterBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+            new Lunetics\LocaleBundle\LuneticsLocaleBundle(),
             new NS\TranslateBundle\NSTranslateBundle(),
         );
 
