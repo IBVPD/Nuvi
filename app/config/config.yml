@@ -160,14 +160,14 @@ knp_paginator:
     pagination: NSAceBundle:Form:pagination.html.twig
 
 lunetics_locale:
-#    strict_mode: true
+    strict_mode: true
     guessing_order:
         - router
         - cookie
         - browser
     allowed_locales: %locales%
-#    switcher:
-#        show_current_locale: true
+    switcher:
+        show_current_locale: true
 
 services:
   ns.form.types.autocomplete:
