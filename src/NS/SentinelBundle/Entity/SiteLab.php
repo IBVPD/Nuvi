@@ -139,7 +139,6 @@ class SiteLab
     private $csfCultOther;
 
     /**
-     *
      * @var GramStain
      * @ORM\Column(name="csfGramResult",type="GramStain",nullable=true)
      */
@@ -274,7 +273,7 @@ class SiteLab
      * @var CXRResult $cxrResult
      * @ORM\Column(name="cxrResult",type="CXRResult",nullable=true)
      */
-    private $cxrResult;    
+    private $cxrResult;
 
     /**
      * Get id
