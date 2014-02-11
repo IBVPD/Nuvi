@@ -58,7 +58,8 @@ $(document).ready(function() {
     $('input.time-picker').timepicker({
 					minuteStep: 1,
 					showSeconds: ($(this).data('showSeconds') === 'true'),
-					showMeridian: ($(this).data('showMeridian') === 'true')
+					showMeridian: ($(this).data('showMeridian') === 'true'),
+                    defaultTime: false
 				}).next().on(ace.click_event, function(){
 					$(this).prev().focus();
 				});
