@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
+  <file date="2014-02-12T12:36:41Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
+    <header>
+      <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
+      <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
+    </header>
+    <body>
+      <trans-unit id="acc0b3169ecd5e9000014847300069fa4a6e1718" resname="%count% Total Records">
+        <source>%count% Total Records</source>
+        <target state="new">%count% Total Records</target>
+        <jms:reference-file line="22">views/Form/pagination.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="b1d5781111d84f7b3fe45a0852e59758cd7a87e5" resname="10">
+        <source>10</source>
+        <target state="new">10</target>
+        <jms:reference-file line="29">AceBundle/Form/RecordsPerPageType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="310b86e0b62b828562fc91c7be5380a992b2786a" resname="100">
+        <source>100</source>
+        <target state="new">100</target>
+        <jms:reference-file line="29">AceBundle/Form/RecordsPerPageType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="91032ad7bbcb6cf72875e8e8207dcfba80173f7c" resname="20">
+        <source>20</source>
+        <target state="new">20</target>
+        <jms:reference-file line="29">AceBundle/Form/RecordsPerPageType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="22d200f8670dbdb3e253a90eee5098477c95c23d" resname="30">
+        <source>30</source>
+        <target state="new">30</target>
+        <jms:reference-file line="29">AceBundle/Form/RecordsPerPageType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="ac3478d69a3c81fa62e60f5c3696165a4e5e6ac4" resname="5">
+        <source>5</source>
+        <target state="new">5</target>
+        <jms:reference-file line="29">AceBundle/Form/RecordsPerPageType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="e1822db470e60d090affd0956d743cb0e7cdf113" resname="50">
+        <source>50</source>
+        <target state="new">50</target>
+        <jms:reference-file line="29">AceBundle/Form/RecordsPerPageType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="450ddec8dd206c2e2ab1aeeaa90e85e51753b8b7" resname="75">
+        <source>75</source>
+        <target state="new">75</target>
+        <jms:reference-file line="29">AceBundle/Form/RecordsPerPageType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="574ff9b0c49cdeb5f5508548ae0cab44fecee038" resname="Display">
+        <source>Display</source>
+        <target state="new">Display</target>
+        <jms:reference-file line="127">views/Form/fields.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="86761b63a7bd1f480ed481cc7b4255adc5d9063d" resname="records">
+        <source>records</source>
+        <target state="new">records</target>
+        <jms:reference-file line="144">views/Form/fields.html.twig</jms:reference-file>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
