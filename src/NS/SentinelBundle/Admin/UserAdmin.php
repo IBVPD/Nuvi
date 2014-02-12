@@ -70,20 +70,24 @@ class UserAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('name')
-            ->add('email')
-            ->add('plainPassword','repeated',
-                       array(
-                           'type'            => 'password',
-                           'invalid_message' => 'The password fields must match.',
-                           'options'         => array('attr' => array('class' => 'password-field')),
-                           'required'        => false,
-                           'first_options'   => array('label' => 'Password'),
-                           'second_options'  => array('label' => 'Repeat Password'),
+            ->with('User Info')
+                ->add('name')
+                ->add('email')
+                ->add('plainPassword','repeated',
+                           array(
+                               'type'            => 'password',
+                               'invalid_message' => 'The password fields must match.',
+                               'options'         => array('attr' => array('class' => 'password-field')),
+                               'required'        => false,
+                               'first_options'   => array('label' => 'Password'),
+                               'second_options'  => array('label' => 'Repeat Password'),
+                               )
                            )
-                       )
-            ->add('isActive')
-            ->add('acls', 'sonata_type_collection', array('by_reference'=>true),array('edit'=>'inline','inline'=>'table'))
+                ->add('isActive')
+            ->end()
+            ->with('ACLs')
+                ->add('acls', 'sonata_type_collection', array('by_reference'=>true),array('edit'=>'inline','inline'=>'table'))
+            ->end()
         ;
     }
 

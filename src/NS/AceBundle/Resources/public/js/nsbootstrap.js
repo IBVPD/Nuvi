@@ -57,7 +57,10 @@ $(document).ready(function() {
 
     $('a.filter_legend').click(function(event)
     {
-        console.log('what');
-        $('div.filter_container .sonata-filter-option').toggle();
+        var icon = $(this).find('i');
+        icon.toggleClass('icon-chevron-down').toggleClass('icon-chevron-up');
+        $(this).find('span').html((icon.hasClass('icon-chevron-up')?'Simple':'Advanced'));
+        
+        $(this).parents('.widget-box').find('div.filter_container .sonata-filter-option').toggle();
     });
 });
