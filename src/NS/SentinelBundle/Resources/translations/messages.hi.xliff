@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2014-02-12T10:34:41Z" source-language="en" target-language="hi" datatype="plaintext" original="not.available">
+  <file date="2014-02-12T16:43:09Z" source-language="en" target-language="hi" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -13,12 +13,16 @@
       <trans-unit id="c3cd636a585b20c40ac2df5ffb403e83cb2eef51" resname="Actions">
         <source>Actions</source>
         <target state="new">Actions</target>
-        <jms:reference-file line="21">views/Meningitis/index.html.twig</jms:reference-file>
+        <jms:reference-file line="8">views/Meningitis/indexCountryHeader.html.twig</jms:reference-file>
+        <jms:reference-file line="7">views/Meningitis/indexSiteHeader.html.twig</jms:reference-file>
+        <jms:reference-file line="9">views/Meningitis/indexRegionHeader.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="64fed3e90d308e2a97b17bab99cd5c8e17e39754" resname="Age In Months">
         <source>Age In Months</source>
         <target state="new">Age In Months</target>
-        <jms:reference-file line="19">views/Meningitis/index.html.twig</jms:reference-file>
+        <jms:reference-file line="5">views/Meningitis/indexCountryHeader.html.twig</jms:reference-file>
+        <jms:reference-file line="5">views/Meningitis/indexSiteHeader.html.twig</jms:reference-file>
+        <jms:reference-file line="5">views/Meningitis/indexRegionHeader.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="24652e28b94087f3d087bba10c9603848262cafa" resname="Blood">
         <source>Blood</source>
@@ -58,7 +62,9 @@
       <trans-unit id="a2c77e8741b8bda3439983fd14105607d2e54830" resname="Case ID">
         <source>Case ID</source>
         <target state="new">Case ID</target>
-        <jms:reference-file line="17">views/Meningitis/index.html.twig</jms:reference-file>
+        <jms:reference-file line="3">views/Meningitis/indexCountryHeader.html.twig</jms:reference-file>
+        <jms:reference-file line="3">views/Meningitis/indexSiteHeader.html.twig</jms:reference-file>
+        <jms:reference-file line="3">views/Meningitis/indexRegionHeader.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="d524f3153b79780f12ffd71493cd043c69889bba" resname="Case Id">
         <source>Case Id</source>
@@ -90,12 +96,23 @@
       <trans-unit id="d523ebbd10146cdfd39dee077f04c9d08468d0bc" resname="Country">
         <source>Country</source>
         <target state="new">Country</target>
+        <jms:reference-file line="6">views/Meningitis/indexRegionHeader.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="24d5b7573e0f17f42038919c6ee16b45f5c248e6" resname="Country Statistics">
         <source>Country Statistics</source>
         <target state="new">Country Statistics</target>
         <jms:reference-file line="2">views/Report/bySiteGraph.html.twig</jms:reference-file>
         <jms:reference-file line="2">views/Report/byCountryGraph.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="e7a2de674b027a0380d7c314057b28c3e1ee88e6" resname="Create / Edit Lab For Case %id%">
+        <source>Create / Edit Lab For Case %id%</source>
+        <target state="new">Create / Edit Lab For Case %id%</target>
+        <jms:reference-file line="4">views/Meningitis/editLab.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="c65cf503f8f612d586967285bc928115ac5f5fff" resname="Create / Edit RRL For %id%">
+        <source>Create / Edit RRL For %id%</source>
+        <target state="new">Create / Edit RRL For %id%</target>
+        <jms:reference-file line="4">views/Meningitis/editRRL.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="34ed7bcf08fa57e579efe88b943842b15f532ff1" resname="Create New Case">
         <source>Create New Case</source>
@@ -109,7 +126,11 @@
       <trans-unit id="abb454f7083b889c5d49dedd8fca52d3e3a35e35" resname="EPI">
         <source>EPI</source>
         <target state="new">EPI</target>
-        <jms:reference-file line="32">views/Meningitis/index.html.twig</jms:reference-file>
+        <jms:reference-file line="7">views/Meningitis/indexCountryRow.html.twig</jms:reference-file>
+        <jms:reference-file line="6">views/Meningitis/indexSiteRow.html.twig</jms:reference-file>
+        <jms:reference-file line="8">views/Meningitis/indexRegionRow.html.twig</jms:reference-file>
+        <jms:reference-file line="5">views/Meningitis/index-action.html.twig</jms:reference-file>
+        <jms:reference-file line="22">views/Meningitis/index-action.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="b7c17e97d3d625694b836d85ace6edc18bbef0e6" resname="Female">
         <source>Female</source>
@@ -119,12 +140,14 @@
         <source>Filters</source>
         <target state="new">Filters</target>
         <jms:reference-file line="2">views/Meningitis/filter.html.twig</jms:reference-file>
-        <jms:reference-file line="52">views/Meningitis/index.html.twig</jms:reference-file>
+        <jms:reference-file line="33">views/Meningitis/index.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="8a754c61c2ced0c5ff79a1827e02c9d643d6d926" resname="Gender">
         <source>Gender</source>
         <target state="new">Gender</target>
-        <jms:reference-file line="18">views/Meningitis/index.html.twig</jms:reference-file>
+        <jms:reference-file line="4">views/Meningitis/indexCountryHeader.html.twig</jms:reference-file>
+        <jms:reference-file line="4">views/Meningitis/indexSiteHeader.html.twig</jms:reference-file>
+        <jms:reference-file line="4">views/Meningitis/indexRegionHeader.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="76621d9ccafb198b80334481579fd89a1438be0c" resname="General Statistics">
         <source>General Statistics</source>
@@ -170,11 +193,15 @@
       <trans-unit id="6475463840e57f1dc21360a72f14d2a1c25b2406" resname="LAB">
         <source>LAB</source>
         <target state="new">LAB</target>
-        <jms:reference-file line="33">views/Meningitis/index.html.twig</jms:reference-file>
+        <jms:reference-file line="8">views/Meningitis/indexCountryRow.html.twig</jms:reference-file>
+        <jms:reference-file line="7">views/Meningitis/indexSiteRow.html.twig</jms:reference-file>
+        <jms:reference-file line="9">views/Meningitis/indexRegionRow.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="922073012977d40d1d56cf30d5bbdf4ed6471d91" resname="Lab">
         <source>Lab</source>
         <target state="new">Lab</target>
+        <jms:reference-file line="9">views/Meningitis/index-action.html.twig</jms:reference-file>
+        <jms:reference-file line="26">views/Meningitis/index-action.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="f406e9ee8c25f25ec8c6fb663920b589158a6408" resname="Lab Results">
         <source>Lab Results</source>
@@ -265,7 +292,7 @@
       <trans-unit id="8be3c943b1609fffbfc51aad666d0a04adf83c9d" resname="Password">
         <source>Password</source>
         <target>Password</target>
-        <jms:reference-file line="81">SentinelBundle/Admin/UserAdmin.php</jms:reference-file>
+        <jms:reference-file line="89">SentinelBundle/Admin/UserAdmin.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="a7942f226ed1080246f2b2fde35b11e19a91e6a8" resname="Please Select...">
         <source>Please Select...</source>
@@ -303,7 +330,11 @@
       <trans-unit id="77a6375224e36db93fce73f97c1a77ea403437cb" resname="RRL">
         <source>RRL</source>
         <target state="new">RRL</target>
-        <jms:reference-file line="34">views/Meningitis/index.html.twig</jms:reference-file>
+        <jms:reference-file line="9">views/Meningitis/indexCountryRow.html.twig</jms:reference-file>
+        <jms:reference-file line="8">views/Meningitis/indexSiteRow.html.twig</jms:reference-file>
+        <jms:reference-file line="10">views/Meningitis/indexRegionRow.html.twig</jms:reference-file>
+        <jms:reference-file line="13">views/Meningitis/index-action.html.twig</jms:reference-file>
+        <jms:reference-file line="30">views/Meningitis/index-action.html.twig</jms:reference-file>
         <jms:reference-file line="15">views/Meningitis/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="e7ec4476e3b6bfeaf98730dcb24de308ca089956" resname="Realtime PCR">
@@ -327,12 +358,12 @@
       <trans-unit id="bab9bc458f38d4d574e5baa63c72341db6ddaa30" resname="Repeat Password">
         <source>Repeat Password</source>
         <target>Repeat Password</target>
-        <jms:reference-file line="82">SentinelBundle/Admin/UserAdmin.php</jms:reference-file>
+        <jms:reference-file line="90">SentinelBundle/Admin/UserAdmin.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="ee45c30326b750387589752c0f75e1dd87ddc7e4" resname="Report">
         <source>Report</source>
         <target state="new">Report</target>
-        <jms:reference-file line="68">views/Meningitis/index.html.twig</jms:reference-file>
+        <jms:reference-file line="49">views/Meningitis/index.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="cf3d11ff8a7b7eeb1a58d8bbfbbaf8311406e122" resname="Sample Information">
         <source>Sample Information</source>
@@ -354,6 +385,8 @@
       <trans-unit id="5b6825d3c67a35898b7b65fd986a7fe6ca47771d" resname="Site">
         <source>Site</source>
         <target state="new">Site</target>
+        <jms:reference-file line="6">views/Meningitis/indexCountryHeader.html.twig</jms:reference-file>
+        <jms:reference-file line="7">views/Meningitis/indexRegionHeader.html.twig</jms:reference-file>
         <jms:reference-file line="13">views/Meningitis/edit.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="f70c03081c5209cc4aa55b21d6f3911aa88a33e0" resname="Site Lab">
@@ -374,7 +407,9 @@
       <trans-unit id="bae7d5be70820ed56467bd9a63744e23b47bd711" resname="Status">
         <source>Status</source>
         <target state="new">Status</target>
-        <jms:reference-file line="20">views/Meningitis/index.html.twig</jms:reference-file>
+        <jms:reference-file line="7">views/Meningitis/indexCountryHeader.html.twig</jms:reference-file>
+        <jms:reference-file line="6">views/Meningitis/indexSiteHeader.html.twig</jms:reference-file>
+        <jms:reference-file line="8">views/Meningitis/indexRegionHeader.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="61ad50a9b9189cc3cf1874568e35e7901ff4c982" resname="Target">
         <source>Target</source>
@@ -402,10 +437,8 @@
       <trans-unit id="2e7bc7595d5a7654f4768fb73c6853b3df6a7c84" resname="View Case %id%">
         <source>View Case %id%</source>
         <target state="new">View Case %id%</target>
-        <jms:reference-file line="4">views/Meningitis/editRRL.html.twig</jms:reference-file>
         <jms:reference-file line="4">views/Meningitis/edit.html.twig</jms:reference-file>
         <jms:reference-file line="2">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="4">views/Meningitis/editLab.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="0c8186da01f87243ac37efa00fe66b84d4e0ce88" resname="Whole Blood">
         <source>Whole Blood</source>
@@ -447,7 +480,7 @@
         <source>meningitis-form.blood-cult-done</source>
         <target state="new">meningitis-form.blood-cult-done</target>
         <jms:reference-file line="208">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="36">SentinelBundle/Form/MeningitisSiteLabType.php</jms:reference-file>
+        <jms:reference-file line="35">SentinelBundle/Form/MeningitisSiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="12c78b560902664abb57ab895f2f41c69c3393ab" resname="meningitis-form.blood-cult-other">
         <source>meningitis-form.blood-cult-other</source>
@@ -458,7 +491,7 @@
         <source>meningitis-form.blood-gram-done</source>
         <target state="new">meningitis-form.blood-gram-done</target>
         <jms:reference-file line="209">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="37">SentinelBundle/Form/MeningitisSiteLabType.php</jms:reference-file>
+        <jms:reference-file line="36">SentinelBundle/Form/MeningitisSiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="c927569f5810e164def2dfabfb35544071501a21" resname="meningitis-form.blood-gram-result">
         <source>meningitis-form.blood-gram-result</source>
@@ -469,7 +502,7 @@
         <source>meningitis-form.blood-pcr-done</source>
         <target state="new">meningitis-form.blood-pcr-done</target>
         <jms:reference-file line="210">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="38">SentinelBundle/Form/MeningitisSiteLabType.php</jms:reference-file>
+        <jms:reference-file line="37">SentinelBundle/Form/MeningitisSiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="4ee68a5069c5fafa1431fca04ef6fa3aa0eeea2b" resname="meningitis-form.blood-pcr-result">
         <source>meningitis-form.blood-pcr-result</source>
@@ -493,11 +526,6 @@
         <jms:reference-file line="205">views/Meningitis/show.html.twig</jms:reference-file>
         <jms:reference-file line="30">SentinelBundle/Form/MeningitisSiteLabType.php</jms:reference-file>
       </trans-unit>
-      <trans-unit id="a16ff58b5854853985af9a89f5d851f587324f12" resname="meningitis-form.csf-binax-result">
-        <source>meningitis-form.csf-binax-result</source>
-        <target state="new">meningitis-form.csf-binax-result</target>
-        <jms:reference-file line="31">SentinelBundle/Form/MeningitisSiteLabType.php</jms:reference-file>
-      </trans-unit>
       <trans-unit id="e90f6482d0247735367b14c193662de13bc9a382" resname="meningitis-form.csf-collect-datetime">
         <source>meningitis-form.csf-collect-datetime</source>
         <target state="new">meningitis-form.csf-collect-datetime</target>
@@ -520,7 +548,7 @@
         <source>meningitis-form.csf-culture-other</source>
         <target state="new">meningitis-form.csf-culture-other</target>
         <jms:reference-file line="213">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="41">SentinelBundle/Form/MeningitisSiteLabType.php</jms:reference-file>
+        <jms:reference-file line="40">SentinelBundle/Form/MeningitisSiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="fa4d44b9a67c6ec19782342ef706913257b28422" resname="meningitis-form.csf-glucose">
         <source>meningitis-form.csf-glucose</source>
@@ -544,13 +572,13 @@
         <source>meningitis-form.csf-lat-done</source>
         <target state="new">meningitis-form.csf-lat-done</target>
         <jms:reference-file line="206">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="32">SentinelBundle/Form/MeningitisSiteLabType.php</jms:reference-file>
+        <jms:reference-file line="31">SentinelBundle/Form/MeningitisSiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="256c947f624dbbe5c8740eaeb155ccb8dbee6cb6" resname="meningitis-form.csf-pcr-done">
         <source>meningitis-form.csf-pcr-done</source>
         <target state="new">meningitis-form.csf-pcr-done</target>
         <jms:reference-file line="207">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="33">SentinelBundle/Form/MeningitisSiteLabType.php</jms:reference-file>
+        <jms:reference-file line="32">SentinelBundle/Form/MeningitisSiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="6b003b5b786f439c7e3397a3c04268626b61653f" resname="meningitis-form.csf-protein">
         <source>meningitis-form.csf-protein</source>
@@ -562,7 +590,7 @@
         <source>meningitis-form.csf-store</source>
         <target state="new">meningitis-form.csf-store</target>
         <jms:reference-file line="223">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="34">SentinelBundle/Form/MeningitisSiteLabType.php</jms:reference-file>
+        <jms:reference-file line="33">SentinelBundle/Form/MeningitisSiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="6cca5d1ed4d0476e1c50657947a380e81b16ef26" resname="meningitis-form.csf-wcc">
         <source>meningitis-form.csf-wcc</source>
@@ -574,13 +602,13 @@
         <source>meningitis-form.cxr-done</source>
         <target state="new">meningitis-form.cxr-done</target>
         <jms:reference-file line="228">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="48">SentinelBundle/Form/MeningitisSiteLabType.php</jms:reference-file>
+        <jms:reference-file line="47">SentinelBundle/Form/MeningitisSiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="0978fb2c24ca80dcbdfa8067941a3d4b641bb08b" resname="meningitis-form.cxr-result">
         <source>meningitis-form.cxr-result</source>
         <target state="new">meningitis-form.cxr-result</target>
         <jms:reference-file line="229">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="49">SentinelBundle/Form/MeningitisSiteLabType.php</jms:reference-file>
+        <jms:reference-file line="48">SentinelBundle/Form/MeningitisSiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="fe594a8f8f618d97e84534938869ca34cefcff59" resname="meningitis-form.date-of-birth">
         <source>meningitis-form.date-of-birth</source>
@@ -629,7 +657,7 @@
         <source>meningitis-form.hi-serotype</source>
         <target state="new">meningitis-form.hi-serotype</target>
         <jms:reference-file line="226">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="46">SentinelBundle/Form/MeningitisSiteLabType.php</jms:reference-file>
+        <jms:reference-file line="45">SentinelBundle/Form/MeningitisSiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="6c4751e4d1cdd582c6ce5028fdd4895c7d4bfe04" resname="meningitis-form.hib-doses">
         <source>meningitis-form.hib-doses</source>
@@ -652,7 +680,7 @@
         <source>meningitis-form.isol-store</source>
         <target state="new">meningitis-form.isol-store</target>
         <jms:reference-file line="224">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="35">SentinelBundle/Form/MeningitisSiteLabType.php</jms:reference-file>
+        <jms:reference-file line="34">SentinelBundle/Form/MeningitisSiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="49212811954df64962dac0f638476128c62b37de" resname="meningitis-form.men-alt-conscious">
         <source>meningitis-form.men-alt-conscious</source>
@@ -758,7 +786,7 @@
         <source>meningitis-form.nm-serogroup</source>
         <target state="new">meningitis-form.nm-serogroup</target>
         <jms:reference-file line="227">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="47">SentinelBundle/Form/MeningitisSiteLabType.php</jms:reference-file>
+        <jms:reference-file line="46">SentinelBundle/Form/MeningitisSiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="1de829f89e5aee458e6c1a7256e38b6ad5b34ebc" resname="meningitis-form.other-cult-other">
         <source>meningitis-form.other-cult-other</source>
@@ -774,7 +802,7 @@
         <source>meningitis-form.other-culture</source>
         <target state="new">meningitis-form.other-culture</target>
         <jms:reference-file line="211">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="39">SentinelBundle/Form/MeningitisSiteLabType.php</jms:reference-file>
+        <jms:reference-file line="38">SentinelBundle/Form/MeningitisSiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="680b918f03b17180647a9f235c6eb42dbc02a1f1" resname="meningitis-form.other-test-other">
         <source>meningitis-form.other-test-other</source>
@@ -790,7 +818,7 @@
         <source>meningitis-form.other-tests</source>
         <target state="new">meningitis-form.other-tests</target>
         <jms:reference-file line="212">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="40">SentinelBundle/Form/MeningitisSiteLabType.php</jms:reference-file>
+        <jms:reference-file line="39">SentinelBundle/Form/MeningitisSiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="f509b3a0ffa70ed56f4903404d5d4a3c42cc0416" resname="meningitis-form.pcv-doses">
         <source>meningitis-form.pcv-doses</source>
@@ -848,13 +876,13 @@
         <source>meningitis-form.rrl-csf-date</source>
         <target state="new">meningitis-form.rrl-csf-date</target>
         <jms:reference-file line="221">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="42">SentinelBundle/Form/MeningitisSiteLabType.php</jms:reference-file>
+        <jms:reference-file line="41">SentinelBundle/Form/MeningitisSiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="2a97035b74735d5a5cadf754a049bfc195a1aeb6" resname="meningitis-form.rrl-isol-date">
         <source>meningitis-form.rrl-isol-date</source>
         <target state="new">meningitis-form.rrl-isol-date</target>
         <jms:reference-file line="222">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="43">SentinelBundle/Form/MeningitisSiteLabType.php</jms:reference-file>
+        <jms:reference-file line="42">SentinelBundle/Form/MeningitisSiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="707186e81d7085066089d8b0cdc3eea4c90d7aee" resname="meningitis-form.site">
         <source>meningitis-form.site</source>
@@ -865,7 +893,7 @@
         <source>meningitis-form.spn-serotype</source>
         <target state="new">meningitis-form.spn-serotype</target>
         <jms:reference-file line="225">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="45">SentinelBundle/Form/MeningitisSiteLabType.php</jms:reference-file>
+        <jms:reference-file line="44">SentinelBundle/Form/MeningitisSiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="b145c7d77c9d28170f2739fd03f77add0888536f" resname="meningitis-rrl-form.date-received">
         <source>meningitis-rrl-form.date-received</source>
@@ -1015,6 +1043,16 @@
         <source>menu.translation</source>
         <target state="new">menu.translation</target>
         <jms:reference-file line="45">SentinelBundle/Menu/Builder.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="cdc22e6692fc5dc99971633a8c13cf512657919e" resname="site-title-text">
+        <source>WHO Sentinel Network</source>
+        <target state="new">WHO Sentinel Network</target>
+        <jms:reference-file line="9">Resources/views/layout.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="8aa4d8377d7045bec9b19efae66e98d6b8690acd" resname="sitebrand-text">
+        <source>NUVI Sentinel Network</source>
+        <target state="new">NUVI Sentinel Network</target>
+        <jms:reference-file line="6">Resources/views/layout.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="5c6d290e6d9aad6c3da6c6f40bb5908cf607df29" resname="≥200µl">
         <source>≥200µl</source>
