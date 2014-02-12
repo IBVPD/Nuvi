@@ -2,15 +2,14 @@
 
 namespace NS\SentinelBundle\Form\Types;
 
-use NS\UtilBundle\Form\Types\ArrayChoice;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Security\Core\SecurityContext;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
+use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 
 /**
  * Description of GramStain
  *
  */
-class GramStain extends ArrayChoice
+class GramStain extends TranslatableArrayChoice implements TranslationContainerInterface
 {
     const NO_ORGANISM_DETECTED = 0;
     const GM_NEG_DIPLOCOCCI    = 1;

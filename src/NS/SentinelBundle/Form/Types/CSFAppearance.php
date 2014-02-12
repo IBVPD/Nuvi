@@ -1,15 +1,15 @@
 <?php
 
 namespace NS\SentinelBundle\Form\Types;
-
-use NS\UtilBundle\Form\Types\ArrayChoice;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
+use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 
 /**
  * Description of TripleChoice
  *
  * @author gnat
  */
-class CSFAppearance extends ArrayChoice
+class CSFAppearance extends TranslatableArrayChoice implements TranslationContainerInterface
 {
     const NO_SELECTION   = 0;
     const CLEAR          = 1;

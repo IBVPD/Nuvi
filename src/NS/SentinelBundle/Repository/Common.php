@@ -2,7 +2,7 @@
 
 namespace NS\SentinelBundle\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use NS\SecurityBundle\Doctrine\SecuredEntityRepository;
 use NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
 
 /**
@@ -10,8 +10,13 @@ use NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
  *
  * @author gnat
  */
-class Common extends EntityRepository implements AjaxAutocompleteRepositoryInterface
+class Common extends SecuredEntityRepository implements AjaxAutocompleteRepositoryInterface
 {
+    public function getAllSecuredQueryBuilder($alias = 'o')
+    {
+        return $this->secure($this->_em->createQueryBuilder()->select($alias)->from($this->getClassName(),$alias));
+    }
+
     public function getForAutoComplete($fields, array $value, $limit)
     {
         $alias = 'd';

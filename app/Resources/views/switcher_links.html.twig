@@ -1,5 +1,17 @@
+<li class="grey">
+    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+            <i class="icon-flag"></i>
+            <span class="badge badge-grey">{{current_locale}}</span>
+    </a>
+    <ul class="pull-right dropdown-menu dropdown-caret dropdown-close">
 {% for locale in locales %}
-    <li {% if current_locale == locale.locale %}class="locale-current"{% endif %}>
-        <a href="{{ locale.link }}" title="{{ locale.locale_target_language }}">{{ locale.locale }}</a>
-    </li>
+        <li {% if current_locale == locale.locale %}class="locale-current"{% endif %}>
+            <a href="{{ locale.link }}" title="{{ locale.locale_target_language }}">
+                <div class="clearfix">
+                    <span class="pull-left">{{ locale.locale_target_language }} ({{ locale.locale }})</span>
+                </div>
+            </a>
+        </li>        
 {% endfor %}
+    </ul>
+</li>

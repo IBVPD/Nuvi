@@ -47,13 +47,15 @@ class MeningitisController extends Controller
         $sc = $this->get('security.context');
 
         if($sc->isGranted('ROLE_SITE'))
-            $t = array('template' => 'NSSentinelBundle:Meningitis:index-action.html.twig', 'action' => 'meningitisEdit');
+            $t = array('header_template'=>'NSSentinelBundle:Meningitis:indexSiteHeader.html.twig', 'row_template'=>'NSSentinelBundle:Meningitis:indexSiteRow.html.twig');
         else if($sc->isGranted('ROLE_LAB'))
-            $t = array('template' => 'NSSentinelBundle:Meningitis:index-lab-action.html.twig', 'action' => 'meningitisLabEdit');
+            $t = array('header_template'=>'NSSentinelBundle:Meningitis:indexSiteHeader.html.twig', 'row_template'=>'NSSentinelBundle:Meningitis:indexSiteRow.html.twig');
         else if($sc->isGranted('ROLE_RRL_LAB'))
-            $t = array('template' => 'NSSentinelBundle:Meningitis:index-rrl-action.html.twig', 'action' => 'meningitisRRLCreate');
-        else if($sc->isGranted('ROLE_REGION')|| $sc->isGranted('ROLE_COUNTRY'))
-            $t = array('template' => 'NSSentinelBundle:Meningitis:index-action.html.twig', 'action' => '');
+            $t = array('header_template'=>'NSSentinelBundle:Meningitis:indexSiteHeader.html.twig', 'row_template'=>'NSSentinelBundle:Meningitis:indexSiteRow.html.twig');
+        else if($sc->isGranted('ROLE_COUNTRY'))
+            $t = array('header_template'=>'NSSentinelBundle:Meningitis:indexCountryHeader.html.twig', 'row_template'=>'NSSentinelBundle:Meningitis:indexCountryRow.html.twig');
+        else if($sc->isGranted('ROLE_REGION'))
+            $t = array('header_template'=>'NSSentinelBundle:Meningitis:indexRegionHeader.html.twig', 'row_template'=>'NSSentinelBundle:Meningitis:indexRegionRow.html.twig');
 
         return array('pagination' => $pagination, 't' => $t, 'form' => $this->createForm('results_per_page')->createView(),'filterForm'=>$filterForm->createView());
     }

@@ -19,6 +19,7 @@
         <li class="next"><a href="{{ path(route, query|merge({(pageParameterName): next})) }}"><i class="icon-double-angle-right"></i></a></li>
     {% endif %}            
     </ul>
+    {{'%count% Total Records'|trans({'%count%':totalCount})}}
 </div>
 
 {% endif %}

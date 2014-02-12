@@ -2,15 +2,14 @@
 
 namespace NS\SentinelBundle\Form\Types;
 
-use NS\UtilBundle\Form\Types\ArrayChoice;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Security\Core\SecurityContext;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
+use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 
 /**
  * Description of BinaxResult
  *
  */
-class BinaxResult extends ArrayChoice
+class BinaxResult extends TranslatableArrayChoice implements TranslationContainerInterface
 {
     const NEGATIVE     = 0;
     const POSITIVE     = 1;

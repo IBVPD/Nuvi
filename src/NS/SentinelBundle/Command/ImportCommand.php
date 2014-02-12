@@ -181,6 +181,7 @@ class ImportCommand extends ContainerAwareCommand
         $adminUser->setName('NS Admin User');
         $adminUser->resetSalt();
         $adminUser->setIsAdmin(true);
+        $adminUser->setIsActive(true);
 
         $factory = $this->getContainer()->get('security.encoder_factory');
         $encoder = $factory->getEncoder($adminUser);
