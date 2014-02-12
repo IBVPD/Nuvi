@@ -2,15 +2,14 @@
 
 namespace NS\SentinelBundle\Form\Types;
 
-use NS\UtilBundle\Form\Types\ArrayChoice;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Security\Core\SecurityContext;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
+use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 
 /**
  * Description of IsolateType
  *
  */
-class IsolateType extends ArrayChoice
+class IsolateType extends TranslatableArrayChoice implements TranslationContainerInterface
 {
     const SPN   = 1;
     const HI    = 2;

@@ -2,15 +2,14 @@
 
 namespace NS\SentinelBundle\Form\Types;
 
-use NS\UtilBundle\Form\Types\ArrayChoice;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Security\Core\SecurityContext;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
+use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 
 /**
  * Description of SampleType
  *
  */
-class SampleType extends ArrayChoice
+class SampleType extends TranslatableArrayChoice implements TranslationContainerInterface
 {
     const CSF        = 1;
     const ISOLATE    = 2;

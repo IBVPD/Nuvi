@@ -1,16 +1,17 @@
 <?php
 
 namespace NS\SentinelBundle\Form\Types;
-use NS\UtilBundle\Form\Types\ArrayChoice;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Security\Core\SecurityContext;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
+use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 
 /**
  * Description of Role
  *
  * @author gnat
  */
-class Role extends ArrayChoice
+class Role extends TranslatableArrayChoice implements TranslationContainerInterface
 {
     private $_securityContext;
 

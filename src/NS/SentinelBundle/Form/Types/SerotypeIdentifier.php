@@ -2,15 +2,14 @@
 
 namespace NS\SentinelBundle\Form\Types;
 
-use NS\UtilBundle\Form\Types\ArrayChoice;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Security\Core\SecurityContext;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
+use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 
 /**
  * Description of SerotypeIdentifier
  *
  */
-class SerotypeIdentifier extends ArrayChoice
+class SerotypeIdentifier extends TranslatableArrayChoice implements TranslationContainerInterface
 {
     const CONVENTIONAL = 1;
     const REALTIME     = 2;
