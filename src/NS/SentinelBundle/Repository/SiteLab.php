@@ -4,6 +4,8 @@ namespace NS\SentinelBundle\Repository;
 
 use NS\SecurityBundle\Doctrine\SecuredEntityRepository;
 use NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
+use NS\SentinelBundle\Exceptions\NonExistentCase;
+use Doctrine\ORM\NoResultException;
 
 /**
  * SiteLab
@@ -48,15 +50,24 @@ class SiteLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
 
     public function findOrCreateNew($id)
     {
-        $r = parent::find($id);
-        if($r)
-            return $r;
+        try
+        {
+            $r = $this->find($id);
+            if($r)
+            {
+                $r->setIsNew(false);
+                return $r;
+            }
+        }
+        catch(NonExistentCase $e)
+        {
+            $record = new \NS\SentinelBundle\Entity\SiteLab();
+            $m      = $this->_em->getRepository('NSSentinelBundle:Meningitis')->checkExistence($id);
+            $record->setCase($m);
+            $record->setIsNew(true);
 
-        $record = new \NS\SentinelBundle\Entity\SiteLab();
-        $m      = $this->_em->getRepository('NSSentinelBundle:Meningitis')->checkExistence($id);
-        $record->setCase($m);
-
-        return $record;
+            return $record;
+        }
     }
 
     public function find($id)

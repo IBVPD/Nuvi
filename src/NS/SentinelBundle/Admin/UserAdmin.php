@@ -43,6 +43,10 @@ class UserAdmin extends Admin
         $datagridMapper
             ->add('name')
             ->add('email')
+            ->add('isAdmin')
+            ->add('canCreateCases')
+            ->add('canCreateLabs')
+            ->add('canCreateRRLLabs')
         ;
     }
 
@@ -54,6 +58,10 @@ class UserAdmin extends Admin
         $listMapper
             ->add('name')
             ->add('email')
+            ->add('isAdmin')
+            ->add('canCreateCases')
+            ->add('canCreateLabs')
+            ->add('canCreateRRLLabs')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -82,7 +90,11 @@ class UserAdmin extends Admin
                            'second_options'  => array('label' => 'Repeat Password'),
                            )
                        )
-            ->add('isActive')
+            ->add('isActive',null,array('required'=>false))
+            ->add('isAdmin',null,array('required'=>false))
+            ->add('canCreateCases',null,array('required'=>false))
+            ->add('canCreateLabs',null,array('required'=>false))
+            ->add('canCreateRRLLabs',null,array('required'=>false))
             ->add('acls', 'sonata_type_collection', array('by_reference'=>true),array('edit'=>'inline','inline'=>'table'))
         ;
     }

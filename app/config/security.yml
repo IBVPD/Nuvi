@@ -4,8 +4,8 @@ security:
 
     role_hierarchy:
         ROLE_SITE:        [ ROLE_USER, ROLE_CAN_CREATE_CASE ]
-        ROLE_LAB:         ROLE_USER
-        ROLE_RRL_LAB:     ROLE_USER
+        ROLE_LAB:         [ ROLE_USER, ROLE_CAN_CREATE_LAB ]
+        ROLE_RRL_LAB:     [ ROLE_USER, ROLE_CAN_CREATE_RRL_LAB ]
         ROLE_COUNTRY:     ROLE_USER
         ROLE_REGION:      ROLE_USER
         ROLE_ADMIN:       ROLE_USER
@@ -43,7 +43,7 @@ security:
         - { path: ^/admin, roles: ROLE_USER }
         - { path: '^/[^/]+/ibd/edit', roles: ROLE_CAN_CREATE_CASE }
         - { path: '^/[^/]+/ibd/create', roles: ROLE_CAN_CREATE_CASE }
-        - { path: '^/[^/]+/ibd/rrl', roles: ROLE_RRL_LAB }
-        - { path: '^/[^/]+/ibd/lab', roles: ROLE_LAB }
+        - { path: '^/[^/]+/ibd/rrl', roles: [ ROLE_RRL_LAB, ROLE_CAN_CREATE_RRL_LAB ] }
+        - { path: '^/[^/]+/ibd/lab', roles: [ ROLE_LAB, ROLE_CAN_CREATE_LAB ] }
         - { path: '^/[^/]+/ibd/show', roles: [ ROLE_REGION, ROLE_COUNTRY, ROLE_SITE, ROLE_LAB, ROLE_RRL_LAB ] }
         - { path: ^/, roles: ROLE_USER }

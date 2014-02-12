@@ -1,10 +1,11 @@
 {%extends "NSSentinelBundle::layout.html.twig" %}
 
 {% block pagetitle %}
-{{'View Case %id%'|trans({'%id%': id})}}
+{{'Create / Edit Lab For Case %id%'|trans({'%id%': id})}}
 {% endblock %}
 
 {% block body %}
+{{form.vars.value.isNew}}
 <form method="POST" action="{{path('meningitisLabEdit',{'id':id})}}" novalidate>
     {{form_errors(form)}}
 <div class="row">

@@ -81,6 +81,27 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
     /**
      * @var boolean
      *
+     * @ORM\Column(name="canCreateCases", type="boolean")
+     */
+    private $canCreateCases = false;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="canCreateLabs", type="boolean")
+     */
+    private $canCreateLabs = false;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="canCreateRRLLabs", type="boolean")
+     */
+    private $canCreateRRLLabs = false;
+
+    /**
+     * @var boolean
+     *
      * @ORM\Column(name="isActive", type="boolean")
      */
     private $isActive = false;
@@ -238,6 +259,15 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
         if($this->isAdmin)
             $roles[] = 'ROLE_ADMIN';
 
+        if($this->canCreateCases)
+            $roles[] = 'ROLE_CAN_CREATE_CASE';
+
+        if($this->canCreateLabs)
+            $roles[] = 'ROLE_CAN_CREATE_LAB';
+
+        if($this->canCreateRRLLabs)
+            $roles[] = 'ROLE_CAN_CREATE_RRL_LAB';
+        
         return array_unique($roles);
     }
 
@@ -373,5 +403,38 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
         }
 
         return $object_ids;        
+    }
+
+    public function getCanCreateCases()
+    {
+        return $this->canCreateCases;
+    }
+
+    public function getCanCreateLabs()
+    {
+        return $this->canCreateLabs;
+    }
+
+    public function getCanCreateRRLLabs()
+    {
+        return $this->canCreateRRLLabs;
+    }
+
+    public function setCanCreateCases($canCreateCases)
+    {
+        $this->canCreateCases = $canCreateCases;
+        return $this;
+    }
+
+    public function setCanCreateLabs($canCreateLabs)
+    {
+        $this->canCreateLabs = $canCreateLabs;
+        return $this;
+    }
+
+    public function setCanCreateRRLLabs($canCreateRRLLabs)
+    {
+        $this->canCreateRRLLabs = $canCreateRRLLabs;
+        return $this;
     }
 }

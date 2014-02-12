@@ -22,8 +22,8 @@ use \NS\SecurityBundle\Annotation\SecuredCondition;
  * @ORM\Table(name="meningitis_reference_labs")
  * @Gedmo\Loggable
  * @Secured(conditions={
- *      @SecuredCondition(roles={"ROLE_REGION"},through="case",relation="region",class="NSSentinelBundle:Region"),
- *      @SecuredCondition(roles={"ROLE_COUNTRY"},through="case",relation="country",class="NSSentinelBundle:Country"),
+ *      @SecuredCondition(roles={"ROLE_REGION"},through={"case"},relation="region",class="NSSentinelBundle:Region"),
+ *      @SecuredCondition(roles={"ROLE_COUNTRY"},through={"case"},relation="country",class="NSSentinelBundle:Country"),
  *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB","ROLE_RRL_LAB"},through="case",relation="site",class="NSSentinelBundle:Site"),
  *      })
  */
