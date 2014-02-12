@@ -3,7 +3,7 @@
             <i class="icon-flag"></i>
             <span class="badge badge-grey">{{current_locale}}</span>
     </a>
-    <ul class="pull-right dropdown-navbar dropdown-menu dropdown-caret dropdown-close">
+    <ul class="pull-right dropdown-menu dropdown-caret dropdown-close">
 {% for locale in locales %}
         <li {% if current_locale == locale.locale %}class="locale-current"{% endif %}>
             <a href="{{ locale.link }}" title="{{ locale.locale_target_language }}">
@@ -13,6 +13,5 @@
             </a>
         </li>        
 {% endfor %}
-        <li></li>{# dropdown-navbar sets the last li to be blue #}
     </ul>
 </li>
