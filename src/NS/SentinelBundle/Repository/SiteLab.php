@@ -54,17 +54,13 @@ class SiteLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
         {
             $r = $this->find($id);
             if($r)
-            {
-                $r->setIsNew(false);
                 return $r;
-            }
         }
         catch(NonExistentCase $e)
         {
             $record = new \NS\SentinelBundle\Entity\SiteLab();
             $m      = $this->_em->getRepository('NSSentinelBundle:Meningitis')->checkExistence($id);
             $record->setCase($m);
-            $record->setIsNew(true);
 
             return $record;
         }
