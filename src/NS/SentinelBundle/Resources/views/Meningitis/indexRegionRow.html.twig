@@ -1,0 +1,13 @@
+<tr>
+    <td>{{ row.id }}</td>
+    <td>{{ row.gender }}</td>
+    <td>{{ row.ageInMonths }}</td>
+    <td>{{ row.country }}</td>
+    <td>{{ row.site }}</td>
+    <td class='hidden-480'>
+        <span class="label label-sm label-success icon icon-ok"> {{'EPI'|trans}} </span>
+        <span class="label label-sm label-{{ row.hasSiteLab ? 'success icon icon-ok':'danger icon icon-exclamation-sign'}}"> {{'LAB'|trans}} </span>
+        <span class="label label-sm label-{{ row.hasReferenceLab ? 'success icon icon-ok':'danger icon icon-exclamation-sign'}}"> {{'RRL'|trans}} </span>
+    </td>
+    <td>{% include t.action_template %}</td>
+</tr>
