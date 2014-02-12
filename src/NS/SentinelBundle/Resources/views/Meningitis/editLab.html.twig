@@ -5,7 +5,6 @@
 {% endblock %}
 
 {% block body %}
-{{form.vars.value.isNew}}
 <form method="POST" action="{{path('meningitisLabEdit',{'id':id})}}" novalidate>
     {{form_errors(form)}}
 <div class="row">
