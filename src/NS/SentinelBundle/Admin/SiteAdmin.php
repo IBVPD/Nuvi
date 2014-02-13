@@ -19,6 +19,9 @@ class SiteAdmin extends Admin
             ->add('name')
             ->add('code')
             ->add('country')
+            ->add('rvYearIntro')
+            ->add('ibdYearIntro')
+            ->add('numberOfBeds')
         ;
     }
 
@@ -51,6 +54,12 @@ class SiteAdmin extends Admin
             ->add('name')
             ->add('code')
             ->add('country')
+            ->add('rvYearIntro')
+            ->add('ibdYearIntro')
+            ->add('street')
+            ->add('city')
+            ->add('numberOfBeds')
+            ->add('website')
         ;
     }
 
@@ -64,7 +73,12 @@ class SiteAdmin extends Admin
             ->add('code')
             ->add('country')
             ->add('country.region')
-
+            ->add('rvYearIntro')
+            ->add('ibdYearIntro')
+            ->add('street')
+            ->add('city')
+            ->add('numberOfBeds')
+            ->add('website')
         ;
     }
 }
