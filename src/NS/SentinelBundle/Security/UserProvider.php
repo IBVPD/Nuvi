@@ -59,6 +59,4 @@ class UserProvider implements UserProviderInterface
     {
         return $class == 'NS\SentinelBundle\Entity\User';
     }
-
-//put your code here
 }
