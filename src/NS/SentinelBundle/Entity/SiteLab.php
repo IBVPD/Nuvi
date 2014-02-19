@@ -21,8 +21,8 @@ use \NS\SecurityBundle\Annotation\SecuredCondition;
  * @ORM\Table(name="meningitis_site_labs")
  * @Gedmo\Loggable
  * @Secured(conditions={
- *      @SecuredCondition(roles={"ROLE_REGION"},through="case",relation="region",class="NSSentinelBundle:Region"),
- *      @SecuredCondition(roles={"ROLE_COUNTRY"},through="case",relation="country",class="NSSentinelBundle:Country"),
+ *      @SecuredCondition(roles={"ROLE_REGION"},through={"case"},relation="region",class="NSSentinelBundle:Region"),
+ *      @SecuredCondition(roles={"ROLE_COUNTRY"},through={"case"},relation="country",class="NSSentinelBundle:Country"),
  *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB","ROLE_RRL_LAB"},through="case",relation="site",class="NSSentinelBundle:Site"),
  *      })
  */
@@ -139,7 +139,6 @@ class SiteLab
     private $csfCultOther;
 
     /**
-     *
      * @var GramStain
      * @ORM\Column(name="csfGramResult",type="GramStain",nullable=true)
      */
@@ -274,7 +273,7 @@ class SiteLab
      * @var CXRResult $cxrResult
      * @ORM\Column(name="cxrResult",type="CXRResult",nullable=true)
      */
-    private $cxrResult;    
+    private $cxrResult;
 
     /**
      * Get id

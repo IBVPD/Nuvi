@@ -11,10 +11,6 @@ login_check:
     
 logout:
     pattern: /logout
-    
-ns_sentinel:
-    resource: "@NSSentinelBundle/Resources/config/routing.yml"
-    prefix:   /
 
 JMSTranslationBundle_ui:
     resource: "@JMSTranslationBundle/Controller/"
@@ -29,3 +25,7 @@ _sonata_admin:
      resource: .
      type: sonata_admin
      prefix: /{_locale}/admin
+
+ns_sentinel:
+    resource: "@NSSentinelBundle/Resources/config/routing.yml"
+    prefix:   /

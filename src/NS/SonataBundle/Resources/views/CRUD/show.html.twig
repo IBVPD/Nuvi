@@ -1,0 +1,20 @@
+{#
+
+This file is part of the Sonata package.
+
+(c) Thomas Rabaix <thomas.rabaix@sonata-project.org>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+
+#}
+
+{% extends 'SonataAdminBundle:CRUD:base_show.html.twig' %}
+{% block action %}
+    <div class="sonata-actions btn-group">
+        {% include 'SonataAdminBundle:Button:edit_button.html.twig' %}
+        {% include 'SonataAdminBundle:Button:history_button.html.twig' %}
+        {% include 'SonataAdminBundle:Button:create_button.html.twig' %}
+        {% include 'SonataAdminBundle:Button:list_button.html.twig' %}
+    </div>
+{% endblock %}

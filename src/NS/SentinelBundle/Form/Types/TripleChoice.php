@@ -2,14 +2,15 @@
 
 namespace NS\SentinelBundle\Form\Types;
 
-use NS\UtilBundle\Form\Types\ArrayChoice;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
+use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 
 /**
  * Description of TripleChoice
  *
  * @author gnat
  */
-class TripleChoice extends ArrayChoice
+class TripleChoice extends TranslatableArrayChoice implements TranslationContainerInterface
 {
     const NO      = 0;
     const YES     = 1;

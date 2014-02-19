@@ -43,6 +43,10 @@ class UserAdmin extends Admin
         $datagridMapper
             ->add('name')
             ->add('email')
+            ->add('isAdmin')
+            ->add('canCreateCases')
+            ->add('canCreateLabs')
+            ->add('canCreateRRLLabs')
         ;
     }
 
@@ -54,6 +58,10 @@ class UserAdmin extends Admin
         $listMapper
             ->add('name')
             ->add('email')
+            ->add('isAdmin')
+            ->add('canCreateCases')
+            ->add('canCreateLabs')
+            ->add('canCreateRRLLabs')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -70,21 +78,25 @@ class UserAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('name')
-            ->add('email')
-            ->add('plainPassword','repeated',
-                       array(
-                           'type'            => 'password',
-                           'invalid_message' => 'The password fields must match.',
-                           'options'         => array('attr' => array('class' => 'password-field')),
-                           'required'        => false,
-                           'first_options'   => array('label' => 'Password'),
-                           'second_options'  => array('label' => 'Repeat Password'),
-                           )
-                       )
-            ->add('isActive')
-            ->add('acls', 'sonata_type_collection', array('by_reference'=>true),array('edit'=>'inline','inline'=>'table'))
-        ;
+                ->add('name')
+                ->add('email')
+                ->add('plainPassword','repeated',
+                           array(
+                               'type'            => 'password',
+                               'invalid_message' => 'The password fields must match.',
+                               'options'         => array('attr' => array('class' => 'password-field')),
+                               'required'        => false,
+                               'first_options'   => array('label' => 'Password'),
+                               'second_options'  => array('label' => 'Repeat Password'),
+                               )
+                      )
+                ->add('isActive',null,array('required'=>false))
+                ->add('isAdmin',null,array('required'=>false))
+                ->add('canCreateCases',null,array('required'=>false))
+                ->add('canCreateLabs',null,array('required'=>false))
+                ->add('canCreateRRLLabs',null,array('required'=>false))
+                ->add('acls', 'sonata_type_collection', array('by_reference'=>true),array('edit'=>'inline','inline'=>'table'))
+            ;
     }
 
     /**

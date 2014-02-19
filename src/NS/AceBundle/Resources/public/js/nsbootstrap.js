@@ -63,4 +63,12 @@ $(document).ready(function() {
 				}).next().on(ace.click_event, function(){
 					$(this).prev().focus();
 				});
+    $('a.filter_legend').click(function(event)
+    {
+        var icon = $(this).find('i');
+        icon.toggleClass('icon-chevron-down').toggleClass('icon-chevron-up');
+        $(this).find('span').html((icon.hasClass('icon-chevron-up')?'Simple':'Advanced'));
+        
+        $(this).parents('.widget-box').find('div.filter_container .sonata-filter-option').toggle();
+    });
 });

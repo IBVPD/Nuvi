@@ -1758,7 +1758,7 @@
             "source": {
                 "type": "git",
                 "url": "gitolite@git.noblet.ca:/symfony/ns/utils.git",
-                "reference": "60ab842973914f508e9c13a9e23b15e29dfe03d5"
+                "reference": "0266e8ad8d3c8179fba364ad814b63e03d54c7f9"
             },
             "require": {
                 "ext-mbstring": "*",
@@ -1782,7 +1782,7 @@
                 }
             ],
             "description": "Various Utilitity Services and Classes",
-            "time": "2014-02-04 20:19:43"
+            "time": "2014-02-12 17:40:23"
         },
         {
             "name": "oneup/uploader-bundle",

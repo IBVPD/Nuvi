@@ -114,3 +114,20 @@ div.token-input-dropdown ul li.token-input-selected-dropdown-item {
 .widget-toolbar .dataTables_paginate .pagination {
     vertical-align: middle
 }
+
+legend.btn {
+    width: auto;
+}
+
+.btn-lighter {
+    opacity: 0.8;
+}
+
+.widget-toolbar > .nav-tabs {
+    top: 3px !important;
+}
+
+.widget-toolbar > .nav-tabs > li:not(.active) > a {
+    background-color: #eeeeee !important;
+    color: #555555 !important;
+}
