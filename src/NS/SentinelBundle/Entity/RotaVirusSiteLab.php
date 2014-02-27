@@ -153,6 +153,14 @@ class RotaVirusSiteLab
      */
     private $nlGenoTypeResult;
 
+    public function __construct($virus = null)
+    {
+        if($virus instanceof RotaVirus)
+            $this->case = $virus;
+
+        return $this;
+    }
+
     public function getId()
     {
         return $this->id;

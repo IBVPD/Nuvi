@@ -275,6 +275,14 @@ class SiteLab
      */
     private $cxrResult;
 
+    public function __construct($case = null)
+    {
+        if($case instanceof Meningitis)
+            $this->case = $case;
+
+        return $this;
+    }
+
     /**
      * Get id
      *
