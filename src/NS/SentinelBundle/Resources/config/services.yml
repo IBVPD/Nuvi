@@ -33,6 +33,11 @@ services:
       arguments: [ "@router","@form.factory" ]
       tags:
         - { name: kernel.event_listener, event: kernel.request, method: onRequest }
+    ns.sentinel.rotavirus.filter:
+      class: NS\SentinelBundle\Form\RotaVirusFilter
+      arguments: [ "@security.context", "@ns.model_manager" ]
+      tags:
+        - { name: form.type, alias: rotavirus_filter_form }
     ns.sentinel.meningitis.filter:
       class: NS\SentinelBundle\Form\MeningitisFilter
       arguments: [ "@security.context", "@ns.model_manager" ]

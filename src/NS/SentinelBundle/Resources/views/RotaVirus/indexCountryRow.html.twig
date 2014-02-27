@@ -1,0 +1,11 @@
+<tr>
+    <td>{{ row.id }}</td>
+    <td>{{ row.gender }}</td>
+    <td>{{ row.age }}</td>
+    <td>{{ row.site }}</td>
+    <td class='hidden-480'>
+        <span class="label label-sm label-success icon icon-ok"> {{'EPI'|trans}} </span>
+        <span class="label label-sm label-{{ row.hasSiteLab ? 'success icon icon-ok':'danger icon icon-exclamation-sign'}}"> {{'LAB'|trans}} </span>
+    </td>
+    <td>{% include 'NSSentinelBundle:RotaVirus:index-action.html.twig' %}</td>
+</tr>

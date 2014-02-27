@@ -10,9 +10,8 @@ use \Symfony\Component\Form\FormEvent;
 use \Symfony\Component\Form\FormEvents;
 use \Doctrine\Common\Persistence\ObjectManager;
 use \Lexik\Bundle\FormFilterBundle\Filter\FilterOperands;
-use NS\SentinelBundle\Entity\User;
 
-class MeningitisFilter extends AbstractType
+class RotaVirusFilter extends AbstractType
 {
     private $securityContext;
 
@@ -107,7 +106,7 @@ class MeningitisFilter extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class'      => 'NS\SentinelBundle\Filter\Meningitis',
+            'data_class'      => 'NS\SentinelBundle\Filter\RotaVirus',
             'csrf_protection' => false,
         ));
     }
@@ -117,6 +116,6 @@ class MeningitisFilter extends AbstractType
      */
     public function getName()
     {
-        return 'meningitis_filter_form';
+        return 'rotavirus_filter_form';
     }
 }

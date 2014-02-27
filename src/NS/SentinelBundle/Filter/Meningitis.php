@@ -1,8 +1,7 @@
 <?php
 
-namespace NS\SentinelBundle\Entity;
+namespace NS\SentinelBundle\Filter;
 
-use Doctrine\ORM\Mapping as ORM;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Form\Types\CSFAppearance;
 use NS\SentinelBundle\Form\Types\CXRResult;
@@ -246,11 +245,6 @@ class MeningitisFilter implements \Serializable
      * @var TripleChoice $dischSequelae
      */
     private $dischSequelae;
-
-    /**
-     * @var string $comment
-     */
-    private $comment;
 
     public function __construct()
     {
@@ -743,17 +737,6 @@ class MeningitisFilter implements \Serializable
     public function setDischSequelae(TripleChoice $dischSequelae)
     {
         $this->dischSequelae = $dischSequelae;
-        return $this;
-    }
-
-    public function getComment()
-    {
-        return $this->comment;
-    }
-
-    public function setComment($comment)
-    {
-        $this->comment = $comment;
         return $this;
     }
 

@@ -1,0 +1,65 @@
+{%extends "NSSentinelBundle::layout.html.twig" %}
+{% block pagetitle %}{{'Recent Cases'|trans}}{%endblock %}
+{% block pagedescription %}{{'Lists the last %count% rotavirus cases'|trans({'%count%':app.session.get('result_per_page',10)})}}{%endblock %}
+{% block body %}
+<div class="row">
+    <div class="col-sm-9 col-md-9 col-lg-9">
+        <div class="widget-box no-border">
+            <div class="widget-header widget-header-small header-color-blue">
+                <h5>{{'Latest Rotavirus Cases'|trans}}</h5>
+                <div class="widget-toolbar"><form method="POST" action="{{ path('rotavirusIndex',pagination.query)}}">{{form_rest(form)}}</form></div>
+                <div class="widget-toolbar no-border">{{ knp_pagination_render(pagination) }}</div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover">
+                    {% include t.header_template %}
+                    <tbody>
+                    {% for row in pagination %}
+                        {% include t.row_template %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% if is_granted('ROLE_CAN_CREATE_CASE') %}
+                <div class="align-right">
+                    <a href="{{path('rotavirusCreate')}}" class="btn btn-sm btn-success">{{'Create'}}<i class="icon-plus-sign icon-on-right bigger-110"></i></a>
+                </div>
+            {% endif %}                
+            </div>
+        </div><!--/.table-responsive-->
+    </div><!--/span-->
+    <div class="col-xs-3 widget-container-span">
+        <div class="widget-box">
+            <div class="widget-header widget-header-small header-color-blue">
+                <h5>{{'Filters'|trans}}</h5>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    <form method="GET" action="{{path('rotavirusIndex')}}" >
+                        {{form_rest(filterForm)}}
+                    </form>
+                </div>
+            </div>
+        </div>        
+    </div>
+</div><!--/row-->
+
+<div class="layoutSection">
+    <div class="column span1">
+        <div class="panel dataPanel">
+            <h3 class="panelTitle">{{'Report'|trans}}</h3>
+            <div class="panelContent">
+                {{ render_hinclude(controller('NSSentinelBundle:Report:generalStats')) }}
+                {{ render_hinclude(controller('NSSentinelBundle:Report:byDiagnosisGraph')) }}
+
+                {% if is_granted('ROLE_COUNTRY') %}
+                    {{ render_hinclude(controller('NSSentinelBundle:Report:bySiteGraph')) }}
+                {% endif %}
+
+                {% if is_granted('ROLE_REGION') %}
+                    {{ render_hinclude(controller('NSSentinelBundle:Report:byCountryGraph')) }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

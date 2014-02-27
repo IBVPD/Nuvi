@@ -35,7 +35,7 @@ class Builder
             $d = $menu->addChild('Data Entry', array('label'=> 'menu.data-entry'))
                       ->setExtra('icon','icon-edit');
             $d->addChild('Meningitis',array('label'=>'menu.meningitis','route'=>'meningitisIndex'));
-            $d->addChild('Rotavirus')->setExtra('translation_domain', 'NSSentinelBundle');
+            $d->addChild('Rotavirus', array('route'=>'rotavirusIndex'))->setExtra('translation_domain', 'NSSentinelBundle');
 
             $menu->addChild('Reports', array('label'=> 'menu.data-reports'))->setExtra('icon','icon-dashboard');
             if($this->securityContext->isGranted('ROLE_ADMIN'))

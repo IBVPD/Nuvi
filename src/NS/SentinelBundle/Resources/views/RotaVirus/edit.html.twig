@@ -1,0 +1,158 @@
+{%extends "NSSentinelBundle::layout.html.twig" %}
+
+{% block pagetitle %}
+{%if id %}{{'View Case %id%'|trans({'%id%': id})}}{%else%}{{'Create New Case'|trans}}{%endif%}
+{% endblock %}
+
+{% block body %}
+<form method="POST" action="{{path('rotavirusEdit',{'id':id})}}">
+{% if form.site is defined %}
+<div class="row">
+    <div class="col-sm-4" >
+        <div class="widget-box">
+            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Site'|trans}}</h6></div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    {{form_row(form.site)}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+    
+<div class="row">
+    {{form_errors(form)}}
+    <div class="col-sm-4" >
+        <div class="widget-box">
+            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Case Based Demographics'|trans}}</h6></div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    {{form_row(form.caseId)}}
+                    {{form_row(form.dob)}}
+                    {{form_row(form.gender)}}
+                    {{form_row(form.district)}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4" >
+        <div class="widget-box">
+            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Vaccination History'|trans}}</h6></div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            {{form_row(form.hibReceived)}}
+                            {{form_row(form.hibDoses)}}
+                            {{form_row(form.pcvReceived)}}
+                            {{form_row(form.pcvDoses)}}
+                        </div>
+                        <div class="col-sm-6">
+                            {{form_row(form.meningReceived)}}
+                            {{form_row(form.meningDoses)}}
+                            {{form_row(form.dtpReceived)}}
+                            {{form_row(form.dtpDoses)}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="widget-box">
+            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Clinical Data'|trans}}</h6></div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    {{form_row(form.admDate)}}
+                    {{form_row(form.admDx)}}
+                    {{form_row(form.admDxOther)}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="widget-box">
+            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Meningitis'|trans}}</h6></div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            {{form_row(form.menSeizures)}}
+                            {{form_row(form.menFever)}}
+                            {{form_row(form.menAltConscious)}}
+                            {{form_row(form.menInabilityFeed)}}
+                            {{form_row(form.menStridor)}}
+                            {{form_row(form.menNeckStiff)}}
+                        </div>
+                        <div class="col-sm-6">
+                            {{form_row(form.menRash)}}
+                            {{form_row(form.menFontanelleBulge)}}
+                            {{form_row(form.menLethargy)}}
+                            {{form_row(form.menPoorSucking)}}
+                            {{form_row(form.menIrritability)}}
+                            {{form_row(form.menSymptomOther)}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="widget-box">
+            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Pneumonia / Sepsis'|trans}}</h6></div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            {{form_row(form.pneuDiffBreathe)}}
+                            {{form_row(form.pneuChestIndraw)}}
+                            {{form_row(form.pneuCough)}}
+                            {{form_row(form.pneuCyanosis)}}
+                            {{form_row(form.pneuRespRate)}}
+                            {{form_row(form.pneuSymptomOther)}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-4">
+        <div class="widget-box">
+            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Specimen Collection Data'|trans}}</h6></div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    {{form_row(form.csfCollected)}}
+                    {{form_row(form.csfCollectDateTime)}}
+                    {{form_row(form.csfAppearance)}}
+                    {{form_row(form.bloodCollected)}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="widget-box">
+            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Outcome Data'|trans}}</h6></div>
+            <div class="widget-body">
+                <div class="widget-main">
+                {{form_rest(form)}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="form-actions center">
+    <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
+</div>
+
+</form>
+{% endblock %}

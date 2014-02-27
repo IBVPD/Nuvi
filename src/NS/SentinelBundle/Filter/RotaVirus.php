@@ -1,8 +1,6 @@
 <?php
 
-namespace NS\SentinelBundle\Entity;
-
-use Doctrine\ORM\Mapping as ORM;
+namespace NS\SentinelBundle\Filter;
 
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Form\Types\DischargeOutcome;
@@ -10,51 +8,31 @@ use NS\SentinelBundle\Form\Types\Gender;
 use NS\SentinelBundle\Form\Types\RotavirusVaccinationReceived;
 use NS\SentinelBundle\Form\Types\RotavirusVaccinationType;
 use NS\SentinelBundle\Form\Types\ElisaResult;
-use \NS\SentinelBundle\Interfaces\IdentityAssignmentInterface;
-
-use Gedmo\Mapping\Annotation as Gedmo;
-use NS\SecurityBundle\Annotation\Secured;
-use NS\SecurityBundle\Annotation\SecuredCondition;
 
 /**
  * Description of RotaVirus
  * @author gnat
- * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\RotaVirus")
- * @ORM\Table(name="rotavirus_cases")
- * @Gedmo\Loggable
- * @Secured(conditions={
- *      @SecuredCondition(roles={"ROLE_REGION"},relation="region",class="NSSentinelBundle:Region"),
- *      @SecuredCondition(roles={"ROLE_COUNTRY"},relation="country",class="NSSentinelBundle:Country"),
- *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB","ROLE_RRL_LAB"},relation="site",class="NSSentinelBundle:Site"),
- *      })
  */
-class RotaVirus implements IdentityAssignmentInterface
+class RotaVirus
 {
     /**
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="CUSTOM")
-     * @ORM\CustomIdGenerator(class="\NS\SentinelBundle\Generator\Custom")
-     * @var string $id
-     * @ORM\Column(name="id",type="string")
+     * @var string id
      */
     private $id;
 
 //i. Sentinel Site Information
     /**
      * @var Region $region
-     * @ORM\ManyToOne(targetEntity="Region",inversedBy="rotavirusCases")
      */
     private $region;
 
     /**
      * @var Country $country
-     * @ORM\ManyToOne(targetEntity="Country",inversedBy="rotavirusCases")
      */
     private $country;
 
     /**
      * @var Site $site
-     * @ORM\ManyToOne(targetEntity="Site",inversedBy="rotavirusCases")
      */
     private $site;
 
@@ -62,7 +40,7 @@ class RotaVirus implements IdentityAssignmentInterface
     //site_code
 
     /**
-     * @ORM\OneToOne(targetEntity="RotaVirusSiteLab", mappedBy="case")
+     * @var lab
      */
     private $lab;
 
@@ -70,128 +48,111 @@ class RotaVirus implements IdentityAssignmentInterface
     /**
      * case_ID
      * @var string $caseId
-     * @ORM\Column(name="caseId",type="string",nullable=true)
      */
     private $caseId;
 
     /**
      * gender
      * @var Gender $gender
-     * @ORM\Column(name="gender",type="Gender",nullable=true)
      */
     private $gender;
 
     /**
      * birthdate
-     * @var \DateTime $dob
-     * @ORM\Column(name="dob",type="date",nullable=true)
+     * @var DateTime $dob
      */
     private $dob;
 
     /**
      * age_months
      * @var integer $age
-     * @ORM\Column(name="age",type="integer",nullable=true)
      */
     private $age;
 
     /**
      * case_district
      * @var string $district
-     * @ORM\Column(name="district",type="string",nullable=true)
      */
     private $district;
 
 //iii. Case-based Clinical Data
     /**
      * adm_date
-     * @var \DateTime $admissionDate
-     * @ORM\Column(name="admissionDate",type="date",nullable=true)
+     * @var DateTime $admissionDate
      */
     private $admissionDate;
 
     /**
      * symp_diarrhoea
      * @var TripleChoice $symptomDiarrhea
-     * @ORM\Column(name="symptomDiarrhea",type="TripleChoice",nullable=true)
      */
     private $symptomDiarrhea;
 
     /**
      * symp_dia_onset_date
-     * @var \DateTime $symptomDiarrheaOnset
-     * @ORM\Column(name="symptomDiarrheaOnset",type="date",nullable=true)
+     * @var DateTime $symptomDiarrheaOnset
      */
     private $symptomDiarrheaOnset;
 
     /**
      * symp_dia_episodes
      * @var integer $symptomDiarrheaEpisodes
-     * @ORM\Column(name="symptomDiarrheaEpisodes",type="integer",nullable=true)
      */
     private $symptomDiarrheaEpisodes;
 
     /**
      * symp_dia_duration
      * @var integer $symptomDiarrheaDuration
-     * @ORM\Column(name="symptomDiarrheaDuration",type="integer",nullable=true)
      */
     private $symptomDiarrheaDuration;
 
     /**
      * symp_vomit
      * @var TripleChoice $symptomVomit
-     * @ORM\Column(name="symptomVomit",type="TripleChoice",nullable=true)
      */
     private $symptomDiarrheaVomit;
 
     /**
      * symp_vomit_episodes
      * @var integer $symptomVomitEpisodes
-     * @ORM\Column(name="symptomVomitEpisodes",type="integer",nullable=true)
      */
     private $symptomVomitEpisodes;
 
     /**
      * symp_vomit_duration
      * @var integer $symptomVomitDuration
-     * @ORM\Column(name="symptomVomitDuration",type="integer",nullable=true)
      */
     private $symptomVomitDuration;
 
     /**
      * symp_dehydration
      * @var Dehydration $symptomDehydration
-     * @ORM\Column(name="symptomDehydration",type="Dehydration",nullable=true)
      */
     private $symptomDehydration;
+
 
 // Treatment
     /**
      * rehydration
      * @var TripleChoice $rehydration
-     * @ORM\Column(name="rehydration",type="TripleChoice",nullable=true)
      */
     private $rehydration;
 
     /**
      * rehydration_type
      * @var Rehydration $rehydrationType
-     * @ORM\Column(name="rehydrationType",type="Rehydration",nullable=true)
      */
     private $rehydrationType;
 
     /**
      * rehydration_type_other
      * @var string $rehydrationOther
-     * @ORM\Column(name="rehydrationOther",type="string",nullable=true)
      */
     private $rehydrationOther;
 
 //iv. Case-based Vaccination History
     /**
      * @var RotavirusVaccinationReceived $vaccinationReceived
-     * @ORM\Column(name="vaccinationReceived",type="RotavirusVaccinationReceived",nullable=true)
      * RV_received
      */
     private $vaccinationReceived;
@@ -199,35 +160,30 @@ class RotaVirus implements IdentityAssignmentInterface
     /**
      * RV_type
      * @var RotavirusVaccinationType $vaccinationType
-     * @ORM\Column(name="vaccinationType",type="RotavirusVaccinationType",nullable=true)
      */
     private $vaccinationType;
 
     /**
      * RV_doses
      * @var Doses $doses
-     * @ORM\Column(name="doses",type="Doses",nullable=true)
      */
     private $doses;
 
     /**
      * RV_dose1_date
-     * @var \DateTime $firstVaccinationDose
-     * @ORM\Column(name="firstVaccinationDose",type="date",nullable=true)
+     * @var DateTime $firstVaccinationDose
      */
     private $firstVaccinationDose;
 
     /**
      * RV_dose2_date
-     * @var \DateTime $secondVaccinationDose
-     * @ORM\Column(name="secondVaccinationDose",type="date",nullable=true)
+     * @var DateTime $secondVaccinationDose
      */
     private $secondVaccinationDose;
 
     /**
      * RV_dose3_date
-     * @var \DateTime $thirdVaccinationDose
-     * @ORM\Column(name="thirdVaccinationDose",type="date",nullable=true)
+     * @var DateTime $thirdVaccinationDose
      */
     private $thirdVaccinationDose;
 
@@ -235,21 +191,18 @@ class RotaVirus implements IdentityAssignmentInterface
     /**
      * stool_collected
      * @var TripleChoice $stoolCollected
-     * @ORM\Column(name="stoolCollected",type="TripleChoice",nullable=true)
      */
     private $stoolCollected;
 
     /**
      * stool_ID
      * @var string $stoolId
-     * @ORM\Column(name="stoolId",type="string",nullable=true)
      */
     private $stoolId;
 
     /**
      * stool_collect_date
-     * @var \DateTime $stoolCollectionDate
-     * @ORM\Column(name="stoolCollectionDate",type="date",nullable=true)
+     * @var DateTime $stoolCollectionDate
      */
     private $stoolCollectionDate;
 
@@ -258,38 +211,18 @@ class RotaVirus implements IdentityAssignmentInterface
     /**
      * disch_outcome
      * @var DischargeOutcome $dischargeOutcome
-     * @ORM\Column(name="dischargeOutcome",type="DischargeOutcome",nullable=true)
      */
     private $dischargeOutcome;
 
     /**
-     * @var \DateTime $dischargeDate
-     * @ORM\Column(name="dischargeDate",type="date",nullable=true)
- */
+     * @var DateTime $dischargeDate
+     */
     private $dischargeDate;
 
     /**
      * @var string $dischargeClassOther
-     * @ORM\Column(name="dischargeClassOther",type="string",nullable=true)
      */
     private $dischargeClassOther;
-
-    /**
-     * comment
-     * @var string $comment
-     * @ORM\Column(name="comment",type="text",nullable=true)
-     */
-    private $comment;
-
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function getCode()
-    {
-        return $this->code;
-    }
 
     public function getRegion()
     {
@@ -304,6 +237,11 @@ class RotaVirus implements IdentityAssignmentInterface
     public function getSite()
     {
         return $this->site;
+    }
+
+    public function getLab()
+    {
+        return $this->lab;
     }
 
     public function getCaseId()
@@ -451,25 +389,9 @@ class RotaVirus implements IdentityAssignmentInterface
         return $this->dischargeClassOther;
     }
 
-    public function getComment()
+    public function getId()
     {
-        return $this->comment;
-    }
-
-    public function getLab()
-    {
-        return $this->lab;
-    }
-
-    public function setLab($lab)
-    {
-        $this->lab = $lab;
-        return $this;
-    }
-
-    public function hasSiteLab()
-    {
-        return ($this->lab instanceof RotaVirusSiteLab);
+        return $this->id;
     }
 
     public function setId($id)
@@ -478,33 +400,27 @@ class RotaVirus implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function setCode($code)
-    {
-        $this->code = $code;
-        return $this;
-    }
-
-    public function setRegion(Region $region)
+    public function setRegion($region)
     {
         $this->region = $region;
         return $this;
     }
 
-    public function setCountry(Country $country)
+    public function setCountry( $country)
     {
         $this->country = $country;
-
-        $this->setRegion($country->getRegion());
-
         return $this;
     }
 
-    public function setSite(Site $site)
+    public function setSite( $site)
     {
         $this->site = $site;
+        return $this;
+    }
 
-        $this->setCountry($site->getCountry());
-
+    public function setLab( $lab)
+    {
+        $this->lab = $lab;
         return $this;
     }
 
@@ -514,13 +430,13 @@ class RotaVirus implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function setGender(Gender $gender)
+    public function setGender( $gender)
     {
         $this->gender = $gender;
         return $this;
     }
 
-    public function setDob(\DateTime $dob)
+    public function setDob( $dob)
     {
         $this->dob = $dob;
         return $this;
@@ -538,19 +454,19 @@ class RotaVirus implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function setAdmissionDate(\DateTime $admissionDate)
+    public function setAdmissionDate($admissionDate)
     {
         $this->admissionDate = $admissionDate;
         return $this;
     }
 
-    public function setSymptomDiarrhea(TripleChoice $symptomDiarrhea)
+    public function setSymptomDiarrhea($symptomDiarrhea)
     {
         $this->symptomDiarrhea = $symptomDiarrhea;
         return $this;
     }
 
-    public function setSymptomDiarrheaOnset(\DateTime $symptomDiarrheaOnset)
+    public function setSymptomDiarrheaOnset($symptomDiarrheaOnset)
     {
         $this->symptomDiarrheaOnset = $symptomDiarrheaOnset;
         return $this;
@@ -568,7 +484,7 @@ class RotaVirus implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function setSymptomDiarrheaVomit(TripleChoice $symptomDiarrheaVomit)
+    public function setSymptomDiarrheaVomit($symptomDiarrheaVomit)
     {
         $this->symptomDiarrheaVomit = $symptomDiarrheaVomit;
         return $this;
@@ -586,19 +502,19 @@ class RotaVirus implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function setSymptomDehydration(Dehydration $symptomDehydration)
+    public function setSymptomDehydration($symptomDehydration)
     {
         $this->symptomDehydration = $symptomDehydration;
         return $this;
     }
 
-    public function setRehydration(TripleChoice $rehydration)
+    public function setRehydration($rehydration)
     {
         $this->rehydration = $rehydration;
         return $this;
     }
 
-    public function setRehydrationType(Rehydration $rehydrationType)
+    public function setRehydrationType($rehydrationType)
     {
         $this->rehydrationType = $rehydrationType;
         return $this;
@@ -610,43 +526,43 @@ class RotaVirus implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function setVaccinationReceived(RotavirusVaccinationReceived $vaccinationReceived)
+    public function setVaccinationReceived($vaccinationReceived)
     {
         $this->vaccinationReceived = $vaccinationReceived;
         return $this;
     }
 
-    public function setVaccinationType(RotavirusVaccinationType $vaccinationType)
+    public function setVaccinationType($vaccinationType)
     {
         $this->vaccinationType = $vaccinationType;
         return $this;
     }
 
-    public function setDoses(Doses $doses)
+    public function setDoses($doses)
     {
         $this->doses = $doses;
         return $this;
     }
 
-    public function setFirstVaccinationDose(\DateTime $firstVaccinationDose)
+    public function setFirstVaccinationDose($firstVaccinationDose)
     {
         $this->firstVaccinationDose = $firstVaccinationDose;
         return $this;
     }
 
-    public function setSecondVaccinationDose(\DateTime $secondVaccinationDose)
+    public function setSecondVaccinationDose($secondVaccinationDose)
     {
         $this->secondVaccinationDose = $secondVaccinationDose;
         return $this;
     }
 
-    public function setThirdVaccinationDose(\DateTime $thirdVaccinationDose)
+    public function setThirdVaccinationDose($thirdVaccinationDose)
     {
         $this->thirdVaccinationDose = $thirdVaccinationDose;
         return $this;
     }
 
-    public function setStoolCollected(TripleChoice $stoolCollected)
+    public function setStoolCollected($stoolCollected)
     {
         $this->stoolCollected = $stoolCollected;
         return $this;
@@ -658,19 +574,19 @@ class RotaVirus implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function setStoolCollectionDate(\DateTime $stoolCollectionDate)
+    public function setStoolCollectionDate($stoolCollectionDate)
     {
         $this->stoolCollectionDate = $stoolCollectionDate;
         return $this;
     }
 
-    public function setDischargeOutcome(DischargeOutcome $dischargeOutcome)
+    public function setDischargeOutcome($dischargeOutcome)
     {
         $this->dischargeOutcome = $dischargeOutcome;
         return $this;
     }
 
-    public function setDischargeDate(\DateTime $dischargeDate)
+    public function setDischargeDate($dischargeDate)
     {
         $this->dischargeDate = $dischargeDate;
         return $this;
@@ -682,17 +598,69 @@ class RotaVirus implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function setComment($comment)
+    /**
+     * Set RotaVirusSiteLab
+     *
+     * @param \NS\SentinelBundle\Entity\RotaVirusSiteLab $lab
+     * @return Meningitis
+     */
+    public function setRotaVirusSiteLab($lab = null)
     {
-        $this->comment = $comment;
+        $this->lab = $lab;
+
         return $this;
     }
 
-    public function getFullIdentifier($id)
+    /**
+     * Get RotaVirusSiteLab
+     *
+     * @return \NS\SentinelBundle\Entity\RotaVirusSiteLab
+     */
+    public function getRotaVirusSiteLab()
     {
-        return sprintf("%s-%s-%s-%06d",
-                $this->getRegion()->getCode(),
-                $this->country->getCode(),
-                $this->site->getCode(),$id);
+        return $this->lab;
+    }
+
+    public function hasRotaVirusSiteLab()
+    {
+        return ($this->lab instanceof RotaVirusSiteLab);
+    }
+
+    /**
+     * Set ReferenceLab
+     *
+     * @param \NS\SentinelBundle\Entity\ReferenceLab $lab
+     * @return Meningitis
+     */
+    public function setReferenceLab($lab = null)
+    {
+        $this->referenceLab = $lab;
+
+        return $this;
+    }
+
+    /**
+     * Get ReferenceLab
+     *
+     * @return \NS\SentinelBundle\Entity\ReferenceLab
+     */
+    public function getReferenceLab()
+    {
+        return $this->referenceLab;
+    }
+
+    public function hasReferenceLab()
+    {
+        return ($this->referenceLab instanceof ReferenceLab);
+    }
+
+    public function serialize()
+    {
+        return serialize(array($this->id,$this->region,$this->country,$this->site));
+    }
+
+    public function unserialize($serialized)
+    {
+        list($this->id,$this->region,$this->country,$this->site) = unserialize($serialized);
     }
 }

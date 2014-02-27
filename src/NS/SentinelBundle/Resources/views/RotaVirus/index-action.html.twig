@@ -1,0 +1,25 @@
+ <div class='visible-md visible-lg hidden-sm hidden-xs btn-group'>
+    <a href="{{path('rotavirusShow',{'id':row.id})}}" class='btn btn-xs btn-info'><i class='icon-eye-open bigger-120'></i></a>
+    {% if is_granted('ROLE_CAN_CREATE_CASE') %}
+        <a href="{{path('rotavirusEdit',{'id':row.id})}}" class='btn btn-xs btn-success'><i class='icon-edit bigger-120'></i> {{'EPI'|trans}}</a>
+    {% endif %}
+
+    {% if is_granted('ROLE_CAN_CREATE_LAB') %}
+        <a href="{{path('rotavirusLabEdit',{'id':row.id})}}" class='btn btn-xs btn-success'><i class="{% if row.hasSiteLab %}icon-edit{%else%}icon-plus{%endif%} bigger-120"></i> {{'Lab'|trans}}</a>
+    {% endif %}
+</div>
+<div class='visible-xs visible-sm hidden-md hidden-lg'>
+    <div class="inline position-relative">
+        <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown"><i class="icon-cog icon-only bigger-110"></i></button>
+        <ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
+            <li><a href="{{path('rotavirusShow',{'id':row.id})}}" class="tooltip-info" data-rel="tooltip" title="View"><span class="blue"><i class="icon-eye-open bigger-120"></i></span></a></li>
+            {% if is_granted('ROLE_CAN_CREATE_CASE') %}
+                <li><a href="{{path('rotavirusEdit',{'id':row.id})}}" class="tooltip-success" data-rel="tooltip" title="Edit"><span class="green"><i class="icon-edit bigger-120"></i> {{'EPI'|trans}}</span></a></li>
+            {% endif %}
+
+            {% if is_granted('ROLE_CAN_CREATE_LAB') %}
+                <li><a href="{{path('rotavirusLabEdit',{'id':row.id})}}" class='tooltip-success'><span class="green"><i class="{% if row.hasSiteLab %}icon-edit{%else%}icon-plus{%endif%} bigger-120"></i> {{'Lab'|trans}}</span></a></li>
+            {% endif %}
+        </ul>
+    </div>
+</div>

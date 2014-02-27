@@ -40,14 +40,14 @@ class RotaVirusSiteLab
     /**
      * stool_received_date
      * @var DateTime $stoolReceivedDate
-     * @ORM\Column(name="stoolReceivedDate",type="date")
+     * @ORM\Column(name="stoolReceivedDate",type="date",nullable=true)
      */
     private $stoolReceivedDate;
 
     /**
      * stool_adequate
      * @var TripleChoice $stoolAdequate
-     * @ORM\Column(name="stoolAdequate",type="TripleChoice")
+     * @ORM\Column(name="stoolAdequate",type="TripleChoice",nullable=true)
      */
     private $stoolAdequate;
 
@@ -55,35 +55,35 @@ class RotaVirusSiteLab
     /**
      * stool_ELISA_done
      * @var TripleChoice $stoolELISADone
-     * @ORM\Column(name="stoolELISADone",type="TripleChoice")
+     * @ORM\Column(name="stoolELISADone",type="TripleChoice",nullable=true)
      */
     private $stoolELISADone;
 
     /**
      * stool_test_date
      * @var DateTime $stoolTestDate
-     * @ORM\Column(name="stoolTestDate",type="date")
+     * @ORM\Column(name="stoolTestDate",type="date",nullable=true)
      */
     private $stoolTestDate;
 
     /**
      * stool_ELISA_result
      * @var ElisaResult $stoolELISAResult
-     * @ORM\Column(name="stoolELISAResult",type="ElisaResult")
+     * @ORM\Column(name="stoolELISAResult",type="ElisaResult",nullable=true)
      */
     private $stoolELISAResult;
 
     /**
      * stool_stored
      * @var TripleChoice $stoolStored
-     * @ORM\Column(name="stoolStored",type="TripleChoice")
+     * @ORM\Column(name="stoolStored",type="TripleChoice",nullable=true)
      */
     private $stoolStored;
 
     /**
      * RRL_stool_sent
      * @var TripleChoice $stoolSentToRRL
-     * @ORM\Column(name="stoolSentToRRL",type="TripleChoice")
+     * @ORM\Column(name="stoolSentToRRL",type="TripleChoice",nullable=true)
      */
     private $stoolSentToRRL;
 
@@ -91,35 +91,35 @@ class RotaVirusSiteLab
     /**
      * RRL_stool_date
      * @var DateTime $stoolSentToRRLDate
-     * @ORM\Column(name="stoolSentToRRLDate",type="date")
+     * @ORM\Column(name="stoolSentToRRLDate",type="date",nullable=true)
      */
     private $stoolSentToRRLDate;
 
     /**
      * RRL_ELISA_result
      * @var ElisaResult $rrlELISAResult
-     * @ORM\Column(name="rrlELISAResult",type="ElisaResult")
+     * @ORM\Column(name="rrlELISAResult",type="ElisaResult",nullable=true)
  */
     private $rrlELISAResult;
 
     /**
      * RRL_genotype_date
      * @var DateTime $rrlGenoTypeDate
-     * @ORM\Column(name="rrlGenoTypeDate",type="date")
+     * @ORM\Column(name="rrlGenoTypeDate",type="date",nullable=true)
      */
     private $rrlGenoTypeDate;
 
     /**
      * RRL_genotype_result
      * @var string $rrlGenoTypeResult
-     * @ORM\Column(name="rrlGenoTypeResult",type="string")
+     * @ORM\Column(name="rrlGenoTypeResult",type="string",nullable=true)
      */
     private $rrlGenoTypeResult;
 
     /**
      * NL_stool_sent
      * @var TripleChoice $stoolSentToNL
-     * @ORM\Column(name="stoolSentToNL",type="TripleChoice")
+     * @ORM\Column(name="stoolSentToNL",type="TripleChoice",nullable=true)
      */
     private $stoolSentToNL;
 
@@ -127,28 +127,28 @@ class RotaVirusSiteLab
     /**
      * NL_stool_date
      * @var DateTime $stoolSentToNLDate
-     * @ORM\Column(name="stoolSentToNLDate",type="date")
+     * @ORM\Column(name="stoolSentToNLDate",type="date",nullable=true)
      */
     private $stoolSentToNLDate;
 
     /**
      * NL_ELISA_result
      * @var ElisaResult $nlELISAResult
-     * @ORM\Column(name="nlELISAResult",type="ElisaResult")
+     * @ORM\Column(name="nlELISAResult",type="ElisaResult",nullable=true)
      */
     private $nlELISAResult;
 
     /**
      * NL_genotype_date
      * @var DateTime $nlGenoTypeDate
-     * @ORM\Column(name="nlGenoTypeDate",type="date")
+     * @ORM\Column(name="nlGenoTypeDate",type="date",nullable=true)
      */
     private $nlGenoTypeDate;
 
     /**
      * NL_genotype_result
      * @var string $nlGenoTypeResult
-     * @ORM\Column(name="nlGenoTypeResult",type="string")
+     * @ORM\Column(name="nlGenoTypeResult",type="string",nullable=true)
      */
     private $nlGenoTypeResult;
 
