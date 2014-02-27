@@ -12,10 +12,16 @@ use Symfony\Component\Security\Core\SecurityContext;
  */
 class Dehydration extends ArrayChoice
 {
-    const FIRST_VALUE = 1;
+    const NONE    = 0;
+    const SEVERE  = 1;
+    const SOME    = 2;
+    const UNKNOWN = 99;
 
     protected $values = array(
-                                self::FIRST_VALUE => 'First Value',
+                                self::NONE      => 'None',
+                                self::SEVERE    => 'Severe',
+                                self::SOME      => 'Some',
+                                self::UNKNOWN   => 'Unknown',
                              );
 
     public function getName()

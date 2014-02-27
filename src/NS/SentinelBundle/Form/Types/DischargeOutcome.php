@@ -23,8 +23,8 @@ class DischargeOutcome extends TranslatableArrayChoice implements TranslationCon
 
     protected $values = array(
                             self::NA          => 'N/A',
-                            self::DISCHARGED  => 'No', 
-                            self::DIED        => 'Yes', 
+                            self::DISCHARGED  => 'Discharged alive',
+                            self::DIED        => 'Died',
                             self::TRANSFERRED => 'Transferred',
                             self::LEFT        => 'Left Against Medical Advice',
                             self::UNKNOWN     => 'Unknown');

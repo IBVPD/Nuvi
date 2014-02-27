@@ -12,10 +12,15 @@ use Symfony\Component\Security\Core\SecurityContext;
  */
 class RotavirusVaccinationType extends ArrayChoice
 {
-    const FIRST_VALUE = 1;
+    const GSK = 1;
+    const MERK = 2;
+    const UNKNOWN = 99;
+
 
     protected $values = array(
-                                self::FIRST_VALUE => 'First Value',
+                                self::GSK     => 'Rotarix, GSK',
+                                self::MERK    => 'RotaTeq, Merk',
+                                self::UNKNOWN => 'Unknown',
                              );
 
     public function getName()

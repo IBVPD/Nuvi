@@ -11,10 +11,16 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  */
 class ElisaResult extends ArrayChoice
 {
-    const FIRST_VALUE = 1;
+    const NEGATIVE = 0;
+    const POSITIVE = 1;
+    const INDETERMINATE = 2;
+    const UNKNOWN = 99;
 
     protected $values = array(
-                                self::FIRST_VALUE => 'First Value',
+                                self::NEGATIVE => 'Negative',
+                                self::POSITIVE => 'Positive',
+                                self::INDETERMINATE => 'Indeterminate',
+                                self::UNKNOWN => 'Unknown',
                              );
 
     public function getName()

@@ -15,23 +15,22 @@ class RotaVirusSiteLabType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('stoolReceivedDate')
-            ->add('stoolAdequate')
-            ->add('stoolELISADone')
-            ->add('stoolTestDate')
-            ->add('stoolELISAResult')
-            ->add('stoolStored')
-            ->add('stoolSentToRRL')
-            ->add('stoolSentToRRLDate')
-            ->add('rrlELISAResult')
-            ->add('rrlGenoTypeDate')
-            ->add('rrlGenoTypeResult')
-            ->add('stoolSentToNL')
-            ->add('stoolSentToNLDate')
-            ->add('nlELISAResult')
-            ->add('nlGenoTypeDate')
-            ->add('nlGenoTypeResult')
-            ->add('case')
+            ->add('stoolReceivedDate',  'acedatepicker',    array('required'=>false, 'label'=>'rotavirus-form.stoolReceivedDate'))
+            ->add('stoolAdequate',      'TripleChoice',     array('required'=>false, 'label'=>'rotavirus-form.stoolAdequate'))
+            ->add('stoolELISADone',     'TripleChoice',     array('required'=>false, 'label'=>'rotavirus-form.stoolELISADone'))
+            ->add('stoolTestDate',      'acedatepicker',    array('required'=>false, 'label'=>'rotavirus-form.stoolTestDate'))
+            ->add('stoolELISAResult',   'ElisaResult',      array('required'=>false, 'label'=>'rotavirus-form.stoolELISAResult'))
+            ->add('stoolStored',        'TripleChoice',     array('required'=>false, 'label'=>'rotavirus-form.stoolStored'))
+            ->add('stoolSentToRRL',     'TripleChoice',     array('required'=>false, 'label'=>'rotavirus-form.stoolSentToRRL'))
+            ->add('stoolSentToRRLDate', 'acedatepicker',    array('required'=>false, 'label'=>'rotavirus-form.stoolSentToRRLDate'))
+            ->add('rrlELISAResult',     'ElisaResult',      array('required'=>false, 'label'=>'rotavirus-form.rrlELISAResult'))
+            ->add('rrlGenoTypeDate',    'acedatepicker',    array('required'=>false, 'label'=>'rotavirus-form.rrlGenoTypeDate'))
+            ->add('rrlGenoTypeResult',  null,               array('required'=>false, 'label'=>'rotavirus-form.rrlGenoTypeResult'))
+            ->add('stoolSentToNL',      'TripleChoice',     array('required'=>false, 'label'=>'rotavirus-form.stoolSentToNL'))
+            ->add('stoolSentToNLDate',  'acedatepicker',    array('required'=>false, 'label'=>'rotavirus-form.stoolSentToNLDate'))
+            ->add('nlELISAResult',      'ElisaResult',      array('required'=>false, 'label'=>'rotavirus-form.nlELISAResult'))
+            ->add('nlGenoTypeDate',     'acedatepicker',    array('required'=>false, 'label'=>'rotavirus-form.nlGenoTypeDate'))
+            ->add('nlGenoTypeResult',   null,               array('required'=>false, 'label'=>'rotavirus-form.nlGenoTypeResult'))
         ;
     }
     
@@ -50,6 +49,6 @@ class RotaVirusSiteLabType extends AbstractType
      */
     public function getName()
     {
-        return 'ns_sentinelbundle_rotavirussitelab';
+        return 'rotavirus_sitelab';
     }
 }

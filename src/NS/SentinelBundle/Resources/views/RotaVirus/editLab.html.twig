@@ -10,78 +10,49 @@
 <div class="row">
     <div class="col-sm-4" >
         <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Case Based Demographics'|trans}}</h6></div>
+            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Stool'|trans}}</h6></div>
             <div class="widget-body">
                 <div class="widget-main">
-                    {{form_row(form.csfLabDateTime)}}
-                    {{form_row(form.rrlCsfDate)}}
-                    {{form_row(form.rrlIsolDate)}}
-                    {{form_row(form.csfStore)}}
-                    {{form_row(form.isolStore)}}
+                    {{form_row(form.stoolReceivedDate)}}
+                    {{form_row(form.stoolAdequate)}}
+                    {{form_row(form.stoolELISADone)}}
+                    {{form_row(form.stoolTestDate)}}
+                    {{form_row(form.stoolELISAResult)}}
+                    {{form_row(form.stoolStored)}}
                 </div>
             </div>
         </div>
     </div>
     <div class="col-sm-4" >
         <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Blood'|trans}}</h6></div>
+            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Stool - RRL'|trans}}</h6></div>
             <div class="widget-body">
                 <div class="widget-main">
-                    {{form_row(form.csfWcc)}}
-                    {{form_row(form.csfGlucose)}}
-                    {{form_row(form.csfProtein)}}
-                    {{form_row(form.csfWcc)}}
-                    {{form_row(form.bloodCultDone)}}
-                    {{form_row(form.bloodGramDone)}}
-                    {{form_row(form.bloodPcrDone)}}                    
+                    {{form_row(form.stoolSentToRRL)}}
+                    {{form_row(form.stoolSentToRRLDate)}}
+                    {{form_row(form.rrlELISAResult)}}
+                    {{form_row(form.rrlGenoTypeDate)}}
+                    {{form_row(form.rrlGenoTypeResult)}}
                 </div>
             </div>
         </div>
     </div>
     <div class="col-sm-4" >
         <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h6>{{'CSF'|trans}}</h6></div>
+            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Stool - NL'|trans}}</h6></div>
             <div class="widget-body">
                 <div class="widget-main">
-                    {{form_row(form.csfCultDone)}}
-                    {{form_row(form.csfGramDone)}}
-                    {{form_row(form.csfBinaxDone)}}
-                    {{form_row(form.csfLatDone)}}
-                    {{form_row(form.csfPcrDone)}}
+                    {{form_row(form.stoolSentToNL)}}
+                    {{form_row(form.stoolSentToNLDate)}}
+                    {{form_row(form.nlELISAResult)}}
+                    {{form_row(form.nlGenoTypeDate)}}
+                    {{form_row(form.nlGenoTypeResult)}}
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="row">
-    <div class="col-sm-4" >
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Blood Type'|trans}}</h6></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    {{form_row(form.spnSerotype)}}
-                    {{form_row(form.hiSerotype)}}
-                    {{form_row(form.nmSerogroup)}}
-                    {{form_row(form.cxrDone)}}
-                    {{form_row(form.cxrResult)}}
-                </div>
-            </div>
-        </div>
-    </div>    
-    <div class="col-sm-4" >
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Other Tests'|trans}}</h6></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    {{form_row(form.otherCultDone)}}
-                    {{form_row(form.otherTestDone)}}
-                    {{form_row(form.csfCultOther)}}
-                </div>
-            </div>
-        </div>
-    </div>    
-</div>
 {{form_rest(form)}}
 
 <div class="form-actions center">

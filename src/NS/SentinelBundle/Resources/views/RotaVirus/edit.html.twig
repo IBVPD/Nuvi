@@ -110,7 +110,17 @@
             <div class="widget-header widget-header-small header-color-blue"><h6>{{'Outcome Data'|trans}}</h6></div>
             <div class="widget-body">
                 <div class="widget-main">
-                {{form_rest(form)}}
+                    <div class="row">
+                        <div class="col-sm-6">
+                            {{form_row(form.dischargeOutcome)}}
+                            {{form_row(form.dischargeDate)}}
+                            {{form_row(form.dischargeClassOther)}}
+                        </div>
+                        <div class="col-sm-6">
+                            {{form_row(form.comment)}}
+                            {{form_rest(form)}}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

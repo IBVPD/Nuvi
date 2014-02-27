@@ -289,6 +289,11 @@ class RotaVirus implements IdentityAssignmentInterface
         return !is_null($this->id);
     }
 
+    public function __toString()
+    {
+        return $this->id;
+    }
+
     public function getId()
     {
         return $this->id;
