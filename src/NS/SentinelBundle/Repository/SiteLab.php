@@ -52,7 +52,22 @@ class SiteLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
     {
         try
         {
-            $r = $this->find($id);
+            $r = null;
+
+            if(is_numeric($id))
+                $r = $this->find($id);
+            else
+            {
+                $qb = $this->_em
+                           ->createQueryBuilder()
+                           ->select('r')
+                           ->from($this->getClassName(),'r')
+                           ->where('r.case = :case')
+                           ->setParameter('case',$this->_em->getReference('NSSentinelBundle:RotaVirusSiteLab',$id));
+
+                $r = $this->secure($qb)->getQuery()->getSingleResult();
+            }
+
             if($r)
                 return $r;
         }

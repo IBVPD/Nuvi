@@ -8,6 +8,7 @@ use NS\SecurityBundle\Annotation\Secured;
 use NS\SecurityBundle\Annotation\SecuredCondition;
 
 use NS\SentinelBundle\Form\Types\TripleChoice;
+use NS\SentinelBundle\Form\Types\ElisaResult;
 
 /**
  * Description of RotaVirusSiteLab
@@ -39,7 +40,7 @@ class RotaVirusSiteLab
 //v. Case-based Specimen Collection Data
     /**
      * stool_received_date
-     * @var DateTime $stoolReceivedDate
+     * @var \DateTime $stoolReceivedDate
      * @ORM\Column(name="stoolReceivedDate",type="date",nullable=true)
      */
     private $stoolReceivedDate;
@@ -61,7 +62,7 @@ class RotaVirusSiteLab
 
     /**
      * stool_test_date
-     * @var DateTime $stoolTestDate
+     * @var \DateTime $stoolTestDate
      * @ORM\Column(name="stoolTestDate",type="date",nullable=true)
      */
     private $stoolTestDate;
@@ -90,7 +91,7 @@ class RotaVirusSiteLab
 //RRL_name
     /**
      * RRL_stool_date
-     * @var DateTime $stoolSentToRRLDate
+     * @var \DateTime $stoolSentToRRLDate
      * @ORM\Column(name="stoolSentToRRLDate",type="date",nullable=true)
      */
     private $stoolSentToRRLDate;
@@ -104,7 +105,7 @@ class RotaVirusSiteLab
 
     /**
      * RRL_genotype_date
-     * @var DateTime $rrlGenoTypeDate
+     * @var \DateTime $rrlGenoTypeDate
      * @ORM\Column(name="rrlGenoTypeDate",type="date",nullable=true)
      */
     private $rrlGenoTypeDate;
@@ -126,7 +127,7 @@ class RotaVirusSiteLab
 //NL_name
     /**
      * NL_stool_date
-     * @var DateTime $stoolSentToNLDate
+     * @var \DateTime $stoolSentToNLDate
      * @ORM\Column(name="stoolSentToNLDate",type="date",nullable=true)
      */
     private $stoolSentToNLDate;
@@ -140,7 +141,7 @@ class RotaVirusSiteLab
 
     /**
      * NL_genotype_date
-     * @var DateTime $nlGenoTypeDate
+     * @var \DateTime $nlGenoTypeDate
      * @ORM\Column(name="nlGenoTypeDate",type="date",nullable=true)
      */
     private $nlGenoTypeDate;
@@ -254,7 +255,7 @@ class RotaVirusSiteLab
         return $this;
     }
 
-    public function setStoolReceivedDate(DateTime $stoolReceivedDate)
+    public function setStoolReceivedDate($stoolReceivedDate)
     {
         $this->stoolReceivedDate = $stoolReceivedDate;
         return $this;
@@ -272,7 +273,7 @@ class RotaVirusSiteLab
         return $this;
     }
 
-    public function setStoolTestDate(DateTime $stoolTestDate)
+    public function setStoolTestDate($stoolTestDate)
     {
         $this->stoolTestDate = $stoolTestDate;
         return $this;
@@ -296,7 +297,7 @@ class RotaVirusSiteLab
         return $this;
     }
 
-    public function setStoolSentToRRLDate(DateTime $stoolSentToRRLDate)
+    public function setStoolSentToRRLDate( $stoolSentToRRLDate)
     {
         $this->stoolSentToRRLDate = $stoolSentToRRLDate;
         return $this;
@@ -308,7 +309,7 @@ class RotaVirusSiteLab
         return $this;
     }
 
-    public function setRrlGenoTypeDate(DateTime $rrlGenoTypeDate)
+    public function setRrlGenoTypeDate( $rrlGenoTypeDate)
     {
         $this->rrlGenoTypeDate = $rrlGenoTypeDate;
         return $this;
@@ -326,7 +327,7 @@ class RotaVirusSiteLab
         return $this;
     }
 
-    public function setStoolSentToNLDate(DateTime $stoolSentToNLDate)
+    public function setStoolSentToNLDate($stoolSentToNLDate)
     {
         $this->stoolSentToNLDate = $stoolSentToNLDate;
         return $this;
@@ -338,7 +339,7 @@ class RotaVirusSiteLab
         return $this;
     }
 
-    public function setNlGenoTypeDate(DateTime $nlGenoTypeDate)
+    public function setNlGenoTypeDate($nlGenoTypeDate)
     {
         $this->nlGenoTypeDate = $nlGenoTypeDate;
         return $this;

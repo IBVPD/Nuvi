@@ -83,7 +83,7 @@ services:
       arguments: [ "@security.context", "@session", "@doctrine.orm.entity_manager" ]
       tags:
         - { name: form.type, alias: meningitis }
-    ns.sentinel.form.type.meningitis_sitelab:
+    ns.sentinel.form.type.rotavirus_sitelab:
       class: NS\SentinelBundle\Form\RotaVirusSiteLabType
       tags:
         - { name: form.type, alias: rotavirus_sitelab }

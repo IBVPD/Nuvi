@@ -15,7 +15,7 @@ use NS\SentinelBundle\Form\Types\Role;
  * Description of Meningitis
  * @author gnat
  */
-class MeningitisFilter implements \Serializable
+class Meningitis implements \Serializable
 {
     /**
      * @var string $id
