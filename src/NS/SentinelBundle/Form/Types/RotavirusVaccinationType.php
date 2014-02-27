@@ -20,6 +20,6 @@ class RotavirusVaccinationType extends ArrayChoice
 
     public function getName()
     {
-        return 'rotavirusvaccinationtype';
+        return 'RotavirusVaccinationType';
     }
 }

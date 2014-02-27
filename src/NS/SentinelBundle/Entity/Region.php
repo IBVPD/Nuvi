@@ -3,6 +3,7 @@
 namespace NS\SentinelBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use \Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Region
@@ -58,6 +59,12 @@ class Region implements \Serializable
     private $meningitisCases;
 
     /**
+     * @var RotaVirus
+     * @ORM\OneToMany(targetEntity="RotaVirus",mappedBy="region")
+     */
+    private $rotavirusCases;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -94,7 +101,9 @@ class Region implements \Serializable
      */
     public function __construct()
     {
-        $this->countries = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->countries       = new ArrayCollection();
+        $this->meningitisCases = new ArrayCollection();
+        $this->rotavirusCases  = new ArrayCollection();
     }
     
     public function __toString()
@@ -189,6 +198,39 @@ class Region implements \Serializable
     public function getMeningitisCases()
     {
         return $this->meningitisCases;
+    }
+
+    /**
+     * Add rotavirusCases
+     *
+     * @param \NS\SentinelBundle\Entity\Rotavirus $rotavirusCases
+     * @return Country
+     */
+    public function addRotavirusCase(\NS\SentinelBundle\Entity\Rotavirus $rotavirusCases)
+    {
+        $this->rotavirusCases[] = $rotavirusCases;
+
+        return $this;
+    }
+
+    /**
+     * Remove rotavirusCases
+     *
+     * @param \NS\SentinelBundle\Entity\Rotavirus $rotavirusCases
+     */
+    public function removeRotavirusCase(\NS\SentinelBundle\Entity\Rotavirus $rotavirusCases)
+    {
+        $this->rotavirusCases->removeElement($rotavirusCases);
+    }
+
+    /**
+     * Get rotavirusCases
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRotavirusCases()
+    {
+        return $this->rotavirusCases;
     }
 
     /**

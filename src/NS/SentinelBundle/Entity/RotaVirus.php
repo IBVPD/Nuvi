@@ -9,7 +9,10 @@ use NS\SentinelBundle\Form\Types\DischargeOutcome;
 use NS\SentinelBundle\Form\Types\Gender;
 use NS\SentinelBundle\Form\Types\RotavirusVaccinationReceived;
 use NS\SentinelBundle\Form\Types\RotavirusVaccinationType;
-use NS\SentinelBundle\Form\Types\ElisaResult;
+use NS\SentinelBundle\Form\Types\Dehydration;
+use NS\SentinelBundle\Form\Types\Rehydration;
+use NS\SentinelBundle\Form\Types\Doses;
+
 use \NS\SentinelBundle\Interfaces\IdentityAssignmentInterface;
 
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -281,6 +284,11 @@ class RotaVirus implements IdentityAssignmentInterface
      */
     private $comment;
 
+    public function hasId()
+    {
+        return !is_null($this->id);
+    }
+
     public function getId()
     {
         return $this->id;
@@ -520,9 +528,15 @@ class RotaVirus implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function setDob(\DateTime $dob)
+    public function setDob($dob)
     {
+        if(!$dob instanceOf \DateTime)
+            return;
+
         $this->dob = $dob;
+
+        $interval = ($this->admissionDate) ? $dob->diff($this->admissionDate) : $dob->diff(new \DateTime());
+        $this->setAge(($interval->format('%a') / 30));
         return $this;
     }
 
@@ -538,9 +552,16 @@ class RotaVirus implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function setAdmissionDate(\DateTime $admissionDate)
+    public function setAdmissionDate($admissionDate)
     {
         $this->admissionDate = $admissionDate;
+
+        if (($this->admissionDate && $this->dob))
+        {
+            $interval = $this->dob->diff($this->admissionDate);
+            $this->setAge(($interval->format('%a') / 30));
+        }
+
         return $this;
     }
 
@@ -550,7 +571,7 @@ class RotaVirus implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function setSymptomDiarrheaOnset(\DateTime $symptomDiarrheaOnset)
+    public function setSymptomDiarrheaOnset($symptomDiarrheaOnset)
     {
         $this->symptomDiarrheaOnset = $symptomDiarrheaOnset;
         return $this;
@@ -628,19 +649,19 @@ class RotaVirus implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function setFirstVaccinationDose(\DateTime $firstVaccinationDose)
+    public function setFirstVaccinationDose($firstVaccinationDose)
     {
         $this->firstVaccinationDose = $firstVaccinationDose;
         return $this;
     }
 
-    public function setSecondVaccinationDose(\DateTime $secondVaccinationDose)
+    public function setSecondVaccinationDose($secondVaccinationDose)
     {
         $this->secondVaccinationDose = $secondVaccinationDose;
         return $this;
     }
 
-    public function setThirdVaccinationDose(\DateTime $thirdVaccinationDose)
+    public function setThirdVaccinationDose($thirdVaccinationDose)
     {
         $this->thirdVaccinationDose = $thirdVaccinationDose;
         return $this;
@@ -658,7 +679,7 @@ class RotaVirus implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function setStoolCollectionDate(\DateTime $stoolCollectionDate)
+    public function setStoolCollectionDate($stoolCollectionDate)
     {
         $this->stoolCollectionDate = $stoolCollectionDate;
         return $this;
@@ -670,7 +691,7 @@ class RotaVirus implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function setDischargeDate(\DateTime $dischargeDate)
+    public function setDischargeDate($dischargeDate)
     {
         $this->dischargeDate = $dischargeDate;
         return $this;

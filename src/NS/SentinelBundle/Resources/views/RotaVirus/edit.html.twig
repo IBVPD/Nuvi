@@ -37,38 +37,23 @@
         </div>
     </div>
 
-    <div class="col-sm-4" >
+    <div class="col-sm-8" >
         <div class="widget-box">
             <div class="widget-header widget-header-small header-color-blue"><h6>{{'Vaccination History'|trans}}</h6></div>
             <div class="widget-body">
                 <div class="widget-main">
                     <div class="row">
                         <div class="col-sm-6">
-                            {{form_row(form.hibReceived)}}
-                            {{form_row(form.hibDoses)}}
-                            {{form_row(form.pcvReceived)}}
-                            {{form_row(form.pcvDoses)}}
+                            {{form_row(form.vaccinationReceived)}}
+                            {{form_row(form.vaccinationType)}}
+                            {{form_row(form.doses)}}
                         </div>
                         <div class="col-sm-6">
-                            {{form_row(form.meningReceived)}}
-                            {{form_row(form.meningDoses)}}
-                            {{form_row(form.dtpReceived)}}
-                            {{form_row(form.dtpDoses)}}
+                            {{form_row(form.firstVaccinationDose)}}
+                            {{form_row(form.secondVaccinationDose)}}
+                            {{form_row(form.thirdVaccinationDose)}}
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-sm-4">
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Clinical Data'|trans}}</h6></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    {{form_row(form.admDate)}}
-                    {{form_row(form.admDx)}}
-                    {{form_row(form.admDxOther)}}
                 </div>
             </div>
         </div>
@@ -76,46 +61,29 @@
 </div>
 
 <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-12">
         <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Meningitis'|trans}}</h6></div>
+            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Clinical Data'|trans}}</h6></div>
             <div class="widget-body">
                 <div class="widget-main">
                     <div class="row">
-                        <div class="col-sm-6">
-                            {{form_row(form.menSeizures)}}
-                            {{form_row(form.menFever)}}
-                            {{form_row(form.menAltConscious)}}
-                            {{form_row(form.menInabilityFeed)}}
-                            {{form_row(form.menStridor)}}
-                            {{form_row(form.menNeckStiff)}}
+                        <div class="col-sm-4">
+                            {{form_row(form.admissionDate)}}
+                            {{form_row(form.symptomDiarrhea)}}
+                            {{form_row(form.symptomDiarrheaOnset)}}
+                            {{form_row(form.symptomDiarrheaEpisodes)}}
                         </div>
-                        <div class="col-sm-6">
-                            {{form_row(form.menRash)}}
-                            {{form_row(form.menFontanelleBulge)}}
-                            {{form_row(form.menLethargy)}}
-                            {{form_row(form.menPoorSucking)}}
-                            {{form_row(form.menIrritability)}}
-                            {{form_row(form.menSymptomOther)}}
+                        <div class="col-sm-4">
+                            {{form_row(form.symptomDiarrheaDuration)}}
+                            {{form_row(form.symptomDiarrheaVomit)}}
+                            {{form_row(form.symptomVomitEpisodes)}}
+                            {{form_row(form.symptomVomitDuration)}}
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-6">
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Pneumonia / Sepsis'|trans}}</h6></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    <div class="row">
-                        <div class="col-sm-8">
-                            {{form_row(form.pneuDiffBreathe)}}
-                            {{form_row(form.pneuChestIndraw)}}
-                            {{form_row(form.pneuCough)}}
-                            {{form_row(form.pneuCyanosis)}}
-                            {{form_row(form.pneuRespRate)}}
-                            {{form_row(form.pneuSymptomOther)}}
+                        <div class="col-sm-4">
+                            {{form_row(form.symptomDehydration)}}
+                            {{form_row(form.rehydration)}}
+                            {{form_row(form.rehydrationType)}}
+                            {{form_row(form.rehydrationOther)}}
                         </div>
                     </div>
                 </div>
@@ -130,10 +98,9 @@
             <div class="widget-header widget-header-small header-color-blue"><h6>{{'Specimen Collection Data'|trans}}</h6></div>
             <div class="widget-body">
                 <div class="widget-main">
-                    {{form_row(form.csfCollected)}}
-                    {{form_row(form.csfCollectDateTime)}}
-                    {{form_row(form.csfAppearance)}}
-                    {{form_row(form.bloodCollected)}}
+                    {{form_row(form.stoolCollected)}}
+                    {{form_row(form.stoolId)}}
+                    {{form_row(form.stoolCollectionDate)}}
                 </div>
             </div>
         </div>
