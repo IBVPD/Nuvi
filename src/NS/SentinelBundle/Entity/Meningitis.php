@@ -13,7 +13,6 @@ use NS\SentinelBundle\Form\Types\Gender;
 use NS\SentinelBundle\Form\Types\Role;
 use \NS\SentinelBundle\Interfaces\IdentityAssignmentInterface;
 
-// Annotations
 use Gedmo\Mapping\Annotation as Gedmo;
 use \NS\SecurityBundle\Annotation\Secured;
 use \NS\SecurityBundle\Annotation\SecuredCondition;
@@ -53,19 +52,19 @@ class Meningitis implements IdentityAssignmentInterface
 
     /**
      * @var Region $region
-     * @ORM\ManyToOne(targetEntity="Region",inversedBy="cases")
+     * @ORM\ManyToOne(targetEntity="Region",inversedBy="meningitisCases")
      */
     private $region;
 
     /**
      * @var Country $country
-     * @ORM\ManyToOne(targetEntity="Country",inversedBy="cases")
+     * @ORM\ManyToOne(targetEntity="Country",inversedBy="meningitisCases")
      */
     private $country;
 
     /**
      * @var Site $site
-     * @ORM\ManyToOne(targetEntity="Site",inversedBy="cases")
+     * @ORM\ManyToOne(targetEntity="Site",inversedBy="meningitisCases")
      */
     private $site;
 

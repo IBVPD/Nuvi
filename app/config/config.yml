@@ -76,6 +76,11 @@ doctrine:
             Volume: NS\SentinelBundle\Entity\Types\Volume
             SerotypeIdentifier: NS\SentinelBundle\Entity\Types\SerotypeIdentifier
             PathogenIdentifier: NS\SentinelBundle\Entity\Types\PathogenIdentifier
+            Rehydration: NS\SentinelBundle\Entity\Types\Rehydration
+            Dehydration: NS\SentinelBundle\Entity\Types\Dehydration
+            RotavirusVaccinationReceived: NS\SentinelBundle\Entity\Types\RotavirusVaccinationReceived
+            RotavirusVaccinationType: NS\SentinelBundle\Entity\Types\RotavirusVaccinationType
+            ElisaResult: NS\SentinelBundle\Entity\Types\ElisaResult
         mapping_types:
             TripleChoice: TripleChoice
             Doses: Doses
@@ -95,6 +100,11 @@ doctrine:
             Volume: Volume
             SerotypeIdentifier: SerotypeIdentifier
             PathogenIdentifier: PathogenIdentifier
+            Rehydration: Rehydration
+            Dehydration: Dehydration
+            RotavirusVaccinationReceived: RotavirusVaccinationReceived
+            RotavirusVaccinationType: RotavirusVaccinationType
+            ElisaResult: ElisaResult
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true

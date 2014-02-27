@@ -2,6 +2,27 @@ parameters:
 #    ns_sentinel.example.class: NS\SentinelBundle\Example
 
 services:
+    ns.sentinel.form.type.elisaresult:
+      class: NS\SentinelBundle\Form\Types\ElisaResult
+      tags:
+        - { name: form.type, alias: ElisaResult }
+    ns.sentinel.form.type.rotavirusvaccinationtype:
+      class: NS\SentinelBundle\Form\Types\RotavirusVaccinationType
+      tags:
+        - { name: form.type, alias: RotavirusVaccinationType }
+
+    ns.sentinel.form.type.rotavirusvaccinationreceived:
+      class: NS\SentinelBundle\Form\Types\RotavirusVaccinationReceived
+      tags:
+        - { name: form.type, alias: RotavirusVaccinationReceived }
+    ns.sentinel.form.type.dehydration:
+      class: NS\SentinelBundle\Form\Types\Dehydration
+      tags:
+        - { name: form.type, alias: Dehydration }
+    ns.sentinel.form.type.rehydration:
+      class: NS\SentinelBundle\Form\Types\Rehydration
+      tags:
+        - { name: form.type, alias: Rehydration }
     ns.sentinel.form.result_per_page:
       class: NS\SentinelBundle\Form\ResultPerPage
       arguments: [ "meningitisIndex" ]

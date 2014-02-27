@@ -101,7 +101,7 @@ class Site implements \Serializable
      * @var Meningitis
      * @ORM\OneToMany(targetEntity="Meningitis",mappedBy="site")
      */
-    private $cases;
+    private $meningitisCases;
     
     /**
      * Get id
@@ -191,40 +191,40 @@ class Site implements \Serializable
      */
     public function __construct()
     {
-        $this->cases = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->meningitisCases = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
-     * Add cases
+     * Add meningitisCases
      *
-     * @param \NS\SentinelBundle\Entity\Meningitis $cases
+     * @param \NS\SentinelBundle\Entity\Meningitis $meningitisCases
      * @return Site
      */
-    public function addCase(\NS\SentinelBundle\Entity\Meningitis $cases)
+    public function addMeningitisCase(\NS\SentinelBundle\Entity\Meningitis $meningitisCases)
     {
-        $this->cases[] = $cases;
+        $this->meningitisCases[] = $meningitisCases;
     
         return $this;
     }
 
     /**
-     * Remove cases
+     * Remove meningitisCases
      *
-     * @param \NS\SentinelBundle\Entity\Meningitis $cases
+     * @param \NS\SentinelBundle\Entity\Meningitis $meningitisCases
      */
-    public function removeCase(\NS\SentinelBundle\Entity\Meningitis $cases)
+    public function removeMeningitisCase(\NS\SentinelBundle\Entity\Meningitis $meningitisCases)
     {
-        $this->cases->removeElement($cases);
+        $this->meningitisCases->removeElement($meningitisCases);
     }
 
     /**
-     * Get cases
+     * Get meningitisCases
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getCases()
+    public function getMeningitisCases()
     {
-        return $this->cases;
+        return $this->meningitisCases;
     }
 
     /**
