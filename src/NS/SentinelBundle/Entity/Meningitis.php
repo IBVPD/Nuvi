@@ -5,12 +5,11 @@ namespace NS\SentinelBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Form\Types\CSFAppearance;
-use NS\SentinelBundle\Form\Types\CXRResult;
 use NS\SentinelBundle\Form\Types\Diagnosis;
 use NS\SentinelBundle\Form\Types\DischargeOutcome;
 use NS\SentinelBundle\Form\Types\Doses;
 use NS\SentinelBundle\Form\Types\Gender;
-use NS\SentinelBundle\Form\Types\Role;
+use NS\SentinelBundle\Form\Types\MeningitisCaseStatus;
 use \NS\SentinelBundle\Interfaces\IdentityAssignmentInterface;
 
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -22,6 +21,7 @@ use \NS\SecurityBundle\Annotation\SecuredCondition;
  * @author gnat
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\Meningitis")
  * @ORM\Table(name="meningitis_cases")
+ * @ORM\HasLifecycleCallbacks
  * @Gedmo\Loggable
  * @Secured(conditions={
  *      @SecuredCondition(roles={"ROLE_REGION"},relation="region",class="NSSentinelBundle:Region"),
@@ -320,12 +320,19 @@ class Meningitis implements IdentityAssignmentInterface
      */
     private $comment;
 
+    /**
+     * @var MeningitisCaseStatus $status
+     * @ORM\Column(name="status",type="MeningitisCaseStatus")
+     */
+    private $status;
+
     public function __construct()
     {
         $this->dob                = new \DateTime();
         $this->admDate            = new \DateTime();
         $this->csfCollectDateTime = new \DateTime();
         $this->csfLabDateTime     = new \DateTime();
+        $this->status             = new MeningitisCaseStatus();
     }
 
     public function __toString()
@@ -968,5 +975,66 @@ class Meningitis implements IdentityAssignmentInterface
     public function hasReferenceLab()
     {
         return ($this->referenceLab instanceof ReferenceLab);
-    }    
+    }
+
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    public function setStatus(MeningitisCaseStatus $status)
+    {
+        $this->status = $status;
+        return $this;
+    }
+
+    /**
+     * @ORM/PrePersist
+     */
+
+    public function prePersist()
+    {
+    }
+
+    /** 
+     * @ORM/PreUpdate 
+     */
+    public function preUpdate()
+    {
+    }
+
+    /**
+     * Suspected: 0-59 months, with fever, one of the following: stiff neck, altered conciousness and no other sign
+     *              OR
+     *            Every patient 0-59 months hospitalized with clinical diagnosis of meningitis
+     *
+     * Probable: Suspected + CSF examination as one of the following
+     *              - Turbid appearance
+     *              - Leukocytosis ( > 100 cells/mm3)
+     *              - Leukocytosis ( 10-100 cells/mm3) AND either elevated protein (> 100mg/dl) or decreased glucose (< 400 mg/dl)
+     * Confirmed: Suspected + culture or (Gram stain, antigen detection, immunochromotagraphy, PCR or other methods)
+     *            a bacterial pathogen (Hib, pneumococcus or meningococcus) in the CSF or from the blood in a child with a clinical
+     *            syndrome consisten with bacterial meningitis
+     *
+     */
+    private function _calculateStatus()
+    {
+        // Test Suspected
+        if($this->ageInMonths < 60 && $this->menFever->equal(TripleChoice::YES) )
+        {
+            if($this->menAltConscious->equal(TripleChoice::YES) || $this->menNeckStiff->equal(TripleChoice::YES))
+                $this->status->setValue (MeningitisCaseStatus::SUSPECTED);
+        }
+        else if($this->ageInMonths < 60 && $this->admDx->equal(Diagnosis::MENINGITIS))
+            $this->status->setValue (MeningitisCaseStatus::SUSPECTED);
+
+        if($this->status->equal(MeningitisCaseStatus::SUSPECTED))
+        {
+            // Probable
+            if($this->csfAppearance->equal(CSFAppearance::TURBID))
+                $this->status->setValue (MeningitisCaseStatus::PROBABLE);
+
+            // Confirmed
+        }
+    }
 }

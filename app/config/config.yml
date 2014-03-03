@@ -81,6 +81,7 @@ doctrine:
             RotavirusVaccinationReceived: NS\SentinelBundle\Entity\Types\RotavirusVaccinationReceived
             RotavirusVaccinationType: NS\SentinelBundle\Entity\Types\RotavirusVaccinationType
             ElisaResult: NS\SentinelBundle\Entity\Types\ElisaResult
+            MeningitisCaseStatus: NS\SentinelBundle\Entity\Types\MeningitisCaseStatus
         mapping_types:
             TripleChoice: TripleChoice
             Doses: Doses
@@ -105,6 +106,7 @@ doctrine:
             RotavirusVaccinationReceived: RotavirusVaccinationReceived
             RotavirusVaccinationType: RotavirusVaccinationType
             ElisaResult: ElisaResult
+            MeningitisCaseStatus: MeningitisCaseStatus
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true

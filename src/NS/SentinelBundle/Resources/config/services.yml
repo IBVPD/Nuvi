@@ -2,6 +2,10 @@ parameters:
 #    ns_sentinel.example.class: NS\SentinelBundle\Example
 
 services:
+    ns.sentinel.form.type.meningitiscasestatus:
+      class: NSSentinelBundle\Form\Types\MeningitisCaseStatus
+      tags:
+        - { name: form.type, alias: MeningitisCaseStatus }
     ns.sentinel.form.type.elisaresult:
       class: NS\SentinelBundle\Form\Types\ElisaResult
       tags:
