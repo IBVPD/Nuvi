@@ -5,22 +5,18 @@ namespace NS\SentinelBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
-use NS\SentinelBundle\Form\Types\Role;
 
 class RotaVirusType extends AbstractType
 {
-    private $securityContext;
     private $session;
     private $em;
 
-    public function __construct(SecurityContextInterface $context, Session $session, ObjectManager $em)
+    public function __construct(Session $session, ObjectManager $em)
     {
-        $this->securityContext = $context;
         $this->session         = $session;
         $this->em              = $em;
     }
@@ -64,60 +60,51 @@ class RotaVirusType extends AbstractType
         ;
 
         $factory = $builder->getFormFactory();
-        $em = &$this->em;
-        $sc = &$this->securityContext;
-        $se = &$this->session;
+        $em = $this->em;
+        $se = $this->session;
 
         $builder->addEventListener(
                         FormEvents::PRE_SET_DATA,
-                        function(FormEvent $event) use($factory,$sc,$se,$em)
+                        function(FormEvent $event) use($factory,$se,$em)
                         {
-                            $form        = $event->getForm();
-                            $data        = $event->getData();
-                            $user        = $sc->getToken()->getUser();
-                            $sites       = $se->get('sites',array());
+                            $form  = $event->getForm();
+                            $sites = unserialize($se->get('sites'));
 
-                            if(!$data) // new object
+                            if(!$sites || count($sites) == 0) // empty session site array so build and store
                             {
-                                if(count($sites) == 0) // empty session site array so build and store
-                                {
-                                    foreach($user->getAcls() as $acl)
-                                    {
-                                        if($acl->getType()->equal(Role::SITE))
-                                            $sites[] = $acl->getObjectId();
-                                    }
+                                $sites = $em->getRepository('NS\SentinelBundle\Entity\Site')->getChain();
 
-                                    $sites = $em->getRepository('NSSentinelBundle:Site')->getChain((count($sites) > 1) ? $sites : array_pop($sites));
+                                $se->set('sites',serialize($sites));
+                            }
 
-                                    $se->set('sites',$sites);
-                                }
-
-                                if($user->getAcls()->count() > 1)
-                                {
-                                    $transformer = new \NS\SentinelBundle\Form\Transformer\IdToReference($em,$se);
-                                    $form->add($factory->createNamed('site','choice',null,array('required' => true,
-                                                                                              'empty_value' => 'Please Select...',
-                                                                                              'label' => 'rotavirus-form.site',
-                                                                                              'choices' => $sites,
-                                                                                              'auto_initialize' => false)));
-                                }
+                            if(count($sites) > 1)
+                            {
+                                $form->add($factory->createNamed('site','entity',null,array('required'        => true,
+                                                                                            'empty_value'     => 'Please Select...',
+                                                                                            'label'           => 'rotavirus-form.site',
+//                                                                                            'choices'         => $sites,
+                                                                                            'query_builder'   => $em->getRepository('NS\SentinelBundle\Entity\Site')->getChainQueryBuilder(),
+                                                                                            'class'           => 'NS\SentinelBundle\Entity\Site',
+                                                                                            'auto_initialize' => false))
+                                          );
                             }
                         }
             );
         $builder->addEventListener(
                         FormEvents::SUBMIT,
-                        function(FormEvent $event) use ($sc,$se,$em)
+                        function(FormEvent $event) use ($se,$em)
                         {
-                            $user = $sc->getToken()->getUser();
-                            if($user->getAcls()->count() > 1) // they'll be choosing so exit
+                            $sites = unserialize($se->get('sites'));
+
+                            if($sites && count($sites) > 1) // they'll be choosing so exit
                                 return;
 
                             $data = $event->getData();
                             if(!$data || $data->hasId()) // no editing of sites
                                 return;
 
-                            $sites = $se->get('sites',array()); // should be array with single site
-                            $site = array_pop($sites);
+                            // current gets us the one site we are able to see since we test for count > 1 above
+                            $site = current($sites);
 
                             if(!$em->contains($site))
                             {
@@ -135,7 +122,6 @@ class RotaVirusType extends AbstractType
                             $event->setData($data);
                         }
                 );
-        ;
     }
     
     /**

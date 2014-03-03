@@ -65,11 +65,6 @@ services:
     ns.sentinel.user_provider:
       class: NS\SentinelBundle\Security\UserProvider
       arguments: [ "@doctrine.orm.entity_manager" ]
-    ns.sentinel.form.type.site:
-      class: NS\SentinelBundle\Form\Types\SiteType
-      arguments: [ "@doctrine.orm.entity_manager", "@session" ]
-      tags:
-        - { name: form.type, alias: site_select }
     ns.sentinel.form.type.meningitis_rrl:
       class: NS\SentinelBundle\Form\ReferenceLabType
       tags:
@@ -80,7 +75,7 @@ services:
         - { name: form.type, alias: meningitis_sitelab }
     ns.sentinel.form.type.meningitis:
       class: NS\SentinelBundle\Form\MeningitisType
-      arguments: [ "@security.context", "@session", "@doctrine.orm.entity_manager" ]
+      arguments: [ "@session", "@ns.model_manager" ]
       tags:
         - { name: form.type, alias: meningitis }
     ns.sentinel.form.type.rotavirus_sitelab:
@@ -89,7 +84,7 @@ services:
         - { name: form.type, alias: rotavirus_sitelab }
     ns.sentinel.form.type.rotavirus:
       class: NS\SentinelBundle\Form\RotaVirusType
-      arguments: [ "@security.context", "@session", "@doctrine.orm.entity_manager" ]
+      arguments: [ "@session", "@ns.model_manager" ]
       tags:
         - { name: form.type, alias: rotavirus }
     ns.sentinel.form.type.pathogenidentifier:

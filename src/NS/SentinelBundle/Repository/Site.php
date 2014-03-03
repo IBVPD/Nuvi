@@ -12,22 +12,27 @@ use NS\SentinelBundle\Repository\Common as CommonRepository;
  */
 class Site extends CommonRepository
 {
-    public function getChain($ids)
+    public function getChain($ids = null)
     {
-        $qb = $this->_em->createQueryBuilder()
-                ->select('s,c,r')
-                ->from('NSSentinelBundle:Site','s','s.id')
-                ->innerJoin('s.country', 'c')
-                ->innerJoin('c.region', 'r');
+        $qb = $this->getChainQueryBuilder();
 
         if(is_array($ids))
             $qb->add('where', $qb->expr()->in('s.id', '?1'))->setParameter(1, $ids);
         else if(is_numeric($ids))
-            $qb->where('s.id = :id')->setParameter('id',$ids);
-        else
-            throw new \InvalidArgumentException(sprintf("Must provide an array of ids or single integers. Received: %s",gettype($ids)));
-        
+            $qb->andWhere('s.id = :id')->setParameter('id',$ids);
+
         return $qb->getQuery()->getResult();
+    }
+
+    public function getChainQueryBuilder()
+    {
+        $qb = $this->_em->createQueryBuilder()
+                ->select('s,c,r')
+                ->from('NS\SentinelBundle\Entity\Site','s','s.id')
+                ->innerJoin('s.country', 'c')
+                ->innerJoin('c.region', 'r');
+
+        return $this->secure($qb);
     }
 
     public function getChainByCode($codes)
