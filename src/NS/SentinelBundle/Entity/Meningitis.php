@@ -989,7 +989,7 @@ class Meningitis implements IdentityAssignmentInterface
     }
 
     /**
-     * @ORM/PrePersist
+     * @ORM\PrePersist
      */
 
     public function prePersist()
@@ -997,7 +997,7 @@ class Meningitis implements IdentityAssignmentInterface
     }
 
     /** 
-     * @ORM/PreUpdate 
+     * @ORM\PreUpdate
      */
     public function preUpdate()
     {
