@@ -332,7 +332,7 @@ class Meningitis implements IdentityAssignmentInterface
         $this->admDate            = new \DateTime();
         $this->csfCollectDateTime = new \DateTime();
         $this->csfLabDateTime     = new \DateTime();
-        $this->status             = new MeningitisCaseStatus();
+        $this->status             = new MeningitisCaseStatus(0);
     }
 
     public function __toString()
