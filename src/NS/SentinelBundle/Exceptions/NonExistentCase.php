@@ -2,11 +2,13 @@
 
 namespace NS\SentinelBundle\Exceptions;
 
+use Doctrine\ORM\UnexpectedResultException;
+
 /**
  * Description of NonExistentCase
  *
  * @author gnat
  */
-class NonExistentCase extends \RuntimeException
+class NonExistentCase extends UnexpectedResultException
 {
 }

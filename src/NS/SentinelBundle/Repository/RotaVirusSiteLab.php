@@ -6,6 +6,7 @@ use NS\SecurityBundle\Doctrine\SecuredEntityRepository;
 use NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
 use NS\SentinelBundle\Exceptions\NonExistentCase;
 use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\UnexpectedResultException;
 
 /**
  * SiteLab
@@ -52,6 +53,7 @@ class RotaVirusSiteLab extends SecuredEntityRepository implements AjaxAutocomple
     {
         try
         {
+            // find existing rota virus
             $r = null;
 
             if(is_numeric($id))
@@ -71,13 +73,19 @@ class RotaVirusSiteLab extends SecuredEntityRepository implements AjaxAutocomple
             if($r)
                 return $r;
         }
-        catch(NonExistentCase $e)
+        catch(UnexpectedResultException $e)
         {
-            $record = new \NS\SentinelBundle\Entity\RotaVirusSiteLab();
-            $m      = $this->_em->getRepository('NSSentinelBundle:RotaVirus')->checkExistence($id);
-            $record->setCase($m);
+            // Didn't find existing rota virus
+            if($e instanceof NoResultException || $e instanceof NonExistentCase)
+            {
+                $record = new \NS\SentinelBundle\Entity\RotaVirusSiteLab();
+                $m      = $this->_em->getRepository('NSSentinelBundle:RotaVirus')->checkExistence($id);
+                $record->setCase($m);
 
-            return $record;
+                return $record;
+            }
+
+            throw $e;
         }
     }
 

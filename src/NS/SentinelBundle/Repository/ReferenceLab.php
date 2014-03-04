@@ -48,15 +48,40 @@ class ReferenceLab extends SecuredEntityRepository implements AjaxAutocompleteRe
 
     public function findOrCreateNew($id)
     {
-        $r = parent::find($id);
-        if($r)
-            return $r;
+        try
+        {
+            $r = null;
 
-        $record = new \NS\SentinelBundle\Entity\ReferenceLab();
-        $m      = $this->_em->getRepository('NSSentinelBundle:Meningitis')->checkExistence($id);
-        $record->setCase($m);
+            if(is_numeric($id))
+                $r = $this->find($id);
+            else
+            {
+                $qb = $this->_em
+                           ->createQueryBuilder()
+                           ->select('r')
+                           ->from($this->getClassName(),'r')
+                           ->where('r.case = :case')
+                           ->setParameter('case',$this->_em->getReference('NSSentinelBundle:RotaVirusSiteLab',$id));
 
-        return $record;
+                $r = $this->secure($qb)->getQuery()->getSingleResult();
+            }
+
+            if($r)
+                return $r;
+        }
+        catch(UnexpectedResultException $e)
+        {
+            if($e instanceof NoResultException || $e instanceof NonExistentCase)
+            {
+                $record = new \NS\SentinelBundle\Entity\ReferenceLab();
+                $m      = $this->_em->getRepository('NSSentinelBundle:Meningitis')->checkExistence($id);
+                $record->setCase($m);
+
+                return $record;
+            }
+
+            throw $e;
+        }
     }
 
     public function find($id)

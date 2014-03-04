@@ -6,6 +6,7 @@ use NS\SecurityBundle\Doctrine\SecuredEntityRepository;
 use NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
 use NS\SentinelBundle\Exceptions\NonExistentCase;
 use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\UnexpectedResultException;
 
 /**
  * SiteLab
@@ -71,13 +72,18 @@ class SiteLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
             if($r)
                 return $r;
         }
-        catch(NonExistentCase $e)
+        catch(UnexpectedResultException $e)
         {
-            $record = new \NS\SentinelBundle\Entity\SiteLab();
-            $m      = $this->_em->getRepository('NSSentinelBundle:Meningitis')->checkExistence($id);
-            $record->setCase($m);
+            if($e instanceof NoResultException || $e instanceof NonExistentCase)
+            {
+                $record = new \NS\SentinelBundle\Entity\SiteLab();
+                $m      = $this->_em->getRepository('NSSentinelBundle:Meningitis')->checkExistence($id);
+                $record->setCase($m);
 
-            return $record;
+                return $record;
+            }
+
+            throw $e;
         }
     }
 
