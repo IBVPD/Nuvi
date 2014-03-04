@@ -50,22 +50,30 @@ class SecurityController extends Controller
     
     /**
      * @Route("/{_locale}",name="homepage")
+     * @Template()
      */
     public function homepageAction(Request $request)
     {
-        $sc = $this->get('security.context');
-        
-        if($sc->isGranted('ROLE_REGION'))
-            return $this->forward ("NSSentinelBundle:User:regionDashboard",array('_route'=>'homepage'));
-        if($sc->isGranted('ROLE_COUNTRY'))
-            return $this->forward ("NSSentinelBundle:User:countryDashboard",array('_route'=>'homepage'));
-        if($sc->isGranted('ROLE_SITE'))
-            return $this->forward ("NSSentinelBundle:User:siteDashboard",array('_route'=>'homepage'));
-        if($sc->isGranted('ROLE_LAB')||$sc->isGranted('ROLE_RRL_LAB'))
-            return $this->forward ("NSSentinelBundle:User:labDashboard",array('_route'=>'homepage'));
-        if($sc->isGranted('ROLE_ADMIN'))
-            return $this->redirect ($this->generateUrl ('sonata_admin_dashboard'));
+        $repo        = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:Meningitis");
+        $byCountry   = $repo->getByCountry();
+        $bySite      = $repo->getBySite();
+//        $byStat      = $repo->getStats();
+        $byDiagnosis = $repo->getByDiagnosis();
 
-        throw new UnauthorizedHttpException(null, "You have no roles!");
+        return array('byCountry'=>$byCountry,'bySite'=>$bySite,/*'byStats'=>$byStat,*/'byDiagnosis'=>$byDiagnosis);
+//        $sc = $this->get('security.context');
+//
+//        if($sc->isGranted('ROLE_REGION'))
+//            return $this->forward ("NSSentinelBundle:User:regionDashboard",array('_route'=>'homepage'));
+//        if($sc->isGranted('ROLE_COUNTRY'))
+//            return $this->forward ("NSSentinelBundle:User:countryDashboard",array('_route'=>'homepage'));
+//        if($sc->isGranted('ROLE_SITE'))
+//            return $this->forward ("NSSentinelBundle:User:siteDashboard",array('_route'=>'homepage'));
+//        if($sc->isGranted('ROLE_LAB')||$sc->isGranted('ROLE_RRL_LAB'))
+//            return $this->forward ("NSSentinelBundle:User:labDashboard",array('_route'=>'homepage'));
+//        if($sc->isGranted('ROLE_ADMIN'))
+//            return $this->redirect ($this->generateUrl ('sonata_admin_dashboard'));
+//
+//        throw new UnauthorizedHttpException(null, "You have no roles!");
     }
 }

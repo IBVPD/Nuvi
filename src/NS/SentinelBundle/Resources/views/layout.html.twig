@@ -1,5 +1,14 @@
 {%extends "NSAceBundle::base.html.twig" %}
 
+    {% block javascripts %}
+        {{parent()}}
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript">
+            google.load("visualization", "1", {packages:["corechart"]});
+            var google_charts   = new Array();
+        </script>
+    {% endblock %}
+
     {%block ace_settings %}{% endblock %}
 
     {% block sitebrand_text %}
