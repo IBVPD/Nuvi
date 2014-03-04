@@ -3,72 +3,30 @@
 {% block pagedescription %}{{'Common Reports'|trans}}{%endblock %}
 
 {% block body %}
-<!--<div class="row">
-    <div class="col-sm-4 col-md-4 col-lg-4">
-        <div class="widget-box transparent">
-            <div class="widget-header widget-header-flat">
-                <h4 class="lighter"><i class="icon-signal"></i> Annual % Age Distribution of Suspect Meningitis Cases</h4>
-
-                <div class="widget-toolbar">
-                    <a href="#" data-action="collapse">
-                        <i class="icon-chevron-up"></i>
-                    </a>
-                </div>
-            </div>
-
-            <div class="widget-body">
-                <div class="widget-main padding-4">
-                    <div id="annual-age-distribution-suspect-meningitis" style="width: 100%; height: 220px; padding: 0px; position: relative;"></div>
-                </div> /widget-main 
-            </div> /widget-body 
-        </div> /widget-box 
-    </div>
-    <div class="col-sm-4 col-md-4 col-lg-4">
-        <div class="widget-box transparent">
-            <div class="widget-header widget-header-flat">
-                <h4 class="lighter"><i class="icon-signal"></i>Annual % Age Distribution of Probable Bacterial Meningitis Cases</h4>
-
-                <div class="widget-toolbar">
-                    <a href="#" data-action="collapse">
-                        <i class="icon-chevron-up"></i>
-                    </a>
-                </div>
-            </div>
-
-            <div class="widget-body">
-                <div class="widget-main padding-4">
-                    <div id="annual-age-distribution-probable-meningitis" style="width: 100%; height: 220px; padding: 0px; position: relative;">
-                    </div>
-                </div> /widget-main 
-            </div> /widget-body 
-
-        </div> /widget-box 
-    </div>
-    
-    <div class="col-sm-4 col-md-4 col-lg-4">
-        <div class="widget-box transparent">
-            <div class="widget-header widget-header-flat">
-                <h4 class="lighter"><i class="icon-signal"></i>Monthly Number of Suspect Meningitis, Pneumonia and Sepsis Cases</h4>
-
-                <div class="widget-toolbar">
-                    <a href="#" data-action="collapse">
-                        <i class="icon-chevron-up"></i>
-                    </a>
-                </div>
-            </div>
-
-            <div class="widget-body">
-                <div class="widget-main padding-4">
-                    <div id="sales-charts" style="width: 100%; height: 220px; padding: 0px; position: relative;">
-                    </div>
-                </div> /widget-main 
-            </div> /widget-body 
-        </div> /widget-box 
-    </div>
-</div>-->
-
 <div class="row">
-    <div class="col-sm-4 col-md-4 col-lg-4">
+    <div class="col-sm-3 col-md-3 col-lg-3">
+        <div class="widget-box transparent">
+            <div class="widget-header widget-header-flat">
+                <h4 class="lighter"><i class="icon-signal"></i>Stats</h4>
+
+                <div class="widget-toolbar">
+                    <a href="#" data-action="collapse">
+                        <i class="icon-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="widget-body">
+                <div class="widget-main padding-3">
+                    <div id="generalStatistics" style="width: 100%; height: 220px; padding: 0px; position: relative;">
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>    
+    <div class="col-sm-3 col-md-3 col-lg-3">
         <div class="widget-box transparent">
             <div class="widget-header widget-header-flat">
                 <h4 class="lighter"><i class="icon-signal"></i>By Diagnosis</h4>
@@ -81,16 +39,16 @@
             </div>
 
             <div class="widget-body">
-                <div class="widget-main padding-4">
+                <div class="widget-main padding-3">
                     <div id="byDiagnosisStatistics" style="width: 100%; height: 220px; padding: 0px; position: relative;">
                         
                     </div>
-                </div><!-- /widget-main -->
-            </div><!-- /widget-body -->
+                </div>
+            </div>
 
-        </div><!-- /widget-box -->
+        </div>
     </div>
-    <div class="col-sm-4 col-md-4 col-lg-4">
+    <div class="col-sm-3 col-md-3 col-lg-3">
         <div class="widget-box transparent">
             <div class="widget-header widget-header-flat">
                 <h4 class="lighter"><i class="icon-signal"></i>By Country</h4>
@@ -103,16 +61,16 @@
             </div>
 
             <div class="widget-body">
-                <div class="widget-main padding-4">
+                <div class="widget-main padding-3">
                     <div id="countryStatistics" style="width: 100%; height: 220px; padding: 0px; position: relative;">
 
                     </div>
-                </div><!-- /widget-main -->
-            </div><!-- /widget-body -->
+                </div>
+            </div>
 
-        </div><!-- /widget-box -->
+        </div>
     </div>
-    <div class="col-sm-4 col-md-4 col-lg-4">
+    <div class="col-sm-3 col-md-3 col-lg-3">
         <div class="widget-box transparent">
             <div class="widget-header widget-header-flat">
                 <h4 class="lighter"><i class="icon-signal"></i>By Site</h4>
@@ -125,42 +83,84 @@
             </div>
 
             <div class="widget-body">
-                <div class="widget-main padding-4">
+                <div class="widget-main padding-3">
                     <div id="bySite" style="width: 100%; height: 220px; padding: 0px; position: relative;">
 
                     </div>
-                </div><!-- /widget-main -->
-            </div><!-- /widget-body -->
+                </div>
+            </div>
 
-        </div><!-- /widget-box -->
+        </div>
     </div>    
+</div>
+
+<div class="row">
+    <div class="col-sm-3 col-md-3 col-lg-3">
+        <div class="widget-box transparent">
+            <div class="widget-header widget-header-flat">
+                <h4 class="lighter"><i class="icon-signal"></i> Annual % Age Distribution of Suspect Meningitis Cases</h4>
+
+                <div class="widget-toolbar">
+                    <a href="#" data-action="collapse">
+                        <i class="icon-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="widget-body">
+                <div class="widget-main padding-3">
+                    <div id="annual-age-distribution-suspect-meningitis" style="width: 100%; height: 220px; padding: 0px; position: relative;"></div>
+                </div>
+            </div> 
+        </div> 
+    </div>
+    <div class="col-sm-3 col-md-3 col-lg-3">
+        <div class="widget-box transparent">
+            <div class="widget-header widget-header-flat">
+                <h4 class="lighter"><i class="icon-signal"></i>Annual % Age Distribution of Probable Bacterial Meningitis Cases</h4>
+
+                <div class="widget-toolbar">
+                    <a href="#" data-action="collapse">
+                        <i class="icon-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="widget-body">
+                <div class="widget-main padding-3">
+                    <div id="annual-age-distribution-probable-meningitis" style="width: 100%; height: 220px; padding: 0px; position: relative;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-sm-3 col-md-3 col-lg-3">
+        <div class="widget-box transparent">
+            <div class="widget-header widget-header-flat">
+                <h4 class="lighter"><i class="icon-signal"></i>Monthly Number of Suspect Meningitis, Pneumonia and Sepsis Cases</h4>
+
+                <div class="widget-toolbar">
+                    <a href="#" data-action="collapse">
+                        <i class="icon-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="widget-body">
+                <div class="widget-main padding-3">
+                    <div id="sales-charts" style="width: 100%; height: 220px; padding: 0px; position: relative;">
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
 {% block javascripts %}
     {{parent()}}
     <script>
 $(window).load(function(){
-    var c        = new Array();
-    c['element'] = document.getElementById('annual-age-distribution-suspect-meningitis');
-    if(c['element'])
-    {
-        c['chart']   = new google.visualization.BarChart(c['element']);
-        c['data']    = google.visualization.arrayToDataTable([
-                        ['Country','Number Of Cases'],
-                        ['Bolivia',40],
-                        ['Argentina',75],
-                        ['Equador',200],
-                        ['El Salvador',150],
-                        ['Brazil',67],
-                        ['CountryX',77],
-                        ['CountryY',57],
-                        ['CountryZ',30]
-                        ]);
-        var formatter    = new google.visualization.NumberFormat({negativeColor: 'red', negativeParens: true, fractionDigits: 0, groupingSymbol: ','});
-        formatter.format(c['data'], 1);
-        c['chart'].draw(c['data'], c['options']);
-    }
-
     var c        = new Array();
     c['element'] = document.getElementById('byDiagnosisStatistics');
     if(c['element'])
@@ -211,6 +211,24 @@ $(window).load(function(){
                             {%endspaceless%}
                         ]);
         var formatter    = new google.visualization.NumberFormat({negativeColor: 'red', negativeParens: true, fractionDigits: 0, groupingSymbol: ','});
+        formatter.format(c['data'], 1);
+        c['chart'].draw(c['data'], c['options']);
+    }
+    
+    var c        = new Array();
+    if(c['element'])
+    {
+        c['element'] = document.getElementById('generalStatistics');
+        c['chart']   = new google.visualization.BarChart(c['element']);
+        c['data']    = google.visualization.arrayToDataTable([
+                        ['Type','Number'],
+                            {%spaceless%}
+                            {%for k,s in byStats %}
+                                ['{{k|e('js')}}', {{s}}]{%if not loop.last %},{%endif%}
+                            {%endfor%}
+                            {%endspaceless%}
+                        ]);
+        var formatter = new google.visualization.NumberFormat({negativeParens: true, fractionDigits: 0, groupingSymbol: ','});
         formatter.format(c['data'], 1);
         c['chart'].draw(c['data'], c['options']);
     }

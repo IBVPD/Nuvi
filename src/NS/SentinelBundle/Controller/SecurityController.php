@@ -57,10 +57,10 @@ class SecurityController extends Controller
         $repo        = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:Meningitis");
         $byCountry   = $repo->getByCountry();
         $bySite      = $repo->getBySite();
-//        $byStat      = $repo->getStats();
+        $byStat      = $repo->getStats();
         $byDiagnosis = $repo->getByDiagnosis();
 
-        return array('byCountry'=>$byCountry,'bySite'=>$bySite,/*'byStats'=>$byStat,*/'byDiagnosis'=>$byDiagnosis);
+        return array('byCountry'=>$byCountry,'bySite'=>$bySite,'byStats'=>$byStat,'byDiagnosis'=>$byDiagnosis);
 //        $sc = $this->get('security.context');
 //
 //        if($sc->isGranted('ROLE_REGION'))
