@@ -7,7 +7,7 @@
     <div class="col-sm-3 col-md-3 col-lg-3">
         <div class="widget-box transparent">
             <div class="widget-header widget-header-flat">
-                <h4 class="lighter"><i class="icon-signal"></i>Stats</h4>
+                <h5 class="lighter"><i class="icon-signal"></i>Stats</h5>
 
                 <div class="widget-toolbar">
                     <a href="#" data-action="collapse">
@@ -29,7 +29,7 @@
     <div class="col-sm-3 col-md-3 col-lg-3">
         <div class="widget-box transparent">
             <div class="widget-header widget-header-flat">
-                <h4 class="lighter"><i class="icon-signal"></i>By Diagnosis</h4>
+                <h5 class="lighter"><i class="icon-signal"></i>By Diagnosis</h5>
 
                 <div class="widget-toolbar">
                     <a href="#" data-action="collapse">
@@ -51,7 +51,7 @@
     <div class="col-sm-3 col-md-3 col-lg-3">
         <div class="widget-box transparent">
             <div class="widget-header widget-header-flat">
-                <h4 class="lighter"><i class="icon-signal"></i>By Country</h4>
+                <h5 class="lighter"><i class="icon-signal"></i>By Country</h5>
 
                 <div class="widget-toolbar">
                     <a href="#" data-action="collapse">
@@ -73,7 +73,7 @@
     <div class="col-sm-3 col-md-3 col-lg-3">
         <div class="widget-box transparent">
             <div class="widget-header widget-header-flat">
-                <h4 class="lighter"><i class="icon-signal"></i>By Site</h4>
+                <h5 class="lighter"><i class="icon-signal"></i>By Site</h5>
 
                 <div class="widget-toolbar">
                     <a href="#" data-action="collapse">
@@ -98,13 +98,7 @@
     <div class="col-sm-3 col-md-3 col-lg-3">
         <div class="widget-box transparent">
             <div class="widget-header widget-header-flat">
-                <h4 class="lighter"><i class="icon-signal"></i> Annual % Age Distribution of Suspect Meningitis Cases</h4>
-
-                <div class="widget-toolbar">
-                    <a href="#" data-action="collapse">
-                        <i class="icon-chevron-up"></i>
-                    </a>
-                </div>
+                <h5 class="lighter"><i class="icon-signal"></i> Age Distribution of Suspect Meningitis Cases</h5>
             </div>
 
             <div class="widget-body">
@@ -117,13 +111,8 @@
     <div class="col-sm-3 col-md-3 col-lg-3">
         <div class="widget-box transparent">
             <div class="widget-header widget-header-flat">
-                <h4 class="lighter"><i class="icon-signal"></i>Annual % Age Distribution of Probable Bacterial Meningitis Cases</h4>
+                <h5 class="lighter"><i class="icon-signal"></i>Age Distribution of PBM Cases</h5>
 
-                <div class="widget-toolbar">
-                    <a href="#" data-action="collapse">
-                        <i class="icon-chevron-up"></i>
-                    </a>
-                </div>
             </div>
 
             <div class="widget-body">
@@ -138,13 +127,7 @@
     <div class="col-sm-3 col-md-3 col-lg-3">
         <div class="widget-box transparent">
             <div class="widget-header widget-header-flat">
-                <h4 class="lighter"><i class="icon-signal"></i>Monthly Number of Suspect Meningitis, Pneumonia and Sepsis Cases</h4>
-
-                <div class="widget-toolbar">
-                    <a href="#" data-action="collapse">
-                        <i class="icon-chevron-up"></i>
-                    </a>
-                </div>
+                <h5 class="lighter"><i class="icon-signal"></i>Monthly # Suspect Meningitis, Pneumonia and Sepsis</h5>
             </div>
 
             <div class="widget-body">
@@ -232,6 +215,39 @@ $(window).load(function(){
         formatter.format(c['data'], 1);
         c['chart'].draw(c['data'], c['options']);
     }
+    
+    
+    var data = new google.visualization.DataTable();
+    data.addColumn('string', 'x');
+    data.addColumn('number', 'values');
+    data.addColumn({id:'i0', type:'number', role:'interval'});
+    data.addColumn({id:'i1', type:'number', role:'interval'});
+    data.addColumn({id:'i2', type:'number', role:'interval'});
+    data.addColumn({id:'i2', type:'number', role:'interval'});
+    data.addColumn({id:'i2', type:'number', role:'interval'});
+    data.addColumn({id:'i2', type:'number', role:'interval'});
+
+    data.addRows([
+        ['2008', 100, 90, 110, 85, 96, 104, 120],
+        ['2009', 120, 95, 130, 90, 113, 124, 140],
+        ['2010', 130, 105, 140, 100, 117, 133, 139],
+        ['2011', 90, 85, 95, 85, 88, 92, 95],
+        ['2012', 70, 74, 63, 67, 69, 70, 72],
+        ['2013', 30, 39, 22, 21, 28, 34, 40],
+        ['2014', 80, 77, 83, 70, 77, 85, 90],
+        ['2008-2014', 100, 90, 110, 85, 95, 102, 110]]);
+
+    // The intervals data as narrow lines (useful for showing raw source
+    // data)
+    var options_lines = {
+        curveType:'function',
+        lineWidth: 1,
+        intervals: { 'style':'boxes' }, // Use line intervals.
+        legend: 'none',
+    };
+
+    var chart_lines = new google.visualization.LineChart(document.getElementById('annual-age-distribution-suspect-meningitis'));
+    chart_lines.draw(data, options_lines);    
 });
     </script>
 {%endblock%}
