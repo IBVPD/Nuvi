@@ -829,7 +829,7 @@ class Meningitis implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function setMeningType(MeningVaccinationType $meningType)
+    public function setMeningType(MeningitisVaccinationType $meningType)
     {
         $this->meningType = $meningType;
         return $this;
