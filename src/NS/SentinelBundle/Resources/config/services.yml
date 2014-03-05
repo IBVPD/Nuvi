@@ -65,7 +65,7 @@ services:
       class: NS\SentinelBundle\Form\RotaVirusFilter
       arguments: [ "@security.context", "@ns.model_manager" ]
       tags:
-        - { name: form.type, alias: meningitis_filter_form }
+        - { name: form.type, alias: rotavirus_filter_form }
     ns.sentinel.meningitis.filter:
       class: NS\SentinelBundle\Form\MeningitisFilter
       arguments: [ "@security.context", "@ns.model_manager" ]
