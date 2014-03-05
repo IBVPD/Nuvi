@@ -13,8 +13,9 @@ use NS\SentinelBundle\Form\Types\Gender;
 use NS\SentinelBundle\Form\Types\MeningitisCaseStatus;
 use NS\SentinelBundle\Form\Types\MeningitisVaccinationReceived;
 use NS\SentinelBundle\Form\Types\MeningitisVaccinationType;
-use NS\SentinelBundle\Form\Types\GramStainOrganism;
 use NS\SentinelBundle\Interfaces\IdentityAssignmentInterface;
+use \NS\SentinelBundle\Form\Types\DischargeClassification;
+use \NS\SentinelBundle\Form\Types\DischargeOutcome;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use NS\SecurityBundle\Annotation\Secured;
