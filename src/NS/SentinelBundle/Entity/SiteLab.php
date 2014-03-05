@@ -602,7 +602,7 @@ class SiteLab
         return $this;
     }
 
-    public function setCsfLabDateTime(DateTime $csfLabDateTime)
+    public function setCsfLabDateTime(\DateTime $csfLabDateTime)
     {
         $this->csfLabDateTime = $csfLabDateTime;
         return $this;
@@ -716,25 +716,25 @@ class SiteLab
         return $this;
     }
 
-    public function setRrlCsfDate(DateTime $rrlCsfDate)
+    public function setRrlCsfDate(\DateTime $rrlCsfDate)
     {
         $this->rrlCsfDate = $rrlCsfDate;
         return $this;
     }
 
-    public function setRrlIsolDate(DateTime $rrlIsolDate)
+    public function setRrlIsolDate(\DateTime $rrlIsolDate)
     {
         $this->rrlIsolDate = $rrlIsolDate;
         return $this;
     }
 
-    public function setRrlIsolBloodDate(DateTime $rrlIsolBloodDate)
+    public function setRrlIsolBloodDate(\DateTime $rrlIsolBloodDate)
     {
         $this->rrlIsolBloodDate = $rrlIsolBloodDate;
         return $this;
     }
 
-    public function setRrlBrothDate(DateTime $rrlBrothDate)
+    public function setRrlBrothDate(\DateTime $rrlBrothDate)
     {
         $this->rrlBrothDate = $rrlBrothDate;
         return $this;
