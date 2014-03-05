@@ -7,14 +7,18 @@ use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Form\Types\CSFAppearance;
 use NS\SentinelBundle\Form\Types\Diagnosis;
 use NS\SentinelBundle\Form\Types\DischargeOutcome;
+use NS\SentinelBundle\Form\Types\DischargeClassification;
 use NS\SentinelBundle\Form\Types\Doses;
 use NS\SentinelBundle\Form\Types\Gender;
 use NS\SentinelBundle\Form\Types\MeningitisCaseStatus;
-use \NS\SentinelBundle\Interfaces\IdentityAssignmentInterface;
+use NS\SentinelBundle\Form\Types\MeningitisVaccinationReceived;
+use NS\SentinelBundle\Form\Types\MeningitisVaccinationType;
+use NS\SentinelBundle\Form\Types\GramStainOrganism;
+use NS\SentinelBundle\Interfaces\IdentityAssignmentInterface;
 
 use Gedmo\Mapping\Annotation as Gedmo;
-use \NS\SecurityBundle\Annotation\Secured;
-use \NS\SecurityBundle\Annotation\SecuredCondition;
+use NS\SecurityBundle\Annotation\Secured;
+use NS\SecurityBundle\Annotation\SecuredCondition;
 
 /**
  * Description of Meningitis
@@ -266,8 +270,8 @@ class Meningitis implements IdentityAssignmentInterface
     private $meningReceived;
 
     /**
-     * @var MeningVaccinationType $meningType
-     * @ORM\Column(name="meningType",type="MeningVaccinationType",nullable=true)
+     * @var MeningitisVaccinationType $meningType
+     * @ORM\Column(name="meningType",type="MeningitisVaccinationType",nullable=true)
      */
     private $meningType;
 

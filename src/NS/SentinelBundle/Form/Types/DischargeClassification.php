@@ -7,10 +7,10 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Security\Core\SecurityContext;
 
 /**
- * Description of DischargeOutcome
+ * Description of DischargeClassification
  *
  */
-class DischargeOutcome extends ArrayChoice
+class DischargeClassification extends ArrayChoice
 {
     const FIRST_VALUE = 1;
 
@@ -20,6 +20,6 @@ class DischargeOutcome extends ArrayChoice
 
     public function getName()
     {
-        return 'dischargeoutcome';
+        return 'DischargeClassification';
     }
 }

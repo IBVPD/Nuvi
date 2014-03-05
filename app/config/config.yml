@@ -62,7 +62,7 @@ doctrine:
             Doses: NS\SentinelBundle\Entity\Types\Doses
             Diagnosis: NS\SentinelBundle\Entity\Types\Diagnosis
             CXRResult: NS\SentinelBundle\Entity\Types\CXRResult
-            DischargeOutcome: NS\SentinelBundle\Entity\Types\DischargeOutcome
+            DischargeClassification: NS\SentinelBundle\Entity\Types\DischargeClassification
             CSFAppearance: NS\SentinelBundle\Entity\Types\CSFAppearance
             Role: NS\SentinelBundle\Entity\Types\Role
             Gender: NS\SentinelBundle\Entity\Types\Gender
@@ -71,6 +71,7 @@ doctrine:
             LatResult: NS\SentinelBundle\Entity\Types\LatResult
             PCRResult: NS\SentinelBundle\Entity\Types\PCRResult
             GramStain: NS\SentinelBundle\Entity\Types\GramStain
+            GramStainOrganism: NS\SentinelBundle\Entity\Types\GramStainOrganism
             IsolateType: NS\SentinelBundle\Entity\Types\IsolateType
             SampleType: NS\SentinelBundle\Entity\Types\SampleType
             Volume: NS\SentinelBundle\Entity\Types\Volume
@@ -82,12 +83,16 @@ doctrine:
             RotavirusVaccinationType: NS\SentinelBundle\Entity\Types\RotavirusVaccinationType
             ElisaResult: NS\SentinelBundle\Entity\Types\ElisaResult
             MeningitisCaseStatus: NS\SentinelBundle\Entity\Types\MeningitisCaseStatus
+            MeningitisVaccinationReceived: NS\SentinelBundle\Entity\Types\MeningitisVaccinationReceived
+            MeningitisVaccinationType:  NS\SentinelBundle\Entity\Types\MeningitisVaccinationType
+            DischargeClassification: NS\SentinelBundle\Entity\Types\DischargeClassification
+            DischargeOutcome: NS\SentinelBundle\Entity\Types\DischargeOutcome
         mapping_types:
             TripleChoice: TripleChoice
             Doses: Doses
             Diagnosis: Diagnosis
             CXRResult: CXRResult
-            DischargeOutcome: DischargeOutcome
+            DischargeClassification: DischargeClassification
             CSFAppearance: CSFAppearance
             Role: Role
             Gender: Gender
@@ -107,6 +112,11 @@ doctrine:
             RotavirusVaccinationType: RotavirusVaccinationType
             ElisaResult: ElisaResult
             MeningitisCaseStatus: MeningitisCaseStatus
+            MeningitisVaccinationReceived: MeningitisVaccinationReceived
+            MeningitisVaccinationType: MeningitisVaccinationType
+            GramStainOrganism: GramStainOrganism
+            DischargeClassification: DischargeClassification
+            DischargeOutcome: DischargeOutcome
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
