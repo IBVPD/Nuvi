@@ -673,7 +673,7 @@ class Meningitis implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function setOnsetDate(DateTime $onsetDate)
+    public function setOnsetDate(\DateTime $onsetDate)
     {
         $this->onsetDate = $onsetDate;
         return $this;
@@ -835,7 +835,7 @@ class Meningitis implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function setMeningMostRecentDose(DateTime $meningMostRecentDose)
+    public function setMeningMostRecentDose(\DateTime $meningMostRecentDose)
     {
         $this->meningMostRecentDose = $meningMostRecentDose;
         return $this;
@@ -853,13 +853,13 @@ class Meningitis implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function setCsfCollectDateTime(DateTime $csfCollectDateTime)
+    public function setCsfCollectDateTime(\DateTime $csfCollectDateTime)
     {
         $this->csfCollectDateTime = $csfCollectDateTime;
         return $this;
     }
 
-    public function setCsfAppearance(DateTime $csfAppearance)
+    public function setCsfAppearance(\DateTime $csfAppearance)
     {
         $this->csfAppearance = $csfAppearance;
         return $this;
