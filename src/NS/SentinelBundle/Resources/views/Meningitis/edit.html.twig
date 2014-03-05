@@ -29,7 +29,10 @@
             <div class="widget-body">
                 <div class="widget-main">
                     {{form_row(form.dob)}}
+                    {{form_row(form.ageInMonths)}}
                     {{form_row(form.gender)}}
+                    {{form_row(form.caseId)}}
+                    {{form_row(form.district)}}
                 </div>
             </div>
         </div>
@@ -49,6 +52,8 @@
                         </div>
                         <div class="col-sm-6">
                             {{form_row(form.meningReceived)}}
+                            {{form_row(form.meningType)}}
+                            {{form_row(form.meningMostRecentDose)}}
                         </div>
                     </div>
                 </div>
@@ -64,6 +69,7 @@
                     {{form_row(form.admDate)}}
                     {{form_row(form.admDx)}}
                     {{form_row(form.admDxOther)}}
+                    {{form_row(form.antibiotics)}}
                 </div>
             </div>
         </div>
@@ -82,9 +88,9 @@
                             {{form_row(form.menFever)}}
                             {{form_row(form.menAltConscious)}}
                             {{form_row(form.menInabilityFeed)}}
-                            {{form_row(form.menNeckStiff)}}
                         </div>
                         <div class="col-sm-6">
+                            {{form_row(form.menNeckStiff)}}
                             {{form_row(form.menRash)}}
                             {{form_row(form.menFontanelleBulge)}}
                             {{form_row(form.menLethargy)}}
@@ -106,6 +112,9 @@
                             {{form_row(form.pneuCough)}}
                             {{form_row(form.pneuCyanosis)}}
                             {{form_row(form.pneuRespRate)}}
+                            {{form_row(form.pneuVomit)}}
+                            {{form_row(form.pneuHypothermia)}}
+                            {{form_row(form.pneuMalnutrition)}}
                         </div>
                     </div>
                 </div>

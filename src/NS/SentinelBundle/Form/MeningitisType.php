@@ -57,6 +57,7 @@ class MeningitisType extends AbstractType
             ->add('pneuStridor','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-stridor'))
             ->add('pneuRespRate',null,array('required'=>false,'label'=>'meningitis-form.pneu-resp-rate'))
             ->add('pneuVomit','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-vomit'))
+            ->add('pneuHypothermia','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-hypothermia'))
             ->add('pneuMalnutrition','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-malnutrition'))
 
             ->add('hibReceived','TripleChoice',array('required'=>false,'label'=>'meningitis-form.hib-received'))
@@ -65,10 +66,10 @@ class MeningitisType extends AbstractType
             ->add('pcvDoses','Doses',array('required'=>false,'label'=>'meningitis-form.pcv-doses'))
             ->add('meningReceived','TripleChoice',array('required'=>false,'label'=>'meningitis-form.men-received'))
             ->add('meningType','MeningitisVaccinationType',array('required'=>false,'label'=>'meningitis-form.men-type'))
-            ->add('meningMostRecentDose')
+            ->add('meningMostRecentDose','acedatepicker',array('required'=>false,'label'=>'meningitis-form.meningMostRecentDose'))
 
             ->add('csfCollected','switch',array('required'=>false,'label'=>'meningitis-form.csf-collected','switchtype'=>2))
-            ->add('csfId')
+            ->add('csfId',null,array('required'=>false,'label'=>'meningitis-form.csf-id'))
             ->add('csfCollectDateTime','acedatetime',array('required'=>false,'label'=>'meningitis-form.csf-collect-datetime'))
             ->add('csfAppearance','CSFAppearance',array('required'=>false,'label'=>'meningitis-form.csf-appearance'))
             ->add('bloodCollected','switch', array('required'=>false,'label'=>'meningitis-form.blood-collected','switchtype'=>2))
