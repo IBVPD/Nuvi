@@ -6,10 +6,10 @@ namespace NS\SentinelBundle\Form\Types;
  * Description of RotavirusVaccinationReceived
  *
  */
-class RotavirusVaccinationReceived extends VaccinationReceived
+class MeningitisVaccinationReceived extends VaccinationReceived
 {
     public function getName()
     {
-        return 'RotavirusVaccinationReceived';
+        return 'MeningitisVaccinationReceived';
     }
 }

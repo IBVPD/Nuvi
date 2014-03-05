@@ -67,7 +67,7 @@ class Meningitis implements IdentityAssignmentInterface
      * @ORM\ManyToOne(targetEntity="Site",inversedBy="meningitisCases")
      */
     private $site;
-
+// Case based demographic
     /**
      * @var DateTime $dob
      * @ORM\Column(name="dob",type="date",nullable=true)
@@ -85,60 +85,31 @@ class Meningitis implements IdentityAssignmentInterface
      * @ORM\Column(name="gender",type="Gender",nullable=true)
      */
     private $gender;
-//Case-based Vaccination History
-    /**
-     * @var TripleChoice $hibReceived
-     * @ORM\Column(name="hibReceived",type="TripleChoice",nullable=true)
-     */
-    private $hibReceived;
 
     /**
-     * @var Doses $hibDoses
-     * @ORM\Column(name="hibDoses",type="Doses",nullable=true)
+     * @var string $district
+     * @ORM\Column(name="district",type="string",nullable=true)
      */
-    private $hibDoses;
+    private $district;
 
     /**
-     * @var TripleChoice $pcvReceived
-     * @ORM\Column(name="pcvReceived",type="TripleChoice",nullable=true)
+     * @var string $caseId
+     * @ORM\Column(name="caseId",type="string",nullable=true)
      */
-    private $pcvReceived;
+    private $caseId;
 
-    /**
-     * @var Doses $pcvDoses
-     * @ORM\Column(name="pcvDoses",type="Doses",nullable=true)
-     */
-    private $pcvDoses;
-
-    /**
-     * @var TripleChoice $meningReceived
-     * @ORM\Column(name="meningReceived",type="TripleChoice",nullable=true)
-     */
-    private $meningReceived;
-
-    /**
-     * @var Doses $meningDoses
-     * @ORM\Column(name="meningDoses",type="Doses",nullable=true)
-     */
-    private $meningDoses;
-
-    /**
-     * @var TripleChoice $dtpReceived
-     * @ORM\Column(name="dtpReceived",type="TripleChoice",nullable=true)
-     */
-    private $dtpReceived;
-
-    /**
-     * @var Doses $dtpDoses
-     * @ORM\Column(name="dtpDoses",type="Doses",nullable=true)
-     */
-    private $dtpDoses;
 //Case-based Clinical Data
     /**
      * @var DateTime $admDate
      * @ORM\Column(name="admDate",type="date",nullable=true)
      */
     private $admDate;
+
+    /**
+     * @var DateTime $onsetDate
+     * @ORM\Column(name="onsetDate",type="date",nullable=true)
+     */
+    private $onsetDate;
 
     /**
      * @var Diagnosis $admDx
@@ -151,6 +122,13 @@ class Meningitis implements IdentityAssignmentInterface
      * @ORM\Column(name="admDxOther",type="string",nullable=true)
      */
     private $admDxOther;
+
+    /**
+     * @var TripleChoice $antibiotics
+     * @ORM\Column(name="antibiotics",type="TripleChoice",nullable=true)
+     */
+    private $antibiotics;
+
 //MENINGITIS
     /**
      * @var TripleChoice $menSeizures
@@ -177,12 +155,6 @@ class Meningitis implements IdentityAssignmentInterface
     private $menInabilityFeed;
 
     /**
-     * @var TripleChoice $menStridor
-     * @ORM\Column(name="menStridor",type="TripleChoice",nullable=true)
-     */
-    private $menStridor;
-
-    /**
      * @var TripleChoice $menNeckStiff
      * @ORM\Column(name="menNeckStiff",type="TripleChoice",nullable=true)
      */
@@ -206,23 +178,6 @@ class Meningitis implements IdentityAssignmentInterface
      */
     private $menLethargy;
 
-    /**
-     * @var TripleChoice $menPoorSucking
-     * @ORM\Column(name="menPoorSucking",type="TripleChoice",nullable=true)
-     */
-    private $menPoorSucking;
-
-    /**
-     * @var TripleChoice $menIrritability
-     * @ORM\Column(name="menIrritability",type="TripleChoice",nullable=true)
-     */
-    private $menIrritability;
-
-    /**
-     * @var text $menSymptomOther
-     * @ORM\Column(name="menSymptomOther",type="text",nullable=true)
-     */
-    private $menSymptomOther;
 //PNEUMONIA / SEPSIS
 
     /**
@@ -250,16 +205,79 @@ class Meningitis implements IdentityAssignmentInterface
     private $pneuCyanosis;
 
     /**
+     * @var TripleChoice $pneuStridor
+     * @ORM\Column(name="pneuStridor",type="TripleChoice",nullable=true)
+     */
+    private $pneuStridor;
+
+    /**
      * @var integer $pneuRespRate
      * @ORM\Column(name="pneuRespRate",type="integer",nullable=true)
      */
     private $pneuRespRate;
 
     /**
-     * @var text $pneuSymptomOther
-     * @ORM\Column(name="pneuSymptomOther",type="text",nullable=true)
+     * @var TripleChoice $pneuVomit
+     * @ORM\Column(name="pneuVomit",type="TripleChoice",nullable=true)
      */
-    private $pneuSymptomOther;
+    private $pneuVomit;
+
+    /**
+     * @var TripleChoice $pneuHypothermia
+     * @ORM\Column(name="pneuHypothermia",type="TripleChoice",nullable=true)
+     */
+    private $pneuHypothermia;
+
+    /**
+     * @var TripleChoice $pneuMalnutrition
+     * @ORM\Column(name="pneuMalnutrition",type="TripleChoice",nullable=true)
+     */
+    private $pneuMalnutrition;
+
+//Case-based Vaccination History
+    /**
+     * @var TripleChoice $hibReceived
+     * @ORM\Column(name="hibReceived",type="TripleChoice",nullable=true)
+     */
+    private $hibReceived;
+
+    /**
+     * @var Doses $hibDoses
+     * @ORM\Column(name="hibDoses",type="Doses",nullable=true)
+     */
+    private $hibDoses;
+
+    /**
+     * @var TripleChoice $pcvReceived
+     * @ORM\Column(name="pcvReceived",type="TripleChoice",nullable=true)
+     */
+    private $pcvReceived;
+
+    /**
+     * @var Doses $pcvDoses
+     * @ORM\Column(name="pcvDoses",type="Doses",nullable=true)
+     */
+    private $pcvDoses;
+
+    /**
+     * @var MeningitisVaccinationReceived $meningReceived
+     * @ORM\Column(name="meningReceived",type="MeningitisVaccinationReceived",nullable=true)
+     */
+    private $meningReceived;
+
+    /**
+     * @var MeningVaccinationType $meningType
+     * @ORM\Column(name="meningType",type="MeningVaccinationType",nullable=true)
+     */
+    private $meningType;
+
+    /**
+     * @var DateTime $meningMostRecentDose
+     * @ORM\Column(name="meningMostRecentDose",type="date",nullable=true)
+     */
+    private $meningMostRecentDose;
+
+
 //Case-based Specimen Collection Data
 
     /**
@@ -267,6 +285,11 @@ class Meningitis implements IdentityAssignmentInterface
      * @ORM\Column(name="csfCollected",type="boolean",nullable=true)
      */
     private $csfCollected;
+
+    /**
+     * @var string $csfId
+     * @ORM\Column(name="csfId",type="string",nullable=true)
+     */
     private $csfId;
 
     /**
@@ -286,6 +309,11 @@ class Meningitis implements IdentityAssignmentInterface
      * @ORM\Column(name="bloodCollected", type="boolean",nullable=true)
      */
     private $bloodCollected;
+
+    /**
+     * @var string $bloodId
+     * @ORM\Column(name="bloodId",type="string",nullable=true)
+     */
     private $bloodId;
 
 //Case-based Outcome Data
@@ -300,19 +328,18 @@ class Meningitis implements IdentityAssignmentInterface
      * @ORM\Column(name="dischDx",type="Diagnosis",nullable=true)
      */
     private $dischDx;
-    
+
     /**
-     *
      * @var $dischDxOther
      * @ORM\Column(name="dischDxOther",type="string",nullable=true)
      */
     private $dischDxOther;
 
     /**
-     * @var TripleChoice $dischSequelae
-     * @ORM\Column(name="dischSequelae",type="TripleChoice",nullable=true)
+     * @var DischargeClassification $dischClass
+     * @ORM\Column(name="dischClass",type="DischargeClassification",nullable=true)
      */
-    private $dischSequelae;
+    private $dischClass;
 
     /**
      * @var string $comment
@@ -374,105 +401,6 @@ class Meningitis implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function getAgeInMonths()
-    {
-        return $this->ageInMonths;
-    }
-
-    public function setAgeInMonths($ageInMonths)
-    {
-        $this->ageInMonths = $ageInMonths;
-        return $this;
-    }
-
-    public function getHibReceived()
-    {
-        return $this->hibReceived;
-    }
-
-    public function setHibReceived(TripleChoice $hibReceived)
-    {
-        $this->hibReceived = $hibReceived;
-        return $this;
-    }
-
-    public function getHibDoses()
-    {
-        return $this->hibDoses;
-    }
-
-    public function setHibDoses(Doses $hibDoses)
-    {
-        $this->hibDoses = $hibDoses;
-        return $this;
-    }
-
-    public function getPcvReceived()
-    {
-        return $this->pcvReceived;
-    }
-
-    public function setPcvReceived(TripleChoice $pcvReceived)
-    {
-        $this->pcvReceived = $pcvReceived;
-        return $this;
-    }
-
-    public function getPcvDoses()
-    {
-        return $this->pcvDoses;
-    }
-
-    public function setPcvDoses(Doses $pcvDoses)
-    {
-        $this->pcvDoses = $pcvDoses;
-        return $this;
-    }
-
-    public function getMeningReceived()
-    {
-        return $this->meningReceived;
-    }
-
-    public function setMeningReceived(TripleChoice $meningReceived)
-    {
-        $this->meningReceived = $meningReceived;
-        return $this;
-    }
-
-    public function getMeningDoses()
-    {
-        return $this->meningDoses;
-    }
-
-    public function setMeningDoses(Doses $meningDoses)
-    {
-        $this->meningDoses = $meningDoses;
-        return $this;
-    }
-
-    public function getDtpReceived()
-    {
-        return $this->dtpReceived;
-    }
-
-    public function setDtpReceived(TripleChoice $dtpReceived)
-    {
-        $this->dtpReceived = $dtpReceived;
-        return $this;
-    }
-
-    public function getDtpDoses()
-    {
-        return $this->dtpDoses;
-    }
-
-    public function setDtpDoses(Doses $dtpDoses)
-    {
-        $this->dtpDoses = $dtpDoses;
-        return $this;
-    }
-
     public function getAdmDate()
     {
         return $this->admDate;
@@ -491,9 +419,260 @@ class Meningitis implements IdentityAssignmentInterface
         return $this;
     }
 
+    public function getLab()
+    {
+        return $this->lab;
+    }
+
+    public function getAgeInMonths()
+    {
+        return $this->ageInMonths;
+    }
+
+    public function getGender()
+    {
+        return $this->gender;
+    }
+
+    public function getDistrict()
+    {
+        return $this->district;
+    }
+
+    public function getCaseId()
+    {
+        return $this->caseId;
+    }
+
+    public function getOnsetDate()
+    {
+        return $this->onsetDate;
+    }
+
     public function getAdmDx()
     {
         return $this->admDx;
+    }
+
+    public function getAdmDxOther()
+    {
+        return $this->admDxOther;
+    }
+
+    public function getAntibiotics()
+    {
+        return $this->antibiotics;
+    }
+
+    public function getMenSeizures()
+    {
+        return $this->menSeizures;
+    }
+
+    public function getMenFever()
+    {
+        return $this->menFever;
+    }
+
+    public function getMenAltConscious()
+    {
+        return $this->menAltConscious;
+    }
+
+    public function getMenInabilityFeed()
+    {
+        return $this->menInabilityFeed;
+    }
+
+    public function getMenNeckStiff()
+    {
+        return $this->menNeckStiff;
+    }
+
+    public function getMenRash()
+    {
+        return $this->menRash;
+    }
+
+    public function getMenFontanelleBulge()
+    {
+        return $this->menFontanelleBulge;
+    }
+
+    public function getMenLethargy()
+    {
+        return $this->menLethargy;
+    }
+
+    public function getPneuDiffBreathe()
+    {
+        return $this->pneuDiffBreathe;
+    }
+
+    public function getPneuChestIndraw()
+    {
+        return $this->pneuChestIndraw;
+    }
+
+    public function getPneuCough()
+    {
+        return $this->pneuCough;
+    }
+
+    public function getPneuCyanosis()
+    {
+        return $this->pneuCyanosis;
+    }
+
+    public function getPneuStridor()
+    {
+        return $this->pneuStridor;
+    }
+
+    public function getPneuRespRate()
+    {
+        return $this->pneuRespRate;
+    }
+
+    public function getPneuVomit()
+    {
+        return $this->pneuVomit;
+    }
+
+    public function getPneuHypothermia()
+    {
+        return $this->pneuHypothermia;
+    }
+
+    public function getPneuMalnutrition()
+    {
+        return $this->pneuMalnutrition;
+    }
+
+    public function getHibReceived()
+    {
+        return $this->hibReceived;
+    }
+
+    public function getHibDoses()
+    {
+        return $this->hibDoses;
+    }
+
+    public function getPcvReceived()
+    {
+        return $this->pcvReceived;
+    }
+
+    public function getPcvDoses()
+    {
+        return $this->pcvDoses;
+    }
+
+    public function getMeningReceived()
+    {
+        return $this->meningReceived;
+    }
+
+    public function getMeningType()
+    {
+        return $this->meningType;
+    }
+
+    public function getMeningMostRecentDose()
+    {
+        return $this->meningMostRecentDose;
+    }
+
+    public function getCsfCollected()
+    {
+        return $this->csfCollected;
+    }
+
+    public function getCsfId()
+    {
+        return $this->csfId;
+    }
+
+    public function getCsfCollectDateTime()
+    {
+        return $this->csfCollectDateTime;
+    }
+
+    public function getCsfAppearance()
+    {
+        return $this->csfAppearance;
+    }
+
+    public function getBloodCollected()
+    {
+        return $this->bloodCollected;
+    }
+
+    public function getBloodId()
+    {
+        return $this->bloodId;
+    }
+
+    public function getDischOutcome()
+    {
+        return $this->dischOutcome;
+    }
+
+    public function getDischDx()
+    {
+        return $this->dischDx;
+    }
+
+    public function getDischDxOther()
+    {
+        return $this->dischDxOther;
+    }
+
+    public function getDischClass()
+    {
+        return $this->dischClass;
+    }
+
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    public function setLab($lab)
+    {
+        $this->lab = $lab;
+        return $this;
+    }
+
+    public function setAgeInMonths($ageInMonths)
+    {
+        $this->ageInMonths = $ageInMonths;
+        return $this;
+    }
+
+    public function setGender(Gender $gender)
+    {
+        $this->gender = $gender;
+        return $this;
+    }
+
+    public function setDistrict($district)
+    {
+        $this->district = $district;
+        return $this;
+    }
+
+    public function setCaseId($caseId)
+    {
+        $this->caseId = $caseId;
+        return $this;
+    }
+
+    public function setOnsetDate(DateTime $onsetDate)
+    {
+        $this->onsetDate = $onsetDate;
+        return $this;
     }
 
     public function setAdmDx(Diagnosis $admDx)
@@ -502,20 +681,16 @@ class Meningitis implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function getAdmDxOther()
-    {
-        return $this->admDxOther;
-    }
-
     public function setAdmDxOther($admDxOther)
     {
         $this->admDxOther = $admDxOther;
         return $this;
     }
 
-    public function getMenSeizures()
+    public function setAntibiotics(TripleChoice $antibiotics)
     {
-        return $this->menSeizures;
+        $this->antibiotics = $antibiotics;
+        return $this;
     }
 
     public function setMenSeizures(TripleChoice $menSeizures)
@@ -524,20 +699,10 @@ class Meningitis implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function getMenFever()
-    {
-        return $this->menFever;
-    }
-
     public function setMenFever(TripleChoice $menFever)
     {
         $this->menFever = $menFever;
         return $this;
-    }
-
-    public function getMenAltConscious()
-    {
-        return $this->menAltConscious;
     }
 
     public function setMenAltConscious(TripleChoice $menAltConscious)
@@ -546,31 +711,10 @@ class Meningitis implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function getMenInabilityFeed()
-    {
-        return $this->menInabilityFeed;
-    }
-
     public function setMenInabilityFeed(TripleChoice $menInabilityFeed)
     {
         $this->menInabilityFeed = $menInabilityFeed;
         return $this;
-    }
-
-    public function getMenStridor()
-    {
-        return $this->menStridor;
-    }
-
-    public function setMenStridor(TripleChoice $menStridor)
-    {
-        $this->menStridor = $menStridor;
-        return $this;
-    }
-
-    public function getMenNeckStiff()
-    {
-        return $this->menNeckStiff;
     }
 
     public function setMenNeckStiff(TripleChoice $menNeckStiff)
@@ -579,20 +723,10 @@ class Meningitis implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function getMenRash()
-    {
-        return $this->menRash;
-    }
-
     public function setMenRash(TripleChoice $menRash)
     {
         $this->menRash = $menRash;
         return $this;
-    }
-
-    public function getMenFontanelleBulge()
-    {
-        return $this->menFontanelleBulge;
     }
 
     public function setMenFontanelleBulge(TripleChoice $menFontanelleBulge)
@@ -601,53 +735,10 @@ class Meningitis implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function getMenLethargy()
-    {
-        return $this->menLethargy;
-    }
-
     public function setMenLethargy(TripleChoice $menLethargy)
     {
         $this->menLethargy = $menLethargy;
         return $this;
-    }
-
-    public function getMenPoorSucking()
-    {
-        return $this->menPoorSucking;
-    }
-
-    public function setMenPoorSucking(TripleChoice $menPoorSucking)
-    {
-        $this->menPoorSucking = $menPoorSucking;
-        return $this;
-    }
-
-    public function getMenIrritability()
-    {
-        return $this->menIrritability;
-    }
-
-    public function setMenIrritability(TripleChoice $menIrritability)
-    {
-        $this->menIrritability = $menIrritability;
-        return $this;
-    }
-
-    public function getMenSymptomOther()
-    {
-        return $this->menSymptomOther;
-    }
-
-    public function setMenSymptomOther($menSymptomOther)
-    {
-        $this->menSymptomOther = $menSymptomOther;
-        return $this;
-    }
-
-    public function getPneuDiffBreathe()
-    {
-        return $this->pneuDiffBreathe;
     }
 
     public function setPneuDiffBreathe(TripleChoice $pneuDiffBreathe)
@@ -656,20 +747,10 @@ class Meningitis implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function getPneuChestIndraw()
-    {
-        return $this->pneuChestIndraw;
-    }
-
     public function setPneuChestIndraw(TripleChoice $pneuChestIndraw)
     {
         $this->pneuChestIndraw = $pneuChestIndraw;
         return $this;
-    }
-
-    public function getPneuCough()
-    {
-        return $this->pneuCough;
     }
 
     public function setPneuCough(TripleChoice $pneuCough)
@@ -678,20 +759,16 @@ class Meningitis implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function getPneuCyanosis()
-    {
-        return $this->pneuCyanosis;
-    }
-
     public function setPneuCyanosis(TripleChoice $pneuCyanosis)
     {
         $this->pneuCyanosis = $pneuCyanosis;
         return $this;
     }
 
-    public function getPneuRespRate()
+    public function setPneuStridor(TripleChoice $pneuStridor)
     {
-        return $this->pneuRespRate;
+        $this->pneuStridor = $pneuStridor;
+        return $this;
     }
 
     public function setPneuRespRate($pneuRespRate)
@@ -700,31 +777,70 @@ class Meningitis implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function getPneuSymptomOther()
+    public function setPneuVomit(TripleChoice $pneuVomit)
     {
-        return $this->pneuSymptomOther;
-    }
-
-    public function setPneuSymptomOther($pneuSymptomOther)
-    {
-        $this->pneuSymptomOther = $pneuSymptomOther;
+        $this->pneuVomit = $pneuVomit;
         return $this;
     }
 
-    public function getCsfCollected()
+    public function setPneuHypothermia(TripleChoice $pneuHypothermia)
     {
-        return $this->csfCollected;
+        $this->pneuHypothermia = $pneuHypothermia;
+        return $this;
     }
 
-    public function setCsfCollected($csfCollected)
+    public function setPneuMalnutrition(TripleChoice $pneuMalnutrition)
+    {
+        $this->pneuMalnutrition = $pneuMalnutrition;
+        return $this;
+    }
+
+    public function setHibReceived(TripleChoice $hibReceived)
+    {
+        $this->hibReceived = $hibReceived;
+        return $this;
+    }
+
+    public function setHibDoses(Doses $hibDoses)
+    {
+        $this->hibDoses = $hibDoses;
+        return $this;
+    }
+
+    public function setPcvReceived(TripleChoice $pcvReceived)
+    {
+        $this->pcvReceived = $pcvReceived;
+        return $this;
+    }
+
+    public function setPcvDoses(Doses $pcvDoses)
+    {
+        $this->pcvDoses = $pcvDoses;
+        return $this;
+    }
+
+    public function setMeningReceived(MeningitisVaccinationReceived $meningReceived)
+    {
+        $this->meningReceived = $meningReceived;
+        return $this;
+    }
+
+    public function setMeningType(MeningVaccinationType $meningType)
+    {
+        $this->meningType = $meningType;
+        return $this;
+    }
+
+    public function setMeningMostRecentDose(DateTime $meningMostRecentDose)
+    {
+        $this->meningMostRecentDose = $meningMostRecentDose;
+        return $this;
+    }
+
+    public function setCsfCollected(DateTime $csfCollected)
     {
         $this->csfCollected = $csfCollected;
         return $this;
-    }
-
-    public function getCsfId()
-    {
-        return $this->csfId;
     }
 
     public function setCsfId($csfId)
@@ -733,31 +849,16 @@ class Meningitis implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function getCsfCollectDateTime()
-    {
-        return $this->csfCollectDateTime;
-    }
-
-    public function setCsfCollectDateTime($csfCollectDateTime)
+    public function setCsfCollectDateTime(DateTime $csfCollectDateTime)
     {
         $this->csfCollectDateTime = $csfCollectDateTime;
         return $this;
     }
 
-    public function getCsfAppearance()
-    {
-        return $this->csfAppearance;
-    }
-
-    public function setCsfAppearance(CSFAppearance $csfAppearance)
+    public function setCsfAppearance(DateTime $csfAppearance)
     {
         $this->csfAppearance = $csfAppearance;
         return $this;
-    }
-
-    public function getBloodCollected()
-    {
-        return $this->bloodCollected;
     }
 
     public function setBloodCollected($bloodCollected)
@@ -766,31 +867,16 @@ class Meningitis implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function getBloodId()
-    {
-        return $this->bloodId;
-    }
-
     public function setBloodId($bloodId)
     {
         $this->bloodId = $bloodId;
         return $this;
     }
 
-    public function getDischOutcome()
-    {
-        return $this->dischOutcome;
-    }
-
-    public function setDischOutcome($dischOutcome)
+    public function setDischOutcome(DishchargeOutcome $dischOutcome)
     {
         $this->dischOutcome = $dischOutcome;
         return $this;
-    }
-
-    public function getDischDx()
-    {
-        return $this->dischDx;
     }
 
     public function setDischDx(Diagnosis $dischDx)
@@ -799,31 +885,16 @@ class Meningitis implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function getDischDxOther()
-    {
-        return $this->dischDxOther;
-    }
-
     public function setDischDxOther($dischDxOther)
     {
         $this->dischDxOther = $dischDxOther;
         return $this;
     }
 
-    public function getDischSequelae()
+    public function setDischClass(DischargeClassification $dischClass)
     {
-        return $this->dischSequelae;
-    }
-
-    public function setDischSequelae(TripleChoice $dischSequelae)
-    {
-        $this->dischSequelae = $dischSequelae;
+        $this->dischClass = $dischClass;
         return $this;
-    }
-
-    public function getComment()
-    {
-        return $this->comment;
     }
 
     public function setComment($comment)
@@ -908,17 +979,6 @@ class Meningitis implements IdentityAssignmentInterface
     public function getSite()
     {
         return $this->site;
-    }
-
-    public function getGender()
-    {
-        return $this->gender;
-    }
-
-    public function setGender(Gender $gender)
-    {
-        $this->gender = $gender;
-        return $this;
     }
 
     /**

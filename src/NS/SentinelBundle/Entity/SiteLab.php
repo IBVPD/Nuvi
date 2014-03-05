@@ -95,6 +95,128 @@ class SiteLab
      * @ORM\Column(name="csfPcrDone",type="TripleChoice",nullable=true)
      */
     private $csfPcrDone;
+    /**
+     * @var LatResult $csfCultResult
+     * @ORM\Column(name="csfCultResult",type="LatResult",nullable=true)
+     */
+    private $csfCultResult;
+
+    /**
+     * @var string $csfCultOther
+     * @ORM\Column(name="csfCultOther",type="string",nullable=true)
+     */
+    private $csfCultOther;
+
+    /**
+     * @var GramStain
+     * @ORM\Column(name="csfGramResult",type="GramStain",nullable=true)
+     */
+    private $csfGramResult;
+
+    /**
+     * @var GramStainOrganism $csfGramResultOrganism
+     * @ORM\Column(name="csfGramResultOrganism",type="GramStainOrganism",nullable=true)
+     */
+    private $csfGramResultOrganism;
+
+    /**
+     * @var string $csfGramOther
+     * @ORM\Column(name="csfGramOther",type="string",nullable=true)
+     */
+    private $csfGramOther;
+
+    /**
+     * @var BinaxResult
+     * @ORM\Column(name="csfBinaxResult",type="BinaxResult",nullable=true)
+     */
+    private $csfBinaxResult;
+
+    /**
+     * @var LatResult
+     * @ORM\Column(name="csfLatResult",type="LatResult",nullable=true)
+     */
+    private $csfLatResult;
+
+    /**
+     * @var string
+     * @ORM\Column(name="csfLatOther",type="string",nullable=true)
+     */
+    private $csfLatOther;
+
+    /**
+     * @var PCRResult
+     * @ORM\Column(name="csfPcrResult",type="PCRResult",nullable=true)
+     */
+    private $csfPcrResult;
+
+    /**
+     * @var string $csfPcrOther
+     * @ORM\Column(name="csfPcrOther",type="string",nullable=true)
+     */
+    private $csfPcrOther;
+
+    /**
+     * @var DateTime $rrlCsfDate
+     * @ORM\Column(name="rrlCsfDate",type="date",nullable=true)
+     */
+    private $rrlCsfDate;
+
+    /**
+     * @var DateTime $rrlIsoDate
+     * @ORM\Column(name="rrlIsoDate",type="date",nullable=true)
+     */
+    private $rrlIsolDate;
+
+    /**
+     * @var DateTime $rrlIsolBloodDate
+     * @ORM\Column(name="rrlIsolBloodDate",type="date",nullable=true)
+     */
+    private $rrlIsolBloodDate;
+
+    /**
+     * @var DateTime $rrlBrothDate
+     * @ORM\Column(name="rrlBrothDate",type="date",nullable=true)
+     */
+    private $rrlBrothDate;
+
+    /**
+     * @var TripleChoice $csfStore
+     * @ORM\Column(name="csfStore",type="TripleChoice",nullable=true)
+     */
+    private $csfStore;
+
+    /**
+     * @var TripleChoice $csfStore
+     * @ORM\Column(name="isolStore",type="TripleChoice",nullable=true)
+     */
+    private $isolStore;
+
+    /**
+     * @var string $rrlName
+     * @ORM\Column(name="rrlName",type="string",nullable=true)
+     */
+    private $rrlName;
+
+    /**
+     * @var string $spnSerotype
+     * @ORM\Column(name="spnSerotype",type="string",nullable=true)
+     */
+    private $spnSerotype;
+
+    /**
+     * @var string $hiSerotyoe
+     * @ORM\Column(name="hiSerotyoe",type="string",nullable=true)
+     */
+    private $hiSerotype;
+
+    /**
+     * @var string $nmSerogroup
+     * @ORM\Column(name="nmSerogroup",type="string",nullable=true)
+     */
+    private $nmSerogroup;
+
+//==================
+    //PNEUMONIA / SEPSIS (In addition to above)
 
     /**
      * @var TripleChoice $bloodCultDone
@@ -127,46 +249,10 @@ class SiteLab
     private $otherTestDone;
 
     /**
-     * @var LatResult $csfCultResult
-     * @ORM\Column(name="csfCultResult",type="LatResult",nullable=true)
+     * @var string $otherTest
+     * @ORM\Column(name="otherTest",type="string",nullable=true)
      */
-    private $csfCultResult;
-
-    /**
-     * @var string $csfCultOther
-     * @ORM\Column(name="csfCultOther",type="string",nullable=true)
-     */
-    private $csfCultOther;
-
-    /**
-     * @var GramStain
-     * @ORM\Column(name="csfGramResult",type="GramStain",nullable=true)
-     */
-    private $csfGramResult;
-    
-    /**
-     * @var BinaxResult
-     * @ORM\Column(name="csfBinaxResult",type="BinaxResult",nullable=true)
-     */
-    private $csfBinaxResult;
-    
-    /**
-     * @var LatResult
-     * @ORM\Column(name="csfLatResult",type="LatResult",nullable=true)
-     */
-    private $csfLatResult;
-    
-    /**
-     * @var string
-     * @ORM\Column(name="csfLatOther",type="string",nullable=true)
-     */
-    private $csfLatOther;
-    
-    /**
-     * @var PCRResult
-     * @ORM\Column(name="csfPcrResult",type="PCRResult",nullable=true)
-     */
-    private $csfPcrResult;
+    private $otherTest;
 
     /**
      * @var LatResult
@@ -185,11 +271,30 @@ class SiteLab
      * @ORM\Column(name="bloodGramResult",type="GramStain",nullable=true)
      */
     private $bloodGramResult;
+
+    /**
+     * @var GramStainOrganism $bloodGramResultOrganism
+     * @ORM\Column(name="bloodGramResultOrganism",type="GramStainOrganism",nullable=true)
+     */
+    private $bloodGramResultOrganism;
+
+    /**
+     * @var string $bloodGramOther
+     * @ORM\Column(name="bloodGramOther",type="string",nullable=true)
+     */
+    private $bloodGramOther;
+
     /**
      * @var PCRResult
      * @ORM\Column(name="bloodPcrResult",type="PCRResult",nullable=true)
      */
     private $bloodPcrResult;
+
+    /**
+     * @var string $bloodPcrOther
+     * @ORM\Column(name="bloodPcrOther",type="string",nullable=true)
+     */
+    private $bloodPcrOther;
 
     /**
      * @var LatResult
@@ -216,54 +321,6 @@ class SiteLab
     private $otherTestOther;
 
     /**
-     * @var DateTime $rrlCsfDate
-     * @ORM\Column(name="rrlCsfDate",type="date",nullable=true)
-     */
-    private $rrlCsfDate;
-
-    /**
-     * @var DateTime $rrlIsoDate
-     * @ORM\Column(name="rrlIsoDate",type="date",nullable=true)
-     */
-    private $rrlIsolDate;
-
-    /**
-     * @var TripleChoice $csfStore
-     * @ORM\Column(name="csfStore",type="TripleChoice",nullable=true)
-     */
-    private $csfStore;
-    
-    /**
-     * @var TripleChoice $csfStore
-     * @ORM\Column(name="isolStore",type="TripleChoice",nullable=true)
-     */
-    private $isolStore;
-
-    /**
-     * @var string $rrlName
-     * @ORM\Column(name="rrlName",type="string",nullable=true)
-     */
-    private $rrlName;
-
-    /**
-     * @var string $spnSerotype
-     * @ORM\Column(name="spnSerotype",type="string",nullable=true)
-     */
-    private $spnSerotype;
-
-    /**
-     * @var string $hiSerotyoe
-     * @ORM\Column(name="hiSerotyoe",type="string",nullable=true)
-     */
-    private $hiSerotype;
-
-    /**
-     * @var string $nmSerogroup
-     * @ORM\Column(name="nmSerogroup",type="string",nullable=true)
-     */
-    private $nmSerogroup;
-//PNEUMONIA / SEPSIS (In addition to above)
-    /**
      * @var TripleChoice $cxrDone
      * @ORM\Column(name="cxrDone",type="TripleChoice",nullable=true)
      */
@@ -283,933 +340,553 @@ class SiteLab
         return $this;
     }
 
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * Set csfLabDateTime
-     *
-     * @param \DateTime $csfLabDateTime
-     * @return SiteLab
-     */
-    public function setCsfLabDateTime($csfLabDateTime)
+    public function getCase()
     {
-        $this->csfLabDateTime = $csfLabDateTime;
-    
-        return $this;
+        return $this->case;
     }
 
-    /**
-     * Get csfLabDateTime
-     *
-     * @return \DateTime 
-     */
     public function getCsfLabDateTime()
     {
         return $this->csfLabDateTime;
     }
 
-    /**
-     * Set csfWcc
-     *
-     * @param integer $csfWcc
-     * @return SiteLab
-     */
-    public function setCsfWcc($csfWcc)
-    {
-        $this->csfWcc = $csfWcc;
-    
-        return $this;
-    }
-
-    /**
-     * Get csfWcc
-     *
-     * @return integer 
-     */
     public function getCsfWcc()
     {
         return $this->csfWcc;
     }
 
-    /**
-     * Set csfGlucose
-     *
-     * @param integer $csfGlucose
-     * @return SiteLab
-     */
-    public function setCsfGlucose($csfGlucose)
-    {
-        $this->csfGlucose = $csfGlucose;
-    
-        return $this;
-    }
-
-    /**
-     * Get csfGlucose
-     *
-     * @return integer 
-     */
     public function getCsfGlucose()
     {
         return $this->csfGlucose;
     }
 
-    /**
-     * Set csfProtein
-     *
-     * @param integer $csfProtein
-     * @return SiteLab
-     */
-    public function setCsfProtein($csfProtein)
-    {
-        $this->csfProtein = $csfProtein;
-    
-        return $this;
-    }
-
-    /**
-     * Get csfProtein
-     *
-     * @return integer 
-     */
     public function getCsfProtein()
     {
         return $this->csfProtein;
     }
 
-    /**
-     * Set csfCultDone
-     *
-     * @param TripleChoice $csfCultDone
-     * @return SiteLab
-     */
-    public function setCsfCultDone($csfCultDone)
-    {
-        $this->csfCultDone = $csfCultDone;
-    
-        return $this;
-    }
-
-    /**
-     * Get csfCultDone
-     *
-     * @return TripleChoice 
-     */
     public function getCsfCultDone()
     {
         return $this->csfCultDone;
     }
 
-    /**
-     * Set csfGramDone
-     *
-     * @param TripleChoice $csfGramDone
-     * @return SiteLab
-     */
-    public function setCsfGramDone($csfGramDone)
-    {
-        $this->csfGramDone = $csfGramDone;
-    
-        return $this;
-    }
-
-    /**
-     * Get csfGramDone
-     *
-     * @return TripleChoice 
-     */
     public function getCsfGramDone()
     {
         return $this->csfGramDone;
     }
 
-    /**
-     * Set csfBinaxDone
-     *
-     * @param TripleChoice $csfBinaxDone
-     * @return SiteLab
-     */
-    public function setCsfBinaxDone($csfBinaxDone)
-    {
-        $this->csfBinaxDone = $csfBinaxDone;
-    
-        return $this;
-    }
-
-    /**
-     * Get csfBinaxDone
-     *
-     * @return TripleChoice 
-     */
     public function getCsfBinaxDone()
     {
         return $this->csfBinaxDone;
     }
 
-    /**
-     * Set csfLatDone
-     *
-     * @param TripleChoice $csfLatDone
-     * @return SiteLab
-     */
-    public function setCsfLatDone($csfLatDone)
-    {
-        $this->csfLatDone = $csfLatDone;
-    
-        return $this;
-    }
-
-    /**
-     * Get csfLatDone
-     *
-     * @return TripleChoice 
-     */
     public function getCsfLatDone()
     {
         return $this->csfLatDone;
     }
 
-    /**
-     * Set csfPcrDone
-     *
-     * @param TripleChoice $csfPcrDone
-     * @return SiteLab
-     */
-    public function setCsfPcrDone($csfPcrDone)
-    {
-        $this->csfPcrDone = $csfPcrDone;
-    
-        return $this;
-    }
-
-    /**
-     * Get csfPcrDone
-     *
-     * @return TripleChoice 
-     */
     public function getCsfPcrDone()
     {
         return $this->csfPcrDone;
     }
 
-    /**
-     * Set bloodCultDone
-     *
-     * @param TripleChoice $bloodCultDone
-     * @return SiteLab
-     */
-    public function setBloodCultDone($bloodCultDone)
-    {
-        $this->bloodCultDone = $bloodCultDone;
-    
-        return $this;
-    }
-
-    /**
-     * Get bloodCultDone
-     *
-     * @return TripleChoice 
-     */
-    public function getBloodCultDone()
-    {
-        return $this->bloodCultDone;
-    }
-
-    /**
-     * Set bloodGramDone
-     *
-     * @param TripleChoice $bloodGramDone
-     * @return SiteLab
-     */
-    public function setBloodGramDone($bloodGramDone)
-    {
-        $this->bloodGramDone = $bloodGramDone;
-    
-        return $this;
-    }
-
-    /**
-     * Get bloodGramDone
-     *
-     * @return TripleChoice 
-     */
-    public function getBloodGramDone()
-    {
-        return $this->bloodGramDone;
-    }
-
-    /**
-     * Set bloodPcrDone
-     *
-     * @param TripleChoice $bloodPcrDone
-     * @return SiteLab
-     */
-    public function setBloodPcrDone($bloodPcrDone)
-    {
-        $this->bloodPcrDone = $bloodPcrDone;
-    
-        return $this;
-    }
-
-    /**
-     * Get bloodPcrDone
-     *
-     * @return TripleChoice 
-     */
-    public function getBloodPcrDone()
-    {
-        return $this->bloodPcrDone;
-    }
-
-    /**
-     * Set otherCultDone
-     *
-     * @param TripleChoice $otherCultDone
-     * @return SiteLab
-     */
-    public function setOtherCultDone($otherCultDone)
-    {
-        $this->otherCultDone = $otherCultDone;
-    
-        return $this;
-    }
-
-    /**
-     * Get otherCultDone
-     *
-     * @return TripleChoice 
-     */
-    public function getOtherCultDone()
-    {
-        return $this->otherCultDone;
-    }
-
-    /**
-     * Set otherTestDone
-     *
-     * @param TripleChoice $otherTestDone
-     * @return SiteLab
-     */
-    public function setOtherTestDone($otherTestDone)
-    {
-        $this->otherTestDone = $otherTestDone;
-    
-        return $this;
-    }
-
-    /**
-     * Get otherTestDone
-     *
-     * @return TripleChoice 
-     */
-    public function getOtherTestDone()
-    {
-        return $this->otherTestDone;
-    }
-
-    /**
-     * Set csfCultResult
-     *
-     * @param LatResult $csfCultResult
-     * @return SiteLab
-     */
-    public function setCsfCultResult($csfCultResult)
-    {
-        $this->csfCultResult = $csfCultResult;
-    
-        return $this;
-    }
-
-    /**
-     * Get csfCultResult
-     *
-     * @return LatResult 
-     */
     public function getCsfCultResult()
     {
         return $this->csfCultResult;
     }
 
-    /**
-     * Set csfCultOther
-     *
-     * @param string $csfCultOther
-     * @return SiteLab
-     */
-    public function setCsfCultOther($csfCultOther)
-    {
-        $this->csfCultOther = $csfCultOther;
-    
-        return $this;
-    }
-
-    /**
-     * Get csfCultOther
-     *
-     * @return string 
-     */
     public function getCsfCultOther()
     {
         return $this->csfCultOther;
     }
 
-    /**
-     * Set csfGramResult
-     *
-     * @param GramStain $csfGramResult
-     * @return SiteLab
-     */
-    public function setCsfGramResult($csfGramResult)
-    {
-        $this->csfGramResult = $csfGramResult;
-    
-        return $this;
-    }
-
-    /**
-     * Get csfGramResult
-     *
-     * @return GramStain 
-     */
     public function getCsfGramResult()
     {
         return $this->csfGramResult;
     }
 
-    /**
-     * Set csfBinaxResult
-     *
-     * @param BinaxResult $csfBinaxResult
-     * @return SiteLab
-     */
-    public function setCsfBinaxResult($csfBinaxResult)
+    public function getCsfGramResultOrganism()
     {
-        $this->csfBinaxResult = $csfBinaxResult;
-    
-        return $this;
+        return $this->csfGramResultOrganism;
     }
 
-    /**
-     * Get csfBinaxResult
-     *
-     * @return BinaxResult 
-     */
+    public function getCsfGramOther()
+    {
+        return $this->csfGramOther;
+    }
+
     public function getCsfBinaxResult()
     {
         return $this->csfBinaxResult;
     }
 
-    /**
-     * Set csfLatResult
-     *
-     * @param LatResult $csfLatResult
-     * @return SiteLab
-     */
-    public function setCsfLatResult($csfLatResult)
-    {
-        $this->csfLatResult = $csfLatResult;
-    
-        return $this;
-    }
-
-    /**
-     * Get csfLatResult
-     *
-     * @return LatResult 
-     */
     public function getCsfLatResult()
     {
         return $this->csfLatResult;
     }
 
-    /**
-     * Set csfLatOther
-     *
-     * @param string $csfLatOther
-     * @return SiteLab
-     */
-    public function setCsfLatOther($csfLatOther)
-    {
-        $this->csfLatOther = $csfLatOther;
-    
-        return $this;
-    }
-
-    /**
-     * Get csfLatOther
-     *
-     * @return string 
-     */
     public function getCsfLatOther()
     {
         return $this->csfLatOther;
     }
 
-    /**
-     * Set csfPcrResult
-     *
-     * @param PCRResult $csfPcrResult
-     * @return SiteLab
-     */
-    public function setCsfPcrResult($csfPcrResult)
-    {
-        $this->csfPcrResult = $csfPcrResult;
-    
-        return $this;
-    }
-
-    /**
-     * Get csfPcrResult
-     *
-     * @return PCRResult 
-     */
     public function getCsfPcrResult()
     {
         return $this->csfPcrResult;
     }
 
-    /**
-     * Set bloodCultResult
-     *
-     * @param LatResult $bloodCultResult
-     * @return SiteLab
-     */
-    public function setBloodCultResult($bloodCultResult)
+    public function getCsfPcrOther()
     {
-        $this->bloodCultResult = $bloodCultResult;
-    
-        return $this;
+        return $this->csfPcrOther;
     }
 
-    /**
-     * Get bloodCultResult
-     *
-     * @return LatResult 
-     */
-    public function getBloodCultResult()
-    {
-        return $this->bloodCultResult;
-    }
-
-    /**
-     * Set bloodCultOther
-     *
-     * @param string $bloodCultOther
-     * @return SiteLab
-     */
-    public function setBloodCultOther($bloodCultOther)
-    {
-        $this->bloodCultOther = $bloodCultOther;
-    
-        return $this;
-    }
-
-    /**
-     * Get bloodCultOther
-     *
-     * @return string 
-     */
-    public function getBloodCultOther()
-    {
-        return $this->bloodCultOther;
-    }
-
-    /**
-     * Set bloodGramResult
-     *
-     * @param GramStain $bloodGramResult
-     * @return SiteLab
-     */
-    public function setBloodGramResult($bloodGramResult)
-    {
-        $this->bloodGramResult = $bloodGramResult;
-    
-        return $this;
-    }
-
-    /**
-     * Get bloodGramResult
-     *
-     * @return GramStain 
-     */
-    public function getBloodGramResult()
-    {
-        return $this->bloodGramResult;
-    }
-
-    /**
-     * Set bloodPcrResult
-     *
-     * @param PCRResult $bloodPcrResult
-     * @return SiteLab
-     */
-    public function setBloodPcrResult($bloodPcrResult)
-    {
-        $this->bloodPcrResult = $bloodPcrResult;
-    
-        return $this;
-    }
-
-    /**
-     * Get bloodPcrResult
-     *
-     * @return PCRResult 
-     */
-    public function getBloodPcrResult()
-    {
-        return $this->bloodPcrResult;
-    }
-
-    /**
-     * Set otherCultResult
-     *
-     * @param LatResult $otherCultResult
-     * @return SiteLab
-     */
-    public function setOtherCultResult($otherCultResult)
-    {
-        $this->otherCultResult = $otherCultResult;
-    
-        return $this;
-    }
-
-    /**
-     * Get otherCultResult
-     *
-     * @return LatResult 
-     */
-    public function getOtherCultResult()
-    {
-        return $this->otherCultResult;
-    }
-
-    /**
-     * Set otherCultOther
-     *
-     * @param string $otherCultOther
-     * @return SiteLab
-     */
-    public function setOtherCultOther($otherCultOther)
-    {
-        $this->otherCultOther = $otherCultOther;
-    
-        return $this;
-    }
-
-    /**
-     * Get otherCultOther
-     *
-     * @return string 
-     */
-    public function getOtherCultOther()
-    {
-        return $this->otherCultOther;
-    }
-
-    /**
-     * Set otherTestResult
-     *
-     * @param PCRResult $otherTestResult
-     * @return SiteLab
-     */
-    public function setOtherTestResult($otherTestResult)
-    {
-        $this->otherTestResult = $otherTestResult;
-    
-        return $this;
-    }
-
-    /**
-     * Get otherTestResult
-     *
-     * @return PCRResult 
-     */
-    public function getOtherTestResult()
-    {
-        return $this->otherTestResult;
-    }
-
-    /**
-     * Set otherTestOther
-     *
-     * @param string $otherTestOther
-     * @return SiteLab
-     */
-    public function setOtherTestOther($otherTestOther)
-    {
-        $this->otherTestOther = $otherTestOther;
-    
-        return $this;
-    }
-
-    /**
-     * Get otherTestOther
-     *
-     * @return string 
-     */
-    public function getOtherTestOther()
-    {
-        return $this->otherTestOther;
-    }
-
-    /**
-     * Set rrlCsfDate
-     *
-     * @param \DateTime $rrlCsfDate
-     * @return SiteLab
-     */
-    public function setRrlCsfDate($rrlCsfDate)
-    {
-        $this->rrlCsfDate = $rrlCsfDate;
-    
-        return $this;
-    }
-
-    /**
-     * Get rrlCsfDate
-     *
-     * @return \DateTime 
-     */
     public function getRrlCsfDate()
     {
         return $this->rrlCsfDate;
     }
 
-    /**
-     * Set rrlIsolDate
-     *
-     * @param \DateTime $rrlIsolDate
-     * @return SiteLab
-     */
-    public function setRrlIsolDate($rrlIsolDate)
-    {
-        $this->rrlIsolDate = $rrlIsolDate;
-    
-        return $this;
-    }
-
-    /**
-     * Get rrlIsolDate
-     *
-     * @return \DateTime 
-     */
     public function getRrlIsolDate()
     {
         return $this->rrlIsolDate;
     }
 
-    /**
-     * Set csfStore
-     *
-     * @param TripleChoice $csfStore
-     * @return SiteLab
-     */
-    public function setCsfStore($csfStore)
+    public function getRrlIsolBloodDate()
     {
-        $this->csfStore = $csfStore;
-    
-        return $this;
+        return $this->rrlIsolBloodDate;
     }
 
-    /**
-     * Get csfStore
-     *
-     * @return TripleChoice 
-     */
+    public function getRrlBrothDate()
+    {
+        return $this->rrlBrothDate;
+    }
+
     public function getCsfStore()
     {
         return $this->csfStore;
     }
 
-    /**
-     * Set isolStore
-     *
-     * @param TripleChoice $isolStore
-     * @return SiteLab
-     */
-    public function setIsolStore($isolStore)
-    {
-        $this->isolStore = $isolStore;
-    
-        return $this;
-    }
-
-    /**
-     * Get isolStore
-     *
-     * @return TripleChoice 
-     */
     public function getIsolStore()
     {
         return $this->isolStore;
     }
 
-    /**
-     * Set rrlName
-     *
-     * @param string $rrlName
-     * @return SiteLab
-     */
-    public function setRrlName($rrlName)
-    {
-        $this->rrlName = $rrlName;
-    
-        return $this;
-    }
-
-    /**
-     * Get rrlName
-     *
-     * @return string 
-     */
     public function getRrlName()
     {
         return $this->rrlName;
     }
 
-    /**
-     * Set spnSerotype
-     *
-     * @param string $spnSerotype
-     * @return SiteLab
-     */
-    public function setSpnSerotype($spnSerotype)
-    {
-        $this->spnSerotype = $spnSerotype;
-    
-        return $this;
-    }
-
-    /**
-     * Get spnSerotype
-     *
-     * @return string 
-     */
     public function getSpnSerotype()
     {
         return $this->spnSerotype;
     }
 
-    /**
-     * Set hiSerotype
-     *
-     * @param string $hiSerotype
-     * @return SiteLab
-     */
-    public function setHiSerotype($hiSerotype)
-    {
-        $this->hiSerotype = $hiSerotype;
-    
-        return $this;
-    }
-
-    /**
-     * Get hiSerotype
-     *
-     * @return string 
-     */
     public function getHiSerotype()
     {
         return $this->hiSerotype;
     }
 
-    /**
-     * Set nmSerogroup
-     *
-     * @param string $nmSerogroup
-     * @return SiteLab
-     */
-    public function setNmSerogroup($nmSerogroup)
-    {
-        $this->nmSerogroup = $nmSerogroup;
-    
-        return $this;
-    }
-
-    /**
-     * Get nmSerogroup
-     *
-     * @return string 
-     */
     public function getNmSerogroup()
     {
         return $this->nmSerogroup;
     }
 
-    /**
-     * Set cxrDone
-     *
-     * @param TripleChoice $cxrDone
-     * @return SiteLab
-     */
-    public function setCxrDone($cxrDone)
+    public function getBloodCultDone()
     {
-        $this->cxrDone = $cxrDone;
-    
-        return $this;
+        return $this->bloodCultDone;
     }
 
-    /**
-     * Get cxrDone
-     *
-     * @return TripleChoice 
-     */
+    public function getBloodGramDone()
+    {
+        return $this->bloodGramDone;
+    }
+
+    public function getBloodPcrDone()
+    {
+        return $this->bloodPcrDone;
+    }
+
+    public function getOtherCultDone()
+    {
+        return $this->otherCultDone;
+    }
+
+    public function getOtherTestDone()
+    {
+        return $this->otherTestDone;
+    }
+
+    public function getOtherTest()
+    {
+        return $this->otherTest;
+    }
+
+    public function getBloodCultResult()
+    {
+        return $this->bloodCultResult;
+    }
+
+    public function getBloodCultOther()
+    {
+        return $this->bloodCultOther;
+    }
+
+    public function getBloodGramResult()
+    {
+        return $this->bloodGramResult;
+    }
+
+    public function getBloodGramResultOrganism()
+    {
+        return $this->bloodGramResultOrganism;
+    }
+
+    public function getBloodGramOther()
+    {
+        return $this->bloodGramOther;
+    }
+
+    public function getBloodPcrResult()
+    {
+        return $this->bloodPcrResult;
+    }
+
+    public function getBloodPcrOther()
+    {
+        return $this->bloodPcrOther;
+    }
+
+    public function getOtherCultResult()
+    {
+        return $this->otherCultResult;
+    }
+
+    public function getOtherCultOther()
+    {
+        return $this->otherCultOther;
+    }
+
+    public function getOtherTestResult()
+    {
+        return $this->otherTestResult;
+    }
+
+    public function getOtherTestOther()
+    {
+        return $this->otherTestOther;
+    }
+
     public function getCxrDone()
     {
         return $this->cxrDone;
     }
 
-    /**
-     * Set cxrResult
-     *
-     * @param CXRResult $cxrResult
-     * @return SiteLab
-     */
-    public function setCxrResult($cxrResult)
-    {
-        $this->cxrResult = $cxrResult;
-    
-        return $this;
-    }
-
-    /**
-     * Get cxrResult
-     *
-     * @return CXRResult 
-     */
     public function getCxrResult()
     {
         return $this->cxrResult;
     }
 
-    /**
-     * Set case
-     *
-     * @param \NS\SentinelBundle\Entity\Meningitis $case
-     * @return SiteLab
-     */
-    public function setCase(\NS\SentinelBundle\Entity\Meningitis $case)
+    public function setId($id)
     {
-        $this->case = $case;
-    
+        $this->id = $id;
         return $this;
     }
 
-    /**
-     * Get case
-     *
-     * @return \NS\SentinelBundle\Entity\Meningitis 
-     */
-    public function getCase()
+    public function setCase($case)
     {
-        return $this->case;
+        $this->case = $case;
+        return $this;
+    }
+
+    public function setCsfLabDateTime(DateTime $csfLabDateTime)
+    {
+        $this->csfLabDateTime = $csfLabDateTime;
+        return $this;
+    }
+
+    public function setCsfWcc($csfWcc)
+    {
+        $this->csfWcc = $csfWcc;
+        return $this;
+    }
+
+    public function setCsfGlucose($csfGlucose)
+    {
+        $this->csfGlucose = $csfGlucose;
+        return $this;
+    }
+
+    public function setCsfProtein($csfProtein)
+    {
+        $this->csfProtein = $csfProtein;
+        return $this;
+    }
+
+    public function setCsfCultDone(TripleChoice $csfCultDone)
+    {
+        $this->csfCultDone = $csfCultDone;
+        return $this;
+    }
+
+    public function setCsfGramDone(TripleChoice $csfGramDone)
+    {
+        $this->csfGramDone = $csfGramDone;
+        return $this;
+    }
+
+    public function setCsfBinaxDone(TripleChoice $csfBinaxDone)
+    {
+        $this->csfBinaxDone = $csfBinaxDone;
+        return $this;
+    }
+
+    public function setCsfLatDone(TripleChoice $csfLatDone)
+    {
+        $this->csfLatDone = $csfLatDone;
+        return $this;
+    }
+
+    public function setCsfPcrDone(TripleChoice $csfPcrDone)
+    {
+        $this->csfPcrDone = $csfPcrDone;
+        return $this;
+    }
+
+    public function setCsfCultResult(LatResult $csfCultResult)
+    {
+        $this->csfCultResult = $csfCultResult;
+        return $this;
+    }
+
+    public function setCsfCultOther($csfCultOther)
+    {
+        $this->csfCultOther = $csfCultOther;
+        return $this;
+    }
+
+    public function setCsfGramResult(GramStain $csfGramResult)
+    {
+        $this->csfGramResult = $csfGramResult;
+        return $this;
+    }
+
+    public function setCsfGramResultOrganism(GramStainOrganism $csfGramResultOrganism)
+    {
+        $this->csfGramResultOrganism = $csfGramResultOrganism;
+        return $this;
+    }
+
+    public function setCsfGramOther($csfGramOther)
+    {
+        $this->csfGramOther = $csfGramOther;
+        return $this;
+    }
+
+    public function setCsfBinaxResult(BinaxResult $csfBinaxResult)
+    {
+        $this->csfBinaxResult = $csfBinaxResult;
+        return $this;
+    }
+
+    public function setCsfLatResult(LatResult $csfLatResult)
+    {
+        $this->csfLatResult = $csfLatResult;
+        return $this;
+    }
+
+    public function setCsfLatOther($csfLatOther)
+    {
+        $this->csfLatOther = $csfLatOther;
+        return $this;
+    }
+
+    public function setCsfPcrResult(PCRResult $csfPcrResult)
+    {
+        $this->csfPcrResult = $csfPcrResult;
+        return $this;
+    }
+
+    public function setCsfPcrOther($csfPcrOther)
+    {
+        $this->csfPcrOther = $csfPcrOther;
+        return $this;
+    }
+
+    public function setRrlCsfDate(DateTime $rrlCsfDate)
+    {
+        $this->rrlCsfDate = $rrlCsfDate;
+        return $this;
+    }
+
+    public function setRrlIsolDate(DateTime $rrlIsolDate)
+    {
+        $this->rrlIsolDate = $rrlIsolDate;
+        return $this;
+    }
+
+    public function setRrlIsolBloodDate(DateTime $rrlIsolBloodDate)
+    {
+        $this->rrlIsolBloodDate = $rrlIsolBloodDate;
+        return $this;
+    }
+
+    public function setRrlBrothDate(DateTime $rrlBrothDate)
+    {
+        $this->rrlBrothDate = $rrlBrothDate;
+        return $this;
+    }
+
+    public function setCsfStore(TripleChoice $csfStore)
+    {
+        $this->csfStore = $csfStore;
+        return $this;
+    }
+
+    public function setIsolStore(TripleChoice $isolStore)
+    {
+        $this->isolStore = $isolStore;
+        return $this;
+    }
+
+    public function setRrlName($rrlName)
+    {
+        $this->rrlName = $rrlName;
+        return $this;
+    }
+
+    public function setSpnSerotype($spnSerotype)
+    {
+        $this->spnSerotype = $spnSerotype;
+        return $this;
+    }
+
+    public function setHiSerotype($hiSerotype)
+    {
+        $this->hiSerotype = $hiSerotype;
+        return $this;
+    }
+
+    public function setNmSerogroup($nmSerogroup)
+    {
+        $this->nmSerogroup = $nmSerogroup;
+        return $this;
+    }
+
+    public function setBloodCultDone(TripleChoice $bloodCultDone)
+    {
+        $this->bloodCultDone = $bloodCultDone;
+        return $this;
+    }
+
+    public function setBloodGramDone(TripleChoice $bloodGramDone)
+    {
+        $this->bloodGramDone = $bloodGramDone;
+        return $this;
+    }
+
+    public function setBloodPcrDone(TripleChoice $bloodPcrDone)
+    {
+        $this->bloodPcrDone = $bloodPcrDone;
+        return $this;
+    }
+
+    public function setOtherCultDone(TripleChoice $otherCultDone)
+    {
+        $this->otherCultDone = $otherCultDone;
+        return $this;
+    }
+
+    public function setOtherTestDone(TripleChoice $otherTestDone)
+    {
+        $this->otherTestDone = $otherTestDone;
+        return $this;
+    }
+
+    public function setOtherTest($otherTest)
+    {
+        $this->otherTest = $otherTest;
+        return $this;
+    }
+
+    public function setBloodCultResult(LatResult $bloodCultResult)
+    {
+        $this->bloodCultResult = $bloodCultResult;
+        return $this;
+    }
+
+    public function setBloodCultOther($bloodCultOther)
+    {
+        $this->bloodCultOther = $bloodCultOther;
+        return $this;
+    }
+
+    public function setBloodGramResult(GramStain $bloodGramResult)
+    {
+        $this->bloodGramResult = $bloodGramResult;
+        return $this;
+    }
+
+    public function setBloodGramResultOrganism(GramStainOrganism $bloodGramResultOrganism)
+    {
+        $this->bloodGramResultOrganism = $bloodGramResultOrganism;
+        return $this;
+    }
+
+    public function setBloodGramOther($bloodGramOther)
+    {
+        $this->bloodGramOther = $bloodGramOther;
+        return $this;
+    }
+
+    public function setBloodPcrResult(PCRResult $bloodPcrResult)
+    {
+        $this->bloodPcrResult = $bloodPcrResult;
+        return $this;
+    }
+
+    public function setBloodPcrOther($bloodPcrOther)
+    {
+        $this->bloodPcrOther = $bloodPcrOther;
+        return $this;
+    }
+
+    public function setOtherCultResult(LatResult $otherCultResult)
+    {
+        $this->otherCultResult = $otherCultResult;
+        return $this;
+    }
+
+    public function setOtherCultOther($otherCultOther)
+    {
+        $this->otherCultOther = $otherCultOther;
+        return $this;
+    }
+
+    public function setOtherTestResult(PCRResult $otherTestResult)
+    {
+        $this->otherTestResult = $otherTestResult;
+        return $this;
+    }
+
+    public function setOtherTestOther($otherTestOther)
+    {
+        $this->otherTestOther = $otherTestOther;
+        return $this;
+    }
+
+    public function setCxrDone(TripleChoice $cxrDone)
+    {
+        $this->cxrDone = $cxrDone;
+        return $this;
+    }
+
+    public function setCxrResult(CXRResult $cxrResult)
+    {
+        $this->cxrResult = $cxrResult;
+        return $this;
     }
 }
