@@ -31,6 +31,7 @@ class RotaVirusType extends AbstractType
             ->add('caseId',                     null,               array('required'=>false, 'label'=>'rotavirus-form.caseId'))
             ->add('gender',                     'Gender',           array('required'=>false, 'label'=>'rotavirus-form.gender'))
             ->add('dob',                        'acedatepicker',    array('required'=>false, 'label'=>'rotavirus-form.dob'))
+            ->add('ageInMonths',                null,               array('required'=>false, 'label'=>'rotavirus-form.age-in-months'))
             ->add('district',                   null,               array('required'=>false, 'label'=>'rotavirus-form.district'))
             ->add('admissionDate',              'acedatepicker',    array('required'=>false, 'label'=>'rotavirus-form.admissionDate'))
             ->add('symptomDiarrhea',            'TripleChoice',     array('required'=>false, 'label'=>'rotavirus-form.symptomDiarrhea'))
