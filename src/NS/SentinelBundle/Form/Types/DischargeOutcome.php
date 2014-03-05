@@ -12,13 +12,13 @@ class DischargeOutcome extends ArrayChoice
 {
     const DISCHARGES_ALIVE_WITHOUT_SEQUELAE = 1;
     const DISCHARGED_ALIVE_WITH_SEQUELAE    = 2;
-    const DIED                             = 3;
-    const TRANSFERRED                      = 4;
-    const LEFT_AGAINST_ADVICE              = 5;
-    const UNKNOWN                          = 99;
+    const DIED                              = 3;
+    const TRANSFERRED                       = 4;
+    const LEFT_AGAINST_ADVICE               = 5;
+    const UNKNOWN                           = 99;
 
     protected $values = array(
-                                self::DISCHARGED_ALIVE_WITHOUT_SEQUELAE => 'Discharged alive, without sequelae',
+                                self::DISCHARGES_ALIVE_WITHOUT_SEQUELAE => 'Discharged alive, without sequelae',
                                 self::DISCHARGED_ALIVE_WITH_SEQUELAE    => 'Discharged alive, with sequelae',
                                 self::DIED                              => 'Died',
                                 self::TRANSFERRED                       => 'Transferred',
