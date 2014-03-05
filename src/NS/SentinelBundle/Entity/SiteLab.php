@@ -14,6 +14,7 @@ use \NS\SentinelBundle\Form\Types\GramStain;
 use \NS\SentinelBundle\Form\Types\GramStainOrganism;
 use \NS\SentinelBundle\Form\Types\BinaxResult;
 use \NS\SentinelBundle\Form\Types\PCRResult;
+use \NS\SentinelBundle\Form\Types\CXRResult;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use \NS\SecurityBundle\Annotation\Secured;
