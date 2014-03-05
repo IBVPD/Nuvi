@@ -10,6 +10,8 @@ use NS\SentinelBundle\Form\Types\SampleType;
 use NS\SentinelBundle\Form\Types\Volume;
 use NS\SentinelBundle\Form\Types\IsolateType;
 use \NS\SentinelBundle\Form\Types\LatResult;
+use \NS\SentinelBundle\Form\Types\GramStain;
+use \NS\SentinelBundle\Form\Types\GramStainOrganism;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use \NS\SecurityBundle\Annotation\Secured;
