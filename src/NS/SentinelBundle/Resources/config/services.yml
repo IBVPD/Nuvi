@@ -7,7 +7,6 @@ services:
       tags:
         - { name: form.type, alias: DischargeOutcome }
 
-    
     ns.sentinel.form.type.gramstainorganism:
       class: NS\SentinelBundle\Form\Types\GramStainOrganism
       tags:
@@ -35,12 +34,12 @@ services:
       class: NS\SentinelBundle\Form\Types\ElisaResult
       tags:
         - { name: form.type, alias: ElisaResult }
-    ns.sentinel.form.type.meningitisvaccinationtype:
+    ns.sentinel.form.type.rotavirusvaccinationtype:
       class: NS\SentinelBundle\Form\Types\RotavirusVaccinationType
       tags:
         - { name: form.type, alias: RotavirusVaccinationType }
 
-    ns.sentinel.form.type.meningitisvaccinationreceived:
+    ns.sentinel.form.type.rotavirusvaccinationreceived:
       class: NS\SentinelBundle\Form\Types\RotavirusVaccinationReceived
       tags:
         - { name: form.type, alias: RotavirusVaccinationReceived }
@@ -102,20 +101,23 @@ services:
       class: NS\SentinelBundle\Form\MeningitisSiteLabType
       tags:
         - { name: form.type, alias: meningitis_sitelab }
+    
     ns.sentinel.form.type.meningitis:
       class: NS\SentinelBundle\Form\MeningitisType
       arguments: [ "@session", "@ns.model_manager" ]
       tags:
         - { name: form.type, alias: meningitis }
-    ns.sentinel.form.type.meningitis_sitelab:
+    
+    ns.sentinel.form.type.rotavirus_sitelab:
       class: NS\SentinelBundle\Form\RotaVirusSiteLabType
       tags:
-        - { name: form.type, alias: meningitis_sitelab }
-    ns.sentinel.form.type.meningitis:
+        - { name: form.type, alias: rotavirus_sitelab }
+    ns.sentinel.form.type.rotavirus:
       class: NS\SentinelBundle\Form\RotaVirusType
       arguments: [ "@session", "@ns.model_manager" ]
       tags:
-        - { name: form.type, alias: meningitis }
+        - { name: form.type, alias: rotaviruss }
+    
     ns.sentinel.form.type.pathogenidentifier:
       class: NS\SentinelBundle\Form\Types\PathogenIdentifier
       tags:
@@ -156,10 +158,14 @@ services:
       class: NS\SentinelBundle\Form\Types\Diagnosis
       tags:
         - { name: form.type, alias: Diagnosis }
-    ns.sentinel.form.type.dischargeOutcome:
+    ns.sentinel.form.type.dischargeClassification:
       class: NS\SentinelBundle\Form\Types\DischargeClassification
       tags:
         - { name: form.type, alias: DischargeClassification }
+    ns.sentinel.form.type.dischargeOutcome:
+      class: NS\SentinelBundle\Form\Types\DischargeOutcome
+      tags:
+        - { name: form.type, alias: DischargeOutcome }
     ns.sentinel.form.type.doses:
       class: NS\SentinelBundle\Form\Types\Doses
       tags:

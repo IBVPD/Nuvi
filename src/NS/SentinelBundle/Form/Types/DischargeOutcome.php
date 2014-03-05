@@ -20,6 +20,6 @@ class DischargeOutcome extends ArrayChoice
 
     public function getName()
     {
-        return 'dischargeoutcome';
+        return 'DischargeOutcome';
     }
 }

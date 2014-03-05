@@ -9,7 +9,7 @@ use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
  * Description of GramStain
  *
  */
-class GramStainOrganism extends TranslatableArrayChoice implements TranslationContainerInterface
+class GramStain extends TranslatableArrayChoice implements TranslationContainerInterface
 {
     const NO_ORGANISM_DETECTED = 0;
     const GM_POSITIVE          = 1;

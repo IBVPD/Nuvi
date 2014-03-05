@@ -285,7 +285,7 @@ class Meningitis implements IdentityAssignmentInterface
 //Case-based Specimen Collection Data
 
     /**
-     * @var DateTime $csfCollected
+     * @var boolean $csfCollected
      * @ORM\Column(name="csfCollected",type="boolean",nullable=true)
      */
     private $csfCollected;
@@ -841,7 +841,7 @@ class Meningitis implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function setCsfCollected(DateTime $csfCollected)
+    public function setCsfCollected($csfCollected)
     {
         $this->csfCollected = $csfCollected;
         return $this;

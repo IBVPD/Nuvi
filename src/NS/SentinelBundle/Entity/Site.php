@@ -122,7 +122,10 @@ class Site implements \Serializable
 
     public function __toString()
     {
-        return $this->name;
+        if(strlen($this->name) > 20)
+            return mb_substr ($this->name, 0,31)."...";
+        else
+            return $this->name;
     }    
 
     /**
