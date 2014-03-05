@@ -4,6 +4,8 @@ namespace NS\SentinelBundle\Repository;
 
 use NS\SecurityBundle\Doctrine\SecuredEntityRepository;
 use NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
+use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\UnexpectedResultException;
 
 /**
  * MeningitisLab
