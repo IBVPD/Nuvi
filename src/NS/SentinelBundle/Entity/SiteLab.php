@@ -4,14 +4,16 @@ namespace NS\SentinelBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use NS\SentinelBundle\Form\Types\TripleChoice;
-use NS\SentinelBundle\Form\Types\PathogenIdentifier;
-use NS\SentinelBundle\Form\Types\SerotypeIdentifier;
-use NS\SentinelBundle\Form\Types\SampleType;
-use NS\SentinelBundle\Form\Types\Volume;
-use NS\SentinelBundle\Form\Types\IsolateType;
+//use NS\SentinelBundle\Form\Types\PathogenIdentifier;
+//use NS\SentinelBundle\Form\Types\SerotypeIdentifier;
+//use NS\SentinelBundle\Form\Types\SampleType;
+//use NS\SentinelBundle\Form\Types\Volume;
+//use NS\SentinelBundle\Form\Types\IsolateType;
 use \NS\SentinelBundle\Form\Types\LatResult;
 use \NS\SentinelBundle\Form\Types\GramStain;
 use \NS\SentinelBundle\Form\Types\GramStainOrganism;
+use \NS\SentinelBundle\Form\Types\BinaxResult;
+use \NS\SentinelBundle\Form\Types\PCRResult;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use \NS\SecurityBundle\Annotation\Secured;
