@@ -321,7 +321,7 @@ class Meningitis implements IdentityAssignmentInterface
 
 //Case-based Outcome Data
     /**
-     * @var DishchargeOutcome $dischOutcome
+     * @var DischargeOutcome $dischOutcome
      * @ORM\Column(name="dischOutcome",type="DischargeOutcome",nullable=true)
      */
     private $dischOutcome;
@@ -876,7 +876,7 @@ class Meningitis implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function setDischOutcome(DishchargeOutcome $dischOutcome)
+    public function setDischOutcome(DischargeOutcome $dischOutcome)
     {
         $this->dischOutcome = $dischOutcome;
         return $this;

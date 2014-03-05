@@ -226,7 +226,7 @@ class Meningitis implements \Serializable
 
 //Case-based Outcome Data
     /**
-     * @var DishchargeOutcome $dischOutcome
+     * @var DischargeOutcome $dischOutcome
      */
     private $dischOutcome;
 
