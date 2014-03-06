@@ -25,8 +25,8 @@
                 </div>
             {% endif %}                
             </div>
-        </div><!--/.table-responsive-->
-    </div><!--/span-->
+        </div>
+    </div>
     <div class="col-xs-3 widget-container-span">
         <div class="widget-box">
             <div class="widget-header widget-header-small header-color-blue">
@@ -40,26 +40,6 @@
                 </div>
             </div>
         </div>        
-    </div>
-</div><!--/row-->
-
-<div class="layoutSection">
-    <div class="column span1">
-        <div class="panel dataPanel">
-            <h3 class="panelTitle">{{'Report'|trans}}</h3>
-            <div class="panelContent">
-                {{ render_hinclude(controller('NSSentinelBundle:Report:generalStats')) }}
-                {{ render_hinclude(controller('NSSentinelBundle:Report:byDiagnosisGraph')) }}
-
-                {% if is_granted('ROLE_COUNTRY') %}
-                    {{ render_hinclude(controller('NSSentinelBundle:Report:bySiteGraph')) }}
-                {% endif %}
-
-                {% if is_granted('ROLE_REGION') %}
-                    {{ render_hinclude(controller('NSSentinelBundle:Report:byCountryGraph')) }}
-                {% endif %}
-            </div>
-        </div>
     </div>
 </div>
 {% endblock %}
