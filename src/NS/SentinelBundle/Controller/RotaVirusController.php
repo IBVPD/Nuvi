@@ -46,11 +46,7 @@ class RotaVirusController extends Controller
 
         $sc = $this->get('security.context');
 
-        if($sc->isGranted('ROLE_SITE'))
-            $t = array('header_template'=>'NSSentinelBundle:RotaVirus:indexSiteHeader.html.twig', 'row_template'=>'NSSentinelBundle:RotaVirus:indexSiteRow.html.twig');
-        else if($sc->isGranted('ROLE_LAB'))
-            $t = array('header_template'=>'NSSentinelBundle:RotaVirus:indexSiteHeader.html.twig', 'row_template'=>'NSSentinelBundle:RotaVirus:indexSiteRow.html.twig');
-        else if($sc->isGranted('ROLE_RRL_LAB'))
+        if($sc->isGranted('ROLE_SITE') || $sc->isGranted('ROLE_LAB') ||$sc->isGranted('ROLE_RRL_LAB'))
             $t = array('header_template'=>'NSSentinelBundle:RotaVirus:indexSiteHeader.html.twig', 'row_template'=>'NSSentinelBundle:RotaVirus:indexSiteRow.html.twig');
         else if($sc->isGranted('ROLE_COUNTRY'))
             $t = array('header_template'=>'NSSentinelBundle:RotaVirus:indexCountryHeader.html.twig', 'row_template'=>'NSSentinelBundle:RotaVirus:indexCountryRow.html.twig');
