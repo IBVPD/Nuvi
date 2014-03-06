@@ -687,7 +687,7 @@ class ReferenceLab
                     'isolateViable',
                     'isolateType',
                     'pathogenIdentifierMethod',
-                    'seroTypeIdentifier',
+                    'serotypeIdentifier',
                     'spnSerotype',
                     'hiSerotype',
                     'nmSerogroup',
@@ -703,7 +703,7 @@ class ReferenceLab
             if(!$this->$fieldName)
             {
                 $this->isComplete = false;
-                break;
+                return;
             }
         }
 
