@@ -20,6 +20,7 @@ use \NS\SecurityBundle\Annotation\SecuredCondition;
  * @author gnat
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\ReferenceLab")
  * @ORM\Table(name="meningitis_reference_labs")
+ * @ORM\HasLifecycleCallbacks
  * @Gedmo\Loggable
  * @Secured(conditions={
  *      @SecuredCondition(roles={"ROLE_REGION"},through={"case"},relation="region",class="NSSentinelBundle:Region"),
@@ -156,8 +157,28 @@ class ReferenceLab
      */
     private $nmSerogroup;
 
-//    private $Dt_ST_Result_Sent_Country;
-//    private $Dt_ST_Result_Sent_WHO;
+    /**
+     * @var \DateTime $resultSentToCountry
+     * @ORM\Column(name="resultSentToCountry",type="date",nullable=true)
+     */
+    private $resultSentToCountry;
+
+    /**
+     * @var \DateTime $resultSentToWHO
+     * @ORM\Column(name="resultSentToWHO",type="date",nullable=true)
+     */
+    private $resultSentToWHO;
+
+    /**
+     * @var boolean $isComplete
+     * @ORM\Column(name="isComplete",type="boolean")
+     */
+    private $isComplete = false;
+
+    public function __construct()
+    {
+        $this->isComplete = false;
+    }
 
     /**
      * Set case
@@ -168,7 +189,7 @@ class ReferenceLab
     public function setCase(\NS\SentinelBundle\Entity\Meningitis $case = null)
     {
         $this->case = $case;
-    
+
         return $this;
     }
 
@@ -201,7 +222,7 @@ class ReferenceLab
     public function setSampleType($sampleType)
     {
         $this->sampleType = $sampleType;
-    
+
         return $this;
     }
 
@@ -224,7 +245,7 @@ class ReferenceLab
     public function setDateReceived($dateReceived)
     {
         $this->dateReceived = $dateReceived;
-    
+
         return $this;
     }
 
@@ -247,7 +268,7 @@ class ReferenceLab
     public function setVolume($volume)
     {
         $this->volume = $volume;
-    
+
         return $this;
     }
 
@@ -270,7 +291,7 @@ class ReferenceLab
     public function setDNAExtractionDate($dNAExtractionDate)
     {
         $this->DNAExtractionDate = $dNAExtractionDate;
-    
+
         return $this;
     }
 
@@ -293,7 +314,7 @@ class ReferenceLab
     public function setDNAVolume($dNAVolume)
     {
         $this->DNAVolume = $dNAVolume;
-    
+
         return $this;
     }
 
@@ -316,7 +337,7 @@ class ReferenceLab
     public function setIsolateViable($isolateViable)
     {
         $this->isolateViable = $isolateViable;
-    
+
         return $this;
     }
 
@@ -339,7 +360,7 @@ class ReferenceLab
     public function setIsolateType($isolateType)
     {
         $this->isolateType = $isolateType;
-    
+
         return $this;
     }
 
@@ -362,7 +383,7 @@ class ReferenceLab
     public function setPathogenIdentifierMethod($pathogenIdentifierMethod)
     {
         $this->pathogenIdentifierMethod = $pathogenIdentifierMethod;
-    
+
         return $this;
     }
 
@@ -385,7 +406,7 @@ class ReferenceLab
     public function setPathogenIdentierOther($pathogenIdentierOther)
     {
         $this->pathogenIdentierOther = $pathogenIdentierOther;
-    
+
         return $this;
     }
 
@@ -408,7 +429,7 @@ class ReferenceLab
     public function setSerotypeIdentifier($serotypeIdentifier)
     {
         $this->serotypeIdentifier = $serotypeIdentifier;
-    
+
         return $this;
     }
 
@@ -431,7 +452,7 @@ class ReferenceLab
     public function setSerotypeIdentifierOther($serotypeIdentifierOther)
     {
         $this->serotypeIdentifierOther = $serotypeIdentifierOther;
-    
+
         return $this;
     }
 
@@ -454,7 +475,7 @@ class ReferenceLab
     public function setLytA($lytA)
     {
         $this->lytA = $lytA;
-    
+
         return $this;
     }
 
@@ -477,7 +498,7 @@ class ReferenceLab
     public function setSodC($sodC)
     {
         $this->sodC = $sodC;
-    
+
         return $this;
     }
 
@@ -500,7 +521,7 @@ class ReferenceLab
     public function setHpd($hpd)
     {
         $this->hpd = $hpd;
-    
+
         return $this;
     }
 
@@ -523,7 +544,7 @@ class ReferenceLab
     public function setRNaseP($rNaseP)
     {
         $this->rNaseP = $rNaseP;
-    
+
         return $this;
     }
 
@@ -546,7 +567,7 @@ class ReferenceLab
     public function setSpnSerotype($spnSerotype)
     {
         $this->spnSerotype = $spnSerotype;
-    
+
         return $this;
     }
 
@@ -569,7 +590,7 @@ class ReferenceLab
     public function setHiSerotype($hiSerotype)
     {
         $this->hiSerotype = $hiSerotype;
-    
+
         return $this;
     }
 
@@ -592,7 +613,7 @@ class ReferenceLab
     public function setNmSerogroup($nmSerogroup)
     {
         $this->nmSerogroup = $nmSerogroup;
-    
+
         return $this;
     }
 
@@ -604,5 +625,88 @@ class ReferenceLab
     public function getNmSerogroup()
     {
         return $this->nmSerogroup;
+    }
+
+    public function getResultSentToCountry()
+    {
+        return $this->resultSentToCountry;
+    }
+
+    public function getResultSentToWHO()
+    {
+        return $this->resultSentToWHO;
+    }
+
+    public function getIsComplete()
+    {
+        return $this->isComplete;
+    }
+
+    public function setResultSentToCountry(\DateTime $resultSentToCountry)
+    {
+        $this->resultSentToCountry = $resultSentToCountry;
+
+        return $this;
+    }
+
+    public function setResultSentToWHO(\DateTime $resultSentToWHO)
+    {
+        $this->resultSentToWHO = $resultSentToWHO;
+
+        return $this;
+    }
+
+    public function setIsComplete($isComplete)
+    {
+        $this->isComplete = $isComplete;
+
+        return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function prePersist()
+    {
+        $this->_calculateIsComplete();
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function preUpdate()
+    {
+        $this->_calculateIsComplete();
+    }
+
+    public function getMandatoryFields()
+    {
+        return array(
+                    'sampleType',
+                    'dateReceived',
+                    'isolateViable',
+                    'isolateType',
+                    'pathogenIdentifierMethod',
+                    'seroTypeIdentifier',
+                    'spnSerotype',
+                    'hiSerotype',
+                    'nmSerogroup',
+                    'resultSentToCountry',
+                    'resultSentToWHO',
+            );
+    }
+
+    private function _calculateIsComplete()
+    {
+        foreach($this->getMandatoryFields() as $fieldName)
+        {
+            if(!$this->$fieldName)
+            {
+                $this->isComplete = false;
+                break;
+            }
+        }
+
+        $this->isComplete = true;
     }
 }
