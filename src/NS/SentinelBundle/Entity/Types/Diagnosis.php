@@ -15,7 +15,7 @@ class Diagnosis extends ArrayChoice
 
     public function getName()
     {
-        return 'Doses';
+        return 'Diagnosis';
     }
     
 }
