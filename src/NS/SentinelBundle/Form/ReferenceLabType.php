@@ -33,6 +33,8 @@ class ReferenceLabType extends AbstractType
             ->add('spnSerotype',null,array('label'=>'meningitis-rrl-form.spnSerotype','required'=>false))
             ->add('hiSerotype',null,array('label'=>'meningitis-rrl-form.hiSerotype','required'=>false))
             ->add('nmSerogroup',null,array('label'=>'meningitis-rrl-form.nmSerogroup','required'=>false))
+            ->add('resultSentToCountry','acedatepicker',array('label'=>'meningitis-rrl-form.result-sent-to-country','required'=>false))
+            ->add('resultSentToWHO','acedatepicker',array('label'=>'meningitis-rrl-form.result-sent-to-who','required'=>false))
         ;
     }
     
