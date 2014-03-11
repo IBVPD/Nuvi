@@ -1,0 +1,22 @@
+parameters:
+#    ns_api.example.class: NS\ApiBundle\Example
+
+services:
+#    ns_api.example:
+#        class: %ns_api.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+    ns_api_oauth_server.authorize.form_type:
+      class: NS\ApiBundle\Form\Type\AuthorizeFormType
+      tags:
+        - { name: form.type, alias: api_oauth_server_authorize }
+          
+    ns_api_oauth_server.authorize.form:
+      factory-method: createNamed
+      factory-service: form.factory
+      class: Symfony\Component\Form\Form
+      arguments: [ "@ns_api_oauth_server.authorize.form_type", ns_api_oauth_server_auth ]
+
+    ns_api_oauth_server.authorize.form_handler:
+      class: NS\ApiBundle\Form\Handler\AuthorizeFormHandler
+      scope: request
+      arguments: [ "@ns_api_oauth_server.authorize.form", "@request", "@security.context", "@fos_oauth_server.server" ]

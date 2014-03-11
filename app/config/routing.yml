@@ -8,7 +8,7 @@ home_redirect:
 
 login_check:
     pattern: /login_check
-    
+
 logout:
     pattern: /logout
 
@@ -25,6 +25,24 @@ _sonata_admin:
      resource: .
      type: sonata_admin
      prefix: /{_locale}/admin
+   
+api_login_auth:
+    pattern: /oauth/v2/auth
+    defaults: { _controller: 'NSApiBundle:Authorize:authorize' }
+
+api_login:
+    pattern: /oauth/v2/auth/login
+    defaults: { _controller: 'NSApiBundle:Security:login' }
+
+api_login_check:
+    pattern: /oauth/v2/auth/login_check
+    defaults: { _controller: 'NSApiBundle:Security:loginCheck' }
+
+fos_oauth_server_token:
+    resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"
+
+fos_oauth_server_authorize:
+    resource: "@FOSOAuthServerBundle/Resources/config/routing/authorize.xml"
 
 ns_sentinel:
     resource: "@NSSentinelBundle/Resources/config/routing.yml"

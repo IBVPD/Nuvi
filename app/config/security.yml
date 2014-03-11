@@ -16,6 +16,22 @@ security:
             id: ns.sentinel.user_provider
 
     firewalls:
+        oauth_token:
+            pattern:    ^/oauth/v2/token
+            security:   false
+
+        oauth_authorize:
+            pattern:    ^/oauth/v2/auth
+            # Add your favorite authentication process here
+            form-login:
+                check_path: /oauth/v2/auth/login_check
+                login_path: /oauth/v2/auth/login
+                default_target_path: /api
+                always_use_default_target_path: true
+        api:
+            pattern:    ^/api
+            fos_oauth:  true
+            stateless:  true
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
@@ -37,7 +53,9 @@ security:
             switch_user: true
 
     access_control:
-#        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/oauth/v2/auth/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/oauth/v2/auth, roles: [ ROLE_USER ] }
+        - { path: ^/api, roles: [ ROLE_USER ] }
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/_trans, roles: ROLE_USER }
         - { path: ^/admin, roles: ROLE_USER }

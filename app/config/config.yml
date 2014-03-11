@@ -193,6 +193,13 @@ lunetics_locale:
     switcher:
         show_current_locale: true
 
+fos_oauth_server:
+    db_driver: orm       # Driver availables: orm, mongodb, or propel
+    client_class:        NS\ApiBundle\Entity\Client
+    access_token_class:  NS\ApiBundle\Entity\AccessToken
+    refresh_token_class: NS\ApiBundle\Entity\RefreshToken
+    auth_code_class:     NS\ApiBundle\Entity\AuthCode
+
 services:
   ns.form.types.autocomplete:
     class: NS\UtilBundle\Form\Types\Autocomplete

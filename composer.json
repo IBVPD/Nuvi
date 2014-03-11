@@ -42,7 +42,8 @@
         "oneup/uploader-bundle": "1.0.*@dev",
         "lexik/form-filter-bundle": "dev-master",
         "knplabs/knp-paginator-bundle": "~2.4",
-        "lunetics/locale-bundle": "~2.2"
+        "lunetics/locale-bundle": "~2.2",
+        "friendsofsymfony/oauth-server-bundle": "~1.4"
     },
     "scripts": {
         "post-install-cmd": [
