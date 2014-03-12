@@ -12,6 +12,11 @@ services:
       tags:
         - { name: form.type, alias: GramStainOrganism }
 
+    ns.sentinel.form.type.gramstain:
+      class: NS\SentinelBundle\Form\Types\GramStain
+      tags:
+        - { name: form.type, alias: GramStain }
+
     ns.sentinel.form.type.meningitisvaccinationtype:
       class: NS\SentinelBundle\Form\Types\MeningitisVaccinationType
       tags:
