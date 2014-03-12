@@ -35,9 +35,14 @@ $(document).ready(function() {
         });
     });
 
-    $('input.nsTag').each(function(i, el)
+    $('input.nsAutocompleter').each(function(i, el)
     {
         $(el).tokenInput($(el).data('autocompleteurl'), $(el).data('options'));
+    });
+    
+    $('input.nsTag').each(function(i, el)
+    {
+        $(el).tag({source:$(el).data('source'), caseInsensitive:$(el).data('case-insensitive'), allowDuplicates:$(el).data('case-allow-duplicates'), autocompleteOnComma:$(el).data('autocomplete-on-comma')});
     });
 
     $('input.nsSpinner').each(function(i, el)

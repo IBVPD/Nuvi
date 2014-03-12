@@ -20,30 +20,22 @@ class TagType extends AbstractType
     {
         parent::setDefaultOptions($resolver);
         $resolver->setDefaults( array(
-            'autocompleteUrl' => false,
-            'method'          =>'POST',
-            'queryParam'      =>'q',
-            'minChars'        => 2,
-            'prePopulate'     => null,
-            'hintText'        => 'Enter a search term',
-            'noResultsText'   => 'No results',
-            'searchingText'   => 'Searching'
+            'source'              => [],
+            'caseInsensitive'     => true,
+            'allowDuplicates'     => false,
+            'autocompleteOnComma' => false
         ));
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         parent::buildView($view, $form, $options);
-
-        $opts = array();
         
-        foreach(array('method', 'queryParam', 'minChars', 'prePopulate', 'hintText', 'noResultsText', 'searchingText') as $opt)
-            $opts[$opt] = $options[$opt];
-
-        if($options['autocompleteUrl'])
-            $view->vars['attr']['data-autocompleteUrl'] = $options['autocompleteUrl'];
-
-        $view->vars['attr']['data-options'] = json_encode($opts);
+        sort($options['source']);
+        $view->vars['attr']['data-source']                = json_encode($options['source']);
+        $view->vars['attr']['data-case-insensitive']      = $options['caseInsensitive'];
+        $view->vars['attr']['data-allow-duplicates']      = $options['allowDuplicates'];
+        $view->vars['attr']['data-autocomplete-on-comma'] = $options['autocompleteOnComma'];
     }
 
     public function getParent()
