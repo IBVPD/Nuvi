@@ -155,6 +155,10 @@ services:
       class: NS\SentinelBundle\Form\Types\GAVIEligible
       tags:
         - { name: form.type, alias: GAVIEligible }
+    ns.sentinel.form.type.pcrresult:
+      class: NS\SentinelBundle\Form\Types\PCRResult
+      tags:
+        - { name: form.type, alias: PCRResult }
     ns.sentinel.form.type.triple_choice:
       class: NS\SentinelBundle\Form\Types\TripleChoice
       tags:

@@ -25,6 +25,6 @@ class BinaxResult extends TranslatableArrayChoice implements TranslationContaine
 
     public function getName()
     {
-        return 'binaxresult';
+        return 'BinaxResult';
     }
 }
