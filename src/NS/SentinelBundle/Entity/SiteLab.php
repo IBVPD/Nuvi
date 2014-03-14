@@ -46,7 +46,7 @@ class SiteLab
      * @ORM\JoinColumn(nullable=false,unique=true)
      */
     private $case;
-    
+
     //Case-based Laboratory Data
     /**
      * @var DateTime $csfLabDateTime
