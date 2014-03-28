@@ -76,5 +76,8 @@
     },
     "repositories": [ 
 			{ "type": "composer", "url": "http://packages.noblet.ca/" }
-		    ]
+		    ],
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    }
 }
