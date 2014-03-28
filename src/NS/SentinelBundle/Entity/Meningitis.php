@@ -19,6 +19,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use NS\SecurityBundle\Annotation\Secured;
 use NS\SecurityBundle\Annotation\SecuredCondition;
 
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\ExecutionContextInterface;
+
 /**
  * Description of Meningitis
  * @author gnat
@@ -31,6 +34,7 @@ use NS\SecurityBundle\Annotation\SecuredCondition;
  *      @SecuredCondition(roles={"ROLE_COUNTRY"},relation="country",class="NSSentinelBundle:Country"),
  *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB","ROLE_RRL_LAB"},relation="site",class="NSSentinelBundle:Site"),
  *      })
+ * @Assert\Callback(methods={"validate"})
  */
 class Meningitis implements IdentityAssignmentInterface
 {
@@ -74,12 +78,14 @@ class Meningitis implements IdentityAssignmentInterface
     /**
      * @var DateTime $dob
      * @ORM\Column(name="dob",type="date",nullable=true)
+     * @Assert\Date
      */
     private $dob;
 
     /**
      * @var integer $ageInMonths
      * @ORM\Column(name="ageInMonths",type="integer",nullable=true)
+     * @Assert\Range(min=0,max=59,minMessage="Children should older than 0 months",maxMessage="Children should be younger than 59 months to be tracked")
      */
     private $ageInMonths;
 
@@ -216,6 +222,7 @@ class Meningitis implements IdentityAssignmentInterface
     /**
      * @var integer $pneuRespRate
      * @ORM\Column(name="pneuRespRate",type="integer",nullable=true)
+     * @Assert\Range(min=0,max=200,minMessage="Please provide a valid respiratory rate",maxMessage="Please provide a valid respiratory rate")
      */
     private $pneuRespRate;
 
@@ -277,6 +284,7 @@ class Meningitis implements IdentityAssignmentInterface
     /**
      * @var DateTime $meningMostRecentDose
      * @ORM\Column(name="meningMostRecentDose",type="date",nullable=true)
+     * @Assert\Date
      */
     private $meningMostRecentDose;
 
@@ -672,7 +680,7 @@ class Meningitis implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function setOnsetDate(\DateTime $onsetDate)
+    public function setOnsetDate($onsetDate)
     {
         $this->onsetDate = $onsetDate;
         return $this;
@@ -834,7 +842,7 @@ class Meningitis implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function setMeningMostRecentDose(\DateTime $meningMostRecentDose)
+    public function setMeningMostRecentDose($meningMostRecentDose)
     {
         $this->meningMostRecentDose = $meningMostRecentDose;
         return $this;
@@ -852,13 +860,13 @@ class Meningitis implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function setCsfCollectDateTime(\DateTime $csfCollectDateTime)
+    public function setCsfCollectDateTime($csfCollectDateTime)
     {
         $this->csfCollectDateTime = $csfCollectDateTime;
         return $this;
     }
 
-    public function setCsfAppearance(\DateTime $csfAppearance)
+    public function setCsfAppearance($csfAppearance)
     {
         $this->csfAppearance = $csfAppearance;
         return $this;
@@ -1099,5 +1107,14 @@ class Meningitis implements IdentityAssignmentInterface
 
             // Confirmed
         }
+    }
+
+    public function validate(ExecutionContextInterface $context)
+    {
+        if($this->admDate && $this->onsetDate && $this->admDate < $this->onsetDate)
+            $context->addViolationAt ('admDate', "form.validation.admission-after-onset");
+
+        if($this->dob && $this->onsetDate && $this->onsetDate < $this->dob)
+            $context->addViolationAt ('dob', "form.validation.onset-after-dob");
     }
 }

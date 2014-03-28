@@ -64,7 +64,7 @@ class MeningitisType extends AbstractType
             ->add('hibDoses','Doses',array('required'=>false,'label'=>'meningitis-form.hib-doses'))
             ->add('pcvReceived','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pcv-received'))
             ->add('pcvDoses','Doses',array('required'=>false,'label'=>'meningitis-form.pcv-doses'))
-            ->add('meningReceived','TripleChoice',array('required'=>false,'label'=>'meningitis-form.men-received'))
+            ->add('meningReceived','MeningitisVaccinationReceived',array('required'=>false,'label'=>'meningitis-form.men-received'))
             ->add('meningType','MeningitisVaccinationType',array('required'=>false,'label'=>'meningitis-form.men-type'))
             ->add('meningMostRecentDose','acedatepicker',array('required'=>false,'label'=>'meningitis-form.meningMostRecentDose'))
 
@@ -75,7 +75,7 @@ class MeningitisType extends AbstractType
             ->add('bloodCollected','switch', array('required'=>false,'label'=>'meningitis-form.blood-collected','switchtype'=>2))
             ->add('dischOutcome','DischargeOutcome',array('required'=>false,'label'=>'meningitis-form.discharge-outcome'))
             ->add('dischDx','Diagnosis',array('required'=>false,'label'=>'meningitis-form.discharge-diagnosis'))
-            ->add('dischClass','TripleChoice',array('required'=>false,'label'=>'meningitis-form.discharge-sequelae'))
+            ->add('dischClass','DischargeClassification',array('required'=>false,'label'=>'meningitis-form.discharge-class'))
             ->add('comment',null,array('required'=>false,'label'=>'meningitis-form.comment'))
         ;
 
