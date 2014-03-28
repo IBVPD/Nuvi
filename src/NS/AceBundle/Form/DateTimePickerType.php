@@ -15,22 +15,12 @@ use \Symfony\Component\Form\FormBuilderInterface;
  */
 class DateTimePickerType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        parent::buildForm($builder, $options);
-        $date = $builder->get('date');
-        $dateOptions = $date->getOptions();
-        $builder->remove('date')
-                ->add('date','acedatepicker',$dateOptions)
-            ;
-    }
-
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         parent::setDefaultOptions($resolver);
         $resolver->setDefaults(array(
             'date_widget'    => 'single_text',
-            'date_format'    => 'yyyy-MM-dd',
+            'date_format'    => 'MM/dd/yyyy',
             'time_widget'    => 'single_text',
             'attr'           => array('date'=>array('class'=>'form-control date-picker')),
         ));
