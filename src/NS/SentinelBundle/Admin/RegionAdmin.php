@@ -29,6 +29,7 @@ class RegionAdmin extends Admin
         $listMapper
             ->add('name')
             ->add('code')
+            ->add('website')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -47,6 +48,7 @@ class RegionAdmin extends Admin
         $formMapper
             ->add('name')
             ->add('code')
+            ->add('website')
         ;
     }
 
@@ -57,7 +59,8 @@ class RegionAdmin extends Admin
     {
         $showMapper
             ->add('name')
-            ->add('code')                
+            ->add('code')
+            ->add('website')
             ->add('countries')
         ;
     }
