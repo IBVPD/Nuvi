@@ -127,9 +127,14 @@ class MeningitisController extends Controller
                 {
                     $em->flush();
                 }
-                catch(\Exception $e)
+                catch(\Doctrine\DBAL\DBALException $e)
                 {
                     // TODO Flash service required
+                    if($e->getPrevious()->getCode() === '23000')
+                        $form->addError(new \Symfony\Component\Form\FormError ("The case id already exists for this site!"));
+                    else
+                        die("ERROR: ".$e->getMessage());
+
                     return array('form' => $form->createView(),'id'=>$id);
                 }
 

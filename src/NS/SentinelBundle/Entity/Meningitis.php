@@ -26,7 +26,7 @@ use Symfony\Component\Validator\ExecutionContextInterface;
  * Description of Meningitis
  * @author gnat
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\Meningitis")
- * @ORM\Table(name="meningitis_cases")
+ * @ORM\Table(name="meningitis_cases",uniqueConstraints={@ORM\UniqueConstraint(name="site_case_id_idx",columns={"site_id","caseId"})})
  * @ORM\HasLifecycleCallbacks
  * @Gedmo\Loggable
  * @Secured(conditions={

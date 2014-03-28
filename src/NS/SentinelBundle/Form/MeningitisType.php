@@ -48,8 +48,6 @@ class MeningitisType extends AbstractType
             ->add('menFontanelleBulge','TripleChoice',array('required'=>false,'label'=>'meningitis-form.men-fontanelle-bulge'))
             ->add('menLethargy','TripleChoice',array('required'=>false,'label'=>'meningitis-form.men-lethargy'))
             
-//            ->add('menIrritability','TripleChoice',array('required'=>false,'label'=>'meningitis-form.men-irritability'))
-//            ->add('menSymptomOther',null,array('required'=>false,'label'=>'meningitis-form.men-symptom-other'))
             ->add('pneuDiffBreathe','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-diff-breathe'))
             ->add('pneuChestIndraw','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-chest-indraw'))
             ->add('pneuCough','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-cough'))
