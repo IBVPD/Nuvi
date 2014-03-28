@@ -979,7 +979,7 @@ class Meningitis implements IdentityAssignmentInterface
 
     public function getFullIdentifier($id)
     {
-        return sprintf("%s-%s-%s-%06d", $this->getRegion()->getCode(), $this->country->getCode(), $this->site->getCode(),$id);
+        return sprintf("%s-%s-%d-%06d", $this->country->getCode(), $this->site->getCode(), date('y'), $id);
     }
 
     /**
