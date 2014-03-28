@@ -66,11 +66,15 @@
 </div>
 {%endblock %}
 
+{%block acedatepicker_widget %}
+<input type="text" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+{%endblock %}
+
 {%block acedatepicker_row %}
 <div class="form-group">
     {{form_label(form)}}
     <div class="input-group">
-        <input type="text" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+        {{form_widget(form)}}
         <span class="input-group-addon">
             <i class="icon-calendar bigger-110"></i>
         </span>
@@ -81,17 +85,17 @@
 {%block acedatetime_row %}
 <div class="form-group">
     {{form_label(form)}}
+    {{form_errors(form)}}
     <div class="col-sm-6 input-group">
         {{form_widget(form.date,{attr: { class: 'form-control date-picker' } })}}
         {{form_errors(form.date)}}
-        <!-- <input type="text" class="form-control date-picker" id="{{id}}_date" name="{{name}}[date]" {#{% if value is not empty %}value="{{ value }}" {% endif %}#}/>-->
         <span class="input-group-addon">
             <i class="icon-calendar bigger-110"></i>
         </span>
     </div>
     <div class="col-sm-6 input-group bootstrap-timepicker">
         {{form_widget(form.time,{attr: { class: 'form-control time-picker' } })}}
-        <!--<input id="{{id}}_time" name="{{name}}[time]" type="text" class="form-control timepicker" data-show-seconds="false" data-show-meridian="false" />-->
+        {{form_errors(form.time)}}
         <span class="input-group-addon">
             <i class="icon-time bigger-110"></i>
         </span>

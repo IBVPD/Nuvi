@@ -6,6 +6,7 @@ use \Symfony\Component\Form\AbstractType;
 use \Symfony\Component\Form\FormView;
 use \Symfony\Component\Form\FormInterface;
 use \Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use \Symfony\Component\Form\FormBuilderInterface;
 
 /**
  * Description of DatePickerType
@@ -14,6 +15,16 @@ use \Symfony\Component\OptionsResolver\OptionsResolverInterface;
  */
 class DateTimePickerType extends AbstractType
 {
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        parent::buildForm($builder, $options);
+        $date = $builder->get('date');
+        $dateOptions = $date->getOptions();
+        $builder->remove('date')
+                ->add('date','acedatepicker',$dateOptions)
+            ;
+    }
+
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         parent::setDefaultOptions($resolver);
@@ -49,7 +60,7 @@ class DateTimePickerType extends AbstractType
         return 'datetime';
     }
 
-    /*
+   /*
     * Matches each symbol of PHP date format standard
     * with jQuery equivalent codeword
     * @author Tristan Jahier
