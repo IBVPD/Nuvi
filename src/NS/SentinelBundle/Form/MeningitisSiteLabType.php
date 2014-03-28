@@ -21,7 +21,7 @@ class MeningitisSiteLabType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('csfLabDateTime','dateclockpicker',array('required'=>false,'label'=>'meningitis-form.csf-lab-datetime'))
+            ->add('csfLabDateTime','acedatetime',array('required'=>false,'label'=>'meningitis-form.csf-lab-datetime'))
             ->add('csfWcc',null,array('required'=>false,'label'=>'meningitis-form.csf-wcc'))
             ->add('csfGlucose',null,array('required'=>false,'label'=>'meningitis-form.csf-glucose'))
             ->add('csfProtein',null,array('required'=>false,'label'=>'meningitis-form.csf-protein'))
@@ -40,10 +40,10 @@ class MeningitisSiteLabType extends AbstractType
             ->add('csfLatOther',null,array('required'=>false, 'label'=>'meningitis-form.csf-lat-other'))
             ->add('csfPcrResult','PCRResult',array('required'=>false, 'label'=>'meningitis-form.csf-pcr-result'))
             ->add('csfPcrOther',null,array('required'=>false, 'label'=>'meningitis-form.csf-pcr-other'))
-            ->add('rrlCsfDate','dateclockpicker',array('required'=>false,'label'=>'meningitis-form.rrl-csf-date'))
-            ->add('rrlIsolDate','datepicker',array('required'=>false,'label'=>'meningitis-form.rrl-isol-date'))
-            ->add('rrlIsolBloodDate','datepicker',array('required'=>false, 'label'=>'meningitis-form.rrl-isol-blood-date'))
-            ->add('rrlBrothDate','datepicker',array('required'=>false, 'label'=>'meningitis-form.rrl-broth-date'))
+            ->add('rrlCsfDate','acedatepicker',array('required'=>false,'label'=>'meningitis-form.rrl-csf-date'))
+            ->add('rrlIsolDate','acedatepicker',array('required'=>false,'label'=>'meningitis-form.rrl-isol-date'))
+            ->add('rrlIsolBloodDate','acedatepicker',array('required'=>false, 'label'=>'meningitis-form.rrl-isol-blood-date'))
+            ->add('rrlBrothDate','acedatepicker',array('required'=>false, 'label'=>'meningitis-form.rrl-broth-date'))
             
             ->add('csfStore','TripleChoice',array('required'=>false,'label'=>'meningitis-form.csf-store'))
             ->add('isolStore','TripleChoice',array('required'=>false,'label'=>'meningitis-form.isol-store'))
@@ -73,7 +73,7 @@ class MeningitisSiteLabType extends AbstractType
             ->add('cxrResult','CXRResult',array('required'=>false,'label'=>'meningitis-form.cxr-result'))
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

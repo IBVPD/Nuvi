@@ -4,11 +4,6 @@ namespace NS\SentinelBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use NS\SentinelBundle\Form\Types\TripleChoice;
-//use NS\SentinelBundle\Form\Types\PathogenIdentifier;
-//use NS\SentinelBundle\Form\Types\SerotypeIdentifier;
-//use NS\SentinelBundle\Form\Types\SampleType;
-//use NS\SentinelBundle\Form\Types\Volume;
-//use NS\SentinelBundle\Form\Types\IsolateType;
 use \NS\SentinelBundle\Form\Types\LatResult;
 use \NS\SentinelBundle\Form\Types\GramStain;
 use \NS\SentinelBundle\Form\Types\GramStainOrganism;
@@ -19,6 +14,8 @@ use \NS\SentinelBundle\Form\Types\CXRResult;
 use Gedmo\Mapping\Annotation as Gedmo;
 use \NS\SecurityBundle\Annotation\Secured;
 use \NS\SecurityBundle\Annotation\SecuredCondition;
+
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Description of SiteLab
@@ -51,6 +48,7 @@ class SiteLab
     /**
      * @var DateTime $csfLabDateTime
      * @ORM\Column(name="csfLabDateTime",type="datetime",nullable=true)
+     * @Assert\DateTime
      */
     private $csfLabDateTime;
 
@@ -164,24 +162,28 @@ class SiteLab
     /**
      * @var DateTime $rrlCsfDate
      * @ORM\Column(name="rrlCsfDate",type="date",nullable=true)
+     * @Assert\Date
      */
     private $rrlCsfDate;
 
     /**
      * @var DateTime $rrlIsoDate
      * @ORM\Column(name="rrlIsoDate",type="date",nullable=true)
+     * @Assert\Date
      */
     private $rrlIsolDate;
 
     /**
      * @var DateTime $rrlIsolBloodDate
      * @ORM\Column(name="rrlIsolBloodDate",type="date",nullable=true)
+     * @Assert\Date
      */
     private $rrlIsolBloodDate;
 
     /**
      * @var DateTime $rrlBrothDate
      * @ORM\Column(name="rrlBrothDate",type="date",nullable=true)
+     * @Assert\Date
      */
     private $rrlBrothDate;
 
@@ -608,7 +610,7 @@ class SiteLab
         return $this;
     }
 
-    public function setCsfLabDateTime(\DateTime $csfLabDateTime)
+    public function setCsfLabDateTime($csfLabDateTime)
     {
         $this->csfLabDateTime = $csfLabDateTime;
         return $this;
@@ -722,25 +724,25 @@ class SiteLab
         return $this;
     }
 
-    public function setRrlCsfDate(\DateTime $rrlCsfDate)
+    public function setRrlCsfDate($rrlCsfDate)
     {
         $this->rrlCsfDate = $rrlCsfDate;
         return $this;
     }
 
-    public function setRrlIsolDate(\DateTime $rrlIsolDate)
+    public function setRrlIsolDate($rrlIsolDate)
     {
         $this->rrlIsolDate = $rrlIsolDate;
         return $this;
     }
 
-    public function setRrlIsolBloodDate(\DateTime $rrlIsolBloodDate)
+    public function setRrlIsolBloodDate($rrlIsolBloodDate)
     {
         $this->rrlIsolBloodDate = $rrlIsolBloodDate;
         return $this;
     }
 
-    public function setRrlBrothDate(\DateTime $rrlBrothDate)
+    public function setRrlBrothDate($rrlBrothDate)
     {
         $this->rrlBrothDate = $rrlBrothDate;
         return $this;
