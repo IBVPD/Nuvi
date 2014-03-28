@@ -18,6 +18,6 @@ class PCRResult extends LatResult
 
     public function getName()
     {
-        return 'pcrresult';
+        return 'PCRResult';
     }
 }

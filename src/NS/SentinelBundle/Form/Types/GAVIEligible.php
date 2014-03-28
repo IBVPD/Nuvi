@@ -23,6 +23,6 @@ class GAVIEligible extends TranslatableArrayChoice implements TranslationContain
 
     public function getName()
     {
-        return 'gavieligible';
+        return 'GAVIEligible';
     }
 }

@@ -67,7 +67,7 @@ class MeningitisSiteLabType extends AbstractType
             ->add('bloodPcrOther',null,array('required'=>false,'label'=>'meningitis-form.blood-pcr-other'))
             ->add('otherCultResult','LatResult',array('required'=>false,'label'=>'meningitis-form.other-tests'))
             ->add('otherCultOther',null,array('required'=>false,'label'=>'meningitis-form.other-cult-other'))
-            ->add('otherTestResult','PCCResult',array('required'=>false,'label'=>'meningitis-form.other-test-result'))
+            ->add('otherTestResult','PCRResult',array('required'=>false,'label'=>'meningitis-form.other-test-result'))
             ->add('otherTestOther',null,array('required'=>false,'label'=>'meningitis-form.other-test-other'))
             ->add('cxrDone','TripleChoice',array('required'=>false,'label'=>'meningitis-form.cxr-done'))
             ->add('cxrResult','CXRResult',array('required'=>false,'label'=>'meningitis-form.cxr-result'))
