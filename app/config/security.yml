@@ -16,9 +16,17 @@ security:
             id: ns.sentinel.user_provider
 
     firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
         oauth_token:
             pattern:    ^/oauth/v2/token
             security:   false
+
+        oauth_login:
+            pattern:  ^/oauth/v2/auth/login$
+            anonymous: ~
 
         oauth_authorize:
             pattern:    ^/oauth/v2/auth
@@ -28,13 +36,14 @@ security:
                 login_path: /oauth/v2/auth/login
                 default_target_path: /api
                 always_use_default_target_path: true
+#            logout:
+#                path: /oauth/v2/auth/logout
+#                target: /oauth/v2/auth
+
         api:
             pattern:    ^/api
             fos_oauth:  true
             stateless:  true
-        dev:
-            pattern:  ^/(_(profiler|wdt)|css|images|js)/
-            security: false
 
         login:
             pattern:  ^/login$

@@ -199,6 +199,8 @@ fos_oauth_server:
     access_token_class:  NS\ApiBundle\Entity\AccessToken
     refresh_token_class: NS\ApiBundle\Entity\RefreshToken
     auth_code_class:     NS\ApiBundle\Entity\AuthCode
+    service:
+        user_provider: ns.sentinel.user_provider
 
 services:
   ns.form.types.autocomplete:

@@ -3,7 +3,6 @@
 namespace NS\ApiBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-//use FOS\OAuthServerBundle\Controller\AuthorizeController as BaseAuthorizeController;
 use NS\ApiBundle\Form\Model\Authorize;
 use NS\ApiBundle\Entity\Client;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -19,8 +18,8 @@ class AuthorizeController extends \Symfony\Bundle\FrameworkBundle\Controller\Con
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/oauth/v2/auth",name="apiAuth")
      */
+    //@Route("/auth",name="apiAuth")
     public function authorizeAction(Request $request)
     {
         if (!$request->get('client_id')) 

@@ -17,7 +17,7 @@ class SecurityController extends Controller
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/oauth/v2/login",name="apiLogin")
+     * @Route("/login",name="apiLogin")
      */
     public function loginAction(Request $request)
     {
@@ -46,7 +46,7 @@ class SecurityController extends Controller
     
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @Route("/oauth/v2/auth/login_check",name="apiLoginCheck")
+     * @Route("/login_check",name="apiLoginCheck")
      */
     public function loginCheckAction(Request $request)
     {

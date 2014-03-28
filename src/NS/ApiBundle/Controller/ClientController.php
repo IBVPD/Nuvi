@@ -4,6 +4,8 @@ namespace NS\ApiBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Description of ClientController
@@ -13,24 +15,29 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class ClientController extends Controller
 {
     /**
-     * @Route("/{_locale}/createClient",name="ApiCreateClient")
+     * @Route("/createClient",name="ApiCreateClient")
+     * @Template()
      */
-    public function createClient()
+    public function createAction(Request $request)
     {
-        $clientManager = $this->get('fos_oauth_server.client_manager.default');
-        $client = $clientManager->createClient();
-        $client->setName('Name');
-        $client->setRedirectUris(array('http://nuvi.noblet.ca','http://nuvi.noblet.ca/app_dev.php'));
-        $client->setAllowedGrantTypes(array('token', 'authorization_code'));
-        $clientManager->updateClient($client);
+//        $clientManager = $this->get('fos_oauth_server.client_manager.default');
+//        $client        = new \NS\ApiBundle\Entity\Client();//$clientManager->createClient();
+        $form = $this->createForm(new \NS\ApiBundle\Form\ClientType());
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $em = $this->get('doctrine.orm.entity_manager');
+            $client = $form->getData();
+            $em->persist($client);
+            $em->flush();
 
-        return $this->redirect($this->generateUrl('fos_oauth_server_authorize', array(
-                                                                                    'client_id'     => $client->getPublicId(),
-                                                                                    'redirect_uri'  => 'http://nuvi.noblet.ca/app_dev.php',
-                                                                                    'response_type' => 'code'
-                                                                                    )));
+            return $this->redirect($this->generateUrl('fos_oauth_server_authorize', array(
+                                                                                'client_id'     => $client->getPublicId(),
+                                                                                'redirect_uri'  => $client->getRedirectUris()[0],
+                                                                                'response_type' => 'token'
+                                                                                )));
+        }
 
-        die(sprintf('Added a new client with name <info>%s</info> and public id <info>%s</info>',$client->getName(), $client->getPublicId()));
-//        return $this->redirect($this->generateUrl("rotavirusIndex"));
+        return array('form'=>$form->createView());
     }
 }

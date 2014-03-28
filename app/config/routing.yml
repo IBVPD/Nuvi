@@ -25,24 +25,29 @@ _sonata_admin:
      resource: .
      type: sonata_admin
      prefix: /{_locale}/admin
-   
-api_login_auth:
-    pattern: /oauth/v2/auth
-    defaults: { _controller: 'NSApiBundle:Authorize:authorize' }
 
-api_login:
-    pattern: /oauth/v2/auth/login
-    defaults: { _controller: 'NSApiBundle:Security:login' }
-
-api_login_check:
-    pattern: /oauth/v2/auth/login_check
-    defaults: { _controller: 'NSApiBundle:Security:loginCheck' }
+ns_api:
+    resource: "@NSApiBundle/Controller"
+    prefix:   /oauth/v2/auth
+    type:     annotation
 
 fos_oauth_server_token:
     resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"
 
 fos_oauth_server_authorize:
     resource: "@FOSOAuthServerBundle/Resources/config/routing/authorize.xml"
+
+#api_login_auth:
+#    pattern: /oauth/v2/auth
+#    defaults: { _controller: 'FOSOAuthServerBundle:Authorize:authorize' }
+
+#api_login:
+#    pattern: /oauth/v2/auth/login
+#    defaults: { _controller: 'NSApiBundle:Security:login' }
+
+#api_login_check:
+#    pattern: /oauth/v2/auth/login_check
+#    defaults: { _controller: 'NSApiBundle:Security:loginCheck' }
 
 ns_sentinel:
     resource: "@NSSentinelBundle/Resources/config/routing.yml"

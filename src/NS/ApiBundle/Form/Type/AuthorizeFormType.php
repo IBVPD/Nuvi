@@ -14,9 +14,8 @@ class AuthorizeFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('allowAccess', 'checkbox', array(
-            'label' => 'Allow access',
-        ));
+        $builder->add('allowAccess', 'checkbox', array('label' => 'Allow access',))
+            ;
     }
 
     public function setDefaultOptions(\Symfony\Component\OptionsResolver\OptionsResolverInterface $resolver)

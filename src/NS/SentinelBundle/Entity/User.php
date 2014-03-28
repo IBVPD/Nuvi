@@ -107,7 +107,18 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
     private $isActive = false;
     
     private $ttl = 0;
-    
+
+    /**
+     * @var NS\ApiBundle\Entity\AccessToken $accessTokens
+     * @ORM\OneToMany(targetEntity="NS\ApiBundle\Entity\AccessToken",mappedBy="user")
+     */
+    protected $accessTokens;
+
+    public function __toString()
+    {
+        return $this->name;
+    }
+
     /**
      * Get id
      *
@@ -302,6 +313,7 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
     public function __construct()
     {
         $this->acls = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->accessTokens = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -435,6 +447,31 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
     public function setCanCreateRRLLabs($canCreateRRLLabs)
     {
         $this->canCreateRRLLabs = $canCreateRRLLabs;
+        return $this;
+    }
+
+    public function getAccessTokens()
+    {
+        return $this->accessTokens;
+    }
+
+    public function setAccessTokens(array $accessTokens)
+    {
+        $this->accessTokens = $accessTokens;
+        return $this;
+    }
+
+    public function addAccessToken(\NS\ApiBundle\Entity\AccessToken $accessToken)
+    {
+        $this->accessTokens->add($accessToken);
+
+        return $this;
+    }
+
+    public function removeAccessToken(\NS\ApiBundle\Entity\AccessToken $accessToken)
+    {
+        $this->accessTokens->remove($accessToken);
+
         return $this;
     }
 }

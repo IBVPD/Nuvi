@@ -1,0 +1,10 @@
+{%extends "NSSentinelBundle::layout.html.twig" %}
+
+{% block body %}
+Errors: {{form_errors(form)}}
+<form action="{{path('ApiCreateClient')}}" method="POST" novalidate>
+    
+    {{form_rest(form)}}
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}
