@@ -52,7 +52,6 @@ class Country implements \Serializable
     private $name;
 
     /**
-     *
      * @var GAVIEligible
      * @ORM\Column(name="gaviEligible",type="GAVIEligible",nullable=true)
      */
@@ -69,7 +68,6 @@ class Country implements \Serializable
      * @ORM\Column(name="populationUnderFive",type="integer",nullable=true)
      */
     private $populationUnderFive;
-    
     
     /**
      * @var Site
@@ -96,6 +94,24 @@ class Country implements \Serializable
      * @ORM\OneToMany(targetEntity="RotaVirus",mappedBy="country")
      */
     private $rotavirusCases;
+
+    /**
+     * @var boolean $tracksPneumonia
+     * @ORM\Column(name="tracksPneumonia",type="boolean")
+     */
+    private $tracksPneumonia = true;
+
+    /**
+     * @var boolean $hasReferenceLab
+     * @ORM\Column(name="hasReferenceLab",type="boolean")
+     */
+    private $hasReferenceLab;
+
+    /**
+     * @var boolean $hasNationalLab
+     * @ORM\Column(name="hasNationalLab",type="boolean")
+     */
+    private $hasNationalLab;
 
     /**
      * Set name
@@ -376,6 +392,73 @@ class Country implements \Serializable
         return $this->populationUnderFive;
     }
 
+    /**
+     * Get tracksPneumonia
+     *
+     * @return boolean
+     */
+    public function getTracksPneumonia()
+    {
+        return $this->tracksPneumonia;
+    }
+
+    /**
+     * Set tracksPneumonia
+     *
+     * @param boolean $tracksPneumonia
+     * @return Country
+     */
+    public function setTracksPneumonia($tracksPneumonia)
+    {
+        $this->tracksPneumonia = $tracksPneumonia;
+
+        return $this;
+    }
+
+    /**
+     * Get hasReferenceLab
+     *
+     * @return boolean
+     */
+    public function getHasReferenceLab()
+    {
+        return $this->hasReferenceLab;
+    }
+
+    /**
+     * Get hasNationalLab
+     *
+     * @return boolean
+     */
+    public function getHasNationalLab()
+    {
+        return $this->hasNationalLab;
+    }
+
+    /**
+     * Set hasReferenceLab
+     * 
+     * @param boolean $hasReferenceLab
+     * @return Country
+     */
+    public function setHasReferenceLab($hasReferenceLab)
+    {
+        $this->hasReferenceLab = $hasReferenceLab;
+        return $this;
+    }
+
+    /**
+     * Set hasNationalLab
+     *
+     * @param boolean $hasNationalLab
+     * @return Country
+     */
+    public function setHasNationalLab($hasNationalLab)
+    {
+        $this->hasNationalLab = $hasNationalLab;
+        return $this;
+    }
+
     public function serialize()
     {
         return serialize(array(
@@ -387,6 +470,9 @@ class Country implements \Serializable
             $this->population,
             $this->populationUnderFive,
             $this->region,
+            $this->hasNationalLab,
+            $this->hasReferenceLab,
+            $this->tracksPneumonia,
             ));
     }
 
@@ -399,9 +485,10 @@ class Country implements \Serializable
             $this->gaviEligible,
             $this->population,
             $this->populationUnderFive,
-            $this->region
+            $this->region,
+            $this->hasNationalLab,
+            $this->hasReferenceLab,
+            $this->tracksPneumonia
             ) = unserialize($serialized);
     }
-
-
 }
