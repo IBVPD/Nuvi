@@ -3,7 +3,7 @@
 namespace NS\SentinelBundle\Form\Types;
 
 /**
- * Description of RotavirusVaccinationReceived
+ * Description of MeningitisVaccinationReceived
  *
  */
 class MeningitisVaccinationReceived extends VaccinationReceived
