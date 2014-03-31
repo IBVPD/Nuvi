@@ -35,20 +35,18 @@ class CreateIBDCasesCommand extends ContainerAwareCommand
         ini_set('memory_limit','768M');
 
         $this->em = $this->getContainer()->get('doctrine.orm.entity_manager');
-        $sites = $this->em->getRepository('NSSentinelBundle:Site')->getChainByCode(array('HND129','HND135','BOL78','BOL85','SLV115','SLV112'));
+        $sites    = $this->em->getRepository('NSSentinelBundle:Site')->getChainByCode(array('HND129','HND135','BOL78','BOL85','SLV115','SLV112'));
 
-        $cxDone = array(
-                     new TripleChoice(TripleChoice::YES),
-                     new TripleChoice(TripleChoice::NO)
-                       );
-
-        $male  = new Gender(Gender::MALE);
-        $fmale = new Gender(Gender::FEMALE);
-        
+        $male   = new Gender(Gender::MALE);
+        $fmale  = new Gender(Gender::FEMALE);
         $dx[]   = new Diagnosis(Diagnosis::MENINGITIS);
         $dx[]   = new Diagnosis(Diagnosis::PNEUMONIA);
         $dx[]   = new Diagnosis(Diagnosis::SEPSIS);
         $dx[]   = new Diagnosis(Diagnosis::OTHER);
+        $cxDone = array(
+                     new TripleChoice(TripleChoice::YES),
+                     new TripleChoice(TripleChoice::NO)
+                       );
     
         for($x = 0; $x < 2700; $x++)
         {
