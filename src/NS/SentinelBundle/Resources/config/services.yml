@@ -2,6 +2,11 @@ parameters:
 #    ns_sentinel.example.class: NS\SentinelBundle\Example
 
 services:
+    ns.sentinel.form.type.casestatus:
+      class: NS\SentinelBundle\Form\Types\CaseStatus
+      tags:
+        - { name: form.type, alias: CaseStatus }
+
     ns.sentinel.form.type.dischargeoutcome:
       class: NS\SentinelBundle\Form\Types\DischargeOutcome
       tags:
@@ -31,10 +36,10 @@ services:
       tags:
         - { name: form.type, alias: DischargeClassification }
     
-    ns.sentinel.form.type.meningitiscasestatus:
-      class: NSSentinelBundle\Form\Types\MeningitisCaseStatus
+    ns.sentinel.form.type.meningitiscaseresult:
+      class: NSSentinelBundle\Form\Types\MeningitisCaseResult
       tags:
-        - { name: form.type, alias: MeningitisCaseStatus }
+        - { name: form.type, alias: MeningitisCaseResult }
     ns.sentinel.form.type.elisaresult:
       class: NS\SentinelBundle\Form\Types\ElisaResult
       tags:

@@ -10,7 +10,8 @@ use NS\SentinelBundle\Form\Types\DischargeOutcome;
 use NS\SentinelBundle\Form\Types\DischargeClassification;
 use NS\SentinelBundle\Form\Types\Doses;
 use NS\SentinelBundle\Form\Types\Gender;
-use NS\SentinelBundle\Form\Types\MeningitisCaseStatus;
+use NS\SentinelBundle\Form\Types\CaseStatus;
+use NS\SentinelBundle\Form\Types\MeningitisCaseResult;
 use NS\SentinelBundle\Form\Types\MeningitisVaccinationReceived;
 use NS\SentinelBundle\Form\Types\MeningitisVaccinationType;
 use NS\SentinelBundle\Interfaces\IdentityAssignmentInterface;
@@ -60,21 +61,30 @@ class Meningitis implements IdentityAssignmentInterface
     /**
      * @var Region $region
      * @ORM\ManyToOne(targetEntity="Region",inversedBy="meningitisCases")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $region;
 
     /**
      * @var Country $country
      * @ORM\ManyToOne(targetEntity="Country",inversedBy="meningitisCases")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $country;
 
     /**
      * @var Site $site
      * @ORM\ManyToOne(targetEntity="Site",inversedBy="meningitisCases")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $site;
 // Case based demographic
+    /**
+     * @var string $caseId
+     * @ORM\Column(name="caseId",type="string",nullable=false)
+     */
+    private $caseId;
+
     /**
      * @var DateTime $dob
      * @ORM\Column(name="dob",type="date",nullable=true)
@@ -100,12 +110,6 @@ class Meningitis implements IdentityAssignmentInterface
      * @ORM\Column(name="district",type="string",nullable=true)
      */
     private $district;
-
-    /**
-     * @var string $caseId
-     * @ORM\Column(name="caseId",type="string",nullable=true)
-     */
-    private $caseId;
 
 //Case-based Clinical Data
     /**
@@ -288,7 +292,6 @@ class Meningitis implements IdentityAssignmentInterface
      */
     private $meningMostRecentDose;
 
-
 //Case-based Specimen Collection Data
 
     /**
@@ -359,8 +362,14 @@ class Meningitis implements IdentityAssignmentInterface
     private $comment;
 
     /**
-     * @var MeningitisCaseStatus $status
-     * @ORM\Column(name="status",type="MeningitisCaseStatus")
+     * @var MeningitisCaseResult $result
+     * @ORM\Column(name="result",type="MeningitisCaseResult")
+     */
+    private $result;
+
+    /**
+     * @var CaseStatus $status
+     * @ORM\Column(name="status",type="CaseStatus")
      */
     private $status;
 
@@ -370,7 +379,9 @@ class Meningitis implements IdentityAssignmentInterface
         $this->admDate            = new \DateTime();
         $this->csfCollectDateTime = new \DateTime();
         $this->csfLabDateTime     = new \DateTime();
-        $this->status             = new MeningitisCaseStatus(0);
+        $this->result             = new MeningitisCaseResult(0);
+        $this->status             = new CaseStatus(0);
+        $this->menFever           = new TripleChoice(0);
     }
 
     public function __toString()
@@ -1048,12 +1059,23 @@ class Meningitis implements IdentityAssignmentInterface
         return ($this->referenceLab instanceof ReferenceLab);
     }
 
+    public function getResult()
+    {
+        return $this->result;
+    }
+
     public function getStatus()
     {
         return $this->status;
     }
 
-    public function setStatus(MeningitisCaseStatus $status)
+    public function setResult(MeningitisCaseResult $result)
+    {
+        $this->result = $result;
+        return $this;
+    }
+
+    public function setStatus(CaseStatus $status)
     {
         $this->status = $status;
         return $this;
@@ -1062,9 +1084,10 @@ class Meningitis implements IdentityAssignmentInterface
     /**
      * @ORM\PrePersist
      */
-
     public function prePersist()
     {
+        $this->_calculateStatus();
+        $this->_calculateResult();
     }
 
     /** 
@@ -1072,6 +1095,8 @@ class Meningitis implements IdentityAssignmentInterface
      */
     public function preUpdate()
     {
+        $this->_calculateStatus();
+        $this->_calculateResult();
     }
 
     /**
@@ -1088,25 +1113,34 @@ class Meningitis implements IdentityAssignmentInterface
      *            syndrome consisten with bacterial meningitis
      *
      */
-    private function _calculateStatus()
+    private function _calculateResult()
     {
-        // Test Suspected
-        if($this->ageInMonths < 60 && $this->menFever->equal(TripleChoice::YES) )
-        {
-            if($this->menAltConscious->equal(TripleChoice::YES) || $this->menNeckStiff->equal(TripleChoice::YES))
-                $this->status->setValue (MeningitisCaseStatus::SUSPECTED);
-        }
-        else if($this->ageInMonths < 60 && $this->admDx->equal(Diagnosis::MENINGITIS))
-            $this->status->setValue (MeningitisCaseStatus::SUSPECTED);
+        if($this->status->getValue() >= CaseStatus::CANCELLED)
+            return;
 
-        if($this->status->equal(MeningitisCaseStatus::SUSPECTED))
+        // Test Suspected
+        if($this->ageInMonths < 60 && $this->menFever && $this->menFever->equal(TripleChoice::YES))
+        {
+            if(($this->menAltConscious && $this->menAltConscious->equal(TripleChoice::YES)) || ($this->menNeckStiff && $this->menNeckStiff->equal(TripleChoice::YES)) )
+                $this->result->setValue (MeningitisCaseResult::SUSPECTED);
+        }
+        else if($this->ageInMonths < 60 && $this->admDx && $this->admDx->equal(Diagnosis::MENINGITIS))
+            $this->result->setValue (MeningitisCaseResult::SUSPECTED);
+
+        if($this->result && $this->result->equal(MeningitisCaseResult::SUSPECTED))
         {
             // Probable
-            if($this->csfAppearance->equal(CSFAppearance::TURBID))
-                $this->status->setValue (MeningitisCaseStatus::PROBABLE);
+            if($this->csfAppearance && $this->csfAppearance->equal(CSFAppearance::TURBID))
+                $this->result->setValue (MeningitisCaseResult::PROBABLE);
 
             // Confirmed
         }
+    }
+
+    private function _calculateStatus()
+    {
+        if($this->status->getValue() >= CaseStatus::CANCELLED)
+            return;
     }
 
     public function validate(ExecutionContextInterface $context)
