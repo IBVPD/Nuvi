@@ -5,13 +5,13 @@ namespace NS\SentinelBundle\Command;
 use \Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use \Symfony\Component\Console\Input\InputInterface;
 use \Symfony\Component\Console\Output\OutputInterface;
-use \Symfony\Component\Console\Input\InputArgument;
 
 use NS\SentinelBundle\Entity\Meningitis;
 use \NS\SentinelBundle\Entity\SiteLab;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Form\Types\Gender;
 use NS\SentinelBundle\Form\Types\Diagnosis;
+use NS\SentinelBundle\Entity\Site;
 
 /**
  * Description of ImportCommand
@@ -52,6 +52,7 @@ class CreateIBDCasesCommand extends ContainerAwareCommand
         {
             $dob = $this->getRandomDate();
             $m = new Meningitis();
+
             $m->setDob($dob);
             $m->setAdmDate($this->getRandomDate(null,$dob));
             $m->setCsfCollected((($x % 3) == 0));
@@ -73,6 +74,7 @@ class CreateIBDCasesCommand extends ContainerAwareCommand
 
             $m->setDischDx($dx[$dxKey]);
             $m->setSite($sites[$siteKey]);
+            $m->setCaseId($this->getCaseId($sites[$siteKey]));
 
             $this->em->persist($m);
             if($x % 100 == 0)
@@ -80,6 +82,11 @@ class CreateIBDCasesCommand extends ContainerAwareCommand
         }
 
         $this->em->flush();
+    }
+
+    public function getCaseId(Site $site)
+    {
+        return md5(uniqid().spl_object_hash($site).time());
     }
 
     public function getRandomDate(\DateTime $before = null, \DateTime $after = null)

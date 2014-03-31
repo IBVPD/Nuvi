@@ -127,6 +127,8 @@ class ImportCommand extends ContainerAwareCommand
                 $c->setGaviEligible(new GAVIEligible($row[5]));
                 $c->setIsActive(true);
                 $c->setRegion($regions[$row[0]]);
+                $c->setHasReferenceLab(true);
+                $c->setHasNationalLab(true);
 
                 $this->em->persist($c);
                 $this->em->flush();

@@ -12,6 +12,7 @@ use NS\SentinelBundle\Entity\RotaVirusSiteLab;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Form\Types\Gender;
 use NS\SentinelBundle\Form\Types\Diagnosis;
+use NS\SentinelBundle\Entity\Site;
 
 /**
  * Description of ImportCommand
@@ -35,15 +36,9 @@ class CreateRotaCasesCommand extends ContainerAwareCommand
         ini_set('memory_limit','768M');
 
         $this->em = $this->getContainer()->get('doctrine.orm.entity_manager');
-        $sites = $this->em->getRepository('NSSentinelBundle:Site')->getChainByCode(array('HND129','HND135','BOL78','BOL85','SLV115','SLV112'));
-
-        $cxDone = array(
-                     new TripleChoice(TripleChoice::YES),
-                     new TripleChoice(TripleChoice::NO)
-                       );
-
-        $male  = new Gender(Gender::MALE);
-        $fmale = new Gender(Gender::FEMALE);
+        $sites    = $this->em->getRepository('NSSentinelBundle:Site')->getChainByCode(array('HND129','HND135','BOL78','BOL85','SLV115','SLV112'));
+        $male     = new Gender(Gender::MALE);
+        $fmale    = new Gender(Gender::FEMALE);
         
         for($x = 0; $x < 2700; $x++)
         {
@@ -54,6 +49,8 @@ class CreateRotaCasesCommand extends ContainerAwareCommand
             $m->setDob($dob);
             $m->setAdmissionDate($this->getRandomDate(null,$dob));
             $m->setSite($sites[$siteKey]);
+            $m->setCaseId($this->getCaseId($sites[$siteKey]));
+
             $m->setGender(($x%7)?$fmale:$male);
 
             if($x%12 == 0)
@@ -71,6 +68,11 @@ class CreateRotaCasesCommand extends ContainerAwareCommand
         }
 
         $this->em->flush();
+    }
+
+    public function getCaseId(Site $site)
+    {
+        return md5(uniqid().spl_object_hash($site).time());
     }
 
     public function getRandomDate(\DateTime $before = null, \DateTime $after = null)
