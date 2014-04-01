@@ -138,8 +138,9 @@ class Country implements \Serializable
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct($name = null)
     {
+        $this->name            = $name;
         $this->sites           = new ArrayCollection();
         $this->meningitisCases = new ArrayCollection();
         $this->rotavirusCases  = new ArrayCollection();

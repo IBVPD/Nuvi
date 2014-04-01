@@ -15,6 +15,7 @@ use NS\SentinelBundle\Form\Types\MeningitisCaseResult;
 use NS\SentinelBundle\Form\Types\MeningitisVaccinationReceived;
 use NS\SentinelBundle\Form\Types\MeningitisVaccinationType;
 use NS\SentinelBundle\Interfaces\IdentityAssignmentInterface;
+use NS\UtilBundle\Form\Types\ArrayChoice;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use NS\SecurityBundle\Annotation\Secured;
@@ -375,13 +376,8 @@ class Meningitis implements IdentityAssignmentInterface
 
     public function __construct()
     {
-        $this->dob                = new \DateTime();
-        $this->admDate            = new \DateTime();
-        $this->csfCollectDateTime = new \DateTime();
-        $this->csfLabDateTime     = new \DateTime();
         $this->result             = new MeningitisCaseResult(0);
         $this->status             = new CaseStatus(0);
-        $this->menFever           = new TripleChoice(0);
     }
 
     public function __toString()
@@ -1069,6 +1065,11 @@ class Meningitis implements IdentityAssignmentInterface
         return $this->status;
     }
 
+    public function isComplete()
+    {
+        return $this->status->getValue() == CaseStatus::COMPLETE;
+    }
+
     public function setResult(MeningitisCaseResult $result)
     {
         $this->result = $result;
@@ -1141,14 +1142,128 @@ class Meningitis implements IdentityAssignmentInterface
     {
         if($this->status->getValue() >= CaseStatus::CANCELLED)
             return;
+
+        if($this->getIncompleteField())
+            $this->status->setValue(CaseStatus::OPEN);
+        else
+            $this->status->setValue(CaseStatus::COMPLETE);
+
+        return;
+    }
+
+    public function getIncompleteField()
+    {
+        foreach($this->getMinimumRequiredFields() as $field)
+        {
+            if(is_null($this->$field) || empty($this->$field) || ($this->$field instanceof ArrayChoice && $this->$field->equal(-1)) )
+                return $field;
+        }
+
+        // this isn't covered by the above loop because its valid for ageInMonths == 0 but 0 == empty
+        if(is_null($this->ageInMonths))
+            return 'ageInMonths';
+
+        if($this->admDx && $this->admDx->getValue() == Diagnosis::OTHER && empty($this->admDxOther))
+            return 'admDx';
+
+        if($this->dischDx && $this->dischDx->getValue() == Diagnosis::OTHER && empty($this->dischDxOther))
+            return 'dischDx';
+
+        if($this->hibReceived && $this->hibReceived->getValue() == TripleChoice::YES && (is_null($this->hibDoses) || $this->hibDoses->equal(ArrayChoice::NO_SELECTION)))
+            return 'hibReceived';
+
+        if($this->pcvReceived && $this->pcvReceived->getValue() == TripleChoice::YES && (is_null($this->pcvDoses) || $this->pcvDoses->equal(ArrayChoice::NO_SELECTION)))
+            return 'pcvReceived';
+
+        if($this->meningReceived && ($this->meningReceived->equal(MeningitisVaccinationReceived::YES_CARD ) || $this->meningReceived->equal(MeningitisVaccinationReceived::YES_HISTORY)))
+        {
+            if(is_null($this->meningType))
+                return 'meningType1';
+
+            if($this->meningType->equal(ArrayChoice::NO_SELECTION))
+                return 'meningType2';
+
+            if(is_null($this->meningMostRecentDose))
+                return 'meningMostRecentDose';
+        }
+
+        if($this->csfCollected && $this->csfCollected->getValue() == TripleChoice::YES)
+        {
+            if(is_null($this->csfId))
+                return 'csfCollected1';
+            if(empty($this->csfId))
+                return 'csfCollected2';
+            if(is_null($this->csfCollectDateTime))
+                return 'csfCollectDateTime';
+            if(is_null($this->csfAppearance))
+                return 'csfAppearance1';
+            if($this->csfAppearance->equal(ArrayChoice::NO_SELECTION))
+                return 'csfAppearance2';
+        }
+
+        return null;
+    }
+
+    public function getMinimumRequiredFields()
+    {
+        $fields = array(
+                    'caseId',
+                    'dob',
+                    'gender',
+                    'admDate',
+                    'onsetDate',
+                    'admDx',
+                    'antibiotics',
+                    'menSeizures',
+                    'menFever',
+                    'menAltConscious',
+                    'menInabilityFeed',
+                    'menNeckStiff',
+                    'menRash',
+                    'menFontanelleBulge',
+                    'menLethargy',
+                    'hibReceived',
+                    'pcvReceived',
+                    'meningReceived',
+                    'csfCollected',
+                    'bloodCollected',
+                    'dischOutcome',
+                    'dischDx',
+                    'dischClass',
+                    );
+
+        return ($this->country->getTracksPneumonia()) ? array_merge($fields,$this->getPneumiaRequiredFields()) : $fields;
+    }
+
+    public function getPneumiaRequiredFields()
+    {
+        return array('pneuDiffBreathe',
+                     'pneuChestIndraw',
+                     'pneuCough',
+                     'pneuCyanosis',
+                     'pneuStridor',
+                     'pneuRespRate',
+                     'pneuVomit',
+                     'pneuHypothermia',
+                     'pneuMalnutrition',);
     }
 
     public function validate(ExecutionContextInterface $context)
     {
+        // with both an admission date and onset date, ensure the admission happened after onset
         if($this->admDate && $this->onsetDate && $this->admDate < $this->onsetDate)
-            $context->addViolationAt ('admDate', "form.validation.admission-after-onset");
+            $context->addViolationAt('admDate', "form.validation.admission-after-onset");
 
+        // with both an dob and onset date, ensure the onset is after dob
         if($this->dob && $this->onsetDate && $this->onsetDate < $this->dob)
             $context->addViolationAt ('dob', "form.validation.onset-after-dob");
+
+        // if admission diagnosis is other, enforce value in 'admission diagnosis other' field
+        if($this->admDx && $this->admDx->equal(Diagnosis::OTHER) && empty($this->admDxOther))
+            $context->addViolationAt('admDx',"form.validation.admissionDx-other-without-other-text");
+
+        // if discharge diagnosis is other, enforce value in 'discharge diagnosis other' field
+        if($this->dischDx && $this->dischDx->equal(Diagnosis::OTHER) && empty($this->dischDxOther))
+            $context->addViolationAt('dischDx',"form.validation.dischargeDx-other-without-other-text");
     }
 }
