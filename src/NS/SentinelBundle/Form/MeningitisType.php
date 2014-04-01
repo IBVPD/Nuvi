@@ -47,16 +47,6 @@ class MeningitisType extends AbstractType
             ->add('menRash','TripleChoice',array('required'=>false,'label'=>'meningitis-form.men-rash'))
             ->add('menFontanelleBulge','TripleChoice',array('required'=>false,'label'=>'meningitis-form.men-fontanelle-bulge'))
             ->add('menLethargy','TripleChoice',array('required'=>false,'label'=>'meningitis-form.men-lethargy'))
-            
-            ->add('pneuDiffBreathe','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-diff-breathe'))
-            ->add('pneuChestIndraw','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-chest-indraw'))
-            ->add('pneuCough','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-cough'))
-            ->add('pneuCyanosis','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-cyanosis'))
-            ->add('pneuStridor','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-stridor'))
-            ->add('pneuRespRate',null,array('required'=>false,'label'=>'meningitis-form.pneu-resp-rate'))
-            ->add('pneuVomit','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-vomit'))
-            ->add('pneuHypothermia','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-hypothermia'))
-            ->add('pneuMalnutrition','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-malnutrition'))
 
             ->add('hibReceived','TripleChoice',array('required'=>false,'label'=>'meningitis-form.hib-received'))
             ->add('hibDoses','Doses',array('required'=>false,'label'=>'meningitis-form.hib-doses'))
@@ -108,6 +98,36 @@ class MeningitisType extends AbstractType
                             }
                         }
             );
+
+        $builder->addEventListener(FormEvents::POST_SET_DATA, function(FormEvent $event) use($se)
+                {
+                    $data    = $event->getData();
+                    $form    = $event->getForm();
+                    $sites   = unserialize($se->get('sites'));
+                    $country = null;
+
+                    if($data && $data->getCountry())
+                        $country = $data->getCountry();
+                    else if(count($sites) == 1)
+                    {
+                        $site = array_pop($sites);
+                        $country = $site->getCountry();
+                    }
+
+                    if(!$country || ($country instanceof \NS\SentinelBundle\Entity\Country && $country->getTracksPneumonia()))
+                    {
+                        $form->add('pneuDiffBreathe','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-diff-breathe'))
+                             ->add('pneuChestIndraw','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-chest-indraw'))
+                             ->add('pneuCough','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-cough'))
+                             ->add('pneuCyanosis','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-cyanosis'))
+                             ->add('pneuStridor','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-stridor'))
+                             ->add('pneuRespRate',null,array('required'=>false,'label'=>'meningitis-form.pneu-resp-rate'))
+                             ->add('pneuVomit','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-vomit'))
+                             ->add('pneuHypothermia','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-hypothermia'))
+                             ->add('pneuMalnutrition','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-malnutrition'));
+                    }
+                });
+
         $builder->addEventListener(
                         FormEvents::SUBMIT,
                         function(FormEvent $event) use ($se,$em)

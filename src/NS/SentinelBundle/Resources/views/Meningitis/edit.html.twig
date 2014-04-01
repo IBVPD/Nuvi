@@ -78,7 +78,7 @@
 </div>
 
 <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-{%if form.pneuDiffBreathe is defined %}6{%else%}12{%endif%}">
         <div class="widget-box">
             <div class="widget-header widget-header-small header-color-blue"><h6>{{'Meningitis'|trans}}</h6></div>
             <div class="widget-body">
@@ -101,6 +101,7 @@
             </div>
         </div>
     </div>
+    {%if form.pneuDiffBreathe is defined %}
     <div class="col-sm-6">
         <div class="widget-box">
             <div class="widget-header widget-header-small header-color-blue"><h6>{{'Pneumonia / Sepsis'|trans}}</h6></div>
@@ -123,6 +124,7 @@
             </div>
         </div>
     </div>
+    {%endif%}
 </div>
 
 <div class="row">
