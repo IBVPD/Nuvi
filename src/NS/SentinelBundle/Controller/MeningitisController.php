@@ -69,11 +69,21 @@ class MeningitisController extends Controller
     /**
      * @Route("/rrl/create/{id}",name="meningitisRRLCreate")
      * @Route("/rrl/edit/{id}",name="meningitisRRLEdit",defaults={"id"=null})
-     * @Template()
+     * @Template("NSSentinelBundle:Meningitis:editBaseLab.html.twig")
      */
     public function editRRLAction(Request $request,$id = null)
     {
         return $this->edit('rrl',$request,$id);
+    }
+
+    /**
+     * @Route("/nl/create/{id}",name="meningitisNLCreate")
+     * @Route("/nl/edit/{id}",name="meningitisNLEdit",defaults={"id"=null})
+     * @Template("NSSentinelBundle:Meningitis:editBaseLab.html.twig")
+     */
+    public function editNLAction(Request $request,$id = null)
+    {
+        return $this->edit('nl',$request,$id);
     }
 
     /**
@@ -103,6 +113,10 @@ class MeningitisController extends Controller
                 case 'rrl':
                     $record = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:ReferenceLab')->findOrCreateNew($id);
                     $form   = $this->createForm('meningitis_referencelab',$record);
+                    break;
+                case 'nl':
+                    $record = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:NationalLab')->findOrCreateNew($id);
+                    $form   = $this->createForm('meningitis_nationallab',$record);
                     break;
                 default:
                     throw new \Exception("Unknown type");
@@ -143,7 +157,7 @@ class MeningitisController extends Controller
             }
         }
 
-        return array('form' => $form->createView(),'id'=>$id);
+        return array('form' => $form->createView(),'id'=>$id, 'type'=>strtoupper($type));
     }
 
     /**

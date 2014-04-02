@@ -50,9 +50,12 @@ class Meningitis implements IdentityAssignmentInterface
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="ReferenceLab", mappedBy="case")
+     * @ORM\OneToMany(targetEntity="BaseLab", mappedBy="case")
      */
-    private $referenceLab;
+    private $externalLabs;
+
+    private $referenceLab = -1;
+    private $nationalLab = -1;
 
     /**
      * @ORM\OneToOne(targetEntity="SiteLab", mappedBy="case")
@@ -79,6 +82,7 @@ class Meningitis implements IdentityAssignmentInterface
      * @ORM\JoinColumn(nullable=false)
      */
     private $site;
+
 // Case based demographic
     /**
      * @var string $caseId
@@ -373,6 +377,18 @@ class Meningitis implements IdentityAssignmentInterface
      * @ORM\Column(name="status",type="CaseStatus")
      */
     private $status;
+
+    /**
+     * @var boolean $sentToReferenceLab
+     * @ORM\Column(name="sentToReferenceLab",type="boolean")
+     */
+    private $sentToReferenceLab = false;
+
+    /**
+     * @var boolean $sentToNationalLab
+     * @ORM\Column(name="sentToNationalLab",type="boolean")
+     */
+    private $sentToNationalLab = false;
 
     public function __construct()
     {
@@ -1026,34 +1042,6 @@ class Meningitis implements IdentityAssignmentInterface
     {
         return ($this->lab instanceof SiteLab);
     }
-    
-    /**
-     * Set ReferenceLab
-     *
-     * @param \NS\SentinelBundle\Entity\ReferenceLab $lab
-     * @return Meningitis
-     */
-    public function setReferenceLab(\NS\SentinelBundle\Entity\ReferenceLab $lab = null)
-    {
-        $this->referenceLab = $lab;
-    
-        return $this;
-    }
-
-    /**
-     * Get ReferenceLab
-     *
-     * @return \NS\SentinelBundle\Entity\ReferenceLab 
-     */
-    public function getReferenceLab()
-    {
-        return $this->referenceLab;
-    }
-
-    public function hasReferenceLab()
-    {
-        return ($this->referenceLab instanceof ReferenceLab);
-    }
 
     public function getResult()
     {
@@ -1265,5 +1253,152 @@ class Meningitis implements IdentityAssignmentInterface
         // if discharge diagnosis is other, enforce value in 'discharge diagnosis other' field
         if($this->dischDx && $this->dischDx->equal(Diagnosis::OTHER) && empty($this->dischDxOther))
             $context->addViolationAt('dischDx',"form.validation.dischargeDx-other-without-other-text");
+    }
+
+    /**
+     * Add externalLabs
+     *
+     * @param \NS\SentinelBundle\Entity\BaseLab $externalLabs
+     * @return Meningitis
+     */
+    public function addExternalLab(\NS\SentinelBundle\Entity\BaseLab $externalLabs)
+    {
+        $this->externalLabs[] = $externalLabs;
+    
+        return $this;
+    }
+
+    /**
+     * Remove externalLabs
+     *
+     * @param \NS\SentinelBundle\Entity\BaseLab $externalLabs
+     */
+    public function removeExternalLab(\NS\SentinelBundle\Entity\BaseLab $externalLabs)
+    {
+        $this->externalLabs->removeElement($externalLabs);
+    }
+
+    /**
+     * Get externalLabs
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getExternalLabs()
+    {
+        return $this->externalLabs;
+    }
+
+    private function _findReferenceLab()
+    {
+        if(is_integer($this->referenceLab) && $this->referenceLab == -1)
+        {
+            foreach($this->externalLabs as $l)
+            {
+                if($l instanceof ReferenceLab)
+                {
+                    $this->referenceLab = $l;
+                    return;
+                }
+            }
+
+            $this->referenceLab = null;
+        }
+    }
+
+    /**
+     * Get ReferenceLab
+     *
+     * @return \NS\SentinelBundle\Entity\ReferenceLab
+     */
+    public function getReferenceLab()
+    {
+        $this->_findReferenceLab();
+        return $this->referenceLab;
+    }
+
+    public function hasReferenceLab()
+    {
+        $this->_findReferenceLab();
+        return ($this->referenceLab instanceof ReferenceLab);
+    }
+
+    private function _findNationalLab()
+    {
+        if(is_integer($this->nationalLab) && $this->nationalLab == -1)
+        {
+            foreach($this->externalLabs as $l)
+            {
+                if($l instanceof NationalLab)
+                {
+                    $this->nationalLab = $l;
+                    return;
+                }
+            }
+
+            $this->nationalLab = null;
+        }
+    }
+
+    /**
+     * Get NationalLab
+     *
+     * @return \NS\SentinelBundle\Entity\NationalLab
+     */
+    public function getNationalLab()
+    {
+        $this->_findNationalLab();
+        return $this->nationalLab;
+    }
+
+    public function hasNationalLab()
+    {
+        $this->_findNationalLab();
+        return ($this->nationalLab instanceof NationalLab);
+    }
+
+    /**
+     * Set sentToReferenceLab
+     *
+     * @param boolean $sentToReferenceLab
+     * @return Meningitis
+     */
+    public function setSentToReferenceLab($sentToReferenceLab)
+    {
+        $this->sentToReferenceLab = $sentToReferenceLab;
+    
+        return $this;
+    }
+
+    /**
+     * Get sentToReferenceLab
+     *
+     * @return boolean 
+     */
+    public function getSentToReferenceLab()
+    {
+        return $this->sentToReferenceLab;
+    }
+
+    /**
+     * Set sentToNationalLab
+     *
+     * @param boolean $sentToNationalLab
+     * @return Meningitis
+     */
+    public function setSentToNationalLab($sentToNationalLab)
+    {
+        $this->sentToNationalLab = $sentToNationalLab;
+    
+        return $this;
+    }
+
+    /**
+     * Get sentToNationalLab
+     *
+     * @return boolean 
+     */
+    public function getSentToNationalLab()
+    {
+        return $this->sentToNationalLab;
     }
 }

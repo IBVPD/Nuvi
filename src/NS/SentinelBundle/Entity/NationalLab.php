@@ -18,8 +18,9 @@ use \NS\SecurityBundle\Annotation\SecuredCondition;
 /**
  * Description of ReferenceLab
  * @author gnat
- * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\ReferenceLab")
+ * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\NationalLab")
  */
-class ReferenceLab extends BaseLab
+class NationalLab extends BaseLab
 {
+
 }

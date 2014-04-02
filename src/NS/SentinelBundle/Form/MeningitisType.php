@@ -126,6 +126,15 @@ class MeningitisType extends AbstractType
                              ->add('pneuHypothermia','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-hypothermia'))
                              ->add('pneuMalnutrition','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-malnutrition'));
                     }
+
+                    if($country instanceof \NS\SentinelBundle\Entity\Country )
+                    {
+                        if($country->hasReferenceLab())
+                            $form->add('sentToReferenceLab','switch',array('required'=>false));
+
+                        if($country->hasNationalLab())
+                            $form->add('sentToNationalLab','switch',array('required'=>false));
+                    }
                 });
 
         $builder->addEventListener(

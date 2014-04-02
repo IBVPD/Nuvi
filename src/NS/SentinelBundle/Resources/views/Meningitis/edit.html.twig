@@ -138,6 +138,12 @@
                     {{form_row(form.csfId)}}
                     {{form_row(form.csfAppearance)}}
                     {{form_row(form.bloodCollected)}}
+                    {%if form.sentToReferenceLab is defined %}
+                        {{form_row(form.sentToReferenceLab )}}
+                    {%endif %}
+                    {%if form.sentToNationalLab is defined %}
+                        {{form_row(form.sentToNationalLab )}}
+                    {%endif %}
                 </div>
             </div>
         </div>

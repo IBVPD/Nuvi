@@ -87,7 +87,7 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
                    ->select('m,l,rl')
                    ->from($this->getClassName(),'m')
                    ->leftJoin('m.lab', 'l')
-                   ->leftJoin('m.referenceLab','rl')
+                   ->leftJoin('m.externalLabs','rl')
                    ->orderBy('m.id','DESC');
         return $this->secure($qb);
     }
@@ -210,7 +210,7 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
                     ->createQueryBuilder()
                     ->select("$alias,rl,l")
                     ->from($this->getClassName(),$alias)
-                    ->leftJoin("$alias.referenceLab", "rl")
+                    ->leftJoin("$alias.externalLabs", "rl")
                     ->leftJoin("$alias.lab",'l')
                     ->orderBy('m.id','DESC'))
                     ;

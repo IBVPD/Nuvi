@@ -421,7 +421,7 @@ class Country implements \Serializable
      *
      * @return boolean
      */
-    public function getHasReferenceLab()
+    public function hasReferenceLab()
     {
         return $this->hasReferenceLab;
     }
@@ -431,7 +431,7 @@ class Country implements \Serializable
      *
      * @return boolean
      */
-    public function getHasNationalLab()
+    public function hasNationalLab()
     {
         return $this->hasNationalLab;
     }
@@ -491,5 +491,25 @@ class Country implements \Serializable
             $this->hasReferenceLab,
             $this->tracksPneumonia
             ) = unserialize($serialized);
+    }
+
+    /**
+     * Get hasReferenceLab
+     *
+     * @return boolean 
+     */
+    public function getHasReferenceLab()
+    {
+        return $this->hasReferenceLab;
+    }
+
+    /**
+     * Get hasNationalLab
+     *
+     * @return boolean 
+     */
+    public function getHasNationalLab()
+    {
+        return $this->hasNationalLab;
     }
 }
