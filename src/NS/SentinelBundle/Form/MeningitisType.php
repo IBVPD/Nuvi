@@ -91,7 +91,6 @@ class MeningitisType extends AbstractType
                                 $form->add($factory->createNamed('site','entity',null,array('required'        => true,
                                                                                             'empty_value'     => 'Please Select...',
                                                                                             'label'           => 'rotavirus-form.site',
-//                                                                                            'choices'         => $sites,
                                                                                             'query_builder'   => $em->getRepository('NS\SentinelBundle\Entity\Site')->getChainQueryBuilder(),
                                                                                             'class'           => 'NS\SentinelBundle\Entity\Site',
                                                                                             'auto_initialize' => false))
