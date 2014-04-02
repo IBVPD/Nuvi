@@ -36,7 +36,7 @@ class MeningitisType extends AbstractType
             ->add('caseId',null,array('required'=>false,'label'=>'meningitis-form.case-id'))
             ->add('admDate','acedatepicker',array('required'=>false,'label'=>'meningitis-form.adm-date'))
             ->add('admDx',          'Diagnosis',    array('required'=>false,'label'=>'meningitis-form.adm-dx',       'attr' => array('data-context-group'=>'admissionDiagnosis'), 'special_values'=>array(new ChoiceValue(4,'admissionDiagnosisOther'))))
-            ->add('admDxOther',     null,           array('required'=>false,'label'=>'meningitis-form.adm-dx-other', 'attr' => array('data-context-group'=>'admissionDiagnosis')))
+            ->add('admDxOther',     null,           array('required'=>false,'label'=>'meningitis-form.adm-dx-other', 'attr' => array('data-context-group'=>'admissionDiagnosis', 'data-context-field'=>'admissionDiagnosisOther')))
             ->add('onsetDate','acedatepicker',array('required'=>false,'label'=>'meningitis-form.onset-date'))
             ->add('antibiotics','TripleChoice',array('required'=>false,'label'=>'meningitis-form.antibiotics'))
 
