@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
+use NS\UtilBundle\Form\Extension\ChoiceValue;
 
 class MeningitisType extends AbstractType
 {
@@ -34,8 +35,8 @@ class MeningitisType extends AbstractType
             ->add('district',null,array('required'=>false,'label'=>'meningitis-form.district'))
             ->add('caseId',null,array('required'=>false,'label'=>'meningitis-form.case-id'))
             ->add('admDate','acedatepicker',array('required'=>false,'label'=>'meningitis-form.adm-date'))
-            ->add('admDx','Diagnosis',array('required'=>false,'label'=>'meningitis-form.adm-dx'))
-            ->add('admDxOther',null,array('required'=>false,'label'=>'meningitis-form.adm-dx-other'))
+            ->add('admDx',          'Diagnosis',    array('required'=>false,'label'=>'meningitis-form.adm-dx',       'attr' => array('data-context-group'=>'admissionDiagnosis'), 'special_values'=>array(new ChoiceValue(4,'admissionDiagnosisOther'))))
+            ->add('admDxOther',     null,           array('required'=>false,'label'=>'meningitis-form.adm-dx-other', 'attr' => array('data-context-group'=>'admissionDiagnosis')))
             ->add('onsetDate','acedatepicker',array('required'=>false,'label'=>'meningitis-form.onset-date'))
             ->add('antibiotics','TripleChoice',array('required'=>false,'label'=>'meningitis-form.antibiotics'))
 
