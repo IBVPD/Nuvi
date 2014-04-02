@@ -6,6 +6,7 @@ security:
         ROLE_SITE:        [ ROLE_USER, ROLE_CAN_CREATE_CASE ]
         ROLE_LAB:         [ ROLE_USER, ROLE_CAN_CREATE_LAB ]
         ROLE_RRL_LAB:     [ ROLE_USER, ROLE_CAN_CREATE_RRL_LAB ]
+        ROLE_NL_LAB:      [ ROLE_USER, ROLE_CAN_CREATE_NL_LAB ]
         ROLE_COUNTRY:     ROLE_USER
         ROLE_REGION:      ROLE_USER
         ROLE_ADMIN:       ROLE_USER
