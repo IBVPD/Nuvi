@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "080eabda249318a053b0ba540ff99741",
+    "hash": "6be755c222eae1c8414fd94d69a066bd",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1765,7 +1765,7 @@
             "source": {
                 "type": "git",
                 "url": "gitolite@git.noblet.ca:/symfony/ns/utils.git",
-                "reference": "33070c2f0e5fbd7d1a88014289f3cf5a167a9877"
+                "reference": "2b59bedff5b78d0f10d3c593f02737f3b7dfa518"
             },
             "require": {
                 "ext-mbstring": "*",
@@ -1789,7 +1789,7 @@
                 }
             ],
             "description": "Various Utilitity Services and Classes",
-            "time": "2014-03-06 21:23:25"
+            "time": "2014-04-02 16:20:23"
         },
         {
             "name": "oneup/uploader-bundle",

@@ -29,6 +29,7 @@ twig:
     strict_variables: %kernel.debug%
     form:
       resources:
+        - 'NSUtilBundle:Form:fields.html.twig'
         - 'NSAceBundle:Form:fields.html.twig'
 
 # Assetic Configuration
