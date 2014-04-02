@@ -12,8 +12,6 @@ use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
  */
 class Diagnosis extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    const NO_SELECTION   = -1;
-
     const NA         = 0;
     const MENINGITIS = 1;
     const PNEUMONIA  = 2;
@@ -28,7 +26,7 @@ class Diagnosis extends TranslatableArrayChoice implements TranslationContainerI
                             self::SEPSIS      => 'Sepsis',
                             self::OTHER       => 'Other',
                             self::UNKNOWN     => 'Unknown');
-    
+
     public function getName()
     {
         return 'Diagnosis';
