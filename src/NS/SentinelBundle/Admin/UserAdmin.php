@@ -47,6 +47,7 @@ class UserAdmin extends Admin
             ->add('canCreateCases')
             ->add('canCreateLabs')
             ->add('canCreateRRLLabs')
+            ->add('canCreateNLLabs')
         ;
     }
 
@@ -62,6 +63,7 @@ class UserAdmin extends Admin
             ->add('canCreateCases')
             ->add('canCreateLabs')
             ->add('canCreateRRLLabs')
+            ->add('canCreateNLLabs')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -92,9 +94,10 @@ class UserAdmin extends Admin
                       )
                 ->add('isActive',null,array('required'=>false))
                 ->add('isAdmin',null,array('required'=>false))
-                ->add('canCreateCases',null,array('required'=>false))
-                ->add('canCreateLabs',null,array('required'=>false))
-                ->add('canCreateRRLLabs',null,array('required'=>false))
+                ->add('canCreateCases',null,array('required'=>false,'label'=>'admin.form-can-create-case-record'))
+                ->add('canCreateLabs',null,array('required'=>false,'label'=>'admin.form-can-create-sitelab-record'))
+                ->add('canCreateRRLLabs',null,array('required'=>false,'label'=>'admin.form-can-create-reference-lab-record'))
+                ->add('canCreateNLLabs',null,array('required'=>false,'label'=>'admin.form-can-create-national-lab-record'))
                 ->add('acls', 'sonata_type_collection', array('by_reference'=>true),array('edit'=>'inline','inline'=>'table'))
             ;
     }

@@ -3,10 +3,9 @@
 namespace NS\SentinelBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ReferenceLabType extends AbstractType
+class NationalLabType extends AbstractType
 {
     /**
      * @param OptionsResolverInterface $resolver
@@ -14,7 +13,7 @@ class ReferenceLabType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'NS\SentinelBundle\Entity\ReferenceLab'
+            'data_class' => 'NS\SentinelBundle\Entity\NationalLab'
         ));
     }
 
@@ -28,6 +27,6 @@ class ReferenceLabType extends AbstractType
      */
     public function getName()
     {
-        return 'meningitis_referencelab';
+        return 'meningitis_nationallab';
     }
 }

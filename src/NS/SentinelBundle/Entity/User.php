@@ -102,6 +102,13 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
     /**
      * @var boolean
      *
+     * @ORM\Column(name="canCreateNLLabs", type="boolean")
+     */
+    private $canCreateNLLabs = false;
+
+    /**
+     * @var boolean
+     *
      * @ORM\Column(name="isActive", type="boolean")
      */
     private $isActive = false;
@@ -267,7 +274,10 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
 
         if($this->canCreateRRLLabs)
             $roles[] = 'ROLE_CAN_CREATE_RRL_LAB';
-        
+
+        if($this->canCreateNLLabs)
+            $roles[] = 'ROLE_CAN_CREATE_NL_LAB';
+
         return array_unique($roles);
     }
 
@@ -420,6 +430,11 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
         return $this->canCreateRRLLabs;
     }
 
+    public function getCanCreateNLLabs()
+    {
+        return $this->canCreateNLLabs;
+    }
+
     public function setCanCreateCases($canCreateCases)
     {
         $this->canCreateCases = $canCreateCases;
@@ -437,4 +452,10 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
         $this->canCreateRRLLabs = $canCreateRRLLabs;
         return $this;
     }
+
+    public function setCanCreateNLLabs($canCreateNLLabs)
+    {
+        $this->canCreateNLLabs = $canCreateNLLabs;
+        return $this;
+    }    
 }

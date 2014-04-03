@@ -103,6 +103,17 @@ services:
     ns.sentinel.user_provider:
       class: NS\SentinelBundle\Security\UserProvider
       arguments: [ "@doctrine.orm.entity_manager" ]
+
+    ns.sentinel.form.type.meningitis_base:
+      class: NS\SentinelBundle\Form\BaseLabType
+      tags:
+        - { name: form.type, alias: ibd_base_lab }
+
+    ns.sentinel.form.type.meningitis_nl:
+      class: NS\SentinelBundle\Form\NationalLabType
+      tags:
+        - { name: form.type, alias: meningitis_nationallab }
+
     ns.sentinel.form.type.meningitis_rrl:
       class: NS\SentinelBundle\Form\ReferenceLabType
       tags:

@@ -91,7 +91,6 @@ class MeningitisType extends AbstractType
                                 $form->add($factory->createNamed('site','entity',null,array('required'        => true,
                                                                                             'empty_value'     => 'Please Select...',
                                                                                             'label'           => 'rotavirus-form.site',
-//                                                                                            'choices'         => $sites,
                                                                                             'query_builder'   => $em->getRepository('NS\SentinelBundle\Entity\Site')->getChainQueryBuilder(),
                                                                                             'class'           => 'NS\SentinelBundle\Entity\Site',
                                                                                             'auto_initialize' => false))
@@ -126,6 +125,15 @@ class MeningitisType extends AbstractType
                              ->add('pneuVomit','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-vomit'))
                              ->add('pneuHypothermia','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-hypothermia'))
                              ->add('pneuMalnutrition','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-malnutrition'));
+                    }
+
+                    if($country instanceof \NS\SentinelBundle\Entity\Country )
+                    {
+                        if($country->hasReferenceLab())
+                            $form->add('sentToReferenceLab','switch',array('required'=>false));
+
+                        if($country->hasNationalLab())
+                            $form->add('sentToNationalLab','switch',array('required'=>false));
                     }
                 });
 

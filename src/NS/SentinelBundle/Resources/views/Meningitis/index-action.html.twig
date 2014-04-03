@@ -1,6 +1,6 @@
  <div class='visible-md visible-lg hidden-sm hidden-xs btn-group'>
     <a href="{{path('meningitisShow',{'id':row.id})}}" class='btn btn-xs btn-info'><i class='icon-eye-open bigger-120'></i></a>
-    
+
     {% if is_granted('ROLE_CAN_CREATE_CASE') %}
         <a href="{{path('meningitisEdit',{'id':row.id})}}" class='btn btn-xs btn-success'><i class='icon-edit bigger-120'></i> {{'EPI'|trans}}</a>
     {% endif %}
@@ -9,8 +9,12 @@
         <a href="{{path('meningitisLabEdit',{'id':row.id})}}" class='btn btn-xs btn-success'><i class="{% if row.hasSiteLab %}icon-edit{%else%}icon-plus{%endif%} bigger-120"></i> {{'Lab'|trans}}</a>
     {% endif %}
 
-    {% if is_granted('ROLE_CAN_CREATE_RRL_LAB') %}
+    {% if is_granted('ROLE_CAN_CREATE_RRL_LAB') and row.sentToReferenceLab %}
         <a href="{{path('meningitisRRLEdit',{'id':row.id})}}" class='btn btn-xs btn-success'><i class="{% if row.hasReferenceLab %}icon-edit{%else%}icon-plus{%endif%} bigger-120"></i> {{'RRL'|trans}}</a>
+    {% endif %}
+
+    {% if is_granted('ROLE_CAN_CREATE_NL_LAB') and row.sentToNationalLab %}
+        <a href="{{path('meningitisNLEdit',{'id':row.id})}}" class='btn btn-xs btn-success'><i class="{% if row.hasNationalLab %}icon-edit{%else%}icon-plus{%endif%} bigger-120"></i> {{'NL'|trans}}</a>
     {% endif %}
 </div>
 <div class='visible-xs visible-sm hidden-md hidden-lg'>
@@ -28,6 +32,10 @@
 
             {% if is_granted('ROLE_CAN_CREATE_RRL_LAB') %}
                 <li><a href="{{path('meningitisRRLEdit',{'id':row.id})}}" class='tooltip-success'><span class="green"><i class="{% if row.hasReferenceLab %}icon-edit{%else%}icon-plus{%endif%} bigger-120"></i> {{'RRL'|trans}}</span></a></li>
+            {% endif %}
+
+            {% if is_granted('ROLE_CAN_CREATE_NL_LAB') and row.sentToNationalLab %}
+                <li><a href="{{path('meningitisNLEdit',{'id':row.id})}}" class='tooltip-success'><span class="green"><i class="{% if row.hasNationalLab %}icon-edit{%else%}icon-plus{%endif%} bigger-120"></i> {{'NL'|trans}}</span></a></li>
             {% endif %}
 
         </ul>
