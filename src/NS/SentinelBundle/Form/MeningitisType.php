@@ -52,10 +52,10 @@ class MeningitisType extends AbstractType
 
             ->add('hibReceived','TripleChoice',array('required'=>false,'label'=>'meningitis-form.hib-received','attr' => array('data-context-group'=>'hibReceived'),'special_values'=>array(new ChoiceValue(Types\TripleChoice::YES,'hibReceivedDoses'))))
             ->add('hibDoses','Doses',array('required'=>false,'label'=>'meningitis-form.hib-doses',             'attr' => array('data-context-group'=>'hibReceived', 'data-context-field'=>'hibReceivedDoses')))
-                
+
             ->add('pcvReceived','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pcv-received','attr' => array('data-context-group'=>'pcvReceived'),'special_values'=>array(new ChoiceValue(Types\TripleChoice::YES,'pcvReceivedDoses'))))
             ->add('pcvDoses','Doses',array('required'=>false,'label'=>'meningitis-form.pcv-doses','attr' => array('data-context-group'=>'pcvReceived', 'data-context-field'=>'pcvReceivedDoses')))
-            ->add('meningReceived','MeningitisVaccinationReceived',array('required'=>false,'label'=>'meningitis-form.men-received','attr' => array('data-context-group'=>'meningReceived'),'special_values'=>array(new ChoiceValue(Types\TripleChoice::YES,'meningReceivedExtra'))))
+            ->add('meningReceived','MeningitisVaccinationReceived',array('required'=>false,'label'=>'meningitis-form.men-received','attr' => array('data-context-group'=>'meningReceived'),'special_values'=>array(new ChoiceValue(Types\MeningitisVaccinationReceived::YES_CARD,'meningReceivedExtra'),new ChoiceValue(Types\MeningitisVaccinationReceived::YES_HISTORY,'meningReceivedExtra'))))
             ->add('meningType','MeningitisVaccinationType',array('required'=>false,'label'=>'meningitis-form.men-type',            'attr' => array('data-context-group'=>'meningReceived', 'data-context-field'=>'meningReceivedExtra')))
             ->add('meningMostRecentDose','acedatepicker',array('required'=>false,'label'=>'meningitis-form.meningMostRecentDose',  'attr' => array('data-context-group'=>'meningReceived', 'data-context-field'=>'meningReceivedExtra')))
 
@@ -65,7 +65,7 @@ class MeningitisType extends AbstractType
             ->add('csfAppearance','CSFAppearance',array('required'=>false,'label'=>'meningitis-form.csf-appearance'))
             ->add('bloodCollected','switch', array('required'=>false,'label'=>'meningitis-form.blood-collected','switchtype'=>2))
             ->add('dischOutcome','DischargeOutcome',array('required'=>false,'label'=>'meningitis-form.discharge-outcome'))
-                ->add('dischDx','Diagnosis',array('required'=>false,'label'=>'meningitis-form.discharge-diagnosis','attr' => array('data-context-group'=>'dischargeDiagnosis'),'special_values'=>array(new ChoiceValue(Diagnosis::OTHER,'dischargeDiagnosisOther'))))
+            ->add('dischDx','Diagnosis',array('required'=>false,'label'=>'meningitis-form.discharge-diagnosis','attr' => array('data-context-group'=>'dischargeDiagnosis'),'special_values'=>array(new ChoiceValue(Diagnosis::OTHER,'dischargeDiagnosisOther'))))
             ->add('dischDxOther',null,array('required'=>false,'label'=>'meningitis-form.discharge-diagnosis-other','attr' => array('data-context-group'=>'dischargeDiagnosis', 'data-context-field'=>'dischargeDiagnosisOther')))
             ->add('dischClass','DischargeClassification',array('required'=>false,'label'=>'meningitis-form.discharge-class'))
             ->add('comment',null,array('required'=>false,'label'=>'meningitis-form.comment'))

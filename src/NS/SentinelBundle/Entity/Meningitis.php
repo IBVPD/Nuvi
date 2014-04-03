@@ -87,6 +87,7 @@ class Meningitis implements IdentityAssignmentInterface
     /**
      * @var string $caseId
      * @ORM\Column(name="caseId",type="string",nullable=false)
+     * @Assert\NotBlank
      */
     private $caseId;
 
@@ -1253,6 +1254,36 @@ class Meningitis implements IdentityAssignmentInterface
         // if discharge diagnosis is other, enforce value in 'discharge diagnosis other' field
         if($this->dischDx && $this->dischDx->equal(Diagnosis::OTHER) && empty($this->dischDxOther))
             $context->addViolationAt('dischDx',"form.validation.dischargeDx-other-without-other-text");
+
+        if($this->hibReceived && $this->hibReceived->equal(TripleChoice::YES) && (is_null($this->hibDoses) || $this->hibDoses->equal(ArrayChoice::NO_SELECTION)))
+            $context->addViolationAt('hibDoses', "form.validation.hibReceived-other-hibDoses-unselected");
+
+        if($this->pcvReceived && $this->pcvReceived->getValue(TripleChoice::YES) && (is_null($this->pcvDoses) || $this->pcvDoses->equal(ArrayChoice::NO_SELECTION)))
+            $context->addViolationAt('pcvDoses', "form.validation.pcvReceived-other-pcvDoses-unselected");
+
+        if($this->meningReceived && ($this->meningReceived->equal(MeningitisVaccinationReceived::YES_CARD ) || $this->meningReceived->equal(MeningitisVaccinationReceived::YES_HISTORY)))
+        {
+            if(is_null($this->meningType))
+                $context->addViolationAt('meningType', "form.validation.meningReceived-meningType-empty");
+
+            if($this->meningType->equal(ArrayChoice::NO_SELECTION))
+                $context->addViolationAt('meningType', "form.validation.meningReceived-meningType-empty");
+
+            if(is_null($this->meningMostRecentDose))
+                $context->addViolationAt('meningType', "form.validation.meningReceived-meningMostRecentDose-empty");
+        }
+
+        if($this->csfCollected && $this->csfCollected->equal(TripleChoice::YES))
+        {
+            if(is_null($this->csfId) || empty($this->csfId))
+                $context->addViolationAt('csfId', "form.validation.csfCollected-csfId-empty");
+                
+            if(is_null($this->csfCollectDateTime))
+                $context->addViolationAt('csfId', "form.validation.csfCollected-csfCollectDateTime-empty");
+
+            if(is_null($this->csfAppearance) || $this->csfAppearance->equal(ArrayChoice::NO_SELECTION))
+                $context->addViolationAt('csfId', "form.validation.csfCollected-csfAppearance-empty");
+        }
     }
 
     /**

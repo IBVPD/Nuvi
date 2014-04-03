@@ -8,8 +8,8 @@
     <td class='hidden-480'>
         <span class="label label-sm label-success icon icon-ok"> {{'EPI'|trans}} </span>
         <span class="label label-sm label-{{ row.hasSiteLab ? 'success icon icon-ok':'danger icon icon-exclamation-sign'}}"> {{'LAB'|trans}} </span>
-        {%if row.sentToReferenceLab %}<span class="label label-sm label-{{ row.hasReferenceLab ? (row.referenceLab.isComplete ? 'success icon icon-ok':'warning icon icon-warning-sign'):'danger icon icon-exclamation-sign'}}"> {{'RRL'|trans}} </span>{%endif%}
-        {%if row.sentToNationalLab %}<span class="label label-sm label-{{ row.hasNationalLab ? (row.nationalLab.isComplete ? 'success icon icon-ok':'warning icon icon-warning-sign'):'danger icon icon-exclamation-sign'}}"> {{'NL'|trans}} </span>{%endif%}
+        {%if row.sentToReferenceLab or row.hasReferenceLab %}<span class="label label-sm label-{{ row.hasReferenceLab ? (row.sentToReferenceLab and row.referenceLab.isComplete ? 'success icon icon-ok':'warning icon icon-warning-sign'):'danger icon icon-exclamation-sign'}}"> {{'RRL'|trans}} </span>{%endif%}
+        {%if row.sentToNationalLab or row.hasNationalLab %}<span class="label label-sm label-{{ row.hasNationalLab ? (row.sentToNationalLab and row.nationalLab.isComplete ? 'success icon icon-ok':'warning icon icon-warning-sign'):'danger icon icon-exclamation-sign'}}"> {{'NL'|trans}} </span>{%endif%}
     </td>
     <td>{% include 'NSSentinelBundle:Meningitis:index-action.html.twig' %}</td>
 </tr>
