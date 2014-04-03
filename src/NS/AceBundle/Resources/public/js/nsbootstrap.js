@@ -89,13 +89,13 @@ $(document).ready(function() {
 
     function toggleContextFields(el)
     {
-        $('input[data-context-group='+$(el).data('context-group')+']').each(function(i, el)
+        $('[data-context-field][data-context-group='+$(el).data('context-group')+']').each(function(i, el)
         {
             $('label[for='+el.id+']').hide();
             $(el).hide();
         });
 
-        $('input[data-context-field='+el.options[el.selectedIndex].getAttribute('data-context-field')+']').each(function(i, f)
+        $('[data-context-field][data-context-field='+el.options[el.selectedIndex].getAttribute('data-context-field')+']').each(function(i, f)
         {
             $('label[for='+f.id+']').show();
             $(f).show();
