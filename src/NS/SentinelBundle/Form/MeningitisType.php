@@ -2,15 +2,18 @@
 
 namespace NS\SentinelBundle\Form;
 
+use Doctrine\Common\Persistence\ObjectManager;
+use NS\SentinelBundle\Entity\Country;
+use NS\SentinelBundle\Form\Types\Diagnosis;
+use NS\SentinelBundle\Form\Types\MeningitisVaccinationReceived;
+use NS\SentinelBundle\Form\Types\TripleChoice;
+use NS\UtilBundle\Form\Extension\ChoiceValue;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\HttpFoundation\Session\Session;
-use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
-use NS\UtilBundle\Form\Extension\ChoiceValue;
-use NS\SentinelBundle\Form\Types\Diagnosis;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class MeningitisType extends AbstractType
 {
@@ -36,8 +39,8 @@ class MeningitisType extends AbstractType
             ->add('district',               null,               array('required'=>false,'label'=>'meningitis-form.district'))
             ->add('caseId',                 null,               array('required'=>false,'label'=>'meningitis-form.case-id'))
             ->add('admDate',                'acedatepicker',    array('required'=>false,'label'=>'meningitis-form.adm-date'))
-            ->add('admDx',                  'Diagnosis',        array('required'=>false,'label'=>'meningitis-form.adm-dx',       'attr' => array('data-context-group'=>'admissionDiagnosis'), 'special_values'=>array(new ChoiceValue(Diagnosis::OTHER,'admissionDiagnosisOther'))))
-            ->add('admDxOther',             null,               array('required'=>false,'label'=>'meningitis-form.adm-dx-other', 'attr' => array('data-context-group'=>'admissionDiagnosis', 'data-context-field'=>'admissionDiagnosisOther')))
+            ->add('admDx',                  'Diagnosis',        array('required'=>false,'label'=>'meningitis-form.adm-dx',       'attr' => array('data-context-field'=>'admissionDiagnosis')))
+            ->add('admDxOther',             null,               array('required'=>false,'label'=>'meningitis-form.adm-dx-other', 'attr' => array('data-context-field'=>'admissionDiagnosis', 'data-context-value'=>Diagnosis::OTHER)))
             ->add('onsetDate',              'acedatepicker',    array('required'=>false,'label'=>'meningitis-form.onset-date'))
             ->add('antibiotics',            'TripleChoice',     array('required'=>false,'label'=>'meningitis-form.antibiotics'))
 
@@ -50,23 +53,23 @@ class MeningitisType extends AbstractType
             ->add('menFontanelleBulge',     'TripleChoice',     array('required'=>false,'label'=>'meningitis-form.men-fontanelle-bulge'))
             ->add('menLethargy',            'TripleChoice',     array('required'=>false,'label'=>'meningitis-form.men-lethargy'))
 
-            ->add('hibReceived',            'TripleChoice',     array('required'=>false,'label'=>'meningitis-form.hib-received','attr' => array('data-context-group'=>'hibReceived'),'special_values'=>array(new ChoiceValue(Types\TripleChoice::YES,'hibReceivedDoses'))))
-            ->add('hibDoses',               'Doses',            array('required'=>false,'label'=>'meningitis-form.hib-doses',             'attr' => array('data-context-group'=>'hibReceived', 'data-context-field'=>'hibReceivedDoses')))
+            ->add('hibReceived',            'TripleChoice',     array('required'=>false,'label'=>'meningitis-form.hib-received','attr' => array('data-context-field'=>'hibReceived')))
+            ->add('hibDoses',               'Doses',            array('required'=>false,'label'=>'meningitis-form.hib-doses',             'attr' => array('data-context-field'=>'hibReceived', 'data-context-value'=>TripleChoice::YES)))
 
-            ->add('pcvReceived',            'TripleChoice',     array('required'=>false,'label'=>'meningitis-form.pcv-received','attr' => array('data-context-group'=>'pcvReceived'),'special_values'=>array(new ChoiceValue(Types\TripleChoice::YES,'pcvReceivedDoses'))))
-            ->add('pcvDoses',               'Doses',            array('required'=>false,'label'=>'meningitis-form.pcv-doses','attr' => array('data-context-group'=>'pcvReceived', 'data-context-field'=>'pcvReceivedDoses')))
-            ->add('meningReceived',         'MeningitisVaccinationReceived',array('required'=>false,'label'=>'meningitis-form.men-received','attr' => array('data-context-group'=>'meningReceived'),'special_values'=>array(new ChoiceValue(Types\MeningitisVaccinationReceived::YES_CARD,'meningReceivedExtra'),new ChoiceValue(Types\MeningitisVaccinationReceived::YES_HISTORY,'meningReceivedExtra'))))
-            ->add('meningType',             'MeningitisVaccinationType',    array('required'=>false,'label'=>'meningitis-form.men-type',            'attr' => array('data-context-group'=>'meningReceived', 'data-context-field'=>'meningReceivedExtra')))
-            ->add('meningMostRecentDose',   'acedatepicker',    array('required'=>false,'label'=>'meningitis-form.meningMostRecentDose',  'attr' => array('data-context-group'=>'meningReceived', 'data-context-field'=>'meningReceivedExtra')))
+            ->add('pcvReceived',            'TripleChoice',     array('required'=>false,'label'=>'meningitis-form.pcv-received','attr' => array('data-context-field'=>'pcvReceived')))
+            ->add('pcvDoses',               'Doses',            array('required'=>false,'label'=>'meningitis-form.pcv-doses','attr' => array('data-context-field'=>'pcvReceived', 'data-context-value'=>TripleChoice::YES)))
+            ->add('meningReceived',         'MeningitisVaccinationReceived',array('required'=>false,'label'=>'meningitis-form.men-received','attr' => array('data-context-field'=>'meningReceived')))
+            ->add('meningType',             'MeningitisVaccinationType',    array('required'=>false,'label'=>'meningitis-form.men-type',            'attr' => array('data-context-field'=>'meningReceived', 'data-context-value'=>MeningitisVaccinationReceived::YES_CARD)))
+            ->add('meningMostRecentDose',   'acedatepicker',    array('required'=>false,'label'=>'meningitis-form.meningMostRecentDose',  'attr' => array('data-context-field'=>'meningReceived', 'data-context-value'=>MeningitisVaccinationReceived::YES_HISTORY)))
 
-            ->add('csfCollected',       'switch',               array('required'=>false,'label'=>'meningitis-form.csf-collected','switchtype'=>2,'attr' => array('data-context-group'=>'csfCollected')))
-            ->add('csfId',              null,                   array('required'=>false,'label'=>'meningitis-form.csf-id','attr' => array('data-context-group'=>'csfCollected','data-context-field'=>'csfCollectedOther')))
-            ->add('csfCollectDateTime', 'acedatetime',          array('required'=>false,'label'=>'meningitis-form.csf-collect-datetime','attr' => array('data-context-group'=>'csfCollected','data-context-field'=>'csfCollectedOther')))
-            ->add('csfAppearance',      'CSFAppearance',        array('required'=>false,'label'=>'meningitis-form.csf-appearance','attr' => array('data-context-group'=>'csfCollected','data-context-field'=>'csfCollectedOther')))
+            ->add('csfCollected',       'switch',               array('required'=>false,'label'=>'meningitis-form.csf-collected','switchtype'=>2,'attr' => array('data-context-field'=>'csfCollected')))
+            ->add('csfId',              null,                   array('required'=>false,'label'=>'meningitis-form.csf-id','attr' => array('data-context-field'=>'csfCollected','data-context-value'=>true)))
+            ->add('csfCollectDateTime', 'acedatetime',          array('required'=>false,'label'=>'meningitis-form.csf-collect-datetime','attr' => array('data-context-field'=>'csfCollected','data-context-value'=>true)))
+            ->add('csfAppearance',      'CSFAppearance',        array('required'=>false,'label'=>'meningitis-form.csf-appearance','attr' => array('data-context-field'=>'csfCollected','data-context-value'=>true)))
             ->add('bloodCollected',     'switch',               array('required'=>false,'label'=>'meningitis-form.blood-collected','switchtype'=>2))
             ->add('dischOutcome',       'DischargeOutcome',     array('required'=>false,'label'=>'meningitis-form.discharge-outcome'))
-            ->add('dischDx',            'Diagnosis',            array('required'=>false,'label'=>'meningitis-form.discharge-diagnosis','attr' => array('data-context-group'=>'dischargeDiagnosis'),'special_values'=>array(new ChoiceValue(Diagnosis::OTHER,'dischargeDiagnosisOther'))))
-            ->add('dischDxOther',       null,                   array('required'=>false,'label'=>'meningitis-form.discharge-diagnosis-other','attr' => array('data-context-group'=>'dischargeDiagnosis', 'data-context-field'=>'dischargeDiagnosisOther')))
+            ->add('dischDx',            'Diagnosis',            array('required'=>false,'label'=>'meningitis-form.discharge-diagnosis','attr' => array('data-context-field'=>'dischargeDiagnosis')))
+            ->add('dischDxOther',       null,                   array('required'=>false,'label'=>'meningitis-form.discharge-diagnosis-other','attr' => array('data-context-field'=>'dischargeDiagnosis', 'data-context-field'=>Diagnosis::OTHER)))
             ->add('dischClass',         'DischargeClassification',array('required'=>false,'label'=>'meningitis-form.discharge-class'))
             ->add('comment',            null,                   array('required'=>false,'label'=>'meningitis-form.comment'))
         ;
@@ -117,7 +120,7 @@ class MeningitisType extends AbstractType
                         $country = $site->getCountry();
                     }
 
-                    if(!$country || ($country instanceof \NS\SentinelBundle\Entity\Country && $country->getTracksPneumonia()))
+                    if(!$country || ($country instanceof Country && $country->getTracksPneumonia()))
                     {
                         $form->add('pneuDiffBreathe','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-diff-breathe'))
                              ->add('pneuChestIndraw','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-chest-indraw'))
@@ -130,7 +133,7 @@ class MeningitisType extends AbstractType
                              ->add('pneuMalnutrition','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-malnutrition'));
                     }
 
-                    if($country instanceof \NS\SentinelBundle\Entity\Country )
+                    if($country instanceof Country )
                     {
                         if($country->hasReferenceLab())
                             $form->add('sentToReferenceLab','switch',array('required'=>false));
