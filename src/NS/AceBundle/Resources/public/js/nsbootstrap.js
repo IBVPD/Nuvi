@@ -96,16 +96,23 @@ $(document).ready(function() {
         
         $('[data-context-field='+$(el).data('context-field')+'][data-context-value]').each(function(i, input)
         {
+            var f       = $(input).data('context-value');
+            var fields  = typeof f === 'object' ? f.join().split(',') : [f.toString()]; //hacky way to get around variable typing in indexOf; find a better way to do this.
+            console.log(value);
+            console.log(fields);
             var label   = $('label[for='+input.id+']');
             var element = $(input).parent().hasClass('input-group') ? $(input).parent() : input;
 
-            if(String($(input).data('context-value')) === String(value))
+            console.log(value);
+            if(fields.indexOf(value.toString()) >= 0)
             {
+                console.log('yep');
                 element.show();
                 label.show();
             }
             else
             {
+                console.log('nope');
                 element.hide();
                 label.hide();
             }
