@@ -77,7 +77,7 @@ $(document).ready(function() {
         $(this).parents('.widget-box').find('div.filter_container .sonata-filter-option').toggle();
     });
     
-    $('select[data-context-group]:not([data-context-field])').each(function(i, el)
+    $('[data-context-field]:not([data-context-value])').each(function(i, el)
     {
         $(el).change(function(event)
         {
@@ -89,31 +89,25 @@ $(document).ready(function() {
 
     function toggleContextFields(el)
     {
-        $('[data-context-field][data-context-group='+$(el).data('context-group')+']').each(function(i, input)
+        var value = $(el).val();
+        
+        if(el.tagName.toLowerCase() === 'input' && (el.type.toLowerCase() === 'radio' || el.type.toLowerCase() === 'checkbox') && !el.checked)
+            value = 0;
+        
+        $('[data-context-field='+$(el).data('context-field')+'][data-context-value]').each(function(i, input)
         {
-            var active = [];
-            if($(input).data('context-field') == el.options[el.selectedIndex].getAttribute('data-context-field'))
+            var label   = $('label[for='+input.id+']');
+            var element = $(input).parent().hasClass('input-group') ? $(input).parent() : input;
+
+            if(String($(input).data('context-value')) === String(value))
             {
-                active.push(input.id);
-                var p = $(input).parent();
-            
-                if($(p).hasClass('input-group'))
-                    $(p).show();
-                else
-                    $(input).show();
-
-                $('label[for='+input.id+']').show();
+                element.show();
+                label.show();
             }
-            else if(active.indexOf(input.id) < 0)
-            {           
-                var p = $(input).parent();
-
-                if($(p).hasClass('input-group'))
-                    $(p).hide();
-                else
-                    $(input).hide();
-
-                $('label[for='+input.id+']').hide();
+            else
+            {
+                element.hide();
+                label.hide();
             }
         });
     }

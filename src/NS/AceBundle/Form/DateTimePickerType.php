@@ -30,12 +30,6 @@ class DateTimePickerType extends AbstractType
     {
         parent::buildView($view, $form, $options);
 
-        if(isset($view->vars['attr']['class']))
-            $view->vars['attr']['class'] .= 'form-control date-picker';
-        else
-            $view->vars['attr']['class'] = 'form-control date-picker';
-
-        $view->vars['date']['attr']['class'] = 'form-control date-picker';
         $view->vars['attr']['data-date-format'] = $this->dateformatToJQueryUI($options['format']);
         $view->vars['type'] = 'text';
     }
