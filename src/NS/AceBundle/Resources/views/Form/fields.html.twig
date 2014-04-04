@@ -81,7 +81,7 @@
 {%endblock %}
 
 {%block acedatepicker_widget %}
-<input type="text" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+<input type="text" {{ block('widge_tattributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
 {%endblock %}
 
 {%block acedatepicker_row %}
@@ -98,18 +98,20 @@
 {%endblock %}
 
 {%block acedatetime_row %}
+{% set dattr = attr|merge({ class: 'form-control date-picker' }) %}
+{% set tattr = attr|merge({ class: 'form-control time-picker' }) %}
 <div class="form-group">
     {{form_label(form)}}
     {{form_errors(form)}}
     <div class="col-sm-6 input-group">
-        {{form_widget(form.date,{attr: { class: 'form-control date-picker' } })}}
+        {{form_widget(form.date,{'attr': dattr})}}
         {{form_errors(form.date)}}
         <span class="input-group-addon">
             <i class="icon-calendar bigger-110"></i>
         </span>
     </div>
     <div class="col-sm-6 input-group bootstrap-timepicker">
-        {{form_widget(form.time,{attr: { class: 'form-control time-picker' } })}}
+        {{form_widget(form.time,{attr: tattr})}}
         {{form_errors(form.time)}}
         <span class="input-group-addon">
             <i class="icon-time bigger-110"></i>
