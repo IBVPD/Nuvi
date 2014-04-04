@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use \Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use \Symfony\Component\Security\Core\SecurityContextInterface;
+use \NS\SentinelBundle\Form\Types\Role;
 
 class UserAdmin extends Admin
 {
@@ -151,7 +152,12 @@ class UserAdmin extends Admin
     public function createQuery($context = 'list')
     {
         $query   = parent::createQuery($context);
-        $role    = new \NS\SentinelBundle\Form\Types\Role();
+        $user    = $this->securityContext->getToken()->getUser();
+        $role    = new Role();
+
+        if($user->isOnlyAdmin())
+            return $query;
+
         $highest = $role->getHighest($this->securityContext->getToken()->getRoles());
 
         $ralias = $query->getRootAlias();

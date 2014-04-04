@@ -255,6 +255,12 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
 
     }
 
+    public function isOnlyAdmin()
+    {
+        $roles = $this->getRoles();
+        return (count($roles) == 1 && in_array('ROLE_ADMIN', $roles));
+    }
+
     public function getRoles()
     {
         $roles = array();

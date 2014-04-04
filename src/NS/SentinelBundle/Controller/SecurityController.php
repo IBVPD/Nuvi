@@ -52,13 +52,17 @@ class SecurityController extends Controller
      * @Route("/{_locale}",name="homepage")
      * @Template()
      */
-    public function homepageAction(Request $request)
+    public function homepageAction()
     {
+        if($this->getUser()->isOnlyAdmin())
+            return $this->redirect($this->generateUrl('sonata_admin_dashboard'));
+
         $repo        = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:Meningitis");
         $byCountry   = $repo->getByCountry();
         $bySite      = $repo->getBySite();
         $byStat      = $repo->getStats();
         $byDiagnosis = $repo->getByDiagnosis();
+
 
         return array('byCountry'=>$byCountry,'bySite'=>$bySite,'byStats'=>$byStat,'byDiagnosis'=>$byDiagnosis);
 //        $sc = $this->get('security.context');
