@@ -59,7 +59,7 @@ class MeningitisType extends AbstractType
             ->add('meningType',             'MeningitisVaccinationType',    array('required'=>false,'label'=>'meningitis-form.men-type',            'attr' => array('data-context-group'=>'meningReceived', 'data-context-field'=>'meningReceivedExtra')))
             ->add('meningMostRecentDose',   'acedatepicker',    array('required'=>false,'label'=>'meningitis-form.meningMostRecentDose',  'attr' => array('data-context-group'=>'meningReceived', 'data-context-field'=>'meningReceivedExtra')))
 
-            ->add('csfCollected',       'switch',               array('required'=>false,'label'=>'meningitis-form.csf-collected','switchtype'=>2,'attr' => array('data-context-group'=>'csfCollected'), 'special_values'=>array(new ChoiceValue(1,'csfCollectedOther'))))
+            ->add('csfCollected',       'switch',               array('required'=>false,'label'=>'meningitis-form.csf-collected','switchtype'=>2,'attr' => array('data-context-group'=>'csfCollected')))
             ->add('csfId',              null,                   array('required'=>false,'label'=>'meningitis-form.csf-id','attr' => array('data-context-group'=>'csfCollected','data-context-field'=>'csfCollectedOther')))
             ->add('csfCollectDateTime', 'acedatetime',          array('required'=>false,'label'=>'meningitis-form.csf-collect-datetime','attr' => array('data-context-group'=>'csfCollected','data-context-field'=>'csfCollectedOther')))
             ->add('csfAppearance',      'CSFAppearance',        array('required'=>false,'label'=>'meningitis-form.csf-appearance','attr' => array('data-context-group'=>'csfCollected','data-context-field'=>'csfCollectedOther')))
