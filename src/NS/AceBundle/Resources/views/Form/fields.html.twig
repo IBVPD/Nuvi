@@ -38,7 +38,15 @@
         {% if label is empty %}
             {% set label = name|humanize %}
         {% endif %}
-        <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ label|trans({}, translation_domain) }}
+        {%set specialvalue = null %}
+        {%if special_values is defined %}
+            {% for v in special_values %}
+                {%if v.value == 1 %}
+                    {%set specialvalue = 'data-context-field='~v.context %}
+                {%endif%}
+            {%endfor%}
+        {%endif%}
+        <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %} {{specialvalue}}>{{ label|trans({}, translation_domain) }}
             {{form_widget(form)}}
             <span class="lbl"></span>
         </label>
