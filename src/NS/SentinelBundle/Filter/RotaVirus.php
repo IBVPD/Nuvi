@@ -20,6 +20,11 @@ class RotaVirus
      */
     private $id;
 
+    /**
+     * @var string caseId
+     */
+    private $caseId;
+
 //i. Sentinel Site Information
     /**
      * @var Region $region

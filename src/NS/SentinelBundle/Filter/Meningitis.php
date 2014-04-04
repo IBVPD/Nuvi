@@ -23,6 +23,11 @@ class Meningitis implements \Serializable
     private $id;
 
     /**
+     * @var string $caseId
+     */
+    private $caseId;
+
+    /**
      * @var Region $region
      */
     private $region;
@@ -884,5 +889,16 @@ class Meningitis implements \Serializable
     public function unserialize($serialized)
     {
         list($this->id,$this->region,$this->country,$this->site) = unserialize($serialized);
+    }
+
+    public  function getCaseId()
+    {
+        return $this->caseId;
+    }
+
+    public  function setCaseId($caseId)
+    {
+        $this->caseId = $caseId;
+        return $this;
     }
 }

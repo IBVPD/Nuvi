@@ -71,16 +71,23 @@ services:
       arguments: [ "@router","@form.factory" ]
       tags:
         - { name: kernel.event_listener, event: kernel.request, method: onRequest }
+
+    ns.sentinel.base.filter:
+      class: NS\SentinelBundle\Form\BaseFilter
+      arguments: [ "@security.context", "@ns.model_manager" ]
+      tags:
+        - { name: form.type, alias: base_filter_form }
+
     ns.sentinel.rotavirus.filter:
       class: NS\SentinelBundle\Form\RotaVirusFilter
-      arguments: [ "@security.context", "@ns.model_manager" ]
       tags:
         - { name: form.type, alias: rotavirus_filter_form }
+
     ns.sentinel.meningitis.filter:
       class: NS\SentinelBundle\Form\MeningitisFilter
-      arguments: [ "@security.context", "@ns.model_manager" ]
       tags:
         - { name: form.type, alias: meningitis_filter_form }
+
     ns.sentinel.menu_builder:
       class: NS\SentinelBundle\Menu\Builder
       arguments: [ "@knp_menu.factory", "@security.context" ]
