@@ -65,7 +65,7 @@ class MeningitisController extends Controller
      */
     public function editAction(Request $request,$id = null)
     {
-        return $this->edit('meningitis',$request,$id);
+        return $this->edit($request,'meningitis',$id);
     }
 
     /**

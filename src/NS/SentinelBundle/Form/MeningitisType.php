@@ -12,7 +12,6 @@ use NS\SentinelBundle\Entity\Country;
 use NS\SentinelBundle\Form\Types\Diagnosis;
 use NS\SentinelBundle\Form\Types\MeningitisVaccinationReceived;
 use NS\SentinelBundle\Form\Types\TripleChoice;
-use NS\SentinelBundle\Form\Types\Diagnosis;
 use NS\SentinelBundle\Services\SerializedSites;
 
 class MeningitisType extends AbstractType
