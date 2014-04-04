@@ -7,6 +7,24 @@
 {% block body %}
 <form method="POST" action="{{path('meningitis'~type~'Edit',{'id':id})}}" novalidate>
 
+{% if form.caseId is defined %}
+<div class="row">
+    <div class="col-sm-8 col-md-8 col-lg-8" >
+        <div class="widget-box">
+            <div class="widget-header widget-header-small header-color-blue"><h4 class="panelTitle">{{'Case Information'|trans}}</h4></div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    {{form_row(form.caseId)}}
+                    {%if form.site is defined %}
+                    {{form_row(form.site)}}
+                    {%endif%}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
 <div class="row">
     {{form_errors(form)}}
     <div class="col-sm-8 col-md-8 col-lg-8" >

@@ -7,9 +7,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
-use \NS\SentinelBundle\Form\MeningitisType;
-use \NS\SentinelBundle\Form\MeningitisSearch;
-use \NS\SentinelBundle\Exceptions\NonExistentCase;
+use NS\SentinelBundle\Form\MeningitisType;
+use NS\SentinelBundle\Form\MeningitisSearch;
+use NS\SentinelBundle\Exceptions\NonExistentCase;
+use Symfony\Component\Form\FormError;
+use NS\SentinelBundle\Entity\Meningitis;
 
 /**
  * @Route("/{_locale}/ibd")
@@ -73,7 +75,7 @@ class MeningitisController extends Controller
      */
     public function editRRLAction(Request $request,$id = null)
     {
-        return $this->edit('rrl',$request,$id);
+        return $this->edit($request, 'rrl', $id);
     }
 
     /**
@@ -83,7 +85,7 @@ class MeningitisController extends Controller
      */
     public function editNLAction(Request $request,$id = null)
     {
-        return $this->edit('nl',$request,$id);
+        return $this->edit($request, 'nl', $id);
     }
 
     /**
@@ -93,10 +95,10 @@ class MeningitisController extends Controller
      */
     public function editLabAction(Request $request,$id = null)
     {
-        return $this->edit('lab',$request,$id);
+        return $this->edit($request, 'lab', $id);
     }
 
-    private function edit($type, Request $request, $id)
+    private function edit(Request $request, $type, $id = null)
     {
         try 
         {
@@ -107,15 +109,15 @@ class MeningitisController extends Controller
                     $form   = $this->createForm('meningitis',$record);
                     break;
                 case 'lab':
-                    $record = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:SiteLab')->findOrCreateNew($id);
+                    $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:SiteLab')->findOrCreateNew($id): null;
                     $form   = $this->createForm('meningitis_sitelab',$record);
                     break;
                 case 'rrl':
-                    $record = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:ReferenceLab')->findOrCreateNew($id);
+                    $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:ReferenceLab')->findOrCreateNew($id): null;
                     $form   = $this->createForm('meningitis_referencelab',$record);
                     break;
                 case 'nl':
-                    $record = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:NationalLab')->findOrCreateNew($id);
+                    $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:NationalLab')->findOrCreateNew($id): null;
                     $form   = $this->createForm('meningitis_nationallab',$record);
                     break;
                 default:
@@ -136,6 +138,7 @@ class MeningitisController extends Controller
                 $em     = $this->getDoctrine()->getManager();
                 $record = $form->getData();
                 $em->persist($record);
+                $em->persist($record->getCase());
 
                 try
                 {
@@ -149,7 +152,7 @@ class MeningitisController extends Controller
                     else
                         die("ERROR: ".$e->getMessage());
 
-                    return array('form' => $form->createView(),'id'=>$id);
+                    return array('form' => $form->createView(),'id'=>$id, 'type'=>strtoupper($type));
                 }
 
                 // TODO Flash service required

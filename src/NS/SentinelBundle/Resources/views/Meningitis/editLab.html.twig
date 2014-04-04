@@ -11,7 +11,12 @@
     <div class="col-sm-8">
         <div class="tabbable">
             <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                {% if form.caseId is defined %}
+                <li class="active"><a data-toggle="tab" href="#case">{{'Case'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#demographics">{{'Case Based Demographics'|trans}}</a></li>
+                {% else %}
                 <li class="active"><a data-toggle="tab" href="#demographics">{{'Case Based Demographics'|trans}}</a></li>
+                {% endif %}
                 <li><a data-toggle="tab" href="#blood">{{'Blood'|trans}}</a></li>
                 <li><a data-toggle="tab" href="#csf">{{'CSF'|trans}}</a></li>
                 <li><a data-toggle="tab" href="#type">{{'Blood Type'|trans}}</a></li>
@@ -19,7 +24,15 @@
             </ul>
 
             <div class="tab-content">
+                {% if form.caseId is defined %}
+                <div id="case" class="tab-pane active">
+                    {{form_row(form.caseId)}}
+                </div>
+
+                <div id="demographics" class="tab-pane">
+                {%else %}
                 <div id="demographics" class="tab-pane active">
+                {% endif %}
                     {{form_row(form.rrlName)}}
                     {{form_row(form.csfLabDateTime)}}
                     {{form_row(form.rrlCsfDate)}}

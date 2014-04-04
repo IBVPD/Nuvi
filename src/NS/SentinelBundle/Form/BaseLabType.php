@@ -4,10 +4,22 @@ namespace NS\SentinelBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use NS\SentinelBundle\Services\SerializedSites;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 class BaseLabType extends AbstractType
 {
+    private $siteSerializer;
+    private $em;
+
+    public function __construct(SerializedSites $siteSerializer, ObjectManager $em)
+    {
+        $this->siteSerializer = $siteSerializer;
+        $this->em             = $em;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -36,6 +48,58 @@ class BaseLabType extends AbstractType
             ->add('resultSentToCountry','acedatepicker',array('label'=>'meningitis-rrl-form.result-sent-to-country','required'=>false))
             ->add('resultSentToWHO','acedatepicker',array('label'=>'meningitis-rrl-form.result-sent-to-who','required'=>false))
         ;
+
+        $siteSerializer = $this->siteSerializer;
+        $em             = $this->em;
+
+        $builder->addEventListener(FormEvents::POST_SET_DATA, function(FormEvent $e) use($siteSerializer,$em)
+                {
+                    $data = $e->getData();
+                    $form = $e->getForm();
+
+                    if(!$data || ($data && !$data->getCase()))
+                    {
+                        $form->add('caseId','text',array('required'        => true,
+                                                         'label'           => 'site-assigned-case-id',
+                                                         'mapped'          =>false));
+
+                        if($siteSerializer->hasMultipleSites())
+                        {
+                            $form->add('site','entity',array('required'        => true,
+                                                         'mapped'          => false,
+                                                         'empty_value'     => 'Please Select...',
+                                                         'label'           => 'rotavirus-form.site',
+                                                         'query_builder'   => $em->getRepository('NS\SentinelBundle\Entity\Site')->getChainQueryBuilder(),
+                                                         'class'           => 'NS\SentinelBundle\Entity\Site',
+                                                         'auto_initialize' => false));
+                        }
+                    }
+                });
+
+        $builder->addEventListener(FormEvents::SUBMIT, function(FormEvent $e) use($siteSerializer)
+                {
+                    $data = $e->getData();
+                    if($data->hasCase())
+                        return;
+
+                    $form   = $e->getForm();
+                    $caseId = $form['caseId']->getData();
+                    $site   = ($siteSerializer->hasMultipleSites()) ? $form['site']->getData() : $siteSerializer->getSite(true);
+
+                    $case   = new \NS\SentinelBundle\Entity\Meningitis();
+                    $case->setCaseId($caseId);
+                    $case->setSite($site);
+
+                    if($data instanceof \NS\SentinelBundle\Entity\ReferenceLab)
+                        $case->setSentToReferenceLab(true);
+
+                    if($data instanceof \NS\SentinelBundle\Entity\NationalLab)
+                        $case->setSentToNationalLab(true);
+
+                    $data->setCase($case);
+                    $e->setData($data);
+                }
+        );
     }
 
     /**

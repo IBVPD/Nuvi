@@ -5,20 +5,20 @@ namespace NS\SentinelBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\HttpFoundation\Session\Session;
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
+use NS\SentinelBundle\Services\SerializedSites;
+use Doctrine\Common\Persistence\ObjectManager;
 
 class RotaVirusType extends AbstractType
 {
-    private $session;
     private $em;
+    private $siteSerializer;
 
-    public function __construct(Session $session, ObjectManager $em)
+    public function __construct(SerializedSites $siteSerializer, ObjectManager $em)
     {
-        $this->session         = $session;
-        $this->em              = $em;
+        $this->siteSerializer = $siteSerializer;
+        $this->em             = $em;
     }
 
     /**
@@ -60,25 +60,17 @@ class RotaVirusType extends AbstractType
             ->add('comment',                    null,               array('required'=>false, 'label'=>'rotavirus-form.comment'))
         ;
 
-        $factory = $builder->getFormFactory();
-        $em = $this->em;
-        $se = $this->session;
+        $factory        = $builder->getFormFactory();
+        $siteSerializer = $this->siteSerializer;
+        $em             = $this->em;
 
         $builder->addEventListener(
                         FormEvents::PRE_SET_DATA,
-                        function(FormEvent $event) use($factory,$se,$em)
+                        function(FormEvent $event) use($factory,$siteSerializer,$em)
                         {
                             $form  = $event->getForm();
-                            $sites = unserialize($se->get('sites'));
 
-                            if(!$sites || count($sites) == 0) // empty session site array so build and store
-                            {
-                                $sites = $em->getRepository('NS\SentinelBundle\Entity\Site')->getChain();
-
-                                $se->set('sites',serialize($sites));
-                            }
-
-                            if(count($sites) > 1)
+                            if($siteSerializer->hasMultipleSites())
                             {
                                 $form->add($factory->createNamed('site','entity',null,array('required'        => true,
                                                                                             'empty_value'     => 'Please Select...',
@@ -90,13 +82,12 @@ class RotaVirusType extends AbstractType
                             }
                         }
             );
+
         $builder->addEventListener(
                         FormEvents::SUBMIT,
-                        function(FormEvent $event) use ($se,$em)
+                        function(FormEvent $event) use ($siteSerializer)
                         {
-                            $sites = unserialize($se->get('sites'));
-
-                            if($sites && count($sites) > 1) // they'll be choosing so exit
+                            if($siteSerializer->hasMultipleSites()) // they'll be choosing so exit
                                 return;
 
                             $data = $event->getData();
@@ -104,20 +95,8 @@ class RotaVirusType extends AbstractType
                                 return;
 
                             // current gets us the one site we are able to see since we test for count > 1 above
-                            $site = current($sites);
-
-                            if(!$em->contains($site))
-                            {
-                                $uow = $em->getUnitOfWork();
-                                $c   = $site->getCountry();
-                                $r   = $c->getRegion();
-
-                                $uow->registerManaged($site,array('id'=>$site->getId()),array('id'=>$site->getId(),'code'=>$site->getCode()));
-                                $uow->registerManaged($c,array('id'=>$c->getId()),array('id'=>$c->getId(),'code'=>$c->getCode()));
-                                $uow->registerManaged($r,array('id'=>$r->getId()),array('id'=>$r->getId(),'code'=>$r->getCode()));
-
-                                $data->setSite($site);
-                            }
+                            $site = $siteSerializer->getSite(true);
+                            $data->setSite($site);
 
                             $event->setData($data);
                         }

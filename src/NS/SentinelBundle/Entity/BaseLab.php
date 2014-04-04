@@ -200,6 +200,11 @@ class BaseLab
         return $this->case;
     }
 
+    public function hasCase()
+    {
+        return $this->case instanceof Meningitis;
+    }
+
     /**
      * Get id
      *

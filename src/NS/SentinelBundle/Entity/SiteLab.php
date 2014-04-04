@@ -358,6 +358,11 @@ class SiteLab
         return $this->case;
     }
 
+    public function hasCase()
+    {
+        return ($this->case instanceof Meningitis);
+    }
+
     public function getCsfLabDateTime()
     {
         return $this->csfLabDateTime;
