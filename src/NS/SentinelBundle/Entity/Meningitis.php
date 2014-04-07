@@ -1152,16 +1152,16 @@ class Meningitis implements IdentityAssignmentInterface
         if(is_null($this->ageInMonths))
             return 'ageInMonths';
 
-        if($this->admDx && $this->admDx->getValue() == Diagnosis::OTHER && empty($this->admDxOther))
+        if($this->admDx && $this->admDx->equal(Diagnosis::OTHER) && empty($this->admDxOther))
             return 'admDx';
 
-        if($this->dischDx && $this->dischDx->getValue() == Diagnosis::OTHER && empty($this->dischDxOther))
+        if($this->dischDx && $this->dischDx->equal(Diagnosis::OTHER) && empty($this->dischDxOther))
             return 'dischDx';
 
-        if($this->hibReceived && $this->hibReceived->getValue() == TripleChoice::YES && (is_null($this->hibDoses) || $this->hibDoses->equal(ArrayChoice::NO_SELECTION)))
+        if($this->hibReceived && $this->hibReceived->equal(TripleChoice::YES) && (is_null($this->hibDoses) || $this->hibDoses->equal(ArrayChoice::NO_SELECTION)))
             return 'hibReceived';
 
-        if($this->pcvReceived && $this->pcvReceived->getValue() == TripleChoice::YES && (is_null($this->pcvDoses) || $this->pcvDoses->equal(ArrayChoice::NO_SELECTION)))
+        if($this->pcvReceived && $this->pcvReceived->equal(TripleChoice::YES) && (is_null($this->pcvDoses) || $this->pcvDoses->equal(ArrayChoice::NO_SELECTION)))
             return 'pcvReceived';
 
         if($this->meningReceived && ($this->meningReceived->equal(MeningitisVaccinationReceived::YES_CARD ) || $this->meningReceived->equal(MeningitisVaccinationReceived::YES_HISTORY)))
@@ -1176,7 +1176,7 @@ class Meningitis implements IdentityAssignmentInterface
                 return 'meningMostRecentDose';
         }
 
-        if($this->csfCollected && $this->csfCollected->getValue() == TripleChoice::YES)
+        if($this->csfCollected && $this->csfCollected->equal(TripleChoice::YES))
         {
             if(is_null($this->csfId))
                 return 'csfCollected1';
@@ -1258,8 +1258,8 @@ class Meningitis implements IdentityAssignmentInterface
         if($this->hibReceived && $this->hibReceived->equal(TripleChoice::YES) && (is_null($this->hibDoses) || $this->hibDoses->equal(ArrayChoice::NO_SELECTION)))
             $context->addViolationAt('hibDoses', "form.validation.hibReceived-other-hibDoses-unselected");
 
-        if($this->pcvReceived && $this->pcvReceived->getValue(TripleChoice::YES) && (is_null($this->pcvDoses) || $this->pcvDoses->equal(ArrayChoice::NO_SELECTION)))
-            $context->addViolationAt('pcvDoses', "form.validation.pcvReceived-other-pcvDoses-unselected");
+        if($this->pcvReceived && $this->pcvReceived->equal(TripleChoice::YES) && (is_null($this->pcvDoses) || $this->pcvDoses->equal(ArrayChoice::NO_SELECTION)))
+            $context->addViolationAt('pcvDoses', "form.validation.pcvReceived-other-pcvDoses-unselected '".$this->pcvReceived."'" );
 
         if($this->meningReceived && ($this->meningReceived->equal(MeningitisVaccinationReceived::YES_CARD ) || $this->meningReceived->equal(MeningitisVaccinationReceived::YES_HISTORY)))
         {
