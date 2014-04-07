@@ -15,6 +15,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use \NS\SecurityBundle\Annotation\Secured;
 use \NS\SecurityBundle\Annotation\SecuredCondition;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Description of ReferenceLab
  * @author gnat
@@ -45,6 +47,13 @@ class BaseLab
      * @ORM\JoinColumn(nullable=false)
      */
     private $case;
+
+    /**
+     * @var string $labId
+     * @ORM\Column(name="labId",type="string")
+     * @Assert\NotBlank
+     */
+    private $labId;
 
     /**
      * @var SampleType
@@ -662,6 +671,17 @@ class BaseLab
     {
         $this->isComplete = $isComplete;
 
+        return $this;
+    }
+
+    public function getLabId()
+    {
+        return $this->labId;
+    }
+
+    public function setLabId($labId)
+    {
+        $this->labId = $labId;
         return $this;
     }
 

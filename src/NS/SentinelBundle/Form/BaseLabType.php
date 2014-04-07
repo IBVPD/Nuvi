@@ -27,6 +27,7 @@ class BaseLabType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('labId',null,array('label'=>'meningitis-rrl-form.lab-id','required'=>true))
             ->add('sampleType','SampleType',array('label'=>'meningitis-rrl-form.sample-type','required'=>false))
             ->add('dateReceived','acedatepicker',array('label'=>'meningitis-rrl-form.date-received','required'=>false))
             ->add('volume','Volume',array('label'=>'meningitis-rrl-form.volume','required'=>false))
