@@ -118,6 +118,9 @@ class SiteLabType extends AbstractType
                     $caseId = $form['caseId']->getData();
                     $site   = ($siteSerializer->hasMultipleSites()) ? $form['site']->getData() : $siteSerializer->getSite(true);
 
+                    if(!$site instanceof \NS\SentinelBundle\Entity\Site)
+                        throw new \UnexpectedValueException("Site ".get_class($site)." Not instance of \NS\SentinelBundle\Entity\Site");
+
                     $case   = new \NS\SentinelBundle\Entity\Meningitis();
                     $case->setCaseId($caseId);
                     $case->setSite($site);
