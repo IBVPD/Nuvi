@@ -102,14 +102,14 @@
 <div class="form-group">
     {{form_label(form)}}
     {{form_errors(form)}}
-    <div class="col-sm-6 input-group">
+    <div class="input-group input-datetime-group">
         {{form_widget(form.date,{'attr': dattr})}}
         {{form_errors(form.date)}}
         <span class="input-group-addon">
             <i class="icon-calendar bigger-110"></i>
         </span>
     </div>
-    <div class="col-sm-6 input-group bootstrap-timepicker">
+    <div class="input-group bootstrap-timepicker input-datetime-group">
         {{form_widget(form.time,{attr: tattr})}}
         {{form_errors(form.time)}}
         <span class="input-group-addon">
