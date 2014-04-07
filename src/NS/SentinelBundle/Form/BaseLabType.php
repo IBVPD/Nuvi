@@ -8,6 +8,8 @@ use NS\SentinelBundle\Services\SerializedSites;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use NS\SentinelBundle\Form\Types\PathogenIdentifier;
+use NS\SentinelBundle\Form\Types\SerotypeIdentifier;
 
 class BaseLabType extends AbstractType
 {
@@ -27,27 +29,27 @@ class BaseLabType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('labId',null,array('label'=>'meningitis-rrl-form.lab-id','required'=>true))
-            ->add('sampleType','SampleType',array('label'=>'meningitis-rrl-form.sample-type','required'=>false))
-            ->add('dateReceived','acedatepicker',array('label'=>'meningitis-rrl-form.date-received','required'=>false))
-            ->add('volume','Volume',array('label'=>'meningitis-rrl-form.volume','required'=>false))
-            ->add('DNAExtractionDate','acedatepicker',array('label'=>'meningitis-rrl-form.dna-extraction-date','required'=>false))
-            ->add('DNAVolume',null,array('label'=>'meningitis-rrl-form.dna-volume','required'=>false))
-            ->add('isolateViable','TripleChoice',array('label'=>'meningitis-rrl-form.isolate-viable','required'=>false))
-            ->add('isolateType','IsolateType',array('label'=>'meningitis-rrl-form.isolate-type','required'=>false))
-            ->add('pathogenIdentifierMethod','PathogenIdentifier',array('label'=>'meningitis-rrl-form.pathogen-id-method','required'=>false))
-            ->add('pathogenIdentierOther',null,array('label'=>'meningitis-rrl-form.pathogen-id-other','required'=>false))
-            ->add('serotypeIdentifier','SerotypeIdentifier',array('label'=>'meningitis-rrl-form.serotype-id-method','required'=>false))
-            ->add('serotypeIdentifierOther',null,array('label'=>'meningitis-rrl-form.serotype-id-other','required'=>false))
-            ->add('lytA',null,array('label'=>'meningitis-rrl-form.lytA','required'=>false))
-            ->add('sodC',null,array('label'=>'meningitis-rrl-form.sodC','required'=>false))
-            ->add('hpd',null,array('label'=>'meningitis-rrl-form.hpd','required'=>false))
-            ->add('rNaseP',null,array('label'=>'meningitis-rrl-form.rNasP','required'=>false))
-            ->add('spnSerotype',null,array('label'=>'meningitis-rrl-form.spnSerotype','required'=>false))
-            ->add('hiSerotype',null,array('label'=>'meningitis-rrl-form.hiSerotype','required'=>false))
-            ->add('nmSerogroup',null,array('label'=>'meningitis-rrl-form.nmSerogroup','required'=>false))
-            ->add('resultSentToCountry','acedatepicker',array('label'=>'meningitis-rrl-form.result-sent-to-country','required'=>false))
-            ->add('resultSentToWHO','acedatepicker',array('label'=>'meningitis-rrl-form.result-sent-to-who','required'=>false))
+            ->add('labId',                      null,                   array('label'=>'meningitis-rrl-form.lab-id','required'=>true))
+            ->add('sampleType',                 'SampleType',           array('label'=>'meningitis-rrl-form.sample-type','required'=>false))
+            ->add('dateReceived',               'acedatepicker',        array('label'=>'meningitis-rrl-form.date-received','required'=>false))
+            ->add('volume',                     'Volume',               array('label'=>'meningitis-rrl-form.volume','required'=>false))
+            ->add('DNAExtractionDate',          'acedatepicker',        array('label'=>'meningitis-rrl-form.dna-extraction-date','required'=>false))
+            ->add('DNAVolume',                  null,                   array('label'=>'meningitis-rrl-form.dna-volume','required'=>false))
+            ->add('isolateViable',              'TripleChoice',         array('label'=>'meningitis-rrl-form.isolate-viable','required'=>false))
+            ->add('isolateType',                'IsolateType',          array('label'=>'meningitis-rrl-form.isolate-type','required'=>false))
+            ->add('pathogenIdentifierMethod',   'PathogenIdentifier',   array('label'=>'meningitis-rrl-form.pathogen-id-method','required'=>false, 'attr' => array('data-context-field'=>'pathogenIdentifierMethod')))
+            ->add('pathogenIdentifierOther',    null,                   array('label'=>'meningitis-rrl-form.pathogen-id-other', 'required'=>false, 'attr' => array('data-context-field'=>'pathogenIdentifierMethod', 'data-context-value'=>PathogenIdentifier::OTHER)))
+            ->add('serotypeIdentifier',         'SerotypeIdentifier',   array('label'=>'meningitis-rrl-form.serotype-id-method','required'=>false, 'attr' => array('data-context-field'=>'serotypeIdentifier')))
+            ->add('serotypeIdentifierOther',    null,                   array('label'=>'meningitis-rrl-form.serotype-id-other', 'required'=>false, 'attr' => array('data-context-field'=>'serotypeIdentifier', 'data-context-value'=>SerotypeIdentifier::OTHER)))
+            ->add('lytA',                       null,                   array('label'=>'meningitis-rrl-form.lytA','required'=>false))
+            ->add('sodC',                       null,                   array('label'=>'meningitis-rrl-form.sodC','required'=>false))
+            ->add('hpd',                        null,                   array('label'=>'meningitis-rrl-form.hpd','required'=>false))
+            ->add('rNaseP',                     null,                   array('label'=>'meningitis-rrl-form.rNasP','required'=>false))
+            ->add('spnSerotype',                null,                   array('label'=>'meningitis-rrl-form.spnSerotype','required'=>false))
+            ->add('hiSerotype',                 null,                   array('label'=>'meningitis-rrl-form.hiSerotype','required'=>false))
+            ->add('nmSerogroup',                null,                   array('label'=>'meningitis-rrl-form.nmSerogroup','required'=>false))
+            ->add('resultSentToCountry',        'acedatepicker',        array('label'=>'meningitis-rrl-form.result-sent-to-country','required'=>false))
+            ->add('resultSentToWHO',            'acedatepicker',        array('label'=>'meningitis-rrl-form.result-sent-to-who','required'=>false))
         ;
 
         $siteSerializer = $this->siteSerializer;

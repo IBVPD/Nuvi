@@ -12,10 +12,11 @@ use NS\SentinelBundle\Form\Types\IsolateType;
 
 // Annotations
 use Gedmo\Mapping\Annotation as Gedmo;
-use \NS\SecurityBundle\Annotation\Secured;
-use \NS\SecurityBundle\Annotation\SecuredCondition;
+use NS\SecurityBundle\Annotation\Secured;
+use NS\SecurityBundle\Annotation\SecuredCondition;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\ExecutionContextInterface;
 
 /**
  * Description of ReferenceLab
@@ -32,6 +33,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr",type="string")
  * @ORM\DiscriminatorMap({"reference" = "ReferenceLab", "national" = "NationalLab"})
+ * @Assert\Callback(methods={"validate"})
  */
 class BaseLab
 {
@@ -107,7 +109,7 @@ class BaseLab
      * @var string
      * @ORM\Column(type="string",nullable=true)
      */
-    private $pathogenIdentierOther;
+    private $pathogenIdentifierOther;
 
     /**
      * @var SerotypeIdentifier
@@ -409,26 +411,26 @@ class BaseLab
     }
 
     /**
-     * Set pathogenIdentierOther
+     * Set pathogenIdentifierOther
      *
-     * @param string $pathogenIdentierOther
+     * @param string $pathogenIdentifierOther
      * @return ReferenceLab
      */
-    public function setPathogenIdentierOther($pathogenIdentierOther)
+    public function setPathogenIdentifierOther($pathogenIdentifierOther)
     {
-        $this->pathogenIdentierOther = $pathogenIdentierOther;
+        $this->pathogenIdentifierOther = $pathogenIdentifierOther;
 
         return $this;
     }
 
     /**
-     * Get pathogenIdentierOther
+     * Get pathogenIdentifierOther
      *
      * @return string 
      */
-    public function getPathogenIdentierOther()
+    public function getPathogenIdentifierOther()
     {
-        return $this->pathogenIdentierOther;
+        return $this->pathogenIdentifierOther;
     }
 
     /**
@@ -729,6 +731,29 @@ class BaseLab
             }
         }
 
+        if($this->pathogenIdentifierMethod && $this->pathogenIdentifierMethod->equal(Diagnosis::OTHER) && empty($this->pathogenIdentifierOther))
+        {
+            $this->isComplete = false;
+            return;
+        }
+
+        if($this->serotypeIdentifierMethod && $this->serotypeIdentifierMethod->equal(Diagnosis::OTHER) && empty($this->serotypeIdentifierOther))
+        {
+            $this->isComplete = false;
+            return;
+        }
+
         $this->isComplete = true;
+    }
+
+    public function validate(ExecutionContextInterface $context)
+    {
+        // if pathogenIdentifierMethod is other, enforce value in 'pathogenIdentifierMethod other' field
+        if($this->pathogenIdentifierMethod && $this->pathogenIdentifierMethod->equal(PathogenIdentifier::OTHER) && empty($this->pathogenIdentifierOther))
+            $context->addViolationAt('pathogenIdentifierMethod',"form.validation.pathogenIdentifierMethod-other-without-other-text");
+
+        // if serotypeIdentifier is other, enforce value in 'serotypeIdentifier other' field
+        if($this->serotypeIdentifier && $this->serotypeIdentifier->equal(SerotypeIdentifier::OTHER) && empty($this->serotypeIdentifierOther))
+            $context->addViolationAt('serotypeIdentifier',"form.validation.serotypeIdentifier-other-without-other-text");
     }
 }
