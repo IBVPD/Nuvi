@@ -137,13 +137,14 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
 
     public function get($id)
     {
-        $qb = $this->_em->createQueryBuilder()
-                        ->select('m,s,c,r')
-                        ->from($this->getClassName(),'m')
-                        ->innerJoin('m.site', 's')
-                        ->innerJoin('s.country', 'c')
-                        ->innerJoin('m.region', 'r')
-                        ->where('m.id = :id')->setParameter('id',$id);
+        $qb = $this->createQueryBuilder('m')
+                   ->select('m,s,c,r,e,l')
+                   ->innerJoin('m.site', 's')
+                   ->innerJoin('s.country', 'c')
+                   ->innerJoin('m.region', 'r')
+                   ->leftJoin('m.externalLabs', 'e')
+                   ->leftJoin('m.lab','l')
+                   ->where('m.id = :id')->setParameter('id',$id);
 
         return $this->secure($qb)->getQuery()->getSingleResult();
     }
