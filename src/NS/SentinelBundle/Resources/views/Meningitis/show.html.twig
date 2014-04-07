@@ -9,10 +9,19 @@
             <li><a data-toggle="tab" href="#vacination">{{'Vaccination History'|trans}}</a></li>
             <li><a data-toggle="tab" href="#clinical">{{'Clinical Data'|trans}}</a></li>
             <li><a data-toggle="tab" href="#meningitis">{{'Meningitis'|trans}}</a></li>
+            {% if record.country.getTracksPneumonia %}
             <li><a data-toggle="tab" href="#pneumonia">{{'Pneumonia / Sepsis'|trans}}</a></li>
+            {% endif %}
             <li><a data-toggle="tab" href="#collectionData">{{'Specimen Collection Data'|trans}}</a></li>
+            {% if is_granted('ROLE_CAN_SEE_LAB') %}
             <li><a data-toggle="tab" href="#labData">{{'Site Lab'|trans}}</a></li>
+            {% endif %}
+            {% if record.sentToReferenceLab and is_granted('ROLE_CAN_SEE_RRL') %}
             <li><a data-toggle="tab" href="#rrlData">{{'RRL'|trans}}</a></li>
+            {% endif %}
+            {% if record.sentToNationalLab and is_granted('ROLE_CAN_SEE_NL') %}
+            <li><a data-toggle="tab" href="#nlData">{{'NL'|trans}}</a></li>
+            {% endif %}
         </ul>
 
         <div class="tab-content">
@@ -211,18 +220,18 @@
                     {% endif %}
                 </table>
             </div>
+
             <div id="rrlData" class="tab-pane">
                 <table class="table table-striped table-bordered table-hover">
                     {% if record.hasReferenceLab %}
                     <tr><th>{{'meningitis-rrl-form.sample-type'|trans}}</th>
                         <td>{{record.referenceLab.sampleType}}</td></tr>
                     <tr><th>{{'meningitis-rrl-form.date-received'|trans}}</th>
-                        <td>{{record.referenceLab.dateReceived}}</td></tr> 
-                
+                        <td>{{record.referenceLab.dateReceived|date}}</td></tr> 
                     <tr><th>{{'meningitis-rrl-form.volume'|trans}}</th>
                         <td>{{record.referenceLab.volume}}</td></tr>
                     <tr><th>{{'meningitis-rrl-form.dna-extraction-date'|trans}}</th>
-                        <td>{{record.referenceLab.DNAExtractionDate}}</td></tr>
+                        <td>{{record.referenceLab.DNAExtractionDate|date}}</td></tr>
                     <tr><th>{{'meningitis-rrl-form.dna-volume'|trans}}</th>
                         <td>{{record.referenceLab.DNAVolume}}</td></tr>
                     <tr><th>{{'meningitis-rrl-form.isolate-viable'|trans}}</th>
@@ -251,6 +260,10 @@
                         <td>{{record.referenceLab.hiSerotype}}</td></tr>
                     <tr><th>{{'meningitis-rrl-form.nmSerogroup'|trans}}</th>
                         <td>{{record.referenceLab.nmSerogroup}}</td></tr>
+                    <tr><th>{{'meningitis-rrl-form.resultSentToCountry'|trans}}</th>
+                        <td>{{record.referenceLab.resultSentToCountry}}</td></tr>
+                    <tr><th>{{'meningitis-rrl-form.resultSentToWHO'|trans}}</th>
+                        <td>{{record.referenceLab.resultSentToWHO}}</td></tr>
                     {% else %}
                     <tr>
                         <th>{{'meningitis.has-reference-lab'|trans}}</th>
@@ -259,6 +272,60 @@
                     {% endif %}
                 </table>
             </div>
+
+
+            <div id="nlData" class="tab-pane">
+                <table class="table table-striped table-bordered table-hover">
+                    {% if record.hasNationalLab %}
+                    <tr><th>{{'meningitis-nl-form.sample-type'|trans}}</th>
+                        <td>{{record.nationalLab.sampleType}}</td></tr>
+                    <tr><th>{{'meningitis-nl-form.date-received'|trans}}</th>
+                        <td>{{record.nationalLab.dateReceived|date}}</td></tr> 
+                    <tr><th>{{'meningitis-nl-form.volume'|trans}}</th>
+                        <td>{{record.nationalLab.volume}}</td></tr>
+                    <tr><th>{{'meningitis-nl-form.dna-extraction-date'|trans}}</th>
+                        <td>{{record.nationalLab.DNAExtractionDate|date}}</td></tr>
+                    <tr><th>{{'meningitis-nl-form.dna-volume'|trans}}</th>
+                        <td>{{record.nationalLab.DNAVolume}}</td></tr>
+                    <tr><th>{{'meningitis-nl-form.isolate-viable'|trans}}</th>
+                        <td>{{record.nationalLab.isolateViable}}</td></tr>
+                    <tr><th>{{'meningitis-nl-form.isolate-type'|trans}}</th>
+                        <td>{{record.nationalLab.isolateType}}</td></tr>
+                    <tr><th>{{'meningitis-nl-form.pathogen-id-method'|trans}}</th>
+                        <td>{{record.nationalLab.pathogenIdentifierMethod}}</td></tr>
+                    <tr><th>{{'meningitis-nl-form.pathogen-id-other'|trans}}</th>
+                        <td>{{record.nationalLab.pathogenIdentierOther}}</td></tr>
+                    <tr><th>{{'meningitis-nl-form.serotype-id-method'|trans}}</th>
+                        <td>{{record.nationalLab.serotypeIdentifier}}</td></tr>
+                    <tr><th>{{'meningitis-nl-form.serotype-id-other'|trans}}</th>
+                        <td>{{record.nationalLab.serotypeIdentifierOther}}</td></tr>
+                    <tr><th>{{'meningitis-nl-form.lytA'|trans}}</th>
+                        <td>{{record.nationalLab.lytA}}</td></tr>
+                    <tr><th>{{'meningitis-nl-form.sodC'|trans}}</th>
+                        <td>{{record.nationalLab.sodC}}</td></tr>
+                    <tr><th>{{'meningitis-nl-form.hpd'|trans}}</th>
+                        <td>{{record.nationalLab.hpd}}</td></tr>
+                    <tr><th>{{'meningitis-nl-form.rNasP'|trans}}</th>
+                        <td>{{record.nationalLab.rNaseP}}</td></tr>
+                    <tr><th>{{'meningitis-nl-form.spnSerotype'|trans}}</th>
+                        <td>{{record.nationalLab.spnSerotype}}</td></tr>
+                    <tr><th>{{'meningitis-nl-form.hiSerotype'|trans}}</th>
+                        <td>{{record.nationalLab.hiSerotype}}</td></tr>
+                    <tr><th>{{'meningitis-nl-form.nmSerogroup'|trans}}</th>
+                        <td>{{record.nationalLab.nmSerogroup}}</td></tr>
+                    <tr><th>{{'meningitis-nl-form.resultSentToCountry'|trans}}</th>
+                        <td>{{record.nationalLab.resultSentToCountry}}</td></tr>
+                    <tr><th>{{'meningitis-nl-form.resultSentToWHO'|trans}}</th>
+                        <td>{{record.nationalLab.resultSentToWHO}}</td></tr>
+                    {% else %}
+                    <tr>
+                        <th>{{'meningitis.has-national-lab'|trans}}</th>
+                        <td>{{'No'|trans}}</td>
+                    </tr>
+                    {% endif %}
+                </table>
+            </div>
+
         </div>
     </div>
 </div>
