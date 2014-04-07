@@ -273,6 +273,20 @@ class ImportCommand extends ContainerAwareCommand
             $this->em->persist($rrlUser);
 
             ++$users;
+            $nlUser = new User();
+            $nlUser->setIsActive(true);
+            $nlUser->setEmail($obj->getCode()."-nl@who.int");
+            $nlUser->setName($obj->getcode()." NL User");
+            $nlUser->resetSalt();
+            $nlUser->setPassword($encoder->encodePassword("1234567-nl-".$obj->getCode(),$nlUser->getSalt()));
+            $acl = new ACL();
+            $acl->setUser($nlUser);
+            $acl->setType(new Role(Role::NL_LAB));
+            $acl->setObjectId($obj->getId());
+            $this->em->persist($acl);
+            $this->em->persist($nlUser);
+
+            ++$users;
         }
 
         $this->em->flush();
