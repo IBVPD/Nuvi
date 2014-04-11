@@ -5,13 +5,9 @@ namespace NS\SentinelBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
-use NS\SentinelBundle\Form\MeningitisType;
-use NS\SentinelBundle\Form\MeningitisSearch;
 use NS\SentinelBundle\Exceptions\NonExistentCase;
 use Symfony\Component\Form\FormError;
-use NS\SentinelBundle\Entity\Meningitis;
 
 /**
  * @Route("/{_locale}/ibd")
@@ -150,7 +146,7 @@ class MeningitisController extends Controller
                 {
                     // TODO Flash service required
                     if($e->getPrevious()->getCode() === '23000')
-                        $form->addError(new \Symfony\Component\Form\FormError ("The case id already exists for this site!"));
+                        $form->addError(new FormError ("The case id already exists for this site!"));
                     else
                         die("ERROR: ".$e->getMessage());
 
