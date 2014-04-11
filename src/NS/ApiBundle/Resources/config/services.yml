@@ -2,6 +2,11 @@ parameters:
 #    ns_api.example.class: NS\ApiBundle\Example
 
 services:
+    ns_api.form.oauth_grant_types:
+      class: NS\ApiBundle\Form\Types\OAuthGrantTypes
+      tags:
+        - { name: form.type, alias: OAuthGrantTypes }
+
     ns_api.form.text_to_array:
       class: NS\ApiBundle\Form\Type\TextToArray
       tags:
