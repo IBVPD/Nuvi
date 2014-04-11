@@ -2,9 +2,11 @@ parameters:
 #    ns_api.example.class: NS\ApiBundle\Example
 
 services:
-#    ns_api.example:
-#        class: %ns_api.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    ns_api.form.text_to_array:
+      class: NS\ApiBundle\Form\Type\TextToArray
+      tags:
+        - { name: form.type, alias: TextToArray }
+
     ns_api_oauth_server.authorize.form_type:
       class: NS\ApiBundle\Form\Type\AuthorizeFormType
       tags:
