@@ -17,9 +17,8 @@ class SwitchType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         parent::setDefaultOptions($resolver);
-        $resolver->setDefaults( array('switchtype' => 1));
-        
-        $resolver->setAllowedValues(array('switchtype'=>  range(1,7)));
+        $resolver->setDefaults(array('switchtype' => 1));
+        $resolver->setAllowedValues(array('switchtype' => range(1,7)));
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options)

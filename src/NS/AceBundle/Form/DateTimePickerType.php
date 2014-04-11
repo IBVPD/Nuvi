@@ -6,6 +6,7 @@ use \Symfony\Component\Form\AbstractType;
 use \Symfony\Component\Form\FormView;
 use \Symfony\Component\Form\FormInterface;
 use \Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use \Symfony\Component\Form\FormBuilderInterface;
 
 /**
  * Description of DatePickerType
@@ -19,9 +20,8 @@ class DateTimePickerType extends AbstractType
         parent::setDefaultOptions($resolver);
         $resolver->setDefaults(array(
             'date_widget'    => 'single_text',
-            'date_format'    => 'yyyy-MM-dd',
+            'date_format'    => 'MM/dd/yyyy',
             'time_widget'    => 'single_text',
-            'attr'           => array('date'=>array('class'=>'form-control date-picker')),
         ));
     }
 
@@ -29,13 +29,7 @@ class DateTimePickerType extends AbstractType
     {
         parent::buildView($view, $form, $options);
 
-        if(isset($view->vars['attr']['class']))
-            $view->vars['attr']['class'] .= 'form-control date-picker';
-        else
-            $view->vars['attr']['class'] = 'form-control date-picker';
-
-        $view->vars['date']['attr']['class'] = 'form-control date-picker';
-        $view->vars['attr']['data-date-format'] = $this->dateformatToJQueryUI($options['format']);
+//        $view->vars['attr']['data-date-format'] = $this->dateformatToJQueryUI($options['format']);
         $view->vars['type'] = 'text';
     }
     
@@ -49,7 +43,7 @@ class DateTimePickerType extends AbstractType
         return 'datetime';
     }
 
-    /*
+   /*
     * Matches each symbol of PHP date format standard
     * with jQuery equivalent codeword
     * @author Tristan Jahier

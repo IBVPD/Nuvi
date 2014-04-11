@@ -5,3 +5,10 @@
 /vendor/
 /app/config/parameters.yml
 /nbproject/private/
+bin
+*.xls*
+*.ppt*
+NuviSync
+*.od*
+/tmp
+/web/ace

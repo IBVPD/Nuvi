@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use \Doctrine\Common\Collections\ArrayCollection;
 use \NS\SecurityBundle\Annotation\Secured;
 use \NS\SecurityBundle\Annotation\SecuredCondition;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Site
@@ -15,7 +16,7 @@ use \NS\SecurityBundle\Annotation\SecuredCondition;
  * @Secured(conditions={
  *      @SecuredCondition(roles={"ROLE_REGION"},relation="region",through={"country"},class="NSSentinelBundle:Region"),
  *      @SecuredCondition(roles={"ROLE_COUNTRY"},relation="country",class="NSSentinelBundle:Country"),
- *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},field="id"),
+ *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB","ROLE_RRL_LAB","ROLE_NL_LAB"},field="id"),
  *      }) 
  */
 class Site implements \Serializable
@@ -46,12 +47,14 @@ class Site implements \Serializable
     /**
      * @var integer $rvYearIntro
      * @ORM\Column(name="rvYearIntro",type="integer",nullable=true)
+     * @Assert\GreaterThan(value=1900)
      */
     private $rvYearIntro;
 
     /**
      * @var integer $ibdYearIntro
      * @ORM\Column(name="ibdYearIntro",type="integer",nullable=true)
+     * @Assert\GreaterThan(value=1900)
      */
     private $ibdYearIntro;
 
@@ -79,6 +82,7 @@ class Site implements \Serializable
      * @var string
      *
      * @ORM\Column(name="website", type="string", length=255,nullable=true)
+     * @Assert\Url()
      */
     private $website;    
 
@@ -94,7 +98,6 @@ class Site implements \Serializable
      * 
      * @ORM\ManyToOne(targetEntity="Country",inversedBy="sites")
      */
-
     private $country;
 
     /**

@@ -23,12 +23,12 @@ use NS\SecurityBundle\Annotation\SecuredCondition;
  * Description of RotaVirus
  * @author gnat
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\RotaVirus")
- * @ORM\Table(name="rotavirus_cases")
+ * @ORM\Table(name="rotavirus_cases",uniqueConstraints={@ORM\UniqueConstraint(name="site_case_id_idx",columns={"site_id","caseId"})})
  * @Gedmo\Loggable
  * @Secured(conditions={
  *      @SecuredCondition(roles={"ROLE_REGION"},relation="region",class="NSSentinelBundle:Region"),
  *      @SecuredCondition(roles={"ROLE_COUNTRY"},relation="country",class="NSSentinelBundle:Country"),
- *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB","ROLE_RRL_LAB"},relation="site",class="NSSentinelBundle:Site"),
+ *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB","ROLE_RRL_LAB","ROLE_NL_LAB"},relation="site",class="NSSentinelBundle:Site"),
  *      })
  */
 class RotaVirus implements IdentityAssignmentInterface
@@ -46,23 +46,23 @@ class RotaVirus implements IdentityAssignmentInterface
     /**
      * @var Region $region
      * @ORM\ManyToOne(targetEntity="Region",inversedBy="rotavirusCases")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $region;
 
     /**
      * @var Country $country
      * @ORM\ManyToOne(targetEntity="Country",inversedBy="rotavirusCases")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $country;
 
     /**
      * @var Site $site
      * @ORM\ManyToOne(targetEntity="Site",inversedBy="rotavirusCases")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $site;
-
-    //ISO3_code
-    //site_code
 
     /**
      * @ORM\OneToOne(targetEntity="RotaVirusSiteLab", mappedBy="case")
@@ -73,7 +73,7 @@ class RotaVirus implements IdentityAssignmentInterface
     /**
      * case_ID
      * @var string $caseId
-     * @ORM\Column(name="caseId",type="string",nullable=true)
+     * @ORM\Column(name="caseId",type="string",nullable=false)
      */
     private $caseId;
 

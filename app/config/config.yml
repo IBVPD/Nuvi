@@ -29,6 +29,7 @@ twig:
     strict_variables: %kernel.debug%
     form:
       resources:
+        - 'NSUtilBundle:Form:fields.html.twig'
         - 'NSAceBundle:Form:fields.html.twig'
 
 # Assetic Configuration
@@ -82,11 +83,12 @@ doctrine:
             RotavirusVaccinationReceived: NS\SentinelBundle\Entity\Types\RotavirusVaccinationReceived
             RotavirusVaccinationType: NS\SentinelBundle\Entity\Types\RotavirusVaccinationType
             ElisaResult: NS\SentinelBundle\Entity\Types\ElisaResult
-            MeningitisCaseStatus: NS\SentinelBundle\Entity\Types\MeningitisCaseStatus
+            MeningitisCaseResult: NS\SentinelBundle\Entity\Types\MeningitisCaseResult
             MeningitisVaccinationReceived: NS\SentinelBundle\Entity\Types\MeningitisVaccinationReceived
             MeningitisVaccinationType:  NS\SentinelBundle\Entity\Types\MeningitisVaccinationType
             DischargeClassification: NS\SentinelBundle\Entity\Types\DischargeClassification
             DischargeOutcome: NS\SentinelBundle\Entity\Types\DischargeOutcome
+            CaseStatus: NS\SentinelBundle\Entity\Types\CaseStatus
         mapping_types:
             TripleChoice: TripleChoice
             Doses: Doses
@@ -111,12 +113,13 @@ doctrine:
             RotavirusVaccinationReceived: RotavirusVaccinationReceived
             RotavirusVaccinationType: RotavirusVaccinationType
             ElisaResult: ElisaResult
-            MeningitisCaseStatus: MeningitisCaseStatus
+            MeningitisCaseResult: MeningitisCaseResult
             MeningitisVaccinationReceived: MeningitisVaccinationReceived
             MeningitisVaccinationType: MeningitisVaccinationType
             GramStainOrganism: GramStainOrganism
             DischargeClassification: DischargeClassification
             DischargeOutcome: DischargeOutcome
+            CaseStatus: CaseStatus
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true

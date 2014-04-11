@@ -3,11 +3,12 @@ security:
         NS\SentinelBundle\Entity\User: sha512
 
     role_hierarchy:
-        ROLE_SITE:        [ ROLE_USER, ROLE_CAN_CREATE_CASE ]
-        ROLE_LAB:         [ ROLE_USER, ROLE_CAN_CREATE_LAB ]
-        ROLE_RRL_LAB:     [ ROLE_USER, ROLE_CAN_CREATE_RRL_LAB ]
-        ROLE_COUNTRY:     ROLE_USER
-        ROLE_REGION:      ROLE_USER
+        ROLE_SITE:        [ ROLE_USER, ROLE_CAN_CREATE_CASE, ROLE_CAN_SEE_LAB, ROLE_CAN_SEE_RRL, ROLE_CAN_SEE_NL ]
+        ROLE_LAB:         [ ROLE_USER, ROLE_CAN_CREATE_LAB, ROLE_CAN_SEE_LAB ]
+        ROLE_RRL_LAB:     [ ROLE_USER, ROLE_CAN_CREATE_RRL_LAB, ROLE_CAN_SEE_RRL ]
+        ROLE_NL_LAB:      [ ROLE_USER, ROLE_CAN_CREATE_NL_LAB, ROLE_CAN_SEE_NL ]
+        ROLE_COUNTRY:     [ ROLE_USER, ROLE_CAN_SEE_LAB, ROLE_CAN_SEE_RRL, ROLE_CAN_SEE_NL ]
+        ROLE_REGION:      [ ROLE_USER, ROLE_CAN_SEE_LAB, ROLE_CAN_SEE_RRL, ROLE_CAN_SEE_NL ]
         ROLE_ADMIN:       ROLE_USER
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
@@ -66,11 +67,18 @@ security:
         - { path: ^/oauth/v2/auth, roles: [ ROLE_USER ] }
         - { path: ^/api, roles: [ ROLE_USER ] }
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/_trans, roles: ROLE_USER }
-        - { path: ^/admin, roles: ROLE_USER }
+        - { path: ^/_trans, roles: ROLE_ADMIN }
+        - { path: '^/[^/]+/admin', roles: ROLE_ADMIN }
         - { path: '^/[^/]+/ibd/edit', roles: ROLE_CAN_CREATE_CASE }
         - { path: '^/[^/]+/ibd/create', roles: ROLE_CAN_CREATE_CASE }
         - { path: '^/[^/]+/ibd/rrl', roles: [ ROLE_RRL_LAB, ROLE_CAN_CREATE_RRL_LAB ] }
         - { path: '^/[^/]+/ibd/lab', roles: [ ROLE_LAB, ROLE_CAN_CREATE_LAB ] }
-        - { path: '^/[^/]+/ibd/show', roles: [ ROLE_REGION, ROLE_COUNTRY, ROLE_SITE, ROLE_LAB, ROLE_RRL_LAB ] }
+        - { path: '^/[^/]+/ibd/nl', roles: [ ROLE_LAB, ROLE_CAN_CREATE_NL_LAB ] }
+        - { path: '^/[^/]+/ibd/show', roles: [ ROLE_REGION, ROLE_COUNTRY, ROLE_SITE, ROLE_LAB, ROLE_RRL_LAB, ROLE_NL_LAB ] }
+        - { path: '^/[^/]+/rota/edit', roles: ROLE_CAN_CREATE_CASE }
+        - { path: '^/[^/]+/rota/create', roles: ROLE_CAN_CREATE_CASE }
+        - { path: '^/[^/]+/rota/rrl', roles: [ ROLE_RRL_LAB, ROLE_CAN_CREATE_RRL_LAB ] }
+        - { path: '^/[^/]+/rota/lab', roles: [ ROLE_LAB, ROLE_CAN_CREATE_LAB ] }
+        - { path: '^/[^/]+/rota/nl', roles: [ ROLE_LAB, ROLE_CAN_CREATE_NL_LAB ] }
+        - { path: '^/[^/]+/rota/show', roles: [ ROLE_REGION, ROLE_COUNTRY, ROLE_SITE, ROLE_LAB, ROLE_RRL_LAB, ROLE_NL_LAB ] }
         - { path: ^/, roles: ROLE_USER }

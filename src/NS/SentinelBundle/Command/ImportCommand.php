@@ -127,6 +127,8 @@ class ImportCommand extends ContainerAwareCommand
                 $c->setGaviEligible(new GAVIEligible($row[5]));
                 $c->setIsActive(true);
                 $c->setRegion($regions[$row[0]]);
+                $c->setHasReferenceLab(true);
+                $c->setHasNationalLab(true);
 
                 $this->em->persist($c);
                 $this->em->flush();
@@ -269,6 +271,20 @@ class ImportCommand extends ContainerAwareCommand
             $acl->setObjectId($obj->getId());
             $this->em->persist($acl);
             $this->em->persist($rrlUser);
+
+            ++$users;
+            $nlUser = new User();
+            $nlUser->setIsActive(true);
+            $nlUser->setEmail($obj->getCode()."-nl@who.int");
+            $nlUser->setName($obj->getcode()." NL User");
+            $nlUser->resetSalt();
+            $nlUser->setPassword($encoder->encodePassword("1234567-nl-".$obj->getCode(),$nlUser->getSalt()));
+            $acl = new ACL();
+            $acl->setUser($nlUser);
+            $acl->setType(new Role(Role::NL_LAB));
+            $acl->setObjectId($obj->getId());
+            $this->em->persist($acl);
+            $this->em->persist($nlUser);
 
             ++$users;
         }

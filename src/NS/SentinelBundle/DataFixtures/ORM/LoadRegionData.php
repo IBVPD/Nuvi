@@ -35,37 +35,49 @@ class LoadRegionData extends AbstractFixture implements OrderedFixtureInterface,
         $c->setName('Canada');
         $c->setIsActive(true);
         $c->setRegion($r);
-        
+        $c->setHasReferenceLab(true);
+        $c->setHasNationalLab(true);
+
         $c2 = new Country();
         $c2->setCode('US');
         $c2->setName('United States');
         $c2->setIsActive(true);
         $c2->setRegion($r);
-        
+        $c2->setHasReferenceLab(true);
+        $c2->setHasNationalLab(true);
+
         $c3 = new Country();
         $c3->setCode('MX');
         $c3->setName('Mexico');
         $c3->setIsActive(true);
         $c3->setRegion($r);
-        
+        $c3->setHasReferenceLab(true);
+        $c3->setHasNationalLab(true);
+
         $c4 = new Country();
         $c4->setCode('IN');
         $c4->setName('India');
         $c4->setIsActive(true);
         $c4->setRegion($r2);
+        $c4->setHasReferenceLab(true);
+        $c4->setHasNationalLab(true);
 
         $c5 = new Country();
         $c5->setCode('MA');
         $c5->setName('Malaysia');
         $c5->setIsActive(true);
         $c5->setRegion($r2);
-        
+        $c5->setHasReferenceLab(true);
+        $c5->setHasNationalLab(true);
+
         $c6 = new Country();
         $c6->setCode('TH');
         $c6->setName('Thailand');
         $c6->setIsActive(true);
         $c6->setRegion($r2);
-        
+        $c6->setHasReferenceLab(true);
+        $c6->setHasNationalLab(true);
+
         $s = new Site();
         $s->setName('Alberta Childrens Hospital');
         $s->setCountry($c);

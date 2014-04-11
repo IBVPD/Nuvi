@@ -29,6 +29,6 @@ class LatResult extends TranslatableArrayChoice implements TranslationContainerI
 
     public function getName()
     {
-        return 'latresult';
+        return 'LatResult';
     }
 }

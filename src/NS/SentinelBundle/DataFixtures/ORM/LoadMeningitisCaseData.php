@@ -35,9 +35,9 @@ class LoadMeningitisCaseData extends AbstractFixture implements OrderedFixtureIn
         $male  = new Gender(Gender::MALE);
         $fmale = new Gender(Gender::FEMALE);
         $dx[]  = new Diagnosis(Diagnosis::MENINGITIS);
-        $dx[]   = new Diagnosis(Diagnosis::PNEUMONIA);
-        $dx[]   = new Diagnosis(Diagnosis::SEPSIS);
-        $dx[]   = new Diagnosis(Diagnosis::OTHER);
+        $dx[]  = new Diagnosis(Diagnosis::PNEUMONIA);
+        $dx[]  = new Diagnosis(Diagnosis::SEPSIS);
+        $dx[]  = new Diagnosis(Diagnosis::OTHER);
 
         for($x = 0; $x < 2700; $x++)
         {
@@ -62,18 +62,35 @@ class LoadMeningitisCaseData extends AbstractFixture implements OrderedFixtureIn
             $m->setDischDx($dx[$dxKey]);
 
             if(($x % 3) == 0 )
+            {
+                $m->setCaseId($this->getCaseId($a));
                 $m->setSite($a);
+            }
             else if(($x % 5) == 0 )
+            {
+                $m->setCaseId($this->getCaseId($s));
                 $m->setSite($s);
+            }
             else if(($x % 11) == 0)
+            {
+                $m->setCaseId($this->getCaseId($t));
                 $m->setSite($t);
-            else 
+            }
+            else
+            {
+                $m->setCaseId($this->getCaseId($mx));
                 $m->setSite($mx);
+            }
 
             $manager->persist($m);
         }
 
         $manager->flush();
+    }
+
+    private function getCaseId(\NS\SentinelBundle\Entity\Site $site)
+    {
+        return md5(uniqid().spl_object_hash($site).time());
     }
 
     public function getRandomDate(\DateTime $before = null, \DateTime $after = null)

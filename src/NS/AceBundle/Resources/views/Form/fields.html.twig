@@ -1,4 +1,17 @@
-{% extends 'form_div_layout.html.twig' %}
+{% block form_errors %}
+{% spaceless %}
+    {% if errors|length > 0 %}
+        {% for error in errors %}
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert"><i class="icon-remove"></i></button>
+            <strong>Error</strong>
+            {{ error.message }}
+            <br>
+        </div>
+        {% endfor %}
+    {% endif %}
+{% endspaceless %}
+{% endblock form_errors %}
 
 {% block form_row %}
 {% spaceless %}
@@ -66,32 +79,39 @@
 </div>
 {%endblock %}
 
+{%block acedatepicker_widget %}
+<input type="text" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+{%endblock %}
+
 {%block acedatepicker_row %}
 <div class="form-group">
     {{form_label(form)}}
-    <div class="input-group">
-        <input type="text" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+    <div class="input-group input-large">
+        {{form_widget(form)}}
         <span class="input-group-addon">
             <i class="icon-calendar bigger-110"></i>
         </span>
     </div>
+    {{form_errors(form)}}
 </div>
 {%endblock %}
 
 {%block acedatetime_row %}
+{% set dattr = attr|merge({ class: 'form-control date-picker' }) %}
+{% set tattr = attr|merge({ class: 'form-control time-picker' }) %}
 <div class="form-group">
     {{form_label(form)}}
-    <div class="col-sm-6 input-group">
-        {{form_widget(form.date,{attr: { class: 'form-control date-picker' } })}}
+    {{form_errors(form)}}
+    <div class="input-group input-datetime-group">
+        {{form_widget(form.date,{'attr': dattr})}}
         {{form_errors(form.date)}}
-        <!-- <input type="text" class="form-control date-picker" id="{{id}}_date" name="{{name}}[date]" {#{% if value is not empty %}value="{{ value }}" {% endif %}#}/>-->
         <span class="input-group-addon">
             <i class="icon-calendar bigger-110"></i>
         </span>
     </div>
-    <div class="col-sm-6 input-group bootstrap-timepicker">
-        {{form_widget(form.time,{attr: { class: 'form-control time-picker' } })}}
-        <!--<input id="{{id}}_time" name="{{name}}[time]" type="text" class="form-control timepicker" data-show-seconds="false" data-show-meridian="false" />-->
+    <div class="input-group bootstrap-timepicker input-datetime-group">
+        {{form_widget(form.time,{attr: tattr})}}
+        {{form_errors(form.time)}}
         <span class="input-group-addon">
             <i class="icon-time bigger-110"></i>
         </span>
@@ -104,6 +124,15 @@
     {{form_label(form)}}
     <div class="nsFileUpload" {{ block('widget_attributes') }}>
         <div class="nsUploader"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block autocompleter_row %}
+<div class="form-group">
+    {{form_label(form)}}
+    <div class="input-group">
+        <input class="nsAutocompleter" type="text" {{ block('widget_attributes') }} />
     </div>
 </div>
 {% endblock %}

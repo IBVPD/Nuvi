@@ -2,6 +2,15 @@ parameters:
 #    ns_sentinel.example.class: NS\SentinelBundle\Example
 
 services:
+    ns.sentinel.sites:
+      class: NS\SentinelBundle\Services\SerializedSites
+      arguments: [ "@session", "@ns.model_manager" ]
+
+    ns.sentinel.form.type.casestatus:
+      class: NS\SentinelBundle\Form\Types\CaseStatus
+      tags:
+        - { name: form.type, alias: CaseStatus }
+
     ns.sentinel.form.type.dischargeoutcome:
       class: NS\SentinelBundle\Form\Types\DischargeOutcome
       tags:
@@ -11,6 +20,11 @@ services:
       class: NS\SentinelBundle\Form\Types\GramStainOrganism
       tags:
         - { name: form.type, alias: GramStainOrganism }
+
+    ns.sentinel.form.type.gramstain:
+      class: NS\SentinelBundle\Form\Types\GramStain
+      tags:
+        - { name: form.type, alias: GramStain }
 
     ns.sentinel.form.type.meningitisvaccinationtype:
       class: NS\SentinelBundle\Form\Types\MeningitisVaccinationType
@@ -26,10 +40,10 @@ services:
       tags:
         - { name: form.type, alias: DischargeClassification }
     
-    ns.sentinel.form.type.meningitiscasestatus:
-      class: NSSentinelBundle\Form\Types\MeningitisCaseStatus
+    ns.sentinel.form.type.meningitiscaseresult:
+      class: NSSentinelBundle\Form\Types\MeningitisCaseResult
       tags:
-        - { name: form.type, alias: MeningitisCaseStatus }
+        - { name: form.type, alias: MeningitisCaseResult }
     ns.sentinel.form.type.elisaresult:
       class: NS\SentinelBundle\Form\Types\ElisaResult
       tags:
@@ -61,16 +75,23 @@ services:
       arguments: [ "@router","@form.factory" ]
       tags:
         - { name: kernel.event_listener, event: kernel.request, method: onRequest }
+
+    ns.sentinel.base.filter:
+      class: NS\SentinelBundle\Form\BaseFilter
+      arguments: [ "@security.context", "@ns.model_manager" ]
+      tags:
+        - { name: form.type, alias: base_filter_form }
+
     ns.sentinel.rotavirus.filter:
       class: NS\SentinelBundle\Form\RotaVirusFilter
-      arguments: [ "@security.context", "@ns.model_manager" ]
       tags:
         - { name: form.type, alias: rotavirus_filter_form }
+
     ns.sentinel.meningitis.filter:
       class: NS\SentinelBundle\Form\MeningitisFilter
-      arguments: [ "@security.context", "@ns.model_manager" ]
       tags:
         - { name: form.type, alias: meningitis_filter_form }
+
     ns.sentinel.menu_builder:
       class: NS\SentinelBundle\Menu\Builder
       arguments: [ "@knp_menu.factory", "@security.context" ]
@@ -93,18 +114,31 @@ services:
     ns.sentinel.user_provider:
       class: NS\SentinelBundle\Security\UserProvider
       arguments: [ "@doctrine.orm.entity_manager" ]
+
+    ns.sentinel.form.type.meningitis_base:
+      class: NS\SentinelBundle\Form\BaseLabType
+      arguments: [ "@ns.sentinel.sites", "@ns.model_manager" ]
+      tags:
+        - { name: form.type, alias: ibd_base_lab }
+
+    ns.sentinel.form.type.meningitis_nl:
+      class: NS\SentinelBundle\Form\NationalLabType
+      tags:
+        - { name: form.type, alias: meningitis_nationallab }
+
     ns.sentinel.form.type.meningitis_rrl:
       class: NS\SentinelBundle\Form\ReferenceLabType
       tags:
         - { name: form.type, alias: meningitis_referencelab }
     ns.sentinel.form.type.meningitis_sitelab:
-      class: NS\SentinelBundle\Form\MeningitisSiteLabType
+      class: NS\SentinelBundle\Form\SiteLabType
+      arguments: [ "@ns.sentinel.sites", "@ns.model_manager" ]
       tags:
         - { name: form.type, alias: meningitis_sitelab }
     
     ns.sentinel.form.type.meningitis:
       class: NS\SentinelBundle\Form\MeningitisType
-      arguments: [ "@session", "@ns.model_manager" ]
+      arguments: [ "@ns.sentinel.sites","@ns.model_manager" ]
       tags:
         - { name: form.type, alias: meningitis }
     
@@ -114,7 +148,7 @@ services:
         - { name: form.type, alias: rotavirus_sitelab }
     ns.sentinel.form.type.rotavirus:
       class: NS\SentinelBundle\Form\RotaVirusType
-      arguments: [ "@session", "@ns.model_manager" ]
+      arguments: [ "@ns.sentinel.sites", "@ns.model_manager" ]
       tags:
         - { name: form.type, alias: rotavirus }
     
@@ -150,6 +184,10 @@ services:
       class: NS\SentinelBundle\Form\Types\GAVIEligible
       tags:
         - { name: form.type, alias: GAVIEligible }
+    ns.sentinel.form.type.pcrresult:
+      class: NS\SentinelBundle\Form\Types\PCRResult
+      tags:
+        - { name: form.type, alias: PCRResult }
     ns.sentinel.form.type.triple_choice:
       class: NS\SentinelBundle\Form\Types\TripleChoice
       tags:

@@ -5,6 +5,8 @@ namespace NS\SentinelBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use \Doctrine\Common\Collections\ArrayCollection;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Region
  *
@@ -40,6 +42,7 @@ class Region implements \Serializable
      * @var string
      *
      * @ORM\Column(name="website", type="string", length=255,nullable=true)
+     * @Assert\Url()
      */
     private $website;
 

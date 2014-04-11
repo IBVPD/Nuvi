@@ -1,15 +1,44 @@
 {%extends "NSSentinelBundle::layout.html.twig" %}
 
 {% block pagetitle %}
-{{'Create / Edit RRL For %id%'|trans({'%id%': id})}}
+{{'Create / Edit %type% For %id%'|trans({'%id%': id,'%type%': type})}}
 {% endblock %}
 
 {% block body %}
-<form method="POST" action="{{path('meningitisRRLEdit',{'id':id})}}" novalidate>
+<form method="POST" action="{{path('meningitis'~type~'Edit',{'id':id})}}" novalidate>
+
+{% if form.caseId is defined %}
+<div class="row">
+    <div class="col-sm-8 col-md-8 col-lg-8" >
+        <div class="widget-box">
+            <div class="widget-header widget-header-small header-color-blue"><h4 class="panelTitle">{{'Case Information'|trans}}</h4></div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    {{form_row(form.caseId)}}
+                    {%if form.site is defined %}
+                    {{form_row(form.site)}}
+                    {%endif%}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
 
 <div class="row">
     {{form_errors(form)}}
-    <div class="col-sm-8 col-md-8 col-lg-8" >
+    <div class="col-sm-3 col-md-3 col-lg-3" >
+        <div class="widget-box">
+            <div class="widget-header widget-header-small header-color-blue"><h4 class="panelTitle">{{'Lab Information'|trans}}</h4></div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    {{form_row(form.labId)}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-5 col-md-5 col-lg-5" >
         <div class="widget-box">
             <div class="widget-header widget-header-small header-color-blue"><h4 class="panelTitle">{{'Sample Information'|trans}}</h4></div>
             <div class="widget-body">
@@ -38,7 +67,7 @@
             <div class="widget-body">
                 <div class="widget-main">
                     {{form_row(form.pathogenIdentifierMethod)}}
-                    {{form_row(form.pathogenIdentierOther)}}
+                    {{form_row(form.pathogenIdentifierOther)}}
                     {{form_row(form.serotypeIdentifier)}}
                     {{form_row(form.serotypeIdentifierOther)}}
                 </div>
@@ -101,6 +130,6 @@
 <div class="form-actions center">
     <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
 </div>
-
+{{form_rest(form)}}
 </form>
 {% endblock %}

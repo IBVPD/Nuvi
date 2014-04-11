@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use \Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use \Symfony\Component\Security\Core\SecurityContextInterface;
+use \NS\SentinelBundle\Form\Types\Role;
 
 class UserAdmin extends Admin
 {
@@ -47,6 +48,7 @@ class UserAdmin extends Admin
             ->add('canCreateCases')
             ->add('canCreateLabs')
             ->add('canCreateRRLLabs')
+            ->add('canCreateNLLabs')
         ;
     }
 
@@ -62,6 +64,7 @@ class UserAdmin extends Admin
             ->add('canCreateCases')
             ->add('canCreateLabs')
             ->add('canCreateRRLLabs')
+            ->add('canCreateNLLabs')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -92,9 +95,10 @@ class UserAdmin extends Admin
                       )
                 ->add('isActive',null,array('required'=>false))
                 ->add('isAdmin',null,array('required'=>false))
-                ->add('canCreateCases',null,array('required'=>false))
-                ->add('canCreateLabs',null,array('required'=>false))
-                ->add('canCreateRRLLabs',null,array('required'=>false))
+                ->add('canCreateCases',null,array('required'=>false,'label'=>'admin.form-can-create-case-record'))
+                ->add('canCreateLabs',null,array('required'=>false,'label'=>'admin.form-can-create-sitelab-record'))
+                ->add('canCreateRRLLabs',null,array('required'=>false,'label'=>'admin.form-can-create-reference-lab-record'))
+                ->add('canCreateNLLabs',null,array('required'=>false,'label'=>'admin.form-can-create-national-lab-record'))
                 ->add('acls', 'sonata_type_collection', array('by_reference'=>true),array('edit'=>'inline','inline'=>'table'))
             ;
     }
@@ -148,7 +152,12 @@ class UserAdmin extends Admin
     public function createQuery($context = 'list')
     {
         $query   = parent::createQuery($context);
-        $role    = new \NS\SentinelBundle\Form\Types\Role();
+        $user    = $this->securityContext->getToken()->getUser();
+        $role    = new Role();
+
+        if($user->isOnlyAdmin())
+            return $query;
+
         $highest = $role->getHighest($this->securityContext->getToken()->getRoles());
 
         $ralias = $query->getRootAlias();

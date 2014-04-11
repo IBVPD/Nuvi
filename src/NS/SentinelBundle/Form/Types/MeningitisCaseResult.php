@@ -5,10 +5,10 @@ namespace NS\SentinelBundle\Form\Types;
 use NS\UtilBundle\Form\Types\ArrayChoice;
 
 /**
- * Description of MeningitisCaseStatus
+ * Description of MeningitisCaseResult
  *
  */
-class MeningitisCaseStatus extends ArrayChoice
+class MeningitisCaseResult extends ArrayChoice
 {
     const UNKNOWN   = 0;
     const SUSPECTED = 1;
@@ -19,11 +19,11 @@ class MeningitisCaseStatus extends ArrayChoice
                                 self::UNKNOWN   => 'Unknown',
                                 self::SUSPECTED => 'Suspected',
                                 self::PROBABLE  => 'Probable',
-                                self::CONFIRMED => 'Confirmed'
+                                self::CONFIRMED => 'Confirmed',
                              );
 
     public function getName()
     {
-        return 'MeningitisCaseStatus';
+        return 'MeningitisCaseResult';
     }
 }

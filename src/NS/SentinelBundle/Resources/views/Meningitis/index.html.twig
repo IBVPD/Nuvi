@@ -23,7 +23,22 @@
                 <div class="align-right">
                     <a href="{{path('meningitisCreate')}}" class="btn btn-sm btn-success">{{'Create'}}<i class="icon-plus-sign icon-on-right bigger-110"></i></a>
                 </div>
-            {% endif %}                
+            {% endif %}
+            {% if is_granted('ROLE_CAN_CREATE_RRL_LAB') %}
+                <div class="align-right">
+                    <a href="{{path('meningitisRRLCreate')}}" class="btn btn-sm btn-success">{{'Create'}}<i class="icon-plus-sign icon-on-right bigger-110"></i></a>
+                </div>
+            {% endif %}
+            {% if is_granted('ROLE_CAN_CREATE_NL_LAB') %}
+                <div class="align-right">
+                    <a href="{{path('meningitisNLCreate')}}" class="btn btn-sm btn-success">{{'Create'}}<i class="icon-plus-sign icon-on-right bigger-110"></i></a>
+                </div>
+            {% endif %}
+            {% if is_granted('ROLE_CAN_CREATE_LAB') %}
+                <div class="align-right">
+                    <a href="{{path('meningitisLabCreate')}}" class="btn btn-sm btn-success">{{'Create'}}<i class="icon-plus-sign icon-on-right bigger-110"></i></a>
+                </div>
+            {% endif %}
             </div>
         </div>
     </div>

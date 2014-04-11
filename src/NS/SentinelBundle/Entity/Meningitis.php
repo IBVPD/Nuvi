@@ -10,27 +10,33 @@ use NS\SentinelBundle\Form\Types\DischargeOutcome;
 use NS\SentinelBundle\Form\Types\DischargeClassification;
 use NS\SentinelBundle\Form\Types\Doses;
 use NS\SentinelBundle\Form\Types\Gender;
-use NS\SentinelBundle\Form\Types\MeningitisCaseStatus;
+use NS\SentinelBundle\Form\Types\CaseStatus;
+use NS\SentinelBundle\Form\Types\MeningitisCaseResult;
 use NS\SentinelBundle\Form\Types\MeningitisVaccinationReceived;
 use NS\SentinelBundle\Form\Types\MeningitisVaccinationType;
 use NS\SentinelBundle\Interfaces\IdentityAssignmentInterface;
+use NS\UtilBundle\Form\Types\ArrayChoice;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use NS\SecurityBundle\Annotation\Secured;
 use NS\SecurityBundle\Annotation\SecuredCondition;
 
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\ExecutionContextInterface;
+
 /**
  * Description of Meningitis
  * @author gnat
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\Meningitis")
- * @ORM\Table(name="meningitis_cases")
+ * @ORM\Table(name="meningitis_cases",uniqueConstraints={@ORM\UniqueConstraint(name="site_case_id_idx",columns={"site_id","caseId"})})
  * @ORM\HasLifecycleCallbacks
  * @Gedmo\Loggable
  * @Secured(conditions={
  *      @SecuredCondition(roles={"ROLE_REGION"},relation="region",class="NSSentinelBundle:Region"),
  *      @SecuredCondition(roles={"ROLE_COUNTRY"},relation="country",class="NSSentinelBundle:Country"),
- *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB","ROLE_RRL_LAB"},relation="site",class="NSSentinelBundle:Site"),
+ *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB","ROLE_RRL_LAB","ROLE_NL_LAB"},relation="site",class="NSSentinelBundle:Site"),
  *      })
+ * @Assert\Callback(methods={"validate"})
  */
 class Meningitis implements IdentityAssignmentInterface
 {
@@ -44,9 +50,12 @@ class Meningitis implements IdentityAssignmentInterface
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="ReferenceLab", mappedBy="case")
+     * @ORM\OneToMany(targetEntity="BaseLab", mappedBy="case")
      */
-    private $referenceLab;
+    private $externalLabs;
+
+    private $referenceLab = -1;
+    private $nationalLab = -1;
 
     /**
      * @ORM\OneToOne(targetEntity="SiteLab", mappedBy="case")
@@ -56,30 +65,43 @@ class Meningitis implements IdentityAssignmentInterface
     /**
      * @var Region $region
      * @ORM\ManyToOne(targetEntity="Region",inversedBy="meningitisCases")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $region;
 
     /**
      * @var Country $country
      * @ORM\ManyToOne(targetEntity="Country",inversedBy="meningitisCases")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $country;
 
     /**
      * @var Site $site
      * @ORM\ManyToOne(targetEntity="Site",inversedBy="meningitisCases")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $site;
+
 // Case based demographic
+    /**
+     * @var string $caseId
+     * @ORM\Column(name="caseId",type="string",nullable=false)
+     * @Assert\NotBlank
+     */
+    private $caseId;
+
     /**
      * @var DateTime $dob
      * @ORM\Column(name="dob",type="date",nullable=true)
+     * @Assert\Date
      */
     private $dob;
 
     /**
      * @var integer $ageInMonths
      * @ORM\Column(name="ageInMonths",type="integer",nullable=true)
+     * @Assert\Range(min=0,max=59,minMessage="Children should older than 0 months",maxMessage="Children should be younger than 59 months to be tracked")
      */
     private $ageInMonths;
 
@@ -94,12 +116,6 @@ class Meningitis implements IdentityAssignmentInterface
      * @ORM\Column(name="district",type="string",nullable=true)
      */
     private $district;
-
-    /**
-     * @var string $caseId
-     * @ORM\Column(name="caseId",type="string",nullable=true)
-     */
-    private $caseId;
 
 //Case-based Clinical Data
     /**
@@ -216,6 +232,7 @@ class Meningitis implements IdentityAssignmentInterface
     /**
      * @var integer $pneuRespRate
      * @ORM\Column(name="pneuRespRate",type="integer",nullable=true)
+     * @Assert\Range(min=0,max=200,minMessage="Please provide a valid respiratory rate",maxMessage="Please provide a valid respiratory rate")
      */
     private $pneuRespRate;
 
@@ -277,9 +294,9 @@ class Meningitis implements IdentityAssignmentInterface
     /**
      * @var DateTime $meningMostRecentDose
      * @ORM\Column(name="meningMostRecentDose",type="date",nullable=true)
+     * @Assert\Date
      */
     private $meningMostRecentDose;
-
 
 //Case-based Specimen Collection Data
 
@@ -351,18 +368,33 @@ class Meningitis implements IdentityAssignmentInterface
     private $comment;
 
     /**
-     * @var MeningitisCaseStatus $status
-     * @ORM\Column(name="status",type="MeningitisCaseStatus")
+     * @var MeningitisCaseResult $result
+     * @ORM\Column(name="result",type="MeningitisCaseResult")
+     */
+    private $result;
+
+    /**
+     * @var CaseStatus $status
+     * @ORM\Column(name="status",type="CaseStatus")
      */
     private $status;
 
+    /**
+     * @var boolean $sentToReferenceLab
+     * @ORM\Column(name="sentToReferenceLab",type="boolean")
+     */
+    private $sentToReferenceLab = false;
+
+    /**
+     * @var boolean $sentToNationalLab
+     * @ORM\Column(name="sentToNationalLab",type="boolean")
+     */
+    private $sentToNationalLab = false;
+
     public function __construct()
     {
-        $this->dob                = new \DateTime();
-        $this->admDate            = new \DateTime();
-        $this->csfCollectDateTime = new \DateTime();
-        $this->csfLabDateTime     = new \DateTime();
-        $this->status             = new MeningitisCaseStatus(0);
+        $this->result             = new MeningitisCaseResult(0);
+        $this->status             = new CaseStatus(0);
     }
 
     public function __toString()
@@ -672,7 +704,7 @@ class Meningitis implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function setOnsetDate(\DateTime $onsetDate)
+    public function setOnsetDate($onsetDate)
     {
         $this->onsetDate = $onsetDate;
         return $this;
@@ -834,7 +866,7 @@ class Meningitis implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function setMeningMostRecentDose(\DateTime $meningMostRecentDose)
+    public function setMeningMostRecentDose($meningMostRecentDose)
     {
         $this->meningMostRecentDose = $meningMostRecentDose;
         return $this;
@@ -852,13 +884,13 @@ class Meningitis implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function setCsfCollectDateTime(\DateTime $csfCollectDateTime)
+    public function setCsfCollectDateTime($csfCollectDateTime)
     {
         $this->csfCollectDateTime = $csfCollectDateTime;
         return $this;
     }
 
-    public function setCsfAppearance(\DateTime $csfAppearance)
+    public function setCsfAppearance($csfAppearance)
     {
         $this->csfAppearance = $csfAppearance;
         return $this;
@@ -971,7 +1003,7 @@ class Meningitis implements IdentityAssignmentInterface
 
     public function getFullIdentifier($id)
     {
-        return sprintf("%s-%s-%s-%06d", $this->getRegion()->getCode(), $this->country->getCode(), $this->site->getCode(),$id);
+        return sprintf("%s-%s-%d-%06d", $this->country->getCode(), $this->site->getCode(), date('y'), $id);
     }
 
     /**
@@ -1011,33 +1043,10 @@ class Meningitis implements IdentityAssignmentInterface
     {
         return ($this->lab instanceof SiteLab);
     }
-    
-    /**
-     * Set ReferenceLab
-     *
-     * @param \NS\SentinelBundle\Entity\ReferenceLab $lab
-     * @return Meningitis
-     */
-    public function setReferenceLab(\NS\SentinelBundle\Entity\ReferenceLab $lab = null)
-    {
-        $this->referenceLab = $lab;
-    
-        return $this;
-    }
 
-    /**
-     * Get ReferenceLab
-     *
-     * @return \NS\SentinelBundle\Entity\ReferenceLab 
-     */
-    public function getReferenceLab()
+    public function getResult()
     {
-        return $this->referenceLab;
-    }
-
-    public function hasReferenceLab()
-    {
-        return ($this->referenceLab instanceof ReferenceLab);
+        return $this->result;
     }
 
     public function getStatus()
@@ -1045,7 +1054,18 @@ class Meningitis implements IdentityAssignmentInterface
         return $this->status;
     }
 
-    public function setStatus(MeningitisCaseStatus $status)
+    public function isComplete()
+    {
+        return $this->status->getValue() == CaseStatus::COMPLETE;
+    }
+
+    public function setResult(MeningitisCaseResult $result)
+    {
+        $this->result = $result;
+        return $this;
+    }
+
+    public function setStatus(CaseStatus $status)
     {
         $this->status = $status;
         return $this;
@@ -1054,9 +1074,10 @@ class Meningitis implements IdentityAssignmentInterface
     /**
      * @ORM\PrePersist
      */
-
     public function prePersist()
     {
+        $this->_calculateStatus();
+        $this->_calculateResult();
     }
 
     /** 
@@ -1064,6 +1085,8 @@ class Meningitis implements IdentityAssignmentInterface
      */
     public function preUpdate()
     {
+        $this->_calculateStatus();
+        $this->_calculateResult();
     }
 
     /**
@@ -1080,24 +1103,333 @@ class Meningitis implements IdentityAssignmentInterface
      *            syndrome consisten with bacterial meningitis
      *
      */
-    private function _calculateStatus()
+    private function _calculateResult()
     {
-        // Test Suspected
-        if($this->ageInMonths < 60 && $this->menFever->equal(TripleChoice::YES) )
-        {
-            if($this->menAltConscious->equal(TripleChoice::YES) || $this->menNeckStiff->equal(TripleChoice::YES))
-                $this->status->setValue (MeningitisCaseStatus::SUSPECTED);
-        }
-        else if($this->ageInMonths < 60 && $this->admDx->equal(Diagnosis::MENINGITIS))
-            $this->status->setValue (MeningitisCaseStatus::SUSPECTED);
+        if($this->status->getValue() >= CaseStatus::CANCELLED)
+            return;
 
-        if($this->status->equal(MeningitisCaseStatus::SUSPECTED))
+        // Test Suspected
+        if($this->ageInMonths < 60 && $this->menFever && $this->menFever->equal(TripleChoice::YES))
+        {
+            if(($this->menAltConscious && $this->menAltConscious->equal(TripleChoice::YES)) || ($this->menNeckStiff && $this->menNeckStiff->equal(TripleChoice::YES)) )
+                $this->result->setValue (MeningitisCaseResult::SUSPECTED);
+        }
+        else if($this->ageInMonths < 60 && $this->admDx && $this->admDx->equal(Diagnosis::MENINGITIS))
+            $this->result->setValue (MeningitisCaseResult::SUSPECTED);
+
+        if($this->result && $this->result->equal(MeningitisCaseResult::SUSPECTED))
         {
             // Probable
-            if($this->csfAppearance->equal(CSFAppearance::TURBID))
-                $this->status->setValue (MeningitisCaseStatus::PROBABLE);
+            if($this->csfAppearance && $this->csfAppearance->equal(CSFAppearance::TURBID))
+                $this->result->setValue (MeningitisCaseResult::PROBABLE);
 
             // Confirmed
         }
+    }
+
+    private function _calculateStatus()
+    {
+        if($this->status->getValue() >= CaseStatus::CANCELLED)
+            return;
+
+        if($this->getIncompleteField())
+            $this->status->setValue(CaseStatus::OPEN);
+        else
+            $this->status->setValue(CaseStatus::COMPLETE);
+
+        return;
+    }
+
+    public function getIncompleteField()
+    {
+        foreach($this->getMinimumRequiredFields() as $field)
+        {
+            if(is_null($this->$field) || empty($this->$field) || ($this->$field instanceof ArrayChoice && $this->$field->equal(-1)) )
+                return $field;
+        }
+
+        // this isn't covered by the above loop because its valid for ageInMonths == 0 but 0 == empty
+        if(is_null($this->ageInMonths))
+            return 'ageInMonths';
+
+        if($this->admDx && $this->admDx->equal(Diagnosis::OTHER) && empty($this->admDxOther))
+            return 'admDx';
+
+        if($this->dischDx && $this->dischDx->equal(Diagnosis::OTHER) && empty($this->dischDxOther))
+            return 'dischDx';
+
+        if($this->hibReceived && $this->hibReceived->equal(TripleChoice::YES) && (is_null($this->hibDoses) || $this->hibDoses->equal(ArrayChoice::NO_SELECTION)))
+            return 'hibReceived';
+
+        if($this->pcvReceived && $this->pcvReceived->equal(TripleChoice::YES) && (is_null($this->pcvDoses) || $this->pcvDoses->equal(ArrayChoice::NO_SELECTION)))
+            return 'pcvReceived';
+
+        if($this->meningReceived && ($this->meningReceived->equal(MeningitisVaccinationReceived::YES_CARD ) || $this->meningReceived->equal(MeningitisVaccinationReceived::YES_HISTORY)))
+        {
+            if(is_null($this->meningType))
+                return 'meningType1';
+
+            if($this->meningType->equal(ArrayChoice::NO_SELECTION))
+                return 'meningType2';
+
+            if(is_null($this->meningMostRecentDose))
+                return 'meningMostRecentDose';
+        }
+
+        if($this->csfCollected && $this->csfCollected->equal(TripleChoice::YES))
+        {
+            if(is_null($this->csfId))
+                return 'csfCollected1';
+            if(empty($this->csfId))
+                return 'csfCollected2';
+            if(is_null($this->csfCollectDateTime))
+                return 'csfCollectDateTime';
+            if(is_null($this->csfAppearance))
+                return 'csfAppearance1';
+            if($this->csfAppearance->equal(ArrayChoice::NO_SELECTION))
+                return 'csfAppearance2';
+        }
+
+        return null;
+    }
+
+    public function getMinimumRequiredFields()
+    {
+        $fields = array(
+                    'caseId',
+                    'dob',
+                    'gender',
+                    'admDate',
+                    'onsetDate',
+                    'admDx',
+                    'antibiotics',
+                    'menSeizures',
+                    'menFever',
+                    'menAltConscious',
+                    'menInabilityFeed',
+                    'menNeckStiff',
+                    'menRash',
+                    'menFontanelleBulge',
+                    'menLethargy',
+                    'hibReceived',
+                    'pcvReceived',
+                    'meningReceived',
+                    'csfCollected',
+                    'bloodCollected',
+                    'dischOutcome',
+                    'dischDx',
+                    'dischClass',
+                    );
+
+        return ($this->country->getTracksPneumonia()) ? array_merge($fields,$this->getPneumiaRequiredFields()) : $fields;
+    }
+
+    public function getPneumiaRequiredFields()
+    {
+        return array('pneuDiffBreathe',
+                     'pneuChestIndraw',
+                     'pneuCough',
+                     'pneuCyanosis',
+                     'pneuStridor',
+                     'pneuRespRate',
+                     'pneuVomit',
+                     'pneuHypothermia',
+                     'pneuMalnutrition',);
+    }
+
+    public function validate(ExecutionContextInterface $context)
+    {
+        // with both an admission date and onset date, ensure the admission happened after onset
+        if($this->admDate && $this->onsetDate && $this->admDate < $this->onsetDate)
+            $context->addViolationAt('admDate', "form.validation.admission-after-onset");
+
+        // with both an dob and onset date, ensure the onset is after dob
+        if($this->dob && $this->onsetDate && $this->onsetDate < $this->dob)
+            $context->addViolationAt ('dob', "form.validation.onset-after-dob");
+
+        // if admission diagnosis is other, enforce value in 'admission diagnosis other' field
+        if($this->admDx && $this->admDx->equal(Diagnosis::OTHER) && empty($this->admDxOther))
+            $context->addViolationAt('admDx',"form.validation.admissionDx-other-without-other-text");
+
+        // if discharge diagnosis is other, enforce value in 'discharge diagnosis other' field
+        if($this->dischDx && $this->dischDx->equal(Diagnosis::OTHER) && empty($this->dischDxOther))
+            $context->addViolationAt('dischDx',"form.validation.dischargeDx-other-without-other-text");
+
+        if($this->hibReceived && $this->hibReceived->equal(TripleChoice::YES) && (is_null($this->hibDoses) || $this->hibDoses->equal(ArrayChoice::NO_SELECTION)))
+            $context->addViolationAt('hibDoses', "form.validation.hibReceived-other-hibDoses-unselected");
+
+        if($this->pcvReceived && $this->pcvReceived->equal(TripleChoice::YES) && (is_null($this->pcvDoses) || $this->pcvDoses->equal(ArrayChoice::NO_SELECTION)))
+            $context->addViolationAt('pcvDoses', "form.validation.pcvReceived-other-pcvDoses-unselected '".$this->pcvReceived."'" );
+
+        if($this->meningReceived && ($this->meningReceived->equal(MeningitisVaccinationReceived::YES_CARD ) || $this->meningReceived->equal(MeningitisVaccinationReceived::YES_HISTORY)))
+        {
+            if(is_null($this->meningType))
+                $context->addViolationAt('meningType', "form.validation.meningReceived-meningType-empty");
+
+            if($this->meningType->equal(ArrayChoice::NO_SELECTION))
+                $context->addViolationAt('meningType', "form.validation.meningReceived-meningType-empty");
+
+            if(is_null($this->meningMostRecentDose))
+                $context->addViolationAt('meningType', "form.validation.meningReceived-meningMostRecentDose-empty");
+        }
+
+        if($this->csfCollected && $this->csfCollected->equal(TripleChoice::YES))
+        {
+            if(is_null($this->csfId) || empty($this->csfId))
+                $context->addViolationAt('csfId', "form.validation.csfCollected-csfId-empty");
+                
+            if(is_null($this->csfCollectDateTime))
+                $context->addViolationAt('csfId', "form.validation.csfCollected-csfCollectDateTime-empty");
+
+            if(is_null($this->csfAppearance) || $this->csfAppearance->equal(ArrayChoice::NO_SELECTION))
+                $context->addViolationAt('csfId', "form.validation.csfCollected-csfAppearance-empty");
+        }
+    }
+
+    /**
+     * Add externalLabs
+     *
+     * @param \NS\SentinelBundle\Entity\BaseLab $externalLabs
+     * @return Meningitis
+     */
+    public function addExternalLab(\NS\SentinelBundle\Entity\BaseLab $externalLabs)
+    {
+        $this->externalLabs[] = $externalLabs;
+    
+        return $this;
+    }
+
+    /**
+     * Remove externalLabs
+     *
+     * @param \NS\SentinelBundle\Entity\BaseLab $externalLabs
+     */
+    public function removeExternalLab(\NS\SentinelBundle\Entity\BaseLab $externalLabs)
+    {
+        $this->externalLabs->removeElement($externalLabs);
+    }
+
+    /**
+     * Get externalLabs
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getExternalLabs()
+    {
+        return $this->externalLabs;
+    }
+
+    private function _findReferenceLab()
+    {
+        if(is_integer($this->referenceLab) && $this->referenceLab == -1)
+        {
+            foreach($this->externalLabs as $l)
+            {
+                if($l instanceof ReferenceLab)
+                {
+                    $this->referenceLab = $l;
+                    return;
+                }
+            }
+
+            $this->referenceLab = null;
+        }
+    }
+
+    /**
+     * Get ReferenceLab
+     *
+     * @return \NS\SentinelBundle\Entity\ReferenceLab
+     */
+    public function getReferenceLab()
+    {
+        $this->_findReferenceLab();
+        return $this->referenceLab;
+    }
+
+    public function hasReferenceLab()
+    {
+        $this->_findReferenceLab();
+        return ($this->referenceLab instanceof ReferenceLab);
+    }
+
+    private function _findNationalLab()
+    {
+        if(is_integer($this->nationalLab) && $this->nationalLab == -1)
+        {
+            foreach($this->externalLabs as $l)
+            {
+                if($l instanceof NationalLab)
+                {
+                    $this->nationalLab = $l;
+                    return;
+                }
+            }
+
+            $this->nationalLab = null;
+        }
+    }
+
+    /**
+     * Get NationalLab
+     *
+     * @return \NS\SentinelBundle\Entity\NationalLab
+     */
+    public function getNationalLab()
+    {
+        $this->_findNationalLab();
+        return $this->nationalLab;
+    }
+
+    public function hasNationalLab()
+    {
+        $this->_findNationalLab();
+        return ($this->nationalLab instanceof NationalLab);
+    }
+
+    /**
+     * Set sentToReferenceLab
+     *
+     * @param boolean $sentToReferenceLab
+     * @return Meningitis
+     */
+    public function setSentToReferenceLab($sentToReferenceLab)
+    {
+        $this->sentToReferenceLab = $sentToReferenceLab;
+    
+        return $this;
+    }
+
+    /**
+     * Get sentToReferenceLab
+     *
+     * @return boolean 
+     */
+    public function getSentToReferenceLab()
+    {
+        return $this->sentToReferenceLab;
+    }
+
+    /**
+     * Set sentToNationalLab
+     *
+     * @param boolean $sentToNationalLab
+     * @return Meningitis
+     */
+    public function setSentToNationalLab($sentToNationalLab)
+    {
+        $this->sentToNationalLab = $sentToNationalLab;
+    
+        return $this;
+    }
+
+    /**
+     * Get sentToNationalLab
+     *
+     * @return boolean 
+     */
+    public function getSentToNationalLab()
+    {
+        return $this->sentToNationalLab;
     }
 }

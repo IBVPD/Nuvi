@@ -7,9 +7,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
-use \NS\SentinelBundle\Form\MeningitisType;
-use \NS\SentinelBundle\Form\MeningitisSearch;
-use \NS\SentinelBundle\Exceptions\NonExistentCase;
+use NS\SentinelBundle\Form\MeningitisType;
+use NS\SentinelBundle\Form\MeningitisSearch;
+use NS\SentinelBundle\Exceptions\NonExistentCase;
+use Symfony\Component\Form\FormError;
+use NS\SentinelBundle\Entity\Meningitis;
 
 /**
  * @Route("/{_locale}/ibd")
@@ -46,7 +48,7 @@ class MeningitisController extends Controller
 
         $sc = $this->get('security.context');
 
-        if($sc->isGranted('ROLE_SITE') || $sc->isGranted('ROLE_LAB') || $sc->isGranted('ROLE_RRL_LAB'))
+        if($sc->isGranted('ROLE_SITE') || $sc->isGranted('ROLE_LAB') || $sc->isGranted('ROLE_RRL_LAB') || $sc->isGranted('ROLE_NL_LAB'))
             $t = array('header_template'=>'NSSentinelBundle:Meningitis:indexSiteHeader.html.twig', 'row_template'=>'NSSentinelBundle:Meningitis:indexSiteRow.html.twig');
         else if($sc->isGranted('ROLE_COUNTRY'))
             $t = array('header_template'=>'NSSentinelBundle:Meningitis:indexCountryHeader.html.twig', 'row_template'=>'NSSentinelBundle:Meningitis:indexCountryRow.html.twig');
@@ -63,17 +65,27 @@ class MeningitisController extends Controller
      */
     public function editAction(Request $request,$id = null)
     {
-        return $this->edit('meningitis',$request,$id);
+        return $this->edit($request,'meningitis',$id);
     }
 
     /**
      * @Route("/rrl/create/{id}",name="meningitisRRLCreate")
      * @Route("/rrl/edit/{id}",name="meningitisRRLEdit",defaults={"id"=null})
-     * @Template()
+     * @Template("NSSentinelBundle:Meningitis:editBaseLab.html.twig")
      */
     public function editRRLAction(Request $request,$id = null)
     {
-        return $this->edit('rrl',$request,$id);
+        return $this->edit($request, 'rrl', $id);
+    }
+
+    /**
+     * @Route("/nl/create/{id}",name="meningitisNLCreate")
+     * @Route("/nl/edit/{id}",name="meningitisNLEdit",defaults={"id"=null})
+     * @Template("NSSentinelBundle:Meningitis:editBaseLab.html.twig")
+     */
+    public function editNLAction(Request $request,$id = null)
+    {
+        return $this->edit($request, 'nl', $id);
     }
 
     /**
@@ -83,10 +95,10 @@ class MeningitisController extends Controller
      */
     public function editLabAction(Request $request,$id = null)
     {
-        return $this->edit('lab',$request,$id);
+        return $this->edit($request, 'lab', $id);
     }
 
-    private function edit($type, Request $request, $id)
+    private function edit(Request $request, $type, $id = null)
     {
         try 
         {
@@ -97,12 +109,16 @@ class MeningitisController extends Controller
                     $form   = $this->createForm('meningitis',$record);
                     break;
                 case 'lab':
-                    $record = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:SiteLab')->findOrCreateNew($id);
+                    $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:SiteLab')->findOrCreateNew($id): null;
                     $form   = $this->createForm('meningitis_sitelab',$record);
                     break;
                 case 'rrl':
-                    $record = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:ReferenceLab')->findOrCreateNew($id);
+                    $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:ReferenceLab')->findOrCreateNew($id): null;
                     $form   = $this->createForm('meningitis_referencelab',$record);
+                    break;
+                case 'nl':
+                    $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:NationalLab')->findOrCreateNew($id): null;
+                    $form   = $this->createForm('meningitis_nationallab',$record);
                     break;
                 default:
                     throw new \Exception("Unknown type");
@@ -123,24 +139,30 @@ class MeningitisController extends Controller
                 $record = $form->getData();
                 $em->persist($record);
 
+                if($type != 'meningitis')
+                    $em->persist($record->getCase());
+
                 try
                 {
                     $em->flush();
                 }
-                catch(\Exception $e)
+                catch(\Doctrine\DBAL\DBALException $e)
                 {
                     // TODO Flash service required
-                    return array('form' => $form->createView(),'id'=>$id);
+                    if($e->getPrevious()->getCode() === '23000')
+                        $form->addError(new \Symfony\Component\Form\FormError ("The case id already exists for this site!"));
+                    else
+                        die("ERROR: ".$e->getMessage());
+
+                    return array('form' => $form->createView(),'id'=>$id, 'type'=>strtoupper($type));
                 }
 
                 // TODO Flash service required
                 return $this->redirect($this->generateUrl("meningitisIndex"));
             }
-            else
-                die("<pre>".print_r($form->getErrorsAsString(), true)."</pre>");
         }
 
-        return array('form' => $form->createView(),'id'=>$id);
+        return array('form' => $form->createView(),'id'=>$id, 'type'=>strtoupper($type));
     }
 
     /**

@@ -20,6 +20,7 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
     const SITE    = 3;
     const LAB     = 4;
     const RRL_LAB = 5;
+    const NL_LAB  = 6;
 
     protected $values = array(
                                 self::REGION     => 'Region',
@@ -27,6 +28,7 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
                                 self::SITE       => 'Site',
                                 self::LAB        => 'Lab',
                                 self::RRL_LAB    => 'RRL',
+                                self::NL_LAB     => 'NL',
                              );
 
     protected $rolemapping = array(
@@ -35,6 +37,7 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
                                 'ROLE_SITE'     => self::SITE,
                                 'ROLE_LAB'      => self::LAB,
                                 'ROLE_RRL_LAB'  => self::RRL_LAB,
+                                'ROLE_NL_LAB'   => self::NL_LAB,
                               );
     
     public function __construct($value = null)
@@ -69,6 +72,8 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
                 return array('ROLE_LAB');
             case self::RRL_LAB:
                 return array('ROLE_RRL_LAB');
+            case self::NL_LAB:
+                return array('ROLE_NL_LAB');
             default:
                 return null;
         }
@@ -83,6 +88,7 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
                 return $class."\Region";
             case self::COUNTRY:
                 return $class."\Country";
+            case self::NL_LAB:
             case self::RRL_LAB:
             case self::LAB:
             case self::SITE:

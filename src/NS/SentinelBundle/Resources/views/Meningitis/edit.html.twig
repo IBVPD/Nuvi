@@ -66,11 +66,11 @@
             <div class="widget-header widget-header-small header-color-blue"><h6>{{'Clinical Data'|trans}}</h6></div>
             <div class="widget-body">
                 <div class="widget-main">
+                    {{form_row(form.onsetDate)}}
                     {{form_row(form.admDate)}}
                     {{form_row(form.admDx)}}
                     {{form_row(form.admDxOther)}}
                     {{form_row(form.antibiotics)}}
-                    {{form_row(form.onsetDate)}}
                 </div>
             </div>
         </div>
@@ -78,7 +78,7 @@
 </div>
 
 <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-{%if form.pneuDiffBreathe is defined %}6{%else%}12{%endif%}">
         <div class="widget-box">
             <div class="widget-header widget-header-small header-color-blue"><h6>{{'Meningitis'|trans}}</h6></div>
             <div class="widget-body">
@@ -101,18 +101,21 @@
             </div>
         </div>
     </div>
+    {%if form.pneuDiffBreathe is defined %}
     <div class="col-sm-6">
         <div class="widget-box">
             <div class="widget-header widget-header-small header-color-blue"><h6>{{'Pneumonia / Sepsis'|trans}}</h6></div>
             <div class="widget-body">
                 <div class="widget-main">
                     <div class="row">
-                        <div class="col-sm-8">
+                        <div class="col-sm-6">
                             {{form_row(form.pneuDiffBreathe)}}
                             {{form_row(form.pneuChestIndraw)}}
                             {{form_row(form.pneuCough)}}
                             {{form_row(form.pneuCyanosis)}}
                             {{form_row(form.pneuStridor)}}
+                        </div>
+                        <div class="col-sm-6">
                             {{form_row(form.pneuRespRate)}}
                             {{form_row(form.pneuVomit)}}
                             {{form_row(form.pneuHypothermia)}}
@@ -123,6 +126,7 @@
             </div>
         </div>
     </div>
+    {%endif%}
 </div>
 
 <div class="row">
@@ -132,6 +136,12 @@
             <div class="widget-body">
                 <div class="widget-main">
                     {{form_row(form.csfCollected)}}
+                    {%if form.sentToReferenceLab is defined %}
+                        {{form_row(form.sentToReferenceLab )}}
+                    {%endif %}
+                    {%if form.sentToNationalLab is defined %}
+                        {{form_row(form.sentToNationalLab )}}
+                    {%endif %}
                     {{form_row(form.csfCollectDateTime)}}
                     {{form_row(form.csfId)}}
                     {{form_row(form.csfAppearance)}}

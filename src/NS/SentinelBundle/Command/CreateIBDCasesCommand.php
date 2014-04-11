@@ -5,13 +5,13 @@ namespace NS\SentinelBundle\Command;
 use \Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use \Symfony\Component\Console\Input\InputInterface;
 use \Symfony\Component\Console\Output\OutputInterface;
-use \Symfony\Component\Console\Input\InputArgument;
 
 use NS\SentinelBundle\Entity\Meningitis;
 use \NS\SentinelBundle\Entity\SiteLab;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Form\Types\Gender;
 use NS\SentinelBundle\Form\Types\Diagnosis;
+use NS\SentinelBundle\Entity\Site;
 
 /**
  * Description of ImportCommand
@@ -35,25 +35,24 @@ class CreateIBDCasesCommand extends ContainerAwareCommand
         ini_set('memory_limit','768M');
 
         $this->em = $this->getContainer()->get('doctrine.orm.entity_manager');
-        $sites = $this->em->getRepository('NSSentinelBundle:Site')->getChainByCode(array('HND129','HND135','BOL78','BOL85','SLV115','SLV112'));
+        $sites    = $this->em->getRepository('NSSentinelBundle:Site')->getChainByCode(array('HND129','HND135','BOL78','BOL85','SLV115','SLV112'));
 
-        $cxDone = array(
-                     new TripleChoice(TripleChoice::YES),
-                     new TripleChoice(TripleChoice::NO)
-                       );
-
-        $male  = new Gender(Gender::MALE);
-        $fmale = new Gender(Gender::FEMALE);
-        
+        $male   = new Gender(Gender::MALE);
+        $fmale  = new Gender(Gender::FEMALE);
         $dx[]   = new Diagnosis(Diagnosis::MENINGITIS);
         $dx[]   = new Diagnosis(Diagnosis::PNEUMONIA);
         $dx[]   = new Diagnosis(Diagnosis::SEPSIS);
         $dx[]   = new Diagnosis(Diagnosis::OTHER);
+        $cxDone = array(
+                     new TripleChoice(TripleChoice::YES),
+                     new TripleChoice(TripleChoice::NO)
+                       );
     
         for($x = 0; $x < 2700; $x++)
         {
             $dob = $this->getRandomDate();
             $m = new Meningitis();
+
             $m->setDob($dob);
             $m->setAdmDate($this->getRandomDate(null,$dob));
             $m->setCsfCollected((($x % 3) == 0));
@@ -75,6 +74,7 @@ class CreateIBDCasesCommand extends ContainerAwareCommand
 
             $m->setDischDx($dx[$dxKey]);
             $m->setSite($sites[$siteKey]);
+            $m->setCaseId($this->getCaseId($sites[$siteKey]));
 
             $this->em->persist($m);
             if($x % 100 == 0)
@@ -82,6 +82,11 @@ class CreateIBDCasesCommand extends ContainerAwareCommand
         }
 
         $this->em->flush();
+    }
+
+    public function getCaseId(Site $site)
+    {
+        return md5(uniqid().spl_object_hash($site).time());
     }
 
     public function getRandomDate(\DateTime $before = null, \DateTime $after = null)
