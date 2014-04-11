@@ -3,6 +3,7 @@
 namespace NS\SentinelBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use \Doctrine\Common\Collections\ArrayCollection;
 use \Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use NS\SecurityBundle\Model\SecuredEntityInterface;
@@ -58,7 +59,7 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
      *              min = "6",
      *              minMessage = "Your password must be at least 6 characters")
      *
-     * @var type
+     * @var string
      */
     private $plainPassword;
 
@@ -112,14 +113,8 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
      * @ORM\Column(name="isActive", type="boolean")
      */
     private $isActive = false;
-    
-    private $ttl = 0;
 
-    /**
-     * @var NS\ApiBundle\Entity\AccessToken $accessTokens
-     * @ORM\OneToMany(targetEntity="NS\ApiBundle\Entity\AccessToken",mappedBy="user")
-     */
-    protected $accessTokens;
+    private $ttl = 0;
 
     public function __toString()
     {
@@ -145,7 +140,7 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
@@ -168,7 +163,7 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
     public function setEmail($email)
     {
         $this->email = $email;
-    
+
         return $this;
     }
 
@@ -191,7 +186,7 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
     public function setSalt($salt)
     {
         $this->salt = $salt;
-    
+
         return $this;
     }
 
@@ -214,7 +209,7 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
     public function setPassword($password)
     {
         $this->password = $password;
-    
+
         return $this;
     }
 
@@ -237,7 +232,7 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
     public function setPlainPassword($password)
     {
         $this->plainPassword = $password;
-    
+
         return $this;
     }
 
@@ -328,10 +323,9 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
      */
     public function __construct()
     {
-        $this->acls = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->accessTokens = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->acls = new ArrayCollection();
     }
-    
+
     /**
      * Add acls
      *
@@ -341,7 +335,7 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
     public function addAcl(\NS\SentinelBundle\Entity\ACL $acls)
     {
         $this->acls[] = $acls;
-    
+
         return $this;
     }
 
@@ -374,7 +368,7 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
     public function setIsAdmin($isAdmin)
     {
         $this->isAdmin = $isAdmin;
-    
+
         return $this;
     }
 
@@ -387,7 +381,7 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
     {
         return $this->isAdmin;
     }
-    
+
     public function getTTL()
     {
         return $this->ttl;
@@ -474,31 +468,6 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
     public function setCanCreateNLLabs($canCreateNLLabs)
     {
         $this->canCreateNLLabs = $canCreateNLLabs;
-        return $this;
-    }
-
-    public function getAccessTokens()
-    {
-        return $this->accessTokens;
-    }
-
-    public function setAccessTokens(array $accessTokens)
-    {
-        $this->accessTokens = $accessTokens;
-        return $this;
-    }
-
-    public function addAccessToken(\NS\ApiBundle\Entity\AccessToken $accessToken)
-    {
-        $this->accessTokens->add($accessToken);
-
-        return $this;
-    }
-
-    public function removeAccessToken(\NS\ApiBundle\Entity\AccessToken $accessToken)
-    {
-        $this->accessTokens->remove($accessToken);
-
         return $this;
     }
 }
