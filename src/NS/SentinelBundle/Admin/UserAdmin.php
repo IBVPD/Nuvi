@@ -13,8 +13,6 @@ use \NS\SentinelBundle\Form\Types\Role;
 
 class UserAdmin extends Admin
 {
-//    protected $baseRouteName = 'Users';
-//    protected $baseRoutePattern = 'Users';
     private $factory;
 
     public function setEncoderFactory(EncoderFactoryInterface $factory )
