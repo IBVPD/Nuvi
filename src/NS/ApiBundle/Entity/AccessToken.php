@@ -5,7 +5,6 @@ use FOS\OAuthServerBundle\Entity\AccessToken as BaseAccessToken;
 use FOS\OAuthServerBundle\Model\ClientInterface;
 
 use Doctrine\ORM\Mapping as ORM;
-use \Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Description of AccessToken
@@ -30,12 +29,6 @@ class AccessToken extends BaseAccessToken
      */
     protected $client;
 
-    /**
-     * @var NS\SentinelBundle\Entity\User $user
-     * @ORM\ManyToOne(targetEntity="NS\SentinelBundle\Entity\User",inversedBy="accessTokens")
-     */
-    protected $user;
-
     public function getId()
     {
         return $this->id;
@@ -55,19 +48,6 @@ class AccessToken extends BaseAccessToken
     public function setClient(ClientInterface $client)
     {
         $this->client = $client;
-        return $this;
-    }
-
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    public function setUser(UserInterface $user)
-    {
-        $user->addAccessToken($this);
-        $this->user = $user;
-
         return $this;
     }
 }

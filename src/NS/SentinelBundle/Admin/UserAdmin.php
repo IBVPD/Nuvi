@@ -98,6 +98,7 @@ class UserAdmin extends Admin
                 ->add('canCreateRRLLabs',null,array('required'=>false,'label'=>'admin.form-can-create-reference-lab-record'))
                 ->add('canCreateNLLabs',null,array('required'=>false,'label'=>'admin.form-can-create-national-lab-record'))
                 ->add('acls', 'sonata_type_collection', array('by_reference'=>true),array('edit'=>'inline','inline'=>'table'))
+                ->add('apiClients', 'sonata_type_collection', array('by_reference'=>true),array('edit'=>'inline','inline'=>'table'))
             ;
     }
 
