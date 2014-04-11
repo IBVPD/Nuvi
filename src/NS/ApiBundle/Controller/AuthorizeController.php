@@ -4,9 +4,8 @@ namespace NS\ApiBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use NS\ApiBundle\Form\Model\Authorize;
-use NS\ApiBundle\Entity\Client;
+use NS\ApiBundle\Entity\ApiClient;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
  * Description of AuthorizeController
@@ -19,7 +18,6 @@ class AuthorizeController extends \Symfony\Bundle\FrameworkBundle\Controller\Con
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    //@Route("/auth",name="apiAuth")
     public function authorizeAction(Request $request)
     {
         if (!$request->get('client_id')) 
@@ -28,8 +26,8 @@ class AuthorizeController extends \Symfony\Bundle\FrameworkBundle\Controller\Con
         $clientManager = $this->get('fos_oauth_server.client_manager.default');
         $client        = $clientManager->findClientByPublicId($request->get('client_id'));
 
-        if (!($client instanceof Client))
-            throw new NotFoundHttpException("Client {$request->get('client_id')} is not found.".  get_class($client));
+        if (!($client instanceof ApiClient))
+            throw new NotFoundHttpException("Client {$request->get('client_id')} is not found.". get_class($client));
 
         $authorize    = new Authorize();
         $form         = $this->createForm('api_oauth_server_authorize',$authorize);

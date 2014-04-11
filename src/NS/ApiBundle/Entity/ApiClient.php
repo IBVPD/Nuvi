@@ -8,9 +8,10 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Description of Client
  * @ORM\Entity
+ * @ORM\Table(name="api_clients")
  * @author gnat
  */
-class Client extends BaseClient
+class ApiClient extends BaseClient
 {
     /**
      * @var integer $id

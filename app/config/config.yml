@@ -198,7 +198,7 @@ lunetics_locale:
 
 fos_oauth_server:
     db_driver: orm       # Driver availables: orm, mongodb, or propel
-    client_class:        NS\ApiBundle\Entity\Client
+    client_class:        NS\ApiBundle\Entity\ApiClient
     access_token_class:  NS\ApiBundle\Entity\AccessToken
     refresh_token_class: NS\ApiBundle\Entity\RefreshToken
     auth_code_class:     NS\ApiBundle\Entity\AuthCode

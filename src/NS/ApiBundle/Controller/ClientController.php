@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
-use NS\ApiBundle\Form\ClientType;
+use NS\ApiBundle\Form\ApiClientType;
 
 /**
  * Description of ClientController
@@ -21,9 +21,7 @@ class ClientController extends Controller
      */
     public function createAction(Request $request)
     {
-//        $clientManager = $this->get('fos_oauth_server.client_manager.default');
-//        $client        = new \NS\ApiBundle\Entity\Client();//$clientManager->createClient();
-        $form = $this->createForm(new ClientType());
+        $form = $this->createForm(new ApiClientType());
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid())
         {

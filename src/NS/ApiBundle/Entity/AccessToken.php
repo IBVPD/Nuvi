@@ -10,6 +10,7 @@ use \Symfony\Component\Security\Core\User\UserInterface;
 /**
  * Description of AccessToken
  * @ORM\Entity
+ * @ORM\Table(name="access_tokens")
  * @author gnat
  */
 class AccessToken extends BaseAccessToken
@@ -24,7 +25,7 @@ class AccessToken extends BaseAccessToken
 
     /**
      * @var Client $client
-     * @ORM\ManyToOne(targetEntity="Client")
+     * @ORM\ManyToOne(targetEntity="ApiClient")
      * @ORM\JoinColumn(nullable=false)
      */
     protected $client;

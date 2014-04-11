@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Description of AuthCode
  * @ORM\Entity
+ * @ORM\Table(name="auth_codes")
  * @author gnat
  */
 class AuthCode extends BaseAuthCode
@@ -23,7 +24,7 @@ class AuthCode extends BaseAuthCode
 
     /**
      * @var Client $client
-     * @ORM\OneToOne(targetEntity="Client")
+     * @ORM\OneToOne(targetEntity="ApiClient")
      */
     protected $client;
 

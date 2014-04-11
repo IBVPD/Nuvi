@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Description of RefreshToken
  * @ORM\Entity
+ * @ORM\Table(name="refresh_tokens")
  * @author gnat
  */
 class RefreshToken extends BaseRefreshToken
@@ -22,7 +23,7 @@ class RefreshToken extends BaseRefreshToken
 
     /**
      * @var Client $client
-     * @ORM\ManyToOne(targetEntity="Client")
+     * @ORM\ManyToOne(targetEntity="ApiClient")
      * @ORM\JoinColumn(nullable=false)
      */
     protected $client;
