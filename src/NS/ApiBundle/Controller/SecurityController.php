@@ -25,7 +25,7 @@ class SecurityController extends Controller
 
         if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR))
             $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
-        elseif (null !== $session && $session->has(SecurityContext::AUTHENTICATION_ERROR))
+        else if (null !== $session && $session->has(SecurityContext::AUTHENTICATION_ERROR))
         {
             $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
             $session->remove(SecurityContext::AUTHENTICATION_ERROR);
@@ -38,17 +38,14 @@ class SecurityController extends Controller
 
         $lastUsername = (null === $session) ? '' : $session->get(SecurityContext::LAST_USERNAME);
 
-        return $this->render('NSApiBundle:Security:login.html.twig', array(
-            'last_username' => $lastUsername,
-            'error'         => $error,
-        ));
+        return $this->render('NSApiBundle:Security:login.html.twig', array('last_username' => $lastUsername, 'error' => $error));
     }
     
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @Route("/login_check",name="apiLoginCheck")
      */
-    public function loginCheckAction(Request $request)
+    public function loginCheckAction()
     {
 
     }
