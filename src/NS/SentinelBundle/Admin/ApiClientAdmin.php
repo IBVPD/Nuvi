@@ -3,7 +3,6 @@
 namespace NS\SentinelBundle\Admin;
 
 use Sonata\AdminBundle\Admin\Admin;
-use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
@@ -34,6 +33,8 @@ class ApiClientAdmin extends Admin
     {
         $listMapper
             ->add('name')
+            ->add('publicId')
+            ->add('secret')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -41,6 +42,20 @@ class ApiClientAdmin extends Admin
                     'delete' => array(),
                 )
             ))
+        ;
+    }
+
+    /**
+     * @param ShowMapper $showMapper
+     */
+    protected function configureShowFields(ShowMapper $showMapper)
+    {
+        $showMapper
+            ->add('name')
+            ->add('publicId')
+            ->add('secret')
+            ->add('redirectUris')
+            ->add('allowedGrantTypes')
         ;
     }
 }

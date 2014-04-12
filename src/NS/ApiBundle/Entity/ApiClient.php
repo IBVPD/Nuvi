@@ -34,6 +34,11 @@ class ApiClient extends BaseClient
      */
     protected $user;
 
+    public function __construct()
+    {
+        return $this->name;
+    }
+
     public function getId()
     {
         return $this->id;

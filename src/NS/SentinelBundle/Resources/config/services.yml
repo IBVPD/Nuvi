@@ -263,4 +263,4 @@ services:
         class: NS\SentinelBundle\Admin\ApiClientAdmin
         arguments: [~, NS\ApiBundle\Entity\ApiClient, SonataAdminBundle:CRUD]
         tags:
-            - {name: sonata.admin, manager_type: orm, group: Administration, label: Api Clients, show_in_dashboard: false }
+            - {name: sonata.admin, manager_type: orm, group: Administration, label: Api Clients}

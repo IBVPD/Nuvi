@@ -76,7 +76,7 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
      *
      * @var ApiClient $apiClients
      *
-     * @ORM\OneToMany(targetEntity="NS\ApiBundle\Entity\ApiClient", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="NS\ApiBundle\Entity\ApiClient", mappedBy="user",cascade={"persist"},orphanRemoval=true)
      */
     private $apiClients;
 

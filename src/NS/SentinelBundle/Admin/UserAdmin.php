@@ -126,7 +126,14 @@ class UserAdmin extends Admin
                 $a->setUser($user);
             }
         }
-        
+
+        if($user->getApiClients())
+        {
+            foreach ($user->getApiClients() as $a) {
+                $a->setUser($user);
+            }
+        }
+
         return $user;
     }
 
@@ -144,7 +151,11 @@ class UserAdmin extends Admin
         foreach ($user->getAcls() as $a) {
             $a->setUser($user);
         }
-        
+
+        foreach ($user->getApiClients() as $a) {
+            $a->setUser($user);
+        }
+
         return $user;
     }
 
