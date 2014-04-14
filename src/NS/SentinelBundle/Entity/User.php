@@ -73,14 +73,6 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
     private $acls;
 
     /**
-     *
-     * @var ApiClient $apiClients
-     *
-     * @ORM\OneToMany(targetEntity="NS\ApiBundle\Entity\ApiClient", mappedBy="user",cascade={"persist"},orphanRemoval=true)
-     */
-    private $apiClients;
-
-    /**
      * @var boolean
      *
      * @ORM\Column(name="isAdmin", type="boolean")
@@ -332,7 +324,6 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
     public function __construct()
     {
         $this->acls       = new ArrayCollection();
-        $this->apiClients = new ArrayCollection();
     }
 
     /**
@@ -366,39 +357,6 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
     public function getAcls()
     {
         return $this->acls;
-    }
-
-    /**
-     * Add apiClients
-     *
-     * @param \NS\ApiBundle\Entity\ApiClient $apiClients
-     * @return User
-     */
-    public function addApiClient(\NS\ApiBundle\Entity\ApiClient $apiClients)
-    {
-        $this->apiClients[] = $apiClients;
-
-        return $this;
-    }
-
-    /**
-     * Remove apiClients
-     *
-     * @param \NS\ApiBundle\Entity\ApiClient $apiClients
-     */
-    public function removeApiClient(\NS\ApiBundle\Entity\ApiClient $apiClients)
-    {
-        $this->apiClients->removeElement($apiClients);
-    }
-
-    /**
-     * Get apiClients
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getApiClients()
-    {
-        return $this->apiClients;
     }
 
     /**

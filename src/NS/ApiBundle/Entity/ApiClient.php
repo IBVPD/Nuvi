@@ -27,13 +27,6 @@ class ApiClient extends BaseClient
      */
     private $name;
 
-    /**
-     *
-     * @var NS\SentinelBundle\Entity\User $user
-     * @ORM\ManyToOne(targetEntity="NS\SentinelBundle\Entity\User")
-     */
-    protected $user;
-
     public function __construct()
     {
         return $this->name;
@@ -58,17 +51,6 @@ class ApiClient extends BaseClient
     public function setName($name)
     {
         $this->name = $name;
-        return $this;
-    }
-
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    public function setUser($user)
-    {
-        $this->user = $user;
         return $this;
     }
 }
