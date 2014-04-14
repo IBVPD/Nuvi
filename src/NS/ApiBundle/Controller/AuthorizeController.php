@@ -2,17 +2,19 @@
 
 namespace NS\ApiBundle\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use NS\ApiBundle\Form\Model\Authorize;
 use NS\ApiBundle\Entity\ApiClient;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use OAuth2\OAuth2ServerException;
 
 /**
  * Description of AuthorizeController
  *
  * @author gnat
  */
-class AuthorizeController extends \Symfony\Bundle\FrameworkBundle\Controller\Controller
+class AuthorizeController extends Controller
 {
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -40,7 +42,7 @@ class AuthorizeController extends \Symfony\Bundle\FrameworkBundle\Controller\Con
             {
                 return $oauthServier->finishClientAuthorization(true,$this->getUser(),$request,null);
             }
-            catch(OAuth2\OAuth2ServerException $e)
+            catch(OAuth2ServerException $e)
             {
                 return $e->getHttpResponse();
             }
