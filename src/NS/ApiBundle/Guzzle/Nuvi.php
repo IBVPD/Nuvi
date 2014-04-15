@@ -23,5 +23,4 @@ class Nuvi extends AbstractService
     {
         return $this->getResponse();
     }
-
 }
