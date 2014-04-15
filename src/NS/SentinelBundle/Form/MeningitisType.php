@@ -61,11 +61,11 @@ class MeningitisType extends AbstractType
             ->add('meningType',             'MeningitisVaccinationType',    array('required'=>false,'label'=>'meningitis-form.men-type',            'attr' => array('data-context-field'=>'meningReceived', 'data-context-value'=>json_encode(array(MeningitisVaccinationReceived::YES_CARD,MeningitisVaccinationReceived::YES_HISTORY)))))
             ->add('meningMostRecentDose',   'acedatepicker',    array('required'=>false,'label'=>'meningitis-form.meningMostRecentDose',            'attr' => array('data-context-field'=>'meningReceived', 'data-context-value'=>json_encode(array(MeningitisVaccinationReceived::YES_CARD,MeningitisVaccinationReceived::YES_HISTORY)))))
 
-            ->add('csfCollected',       'switch',               array('required'=>false,'label'=>'meningitis-form.csf-collected','switchtype'=>2,   'attr' => array('data-context-field'=>'csfCollected')))
+            ->add('csfCollected',       'TripleChoice',         array('required'=>false,'label'=>'meningitis-form.csf-collected',                   'attr' => array('data-context-field'=>'csfCollected','data-context-value'=>TripleChoice::YES)))
             ->add('csfId',              null,                   array('required'=>false,'label'=>'meningitis-form.csf-id',                          'attr' => array('data-context-field'=>'csfCollected','data-context-value'=>true)))
             ->add('csfCollectDateTime', 'acedatetime',          array('required'=>false,'label'=>'meningitis-form.csf-collect-datetime',            'attr' => array('data-context-field'=>'csfCollected','data-context-value'=>true)))
             ->add('csfAppearance',      'CSFAppearance',        array('required'=>false,'label'=>'meningitis-form.csf-appearance',                  'attr' => array('data-context-field'=>'csfCollected','data-context-value'=>true)))
-            ->add('bloodCollected',     'switch',               array('required'=>false,'label'=>'meningitis-form.blood-collected','switchtype'=>2))
+
             ->add('dischOutcome',       'DischargeOutcome',     array('required'=>false,'label'=>'meningitis-form.discharge-outcome'))
             ->add('dischDx',            'Diagnosis',            array('required'=>false,'label'=>'meningitis-form.discharge-diagnosis',             'attr' => array('data-context-field'=>'dischargeDiagnosis')))
             ->add('dischDxOther',       null,                   array('required'=>false,'label'=>'meningitis-form.discharge-diagnosis-other',       'attr' => array('data-context-field'=>'dischargeDiagnosis', 'data-context-field'=>Diagnosis::OTHER)))
@@ -112,15 +112,17 @@ class MeningitisType extends AbstractType
 
                     if(!$country || ($country instanceof Country && $country->getTracksPneumonia()))
                     {
-                        $form->add('pneuDiffBreathe','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-diff-breathe'))
-                             ->add('pneuChestIndraw','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-chest-indraw'))
-                             ->add('pneuCough','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-cough'))
-                             ->add('pneuCyanosis','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-cyanosis'))
-                             ->add('pneuStridor','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-stridor'))
-                             ->add('pneuRespRate',null,array('required'=>false,'label'=>'meningitis-form.pneu-resp-rate'))
-                             ->add('pneuVomit','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-vomit'))
-                             ->add('pneuHypothermia','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-hypothermia'))
-                             ->add('pneuMalnutrition','TripleChoice',array('required'=>false,'label'=>'meningitis-form.pneu-malnutrition'));
+                        $form->add('pneuDiffBreathe',   'TripleChoice', array('required'=>false,'label'=>'meningitis-form.pneu-diff-breathe'))
+                             ->add('pneuChestIndraw',   'TripleChoice', array('required'=>false,'label'=>'meningitis-form.pneu-chest-indraw'))
+                             ->add('pneuCough',         'TripleChoice', array('required'=>false,'label'=>'meningitis-form.pneu-cough'))
+                             ->add('pneuCyanosis',      'TripleChoice', array('required'=>false,'label'=>'meningitis-form.pneu-cyanosis'))
+                             ->add('pneuStridor',       'TripleChoice', array('required'=>false,'label'=>'meningitis-form.pneu-stridor'))
+                             ->add('pneuRespRate',      null,           array('required'=>false,'label'=>'meningitis-form.pneu-resp-rate'))
+                             ->add('pneuVomit',         'TripleChoice', array('required'=>false,'label'=>'meningitis-form.pneu-vomit'))
+                             ->add('pneuHypothermia',   'TripleChoice', array('required'=>false,'label'=>'meningitis-form.pneu-hypothermia'))
+                             ->add('pneuMalnutrition',  'TripleChoice', array('required'=>false,'label'=>'meningitis-form.pneu-malnutrition'))
+                             ->add('bloodCollected',    'TripleChoice', array('required'=>false,'label'=>'meningitis-form.blood-collected'))
+                             ->add('bloodId',           null,           array('required'=>false));
                     }
 
                     if($country instanceof Country )

@@ -301,8 +301,8 @@ class Meningitis implements IdentityAssignmentInterface
 //Case-based Specimen Collection Data
 
     /**
-     * @var boolean $csfCollected
-     * @ORM\Column(name="csfCollected",type="boolean",nullable=true)
+     * @var TripleChoice $csfCollected
+     * @ORM\Column(name="csfCollected",type="TripleChoice",nullable=true)
      */
     private $csfCollected;
 
@@ -325,8 +325,8 @@ class Meningitis implements IdentityAssignmentInterface
     private $csfAppearance;
 
     /**
-     * @var boolean $bloodCollected
-     * @ORM\Column(name="bloodCollected", type="boolean",nullable=true)
+     * @var TripleChoice $bloodCollected
+     * @ORM\Column(name="bloodCollected", type="TripleChoice",nullable=true)
      */
     private $bloodCollected;
 
