@@ -391,6 +391,12 @@ class Meningitis implements IdentityAssignmentInterface
      */
     private $sentToNationalLab = false;
 
+    /**
+     * @var DateTime $updatedAt
+     * @ORM\Column(name="updatedAt",type="datetime")
+     */
+    private $updatedAt;
+
     public function __construct()
     {
         $this->result             = new MeningitisCaseResult(0);
@@ -1078,6 +1084,8 @@ class Meningitis implements IdentityAssignmentInterface
     {
         $this->_calculateStatus();
         $this->_calculateResult();
+
+        $this->updatedAt = new \DateTime();
     }
 
     /** 
@@ -1087,6 +1095,8 @@ class Meningitis implements IdentityAssignmentInterface
     {
         $this->_calculateStatus();
         $this->_calculateResult();
+
+        $this->updatedAt = new \DateTime();
     }
 
     /**
@@ -1431,5 +1441,16 @@ class Meningitis implements IdentityAssignmentInterface
     public function getSentToNationalLab()
     {
         return $this->sentToNationalLab;
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
     }
 }

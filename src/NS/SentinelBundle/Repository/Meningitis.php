@@ -216,4 +216,19 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
                     ->orderBy('m.id','DESC'))
                     ;
     }
+
+    public function findModified($modifiedSince = null)
+    {
+        $qb = $this->createQueryBuilder('m')
+                    ->select('m,rl,l')
+                    ->leftJoin("m.externalLabs", "rl")
+                    ->leftJoin("m.lab",'l')
+                    ->orderBy('m.id','DESC')
+                ;
+
+        if($modifiedSince)
+            $qb->where('m.updatedAt >= :updatedAt')->setParameter ('updatedAt', $modifiedSince);
+
+        return $qb->getQuery()->getResult();
+    }
 }
