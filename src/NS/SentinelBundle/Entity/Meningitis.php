@@ -301,8 +301,8 @@ class Meningitis implements IdentityAssignmentInterface
 //Case-based Specimen Collection Data
 
     /**
-     * @var boolean $csfCollected
-     * @ORM\Column(name="csfCollected",type="boolean",nullable=true)
+     * @var TripleChoice $csfCollected
+     * @ORM\Column(name="csfCollected",type="TripleChoice",nullable=true)
      */
     private $csfCollected;
 
@@ -325,8 +325,8 @@ class Meningitis implements IdentityAssignmentInterface
     private $csfAppearance;
 
     /**
-     * @var boolean $bloodCollected
-     * @ORM\Column(name="bloodCollected", type="boolean",nullable=true)
+     * @var TripleChoice $bloodCollected
+     * @ORM\Column(name="bloodCollected", type="TripleChoice",nullable=true)
      */
     private $bloodCollected;
 
@@ -390,6 +390,12 @@ class Meningitis implements IdentityAssignmentInterface
      * @ORM\Column(name="sentToNationalLab",type="boolean")
      */
     private $sentToNationalLab = false;
+
+    /**
+     * @var DateTime $updatedAt
+     * @ORM\Column(name="updatedAt",type="datetime")
+     */
+    private $updatedAt;
 
     public function __construct()
     {
@@ -1078,6 +1084,8 @@ class Meningitis implements IdentityAssignmentInterface
     {
         $this->_calculateStatus();
         $this->_calculateResult();
+
+        $this->updatedAt = new \DateTime();
     }
 
     /** 
@@ -1087,6 +1095,8 @@ class Meningitis implements IdentityAssignmentInterface
     {
         $this->_calculateStatus();
         $this->_calculateResult();
+
+        $this->updatedAt = new \DateTime();
     }
 
     /**
@@ -1431,5 +1441,16 @@ class Meningitis implements IdentityAssignmentInterface
     public function getSentToNationalLab()
     {
         return $this->sentToNationalLab;
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
     }
 }

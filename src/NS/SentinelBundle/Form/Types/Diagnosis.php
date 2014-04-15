@@ -12,20 +12,22 @@ use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
  */
 class Diagnosis extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    const NA         = 0;
-    const MENINGITIS = 1;
-    const PNEUMONIA  = 2;
-    const SEPSIS     = 3;
-    const OTHER      = 4;
-    const UNKNOWN    = 99;
+    const SUSPECTED_MENINGITIS       = 1;
+    const SUSPECTED_PNEUMONIA        = 2;
+    const SUSPECTED_SEVERE_PNEUMONIA = 3;
+    const SUSPECTED_SEPSIS           = 4;
+    const MULTIPLE                   = 5;
+    const OTHER                      = 6;
+    const UNKNOWN                    = 99;
 
     protected $values = array(
-                            self::NA          => 'N/A',
-                            self::MENINGITIS  => 'Meningitis', 
-                            self::PNEUMONIA   => 'Pneumonia', 
-                            self::SEPSIS      => 'Sepsis',
-                            self::OTHER       => 'Other',
-                            self::UNKNOWN     => 'Unknown');
+                            self::SUSPECTED_MENINGITIS       => 'Suspected meningitis',
+                            self::SUSPECTED_PNEUMONIA        => 'Suspected pneumonia',
+                            self::SUSPECTED_SEVERE_PNEUMONIA => 'Suspected severe pneumonia',
+                            self::SUSPECTED_SEPSIS           => 'Suspected sepsis',
+                            self::MULTIPLE                   => 'Multiple (i.e. suspected meningitis and/or pneumonia and/or sepsis)',
+                            self::OTHER                      => 'Other',
+                            self::UNKNOWN                    => 'Unknown');
 
     public function getName()
     {
