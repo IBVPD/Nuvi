@@ -23,15 +23,15 @@ class DischargeClassification extends ArrayChoice
     const UNKNOWN           = 99;
 
     protected $values = array(
-                            self::CONFIRMED_HI => 'Lab-confirmed for HI',
-                            self::CONFIRMED_SPN => 'Lab-confirmed for Spn',
-                            self::CONFIRMED_NM => 'Lab-confirmed for Nm',
-                            self::CONFIRMED_OTHER => 'Lab-confirmed for other organism',
-                            self::PROBABLE => 'Probable',
-                            self::SUSPECT => 'Suspect',
-                            self::INCOMPLETE => 'Incomplete investigation',
-                            self::DISCARDED => 'Discarded case',
-                            self::UNKNOWN => 'Unknown',
+                            self::CONFIRMED_HI      => 'Lab-confirmed for HI',
+                            self::CONFIRMED_SPN     => 'Lab-confirmed for Spn',
+                            self::CONFIRMED_NM      => 'Lab-confirmed for Nm',
+                            self::CONFIRMED_OTHER   => 'Lab-confirmed for other organism',
+                            self::PROBABLE          => 'Probable',
+                            self::SUSPECT           => 'Suspect',
+                            self::INCOMPLETE        => 'Incomplete investigation',
+                            self::DISCARDED         => 'Discarded case',
+                            self::UNKNOWN           => 'Unknown',
                              );
 
     public function getName()
