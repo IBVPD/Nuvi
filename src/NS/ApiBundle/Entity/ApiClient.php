@@ -27,7 +27,7 @@ class ApiClient extends BaseClient
      */
     private $name;
 
-    public function __construct()
+    public function __toString()
     {
         return $this->name;
     }

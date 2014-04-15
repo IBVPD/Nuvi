@@ -1,6 +1,6 @@
 <?php
 
-namespace NS\SentinelBundle\Admin;
+namespace NS\ApiBundle\Admin;
 
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;

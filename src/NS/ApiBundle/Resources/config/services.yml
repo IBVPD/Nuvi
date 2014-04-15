@@ -27,3 +27,9 @@ services:
       class: NS\ApiBundle\Form\Handler\AuthorizeFormHandler
       scope: request
       arguments: [ "@ns_api_oauth_server.authorize.form", "@request", "@security.context", "@fos_oauth_server.server" ]
+
+    ns_sentinel.admin.api_client:
+        class: NS\ApiBundle\Admin\ApiClientAdmin
+        arguments: [~, NS\ApiBundle\Entity\ApiClient, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: Sync, label: Api Clients}
