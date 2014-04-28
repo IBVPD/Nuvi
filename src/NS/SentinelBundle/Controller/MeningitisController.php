@@ -55,11 +55,39 @@ class MeningitisController extends Controller
         else if($sc->isGranted('ROLE_REGION'))
             $t = array('header_template'=>'NSSentinelBundle:Meningitis:indexRegionHeader.html.twig', 'row_template'=>'NSSentinelBundle:Meningitis:indexRegionRow.html.twig');
 
-        return array('pagination' => $pagination, 't' => $t, 'form' => $this->createForm('results_per_page')->createView(),'filterForm'=>$filterForm->createView());
+        $createForm = ($sc->isGranted('ROLE_CAN_CREATE')) ? $this->createForm('create_ibd')->createView():null;
+
+        return array('pagination' => $pagination, 't' => $t, 'form' => $this->createForm('results_per_page')->createView(),'filterForm'=>$filterForm->createView(),'createForm'=>$createForm);
     }
 
     /**
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @Route("/create",name="meningitisCreate")
+     * @Template()
+     * @Method({"POST"})
+     */
+    public function createAction(Request $request)
+    {
+        $form = $this->createForm('create_ibd');
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $dbId   = $form->get('id')->getData();
+            $caseId = $form->get('caseId')->getData();
+            $type   = $form->get('type')->getData();
+
+            $em         = $this->get('ns.model_manager');
+            $meningCase = $em->getRepository('NSSentinelBundle:Meningitis')->findOrCreate($dbId,$caseId);
+            
+            die("DB: $dbId, CaseId: $caseId, Type: $type");
+        }
+
+        return $this->redirect($this->generateUrl('meningitisIndex'));
+    }
+
+    /**
      * @Route("/edit/{id}",name="meningitisEdit",defaults={"id"=null})
      * @Template()
      */
@@ -69,7 +97,6 @@ class MeningitisController extends Controller
     }
 
     /**
-     * @Route("/rrl/create/{id}",name="meningitisRRLCreate")
      * @Route("/rrl/edit/{id}",name="meningitisRRLEdit",defaults={"id"=null})
      * @Template("NSSentinelBundle:Meningitis:editBaseLab.html.twig")
      */
@@ -79,7 +106,6 @@ class MeningitisController extends Controller
     }
 
     /**
-     * @Route("/nl/create/{id}",name="meningitisNLCreate")
      * @Route("/nl/edit/{id}",name="meningitisNLEdit",defaults={"id"=null})
      * @Template("NSSentinelBundle:Meningitis:editBaseLab.html.twig")
      */
@@ -89,7 +115,6 @@ class MeningitisController extends Controller
     }
 
     /**
-     * @Route("/lab/create/{id}",name="meningitisLabCreate")
      * @Route("/lab/edit/{id}",name="meningitisLabEdit",defaults={"id"=null})
      * @Template()
      */

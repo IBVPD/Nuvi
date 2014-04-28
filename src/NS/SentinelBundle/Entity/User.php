@@ -421,6 +421,11 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
         return $object_ids;        
     }
 
+    public function getCanCreate()
+    {
+        return ($this->canCreateCases || $this->canCreateLabs || $this->canCreateRRLLabs || $this->canCreateNLLabs);
+    }
+
     public function getCanCreateCases()
     {
         return $this->canCreateCases;

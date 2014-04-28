@@ -2,6 +2,19 @@ parameters:
 #    ns_sentinel.example.class: NS\SentinelBundle\Example
 
 services:
+    ns.sentinel.form.type.ibdcreateroles:
+      class: NS\SentinelBundle\Form\Types\IBDCreateRoles
+      calls:
+        - [ setSecurityContext, [ @security.context ] ]
+      tags:
+        - { name: form.type, alias: IBDCreateRoles }
+
+    ns.sentinel.form.create_ibd:
+      class: NS\SentinelBundle\Form\CreateIBDType
+      arguments: [ "@ns.sentinel.sites", "@ns.model_manager" ]
+      tags:
+        - { name: form.type, alias: create_ibd }
+
     ns.sentinel.sites:
       class: NS\SentinelBundle\Services\SerializedSites
       arguments: [ "@session", "@ns.model_manager" ]

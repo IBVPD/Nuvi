@@ -19,11 +19,7 @@ class SiteLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
     public function getForAutoComplete($fields, array $value, $limit)
     {
         $alias = 'd';
-        $qb    = $this->_em->createQueryBuilder()
-                              ->select($alias)
-                              ->from($this->getClassName(), $alias)
-                              ->setMaxResults($limit);
-
+        $qb    = $this->createQueryBuilder($alias)->setMaxResults($limit);
         
         if(!empty($value) && $value['value'][0]=='*')
             return $this->secure($qb)->getQuery();
@@ -59,10 +55,7 @@ class SiteLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
                 $r = $this->find($id);
             else
             {
-                $qb = $this->_em
-                           ->createQueryBuilder()
-                           ->select('r')
-                           ->from($this->getClassName(),'r')
+                $qb = $this->createQueryBuilder('r')
                            ->where('r.case = :case')
                            ->setParameter('case',$this->_em->getReference('NSSentinelBundle:Meningitis',$id));
 
@@ -91,10 +84,7 @@ class SiteLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
     {
         try
         {
-            $qb = $this->_em
-                       ->createQueryBuilder()
-                       ->select('m')
-                       ->from($this->getClassName(),'m')
+            $qb = $this->createQueryBuilder('m')
                        ->where('m.id = :id')
                        ->setParameter('id', $id);
 

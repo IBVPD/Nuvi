@@ -62,16 +62,16 @@ class BaseLabType extends AbstractType
 
                     if(!$data || ($data && !$data->getCase()))
                     {
-                        $form->add('caseId','text',array('required'        => true,
-                                                         'label'           => 'site-assigned-case-id',
-                                                         'mapped'          =>false));
+                        $form->add('caseId','text',array('required' => true,
+                                                         'label'    => 'site-assigned-case-id',
+                                                         'mapped'   => false));
 
                         if($siteSerializer->hasMultipleSites())
                         {
-                            $form->add('site','entity',array('required'        => true,
+                            $form->add('site','entity',array('required'    => true,
                                                          'mapped'          => false,
                                                          'empty_value'     => 'Please Select...',
-                                                         'label'           => 'rotavirus-form.site',
+                                                         'label'           => 'meningitis-form.site',
                                                          'query_builder'   => $em->getRepository('NS\SentinelBundle\Entity\Site')->getChainQueryBuilder(),
                                                          'class'           => 'NS\SentinelBundle\Entity\Site',
                                                          'auto_initialize' => false));

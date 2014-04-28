@@ -163,17 +163,12 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
     {
         try 
         {
-            $qb = $this->_em
-                      ->createQueryBuilder('m')
-                      ->select('m')
-                      ->from($this->getClassName(),'m')
-                      ->where('m.id = :id')
-                      ->setParameter('id', $id);
-            
+            $qb = $this->createQueryBuilder('m')
+                       ->where('m.id = :id')
+                       ->setParameter('id', $id);
+
             if($this->hasSecuredQuery())
-                return $this->secure($qb)
-                            ->getQuery()
-                            ->getSingleResult();
+                return $this->secure($qb)->getQuery()->getSingleResult();
             else
                 return $qb->getQuery()->getSingleResult();
         }
@@ -202,6 +197,37 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
         catch(NoResultException $e)
         {
             throw new NonExistentCase("This case does not exist!");
+        }
+    }
+
+    public function findOrCreate($id = null,$caseId = null)
+    {
+        if($id == null && $caseId == null)
+            throw new \InvalidArgumentException("Id or Case must be provided");
+
+        $qb = $this->createQueryBuilder('m')
+                   ->select('m,s,c,r,e,l')
+                   ->innerJoin('m.site', 's')
+                   ->innerJoin('s.country', 'c')
+                   ->innerJoin('m.region', 'r')
+                   ->leftJoin('m.externalLabs', 'e')
+                   ->leftJoin('m.lab','l');
+
+        if($id)
+            $qb->where('m.id = :id')->setParameter('id', $id);
+
+        if($caseId)
+            $qb->orWhere ('m.caseId = :caseId')->setParameter('caseId', $caseId);
+
+        try
+        {
+            return $this->secure($qb)->getQuery()->getSingleResult();
+        }
+        catch (NoResultException $ex)
+        {
+            $res = new \NS\SentinelBundle\Entity\Meningitis();
+//            $res->
+            return null;
         }
     }
 
