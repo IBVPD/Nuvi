@@ -67,22 +67,24 @@ class SiteLabType extends AbstractType
             ->add('bloodCultResult',    'LatResult',            array('required'=>false, 'label'=>'meningitis-form.blood-cult-result',  'attr' => array('data-context-field'=>'bloodCultDone','data-context-value'=>  Types\TripleChoice::YES)))
             ->add('bloodCultOther',     null,                   array('required'=>false, 'label'=>'meningitis-form.blood-cult-other',   'attr' => array('data-context-field'=>'bloodCultDone','data-context-value'=>  Types\TripleChoice::YES)))
 
-            ->add('bloodGramDone',      'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.blood-gram-done',    'attr' => array('data-context-field'=>'bloodGramDone')))
-            ->add('bloodGramResult',    'GramStain',            array('required'=>false, 'label'=>'meningitis-form.blood-gram-result',   'attr' => array('data-context-field'=>'bloodGramDone','data-context-value'=>  Types\TripleChoice::YES)))
-            ->add('bloodGramResultOrganism','GramStainOrganism',array('required'=>false, 'label'=>'meningitis-form.blood-gram-result-organism',   'attr' => array('data-context-field'=>'bloodGramDone','data-context-value'=>  Types\TripleChoice::YES)))
-            ->add('bloodGramOther',     null,                   array('required'=>false, 'label'=>'meningitis-form.blood-gram-other',   'attr' => array('data-context-field'=>'bloodGramDone','data-context-value'=>  Types\TripleChoice::YES)))
+            ->add('bloodGramDone',      'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.blood-gram-done',            'attr' => array('data-context-field'=>'bloodGramDone')))
+            ->add('bloodGramResult',    'GramStain',            array('required'=>false, 'label'=>'meningitis-form.blood-gram-result',          'attr' => array('data-context-field'=>'bloodGramDone','data-context-value'=>  Types\TripleChoice::YES)))
+            ->add('bloodGramResultOrganism','GramStainOrganism',array('required'=>false, 'label'=>'meningitis-form.blood-gram-result-organism', 'attr' => array('data-context-field'=>'bloodGramDone','data-context-value'=>  Types\TripleChoice::YES)))
+            ->add('bloodGramOther',     null,                   array('required'=>false, 'label'=>'meningitis-form.blood-gram-other',           'attr' => array('data-context-field'=>'bloodGramDone','data-context-value'=>  Types\TripleChoice::YES)))
 
             ->add('bloodPcrDone',       'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.blood-pcr-done',    'attr' => array('data-context-field'=>'bloodPcrDone')))
             ->add('bloodPcrResult',     'PCRResult',            array('required'=>false, 'label'=>'meningitis-form.blood-pcr-result',  'attr' => array('data-context-field'=>'bloodPcrDone','data-context-value'=>  Types\TripleChoice::YES)))
             ->add('bloodPcrOther',      null,                   array('required'=>false, 'label'=>'meningitis-form.blood-pcr-other',   'attr' => array('data-context-field'=>'bloodPcrDone','data-context-value'=>  Types\TripleChoice::YES)))
 
-            ->add('otherCultDone',      'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.other-culture'))
-            ->add('otherTestDone',      'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.other-test-done'))
-            ->add('otherTest',          null,                   array('required'=>false, 'label'=>'meningitis-form.other-test'))
-            ->add('otherCultResult',    'LatResult',            array('required'=>false, 'label'=>'meningitis-form.other-tests'))
-            ->add('otherCultOther',     null,                   array('required'=>false, 'label'=>'meningitis-form.other-cult-other'))
-            ->add('otherTestResult',    'PCRResult',            array('required'=>false, 'label'=>'meningitis-form.other-test-result'))
-            ->add('otherTestOther',     null,                   array('required'=>false, 'label'=>'meningitis-form.other-test-other'))
+            ->add('otherCultDone',      'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.other-cult-done',    'attr'=>array('data-context-field'=>'otherCultDone')))
+            ->add('otherCultResult',    'LatResult',            array('required'=>false, 'label'=>'meningitis-form.other-cult-result',  'attr'=>array('data-context-field'=>'otherCultDone','data-context-value'=>Types\TripleChoice::YES)))
+            ->add('otherCultOther',     null,                   array('required'=>false, 'label'=>'meningitis-form.other-cult-other',   'attr'=>array('data-context-field'=>'otherCultDone','data-context-value'=>Types\TripleChoice::YES)))
+
+            ->add('otherTestDone',      'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.other-test-done',    'attr'=>array('data-context-field'=>'otherTestDone')))
+            ->add('otherTestResult',    'PCRResult',            array('required'=>false, 'label'=>'meningitis-form.other-test-result',  'attr'=>array('data-context-field'=>'otherTestDone','data-context-value'=>Types\TripleChoice::YES)))
+            ->add('otherTestOther',     null,                   array('required'=>false, 'label'=>'meningitis-form.other-test-other',   'attr'=>array('data-context-field'=>'otherTestDone','data-context-value'=>Types\TripleChoice::YES)))
+            ->add('otherTest',          null,                   array('required'=>false, 'label'=>'meningitis-form.other-test',         'attr'=>array('data-context-field'=>'otherTestDone','data-context-value'=>Types\TripleChoice::YES)))
+
             ->add('cxrDone',            'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.cxr-done',     'attr' => array('data-context-field'=>'cxrDone')))
             ->add('cxrResult',          'CXRResult',            array('required'=>false, 'label'=>'meningitis-form.cxr-result',   'attr' => array('data-context-field'=>'cxrDone','data-context-value'=>  Types\TripleChoice::YES)))
         ;

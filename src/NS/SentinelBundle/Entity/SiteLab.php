@@ -10,6 +10,8 @@ use \NS\SentinelBundle\Form\Types\GramStainOrganism;
 use \NS\SentinelBundle\Form\Types\BinaxResult;
 use \NS\SentinelBundle\Form\Types\PCRResult;
 use \NS\SentinelBundle\Form\Types\CXRResult;
+use \NS\SentinelBundle\Form\Types\CaseStatus;
+use Symfony\Component\Validator\ExecutionContextInterface;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use \NS\SecurityBundle\Annotation\Secured;
@@ -28,6 +30,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      @SecuredCondition(roles={"ROLE_COUNTRY"},through={"case"},relation="country",class="NSSentinelBundle:Country"),
  *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB","ROLE_RRL_LAB","ROLE_NL_LAB"},through="case",relation="site",class="NSSentinelBundle:Site"),
  *      })
+ * @Assert\Callback(methods={"validate"})
  */
 class SiteLab
 {
@@ -55,18 +58,22 @@ class SiteLab
     /**
      * @var boolean $csfWcc
      * @ORM\Column(name="csfWcc", type="integer",nullable=true)
+     * @Assert\Range(min=10,max=100,minMessage="10 doesn't make sense",maxMessage="100 is too high")
      */
     private $csfWcc;
 
     /**
      * @var boolean $csfGlucose
      * @ORM\Column(name="csfGlucose", type="integer",nullable=true)
+     * @Assert\Range(min=10,max=100,minMessage="10 doesn't make sense",maxMessage="100 is too high")
+     *
      */
     private $csfGlucose;
 
     /**
      * @var boolean $csfProtein
      * @ORM\Column(name="csfProtein", type="integer",nullable=true)
+     * @Assert\Range(min=10,max=100,minMessage="10 doesn't make sense",maxMessage="100 is too high")
      */
     private $csfProtein;
 
@@ -340,11 +347,49 @@ class SiteLab
      */
     private $cxrResult;
 
+    /**
+     * @var DateTime $updatedAt
+     * @ORM\Column(name="updatedAt",type="datetime")
+     */
+    private $updatedAt;
+
+    /**
+     * @var CaseStatus $status
+     * @ORM\Column(name="status",type="CaseStatus")
+     */
+    private $status;
+
     public function __construct($case = null)
     {
         if($case instanceof Meningitis)
             $this->case = $case;
 
+        $this->updatedAt = new \DateTime();
+        $this->status    = new CaseStatus(CaseStatus::OPEN);
+
+        return $this;
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTime $updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    public function setStatus(CaseStatus $status)
+    {
+        $this->status = $status;
         return $this;
     }
 
@@ -901,5 +946,106 @@ class SiteLab
     {
         $this->cxrResult = $cxrResult;
         return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function prePersist()
+    {
+        $this->_calculateStatus();
+
+        $this->updatedAt = new \DateTime();
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function preUpdate()
+    {
+        $this->_calculateStatus();
+
+        $this->updatedAt = new \DateTime();
+    }
+
+    public function validate(ExecutionContextInterface $context)
+    {
+        if($this->csfCultDone && $this->csfCultDone->equal(TripleChoice::YES) && !$this->csfCultResult)
+            $context->addViolationAt('admDx',"form.validation.meningitis-sitelab-csfCult-was-done-without-result");
+
+        if($this->csfCultDone && $this->csfCultDone->equal(TripleChoice::YES) && $this->csfCultResult && $this->csfCultResult->equal(LatResult::OTHER) && empty($this->csfCultOther))
+            $context->addViolationAt('admDx',"form.validation.meningitis-sitelab-csfCult-was-done-without-result");
+
+        if($this->csfBinaxDone && $this->csfBinaxDone->equal(TripleChoice::YES) && !$this->csfBinaxResult)
+            $context->addViolationAt('admDx',"form.validation.meningitis-sitelab-csfBinax-was-done-without-result");
+
+        if($this->csfLatDone && $this->csfLatDone->equal(TripleChoice::YES) && !$this->csfLatResult)
+            $context->addViolationAt('admDx',"form.validation.meningitis-sitelab-csfLat-was-done-without-result");
+
+        if($this->csfLatDone && $this->csfLatDone->equal(TripleChoice::YES) && $this->csfLatResult && $this->csfLatResult->equal(LatResult::OTHER) && empty($this->csfLatOther))
+            $context->addViolationAt('admDx',"form.validation.meningitis-sitelab-csfLat-was-done-without-result");
+
+        if($this->csfPcrDone && $this->csfPcrDone->equal(TripleChoice::YES) && !$this->csfPcrResult)
+            $context->addViolationAt('admDx',"form.validation.meningitis-sitelab-csfPcr-was-done-without-result");
+
+        if($this->csfPcrDone && $this->csfPcrDone->equal(TripleChoice::YES) && $this->csfPcrResult && $this->csfPcrResult->equal(LatResult::OTHER) && empty($this->csfPcrOther))
+            $context->addViolationAt('admDx',"form.validation.meningitis-sitelab-csfPcr-was-done-without-result");
+    }
+
+    private function _calculateStatus()
+    {
+        // Don't adjust cancelled or deleted records
+        if($this->status->getValue() >= CaseStatus::CANCELLED)
+            return;
+
+        if($this->getIncompleteField())
+            $this->status->setValue(CaseStatus::OPEN);
+        else
+            $this->status->setValue(CaseStatus::COMPLETE);
+
+        return;
+    }
+
+    public function getIncompleteField()
+    {
+        foreach($this->getMinimumRequiredFields() as $field)
+        {
+            if(is_null($this->$field) || empty($this->$field) || ($this->$field instanceof ArrayChoice && $this->$field->equal(-1)) )
+                return $field;
+        }
+
+        //Additional Tests as needed (result=other && other fields etc)
+
+        return null;
+    }
+
+    public function getMinimumRequiredFields()
+    {
+        return array(
+                    'csfLabDateTime',
+                    'csfWcc',
+                    'csfGlucose',
+                    'csfProtein',
+                    'csfCultDone',
+                    'csfGramDone',
+                    'csfBinaxDone',
+                    'csfLatDone',
+                    'csfPcrDone',
+                    'rrlCsfDate',
+                    'rrlIsolDate',
+                    'csfStore',
+                    'isolStore',
+                    'bloodCultDone',
+                    'bloodGramDone',
+                    'bloodPcrDone',
+                    'rrlBrothDate',
+                    'rrlIsolBloodDate',
+                    'otherCultDone',
+                    'otherTestDone',
+                    'spnSerotype',
+                    'hiSerotype',
+                    'nmSerogroup',
+                    'cxrDone'
+                    );
     }
 }
