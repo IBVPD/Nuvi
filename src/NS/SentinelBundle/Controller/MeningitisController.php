@@ -7,11 +7,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
-use NS\SentinelBundle\Form\MeningitisType;
-use NS\SentinelBundle\Form\MeningitisSearch;
 use NS\SentinelBundle\Exceptions\NonExistentCase;
-use Symfony\Component\Form\FormError;
-use NS\SentinelBundle\Entity\Meningitis;
+use NS\SentinelBundle\Form\Types\IBDCreateRoles;
+use \Symfony\Component\Form\FormError;
 
 /**
  * @Route("/{_locale}/ibd")
@@ -79,9 +77,43 @@ class MeningitisController extends Controller
             $type   = $form->get('type')->getData();
 
             $em         = $this->get('ns.model_manager');
-            $meningCase = $em->getRepository('NSSentinelBundle:Meningitis')->findOrCreate($dbId,$caseId);
-            
-            die("DB: $dbId, CaseId: $caseId, Type: $type");
+            $meningCase = $em->getRepository('NSSentinelBundle:Meningitis')->findOrCreate($caseId,$dbId);
+
+            if(!$meningCase->getId())
+            {
+                if($form->has('site'))
+                    $site = $form->get('site')->getData();
+                else
+                    $site = $this->get('ns.sentinel.sites')->getSite();
+
+                $meningCase->setSite($site);
+            }
+
+            switch($type->getValue())
+            {
+                case IBDCreateRoles::IBD:
+                    $res = $this->redirect($this->generateUrl('meningitisEdit',array('id' => $meningCase->getId())));
+                    break;
+                case IBDCreateRoles::SITE:
+                    $res = $this->redirect($this->generateUrl('meningitisLabEdit',array('id' => $meningCase->getId())));
+                    break;
+                case IBDCreateRoles::RRL:
+                    $meningCase->setSentToReferenceLab(true);
+                    $res = $this->redirect($this->generateUrl('meningitisRRLEdit',array('id' => $meningCase->getId())));
+                    break;
+                case IBDCreateRoles::NL:
+                    $meningCase->setSentToNationalLab(true);
+                    $res = $this->redirect($this->generateUrl('meningitisNLEdit',array('id' => $meningCase->getId())));
+                    break;
+                default:
+                    $res = $this->redirect($this->generateUrl('meningitisIndex'));
+                    break;
+            }
+
+            $em->persist($meningCase);
+            $em->flush();
+
+            return $res;
         }
 
         return $this->redirect($this->generateUrl('meningitisIndex'));
@@ -175,7 +207,7 @@ class MeningitisController extends Controller
                 {
                     // TODO Flash service required
                     if($e->getPrevious()->getCode() === '23000')
-                        $form->addError(new \Symfony\Component\Form\FormError ("The case id already exists for this site!"));
+                        $form->addError(new FormError ("The case id already exists for this site!"));
                     else
                         die("ERROR: ".$e->getMessage());
 

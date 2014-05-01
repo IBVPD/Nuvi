@@ -30,7 +30,7 @@ class CreateIBDType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('id',     null,   array('label'=>'db-generated-id'))
+            ->add('id',     null,   array('label'=>'db-generated-id','required'=>false))
             ->add('caseId', null,   array('label'=>'site-assigned-case-id'))
             ->add('type',   'IBDCreateRoles')
             ;

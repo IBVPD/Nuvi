@@ -1124,7 +1124,7 @@ class Meningitis implements IdentityAssignmentInterface
             if(($this->menAltConscious && $this->menAltConscious->equal(TripleChoice::YES)) || ($this->menNeckStiff && $this->menNeckStiff->equal(TripleChoice::YES)) )
                 $this->result->setValue (MeningitisCaseResult::SUSPECTED);
         }
-        else if($this->ageInMonths < 60 && $this->admDx && $this->admDx->equal(Diagnosis::MENINGITIS))
+        else if($this->ageInMonths < 60 && $this->admDx && $this->admDx->equal(Diagnosis::SUSPECTED_MENINGITIS))
             $this->result->setValue (MeningitisCaseResult::SUSPECTED);
 
         if($this->result && $this->result->equal(MeningitisCaseResult::SUSPECTED))

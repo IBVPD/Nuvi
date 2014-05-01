@@ -200,7 +200,7 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
         }
     }
 
-    public function findOrCreate($id = null,$caseId = null)
+    public function findOrCreate($caseId, $id = null)
     {
         if($id == null && $caseId == null)
             throw new \InvalidArgumentException("Id or Case must be provided");
@@ -211,13 +211,12 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
                    ->innerJoin('s.country', 'c')
                    ->innerJoin('m.region', 'r')
                    ->leftJoin('m.externalLabs', 'e')
-                   ->leftJoin('m.lab','l');
+                   ->leftJoin('m.lab','l')
+                   ->where('m.caseId = :caseId')
+                   ->setParameter('caseId', $caseId);
 
         if($id)
-            $qb->where('m.id = :id')->setParameter('id', $id);
-
-        if($caseId)
-            $qb->orWhere ('m.caseId = :caseId')->setParameter('caseId', $caseId);
+            $qb->orWhere('m.id = :id')->setParameter('id', $id);
 
         try
         {
@@ -226,8 +225,9 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
         catch (NoResultException $ex)
         {
             $res = new \NS\SentinelBundle\Entity\Meningitis();
-//            $res->
-            return null;
+            $res->setCaseId($caseId);
+
+            return $res;
         }
     }
 
