@@ -136,12 +136,6 @@
             <div class="widget-body">
                 <div class="widget-main">
                     {{form_row(form.csfCollected)}}
-                    {% if form.sentToReferenceLab is defined %}
-                        {{form_row(form.sentToReferenceLab )}}
-                    {% endif %}
-                    {% if form.sentToNationalLab is defined %}
-                        {{form_row(form.sentToNationalLab )}}
-                    {% endif %}
                     {{form_row(form.csfCollectDateTime)}}
                     {{form_row(form.csfId)}}
                     {{form_row(form.csfAppearance)}}
@@ -149,6 +143,13 @@
                     {% if form.pneuDiffBreathe is defined %}
                     {{form_row(form.bloodCollected)}}
                     {{form_row(form.bloodId)}}
+                    {% endif %}
+
+                    {% if form.sentToReferenceLab is defined %}
+                        {{form_row(form.sentToReferenceLab )}}
+                    {% endif %}
+                    {% if form.sentToNationalLab is defined %}
+                        {{form_row(form.sentToNationalLab )}}
                     {% endif %}
                 </div>
             </div>
