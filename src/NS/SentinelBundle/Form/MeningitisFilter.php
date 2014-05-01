@@ -4,9 +4,20 @@ namespace NS\SentinelBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\FormBuilderInterface;
 
 class MeningitisFilter extends AbstractType
 {
+     /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        parent::buildForm($builder, $options);
+        $builder->add('status', 'CaseStatus', array('required'=>false, 'label' => 'filter-case-status'));
+    }
+
     /**
      * @param OptionsResolverInterface $resolver
      */

@@ -39,8 +39,6 @@ class BaseFilter extends AbstractType
                                             'condition_pattern' => FilterOperands::STRING_BOTH,
                                             'label'             => 'site-assigned-case-id'));
 
-        $builder->add('status', 'CaseStatus', array('required'=>false, 'label' => 'filter-case-status'));
-
         $securityContext = $this->securityContext;
         $entityManager   = $this->entityManager;
 
