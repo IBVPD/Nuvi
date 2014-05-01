@@ -251,6 +251,11 @@ class Meningitis implements \Serializable
      */
     private $dischSequelae;
 
+    /**
+     * @var CaseStatus $status
+     */
+    private $status;
+
     public function __construct()
     {
         $this->dob                = new \DateTime();
@@ -899,6 +904,17 @@ class Meningitis implements \Serializable
     public  function setCaseId($caseId)
     {
         $this->caseId = $caseId;
+        return $this;
+    }
+
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    public function setStatus($status)
+    {
+        $this->status = $status;
         return $this;
     }
 }

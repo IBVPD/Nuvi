@@ -2,6 +2,11 @@ parameters:
 #    ns_sentinel.example.class: NS\SentinelBundle\Example
 
 services:
+    ns.sentinel.filter.listener:
+      class: NS\SentinelBundle\Filter\CaseStatusListener
+      tags:
+        - { name: kernel.event_subscriber } 
+
     ns.sentinel.form.type.ibdcreateroles:
       class: NS\SentinelBundle\Form\Types\IBDCreateRoles
       calls:

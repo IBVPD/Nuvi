@@ -39,6 +39,8 @@ class BaseFilter extends AbstractType
                                             'condition_pattern' => FilterOperands::STRING_BOTH,
                                             'label'             => 'site-assigned-case-id'));
 
+        $builder->add('status', 'CaseStatus', array('required'=>false, 'label' => 'filter-case-status'));
+
         $securityContext = $this->securityContext;
         $entityManager   = $this->entityManager;
 
@@ -58,7 +60,6 @@ class BaseFilter extends AbstractType
                                 $form->add('country','filter_entity',array('class'           => 'NSSentinelBundle:Region',
                                                                            'multiple'      => true,
                                                                            'query_builder' => $qb));
-
                             }
 
                             $qb = $entityManager->getRepository('NSSentinelBundle:Country')->getAllSecuredQueryBuilder();
@@ -103,7 +104,26 @@ class BaseFilter extends AbstractType
                         $form->add('find','iconbutton',array('type'=>'submit', 'icon' => 'icon-search','attr'=>array('class'=>'btn btn-sm btn-success')));
                     }
                     );
-    }
+/*
+        if($this->securityContext->isGranted('ROLE_CAN_CREATE'))
+        {
+            if($this->securityContext->isGranted('ROLE_CAN_CREATE_LAB'))
+            {
+                $builder->add('isComplete',null,array('required'=>false, 'label' => 'filter-case-is-complete'));
+            }
+
+            if($this->securityContext->isGranted('ROLE_CAN_CREATE_NL_LAB'))
+            {
+                $builder->add('isComplete',null,array('required'=>false, 'label' => 'filter-case-is-complete'));
+            }
+
+            if($this->securityContext->isGranted('ROLE_CAN_CREATE_RRL_LAB'))
+            {
+                $builder->add('isComplete',null,array('required'=>false, 'label' => 'filter-case-is-complete'));
+            }
+        }
+ */
+     }
 
     /**
      * @param OptionsResolverInterface $resolver
