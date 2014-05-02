@@ -106,6 +106,7 @@ class SiteLab
      * @ORM\Column(name="csfPcrDone",type="TripleChoice",nullable=true)
      */
     private $csfPcrDone;
+
     /**
      * @var LatResult $csfCultResult
      * @ORM\Column(name="csfCultResult",type="LatResult",nullable=true)
@@ -988,7 +989,7 @@ class SiteLab
         if($this->csfPcrDone && $this->csfPcrDone->equal(TripleChoice::YES) && !$this->csfPcrResult)
             $context->addViolationAt('admDx',"form.validation.meningitis-sitelab-csfPcr-was-done-without-result");
 
-        if($this->csfPcrDone && $this->csfPcrDone->equal(TripleChoice::YES) && $this->csfPcrResult && $this->csfPcrResult->equal(LatResult::OTHER) && empty($this->csfPcrOther))
+        if($this->csfPcrDone && $this->csfPcrDone->equal(TripleChoice::YES) && $this->csfPcrResult && $this->csfPcrResult->equal(PCRResult::OTHER) && empty($this->csfPcrOther))
             $context->addViolationAt('admDx',"form.validation.meningitis-sitelab-csfPcr-was-done-without-result");
     }
 

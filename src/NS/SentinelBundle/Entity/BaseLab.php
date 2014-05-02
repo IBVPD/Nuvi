@@ -717,7 +717,7 @@ class BaseLab
                     'nmSerogroup',
                     'resultSentToCountry',
                     'resultSentToWHO',
-            );
+                    );
     }
 
     protected function _calculateIsComplete()
@@ -725,23 +725,14 @@ class BaseLab
         foreach($this->getMandatoryFields() as $fieldName)
         {
             if(!$this->$fieldName)
-            {
-                $this->isComplete = false;
-                return;
-            }
+                return $this->isComplete = false;
         }
 
         if($this->pathogenIdentifierMethod && $this->pathogenIdentifierMethod->equal(Diagnosis::OTHER) && empty($this->pathogenIdentifierOther))
-        {
-            $this->isComplete = false;
-            return;
-        }
+            return $this->isComplete = false;
 
         if($this->serotypeIdentifierMethod && $this->serotypeIdentifierMethod->equal(Diagnosis::OTHER) && empty($this->serotypeIdentifierOther))
-        {
-            $this->isComplete = false;
-            return;
-        }
+            return $this->isComplete = false;
 
         $this->isComplete = true;
     }
