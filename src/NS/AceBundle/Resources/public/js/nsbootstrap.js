@@ -79,6 +79,7 @@ $(document).ready(function() {
 
     $('[data-context-child]').each(function(i, el)
     {
+        el.contextState = 'active';
         $(el).change(function(event)
         {
             toggleContextFields(el);
@@ -96,21 +97,25 @@ $(document).ready(function() {
 
         $('[data-context-parent='+$(el).data('context-child')+'][data-context-value]').each(function(i, input)
         {
+            input.parent = el;
             var f       = $(input).data('context-value');
             var fields  = typeof f === 'object' ? f.join().split(',') : [f.toString()]; //hacky way to get around variable typing in indexOf; find a better way to do this.
             var label   = $('label[for='+input.id+']');
             var element = $(input).parent().hasClass('input-group') ? $(input).parent() : input;
 
-            if(fields.indexOf(value.toString()) >= 0)
+            if(fields.indexOf(value.toString()) >= 0 && input.parent.contextState === 'active')
             {
                 element.show();
                 label.show();
+                input.contextState = 'active';
             }
             else
             {
                 element.hide();
                 label.hide();
+                input.contextState = 'inactive';
             }
+            
 
             toggleContextFields(input);
         });
