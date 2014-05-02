@@ -1746,7 +1746,7 @@
             "source": {
                 "type": "git",
                 "url": "gitolite@git.noblet.ca:/symfony/ns/ace.git",
-                "reference": "5cb70bccef2245c2c57186a4e66983357ec9eddc"
+                "reference": "5cbe82f5b90386fa5e1f5c7ee1062e6fa4919825"
             },
             "require": {
                 "php": ">=5.3.2",
@@ -1770,7 +1770,7 @@
                 }
             ],
             "description": "This bundle provides bootstrap template",
-            "time": "2014-05-02 19:40:03"
+            "time": "2014-05-02 19:59:36"
         },
         {
             "name": "ns/security-bundle",
