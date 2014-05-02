@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "b6e080dbbf59d98da0830d8d794a7b17",
+    "hash": "bcf77a00407db76ca42602efb220f336",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1738,6 +1738,39 @@
                 "php"
             ],
             "time": "2013-08-25 17:11:40"
+        },
+        {
+            "name": "ns/ace-bundle",
+            "version": "dev-master",
+            "target-dir": "NS/AceBundle",
+            "source": {
+                "type": "git",
+                "url": "gitolite@git.noblet.ca:/symfony/ns/ace.git",
+                "reference": "5cb70bccef2245c2c57186a4e66983357ec9eddc"
+            },
+            "require": {
+                "php": ">=5.3.2",
+                "punkave/symfony2-file-uploader-bundle": "1.0.*@dev",
+                "symfony/symfony": ">=2.1,<=2.4"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "NS\\AceBundle": ""
+                }
+            },
+            "authors": [
+                {
+                    "name": "Nathanael David Noblet",
+                    "email": "nathanael@noblet.ca"
+                },
+                {
+                    "name": "Mark Woynarski",
+                    "email": "mark.woynarski@nobletdesign.com"
+                }
+            ],
+            "description": "This bundle provides bootstrap template",
+            "time": "2014-05-02 19:40:03"
         },
         {
             "name": "ns/security-bundle",
@@ -3826,7 +3859,8 @@
         "stof/doctrine-extensions-bundle": 20,
         "punkave/symfony2-file-uploader-bundle": 20,
         "oneup/uploader-bundle": 20,
-        "lexik/form-filter-bundle": 20
+        "lexik/form-filter-bundle": 20,
+        "ns/ace-bundle": 20
     },
     "platform": {
         "php": ">=5.3.3"
