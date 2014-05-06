@@ -185,7 +185,7 @@ class BaseLab
 
     public function __construct()
     {
-        $this->isComplete = false;
+
     }
 
     /**

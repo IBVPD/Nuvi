@@ -949,6 +949,11 @@ class SiteLab
         return $this;
     }
 
+    public function isComplete()
+    {
+        return $this->status->equal(CaseStatus::COMPLETE);
+    }
+
     /**
      * @ORM\PrePersist
      */

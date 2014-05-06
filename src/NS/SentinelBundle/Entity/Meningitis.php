@@ -16,6 +16,7 @@ use NS\SentinelBundle\Form\Types\MeningitisVaccinationReceived;
 use NS\SentinelBundle\Form\Types\MeningitisVaccinationType;
 use NS\SentinelBundle\Interfaces\IdentityAssignmentInterface;
 use NS\UtilBundle\Form\Types\ArrayChoice;
+use Doctrine\Common\Collections\ArrayCollection;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use NS\SecurityBundle\Annotation\Secured;
@@ -399,8 +400,9 @@ class Meningitis implements IdentityAssignmentInterface
 
     public function __construct()
     {
-        $this->result             = new MeningitisCaseResult(0);
-        $this->status             = new CaseStatus(0);
+        $this->result       = new MeningitisCaseResult(0);
+        $this->status       = new CaseStatus(0);
+        $this->externalLabs = new ArrayCollection();
     }
 
     public function __toString()
@@ -1143,9 +1145,9 @@ class Meningitis implements IdentityAssignmentInterface
             return;
 
         if($this->getIncompleteField())
-            $this->status->setValue(CaseStatus::OPEN);
+            $this->status = new CaseStatus(CaseStatus::OPEN);
         else
-            $this->status->setValue(CaseStatus::COMPLETE);
+            $this->status = new CaseStatus(CaseStatus::COMPLETE);
 
         return;
     }
