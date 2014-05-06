@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class MeningitisFilter extends AbstractType
+class MeningitisFilter extends AbstractType implements \Lexik\Bundle\FormFilterBundle\Filter\Extension\Type\EmbeddedFilterTypeInterface
 {
      /**
      * @param FormBuilderInterface $builder
@@ -15,7 +15,9 @@ class MeningitisFilter extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
+
         $builder->add('status', 'CaseStatus', array('required'=>false, 'label' => 'filter-case-status'));
+        $builder->add('lab','site_lab_filter',array('required'=>false));
     }
 
     /**

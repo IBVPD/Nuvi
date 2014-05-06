@@ -2,6 +2,11 @@ parameters:
 #    ns_sentinel.example.class: NS\SentinelBundle\Example
 
 services:
+    ns.sentinel.form.filters.site_lab_filter:
+      class: NS\SentinelBundle\Form\Filters\SiteLabFilterType
+      tags:
+        - { name: form.type, alias: site_lab_filter }
+
     ns.sentinel.twig.case_status:
       class: NS\SentinelBundle\Twig\CaseStatus
       tags:
