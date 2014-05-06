@@ -2,7 +2,35 @@ parameters:
 #    ns_sentinel.example.class: NS\SentinelBundle\Example
 
 services:
+    ns.sentinel.form.filter.base:
+      class: NS\SentinelBundle\Form\Filters\BaseObject
+      tags:
+        - { name: form.type, alias: filter_object }
+
+    ns.sentinel.form.filter.country:
+      class: NS\SentinelBundle\Form\Filters\Country
+      arguments: [ @ns.model_manager, "NSSentinelBundle:Country" ]
+      tags:
+        - { name: form.type, alias: country }
+
+    ns.sentinel.form.filter.region:
+      class: NS\SentinelBundle\Form\Filters\Region
+      arguments: [ @ns.model_manager, "NSSentinelBundle:Region" ]
+      tags:
+        - { name: form.type, alias: region }
+
+    ns.sentinel.form.filter.site:
+      class: NS\SentinelBundle\Form\Filters\Site
+      arguments: [ @ns.model_manager, "NSSentinelBundle:Site" ]
+      tags:
+        - { name: form.type, alias: site }
+
     ns.sentinel.filter.listener:
+      class: NS\SentinelBundle\Filter\Listener
+      tags:
+        - { name: kernel.event_subscriber }
+
+    ns.sentinel.filter.case_status_listener:
       class: NS\SentinelBundle\Filter\CaseStatusListener
       tags:
         - { name: kernel.event_subscriber } 
@@ -96,7 +124,7 @@ services:
 
     ns.sentinel.base.filter:
       class: NS\SentinelBundle\Form\BaseFilter
-      arguments: [ "@security.context", "@ns.model_manager" ]
+      arguments: [ "@security.context" ]
       tags:
         - { name: form.type, alias: base_filter_form }
 

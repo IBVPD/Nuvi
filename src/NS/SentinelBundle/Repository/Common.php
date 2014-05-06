@@ -14,7 +14,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
 {
     public function getAllSecuredQueryBuilder($alias = 'o')
     {
-        return $this->secure($this->_em->createQueryBuilder()->select($alias)->from($this->getClassName(),$alias));
+        return $this->secure($this->createQueryBuilder($alias)->orderBy("$alias.name","ASC"));
     }
 
     public function getForAutoComplete($fields, array $value, $limit)
@@ -25,10 +25,9 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
                               ->from($this->getClassName(), $alias)
                               ->setMaxResults($limit);
 
-        if(!empty($value) && $value['value'][0]=='*') {
+        if(!empty($value) && $value['value'][0]=='*')
             return $qb->getQuery();
-        }
-        
+
         if(!empty($value))
         {
             if(is_array($fields))
@@ -47,6 +46,6 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
             }
         }
 
-        return $qb->getQuery();        
+        return $qb->getQuery();
     }
 }
