@@ -79,6 +79,13 @@
 			{ "type": "composer", "url": "http://packages.noblet.ca/" }
 		    ],
     "require-dev": {
-        "phpunit/phpunit": "~4.0"
+        "phpunit/phpunit": "~4.0",
+        "behat/behat": "2.4.*@stable",
+        "behat/mink":  "1.4.*@stable",
+
+        "behat/symfony2-extension":      "*",
+        "behat/mink-extension":          "*",
+        "behat/mink-browserkit-driver":  "*",
+        "behat/mink-selenium2-driver":   "*"
     }
 }
