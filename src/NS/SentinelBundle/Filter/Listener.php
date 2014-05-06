@@ -48,10 +48,7 @@ class Listener implements EventSubscriberInterface
     {
         $qb = $event->getQueryBuilder();
         if ( ! $qb instanceof QueryBuilder)
-        {
-            die("NOT A QUERYBUILDER!");
             return;
-        }
 
         $expr   = $event->getFilterQuery()->getExpr();
         $values = $event->getValues();
