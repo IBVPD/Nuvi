@@ -20,28 +20,10 @@ class Listener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-            // if a Doctrine\ORM\QueryBuilder is passed to the lexik_form_filter.query_builder_updater service
-            'lexik_form_filter.apply.orm.filter_entity'                  => array('filterObject'),
-            'lexik_form_filter.apply.orm.site'                           => array('filterSite'),
-            'lexik_form_filter.apply.orm.country'                        => array('filterCountry'),
-            'lexik_form_filter.apply.orm.meningitis_filter_form.country' => array('filterCountry'),
-            'lexik_form_filter.apply.orm.region'                         => array('filterRegion'),
+                        'lexik_form_filter.apply.orm.meningitis_filter_form.country' => array('filterObject'),
+                        'lexik_form_filter.apply.orm.meningitis_filter_form.region'  => array('filterObject'),
+                        'lexik_form_filter.apply.orm.meningitis_filter_form.site'    => array('filterObject'),
                     );
-    }
-
-    public function filterRegion(ApplyFilterEvent $event)
-    {
-        return $this->filterObject($event);
-    }
-
-    public function filterCountry(ApplyFilterEvent $event)
-    {
-        return $this->filterObject($event);
-    }
-
-    public function filterSite(ApplyFilterEvent $event)
-    {
-        return $this->filterObject($event);
     }
 
     public function filterObject(ApplyFilterEvent $event)
