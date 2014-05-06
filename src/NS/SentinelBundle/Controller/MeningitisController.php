@@ -35,7 +35,7 @@ class MeningitisController extends Controller
 
             // build the query from the given form object
             $qb    = $this->get('lexik_form_filter.query_builder_updater');
-            $qb->addFilterConditions($filterForm, $query, 'm');
+            $qb->addFilterConditions($filterForm, $query);
         }
         else
             $query = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:Meningitis")->getLatestQuery();
