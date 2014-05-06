@@ -34,12 +34,12 @@ class CaseStatusListener implements EventSubscriberInterface
      */
     public function filterCaseStatus(ApplyFilterEvent $event)
     {
-        $qb     = $event->getQueryBuilder();
         $values = $event->getValues();
 
         if ($values['value'] instanceof CaseStatus && $values['value']->getValue() >= 0)
         {
             $paramName = str_replace('.', '_', $event->getField());
+            $qb        = $event->getQueryBuilder();
 
             $qb->andWhere($event->getField().' = :'.$paramName)
                ->setParameter($paramName, $values['value']->getValue());
