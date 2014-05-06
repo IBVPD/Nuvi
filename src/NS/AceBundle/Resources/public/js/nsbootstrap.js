@@ -101,7 +101,7 @@ $(document).ready(function() {
             var f       = $(input).data('context-value');
             var fields  = typeof f === 'object' ? f.join().split(',') : [f.toString()]; //hacky way to get around variable typing in indexOf; find a better way to do this.
             var label   = $('label[for='+input.id+']');
-            var element = $(input).parent().hasClass('input-group') ? $(input).parent() : input;
+            var element = $(input).parents('div.form-group').length !== 0 ? $(input).parents('div.form-group') : input;
 
             if(fields.indexOf(value.toString()) >= 0 && input.parent.contextState === 'active')
             {
