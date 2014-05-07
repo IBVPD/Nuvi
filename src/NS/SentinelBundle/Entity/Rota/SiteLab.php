@@ -358,4 +358,8 @@ class SiteLab
         $this->nlGenoTypeResult = $nlGenoTypeResult;
         return $this;
     }
+    public function isComplete()
+    {
+     
+    }
 }

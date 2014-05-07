@@ -2,10 +2,44 @@ parameters:
 #    ns_sentinel.example.class: NS\SentinelBundle\Example
 
 services:
+    ns.sentinel.form.type.eiaresult:
+      class: NS\SentinelBundle\Form\Types\EIAResult
+      tags:
+        - { name: form.type, alias: EIAResult }
+
+    ns.sentinel.form.type.pcrvp6result:
+      class: NS\SentinelBundle\Form\Types\PCRVP6Result
+      tags:
+        - { name: form.type, alias: PCRVP6Result }
+
+    ns.sentinel.form.type.genotyperesultgspecify:
+      class: NS\SentinelBundle\Form\Types\GenotypeResultGSpecify
+      tags:
+        - { name: form.type, alias: GenotypeResultGSpecify }
+    ns.sentinel.form.type.genotyperesultg:
+      class: NS\SentinelBundle\Form\Types\GenotypeResultG
+      tags:
+        - { name: form.type, alias: GenotypeResultG }
+
+    ns.sentinel.form.type.genotyperesultpspecify:
+      class: NS\SentinelBundle\Form\Types\GenotypeResultPSpecify
+      tags:
+        - { name: form.type, alias: GenotypeResultPSpecify }
+    ns.sentinel.form.type.genotyperesultp:
+      class: NS\SentinelBundle\Form\Types\GenotypeResultP
+      tags:
+        - { name: form.type, alias: GenotypeResultP }
+
     ns.sentinel.form.filters.site_lab_filter:
       class: NS\SentinelBundle\Form\Filters\SiteLabFilterType
       tags:
         - { name: form.type, alias: site_lab_filter }
+
+    ns.sentinel.twig.case_actions:
+      class: NS\SentinelBundle\Twig\CaseActions
+      arguments: [ @security.context, @translator, @router ]
+      tags:
+        - { name: twig.extension, alias: twig_case_actions }
 
     ns.sentinel.twig.case_status:
       class: NS\SentinelBundle\Twig\CaseStatus
@@ -172,8 +206,7 @@ services:
       arguments: [ "@doctrine.orm.entity_manager" ]
 
     ns.sentinel.form.type.ibd_base:
-      class: NS\SentinelBundle\Form\BaseLabType
-      arguments: [ "@ns.sentinel.sites", "@ns.model_manager" ]
+      class: NS\SentinelBundle\Form\IBD\BaseLabType
       tags:
         - { name: form.type, alias: ibd_base_lab }
 
@@ -198,6 +231,20 @@ services:
       arguments: [ "@ns.sentinel.sites","@ns.model_manager" ]
       tags:
         - { name: form.type, alias: ibd }
+    ns.sentinel.form.type.rota_base:
+      class: NS\SentinelBundle\Form\Rota\BaseLabType
+      tags:
+        - { name: form.type, alias: rota_base_lab }
+
+    ns.sentinel.form.type.rota_nl:
+      class: NS\SentinelBundle\Form\Rota\NationalLabType
+      tags:
+        - { name: form.type, alias: rota_nationallab }
+
+    ns.sentinel.form.type.rota_rrl:
+      class: NS\SentinelBundle\Form\Rota\ReferenceLabType
+      tags:
+        - { name: form.type, alias: rota_referencelab }
     
     ns.sentinel.form.type.rotavirus_sitelab:
       class: NS\SentinelBundle\Form\Rota\SiteLabType

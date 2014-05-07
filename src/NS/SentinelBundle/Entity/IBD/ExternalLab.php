@@ -3,6 +3,7 @@
 namespace NS\SentinelBundle\Entity\IBD;
 
 use Doctrine\ORM\Mapping as ORM;
+use NS\SentinelBundle\Entity\BaseLab;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Form\Types\PathogenIdentifier;
 use NS\SentinelBundle\Form\Types\SerotypeIdentifier;
@@ -35,20 +36,13 @@ use Symfony\Component\Validator\ExecutionContextInterface;
  * @ORM\DiscriminatorMap({"reference" = "ReferenceLab", "national" = "NationalLab"})
  * @Assert\Callback(methods={"validate"})
  */
-class ExternalLab
+class ExternalLab extends BaseLab
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
     /**
      * @ORM\ManyToOne(targetEntity="\NS\SentinelBundle\Entity\Meningitis",inversedBy="externalLabs")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $case;
+    protected $case;
 
     /**
      * @var string $labId
@@ -176,55 +170,6 @@ class ExternalLab
      * @ORM\Column(name="resultSentToWHO",type="date",nullable=true)
      */
     private $resultSentToWHO;
-
-    /**
-     * @var boolean $isComplete
-     * @ORM\Column(name="isComplete",type="boolean")
-     */
-    private $isComplete = false;
-
-    public function __construct()
-    {
-
-    }
-
-    /**
-     * Set case
-     *
-     * @param \NS\SentinelBundle\Entity\Meningitis $case
-     * @return MeningitisLab
-     */
-    public function setCase(\NS\SentinelBundle\Entity\Meningitis $case = null)
-    {
-        $this->case = $case;
-
-        return $this;
-    }
-
-    /**
-     * Get case
-     *
-     * @return \NS\SentinelBundle\Entity\Meningitis 
-     */
-    public function getCase()
-    {
-        return $this->case;
-    }
-
-    public function hasCase()
-    {
-        return $this->case instanceof Meningitis;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Set sampleType
@@ -650,11 +595,6 @@ class ExternalLab
         return $this->resultSentToWHO;
     }
 
-    public function getIsComplete()
-    {
-        return $this->isComplete;
-    }
-
     public function setResultSentToCountry( $resultSentToCountry)
     {
         $this->resultSentToCountry = $resultSentToCountry;
@@ -665,13 +605,6 @@ class ExternalLab
     public function setResultSentToWHO( $resultSentToWHO)
     {
         $this->resultSentToWHO = $resultSentToWHO;
-
-        return $this;
-    }
-
-    public function setIsComplete($isComplete)
-    {
-        $this->isComplete = $isComplete;
 
         return $this;
     }
