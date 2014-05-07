@@ -255,6 +255,8 @@ class Meningitis implements \Serializable
      * @var CaseStatus $status
      */
     private $status;
+    private $lab;
+    private $referenceLab;
 
     public function __construct()
     {
@@ -853,11 +855,7 @@ class Meningitis implements \Serializable
         return $this->lab;
     }
 
-    public function hasSiteLab()
-    {
-        return ($this->lab instanceof SiteLab);
-    }
-    
+
     /**
      * Set ReferenceLab
      *

@@ -2,7 +2,6 @@
 
 namespace NS\SentinelBundle\Tests\Entity;
 
-use NS\SentinelBundle\Tests\BaseDBTestCase;
 use NS\SentinelBundle\Entity\Meningitis;
 use NS\SentinelBundle\Entity\Country;
 use NS\SentinelBundle\Form\Types\TripleChoice;
@@ -374,7 +373,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
                     'setgender'            => new Gender(Gender::MALE),
                     'setadmDate'           => new \DateTime(),
                     'setonsetDate'         => new \DateTime(),
-                    'setadmDx'             => new Diagnosis(Diagnosis::PNEUMONIA),
+                    'setadmDx'             => new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA),
                     'setadmDxOther'        => null,
                     'setantibiotics'       => $tripleNo,
                     'setmenSeizures'       => $tripleNo,
@@ -408,7 +407,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
                     'setbloodCollected'    => $tripleNo,
                     'setbloodId'           => null,
                     'setdischOutcome'      => new DischargeOutcome(DischargeOutcome::DISCHARGED_ALIVE_WITHOUT_SEQUELAE),
-                    'setdischDx'           => new Diagnosis(Diagnosis::PNEUMONIA),
+                    'setdischDx'           => new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA),
                     'setdischDxOther'      => null,
                     'setdischClass'        => new DischargeClassification(DischargeClassification::CONFIRMED_SPN),
                 );
@@ -427,7 +426,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
                     'setgender'            => new Gender(Gender::MALE),
                     'setadmDate'           => new \DateTime(),
                     'setonsetDate'         => new \DateTime(),
-                    'setadmDx'             => new Diagnosis(Diagnosis::PNEUMONIA),
+                    'setadmDx'             => new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA),
                     'setadmDxOther'        => null,
                     'setantibiotics'       => $tripleNo,
                     'setmenSeizures'       => $tripleNo,
@@ -452,7 +451,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
                     'setbloodCollected'    => $tripleNo,
                     'setbloodId'           => null,
                     'setdischOutcome'      => new DischargeOutcome(DischargeOutcome::DISCHARGED_ALIVE_WITHOUT_SEQUELAE),
-                    'setdischDx'           => new Diagnosis(Diagnosis::PNEUMONIA),
+                    'setdischDx'           => new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA),
                     'setdischDxOther'      => null,
                     'setdischClass'        => new DischargeClassification(DischargeClassification::CONFIRMED_SPN),
                 );

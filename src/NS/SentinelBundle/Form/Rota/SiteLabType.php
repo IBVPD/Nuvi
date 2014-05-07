@@ -1,12 +1,12 @@
 <?php
 
-namespace NS\SentinelBundle\Form;
+namespace NS\SentinelBundle\Form\Rota;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class RotaVirusSiteLabType extends AbstractType
+class SiteLabType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
@@ -40,7 +40,7 @@ class RotaVirusSiteLabType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'NS\SentinelBundle\Entity\RotaVirusSiteLab'
+            'data_class' => 'NS\SentinelBundle\Entity\Rota\SiteLab'
         ));
     }
 

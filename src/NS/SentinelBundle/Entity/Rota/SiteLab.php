@@ -1,6 +1,6 @@
 <?php
 
-namespace NS\SentinelBundle\Entity;
+namespace NS\SentinelBundle\Entity\Rota;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -13,7 +13,7 @@ use NS\SentinelBundle\Form\Types\ElisaResult;
 /**
  * Description of RotaVirusSiteLab
  * @author gnat
- * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\RotaVirusSiteLab")
+ * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\Rota\SiteLab")
  * @ORM\Table(name="rotavirus_site_labs")
  * @Gedmo\Loggable
  * @Secured(conditions={
@@ -22,7 +22,7 @@ use NS\SentinelBundle\Form\Types\ElisaResult;
  *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB","ROLE_RRL_LAB","ROLE_NL_LAB"},through="case",relation="site",class="NSSentinelBundle:Site"),
  *      })
  */
-class RotaVirusSiteLab
+class SiteLab
 {
     /**
      * @ORM\Id
@@ -32,7 +32,7 @@ class RotaVirusSiteLab
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="RotaVirus",inversedBy="lab")
+     * @ORM\OneToOne(targetEntity="NS\SentinelBundle\Entity\RotaVirus",inversedBy="siteLab")
      * @ORM\JoinColumn(nullable=false,unique=true)
      */
     private $case;
@@ -357,5 +357,9 @@ class RotaVirusSiteLab
     {
         $this->nlGenoTypeResult = $nlGenoTypeResult;
         return $this;
+    }
+    public function isComplete()
+    {
+     
     }
 }

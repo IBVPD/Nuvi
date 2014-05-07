@@ -1,6 +1,6 @@
 <?php
 
-namespace NS\SentinelBundle\Form;
+namespace NS\SentinelBundle\Form\IBD;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -12,7 +12,7 @@ use NS\SentinelBundle\Services\SerializedSites;
  *
  * @author gnat
  */
-class CreateIBDType extends AbstractType
+class CreateType extends AbstractType
 {
     private $siteSerializer;
     private $em;
@@ -41,7 +41,7 @@ class CreateIBDType extends AbstractType
                                                 'mapped'          => false,
                                                 'empty_value'     => 'Please Select...',
                                                 'label'           => 'meningitis-form.site',
-                                                'query_builder'   => $this->em->getRepository('NS\SentinelBundle\Entity\Site')->getChainQueryBuilder(),
+                                                'query_builder'   => $this->em->getRepository('NS\SentinelBundle\Entity\Site')->getChainQueryBuilder()->orderBy('s.name','ASC'),
                                                 'class'           => 'NS\SentinelBundle\Entity\Site',
                                                 'auto_initialize' => false));
         }

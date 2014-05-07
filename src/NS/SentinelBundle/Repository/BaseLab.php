@@ -15,6 +15,8 @@ use Doctrine\ORM\UnexpectedResultException;
  */
 class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteRepositoryInterface
 {
+    protected $parentClass = null;
+
     public function getForAutoComplete($fields, array $value, $limit)
     {
         $alias = 'd';
@@ -56,7 +58,7 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
             {
                 $qb = $this->createQueryBuilder('r')
                            ->where('r.case = :case')
-                           ->setParameter('case',$this->_em->getReference('NSSentinelBundle:Meningitis',$id));
+                           ->setParameter('case',$this->_em->getReference($this->parentClass,$id));
 
                 $r = $this->secure($qb)->getQuery()->getSingleResult();
             }
@@ -70,7 +72,7 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
             {
                 $class  = $this->getClassName();
                 $record = new $class();
-                $m      = $this->_em->getRepository('NSSentinelBundle:Meningitis')->checkExistence($id);
+                $m      = $this->_em->getRepository($this->parentClass)->checkExistence($id);
                 $record->setCase($m);
 
                 return $record;
@@ -84,10 +86,7 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
     {
         try
         {
-            $qb = $this->_em
-                       ->createQueryBuilder()
-                       ->select('m')
-                       ->from($this->getClassName(),'m')
+            $qb = $this->createQueryBuilder('m')
                        ->where('m.id = :id')
                        ->setParameter('id', $id);
 

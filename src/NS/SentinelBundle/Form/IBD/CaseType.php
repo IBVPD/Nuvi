@@ -1,6 +1,6 @@
 <?php
 
-namespace NS\SentinelBundle\Form;
+namespace NS\SentinelBundle\Form\IBD;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\AbstractType;
@@ -14,7 +14,7 @@ use NS\SentinelBundle\Form\Types\MeningitisVaccinationReceived;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Services\SerializedSites;
 
-class MeningitisType extends AbstractType
+class CaseType extends AbstractType
 {
     private $em;
     private $siteSerializer;
@@ -170,6 +170,6 @@ class MeningitisType extends AbstractType
      */
     public function getName()
     {
-        return 'meningitis';
+        return 'ibd';
     }
 }

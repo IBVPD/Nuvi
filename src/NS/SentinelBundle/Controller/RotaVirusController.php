@@ -5,10 +5,7 @@ namespace NS\SentinelBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
-use \NS\SentinelBundle\Form\RotaVirusType;
-use \NS\SentinelBundle\Form\RotaVirusSearch;
 use \NS\SentinelBundle\Exceptions\NonExistentCase;
 
 /**
@@ -63,20 +60,37 @@ class RotaVirusController extends Controller
      */
     public function editAction(Request $request,$id = null)
     {
-        return $this->edit('rotavirus',$request,$id);
+        return $this->edit($request,'rotavirus',$id);
     }
 
     /**
-     * @Route("/lab/create/{id}",name="rotavirusLabCreate")
      * @Route("/lab/edit/{id}",name="rotavirusLabEdit",defaults={"id"=null})
      * @Template()
      */
     public function editLabAction(Request $request,$id = null)
     {
-        return $this->edit('lab',$request,$id);
+        return $this->edit($request,'lab',$id);
     }
 
-    private function edit($type, Request $request, $id)
+    /**
+     * @Route("/rrl/edit/{id}",name="rotavirusRRLEdit",defaults={"id"=null})
+     * @Template("NSSentinelBundle:RotaVirus:editBaseLab.html.twig")
+     */
+    public function editRRLAction(Request $request,$id = null)
+    {
+        return $this->edit($request, 'rrl', $id);
+    }
+
+    /**
+     * @Route("/nl/edit/{id}",name="rotavirusNLEdit",defaults={"id"=null})
+     * @Template("NSSentinelBundle:RotaVirus:editBaseLab.html.twig")
+     */
+    public function editNLAction(Request $request,$id = null)
+    {
+        return $this->edit($request, 'nl', $id);
+    }
+
+    private function edit(Request $request, $type, $id)
     {
         try 
         {
@@ -87,8 +101,16 @@ class RotaVirusController extends Controller
                     $form   = $this->createForm('rotavirus',$record);
                     break;
                 case 'lab':
-                    $record = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:RotaVirusSiteLab')->findOrCreateNew($id);
+                    $record = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:Rota\SiteLab')->findOrCreateNew($id);
                     $form   = $this->createForm('rotavirus_sitelab',$record);
+                    break;
+                case 'rrl':
+                    $record = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:Rota\ReferenceLab')->findOrCreateNew($id);
+                    $form   = $this->createForm('rotavirus_referencelab',$record);
+                    break;
+                case 'nl':
+                    $record = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:Rota\NationalLab')->findOrCreateNew($id);
+                    $form   = $this->createForm('rotavirus_nationallab',$record);
                     break;
                 default:
                     throw new \Exception("Unknown type");
@@ -115,18 +137,17 @@ class RotaVirusController extends Controller
                 }
                 catch(\Exception $e)
                 {
+                    die("ERROR: ".$e->getMessage());
                     // TODO Flash service required
-                    return array('form' => $form->createView(),'id'=>$id);
+                    return array('form' => $form->createView(),'id'=>$id,'type'=>strtoupper($type));
                 }
 
                 // TODO Flash service required
                 return $this->redirect($this->generateUrl("rotavirusIndex"));
             }
-            else
-                die("<pre>".print_r($form->getErrorsAsString(), true)."</pre>");
         }
 
-        return array('form' => $form->createView(),'id'=>$id);
+        return array('form' => $form->createView(),'id'=>$id, 'type'=>strtoupper($type));
     }
 
     /**

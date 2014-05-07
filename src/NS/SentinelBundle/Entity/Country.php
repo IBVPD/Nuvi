@@ -84,18 +84,6 @@ class Country implements \Serializable
     private $region;
 
     /**
-     * @var Meningitis
-     * @ORM\OneToMany(targetEntity="Meningitis",mappedBy="country")
-     */
-    private $meningitisCases;
-    
-    /**
-     * @var RotaVirus
-     * @ORM\OneToMany(targetEntity="RotaVirus",mappedBy="country")
-     */
-    private $rotavirusCases;
-
-    /**
      * @var boolean $tracksPneumonia
      * @ORM\Column(name="tracksPneumonia",type="boolean")
      */
@@ -142,8 +130,6 @@ class Country implements \Serializable
     {
         $this->name            = $name;
         $this->sites           = new ArrayCollection();
-        $this->meningitisCases = new ArrayCollection();
-        $this->rotavirusCases  = new ArrayCollection();
     }
 
     public function __toString()
@@ -256,72 +242,6 @@ class Country implements \Serializable
     public function getCode()
     {
         return $this->code;
-    }
-
-    /**
-     * Add meningitisCases
-     *
-     * @param \NS\SentinelBundle\Entity\Meningitis $meningitisCases
-     * @return Country
-     */
-    public function addMeningitisCase(\NS\SentinelBundle\Entity\Meningitis $meningitisCases)
-    {
-        $this->meningitisCases[] = $meningitisCases;
-    
-        return $this;
-    }
-
-    /**
-     * Remove meningitisCases
-     *
-     * @param \NS\SentinelBundle\Entity\Meningitis $meningitisCases
-     */
-    public function removeMeningitisCase(\NS\SentinelBundle\Entity\Meningitis $meningitisCases)
-    {
-        $this->meningitisCases->removeElement($meningitisCases);
-    }
-
-    /**
-     * Get meningitisCases
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getMeningitisCases()
-    {
-        return $this->meningitisCases;
-    }
-
-    /**
-     * Add rotavirusCases
-     *
-     * @param \NS\SentinelBundle\Entity\Rotavirus $rotavirusCases
-     * @return Country
-     */
-    public function addRotavirusCase(\NS\SentinelBundle\Entity\Rotavirus $rotavirusCases)
-    {
-        $this->rotavirusCases[] = $rotavirusCases;
-
-        return $this;
-    }
-
-    /**
-     * Remove rotavirusCases
-     *
-     * @param \NS\SentinelBundle\Entity\Rotavirus $rotavirusCases
-     */
-    public function removeRotavirusCase(\NS\SentinelBundle\Entity\Rotavirus $rotavirusCases)
-    {
-        $this->rotavirusCases->removeElement($rotavirusCases);
-    }
-
-    /**
-     * Get rotavirusCases
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getRotavirusCases()
-    {
-        return $this->rotavirusCases;
     }
 
     /**

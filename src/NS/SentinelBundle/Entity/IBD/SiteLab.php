@@ -1,6 +1,6 @@
 <?php
 
-namespace NS\SentinelBundle\Entity;
+namespace NS\SentinelBundle\Entity\IBD;
 
 use Doctrine\ORM\Mapping as ORM;
 use NS\SentinelBundle\Form\Types\TripleChoice;
@@ -22,8 +22,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Description of SiteLab
  * @author gnat
- * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\SiteLab")
- * @ORM\Table(name="meningitis_site_labs")
+ * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\IBD\SiteLab")
+ * @ORM\Table(name="ibd_site_labs")
  * @Gedmo\Loggable
  * @Secured(conditions={
  *      @SecuredCondition(roles={"ROLE_REGION"},through={"case"},relation="region",class="NSSentinelBundle:Region"),
@@ -42,7 +42,7 @@ class SiteLab
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="Meningitis",inversedBy="lab")
+     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\Meningitis",inversedBy="siteLab")
      * @ORM\JoinColumn(nullable=false,unique=true)
      */
     private $case;

@@ -5,13 +5,10 @@ namespace NS\SentinelBundle\Command;
 use \Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use \Symfony\Component\Console\Input\InputInterface;
 use \Symfony\Component\Console\Output\OutputInterface;
-use \Symfony\Component\Console\Input\InputArgument;
 
 use NS\SentinelBundle\Entity\RotaVirus;
-use NS\SentinelBundle\Entity\RotaVirusSiteLab;
-use NS\SentinelBundle\Form\Types\TripleChoice;
+use NS\SentinelBundle\Entity\Rota\SiteLab;
 use NS\SentinelBundle\Form\Types\Gender;
-use NS\SentinelBundle\Form\Types\Diagnosis;
 use NS\SentinelBundle\Entity\Site;
 
 /**
@@ -55,9 +52,9 @@ class CreateRotaCasesCommand extends ContainerAwareCommand
 
             if($x%12 == 0)
             {
-                $lab = new RotaVirusSiteLab($m);
+                $lab = new SiteLab($m);
 
-                $m->setLab($lab);
+                $m->setSiteLab($lab);
 
                 $this->em->persist($lab);
             }

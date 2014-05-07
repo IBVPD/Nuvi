@@ -8,7 +8,6 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use \Symfony\Component\Security\Core\SecurityContext;
 use \Symfony\Component\Form\FormEvent;
 use \Symfony\Component\Form\FormEvents;
-use \Doctrine\Common\Persistence\ObjectManager;
 use \Lexik\Bundle\FormFilterBundle\Filter\FilterOperands;
 
 class BaseFilter extends AbstractType
@@ -90,7 +89,7 @@ class BaseFilter extends AbstractType
             if($this->securityContext->isGranted('ROLE_CAN_CREATE_RRL_LAB'))
             {
                 $builder->add('isComplete',null,array('required'=>false, 'label' => 'filter-case-is-complete'));
-            }
+     }
         }
  */
      }

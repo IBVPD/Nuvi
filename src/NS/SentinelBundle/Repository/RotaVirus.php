@@ -84,7 +84,7 @@ class RotaVirus extends SecuredEntityRepository implements AjaxAutocompleteRepos
         $qb = $this->_em->createQueryBuilder()
                    ->select('m,l')
                    ->from($this->getClassName(),'m')
-                   ->leftJoin('m.lab', 'l')
+                   ->leftJoin('m.siteLab', 'l')
                    ->orderBy('m.id','DESC');
         return $this->secure($qb);
     }
@@ -94,7 +94,7 @@ class RotaVirus extends SecuredEntityRepository implements AjaxAutocompleteRepos
         $qb = $this->_em->createQueryBuilder()
                    ->select('m,l')
                    ->from($this->getClassName(),'m')
-                   ->leftJoin('m.lab', 'l')
+                   ->leftJoin('m.siteLab', 'l')
                    ->orderBy('m.id','DESC')
                    ->setMaxResults($limit);
         return $this->secure($qb)->getQuery()->getResult();
@@ -207,7 +207,7 @@ class RotaVirus extends SecuredEntityRepository implements AjaxAutocompleteRepos
                     ->createQueryBuilder()
                     ->select("$alias,l")
                     ->from($this->getClassName(),$alias)
-                    ->leftJoin("$alias.lab",'l')
+                    ->leftJoin("$alias.siteLab",'l')
                     ->orderBy('m.id','DESC'))
                     ;
     }

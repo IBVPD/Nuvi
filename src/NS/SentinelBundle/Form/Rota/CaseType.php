@@ -1,6 +1,6 @@
 <?php
 
-namespace NS\SentinelBundle\Form;
+namespace NS\SentinelBundle\Form\Rota;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormEvent;
 use NS\SentinelBundle\Services\SerializedSites;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class RotaVirusType extends AbstractType
+class CaseType extends AbstractType
 {
     private $em;
     private $siteSerializer;
@@ -58,6 +58,8 @@ class RotaVirusType extends AbstractType
             ->add('dischargeDate',              'acedatepicker',    array('required'=>false, 'label'=>'rotavirus-form.dischargeDate'))
             ->add('dischargeClassOther',        null,               array('required'=>false, 'label'=>'rotavirus-form.dischargeClassOther'))
             ->add('comment',                    null,               array('required'=>false, 'label'=>'rotavirus-form.comment'))
+            ->add('sentToReferenceLab')
+            ->add('sentToNationalLab')
         ;
 
         $factory        = $builder->getFormFactory();

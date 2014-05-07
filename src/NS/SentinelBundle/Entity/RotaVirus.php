@@ -13,8 +13,6 @@ use NS\SentinelBundle\Form\Types\Dehydration;
 use NS\SentinelBundle\Form\Types\Rehydration;
 use NS\SentinelBundle\Form\Types\Doses;
 
-use \NS\SentinelBundle\Interfaces\IdentityAssignmentInterface;
-
 use Gedmo\Mapping\Annotation as Gedmo;
 use NS\SecurityBundle\Annotation\Secured;
 use NS\SecurityBundle\Annotation\SecuredCondition;
@@ -31,43 +29,22 @@ use NS\SecurityBundle\Annotation\SecuredCondition;
  *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB","ROLE_RRL_LAB","ROLE_NL_LAB"},relation="site",class="NSSentinelBundle:Site"),
  *      })
  */
-class RotaVirus implements IdentityAssignmentInterface
+class RotaVirus extends BaseCase
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="CUSTOM")
-     * @ORM\CustomIdGenerator(class="\NS\SentinelBundle\Generator\Custom")
-     * @var string $id
-     * @ORM\Column(name="id",type="string")
-     */
-    private $id;
-
 //i. Sentinel Site Information
     /**
-     * @var Region $region
-     * @ORM\ManyToOne(targetEntity="Region",inversedBy="rotavirusCases")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToMany(targetEntity="\NS\SentinelBundle\Entity\Rota\ExternalLab", mappedBy="case")
      */
-    private $region;
+    protected $externalLabs;
 
     /**
-     * @var Country $country
-     * @ORM\ManyToOne(targetEntity="Country",inversedBy="rotavirusCases")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\Rota\SiteLab", mappedBy="case")
      */
-    private $country;
+    protected $siteLab;
 
-    /**
-     * @var Site $site
-     * @ORM\ManyToOne(targetEntity="Site",inversedBy="rotavirusCases")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $site;
-
-    /**
-     * @ORM\OneToOne(targetEntity="RotaVirusSiteLab", mappedBy="case")
-     */
-    private $lab;
+    protected $siteLabClass   = '\NS\SentinelBundle\Entity\Rota\SiteLab';
+    protected $referenceClass = '\NS\SentinelBundle\Entity\Rota\ReferenceLab';
+    protected $nationalClass  = '\NS\SentinelBundle\Entity\Rota\NationalLab';
 
 //ii. Case-based Demographic Data
     /**
@@ -284,39 +261,9 @@ class RotaVirus implements IdentityAssignmentInterface
      */
     private $comment;
 
-    public function hasId()
-    {
-        return !is_null($this->id);
-    }
-
-    public function __toString()
-    {
-        return $this->id;
-    }
-
-    public function getId()
-    {
-        return $this->id;
-    }
-
     public function getCode()
     {
         return $this->code;
-    }
-
-    public function getRegion()
-    {
-        return $this->region;
-    }
-
-    public function getCountry()
-    {
-        return $this->country;
-    }
-
-    public function getSite()
-    {
-        return $this->site;
     }
 
     public function getCaseId()
@@ -469,22 +416,6 @@ class RotaVirus implements IdentityAssignmentInterface
         return $this->comment;
     }
 
-    public function getLab()
-    {
-        return $this->lab;
-    }
-
-    public function setLab($lab)
-    {
-        $this->lab = $lab;
-        return $this;
-    }
-
-    public function hasSiteLab()
-    {
-        return ($this->lab instanceof RotaVirusSiteLab);
-    }
-
     public function setId($id)
     {
         $this->id = $id;
@@ -494,30 +425,6 @@ class RotaVirus implements IdentityAssignmentInterface
     public function setCode($code)
     {
         $this->code = $code;
-        return $this;
-    }
-
-    public function setRegion(Region $region)
-    {
-        $this->region = $region;
-        return $this;
-    }
-
-    public function setCountry(Country $country)
-    {
-        $this->country = $country;
-
-        $this->setRegion($country->getRegion());
-
-        return $this;
-    }
-
-    public function setSite(Site $site)
-    {
-        $this->site = $site;
-
-        $this->setCountry($site->getCountry());
-
         return $this;
     }
 
@@ -714,11 +621,18 @@ class RotaVirus implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function getFullIdentifier($id)
+    public function calculateResult()
     {
-        return sprintf("%s-%s-%s-%06d",
-                $this->getRegion()->getCode(),
-                $this->country->getCode(),
-                $this->site->getCode(),$id);
+
+    }
+
+    public function getIncompleteField()
+    {
+        return null;
+    }
+
+    public function getMinimumRequiredFields()
+    {
+        return array();
     }
 }
