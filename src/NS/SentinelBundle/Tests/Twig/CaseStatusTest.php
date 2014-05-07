@@ -136,7 +136,7 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
         $case1->setSentToReferenceLab(true);
 
         $rrl    = new \NS\SentinelBundle\Entity\IBD\ReferenceLab();
-        $rrl->setIsComplete(true);
+        $rrl->setStatus(new FormCaseStatus(FormCaseStatus::COMPLETE));
         
         $case1->addExternalLab($rrl);
 
@@ -148,7 +148,7 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
         $case2->setSentToNationalLab(true);
 
         $nl    = new \NS\SentinelBundle\Entity\IBD\NationalLab();
-        $nl->setIsComplete(true);
+        $nl->setStatus(new FormCaseStatus(FormCaseStatus::COMPLETE));
 
         $case2->addExternalLab($nl);
 
