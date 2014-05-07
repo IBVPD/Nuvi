@@ -24,7 +24,7 @@ class MeningitisController extends Controller
     {
         $paginator  = $this->get('knp_paginator');
 
-        $filterForm = $this->createForm('meningitis_filter_form');
+        $filterForm = $this->createForm('ibd_filter_form');
         $filterForm->submit($request);
 
         if($filterForm->isValid() && $filterForm->isSubmitted())
@@ -92,28 +92,28 @@ class MeningitisController extends Controller
             switch($type->getValue())
             {
                 case IBDCreateRoles::IBD:
-                    $res = $this->redirect($this->generateUrl('meningitisEdit',array('id' => $meningCase->getId())));
+                    $res = 'meningitisEdit';
                     break;
                 case IBDCreateRoles::SITE:
-                    $res = $this->redirect($this->generateUrl('meningitisLabEdit',array('id' => $meningCase->getId())));
+                    $res = 'meningitisLabEdit';
                     break;
                 case IBDCreateRoles::RRL:
                     $meningCase->setSentToReferenceLab(true);
-                    $res = $this->redirect($this->generateUrl('meningitisRRLEdit',array('id' => $meningCase->getId())));
+                    $res = 'meningitisRRLEdit';
                     break;
                 case IBDCreateRoles::NL:
                     $meningCase->setSentToNationalLab(true);
-                    $res = $this->redirect($this->generateUrl('meningitisNLEdit',array('id' => $meningCase->getId())));
+                    $res = 'meningitisNLEdit';
                     break;
                 default:
-                    $res = $this->redirect($this->generateUrl('meningitisIndex'));
+                    $res = 'meningitisIndex';
                     break;
             }
 
             $em->persist($meningCase);
             $em->flush();
 
-            return $res;
+            return $this->redirect($this->generateUrl($res,array('id' => $meningCase->getId())));
         }
 
         return $this->redirect($this->generateUrl('meningitisIndex'));
@@ -125,7 +125,7 @@ class MeningitisController extends Controller
      */
     public function editAction(Request $request,$id = null)
     {
-        return $this->edit($request,'meningitis',$id);
+        return $this->edit($request,'ibd',$id);
     }
 
     /**
@@ -161,21 +161,21 @@ class MeningitisController extends Controller
         {
             switch($type)
             {
-                case 'meningitis':
+                case 'ibd':
                     $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:Meningitis')->find($id): null;
-                    $form   = $this->createForm('meningitis',$record);
+                    $form   = $this->createForm('ibd',$record);
                     break;
                 case 'lab':
                     $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:SiteLab')->findOrCreateNew($id): null;
-                    $form   = $this->createForm('meningitis_sitelab',$record);
+                    $form   = $this->createForm('ibd_sitelab',$record);
                     break;
                 case 'rrl':
                     $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:ReferenceLab')->findOrCreateNew($id): null;
-                    $form   = $this->createForm('meningitis_referencelab',$record);
+                    $form   = $this->createForm('ibd_referencelab',$record);
                     break;
                 case 'nl':
                     $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:NationalLab')->findOrCreateNew($id): null;
-                    $form   = $this->createForm('meningitis_nationallab',$record);
+                    $form   = $this->createForm('ibd_nationallab',$record);
                     break;
                 default:
                     throw new \Exception("Unknown type");
@@ -196,7 +196,7 @@ class MeningitisController extends Controller
                 $record = $form->getData();
                 $em->persist($record);
 
-                if($type != 'meningitis')
+                if($type != 'ibd')
                     $em->persist($record->getCase());
 
                 try

@@ -20,9 +20,12 @@ class Listener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return array(
-                        'lexik_form_filter.apply.orm.meningitis_filter_form.country' => array('filterObject'),
-                        'lexik_form_filter.apply.orm.meningitis_filter_form.region'  => array('filterObject'),
-                        'lexik_form_filter.apply.orm.meningitis_filter_form.site'    => array('filterObject'),
+                        'lexik_form_filter.apply.orm.ibd_filter_form.country' => array('filterObject'),
+                        'lexik_form_filter.apply.orm.ibd_filter_form.region'  => array('filterObject'),
+                        'lexik_form_filter.apply.orm.ibd_filter_form.site'    => array('filterObject'),
+                        'lexik_form_filter.apply.orm.rotavirus_filter_form.country' => array('filterObject'),
+                        'lexik_form_filter.apply.orm.rotavirus_filter_form.region'  => array('filterObject'),
+                        'lexik_form_filter.apply.orm.rotavirus_filter_form.site'    => array('filterObject'),
                     );
     }
 

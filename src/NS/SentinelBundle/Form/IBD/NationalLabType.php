@@ -1,6 +1,6 @@
 <?php
 
-namespace NS\SentinelBundle\Form;
+namespace NS\SentinelBundle\Form\IBD;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -13,7 +13,7 @@ class NationalLabType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'NS\SentinelBundle\Entity\NationalLab'
+            'data_class' => 'NS\SentinelBundle\Entity\IBD\NationalLab'
         ));
     }
 
@@ -27,6 +27,6 @@ class NationalLabType extends AbstractType
      */
     public function getName()
     {
-        return 'meningitis_nationallab';
+        return 'ibd_nationallab';
     }
 }

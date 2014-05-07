@@ -1,17 +1,11 @@
 <?php
 
-namespace NS\SentinelBundle\Form;
+namespace NS\SentinelBundle\Form\Rota;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use \Symfony\Component\Security\Core\SecurityContext;
-use \Symfony\Component\Form\FormEvent;
-use \Symfony\Component\Form\FormEvents;
-use \Doctrine\Common\Persistence\ObjectManager;
-use \Lexik\Bundle\FormFilterBundle\Filter\FilterOperands;
 
-class RotaVirusFilter extends AbstractType
+class FilterType extends AbstractType
 {
     /**
      * @param OptionsResolverInterface $resolver

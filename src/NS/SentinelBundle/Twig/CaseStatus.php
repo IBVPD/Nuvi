@@ -2,7 +2,7 @@
 
 namespace NS\SentinelBundle\Twig;
 
-use NS\SentinelBundle\Entity\Meningitis;
+use NS\SentinelBundle\Entity\BaseCase;
 
 /**
  * Description of CaseStatus
@@ -14,14 +14,14 @@ class CaseStatus extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'ibd_label'     => new \Twig_Function_Method($this, 'getMeningitisLabel',array('is_safe'=>array('html'))),
-            'ibd_lab_label' => new \Twig_Function_Method($this, 'getMeningitisLabLabel',array('is_safe'=>array('html'))),
-            'ibd_rrl_label' => new \Twig_Function_Method($this, 'getMeningitisRRLLabel',array('is_safe'=>array('html'))),
-            'ibd_nl_label'  => new \Twig_Function_Method($this, 'getMeningitisNLLabel',array('is_safe'=>array('html'))),
+            'case_label'     => new \Twig_Function_Method($this, 'getLabel',array('is_safe'=>array('html'))),
+            'case_lab_label' => new \Twig_Function_Method($this, 'getLabLabel',array('is_safe'=>array('html'))),
+            'case_rrl_label' => new \Twig_Function_Method($this, 'getRRLLabel',array('is_safe'=>array('html'))),
+            'case_nl_label'  => new \Twig_Function_Method($this, 'getNLLabel',array('is_safe'=>array('html'))),
         );
     }
 
-    public function getMeningitisNLLabel(Meningitis $obj, $message)
+    public function getNLLabel(BaseCase $obj, $message)
     {
         if($obj->getSentToNationalLab() || $obj->hasNationalLab())
         {
@@ -36,7 +36,7 @@ class CaseStatus extends \Twig_Extension
         return null;
     }
 
-    public function getMeningitisRRLLabel(Meningitis $obj, $message)
+    public function getRRLLabel(BaseCase $obj, $message)
     {
         if($obj->getSentToReferenceLab() || $obj->hasReferenceLab())
         {
@@ -51,7 +51,7 @@ class CaseStatus extends \Twig_Extension
         return null;
     }
 
-    public function getMeningitisLabLabel(Meningitis $obj, $message)
+    public function getLabLabel(BaseCase $obj, $message)
     {
         if($obj->hasSiteLab())
             $class = $obj->getSiteLab()->isComplete() ? 'label-success icon icon-ok':'label-warning icon icon-exclamation-sign';
@@ -61,7 +61,7 @@ class CaseStatus extends \Twig_Extension
         return '<span class="label label-sm '.$class.'">'.$message.'</span>';
     }
 
-    public function getMeningitisLabel(Meningitis $obj, $message)
+    public function getLabel(BaseCase $obj, $message)
     {
         $noError = true;
 

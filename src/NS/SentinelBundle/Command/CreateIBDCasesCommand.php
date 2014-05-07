@@ -7,7 +7,7 @@ use \Symfony\Component\Console\Input\InputInterface;
 use \Symfony\Component\Console\Output\OutputInterface;
 
 use NS\SentinelBundle\Entity\Meningitis;
-use \NS\SentinelBundle\Entity\SiteLab;
+use \NS\SentinelBundle\Entity\IBD\SiteLab;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Form\Types\Gender;
 use NS\SentinelBundle\Form\Types\Diagnosis;
@@ -39,9 +39,9 @@ class CreateIBDCasesCommand extends ContainerAwareCommand
 
         $male   = new Gender(Gender::MALE);
         $fmale  = new Gender(Gender::FEMALE);
-        $dx[]   = new Diagnosis(Diagnosis::MENINGITIS);
-        $dx[]   = new Diagnosis(Diagnosis::PNEUMONIA);
-        $dx[]   = new Diagnosis(Diagnosis::SEPSIS);
+        $dx[]   = new Diagnosis(Diagnosis::SUSPECTED_MENINGITIS);
+        $dx[]   = new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA);
+        $dx[]   = new Diagnosis(Diagnosis::SUSPECTED_SEPSIS);
         $dx[]   = new Diagnosis(Diagnosis::OTHER);
         $cxDone = array(
                      new TripleChoice(TripleChoice::YES),
@@ -58,10 +58,10 @@ class CreateIBDCasesCommand extends ContainerAwareCommand
             $m->setCsfCollected((($x % 3) == 0));
             if($x%12 == 0)
             {
-                $site = new SiteLab($m);
-
                 $done = array_rand($cxDone);
+                $site = new SiteLab($m);
                 $site->setCxrDone($cxDone[$done]);
+
                 $m->setSiteLab($site);
 
                 $this->em->persist($site);

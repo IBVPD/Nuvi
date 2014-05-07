@@ -53,7 +53,7 @@ services:
         - { name: form.type, alias: IBDCreateRoles }
 
     ns.sentinel.form.create_ibd:
-      class: NS\SentinelBundle\Form\CreateIBDType
+      class: NS\SentinelBundle\Form\IBD\CreateType
       arguments: [ "@ns.sentinel.sites", "@ns.model_manager" ]
       tags:
         - { name: form.type, alias: create_ibd }
@@ -139,14 +139,14 @@ services:
         - { name: form.type, alias: base_filter_form }
 
     ns.sentinel.rotavirus.filter:
-      class: NS\SentinelBundle\Form\RotaVirusFilter
+      class: NS\SentinelBundle\Form\Rota\FilterType
       tags:
         - { name: form.type, alias: rotavirus_filter_form }
 
     ns.sentinel.meningitis.filter:
-      class: NS\SentinelBundle\Form\MeningitisFilter
+      class: NS\SentinelBundle\Form\IBD\FilterType
       tags:
-        - { name: form.type, alias: meningitis_filter_form }
+        - { name: form.type, alias: ibd_filter_form }
 
     ns.sentinel.menu_builder:
       class: NS\SentinelBundle\Menu\Builder
@@ -171,39 +171,41 @@ services:
       class: NS\SentinelBundle\Security\UserProvider
       arguments: [ "@doctrine.orm.entity_manager" ]
 
-    ns.sentinel.form.type.meningitis_base:
+    ns.sentinel.form.type.ibd_base:
       class: NS\SentinelBundle\Form\BaseLabType
       arguments: [ "@ns.sentinel.sites", "@ns.model_manager" ]
       tags:
         - { name: form.type, alias: ibd_base_lab }
 
-    ns.sentinel.form.type.meningitis_nl:
-      class: NS\SentinelBundle\Form\NationalLabType
+    ns.sentinel.form.type.ibd_nl:
+      class: NS\SentinelBundle\Form\IBD\NationalLabType
       tags:
-        - { name: form.type, alias: meningitis_nationallab }
+        - { name: form.type, alias: ibd_nationallab }
 
-    ns.sentinel.form.type.meningitis_rrl:
-      class: NS\SentinelBundle\Form\ReferenceLabType
+    ns.sentinel.form.type.ibd_rrl:
+      class: NS\SentinelBundle\Form\IBD\ReferenceLabType
       tags:
-        - { name: form.type, alias: meningitis_referencelab }
-    ns.sentinel.form.type.meningitis_sitelab:
-      class: NS\SentinelBundle\Form\SiteLabType
+        - { name: form.type, alias: ibd_referencelab }
+
+    ns.sentinel.form.type.ibd_sitelab:
+      class: NS\SentinelBundle\Form\IBD\SiteLabType
       arguments: [ "@ns.sentinel.sites", "@ns.model_manager" ]
       tags:
-        - { name: form.type, alias: meningitis_sitelab }
+        - { name: form.type, alias: ibd_sitelab }
     
-    ns.sentinel.form.type.meningitis:
-      class: NS\SentinelBundle\Form\MeningitisType
+    ns.sentinel.form.type.ibd:
+      class: NS\SentinelBundle\Form\IBD\CaseType
       arguments: [ "@ns.sentinel.sites","@ns.model_manager" ]
       tags:
-        - { name: form.type, alias: meningitis }
+        - { name: form.type, alias: ibd }
     
     ns.sentinel.form.type.rotavirus_sitelab:
-      class: NS\SentinelBundle\Form\RotaVirusSiteLabType
+      class: NS\SentinelBundle\Form\Rota\SiteLabType
       tags:
         - { name: form.type, alias: rotavirus_sitelab }
+
     ns.sentinel.form.type.rotavirus:
-      class: NS\SentinelBundle\Form\RotaVirusType
+      class: NS\SentinelBundle\Form\Rota\CaseType
       arguments: [ "@ns.sentinel.sites", "@ns.model_manager" ]
       tags:
         - { name: form.type, alias: rotavirus }

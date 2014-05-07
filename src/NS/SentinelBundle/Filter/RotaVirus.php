@@ -40,9 +40,9 @@ class RotaVirus
     //site_code
 
     /**
-     * @var lab
+     * @var siteLab
      */
-    private $lab;
+    private $siteLab;
 
 //ii. Case-based Demographic Data
     /**
@@ -239,11 +239,6 @@ class RotaVirus
         return $this->site;
     }
 
-    public function getLab()
-    {
-        return $this->lab;
-    }
-
     public function getCaseId()
     {
         return $this->caseId;
@@ -415,12 +410,6 @@ class RotaVirus
     public function setSite( $site)
     {
         $this->site = $site;
-        return $this;
-    }
-
-    public function setLab( $lab)
-    {
-        $this->lab = $lab;
         return $this;
     }
 
@@ -604,9 +593,9 @@ class RotaVirus
      * @param \NS\SentinelBundle\Entity\RotaVirusSiteLab $lab
      * @return Meningitis
      */
-    public function setRotaVirusSiteLab($lab = null)
+    public function setSiteLab($lab = null)
     {
-        $this->lab = $lab;
+        $this->siteLab = $lab;
 
         return $this;
     }
@@ -616,14 +605,9 @@ class RotaVirus
      *
      * @return \NS\SentinelBundle\Entity\RotaVirusSiteLab
      */
-    public function getRotaVirusSiteLab()
+    public function getSiteLab()
     {
-        return $this->lab;
-    }
-
-    public function hasRotaVirusSiteLab()
-    {
-        return ($this->lab instanceof RotaVirusSiteLab);
+        return $this->siteLab;
     }
 
     /**

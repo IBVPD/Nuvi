@@ -1,6 +1,6 @@
 <?php
 
-namespace NS\SentinelBundle\Form;
+namespace NS\SentinelBundle\Form\IBD;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -146,7 +146,7 @@ class SiteLabType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'NS\SentinelBundle\Entity\SiteLab'
+            'data_class' => 'NS\SentinelBundle\Entity\IBD\SiteLab'
         ));
     }
 
@@ -155,6 +155,6 @@ class SiteLabType extends AbstractType
      */
     public function getName()
     {
-        return 'meningitis_sitelab';
+        return 'ibd_sitelab';
     }
 }

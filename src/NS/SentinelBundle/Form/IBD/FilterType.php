@@ -1,12 +1,13 @@
 <?php
 
-namespace NS\SentinelBundle\Form;
+namespace NS\SentinelBundle\Form\IBD;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\FormBuilderInterface;
+use Lexik\Bundle\FormFilterBundle\Filter\Extension\Type\EmbeddedFilterTypeInterface;
 
-class MeningitisFilter extends AbstractType implements \Lexik\Bundle\FormFilterBundle\Filter\Extension\Type\EmbeddedFilterTypeInterface
+class FilterType extends AbstractType implements EmbeddedFilterTypeInterface
 {
      /**
      * @param FormBuilderInterface $builder
@@ -17,7 +18,7 @@ class MeningitisFilter extends AbstractType implements \Lexik\Bundle\FormFilterB
         parent::buildForm($builder, $options);
 
         $builder->add('status', 'CaseStatus', array('required'=>false, 'label' => 'filter-case-status'));
-        $builder->add('lab','site_lab_filter',array('required'=>false));
+        $builder->add('siteLab','site_lab_filter',array('required'=>false));
     }
 
     /**
@@ -41,6 +42,6 @@ class MeningitisFilter extends AbstractType implements \Lexik\Bundle\FormFilterB
      */
     public function getName()
     {
-        return 'meningitis_filter_form';
+        return 'ibd_filter_form';
     }
 }

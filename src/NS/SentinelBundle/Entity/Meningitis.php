@@ -14,9 +14,7 @@ use NS\SentinelBundle\Form\Types\CaseStatus;
 use NS\SentinelBundle\Form\Types\MeningitisCaseResult;
 use NS\SentinelBundle\Form\Types\MeningitisVaccinationReceived;
 use NS\SentinelBundle\Form\Types\MeningitisVaccinationType;
-use NS\SentinelBundle\Interfaces\IdentityAssignmentInterface;
 use NS\UtilBundle\Form\Types\ArrayChoice;
-use Doctrine\Common\Collections\ArrayCollection;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use NS\SecurityBundle\Annotation\Secured;
@@ -39,50 +37,21 @@ use Symfony\Component\Validator\ExecutionContextInterface;
  *      })
  * @Assert\Callback(methods={"validate"})
  */
-class Meningitis implements IdentityAssignmentInterface
+class Meningitis extends BaseCase
 {
     /**
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="CUSTOM")
-     * @ORM\CustomIdGenerator(class="\NS\SentinelBundle\Generator\Custom")
-     * @var string $id
-     * @ORM\Column(name="id",type="string")
+     * @ORM\OneToMany(targetEntity="\NS\SentinelBundle\Entity\IBD\ExternalLab", mappedBy="case")
      */
-    private $id;
+    protected $externalLabs;
 
     /**
-     * @ORM\OneToMany(targetEntity="BaseLab", mappedBy="case")
+     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\IBD\SiteLab", mappedBy="case")
      */
-    private $externalLabs;
+    protected $siteLab;
 
-    private $referenceLab = -1;
-    private $nationalLab = -1;
-
-    /**
-     * @ORM\OneToOne(targetEntity="SiteLab", mappedBy="case")
-     */
-    private $lab;
-
-    /**
-     * @var Region $region
-     * @ORM\ManyToOne(targetEntity="Region",inversedBy="meningitisCases")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $region;
-
-    /**
-     * @var Country $country
-     * @ORM\ManyToOne(targetEntity="Country",inversedBy="meningitisCases")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $country;
-
-    /**
-     * @var Site $site
-     * @ORM\ManyToOne(targetEntity="Site",inversedBy="meningitisCases")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $site;
+    protected $siteLabClass   = '\NS\SentinelBundle\Entity\IBD\SiteLab';
+    protected $referenceClass = '\NS\SentinelBundle\Entity\IBD\ReferenceLab';
+    protected $nationalClass  = '\NS\SentinelBundle\Entity\IBD\NationalLab';
 
 // Case based demographic
     /**
@@ -199,7 +168,6 @@ class Meningitis implements IdentityAssignmentInterface
     private $menLethargy;
 
 //PNEUMONIA / SEPSIS
-
     /**
      * @var TripleChoice $pneuDiffBreathe
      * @ORM\Column(name="pneuDiffBreathe",type="TripleChoice",nullable=true)
@@ -381,18 +349,6 @@ class Meningitis implements IdentityAssignmentInterface
     private $status;
 
     /**
-     * @var boolean $sentToReferenceLab
-     * @ORM\Column(name="sentToReferenceLab",type="boolean")
-     */
-    private $sentToReferenceLab = false;
-
-    /**
-     * @var boolean $sentToNationalLab
-     * @ORM\Column(name="sentToNationalLab",type="boolean")
-     */
-    private $sentToNationalLab = false;
-
-    /**
      * @var DateTime $updatedAt
      * @ORM\Column(name="updatedAt",type="datetime")
      */
@@ -400,30 +356,9 @@ class Meningitis implements IdentityAssignmentInterface
 
     public function __construct()
     {
+        parent::__construct();
         $this->result       = new MeningitisCaseResult(0);
         $this->status       = new CaseStatus(0);
-        $this->externalLabs = new ArrayCollection();
-    }
-
-    public function __toString()
-    {
-        return $this->id;
-    }
-
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
-
-    public function hasId()
-    {
-        return !empty($this->id);
     }
 
     public function getDob()
@@ -460,11 +395,6 @@ class Meningitis implements IdentityAssignmentInterface
         }
 
         return $this;
-    }
-
-    public function getLab()
-    {
-        return $this->lab;
     }
 
     public function getAgeInMonths()
@@ -680,12 +610,6 @@ class Meningitis implements IdentityAssignmentInterface
     public function getComment()
     {
         return $this->comment;
-    }
-
-    public function setLab($lab)
-    {
-        $this->lab = $lab;
-        return $this;
     }
 
     public function setAgeInMonths($ageInMonths)
@@ -946,112 +870,6 @@ class Meningitis implements IdentityAssignmentInterface
         return $this;
     }
 
-    /**
-     * Set region
-     *
-     * @param \NS\SentinelBundle\Entity\Region $region
-     * @return Meningitis
-     */
-    public function setRegion(Region $region = null)
-    {
-        $this->region = $region;
-
-        return $this;
-    }
-
-    /**
-     * Get region
-     *
-     * @return \NS\SentinelBundle\Entity\Region 
-     */
-    public function getRegion()
-    {
-        return $this->region;
-    }
-
-    /**
-     * Set country
-     *
-     * @param \NS\SentinelBundle\Entity\Country $country
-     * @return Meningitis
-     */
-    public function setCountry(Country $country = null)
-    {
-        $this->country = $country;
-
-        $this->setRegion($country->getRegion());
-
-        return $this;
-    }
-
-    /**
-     * Get country
-     *
-     * @return \NS\SentinelBundle\Entity\Country 
-     */
-    public function getCountry()
-    {
-        return $this->country;
-    }
-
-    /**
-     * Set site
-     *
-     * @param \NS\SentinelBundle\Entity\Site $site
-     * @return Meningitis
-     */
-    public function setSite(Site $site = null)
-    {
-        $this->site = $site;
-
-        $this->setCountry($site->getCountry());
-
-        return $this;
-    }
-
-    public function getFullIdentifier($id)
-    {
-        return sprintf("%s-%s-%d-%06d", $this->country->getCode(), $this->site->getCode(), date('y'), $id);
-    }
-
-    /**
-     * Get site
-     *
-     * @return \NS\SentinelBundle\Entity\Site 
-     */
-    public function getSite()
-    {
-        return $this->site;
-    }
-
-    /**
-     * Set SiteLab
-     *
-     * @param \NS\SentinelBundle\Entity\SiteLab $lab
-     * @return Meningitis
-     */
-    public function setSiteLab(\NS\SentinelBundle\Entity\SiteLab $lab = null)
-    {
-        $this->lab = $lab;
-    
-        return $this;
-    }
-
-    /**
-     * Get SiteLab
-     *
-     * @return \NS\SentinelBundle\Entity\SiteLab 
-     */
-    public function getSiteLab()
-    {
-        return $this->lab;
-    }
-
-    public function hasSiteLab()
-    {
-        return ($this->lab instanceof SiteLab);
-    }
-
     public function getResult()
     {
         return $this->result;
@@ -1296,153 +1114,6 @@ class Meningitis implements IdentityAssignmentInterface
             if(is_null($this->csfAppearance) || $this->csfAppearance->equal(ArrayChoice::NO_SELECTION))
                 $context->addViolationAt('csfId', "form.validation.csfCollected-csfAppearance-empty");
         }
-    }
-
-    /**
-     * Add externalLabs
-     *
-     * @param \NS\SentinelBundle\Entity\BaseLab $externalLabs
-     * @return Meningitis
-     */
-    public function addExternalLab(\NS\SentinelBundle\Entity\BaseLab $externalLabs)
-    {
-        $this->externalLabs[] = $externalLabs;
-    
-        return $this;
-    }
-
-    /**
-     * Remove externalLabs
-     *
-     * @param \NS\SentinelBundle\Entity\BaseLab $externalLabs
-     */
-    public function removeExternalLab(\NS\SentinelBundle\Entity\BaseLab $externalLabs)
-    {
-        $this->externalLabs->removeElement($externalLabs);
-    }
-
-    /**
-     * Get externalLabs
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getExternalLabs()
-    {
-        return $this->externalLabs;
-    }
-
-    private function _findReferenceLab()
-    {
-        if(is_integer($this->referenceLab) && $this->referenceLab == -1)
-        {
-            foreach($this->externalLabs as $l)
-            {
-                if($l instanceof ReferenceLab)
-                {
-                    $this->referenceLab = $l;
-                    return;
-                }
-            }
-
-            $this->referenceLab = null;
-        }
-    }
-
-    /**
-     * Get ReferenceLab
-     *
-     * @return \NS\SentinelBundle\Entity\ReferenceLab
-     */
-    public function getReferenceLab()
-    {
-        $this->_findReferenceLab();
-        return $this->referenceLab;
-    }
-
-    public function hasReferenceLab()
-    {
-        $this->_findReferenceLab();
-        return ($this->referenceLab instanceof ReferenceLab);
-    }
-
-    private function _findNationalLab()
-    {
-        if(is_integer($this->nationalLab) && $this->nationalLab == -1)
-        {
-            foreach($this->externalLabs as $l)
-            {
-                if($l instanceof NationalLab)
-                {
-                    $this->nationalLab = $l;
-                    return;
-                }
-            }
-
-            $this->nationalLab = null;
-        }
-    }
-
-    /**
-     * Get NationalLab
-     *
-     * @return \NS\SentinelBundle\Entity\NationalLab
-     */
-    public function getNationalLab()
-    {
-        $this->_findNationalLab();
-        return $this->nationalLab;
-    }
-
-    public function hasNationalLab()
-    {
-        $this->_findNationalLab();
-        return ($this->nationalLab instanceof NationalLab);
-    }
-
-    /**
-     * Set sentToReferenceLab
-     *
-     * @param boolean $sentToReferenceLab
-     * @return Meningitis
-     */
-    public function setSentToReferenceLab($sentToReferenceLab)
-    {
-        $this->sentToReferenceLab = $sentToReferenceLab;
-    
-        return $this;
-    }
-
-    /**
-     * Get sentToReferenceLab
-     *
-     * @return boolean 
-     */
-    public function getSentToReferenceLab()
-    {
-        return $this->sentToReferenceLab;
-    }
-
-    /**
-     * Set sentToNationalLab
-     *
-     * @param boolean $sentToNationalLab
-     * @return Meningitis
-     */
-    public function setSentToNationalLab($sentToNationalLab)
-    {
-        $this->sentToNationalLab = $sentToNationalLab;
-    
-        return $this;
-    }
-
-    /**
-     * Get sentToNationalLab
-     *
-     * @return boolean 
-     */
-    public function getSentToNationalLab()
-    {
-        return $this->sentToNationalLab;
     }
 
     public function getUpdatedAt()

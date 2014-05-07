@@ -8,6 +8,7 @@ use \Doctrine\Common\DataFixtures\AbstractFixture;
 use \Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use \Symfony\Component\DependencyInjection\ContainerInterface;
 use \NS\SentinelBundle\Entity\Meningitis;
+use NS\SentinelBundle\Entity\IBD\SiteLab;
 use \NS\SentinelBundle\Form\Types\TripleChoice;
 use \NS\SentinelBundle\Form\Types\Gender;
 use \NS\SentinelBundle\Form\Types\Diagnosis;
@@ -25,8 +26,8 @@ class LoadMeningitisCaseData extends AbstractFixture implements OrderedFixtureIn
     {
         ini_set('memory_limit','768M');
 
-        $done  = new TripleChoice(TripleChoice::YES);
-        $nDone = new TripleChoice(TripleChoice::NO);
+//        $done  = new TripleChoice(TripleChoice::YES);
+//        $nDone = new TripleChoice(TripleChoice::NO);
         
         $a     = $this->getReference('site-alberta');
         $s     = $this->getReference('site-seattle');
@@ -34,9 +35,9 @@ class LoadMeningitisCaseData extends AbstractFixture implements OrderedFixtureIn
         $mx    = $this->getReference('site-mexico');
         $male  = new Gender(Gender::MALE);
         $fmale = new Gender(Gender::FEMALE);
-        $dx[]  = new Diagnosis(Diagnosis::MENINGITIS);
-        $dx[]  = new Diagnosis(Diagnosis::PNEUMONIA);
-        $dx[]  = new Diagnosis(Diagnosis::SEPSIS);
+        $dx[]  = new Diagnosis(Diagnosis::SUSPECTED_MENINGITIS);
+        $dx[]  = new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA);
+        $dx[]  = new Diagnosis(Diagnosis::SUSPECTED_SEPSIS);
         $dx[]  = new Diagnosis(Diagnosis::OTHER);
 
         for($x = 0; $x < 2700; $x++)
@@ -48,18 +49,18 @@ class LoadMeningitisCaseData extends AbstractFixture implements OrderedFixtureIn
             $m->setCsfCollected((($x % 3) == 0));
             if($x%12 == 0)
             {
-                $site = new \NS\SentinelBundle\Entity\SiteLab();
+                $site = new SiteLab();
                 $site->setCase($m);
-                $site->setCxrDone($done);
+//                $site->setCxrDone($done);
                 $m->setSiteLab($site);
                 
                 $manager->persist($site);
             }
 
-            $m->setGender(($x%7)?$fmale:$male);
+//            $m->setGender(($x%7)?$fmale:$male);
 
-            $dxKey = array_rand($dx);
-            $m->setDischDx($dx[$dxKey]);
+//            $dxKey = array_rand($dx);
+//            $m->setDischDx($dx[$dxKey]);
 
             if(($x % 3) == 0 )
             {

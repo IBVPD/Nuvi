@@ -8,7 +8,7 @@ use \Doctrine\Common\DataFixtures\AbstractFixture;
 use \Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use \Symfony\Component\DependencyInjection\ContainerInterface;
 use \NS\SentinelBundle\Entity\RotaVirus;
-use \NS\SentinelBundle\Entity\RotaVirusSiteLab;
+use \NS\SentinelBundle\Entity\Rota\SiteLab;
 use \NS\SentinelBundle\Form\Types\TripleChoice;
 use \NS\SentinelBundle\Form\Types\Gender;
 use \NS\SentinelBundle\Form\Types\Diagnosis;
@@ -35,9 +35,9 @@ class LoadRotaVirusCaseData extends AbstractFixture implements OrderedFixtureInt
         $mx    = $this->getReference('site-mexico');
         $male  = new Gender(Gender::MALE);
         $fmale = new Gender(Gender::FEMALE);
-        $dx[]  = new Diagnosis(Diagnosis::MENINGITIS);
-        $dx[]   = new Diagnosis(Diagnosis::PNEUMONIA);
-        $dx[]   = new Diagnosis(Diagnosis::SEPSIS);
+        $dx[]  = new Diagnosis(Diagnosis::SUSPECTED_MENINGITIS);
+        $dx[]   = new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA);
+        $dx[]   = new Diagnosis(Diagnosis::SUSPECTED_SEPSIS);
         $dx[]   = new Diagnosis(Diagnosis::OTHER);
 
         for($x = 0; $x < 2700; $x++)
@@ -48,14 +48,14 @@ class LoadRotaVirusCaseData extends AbstractFixture implements OrderedFixtureInt
             $m->setAdmissionDate($this->getRandomDate(null,$dob));
             if($x%12 == 0)
             {
-                $site = new RotaVirusSiteLab();
+                $site = new SiteLab();
                 $site->setCase($m);
-                $m->setLab($site);
+                $m->setSiteLab($site);
                 
                 $manager->persist($site);
             }
 
-            $m->setGender(($x%7)?$fmale:$male);
+//            $m->setGender(($x%7)?$fmale:$male);
 
             if(($x % 3) == 0 )
             {

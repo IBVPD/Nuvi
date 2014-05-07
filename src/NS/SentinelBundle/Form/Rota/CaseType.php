@@ -1,6 +1,6 @@
 <?php
 
-namespace NS\SentinelBundle\Form;
+namespace NS\SentinelBundle\Form\Rota;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -10,7 +10,7 @@ use Symfony\Component\Form\FormEvent;
 use NS\SentinelBundle\Services\SerializedSites;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class RotaVirusType extends AbstractType
+class CaseType extends AbstractType
 {
     private $em;
     private $siteSerializer;

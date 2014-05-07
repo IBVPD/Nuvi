@@ -31,7 +31,8 @@ class Site extends CommonRepository
                 ->innerJoin('s.country', 'c')
                 ->innerJoin('c.region', 'r');
 
-        return $this->secure($qb);
+
+        return (method_exists($this, 'secure')) ? $this->secure($qb) : $qb;
     }
 
     public function getChainByCode($codes)
