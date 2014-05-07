@@ -14,17 +14,16 @@ class BaseLabType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('eiaResult')
+            ->add('labId')
+            ->add('eiaResult','EIAResult')
             ->add('genotypingDate')
-            ->add('genotypingResultg')
-            ->add('genotypingResultGSpecify')
-            ->add('genotypeResultP')
-            ->add('genotypeResultPSpecify')
-            ->add('pcrVp6Result')
+            ->add('genotypingResultg','GenotypeResultG')
+            ->add('genotypingResultGSpecify','GenotypeResultGSpecify')
+            ->add('genotypeResultP','GenotypeResultP')
+            ->add('genotypeResultPSpecify','GenotypeResultPSpecify')
+            ->add('pcrVp6Result','EIAResult')
             ->add('genotypeResultSentToCountry')
             ->add('genotypeResultSentToWHO')
-            ->add('isComplete')
-            ->add('case')
         ;
     }
 
@@ -33,6 +32,6 @@ class BaseLabType extends AbstractType
      */
     public function getName()
     {
-        return 'rota_base_lab';
+        return 'rotavirus_base_lab';
     }
 }

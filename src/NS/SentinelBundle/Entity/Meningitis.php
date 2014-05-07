@@ -342,23 +342,10 @@ class Meningitis extends BaseCase
      */
     private $result;
 
-    /**
-     * @var CaseStatus $status
-     * @ORM\Column(name="status",type="CaseStatus")
-     */
-    private $status;
-
-    /**
-     * @var DateTime $updatedAt
-     * @ORM\Column(name="updatedAt",type="datetime")
-     */
-    private $updatedAt;
-
     public function __construct()
     {
         parent::__construct();
         $this->result       = new MeningitisCaseResult(0);
-        $this->status       = new CaseStatus(0);
     }
 
     public function getDob()
@@ -875,48 +862,10 @@ class Meningitis extends BaseCase
         return $this->result;
     }
 
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    public function isComplete()
-    {
-        return $this->status->getValue() == CaseStatus::COMPLETE;
-    }
-
     public function setResult(MeningitisCaseResult $result)
     {
         $this->result = $result;
         return $this;
-    }
-
-    public function setStatus(CaseStatus $status)
-    {
-        $this->status = $status;
-        return $this;
-    }
-
-    /**
-     * @ORM\PrePersist
-     */
-    public function prePersist()
-    {
-        $this->_calculateStatus();
-        $this->_calculateResult();
-
-        $this->updatedAt = new \DateTime();
-    }
-
-    /** 
-     * @ORM\PreUpdate
-     */
-    public function preUpdate()
-    {
-        $this->_calculateStatus();
-        $this->_calculateResult();
-
-        $this->updatedAt = new \DateTime();
     }
 
     /**
@@ -933,7 +882,7 @@ class Meningitis extends BaseCase
      *            syndrome consisten with bacterial meningitis
      *
      */
-    private function _calculateResult()
+    public function calculateResult()
     {
         if($this->status->getValue() >= CaseStatus::CANCELLED)
             return;
@@ -955,19 +904,6 @@ class Meningitis extends BaseCase
 
             // Confirmed
         }
-    }
-
-    private function _calculateStatus()
-    {
-        if($this->status->getValue() >= CaseStatus::CANCELLED)
-            return;
-
-        if($this->getIncompleteField())
-            $this->status = new CaseStatus(CaseStatus::OPEN);
-        else
-            $this->status = new CaseStatus(CaseStatus::COMPLETE);
-
-        return;
     }
 
     public function getIncompleteField()
@@ -1114,16 +1050,5 @@ class Meningitis extends BaseCase
             if(is_null($this->csfAppearance) || $this->csfAppearance->equal(ArrayChoice::NO_SELECTION))
                 $context->addViolationAt('csfId', "form.validation.csfCollected-csfAppearance-empty");
         }
-    }
-
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-        return $this;
     }
 }

@@ -5,13 +5,15 @@ namespace NS\SentinelBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use NS\SentinelBundle\Interfaces\IdentityAssignmentInterface;
+use NS\SentinelBundle\Form\Types\CaseStatus;
 
 /**
  * Description of BaseCase
  *
  * @author gnat
+ * @ORM\MappedSuperclass
  */
-class BaseCase implements IdentityAssignmentInterface
+abstract class BaseCase implements IdentityAssignmentInterface
 {
     /**
      * @ORM\Id
@@ -66,6 +68,18 @@ class BaseCase implements IdentityAssignmentInterface
      */
     protected $site;
 
+    /**
+     * @var CaseStatus $status
+     * @ORM\Column(name="status",type="CaseStatus")
+     */
+    protected $status;
+
+    /**
+     * @var DateTime $updatedAt
+     * @ORM\Column(name="updatedAt",type="datetime")
+     */
+    protected $updatedAt;
+
     public function __construct()
     {
         if(!is_string($this->nationalClass) || empty($this->nationalClass))
@@ -78,6 +92,7 @@ class BaseCase implements IdentityAssignmentInterface
             throw new \InvalidArgumentException("The SiteLab class is not set");
 
         $this->externalLabs = new ArrayCollection();
+        $this->status       = new CaseStatus(0);
     }
 
     public function __toString()
@@ -346,5 +361,60 @@ class BaseCase implements IdentityAssignmentInterface
     {
         $this->nationalClass = $nationalClass;
         return $this;
+    }
+
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    public function setStatus(CaseStatus $status)
+    {
+        $this->status = $status;
+        return $this;
+    }
+
+    public function isComplete()
+    {
+        return $this->status->getValue() == CaseStatus::COMPLETE;
+    }
+
+    public function calculateStatus()
+    {
+        if($this->status->getValue() >= CaseStatus::CANCELLED)
+            return;
+
+        if($this->getIncompleteField())
+            $this->status = new CaseStatus(CaseStatus::OPEN);
+        else
+            $this->status = new CaseStatus(CaseStatus::COMPLETE);
+
+        return;
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    abstract public function getIncompleteField();
+    abstract public function getMinimumRequiredFields();
+    abstract public function calculateResult();
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function preUpdateAndPersist()
+    {
+        $this->calculateStatus();
+        $this->calculateResult();
+        $this->setUpdatedAt(new \DateTime());
     }
 }

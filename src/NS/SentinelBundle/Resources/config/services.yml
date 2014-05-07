@@ -7,11 +7,6 @@ services:
       tags:
         - { name: form.type, alias: EIAResult }
 
-    ns.sentinel.form.type.pcrvp6result:
-      class: NS\SentinelBundle\Form\Types\PCRVP6Result
-      tags:
-        - { name: form.type, alias: PCRVP6Result }
-
     ns.sentinel.form.type.genotyperesultgspecify:
       class: NS\SentinelBundle\Form\Types\GenotypeResultGSpecify
       tags:
@@ -234,17 +229,17 @@ services:
     ns.sentinel.form.type.rota_base:
       class: NS\SentinelBundle\Form\Rota\BaseLabType
       tags:
-        - { name: form.type, alias: rota_base_lab }
+        - { name: form.type, alias: rotavirus_base_lab }
 
     ns.sentinel.form.type.rota_nl:
       class: NS\SentinelBundle\Form\Rota\NationalLabType
       tags:
-        - { name: form.type, alias: rota_nationallab }
+        - { name: form.type, alias: rotavirus_nationallab }
 
     ns.sentinel.form.type.rota_rrl:
       class: NS\SentinelBundle\Form\Rota\ReferenceLabType
       tags:
-        - { name: form.type, alias: rota_referencelab }
+        - { name: form.type, alias: rotavirus_referencelab }
     
     ns.sentinel.form.type.rotavirus_sitelab:
       class: NS\SentinelBundle\Form\Rota\SiteLabType

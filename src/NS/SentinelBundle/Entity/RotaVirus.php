@@ -621,16 +621,18 @@ class RotaVirus extends BaseCase
         return $this;
     }
 
-    public function getFullIdentifier($id)
+    public function calculateResult()
     {
-        return sprintf("%s-%s-%s-%06d",
-                $this->getRegion()->getCode(),
-                $this->country->getCode(),
-                $this->site->getCode(),$id);
+
     }
 
-    public function isComplete()
+    public function getIncompleteField()
     {
+        return null;
+    }
 
+    public function getMinimumRequiredFields()
+    {
+        return array();
     }
 }

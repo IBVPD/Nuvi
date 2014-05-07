@@ -166,15 +166,15 @@ class MeningitisController extends Controller
                     $form   = $this->createForm('ibd',$record);
                     break;
                 case 'lab':
-                    $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:SiteLab')->findOrCreateNew($id): null;
+                    $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:IBD\SiteLab')->findOrCreateNew($id): null;
                     $form   = $this->createForm('ibd_sitelab',$record);
                     break;
                 case 'rrl':
-                    $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:ReferenceLab')->findOrCreateNew($id): null;
+                    $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:IBD\ReferenceLab')->findOrCreateNew($id): null;
                     $form   = $this->createForm('ibd_referencelab',$record);
                     break;
                 case 'nl':
-                    $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:NationalLab')->findOrCreateNew($id): null;
+                    $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:IBD\NationalLab')->findOrCreateNew($id): null;
                     $form   = $this->createForm('ibd_nationallab',$record);
                     break;
                 default:

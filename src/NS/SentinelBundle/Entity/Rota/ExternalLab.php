@@ -16,7 +16,6 @@ use \NS\SentinelBundle\Entity\BaseLab;
  * @author gnat
  * @ORM\Entity()
  * @ORM\Table(name="rota_external_labs",uniqueConstraints={@ORM\UniqueConstraint(name="site_type_idx",columns={"case_id","discr"})})
- * @ORM\HasLifecycleCallbacks
  * @Gedmo\Loggable
  * @Secured(conditions={
  *      @SecuredCondition(roles={"ROLE_REGION"},through={"case"},relation="region",class="NSSentinelBundle:Region"),
@@ -27,7 +26,7 @@ use \NS\SentinelBundle\Entity\BaseLab;
  * @ORM\DiscriminatorColumn(name="discr",type="string")
  * @ORM\DiscriminatorMap({"reference" = "ReferenceLab", "national" = "NationalLab"})
  */
-class ExternalLab extends BaseLab
+abstract class ExternalLab extends BaseLab
 {
     /**
      * @ORM\ManyToOne(targetEntity="\NS\SentinelBundle\Entity\RotaVirus",inversedBy="externalLabs")
@@ -40,55 +39,55 @@ class ExternalLab extends BaseLab
      * @var EIAResult $eiaResult
      * @ORM\Column(name="eiaResult",type="EIAResult")
      */
-    private $eiaResult;
+    protected $eiaResult;
 
     /**
      * @var \DateTime $genotypingDate
      * @ORM\Column(name="genotypingDate",type="date")
      */
-    private $genotypingDate;
+    protected $genotypingDate;
 
     /**
      * @var GenotypeResultG $genotypingResultg
      * @ORM\Column(name="genotypingResultg",type="GenotypeResultG")
      */
-    private $genotypingResultg;
+    protected $genotypingResultg;
 
     /**
      * @var GenotypeResultGSpecify $genotypingResultGSpecify
      * @ORM\Column(name="genotypingResultGSpecify",type="GenotypeResultGSpecify")
      */
-    private $genotypingResultGSpecify;
+    protected $genotypingResultGSpecify;
 
     /**
      * @var GenotypeResultP $genotypeResultP
      * @ORM\Column(name="genotypeResultP",type="GenotypeResultP")
      */
-    private $genotypeResultP;
+    protected $genotypeResultP;
 
     /**
      * @var GenotypeResultPSpecify $genotypeResultPSpecify
      * @ORM\Column(name="genotypeResultPSpecify",type="GenotypeResultPSpecify")
      */
-    private $genotypeResultPSpecify;
+    protected $genotypeResultPSpecify;
 
     /**
-     * @var PCRVP6Result $pcrVp6Result
-     * @ORM\Column(name="pcrVp6Result",type="PCRVP6Result")
+     * @var EIAResult $pcrVp6Result
+     * @ORM\Column(name="pcrVp6Result",type="EIAResult")
      */
-    private $pcrVp6Result;
+    protected $pcrVp6Result;
 
     /**
      * @var \DateTime $genotypeResultSentToCountry
      * @ORM\Column(name="genotypeResultSentToCountry",type="date")
      */
-    private $genotypeResultSentToCountry;
+    protected $genotypeResultSentToCountry;
 
     /**
      * @var \DateTime $genotypeResultSentToWHO
      * @ORM\Column(name="genotypeResultSentToWHO",type="date")
      */
-    private $genotypeResultSentToWHO;
+    protected $genotypeResultSentToWHO;
 
     public function getEiaResult()
     {
@@ -135,7 +134,7 @@ class ExternalLab extends BaseLab
         return $this->genotypeResultSentToWHO;
     }
 
-    public function setEiaResult(EIAResult $eiaResult)
+    public function setEiaResult($eiaResult)
     {
         $this->eiaResult = $eiaResult;
         return $this;
@@ -147,31 +146,31 @@ class ExternalLab extends BaseLab
         return $this;
     }
 
-    public function setGenotypingResultg(GenotypeResultG $genotypingResultg)
+    public function setGenotypingResultg($genotypingResultg)
     {
         $this->genotypingResultg = $genotypingResultg;
         return $this;
     }
 
-    public function setGenotypingResultGSpecify(GenotypeResultGSpecify $genotypingResultGSpecify)
+    public function setGenotypingResultGSpecify($genotypingResultGSpecify)
     {
         $this->genotypingResultGSpecify = $genotypingResultGSpecify;
         return $this;
     }
 
-    public function setGenotypeResultP(GenotypeResultP $genotypeResultP)
+    public function setGenotypeResultP($genotypeResultP)
     {
         $this->genotypeResultP = $genotypeResultP;
         return $this;
     }
 
-    public function setGenotypeResultPSpecify(GenotypeResultPSpecify $genotypeResultPSpecify)
+    public function setGenotypeResultPSpecify($genotypeResultPSpecify)
     {
         $this->genotypeResultPSpecify = $genotypeResultPSpecify;
         return $this;
     }
 
-    public function setPcrVp6Result(PCRVP6Result $pcrVp6Result)
+    public function setPcrVp6Result($pcrVp6Result)
     {
         $this->pcrVp6Result = $pcrVp6Result;
         return $this;
@@ -189,5 +188,17 @@ class ExternalLab extends BaseLab
         return $this;
     }
 
-
+    public function getMandatoryFields()
+    {
+        return array(
+                    'eiaResult',
+                    'genotypingDate',
+                    'genotypingResultg',
+                    'genotypingResultGSpecify',
+                    'genotypeResultP',
+                    'genotypeResultPSpecify',
+                    'pcrVp6Result',
+                    'genotypeResultSentToCountry',
+                    'genotypeResultSentToWHO',);
+    }
 }

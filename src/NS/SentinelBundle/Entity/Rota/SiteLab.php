@@ -13,7 +13,7 @@ use NS\SentinelBundle\Form\Types\ElisaResult;
 /**
  * Description of RotaVirusSiteLab
  * @author gnat
- * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\RotaVirusSiteLab")
+ * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\Rota\SiteLab")
  * @ORM\Table(name="rotavirus_site_labs")
  * @Gedmo\Loggable
  * @Secured(conditions={

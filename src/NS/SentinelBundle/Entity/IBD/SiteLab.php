@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Description of SiteLab
  * @author gnat
- * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\SiteLab")
+ * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\IBD\SiteLab")
  * @ORM\Table(name="ibd_site_labs")
  * @Gedmo\Loggable
  * @Secured(conditions={

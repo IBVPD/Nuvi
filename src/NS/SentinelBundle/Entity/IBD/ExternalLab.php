@@ -36,7 +36,7 @@ use Symfony\Component\Validator\ExecutionContextInterface;
  * @ORM\DiscriminatorMap({"reference" = "ReferenceLab", "national" = "NationalLab"})
  * @Assert\Callback(methods={"validate"})
  */
-class ExternalLab extends BaseLab
+abstract class ExternalLab extends BaseLab
 {
     /**
      * @ORM\ManyToOne(targetEntity="\NS\SentinelBundle\Entity\Meningitis",inversedBy="externalLabs")
@@ -45,131 +45,124 @@ class ExternalLab extends BaseLab
     protected $case;
 
     /**
-     * @var string $labId
-     * @ORM\Column(name="labId",type="string")
-     * @Assert\NotBlank
-     */
-    private $labId;
-
-    /**
      * @var SampleType
      * @ORM\Column(type="SampleType",nullable=true)
      */
-    private $sampleType;
+    protected $sampleType;
 
     /**
      * @var DateTime
      * @ORM\Column(type="date",nullable=true)
      */
-    private $dateReceived;
+    protected $dateReceived;
 
     /**
      * @var Volume
      * @ORM\Column(type="Volume",nullable=true)
      */
-    private $volume;
+    protected $volume;
 
     /**
      * @var DateTime
      * @ORM\Column(type="date",nullable=true)
      */
-    private $DNAExtractionDate;
+    protected $DNAExtractionDate;
 
     /**
      * @var integer
      * @ORM\Column(type="integer",nullable=true)
      */
-    private $DNAVolume;
+    protected $DNAVolume;
 
     /**
      * @var TripleChoice
      * @ORM\Column(type="TripleChoice",nullable=true)
      */
-    private $isolateViable;
+    protected $isolateViable;
 
     /**
      * @var IsolateType
      * @ORM\Column(type="IsolateType",nullable=true)
      */
-    private $isolateType;
+    protected $isolateType;
 
     /**
      * @var PathogenIdentifier
      * @ORM\Column(type="PathogenIdentifier",nullable=true)
      */
-    private $pathogenIdentifierMethod;
+    protected $pathogenIdentifierMethod;
 
     /**
      * @var string
      * @ORM\Column(type="string",nullable=true)
      */
-    private $pathogenIdentifierOther;
+    protected $pathogenIdentifierOther;
 
     /**
      * @var SerotypeIdentifier
      * @ORM\Column(type="SerotypeIdentifier",nullable=true)
      */
-    private $serotypeIdentifier;
+    protected $serotypeIdentifier;
 
     /**
      * @var string
      * @ORM\Column(type="string",nullable=true)
      */
-    private $serotypeIdentifierOther;
+    protected $serotypeIdentifierOther;
 
     /**
      * @var double
      * @ORM\Column(type="decimal",precision=3, scale=1,nullable=true)
      */
-    private $lytA;
+    protected $lytA;
 
     /**
      * @var double
      * @ORM\Column(type="decimal",precision=3, scale=1,nullable=true)
      */
-    private $sodC;
+    protected $sodC;
 
     /**
      * @var double
      * @ORM\Column(type="decimal",precision=3, scale=1,nullable=true)
      */
-    private $hpd;
+    protected $hpd;
 
     /**
      * @var double
      * @ORM\Column(type="decimal",precision=3, scale=1,nullable=true)
      */
-    private $rNaseP;
+    protected $rNaseP;
 
     /**
      * @var double
      * @ORM\Column(type="decimal",precision=3, scale=1,nullable=true)
      */
-    private $spnSerotype;
+    protected $spnSerotype;
 
     /**
      * @var double
      * @ORM\Column(type="decimal",precision=3, scale=1,nullable=true)
      */
-    private $hiSerotype;
+    protected $hiSerotype;
 
     /**
      * @var double
      * @ORM\Column(type="decimal",precision=3, scale=1,nullable=true)
      */
-    private $nmSerogroup;
+    protected $nmSerogroup;
 
     /**
      * @var \DateTime $resultSentToCountry
      * @ORM\Column(name="resultSentToCountry",type="date",nullable=true)
      */
-    private $resultSentToCountry;
+    protected $resultSentToCountry;
 
     /**
      * @var \DateTime $resultSentToWHO
      * @ORM\Column(name="resultSentToWHO",type="date",nullable=true)
      */
-    private $resultSentToWHO;
+    protected $resultSentToWHO;
 
     /**
      * Set sampleType
@@ -609,33 +602,6 @@ class ExternalLab extends BaseLab
         return $this;
     }
 
-    public function getLabId()
-    {
-        return $this->labId;
-    }
-
-    public function setLabId($labId)
-    {
-        $this->labId = $labId;
-        return $this;
-    }
-
-    /**
-     * @ORM\PrePersist
-     */
-    public function prePersist()
-    {
-        $this->_calculateIsComplete();
-    }
-
-    /**
-     * @ORM\PreUpdate
-     */
-    public function preUpdate()
-    {
-        $this->_calculateIsComplete();
-    }
-
     public function getMandatoryFields()
     {
         return array(
@@ -653,23 +619,6 @@ class ExternalLab extends BaseLab
                     );
     }
 
-    protected function _calculateIsComplete()
-    {
-        foreach($this->getMandatoryFields() as $fieldName)
-        {
-            if(!$this->$fieldName)
-                return $this->isComplete = false;
-        }
-
-        if($this->pathogenIdentifierMethod && $this->pathogenIdentifierMethod->equal(Diagnosis::OTHER) && empty($this->pathogenIdentifierOther))
-            return $this->isComplete = false;
-
-        if($this->serotypeIdentifierMethod && $this->serotypeIdentifierMethod->equal(Diagnosis::OTHER) && empty($this->serotypeIdentifierOther))
-            return $this->isComplete = false;
-
-        $this->isComplete = true;
-    }
-
     public function validate(ExecutionContextInterface $context)
     {
         // if pathogenIdentifierMethod is other, enforce value in 'pathogenIdentifierMethod other' field
@@ -679,5 +628,18 @@ class ExternalLab extends BaseLab
         // if serotypeIdentifier is other, enforce value in 'serotypeIdentifier other' field
         if($this->serotypeIdentifier && $this->serotypeIdentifier->equal(SerotypeIdentifier::OTHER) && empty($this->serotypeIdentifierOther))
             $context->addViolationAt('serotypeIdentifier',"form.validation.serotypeIdentifier-other-without-other-text");
+    }
+
+    public function getIncompleteField()
+    {
+        $ret = parent::getIncompleteField();
+        if($ret)
+            return $ret;
+
+        if($this->pathogenIdentifierMethod && $this->pathogenIdentifierMethod->equal(Diagnosis::OTHER) && empty($this->pathogenIdentifierOther))
+            return 'pathogenIdentier';
+
+        if($this->serotypeIdentifierMethod && $this->serotypeIdentifierMethod->equal(Diagnosis::OTHER) && empty($this->serotypeIdentifierOther))
+            return 'serotypeIdentier';
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace NS\SentinelBundle\Repository;
+namespace NS\SentinelBundle\Repository\IBD;
 
 use NS\SecurityBundle\Doctrine\SecuredEntityRepository;
 use NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
@@ -69,7 +69,7 @@ class SiteLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
         {
             if($e instanceof NoResultException || $e instanceof NonExistentCase)
             {
-                $record = new \NS\SentinelBundle\Entity\SiteLab();
+                $record = new \NS\SentinelBundle\Entity\IBD\SiteLab();
                 $m      = $this->_em->getRepository('NSSentinelBundle:Meningitis')->checkExistence($id);
                 $record->setCase($m);
 

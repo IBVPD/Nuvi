@@ -2,13 +2,13 @@
 
 namespace NS\SentinelBundle\Form\Types;
 
-use NS\UtilBundle\Form\Types\ArrayChoice;
+use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 
 /**
  * Description of GenotypeResultGSpecify
  *
  */
-class GenotypeResultGSpecify extends ArrayChoice
+class GenotypeResultGSpecify extends TranslatableArrayChoice
 {
     const FIRST_VALUE = 1;
 

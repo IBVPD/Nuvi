@@ -58,6 +58,8 @@ class CaseType extends AbstractType
             ->add('dischargeDate',              'acedatepicker',    array('required'=>false, 'label'=>'rotavirus-form.dischargeDate'))
             ->add('dischargeClassOther',        null,               array('required'=>false, 'label'=>'rotavirus-form.dischargeClassOther'))
             ->add('comment',                    null,               array('required'=>false, 'label'=>'rotavirus-form.comment'))
+            ->add('sentToReferenceLab')
+            ->add('sentToNationalLab')
         ;
 
         $factory        = $builder->getFormFactory();

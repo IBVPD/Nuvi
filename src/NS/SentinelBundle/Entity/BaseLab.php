@@ -3,13 +3,17 @@
 namespace NS\SentinelBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use NS\SentinelBundle\Form\Types\CaseStatus;
 
 /**
  * Description of BaseLab
  *
  * @author gnat
+ * @ORM\MappedSuperclass
+ * @ORM\HasLifecycleCallbacks
  */
-class BaseLab
+abstract class BaseLab
 {
     /**
      * @ORM\Id
@@ -24,15 +28,30 @@ class BaseLab
     protected $caseClass;
 
     /**
-     * @var boolean $isComplete
-     * @ORM\Column(name="isComplete",type="boolean")
+     * @var string $labId
+     * @ORM\Column(name="labId",type="string")
+     * @Assert\NotBlank
      */
-    protected $isComplete = false;
+    protected $labId;
+
+    /**
+     * @var CaseStatus $status
+     * @ORM\Column(name="status",type="CaseStatus")
+     */
+    protected $status;
+
+    /**
+     * @var DateTime $updatedAt
+     * @ORM\Column(name="updatedAt",type="datetime")
+     */
+    protected $updatedAt;
 
     public function __construct()
     {
         if(!is_string($this->caseClass) || empty($this->caseClass))
             throw new \InvalidArgumentException("The case class is not set");
+
+        $this->status = new CaseStatus(0);
     }
 
     /**
@@ -78,18 +97,80 @@ class BaseLab
 
     public function isComplete()
     {
-        return $this->isComplete;
+        return $this->status->getValue() == CaseStatus::COMPLETE;
     }
 
     public function getIsComplete()
     {
-        return $this->isComplete;
+        return $this->status->getValue() == CaseStatus::COMPLETE;
     }
 
-    public function setIsComplete($value)
+    public function getLabId()
     {
-        $this->isComplete = (bool)$value;
+        return $this->labId;
+    }
 
+    public function setLabId($labId)
+    {
+        $this->labId = $labId;
         return $this;
+    }
+
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    public function setStatus(CaseStatus $status)
+    {
+        $this->status = $status;
+        return $this;
+    }
+
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    public function calculateStatus()
+    {
+        if($this->status->getValue() >= CaseStatus::CANCELLED)
+            return;
+
+        if($this->getIncompleteField())
+            $this->status = new CaseStatus(CaseStatus::OPEN);
+        else
+            $this->status = new CaseStatus(CaseStatus::COMPLETE);
+
+        return;
+    }
+
+    public function getIncompleteField()
+    {
+        foreach($this->getMandatoryFields() as $fieldName)
+        {
+            if(!$this->$fieldName)
+                return $fieldName;
+        }
+
+        return;
+    }
+
+    abstract public function getMandatoryFields();
+
+    /**
+     * @ORM\PreUpdate
+     * @ORM\PrePersist
+     */
+    public function preUpdateAndPersist()
+    {
+        $this->calculateStatus();
+        $this->setUpdatedAt(new \DateTime());
     }
 }

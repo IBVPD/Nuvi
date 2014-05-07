@@ -23,7 +23,7 @@ class ReferenceLabType extends AbstractType
      */
     public function getParent()
     {
-        return 'rota_base_lab';
+        return 'rotavirus_base_lab';
     }
 
     /**
@@ -31,6 +31,6 @@ class ReferenceLabType extends AbstractType
      */
     public function getName()
     {
-        return 'rota_referencelab';
+        return 'rotavirus_referencelab';
     }
 }

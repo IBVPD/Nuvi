@@ -1,6 +1,8 @@
 <?php
 
-namespace NS\SentinelBundle\Repository;
+namespace NS\SentinelBundle\Repository\Rota;
+
+use NS\SentinelBundle\Repository\BaseLab;
 
 /**
  * NationalLab
@@ -10,5 +12,5 @@ namespace NS\SentinelBundle\Repository;
  */
 class NationalLab extends BaseLab
 {
-
+    protected $parentClass = 'NSSentinelBundle:RotaVirus';
 }
