@@ -44,7 +44,8 @@
         "oneup/uploader-bundle": "1.0.*@dev",
         "lexik/form-filter-bundle": "dev-master",
         "knplabs/knp-paginator-bundle": "~2.4",
-        "lunetics/locale-bundle": "~2.2"
+        "lunetics/locale-bundle": "~2.2",
+        "vipsoft/doctrine-data-fixtures-extension": "*"
     },
     "scripts": {
         "post-install-cmd": [
