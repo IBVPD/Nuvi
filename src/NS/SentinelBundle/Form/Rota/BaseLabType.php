@@ -19,7 +19,7 @@ class BaseLabType extends AbstractType
             ->add('labId')
             ->add('eiaResult','EIAResult',              array('required'=>false,'label'=>'external-lab-form.eia-result'))
             ->add('genotypingDate',null,                array('required'=>false,'label'=>'external-lab-form.genotyping-date'))
-            ->add('genotypingResultg','GenotypeResultG',array('required'=>false,'label'=>'external-lab-form.genotyping-result-g',         'attr' => array('data-context-child'  => 'genotypingResultG')))
+            ->add('genotypingResultG','GenotypeResultG',array('required'=>false,'label'=>'external-lab-form.genotyping-result-g',         'attr' => array('data-context-child'  => 'genotypingResultG')))
             ->add('genotypingResultGSpecify',null,      array('required'=>false,'label'=>'external-lab-form.genotyping-result-g-specify', 'attr' => array('data-context-parent' => 'genotypingResultG', 'data-context-value' => json_encode(array(GenotypeResultG::OTHER,GenotypeResultG::MIXED)))))
             ->add('genotypeResultP','GenotypeResultP',  array('required'=>false,'label'=>'external-lab-form.genotyping-result-p',         'attr' => array('data-context-child'  => 'genotypingResultP')))
             ->add('genotypeResultPSpecify',null,        array('required'=>false,'label'=>'external-lab-form.genotyping-result-p-specify', 'attr' => array('data-context-parent' => 'genotypingResultP', 'data-context-value' => json_encode(array(GenotypeResultP::OTHER,GenotypeResultP::MIXED)))))
