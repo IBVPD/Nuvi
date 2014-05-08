@@ -37,55 +37,55 @@ abstract class ExternalLab extends BaseLab
 
     /**
      * @var EIAResult $eiaResult
-     * @ORM\Column(name="eiaResult",type="EIAResult")
+     * @ORM\Column(name="eiaResult",type="EIAResult", nullable=true)
      */
     protected $eiaResult;
 
     /**
      * @var \DateTime $genotypingDate
-     * @ORM\Column(name="genotypingDate",type="date")
+     * @ORM\Column(name="genotypingDate",type="date", nullable=true)
      */
     protected $genotypingDate;
 
     /**
      * @var GenotypeResultG $genotypingResultg
-     * @ORM\Column(name="genotypingResultg",type="GenotypeResultG")
+     * @ORM\Column(name="genotypingResultg",type="GenotypeResultG", nullable=true)
      */
     protected $genotypingResultg;
 
     /**
-     * @var GenotypeResultGSpecify $genotypingResultGSpecify
-     * @ORM\Column(name="genotypingResultGSpecify",type="GenotypeResultGSpecify")
+     * @var string $genotypingResultGSpecify
+     * @ORM\Column(name="genotypingResultGSpecify",type="string", nullable=true)
      */
     protected $genotypingResultGSpecify;
 
     /**
      * @var GenotypeResultP $genotypeResultP
-     * @ORM\Column(name="genotypeResultP",type="GenotypeResultP")
+     * @ORM\Column(name="genotypeResultP",type="GenotypeResultP", nullable=true)
      */
     protected $genotypeResultP;
 
     /**
-     * @var GenotypeResultPSpecify $genotypeResultPSpecify
-     * @ORM\Column(name="genotypeResultPSpecify",type="GenotypeResultPSpecify")
+     * @var string $genotypeResultPSpecify
+     * @ORM\Column(name="genotypeResultPSpecify",type="string", nullable=true)
      */
     protected $genotypeResultPSpecify;
 
     /**
      * @var EIAResult $pcrVp6Result
-     * @ORM\Column(name="pcrVp6Result",type="EIAResult")
+     * @ORM\Column(name="pcrVp6Result",type="EIAResult", nullable=true)
      */
     protected $pcrVp6Result;
 
     /**
      * @var \DateTime $genotypeResultSentToCountry
-     * @ORM\Column(name="genotypeResultSentToCountry",type="date")
+     * @ORM\Column(name="genotypeResultSentToCountry",type="date", nullable=true)
      */
     protected $genotypeResultSentToCountry;
 
     /**
      * @var \DateTime $genotypeResultSentToWHO
-     * @ORM\Column(name="genotypeResultSentToWHO",type="date")
+     * @ORM\Column(name="genotypeResultSentToWHO",type="date", nullable=true)
      */
     protected $genotypeResultSentToWHO;
 
