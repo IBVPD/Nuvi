@@ -37,6 +37,7 @@ class AppKernel extends Kernel
             new Lunetics\LocaleBundle\LuneticsLocaleBundle(),
             new NS\TranslateBundle\NSTranslateBundle(),
             new NS\SonataBundle\NSSonataBundle(),
+            new \NS\FlashBundle\NSFlashBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
