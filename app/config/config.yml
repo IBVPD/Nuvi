@@ -92,9 +92,7 @@ doctrine:
             IBDCreateRoles: NS\SentinelBundle\Entity\Types\IBDCreateRoles
             EIAResult: NS\SentinelBundle\Entity\Types\EIAResult
             GenotypeResultG: NS\SentinelBundle\Entity\Types\GenotypeResultG
-            GenotypeResultGSpecify: NS\SentinelBundle\Entity\Types\GenotypeResultGSpecify
             GenotypeResultP: NS\SentinelBundle\Entity\Types\GenotypeResultP
-            GenotypeResultPSpecify: NS\SentinelBundle\Entity\Types\GenotypeResultPSpecify
         mapping_types:
             TripleChoice: TripleChoice
             Doses: Doses
@@ -129,9 +127,7 @@ doctrine:
             IBDCreateRoles: IBDCreateRoles
             EIAResult: EIAResult
             GenotypeResultG: GenotypeResultG
-            GenotypeResultGSpecify: GenotypeResultGSpecify
             GenotypeResultP: GenotypeResultP
-            GenotypeResultPSpecify: GenotypeResultPSpecify
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true

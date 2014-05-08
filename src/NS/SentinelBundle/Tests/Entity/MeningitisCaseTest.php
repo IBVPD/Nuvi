@@ -95,7 +95,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
     {
         $case = new Meningitis();
         $this->_updateCase($case, $this->getSingleCompleteCaseWithPneunomia());
-        $case->prePersist();
+        $case->preUpdateAndPersist();
 
         $this->assertEquals(32, count($case->getMinimumRequiredFields()));
         $this->assertTrue($case->isComplete(),"New cases are incomplete");
@@ -105,7 +105,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
     {
         $case = new Meningitis();
         $this->_updateCase($case, $this->getSingleCompleteCaseWithoutPneunomia());
-        $case->prePersist();
+        $case->preUpdateAndPersist();
 
         $this->assertEquals(23, count($case->getMinimumRequiredFields()));
         $this->assertTrue($case->isComplete(),"New cases are incomplete");
@@ -121,7 +121,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
     {
         $case = new Meningitis();
         $this->_updateCase($case, $data);
-        $case->prePersist();
+        $case->preUpdateAndPersist();
 
         $this->assertFalse($case->isComplete(),"New cases are incomplete ".(isset($data['removed'])?$data['removed']:'no removed'));
         $this->assertEquals($case->getStatus()->getValue(),CaseStatus::OPEN);
@@ -135,7 +135,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
     {
         $case = new Meningitis();
         $this->_updateCase($case, $data);
-        $case->prePersist();
+        $case->preUpdateAndPersist();
 
         $this->assertFalse($case->isComplete(),"New cases are incomplete ".(isset($data['removed'])?$data['removed']:'no removed'));
         $this->assertEquals($case->getStatus()->getValue(),CaseStatus::OPEN);
@@ -151,7 +151,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
     {
         $case = new Meningitis();
         $this->_updateCase($case, $data);
-        $case->prePersist();
+        $case->preUpdateAndPersist();
 
         $this->assertTrue($case->isComplete(),"Cases with pneunomia are complete ".(!$case->isComplete())? $case->getIncompleteField():null);
         $this->assertEquals($case->getStatus()->getValue(),CaseStatus::COMPLETE);
@@ -165,7 +165,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
     {
         $case = new Meningitis();
         $this->_updateCase($case, $data);
-        $case->prePersist();
+        $case->preUpdateAndPersist();
 
         $this->assertTrue($case->isComplete(),"Cases without pneunomia are complete ".(!$case->isComplete())? $case->getIncompleteField():null);
         $this->assertEquals($case->getStatus()->getValue(),CaseStatus::COMPLETE);

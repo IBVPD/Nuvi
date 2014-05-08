@@ -52,25 +52,25 @@ class CaseType extends AbstractType
             ->add('menFontanelleBulge',     'TripleChoice',     array('required'=>false,'label'=>'meningitis-form.men-fontanelle-bulge'))
             ->add('menLethargy',            'TripleChoice',     array('required'=>false,'label'=>'meningitis-form.men-lethargy'))
 
-            ->add('hibReceived',            'TripleChoice',     array('required'=>false,'label'=>'meningitis-form.hib-received',    'attr' => array('data-context-child'=>'hibReceived')))
-            ->add('hibDoses',               'Doses',            array('required'=>false,'label'=>'meningitis-form.hib-doses',       'attr' => array('data-context-parent'=>'hibReceived', 'data-context-value'=>TripleChoice::YES)))
+            ->add('hibReceived',            'TripleChoice',     array('required'=>false,'label'=>'meningitis-form.hib-received',              'attr' => array('data-context-child'=>'hibReceived')))
+            ->add('hibDoses',               'Doses',            array('required'=>false,'label'=>'meningitis-form.hib-doses',                 'attr' => array('data-context-parent'=>'hibReceived', 'data-context-value'=>TripleChoice::YES)))
 
-            ->add('pcvReceived',            'TripleChoice',     array('required'=>false,'label'=>'meningitis-form.pcv-received',    'attr' => array('data-context-child'=>'pcvReceived')))
-            ->add('pcvDoses',               'Doses',            array('required'=>false,'label'=>'meningitis-form.pcv-doses',       'attr' => array('data-context-parent'=>'pcvReceived', 'data-context-value'=>TripleChoice::YES)))
-            ->add('meningReceived',         'MeningitisVaccinationReceived',array('required'=>false,'label'=>'meningitis-form.men-received',        'attr' => array('data-context-child'=>'meningReceived')))
-            ->add('meningType',             'MeningitisVaccinationType',    array('required'=>false,'label'=>'meningitis-form.men-type',            'attr' => array('data-context-parent'=>'meningReceived', 'data-context-value'=>json_encode(array(MeningitisVaccinationReceived::YES_CARD,MeningitisVaccinationReceived::YES_HISTORY)))))
-            ->add('meningMostRecentDose',   'acedatepicker',    array('required'=>false,'label'=>'meningitis-form.meningMostRecentDose',            'attr' => array('data-context-parent'=>'meningReceived', 'data-context-value'=>json_encode(array(MeningitisVaccinationReceived::YES_CARD,MeningitisVaccinationReceived::YES_HISTORY)))))
+            ->add('pcvReceived',            'TripleChoice',     array('required'=>false,'label'=>'meningitis-form.pcv-received',              'attr' => array('data-context-child'=>'pcvReceived')))
+            ->add('pcvDoses',               'Doses',            array('required'=>false,'label'=>'meningitis-form.pcv-doses',                 'attr' => array('data-context-parent'=>'pcvReceived', 'data-context-value'=>TripleChoice::YES)))
+            ->add('meningReceived',         'MeningitisVaccinationReceived',array('required'=>false,'label'=>'meningitis-form.men-received',  'attr' => array('data-context-child'=>'meningReceived')))
+            ->add('meningType',             'MeningitisVaccinationType',    array('required'=>false,'label'=>'meningitis-form.men-type',      'attr' => array('data-context-parent'=>'meningReceived', 'data-context-value'=>json_encode(array(MeningitisVaccinationReceived::YES_CARD,MeningitisVaccinationReceived::YES_HISTORY)))))
+            ->add('meningMostRecentDose',   'acedatepicker',    array('required'=>false,'label'=>'meningitis-form.meningMostRecentDose',      'attr' => array('data-context-parent'=>'meningReceived', 'data-context-value'=>json_encode(array(MeningitisVaccinationReceived::YES_CARD,MeningitisVaccinationReceived::YES_HISTORY)))))
 
-            ->add('csfCollected',       'TripleChoice',         array('required'=>false,'label'=>'meningitis-form.csf-collected',                   'attr' => array('data-context-child'=>'csfCollected','data-context-value'=>TripleChoice::YES)))
-            ->add('csfId',              null,                   array('required'=>false,'label'=>'meningitis-form.csf-id',                          'attr' => array('data-context-parent'=>'csfCollected','data-context-value'=>true)))
-            ->add('csfCollectDateTime', 'acedatetime',          array('required'=>false,'label'=>'meningitis-form.csf-collect-datetime',            'attr' => array('data-context-parent'=>'csfCollected','data-context-value'=>true)))
-            ->add('csfAppearance',      'CSFAppearance',        array('required'=>false,'label'=>'meningitis-form.csf-appearance',                  'attr' => array('data-context-parent'=>'csfCollected','data-context-value'=>true)))
+            ->add('csfCollected',           'TripleChoice',     array('required'=>false,'label'=>'meningitis-form.csf-collected',             'attr' => array('data-context-child'=>'csfCollected','data-context-value'=>TripleChoice::YES)))
+            ->add('csfId',                  null,               array('required'=>false,'label'=>'meningitis-form.csf-id',                    'attr' => array('data-context-parent'=>'csfCollected','data-context-value'=>true)))
+            ->add('csfCollectDateTime',     'acedatetime',      array('required'=>false,'label'=>'meningitis-form.csf-collect-datetime',      'attr' => array('data-context-parent'=>'csfCollected','data-context-value'=>true)))
+            ->add('csfAppearance',          'CSFAppearance',    array('required'=>false,'label'=>'meningitis-form.csf-appearance',            'attr' => array('data-context-parent'=>'csfCollected','data-context-value'=>true)))
 
-            ->add('dischOutcome',       'DischargeOutcome',     array('required'=>false,'label'=>'meningitis-form.discharge-outcome'))
-            ->add('dischDx',            'Diagnosis',            array('required'=>false,'label'=>'meningitis-form.discharge-diagnosis',             'attr' => array('data-context-child'=>'dischargeDiagnosis')))
-            ->add('dischDxOther',       null,                   array('required'=>false,'label'=>'meningitis-form.discharge-diagnosis-other',       'attr' => array('data-context-parent'=>'dischargeDiagnosis', 'data-context-parent'=>Diagnosis::OTHER)))
-            ->add('dischClass',         'DischargeClassification',array('required'=>false,'label'=>'meningitis-form.discharge-class'))
-            ->add('comment',            null,                   array('required'=>false,'label'=>'meningitis-form.comment'))
+            ->add('dischOutcome',           'DischargeOutcome', array('required'=>false,'label'=>'meningitis-form.discharge-outcome'))
+            ->add('dischDx',                'Diagnosis',        array('required'=>false,'label'=>'meningitis-form.discharge-diagnosis',       'attr' => array('data-context-child'=>'dischargeDiagnosis')))
+            ->add('dischDxOther',           null,               array('required'=>false,'label'=>'meningitis-form.discharge-diagnosis-other', 'attr' => array('data-context-parent'=>'dischargeDiagnosis', 'data-context-parent'=>Diagnosis::OTHER)))
+            ->add('dischClass',       'DischargeClassification',array('required'=>false,'label'=>'meningitis-form.discharge-class'))
+            ->add('comment',                null,               array('required'=>false,'label'=>'meningitis-form.comment'))
         ;
 
         $factory        = $builder->getFormFactory();
