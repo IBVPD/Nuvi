@@ -93,6 +93,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
 
         $this->externalLabs = new ArrayCollection();
         $this->status       = new CaseStatus(0);
+        $this->updatedAt    = new \DateTime();
     }
 
     public function __toString()

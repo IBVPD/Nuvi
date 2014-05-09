@@ -70,85 +70,85 @@ abstract class ExternalLab extends BaseLab
 
     /**
      * @var integer
-     * @ORM\Column(type="integer",nullable=true)
+     * @ORM\Column(name="DNAVolume",type="integer",nullable=true)
      */
     protected $DNAVolume;
 
     /**
      * @var TripleChoice
-     * @ORM\Column(type="TripleChoice",nullable=true)
+     * @ORM\Column(name="isolateViable",type="TripleChoice",nullable=true)
      */
     protected $isolateViable;
 
     /**
      * @var IsolateType
-     * @ORM\Column(type="IsolateType",nullable=true)
+     * @ORM\Column(name="isolateType",type="IsolateType",nullable=true)
      */
     protected $isolateType;
 
     /**
      * @var PathogenIdentifier
-     * @ORM\Column(type="PathogenIdentifier",nullable=true)
+     * @ORM\Column(name="pathogenIdentifierMethod",type="PathogenIdentifier",nullable=true)
      */
     protected $pathogenIdentifierMethod;
 
     /**
      * @var string
-     * @ORM\Column(type="string",nullable=true)
+     * @ORM\Column(name="pathogenIdentifierOther", type="string",nullable=true)
      */
     protected $pathogenIdentifierOther;
 
     /**
      * @var SerotypeIdentifier
-     * @ORM\Column(type="SerotypeIdentifier",nullable=true)
+     * @ORM\Column(name="serotypeIdentifier",type="SerotypeIdentifier",nullable=true)
      */
     protected $serotypeIdentifier;
 
     /**
      * @var string
-     * @ORM\Column(type="string",nullable=true)
+     * @ORM\Column(name="serotypeIdentifierOther",type="string",nullable=true)
      */
     protected $serotypeIdentifierOther;
 
     /**
      * @var double
-     * @ORM\Column(type="decimal",precision=3, scale=1,nullable=true)
+     * @ORM\Column(name="lytA",type="decimal",precision=3, scale=1,nullable=true)
      */
     protected $lytA;
 
     /**
      * @var double
-     * @ORM\Column(type="decimal",precision=3, scale=1,nullable=true)
+     * @ORM\Column(name="sodC",type="decimal",precision=3, scale=1,nullable=true)
      */
     protected $sodC;
 
     /**
      * @var double
-     * @ORM\Column(type="decimal",precision=3, scale=1,nullable=true)
+     * @ORM\Column(name="hpd",type="decimal",precision=3, scale=1,nullable=true)
      */
     protected $hpd;
 
     /**
      * @var double
-     * @ORM\Column(type="decimal",precision=3, scale=1,nullable=true)
+     * @ORM\Column(name="rNaseP",type="decimal",precision=3, scale=1,nullable=true)
      */
     protected $rNaseP;
 
     /**
      * @var double
-     * @ORM\Column(type="decimal",precision=3, scale=1,nullable=true)
+     * @ORM\Column(name="spnSerotype",type="decimal",precision=3, scale=1,nullable=true)
      */
     protected $spnSerotype;
 
     /**
      * @var double
-     * @ORM\Column(type="decimal",precision=3, scale=1,nullable=true)
+     * @ORM\Column(name="hiSerotype",type="decimal",precision=3, scale=1,nullable=true)
      */
     protected $hiSerotype;
 
     /**
      * @var double
-     * @ORM\Column(type="decimal",precision=3, scale=1,nullable=true)
+     * @ORM\Column(name="nmSerogroup",type="decimal",precision=3, scale=1,nullable=true)
      */
     protected $nmSerogroup;
 
