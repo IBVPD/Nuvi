@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "73778314110a1d77c7d6d600ebfea0a0",
+    "hash": "9aba5e4e20ead431dac8a7903a9f60a1",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1852,7 +1852,7 @@
             "source": {
                 "type": "git",
                 "url": "gitolite@git.noblet.ca:/symfony/ns/ace.git",
-                "reference": "5cbe82f5b90386fa5e1f5c7ee1062e6fa4919825"
+                "reference": "41454b7e7cc852e20345b547aed2bfeb4368d5a3"
             },
             "require": {
                 "php": ">=5.3.2",
@@ -1876,7 +1876,7 @@
                 }
             ],
             "description": "This bundle provides bootstrap template",
-            "time": "2014-05-02 19:59:36"
+            "time": "2014-05-09 21:04:17"
         },
         {
             "name": "ns/flash-bundle",
@@ -4506,7 +4506,9 @@
             "time": "2014-03-07 15:35:33"
         }
     ],
-    "aliases": [],
+    "aliases": [
+
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "jms/security-extra-bundle": 20,
@@ -4527,5 +4529,7 @@
     "platform": {
         "php": ">=5.3.3"
     },
-    "platform-dev": []
+    "platform-dev": [
+
+    ]
 }
