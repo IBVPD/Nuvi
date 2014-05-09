@@ -8,5 +8,5 @@ default:
         env: test
         debug: true
     Behat\MinkExtension\Extension:
-      base_url: 'http://nuvi.noblet.ca/app_test.php/'
+      base_url: http://nuvi.noblet.ca/app_dev.php/
       default_session: symfony2

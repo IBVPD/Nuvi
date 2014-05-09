@@ -1,5 +1,5 @@
 {
-    "name": "World Health Organization Sentinel Network",
+    "name": "ns/sentinel",
     "license": "MIT",
     "type": "project",
     "description": "A distributed disease reporting tool",
@@ -18,10 +18,14 @@
         "sensio/distribution-bundle": "2.3.*",
         "sensio/framework-extra-bundle": "2.3.*",
         "sensio/generator-bundle": "2.3.*",
-	"symfony/icu": "1.1.x-dev",
         "incenteev/composer-parameter-handler": "~2.0",
+	"symfony/icu": "~1.1",
+
+        "jms/security-extra-bundle": "1.5.x-dev",
+        "jms/di-extra-bundle": "~1.1",
 
         "knplabs/knp-menu-bundle": "1.1.*",
+        
         "sonata-project/admin-bundle": "~2.2",
         "sonata-project/cache-bundle": "~2.1",
         "sonata-project/block-bundle": "~2.2",
@@ -35,8 +39,8 @@
         "ns/security-bundle": "dev-master",
         "ns/ace-bundle": "dev-master",
         "ns/flash-bundle": "dev-master",
+
         "jms/translation-bundle": "1.1.x-dev",
-        "jms/di-extra-bundle": "~1.1",
         "doctrine/doctrine-fixtures-bundle": "dev-master",
         "gedmo/doctrine-extensions": "~2.3",
         "stof/doctrine-extensions-bundle": "1.1.x-dev",
@@ -44,8 +48,7 @@
         "oneup/uploader-bundle": "1.0.*@dev",
         "lexik/form-filter-bundle": "dev-master",
         "knplabs/knp-paginator-bundle": "~2.4",
-        "lunetics/locale-bundle": "~2.2",
-        "vipsoft/doctrine-data-fixtures-extension": "*"
+        "lunetics/locale-bundle": "~2.2"
     },
     "scripts": {
         "post-install-cmd": [
