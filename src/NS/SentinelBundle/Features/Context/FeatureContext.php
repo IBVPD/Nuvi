@@ -5,11 +5,9 @@ namespace NS\SentinelBundle\Features\Context;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Behat\Symfony2Extension\Context\KernelAwareInterface;
 use Behat\MinkExtension\Context\MinkContext;
-
-use Behat\Behat\Context\BehatContext,
-    Behat\Behat\Exception\PendingException;
-use Behat\Gherkin\Node\PyStringNode,
-    Behat\Gherkin\Node\TableNode;
+use Behat\Behat\Exception\PendingException;
+use Behat\Gherkin\Node\TableNode;
+use Behat\Behat\Context\Step\When;
 
 //
 // Require 3rd-party libraries here:
@@ -24,7 +22,7 @@ use Behat\Gherkin\Node\PyStringNode,
 /**
  * Feature context.
  */
-class FeatureContext extends BehatContext //MinkContext if you want to test web
+class FeatureContext extends MinkContext //MinkContext if you want to test web
                   implements KernelAwareInterface
 {
     private $kernel;
@@ -51,7 +49,30 @@ class FeatureContext extends BehatContext //MinkContext if you want to test web
         $this->kernel = $kernel;
     }
 
-//
+    /**
+     * @Given /^I am not logged in$/
+     */
+    public function iAmNotLoggedIn()
+    {
+        return array(
+            new When('I go to "/logout"'),
+            new When('I should be on "/login"'),
+        );
+    }
+
+    /**
+     * @Given /^I login with "([^"]*)" "([^"]*)"$/
+     */
+    public function iLoginWith($arg1, $arg2)
+    {
+        return array(
+            new When('I am on "/login"'),
+            new When('I fill in "_username" with "'.$arg1.'"'),
+            new When('I fill in "_password" with "'.$arg2.'"'),
+            new When('I press "login"'),
+            );
+    }
+
 // Place your definition and hook methods here:
 //
 //    /**

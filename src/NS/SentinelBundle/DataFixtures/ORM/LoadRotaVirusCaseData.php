@@ -29,10 +29,6 @@ class LoadRotaVirusCaseData extends AbstractFixture implements OrderedFixtureInt
         $done  = new TripleChoice(TripleChoice::YES);
         $nDone = new TripleChoice(TripleChoice::NO);
         
-        $a     = $this->getReference('site-alberta');
-        $s     = $this->getReference('site-seattle');
-        $t     = $this->getReference('site-toronto');
-        $mx    = $this->getReference('site-mexico');
         $male  = new Gender(Gender::MALE);
         $fmale = new Gender(Gender::FEMALE);
         $dx[]  = new Diagnosis(Diagnosis::SUSPECTED_MENINGITIS);
@@ -40,45 +36,35 @@ class LoadRotaVirusCaseData extends AbstractFixture implements OrderedFixtureInt
         $dx[]   = new Diagnosis(Diagnosis::SUSPECTED_SEPSIS);
         $dx[]   = new Diagnosis(Diagnosis::OTHER);
 
-        for($x = 0; $x < 2700; $x++)
+        $a     = $this->getReference('site-alberta');
+        $s     = $this->getReference('site-seattle');
+        $t     = $this->getReference('site-toronto');
+        $mx    = $this->getReference('site-mexico');
+        $sites = array(8=>$a,7=>$s,4=>$t,2=>$mx);
+
+        foreach($sites as $num=>$site)
         {
-            $dob = $this->getRandomDate();
-            $m = new RotaVirus();
-            $m->setDob($dob);
-            $m->setAdmissionDate($this->getRandomDate(null,$dob));
-            if($x%12 == 0)
+            for($x = 0; $x < $num; $x++)
             {
-                $site = new SiteLab();
-                $site->setCase($m);
-                $m->setSiteLab($site);
-                
-                $manager->persist($site);
-            }
+                $dob = $this->getRandomDate();
+                $m = new RotaVirus();
+                $m->setDob($dob);
+                $m->setAdmissionDate($this->getRandomDate(null,$dob));
+                if($x%12 == 0)
+                {
+                    $sl = new SiteLab();
+                    $m->setSiteLab($sl);
 
-//            $m->setGender(($x%7)?$fmale:$male);
+                    $manager->persist($sl);
+                }
 
-            if(($x % 3) == 0 )
-            {
-                $m->setCaseId($this->getCaseId($a));
-                $m->setSite($a);
-            }
-            else if(($x % 5) == 0 )
-            {
-                $m->setCaseId($this->getCaseId($s));
-                $m->setSite($s);
-            }
-            else if(($x % 11) == 0)
-            {
-                $m->setCaseId($this->getCaseId($t));
-                $m->setSite($t);
-            }
-            else
-            {
-                $m->setCaseId($this->getCaseId($mx));
-                $m->setSite($mx);
-            }
+                $m->setGender(($x%3)?$fmale:$male);
 
-            $manager->persist($m);
+                $m->setCaseId($this->getCaseId($site));
+                $m->setSite($site);
+
+                $manager->persist($m);
+            }
         }
 
         $manager->flush();

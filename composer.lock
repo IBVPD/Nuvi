@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "38610203ba4717daaf72550eee3f6907",
+    "hash": "73778314110a1d77c7d6d600ebfea0a0",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -3746,23 +3746,23 @@
             "time": "2013-06-04 12:18:22"
         },
         {
-            "name": "behat/mink-selenium2-driver",
-            "version": "v1.0.6",
+            "name": "behat/mink-zombie-driver",
+            "version": "v1.0.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Behat/MinkSelenium2Driver.git",
-                "reference": "689f58cc82adc678696942f389d35196fa2453f8"
+                "url": "https://github.com/Behat/MinkZombieDriver.git",
+                "reference": "c4ec4b803b73dba4d1a03a47e53ca205ba841351"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Behat/MinkSelenium2Driver/zipball/689f58cc82adc678696942f389d35196fa2453f8",
-                "reference": "689f58cc82adc678696942f389d35196fa2453f8",
+                "url": "https://api.github.com/repos/Behat/MinkZombieDriver/zipball/c4ec4b803b73dba4d1a03a47e53ca205ba841351",
+                "reference": "c4ec4b803b73dba4d1a03a47e53ca205ba841351",
                 "shasum": ""
             },
             "require": {
                 "behat/mink": "~1.4.3",
-                "instaclick/php-webdriver": "~1.0.12",
-                "php": ">=5.3.1"
+                "php": ">=5.3.1",
+                "symfony/process": "~2.1"
             },
             "type": "mink-driver",
             "extra": {
@@ -3786,22 +3786,22 @@
                     "homepage": "http://everzet.com"
                 },
                 {
-                    "name": "Pete Otaqui",
-                    "email": "pete@otaqui.com",
-                    "homepage": "https://github.com/pete-otaqui"
+                    "name": "Pascal Cremer",
+                    "email": "b00gizm@gmail.com",
+                    "homepage": "http://github.com/b00gizm"
                 }
             ],
-            "description": "Selenium2 (WebDriver) driver for Mink framework",
+            "description": "Zombie.js driver for Mink framework",
             "homepage": "http://mink.behat.org/",
             "keywords": [
                 "ajax",
                 "browser",
+                "headless",
                 "javascript",
-                "selenium",
                 "testing",
-                "webdriver"
+                "zombie"
             ],
-            "time": "2013-04-13 12:56:28"
+            "time": "2013-04-13 12:54:30"
         },
         {
             "name": "behat/symfony2-extension",
@@ -3858,64 +3858,6 @@
                 "symfony"
             ],
             "time": "2013-06-06 20:36:08"
-        },
-        {
-            "name": "instaclick/php-webdriver",
-            "version": "1.0.17",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/instaclick/php-webdriver.git",
-                "reference": "47a6019553a7a5b42d35493276ffc2c9252c53d5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/instaclick/php-webdriver/zipball/47a6019553a7a5b42d35493276ffc2c9252c53d5",
-                "reference": "47a6019553a7a5b42d35493276ffc2c9252c53d5",
-                "shasum": ""
-            },
-            "require": {
-                "ext-curl": "*",
-                "php": ">=5.3.2"
-            },
-            "bin": [
-                "bin/webunit"
-            ],
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "WebDriver": "lib/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Justin Bishop",
-                    "email": "jubishop@gmail.com",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Anthon Pang",
-                    "email": "apang@softwaredevelopment.ca",
-                    "role": "Fork Maintainer"
-                }
-            ],
-            "description": "PHP WebDriver for Selenium 2",
-            "homepage": "http://instaclick.com/",
-            "keywords": [
-                "browser",
-                "selenium",
-                "webdriver",
-                "webtest"
-            ],
-            "time": "2013-10-04 15:03:51"
         },
         {
             "name": "phpunit/php-code-coverage",
