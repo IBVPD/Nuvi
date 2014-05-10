@@ -228,6 +228,13 @@ class MeningitisController extends Controller
      */
     public function showAction($id)
     {
-        return array('record' => $this->get('ns.model_manager')->getRepository('NSSentinelBundle:Meningitis')->get($id));
+        try
+        {
+            return array('record' => $this->get('ns.model_manager')->getRepository('NSSentinelBundle:Meningitis')->get($id));
+        }
+        catch (NonExistentCase $ex) 
+        {
+            return $this->render('NSSentinelBundle:User:unknownCase.html.twig',array('message' => $ex->getMessage()));
+        }
     }
 }

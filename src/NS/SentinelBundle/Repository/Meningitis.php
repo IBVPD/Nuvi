@@ -145,8 +145,14 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
                    ->leftJoin('m.externalLabs', 'e')
                    ->leftJoin('m.siteLab','l')
                    ->where('m.id = :id')->setParameter('id',$id);
-
-        return $this->secure($qb)->getQuery()->getSingleResult();
+        try
+        {
+            return $this->secure($qb)->getQuery()->getSingleResult();
+        }
+        catch(NoResultException $e)
+        {
+            throw new NonExistentCase("This case does not exist!");
+        }
     }
 
     public function search($id)
