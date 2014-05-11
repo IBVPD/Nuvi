@@ -102,6 +102,15 @@ class Country implements \Serializable
     private $hasNationalLab;
 
     /**
+     * Constructor
+     */
+    public function __construct($name = null)
+    {
+        $this->name            = $name;
+        $this->sites           = new ArrayCollection();
+    }
+
+    /**
      * Set name
      *
      * @param string $name
@@ -122,14 +131,6 @@ class Country implements \Serializable
     public function getName()
     {
         return $this->name;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct($name = null)
-    {
-        $this->name            = $name;
-        $this->sites           = new ArrayCollection();
     }
 
     public function __toString()

@@ -3,13 +3,14 @@
 namespace NS\SentinelBundle\Services;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Doctrine\Common\Persistence\ObjectManager;
+use NS\SentinelBundle\Interfaces\SerializedSitesInterface;
 
 /**
  * Description of SerializedSites
  *
  * @author gnat
  */
-class SerializedSites
+class SerializedSites implements SerializedSitesInterface
 {
     private $sites;
     private $em;
@@ -32,6 +33,11 @@ class SerializedSites
     public function hasMultipleSites()
     {
         return (count($this->sites) > 1);
+    }
+
+    public function setSites(array $sites)
+    {
+        $this->sites = $sites;
     }
 
     public function getSites()

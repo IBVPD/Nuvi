@@ -78,6 +78,21 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $manager->persist($caUser);
         $manager->persist($acl);
 
+        $caUser = new User();
+        $caUser->setIsActive(true);
+        $caUser->setEmail('ca-create@noblet.ca');
+        $caUser->setName('Canada User');
+        $caUser->resetSalt();
+        $caUser->setPassword($encoder->encodePassword("1234567-ca-create",$caUser->getSalt()));
+        $caUser->setCanCreateCases(true);
+        $acl = new ACL();
+        $acl->setUser($caUser);
+        $acl->setType(new Role(Role::COUNTRY));
+        $acl->setObjectId($this->getReference('country-ca')->getId());
+
+        $manager->persist($caUser);
+        $manager->persist($acl);
+
         foreach($this->getSiteData() as $data)
         {
             $siteSUser = new User();

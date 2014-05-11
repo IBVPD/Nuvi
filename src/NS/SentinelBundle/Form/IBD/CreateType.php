@@ -5,7 +5,7 @@ namespace NS\SentinelBundle\Form\IBD;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use NS\SentinelBundle\Services\SerializedSites;
+use NS\SentinelBundle\Interfaces\SerializedSitesInterface;
 
 /**
  * Description of CreateIBDType
@@ -17,7 +17,7 @@ class CreateType extends AbstractType
     private $siteSerializer;
     private $em;
 
-    public function __construct(SerializedSites $siteSerializer, ObjectManager $em)
+    public function __construct(SerializedSitesInterface $siteSerializer, ObjectManager $em)
     {
         $this->siteSerializer = $siteSerializer;
         $this->em             = $em;

@@ -73,15 +73,17 @@ class FeatureContext extends MinkContext //MinkContext if you want to test web
             );
     }
 
-// Place your definition and hook methods here:
-//
-//    /**
-//     * @Given /^I have done something with "([^"]*)"$/
-//     */
-//    public function iHaveDoneSomethingWith($argument)
-//    {
-//        $container = $this->kernel->getContainer();
-//        $container->get('some_service')->doSomethingWith($argument);
-//    }
-//
+    /**
+     * @Then /^The Create Form Has (\d+) Sites$/
+     */
+    public function theCreateFormHasSites($arg1)
+    {
+        $formFactory = $this->kernel->getContainer()->get('form.factory');
+
+        $form = $formFactory->create('create_ibd');
+        $view = $form->createView();
+
+        \PHPUnit_Framework_Assert::assertTrue($form->has('site'),"Form has Site field");
+        \PHPUnit_Framework_Assert::assertCount(intval($arg1),$view['site']->vars['choices'],"$arg1 was passed in");
+    }
 }
