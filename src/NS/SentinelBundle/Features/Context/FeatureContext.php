@@ -89,8 +89,8 @@ class FeatureContext extends MinkContext //MinkContext if you want to test web
         $form = $formFactory->create('create_rotavirus');
         $view = $form->createView();
 
-        \PHPUnit_Framework_Assert::assertTrue($form->has('type'),"Form has types");
-        \PHPUnit_Framework_Assert::assertCount(intval($arg1),$view['type']->vars['choices'],"$arg1 was passed in");
+        \PHPUnit_Framework_Assert::assertTrue($form->has('site'),"Form has Site field");
+        \PHPUnit_Framework_Assert::assertCount(intval($arg1),$view['site']->vars['choices'],"$arg1 was passed in");
     }
 
     /**
