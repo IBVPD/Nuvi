@@ -5,10 +5,11 @@ namespace NS\SentinelBundle\Form\Types;
 use Symfony\Component\Form\AbstractType;
 
 /**
- * Description of IBDCreateRoles
+ * Description of RotaCreateRoles
  *
+ * @author gnat
  */
-class IBDCreateRoles extends AbstractType
+class RotavirusCreateRoles extends AbstractType
 {
     public function getParent()
     {
@@ -17,6 +18,6 @@ class IBDCreateRoles extends AbstractType
 
     public function getName()
     {
-        return 'IBDCreateRoles';
+        return 'RotavirusCreateRoles';
     }
 }

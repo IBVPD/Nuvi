@@ -11,15 +11,16 @@ Feature: User Views
   Ability to create a new RRL entry (try as both regular user and as RRL user)	
   Ability to create a new NL entry (try as both regular user and as NL user)
 
-Scenario Outline: Country User can only see proper number of sites on create form
+Scenario Outline: A User with create rights can't create any kind of labs
     Given I am not logged in
       And I login with "<email>" "<password>"
       And I go to "<path>"
       And I should be on "<path>"
-    Then The Create Form Has <sites> Sites
+    Then The Create Form Has <types> Types
+      And The Create Form Has <sites> Sites
     Examples:
-      | email                  | password          | sites | path     |
-      | ca-create@noblet.ca    | 1234567-ca-create | 3     | /en/ibd/ |
+      | email                  | password          | types | sites    | path     |
+      | ca-create@noblet.ca    | 1234567-ca-create | 1     | 3        | /en/ibd/ |
 
 Scenario Outline: A user cannot find cases outside their rights
     Given I am not logged in

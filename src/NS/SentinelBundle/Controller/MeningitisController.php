@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use NS\SentinelBundle\Exceptions\NonExistentCase;
-use NS\SentinelBundle\Form\Types\IBDCreateRoles;
+use NS\SentinelBundle\Form\Types\CreateRoles;
 use \Symfony\Component\Form\FormError;
 
 /**
@@ -59,7 +59,6 @@ class MeningitisController extends Controller
     }
 
     /**
-     *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @Route("/create",name="meningitisCreate")
      * @Template()
@@ -91,17 +90,17 @@ class MeningitisController extends Controller
 
             switch($type->getValue())
             {
-                case IBDCreateRoles::IBD:
+                case CreateRoles::BASE:
                     $res = 'meningitisEdit';
                     break;
-                case IBDCreateRoles::SITE:
+                case CreateRoles::SITE:
                     $res = 'meningitisLabEdit';
                     break;
-                case IBDCreateRoles::RRL:
+                case CreateRoles::RRL:
                     $meningCase->setSentToReferenceLab(true);
                     $res = 'meningitisRRLEdit';
                     break;
-                case IBDCreateRoles::NL:
+                case CreateRoles::NL:
                     $meningCase->setSentToNationalLab(true);
                     $res = 'meningitisNLEdit';
                     break;

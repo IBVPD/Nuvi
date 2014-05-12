@@ -5,8 +5,11 @@ namespace NS\SentinelBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 use \NS\SentinelBundle\Exceptions\NonExistentCase;
+use \NS\SentinelBundle\Form\Types\CreateRoles;
+use \Symfony\Component\Form\FormError;
 
 /**
  * @Route("/{_locale}/rota")
@@ -50,11 +53,72 @@ class RotaVirusController extends Controller
         else if($sc->isGranted('ROLE_REGION'))
             $t = array('header_template'=>'NSSentinelBundle:RotaVirus:indexRegionHeader.html.twig', 'row_template'=>'NSSentinelBundle:RotaVirus:indexRegionRow.html.twig');
 
-        return array('pagination' => $pagination, 't' => $t, 'form' => $this->createForm('results_per_page')->createView(),'filterForm'=>$filterForm->createView());
+        $createForm = ($sc->isGranted('ROLE_CAN_CREATE')) ? $this->createForm('create_rotavirus')->createView():null;
+
+        return array('pagination' => $pagination, 't' => $t, 'form' => $this->createForm('results_per_page')->createView(),'filterForm'=>$filterForm->createView(),'createForm' => $createForm);
     }
 
     /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @Route("/create",name="rotavirusCreate")
+     * @Template()
+     * @Method({"POST"})
+     */
+    public function createAction(Request $request)
+    {
+        $form = $this->createForm('create_rotavirus');
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $dbId   = $form->get('id')->getData();
+            $caseId = $form->get('caseId')->getData();
+            $type   = $form->get('type')->getData();
+
+            $em     = $this->get('ns.model_manager');
+            $rCase  = $em->getRepository('NSSentinelBundle:RotaVirus')->findOrCreate($caseId,$dbId);
+
+            if(!$rCase->getId())
+            {
+                if($form->has('site'))
+                    $site = $form->get('site')->getData();
+                else
+                    $site = $this->get('ns.sentinel.sites')->getSite();
+
+                $rCase->setSite($site);
+            }
+
+            switch($type->getValue())
+            {
+                case CreateRoles::BASE:
+                    $res = 'rotavirusEdit';
+                    break;
+                case CreateRoles::SITE:
+                    $res = 'rotavirusLabEdit';
+                    break;
+                case CreateRoles::RRL:
+                    $rCase->setSentToReferenceLab(true);
+                    $res = 'rotavirusRRLEdit';
+                    break;
+                case CreateRoles::NL:
+                    $rCase->setSentToNationalLab(true);
+                    $res = 'rotavirusNLEdit';
+                    break;
+                default:
+                    $res = 'rotavirusIndex';
+                    break;
+            }
+
+            $em->persist($rCase);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl($res,array('id' => $rCase->getId())));
+        }
+
+        return $this->redirect($this->generateUrl('rotavirusIndex'));
+    }
+
+    /**
      * @Route("/edit/{id}",name="rotavirusEdit",defaults={"id"=null})
      * @Template()
      */
@@ -135,11 +199,15 @@ class RotaVirusController extends Controller
                 {
                     $em->flush();
                 }
-                catch(\Exception $e)
+                catch(\Doctrine\DBAL\DBALException $e)
                 {
-                    die("ERROR: ".$e->getMessage());
                     // TODO Flash service required
-                    return array('form' => $form->createView(),'id'=>$id,'type'=>strtoupper($type));
+                    if($e->getPrevious()->getCode() === '23000')
+                        $form->addError(new FormError ("The case id already exists for this site!"));
+                    else
+                        die("ERROR: ".$e->getMessage());
+
+                    return array('form' => $form->createView(),'id'=>$id, 'type'=>strtoupper($type));
                 }
 
                 // TODO Flash service required

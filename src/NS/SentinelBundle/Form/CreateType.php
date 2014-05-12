@@ -1,6 +1,6 @@
 <?php
 
-namespace NS\SentinelBundle\Form\IBD;
+namespace NS\SentinelBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

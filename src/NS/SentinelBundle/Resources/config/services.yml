@@ -74,18 +74,34 @@ services:
       tags:
         - { name: kernel.event_subscriber } 
 
-    ns.sentinel.form.type.ibdcreateroles:
-      class: NS\SentinelBundle\Form\Types\IBDCreateRoles
+    ns.sentinel.form.type.createroles:
+      class: NS\SentinelBundle\Form\Types\CreateRoles
       calls:
         - [ setSecurityContext, [ @security.context ] ]
+      tags:
+        - { name: form.type, alias: CreateRoles }
+
+    ns.sentinel.form.type.rotacreateroles:
+      class: NS\SentinelBundle\Form\Types\RotavirusCreateRoles
+      tags:
+        - { name: form.type, alias: RotavirusCreateRoles }
+
+    ns.sentinel.form.type.ibdcreateroles:
+      class: NS\SentinelBundle\Form\Types\IBDCreateRoles
       tags:
         - { name: form.type, alias: IBDCreateRoles }
 
     ns.sentinel.form.create_ibd:
-      class: NS\SentinelBundle\Form\IBD\CreateType
-      arguments: [ "@ns.sentinel.sites", "@ns.model_manager" ]
+      class: NS\SentinelBundle\Form\CreateType
+      arguments: [ "@ns.sentinel.sites", "@ns.model_manager", IBDCreateRoles ]
       tags:
         - { name: form.type, alias: create_ibd }
+
+    ns.sentinel.form.create_rota:
+      class: NS\SentinelBundle\Form\CreateType
+      arguments: [ "@ns.sentinel.sites", "@ns.model_manager", RotavirusCreateRoles ]
+      tags:
+        - { name: form.type, alias: create_rotavirus }
 
     ns.sentinel.sites:
       class: NS\SentinelBundle\Services\SerializedSites

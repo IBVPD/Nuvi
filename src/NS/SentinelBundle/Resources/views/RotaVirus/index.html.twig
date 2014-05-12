@@ -19,11 +19,11 @@
                     {% endfor %}
                     </tbody>
                 </table>
-            {% if is_granted('ROLE_CAN_CREATE_CASE') %}
+            {% if is_granted('ROLE_CAN_CREATE') %}
                 <div class="align-right">
-                    <a href="{{path('rotavirusCreate')}}" class="btn btn-sm btn-success">{{'Create'}}<i class="icon-plus-sign icon-on-right bigger-110"></i></a>
+                    <a href="#modal-form" data-toggle="modal" class="btn btn-sm btn-success">{{'Create'}}<i class="icon-plus-sign icon-on-right bigger-110"></i></a>
                 </div>
-            {% endif %}                
+            {% endif %}
             </div>
         </div>
     </div>
@@ -42,4 +42,51 @@
         </div>
     </div>
 </div>
+{% if is_granted('ROLE_CAN_CREATE') %}
+<div id="modal-form" class="modal" tabindex="-1" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">x</button>
+                <h4 class="blue bigger">{{'Create Case'}}</h4>
+            </div>
+            <form method="POST" action="{{path('rotavirusCreate')}}">
+
+            <div class="modal-body overflow-visible">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-5">
+                        {{form_rest(createForm)}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-sm" data-dismiss="modal">
+                    <i class="icon-remove"></i> Cancel
+                </button>
+
+                <button class="btn btn-sm btn-primary">
+                    <i class="icon-ok"></i> Create
+                </button>
+            </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endif %}
+<script type="text/javascript">
+    //chosen plugin inside a modal will have a zero width because the select element is originally hidden
+    //and its width cannot be determined.
+    //so we set the width after modal is show
+    $('#modal-form').on('shown.bs.modal', function() 
+        {
+            $(this).find('.chosen-container').each(function()
+            {
+                    $(this).find('a:first-child').css('width' , '210px');
+                    $(this).find('.chosen-drop').css('width' , '210px');
+                    $(this).find('.chosen-search input').css('width' , '200px');
+            });
+        });
+</script>
 {% endblock %}
