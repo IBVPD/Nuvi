@@ -4,7 +4,7 @@ namespace NS\SentinelBundle\Generator;
 
 use Doctrine\ORM\Id\AbstractIdGenerator;
 use NS\SentinelBundle\Interfaces\IdentityAssignmentInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\ORM\Query;
 
@@ -16,7 +16,7 @@ class Custom extends AbstractIdGenerator
 {
     static $cache = array();
 
-    public function generate(ObjectManager $em, $entity)
+    public function generate(EntityManager $em, $entity)
     {
         if(!$entity instanceOf IdentityAssignmentInterface)
             throw new \InvalidArgumentException("Entity must implement IdentityAssignmentInterface");
@@ -39,7 +39,7 @@ class Custom extends AbstractIdGenerator
         }
         catch(\Exception $e)
         {
-            $em->
+            $em->rollback();
         }
 
         return $entity->getFullIdentifier($id);
