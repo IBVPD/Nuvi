@@ -64,6 +64,11 @@ class Region implements \Serializable
         return $this->id;
     }
 
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
     /**
      * Set name
      *
