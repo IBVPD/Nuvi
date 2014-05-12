@@ -3,7 +3,8 @@
 namespace NS\SentinelBundle\DataFixtures\ORM;
 
 use \Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use \Symfony\Component\DependencyInjection\ContainerInterface;
+use \Doctrine\Common\Persistence\ObjectManager;
 use \Doctrine\Common\DataFixtures\AbstractFixture;
 use \Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 
@@ -50,92 +51,65 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $manager->persist($naUser);
         $manager->persist($acl);
 
-        $usUser = new User();
-        $usUser->setIsActive(true);
-        $usUser->setEmail('us@noblet.ca');
-        $usUser->setName('US User');
-        $usUser->resetSalt();
-        $usUser->setPassword($encoder->encodePassword("1234567-us",$usUser->getSalt()));
-        $acl = new ACL();
-        $acl->setUser($usUser);
-        $acl->setType(new Role(Role::COUNTRY));
-        $acl->setObjectId($this->getReference('country-us')->getId());
-
-        $manager->persist($usUser);
-        $manager->persist($acl);
-
-        $caUser = new User();
-        $caUser->setIsActive(true);
-        $caUser->setEmail('ca@noblet.ca');
-        $caUser->setName('Canada User');
-        $caUser->resetSalt();
-        $caUser->setPassword($encoder->encodePassword("1234567-ca",$caUser->getSalt()));
-        $acl = new ACL();
-        $acl->setUser($caUser);
-        $acl->setType(new Role(Role::COUNTRY));
-        $acl->setObjectId($this->getReference('country-ca')->getId());
-
-        $manager->persist($caUser);
-        $manager->persist($acl);
-
-        $caUser = new User();
-        $caUser->setIsActive(true);
-        $caUser->setEmail('ca-create@noblet.ca');
-        $caUser->setName('Canada User');
-        $caUser->resetSalt();
-        $caUser->setPassword($encoder->encodePassword("1234567-ca-create",$caUser->getSalt()));
-        $caUser->setCanCreateCases(true);
-        $acl = new ACL();
-        $acl->setUser($caUser);
-        $acl->setType(new Role(Role::COUNTRY));
-        $acl->setObjectId($this->getReference('country-ca')->getId());
-
-        $manager->persist($caUser);
-        $manager->persist($acl);
-
-        foreach($this->getSiteData() as $data)
+        foreach($this->getCountryData() as $data)
         {
-            $siteSUser = new User();
-            $siteSUser->setIsActive(true);
-            $siteSUser->setEmail($data['email']);
-            $siteSUser->setName($data['name']);
-            $siteSUser->resetSalt();
-            $siteSUser->setPassword($encoder->encodePassword($data['password'],$siteSUser->getSalt()));
+            $user = new User();
+            $user->setIsActive(true);
+            $user->setEmail($data['email']);
+            $user->setName($data['name']);
+            $user->resetSalt();
+            $user->setPassword($encoder->encodePassword($data['password'],$user->getSalt()));
+            $user->setCanCreateCases($data['can_create_cases']);
+            $user->setCanCreateLabs($data['can_create_labs']);
+            $user->setCanCreateRRLLabs($data['can_create_rrl']);
+            $user->setCanCreateNLLabs($data['can_create_nl']);
+
             $acl = new ACL();
-            $acl->setUser($siteSUser);
-            $acl->setType(new Role(Role::SITE));
+            $acl->setUser($user);
+            $acl->setType(new Role(Role::COUNTRY));
             $acl->setObjectId($this->getReference($data['ref-name'])->getId());
-            $manager->persist($siteSUser);
+
+            $manager->persist($user);
             $manager->persist($acl);
         }
 
-        $siteSUser = new User();
-        $siteSUser->setIsActive(true);
-        $siteSUser->setEmail('rrl-alberta@noblet.ca');
-        $siteSUser->setName('Alberta RRL User');
-        $siteSUser->resetSalt();
-        $siteSUser->setPassword($encoder->encodePassword("1234567-alberta-rrl",$siteSUser->getSalt()));
-        $acl = new ACL();
-        $acl->setUser($siteSUser);
-        $acl->setType(new Role(Role::RRL_LAB));
-        $acl->setObjectId($this->getReference('site-alberta')->getId());
+        foreach($this->getSiteData() as $data)
+        {
+            $user = new User();
+            $user->setIsActive(true);
+            $user->setEmail($data['email']);
+            $user->setName($data['name']);
+            $user->resetSalt();
+            $user->setPassword($encoder->encodePassword($data['password'],$user->getSalt()));
+            $user->setCanCreateCases($data['can_create_cases']);
+            $user->setCanCreateLabs($data['can_create_labs']);
+            $user->setCanCreateRRLLabs($data['can_create_rrl']);
+            $user->setCanCreateNLLabs($data['can_create_nl']);
 
-        $manager->persist($siteSUser);
-        $manager->persist($acl);
+            $acl = new ACL();
+            $acl->setUser($user);
+            $acl->setType(new Role(Role::SITE));
+            $acl->setObjectId($this->getReference($data['ref-name'])->getId());
+            $manager->persist($user);
+            $manager->persist($acl);
+        }
 
-        $siteSUser = new User();
-        $siteSUser->setIsActive(true);
-        $siteSUser->setEmail('lab-alberta@noblet.ca');
-        $siteSUser->setName('Alberta Lab User');
-        $siteSUser->resetSalt();
-        $siteSUser->setPassword($encoder->encodePassword("1234567-alberta-lab",$siteSUser->getSalt()));
-        $acl = new ACL();
-        $acl->setUser($siteSUser);
-        $acl->setType(new Role(Role::LAB));
-        $acl->setObjectId($this->getReference('site-alberta')->getId());
+        foreach($this->getLabData() as $data)
+        {
+            $user = new User();
+            $user->setIsActive(true);
+            $user->setEmail($data['email']);
+            $user->setName($data['name']);
+            $user->resetSalt();
+            $user->setPassword($encoder->encodePassword($data['password'],$user->getSalt()));
 
-        $manager->persist($siteSUser);
-        $manager->persist($acl);
+            $acl = new ACL();
+            $acl->setUser($user);
+            $acl->setType(new Role($data['role_type']));
+            $acl->setObjectId($this->getReference($data['ref-name'])->getId());
+            $manager->persist($user);
+            $manager->persist($acl);
+        }
 
         $mUser = new User();
         $mUser->setIsActive(true);
@@ -160,16 +134,129 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $manager->flush();
     }
 
+    public function getCountryData()
+    {
+        return array(
+            array(
+                    'name'      => 'US User',
+                    'password'  => '1234567-us',
+                    'email'     => 'us@noblet.ca',
+                    'ref-name'  => 'country-us',
+                    'can_create_cases' => false,
+                    'can_create_labs' => false,
+                    'can_create_rrl' => false,
+                    'can_create_nl' => false,
+
+                 ),
+            array(
+                    'name'      => 'Canada User',
+                    'password'  => '1234567-ca',
+                    'email'     => 'ca@noblet.ca',
+                    'ref-name'  => 'country-ca',
+                    'can_create_cases' => false,
+                    'can_create_labs' => false,
+                    'can_create_rrl' => false,
+                    'can_create_nl' => false,
+                ),
+            array(
+                    'name'      => 'Canada Create User',
+                    'password'  => '1234567-ca-create',
+                    'email'     => 'ca-create@noblet.ca',
+                    'ref-name'  => 'country-ca',
+                    'can_create_cases' => true,
+                    'can_create_labs' => false,
+                    'can_create_rrl' => false,
+                    'can_create_nl' => false,
+                 ),
+            array(
+                    'name'      => 'Canada Create User',
+                    'password'  => '1234567-ca-clab',
+                    'email'     => 'ca-clab@noblet.ca',
+                    'ref-name'  => 'country-ca',
+                    'can_create_cases' => true,
+                    'can_create_labs' => true,
+                    'can_create_rrl' => false,
+                    'can_create_nl' => false,
+                 ),
+            array(
+                    'name'      => 'Canada Create User',
+                    'password'  => '1234567-ca-crrl',
+                    'email'     => 'ca-crrl@noblet.ca',
+                    'ref-name'  => 'country-ca',
+                    'can_create_cases' => true,
+                    'can_create_labs' => false,
+                    'can_create_rrl' => true,
+                    'can_create_nl' => false,
+                 ),
+            array(
+                    'name'      => 'Canada Create User',
+                    'password'  => '1234567-ca-cnl',
+                    'email'     => 'ca-cnl@noblet.ca',
+                    'ref-name'  => 'country-ca',
+                    'can_create_cases' => true,
+                    'can_create_labs' => false,
+                    'can_create_rrl' => false,
+                    'can_create_nl' => true,
+                 ),
+        );
+    }
+
     public function getSiteData()
     {
         return array(
-            array('name'=>'Alberta Site User','password'=>'1234567-alberta','email'=>'site-alberta@noblet.ca','ref-name'=>'site-alberta'),
-            array('name'=>'Seattle Site User','password'=>'1234567-seattle','email'=>'site-seattle@noblet.ca','ref-name'=>'site-seattle'),
-            array('name'=>'Toronto Site User','password'=>'1234567-toronto','email'=>'site-toronto@noblet.ca','ref-name'=>'site-toronto'),
-            array('name'=>'Mexico Site User','password'=>'1234567-mexico','email'=>'site-mexico@noblet.ca','ref-name'=>'site-mexico'),
+            array('name'=>'Alberta Site User','password'=>'1234567-alberta','email'=>'site-alberta@noblet.ca','ref-name'=>'site-alberta',
+                    'can_create_cases' => true,
+                    'can_create_labs' => false,
+                    'can_create_rrl' => false,
+                    'can_create_nl' => false,),
+            array('name'=>'Seattle Site User','password'=>'1234567-seattle','email'=>'site-seattle@noblet.ca','ref-name'=>'site-seattle',
+                    'can_create_cases' => true,
+                    'can_create_labs' => false,
+                    'can_create_rrl' => false,
+                    'can_create_nl' => false,),
+            array('name'=>'Shriners Site User','password'=>'1234567-shriner','email'=>'site-shriner@noblet.ca','ref-name'=>'site-shriners',
+                    'can_create_cases' => true,
+                    'can_create_labs' => true,
+                    'can_create_rrl' => false,
+                    'can_create_nl' => false,),
+            array('name'=>'Toronto Site User','password'=>'1234567-toronto','email'=>'site-toronto@noblet.ca','ref-name'=>'site-toronto',
+                    'can_create_cases' => true,
+                    'can_create_labs' => false,
+                    'can_create_rrl' => false,
+                    'can_create_nl' => false,),
+            array('name'=>'Mexico Site User','password'=>'1234567-mexico','email'=>'site-mexico@noblet.ca','ref-name'=>'site-mexico',
+                    'can_create_cases' => true,
+                    'can_create_labs' => false,
+                    'can_create_rrl' => false,
+                    'can_create_nl' => false,),
         );
     }
-    public function setContainer(\Symfony\Component\DependencyInjection\ContainerInterface $container = null)
+
+    public function getLabData()
+    {
+        return array(
+            array('name'=>'Alberta RRL User','password'=>'1234567-alberta-rrl','email'=>'rrl-alberta@noblet.ca','ref-name'=>'site-alberta',
+                    'role_type'        => ROLE::RRL_LAB,
+                    'can_create_cases' => false,
+                    'can_create_labs'  => false,
+                    'can_create_rrl'   => false,
+                    'can_create_nl'    => false,),
+            array('name'=>'Alberta NL User','password'=>'1234567-alberta-nl','email'=>'nl-alberta@noblet.ca','ref-name'=>'site-alberta',
+                    'role_type'        => ROLE::NL_LAB,
+                    'can_create_cases' => false,
+                    'can_create_labs'  => false,
+                    'can_create_rrl'   => false,
+                    'can_create_nl'    => false,),
+            array('name'=>'Alberta Lab User','password'=>'1234567-alberta-lab','email'=>'lab-alberta@noblet.ca','ref-name'=>'site-alberta',
+                    'role_type'        => ROLE::LAB,
+                    'can_create_cases' => false,
+                    'can_create_labs'  => false,
+                    'can_create_rrl'   => false,
+                    'can_create_nl'    => false,),
+        );
+    }
+
+    public function setContainer(ContainerInterface $container = null)
     {
         $this->container = $container;
     }

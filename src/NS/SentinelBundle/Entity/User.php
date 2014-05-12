@@ -3,7 +3,8 @@
 namespace NS\SentinelBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use \Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use NS\SecurityBundle\Model\SecuredEntityInterface;
 use NS\SentinelBundle\Form\Types\Role;
@@ -261,6 +262,21 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
         return (count($roles) == 1 && in_array('ROLE_ADMIN', $roles));
     }
 
+    public function adjustRoles(array $roles)
+    {
+        if(in_array('ROLE_SITE',$roles))
+            $this->setCanCreateCases(true);
+
+        if(in_array('ROLE_RRL_LAB',$roles))
+            $this->setCanCreateRRLLabs(true);
+
+        if(in_array('ROLE_NL_LAB',$roles))
+            $this->setCanCreateNLLabs(true);
+
+        if(in_array('ROLE_LAB',$roles))
+            $this->setCanCreateLabs(true);
+    }
+
     public function getRoles()
     {
         $roles = array();
@@ -268,6 +284,8 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
         // what happens if this returns null??
         foreach($this->acls as $acl)
             $roles = array_merge($roles,$acl->getType()->getAsCredential());
+
+        $this->adjustRoles($roles);
 
         if($this->isAdmin)
             $roles[] = 'ROLE_ADMIN';
@@ -317,7 +335,7 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
      */
     public function __construct()
     {
-        $this->acls = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->acls = new ArrayCollection();
     }
     
     /**
@@ -326,7 +344,7 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
      * @param \NS\SentinelBundle\Entity\ACL $acls
      * @return User
      */
-    public function addAcl(\NS\SentinelBundle\Entity\ACL $acls)
+    public function addAcl(ACL $acls)
     {
         $this->acls[] = $acls;
     
@@ -338,7 +356,7 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
      *
      * @param \NS\SentinelBundle\Entity\ACL $acls
      */
-    public function removeAcl(\NS\SentinelBundle\Entity\ACL $acls)
+    public function removeAcl(ACL $acls)
     {
         $this->acls->removeElement($acls);
     }
