@@ -47,13 +47,13 @@ security:
         - { path: ^/_trans, roles: ROLE_ADMIN }
         - { path: '^/[^/]+/admin', roles: ROLE_ADMIN }
         - { path: '^/[^/]+/ibd/edit', roles: ROLE_CAN_CREATE_CASE }
-        - { path: '^/[^/]+/ibd/create', roles: ROLE_CAN_CREATE_CASE }
+        - { path: '^/[^/]+/ibd/create', roles: ROLE_CAN_CREATE }
         - { path: '^/[^/]+/ibd/rrl', roles: [ ROLE_RRL_LAB, ROLE_CAN_CREATE_RRL_LAB ] }
         - { path: '^/[^/]+/ibd/lab', roles: [ ROLE_LAB, ROLE_CAN_CREATE_LAB ] }
         - { path: '^/[^/]+/ibd/nl', roles: [ ROLE_LAB, ROLE_CAN_CREATE_NL_LAB ] }
         - { path: '^/[^/]+/ibd/show', roles: [ ROLE_REGION, ROLE_COUNTRY, ROLE_SITE, ROLE_LAB, ROLE_RRL_LAB, ROLE_NL_LAB ] }
         - { path: '^/[^/]+/rota/edit', roles: ROLE_CAN_CREATE_CASE }
-        - { path: '^/[^/]+/rota/create', roles: ROLE_CAN_CREATE_CASE }
+        - { path: '^/[^/]+/rota/create', roles: ROLE_CAN_CREATE }
         - { path: '^/[^/]+/rota/rrl', roles: [ ROLE_RRL_LAB, ROLE_CAN_CREATE_RRL_LAB ] }
         - { path: '^/[^/]+/rota/lab', roles: [ ROLE_LAB, ROLE_CAN_CREATE_LAB ] }
         - { path: '^/[^/]+/rota/nl', roles: [ ROLE_LAB, ROLE_CAN_CREATE_NL_LAB ] }
