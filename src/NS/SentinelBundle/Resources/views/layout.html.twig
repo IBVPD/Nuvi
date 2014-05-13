@@ -23,7 +23,10 @@
         {{ knp_menu_render('sidebar') }}
         {% endif %}
     {% endblock %}
-    
+
+    {% block sidenav_shortcuts %}
+    {% endblock %}
+
     {% block flash %}
         {% for flashMessage in app.session.flashbag.get('error') %}
             <div class="alert alert-block alert-error">
