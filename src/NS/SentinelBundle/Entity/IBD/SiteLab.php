@@ -3,13 +3,14 @@
 namespace NS\SentinelBundle\Entity\IBD;
 
 use Doctrine\ORM\Mapping as ORM;
+use NS\SentinelBundle\Entity\BaseSiteLab;
 use NS\SentinelBundle\Form\Types\TripleChoice;
-use \NS\SentinelBundle\Form\Types\LatResult;
-use \NS\SentinelBundle\Form\Types\GramStain;
-use \NS\SentinelBundle\Form\Types\GramStainOrganism;
-use \NS\SentinelBundle\Form\Types\BinaxResult;
-use \NS\SentinelBundle\Form\Types\PCRResult;
-use \NS\SentinelBundle\Form\Types\CaseStatus;
+use NS\SentinelBundle\Form\Types\LatResult;
+use NS\SentinelBundle\Form\Types\GramStain;
+use NS\SentinelBundle\Form\Types\GramStainOrganism;
+use NS\SentinelBundle\Form\Types\BinaxResult;
+use NS\SentinelBundle\Form\Types\PCRResult;
+use NS\SentinelBundle\Form\Types\CaseStatus;
 use Symfony\Component\Validator\ExecutionContextInterface;
 
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -31,7 +32,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      })
  * @Assert\Callback(methods={"validate"})
  */
-class SiteLab
+class SiteLab extends BaseSiteLab
 {
     /**
      * @ORM\Id

@@ -37,14 +37,19 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
         $status = new CaseStatus();
 
         $case   = new Meningitis();
-        $case->setSentToNationalLab(true);
+        $lab = new \NS\SentinelBundle\Entity\IBD\SiteLab();
+        $lab->setSentToNationalLab(true);
+        $case->setSiteLab($lab);
 
         $label  = $status->getLabel($case, 'nothing');
 
         $this->assertContains('label-danger',$label,"Case with data sent to national lab but without a national lab has danger label");
 
         $case   = new Meningitis();
-        $case->setSentToReferenceLab(true);
+        $lab = new \NS\SentinelBundle\Entity\IBD\SiteLab();
+        $lab->setSentToReferenceLab(true);
+        $case->setSiteLab($lab);
+
         $label  = $status->getLabel($case, 'nothing');
 
         $this->assertContains('label-danger',$label,"Case with data sent to reference lab but without a reference lab has danger label");
@@ -107,7 +112,10 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
         //---------------------------
         // RRL
         $case1 = new Meningitis();
-        $case1->setSentToReferenceLab(true);
+        $lab = new \NS\SentinelBundle\Entity\IBD\SiteLab();
+        $lab->setSentToReferenceLab(true);
+        $case1->setSiteLab($lab);
+
         $rrl   = new \NS\SentinelBundle\Entity\IBD\ReferenceLab();
         $case1->addExternalLab($rrl);
         
@@ -116,7 +124,9 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
         //---------------------------
         // NL
         $case2 = new Meningitis();
-        $case2->setSentToNationalLab(true);
+        $lab = new \NS\SentinelBundle\Entity\IBD\SiteLab();
+        $lab->setSentToNationalLab(true);
+        $case2->setSiteLab($lab);
         $nl    = new \NS\SentinelBundle\Entity\IBD\NationalLab();
         $case2->addExternalLab($nl);
 
@@ -133,7 +143,9 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
         //----------------------
         // RRL test
         $case1   = new Meningitis();
-        $case1->setSentToReferenceLab(true);
+        $lab = new \NS\SentinelBundle\Entity\IBD\SiteLab();
+        $lab->setSentToReferenceLab(true);
+        $case1->setSiteLab($lab);
 
         $rrl    = new \NS\SentinelBundle\Entity\IBD\ReferenceLab();
         $rrl->setStatus(new FormCaseStatus(FormCaseStatus::COMPLETE));
@@ -145,7 +157,9 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
         //----------------------
         // NL test
         $case2   = new Meningitis();
-        $case2->setSentToNationalLab(true);
+        $lab = new \NS\SentinelBundle\Entity\IBD\SiteLab();
+        $lab->setSentToNationalLab(true);
+        $case2->setSiteLab($lab);
 
         $nl    = new \NS\SentinelBundle\Entity\IBD\NationalLab();
         $nl->setStatus(new FormCaseStatus(FormCaseStatus::COMPLETE));
@@ -169,7 +183,9 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
         //----------------------
         // RRL - sent to lab but no lab data
         $case1   = new Meningitis();
-        $case1->setSentToReferenceLab(true);
+        $lab = new \NS\SentinelBundle\Entity\IBD\SiteLab();
+        $lab->setSentToReferenceLab(true);
+        $case1->setSiteLab($lab);
 
         $l1  = $status->getRRLLabel($case1, 'nothing');
         $l11 = $status->getLabel($case1, 'nothing');
@@ -186,7 +202,9 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
         //----------------------
         // NL - sent to lab but no lab data
         $case3   = new Meningitis();
-        $case3->setSentToNationalLab(true);
+        $lab = new \NS\SentinelBundle\Entity\IBD\SiteLab();
+        $lab->setSentToNationalLab(true);
+        $case3->setSiteLab($lab);
 
         $l3  = $status->getNLLabel($case3, 'nothing');
         $l31 = $status->getLabel($case3, 'nothing');

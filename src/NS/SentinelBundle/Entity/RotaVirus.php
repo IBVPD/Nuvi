@@ -37,7 +37,7 @@ class RotaVirus extends BaseCase
     protected $externalLabs;
 
     /**
-     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\Rota\SiteLab", mappedBy="case")
+     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\Rota\SiteLab", mappedBy="case",cascade={"persist"})
      */
     protected $siteLab;
 

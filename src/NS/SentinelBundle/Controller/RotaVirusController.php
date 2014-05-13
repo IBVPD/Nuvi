@@ -97,11 +97,25 @@ class RotaVirusController extends Controller
                     $res = 'rotavirusLabEdit';
                     break;
                 case CreateRoles::RRL:
-                    $rCase->setSentToReferenceLab(true);
+                    /*
+                     * Only create a sitelab when this is a new case otherwise we're in an error condition
+                     * Meaning that a site lab has already been created but
+                     */
+                    if(!$rCase->getId() || ($rCase->getId() && !$rCase->hasSiteLab()))
+                    {
+                        $siteLab = new \NS\SentinelBundle\Entity\Rota\SiteLab();
+                        $siteLab->setSentToReferenceLab(true);
+                        $rCase->setSiteLab($siteLab);
+                    }
                     $res = 'rotavirusRRLEdit';
                     break;
                 case CreateRoles::NL:
-                    $rCase->setSentToNationalLab(true);
+                    if(!$rCase->getId() || ($rCase->getId() && !$rCase->hasSiteLab()))
+                    {
+                        $siteLab = new \NS\SentinelBundle\Entity\Rota\SiteLab();
+                        $siteLab->setSentToNationalLab(true);
+                        $rCase->setSiteLab($siteLab);
+                    }
                     $res = 'rotavirusNLEdit';
                     break;
                 default:

@@ -21,7 +21,6 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
            ->method('isGranted')
            ->with('ROLE_CAN_CREATE')
            ->will($this->returnValue(false));
-      
 
         $action     = new CaseActions($sc,$trans,$router);
         $obj        = new Meningitis();
@@ -34,9 +33,6 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $this->assertNotContains("Edit NL", $bigResults, "NL Link");
 
         $obj        = new RotaVirus();
-        $obj->setSentToReferenceLab(true);
-        $obj->setSentToNationalLab(true);
-
         $bigResults = $action->getBigActions($obj);
 
         $this->assertContains("Show Rota Case", $bigResults, "User who can't create can only see");
@@ -70,9 +66,6 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $this->assertNotContains("Edit NL", $bigResults, "NL Link");
 
         $obj        = new RotaVirus();
-        $obj->setSentToReferenceLab(true);
-        $obj->setSentToNationalLab(true);
-
         $bigResults = $action->getBigActions($obj);
         $this->assertContains("Show Rota Case", $bigResults, "User who can't create can only see");
         $this->assertContains("Edit Rota Case", $bigResults, "Case Link Exists");
@@ -96,10 +89,13 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
            ->method('isGranted')
            ->will($this->returnValueMap($map));
 
-        $action     = new CaseActions($sc,$trans,$router);
-        $obj        = new Meningitis();
-        $obj->setSentToReferenceLab(true);
-        $obj->setSentToNationalLab(true);
+        $action = new CaseActions($sc,$trans,$router);
+
+        $obj = new Meningitis();
+        $lab = new \NS\SentinelBundle\Entity\IBD\SiteLab();
+        $lab->setSentToReferenceLab(true);
+        $lab->setSentToNationalLab(true);
+        $obj->setSiteLab($lab);
 
         $bigResults = $action->getBigActions($obj);
 
@@ -109,9 +105,11 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $this->assertContains("Edit RRL", $bigResults, "RRL Link");
         $this->assertNotContains("Edit NL", $bigResults, "NL Link");
 
-        $obj        = new RotaVirus();
-        $obj->setSentToReferenceLab(true);
-        $obj->setSentToNationalLab(true);
+        $obj = new RotaVirus();
+        $lab = new \NS\SentinelBundle\Entity\Rota\SiteLab();
+        $lab->setSentToReferenceLab(true);
+        $lab->setSentToNationalLab(true);
+        $obj->setSiteLab($lab);
 
         $bigResults = $action->getBigActions($obj);
         $this->assertContains("Show Rota Case", $bigResults, "User who can't create can only see");
@@ -138,9 +136,12 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
            ->will($this->returnValueMap($map));
 
         $action     = new CaseActions($sc,$trans,$router);
-        $obj        = new Meningitis();
-        $obj->setSentToReferenceLab(true);
-        $obj->setSentToNationalLab(true);
+
+        $obj = new Meningitis();
+        $lab = new \NS\SentinelBundle\Entity\IBD\SiteLab();
+        $lab->setSentToReferenceLab(true);
+        $lab->setSentToNationalLab(true);
+        $obj->setSiteLab($lab);
 
         $bigResults = $action->getBigActions($obj);
 
@@ -150,9 +151,11 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $this->assertNotContains("Edit RRL", $bigResults, "RRL Link");
         $this->assertContains("Edit NL", $bigResults, "NL Link");
 
-        $obj        = new RotaVirus();
-        $obj->setSentToReferenceLab(true);
-        $obj->setSentToNationalLab(true);
+        $obj = new RotaVirus();
+        $lab = new \NS\SentinelBundle\Entity\Rota\SiteLab();
+        $lab->setSentToReferenceLab(true);
+        $lab->setSentToNationalLab(true);
+        $obj->setSiteLab($lab);
 
         $bigResults = $action->getBigActions($obj);
 
@@ -181,9 +184,11 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         $action     = new CaseActions($sc,$trans,$router);
         $obj        = new Meningitis();
-        $obj->setSentToReferenceLab(true);
-        $obj->setSentToNationalLab(true);
-
+        $lab = new \NS\SentinelBundle\Entity\IBD\SiteLab();
+        $lab->setSentToReferenceLab(true);
+        $lab->setSentToNationalLab(true);
+        $obj->setSiteLab($lab);
+        
         $bigResults = $action->getBigActions($obj);
 
         $this->assertContains("Show IBD Case", $bigResults, "User who can't create can only see");
@@ -193,9 +198,10 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $this->assertContains("Edit NL", $bigResults, "NL Link");
 
         $obj = new RotaVirus();
-        $obj->setSentToReferenceLab(true);
-        $obj->setSentToNationalLab(true);
-
+        $lab = new \NS\SentinelBundle\Entity\Rota\SiteLab();
+        $lab->setSentToReferenceLab(true);
+        $lab->setSentToNationalLab(true);
+        $obj->setSiteLab($lab);
         $bigResults = $action->getBigActions($obj);
 
         $this->assertContains("Show Rota Case", $bigResults, "User who can't create can only see");
@@ -226,8 +232,6 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $this->assertNotContains("Edit NL", $bigResults, "NL Link");
 
         $obj        = new RotaVirus();
-        $obj->setSentToReferenceLab(true);
-        $obj->setSentToNationalLab(true);
 
         $bigResults = $action->getSmallActions($obj);
 
@@ -262,8 +266,6 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $this->assertNotContains("Edit NL", $bigResults, "NL Link");
 
         $obj        = new RotaVirus();
-        $obj->setSentToReferenceLab(true);
-        $obj->setSentToNationalLab(true);
 
         $bigResults = $action->getSmallActions($obj);
         $this->assertContains("Show Rota Case", $bigResults, "User who can't create can only see");
@@ -290,8 +292,10 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         $action     = new CaseActions($sc,$trans,$router);
         $obj        = new Meningitis();
-        $obj->setSentToReferenceLab(true);
-        $obj->setSentToNationalLab(true);
+        $lab = new \NS\SentinelBundle\Entity\IBD\SiteLab();
+        $lab->setSentToReferenceLab(true);
+        $lab->setSentToNationalLab(true);
+        $obj->setSiteLab($lab);
 
         $bigResults = $action->getSmallActions($obj);
 
@@ -302,8 +306,10 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $this->assertNotContains("Edit NL", $bigResults, "NL Link");
 
         $obj        = new RotaVirus();
-        $obj->setSentToReferenceLab(true);
-        $obj->setSentToNationalLab(true);
+        $lab = new \NS\SentinelBundle\Entity\Rota\SiteLab();
+        $lab->setSentToReferenceLab(true);
+        $lab->setSentToNationalLab(true);
+        $obj->setSiteLab($lab);
 
         $bigResults = $action->getSmallActions($obj);
         $this->assertContains("Show Rota Case", $bigResults, "User who can't create can only see");
@@ -331,8 +337,10 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         $action     = new CaseActions($sc,$trans,$router);
         $obj        = new Meningitis();
-        $obj->setSentToReferenceLab(true);
-        $obj->setSentToNationalLab(true);
+        $lab = new \NS\SentinelBundle\Entity\IBD\SiteLab();
+        $lab->setSentToReferenceLab(true);
+        $lab->setSentToNationalLab(true);
+        $obj->setSiteLab($lab);
 
         $bigResults = $action->getSmallActions($obj);
 
@@ -342,9 +350,11 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $this->assertNotContains("Edit RRL", $bigResults, "RRL Link");
         $this->assertContains("Edit NL", $bigResults, "NL Link");
 
-        $obj        = new RotaVirus();
-        $obj->setSentToReferenceLab(true);
-        $obj->setSentToNationalLab(true);
+        $obj = new RotaVirus();
+        $lab = new \NS\SentinelBundle\Entity\Rota\SiteLab();
+        $lab->setSentToReferenceLab(true);
+        $lab->setSentToNationalLab(true);
+        $obj->setSiteLab($lab);
 
         $bigResults = $action->getSmallActions($obj);
 
@@ -373,8 +383,10 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         $action     = new CaseActions($sc,$trans,$router);
         $obj        = new Meningitis();
-        $obj->setSentToReferenceLab(true);
-        $obj->setSentToNationalLab(true);
+        $lab = new \NS\SentinelBundle\Entity\IBD\SiteLab();
+        $lab->setSentToReferenceLab(true);
+        $lab->setSentToNationalLab(true);
+        $obj->setSiteLab($lab);
 
         $bigResults = $action->getSmallActions($obj);
 
@@ -385,8 +397,10 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $this->assertContains("Edit NL", $bigResults, "NL Link");
 
         $obj = new RotaVirus();
-        $obj->setSentToReferenceLab(true);
-        $obj->setSentToNationalLab(true);
+        $lab = new \NS\SentinelBundle\Entity\Rota\SiteLab();
+        $lab->setSentToReferenceLab(true);
+        $lab->setSentToNationalLab(true);
+        $obj->setSiteLab($lab);
 
         $bigResults = $action->getSmallActions($obj);
 

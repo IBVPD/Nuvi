@@ -70,18 +70,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
     protected $siteLabClass     = null;
     protected $referenceClass   = null;
     protected $nationalClass    = null;
-
-    /**
-     * @var boolean $sentToReferenceLab
-     * @ORM\Column(name="sentToReferenceLab",type="boolean")
-     */
-    protected $sentToReferenceLab = false;
-
-    /**
-     * @var boolean $sentToNationalLab
-     * @ORM\Column(name="sentToNationalLab",type="boolean")
-     */
-    protected $sentToNationalLab = false;
+ 
     /**
      * @var Region $region
      * @ORM\ManyToOne(targetEntity="Region")
@@ -252,39 +241,13 @@ abstract class BaseCase implements IdentityAssignmentInterface
     }
 
     /**
-     * Set sentToReferenceLab
-     *
-     * @param boolean $sentToReferenceLab
-     * @return Meningitis
-     */
-    public function setSentToReferenceLab($sentToReferenceLab)
-    {
-        $this->sentToReferenceLab = $sentToReferenceLab;
-
-        return $this;
-    }
-
-    /**
      * Get sentToReferenceLab
      *
      * @return boolean
      */
     public function getSentToReferenceLab()
     {
-        return $this->sentToReferenceLab;
-    }
-
-    /**
-     * Set sentToNationalLab
-     *
-     * @param boolean $sentToNationalLab
-     * @return Meningitis
-     */
-    public function setSentToNationalLab($sentToNationalLab)
-    {
-        $this->sentToNationalLab = $sentToNationalLab;
-
-        return $this;
+        return ($this->siteLab) ? $this->siteLab->getSentToReferenceLab(): false;
     }
 
     /**
@@ -294,7 +257,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
      */
     public function getSentToNationalLab()
     {
-        return $this->sentToNationalLab;
+        return ($this->siteLab) ? $this->siteLab->getSentToNationalLab(): false;
     }
 
     /**

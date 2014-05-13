@@ -3,6 +3,7 @@
 namespace NS\SentinelBundle\Entity\Rota;
 
 use Doctrine\ORM\Mapping as ORM;
+use NS\SentinelBundle\Entity\BaseSiteLab;
 use Gedmo\Mapping\Annotation as Gedmo;
 use NS\SecurityBundle\Annotation\Secured;
 use NS\SecurityBundle\Annotation\SecuredCondition;
@@ -22,7 +23,7 @@ use NS\SentinelBundle\Form\Types\ElisaResult;
  *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB","ROLE_RRL_LAB","ROLE_NL_LAB"},through="case",relation="site",class="NSSentinelBundle:Site"),
  *      })
  */
-class SiteLab
+class SiteLab extends BaseSiteLab
 {
     /**
      * @ORM\Id

@@ -26,6 +26,12 @@
 
                 <div id="demographics" class="tab-pane active">
                     {{form_row(form.csfLabDateTime)}}
+                    {% if form.sentToReferenceLab is defined %}
+                        {{form_row(form.sentToReferenceLab )}}
+                    {% endif %}
+                    {% if form.sentToNationalLab is defined %}
+                        {{form_row(form.sentToNationalLab )}}
+                    {% endif %}
                 </div>
 
                 <div id="csf" class="tab-pane">

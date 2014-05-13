@@ -97,11 +97,25 @@ class MeningitisController extends Controller
                     $res = 'meningitisLabEdit';
                     break;
                 case CreateRoles::RRL:
-                    $meningCase->setSentToReferenceLab(true);
+                    /*
+                     * Only create a sitelab when this is a new case otherwise we're in an error condition
+                     * Meaning that a site lab has already been created but
+                     */
+                    if(!$meningCase->getId() || ($meningCase->getId() && !$meningCase->hasSiteLab()))
+                    {
+                        $siteLab = new \NS\SentinelBundle\Entity\IBD\SiteLab();
+                        $siteLab->setSentToReferenceLab(true);
+                        $meningCase->setSiteLab($siteLab);
+                    }
                     $res = 'meningitisRRLEdit';
                     break;
                 case CreateRoles::NL:
-                    $meningCase->setSentToNationalLab(true);
+                    if(!$meningCase->getId() || ($meningCase->getId() && !$meningCase->hasSiteLab()))
+                    {
+                        $siteLab = new \NS\SentinelBundle\Entity\IBD\SiteLab();
+                        $siteLab->setSentToNationalLab(true);
+                        $meningCase->setSiteLab($siteLab);
+                    }
                     $res = 'meningitisNLEdit';
                     break;
                 default:

@@ -103,15 +103,6 @@ class CaseType extends AbstractType
                              ->add('bloodCollected',    'TripleChoice', array('required'=>false,'label'=>'meningitis-form.blood-collected'))
                              ->add('bloodId',           null,           array('required'=>false));
                     }
-
-                    if($country instanceof Country)
-                    {
-                        if($country->hasReferenceLab())
-                            $form->add('sentToReferenceLab','switch',array('required'=>false));
-
-                        if($country->hasNationalLab())
-                            $form->add('sentToNationalLab','switch',array('required'=>false));
-                    }
                 });
     }
     

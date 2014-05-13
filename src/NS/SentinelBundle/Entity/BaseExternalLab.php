@@ -13,7 +13,7 @@ use NS\SentinelBundle\Form\Types\CaseStatus;
  * @ORM\MappedSuperclass
  * @ORM\HasLifecycleCallbacks
  */
-abstract class BaseLab
+abstract class BaseExternalLab
 {
     /**
      * @ORM\Id

@@ -46,7 +46,7 @@ class Meningitis extends BaseCase
     protected $externalLabs;
 
     /**
-     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\IBD\SiteLab", mappedBy="case")
+     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\IBD\SiteLab", mappedBy="case",cascade={"persist"})
      */
     protected $siteLab;
 
