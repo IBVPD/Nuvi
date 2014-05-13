@@ -12,7 +12,7 @@
 {{form_errors(form)}}
 <form method="POST" action="{{path('meningitisEdit',{'id':id})}}">
 <div class="row">
-    <div class="col-sm-4" >
+    <div class="col-sm-3" >
         <div class="widget-box">
             <div class="widget-header widget-header-small header-color-blue"><h6>{{'Case Based Demographics'|trans}}</h6></div>
             <div class="widget-body">
@@ -27,7 +27,7 @@
         </div>
     </div>
 
-    <div class="col-sm-4" >
+    <div class="col-sm-3" >
         <div class="widget-box">
             <div class="widget-header widget-header-small header-color-blue"><h6>{{'Vaccination History'|trans}}</h6></div>
             <div class="widget-body">
@@ -50,7 +50,7 @@
         </div>
     </div>
 
-    <div class="col-sm-4">
+    <div class="col-sm-3">
         <div class="widget-box">
             <div class="widget-header widget-header-small header-color-blue"><h6>{{'Clinical Data'|trans}}</h6></div>
             <div class="widget-body">
@@ -64,6 +64,32 @@
             </div>
         </div>
     </div>
+
+    <div class="col-sm-3">
+        <div class="widget-box">
+            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Specimen Collection Data'|trans}}</h6></div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    {{form_row(form.csfCollected)}}
+                    {{form_row(form.csfCollectDateTime)}}
+                    {{form_row(form.csfId)}}
+                    {{form_row(form.csfAppearance)}}
+
+                    {% if form.pneuDiffBreathe is defined %}
+                    {{form_row(form.bloodCollected)}}
+                    {{form_row(form.bloodId)}}
+                    {% endif %}
+
+                    {% if form.sentToReferenceLab is defined %}
+                        {{form_row(form.sentToReferenceLab )}}
+                    {% endif %}
+                    {% if form.sentToNationalLab is defined %}
+                        {{form_row(form.sentToNationalLab )}}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>    
 </div>
 
 <div class="row">
@@ -121,31 +147,6 @@
 </div>
 
 <div class="row">
-    <div class="col-sm-4">
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Specimen Collection Data'|trans}}</h6></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    {{form_row(form.csfCollected)}}
-                    {{form_row(form.csfCollectDateTime)}}
-                    {{form_row(form.csfId)}}
-                    {{form_row(form.csfAppearance)}}
-
-                    {% if form.pneuDiffBreathe is defined %}
-                    {{form_row(form.bloodCollected)}}
-                    {{form_row(form.bloodId)}}
-                    {% endif %}
-
-                    {% if form.sentToReferenceLab is defined %}
-                        {{form_row(form.sentToReferenceLab )}}
-                    {% endif %}
-                    {% if form.sentToNationalLab is defined %}
-                        {{form_row(form.sentToNationalLab )}}
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="col-sm-8">
         <div class="widget-box">
             <div class="widget-header widget-header-small header-color-blue"><h6>{{'Outcome Data'|trans}}</h6></div>
