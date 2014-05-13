@@ -5,6 +5,7 @@ namespace NS\SentinelBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Form\Types\CSFAppearance;
+use NS\SentinelBundle\Form\Types\CXRResult;
 use NS\SentinelBundle\Form\Types\Diagnosis;
 use NS\SentinelBundle\Form\Types\DischargeOutcome;
 use NS\SentinelBundle\Form\Types\DischargeClassification;
@@ -222,6 +223,18 @@ class Meningitis extends BaseCase
      * @ORM\Column(name="pneuMalnutrition",type="TripleChoice",nullable=true)
      */
     private $pneuMalnutrition;
+
+    /**
+     * @var TripleChoice $cxrDone
+     * @ORM\Column(name="cxrDone",type="TripleChoice",nullable=true)
+     */
+    private $cxrDone;
+
+    /**
+     * @var CXRResult $cxrResult
+     * @ORM\Column(name="cxrResult",type="CXRResult",nullable=true)
+     */
+    private $cxrResult;
 
 //Case-based Vaccination History
     /**
@@ -599,6 +612,26 @@ class Meningitis extends BaseCase
         return $this->comment;
     }
 
+    public function getCxrDone()
+    {
+        return $this->cxrDone;
+    }
+
+    public function getCxrResult()
+    {
+        return $this->cxrResult;
+    }
+
+    public function setCxrDone(TripleChoice $cxrDone)
+    {
+        $this->cxrDone = $cxrDone;
+    }
+
+    public function setCxrResult(CXRResult $cxrResult)
+    {
+        $this->cxrResult = $cxrResult;
+    }
+
     public function setAgeInMonths($ageInMonths)
     {
         $this->ageInMonths = $ageInMonths;
@@ -930,6 +963,9 @@ class Meningitis extends BaseCase
         if($this->pcvReceived && $this->pcvReceived->equal(TripleChoice::YES) && (is_null($this->pcvDoses) || $this->pcvDoses->equal(ArrayChoice::NO_SELECTION)))
             return 'pcvReceived';
 
+        if($this->cxrDone && $this->cxrDone->equal(TripleChoice::YES) && (is_null($this->cxrResult) || $this->cxrResult->equal(ArrayChoice::NO_SELECTION)))
+            return 'cxrDone';
+
         if($this->meningReceived && ($this->meningReceived->equal(MeningitisVaccinationReceived::YES_CARD ) || $this->meningReceived->equal(MeningitisVaccinationReceived::YES_HISTORY)))
         {
             if(is_null($this->meningType))
@@ -985,6 +1021,7 @@ class Meningitis extends BaseCase
                     'dischOutcome',
                     'dischDx',
                     'dischClass',
+                    'cxrDone',
                     );
 
         return ($this->country->getTracksPneumonia()) ? array_merge($fields,$this->getPneumiaRequiredFields()) : $fields;

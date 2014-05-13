@@ -77,9 +77,6 @@ class SiteLabType extends AbstractType
             ->add('otherTestResult',    'PCRResult',            array('required'=>false, 'label'=>'meningitis-form.other-test-result',  'attr'=>array('data-context-parent'=>'otherTestDone','data-context-value'=> TripleChoice::YES)))
             ->add('otherTestOther',     null,                   array('required'=>false, 'label'=>'meningitis-form.other-test-other',   'attr'=>array('data-context-parent'=>'otherTestDone','data-context-value'=> TripleChoice::YES)))
             ->add('otherTest',          null,                   array('required'=>false, 'label'=>'meningitis-form.other-test',         'attr'=>array('data-context-parent'=>'otherTestDone','data-context-value'=> TripleChoice::YES)))
-
-            ->add('cxrDone',            'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.cxr-done',     'attr' => array('data-context-child'=>'cxrDone')))
-            ->add('cxrResult',          'CXRResult',            array('required'=>false, 'label'=>'meningitis-form.cxr-result',   'attr' => array('data-context-parent'=>'cxrDone','data-context-value'=> TripleChoice::YES)))
         ;
     }
 

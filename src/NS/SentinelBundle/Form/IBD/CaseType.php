@@ -68,6 +68,9 @@ class CaseType extends AbstractType
             ->add('dischDxOther',           null,               array('required'=>false,'label'=>'meningitis-form.discharge-diagnosis-other', 'attr' => array('data-context-parent'=>'dischargeDiagnosis', 'data-context-parent'=>Diagnosis::OTHER)))
             ->add('dischClass',       'DischargeClassification',array('required'=>false,'label'=>'meningitis-form.discharge-class'))
             ->add('comment',                null,               array('required'=>false,'label'=>'meningitis-form.comment'))
+
+            ->add('cxrDone',            'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.cxr-done',     'attr' => array('data-context-child'=>'cxrDone')))
+            ->add('cxrResult',          'CXRResult',            array('required'=>false, 'label'=>'meningitis-form.cxr-result',   'attr' => array('data-context-parent'=>'cxrDone','data-context-value'=> TripleChoice::YES)))
         ;
 
         $siteSerializer = $this->siteSerializer;

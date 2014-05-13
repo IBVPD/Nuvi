@@ -9,7 +9,6 @@ use \NS\SentinelBundle\Form\Types\GramStain;
 use \NS\SentinelBundle\Form\Types\GramStainOrganism;
 use \NS\SentinelBundle\Form\Types\BinaxResult;
 use \NS\SentinelBundle\Form\Types\PCRResult;
-use \NS\SentinelBundle\Form\Types\CXRResult;
 use \NS\SentinelBundle\Form\Types\CaseStatus;
 use Symfony\Component\Validator\ExecutionContextInterface;
 
@@ -337,18 +336,6 @@ class SiteLab
     private $otherTestOther;
 
     /**
-     * @var TripleChoice $cxrDone
-     * @ORM\Column(name="cxrDone",type="TripleChoice",nullable=true)
-     */
-    private $cxrDone;
-
-    /**
-     * @var CXRResult $cxrResult
-     * @ORM\Column(name="cxrResult",type="CXRResult",nullable=true)
-     */
-    private $cxrResult;
-
-    /**
      * @var DateTime $updatedAt
      * @ORM\Column(name="updatedAt",type="datetime")
      */
@@ -639,16 +626,6 @@ class SiteLab
         return $this->otherTestOther;
     }
 
-    public function getCxrDone()
-    {
-        return $this->cxrDone;
-    }
-
-    public function getCxrResult()
-    {
-        return $this->cxrResult;
-    }
-
     public function setId($id)
     {
         $this->id = $id;
@@ -937,18 +914,6 @@ class SiteLab
         return $this;
     }
 
-    public function setCxrDone(TripleChoice $cxrDone)
-    {
-        $this->cxrDone = $cxrDone;
-        return $this;
-    }
-
-    public function setCxrResult(CXRResult $cxrResult)
-    {
-        $this->cxrResult = $cxrResult;
-        return $this;
-    }
-
     public function isComplete()
     {
         return $this->status->equal(CaseStatus::COMPLETE);
@@ -1051,7 +1016,6 @@ class SiteLab
                     'spnSerotype',
                     'hiSerotype',
                     'nmSerogroup',
-                    'cxrDone'
                     );
     }
 }
