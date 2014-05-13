@@ -23,7 +23,7 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
                    ->select('COUNT(m.id) theCount')
                    ->from($this->getClassName(),'m')
                    ->innerJoin('m.siteLab', 'sl')
-                   ->where('sl.cxrDone = :cxr')
+                   ->where('m.cxrDone = :cxr')
                    ->setParameter('cxr', \NS\SentinelBundle\Form\Types\TripleChoice::YES);
 
         $results['cxr'] = $this->secure($qb)->getQuery()->getSingleScalarResult();
