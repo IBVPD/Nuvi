@@ -1,28 +1,17 @@
 {%extends "NSSentinelBundle::layout.html.twig" %}
 
 {% block pagetitle %}
-{%if id %}{{'View Case %id%'|trans({'%id%': id})}}{%else%}{{'Create New Case'|trans}}{%endif%}
+{{'Edit Case %id%'|trans({'%id%': id})}}
 {% endblock %}
 
+{%block pageactions %}
+<div class="pull-right">{{case_big_actions(form.vars.value)}}</div>
+{%endblock %}
+
 {% block body %}
+{{form_errors(form)}}
 <form method="POST" action="{{path('meningitisEdit',{'id':id})}}">
-{% if form.site is defined %}
 <div class="row">
-    <div class="col-sm-4" >
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Site'|trans}}</h6></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    {{form_row(form.site)}}
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-{% endif %}
-    
-<div class="row">
-    {{form_errors(form)}}
     <div class="col-sm-4" >
         <div class="widget-box">
             <div class="widget-header widget-header-small header-color-blue"><h6>{{'Case Based Demographics'|trans}}</h6></div>
@@ -168,7 +157,7 @@
 </div>
 
 <div class="form-actions center">
-    <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
+    <a href="{{path('meningitisIndex')}}" class="btn btn-sm btn-danger">{{'Cancel'|trans}}</a> <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
 </div>
 
 </form>

@@ -1,12 +1,12 @@
 {%extends "NSSentinelBundle::layout.html.twig" %}
 
 {% block pagetitle %}
-{{'Create / Edit Lab For Case %id%'|trans({'%id%': id})}}
+{{'Edit Lab For Case %id%'|trans({'%id%': id})}}
 {% endblock %}
 
 {% block body %}
+{{form_errors(form)}}
 <form method="POST" action="{{path('rotavirusLabEdit',{'id':id})}}" novalidate>
-    {{form_errors(form)}}
 <div class="row">
     <div class="col-sm-4" >
         <div class="widget-box">
@@ -56,7 +56,7 @@
 {{form_rest(form)}}
 
 <div class="form-actions center">
-    <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
+    <a href="{{path('rotavirusIndex')}}" class="btn btn-sm btn-danger">{{'Cancel'|trans}}</a> <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
 </div>
 
 </form>

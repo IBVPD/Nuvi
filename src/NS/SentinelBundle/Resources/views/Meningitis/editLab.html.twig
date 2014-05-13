@@ -1,12 +1,16 @@
 {%extends "NSSentinelBundle::layout.html.twig" %}
 
 {% block pagetitle %}
-{{'Create / Edit Lab For Case %id%'|trans({'%id%': id})}}
+{{'Edit Lab For Case %id%'|trans({'%id%': id})}}
 {% endblock %}
 
+{%block pageactions %}
+<div class="pull-right">{{case_big_actions(form.vars.value.case)}}</div>
+{%endblock %}
+
 {% block body %}
+{{form_errors(form)}}
 <form method="POST" action="{{path('meningitisLabEdit',{'id':id})}}" novalidate>
-    {{form_errors(form)}}
 <div class="row">
     <div class="col-sm-8">
         <div class="tabbable">
@@ -97,7 +101,7 @@
 </div>
 {{form_rest(form)}}
 <div class="form-actions center">
-    <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
+    <a href="{{path('meningitisIndex')}}" class="btn btn-sm btn-danger">{{'Cancel'|trans}}</a> <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
 </div>
 </form>
 {% endblock %}
