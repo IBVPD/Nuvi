@@ -78,9 +78,9 @@ class RotaVirus
 //iii. Case-based Clinical Data
     /**
      * adm_date
-     * @var DateTime $admissionDate
+     * @var DateTime $admDate
      */
-    private $admissionDate;
+    private $admDate;
 
     /**
      * symp_diarrhoea
@@ -264,9 +264,9 @@ class RotaVirus
         return $this->district;
     }
 
-    public function getAdmissionDate()
+    public function getAdmDate()
     {
-        return $this->admissionDate;
+        return $this->admDate;
     }
 
     public function getSymptomDiarrhea()
@@ -443,9 +443,9 @@ class RotaVirus
         return $this;
     }
 
-    public function setAdmissionDate($admissionDate)
+    public function setAdmDate($admissionDate)
     {
-        $this->admissionDate = $admissionDate;
+        $this->admDate = $admissionDate;
         return $this;
     }
 

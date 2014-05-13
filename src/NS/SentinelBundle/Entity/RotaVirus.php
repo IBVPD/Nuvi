@@ -6,7 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Form\Types\DischargeOutcome;
-use NS\SentinelBundle\Form\Types\Gender;
 use NS\SentinelBundle\Form\Types\RotavirusVaccinationReceived;
 use NS\SentinelBundle\Form\Types\RotavirusVaccinationType;
 use NS\SentinelBundle\Form\Types\Dehydration;
@@ -47,33 +46,6 @@ class RotaVirus extends BaseCase
     protected $nationalClass  = '\NS\SentinelBundle\Entity\Rota\NationalLab';
 
 //ii. Case-based Demographic Data
-    /**
-     * case_ID
-     * @var string $caseId
-     * @ORM\Column(name="caseId",type="string",nullable=false)
-     */
-    private $caseId;
-
-    /**
-     * gender
-     * @var Gender $gender
-     * @ORM\Column(name="gender",type="Gender",nullable=true)
-     */
-    private $gender;
-
-    /**
-     * birthdate
-     * @var \DateTime $dob
-     * @ORM\Column(name="dob",type="date",nullable=true)
-     */
-    private $dob;
-
-    /**
-     * age_months
-     * @var integer $age
-     * @ORM\Column(name="age",type="integer",nullable=true)
-     */
-    private $age;
 
     /**
      * case_district
@@ -83,12 +55,6 @@ class RotaVirus extends BaseCase
     private $district;
 
 //iii. Case-based Clinical Data
-    /**
-     * adm_date
-     * @var \DateTime $admissionDate
-     * @ORM\Column(name="admissionDate",type="date",nullable=true)
-     */
-    private $admissionDate;
 
     /**
      * symp_diarrhoea
@@ -271,29 +237,9 @@ class RotaVirus extends BaseCase
         return $this->caseId;
     }
 
-    public function getGender()
-    {
-        return $this->gender;
-    }
-
-    public function getDob()
-    {
-        return $this->dob;
-    }
-
-    public function getAge()
-    {
-        return $this->age;
-    }
-
     public function getDistrict()
     {
         return $this->district;
-    }
-
-    public function getAdmissionDate()
-    {
-        return $this->admissionDate;
     }
 
     public function getSymptomDiarrhea()
@@ -434,46 +380,9 @@ class RotaVirus extends BaseCase
         return $this;
     }
 
-    public function setGender(Gender $gender)
-    {
-        $this->gender = $gender;
-        return $this;
-    }
-
-    public function setDob($dob)
-    {
-        if(!$dob instanceOf \DateTime)
-            return;
-
-        $this->dob = $dob;
-
-        $interval = ($this->admissionDate) ? $dob->diff($this->admissionDate) : $dob->diff(new \DateTime());
-        $this->setAge(($interval->format('%a') / 30));
-        return $this;
-    }
-
-    public function setAge($age)
-    {
-        $this->age = $age;
-        return $this;
-    }
-
     public function setDistrict($district)
     {
         $this->district = $district;
-        return $this;
-    }
-
-    public function setAdmissionDate($admissionDate)
-    {
-        $this->admissionDate = $admissionDate;
-
-        if (($this->admissionDate && $this->dob))
-        {
-            $interval = $this->dob->diff($this->admissionDate);
-            $this->setAge(($interval->format('%a') / 30));
-        }
-
         return $this;
     }
 

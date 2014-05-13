@@ -48,9 +48,9 @@ class Meningitis implements \Serializable
     private $dob;
 
     /**
-     * @var integer $ageInMonths
+     * @var integer $age
      */
-    private $ageInMonths;
+    private $age;
 
     /**
      * @var Gender $gender
@@ -294,25 +294,19 @@ class Meningitis implements \Serializable
 
     public function setDob($dob)
     {
-        if(!$dob instanceOf \DateTime)
-            return;
-
         $this->dob = $dob;
-
-        $interval = ($this->admDate) ? $dob->diff($this->admDate) : $dob->diff(new \DateTime());
-        $this->setAgeInMonths(($interval->format('%a') / 30));
 
         return $this;
     }
 
-    public function getAgeInMonths()
+    public function getAge()
     {
-        return $this->ageInMonths;
+        return $this->age;
     }
 
-    public function setAgeInMonths($ageInMonths)
+    public function setAge($age)
     {
-        $this->ageInMonths = $ageInMonths;
+        $this->age = $age;
         return $this;
     }
 
@@ -412,12 +406,6 @@ class Meningitis implements \Serializable
     public function setAdmDate($admDate)
     {
         $this->admDate = $admDate;
-
-        if (($this->admDate && $this->dob))
-        {
-            $interval = $this->dob->diff($this->admDate);
-            $this->setAgeInMonths(($interval->format('%a') / 30));
-        }
 
         return $this;
     }

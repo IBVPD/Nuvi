@@ -4,8 +4,10 @@ namespace NS\SentinelBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 use NS\SentinelBundle\Interfaces\IdentityAssignmentInterface;
 use NS\SentinelBundle\Form\Types\CaseStatus;
+use NS\SentinelBundle\Form\Types\Gender;
 
 /**
  * Description of BaseCase
@@ -23,6 +25,39 @@ abstract class BaseCase implements IdentityAssignmentInterface
      * @ORM\Column(name="id",type="string")
      */
     protected $id;
+
+    /**
+     * case_ID
+     * @var string $caseId
+     * @ORM\Column(name="caseId",type="string",nullable=false)
+     */
+    protected $caseId;
+
+    /**
+     * @var DateTime $dob
+     * @ORM\Column(name="dob",type="date",nullable=true)
+     * @Assert\Date
+     */
+    protected $dob;
+
+    /**
+     * @var integer $age
+     * @ORM\Column(name="age",type="integer",nullable=true)
+     * @Assert\Range(min=0,max=59,minMessage="Children should older than 0 months",maxMessage="Children should be younger than 59 months to be tracked")
+     */
+    protected $age;
+
+    /**
+     * @var Gender $gender
+     * @ORM\Column(name="gender",type="Gender",nullable=true)
+     */
+    protected $gender;
+
+    /**
+     * @var DateTime $admDate
+     * @ORM\Column(name="admDate",type="date",nullable=true)
+     */
+    protected $admDate;
 
 //     * @ORM\OneToMany(targetEntity="BaseLab", mappedBy="case")
     protected $externalLabs;
@@ -417,5 +452,90 @@ abstract class BaseCase implements IdentityAssignmentInterface
         $this->calculateStatus();
         $this->calculateResult();
         $this->setUpdatedAt(new \DateTime());
+    }
+
+    public function getYear()
+    {
+        return $this->updatedAt->format('Y');
+    }
+
+    public function getAgeDistribution()
+    {
+        if($this->age <= 5)
+            return 5;
+        else if ($this->age <= 11)
+            return 11;
+        else if ($this->age <= 23)
+            return 23;
+        else if ($this->age <= 59)
+            return 59;
+
+        return 'unknown';
+    }
+
+    public function getDob()
+    {
+        return $this->dob;
+    }
+
+    public function getAdmDate()
+    {
+        return $this->admDate;
+    }
+
+    public function getCaseId()
+    {
+        return $this->caseId;
+    }
+
+    public function getAge()
+    {
+        return $this->age;
+    }
+
+    public function getGender()
+    {
+        return $this->gender;
+    }
+
+    public function setDob($dob)
+    {
+        if(!$dob instanceOf \DateTime)
+            return;
+
+        $this->dob = $dob;
+
+        $interval = ($this->admDate) ? $dob->diff($this->admDate) : $dob->diff(new \DateTime());
+        $this->setAge(($interval->format('%a') / 30));
+
+        return $this;
+    }
+
+    public function setAdmDate($admDate)
+    {
+        $this->admDate = $admDate;
+
+        if (($this->admDate && $this->dob))
+        {
+            $interval = $this->dob->diff($this->admDate);
+            $this->setAge(($interval->format('%a') / 30));
+        }
+
+        return $this;
+    }
+
+    public function setCaseId($caseId)
+    {
+        $this->caseId = $caseId;
+    }
+
+    public function setAge($age)
+    {
+        $this->age = $age;
+    }
+
+    public function setGender(Gender $gender)
+    {
+        $this->gender = $gender;
     }
 }

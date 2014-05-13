@@ -37,7 +37,13 @@ class Builder
             $d->addChild('Meningitis',array('label'=>'menu.meningitis','route'=>'meningitisIndex'));
             $d->addChild('Rotavirus', array('route'=>'rotavirusIndex'))->setExtra('translation_domain', 'NSSentinelBundle');
 
-            $menu->addChild('Reports', array('label'=> 'menu.data-reports'))->setExtra('icon','icon-dashboard');
+            $reports = $menu->addChild('Reports', array('label'=> 'menu.data-reports','route'=>'reportDashboard'))->setExtra('icon','icon-dashboard');
+            $reports->addChild('Age Distribution',array('label'=> 'menu.data-reports-age-distribution','route'=>'reportAnnualAgeDistribution'));
+            $reports->addChild('Enrolment %',array('label'=> 'menu.data-reports-percent-enrolled','route'=>'reportPercentEnrolled'));
+            $reports->addChild('# Per Month',array('label'=> 'menu.data-reports-number-per-month','route'=>'reportNumberPerMonth'));
+            $reports->addChild('# Per Year Clinical',array('label'=> 'menu.data-reports-per-year-clinical','route'=>'reportNumberPerYearClinical'));
+            $reports->addChild('Age Distribution',array('label'=> 'menu.data-reports-age-distribution','route'=>'reportDataQuality'));
+
             if($this->securityContext->isGranted('ROLE_ADMIN'))
             {
                 $admin = $menu->addChild('Admin', array('label'=> 'menu.data-admin'))->setExtra('icon','icon-desktop');

@@ -20,7 +20,7 @@ class CaseType extends AbstractType
             ->add('dob',                        'acedatepicker',    array('required'=>false, 'label'=>'rotavirus-form.dob'))
             ->add('age',                        null,               array('required'=>false, 'label'=>'rotavirus-form.age-in-months'))
             ->add('district',                   null,               array('required'=>false, 'label'=>'rotavirus-form.district'))
-            ->add('admissionDate',              'acedatepicker',    array('required'=>false, 'label'=>'rotavirus-form.admissionDate'))
+            ->add('admDate',                    'acedatepicker',    array('required'=>false, 'label'=>'rotavirus-form.admissionDate'))
             ->add('symptomDiarrhea',            'TripleChoice',     array('required'=>false, 'label'=>'rotavirus-form.symptomDiarrhea'))
             ->add('symptomDiarrheaOnset',       'acedatepicker',    array('required'=>false, 'label'=>'rotavirus-form.symptomDiarrheaOnset'))
             ->add('symptomDiarrheaEpisodes',    null,               array('required'=>false, 'label'=>'rotavirus-form.symptomDiarrheaEpisodes'))

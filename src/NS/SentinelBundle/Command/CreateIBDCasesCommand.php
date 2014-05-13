@@ -50,17 +50,18 @@ class CreateIBDCasesCommand extends ContainerAwareCommand
     
         for($x = 0; $x < 2700; $x++)
         {
-            $dob = $this->getRandomDate();
+            $dob  = $this->getRandomDate();
+            $done = array_rand($cxDone);
             $m = new Meningitis();
 
             $m->setDob($dob);
             $m->setAdmDate($this->getRandomDate(null,$dob));
             $m->setCsfCollected((($x % 3) == 0));
+            $m->setCxrDone($cxDone[$done]);
+
             if($x%12 == 0)
             {
-                $done = array_rand($cxDone);
                 $site = new SiteLab($m);
-                $site->setCxrDone($cxDone[$done]);
 
                 $m->setSiteLab($site);
 

@@ -263,4 +263,31 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
 
         return $qb->getQuery()->getResult();
     }
+
+    public function getAnnualAgeDistribution(\DateTime $from, \DateTime $to)
+    {
+        $qb = $this->createQueryBuilder("m")
+                   ->where('m.updatedAt BETWEEN :from AND :to')
+                   ->setParameters(array(
+                                    'from' => $from->format('Y-m-d'),
+                                    'to'   => $to->format('Y-m-d'))
+                                  )
+                ;
+
+        if(method_exists($this, 'secure'))
+            $qb = $this->secure($qb);
+
+        $r       = $qb->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult();
+        $results = array();
+
+        foreach($r as $case)
+        {
+            if(!isset($results[$case->getYear()]))
+                $results[$case->getYear()] = array(5=>0,11=>0,23=>0,59=>0, 'unknown'=>0);
+
+            $results[$case->getYear()][$case->getAgeDistribution()]++;
+        }
+
+        return $results;
+    }
 }

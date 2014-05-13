@@ -44,7 +44,7 @@ class CreateRotaCasesCommand extends ContainerAwareCommand
 
             $m = new RotaVirus();
             $m->setDob($dob);
-            $m->setAdmissionDate($this->getRandomDate(null,$dob));
+            $m->setAdmDate($this->getRandomDate(null,$dob));
             $m->setSite($sites[$siteKey]);
             $m->setCaseId($this->getCaseId($sites[$siteKey]));
 

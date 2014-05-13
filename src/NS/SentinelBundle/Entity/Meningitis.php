@@ -56,44 +56,12 @@ class Meningitis extends BaseCase
 
 // Case based demographic
     /**
-     * @var string $caseId
-     * @ORM\Column(name="caseId",type="string",nullable=false)
-     * @Assert\NotBlank
-     */
-    private $caseId;
-
-    /**
-     * @var DateTime $dob
-     * @ORM\Column(name="dob",type="date",nullable=true)
-     * @Assert\Date
-     */
-    private $dob;
-
-    /**
-     * @var integer $ageInMonths
-     * @ORM\Column(name="ageInMonths",type="integer",nullable=true)
-     * @Assert\Range(min=0,max=59,minMessage="Children should older than 0 months",maxMessage="Children should be younger than 59 months to be tracked")
-     */
-    private $ageInMonths;
-
-    /**
-     * @var Gender $gender
-     * @ORM\Column(name="gender",type="Gender",nullable=true)
-     */
-    private $gender;
-
-    /**
      * @var string $district
      * @ORM\Column(name="district",type="string",nullable=true)
      */
     private $district;
 
 //Case-based Clinical Data
-    /**
-     * @var DateTime $admDate
-     * @ORM\Column(name="admDate",type="date",nullable=true)
-     */
-    private $admDate;
 
     /**
      * @var DateTime $onsetDate
@@ -361,52 +329,6 @@ class Meningitis extends BaseCase
         $this->result       = new MeningitisCaseResult(0);
     }
 
-    public function getDob()
-    {
-        return $this->dob;
-    }
-
-    public function setDob($dob)
-    {
-        if(!$dob instanceOf \DateTime)
-            return;
-
-        $this->dob = $dob;
-
-        $interval = ($this->admDate) ? $dob->diff($this->admDate) : $dob->diff(new \DateTime());
-        $this->setAgeInMonths(($interval->format('%a') / 30));
-
-        return $this;
-    }
-
-    public function getAdmDate()
-    {
-        return $this->admDate;
-    }
-
-    public function setAdmDate($admDate)
-    {
-        $this->admDate = $admDate;
-
-        if (($this->admDate && $this->dob))
-        {
-            $interval = $this->dob->diff($this->admDate);
-            $this->setAgeInMonths(($interval->format('%a') / 30));
-        }
-
-        return $this;
-    }
-
-    public function getAgeInMonths()
-    {
-        return $this->ageInMonths;
-    }
-
-    public function getGender()
-    {
-        return $this->gender;
-    }
-
     public function getDistrict()
     {
         return $this->district;
@@ -630,18 +552,6 @@ class Meningitis extends BaseCase
     public function setCxrResult(CXRResult $cxrResult)
     {
         $this->cxrResult = $cxrResult;
-    }
-
-    public function setAgeInMonths($ageInMonths)
-    {
-        $this->ageInMonths = $ageInMonths;
-        return $this;
-    }
-
-    public function setGender(Gender $gender)
-    {
-        $this->gender = $gender;
-        return $this;
     }
 
     public function setDistrict($district)
@@ -921,12 +831,12 @@ class Meningitis extends BaseCase
             return;
 
         // Test Suspected
-        if($this->ageInMonths < 60 && $this->menFever && $this->menFever->equal(TripleChoice::YES))
+        if($this->age < 60 && $this->menFever && $this->menFever->equal(TripleChoice::YES))
         {
             if(($this->menAltConscious && $this->menAltConscious->equal(TripleChoice::YES)) || ($this->menNeckStiff && $this->menNeckStiff->equal(TripleChoice::YES)) )
                 $this->result->setValue (MeningitisCaseResult::SUSPECTED);
         }
-        else if($this->ageInMonths < 60 && $this->admDx && $this->admDx->equal(Diagnosis::SUSPECTED_MENINGITIS))
+        else if($this->age < 60 && $this->admDx && $this->admDx->equal(Diagnosis::SUSPECTED_MENINGITIS))
             $this->result->setValue (MeningitisCaseResult::SUSPECTED);
 
         if($this->result && $this->result->equal(MeningitisCaseResult::SUSPECTED))
@@ -947,9 +857,9 @@ class Meningitis extends BaseCase
                 return $field;
         }
 
-        // this isn't covered by the above loop because its valid for ageInMonths == 0 but 0 == empty
-        if(is_null($this->ageInMonths))
-            return 'ageInMonths';
+        // this isn't covered by the above loop because its valid for age == 0 but 0 == empty
+        if(is_null($this->age))
+            return 'age';
 
         if($this->admDx && $this->admDx->equal(Diagnosis::OTHER) && empty($this->admDxOther))
             return 'admDx';

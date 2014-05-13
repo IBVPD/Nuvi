@@ -30,7 +30,7 @@ class CaseType extends AbstractType
     {
         $builder
             ->add('dob',                    'acedatepicker',    array('required'=>false,'label'=>'meningitis-form.date-of-birth','widget'=>'single_text'))
-            ->add('ageInMonths',            null,               array('required'=>false,'label'=>'meningitis-form.age-in-months'))
+            ->add('age',                    null,               array('required'=>false,'label'=>'meningitis-form.age-in-months'))
             ->add('gender',                 'Gender',           array('required'=>false,'label'=>'meningitis-form.gender'))
             ->add('district',               null,               array('required'=>false,'label'=>'meningitis-form.district'))
             ->add('caseId',                 null,               array('required'=>false,'label'=>'meningitis-form.case-id'))

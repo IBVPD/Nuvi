@@ -49,7 +49,7 @@ class LoadRotaVirusCaseData extends AbstractFixture implements OrderedFixtureInt
                 $dob = $this->getRandomDate();
                 $m = new RotaVirus();
                 $m->setDob($dob);
-                $m->setAdmissionDate($this->getRandomDate(null,$dob));
+                $m->setAdmDate($this->getRandomDate(null,$dob));
                 if($x%12 == 0)
                 {
                     $sl = new SiteLab();

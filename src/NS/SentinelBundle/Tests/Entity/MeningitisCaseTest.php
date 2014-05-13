@@ -76,7 +76,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
         $case = new Meningitis();
         $case->setCountry($country);
 
-        $this->assertEquals(32, count($case->getMinimumRequiredFields()));
+        $this->assertEquals(33, count($case->getMinimumRequiredFields()));
     }
 
     public function testMinimumRequiredFieldsWithoutPneunomia()
@@ -86,7 +86,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
         $case = new Meningitis();
         $case->setCountry($country);
 
-        $this->assertEquals(23, count($case->getMinimumRequiredFields()));
+        $this->assertEquals(24, count($case->getMinimumRequiredFields()));
     }
 
     //============================================================
@@ -97,7 +97,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
         $this->_updateCase($case, $this->getSingleCompleteCaseWithPneunomia());
         $case->preUpdateAndPersist();
 
-        $this->assertEquals(32, count($case->getMinimumRequiredFields()));
+        $this->assertEquals(33, count($case->getMinimumRequiredFields()));
         $this->assertTrue($case->isComplete(),"New cases are incomplete");
     }
 
@@ -107,7 +107,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
         $this->_updateCase($case, $this->getSingleCompleteCaseWithoutPneunomia());
         $case->preUpdateAndPersist();
 
-        $this->assertEquals(23, count($case->getMinimumRequiredFields()));
+        $this->assertEquals(24, count($case->getMinimumRequiredFields()));
         $this->assertTrue($case->isComplete(),"New cases are incomplete");
     }
 
@@ -410,6 +410,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
                     'setdischDx'           => new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA),
                     'setdischDxOther'      => null,
                     'setdischClass'        => new DischargeClassification(DischargeClassification::CONFIRMED_SPN),
+                    'setCxrDone'           => new TripleChoice(TripleChoice::NO),
                 );
     }
 
@@ -454,6 +455,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
                     'setdischDx'           => new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA),
                     'setdischDxOther'      => null,
                     'setdischClass'        => new DischargeClassification(DischargeClassification::CONFIRMED_SPN),
+                    'setCxrDone'           => new TripleChoice(TripleChoice::NO),
                 );
     }
 
