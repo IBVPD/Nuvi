@@ -2,7 +2,6 @@
 
 namespace NS\SentinelBundle\Form\IBD;
 
-use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -16,13 +15,11 @@ use NS\SentinelBundle\Services\SerializedSites;
 
 class CaseType extends AbstractType
 {
-    private $em;
     private $siteSerializer;
 
-    public function __construct(SerializedSites $siteSerializer, ObjectManager $em)
+    public function __construct(SerializedSites $siteSerializer)
     {
         $this->siteSerializer = $siteSerializer;
-        $this->em             = $em;
     }
 
     /**
@@ -73,28 +70,7 @@ class CaseType extends AbstractType
             ->add('comment',                null,               array('required'=>false,'label'=>'meningitis-form.comment'))
         ;
 
-        $factory        = $builder->getFormFactory();
         $siteSerializer = $this->siteSerializer;
-        $em             = $this->em;
-
-        $builder->addEventListener(
-                        FormEvents::PRE_SET_DATA,
-                        function(FormEvent $event) use($factory,$siteSerializer,$em)
-                        {
-                            $form = $event->getForm();
-
-                            if($siteSerializer->hasMultipleSites())
-                            {
-                                $form->add($factory->createNamed('site','entity',null,array('required'        => true,
-                                                                                            'empty_value'     => 'Please Select...',
-                                                                                            'label'           => 'rotavirus-form.site',
-                                                                                            'query_builder'   => $em->getRepository('NS\SentinelBundle\Entity\Site')->getChainQueryBuilder(),
-                                                                                            'class'           => 'NS\SentinelBundle\Entity\Site',
-                                                                                            'auto_initialize' => false))
-                                          );
-                            }
-                        }
-            );
 
         $builder->addEventListener(FormEvents::POST_SET_DATA, function(FormEvent $event) use($siteSerializer)
                 {
@@ -125,7 +101,7 @@ class CaseType extends AbstractType
                              ->add('bloodId',           null,           array('required'=>false));
                     }
 
-                    if($country instanceof Country )
+                    if($country instanceof Country)
                     {
                         if($country->hasReferenceLab())
                             $form->add('sentToReferenceLab','switch',array('required'=>false));
@@ -134,25 +110,6 @@ class CaseType extends AbstractType
                             $form->add('sentToNationalLab','switch',array('required'=>false));
                     }
                 });
-
-        $builder->addEventListener(
-                        FormEvents::SUBMIT,
-                        function(FormEvent $event) use ($siteSerializer)
-                        {
-                            if($siteSerializer->hasMultipleSites()) // they'll be choosing so exit
-                                return;
-
-                            $data = $event->getData();
-                            if(!$data || $data->hasId()) // no editing of sites
-                                return;
-
-                            // current gets us the one site we are able to see since we test for count > 1 above
-                            $site = $siteSerializer->getSite(true);
-                            $data->setSite($site);
-
-                            $event->setData($data);
-                        }
-                );
     }
     
     /**

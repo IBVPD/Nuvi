@@ -5,22 +5,9 @@ namespace NS\SentinelBundle\Form\Rota;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormEvent;
-use NS\SentinelBundle\Services\SerializedSites;
-use Doctrine\Common\Persistence\ObjectManager;
 
 class CaseType extends AbstractType
 {
-    private $em;
-    private $siteSerializer;
-
-    public function __construct(SerializedSites $siteSerializer, ObjectManager $em)
-    {
-        $this->siteSerializer = $siteSerializer;
-        $this->em             = $em;
-    }
-
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -61,48 +48,6 @@ class CaseType extends AbstractType
             ->add('sentToReferenceLab')
             ->add('sentToNationalLab')
         ;
-
-        $factory        = $builder->getFormFactory();
-        $siteSerializer = $this->siteSerializer;
-        $em             = $this->em;
-
-        $builder->addEventListener(
-                        FormEvents::PRE_SET_DATA,
-                        function(FormEvent $event) use($factory,$siteSerializer,$em)
-                        {
-                            $form  = $event->getForm();
-
-                            if($siteSerializer->hasMultipleSites())
-                            {
-                                $form->add($factory->createNamed('site','entity',null,array('required'        => true,
-                                                                                            'empty_value'     => 'Please Select...',
-                                                                                            'label'           => 'rotavirus-form.site',
-                                                                                            'query_builder'   => $em->getRepository('NS\SentinelBundle\Entity\Site')->getChainQueryBuilder(),
-                                                                                            'class'           => 'NS\SentinelBundle\Entity\Site',
-                                                                                            'auto_initialize' => false))
-                                          );
-                            }
-                        }
-            );
-
-        $builder->addEventListener(
-                        FormEvents::SUBMIT,
-                        function(FormEvent $event) use ($siteSerializer)
-                        {
-                            if($siteSerializer->hasMultipleSites()) // they'll be choosing so exit
-                                return;
-
-                            $data = $event->getData();
-                            if(!$data || $data->hasId()) // no editing of sites
-                                return;
-
-                            // current gets us the one site we are able to see since we test for count > 1 above
-                            $site = $siteSerializer->getSite(true);
-                            $data->setSite($site);
-
-                            $event->setData($data);
-                        }
-                );
     }
     
     /**
