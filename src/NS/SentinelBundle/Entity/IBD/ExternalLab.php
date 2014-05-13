@@ -3,7 +3,7 @@
 namespace NS\SentinelBundle\Entity\IBD;
 
 use Doctrine\ORM\Mapping as ORM;
-use NS\SentinelBundle\Entity\BaseLab;
+use NS\SentinelBundle\Entity\BaseExternalLab;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Form\Types\PathogenIdentifier;
 use NS\SentinelBundle\Form\Types\SerotypeIdentifier;
@@ -36,7 +36,7 @@ use Symfony\Component\Validator\ExecutionContextInterface;
  * @ORM\DiscriminatorMap({"reference" = "ReferenceLab", "national" = "NationalLab"})
  * @Assert\Callback(methods={"validate"})
  */
-abstract class ExternalLab extends BaseLab
+abstract class ExternalLab extends BaseExternalLab
 {
     /**
      * @ORM\ManyToOne(targetEntity="\NS\SentinelBundle\Entity\Meningitis",inversedBy="externalLabs")

@@ -9,7 +9,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use NS\SecurityBundle\Annotation\Secured;
 use NS\SecurityBundle\Annotation\SecuredCondition;
 
-use \NS\SentinelBundle\Entity\BaseLab;
+use \NS\SentinelBundle\Entity\BaseExternalLab;
 
 /**
  * Description of ExternalLab
@@ -26,7 +26,7 @@ use \NS\SentinelBundle\Entity\BaseLab;
  * @ORM\DiscriminatorColumn(name="discr",type="string")
  * @ORM\DiscriminatorMap({"reference" = "ReferenceLab", "national" = "NationalLab"})
  */
-abstract class ExternalLab extends BaseLab
+abstract class ExternalLab extends BaseExternalLab
 {
     /**
      * @ORM\ManyToOne(targetEntity="\NS\SentinelBundle\Entity\RotaVirus",inversedBy="externalLabs")
