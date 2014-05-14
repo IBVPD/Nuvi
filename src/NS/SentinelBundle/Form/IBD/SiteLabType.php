@@ -10,6 +10,9 @@ use Symfony\Component\Form\FormEvent;
 use NS\SentinelBundle\Services\SerializedSites;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Form\Types\LatResult;
+use NS\SentinelBundle\Form\Types\SpnSerotype;
+use NS\SentinelBundle\Form\Types\HiSerotype;
+use NS\SentinelBundle\Form\Types\NmSerogroup;
 use NS\SentinelBundle\Entity\Country;
 
 class SiteLabType extends AbstractType
@@ -59,9 +62,12 @@ class SiteLabType extends AbstractType
 
             ->add('csfStore',           'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.csf-store'))
             ->add('isolStore',          'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.isol-store'))
-            ->add('spnSerotype',        null,                   array('required'=>false, 'label'=>'meningitis-form.spn-serotype'))
-            ->add('hiSerotype',         null,                   array('required'=>false, 'label'=>'meningitis-form.hi-serotype'))
-            ->add('nmSerogroup',        null,                   array('required'=>false, 'label'=>'meningitis-form.nm-serogroup'))
+            ->add('spnSerotype',        'SpnSerotype',          array('required'=>false, 'label'=>'meningitis-form.spn-serotype',       'attr' => array('data-context-child'=>'spnSerotype')))
+            ->add('spnSerotypeOther',   null,                   array('required'=>false, 'label'=>'meningitis-form.spn-serotype-other', 'attr' => array('data-context-parent'=>'spnSerotype','data-context-value'=> SpnSerotype::OTHER)))
+            ->add('hiSerotype',         'HiSerotype',           array('required'=>false, 'label'=>'meningitis-form.hi-serotype',       'attr' => array('data-context-child'=>'hiSerotype')))
+            ->add('hiSerotypeOther',    null,                   array('required'=>false, 'label'=>'meningitis-form.hi-serotype-other', 'attr' => array('data-context-parent'=>'hiSerotype','data-context-value'=>  HiSerotype::OTHER)))
+            ->add('nmSerogroup',        'NmSerogroup',          array('required'=>false, 'label'=>'meningitis-form.nm-serogroup',       'attr' => array('data-context-child'=>'nmSerogroup')))
+            ->add('nmSerogroupOther',   null,                   array('required'=>false, 'label'=>'meningitis-form.nm-serogroup-other', 'attr' => array('data-context-parent'=>'nmSerogroup','data-context-value'=> NmSerogroup::OTHER)))
 
             ->add('bloodCultDone',      'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.blood-cult-done',    'attr' => array('data-context-child'=>'bloodCultDone')))
             ->add('bloodCultResult',    'LatResult',            array('required'=>false, 'label'=>'meningitis-form.blood-cult-result',  'attr' => array('data-context-parent'=>'bloodCultDone','data-context-value'=> TripleChoice::YES)))

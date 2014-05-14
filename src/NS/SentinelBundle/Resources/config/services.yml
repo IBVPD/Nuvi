@@ -2,6 +2,21 @@ parameters:
 #    ns_sentinel.example.class: NS\SentinelBundle\Example
 
 services:
+    ns.sentinel.form.type.spnserotype:
+      class: NS\SentinelBundle\Form\Types\SpnSerotype
+      tags:
+        - { name: form.type, alias: SpnSerotype }
+    
+    ns.sentinel.form.type.hiserotype:
+      class: NS\SentinelBundle\Form\Types\HiSerotype
+      tags:
+        - { name: form.type, alias: HiSerotype }
+
+    ns.sentinel.form.type.nmserogroup:
+      class: NS\SentinelBundle\Form\Types\NmSerogroup
+      tags:
+        - { name: form.type, alias: NmSerogroup }
+
     ns.sentinel.form.type.eiaresult:
       class: NS\SentinelBundle\Form\Types\EIAResult
       tags:

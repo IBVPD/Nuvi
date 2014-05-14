@@ -214,22 +214,40 @@ class SiteLab extends BaseSiteLab
     private $rrlName;
 
     /**
-     * @var string $spnSerotype
-     * @ORM\Column(name="spnSerotype",type="string",nullable=true)
+     * @var SpnSerotype $spnSerotype
+     * @ORM\Column(name="spnSerotype",type="SpnSerotype",nullable=true)
      */
     private $spnSerotype;
 
     /**
-     * @var string $hiSerotyoe
-     * @ORM\Column(name="hiSerotyoe",type="string",nullable=true)
+     * @var string $spnSerotypeOther
+     * @ORM\Column(name="spnSerotypeOther",type="string",nullable=true)
+     */
+    private $spnSerotypeOther;
+
+    /**
+     * @var HiSerotype $hiSerotyoe
+     * @ORM\Column(name="hiSerotyoe",type="HiSerotype",nullable=true)
      */
     private $hiSerotype;
 
     /**
-     * @var string $nmSerogroup
-     * @ORM\Column(name="nmSerogroup",type="string",nullable=true)
+     * @var string $hiSerotypeOther
+     * @ORM\Column(name="hiSerotypeOther",type="string",nullable=true)
+     */
+    private $hiSerotypeOther;
+
+    /**
+     * @var NmSerogroup $nmSerogroup
+     * @ORM\Column(name="nmSerogroup",type="NmSerogroup",nullable=true)
      */
     private $nmSerogroup;
+
+    /**
+     * @var string $nmSerogroupOther
+     * @ORM\Column(name="nmSerogroupOther",type="string",nullable=true)
+     */
+    private $nmSerogroupOther;
 
 //==================
     //PNEUMONIA / SEPSIS (In addition to above)
@@ -625,6 +643,36 @@ class SiteLab extends BaseSiteLab
     public function getOtherTestOther()
     {
         return $this->otherTestOther;
+    }
+
+    public function getSpnSerotypeOther()
+    {
+        return $this->spnSerotypeOther;
+    }
+
+    public function getHiSerotypeOther()
+    {
+        return $this->hiSerotypeOther;
+    }
+
+    public function getNmSerogroupOther()
+    {
+        return $this->nmSerogroupOther;
+    }
+
+    public function setSpnSerotypeOther($spnSerotypeOther)
+    {
+        $this->spnSerotypeOther = $spnSerotypeOther;
+    }
+
+    public function setHiSerotypeOther($hiSerotypeOther)
+    {
+        $this->hiSerotypeOther = $hiSerotypeOther;
+    }
+
+    public function setNmSerogroupOther($nmSerogroupOther)
+    {
+        $this->nmSerogroupOther = $nmSerogroupOther;
     }
 
     public function setId($id)

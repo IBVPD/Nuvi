@@ -92,6 +92,9 @@ doctrine:
             EIAResult: NS\SentinelBundle\Entity\Types\EIAResult
             GenotypeResultG: NS\SentinelBundle\Entity\Types\GenotypeResultG
             GenotypeResultP: NS\SentinelBundle\Entity\Types\GenotypeResultP
+            NmSerogroup: NS\SentinelBundle\Entity\Types\NmSerogroup
+            HiSerotype: NS\SentinelBundle\Entity\Types\HiSerotype
+            SpnSerotype: NS\SentinelBundle\Entity\Types\SpnSerotype
         mapping_types:
             TripleChoice: TripleChoice
             Doses: Doses
@@ -127,6 +130,9 @@ doctrine:
             EIAResult: EIAResult
             GenotypeResultG: GenotypeResultG
             GenotypeResultP: GenotypeResultP
+            NmSerogroup: NmSerogroup
+            HiSerotype: HiSerotype
+            SpnSerotype: SpnSerotype            
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
