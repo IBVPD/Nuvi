@@ -11,12 +11,14 @@ Feature: User Views
   Ability to create a new RRL entry (try as both regular user and as RRL user)	
   Ability to create a new NL entry (try as both regular user and as NL user)
 
+@mink:symfony2
 Scenario Outline: A User with create rights can't create any kind of labs
     Given I am not logged in
       And I login with "<email>" "<password>"
       And I go to "<path>"
       And I should be on "<path>"
-    Then The Create Form Has <types> Types
+    Then There should be no exception
+      And The Create Form Has <types> Types
       And The Create Form Has <sites> Sites
     Examples:
       | email                  | password            | types | sites    | path     |
@@ -31,6 +33,7 @@ Scenario Outline: A User with create rights can't create any kind of labs
       | ca-clab@noblet.ca      | 1234567-ca-clab     | 2     | 3        | /en/ibd/ |
       | ca-cnl@noblet.ca       | 1234567-ca-cnl      | 2     | 3        | /en/ibd/ |
 
+@mink:symfony2
 Scenario Outline: A user cannot find cases outside their rights
     Given I am not logged in
       And I login with "<email>" "<password>"
@@ -38,7 +41,8 @@ Scenario Outline: A user cannot find cases outside their rights
       And I go to "<path>"
       And I fill in "<form-id>" with "<search>"
       And I press "<form-button>"
-    Then I should be on "<path>"
+    Then There should be no exception
+      And I should be on "<path>"
       And I should see 0 "<css>" elements
     Examples:
       | email                  | password        | form-id                  | form-button                | search | path       | css                  |
@@ -49,11 +53,13 @@ Scenario Outline: A user cannot find cases outside their rights
       | us@noblet.ca           | 1234567-us      | ibd_filter_form_id       | ibd_filter_form_find       | MX     | /en/ibd/   | #ibdCases tbody tr   |
       | ca@noblet.ca           | 1234567-ca      | ibd_filter_form_id       | ibd_filter_form_find       | MX     | /en/ibd/   | #ibdCases tbody tr   |
 
+@mink:symfony2
 Scenario Outline: A user cannot directly access a case outside their rights
     Given I am not logged in
       And I login with "<email>" "<password>"
       And I go to "<path>"
-    Then I should see "This case does not exist!"
+    Then There should be no exception
+      And I should see "This case does not exist!"
     Examples:
       | email                  | password        | path                           |
       | site-alberta@noblet.ca | 1234567-alberta | /en/ibd/show/MX-MGH-14-000001  |
@@ -63,12 +69,14 @@ Scenario Outline: A user cannot directly access a case outside their rights
       | us@noblet.ca           | 1234567-us      | /en/rota/show/MX-MGH-14-000001 |
       | ca@noblet.ca           | 1234567-ca      | /en/rota/show/MX-MGH-14-000001 |
 
+@mink:symfony2
 Scenario Outline:  Login validate only cases from assigned site are seen	
     Given I am not logged in
       And I login with "<email>" "<password>"
       And I should be on "/en"
       And I go to "<path>"
-    Then I should see <numCases> "<css>" elements
+    Then There should be no exception
+      And I should see <numCases> "<css>" elements
       And I am not logged in
     Examples:
       | email                  | password        | numCases | path      | css                 |
@@ -84,3 +92,20 @@ Scenario Outline:  Login validate only cases from assigned site are seen
       | site-mexico@noblet.ca  | 1234567-mexico  | 2        | /en/rota  | #rotaCases tbody tr |
       | us@noblet.ca           | 1234567-us      | 7        | /en/rota  | #rotaCases tbody tr |
       | na@noblet.ca           | 1234567-na      | 10       | /en/rota  | #rotaCases tbody tr |
+
+@mink:symfony2
+Scenario Outline: A User can create a case
+    Given I am not logged in
+      And I login with "<email>" "<password>"
+      And I go to "<path>"
+      And I should be on "<path>"
+      And I fill in "<form-case>" with "<form-case-value>"
+      And I fill in "<form-type>" with "<form-type-value>"
+      And I press "ibd_create_submit"
+    Then There should be no exception
+      And I should not be on "<resultpath>"
+    Examples:
+      | email                  | password            | path     | form-case         | form-case-value | form-type       | form-type-value | resultpath      |
+      | site-seattle@noblet.ca | 1234567-seattle     | /en/ibd/ | create_ibd_caseId | seattle-case-1  | create_ibd_type | 1               | /en/ibd/create  |
+      | site-alberta@noblet.ca | 1234567-alberta     | /en/ibd/ | create_ibd_caseId | alberta-case-1  | create_ibd_type | 1               | /en/ibd/create  |
+      | site-shriner@noblet.ca | 1234567-shriner     | /en/ibd/ | create_ibd_caseId | shriner-case-1  | create_ibd_type | 1               | /en/ibd/create  |

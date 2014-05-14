@@ -27,10 +27,9 @@ class Site extends CommonRepository
     public function getChainQueryBuilder()
     {
         $qb = $this->createQueryBuilder('s')
-                ->select('s,c,r')
+                ->addSelect('c,r')
                 ->innerJoin('s.country', 'c')
                 ->innerJoin('c.region', 'r');
-
 
         return (method_exists($this, 'secure')) ? $this->secure($qb) : $qb;
     }

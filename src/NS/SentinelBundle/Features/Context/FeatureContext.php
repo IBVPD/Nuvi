@@ -8,6 +8,8 @@ use Behat\MinkExtension\Context\MinkContext;
 use Behat\Behat\Exception\PendingException;
 use Behat\Gherkin\Node\TableNode;
 use Behat\Behat\Context\Step\When;
+use Behat\Mink\Exception\UnsupportedDriverActionException;
+use \Behat\Symfony2Extension\Driver\KernelDriver;
 
 //
 // Require 3rd-party libraries here:
@@ -71,6 +73,38 @@ class FeatureContext extends MinkContext //MinkContext if you want to test web
             new When('I fill in "_password" with "'.$arg2.'"'),
             new When('I press "login"'),
             );
+    }
+
+    /**
+     * @Then /^I should not be on "([^"]*)"$/
+     */
+    public function iShouldNotBeOn($arg1)
+    {
+        $this->assertSession()->addressNotEquals($this->locatePath($arg1));
+    }
+
+    /**
+     * @Then /^There should be no exception$/
+     */
+    public function thereShouldBeNoException()
+    {
+        $profile   = $this->getSymfonyProfile();
+        $collector = $profile->getCollector('exception');
+        \PHPUnit_Framework_Assert::assertFalse($collector->hasException());
+    }
+
+    public function getSymfonyProfile()
+    {
+        $driver = $this->getSession()->getDriver();
+
+        if (!$driver instanceof KernelDriver)
+            throw new UnsupportedDriverActionException('You need to tag the scenario with "@mink:symfony2". Using the profiler is not supported by %s', $driver);
+
+        $profile = $driver->getClient()->getProfile();
+        if (false === $profile)
+            throw new \RuntimeException('Profiler is disabled.');
+
+        return $profile;
     }
 
     /**
