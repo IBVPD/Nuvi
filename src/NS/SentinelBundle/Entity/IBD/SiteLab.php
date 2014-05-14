@@ -991,25 +991,34 @@ class SiteLab extends BaseSiteLab
     public function validate(ExecutionContextInterface $context)
     {
         if($this->csfCultDone && $this->csfCultDone->equal(TripleChoice::YES) && !$this->csfCultResult)
-            $context->addViolationAt('admDx',"form.validation.meningitis-sitelab-csfCult-was-done-without-result");
+            $context->addViolationAt('csfCultDone',"form.validation.meningitis-sitelab-csfCult-was-done-without-result");
 
         if($this->csfCultDone && $this->csfCultDone->equal(TripleChoice::YES) && $this->csfCultResult && $this->csfCultResult->equal(LatResult::OTHER) && empty($this->csfCultOther))
-            $context->addViolationAt('admDx',"form.validation.meningitis-sitelab-csfCult-was-done-without-result");
+            $context->addViolationAt('csfCultDone',"form.validation.meningitis-sitelab-csfCult-was-done-without-result");
 
         if($this->csfBinaxDone && $this->csfBinaxDone->equal(TripleChoice::YES) && !$this->csfBinaxResult)
-            $context->addViolationAt('admDx',"form.validation.meningitis-sitelab-csfBinax-was-done-without-result");
+            $context->addViolationAt('csfBinaxDone',"form.validation.meningitis-sitelab-csfBinax-was-done-without-result");
 
         if($this->csfLatDone && $this->csfLatDone->equal(TripleChoice::YES) && !$this->csfLatResult)
-            $context->addViolationAt('admDx',"form.validation.meningitis-sitelab-csfLat-was-done-without-result");
+            $context->addViolationAt('csfLatDone',"form.validation.meningitis-sitelab-csfLat-was-done-without-result");
 
         if($this->csfLatDone && $this->csfLatDone->equal(TripleChoice::YES) && $this->csfLatResult && $this->csfLatResult->equal(LatResult::OTHER) && empty($this->csfLatOther))
-            $context->addViolationAt('admDx',"form.validation.meningitis-sitelab-csfLat-was-done-without-result");
+            $context->addViolationAt('csfLatDone',"form.validation.meningitis-sitelab-csfLat-was-done-without-result");
 
         if($this->csfPcrDone && $this->csfPcrDone->equal(TripleChoice::YES) && !$this->csfPcrResult)
-            $context->addViolationAt('admDx',"form.validation.meningitis-sitelab-csfPcr-was-done-without-result");
+            $context->addViolationAt('csfPcrDone',"form.validation.meningitis-sitelab-csfPcr-was-done-without-result");
 
         if($this->csfPcrDone && $this->csfPcrDone->equal(TripleChoice::YES) && $this->csfPcrResult && $this->csfPcrResult->equal(PCRResult::OTHER) && empty($this->csfPcrOther))
-            $context->addViolationAt('admDx',"form.validation.meningitis-sitelab-csfPcr-was-done-without-result");
+            $context->addViolationAt('csfPcrDone',"form.validation.meningitis-sitelab-csfPcr-was-done-without-result");
+
+        if($this->spnSerotype && $this->spnSerotype->equal(\NS\SentinelBundle\Form\Types\SpnSerotype::OTHER) && (!$this->spnSerotypeOther || empty($this->spnSerotypeOther)))
+            $context->addViolationAt('spnSerotype',"form.validation.meningitis-sitelab-spnSerotype-other-without-data");
+
+        if($this->hiSerotype && $this->hiSerotype->equal(\NS\SentinelBundle\Form\Types\SpnSerotype::OTHER) && (!$this->hiSerotypeOther || empty($this->hiSerotypeOther)))
+            $context->addViolationAt('hiSerotype',"form.validation.meningitis-sitelab-hiSerotype-other-without-data");
+
+        if($this->nmSerogroup && $this->nmSerogroup->equal(\NS\SentinelBundle\Form\Types\SpnSerotype::OTHER) && (!$this->nmSerogroupOther || empty($this->nmSerogroupOther)))
+            $context->addViolationAt('nmSerogroup',"form.validation.meningitis-sitelab-nmSerogroup-other-without-data");
     }
 
     private function _calculateStatus()
