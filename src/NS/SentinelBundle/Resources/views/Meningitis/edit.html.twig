@@ -17,6 +17,8 @@
             <div class="widget-header widget-header-small header-color-blue"><h6>{{'Case Based Demographics'|trans}}</h6></div>
             <div class="widget-body">
                 <div class="widget-main">
+                    {{form_row(form.firstName)}}
+                    {{form_row(form.lastName)}}
                     {{form_row(form.dob)}}
                     {{form_row(form.age)}}
                     {{form_row(form.gender)}}
@@ -35,12 +37,24 @@
                     <div class="row">
                         <div class="col-sm-6">
                             {{form_row(form.hibReceived)}}
-                            {{form_row(form.hibDoses)}}
-                            {{form_row(form.pcvReceived)}}
-                            {{form_row(form.pcvDoses)}}
                         </div>
                         <div class="col-sm-6">
+                            {{form_row(form.hibDoses)}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            {{form_row(form.pcvReceived)}}
+                        </div>
+                        <div class="col-sm-6">
+                            {{form_row(form.pcvDoses)}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
                             {{form_row(form.meningReceived)}}
+                        </div>
+                        <div class="col-sm-6">
                             {{form_row(form.meningType)}}
                             {{form_row(form.meningMostRecentDose)}}
                         </div>

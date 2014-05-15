@@ -27,6 +27,18 @@ abstract class BaseCase implements IdentityAssignmentInterface
     protected $id;
 
     /**
+     * @var string $lastName
+     * @ORM\Column(name="lastName",type="string",nullable=true)
+     */
+    protected $lastName;
+
+    /**
+     * @var string $firstName
+     * @ORM\Column(name="firstName",type="string",nullable=true)
+     */
+    private $firstName;
+
+    /**
      * case_ID
      * @var string $caseId
      * @ORM\Column(name="caseId",type="string",nullable=false)
@@ -500,5 +512,25 @@ abstract class BaseCase implements IdentityAssignmentInterface
     public function setGender(Gender $gender)
     {
         $this->gender = $gender;
+    }
+
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
+    }
+
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
     }
 }

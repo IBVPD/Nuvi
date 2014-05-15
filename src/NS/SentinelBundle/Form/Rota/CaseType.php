@@ -15,6 +15,8 @@ class CaseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('lastName',                   null,               array('required'=>false, 'label'=>'rotavirus-form.last-name'))
+            ->add('firstName',                  null,               array('required'=>false, 'label'=>'rotavirus-form.first-name'))
             ->add('caseId',                     null,               array('required'=>false, 'label'=>'rotavirus-form.caseId'))
             ->add('gender',                     'Gender',           array('required'=>false, 'label'=>'rotavirus-form.gender'))
             ->add('dob',                        'acedatepicker',    array('required'=>false, 'label'=>'rotavirus-form.dob'))

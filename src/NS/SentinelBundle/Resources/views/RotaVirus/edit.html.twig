@@ -17,6 +17,8 @@
             <div class="widget-header widget-header-small header-color-blue"><h6>{{'Case Based Demographics'|trans}}</h6></div>
             <div class="widget-body">
                 <div class="widget-main">
+                    {{form_row(form.firstName)}}
+                    {{form_row(form.lastName)}}
                     {{form_row(form.caseId)}}
                     {{form_row(form.dob)}}
                     {{form_row(form.age)}}
