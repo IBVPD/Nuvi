@@ -192,6 +192,9 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
      */
     public function getSalt()
     {
+        if(is_null($this->salt) || empty($this->salt))
+            $this->resetSalt();
+
         return $this->salt;
     }
 

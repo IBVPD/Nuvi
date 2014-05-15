@@ -5,6 +5,7 @@ namespace NS\SentinelBundle\Command;
 use \Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use \Symfony\Component\Console\Input\InputInterface;
 use \Symfony\Component\Console\Output\OutputInterface;
+use \Symfony\Component\Console\Input\InputOption;
 
 use NS\SentinelBundle\Entity\RotaVirus;
 use NS\SentinelBundle\Entity\Rota\SiteLab;
@@ -25,15 +26,23 @@ class CreateRotaCasesCommand extends ContainerAwareCommand
         $this
             ->setName('nssentinel:rota:create:cases')
             ->setDescription('Create RotaVirus cases')
+            ->addOption('codes',null, InputOption::VALUE_OPTIONAL, null, 'HND129,HND135,BOL78,BOL85,SLV115,SLV112')
         ; 
     }
     
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         ini_set('memory_limit','768M');
+        $codes    = explode(",", str_replace(' ','',$input->getOption('codes')));
+        $output->writeln(print_r($codes,true));
+        if(empty($codes))
+        {
+            $output->writeln("No codes to add cases to");
+            return;
+        }
 
         $this->em = $this->getContainer()->get('doctrine.orm.entity_manager');
-        $sites    = $this->em->getRepository('NSSentinelBundle:Site')->getChainByCode(array('HND129','HND135','BOL78','BOL85','SLV115','SLV112'));
+        $sites    = $this->em->getRepository('NSSentinelBundle:Site')->getChainByCode($codes);
         $male     = new Gender(Gender::MALE);
         $fmale    = new Gender(Gender::FEMALE);
         
