@@ -69,11 +69,20 @@ class ImportCommand extends ContainerAwareCommand
 
         $regions   = $this->processRegions($files['region'],$output);
         $output->writeln("Added ".count($regions)." Regions");
-        $countries = $this->processCountries($files['country'], $regions);
-        $output->writeln("Added ".count($countries)." Countries");
-        $sites     = $this->processSites($files['site'], $countries);
-        $output->writeln("Added ".count($sites)." Sites");
-        if($input->getOption('with-users'))
+
+        if(isset($files['country']))
+        {
+            $countries = $this->processCountries($files['country'], $regions);
+            $output->writeln("Added ".count($countries)." Countries");
+        }
+
+        if(isset($files['site']))
+        {
+            $sites     = $this->processSites($files['site'], $countries);
+            $output->writeln("Added ".count($sites)." Sites");
+        }
+
+        if($input->hasOption('with-users'))
         {
             $users     = $this->processUsers($regions,$countries,$sites);
             $output->writeln("Added $users Users");
