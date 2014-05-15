@@ -101,11 +101,14 @@ Scenario Outline: A User can create a case
       And I should be on "<path>"
       And I fill in "<form-case>" with "<form-case-value>"
       And I fill in "<form-type>" with "<form-type-value>"
-      And I press "ibd_create_submit"
+      And I press "<submit>"
     Then There should be no exception
       And I should not be on "<resultpath>"
     Examples:
-      | email                  | password            | path     | form-case         | form-case-value | form-type       | form-type-value | resultpath      |
-      | site-seattle@noblet.ca | 1234567-seattle     | /en/ibd/ | create_ibd_caseId | seattle-case-1  | create_ibd_type | 1               | /en/ibd/create  |
-      | site-alberta@noblet.ca | 1234567-alberta     | /en/ibd/ | create_ibd_caseId | alberta-case-1  | create_ibd_type | 1               | /en/ibd/create  |
-      | site-shriner@noblet.ca | 1234567-shriner     | /en/ibd/ | create_ibd_caseId | shriner-case-1  | create_ibd_type | 1               | /en/ibd/create  |
+      | email                  | password            | path      | form-case               | form-case-value | form-type             | form-type-value | resultpath       | submit                  |
+      | site-seattle@noblet.ca | 1234567-seattle     | /en/ibd/  | create_ibd_caseId       | seattle-case-1  | create_ibd_type       | 1               | /en/ibd/create   | ibd_create_submit       |
+      | site-alberta@noblet.ca | 1234567-alberta     | /en/ibd/  | create_ibd_caseId       | alberta-case-1  | create_ibd_type       | 1               | /en/ibd/create   | ibd_create_submit       |
+      | site-shriner@noblet.ca | 1234567-shriner     | /en/ibd/  | create_ibd_caseId       | shriner-case-1  | create_ibd_type       | 1               | /en/ibd/create   | ibd_create_submit       |
+      | site-seattle@noblet.ca | 1234567-seattle     | /en/rota/ | create_rotavirus_caseId | seattle-case-1  | create_rotavirus_type | 1               | /en/rota/create  | rotavirus_create_submit |
+      | site-alberta@noblet.ca | 1234567-alberta     | /en/rota/ | create_rotavirus_caseId | alberta-case-1  | create_rotavirus_type | 1               | /en/rota/create  | rotavirus_create_submit |
+      | site-shriner@noblet.ca | 1234567-shriner     | /en/rota/ | create_rotavirus_caseId | shriner-case-1  | create_rotavirus_type | 1               | /en/rota/create  | rotavirus_create_submit |
