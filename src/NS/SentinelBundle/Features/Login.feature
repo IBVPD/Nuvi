@@ -2,12 +2,10 @@ Feature: User Views
   Login as User >> validate that only able to enter data based on assigned access rights	
   Login as Country >> validate only able to enter data based on assigned access rights	
   Login as RO >> validate only cases from assigned countries/sites are seen	
-  Ability to create a new IBD CASE entry	
   Ability to a new IBD LAB entry to existing CASE entry	
   Ability to create a New IBD Lab entry WITHOUT existing CASE entry	
   Login as RRL >> validate only cases from assigned countries are seen	
   Ability to populate all variables in the IBD Case entry form	
-  Ability to create a new Rotavirus CASE entry	
   Ability to create a new RRL entry (try as both regular user and as RRL user)	
   Ability to create a new NL entry (try as both regular user and as NL user)
 
