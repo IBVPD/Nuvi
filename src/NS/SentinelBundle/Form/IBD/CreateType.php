@@ -32,9 +32,9 @@ class CreateType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('id',     null,   array('label'=>'db-generated-id','required'=>false))
-            ->add('caseId', null,   array('label'=>'site-assigned-case-id'))
-            ->add('type',   $this->type)
+            ->add('id',     null,        array('label'=>'db-generated-id','required'=>false))
+            ->add('caseId', null,        array('label'=>'site-assigned-case-id'))
+            ->add('type',   $this->type, array('label'=>'form.case-type'))
             ;
     
         if($this->siteSerializer->hasMultipleSites())
