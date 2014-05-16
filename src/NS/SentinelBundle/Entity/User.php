@@ -113,7 +113,13 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
      * @ORM\Column(name="isActive", type="boolean")
      */
     private $isActive = false;
-    
+
+    /**
+     * @var string $language
+     * @ORM\Column(name="language",type="string")
+     */
+    private $language;
+
     private $ttl = 0;
     
     /**
@@ -489,5 +495,15 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
     {
         $this->canCreateNLLabs = $canCreateNLLabs;
         return $this;
-    }    
+    }
+
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
+    public function setLanguage($language)
+    {
+        $this->language = $language;
+    }
 }

@@ -28,6 +28,13 @@
                 </div>
 
                 <div class="profile-info-row">
+                    <div class="profile-info-name"> </div>
+                    <div class="profile-info-value">
+                        {{form_widget(form.language)}}
+                    </div>
+                </div>
+
+                <div class="profile-info-row">
                     <div class="profile-info-name"> {{'Is Admin'|trans}} </div>
                     <div class="profile-info-value">
                         <i class="{%if user.isAdmin%}icon-check{%else%}icon-check-empty{%endif%} bigger-110"></i>

@@ -27,6 +27,7 @@ class UserType extends AbstractType
                          'second_options'  => array('label' => 'Repeat Password'),
                          )
                  )
+            ->add('language','lunetics_locale',array('label'=>'Preferred Language'))
         ;
     }
     

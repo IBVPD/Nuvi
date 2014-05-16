@@ -2,6 +2,14 @@ parameters:
 #    ns_sentinel.example.class: NS\SentinelBundle\Example
 
 services:
+    ns.sentinel.locale_listener:
+      class: NS\SentinelBundle\Locale\Login
+      arguments: [ @security.context, %kernel.default_locale% ]
+      tags:
+        - { name: kernel.event_subscriber }
+        - { name: kernel.event_listener, event: security.authentication.success, method: onLogin }
+        - { name: kernel.event_listener, event: security.switch_user, method: switchUser }
+
     ns.sentinel.form.type.spnserotype:
       class: NS\SentinelBundle\Form\Types\SpnSerotype
       tags:
