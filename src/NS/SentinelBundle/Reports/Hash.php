@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Reports;
 
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Description of Collector

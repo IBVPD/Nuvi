@@ -192,7 +192,7 @@ jms_translation:
       output_dir: %kernel.root_dir%/../src/NS/SentinelBundle/Resources/translations        
       dirs: [ "%kernel.root_dir%/../src/NS/SentinelBundle" ]
       excluded_names: [ "*TestCase.php", "*Test.php" ]
-      excluded_dirs: [ cache, data, logs ]
+      excluded_dirs: [ cache, data, logs, Features ]
       output_format: xliff
 
 knp_paginator:
