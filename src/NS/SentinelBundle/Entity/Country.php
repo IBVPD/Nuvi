@@ -102,6 +102,12 @@ class Country implements \Serializable
     private $hasNationalLab;
 
     /**
+     * @var string $language
+     * @ORM\Column(name="language",type="string")
+     */
+    private $language;
+
+    /**
      * Constructor
      */
     public function __construct($name = null)
@@ -400,6 +406,7 @@ class Country implements \Serializable
             $this->hasNationalLab,
             $this->hasReferenceLab,
             $this->tracksPneumonia,
+            $this->language,
             ));
     }
 
@@ -415,7 +422,8 @@ class Country implements \Serializable
             $this->region,
             $this->hasNationalLab,
             $this->hasReferenceLab,
-            $this->tracksPneumonia
+            $this->tracksPneumonia,
+            $this->language,
             ) = unserialize($serialized);
     }
 
@@ -437,5 +445,15 @@ class Country implements \Serializable
     public function getHasNationalLab()
     {
         return $this->hasNationalLab;
+    }
+
+    public function getLanguage()
+    {
+        return $this->language;
+    }
+
+    public function setLanguage($language)
+    {
+        $this->language = $language;
     }
 }

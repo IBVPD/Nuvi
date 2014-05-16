@@ -61,6 +61,7 @@ class CountryAdmin extends Admin
         $formMapper
             ->add('code')
             ->add('name')
+            ->add('language','lunetics_locale',array('required'=>false))
             ->add('tracksPneumonia',null,array('required'=>false))
             ->add('hasReferenceLab',null,array('required'=>false))
             ->add('hasNationalLab',null,array('required'=>false))

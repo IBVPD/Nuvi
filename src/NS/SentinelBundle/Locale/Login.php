@@ -9,18 +9,20 @@ use Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundE
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\Event\AuthenticationEvent;
 use Symfony\Component\Security\Http\Event\SwitchUserEvent;
-use Doctrine\ORM\EntityManager;
+use NS\SentinelBundle\Interfaces\SerializedSitesInterface;
 
 class Login implements EventSubscriberInterface
 {
     private $_defaultLocale;
     private $_securityContext;
     private $_session;
+    private $_serializedSite;
 
-    public function __construct(SecurityContextInterface $context, $defaultLocale = 'en')
+    public function __construct(SecurityContextInterface $context, SerializedSitesInterface $serializedSite, $defaultLocale = 'en')
     {
-        $this->_defaultLocale = $defaultLocale;
+        $this->_defaultLocale   = $defaultLocale;
         $this->_securityContext = $context;
+        $this->_serializedSite  = $serializedSite;
     }
 
     public function onKernelRequest(GetResponseEvent $event)
@@ -59,14 +61,30 @@ class Login implements EventSubscriberInterface
     public function onLogin(AuthenticationEvent $event)
     {
         $user = $event->getAuthenticationToken()->getUser();
-    
+
         if(!$user || !$this->_session)
             return;
 
-        if(!$this->_session->get('_locale',false) && method_exists($user, 'getLanguage'))
-            $this->_session->set('_locale',$user->getLanguage());
+        if(!$this->_session->get('_locale',false))
+        {
+            $locale = $this->findLocale($user);
+            if($locale)
+                $this->_session->set('_locale',$locale);
+        }
     }
 
+    public function findLocale($user)
+    {
+        if( method_exists($user, 'getLanguage') && $user->getLanguage())
+            return $user->getLanguage();
+        else
+        {
+            $site = $this->_serializedSite->getSite(false);
+            if($site->getCountry()->getLanguage())
+                return $site->getCountry()->getLanguage();
+        }
+        return null;
+    }
     public function switchUser(SwitchUserEvent $event)
     {
         $request = $event->getRequest();

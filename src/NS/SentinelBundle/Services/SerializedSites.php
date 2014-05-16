@@ -35,9 +35,10 @@ class SerializedSites implements SerializedSitesInterface
                 $r->setCode($site->getCountry()->getRegion()->getcode());
 
                 $c = new Country();
-                $c->setId($site->getCountry()->getName());
                 $c->setId($site->getCountry()->getId());
-                $c->setCode($site->getcountry()->getcode());
+                $c->setName($site->getCountry()->getName());
+                $c->setCode($site->getCountry()->getCode());
+                $c->setLanguage($site->getCountry()->getLanguage());
                 $c->setRegion($r);
 
                 $s = new Site();
