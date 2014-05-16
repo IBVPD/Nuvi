@@ -4,16 +4,25 @@
 {{'Edit Lab For Case %id%'|trans({'%id%': id})}}
 {% endblock %}
 
+{%block pageactions %}
+<div class="pull-right">{{case_big_actions(form.vars.value.case)}}</div>
+{%endblock %}
+
 {% block body %}
 {{form_errors(form)}}
 <form method="POST" action="{{path('rotavirusLabEdit',{'id':id})}}" novalidate>
 <div class="row">
-    {%if form.sentToReferenceLab is defined or form.sentToNationalLab is defined %}
-    <div class="col-sm-3">
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Collection Information'|trans}}</h6></div>
-            <div class="widget-body">
-                <div class="widget-main">
+    <div class="col-sm-8">
+        <div class="tabbable">
+            <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                <li class="active"><a data-toggle="tab" href="#demographics">{{'Collection Info'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#stool">{{'Stool'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#stool-rrl">{{'Stool - RRL'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#stool-nl">{{'Stool - NL'|trans}}</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="collection" class="tab-pane active">
                     {% if form.sentToReferenceLab is defined %}
                         {{form_row(form.sentToReferenceLab )}}
                     {% endif %}
@@ -21,59 +30,36 @@
                         {{form_row(form.sentToNationalLab )}}
                     {% endif %}
                 </div>
-            </div>
-        </div>
-    </div>
-    {% endif %}
-    <div class="col-sm-3" >
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Stool'|trans}}</h6></div>
-            <div class="widget-body">
-                <div class="widget-main">
+                <div id="stool" class="tab-pane">
                     {{form_row(form.stoolReceivedDate)}}
                     {{form_row(form.stoolAdequate)}}
                     {{form_row(form.stoolELISADone)}}
                     {{form_row(form.stoolTestDate)}}
                     {{form_row(form.stoolELISAResult)}}
-                    {{form_row(form.stoolStored)}}
+                    {{form_row(form.stoolStored)}}                    
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-3" >
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Stool - RRL'|trans}}</h6></div>
-            <div class="widget-body">
-                <div class="widget-main">
+                <div id="stool-rrl" class="tab-pane">
                     {{form_row(form.stoolSentToRRL)}}
                     {{form_row(form.stoolSentToRRLDate)}}
                     {{form_row(form.rrlELISAResult)}}
                     {{form_row(form.rrlGenoTypeDate)}}
-                    {{form_row(form.rrlGenoTypeResult)}}
+                    {{form_row(form.rrlGenoTypeResult)}}                    
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-3" >
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Stool - NL'|trans}}</h6></div>
-            <div class="widget-body">
-                <div class="widget-main">
+                <div id="stool-nl" class="tab-pane">
                     {{form_row(form.stoolSentToNL)}}
                     {{form_row(form.stoolSentToNLDate)}}
                     {{form_row(form.nlELISAResult)}}
                     {{form_row(form.nlGenoTypeDate)}}
-                    {{form_row(form.nlGenoTypeResult)}}
+                    {{form_row(form.nlGenoTypeResult)}}                    
                 </div>
             </div>
         </div>
+        {{form_rest(form)}}
+
+        <div class="form-actions center">
+            <a href="{{path('rotavirusIndex')}}" class="btn btn-sm btn-danger">{{'Cancel'|trans}}</a> <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
+        </div>
     </div>
-</div>
-
-{{form_rest(form)}}
-
-<div class="form-actions center">
-    <a href="{{path('rotavirusIndex')}}" class="btn btn-sm btn-danger">{{'Cancel'|trans}}</a> <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
 </div>
 
 </form>

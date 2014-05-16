@@ -15,7 +15,7 @@
     <div class="col-sm-8">
         <div class="tabbable">
             <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
-                <li class="active"><a data-toggle="tab" href="#demographics">{{'Collection Info'|trans}}</a></li>
+                <li class="active"><a data-toggle="tab" href="#collection">{{'Collection Info'|trans}}</a></li>
                 <li><a data-toggle="tab" href="#csf">{{'CSF'|trans}}</a></li>
                 <li><a data-toggle="tab" href="#blood">{{'Blood'|trans}}</a></li>
                 <li><a data-toggle="tab" href="#other">{{'Other Fluids'|trans}}</a></li>
@@ -24,7 +24,7 @@
 
             <div class="tab-content">
 
-                <div id="demographics" class="tab-pane active">
+                <div id="collection" class="tab-pane active">
                     {{form_row(form.csfLabDateTime)}}
                     {% if form.sentToReferenceLab is defined %}
                         {{form_row(form.sentToReferenceLab )}}
@@ -104,11 +104,12 @@
                 </div>
             </div>
         </div>
+        <div class="form-actions center">
+            <a href="{{path('meningitisIndex')}}" class="btn btn-sm btn-danger">{{'Cancel'|trans}}</a> <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
+        </div>
     </div>
 </div>
 {{form_rest(form)}}
-<div class="form-actions center">
-    <a href="{{path('meningitisIndex')}}" class="btn btn-sm btn-danger">{{'Cancel'|trans}}</a> <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
-</div>
+
 </form>
 {% endblock %}

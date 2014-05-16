@@ -12,163 +12,121 @@
 {{form_errors(form)}}
 <form method="POST" action="{{path('meningitisEdit',{'id':id})}}">
 <div class="row">
-    <div class="col-sm-3" >
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Case Based Demographics'|trans}}</h6></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    {{form_row(form.firstName)}}
-                    {{form_row(form.lastName)}}
-                    {{form_row(form.dob)}}
-                    {{form_row(form.age)}}
-                    {{form_row(form.gender)}}
-                    {{form_row(form.caseId)}}
-                    {{form_row(form.district)}}
-                </div>
-            </div>
+    <div class="col-sm-9">
+        <div class="tabbable">
+            <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                <li class="active"><a data-toggle="tab" href="#demographics">{{'Case Based Demographics'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#history">{{'Vaccination History'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#clinical">{{'Clinical Data'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#specimen">{{'Specimen Collection Data'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#meningitis">{{'Meningitis'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#pneumonia">{{'Pneumonia / Sepsis'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#outcome">{{'Outcome Data'|trans}}</a></li>
+            </ul>
         </div>
-    </div>
-
-    <div class="col-sm-3" >
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Vaccination History'|trans}}</h6></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            {{form_row(form.hibReceived)}}
-                        </div>
-                        <div class="col-sm-6">
-                            {{form_row(form.hibDoses)}}
-                        </div>
+        <div class="tab-content">
+            <div id="demographics" class="tab-pane active">
+                {{form_row(form.firstName)}}
+                {{form_row(form.lastName)}}
+                {{form_row(form.dob)}}
+                {{form_row(form.age)}}
+                {{form_row(form.gender)}}
+                {{form_row(form.caseId)}}
+                {{form_row(form.district)}}
+            </div>
+            <div id="history" class="tab-pane">
+                <div class="row">
+                    <div class="col-sm-6">
+                        {{form_row(form.hibReceived)}}
                     </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            {{form_row(form.pcvReceived)}}
-                        </div>
-                        <div class="col-sm-6">
-                            {{form_row(form.pcvDoses)}}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            {{form_row(form.meningReceived)}}
-                        </div>
-                        <div class="col-sm-6">
-                            {{form_row(form.meningType)}}
-                            {{form_row(form.meningMostRecentDose)}}
-                        </div>
+                    <div class="col-sm-6">
+                        {{form_row(form.hibDoses)}}
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-sm-3">
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Clinical Data'|trans}}</h6></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    {{form_row(form.onsetDate)}}
-                    {{form_row(form.admDate)}}
-                    {{form_row(form.admDx)}}
-                    {{form_row(form.admDxOther)}}
-                    {{form_row(form.antibiotics)}}
+                <div class="row">
+                    <div class="col-sm-6">
+                        {{form_row(form.pcvReceived)}}
+                    </div>
+                    <div class="col-sm-6">
+                        {{form_row(form.pcvDoses)}}
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-sm-3">
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Specimen Collection Data'|trans}}</h6></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    {{form_row(form.csfCollected)}}
-                    {{form_row(form.csfCollectDateTime)}}
-                    {{form_row(form.csfId)}}
-                    {{form_row(form.csfAppearance)}}
-
-                    {% if form.pneuDiffBreathe is defined %}
-                    {{form_row(form.bloodCollected)}}
-                    {{form_row(form.bloodId)}}
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-    </div>    
-</div>
-
-<div class="row">
-    <div class="col-sm-{%if form.pneuDiffBreathe is defined %}6{%else%}12{%endif%}">
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Meningitis'|trans}}</h6></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            {{form_row(form.menSeizures)}}
-                            {{form_row(form.menFever)}}
-                            {{form_row(form.menAltConscious)}}
-                            {{form_row(form.menInabilityFeed)}}
-                        </div>
-                        <div class="col-sm-6">
-                            {{form_row(form.menNeckStiff)}}
-                            {{form_row(form.menRash)}}
-                            {{form_row(form.menFontanelleBulge)}}
-                            {{form_row(form.menLethargy)}}
-                        </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        {{form_row(form.meningReceived)}}
+                    </div>
+                    <div class="col-sm-6">
+                        {{form_row(form.meningType)}}
+                        {{form_row(form.meningMostRecentDose)}}
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    {%if form.pneuDiffBreathe is defined %}
-    <div class="col-sm-6">
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Pneumonia / Sepsis'|trans}}</h6></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            {{form_row(form.pneuDiffBreathe)}}
-                            {{form_row(form.pneuChestIndraw)}}
-                            {{form_row(form.pneuCough)}}
-                            {{form_row(form.pneuCyanosis)}}
-                            {{form_row(form.pneuStridor)}}
-                        </div>
-                        <div class="col-sm-6">
-                            {{form_row(form.pneuRespRate)}}
-                            {{form_row(form.pneuVomit)}}
-                            {{form_row(form.pneuHypothermia)}}
-                            {{form_row(form.pneuMalnutrition)}}
-                            {{form_row(form.cxrDone)}}
-                            {{form_row(form.cxrResult)}}
-                        </div>
+            
+            <div id="clinical" class="tab-pane">
+                {{form_row(form.onsetDate)}}
+                {{form_row(form.admDate)}}
+                {{form_row(form.admDx)}}
+                {{form_row(form.admDxOther)}}
+                {{form_row(form.antibiotics)}}                
+            </div>
+            
+            <div id="specimen" class="tab-pane">
+                {{form_row(form.csfCollected)}}
+                {{form_row(form.csfCollectDateTime)}}
+                {{form_row(form.csfId)}}
+                {{form_row(form.csfAppearance)}}
+
+                {% if form.pneuDiffBreathe is defined %}
+                {{form_row(form.bloodCollected)}}
+                {{form_row(form.bloodId)}}
+                {% endif %}                
+            </div>
+
+            <div id="meningitis" class="tab-pane">
+                <div class="row">
+                    <div class="col-sm-6">
+                        {{form_row(form.menSeizures)}}
+                        {{form_row(form.menFever)}}
+                        {{form_row(form.menAltConscious)}}
+                        {{form_row(form.menInabilityFeed)}}
+                    </div>
+                    <div class="col-sm-6">
+                        {{form_row(form.menNeckStiff)}}
+                        {{form_row(form.menRash)}}
+                        {{form_row(form.menFontanelleBulge)}}
+                        {{form_row(form.menLethargy)}}
+                    </div>
+                </div>                
+            </div>
+            {%if form.pneuDiffBreathe is defined %}
+            <div id="pneumonia" class="tab-pane">
+                <div class="row">
+                    <div class="col-sm-6">
+                        {{form_row(form.pneuDiffBreathe)}}
+                        {{form_row(form.pneuChestIndraw)}}
+                        {{form_row(form.pneuCough)}}
+                        {{form_row(form.pneuCyanosis)}}
+                        {{form_row(form.pneuStridor)}}
+                    </div>
+                    <div class="col-sm-6">
+                        {{form_row(form.pneuRespRate)}}
+                        {{form_row(form.pneuVomit)}}
+                        {{form_row(form.pneuHypothermia)}}
+                        {{form_row(form.pneuMalnutrition)}}
+                        {{form_row(form.cxrDone)}}
+                        {{form_row(form.cxrResult)}}
                     </div>
                 </div>
             </div>
+            {%endif%}
+            <div id="outcome" class="tab-pane">{{form_rest(form)}}</div>
         </div>
-    </div>
-    {%endif%}
-</div>
-
-<div class="row">
-    <div class="col-sm-8">
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Outcome Data'|trans}}</h6></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                {{form_rest(form)}}
-                </div>
-            </div>
+        <div class="form-actions center">
+            <a href="{{path('meningitisIndex')}}" class="btn btn-sm btn-danger">{{'Cancel'|trans}}</a> <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
         </div>
     </div>
 </div>
 
-<div class="form-actions center">
-    <a href="{{path('meningitisIndex')}}" class="btn btn-sm btn-danger">{{'Cancel'|trans}}</a> <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
-</div>
 
 </form>
 {% endblock %}

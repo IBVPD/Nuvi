@@ -12,109 +12,81 @@
 {{form_errors(form)}}
 <form method="POST" action="{{path('meningitis'~type~'Edit',{'id':id})}}" novalidate>
 <div class="row">
-    <div class="col-sm-3 col-md-3 col-lg-3" >
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h4 class="panelTitle">{{'Lab Information'|trans}}</h4></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    {{form_row(form.labId)}}
-                </div>
-            </div>
+    <div class="col-sm-9">
+        <div class="tabbable">
+            <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                <li class="active"><a data-toggle="tab" href="#labinfo">{{'Lab Information'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#sample">{{'Sample Information'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#methods">{{'Methods'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#ctvalues">{{'CT Values From PCR'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#serotype">{{'Serotype / Serogroup Results'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#result">{{'Result Date'|trans}}</a></li>
+            </ul>
         </div>
-    </div>
+        <div class="tab-content">
+            <div id="labinfo" class="tab-pane active">
+                {{form_row(form.labId)}}
+            </div>
 
-    <div class="col-sm-5 col-md-5 col-lg-5" >
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h4 class="panelTitle">{{'Sample Information'|trans}}</h4></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    <div class="row">
-                        <div class="col-sm-6 col-md-6 col-lg-6">
-                            {{form_row(form.dateReceived)}}
-                            {{form_row(form.sampleType)}}
-                            {{form_row(form.volume)}}
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-6">
-                            {{form_row(form.DNAExtractionDate)}}
-                            {{form_row(form.DNAVolume)}}
-                            {{form_row(form.isolateViable)}}
-                            {{form_row(form.isolateType)}}                    
-                        </div>
+            <div id="sample" class="tab-pane">
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        {{form_row(form.dateReceived)}}
+                        {{form_row(form.sampleType)}}
+                        {{form_row(form.volume)}}
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        {{form_row(form.DNAExtractionDate)}}
+                        {{form_row(form.DNAVolume)}}
+                        {{form_row(form.isolateViable)}}
+                        {{form_row(form.isolateType)}}                    
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div class="col-sm-4 col-md-4 col-lg-4" >
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h4 class="panelTitle">{{'Methods'|trans}}</h4></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    {{form_row(form.pathogenIdentifierMethod)}}
-                    {{form_row(form.pathogenIdentifierOther)}}
-                    {{form_row(form.serotypeIdentifier)}}
-                    {{form_row(form.serotypeIdentifierOther)}}
-                </div>
+            <div id="methods" class="tab-pane">
+                {{form_row(form.pathogenIdentifierMethod)}}
+                {{form_row(form.pathogenIdentifierOther)}}
+                {{form_row(form.serotypeIdentifier)}}
+                {{form_row(form.serotypeIdentifierOther)}}
             </div>
-        </div>
-    </div>
 
-</div>
-
-<div class="row">
-    <div class="col-sm-4 col-md-4 col-lg-4" >
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h4 class="panelTitle">{{'CT Values From PCR'|trans}}</h4></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    <div class="row">
-                        <div class="col-sm-6 col-md-6 col-lg-6">
-                            {{form_row(form.lytA)}}
-                            {{form_row(form.sodC)}}
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-6">
-                            {{form_row(form.hpd)}}
-                            {{form_row(form.rNaseP)}}
-                        </div>
+            <div id="ctvalues" class="tab-pane">
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        {{form_row(form.lytA)}}
+                        {{form_row(form.sodC)}}
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        {{form_row(form.hpd)}}
+                        {{form_row(form.rNaseP)}}
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="col-sm-4 col-md-4 col-lg-4" >
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h4 class="panelTitle">{{'Serotype / Serogroup Results'|trans}}</h4></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    <div class="row">
-                        <div class="col-sm-6 col-md-6 col-lg-6">
-                            {{form_row(form.spnSerotype)}}
-                            {{form_row(form.hiSerotype)}}
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-6">
-                            {{form_row(form.nmSerogroup)}}
-                        </div>
+
+            <div id="serotype" class="tab-pane">
+                <div class="row">
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        {{form_row(form.spnSerotype)}}
+                        {{form_row(form.hiSerotype)}}
+                    </div>
+                    <div class="col-sm-6 col-md-6 col-lg-6">
+                        {{form_row(form.nmSerogroup)}}
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="col-sm-4 col-md-4 col-lg-4" >
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h4 class="panelTitle">{{'RL Result Date'|trans}}</h4></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    {{form_row(form.resultSentToCountry)}}
-                    {{form_row(form.resultSentToWHO)}}
-                </div>
+
+            <div id="result" class="tab-pane">
+                {{form_row(form.resultSentToCountry)}}
+                {{form_row(form.resultSentToWHO)}}
             </div>
         </div>
+        <div class="form-actions center">
+            <a href="{{path('meningitisIndex')}}" class="btn btn-sm btn-danger">{{'Cancel'|trans}}</a> <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
+        </div>
     </div>
+    {{form_rest(form)}}
 </div>
-<div class="form-actions center">
-    <a href="{{path('meningitisIndex')}}" class="btn btn-sm btn-danger">{{'Cancel'|trans}}</a> <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
-</div>
-{{form_rest(form)}}
+
 </form>
 {% endblock %}

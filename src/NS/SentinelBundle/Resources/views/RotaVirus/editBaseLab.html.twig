@@ -13,47 +13,58 @@
 <form method="POST" action="{{path('rotavirus'~type~'Edit',{'id':id})}}" novalidate>
 <div class="row">
     {{form_errors(form)}}
-    <div class="col-sm-3 col-md-3 col-lg-3" >
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h4 class="panelTitle">{{'Lab Information'|trans}}</h4></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    {{form_row(form.labId)}}
-                    {{form_row(form.eiaResult)}}
+    <div class="col-sm-9">
+        <div class="tabbable">
+            <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                <li class="active"><a data-toggle="tab" href="#labinfo">{{'Lab Information'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#genotype">{{'Genotyping Results'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#sent">{{'Results Sent'|trans}}</a></li>
+            </ul>
+        </div>
+
+        <div class="tab-content">
+            <div id="labinfo" class="tab-pane active">
+                {{form_row(form.labId)}}
+                {{form_row(form.eiaResult)}}
+            </div>
+            <div id="genotype" class="tab-pane">
+                <div class="row">
+                    <div class="col-sm-6">
+                        {{form_row(form.genotypingDate)}}
+                    </div>
+                    <div class="col-sm-6">
+                        {{form_row(form.pcrVp6Result)}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        {{form_row(form.genotypingResultG)}}
+                    </div>
+                    <div class="col-sm-6">
+                        {{form_row(form.genotypingResultGSpecify)}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        {{form_row(form.genotypeResultP)}}
+                    </div>
+                    <div class="col-sm-6">
+                        {{form_row(form.genotypeResultPSpecify)}}
+                    </div>
                 </div>
             </div>
+            <div id="sent" class="tab-pane">
+                {{form_row(form.genotypeResultSentToCountry)}}
+                {{form_row(form.genotypeResultSentToWHO)}}
+            </div>
+        </div>
+
+        {{form_rest(form)}}
+
+        <div class="form-actions center">
+            <a href="{{path('rotavirusIndex')}}" class="btn btn-sm btn-danger">{{'Cancel'|trans}}</a> <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
         </div>
     </div>
-    <div class="col-sm-3 col-md-3 col-lg-3" >
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h4 class="panelTitle">{{'Genotyping Results'|trans}}</h4></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    {{form_row(form.genotypingDate)}}
-                    {{form_row(form.genotypingResultG)}}
-                    {{form_row(form.genotypingResultGSpecify)}}
-                    {{form_row(form.genotypeResultP)}}
-                    {{form_row(form.genotypeResultPSpecify)}}
-                    {{form_row(form.pcrVp6Result)}}
-                </div>
-            </div>
-        </div>
-    </div>    
-    <div class="col-sm-3 col-md-3 col-lg-3" >
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h4 class="panelTitle">{{'Results Sent'|trans}}</h4></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    {{form_row(form.genotypeResultSentToCountry)}}
-                    {{form_row(form.genotypeResultSentToWHO)}}
-                </div>
-            </div>
-        </div>
-    </div>
-</div>    
-<div class="form-actions center">
-    <a href="{{path('rotavirusIndex')}}" class="btn btn-sm btn-danger">{{'Cancel'|trans}}</a> <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
 </div>
-    {{form_rest(form)}}
 </form>
 {% endblock %}
