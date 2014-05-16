@@ -89,7 +89,7 @@ class RotaVirus extends BaseCase
      * @var TripleChoice $symptomVomit
      * @ORM\Column(name="symptomVomit",type="TripleChoice",nullable=true)
      */
-    private $symptomDiarrheaVomit;
+    private $symptomVomit;
 
     /**
      * symp_vomit_episodes
@@ -262,9 +262,9 @@ class RotaVirus extends BaseCase
         return $this->symptomDiarrheaDuration;
     }
 
-    public function getSymptomDiarrheaVomit()
+    public function getSymptomVomit()
     {
-        return $this->symptomDiarrheaVomit;
+        return $this->symptomVomit;
     }
 
     public function getSymptomVomitEpisodes()
@@ -410,9 +410,9 @@ class RotaVirus extends BaseCase
         return $this;
     }
 
-    public function setSymptomDiarrheaVomit(TripleChoice $symptomDiarrheaVomit)
+    public function setSymptomVomit(TripleChoice $symptomVomit)
     {
-        $this->symptomDiarrheaVomit = $symptomDiarrheaVomit;
+        $this->symptomVomit = $symptomVomit;
         return $this;
     }
 

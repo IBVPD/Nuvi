@@ -24,13 +24,21 @@
         </div>
         <div class="tab-content">
             <div id="demographics" class="tab-pane active">
-                {{form_row(form.firstName)}}
-                {{form_row(form.lastName)}}
-                {{form_row(form.caseId)}}
-                {{form_row(form.dob)}}
-                {{form_row(form.age)}}
-                {{form_row(form.gender)}}
-                {{form_row(form.district)}}
+                <div class="row">
+                    <div class="col-sm-4">
+                        {{form_row(form.firstName)}}
+                        {{form_row(form.lastName)}}
+                        {{form_row(form.gender)}}
+                    </div>
+                    <div class="col-sm-4">
+                        {{form_row(form.dob)}}
+                        {{form_row(form.age)}}
+                    </div>
+                    <div class="col-sm-4">
+                        {{form_row(form.caseId)}}
+                        {{form_row(form.district)}}
+                    </div>
+                </div>
             </div>
             <div id="history" class="tab-pane">
                 <div class="row">
@@ -48,15 +56,19 @@
             </div>
             <div id="clinical" class="tab-pane">
                 <div class="row">
+                    <div class="col-sm-12">
+                         {{form_row(form.admDate)}}
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-sm-4">
-                        {{form_row(form.admDate)}}
                         {{form_row(form.symptomDiarrhea)}}
                         {{form_row(form.symptomDiarrheaOnset)}}
                         {{form_row(form.symptomDiarrheaEpisodes)}}
+                        {{form_row(form.symptomDiarrheaDuration)}}
                     </div>
                     <div class="col-sm-4">
-                        {{form_row(form.symptomDiarrheaDuration)}}
-                        {{form_row(form.symptomDiarrheaVomit)}}
+                        {{form_row(form.symptomVomit)}}
                         {{form_row(form.symptomVomitEpisodes)}}
                         {{form_row(form.symptomVomitDuration)}}
                     </div>
@@ -69,9 +81,17 @@
                 </div>
             </div>
             <div id="specimen" class="tab-pane">
+                <div class="row">
+                    <div class="col-sm-4">
                 {{form_row(form.stoolCollected)}}
+                    </div>
+                    <div class="col-sm-4">
                 {{form_row(form.stoolId)}}
+                        </div>
+                    <div class="col-sm-4">
                 {{form_row(form.stoolCollectionDate)}}
+                    </div>
+                </div>
             </div>
             <div id="outcome" class="tab-pane">
                 <div class="row">
