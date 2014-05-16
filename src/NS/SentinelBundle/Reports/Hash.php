@@ -2,14 +2,12 @@
 
 namespace NS\SentinelBundle\Reports;
 
-use Doctrine\Common\Collections\ArrayCollection;
-
 /**
  * Description of Collector
  *
  * @author gnat
  */
-class Hash extends ArrayCollection
+class Hash
 {
     private $nodes = array();
 
