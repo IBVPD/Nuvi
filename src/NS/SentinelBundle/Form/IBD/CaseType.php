@@ -67,7 +67,7 @@ class CaseType extends AbstractType
 
             ->add('dischOutcome',           'DischargeOutcome', array('required'=>false,'label'=>'meningitis-form.discharge-outcome'))
             ->add('dischDx',                'Diagnosis',        array('required'=>false,'label'=>'meningitis-form.discharge-diagnosis',       'attr' => array('data-context-child'=>'dischargeDiagnosis')))
-            ->add('dischDxOther',           null,               array('required'=>false,'label'=>'meningitis-form.discharge-diagnosis-other', 'attr' => array('data-context-parent'=>'dischargeDiagnosis', 'data-context-parent'=>Diagnosis::OTHER)))
+            ->add('dischDxOther',           null,               array('required'=>false,'label'=>'meningitis-form.discharge-diagnosis-other', 'attr' => array('data-context-parent'=>'dischargeDiagnosis', 'data-context-value'=>Diagnosis::OTHER)))
             ->add('dischClass',       'DischargeClassification',array('required'=>false,'label'=>'meningitis-form.discharge-class'))
             ->add('comment',                null,               array('required'=>false,'label'=>'meningitis-form.comment'))
 
@@ -102,8 +102,8 @@ class CaseType extends AbstractType
                              ->add('pneuVomit',         'TripleChoice', array('required'=>false,'label'=>'meningitis-form.pneu-vomit'))
                              ->add('pneuHypothermia',   'TripleChoice', array('required'=>false,'label'=>'meningitis-form.pneu-hypothermia'))
                              ->add('pneuMalnutrition',  'TripleChoice', array('required'=>false,'label'=>'meningitis-form.pneu-malnutrition'))
-                             ->add('bloodCollected',    'TripleChoice', array('required'=>false,'label'=>'meningitis-form.blood-collected'))
-                             ->add('bloodId',           null,           array('required'=>false));
+                             ->add('bloodCollected',    'TripleChoice', array('required'=>false,'label'=>'meningitis-form.blood-collected','attr'=>array('data-context-child'=>'bloodCollected')))
+                             ->add('bloodId',           null,           array('required'=>false,'label'=>'meningitis-form.blood-id',       'attr'=>array('data-context-parent'=>'bloodCollected','data-context-value'=>  TripleChoice::YES)));
                     }
                 });
     }

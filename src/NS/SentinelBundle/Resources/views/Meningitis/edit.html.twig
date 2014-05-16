@@ -26,13 +26,19 @@
         </div>
         <div class="tab-content">
             <div id="demographics" class="tab-pane active">
-                {{form_row(form.firstName)}}
-                {{form_row(form.lastName)}}
-                {{form_row(form.dob)}}
-                {{form_row(form.age)}}
-                {{form_row(form.gender)}}
-                {{form_row(form.caseId)}}
-                {{form_row(form.district)}}
+                <div class="row">
+                    <div class="col-sm-6">
+                        {{form_row(form.firstName)}}
+                        {{form_row(form.lastName)}}
+                        {{form_row(form.dob)}}
+                        {{form_row(form.age)}}
+                        {{form_row(form.gender)}}
+                    </div>
+                    <div class="col-sm-6">
+                        {{form_row(form.caseId)}}
+                        {{form_row(form.district)}}
+                    </div>
+                </div>
             </div>
             <div id="history" class="tab-pane">
                 <div class="row">
@@ -71,15 +77,20 @@
             </div>
             
             <div id="specimen" class="tab-pane">
-                {{form_row(form.csfCollected)}}
-                {{form_row(form.csfCollectDateTime)}}
-                {{form_row(form.csfId)}}
-                {{form_row(form.csfAppearance)}}
-
-                {% if form.pneuDiffBreathe is defined %}
-                {{form_row(form.bloodCollected)}}
-                {{form_row(form.bloodId)}}
-                {% endif %}                
+                <div class="row">
+                    <div class="col-sm-6">
+                        {{form_row(form.csfCollected)}}
+                        {{form_row(form.csfCollectDateTime)}}
+                        {{form_row(form.csfId)}}
+                        {{form_row(form.csfAppearance)}}
+                    </div>
+                    <div class="col-sm-6">
+                    {% if form.pneuDiffBreathe is defined %}
+                        {{form_row(form.bloodCollected)}}
+                        {{form_row(form.bloodId)}}
+                    {% endif %}
+                    </div>
+                </div>
             </div>
 
             <div id="meningitis" class="tab-pane">
@@ -119,7 +130,20 @@
                 </div>
             </div>
             {%endif%}
-            <div id="outcome" class="tab-pane">{{form_rest(form)}}</div>
+            <div id="outcome" class="tab-pane">
+                <div class="row">
+                    <div class="col-sm-6">
+                        {{form_row(form.dischOutcome)}}
+                        {{form_row(form.dischDx)}}
+                        {{form_row(form.dischDxOther)}}
+                        {{form_row(form.dischClass)}}
+                    </div>
+                    <div class="col-sm-6">
+                        {{form_row(form.comment)}}
+                        {{form_rest(form)}}
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="form-actions center">
             <a href="{{path('meningitisIndex')}}" class="btn btn-sm btn-danger">{{'Cancel'|trans}}</a> <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
