@@ -103,7 +103,7 @@ class Country implements \Serializable
 
     /**
      * @var string $language
-     * @ORM\Column(name="language",type="string")
+     * @ORM\Column(name="language",type="string",nullable=true)
      */
     private $language;
 
