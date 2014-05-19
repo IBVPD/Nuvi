@@ -30,13 +30,13 @@ class Login implements EventSubscriberInterface
         $request        = $event->getRequest();
         $this->_session = $request->getSession();
 
-        if (!$request->hasPreviousSession())
+        if (!$request->hasPreviousSession() || !$this->_session->isStarted())
             return;
 
         // try to see if the locale has been set as a _locale session parameter
         try
         {
-            $locale = $request->getSession()->get('_locale',$request->attributes->get('_locale'));
+            $locale = $this->_session->get('_locale',$request->attributes->get('_locale'));
             if($locale)
                 $request->setLocale($locale);
             else if($this->_securityContext->isGranted('IS_FULLY_AUTHENTICATED'))
@@ -45,16 +45,16 @@ class Login implements EventSubscriberInterface
                 if($user->getLanguage())
                 {
                     $locale = $user->getLanguage();
-                    $request->getSession->set('_locale',$locale);
+                    $this->_session->set('_locale',$locale);
                     $request->setLocale($locale);
                 }
             }
             else
-                $request->setLocale($request->getSession()->get('_locale', $this->_defaultLocale));
+                $request->setLocale($this->_session->get('_locale', $this->_defaultLocale));
         }
         catch(AuthenticationCredentialsNotFoundException $e)
         {
-            $request->setLocale($request->getSession()->get('_locale', $this->_defaultLocale));
+            $request->setLocale($this->_session->get('_locale', $this->_defaultLocale));
         }
     }
 
@@ -65,7 +65,7 @@ class Login implements EventSubscriberInterface
         if(!$user || !$this->_session)
             return;
 
-        if(!$this->_session->get('_locale',false))
+        if($this->_session->isStarted() && !$this->_session->get('_locale',false))
         {
             $locale = $this->findLocale($user);
             if($locale)
@@ -83,14 +83,15 @@ class Login implements EventSubscriberInterface
             if($site->getCountry()->getLanguage())
                 return $site->getCountry()->getLanguage();
         }
+
         return null;
     }
+
     public function switchUser(SwitchUserEvent $event)
     {
-        $request = $event->getRequest();
         $user    = $event->getTargetUser();
 
-        $request->getSession()->set('_locale',$user->getLanguage());
+        $event->getRequest()->getSession()->set('_locale',$user->getLanguage());
     }
 
     public static function getSubscribedEvents()
