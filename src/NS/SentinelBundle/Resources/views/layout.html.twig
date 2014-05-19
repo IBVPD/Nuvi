@@ -69,7 +69,9 @@
     {% block navbarheader %}
         <div class="navbar-header pull-right" role="navigation">
             <ul class="nav ace-nav">
+            {% if is_granted('ROLE_CAN_CHANGE_LANGUAGE') %}
             {{ locale_switcher(null,null,'::switcher_links.html.twig') }}
+            {% endif %}
 <!--                <li class="grey">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <i class="icon-tasks"></i>
