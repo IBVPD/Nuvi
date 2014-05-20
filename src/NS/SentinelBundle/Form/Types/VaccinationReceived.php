@@ -2,13 +2,13 @@
 
 namespace NS\SentinelBundle\Form\Types;
 
-use NS\UtilBundle\Form\Types\ArrayChoice;
+use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 
 /**
  * Description of RotavirusVaccinationReceived
  *
  */
-class VaccinationReceived extends ArrayChoice
+class VaccinationReceived extends TranslatableArrayChoice
 {
     const NO          = 0;
     const YES_HISTORY = 1;

@@ -83,7 +83,7 @@ doctrine:
             RotavirusVaccinationType: NS\SentinelBundle\Entity\Types\RotavirusVaccinationType
             ElisaResult: NS\SentinelBundle\Entity\Types\ElisaResult
             MeningitisCaseResult: NS\SentinelBundle\Entity\Types\MeningitisCaseResult
-            MeningitisVaccinationReceived: NS\SentinelBundle\Entity\Types\MeningitisVaccinationReceived
+            VaccinationReceived: NS\SentinelBundle\Entity\Types\VaccinationReceived
             MeningitisVaccinationType:  NS\SentinelBundle\Entity\Types\MeningitisVaccinationType
             DischargeClassification: NS\SentinelBundle\Entity\Types\DischargeClassification
             DischargeOutcome: NS\SentinelBundle\Entity\Types\DischargeOutcome
@@ -120,7 +120,7 @@ doctrine:
             RotavirusVaccinationType: RotavirusVaccinationType
             ElisaResult: ElisaResult
             MeningitisCaseResult: MeningitisCaseResult
-            MeningitisVaccinationReceived: MeningitisVaccinationReceived
+            VaccinationReceived: VaccinationReceived
             MeningitisVaccinationType: MeningitisVaccinationType
             GramStainOrganism: GramStainOrganism
             DischargeClassification: DischargeClassification

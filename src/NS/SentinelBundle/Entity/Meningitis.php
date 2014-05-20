@@ -207,7 +207,7 @@ class Meningitis extends BaseCase
 //Case-based Vaccination History
     /**
      * @var TripleChoice $hibReceived
-     * @ORM\Column(name="hibReceived",type="TripleChoice",nullable=true)
+     * @ORM\Column(name="hibReceived",type="VaccinationReceived",nullable=true)
      */
     private $hibReceived;
 
@@ -219,7 +219,7 @@ class Meningitis extends BaseCase
 
     /**
      * @var TripleChoice $pcvReceived
-     * @ORM\Column(name="pcvReceived",type="TripleChoice",nullable=true)
+     * @ORM\Column(name="pcvReceived",type="VaccinationReceived",nullable=true)
      */
     private $pcvReceived;
 
@@ -230,8 +230,8 @@ class Meningitis extends BaseCase
     private $pcvDoses;
 
     /**
-     * @var MeningitisVaccinationReceived $meningReceived
-     * @ORM\Column(name="meningReceived",type="MeningitisVaccinationReceived",nullable=true)
+     * @var VaccinationReceived $meningReceived
+     * @ORM\Column(name="meningReceived",type="VaccinationReceived",nullable=true)
      */
     private $meningReceived;
 
@@ -692,7 +692,7 @@ class Meningitis extends BaseCase
         return $this;
     }
 
-    public function setHibReceived(TripleChoice $hibReceived)
+    public function setHibReceived($hibReceived)
     {
         $this->hibReceived = $hibReceived;
         return $this;
@@ -704,7 +704,7 @@ class Meningitis extends BaseCase
         return $this;
     }
 
-    public function setPcvReceived(TripleChoice $pcvReceived)
+    public function setPcvReceived($pcvReceived)
     {
         $this->pcvReceived = $pcvReceived;
         return $this;
@@ -716,7 +716,7 @@ class Meningitis extends BaseCase
         return $this;
     }
 
-    public function setMeningReceived(MeningitisVaccinationReceived $meningReceived)
+    public function setMeningReceived($meningReceived)
     {
         $this->meningReceived = $meningReceived;
         return $this;
