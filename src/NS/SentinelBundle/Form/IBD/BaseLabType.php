@@ -32,9 +32,9 @@ class BaseLabType extends AbstractType
             ->add('sodC',                       null,                   array('label'=>'meningitis-rrl-form.sodC','required'=>false))
             ->add('hpd',                        null,                   array('label'=>'meningitis-rrl-form.hpd','required'=>false))
             ->add('rNaseP',                     null,                   array('label'=>'meningitis-rrl-form.rNasP','required'=>false))
-            ->add('spnSerotype',                null,                   array('label'=>'meningitis-rrl-form.spnSerotype','required'=>false))
-            ->add('hiSerotype',                 null,                   array('label'=>'meningitis-rrl-form.hiSerotype','required'=>false))
-            ->add('nmSerogroup',                null,                   array('label'=>'meningitis-rrl-form.nmSerogroup','required'=>false))
+            ->add('spnSerotype',                'SpnSerotype',          array('label'=>'meningitis-rrl-form.spnSerotype','required'=>false))
+            ->add('hiSerotype',                 'HiSerotype',           array('label'=>'meningitis-rrl-form.hiSerotype','required'=>false))
+            ->add('nmSerogroup',                'NmSerogroup',          array('label'=>'meningitis-rrl-form.nmSerogroup','required'=>false))
             ->add('resultSentToCountry',        'acedatepicker',        array('label'=>'meningitis-rrl-form.result-sent-to-country','required'=>false))
             ->add('resultSentToWHO',            'acedatepicker',        array('label'=>'meningitis-rrl-form.result-sent-to-who','required'=>false))
         ;

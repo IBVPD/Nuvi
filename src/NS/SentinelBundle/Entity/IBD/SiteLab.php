@@ -1070,7 +1070,6 @@ class SiteLab extends BaseSiteLab
                     'rrlBrothDate',
                     'rrlIsolBloodDate',
                     'otherCultDone',
-                    'otherTestDone',
                     'spnSerotype',
                     'hiSerotype',
                     'nmSerogroup',
