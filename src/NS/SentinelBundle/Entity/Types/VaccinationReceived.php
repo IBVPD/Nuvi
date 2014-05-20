@@ -9,7 +9,7 @@ class VaccinationReceived extends ArrayChoice
 
     public function getName()
     {
-        return 'MeningitisVaccinationReceived';
+        return 'VaccinationReceived';
     }   
 }
 
