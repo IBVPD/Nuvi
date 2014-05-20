@@ -1,7 +1,10 @@
 {%extends "NSSentinelBundle::layout.html.twig" %}
 
 {% block pagetitle %}
-{{'Edit Lab For Case %id%'|trans({'%id%': id})}}
+{{'Edit Lab For Case %id%'|trans({'%id%': form.vars.value.case.caseId})}}
+{% endblock %}
+{% block pagedescription %}
+{{id}}
 {% endblock %}
 
 {%block pageactions %}
