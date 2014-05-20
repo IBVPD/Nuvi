@@ -2,7 +2,7 @@
     <td>{{ row.caseId }}</td>
     <td>{{ row.firstName }}</td>
     <td>{{ row.lastName }}</td>
-    <td>{{ row.admDate }}</td>
+    <td>{{ row.admDate|date }}</td>
     <td class='hidden-480'>
         {{case_label(row,'EPI'|trans)}}
         {{case_lab_label(row,'LAB'|trans)}}
