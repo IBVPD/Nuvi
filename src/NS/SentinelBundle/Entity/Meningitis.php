@@ -170,7 +170,7 @@ class Meningitis extends BaseCase
     /**
      * @var integer $pneuRespRate
      * @ORM\Column(name="pneuRespRate",type="integer",nullable=true)
-     * @Assert\Range(min=0,max=200,minMessage="Please provide a valid respiratory rate",maxMessage="Please provide a valid respiratory rate")
+     * @Assert\Range(min=10,max=100,minMessage="Please provide a valid respiratory rate",maxMessage="Please provide a valid respiratory rate")
      */
     private $pneuRespRate;
 
