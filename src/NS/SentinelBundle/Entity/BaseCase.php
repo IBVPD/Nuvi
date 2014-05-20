@@ -33,6 +33,12 @@ abstract class BaseCase implements IdentityAssignmentInterface
     protected $lastName;
 
     /**
+     * @var string $parentalName
+     * @ORM\Column(name="parentalName",type="string",nullable=true)
+     */
+    protected $parentalName;
+
+    /**
      * @var string $firstName
      * @ORM\Column(name="firstName",type="string",nullable=true)
      */
@@ -55,7 +61,6 @@ abstract class BaseCase implements IdentityAssignmentInterface
     /**
      * @var integer $age
      * @ORM\Column(name="age",type="integer",nullable=true)
-     * @Assert\Range(min=0,max=59,minMessage="Children should older than 0 months",maxMessage="Children should be younger than 59 months to be tracked")
      */
     protected $age;
 
@@ -522,6 +527,16 @@ abstract class BaseCase implements IdentityAssignmentInterface
     public function getFirstName()
     {
         return $this->firstName;
+    }
+
+    public function getParentalName()
+    {
+        return $this->parentalName;
+    }
+
+    public function setParentalName($parentalName)
+    {
+        $this->parentalName = $parentalName;
     }
 
     public function setLastName($lastName)
