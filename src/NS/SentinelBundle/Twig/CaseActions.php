@@ -46,16 +46,16 @@ class CaseActions extends \Twig_Extension
         if($this->securityContext->isGranted('ROLE_CAN_CREATE'))
         {
             if($this->securityContext->isGranted('ROLE_CAN_CREATE_CASE'))
-                $out .= '<a href="'.$this->router->generate($baseRoute.'Edit',array('id'=>$row->getId())).'" class="btn btn-xs btn-success"><i class="icon-edit bigger-120"></i> '.$this->translator->trans('EPI').'</a>';
+                $out .= '<a href="'.$this->router->generate($baseRoute.'Edit',array('id'=>$row->getId())).'" class="btn btn-xs btn-info"><i class="icon-edit bigger-120"></i> '.$this->translator->trans('EPI').'</a>';
 
             if($this->securityContext->isGranted('ROLE_CAN_CREATE_LAB'))
-                $out .= '<a href="'.$this->router->generate($baseRoute.'LabEdit',array('id'=>$row->getId())).'" class="btn btn-xs btn-success"><i class="'.($row->hasSiteLab() ? 'icon-edit':'icon-plus').' bigger-120"></i> '.$this->translator->trans('Lab').'</a>';
+                $out .= '<a href="'.$this->router->generate($baseRoute.'LabEdit',array('id'=>$row->getId())).'" class="btn btn-xs btn-info"><i class="'.($row->hasSiteLab() ? 'icon-edit':'icon-plus').' bigger-120"></i> '.$this->translator->trans('Lab').'</a>';
 
             if($this->securityContext->isGranted('ROLE_CAN_CREATE_NL_LAB') && $row->getSentToNationalLab())
-                $out .= '<a href="'.$this->router->generate($baseRoute.'NLEdit',array('id'=>$row->getId())).'" class="btn btn-xs btn-success"><i class="'.($row->hasNationalLab() ? 'icon-edit':'icon-plus').' bigger-120"></i>'.$this->translator->trans('NL').'</a>';
+                $out .= '<a href="'.$this->router->generate($baseRoute.'NLEdit',array('id'=>$row->getId())).'" class="btn btn-xs btn-info"><i class="'.($row->hasNationalLab() ? 'icon-edit':'icon-plus').' bigger-120"></i>'.$this->translator->trans('NL').'</a>';
 
             if($this->securityContext->isGranted('ROLE_CAN_CREATE_RRL_LAB') && $row->getSentToReferenceLab())
-                $out .= '<a href="'.$this->router->generate($baseRoute.'RRLEdit',array('id'=>$row->getId())).'" class="btn btn-xs btn-success"><i class="'.($row->hasReferenceLab() ? 'icon-edit':'icon-plus').' bigger-120"></i>'.$this->translator->trans('RRL').'</a>';
+                $out .= '<a href="'.$this->router->generate($baseRoute.'RRLEdit',array('id'=>$row->getId())).'" class="btn btn-xs btn-info"><i class="'.($row->hasReferenceLab() ? 'icon-edit':'icon-plus').' bigger-120"></i>'.$this->translator->trans('RRL').'</a>';
         }
 
         return $out;
