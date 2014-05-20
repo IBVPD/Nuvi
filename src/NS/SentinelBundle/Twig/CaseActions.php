@@ -51,11 +51,11 @@ class CaseActions extends \Twig_Extension
             if($this->securityContext->isGranted('ROLE_CAN_CREATE_LAB'))
                 $out .= '<a href="'.$this->router->generate($baseRoute.'LabEdit',array('id'=>$row->getId())).'" class="btn btn-xs btn-success"><i class="'.($row->hasSiteLab() ? 'icon-edit':'icon-plus').' bigger-120"></i> '.$this->translator->trans('Lab').'</a>';
 
-            if($this->securityContext->isGranted('ROLE_CAN_CREATE_RRL_LAB') && $row->getSentToReferenceLab())
-                $out .= '<a href="'.$this->router->generate($baseRoute.'RRLEdit',array('id'=>$row->getId())).'" class="btn btn-xs btn-success"><i class="'.($row->hasReferenceLab() ? 'icon-edit':'icon-plus').' bigger-120"></i>'.$this->translator->trans('RRL').'</a>';
-
             if($this->securityContext->isGranted('ROLE_CAN_CREATE_NL_LAB') && $row->getSentToNationalLab())
                 $out .= '<a href="'.$this->router->generate($baseRoute.'NLEdit',array('id'=>$row->getId())).'" class="btn btn-xs btn-success"><i class="'.($row->hasNationalLab() ? 'icon-edit':'icon-plus').' bigger-120"></i>'.$this->translator->trans('NL').'</a>';
+
+            if($this->securityContext->isGranted('ROLE_CAN_CREATE_RRL_LAB') && $row->getSentToReferenceLab())
+                $out .= '<a href="'.$this->router->generate($baseRoute.'RRLEdit',array('id'=>$row->getId())).'" class="btn btn-xs btn-success"><i class="'.($row->hasReferenceLab() ? 'icon-edit':'icon-plus').' bigger-120"></i>'.$this->translator->trans('RRL').'</a>';
         }
 
         return $out;
@@ -77,11 +77,11 @@ class CaseActions extends \Twig_Extension
             if($this->securityContext->isGranted('ROLE_CAN_CREATE_LAB'))
                 $out .= '<li><a href="'.$this->router->generate($baseRoute.'LabEdit',array('id'=>$row->getId())).'" class="tooltip-success"><span class="green"><i class="'.($row->hasSiteLab() ? 'icon-edit':'icon-plus').' bigger-120"></i> '.$this->translator->trans('Lab').'</span></a></li>';
 
-            if($this->securityContext->isGranted('ROLE_CAN_CREATE_RRL_LAB') && $row->getSentToReferenceLab())
-                $out .= '<li><a href="'.$this->router->generate($baseRoute.'RRLEdit',array('id'=>$row->getId())).'" class="tooltip-success"><span class="green"><i class="'.($row->hasReferenceLab() ? 'icon-edit':'icon-plus').' bigger-120"></i> '.$this->translator->trans('RRL').'</span></a></li>';
-
             if($this->securityContext->isGranted('ROLE_CAN_CREATE_NL_LAB') && $row->getSentToNationalLab())
                 $out .= '<li><a href="'.$this->router->generate($baseRoute.'NLEdit',array('id'=>$row->getId())).'" class="tooltip-success"><span class="green"><i class="'.($row->hasNationalLab() ? 'icon-edit':'icon-plus').' bigger-120"></i> '.$this->translator->trans('NL').'</span></a></li>';
+
+            if($this->securityContext->isGranted('ROLE_CAN_CREATE_RRL_LAB') && $row->getSentToReferenceLab())
+                $out .= '<li><a href="'.$this->router->generate($baseRoute.'RRLEdit',array('id'=>$row->getId())).'" class="tooltip-success"><span class="green"><i class="'.($row->hasReferenceLab() ? 'icon-edit':'icon-plus').' bigger-120"></i> '.$this->translator->trans('RRL').'</span></a></li>';
         }
 
         $out .= '</ul>';
