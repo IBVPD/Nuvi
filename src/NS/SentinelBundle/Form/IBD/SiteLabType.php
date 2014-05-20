@@ -13,6 +13,7 @@ use NS\SentinelBundle\Form\Types\LatResult;
 use NS\SentinelBundle\Form\Types\SpnSerotype;
 use NS\SentinelBundle\Form\Types\HiSerotype;
 use NS\SentinelBundle\Form\Types\NmSerogroup;
+use NS\SentinelBundle\Form\Types\PCRResult;
 use NS\SentinelBundle\Entity\Country;
 
 class SiteLabType extends AbstractType
@@ -52,8 +53,8 @@ class SiteLabType extends AbstractType
             ->add('csfLatOther',        null,                   array('required'=>false, 'label'=>'meningitis-form.csf-lat-other',   'attr' => array('data-context-parent'=>'csfLatDone', 'data-context-value'=> TripleChoice::YES)))
 
             ->add('csfPcrDone',         'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.csf-pcr-done',    'attr' => array('data-context-child'=>'csfPcrDone')))
-            ->add('csfPcrResult',       'PCRResult',            array('required'=>false, 'label'=>'meningitis-form.csf-pcr-result',  'attr' => array('data-context-parent'=>'csfPcrDone', 'data-context-value'=> TripleChoice::YES)))
-            ->add('csfPcrOther',        null,                   array('required'=>false, 'label'=>'meningitis-form.csf-pcr-other',   'attr' => array('data-context-parent'=>'csfPcrDone', 'data-context-value'=> TripleChoice::YES)))
+            ->add('csfPcrResult',       'PCRResult',            array('required'=>false, 'label'=>'meningitis-form.csf-pcr-result',  'attr' => array('data-context-parent'=>'csfPcrDone','data-context-child'=>'csfPcrDoneResult',  'data-context-value'=> TripleChoice::YES)))
+            ->add('csfPcrOther',        null,                   array('required'=>false, 'label'=>'meningitis-form.csf-pcr-other',   'attr' => array('data-context-parent'=>'csfPcrDoneResult', 'data-context-value'=> PCRResult::OTHER)))
 
             ->add('rrlCsfDate',         'acedatepicker',        array('required'=>false, 'label'=>'meningitis-form.rrl-csf-date'))
             ->add('rrlIsolDate',        'acedatepicker',        array('required'=>false, 'label'=>'meningitis-form.rrl-isol-date'))
