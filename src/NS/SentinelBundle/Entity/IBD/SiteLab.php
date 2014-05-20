@@ -58,14 +58,14 @@ class SiteLab extends BaseSiteLab
     /**
      * @var boolean $csfWcc
      * @ORM\Column(name="csfWcc", type="integer",nullable=true)
-     * @Assert\Range(min=10,max=100,minMessage="10 doesn't make sense",maxMessage="100 is too high")
+     * @Assert\Range(min=0,max=9999,minMessage="You cannot have a negative white blood cell count",maxMessage="Invalid value")
      */
     private $csfWcc;
 
     /**
      * @var boolean $csfGlucose
      * @ORM\Column(name="csfGlucose", type="integer",nullable=true)
-     * @Assert\Range(min=10,max=100,minMessage="10 doesn't make sense",maxMessage="100 is too high")
+     * @Assert\GreaterThanOrEqual(value=0,message="Invalid value - value must be greater than 0")
      *
      */
     private $csfGlucose;
@@ -73,7 +73,7 @@ class SiteLab extends BaseSiteLab
     /**
      * @var boolean $csfProtein
      * @ORM\Column(name="csfProtein", type="integer",nullable=true)
-     * @Assert\Range(min=10,max=100,minMessage="10 doesn't make sense",maxMessage="100 is too high")
+     * @Assert\GreaterThanOrEqual(value=0,message="Invalid value - value must be greater than 0")
      */
     private $csfProtein;
 
