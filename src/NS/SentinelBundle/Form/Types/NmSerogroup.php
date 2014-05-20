@@ -2,13 +2,13 @@
 
 namespace NS\SentinelBundle\Form\Types;
 
-use NS\UtilBundle\Form\Types\ArrayChoice;
+use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 
 /**
  * Description of NmSerogroup
  *
  */
-class NmSerogroup extends ArrayChoice
+class NmSerogroup extends TranslatableArrayChoice
 {
     const A     = 1;
     const B     = 2;

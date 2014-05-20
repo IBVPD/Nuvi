@@ -2,15 +2,13 @@
 
 namespace NS\SentinelBundle\Form\Types;
 
-use NS\UtilBundle\Form\Types\ArrayChoice;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Security\Core\SecurityContext;
+use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 
 /**
  * Description of RotavirusVaccinationType
  *
  */
-class RotavirusVaccinationType extends ArrayChoice
+class RotavirusVaccinationType extends TranslatableArrayChoice
 {
     const GSK = 1;
     const MERK = 2;

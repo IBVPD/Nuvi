@@ -2,13 +2,13 @@
 
 namespace NS\SentinelBundle\Form\Types;
 
-use NS\UtilBundle\Form\Types\ArrayChoice;
+use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 
 /**
  * Description of CaseStatus
  *
  */
-class CaseStatus extends ArrayChoice
+class CaseStatus extends TranslatableArrayChoice
 {
     const OPEN      = 0;
     const COMPLETE  = 1;

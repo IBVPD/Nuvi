@@ -2,13 +2,13 @@
 
 namespace NS\SentinelBundle\Form\Types;
 
-use NS\UtilBundle\Form\Types\ArrayChoice;
+use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 
 /**
  * Description of HiSerotype
  *
  */
-class HiSerotype extends ArrayChoice
+class HiSerotype extends TranslatableArrayChoice
 {
     const A = 1;
     const B = 2;

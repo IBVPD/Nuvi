@@ -2,14 +2,13 @@
 
 namespace NS\SentinelBundle\Form\Types;
 
-use NS\UtilBundle\Form\Types\ArrayChoice;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 
 /**
  * Description of ElisaResult
  *
  */
-class ElisaResult extends ArrayChoice
+class ElisaResult extends TranslatableArrayChoice
 {
     const NEGATIVE = 0;
     const POSITIVE = 1;

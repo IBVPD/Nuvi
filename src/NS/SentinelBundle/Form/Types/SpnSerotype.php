@@ -2,13 +2,13 @@
 
 namespace NS\SentinelBundle\Form\Types;
 
-use NS\UtilBundle\Form\Types\ArrayChoice;
+use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 
 /**
  * Description of SpnSerotype
  *
  */
-class SpnSerotype extends ArrayChoice
+class SpnSerotype extends TranslatableArrayChoice
 {
     const _1 = 1;
     const _2 = 2;

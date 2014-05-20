@@ -2,15 +2,13 @@
 
 namespace NS\SentinelBundle\Form\Types;
 
-use NS\UtilBundle\Form\Types\ArrayChoice;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Security\Core\SecurityContext;
+use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 
 /**
  * Description of Rehydration
  *
  */
-class Rehydration extends ArrayChoice
+class Rehydration extends TranslatableArrayChoice
 {
     const ORAL    = 1;
     const IV      = 2;

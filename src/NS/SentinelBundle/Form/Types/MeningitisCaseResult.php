@@ -2,13 +2,13 @@
 
 namespace NS\SentinelBundle\Form\Types;
 
-use NS\UtilBundle\Form\Types\ArrayChoice;
+use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 
 /**
  * Description of MeningitisCaseResult
  *
  */
-class MeningitisCaseResult extends ArrayChoice
+class MeningitisCaseResult extends TranslatableArrayChoice
 {
     const UNKNOWN   = 0;
     const SUSPECTED = 1;

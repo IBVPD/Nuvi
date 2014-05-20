@@ -2,13 +2,13 @@
 
 namespace NS\SentinelBundle\Form\Types;
 
-use NS\UtilBundle\Form\Types\ArrayChoice;
+use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 
 /**
  * Description of MeningitisVaccinationType
  *
  */
-class MeningitisVaccinationType extends ArrayChoice
+class MeningitisVaccinationType extends TranslatableArrayChoice
 {
     const MEN_AFR_VAC     = 1;
     const ACYW135_POLY    = 2;
