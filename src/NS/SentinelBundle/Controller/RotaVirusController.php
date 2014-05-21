@@ -168,6 +168,15 @@ class RotaVirusController extends Controller
         return $this->edit($request, 'nl', $id);
     }
 
+    /**
+     * @Route("/outcome/edit/{id}",name="rotavirusOutcomeEdit",defaults={"id"=null})
+     * @Template()
+     */
+    public function editOutcomeAction(Request $request,$id = null)
+    {
+        return $this->edit($request, 'outcome', $id);
+    }
+
     private function edit(Request $request, $type, $id)
     {
         try 
@@ -177,6 +186,10 @@ class RotaVirusController extends Controller
                 case 'rotavirus':
                     $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:RotaVirus')->find($id): null;
                     $form   = $this->createForm('rotavirus',$record);
+                    break;
+                case 'outcome':
+                    $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:RotaVirus')->find($id): null;
+                    $form   = $this->createForm('rotavirus_outcome',$record);
                     break;
                 case 'lab':
                     $record = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:Rota\SiteLab')->findOrCreateNew($id);
