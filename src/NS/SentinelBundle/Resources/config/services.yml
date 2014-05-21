@@ -2,6 +2,11 @@ parameters:
 #    ns_sentinel.example.class: NS\SentinelBundle\Example
 
 services:
+    ns.sentinel.form.type.pcvtype:
+      class: NS\SentinelBundle\Form\Types\PCVType
+      tags:
+        - { name: form.type, alias: PCVType }
+
     ns.sentinel.form.type.cxradditionalresult:
       class: NS\SentinelBundle\Form\Types\CXRAdditionalResult
       tags:
