@@ -3,12 +3,13 @@
 namespace NS\SentinelBundle\Form\Types;
 
 use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
 /**
  * Description of MeningitisVaccinationType
  *
  */
-class MeningitisVaccinationType extends TranslatableArrayChoice
+class MeningitisVaccinationType extends TranslatableArrayChoice implements TranslationContainerInterface
 {
     const MEN_AFR_VAC     = 1;
     const ACYW135_POLY    = 2;

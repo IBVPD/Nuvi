@@ -3,12 +3,13 @@
 namespace NS\SentinelBundle\Form\Types;
 
 use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
 /**
  * Description of EIAResult
  *
  */
-class EIAResult extends TranslatableArrayChoice
+class EIAResult extends TranslatableArrayChoice implements TranslationContainerInterface
 {
     const POSITIVE      = 1;
     const NEGATIVE      = 2;

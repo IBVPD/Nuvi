@@ -3,12 +3,13 @@
 namespace NS\SentinelBundle\Form\Types;
 
 use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
 /**
  * Description of Dehydration
  *
  */
-class Dehydration extends TranslatableArrayChoice
+class Dehydration extends TranslatableArrayChoice implements TranslationContainerInterface
 {
     const NONE    = 0;
     const SEVERE  = 1;

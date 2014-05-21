@@ -3,12 +3,13 @@
 namespace NS\SentinelBundle\Form\Types;
 
 use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
 /**
  * Description of HiSerotype
  *
  */
-class HiSerotype extends TranslatableArrayChoice
+class HiSerotype extends TranslatableArrayChoice implements TranslationContainerInterface
 {
     const A = 1;
     const B = 2;

@@ -3,12 +3,13 @@
 namespace NS\SentinelBundle\Form\Types;
 
 use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
 /**
  * Description of SpnSerotype
  *
  */
-class SpnSerotype extends TranslatableArrayChoice
+class SpnSerotype extends TranslatableArrayChoice implements TranslationContainerInterface
 {
     const _1 = 1;
     const _2 = 2;

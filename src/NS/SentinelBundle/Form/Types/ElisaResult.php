@@ -3,12 +3,13 @@
 namespace NS\SentinelBundle\Form\Types;
 
 use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
 /**
  * Description of ElisaResult
  *
  */
-class ElisaResult extends TranslatableArrayChoice
+class ElisaResult extends TranslatableArrayChoice implements TranslationContainerInterface
 {
     const NEGATIVE = 0;
     const POSITIVE = 1;

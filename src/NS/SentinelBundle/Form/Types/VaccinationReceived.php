@@ -3,12 +3,13 @@
 namespace NS\SentinelBundle\Form\Types;
 
 use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
 /**
  * Description of RotavirusVaccinationReceived
  *
  */
-class VaccinationReceived extends TranslatableArrayChoice
+class VaccinationReceived extends TranslatableArrayChoice implements TranslationContainerInterface
 {
     const NO          = 0;
     const YES_HISTORY = 1;

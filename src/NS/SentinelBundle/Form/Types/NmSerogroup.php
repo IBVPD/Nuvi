@@ -3,12 +3,13 @@
 namespace NS\SentinelBundle\Form\Types;
 
 use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
 /**
  * Description of NmSerogroup
  *
  */
-class NmSerogroup extends TranslatableArrayChoice
+class NmSerogroup extends TranslatableArrayChoice implements TranslationContainerInterface
 {
     const A     = 1;
     const B     = 2;

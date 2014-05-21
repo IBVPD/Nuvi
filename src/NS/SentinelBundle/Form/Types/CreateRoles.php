@@ -5,13 +5,14 @@ namespace NS\SentinelBundle\Form\Types;
 use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
 /**
  * Description of CreateRoles
  *
  * @author gnat
  */
-class CreateRoles extends TranslatableArrayChoice
+class CreateRoles extends TranslatableArrayChoice implements TranslationContainerInterface
 {
     const BASE = 1;
     const SITE = 2;

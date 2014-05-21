@@ -3,12 +3,13 @@
 namespace NS\SentinelBundle\Form\Types;
 
 use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
 /**
  * Description of GenotypeResultP
  *
  */
-class GenotypeResultP extends TranslatableArrayChoice
+class GenotypeResultP extends TranslatableArrayChoice implements TranslationContainerInterface
 {
     const P1 = 1;
     const P2 = 2;

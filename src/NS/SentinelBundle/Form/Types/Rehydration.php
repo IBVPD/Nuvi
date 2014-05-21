@@ -3,12 +3,13 @@
 namespace NS\SentinelBundle\Form\Types;
 
 use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
 /**
  * Description of Rehydration
  *
  */
-class Rehydration extends TranslatableArrayChoice
+class Rehydration extends TranslatableArrayChoice implements TranslationContainerInterface
 {
     const ORAL    = 1;
     const IV      = 2;
