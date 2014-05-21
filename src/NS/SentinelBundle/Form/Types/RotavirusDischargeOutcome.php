@@ -10,6 +10,7 @@ use JMS\TranslationBundle\Translation\TranslationContainerInterface;
  *
  */
 class DischargeOutcome extends TranslatableArrayChoice implements TranslationContainerInterface
+
 {
     const DISCHARGED_ALIVE_WITHOUT_SEQUELAE = 1;
     const DISCHARGED_ALIVE_WITH_SEQUELAE    = 2;
