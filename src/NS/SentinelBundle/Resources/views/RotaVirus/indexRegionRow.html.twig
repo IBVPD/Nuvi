@@ -1,9 +1,9 @@
 <tr>
     <td>{{ row.id }}</td>
-    <td>{{ row.gender }}</td>
-    <td>{{ row.age }}</td>
-    <td>{{ row.country }}</td>
+    <td>{{ row.caseId}}</td>
+    <td>{{ row.admDate|date('d/m/Y') }}</td>
     <td>{{ row.site }}</td>
+    <td>{{ row.country }}</td>
     <td class='hidden-480'>
         {{case_label(row,'EPI'|trans)}}
         {{case_lab_label(row,'LAB'|trans)}}
