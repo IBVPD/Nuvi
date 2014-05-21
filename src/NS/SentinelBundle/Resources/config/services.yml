@@ -2,6 +2,11 @@ parameters:
 #    ns_sentinel.example.class: NS\SentinelBundle\Example
 
 services:
+    ns.sentinel.form.ibd_outcome:
+      class: NS\SentinelBundle\Form\IBD\OutcomeType
+      tags:
+        - { name: form.type, alias: ibd_outcome }
+
     ns.sentinel.locale_listener:
       class: NS\SentinelBundle\Locale\Login
       arguments: [ @security.context, @ns.sentinel.sites, %kernel.default_locale% ]

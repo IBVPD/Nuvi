@@ -1,0 +1,45 @@
+{%extends "NSSentinelBundle::layout.html.twig" %}
+
+{% block pagetitle %}
+{{'Edit Case Outcome %id%'|trans({'%id%': id})}}
+{% endblock %}
+
+{%block pageactions %}
+<div class="pull-right">{{case_big_actions(form.vars.value)}}</div>
+{%endblock %}
+
+{% block body %}
+{{form_errors(form)}}
+<form method="POST" action="{{path('meningitisOutcomeEdit',{'id':id})}}">
+<div class="row">
+    <div class="col-sm-12">
+        <div class="tabbable">
+            <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                <li class="active"><a data-toggle="tab" href="#outcome">{{'Outcome Data'|trans}}</a></li>
+            </ul>
+        </div>
+        <div class="tab-content">
+            <div id="outcome" class="tab-pane active">
+                <div class="row">
+                    <div class="col-sm-6">
+                        {{form_row(form.dischOutcome)}}
+                        {{form_row(form.dischDx)}}
+                        {{form_row(form.dischDxOther)}}
+                        {{form_row(form.dischClass)}}
+                    </div>
+                    <div class="col-sm-6">
+                        {{form_row(form.comment)}}
+                        {{form_rest(form)}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-actions center">
+            <a href="{{path('meningitisIndex')}}" class="btn btn-sm btn-danger">{{'Cancel'|trans}}</a> <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
+        </div>
+    </div>
+</div>
+
+
+</form>
+{% endblock %}

@@ -168,6 +168,15 @@ class MeningitisController extends Controller
         return $this->edit($request, 'lab', $id);
     }
 
+    /**
+     * @Route("/outcome/edit/{id}",name="meningitisOutcomeEdit",defaults={"id"=null})
+     * @Template()
+     */
+    public function editOutcomeAction(Request $request,$id = null)
+    {
+        return $this->edit($request, 'outcome', $id);
+    }
+
     private function edit(Request $request, $type, $id = null)
     {
         try 
@@ -177,6 +186,10 @@ class MeningitisController extends Controller
                 case 'ibd':
                     $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:Meningitis')->find($id): null;
                     $form   = $this->createForm('ibd',$record);
+                    break;
+                case 'outcome':
+                    $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:Meningitis')->find($id): null;
+                    $form   = $this->createForm('ibd_outcome',$record);
                     break;
                 case 'lab':
                     $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:IBD\SiteLab')->findOrCreateNew($id): null;
@@ -209,7 +222,7 @@ class MeningitisController extends Controller
                 $record = $form->getData();
                 $em->persist($record);
 
-                if($type != 'ibd')
+                if($type != 'ibd' && $type != 'outcome')
                     $em->persist($record->getCase());
 
                 try
