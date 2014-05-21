@@ -2,13 +2,14 @@
 
 namespace NS\SentinelBundle\Form\Types;
 
-use NS\UtilBundle\Form\Types\ArrayChoice;
+use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
 /**
  * Description of CXRAdditionalResult
  *
  */
-class CXRAdditionalResult extends ArrayChoice
+class CXRAdditionalResult extends TranslatableArrayChoice implements TranslationContainerInterface
 {
     const CONSOLIDATION     = 1;
     const PLEURAL_EFFUSION  = 2;
