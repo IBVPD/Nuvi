@@ -2,6 +2,11 @@ parameters:
 #    ns_sentinel.example.class: NS\SentinelBundle\Example
 
 services:
+    ns.sentinel.form.type.cxrresult:
+      class: NS\SentinelBundle\Form\Types\CXRResult
+      tags:
+        - { name: form.type, alias: CXRResult }
+
     ns.sentinel.form.type.dischargediagnosis:
       class: NS\SentinelBundle\Form\Types\DischargeDiagnosis
       tags:

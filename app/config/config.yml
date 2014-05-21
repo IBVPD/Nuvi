@@ -97,6 +97,7 @@ doctrine:
             SpnSerotype: NS\SentinelBundle\Entity\Types\SpnSerotype
             RotavirusDoses: NS\SentinelBundle\Entity\Types\RotavirusDoses
             DischargeDiagnosis: NS\SentinelBundle\Entity\Types\DischargeDiagnosis
+            CXRResult: NS\SentinelBundle\Entity\Types\CXRResult
         mapping_types:
             TripleChoice: TripleChoice
             Doses: Doses
@@ -137,6 +138,7 @@ doctrine:
             SpnSerotype: SpnSerotype
             RotavirusDoses: RotavirusDoses
             DischargeDiagnosis: DischargeDiagnosis
+            CXRResult: CXRResult
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
