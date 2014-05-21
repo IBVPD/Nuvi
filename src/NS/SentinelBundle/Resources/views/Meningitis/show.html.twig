@@ -1,6 +1,10 @@
 {%extends "NSSentinelBundle::layout.html.twig" %}
 {% block pagetitle %}{{'View Case %id%'|trans({'%id%': record.id})}}{%endblock %}
 
+{%block pageactions %}
+<div class="pull-right">{{case_big_actions(record)}}</div>
+{%endblock %}
+
 {% block body %}
 <div class="col-sm-12">
     <div class="tabbable tabs-left">
@@ -36,8 +40,24 @@
                         <td>{{record.dob|date}}</td>
                     </tr>
                     <tr>
+                        <th>{{'meningitis-form.age'|trans}}</th>
+                        <td>{{record.age}}</td>
+                    </tr>
+                    <tr>
                         <th>{{'meningitis-form.gender'|trans}}</th>
                         <td>{{record.gender}}</td>
+                    </tr>
+                    <tr>
+                        <th>{{'meningitis-form.first-name'|trans}}</th>
+                        <td>{{record.firstName}}</td>
+                    </tr>
+                    <tr>
+                        <th>{{'meningitis-form.last-name'|trans}}</th>
+                        <td>{{record.lastName}}</td>
+                    </tr>
+                    <tr>
+                        <th>{{'meningitis-form.parental-name'|trans}}</th>
+                        <td>{{record.parentalName}}</td>
                     </tr>
                 </table>
             </div>

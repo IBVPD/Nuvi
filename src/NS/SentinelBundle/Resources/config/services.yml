@@ -157,10 +157,10 @@ services:
       tags:
         - { name: form.type, alias: MeningitisVaccinationType }
 
-    ns.sentinel.form.type.meningitisvaccinationreceived:
-      class: NS\SentinelBundle\Form\Types\MeningitisVaccinationReceived
+    ns.sentinel.form.type.vaccinationreceived:
+      class: NS\SentinelBundle\Form\Types\VaccinationReceived
       tags:
-        - { name: form.type, alias: MeningitisVaccinationReceived }    
+        - { name: form.type, alias: VaccinationReceived }
 
     ns.sentinel.form.type.dischargeclassification:
       class: NS\SentinelBundle\Form\Types\DischargeClassification
