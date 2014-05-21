@@ -31,6 +31,7 @@ class SerializedSiteTest extends \PHPUnit_Framework_TestCase
     public function testSerializedSitesHasMultipleSites()
     {
         $session        = new Session(new MockFileSessionStorage());
+        $session->start();
         $em             = $this->getMockObjectManager();
         $siteSerializer = new SerializedSites($session,$em);
         $site           = $siteSerializer->getSite();
@@ -42,6 +43,7 @@ class SerializedSiteTest extends \PHPUnit_Framework_TestCase
     public function testSerializedSitesHasIds()
     {
         $session        = new Session(new MockFileSessionStorage());
+        $session->start();
         $em             = $this->getMockObjectManager();
         $siteSerializer = new SerializedSites($session,$em);
 

@@ -9,20 +9,20 @@ use Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundE
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\Event\AuthenticationEvent;
 use Symfony\Component\Security\Http\Event\SwitchUserEvent;
-use NS\SentinelBundle\Interfaces\SerializedSitesInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class Login implements EventSubscriberInterface
 {
     private $_defaultLocale;
     private $_securityContext;
     private $_session;
-    private $_serializedSite;
+    private $_container;
 
-    public function __construct(SecurityContextInterface $context, SerializedSitesInterface $serializedSite, $defaultLocale = 'en')
+    public function __construct(SecurityContextInterface $context, ContainerInterface $container, $defaultLocale = 'en')
     {
         $this->_defaultLocale   = $defaultLocale;
         $this->_securityContext = $context;
-        $this->_serializedSite  = $serializedSite;
+        $this->_container       = $container;
     }
 
     public function onKernelRequest(GetResponseEvent $event)
@@ -62,10 +62,10 @@ class Login implements EventSubscriberInterface
     {
         $user = $event->getAuthenticationToken()->getUser();
 
-        if(!$user || !$this->_session)
+        if(!$user || !$this->_session || !$this->_session->isStarted())
             return;
 
-        if($this->_session->isStarted() && !$this->_session->get('_locale',false))
+        if(!$this->_session->get('_locale',false))
         {
             $locale = $this->findLocale($user);
             if($locale)
@@ -77,12 +77,12 @@ class Login implements EventSubscriberInterface
     {
         if( method_exists($user, 'getLanguage') && $user->getLanguage())
             return $user->getLanguage();
-        else
-        {
-            $site = $this->_serializedSite->getSite(false);
-            if($site->getCountry()->getLanguage())
-                return $site->getCountry()->getLanguage();
-        }
+//        else
+//        {
+//            $site = $this->_container->get('ns.sentinel.sites')->getSite(false);
+//            if($site->getCountry()->getLanguage())
+//                return $site->getCountry()->getLanguage();
+//        }
 
         return null;
     }

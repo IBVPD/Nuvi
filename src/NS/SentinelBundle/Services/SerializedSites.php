@@ -18,16 +18,72 @@ class SerializedSites implements SerializedSitesInterface
 {
     private $sites;
     private $em;
+    private $isInitialized = false;
+    private $session;
 
     public function __construct(Session $session, ObjectManager $em)
     {
-        $sites = unserialize($session->get('sites'));
+        $this->session = $session;
+        $this->em      = $em;
+        $this->initialize();
+    }
+
+    public function hasMultipleSites()
+    {
+        if(!$this->isInitialized)
+            $this->initialize();
+
+        return (count($this->sites) > 1);
+    }
+
+    public function setSites(array $sites)
+    {
+        if(!$this->isInitialized)
+            $this->initialize();
+
+        $this->sites = $sites;
+    }
+
+    public function getSites()
+    {
+        if(!$this->isInitialized)
+            $this->initialize();
+
+        return $this->sites;
+    }
+
+    public function getSite($managed = true)
+    {
+        if(!$this->isInitialized)
+            $this->initialize();
+
+        $site = current($this->sites);
+
+        if($managed && !$this->em->contains($site))
+        {
+            $uow = $this->em->getUnitOfWork();
+            $c   = $site->getCountry();
+            $r   = $c->getRegion();
+
+            $uow->registerManaged($site,array('id'=>$site->getId()),array('id'=>$site->getId(),'code'=>$site->getCode()));
+            $uow->registerManaged($c,array('id'=>$c->getId()),array('id'=>$c->getId(),'code'=>$c->getCode()));
+            $uow->registerManaged($r,array('id'=>$r->getId()),array('id'=>$r->getId(),'code'=>$r->getCode()));
+        }
+
+        return $site;
+    }
+
+    public function initialize()
+    {
+        if(!$this->session->isStarted() || $this->isInitialized)
+            return;
+
+        $sites = unserialize($this->session->get('sites'));
 
         if(!$sites || count($sites) == 0) // empty session site array so build and store
         {
             $sites = array();
-
-            foreach($em->getRepository('NS\SentinelBundle\Entity\Site')->getChain() as $site)
+            foreach($this->em->getRepository('NS\SentinelBundle\Entity\Site')->getChain() as $site)
             {
                 $r = new Region();
                 $r->setName($site->getCountry()->getRegion()->getName());
@@ -50,43 +106,10 @@ class SerializedSites implements SerializedSitesInterface
                 $sites[] = $s;
             }
 
-            $session->set('sites',serialize($sites));
+            $this->session->set('sites',serialize($sites));
         }
 
         $this->sites = $sites;
-        $this->em    = $em;
-    }
-
-    public function hasMultipleSites()
-    {
-        return (count($this->sites) > 1);
-    }
-
-    public function setSites(array $sites)
-    {
-        $this->sites = $sites;
-    }
-
-    public function getSites()
-    {
-        return $this->sites;
-    }
-
-    public function getSite($managed = true)
-    {
-        $site = current($this->sites);
-
-        if($managed && !$this->em->contains($site))
-        {
-            $uow = $this->em->getUnitOfWork();
-            $c   = $site->getCountry();
-            $r   = $c->getRegion();
-
-            $uow->registerManaged($site,array('id'=>$site->getId()),array('id'=>$site->getId(),'code'=>$site->getCode()));
-            $uow->registerManaged($c,array('id'=>$c->getId()),array('id'=>$c->getId(),'code'=>$c->getCode()));
-            $uow->registerManaged($r,array('id'=>$r->getId()),array('id'=>$r->getId(),'code'=>$r->getCode()));
-        }
-
-        return $site;
+        $this->isInitialized = true;
     }
 }
