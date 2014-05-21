@@ -9,6 +9,7 @@ use NS\SentinelBundle\Services\SerializedSites;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
 use NS\SentinelBundle\Entity\Country;
+use NS\SentinelBundle\Form\Types\TripleChoice;
 
 class SiteLabType extends AbstractType
 {
@@ -27,10 +28,10 @@ class SiteLabType extends AbstractType
     {
         $builder
             ->add('stoolReceivedDate',  'acedatepicker',    array('required'=>false, 'label'=>'rotavirus-form.stoolReceivedDate'))
-            ->add('stoolAdequate',      'TripleChoice',     array('required'=>false, 'label'=>'rotavirus-form.stoolAdequate'))
-            ->add('stoolELISADone',     'TripleChoice',     array('required'=>false, 'label'=>'rotavirus-form.stoolELISADone'))
-            ->add('stoolTestDate',      'acedatepicker',    array('required'=>false, 'label'=>'rotavirus-form.stoolTestDate'))
-            ->add('stoolELISAResult',   'ElisaResult',      array('required'=>false, 'label'=>'rotavirus-form.stoolELISAResult'))
+            ->add('stoolAdequate',      'TripleChoice',     array('required'=>false, 'label'=>'rotavirus-form.stoolAdequate',  'attr'=>array('data-context-child'=>'stool'))) //If Yes show then show test done
+            ->add('stoolELISADone',     'TripleChoice',     array('required'=>false, 'label'=>'rotavirus-form.stoolELISADone', 'attr'=>array('data-context-parent'=>'stool','data-context-child'=>'stoolReminder','data-context-value'=>TripleChoice::YES))) // If Yes show stoolTestDate, stoolELISAResult
+            ->add('stoolTestDate',      'acedatepicker',    array('required'=>false, 'label'=>'rotavirus-form.stoolTestDate',   'attr'=>array('data-context-parent'=>'stoolReminder','data-context-value'=>TripleChoice::YES)))
+            ->add('stoolELISAResult',   'ElisaResult',      array('required'=>false, 'label'=>'rotavirus-form.stoolELISAResult','attr'=>array('data-context-parent'=>'stoolReminder','data-context-value'=>TripleChoice::YES)))
             ->add('stoolStored',        'TripleChoice',     array('required'=>false, 'label'=>'rotavirus-form.stoolStored'))
             ->add('stoolSentToRRL',     'TripleChoice',     array('required'=>false, 'label'=>'rotavirus-form.stoolSentToRRL'))
             ->add('stoolSentToRRLDate', 'acedatepicker',    array('required'=>false, 'label'=>'rotavirus-form.stoolSentToRRLDate'))

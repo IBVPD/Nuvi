@@ -107,10 +107,17 @@ class RotaVirus extends BaseCase
 
     /**
      * symp_dehydration
-     * @var Dehydration $symptomDehydration
-     * @ORM\Column(name="symptomDehydration",type="Dehydration",nullable=true)
+     * @var TripleChoice $symptomDehydration
+     * @ORM\Column(name="symptomDehydration",type="TripleChoice",nullable=true)
      */
     private $symptomDehydration;
+
+    /**
+     * symp_dehydration
+     * @var Dehydration $symptomDehydration
+     * @ORM\Column(name="symptomDehydrationAmount",type="Dehydration",nullable=true)
+     */
+    private $symptomDehydrationAmount;
 
 // Treatment
     /**
@@ -151,8 +158,8 @@ class RotaVirus extends BaseCase
 
     /**
      * RV_doses
-     * @var Doses $doses
-     * @ORM\Column(name="doses",type="Doses",nullable=true)
+     * @var RotavirusDoses $doses
+     * @ORM\Column(name="doses",type="RotavirusDoses",nullable=true)
      */
     private $doses;
 
@@ -275,6 +282,11 @@ class RotaVirus extends BaseCase
     public function getSymptomVomitDuration()
     {
         return $this->symptomVomitDuration;
+    }
+
+    public function getSymptomDehydrationAmount()
+    {
+        return $this->symptomDehydrationAmount;
     }
 
     public function getSymptomDehydration()
@@ -428,10 +440,15 @@ class RotaVirus extends BaseCase
         return $this;
     }
 
-    public function setSymptomDehydration(Dehydration $symptomDehydration)
+    public function setSymptomDehydration(TripleChoice $symptomDehydration)
     {
         $this->symptomDehydration = $symptomDehydration;
         return $this;
+    }
+
+    public function setSymptomDehydrationAmount(Dehydration $symptomDehydrationAmount)
+    {
+        $this->symptomDehydrationAmount = $symptomDehydrationAmount;
     }
 
     public function setRehydration(TripleChoice $rehydration)
@@ -464,7 +481,7 @@ class RotaVirus extends BaseCase
         return $this;
     }
 
-    public function setDoses(Doses $doses)
+    public function setDoses(RotavirusDoses $doses)
     {
         $this->doses = $doses;
         return $this;
