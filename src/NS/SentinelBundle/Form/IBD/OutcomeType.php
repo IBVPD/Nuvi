@@ -22,7 +22,7 @@ class OutcomeType extends AbstractType
     {
         $builder
             ->add('dischOutcome',           'DischargeOutcome', array('required'=>false,'label'=>'meningitis-form.discharge-outcome'))
-            ->add('dischDx',                'Diagnosis',        array('required'=>false,'label'=>'meningitis-form.discharge-diagnosis',       'attr' => array('data-context-child'=>'dischargeDiagnosis')))
+            ->add('dischDx',                'DischargeDiagnosis',        array('required'=>false,'label'=>'meningitis-form.discharge-diagnosis',       'attr' => array('data-context-child'=>'dischargeDiagnosis')))
             ->add('dischDxOther',           null,               array('required'=>false,'label'=>'meningitis-form.discharge-diagnosis-other', 'attr' => array('data-context-parent'=>'dischargeDiagnosis', 'data-context-value'=>Diagnosis::OTHER)))
             ->add('dischClass',       'DischargeClassification',array('required'=>false,'label'=>'meningitis-form.discharge-class'))
             ->add('comment',                null,               array('required'=>false,'label'=>'meningitis-form.comment'));
