@@ -7,6 +7,11 @@ services:
       tags:
         - { name: form.type, alias: ibd_outcome }
 
+    ns.sentinel.form.rotavirus_outcome:
+      class: NS\SentinelBundle\Form\Rota\OutcomeType
+      tags:
+        - { name: form.type, alias: rotavirus_outcome }
+
     ns.sentinel.locale_listener:
       class: NS\SentinelBundle\Locale\Login
       arguments: [ @security.context, @ns.sentinel.sites, %kernel.default_locale% ]
