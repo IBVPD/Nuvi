@@ -10,10 +10,12 @@ use NS\UtilBundle\Form\Types\ArrayChoice;
  */
 class PCVType extends ArrayChoice
 {
-    const FIRST_VALUE = 1;
+    const PCV10 = 1;
+    const PCV13 = 2;
 
     protected $values = array(
-                                self::FIRST_VALUE => 'First Value',
+                                self::PCV10 => 'PCV10',
+                                self::PCV13 => 'PCV13',
                              );
 
     public function getName()
