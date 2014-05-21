@@ -11,10 +11,12 @@ use JMS\TranslationBundle\Translation\TranslationContainerInterface;
  */
 class PCVType extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    const FIRST_VALUE = 1;
+    const PCV10 = 1;
+    const PCV13 = 2;
 
     protected $values = array(
-                                self::FIRST_VALUE => 'First Value',
+                                self::PCV10 => 'PCV10',
+                                self::PCV13 => 'PCV13',
                              );
 
     public function getName()
