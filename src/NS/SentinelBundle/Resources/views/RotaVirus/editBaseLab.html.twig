@@ -3,10 +3,6 @@
 {% block pagetitle %}
 {{'Edit %type% For Case %id%'|trans({'%id%': form.vars.value.case.caseId,'%type%': type})}}
 {% endblock %}
-{% block pagedescription %}
-{{id}}
-{% endblock %}
-
 
 {%block pageactions %}
 <div class="pull-right">{{case_big_actions(form.vars.value.case)}}</div>
