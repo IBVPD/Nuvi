@@ -2,6 +2,11 @@ parameters:
 #    ns_sentinel.example.class: NS\SentinelBundle\Example
 
 services:
+    ns.sentinel.form.type.rotavirusdischargeoutcome:
+      class: NS\SentinelBundle\Form\Types\RotavirusDischargeOutcome
+      tags:
+        - { name: form.type, alias: RotavirusDischargeOutcome }
+
     ns.sentinel.form.type.pcvtype:
       class: NS\SentinelBundle\Form\Types\PCVType
       tags:

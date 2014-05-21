@@ -210,8 +210,8 @@ class RotaVirus extends BaseCase
 //vii. Case-based Outcome Data
     /**
      * disch_outcome
-     * @var DischargeOutcome $dischargeOutcome
-     * @ORM\Column(name="dischargeOutcome",type="DischargeOutcome",nullable=true)
+     * @var RotavirusDischargeOutcome $dischargeOutcome
+     * @ORM\Column(name="dischargeOutcome",type="RotavirusDischargeOutcome",nullable=true)
      */
     private $dischargeOutcome;
 

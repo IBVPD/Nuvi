@@ -42,6 +42,12 @@ abstract class ExternalLab extends BaseExternalLab
     protected $eiaResult;
 
     /**
+     * @var \DateTime $dateReceived
+     * @ORM\Column(name="dateReceived",type="date",nullable=true)
+     */
+    protected $dateReceived;
+
+    /**
      * @var \DateTime $genotypingDate
      * @ORM\Column(name="genotypingDate",type="date", nullable=true)
      */
