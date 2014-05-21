@@ -32,10 +32,12 @@ class Builder
         $menu->setChildrenAttribute('class','nav nav-list');
         if( $this->securityContext->isGranted('IS_AUTHENTICATED_FULLY') )
         {
-            $d = $menu->addChild('Data Entry', array('label'=> 'menu.data-entry'))
-                      ->setExtra('icon','icon-edit');
-            $d->addChild('Meningitis',array('label'=>'menu.meningitis','route'=>'meningitisIndex'));
-            $d->addChild('Rotavirus', array('route'=>'rotavirusIndex'))->setExtra('translation_domain', 'NSSentinelBundle');
+            if($this->securityContext->isGranted('ROLE_CAN_CREATE'))
+            {
+                $d = $menu->addChild('Data Entry', array('label'=> 'menu.data-entry'))->setExtra('icon','icon-edit');
+                $d->addChild('Meningitis',array('label'=>'menu.meningitis','route'=>'meningitisIndex'));
+                $d->addChild('Rotavirus', array('route'=>'rotavirusIndex'))->setExtra('translation_domain', 'NSSentinelBundle');
+            }
 
             $reports = $menu->addChild('Reports', array('label'=> 'menu.data-reports','route'=>'reportDashboard'))->setExtra('icon','icon-dashboard');
             $reports->addChild('Age Distribution',array('label'=> 'menu.data-reports-age-distribution','route'=>'reportAnnualAgeDistribution'));
