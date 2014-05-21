@@ -204,6 +204,12 @@ class Meningitis extends BaseCase
      */
     private $cxrResult;
 
+    /**
+     * @var CXRAdditionalResult $cxrResult
+     * @ORM\Column(name="cxrAdditionalResult",type="CXRAdditionalResult",nullable=true)
+     */
+    private $cxrAdditionalResult;
+
 //Case-based Vaccination History
     /**
      * @var TripleChoice $hibReceived
@@ -552,6 +558,16 @@ class Meningitis extends BaseCase
     public function setCxrResult(CXRResult $cxrResult)
     {
         $this->cxrResult = $cxrResult;
+    }
+
+    public function getCxrAdditionalResult()
+    {
+        return $this->cxrAdditionalResult;
+    }
+
+    public function setCxrAdditionalResult(CXRAdditionalResult $cxrAdditionalResult)
+    {
+        $this->cxrAdditionalResult = $cxrAdditionalResult;
     }
 
     public function setDistrict($district)
