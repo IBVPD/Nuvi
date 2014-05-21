@@ -10,10 +10,18 @@ use NS\UtilBundle\Form\Types\ArrayChoice;
  */
 class CXRAdditionalResult extends ArrayChoice
 {
-    const FIRST_VALUE = 1;
+    const CONSOLIDATION     = 1;
+    const PLEURAL_EFFUSION  = 2;
+    const AIR_BRONCHOGRAM   = 3;
+    const INFILTRATE        = 4;
+    const UNKNOWN           = 99;
 
     protected $values = array(
-                                self::FIRST_VALUE => 'First Value',
+                                self::CONSOLIDATION     => 'Consolidation',
+                                self::PLEURAL_EFFUSION  => 'Pleural effusion',
+                                self::AIR_BRONCHOGRAM   => 'Air bronchogram',
+                                self::INFILTRATE        => 'Interstitial infiltrate',
+                                self::UNKNOWN           => 'Unknown',
                              );
 
     public function getName()
