@@ -46,10 +46,7 @@ class CaseActions extends \Twig_Extension
         if($this->securityContext->isGranted('ROLE_CAN_CREATE'))
         {
             if($this->securityContext->isGranted('ROLE_CAN_CREATE_CASE'))
-            {
-                $out .= '<a href="'.$this->router->generate($baseRoute.'Edit',array('id'=>$row->getId())).'" class="btn btn-xs btn-info"><i class="icon-edit bigger-120"></i> '.$this->translator->trans('EPI').'</a>
-                         <a href="'.$this->router->generate($baseRoute.'OutcomeEdit',array('id'=>$row->getId())).'" class="btn btn-xs btn-info"><i class="icon-edit bigger-120"></i> '.$this->translator->trans('Outcome').'</a>';
-            }
+                $out .= '<a href="'.$this->router->generate($baseRoute.'Edit',array('id'=>$row->getId())).'" class="btn btn-xs btn-info"><i class="icon-edit bigger-120"></i> '.$this->translator->trans('EPI').'</a>';
 
             if($this->securityContext->isGranted('ROLE_CAN_CREATE_LAB'))
                 $out .= '<a href="'.$this->router->generate($baseRoute.'LabEdit',array('id'=>$row->getId())).'" class="btn btn-xs btn-info"><i class="'.($row->hasSiteLab() ? 'icon-edit':'icon-plus').' bigger-120"></i> '.$this->translator->trans('Lab').'</a>';
@@ -59,6 +56,9 @@ class CaseActions extends \Twig_Extension
 
             if($this->securityContext->isGranted('ROLE_CAN_CREATE_RRL_LAB') && $row->getSentToReferenceLab())
                 $out .= '<a href="'.$this->router->generate($baseRoute.'RRLEdit',array('id'=>$row->getId())).'" class="btn btn-xs btn-info"><i class="'.($row->hasReferenceLab() ? 'icon-edit':'icon-plus').' bigger-120"></i>'.$this->translator->trans('RRL').'</a>';
+
+            if($this->securityContext->isGranted('ROLE_CAN_CREATE_CASE'))
+                $out .= '<a href="'.$this->router->generate($baseRoute.'OutcomeEdit',array('id'=>$row->getId())).'" class="btn btn-xs btn-info"><i class="icon-edit bigger-120"></i> '.$this->translator->trans('Outcome').'</a>';
         }
 
         return $out;
