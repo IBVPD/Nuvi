@@ -2,18 +2,24 @@
 
 namespace NS\SentinelBundle\Form\Types;
 
-use NS\UtilBundle\Form\Types\ArrayChoice;
+use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 
 /**
  * Description of RotavirusDoses
  *
  */
-class RotavirusDoses extends ArrayChoice
+class RotavirusDoses extends TranslatableArrayChoice
 {
-    const FIRST_VALUE = 1;
+    const ONE     = 1;
+    const TWO     = 2;
+    const THREE   = 3;
+    const UNKNOWN = 99;
 
     protected $values = array(
-                                self::FIRST_VALUE => 'First Value',
+                            self::ONE     => "1 dose",
+                            self::TWO     => "2 doses",
+                            self::THREE   => "≥ 3 doses",
+                            self::UNKNOWN => 'Unknown',
                              );
 
     public function getName()

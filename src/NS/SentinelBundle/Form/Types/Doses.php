@@ -19,10 +19,10 @@ class Doses extends TranslatableArrayChoice implements TranslationContainerInter
     const UNKNOWN = 99;
 
     protected $values = array(
-                            self::ONE     => "1",
-                            self::TWO     => "2",
-                            self::THREE   => "3",
-                            self::FOUR    => "4+",
+                            self::ONE     => "1 dose",
+                            self::TWO     => "2 doses",
+                            self::THREE   => "3 doses",
+                            self::FOUR    => "≥ 4 doses",
                             self::UNKNOWN => 'Unknown',
                             );
     
