@@ -2131,12 +2131,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/punkave/symfony2-file-uploader-bundle.git",
-                "reference": "e4ffe378f499f764f43b3162ff8be3f147edecbd"
+                "reference": "628faf157ff90761993b9767ca1a5642dc15c1c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/punkave/symfony2-file-uploader-bundle/zipball/e4ffe378f499f764f43b3162ff8be3f147edecbd",
-                "reference": "e4ffe378f499f764f43b3162ff8be3f147edecbd",
+                "url": "https://api.github.com/repos/punkave/symfony2-file-uploader-bundle/zipball/628faf157ff90761993b9767ca1a5642dc15c1c4",
+                "reference": "628faf157ff90761993b9767ca1a5642dc15c1c4",
                 "shasum": ""
             },
             "require": {
@@ -2184,7 +2184,7 @@
                 "upload",
                 "uploader"
             ],
-            "time": "2014-05-04 15:42:23"
+            "time": "2014-05-15 14:34:33"
         },
         {
             "name": "sensio/distribution-bundle",
@@ -2605,12 +2605,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataCoreBundle.git",
-                "reference": "c1c7ef6e0d2679c475180384a03bfd69a3cc63ee"
+                "reference": "b4562a9850a5cfc23d5ee87abe5e82107ef17d99"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/c1c7ef6e0d2679c475180384a03bfd69a3cc63ee",
-                "reference": "c1c7ef6e0d2679c475180384a03bfd69a3cc63ee",
+                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/b4562a9850a5cfc23d5ee87abe5e82107ef17d99",
+                "reference": "b4562a9850a5cfc23d5ee87abe5e82107ef17d99",
                 "shasum": ""
             },
             "require": {
@@ -2659,7 +2659,7 @@
             "keywords": [
                 "sonata"
             ],
-            "time": "2014-05-14 16:25:48"
+            "time": "2014-05-16 08:52:16"
         },
         {
             "name": "sonata-project/doctrine-orm-admin-bundle",
@@ -3076,21 +3076,21 @@
         },
         {
             "name": "symfony/icu",
-            "version": "v1.1.1",
+            "version": "v1.2.1",
             "target-dir": "Symfony/Component/Icu",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Icu.git",
-                "reference": "0b82950ece96c1f091dcdb088298bd72dbc83a47"
+                "reference": "98e197da54df1f966dd5e8a4992135703569c987"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Icu/zipball/0b82950ece96c1f091dcdb088298bd72dbc83a47",
-                "reference": "0b82950ece96c1f091dcdb088298bd72dbc83a47",
+                "url": "https://api.github.com/repos/symfony/Icu/zipball/98e197da54df1f966dd5e8a4992135703569c987",
+                "reference": "98e197da54df1f966dd5e8a4992135703569c987",
                 "shasum": ""
             },
             "require": {
-                "lib-icu": ">=3.8",
+                "lib-icu": ">=4.4",
                 "php": ">=5.3.3",
                 "symfony/intl": "~2.3"
             },
@@ -3120,7 +3120,7 @@
                 "icu",
                 "intl"
             ],
-            "time": "2013-10-04 10:05:23"
+            "time": "2013-10-04 10:06:38"
         },
         {
             "name": "symfony/monolog-bundle",
@@ -4448,7 +4448,9 @@
             "time": "2014-03-07 15:35:33"
         }
     ],
-    "aliases": [],
+    "aliases": [
+
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "jms/security-extra-bundle": 20,
@@ -4469,5 +4471,7 @@
     "platform": {
         "php": ">=5.3.3"
     },
-    "platform-dev": []
+    "platform-dev": [
+
+    ]
 }
