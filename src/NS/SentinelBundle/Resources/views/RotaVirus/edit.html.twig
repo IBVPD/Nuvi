@@ -22,7 +22,6 @@
                 <li><a data-toggle="tab" href="#clinical">{{'Clinical Data'|trans}}</a></li>
                 <li><a data-toggle="tab" href="#history">{{'Vaccination History'|trans}}</a></li>
                 <li><a data-toggle="tab" href="#specimen">{{'Specimen Collection Data'|trans}}</a></li>
-                <li><a data-toggle="tab" href="#outcome">{{'Outcome Data'|trans}}</a></li>
             </ul>
         </div>
         <div class="tab-content">
@@ -94,19 +93,6 @@
                         </div>
                     <div class="col-sm-4">
                 {{form_row(form.stoolCollectionDate)}}
-                    </div>
-                </div>
-            </div>
-            <div id="outcome" class="tab-pane">
-                <div class="row">
-                    <div class="col-sm-6">
-                        {{form_row(form.dischargeOutcome)}}
-                        {{form_row(form.dischargeDate)}}
-                        {{form_row(form.dischargeClassOther)}}
-                    </div>
-                    <div class="col-sm-6">
-                        {{form_row(form.comment)}}
-                        {{form_rest(form)}}
                     </div>
                 </div>
             </div>
