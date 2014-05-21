@@ -2,6 +2,11 @@ parameters:
 #    ns_sentinel.example.class: NS\SentinelBundle\Example
 
 services:
+    ns.sentinel.form.type.dischargediagnosis:
+      class: NS\SentinelBundle\Form\Types\DischargeDiagnosis
+      tags:
+        - { name: form.type, alias: DischargeDiagnosis }
+
     ns.sentinel.form.type.rotavirusdoses:
       class: NS\SentinelBundle\Form\Types\RotavirusDoses
       tags:
