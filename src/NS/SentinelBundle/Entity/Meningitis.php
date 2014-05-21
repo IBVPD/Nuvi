@@ -236,6 +236,12 @@ class Meningitis extends BaseCase
     private $pcvDoses;
 
     /**
+     * @var PCVType $pcvType
+     * @ORM\Column(name="pcvType",type="PCVType",nullable=true)
+     */
+    private $pcvType;
+
+    /**
      * @var VaccinationReceived $meningReceived
      * @ORM\Column(name="meningReceived",type="VaccinationReceived",nullable=true)
      */
@@ -468,6 +474,16 @@ class Meningitis extends BaseCase
     public function getPcvDoses()
     {
         return $this->pcvDoses;
+    }
+    
+    public function getPcvType()
+    {
+        return $this->pcvType;
+    }
+
+    public function setPcvType(PCVType $pcvType)
+    {
+        $this->pcvType = $pcvType;
     }
 
     public function getMeningReceived()
