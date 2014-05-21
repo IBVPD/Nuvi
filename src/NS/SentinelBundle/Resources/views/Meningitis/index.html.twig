@@ -1,12 +1,18 @@
 {%extends "NSSentinelBundle::layout.html.twig" %}
 {% block pagetitle %}{{'Recent Cases'|trans}}{%endblock %}
 {% block pagedescription %}{{'Lists the last %count% meningitis cases'|trans({'%count%':app.session.get('result_per_page',10)})}}{%endblock %}
+
 {% block body %}
 <div class="row">
     <div class="col-sm-9 col-md-9 col-lg-9">
         <div class="widget-box no-border">
             <div class="widget-header widget-header-small header-color-blue">
                 <h5>{{'Latest Meningitis Cases'|trans}}</h5>
+                {% if is_granted('ROLE_CAN_CREATE') %}
+                    <div class="widget-toolbar">
+                        <a href="#modal-form" id="modal-form-create" data-toggle="modal" class="btn btn-xs btn-success">{{'Create/Edit'|trans}}<i class="icon-plus-sign icon-on-right bigger-110"></i></a>
+                    </div>
+                {% endif %}                
                 <div class="widget-toolbar"><form method="POST" action="{{ path('meningitisIndex',pagination.query)}}">{{form_rest(form)}}</form></div>
                 <div class="widget-toolbar no-border">{{ knp_pagination_render(pagination) }}</div>
             </div>
@@ -21,7 +27,7 @@
                 </table>
             {% if is_granted('ROLE_CAN_CREATE') %}
                 <div class="align-right">
-                    <a href="#modal-form" id="modal-form-create" data-toggle="modal" class="btn btn-sm btn-success">{{'Create'|trans}}<i class="icon-plus-sign icon-on-right bigger-110"></i></a>
+                    <a href="#modal-form" id="modal-form-create" data-toggle="modal" class="btn btn-sm btn-success">{{'Create/Edit'|trans}}<i class="icon-plus-sign icon-on-right bigger-110"></i></a>
                 </div>
             {% endif %}
             </div>
@@ -66,7 +72,7 @@
                 </button>
 
                 <button class="btn btn-sm btn-primary" id="ibd_create_submit">
-                    <i class="icon-ok"></i> {{'Create'|trans}}
+                    <i class="icon-ok"></i> {{'Create/Edit'|trans}}
                 </button>
             </div>
 
