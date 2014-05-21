@@ -12,3 +12,4 @@ NuviSync
 *.od*
 /tmp
 /web/ace
+composer
