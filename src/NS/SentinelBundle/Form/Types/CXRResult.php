@@ -20,7 +20,7 @@ class CXRResult extends TranslatableArrayChoice implements TranslationContainerI
  
      protected $values = array(
                             self::NORMAL       => 'Normal', 
-                            self::CONSISTENT   => 'Consistent with Pneumonia', 
+                            self::CONSISTENT   => 'Consistent with Bacterial Pneumonia', 
                             self::INCONCLUSIVE => 'Inconclusive',
                             self::OTHER        => 'Other',
                             self::UNKNOWN => 'Unknown');
