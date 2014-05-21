@@ -95,6 +95,7 @@ doctrine:
             NmSerogroup: NS\SentinelBundle\Entity\Types\NmSerogroup
             HiSerotype: NS\SentinelBundle\Entity\Types\HiSerotype
             SpnSerotype: NS\SentinelBundle\Entity\Types\SpnSerotype
+            RotavirusDoses: NS\SentinelBundle\Entity\Types\RotavirusDoses
         mapping_types:
             TripleChoice: TripleChoice
             Doses: Doses
@@ -132,7 +133,8 @@ doctrine:
             GenotypeResultP: GenotypeResultP
             NmSerogroup: NmSerogroup
             HiSerotype: HiSerotype
-            SpnSerotype: SpnSerotype            
+            SpnSerotype: SpnSerotype
+            RotavirusDoses: RotavirusDoses
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
