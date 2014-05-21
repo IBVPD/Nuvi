@@ -10,7 +10,7 @@ use NS\SentinelBundle\Form\Types\Diagnosis;
 use NS\SentinelBundle\Form\Types\DischargeOutcome;
 use NS\SentinelBundle\Form\Types\DischargeClassification;
 use NS\SentinelBundle\Form\Types\Doses;
-use NS\SentinelBundle\Form\Types\Gender;
+use NS\SentinelBundle\Form\Types\PCVType;
 use NS\SentinelBundle\Form\Types\CaseStatus;
 use NS\SentinelBundle\Form\Types\MeningitisCaseResult;
 use NS\SentinelBundle\Form\Types\MeningitisVaccinationReceived;
