@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Form\Types\CSFAppearance;
 use NS\SentinelBundle\Form\Types\CXRResult;
+use NS\SentinelBundle\Form\Types\CXRAdditionalResult;
 use NS\SentinelBundle\Form\Types\Diagnosis;
 use NS\SentinelBundle\Form\Types\DischargeOutcome;
 use NS\SentinelBundle\Form\Types\DischargeClassification;
