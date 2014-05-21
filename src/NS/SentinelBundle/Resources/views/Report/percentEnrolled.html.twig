@@ -1,0 +1,8 @@
+{%extends "NSSentinelBundle::layout.html.twig" %}
+{% block body %}
+
+    {% for r in results %}
+        {{r.theYear}} -> {{r.admDx}} -> {{r.numberOfCases}}<br />
+    {% endfor %}
+
+{% endblock %}
