@@ -14,7 +14,17 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * 
  * @ORM\Entity()
  * @ORM\Table(name="ibd_external_lab_samples")
- * @ORM\HasLifecycleCallbacks
+
+ * @ORM\HasLifecycleCallbacks * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="discr",type="string")
+ * @ORM\DiscriminatorMap({
+ *                          "CSF"        = "CSFLabSample",
+ *                          "ISOLATE"    = "IsolateLabSample",
+ *                          "WHOLE"      = "WholeLabSample",
+ *                          "BROTH"      = "BrothLabSample",
+ *                          "PLEURAL"    = "PleuralLabSample",
+ *                          "INOCULATED" = "InoculatedLabSample"
+ * })
  * @Gedmo\Loggable
  */
 class ExternalLabSample
@@ -98,6 +108,11 @@ class ExternalLabSample
      * @ORM\Column(name="nmSerogroup",type="decimal",precision=3, scale=1,nullable=true)
      */
     private $nmSerogroup;
+
+    public function getId()
+    {
+        return $this->id;
+    }
 
     public function getLab()
     {

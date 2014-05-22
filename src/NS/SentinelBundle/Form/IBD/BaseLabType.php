@@ -35,7 +35,7 @@ class BaseLabType extends AbstractType
             ->add('isolateType',                'IsolateType',          array('label'=>'meningitis-rrl-form.isolate-type','required'=>false,
                                                                               'attr' => array('data-context-parent'=>'sampleType','data-context-value'=>  json_encode(array(SampleType::ISOLATE,SampleType::WHOLE,SampleType::PLEURAL)))
                                                                              ))
-            ->add('samples')
+            ->add('samples',                    'collection',           array('type' => new LabSampleType(),'allow_add' => true,'by_reference'=>false))
         ;
     }
 

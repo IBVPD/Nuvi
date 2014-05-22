@@ -5,6 +5,8 @@ namespace NS\SentinelBundle\Form\IBD;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use NS\SentinelBundle\Form\Types\PathogenIdentifier;
+use NS\SentinelBundle\Form\Types\SerotypeIdentifier;
 
 /**
  * Description of LabSamples

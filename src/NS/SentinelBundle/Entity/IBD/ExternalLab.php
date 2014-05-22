@@ -108,6 +108,16 @@ abstract class ExternalLab extends BaseExternalLab
         $this->samples = $samples;
     }
 
+    public function addSamples(ExternalLabSample $sample)
+    {
+        $this->samples->add($sample);
+    }
+
+    public function removeSamples(ExternalLabSample $sample)
+    {
+        $this->samples->remove($sample);
+    }
+
     /**
      * Set sampleType
      *
