@@ -36,43 +36,97 @@
 
                 <div id="csf" class="tab-pane">
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-3">
+                            {{form_row(form.csfId)}}
                         </div>
-
-                        <div class="col-sm-6">
+                        <div class="col-sm-3">
+                            {{form_row(form.csfWcc)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.csfGlucose)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.csfProtein)}}
                         </div>
                     </div>
-                    {{form_row(form.csfWcc)}}
-                    {{form_row(form.csfGlucose)}}
-                    {{form_row(form.csfProtein)}}
 
-                    {{form_row(form.csfGramDone)}}
-                    {{form_row(form.csfGramResult)}}
-                    {{form_row(form.csfGramResultOrganism)}}
-                    {{form_row(form.csfGramOther)}}
+                    <div class="row">
+                        <div class="col-sm-3">
+                            {{form_row(form.csfGramDone)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.csfGramResult)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.csfGramResultOrganism)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.csfGramOther)}}
+                        </div>
+                    </div>
 
-                    {{form_row(form.csfBinaxDone)}}
-                    {{form_row(form.csfBinaxResult)}}
+                    <div class="row">
+                        <div class="col-sm-3">
+                            {{form_row(form.csfBinaxDone)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.csfBinaxResult)}}
+                        </div>
+                    </div>
 
-                    {{form_row(form.csfLatDone)}}
-                    {{form_row(form.csfLatResult)}}
-                    {{form_row(form.csfLatOther)}}
+                    <div class="row">
+                        <div class="col-sm-3">
+                            {{form_row(form.csfLatDone)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.csfLatResult)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.csfLatOther)}}
+                        </div>
+                    </div>
 
-                    {{form_row(form.csfCultDone)}}
-                    {{form_row(form.csfCultResult)}}
-                    {{form_row(form.csfCultOther)}}
+                    <div class="row">
+                        <div class="col-sm-3">
+                            {{form_row(form.csfCultDone)}}
+                        </div>
+                        <div class="col-sm-3">
+                        {{form_row(form.csfCultResult)}}
+                        </div>
+                        <div class="col-sm-3">
+                        {{form_row(form.csfCultOther)}}
+                        </div>
+                    </div>
 
-                    {{form_row(form.csfPcrDone)}}
-                    {{form_row(form.csfPcrResult)}}
-                    {{form_row(form.csfPcrOther)}}
-
-                    {{form_row(form.rrlCsfDate)}}
-                    {{form_row(form.rrlIsolDate)}}
-                    {{form_row(form.csfStore)}}
-                    {{form_row(form.isolStore)}}
+                    <div class="row">
+                        <div class="col-sm-3">
+                            {{form_row(form.csfPcrDone)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.csfPcrResult)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.csfPcrOther)}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            {{form_row(form.rrlCsfDate)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.rrlIsolDate)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.csfStore)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.isolStore)}}
+                        </div>
+                    </div>
                 </div>
 
                 <div id="blood" class="tab-pane">
+                    {{form_row(form.bloodId)}}
                     {{form_row(form.bloodCultDone)}}
                     {{form_row(form.bloodCultResult)}}
                     {{form_row(form.bloodCultOther)}}

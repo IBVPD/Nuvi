@@ -33,6 +33,7 @@ class SiteLabType extends AbstractType
     {
         $builder
             ->add('csfLabDateTime',     'acedatetime',          array('required'=>false, 'label'=>'meningitis-form.csf-lab-datetime'))
+            ->add('csfId',              null,                   array('required'=>false, 'label'=>'meningitis-form.csf-id'))
             ->add('csfWcc',             null,                   array('required'=>false, 'label'=>'meningitis-form.csf-wcc'))
             ->add('csfGlucose',         null,                   array('required'=>false, 'label'=>'meningitis-form.csf-glucose'))
             ->add('csfProtein',         null,                   array('required'=>false, 'label'=>'meningitis-form.csf-protein'))
@@ -70,6 +71,7 @@ class SiteLabType extends AbstractType
             ->add('nmSerogroup',        'NmSerogroup',          array('required'=>false, 'label'=>'meningitis-form.nm-serogroup',       'attr' => array('data-context-child'=>'nmSerogroup')))
             ->add('nmSerogroupOther',   null,                   array('required'=>false, 'label'=>'meningitis-form.nm-serogroup-other', 'attr' => array('data-context-parent'=>'nmSerogroup','data-context-value'=> NmSerogroup::OTHER)))
 
+            ->add('bloodId',           null,           array('required'=>false,'label'=>'meningitis-form.blood-id',       'attr'=>array('data-context-parent'=>'bloodCollected','data-context-value'=>  TripleChoice::YES)))
             ->add('bloodCultDone',      'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.blood-cult-done',    'attr' => array('data-context-child'=>'bloodCultDone')))
             ->add('bloodCultResult',    'LatResult',            array('required'=>false, 'label'=>'meningitis-form.blood-cult-result',  'attr' => array('data-context-parent'=>'bloodCultDone','data-context-value'=> TripleChoice::YES)))
             ->add('bloodCultOther',     null,                   array('required'=>false, 'label'=>'meningitis-form.blood-cult-other',   'attr' => array('data-context-parent'=>'bloodCultDone','data-context-value'=> TripleChoice::YES)))

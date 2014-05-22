@@ -270,12 +270,6 @@ class Meningitis extends BaseCase
     private $csfCollected;
 
     /**
-     * @var string $csfId
-     * @ORM\Column(name="csfId",type="string",nullable=true)
-     */
-    private $csfId;
-
-    /**
      * @var DateTime $csfCollectDateTime
      * @ORM\Column(name="csfCollectDateTime",type="datetime",nullable=true)
      */
@@ -292,12 +286,6 @@ class Meningitis extends BaseCase
      * @ORM\Column(name="bloodCollected", type="TripleChoice",nullable=true)
      */
     private $bloodCollected;
-
-    /**
-     * @var string $bloodId
-     * @ORM\Column(name="bloodId",type="string",nullable=true)
-     */
-    private $bloodId;
 
 //Case-based Outcome Data
     /**
@@ -507,11 +495,6 @@ class Meningitis extends BaseCase
         return $this->csfCollected;
     }
 
-    public function getCsfId()
-    {
-        return $this->csfId;
-    }
-
     public function getCsfCollectDateTime()
     {
         return $this->csfCollectDateTime;
@@ -525,11 +508,6 @@ class Meningitis extends BaseCase
     public function getBloodCollected()
     {
         return $this->bloodCollected;
-    }
-
-    public function getBloodId()
-    {
-        return $this->bloodId;
     }
 
     public function getDischOutcome()
@@ -773,12 +751,6 @@ class Meningitis extends BaseCase
         return $this;
     }
 
-    public function setCsfId($csfId)
-    {
-        $this->csfId = $csfId;
-        return $this;
-    }
-
     public function setCsfCollectDateTime($csfCollectDateTime)
     {
         $this->csfCollectDateTime = $csfCollectDateTime;
@@ -794,12 +766,6 @@ class Meningitis extends BaseCase
     public function setBloodCollected($bloodCollected)
     {
         $this->bloodCollected = $bloodCollected;
-        return $this;
-    }
-
-    public function setBloodId($bloodId)
-    {
-        $this->bloodId = $bloodId;
         return $this;
     }
 

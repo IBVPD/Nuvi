@@ -56,6 +56,18 @@ class SiteLab extends BaseSiteLab
     private $csfLabDateTime;
 
     /**
+     * @var string $csfId
+     * @ORM\Column(name="csfId",type="string",nullable=true)
+     */
+    private $csfId;
+
+    /**
+     * @var string $bloodId
+     * @ORM\Column(name="bloodId",type="string",nullable=true)
+     */
+    private $bloodId;
+
+    /**
      * @var boolean $csfWcc
      * @ORM\Column(name="csfWcc", type="integer",nullable=true)
      * @Assert\Range(min=0,max=9999,minMessage="You cannot have a negative white blood cell count",maxMessage="Invalid value")
@@ -658,6 +670,26 @@ class SiteLab extends BaseSiteLab
     public function getNmSerogroupOther()
     {
         return $this->nmSerogroupOther;
+    }
+
+    public function getCsfId()
+    {
+        return $this->csfId;
+    }
+
+    public function getBloodId()
+    {
+        return $this->bloodId;
+    }
+
+    public function setCsfId($csfId)
+    {
+        $this->csfId = $csfId;
+    }
+
+    public function setBloodId($bloodId)
+    {
+        $this->bloodId = $bloodId;
     }
 
     public function setSpnSerotypeOther($spnSerotypeOther)

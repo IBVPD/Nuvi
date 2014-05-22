@@ -65,7 +65,6 @@ class CaseType extends AbstractType
             ->add('meningMostRecentDose',   'acedatepicker',             array('required'=>false,'label'=>'meningitis-form.meningMostRecentDose',   'attr' => array('data-context-parent'=>'meningReceived', 'data-context-value'=>json_encode(array(VaccinationReceived::YES_CARD,VaccinationReceived::YES_HISTORY)))))
 
             ->add('csfCollected',           'TripleChoice',     array('required'=>false,'label'=>'meningitis-form.csf-collected',             'attr' => array('data-context-child'=>'csfCollected','data-context-value'=>TripleChoice::YES)))
-            ->add('csfId',                  null,               array('required'=>false,'label'=>'meningitis-form.csf-id',                    'attr' => array('data-context-parent'=>'csfCollected','data-context-value'=>true)))
             ->add('csfCollectDateTime',     'acedatetime',      array('required'=>false,'label'=>'meningitis-form.csf-collect-datetime',      'attr' => array('data-context-parent'=>'csfCollected','data-context-value'=>true)))
             ->add('csfAppearance',          'CSFAppearance',    array('required'=>false,'label'=>'meningitis-form.csf-appearance',            'attr' => array('data-context-parent'=>'csfCollected','data-context-value'=>true)))
 
@@ -102,7 +101,7 @@ class CaseType extends AbstractType
                              ->add('pneuHypothermia',   'TripleChoice', array('required'=>false,'label'=>'meningitis-form.pneu-hypothermia'))
                              ->add('pneuMalnutrition',  'TripleChoice', array('required'=>false,'label'=>'meningitis-form.pneu-malnutrition'))
                              ->add('bloodCollected',    'TripleChoice', array('required'=>false,'label'=>'meningitis-form.blood-collected','attr'=>array('data-context-child'=>'bloodCollected')))
-                             ->add('bloodId',           null,           array('required'=>false,'label'=>'meningitis-form.blood-id',       'attr'=>array('data-context-parent'=>'bloodCollected','data-context-value'=>  TripleChoice::YES)));
+                            ;
                     }
                 });
     }

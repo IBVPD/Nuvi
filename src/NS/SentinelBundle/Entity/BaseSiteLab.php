@@ -28,7 +28,7 @@ class BaseSiteLab
      * Set sentToReferenceLab
      *
      * @param boolean $sentToReferenceLab
-     * @return Meningitis
+     *
      */
     public function setSentToReferenceLab($sentToReferenceLab)
     {
