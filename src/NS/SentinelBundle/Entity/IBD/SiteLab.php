@@ -12,6 +12,9 @@ use NS\SentinelBundle\Form\Types\BinaxResult;
 use NS\SentinelBundle\Form\Types\PCRResult;
 use NS\SentinelBundle\Form\Types\CaseStatus;
 use Symfony\Component\Validator\ExecutionContextInterface;
+use NS\SentinelBundle\Form\Types\SpnSerotype;
+use NS\SentinelBundle\Form\Types\HiSerotype;
+use NS\SentinelBundle\Form\Types\NmSerogroup;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use \NS\SecurityBundle\Annotation\Secured;
@@ -120,8 +123,8 @@ class SiteLab extends BaseSiteLab
     private $csfPcrDone;
 
     /**
-     * @var LatResult $csfCultResult
-     * @ORM\Column(name="csfCultResult",type="LatResult",nullable=true)
+     * @var CultureResult $csfCultResult
+     * @ORM\Column(name="csfCultResult",type="CultureResult",nullable=true)
      */
     private $csfCultResult;
 
@@ -301,8 +304,8 @@ class SiteLab extends BaseSiteLab
     private $otherTest;
 
     /**
-     * @var LatResult
-     * @ORM\Column(name="bloodCultResult",type="LatResult",nullable=true)
+     * @var CultureResult
+     * @ORM\Column(name="bloodCultResult",type="CultureResult",nullable=true)
      */
     private $bloodCultResult;
 
@@ -343,8 +346,8 @@ class SiteLab extends BaseSiteLab
     private $bloodPcrOther;
 
     /**
-     * @var LatResult
-     * @ORM\Column(name="otherCultResult",type="LatResult",nullable=true)
+     * @var CultureResult
+     * @ORM\Column(name="otherCultResult",type="CultureResult",nullable=true)
      */
     private $otherCultResult;
 
@@ -353,18 +356,6 @@ class SiteLab extends BaseSiteLab
      * @ORM\Column(name="otherCultOther",type="string",nullable=true)
      */
     private $otherCultOther;
-
-    /**
-     * @var PCRResult
-     * @ORM\Column(name="otherTestResult",type="PCRResult",nullable=true)
-     */    
-    private $otherTestResult;
-    
-    /**
-     * @var string
-     * @ORM\Column(name="otherTestOther",type="string",nullable=true)
-     */
-    private $otherTestOther;
 
     /**
      * @var DateTime $updatedAt
@@ -592,16 +583,6 @@ class SiteLab extends BaseSiteLab
         return $this->otherCultDone;
     }
 
-    public function getOtherTestDone()
-    {
-        return $this->otherTestDone;
-    }
-
-    public function getOtherTest()
-    {
-        return $this->otherTest;
-    }
-
     public function getBloodCultResult()
     {
         return $this->bloodCultResult;
@@ -647,16 +628,6 @@ class SiteLab extends BaseSiteLab
         return $this->otherCultOther;
     }
 
-    public function getOtherTestResult()
-    {
-        return $this->otherTestResult;
-    }
-
-    public function getOtherTestOther()
-    {
-        return $this->otherTestOther;
-    }
-
     public function getSpnSerotypeOther()
     {
         return $this->spnSerotypeOther;
@@ -680,6 +651,26 @@ class SiteLab extends BaseSiteLab
     public function getBloodId()
     {
         return $this->bloodId;
+    }
+
+    public function getOtherTestDone()
+    {
+        return $this->otherTestDone;
+    }
+
+    public function getOtherTest()
+    {
+        return $this->otherTest;
+    }
+
+    public function setOtherTestDone(TripleChoice $otherTestDone)
+    {
+        $this->otherTestDone = $otherTestDone;
+    }
+
+    public function setOtherTest($otherTest)
+    {
+        $this->otherTest = $otherTest;
     }
 
     public function setCsfId($csfId)
@@ -773,7 +764,7 @@ class SiteLab extends BaseSiteLab
         return $this;
     }
 
-    public function setCsfCultResult(LatResult $csfCultResult)
+    public function setCsfCultResult(CultureResult $csfCultResult)
     {
         $this->csfCultResult = $csfCultResult;
         return $this;
@@ -917,19 +908,7 @@ class SiteLab extends BaseSiteLab
         return $this;
     }
 
-    public function setOtherTestDone(TripleChoice $otherTestDone)
-    {
-        $this->otherTestDone = $otherTestDone;
-        return $this;
-    }
-
-    public function setOtherTest($otherTest)
-    {
-        $this->otherTest = $otherTest;
-        return $this;
-    }
-
-    public function setBloodCultResult(LatResult $bloodCultResult)
+    public function setBloodCultResult(CultureResult $bloodCultResult)
     {
         $this->bloodCultResult = $bloodCultResult;
         return $this;
@@ -971,7 +950,7 @@ class SiteLab extends BaseSiteLab
         return $this;
     }
 
-    public function setOtherCultResult(LatResult $otherCultResult)
+    public function setOtherCultResult(CultureResult $otherCultResult)
     {
         $this->otherCultResult = $otherCultResult;
         return $this;
@@ -980,18 +959,6 @@ class SiteLab extends BaseSiteLab
     public function setOtherCultOther($otherCultOther)
     {
         $this->otherCultOther = $otherCultOther;
-        return $this;
-    }
-
-    public function setOtherTestResult(PCRResult $otherTestResult)
-    {
-        $this->otherTestResult = $otherTestResult;
-        return $this;
-    }
-
-    public function setOtherTestOther($otherTestOther)
-    {
-        $this->otherTestOther = $otherTestOther;
         return $this;
     }
 
@@ -1025,8 +992,8 @@ class SiteLab extends BaseSiteLab
         if($this->csfCultDone && $this->csfCultDone->equal(TripleChoice::YES) && !$this->csfCultResult)
             $context->addViolationAt('csfCultDone',"form.validation.meningitis-sitelab-csfCult-was-done-without-result");
 
-        if($this->csfCultDone && $this->csfCultDone->equal(TripleChoice::YES) && $this->csfCultResult && $this->csfCultResult->equal(LatResult::OTHER) && empty($this->csfCultOther))
-            $context->addViolationAt('csfCultDone',"form.validation.meningitis-sitelab-csfCult-was-done-without-result");
+        if($this->csfCultDone && $this->csfCultDone->equal(TripleChoice::YES) && $this->csfCultResult && $this->csfCultResult->equal(CultureResult::OTHER) && empty($this->csfCultOther))
+            $context->addViolationAt('csfCultDone',"form.validation.meningitis-sitelab-csfCult-was-done-without-result-other");
 
         if($this->csfBinaxDone && $this->csfBinaxDone->equal(TripleChoice::YES) && !$this->csfBinaxResult)
             $context->addViolationAt('csfBinaxDone',"form.validation.meningitis-sitelab-csfBinax-was-done-without-result");
@@ -1035,7 +1002,7 @@ class SiteLab extends BaseSiteLab
             $context->addViolationAt('csfLatDone',"form.validation.meningitis-sitelab-csfLat-was-done-without-result");
 
         if($this->csfLatDone && $this->csfLatDone->equal(TripleChoice::YES) && $this->csfLatResult && $this->csfLatResult->equal(LatResult::OTHER) && empty($this->csfLatOther))
-            $context->addViolationAt('csfLatDone',"form.validation.meningitis-sitelab-csfLat-was-done-without-result");
+            $context->addViolationAt('csfLatDone',"form.validation.meningitis-sitelab-csfLat-was-done-without-result-other");
 
         if($this->csfPcrDone && $this->csfPcrDone->equal(TripleChoice::YES) && !$this->csfPcrResult)
             $context->addViolationAt('csfPcrDone',"form.validation.meningitis-sitelab-csfPcr-was-done-without-result");
@@ -1043,14 +1010,26 @@ class SiteLab extends BaseSiteLab
         if($this->csfPcrDone && $this->csfPcrDone->equal(TripleChoice::YES) && $this->csfPcrResult && $this->csfPcrResult->equal(PCRResult::OTHER) && empty($this->csfPcrOther))
             $context->addViolationAt('csfPcrDone',"form.validation.meningitis-sitelab-csfPcr-was-done-without-result");
 
-        if($this->spnSerotype && $this->spnSerotype->equal(\NS\SentinelBundle\Form\Types\SpnSerotype::OTHER) && (!$this->spnSerotypeOther || empty($this->spnSerotypeOther)))
+        if($this->spnSerotype && $this->spnSerotype->equal(SpnSerotype::OTHER) && (!$this->spnSerotypeOther || empty($this->spnSerotypeOther)))
             $context->addViolationAt('spnSerotype',"form.validation.meningitis-sitelab-spnSerotype-other-without-data");
 
-        if($this->hiSerotype && $this->hiSerotype->equal(\NS\SentinelBundle\Form\Types\SpnSerotype::OTHER) && (!$this->hiSerotypeOther || empty($this->hiSerotypeOther)))
+        if($this->hiSerotype && $this->hiSerotype->equal(HiSerotype::OTHER) && (!$this->hiSerotypeOther || empty($this->hiSerotypeOther)))
             $context->addViolationAt('hiSerotype',"form.validation.meningitis-sitelab-hiSerotype-other-without-data");
 
-        if($this->nmSerogroup && $this->nmSerogroup->equal(\NS\SentinelBundle\Form\Types\SpnSerotype::OTHER) && (!$this->nmSerogroupOther || empty($this->nmSerogroupOther)))
+        if($this->nmSerogroup && $this->nmSerogroup->equal(NmSerogroup::OTHER) && (!$this->nmSerogroupOther || empty($this->nmSerogroupOther)))
             $context->addViolationAt('nmSerogroup',"form.validation.meningitis-sitelab-nmSerogroup-other-without-data");
+
+        if($this->bloodCultDone && $this->bloodCultDone->equal(TripleChoice::YES) && !$this->bloodCultResult)
+            $context->addViolationAt('csfCultDone',"form.validation.meningitis-sitelab-bloodCult-was-done-without-result");
+
+        if($this->bloodCultDone && $this->bloodCultDone->equal(TripleChoice::YES) && $this->bloodCultResult && $this->bloodCultResult->equal(CultureResult::OTHER) && empty($this->bloodCultOther))
+            $context->addViolationAt('bloodCultDone',"form.validation.meningitis-sitelab-bloodCult-was-done-without-result");
+
+        if($this->otherCultDone && $this->otherCultDone->equal(TripleChoice::YES) && !$this->otherCultResult)
+            $context->addViolationAt('csfCultDone',"form.validation.meningitis-sitelab-otherCult-was-done-without-result");
+
+        if($this->otherCultDone && $this->otherCultDone->equal(TripleChoice::YES) && $this->otherCultResult && $this->otherCultResult->equal(CultureResult::OTHER) && empty($this->otherCultOther))
+            $context->addViolationAt('otherCultDone',"form.validation.meningitis-sitelab-otherCult-was-done-without-result");
     }
 
     private function _calculateStatus()

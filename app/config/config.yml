@@ -100,6 +100,7 @@ doctrine:
             CXRAdditionalResult: NS\SentinelBundle\Entity\Types\CXRAdditionalResult
             PCVType: NS\SentinelBundle\Entity\Types\PCVType
             RotavirusDischargeOutcome: NS\SentinelBundle\Entity\Types\RotavirusDischargeOutcome
+            CultureResult: NS\SentinelBundle\Entity\Types\CultureResult
         mapping_types:
             TripleChoice: TripleChoice
             Doses: Doses
@@ -143,6 +144,7 @@ doctrine:
             CXRAdditionalResult: CXRAdditionalResult
             PCVType: PCVType
             RotavirusDischargeOutcome: RotavirusDischargeOutcome
+            CultureResult: CultureResult
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true

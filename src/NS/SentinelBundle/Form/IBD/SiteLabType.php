@@ -9,7 +9,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
 use NS\SentinelBundle\Services\SerializedSites;
 use NS\SentinelBundle\Form\Types\TripleChoice;
-use NS\SentinelBundle\Form\Types\LatResult;
+use NS\SentinelBundle\Form\Types\CultureResult;
 use NS\SentinelBundle\Form\Types\SpnSerotype;
 use NS\SentinelBundle\Form\Types\HiSerotype;
 use NS\SentinelBundle\Form\Types\NmSerogroup;
@@ -39,17 +39,17 @@ class SiteLabType extends AbstractType
             ->add('csfWcc',             null,                   array('required'=>false, 'label'=>'meningitis-form.csf-wcc'))
             ->add('csfGlucose',         null,                   array('required'=>false, 'label'=>'meningitis-form.csf-glucose'))
             ->add('csfProtein',         null,                   array('required'=>false, 'label'=>'meningitis-form.csf-protein'))
-            ->add('csfCultDone',        'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.csf-cult-done',      'attr' => array('data-context-child'=>'csfCultDone')))
-            ->add('csfCultResult',      'LatResult',            array('required'=>false, 'label'=>'meningitis-form.csf-cult-result',    'attr' => array('data-context-parent'=>'csfCultDone', 'data-context-child'=>'csfCultDoneOther', 'data-context-value'=> TripleChoice::YES)))
-            ->add('csfCultOther',       null,                   array('required'=>false, 'label'=>'meningitis-form.csf-culture-other',  'attr' => array('data-context-parent'=>'csfCultDoneOther', 'data-context-value'=> LatResult::OTHER)))
+            ->add('csfCultDone',        'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.csf-cult-done',     'attr' => array('data-context-child'=>'csfCultDone')))
+            ->add('csfCultResult',      'CultureResult',        array('required'=>false, 'label'=>'meningitis-form.csf-cult-result',   'attr' => array('data-context-parent'=>'csfCultDone', 'data-context-child'=>'csfCultDoneOther', 'data-context-value'=> TripleChoice::YES)))
+            ->add('csfCultOther',       null,                   array('required'=>false, 'label'=>'meningitis-form.csf-culture-other', 'attr' => array('data-context-parent'=>'csfCultDoneOther', 'data-context-value'=> CultureResult::OTHER)))
 
             ->add('csfGramDone',        'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.csf-gram-done',            'attr' => array('data-context-child'=>'csfGramDone')))
             ->add('csfGramResult',      'GramStain',            array('required'=>false, 'label'=>'meningitis-form.csf-gram-result',          'attr' => array('data-context-parent'=>'csfGramDone',           'data-context-child'=>'csfGramResult',        'data-context-value'=> TripleChoice::YES)))
             ->add('csfGramResultOrganism','GramStainOrganism',  array('required'=>false, 'label'=>'meningitis-form.csf-gram-result-organism', 'attr' => array('data-context-parent'=>'csfGramResult',         'data-context-child'=>'csfGramResultOrganism','data-context-value'=> json_encode(array(GramStain::GM_NEGATIVE,GramStain::GM_POSITIVE)))))
             ->add('csfGramOther',       null,                   array('required'=>false, 'label'=>'meningitis-form.csf-gram-other',           'attr' => array('data-context-parent'=>'csfGramResultOrganism', 'data-context-value'=> GramStainOrganism::OTHER)))
 
-            ->add('csfBinaxDone',       'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.csf-binax-done',     'attr' => array('data-context-child'=>'csfBinaxDone')))
-            ->add('csfBinaxResult',     'BinaxResult',          array('required'=>false, 'label'=>'meningitis-form.csf-binax-result',   'attr' => array('data-context-parent'=>'csfBinaxDone', 'data-context-value'=> TripleChoice::YES)))
+            ->add('csfBinaxDone',       'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.csf-binax-done',   'attr' => array('data-context-child'=>'csfBinaxDone')))
+            ->add('csfBinaxResult',     'BinaxResult',          array('required'=>false, 'label'=>'meningitis-form.csf-binax-result', 'attr' => array('data-context-parent'=>'csfBinaxDone', 'data-context-value'=> TripleChoice::YES)))
 
             ->add('csfLatDone',         'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.csf-lat-done',    'attr' => array('data-context-child'=>'csfLatDone')))
             ->add('csfLatResult',       'LatResult',            array('required'=>false, 'label'=>'meningitis-form.csf-lat-result',  'attr' => array('data-context-parent'=>'csfLatDone', 'data-context-value'=> TripleChoice::YES)))
@@ -68,14 +68,14 @@ class SiteLabType extends AbstractType
             ->add('isolStore',          'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.isol-store'))
             ->add('spnSerotype',        'SpnSerotype',          array('required'=>false, 'label'=>'meningitis-form.spn-serotype',       'attr' => array('data-context-child'=>'spnSerotype')))
             ->add('spnSerotypeOther',   null,                   array('required'=>false, 'label'=>'meningitis-form.spn-serotype-other', 'attr' => array('data-context-parent'=>'spnSerotype','data-context-value'=> SpnSerotype::OTHER)))
-            ->add('hiSerotype',         'HiSerotype',           array('required'=>false, 'label'=>'meningitis-form.hi-serotype',       'attr' => array('data-context-child'=>'hiSerotype')))
-            ->add('hiSerotypeOther',    null,                   array('required'=>false, 'label'=>'meningitis-form.hi-serotype-other', 'attr' => array('data-context-parent'=>'hiSerotype','data-context-value'=>  HiSerotype::OTHER)))
+            ->add('hiSerotype',         'HiSerotype',           array('required'=>false, 'label'=>'meningitis-form.hi-serotype',        'attr' => array('data-context-child'=>'hiSerotype')))
+            ->add('hiSerotypeOther',    null,                   array('required'=>false, 'label'=>'meningitis-form.hi-serotype-other',  'attr' => array('data-context-parent'=>'hiSerotype','data-context-value'=>  HiSerotype::OTHER)))
             ->add('nmSerogroup',        'NmSerogroup',          array('required'=>false, 'label'=>'meningitis-form.nm-serogroup',       'attr' => array('data-context-child'=>'nmSerogroup')))
             ->add('nmSerogroupOther',   null,                   array('required'=>false, 'label'=>'meningitis-form.nm-serogroup-other', 'attr' => array('data-context-parent'=>'nmSerogroup','data-context-value'=> NmSerogroup::OTHER)))
 
             ->add('bloodId',           null,                    array('required'=>false,'label'=>'meningitis-form.blood-id'))
             ->add('bloodCultDone',      'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.blood-cult-done',    'attr' => array('data-context-child'=>'bloodCultDone')))
-            ->add('bloodCultResult',    'LatResult',            array('required'=>false, 'label'=>'meningitis-form.blood-cult-result',  'attr' => array('data-context-parent'=>'bloodCultDone','data-context-value'=> TripleChoice::YES)))
+            ->add('bloodCultResult',    'CultureResult',        array('required'=>false, 'label'=>'meningitis-form.blood-cult-result',  'attr' => array('data-context-parent'=>'bloodCultDone','data-context-value'=> TripleChoice::YES)))
             ->add('bloodCultOther',     null,                   array('required'=>false, 'label'=>'meningitis-form.blood-cult-other',   'attr' => array('data-context-parent'=>'bloodCultDone','data-context-value'=> TripleChoice::YES)))
 
             ->add('bloodGramDone',      'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.blood-gram-done',            'attr' => array('data-context-child'=>'bloodGramDone')))
@@ -87,8 +87,8 @@ class SiteLabType extends AbstractType
             ->add('bloodPcrResult',     'PCRResult',            array('required'=>false, 'label'=>'meningitis-form.blood-pcr-result',  'attr' => array('data-context-parent'=>'bloodPcrDone','data-context-value'=> TripleChoice::YES)))
             ->add('bloodPcrOther',      null,                   array('required'=>false, 'label'=>'meningitis-form.blood-pcr-other',   'attr' => array('data-context-parent'=>'bloodPcrDone','data-context-value'=> TripleChoice::YES)))
 
-            ->add('otherCultDone',      'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.other-cult-done1',    'attr'=>array('data-context-child'=>'otherCultDone')))
-            ->add('otherCultResult',    'LatResult',            array('required'=>false, 'label'=>'meningitis-form.other-cult-result',  'attr'=>array('data-context-parent'=>'otherCultDone','data-context-value'=> TripleChoice::YES)))
+            ->add('otherCultDone',      'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.other-cult-done1',   'attr'=>array('data-context-child'=>'otherCultDone')))
+            ->add('otherCultResult',    'CultureResult',        array('required'=>false, 'label'=>'meningitis-form.other-cult-result',  'attr'=>array('data-context-parent'=>'otherCultDone','data-context-value'=> TripleChoice::YES)))
             ->add('otherCultOther',     null,                   array('required'=>false, 'label'=>'meningitis-form.other-cult-other',   'attr'=>array('data-context-parent'=>'otherCultDone','data-context-value'=> TripleChoice::YES)))
         ;
 
