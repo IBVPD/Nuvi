@@ -2,14 +2,15 @@
 
 namespace NS\SentinelBundle\Form\Types;
 
-use JMS\TranslationBundle\Translation\TranslationContainerInterface;
+use \NS\UtilBundle\Form\Types\SetChoice;
 use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
 /**
  * Description of SampleType
  *
  */
-class SampleType extends TranslatableArrayChoice implements TranslationContainerInterface
+class SampleType extends SetChoice
 {
     const CSF        = 1;
     const ISOLATE    = 2;
@@ -18,7 +19,7 @@ class SampleType extends TranslatableArrayChoice implements TranslationContainer
     const PLEURAL    = 5;
     const INOCULATED = 6;
 
-    protected $values = array(
+    protected $set = array(
                                 self::CSF        => 'CSF',
                                 self::ISOLATE    => 'Isolate',
                                 self::WHOLE      => 'Whole Blood',

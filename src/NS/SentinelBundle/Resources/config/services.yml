@@ -312,6 +312,12 @@ services:
       tags:
         - { name: form.type, alias: ibd_sitelab }
 
+    ns.sentinel.form.type.ibd_sitelab:
+      class: NS\SentinelBundle\Form\IBD\LabSampleType
+      arguments: [ "@ns.sentinel.sites" ]
+      tags:
+        - { name: form.type, alias: ibd_lab_sample }
+
     ns.sentinel.form.type.ibd:
       class: NS\SentinelBundle\Form\IBD\CaseType
       arguments: [ "@ns.sentinel.sites","@ns.model_manager" ]

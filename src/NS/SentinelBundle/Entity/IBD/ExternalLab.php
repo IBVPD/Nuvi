@@ -10,6 +10,7 @@ use NS\SentinelBundle\Form\Types\SerotypeIdentifier;
 use NS\SentinelBundle\Form\Types\SampleType;
 use NS\SentinelBundle\Form\Types\Volume;
 use NS\SentinelBundle\Form\Types\IsolateType;
+use Doctrine\Common\Collections\ArrayCollection;
 
 // Annotations
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -39,6 +40,12 @@ use Symfony\Component\Validator\ExecutionContextInterface;
 abstract class ExternalLab extends BaseExternalLab
 {
     /**
+     * @var ExternalLabSample $samples
+     * @ORM\OneToMany(targetEntity="\NS\SentinelBundle\Entity\IBD\ExternalLabSample", mappedBy="lab")
+     */
+    private $samples;
+
+    /**
      * @ORM\ManyToOne(targetEntity="\NS\SentinelBundle\Entity\Meningitis",inversedBy="externalLabs")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -48,109 +55,58 @@ abstract class ExternalLab extends BaseExternalLab
      * @var SampleType
      * @ORM\Column(type="SampleType",nullable=true)
      */
-    protected $sampleType;
+    private $sampleType;
 
     /**
      * @var DateTime $dateReceived
      * @ORM\Column(name="dateReceived", type="date",nullable=true)
      */
-    protected $dateReceived;
+    private $dateReceived;
 
     /**
      * @var Volume
      * @ORM\Column(type="Volume",nullable=true)
      */
-    protected $volume;
+    private $volume;
 
     /**
      * @var DateTime
      * @ORM\Column(type="date",nullable=true)
      */
-    protected $DNAExtractionDate;
+    private $DNAExtractionDate;
 
     /**
      * @var integer
      * @ORM\Column(name="DNAVolume",type="integer",nullable=true)
      */
-    protected $DNAVolume;
+    private $DNAVolume;
 
     /**
      * @var TripleChoice
      * @ORM\Column(name="isolateViable",type="TripleChoice",nullable=true)
      */
-    protected $isolateViable;
+    private $isolateViable;
 
     /**
      * @var IsolateType
      * @ORM\Column(name="isolateType",type="IsolateType",nullable=true)
      */
-    protected $isolateType;
+    private $isolateType;
 
-    /**
-     * @var PathogenIdentifier
-     * @ORM\Column(name="pathogenIdentifierMethod",type="PathogenIdentifier",nullable=true)
-     */
-    protected $pathogenIdentifierMethod;
+    public function __construct()
+    {
+        $this->samples = new ArrayCollection();
+    }
 
-    /**
-     * @var string
-     * @ORM\Column(name="pathogenIdentifierOther", type="string",nullable=true)
-     */
-    protected $pathogenIdentifierOther;
+    public function getSamples()
+    {
+        return $this->samples;
+    }
 
-    /**
-     * @var SerotypeIdentifier
-     * @ORM\Column(name="serotypeIdentifier",type="SerotypeIdentifier",nullable=true)
-     */
-    protected $serotypeIdentifier;
-
-    /**
-     * @var string
-     * @ORM\Column(name="serotypeIdentifierOther",type="string",nullable=true)
-     */
-    protected $serotypeIdentifierOther;
-
-    /**
-     * @var double
-     * @ORM\Column(name="lytA",type="decimal",precision=3, scale=1,nullable=true)
-     */
-    protected $lytA;
-
-    /**
-     * @var double
-     * @ORM\Column(name="sodC",type="decimal",precision=3, scale=1,nullable=true)
-     */
-    protected $sodC;
-
-    /**
-     * @var double
-     * @ORM\Column(name="hpd",type="decimal",precision=3, scale=1,nullable=true)
-     */
-    protected $hpd;
-
-    /**
-     * @var double
-     * @ORM\Column(name="rNaseP",type="decimal",precision=3, scale=1,nullable=true)
-     */
-    protected $rNaseP;
-
-    /**
-     * @var double
-     * @ORM\Column(name="spnSerotype",type="decimal",precision=3, scale=1,nullable=true)
-     */
-    protected $spnSerotype;
-
-    /**
-     * @var double
-     * @ORM\Column(name="hiSerotype",type="decimal",precision=3, scale=1,nullable=true)
-     */
-    protected $hiSerotype;
-
-    /**
-     * @var double
-     * @ORM\Column(name="nmSerogroup",type="decimal",precision=3, scale=1,nullable=true)
-     */
-    protected $nmSerogroup;
+    public function setSamples(ExternalLabSample $samples)
+    {
+        $this->samples = $samples;
+    }
 
     /**
      * Set sampleType

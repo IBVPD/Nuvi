@@ -43,37 +43,6 @@
                 </div>
             </div>
 
-            <div id="methods" class="tab-pane">
-                {{form_row(form.pathogenIdentifierMethod)}}
-                {{form_row(form.pathogenIdentifierOther)}}
-                {{form_row(form.serotypeIdentifier)}}
-                {{form_row(form.serotypeIdentifierOther)}}
-            </div>
-
-            <div id="ctvalues" class="tab-pane">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6 col-lg-6">
-                        {{form_row(form.lytA)}}
-                        {{form_row(form.sodC)}}
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-6">
-                        {{form_row(form.hpd)}}
-                        {{form_row(form.rNaseP)}}
-                    </div>
-                </div>
-            </div>
-
-            <div id="serotype" class="tab-pane">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6 col-lg-6">
-                        {{form_row(form.spnSerotype)}}
-                        {{form_row(form.hiSerotype)}}
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-6">
-                        {{form_row(form.nmSerogroup)}}
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="form-actions center">
             <a href="{{path('meningitisIndex')}}" class="btn btn-sm btn-danger">{{'Cancel'|trans}}</a> <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
