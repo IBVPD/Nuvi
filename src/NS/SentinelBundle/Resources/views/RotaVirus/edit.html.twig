@@ -46,14 +46,24 @@
             </div>
             <div id="history" class="tab-pane">
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                         {{form_row(form.vaccinationReceived)}}
+                    </div>
+                    <div class="col-sm-4">
                         {{form_row(form.vaccinationType)}}
+                    </div>
+                    <div class="col-sm-4">
                         {{form_row(form.doses)}}
                     </div>
-                    <div class="col-sm-6">
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
                         {{form_row(form.firstVaccinationDose)}}
+                    </div>
+                    <div class="col-sm-4">
                         {{form_row(form.secondVaccinationDose)}}
+                    </div>
+                    <div class="col-sm-4">
                         {{form_row(form.thirdVaccinationDose)}}
                     </div>
                 </div>

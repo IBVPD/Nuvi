@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use NS\SentinelBundle\Form\Types\RotavirusVaccinationReceived;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Form\Types\Dehydration;
+use \NS\SentinelBundle\Form\Types\RotavirusDoses;
 
 class CaseType extends AbstractType
 {
@@ -43,13 +44,29 @@ class CaseType extends AbstractType
             ->add('rehydrationType',            'Rehydration',      array('required'=>false, 'label'=>'rotavirus-form.rehydrationType',          'attr' => array('data-context-parent'=>'symptomDehydrationAmount','data-context-value'=> json_encode(array(Dehydration::SOME,Dehydration::SEVERE)))))
             ->add('rehydrationOther',           null,               array('required'=>false, 'label'=>'rotavirus-form.rehydrationOther',         'attr' => array('data-context-parent'=>'symptomDehydrationAmount','data-context-value'=> json_encode(array(Dehydration::SOME,Dehydration::SEVERE)))))
 
-            ->add('vaccinationReceived',        'RotavirusVaccinationReceived', array('required'=>false, 'label'=>'rotavirus-form.vaccinationReceived', 'attr' => array('data-context-child'=>'vaccineReceived')))
-            ->add('vaccinationType',            'RotavirusVaccinationType',     array('required'=>false, 'label'=>'rotavirus-form.vaccinationType',     'attr' => array('data-context-parent'=>'vaccineReceived', 'data-context-value'=>json_encode(array(RotavirusVaccinationReceived::YES_CARD,RotavirusVaccinationReceived::YES_HISTORY)))))
-            ->add('doses',                      'RotavirusDoses',   array('required'=>false, 'label'=>'rotavirus-form.doses',                           'attr' => array('data-context-parent'=>'vaccineReceived', 'data-context-value'=>json_encode(array(RotavirusVaccinationReceived::YES_CARD,RotavirusVaccinationReceived::YES_HISTORY)))))
-            ->add('firstVaccinationDose',       'acedatepicker',    array('required'=>false, 'label'=>'rotavirus-form.firstVaccinationDose',            'attr' => array('data-context-parent'=>'vaccineReceived', 'data-context-value'=>json_encode(array(RotavirusVaccinationReceived::YES_CARD,RotavirusVaccinationReceived::YES_HISTORY)))))
-            ->add('secondVaccinationDose',      'acedatepicker',    array('required'=>false, 'label'=>'rotavirus-form.secondVaccinationDose',           'attr' => array('data-context-parent'=>'vaccineReceived', 'data-context-value'=>json_encode(array(RotavirusVaccinationReceived::YES_CARD,RotavirusVaccinationReceived::YES_HISTORY)))))
-            ->add('thirdVaccinationDose',       'acedatepicker',    array('required'=>false, 'label'=>'rotavirus-form.thirdVaccinationDose',            'attr' => array('data-context-parent'=>'vaccineReceived', 'data-context-value'=>json_encode(array(RotavirusVaccinationReceived::YES_CARD,RotavirusVaccinationReceived::YES_HISTORY)))))
-
+            ->add('vaccinationReceived',        'RotavirusVaccinationReceived', array('required'=>false, 'label'=>'rotavirus-form.vaccinationReceived',
+                                                                                        'attr' => array('data-context-child'=>'vaccineReceived')))
+            ->add('vaccinationType',            'RotavirusVaccinationType',     array('required'=>false, 'label'=>'rotavirus-form.vaccinationType',
+                                                                                        'attr' => array(
+                                                                                                        'data-context-parent'=>'vaccineReceived',
+                                                                                                        'data-context-value'=>json_encode(array(RotavirusVaccinationReceived::YES_CARD,RotavirusVaccinationReceived::YES_HISTORY)))))
+            ->add('doses',                      'RotavirusDoses',   array('required'=>false, 'label'=>'rotavirus-form.doses',
+                                                                                        'attr' => array(
+                                                                                                        'data-context-parent'=>'vaccineReceived',
+                                                                                                        'data-context-child'=>'vaccineReceivedDoses',
+                                                                                                        'data-context-value'=>json_encode(array(RotavirusVaccinationReceived::YES_CARD,RotavirusVaccinationReceived::YES_HISTORY)))))
+            ->add('firstVaccinationDose',       'acedatepicker',    array('required'=>false, 'label'=>'rotavirus-form.firstVaccinationDose',
+                                                                                        'attr' => array(
+                                                                                                        'data-context-parent'=>'vaccineReceivedDoses',
+                                                                                                        'data-context-value'=> json_encode(array(RotavirusDoses::ONE,RotavirusDoses::TWO,RotavirusDoses::THREE)))))
+            ->add('secondVaccinationDose',      'acedatepicker',    array('required'=>false, 'label'=>'rotavirus-form.secondVaccinationDose',
+                                                                                        'attr' => array(
+                                                                                                        'data-context-parent'=>'vaccineReceivedDoses',
+                                                                                                        'data-context-value'=>json_encode(array(RotavirusDoses::TWO,RotavirusDoses::THREE)))))
+            ->add('thirdVaccinationDose',       'acedatepicker',    array('required'=>false, 'label'=>'rotavirus-form.thirdVaccinationDose',
+                                                                                        'attr' => array(
+                                                                                                        'data-context-parent'=>'vaccineReceivedDoses',
+                                                                                                        'data-context-value'=>RotavirusDoses::THREE)))
             ->add('stoolCollected',             'TripleChoice',     array('required'=>false, 'label'=>'rotavirus-form.stoolCollected',  'attr' => array('data-context-child'=>'stoolCollected')))
             ->add('stoolId',                    null,               array('required'=>false, 'label'=>'rotavirus-form.stoolId',         'attr' => array('data-context-parent'=>'stoolCollected','data-context-value'=>  TripleChoice::YES)))
             ->add('stoolCollectionDate',        'acedatepicker',    array('required'=>false, 'label'=>'rotavirus-form.stoolCollectionDate',         'attr' => array('data-context-parent'=>'stoolCollected','data-context-value'=>  TripleChoice::YES)))
