@@ -31,12 +31,28 @@
                     {% endif %}
                 </div>
                 <div id="stool" class="tab-pane">
-                    {{form_row(form.stoolReceivedDate)}}
-                    {{form_row(form.stoolAdequate)}}
-                    {{form_row(form.stoolELISADone)}}
-                    {{form_row(form.stoolTestDate)}}
-                    {{form_row(form.stoolELISAResult)}}
-                    {{form_row(form.stoolStored)}}                    
+                    <div class="row">
+                        <div class="col-sm-3">
+                            {{form_row(form.stoolReceivedDate)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.stoolStored)}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            {{form_row(form.stoolAdequate)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.stoolELISADone)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.stoolTestDate)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.stoolELISAResult)}}
+                        </div>
+                    </div>
                 </div>
                 <div id="stool-rrl" class="tab-pane">
                     {{form_row(form.stoolSentToRRL)}}
