@@ -20,7 +20,6 @@
                 <li><a data-toggle="tab" href="#methods">{{'Methods'|trans}}</a></li>
                 <li><a data-toggle="tab" href="#ctvalues">{{'CT Values From PCR'|trans}}</a></li>
                 <li><a data-toggle="tab" href="#serotype">{{'Serotype / Serogroup Results'|trans}}</a></li>
-                <li><a data-toggle="tab" href="#result">{{'Result Date'|trans}}</a></li>
             </ul>
         </div>
         <div class="tab-content">
@@ -74,11 +73,6 @@
                         {{form_row(form.nmSerogroup)}}
                     </div>
                 </div>
-            </div>
-
-            <div id="result" class="tab-pane">
-                {{form_row(form.resultSentToCountry)}}
-                {{form_row(form.resultSentToWHO)}}
             </div>
         </div>
         <div class="form-actions center">

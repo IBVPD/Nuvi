@@ -153,18 +153,6 @@ abstract class ExternalLab extends BaseExternalLab
     protected $nmSerogroup;
 
     /**
-     * @var \DateTime $resultSentToCountry
-     * @ORM\Column(name="resultSentToCountry",type="date",nullable=true)
-     */
-    protected $resultSentToCountry;
-
-    /**
-     * @var \DateTime $resultSentToWHO
-     * @ORM\Column(name="resultSentToWHO",type="date",nullable=true)
-     */
-    protected $resultSentToWHO;
-
-    /**
      * Set sampleType
      *
      * @param SampleType $sampleType
@@ -576,30 +564,6 @@ abstract class ExternalLab extends BaseExternalLab
     public function getNmSerogroup()
     {
         return $this->nmSerogroup;
-    }
-
-    public function getResultSentToCountry()
-    {
-        return $this->resultSentToCountry;
-    }
-
-    public function getResultSentToWHO()
-    {
-        return $this->resultSentToWHO;
-    }
-
-    public function setResultSentToCountry( $resultSentToCountry)
-    {
-        $this->resultSentToCountry = $resultSentToCountry;
-
-        return $this;
-    }
-
-    public function setResultSentToWHO( $resultSentToWHO)
-    {
-        $this->resultSentToWHO = $resultSentToWHO;
-
-        return $this;
     }
 
     public function getMandatoryFields()

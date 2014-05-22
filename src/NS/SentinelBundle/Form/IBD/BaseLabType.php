@@ -35,8 +35,6 @@ class BaseLabType extends AbstractType
             ->add('spnSerotype',                'SpnSerotype',          array('label'=>'meningitis-rrl-form.spnSerotype','required'=>false))
             ->add('hiSerotype',                 'HiSerotype',           array('label'=>'meningitis-rrl-form.hiSerotype','required'=>false))
             ->add('nmSerogroup',                'NmSerogroup',          array('label'=>'meningitis-rrl-form.nmSerogroup','required'=>false))
-            ->add('resultSentToCountry',        'acedatepicker',        array('label'=>'meningitis-rrl-form.result-sent-to-country','required'=>false))
-            ->add('resultSentToWHO',            'acedatepicker',        array('label'=>'meningitis-rrl-form.result-sent-to-who','required'=>false))
         ;
     }
 
