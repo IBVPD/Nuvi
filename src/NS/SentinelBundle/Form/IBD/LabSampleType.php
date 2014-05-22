@@ -18,6 +18,7 @@ class LabSampleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('type',                       'hidden',               array('mapped'=>false))
             ->add('pathogenIdentifierMethod',   'PathogenIdentifier',   array('label'=>'meningitis-rrl-form.pathogen-id-method','required'=>false, 'attr' => array('data-context-child'=>'pathogenIdentifierMethod')))
             ->add('pathogenIdentifierOther',    null,                   array('label'=>'meningitis-rrl-form.pathogen-id-other', 'required'=>false, 'attr' => array('data-context-parent'=>'pathogenIdentifierMethod', 'data-context-value'=>PathogenIdentifier::OTHER)))
             ->add('serotypeIdentifier',         'SerotypeIdentifier',   array('label'=>'meningitis-rrl-form.serotype-id-method','required'=>false, 'attr' => array('data-context-child'=>'serotypeIdentifier')))
