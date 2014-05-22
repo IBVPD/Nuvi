@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use NS\SentinelBundle\Entity\BaseSiteLab;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Form\Types\LatResult;
+use NS\SentinelBundle\Form\Types\CultureResult;
 use NS\SentinelBundle\Form\Types\GramStain;
 use NS\SentinelBundle\Form\Types\GramStainOrganism;
 use NS\SentinelBundle\Form\Types\BinaxResult;
