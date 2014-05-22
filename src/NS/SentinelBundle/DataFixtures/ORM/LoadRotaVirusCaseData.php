@@ -12,6 +12,7 @@ use \NS\SentinelBundle\Entity\Rota\SiteLab;
 use \NS\SentinelBundle\Form\Types\TripleChoice;
 use \NS\SentinelBundle\Form\Types\Gender;
 use \NS\SentinelBundle\Form\Types\Diagnosis;
+use \NS\SentinelBundle\Entity\Site;
 
 class LoadRotaVirusCaseData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
@@ -60,7 +61,7 @@ class LoadRotaVirusCaseData extends AbstractFixture implements OrderedFixtureInt
 
                 $m->setGender(($x%3)?$fmale:$male);
 
-                $m->setCaseId($this->getCaseId($site));
+                $m->setCaseId($this->getCaseId($site,$x));
                 $m->setSite($site);
 
                 $manager->persist($m);
@@ -70,7 +71,7 @@ class LoadRotaVirusCaseData extends AbstractFixture implements OrderedFixtureInt
         $manager->flush();
     }
 
-    private function getCaseId(\NS\SentinelBundle\Entity\Site $site)
+    private function getCaseId(Site $site)
     {
         return md5(uniqid().spl_object_hash($site).time());
     }

@@ -2,35 +2,34 @@
 
 namespace NS\SentinelBundle\Form\Types;
 
-use JMS\TranslationBundle\Translation\TranslationContainerInterface;
-use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
+use NS\UtilBundle\Form\Types\ArrayChoice;
 
 /**
- * Description of LatResult
+ * Description of CultureResult
  *
  */
-class LatResult extends TranslatableArrayChoice implements TranslationContainerInterface
+class CultureResult extends ArrayChoice
 {
-    const NEGATIVE  = 0;
-    const SPN       = 1;
-    const HI        = 2;
-    const NM        = 3;
-    const OTHER     = 4;
-    const INCONCLUSIVE = 5;
-    const UNKNOWN   = 99;
-    
+    const NEGATIVE      = 0;
+    const SPN           = 1;
+    const HI            = 2;
+    const NM            = 3;
+    const OTHER         = 4;
+    const CONTAMINANT   = 5;
+    const UNKNOWN       = 99;
+
     protected $values = array(
                                 self::NEGATIVE      => 'Negative',
                                 self::SPN           => 'Spn',
                                 self::HI            => 'Hi',
                                 self::NM            => 'Nm',
                                 self::OTHER         => 'Other',
-                                self::INCONCLUSIVE  => 'Inconclusive',
+                                self::CONTAMINANT   => 'Contaminant',
                                 self::UNKNOWN       => 'Unknown',
                              );
 
     public function getName()
     {
-        return 'LatResult';
+        return 'CultureResult';
     }
 }

@@ -43,13 +43,13 @@ Scenario Outline: A user cannot find cases outside their rights
       And I should be on "<path>"
       And I should see 0 "<css>" elements
     Examples:
-      | email                  | password        | form-id                  | form-button                | search | path       | css                  |
-      | site-alberta@noblet.ca | 1234567-alberta | rotavirus_filter_form_id | rotavirus_filter_form_find | MX     | /en/rota/  | #rotaCases tbody tr  |
-      | us@noblet.ca           | 1234567-us      | rotavirus_filter_form_id | rotavirus_filter_form_find | MX     | /en/rota/  | #rotaCases tbody tr  |
-      | ca@noblet.ca           | 1234567-ca      | rotavirus_filter_form_id | rotavirus_filter_form_find | MX     | /en/rota/  | #rotaCases tbody tr  |
-      | site-alberta@noblet.ca | 1234567-alberta | ibd_filter_form_id       | ibd_filter_form_find       | MX     | /en/ibd/   | #ibdCases tbody tr   |
-      | us@noblet.ca           | 1234567-us      | ibd_filter_form_id       | ibd_filter_form_find       | MX     | /en/ibd/   | #ibdCases tbody tr   |
-      | ca@noblet.ca           | 1234567-ca      | ibd_filter_form_id       | ibd_filter_form_find       | MX     | /en/ibd/   | #ibdCases tbody tr   |
+      | email                  | password        | form-id                      | form-button                | search | path       | css                  |
+      | site-alberta@noblet.ca | 1234567-alberta | rotavirus_filter_form_caseId | rotavirus_filter_form_find | MX     | /en/rota/  | #rotaCases tbody tr  |
+      | us@noblet.ca           | 1234567-us      | rotavirus_filter_form_caseId | rotavirus_filter_form_find | MX     | /en/rota/  | #rotaCases tbody tr  |
+      | ca@noblet.ca           | 1234567-ca      | rotavirus_filter_form_caseId | rotavirus_filter_form_find | MX     | /en/rota/  | #rotaCases tbody tr  |
+      | site-alberta@noblet.ca | 1234567-alberta | ibd_filter_form_caseId       | ibd_filter_form_find       | MX     | /en/ibd/   | #ibdCases tbody tr   |
+      | us@noblet.ca           | 1234567-us      | ibd_filter_form_caseId       | ibd_filter_form_find       | MX     | /en/ibd/   | #ibdCases tbody tr   |
+      | ca@noblet.ca           | 1234567-ca      | ibd_filter_form_caseId       | ibd_filter_form_find       | MX     | /en/ibd/   | #ibdCases tbody tr   |
 
 @mink:symfony2
 Scenario Outline: A user cannot directly access a case outside their rights

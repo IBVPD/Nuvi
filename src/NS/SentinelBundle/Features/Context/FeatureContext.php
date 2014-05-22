@@ -76,6 +76,16 @@ class FeatureContext extends MinkContext //MinkContext if you want to test web
     }
 
     /**
+     * @Given /^I visit "([^"]*)" with "([^"]*)"$/
+     */
+    public function iVisitWith($arg1, $arg2)
+    {
+        $path = str_replace('//','/',"$arg1/".sprintf($arg2,date('y')));
+
+        $this->visit($path);
+    }
+
+    /**
      * @Then /^I should not be on "([^"]*)"$/
      */
     public function iShouldNotBeOn($arg1)
@@ -90,7 +100,7 @@ class FeatureContext extends MinkContext //MinkContext if you want to test web
     {
         $profile   = $this->getSymfonyProfile();
         $collector = $profile->getCollector('exception');
-        \PHPUnit_Framework_Assert::assertFalse($collector->hasException());
+        \PHPUnit_Framework_Assert::assertFalse($collector->hasException(),($collector->hasException()?$collector->getException()->getMessage():null));
     }
 
     public function getSymfonyProfile()

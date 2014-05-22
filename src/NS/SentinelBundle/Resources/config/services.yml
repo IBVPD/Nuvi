@@ -2,6 +2,11 @@ parameters:
 #    ns_sentinel.example.class: NS\SentinelBundle\Example
 
 services:
+    ns.sentinel.form.type.cultureresult:
+      class: NS\SentinelBundle\Form\Types\CultureResult
+      tags:
+        - { name: form.type, alias: CultureResult }
+
     ns.sentinel.form.type.rotavirusdischargeoutcome:
       class: NS\SentinelBundle\Form\Types\RotavirusDischargeOutcome
       tags:

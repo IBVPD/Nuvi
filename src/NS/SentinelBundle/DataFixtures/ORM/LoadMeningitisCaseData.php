@@ -9,9 +9,9 @@ use \Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use \Symfony\Component\DependencyInjection\ContainerInterface;
 use \NS\SentinelBundle\Entity\Meningitis;
 use NS\SentinelBundle\Entity\IBD\SiteLab;
-use \NS\SentinelBundle\Form\Types\TripleChoice;
 use \NS\SentinelBundle\Form\Types\Gender;
 use \NS\SentinelBundle\Form\Types\Diagnosis;
+use \NS\SentinelBundle\Entity\Site;
 
 class LoadMeningitisCaseData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
@@ -64,7 +64,7 @@ class LoadMeningitisCaseData extends AbstractFixture implements OrderedFixtureIn
                 $dxKey = array_rand($dx);
                 $m->setDischDx($dx[$dxKey]);
 
-                $m->setCaseId($this->getCaseId($site));
+                $m->setCaseId($this->getCaseId($site,$x));
                 $m->setSite($site);
 
                 $manager->persist($m);
@@ -74,9 +74,9 @@ class LoadMeningitisCaseData extends AbstractFixture implements OrderedFixtureIn
         $manager->flush();
     }
 
-    private function getCaseId(\NS\SentinelBundle\Entity\Site $site)
+    private function getCaseId(Site $site, $x)
     {
-        return md5(uniqid().spl_object_hash($site).time());
+        return $site->getCode().'-'.$x;
     }
 
     public function getRandomDate(\DateTime $before = null, \DateTime $after = null)
