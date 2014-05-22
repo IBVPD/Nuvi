@@ -51,8 +51,8 @@ abstract class ExternalLab extends BaseExternalLab
     protected $sampleType;
 
     /**
-     * @var DateTime
-     * @ORM\Column(type="date",nullable=true)
+     * @var DateTime $dateReceived
+     * @ORM\Column(name="dateReceived", type="date",nullable=true)
      */
     protected $dateReceived;
 

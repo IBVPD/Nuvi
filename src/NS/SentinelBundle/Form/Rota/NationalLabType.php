@@ -3,7 +3,6 @@
 namespace NS\SentinelBundle\Form\Rota;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class NationalLabType extends AbstractType

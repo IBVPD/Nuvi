@@ -36,12 +36,6 @@ abstract class ExternalLab extends BaseExternalLab
     protected $caseClass = "\NS\SentinelBundle\Entity\RotaVirus";
 
     /**
-     * @var EIAResult $eiaResult
-     * @ORM\Column(name="eiaResult",type="EIAResult", nullable=true)
-     */
-    protected $eiaResult;
-
-    /**
      * @var \DateTime $dateReceived
      * @ORM\Column(name="dateReceived",type="date",nullable=true)
      */
@@ -95,11 +89,6 @@ abstract class ExternalLab extends BaseExternalLab
      */
     protected $genotypeResultSentToWHO;
 
-    public function getEiaResult()
-    {
-        return $this->eiaResult;
-    }
-
     public function getGenotypingDate()
     {
         return $this->genotypingDate;
@@ -140,10 +129,14 @@ abstract class ExternalLab extends BaseExternalLab
         return $this->genotypeResultSentToWHO;
     }
 
-    public function setEiaResult($eiaResult)
+    public function getDateReceived()
     {
-        $this->eiaResult = $eiaResult;
-        return $this;
+        return $this->dateReceived;
+    }
+
+    public function setDateReceived($dateReceived)
+    {
+        $this->dateReceived = $dateReceived;
     }
 
     public function setGenotypingDate($genotypingDate)

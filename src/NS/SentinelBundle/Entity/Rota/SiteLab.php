@@ -87,9 +87,8 @@ class SiteLab extends BaseSiteLab
      * @var TripleChoice $stoolSentToRRL
      * @ORM\Column(name="stoolSentToRRL",type="TripleChoice",nullable=true)
      */
-    private $stoolSentToRRL;
+    private $stoolSentToRRL; // These are duplicated from the boolean fields in the class we extend
 
-//RRL_name
     /**
      * RRL_stool_date
      * @var \DateTime $stoolSentToRRLDate
@@ -98,61 +97,18 @@ class SiteLab extends BaseSiteLab
     private $stoolSentToRRLDate;
 
     /**
-     * RRL_ELISA_result
-     * @var ElisaResult $rrlELISAResult
-     * @ORM\Column(name="rrlELISAResult",type="ElisaResult",nullable=true)
- */
-    private $rrlELISAResult;
-
-    /**
-     * RRL_genotype_date
-     * @var \DateTime $rrlGenoTypeDate
-     * @ORM\Column(name="rrlGenoTypeDate",type="date",nullable=true)
-     */
-    private $rrlGenoTypeDate;
-
-    /**
-     * RRL_genotype_result
-     * @var string $rrlGenoTypeResult
-     * @ORM\Column(name="rrlGenoTypeResult",type="string",nullable=true)
-     */
-    private $rrlGenoTypeResult;
-
-    /**
      * NL_stool_sent
      * @var TripleChoice $stoolSentToNL
      * @ORM\Column(name="stoolSentToNL",type="TripleChoice",nullable=true)
      */
-    private $stoolSentToNL;
+    private $stoolSentToNL; // These are duplicated from the boolean fields in the class we extend
 
-//NL_name
     /**
      * NL_stool_date
      * @var \DateTime $stoolSentToNLDate
      * @ORM\Column(name="stoolSentToNLDate",type="date",nullable=true)
      */
     private $stoolSentToNLDate;
-
-    /**
-     * NL_ELISA_result
-     * @var ElisaResult $nlELISAResult
-     * @ORM\Column(name="nlELISAResult",type="ElisaResult",nullable=true)
-     */
-    private $nlELISAResult;
-
-    /**
-     * NL_genotype_date
-     * @var \DateTime $nlGenoTypeDate
-     * @ORM\Column(name="nlGenoTypeDate",type="date",nullable=true)
-     */
-    private $nlGenoTypeDate;
-
-    /**
-     * NL_genotype_result
-     * @var string $nlGenoTypeResult
-     * @ORM\Column(name="nlGenoTypeResult",type="string",nullable=true)
-     */
-    private $nlGenoTypeResult;
 
     public function __construct($virus = null)
     {
@@ -212,21 +168,6 @@ class SiteLab extends BaseSiteLab
         return $this->stoolSentToRRLDate;
     }
 
-    public function getRrlELISAResult()
-    {
-        return $this->rrlELISAResult;
-    }
-
-    public function getRrlGenoTypeDate()
-    {
-        return $this->rrlGenoTypeDate;
-    }
-
-    public function getRrlGenoTypeResult()
-    {
-        return $this->rrlGenoTypeResult;
-    }
-
     public function getStoolSentToNL()
     {
         return $this->stoolSentToNL;
@@ -235,21 +176,6 @@ class SiteLab extends BaseSiteLab
     public function getStoolSentToNLDate()
     {
         return $this->stoolSentToNLDate;
-    }
-
-    public function getNlELISAResult()
-    {
-        return $this->nlELISAResult;
-    }
-
-    public function getNlGenoTypeDate()
-    {
-        return $this->nlGenoTypeDate;
-    }
-
-    public function getNlGenoTypeResult()
-    {
-        return $this->nlGenoTypeResult;
     }
 
     public function setId($id)
@@ -302,6 +228,7 @@ class SiteLab extends BaseSiteLab
 
     public function setStoolSentToRRL(TripleChoice $stoolSentToRRL)
     {
+        $this->setSentToReferenceLab($stoolSentToRRL->equal(TripleChoice::YES));
         $this->stoolSentToRRL = $stoolSentToRRL;
         return $this;
     }
@@ -312,26 +239,9 @@ class SiteLab extends BaseSiteLab
         return $this;
     }
 
-    public function setRrlELISAResult(ElisaResult $rrlELISAResult)
-    {
-        $this->rrlELISAResult = $rrlELISAResult;
-        return $this;
-    }
-
-    public function setRrlGenoTypeDate( $rrlGenoTypeDate)
-    {
-        $this->rrlGenoTypeDate = $rrlGenoTypeDate;
-        return $this;
-    }
-
-    public function setRrlGenoTypeResult($rrlGenoTypeResult)
-    {
-        $this->rrlGenoTypeResult = $rrlGenoTypeResult;
-        return $this;
-    }
-
     public function setStoolSentToNL(TripleChoice $stoolSentToNL)
     {
+        $this->setSentToNationalLab($stoolSentToNL->equal(TripleChoice::YES));
         $this->stoolSentToNL = $stoolSentToNL;
         return $this;
     }
@@ -342,23 +252,6 @@ class SiteLab extends BaseSiteLab
         return $this;
     }
 
-    public function setNlELISAResult(ElisaResult $nlELISAResult)
-    {
-        $this->nlELISAResult = $nlELISAResult;
-        return $this;
-    }
-
-    public function setNlGenoTypeDate($nlGenoTypeDate)
-    {
-        $this->nlGenoTypeDate = $nlGenoTypeDate;
-        return $this;
-    }
-
-    public function setNlGenoTypeResult($nlGenoTypeResult)
-    {
-        $this->nlGenoTypeResult = $nlGenoTypeResult;
-        return $this;
-    }
     public function isComplete()
     {
      

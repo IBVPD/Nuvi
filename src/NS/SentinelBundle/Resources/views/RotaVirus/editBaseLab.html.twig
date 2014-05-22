@@ -23,33 +23,30 @@
 
         <div class="tab-content">
             <div id="labinfo" class="tab-pane active">
-                {{form_row(form.labId)}}
-                {{form_row(form.eiaResult)}}
-                {{form_row(form.dateReceived)}}
+                <div class="row">
+                    <div class="col-sm-6">
+                        {{form_row(form.labId)}}
+                    </div>
+                    <div class="col-sm-6">
+                        {{form_row(form.dateReceived)}}
+                    </div>
+                </div>
             </div>
             <div id="genotype" class="tab-pane">
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-3">
                         {{form_row(form.genotypingDate)}}
                     </div>
-                    <div class="col-sm-6">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-3">
                         {{form_row(form.genotypingResultG)}}
-                    </div>
-                    <div class="col-sm-6">
                         {{form_row(form.genotypingResultGSpecify)}}
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-3">
                         {{form_row(form.genotypeResultP)}}
-                        {{form_row(form.pcrVp6Result)}}
+                        {{form_row(form.genotypeResultPSpecify)}}                        
                     </div>
-                    <div class="col-sm-6">
-                        {{form_row(form.genotypeResultPSpecify)}}
+                    <div class="col-sm-3">
+                        {{form_row(form.pcrVp6Result)}}
                     </div>
                 </div>
             </div>

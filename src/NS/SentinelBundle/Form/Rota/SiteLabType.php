@@ -33,16 +33,6 @@ class SiteLabType extends AbstractType
             ->add('stoolTestDate',      'acedatepicker',    array('required'=>false, 'label'=>'rotavirus-form.stoolTestDate',   'attr'=>array('data-context-parent'=>'stoolReminder','data-context-value'=>TripleChoice::YES)))
             ->add('stoolELISAResult',   'ElisaResult',      array('required'=>false, 'label'=>'rotavirus-form.stoolELISAResult','attr'=>array('data-context-parent'=>'stoolReminder','data-context-value'=>TripleChoice::YES)))
             ->add('stoolStored',        'TripleChoice',     array('required'=>false, 'label'=>'rotavirus-form.stoolStored'))
-            ->add('stoolSentToRRL',     'TripleChoice',     array('required'=>false, 'label'=>'rotavirus-form.stoolSentToRRL'))
-            ->add('stoolSentToRRLDate', 'acedatepicker',    array('required'=>false, 'label'=>'rotavirus-form.stoolSentToRRLDate'))
-            ->add('rrlELISAResult',     'ElisaResult',      array('required'=>false, 'label'=>'rotavirus-form.rrlELISAResult'))
-            ->add('rrlGenoTypeDate',    'acedatepicker',    array('required'=>false, 'label'=>'rotavirus-form.rrlGenoTypeDate'))
-            ->add('rrlGenoTypeResult',  null,               array('required'=>false, 'label'=>'rotavirus-form.rrlGenoTypeResult'))
-            ->add('stoolSentToNL',      'TripleChoice',     array('required'=>false, 'label'=>'rotavirus-form.stoolSentToNL'))
-            ->add('stoolSentToNLDate',  'acedatepicker',    array('required'=>false, 'label'=>'rotavirus-form.stoolSentToNLDate'))
-            ->add('nlELISAResult',      'ElisaResult',      array('required'=>false, 'label'=>'rotavirus-form.nlELISAResult'))
-            ->add('nlGenoTypeDate',     'acedatepicker',    array('required'=>false, 'label'=>'rotavirus-form.nlGenoTypeDate'))
-            ->add('nlGenoTypeResult',   null,               array('required'=>false, 'label'=>'rotavirus-form.nlGenoTypeResult'))
         ;
 
         $siteSerializer = $this->siteSerializer;
@@ -63,10 +53,16 @@ class SiteLabType extends AbstractType
                     if($country instanceof Country)
                     {
                         if($country->hasReferenceLab())
-                            $form->add('sentToReferenceLab','switch',array('required'=>false));
+                        {
+                            $form->add('stoolSentToRRL',     'TripleChoice',     array('required'=>false, 'label'=>'rotavirus-form.stoolSentToRRL', 'attr'=>array('data-context-child'=>'stoolSentToRRL')))
+                                 ->add('stoolSentToRRLDate', 'acedatepicker',    array('required'=>false, 'label'=>'rotavirus-form.stoolSentToRRLDate', 'attr'=>array('data-context-parent'=>'stoolSentToRRL','data-context-value'=>  TripleChoice::YES)));
+                        }
 
                         if($country->hasNationalLab())
-                            $form->add('sentToNationalLab','switch',array('required'=>false));
+                        {
+                            $form->add('stoolSentToNL',     'TripleChoice',     array('required'=>false, 'label'=>'rotavirus-form.stoolSentToNL', 'attr'=>array('data-context-child'=>'stoolSentToNL')))
+                                 ->add('stoolSentToNLDate', 'acedatepicker',    array('required'=>false, 'label'=>'rotavirus-form.stoolSentToNLDate', 'attr'=>array('data-context-parent'=>'stoolSentToNL','data-context-value'=>  TripleChoice::YES)));
+                        }
                     }
                 });
     }

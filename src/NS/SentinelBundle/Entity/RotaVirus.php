@@ -481,7 +481,7 @@ class RotaVirus extends BaseCase
         return $this;
     }
 
-    public function setDoses(RotavirusDoses $doses)
+    public function setDoses($doses)
     {
         $this->doses = $doses;
         return $this;

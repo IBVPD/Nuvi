@@ -15,22 +15,18 @@
     <div class="col-sm-12">
         <div class="tabbable">
             <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
-                <li class="active"><a data-toggle="tab" href="#collection">{{'Collection Info'|trans}}</a></li>
-                <li><a data-toggle="tab" href="#stool">{{'Stool'|trans}}</a></li>
-                <li><a data-toggle="tab" href="#stool-rrl">{{'Stool - RRL'|trans}}</a></li>
+                <li class="active"><a data-toggle="tab" href="#stool">{{'Stool'|trans}}</a></li>
+                {% if form.stoolSentToNL is defined %}
                 <li><a data-toggle="tab" href="#stool-nl">{{'Stool - NL'|trans}}</a></li>
+                {% endif %}
+    
+                {% if form.stoolSentToRRL is defined %}
+                <li><a data-toggle="tab" href="#stool-rrl">{{'Stool - RRL'|trans}}</a></li>
+                {% endif %}
             </ul>
 
             <div class="tab-content">
-                <div id="collection" class="tab-pane active">
-                    {% if form.sentToReferenceLab is defined %}
-                        {{form_row(form.sentToReferenceLab )}}
-                    {% endif %}
-                    {% if form.sentToNationalLab is defined %}
-                        {{form_row(form.sentToNationalLab )}}
-                    {% endif %}
-                </div>
-                <div id="stool" class="tab-pane">
+                <div id="stool" class="tab-pane active">
                     <div class="row">
                         <div class="col-sm-3">
                             {{form_row(form.stoolReceivedDate)}}
@@ -57,16 +53,10 @@
                 <div id="stool-rrl" class="tab-pane">
                     {{form_row(form.stoolSentToRRL)}}
                     {{form_row(form.stoolSentToRRLDate)}}
-                    {{form_row(form.rrlELISAResult)}}
-                    {{form_row(form.rrlGenoTypeDate)}}
-                    {{form_row(form.rrlGenoTypeResult)}}                    
                 </div>
                 <div id="stool-nl" class="tab-pane">
                     {{form_row(form.stoolSentToNL)}}
                     {{form_row(form.stoolSentToNLDate)}}
-                    {{form_row(form.nlELISAResult)}}
-                    {{form_row(form.nlGenoTypeDate)}}
-                    {{form_row(form.nlGenoTypeResult)}}                    
                 </div>
             </div>
         </div>
