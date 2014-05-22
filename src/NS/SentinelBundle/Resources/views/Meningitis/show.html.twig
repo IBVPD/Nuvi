@@ -171,6 +171,9 @@
                         <th>{{'meningitis-form.pneu-resp-rate'|trans}}</th>
                         <td>{{record.pneuRespRate}}</td>
                     </tr>
+                    <tr><th>{{'meningitis-form.cxr-done'|trans}}</th><td>{{record.cxrDone}}</td></tr>
+                    <tr><th>{{'meningitis-form.cxr-result'|trans}}</th><td>{{record.cxrResult}}</td></tr>
+                    <tr><th>{{'meningitis-form.cxr-additional-result'|trans}}</th><td>{{record.cxrAdditionalResult}}</td></tr>
                 </table>
             </div>
             
@@ -230,8 +233,6 @@
                     <tr><th>{{'meningitis-form.spn-serotype'|trans}}</th><td>{{record.siteLab.spnSerotype}}</td></tr>
                     <tr><th>{{'meningitis-form.hi-serotype'|trans}}</th><td>{{record.siteLab.hiSerotype}}</td></tr>
                     <tr><th>{{'meningitis-form.nm-serogroup'|trans}}</th><td>{{record.siteLab.nmSerogroup}}</td></tr>
-                    <tr><th>{{'meningitis-form.cxr-done'|trans}}</th><td>{{record.siteLab.cxrDone}}</td></tr>
-                    <tr><th>{{'meningitis-form.cxr-result'|trans}}</th><td>{{record.siteLab.cxrResult}}</td></tr>
                     {% else %}
                     <tr>
                         <th>{{'meningitis.has-site-lab'|trans}}</th>

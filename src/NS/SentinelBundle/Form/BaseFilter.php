@@ -25,15 +25,13 @@ class BaseFilter extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('id', 'filter_text', array(
-                                            'required'          => false,
-                                            'condition_pattern' => FilterOperands::STRING_BOTH,
-                                            'label'             => 'db-generated-id'));
-
         $builder->add('caseId', 'filter_text', array(
                                             'required'          => false,
                                             'condition_pattern' => FilterOperands::STRING_BOTH,
                                             'label'             => 'site-assigned-case-id'));
+        $builder->add('admDate', 'filter_date_range', array(
+                                            'required'          => false,
+                                            'label'             => 'filter.admission-date'));
 
         $securityContext = $this->securityContext;
 
@@ -50,6 +48,10 @@ class BaseFilter extends AbstractType
                             if(count($objectIds) > 1)
                                 $form->add('region','region');
 
+                            $form->add('id', 'filter_text', array(
+                                                                    'required'          => false,
+                                                                    'condition_pattern' => FilterOperands::STRING_BOTH,
+                                                                    'label'             => 'db-generated-id'));
                             $form->add('country','country');
                             $form->add('site','site');
                         }
