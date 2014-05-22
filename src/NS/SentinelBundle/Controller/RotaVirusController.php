@@ -71,12 +71,11 @@ class RotaVirusController extends Controller
 
         if($form->isSubmitted() && $form->isValid())
         {
-            $dbId   = $form->get('id')->getData();
             $caseId = $form->get('caseId')->getData();
             $type   = $form->get('type')->getData();
 
             $em     = $this->get('ns.model_manager');
-            $rCase  = $em->getRepository('NSSentinelBundle:RotaVirus')->findOrCreate($caseId,$dbId);
+            $rCase  = $em->getRepository('NSSentinelBundle:RotaVirus')->findOrCreate($caseId);
 
             if(!$rCase->getId())
             {

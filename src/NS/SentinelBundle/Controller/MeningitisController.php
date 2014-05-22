@@ -71,12 +71,11 @@ class MeningitisController extends Controller
 
         if($form->isSubmitted() && $form->isValid())
         {
-            $dbId   = $form->get('id')->getData();
             $caseId = $form->get('caseId')->getData();
             $type   = $form->get('type')->getData();
 
             $em         = $this->get('ns.model_manager');
-            $meningCase = $em->getRepository('NSSentinelBundle:Meningitis')->findOrCreate($caseId,$dbId);
+            $meningCase = $em->getRepository('NSSentinelBundle:Meningitis')->findOrCreate($caseId,null);
 
             if(!$meningCase->getId())
             {
