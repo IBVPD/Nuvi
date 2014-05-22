@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2014-05-20T23:36:59Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
+  <file date="2014-05-21T11:27:23Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -12,7 +12,7 @@
       </trans-unit>
       <trans-unit id="251f20c475bb5ee6f59f4ed842e49b894c240bd9" resname="10A">
         <source>10A</source>
-        <target state="new">10A</target>
+        <target>10A</target>
       </trans-unit>
       <trans-unit id="76228ccb58822c21371e110b8ef065f19d16dae0" resname="10F/10C/33C">
         <source>10F/10C/33C</source>
@@ -28,7 +28,7 @@
       </trans-unit>
       <trans-unit id="56a81da85ea6ef2ee4516b1b92d0cc8f7e5f0aa2" resname="12F">
         <source>12F</source>
-        <target state="new">12F</target>
+        <target>12F</target>
       </trans-unit>
       <trans-unit id="bb71c27180abf8cddc0a7bcfced9a3d4f6b40761" resname="12F/12A/12B/44/46">
         <source>12F/12A/12B/44/46</source>
@@ -1254,7 +1254,7 @@
       </trans-unit>
       <trans-unit id="2ea017ce5c35ca511d4830fd39077bf8f0fc48f4" resname="Yes-By-Card">
         <source>Yes-By-Card</source>
-        <target state="new">Yes-By-Card</target>
+        <target>Yes By Vaccination Card</target>
       </trans-unit>
       <trans-unit id="5047bc36cf02e48eafd58044a4a1b12874db9892" resname="Yes-By-History">
         <source>Yes-By-History</source>
@@ -1394,7 +1394,7 @@
       </trans-unit>
       <trans-unit id="6bc8f8c95b6e87d0441e9f7835ccd59a7302acfc" resname="meningitis-form.age">
         <source>meningitis-form.age</source>
-        <target state="new">meningitis-form.age</target>
+        <target>Age</target>
         <jms:reference-file line="43">views/Meningitis/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="337a68c2d4f39010c365e32006973551cec14c48" resname="meningitis-form.age-in-months">
@@ -1454,7 +1454,7 @@
       </trans-unit>
       <trans-unit id="5901a72d94be342c349f7236948038eac7e673ec" resname="meningitis-form.blood-id">
         <source>meningitis-form.blood-id</source>
-        <target state="new">meningitis-form.blood-id</target>
+        <target>CSR ID</target>
         <jms:reference-file line="106">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="82889a1856fc56e5cc1f0c3853cd7374c99f873b" resname="meningitis-form.blood-pcr-done">
@@ -1620,7 +1620,7 @@
       </trans-unit>
       <trans-unit id="991e8a92affc5431c5d9efdf1d9de6ff1614863c" resname="meningitis-form.cxr-additional-result">
         <source>meningitis-form.cxr-additional-result</source>
-        <target state="new">meningitis-form.cxr-additional-result</target>
+        <target>Chest X-Ray Results</target>
         <jms:reference-file line="75">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="78c925bf58c6bfbede35256f6311c900d655ef5c" resname="meningitis-form.cxr-done">
@@ -1869,7 +1869,7 @@
       </trans-unit>
       <trans-unit id="58617060c36951f6d31e49b0f9249b581dfc201a" resname="meningitis-form.pcv-type">
         <source>meningitis-form.pcv-type</source>
-        <target state="new">meningitis-form.pcv-type</target>
+        <target>PCV Type: Most Recent Dose</target>
         <jms:reference-file line="62">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e21c4f600f5f23c8b3bf756fd331731b6483301c" resname="meningitis-form.pneu-chest-indraw">
@@ -2443,7 +2443,7 @@
       </trans-unit>
       <trans-unit id="71624734b91db97effa425877b60cc6129d2c822" resname="rotavirus-form.stoolTestDate">
         <source>rotavirus-form.stoolTestDate</source>
-        <target>Date of stool collection from case?</target>
+        <target>Date ELISA test performed?</target>
         <jms:reference-file line="189">views/RotaVirus/show.html.twig</jms:reference-file>
         <jms:reference-file line="32">Form/Rota/SiteLabType.php</jms:reference-file>
       </trans-unit>
