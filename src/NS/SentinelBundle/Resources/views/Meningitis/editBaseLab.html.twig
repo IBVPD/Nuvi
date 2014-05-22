@@ -116,7 +116,6 @@
                 // Display the form in the page in an li, before the "Add a tag" link li
                 var $newFormTab = $('<div class="tab-pane" id="tab_'+v+'"></div>').append('<h3>'+$(f).val()+'</h3>').append(newForm);
                 var $newTab = $('<li><a data-toggle="tab" href="#tab_'+v+'">'+$(f).val()+'</a></li>');
-                console.log($newFormTab);
                 $newFormTab.find('input[type=hidden]').val($(f).val());
                 $collectionHolder.append($newFormTab);
                 $collectionTabs.append($newTab);
