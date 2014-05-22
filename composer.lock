@@ -1852,7 +1852,7 @@
             "source": {
                 "type": "git",
                 "url": "gitolite@git.noblet.ca:/symfony/ns/ace.git",
-                "reference": "8620679feb8df60b79246df39fe8d1dae0fb4214"
+                "reference": "fafa8c21e11c31c814d9f9d6126e16b8aa5d2a97"
             },
             "require": {
                 "php": ">=5.3.2",
@@ -1876,7 +1876,7 @@
                 }
             ],
             "description": "This bundle provides bootstrap template",
-            "time": "2014-05-21 17:35:40"
+            "time": "2014-05-22 20:25:29"
         },
         {
             "name": "ns/flash-bundle",
