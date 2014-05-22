@@ -43,7 +43,12 @@
             </div>
         </div>
 
-        <ul class="samples" data-prototype="{{ form_widget(form.samples.vars.prototype)|e }}"></ul>
+        <div class="tabbable">
+            <ul id="dynamicFormTabs" class="nav nav-tabs padding-12 tab-color-blue background-blue">
+            </ul>
+        </div>
+        <div class="samples tab-content" data-prototype="{{ form_widget(form.samples.vars.prototype)|e }}">
+        </div>
                     
         <div class="form-actions center">
             <a href="{{path('meningitisIndex')}}" class="btn btn-sm btn-danger">{{'Cancel'|trans}}</a> <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
@@ -58,18 +63,19 @@
 
 </form>
 <script type="text/javascript">
+    var dynamicTab = false;
     var $collectionHolder;
 
     // setup an "add a tag" link
     var $addTagLink = $('<a href="#" class="add_tag_link">Add Sample</a>');
-    var $newLinkLi = $('<li></li>').append($addTagLink);
 
     jQuery(document).ready(function() {
         // Get the ul that holds the collection of tags
-        $collectionHolder = $('ul.samples');
+        $collectionHolder = $('div.samples');
+        $collectionTabs   = $('#dynamicFormTabs');
 
         // add the "add a tag" anchor and li to the tags ul
-        $collectionHolder.append($newLinkLi);
+        $collectionHolder.append($addTagLink);
 
         // count the current form inputs we have (e.g. 2), use that as the new
         // index when inserting a new item (e.g. 2)
@@ -80,11 +86,11 @@
             e.preventDefault();
 
             // add a new tag form (see next code block)
-            addSampleForm($collectionHolder, $newLinkLi);
+            addSampleForm($collectionHolder);
         });
     });
 
-    function addSampleForm($collectionHolder, $newLinkLi) 
+    function addSampleForm($collectionHolder) 
     {
         var field = $('input[name="ibd_nationallab[sampleType][]"]');
         
@@ -93,6 +99,7 @@
             var f = this;
             if(f.checked)
             {
+                var v = $(f).val().replace(/\s+/g, '');
                 // Get the data-prototype explained earlier
                 var prototype = $collectionHolder.data('prototype');
 
@@ -107,9 +114,19 @@
                 $collectionHolder.data('index', index + 1);
 
                 // Display the form in the page in an li, before the "Add a tag" link li
-                var $newFormLi = $('<li></li>').append(newForm);
-                $newFormLi.find('input[type=hidden]').val($(f).val());
-                $newLinkLi.before($newFormLi);
+                var $newFormTab = $('<div class="tab-pane" id="tab_'+v+'"></div>').append('<h3>'+$(f).val()+'</h3>').append(newForm);
+                var $newTab = $('<li><a data-toggle="tab" href="#tab_'+v+'">'+$(f).val()+'</a></li>');
+                console.log($newFormTab);
+                $newFormTab.find('input[type=hidden]').val($(f).val());
+                $collectionHolder.append($newFormTab);
+                $collectionTabs.append($newTab);
+                
+                if(!dynamicTab)
+                {
+                    $newFormTab.addClass('active');
+                    $newTab.addClass('active');
+                    dynamicTab = true;
+                }
             }
         });
     }
