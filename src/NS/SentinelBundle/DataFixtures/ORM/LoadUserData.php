@@ -198,6 +198,16 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
                     'can_create_rrl' => false,
                     'can_create_nl' => true,
                  ),
+            array(
+                    'name'      => 'Canada Full User',
+                    'password'  => '1234567-ca-full',
+                    'email'     => 'ca-full@noblet.ca',
+                    'ref-name'  => 'country-ca',
+                    'can_create_cases' => true,
+                    'can_create_labs' => true,
+                    'can_create_rrl' => true,
+                    'can_create_nl' => true,
+                 ),
         );
     }
 
