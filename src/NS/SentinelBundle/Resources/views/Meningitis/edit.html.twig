@@ -46,28 +46,38 @@
             </div>
             <div id="history" class="tab-pane">
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-3">
                         {{form_row(form.hibReceived)}}
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-3">
                         {{form_row(form.hibDoses)}}
                     </div>
+                    <div class="col-sm-3">
+                        {{form_row(form.hibMostRecentDose)}}
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-3">
                         {{form_row(form.pcvReceived)}}
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-3">
                         {{form_row(form.pcvDoses)}}
+                    </div>
+                    <div class="col-sm-3">
                         {{form_row(form.pcvType)}}
+                    </div>
+                    <div class="col-sm-3">
+                        {{form_row(form.pcvMostRecentDose)}}
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-3">
                         {{form_row(form.meningReceived)}}
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-3">
                         {{form_row(form.meningType)}}
+                    </div>
+                    <div class="col-sm-3">
                         {{form_row(form.meningMostRecentDose)}}
                     </div>
                 </div>

@@ -225,6 +225,12 @@ class Meningitis extends BaseCase
     private $hibDoses;
 
     /**
+     * @var \DateTime $hibMostRecentDose
+     * @ORM\Column(name="hibMostRecentDose",type="date",nullable=true)
+     */
+    private $hibMostRecentDose;
+
+    /**
      * @var TripleChoice $pcvReceived
      * @ORM\Column(name="pcvReceived",type="VaccinationReceived",nullable=true)
      */
@@ -241,6 +247,12 @@ class Meningitis extends BaseCase
      * @ORM\Column(name="pcvType",type="PCVType",nullable=true)
      */
     private $pcvType;
+
+    /**
+     * @var \DateTime $pcvMostRecentDose
+     * @ORM\Column(name="pcvMostRecentDose",type="date",nullable=true)
+     */
+    private $pcvMostRecentDose;
 
     /**
      * @var VaccinationReceived $meningReceived
@@ -543,6 +555,26 @@ class Meningitis extends BaseCase
     public function getCxrResult()
     {
         return $this->cxrResult;
+    }
+
+    public function getHibMostRecentDose()
+    {
+        return $this->hibMostRecentDose;
+    }
+
+    public function getPcvMostRecentDose()
+    {
+        return $this->pcvMostRecentDose;
+    }
+
+    public function setHibMostRecentDose($hibMostRecentDose)
+    {
+        $this->hibMostRecentDose = $hibMostRecentDose;
+    }
+
+    public function setPcvMostRecentDose($pcvMostRecentDose)
+    {
+        $this->pcvMostRecentDose = $pcvMostRecentDose;
     }
 
     public function setCxrDone(TripleChoice $cxrDone)

@@ -53,12 +53,14 @@ class CaseType extends AbstractType
             ->add('menFontanelleBulge',     'TripleChoice',     array('required'=>false,'label'=>'meningitis-form.men-fontanelle-bulge'))
             ->add('menLethargy',            'TripleChoice',     array('required'=>false,'label'=>'meningitis-form.men-lethargy'))
 
-            ->add('hibReceived',            'VaccinationReceived', array('required'=>false,'label'=>'meningitis-form.hib-received',              'attr' => array('data-context-child' =>'hibReceived')))
-            ->add('hibDoses',               'Doses',               array('required'=>false,'label'=>'meningitis-form.hib-doses',                 'attr' => array('data-context-parent'=>'hibReceived', 'data-context-value'=> json_encode(array(VaccinationReceived::YES_CARD,VaccinationReceived::YES_HISTORY)) )))
+            ->add('hibReceived',            'VaccinationReceived', array('required'=>false,'label'=>'meningitis-form.hib-received',         'attr' => array('data-context-child' =>'hibReceived')))
+            ->add('hibDoses',               'Doses',               array('required'=>false,'label'=>'meningitis-form.hib-doses',            'attr' => array('data-context-parent'=>'hibReceived', 'data-context-value'=> json_encode(array(VaccinationReceived::YES_CARD,VaccinationReceived::YES_HISTORY)) )))
+            ->add('hibMostRecentDose',      'acedatepicker',       array('required'=>false,'label'=>'meningitis-form.hib-most-recent-dose', 'attr' => array('data-context-parent'=>'hibReceived', 'data-context-value'=>json_encode(array(VaccinationReceived::YES_CARD,VaccinationReceived::YES_HISTORY)))))
 
             ->add('pcvReceived',            'VaccinationReceived', array('required'=>false,'label'=>'meningitis-form.pcv-received',              'attr' => array('data-context-child' =>'pcvReceived')))
             ->add('pcvDoses',               'Doses',               array('required'=>false,'label'=>'meningitis-form.pcv-doses',                 'attr' => array('data-context-parent'=>'pcvReceived', 'data-context-value'=> json_encode(array(VaccinationReceived::YES_CARD,VaccinationReceived::YES_HISTORY)) )))
             ->add('pcvType',                'PCVType',             array('required'=>false,'label'=>'meningitis-form.pcv-type',                  'attr' => array('data-context-parent'=>'pcvReceived', 'data-context-value'=> json_encode(array(VaccinationReceived::YES_CARD,VaccinationReceived::YES_HISTORY)) )))
+            ->add('pcvMostRecentDose',      'acedatepicker',       array('required'=>false,'label'=>'meningitis-form.pcv-most-recent-dose', 'attr' => array('data-context-parent'=>'pcvReceived', 'data-context-value'=>json_encode(array(VaccinationReceived::YES_CARD,VaccinationReceived::YES_HISTORY)))))
 
             ->add('meningReceived',         'VaccinationReceived',       array('required'=>false,'label'=>'meningitis-form.men-received',           'attr' => array('data-context-child'=>'meningReceived')))
             ->add('meningType',             'MeningitisVaccinationType', array('required'=>false,'label'=>'meningitis-form.men-type',               'attr' => array('data-context-parent'=>'meningReceived', 'data-context-value'=>json_encode(array(VaccinationReceived::YES_CARD,VaccinationReceived::YES_HISTORY)))))
