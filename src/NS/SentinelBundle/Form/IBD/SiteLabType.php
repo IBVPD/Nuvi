@@ -14,6 +14,8 @@ use NS\SentinelBundle\Form\Types\SpnSerotype;
 use NS\SentinelBundle\Form\Types\HiSerotype;
 use NS\SentinelBundle\Form\Types\NmSerogroup;
 use NS\SentinelBundle\Form\Types\PCRResult;
+use NS\SentinelBundle\Form\Types\GramStain;
+use NS\SentinelBundle\Form\Types\GramStainOrganism;
 use NS\SentinelBundle\Entity\Country;
 
 class SiteLabType extends AbstractType
@@ -42,9 +44,9 @@ class SiteLabType extends AbstractType
             ->add('csfCultOther',       null,                   array('required'=>false, 'label'=>'meningitis-form.csf-culture-other',  'attr' => array('data-context-parent'=>'csfCultDoneOther', 'data-context-value'=> LatResult::OTHER)))
 
             ->add('csfGramDone',        'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.csf-gram-done',            'attr' => array('data-context-child'=>'csfGramDone')))
-            ->add('csfGramResult',      'GramStain',            array('required'=>false, 'label'=>'meningitis-form.csf-gram-result',          'attr' => array('data-context-parent'=>'csfGramDone', 'data-context-value'=> TripleChoice::YES)))
-            ->add('csfGramResultOrganism','GramStainOrganism',  array('required'=>false, 'label'=>'meningitis-form.csf-gram-result-organism', 'attr' => array('data-context-parent'=>'csfGramDone', 'data-context-value'=> TripleChoice::YES)))
-            ->add('csfGramOther',       null,                   array('required'=>false, 'label'=>'meningitis-form.csf-gram-other',           'attr' => array('data-context-parent'=>'csfGramDone', 'data-context-value'=> TripleChoice::YES)))
+            ->add('csfGramResult',      'GramStain',            array('required'=>false, 'label'=>'meningitis-form.csf-gram-result',          'attr' => array('data-context-parent'=>'csfGramDone',           'data-context-child'=>'csfGramResult',        'data-context-value'=> TripleChoice::YES)))
+            ->add('csfGramResultOrganism','GramStainOrganism',  array('required'=>false, 'label'=>'meningitis-form.csf-gram-result-organism', 'attr' => array('data-context-parent'=>'csfGramResult',         'data-context-child'=>'csfGramResultOrganism','data-context-value'=> json_encode(array(GramStain::GM_NEGATIVE,GramStain::GM_POSITIVE)))))
+            ->add('csfGramOther',       null,                   array('required'=>false, 'label'=>'meningitis-form.csf-gram-other',           'attr' => array('data-context-parent'=>'csfGramResultOrganism', 'data-context-value'=> GramStainOrganism::OTHER)))
 
             ->add('csfBinaxDone',       'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.csf-binax-done',     'attr' => array('data-context-child'=>'csfBinaxDone')))
             ->add('csfBinaxResult',     'BinaxResult',          array('required'=>false, 'label'=>'meningitis-form.csf-binax-result',   'attr' => array('data-context-parent'=>'csfBinaxDone', 'data-context-value'=> TripleChoice::YES)))
@@ -71,21 +73,21 @@ class SiteLabType extends AbstractType
             ->add('nmSerogroup',        'NmSerogroup',          array('required'=>false, 'label'=>'meningitis-form.nm-serogroup',       'attr' => array('data-context-child'=>'nmSerogroup')))
             ->add('nmSerogroupOther',   null,                   array('required'=>false, 'label'=>'meningitis-form.nm-serogroup-other', 'attr' => array('data-context-parent'=>'nmSerogroup','data-context-value'=> NmSerogroup::OTHER)))
 
-            ->add('bloodId',           null,           array('required'=>false,'label'=>'meningitis-form.blood-id',       'attr'=>array('data-context-parent'=>'bloodCollected','data-context-value'=>  TripleChoice::YES)))
+            ->add('bloodId',           null,                    array('required'=>false,'label'=>'meningitis-form.blood-id'))
             ->add('bloodCultDone',      'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.blood-cult-done',    'attr' => array('data-context-child'=>'bloodCultDone')))
             ->add('bloodCultResult',    'LatResult',            array('required'=>false, 'label'=>'meningitis-form.blood-cult-result',  'attr' => array('data-context-parent'=>'bloodCultDone','data-context-value'=> TripleChoice::YES)))
             ->add('bloodCultOther',     null,                   array('required'=>false, 'label'=>'meningitis-form.blood-cult-other',   'attr' => array('data-context-parent'=>'bloodCultDone','data-context-value'=> TripleChoice::YES)))
 
             ->add('bloodGramDone',      'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.blood-gram-done',            'attr' => array('data-context-child'=>'bloodGramDone')))
-            ->add('bloodGramResult',    'GramStain',            array('required'=>false, 'label'=>'meningitis-form.blood-gram-result',          'attr' => array('data-context-parent'=>'bloodGramDone','data-context-value'=> TripleChoice::YES)))
-            ->add('bloodGramResultOrganism','GramStainOrganism',array('required'=>false, 'label'=>'meningitis-form.blood-gram-result-organism', 'attr' => array('data-context-parent'=>'bloodGramDone','data-context-value'=> TripleChoice::YES)))
-            ->add('bloodGramOther',     null,                   array('required'=>false, 'label'=>'meningitis-form.blood-gram-other',           'attr' => array('data-context-parent'=>'bloodGramDone','data-context-value'=> TripleChoice::YES)))
+            ->add('bloodGramResult',    'GramStain',            array('required'=>false, 'label'=>'meningitis-form.blood-gram-result',          'attr' => array('data-context-parent'=>'bloodGramDone','data-context-child'=>'bloodGramResult',        'data-context-value'=> TripleChoice::YES)))
+            ->add('bloodGramResultOrganism','GramStainOrganism',array('required'=>false, 'label'=>'meningitis-form.blood-gram-result-organism', 'attr' => array('data-context-parent'=>'bloodGramResult','data-context-child'=>'bloodGramResultOther', 'data-context-value'=> json_encode(array(GramStain::GM_NEGATIVE,GramStain::GM_POSITIVE)))))
+            ->add('bloodGramOther',     null,                   array('required'=>false, 'label'=>'meningitis-form.blood-gram-other',           'attr' => array('data-context-parent'=>'bloodGramResultOther','data-context-child'=>'', 'data-context-value'=> GramStainOrganism::OTHER)))
 
             ->add('bloodPcrDone',       'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.blood-pcr-done',    'attr' => array('data-context-child'=>'bloodPcrDone')))
             ->add('bloodPcrResult',     'PCRResult',            array('required'=>false, 'label'=>'meningitis-form.blood-pcr-result',  'attr' => array('data-context-parent'=>'bloodPcrDone','data-context-value'=> TripleChoice::YES)))
             ->add('bloodPcrOther',      null,                   array('required'=>false, 'label'=>'meningitis-form.blood-pcr-other',   'attr' => array('data-context-parent'=>'bloodPcrDone','data-context-value'=> TripleChoice::YES)))
 
-            ->add('otherCultDone',      'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.other-cult-done',    'attr'=>array('data-context-child'=>'otherCultDone')))
+            ->add('otherCultDone',      'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.other-cult-done1',    'attr'=>array('data-context-child'=>'otherCultDone')))
             ->add('otherCultResult',    'LatResult',            array('required'=>false, 'label'=>'meningitis-form.other-cult-result',  'attr'=>array('data-context-parent'=>'otherCultDone','data-context-value'=> TripleChoice::YES)))
             ->add('otherCultOther',     null,                   array('required'=>false, 'label'=>'meningitis-form.other-cult-other',   'attr'=>array('data-context-parent'=>'otherCultDone','data-context-value'=> TripleChoice::YES)))
         ;

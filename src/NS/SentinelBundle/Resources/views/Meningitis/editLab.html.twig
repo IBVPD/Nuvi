@@ -126,22 +126,55 @@
                 </div>
 
                 <div id="blood" class="tab-pane">
-                    {{form_row(form.bloodId)}}
-                    {{form_row(form.bloodCultDone)}}
-                    {{form_row(form.bloodCultResult)}}
-                    {{form_row(form.bloodCultOther)}}
+                    <div class="row">
+                        <div class="col-sm-3">
+                            {{form_row(form.bloodId)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.bloodCultDone)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.bloodCultResult)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.bloodCultOther)}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            {{form_row(form.bloodGramDone)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.bloodGramResult)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.bloodGramResultOrganism)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.bloodGramOther)}}
+                        </div>
+                    </div>
 
-                    {{form_row(form.bloodGramDone)}}
-                    {{form_row(form.bloodGramResult)}}
-                    {{form_row(form.bloodGramResultOrganism)}}
-                    {{form_row(form.bloodGramOther)}}
+                    <div class="row">
+                        <div class="col-sm-3">
+                            {{form_row(form.bloodPcrDone)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.bloodPcrResult)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.bloodPcrOther)}}
+                        </div>
+                    </div>
 
-                    {{form_row(form.bloodPcrDone)}}
-                    {{form_row(form.bloodPcrResult)}}
-                    {{form_row(form.bloodPcrOther)}}
-
-                    {{form_row(form.rrlBrothDate)}}
-                    {{form_row(form.rrlIsolBloodDate)}}
+                    <div class="row">
+                        <div class="col-sm-3">
+                            {{form_row(form.rrlBrothDate)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.rrlIsolBloodDate)}}
+                        </div>
+                    </div>
                 </div>
 
                 <div id="sero" class="tab-pane">
