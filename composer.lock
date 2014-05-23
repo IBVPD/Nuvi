@@ -1855,7 +1855,7 @@
             "source": {
                 "type": "git",
                 "url": "gitolite@git.noblet.ca:/symfony/ns/ace.git",
-                "reference": "697db1ac4d7c3a30c74c934ff18415b0d165ce29"
+                "reference": "7b44e30754800e8c287d06aa16f8fca759a6c6d2"
             },
             "require": {
                 "php": ">=5.3.2",
@@ -1879,7 +1879,7 @@
                 }
             ],
             "description": "This bundle provides bootstrap template",
-            "time": "2014-05-23 16:01:24"
+            "time": "2014-05-23 17:45:40"
         },
         {
             "name": "ns/flash-bundle",
@@ -2134,12 +2134,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/punkave/symfony2-file-uploader-bundle.git",
-                "reference": "628faf157ff90761993b9767ca1a5642dc15c1c4"
+                "reference": "e4ffe378f499f764f43b3162ff8be3f147edecbd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/punkave/symfony2-file-uploader-bundle/zipball/628faf157ff90761993b9767ca1a5642dc15c1c4",
-                "reference": "628faf157ff90761993b9767ca1a5642dc15c1c4",
+                "url": "https://api.github.com/repos/punkave/symfony2-file-uploader-bundle/zipball/e4ffe378f499f764f43b3162ff8be3f147edecbd",
+                "reference": "e4ffe378f499f764f43b3162ff8be3f147edecbd",
                 "shasum": ""
             },
             "require": {
@@ -2187,7 +2187,7 @@
                 "upload",
                 "uploader"
             ],
-            "time": "2014-05-15 14:34:33"
+            "time": "2014-05-04 15:42:23"
         },
         {
             "name": "sensio/distribution-bundle",
@@ -2608,12 +2608,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataCoreBundle.git",
-                "reference": "9a0b1094ae52dff73af42aaa3303b77be36bb5c2"
+                "reference": "c1c7ef6e0d2679c475180384a03bfd69a3cc63ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/9a0b1094ae52dff73af42aaa3303b77be36bb5c2",
-                "reference": "9a0b1094ae52dff73af42aaa3303b77be36bb5c2",
+                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/c1c7ef6e0d2679c475180384a03bfd69a3cc63ee",
+                "reference": "c1c7ef6e0d2679c475180384a03bfd69a3cc63ee",
                 "shasum": ""
             },
             "require": {
@@ -2662,7 +2662,7 @@
             "keywords": [
                 "sonata"
             ],
-            "time": "2014-05-22 17:44:04"
+            "time": "2014-05-14 16:25:48"
         },
         {
             "name": "sonata-project/doctrine-orm-admin-bundle",
@@ -4451,7 +4451,9 @@
             "time": "2014-03-07 15:35:33"
         }
     ],
-    "aliases": [],
+    "aliases": [
+
+    ],
     "minimum-stability": "stable",
     "stability-flags": {
         "jms/security-extra-bundle": 20,
@@ -4472,5 +4474,7 @@
     "platform": {
         "php": ">=5.3.3"
     },
-    "platform-dev": []
+    "platform-dev": [
+
+    ]
 }
