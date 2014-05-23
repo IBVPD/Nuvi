@@ -51,14 +51,15 @@
         <div class="tabbable">
             <ul id="dynamicFormTabs" class="nav nav-tabs padding-12 tab-color-blue background-blue">
                 {% for sampleForm in form.samples %}
-                    <li{% if loop.first %} class="ready active"{%endif%}><a data-toggle="tab" href="#{{sampleForm.vars.value.getTypeByClass()|replace({' ':'_'})}}">{{sampleForm.vars.value.getTypeByClass()}}</a></li>
+                    <li{% if loop.first %} class="active"{%endif%}><a data-toggle="tab" href="#tab_{{sampleForm.vars.value.getTypeByClass()|replace({' ':'_'})}}">{{sampleForm.vars.value.getTypeByClass()}}</a></li>
                 {% endfor %}
             </ul>
         </div>
 
         <div class="samples tab-content" data-prototype="{{ form_widget(form.samples.vars.prototype)|e }}">
             {% for sampleForm in form.samples %}
-                <div class="tab-pane{% if loop.first %} ready active{%endif%}" id="{{sampleForm.vars.value.getTypeByClass()|replace({' ':'_'})}}">
+                <div class="tab-pane{% if loop.first %} active{%endif%} ready" id="tab_{{sampleForm.vars.value.getTypeByClass()|replace({' ':'_'})}}">
+                    <h3>{{sampleForm.vars.value.getTypeByClass()}}</h3>
                     <div class="row">
                         <div class="col-sm-3">
                             {{form_row(sampleForm.type)}}
@@ -115,10 +116,12 @@
             
             if($checkbox.is(':checked') && !div.length)
             {
+                console.log('checked, no div');
                 addSampleForm($collectionHolder, $checkbox);
             }
             else if(!$checkbox.is(':checked') && div.length)
             {
+                console.log('no checked, div');
                 div.removeClass('active').removeClass('ready');
                 divTab.hide().removeClass('active');
                 nextActive($collectionHolder);
@@ -126,10 +129,13 @@
             }
             else if($checkbox.is(':checked') && div.length)
             {
+                console.log('checked, div');
                 div.addClass('ready');
                 divTab.show();
                 nextActive($collectionHolder);
             }
+            else
+                console.log('no checked, no div');
         });
     });
     
