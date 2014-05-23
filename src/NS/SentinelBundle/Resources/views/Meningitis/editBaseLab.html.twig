@@ -116,12 +116,10 @@
             
             if($checkbox.is(':checked') && !div.length)
             {
-                console.log('checked, no div');
                 addSampleForm($collectionHolder, $checkbox);
             }
             else if(!$checkbox.is(':checked') && div.length)
             {
-                console.log('no checked, div');
                 div.removeClass('active').removeClass('ready');
                 divTab.hide().removeClass('active');
                 nextActive($collectionHolder);
@@ -129,13 +127,10 @@
             }
             else if($checkbox.is(':checked') && div.length)
             {
-                console.log('checked, div');
                 div.addClass('ready');
                 divTab.show();
                 nextActive($collectionHolder);
             }
-            else
-                console.log('no checked, no div');
         });
     });
     
