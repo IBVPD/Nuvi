@@ -27,12 +27,12 @@ class LabSampleType extends AbstractType
             ->add('sodC',                       null,                   array('label'=>'meningitis-rrl-form.sodC','required'=>false))
             ->add('hpd',                        null,                   array('label'=>'meningitis-rrl-form.hpd','required'=>false))
             ->add('rNaseP',                     null,                   array('label'=>'meningitis-rrl-form.rNasP','required'=>false))
-            ->add('spnSerotype',                'SpnSerotype',          array('label'=>'meningitis-rrl-form.spnSerotype','required'=>false))
-            ->add('spnSerotypeOther',           null,                   array('label'=>'meningitis-rrl-form.spnSerotype-other','required'=>false))
-            ->add('hiSerotype',                 'HiSerotype',           array('label'=>'meningitis-rrl-form.hiSerotype','required'=>false))
-            ->add('hiSerotypeOther',            null,                   array('label'=>'meningitis-rrl-form.hiSerotype-other','required'=>false))
-            ->add('nmSerogroup',                'NmSerogroup',          array('label'=>'meningitis-rrl-form.nmSerogroup','required'=>false))
-            ->add('nmSerogroupOther',           null,                   array('label'=>'meningitis-rrl-form.nmSerogroup-other','required'=>false))
+            ->add('spnSerotype',                'SpnSerotype',          array('label'=>'meningitis-rrl-form.spnSerotype','required'=>false))//, 'attr' => array('data-context-child'=>'spnSerotype')))
+            ->add('spnSerotypeOther',           null,                   array('label'=>'meningitis-rrl-form.spnSerotype-other','required'=>false))//, 'attr' => array('data-context-parent'=>'spnSerotype')))
+            ->add('hiSerotype',                 'HiSerotype',           array('label'=>'meningitis-rrl-form.hiSerotype','required'=>false))//, 'attr' => array('data-context-child'=>'hiSerotype')))
+            ->add('hiSerotypeOther',            null,                   array('label'=>'meningitis-rrl-form.hiSerotype-other','required'=>false))//, 'attr' => array('data-context-parent'=>'hiSerotype')))
+            ->add('nmSerogroup',                'NmSerogroup',          array('label'=>'meningitis-rrl-form.nmSerogroup','required'=>false))//, 'attr' => array('data-context-child'=>'nmSerogroup')))
+            ->add('nmSerogroupOther',           null,                   array('label'=>'meningitis-rrl-form.nmSerogroup-other','required'=>false))//, 'attr' => array('data-context-parent'=>'nmSerogroup')))
                 ;
     }
 
