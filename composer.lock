@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "7dc3469175d1e14bfc6ce932e7797770",
+    "hash": "53c8d3b97867c895a38a4e338562e6c2",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -220,16 +220,16 @@
         },
         {
             "name": "doctrine/common",
-            "version": "v2.4.1",
+            "version": "v2.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/common.git",
-                "reference": "ceb18cf9b0230f3ea208b6238130fd415abda0a7"
+                "reference": "5db6ab40e4c531f14dad4ca96a394dfce5d4255b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/common/zipball/ceb18cf9b0230f3ea208b6238130fd415abda0a7",
-                "reference": "ceb18cf9b0230f3ea208b6238130fd415abda0a7",
+                "url": "https://api.github.com/repos/doctrine/common/zipball/5db6ab40e4c531f14dad4ca96a394dfce5d4255b",
+                "reference": "5db6ab40e4c531f14dad4ca96a394dfce5d4255b",
                 "shasum": ""
             },
             "require": {
@@ -239,6 +239,9 @@
                 "doctrine/inflector": "1.*",
                 "doctrine/lexer": "1.*",
                 "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~3.7"
             },
             "type": "library",
             "extra": {
@@ -257,7 +260,7 @@
             ],
             "authors": [
                 {
-                    "name": "Jonathan H. Wage",
+                    "name": "Jonathan Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/",
                     "role": "Creator"
@@ -276,7 +279,7 @@
                     "email": "kontakt@beberlei.de"
                 },
                 {
-                    "name": "Johannes M. Schmitt",
+                    "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
                     "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
@@ -291,7 +294,7 @@
                 "persistence",
                 "spl"
             ],
-            "time": "2013-09-07 10:20:34"
+            "time": "2014-05-21 19:28:51"
         },
         {
             "name": "doctrine/data-fixtures",
@@ -1852,7 +1855,7 @@
             "source": {
                 "type": "git",
                 "url": "gitolite@git.noblet.ca:/symfony/ns/ace.git",
-                "reference": "8620679feb8df60b79246df39fe8d1dae0fb4214"
+                "reference": "697db1ac4d7c3a30c74c934ff18415b0d165ce29"
             },
             "require": {
                 "php": ">=5.3.2",
@@ -1876,7 +1879,7 @@
                 }
             ],
             "description": "This bundle provides bootstrap template",
-            "time": "2014-05-21 17:35:40"
+            "time": "2014-05-23 16:01:24"
         },
         {
             "name": "ns/flash-bundle",
@@ -2131,12 +2134,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/punkave/symfony2-file-uploader-bundle.git",
-                "reference": "e4ffe378f499f764f43b3162ff8be3f147edecbd"
+                "reference": "628faf157ff90761993b9767ca1a5642dc15c1c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/punkave/symfony2-file-uploader-bundle/zipball/e4ffe378f499f764f43b3162ff8be3f147edecbd",
-                "reference": "e4ffe378f499f764f43b3162ff8be3f147edecbd",
+                "url": "https://api.github.com/repos/punkave/symfony2-file-uploader-bundle/zipball/628faf157ff90761993b9767ca1a5642dc15c1c4",
+                "reference": "628faf157ff90761993b9767ca1a5642dc15c1c4",
                 "shasum": ""
             },
             "require": {
@@ -2184,7 +2187,7 @@
                 "upload",
                 "uploader"
             ],
-            "time": "2014-05-04 15:42:23"
+            "time": "2014-05-15 14:34:33"
         },
         {
             "name": "sensio/distribution-bundle",
@@ -2605,12 +2608,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataCoreBundle.git",
-                "reference": "c1c7ef6e0d2679c475180384a03bfd69a3cc63ee"
+                "reference": "9a0b1094ae52dff73af42aaa3303b77be36bb5c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/c1c7ef6e0d2679c475180384a03bfd69a3cc63ee",
-                "reference": "c1c7ef6e0d2679c475180384a03bfd69a3cc63ee",
+                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/9a0b1094ae52dff73af42aaa3303b77be36bb5c2",
+                "reference": "9a0b1094ae52dff73af42aaa3303b77be36bb5c2",
                 "shasum": ""
             },
             "require": {
@@ -2659,7 +2662,7 @@
             "keywords": [
                 "sonata"
             ],
-            "time": "2014-05-14 16:25:48"
+            "time": "2014-05-22 17:44:04"
         },
         {
             "name": "sonata-project/doctrine-orm-admin-bundle",
@@ -4448,9 +4451,7 @@
             "time": "2014-03-07 15:35:33"
         }
     ],
-    "aliases": [
-
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "jms/security-extra-bundle": 20,
@@ -4471,7 +4472,5 @@
     "platform": {
         "php": ">=5.3.3"
     },
-    "platform-dev": [
-
-    ]
+    "platform-dev": []
 }
