@@ -1,5 +1,31 @@
 {%extends "NSSentinelBundle::layout.html.twig" %}
 
+{% macro sample_form_prototype(form) %}
+<div class="row">
+    <div class="col-sm-3">
+        {{form_row(form.type)}}
+        {{form_row(form.pathogenIdentifierMethod)}}
+        {{form_row(form.pathogenIdentifierOther)}}
+        {{form_row(form.serotypeIdentifier)}}
+        {{form_row(form.serotypeIdentifierOther)}}
+    </div>
+    <div class="col-sm-3">
+        {{form_row(form.lytA)}}
+        {{form_row(form.sodC)}}
+        {{form_row(form.hpd)}}
+        {{form_row(form.rNaseP)}}
+    </div>
+    <div class="col-sm-3">
+        {{form_row(form.spnSerotype)}}
+        {{form_row(form.spnSerotypeOther)}}
+        {{form_row(form.hiSerotype)}}
+        {{form_row(form.hiSerotypeOther)}}
+        {{form_row(form.nmSerogroup)}}
+        {{form_row(form.nmSerogroupOther)}}
+    </div>
+</div>    
+{% endmacro %}
+
 {% block pagetitle %}
 {{'Edit %type% For Case %id%'|trans({'%id%': form.vars.value.case.caseId,'%type%': type})}}
 {% endblock %}
@@ -56,33 +82,11 @@
             </ul>
         </div>
 
-        <div class="samples tab-content" data-prototype="{{ form_widget(form.samples.vars.prototype)|e }}">
+        <div class="samples tab-content" data-prototype="{{ _self.sample_form_prototype(form.samples.vars.prototype)|e }}">
             {% for sampleForm in form.samples %}
                 <div class="tab-pane{% if loop.first %} active{%endif%} ready" id="tab_{{sampleForm.vars.value.getTypeByClass()|replace({' ':''})}}">
                     <h3>{{sampleForm.vars.value.getTypeByClass()}}</h3>
-                    <div class="row">
-                        <div class="col-sm-3">
-                            {{form_row(sampleForm.type)}}
-                            {{form_row(sampleForm.pathogenIdentifierMethod)}}
-                            {{form_row(sampleForm.pathogenIdentifierOther)}}
-                            {{form_row(sampleForm.serotypeIdentifier)}}
-                            {{form_row(sampleForm.serotypeIdentifierOther)}}
-                        </div>
-                        <div class="col-sm-3">
-                            {{form_row(sampleForm.lytA)}}
-                            {{form_row(sampleForm.sodC)}}
-                            {{form_row(sampleForm.hpd)}}
-                            {{form_row(sampleForm.rNaseP)}}
-                        </div>
-                        <div class="col-sm-3">
-                            {{form_row(sampleForm.spnSerotype)}}
-                            {{form_row(sampleForm.spnSerotypeOther)}}
-                            {{form_row(sampleForm.hiSerotype)}}
-                            {{form_row(sampleForm.hiSerotypeOther)}}
-                            {{form_row(sampleForm.nmSerogroup)}}
-                            {{form_row(sampleForm.nmSerogroupOther)}}
-                        </div>
-                    </div>
+                    {{ _self.sample_form_prototype(sampleForm)}}
                 </div>
             {% endfor %}
         </div>
