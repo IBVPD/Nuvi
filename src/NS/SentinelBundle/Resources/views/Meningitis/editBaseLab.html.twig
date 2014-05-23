@@ -51,14 +51,14 @@
         <div class="tabbable">
             <ul id="dynamicFormTabs" class="nav nav-tabs padding-12 tab-color-blue background-blue">
                 {% for sampleForm in form.samples %}
-                    <li{% if loop.first %} class="active"{%endif%}><a data-toggle="tab" href="#{{sampleForm.vars.value.getTypeByClass()|replace({' ':'_'})}}">{{sampleForm.vars.value.getTypeByClass()}}</a></li>
+                    <li{% if loop.first %} class="ready active"{%endif%}><a data-toggle="tab" href="#{{sampleForm.vars.value.getTypeByClass()|replace({' ':'_'})}}">{{sampleForm.vars.value.getTypeByClass()}}</a></li>
                 {% endfor %}
             </ul>
         </div>
 
         <div class="samples tab-content" data-prototype="{{ form_widget(form.samples.vars.prototype)|e }}">
             {% for sampleForm in form.samples %}
-                <div class="tab-pane{% if loop.first %} active{%endif%}" id="{{sampleForm.vars.value.getTypeByClass()|replace({' ':'_'})}}">
+                <div class="tab-pane{% if loop.first %} ready active{%endif%}" id="{{sampleForm.vars.value.getTypeByClass()|replace({' ':'_'})}}">
                     <div class="row">
                         <div class="col-sm-3">
                             {{form_row(sampleForm.type)}}
@@ -106,59 +106,77 @@
         $collectionTabs   = $('#dynamicFormTabs');
 
         // add the "add a tag" anchor and li to the tags ul
-        $collectionTabs.before($addTagLink);
+{#        $collectionTabs.before($addTagLink);#}
 
         // count the current form inputs we have (e.g. 2), use that as the new
         // index when inserting a new item (e.g. 2)
         $collectionHolder.data('index', $collectionHolder.find(':input').length);
 
-        $addTagLink.on('click', function(e) {
-            // prevent the link from creating a "#" on the URL
-            e.preventDefault();
-
-            // add a new tag form (see next code block)
-            addSampleForm($collectionHolder);
+    
+        $('input[name="ibd_nationallab[sampleType][]"]').change(function(event)
+        {
+            var $checkbox = $(event.target);
+            var v         = $checkbox.val().replace(/\s+/g, '');
+            var div       = $('div#tab_'+v);
+            var divTab    = $('a[data-toggle][href="#tab_'+v+'"]').parent('li');
+            
+            if($checkbox.is(':checked') && !div.length)
+            {
+                addSampleForm($collectionHolder, $checkbox);
+            }
+            else if(!$checkbox.is(':checked') && div.length)
+            {
+                div.removeClass('active').removeClass('ready');
+                divTab.hide().removeClass('active');
+                if(!$collectionHolder.find('.tab-pane.active').length)
+                {
+                    var f = $collectionHolder.find('.tab-pane.ready:first');
+                    if(f.length)
+                    {
+                        $(f).addClass('active');
+                        $('a[data-toggle][href="#'+$(f).attr('id')+'"]').parent('li').addClass('active');
+                    }
+                }
+                    
+            }
+            else if($checkbox.is(':checked') && div.length)
+            {
+                div.addClass('ready');
+                divTab.show();
+            }
         });
     });
 
-    function addSampleForm($collectionHolder) 
+    function addSampleForm($collectionHolder, field) 
     {
-        var field = $('input[name="ibd_nationallab[sampleType][]"]');
-        
-        field.each(function(index)
-        {
-            var f = this;
-            if(f.checked)
+            var f = field;
+            var v = $(f).val().replace(/\s+/g, '');
+            // Get the data-prototype explained earlier
+            var prototype = $collectionHolder.data('prototype');
+
+            // get the new index
+            var index = $collectionHolder.data('index');
+
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            var newForm = prototype.replace(/__name__/g, index);
+
+            // increase the index with one for the next item
+            $collectionHolder.data('index', index + 1);
+
+            // Display the form in the page in an li, before the "Add a tag" link li
+            var $newFormTab = $('<div class="tab-pane ready" id="tab_'+v+'"></div>').append('<h3>'+$(f).val()+'</h3>').append(newForm);
+            var $newTab = $('<li><a data-toggle="tab" href="#tab_'+v+'">'+$(f).val()+'</a></li>');
+            $newFormTab.find('input[type=hidden]').val($(f).val());
+            $collectionHolder.append($newFormTab);
+            $collectionTabs.append($newTab);
+
+            if(!dynamicTab)
             {
-                var v = $(f).val().replace(/\s+/g, '');
-                // Get the data-prototype explained earlier
-                var prototype = $collectionHolder.data('prototype');
-
-                // get the new index
-                var index = $collectionHolder.data('index');
-
-                // Replace '__name__' in the prototype's HTML to
-                // instead be a number based on how many items we have
-                var newForm = prototype.replace(/__name__/g, index);
-
-                // increase the index with one for the next item
-                $collectionHolder.data('index', index + 1);
-
-                // Display the form in the page in an li, before the "Add a tag" link li
-                var $newFormTab = $('<div class="tab-pane" id="tab_'+v+'"></div>').append('<h3>'+$(f).val()+'</h3>').append(newForm);
-                var $newTab = $('<li><a data-toggle="tab" href="#tab_'+v+'">'+$(f).val()+'</a></li>');
-                $newFormTab.find('input[type=hidden]').val($(f).val());
-                $collectionHolder.append($newFormTab);
-                $collectionTabs.append($newTab);
-                
-                if(!dynamicTab)
-                {
-                    $newFormTab.addClass('active');
-                    $newTab.addClass('active');
-                    dynamicTab = true;
-                }
+                $newFormTab.addClass('active');
+                $newTab.addClass('active');
+                dynamicTab = true;
             }
-        });
     }
 </script>
 {% endblock %}
