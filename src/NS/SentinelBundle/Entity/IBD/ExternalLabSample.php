@@ -104,7 +104,7 @@ class ExternalLabSample implements \Serializable
 
     /**
      * @var string $spnSerotypeOther
-     * @ORM\Column(name="spnSerotypeOther",type="string")
+     * @ORM\Column(name="spnSerotypeOther",type="string",nullable=true)
      */
     private $spnSerotypeOther;
 
@@ -116,7 +116,7 @@ class ExternalLabSample implements \Serializable
 
     /**
      * @var string $hiSerotypeOther
-     * @ORM\Column(name="hiSerotypeOther",type="string")
+     * @ORM\Column(name="hiSerotypeOther",type="string",nullable=true)
      */
     private $hiSerotypeOther;
 
@@ -128,7 +128,7 @@ class ExternalLabSample implements \Serializable
 
     /**
      * @var string $nmSerogroupOther
-     * @ORM\Column(name="nmSerogroupOther",type="string")
+     * @ORM\Column(name="nmSerogroupOther",type="string",nullable=true)
      */
     private $nmSerogroupOther;
 
@@ -410,6 +410,7 @@ class ExternalLabSample implements \Serializable
             if($obj)
             {
                 $obj->unserialize($this->serialize());
+                $obj->setLab($this->lab);
                 return $obj;
             }
             else
@@ -423,7 +424,6 @@ class ExternalLabSample implements \Serializable
     {
         return serialize(array(
                             $this->id,
-                            $this->lab,
                             $this->pathogenIdentifierMethod,
                             $this->pathogenIdentifierOther,
                             $this->serotypeIdentifier,
@@ -434,7 +434,7 @@ class ExternalLabSample implements \Serializable
                             $this->rNaseP,
                             $this->spnSerotype,
                             $this->hiSerotype,
-                            $this->nmSerogroup,
+                            $this->nmSerogroup
                         ));
     }
 
@@ -442,7 +442,6 @@ class ExternalLabSample implements \Serializable
     {
         list(
             $this->id,
-            $this->lab,
             $this->pathogenIdentifierMethod,
             $this->pathogenIdentifierOther,
             $this->serotypeIdentifier,
