@@ -128,24 +128,30 @@
             {
                 div.removeClass('active').removeClass('ready');
                 divTab.hide().removeClass('active');
-                if(!$collectionHolder.find('.tab-pane.active').length)
-                {
-                    var f = $collectionHolder.find('.tab-pane.ready:first');
-                    if(f.length)
-                    {
-                        $(f).addClass('active');
-                        $('a[data-toggle][href="#'+$(f).attr('id')+'"]').parent('li').addClass('active');
-                    }
-                }
+                nextActive($collectionHolder);
                     
             }
             else if($checkbox.is(':checked') && div.length)
             {
                 div.addClass('ready');
                 divTab.show();
+                nextActive($collectionHolder);
             }
         });
     });
+    
+    function nextActive($collectionHolder)
+    {
+        if(!$collectionHolder.find('.tab-pane.active').length)
+        {
+            var f = $collectionHolder.find('.tab-pane.ready:first');
+            if(f.length)
+            {
+                $(f).addClass('active');
+                $('a[data-toggle][href="#'+$(f).attr('id')+'"]').parent('li').addClass('active');
+            }
+        }
+    }
 
     function addSampleForm($collectionHolder, field) 
     {
