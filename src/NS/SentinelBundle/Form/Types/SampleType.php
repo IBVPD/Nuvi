@@ -2,15 +2,14 @@
 
 namespace NS\SentinelBundle\Form\Types;
 
-use \NS\UtilBundle\Form\Types\SetChoice;
-use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
+use NS\UtilBundle\Form\Types\TranslatableSetChoice;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
 /**
  * Description of SampleType
  *
  */
-class SampleType extends SetChoice
+class SampleType extends TranslatableSetChoice implements TranslationContainerInterface
 {
     const CSF        = 1;
     const ISOLATE    = 2;

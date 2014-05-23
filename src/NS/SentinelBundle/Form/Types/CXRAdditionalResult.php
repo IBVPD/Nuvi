@@ -2,14 +2,15 @@
 
 namespace NS\SentinelBundle\Form\Types;
 
-use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
+use NS\UtilBundle\Form\Types\TranslatableSetChoice;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Description of CXRAdditionalResult
  *
  */
-class CXRAdditionalResult extends TranslatableArrayChoice implements TranslationContainerInterface
+class CXRAdditionalResult extends TranslatableSetChoice implements TranslationContainerInterface
 {
     const CONSOLIDATION     = 1;
     const PLEURAL_EFFUSION  = 2;
@@ -17,7 +18,7 @@ class CXRAdditionalResult extends TranslatableArrayChoice implements Translation
     const INFILTRATE        = 4;
     const UNKNOWN           = 99;
 
-    protected $values = array(
+    protected $set = array(
                                 self::CONSOLIDATION     => 'Consolidation',
                                 self::PLEURAL_EFFUSION  => 'Pleural effusion',
                                 self::AIR_BRONCHOGRAM   => 'Air bronchogram',
@@ -28,5 +29,10 @@ class CXRAdditionalResult extends TranslatableArrayChoice implements Translation
     public function getName()
     {
         return 'CXRAdditionalResult';
+    }
+
+    public function getValues()
+    {
+        return $this->set;
     }
 }

@@ -66,13 +66,10 @@ class CaseType extends AbstractType
             ->add('meningType',             'MeningitisVaccinationType', array('required'=>false,'label'=>'meningitis-form.men-type',               'attr' => array('data-context-parent'=>'meningReceived', 'data-context-value'=>json_encode(array(VaccinationReceived::YES_CARD,VaccinationReceived::YES_HISTORY)))))
             ->add('meningMostRecentDose',   'acedatepicker',             array('required'=>false,'label'=>'meningitis-form.meningMostRecentDose',   'attr' => array('data-context-parent'=>'meningReceived', 'data-context-value'=>json_encode(array(VaccinationReceived::YES_CARD,VaccinationReceived::YES_HISTORY)))))
 
-            ->add('csfCollected',           'TripleChoice',     array('required'=>false,'label'=>'meningitis-form.csf-collected',             'attr' => array('data-context-child'=>'csfCollected','data-context-value'=>TripleChoice::YES)))
-            ->add('csfCollectDateTime',     'acedatetime',      array('required'=>false,'label'=>'meningitis-form.csf-collect-datetime',      'attr' => array('data-context-parent'=>'csfCollected','data-context-value'=>true)))
-            ->add('csfAppearance',          'CSFAppearance',    array('required'=>false,'label'=>'meningitis-form.csf-appearance',            'attr' => array('data-context-parent'=>'csfCollected','data-context-value'=>true)))
-
-            ->add('cxrDone',             'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.cxr-done',                'attr' => array('data-context-child'=>'cxrDone')))
-            ->add('cxrResult',           'CXRResult',            array('required'=>false, 'label'=>'meningitis-form.cxr-result',              'attr' => array('data-context-parent'=>'cxrDone','data-context-child'=>'cxrResult', 'data-context-value'=> TripleChoice::YES)))
-            ->add('cxrAdditionalResult', 'CXRAdditionalResult', array('required'=>false, 'label'=>'meningitis-form.cxr-additional-result',   'attr' => array('data-context-parent'=>'cxrResult','data-context-value'=> CXRResult::CONSISTENT)))
+            ->add('bloodCollected',         'TripleChoice',     array('required'=>false,'label'=>'meningitis-form.blood-collected'))
+            ->add('csfCollected',           'TripleChoice',     array('required'=>false,'label'=>'meningitis-form.csf-collected',        'attr' => array('data-context-child'=>'csfCollected','data-context-value'=>TripleChoice::YES)))
+            ->add('csfCollectDateTime',     'acedatetime',      array('required'=>false,'label'=>'meningitis-form.csf-collect-datetime', 'attr' => array('data-context-parent'=>'csfCollected','data-context-value'=>true)))
+            ->add('csfAppearance',          'CSFAppearance',    array('required'=>false,'label'=>'meningitis-form.csf-appearance',       'attr' => array('data-context-parent'=>'csfCollected','data-context-value'=>true)))
         ;
 
         $siteSerializer = $this->siteSerializer;
@@ -102,7 +99,9 @@ class CaseType extends AbstractType
                              ->add('pneuVomit',         'TripleChoice', array('required'=>false,'label'=>'meningitis-form.pneu-vomit'))
                              ->add('pneuHypothermia',   'TripleChoice', array('required'=>false,'label'=>'meningitis-form.pneu-hypothermia'))
                              ->add('pneuMalnutrition',  'TripleChoice', array('required'=>false,'label'=>'meningitis-form.pneu-malnutrition'))
-                             ->add('bloodCollected',    'TripleChoice', array('required'=>false,'label'=>'meningitis-form.blood-collected','attr'=>array('data-context-child'=>'bloodCollected')))
+                             ->add('cxrDone',             'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.cxr-done',                'attr' => array('data-context-child'=>'cxrDone')))
+                             ->add('cxrResult',           'CXRResult',            array('required'=>false, 'label'=>'meningitis-form.cxr-result',              'attr' => array('data-context-parent'=>'cxrDone','data-context-child'=>'cxrResult', 'data-context-value'=> TripleChoice::YES)))
+                             ->add('cxrAdditionalResult', 'CXRAdditionalResult', array('required'=>false, 'label'=>'meningitis-form.cxr-additional-result',   'attr' => array('data-context-parent'=>'cxrResult','data-context-value'=> CXRResult::CONSISTENT)))
                             ;
                     }
                 });
