@@ -43,7 +43,7 @@ abstract class ExternalLab extends BaseExternalLab
      * @var ExternalLabSample $samples
      * @ORM\OneToMany(targetEntity="\NS\SentinelBundle\Entity\IBD\ExternalLabSample", mappedBy="lab")
      */
-    private $samples;
+    protected $samples;
 
     /**
      * @ORM\ManyToOne(targetEntity="\NS\SentinelBundle\Entity\Meningitis",inversedBy="externalLabs")
@@ -55,46 +55,47 @@ abstract class ExternalLab extends BaseExternalLab
      * @var SampleType
      * @ORM\Column(type="SampleType",nullable=true)
      */
-    private $sampleType;
+    protected $sampleType;
 
     /**
      * @var DateTime $dateReceived
      * @ORM\Column(name="dateReceived", type="date",nullable=true)
      */
-    private $dateReceived;
+    protected $dateReceived;
 
     /**
      * @var Volume
      * @ORM\Column(type="Volume",nullable=true)
      */
-    private $volume;
+    protected $volume;
 
     /**
      * @var DateTime
      * @ORM\Column(type="date",nullable=true)
      */
-    private $DNAExtractionDate;
+    protected $DNAExtractionDate;
 
     /**
      * @var integer
      * @ORM\Column(name="DNAVolume",type="integer",nullable=true)
      */
-    private $DNAVolume;
+    protected $DNAVolume;
 
     /**
      * @var TripleChoice
      * @ORM\Column(name="isolateViable",type="TripleChoice",nullable=true)
      */
-    private $isolateViable;
+    protected $isolateViable;
 
     /**
      * @var IsolateType
      * @ORM\Column(name="isolateType",type="IsolateType",nullable=true)
      */
-    private $isolateType;
+    protected $isolateType;
 
     public function __construct()
     {
+        parent::__construct();
         $this->samples = new ArrayCollection();
     }
 
@@ -103,9 +104,11 @@ abstract class ExternalLab extends BaseExternalLab
         return $this->samples;
     }
 
-    public function setSamples(ExternalLabSample $samples)
+    public function setSamples($samples)
     {
         $this->samples = $samples;
+        foreach($this->samples as $s)
+            $s->setLab($this);
     }
 
     public function addSamples(ExternalLabSample $sample)
@@ -539,25 +542,11 @@ abstract class ExternalLab extends BaseExternalLab
                     'dateReceived',
                     'isolateViable',
                     'isolateType',
-                    'pathogenIdentifierMethod',
-                    'serotypeIdentifier',
-                    'spnSerotype',
-                    'hiSerotype',
-                    'nmSerogroup',
-                    'resultSentToCountry',
-                    'resultSentToWHO',
                     );
     }
 
     public function validate(ExecutionContextInterface $context)
     {
-        // if pathogenIdentifierMethod is other, enforce value in 'pathogenIdentifierMethod other' field
-        if($this->pathogenIdentifierMethod && $this->pathogenIdentifierMethod->equal(PathogenIdentifier::OTHER) && empty($this->pathogenIdentifierOther))
-            $context->addViolationAt('pathogenIdentifierMethod',"form.validation.pathogenIdentifierMethod-other-without-other-text");
-
-        // if serotypeIdentifier is other, enforce value in 'serotypeIdentifier other' field
-        if($this->serotypeIdentifier && $this->serotypeIdentifier->equal(SerotypeIdentifier::OTHER) && empty($this->serotypeIdentifierOther))
-            $context->addViolationAt('serotypeIdentifier',"form.validation.serotypeIdentifier-other-without-other-text");
     }
 
     public function getIncompleteField()
@@ -565,11 +554,5 @@ abstract class ExternalLab extends BaseExternalLab
         $ret = parent::getIncompleteField();
         if($ret)
             return $ret;
-
-        if($this->pathogenIdentifierMethod && $this->pathogenIdentifierMethod->equal(Diagnosis::OTHER) && empty($this->pathogenIdentifierOther))
-            return 'pathogenIdentier';
-
-        if($this->serotypeIdentifierMethod && $this->serotypeIdentifierMethod->equal(Diagnosis::OTHER) && empty($this->serotypeIdentifierOther))
-            return 'serotypeIdentier';
     }
 }

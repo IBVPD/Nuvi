@@ -16,17 +16,14 @@
         <div class="tabbable">
             <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
                 <li class="active"><a data-toggle="tab" href="#labinfo">{{'Lab Information'|trans}}</a></li>
-                <li><a data-toggle="tab" href="#sample">{{'Sample Information'|trans}}</a></li>
-                <li><a data-toggle="tab" href="#methods">{{'Methods'|trans}}</a></li>
+<!--                <li><a data-toggle="tab" href="#methods">{{'Methods'|trans}}</a></li>
                 <li><a data-toggle="tab" href="#ctvalues">{{'CT Values From PCR'|trans}}</a></li>
-                <li><a data-toggle="tab" href="#serotype">{{'Serotype / Serogroup Results'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#serotype">{{'Serotype / Serogroup Results'|trans}}</a></li>-->
             </ul>
         </div>
         <div class="tab-content">
             <div id="labinfo" class="tab-pane active">
                 {{form_row(form.labId)}}
-            </div>
-            <div id="sample" class="tab-pane">
                 <div class="row">
                     <div class="col-sm-6 col-md-6 col-lg-6">
                         {{form_row(form.dateReceived)}}
@@ -45,9 +42,40 @@
 
         <div class="tabbable">
             <ul id="dynamicFormTabs" class="nav nav-tabs padding-12 tab-color-blue background-blue">
+                {% for sampleForm in form.samples %}
+                    <li{% if loop.first %} class="active"{%endif%}><a data-toggle="tab" href="#{{sampleForm.vars.value.getTypeByClass()|replace({' ':'_'})}}">{{sampleForm.vars.value.getTypeByClass()}}</a></li>
+                {% endfor %}
             </ul>
         </div>
+
         <div class="samples tab-content" data-prototype="{{ form_widget(form.samples.vars.prototype)|e }}">
+            {% for sampleForm in form.samples %}
+                <div class="tab-pane{% if loop.first %} active{%endif%}" id="{{sampleForm.vars.value.getTypeByClass()|replace({' ':'_'})}}">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            {{form_row(sampleForm.type)}}
+                            {{form_row(sampleForm.pathogenIdentifierMethod)}}
+                            {{form_row(sampleForm.pathogenIdentifierOther)}}
+                            {{form_row(sampleForm.serotypeIdentifier)}}
+                            {{form_row(sampleForm.serotypeIdentifierOther)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(sampleForm.lytA)}}
+                            {{form_row(sampleForm.sodC)}}
+                            {{form_row(sampleForm.hpd)}}
+                            {{form_row(sampleForm.rNaseP)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(sampleForm.spnSerotype)}}
+                            {{form_row(sampleForm.spnSerotypeOther)}}
+                            {{form_row(sampleForm.hiSerotype)}}
+                            {{form_row(sampleForm.hiSerotypeOther)}}
+                            {{form_row(sampleForm.nmSerogroup)}}
+                            {{form_row(sampleForm.nmSerogroupOther)}}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
                     
         <div class="form-actions center">
@@ -55,10 +83,6 @@
         </div>
     </div>
     {{form_rest(form)}}
-</div>
-<div class="row" id="row1">
-</div>
-<div class="row" id="row2">
 </div>
 
 </form>

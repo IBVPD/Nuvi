@@ -57,6 +57,8 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
             else
             {
                 $qb = $this->createQueryBuilder('r')
+                           ->addSelect('s')
+                           ->leftJoin('r.samples', 's')
                            ->where('r.case = :case')
                            ->setParameter('case',$this->_em->getReference($this->parentClass,$id));
 

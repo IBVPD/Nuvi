@@ -7,9 +7,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\FormError;
 use NS\SentinelBundle\Exceptions\NonExistentCase;
 use NS\SentinelBundle\Form\Types\CreateRoles;
-use \Symfony\Component\Form\FormError;
+use NS\SentinelBundle\Entity\IBD\SiteLab;
 
 /**
  * @Route("/{_locale}/ibd")
@@ -102,7 +103,7 @@ class MeningitisController extends Controller
                      */
                     if(!$meningCase->getId() || ($meningCase->getId() && !$meningCase->hasSiteLab()))
                     {
-                        $siteLab = new \NS\SentinelBundle\Entity\IBD\SiteLab();
+                        $siteLab = new SiteLab();
                         $siteLab->setSentToReferenceLab(true);
                         $meningCase->setSiteLab($siteLab);
                     }
@@ -111,7 +112,7 @@ class MeningitisController extends Controller
                 case CreateRoles::NL:
                     if(!$meningCase->getId() || ($meningCase->getId() && !$meningCase->hasSiteLab()))
                     {
-                        $siteLab = new \NS\SentinelBundle\Entity\IBD\SiteLab();
+                        $siteLab = new SiteLab();
                         $siteLab->setSentToNationalLab(true);
                         $meningCase->setSiteLab($siteLab);
                     }
@@ -219,6 +220,19 @@ class MeningitisController extends Controller
             {
                 $em     = $this->getDoctrine()->getManager();
                 $record = $form->getData();
+                if($type == 'rrl' || $type == 'nl')
+                {
+                    $samples = array();
+                    foreach($record->getSamples() as $sample)
+                    {
+                        $s = $sample->getChildInstance();
+                        $samples[] = $s;
+                        $em->persist($s);
+                    }
+
+                    $record->setSamples($samples);
+                }
+
                 $em->persist($record);
 
                 if($type != 'ibd' && $type != 'outcome')
@@ -233,8 +247,6 @@ class MeningitisController extends Controller
                     // TODO Flash service required
                     if($e->getPrevious()->getCode() === '23000')
                         $form->addError(new FormError ("The case id already exists for this site!"));
-                    else
-                        die("ERROR: ".$e->getMessage());
 
                     return array('form' => $form->createView(),'id'=>$id, 'type'=>strtoupper($type));
                 }

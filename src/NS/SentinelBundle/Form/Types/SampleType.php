@@ -32,4 +32,14 @@ class SampleType extends SetChoice
     {
         return 'SampleType';
     }
+
+    public function getIndexForValue($value)
+    {
+        return array_search($value,$this->set);
+    }
+
+    public function getValues()
+    {
+        return $this->set;
+    }
 }
