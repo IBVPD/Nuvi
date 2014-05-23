@@ -97,22 +97,15 @@
     var dynamicTab = false;
     var $collectionHolder;
 
-    // setup an "add a tag" link
-    var $addTagLink = $('<a href="#" class="add_tag_link">Add Sample</a>');
-
     jQuery(document).ready(function() {
         // Get the ul that holds the collection of tags
         $collectionHolder = $('div.samples');
         $collectionTabs   = $('#dynamicFormTabs');
 
-        // add the "add a tag" anchor and li to the tags ul
-{#        $collectionTabs.before($addTagLink);#}
-
         // count the current form inputs we have (e.g. 2), use that as the new
         // index when inserting a new item (e.g. 2)
         $collectionHolder.data('index', $collectionHolder.find(':input').length);
 
-    
         $('input[name="ibd_nationallab[sampleType][]"]').change(function(event)
         {
             var $checkbox = $(event.target);

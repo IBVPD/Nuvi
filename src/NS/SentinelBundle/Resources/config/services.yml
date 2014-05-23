@@ -312,7 +312,7 @@ services:
       tags:
         - { name: form.type, alias: ibd_sitelab }
 
-    ns.sentinel.form.type.ibd_sitelab:
+    ns.sentinel.form.type.ibd_lab_sample:
       class: NS\SentinelBundle\Form\IBD\LabSampleType
       arguments: [ "@ns.sentinel.sites" ]
       tags:
