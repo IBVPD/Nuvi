@@ -156,6 +156,7 @@
     {
             var f = field;
             var v = $(f).val().replace(/\s+/g, '');
+            var dynamicTab = $collectionHolder.find('div.tab-pane').length;
             // Get the data-prototype explained earlier
             var prototype = $collectionHolder.data('prototype');
 
