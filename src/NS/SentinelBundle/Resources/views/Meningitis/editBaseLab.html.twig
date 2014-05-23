@@ -51,14 +51,14 @@
         <div class="tabbable">
             <ul id="dynamicFormTabs" class="nav nav-tabs padding-12 tab-color-blue background-blue">
                 {% for sampleForm in form.samples %}
-                    <li{% if loop.first %} class="active"{%endif%}><a data-toggle="tab" href="#tab_{{sampleForm.vars.value.getTypeByClass()|replace({' ':'_'})}}">{{sampleForm.vars.value.getTypeByClass()}}</a></li>
+                    <li{% if loop.first %} class="active"{%endif%}><a data-toggle="tab" href="#tab_{{sampleForm.vars.value.getTypeByClass()|replace({' ':''})}}">{{sampleForm.vars.value.getTypeByClass()}}</a></li>
                 {% endfor %}
             </ul>
         </div>
 
         <div class="samples tab-content" data-prototype="{{ form_widget(form.samples.vars.prototype)|e }}">
             {% for sampleForm in form.samples %}
-                <div class="tab-pane{% if loop.first %} active{%endif%} ready" id="tab_{{sampleForm.vars.value.getTypeByClass()|replace({' ':'_'})}}">
+                <div class="tab-pane{% if loop.first %} active{%endif%} ready" id="tab_{{sampleForm.vars.value.getTypeByClass()|replace({' ':''})}}">
                     <h3>{{sampleForm.vars.value.getTypeByClass()}}</h3>
                     <div class="row">
                         <div class="col-sm-3">
