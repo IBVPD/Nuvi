@@ -16,23 +16,31 @@
         <div class="tabbable">
             <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
                 <li class="active"><a data-toggle="tab" href="#labinfo">{{'Lab Information'|trans}}</a></li>
-<!--                <li><a data-toggle="tab" href="#methods">{{'Methods'|trans}}</a></li>
-                <li><a data-toggle="tab" href="#ctvalues">{{'CT Values From PCR'|trans}}</a></li>
-                <li><a data-toggle="tab" href="#serotype">{{'Serotype / Serogroup Results'|trans}}</a></li>-->
             </ul>
         </div>
         <div class="tab-content">
             <div id="labinfo" class="tab-pane active">
-                {{form_row(form.labId)}}
+                
                 <div class="row">
-                    <div class="col-sm-6 col-md-6 col-lg-6">
-                        {{form_row(form.dateReceived)}}
+                    <div class="col-sm-4">
                         {{form_row(form.sampleType)}}
+                    </div>
+                    <div class="col-sm-4">
+                        {{form_row(form.dateReceived)}}
+                    </div>
+                    <div class="col-sm-4">
+                        {{form_row(form.labId)}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
                         {{form_row(form.volume)}}
                     </div>
-                    <div class="col-sm-6 col-md-6 col-lg-6">
+                    <div class="col-sm-4">
                         {{form_row(form.DNAExtractionDate)}}
                         {{form_row(form.DNAVolume)}}
+                    </div>
+                    <div class="col-sm-4">
                         {{form_row(form.isolateViable)}}
                         {{form_row(form.isolateType)}}                    
                     </div>
@@ -77,12 +85,11 @@
                 </div>
             {% endfor %}
         </div>
-                    
+        {{form_row(form._token)}}                    
         <div class="form-actions center">
             <a href="{{path('meningitisIndex')}}" class="btn btn-sm btn-danger">{{'Cancel'|trans}}</a> <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
         </div>
     </div>
-    {{form_rest(form)}}
 </div>
 
 </form>
