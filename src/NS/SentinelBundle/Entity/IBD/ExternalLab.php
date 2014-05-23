@@ -41,7 +41,7 @@ abstract class ExternalLab extends BaseExternalLab
 {
     /**
      * @var ExternalLabSample $samples
-     * @ORM\OneToMany(targetEntity="\NS\SentinelBundle\Entity\IBD\ExternalLabSample", mappedBy="lab")
+     * @ORM\OneToMany(targetEntity="\NS\SentinelBundle\Entity\IBD\ExternalLabSample", mappedBy="lab", cascade={"persist"}, orphanRemoval=true)
      */
     protected $samples;
 
@@ -118,7 +118,7 @@ abstract class ExternalLab extends BaseExternalLab
 
     public function removeSamples(ExternalLabSample $sample)
     {
-        $this->samples->remove($sample);
+        $this->samples->removeElement($sample);
     }
 
     /**
@@ -554,5 +554,23 @@ abstract class ExternalLab extends BaseExternalLab
         $ret = parent::getIncompleteField();
         if($ret)
             return $ret;
+    }
+
+    public function shouldHaveSampleType(ExternalLabSample $s)
+    {
+        $types = $this->sampleType->toArray();
+
+        return in_array($s->getType(),$types);
+    }
+
+    public function hasSampleType(ExternalLabSample $type)
+    {
+        foreach($this->samples as $s)
+        {
+            if($s instanceof $type)
+                return true;
+        }
+
+        return false;
     }
 }

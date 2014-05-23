@@ -201,7 +201,7 @@ class ExternalLabSample implements \Serializable
 
     public function getType()
     {
-        return $this->type;
+        return $this->getTypeByClass();
     }
 
     public function getTypeByClass()

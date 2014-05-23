@@ -226,8 +226,13 @@ class MeningitisController extends Controller
                     foreach($record->getSamples() as $sample)
                     {
                         $s = $sample->getChildInstance();
-                        $samples[] = $s;
-                        $em->persist($s);
+                        if($record->shouldHaveSampleType($s) === true)
+                        {
+                            $samples[] = $s;
+                            $em->persist($s);
+                        }
+                        else
+                            $em->remove($s);
                     }
 
                     $record->setSamples($samples);
