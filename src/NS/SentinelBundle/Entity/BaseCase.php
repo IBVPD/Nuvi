@@ -8,12 +8,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 use NS\SentinelBundle\Interfaces\IdentityAssignmentInterface;
 use NS\SentinelBundle\Form\Types\CaseStatus;
 use NS\SentinelBundle\Form\Types\Gender;
+use NS\SentinelBundle\Form\Types\TripleChoice;
 
 /**
  * Description of BaseCase
  *
  * @author gnat
  * @ORM\MappedSuperclass
+ * @ORM\HasLifecycleCallbacks
  */
 abstract class BaseCase implements IdentityAssignmentInterface
 {
@@ -57,6 +59,14 @@ abstract class BaseCase implements IdentityAssignmentInterface
      * @Assert\Date
      */
     protected $dob;
+
+    /**
+     * @var TripleChoice $dobKnown
+     * @ORM\Column(name="dobKnown",type="TripleChoice",nullable=true)
+     */
+    protected $dobKnown;
+    protected $dobYears  = null;
+    protected $dobMonths = null;
 
     /**
      * @var integer $age
@@ -408,6 +418,26 @@ abstract class BaseCase implements IdentityAssignmentInterface
         return;
     }
 
+    public function calculateAge()
+    {
+        if($this->dob && $this->admDate)
+        {
+            $interval = $this->dob->diff($this->admDate);
+            $this->setAge(($interval->format('%a') / 30));
+        }
+        else if($this->admDate && !$this->dob);
+        {
+            if(!$this->age && (!is_null($this->dobYears) || !is_null($this->dobMonths)))
+                $this->age = (int)(($this->dobYears*12)+$this->dobMonths);
+
+            if($this->age)
+            {
+                $d = clone $this->admDate;
+                $this->dob = $d->sub(new \DateInterval("P".((int)$this->age)."M"));
+            }
+        }
+    }
+
     public function getUpdatedAt()
     {
         return $this->updatedAt;
@@ -432,6 +462,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
         $this->calculateStatus();
         $this->calculateResult();
         $this->setUpdatedAt(new \DateTime());
+        $this->calculateAge();
     }
 
     public function getYear()
@@ -478,6 +509,50 @@ abstract class BaseCase implements IdentityAssignmentInterface
         return $this->gender;
     }
 
+    public function getDobKnown()
+    {
+        return $this->dobKnown;
+    }
+
+    public function getDobYears()
+    {
+        if(!$this->dobYears && $this->age)
+            $this->dobYears = (int)($this->age/12);
+
+        return $this->dobYears;
+    }
+
+    public function getDobMonths()
+    {
+        if(!$this->dobMonths && $this->age)
+        {
+            $this->getDobYears();
+            $this->dobMonths = (int)($this->age-($this->dobYears*12));
+        }
+
+        return $this->dobMonths;
+    }
+
+    public function setDobKnown(TripleChoice $dobKnown)
+    {
+        $this->dobKnown = $dobKnown;
+        return $this;
+    }
+
+    public function setDobYears($dobYears)
+    {
+        $this->dobYears = $dobYears;
+
+        return $this;
+    }
+
+    public function setDobMonths($dobMonths)
+    {
+        $this->dobMonths = $dobMonths;
+
+        return $this;
+    }
+
     public function setDob($dob)
     {
         if(!$dob instanceOf \DateTime)
@@ -485,21 +560,15 @@ abstract class BaseCase implements IdentityAssignmentInterface
 
         $this->dob = $dob;
 
-        $interval = ($this->admDate) ? $dob->diff($this->admDate) : $dob->diff(new \DateTime());
-        $this->setAge(($interval->format('%a') / 30));
-
         return $this;
     }
 
     public function setAdmDate($admDate)
     {
-        $this->admDate = $admDate;
+        if(!$admDate instanceOf \DateTime)
+            return;
 
-        if (($this->admDate && $this->dob))
-        {
-            $interval = $this->dob->diff($this->admDate);
-            $this->setAge(($interval->format('%a') / 30));
-        }
+        $this->admDate = $admDate;
 
         return $this;
     }
