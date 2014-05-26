@@ -30,9 +30,14 @@
                         {{form_row(form.firstName)}}
                         {{form_row(form.lastName)}}
                         {{form_row(form.parentalName)}}
-                        {{form_row(form.dob)}}
-                        {{form_row(form.age)}}
+
                         {{form_row(form.gender)}}
+
+                        {{form_row(form.dobKnown)}}
+                        {{form_row(form.dob)}}
+                        {{form_row(form.dobYears)}}
+                        {{form_row(form.dobMonths)}}
+{#                        {{form_row(form.age)}}#}
                     </div>
                     <div class="col-sm-6">
                         {{form_row(form.caseId)}}
@@ -40,6 +45,10 @@
                         <div class="form-group">
                             <label for="ibd_id">{{'System Id'|trans}}</label>
                             <div class="input-group">{{id}}</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="ibd_age">{{'Age In Months'|trans}}</label>
+                            <div class="input-group">{{form.vars.value.age}}</div>
                         </div>
                     </div>
                 </div>
