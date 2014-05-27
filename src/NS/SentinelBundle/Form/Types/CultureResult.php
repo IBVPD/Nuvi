@@ -2,13 +2,14 @@
 
 namespace NS\SentinelBundle\Form\Types;
 
-use NS\UtilBundle\Form\Types\ArrayChoice;
+use \NS\UtilBundle\Form\Types\TranslatableArrayChoice;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
 /**
  * Description of CultureResult
  *
  */
-class CultureResult extends ArrayChoice
+class CultureResult extends TranslatableArrayChoice implements TranslationContainerInterface
 {
     const NEGATIVE      = 0;
     const SPN           = 1;
