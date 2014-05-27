@@ -75,8 +75,8 @@ class SiteLabType extends AbstractType
 
             ->add('bloodId',           null,                    array('required'=>false,'label'=>'meningitis-form.blood-id'))
             ->add('bloodCultDone',      'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.blood-cult-done',    'attr' => array('data-context-child'=>'bloodCultDone')))
-            ->add('bloodCultResult',    'CultureResult',        array('required'=>false, 'label'=>'meningitis-form.blood-cult-result',  'attr' => array('data-context-parent'=>'bloodCultDone','data-context-value'=> TripleChoice::YES)))
-            ->add('bloodCultOther',     null,                   array('required'=>false, 'label'=>'meningitis-form.blood-cult-other',   'attr' => array('data-context-parent'=>'bloodCultDone','data-context-value'=> TripleChoice::YES)))
+            ->add('bloodCultResult',    'CultureResult',        array('required'=>false, 'label'=>'meningitis-form.blood-cult-result',  'attr' => array('data-context-parent'=>'bloodCultDone', 'data-context-child'=>'bloodCultDoneOther', 'data-context-value'=> TripleChoice::YES)))
+            ->add('bloodCultOther',     null,                   array('required'=>false, 'label'=>'meningitis-form.blood-cult-other',   'attr' => array('data-context-parent'=>'bloodCultDoneOther','data-context-value'=> CultureResult::OTHER)))
 
             ->add('bloodGramDone',      'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.blood-gram-done',            'attr' => array('data-context-child'=>'bloodGramDone')))
             ->add('bloodGramResult',    'GramStain',            array('required'=>false, 'label'=>'meningitis-form.blood-gram-result',          'attr' => array('data-context-parent'=>'bloodGramDone','data-context-child'=>'bloodGramResult',        'data-context-value'=> TripleChoice::YES)))
@@ -110,10 +110,10 @@ class SiteLabType extends AbstractType
                     if($country instanceof Country)
                     {
                         if($country->hasReferenceLab())
-                            $form->add('sentToReferenceLab','switch',array('required'=>false));
+                            $form->add('sentToReferenceLab','switch',array('required'=>false,'label'=>'meningitis-form.sent-to-reference-lab'));
 
                         if($country->hasNationalLab())
-                            $form->add('sentToNationalLab','switch',array('required'=>false));
+                            $form->add('sentToNationalLab','switch',array('required'=>false,'label'=>'meningitis-form.sent-to-national-lab'));
                     }
                 });
     }
