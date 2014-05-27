@@ -23,7 +23,7 @@ class DischargeDiagnosis extends TranslatableArrayChoice implements TranslationC
     protected $values = array(
                             self::BACTERIAL_MENINGITIS       => 'Bacterial meningitis',
                             self::BACTERIAL_PNEUMONIA        => 'Bacterial pneumonia',
-//                            self::SEPSIS                     => 'Sepsis',
+                            self::SEPSIS                     => 'Sepsis',
                             self::MULTIPLE                   => 'Multiple (i.e. Meningitis and/or Pneumonia and/or Sepsis)',
                             self::OTHER_DIAGNOSIS            => 'Other Diagnosis',
                             self::OTHER_MENINGITIS           => 'Other Meningitis',

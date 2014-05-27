@@ -23,8 +23,8 @@ class Diagnosis extends TranslatableArrayChoice implements TranslationContainerI
     protected $values = array(
                             self::SUSPECTED_MENINGITIS       => 'Suspected meningitis',
                             self::SUSPECTED_PNEUMONIA        => 'Suspected pneumonia',
-//                            self::SUSPECTED_SEVERE_PNEUMONIA => 'Suspected severe pneumonia',
-//                            self::SUSPECTED_SEPSIS           => 'Suspected sepsis',
+                            self::SUSPECTED_SEVERE_PNEUMONIA => 'Suspected severe pneumonia',
+                            self::SUSPECTED_SEPSIS           => 'Suspected sepsis',
                             self::MULTIPLE                   => 'Multiple (i.e. suspected meningitis and/or pneumonia and/or sepsis)',
                             self::OTHER                      => 'Other',
                             self::UNKNOWN                    => 'Unknown');

@@ -27,7 +27,7 @@ class DischargeClassification extends TranslatableArrayChoice implements Transla
                             self::CONFIRMED_NM      => 'Lab-confirmed for Nm',
                             self::CONFIRMED_OTHER   => 'Lab-confirmed for other organism',
                             self::PROBABLE          => 'Probable',
-//                            self::SUSPECT           => 'Suspect',
+                            self::SUSPECT           => 'Suspect',
                             self::INCOMPLETE        => 'Incomplete investigation',
                             self::DISCARDED         => 'Discarded case',
                             self::UNKNOWN           => 'Unknown',
