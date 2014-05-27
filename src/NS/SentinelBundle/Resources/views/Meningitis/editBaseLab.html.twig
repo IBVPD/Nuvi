@@ -111,7 +111,7 @@
         // index when inserting a new item (e.g. 2)
         $collectionHolder.data('index', $collectionHolder.find(':input').length);
 
-        $('input[name="ibd_nationallab[sampleType][]"]').change(function(event)
+        $('input[name="{{form.vars.name}}[sampleType][]"]').change(function(event)
         {
             var $checkbox = $(event.target);
             var v         = $checkbox.val().replace(/\s+/g, '');
