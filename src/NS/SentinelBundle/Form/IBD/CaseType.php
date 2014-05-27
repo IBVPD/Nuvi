@@ -61,7 +61,7 @@ class CaseType extends AbstractType
             ->add('hibMostRecentDose',      'acedatepicker',       array('required'=>false,'label'=>'meningitis-form.hib-most-recent-dose', 'attr' => array('data-context-parent'=>'hibReceived', 'data-context-value'=>json_encode(array(VaccinationReceived::YES_CARD,VaccinationReceived::YES_HISTORY)))))
 
             ->add('pcvReceived',            'VaccinationReceived', array('required'=>false,'label'=>'meningitis-form.pcv-received',              'attr' => array('data-context-child' =>'pcvReceived')))
-            ->add('pcvDoses',               'Doses',               array('required'=>false,'label'=>'meningitis-form.pcv-doses',                 'attr' => array('data-context-parent'=>'pcvReceived', 'data-context-value'=> json_encode(array(VaccinationReceived::YES_CARD,VaccinationReceived::YES_HISTORY)) )))
+            ->add('pcvDoses',               'RotavirusDoses',      array('required'=>false,'label'=>'meningitis-form.pcv-doses',                 'attr' => array('data-context-parent'=>'pcvReceived', 'data-context-value'=> json_encode(array(VaccinationReceived::YES_CARD,VaccinationReceived::YES_HISTORY)) )))
             ->add('pcvType',                'PCVType',             array('required'=>false,'label'=>'meningitis-form.pcv-type',                  'attr' => array('data-context-parent'=>'pcvReceived', 'data-context-value'=> json_encode(array(VaccinationReceived::YES_CARD,VaccinationReceived::YES_HISTORY)) )))
             ->add('pcvMostRecentDose',      'acedatepicker',       array('required'=>false,'label'=>'meningitis-form.pcv-most-recent-dose', 'attr' => array('data-context-parent'=>'pcvReceived', 'data-context-value'=>json_encode(array(VaccinationReceived::YES_CARD,VaccinationReceived::YES_HISTORY)))))
 

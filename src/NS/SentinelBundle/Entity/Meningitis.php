@@ -238,7 +238,7 @@ class Meningitis extends BaseCase
 
     /**
      * @var Doses $pcvDoses
-     * @ORM\Column(name="pcvDoses",type="Doses",nullable=true)
+     * @ORM\Column(name="pcvDoses",type="RotavirusDoses",nullable=true)
      */
     private $pcvDoses;
 
@@ -753,7 +753,7 @@ class Meningitis extends BaseCase
         return $this;
     }
 
-    public function setPcvDoses(Doses $pcvDoses)
+    public function setPcvDoses($pcvDoses)
     {
         $this->pcvDoses = $pcvDoses;
         return $this;
