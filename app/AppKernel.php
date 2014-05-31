@@ -45,6 +45,7 @@ class AppKernel extends Kernel
             new Lexik\Bundle\FormFilterBundle\LexikFormFilterBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Lunetics\LocaleBundle\LuneticsLocaleBundle(),
+            new NS\ImportBundle\NSImportBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
