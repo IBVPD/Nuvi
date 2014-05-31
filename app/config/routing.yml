@@ -45,3 +45,7 @@ ns_api:
 ns_sentinel:
     resource: "@NSSentinelBundle/Resources/config/routing.yml"
     prefix:   /
+
+ns_import:
+    resource: "@NSImportBundle/Resources/config/routing.yml"
+    prefix:   /
