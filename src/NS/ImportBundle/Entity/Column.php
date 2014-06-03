@@ -47,6 +47,15 @@ class Column
      */
     private $order;
 
+    /**
+     * @var array $valueMap
+     * @ORM\Column(name="valueMap",type="array")
+     */
+    private $valueMap;
+
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return sprintf("%s-%s (%s)",$this->name,$this->type,$this->order);
@@ -77,6 +86,38 @@ class Column
         return $this->map;
     }
 
+    public function getValueMap()
+    {
+        return $this->valueMap;
+    }
+
+    public function setValueMap($valueMap)
+    {
+        if(!is_array($valueMap))
+        {
+            $rows = explode(',', $valueMap);
+            foreach($rows as &$r)
+                $r = explode('=',$r);
+
+            $valueMap = $rows;
+        }
+
+        $this->valueMap = $valueMap;
+
+        return $this;
+    }
+
+    public function getConverter()
+    {
+        return $this->converter;
+    }
+
+    public function setConverter(Converter $converter)
+    {
+        $this->converter = $converter;
+        return $this;
+    }
+
     public function setMap(Map $map)
     {
         $this->map = $map;
@@ -105,5 +146,19 @@ class Column
     {
         $this->order = $order;
         return $this;
+    }
+
+    public function convert($data)
+    {
+        if($this->type == 'string' && !is_string($data))
+            throw new \UnexpectedValueException("$data is not of type string");
+
+        if($this->type == 'integer' && !is_numeric($data))
+            throw new \UnexpectedValueException("$data is not numeric");
+
+        if(isset($this->valueMap[$data]))
+            return $this->valueMap[$data];
+
+        throw new \UnexpectedValueException("There is no result for $data");
     }
 }

@@ -50,6 +50,7 @@ class ColumnAdmin extends Admin
             ->add('name')
             ->add('type')
             ->add('order')
+            ->add('valueMap','text')
         ;
     }
 

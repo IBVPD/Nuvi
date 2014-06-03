@@ -62,4 +62,31 @@ class MapAdmin extends Admin
             ->add('columns')
         ;
     }
+
+
+    public function prePersist($map)
+    {
+        if($map->getColumns())
+        {
+            foreach ($map->getColumns() as $a)
+            {
+                $a->setMap($map);
+            }
+        }
+
+        return $map;
+    }
+
+    public function preUpdate($map)
+    {
+        if($map->getColumns())
+        {
+            foreach ($map->getColumns() as $a)
+            {
+                $a->setMap($map);
+            }
+        }
+
+        return $map;
+    }
 }

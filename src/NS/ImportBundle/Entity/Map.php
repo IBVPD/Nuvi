@@ -86,12 +86,17 @@ class Map
 
     public function setColumns(Array $columns)
     {
+        die("HERE ".__LINE__);
+        foreach($columns as $c)
+            $c->setMap($this);
+
         $this->columns = $columns;
         return $this;
     }
 
     public function addColumn(Column $column)
     {
+        die("HERE ".__LINE__);
         $column->setMap($this);
 
         $this->columns->add($column);
@@ -106,5 +111,18 @@ class Map
         $this->columns->remove($column);
 
         return $this;
+    }
+
+    public function getValueForColumn($columnKey,$data)
+    {
+        foreach($this->columns as $col)
+        {
+            if($col->getOrder() == $columnKey)
+            {
+                return $col->convert($data);
+            }
+        }
+
+        throw new \RuntimeException();
     }
 }
