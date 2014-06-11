@@ -46,6 +46,7 @@ class MapAdmin extends Admin
     {
         $formMapper
             ->add('name')
+            ->add('class')
             ->add('version')
             ->add('columns', 'sonata_type_collection', array('by_reference'=>true),array('edit'=>'inline','inline'=>'table'))
         ;

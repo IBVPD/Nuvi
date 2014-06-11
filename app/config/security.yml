@@ -45,6 +45,7 @@ security:
 #        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/_trans, roles: ROLE_ADMIN }
+        - { path: ^/[^/]+/import, roles: ROLE_ADMIN }
         - { path: '^/[^/]+/admin', roles: ROLE_ADMIN }
         - { path: '^/[^/]+/ibd/edit', roles: ROLE_CAN_CREATE_CASE }
         - { path: '^/[^/]+/ibd/create', roles: ROLE_CAN_CREATE }

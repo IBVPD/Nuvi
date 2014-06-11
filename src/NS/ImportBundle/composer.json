@@ -1,0 +1,16 @@
+{
+    "name": "ns/import-bundle",
+    "license": "MIT",
+    "type": "project",
+    "description": "Model Importing bundle",
+    "autoload": {
+        "psr-0": { "": "src/" }
+    },
+    "require": {
+        "ddeboer/data-import-bundle": "~0.1"
+    },
+    "minimum-stability": "stable",
+    "repositories": [ 
+			{ "type": "composer", "url": "http://packages.noblet.ca/" }
+		    ]
+}

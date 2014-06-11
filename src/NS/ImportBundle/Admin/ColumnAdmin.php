@@ -17,7 +17,6 @@ class ColumnAdmin extends Admin
     {
         $datagridMapper
             ->add('name')
-            ->add('type')
             ->add('order')
         ;
     }
@@ -29,7 +28,6 @@ class ColumnAdmin extends Admin
     {
         $listMapper
             ->add('name')
-            ->add('type')
             ->add('order')
             ->add('_action', 'actions', array(
                 'actions' => array(
@@ -48,9 +46,9 @@ class ColumnAdmin extends Admin
     {
         $formMapper
             ->add('name')
-            ->add('type')
             ->add('order')
-            ->add('valueMap','text')
+            ->add('converter','ConverterChoice',array('required'=>false))
+            ->add('isUnique')
         ;
     }
 
@@ -61,8 +59,9 @@ class ColumnAdmin extends Admin
     {
         $showMapper
             ->add('name')
-            ->add('type')
             ->add('order')
+            ->add('converter')
+            ->add('isUnique')
         ;
     }
 }

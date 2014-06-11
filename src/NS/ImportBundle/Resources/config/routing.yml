@@ -1,0 +1,3 @@
+ns_import:
+    resource: "@NSImportBundle/Controller/"
+    type:     annotation
