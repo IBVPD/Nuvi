@@ -35,7 +35,12 @@ class Map
     private $version;
 
     /**
-     *
+     * @var string $class
+     * @ORM\Column(name="class",type="string")
+     */
+    private $class;
+
+    /**
      * @var Array $columns
      * @ORM\OneToMany(targetEntity="Column",mappedBy="map", fetch="EAGER",cascade={"persist"}, orphanRemoval=true)
      */
@@ -44,6 +49,11 @@ class Map
     public function __construct()
     {
         $this->columns = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->name.' '.$this->version;
     }
 
     public function getId()
@@ -66,37 +76,49 @@ class Map
         return $this->version;
     }
 
+    public function getClass()
+    {
+        return $this->class;
+    }
+
+    public function setClass($class)
+    {
+        $this->class = $class;
+    }
+
     public function setVersion($version)
     {
         $this->version = $version;
+
         return $this;
     }
 
     public function setId($id)
     {
         $this->id = $id;
+
         return $this;
     }
 
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
     public function setColumns(Array $columns)
     {
-        die("HERE ".__LINE__);
         foreach($columns as $c)
             $c->setMap($this);
 
         $this->columns = $columns;
+
         return $this;
     }
 
     public function addColumn(Column $column)
     {
-        die("HERE ".__LINE__);
         $column->setMap($this);
 
         $this->columns->add($column);
@@ -124,5 +146,38 @@ class Map
         }
 
         throw new \RuntimeException();
+    }
+
+    public function getColumnHeaders()
+    {
+        $r = array();
+
+        foreach($this->columns as $col)
+            $r[] = $col->getName();
+
+        return $r;
+    }
+
+    public function getFindBy()
+    {
+        foreach($this->columns as $col)
+        {
+            if($col->isUnique())
+                return $col->getName();
+        }
+
+        return null;
+    }
+
+    public function getConverters()
+    {
+        $r = array();
+        foreach($this->columns as $col)
+        {
+            if($col->hasConverter())
+                $r[$col->getName()] = $col->getConverter();
+        }
+
+        return $r;
     }
 }

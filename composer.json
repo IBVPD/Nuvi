@@ -49,14 +49,15 @@
         "lexik/form-filter-bundle": "dev-master",
         "knplabs/knp-paginator-bundle": "~2.4",
         "lunetics/locale-bundle": "~2.2",
+
         "friendsofsymfony/oauth-server-bundle": "~1.4",
         "nelmio/api-doc-bundle": "2.6.*",
         "friendsofsymfony/rest-bundle": "1.4.x-dev",
         "jms/serializer-bundle": "0.12.*",
         "adoy/oauth2": "dev-master",
         "liip/functional-test-bundle": "dev-master",
-        "beberlei/DoctrineExtensions": "dev-master"
-
+        "beberlei/DoctrineExtensions": "dev-master",
+        "ddeboer/data-import-bundle": "~0.1"
     },
     "scripts": {
         "post-install-cmd": [

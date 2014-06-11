@@ -69,6 +69,7 @@ security:
         - { path: '^/[^/]+/doc/api', roles: [ ROLE_API, ROLE_USER ] }
         - { path: ^/api, roles: ROLE_API }
         - { path: ^/_trans, roles: ROLE_ADMIN }
+        - { path: ^/[^/]+/import, roles: ROLE_ADMIN }
         - { path: '^/[^/]+/admin', roles: ROLE_ADMIN }
         - { path: '^/[^/]+/ibd/edit', roles: ROLE_CAN_CREATE_CASE }
         - { path: '^/[^/]+/ibd/create', roles: ROLE_CAN_CREATE }

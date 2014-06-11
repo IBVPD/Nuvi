@@ -36,22 +36,22 @@ class Column
     private $name;
 
     /**
-     * @var string $type
-     * @ORM\Column(name="type",type="string")
-     */
-    private $type;
-
-    /**
      * @var integer $type
      * @ORM\Column(name="orderCol",type="integer")
      */
     private $order;
 
     /**
-     * @var array $valueMap
-     * @ORM\Column(name="valueMap",type="array")
+     * @var boolean $isUnique
+     * @ORM\Column(name="isUnique",type="boolean",nullable=true)
      */
-    private $valueMap;
+    private $isUnique;
+
+    /**
+     * @var string $converter
+     * @ORM\Column(name="converter",type="string",nullable=true)
+     */
+    private $converter;
 
     /**
      * @return string
@@ -71,11 +71,6 @@ class Column
         return $this->name;
     }
 
-    public function getType()
-    {
-        return $this->type;
-    }
-
     public function getOrder()
     {
         return $this->order;
@@ -86,25 +81,19 @@ class Column
         return $this->map;
     }
 
-    public function getValueMap()
+    public function getIsUnique()
     {
-        return $this->valueMap;
+        return $this->isUnique;
     }
 
-    public function setValueMap($valueMap)
+    public function isUnique()
     {
-        if(!is_array($valueMap))
-        {
-            $rows = explode(',', $valueMap);
-            foreach($rows as &$r)
-                $r = explode('=',$r);
+        return $this->isUnique;
+    }
 
-            $valueMap = $rows;
-        }
-
-        $this->valueMap = $valueMap;
-
-        return $this;
+    public function setIsUnique($isUnique)
+    {
+        $this->isUnique = $isUnique;
     }
 
     public function getConverter()
@@ -112,53 +101,36 @@ class Column
         return $this->converter;
     }
 
-    public function setConverter(Converter $converter)
+    public function hasConverter()
+    {
+        return ($this->converter)?true:false;
+    }
+
+    public function setConverter($converter)
     {
         $this->converter = $converter;
+
         return $this;
     }
 
     public function setMap(Map $map)
     {
         $this->map = $map;
-        return $this;
-    }
 
-    public function setId($id)
-    {
-        $this->id = $id;
         return $this;
     }
 
     public function setName($name)
     {
         $this->name = $name;
-        return $this;
-    }
 
-    public function setType($type)
-    {
-        $this->type = $type;
         return $this;
     }
 
     public function setOrder($order)
     {
         $this->order = $order;
+
         return $this;
-    }
-
-    public function convert($data)
-    {
-        if($this->type == 'string' && !is_string($data))
-            throw new \UnexpectedValueException("$data is not of type string");
-
-        if($this->type == 'integer' && !is_numeric($data))
-            throw new \UnexpectedValueException("$data is not numeric");
-
-        if(isset($this->valueMap[$data]))
-            return $this->valueMap[$data];
-
-        throw new \UnexpectedValueException("There is no result for $data");
     }
 }

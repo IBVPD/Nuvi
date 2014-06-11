@@ -38,6 +38,17 @@ services:
       tags:
         - { name: form.type, alias: OtherSpecimen }
 
+    ns.sentinel.converter.triple_choice:
+      class: NS\SentinelBundle\Converter\TripleChoice
+      tags:
+        - { name: ns_import.converter }
+
+    ns.sentinel.converter.site:
+      class: NS\SentinelBundle\Converter\Site
+      arguments: [ @doctrine.orm.entity_manager ]
+      tags:
+        - { name: ns_import.converter }
+
     ns.sentinel.form.type.cultureresult:
       class: NS\SentinelBundle\Form\Types\CultureResult
       tags:
