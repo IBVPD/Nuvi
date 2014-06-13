@@ -28,6 +28,7 @@ class MapAdmin extends Admin
     {
         $listMapper
             ->add('name')
+            ->add('class')
             ->add('version')
             ->add('_action', 'actions', array(
                 'actions' => array(
