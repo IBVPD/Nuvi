@@ -285,6 +285,9 @@ nelmio_api_doc:
       name: Authorization
     body_format: json
 
+ns_import:
+  classes: { NS\SentinelBundle\Entity\IBD: IBD, NS\SentinelBundle\Entity\Rotavirus: Rotavirus }
+
 services:
   ns.form.types.autocomplete:
     class: NS\UtilBundle\Form\Types\Autocomplete

@@ -1,10 +1,17 @@
 parameters:
 #    ns_import.example.class: NS\ImportBundle\Example
+  ns_import.map.classes: { }
 
 services:
 #    ns_import.example:
 #        class: %ns_import.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
+    ns_import.form.class:
+        class: NS\ImportBundle\Form\ClassType
+        arguments: [ %ns_import.map.classes% ]
+        tags:
+            - { name: form.type, alias: ClassType }
+
     ns_import.converters:
         class: NS\ImportBundle\Converter\Registry
         tags:
