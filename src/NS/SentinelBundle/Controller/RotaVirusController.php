@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use \NS\SentinelBundle\Exceptions\NonExistentCase;
 use \NS\SentinelBundle\Form\Types\CreateRoles;
 use \Symfony\Component\Form\FormError;
+use NS\SentinelBundle\Entity\Rota\SiteLab;
 
 /**
  * @Route("/{_locale}/rota")
@@ -46,7 +47,7 @@ class RotaVirusController extends Controller
 
         $sc = $this->get('security.context');
 
-        if($sc->isGranted('ROLE_SITE') || $sc->isGranted('ROLE_LAB') ||$sc->isGranted('ROLE_RRL_LAB'))
+        if($sc->isGranted('ROLE_SITE') || $sc->isGranted('ROLE_LAB') || $sc->isGranted('ROLE_RRL_LAB') || $sc->isGranted('ROLE_NL_LAB'))
             $t = array('header_template'=>'NSSentinelBundle:RotaVirus:indexSiteHeader.html.twig', 'row_template'=>'NSSentinelBundle:RotaVirus:indexSiteRow.html.twig');
         else if($sc->isGranted('ROLE_COUNTRY'))
             $t = array('header_template'=>'NSSentinelBundle:RotaVirus:indexCountryHeader.html.twig', 'row_template'=>'NSSentinelBundle:RotaVirus:indexCountryRow.html.twig');
@@ -55,7 +56,12 @@ class RotaVirusController extends Controller
 
         $createForm = ($sc->isGranted('ROLE_CAN_CREATE')) ? $this->createForm('create_rotavirus')->createView():null;
 
-        return array('pagination' => $pagination, 't' => $t, 'form' => $this->createForm('results_per_page')->createView(),'filterForm'=>$filterForm->createView(),'createForm' => $createForm);
+        return array(
+                    'pagination' => $pagination,
+                    't'          => $t,
+                    'form'       => $this->createForm('results_per_page')->createView(),
+                    'filterForm' => $filterForm->createView(),
+                    'createForm' => $createForm);
     }
 
     /**
@@ -73,18 +79,17 @@ class RotaVirusController extends Controller
         {
             $caseId = $form->get('caseId')->getData();
             $type   = $form->get('type')->getData();
-
             $em     = $this->get('ns.model_manager');
-            $rCase  = $em->getRepository('NSSentinelBundle:RotaVirus')->findOrCreate($caseId);
+            $case   = $em->getRepository('NSSentinelBundle:RotaVirus')->findOrCreate($caseId);
 
-            if(!$rCase->getId())
+            if(!$case->getId())
             {
                 if($form->has('site'))
                     $site = $form->get('site')->getData();
                 else
                     $site = $this->get('ns.sentinel.sites')->getSite();
 
-                $rCase->setSite($site);
+                $case->setSite($site);
             }
 
             switch($type->getValue())
@@ -100,20 +105,20 @@ class RotaVirusController extends Controller
                      * Only create a sitelab when this is a new case otherwise we're in an error condition
                      * Meaning that a site lab has already been created but
                      */
-                    if(!$rCase->getId() || ($rCase->getId() && !$rCase->hasSiteLab()))
+                    if(!$case->getId() || ($case->getId() && !$case->hasSiteLab()))
                     {
-                        $siteLab = new \NS\SentinelBundle\Entity\Rota\SiteLab();
+                        $siteLab = new SiteLab();
                         $siteLab->setSentToReferenceLab(true);
-                        $rCase->setSiteLab($siteLab);
+                        $case->setSiteLab($siteLab);
                     }
                     $res = 'rotavirusRRLEdit';
                     break;
                 case CreateRoles::NL:
-                    if(!$rCase->getId() || ($rCase->getId() && !$rCase->hasSiteLab()))
+                    if(!$case->getId() || ($case->getId() && !$case->hasSiteLab()))
                     {
-                        $siteLab = new \NS\SentinelBundle\Entity\Rota\SiteLab();
+                        $siteLab = new SiteLab();
                         $siteLab->setSentToNationalLab(true);
-                        $rCase->setSiteLab($siteLab);
+                        $case->setSiteLab($siteLab);
                     }
                     $res = 'rotavirusNLEdit';
                     break;
@@ -122,10 +127,10 @@ class RotaVirusController extends Controller
                     break;
             }
 
-            $em->persist($rCase);
+            $em->persist($case);
             $em->flush();
 
-            return $this->redirect($this->generateUrl($res,array('id' => $rCase->getId())));
+            return $this->redirect($this->generateUrl($res,array('id' => $case->getId())));
         }
 
         return $this->redirect($this->generateUrl('rotavirusIndex'));
@@ -146,7 +151,7 @@ class RotaVirusController extends Controller
      */
     public function editLabAction(Request $request,$id = null)
     {
-        return $this->edit($request,'lab',$id);
+        return $this->edit($request, 'lab', $id);
     }
 
     /**
@@ -176,7 +181,7 @@ class RotaVirusController extends Controller
         return $this->edit($request, 'outcome', $id);
     }
 
-    private function edit(Request $request, $type, $id)
+    private function edit(Request $request, $type, $id = null)
     {
         try 
         {

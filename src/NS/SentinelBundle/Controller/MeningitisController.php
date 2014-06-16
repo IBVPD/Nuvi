@@ -56,7 +56,12 @@ class MeningitisController extends Controller
 
         $createForm = ($sc->isGranted('ROLE_CAN_CREATE')) ? $this->createForm('create_ibd')->createView():null;
 
-        return array('pagination' => $pagination, 't' => $t, 'form' => $this->createForm('results_per_page')->createView(),'filterForm'=>$filterForm->createView(),'createForm'=>$createForm);
+        return array(
+                    'pagination' => $pagination,
+                    't'          => $t,
+                    'form'       => $this->createForm('results_per_page')->createView(),
+                    'filterForm' => $filterForm->createView(),
+                    'createForm' => $createForm);
     }
 
     /**
@@ -74,18 +79,17 @@ class MeningitisController extends Controller
         {
             $caseId = $form->get('caseId')->getData();
             $type   = $form->get('type')->getData();
+            $em     = $this->get('ns.model_manager');
+            $case   = $em->getRepository('NSSentinelBundle:Meningitis')->findOrCreate($caseId,null);
 
-            $em         = $this->get('ns.model_manager');
-            $meningCase = $em->getRepository('NSSentinelBundle:Meningitis')->findOrCreate($caseId,null);
-
-            if(!$meningCase->getId())
+            if(!$case->getId())
             {
                 if($form->has('site'))
                     $site = $form->get('site')->getData();
                 else
                     $site = $this->get('ns.sentinel.sites')->getSite();
 
-                $meningCase->setSite($site);
+                $case->setSite($site);
             }
 
             switch($type->getValue())
@@ -101,20 +105,20 @@ class MeningitisController extends Controller
                      * Only create a sitelab when this is a new case otherwise we're in an error condition
                      * Meaning that a site lab has already been created but
                      */
-                    if(!$meningCase->getId() || ($meningCase->getId() && !$meningCase->hasSiteLab()))
+                    if(!$case->getId() || ($case->getId() && !$case->hasSiteLab()))
                     {
                         $siteLab = new SiteLab();
                         $siteLab->setSentToReferenceLab(true);
-                        $meningCase->setSiteLab($siteLab);
+                        $case->setSiteLab($siteLab);
                     }
                     $res = 'meningitisRRLEdit';
                     break;
                 case CreateRoles::NL:
-                    if(!$meningCase->getId() || ($meningCase->getId() && !$meningCase->hasSiteLab()))
+                    if(!$case->getId() || ($case->getId() && !$case->hasSiteLab()))
                     {
                         $siteLab = new SiteLab();
                         $siteLab->setSentToNationalLab(true);
-                        $meningCase->setSiteLab($siteLab);
+                        $case->setSiteLab($siteLab);
                     }
                     $res = 'meningitisNLEdit';
                     break;
@@ -123,10 +127,10 @@ class MeningitisController extends Controller
                     break;
             }
 
-            $em->persist($meningCase);
+            $em->persist($case);
             $em->flush();
 
-            return $this->redirect($this->generateUrl($res,array('id' => $meningCase->getId())));
+            return $this->redirect($this->generateUrl($res,array('id' => $case->getId())));
         }
 
         return $this->redirect($this->generateUrl('meningitisIndex'));
@@ -139,6 +143,15 @@ class MeningitisController extends Controller
     public function editAction(Request $request,$id = null)
     {
         return $this->edit($request,'ibd',$id);
+    }
+
+    /**
+     * @Route("/lab/edit/{id}",name="meningitisLabEdit",defaults={"id"=null})
+     * @Template()
+     */
+    public function editLabAction(Request $request,$id = null)
+    {
+        return $this->edit($request, 'lab', $id);
     }
 
     /**
@@ -157,15 +170,6 @@ class MeningitisController extends Controller
     public function editNLAction(Request $request,$id = null)
     {
         return $this->edit($request, 'nl', $id);
-    }
-
-    /**
-     * @Route("/lab/edit/{id}",name="meningitisLabEdit",defaults={"id"=null})
-     * @Template()
-     */
-    public function editLabAction(Request $request,$id = null)
-    {
-        return $this->edit($request, 'lab', $id);
     }
 
     /**
