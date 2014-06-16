@@ -1,173 +1,166 @@
 {%extends "NSSentinelBundle::layout.html.twig" %}
 
 {% block pagetitle %}
-{%if id %}{{'View Case %id%'|trans({'%id%': id})}}{%else%}{{'Create New Case'|trans}}{%endif%}
+{{'Edit Case %id%'|trans({'%id%': form.vars.value.caseId})}}
 {% endblock %}
 
+{%block pageactions %}
+<div class="pull-right">{{case_big_actions(form.vars.value)}}</div>
+{%endblock %}
+
 {% block body %}
+{{form_errors(form)}}
 <form method="POST" action="{{path('meningitisEdit',{'id':id})}}">
-{% if form.site is defined %}
 <div class="row">
-    <div class="col-sm-4" >
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Site'|trans}}</h6></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    {{form_row(form.site)}}
-                </div>
-            </div>
+    <div class="col-sm-12">
+        <div class="tabbable">
+            <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                <li class="active"><a data-toggle="tab" href="#demographics">{{'Case Based Demographics'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#clinical">{{'Clinical Data'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#meningitis">{{'Meningitis'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#pneumonia">{{'Pneumonia / Sepsis'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#history">{{'Vaccination History'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#specimen">{{'Specimen Collection Data'|trans}}</a></li>
+            </ul>
         </div>
-    </div>
-</div>
-{% endif %}
-    
-<div class="row">
-    {{form_errors(form)}}
-    <div class="col-sm-4" >
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Case Based Demographics'|trans}}</h6></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    {{form_row(form.dob)}}
-                    {{form_row(form.ageInMonths)}}
-                    {{form_row(form.gender)}}
-                    {{form_row(form.caseId)}}
-                    {{form_row(form.district)}}
-                </div>
-            </div>
-        </div>
-    </div>
+        <div class="tab-content">
+            <div id="demographics" class="tab-pane active">
+                <div class="row">
+                    <div class="col-sm-6">
+                        {{form_row(form.firstName)}}
+                        {{form_row(form.lastName)}}
+                        {{form_row(form.parentalName)}}
 
-    <div class="col-sm-4" >
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Vaccination History'|trans}}</h6></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            {{form_row(form.hibReceived)}}
-                            {{form_row(form.hibDoses)}}
-                            {{form_row(form.pcvReceived)}}
-                            {{form_row(form.pcvDoses)}}
+                        {{form_row(form.gender)}}
+
+                        {{form_row(form.dobKnown)}}
+                        {{form_row(form.dob)}}
+                        {{form_row(form.dobYears)}}
+                        {{form_row(form.dobMonths)}}
+{#                        {{form_row(form.age)}}#}
+                    </div>
+                    <div class="col-sm-6">
+                        {{form_row(form.caseId)}}
+                        {{form_row(form.district)}}
+                        <div class="form-group">
+                            <label for="ibd_id">{{'System Id'|trans}}</label>
+                            <div class="input-group">{{id}}</div>
                         </div>
-                        <div class="col-sm-6">
-                            {{form_row(form.meningReceived)}}
-                            {{form_row(form.meningType)}}
-                            {{form_row(form.meningMostRecentDose)}}
+                        <div class="form-group">
+                            <label for="ibd_age">{{'Age In Months'|trans}}</label>
+                            <div class="input-group">{{form.vars.value.age}}</div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="col-sm-4">
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Clinical Data'|trans}}</h6></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    {{form_row(form.onsetDate)}}
-                    {{form_row(form.admDate)}}
-                    {{form_row(form.admDx)}}
-                    {{form_row(form.admDxOther)}}
-                    {{form_row(form.antibiotics)}}
+            <div id="history" class="tab-pane">
+                <div class="row">
+                    <div class="col-sm-3">
+                        {{form_row(form.hibReceived)}}
+                    </div>
+                    <div class="col-sm-3">
+                        {{form_row(form.hibDoses)}}
+                    </div>
+                    <div class="col-sm-3">
+                        {{form_row(form.hibMostRecentDose)}}
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-sm-{%if form.pneuDiffBreathe is defined %}6{%else%}12{%endif%}">
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Meningitis'|trans}}</h6></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            {{form_row(form.menSeizures)}}
-                            {{form_row(form.menFever)}}
-                            {{form_row(form.menAltConscious)}}
-                            {{form_row(form.menInabilityFeed)}}
-                        </div>
-                        <div class="col-sm-6">
-                            {{form_row(form.menNeckStiff)}}
-                            {{form_row(form.menRash)}}
-                            {{form_row(form.menFontanelleBulge)}}
-                            {{form_row(form.menLethargy)}}
-                        </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        {{form_row(form.pcvReceived)}}
+                    </div>
+                    <div class="col-sm-3">
+                        {{form_row(form.pcvDoses)}}
+                    </div>
+                    <div class="col-sm-3">
+                        {{form_row(form.pcvType)}}
+                    </div>
+                    <div class="col-sm-3">
+                        {{form_row(form.pcvMostRecentDose)}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        {{form_row(form.meningReceived)}}
+                    </div>
+                    <div class="col-sm-3">
+                        {{form_row(form.meningType)}}
+                    </div>
+                    <div class="col-sm-3">
+                        {{form_row(form.meningMostRecentDose)}}
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    {%if form.pneuDiffBreathe is defined %}
-    <div class="col-sm-6">
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Pneumonia / Sepsis'|trans}}</h6></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            {{form_row(form.pneuDiffBreathe)}}
-                            {{form_row(form.pneuChestIndraw)}}
-                            {{form_row(form.pneuCough)}}
-                            {{form_row(form.pneuCyanosis)}}
-                            {{form_row(form.pneuStridor)}}
-                        </div>
-                        <div class="col-sm-6">
-                            {{form_row(form.pneuRespRate)}}
-                            {{form_row(form.pneuVomit)}}
-                            {{form_row(form.pneuHypothermia)}}
-                            {{form_row(form.pneuMalnutrition)}}
-                        </div>
-                    </div>
-                </div>
+            
+            <div id="clinical" class="tab-pane">
+                {{form_row(form.onsetDate)}}
+                {{form_row(form.admDate)}}
+                {{form_row(form.admDx)}}
+                {{form_row(form.admDxOther)}}
+                {{form_row(form.antibiotics)}}                
             </div>
-        </div>
-    </div>
-    {%endif%}
-</div>
-
-<div class="row">
-    <div class="col-sm-4">
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Specimen Collection Data'|trans}}</h6></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    {{form_row(form.csfCollected)}}
-                    {% if form.sentToReferenceLab is defined %}
-                        {{form_row(form.sentToReferenceLab )}}
-                    {% endif %}
-                    {% if form.sentToNationalLab is defined %}
-                        {{form_row(form.sentToNationalLab )}}
-                    {% endif %}
-                    {{form_row(form.csfCollectDateTime)}}
-                    {{form_row(form.csfId)}}
-                    {{form_row(form.csfAppearance)}}
-
+            
+            <div id="specimen" class="tab-pane">
+                <div class="row">
+                    <div class="col-sm-6">
+                        {{form_row(form.csfCollected)}}
+                        {{form_row(form.csfCollectDateTime)}}
+                        {{form_row(form.csfAppearance)}}
+                    </div>
+                    <div class="col-sm-6">
                     {% if form.pneuDiffBreathe is defined %}
-                    {{form_row(form.bloodCollected)}}
-                    {{form_row(form.bloodId)}}
+                        {{form_row(form.bloodCollected)}}
                     {% endif %}
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="col-sm-8">
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Outcome Data'|trans}}</h6></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                {{form_rest(form)}}
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div class="form-actions center">
-    <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
+            <div id="meningitis" class="tab-pane">
+                <h4>{{'Symptoms/signs related to the sickness'|trans}}</h4>
+                <div class="row">
+                    <div class="col-sm-6">
+                        {{form_row(form.menSeizures)}}
+                        {{form_row(form.menFever)}}
+                        {{form_row(form.menAltConscious)}}
+                        {{form_row(form.menInabilityFeed)}}
+                    </div>
+                    <div class="col-sm-6">
+                        {{form_row(form.menNeckStiff)}}
+                        {{form_row(form.menRash)}}
+                        {{form_row(form.menFontanelleBulge)}}
+                        {{form_row(form.menLethargy)}}
+                    </div>
+                </div>                
+            </div>
+            {%if form.pneuDiffBreathe is defined %}
+            <div id="pneumonia" class="tab-pane">
+                <h4>{{'Symptoms/signs related to the sickness'|trans}}</h4>
+                <div class="row">
+                    <div class="col-sm-6">
+                        {{form_row(form.pneuDiffBreathe)}}
+                        {{form_row(form.pneuChestIndraw)}}
+                        {{form_row(form.pneuCough)}}
+                        {{form_row(form.pneuCyanosis)}}
+                        {{form_row(form.pneuStridor)}}
+                    </div>
+                    <div class="col-sm-6">
+                        {{form_row(form.pneuRespRate)}}
+                        {{form_row(form.pneuVomit)}}
+                        {{form_row(form.pneuHypothermia)}}
+                        {{form_row(form.pneuMalnutrition)}}
+                        {{form_row(form.cxrDone)}}
+                        {{form_row(form.cxrResult)}}
+                        {{form_row(form.cxrAdditionalResult)}}
+                    </div>
+                </div>
+            </div>
+            {%endif%}
+        </div>
+        {{form_rest(form)}}
+        <div class="form-actions center">
+            <a href="{{path('meningitisIndex')}}" class="btn btn-sm btn-danger">{{'Cancel'|trans}}</a> <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
+        </div>
+    </div>
 </div>
 
 </form>

@@ -8,9 +8,10 @@ use \Doctrine\Common\DataFixtures\AbstractFixture;
 use \Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use \Symfony\Component\DependencyInjection\ContainerInterface;
 use \NS\SentinelBundle\Entity\Meningitis;
-use \NS\SentinelBundle\Form\Types\TripleChoice;
+use NS\SentinelBundle\Entity\IBD\SiteLab;
 use \NS\SentinelBundle\Form\Types\Gender;
 use \NS\SentinelBundle\Form\Types\Diagnosis;
+use \NS\SentinelBundle\Entity\Site;
 
 class LoadMeningitisCaseData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
@@ -25,72 +26,57 @@ class LoadMeningitisCaseData extends AbstractFixture implements OrderedFixtureIn
     {
         ini_set('memory_limit','768M');
 
-        $done  = new TripleChoice(TripleChoice::YES);
-        $nDone = new TripleChoice(TripleChoice::NO);
+//        $done  = new TripleChoice(TripleChoice::YES);
+//        $nDone = new TripleChoice(TripleChoice::NO);
         
+        $male  = new Gender(Gender::MALE);
+        $fmale = new Gender(Gender::FEMALE);
+        $dx[]  = new Diagnosis(Diagnosis::SUSPECTED_MENINGITIS);
+        $dx[]  = new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA);
+        $dx[]  = new Diagnosis(Diagnosis::SUSPECTED_SEPSIS);
+        $dx[]  = new Diagnosis(Diagnosis::OTHER);
+
         $a     = $this->getReference('site-alberta');
         $s     = $this->getReference('site-seattle');
         $t     = $this->getReference('site-toronto');
         $mx    = $this->getReference('site-mexico');
-        $male  = new Gender(Gender::MALE);
-        $fmale = new Gender(Gender::FEMALE);
-        $dx[]  = new Diagnosis(Diagnosis::MENINGITIS);
-        $dx[]  = new Diagnosis(Diagnosis::PNEUMONIA);
-        $dx[]  = new Diagnosis(Diagnosis::SEPSIS);
-        $dx[]  = new Diagnosis(Diagnosis::OTHER);
-
-        for($x = 0; $x < 2700; $x++)
+        $sites = array(3=>$a,5=>$s,7=>$t,8=>$mx);
+        
+        foreach($sites as $num => $site)
         {
-            $dob = $this->getRandomDate();
-            $m = new Meningitis();
-            $m->setDob($dob);
-            $m->setAdmDate($this->getRandomDate(null,$dob));
-            $m->setCsfCollected((($x % 3) == 0));
-            if($x%12 == 0)
+            for($x = 0; $x < $num; $x++)
             {
-                $site = new \NS\SentinelBundle\Entity\SiteLab();
-                $site->setCase($m);
-                $site->setCxrDone($done);
-                $m->setSiteLab($site);
-                
-                $manager->persist($site);
-            }
+                $dob = $this->getRandomDate();
+                $m = new Meningitis();
+                $m->setDob($dob);
+                $m->setAdmDate($this->getRandomDate(null,$dob));
+                $m->setCsfCollected((($x % 3) == 0));
+                if($x%12 == 0)
+                {
+                    $sl = new SiteLab();
+    //                $sl->setCxrDone($done);
+                    $m->setSiteLab($sl);
 
-            $m->setGender(($x%7)?$fmale:$male);
+                    $manager->persist($sl);
+                }
 
-            $dxKey = array_rand($dx);
-            $m->setDischDx($dx[$dxKey]);
+                $m->setGender(($x%4)?$fmale:$male);
+                $dxKey = array_rand($dx);
+                $m->setDischDx($dx[$dxKey]);
 
-            if(($x % 3) == 0 )
-            {
-                $m->setCaseId($this->getCaseId($a));
-                $m->setSite($a);
-            }
-            else if(($x % 5) == 0 )
-            {
-                $m->setCaseId($this->getCaseId($s));
-                $m->setSite($s);
-            }
-            else if(($x % 11) == 0)
-            {
-                $m->setCaseId($this->getCaseId($t));
-                $m->setSite($t);
-            }
-            else
-            {
-                $m->setCaseId($this->getCaseId($mx));
-                $m->setSite($mx);
-            }
+                $m->setCaseId($this->getCaseId($site,$x));
+                $m->setSite($site);
 
-            $manager->persist($m);
+                $manager->persist($m);
+            }
         }
 
         $manager->flush();
     }
 
-    private function getCaseId(\NS\SentinelBundle\Entity\Site $site)
+    private function getCaseId(Site $site, $x)
     {
-        return md5(uniqid().spl_object_hash($site).time());
+        return $site->getCode().'-'.$x;
     }
 
     public function getRandomDate(\DateTime $before = null, \DateTime $after = null)

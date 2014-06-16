@@ -1,62 +1,71 @@
 {%extends "NSSentinelBundle::layout.html.twig" %}
 
 {% block pagetitle %}
-{{'Create / Edit Lab For Case %id%'|trans({'%id%': id})}}
+{{'Edit Lab For Case %id%'|trans({'%id%': form.vars.value.case.caseId})}}
 {% endblock %}
 
+{%block pageactions %}
+<div class="pull-right">{{case_big_actions(form.vars.value.case)}}</div>
+{%endblock %}
+
 {% block body %}
+{{form_errors(form)}}
 <form method="POST" action="{{path('rotavirusLabEdit',{'id':id})}}" novalidate>
-    {{form_errors(form)}}
 <div class="row">
-    <div class="col-sm-4" >
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Stool'|trans}}</h6></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    {{form_row(form.stoolReceivedDate)}}
-                    {{form_row(form.stoolAdequate)}}
-                    {{form_row(form.stoolELISADone)}}
-                    {{form_row(form.stoolTestDate)}}
-                    {{form_row(form.stoolELISAResult)}}
-                    {{form_row(form.stoolStored)}}
+    <div class="col-sm-12">
+        <div class="tabbable">
+            <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                <li class="active"><a data-toggle="tab" href="#stool">{{'Stool'|trans}}</a></li>
+                {% if form.stoolSentToNL is defined %}
+                <li><a data-toggle="tab" href="#stool-nl">{{'Stool - NL'|trans}}</a></li>
+                {% endif %}
+    
+                {% if form.stoolSentToRRL is defined %}
+                <li><a data-toggle="tab" href="#stool-rrl">{{'Stool - RRL'|trans}}</a></li>
+                {% endif %}
+            </ul>
+
+            <div class="tab-content">
+                <div id="stool" class="tab-pane active">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            {{form_row(form.stoolReceivedDate)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.stoolStored)}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            {{form_row(form.stoolAdequate)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.stoolELISADone)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.stoolTestDate)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.stoolELISAResult)}}
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-4" >
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Stool - RRL'|trans}}</h6></div>
-            <div class="widget-body">
-                <div class="widget-main">
+                <div id="stool-rrl" class="tab-pane">
                     {{form_row(form.stoolSentToRRL)}}
                     {{form_row(form.stoolSentToRRLDate)}}
-                    {{form_row(form.rrlELISAResult)}}
-                    {{form_row(form.rrlGenoTypeDate)}}
-                    {{form_row(form.rrlGenoTypeResult)}}
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-4" >
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h6>{{'Stool - NL'|trans}}</h6></div>
-            <div class="widget-body">
-                <div class="widget-main">
+                <div id="stool-nl" class="tab-pane">
                     {{form_row(form.stoolSentToNL)}}
                     {{form_row(form.stoolSentToNLDate)}}
-                    {{form_row(form.nlELISAResult)}}
-                    {{form_row(form.nlGenoTypeDate)}}
-                    {{form_row(form.nlGenoTypeResult)}}
                 </div>
             </div>
         </div>
+        {{form_rest(form)}}
+
+        <div class="form-actions center">
+            <a href="{{path('rotavirusIndex')}}" class="btn btn-sm btn-danger">{{'Cancel'|trans}}</a> <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
+        </div>
     </div>
-</div>
-
-{{form_rest(form)}}
-
-<div class="form-actions center">
-    <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
 </div>
 
 </form>

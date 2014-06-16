@@ -2,15 +2,14 @@
 
 namespace NS\SentinelBundle\Form\Types;
 
-use NS\UtilBundle\Form\Types\ArrayChoice;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Security\Core\SecurityContext;
+use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
 /**
  * Description of DischargeClassification
  *
  */
-class DischargeClassification extends ArrayChoice
+class DischargeClassification extends TranslatableArrayChoice implements TranslationContainerInterface
 {
     const CONFIRMED_HI      = 1;
     const CONFIRMED_SPN     = 2;

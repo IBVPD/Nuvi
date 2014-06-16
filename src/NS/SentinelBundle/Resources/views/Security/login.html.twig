@@ -29,14 +29,14 @@
                             <fieldset>
                                 <label class="block clearfix">
                                     <span class="block input-icon input-icon-right">
-                                        <input type="text" id="username" name="_username" required class="form-control" placeholder="Username / Email" value="{{ last_username }}" />
+                                        <input type="text" id="username" name="_username" required class="form-control" placeholder="{{'Email / Username'|trans}}" value="{{ last_username }}" />
                                         <i class="icon-user"></i>
                                     </span>
                                 </label>
 
                                 <label class="block clearfix">
                                     <span class="block input-icon input-icon-right">
-                                        <input type="password" class="form-control" required name="_password" placeholder="Password" />
+                                        <input type="password" class="form-control" required name="_password" placeholder="{{'Password'|trans}}" />
                                         <i class="icon-lock"></i>
                                     </span>
                                 </label>
@@ -45,7 +45,7 @@
 
                                 <div class="clearfix">
 <!--                                <label class="inline"><input type="checkbox" class="ace" /><span class="lbl"> Remember Me</span></label>-->
-                                    <button type="submit" class="width-35 pull-right btn btn-sm btn-primary">
+                                    <button type="submit" id="login" style="" class="width-35 pull-right btn btn-sm btn-primary">
                                         <i class="icon-key"></i>{{'Login'|trans}}
                                     </button>
                                 </div>

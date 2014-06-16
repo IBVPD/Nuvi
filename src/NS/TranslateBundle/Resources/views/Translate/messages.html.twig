@@ -1,14 +1,14 @@
 {% for id, message in messages %}
 {% set elementId = id|replace({' ':'-'}) %}
 <tr>
-    <td>
+    <td style="width:20%;">
         <a class="jms-translation-anchor" id="{{ id }}" />
-        <p><abbr title="{{ id }}">{{ id|truncate(20) }}</abbr></p>
+        <p><abbr title="{{ id }}">{{ id }}</abbr></p>
     </td>
     <td>
-        <textarea data-id="{{ id }}" class="col-sm-12 col-md-12 col-lg-12"{% if isWriteable is sameas(false) %} readonly="readonly"{% endif %}>{{ message.localeString }}</textarea>
+        <textarea data-id="{{ id }}" class="col-sm-12 col-md-12 col-lg-12" rows="5"{% if isWriteable is sameas(false) %} readonly="readonly"{% endif %}>{{ message.localeString }}</textarea>
     </td>
-    <td>
+    <td  style="width:20%;">
         {% if message.meaning is not empty %}
         <h6>Meaning</h6>
         <p>{{ message.meaning }}</p>
@@ -45,7 +45,7 @@
                 {% endfor %}
                 </ul>
             </div>
-        </div>            
+        </div>
         {% endif %}
 
         {% if message.desc is not empty 

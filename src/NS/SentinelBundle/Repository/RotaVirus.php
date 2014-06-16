@@ -84,7 +84,7 @@ class RotaVirus extends SecuredEntityRepository implements AjaxAutocompleteRepos
         $qb = $this->_em->createQueryBuilder()
                    ->select('m,l')
                    ->from($this->getClassName(),'m')
-                   ->leftJoin('m.lab', 'l')
+                   ->leftJoin('m.siteLab', 'l')
                    ->orderBy('m.id','DESC');
         return $this->secure($qb);
     }
@@ -94,7 +94,7 @@ class RotaVirus extends SecuredEntityRepository implements AjaxAutocompleteRepos
         $qb = $this->_em->createQueryBuilder()
                    ->select('m,l')
                    ->from($this->getClassName(),'m')
-                   ->leftJoin('m.lab', 'l')
+                   ->leftJoin('m.siteLab', 'l')
                    ->orderBy('m.id','DESC')
                    ->setMaxResults($limit);
         return $this->secure($qb)->getQuery()->getResult();
@@ -142,7 +142,13 @@ class RotaVirus extends SecuredEntityRepository implements AjaxAutocompleteRepos
                         ->innerJoin('m.region', 'r')
                         ->where('m.id = :id')->setParameter('id',$id);
 
-        return $this->secure($qb)->getQuery()->getSingleResult();
+        try {
+            return $this->secure($qb)->getQuery()->getSingleResult();
+        }
+        catch(NoResultException $e)
+        {
+            throw new NonExistentCase("This case does not exist!");
+        }
     }
 
     public function search($id)
@@ -179,6 +185,37 @@ class RotaVirus extends SecuredEntityRepository implements AjaxAutocompleteRepos
         }
     }
 
+    public function findOrCreate($caseId, $id = null)
+    {
+        if($id == null && $caseId == null)
+            throw new \InvalidArgumentException("Id or Case must be provided");
+
+        $qb = $this->createQueryBuilder('m')
+                   ->select('m,s,c,r,e,l')
+                   ->innerJoin('m.site', 's')
+                   ->innerJoin('s.country', 'c')
+                   ->innerJoin('m.region', 'r')
+                   ->leftJoin('m.externalLabs', 'e')
+                   ->leftJoin('m.siteLab','l')
+                   ->where('m.caseId = :caseId')
+                   ->setParameter('caseId', $caseId);
+
+        if($id)
+            $qb->orWhere('m.id = :id')->setParameter('id', $id);
+
+        try
+        {
+            return $this->secure($qb)->getQuery()->getSingleResult();
+        }
+        catch (NoResultException $ex)
+        {
+            $res = new \NS\SentinelBundle\Entity\RotaVirus();
+            $res->setCaseId($caseId);
+
+            return $res;
+        }
+    }
+
     public function find($id)
     {
         try
@@ -207,7 +244,7 @@ class RotaVirus extends SecuredEntityRepository implements AjaxAutocompleteRepos
                     ->createQueryBuilder()
                     ->select("$alias,l")
                     ->from($this->getClassName(),$alias)
-                    ->leftJoin("$alias.lab",'l')
+                    ->leftJoin("$alias.siteLab",'l')
                     ->orderBy('m.id','DESC'))
                     ;
     }

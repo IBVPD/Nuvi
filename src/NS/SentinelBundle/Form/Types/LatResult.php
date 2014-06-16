@@ -16,15 +16,17 @@ class LatResult extends TranslatableArrayChoice implements TranslationContainerI
     const HI        = 2;
     const NM        = 3;
     const OTHER     = 4;
+    const INCONCLUSIVE = 5;
     const UNKNOWN   = 99;
     
     protected $values = array(
-                                self::NEGATIVE => 'Negative',
-                                self::SPN      => 'Spn',
-                                self::HI       => 'Hi',
-                                self::NM       => 'Nm',
-                                self::OTHER    => 'Other',
-                                self::UNKNOWN  => 'Unknown',
+                                self::NEGATIVE      => 'Negative',
+                                self::SPN           => 'Spn',
+                                self::HI            => 'Hi',
+                                self::NM            => 'Nm',
+                                self::OTHER         => 'Other',
+                                self::INCONCLUSIVE  => 'Inconclusive',
+                                self::UNKNOWN       => 'Unknown',
                              );
 
     public function getName()

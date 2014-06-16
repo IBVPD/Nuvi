@@ -8,19 +8,15 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use \Symfony\Component\Security\Core\SecurityContext;
 use \Symfony\Component\Form\FormEvent;
 use \Symfony\Component\Form\FormEvents;
-use \Doctrine\Common\Persistence\ObjectManager;
 use \Lexik\Bundle\FormFilterBundle\Filter\FilterOperands;
 
 class BaseFilter extends AbstractType
 {
     private $securityContext;
 
-    private $entityManager;
-
-    public function __construct(SecurityContext $securityContext, ObjectManager $entityManager)
+    public function __construct(SecurityContext $securityContext)
     {
         $this->securityContext = $securityContext;
-        $this->entityManager   = $entityManager;
     }
 
     /**
@@ -29,22 +25,19 @@ class BaseFilter extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('id', 'filter_text', array(
-                                            'required'          => false,
-                                            'condition_pattern' => FilterOperands::STRING_BOTH,
-                                            'label'             => 'db-generated-id'));
-
         $builder->add('caseId', 'filter_text', array(
                                             'required'          => false,
                                             'condition_pattern' => FilterOperands::STRING_BOTH,
                                             'label'             => 'site-assigned-case-id'));
+        $builder->add('admDate', 'filter_date_range', array(
+                                            'required'          => false,
+                                            'label'             => 'filter.admission-date'));
 
         $securityContext = $this->securityContext;
-        $entityManager   = $this->entityManager;
 
         $builder->addEventListener(
                     FormEvents::PRE_SET_DATA,
-                    function(FormEvent $event) use($securityContext,$entityManager)
+                    function(FormEvent $event) use($securityContext)
                     {
                         $form = $event->getForm();
                         $user = $securityContext->getToken()->getUser();
@@ -53,57 +46,55 @@ class BaseFilter extends AbstractType
                         {
                             $objectIds = $user->getACLObjectIdsForRole('ROLE_REGION');
                             if(count($objectIds) > 1)
-                            {
-                                $qb = $entityManager->getRepository('NSSentinelBundle:Region')->getAllSecuredQueryBuilder();
-                                $form->add('country','filter_entity',array('class'           => 'NSSentinelBundle:Region',
-                                                                           'multiple'      => true,
-                                                                           'query_builder' => $qb));
+                                $form->add('region','region');
 
-                            }
-
-                            $qb = $entityManager->getRepository('NSSentinelBundle:Country')->getAllSecuredQueryBuilder();
-                            $form->add('country','filter_entity',array('class'           => 'NSSentinelBundle:Country',
-                                                                         'multiple'      => true,
-                                                                         'query_builder' => $qb));
-                            $qb = $entityManager->getRepository('NSSentinelBundle:Site')->getAllSecuredQueryBuilder();
-                            $form->add('site','filter_entity',  array('class'         => 'NSSentinelBundle:Site',
-                                                                      'multiple'      => true,
-                                                                      'query_builder' => $qb));
+                            $form->add('id', 'filter_text', array(
+                                                                    'required'          => false,
+                                                                    'condition_pattern' => FilterOperands::STRING_BOTH,
+                                                                    'label'             => 'db-generated-id'));
+                            $form->add('country','country');
+                            $form->add('site','site');
                         }
 
                         if($securityContext->isGranted('ROLE_COUNTRY'))
                         {
                             $objectIds = $user->getACLObjectIdsForRole('ROLE_COUNTRY');
                             if(count($objectIds) > 1)
-                            {
-                                $qb = $entityManager->getRepository('NSSentinelBundle:Country')->getAllSecuredQueryBuilder();
-                                $form->add('country','filter_entity',array('class'           => 'NSSentinelBundle:Country',
-                                                                             'multiple'      => true,
-                                                                             'query_builder' => $qb));
-                            }
+                                $form->add('country','country');
 
-                            $qb = $entityManager->getRepository('NSSentinelBundle:Site')->getAllSecuredQueryBuilder();
-                            $form->add('site','filter_entity',  array('class'         => 'NSSentinelBundle:Site',
-                                                                      'multiple'      => true,
-                                                                      'query_builder' => $qb));
+                            $form->add('site','site');
                         }
 
                         if($securityContext->isGranted('ROLE_SITE'))
                         {
                             $objectIds = $user->getACLObjectIdsForRole('ROLE_SITE');
                             if(count($objectIds) > 1)
-                            {
-                                $qb = $entityManager->getRepository('NSSentinelBundle:Site')->getAllSecuredQueryBuilder();
-                                $form->add('site','filter_entity',  array('class'         => 'NSSentinelBundle:Site',
-                                                                          'multiple'      => true,
-                                                                          'query_builder' => $qb));
-                            }
+                                $form->add('site','site');
                         }
 
-                        $form->add('find','iconbutton',array('type'=>'submit', 'icon' => 'icon-search','attr'=>array('class'=>'btn btn-sm btn-success')));
+                        $form->add('find','iconbutton',array('type' => 'submit', 'icon' => 'icon-search','attr' => array('class'=>'btn btn-sm btn-success')));
                     }
                     );
-    }
+/*
+        if($this->securityContext->isGranted('ROLE_CAN_CREATE'))
+        {
+            if($this->securityContext->isGranted('ROLE_CAN_CREATE_LAB'))
+            {
+                $builder->add('isComplete',null,array('required'=>false, 'label' => 'filter-case-is-complete'));
+            }
+
+            if($this->securityContext->isGranted('ROLE_CAN_CREATE_NL_LAB'))
+            {
+                $builder->add('isComplete',null,array('required'=>false, 'label' => 'filter-case-is-complete'));
+            }
+
+            if($this->securityContext->isGranted('ROLE_CAN_CREATE_RRL_LAB'))
+            {
+                $builder->add('isComplete',null,array('required'=>false, 'label' => 'filter-case-is-complete'));
+     }
+        }
+ */
+     }
 
     /**
      * @param OptionsResolverInterface $resolver

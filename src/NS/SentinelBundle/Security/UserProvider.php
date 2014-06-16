@@ -30,7 +30,7 @@ class UserProvider implements UserProviderInterface
             $user = $this->em->createQuery("SELECT u,a FROM NS\SentinelBundle\Entity\User u LEFT JOIN u.acls a WHERE u.email = :username")
                              ->setParameter('username',$username)
                              ->getSingleResult();
-            
+
             if (null === $user)
                 throw new UsernameNotFoundException(sprintf('User "%s" not found.', $username));
 

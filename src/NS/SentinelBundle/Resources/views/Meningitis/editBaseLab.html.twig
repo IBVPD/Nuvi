@@ -1,135 +1,187 @@
 {%extends "NSSentinelBundle::layout.html.twig" %}
 
+{% macro sample_form_prototype(form) %}
+<div class="row">
+    <div class="col-sm-3">
+        {{form_row(form.type)}}
+        {{form_row(form.pathogenIdentifierMethod)}}
+        {{form_row(form.pathogenIdentifierOther)}}
+        {{form_row(form.serotypeIdentifier)}}
+        {{form_row(form.serotypeIdentifierOther)}}
+    </div>
+    <div class="col-sm-3">
+        {{form_row(form.lytA)}}
+        {{form_row(form.sodC)}}
+        {{form_row(form.hpd)}}
+        {{form_row(form.rNaseP)}}
+    </div>
+    <div class="col-sm-3">
+        {{form_row(form.spnSerotype)}}
+        {{form_row(form.spnSerotypeOther)}}
+        {{form_row(form.hiSerotype)}}
+        {{form_row(form.hiSerotypeOther)}}
+        {{form_row(form.nmSerogroup)}}
+        {{form_row(form.nmSerogroupOther)}}
+    </div>
+</div>    
+{% endmacro %}
+
 {% block pagetitle %}
-{{'Create / Edit %type% For %id%'|trans({'%id%': id,'%type%': type})}}
+{{'Edit %type% For Case %id%'|trans({'%id%': form.vars.value.case.caseId,'%type%': type})}}
 {% endblock %}
 
+{%block pageactions %}
+<div class="pull-right">{{case_big_actions(form.vars.value.case)}}</div>
+{%endblock %}
+
 {% block body %}
+{{form_errors(form)}}
 <form method="POST" action="{{path('meningitis'~type~'Edit',{'id':id})}}" novalidate>
-
-{% if form.caseId is defined %}
 <div class="row">
-    <div class="col-sm-8 col-md-8 col-lg-8" >
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h4 class="panelTitle">{{'Case Information'|trans}}</h4></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    {{form_row(form.caseId)}}
-                    {%if form.site is defined %}
-                    {{form_row(form.site)}}
-                    {%endif%}
-                </div>
-            </div>
+    <div class="col-sm-12">
+        <div class="tabbable">
+            <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                <li class="active"><a data-toggle="tab" href="#labinfo">{{'Lab Information'|trans}}</a></li>
+            </ul>
         </div>
-    </div>
-</div>
-{% endif %}
-
-<div class="row">
-    {{form_errors(form)}}
-    <div class="col-sm-3 col-md-3 col-lg-3" >
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h4 class="panelTitle">{{'Lab Information'|trans}}</h4></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    {{form_row(form.labId)}}
+        <div class="tab-content">
+            <div id="labinfo" class="tab-pane active">
+                
+                <div class="row">
+                    <div class="col-sm-4">
+                        {{form_row(form.sampleType)}}
+                    </div>
+                    <div class="col-sm-4">
+                        {{form_row(form.dateReceived)}}
+                    </div>
+                    <div class="col-sm-4">
+                        {{form_row(form.labId)}}
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-sm-5 col-md-5 col-lg-5" >
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h4 class="panelTitle">{{'Sample Information'|trans}}</h4></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    <div class="row">
-                        <div class="col-sm-6 col-md-6 col-lg-6">
-                            {{form_row(form.dateReceived)}}
-                            {{form_row(form.sampleType)}}
-                            {{form_row(form.volume)}}
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-6">
-                            {{form_row(form.DNAExtractionDate)}}
-                            {{form_row(form.DNAVolume)}}
-                            {{form_row(form.isolateViable)}}
-                            {{form_row(form.isolateType)}}                    
-                        </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        {{form_row(form.volume)}}
+                    </div>
+                    <div class="col-sm-4">
+                        {{form_row(form.DNAExtractionDate)}}
+                        {{form_row(form.DNAVolume)}}
+                    </div>
+                    <div class="col-sm-4">
+                        {{form_row(form.isolateViable)}}
+                        {{form_row(form.isolateType)}}                    
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-sm-4 col-md-4 col-lg-4" >
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h4 class="panelTitle">{{'Methods'|trans}}</h4></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    {{form_row(form.pathogenIdentifierMethod)}}
-                    {{form_row(form.pathogenIdentifierOther)}}
-                    {{form_row(form.serotypeIdentifier)}}
-                    {{form_row(form.serotypeIdentifierOther)}}
-                </div>
-            </div>
+        <div class="tabbable">
+            <ul id="dynamicFormTabs" class="nav nav-tabs padding-12 tab-color-blue background-blue">
+                {% for sampleForm in form.samples %}
+                    <li{% if loop.first %} class="active"{%endif%}><a data-toggle="tab" href="#tab_{{sampleForm.vars.value.getTypeByClass()|replace({' ':''})}}">{{sampleForm.vars.value.getTypeByClass()}}</a></li>
+                {% endfor %}
+            </ul>
         </div>
-    </div>
 
-</div>
-
-<div class="row">
-    <div class="col-sm-4 col-md-4 col-lg-4" >
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h4 class="panelTitle">{{'CT Values From PCR'|trans}}</h4></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    <div class="row">
-                        <div class="col-sm-6 col-md-6 col-lg-6">
-                            {{form_row(form.lytA)}}
-                            {{form_row(form.sodC)}}
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-6">
-                            {{form_row(form.hpd)}}
-                            {{form_row(form.rNaseP)}}
-                        </div>
-                    </div>
+        <div class="samples tab-content" data-prototype="{{ _self.sample_form_prototype(form.samples.vars.prototype)|e }}">
+            {% for sampleForm in form.samples %}
+                <div class="tab-pane{% if loop.first %} active{%endif%} ready" id="tab_{{sampleForm.vars.value.getTypeByClass()|replace({' ':''})}}">
+                    <h3>{{sampleForm.vars.value.getTypeByClass()}}</h3>
+                    {{ _self.sample_form_prototype(sampleForm)}}
                 </div>
-            </div>
+            {% endfor %}
         </div>
-    </div>
-    <div class="col-sm-4 col-md-4 col-lg-4" >
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h4 class="panelTitle">{{'Serotype / Serogroup Results'|trans}}</h4></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    <div class="row">
-                        <div class="col-sm-6 col-md-6 col-lg-6">
-                            {{form_row(form.spnSerotype)}}
-                            {{form_row(form.hiSerotype)}}
-                        </div>
-                        <div class="col-sm-6 col-md-6 col-lg-6">
-                            {{form_row(form.nmSerogroup)}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-4 col-md-4 col-lg-4" >
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue"><h4 class="panelTitle">{{'RL Result Date'|trans}}</h4></div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    {{form_row(form.resultSentToCountry)}}
-                    {{form_row(form.resultSentToWHO)}}
-                </div>
-            </div>
+        {{form_row(form._token)}}                    
+        <div class="form-actions center">
+            <a href="{{path('meningitisIndex')}}" class="btn btn-sm btn-danger">{{'Cancel'|trans}}</a> <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
         </div>
     </div>
 </div>
-<div class="form-actions center">
-    <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
-</div>
-{{form_rest(form)}}
+
 </form>
+<script type="text/javascript">
+    var dynamicTab = false;
+    var $collectionHolder;
+
+    jQuery(document).ready(function() {
+        // Get the ul that holds the collection of tags
+        $collectionHolder = $('div.samples');
+        $collectionTabs   = $('#dynamicFormTabs');
+
+        // count the current form inputs we have (e.g. 2), use that as the new
+        // index when inserting a new item (e.g. 2)
+        $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+        $('input[name="{{form.vars.name}}[sampleType][]"]').change(function(event)
+        {
+            var $checkbox = $(event.target);
+            var v         = $checkbox.val().replace(/\s+/g, '');
+            var div       = $('div#tab_'+v);
+            var divTab    = $('a[data-toggle][href="#tab_'+v+'"]').parent('li');
+            
+            if($checkbox.is(':checked') && !div.length)
+            {
+                addSampleForm($collectionHolder, $checkbox);
+            }
+            else if(!$checkbox.is(':checked') && div.length)
+            {
+                div.removeClass('active').removeClass('ready');
+                divTab.hide().removeClass('active');
+                nextActive($collectionHolder);
+                    
+            }
+            else if($checkbox.is(':checked') && div.length)
+            {
+                div.addClass('ready');
+                divTab.show();
+                nextActive($collectionHolder);
+            }
+        });
+    });
+    
+    function nextActive($collectionHolder)
+    {
+        if(!$collectionHolder.find('.tab-pane.active').length)
+        {
+            var f = $collectionHolder.find('.tab-pane.ready:first');
+            if(f.length)
+            {
+                $(f).addClass('active');
+                $('a[data-toggle][href="#'+$(f).attr('id')+'"]').parent('li').addClass('active');
+            }
+        }
+    }
+
+    function addSampleForm($collectionHolder, field) 
+    {
+            var f = field;
+            var v = $(f).val().replace(/\s+/g, '');
+            var dynamicTab = $collectionHolder.find('div.tab-pane').length;
+            // Get the data-prototype explained earlier
+            var prototype = $collectionHolder.data('prototype');
+
+            // get the new index
+            var index = $collectionHolder.data('index');
+
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            var newForm = prototype.replace(/__name__/g, index);
+
+            // increase the index with one for the next item
+            $collectionHolder.data('index', index + 1);
+
+            // Display the form in the page in an li, before the "Add a tag" link li
+            var $newFormTab = $('<div class="tab-pane ready" id="tab_'+v+'"></div>').append('<h3>'+$(f).val()+'</h3>').append(newForm);
+            var $newTab = $('<li><a data-toggle="tab" href="#tab_'+v+'">'+$(f).val()+'</a></li>');
+            $newFormTab.find('input[type=hidden]').val($(f).val());
+            $collectionHolder.append($newFormTab);
+            $collectionTabs.append($newTab);
+
+            if(!dynamicTab)
+            {
+                $newFormTab.addClass('active');
+                $newTab.addClass('active');
+                dynamicTab = true;
+            }
+    }
+</script>
 {% endblock %}

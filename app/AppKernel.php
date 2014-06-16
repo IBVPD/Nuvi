@@ -16,27 +16,35 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new NS\SentinelBundle\NSSentinelBundle(),
-            new NS\UtilBundle\NSUtilBundle(),
-            new NS\SecurityBundle\NSSecurityBundle(),
-            new JMS\TranslationBundle\JMSTranslationBundle(),
-            new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\AopBundle\JMSAopBundle(),
+            new JMS\DiExtraBundle\JMSDiExtraBundle($this),
+            new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
+
+            new JMS\TranslationBundle\JMSTranslationBundle(),
+
+            new NS\SentinelBundle\NSSentinelBundle(),
+            new NS\SecurityBundle\NSSecurityBundle(),
+            new NS\UtilBundle\NSUtilBundle(),
+            new NS\AceBundle\NSAceBundle(),
+            new NS\TranslateBundle\NSTranslateBundle(),
+            new NS\SonataBundle\NSSonataBundle(),
+            new NS\FlashBundle\NSFlashBundle(),
+
             new Sonata\CoreBundle\SonataCoreBundle(),
           //new Sonata\CacheBundle\SonataCacheBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
             new Sonata\jQueryBundle\SonatajQueryBundle(),
             new Sonata\AdminBundle\SonataAdminBundle(),
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
+
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+
             new \Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
-            new NS\AceBundle\NSAceBundle(),
+
             new \PunkAve\FileUploaderBundle\PunkAveFileUploaderBundle(),
             new Lexik\Bundle\FormFilterBundle\LexikFormFilterBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Lunetics\LocaleBundle\LuneticsLocaleBundle(),
-            new NS\TranslateBundle\NSTranslateBundle(),
-            new NS\SonataBundle\NSSonataBundle(),
             new \FOS\OAuthServerBundle\FOSOAuthServerBundle(),
             new NS\ApiBundle\NSApiBundle(),
         );
@@ -53,5 +61,21 @@ class AppKernel extends Kernel
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
         $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
+    }
+
+    public function getCacheDir()
+    {
+        if (in_array($this->environment, array('dev', 'test')))
+            return '/dev/shm/nuvi/cache/' .  $this->environment;
+
+        return parent::getCacheDir();
+    }
+
+    public function getLogDir()
+    {
+        if (in_array($this->environment, array('dev', 'test')))
+            return '/dev/shm/nuvi/logs';
+
+        return parent::getLogDir();
     }
 }

@@ -2,26 +2,29 @@
 
 namespace NS\SentinelBundle\Form\Types;
 
-use NS\UtilBundle\Form\Types\ArrayChoice;
+use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
 /**
  * Description of MeningitisVaccinationType
  *
  */
-class MeningitisVaccinationType extends ArrayChoice
+class MeningitisVaccinationType extends TranslatableArrayChoice implements TranslationContainerInterface
 {
     const MEN_AFR_VAC     = 1;
-    const ACW135          = 2;
-    const ACY135          = 3;
-    const CONJUGATE_MEN_A = 4;
+    const ACYW135_POLY    = 2;
+    const ACW135          = 3;
+    const ACYW135_CON     = 4;
+    const OTHER           = 5;
     const UNKNOWN         = 99;
 
     protected $values = array(
-                            self::MEN_AFR_VAC => 'MenAfrVac',
-                            self::ACW135 => 'ACW135',
-                            self::ACY135 => 'ACY135',
-                            self::CONJUGATE_MEN_A => 'Conjugate Men A',
-                            self::UNKNOWN => 'Unknown',
+                            self::MEN_AFR_VAC  => 'MenAfriVac (conjugate MenA)',
+                            self::ACYW135_POLY => 'ACYW135 (polysaccharide)',
+                            self::ACW135       => 'ACW135 (polysaccharide)',
+                            self::ACYW135_CON  => 'ACYW135 (conjugate)',
+                            self::OTHER        => 'Other',
+                            self::UNKNOWN      => 'Unknown',
                              );
 
     public function getName()

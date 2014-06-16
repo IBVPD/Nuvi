@@ -2,15 +2,14 @@
 
 namespace NS\SentinelBundle\Form\Types;
 
-use NS\UtilBundle\Form\Types\ArrayChoice;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Security\Core\SecurityContext;
+use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
 /**
  * Description of Dehydration
  *
  */
-class Dehydration extends ArrayChoice
+class Dehydration extends TranslatableArrayChoice implements TranslationContainerInterface
 {
     const NONE    = 0;
     const SEVERE  = 1;

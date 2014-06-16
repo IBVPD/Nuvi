@@ -1,10 +1,13 @@
 <tr>
-    <td>{{ row.id }}</td>
-    <td>{{ row.gender }}</td>
-    <td>{{ row.age }}</td>
+    <td>{{ row.caseId }}</td>
+    <td>{{ row.firstName }}</td>
+    <td>{{ row.lastName }}</td>
+    <td>{{ row.admDate|date('d/m/Y') }}</td>
     <td class='hidden-480'>
-        <span class="label label-sm label-success icon icon-ok"> {{'EPI'|trans}} </span>
-        <span class="label label-sm label-{{ row.hasSiteLab ? 'success icon icon-ok':'danger icon icon-exclamation-sign'}}"> {{'LAB'|trans}} </span>
+        {{case_label(row,'EPI'|trans)}}
+        {{case_lab_label(row,'LAB'|trans)}}
+        {{case_rrl_label(row,'RRL'|trans)}}
+        {{case_nl_label(row,'NL'|trans)}}
     </td>
-    <td>{% include 'NSSentinelBundle:RotaVirus:index-action.html.twig' %}</td>
+    <td>{% include 'NSSentinelBundle::index-action.html.twig' %}</td>
 </tr>

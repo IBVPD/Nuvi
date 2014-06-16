@@ -137,6 +137,7 @@ class LoadRegionData extends AbstractFixture implements OrderedFixtureInterface,
         $this->addReference('region-in', $r2);
         $this->addReference('country-us',$c2);
         $this->addReference('site-alberta', $s);
+        $this->addReference('site-shriners', $s2);
         $this->addReference('site-toronto', $s1);
         $this->addReference('site-seattle', $s3);
         $this->addReference('site-mexico', $s4);

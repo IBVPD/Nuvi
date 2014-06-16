@@ -12,20 +12,18 @@ use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
  */
 class Gender extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    const NO_SELECTION   = 0;
-
-    const MALE   = 1;
-    const FEMALE = 2;
+    const MALE    = 1;
+    const FEMALE  = 2;
+    const UNKNOWN = 99;
 
     protected $values = array(
-                            self::NO_SELECTION => 'N/A',
-                            self::MALE         => "Male",
-                            self::FEMALE       => "Female",
+                            self::MALE    => "Male",
+                            self::FEMALE  => "Female",
+                            self::UNKNOWN => 'Unknown',
                              );
     
     public function getName()
     {
         return 'Gender';
     }
-
 }

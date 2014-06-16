@@ -2,13 +2,14 @@
 
 namespace NS\SentinelBundle\Form\Types;
 
-use NS\UtilBundle\Form\Types\ArrayChoice;
+use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
 /**
  * Description of DischargeOutcome
  *
  */
-class DischargeOutcome extends ArrayChoice
+class DischargeOutcome extends TranslatableArrayChoice implements TranslationContainerInterface
 {
     const DISCHARGED_ALIVE_WITHOUT_SEQUELAE = 1;
     const DISCHARGED_ALIVE_WITH_SEQUELAE    = 2;

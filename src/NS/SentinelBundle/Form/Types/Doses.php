@@ -12,9 +12,6 @@ use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
  */
 class Doses extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    const NO_SELECTION   = -1;
-
-    const NA      = 0;
     const ONE     = 1;
     const TWO     = 2;
     const THREE   = 3;
@@ -22,12 +19,12 @@ class Doses extends TranslatableArrayChoice implements TranslationContainerInter
     const UNKNOWN = 99;
 
     protected $values = array(
-                            self::NA      => 'N/A',
-                            self::ONE     => "1",
-                            self::TWO     => "2",
-                            self::THREE   => "3",
-                            self::FOUR    => "4",
-                            self::UNKNOWN => 'Unknown');
+                            self::ONE     => "1 dose",
+                            self::TWO     => "2 doses",
+                            self::THREE   => "3 doses",
+                            self::FOUR    => "≥ 4 doses",
+                            self::UNKNOWN => 'Unknown',
+                            );
     
     public function getName()
     {

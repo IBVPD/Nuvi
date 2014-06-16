@@ -5,13 +5,11 @@ namespace NS\SentinelBundle\Command;
 use \Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use \Symfony\Component\Console\Input\InputInterface;
 use \Symfony\Component\Console\Output\OutputInterface;
-use \Symfony\Component\Console\Input\InputArgument;
+use \Symfony\Component\Console\Input\InputOption;
 
 use NS\SentinelBundle\Entity\RotaVirus;
-use NS\SentinelBundle\Entity\RotaVirusSiteLab;
-use NS\SentinelBundle\Form\Types\TripleChoice;
+use NS\SentinelBundle\Entity\Rota\SiteLab;
 use NS\SentinelBundle\Form\Types\Gender;
-use NS\SentinelBundle\Form\Types\Diagnosis;
 use NS\SentinelBundle\Entity\Site;
 
 /**
@@ -28,15 +26,23 @@ class CreateRotaCasesCommand extends ContainerAwareCommand
         $this
             ->setName('nssentinel:rota:create:cases')
             ->setDescription('Create RotaVirus cases')
+            ->addOption('codes',null, InputOption::VALUE_OPTIONAL, null, 'HND129,HND135,BOL78,BOL85,SLV115,SLV112')
         ; 
     }
     
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         ini_set('memory_limit','768M');
+        $codes    = explode(",", str_replace(' ','',$input->getOption('codes')));
+        $output->writeln(print_r($codes,true));
+        if(empty($codes))
+        {
+            $output->writeln("No codes to add cases to");
+            return;
+        }
 
         $this->em = $this->getContainer()->get('doctrine.orm.entity_manager');
-        $sites    = $this->em->getRepository('NSSentinelBundle:Site')->getChainByCode(array('HND129','HND135','BOL78','BOL85','SLV115','SLV112'));
+        $sites    = $this->em->getRepository('NSSentinelBundle:Site')->getChainByCode($codes);
         $male     = new Gender(Gender::MALE);
         $fmale    = new Gender(Gender::FEMALE);
         
@@ -47,7 +53,7 @@ class CreateRotaCasesCommand extends ContainerAwareCommand
 
             $m = new RotaVirus();
             $m->setDob($dob);
-            $m->setAdmissionDate($this->getRandomDate(null,$dob));
+            $m->setAdmDate($this->getRandomDate(null,$dob));
             $m->setSite($sites[$siteKey]);
             $m->setCaseId($this->getCaseId($sites[$siteKey]));
 
@@ -55,9 +61,9 @@ class CreateRotaCasesCommand extends ContainerAwareCommand
 
             if($x%12 == 0)
             {
-                $lab = new RotaVirusSiteLab($m);
+                $lab = new SiteLab($m);
 
-                $m->setLab($lab);
+                $m->setSiteLab($lab);
 
                 $this->em->persist($lab);
             }

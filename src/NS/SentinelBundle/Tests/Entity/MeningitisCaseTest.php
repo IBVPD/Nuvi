@@ -2,7 +2,6 @@
 
 namespace NS\SentinelBundle\Tests\Entity;
 
-use NS\SentinelBundle\Tests\BaseDBTestCase;
 use NS\SentinelBundle\Entity\Meningitis;
 use NS\SentinelBundle\Entity\Country;
 use NS\SentinelBundle\Form\Types\TripleChoice;
@@ -77,7 +76,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
         $case = new Meningitis();
         $case->setCountry($country);
 
-        $this->assertEquals(32, count($case->getMinimumRequiredFields()));
+        $this->assertEquals(33, count($case->getMinimumRequiredFields()));
     }
 
     public function testMinimumRequiredFieldsWithoutPneunomia()
@@ -87,7 +86,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
         $case = new Meningitis();
         $case->setCountry($country);
 
-        $this->assertEquals(23, count($case->getMinimumRequiredFields()));
+        $this->assertEquals(24, count($case->getMinimumRequiredFields()));
     }
 
     //============================================================
@@ -96,9 +95,9 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
     {
         $case = new Meningitis();
         $this->_updateCase($case, $this->getSingleCompleteCaseWithPneunomia());
-        $case->prePersist();
+        $case->preUpdateAndPersist();
 
-        $this->assertEquals(32, count($case->getMinimumRequiredFields()));
+        $this->assertEquals(33, count($case->getMinimumRequiredFields()));
         $this->assertTrue($case->isComplete(),"New cases are incomplete");
     }
 
@@ -106,9 +105,9 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
     {
         $case = new Meningitis();
         $this->_updateCase($case, $this->getSingleCompleteCaseWithoutPneunomia());
-        $case->prePersist();
+        $case->preUpdateAndPersist();
 
-        $this->assertEquals(23, count($case->getMinimumRequiredFields()));
+        $this->assertEquals(24, count($case->getMinimumRequiredFields()));
         $this->assertTrue($case->isComplete(),"New cases are incomplete");
     }
 
@@ -122,7 +121,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
     {
         $case = new Meningitis();
         $this->_updateCase($case, $data);
-        $case->prePersist();
+        $case->preUpdateAndPersist();
 
         $this->assertFalse($case->isComplete(),"New cases are incomplete ".(isset($data['removed'])?$data['removed']:'no removed'));
         $this->assertEquals($case->getStatus()->getValue(),CaseStatus::OPEN);
@@ -136,7 +135,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
     {
         $case = new Meningitis();
         $this->_updateCase($case, $data);
-        $case->prePersist();
+        $case->preUpdateAndPersist();
 
         $this->assertFalse($case->isComplete(),"New cases are incomplete ".(isset($data['removed'])?$data['removed']:'no removed'));
         $this->assertEquals($case->getStatus()->getValue(),CaseStatus::OPEN);
@@ -152,7 +151,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
     {
         $case = new Meningitis();
         $this->_updateCase($case, $data);
-        $case->prePersist();
+        $case->preUpdateAndPersist();
 
         $this->assertTrue($case->isComplete(),"Cases with pneunomia are complete ".(!$case->isComplete())? $case->getIncompleteField():null);
         $this->assertEquals($case->getStatus()->getValue(),CaseStatus::COMPLETE);
@@ -166,7 +165,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
     {
         $case = new Meningitis();
         $this->_updateCase($case, $data);
-        $case->prePersist();
+        $case->preUpdateAndPersist();
 
         $this->assertTrue($case->isComplete(),"Cases without pneunomia are complete ".(!$case->isComplete())? $case->getIncompleteField():null);
         $this->assertEquals($case->getStatus()->getValue(),CaseStatus::COMPLETE);
@@ -374,7 +373,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
                     'setgender'            => new Gender(Gender::MALE),
                     'setadmDate'           => new \DateTime(),
                     'setonsetDate'         => new \DateTime(),
-                    'setadmDx'             => new Diagnosis(Diagnosis::PNEUMONIA),
+                    'setadmDx'             => new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA),
                     'setadmDxOther'        => null,
                     'setantibiotics'       => $tripleNo,
                     'setmenSeizures'       => $tripleNo,
@@ -408,9 +407,10 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
                     'setbloodCollected'    => $tripleNo,
                     'setbloodId'           => null,
                     'setdischOutcome'      => new DischargeOutcome(DischargeOutcome::DISCHARGED_ALIVE_WITHOUT_SEQUELAE),
-                    'setdischDx'           => new Diagnosis(Diagnosis::PNEUMONIA),
+                    'setdischDx'           => new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA),
                     'setdischDxOther'      => null,
                     'setdischClass'        => new DischargeClassification(DischargeClassification::CONFIRMED_SPN),
+                    'setCxrDone'           => new TripleChoice(TripleChoice::NO),
                 );
     }
 
@@ -427,7 +427,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
                     'setgender'            => new Gender(Gender::MALE),
                     'setadmDate'           => new \DateTime(),
                     'setonsetDate'         => new \DateTime(),
-                    'setadmDx'             => new Diagnosis(Diagnosis::PNEUMONIA),
+                    'setadmDx'             => new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA),
                     'setadmDxOther'        => null,
                     'setantibiotics'       => $tripleNo,
                     'setmenSeizures'       => $tripleNo,
@@ -452,9 +452,10 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
                     'setbloodCollected'    => $tripleNo,
                     'setbloodId'           => null,
                     'setdischOutcome'      => new DischargeOutcome(DischargeOutcome::DISCHARGED_ALIVE_WITHOUT_SEQUELAE),
-                    'setdischDx'           => new Diagnosis(Diagnosis::PNEUMONIA),
+                    'setdischDx'           => new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA),
                     'setdischDxOther'      => null,
                     'setdischClass'        => new DischargeClassification(DischargeClassification::CONFIRMED_SPN),
+                    'setCxrDone'           => new TripleChoice(TripleChoice::NO),
                 );
     }
 

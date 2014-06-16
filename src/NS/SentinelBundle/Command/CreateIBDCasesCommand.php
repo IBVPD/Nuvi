@@ -5,9 +5,10 @@ namespace NS\SentinelBundle\Command;
 use \Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use \Symfony\Component\Console\Input\InputInterface;
 use \Symfony\Component\Console\Output\OutputInterface;
+use \Symfony\Component\Console\Input\InputOption;
 
 use NS\SentinelBundle\Entity\Meningitis;
-use \NS\SentinelBundle\Entity\SiteLab;
+use NS\SentinelBundle\Entity\IBD\SiteLab;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Form\Types\Gender;
 use NS\SentinelBundle\Form\Types\Diagnosis;
@@ -27,41 +28,49 @@ class CreateIBDCasesCommand extends ContainerAwareCommand
         $this
             ->setName('nssentinel:ibd:create:cases')
             ->setDescription('Create ibd cases')
+            ->addOption('codes',null, InputOption::VALUE_OPTIONAL, null, 'HND129,HND135,BOL78,BOL85,SLV115,SLV112')
         ; 
     }
     
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         ini_set('memory_limit','768M');
+        $codes    = explode(",", str_replace(' ','',$input->getOption('codes')));
+        if(empty($codes))
+        {
+            $output->writeln("No codes to add cases to");
+            return;
+        }
 
         $this->em = $this->getContainer()->get('doctrine.orm.entity_manager');
-        $sites    = $this->em->getRepository('NSSentinelBundle:Site')->getChainByCode(array('HND129','HND135','BOL78','BOL85','SLV115','SLV112'));
+        $sites    = $this->em->getRepository('NSSentinelBundle:Site')->getChainByCode($codes);
 
         $male   = new Gender(Gender::MALE);
         $fmale  = new Gender(Gender::FEMALE);
-        $dx[]   = new Diagnosis(Diagnosis::MENINGITIS);
-        $dx[]   = new Diagnosis(Diagnosis::PNEUMONIA);
-        $dx[]   = new Diagnosis(Diagnosis::SEPSIS);
+        $dx[]   = new Diagnosis(Diagnosis::SUSPECTED_MENINGITIS);
+        $dx[]   = new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA);
+        $dx[]   = new Diagnosis(Diagnosis::SUSPECTED_SEPSIS);
         $dx[]   = new Diagnosis(Diagnosis::OTHER);
         $cxDone = array(
                      new TripleChoice(TripleChoice::YES),
                      new TripleChoice(TripleChoice::NO)
                        );
-    
+
         for($x = 0; $x < 2700; $x++)
         {
-            $dob = $this->getRandomDate();
+            $dob  = $this->getRandomDate();
+            $done = array_rand($cxDone);
             $m = new Meningitis();
 
             $m->setDob($dob);
             $m->setAdmDate($this->getRandomDate(null,$dob));
             $m->setCsfCollected((($x % 3) == 0));
+            $m->setCxrDone($cxDone[$done]);
+
             if($x%12 == 0)
             {
                 $site = new SiteLab($m);
 
-                $done = array_rand($cxDone);
-                $site->setCxrDone($cxDone[$done]);
                 $m->setSiteLab($site);
 
                 $this->em->persist($site);

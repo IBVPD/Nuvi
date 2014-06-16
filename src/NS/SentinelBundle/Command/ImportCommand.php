@@ -6,6 +6,7 @@ use \Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use \Symfony\Component\Console\Input\InputInterface;
 use \Symfony\Component\Console\Output\OutputInterface;
 use \Symfony\Component\Console\Input\InputArgument;
+use \Symfony\Component\Console\Input\InputOption;
 
 use NS\SentinelBundle\Entity\Region;
 use NS\SentinelBundle\Entity\Country;
@@ -34,6 +35,7 @@ class ImportCommand extends ContainerAwareCommand
                 InputArgument::REQUIRED,
                 'Directory with CSV Files'
             )
+            ->addOption('with-users', null, InputOption::VALUE_OPTIONAL, true);
         ; 
     }
     
@@ -67,12 +69,24 @@ class ImportCommand extends ContainerAwareCommand
 
         $regions   = $this->processRegions($files['region'],$output);
         $output->writeln("Added ".count($regions)." Regions");
-        $countries = $this->processCountries($files['country'], $regions);
-        $output->writeln("Added ".count($countries)." Countries");
-        $sites     = $this->processSites($files['site'], $countries);
-        $output->writeln("Added ".count($sites)." Sites");
-        $users     = $this->processUsers($regions,$countries,$sites);
-        $output->writeln("Added $users Users");
+
+        if(isset($files['country']))
+        {
+            $countries = $this->processCountries($files['country'], $regions);
+            $output->writeln("Added ".count($countries)." Countries");
+        }
+
+        if(isset($files['site']))
+        {
+            $sites     = $this->processSites($files['site'], $countries);
+            $output->writeln("Added ".count($sites)." Sites");
+        }
+
+        if($input->hasOption('with-users'))
+        {
+            $users     = $this->processUsers($regions,$countries,$sites);
+            $output->writeln("Added $users Users");
+        }
     }
     
     private function processRegions($file,$output)

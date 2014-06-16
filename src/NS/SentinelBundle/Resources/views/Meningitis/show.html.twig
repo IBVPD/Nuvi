@@ -1,6 +1,10 @@
 {%extends "NSSentinelBundle::layout.html.twig" %}
 {% block pagetitle %}{{'View Case %id%'|trans({'%id%': record.id})}}{%endblock %}
 
+{%block pageactions %}
+<div class="pull-right">{{case_big_actions(record)}}</div>
+{%endblock %}
+
 {% block body %}
 <div class="col-sm-12">
     <div class="tabbable tabs-left">
@@ -36,8 +40,24 @@
                         <td>{{record.dob|date}}</td>
                     </tr>
                     <tr>
+                        <th>{{'meningitis-form.age'|trans}}</th>
+                        <td>{{record.age}}</td>
+                    </tr>
+                    <tr>
                         <th>{{'meningitis-form.gender'|trans}}</th>
                         <td>{{record.gender}}</td>
+                    </tr>
+                    <tr>
+                        <th>{{'meningitis-form.first-name'|trans}}</th>
+                        <td>{{record.firstName}}</td>
+                    </tr>
+                    <tr>
+                        <th>{{'meningitis-form.last-name'|trans}}</th>
+                        <td>{{record.lastName}}</td>
+                    </tr>
+                    <tr>
+                        <th>{{'meningitis-form.parental-name'|trans}}</th>
+                        <td>{{record.parentalName}}</td>
                     </tr>
                 </table>
             </div>
@@ -148,9 +168,12 @@
                         <td>{{record.pneuCyanosis}}</td>
                     </tr>
                     <tr>
-                        <th>{{'meningitis-form.pneu-respRate'|trans}}</th>
+                        <th>{{'meningitis-form.pneu-resp-rate'|trans}}</th>
                         <td>{{record.pneuRespRate}}</td>
                     </tr>
+                    <tr><th>{{'meningitis-form.cxr-done'|trans}}</th><td>{{record.cxrDone}}</td></tr>
+                    <tr><th>{{'meningitis-form.cxr-result'|trans}}</th><td>{{record.cxrResult}}</td></tr>
+                    <tr><th>{{'meningitis-form.cxr-additional-result'|trans}}</th><td>{{record.cxrAdditionalResult}}</td></tr>
                 </table>
             </div>
             
@@ -210,8 +233,6 @@
                     <tr><th>{{'meningitis-form.spn-serotype'|trans}}</th><td>{{record.siteLab.spnSerotype}}</td></tr>
                     <tr><th>{{'meningitis-form.hi-serotype'|trans}}</th><td>{{record.siteLab.hiSerotype}}</td></tr>
                     <tr><th>{{'meningitis-form.nm-serogroup'|trans}}</th><td>{{record.siteLab.nmSerogroup}}</td></tr>
-                    <tr><th>{{'meningitis-form.cxr-done'|trans}}</th><td>{{record.siteLab.cxrDone}}</td></tr>
-                    <tr><th>{{'meningitis-form.cxr-result'|trans}}</th><td>{{record.siteLab.cxrResult}}</td></tr>
                     {% else %}
                     <tr>
                         <th>{{'meningitis.has-site-lab'|trans}}</th>

@@ -12,7 +12,7 @@
     {%block ace_settings %}{% endblock %}
 
     {% block sitebrand_text %}
-        {{'sitebrand-text'|trans|desc('NUVI Sentinel Network')}}
+        <img src="{{asset('/bundles/nssentinel/images/WHO-logo_WHITE.png')}}" /> {{'sitebrand-text'|trans|desc('NUVI Sentinel Network')}}
     {%endblock%}
     {% block sitetitle %}
         {{'site-title-text'|trans|desc('WHO Sentinel Network')}}
@@ -23,7 +23,10 @@
         {{ knp_menu_render('sidebar') }}
         {% endif %}
     {% endblock %}
-    
+
+    {% block sidenav_shortcuts %}
+    {% endblock %}
+
     {% block flash %}
         {% for flashMessage in app.session.flashbag.get('error') %}
             <div class="alert alert-block alert-error">
@@ -66,7 +69,9 @@
     {% block navbarheader %}
         <div class="navbar-header pull-right" role="navigation">
             <ul class="nav ace-nav">
+            {% if is_granted('ROLE_CAN_CHANGE_LANGUAGE') %}
             {{ locale_switcher(null,null,'::switcher_links.html.twig') }}
+            {% endif %}
 <!--                <li class="grey">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <i class="icon-tasks"></i>
@@ -267,10 +272,7 @@
 
                     <ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
                         <li>
-                            <a href="#"><i class="icon-cog"></i>Settings</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="icon-user"></i>Profile</a>
+                            <a href="{{path('userProfile')}}"><i class="icon-user"></i>Profile</a>
                         </li>
                         <li class="divider"></li>
                         <li>

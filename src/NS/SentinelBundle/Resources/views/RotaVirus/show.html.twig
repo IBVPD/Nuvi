@@ -1,6 +1,10 @@
 {%extends "NSSentinelBundle::layout.html.twig" %}
 {% block pagetitle %}{{'View Case %id%'|trans({'%id%': record.id})}}{%endblock %}
 
+{%block pageactions %}
+<div class="pull-right">{{case_big_actions(record)}}</div>
+{%endblock %}
+
 {% block body %}
 <div class="col-sm-12">
     <div class="tabbable tabs-left">
@@ -71,7 +75,7 @@
                 <table class="table table-striped table-bordered table-hover">
                     <tr>
                         <th>{{'rotavirus-form.adm-date'|trans}}</th>
-                        <td>{{record.admissionDate|date}}</td>
+                        <td>{{record.admDate|date}}</td>
                     </tr>
                 </table>
             </div>
@@ -95,8 +99,8 @@
                         <td>{{record.symptomDiarrheaDuration}}</td>
                     </tr>
                     <tr>
-                        <th>{{'rotavirus-form.symptomDiarrheaVomit'|trans}}</th>
-                        <td>{{record.symptomDiarrheaVomit}}</td>
+                        <th>{{'rotavirus-form.symptomVomit'|trans}}</th>
+                        <td>{{record.symptomVomit}}</td>
                     </tr>
                     <tr>
                         <th>{{'rotavirus-form.symptomVomitEpisodes'|trans}}</th>

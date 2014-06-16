@@ -8,7 +8,7 @@ framework:
     secret:          %secret%
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
-        strict_requirements: ~
+        strict_requirements: '%kernel.debug%'
     form:            ~
     csrf_protection: ~
     validation:      { enable_annotations: true }
@@ -16,7 +16,6 @@ framework:
         engines: ['twig']
         #assets_version: SomeVersionScheme
     default_locale:  "%locale%"
-    trusted_proxies: ~
     session:
       name: WorldHealthOrganizationSentinelNetwork
       save_path: /tmp/nuvi
@@ -84,11 +83,24 @@ doctrine:
             RotavirusVaccinationType: NS\SentinelBundle\Entity\Types\RotavirusVaccinationType
             ElisaResult: NS\SentinelBundle\Entity\Types\ElisaResult
             MeningitisCaseResult: NS\SentinelBundle\Entity\Types\MeningitisCaseResult
-            MeningitisVaccinationReceived: NS\SentinelBundle\Entity\Types\MeningitisVaccinationReceived
+            VaccinationReceived: NS\SentinelBundle\Entity\Types\VaccinationReceived
             MeningitisVaccinationType:  NS\SentinelBundle\Entity\Types\MeningitisVaccinationType
             DischargeClassification: NS\SentinelBundle\Entity\Types\DischargeClassification
             DischargeOutcome: NS\SentinelBundle\Entity\Types\DischargeOutcome
             CaseStatus: NS\SentinelBundle\Entity\Types\CaseStatus
+            IBDCreateRoles: NS\SentinelBundle\Entity\Types\IBDCreateRoles
+            EIAResult: NS\SentinelBundle\Entity\Types\EIAResult
+            GenotypeResultG: NS\SentinelBundle\Entity\Types\GenotypeResultG
+            GenotypeResultP: NS\SentinelBundle\Entity\Types\GenotypeResultP
+            NmSerogroup: NS\SentinelBundle\Entity\Types\NmSerogroup
+            HiSerotype: NS\SentinelBundle\Entity\Types\HiSerotype
+            SpnSerotype: NS\SentinelBundle\Entity\Types\SpnSerotype
+            RotavirusDoses: NS\SentinelBundle\Entity\Types\RotavirusDoses
+            DischargeDiagnosis: NS\SentinelBundle\Entity\Types\DischargeDiagnosis
+            CXRAdditionalResult: NS\SentinelBundle\Entity\Types\CXRAdditionalResult
+            PCVType: NS\SentinelBundle\Entity\Types\PCVType
+            RotavirusDischargeOutcome: NS\SentinelBundle\Entity\Types\RotavirusDischargeOutcome
+            CultureResult: NS\SentinelBundle\Entity\Types\CultureResult
         mapping_types:
             TripleChoice: TripleChoice
             Doses: Doses
@@ -114,12 +126,25 @@ doctrine:
             RotavirusVaccinationType: RotavirusVaccinationType
             ElisaResult: ElisaResult
             MeningitisCaseResult: MeningitisCaseResult
-            MeningitisVaccinationReceived: MeningitisVaccinationReceived
+            VaccinationReceived: VaccinationReceived
             MeningitisVaccinationType: MeningitisVaccinationType
             GramStainOrganism: GramStainOrganism
             DischargeClassification: DischargeClassification
             DischargeOutcome: DischargeOutcome
             CaseStatus: CaseStatus
+            IBDCreateRoles: IBDCreateRoles
+            EIAResult: EIAResult
+            GenotypeResultG: GenotypeResultG
+            GenotypeResultP: GenotypeResultP
+            NmSerogroup: NmSerogroup
+            HiSerotype: HiSerotype
+            SpnSerotype: SpnSerotype
+            RotavirusDoses: RotavirusDoses
+            DischargeDiagnosis: DischargeDiagnosis
+            CXRAdditionalResult: CXRAdditionalResult
+            PCVType: PCVType
+            RotavirusDischargeOutcome: RotavirusDischargeOutcome
+            CultureResult: CultureResult
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
@@ -179,7 +204,7 @@ jms_translation:
       output_dir: %kernel.root_dir%/../src/NS/SentinelBundle/Resources/translations        
       dirs: [ "%kernel.root_dir%/../src/NS/SentinelBundle" ]
       excluded_names: [ "*TestCase.php", "*Test.php" ]
-      excluded_dirs: [ cache, data, logs ]
+      excluded_dirs: [ cache, data, logs, Features ]
       output_format: xliff
 
 knp_paginator:

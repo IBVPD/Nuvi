@@ -2,6 +2,172 @@ parameters:
 #    ns_sentinel.example.class: NS\SentinelBundle\Example
 
 services:
+    ns.sentinel.form.type.cultureresult:
+      class: NS\SentinelBundle\Form\Types\CultureResult
+      tags:
+        - { name: form.type, alias: CultureResult }
+
+    ns.sentinel.form.type.rotavirusdischargeoutcome:
+      class: NS\SentinelBundle\Form\Types\RotavirusDischargeOutcome
+      tags:
+        - { name: form.type, alias: RotavirusDischargeOutcome }
+
+    ns.sentinel.form.type.pcvtype:
+      class: NS\SentinelBundle\Form\Types\PCVType
+      tags:
+        - { name: form.type, alias: PCVType }
+
+    ns.sentinel.form.type.cxradditionalresult:
+      class: NS\SentinelBundle\Form\Types\CXRAdditionalResult
+      tags:
+        - { name: form.type, alias: CXRAdditionalResult }
+
+    ns.sentinel.form.type.dischargediagnosis:
+      class: NS\SentinelBundle\Form\Types\DischargeDiagnosis
+      tags:
+        - { name: form.type, alias: DischargeDiagnosis }
+
+    ns.sentinel.form.type.rotavirusdoses:
+      class: NS\SentinelBundle\Form\Types\RotavirusDoses
+      tags:
+        - { name: form.type, alias: RotavirusDoses }
+
+    ns.sentinel.form.ibd_outcome:
+      class: NS\SentinelBundle\Form\IBD\OutcomeType
+      tags:
+        - { name: form.type, alias: ibd_outcome }
+
+    ns.sentinel.form.rotavirus_outcome:
+      class: NS\SentinelBundle\Form\Rota\OutcomeType
+      tags:
+        - { name: form.type, alias: rotavirus_outcome }
+
+    ns.sentinel.locale_listener:
+      class: NS\SentinelBundle\Locale\Login
+      arguments: [ @security.context, @service_container, %kernel.default_locale% ]
+      tags:
+        - { name: kernel.event_subscriber }
+        - { name: kernel.event_listener, event: security.authentication.success, method: onLogin }
+        - { name: kernel.event_listener, event: security.switch_user, method: switchUser }
+
+    ns.sentinel.form.type.spnserotype:
+      class: NS\SentinelBundle\Form\Types\SpnSerotype
+      tags:
+        - { name: form.type, alias: SpnSerotype }
+    
+    ns.sentinel.form.type.hiserotype:
+      class: NS\SentinelBundle\Form\Types\HiSerotype
+      tags:
+        - { name: form.type, alias: HiSerotype }
+
+    ns.sentinel.form.type.nmserogroup:
+      class: NS\SentinelBundle\Form\Types\NmSerogroup
+      tags:
+        - { name: form.type, alias: NmSerogroup }
+
+    ns.sentinel.form.type.eiaresult:
+      class: NS\SentinelBundle\Form\Types\EIAResult
+      tags:
+        - { name: form.type, alias: EIAResult }
+
+    ns.sentinel.form.type.genotyperesultgspecify:
+      class: NS\SentinelBundle\Form\Types\GenotypeResultGSpecify
+      tags:
+        - { name: form.type, alias: GenotypeResultGSpecify }
+
+    ns.sentinel.form.type.genotyperesultg:
+      class: NS\SentinelBundle\Form\Types\GenotypeResultG
+      tags:
+        - { name: form.type, alias: GenotypeResultG }
+
+    ns.sentinel.form.type.genotyperesultpspecify:
+      class: NS\SentinelBundle\Form\Types\GenotypeResultPSpecify
+      tags:
+        - { name: form.type, alias: GenotypeResultPSpecify }
+
+    ns.sentinel.form.type.genotyperesultp:
+      class: NS\SentinelBundle\Form\Types\GenotypeResultP
+      tags:
+        - { name: form.type, alias: GenotypeResultP }
+
+    ns.sentinel.form.filters.site_lab_filter:
+      class: NS\SentinelBundle\Form\Filters\SiteLabFilterType
+      tags:
+        - { name: form.type, alias: site_lab_filter }
+
+    ns.sentinel.twig.case_actions:
+      class: NS\SentinelBundle\Twig\CaseActions
+      arguments: [ @security.context, @translator, @router ]
+      tags:
+        - { name: twig.extension, alias: twig_case_actions }
+
+    ns.sentinel.twig.case_status:
+      class: NS\SentinelBundle\Twig\CaseStatus
+      tags:
+        - { name: twig.extension, alias: twig_case_status }
+
+    ns.sentinel.form.filter.base:
+      class: NS\SentinelBundle\Form\Filters\BaseObject
+      tags:
+        - { name: form.type, alias: filter_object }
+
+    ns.sentinel.form.filter.country:
+      class: NS\SentinelBundle\Form\Filters\Country
+      arguments: [ @ns.model_manager, "NSSentinelBundle:Country" ]
+      tags:
+        - { name: form.type, alias: country }
+
+    ns.sentinel.form.filter.region:
+      class: NS\SentinelBundle\Form\Filters\Region
+      arguments: [ @ns.model_manager, "NSSentinelBundle:Region" ]
+      tags:
+        - { name: form.type, alias: region }
+
+    ns.sentinel.form.filter.site:
+      class: NS\SentinelBundle\Form\Filters\Site
+      arguments: [ @ns.model_manager, "NSSentinelBundle:Site" ]
+      tags:
+        - { name: form.type, alias: site }
+
+    ns.sentinel.filter.listener:
+      class: NS\SentinelBundle\Filter\Listener
+      tags:
+        - { name: kernel.event_subscriber }
+
+    ns.sentinel.filter.case_status_listener:
+      class: NS\SentinelBundle\Filter\CaseStatusListener
+      tags:
+        - { name: kernel.event_subscriber } 
+
+    ns.sentinel.form.type.createroles:
+      class: NS\SentinelBundle\Form\Types\CreateRoles
+      calls:
+        - [ setSecurityContext, [ @security.context ] ]
+      tags:
+        - { name: form.type, alias: CreateRoles }
+
+    ns.sentinel.form.type.rotacreateroles:
+      class: NS\SentinelBundle\Form\Types\RotavirusCreateRoles
+      tags:
+        - { name: form.type, alias: RotavirusCreateRoles }
+
+    ns.sentinel.form.type.ibdcreateroles:
+      class: NS\SentinelBundle\Form\Types\IBDCreateRoles
+      tags:
+        - { name: form.type, alias: IBDCreateRoles }
+
+    ns.sentinel.form.create_ibd:
+      class: NS\SentinelBundle\Form\CreateType
+      arguments: [ "@ns.sentinel.sites", "@ns.model_manager", IBDCreateRoles ]
+      tags:
+        - { name: form.type, alias: create_ibd }
+
+    ns.sentinel.form.create_rota:
+      class: NS\SentinelBundle\Form\CreateType
+      arguments: [ "@ns.sentinel.sites", "@ns.model_manager", RotavirusCreateRoles ]
+      tags:
+        - { name: form.type, alias: create_rotavirus }
+
     ns.sentinel.sites:
       class: NS\SentinelBundle\Services\SerializedSites
       arguments: [ "@session", "@ns.model_manager" ]
@@ -31,23 +197,26 @@ services:
       tags:
         - { name: form.type, alias: MeningitisVaccinationType }
 
-    ns.sentinel.form.type.meningitisvaccinationreceived:
-      class: NS\SentinelBundle\Form\Types\MeningitisVaccinationReceived
+    ns.sentinel.form.type.vaccinationreceived:
+      class: NS\SentinelBundle\Form\Types\VaccinationReceived
       tags:
-        - { name: form.type, alias: MeningitisVaccinationReceived }    
+        - { name: form.type, alias: VaccinationReceived }
+
     ns.sentinel.form.type.dischargeclassification:
       class: NS\SentinelBundle\Form\Types\DischargeClassification
       tags:
         - { name: form.type, alias: DischargeClassification }
-    
+
     ns.sentinel.form.type.meningitiscaseresult:
       class: NSSentinelBundle\Form\Types\MeningitisCaseResult
       tags:
         - { name: form.type, alias: MeningitisCaseResult }
+
     ns.sentinel.form.type.elisaresult:
       class: NS\SentinelBundle\Form\Types\ElisaResult
       tags:
         - { name: form.type, alias: ElisaResult }
+
     ns.sentinel.form.type.rotavirusvaccinationtype:
       class: NS\SentinelBundle\Form\Types\RotavirusVaccinationType
       tags:
@@ -57,19 +226,23 @@ services:
       class: NS\SentinelBundle\Form\Types\RotavirusVaccinationReceived
       tags:
         - { name: form.type, alias: RotavirusVaccinationReceived }
+
     ns.sentinel.form.type.dehydration:
       class: NS\SentinelBundle\Form\Types\Dehydration
       tags:
         - { name: form.type, alias: Dehydration }
+
     ns.sentinel.form.type.rehydration:
       class: NS\SentinelBundle\Form\Types\Rehydration
       tags:
         - { name: form.type, alias: Rehydration }
+
     ns.sentinel.form.result_per_page:
       class: NS\SentinelBundle\Form\ResultPerPage
       arguments: [ "meningitisIndex" ]
       tags:
         - { name: form.type, alias: results_per_page }
+
     ns.sentinel.result_per_page:
       class: NS\SentinelBundle\Listeners\ResultPerPage
       arguments: [ "@router","@form.factory" ]
@@ -78,23 +251,24 @@ services:
 
     ns.sentinel.base.filter:
       class: NS\SentinelBundle\Form\BaseFilter
-      arguments: [ "@security.context", "@ns.model_manager" ]
+      arguments: [ "@security.context" ]
       tags:
         - { name: form.type, alias: base_filter_form }
 
     ns.sentinel.rotavirus.filter:
-      class: NS\SentinelBundle\Form\RotaVirusFilter
+      class: NS\SentinelBundle\Form\Rota\FilterType
       tags:
         - { name: form.type, alias: rotavirus_filter_form }
 
     ns.sentinel.meningitis.filter:
-      class: NS\SentinelBundle\Form\MeningitisFilter
+      class: NS\SentinelBundle\Form\IBD\FilterType
       tags:
-        - { name: form.type, alias: meningitis_filter_form }
+        - { name: form.type, alias: ibd_filter_form }
 
     ns.sentinel.menu_builder:
       class: NS\SentinelBundle\Menu\Builder
       arguments: [ "@knp_menu.factory", "@security.context" ]
+
     ns.sentinel.menu.user:
       class: Knp\Menu\MenuItem # the service definition requires setting the class
       factory_service: ns.sentinel.menu_builder
@@ -103,6 +277,7 @@ services:
       scope: request # needed as we have the request as a dependency here
       tags:
         - { name: knp_menu.menu, alias: user } # The alias is what is used to retrieve the menu  
+
     ns.sentinel.menu.sidebar:
       class: Knp\Menu\MenuItem # the service definition requires setting the class
       factory_service: ns.sentinel.menu_builder
@@ -111,150 +286,192 @@ services:
       scope: request # needed as we have the request as a dependency here
       tags:
         - { name: knp_menu.menu, alias: sidebar } # The alias is what is used to retrieve the menu    
+
     ns.sentinel.user_provider:
       class: NS\SentinelBundle\Security\UserProvider
       arguments: [ "@doctrine.orm.entity_manager" ]
 
-    ns.sentinel.form.type.meningitis_base:
-      class: NS\SentinelBundle\Form\BaseLabType
-      arguments: [ "@ns.sentinel.sites", "@ns.model_manager" ]
+    ns.sentinel.form.type.ibd_base:
+      class: NS\SentinelBundle\Form\IBD\BaseLabType
       tags:
         - { name: form.type, alias: ibd_base_lab }
 
-    ns.sentinel.form.type.meningitis_nl:
-      class: NS\SentinelBundle\Form\NationalLabType
+    ns.sentinel.form.type.ibd_nl:
+      class: NS\SentinelBundle\Form\IBD\NationalLabType
       tags:
-        - { name: form.type, alias: meningitis_nationallab }
+        - { name: form.type, alias: ibd_nationallab }
 
-    ns.sentinel.form.type.meningitis_rrl:
-      class: NS\SentinelBundle\Form\ReferenceLabType
+    ns.sentinel.form.type.ibd_rrl:
+      class: NS\SentinelBundle\Form\IBD\ReferenceLabType
       tags:
-        - { name: form.type, alias: meningitis_referencelab }
-    ns.sentinel.form.type.meningitis_sitelab:
-      class: NS\SentinelBundle\Form\SiteLabType
-      arguments: [ "@ns.sentinel.sites", "@ns.model_manager" ]
+        - { name: form.type, alias: ibd_referencelab }
+
+    ns.sentinel.form.type.ibd_sitelab:
+      class: NS\SentinelBundle\Form\IBD\SiteLabType
+      arguments: [ "@ns.sentinel.sites" ]
       tags:
-        - { name: form.type, alias: meningitis_sitelab }
-    
-    ns.sentinel.form.type.meningitis:
-      class: NS\SentinelBundle\Form\MeningitisType
+        - { name: form.type, alias: ibd_sitelab }
+
+    ns.sentinel.form.type.ibd_lab_sample:
+      class: NS\SentinelBundle\Form\IBD\LabSampleType
+      arguments: [ "@ns.sentinel.sites" ]
+      tags:
+        - { name: form.type, alias: ibd_lab_sample }
+
+    ns.sentinel.form.type.ibd:
+      class: NS\SentinelBundle\Form\IBD\CaseType
       arguments: [ "@ns.sentinel.sites","@ns.model_manager" ]
       tags:
-        - { name: form.type, alias: meningitis }
-    
+        - { name: form.type, alias: ibd }
+
+    ns.sentinel.form.type.rota_base:
+      class: NS\SentinelBundle\Form\Rota\BaseLabType
+      tags:
+        - { name: form.type, alias: rotavirus_base_lab }
+
+    ns.sentinel.form.type.rota_nl:
+      class: NS\SentinelBundle\Form\Rota\NationalLabType
+      tags:
+        - { name: form.type, alias: rotavirus_nationallab }
+
+    ns.sentinel.form.type.rota_rrl:
+      class: NS\SentinelBundle\Form\Rota\ReferenceLabType
+      tags:
+        - { name: form.type, alias: rotavirus_referencelab }
+
     ns.sentinel.form.type.rotavirus_sitelab:
-      class: NS\SentinelBundle\Form\RotaVirusSiteLabType
+      class: NS\SentinelBundle\Form\Rota\SiteLabType
+      arguments: [ "@ns.sentinel.sites" ]      
       tags:
         - { name: form.type, alias: rotavirus_sitelab }
+
     ns.sentinel.form.type.rotavirus:
-      class: NS\SentinelBundle\Form\RotaVirusType
+      class: NS\SentinelBundle\Form\Rota\CaseType
       arguments: [ "@ns.sentinel.sites", "@ns.model_manager" ]
       tags:
         - { name: form.type, alias: rotavirus }
-    
+
     ns.sentinel.form.type.pathogenidentifier:
       class: NS\SentinelBundle\Form\Types\PathogenIdentifier
       tags:
         - { name: form.type, alias: PathogenIdentifier }
+
     ns.sentinel.form.type.serotypeidentifier:
       class: NS\SentinelBundle\Form\Types\SerotypeIdentifier
       tags:
         - { name: form.type, alias: SerotypeIdentifier }
+
     ns.sentinel.form.type.volume:
       class: NS\SentinelBundle\Form\Types\Volume
       tags:
         - { name: form.type, alias: Volume }
+
     ns.sentinel.form.type.sampletype:
       class: NS\SentinelBundle\Form\Types\SampleType
       tags:
         - { name: form.type, alias: SampleType }
+
     ns.sentinel.form.type.isolatetype:
       class: NS\SentinelBundle\Form\Types\IsolateType
       tags:
         - { name: form.type, alias: IsolateType }
+
     ns.sentinel.form.type.latresult:
       class: NS\SentinelBundle\Form\Types\LatResult
       tags:
         - { name: form.type, alias: LatResult }
+
     ns.sentinel.form.type.binaxresult:
       class: NS\SentinelBundle\Form\Types\BinaxResult
       tags:
         - { name: form.type, alias: BinaxResult }
+
     ns.sentinel.form.type.gavi:
       class: NS\SentinelBundle\Form\Types\GAVIEligible
       tags:
         - { name: form.type, alias: GAVIEligible }
+
     ns.sentinel.form.type.pcrresult:
       class: NS\SentinelBundle\Form\Types\PCRResult
       tags:
         - { name: form.type, alias: PCRResult }
+
     ns.sentinel.form.type.triple_choice:
       class: NS\SentinelBundle\Form\Types\TripleChoice
       tags:
         - { name: form.type, alias: TripleChoice }
+
     ns.sentinel.form.type.diagnosis:
       class: NS\SentinelBundle\Form\Types\Diagnosis
       tags:
         - { name: form.type, alias: Diagnosis }
+
     ns.sentinel.form.type.dischargeClassification:
       class: NS\SentinelBundle\Form\Types\DischargeClassification
       tags:
         - { name: form.type, alias: DischargeClassification }
+
     ns.sentinel.form.type.dischargeOutcome:
       class: NS\SentinelBundle\Form\Types\DischargeOutcome
       tags:
         - { name: form.type, alias: DischargeOutcome }
+
     ns.sentinel.form.type.doses:
       class: NS\SentinelBundle\Form\Types\Doses
       tags:
         - { name: form.type, alias: Doses }
+
     ns.sentinel.form.type.gender:
       class: NS\SentinelBundle\Form\Types\Gender
       tags:
-        - { name: form.type, alias: Gender }        
+        - { name: form.type, alias: Gender }
+
     ns.sentinel.form.type.cxr_result:
       class: NS\SentinelBundle\Form\Types\CXRResult
       tags:
         - { name: form.type, alias: CXRResult }
+
     ns.sentinel.form.type.CSFAppearance:
       class: NS\SentinelBundle\Form\Types\CSFAppearance
       tags:
         - { name: form.type, alias: CSFAppearance }
+
     ns.sentinel.form.type.role:
         class: NS\SentinelBundle\Form\Types\Role
         calls:
           - [ setSecurityContext, [ "@security.context" ] ]
         tags:
           - { name: form.type, alias: role }
+
     ns_sentinel.admin.region:
         class: NS\SentinelBundle\Admin\RegionAdmin
         arguments: [~, NS\SentinelBundle\Entity\Region, SonataAdminBundle:CRUD]
         tags:
-            - {name: sonata.admin, manager_type: orm, group: Administration, label: Region}
+          - {name: sonata.admin, manager_type: orm, group: Administration, label: Region}
 
     ns_sentinel.admin.country:
         class: NS\SentinelBundle\Admin\CountryAdmin
         arguments: [~, NS\SentinelBundle\Entity\Country, SonataAdminBundle:CRUD]
         tags:
-            - {name: sonata.admin, manager_type: orm, group: Administration, label: Country}
+          - {name: sonata.admin, manager_type: orm, group: Administration, label: Country}
 
     ns_sentinel.admin.site:
         class: NS\SentinelBundle\Admin\SiteAdmin
         arguments: [~, NS\SentinelBundle\Entity\Site, SonataAdminBundle:CRUD]
         tags:
-            - {name: sonata.admin, manager_type: orm, group: Administration, label: Site}
+          - {name: sonata.admin, manager_type: orm, group: Administration, label: Site}
 
     ns_sentinel.admin.user:
         class: NS\SentinelBundle\Admin\UserAdmin
         arguments: [~, NS\SentinelBundle\Entity\User, SonataAdminBundle:CRUD]
         calls:
-            - [ setEncoderFactory, [ "@security.encoder_factory" ] ]
-            - [ setSecurityContext, [ "@security.context" ] ]
+          - [ setEncoderFactory, [ "@security.encoder_factory" ] ]
+          - [ setSecurityContext, [ "@security.context" ] ]
         tags:
-            - {name: sonata.admin, manager_type: orm, group: Users, label: User}
+          - {name: sonata.admin, manager_type: orm, group: Users, label: User}
 
     ns_sentinel.admin.acl:
         class: NS\SentinelBundle\Admin\ACLAdmin
         arguments: [~, NS\SentinelBundle\Entity\ACL, SonataAdminBundle:CRUD]
         tags:
-            - {name: sonata.admin, manager_type: orm, group: Administration, label: ACL, show_in_dashboard: false}
+          - {name: sonata.admin, manager_type: orm, group: Administration, label: ACL, show_in_dashboard: false}

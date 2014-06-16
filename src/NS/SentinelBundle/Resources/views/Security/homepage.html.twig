@@ -7,29 +7,21 @@
     <div class="col-sm-3 col-md-3 col-lg-3">
         <div class="widget-box transparent">
             <div class="widget-header widget-header-flat">
-                <h5 class="lighter"><i class="icon-signal"></i>Stats</h5>
-
-                <div class="widget-toolbar">
-                    <a href="#" data-action="collapse">
-                        <i class="icon-chevron-up"></i>
-                    </a>
-                </div>
+                <h5 class="lighter"><i class="icon-signal"></i>{{'Culture Positive and Additional Lab Confirmed Cases By Diagnostic Test'|trans}}</h5>
             </div>
 
             <div class="widget-body">
                 <div class="widget-main padding-3">
-                    <div id="generalStatistics" style="width: 100%; height: 220px; padding: 0px; position: relative;">
-                        
+                    <div id="lab-results" style="width: 100%; height: 220px; padding: 0px; position: relative;">
                     </div>
                 </div>
             </div>
-
         </div>
     </div>    
     <div class="col-sm-3 col-md-3 col-lg-3">
         <div class="widget-box transparent">
             <div class="widget-header widget-header-flat">
-                <h5 class="lighter"><i class="icon-signal"></i>By Diagnosis</h5>
+                <h5 class="lighter"><i class="icon-signal"></i>{{'By Diagnosis'|trans}}</h5>
 
                 <div class="widget-toolbar">
                     <a href="#" data-action="collapse">
@@ -51,7 +43,7 @@
     <div class="col-sm-3 col-md-3 col-lg-3">
         <div class="widget-box transparent">
             <div class="widget-header widget-header-flat">
-                <h5 class="lighter"><i class="icon-signal"></i>By Country</h5>
+                <h5 class="lighter"><i class="icon-signal"></i>{{'By Country'|trans}}</h5>
 
                 <div class="widget-toolbar">
                     <a href="#" data-action="collapse">
@@ -73,7 +65,7 @@
     <div class="col-sm-3 col-md-3 col-lg-3">
         <div class="widget-box transparent">
             <div class="widget-header widget-header-flat">
-                <h5 class="lighter"><i class="icon-signal"></i>By Site</h5>
+                <h5 class="lighter"><i class="icon-signal"></i>{{'By Site'|trans}}</h5>
 
                 <div class="widget-toolbar">
                     <a href="#" data-action="collapse">
@@ -98,7 +90,7 @@
     <div class="col-sm-3 col-md-3 col-lg-3">
         <div class="widget-box transparent">
             <div class="widget-header widget-header-flat">
-                <h5 class="lighter"><i class="icon-signal"></i> Age Distribution of Suspect Meningitis Cases</h5>
+                <h5 class="lighter"><i class="icon-signal"></i>{{'Age Distribution of Suspect Meningitis Cases'|trans}}</h5>
             </div>
 
             <div class="widget-body">
@@ -111,7 +103,7 @@
     <div class="col-sm-3 col-md-3 col-lg-3">
         <div class="widget-box transparent">
             <div class="widget-header widget-header-flat">
-                <h5 class="lighter"><i class="icon-signal"></i>Age Distribution of PBM Cases</h5>
+                <h5 class="lighter"><i class="icon-signal"></i>{{'Age Distribution of PBM Cases'|trans}}</h5>
 
             </div>
 
@@ -127,7 +119,7 @@
     <div class="col-sm-3 col-md-3 col-lg-3">
         <div class="widget-box transparent">
             <div class="widget-header widget-header-flat">
-                <h5 class="lighter"><i class="icon-signal"></i>Monthly # Suspect Meningitis, Pneumonia and Sepsis</h5>
+                <h5 class="lighter"><i class="icon-signal"></i>{{'Monthly # Suspect Meningitis, Pneumonia and Sepsis'|trans}}</h5>
             </div>
 
             <div class="widget-body">
@@ -138,7 +130,31 @@
             </div>
         </div>
     </div>
+
+    <div class="col-sm-3 col-md-3 col-lg-3">
+        <div class="widget-box transparent">
+            <div class="widget-header widget-header-flat">
+                <h5 class="lighter"><i class="icon-signal"></i>{{'Stats'|trans}}</h5>
+
+                <div class="widget-toolbar">
+                    <a href="#" data-action="collapse">
+                        <i class="icon-chevron-up"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="widget-body">
+                <div class="widget-main padding-3">
+                    <div id="generalStatistics" style="width: 100%; height: 220px; padding: 0px; position: relative;">
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
+
 {% endblock %}
 {% block javascripts %}
     {{parent()}}
@@ -197,11 +213,38 @@ $(window).load(function(){
         formatter.format(c['data'], 1);
         c['chart'].draw(c['data'], c['options']);
     }
-    
-    var c        = new Array();
+
+    var c = new Array();
+    c['element'] = document.getElementById('lab-results');
     if(c['element'])
     {
-        c['element'] = document.getElementById('generalStatistics');
+        c['chart'] = new google.visualization.ColumnChart(c['element']);
+        c['data'] = google.visualization.arrayToDataTable([
+            ['Year',
+             'Culture+',
+             'Culture- & Binax+',
+             'PCR+ & Binax Culture- & Culture-', { role: 'annotation' } ],
+            ['2008', 10, 24, 20, ''],
+            ['2009', 16, 22, 23, ''],
+            ['2010', 28, 19, 29, ''],
+            ['2011', 10, 24, 20, ''],
+            ['2012', 16, 22, 23, ''],
+            ['2013', 28, 19, 29, ''],
+          ]);
+
+        c['options'] = {
+          legend: { position: 'top', maxLines: 3 },
+          bar: { groupWidth: '75%' },
+          isStacked: true,
+        };
+
+        c['chart'].draw(c['data'],c['options']);
+    }
+
+    var c        = new Array();
+    c['element'] = document.getElementById('generalStatistics');
+    if(c['element'])
+    {
         c['chart']   = new google.visualization.BarChart(c['element']);
         c['data']    = google.visualization.arrayToDataTable([
                         ['Type','Number'],
