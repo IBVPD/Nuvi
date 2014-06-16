@@ -45,10 +45,10 @@ security:
 #                path: /oauth/v2/auth/logout
 #                target: /oauth/v2/auth
 
-        api:
-            pattern:    ^/api
-            fos_oauth:  true
-            stateless:  true
+#        api:
+#            pattern:    ^/api
+#            fos_oauth:  true
+#            stateless:  true
 
         login:
             pattern:  ^/login$
@@ -69,7 +69,7 @@ security:
     access_control:
         - { path: ^/oauth/v2/auth/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/oauth/v2/auth, roles: [ ROLE_USER ] }
-        - { path: ^/api, roles: [ ROLE_USER ] }
+        - { path: ^/api, roles: [ IS_AUTHENTICATED_ANONYMOUSLY ] }
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/_trans, roles: ROLE_ADMIN }
         - { path: '^/[^/]+/admin', roles: ROLE_ADMIN }

@@ -50,7 +50,9 @@
         "knplabs/knp-paginator-bundle": "~2.4",
         "lunetics/locale-bundle": "~2.2",
         "friendsofsymfony/oauth-server-bundle": "~1.4",
-        "nelmio/api-doc-bundle": "2.5.*"
+        "nelmio/api-doc-bundle": "2.5.*",
+        "friendsofsymfony/rest-bundle": "1.4.x-dev",
+        "jms/serializer-bundle": "0.12.*"
     },
     "scripts": {
         "post-install-cmd": [
