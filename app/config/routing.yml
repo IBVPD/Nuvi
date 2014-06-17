@@ -52,3 +52,7 @@ fos_oauth_server_authorize:
 ns_sentinel:
     resource: "@NSSentinelBundle/Resources/config/routing.yml"
     prefix:   /
+
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /api/doc
