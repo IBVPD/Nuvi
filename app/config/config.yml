@@ -223,12 +223,31 @@ lunetics_locale:
 
 fos_oauth_server:
     db_driver: orm       # Driver availables: orm, mongodb, or propel
-    client_class:        NS\ApiBundle\Entity\ApiClient
+    client_class:        NS\ApiBundle\Entity\Client
     access_token_class:  NS\ApiBundle\Entity\AccessToken
     refresh_token_class: NS\ApiBundle\Entity\RefreshToken
     auth_code_class:     NS\ApiBundle\Entity\AuthCode
     service:
         user_provider: ns.sentinel.user_provider
+
+sensio_framework_extra:
+    view: { annotations: false }
+    router: { annotations: true }
+    request: { converters: true }
+
+fos_rest:
+    param_fetcher_listener: true
+    view:
+        view_response_listener: 'force'
+        formats:
+            xml:  true
+            json: true
+        templating_formats:
+            html: true
+    format_listener:
+        rules:
+            - { path: ^/, priorities: [ html, json, xml ], fallback_format: ~, prefer_extension: true }
+    disable_csrf_role: ROLE_CAN_CREATE_CASE
 
 services:
   ns.form.types.autocomplete:

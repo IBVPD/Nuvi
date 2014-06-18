@@ -1,6 +1,8 @@
 parameters:
 #    ns_api.example.class: NS\ApiBundle\Example
-
+    adoy_oauth2.client.class: OAuth2\Client
+    ns_api.client.class: NS\ApiBundle\Service\OAuth2Client
+    
 services:
     ns_api.form.oauth_grant_types:
       class: NS\ApiBundle\Form\Types\OAuthGrantTypes
@@ -29,7 +31,31 @@ services:
       arguments: [ "@ns_api_oauth_server.authorize.form", "@request", "@security.context", "@fos_oauth_server.server" ]
 
     ns_sentinel.admin.api_client:
-        class: NS\ApiBundle\Admin\ApiClientAdmin
-        arguments: [~, NS\ApiBundle\Entity\ApiClient, SonataAdminBundle:CRUD]
+        class: NS\ApiBundle\Admin\ClientAdmin
+        arguments: [~, NS\ApiBundle\Entity\Client, SonataAdminBundle:CRUD]
         tags:
             - {name: sonata.admin, manager_type: orm, group: Sync, label: Api Clients}
+
+    adoy_oauth2.client:
+        class: %adoy_oauth2.client.class%
+        arguments: [ %oauth2_client_id%, %oauth2_client_secret% ]
+
+    ns_api_client.credentials_client:
+        class: %ns_api.client.class%
+        arguments:
+            - @adoy_oauth2.client
+            - %oauth2_auth_endpoint%
+            - %oauth2_token_endpoint%
+            - %oauth2_redirect_url%
+            - client_credentials
+            - { client_id: %oauth2_client_id%, client_secret: %oauth2_client_secret% }
+
+    ns_api_client.authorize_client:
+        class: %ns_api.client.class%
+        arguments: 
+            - @adoy_oauth2.client
+            - %oauth2_auth_endpoint%
+            - %oauth2_token_endpoint%
+            - %oauth2_redirect_url%
+            - authorization_code
+            - { redirect_uri: %oauth2_redirect_url% }

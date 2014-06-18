@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="api_clients")
  * @author gnat
  */
-class ApiClient extends BaseClient
+class Client extends BaseClient
 {
     /**
      * @var integer $id

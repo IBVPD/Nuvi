@@ -11,6 +11,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  * Description of SecurityController
  *
  * @author gnat
+ * @Route("/oauth/v2/auth")
  */
 class SecurityController extends Controller
 {

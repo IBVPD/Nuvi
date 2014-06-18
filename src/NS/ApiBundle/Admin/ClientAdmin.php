@@ -12,7 +12,7 @@ use Sonata\AdminBundle\Show\ShowMapper;
  *
  * @author gnat
  */
-class ApiClientAdmin extends Admin
+class ClientAdmin extends Admin
 {
     /**
      * @param FormMapper $formMapper

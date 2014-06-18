@@ -49,6 +49,10 @@ fos_oauth_server_authorize:
 #    pattern: /oauth/v2/auth/login_check
 #    defaults: { _controller: 'NSApiBundle:Security:loginCheck' }
 
+ns_api:
+    resource: "@NSApiBundle/Resources/config/routing.yml"
+    prefix:   /
+
 ns_sentinel:
     resource: "@NSSentinelBundle/Resources/config/routing.yml"
     prefix:   /

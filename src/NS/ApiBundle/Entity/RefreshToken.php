@@ -4,6 +4,7 @@ namespace NS\ApiBundle\Entity;
 use FOS\OAuthServerBundle\Entity\RefreshToken as BaseRefreshToken;
 use FOS\OAuthServerBundle\Model\ClientInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Description of RefreshToken
@@ -23,10 +24,15 @@ class RefreshToken extends BaseRefreshToken
 
     /**
      * @var Client $client
-     * @ORM\ManyToOne(targetEntity="ApiClient")
+     * @ORM\ManyToOne(targetEntity="Client")
      * @ORM\JoinColumn(nullable=false)
      */
     protected $client;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="NS\SentinelBundle\Entity\User")
+     */
+    protected $user;
 
     public function getId()
     {
@@ -36,6 +42,18 @@ class RefreshToken extends BaseRefreshToken
     public function getClient()
     {
         return $this->client;
+    }
+
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    public function setUser(UserInterface $user)
+    {
+        $this->user = $user;
+
+        return $this;
     }
 
     public function setId($id)

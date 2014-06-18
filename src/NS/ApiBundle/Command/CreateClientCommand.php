@@ -43,6 +43,12 @@ EOT
 
         $clientManager->updateClient($client);
 
-        $output->writeln(sprintf('Added a new client with name <info>%s</info> and public id <info>%s</info>.', $client->getName(), $client->getPublicId()));
+        $output->writeln(
+            sprintf(
+                'Added a new client with public id <info>%s</info>, secret <info>%s</info>',
+                $client->getPublicId(),
+                $client->getSecret()
+            )
+        );
     }
 }

@@ -52,7 +52,8 @@
         "friendsofsymfony/oauth-server-bundle": "~1.4",
         "nelmio/api-doc-bundle": "2.5.*",
         "friendsofsymfony/rest-bundle": "1.4.x-dev",
-        "jms/serializer-bundle": "0.12.*"
+        "jms/serializer-bundle": "0.12.*",
+        "adoy/oauth2": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
