@@ -220,17 +220,17 @@ class RotaVirus extends SecuredEntityRepository implements AjaxAutocompleteRepos
     {
         try
         {
-            $qb = $this->_em
-                       ->createQueryBuilder()
-                       ->select('m')
-                       ->from($this->getClassName(),'m')
-                       ->where('m.id = :id')
+            $qb = $this->createQueryBuilder('m')
+                       ->addSelect('r,c,s')
+                       ->leftJoin('m.region', 'r')
+                       ->leftJoin('m.country', 'c')
+                       ->leftJoin('m.site', 's')
+                       ->andWhere('m.id = :id')
                        ->setParameter('id', $id);
 
-            if($this->hasSecuredQuery())
-                return $this->secure($qb)->getQuery()->getSingleResult();
-            else
-                return $qb->getQuery()->getSingleResult();
+            $qb = ($this->hasSecuredQuery()) ? $this->secure($qb): $qb;
+
+            return $qb->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD,true)->getSingleResult();
         }
         catch(NoResultException $e)
         {
