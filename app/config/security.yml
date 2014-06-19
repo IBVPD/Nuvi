@@ -39,15 +39,16 @@ security:
             form-login:
                 check_path: /oauth/v2/auth/login_check
                 login_path: /oauth/v2/auth/login
-                default_target_path: /oauth/v2/auth
-#                always_use_default_target_path: true
-#            logout:
-#                path: /oauth/v2/auth/logout
-#                target: /oauth/v2/auth
+                use_referer: true
 
         login:
             pattern:  ^/login$
             anonymous: ~
+
+        api:
+            pattern:    ^/api
+            fos_oauth:  true
+            stateless:  true
 
         main_app:
             pattern:    ^/
@@ -61,15 +62,10 @@ security:
                 target: /
             switch_user: true
 
-        api:
-            pattern: ^/api
-            fos_oauth: true
-            stateless: true
-
     access_control:
         - { path: ^/oauth/v2/auth/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/oauth/v2/auth, roles: [ ROLE_API ] }
-        - { path: ^/api, roles: [ ROLE_API ] }
+        - { path: ^/api, roles: ROLE_API }
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/_trans, roles: ROLE_ADMIN }
         - { path: '^/[^/]+/admin', roles: ROLE_ADMIN }
