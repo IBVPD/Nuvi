@@ -62,27 +62,26 @@ class AuthorizeController extends Controller
      */
     public function authAction(Request $request)
     {
-        $authorizeClient = $this->container->get('ns_api_client.authorize_client');
+        $em      = $this->get('doctrine.orm.entity_manager');
+        $repo    = $em->getRepository('NSApiBundle:Remote');
+        $remotes = $repo->findByUser($this->getUser());
+
+        // TODO handle more than one remote... how would we know which client_id/secret is being authorized...
+        // Ask the user since they started off the authorization so should know.
+
+        if(count($remotes)>1)
+            throw new \Doctrine\ORM\UnexpectedResultException("We really only support one remote per user at the moment");
+
+        $remote = current($remotes);
+
+        $authorizeClient = $this->get('oauth2.client');
+        $authorizeClient->setRemote($remote);
 
         if (!$request->query->get('code'))
-        {
             return new RedirectResponse($authorizeClient->getAuthenticationUrl());
-        }
 
-        $ret1 = $authorizeClient->getAccessToken($request->query->get('code'));
-        $em   = $this->get('doctrine.orm.entity_manager');
-
-        $remoteToken = new \NS\ApiBundle\Entity\RemoteToken();
-        $remoteToken->setAccessToken($ret1['access_token']);
-        $remoteToken->setRefreshToken($ret1['refresh_token']);
-        $remoteToken->setExpiry(time()+$ret1['expires_in']);
-        $remoteToken->setUser($em->getReference(get_class($this->getUser()),$this->getUser()->getId()));
-        $remoteToken->setRemoteEndpoint('http://nuvi.noblet.ca/api/v1/');
-
-        $em->persist($remoteToken);
-        $em->flush();
-
-        return $this->redirect($this->generateUrl('authTest'));
+        if( $authorizeClient->getAccessTokenByAuthorizationCode($request->query->get('code')))
+            return $this->redirect($this->generateUrl('authTest'));
     }
 
     /**
@@ -90,66 +89,18 @@ class AuthorizeController extends Controller
      */
     public function authTestAction()
     {
-        $em              = $this->get('doctrine.orm.entity_manager');
-        $repo            = $em->getRepository('NSApiBundle:RemoteToken');
-        $tokens          = $repo->findByUser($this->getUser());
-        $refreshClient   = $this->get('ns_api_client.refresh_token');
-        $r               = array();
+        $em     = $this->get('doctrine.orm.entity_manager');
+        $repo   = $em->getRepository('NSApiBundle:Remote');
+        $tokens = $repo->findByUser($this->getUser());
+        $client = $this->get('oauth2.client');
+        $r      = array();
 
         foreach($tokens as $token)
         {
-            if($token->isExpired())
-            {
-                $u   = array('OldAccessToken'=>$token->getAccessToken(),'OldRefreshToken'=>$token->getRefreshToken());
-                $ret = $this->refresh($refreshClient,$token);
-                $em->persist($token);
-                $u['NewAccessToken']  = $token->getAccessToken();
-                $u['OldRefreshToken'] = $token->getRefreshToken();
-
-                $r[] = $u;
-                $r[] = $r;
-            }
-
-            $refreshClient->setAccessToken($token->getAccessToken());
-            $ret = $refreshClient->fetch('http://nuvi.noblet.ca/api/v1/articles');
-            if($ret['code'] == \FOS\RestBundle\Util\Codes::HTTP_UNAUTHORIZED)
-            {
-                $r[] = $ret;
-
-                $r[] = $this->refresh($refreshClient, $token);
-                $em->persist($token);
-                $refreshClient->setAccessToken($token->getAccessToken());
-
-                $ret = $refreshClient->fetch('http://nuvi.noblet.ca/api/v1/articles');
-            }
-
-            $r[] = $ret;
+            $client->setRemote($token);
+            $r[] = $client->fetch('http://nuvi.noblet.ca/api/v1/articles');
         }
-
-        $em->flush();
 
         return new Response("Returned: <pre>".print_r($r,true)."</pre>");
-    }
-
-    private function refresh($client,&$token)
-    {
-        try
-        {
-            $ret = $client->getAccessToken($token->getRefreshToken());
-            if(isset($ret['access_token']))
-            {
-                $token->setAccessToken($ret['access_token']);
-                $token->setRefreshToken($ret['refresh_token']);
-                $token->setExpiry(time()+$ret['expires_in']);
-            }
-            else
-                die("HERE! ".__LINE__.' '.print_r($ret,true));
-        }
-        catch(OAuth2\Exception $e)
-        {
-            $ret = array('unable to get access token');
-        }
-
-        return $ret;
     }
 }

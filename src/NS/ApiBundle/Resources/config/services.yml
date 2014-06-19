@@ -36,36 +36,14 @@ services:
         tags:
             - {name: sonata.admin, manager_type: orm, group: Sync, label: Api Clients}
 
-    adoy_oauth2.client:
-        class: %adoy_oauth2.client.class%
-        arguments: [ %oauth2_client_id%, %oauth2_client_secret% ]
+    ns_api.admin.remote:
+        class: NS\ApiBundle\Admin\RemoteAdmin
+        arguments: [~, NS\ApiBundle\Entity\Remote, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: Sync, label: Remote}
+        calls:
+            - [ setOAuth2Client, [ @oauth2.client ] ]
 
-    ns_api_client.credentials_client:
+    oauth2.client:
         class: %ns_api.client.class%
-        arguments:
-            - @adoy_oauth2.client
-            - %oauth2_auth_endpoint%
-            - %oauth2_token_endpoint%
-            - %oauth2_redirect_url%
-            - client_credentials
-            - { client_id: %oauth2_client_id%, client_secret: %oauth2_client_secret% }
-
-    ns_api_client.refresh_token:
-        class: %ns_api.client.class%
-        arguments:
-            - @adoy_oauth2.client
-            - %oauth2_auth_endpoint%
-            - %oauth2_token_endpoint%
-            - %oauth2_redirect_url%
-            - refresh_token
-            - { client_id: %oauth2_client_id%, client_secret: %oauth2_client_secret% }
-
-    ns_api_client.authorize_client:
-        class: %ns_api.client.class%
-        arguments: 
-            - @adoy_oauth2.client
-            - %oauth2_auth_endpoint%
-            - %oauth2_token_endpoint%
-            - %oauth2_redirect_url%
-            - authorization_code
-            - { redirect_uri: %oauth2_redirect_url% }
+        arguments: [ @ns.model_manager ]

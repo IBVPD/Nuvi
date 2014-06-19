@@ -4,6 +4,8 @@ namespace NS\ApiBundle\Service;
 
 use OAuth2\Client;
 use OAuth2\Exception;
+use NS\ApiBundle\Entity\Remote;
+use \Doctrine\Common\Persistence\ObjectManager;
 
 /**
  * Description of OAuth2Client
@@ -12,62 +14,110 @@ use OAuth2\Exception;
  */
 class OAuth2Client
 {
+    private $em;
+
+    /**
+     *
+     * @var Remote $remote
+     */
+    protected $remote;
     protected $client;
-    protected $authEndpoint;
-    protected $tokenEndpoint;
-    protected $redirectUrl;
     protected $grant;
     protected $params;
 
-    public function __construct(Client $client, $authEndpoint, $tokenEndpoint, $redirectUrl, $grant, $params)
+    public function __construct(ObjectManager $em)
     {
-        $this->client        = $client;
+        $this->em = $em;
+    }
+
+    public function getRemote()
+    {
+        return $this->remote;
+    }
+
+    public function setRemote(Remote $remote)
+    {
+        $this->remote = $remote;
+    
+        $this->client = new Client($remote->getClientId(),$remote->getClientSecret());
         $this->client->setAccessTokenType(Client::ACCESS_TOKEN_BEARER);
 
-        $this->authEndpoint  = $authEndpoint;
-        $this->tokenEndpoint = $tokenEndpoint;
-        $this->redirectUrl   = $redirectUrl;
-        $this->grant         = $grant;
-        $this->params        = $params;
+        return $this;
     }
+
+//    public function __construct(Client $client, $authEndpoint, $tokenEndpoint, $redirectUrl, $grant, $params)
+//    {
+//        $this->client        = $client;
+//        $this->client->setAccessTokenType(Client::ACCESS_TOKEN_BEARER);
+//
+//        $this->grant         = $grant;
+//        $this->params        = $params;
+//    }
 
     public function getAuthenticationUrl()
     {
-        return $this->client->getAuthenticationUrl($this->authEndpoint, $this->redirectUrl);
+        return $this->client->getAuthenticationUrl($this->remote->getAuthEndpoint(), $this->remote->getRedirectUrl());
     }
 
-    public function getAccessToken($code = null)
+    public function getAccessTokenByAuthorizationCode($code)
     {
-        switch($this->grant)
-        {
-            case 'authorization_code':
-                $this->params['code']          = $code;
-                $this->params['redirectUrl']   = $this->redirectUrl;
-                break;
-            case 'refresh_token':
-                $this->params['refresh_token'] = $code;
-                break;
-        }
+        $this->_getAccessToken(Client::GRANT_TYPE_AUTH_CODE, array('code'=>$code,'redirect_uri'=>$this->remote->getRedirectUrl()));
 
-        $response = $this->client->getAccessToken($this->tokenEndpoint, $this->grant, $this->params);
+        return true;
+    }
+
+    public function getAccessTokenByRefreshToken()
+    {
+        if(!$this->remote->hasRefreshToken())
+            throw new \RuntimeException("No refresh token");
+
+        $this->_getAccessToken(Client::GRANT_TYPE_REFRESH_TOKEN, array('refresh_token'=>$this->remote->getRefreshToken()));
+
+        return true;
+    }
+
+    public function getAccessTokenByClientCredentials()
+    {
+        $this->_getAccessToken(Client::GRANT_TYPE_CLIENT_CREDENTIALS, array());
+
+        return true;
+    }
+
+    private function _getAccessToken($grant, $params)
+    {
+//        if($grant !== Client::GRANT_TYPE_REFRESH_TOKEN && $this->remote->hasAccessToken() && !$this->remote->isExpired())
+//            return;
+
+        $response = $this->client->getAccessToken($this->remote->getTokenEndpoint(), $grant, $params);
 
         if(isset($response['result']) && isset($response['result']['access_token']))
         {
-            $accessToken = $response['result']['access_token'];
-            $this->client->setAccessToken($accessToken);
-            return $response['result'];
+            $this->remote->updateFromArray($response['result']);
+            $this->em->persist($this->remote);
+            $this->em->flush();
+
+            return;
         }
 
         throw new Exception(sprintf('Unable to obtain Access Token. Response from the Server: "%s"', var_export($response,true)));
     }
 
-    public function setAccessToken($token)
-    {
-        $this->client->setAccessToken($token);
-    }
-
     public function fetch($url)
     {
-        return $this->client->fetch($url);
+        if($this->remote->isExpired())
+            $this->getAccessTokenByRefreshToken();
+
+        $this->client->setAccessToken($this->remote->getAccessToken());
+        $r = array($this->client->fetch($url));
+
+        if($r[0]['code'] == \FOS\RestBundle\Util\Codes::HTTP_UNAUTHORIZED)
+        {
+            $this->getAccessTokenByRefreshToken();
+            $this->client->setAccessToken($this->remote->getAccessToken());
+
+            return $this->client->fetch($url);
+        }
+
+        return $r;
     }
 }
