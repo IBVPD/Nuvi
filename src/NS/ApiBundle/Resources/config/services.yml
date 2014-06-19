@@ -50,6 +50,16 @@ services:
             - client_credentials
             - { client_id: %oauth2_client_id%, client_secret: %oauth2_client_secret% }
 
+    ns_api_client.refresh_token:
+        class: %ns_api.client.class%
+        arguments:
+            - @adoy_oauth2.client
+            - %oauth2_auth_endpoint%
+            - %oauth2_token_endpoint%
+            - %oauth2_redirect_url%
+            - refresh_token
+            - { client_id: %oauth2_client_id%, client_secret: %oauth2_client_secret% }
+
     ns_api_client.authorize_client:
         class: %ns_api.client.class%
         arguments: 

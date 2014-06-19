@@ -22,6 +22,8 @@ class OAuth2Client
     public function __construct(Client $client, $authEndpoint, $tokenEndpoint, $redirectUrl, $grant, $params)
     {
         $this->client        = $client;
+        $this->client->setAccessTokenType(Client::ACCESS_TOKEN_BEARER);
+
         $this->authEndpoint  = $authEndpoint;
         $this->tokenEndpoint = $tokenEndpoint;
         $this->redirectUrl   = $redirectUrl;
@@ -36,8 +38,16 @@ class OAuth2Client
 
     public function getAccessToken($code = null)
     {
-        if ($code !== null)
-            $this->params['code'] = $code;
+        switch($this->grant)
+        {
+            case 'authorization_code':
+                $this->params['code']          = $code;
+                $this->params['redirectUrl']   = $this->redirectUrl;
+                break;
+            case 'refresh_token':
+                $this->params['refresh_token'] = $code;
+                break;
+        }
 
         $response = $this->client->getAccessToken($this->tokenEndpoint, $this->grant, $this->params);
 
@@ -45,10 +55,15 @@ class OAuth2Client
         {
             $accessToken = $response['result']['access_token'];
             $this->client->setAccessToken($accessToken);
-            return $accessToken;
+            return $response['result'];
         }
 
-        throw new Exception(sprintf('Unable to obtain Access Token. Response from the Server: %s\n,%s\n%s\n%s', var_export($response),$this->tokenEndpoint,$this->grant,print_r($this->params,true)));
+        throw new Exception(sprintf('Unable to obtain Access Token. Response from the Server: "%s"', var_export($response,true)));
+    }
+
+    public function setAccessToken($token)
+    {
+        $this->client->setAccessToken($token);
     }
 
     public function fetch($url)
