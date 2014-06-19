@@ -31,7 +31,7 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
     * )
     *
     * @REST\View(templateVar="case")
-    * @REST\Get("/api/v1/ibd/cases/{id}")
+    * @REST\Get("/v1/ibd/cases/{id}")
     *
     * @param string  $id      the object id
     * @param string  $format  json|xml
@@ -45,7 +45,7 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
         return $this->getCase('ibd',$id);
     }
 
-/**
+   /**
     * Get RotaVirus Case
     *
     * @ApiDoc(
@@ -58,7 +58,7 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
     * )
     *
     * @REST\View(templateVar="case")
-    * @REST\Get("/api/v1/rota/cases/{id}")
+    * @REST\Get("/v1/rota/cases/{id}")
     *
     * @param string  $id      the object id
     * @param string  $format  json|xml
@@ -112,7 +112,7 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
      *   input = "ibd"
      * )
      *
-     * @REST\Patch("/api/v1/ibd/cases/{id}")
+     * @REST\Patch("/v1/ibd/cases/{id}")
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param type $id
@@ -131,7 +131,7 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
      *   input = "ibd"
      * )
      *
-     * @REST\Put("/api/v1/ibd/cases/{id}")
+     * @REST\Put("/v1/ibd/cases/{id}")
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param type $id
@@ -161,6 +161,7 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
 
         return $form;
     }
+
     /**
     * Create a Case,
     *
@@ -170,7 +171,7 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
     *   input = "create_ibd"
     * )
     *
-    * @REST\Post("/api/v1/ibd/cases")
+    * @REST\Post("/v1/ibd/cases")
     *
     * @param Request $request the request object
     * @param string  $format  json|xml
@@ -193,7 +194,7 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
     *   input = "create_rota"
     * )
     *
-    * @REST\Post("/api/v1/rota/cases")
+    * @REST\Post("/v1/rota/cases")
     *
     * @param Request $request the request object
     * @param string  $format  json|xml
@@ -245,7 +246,7 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
     public function articlesAction()
     {
         $v = new View();
-        $v->setData(array('article1','article2','article3'));
+        $v->setData(array('articles'=> array('article1','article2','article3'),'username'=>$this->getUser()->getUsername(),'roles'=>$this->getUser()->getRoles()));
 
         return $this->handleView($v);
     }
