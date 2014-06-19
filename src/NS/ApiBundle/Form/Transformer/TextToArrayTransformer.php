@@ -13,7 +13,7 @@ class TextToArrayTransformer implements DataTransformerInterface
 {
     public function reverseTransform($value)
     {
-        return explode(" ", $value);
+        return explode(",", $value);
     }
 
     public function transform($value)
