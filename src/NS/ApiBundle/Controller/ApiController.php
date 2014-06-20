@@ -241,12 +241,12 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
     }
 
     /**
-     * @REST\GET("/v1/articles")
+     * @REST\GET("/v1/test")
      */
-    public function articlesAction()
+    public function testAction()
     {
         $v = new View();
-        $v->setData(array('articles'=> array('article1','article2','article3'),'username'=>$this->getUser()->getUsername(),'roles'=>$this->getUser()->getRoles()));
+        $v->setData(array('username'=>$this->getUser()->getUsername(),'roles'=>$this->getUser()->getRoles()));
 
         return $this->handleView($v);
     }
