@@ -74,7 +74,7 @@ class Remote
     /**
      * @var \NS\SentinelBundle\Entity\User $user
      * @ORM\ManyToOne(targetEntity="\NS\SentinelBundle\Entity\User")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false,onDelete="CASCADE")
      */
     protected $user;
 
