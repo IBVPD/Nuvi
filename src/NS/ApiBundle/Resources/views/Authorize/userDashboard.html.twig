@@ -1,0 +1,20 @@
+{%extends "NSSentinelBundle::layout.html.twig" %}
+
+{% block body %}
+    <h2>Clients</h2>
+    {% for c in clients %}
+        {{c.publicId}} - {{c.secret}} {%if not c.hasAccessToken() %}<a class="btn btn-xs btn-info" href="">authorize</a>{%endif%}<br />
+    {%endfor %}
+    <h2>Remote Systems</h2>
+    <table>
+    {% for c in remotes %}
+        <tr>
+            <td>{{c.clientId}}</td>
+            <td>{{c.clientSecret}}</td>
+            <td>{{c.tokenEndpoint}}</td>
+            <td>{{c.authEndpoint}}</td>
+            <td>{%if not c.hasAccessToken() %}<a href="{{oauth_authenticate_path(c)}}">Initiate authorization</a>{%else%}Authorization Complete{%endif%}</td>
+        </tr>
+    {%endfor %}
+    </table>
+{% endblock %}
