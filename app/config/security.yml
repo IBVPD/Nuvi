@@ -15,6 +15,9 @@ security:
         ROLE_REGION:      [ ROLE_USER, ROLE_CAN_SEE_LAB, ROLE_CAN_SEE_RRL, ROLE_CAN_SEE_NL, ROLE_CAN_CHANGE_LANGUAGE ]
         ROLE_ADMIN:       [ ROLE_USER, ROLE_CAN_CHANGE_LANGUAGE ]
         ROLE_SUPER_ADMIN: [ ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
+        ROLE_REGION_API:  ROLE_API
+        ROLE_COUNTRY_API: ROLE_API
+        ROLE_SITE_API:    ROLE_API
 
     providers:
         users:
@@ -64,7 +67,7 @@ security:
 
     access_control:
         - { path: ^/oauth/v2/auth/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/oauth/v2/auth, roles: [ ROLE_API ] }
+        - { path: ^/oauth, roles: ROLE_API }
         - { path: ^/api, roles: ROLE_API }
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/_trans, roles: ROLE_ADMIN }

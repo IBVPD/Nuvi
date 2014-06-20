@@ -21,7 +21,9 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
     const LAB     = 4;
     const RRL_LAB = 5;
     const NL_LAB  = 6;
-    const API     = 10;
+    const REGION_API  = 10;
+    const COUNTRY_API = 11;
+    const SITE_API    = 12;
 
     protected $values = array(
                                 self::REGION     => 'Region',
@@ -30,7 +32,9 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
                                 self::LAB        => 'Lab',
                                 self::RRL_LAB    => 'RRL',
                                 self::NL_LAB     => 'NL',
-                                self::API        => 'API',
+                                self::REGION_API  => 'Region API',
+                                self::COUNTRY_API => 'Country API',
+                                self::SITE_API    => 'Site API',
                              );
 
     protected $rolemapping = array(
@@ -40,7 +44,9 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
                                 'ROLE_LAB'      => self::LAB,
                                 'ROLE_RRL_LAB'  => self::RRL_LAB,
                                 'ROLE_NL_LAB'   => self::NL_LAB,
-                                'ROLE_API'      => self::API,
+                                'ROLE_REGION_API'  => self::REGION_API,
+                                'ROLE_COUNTRY_API' => self::COUNTRY_API,
+                                'ROLE_SITE_API'    => self::SITE_API,
                               );
     
     public function __construct($value = null)
@@ -77,8 +83,12 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
                 return array('ROLE_RRL_LAB');
             case self::NL_LAB:
                 return array('ROLE_NL_LAB');
-            case self::API:
-                return array('ROLE_API');
+            case self::REGION_API:
+                return array('ROLE_REGION_API');
+            case self::COUNTRY_API:
+                return array('ROLE_COUNTRY_API');
+            case self::SITE_API:
+                return array('ROLE_SITE_API');
             default:
                 return null;
         }
@@ -90,14 +100,16 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
         switch($this->current)
         {
             case self::REGION:
+            case self::REGION_API:
                 return $class."\Region";
             case self::COUNTRY:
-            case self::API:
+            case self::COUNTRY_API:
                 return $class."\Country";
             case self::NL_LAB:
             case self::RRL_LAB:
             case self::LAB:
             case self::SITE:
+            case self::SITE_API:
                 return $class."\Site";
             default:
                 return null;
