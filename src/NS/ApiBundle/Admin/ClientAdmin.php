@@ -33,8 +33,8 @@ class ClientAdmin extends Admin
     {
         $listMapper
             ->add('name')
-            ->add('publicId')
-            ->add('secret')
+            ->add('publicId',null,array('label'=>'Client Id'))
+            ->add('secret',null,array('label'=>'Client Secret'))
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -52,8 +52,8 @@ class ClientAdmin extends Admin
     {
         $showMapper
             ->add('name')
-            ->add('publicId')
-            ->add('secret')
+            ->add('publicId',null,array('label'=>'Client Id'))
+            ->add('secret',null,array('label'=>'Client Secret'))
             ->add('redirectUris')
             ->add('allowedGrantTypes')
         ;
