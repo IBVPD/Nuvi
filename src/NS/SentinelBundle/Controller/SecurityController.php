@@ -7,7 +7,6 @@ use Symfony\Component\Security\Core\SecurityContext;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
-use \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class SecurityController extends Controller
 {    
@@ -54,9 +53,6 @@ class SecurityController extends Controller
      */
     public function homepageAction()
     {
-        if($this->getUser()->isOnlyAdmin())
-            return $this->redirect($this->generateUrl('sonata_admin_dashboard'));
-
         $repo        = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:Meningitis");
         $byCountry   = $repo->getByCountry();
         $bySite      = $repo->getBySite();

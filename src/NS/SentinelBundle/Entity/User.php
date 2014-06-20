@@ -270,6 +270,25 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
 
     }
 
+    public function isOnlyApi()
+    {
+        $roles = $this->getRoles();
+        foreach($roles as $role)
+        {
+            switch($role)
+            {
+                case 'ROLE_REGION_API':
+                case 'ROLE_COUNTRY_API':
+                case 'ROLE_SITE_API':
+                    break;
+                default:
+                    return false;
+            }
+        }
+
+        return true;
+    }
+
     public function isOnlyAdmin()
     {
         $roles = $this->getRoles();
