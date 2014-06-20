@@ -12,18 +12,15 @@ use \Doctrine\Common\Persistence\ObjectManager;
  *
  * @author gnat
  */
-class OAuth2Client
+class OAuth2Client extends \Twig_Extension
 {
     private $em;
 
     /**
-     *
      * @var Remote $remote
      */
     protected $remote;
     protected $client;
-    protected $grant;
-    protected $params;
 
     public function __construct(ObjectManager $em)
     {
@@ -45,18 +42,12 @@ class OAuth2Client
         return $this;
     }
 
-//    public function __construct(Client $client, $authEndpoint, $tokenEndpoint, $redirectUrl, $grant, $params)
-//    {
-//        $this->client        = $client;
-//        $this->client->setAccessTokenType(Client::ACCESS_TOKEN_BEARER);
-//
-//        $this->grant         = $grant;
-//        $this->params        = $params;
-//    }
-
-    public function getAuthenticationUrl()
+    public function getAuthenticationUrl(Client $client = null, Remote $remote = null)
     {
-        return $this->client->getAuthenticationUrl($this->remote->getAuthEndpoint(), $this->remote->getRedirectUrl());
+        if($client !== null && $remote == null || $client == null && $remote !== null)
+            throw new \UnexpectedValueException("You can't provide only one parameter. Either pass two or none");
+
+        return ($client) ? $client->getAuthenticationUrl($remote->getAuthEndpoint(), $remote->getRedirectUrl()) : $this->client->getAuthenticationUrl($this->remote->getAuthEndpoint(), $this->remote->getRedirectUrl());
     }
 
     public function getAccessTokenByAuthorizationCode($code)
@@ -119,5 +110,24 @@ class OAuth2Client
         }
 
         return $r;
+    }
+
+    public function getAuthenticationPath(Remote $remote = null)
+    {
+        $client = new Client($remote->getClientId(),$remote->getClientSecret());
+
+        return $this->getAuthenticationUrl($client,$remote);
+    }
+
+    public function getFunctions()
+    {
+        return array(
+            'oauth_authenticate_path' => new \Twig_Function_Method($this, 'getAuthenticationPath',array('is_safe'=>array('html'))),
+        );
+    }
+
+    public function getName()
+    {
+        return 'oauth_client';
     }
 }

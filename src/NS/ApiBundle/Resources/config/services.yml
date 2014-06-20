@@ -41,9 +41,9 @@ services:
         arguments: [~, NS\ApiBundle\Entity\Remote, SonataAdminBundle:CRUD]
         tags:
             - {name: sonata.admin, manager_type: orm, group: Sync, label: Remote}
-        calls:
-            - [ setOAuth2Client, [ @oauth2.client ] ]
 
     oauth2.client:
         class: %ns_api.client.class%
         arguments: [ @ns.model_manager ]
+        tags:
+            - { name: twig.extension, alias: oauth_client }
