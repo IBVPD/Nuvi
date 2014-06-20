@@ -37,18 +37,6 @@ fos_oauth_server_token:
 fos_oauth_server_authorize:
     resource: "@FOSOAuthServerBundle/Resources/config/routing/authorize.xml"
 
-#api_login_auth:
-#    pattern: /oauth/v2/auth
-#    defaults: { _controller: 'FOSOAuthServerBundle:Authorize:authorize' }
-
-#api_login:
-#    pattern: /oauth/v2/auth/login
-#    defaults: { _controller: 'NSApiBundle:Security:login' }
-
-#api_login_check:
-#    pattern: /oauth/v2/auth/login_check
-#    defaults: { _controller: 'NSApiBundle:Security:loginCheck' }
-
 ns_api:
     resource: "@NSApiBundle/Resources/config/routing.yml"
     prefix:   /
