@@ -2355,7 +2355,7 @@
             "source": {
                 "type": "git",
                 "url": "gitolite@git.noblet.ca:/symfony/ns/ace.git",
-                "reference": "269027a9d6dd0a0696e7c276a8a414e52355388c"
+                "reference": "2a281c0c8139ef198da8bc114228136c56bf2927"
             },
             "require": {
                 "php": ">=5.3.2",
@@ -2379,7 +2379,7 @@
                 }
             ],
             "description": "This bundle provides bootstrap template",
-            "time": "2014-06-20 17:22:29"
+            "time": "2014-06-20 22:13:40"
         },
         {
             "name": "ns/flash-bundle",
@@ -4037,7 +4037,7 @@
             ],
             "authors": [
                 {
-                    "name": "William DURAND",
+                    "name": "William Durand",
                     "email": "william.durand1@gmail.com",
                     "homepage": "http://www.willdurand.fr"
                 }
@@ -5092,9 +5092,7 @@
             "time": "2014-03-07 15:35:33"
         }
     ],
-    "aliases": [
-
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "jms/security-extra-bundle": 20,
@@ -5117,7 +5115,5 @@
     "platform": {
         "php": ">=5.3.3"
     },
-    "platform-dev": [
-
-    ]
+    "platform-dev": []
 }
