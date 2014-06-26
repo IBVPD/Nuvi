@@ -46,6 +46,7 @@ class AuthorizeController extends Controller
         {
             try
             {
+                $this->get('fos_oauth_server.auth_code_manager')->deleteExpired();
                 $ref = $this->get('doctrine.orm.entity_manager')->getReference(get_class($this->getUser()),$this->getUser()->getId());
                 return $oauthServier->finishClientAuthorization(true,$ref,$request,null);
             }
