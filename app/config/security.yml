@@ -48,6 +48,11 @@ security:
             pattern:  ^/login$
             anonymous: ~
 
+        api:
+            pattern:    ^/api
+            fos_oauth:  true
+            stateless:  true
+
         main_app:
             pattern:    ^/
             admin-login:
@@ -59,11 +64,6 @@ security:
                 path:   /logout
                 target: /
             switch_user: true
-
-        api:
-            pattern:    ^/api
-            fos_oauth:  true
-            stateless:  true
 
     access_control:
         - { path: ^/oauth/v2/auth/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
