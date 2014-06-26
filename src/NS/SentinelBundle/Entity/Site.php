@@ -14,9 +14,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="sites")
  * @ORM\Entity(repositoryClass="\NS\SentinelBundle\Repository\Site")
  * @Secured(conditions={
- *      @SecuredCondition(roles={"ROLE_REGION"},relation="region",through={"country"},class="NSSentinelBundle:Region"),
- *      @SecuredCondition(roles={"ROLE_COUNTRY"},relation="country",class="NSSentinelBundle:Country"),
- *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB","ROLE_RRL_LAB","ROLE_NL_LAB"},field="id"),
+ *      @SecuredCondition(roles={"ROLE_REGION","ROLE_REGION_API"},relation="region",through={"country"},class="NSSentinelBundle:Region"),
+ *      @SecuredCondition(roles={"ROLE_COUNTRY","ROLE_COUNTRY_API"},relation="country",class="NSSentinelBundle:Country"),
+ *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB","ROLE_RRL_LAB","ROLE_NL_LAB","ROLE_SITE_API"},field="id"),
  *      }) 
  */
 class Site implements \Serializable
