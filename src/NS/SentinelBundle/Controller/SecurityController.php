@@ -46,7 +46,7 @@ class SecurityController extends Controller
         $session->set('_locale', $locale);
         return $this->redirect($this->generateUrl('user_dashboard',array('_locale'=>$locale)));
     }
-    
+
     /**
      * @Route("/{_locale}",name="homepage")
      * @Template()
@@ -60,5 +60,13 @@ class SecurityController extends Controller
         $byDiagnosis = $repo->getByDiagnosis();
 
         return array('byCountry'=>$byCountry,'bySite'=>$bySite,'byStats'=>$byStat,'byDiagnosis'=>$byDiagnosis);
+    }
+
+    /**
+     * @Route("/",name="homepage_redirect")
+     */
+    public function homepageRedirectAction(Request $request)
+    {
+        return $this->get('ns.sentinel.services.homepage')->getHomepageResponse($request);
     }
 }

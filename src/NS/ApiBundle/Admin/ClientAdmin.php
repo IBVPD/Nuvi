@@ -21,7 +21,7 @@ class ClientAdmin extends Admin
     {
         $formMapper
             ->add('name')
-            ->add('redirectUris',       'tag')
+            ->add('redirectUris',       'TextToArray')
             ->add('allowedGrantTypes',  'OAuthGrantTypes')
         ;
     }

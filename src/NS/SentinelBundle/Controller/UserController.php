@@ -38,7 +38,7 @@ class UserController extends Controller
             $em->persist($user);
             $em->flush();
 
-            $flash = $this->get('ns_flash')->addSuccess(null, null, "User Successfully updated");
+            $this->get('ns_flash')->addSuccess(null, null, "User Successfully updated");
 
             return $this->redirect($this->generateUrl('userProfile'));
         }
