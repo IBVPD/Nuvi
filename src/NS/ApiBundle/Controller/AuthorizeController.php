@@ -13,6 +13,7 @@ use NS\ApiBundle\Entity\Client;
 use OAuth2\OAuth2ServerException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Doctrine\ORM\UnexpectedResultException;
 
 /**
  * Description of AuthorizeController
@@ -73,7 +74,7 @@ class AuthorizeController extends Controller
         // TODO we need to also somehow check that we're using the user the remote is linked to - another point for using a session var
 
         if(count($remotes)>1)
-            throw new \Doctrine\ORM\UnexpectedResultException("We really only support one remote per user at the moment");
+            throw new UnexpectedResultException("We really only support one remote per user at the moment");
 
         $remote = current($remotes);
 

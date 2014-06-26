@@ -241,6 +241,17 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
     }
 
     /**
+     * Api Test Action,
+    *
+    * @ApiDoc(
+    *   resource = true,
+    *   description = "Test API Access over OAuth2",
+    *   statusCodes = {
+    *     200 = "Returned when successful",
+    *     404 = "Returned when the case is not found",
+    *     401 = "Invalid credentials"
+    *   }
+    * )
      * @REST\GET("/v1/test")
      */
     public function testAction()
