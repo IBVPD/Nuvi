@@ -39,6 +39,7 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
     * @return array
     *
     * @throws NotFoundHttpException when case not exist
+    * @throws NonExistentCase when case doees not exist
     */
     public function getIbdCaseAction($id)
     {
@@ -74,33 +75,22 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
 
     private function getCase($type,$id)
     {
-        try
+        switch($type)
         {
-            switch($type)
-            {
-                case 'ibd':
-                    $obj = $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:Meningitis')->find($id);
-                    break;
-                case 'rota':
-                    $obj = $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:RotaVirus')->find($id);
-                    break;
-                default:
-                    throw new NotFoundHttpException("Invalid type: $type");
-            }
+            case 'ibd':
+                $obj = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:Meningitis')->find($id);
+                break;
+            case 'rota':
+                $obj = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:RotaVirus')->find($id);
+                break;
+            default:
+                throw new NotFoundHttpException("Invalid type: $type");
+        }
 
-            $v = new View();
-            $v->setData(array('case'=>$obj));
+        $v = new View();
+        $v->setData(array('case'=>$obj));
 
-            return $this->handleView($v);
-        }
-        catch(NotFoundHttpException $e)
-        {
-            throw $e;
-        }
-        catch(\Exception $e)
-        {
-            throw new NotFoundHttpException("HERE??? Could not find $type with id:$id ".$e->getMessage());
-        }
+        return $this->handleView($v);
     }
 
     /**
@@ -143,7 +133,7 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
 
     private function updateIbd(Request $request, $id)
     {
-        $em   = $this->get('doctrine.orm.entity_manager');
+        $em   = $this->get('ns.model_manager');
         $obj  = $em->getRepository('NSSentinelBundle:Meningitis')->find($id);
         $form = $this->createForm('ibd',$obj);
 
@@ -227,7 +217,7 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
         $form->submit($request->request->all());
         if($form->isValid())
         {
-            $em  = $this->get('doctrine.orm.entity_manager');
+            $em  = $this->get('ns.model_manager');
             $obj = $form->getData();
             $em->persist($obj);
             $em->flush();
