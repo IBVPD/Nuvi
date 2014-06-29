@@ -30,6 +30,7 @@ twig:
       resources:
         - 'NSUtilBundle:Form:fields.html.twig'
         - 'NSAceBundle:Form:fields.html.twig'
+    exception_controller: 'FOS\RestBundle\Controller\ExceptionController::showAction'
 
 # Assetic Configuration
 assetic:
@@ -248,6 +249,11 @@ fos_rest:
         rules:
             - { path: ^/, priorities: [ html, json, xml ], fallback_format: ~, prefer_extension: true }
     disable_csrf_role: ROLE_API
+    exception:
+      codes:
+        'Symfony\Component\HttpKernel\Exception\NotFoundHttpException': 404
+        '\NS\SentinelBundle\Exceptions\NonExistentCase': 404
+
 
 services:
   ns.form.types.autocomplete:
