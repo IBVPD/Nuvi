@@ -43,7 +43,7 @@ class AuthorizeFormHandler
                 {
                     $user = $this->context->getToken()->getUser();
                     return $this->oauth2->finishClientAuthorization(true, $user, $this->request, null);
-                } 
+                }
                 catch (OAuth2ServerException $e)
                 {
                     return $e->getHttpResponse();

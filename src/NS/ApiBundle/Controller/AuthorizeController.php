@@ -29,7 +29,7 @@ class AuthorizeController extends Controller
      */
     public function authorizeAction(Request $request)
     {
-        if (!$request->get('client_id')) 
+        if (!$request->get('client_id'))
             throw new NotFoundHttpException("Client id parameter {$request->get('client_id')} is missing.");
 
         $clientManager = $this->get('fos_oauth_server.client_manager.default');

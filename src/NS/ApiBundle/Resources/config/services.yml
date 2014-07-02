@@ -2,7 +2,7 @@ parameters:
 #    ns_api.example.class: NS\ApiBundle\Example
     adoy_oauth2.client.class: OAuth2\Client
     ns_api.client.class: NS\ApiBundle\Service\OAuth2Client
-    
+
 services:
     ns_api.form.oauth_grant_types:
       class: NS\ApiBundle\Form\Types\OAuthGrantTypes
@@ -18,7 +18,7 @@ services:
       class: NS\ApiBundle\Form\Type\AuthorizeFormType
       tags:
         - { name: form.type, alias: api_oauth_server_authorize }
-          
+
     ns_api_oauth_server.authorize.form:
       factory-method: createNamed
       factory-service: form.factory

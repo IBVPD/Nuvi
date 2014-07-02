@@ -21,7 +21,7 @@ class ApiClientType extends AbstractType
             ->add('allowedGrantTypes','OAuthGrantTypes')
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

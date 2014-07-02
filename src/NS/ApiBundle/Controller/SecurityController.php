@@ -41,7 +41,7 @@ class SecurityController extends Controller
 
         return $this->render('NSApiBundle:Security:login.html.twig', array('last_username' => $lastUsername, 'error' => $error));
     }
-    
+
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @Route("/login_check",name="apiLoginCheck")
