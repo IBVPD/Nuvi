@@ -102,7 +102,7 @@ http://nuviclient.noblet.ca/authorize?code=12SFg15d662FFSGha.
 
 Step Five
 ---------
-The **ClientApp* page handling this request has a few things to do in a small 
+The **ClientApp** page handling this request has a few things to do in a small
 window of time. It must use the code which has a validity of only a few minutes
 to request an access token from the server's token endpoint. This is typically a 
 POST request.
@@ -211,7 +211,7 @@ And receive a response with an empty content body such as:
 Location: http://nuvi.noblet.ca/api/v1/ibd/cases/CA-ALBCHILD-14-000001
 ```
 
-From here on **ClientApp* developers should use the API documentation to interact
+From here on **ClientApp** developers should use the API documentation to interact
 with the **Server**.
 
 
