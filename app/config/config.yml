@@ -254,6 +254,16 @@ fos_rest:
         'Symfony\Component\HttpKernel\Exception\NotFoundHttpException': 404
         '\NS\SentinelBundle\Exceptions\NonExistentCase': 404
 
+nelmio_api_doc:
+  name: WHO API Documentation
+  sandbox:
+    accept_type: application/json
+    request_format:
+      method: accept_header
+      default_format: json
+    authentication:
+      delivery: header
+      name: Authorization
 
 services:
   ns.form.types.autocomplete:
