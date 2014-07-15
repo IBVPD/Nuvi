@@ -47,4 +47,11 @@ class Site extends CommonRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function findAll()
+    {
+        $qb = $this->hasSecuredQuery() ? $this->secure($this->createQueryBuilder('s')): $this->createQueryBuilder('s');
+
+        return  $qb->getQuery()->getResult();
+    }
 }
