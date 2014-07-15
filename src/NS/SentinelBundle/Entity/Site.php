@@ -7,6 +7,7 @@ use \Doctrine\Common\Collections\ArrayCollection;
 use \NS\SecurityBundle\Annotation\Secured;
 use \NS\SecurityBundle\Annotation\SecuredCondition;
 use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * Site
@@ -27,6 +28,7 @@ class Site implements \Serializable
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"user","api"})
      */
     private $id;
 
@@ -34,6 +36,7 @@ class Site implements \Serializable
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Groups({"user","api"})
      */
     private $name;
 
@@ -41,6 +44,7 @@ class Site implements \Serializable
      * @var string
      *
      * @ORM\Column(name="code", type="string", length=255)
+     * @Groups({"user","api"})
      */
     private $code;
 
@@ -48,6 +52,7 @@ class Site implements \Serializable
      * @var integer $rvYearIntro
      * @ORM\Column(name="rvYearIntro",type="integer",nullable=true)
      * @Assert\GreaterThan(value=1900)
+     * @Groups({"user"})
      */
     private $rvYearIntro;
 
@@ -55,6 +60,7 @@ class Site implements \Serializable
      * @var integer $ibdYearIntro
      * @ORM\Column(name="ibdYearIntro",type="integer",nullable=true)
      * @Assert\GreaterThan(value=1900)
+     * @Groups({"user"})
      */
     private $ibdYearIntro;
 
@@ -62,6 +68,7 @@ class Site implements \Serializable
      * @var string
      *
      * @ORM\Column(name="street", type="string", length=255,nullable=true)
+     * @Groups({"user"})
      */
     private $street;
 
@@ -69,12 +76,14 @@ class Site implements \Serializable
      * @var string
      *
      * @ORM\Column(name="city", type="string", length=255,nullable=true)
+     * @Groups({"user"})
      */
     private $city;
 
     /**
      * @var integer $numberOfBeds
      * @ORM\Column(name="numberOfBeds",type="integer",nullable=true)
+     * @Groups({"user"})
      */
     private $numberOfBeds;
 
@@ -83,6 +92,7 @@ class Site implements \Serializable
      *
      * @ORM\Column(name="website", type="string", length=255,nullable=true)
      * @Assert\Url()
+     * @Groups({"user"})
      */
     private $website;    
 
@@ -90,6 +100,7 @@ class Site implements \Serializable
      * @var integer
      *
      * @ORM\Column(name="currentCaseId", type="integer")
+     * @Groups({"user"})
      */
     private $currentCaseId = 1;
 
@@ -97,6 +108,7 @@ class Site implements \Serializable
      * @var Country
      * 
      * @ORM\ManyToOne(targetEntity="Country",inversedBy="sites")
+     * @Groups({"user"})
      */
     private $country;
 

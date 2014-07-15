@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use FOS\RestBundle\Controller\Annotations as REST;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\Util\Codes;
+use JMS\Serializer\SerializationContext;
 
 /**
  * Description of ApiController
@@ -18,55 +19,81 @@ use FOS\RestBundle\Util\Codes;
  */
 class ApiController extends \FOS\RestBundle\Controller\FOSRestController
 {
-   /**
-    * Get IBD Case
-    *
-    * @ApiDoc(
-    *   resource = true,
-    *   description = "Gets a case for a given id",
-    *   statusCodes = {
-    *     200 = "Returned when successful",
-    *     404 = "Returned when the case is not found"
-    *   }
-    * )
-    *
-    * @REST\View(templateVar="case")
-    * @REST\Get("/v1/ibd/cases/{id}")
-    *
-    * @param string  $id      the object id
-    * @param string  $format  json|xml
-    *
-    * @return array
-    *
-    * @throws NotFoundHttpException when case not exist
-    * @throws NonExistentCase when case doees not exist
+    /**
+     * Get Sites
+     *
+     * @ApiDoc(
+     *  resource = true,
+     *  description = "Gets the list of suppliers",
+     *  statusCodes = { 200 = "Returned when succesful" }
+     * )
+     * 
+     * @Rest\View(serializerGroups={"api"})
+     * @Rest\Get("/v1/sites")
+     *
+     * @return array
+     */
+    public function sitesAction()
+    {
+        $sites = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:Site')->findAll();
+
+        $context = SerializationContext::create()->setGroups(array('api'));
+
+        $v     = new View();
+        $v->setSerializationContext($context);
+        $v->setData(array('sites'=>$sites));
+
+        return $this->handleView($v);
+    }
+
+    /**
+     *
+     * Get IBD Case
+     *
+     * @ApiDoc(
+     *   resource = true,
+     *   description = "Gets a case for a given id",
+     *   statusCodes = {
+     *     200 = "Returned when successful",
+     *     404 = "Returned when the case is not found"
+     *   }
+     * )
+     *
+     * @REST\View(templateVar="case")
+     * @REST\Get("/v1/ibd/cases/{id}")
+     *
+     * @param string  $id      the object id
+     *
+     * @return array
+     *
+     * @throws NotFoundHttpException when case not exist
+     * @throws NonExistentCase when case doees not exist
     */
     public function getIbdCaseAction($id)
     {
         return $this->getCase('ibd',$id);
     }
 
-   /**
-    * Get RotaVirus Case
-    *
-    * @ApiDoc(
-    *   resource = true,
-    *   description = "Gets a case for a given id",
-    *   statusCodes = {
-    *     200 = "Returned when successful",
-    *     404 = "Returned when the case is not found"
-    *   }
-    * )
-    *
-    * @REST\View(templateVar="case")
-    * @REST\Get("/v1/rota/cases/{id}")
-    *
-    * @param string  $id      the object id
-    * @param string  $format  json|xml
-    *
-    * @return array
-    *
-    * @throws NotFoundHttpException when case not exist
+    /**
+     * Get RotaVirus Case
+     *
+     * @ApiDoc(
+     *   resource = true,
+     *   description = "Gets a case for a given id",
+     *   statusCodes = {
+     *     200 = "Returned when successful",
+     *     404 = "Returned when the case is not found"
+     *   }
+     * )
+     *
+     * @REST\View(templateVar="case")
+     * @REST\Get("/v1/rota/cases/{id}")
+     *
+     * @param string  $id      the object id
+     *
+     * @return array
+     *
+     * @throws NotFoundHttpException when case not exist
     */
     public function getRotaCaseAction($id)
     {
@@ -106,6 +133,7 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param type $id
+     * 
      */
     public function patchIbdCasesAction(Request $request, $id)
     {
@@ -125,6 +153,7 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param type $id
+     * 
      */
     public function putIbdCasesAction(Request $request, $id)
     {
@@ -153,22 +182,21 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
     }
 
     /**
-    * Create a Case,
-    *
-    * @ApiDoc(
-    *   resource = true,
-    *   description = "Creates a new case",
-    *   input = "create_ibd"
-    * )
-    *
-    * @REST\Post("/v1/ibd/cases")
-    *
-    * @param Request $request the request object
-    * @param string  $format  json|xml
-    *
-    * @return array
-    *
-    * @throws NotFoundHttpException when case not exist
+     * Create a Case,
+     *
+     * @ApiDoc(
+     *   resource = true,
+     *   description = "Creates a new case",
+     *   input = "create_ibd"
+     * )
+     *
+     * @REST\Post("/v1/ibd/cases")
+     *
+     * @param Request $request the request object
+     *
+     * @return array
+     *
+     * @throws NotFoundHttpException when case not exist
     */
     public function postIbdCasesAction(Request $request)
     {
@@ -176,22 +204,21 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
     }
 
     /**
-    * Create a RotaVirus Case,
-    *
-    * @ApiDoc(
-    *   resource = true,
-    *   description = "Creates a new case",
-    *   input = "create_rota"
-    * )
-    *
-    * @REST\Post("/v1/rota/cases")
-    *
-    * @param Request $request the request object
-    * @param string  $format  json|xml
-    *
-    * @return array
-    *
-    * @throws NotFoundHttpException when case not exist
+     * Create a RotaVirus Case,
+     *
+     * @ApiDoc(
+     *   resource = true,
+     *   description = "Creates a new case",
+     *   input = "create_rota"
+     * )
+     *
+     * @REST\Post("/v1/rota/cases")
+     *
+     * @param Request $request the request object
+     *
+     * @return array
+     *
+     * @throws NotFoundHttpException when case not exist
     */
     public function postRotaCasesAction(Request $request)
     {
@@ -232,18 +259,18 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
 
     /**
      * Api Test Action,
-    *
-    * @ApiDoc(
-    *   resource = true,
-    *   description = "Test API Access over OAuth2",
-    *   statusCodes = {
-    *     200 = "Returned when successful",
-    *     404 = "Returned when the case is not found",
-    *     401 = "Invalid credentials"
-    *   }
-    * )
+     *
+     * @ApiDoc(
+     *   resource = true,
+     *   description = "Test API Access over OAuth2",
+     *   statusCodes = {
+     *     200 = "Returned when successful",
+     *     404 = "Returned when the case is not found",
+     *     401 = "Invalid credentials"
+     *   }
+     * )
      * @REST\GET("/v1/test")
-     */
+    */
     public function testAction()
     {
         $v = new View();
