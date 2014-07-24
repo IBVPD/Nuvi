@@ -281,7 +281,7 @@ class ImportCommand extends ContainerAwareCommand
             $rrlUser->setPassword($encoder->encodePassword("1234567-rrl-".$obj->getCode(),$rrlUser->getSalt()));
             $acl = new ACL();
             $acl->setUser($rrlUser);
-            $acl->setType(new Role(Role::RRL_LAB));
+            $acl->setType(new Role(Role::LAB));
             $acl->setObjectId($obj->getId());
             $this->em->persist($acl);
             $this->em->persist($rrlUser);
@@ -295,7 +295,7 @@ class ImportCommand extends ContainerAwareCommand
             $nlUser->setPassword($encoder->encodePassword("1234567-nl-".$obj->getCode(),$nlUser->getSalt()));
             $acl = new ACL();
             $acl->setUser($nlUser);
-            $acl->setType(new Role(Role::NL_LAB));
+            $acl->setType(new Role(Role::LAB));
             $acl->setObjectId($obj->getId());
             $this->em->persist($acl);
             $this->em->persist($nlUser);

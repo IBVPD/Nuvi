@@ -8,7 +8,7 @@ use \Symfony\Component\Console\Output\OutputInterface;
 use \Symfony\Component\Console\Input\InputOption;
 
 use NS\SentinelBundle\Entity\RotaVirus;
-use NS\SentinelBundle\Entity\Rota\SiteLab;
+use NS\SentinelBundle\Entity\Rota\Lab;
 use NS\SentinelBundle\Form\Types\Gender;
 use NS\SentinelBundle\Entity\Site;
 
@@ -41,10 +41,16 @@ class CreateRotaCasesCommand extends ContainerAwareCommand
             return;
         }
 
-        $this->em = $this->getContainer()->get('doctrine.orm.entity_manager');
+        $this->em = $this->getContainer()->get('ns.model_manager');
+        try {
         $sites    = $this->em->getRepository('NSSentinelBundle:Site')->getChainByCode($codes);
         $male     = new Gender(Gender::MALE);
         $fmale    = new Gender(Gender::FEMALE);
+        }
+        catch(\Exception $e)
+        {
+            die("EXCEPTION? ".$e->getMessage());
+        }
         
         for($x = 0; $x < 2700; $x++)
         {
@@ -61,9 +67,9 @@ class CreateRotaCasesCommand extends ContainerAwareCommand
 
             if($x%12 == 0)
             {
-                $lab = new SiteLab($m);
+                $lab = new Lab($m);
 
-                $m->setSiteLab($lab);
+                $m->setLab($lab);
 
                 $this->em->persist($lab);
             }
@@ -74,6 +80,7 @@ class CreateRotaCasesCommand extends ContainerAwareCommand
         }
 
         $this->em->flush();
+        $output->writeln("Create 2700 rota cases");
     }
 
     public function getCaseId(Site $site)
