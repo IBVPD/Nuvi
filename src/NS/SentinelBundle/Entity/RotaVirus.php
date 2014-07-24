@@ -32,18 +32,10 @@ class RotaVirus extends BaseCase
 {
 //i. Sentinel Site Information
     /**
-     * @ORM\OneToMany(targetEntity="\NS\SentinelBundle\Entity\Rota\ExternalLab", mappedBy="case")
+     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\Rota\Lab", mappedBy="case")
      */
-    protected $externalLabs;
-
-    /**
-     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\Rota\SiteLab", mappedBy="case",cascade={"persist"})
-     */
-    protected $siteLab;
-
-    protected $siteLabClass   = '\NS\SentinelBundle\Entity\Rota\SiteLab';
-    protected $referenceClass = '\NS\SentinelBundle\Entity\Rota\ReferenceLab';
-    protected $nationalClass  = '\NS\SentinelBundle\Entity\Rota\NationalLab';
+    protected $lab;
+    protected $labClass = '\NS\SentinelBundle\Entity\Rota\Lab';
 
 //ii. Case-based Demographic Data
 
@@ -372,12 +364,6 @@ class RotaVirus extends BaseCase
     public function getComment()
     {
         return $this->comment;
-    }
-
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
     }
 
     public function setCode($code)

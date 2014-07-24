@@ -13,6 +13,7 @@ use NS\SentinelBundle\Form\Types\VaccinationReceived;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Services\SerializedSites;
 use NS\SentinelBundle\Form\Types\CXRResult;
+use NS\SentinelBundle\Form\Types\OtherSpecimen;
 
 class CaseType extends AbstractType
 {
@@ -70,9 +71,11 @@ class CaseType extends AbstractType
             ->add('meningMostRecentDose',   'acedatepicker',             array('required'=>false,'label'=>'meningitis-form.meningMostRecentDose',   'attr' => array('data-context-parent'=>'meningReceived', 'data-context-value'=>json_encode(array(VaccinationReceived::YES_CARD,VaccinationReceived::YES_HISTORY)))))
 
             ->add('bloodCollected',         'TripleChoice',     array('required'=>false,'label'=>'meningitis-form.blood-collected'))
-            ->add('csfCollected',           'TripleChoice',     array('required'=>false,'label'=>'meningitis-form.csf-collected',        'attr' => array('data-context-child'=>'csfCollected','data-context-value'=>TripleChoice::YES)))
-            ->add('csfCollectDateTime',     'acedatetime',      array('required'=>false,'label'=>'meningitis-form.csf-collect-datetime', 'attr' => array('data-context-parent'=>'csfCollected','data-context-value'=>true)))
-            ->add('csfAppearance',          'CSFAppearance',    array('required'=>false,'label'=>'meningitis-form.csf-appearance',       'attr' => array('data-context-parent'=>'csfCollected','data-context-value'=>true)))
+            ->add('csfCollected',           'TripleChoice',     array('required'=>false,'label'=>'meningitis-form.csf-collected',        'attr' => array('data-context-child'=>'csfCollected')))
+            ->add('csfCollectDateTime',     'acedatetime',      array('required'=>false,'label'=>'meningitis-form.csf-collect-datetime', 'attr' => array('data-context-parent'=>'csfCollected','data-context-value'=>TripleChoice::YES)))
+            ->add('csfAppearance',          'CSFAppearance',    array('required'=>false,'label'=>'meningitis-form.csf-appearance',       'attr' => array('data-context-parent'=>'csfCollected','data-context-value'=>TripleChoice::YES)))
+            ->add('otherSpecimenCollected', 'OtherSpecimen',    array('required'=>false,'label'=>'meningitis-form.otherSpecimenCollected','attr' => array('data-context-child'=>'otherSpecimenCollected')))
+            ->add('otherSpecimenOther',     null,               array('required'=>false,'label'=>'meningitis-form.otherSpecimenOther','attr' => array('data-context-parent'=>'otherSpecimenCollected','data-context-value'=>OtherSpecimen::OTHER)))
         ;
 
         $siteSerializer = $this->siteSerializer;

@@ -11,9 +11,10 @@ use NS\SentinelBundle\Form\Types\CaseStatus;
  *
  * @author gnat
  * @ORM\MappedSuperclass
- * @ORM\HasLifecycleCallbacks
+ * 
+ * @author gnat
  */
-abstract class BaseExternalLab
+class BaseLab
 {
     /**
      * @ORM\Id
@@ -28,13 +29,6 @@ abstract class BaseExternalLab
     protected $caseClass;
 
     /**
-     * @var string $labId
-     * @ORM\Column(name="labId",type="string")
-     * @Assert\NotBlank
-     */
-    protected $labId;
-
-    /**
      * @var CaseStatus $status
      * @ORM\Column(name="status",type="CaseStatus")
      */
@@ -42,7 +36,7 @@ abstract class BaseExternalLab
 
     /**
      * @var DateTime $updatedAt
-     * @ORM\Column(name="updatedAt",type="datetime")
+     * @ORM\Column(name="updatedAt",type="datetime",nullable=true)
      */
     protected $updatedAt;
 
@@ -51,7 +45,8 @@ abstract class BaseExternalLab
         if(!is_string($this->caseClass) || empty($this->caseClass))
             throw new \InvalidArgumentException("The case class is not set");
 
-        $this->status = new CaseStatus(0);
+        $this->status    = new CaseStatus(0);
+        $this->updatedAt = new \DateTime();
     }
 
     /**
@@ -136,41 +131,5 @@ abstract class BaseExternalLab
     {
         $this->updatedAt = $updatedAt;
         return $this;
-    }
-
-    public function calculateStatus()
-    {
-        if($this->status->getValue() >= CaseStatus::CANCELLED)
-            return;
-
-        if($this->getIncompleteField())
-            $this->status = new CaseStatus(CaseStatus::OPEN);
-        else
-            $this->status = new CaseStatus(CaseStatus::COMPLETE);
-
-        return;
-    }
-
-    public function getIncompleteField()
-    {
-        foreach($this->getMandatoryFields() as $fieldName)
-        {
-            if(!$this->$fieldName)
-                return $fieldName;
-        }
-
-        return;
-    }
-
-    abstract public function getMandatoryFields();
-
-    /**
-     * @ORM\PreUpdate
-     * @ORM\PrePersist
-     */
-    public function preUpdateAndPersist()
-    {
-        $this->calculateStatus();
-        $this->setUpdatedAt(new \DateTime());
     }
 }

@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use \NS\SentinelBundle\Exceptions\NonExistentCase;
 use \NS\SentinelBundle\Form\Types\CreateRoles;
 use \Symfony\Component\Form\FormError;
-use NS\SentinelBundle\Entity\Rota\SiteLab;
+use NS\SentinelBundle\Entity\Rota\Lab;
 
 /**
  * @Route("/{_locale}/rota")
@@ -47,7 +47,7 @@ class RotaVirusController extends Controller
 
         $sc = $this->get('security.context');
 
-        if($sc->isGranted('ROLE_SITE') || $sc->isGranted('ROLE_LAB') || $sc->isGranted('ROLE_RRL_LAB') || $sc->isGranted('ROLE_NL_LAB'))
+        if($sc->isGranted('ROLE_SITE') || $sc->isGranted('ROLE_LAB'))
             $t = array('header_template'=>'NSSentinelBundle:RotaVirus:indexSiteHeader.html.twig', 'row_template'=>'NSSentinelBundle:RotaVirus:indexSiteRow.html.twig');
         else if($sc->isGranted('ROLE_COUNTRY'))
             $t = array('header_template'=>'NSSentinelBundle:RotaVirus:indexCountryHeader.html.twig', 'row_template'=>'NSSentinelBundle:RotaVirus:indexCountryRow.html.twig');
@@ -97,30 +97,8 @@ class RotaVirusController extends Controller
                 case CreateRoles::BASE:
                     $res = 'rotavirusEdit';
                     break;
-                case CreateRoles::SITE:
+                case CreateRoles::LAB:
                     $res = 'rotavirusLabEdit';
-                    break;
-                case CreateRoles::RRL:
-                    /*
-                     * Only create a sitelab when this is a new case otherwise we're in an error condition
-                     * Meaning that a site lab has already been created but
-                     */
-                    if(!$case->getId() || ($case->getId() && !$case->hasSiteLab()))
-                    {
-                        $siteLab = new SiteLab();
-                        $siteLab->setSentToReferenceLab(true);
-                        $case->setSiteLab($siteLab);
-                    }
-                    $res = 'rotavirusRRLEdit';
-                    break;
-                case CreateRoles::NL:
-                    if(!$case->getId() || ($case->getId() && !$case->hasSiteLab()))
-                    {
-                        $siteLab = new SiteLab();
-                        $siteLab->setSentToNationalLab(true);
-                        $case->setSiteLab($siteLab);
-                    }
-                    $res = 'rotavirusNLEdit';
                     break;
                 default:
                     $res = 'rotavirusIndex';
@@ -155,24 +133,6 @@ class RotaVirusController extends Controller
     }
 
     /**
-     * @Route("/rrl/edit/{id}",name="rotavirusRRLEdit",defaults={"id"=null})
-     * @Template("NSSentinelBundle:RotaVirus:editBaseLab.html.twig")
-     */
-    public function editRRLAction(Request $request,$id = null)
-    {
-        return $this->edit($request, 'rrl', $id);
-    }
-
-    /**
-     * @Route("/nl/edit/{id}",name="rotavirusNLEdit",defaults={"id"=null})
-     * @Template("NSSentinelBundle:RotaVirus:editBaseLab.html.twig")
-     */
-    public function editNLAction(Request $request,$id = null)
-    {
-        return $this->edit($request, 'nl', $id);
-    }
-
-    /**
      * @Route("/outcome/edit/{id}",name="rotavirusOutcomeEdit",defaults={"id"=null})
      * @Template()
      */
@@ -196,16 +156,8 @@ class RotaVirusController extends Controller
                     $form   = $this->createForm('rotavirus_outcome',$record);
                     break;
                 case 'lab':
-                    $record = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:Rota\SiteLab')->findOrCreateNew($id);
-                    $form   = $this->createForm('rotavirus_sitelab',$record);
-                    break;
-                case 'rrl':
-                    $record = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:Rota\ReferenceLab')->findOrCreateNew($id);
-                    $form   = $this->createForm('rotavirus_referencelab',$record);
-                    break;
-                case 'nl':
-                    $record = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:Rota\NationalLab')->findOrCreateNew($id);
-                    $form   = $this->createForm('rotavirus_nationallab',$record);
+                    $record = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:Rota\Lab')->findOrCreateNew($id);
+                    $form   = $this->createForm('rotavirus_lab',$record);
                     break;
                 default:
                     throw new \Exception("Unknown type");
@@ -234,7 +186,7 @@ class RotaVirusController extends Controller
                 {
                     // TODO Flash service required
                     if($e->getPrevious()->getCode() === '23000')
-                        $form->addError(new FormError ("The case id already exists for this site!"));
+                        $form->addError(new FormError ("The case id already exists for this site!".$e->getPrevious()->getMessage()));
                     else
                         die("ERROR: ".$e->getMessage());
 

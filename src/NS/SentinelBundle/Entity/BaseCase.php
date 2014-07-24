@@ -87,34 +87,26 @@ abstract class BaseCase implements IdentityAssignmentInterface
     protected $admDate;
 
 //     * @ORM\OneToMany(targetEntity="BaseLab", mappedBy="case")
-    protected $externalLabs;
-
-//     * @ORM\OneToOne(targetEntity="SiteLab", mappedBy="case")
-    protected $siteLab;
-
-    protected $referenceLab     = -1;
-    protected $nationalLab      = -1;
-    protected $siteLabClass     = null;
-    protected $referenceClass   = null;
-    protected $nationalClass    = null;
+    protected $lab;
+    protected $labClass = null;
  
     /**
      * @var Region $region
-     * @ORM\ManyToOne(targetEntity="Region")
+     * @ORM\ManyToOne(targetEntity="NS\SentinelBundle\Entity\Region")
      * @ORM\JoinColumn(nullable=false)
      */
     protected $region;
 
     /**
      * @var Country $country
-     * @ORM\ManyToOne(targetEntity="Country")
+     * @ORM\ManyToOne(targetEntity="NS\SentinelBundle\Entity\Country")
      * @ORM\JoinColumn(nullable=false)
      */
     protected $country;
 
     /**
      * @var Site $site
-     * @ORM\ManyToOne(targetEntity="Site")
+     * @ORM\ManyToOne(targetEntity="NS\SentinelBundle\Entity\Site")
      * @ORM\JoinColumn(nullable=false)
      */
     protected $site;
@@ -133,17 +125,10 @@ abstract class BaseCase implements IdentityAssignmentInterface
 
     public function __construct()
     {
-        if(!is_string($this->nationalClass) || empty($this->nationalClass))
-            throw new \InvalidArgumentException("The NationalLab class is not set");
+        if(!is_string($this->labClass) || empty($this->labClass))
+            throw new \InvalidArgumentException("The lab class is not set");
 
-        if(!is_string($this->referenceClass) || empty($this->referenceClass))
-            throw new \InvalidArgumentException("The ReferenceLab class is not set");
-
-        if(!is_string($this->siteLabClass) || empty($this->siteLabClass))
-            throw new \InvalidArgumentException("The SiteLab class is not set");
-
-        $this->externalLabs = new ArrayCollection();
-        $this->status       = new CaseStatus(0);
+        $this->status       = new CaseStatus(CaseStatus::OPEN);
         $this->updatedAt    = new \DateTime();
     }
 
@@ -173,100 +158,6 @@ abstract class BaseCase implements IdentityAssignmentInterface
         return sprintf("%s-%s-%d-%06d", $this->country->getCode(), $this->site->getCode(), date('y'), $id);
     }
 
-    protected function _findLab($class)
-    {
-        foreach($this->externalLabs as $l)
-        {
-            if($l instanceof $class)
-                return $l;
-        }
-
-        return null;
-    }
-
-    protected function _findReferenceLab()
-    {
-        if(is_integer($this->referenceLab) && $this->referenceLab == -1)
-            $this->referenceLab = $this->_findLab($this->referenceClass);
-
-        return $this->referenceLab;
-    }
-
-    protected function _findNationalLab()
-    {
-        if(is_integer($this->nationalLab) && $this->nationalLab == -1)
-            $this->nationalLab = $this->_findLab($this->nationalClass);
-
-        return $this->nationalLab;
-    }
-
-    /**
-     * Add externalLabs
-     *
-     * @param  $externalLabs
-     * @return Meningitis
-     */
-    public function addExternalLab($externalLabs)
-    {
-        $this->externalLabs[] = $externalLabs;
-
-        return $this;
-    }
-
-    /**
-     * Remove externalLabs
-     *
-     * @param  $externalLabs
-     */
-    public function removeExternalLab($externalLabs)
-    {
-        $this->externalLabs->removeElement($externalLabs);
-    }
-
-    /**
-     * Get externalLabs
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getExternalLabs()
-    {
-        return $this->externalLabs;
-    }
-
-    /**
-     * Get ReferenceLab
-     *
-     * @return \NS\SentinelBundle\Entity\ReferenceLab
-     */
-    public function getReferenceLab()
-    {
-        return $this->_findReferenceLab();
-    }
-
-    public function hasReferenceLab()
-    {
-        $this->_findReferenceLab();
-
-        return ($this->referenceLab instanceof $this->referenceClass);
-    }
-
-    /**
-     * Get NationalLab
-     *
-     * @return \NS\SentinelBundle\Entity\NationalLab
-     */
-    public function getNationalLab()
-    {
-        return $this->_findNationalLab();
-    }
-
-    public function hasNationalLab()
-    {
-        $this->_findNationalLab();
-
-        return ($this->nationalLab instanceof $this->nationalClass);
-    }
-
     /**
      * Get sentToReferenceLab
      *
@@ -274,7 +165,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
      */
     public function getSentToReferenceLab()
     {
-        return ($this->siteLab) ? $this->siteLab->getSentToReferenceLab(): false;
+        return ($this->lab) ? $this->lab->getSentToReferenceLab(): false;
     }
 
     /**
@@ -284,7 +175,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
      */
     public function getSentToNationalLab()
     {
-        return ($this->siteLab) ? $this->siteLab->getSentToNationalLab(): false;
+        return ($this->lab) ? $this->lab->getSentToNationalLab(): false;
     }
 
     /**
@@ -360,32 +251,29 @@ abstract class BaseCase implements IdentityAssignmentInterface
         return $this->site;
     }
 
-    public function getSiteLab()
+    public function getLab()
     {
-        return $this->siteLab;
+        return $this->lab;
     }
 
-    public function setSiteLab($lab)
+    public function hasLab()
     {
+        if($this->labClass == null)
+            throw new \RuntimeException("Lab Class is null");
+
+        return ($this->lab instanceof $this->labClass);
+    }
+
+    public function setLab($lab)
+    {
+        if($this->labClass == null)
+            throw new \RuntimeException("Lab Class is null");
+
+        if(!$lab instanceof $this->labClass)
+            throw new \InvalidArgumentException(sprintf("Expecting lab of type %s got %s",$this->labClass,get_class($lab)));
+
         $lab->setCase($this);
-        $this->siteLab = $lab;
-        return $this;
-    }
-
-    public function hasSiteLab()
-    {
-        return ($this->siteLab instanceof $this->siteLabClass);
-    }
-
-    public function setReferenceClass($referenceClass)
-    {
-        $this->referenceClass = $referenceClass;
-        return $this;
-    }
-
-    public function setNationalClass($nationalClass)
-    {
-        $this->nationalClass = $nationalClass;
+        $this->lab = $lab;
         return $this;
     }
 
@@ -459,10 +347,10 @@ abstract class BaseCase implements IdentityAssignmentInterface
      */
     public function preUpdateAndPersist()
     {
+        $this->calculateAge();
         $this->calculateStatus();
         $this->calculateResult();
         $this->setUpdatedAt(new \DateTime());
-        $this->calculateAge();
     }
 
     public function getYear()

@@ -19,8 +19,6 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
     const COUNTRY = 2;
     const SITE    = 3;
     const LAB     = 4;
-    const RRL_LAB = 5;
-    const NL_LAB  = 6;
     const REGION_API  = 10;
     const COUNTRY_API = 11;
     const SITE_API    = 12;
@@ -30,8 +28,6 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
                                 self::COUNTRY    => 'Country',
                                 self::SITE       => 'Site',
                                 self::LAB        => 'Lab',
-                                self::RRL_LAB    => 'RRL',
-                                self::NL_LAB     => 'NL',
                                 self::REGION_API  => 'Region API',
                                 self::COUNTRY_API => 'Country API',
                                 self::SITE_API    => 'Site API',
@@ -42,8 +38,6 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
                                 'ROLE_COUNTRY'  => self::COUNTRY,
                                 'ROLE_SITE'     => self::SITE,
                                 'ROLE_LAB'      => self::LAB,
-                                'ROLE_RRL_LAB'  => self::RRL_LAB,
-                                'ROLE_NL_LAB'   => self::NL_LAB,
                                 'ROLE_REGION_API'  => self::REGION_API,
                                 'ROLE_COUNTRY_API' => self::COUNTRY_API,
                                 'ROLE_SITE_API'    => self::SITE_API,

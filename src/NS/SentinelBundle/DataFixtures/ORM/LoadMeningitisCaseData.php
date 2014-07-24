@@ -8,7 +8,7 @@ use \Doctrine\Common\DataFixtures\AbstractFixture;
 use \Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use \Symfony\Component\DependencyInjection\ContainerInterface;
 use \NS\SentinelBundle\Entity\Meningitis;
-use NS\SentinelBundle\Entity\IBD\SiteLab;
+use NS\SentinelBundle\Entity\IBD\Lab;
 use \NS\SentinelBundle\Form\Types\Gender;
 use \NS\SentinelBundle\Form\Types\Diagnosis;
 use \NS\SentinelBundle\Entity\Site;
@@ -53,9 +53,9 @@ class LoadMeningitisCaseData extends AbstractFixture implements OrderedFixtureIn
                 $m->setCsfCollected((($x % 3) == 0));
                 if($x%12 == 0)
                 {
-                    $sl = new SiteLab();
+                    $sl = new Lab();
     //                $sl->setCxrDone($done);
-                    $m->setSiteLab($sl);
+                    $m->setLab($sl);
 
                     $manager->persist($sl);
                 }

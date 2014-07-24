@@ -15,17 +15,13 @@ use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 class CreateRoles extends TranslatableArrayChoice implements TranslationContainerInterface
 {
     const BASE = 1;
-    const SITE = 2;
-    const RRL  = 3;
-    const NL   = 4;
+    const LAB  = 2;
 
     private $securityContext;
 
     protected $values = array(
-                                self::BASE  => 'Case',
-                                self::SITE  => 'Site Lab',
-                                self::RRL   => 'RRL',
-                                self::NL    => 'NL',
+                                self::BASE => 'Case',
+                                self::LAB  => 'Lab',
                              );
 
     // Form AbstractType functions
@@ -43,13 +39,7 @@ class CreateRoles extends TranslatableArrayChoice implements TranslationContaine
                     $values[self::BASE] = $this->values[self::BASE];
 
                 if($user->getCanCreateLabs())
-                    $values[self::SITE] = $this->values[self::SITE];
-
-                if($user->getCanCreateRRLLabs())
-                    $values[self::RRL] = $this->values[self::RRL];
-
-                if($user->getCanCreateNLLabs())
-                    $values[self::NL] = $this->values[self::NL];
+                    $values[self::LAB] = $this->values[self::LAB];
 
                 $this->values = $values;
             }

@@ -5,7 +5,7 @@
 {% endblock %}
 
 {%block pageactions %}
-<div class="pull-right">{{case_big_actions(form.vars.value)}}</div>
+<div class="pull-right">{{case_big_actions(form.vars.value,true)}}</div>
 {%endblock %}
 
 {% block body %}
@@ -101,16 +101,29 @@
             </div>
             
             <div id="specimen" class="tab-pane">
+                <h4 class="header smaller lighter">{{'CSF'|trans}}</h4>
                 <div class="row">
                     <div class="col-sm-6">
                         {{form_row(form.csfCollected)}}
                         {{form_row(form.csfCollectDateTime)}}
                         {{form_row(form.csfAppearance)}}
                     </div>
-                    <div class="col-sm-6">
-                    {% if form.pneuDiffBreathe is defined %}
-                        {{form_row(form.bloodCollected)}}
-                    {% endif %}
+                </div>
+                {% if form.pneuDiffBreathe is defined %}
+                    <h4 class="header smaller lighter">{{'Blood'|trans}}</h4>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            {{form_row(form.bloodCollected)}}
+                        </div>
+                    </div>
+                {%endif %}
+                <h4 class="header smaller lighter">{{'Other'|trans}}</h4>
+                <div class="row">
+                    <div class="col-sm-4">
+                        {{form_row(form.otherSpecimenCollected)}}
+                    </div>
+                    <div class="col-sm-4">
+                        {{form_row(form.otherSpecimenOther)}}
                     </div>
                 </div>
             </div>

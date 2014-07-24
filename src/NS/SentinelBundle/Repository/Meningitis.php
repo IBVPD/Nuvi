@@ -22,7 +22,7 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
                    ->createQueryBuilder()
                    ->select('COUNT(m.id) theCount')
                    ->from($this->getClassName(),'m')
-                   ->innerJoin('m.siteLab', 'sl')
+                   ->innerJoin('m.lab', 'sl')
                    ->where('m.cxrDone = :cxr')
                    ->setParameter('cxr', \NS\SentinelBundle\Form\Types\TripleChoice::YES);
 
@@ -32,7 +32,7 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
                    ->createQueryBuilder()
                    ->select('m.csfCollected, COUNT(m.csfCollected) theCount')
                    ->from($this->getClassName(),'m')
-//                   ->innerJoin('m.siteLab', 'sl')
+//                   ->innerJoin('m.lab', 'sl')
                    ->groupBy('m.csfCollected');
         
         $res     = $this->secure($qb)->getQuery()->getResult();
@@ -84,10 +84,9 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
     public function getLatestQuery()
     {
         $qb = $this->_em->createQueryBuilder()
-                   ->select('m,l,rl')
+                   ->select('m,l')
                    ->from($this->getClassName(),'m')
-                   ->leftJoin('m.siteLab', 'l')
-                   ->leftJoin('m.externalLabs','rl')
+                   ->leftJoin('m.lab', 'l')
                    ->orderBy('m.id','DESC');
         return $this->secure($qb);
     }
@@ -97,7 +96,7 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
         $qb = $this->_em->createQueryBuilder()
                    ->select('m,l')
                    ->from($this->getClassName(),'m')
-                   ->leftJoin('m.siteLab', 'l')
+                   ->leftJoin('m.lab', 'l')
                    ->orderBy('m.id','DESC')
                    ->setMaxResults($limit);
         return $this->secure($qb)->getQuery()->getResult();
@@ -138,12 +137,11 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
     public function get($id)
     {
         $qb = $this->createQueryBuilder('m')
-                   ->select('m,s,c,r,e,l')
+                   ->select('m,s,c,r,l')
                    ->innerJoin('m.site', 's')
                    ->innerJoin('s.country', 'c')
                    ->innerJoin('m.region', 'r')
-                   ->leftJoin('m.externalLabs', 'e')
-                   ->leftJoin('m.siteLab','l')
+                   ->leftJoin('m.lab','l')
                    ->where('m.id = :id')->setParameter('id',$id);
         try
         {
@@ -189,10 +187,11 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
         try
         {
             $qb = $this->createQueryBuilder('m')
-                       ->addSelect('r,c,s')
+                       ->addSelect('r,c,s,l')
                        ->leftJoin('m.region', 'r')
                        ->leftJoin('m.country', 'c')
                        ->leftJoin('m.site', 's')
+                       ->leftJoin('m.lab','l')
                        ->andWhere('m.id = :id')
                        ->setParameter('id', $id);
 
@@ -212,12 +211,11 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
             throw new \InvalidArgumentException("Id or Case must be provided");
 
         $qb = $this->createQueryBuilder('m')
-                   ->select('m,s,c,r,e,l')
+                   ->select('m,s,c,r,l')
                    ->innerJoin('m.site', 's')
                    ->innerJoin('s.country', 'c')
                    ->innerJoin('m.region', 'r')
-                   ->leftJoin('m.externalLabs', 'e')
-                   ->leftJoin('m.siteLab','l')
+                   ->leftJoin('m.lab','l')
                    ->where('m.caseId = :caseId')
                    ->setParameter('caseId', $caseId);
 
@@ -241,10 +239,9 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
     {
         return $this->secure($this->_em
                     ->createQueryBuilder()
-                    ->select("$alias,rl,l")
+                    ->select("$alias,l")
                     ->from($this->getClassName(),$alias)
-                    ->leftJoin("$alias.externalLabs", "rl")
-                    ->leftJoin("$alias.siteLab",'l')
+                    ->leftJoin("$alias.lab",'l')
                     ->orderBy('m.id','DESC'))
                     ;
     }
@@ -252,9 +249,8 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
     public function findModified($modifiedSince = null)
     {
         $qb = $this->createQueryBuilder('m')
-                    ->select('m,rl,l')
-                    ->leftJoin("m.externalLabs", "rl")
-                    ->leftJoin("m.siteLab",'l')
+                    ->select('m,l')
+                    ->leftJoin("m.lab",'l')
                     ->orderBy('m.id','DESC')
                 ;
 

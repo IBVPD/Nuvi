@@ -37,11 +37,15 @@ class CaseActions extends \Twig_Extension
         return ($object instanceOf \NS\SentinelBundle\Entity\Meningitis) ? 'meningitis':'rotavirus';
     }
 
-    public function getBigActions($row)
+    public function getBigActions($row, $includeIndex = false)
     {
         $baseRoute = $this->getBaseRoute($row);
 
-        $out = '<a href="'.$this->router->generate($baseRoute.'Show',array('id'=>$row->getId())).'" class="btn btn-xs btn-info"><i class="icon-eye-open bigger-120"></i></a>';
+        $out = '';
+        if($includeIndex)
+            $out .= '<a href="'.$this->router->generate($baseRoute.'Index').'" class="btn btn-xs btn-info"><i class="icon-list bigger-120"></i></a>';
+
+        $out .= '<a href="'.$this->router->generate($baseRoute.'Show',array('id'=>$row->getId())).'" class="btn btn-xs btn-info"><i class="icon-eye-open bigger-120"></i></a>';
 
         if($this->securityContext->isGranted('ROLE_CAN_CREATE'))
         {
@@ -49,13 +53,7 @@ class CaseActions extends \Twig_Extension
                 $out .= '<a href="'.$this->router->generate($baseRoute.'Edit',array('id'=>$row->getId())).'" class="btn btn-xs btn-info"><i class="icon-edit bigger-120"></i> '.$this->translator->trans('EPI').'</a>';
 
             if($this->securityContext->isGranted('ROLE_CAN_CREATE_LAB'))
-                $out .= '<a href="'.$this->router->generate($baseRoute.'LabEdit',array('id'=>$row->getId())).'" class="btn btn-xs btn-info"><i class="'.($row->hasSiteLab() ? 'icon-edit':'icon-plus').' bigger-120"></i> '.$this->translator->trans('Lab').'</a>';
-
-            if($this->securityContext->isGranted('ROLE_CAN_CREATE_NL_LAB') && $row->getSentToNationalLab())
-                $out .= '<a href="'.$this->router->generate($baseRoute.'NLEdit',array('id'=>$row->getId())).'" class="btn btn-xs btn-info"><i class="'.($row->hasNationalLab() ? 'icon-edit':'icon-plus').' bigger-120"></i>'.$this->translator->trans('NL').'</a>';
-
-            if($this->securityContext->isGranted('ROLE_CAN_CREATE_RRL_LAB') && $row->getSentToReferenceLab())
-                $out .= '<a href="'.$this->router->generate($baseRoute.'RRLEdit',array('id'=>$row->getId())).'" class="btn btn-xs btn-info"><i class="'.($row->hasReferenceLab() ? 'icon-edit':'icon-plus').' bigger-120"></i>'.$this->translator->trans('RRL').'</a>';
+                $out .= '<a href="'.$this->router->generate($baseRoute.'LabEdit',array('id'=>$row->getId())).'" class="btn btn-xs btn-info"><i class="'.($row->hasLab() ? 'icon-edit':'icon-plus').' bigger-120"></i> '.$this->translator->trans('Lab').'</a>';
 
             if($this->securityContext->isGranted('ROLE_CAN_CREATE_CASE'))
                 $out .= '<a href="'.$this->router->generate($baseRoute.'OutcomeEdit',array('id'=>$row->getId())).'" class="btn btn-xs btn-info"><i class="icon-edit bigger-120"></i> '.$this->translator->trans('Outcome').'</a>';
@@ -78,13 +76,7 @@ class CaseActions extends \Twig_Extension
                 $out .= '<li><a href="'.$this->router->generate($baseRoute.'Edit',array('id'=>$row->getId())).'" class="tooltip-success" data-rel="tooltip" title="Edit"><span class="green"><i class="icon-edit bigger-120"></i> '.$this->translator->trans('EPI').'</span></a></li>';
 
             if($this->securityContext->isGranted('ROLE_CAN_CREATE_LAB'))
-                $out .= '<li><a href="'.$this->router->generate($baseRoute.'LabEdit',array('id'=>$row->getId())).'" class="tooltip-success"><span class="green"><i class="'.($row->hasSiteLab() ? 'icon-edit':'icon-plus').' bigger-120"></i> '.$this->translator->trans('Lab').'</span></a></li>';
-
-            if($this->securityContext->isGranted('ROLE_CAN_CREATE_NL_LAB') && $row->getSentToNationalLab())
-                $out .= '<li><a href="'.$this->router->generate($baseRoute.'NLEdit',array('id'=>$row->getId())).'" class="tooltip-success"><span class="green"><i class="'.($row->hasNationalLab() ? 'icon-edit':'icon-plus').' bigger-120"></i> '.$this->translator->trans('NL').'</span></a></li>';
-
-            if($this->securityContext->isGranted('ROLE_CAN_CREATE_RRL_LAB') && $row->getSentToReferenceLab())
-                $out .= '<li><a href="'.$this->router->generate($baseRoute.'RRLEdit',array('id'=>$row->getId())).'" class="tooltip-success"><span class="green"><i class="'.($row->hasReferenceLab() ? 'icon-edit':'icon-plus').' bigger-120"></i> '.$this->translator->trans('RRL').'</span></a></li>';
+                $out .= '<li><a href="'.$this->router->generate($baseRoute.'LabEdit',array('id'=>$row->getId())).'" class="tooltip-success"><span class="green"><i class="'.($row->hasLab() ? 'icon-edit':'icon-plus').' bigger-120"></i> '.$this->translator->trans('Lab').'</span></a></li>';
         }
 
         $out .= '</ul>';

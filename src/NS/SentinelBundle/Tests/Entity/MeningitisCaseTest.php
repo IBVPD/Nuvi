@@ -14,6 +14,7 @@ use NS\SentinelBundle\Form\Types\DischargeClassification;
 use NS\SentinelBundle\Form\Types\CaseStatus;
 use NS\SentinelBundle\Form\Types\CSFAppearance;
 use NS\SentinelBundle\Form\Types\MeningitisVaccinationType;
+use NS\SentinelBundle\Form\Types\OtherSpecimen;
 
 /**
  * Description of MeningitisCaseTest
@@ -76,7 +77,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
         $case = new Meningitis();
         $case->setCountry($country);
 
-        $this->assertEquals(33, count($case->getMinimumRequiredFields()));
+        $this->assertEquals(34, count($case->getMinimumRequiredFields()));
     }
 
     public function testMinimumRequiredFieldsWithoutPneunomia()
@@ -86,7 +87,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
         $case = new Meningitis();
         $case->setCountry($country);
 
-        $this->assertEquals(24, count($case->getMinimumRequiredFields()));
+        $this->assertEquals(25, count($case->getMinimumRequiredFields()));
     }
 
     //============================================================
@@ -97,8 +98,8 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
         $this->_updateCase($case, $this->getSingleCompleteCaseWithPneunomia());
         $case->preUpdateAndPersist();
 
-        $this->assertEquals(33, count($case->getMinimumRequiredFields()));
-        $this->assertTrue($case->isComplete(),"New cases are incomplete");
+        $this->assertEquals(34, count($case->getMinimumRequiredFields()));
+        $this->assertTrue($case->isComplete(),"New cases are incomplete ".$case->getIncompleteField().' '.$case->getStatus());
     }
 
     public function testSingleMinimumCompleteCaseWithoutPneunomia()
@@ -107,8 +108,8 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
         $this->_updateCase($case, $this->getSingleCompleteCaseWithoutPneunomia());
         $case->preUpdateAndPersist();
 
-        $this->assertEquals(24, count($case->getMinimumRequiredFields()));
-        $this->assertTrue($case->isComplete(),"New cases are incomplete");
+        $this->assertEquals(25, count($case->getMinimumRequiredFields()));
+        $this->assertTrue($case->isComplete(),"New cases are incomplete".$case->getIncompleteField().' '.$case->getStatus());
     }
 
     //============================================================
@@ -246,7 +247,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
         {
             $d                          = $complete;
             $d['setcsfCollected']       = $tripleYes;
-            $d['setcsfId']              = 'null';
+//            $d['setcsfId']              = 'null';
             $d['setcsfCollectDateTime'] = new \DateTime();
             $d['setcsfAppearance']      = new CSFAppearance($v);
             $data[]                     = array('data'=>$d);
@@ -334,12 +335,12 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
         //csfCollected + related
         $d                    = $complete;
         $d['setcsfCollected'] = $tripleYes;
-        $d['setcsfId']        = null;
+//        $d['setcsfId']        = null;
         $data[]               = array('data'=>$d);
 
         $d                    = $complete;
         $d['setcsfCollected'] = $tripleYes;
-        $d['setcsfId']        = '';
+//        $d['setcsfId']        = '';
         $data[]               = array('data'=>$d);
 
         $d                          = $complete;
@@ -401,16 +402,18 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
                     'setmeningType'        => null,
                     'setmeningMostRecentDose'=> null,
                     'setcsfCollected'      => $tripleNo,
-                    'setcsfId'             => null,
+//                    'setcsfId'             => null,
                     'setcsfCollectDateTime'=> null,
                     'setcsfAppearance'     => null,
                     'setbloodCollected'    => $tripleNo,
+                    'setOtherSpecimenCollected' => new OtherSpecimen(OtherSpecimen::NONE),
                     'setbloodId'           => null,
                     'setdischOutcome'      => new DischargeOutcome(DischargeOutcome::DISCHARGED_ALIVE_WITHOUT_SEQUELAE),
                     'setdischDx'           => new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA),
                     'setdischDxOther'      => null,
                     'setdischClass'        => new DischargeClassification(DischargeClassification::CONFIRMED_SPN),
                     'setCxrDone'           => new TripleChoice(TripleChoice::NO),
+
                 );
     }
 
@@ -446,10 +449,11 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
                     'setmeningType'        => null,
                     'setmeningMostRecentDose'=> null,
                     'setcsfCollected'      => $tripleNo,
-                    'setcsfId'             => null,
+//                    'setcsfId'             => null,
                     'setcsfCollectDateTime'=> null,
                     'setcsfAppearance'     => null,
                     'setbloodCollected'    => $tripleNo,
+                    'setOtherSpecimenCollected' => new OtherSpecimen(OtherSpecimen::NONE),
                     'setbloodId'           => null,
                     'setdischOutcome'      => new DischargeOutcome(DischargeOutcome::DISCHARGED_ALIVE_WITHOUT_SEQUELAE),
                     'setdischDx'           => new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA),

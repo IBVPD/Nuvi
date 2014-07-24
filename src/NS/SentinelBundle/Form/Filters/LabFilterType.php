@@ -8,11 +8,11 @@ use Lexik\Bundle\FormFilterBundle\Filter\Extension\Type\EmbeddedFilterTypeInterf
 use Lexik\Bundle\FormFilterBundle\Filter\Query\QueryInterface;
 
 /**
- * Description of SiteLabFilterType
+ * Description of LabFilterType
  *
  * @author gnat
  */
-class SiteLabFilterType extends AbstractType implements EmbeddedFilterTypeInterface
+class LabFilterType extends AbstractType implements EmbeddedFilterTypeInterface
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -31,6 +31,6 @@ class SiteLabFilterType extends AbstractType implements EmbeddedFilterTypeInterf
 
     public function getName()
     {
-        return 'site_lab_filter';
+        return 'lab_filter';
     }
 }

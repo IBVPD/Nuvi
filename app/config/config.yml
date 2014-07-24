@@ -102,6 +102,8 @@ doctrine:
             PCVType: NS\SentinelBundle\Entity\Types\PCVType
             RotavirusDischargeOutcome: NS\SentinelBundle\Entity\Types\RotavirusDischargeOutcome
             CultureResult: NS\SentinelBundle\Entity\Types\CultureResult
+            ElisaKit: NS\SentinelBundle\Entity\Types\ElisaKit
+            OtherSpecimen: NS\SentinelBundle\Entity\Types\OtherSpecimen
         mapping_types:
             TripleChoice: TripleChoice
             Doses: Doses
@@ -146,6 +148,8 @@ doctrine:
             PCVType: PCVType
             RotavirusDischargeOutcome: RotavirusDischargeOutcome
             CultureResult: CultureResult
+            ElisaKit: ElisaKit
+            OtherSpecimen: OtherSpecimen
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true

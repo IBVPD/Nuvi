@@ -10,11 +10,7 @@ Scenario Outline: All IBD forms
       | email             | password          | path                 | id                   |
       | ca-full@noblet.ca | 1234567-ca-full   | /en/ibd/edit/        | CA-ALBCHLD-%d-000001 |
       | ca-full@noblet.ca | 1234567-ca-full   | /en/ibd/lab/edit/     | CA-ALBCHLD-%d-000001 |
-      | ca-full@noblet.ca | 1234567-ca-full   | /en/ibd/rrl/edit/     | CA-ALBCHLD-%d-000001 |
-      | ca-full@noblet.ca | 1234567-ca-full   | /en/ibd/nl/edit      | CA-ALBCHLD-%d-000001 |
       | ca-full@noblet.ca | 1234567-ca-full   | /en/ibd/outcome/edit | CA-ALBCHLD-%d-000001 |
       | ca-full@noblet.ca | 1234567-ca-full   | /en/rota/edit/        | CA-ALBCHLD-%d-000001 |
       | ca-full@noblet.ca | 1234567-ca-full   | /en/rota/lab/edit     | CA-ALBCHLD-%d-000001 |
-      | ca-full@noblet.ca | 1234567-ca-full   | /en/rota/rrl/edit     | CA-ALBCHLD-%d-000001 |
-      | ca-full@noblet.ca | 1234567-ca-full   | /en/rota/nl/edit      | CA-ALBCHLD-%d-000001 |
       | ca-full@noblet.ca | 1234567-ca-full   | /en/rota/outcome/edit | CA-ALBCHLD-%d-000001 |

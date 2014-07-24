@@ -8,7 +8,7 @@ use \Doctrine\Common\DataFixtures\AbstractFixture;
 use \Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use \Symfony\Component\DependencyInjection\ContainerInterface;
 use \NS\SentinelBundle\Entity\RotaVirus;
-use \NS\SentinelBundle\Entity\Rota\SiteLab;
+use \NS\SentinelBundle\Entity\Rota\Lab;
 use \NS\SentinelBundle\Form\Types\TripleChoice;
 use \NS\SentinelBundle\Form\Types\Gender;
 use \NS\SentinelBundle\Form\Types\Diagnosis;
@@ -53,8 +53,8 @@ class LoadRotaVirusCaseData extends AbstractFixture implements OrderedFixtureInt
                 $m->setAdmDate($this->getRandomDate(null,$dob));
                 if($x%12 == 0)
                 {
-                    $sl = new SiteLab();
-                    $m->setSiteLab($sl);
+                    $sl = new Lab();
+                    $m->setLab($sl);
 
                     $manager->persist($sl);
                 }

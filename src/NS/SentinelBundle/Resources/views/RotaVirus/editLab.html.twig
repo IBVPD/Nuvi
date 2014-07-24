@@ -5,7 +5,7 @@
 {% endblock %}
 
 {%block pageactions %}
-<div class="pull-right">{{case_big_actions(form.vars.value.case)}}</div>
+<div class="pull-right">{{case_big_actions(form.vars.value.case,true)}}</div>
 {%endblock %}
 
 {% block body %}
@@ -15,48 +15,113 @@
     <div class="col-sm-12">
         <div class="tabbable">
             <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
-                <li class="active"><a data-toggle="tab" href="#stool">{{'Stool'|trans}}</a></li>
-                {% if form.stoolSentToNL is defined %}
-                <li><a data-toggle="tab" href="#stool-nl">{{'Stool - NL'|trans}}</a></li>
-                {% endif %}
-    
-                {% if form.stoolSentToRRL is defined %}
-                <li><a data-toggle="tab" href="#stool-rrl">{{'Stool - RRL'|trans}}</a></li>
-                {% endif %}
+                <li class="active"><a data-toggle="tab" href="#stool">{{'Sample Information'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#elisa">{{'Elisa'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#genotype">{{'Genotyping'|trans}}</a></li>
             </ul>
 
             <div class="tab-content">
                 <div id="stool" class="tab-pane active">
                     <div class="row">
                         <div class="col-sm-3">
-                            {{form_row(form.stoolReceivedDate)}}
+                            {{form_row(form.siteReceivedDate)}}
+                            {{form_row(form.siteLabId)}}
                         </div>
                         <div class="col-sm-3">
-                            {{form_row(form.stoolStored)}}
+                            {{form_row(form.adequate)}}
+                            {{form_row(form.stored)}}
                         </div>
                     </div>
+                {% if form.sentToRRL is defined %}
+                    <hr />
+                    <div class="row">
+                        <div class="col-sm-4">
+                            {{form_row(form.sentToRRL)}}
+                            {{form_row(form.sentToRRLDate)}}
+                        </div>
+                        <div class="col-sm-4">
+                            {{form_row(form.rrlReceivedDate)}}
+                            {{form_row(form.rrlLabId)}}
+                        </div>
+                    </div>
+                {%endif %}
+                {% if form.sentToNL is defined %}
+                    <hr />
+                    <div class="row">
+                        <div class="col-sm-4">
+                            {{form_row(form.sentToNL)}}
+                            {{form_row(form.sentToNLDate)}}
+                        </div>
+                        <div class="col-sm-4">
+                            {{form_row(form.nlReceivedDate)}}
+                            {{form_row(form.nlLabId)}}
+                        </div>
+                    </div>
+                {%endif %}
+                </div>
+
+                {% if form.sentToNL is defined %}
+                    {{form_row(form.sentToNL)}}
+                    {{form_row(form.sentToNLDate)}}
+                    {{form_row(form.nlReceivedDate)}}
+                    {{form_row(form.nlLabId)}}
+                {%endif %}
+                <div id="elisa" class="tab-pane">
                     <div class="row">
                         <div class="col-sm-3">
-                            {{form_row(form.stoolAdequate)}}
+                            {{form_row(form.elisaDone)}}
                         </div>
-                        <div class="col-sm-3">
-                            {{form_row(form.stoolELISADone)}}
+                        <div class="col-sm-9">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                {{form_row(form.elisaKit)}}
+                                {{form_row(form.elisaKitOther)}}
+                                {{form_row(form.elisaLoadNumber)}}
+                                </div>
+                                <div class="col-sm-6">                                
+                                {{form_row(form.elisaExpiryDate)}}
+                                {{form_row(form.elisaTestDate)}}
+                                {{form_row(form.elisaResult)}}
+                                </div>
+                            </div>
                         </div>
+                    </div>
+                                <hr />
+                    <div class="row">
                         <div class="col-sm-3">
-                            {{form_row(form.stoolTestDate)}}
+                            {{form_row(form.secondaryElisaDone)}}
                         </div>
-                        <div class="col-sm-3">
-                            {{form_row(form.stoolELISAResult)}}
+                        <div class="col-sm-9">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    {{form_row(form.secondaryElisaKit)}}
+                                    {{form_row(form.secondaryElisaKitOther)}}
+                                    {{form_row(form.secondaryElisaLoadNumber)}}
+                                </div>
+                                <div class="col-sm-6">                                
+                                    {{form_row(form.secondaryElisaExpiryDate)}}
+                                    {{form_row(form.secondaryElisaTestDate)}}
+                                    {{form_row(form.secondaryElisaResult)}}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div id="stool-rrl" class="tab-pane">
-                    {{form_row(form.stoolSentToRRL)}}
-                    {{form_row(form.stoolSentToRRLDate)}}
-                </div>
-                <div id="stool-nl" class="tab-pane">
-                    {{form_row(form.stoolSentToNL)}}
-                    {{form_row(form.stoolSentToNLDate)}}
+
+                <div id="genotype" class="tab-pane">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            {{form_row(form.genotypingDate)}}
+                        </div>
+                        <div class="col-sm-4">
+                            {{form_row(form.genotypingResultG)}}
+                            {{form_row(form.genotypingResultGSpecify)}}
+                        </div>
+                        <div class="col-sm-4">
+                            {{form_row(form.genotypeResultP)}}
+                            {{form_row(form.genotypeResultPSpecify)}}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

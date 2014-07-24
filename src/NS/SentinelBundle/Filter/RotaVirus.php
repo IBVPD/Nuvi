@@ -40,9 +40,9 @@ class RotaVirus
     //site_code
 
     /**
-     * @var siteLab
+     * @var lab
      */
-    private $siteLab;
+    private $lab;
 
 //ii. Case-based Demographic Data
     /**
@@ -78,9 +78,9 @@ class RotaVirus
         return $this->site;
     }
 
-    public function getSiteLab()
+    public function getLab()
     {
-        return $this->siteLab;
+        return $this->lab;
     }
 
     public function getCaseId()
@@ -117,9 +117,9 @@ class RotaVirus
         return $this;
     }
 
-    public function setSiteLab($siteLab)
+    public function setlab($lab)
     {
-        $this->siteLab = $siteLab;
+        $this->lab = $lab;
         return $this;
     }
 

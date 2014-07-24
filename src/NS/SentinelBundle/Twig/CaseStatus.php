@@ -16,45 +16,13 @@ class CaseStatus extends \Twig_Extension
         return array(
             'case_label'     => new \Twig_Function_Method($this, 'getLabel',array('is_safe'=>array('html'))),
             'case_lab_label' => new \Twig_Function_Method($this, 'getLabLabel',array('is_safe'=>array('html'))),
-            'case_rrl_label' => new \Twig_Function_Method($this, 'getRRLLabel',array('is_safe'=>array('html'))),
-            'case_nl_label'  => new \Twig_Function_Method($this, 'getNLLabel',array('is_safe'=>array('html'))),
         );
-    }
-
-    public function getNLLabel(BaseCase $obj, $message)
-    {
-        if($obj->getSentToNationalLab() || $obj->hasNationalLab())
-        {
-            if($obj->getSentToNationalLab() && $obj->hasNationalLab())
-                $class = ($obj->getNationalLab()->getIsComplete()) ? 'label-success icon icon-ok':'label-warning icon icon-warning-sign';
-            else
-                $class = 'label-danger icon icon-exclamation-sign';
-
-            return '<span class="label label-sm '.$class.'">'. $message .'</span>';
-        }
-
-        return null;
-    }
-
-    public function getRRLLabel(BaseCase $obj, $message)
-    {
-        if($obj->getSentToReferenceLab() || $obj->hasReferenceLab())
-        {
-            if($obj->getSentToReferenceLab() && $obj->hasReferenceLab())
-                $class = ($obj->getReferenceLab()->getIsComplete()) ? 'label-success icon icon-ok':'label-warning icon icon-warning-sign';
-            else
-                $class = 'label-danger icon icon-exclamation-sign';
-
-            return '<span class="label label-sm '.$class.'">'. $message .'</span>';
-        }
-
-        return null;
     }
 
     public function getLabLabel(BaseCase $obj, $message)
     {
-        if($obj->hasSiteLab())
-            $class = $obj->getSiteLab()->isComplete() ? 'label-success icon icon-ok':'label-warning icon icon-exclamation-sign';
+        if($obj->hasLab())
+            $class = $obj->getLab()->isComplete() ? 'label-success icon icon-ok':'label-warning icon icon-exclamation-sign';
         else
             $class = 'label-danger icon icon-exclamation-sign';
 
@@ -65,8 +33,26 @@ class CaseStatus extends \Twig_Extension
     {
         $noError = true;
 
-        if($obj->hasReferenceLab() && !$obj->getSentToReferenceLab())
+        /* This needs to be re-written to check if we sent to them but the corresponding date received field is still empty
+
+        if($obj->getLab()->getCsfSentToRRL() && !$obj->getLab()->getCsfRRLDateTime())
             $noError = false;
+
+        if($obj->getLab()->getCsfSentToNL() && !$obj->getLab()->getCsfNLDateTime())
+            $noError = false;
+
+        if($obj->getLab()->getBloodSentToRRL() && !$obj->getLab()->getBloodRRLDateTime())
+            $noError = false;
+
+        if($obj->getLab()->getBloodSentToNL() && !$obj->getLab()->getBloodNLDateTime())
+            $noError = false;
+
+        if($obj->getLab()->getOtherSentToRRL() && !$obj->getLab()->getOtherRRLDateTime())
+            $noError = false;
+
+        if($obj->getLab()->getOtherSentToNL() && !$obj->getLab()->getOtherNLDateTime())
+            $noError = false;
+
 
         if(!$obj->hasReferenceLab() && $obj->getSentToReferenceLab())
             $noError = false;
@@ -76,6 +62,7 @@ class CaseStatus extends \Twig_Extension
 
         if(!$obj->hasNationalLab() && $obj->getSentToNationalLab())
             $noError = false;
+        */
 
         if($noError)
             $class = ($obj->isComplete()) ? 'label-success icon icon-ok':'label-warning icon icon-exclamation-sign';

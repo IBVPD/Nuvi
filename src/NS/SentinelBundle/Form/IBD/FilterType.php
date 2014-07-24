@@ -18,7 +18,7 @@ class FilterType extends AbstractType implements EmbeddedFilterTypeInterface
         parent::buildForm($builder, $options);
 
         $builder->add('status', 'CaseStatus', array('required'=>false, 'label' => 'filter-case-status'));
-        $builder->add('siteLab','site_lab_filter',array('required'=>false));
+        $builder->add('lab','lab_filter',array('required'=>false));
     }
 
     /**

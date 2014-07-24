@@ -84,7 +84,7 @@ class RotaVirus extends SecuredEntityRepository implements AjaxAutocompleteRepos
         $qb = $this->_em->createQueryBuilder()
                    ->select('m,l')
                    ->from($this->getClassName(),'m')
-                   ->leftJoin('m.siteLab', 'l')
+                   ->leftJoin('m.lab', 'l')
                    ->orderBy('m.id','DESC');
         return $this->secure($qb);
     }
@@ -94,7 +94,7 @@ class RotaVirus extends SecuredEntityRepository implements AjaxAutocompleteRepos
         $qb = $this->_em->createQueryBuilder()
                    ->select('m,l')
                    ->from($this->getClassName(),'m')
-                   ->leftJoin('m.siteLab', 'l')
+                   ->leftJoin('m.lab', 'l')
                    ->orderBy('m.id','DESC')
                    ->setMaxResults($limit);
         return $this->secure($qb)->getQuery()->getResult();
@@ -191,12 +191,11 @@ class RotaVirus extends SecuredEntityRepository implements AjaxAutocompleteRepos
             throw new \InvalidArgumentException("Id or Case must be provided");
 
         $qb = $this->createQueryBuilder('m')
-                   ->select('m,s,c,r,e,l')
+                   ->select('m,s,c,r,l')
                    ->innerJoin('m.site', 's')
                    ->innerJoin('s.country', 'c')
                    ->innerJoin('m.region', 'r')
-                   ->leftJoin('m.externalLabs', 'e')
-                   ->leftJoin('m.siteLab','l')
+                   ->leftJoin('m.lab','l')
                    ->where('m.caseId = :caseId')
                    ->setParameter('caseId', $caseId);
 
@@ -221,10 +220,11 @@ class RotaVirus extends SecuredEntityRepository implements AjaxAutocompleteRepos
         try
         {
             $qb = $this->createQueryBuilder('m')
-                       ->addSelect('r,c,s')
+                       ->addSelect('r,c,s,l')
                        ->leftJoin('m.region', 'r')
                        ->leftJoin('m.country', 'c')
                        ->leftJoin('m.site', 's')
+                       ->leftJoin('m.lab', 'l')
                        ->andWhere('m.id = :id')
                        ->setParameter('id', $id);
 
@@ -244,7 +244,7 @@ class RotaVirus extends SecuredEntityRepository implements AjaxAutocompleteRepos
                     ->createQueryBuilder()
                     ->select("$alias,l")
                     ->from($this->getClassName(),$alias)
-                    ->leftJoin("$alias.siteLab",'l')
+                    ->leftJoin("$alias.lab",'l')
                     ->orderBy('m.id','DESC'))
                     ;
     }

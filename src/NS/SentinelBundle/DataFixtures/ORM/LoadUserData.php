@@ -61,8 +61,6 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
             $user->setPassword($encoder->encodePassword($data['password'],$user->getSalt()));
             $user->setCanCreateCases($data['can_create_cases']);
             $user->setCanCreateLabs($data['can_create_labs']);
-            $user->setCanCreateRRLLabs($data['can_create_rrl']);
-            $user->setCanCreateNLLabs($data['can_create_nl']);
 
             $acl = new ACL();
             $acl->setUser($user);
@@ -83,8 +81,6 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
             $user->setPassword($encoder->encodePassword($data['password'],$user->getSalt()));
             $user->setCanCreateCases($data['can_create_cases']);
             $user->setCanCreateLabs($data['can_create_labs']);
-            $user->setCanCreateRRLLabs($data['can_create_rrl']);
-            $user->setCanCreateNLLabs($data['can_create_nl']);
 
             $acl = new ACL();
             $acl->setUser($user);
@@ -144,8 +140,6 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
                     'ref-name'  => 'country-us',
                     'can_create_cases' => false,
                     'can_create_labs' => false,
-                    'can_create_rrl' => false,
-                    'can_create_nl' => false,
 
                  ),
             array(
@@ -155,8 +149,6 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
                     'ref-name'  => 'country-ca',
                     'can_create_cases' => false,
                     'can_create_labs' => false,
-                    'can_create_rrl' => false,
-                    'can_create_nl' => false,
                 ),
             array(
                     'name'      => 'Canada Create User',
@@ -165,8 +157,6 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
                     'ref-name'  => 'country-ca',
                     'can_create_cases' => true,
                     'can_create_labs' => false,
-                    'can_create_rrl' => false,
-                    'can_create_nl' => false,
                  ),
             array(
                     'name'      => 'Canada Create User',
@@ -175,8 +165,6 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
                     'ref-name'  => 'country-ca',
                     'can_create_cases' => true,
                     'can_create_labs' => true,
-                    'can_create_rrl' => false,
-                    'can_create_nl' => false,
                  ),
             array(
                     'name'      => 'Canada Create User',
@@ -184,9 +172,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
                     'email'     => 'ca-crrl@noblet.ca',
                     'ref-name'  => 'country-ca',
                     'can_create_cases' => true,
-                    'can_create_labs' => false,
-                    'can_create_rrl' => true,
-                    'can_create_nl' => false,
+                    'can_create_labs' => true,
                  ),
             array(
                     'name'      => 'Canada Create User',
@@ -194,9 +180,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
                     'email'     => 'ca-cnl@noblet.ca',
                     'ref-name'  => 'country-ca',
                     'can_create_cases' => true,
-                    'can_create_labs' => false,
-                    'can_create_rrl' => false,
-                    'can_create_nl' => true,
+                    'can_create_labs' => true,
                  ),
             array(
                     'name'      => 'Canada Full User',
@@ -205,8 +189,6 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
                     'ref-name'  => 'country-ca',
                     'can_create_cases' => true,
                     'can_create_labs' => true,
-                    'can_create_rrl' => true,
-                    'can_create_nl' => true,
                  ),
         );
     }
@@ -216,29 +198,19 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         return array(
             array('name'=>'Alberta Site User','password'=>'1234567-alberta','email'=>'site-alberta@noblet.ca','ref-name'=>'site-alberta',
                     'can_create_cases' => true,
-                    'can_create_labs' => false,
-                    'can_create_rrl' => false,
-                    'can_create_nl' => false,),
+                    'can_create_labs' => false,),
             array('name'=>'Seattle Site User','password'=>'1234567-seattle','email'=>'site-seattle@noblet.ca','ref-name'=>'site-seattle',
                     'can_create_cases' => true,
-                    'can_create_labs' => false,
-                    'can_create_rrl' => false,
-                    'can_create_nl' => false,),
+                    'can_create_labs' => false,),
             array('name'=>'Shriners Site User','password'=>'1234567-shriner','email'=>'site-shriner@noblet.ca','ref-name'=>'site-shriners',
                     'can_create_cases' => true,
-                    'can_create_labs' => true,
-                    'can_create_rrl' => false,
-                    'can_create_nl' => false,),
+                    'can_create_labs' => true,),
             array('name'=>'Toronto Site User','password'=>'1234567-toronto','email'=>'site-toronto@noblet.ca','ref-name'=>'site-toronto',
                     'can_create_cases' => true,
-                    'can_create_labs' => false,
-                    'can_create_rrl' => false,
-                    'can_create_nl' => false,),
+                    'can_create_labs' => false,),
             array('name'=>'Mexico Site User','password'=>'1234567-mexico','email'=>'site-mexico@noblet.ca','ref-name'=>'site-mexico',
                     'can_create_cases' => true,
-                    'can_create_labs' => false,
-                    'can_create_rrl' => false,
-                    'can_create_nl' => false,),
+                    'can_create_labs' => false,),
         );
     }
 
@@ -246,23 +218,17 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
     {
         return array(
             array('name'=>'Alberta RRL User','password'=>'1234567-alberta-rrl','email'=>'rrl-alberta@noblet.ca','ref-name'=>'site-alberta',
-                    'role_type'        => ROLE::RRL_LAB,
+                    'role_type'        => ROLE::LAB,
                     'can_create_cases' => false,
-                    'can_create_labs'  => false,
-                    'can_create_rrl'   => false,
-                    'can_create_nl'    => false,),
+                    'can_create_labs'  => false,),
             array('name'=>'Alberta NL User','password'=>'1234567-alberta-nl','email'=>'nl-alberta@noblet.ca','ref-name'=>'site-alberta',
-                    'role_type'        => ROLE::NL_LAB,
+                    'role_type'        => ROLE::LAB,
                     'can_create_cases' => false,
-                    'can_create_labs'  => false,
-                    'can_create_rrl'   => false,
-                    'can_create_nl'    => false,),
+                    'can_create_labs'  => false,),
             array('name'=>'Alberta Lab User','password'=>'1234567-alberta-lab','email'=>'lab-alberta@noblet.ca','ref-name'=>'site-alberta',
                     'role_type'        => ROLE::LAB,
                     'can_create_cases' => false,
-                    'can_create_labs'  => false,
-                    'can_create_rrl'   => false,
-                    'can_create_nl'    => false,),
+                    'can_create_labs'  => false,),
         );
     }
 

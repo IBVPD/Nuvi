@@ -36,11 +36,6 @@ class Meningitis
     private $site;
 
     /**
-     * @var
-     */
-    private $siteLab;
-
-    /**
      * @var string $firstName
      */
     private $firstName;
@@ -60,7 +55,6 @@ class Meningitis
      */
     private $status;
     private $lab;
-    private $referenceLab;
 
     public function getId()
     {
@@ -87,11 +81,6 @@ class Meningitis
         return $this->site;
     }
 
-    public function getSiteLab()
-    {
-        return $this->siteLab;
-    }
-
     public function getFirstName()
     {
         return $this->firstName;
@@ -115,11 +104,6 @@ class Meningitis
     public function getLab()
     {
         return $this->lab;
-    }
-
-    public function getReferenceLab()
-    {
-        return $this->referenceLab;
     }
 
     public function setId($id)
@@ -152,12 +136,6 @@ class Meningitis
         return $this;
     }
 
-    public function setSiteLab($siteLab)
-    {
-        $this->siteLab = $siteLab;
-        return $this;
-    }
-
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
@@ -185,12 +163,6 @@ class Meningitis
     public function setLab($lab)
     {
         $this->lab = $lab;
-        return $this;
-    }
-
-    public function setReferenceLab($referenceLab)
-    {
-        $this->referenceLab = $referenceLab;
         return $this;
     }
 }

@@ -16,6 +16,7 @@ use NS\SentinelBundle\Form\Types\CaseStatus;
 use NS\SentinelBundle\Form\Types\MeningitisCaseResult;
 use NS\SentinelBundle\Form\Types\MeningitisVaccinationReceived;
 use NS\SentinelBundle\Form\Types\MeningitisVaccinationType;
+use NS\SentinelBundle\Form\Types\OtherSpecimen;
 use NS\UtilBundle\Form\Types\ArrayChoice;
 
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -41,19 +42,11 @@ use Symfony\Component\Validator\ExecutionContextInterface;
  */
 class Meningitis extends BaseCase
 {
-    /**
-     * @ORM\OneToMany(targetEntity="\NS\SentinelBundle\Entity\IBD\ExternalLab", mappedBy="case")
+     /**
+     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\IBD\Lab", mappedBy="case")
      */
-    protected $externalLabs;
-
-    /**
-     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\IBD\SiteLab", mappedBy="case",cascade={"persist"})
-     */
-    protected $siteLab;
-
-    protected $siteLabClass   = '\NS\SentinelBundle\Entity\IBD\SiteLab';
-    protected $referenceClass = '\NS\SentinelBundle\Entity\IBD\ReferenceLab';
-    protected $nationalClass  = '\NS\SentinelBundle\Entity\IBD\NationalLab';
+    protected $lab;
+    protected $labClass   = '\NS\SentinelBundle\Entity\IBD\Lab';
 
 // Case based demographic
     /**
@@ -299,6 +292,18 @@ class Meningitis extends BaseCase
      */
     private $bloodCollected;
 
+    /**
+     * @var OtherSpecimen $otherSpecimenCollected
+     * @ORM\Column(name="otherSpecimenCollected",type="OtherSpecimen",nullable=true)
+     */
+    private $otherSpecimenCollected;
+
+    /**
+     * @var string $otherSpecimenOther
+     * @ORM\Column(name="otherSpecimenOther",type="string",nullable=true)
+     */
+    private $otherSpecimenOther;
+
 //Case-based Outcome Data
     /**
      * @var DischargeOutcome $dischOutcome
@@ -339,7 +344,7 @@ class Meningitis extends BaseCase
     public function __construct()
     {
         parent::__construct();
-        $this->result       = new MeningitisCaseResult(0);
+        $this->result = new MeningitisCaseResult(MeningitisCaseResult::UNKNOWN);
     }
 
     public function getDistrict()
@@ -480,6 +485,28 @@ class Meningitis extends BaseCase
     public function getPcvType()
     {
         return $this->pcvType;
+    }
+
+    public function getOtherSpecimenCollected()
+    {
+        return $this->otherSpecimenCollected;
+    }
+
+    public function getOtherSpecimenOther()
+    {
+        return $this->otherSpecimenOther;
+    }
+
+    public function setOtherSpecimenOther($otherSpecimenOther)
+    {
+        $this->otherSpecimenOther = $otherSpecimenOther;
+        return $this;
+    }
+
+    public function setOtherSpecimenCollected(OtherSpecimen $otherSpecimenCollected)
+    {
+        $this->otherSpecimenCollected = $otherSpecimenCollected;
+        return $this;
     }
 
     public function setPcvType(PCVType $pcvType)
@@ -921,10 +948,10 @@ class Meningitis extends BaseCase
 
         if($this->csfCollected && $this->csfCollected->equal(TripleChoice::YES))
         {
-            if(is_null($this->csfId))
-                return 'csfCollected1';
-            if(empty($this->csfId))
-                return 'csfCollected2';
+//            if(is_null($this->csfId))
+//                return 'csfCollected1';
+//            if(empty($this->csfId))
+//                return 'csfCollected2';
             if(is_null($this->csfCollectDateTime))
                 return 'csfCollectDateTime';
             if(is_null($this->csfAppearance))
@@ -932,6 +959,9 @@ class Meningitis extends BaseCase
             if($this->csfAppearance->equal(ArrayChoice::NO_SELECTION))
                 return 'csfAppearance2';
         }
+
+        if($this->otherSpecimenCollected && $this->otherSpecimenCollected->equal(OtherSpecimen::OTHER) && empty($this->otherSpecimenOther))
+            return 'otherSpecimentOther';
 
         return null;
     }
@@ -959,6 +989,7 @@ class Meningitis extends BaseCase
                     'meningReceived',
                     'csfCollected',
                     'bloodCollected',
+                    'otherSpecimenCollected',
                     'dischOutcome',
                     'dischDx',
                     'dischClass',
