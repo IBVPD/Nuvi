@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2014-05-22T11:28:05Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
+  <file date="2014-07-24T10:38:38Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -192,7 +192,7 @@
       </trans-unit>
       <trans-unit id="05fcdf14c20820118b7c12ffc13c5fdf639790bb" resname="ACW135 (polysaccharide)">
         <source>ACW135 (polysaccharide)</source>
-        <target state="new">ACW135 (polysaccharide)</target>
+        <target>ACW135 (polysaccharide)</target>
       </trans-unit>
       <trans-unit id="44708d6bef8db5753893523e34ea079d400e1e11" resname="ACYW135 (conjugate)">
         <source>ACYW135 (conjugate)</source>
@@ -222,9 +222,24 @@
         <jms:reference-file line="4">views/Meningitis/indexCountryHeader.html.twig</jms:reference-file>
         <jms:reference-file line="5">views/Meningitis/indexRegionHeader.html.twig</jms:reference-file>
       </trans-unit>
+      <trans-unit id="f542d3c616d274f41e1ceaca4a114bc1c508c561" resname="Age Distribution of PBM Cases">
+        <source>Age Distribution of PBM Cases</source>
+        <target state="new">Age Distribution of PBM Cases</target>
+        <jms:reference-file line="106">views/Security/homepage.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="b08a841e0ccb2efd7d308ba8a30f83a1545846eb" resname="Age Distribution of Suspect Meningitis Cases">
+        <source>Age Distribution of Suspect Meningitis Cases</source>
+        <target state="new">Age Distribution of Suspect Meningitis Cases</target>
+        <jms:reference-file line="93">views/Security/homepage.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="64fed3e90d308e2a97b17bab99cd5c8e17e39754" resname="Age In Months">
+        <source>Age In Months</source>
+        <target>Edad en meses</target>
+        <jms:reference-file line="50">views/Meningitis/edit.html.twig</jms:reference-file>
+      </trans-unit>
       <trans-unit id="5f0404ee8d2a4c6592f295f92613e391ecad291d" resname="Air bronchogram">
         <source>Air bronchogram</source>
-        <target>Air bronchogram</target>
+        <target>Broncograma aereo</target>
       </trans-unit>
       <trans-unit id="ae4f281df5a5d0ff3cad6371f76d5c29b6d953ec" resname="B">
         <source>B</source>
@@ -245,7 +260,8 @@
       <trans-unit id="24652e28b94087f3d087bba10c9603848262cafa" resname="Blood">
         <source>Blood</source>
         <target>Sangre</target>
-        <jms:reference-file line="20">views/Meningitis/editLab.html.twig</jms:reference-file>
+        <jms:reference-file line="113">views/Meningitis/edit.html.twig</jms:reference-file>
+        <jms:reference-file line="19">views/Meningitis/editLab.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="42b657c8bebf02e57f682d03428fbdc6bcae2837" resname="Blood culture broth">
         <source>Blood culture broth</source>
@@ -255,10 +271,21 @@
         <source>Bloody</source>
         <target>Sanguinolento</target>
       </trans-unit>
+      <trans-unit id="d5b8ecfb0f8c2745aa1d63559a0e837f57b8df70" resname="By Country">
+        <source>By Country</source>
+        <target state="new">By Country</target>
+        <jms:reference-file line="46">views/Security/homepage.html.twig</jms:reference-file>
+      </trans-unit>
       <trans-unit id="32aed76fc277287cf218e00c2786cfeee22c813f" resname="By Diagnosis">
         <source>By Diagnosis</source>
         <target>Por Diagnóstico</target>
+        <jms:reference-file line="24">views/Security/homepage.html.twig</jms:reference-file>
         <jms:reference-file line="2">views/Report/byDiagnosisGraph.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="32e1bbe2f5c8a9c4483c352b659be1e0f7d9c46a" resname="By Site">
+        <source>By Site</source>
+        <target state="new">By Site</target>
+        <jms:reference-file line="68">views/Security/homepage.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="32096c2e0eff33d844ee6d675407ace18289357d" resname="C">
         <source>C</source>
@@ -267,25 +294,19 @@
       <trans-unit id="26a272d368f7a0ded2093637af1121af91bae4b3" resname="CSF">
         <source>CSF</source>
         <target>LCR</target>
-        <jms:reference-file line="19">views/Meningitis/editLab.html.twig</jms:reference-file>
-      </trans-unit>
-      <trans-unit id="775275cfc23d95b3976ef3bbea43f42a663ffdda" resname="CT Values From PCR">
-        <source>CT Values From PCR</source>
-        <target>CT valores de PCR</target>
-        <jms:reference-file line="21">views/Meningitis/editBaseLab.html.twig</jms:reference-file>
+        <jms:reference-file line="104">views/Meningitis/edit.html.twig</jms:reference-file>
+        <jms:reference-file line="18">views/Meningitis/editLab.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="77dfd2135f4db726c47299bb55be26f7f4525a46" resname="Cancel">
         <source>Cancel</source>
         <target>Cancelar</target>
         <jms:reference-file line="37">views/RotaVirus/editOutcome.html.twig</jms:reference-file>
         <jms:reference-file line="114">views/RotaVirus/edit.html.twig</jms:reference-file>
-        <jms:reference-file line="58">views/RotaVirus/editBaseLab.html.twig</jms:reference-file>
-        <jms:reference-file line="66">views/RotaVirus/editLab.html.twig</jms:reference-file>
+        <jms:reference-file line="131">views/RotaVirus/editLab.html.twig</jms:reference-file>
         <jms:reference-file line="71">views/RotaVirus/index.html.twig</jms:reference-file>
         <jms:reference-file line="38">views/Meningitis/editOutcome.html.twig</jms:reference-file>
-        <jms:reference-file line="152">views/Meningitis/edit.html.twig</jms:reference-file>
-        <jms:reference-file line="79">views/Meningitis/editBaseLab.html.twig</jms:reference-file>
-        <jms:reference-file line="197">views/Meningitis/editLab.html.twig</jms:reference-file>
+        <jms:reference-file line="174">views/Meningitis/edit.html.twig</jms:reference-file>
+        <jms:reference-file line="338">views/Meningitis/editLab.html.twig</jms:reference-file>
         <jms:reference-file line="71">views/Meningitis/index.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="a1bf92eff40dd4adea2328f9e0f7c938ae031dec" resname="Cancelled">
@@ -307,7 +328,7 @@
       </trans-unit>
       <trans-unit id="a2c77e8741b8bda3439983fd14105607d2e54830" resname="Case ID">
         <source>Case ID</source>
-        <target>Caso ID</target>
+        <target>Sistema ID</target>
         <jms:reference-file line="3">views/RotaVirus/indexRegionHeader.html.twig</jms:reference-file>
         <jms:reference-file line="3">views/Meningitis/indexRegionHeader.html.twig</jms:reference-file>
       </trans-unit>
@@ -322,11 +343,6 @@
         <jms:reference-file line="14">views/RotaVirus/show.html.twig</jms:reference-file>
         <jms:reference-file line="19">views/Meningitis/edit.html.twig</jms:reference-file>
         <jms:reference-file line="14">views/Meningitis/show.html.twig</jms:reference-file>
-      </trans-unit>
-      <trans-unit id="22c36db366e95f54cde8dc00859b31205a7c19b8" resname="Collection Info">
-        <source>Collection Info</source>
-        <target>Información de recolección </target>
-        <jms:reference-file line="18">views/Meningitis/editLab.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="49252e62e00fc748d88e9116e4f339147369a405" resname="Common Reports">
         <source>Common Reports</source>
@@ -343,11 +359,15 @@
       </trans-unit>
       <trans-unit id="084eb230cc2900a5573e5cf9cf7018bec845d01f" resname="Consistent with Bacterial Pneumonia">
         <source>Consistent with Bacterial Pneumonia</source>
-        <target state="new">Consistent with Bacterial Pneumonia</target>
+        <target>Consistencia con Neumonía Bacteriana</target>
       </trans-unit>
       <trans-unit id="81ff41187d9a55a0a0d410b37e2a03ec4014258e" resname="Consolidation">
         <source>Consolidation</source>
         <target>Consolidación</target>
+      </trans-unit>
+      <trans-unit id="788fdad853a2bf339a946805af34599d075210b9" resname="Contaminant">
+        <source>Contaminant</source>
+        <target>Contaminante</target>
       </trans-unit>
       <trans-unit id="24fe3c2f2b08643838db3bfa02c5a96d8711b5f4" resname="Conventional PCR">
         <source>Conventional PCR</source>
@@ -363,11 +383,21 @@
         <jms:reference-file line="7">views/RotaVirus/indexRegionHeader.html.twig</jms:reference-file>
         <jms:reference-file line="7">views/Meningitis/indexRegionHeader.html.twig</jms:reference-file>
       </trans-unit>
+      <trans-unit id="1282bad209e4796bde39661d95a44c1be496b25c" resname="Country API">
+        <source>Country API</source>
+        <target state="new">Country API</target>
+      </trans-unit>
       <trans-unit id="24d5b7573e0f17f42038919c6ee16b45f5c248e6" resname="Country Statistics">
         <source>Country Statistics</source>
         <target>Estadísticas nacionales</target>
         <jms:reference-file line="2">views/Report/bySiteGraph.html.twig</jms:reference-file>
         <jms:reference-file line="2">views/Report/byCountryGraph.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="1add43318b227e91ce6d3aae7ff4b4b31f45a0b0" resname="Create Case">
+        <source>Create Case</source>
+        <target state="new">Create Case</target>
+        <jms:reference-file line="57">views/RotaVirus/index.html.twig</jms:reference-file>
+        <jms:reference-file line="57">views/Meningitis/index.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="2d336273f6fbaa6fef6b9b8fa580eedb4a070bd4" resname="Create Rights">
         <source>Create Rights</source>
@@ -386,8 +416,8 @@
       </trans-unit>
       <trans-unit id="71f440a1dd4cf93fe583dd09db3c514d1b6820c4" resname="Culture Positive and Additional Lab Confirmed Cases By Diagnostic Test">
         <source>Culture Positive and Additional Lab Confirmed Cases By Diagnostic Test</source>
-        <target state="new">Culture Positive and Additional Lab Confirmed Cases By Diagnostic Test</target>
-        <jms:reference-file line="145">views/Security/homepage.html.twig</jms:reference-file>
+        <target>Culture Positive and Additional Lab Confirmed Cases By Diagnostic Test</target>
+        <jms:reference-file line="10">views/Security/homepage.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="4fc0e2bc80737d784e6d3f24837950f48732c6ca" resname="Current">
         <source>Current</source>
@@ -412,7 +442,7 @@
       </trans-unit>
       <trans-unit id="f0750a96a5015fa6ef305bab6c098c7570710f30" resname="Discharged alive">
         <source>Discharged alive</source>
-        <target state="new">Discharged alive</target>
+        <target>Egreso vivo</target>
       </trans-unit>
       <trans-unit id="7a67829c1eb32d51c5363f10a1648fc0f87ac83a" resname="Discharged alive, with sequelae">
         <source>Discharged alive, with sequelae</source>
@@ -424,9 +454,9 @@
       </trans-unit>
       <trans-unit id="abb454f7083b889c5d49dedd8fca52d3e3a35e35" resname="EPI">
         <source>EPI</source>
-        <target>CASO</target>
-        <jms:reference-file line="49">SentinelBundle/Twig/CaseActions.php</jms:reference-file>
-        <jms:reference-file line="78">SentinelBundle/Twig/CaseActions.php</jms:reference-file>
+        <target>EPI</target>
+        <jms:reference-file line="53">SentinelBundle/Twig/CaseActions.php</jms:reference-file>
+        <jms:reference-file line="76">SentinelBundle/Twig/CaseActions.php</jms:reference-file>
         <jms:reference-file line="8">views/RotaVirus/indexRegionRow.html.twig</jms:reference-file>
         <jms:reference-file line="6">views/RotaVirus/indexCountryRow.html.twig</jms:reference-file>
         <jms:reference-file line="7">views/RotaVirus/indexSiteRow.html.twig</jms:reference-file>
@@ -434,15 +464,9 @@
         <jms:reference-file line="6">views/Meningitis/indexCountryRow.html.twig</jms:reference-file>
         <jms:reference-file line="7">views/Meningitis/indexSiteRow.html.twig</jms:reference-file>
       </trans-unit>
-      <trans-unit id="8fc5633aaf9deadef041285a13d1932225e44e7a" resname="Edit %type% For Case %id%">
-        <source>Edit %type% For Case %id%</source>
-        <target>Editar %type% para el caso %id%</target>
-        <jms:reference-file line="4">views/RotaVirus/editBaseLab.html.twig</jms:reference-file>
-        <jms:reference-file line="4">views/Meningitis/editBaseLab.html.twig</jms:reference-file>
-      </trans-unit>
       <trans-unit id="3b9578183401978a7b4d45c08d73fcc1dc97b526" resname="Edit Case %id%">
         <source>Edit Case %id%</source>
-        <target>Editar caso %id%</target>
+        <target>Editar Caso: %id%</target>
         <jms:reference-file line="4">views/RotaVirus/edit.html.twig</jms:reference-file>
         <jms:reference-file line="4">views/Meningitis/edit.html.twig</jms:reference-file>
       </trans-unit>
@@ -458,10 +482,20 @@
         <jms:reference-file line="4">views/RotaVirus/editLab.html.twig</jms:reference-file>
         <jms:reference-file line="4">views/Meningitis/editLab.html.twig</jms:reference-file>
       </trans-unit>
+      <trans-unit id="21170a835b86f21e7c43e7cc4088998b44738461" resname="Elisa">
+        <source>Elisa</source>
+        <target state="new">Elisa</target>
+        <jms:reference-file line="19">views/RotaVirus/editLab.html.twig</jms:reference-file>
+      </trans-unit>
       <trans-unit id="84add5b2952787581cb9a8851eef63d1ec75d22b" resname="Email">
         <source>Email</source>
         <target>Correo electrónico</target>
         <jms:reference-file line="17">views/User/profile.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="eede5d359286bb963ca85c2cdf35c36ca4e63945" resname="Email / Username">
+        <source>Email / Username</source>
+        <target>Email / Nombre de usuario</target>
+        <jms:reference-file line="32">views/Security/login.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="b7c17e97d3d625694b836d85ace6edc18bbef0e6" resname="Female">
         <source>Female</source>
@@ -538,10 +572,10 @@
         <target>Estadísticas Generales </target>
         <jms:reference-file line="2">views/Report/generalStats.html.twig</jms:reference-file>
       </trans-unit>
-      <trans-unit id="f3dd4543ce161fe06cf1ba8fcc0bff7d6b1370a8" resname="Genotyping Results">
-        <source>Genotyping Results</source>
-        <target>Resultados de genotipificación</target>
-        <jms:reference-file line="20">views/RotaVirus/editBaseLab.html.twig</jms:reference-file>
+      <trans-unit id="83b5ccff29458393b2e256062ff4a7594f40fa76" resname="Genotyping">
+        <source>Genotyping</source>
+        <target state="new">Genotyping</target>
+        <jms:reference-file line="20">views/RotaVirus/editLab.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="4ff0ff91948f32f76ba7932b7290ac166d1cc17c" resname="Gm neg coccobacilli">
         <source>Gm neg coccobacilli</source>
@@ -630,14 +664,8 @@
       <trans-unit id="922073012977d40d1d56cf30d5bbdf4ed6471d91" resname="Lab">
         <source>Lab</source>
         <target>Lab</target>
-        <jms:reference-file line="52">SentinelBundle/Twig/CaseActions.php</jms:reference-file>
-        <jms:reference-file line="81">SentinelBundle/Twig/CaseActions.php</jms:reference-file>
-      </trans-unit>
-      <trans-unit id="d50bc05be0e9b0f49860413c3121d65e4112d904" resname="Lab Information">
-        <source>Lab Information</source>
-        <target>Información de laboratorio</target>
-        <jms:reference-file line="19">views/RotaVirus/editBaseLab.html.twig</jms:reference-file>
-        <jms:reference-file line="18">views/Meningitis/editBaseLab.html.twig</jms:reference-file>
+        <jms:reference-file line="56">SentinelBundle/Twig/CaseActions.php</jms:reference-file>
+        <jms:reference-file line="79">SentinelBundle/Twig/CaseActions.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="955eabd1c90a1eb745aabc1978cd51b11990901d" resname="Lab-confirmed for HI">
         <source>Lab-confirmed for HI</source>
@@ -678,7 +706,7 @@
       </trans-unit>
       <trans-unit id="40032b68c83b0f50859aca85848f028fa4b91603" resname="Left/Discharged against medical advice">
         <source>Left/Discharged against medical advice</source>
-        <target> Egreso/salida en contra de recomendación médico</target>
+        <target> Egreso en contra de recomendación del médico</target>
       </trans-unit>
       <trans-unit id="669548e5555bf5a5a5fcee0553fc1ba058cb7225" resname="Lists the last %count% meningitis cases">
         <source>Lists the last %count% meningitis cases</source>
@@ -714,14 +742,14 @@
         <jms:reference-file line="20">views/Meningitis/edit.html.twig</jms:reference-file>
         <jms:reference-file line="15">views/Meningitis/show.html.twig</jms:reference-file>
       </trans-unit>
-      <trans-unit id="7e4ac6803c9159c694f63d089cb06b2519c16aba" resname="Methods">
-        <source>Methods</source>
-        <target>Métodos</target>
-        <jms:reference-file line="20">views/Meningitis/editBaseLab.html.twig</jms:reference-file>
-      </trans-unit>
       <trans-unit id="543c11922fafa6bc94f9277ba87081eb9ac9f1dd" resname="Mixed (specify)">
         <source>Mixed (specify)</source>
         <target>Mixta (especificar)</target>
+      </trans-unit>
+      <trans-unit id="7852927026a6af43dd9d5dd4820056c0fe6735a8" resname="Monthly # Suspect Meningitis, Pneumonia and Sepsis">
+        <source>Monthly # Suspect Meningitis, Pneumonia and Sepsis</source>
+        <target state="new">Monthly # Suspect Meningitis, Pneumonia and Sepsis</target>
+        <jms:reference-file line="122">views/Security/homepage.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="23c675e43706c4c645825a7c3921a55029f1c1ba" resname="Multiple (i.e. Meningitis and/or Pneumonia and/or Sepsis)">
         <source>Multiple (i.e. Meningitis and/or Pneumonia and/or Sepsis)</source>
@@ -734,15 +762,7 @@
       <trans-unit id="a59ba24d63e9c67fe81bbc277e1424777efe1eda" resname="NL">
         <source>NL</source>
         <target>LN</target>
-        <jms:reference-file line="55">SentinelBundle/Twig/CaseActions.php</jms:reference-file>
-        <jms:reference-file line="84">SentinelBundle/Twig/CaseActions.php</jms:reference-file>
-        <jms:reference-file line="11">views/RotaVirus/indexRegionRow.html.twig</jms:reference-file>
-        <jms:reference-file line="9">views/RotaVirus/indexCountryRow.html.twig</jms:reference-file>
-        <jms:reference-file line="10">views/RotaVirus/indexSiteRow.html.twig</jms:reference-file>
-        <jms:reference-file line="11">views/Meningitis/indexRegionRow.html.twig</jms:reference-file>
         <jms:reference-file line="27">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="9">views/Meningitis/indexCountryRow.html.twig</jms:reference-file>
-        <jms:reference-file line="10">views/Meningitis/indexSiteRow.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="71c2e174addf7ff1c8b8bf6a82e7b42f97834009" resname="NL Labs">
         <source>NL Labs</source>
@@ -770,9 +790,7 @@
         <source>No</source>
         <target>No</target>
         <jms:reference-file line="243">views/RotaVirus/show.html.twig</jms:reference-file>
-        <jms:reference-file line="239">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="293">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="348">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="241">views/Meningitis/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="723a14e871ddf3bf60648f448fbdeba31472edcd" resname="No Organism Detected">
         <source>No Organism Detected</source>
@@ -837,6 +855,7 @@
       <trans-unit id="6e6a6f2086bb5fe5dbfd17d8d5f502d48759834b" resname="Other">
         <source>Other</source>
         <target>Otro</target>
+        <jms:reference-file line="120">views/Meningitis/edit.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="4df715beb21380ad927c3f43a12ed1e0c2c549a4" resname="Other (specify)">
         <source>Other (specify)</source>
@@ -849,7 +868,7 @@
       <trans-unit id="b572c8561b3a5f58713f0aa978cd62bbf8019e65" resname="Other Fluids">
         <source>Other Fluids</source>
         <target>Otros fluidos biológicos</target>
-        <jms:reference-file line="21">views/Meningitis/editLab.html.twig</jms:reference-file>
+        <jms:reference-file line="20">views/Meningitis/editLab.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="4ff1205bfadfb943c4f66671dda0e3bee7f56054" resname="Other Meningitis">
         <source>Other Meningitis</source>
@@ -862,7 +881,7 @@
       <trans-unit id="d3f0610632bbef35bfaa389ca89023fd50c6dd62" resname="Outcome">
         <source>Outcome</source>
         <target>Resultado</target>
-        <jms:reference-file line="61">SentinelBundle/Twig/CaseActions.php</jms:reference-file>
+        <jms:reference-file line="59">SentinelBundle/Twig/CaseActions.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e4ca9692c14c9061988606c1a12960262ad3ec37" resname="Outcome Data">
         <source>Outcome Data</source>
@@ -946,8 +965,9 @@
       <trans-unit id="8be3c943b1609fffbfc51aad666d0a04adf83c9d" resname="Password">
         <source>Password</source>
         <target>Contraseña</target>
+        <jms:reference-file line="39">views/Security/login.html.twig</jms:reference-file>
         <jms:reference-file line="26">SentinelBundle/Form/UserType.php</jms:reference-file>
-        <jms:reference-file line="92">SentinelBundle/Admin/UserAdmin.php</jms:reference-file>
+        <jms:reference-file line="90">SentinelBundle/Admin/UserAdmin.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="30875c712f9792bec2c92e880e8fde803b4101fd" resname="Please Enter Your Information">
         <source>Please Enter Your Information</source>
@@ -958,10 +978,9 @@
         <source>Please Select...</source>
         <target>Por favor seleccione...</target>
         <jms:reference-file line="43">SentinelBundle/Form/CreateType.php</jms:reference-file>
-        <jms:reference-file line="141">Form/Types/Role.php</jms:reference-file>
-        <jms:reference-file line="147">Form/Types/Role.php</jms:reference-file>
-        <jms:reference-file line="60">Form/Types/CreateRoles.php</jms:reference-file>
-        <jms:reference-file line="44">Form/IBD/CreateType.php</jms:reference-file>
+        <jms:reference-file line="153">Form/Types/Role.php</jms:reference-file>
+        <jms:reference-file line="159">Form/Types/Role.php</jms:reference-file>
+        <jms:reference-file line="50">Form/Types/CreateRoles.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="47658dced1ec37586a51bf23d66051c62ff85998" resname="Pleural Fluid">
         <source>Pleural Fluid</source>
@@ -1001,15 +1020,7 @@
       <trans-unit id="77a6375224e36db93fce73f97c1a77ea403437cb" resname="RRL">
         <source>RRL</source>
         <target>LRR</target>
-        <jms:reference-file line="58">SentinelBundle/Twig/CaseActions.php</jms:reference-file>
-        <jms:reference-file line="87">SentinelBundle/Twig/CaseActions.php</jms:reference-file>
-        <jms:reference-file line="10">views/RotaVirus/indexRegionRow.html.twig</jms:reference-file>
-        <jms:reference-file line="8">views/RotaVirus/indexCountryRow.html.twig</jms:reference-file>
-        <jms:reference-file line="9">views/RotaVirus/indexSiteRow.html.twig</jms:reference-file>
-        <jms:reference-file line="10">views/Meningitis/indexRegionRow.html.twig</jms:reference-file>
         <jms:reference-file line="24">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="8">views/Meningitis/indexCountryRow.html.twig</jms:reference-file>
-        <jms:reference-file line="9">views/Meningitis/indexSiteRow.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="49aa17260da286ec87bfa5df58f93b9f15fc4d0e" resname="RRL Labs">
         <source>RRL Labs</source>
@@ -1035,11 +1046,15 @@
         <target>Región</target>
         <jms:reference-file line="37">SentinelBundle/Admin/SiteAdmin.php</jms:reference-file>
       </trans-unit>
+      <trans-unit id="3406b0a2aba3d78143f9395f10b3aec35a209650" resname="Region API">
+        <source>Region API</source>
+        <target state="new">Region API</target>
+      </trans-unit>
       <trans-unit id="bab9bc458f38d4d574e5baa63c72341db6ddaa30" resname="Repeat Password">
         <source>Repeat Password</source>
         <target>Repita la contraseña</target>
         <jms:reference-file line="27">SentinelBundle/Form/UserType.php</jms:reference-file>
-        <jms:reference-file line="93">SentinelBundle/Admin/UserAdmin.php</jms:reference-file>
+        <jms:reference-file line="91">SentinelBundle/Admin/UserAdmin.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="9ddb6a16cac44822c3b084efd14af99b02048827" resname="Report Dashboard">
         <source>Report Dashboard</source>
@@ -1056,8 +1071,8 @@
       </trans-unit>
       <trans-unit id="cf3d11ff8a7b7eeb1a58d8bbfbbaf8311406e122" resname="Sample Information">
         <source>Sample Information</source>
-        <target>Información sobre la muestra</target>
-        <jms:reference-file line="19">views/Meningitis/editBaseLab.html.twig</jms:reference-file>
+        <target state="new">Sample Information</target>
+        <jms:reference-file line="18">views/RotaVirus/editLab.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="efc007a393f66cdb14d57d385822a3d9e36ef873" resname="Save">
         <source>Save</source>
@@ -1065,26 +1080,19 @@
         <jms:reference-file line="58">views/User/profile.html.twig</jms:reference-file>
         <jms:reference-file line="37">views/RotaVirus/editOutcome.html.twig</jms:reference-file>
         <jms:reference-file line="114">views/RotaVirus/edit.html.twig</jms:reference-file>
-        <jms:reference-file line="58">views/RotaVirus/editBaseLab.html.twig</jms:reference-file>
-        <jms:reference-file line="66">views/RotaVirus/editLab.html.twig</jms:reference-file>
+        <jms:reference-file line="131">views/RotaVirus/editLab.html.twig</jms:reference-file>
         <jms:reference-file line="38">views/Meningitis/editOutcome.html.twig</jms:reference-file>
-        <jms:reference-file line="152">views/Meningitis/edit.html.twig</jms:reference-file>
-        <jms:reference-file line="79">views/Meningitis/editBaseLab.html.twig</jms:reference-file>
-        <jms:reference-file line="197">views/Meningitis/editLab.html.twig</jms:reference-file>
+        <jms:reference-file line="174">views/Meningitis/edit.html.twig</jms:reference-file>
+        <jms:reference-file line="338">views/Meningitis/editLab.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="186238cccd6fdd63822aa5886b1950d4f8c61dc5" resname="Sepsis">
         <source>Sepsis</source>
-        <target>Sepsis</target>
-      </trans-unit>
-      <trans-unit id="24cee23fc38f509d1ed91d4b08e5d052fefe2ea2" resname="Serotype / Serogroup Results">
-        <source>Serotype / Serogroup Results</source>
-        <target>Resultados serotipo / serogrupo</target>
-        <jms:reference-file line="22">views/Meningitis/editBaseLab.html.twig</jms:reference-file>
+        <target state="new">Sepsis</target>
       </trans-unit>
       <trans-unit id="137b4f2ee499ee6f9aadb03f117df663a69aabd3" resname="Serotype Results">
         <source>Serotype Results</source>
         <target>Resultados de serotipo</target>
-        <jms:reference-file line="22">views/Meningitis/editLab.html.twig</jms:reference-file>
+        <jms:reference-file line="21">views/Meningitis/editLab.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="b7c15350a775492a2c0eefde5bb696e6fc00caa3" resname="Severe">
         <source>Severe</source>
@@ -1097,6 +1105,10 @@
         <jms:reference-file line="6">views/RotaVirus/indexRegionHeader.html.twig</jms:reference-file>
         <jms:reference-file line="5">views/Meningitis/indexCountryHeader.html.twig</jms:reference-file>
         <jms:reference-file line="6">views/Meningitis/indexRegionHeader.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="799b6553db51482380a99f5129803abdccded031" resname="Site API">
+        <source>Site API</source>
+        <target state="new">Site API</target>
       </trans-unit>
       <trans-unit id="baaabfc71e818fe50aefacb38b9f9a6beb219123" resname="Site Case ID">
         <source>Site Case ID</source>
@@ -1134,6 +1146,11 @@
         <source>Spn Not able to be serotyped because of high lytA Ct value</source>
         <target>Spn no se puede serotipificar por valor alto del Ct lytA</target>
       </trans-unit>
+      <trans-unit id="be763e9aba2af6b8baabada85d5e26c043c93fed" resname="Stats">
+        <source>Stats</source>
+        <target state="new">Stats</target>
+        <jms:reference-file line="137">views/Security/homepage.html.twig</jms:reference-file>
+      </trans-unit>
       <trans-unit id="bae7d5be70820ed56467bd9a63744e23b47bd711" resname="Status">
         <source>Status</source>
         <target>Situación</target>
@@ -1144,24 +1161,9 @@
         <jms:reference-file line="6">views/Meningitis/indexCountryHeader.html.twig</jms:reference-file>
         <jms:reference-file line="8">views/Meningitis/indexRegionHeader.html.twig</jms:reference-file>
       </trans-unit>
-      <trans-unit id="053a20a3b55be2f0d3944b1c124199f0f70d1f2c" resname="Stool">
-        <source>Stool</source>
-        <target>Heces</target>
-        <jms:reference-file line="18">views/RotaVirus/editLab.html.twig</jms:reference-file>
-      </trans-unit>
-      <trans-unit id="95f646a475089c4c0ac805826f2860a3b92c8c86" resname="Stool - NL">
-        <source>Stool - NL</source>
-        <target>LN - Heces</target>
-        <jms:reference-file line="20">views/RotaVirus/editLab.html.twig</jms:reference-file>
-      </trans-unit>
-      <trans-unit id="e33515d2f9f65bb68401e962938e159695abcc68" resname="Stool - RRL">
-        <source>Stool - RRL</source>
-        <target>LRR - Heces</target>
-        <jms:reference-file line="24">views/RotaVirus/editLab.html.twig</jms:reference-file>
-      </trans-unit>
       <trans-unit id="ab646fbf4358000ca0b02c28ddb3bf3c76191963" resname="Suspect">
         <source>Suspect</source>
-        <target>Sospechoso</target>
+        <target state="new">Suspect</target>
       </trans-unit>
       <trans-unit id="e2cbe6c8e35a0c06ef807e763165a5ca499b6237" resname="Suspected">
         <source>Suspected</source>
@@ -1177,23 +1179,23 @@
       </trans-unit>
       <trans-unit id="7b18d85ccaae50c2f88c2e6b9222d29547ece832" resname="Suspected sepsis">
         <source>Suspected sepsis</source>
-        <target>Sospechoso de sepsis</target>
+        <target state="new">Suspected sepsis</target>
       </trans-unit>
       <trans-unit id="3c4e7e374b8f093a9175523a9788473c2904dfdb" resname="Suspected severe pneumonia">
         <source>Suspected severe pneumonia</source>
-        <target>Sospechoso de neumonía grave</target>
+        <target state="new">Suspected severe pneumonia</target>
       </trans-unit>
       <trans-unit id="2056fa77841787711bb8cbed38fa2bacdee5515e" resname="Symptoms/signs related to the sickness">
         <source>Symptoms/signs related to the sickness</source>
         <target>Síntomas / signos relacionados con la enfermedad</target>
-        <jms:reference-file line="110">views/Meningitis/edit.html.twig</jms:reference-file>
-        <jms:reference-file line="128">views/Meningitis/edit.html.twig</jms:reference-file>
+        <jms:reference-file line="132">views/Meningitis/edit.html.twig</jms:reference-file>
+        <jms:reference-file line="150">views/Meningitis/edit.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="831377cf9256094e86e41449c9a0b0d1160af443" resname="System Id">
         <source>System Id</source>
-        <target state="new">System Id</target>
+        <target>System Id</target>
         <jms:reference-file line="41">views/RotaVirus/edit.html.twig</jms:reference-file>
-        <jms:reference-file line="41">views/Meningitis/edit.html.twig</jms:reference-file>
+        <jms:reference-file line="46">views/Meningitis/edit.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="61ad50a9b9189cc3cf1874568e35e7901ff4c982" resname="Target">
         <source>Target</source>
@@ -1254,7 +1256,7 @@
         <source>Yes</source>
         <target>Sí</target>
         <jms:reference-file line="174">views/RotaVirus/show.html.twig</jms:reference-file>
-        <jms:reference-file line="205">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="209">views/Meningitis/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="2ea017ce5c35ca511d4830fd39077bf8f0fc48f4" resname="Yes-By-Card">
         <source>Yes-By-Card</source>
@@ -1275,22 +1277,22 @@
       <trans-unit id="6f7f85459fa94aded8f2a0499ebd5f33231883fa" resname="admin.form-can-create-case-record">
         <source>admin.form-can-create-case-record</source>
         <target>Puede crear registro de caso</target>
-        <jms:reference-file line="98">SentinelBundle/Admin/UserAdmin.php</jms:reference-file>
+        <jms:reference-file line="96">SentinelBundle/Admin/UserAdmin.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="bd979f0607061e62ae45e30554a9d1ff1c2754d3" resname="admin.form-can-create-national-lab-record">
         <source>admin.form-can-create-national-lab-record</source>
         <target>Puede crear registro de laboratorio nacional</target>
-        <jms:reference-file line="101">SentinelBundle/Admin/UserAdmin.php</jms:reference-file>
+        <jms:reference-file line="99">SentinelBundle/Admin/UserAdmin.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="6ce41a81103332954778b43d4e624fcc694f6c69" resname="admin.form-can-create-reference-lab-record">
         <source>admin.form-can-create-reference-lab-record</source>
         <target>Puede crear registro de Laboratorio Regional de Referencia</target>
-        <jms:reference-file line="100">SentinelBundle/Admin/UserAdmin.php</jms:reference-file>
+        <jms:reference-file line="98">SentinelBundle/Admin/UserAdmin.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="83dc047b895b5a3ea8064c71b7bea957ee38c40e" resname="admin.form-can-create-sitelab-record">
         <source>admin.form-can-create-sitelab-record</source>
         <target>Puede crear registro del Lab centinela</target>
-        <jms:reference-file line="99">SentinelBundle/Admin/UserAdmin.php</jms:reference-file>
+        <jms:reference-file line="97">SentinelBundle/Admin/UserAdmin.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e9d71f5ee7c92d6dc9e92ffdad17b8bd49418f98" resname="b">
         <source>b</source>
@@ -1308,46 +1310,125 @@
         <source>db-generated-id</source>
         <target>Sistema ID</target>
         <jms:reference-file line="54">SentinelBundle/Form/BaseFilter.php</jms:reference-file>
-        <jms:reference-file line="35">Form/IBD/CreateType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="58e6b3a414a1e090dfc6029add0f3555ccba127f" resname="e">
         <source>e</source>
         <target>e</target>
       </trans-unit>
-      <trans-unit id="bb9ba6fe87ecaac105f0f4af2c061a1748acd534" resname="external-lab-form.date-received">
-        <source>external-lab-form.date-received</source>
-        <target state="new">external-lab-form.date-received</target>
-        <jms:reference-file line="20">Form/Rota/BaseLabType.php</jms:reference-file>
+      <trans-unit id="ccce848b94673ac4408d328dae970323aa849c08" resname="external-lab-form.adequate">
+        <source>external-lab-form.adequate</source>
+        <target state="new">external-lab-form.adequate</target>
+        <jms:reference-file line="35">Form/Rota/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="63c6b23ee32c45d6bab9781662b1cf288a055cc7" resname="external-lab-form.elisaDone">
+        <source>external-lab-form.elisaDone</source>
+        <target state="new">external-lab-form.elisaDone</target>
+        <jms:reference-file line="37">Form/Rota/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="2cece462859e81c005fd8d8655167856fd2a849d" resname="external-lab-form.elisaExpiryDate">
+        <source>external-lab-form.elisaExpiryDate</source>
+        <target state="new">external-lab-form.elisaExpiryDate</target>
+        <jms:reference-file line="41">Form/Rota/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="2ab5c17dfa787a8141f8dcc39e53114460fc10c7" resname="external-lab-form.elisaKit">
+        <source>external-lab-form.elisaKit</source>
+        <target state="new">external-lab-form.elisaKit</target>
+        <jms:reference-file line="38">Form/Rota/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="3ce555c7f815e9b2975993302ac34895fa264a54" resname="external-lab-form.elisaKitOther">
+        <source>external-lab-form.elisaKitOther</source>
+        <target state="new">external-lab-form.elisaKitOther</target>
+        <jms:reference-file line="39">Form/Rota/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="29a48ab5fee5858350b3893e182518209d323e71" resname="external-lab-form.elisaLoadNumber">
+        <source>external-lab-form.elisaLoadNumber</source>
+        <target state="new">external-lab-form.elisaLoadNumber</target>
+        <jms:reference-file line="40">Form/Rota/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="b8e847f25265b0eb11c57fe752150ec76a396de3" resname="external-lab-form.elisaResult">
+        <source>external-lab-form.elisaResult</source>
+        <target state="new">external-lab-form.elisaResult</target>
+        <jms:reference-file line="43">Form/Rota/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="e347ffcaf224c29dfd3a2e9f7e90a3ba12444d79" resname="external-lab-form.elisaTestDate">
+        <source>external-lab-form.elisaTestDate</source>
+        <target state="new">external-lab-form.elisaTestDate</target>
+        <jms:reference-file line="42">Form/Rota/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="187902eabaf16101d65cb759b954624d7a98de8d" resname="external-lab-form.genotyping-date">
         <source>external-lab-form.genotyping-date</source>
         <target>Fecha de Genotipificación</target>
-        <jms:reference-file line="21">Form/Rota/BaseLabType.php</jms:reference-file>
+        <jms:reference-file line="51">Form/Rota/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="52d3c8d17d39e505d4c463e798e7b14874512605" resname="external-lab-form.genotyping-result-g">
         <source>external-lab-form.genotyping-result-g</source>
         <target>Resultado de Genotipificación (tipo G)</target>
-        <jms:reference-file line="22">Form/Rota/BaseLabType.php</jms:reference-file>
+        <jms:reference-file line="52">Form/Rota/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="29e6614cb370fd5cc3ba0ae13ab9d311216dc47e" resname="external-lab-form.genotyping-result-g-specify">
         <source>external-lab-form.genotyping-result-g-specify</source>
         <target>Resultado de Genotificación (especifique tipo G para Mixta u Otros)</target>
-        <jms:reference-file line="23">Form/Rota/BaseLabType.php</jms:reference-file>
+        <jms:reference-file line="53">Form/Rota/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e690505cbc06371ac9fcf55df23d84fd5623a284" resname="external-lab-form.genotyping-result-p">
         <source>external-lab-form.genotyping-result-p</source>
         <target> Resultado  de Genotificación (tipo P)</target>
-        <jms:reference-file line="24">Form/Rota/BaseLabType.php</jms:reference-file>
+        <jms:reference-file line="54">Form/Rota/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="f6160bc8531cbb6f2b296e1f04402b8d92a61f26" resname="external-lab-form.genotyping-result-p-specify">
         <source>external-lab-form.genotyping-result-p-specify</source>
         <target>Resultado de Genotipificación (especifique tipo P para Mixtas u Otros)</target>
-        <jms:reference-file line="25">Form/Rota/BaseLabType.php</jms:reference-file>
+        <jms:reference-file line="55">Form/Rota/LabType.php</jms:reference-file>
       </trans-unit>
-      <trans-unit id="ca99f35dd94f0903815e5b5e5c48596cd446aabf" resname="external-lab-form.pcr-vp6-result">
-        <source>external-lab-form.pcr-vp6-result</source>
-        <target>Resultados RT-PCR de VP6</target>
-        <jms:reference-file line="26">Form/Rota/BaseLabType.php</jms:reference-file>
+      <trans-unit id="2db2691f9a02c4ccd392c7cc0ea13bde72ec1588" resname="external-lab-form.secondaryElisaDone">
+        <source>external-lab-form.secondaryElisaDone</source>
+        <target state="new">external-lab-form.secondaryElisaDone</target>
+        <jms:reference-file line="44">Form/Rota/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="357968ccc1029cd94408019222365c1c7b4128da" resname="external-lab-form.secondaryElisaExpiryDate">
+        <source>external-lab-form.secondaryElisaExpiryDate</source>
+        <target state="new">external-lab-form.secondaryElisaExpiryDate</target>
+        <jms:reference-file line="48">Form/Rota/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="822e01e94fe45990654221ef17413e9a2eb4f5a7" resname="external-lab-form.secondaryElisaKit">
+        <source>external-lab-form.secondaryElisaKit</source>
+        <target state="new">external-lab-form.secondaryElisaKit</target>
+        <jms:reference-file line="45">Form/Rota/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="b5be81d0bea4945cf151147a593d2e2fd402bc1b" resname="external-lab-form.secondaryElisaKitOther">
+        <source>external-lab-form.secondaryElisaKitOther</source>
+        <target state="new">external-lab-form.secondaryElisaKitOther</target>
+        <jms:reference-file line="46">Form/Rota/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="a3a0c8a21df433353a04f334c4573dc74aa6e067" resname="external-lab-form.secondaryElisaLoadNumber">
+        <source>external-lab-form.secondaryElisaLoadNumber</source>
+        <target state="new">external-lab-form.secondaryElisaLoadNumber</target>
+        <jms:reference-file line="47">Form/Rota/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="a6334462f0ecea6b5ceb291e3a771f15e9d1a7f7" resname="external-lab-form.secondaryElisaResult">
+        <source>external-lab-form.secondaryElisaResult</source>
+        <target state="new">external-lab-form.secondaryElisaResult</target>
+        <jms:reference-file line="50">Form/Rota/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="a004f0b42eba7039a097b1440b4c89318c1b49de" resname="external-lab-form.secondaryElisaTestDate">
+        <source>external-lab-form.secondaryElisaTestDate</source>
+        <target state="new">external-lab-form.secondaryElisaTestDate</target>
+        <jms:reference-file line="49">Form/Rota/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="cd8cc18be8df7a8ea12e40f995d722b884179964" resname="external-lab-form.siteLabId">
+        <source>external-lab-form.siteLabId</source>
+        <target state="new">external-lab-form.siteLabId</target>
+        <jms:reference-file line="34">Form/Rota/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="9a3a9bb84bc0b089c43571e6ed939dccef2a8a9f" resname="external-lab-form.siteReceivedDate">
+        <source>external-lab-form.siteReceivedDate</source>
+        <target state="new">external-lab-form.siteReceivedDate</target>
+        <jms:reference-file line="33">Form/Rota/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="bc3b1cb85a15c76ad34e580f14781cf589ec6e6b" resname="external-lab-form.stored">
+        <source>external-lab-form.stored</source>
+        <target state="new">external-lab-form.stored</target>
+        <jms:reference-file line="36">Form/Rota/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="4a0a19218e082a343a1b17e5333409af9d98f0f5" resname="f">
         <source>f</source>
@@ -1356,7 +1437,7 @@
       <trans-unit id="da519f31e23576fcbbfc965fe28a235a4531f5f1" resname="filter-case-lab-status">
         <source>filter-case-lab-status</source>
         <target>Estado del filtro</target>
-        <jms:reference-file line="19">Form/Filters/SiteLabFilterType.php</jms:reference-file>
+        <jms:reference-file line="19">Form/Filters/LabFilterType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="202e5a722fa3890cb89a21040fa99b0e2ddaa44a" resname="filter-case-status">
         <source>filter-case-status</source>
@@ -1365,118 +1446,158 @@
       </trans-unit>
       <trans-unit id="39fb48c066d7a79f2bd485ccabc87cdd9fb7cc12" resname="filter.admission-date">
         <source>filter.admission-date</source>
-        <target state="new">filter.admission-date</target>
+        <target>Fecha de Ingreso</target>
         <jms:reference-file line="34">SentinelBundle/Form/BaseFilter.php</jms:reference-file>
-      </trans-unit>
-      <trans-unit id="d812da511da4d649e8db75a6dd00d2e818fa471f" resname="form.case-type">
-        <source>form.case-type</source>
-        <target>Tipo</target>
-        <jms:reference-file line="37">Form/IBD/CreateType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="2bc8c3613430fe07139d95687b66ce997521cfcf" resname="meningitis-form.adm-date">
         <source>meningitis-form.adm-date</source>
         <target>Fecha de ingreso</target>
-        <jms:reference-file line="101">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="41">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="105">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="45">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e02f0528f118d1d9a8421cf4de2c5e2d7e87d9f0" resname="meningitis-form.adm-dx">
         <source>meningitis-form.adm-dx</source>
         <target>El diagnóstico en el momento del ingreso</target>
-        <jms:reference-file line="105">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="42">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="109">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="46">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="05be1a30d02f08171653901a98c10ed790f16145" resname="meningitis-form.adm-dx-other">
         <source>meningitis-form.adm-dx-other</source>
         <target>Si el diagnóstico en el momento del ingreso es "otro", especifique</target>
-        <jms:reference-file line="109">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="43">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="113">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="47">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="6bc8f8c95b6e87d0441e9f7835ccd59a7302acfc" resname="meningitis-form.age">
         <source>meningitis-form.age</source>
         <target>Edad</target>
-        <jms:reference-file line="43">views/Meningitis/show.html.twig</jms:reference-file>
-      </trans-unit>
-      <trans-unit id="337a68c2d4f39010c365e32006973551cec14c48" resname="meningitis-form.age-in-months">
-        <source>meningitis-form.age-in-months</source>
-        <target>Edad en meses</target>
-        <jms:reference-file line="37">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="47">views/Meningitis/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="1586aebb8bf75dba4205a58b420b460a7215b2ca" resname="meningitis-form.antibiotics">
         <source>meningitis-form.antibiotics</source>
         <target> Se trató el caso con antibióticos durante la semana pasada?</target>
-        <jms:reference-file line="45">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="49">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="826c31944c2e7c55681e6ca9281e9e168a24faab" resname="meningitis-form.blood-collected">
         <source>meningitis-form.blood-collected</source>
         <target>Se recolectó sangre?</target>
-        <jms:reference-file line="195">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="105">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="199">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="73">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="f1d0bccc7c3122e855d732bcfe6f039df6cfb304" resname="meningitis-form.blood-cult-done">
         <source>meningitis-form.blood-cult-done</source>
         <target>Se realizó hemocultivo?</target>
-        <jms:reference-file line="216">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="77">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="220">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="73">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="12c78b560902664abb57ab895f2f41c69c3393ab" resname="meningitis-form.blood-cult-other">
         <source>meningitis-form.blood-cult-other</source>
         <target>Se realizó cultivo en otras muestras (ej:, líquido pleural)?</target>
-        <jms:reference-file line="222">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="79">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="226">views/Meningitis/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="0600bad5951b27fbb115f0787e7028c8a4f6c078" resname="meningitis-form.blood-cult-result">
         <source>meningitis-form.blood-cult-result</source>
         <target>Resultados de las pruebas de cultivo de sangre</target>
-        <jms:reference-file line="78">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="74">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="f334f5efbd31296f344d6a4cc452788032826b30" resname="meningitis-form.blood-gram-done">
         <source>meningitis-form.blood-gram-done</source>
         <target>Se realizó coloración de Gram en la sangre?</target>
-        <jms:reference-file line="217">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="81">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="221">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="77">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="27cc36809a8e079eb55125f5514b8bdad8b73579" resname="meningitis-form.blood-gram-other">
         <source>meningitis-form.blood-gram-other</source>
         <target>Si otro organismo (s) se identificó en el hemocultivo, especifique</target>
-        <jms:reference-file line="84">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="80">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="c927569f5810e164def2dfabfb35544071501a21" resname="meningitis-form.blood-gram-result">
         <source>meningitis-form.blood-gram-result</source>
         <target>Resultados de la coloración de Gram para hemocultivo</target>
-        <jms:reference-file line="223">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="82">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="227">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="78">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="6e84aa32842081a0927554f8b0e4b0b8068035f6" resname="meningitis-form.blood-gram-result-organism">
         <source>meningitis-form.blood-gram-result-organism</source>
         <target>Si se detectaron organismos en la coloración de Gram del cultivo de sangre, seleccione la opción que mejor describa el organismo</target>
-        <jms:reference-file line="83">Form/IBD/SiteLabType.php</jms:reference-file>
-      </trans-unit>
-      <trans-unit id="5901a72d94be342c349f7236948038eac7e673ec" resname="meningitis-form.blood-id">
-        <source>meningitis-form.blood-id</source>
-        <target>CSR ID</target>
-        <jms:reference-file line="76">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="79">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="82889a1856fc56e5cc1f0c3853cd7374c99f873b" resname="meningitis-form.blood-pcr-done">
         <source>meningitis-form.blood-pcr-done</source>
         <target>Se realizó PCR en la sangre?</target>
-        <jms:reference-file line="218">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="86">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="222">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="82">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="a6c72ac47c810900bb7335838c8e2ba968e34e63" resname="meningitis-form.blood-pcr-other">
         <source>meningitis-form.blood-pcr-other</source>
         <target>Si otros organismos se identificaron en la PCR del cultivo de la sangre, especifique</target>
-        <jms:reference-file line="88">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="84">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="4ee68a5069c5fafa1431fca04ef6fa3aa0eeea2b" resname="meningitis-form.blood-pcr-result">
         <source>meningitis-form.blood-pcr-result</source>
         <target>Resultados de la prueba de PCR para hemocultivo</target>
-        <jms:reference-file line="224">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="87">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="228">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="83">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="69729c7804c84fff8575e210a9bd65ec0427d070" resname="meningitis-form.bloodCultOther">
+        <source>meningitis-form.bloodCultOther</source>
+        <target state="new">meningitis-form.bloodCultOther</target>
+        <jms:reference-file line="75">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="21fe61f7c485d79ce992a2c1a33e5610724a005e" resname="meningitis-form.bloodDateSentToNL">
+        <source>meningitis-form.bloodDateSentToNL</source>
+        <target state="new">meningitis-form.bloodDateSentToNL</target>
+        <jms:reference-file line="156">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="cfc1cb49f4a4298833cd410a50ec303d5f606d1d" resname="meningitis-form.bloodDateSentToRRL">
+        <source>meningitis-form.bloodDateSentToRRL</source>
+        <target state="new">meningitis-form.bloodDateSentToRRL</target>
+        <jms:reference-file line="135">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="4fb9ec2ded93a79f999a22672c7ef65723a532e9" resname="meningitis-form.bloodNLDateTime">
+        <source>meningitis-form.bloodNLDateTime</source>
+        <target state="new">meningitis-form.bloodNLDateTime</target>
+        <jms:reference-file line="158">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="a13c8f1e5f0db0f515ede700acd96bb5b8e0d796" resname="meningitis-form.bloodNLId">
+        <source>meningitis-form.bloodNLId</source>
+        <target state="new">meningitis-form.bloodNLId</target>
+        <jms:reference-file line="157">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="236d5e4e27c7aa13bae57ea1d74da6abed612f4b" resname="meningitis-form.bloodRRLDateTime">
+        <source>meningitis-form.bloodRRLDateTime</source>
+        <target state="new">meningitis-form.bloodRRLDateTime</target>
+        <jms:reference-file line="137">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="636877e3e08cd7e153a4c23ebbb730bf6a2f885e" resname="meningitis-form.bloodRRLId">
+        <source>meningitis-form.bloodRRLId</source>
+        <target state="new">meningitis-form.bloodRRLId</target>
+        <jms:reference-file line="136">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="3b2162460e11dc47b0cd702947b735afc55d81e1" resname="meningitis-form.bloodSentToNL">
+        <source>meningitis-form.bloodSentToNL</source>
+        <target state="new">meningitis-form.bloodSentToNL</target>
+        <jms:reference-file line="155">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="79daec4d1d4f7b723165ffd17bda8e1de4ba0eb1" resname="meningitis-form.bloodSentToRRL">
+        <source>meningitis-form.bloodSentToRRL</source>
+        <target state="new">meningitis-form.bloodSentToRRL</target>
+        <jms:reference-file line="134">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="214c303a005d54b943ad57e081ad0f060a16f5c2" resname="meningitis-form.bloodSiteDateTime">
+        <source>meningitis-form.bloodSiteDateTime</source>
+        <target state="new">meningitis-form.bloodSiteDateTime</target>
+        <jms:reference-file line="72">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="a7a22914c216884b40cdab5fafb12439cdba4815" resname="meningitis-form.bloodSiteId">
+        <source>meningitis-form.bloodSiteId</source>
+        <target state="new">meningitis-form.bloodSiteId</target>
+        <jms:reference-file line="71">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="498b718f114a490e96981334590b21724068c690" resname="meningitis-form.case-id">
         <source>meningitis-form.case-id</source>
         <target>Caso ID</target>
-        <jms:reference-file line="40">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="39">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="44">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="16544d48fb6a9ee6cb37a83182949282ee2465c6" resname="meningitis-form.comment">
         <source>meningitis-form.comment</source>
@@ -1486,159 +1607,257 @@
       <trans-unit id="7075c2b1fd867dd8cde82f87e690a65ff7fcc54b" resname="meningitis-form.csf-appearance">
         <source>meningitis-form.csf-appearance</source>
         <target>Aparencia del LCR</target>
-        <jms:reference-file line="191">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="71">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="195">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="76">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="11cfaab3f20469cbfbbb81c642c2f423802e8b38" resname="meningitis-form.csf-binax-done">
         <source>meningitis-form.csf-binax-done</source>
         <target>Se realizó prueba Binax en LCR?</target>
-        <jms:reference-file line="213">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="51">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="217">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="54">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="a16ff58b5854853985af9a89f5d851f587324f12" resname="meningitis-form.csf-binax-result">
         <source>meningitis-form.csf-binax-result</source>
         <target>Resultados de las pruebas Binax en LCR</target>
-        <jms:reference-file line="52">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="55">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e90f6482d0247735367b14c193662de13bc9a382" resname="meningitis-form.csf-collect-datetime">
         <source>meningitis-form.csf-collect-datetime</source>
         <target>Fecha/hora de la recolección de LCR (es decir, punción lumbar) </target>
-        <jms:reference-file line="187">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="70">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="191">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="75">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="c055de11a1a083c5d82402472c7af764ac34394d" resname="meningitis-form.csf-collected">
         <source>meningitis-form.csf-collected</source>
         <target>Se recolectó el LCR ?</target>
-        <jms:reference-file line="183">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="69">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="187">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="74">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="537273646dc36764222a45d328ed55dcad043fe2" resname="meningitis-form.csf-cult-done">
         <source>meningitis-form.csf-cult-done</source>
         <target>Se hizo cultivo de LCR?</target>
-        <jms:reference-file line="211">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="42">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="215">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="45">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="8665efd295bb8924fc89c0d423b9098000e6f776" resname="meningitis-form.csf-cult-result">
         <source>meningitis-form.csf-cult-result</source>
         <target>Resultados de las pruebas de cultivo del LCR</target>
-        <jms:reference-file line="43">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="46">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="bb0d6c5dd5b83e0815a5a576442166764683247e" resname="meningitis-form.csf-culture-other">
         <source>meningitis-form.csf-culture-other</source>
         <target>Si se identificó otro organismo (s) en el cultivo de LCR, especifique</target>
-        <jms:reference-file line="221">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="44">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="225">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="47">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="fa4d44b9a67c6ec19782342ef706913257b28422" resname="meningitis-form.csf-glucose">
         <source>meningitis-form.csf-glucose</source>
         <target>Glucosa medida en el LCR</target>
-        <jms:reference-file line="209">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="40">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="213">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="43">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="5d3a0743634c06e9f9ea80d6516287fdd67d4474" resname="meningitis-form.csf-gram-done">
         <source>meningitis-form.csf-gram-done</source>
         <target>Se realizó coloración de Gram en LCR?</target>
-        <jms:reference-file line="212">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="46">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="216">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="49">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="c69b4854af7506de7c4da8d89c14856d34972b0b" resname="meningitis-form.csf-gram-other">
         <source>meningitis-form.csf-gram-other</source>
         <target>Si se identificó otro organismo (s) en la coloración de Gram del LCR, especifique</target>
-        <jms:reference-file line="49">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="52">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="0220dd5c1a419ebb20e38b982a9915febf26db52" resname="meningitis-form.csf-gram-result">
         <source>meningitis-form.csf-gram-result</source>
         <target>Si se detectó organismos en la coloración de Gram del LCR, seleccione la opción que mejor describa el organismo</target>
-        <jms:reference-file line="47">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="50">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="f02a063cc7fea48467f1e59a10cae2b0682c0921" resname="meningitis-form.csf-gram-result-organism">
         <source>meningitis-form.csf-gram-result-organism</source>
         <target>Si se detectó organismos en la coloración de Gram del LCR, seleccione la opción que mejor describa el organismo</target>
-        <jms:reference-file line="48">Form/IBD/SiteLabType.php</jms:reference-file>
-      </trans-unit>
-      <trans-unit id="3ef4d571a96889ab787f682b144c0db53ca50688" resname="meningitis-form.csf-id">
-        <source>meningitis-form.csf-id</source>
-        <target>LCR ID</target>
-        <jms:reference-file line="38">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="51">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="62bc8c7d521f00819a72af8d7a95c1e40593a519" resname="meningitis-form.csf-lab-datetime">
         <source>meningitis-form.csf-lab-datetime</source>
         <target>Fecha/hora en que se recibió el LCR en el laboratorio</target>
-        <jms:reference-file line="207">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="37">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="211">views/Meningitis/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="c95f0ec93c910b8d9144a05e5559e804175992f7" resname="meningitis-form.csf-lat-done">
         <source>meningitis-form.csf-lat-done</source>
         <target>Se efectuó una prueba de aglutinación de látex (LAT)?</target>
-        <jms:reference-file line="214">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="54">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="218">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="57">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="3e150db36425ed2008ca773f9cb8969b403e048e" resname="meningitis-form.csf-lat-other">
         <source>meningitis-form.csf-lat-other</source>
         <target>Si se identificó otro organismo (s) en LAT, especifique</target>
-        <jms:reference-file line="56">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="59">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="6765edd61555eefd30332c1fd6867820dadb0557" resname="meningitis-form.csf-lat-result">
         <source>meningitis-form.csf-lat-result</source>
         <target>Resultados de la prueba de aglutinación del látex (LAT) </target>
-        <jms:reference-file line="55">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="58">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="256c947f624dbbe5c8740eaeb155ccb8dbee6cb6" resname="meningitis-form.csf-pcr-done">
         <source>meningitis-form.csf-pcr-done</source>
         <target>Se realizó PCR  en  LCR?</target>
-        <jms:reference-file line="215">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="58">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="219">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="61">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="199a3e0c3cd1642ab521398d9fc262b5fe887775" resname="meningitis-form.csf-pcr-other">
         <source>meningitis-form.csf-pcr-other</source>
         <target>Si se identificó otro organismo (s) en la PCR, especifique</target>
-        <jms:reference-file line="60">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="63">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="6eb536fbf3efb66bc72f0959ac01575c77d6f121" resname="meningitis-form.csf-pcr-result">
         <source>meningitis-form.csf-pcr-result</source>
         <target>Resultados de la prueba de PCR en LCR</target>
-        <jms:reference-file line="59">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="62">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="6b003b5b786f439c7e3397a3c04268626b61653f" resname="meningitis-form.csf-protein">
         <source>meningitis-form.csf-protein</source>
         <target>Proteína medido en el LCR</target>
-        <jms:reference-file line="210">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="41">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="214">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="44">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="5d1929b3dab6a8c0ece21803fad13d07f840798b" resname="meningitis-form.csf-store">
         <source>meningitis-form.csf-store</source>
         <target>El laboratorio centinela/nacional conserva/almacena el volumen remanente del LCR ?</target>
-        <jms:reference-file line="231">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="67">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="233">views/Meningitis/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="6cca5d1ed4d0476e1c50657947a380e81b16ef26" resname="meningitis-form.csf-wcc">
         <source>meningitis-form.csf-wcc</source>
         <target>Recuento de leucocitos (WCC) en el LCR</target>
-        <jms:reference-file line="208">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="39">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="212">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="42">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="0e794aa3937e6515e6006ce01bb26072ad279ecb" resname="meningitis-form.csfDateSentToNL">
+        <source>meningitis-form.csfDateSentToNL</source>
+        <target state="new">meningitis-form.csfDateSentToNL</target>
+        <jms:reference-file line="149">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="f81818fa346015183b57152da837712c3709251f" resname="meningitis-form.csfDateSentToRRL">
+        <source>meningitis-form.csfDateSentToRRL</source>
+        <target state="new">meningitis-form.csfDateSentToRRL</target>
+        <jms:reference-file line="128">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="43bcbe665053d3fc41ea343a505b6c5a7089f68a" resname="meningitis-form.csfIsolStore">
+        <source>meningitis-form.csfIsolStore</source>
+        <target state="new">meningitis-form.csfIsolStore</target>
+        <jms:reference-file line="69">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="0ddbb8275462b96eeb220a4fcd05989506761ac9" resname="meningitis-form.csfNLDNAExtractionDate">
+        <source>meningitis-form.csfNLDNAExtractionDate</source>
+        <target state="new">meningitis-form.csfNLDNAExtractionDate</target>
+        <jms:reference-file line="152">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="cdcedc1e40bf811b5e3ef087f27902442956bb2b" resname="meningitis-form.csfNLDNAVolume">
+        <source>meningitis-form.csfNLDNAVolume</source>
+        <target state="new">meningitis-form.csfNLDNAVolume</target>
+        <jms:reference-file line="153">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="7e15da9ca6220f82fe1771333fb790d892535144" resname="meningitis-form.csfNLDateTime">
+        <source>meningitis-form.csfNLDateTime</source>
+        <target state="new">meningitis-form.csfNLDateTime</target>
+        <jms:reference-file line="151">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="a34fb94d8b8b6ca776398cf82b32c0d1ea70507f" resname="meningitis-form.csfNLId">
+        <source>meningitis-form.csfNLId</source>
+        <target state="new">meningitis-form.csfNLId</target>
+        <jms:reference-file line="150">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="e1d7fc86cfd1f836365d8be347bce2ebbf25b072" resname="meningitis-form.csfRRLDNAExtractionDate">
+        <source>meningitis-form.csfRRLDNAExtractionDate</source>
+        <target state="new">meningitis-form.csfRRLDNAExtractionDate</target>
+        <jms:reference-file line="131">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="565152fa8bf682a7b8c71103508a0a67324534ee" resname="meningitis-form.csfRRLDNAVolume">
+        <source>meningitis-form.csfRRLDNAVolume</source>
+        <target state="new">meningitis-form.csfRRLDNAVolume</target>
+        <jms:reference-file line="132">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="c20c867c10efac7bf906af5f6bac5f5b833f5e34" resname="meningitis-form.csfRRLDateTime">
+        <source>meningitis-form.csfRRLDateTime</source>
+        <target state="new">meningitis-form.csfRRLDateTime</target>
+        <jms:reference-file line="130">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="46ea1bf9c7e8658a6a8381711ada90bed853004a" resname="meningitis-form.csfRRLId">
+        <source>meningitis-form.csfRRLId</source>
+        <target state="new">meningitis-form.csfRRLId</target>
+        <jms:reference-file line="129">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="8e4144b94749ccebaaffadf0c79066eaa1fa2932" resname="meningitis-form.csfSentToNL">
+        <source>meningitis-form.csfSentToNL</source>
+        <target state="new">meningitis-form.csfSentToNL</target>
+        <jms:reference-file line="148">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="33044a9c0d27dc85c31b1dc2ec523e874a37766d" resname="meningitis-form.csfSentToRRL">
+        <source>meningitis-form.csfSentToRRL</source>
+        <target state="new">meningitis-form.csfSentToRRL</target>
+        <jms:reference-file line="127">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="b598e896e2826510daa255f906526e66e3587836" resname="meningitis-form.csfSiteDNAExtractionDate">
+        <source>meningitis-form.csfSiteDNAExtractionDate</source>
+        <target state="new">meningitis-form.csfSiteDNAExtractionDate</target>
+        <jms:reference-file line="65">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="a1e00a6d15dd3da3ea847c110e4b24daa65e7965" resname="meningitis-form.csfSiteDNAVolume">
+        <source>meningitis-form.csfSiteDNAVolume</source>
+        <target state="new">meningitis-form.csfSiteDNAVolume</target>
+        <jms:reference-file line="66">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="4e6b199d0c9bd8faecda86ff72a526a8f4d0d566" resname="meningitis-form.csfSiteDateTime">
+        <source>meningitis-form.csfSiteDateTime</source>
+        <target state="new">meningitis-form.csfSiteDateTime</target>
+        <jms:reference-file line="39">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="67bd5ba805180e77c47663132c863ddd30ecad7d" resname="meningitis-form.csfSiteId">
+        <source>meningitis-form.csfSiteId</source>
+        <target state="new">meningitis-form.csfSiteId</target>
+        <jms:reference-file line="40">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="cc9a9911c99f322c831e6a8b524577af900846d0" resname="meningitis-form.csfStore">
+        <source>meningitis-form.csfStore</source>
+        <target state="new">meningitis-form.csfStore</target>
+        <jms:reference-file line="68">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="991e8a92affc5431c5d9efdf1d9de6ff1614863c" resname="meningitis-form.cxr-additional-result">
         <source>meningitis-form.cxr-additional-result</source>
         <target>Resultados de la radiografía de tórax</target>
-        <jms:reference-file line="176">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="75">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="180">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="110">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="78c925bf58c6bfbede35256f6311c900d655ef5c" resname="meningitis-form.cxr-done">
         <source>meningitis-form.cxr-done</source>
         <target>Se realizó una radiografía de tórax?</target>
-        <jms:reference-file line="174">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="73">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="178">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="108">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="0978fb2c24ca80dcbdfa8067941a3d4b641bb08b" resname="meningitis-form.cxr-result">
         <source>meningitis-form.cxr-result</source>
         <target>Resultado de la radiografía de tórax</target>
-        <jms:reference-file line="175">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="74">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="179">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="109">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="fe594a8f8f618d97e84534938869ca34cefcff59" resname="meningitis-form.date-of-birth">
         <source>meningitis-form.date-of-birth</source>
         <target>Fecha de nacimiento</target>
-        <jms:reference-file line="36">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="38">Form/IBD/CaseType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="f51a0ff1dc69dc24877f06d1bea0487f74b1d84d" resname="meningitis-form.date-of-birth-known">
+        <source>meningitis-form.date-of-birth-known</source>
+        <target>Se conoce la fecha de nacimiento?</target>
+        <jms:reference-file line="37">Form/IBD/CaseType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="84eacaa9b64002691aa293619fa718f3360a8a55" resname="meningitis-form.date-of-birth-months">
+        <source>meningitis-form.date-of-birth-months</source>
+        <target>Mes</target>
+        <jms:reference-file line="40">Form/IBD/CaseType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="b43deb97e72d11707374deb2127dc82acbda465a" resname="meningitis-form.date-of-birth-years">
+        <source>meningitis-form.date-of-birth-years</source>
+        <target>Año</target>
+        <jms:reference-file line="39">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="d8d7b06cdcb27ef6fcd72780f8e018b4be3ada72" resname="meningitis-form.discharge-class">
         <source>meningitis-form.discharge-class</source>
@@ -1663,52 +1882,46 @@
       <trans-unit id="bc927e39e2f4c36e2e48483196e882f5f1e94546" resname="meningitis-form.district">
         <source>meningitis-form.district</source>
         <target>Municipio de residencia</target>
-        <jms:reference-file line="39">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="43">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="0f6f9c427a11b6ef6214515cb15a51520945308e" resname="meningitis-form.dob">
         <source>meningitis-form.dob</source>
         <target>Fecha de nacimiento</target>
-        <jms:reference-file line="39">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="43">views/Meningitis/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="a4a3c36940a40bc1c57add9592943223cc64faeb" resname="meningitis-form.first-name">
         <source>meningitis-form.first-name</source>
         <target>Nombres</target>
-        <jms:reference-file line="51">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="34">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="55">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="35">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="3cb38e82f39e885937963558c7a28ee9b2281064" resname="meningitis-form.gender">
         <source>meningitis-form.gender</source>
         <target>Sexo</target>
-        <jms:reference-file line="47">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="38">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="51">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="42">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="26c4856506e6b55c33cf7f7d8cc58f1e3df93f73" resname="meningitis-form.hi-serotype">
         <source>meningitis-form.hi-serotype</source>
         <target>Resultado serotipo de Hi</target>
-        <jms:reference-file line="234">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="71">Form/IBD/SiteLabType.php</jms:reference-file>
-      </trans-unit>
-      <trans-unit id="dcf93265d1b4be7f177edfcd4518b3cac1264194" resname="meningitis-form.hi-serotype-other">
-        <source>meningitis-form.hi-serotype-other</source>
-        <target>Meningitis-ficha.hi-serotipo-otro</target>
-        <jms:reference-file line="72">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="236">views/Meningitis/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="6c4751e4d1cdd582c6ce5028fdd4895c7d4bfe04" resname="meningitis-form.hib-doses">
         <source>meningitis-form.hib-doses</source>
         <target>En caso afirmativo, el número de dosis de vacuna Hib</target>
-        <jms:reference-file line="72">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="57">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="76">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="61">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="cae532204e31d72c804711240b254112b370b36d" resname="meningitis-form.hib-most-recent-dose">
         <source>meningitis-form.hib-most-recent-dose</source>
-        <target state="new">meningitis-form.hib-most-recent-dose</target>
-        <jms:reference-file line="58">Form/IBD/CaseType.php</jms:reference-file>
+        <target>Dosis más reciente Hib</target>
+        <jms:reference-file line="62">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e0436e59c3a11ec57e4924566730754a5b9e0c5b" resname="meningitis-form.hib-received">
         <source>meningitis-form.hib-received</source>
         <target>Recibió la vacuna Hib?</target>
-        <jms:reference-file line="68">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="56">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="72">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="60">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="1479a18644044805dddf59043032d129cd27ed77" resname="meningitis-form.id">
         <source>meningitis-form.id</source>
@@ -1718,423 +1931,366 @@
       <trans-unit id="9f6eaeb96117f460c3b6b9124ebac39ad0f8e0ed" resname="meningitis-form.isol-store">
         <source>meningitis-form.isol-store</source>
         <target>El sitio centinela almacenó el aislamiento resultante ?</target>
-        <jms:reference-file line="232">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="68">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="234">views/Meningitis/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="5736e732323f1bbe609b0155f0c0f5b5c37a42af" resname="meningitis-form.last-name">
         <source>meningitis-form.last-name</source>
         <target>Apellidos</target>
-        <jms:reference-file line="55">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="33">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="59">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="34">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="49212811954df64962dac0f638476128c62b37de" resname="meningitis-form.men-alt-conscious">
         <source>meningitis-form.men-alt-conscious</source>
         <target>Alteración de conciencia?</target>
-        <jms:reference-file line="126">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="49">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="130">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="53">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="1b084acd0743f9844bb0aa89e6d5d84ebcf21b1a" resname="meningitis-form.men-fever">
         <source>meningitis-form.men-fever</source>
         <target>Fiebre?</target>
-        <jms:reference-file line="122">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="48">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="126">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="52">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="c73396f61cf466ad448273e9e70f33942084eb22" resname="meningitis-form.men-fontanelle-bulge">
         <source>meningitis-form.men-fontanelle-bulge</source>
         <target>Abombamiento de fontanela?</target>
-        <jms:reference-file line="142">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="53">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="146">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="57">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="f2f09856cf329260216a721beb7239aae8047b9e" resname="meningitis-form.men-inability-feed">
         <source>meningitis-form.men-inability-feed</source>
         <target>Incapacidad de alimentarse ?</target>
-        <jms:reference-file line="130">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="50">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="134">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="54">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="ff286062a99db3678cc217f689fe0bf5de6c38b9" resname="meningitis-form.men-lethargy">
         <source>meningitis-form.men-lethargy</source>
         <target>Postración/letargo?</target>
-        <jms:reference-file line="146">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="54">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="150">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="58">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="12565f11893cecf19a455d1b7004beed05477164" resname="meningitis-form.men-neck-stiff">
         <source>meningitis-form.men-neck-stiff</source>
         <target>Rigidez en el cuello?</target>
-        <jms:reference-file line="134">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="138">views/Meningitis/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="bed81d5fec15f9364b0ac984fadfcb138671138a" resname="meningitis-form.men-rash">
         <source>meningitis-form.men-rash</source>
         <target>Erupción?</target>
-        <jms:reference-file line="138">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="52">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="142">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="56">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="303e13011769faf3406db988b38e863ed9c0360e" resname="meningitis-form.men-received">
         <source>meningitis-form.men-received</source>
         <target>Recibió vacuna contra el meningococo?</target>
-        <jms:reference-file line="65">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="69">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e21dfe7c26f8dcbaca4a8083bf4254f7f0c84aaf" resname="meningitis-form.men-seizures">
         <source>meningitis-form.men-seizures</source>
         <target>Convulsiones?</target>
-        <jms:reference-file line="118">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="47">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="122">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="51">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="7f904ce5dcc28cefe889ba7a3d01fac20234e587" resname="meningitis-form.men-stiff-neck">
         <source>meningitis-form.men-stiff-neck</source>
         <target>Rigidez en el cuello?</target>
-        <jms:reference-file line="51">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="55">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="1b7ce06ace464c2376230268808cdd77b8b19798" resname="meningitis-form.men-type">
         <source>meningitis-form.men-type</source>
         <target>En caso afirmativo, seleccione el tipo de vacuna antimeningocócica recibido</target>
-        <jms:reference-file line="88">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="66">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="92">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="70">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="51503f53936c9c5e5dc9ddc55ecd6c28f0fc91f8" resname="meningitis-form.mening-received">
         <source>meningitis-form.mening-received</source>
         <target>Recibió la vacuna contra el meningococo?</target>
-        <jms:reference-file line="84">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="88">views/Meningitis/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="b0a99fa9df72cb37cd936a5c251e230ec74ef23b" resname="meningitis-form.meningMostRecentDose">
         <source>meningitis-form.meningMostRecentDose</source>
         <target>En caso afirmativo, indique la fecha de la vacuna contra el meningococo más reciente recibida</target>
-        <jms:reference-file line="92">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="67">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="96">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="71">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="21b3568645398deaf9e382576ac4892488f07b81" resname="meningitis-form.nm-serogroup">
         <source>meningitis-form.nm-serogroup</source>
         <target>Resultado serogrupo Nm</target>
-        <jms:reference-file line="235">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="73">Form/IBD/SiteLabType.php</jms:reference-file>
-      </trans-unit>
-      <trans-unit id="9927a27a66e43dd4d793c848498abe417a6d19cf" resname="meningitis-form.nm-serogroup-other">
-        <source>meningitis-form.nm-serogroup-other</source>
-        <target>Resultado de serogrupo Nm- Otros</target>
-        <jms:reference-file line="74">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="237">views/Meningitis/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="c6da598982bd4b4d2a3a7d0272c59b69e4b3b742" resname="meningitis-form.onset-date">
         <source>meningitis-form.onset-date</source>
         <target>Fecha de inicio de la enfermedad</target>
-        <jms:reference-file line="44">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="48">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="cd8d9d7144d9adc55ab5dcdfbd42da291084720c" resname="meningitis-form.other-cult-done1">
         <source>meningitis-form.other-cult-done1</source>
-        <target state="new">meningitis-form.other-cult-done1</target>
-        <jms:reference-file line="90">Form/IBD/SiteLabType.php</jms:reference-file>
+        <target>Se realizo otro hemocultivo?</target>
+        <jms:reference-file line="88">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="1de829f89e5aee458e6c1a7256e38b6ad5b34ebc" resname="meningitis-form.other-cult-other">
         <source>meningitis-form.other-cult-other</source>
         <target>Si se identificó otro organismo (s) en el cultivo de LCR, especifique</target>
-        <jms:reference-file line="226">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="92">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="230">views/Meningitis/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="cf09976b808de93bcb94054978a51c88e512a5b2" resname="meningitis-form.other-cult-result">
         <source>meningitis-form.other-cult-result</source>
-        <target>Resultados de cultura que se realizaron en otras muestras (ej: fluido pleural)</target>
-        <jms:reference-file line="225">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="91">Form/IBD/SiteLabType.php</jms:reference-file>
+        <target>Resultados de cultivo en otras muestras  (ej: fluido pleural)</target>
+        <jms:reference-file line="229">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="89">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="5cc7de1e83b42977e7a567384c2e66091fd44461" resname="meningitis-form.other-culture">
         <source>meningitis-form.other-culture</source>
         <target>Si se identificaron otros organismos realizados en el cultivo  en otros especimenes  (ej: líquido pleural),  especificar</target>
-        <jms:reference-file line="219">views/Meningitis/show.html.twig</jms:reference-file>
-      </trans-unit>
-      <trans-unit id="680b918f03b17180647a9f235c6eb42dbc02a1f1" resname="meningitis-form.other-test-other">
-        <source>meningitis-form.other-test-other</source>
-        <target>Si se identificó otro organismo en la otra prueba, especifique</target>
-        <jms:reference-file line="228">views/Meningitis/show.html.twig</jms:reference-file>
-      </trans-unit>
-      <trans-unit id="991be44ae9214b5d1e36b1d5cf84460551d1fedb" resname="meningitis-form.other-test-result">
-        <source>meningitis-form.other-test-result</source>
-        <target>Resultados de otras pruebas realizadas en el laboratorio</target>
-        <jms:reference-file line="227">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="223">views/Meningitis/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="5cbd6b3ab5b371ccae35c374b938c432547a9a19" resname="meningitis-form.other-tests">
         <source>meningitis-form.other-tests</source>
         <target>Otras pruebas realizadas en el laboratorio</target>
-        <jms:reference-file line="220">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="224">views/Meningitis/show.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="001e6d54b26f2a48a46a9fdde89ab0cc4f1ab31c" resname="meningitis-form.otherCultOther">
+        <source>meningitis-form.otherCultOther</source>
+        <target state="new">meningitis-form.otherCultOther</target>
+        <jms:reference-file line="90">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="13224a93395263c1b6c9c7584095c5074c93e410" resname="meningitis-form.otherDateSentToNL">
+        <source>meningitis-form.otherDateSentToNL</source>
+        <target state="new">meningitis-form.otherDateSentToNL</target>
+        <jms:reference-file line="162">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="f62374c628eb2fad7c1eecc62c2b4914726daef6" resname="meningitis-form.otherDateSentToRRL">
+        <source>meningitis-form.otherDateSentToRRL</source>
+        <target state="new">meningitis-form.otherDateSentToRRL</target>
+        <jms:reference-file line="141">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="244dd5da8abc41da88b2cc9415c061fc806059e7" resname="meningitis-form.otherNLDateTime">
+        <source>meningitis-form.otherNLDateTime</source>
+        <target state="new">meningitis-form.otherNLDateTime</target>
+        <jms:reference-file line="163">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="9fbf0ddcc2892b8acf9a6101a0f16806a8e50b2a" resname="meningitis-form.otherNLId">
+        <source>meningitis-form.otherNLId</source>
+        <target state="new">meningitis-form.otherNLId</target>
+        <jms:reference-file line="161">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="dcb7be1461c1dae19bad25e6e3dd4b4f304011c2" resname="meningitis-form.otherRRLDateTime">
+        <source>meningitis-form.otherRRLDateTime</source>
+        <target state="new">meningitis-form.otherRRLDateTime</target>
+        <jms:reference-file line="142">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="7f90c058f0eb3383e44540b3bda346d33a48731f" resname="meningitis-form.otherRRLId">
+        <source>meningitis-form.otherRRLId</source>
+        <target state="new">meningitis-form.otherRRLId</target>
+        <jms:reference-file line="140">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="eb28a79b1984b930421b50b3900c05b937578edc" resname="meningitis-form.otherSentToNL">
+        <source>meningitis-form.otherSentToNL</source>
+        <target state="new">meningitis-form.otherSentToNL</target>
+        <jms:reference-file line="160">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="41d5e7d94da447a0b8b8ea745dbfc846ed340cc0" resname="meningitis-form.otherSentToRRL">
+        <source>meningitis-form.otherSentToRRL</source>
+        <target state="new">meningitis-form.otherSentToRRL</target>
+        <jms:reference-file line="139">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="20edd56dcd1aa448532969ee4d210dcc8b8c83ef" resname="meningitis-form.otherSiteDateTime">
+        <source>meningitis-form.otherSiteDateTime</source>
+        <target state="new">meningitis-form.otherSiteDateTime</target>
+        <jms:reference-file line="87">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="d42bf02f3e4e2f78407e4dbaf5b51830456ad62a" resname="meningitis-form.otherSiteId">
+        <source>meningitis-form.otherSiteId</source>
+        <target state="new">meningitis-form.otherSiteId</target>
+        <jms:reference-file line="86">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="cbfe92f21431301208397ed7a349024b6b66b87f" resname="meningitis-form.otherSpecimenCollected">
+        <source>meningitis-form.otherSpecimenCollected</source>
+        <target state="new">meningitis-form.otherSpecimenCollected</target>
+        <jms:reference-file line="77">Form/IBD/CaseType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="c8215e7f37cd6b02ecc8b91b6e8d0ddcd463b4a4" resname="meningitis-form.otherSpecimenOther">
+        <source>meningitis-form.otherSpecimenOther</source>
+        <target state="new">meningitis-form.otherSpecimenOther</target>
+        <jms:reference-file line="78">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="807a07957b7599833cf1302d10122a1c2c7f0a01" resname="meningitis-form.parental-name">
         <source>meningitis-form.parental-name</source>
         <target>Nombre del responsable</target>
-        <jms:reference-file line="59">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="35">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="63">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="36">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="f509b3a0ffa70ed56f4903404d5d4a3c42cc0416" resname="meningitis-form.pcv-doses">
         <source>meningitis-form.pcv-doses</source>
         <target>En caso afirmativo, el número de dosis de PCV</target>
-        <jms:reference-file line="80">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="61">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="84">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="65">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="ed195778dfcb253b0625e994cc6e61279756225a" resname="meningitis-form.pcv-most-recent-dose">
         <source>meningitis-form.pcv-most-recent-dose</source>
-        <target state="new">meningitis-form.pcv-most-recent-dose</target>
-        <jms:reference-file line="63">Form/IBD/CaseType.php</jms:reference-file>
+        <target>Dosis más reciente PCV</target>
+        <jms:reference-file line="67">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="028e4886123134d229765716e799c2cc42046aab" resname="meningitis-form.pcv-received">
         <source>meningitis-form.pcv-received</source>
         <target>Recibió la PCV?</target>
-        <jms:reference-file line="76">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="60">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="80">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="64">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="58617060c36951f6d31e49b0f9249b581dfc201a" resname="meningitis-form.pcv-type">
         <source>meningitis-form.pcv-type</source>
         <target>Tipo de PCV: Dosis más reciente</target>
-        <jms:reference-file line="62">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="66">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e21c4f600f5f23c8b3bf756fd331731b6483301c" resname="meningitis-form.pneu-chest-indraw">
         <source>meningitis-form.pneu-chest-indraw</source>
         <target>Hubo tiraje?</target>
-        <jms:reference-file line="159">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="97">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="163">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="100">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="bd21777194b75d9a0cb18d22f139aa9bd917b029" resname="meningitis-form.pneu-cough">
         <source>meningitis-form.pneu-cough</source>
         <target>Tos?</target>
-        <jms:reference-file line="163">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="98">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="167">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="101">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="1f031d50e001afec1e814a7986a7378624d130a6" resname="meningitis-form.pneu-cyanosis">
         <source>meningitis-form.pneu-cyanosis</source>
         <target> Síntomas de cianosis?</target>
-        <jms:reference-file line="167">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="99">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="171">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="102">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="b8ddee8b89df012440a6d9425ce32aa54c8aae18" resname="meningitis-form.pneu-diff-breathe">
         <source>meningitis-form.pneu-diff-breathe</source>
         <target>Dificultad para respirar?</target>
-        <jms:reference-file line="155">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="96">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="159">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="99">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="8b5c98b28ed07facd076752de3c3166788d7c027" resname="meningitis-form.pneu-hypothermia">
         <source>meningitis-form.pneu-hypothermia</source>
         <target><![CDATA[Presentó hipotermia (<36 °C)?]]></target>
-        <jms:reference-file line="103">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="106">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="0f893f8d130aa4195e8245c80b3f8bae62b456c1" resname="meningitis-form.pneu-malnutrition">
         <source>meningitis-form.pneu-malnutrition</source>
         <target>Desnutrición grave?</target>
-        <jms:reference-file line="104">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="107">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="5b07b9ca4b1a901a485c4edada9ac719b8603a6f" resname="meningitis-form.pneu-resp-rate">
         <source>meningitis-form.pneu-resp-rate</source>
         <target>Frecuencia respiratoria</target>
-        <jms:reference-file line="171">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="101">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="175">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="104">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="4cf9633553b39447877c10d0d2864d041b23cf83" resname="meningitis-form.pneu-stridor">
         <source>meningitis-form.pneu-stridor</source>
         <target>Tubó vitrina estridor?</target>
-        <jms:reference-file line="100">Form/IBD/CaseType.php</jms:reference-file>
+        <jms:reference-file line="103">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="db256cbb4f26726850ed375fde61a279fdfa70ef" resname="meningitis-form.pneu-vomit">
         <source>meningitis-form.pneu-vomit</source>
         <target>El caso vomitó todo?</target>
-        <jms:reference-file line="102">Form/IBD/CaseType.php</jms:reference-file>
-      </trans-unit>
-      <trans-unit id="d9280c168f67a40026e1648a670eaa0feff4da1a" resname="meningitis-form.rrl-broth-date">
-        <source>meningitis-form.rrl-broth-date</source>
-        <target>Fecha de envio del caldo de sangre al LRR</target>
-        <jms:reference-file line="65">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="105">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="0bba034646f7c19bd9e3de9bf40f4f248a5e7d12" resname="meningitis-form.rrl-csf-date">
         <source>meningitis-form.rrl-csf-date</source>
         <target>Fecha de envio de la muestra de LCR al LRR</target>
-        <jms:reference-file line="229">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="62">Form/IBD/SiteLabType.php</jms:reference-file>
-      </trans-unit>
-      <trans-unit id="1724452f06403158afcffcefb8943624ab0c4283" resname="meningitis-form.rrl-isol-blood-date">
-        <source>meningitis-form.rrl-isol-blood-date</source>
-        <target>Fecha de envio del aislamiento de la sangre al LRR</target>
-        <jms:reference-file line="64">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="231">views/Meningitis/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="2a97035b74735d5a5cadf754a049bfc195a1aeb6" resname="meningitis-form.rrl-isol-date">
         <source>meningitis-form.rrl-isol-date</source>
         <target>Fecha de envio del aislamiento al LRR</target>
-        <jms:reference-file line="230">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="63">Form/IBD/SiteLabType.php</jms:reference-file>
+        <jms:reference-file line="232">views/Meningitis/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="707186e81d7085066089d8b0cdc3eea4c90d7aee" resname="meningitis-form.site">
         <source>meningitis-form.site</source>
         <target>Sitio</target>
         <jms:reference-file line="44">SentinelBundle/Form/CreateType.php</jms:reference-file>
-        <jms:reference-file line="45">Form/IBD/CreateType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e5266573001cc4b6bf152ce31fff6c901a9ab61d" resname="meningitis-form.spn-serotype">
         <source>meningitis-form.spn-serotype</source>
         <target>Resultado serotipo Spn</target>
-        <jms:reference-file line="233">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="69">Form/IBD/SiteLabType.php</jms:reference-file>
-      </trans-unit>
-      <trans-unit id="3744ce79121629d7727560e6a7d4e90129dde293" resname="meningitis-form.spn-serotype-other">
-        <source>meningitis-form.spn-serotype-other</source>
-        <target>Resultado serotipo Spn - Otros</target>
-        <jms:reference-file line="70">Form/IBD/SiteLabType.php</jms:reference-file>
-      </trans-unit>
-      <trans-unit id="b145c7d77c9d28170f2739fd03f77add0888536f" resname="meningitis-rrl-form.date-received">
-        <source>meningitis-rrl-form.date-received</source>
-        <target>Fecha de recepción de la muestra en el LRR</target>
-        <jms:reference-file line="252">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="307">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="21">Form/IBD/BaseLabType.php</jms:reference-file>
-      </trans-unit>
-      <trans-unit id="2e259f102c575ee3cfc47d216dad722500913642" resname="meningitis-rrl-form.dna-extraction-date">
-        <source>meningitis-rrl-form.dna-extraction-date</source>
-        <target>Fecha de extracción de ADN</target>
-        <jms:reference-file line="256">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="311">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="23">Form/IBD/BaseLabType.php</jms:reference-file>
-      </trans-unit>
-      <trans-unit id="5ee09922cdc174643612425df3891d45498fc7be" resname="meningitis-rrl-form.dna-volume">
-        <source>meningitis-rrl-form.dna-volume</source>
-        <target>Volumen de ADN extraído</target>
-        <jms:reference-file line="258">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="313">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="24">Form/IBD/BaseLabType.php</jms:reference-file>
+        <jms:reference-file line="235">views/Meningitis/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="93b59a362f9b2a6f42580d2302034c126b23f5b6" resname="meningitis-rrl-form.hiSerotype">
         <source>meningitis-rrl-form.hiSerotype</source>
         <target>Serotip H. influenzae por PCR o no </target>
-        <jms:reference-file line="282">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="337">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="36">Form/IBD/BaseLabType.php</jms:reference-file>
+        <jms:reference-file line="102">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="60aec811c53ab16807abdfff3d4c929ec7034b37" resname="meningitis-rrl-form.hiSerotype-other">
+        <source>meningitis-rrl-form.hiSerotype-other</source>
+        <target>Hi Otros</target>
+        <jms:reference-file line="103">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="2fb140c4e8f93c5670592de448423d9a83fc4477" resname="meningitis-rrl-form.hpd">
         <source>meningitis-rrl-form.hpd</source>
         <target>Resultados de hpd (valor ct) *</target>
-        <jms:reference-file line="276">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="331">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="33">Form/IBD/BaseLabType.php</jms:reference-file>
-      </trans-unit>
-      <trans-unit id="2a2ab7c6d6c5fcc7251c375be859f7c94a7efabd" resname="meningitis-rrl-form.isolate-type">
-        <source>meningitis-rrl-form.isolate-type</source>
-        <target>Tipo de aislamiento recibido</target>
-        <jms:reference-file line="262">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="317">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="26">Form/IBD/BaseLabType.php</jms:reference-file>
-      </trans-unit>
-      <trans-unit id="853b251483a3d9b6468e6fc16bec96c5768fe4de" resname="meningitis-rrl-form.isolate-viable">
-        <source>meningitis-rrl-form.isolate-viable</source>
-        <target>Aislamiento viable</target>
-        <jms:reference-file line="260">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="315">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="25">Form/IBD/BaseLabType.php</jms:reference-file>
-      </trans-unit>
-      <trans-unit id="fa792bb1b744fc4d5185ac405be04b225444ec07" resname="meningitis-rrl-form.lab-id">
-        <source>meningitis-rrl-form.lab-id</source>
-        <target>Regional/Nacional Lab ID</target>
-        <jms:reference-file line="248">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="303">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="19">Form/IBD/BaseLabType.php</jms:reference-file>
+        <jms:reference-file line="98">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="dde49852674017ddc1e2e2c56031fc2f656ffcf3" resname="meningitis-rrl-form.lytA">
         <source>meningitis-rrl-form.lytA</source>
         <target>Resultados de lytA (valor ct) *</target>
-        <jms:reference-file line="272">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="327">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="31">Form/IBD/BaseLabType.php</jms:reference-file>
+        <jms:reference-file line="96">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="8fd59acf86f13d195a512c9841cd9e1c0f641c89" resname="meningitis-rrl-form.nmSerogroup">
         <source>meningitis-rrl-form.nmSerogroup</source>
         <target>Serogrupo N. meningitidis por PCR o no</target>
-        <jms:reference-file line="284">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="339">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="37">Form/IBD/BaseLabType.php</jms:reference-file>
+        <jms:reference-file line="104">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
-      <trans-unit id="e974cd52f1cdc7b458fe8a4f0a1873c13eb9a261" resname="meningitis-rrl-form.pathogen-id-method">
-        <source>meningitis-rrl-form.pathogen-id-method</source>
-        <target>Método utilizado para la identificación de patógenos en el LRR</target>
-        <jms:reference-file line="264">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="319">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="27">Form/IBD/BaseLabType.php</jms:reference-file>
+      <trans-unit id="d56908f567191b53d7c3b1d3f65be41a222d59e0" resname="meningitis-rrl-form.nmSerogroup-other">
+        <source>meningitis-rrl-form.nmSerogroup-other</source>
+        <target>Nm Otros</target>
+        <jms:reference-file line="105">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="ef5cbf5bd0ff5b56a639ec882c8b2aa2f5f4f7ad" resname="meningitis-rrl-form.pathogen-id-other">
         <source>meningitis-rrl-form.pathogen-id-other</source>
         <target>Si es otro, especifique el método utilizado para la identificación del patógeno</target>
-        <jms:reference-file line="266">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="321">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="28">Form/IBD/BaseLabType.php</jms:reference-file>
+        <jms:reference-file line="93">Form/IBD/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="eb9fb39c9ac44335b33001bee4c92d188d95e0d1" resname="meningitis-rrl-form.pathogenIdentifierMethod">
+        <source>meningitis-rrl-form.pathogenIdentifierMethod</source>
+        <target state="new">meningitis-rrl-form.pathogenIdentifierMethod</target>
+        <jms:reference-file line="92">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="b506d385930040a7713cc9c6931f063119730089" resname="meningitis-rrl-form.rNasP">
         <source>meningitis-rrl-form.rNasP</source>
         <target>Resultados de RNaseP (valor ct) *</target>
-        <jms:reference-file line="278">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="333">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="34">Form/IBD/BaseLabType.php</jms:reference-file>
-      </trans-unit>
-      <trans-unit id="4ca91a45206fbe81260df4df2b37a62e3bb64232" resname="meningitis-rrl-form.resultSentToCountry">
-        <source>meningitis-rrl-form.resultSentToCountry</source>
-        <target>Fecha de resultado enviado a país/Sitio centinela/Lab</target>
-        <jms:reference-file line="286">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="341">views/Meningitis/show.html.twig</jms:reference-file>
-      </trans-unit>
-      <trans-unit id="c0dce03865ad05b3a9f89216da4a08f6e03e23cc" resname="meningitis-rrl-form.resultSentToWHO">
-        <source>meningitis-rrl-form.resultSentToWHO</source>
-        <target>Fecha que el resultado fue enviado a la OMS</target>
-        <jms:reference-file line="288">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="343">views/Meningitis/show.html.twig</jms:reference-file>
-      </trans-unit>
-      <trans-unit id="9a4ae9e6a8eb17e2463ef46aa64480f19b83a579" resname="meningitis-rrl-form.sample-type">
-        <source>meningitis-rrl-form.sample-type</source>
-        <target>Tipo de muestra recibida</target>
-        <jms:reference-file line="250">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="305">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="20">Form/IBD/BaseLabType.php</jms:reference-file>
+        <jms:reference-file line="99">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="db073a4f184c3d75b2f693a80ae47889e33bdd41" resname="meningitis-rrl-form.serotype-id-method">
         <source>meningitis-rrl-form.serotype-id-method</source>
         <target>Método utilizado para la serotipificación/seroagrupamiento</target>
-        <jms:reference-file line="268">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="323">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="29">Form/IBD/BaseLabType.php</jms:reference-file>
+        <jms:reference-file line="94">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="90ae8a2a5911113ceae61c371cf6ac9ce56d0030" resname="meningitis-rrl-form.serotype-id-other">
         <source>meningitis-rrl-form.serotype-id-other</source>
         <target>Si es otro, especifique el método utilizado para la serotipificación/seroagrupamiento</target>
-        <jms:reference-file line="270">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="325">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="30">Form/IBD/BaseLabType.php</jms:reference-file>
+        <jms:reference-file line="95">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="bba0717dbdc63c7d25ff37b44e918d4ba4f24a77" resname="meningitis-rrl-form.sodC">
         <source>meningitis-rrl-form.sodC</source>
         <target>Resultados de sodC (valor ct) *</target>
-        <jms:reference-file line="274">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="329">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="32">Form/IBD/BaseLabType.php</jms:reference-file>
+        <jms:reference-file line="97">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="49fbf24eda26ff42d346de1652fc11c1b2cab513" resname="meningitis-rrl-form.spnSerotype">
         <source>meningitis-rrl-form.spnSerotype</source>
         <target>Spn ST por el metodo PCR o no</target>
-        <jms:reference-file line="280">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="335">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="35">Form/IBD/BaseLabType.php</jms:reference-file>
+        <jms:reference-file line="100">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
-      <trans-unit id="7719dabcd2fd0428288675d38276af0e5fd7792c" resname="meningitis-rrl-form.volume">
-        <source>meningitis-rrl-form.volume</source>
-        <target>Volumen de ADN extraído</target>
-        <jms:reference-file line="254">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="309">views/Meningitis/show.html.twig</jms:reference-file>
-        <jms:reference-file line="22">Form/IBD/BaseLabType.php</jms:reference-file>
-      </trans-unit>
-      <trans-unit id="982ff87e245caea0ec081759aba944a3c0e24a9b" resname="meningitis.has-national-lab">
-        <source>meningitis.has-national-lab</source>
-        <target>Hay Laboratorio Nacional</target>
-        <jms:reference-file line="347">views/Meningitis/show.html.twig</jms:reference-file>
-      </trans-unit>
-      <trans-unit id="d4ac82efb89967ab5f00e2c9fd49e6d37eae4a76" resname="meningitis.has-reference-lab">
-        <source>meningitis.has-reference-lab</source>
-        <target>Tiene LRR</target>
-        <jms:reference-file line="292">views/Meningitis/show.html.twig</jms:reference-file>
+      <trans-unit id="3977fc88f8402d7ab03b1220e23f4ff368c76e2f" resname="meningitis-rrl-form.spnSerotype-other">
+        <source>meningitis-rrl-form.spnSerotype-other</source>
+        <target>Spn Otros</target>
+        <jms:reference-file line="101">Form/IBD/LabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="a7fcf675152dbce01f9712db2f25ad606debf919" resname="meningitis.has-site-lab">
         <source>meningitis.has-site-lab</source>
         <target>Tiene Lab Sitio</target>
-        <jms:reference-file line="238">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="240">views/Meningitis/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="beb00733f1fd527b55d53aa0ab1168beae78392f" resname="meningitis.site-lab-status">
         <source>meningitis.site-lab-status</source>
         <target>Estado Lab Sitio</target>
-        <jms:reference-file line="204">views/Meningitis/show.html.twig</jms:reference-file>
+        <jms:reference-file line="208">views/Meningitis/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="5c6441c54e28f6fe1e8319a1069edb607e328614" resname="menu.data-admin">
         <source>menu.data-admin</source>
@@ -2198,10 +2354,14 @@
         <target>Edad en meses (a la fecha de ingreso)</target>
         <jms:reference-file line="28">Form/Rota/CaseType.php</jms:reference-file>
       </trans-unit>
+      <trans-unit id="ad0ce05802da286f986e9e2c1dd7d54cb23c12f0" resname="rotavirus-form.case-id">
+        <source>rotavirus-form.case-id</source>
+        <target state="new">rotavirus-form.case-id</target>
+        <jms:reference-file line="27">views/RotaVirus/show.html.twig</jms:reference-file>
+      </trans-unit>
       <trans-unit id="e4de6aef31f0eb1fadc7cb6cc066c88f5eb98172" resname="rotavirus-form.caseId">
         <source>rotavirus-form.caseId</source>
         <target>Caso ID</target>
-        <jms:reference-file line="27">views/RotaVirus/show.html.twig</jms:reference-file>
         <jms:reference-file line="25">Form/Rota/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="9a67ad2d7c2d586e6b06dd0934acb3776c249d25" resname="rotavirus-form.comment">
@@ -2257,7 +2417,7 @@
       </trans-unit>
       <trans-unit id="18a521a31e44f68188699fa2d9bef7b8dc001905" resname="rotavirus-form.doses">
         <source>rotavirus-form.doses</source>
-        <target>En caso afirmativo, el número de dosis de vacuna contra el rotavirus</target>
+        <target>En caso afirmativo, especifique el número de dosis de vacuna contra el rotavirus</target>
         <jms:reference-file line="56">views/RotaVirus/show.html.twig</jms:reference-file>
         <jms:reference-file line="53">Form/Rota/CaseType.php</jms:reference-file>
       </trans-unit>
@@ -2309,6 +2469,16 @@
         <target>Resultado Genotipo G_ P [_]</target>
         <jms:reference-file line="237">views/RotaVirus/show.html.twig</jms:reference-file>
       </trans-unit>
+      <trans-unit id="801615a1d313df0c3cf0cc1064adac354ba3f20c" resname="rotavirus-form.nlLabId">
+        <source>rotavirus-form.nlLabId</source>
+        <target state="new">rotavirus-form.nlLabId</target>
+        <jms:reference-file line="88">Form/Rota/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="ec4b877c1064d582c24226c6a8197dfe9917eb33" resname="rotavirus-form.nlReceivedDate">
+        <source>rotavirus-form.nlReceivedDate</source>
+        <target state="new">rotavirus-form.nlReceivedDate</target>
+        <jms:reference-file line="87">Form/Rota/LabType.php</jms:reference-file>
+      </trans-unit>
       <trans-unit id="34e4ab14504bca439f0ef3dd52026bad2b420fba" resname="rotavirus-form.parental-name">
         <source>rotavirus-form.parental-name</source>
         <target>Nombre del responsable</target>
@@ -2355,17 +2525,46 @@
         <target>Resultado Genotipo G_ P [_]</target>
         <jms:reference-file line="217">views/RotaVirus/show.html.twig</jms:reference-file>
       </trans-unit>
+      <trans-unit id="6495772b991e5241eaaa3ce3092981ec15ed0ad9" resname="rotavirus-form.rrlLabId">
+        <source>rotavirus-form.rrlLabId</source>
+        <target state="new">rotavirus-form.rrlLabId</target>
+        <jms:reference-file line="80">Form/Rota/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="935e7423a37b0842a4619d715a95514249ec78a2" resname="rotavirus-form.rrlReceivedDate">
+        <source>rotavirus-form.rrlReceivedDate</source>
+        <target state="new">rotavirus-form.rrlReceivedDate</target>
+        <jms:reference-file line="79">Form/Rota/LabType.php</jms:reference-file>
+      </trans-unit>
       <trans-unit id="9f05ea2ef3ea0a4f42b72b8ba3a885261c39d5ee" resname="rotavirus-form.secondVaccinationDose">
         <source>rotavirus-form.secondVaccinationDose</source>
         <target>Fecha de la segunda dosis de la vacuna contra el rotavirus</target>
         <jms:reference-file line="64">views/RotaVirus/show.html.twig</jms:reference-file>
         <jms:reference-file line="62">Form/Rota/CaseType.php</jms:reference-file>
       </trans-unit>
+      <trans-unit id="96c94ea863e2a9cd1e4cfa89b146ca6971253476" resname="rotavirus-form.sentToNL">
+        <source>rotavirus-form.sentToNL</source>
+        <target state="new">rotavirus-form.sentToNL</target>
+        <jms:reference-file line="85">Form/Rota/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="db2db5f31bfca0fc9671d9c9fd64f659c304cb92" resname="rotavirus-form.sentToNLDate">
+        <source>rotavirus-form.sentToNLDate</source>
+        <target state="new">rotavirus-form.sentToNLDate</target>
+        <jms:reference-file line="86">Form/Rota/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="0beb2c87c3009aa9b847ea8ac6e41048feda36cb" resname="rotavirus-form.sentToRRL">
+        <source>rotavirus-form.sentToRRL</source>
+        <target state="new">rotavirus-form.sentToRRL</target>
+        <jms:reference-file line="77">Form/Rota/LabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="35f3fa57d40a6947f36311ec259a552f348b070f" resname="rotavirus-form.sentToRRLDate">
+        <source>rotavirus-form.sentToRRLDate</source>
+        <target state="new">rotavirus-form.sentToRRLDate</target>
+        <jms:reference-file line="78">Form/Rota/LabType.php</jms:reference-file>
+      </trans-unit>
       <trans-unit id="ecc9ffc5eb0b86cdcda9b465b8ed7d38a23e4f43" resname="rotavirus-form.stoolAdequate">
         <source>rotavirus-form.stoolAdequate</source>
-        <target>Cúal es el volumen de muestra de heces para ELISA ?</target>
+        <target>El volumen de muestra de heces para ELISA es adecuado ?</target>
         <jms:reference-file line="181">views/RotaVirus/show.html.twig</jms:reference-file>
-        <jms:reference-file line="31">Form/Rota/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="c207bb19c6d39e367a58e7a7bd6d78999d37ff2c" resname="rotavirus-form.stoolCollected">
         <source>rotavirus-form.stoolCollected</source>
@@ -2381,13 +2580,11 @@
         <source>rotavirus-form.stoolELISADone</source>
         <target>Se hizó la prueba de ELISA para la muestra de heces en el laboratorio primario?</target>
         <jms:reference-file line="185">views/RotaVirus/show.html.twig</jms:reference-file>
-        <jms:reference-file line="32">Form/Rota/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="f1c247c8ea7d10995adbeb4cf982204fe08ff0db" resname="rotavirus-form.stoolELISAResult">
         <source>rotavirus-form.stoolELISAResult</source>
         <target>Resultados de ELISA para la muestra de heces del laboratorio principal</target>
         <jms:reference-file line="193">views/RotaVirus/show.html.twig</jms:reference-file>
-        <jms:reference-file line="34">Form/Rota/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="c0557c3d85944f3e1297bd53869950fb9f3df1e4" resname="rotavirus-form.stoolId">
         <source>rotavirus-form.stoolId</source>
@@ -2398,43 +2595,36 @@
         <source>rotavirus-form.stoolReceivedDate</source>
         <target>Fecha de recepción de la muestra de heces al laboratorio</target>
         <jms:reference-file line="177">views/RotaVirus/show.html.twig</jms:reference-file>
-        <jms:reference-file line="30">Form/Rota/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="71d799cbde3024700bf4b47e764f1932feb6f4bf" resname="rotavirus-form.stoolSentToNL">
         <source>rotavirus-form.stoolSentToNL</source>
         <target>Se envió muestra de heces al Laboratorio Nacional (LN)?</target>
         <jms:reference-file line="221">views/RotaVirus/show.html.twig</jms:reference-file>
-        <jms:reference-file line="63">Form/Rota/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="c2dfff1742b6fcc55dff65d629aba1a0e79fc1ad" resname="rotavirus-form.stoolSentToNLDate">
         <source>rotavirus-form.stoolSentToNLDate</source>
         <target>Fecha de envio de la muestra de heces al LN</target>
         <jms:reference-file line="225">views/RotaVirus/show.html.twig</jms:reference-file>
-        <jms:reference-file line="64">Form/Rota/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="4ddb9d195469fc136118b46e50944864b3e7f92e" resname="rotavirus-form.stoolSentToRRL">
         <source>rotavirus-form.stoolSentToRRL</source>
-        <target>Se envió muestra de heces al laboratorio de referencia regional (LRR)?</target>
+        <target>Se envió muestra de heces al Laboratorio de Referencia Regional (LRR)?</target>
         <jms:reference-file line="201">views/RotaVirus/show.html.twig</jms:reference-file>
-        <jms:reference-file line="57">Form/Rota/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="49c8d27176dc1cb18e4f2a69698032428f18a894" resname="rotavirus-form.stoolSentToRRLDate">
         <source>rotavirus-form.stoolSentToRRLDate</source>
         <target>Fecha de envio de la muestra de heces al  LRR</target>
         <jms:reference-file line="205">views/RotaVirus/show.html.twig</jms:reference-file>
-        <jms:reference-file line="58">Form/Rota/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="70444f23a0d773f7e43cfd6575a4fa3ecbf7852f" resname="rotavirus-form.stoolStored">
         <source>rotavirus-form.stoolStored</source>
         <target>Se almacenó la muestra de heces?</target>
         <jms:reference-file line="197">views/RotaVirus/show.html.twig</jms:reference-file>
-        <jms:reference-file line="35">Form/Rota/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="71624734b91db97effa425877b60cc6129d2c822" resname="rotavirus-form.stoolTestDate">
         <source>rotavirus-form.stoolTestDate</source>
         <target>Fecha de la prueba de ELISA?</target>
         <jms:reference-file line="189">views/RotaVirus/show.html.twig</jms:reference-file>
-        <jms:reference-file line="33">Form/Rota/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e2433442af01ff86bd9ebdd2ef2fe6500a875ce3" resname="rotavirus-form.symptomDehydration">
         <source>rotavirus-form.symptomDehydration</source>
@@ -2444,7 +2634,7 @@
       </trans-unit>
       <trans-unit id="5df713bb5391b60a8c8d9fcd9d3263be77ea1b30" resname="rotavirus-form.symptomDehydrationAmount">
         <source>rotavirus-form.symptomDehydrationAmount</source>
-        <target state="new">rotavirus-form.symptomDehydrationAmount</target>
+        <target>rotavirus-form.symptomDehydrationAmount</target>
         <jms:reference-file line="42">Form/Rota/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="387edb7f4d6393d323ba2bcd815a871fec3df82c" resname="rotavirus-form.symptomDiarrhea">
@@ -2455,7 +2645,7 @@
       </trans-unit>
       <trans-unit id="f78f9a6b2b70a3d347d03c64eb1d148e43028ddf" resname="rotavirus-form.symptomDiarrheaDuration">
         <source>rotavirus-form.symptomDiarrheaDuration</source>
-        <target>La duración de la diarrea (antes del ingreso)</target>
+        <target>Duración de la diarrea (antes del ingreso)</target>
         <jms:reference-file line="98">views/RotaVirus/show.html.twig</jms:reference-file>
         <jms:reference-file line="35">Form/Rota/CaseType.php</jms:reference-file>
       </trans-unit>
@@ -2479,7 +2669,7 @@
       </trans-unit>
       <trans-unit id="d141e584176eecbb227530905663ee593cc6f119" resname="rotavirus-form.symptomVomitDuration">
         <source>rotavirus-form.symptomVomitDuration</source>
-        <target>La duración de los vómitos por día (antes del ingreso)</target>
+        <target>Duración de los vómitos por día (antes del ingreso)</target>
         <jms:reference-file line="110">views/RotaVirus/show.html.twig</jms:reference-file>
         <jms:reference-file line="39">Form/Rota/CaseType.php</jms:reference-file>
       </trans-unit>
@@ -2520,7 +2710,6 @@
         <target> ID Sitio centinela</target>
         <jms:reference-file line="35">SentinelBundle/Form/CreateType.php</jms:reference-file>
         <jms:reference-file line="31">SentinelBundle/Form/BaseFilter.php</jms:reference-file>
-        <jms:reference-file line="36">Form/IBD/CreateType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="cdc22e6692fc5dc99971633a8c13cf512657919e" resname="site-title-text">
         <source>WHO Sentinel Network</source>
