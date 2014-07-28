@@ -150,11 +150,14 @@ class UserAdmin extends Admin
         if($user->isOnlyAdmin())
             return $query;
 
-        $highest = $role->getHighest($this->securityContext->getToken()->getRoles());
+        $highest = $role->getHighest($user->getRoles());
+
+        if($highest == null)
+            throw new \RuntimeException("Unable to determine highest role");
 
         $ralias = $query->getRootAlias();
         $query->innerJoin("$ralias.acls",'a')
-              ->where('a.type >= :type')
+              ->where('a.type <= :type')
               ->setParameter('type',$highest);
 
         return $query;
