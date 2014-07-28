@@ -46,6 +46,9 @@ class Builder
             $reports->addChild('# Per Year Clinical',array('label'=> 'menu.data-reports-per-year-clinical','route'=>'reportNumberPerYearClinical'));
             $reports->addChild('Age Distribution',array('label'=> 'menu.data-reports-age-distribution','route'=>'reportDataQuality'));
 
+            if($this->securityContext->isGranted('ROLE_API'))
+                $menu->addChild('Api Documentation',array('label'=>'Api Documentation','route'=>'nelmio_api_doc_index'))->setExtra('icon', 'icon-book');
+
             if($this->securityContext->isGranted('ROLE_ADMIN'))
             {
                 $admin = $menu->addChild('Admin', array('label'=> 'menu.data-admin'))->setExtra('icon','icon-desktop');
