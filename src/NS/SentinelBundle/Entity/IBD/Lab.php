@@ -18,6 +18,7 @@ use Symfony\Component\Validator\ExecutionContextInterface;
 use NS\SentinelBundle\Form\Types\SpnSerotype;
 use NS\SentinelBundle\Form\Types\HiSerotype;
 use NS\SentinelBundle\Form\Types\NmSerogroup;
+use NS\SentinelBundle\Form\Types\Volume;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use \NS\SecurityBundle\Annotation\Secured;
