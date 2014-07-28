@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\ExecutionContextInterface;
 use NS\SecurityBundle\Model\SecuredEntityInterface;
 use NS\SentinelBundle\Form\Types\Role;
 
@@ -14,6 +15,7 @@ use NS\SentinelBundle\Form\Types\Role;
  *
  * @ORM\Table(name="users",uniqueConstraints={@ORM\UniqueConstraint(name="email_idx",columns={"email"})})
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\User")
+ * @Assert\Callback(methods={"validate"})
  */
 class User implements AdvancedUserInterface, SecuredEntityInterface
 {
@@ -481,5 +483,17 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
     public function setLanguage($language)
     {
         $this->language = $language;
+    }
+
+    public function validate(ExecutionContextInterface $context)
+    {
+        if(count($this->acls) == 0)
+        {
+            if($this->getCanCreateCases())
+                $context->addViolationAt('canCreateCases', "The user is designated as able to create cases but has no roles");
+
+            if($this->getCanCreateLabs())
+                $context->addViolationAt('canCreateLabs', "The user is designated as able to create labs but has no roles");
+        }
     }
 }
