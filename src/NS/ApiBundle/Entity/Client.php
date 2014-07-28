@@ -27,6 +27,17 @@ class Client extends BaseClient
      */
     private $name;
 
+    /**
+     * @var AccessToken $accessTokens
+     * @ORM\OneToMany(targetEntity="AccessToken",mappedBy="client")
+     */
+    private $accessTokens;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="NS\SentinelBundle\Entity\User")
+     */
+    private $user;
+
     public function __toString()
     {
         return $this->name;
@@ -52,5 +63,47 @@ class Client extends BaseClient
     {
         $this->name = $name;
         return $this;
+    }
+
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    public function setUser($user)
+    {
+        $this->user = $user;
+        return $this;
+    }
+
+    public function getAccessTokens()
+    {
+        return $this->accessTokens;
+    }
+
+    public function setAccessTokens(array $accessTokens)
+    {
+        $this->accessTokens = $accessTokens;
+
+        return $this;
+    }
+
+    public function addAccessToken(AccessToken $token)
+    {
+        $this->accessTokens->add($token);
+
+        return $this;
+    }
+
+    public function removeAccessToken(AccessToken $token)
+    {
+        $this->accessTokens->remove($token);
+
+        return $this;
+    }
+
+    public function hasAccessToken()
+    {
+        return (count($this->accessTokens) > 0);
     }
 }

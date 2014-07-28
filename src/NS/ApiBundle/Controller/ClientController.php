@@ -6,35 +6,79 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
-use NS\ApiBundle\Form\ApiClientType;
 
 /**
  * Description of ClientController
  *
  * @author gnat
+ * @Route("/oauth")
  */
 class ClientController extends Controller
 {
     /**
-     * @Route("/createClient",name="ApiCreateClient")
+     * @Route("/dashboard",name="ns_api_dashboard")
+     * @Template()
+     */
+    public function dashboardAction()
+    {
+        $em      = $this->get('doctrine.orm.entity_manager');
+        $user    = $this->getUser();
+        $clients = $em->getRepository('NSApiBundle:Client')
+                      ->createQueryBuilder('c')
+                      ->where('c.user = :user')
+                      ->setParameter('user',$em->getReference(get_class($user),$user->getId()))
+                      ->getQuery()
+                      ->getResult();
+
+        $remotes = $em->getRepository('NSApiBundle:Remote')
+                      ->createQueryBuilder('r')
+                      ->where('r.user = :user')
+                      ->setParameter('user',$em->getReference(get_class($user),$user->getId()))
+                      ->getQuery()
+                      ->getResult();
+
+        return array('clients'=>$clients,'remotes'=>$remotes);
+    }
+
+    /**
+     * @Route("/client/create",name="ApiCreateClient")
      * @Template()
      */
     public function createAction(Request $request)
     {
-        $form = $this->createForm(new ApiClientType());
+        $form = $this->createForm('CreateApiClient');
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid())
         {
             $em     = $this->get('doctrine.orm.entity_manager');
             $client = $form->getData();
+            $client->setUser($em->getReference('NSSentinelBundle:User',$this->getUser()->getId()));
             $em->persist($client);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('fos_oauth_server_authorize', array(
-                                                                                'client_id'     => $client->getPublicId(),
-                                                                                'redirect_uri'  => $client->getRedirectUris()[0],
-                                                                                'response_type' => 'token'
-                                                                                )));
+            return $this->redirect($this->generateUrl('ns_api_dashboard'));
+        }
+
+        return array('form'=>$form->createView());
+    }
+
+    /**
+     * @Route("/remote/create",name="ApiCreateRemote")
+     * @Template()
+     */
+    public function createRemoteAction(Request $request)
+    {
+        $form = $this->createForm('CreateApiRemote');
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $em     = $this->get('doctrine.orm.entity_manager');
+            $client = $form->getData();
+            $client->setUser($em->getReference('NSSentinelBundle:User',$this->getUser()->getId()));
+            $em->persist($client);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('ns_api_dashboard'));
         }
 
         return array('form'=>$form->createView());

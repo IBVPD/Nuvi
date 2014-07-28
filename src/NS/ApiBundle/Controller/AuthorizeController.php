@@ -107,28 +107,4 @@ class AuthorizeController extends Controller
 
         return new Response("Returned: <pre>".print_r($r,true)."</pre>");
     }
-
-    /**
-     * @Route("/oauth/dashboard",name="ns_api_dashboard")
-     * @Template("NSApiBundle:Authorize:userDashboard.html.twig")
-     */
-    public function userDasboardAction()
-    {
-        $em      = $this->get('doctrine.orm.entity_manager');
-//        $clients = $em->getRepository('NSApiBundle:Client')
-//                      ->createQueryBuilder('c')
-//                      ->leftJoin('c.accessTokens','a')
-//                      ->where('a.user = :user')
-//                      ->setParameter('user',$this->getUser())
-//                      ->getQuery()
-//                      ->getResult();
-        $remotes = $em->getRepository('NSApiBundle:Remote')
-                      ->createQueryBuilder('r')
-                      ->where('r.user = :user')
-                      ->setParameter('user',$em->getReference(get_class($this->getUser()),$this->getUser()->getId()))
-                      ->getQuery()
-                      ->getResult();
-
-        return array('clients'=>array(),'remotes'=>$remotes);
-    }
 }

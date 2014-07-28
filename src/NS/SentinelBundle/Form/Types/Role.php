@@ -73,10 +73,6 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
                 return array('ROLE_SITE');
             case self::LAB:
                 return array('ROLE_LAB');
-            case self::RRL_LAB:
-                return array('ROLE_RRL_LAB');
-            case self::NL_LAB:
-                return array('ROLE_NL_LAB');
             case self::REGION_API:
                 return array('ROLE_REGION_API');
             case self::COUNTRY_API:
@@ -99,8 +95,6 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
             case self::COUNTRY:
             case self::COUNTRY_API:
                 return $class."\Country";
-            case self::NL_LAB:
-            case self::RRL_LAB:
             case self::LAB:
             case self::SITE:
             case self::SITE_API:

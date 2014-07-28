@@ -8,7 +8,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 /**
- * Description of ApiClientAdmin
+ * Description of ClientAdmin
  *
  * @author gnat
  */

@@ -4,7 +4,6 @@ namespace NS\ApiBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Description of Remote
