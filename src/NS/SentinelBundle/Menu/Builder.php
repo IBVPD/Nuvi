@@ -47,7 +47,11 @@ class Builder
             $reports->addChild('Age Distribution',array('label'=> 'menu.data-reports-age-distribution','route'=>'reportDataQuality'));
 
             if($this->securityContext->isGranted('ROLE_API'))
-                $menu->addChild('Api Documentation',array('label'=>'Api Documentation','route'=>'nelmio_api_doc_index'))->setExtra('icon', 'icon-book');
+            {
+                $api = $menu->addChild('Api Resources',array('label'=>'Api Resources'))->setExtra('icon','icon-book');
+                $api->addChild('Dashboard',array('label'=>'Dashboard','route'=>'ns_api_dashboard'));
+                $api->addChild('Documentation',array('label'=>'Documentation','route'=>'nelmio_api_doc_index'));
+            }
 
             if($this->securityContext->isGranted('ROLE_ADMIN'))
             {
