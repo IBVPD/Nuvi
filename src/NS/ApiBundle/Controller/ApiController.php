@@ -29,7 +29,7 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
      * )
      * 
      * @Rest\View(serializerGroups={"api"})
-     * @Rest\Get("/v1/sites")
+     * @Rest\Get("/sites")
      *
      * @return array
      */
@@ -60,7 +60,7 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
      * )
      *
      * @REST\View(templateVar="case")
-     * @REST\Get("/v1/ibd/cases/{id}")
+     * @REST\Get("/ibd/cases/{id}")
      *
      * @param string  $id      the object id
      *
@@ -87,7 +87,7 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
      * )
      *
      * @REST\View(templateVar="case")
-     * @REST\Get("/v1/rota/cases/{id}")
+     * @REST\Get("/rota/cases/{id}")
      *
      * @param string  $id      the object id
      *
@@ -129,7 +129,7 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
      *   input = "ibd"
      * )
      *
-     * @REST\Patch("/v1/ibd/cases/{id}")
+     * @REST\Patch("/ibd/cases/{id}")
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param type $id
@@ -149,7 +149,7 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
      *   input = "ibd"
      * )
      *
-     * @REST\Put("/v1/ibd/cases/{id}")
+     * @REST\Put("/ibd/cases/{id}")
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param type $id
@@ -190,7 +190,7 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
      *   input = "create_ibd"
      * )
      *
-     * @REST\Post("/v1/ibd/cases")
+     * @REST\Post("/ibd/cases")
      *
      * @param Request $request the request object
      *
@@ -212,7 +212,7 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
      *   input = "create_rota"
      * )
      *
-     * @REST\Post("/v1/rota/cases")
+     * @REST\Post("/rota/cases")
      *
      * @param Request $request the request object
      *
@@ -269,7 +269,7 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
      *     401 = "Invalid credentials"
      *   }
      * )
-     * @REST\GET("/v1/test")
+     * @REST\GET("/test")
     */
     public function testAction()
     {
