@@ -30,8 +30,8 @@ class Custom extends AbstractIdGenerator
         if(!$site instanceof Site)
             throw new \UnexpectedValueException("Site is not a proper class");
 
-        if($site->getId() == 0)
-            throw new \UnexpectedValueException("Can't generate an id for entities with a site without an id");
+        if(!$site->hasId())
+            throw new \UnexpectedValueException(sprintf("Can't generate an id for entities with a site without an id '%s'",$site->getId()));
 
         $rsm = new ResultSetMapping();
         $rsm->addEntityResult('NS\SentinelBundle\Entity\Site', 's');
@@ -40,14 +40,14 @@ class Custom extends AbstractIdGenerator
         try
         {
             $em->beginTransaction();
-            $id = $em->createNativeQuery('SELECT s.currentCaseId FROM sites s WHERE s.id = '.$site->getId(), $rsm)->getResult(Query::HYDRATE_SINGLE_SCALAR);
-            $em->getConnection()->executeUpdate('UPDATE sites SET currentCaseId = currentCaseId +1 WHERE id = :id', array('id'=>$site->getId()));
+            $id = $em->createNativeQuery("SELECT s.currentCaseId FROM sites s WHERE s.code = '".$site->getCode()."'", $rsm)->getResult(Query::HYDRATE_SINGLE_SCALAR);
+            $em->getConnection()->executeUpdate('UPDATE sites SET currentCaseId = currentCaseId +1 WHERE code = :code', array('code'=>$site->getCode()));
             $em->commit();
         }
         catch(\Exception $e)
         {
             $em->rollback();
-            throw new \RuntimeException("Site issue: ".$site->getName()." ".$site->getId());
+            throw new \RuntimeException("Site issue: ".$site->getName()." ".$site->getId()." ".$e->getMessage());
         }
 
         return $entity->getFullIdentifier($id);

@@ -107,7 +107,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
     /**
      * @var Site $site
      * @ORM\ManyToOne(targetEntity="NS\SentinelBundle\Entity\Site")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false,referencedColumnName="code")
      */
     protected $site;
 

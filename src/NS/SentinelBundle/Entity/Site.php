@@ -17,20 +17,19 @@ use JMS\Serializer\Annotation\Groups;
  * @Secured(conditions={
  *      @SecuredCondition(roles={"ROLE_REGION","ROLE_REGION_API"},relation="region",through={"country"},class="NSSentinelBundle:Region"),
  *      @SecuredCondition(roles={"ROLE_COUNTRY","ROLE_COUNTRY_API"},relation="country",class="NSSentinelBundle:Country"),
- *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB","ROLE_RRL_LAB","ROLE_NL_LAB","ROLE_SITE_API"},field="id"),
+ *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB","ROLE_SITE_API"},field="code"),
  *      }) 
  */
 class Site implements \Serializable
 {
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="code", type="string", length=255)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      * @Groups({"user","api"})
      */
-    private $id;
+    private $code;
 
     /**
      * @var string
@@ -39,14 +38,6 @@ class Site implements \Serializable
      * @Groups({"user","api"})
      */
     private $name;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="code", type="string", length=255)
-     * @Groups({"user","api"})
-     */
-    private $code;
 
     /**
      * @var integer $rvYearIntro
@@ -115,16 +106,21 @@ class Site implements \Serializable
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
-        return $this->id;
+        return $this->code;
+    }
+
+    public function hasId()
+    {
+        return (!empty($this->code) || (is_integer($this->code) && $this->code == 0) || !is_null($this->code));
     }
 
     public function setId($id)
     {
-        $this->id = $id;
+        return $this->code = $id;
     }
 
     public function __toString()
@@ -356,9 +352,8 @@ class Site implements \Serializable
     public function serialize()
     {
         return serialize(array(
-            $this->id,
-            $this->name,
             $this->code,
+            $this->name,
             $this->website,
             $this->rvYearIntro,
             $this->ibdYearIntro,
@@ -372,9 +367,8 @@ class Site implements \Serializable
     public function unserialize($serialized)
     {
         list(
-            $this->id,
-            $this->name,
             $this->code,
+            $this->name,
             $this->website,
             $this->rvYearIntro,
             $this->ibdYearIntro,

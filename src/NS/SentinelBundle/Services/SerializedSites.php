@@ -65,7 +65,7 @@ class SerializedSites implements SerializedSitesInterface
             $c   = $site->getCountry();
             $r   = $c->getRegion();
 
-            $uow->registerManaged($site,array('id'=>$site->getId()),array('id'=>$site->getId(),'code'=>$site->getCode()));
+            $uow->registerManaged($site,array('code'=>$site->getCode()),array('code'=>$site->getCode()));
             $uow->registerManaged($c,array('id'=>$c->getId()),array('id'=>$c->getId(),'code'=>$c->getCode()));
             $uow->registerManaged($r,array('id'=>$r->getId()),array('id'=>$r->getId(),'code'=>$r->getCode()));
         }
@@ -98,9 +98,8 @@ class SerializedSites implements SerializedSitesInterface
                 $c->setRegion($r);
 
                 $s = new Site();
-                $s->setId($site->getId());
-                $s->setName($site->getName());
                 $s->setCode($site->getCode());
+                $s->setName($site->getName());
                 $s->setCountry($c);
 
                 $sites[] = $s;

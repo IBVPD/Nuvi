@@ -29,6 +29,13 @@ class ACL extends BaseACL
     protected $type;
 
     /**
+     * @var string $object_id
+     *
+     * @ORM\Column(name="object_id",type="string")
+     */
+    protected $object_id;
+
+    /**
      * Set type
      *
      * @param \Role $type

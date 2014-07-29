@@ -12,14 +12,14 @@ use NS\SentinelBundle\Repository\Common as CommonRepository;
  */
 class Site extends CommonRepository
 {
-    public function getChain($ids = null)
+    public function getChain($codes = null)
     {
         $qb = $this->getChainQueryBuilder();
 
-        if(is_array($ids))
-            $qb->add('where', $qb->expr()->in('s.id', '?1'))->setParameter(1, $ids);
-        else if(is_numeric($ids))
-            $qb->andWhere('s.id = :id')->setParameter('id',$ids);
+        if(is_array($codes))
+            $qb->add('where', $qb->expr()->in('s.code', '?1'))->setParameter(1, $codes);
+        else if($codes != null)
+            $qb->andWhere('s.code = :code')->setParameter('code',$codes);
 
         return $qb->getQuery()->getResult();
     }
@@ -27,7 +27,7 @@ class Site extends CommonRepository
     public function getChainQueryBuilder()
     {
         $qb = $this->createQueryBuilder('s')
-                ->addSelect('c,r')
+                ->select('s,c,r')
                 ->innerJoin('s.country', 'c')
                 ->innerJoin('c.region', 'r');
 
