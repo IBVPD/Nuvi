@@ -2,7 +2,7 @@
 {% block pagetitle %}{{'View Case %id%'|trans({'%id%': record.id})}}{%endblock %}
 
 {%block pageactions %}
-<div class="pull-right">{{case_big_actions(record)}}</div>
+<div class="pull-right">{{case_big_actions(record,true)}}</div>
 {%endblock %}
 
 {% block body %}
