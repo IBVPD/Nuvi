@@ -6,6 +6,7 @@ use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use NS\SentinelBundle\Form\Types\Role;
 
 /**
  * Description of ClientAdmin
@@ -23,6 +24,13 @@ class ClientAdmin extends Admin
             ->add('name')
             ->add('redirectUris',       'TextToArray')
             ->add('allowedGrantTypes',  'OAuthGrantTypes')
+            ->add('user',null,array('empty_value'=>'Please Select', 'query_builder'=>function(\Doctrine\ORM\EntityRepository $repo){
+                                                return $repo->createQueryBuilder('u')
+                                                            ->leftJoin('u.acls','a')
+                                                            ->addSelect('a')
+                                                            ->where('a.type IN (:apiType)')
+                                                            ->setParameter('apiType',array(Role::REGION_API,Role::COUNTRY_API,Role::SITE_API));
+            }))
         ;
     }
 
@@ -35,6 +43,7 @@ class ClientAdmin extends Admin
             ->add('name')
             ->add('publicId',null,array('label'=>'Client Id'))
             ->add('secret',null,array('label'=>'Client Secret'))
+            ->add('user')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
