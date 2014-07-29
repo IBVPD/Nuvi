@@ -83,9 +83,8 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
 
     public function getLatestQuery()
     {
-        $qb = $this->_em->createQueryBuilder()
+        $qb = $this->createQueryBuilder('m')
                    ->select('m,l')
-                   ->from($this->getClassName(),'m')
                    ->leftJoin('m.lab', 'l')
                    ->orderBy('m.id','DESC');
         return $this->secure($qb);
@@ -93,9 +92,8 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
 
     public function getLatest($limit = 10)
     {
-        $qb = $this->_em->createQueryBuilder()
+        $qb = $this->createQueryBuilder('m')
                    ->select('m,l')
-                   ->from($this->getClassName(),'m')
                    ->leftJoin('m.lab', 'l')
                    ->orderBy('m.id','DESC')
                    ->setMaxResults($limit);
@@ -104,9 +102,8 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
     
     public function getByCountry()
     {
-        $qb = $this->_em->createQueryBuilder()
+        $qb = $this->createQueryBuilder('m')
                    ->select('COUNT(m) as numberOfCases, partial m.{id,admDate}, c')
-                   ->from($this->getClassName(),'m')
                    ->innerJoin('m.country', 'c')
                    ->groupBy('m.country');
 
@@ -115,9 +112,8 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
 
     public function getByDiagnosis()
     {
-        $qb = $this->_em->createQueryBuilder()
+        $qb = $this->createQueryBuilder('m')
                    ->select('COUNT(m) as numberOfCases, partial m.{id,dischDx}')
-                   ->from($this->getClassName(),'m')
                    ->groupBy('m.dischDx');
 
         return $this->secure($qb)->getQuery()->getResult(Query::HYDRATE_ARRAY);
@@ -125,9 +121,8 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
 
     public function getBySite()
     {
-        $qb = $this->_em->createQueryBuilder()
+        $qb = $this->createQueryBuilder('m')
                    ->select('COUNT(m) as numberOfCases, partial m.{id,admDate}, s ')
-                   ->from($this->getClassName(),'m')
                    ->innerJoin('m.site', 's')
                    ->groupBy('m.site');
 
@@ -155,10 +150,8 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
 
     public function search($id)
     {
-        $qb = $this->_em->createQueryBuilder()
-                        ->select('m')
-                        ->from($this->getClassName(),'m')
-                        ->where('m.id LIKE :id')->setParameter('id',"%$id%");
+        $qb = $this->createQueryBuilder('m')
+                   ->where('m.id LIKE :id')->setParameter('id',"%$id%");
 
         return $this->secure($qb)->getQuery()->getResult();
     }
