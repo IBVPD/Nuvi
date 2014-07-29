@@ -1,16 +1,13 @@
 {%extends "NSSentinelBundle::layout.html.twig" %}
+{% block pagetitle %}{{'Create Remote Server'|trans}}{%endblock %}
 
 {% block body %}
 <div class="row">
     <div class="col-sm-9 col-md-9 col-lg-9">
         <div class="widget-box no-border">
-            <div class="widget-header widget-header-small header-color-blue">
-                <h5>{{'Create Client'|trans}}</h5>
-            </div>
             <div>
                 <form action="{{path('ApiCreateRemote')}}" method="POST" novalidate>
                     {{form_rest(form)}}
-                    <button type="submit">Submit</button>
                 </form>
             </div>
         </div>

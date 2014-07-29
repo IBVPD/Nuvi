@@ -18,6 +18,7 @@ class ClientType extends AbstractType
             ->add('name')
             ->add('redirectUris','TextToArray')
             ->add('allowedGrantTypes','OAuthGrantTypes')
+            ->add('create','submit',array('label'=>'api-create-client-submit','attr'=>array('class'=> 'btn btn-sm btn-success')))
         ;
     }
 

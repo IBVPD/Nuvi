@@ -20,6 +20,7 @@ class RemoteType extends AbstractType
             ->add('tokenEndpoint')
             ->add('authEndpoint')
             ->add('redirectUrl')
+            ->add('create','submit',array('label'=>'api-create-remote-submit','attr'=>array('class'=> 'btn btn-sm btn-success')))
         ;
     }
     
