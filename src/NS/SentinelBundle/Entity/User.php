@@ -268,6 +268,8 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
                 case 'ROLE_REGION_API':
                 case 'ROLE_COUNTRY_API':
                 case 'ROLE_SITE_API':
+                case 'ROLE_CAN_CREATE_CASE':
+                case 'ROLE_CAN_CREATE_LAB':
                     break;
                 default:
                     return false;
