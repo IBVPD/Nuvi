@@ -121,11 +121,11 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
     }
 
     /**
-     * Patch a Case,
+     * Patch IBD Case,
      *
      * @ApiDoc(
      *   resource = true,
-     *   description = "Patch a new case",
+     *   description = "Patch a IBD case",
      *   input = "ibd"
      * )
      *
@@ -141,11 +141,11 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
     }
 
     /**
-     * Put a Case,
+     * Put IBD Case,
      *
      * @ApiDoc(
      *   resource = true,
-     *   description = "Patch a new case",
+     *   description = "Put IBD case",
      *   input = "ibd"
      * )
      *
@@ -182,11 +182,11 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
     }
 
     /**
-     * Create a Case,
+     * Create IBD Case,
      *
      * @ApiDoc(
      *   resource = true,
-     *   description = "Creates a new case",
+     *   description = "Creates a new IBD case",
      *   input = "create_ibd"
      * )
      *
