@@ -5,6 +5,7 @@ namespace NS\ApiBundle\Controller;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use \NS\SentinelBundle\Exceptions\NonExistentCase;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use FOS\RestBundle\Controller\Annotations as REST;
 use FOS\RestBundle\View\View;
@@ -35,11 +36,10 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
      */
     public function sitesAction()
     {
-        $sites = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:Site')->findAll();
-
+        $sites   = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:Site')->findAll();
         $context = SerializationContext::create()->setGroups(array('api'));
 
-        $v     = new View();
+        $v       = new View();
         $v->setSerializationContext($context);
         $v->setData(array('sites'=>$sites));
 
@@ -102,22 +102,28 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
 
     private function getCase($type,$id)
     {
-        switch($type)
+        try
         {
-            case 'ibd':
-                $obj = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:Meningitis')->find($id);
-                break;
-            case 'rota':
-                $obj = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:RotaVirus')->find($id);
-                break;
-            default:
-                throw new NotFoundHttpException("Invalid type: $type");
+            switch($type)
+            {
+                case 'ibd':
+                    $obj = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:Meningitis')->find($id);
+                    break;
+                case 'rota':
+                    $obj = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:RotaVirus')->find($id);
+                    break;
+                default:
+                    throw new NotFoundHttpException("Invalid type: $type");
+            }
+
+            $v = new View();
+            $v->setData(array('case'=>$obj));
+            return $this->handleView($v);
         }
-
-        $v = new View();
-        $v->setData(array('case'=>$obj));
-
-        return $this->handleView($v);
+        catch(NonExistentCase $e)
+        {
+            throw new NotFoundHttpException("This case does not exist or you are not allowed to retrieve it");
+        }
     }
 
     /**
@@ -194,9 +200,6 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
      *
      * @param Request $request the request object
      *
-     * @return array
-     *
-     * @throws NotFoundHttpException when case not exist
     */
     public function postIbdCasesAction(Request $request)
     {
@@ -208,17 +211,13 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
      *
      * @ApiDoc(
      *   resource = true,
-     *   description = "Creates a new case",
-     *   input = "create_rota"
+     *   description = "Creates a new Rotavirus case",
+     *   input = "create_rotavirus"
      * )
      *
      * @REST\Post("/rota/cases")
      *
      * @param Request $request the request object
-     *
-     * @return array
-     *
-     * @throws NotFoundHttpException when case not exist
     */
     public function postRotaCasesAction(Request $request)
     {
@@ -227,34 +226,53 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
 
     private function postCase(Request $request, $type)
     {
-        switch($type)
+        try
         {
-            case 'ibd':
-                $obj = new \NS\SentinelBundle\Entity\Meningitis();
-                $form = $this->createForm('create_ibd',$obj);
-                break;
-            case 'rota':
-                $obj = new \NS\SentinelBundle\Entity\RotaVirus();
-                $form = $this->createForm('create_rotavirus',$obj);
-                break;
-            default:
-                throw new NotFoundHttpException("No type? $type");
-        }
+            $em = $this->get('ns.model_manager');
+            switch($type)
+            {
+                case 'ibd':
+                    $form = $this->createForm('create_ibd');
+                    $form->handleRequest($request);
+                    if(!$form->isValid())
+                        return $form;
 
-        $form->submit($request->request->all());
-        if($form->isValid())
-        {
-            $em  = $this->get('ns.model_manager');
-            $obj = $form->getData();
-            $em->persist($obj);
+                    $caseId = $form->get('caseId')->getData();
+                    $case   = $em->getRepository('NSSentinelBundle:Meningitis')->findOrCreate($caseId,null);
+                    break;
+                case 'rota':
+                    $form = $this->createForm('create_rotavirus');
+                    $form->handleRequest($request);
+                    if(!$form->isValid())
+                        return $form;
+
+                    $caseId = $form->get('caseId')->getData();
+                    $case   = $em->getRepository('NSSentinelBundle:RotaVirus')->findOrCreate($caseId,null);
+                    break;
+                default:
+                    throw new NotFoundHttpException("No type? $type");
+            }
+
+            if(!$case->getId())
+            {
+                $site = ($form->has('site')) ? $form->get('site')->getData() : $this->get('ns.sentinel.sites')->getSite();
+                $case->setSite($site);
+            }
+
+            $em->persist($case);
             $em->flush();
+            $routeOptions = array('id' => $case->getId(), '_format' => $request->get('_format'));
 
-            $routeOptions = array('id' => $obj->getId(), '_format' => $request->get('_format'));
+            return $this->routeRedirectView('ns_api_api_get'.$type.'case', $routeOptions, Codes::HTTP_CREATED);
 
-            return $this->routeRedirectView('ns_sentinel_api_get'.$type.'case', $routeOptions, Codes::HTTP_CREATED);
         }
+        catch (\Exception $e)
+        {
+            $v = new View();
+            $v->setData(array('exception'=>$e->getMessage()));
 
-        return $form;
+            return $this->handleView($v);
+        }
     }
 
     /**
@@ -274,7 +292,9 @@ class ApiController extends \FOS\RestBundle\Controller\FOSRestController
     public function testAction()
     {
         $v = new View();
-        $v->setData(array('username'=>$this->getUser()->getUsername(),'roles'=>$this->getUser()->getRoles()));
+        $v->setData(array('username'=>$this->getUser()->getUsername(),
+                          'roles'=>$this->getUser()->getRoles(),
+                          'hasToken'=>($this->get('security.context')->getToken())?'Yes':'No'));
 
         return $this->handleView($v);
     }

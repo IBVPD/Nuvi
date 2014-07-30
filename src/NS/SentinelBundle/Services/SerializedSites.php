@@ -75,7 +75,7 @@ class SerializedSites implements SerializedSitesInterface
 
     public function initialize()
     {
-        if(!$this->session->isStarted() || $this->isInitialized)
+        if($this->isInitialized) /* || !$this->session->isStarted() - Used to be required to pass behat/phpunit tests but breaks the API stateless access */
             return;
 
         $sites = unserialize($this->session->get('sites'));
@@ -110,5 +110,10 @@ class SerializedSites implements SerializedSitesInterface
 
         $this->sites = $sites;
         $this->isInitialized = true;
+    }
+
+    public function getIsInitialized()
+    {
+        return $this->isInitialized;
     }
 }
