@@ -1,12 +1,22 @@
 {%extends "NSSentinelBundle::layout.html.twig" %}
-{% block pagetitle %}{{'Create Client'|trans}}{%endblock %}
+{% block pagetitle %}
+    {%if route == 'ApiEditClient' %}
+        {{'Edit "%name%" Client'|trans({'%name%': form.name.vars.value})}}
+    {%else%}
+        {{'Create Client'|trans}}
+    {%endif%}
+{%endblock %}
 
 {% block body %}
 <div class="row">
     <div class="col-sm-9 col-md-9 col-lg-9">
         <div class="widget-box no-border">
             <div>
+                {%if route == 'ApiEditClient' %}
+                <form action="{{path('ApiEditClient',{id:id})}}" method="POST" novalidate>
+                {%else%}
                 <form action="{{path('ApiCreateClient')}}" method="POST" novalidate>
+                {%endif%}
                     {{form_rest(form)}}
                 </form>
             </div>

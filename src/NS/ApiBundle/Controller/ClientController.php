@@ -59,7 +59,34 @@ class ClientController extends Controller
             return $this->redirect($this->generateUrl('ns_api_dashboard'));
         }
 
-        return array('form'=>$form->createView());
+        return array('form'=>$form->createView(),'route'=>'ApiCreateClient');
+    }
+
+    /**
+     * @Route("/client/edit/{id}",name="ApiEditClient")
+     * @Template("NSApiBundle:Client:create.html.twig")
+     */
+    public function editAction(Request $request,$id)
+    {
+        $em     = $this->get('doctrine.orm.entity_manager');
+        $user   = $this->getUser();
+        $client = $em->getRepository('NSApiBundle:Client')
+                     ->createQueryBuilder('c')->where('c.user = :user AND c.id = :id')
+                     ->setParameters(array('id'=>$id, 'user'=>$em->getReference(get_class($user),$user->getId())))
+                     ->getQuery()
+                     ->getSingleResult();
+        $form = $this->createForm('CreateApiClient',$client);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $client = $form->getData();
+            $em->persist($client);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('ns_api_dashboard'));
+        }
+
+        return array('form'=>$form->createView(),'route'=>'ApiEditClient','id'=>$id);
     }
 
     /**

@@ -4,7 +4,7 @@
 
 {% block body %}
 <div class="row">
-    <div class="col-sm-9 col-md-9 col-lg-9">
+    <div class="col-sm-10 col-md-10 col-lg-10">
         <div class="widget-box no-border">
             <div class="widget-header widget-header-small header-color-blue">
                 <h5>{{'Registered Clients'|trans}}</h5>
@@ -21,6 +21,7 @@
                             <th>{{'Client Secret'|trans}}</th>
                             <th>{{'Redirect Uris'|trans}}</th>
                             <th>{{'Allowed Grant Types'|trans}}</th>
+                            <th>{{'Actions'|trans}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -31,6 +32,7 @@
                         <td>{{c.secret}}</td>
                         <td>{%for uri in c.redirectUris  %}{{uri}}<br />{%endfor%}</td>
                         <td>{%for uri in c.allowedGrantTypes  %}{{uri}}<br />{%endfor%}</td>
+                        <td><a class="btn btn-xs btn-success" href="{{path('ApiEditClient',{id: c.id})}}">{{'Edit'|trans}} <i class="icon-edit-sign icon-on-right bigger-110"></i></a>
                     </tr>
                 {%endfor %}
                     </tbody>
@@ -40,7 +42,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-9 col-md-9 col-lg-9">
+    <div class="col-sm-10 col-md-10 col-lg-10">
         <div class="widget-box no-border">
             <div class="widget-header widget-header-small header-color-blue">
                 <h5>{{'Remote Systems'|trans}}</h5>
