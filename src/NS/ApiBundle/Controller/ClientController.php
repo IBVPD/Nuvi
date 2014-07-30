@@ -90,6 +90,33 @@ class ClientController extends Controller
     }
 
     /**
+     * @Route("/client/delete/{id}",name="ApiDeleteClient")
+     */
+    public function deleteAction($id)
+    {
+        $em     = $this->get('doctrine.orm.entity_manager');
+        $user   = $this->getUser();
+        $client = $em->getRepository('NSApiBundle:Client')
+                     ->createQueryBuilder('c')->where('c.user = :user AND c.id = :id')
+                     ->setParameters(array('id'=>$id, 'user'=>$em->getReference(get_class($user),$user->getId())))
+                     ->getQuery()
+                     ->getSingleResult();
+
+        try
+        {
+            $em->remove($client);
+            $em->flush();
+            $this->get('ns_flash')->addSuccess(null, null, "Successfully deleted api client");
+        }
+        catch(\Exception $e)
+        {
+            $this->get('ns_flash')->addError(null, null, "Unable to delete api client");
+        }
+
+        return $this->redirect($this->generateUrl('ns_api_dashboard'));
+    }
+
+    /**
      * @Route("/remote/create",name="ApiCreateRemote")
      * @Template()
      */
@@ -109,5 +136,61 @@ class ClientController extends Controller
         }
 
         return array('form'=>$form->createView());
+    }
+
+    /**
+     * @Route("/remote/edit/{id}",name="ApiEditRemote")
+     * @Template("NSApiBundle:Client:createRemote.html.twig")
+     */
+    public function editRemoteAction(Request $request,$id)
+    {
+        $em     = $this->get('doctrine.orm.entity_manager');
+        $user   = $this->getUser();
+        $remote = $em->getRepository('NSApiBundle:Remote')
+                     ->createQueryBuilder('c')->where('c.user = :user AND c.id = :id')
+                     ->setParameters(array('id'=>$id, 'user'=>$em->getReference(get_class($user),$user->getId())))
+                     ->getQuery()
+                     ->getSingleResult();
+
+        $form = $this->createForm('CreateApiRemote',$remote);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $client = $form->getData();
+            $client->setUser($em->getReference('NSSentinelBundle:User',$this->getUser()->getId()));
+            $em->persist($client);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('ns_api_dashboard'));
+        }
+
+        return array('form'=>$form->createView(),'route'=>'ApiEditRemote','id'=>$id);
+    }
+
+    /**
+     * @Route("/remote/delete/{id}",name="ApiDeleteRemote")
+     */
+    public function deleteRemoteAction($id)
+    {
+        $em     = $this->get('doctrine.orm.entity_manager');
+        $user   = $this->getUser();
+        $remote = $em->getRepository('NSApiBundle:Remote')
+                     ->createQueryBuilder('c')->where('c.user = :user AND c.id = :id')
+                     ->setParameters(array('id'=>$id, 'user'=>$em->getReference(get_class($user),$user->getId())))
+                     ->getQuery()
+                     ->getSingleResult();
+        try
+        {
+            $em->remove($remote);
+            $em->flush();
+            $this->get('ns_flash')->addSuccess(null, null, "Successfully deleted remote server");
+        }
+        catch(\Exception $e)
+        {
+            $this->get('ns_flash')->addError(null, null, "Unable to delete remote server");
+        }
+
+
+        return $this->redirect($this->generateUrl('ns_api_dashboard'));
     }
 }

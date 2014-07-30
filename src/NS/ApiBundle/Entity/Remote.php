@@ -23,6 +23,12 @@ class Remote
     private $id;
 
     /**
+     * @var string $name
+     * @ORM\Column(name="name",type="string",nullable=false)
+     */
+    private $name;
+
+    /**
      * @var string $clientId
      * @ORM\Column(name="clientId",type="string")
      */
@@ -135,6 +141,17 @@ class Remote
     public function getExpiry()
     {
         return $this->expiry;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
     }
 
     public function setAccessToken($accessToken)
