@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "eefa15742b19d29f423ca1ff8bf85b79",
+    "hash": "e98e2b1b9e491c56cabaa3a358f9d5ae",
     "packages": [
         {
             "name": "adoy/oauth2",
@@ -1994,12 +1994,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/lexik/LexikFormFilterBundle.git",
-                "reference": "6fcac72b06099f5b422f6655310747ed842cc931"
+                "reference": "01a663fd95e5cce0041d109a8f7be7c6f97c30c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lexik/LexikFormFilterBundle/zipball/6fcac72b06099f5b422f6655310747ed842cc931",
-                "reference": "6fcac72b06099f5b422f6655310747ed842cc931",
+                "url": "https://api.github.com/repos/lexik/LexikFormFilterBundle/zipball/01a663fd95e5cce0041d109a8f7be7c6f97c30c1",
+                "reference": "01a663fd95e5cce0041d109a8f7be7c6f97c30c1",
                 "shasum": ""
             },
             "require": {
@@ -2045,7 +2045,7 @@
                 "filter",
                 "form"
             ],
-            "time": "2014-06-03 12:47:51"
+            "time": "2014-07-29 08:37:56"
         },
         {
             "name": "lunetics/locale-bundle",
@@ -2236,17 +2236,17 @@
         },
         {
             "name": "nelmio/api-doc-bundle",
-            "version": "2.5.2",
+            "version": "2.6.0",
             "target-dir": "Nelmio/ApiDocBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nelmio/NelmioApiDocBundle.git",
-                "reference": "fa920111260e350ea17942c77c811762e965cbdc"
+                "reference": "b48650a9e020d43ec5a3c0f4345714ef724344d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nelmio/NelmioApiDocBundle/zipball/fa920111260e350ea17942c77c811762e965cbdc",
-                "reference": "fa920111260e350ea17942c77c811762e965cbdc",
+                "url": "https://api.github.com/repos/nelmio/NelmioApiDocBundle/zipball/b48650a9e020d43ec5a3c0f4345714ef724344d7",
+                "reference": "b48650a9e020d43ec5a3c0f4345714ef724344d7",
                 "shasum": ""
             },
             "require": {
@@ -2307,7 +2307,7 @@
                 "documentation",
                 "rest"
             ],
-            "time": "2014-05-16 09:33:58"
+            "time": "2014-06-25 06:52:01"
         },
         {
             "name": "nikic/php-parser",
@@ -2360,7 +2360,7 @@
             "source": {
                 "type": "git",
                 "url": "gitolite@git.noblet.ca:/symfony/ns/ace.git",
-                "reference": "f0034986a8622d5bd5e63c1acd37dc17d96a7603"
+                "reference": "fc8e58b3eb96515d8a6505edeae96770cf3f0662"
             },
             "require": {
                 "php": ">=5.3.2",
@@ -2384,7 +2384,7 @@
                 }
             ],
             "description": "This bundle provides bootstrap template",
-            "time": "2014-07-25 19:52:38"
+            "time": "2014-07-28 22:15:54"
         },
         {
             "name": "ns/flash-bundle",
@@ -2425,7 +2425,7 @@
             "source": {
                 "type": "git",
                 "url": "gitolite@git.noblet.ca:/symfony/ns/security.git",
-                "reference": "c44906237fe0ea5f3c2a7bbcbbb8261187f9124a"
+                "reference": "67323aea367d5adb34e1ff5face12d82e3559a83"
             },
             "require": {
                 "php": ">=5.3.2",
@@ -2444,7 +2444,7 @@
                 }
             ],
             "description": "This Bundle provides a basic database row level ACL system",
-            "time": "2014-06-16 23:15:45"
+            "time": "2014-07-30 16:43:32"
         },
         {
             "name": "ns/util-bundle",
