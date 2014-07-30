@@ -15,6 +15,7 @@ class RemoteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('name')
             ->add('clientId')
             ->add('clientSecret')
             ->add('tokenEndpoint')
