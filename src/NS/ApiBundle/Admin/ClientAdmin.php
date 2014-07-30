@@ -22,7 +22,7 @@ class ClientAdmin extends Admin
     {
         $formMapper
             ->add('name')
-            ->add('redirectUris',       'TextToArray')
+            ->add('redirectUris',       'tag', array('arrayOutput'=>true))
             ->add('allowedGrantTypes',  'OAuthGrantTypes')
             ->add('user',null,array('empty_value'=>'Please Select', 'query_builder'=>function(\Doctrine\ORM\EntityRepository $repo){
                                                 return $repo->createQueryBuilder('u')
