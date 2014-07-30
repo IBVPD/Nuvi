@@ -64,7 +64,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
 
             $acl = new ACL();
             $acl->setUser($user);
-            $acl->setType(new Role(Role::COUNTRY));
+            $acl->setType(new Role((isset($data['role'])? $data['role']:Role::COUNTRY)));
             $acl->setObjectId($this->getReference($data['ref-name'])->getId());
 
             $manager->persist($user);
@@ -140,7 +140,6 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
                     'ref-name'  => 'country-us',
                     'can_create_cases' => false,
                     'can_create_labs' => false,
-
                  ),
             array(
                     'name'      => 'Canada User',
@@ -189,6 +188,15 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
                     'ref-name'  => 'country-ca',
                     'can_create_cases' => true,
                     'can_create_labs' => true,
+                 ),
+            array(
+                    'name'      => 'Canada Api User',
+                    'password'  => '1234567-ca-api',
+                    'email'     => 'ca-api@noblet.ca',
+                    'ref-name'  => 'country-ca',
+                    'can_create_cases' => true,
+                    'can_create_labs' => true,
+                    'role'      => Role::COUNTRY_API,
                  ),
         );
     }
