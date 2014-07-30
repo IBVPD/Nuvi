@@ -45,7 +45,7 @@ security:
             anonymous: ~
 
         api:
-            pattern:    /api/.*
+            pattern:    ^/api/.*
             fos_oauth:  true
             stateless:  true
 
