@@ -48,7 +48,7 @@
                             </div>
                             <div class="col-sm-4">
                                 {{form_row(form.csfNLId)}}
-                                {{form_row(form.csfNLDateTime)}}
+                                {{form_row(form.csfNLDate)}}
                             </div>
                             <div class="col-sm-4">
                                 {{form_row(form.csfNLDNAExtractionDate)}}
@@ -65,7 +65,7 @@
                             </div>
                             <div class="col-sm-4">
                                 {{form_row(form.csfRRLId)}}
-                                {{form_row(form.csfRRLDateTime)}}
+                                {{form_row(form.csfRRLDate)}}
                             </div>
                             <div class="col-sm-4">
                                 {{form_row(form.csfRRLDNAExtractionDate)}}
@@ -162,7 +162,7 @@
                     <h4 class="header smaller lighter">Site</h4>
                     <div class="row">
                         <div class="col-sm-3">
-                            {{form_row(form.bloodSiteDateTime)}}
+                            {{form_row(form.bloodSiteDate)}}
                         </div>
                         <div class="col-sm-3">
                             {{form_row(form.bloodSiteId)}}
@@ -182,7 +182,7 @@
                         {{form_row(form.bloodNLId)}}
                         </div>
                         <div class="col-sm-3">
-                        {{form_row(form.bloodNLDateTime)}}
+                        {{form_row(form.bloodNLDate)}}
                         </div>
                     </div>
                     {%endif %}
@@ -200,7 +200,7 @@
                                 {{form_row(form.bloodRRLId)}}
                             </div>
                             <div class="col-sm-3">
-                                {{form_row(form.bloodRRLDateTime)}}
+                                {{form_row(form.bloodRRLDate)}}
                             </div>
                         </div>
                     {%endif %}
@@ -280,7 +280,7 @@
                         {{form_row(form.otherSiteId)}}
                         </div>
                         <div class="col-sm-4">
-                        {{form_row(form.otherSiteDateTime)}}
+                        {{form_row(form.otherSiteDate)}}
                         </div>
                     </div>
                     {% if form.otherSentToNL is defined %}
@@ -296,7 +296,7 @@
                                 {{form_row(form.otherDateSentToNL)}}
                             </div>
                             <div class="col-sm-3">
-                                {{form_row(form.otherNLDateTime)}}
+                                {{form_row(form.otherNLDate)}}
                             </div>
                         </div>
                     {%endif %}
@@ -314,7 +314,7 @@
                                 {{form_row(form.otherDateSentToRRL)}}
                             </div>
                             <div class="col-sm-3">
-                                {{form_row(form.otherRRLDateTime)}}
+                                {{form_row(form.otherRRLDate)}}
                             </div>
                         </div>
                     {%endif %}
