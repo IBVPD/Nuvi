@@ -996,7 +996,7 @@ class Meningitis extends BaseCase
                     'cxrDone',
                     );
 
-        return ($this->country->getTracksPneumonia()) ? array_merge($fields,$this->getPneumiaRequiredFields()) : $fields;
+        return (!$this->country || ($this->country && $this->country->getTracksPneumonia())) ? array_merge($fields,$this->getPneumiaRequiredFields()) : $fields;
     }
 
     public function getPneumiaRequiredFields()
