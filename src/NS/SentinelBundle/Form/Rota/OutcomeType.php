@@ -5,9 +5,6 @@ namespace NS\SentinelBundle\Form\Rota;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use NS\SentinelBundle\Form\Types\RotavirusVaccinationReceived;
-use NS\SentinelBundle\Form\Types\TripleChoice;
-use NS\SentinelBundle\Form\Types\Dehydration;
 
 class OutcomeType extends AbstractType
 {
