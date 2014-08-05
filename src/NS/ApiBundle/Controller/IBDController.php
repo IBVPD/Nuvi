@@ -96,6 +96,30 @@ class IBDController extends CaseController
     }
 
     /**
+     * Put IBD Outcome Data
+     *
+     * @ApiDoc(
+     *   resource = true,
+     *   description = "Put IBD Outcome data",
+     *   input = "ibd_outcome",
+     *   statusCodes = {
+     *         202 = "Returned when successful",
+     *         406 = "Returned when there are validation issues with the case",
+     *          }
+     * )
+     *
+     * @REST\Put("/cases/{id}/outcome")
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param string $id
+     *
+     */
+    public function putIbdOutcomeAction(Request $request, $id)
+    {
+        return $this->updateCase($request, 'ibd_outcome', 'NSSentinelBundle:Meningitis', $id);
+    }
+
+    /**
      * Create IBD Case,
      *
      * @ApiDoc(

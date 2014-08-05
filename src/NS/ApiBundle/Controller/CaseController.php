@@ -82,6 +82,7 @@ class CaseController extends FOSRestController
         return $this->view(null, Codes::HTTP_ACCEPTED);
 
     }
+
     protected function postCase(Request $request, $type, $formName, $className)
     {
         try

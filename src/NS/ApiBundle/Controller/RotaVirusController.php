@@ -94,6 +94,30 @@ class RotaVirusController extends CaseController
     }
 
     /**
+     * Put RotaVirus Outcome Data
+     *
+     * @ApiDoc(
+     *   resource = true,
+     *   description = "Put RotaVirus Outcome data",
+     *   input = "rotavirus_outcome",
+     *   statusCodes = {
+     *         202 = "Returned when successful",
+     *         406 = "Returned when there are validation issues with the case",
+     *          }
+     * )
+     *
+     * @REST\Put("/cases/{id}/outcome")
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param string $id
+     *
+     */
+    public function putRotaOutcomeAction(Request $request, $id)
+    {
+        return $this->updateCase($request, 'rotavirus_outcome', 'NSSentinelBundle:RotaVirus', $id);
+    }
+
+    /**
      * Create a RotaVirus Case,
      *
      * @ApiDoc(
