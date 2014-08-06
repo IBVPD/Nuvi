@@ -13,8 +13,9 @@
             <li><a data-toggle="tab" href="#vacination">{{'Vaccination History'|trans}}</a></li>
             <li><a data-toggle="tab" href="#clinical">{{'Clinical Data'|trans}}</a></li>
             <li><a data-toggle="tab" href="#collectionData">{{'Specimen Collection Data'|trans}}</a></li>
+            <li><a data-toggle="tab" href="#labData">{{'Lab'|trans}}</a></li>
+            <li><a data-toggle="tab" href="#labData-genotype">{{'Genotype'|trans}}</a></li>
             <li><a data-toggle="tab" href="#outcome">{{'Outcome Data'|trans}}</a></li>
-            <li><a data-toggle="tab" href="#labData">{{'Site Lab'|trans}}</a></li>
         </ul>
         <div class="tab-content">
             <div id="demographics" class="tab-pane active">
@@ -75,7 +76,7 @@
                 <table class="table table-striped table-bordered table-hover">
                     <tr>
                         <th>{{'rotavirus-form.adm-date'|trans}}</th>
-                        <td>{{record.admDate|date}}</td>
+                        <td>{%if record.admDate %}{{record.admDate|date}}{%endif%}</td>
                     </tr>
                 </table>
             </div>
@@ -141,7 +142,7 @@
                     </tr>
                     <tr>
                         <th>{{'rotavirus-form.csf-appearance'|trans}}</th>
-                        <td>{{record.stoolCollectionDate}}</td>
+                        <td>{%if record.stoolCollectionDate %}{{record.stoolCollectionDate|date}}{%endif%}</td>
                     </tr>
                 </table>
             </div>
@@ -153,7 +154,7 @@
                     </tr>
                     <tr>
                         <th>{{'rotavirus-form.dischargeDate'|trans}}</th>
-                        <td>{{record.dischargeDate}}</td>
+                        <td>{%if record.dischargeDate %}{{record.dischargeDate|date}}{%endif%}</td>
                     </tr>
                     <tr>
                         <th>{{'rotavirus-form.dischargeClassOther'|trans}}</th>
@@ -167,84 +168,100 @@
             </div>
             <div id="labData" class="tab-pane">
                 <table class="table table-striped table-bordered table-hover">
-                    {%if record.hasSiteLab %}
+                    {%if record.hasLab %}
                     {% set lab = record.lab %}
                     <tr>
-                        <th>{{'rotavirus-form.hasSiteLab'|trans}}</th>
+                        <th>{{'rotavirus-form.hasLab'|trans}}</th>
                         <td>{{'Yes'|trans}}</td>
                     </tr>                    
                     <tr>
-                        <th>{{'rotavirus-form.stoolReceivedDate'|trans}}</th>
-                        <td>{{lab.stoolReceivedDate}}</td>
+                        <th>{{'rotavirus-form.siteReceivedDate'|trans}}</th>
+                        <td>{%if lab.siteReceivedDate %}{lab.siteReceivedDate|date}}{%endif%}</td>
                     </tr>
                     <tr>
-                        <th>{{'rotavirus-form.stoolAdequate'|trans}}</th>
-                        <td>{{lab.stoolAdequate}}</td>
+                        <th>{{'rotavirus-form.adequate'|trans}}</th>
+                        <td>{{lab.adequate}}</td>
                     </tr>
                     <tr>
-                        <th>{{'rotavirus-form.stoolELISADone'|trans}}</th>
-                        <td>{{lab.stoolELISADone}}</td>
+                        <th>{{'rotavirus-form.stored'|trans}}</th>
+                        <td>{{lab.stored}}</td>
                     </tr>
                     <tr>
-                        <th>{{'rotavirus-form.stoolTestDate'|trans}}</th>
-                        <td>{{lab.stoolTestDate}}</td>
+                        <th>{{'rotavirus-form.elisaDone'|trans}}</th>
+                        <td>{{lab.elisaDone}}</td>
                     </tr>
                     <tr>
-                        <th>{{'rotavirus-form.stoolELISAResult'|trans}}</th>
-                        <td>{{lab.stoolELISAResult}}</td>
+                        <th>{{'rotavirus-form.elisaKit'|trans}}</th>
+                        <td>{{lab.elisaKit}}</td>
                     </tr>
                     <tr>
-                        <th>{{'rotavirus-form.stoolStored'|trans}}</th>
-                        <td>{{lab.stoolStored}}</td>
+                        <th>{{'rotavirus-form.elisaKitOther'|trans}}</th>
+                        <td>{{lab.elisaKitOther}}</td>
                     </tr>
                     <tr>
-                        <th>{{'rotavirus-form.stoolSentToRRL'|trans}}</th>
-                        <td>{{lab.stoolSentToRRL}}</td>
+                        <th>{{'rotavirus-form.elisaLoadNumber'|trans}}</th>
+                        <td>{{lab.elisaLoadNumber}}</td>
                     </tr>
                     <tr>
-                        <th>{{'rotavirus-form.stoolSentToRRLDate'|trans}}</th>
-                        <td>{{lab.stoolSentToRRLDate}}</td>
+                        <th>{{'rotavirus-form.elisaExpiryDate'|trans}}</th>
+                        <td>{%if lab.elisaExpiryDate %}{{lab.elisaExpiryDate|date}}{%endif%}</td>
+                    </tr>
+
+                    <tr>
+                        <th>{{'rotavirus-form.elisaTestDate'|trans}}</th>
+                        <td>{%if lab.elisaTestDate %}{{lab.elisaTestDate|date}}{%endif%}</td>
                     </tr>
                     <tr>
-                        <th>{{'rotavirus-form.rrlELISAResult'|trans}}</th>
-                        <td>{{lab.rrlELISAResult}}</td>
+                        <th>{{'rotavirus-form.elisaResult'|trans}}</th>
+                        <td>{{lab.elisaResult}}</td>
+                    </tr>
+                    
+                    <tr>
+                        <th>{{'rotavirus-form.secondaryElisaDone'|trans}}</th>
+                        <td>{{lab.secondaryElisaDone}}</td>
                     </tr>
                     <tr>
-                        <th>{{'rotavirus-form.rrlGenoTypeDate'|trans}}</th>
-                        <td>{{lab.rrlGenoTypeDate}}</td>
+                        <th>{{'rotavirus-form.secondaryElisaKit'|trans}}</th>
+                        <td>{{lab.secondaryElisaKit}}</td>
                     </tr>
                     <tr>
-                        <th>{{'rotavirus-form.rrlGenoTypeResult'|trans}}</th>
-                        <td>{{lab.rrlGenoTypeResult}}</td>
+                        <th>{{'rotavirus-form.secondaryElisaKitOther'|trans}}</th>
+                        <td>{{lab.secondaryElisaKitOther}}</td>
                     </tr>
                     <tr>
-                        <th>{{'rotavirus-form.stoolSentToNL'|trans}}</th>
-                        <td>{{lab.stoolSentToNL}}</td>
+                        <th>{{'rotavirus-form.secondaryElisaLoadNumber'|trans}}</th>
+                        <td>{{lab.secondaryElisaLoadNumber}}</td>
                     </tr>
                     <tr>
-                        <th>{{'rotavirus-form.stoolSentToNLDate'|trans}}</th>
-                        <td>{{lab.stoolSentToNLDate}}</td>
+                        <th>{{'rotavirus-form.secondaryElisaExpiryDate'|trans}}</th>
+                        <td>{%if lab.secondaryElisaExpiryDate %}{{lab.secondaryElisaExpiryDate|date}}{%endif%}</td>
+                    </tr>
+
+                    <tr>
+                        <th>{{'rotavirus-form.secondaryElisaTestDate'|trans}}</th>
+                        <td>{%if lab.secondaryElisaTestDate %}{{lab.secondaryElisaTestDate|date}}{%endif%}</td>
                     </tr>
                     <tr>
-                        <th>{{'rotavirus-form.nlELISAResult'|trans}}</th>
-                        <td>{{lab.nlELISAResult}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'rotavirus-form.nlGenoTypeDate'|trans}}</th>
-                        <td>{{lab.nlGenoTypeDate}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'rotavirus-form.nlGenoTypeResult'|trans}}</th>
-                        <td>{{lab.nlGenoTypeResult}}</td>
+                        <th>{{'rotavirus-form.secondaryElisaResult'|trans}}</th>
+                        <td>{{lab.secondaryElisaResult}}</td>
                     </tr>
                     {% else %}
                     <tr>
-                        <th>{{'rotavirus-form.hasSiteLab'|trans}}</th>
+                        <th>{{'rotavirus-form.hasLab'|trans}}</th>
                         <td>{{'No'|trans}}</td>
                     </tr>
                     {% endif %}
                 </table>
             </div>
+                <div id="labData-genotype" class="tab-pane">
+                    <table class="table table-striped table-bordered table-hover">
+                        <tr><th>{{'external-lab-form.genotyping-date'|trans}}</th><td>{%if lab.genotypingDate %}{{lab.genotypingDate|date}}{%endif%}</td></tr>
+                        <tr><th>{{'external-lab-form.genotyping-result-g'|trans}}</th><td>{{lab.genotypingResultG}}</td></tr>
+                        <tr><th>{{'external-lab-form.genotyping-result-g-specify'|trans}}</th><td>{{lab.genotypingResultGSpecify}}</td></tr>
+                        <tr><th>{{'external-lab-form.genotyping-result-p'|trans}}</th><td>{{lab.genotypeResultP}}</td></tr>
+                        <tr><th>{{'external-lab-form.genotyping-result-p-specify'|trans}}</th><td>{{lab.genotypeResultPSpecify}}</td></tr>
+                    </table>
+                </div>
         </div>
     </div>
 </div>
