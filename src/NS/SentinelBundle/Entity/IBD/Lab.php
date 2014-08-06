@@ -1142,13 +1142,13 @@ class Lab extends BaseLab
         return $this;
     }
 
-    public function setCsfIsolateDateSentToNL(\DateTime $csfIsolateDateSentToNL)
+    public function setCsfIsolateDateSentToNL($csfIsolateDateSentToNL)
     {
         $this->csfIsolateDateSentToNL = $csfIsolateDateSentToNL;
         return $this;
     }
 
-    public function setCsfIsolateNLDateReceived(\DateTime $csfIsolateNLDateReceived)
+    public function setCsfIsolateNLDateReceived($csfIsolateNLDateReceived)
     {
         $this->csfIsolateNLDateReceived = $csfIsolateNLDateReceived;
         return $this;
@@ -1160,13 +1160,13 @@ class Lab extends BaseLab
         return $this;
     }
 
-    public function setCsfIsolateDateSentToRRL(\DateTime $csfIsolateDateSentToRRL)
+    public function setCsfIsolateDateSentToRRL($csfIsolateDateSentToRRL)
     {
         $this->csfIsolateDateSentToRRL = $csfIsolateDateSentToRRL;
         return $this;
     }
 
-    public function setCsfIsolateRRLDateReceived(\DateTime $csfIsolateRRLDateReceived)
+    public function setCsfIsolateRRLDateReceived($csfIsolateRRLDateReceived)
     {
         $this->csfIsolateRRLDateReceived = $csfIsolateRRLDateReceived;
         return $this;
@@ -1178,13 +1178,13 @@ class Lab extends BaseLab
         return $this;
     }
 
-    public function setBloodIsolateDateSentToNL(\DateTime $bloodIsolateDateSentToNL)
+    public function setBloodIsolateDateSentToNL($bloodIsolateDateSentToNL)
     {
         $this->bloodIsolateDateSentToNL = $bloodIsolateDateSentToNL;
         return $this;
     }
 
-    public function setBloodIsolateNLDateReceived(\DateTime $bloodIsolateNLDateReceived)
+    public function setBloodIsolateNLDateReceived($bloodIsolateNLDateReceived)
     {
         $this->bloodIsolateNLDateReceived = $bloodIsolateNLDateReceived;
         return $this;
@@ -1196,13 +1196,13 @@ class Lab extends BaseLab
         return $this;
     }
 
-    public function setBloodIsolateDateSentToRRL(\DateTime $bloodIsolateDateSentToRRL)
+    public function setBloodIsolateDateSentToRRL($bloodIsolateDateSentToRRL)
     {
         $this->bloodIsolateDateSentToRRL = $bloodIsolateDateSentToRRL;
         return $this;
     }
 
-    public function setBloodIsolateRRLDateReceived(\DateTime $bloodIsolateRRLDateReceived)
+    public function setBloodIsolateRRLDateReceived($bloodIsolateRRLDateReceived)
     {
         $this->bloodIsolateRRLDateReceived = $bloodIsolateRRLDateReceived;
         return $this;
