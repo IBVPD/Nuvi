@@ -127,40 +127,56 @@ class LabType extends AbstractType
                             $form->add('csfSentToRRL',              'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.csfSentToRRL',           'attr'=>array('data-context-child' =>'csfSentToRRL')))
                                  ->add('csfDateSentToRRL',          'acedatepicker',        array('required'=>false, 'label'=>'meningitis-form.csfDateSentToRRL',       'attr'=>array('data-context-parent'=>'csfSentToRRL','data-context-value'=> TripleChoice::YES)))
                                  ->add('csfRRLId',                  null,                   array('required'=>false, 'label'=>'meningitis-form.csfRRLId',               'attr'=>array('data-context-parent'=>'csfSentToRRL','data-context-value'=> TripleChoice::YES)))
-                                 ->add('csfRRLDate',                'acedatepicker',        array('required'=>false, 'label'=>'meningitis-form.csfRRLDate',         'attr'=>array('data-context-parent'=>'csfSentToRRL','data-context-value'=> TripleChoice::YES)))
+                                 ->add('csfRRLDateReceived',        'acedatepicker',        array('required'=>false, 'label'=>'meningitis-form.csfRRLDateReceived',     'attr'=>array('data-context-parent'=>'csfSentToRRL','data-context-value'=> TripleChoice::YES)))
                                  ->add('csfRRLDNAExtractionDate',   'acedatepicker',        array('required'=>false, 'label'=>'meningitis-form.csfRRLDNAExtractionDate','attr'=>array('data-context-parent'=>'csfSentToRRL','data-context-value'=> TripleChoice::YES)))
                                  ->add('csfRRLDNAVolume',           null,                   array('required'=>false, 'label'=>'meningitis-form.csfRRLDNAVolume',        'attr'=>array('data-context-parent'=>'csfSentToRRL','data-context-value'=> TripleChoice::YES)))
+
+                                 ->add('csfIsolateSentToRRL',       'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.csfIsolateSentToRRL',       'attr'=>array('data-context-child' =>'csfIsolateSentToRRL')))
+                                 ->add('csfIsolateDateSentToRRL',   'acedatepicker',        array('required'=>false, 'label'=>'meningitis-form.csfIsolateDateSentToRRL',   'attr'=>array('data-context-parent'=>'csfIsolateSentToRRL','data-context-value'=> TripleChoice::YES)))
+                                 ->add('csfIsolateRRLDateReceived', 'acedatepicker',        array('required'=>false, 'label'=>'meningitis-form.csfIsolateRRLDateReceived', 'attr'=>array('data-context-parent'=>'csfIsolateSentToRRL','data-context-value'=> TripleChoice::YES)))
 
                                  ->add('bloodSentToRRL',            'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.bloodSentToRRL',         'attr'=>array('data-context-child' =>'bloodSentToRRL')))
                                  ->add('bloodDateSentToRRL',        'acedatepicker',        array('required'=>false, 'label'=>'meningitis-form.bloodDateSentToRRL',     'attr'=>array('data-context-parent'=>'bloodSentToRRL','data-context-value'=> TripleChoice::YES)))
                                  ->add('bloodRRLId',                null,                   array('required'=>false, 'label'=>'meningitis-form.bloodRRLId',             'attr'=>array('data-context-parent'=>'bloodSentToRRL','data-context-value'=> TripleChoice::YES)))
-                                 ->add('bloodRRLDate',              'acedatepicker',        array('required'=>false, 'label'=>'meningitis-form.bloodRRLDate',       'attr'=>array('data-context-parent'=>'bloodSentToRRL','data-context-value'=> TripleChoice::YES)))
+                                 ->add('bloodRRLDateReceived',      'acedatepicker',        array('required'=>false, 'label'=>'meningitis-form.bloodRRLDateReceived',   'attr'=>array('data-context-parent'=>'bloodSentToRRL','data-context-value'=> TripleChoice::YES)))
+
+                                 ->add('bloodIsolateSentToRRL',      'TripleChoice',        array('required'=>false, 'label'=>'meningitis-form.bloodIsolateSentToRRL',       'attr'=>array('data-context-child' =>'bloodIsolateSentToRRL')))
+                                 ->add('bloodIsolateDateSentToRRL',  'acedatepicker',       array('required'=>false, 'label'=>'meningitis-form.bloodIsolateDateSentToRRL',   'attr'=>array('data-context-parent'=>'bloodIsolateSentToRRL','data-context-value'=> TripleChoice::YES)))
+                                 ->add('bloodIsolateRRLDateReceived','acedatepicker',       array('required'=>false, 'label'=>'meningitis-form.bloodIsolateRRLDateReceived', 'attr'=>array('data-context-parent'=>'bloodIsolateSentToRRL','data-context-value'=> TripleChoice::YES)))
 
                                  ->add('otherSentToRRL',            'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.otherSentToRRL',         'attr'=>array('data-context-child' =>'otherSentToRRL')))
                                  ->add('otherRRLId',                null,                   array('required'=>false, 'label'=>'meningitis-form.otherRRLId',             'attr'=>array('data-context-parent'=>'otherSentToRRL','data-context-value'=> TripleChoice::YES)))
                                  ->add('otherDateSentToRRL',        'acedatepicker',        array('required'=>false, 'label'=>'meningitis-form.otherDateSentToRRL',     'attr'=>array('data-context-parent'=>'otherSentToRRL','data-context-value'=> TripleChoice::YES)))
-                                 ->add('otherRRLDate',              'acedatepicker',        array('required'=>false, 'label'=>'meningitis-form.otherRRLDate',       'attr'=>array('data-context-parent'=>'otherSentToRRL','data-context-value'=> TripleChoice::YES)))
+                                 ->add('otherRRLDateReceived',      'acedatepicker',        array('required'=>false, 'label'=>'meningitis-form.otherRRLDateReceived',   'attr'=>array('data-context-parent'=>'otherSentToRRL','data-context-value'=> TripleChoice::YES)))
                                     ;
                         }
 
                         if($country->hasNationalLab())
                         {
-                            $form->add('csfSentToNL',               'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.csfSentToNL',            'attr'=>array('data-context-child' =>'csfSentToNL')))
-                                 ->add('csfDateSentToNL',           'acedatepicker',        array('required'=>false, 'label'=>'meningitis-form.csfDateSentToNL',        'attr'=>array('data-context-parent'=>'csfSentToNL','data-context-value'=> TripleChoice::YES)))
-                                 ->add('csfNLId',                   null,                   array('required'=>false, 'label'=>'meningitis-form.csfNLId',                'attr'=>array('data-context-parent'=>'csfSentToNL','data-context-value'=> TripleChoice::YES)))
-                                 ->add('csfNLDate',                 'acedatepicker',        array('required'=>false, 'label'=>'meningitis-form.csfNLDate',          'attr'=>array('data-context-parent'=>'csfSentToNL','data-context-value'=> TripleChoice::YES)))
-                                 ->add('csfNLDNAExtractionDate',    'acedatepicker',        array('required'=>false, 'label'=>'meningitis-form.csfNLDNAExtractionDate', 'attr'=>array('data-context-parent'=>'csfSentToNL','data-context-value'=> TripleChoice::YES)))
-                                 ->add('csfNLDNAVolume',            null,                   array('required'=>false, 'label'=>'meningitis-form.csfNLDNAVolume',         'attr'=>array('data-context-parent'=>'csfSentToNL','data-context-value'=> TripleChoice::YES)))
+                            $form->add('csfSentToNL',               'TripleChoice',        array('required'=>false, 'label'=>'meningitis-form.csfSentToNL',            'attr'=>array('data-context-child' =>'csfSentToNL')))
+                                 ->add('csfDateSentToNL',           'acedatepicker',       array('required'=>false, 'label'=>'meningitis-form.csfDateSentToNL',        'attr'=>array('data-context-parent'=>'csfSentToNL','data-context-value'=> TripleChoice::YES)))
+                                 ->add('csfNLId',                   null,                  array('required'=>false, 'label'=>'meningitis-form.csfNLId',                'attr'=>array('data-context-parent'=>'csfSentToNL','data-context-value'=> TripleChoice::YES)))
+                                 ->add('csfNLDateReceived',         'acedatepicker',       array('required'=>false, 'label'=>'meningitis-form.csfNLDateReceived',      'attr'=>array('data-context-parent'=>'csfSentToNL','data-context-value'=> TripleChoice::YES)))
+                                 ->add('csfNLDNAExtractionDate',    'acedatepicker',       array('required'=>false, 'label'=>'meningitis-form.csfNLDNAExtractionDate', 'attr'=>array('data-context-parent'=>'csfSentToNL','data-context-value'=> TripleChoice::YES)))
+                                 ->add('csfNLDNAVolume',            null,                  array('required'=>false, 'label'=>'meningitis-form.csfNLDNAVolume',         'attr'=>array('data-context-parent'=>'csfSentToNL','data-context-value'=> TripleChoice::YES)))
+
+                                 ->add('csfIsolateSentToNL',       'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.csfIsolateSentToNL',     'attr'=>array('data-context-child' =>'csfIsolateSentToNL')))
+                                 ->add('csfIsolateDateSentToNL',   'acedatepicker',        array('required'=>false, 'label'=>'meningitis-form.csfIsolateDateSentToNL', 'attr'=>array('data-context-parent'=>'csfIsolateSentToNL','data-context-value'=> TripleChoice::YES)))
+                                 ->add('csfIsolateNLDateReceived', 'acedatepicker',        array('required'=>false, 'label'=>'meningitis-form.csfIsolateNLDateReceived',       'attr'=>array('data-context-parent'=>'csfIsolateSentToNL','data-context-value'=> TripleChoice::YES)))
 
                                  ->add('bloodSentToNL',            'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.bloodSentToNL',           'attr'=>array('data-context-child' =>'bloodSentToNL')))
                                  ->add('bloodDateSentToNL',        'acedatepicker',        array('required'=>false, 'label'=>'meningitis-form.bloodDateSentToNL',       'attr'=>array('data-context-parent'=>'bloodSentToNL','data-context-value'=> TripleChoice::YES)))
                                  ->add('bloodNLId',                null,                   array('required'=>false, 'label'=>'meningitis-form.bloodNLId',               'attr'=>array('data-context-parent'=>'bloodSentToNL','data-context-value'=> TripleChoice::YES)))
-                                 ->add('bloodNLDate',              'acedatepicker',        array('required'=>false, 'label'=>'meningitis-form.bloodNLDate',         'attr'=>array('data-context-parent'=>'bloodSentToNL','data-context-value'=> TripleChoice::YES)))
+                                 ->add('bloodNLDateReceived',      'acedatepicker',        array('required'=>false, 'label'=>'meningitis-form.bloodNLDateReceived',     'attr'=>array('data-context-parent'=>'bloodSentToNL','data-context-value'=> TripleChoice::YES)))
+
+                                 ->add('bloodIsolateSentToNL',      'TripleChoice',        array('required'=>false, 'label'=>'meningitis-form.bloodIsolateSentToNL',         'attr'=>array('data-context-child' =>'bloodIsolateSentToNL')))
+                                 ->add('bloodIsolateDateSentToNL',  'acedatepicker',       array('required'=>false, 'label'=>'meningitis-form.bloodIsolateDateSentToNL',     'attr'=>array('data-context-parent'=>'bloodIsolateSentToNL','data-context-value'=> TripleChoice::YES)))
+                                 ->add('bloodIsolateNLDateReceived','acedatepicker',       array('required'=>false, 'label'=>'meningitis-form.bloodIsolateNLDateReceived',   'attr'=>array('data-context-parent'=>'bloodIsolateSentToNL','data-context-value'=> TripleChoice::YES)))
 
                                  ->add('otherSentToNL',            'TripleChoice',         array('required'=>false, 'label'=>'meningitis-form.otherSentToNL',           'attr'=>array('data-context-child' =>'otherSentToNL')))
                                  ->add('otherNLId',                null,                   array('required'=>false, 'label'=>'meningitis-form.otherNLId',               'attr'=>array('data-context-parent'=>'otherSentToNL','data-context-value'=> TripleChoice::YES)))
-                                 ->add('otherDateSentToNL',        'acedatepicker',        array('required'=>false, 'label'=>'meningitis-form.otherDateSentToNL',      'attr'=>array('data-context-parent'=>'otherSentToNL','data-context-value'=> TripleChoice::YES)))
-                                 ->add('otherNLDate',              'acedatepicker',        array('required'=>false, 'label'=>'meningitis-form.otherNLDate',        'attr'=>array('data-context-parent'=>'otherSentToNL','data-context-value'=> TripleChoice::YES)))
+                                 ->add('otherDateSentToNL',        'acedatepicker',        array('required'=>false, 'label'=>'meningitis-form.otherDateSentToNL',       'attr'=>array('data-context-parent'=>'otherSentToNL','data-context-value'=> TripleChoice::YES)))
+                                 ->add('otherNLDateReceived',      'acedatepicker',        array('required'=>false, 'label'=>'meningitis-form.otherNLDateReceived',     'attr'=>array('data-context-parent'=>'otherSentToNL','data-context-value'=> TripleChoice::YES)))
                                 ;
                         }
                     }

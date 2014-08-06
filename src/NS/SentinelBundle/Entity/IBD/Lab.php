@@ -57,35 +57,11 @@ class Lab extends BaseLab
     private $csfSiteId;
 
     /**
-     * @var string $csfNLId
-     * @ORM\Column(name="csfNLId",type="string",nullable=true)
-     */
-    private $csfNLId;
-
-    /**
-     * @var string $csfRRLId
-     * @ORM\Column(name="csfRRLId",type="string",nullable=true)
-     */
-    private $csfRRLId;
-
-    /**
      * @var \DateTime $csfSiteDateTime
      * @ORM\Column(name="csfSiteDateTime",type="datetime",nullable=true)
      * @Assert\DateTime
      */
     private $csfSiteDateTime;
-
-    /**
-     * @var \DateTime $csfNLDate
-     * @ORM\Column(name="csfNLDate",type="datetime",nullable=true)
-     */
-    private $csfNLDate;
-
-    /**
-     * @var \DateTime $csfRRLDate
-     * @ORM\Column(name="csfRRLDate",type="datetime",nullable=true)
-     */
-    private $csfRRLDate;
 
     /**
      * @var integer $csfWcc
@@ -200,6 +176,48 @@ class Lab extends BaseLab
     private $csfPcrOther;
 
     /**
+     * @var TripleChoice $csfSentToNL
+     * @ORM\Column(name="csfSentToNL",type="TripleChoice",nullable=true)
+     */
+    private $csfSentToNL;
+
+    /**
+     * @var \DateTime $csfDateSentToNL
+     * @ORM\Column(name="csfDateSentToNL",type="date",nullable=true)
+     */
+    private $csfDateSentToNL;
+
+    /**
+     * @var string $csfNLId
+     * @ORM\Column(name="csfNLId",type="string",nullable=true)
+     */
+    private $csfNLId;
+
+    /**
+     * @var \DateTime $csfNLDateReceived
+     * @ORM\Column(name="csfNLDateReceived",type="datetime",nullable=true)
+     */
+    private $csfNLDateReceived;
+
+    /**
+     * @var TripleChoice $csfIsolateSentToNL
+     * @ORM\Column(name="csfIsolateSentToNL",type="TripleChoice",nullable=true)
+     */
+    private $csfIsolateSentToNL;
+
+    /**
+     * @var \DateTime $csfIsolateDateSentToNL
+     * @ORM\Column(name="csfIsolateDateSentToNL",type="date",nullable=true)
+     */
+    private $csfIsolateDateSentToNL;
+
+    /**
+     * @var \DateTime $csfIsolateNLDateReceived
+     * @ORM\Column(name="csfIsolateNLDateReceived",type="datetime",nullable=true)
+     */
+    private $csfIsolateNLDateReceived;
+
+    /**
      * @var TripleChoice $csfSentToRRL
      * @ORM\Column(name="csfSentToRRL",type="TripleChoice",nullable=true)
      */
@@ -212,16 +230,34 @@ class Lab extends BaseLab
     private $csfDateSentToRRL;
 
     /**
-     * @var TripleChoice $csfSentToNL
-     * @ORM\Column(name="csfSentToNL",type="TripleChoice",nullable=true)
+     * @var string $csfRRLId
+     * @ORM\Column(name="csfRRLId",type="string",nullable=true)
      */
-    private $csfSentToNL;
+    private $csfRRLId;
 
     /**
-     * @var \DateTime $csfDateSentToNL
-     * @ORM\Column(name="csfDateSentToNL",type="date",nullable=true)
+     * @var \DateTime $csfRRLDateReceived
+     * @ORM\Column(name="csfRRLDateReceived",type="datetime",nullable=true)
      */
-    private $csfDateSentToNL;
+    private $csfRRLDateReceived;
+
+    /**
+     * @var TripleChoice $csfIsolateSentToRRL
+     * @ORM\Column(name="csfIsolateSentToRRL",type="TripleChoice",nullable=true)
+     */
+    private $csfIsolateSentToRRL;
+
+    /**
+     * @var \DateTime $csfIsolateDateSentToRRL
+     * @ORM\Column(name="csfIsolateDateSentToRRL",type="date",nullable=true)
+     */
+    private $csfIsolateDateSentToRRL;
+
+    /**
+     * @var \DateTime $csfIsolateRRLDateReceived
+     * @ORM\Column(name="csfIsolateRRLDateReceived",type="datetime",nullable=true)
+     */
+    private $csfIsolateRRLDateReceived;
 
     /**
      * @var TripleChoice $csfStore
@@ -311,10 +347,28 @@ class Lab extends BaseLab
     private $bloodDateSentToNL;
 
     /**
-     * @var \DateTime $bloodNLDate
-     * @ORM\Column(name="bloodNLDate",type="date",nullable=true)
+     * @var \DateTime $bloodNLDateReceived
+     * @ORM\Column(name="bloodNLDateReceived",type="date",nullable=true)
      */
-    private $bloodNLDate;
+    private $bloodNLDateReceived;
+
+    /**
+     * @var TripleChoice $bloodIsolateSentToNL
+     * @ORM\Column(name="bloodIsolateSentToNL",type="TripleChoice",nullable=true)
+     */
+    private $bloodIsolateSentToNL;
+
+    /**
+     * @var \DateTime $bloodIsolateDateSentToNL
+     * @ORM\Column(name="bloodIsolateDateSentToNL",type="date",nullable=true)
+     */
+    private $bloodIsolateDateSentToNL;
+
+    /**
+     * @var \DateTime $bloodIsolateNLDateReceived
+     * @ORM\Column(name="bloodIsolateNLDateReceived",type="date",nullable=true)
+     */
+    private $bloodIsolateNLDateReceived;
 
     /**
      * @var TripleChoice $bloodSentToRRL
@@ -335,10 +389,28 @@ class Lab extends BaseLab
     private $bloodDateSentToRRL;
 
     /**
-     * @var \DateTime $bloodRRLDate
-     * @ORM\Column(name="bloodRRLDate",type="date",nullable=true)
+     * @var \DateTime $bloodRRLDateReceived
+     * @ORM\Column(name="bloodRRLDateReceived",type="date",nullable=true)
      */
-    private $bloodRRLDate;
+    private $bloodRRLDateReceived;
+
+    /**
+     * @var TripleChoice $bloodIsolateSentToRRL
+     * @ORM\Column(name="bloodIsolateSentToRRL",type="TripleChoice",nullable=true)
+     */
+    private $bloodIsolateSentToRRL;
+
+    /**
+     * @var \DateTime $bloodIsolateDateSentToRRL
+     * @ORM\Column(name="bloodIsolateDateSentToRRL",type="date",nullable=true)
+     */
+    private $bloodIsolateDateSentToRRL;
+
+    /**
+     * @var \DateTime $bloodIsolateRRLDateReceived
+     * @ORM\Column(name="bloodIsolateRRLDateReceived",type="date",nullable=true)
+     */
+    private $bloodIsolateRRLDateReceived;
 
     /**
      * @var TripleChoice $bloodCultDone
@@ -443,10 +515,10 @@ class Lab extends BaseLab
     private $otherDateSentToNL;
 
     /**
-     * @var \DateTime $otherNLDate
-     * @ORM\Column(name="otherNLDate",type="date",nullable=true)
+     * @var \DateTime $otherNLDateReceived
+     * @ORM\Column(name="otherNLDateReceived",type="date",nullable=true)
      */
-    private $otherNLDate;
+    private $otherNLDateReceived;
 
     /**
      * @var TripleChoice $otherSentToRRL
@@ -462,10 +534,10 @@ class Lab extends BaseLab
     private $otherDateSentToRRL;
 
     /**
-     * @var \DateTime $otherRRLDate
-     * @ORM\Column(name="otherRRLDate",type="date",nullable=true)
+     * @var \DateTime $otherRRLDateReceived
+     * @ORM\Column(name="otherRRLDateReceived",type="date",nullable=true)
      */
-    private $otherRRLDate;
+    private $otherRRLDateReceived;
 
     /**
      * @var TripleChoice $otherCultDone
@@ -604,14 +676,14 @@ class Lab extends BaseLab
         return $this->csfSiteDateTime;
     }
 
-    public function getCsfNLDate()
+    public function getCsfNLDateReceived()
     {
-        return $this->csfNLDate;
+        return $this->csfNLDateReceived;
     }
 
-    public function getCsfRRLDate()
+    public function getCsfRRLDateReceived()
     {
-        return $this->csfRRLDate;
+        return $this->csfRRLDateReceived;
     }
 
     public function getCsfWcc()
@@ -794,9 +866,9 @@ class Lab extends BaseLab
         return $this->bloodDateSentToNL;
     }
 
-    public function getBloodNLDate()
+    public function getBloodNLDateReceived()
     {
-        return $this->bloodNLDate;
+        return $this->bloodNLDateReceived;
     }
 
     public function getBloodSentToRRL()
@@ -814,9 +886,9 @@ class Lab extends BaseLab
         return $this->bloodDateSentToRRL;
     }
 
-    public function getBloodRRLDate()
+    public function getBloodRRLDateReceived()
     {
-        return $this->bloodRRLDate;
+        return $this->bloodRRLDateReceived;
     }
 
     public function getBloodCultDone()
@@ -899,9 +971,9 @@ class Lab extends BaseLab
         return $this->otherDateSentToNL;
     }
 
-    public function getOtherNLDate()
+    public function getOtherNLDateReceived()
     {
-        return $this->otherNLDate;
+        return $this->otherNLDateReceived;
     }
 
     public function getOtherSentToRRL()
@@ -914,9 +986,9 @@ class Lab extends BaseLab
         return $this->otherDateSentToRRL;
     }
 
-    public function getOtherRRLDate()
+    public function getOtherRRLDateReceived()
     {
-        return $this->otherRRLDate;
+        return $this->otherRRLDateReceived;
     }
 
     public function getOtherCultDone()
@@ -1004,6 +1076,138 @@ class Lab extends BaseLab
         return $this->nmSerogroupOther;
     }
 
+    public function getCsfIsolateSentToNL()
+    {
+        return $this->csfIsolateSentToNL;
+    }
+
+    public function getCsfIsolateDateSentToNL()
+    {
+        return $this->csfIsolateDateSentToNL;
+    }
+
+    public function getCsfIsolateNLDateReceived()
+    {
+        return $this->csfIsolateNLDateReceived;
+    }
+
+    public function getCsfIsolateSentToRRL()
+    {
+        return $this->csfIsolateSentToRRL;
+    }
+
+    public function getCsfIsolateDateSentToRRL()
+    {
+        return $this->csfIsolateDateSentToRRL;
+    }
+
+    public function getCsfIsolateRRLDateReceived()
+    {
+        return $this->csfIsolateRRLDateReceived;
+    }
+
+    public function getBloodIsolateSentToNL()
+    {
+        return $this->bloodIsolateSentToNL;
+    }
+
+    public function getBloodIsolateDateSentToNL()
+    {
+        return $this->bloodIsolateDateSentToNL;
+    }
+
+    public function getBloodIsolateNLDateReceived()
+    {
+        return $this->bloodIsolateNLDateReceived;
+    }
+
+    public function getBloodIsolateSentToRRL()
+    {
+        return $this->bloodIsolateSentToRRL;
+    }
+
+    public function getBloodIsolateDateSentToRRL()
+    {
+        return $this->bloodIsolateDateSentToRRL;
+    }
+
+    public function getBloodIsolateRRLDateReceived()
+    {
+        return $this->bloodIsolateRRLDateReceived;
+    }
+
+    public function setCsfIsolateSentToNL(TripleChoice $csfIsolateSentToNL)
+    {
+        $this->csfIsolateSentToNL = $csfIsolateSentToNL;
+        return $this;
+    }
+
+    public function setCsfIsolateDateSentToNL(\DateTime $csfIsolateDateSentToNL)
+    {
+        $this->csfIsolateDateSentToNL = $csfIsolateDateSentToNL;
+        return $this;
+    }
+
+    public function setCsfIsolateNLDateReceived(\DateTime $csfIsolateNLDateReceived)
+    {
+        $this->csfIsolateNLDateReceived = $csfIsolateNLDateReceived;
+        return $this;
+    }
+
+    public function setCsfIsolateSentToRRL(TripleChoice $csfIsolateSentToRRL)
+    {
+        $this->csfIsolateSentToRRL = $csfIsolateSentToRRL;
+        return $this;
+    }
+
+    public function setCsfIsolateDateSentToRRL(\DateTime $csfIsolateDateSentToRRL)
+    {
+        $this->csfIsolateDateSentToRRL = $csfIsolateDateSentToRRL;
+        return $this;
+    }
+
+    public function setCsfIsolateRRLDateReceived(\DateTime $csfIsolateRRLDateReceived)
+    {
+        $this->csfIsolateRRLDateReceived = $csfIsolateRRLDateReceived;
+        return $this;
+    }
+
+    public function setBloodIsolateSentToNL(TripleChoice $bloodIsolateSentToNL)
+    {
+        $this->bloodIsolateSentToNL = $bloodIsolateSentToNL;
+        return $this;
+    }
+
+    public function setBloodIsolateDateSentToNL(\DateTime $bloodIsolateDateSentToNL)
+    {
+        $this->bloodIsolateDateSentToNL = $bloodIsolateDateSentToNL;
+        return $this;
+    }
+
+    public function setBloodIsolateNLDateReceived(\DateTime $bloodIsolateNLDateReceived)
+    {
+        $this->bloodIsolateNLDateReceived = $bloodIsolateNLDateReceived;
+        return $this;
+    }
+
+    public function setBloodIsolateSentToRRL(TripleChoice $bloodIsolateSentToRRL)
+    {
+        $this->bloodIsolateSentToRRL = $bloodIsolateSentToRRL;
+        return $this;
+    }
+
+    public function setBloodIsolateDateSentToRRL(\DateTime $bloodIsolateDateSentToRRL)
+    {
+        $this->bloodIsolateDateSentToRRL = $bloodIsolateDateSentToRRL;
+        return $this;
+    }
+
+    public function setBloodIsolateRRLDateReceived(\DateTime $bloodIsolateRRLDateReceived)
+    {
+        $this->bloodIsolateRRLDateReceived = $bloodIsolateRRLDateReceived;
+        return $this;
+    }
+
     public function setCsfSiteId($csfSiteId)
     {
         $this->csfSiteId = $csfSiteId;
@@ -1028,15 +1232,15 @@ class Lab extends BaseLab
         return $this;
     }
 
-    public function setCsfNLDate($csfNLDate)
+    public function setCsfNLDateReceived($csfNLDateReceived)
     {
-        $this->csfNLDate = $csfNLDate;
+        $this->csfNLDateReceived = $csfNLDateReceived;
         return $this;
     }
 
-    public function setCsfRRLDate($csfRRLDate)
+    public function setCsfRRLDateReceived($csfRRLDateReceived)
     {
-        $this->csfRRLDate = $csfRRLDate;
+        $this->csfRRLDateReceived = $csfRRLDateReceived;
         return $this;
     }
 
@@ -1256,9 +1460,9 @@ class Lab extends BaseLab
         return $this;
     }
 
-    public function setBloodNLDate($bloodNLDate)
+    public function setBloodNLDateReceived($bloodNLDateReceived)
     {
-        $this->bloodNLDate = $bloodNLDate;
+        $this->bloodNLDateReceived = $bloodNLDateReceived;
         return $this;
     }
 
@@ -1280,9 +1484,9 @@ class Lab extends BaseLab
         return $this;
     }
 
-    public function setBloodRRLDate($bloodRRLDate)
+    public function setBloodRRLDateReceived($bloodRRLDateReceived)
     {
-        $this->bloodRRLDate = $bloodRRLDate;
+        $this->bloodRRLDateReceived = $bloodRRLDateReceived;
         return $this;
     }
 
@@ -1382,9 +1586,9 @@ class Lab extends BaseLab
         return $this;
     }
 
-    public function setOtherNLDate($otherNLDate)
+    public function setOtherNLDateReceived($otherNLDateReceived)
     {
-        $this->otherNLDate = $otherNLDate;
+        $this->otherNLDateReceived = $otherNLDateReceived;
         return $this;
     }
 
@@ -1400,9 +1604,9 @@ class Lab extends BaseLab
         return $this;
     }
 
-    public function setOtherRRLDate($otherRRLDate)
+    public function setOtherRRLDateReceived($otherRRLDateReceived)
     {
-        $this->otherRRLDate = $otherRRLDate;
+        $this->otherRRLDateReceived = $otherRRLDateReceived;
         return $this;
     }
 
