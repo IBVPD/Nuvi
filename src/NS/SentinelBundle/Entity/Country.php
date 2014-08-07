@@ -7,6 +7,7 @@ use \Doctrine\Common\Collections\ArrayCollection;
 use \NS\SentinelBundle\Form\Types\GAVIEligible;
 use \NS\SecurityBundle\Annotation\Secured;
 use \NS\SecurityBundle\Annotation\SecuredCondition;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * Country
@@ -34,6 +35,7 @@ class Country implements \Serializable
      * @var string
      *
      * @ORM\Column(name="code", type="string", length=4)
+     * @Groups({"api"})
      */
     private $code;
 
@@ -48,6 +50,7 @@ class Country implements \Serializable
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Groups({"api"})
      */
     private $name;
 

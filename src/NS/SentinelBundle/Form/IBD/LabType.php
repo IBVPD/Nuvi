@@ -36,7 +36,7 @@ class LabType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('csfSiteDateTime',     'acedatetime',          array('required'=>false, 'label'=>'meningitis-form.csfSiteDateTime'))
+            ->add('csfSiteDateTime',     'acedatetime',         array('required'=>false, 'label'=>'meningitis-form.csfSiteDateTime', 'description' => 'This field needs to be sent as two sub fields a csfSiteDateTime[date] and csfSiteDateTime[time]. The time field needs to be 24 clock without seconds.'))
             ->add('csfSiteId',          null,                   array('required'=>false, 'label'=>'meningitis-form.csfSiteId'))
 
             ->add('csfWcc',             null,                   array('required'=>false, 'label'=>'meningitis-form.csf-wcc'))

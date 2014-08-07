@@ -202,6 +202,17 @@ sonata_doctrine_orm_admin:
     form:
       - NSUtilBundle:Form:SonataDoctrineORM/form_admin_fields.html.twig
 
+jms_serializer:
+    property_naming:
+        separator:  ~
+        lower_case: false
+
+    metadata:
+        cache: file
+        debug: "%kernel.debug%"
+        file_cache:
+            dir: "%kernel.cache_dir%/serializer"
+
 jms_translation:
   locales: %locales%
   configs:

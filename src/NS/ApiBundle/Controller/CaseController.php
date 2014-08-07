@@ -2,16 +2,15 @@
 
 namespace NS\ApiBundle\Controller;
 
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use \NS\SentinelBundle\Exceptions\NonExistentCase;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use FOS\RestBundle\Controller\Annotations as REST;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\Util\Codes;
 use JMS\Serializer\SerializationContext;
 use FOS\RestBundle\Controller\FOSRestController;
+use \Doctrine\Common\Persistence\ObjectManager;
+use \Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 /**
  * Description of CaseController
@@ -20,24 +19,17 @@ use FOS\RestBundle\Controller\FOSRestController;
  */
 class CaseController extends FOSRestController
 {
-    protected function getCase($type,$id)
+    private function getObject($class, $id)
     {
         try
         {
-            switch($type)
-            {
-                case 'ibd':
-                    $obj = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:Meningitis')->find($id);
-                    break;
-                case 'rota':
-                    $obj = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:RotaVirus')->find($id);
-                    break;
-                default:
-                    throw new NotFoundHttpException("Invalid type: $type");
-            }
+            $obj     = $this->get('ns.model_manager')->getRepository($class)->find($id);
+            $context = SerializationContext::create()->setGroups(array('api'));
 
             $v = new View();
             $v->setData(array('case'=>$obj));
+            $v->setSerializationContext($context);
+
             return $this->handleView($v);
         }
         catch(NonExistentCase $e)
@@ -46,41 +38,81 @@ class CaseController extends FOSRestController
         }
     }
 
-    protected function updateCase(Request $request, $formName, $className, $id)
+    protected function getCaseLab($type,$id)
+    {
+        try
+        {
+            switch($type)
+            {
+                case 'ibd':
+                    $class ='NSSentinelBundle:IBD\Lab';
+                    break;
+                case 'rota':
+                    $class = 'NSSentinelBundle:Rota\Lab';
+                    break;
+                default:
+                    throw new BadRequestHttpException(sprintf("Invalid request type: %s",$type));
+            }
+
+            return $this->getObject($class, $id);
+        }
+        catch (NotFoundHttpException $ex)
+        {
+            throw new NotFoundHttpException("Lab does not exist",$ex);
+        }
+    }
+
+    protected function getCase($type,$id)
+    {
+        switch($type)
+        {
+            case 'ibd':
+                $class = 'NSSentinelBundle:Meningitis';
+                break;
+            case 'rota':
+                $class = 'NSSentinelBundle:RotaVirus';
+                break;
+            default:
+                throw new NotFoundHttpException("Invalid type: $type");
+        }
+
+        return $this->getObject($class, $id);
+    }
+
+    private function updateObject(Request $request, ObjectManager $em, $obj, $method, $formName)
+    {
+        $form = $this->createForm($formName, $obj, array('method'=>$method));
+        $form->handleRequest($request);
+
+        if($form->isSubmitted())
+        {
+            if(!$form->isValid())
+                return $form;
+
+            $obj = $form->getData();
+            $em->persist($form->getData());
+            $em->flush();
+
+            return $this->view(null, Codes::HTTP_ACCEPTED);
+        }
+        else
+            return $this->view($form, Codes::HTTP_BAD_REQUEST);
+    }
+
+    protected function updateCase(Request $request, $method, $formName, $className, $id)
     {
         $em   = $this->get('ns.model_manager');
         $obj  = $em->getRepository($className)->find($id);
-        $form = $this->createForm($formName, $obj);
-        $data = $request->request->all();
 
-        $form->submit($data[$formName]);
-
-        if(!$form->isValid())
-            return $form;
-
-        $em->persist($form->getData());
-        $em->flush();
-
-        return $this->view(null, Codes::HTTP_ACCEPTED);
+        return $this->updateObject($request, $em, $obj, $method, $formName);
     }
 
-    protected function updateLab(Request $request, $type, $class, $id)
+    protected function updateLab(Request $request, $method, $formName, $className, $id)
     {
         $em   = $this->get('ns.model_manager');
-        $obj  = $em->getRepository($class)->findOrCreateNew($id);
-        $form = $this->createForm($type,$obj);
+        $obj  = $em->getRepository($className)->findOrCreateNew($id);
 
-        $data = $request->request->all();
-        $form->submit($data[$type]);
-
-        if(!$form->isValid())
-            return $form;
-
-        $em->persist($form->getData());
-        $em->flush();
-
-        return $this->view(null, Codes::HTTP_ACCEPTED);
-
+        return $this->updateObject($request, $em, $obj, $method, $formName);
     }
 
     protected function postCase(Request $request, $type, $formName, $className)

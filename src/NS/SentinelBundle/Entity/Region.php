@@ -3,7 +3,8 @@
 namespace NS\SentinelBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use \Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\ArrayCollection;
+use JMS\Serializer\Annotation\Groups;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -28,6 +29,7 @@ class Region implements \Serializable
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Groups({"api"})
      */
     private $name;
 
@@ -35,6 +37,7 @@ class Region implements \Serializable
      * @var string
      *
      * @ORM\Column(name="code", type="string", length=255)
+     * @Groups({"api"})
      */
     private $code;
 

@@ -28,6 +28,7 @@ class AppKernel extends Kernel
             new NS\AceBundle\NSAceBundle(),
             new NS\TranslateBundle\NSTranslateBundle(),
             new NS\SonataBundle\NSSonataBundle(),
+            new NS\ApiDocBundle\NSApiDocBundle(),
             new NS\FlashBundle\NSFlashBundle(),
 
             new Sonata\CoreBundle\SonataCoreBundle(),
