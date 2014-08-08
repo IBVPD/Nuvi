@@ -95,6 +95,7 @@
 
         "behat/symfony2-extension":      "*",
         "behat/mink-extension":          "*",
-        "behat/mink-browserkit-driver":  "*"
+        "behat/mink-browserkit-driver":  "*",
+        "liip/functional-test-bundle": "dev-master"
     }
 }
