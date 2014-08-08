@@ -33,7 +33,7 @@ use JMS\Serializer\Annotation\AccessType;
  * Description of Meningitis
  * @author gnat
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\Meningitis")
- * @ORM\Table(name="meningitis_cases",uniqueConstraints={@ORM\UniqueConstraint(name="site_case_id_idx",columns={"site_id","caseId"})})
+ * @ORM\Table(name="meningitis_cases",uniqueConstraints={@ORM\UniqueConstraint(name="meningitis_site_case_id_idx",columns={"site_id","caseId"})})
  * @ORM\HasLifecycleCallbacks
  * @Gedmo\Loggable
  * @Secured(conditions={

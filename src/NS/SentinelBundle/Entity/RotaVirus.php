@@ -23,7 +23,7 @@ use JMS\Serializer\Annotation\AccessType;
  * Description of RotaVirus
  * @author gnat
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\RotaVirus")
- * @ORM\Table(name="rotavirus_cases",uniqueConstraints={@ORM\UniqueConstraint(name="site_case_id_idx",columns={"site_id","caseId"})})
+ * @ORM\Table(name="rotavirus_cases",uniqueConstraints={@ORM\UniqueConstraint(name="rotavirus_site_case_id_idx",columns={"site_id","caseId"})})
  * @Gedmo\Loggable
  * @Secured(conditions={
  *      @SecuredCondition(roles={"ROLE_REGION","ROLE_REGION_API"},relation="region",class="NSSentinelBundle:Region"),
