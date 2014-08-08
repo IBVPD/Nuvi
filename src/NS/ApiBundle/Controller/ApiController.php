@@ -8,7 +8,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use NS\SentinelBundle\Exceptions\NonExistentCase;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use FOS\RestBundle\Controller\Annotations as REST;
-use FOS\RestBundle\View\View;
 use FOS\RestBundle\Util\Codes;
 use JMS\Serializer\SerializationContext;
 use FOS\RestBundle\Controller\FOSRestController;
@@ -38,13 +37,7 @@ class ApiController extends FOSRestController
     public function sitesAction()
     {
         $sites   = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:Site')->findAll();
-        $context = SerializationContext::create()->setGroups(array('api'));
-
-        $v       = new View();
-        $v->setSerializationContext($context);
-        $v->setData(array('sites'=>$sites));
-
-        return $this->handleView($v);
+        return array('sites'=>$sites);
     }
 
 
@@ -61,14 +54,13 @@ class ApiController extends FOSRestController
      *   }
      * )
      * @REST\GET("/test")
+     * @Rest\View()
     */
     public function testAction()
     {
-        $v = new View();
-        $v->setData(array('username'=>$this->getUser()->getUsername(),
+        return array('username'=>$this->getUser()->getUsername(),
                           'roles'=>$this->getUser()->getRoles(),
-                          'hasToken'=>($this->get('security.context')->getToken())?'Yes':'No'));
+                          'hasToken'=>($this->get('security.context')->getToken())?'Yes':'No');
 
-        return $this->handleView($v);
     }
 }

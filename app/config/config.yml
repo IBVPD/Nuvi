@@ -249,20 +249,23 @@ fos_oauth_server:
 sensio_framework_extra:
     view: { annotations: false }
     router: { annotations: true }
-    request: { converters: true }
-
+#    request: { converters: true }
+    
 fos_rest:
     param_fetcher_listener: true
+    format_listener: true
     view:
-        view_response_listener: 'force'
+        view_response_listener: true
         formats:
-            xml:  true
             json: true
+            xml:  true
         templating_formats:
             html: true
     format_listener:
         rules:
-            - { path: ^/, priorities: [ html, json, xml ], fallback_format: ~, prefer_extension: true }
+            - { path: ^/api, priorities: [ json, xml ], fallback_format: false, prefer_extension: true }
+            - { path: '^/', priorities: [ 'text/html', '*/*'], fallback_format: html, prefer_extension: true }
+
     disable_csrf_role: ROLE_API
     exception:
       codes:

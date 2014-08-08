@@ -11,7 +11,7 @@ use FOS\RestBundle\Controller\Annotations as REST;
  * Description of RotaVirusController
  *
  * @author gnat
- * @Route("/rota")
+ * @Route("/api/rota")
  */
 class RotaVirusController extends CaseController
 {

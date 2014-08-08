@@ -5,7 +5,6 @@ namespace NS\ApiBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use \NS\SentinelBundle\Exceptions\NonExistentCase;
-use FOS\RestBundle\View\View;
 use FOS\RestBundle\Util\Codes;
 use JMS\Serializer\SerializationContext;
 use FOS\RestBundle\Controller\FOSRestController;
@@ -23,14 +22,7 @@ class CaseController extends FOSRestController
     {
         try
         {
-            $obj     = $this->get('ns.model_manager')->getRepository($class)->find($id);
-            $context = SerializationContext::create()->setGroups(array('api'));
-
-            $v = new View();
-            $v->setData(array('case'=>$obj));
-            $v->setSerializationContext($context);
-
-            return $this->handleView($v);
+            return $this->get('ns.model_manager')->getRepository($class)->find($id);
         }
         catch(NonExistentCase $e)
         {
@@ -143,10 +135,7 @@ class CaseController extends FOSRestController
         }
         catch (\Exception $e)
         {
-            $v = new View();
-            $v->setData(array('exception'=>$e->getMessage()));
-
-            return $this->handleView($v);
+            return array('exception'=>$e->getMessage());
         }
     }
 }

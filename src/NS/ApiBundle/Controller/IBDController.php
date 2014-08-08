@@ -11,7 +11,7 @@ use FOS\RestBundle\Controller\Annotations as REST;
  * Description of IBDController
  *
  * @author gnat
- * @Route("/ibd")
+ * @Route("/api/ibd")
  */
 class IBDController extends CaseController
 {

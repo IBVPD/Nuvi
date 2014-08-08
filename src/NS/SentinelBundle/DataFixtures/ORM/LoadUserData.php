@@ -51,6 +51,8 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $manager->persist($naUser);
         $manager->persist($acl);
 
+        $references = array();
+
         foreach($this->getCountryData() as $data)
         {
             $user = new User();
@@ -69,6 +71,9 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
 
             $manager->persist($user);
             $manager->persist($acl);
+
+            if(isset($data['reference']))
+                $references[$data['reference']] = $user;
         }
 
         foreach($this->getSiteData() as $data)
@@ -88,6 +93,9 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
             $acl->setObjectId($this->getReference($data['ref-name'])->getId());
             $manager->persist($user);
             $manager->persist($acl);
+
+            if(isset($data['reference']))
+                $references[$data['reference']] = $user;
         }
 
         foreach($this->getLabData() as $data)
@@ -105,6 +113,9 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
             $acl->setObjectId($this->getReference($data['ref-name'])->getId());
             $manager->persist($user);
             $manager->persist($acl);
+
+            if(isset($data['reference']))
+                $references[$data['reference']] = $user;
         }
 
         $mUser = new User();
@@ -128,6 +139,9 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $manager->persist($acl1);
 
         $manager->flush();
+
+        foreach($references as $name => $object)
+            $this->addReference ($name, $object);
     }
 
     public function getCountryData()
@@ -194,6 +208,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
                     'password'  => '1234567-ca-api',
                     'email'     => 'ca-api@noblet.ca',
                     'ref-name'  => 'country-ca',
+                    'reference' => 'country-ca-api',
                     'can_create_cases' => true,
                     'can_create_labs' => true,
                     'role'      => Role::COUNTRY_API,
