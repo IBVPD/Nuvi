@@ -55,6 +55,7 @@ class RotaVirusController extends CaseController
      * )
      *
      * @REST\Patch("/cases/{id}")
+     * @REST\View()
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $id
@@ -79,6 +80,7 @@ class RotaVirusController extends CaseController
      *         }
      * )
      * @REST\Patch("/cases/{id}/lab")
+     * @REST\View()
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $id
@@ -102,6 +104,7 @@ class RotaVirusController extends CaseController
      * )
      *
      * @REST\Patch("/cases/{id}/outcome")
+     * @REST\View()
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $id
@@ -126,6 +129,7 @@ class RotaVirusController extends CaseController
      * )
      *
      * @REST\Put("/cases/{id}")
+     * @REST\View()
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $id
@@ -149,7 +153,9 @@ class RotaVirusController extends CaseController
      *         406 = "Returned when there is an issue with the form data"
      *         }
      * )
+     *
      * @REST\Put("/cases/{id}/lab")
+     * @REST\View()
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $id
@@ -173,6 +179,7 @@ class RotaVirusController extends CaseController
      * )
      *
      * @REST\Put("/cases/{id}/outcome")
+     * @REST\View()
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $id
@@ -193,6 +200,7 @@ class RotaVirusController extends CaseController
      * )
      *
      * @REST\Post("/cases")
+     * @REST\View()
      *
      * @param Request $request the request object
     */

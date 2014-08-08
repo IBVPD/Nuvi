@@ -88,6 +88,7 @@ class IBDController extends CaseController
      * )
      *
      * @REST\Patch("/cases/{id}")
+     * @REST\View()
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $id
@@ -112,6 +113,7 @@ class IBDController extends CaseController
      *         }
      * )
      * @REST\Patch("/cases/{id}/lab")
+     * @REST\View()
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $id
@@ -135,6 +137,7 @@ class IBDController extends CaseController
      * )
      *
      * @REST\Patch("/cases/{id}/outcome")
+     * @REST\View()
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $id
@@ -160,6 +163,7 @@ class IBDController extends CaseController
      * )
      *
      * @REST\Put("/cases/{id}")
+     * @REST\View()
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $id
@@ -184,6 +188,7 @@ class IBDController extends CaseController
      *         }
      * )
      * @REST\Put("/cases/{id}/lab")
+     * @REST\View()
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $id
@@ -207,6 +212,7 @@ class IBDController extends CaseController
      * )
      *
      * @REST\Put("/cases/{id}/outcome")
+     * @REST\View()
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $id
@@ -233,6 +239,7 @@ class IBDController extends CaseController
      * )
      *
      * @REST\Post("/cases")
+     * @REST\View()
      *
      * @param Request $request the request object
      *
