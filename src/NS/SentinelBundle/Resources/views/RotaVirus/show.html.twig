@@ -30,11 +30,27 @@
                     </tr>
                     <tr>
                         <th>{{'rotavirus-form.dob'|trans}}</th>
-                        <td>{{record.dob|date}}</td>
+                        <td>{%if record.dob %}{{record.dob|date}}{%endif%}</td>
+                    </tr>
+                    <tr>
+                        <th>{{'meningitis-form.age'|trans}}</th>
+                        <td>{{record.age}}</td>
                     </tr>
                     <tr>
                         <th>{{'rotavirus-form.gender'|trans}}</th>
                         <td>{{record.gender}}</td>
+                    </tr>
+                    <tr>
+                        <th>{{'meningitis-form.first-name'|trans}}</th>
+                        <td>{{record.firstName}}</td>
+                    </tr>
+                    <tr>
+                        <th>{{'meningitis-form.last-name'|trans}}</th>
+                        <td>{{record.lastName}}</td>
+                    </tr>
+                    <tr>
+                        <th>{{'meningitis-form.parental-name'|trans}}</th>
+                        <td>{{record.parentalName}}</td>
                     </tr>
                     <tr>
                         <th>{{'rotavirus-form.district'|trans}}</th>
