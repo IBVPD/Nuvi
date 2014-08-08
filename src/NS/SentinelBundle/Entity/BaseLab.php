@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use NS\SentinelBundle\Form\Types\CaseStatus;
 
+use JMS\Serializer\Annotation\Groups;
+
 /**
  * Description of BaseLab
  *
@@ -37,6 +39,7 @@ class BaseLab
     /**
      * @var DateTime $updatedAt
      * @ORM\Column(name="updatedAt",type="datetime",nullable=true)
+     * @Groups({"api"})
      */
     protected $updatedAt;
 

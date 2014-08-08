@@ -97,9 +97,6 @@ abstract class BaseCase implements IdentityAssignmentInterface
     protected $admDate;
 
 //     * @ORM\OneToMany(targetEntity="BaseLab", mappedBy="case")
-    /**
-     * @Groups({"api"})
-     */
     protected $lab;
     protected $labClass = null;
  

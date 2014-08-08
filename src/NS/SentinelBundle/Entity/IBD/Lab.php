@@ -25,6 +25,7 @@ use \NS\SecurityBundle\Annotation\Secured;
 use \NS\SecurityBundle\Annotation\SecuredCondition;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * Description of Lab
@@ -53,6 +54,7 @@ class Lab extends BaseLab
     /**
      * @var string $siteCsfId
      * @ORM\Column(name="siteCsfId",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $csfSiteId;
 
@@ -60,6 +62,7 @@ class Lab extends BaseLab
      * @var \DateTime $csfSiteDateTime
      * @ORM\Column(name="csfSiteDateTime",type="datetime",nullable=true)
      * @Assert\DateTime
+     * @Groups({"api"})
      */
     private $csfSiteDateTime;
 
@@ -67,6 +70,7 @@ class Lab extends BaseLab
      * @var integer $csfWcc
      * @ORM\Column(name="csfWcc", type="integer",nullable=true)
      * @Assert\Range(min=0,max=9999,minMessage="You cannot have a negative white blood cell count",maxMessage="Invalid value")
+     * @Groups({"api"})
      */
     private $csfWcc;
 
@@ -74,7 +78,7 @@ class Lab extends BaseLab
      * @var integer $csfGlucose
      * @ORM\Column(name="csfGlucose", type="integer",nullable=true)
      * @Assert\GreaterThanOrEqual(value=0,message="Invalid value - value must be greater than 0")
-     *
+     * @Groups({"api"})
      */
     private $csfGlucose;
 
@@ -82,234 +86,273 @@ class Lab extends BaseLab
      * @var integer $csfProtein
      * @ORM\Column(name="csfProtein", type="integer",nullable=true)
      * @Assert\GreaterThanOrEqual(value=0,message="Invalid value - value must be greater than 0")
+     * @Groups({"api"})
      */
     private $csfProtein;
 
     /**
      * @var TripleChoice $csfCultDone
      * @ORM\Column(name="csfCultDone",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $csfCultDone;
 
     /**
      * @var TripleChoice $csfGramDone
      * @ORM\Column(name="csfGramDone",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $csfGramDone;
 
     /**
      * @var TripleChoice $csfBinaxDone
      * @ORM\Column(name="csfBinaxDone",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $csfBinaxDone;
 
     /**
      * @var TripleChoice $csfLatDone
      * @ORM\Column(name="csfLatDone",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $csfLatDone;
 
     /**
      * @var TripleChoice $csfPcrDone
      * @ORM\Column(name="csfPcrDone",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $csfPcrDone;
 
     /**
      * @var CultureResult $csfCultResult
      * @ORM\Column(name="csfCultResult",type="CultureResult",nullable=true)
+     * @Groups({"api"})
      */
     private $csfCultResult;
 
     /**
      * @var string $csfCultOther
      * @ORM\Column(name="csfCultOther",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $csfCultOther;
 
     /**
      * @var GramStain
      * @ORM\Column(name="csfGramResult",type="GramStain",nullable=true)
+     * @Groups({"api"})
      */
     private $csfGramResult;
 
     /**
      * @var GramStainOrganism $csfGramResultOrganism
      * @ORM\Column(name="csfGramResultOrganism",type="GramStainOrganism",nullable=true)
+     * @Groups({"api"})
      */
     private $csfGramResultOrganism;
 
     /**
      * @var string $csfGramOther
      * @ORM\Column(name="csfGramOther",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $csfGramOther;
 
     /**
      * @var BinaxResult
      * @ORM\Column(name="csfBinaxResult",type="BinaxResult",nullable=true)
+     * @Groups({"api"})
      */
     private $csfBinaxResult;
 
     /**
      * @var LatResult
      * @ORM\Column(name="csfLatResult",type="LatResult",nullable=true)
+     * @Groups({"api"})
      */
     private $csfLatResult;
 
     /**
      * @var string
      * @ORM\Column(name="csfLatOther",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $csfLatOther;
 
     /**
      * @var PCRResult
      * @ORM\Column(name="csfPcrResult",type="PCRResult",nullable=true)
+     * @Groups({"api"})
      */
     private $csfPcrResult;
 
     /**
      * @var string $csfPcrOther
      * @ORM\Column(name="csfPcrOther",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $csfPcrOther;
 
     /**
      * @var TripleChoice $csfSentToNL
      * @ORM\Column(name="csfSentToNL",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $csfSentToNL;
 
     /**
      * @var \DateTime $csfDateSentToNL
      * @ORM\Column(name="csfDateSentToNL",type="date",nullable=true)
+     * @Groups({"api"})
      */
     private $csfDateSentToNL;
 
     /**
      * @var string $csfNLId
      * @ORM\Column(name="csfNLId",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $csfNLId;
 
     /**
      * @var \DateTime $csfNLDateReceived
      * @ORM\Column(name="csfNLDateReceived",type="datetime",nullable=true)
+     * @Groups({"api"})
      */
     private $csfNLDateReceived;
 
     /**
      * @var TripleChoice $csfIsolateSentToNL
      * @ORM\Column(name="csfIsolateSentToNL",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $csfIsolateSentToNL;
 
     /**
      * @var \DateTime $csfIsolateDateSentToNL
      * @ORM\Column(name="csfIsolateDateSentToNL",type="date",nullable=true)
+     * @Groups({"api"})
      */
     private $csfIsolateDateSentToNL;
 
     /**
      * @var \DateTime $csfIsolateNLDateReceived
      * @ORM\Column(name="csfIsolateNLDateReceived",type="datetime",nullable=true)
+     * @Groups({"api"})
      */
     private $csfIsolateNLDateReceived;
 
     /**
      * @var TripleChoice $csfSentToRRL
      * @ORM\Column(name="csfSentToRRL",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $csfSentToRRL;
 
     /**
      * @var \DateTime $csfDateSentToRRL
      * @ORM\Column(name="csfDateSentToRRL",type="date",nullable=true)
+     * @Groups({"api"})
      */
     private $csfDateSentToRRL;
 
     /**
      * @var string $csfRRLId
      * @ORM\Column(name="csfRRLId",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $csfRRLId;
 
     /**
      * @var \DateTime $csfRRLDateReceived
      * @ORM\Column(name="csfRRLDateReceived",type="datetime",nullable=true)
+     * @Groups({"api"})
      */
     private $csfRRLDateReceived;
 
     /**
      * @var TripleChoice $csfIsolateSentToRRL
      * @ORM\Column(name="csfIsolateSentToRRL",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $csfIsolateSentToRRL;
 
     /**
      * @var \DateTime $csfIsolateDateSentToRRL
      * @ORM\Column(name="csfIsolateDateSentToRRL",type="date",nullable=true)
+     * @Groups({"api"})
      */
     private $csfIsolateDateSentToRRL;
 
     /**
      * @var \DateTime $csfIsolateRRLDateReceived
      * @ORM\Column(name="csfIsolateRRLDateReceived",type="datetime",nullable=true)
+     * @Groups({"api"})
      */
     private $csfIsolateRRLDateReceived;
 
     /**
      * @var TripleChoice $csfStore
      * @ORM\Column(name="csfStore",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $csfStore;
 
     /**
      * @var TripleChoice $csfIsolStore
      * @ORM\Column(name="csfIsolStore",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $csfIsolStore;
 
     /**
      * @var Volume $csfVolume
      * @ORM\Column(name="csfVolume",type="Volume",nullable=true)
+     * @Groups({"api"})
      */
     private $csfVolume;
 
     /**
      * @var \DateTime $csfSiteDNAExtractionDate
      * @ORM\Column(name="csfSiteDNAExtractionDate",type="date",nullable=true)
+     * @Groups({"api"})
      */
     private $csfSiteDNAExtractionDate;
 
     /**
      * @var integer $csfSiteDNAVolume
      * @ORM\Column(name="csfSiteDNAVolume",type="integer",nullable=true)
+     * @Groups({"api"})
      */
     private $csfSiteDNAVolume;
 
     /**
      * @var \DateTime $csfNLDNAExtractionDate
      * @ORM\Column(name="csfNLDNAExtractionDate",type="date",nullable=true)
+     * @Groups({"api"})
      */
     private $csfNLDNAExtractionDate;
 
     /**
      * @var integer $csfNLDNAVolume
      * @ORM\Column(name="csfNLDNAVolume",type="integer",nullable=true)
+     * @Groups({"api"})
      */
     private $csfNLDNAVolume;
 
     /**
      * @var \DateTime $csfRRLDNAExtractionDate
      * @ORM\Column(name="csfRRLDNAExtractionDate",type="date",nullable=true)
+     * @Groups({"api"})
      */
     private $csfRRLDNAExtractionDate;
 
     /**
      * @var integer $csfRRLDNAVolume
      * @ORM\Column(name="csfRRLDNAVolume",type="integer",nullable=true)
+     * @Groups({"api"})
      */
     private $csfRRLDNAVolume;
 
@@ -318,6 +361,7 @@ class Lab extends BaseLab
     /**
      * @var string $bloodSiteId
      * @ORM\Column(name="bloodSiteId",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodSiteId;
 
@@ -325,153 +369,177 @@ class Lab extends BaseLab
      * @var \DateTime $bloodSiteDate
      * @ORM\Column(name="bloodSiteDate",type="date",nullable=true)
      * @Assert\DateTime
+     * @Groups({"api"})
      */
     private $bloodSiteDate;
 
     /**
      * @var TripleChoice $bloodSentToNL
      * @ORM\Column(name="bloodSentToNL",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodSentToNL;
 
     /**
      * @var string $bloodNLId
      * @ORM\Column(name="bloodNLId",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodNLId;
 
     /**
      * @var \DateTime $bloodDateSentToNL
      * @ORM\Column(name="bloodDateSentToNL",type="date",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodDateSentToNL;
 
     /**
      * @var \DateTime $bloodNLDateReceived
      * @ORM\Column(name="bloodNLDateReceived",type="date",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodNLDateReceived;
 
     /**
      * @var TripleChoice $bloodIsolateSentToNL
      * @ORM\Column(name="bloodIsolateSentToNL",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodIsolateSentToNL;
 
     /**
      * @var \DateTime $bloodIsolateDateSentToNL
      * @ORM\Column(name="bloodIsolateDateSentToNL",type="date",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodIsolateDateSentToNL;
 
     /**
      * @var \DateTime $bloodIsolateNLDateReceived
      * @ORM\Column(name="bloodIsolateNLDateReceived",type="date",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodIsolateNLDateReceived;
 
     /**
      * @var TripleChoice $bloodSentToRRL
      * @ORM\Column(name="bloodSentToRRL",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodSentToRRL;
 
     /**
      * @var string $bloodRRLId
      * @ORM\Column(name="bloodRRLId",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodRRLId;
 
     /**
      * @var \DateTime $bloodDateSentToRRL
      * @ORM\Column(name="bloodDateSentToRRL",type="date",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodDateSentToRRL;
 
     /**
      * @var \DateTime $bloodRRLDateReceived
      * @ORM\Column(name="bloodRRLDateReceived",type="date",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodRRLDateReceived;
 
     /**
      * @var TripleChoice $bloodIsolateSentToRRL
      * @ORM\Column(name="bloodIsolateSentToRRL",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodIsolateSentToRRL;
 
     /**
      * @var \DateTime $bloodIsolateDateSentToRRL
      * @ORM\Column(name="bloodIsolateDateSentToRRL",type="date",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodIsolateDateSentToRRL;
 
     /**
      * @var \DateTime $bloodIsolateRRLDateReceived
      * @ORM\Column(name="bloodIsolateRRLDateReceived",type="date",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodIsolateRRLDateReceived;
 
     /**
      * @var TripleChoice $bloodCultDone
      * @ORM\Column(name="bloodCultDone",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodCultDone;
 
     /**
      * @var TripleChoice $bloodGramDone
      * @ORM\Column(name="bloodGramDone",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodGramDone;
 
     /**
      * @var TripleChoice $bloodPcrDone
      * @ORM\Column(name="bloodPcrDone",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodPcrDone;
 
     /**
      * @var CultureResult
      * @ORM\Column(name="bloodCultResult",type="CultureResult",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodCultResult;
 
     /**
      * @var string
      * @ORM\Column(name="bloodCultOther",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodCultOther;
 
     /**
      * @var GramStain
      * @ORM\Column(name="bloodGramResult",type="GramStain",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodGramResult;
 
     /**
      * @var GramStainOrganism $bloodGramResultOrganism
      * @ORM\Column(name="bloodGramResultOrganism",type="GramStainOrganism",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodGramResultOrganism;
 
     /**
      * @var string $bloodGramOther
      * @ORM\Column(name="bloodGramOther",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodGramOther;
 
     /**
      * @var PCRResult
      * @ORM\Column(name="bloodPcrResult",type="PCRResult",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodPcrResult;
 
     /**
      * @var string $bloodPcrOther
      * @ORM\Column(name="bloodPcrOther",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodPcrOther;
-
 
 //----------------------------------------
 // Other Fluids
@@ -479,18 +547,21 @@ class Lab extends BaseLab
     /**
      * @var string $otherSiteId
      * @ORM\Column(name="otherSiteId",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $otherSiteId;
 
     /**
      * @var string $otherNLId
      * @ORM\Column(name="otherNLId",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $otherNLId;
 
     /**
      * @var string $otherRRLId
      * @ORM\Column(name="otherRRLId",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $otherRRLId;
 
@@ -498,12 +569,14 @@ class Lab extends BaseLab
      * @var \DateTime $otherSiteDate
      * @ORM\Column(name="otherSiteDate",type="date",nullable=true)
      * @Assert\DateTime
+     * @Groups({"api"})
      */
     private $otherSiteDate;
 
     /**
      * @var TripleChoice $otherSentToNL
      * @ORM\Column(name="otherSentToNL",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $otherSentToNL;
 
@@ -511,18 +584,21 @@ class Lab extends BaseLab
      * @var \DateTime $otherDateSentToNL
      * @ORM\Column(name="otherDateSentToNL",type="date",nullable=true)
      * @Assert\Date
+     * @Groups({"api"})
      */
     private $otherDateSentToNL;
 
     /**
      * @var \DateTime $otherNLDateReceived
      * @ORM\Column(name="otherNLDateReceived",type="date",nullable=true)
+     * @Groups({"api"})
      */
     private $otherNLDateReceived;
 
     /**
      * @var TripleChoice $otherSentToRRL
      * @ORM\Column(name="otherSentToRRL",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $otherSentToRRL;
 
@@ -530,30 +606,35 @@ class Lab extends BaseLab
      * @var \DateTime $otherDateSentToRRL
      * @ORM\Column(name="otherDateSentToRRL",type="date",nullable=true)
      * @Assert\Date
+     * @Groups({"api"})
      */
     private $otherDateSentToRRL;
 
     /**
      * @var \DateTime $otherRRLDateReceived
      * @ORM\Column(name="otherRRLDateReceived",type="date",nullable=true)
+     * @Groups({"api"})
      */
     private $otherRRLDateReceived;
 
     /**
      * @var TripleChoice $otherCultDone
      * @ORM\Column(name="otherCultDone",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $otherCultDone;
 
     /**
      * @var CultureResult
      * @ORM\Column(name="otherCultResult",type="CultureResult",nullable=true)
+     * @Groups({"api"})
      */
     private $otherCultResult;
 
     /**
      * @var string
      * @ORM\Column(name="otherCultOther",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $otherCultOther;
 
@@ -562,88 +643,100 @@ class Lab extends BaseLab
     /**
      * @var PathogenIdentifier
      * @ORM\Column(name="pathogenIdentifierMethod",type="PathogenIdentifier",nullable=true)
+     * @Groups({"api"})
      */
     private $pathogenIdentifierMethod;
 
     /**
      * @var string
      * @ORM\Column(name="pathogenIdentifierOther", type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $pathogenIdentifierOther;
 
     /**
      * @var SerotypeIdentifier
      * @ORM\Column(name="serotypeIdentifier",type="SerotypeIdentifier",nullable=true)
+     * @Groups({"api"})
      */
     private $serotypeIdentifier;
 
     /**
      * @var string
      * @ORM\Column(name="serotypeIdentifierOther",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $serotypeIdentifierOther;
 
     /**
      * @var double
      * @ORM\Column(name="lytA",type="decimal",precision=3, scale=1,nullable=true)
+     * @Groups({"api"})
      */
     private $lytA;
 
     /**
      * @var double
      * @ORM\Column(name="sodC",type="decimal",precision=3, scale=1,nullable=true)
+     * @Groups({"api"})
      */
     private $sodC;
 
     /**
      * @var double
      * @ORM\Column(name="hpd",type="decimal",precision=3, scale=1,nullable=true)
+     * @Groups({"api"})
      */
     private $hpd;
 
     /**
      * @var double
      * @ORM\Column(name="rNaseP",type="decimal",precision=3, scale=1,nullable=true)
+     * @Groups({"api"})
      */
     private $rNaseP;
 
     /**
      * @var double
      * @ORM\Column(name="spnSerotype",type="SpnSerotype",nullable=true)
+     * @Groups({"api"})
      */
     private $spnSerotype;
 
     /**
      * @var string $spnSerotypeOther
      * @ORM\Column(name="spnSerotypeOther",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $spnSerotypeOther;
 
     /**
      * @var double
      * @ORM\Column(name="hiSerotype",type="HiSerotype",nullable=true)
+     * @Groups({"api"})
      */
     private $hiSerotype;
 
     /**
      * @var string $hiSerotypeOther
      * @ORM\Column(name="hiSerotypeOther",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $hiSerotypeOther;
 
     /**
      * @var double
      * @ORM\Column(name="nmSerogroup",type="NmSerogroup",nullable=true)
+     * @Groups({"api"})
      */
     private $nmSerogroup;
 
     /**
      * @var string $nmSerogroupOther
      * @ORM\Column(name="nmSerogroupOther",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $nmSerogroupOther;
-
-// Other
 
     public function __construct($case = null)
     {
