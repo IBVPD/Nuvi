@@ -104,7 +104,7 @@ class CaseController extends FOSRestController
         return ($this->updateObject($request, $em, $form)) ? $this->view(null, Codes::HTTP_ACCEPTED,array('Location'=>$route)) : $this->view($form, Codes::HTTP_BAD_REQUEST);
     }
 
-    protected function postCase(Request $request, $route, $formName, $className )
+    protected function postCase(Request $request, $route, $formName, $className)
     {
         try
         {

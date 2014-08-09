@@ -55,6 +55,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
      * case_ID
      * @var string $caseId
      * @ORM\Column(name="caseId",type="string",nullable=false)
+     * @Assert\NotBlank()
      * @Groups({"api"})
      */
     protected $caseId;
