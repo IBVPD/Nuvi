@@ -47,7 +47,7 @@ class IBDControllerTest extends WebTestCase
         $route  = $this->getUrl('ns_api_ibd_patchibdcases',array('id'=>$id));
 
         $client = $this->createApiClient($user);
-        $client->request('PATCH',$route,array(),array(),array('CONTENT_TYPE' => 'application/json'),'{"ibd":{"lastName":"Fabien"}}');
+        $client->request('PATCH',$route,array(),array(),array(),'{"ibd":{"lastName":"Fabien"}}');
 
         $response = $client->getResponse();
         $this->assertJsonResponse($response, 202);
@@ -66,7 +66,7 @@ class IBDControllerTest extends WebTestCase
         $route  = $this->getUrl('ns_api_ibd_postibdcases');
 
         $client = $this->createApiClient($user);
-        $client->request('POST',$route,array(),array(),array('CONTENT_TYPE' => 'application/json'),'{"create_ibd":{"caseId":"ANewCaseId","type":1,"site":"ALBCHLD"}}');
+        $client->request('POST',$route,array(),array(),array(),'{"create_ibd":{"caseId":"ANewCaseId","type":1,"site":"ALBCHLD"}}');
 
         $response = $client->getResponse();
         $this->assertJsonResponse($response, 201);

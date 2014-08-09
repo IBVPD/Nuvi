@@ -20,6 +20,7 @@ class WebTestCase extends BaseWebTestCase
         $server = array_merge(array(
                                 'HTTP_ACCEPT'=>'application/json',
                                 'Content-Type'=>'application/json',
+                                'CONTENT_TYPE'=>'application/json',
                                 'HTTP_AUTHORIZATION'=>'Bearer '.$accessToken['access_token']),$server);
 
         $this->assertContains($accessToken['access_token'], $server['HTTP_AUTHORIZATION'], "Contains http authorization");

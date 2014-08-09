@@ -66,7 +66,7 @@ class RotaVirusControllerTest extends WebTestCase
         $route  = $this->getUrl('ns_api_rotavirus_postrotacases');
 
         $client = $this->createApiClient($user);
-        $client->request('POST',$route,array(),array(),array('CONTENT_TYPE' => 'application/json'),'{"create_rotavirus":{"caseId":"123","type":"1","site":"ALBCHLD"}}');
+        $client->request('POST',$route,array(),array(),array(),'{"create_rotavirus":{"caseId":"123","type":"1","site":"ALBCHLD"}}');
 
         $response = $client->getResponse();
         $this->assertJsonResponse($response, 201);
@@ -89,7 +89,7 @@ class RotaVirusControllerTest extends WebTestCase
         $route  = $this->getUrl('ns_api_rotavirus_patchrotalab',array('id'=>$id));
 
         $client = $this->createApiClient($user);
-        $client->request('PATCH',$route,array(),array(),array('CONTENT_TYPE' => 'application/json'),'{"rotavirus_lab":{"siteLabId":"ANewCaseId","adequate":1,"elisaDone":1}}');
+        $client->request('PATCH',$route,array(),array(),array(),'{"rotavirus_lab":{"siteLabId":"ANewCaseId","adequate":1,"elisaDone":1}}');
 
         $response = $client->getResponse();
         $this->assertJsonResponse($response, 202);
