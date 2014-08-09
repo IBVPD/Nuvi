@@ -29,8 +29,8 @@ class IBDController extends CaseController
      *   }
      * )
      *
-     * @REST\View(templateVar="case")
-     * @REST\Get("/cases/{id}")
+     * @REST\View(templateVar="case",serializerGroups={"api"})
+     * @REST\Get("/case/{id}")
      *
      * @param string  $id      the object id
      *
@@ -58,8 +58,8 @@ class IBDController extends CaseController
      *   }
      * )
      *
-     * @REST\View(templateVar="case")
-     * @REST\Get("/cases/{id}/lab")
+     * @REST\View(templateVar="case",serializerGroups={"api"})
+     * @REST\Get("/case/{id}/lab")
      *
      * @param string  $id      the object id
      *
@@ -87,7 +87,7 @@ class IBDController extends CaseController
      *          }
      * )
      *
-     * @REST\Patch("/cases/{id}")
+     * @REST\Patch("/case/{id}")
      * @REST\View()
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -96,8 +96,9 @@ class IBDController extends CaseController
      */
     public function patchIbdCasesAction(Request $request, $id)
     {
-        return $this->updateCase($request, 'PATCH', 'ibd', 'NSSentinelBundle:Meningitis', $id);
+        $route = $this->generateUrl('ns_api_ibd_getibdcase', array('id' => $id));
 
+        return $this->updateCase($request, $id, 'PATCH', 'ibd', 'NSSentinelBundle:Meningitis',$route);
     }
 
     /**
@@ -112,7 +113,7 @@ class IBDController extends CaseController
      *         406 = "Returned when there is an issue with the form data"
      *         }
      * )
-     * @REST\Patch("/cases/{id}/lab")
+     * @REST\Patch("/case/{id}/lab")
      * @REST\View()
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -120,7 +121,9 @@ class IBDController extends CaseController
      */
     public function patchIbdLabAction(Request $request, $id)
     {
-        return $this->updateLab($request, 'PATCH','ibd_lab', 'NSSentinelBundle:IBD\Lab', $id);
+        $route = $this->generateUrl('ns_api_ibd_getibdcaselab', array('id' => $id));
+
+        return $this->updateLab($request, $id, 'PATCH','ibd_lab', 'NSSentinelBundle:IBD\Lab', $route);
     }
 
     /**
@@ -136,7 +139,7 @@ class IBDController extends CaseController
      *          }
      * )
      *
-     * @REST\Patch("/cases/{id}/outcome")
+     * @REST\Patch("/case/{id}/outcome")
      * @REST\View()
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -145,7 +148,9 @@ class IBDController extends CaseController
      */
     public function patchIbdOutcomeAction(Request $request, $id)
     {
-        return $this->updateCase($request, 'PATCH', 'ibd_outcome', 'NSSentinelBundle:Meningitis', $id);
+        $route = $this->generateUrl('ns_api_ibd_getibdcase', array('id' => $id));
+
+        return $this->updateCase($request, $id, 'PATCH', 'ibd_outcome', 'NSSentinelBundle:Meningitis', $route);
     }
 
     /**
@@ -162,7 +167,7 @@ class IBDController extends CaseController
      *          }
      * )
      *
-     * @REST\Put("/cases/{id}")
+     * @REST\Put("/case/{id}")
      * @REST\View()
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -171,8 +176,9 @@ class IBDController extends CaseController
      */
     public function putIbdCasesAction(Request $request, $id)
     {
-        return $this->updateCase($request, 'PUT', 'ibd', 'NSSentinelBundle:Meningitis', $id);
+        $route = $this->generateUrl('ns_api_ibd_getibdcase', array('id' => $id));
 
+        return $this->updateCase($request, $id, 'PUT', 'ibd', 'NSSentinelBundle:Meningitis', $route);
     }
 
     /**
@@ -187,7 +193,7 @@ class IBDController extends CaseController
      *         406 = "Returned when there is an issue with the form data"
      *         }
      * )
-     * @REST\Put("/cases/{id}/lab")
+     * @REST\Put("/case/{id}/lab")
      * @REST\View()
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -195,7 +201,9 @@ class IBDController extends CaseController
      */
     public function putIbdLabAction(Request $request, $id)
     {
-        return $this->updateLab($request, 'PUT','ibd_lab', 'NSSentinelBundle:IBD\Lab', $id);
+        $route = $this->generateUrl('ns_api_ibd_getibdcaselab', array('id' => $id));
+
+        return $this->updateLab($request, $id, 'PUT','ibd_lab', 'NSSentinelBundle:IBD\Lab', $route);
     }
 
     /**
@@ -211,7 +219,7 @@ class IBDController extends CaseController
      *          }
      * )
      *
-     * @REST\Put("/cases/{id}/outcome")
+     * @REST\Put("/case/{id}/outcome")
      * @REST\View()
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -220,7 +228,9 @@ class IBDController extends CaseController
      */
     public function putIbdOutcomeAction(Request $request, $id)
     {
-        return $this->updateCase($request, 'PUT', 'ibd_outcome', 'NSSentinelBundle:Meningitis', $id);
+        $route = $this->generateUrl('ns_api_ibd_getibdcase', array('id' => $id));
+
+        return $this->updateCase($request, $id, 'PUT', 'ibd_outcome', 'NSSentinelBundle:Meningitis',$route);
     }
 
     /**
@@ -234,11 +244,11 @@ class IBDController extends CaseController
      *   description = "Creates a new IBD case",
      *   input = "create_ibd",
      *   statusCodes = {
-     *      202 = "Returned when the case is created"
+     *      201 = "Returned when the case is created"
      *  }
      * )
      *
-     * @REST\Post("/cases")
+     * @REST\Post("/case")
      * @REST\View()
      *
      * @param Request $request the request object
@@ -246,6 +256,6 @@ class IBDController extends CaseController
     */
     public function postIbdCasesAction(Request $request)
     {
-        return $this->postCase($request,'ibd','create_ibd','NSSentinelBundle:Meningitis');
+        return $this->postCase($request,'ns_api_ibd_getibdcase','create_ibd','NSSentinelBundle:Meningitis');
     }
 }

@@ -27,8 +27,8 @@ class RotaVirusController extends CaseController
      *   }
      * )
      *
-     * @REST\View(templateVar="case")
-     * @REST\Get("/cases/{id}")
+     * @REST\View(templateVar="case",serializerGroups={"api"})
+     * @REST\Get("/case/{id}")
      *
      * @param string  $id      the object id
      *
@@ -39,6 +39,35 @@ class RotaVirusController extends CaseController
     public function getRotaCaseAction($id)
     {
         return $this->getCase('rota',$id);
+    }
+
+    /**
+     * Retrieves an RotaVirus case lab by id. Most fields are returned, however some fields
+     * if empty are excluded from the result set. For example the firstName and
+     * lastName fields are only returned when there is data in them.
+     *
+     * @ApiDoc(
+     *   resource = true,
+     *   description = "Gets a case lab for a given id",
+     *   statusCodes = {
+     *     200 = "Returned when successful",
+     *     404 = "Returned when the case is not found"
+     *   }
+     * )
+     *
+     * @REST\View(templateVar="case",serializerGroups={"api"})
+     * @REST\Get("/case/{id}/lab")
+     *
+     * @param string  $id      the object id
+     *
+     * @return array
+     *
+     * @throws NotFoundHttpException when case not exist
+     * @throws NonExistentCase when case doees not exist
+    */
+    public function getRotaCaseLabAction($id)
+    {
+        return $this->getCaseLab('rota',$id);
     }
 
     /**
@@ -54,7 +83,7 @@ class RotaVirusController extends CaseController
      *          }
      * )
      *
-     * @REST\Patch("/cases/{id}")
+     * @REST\Patch("/case/{id}")
      * @REST\View()
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -63,8 +92,9 @@ class RotaVirusController extends CaseController
      */
     public function patchRotaCasesAction(Request $request, $id)
     {
-        return $this->updateCase($request, 'PATCH', 'rotavirus', 'NSSentinelBundle:RotaVirus', $id);
+        $route = $this->generateUrl('ns_api_rotavirus_getrotacase', array('id' => $id));
 
+        return $this->updateCase($request, $id, 'PATCH', 'rotavirus', 'NSSentinelBundle:RotaVirus', $route);
     }
 
     /**
@@ -79,7 +109,7 @@ class RotaVirusController extends CaseController
      *         406 = "Returned when there is an issue with the form data"
      *         }
      * )
-     * @REST\Patch("/cases/{id}/lab")
+     * @REST\Patch("/case/{id}/lab")
      * @REST\View()
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -87,7 +117,9 @@ class RotaVirusController extends CaseController
      */
     public function patchRotaLabAction(Request $request, $id)
     {
-        return $this->updateLab($request, 'PATCH', 'rotavirus_lab', 'NSSentinelBundle:Rota\Lab', $id);
+        $route = $this->generateUrl('ns_api_rotavirus_getrotacaselab', array('id' => $id));
+
+        return $this->updateLab($request, $id, 'PATCH', 'rotavirus_lab', 'NSSentinelBundle:Rota\Lab', $route);
     }
 
     /**
@@ -103,7 +135,7 @@ class RotaVirusController extends CaseController
      *          }
      * )
      *
-     * @REST\Patch("/cases/{id}/outcome")
+     * @REST\Patch("/case/{id}/outcome")
      * @REST\View()
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -112,7 +144,9 @@ class RotaVirusController extends CaseController
      */
     public function patchRotaOutcomeAction(Request $request, $id)
     {
-        return $this->updateCase($request, 'PATCH', 'rotavirus_outcome', 'NSSentinelBundle:RotaVirus', $id);
+        $route = $this->generateUrl('ns_api_rotavirus_getrotacase', array('id' => $id));
+
+        return $this->updateCase($request, $id, 'PATCH', 'rotavirus_outcome', 'NSSentinelBundle:RotaVirus', $route);
     }
 
     /**
@@ -128,7 +162,7 @@ class RotaVirusController extends CaseController
      *          }
      * )
      *
-     * @REST\Put("/cases/{id}")
+     * @REST\Put("/case/{id}")
      * @REST\View()
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -137,8 +171,9 @@ class RotaVirusController extends CaseController
      */
     public function putRotaCasesAction(Request $request, $id)
     {
-        return $this->updateCase($request, 'PUT', 'rotavirus', 'NSSentinelBundle:RotaVirus', $id);
+        $route = $this->generateUrl('ns_api_rotavirus_getrotacase', array('id' => $id));
 
+        return $this->updateCase($request, $id, 'PUT', 'rotavirus', 'NSSentinelBundle:RotaVirus', $route);
     }
 
     /**
@@ -154,7 +189,7 @@ class RotaVirusController extends CaseController
      *         }
      * )
      *
-     * @REST\Put("/cases/{id}/lab")
+     * @REST\Put("/case/{id}/lab")
      * @REST\View()
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -162,7 +197,9 @@ class RotaVirusController extends CaseController
      */
     public function putRotaLabAction(Request $request, $id)
     {
-        return $this->updateLab($request, 'PUT', 'rotavirus_lab', 'NSSentinelBundle:Rota\Lab', $id);
+        $route = $this->generateUrl('ns_api_rotavirus_getrotacaselab', array('id' => $id));
+
+        return $this->updateLab($request, $id, 'PUT', 'rotavirus_lab', 'NSSentinelBundle:Rota\Lab', $route);
     }
 
     /**
@@ -178,7 +215,7 @@ class RotaVirusController extends CaseController
      *          }
      * )
      *
-     * @REST\Put("/cases/{id}/outcome")
+     * @REST\Put("/case/{id}/outcome")
      * @REST\View()
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -187,7 +224,9 @@ class RotaVirusController extends CaseController
      */
     public function putRotaOutcomeAction(Request $request, $id)
     {
-        return $this->updateCase($request, 'PUT', 'rotavirus_outcome', 'NSSentinelBundle:RotaVirus', $id);
+        $route = $this->generateUrl('ns_api_rotavirus_getrotacase', array('id' => $id));
+
+        return $this->updateCase($request, $id, 'PUT', 'rotavirus_outcome', 'NSSentinelBundle:RotaVirus', $route);
     }
 
     /**
@@ -199,14 +238,13 @@ class RotaVirusController extends CaseController
      *   input = "create_rotavirus"
      * )
      *
-     * @REST\Post("/cases")
+     * @REST\Post("/case")
      * @REST\View()
      *
      * @param Request $request the request object
     */
     public function postRotaCasesAction(Request $request)
     {
-        return $this->postCase($request,'rota','create_rotavirus','NSSentinelBundle:RotaVirus');
+        return $this->postCase($request,'ns_api_rotavirus_getrotacase','create_rotavirus','NSSentinelBundle:RotaVirus');
     }
-
 }

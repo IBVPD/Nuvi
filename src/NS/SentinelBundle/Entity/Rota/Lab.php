@@ -16,6 +16,7 @@ use NS\SentinelBundle\Form\Types\GenotypeResultP;
 
 use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\AccessType;
+use JMS\Serializer\Annotation\Exclude;
 
 /**
  * Description of Lab
@@ -28,9 +29,14 @@ use JMS\Serializer\Annotation\AccessType;
  *      @SecuredCondition(roles={"ROLE_COUNTRY","ROLE_COUNTRY_API"},through={"case"},relation="country",class="NSSentinelBundle:Country"),
  *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB","ROLE_SITE_API"},through="case",relation="site",class="NSSentinelBundle:Site"),
  *      })
+ * @AccessType("public_method")
  */
 class Lab extends BaseLab
 {
+    /**
+     * @var string $caseClass
+     * @Exclude()
+     */
     protected $caseClass = 'NS\SentinelBundle\Entity\RotaVirus';
 
     /**

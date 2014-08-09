@@ -7,6 +7,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 use NS\SentinelBundle\Form\Types\CaseStatus;
 
 use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\AccessType;
+use JMS\Serializer\Annotation\Exclude;
 
 /**
  * Description of BaseLab
@@ -27,7 +29,13 @@ class BaseLab
 
 //     * @ORM\ManyToOne(targetEntity="\NS\SentinelBundle\Entity\Meningitis",inversedBy="externalLabs")
 //     * @ORM\JoinColumn(nullable=false)
+    /**
+     * @Exclude()
+     */
     protected $case;
+    /**
+     * @Exclude()
+     */
     protected $caseClass;
 
     /**
@@ -91,6 +99,17 @@ class BaseLab
     public function hasCase()
     {
         return ($this->case instanceof $this->caseClass);
+    }
+
+    public function getCaseClass()
+    {
+        return $this->caseClass;
+    }
+
+    public function setCaseClass($caseClass)
+    {
+        $this->caseClass = $caseClass;
+        return $this;
     }
 
     public function isComplete()

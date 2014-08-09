@@ -26,6 +26,8 @@ use \NS\SecurityBundle\Annotation\SecuredCondition;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\AccessType;
+use JMS\Serializer\Annotation\Exclude;
 
 /**
  * Description of Lab
@@ -39,6 +41,7 @@ use JMS\Serializer\Annotation\Groups;
  *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB","ROLE_SITE_API"},through="case",relation="site",class="NSSentinelBundle:Site"),
  *      })
  * @Assert\Callback(methods={"validate"})
+ * @AccessType("public_method")
  */
 class Lab extends BaseLab
 {
@@ -46,8 +49,15 @@ class Lab extends BaseLab
     /**
      * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\Meningitis",inversedBy="lab")
      * @ORM\JoinColumn(nullable=false,unique=true)
+     * @Exclude()
      */
     protected $case;
+
+    /**
+     *
+     * @var string $caseClass
+     * @Exclude()
+     */
     protected $caseClass = '\NS\SentinelBundle\Entity\Meningitis';
 //-----------------------------------------
 // CSF
