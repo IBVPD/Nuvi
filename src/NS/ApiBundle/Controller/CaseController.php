@@ -6,10 +6,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use \NS\SentinelBundle\Exceptions\NonExistentCase;
 use FOS\RestBundle\Util\Codes;
-use JMS\Serializer\SerializationContext;
 use FOS\RestBundle\Controller\FOSRestController;
 use \Doctrine\Common\Persistence\ObjectManager;
 use \Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use \Symfony\Component\Form\FormInterface;
 
 /**
  * Description of CaseController
@@ -71,9 +71,8 @@ class CaseController extends FOSRestController
         return $this->getObject($class, $id);
     }
 
-    private function updateObject(Request $request, ObjectManager $em, $obj, $method, $formName, $route)
+    private function updateObject(Request $request, ObjectManager $em, FormInterface $form)
     {
-        $form = $this->createForm($formName, $obj, array('method'=>$method));
         $form->handleRequest($request);
 
         if($form->isValid())
@@ -81,26 +80,28 @@ class CaseController extends FOSRestController
             $em->persist($form->getData());
             $em->flush();
 
-            return $this->view(null, Codes::HTTP_ACCEPTED,array('Location'=>$route));
+            return true;
         }
         else
-            return $this->view($form, Codes::HTTP_BAD_REQUEST);
+            return false;
     }
 
     protected function updateCase(Request $request, $id, $method, $formName, $className, $route)
     {
         $em    = $this->get('ns.model_manager');
         $obj   = $em->getRepository($className)->find($id);
+        $form  = $this->createForm($formName, $obj, array('method'=>$method));
 
-        return $this->updateObject($request, $em, $obj, $method, $formName, $route);
+        return ($this->updateObject($request, $em, $form)) ? $this->view(null, Codes::HTTP_ACCEPTED,array('Location'=>$route)) : $this->view($form, Codes::HTTP_BAD_REQUEST);
     }
 
     protected function updateLab(Request $request, $id, $method, $formName, $className, $route)
     {
         $em   = $this->get('ns.model_manager');
         $obj  = $em->getRepository($className)->findOrCreateNew($id);
+        $form = $this->createForm($formName, $obj, array('method'=>$method));
 
-        return $this->updateObject($request, $em, $obj, $method, $formName, $route);
+        return ($this->updateObject($request, $em, $form)) ? $this->view(null, Codes::HTTP_ACCEPTED,array('Location'=>$route)) : $this->view($form, Codes::HTTP_BAD_REQUEST);
     }
 
     protected function postCase(Request $request, $route, $formName, $className )
@@ -126,8 +127,7 @@ class CaseController extends FOSRestController
             $em->persist($case);
             $em->flush();
 
-            return $this->routeRedirectView($route, array('id' => $case->getId()), Codes::HTTP_CREATED);
-
+            return $this->routeRedirectView($route, array('id' => $case->getId()));
         }
         catch (\Exception $e)
         {
