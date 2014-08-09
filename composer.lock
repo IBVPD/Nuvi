@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "28a1b656d89bf4dff6b9966372b0e402",
+    "hash": "6411ce8bc30e7cafaf332575400f90a0",
     "packages": [
         {
             "name": "adoy/oauth2",
@@ -1993,12 +1993,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/lexik/LexikFormFilterBundle.git",
-                "reference": "01a663fd95e5cce0041d109a8f7be7c6f97c30c1"
+                "reference": "1702d4faed7deb54059e0903773b3424243cf4f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lexik/LexikFormFilterBundle/zipball/01a663fd95e5cce0041d109a8f7be7c6f97c30c1",
-                "reference": "01a663fd95e5cce0041d109a8f7be7c6f97c30c1",
+                "url": "https://api.github.com/repos/lexik/LexikFormFilterBundle/zipball/1702d4faed7deb54059e0903773b3424243cf4f9",
+                "reference": "1702d4faed7deb54059e0903773b3424243cf4f9",
                 "shasum": ""
             },
             "require": {
@@ -2044,7 +2044,64 @@
                 "filter",
                 "form"
             ],
-            "time": "2014-07-29 08:37:56"
+            "time": "2014-08-08 13:13:27"
+        },
+        {
+            "name": "liip/functional-test-bundle",
+            "version": "dev-master",
+            "target-dir": "Liip/FunctionalTestBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/liip/LiipFunctionalTestBundle.git",
+                "reference": "e665bb4fca6ca449e225db569db671348a2579e4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/liip/LiipFunctionalTestBundle/zipball/e665bb4fca6ca449e225db569db671348a2579e4",
+                "reference": "e665bb4fca6ca449e225db569db671348a2579e4",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/common": "2.*",
+                "php": ">=5.3.2",
+                "symfony/browser-kit": "~2.0",
+                "symfony/framework-bundle": "~2.0"
+            },
+            "suggest": {
+                "doctrine/dbal": "Required when using the fixture loading functionality with an ORM and SQLite",
+                "doctrine/doctrine-fixtures-bundle": "Required when using the fixture loading functionality",
+                "doctrine/orm": "Required when using the fixture loading functionality with an ORM and SQLite"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Liip\\FunctionalTestBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Liip AG",
+                    "homepage": "http://www.liip.ch/"
+                },
+                {
+                    "name": "Community contributions",
+                    "homepage": "https://github.com/liip/LiipFunctionalTestBundle/contributors"
+                }
+            ],
+            "description": "This bundles provides additional functional test-cases for Symfony2 applications",
+            "keywords": [
+                "Symfony2"
+            ],
+            "time": "2014-06-27 14:00:35"
         },
         {
             "name": "lunetics/locale-bundle",
@@ -4458,40 +4515,38 @@
             "time": "2013-06-06 20:36:08"
         },
         {
-            "name": "liip/functional-test-bundle",
-            "version": "dev-master",
-            "target-dir": "Liip/FunctionalTestBundle",
+            "name": "ocramius/instantiator",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/liip/LiipFunctionalTestBundle.git",
-                "reference": "e665bb4fca6ca449e225db569db671348a2579e4"
+                "url": "https://github.com/Ocramius/Instantiator.git",
+                "reference": "cc754c2289ffd4483c319f6ed6ee88ce21676f64"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/liip/LiipFunctionalTestBundle/zipball/e665bb4fca6ca449e225db569db671348a2579e4",
-                "reference": "e665bb4fca6ca449e225db569db671348a2579e4",
+                "url": "https://api.github.com/repos/Ocramius/Instantiator/zipball/cc754c2289ffd4483c319f6ed6ee88ce21676f64",
+                "reference": "cc754c2289ffd4483c319f6ed6ee88ce21676f64",
                 "shasum": ""
             },
             "require": {
-                "doctrine/common": "2.*",
-                "php": ">=5.3.2",
-                "symfony/browser-kit": "~2.0",
-                "symfony/framework-bundle": "~2.0"
+                "ocramius/lazy-map": "1.0.*",
+                "php": "~5.3"
             },
-            "suggest": {
-                "doctrine/dbal": "Required when using the fixture loading functionality with an ORM and SQLite",
-                "doctrine/doctrine-fixtures-bundle": "Required when using the fixture loading functionality",
-                "doctrine/orm": "Required when using the fixture loading functionality with an ORM and SQLite"
+            "require-dev": {
+                "athletic/athletic": "~0.1.8",
+                "ext-phar": "*",
+                "phpunit/phpunit": "~4.0",
+                "squizlabs/php_codesniffer": "2.0.*@ALPHA"
             },
-            "type": "symfony-bundle",
+            "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "2.0.x-dev"
                 }
             },
             "autoload": {
                 "psr-0": {
-                    "Liip\\FunctionalTestBundle": ""
+                    "Instantiator\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -4500,19 +4555,77 @@
             ],
             "authors": [
                 {
-                    "name": "Liip AG",
-                    "homepage": "http://www.liip.ch/"
-                },
-                {
-                    "name": "Community contributions",
-                    "homepage": "https://github.com/liip/LiipFunctionalTestBundle/contributors"
+                    "name": "Marco Pivetta",
+                    "email": "ocramius@gmail.com",
+                    "homepage": "http://ocramius.github.com/",
+                    "role": "Developer"
                 }
             ],
-            "description": "This bundles provides additional functional test-cases for Symfony2 applications",
+            "description": "A small, lightweight utility to instantiate objects in PHP without invoking their constructors",
+            "homepage": "https://github.com/Ocramius/Instantiator",
             "keywords": [
-                "Symfony2"
+                "constructor",
+                "instantiate"
             ],
-            "time": "2014-06-27 14:00:35"
+            "time": "2014-06-15 11:44:46"
+        },
+        {
+            "name": "ocramius/lazy-map",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Ocramius/LazyMap.git",
+                "reference": "7fe3d347f5e618bcea7d39345ff83f3651d8b752"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Ocramius/LazyMap/zipball/7fe3d347f5e618bcea7d39345ff83f3651d8b752",
+                "reference": "7fe3d347f5e618bcea7d39345ff83f3651d8b752",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "athletic/athletic": "~0.1.6",
+                "phpmd/phpmd": "1.5.*",
+                "phpunit/phpunit": ">=3.7",
+                "satooshi/php-coveralls": "~0.6",
+                "squizlabs/php_codesniffer": "1.4.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "LazyMap\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marco Pivetta",
+                    "email": "ocramius@gmail.com",
+                    "homepage": "http://ocramius.github.com/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A library that provides lazy instantiation logic for a map of objects",
+            "homepage": "https://github.com/Ocramius/LazyMap",
+            "keywords": [
+                "lazy",
+                "lazy instantiation",
+                "lazy loading",
+                "map",
+                "service location"
+            ],
+            "time": "2013-11-09 22:30:54"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -4764,16 +4877,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.1.5",
+            "version": "4.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "e0de628ff849e1804c7d644cbaa16d0a5504807a"
+                "reference": "58db726aa45fe26bca93f692cb3d77e9a46b7830"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/e0de628ff849e1804c7d644cbaa16d0a5504807a",
-                "reference": "e0de628ff849e1804c7d644cbaa16d0a5504807a",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/58db726aa45fe26bca93f692cb3d77e9a46b7830",
+                "reference": "58db726aa45fe26bca93f692cb3d77e9a46b7830",
                 "shasum": ""
             },
             "require": {
@@ -4787,7 +4900,7 @@
                 "phpunit/php-file-iterator": "~1.3.1",
                 "phpunit/php-text-template": "~1.2",
                 "phpunit/php-timer": "~1.0.2",
-                "phpunit/phpunit-mock-objects": "2.1.5",
+                "phpunit/phpunit-mock-objects": "~2.2",
                 "sebastian/comparator": "~1.0",
                 "sebastian/diff": "~1.1",
                 "sebastian/environment": "~1.0",
@@ -4804,7 +4917,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.1.x-dev"
+                    "dev-master": "4.2.x-dev"
                 }
             },
             "autoload": {
@@ -4834,28 +4947,29 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-08-07 05:43:51"
+            "time": "2014-08-08 05:13:30"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
-            "version": "2.1.5",
+            "version": "2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "7878b9c41edb3afab92b85edf5f0981014a2713a"
+                "reference": "42e589e08bc86e3e9bdf20d385e948347788505b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/7878b9c41edb3afab92b85edf5f0981014a2713a",
-                "reference": "7878b9c41edb3afab92b85edf5f0981014a2713a",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/42e589e08bc86e3e9bdf20d385e948347788505b",
+                "reference": "42e589e08bc86e3e9bdf20d385e948347788505b",
                 "shasum": ""
             },
             "require": {
+                "ocramius/instantiator": "~1.0",
                 "php": ">=5.3.3",
                 "phpunit/php-text-template": "~1.2"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.1"
+                "phpunit/phpunit": "4.2.*@dev"
             },
             "suggest": {
                 "ext-soap": "*"
@@ -4863,7 +4977,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.1.x-dev"
+                    "dev-master": "2.2.x-dev"
                 }
             },
             "autoload": {
@@ -4891,7 +5005,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2014-06-12 07:22:15"
+            "time": "2014-08-02 13:50:58"
         },
         {
             "name": "sebastian/comparator",
@@ -5179,9 +5293,9 @@
         "lexik/form-filter-bundle": 20,
         "friendsofsymfony/rest-bundle": 20,
         "adoy/oauth2": 20,
+        "liip/functional-test-bundle": 20,
         "behat/behat": 0,
-        "behat/mink": 0,
-        "liip/functional-test-bundle": 20
+        "behat/mink": 0
     },
     "prefer-stable": false,
     "platform": {

@@ -53,7 +53,8 @@
         "nelmio/api-doc-bundle": "2.6.*",
         "friendsofsymfony/rest-bundle": "1.4.x-dev",
         "jms/serializer-bundle": "0.12.*",
-        "adoy/oauth2": "dev-master"
+        "adoy/oauth2": "dev-master",
+        "liip/functional-test-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
@@ -95,7 +96,6 @@
 
         "behat/symfony2-extension":      "*",
         "behat/mink-extension":          "*",
-        "behat/mink-browserkit-driver":  "*",
-        "liip/functional-test-bundle": "dev-master"
+        "behat/mink-browserkit-driver":  "*"
     }
 }
