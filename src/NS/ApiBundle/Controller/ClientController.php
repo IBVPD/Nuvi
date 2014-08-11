@@ -135,7 +135,7 @@ class ClientController extends Controller
             return $this->redirect($this->generateUrl('ns_api_dashboard'));
         }
 
-        return array('form'=>$form->createView());
+        return array('form'=>$form->createView(),'route'=>'ApiCreateRemote');
     }
 
     /**
