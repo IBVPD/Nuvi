@@ -67,7 +67,6 @@ doctrine:
             CSFAppearance: NS\SentinelBundle\Entity\Types\CSFAppearance
             Role: NS\SentinelBundle\Entity\Types\Role
             Gender: NS\SentinelBundle\Entity\Types\Gender
-            GAVIEligible: NS\SentinelBundle\Entity\Types\GAVIEligible
             BinaxResult: NS\SentinelBundle\Entity\Types\BinaxResult
             LatResult: NS\SentinelBundle\Entity\Types\LatResult
             PCRResult: NS\SentinelBundle\Entity\Types\PCRResult
@@ -104,6 +103,7 @@ doctrine:
             CultureResult: NS\SentinelBundle\Entity\Types\CultureResult
             ElisaKit: NS\SentinelBundle\Entity\Types\ElisaKit
             OtherSpecimen: NS\SentinelBundle\Entity\Types\OtherSpecimen
+            SurveillanceConducted: NS\SentinelBundle\Entity\Types\SurveillanceConducted
         mapping_types:
             TripleChoice: TripleChoice
             Doses: Doses
@@ -113,7 +113,6 @@ doctrine:
             CSFAppearance: CSFAppearance
             Role: Role
             Gender: Gender
-            GAVIEligible: GAVIEligible
             BinaxResult: BinaxResult
             LatResult: LatResult
             PCRResult: PCRResult
@@ -150,6 +149,8 @@ doctrine:
             CultureResult: CultureResult
             ElisaKit: ElisaKit
             OtherSpecimen: OtherSpecimen
+            SurveillanceConducted: SurveillanceConducted
+            
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true

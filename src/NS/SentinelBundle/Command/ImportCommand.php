@@ -11,7 +11,6 @@ use \Symfony\Component\Console\Input\InputOption;
 use NS\SentinelBundle\Entity\Region;
 use NS\SentinelBundle\Entity\Country;
 use NS\SentinelBundle\Entity\Site;
-use NS\SentinelBundle\Form\Types\GAVIEligible;
 use NS\SentinelBundle\Entity\User;
 use NS\SentinelBundle\Entity\ACL;
 use NS\SentinelBundle\Form\Types\Role;
@@ -138,7 +137,6 @@ class ImportCommand extends ContainerAwareCommand
                 $c->setCode($row[2]);
                 $c->setPopulation($row[3]);
                 $c->setPopulationUnderFive($row[4]);
-                $c->setGaviEligible(new GAVIEligible($row[5]));
                 $c->setIsActive(true);
                 $c->setRegion($regions[$row[0]]);
                 $c->setHasReferenceLab(true);

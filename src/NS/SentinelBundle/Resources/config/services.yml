@@ -2,6 +2,11 @@ parameters:
 #    ns_sentinel.example.class: NS\SentinelBundle\Example
 
 services:
+    ns.sentinel.form.type.surveillanceconducted:
+      class: NS\SentinelBundle\Form\Types\SurveillanceConducted
+      tags:
+        - { name: form.type, alias: SurveillanceConducted }
+
     ns.sentinel.services.homepage:
         class: NS\SentinelBundle\Services\Homepage
         arguments: [ @security.context, @router ]
@@ -375,11 +380,6 @@ services:
       class: NS\SentinelBundle\Form\Types\BinaxResult
       tags:
         - { name: form.type, alias: BinaxResult }
-
-    ns.sentinel.form.type.gavi:
-      class: NS\SentinelBundle\Form\Types\GAVIEligible
-      tags:
-        - { name: form.type, alias: GAVIEligible }
 
     ns.sentinel.form.type.pcrresult:
       class: NS\SentinelBundle\Form\Types\PCRResult

@@ -7,7 +7,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-use NS\SentinelBundle\Form\Types\GAVIEligible;
+use NS\SentinelBundle\Form\Types\TripleChoice;
 
 class CountryAdmin extends Admin
 {
@@ -16,7 +16,7 @@ class CountryAdmin extends Admin
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        $type = new GAVIEligible();
+        $type = new TripleChoice();
 
         $datagridMapper
             ->add('name')
@@ -27,6 +27,11 @@ class CountryAdmin extends Admin
             ->add('hasReferenceLab')
             ->add('hasNationalLab')
             ->add('gaviEligible','doctrine_orm_callback',array('callback'=> array($this,'filterGaviEligible'),'field_type'=>'choice','field_options'=>array('choices'=>$type->getValues(),'multiple'=>true)))
+            ->add('populationUnderFive2012')
+            ->add('populationUnderFive2014')
+            ->add('hibVaccineIntro')
+            ->add('pcvVaccineIntro')
+            ->add('rvVaccineIntro')
         ;
     }
 
@@ -65,9 +70,12 @@ class CountryAdmin extends Admin
             ->add('tracksPneumonia',null,array('required'=>false))
             ->add('hasReferenceLab',null,array('required'=>false))
             ->add('hasNationalLab',null,array('required'=>false))
-            ->add('gaviEligible','GAVIEligible',array('required'=>false))
-            ->add('population')
-            ->add('populationUnderFive')
+            ->add('gaviEligible','TripleChoice',array('required'=>false))
+            ->add('populationUnderFive2012')
+            ->add('populationUnderFive2014')
+            ->add('hibVaccineIntro')
+            ->add('pcvVaccineIntro')
+            ->add('rvVaccineIntro')
             ->add('isActive',null,array('required' => false))
             ->add('region')
         ;
@@ -84,9 +92,12 @@ class CountryAdmin extends Admin
             ->add('tracksPneumonia')
             ->add('hasReferenceLab')
             ->add('hasNationalLab')
-            ->add('gaviEligible','GAVIEligible')
-            ->add('population')
-            ->add('populationUnderFive')
+            ->add('gaviEligible')
+            ->add('populationUnderFive2012')
+            ->add('populationUnderFive2014')
+            ->add('hibVaccineIntro')
+            ->add('pcvVaccineIntro')
+            ->add('rvVaccineIntro')
             ->add('region')
             ->add('sites')
         ;

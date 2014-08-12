@@ -22,6 +22,16 @@ class SiteAdmin extends Admin
             ->add('rvYearIntro')
             ->add('ibdYearIntro')
             ->add('numberOfBeds')
+            ->add('ibdTier')
+            ->add('ibdIntenseSupport')
+            ->add('ibdLastSiteAssessmentDate')
+            ->add('ibdSiteAssessmentScore')
+            ->add('rvLastSiteAssessmentDate')
+            ->add('ibvpdRl')
+            ->add('rvRl')
+            ->add('ibdEqaCode')
+            ->add('rvEqaCode')
+            ->add('surveillanceConducted')
         ;
     }
 
@@ -60,6 +70,16 @@ class SiteAdmin extends Admin
             ->add('city')
             ->add('numberOfBeds')
             ->add('website')
+            ->add('ibdTier')
+            ->add('ibdIntenseSupport')
+            ->add('ibdLastSiteAssessmentDate')
+            ->add('ibdSiteAssessmentScore')
+            ->add('rvLastSiteAssessmentDate')
+            ->add('ibvpdRl')
+            ->add('rvRl')
+            ->add('ibdEqaCode')
+            ->add('rvEqaCode')
+            ->add('surveillanceConducted')
         ;
     }
 
@@ -79,6 +99,16 @@ class SiteAdmin extends Admin
             ->add('city')
             ->add('numberOfBeds')
             ->add('website')
+            ->add('ibdTier')
+            ->add('ibdIntenseSupport')
+            ->add('ibdLastSiteAssessmentDate')
+            ->add('ibdSiteAssessmentScore')
+            ->add('rvLastSiteAssessmentDate')
+            ->add('ibvpdRl')
+            ->add('rvRl')
+            ->add('ibdEqaCode')
+            ->add('rvEqaCode')
+            ->add('surveillanceConducted')
         ;
     }
 }

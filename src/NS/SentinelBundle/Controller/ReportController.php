@@ -102,7 +102,7 @@ class ReportController extends Controller
        
         return array('reports' => $reports);
     }
-    
+
     /**
      * @Template()
      */
@@ -112,4 +112,18 @@ class ReportController extends Controller
        
         return array('reports' => $reports);
     }
+
+    /*
+     * 1 - Number And Percent Enrolled: Admission Diagnosis
+     * 4 - Age Distribution - Suspect vs Probable based on admin diagnosis
+     *
+     * 5 - Clinical Specimens Obtained Report (lower priority)
+     *
+     * Data Quality Reports
+     * 1 - Field Population Report - ("data consistency do file.txt" + "analysis do file.txt" + "2013 analysis of key sites.xls")
+     * 4 - Potential Duplicate Report - High priority but needs to be discussed first.
+     *
+     * Export - Never dumps identifiable data
+     *   - Includes filters - country, site, date range etc.
+     */
 }
