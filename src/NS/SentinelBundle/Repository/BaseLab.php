@@ -58,10 +58,7 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
             {
                 $qb = $this->createQueryBuilder('r')
                            ->where('r.case = :case')
-                           ->setParameter('case',$this->_em->getReference($this->parentClass,$id));
-
-                if($this->parentClass == 'NSSentinelBundle:Meningitis')
-                    $qb->addSelect('s')->leftJoin('r.samples', 's');
+                           ->setParameter('case',$this->_em->getReference($this->parentClass, $id));
 
                 $r = $this->secure($qb)->getQuery()->getSingleResult();
             }
@@ -90,8 +87,8 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
         try
         {
             $qb = $this->createQueryBuilder('m')
-                       ->where('m.id = :id')
-                       ->setParameter('id', $id);
+                       ->where('m.case = :case')
+                       ->setParameter('case', $this->_em->getReference($this->parentClass, $id));
 
             return $this->secure($qb)->getQuery()->getSingleResult();    
         }
