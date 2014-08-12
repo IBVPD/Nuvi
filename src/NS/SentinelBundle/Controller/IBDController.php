@@ -14,10 +14,10 @@ use NS\SentinelBundle\Form\Types\CreateRoles;
 /**
  * @Route("/{_locale}/ibd")
  */
-class MeningitisController extends Controller
+class IBDController extends Controller
 {
     /**
-     * @Route("/",name="meningitisIndex")
+     * @Route("/",name="ibdIndex")
      * @Template()
      */
     public function indexAction(Request $request)
@@ -30,7 +30,7 @@ class MeningitisController extends Controller
         if($filterForm->isValid() && $filterForm->isSubmitted())
         {
             $query = $this->get('ns.model_manager')
-                          ->getRepository('NSSentinelBundle:Meningitis')
+                          ->getRepository('NSSentinelBundle:IBD')
                           ->getFilterQueryBuilder();
 
             // build the query from the given form object
@@ -38,7 +38,7 @@ class MeningitisController extends Controller
             $qb->addFilterConditions($filterForm, $query);
         }
         else
-            $query = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:Meningitis")->getLatestQuery();
+            $query = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:IBD")->getLatestQuery();
 
         $pagination = $paginator->paginate( $query,
                                             $request->query->get('page',1),
@@ -47,11 +47,11 @@ class MeningitisController extends Controller
         $sc = $this->get('security.context');
 
         if($sc->isGranted('ROLE_SITE') || $sc->isGranted('ROLE_LAB'))
-            $t = array('header_template'=>'NSSentinelBundle:Meningitis:indexSiteHeader.html.twig', 'row_template'=>'NSSentinelBundle:Meningitis:indexSiteRow.html.twig');
+            $t = array('header_template'=>'NSSentinelBundle:IBD:indexSiteHeader.html.twig', 'row_template'=>'NSSentinelBundle:IBD:indexSiteRow.html.twig');
         else if($sc->isGranted('ROLE_COUNTRY'))
-            $t = array('header_template'=>'NSSentinelBundle:Meningitis:indexCountryHeader.html.twig', 'row_template'=>'NSSentinelBundle:Meningitis:indexCountryRow.html.twig');
+            $t = array('header_template'=>'NSSentinelBundle:IBD:indexCountryHeader.html.twig', 'row_template'=>'NSSentinelBundle:IBD:indexCountryRow.html.twig');
         else if($sc->isGranted('ROLE_REGION'))
-            $t = array('header_template'=>'NSSentinelBundle:Meningitis:indexRegionHeader.html.twig', 'row_template'=>'NSSentinelBundle:Meningitis:indexRegionRow.html.twig');
+            $t = array('header_template'=>'NSSentinelBundle:IBD:indexRegionHeader.html.twig', 'row_template'=>'NSSentinelBundle:IBD:indexRegionRow.html.twig');
 
         $createForm = ($sc->isGranted('ROLE_CAN_CREATE')) ? $this->createForm('create_ibd')->createView():null;
 
@@ -65,7 +65,7 @@ class MeningitisController extends Controller
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @Route("/create",name="meningitisCreate")
+     * @Route("/create",name="ibdCreate")
      * @Template()
      * @Method({"POST"})
      */
@@ -79,7 +79,7 @@ class MeningitisController extends Controller
             $caseId = $form->get('caseId')->getData();
             $type   = $form->get('type')->getData();
             $em     = $this->get('ns.model_manager');
-            $case   = $em->getRepository('NSSentinelBundle:Meningitis')->findOrCreate($caseId,null);
+            $case   = $em->getRepository('NSSentinelBundle:IBD')->findOrCreate($caseId,null);
 
             if(!$case->getId())
             {
@@ -94,13 +94,13 @@ class MeningitisController extends Controller
             switch($type->getValue())
             {
                 case CreateRoles::BASE:
-                    $res = 'meningitisEdit';
+                    $res = 'ibdEdit';
                     break;
                 case CreateRoles::LAB:
-                    $res = 'meningitisLabEdit';
+                    $res = 'ibdLabEdit';
                     break;
                 default:
-                    $res = 'meningitisIndex';
+                    $res = 'ibdIndex';
                     break;
             }
 
@@ -110,11 +110,11 @@ class MeningitisController extends Controller
             return $this->redirect($this->generateUrl($res,array('id' => $case->getId())));
         }
 
-        return $this->redirect($this->generateUrl('meningitisIndex'));
+        return $this->redirect($this->generateUrl('ibdIndex'));
     }
 
     /**
-     * @Route("/edit/{id}",name="meningitisEdit",defaults={"id"=null})
+     * @Route("/edit/{id}",name="ibdEdit",defaults={"id"=null})
      * @Template()
      */
     public function editAction(Request $request,$id = null)
@@ -123,7 +123,7 @@ class MeningitisController extends Controller
     }
 
     /**
-     * @Route("/lab/edit/{id}",name="meningitisLabEdit",defaults={"id"=null})
+     * @Route("/lab/edit/{id}",name="ibdLabEdit",defaults={"id"=null})
      * @Template()
      */
     public function editLabAction(Request $request,$id = null)
@@ -132,7 +132,7 @@ class MeningitisController extends Controller
     }
 
     /**
-     * @Route("/outcome/edit/{id}",name="meningitisOutcomeEdit",defaults={"id"=null})
+     * @Route("/outcome/edit/{id}",name="ibdOutcomeEdit",defaults={"id"=null})
      * @Template()
      */
     public function editOutcomeAction(Request $request,$id = null)
@@ -147,11 +147,11 @@ class MeningitisController extends Controller
             switch($type)
             {
                 case 'ibd':
-                    $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:Meningitis')->find($id): null;
+                    $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:IBD')->find($id): null;
                     $form   = $this->createForm('ibd',$record);
                     break;
                 case 'outcome':
-                    $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:Meningitis')->find($id): null;
+                    $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:IBD')->find($id): null;
                     $form   = $this->createForm('ibd_outcome',$record);
                     break;
                 case 'lab':
@@ -197,7 +197,7 @@ class MeningitisController extends Controller
                 }
 
                 // TODO Flash service required
-                return $this->redirect($this->generateUrl("meningitisIndex"));
+                return $this->redirect($this->generateUrl("ibdIndex"));
             }
         }
 
@@ -205,14 +205,14 @@ class MeningitisController extends Controller
     }
 
     /**
-     * @Route("/show/{id}",name="meningitisShow")
+     * @Route("/show/{id}",name="ibdShow")
      * @Template()
      */
     public function showAction($id)
     {
         try
         {
-            return array('record' => $this->get('ns.model_manager')->getRepository('NSSentinelBundle:Meningitis')->get($id));
+            return array('record' => $this->get('ns.model_manager')->getRepository('NSSentinelBundle:IBD')->get($id));
         }
         catch (NonExistentCase $ex) 
         {

@@ -7,7 +7,7 @@ use \Symfony\Component\Console\Input\InputInterface;
 use \Symfony\Component\Console\Output\OutputInterface;
 use \Symfony\Component\Console\Input\InputOption;
 
-use NS\SentinelBundle\Entity\Meningitis;
+use NS\SentinelBundle\Entity\IBD;
 use NS\SentinelBundle\Entity\IBD\Lab;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Form\Types\Gender;
@@ -60,7 +60,7 @@ class CreateIBDCasesCommand extends ContainerAwareCommand
         {
             $dob  = $this->getRandomDate();
             $done = array_rand($cxDone);
-            $m = new Meningitis();
+            $m = new IBD();
 
             $m->setDob($dob);
             $m->setAdmDate($this->getRandomDate(null,$dob));

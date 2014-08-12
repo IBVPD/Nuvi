@@ -13,7 +13,7 @@ use NS\SentinelBundle\Form\Types\DischargeClassification;
 use NS\SentinelBundle\Form\Types\Doses;
 use NS\SentinelBundle\Form\Types\PCVType;
 use NS\SentinelBundle\Form\Types\CaseStatus;
-use NS\SentinelBundle\Form\Types\MeningitisCaseResult;
+use NS\SentinelBundle\Form\Types\IBDCaseResult;
 use NS\SentinelBundle\Form\Types\MeningitisVaccinationReceived;
 use NS\SentinelBundle\Form\Types\MeningitisVaccinationType;
 use NS\SentinelBundle\Form\Types\OtherSpecimen;
@@ -30,10 +30,10 @@ use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\AccessType;
 
 /**
- * Description of Meningitis
+ * Description of IBD
  * @author gnat
- * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\Meningitis")
- * @ORM\Table(name="meningitis_cases",uniqueConstraints={@ORM\UniqueConstraint(name="meningitis_site_case_id_idx",columns={"site_id","caseId"})})
+ * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\IBD")
+ * @ORM\Table(name="ibd_cases",uniqueConstraints={@ORM\UniqueConstraint(name="ibd_site_case_id_idx",columns={"site_id","caseId"})})
  * @ORM\HasLifecycleCallbacks
  * @Gedmo\Loggable
  * @Secured(conditions={
@@ -44,7 +44,7 @@ use JMS\Serializer\Annotation\AccessType;
  * @Assert\Callback(methods={"validate"})
  * @AccessType("public_method")
  */
-class Meningitis extends BaseCase
+class IBD extends BaseCase
 {
     protected $labClass   = '\NS\SentinelBundle\Entity\IBD\Lab';
     /**
@@ -386,8 +386,8 @@ class Meningitis extends BaseCase
     private $comment;
 
     /**
-     * @var MeningitisCaseResult $result
-     * @ORM\Column(name="result",type="MeningitisCaseResult")
+     * @var IBDCaseResult $result
+     * @ORM\Column(name="result",type="IBDCaseResult")
      * @Groups({"api"})
      */
     private $result;
@@ -395,7 +395,7 @@ class Meningitis extends BaseCase
     public function __construct()
     {
         parent::__construct();
-        $this->result = new MeningitisCaseResult(MeningitisCaseResult::UNKNOWN);
+        $this->result = new IBDCaseResult(IBDCaseResult::UNKNOWN);
     }
 
     public function getDistrict()
@@ -914,7 +914,7 @@ class Meningitis extends BaseCase
         return $this->result;
     }
 
-    public function setResult(MeningitisCaseResult $result)
+    public function setResult(IBDCaseResult $result)
     {
         $this->result = $result;
         return $this;
@@ -943,16 +943,16 @@ class Meningitis extends BaseCase
         if($this->age < 60 && $this->menFever && $this->menFever->equal(TripleChoice::YES))
         {
             if(($this->menAltConscious && $this->menAltConscious->equal(TripleChoice::YES)) || ($this->menNeckStiff && $this->menNeckStiff->equal(TripleChoice::YES)) )
-                $this->result->setValue (MeningitisCaseResult::SUSPECTED);
+                $this->result->setValue (IBDCaseResult::SUSPECTED);
         }
         else if($this->age < 60 && $this->admDx && $this->admDx->equal(Diagnosis::SUSPECTED_MENINGITIS))
-            $this->result->setValue (MeningitisCaseResult::SUSPECTED);
+            $this->result->setValue (IBDCaseResult::SUSPECTED);
 
-        if($this->result && $this->result->equal(MeningitisCaseResult::SUSPECTED))
+        if($this->result && $this->result->equal(IBDCaseResult::SUSPECTED))
         {
             // Probable
             if($this->csfAppearance && $this->csfAppearance->equal(CSFAppearance::TURBID))
-                $this->result->setValue (MeningitisCaseResult::PROBABLE);
+                $this->result->setValue (IBDCaseResult::PROBABLE);
 
             // Confirmed
         }

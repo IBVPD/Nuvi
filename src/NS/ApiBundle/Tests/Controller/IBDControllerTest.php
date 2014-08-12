@@ -19,7 +19,7 @@ class IBDControllerTest extends WebTestCase
             // classes implementing Doctrine\Common\DataFixtures\FixtureInterface
             'NS\SentinelBundle\DataFixtures\ORM\LoadUserData',
             'NS\SentinelBundle\DataFixtures\ORM\LoadRegionData',
-            'NS\SentinelBundle\DataFixtures\ORM\LoadMeningitisCaseData',
+            'NS\SentinelBundle\DataFixtures\ORM\LoadIBDCaseData',
             'NS\ApiBundle\DataFixtures\ORM\LoadApiClientData',
         );
 
@@ -57,7 +57,7 @@ class IBDControllerTest extends WebTestCase
         $gRoute = $this->getUrl('nsApiIbdGetCase',array('id'=>$id));
         $this->assertEquals($response->headers->get('Location'), $gRoute, "The location matches the expected response");
 
-        $case = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:Meningitis')->find($id);
+        $case = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:IBD')->find($id);
         $this->assertEquals("Fabien",$case->getLastName(),"Change has occurred");
         $this->assertTrue($case->getGender()->equal(\NS\SentinelBundle\Form\Types\Gender::MALE));
     }
@@ -122,7 +122,7 @@ class IBDControllerTest extends WebTestCase
         $gRoute = $this->getUrl('nsApiIbdGetCase',array('id'=>$id));
         $this->assertEquals($response->headers->get('Location'), $gRoute, "The location matches the expected response");
 
-        $case = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:Meningitis')->find($id);
+        $case = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:IBD')->find($id);
         $this->assertEquals("Fabien",$case->getLastName(),"Change has occurred");
         $this->assertEquals(ArrayChoice::NO_SELECTION, $case->getGender()->getValue());
     }

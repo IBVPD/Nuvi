@@ -8,7 +8,7 @@ use NS\SentinelBundle\Form\Types\CaseStatus;
  * Description of Meningitis
  * @author gnat
  */
-class Meningitis
+class IBD
 {
     /**
      * @var string $id

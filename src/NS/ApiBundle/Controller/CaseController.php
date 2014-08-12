@@ -59,7 +59,7 @@ class CaseController extends FOSRestController
         switch($type)
         {
             case 'ibd':
-                $class = 'NSSentinelBundle:Meningitis';
+                $class = 'NSSentinelBundle:IBD';
                 break;
             case 'rota':
                 $class = 'NSSentinelBundle:RotaVirus';

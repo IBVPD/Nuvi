@@ -53,7 +53,7 @@ class SecurityController extends Controller
      */
     public function homepageAction()
     {
-        $repo        = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:Meningitis");
+        $repo        = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:IBD");
         $byCountry   = $repo->getByCountry();
         $bySite      = $repo->getBySite();
         $byStat      = $repo->getStats();

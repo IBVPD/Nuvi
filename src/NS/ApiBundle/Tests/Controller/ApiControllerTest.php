@@ -18,8 +18,6 @@ class ApiControllerTest extends WebTestCase
             // classes implementing Doctrine\Common\DataFixtures\FixtureInterface
             'NS\SentinelBundle\DataFixtures\ORM\LoadUserData',
             'NS\SentinelBundle\DataFixtures\ORM\LoadRegionData',
-            'NS\SentinelBundle\DataFixtures\ORM\LoadMeningitisCaseData',
-            'NS\SentinelBundle\DataFixtures\ORM\LoadRotaVirusCaseData',
             'NS\ApiBundle\DataFixtures\ORM\LoadApiClientData',
         );
 

@@ -227,10 +227,10 @@ services:
       tags:
         - { name: form.type, alias: DischargeClassification }
 
-    ns.sentinel.form.type.meningitiscaseresult:
-      class: NSSentinelBundle\Form\Types\MeningitisCaseResult
+    ns.sentinel.form.type.ibdcaseresult:
+      class: NSSentinelBundle\Form\Types\IBDCaseResult
       tags:
-        - { name: form.type, alias: MeningitisCaseResult }
+        - { name: form.type, alias: IBDCaseResult }
 
     ns.sentinel.form.type.elisakit:
       class: NS\SentinelBundle\Form\Types\ElisaKit
@@ -264,7 +264,7 @@ services:
 
     ns.sentinel.form.result_per_page:
       class: NS\SentinelBundle\Form\ResultPerPage
-      arguments: [ "meningitisIndex" ]
+      arguments: [ "ibdIndex" ]
       tags:
         - { name: form.type, alias: results_per_page }
 

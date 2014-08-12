@@ -59,7 +59,7 @@ class ReportController extends Controller
         $from  = new \DateTime("2001-01-01");
         $today = new \DateTime();
 
-        $results = $this->get('ns.model_manager')->getRepository('NS\SentinelBundle\Entity\Meningitis')->getAnnualAgeDistribution($from,$today);
+        $results = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:IBD')->getAnnualAgeDistribution($from,$today);
 
         return array('results'=>$results);
     }
@@ -78,7 +78,7 @@ class ReportController extends Controller
      */
     public function byCountryGraphAction()
     {
-        $reports = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:Meningitis")->getByCountry();
+        $reports = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:IBD")->getByCountry();
 
         return array('reports' => $reports);
     }
@@ -88,7 +88,7 @@ class ReportController extends Controller
      */
     public function bySiteGraphAction()
     {
-        $reports = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:Meningitis")->getBySite();
+        $reports = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:IBD")->getBySite();
 
         return array('reports' => $reports);
     }
@@ -98,7 +98,7 @@ class ReportController extends Controller
      */
     public function generalStatsAction()
     {
-        $reports = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:Meningitis")->getStats();
+        $reports = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:IBD")->getStats();
        
         return array('reports' => $reports);
     }
@@ -108,7 +108,7 @@ class ReportController extends Controller
      */
     public function byDiagnosisGraphAction()
     {
-        $reports = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:Meningitis")->getByDiagnosis();
+        $reports = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:IBD")->getByDiagnosis();
        
         return array('reports' => $reports);
     }

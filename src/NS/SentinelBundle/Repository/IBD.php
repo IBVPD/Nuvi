@@ -13,7 +13,7 @@ use \Doctrine\ORM\NoResultException;
  *
  * @author gnat
  */
-class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepositoryInterface
+class IBD extends SecuredEntityRepository implements AjaxAutocompleteRepositoryInterface
 {
     public function getStats(\DateTime $start = null, \DateTime $end = null)
     {
@@ -221,7 +221,7 @@ class Meningitis extends SecuredEntityRepository implements AjaxAutocompleteRepo
         }
         catch (NoResultException $ex)
         {
-            $res = new \NS\SentinelBundle\Entity\Meningitis();
+            $res = new \NS\SentinelBundle\Entity\IBD();
             $res->setCaseId($caseId);
 
             return $res;

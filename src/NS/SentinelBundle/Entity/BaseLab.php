@@ -27,7 +27,7 @@ class BaseLab
      */
     protected $id;
 
-//     * @ORM\ManyToOne(targetEntity="\NS\SentinelBundle\Entity\Meningitis",inversedBy="externalLabs")
+//     * @ORM\ManyToOne(targetEntity="\NS\SentinelBundle\Entity\IBD",inversedBy="externalLabs")
 //     * @ORM\JoinColumn(nullable=false)
     /**
      * @Exclude()
@@ -74,7 +74,7 @@ class BaseLab
      * Set case
      *
      * @param  $case
-     * @return MeningitisLab
+     * @return $this
      */
     public function setCase($case = null)
     {
@@ -89,7 +89,7 @@ class BaseLab
     /**
      * Get case
      *
-     * @return \NS\SentinelBundle\Entity\Meningitis
+     * @return BaseCase
      */
     public function getCase()
     {

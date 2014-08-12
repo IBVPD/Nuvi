@@ -34,7 +34,7 @@ class OutcomeType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'NS\SentinelBundle\Entity\Meningitis'
+            'data_class' => 'NS\SentinelBundle\Entity\IBD'
         ));
     }
 

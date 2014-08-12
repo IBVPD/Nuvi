@@ -47,7 +47,7 @@ class Lab extends BaseLab
 {
 // Common
     /**
-     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\Meningitis",inversedBy="lab")
+     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\IBD",inversedBy="lab")
      * @ORM\JoinColumn(nullable=false,unique=true)
      * @Exclude()
      */
@@ -58,7 +58,7 @@ class Lab extends BaseLab
      * @var string $caseClass
      * @Exclude()
      */
-    protected $caseClass = '\NS\SentinelBundle\Entity\Meningitis';
+    protected $caseClass = '\NS\SentinelBundle\Entity\IBD';
 //-----------------------------------------
 // CSF
     /**
@@ -750,7 +750,7 @@ class Lab extends BaseLab
 
     public function __construct($case = null)
     {
-        if($case instanceof Meningitis)
+        if($case instanceof IBD)
             $this->case = $case;
 
         $this->updatedAt = new \DateTime();

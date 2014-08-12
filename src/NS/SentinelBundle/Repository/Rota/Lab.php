@@ -95,7 +95,7 @@ class Lab extends SecuredEntityRepository implements AjaxAutocompleteRepositoryI
         {
             $qb = $this->createQueryBuilder('m')
                        ->where('m.case = :case')
-                       ->setParameter('case', $this->_em->getReference('NSSentinelBundle:Meningitis',$id));
+                       ->setParameter('case', $this->_em->getReference('NSSentinelBundle:RotaVirus',$id));
 
             return $this->secure($qb)->getQuery()->getSingleResult();    
         }

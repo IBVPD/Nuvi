@@ -57,7 +57,7 @@ class Lab extends SecuredEntityRepository implements AjaxAutocompleteRepositoryI
             {
                 $qb = $this->createQueryBuilder('r')
                            ->where('r.case = :case')
-                           ->setParameter('case',$this->_em->getReference('NSSentinelBundle:Meningitis',$id));
+                           ->setParameter('case',$this->_em->getReference('NSSentinelBundle:IBD',$id));
 
                 $r = $this->secure($qb)->getQuery()->getSingleResult();
             }
@@ -70,7 +70,7 @@ class Lab extends SecuredEntityRepository implements AjaxAutocompleteRepositoryI
             if($e instanceof NoResultException || $e instanceof NonExistentCase)
             {
                 $record = new \NS\SentinelBundle\Entity\IBD\Lab();
-                $m      = $this->_em->getRepository('NSSentinelBundle:Meningitis')->checkExistence($id);
+                $m      = $this->_em->getRepository('NSSentinelBundle:IBD')->checkExistence($id);
                 $record->setCase($m);
 
                 return $record;
@@ -86,7 +86,7 @@ class Lab extends SecuredEntityRepository implements AjaxAutocompleteRepositoryI
         {
             $qb = $this->createQueryBuilder('m')
                        ->where('m.case = :case')
-                       ->setParameter('case', $this->_em->getReference('NSSentinelBundle:Meningitis',$id));
+                       ->setParameter('case', $this->_em->getReference('NSSentinelBundle:IBD',$id));
 
             return $this->secure($qb)->getQuery()->getSingleResult();    
         }

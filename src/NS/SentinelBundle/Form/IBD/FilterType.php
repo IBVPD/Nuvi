@@ -27,7 +27,7 @@ class FilterType extends AbstractType implements EmbeddedFilterTypeInterface
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class'      => 'NS\SentinelBundle\Filter\Meningitis',
+            'data_class'      => 'NS\SentinelBundle\Filter\IBD',
             'csrf_protection' => false,
         ));
     }

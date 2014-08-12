@@ -35,7 +35,7 @@ class Builder
             if($this->securityContext->isGranted('ROLE_CAN_CREATE'))
             {
                 $d = $menu->addChild('Data Entry', array('label'=> 'menu.data-entry'))->setExtra('icon','icon-edit');
-                $d->addChild('Meningitis',array('label'=>'menu.meningitis','route'=>'meningitisIndex'));
+                $d->addChild('Meningitis',array('label'=>'menu.meningitis','route'=>'ibdIndex'));
                 $d->addChild('Rotavirus', array('route'=>'rotavirusIndex'))->setExtra('translation_domain', 'NSSentinelBundle');
             }
 

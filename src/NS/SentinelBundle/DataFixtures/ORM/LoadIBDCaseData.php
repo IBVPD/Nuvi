@@ -7,13 +7,13 @@ use Doctrine\Common\Persistence\ObjectManager;
 use \Doctrine\Common\DataFixtures\AbstractFixture;
 use \Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use \Symfony\Component\DependencyInjection\ContainerInterface;
-use \NS\SentinelBundle\Entity\Meningitis;
+use \NS\SentinelBundle\Entity\IBD;
 use NS\SentinelBundle\Entity\IBD\Lab;
 use \NS\SentinelBundle\Form\Types\Gender;
 use \NS\SentinelBundle\Form\Types\Diagnosis;
 use \NS\SentinelBundle\Entity\Site;
 
-class LoadMeningitisCaseData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
+class LoadIBDCaseData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
     private $container;
     
@@ -47,7 +47,7 @@ class LoadMeningitisCaseData extends AbstractFixture implements OrderedFixtureIn
             for($x = 0; $x < $num; $x++)
             {
                 $dob = $this->getRandomDate();
-                $m = new Meningitis();
+                $m = new IBD();
                 $m->setDob($dob);
                 $m->setAdmDate($this->getRandomDate(null,$dob));
                 $m->setCsfCollected((($x % 3) == 0));

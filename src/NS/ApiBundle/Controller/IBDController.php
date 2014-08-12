@@ -98,7 +98,7 @@ class IBDController extends CaseController
     {
         $route = $this->generateUrl('nsApiIbdGetCase', array('id' => $id));
 
-        return $this->updateCase($request, $id, 'PATCH', 'ibd', 'NSSentinelBundle:Meningitis',$route);
+        return $this->updateCase($request, $id, 'PATCH', 'ibd', 'NSSentinelBundle:IBD',$route);
     }
 
     /**
@@ -150,7 +150,7 @@ class IBDController extends CaseController
     {
         $route = $this->generateUrl('nsApiIbdGetCase', array('id' => $id));
 
-        return $this->updateCase($request, $id, 'PATCH', 'ibd_outcome', 'NSSentinelBundle:Meningitis', $route);
+        return $this->updateCase($request, $id, 'PATCH', 'ibd_outcome', 'NSSentinelBundle:IBD', $route);
     }
 
     /**
@@ -178,7 +178,7 @@ class IBDController extends CaseController
     {
         $route = $this->generateUrl('nsApiIbdGetCase', array('id' => $id));
 
-        return $this->updateCase($request, $id, 'PUT', 'ibd', 'NSSentinelBundle:Meningitis', $route);
+        return $this->updateCase($request, $id, 'PUT', 'ibd', 'NSSentinelBundle:IBD', $route);
     }
 
     /**
@@ -230,7 +230,7 @@ class IBDController extends CaseController
     {
         $route = $this->generateUrl('nsApiIbdGetCase', array('id' => $id));
 
-        return $this->updateCase($request, $id, 'PUT', 'ibd_outcome', 'NSSentinelBundle:Meningitis',$route);
+        return $this->updateCase($request, $id, 'PUT', 'ibd_outcome', 'NSSentinelBundle:IBD',$route);
     }
 
     /**
@@ -256,6 +256,6 @@ class IBDController extends CaseController
     */
     public function postIbdCaseAction(Request $request)
     {
-        return $this->postCase($request,'nsApiIbdGetCase','create_ibd','NSSentinelBundle:Meningitis');
+        return $this->postCase($request,'nsApiIbdGetCase','create_ibd','NSSentinelBundle:IBD');
     }
 }
