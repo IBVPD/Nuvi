@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Description of Client
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="NS\ApiBundle\Repository\Client")
  * @ORM\Table(name="api_clients")
  * @author gnat
  */

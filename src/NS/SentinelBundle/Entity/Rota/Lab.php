@@ -14,6 +14,10 @@ use NS\SentinelBundle\Form\Types\ElisaKit;
 use NS\SentinelBundle\Form\Types\GenotypeResultG;
 use NS\SentinelBundle\Form\Types\GenotypeResultP;
 
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\AccessType;
+use JMS\Serializer\Annotation\Exclude;
+
 /**
  * Description of Lab
  * @author gnat
@@ -25,9 +29,14 @@ use NS\SentinelBundle\Form\Types\GenotypeResultP;
  *      @SecuredCondition(roles={"ROLE_COUNTRY","ROLE_COUNTRY_API"},through={"case"},relation="country",class="NSSentinelBundle:Country"),
  *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB","ROLE_SITE_API"},through="case",relation="site",class="NSSentinelBundle:Site"),
  *      })
+ * @AccessType("public_method")
  */
 class Lab extends BaseLab
 {
+    /**
+     * @var string $caseClass
+     * @Exclude()
+     */
     protected $caseClass = 'NS\SentinelBundle\Entity\RotaVirus';
 
     /**
@@ -48,12 +57,14 @@ class Lab extends BaseLab
     /**
      * @var \DateTime $siteReceivedDate
      * @ORM\Column(name="siteReceivedDate",type="date",nullable=true)
+     * @Groups({"api"})
      */
     private $siteReceivedDate;
 
     /**
      * @var string $siteLabId
      * @ORM\Column(name="siteLabId",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $siteLabId;
 
@@ -62,24 +73,28 @@ class Lab extends BaseLab
     /**
      * @var TripleChoice $sentToNL
      * @ORM\Column(name="sentToNL",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $sentToNL;
 
     /**
      * @var \DateTime $sentToNLDate
      * @ORM\Column(name="sentToNLDate",type="date",nullable=true)
+     * @Groups({"api"})
      */
     private $sentToNLDate;
 
     /**
      * @var \DateTime $nlReceivedDate
      * @ORM\Column(name="nlReceivedDate",type="date",nullable=true)
+     * @Groups({"api"})
      */
     private $nlReceivedDate;
 
     /**
      * @var string $nlLabId
      * @ORM\Column(name="nlLabId",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $nlLabId;
 
@@ -88,24 +103,28 @@ class Lab extends BaseLab
     /**
      * @var TripleChoice $sentToRRL
      * @ORM\Column(name="sentToRRL",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $sentToRRL;
 
     /**
      * @var \DateTime $sentToRRLDate
      * @ORM\Column(name="sentToRRLDate",type="date",nullable=true)
+     * @Groups({"api"})
      */
     private $sentToRRLDate;
 
     /**
      * @var \DateTime $rrlReceivedDate
      * @ORM\Column(name="rrlReceivedDate",type="date",nullable=true)
+     * @Groups({"api"})
      */
     private $rrlReceivedDate;
 
     /**
      * @var string $rrlLabId
      * @ORM\Column(name="rrlLabId",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $rrlLabId;
 
@@ -115,126 +134,147 @@ class Lab extends BaseLab
      * stool_adequate
      * @var TripleChoice $adequate
      * @ORM\Column(name="adequate",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $adequate;
 
     /**
      * @var TripleChoice $stored
      * @ORM\Column(name="stored",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $stored;
 
     /**
      * @var TripleChoice $elisaDone
      * @ORM\Column(name="elisaDone",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $elisaDone;
 
     /**
      * @var ElisaKit $elisaKit
      * @ORM\Column(name="elisaKit",type="ElisaKit",nullable=true)
+     * @Groups({"api"})
      */
     private $elisaKit;
 
     /**
      * @var string $elisaKitOther
      * @ORM\Column(name="elisaKitOther",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $elisaKitOther;
 
     /**
      * @var string $elisaLoadNumber
      * @ORM\Column(name="elisaLoadNumber",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $elisaLoadNumber;
 
     /**
      * @var \DateTime $elisaExpiryDate
      * @ORM\Column(name="elisaExpiryDate",type="date",nullable=true)
+     * @Groups({"api"})
      */
     private $elisaExpiryDate;
 
     /**
      * @var \DateTime $testDate
      * @ORM\Column(name="elisaTestDate",type="date",nullable=true)
+     * @Groups({"api"})
      */
     private $elisaTestDate;
 
     /**
      * @var ElisaResult $elisaResult
      * @ORM\Column(name="elisaResult",type="ElisaResult",nullable=true)
+     * @Groups({"api"})
      */
     private $elisaResult;
 
     /**
      * @var TripleChoice $secondaryElisaDone
      * @ORM\Column(name="secondaryElisaDone",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $secondaryElisaDone;
 
     /**
      * @var ElisaKit $secondaryElisaKit
      * @ORM\Column(name="secondaryElisaKit",type="ElisaKit",nullable=true)
+     * @Groups({"api"})
      */
     private $secondaryElisaKit;
 
     /**
      * @var string $secondaryElisaKitOther
      * @ORM\Column(name="secondaryElisaKitOther",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $secondaryElisaKitOther;
 
     /**
      * @var string $secondaryElisaLoadNumber
      * @ORM\Column(name="secondaryElisaLoadNumber",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $secondaryElisaLoadNumber;
 
     /**
      * @var \DateTime $secondaryElisaExpiryDate
      * @ORM\Column(name="secondaryElisaExpiryDate",type="date",nullable=true)
+     * @Groups({"api"})
      */
     private $secondaryElisaExpiryDate;
 
     /**
      * @var \DateTime $testDate
      * @ORM\Column(name="secondaryElisaTestDate",type="date",nullable=true)
+     * @Groups({"api"})
      */
     private $secondaryElisaTestDate;
 
     /**
      * @var ElisaResult $secondaryElisaResult
      * @ORM\Column(name="secondaryElisaResult",type="ElisaResult",nullable=true)
+     * @Groups({"api"})
      */
     private $secondaryElisaResult;
 
     /**
      * @var \DateTime $genotypingDate
      * @ORM\Column(name="genotypingDate",type="date", nullable=true)
+     * @Groups({"api"})
      */
     private $genotypingDate;
 
     /**
      * @var GenotypeResultG $genotypingResultg
      * @ORM\Column(name="genotypingResultg",type="GenotypeResultG", nullable=true)
+     * @Groups({"api"})
      */
     private $genotypingResultg;
 
     /**
      * @var string $genotypingResultGSpecify
      * @ORM\Column(name="genotypingResultGSpecify",type="string", nullable=true)
+     * @Groups({"api"})
      */
     private $genotypingResultGSpecify;
 
     /**
      * @var GenotypeResultP $genotypeResultP
      * @ORM\Column(name="genotypeResultP",type="GenotypeResultP", nullable=true)
+     * @Groups({"api"})
      */
     private $genotypeResultP;
 
     /**
      * @var string $genotypeResultPSpecify
      * @ORM\Column(name="genotypeResultPSpecify",type="string", nullable=true)
+     * @Groups({"api"})
      */
     private $genotypeResultPSpecify;
 

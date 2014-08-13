@@ -2,6 +2,23 @@ parameters:
 #    ns_sentinel.example.class: NS\SentinelBundle\Example
 
 services:
+    ns.sentinel.form.ibd.report_filter:
+      class: NS\SentinelBundle\Form\IBD\ReportFilterType
+      arguments: [ @security.context ] 
+      tags:
+        - { name: form.type, alias: IBDReportFilterType }
+    
+    ns.sentinel.form.filters.base_report_filter:
+      class: NS\SentinelBundle\Form\Filters\BaseReportFilterType
+      arguments: [ @security.context ] 
+      tags:
+        - { name: form.type, alias: BaseReportFilterType }
+
+    ns.sentinel.form.type.surveillanceconducted:
+      class: NS\SentinelBundle\Form\Types\SurveillanceConducted
+      tags:
+        - { name: form.type, alias: SurveillanceConducted }
+
     ns.sentinel.services.homepage:
         class: NS\SentinelBundle\Services\Homepage
         arguments: [ @security.context, @router ]
@@ -222,10 +239,10 @@ services:
       tags:
         - { name: form.type, alias: DischargeClassification }
 
-    ns.sentinel.form.type.meningitiscaseresult:
-      class: NSSentinelBundle\Form\Types\MeningitisCaseResult
+    ns.sentinel.form.type.ibdcaseresult:
+      class: NSSentinelBundle\Form\Types\IBDCaseResult
       tags:
-        - { name: form.type, alias: MeningitisCaseResult }
+        - { name: form.type, alias: IBDCaseResult }
 
     ns.sentinel.form.type.elisakit:
       class: NS\SentinelBundle\Form\Types\ElisaKit
@@ -259,7 +276,7 @@ services:
 
     ns.sentinel.form.result_per_page:
       class: NS\SentinelBundle\Form\ResultPerPage
-      arguments: [ "meningitisIndex" ]
+      arguments: [ "ibdIndex" ]
       tags:
         - { name: form.type, alias: results_per_page }
 
@@ -375,11 +392,6 @@ services:
       class: NS\SentinelBundle\Form\Types\BinaxResult
       tags:
         - { name: form.type, alias: BinaxResult }
-
-    ns.sentinel.form.type.gavi:
-      class: NS\SentinelBundle\Form\Types\GAVIEligible
-      tags:
-        - { name: form.type, alias: GAVIEligible }
 
     ns.sentinel.form.type.pcrresult:
       class: NS\SentinelBundle\Form\Types\PCRResult

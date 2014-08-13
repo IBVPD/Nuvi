@@ -10,7 +10,7 @@
 
 {% block body %}
 {{form_errors(form)}}
-<form method="POST" action="{{path('meningitisEdit',{'id':id})}}">
+<form method="POST" action="{{path('ibdEdit',{'id':id})}}">
 <div class="row">
     <div class="col-sm-12">
         <div class="tabbable">
@@ -129,7 +129,7 @@
             </div>
 
             <div id="meningitis" class="tab-pane">
-                <h4>{{'Symptoms/signs related to the sickness'|trans}}</h4>
+                <h4 class="header smaller lighter">{{'Symptoms/signs related to the sickness'|trans}}</h4>
                 <div class="row">
                     <div class="col-sm-6">
                         {{form_row(form.menSeizures)}}
@@ -147,7 +147,7 @@
             </div>
             {%if form.pneuDiffBreathe is defined %}
             <div id="pneumonia" class="tab-pane">
-                <h4>{{'Symptoms/signs related to the sickness'|trans}}</h4>
+                <h4 class="header smaller lighter">{{'Symptoms/signs related to the sickness'|trans}}</h4>
                 <div class="row">
                     <div class="col-sm-6">
                         {{form_row(form.pneuDiffBreathe)}}
@@ -171,7 +171,7 @@
         </div>
         {{form_rest(form)}}
         <div class="form-actions center">
-            <a href="{{path('meningitisIndex')}}" class="btn btn-sm btn-danger">{{'Cancel'|trans}}</a> <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
+            <a href="{{path('ibdIndex')}}" class="btn btn-sm btn-danger">{{'Cancel'|trans}}</a> <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
         </div>
     </div>
 </div>

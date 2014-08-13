@@ -4,7 +4,6 @@ namespace NS\SentinelBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use \Symfony\Component\Security\Core\SecurityContext;
 use \Symfony\Component\Form\FormEvent;
 use \Symfony\Component\Form\FormEvents;
@@ -82,30 +81,9 @@ class BaseFilter extends AbstractType
             {
                 $builder->add('isComplete',null,array('required'=>false, 'label' => 'filter-case-is-complete'));
             }
-
-            if($this->securityContext->isGranted('ROLE_CAN_CREATE_NL_LAB'))
-            {
-                $builder->add('isComplete',null,array('required'=>false, 'label' => 'filter-case-is-complete'));
-            }
-
-            if($this->securityContext->isGranted('ROLE_CAN_CREATE_RRL_LAB'))
-            {
-                $builder->add('isComplete',null,array('required'=>false, 'label' => 'filter-case-is-complete'));
-     }
         }
  */
      }
-
-    /**
-     * @param OptionsResolverInterface $resolver
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class'      => 'NS\SentinelBundle\Filter\Meningitis',
-            'csrf_protection' => false,
-        ));
-    }
 
     /**
      * @return string

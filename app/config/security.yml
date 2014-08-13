@@ -45,7 +45,7 @@ security:
             anonymous: ~
 
         api:
-            pattern:    ^/api
+            pattern:    ^/api/.*
             fos_oauth:  true
             stateless:  true
 
@@ -70,12 +70,12 @@ security:
         - { path: ^/api, roles: ROLE_API }
         - { path: ^/_trans, roles: ROLE_ADMIN }
         - { path: '^/[^/]+/admin', roles: ROLE_ADMIN }
-#        - { path: '^/[^/]+/ibd/edit', roles: ROLE_CAN_CREATE_CASE }
-#        - { path: '^/[^/]+/ibd/create', roles: ROLE_CAN_CREATE }
-#        - { path: '^/[^/]+/ibd/lab', roles: [ ROLE_LAB, ROLE_CAN_CREATE_LAB] }
-#        - { path: '^/[^/]+/ibd/show', roles: [ ROLE_REGION, ROLE_COUNTRY, ROLE_SITE, ROLE_LAB, ROLE_RRL_LAB, ROLE_NL_LAB ] }
-#        - { path: '^/[^/]+/rota/edit', roles: ROLE_CAN_CREATE_CASE }
-#        - { path: '^/[^/]+/rota/create', roles: ROLE_CAN_CREATE }
-#        - { path: '^/[^/]+/rota/lab', roles: [ ROLE_LAB, ROLE_CAN_CREATE_LAB ] }
-#        - { path: '^/[^/]+/rota/show', roles: [ ROLE_REGION, ROLE_COUNTRY, ROLE_SITE, ROLE_LAB, ROLE_RRL_LAB, ROLE_NL_LAB ] }
+        - { path: '^/[^/]+/ibd/edit', roles: ROLE_CAN_CREATE_CASE }
+        - { path: '^/[^/]+/ibd/create', roles: ROLE_CAN_CREATE }
+        - { path: '^/[^/]+/ibd/lab', roles: [ ROLE_LAB, ROLE_CAN_CREATE_LAB] }
+        - { path: '^/[^/]+/ibd/show', roles: [ ROLE_REGION, ROLE_COUNTRY, ROLE_SITE, ROLE_LAB ] }
+        - { path: '^/[^/]+/rota/edit', roles: ROLE_CAN_CREATE_CASE }
+        - { path: '^/[^/]+/rota/create', roles: ROLE_CAN_CREATE }
+        - { path: '^/[^/]+/rota/lab', roles: [ ROLE_LAB, ROLE_CAN_CREATE_LAB ] }
+        - { path: '^/[^/]+/rota/show', roles: [ ROLE_REGION, ROLE_COUNTRY, ROLE_SITE, ROLE_LAB ] }
         - { path: '^/[^/]+', roles: ROLE_USER }

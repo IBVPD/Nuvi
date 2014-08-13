@@ -6,6 +6,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use NS\SentinelBundle\Form\Types\CaseStatus;
 
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\AccessType;
+use JMS\Serializer\Annotation\Exclude;
+
 /**
  * Description of BaseLab
  *
@@ -23,9 +27,15 @@ class BaseLab
      */
     protected $id;
 
-//     * @ORM\ManyToOne(targetEntity="\NS\SentinelBundle\Entity\Meningitis",inversedBy="externalLabs")
+//     * @ORM\ManyToOne(targetEntity="\NS\SentinelBundle\Entity\IBD",inversedBy="externalLabs")
 //     * @ORM\JoinColumn(nullable=false)
+    /**
+     * @Exclude()
+     */
     protected $case;
+    /**
+     * @Exclude()
+     */
     protected $caseClass;
 
     /**
@@ -37,6 +47,7 @@ class BaseLab
     /**
      * @var DateTime $updatedAt
      * @ORM\Column(name="updatedAt",type="datetime",nullable=true)
+     * @Groups({"api"})
      */
     protected $updatedAt;
 
@@ -63,7 +74,7 @@ class BaseLab
      * Set case
      *
      * @param  $case
-     * @return MeningitisLab
+     * @return $this
      */
     public function setCase($case = null)
     {
@@ -78,7 +89,7 @@ class BaseLab
     /**
      * Get case
      *
-     * @return \NS\SentinelBundle\Entity\Meningitis
+     * @return BaseCase
      */
     public function getCase()
     {
@@ -88,6 +99,17 @@ class BaseLab
     public function hasCase()
     {
         return ($this->case instanceof $this->caseClass);
+    }
+
+    public function getCaseClass()
+    {
+        return $this->caseClass;
+    }
+
+    public function setCaseClass($caseClass)
+    {
+        $this->caseClass = $caseClass;
+        return $this;
     }
 
     public function isComplete()

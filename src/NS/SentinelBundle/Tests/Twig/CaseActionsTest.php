@@ -3,7 +3,7 @@
 namespace NS\SentinelBundle\Tests\Twig;
 
 use \NS\SentinelBundle\Twig\CaseActions;
-use \NS\SentinelBundle\Entity\Meningitis;
+use \NS\SentinelBundle\Entity\IBD;
 use NS\SentinelBundle\Entity\RotaVirus;
 
 /**
@@ -23,7 +23,7 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
            ->will($this->returnValue(false));
 
         $action     = new CaseActions($sc,$trans,$router);
-        $obj        = new Meningitis();
+        $obj        = new IBD();
         $bigResults = $action->getBigActions($obj);
 
         $this->assertContains("Show IBD Case", $bigResults, "User who can't create can only see");
@@ -52,7 +52,7 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
            ->will($this->returnValueMap($map));
 
         $action     = new CaseActions($sc,$trans,$router);
-        $obj        = new Meningitis();
+        $obj        = new IBD();
         $bigResults = $action->getBigActions($obj);
 
         $this->assertContains("Show IBD Case", $bigResults, "User who can't create can only see");
@@ -82,7 +82,7 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         $action = new CaseActions($sc,$trans,$router);
 
-        $obj = new Meningitis();
+        $obj = new IBD();
         $lab = new \NS\SentinelBundle\Entity\IBD\Lab();
 //        $lab->setSentToReferenceLab(true);
 //        $lab->setSentToNationalLab(true);
@@ -122,7 +122,7 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         $action     = new CaseActions($sc,$trans,$router);
 
-        $obj = new Meningitis();
+        $obj = new IBD();
         $lab = new \NS\SentinelBundle\Entity\IBD\Lab();
 //        $lab->setSentToReferenceLab(true);
 //        $lab->setSentToNationalLab(true);
@@ -162,7 +162,7 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
            ->will($this->returnValueMap($map));
 
         $action     = new CaseActions($sc,$trans,$router);
-        $obj        = new Meningitis();
+        $obj        = new IBD();
         $lab = new \NS\SentinelBundle\Entity\IBD\Lab();
 //        $lab->setSentToReferenceLab(true);
 //        $lab->setSentToNationalLab(true);
@@ -197,7 +197,7 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
 
         $action     = new CaseActions($sc,$trans,$router);
-        $obj        = new Meningitis();
+        $obj        = new IBD();
         $bigResults = $action->getSmallActions($obj);
 
         $this->assertContains("Show IBD Case", $bigResults, "User who can't create can only see");
@@ -227,7 +227,7 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
            ->will($this->returnValueMap($map));
 
         $action     = new CaseActions($sc,$trans,$router);
-        $obj        = new Meningitis();
+        $obj        = new IBD();
         $bigResults = $action->getSmallActions($obj);
 
         $this->assertContains("Show IBD Case", $bigResults, "User who can't create can only see");
@@ -257,7 +257,7 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
            ->will($this->returnValueMap($map));
 
         $action     = new CaseActions($sc,$trans,$router);
-        $obj        = new Meningitis();
+        $obj        = new IBD();
         $lab = new \NS\SentinelBundle\Entity\IBD\Lab();
 //        $lab->setSentToReferenceLab(true);
 //        $lab->setSentToNationalLab(true);
@@ -296,7 +296,7 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
            ->will($this->returnValueMap($map));
 
         $action     = new CaseActions($sc,$trans,$router);
-        $obj        = new Meningitis();
+        $obj        = new IBD();
         $lab = new \NS\SentinelBundle\Entity\IBD\Lab();
 //        $lab->setSentToReferenceLab(true);
 //        $lab->setSentToNationalLab(true);
@@ -336,7 +336,7 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
            ->will($this->returnValueMap($map));
 
         $action     = new CaseActions($sc,$trans,$router);
-        $obj        = new Meningitis();
+        $obj        = new IBD();
         $lab = new \NS\SentinelBundle\Entity\IBD\Lab();
 //        $lab->setSentToReferenceLab(true);
 //        $lab->setSentToNationalLab(true);
@@ -391,9 +391,9 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
                        ->getMock();
 
         $rmap = array(
-                    array('meningitisShow',     array('id'=>null), false, 'Show IBD Case'),
-                    array('meningitisEdit',     array('id'=>null), false, 'Edit IBD Case'),
-                    array('meningitisLabEdit',  array('id'=>null), false, 'Edit Lab'),
+                    array('ibdShow',     array('id'=>null), false, 'Show IBD Case'),
+                    array('ibdEdit',     array('id'=>null), false, 'Edit IBD Case'),
+                    array('ibdLabEdit',  array('id'=>null), false, 'Edit Lab'),
                     array('rotavirusShow',     array('id'=>null), false, 'Show Rota Case'),
                     array('rotavirusEdit',     array('id'=>null), false, 'Edit Rota Case'),
                     array('rotavirusLabEdit',  array('id'=>null), false, 'Edit Lab'),

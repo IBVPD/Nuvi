@@ -13,7 +13,7 @@ use NS\SentinelBundle\Form\Types\DischargeClassification;
 use NS\SentinelBundle\Form\Types\Doses;
 use NS\SentinelBundle\Form\Types\PCVType;
 use NS\SentinelBundle\Form\Types\CaseStatus;
-use NS\SentinelBundle\Form\Types\MeningitisCaseResult;
+use NS\SentinelBundle\Form\Types\IBDCaseResult;
 use NS\SentinelBundle\Form\Types\MeningitisVaccinationReceived;
 use NS\SentinelBundle\Form\Types\MeningitisVaccinationType;
 use NS\SentinelBundle\Form\Types\OtherSpecimen;
@@ -26,11 +26,14 @@ use NS\SecurityBundle\Annotation\SecuredCondition;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\ExecutionContextInterface;
 
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\AccessType;
+
 /**
- * Description of Meningitis
+ * Description of IBD
  * @author gnat
- * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\Meningitis")
- * @ORM\Table(name="meningitis_cases",uniqueConstraints={@ORM\UniqueConstraint(name="site_case_id_idx",columns={"site_id","caseId"})})
+ * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\IBD")
+ * @ORM\Table(name="ibd_cases",uniqueConstraints={@ORM\UniqueConstraint(name="ibd_site_case_id_idx",columns={"site_id","caseId"})})
  * @ORM\HasLifecycleCallbacks
  * @Gedmo\Loggable
  * @Secured(conditions={
@@ -39,45 +42,51 @@ use Symfony\Component\Validator\ExecutionContextInterface;
  *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB","ROLE_SITE_API"},relation="site",class="NSSentinelBundle:Site"),
  *      })
  * @Assert\Callback(methods={"validate"})
+ * @AccessType("public_method")
  */
-class Meningitis extends BaseCase
+class IBD extends BaseCase
 {
-     /**
+    protected $labClass   = '\NS\SentinelBundle\Entity\IBD\Lab';
+    /**
      * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\IBD\Lab", mappedBy="case")
+     * @Groups({"api"})
      */
     protected $lab;
-    protected $labClass   = '\NS\SentinelBundle\Entity\IBD\Lab';
 
 // Case based demographic
     /**
      * @var string $district
      * @ORM\Column(name="district",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $district;
 
 //Case-based Clinical Data
-
     /**
-     * @var DateTime $onsetDate
+     * @var \DateTime $onsetDate
      * @ORM\Column(name="onsetDate",type="date",nullable=true)
+     * @Groups({"api"})
      */
-    private $onsetDate;
+    protected $onsetDate;
 
     /**
      * @var Diagnosis $admDx
      * @ORM\Column(name="admDx",type="Diagnosis",nullable=true)
+     * @Groups({"api"})
      */
     private $admDx;
 
     /**
      * @var string $admDxOther
      * @ORM\Column(name="admDxOther",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $admDxOther;
 
     /**
      * @var TripleChoice $antibiotics
      * @ORM\Column(name="antibiotics",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $antibiotics;
 
@@ -85,48 +94,56 @@ class Meningitis extends BaseCase
     /**
      * @var TripleChoice $menSeizures
      * @ORM\Column(name="menSeizures",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $menSeizures;
 
     /**
      * @var TripleChoice $menFever
      * @ORM\Column(name="menFever",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $menFever;
 
     /**
      * @var TripleChoice $menAltConscious
      * @ORM\Column(name="menAltConscious",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $menAltConscious;
 
     /**
      * @var TripleChoice $menInabilityFeed
      * @ORM\Column(name="menInabilityFeed",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $menInabilityFeed;
 
     /**
      * @var TripleChoice $menNeckStiff
      * @ORM\Column(name="menNeckStiff",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $menNeckStiff;
 
     /**
      * @var TripleChoice $menRash
      * @ORM\Column(name="menRash",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $menRash;
 
     /**
      * @var TripleChoice $menFontanelleBulge
      * @ORM\Column(name="menFontanelleBulge",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $menFontanelleBulge;
 
     /**
      * @var TripleChoice $menLethargy
      * @ORM\Column(name="menLethargy",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $menLethargy;
 
@@ -134,30 +151,35 @@ class Meningitis extends BaseCase
     /**
      * @var TripleChoice $pneuDiffBreathe
      * @ORM\Column(name="pneuDiffBreathe",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $pneuDiffBreathe;
 
     /**
      * @var TripleChoice $pneuChestIndraw
      * @ORM\Column(name="pneuChestIndraw",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $pneuChestIndraw;
 
     /**
      * @var TripleChoice $pneuCough
      * @ORM\Column(name="pneuCough",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $pneuCough;
 
     /**
      * @var TripleChoice $pneuCyanosis
      * @ORM\Column(name="pneuCyanosis",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $pneuCyanosis;
 
     /**
      * @var TripleChoice $pneuStridor
      * @ORM\Column(name="pneuStridor",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $pneuStridor;
 
@@ -165,42 +187,49 @@ class Meningitis extends BaseCase
      * @var integer $pneuRespRate
      * @ORM\Column(name="pneuRespRate",type="integer",nullable=true)
      * @Assert\Range(min=10,max=100,minMessage="Please provide a valid respiratory rate",maxMessage="Please provide a valid respiratory rate")
+     * @Groups({"api"})
      */
     private $pneuRespRate;
 
     /**
      * @var TripleChoice $pneuVomit
      * @ORM\Column(name="pneuVomit",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $pneuVomit;
 
     /**
      * @var TripleChoice $pneuHypothermia
      * @ORM\Column(name="pneuHypothermia",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $pneuHypothermia;
 
     /**
      * @var TripleChoice $pneuMalnutrition
      * @ORM\Column(name="pneuMalnutrition",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $pneuMalnutrition;
 
     /**
      * @var TripleChoice $cxrDone
      * @ORM\Column(name="cxrDone",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $cxrDone;
 
     /**
      * @var CXRResult $cxrResult
      * @ORM\Column(name="cxrResult",type="CXRResult",nullable=true)
+     * @Groups({"api"})
      */
     private $cxrResult;
 
     /**
      * @var CXRAdditionalResult $cxrResult
      * @ORM\Column(name="cxrAdditionalResult",type="CXRAdditionalResult",nullable=true)
+     * @Groups({"api"})
      */
     private $cxrAdditionalResult;
 
@@ -208,54 +237,63 @@ class Meningitis extends BaseCase
     /**
      * @var TripleChoice $hibReceived
      * @ORM\Column(name="hibReceived",type="VaccinationReceived",nullable=true)
+     * @Groups({"api"})
      */
     private $hibReceived;
 
     /**
      * @var Doses $hibDoses
      * @ORM\Column(name="hibDoses",type="Doses",nullable=true)
+     * @Groups({"api"})
      */
     private $hibDoses;
 
     /**
      * @var \DateTime $hibMostRecentDose
      * @ORM\Column(name="hibMostRecentDose",type="date",nullable=true)
+     * @Groups({"api"})
      */
     private $hibMostRecentDose;
 
     /**
      * @var TripleChoice $pcvReceived
      * @ORM\Column(name="pcvReceived",type="VaccinationReceived",nullable=true)
+     * @Groups({"api"})
      */
     private $pcvReceived;
 
     /**
      * @var Doses $pcvDoses
      * @ORM\Column(name="pcvDoses",type="RotavirusDoses",nullable=true)
+     * @Groups({"api"})
      */
     private $pcvDoses;
 
     /**
      * @var PCVType $pcvType
      * @ORM\Column(name="pcvType",type="PCVType",nullable=true)
+     * @Groups({"api"})
      */
     private $pcvType;
 
     /**
      * @var \DateTime $pcvMostRecentDose
      * @ORM\Column(name="pcvMostRecentDose",type="date",nullable=true)
+     * @Groups({"api"})
      */
     private $pcvMostRecentDose;
 
     /**
      * @var VaccinationReceived $meningReceived
      * @ORM\Column(name="meningReceived",type="VaccinationReceived",nullable=true)
+     * @Groups({"api"})
      */
     private $meningReceived;
 
     /**
      * @var MeningitisVaccinationType $meningType
      * @ORM\Column(name="meningType",type="MeningitisVaccinationType",nullable=true)
+     * @Groups({"api"})
      */
     private $meningType;
 
@@ -263,6 +301,7 @@ class Meningitis extends BaseCase
      * @var DateTime $meningMostRecentDose
      * @ORM\Column(name="meningMostRecentDose",type="date",nullable=true)
      * @Assert\Date
+     * @Groups({"api"})
      */
     private $meningMostRecentDose;
 
@@ -271,36 +310,42 @@ class Meningitis extends BaseCase
     /**
      * @var TripleChoice $csfCollected
      * @ORM\Column(name="csfCollected",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $csfCollected;
 
     /**
      * @var DateTime $csfCollectDateTime
      * @ORM\Column(name="csfCollectDateTime",type="datetime",nullable=true)
+     * @Groups({"api"})
      */
     private $csfCollectDateTime;
 
     /**
      * @var DateTime $csfAppearance
      * @ORM\Column(name="csfAppearance",type="CSFAppearance",nullable=true)
+     * @Groups({"api"})
      */
     private $csfAppearance;
 
     /**
      * @var TripleChoice $bloodCollected
      * @ORM\Column(name="bloodCollected", type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodCollected;
 
     /**
      * @var OtherSpecimen $otherSpecimenCollected
      * @ORM\Column(name="otherSpecimenCollected",type="OtherSpecimen",nullable=true)
+     * @Groups({"api"})
      */
     private $otherSpecimenCollected;
 
     /**
      * @var string $otherSpecimenOther
      * @ORM\Column(name="otherSpecimenOther",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $otherSpecimenOther;
 
@@ -308,43 +353,49 @@ class Meningitis extends BaseCase
     /**
      * @var DischargeOutcome $dischOutcome
      * @ORM\Column(name="dischOutcome",type="DischargeOutcome",nullable=true)
+     * @Groups({"api"})
      */
     private $dischOutcome;
 
     /**
      * @var Diagnosis $dischDx
      * @ORM\Column(name="dischDx",type="Diagnosis",nullable=true)
+     * @Groups({"api"})
      */
     private $dischDx;
 
     /**
      * @var $dischDxOther
      * @ORM\Column(name="dischDxOther",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $dischDxOther;
 
     /**
      * @var DischargeClassification $dischClass
      * @ORM\Column(name="dischClass",type="DischargeClassification",nullable=true)
+     * @Groups({"api"})
      */
     private $dischClass;
 
     /**
      * @var string $comment
      * @ORM\Column(name="comment",type="text",nullable=true)
+     * @Groups({"api"})
      */
     private $comment;
 
     /**
-     * @var MeningitisCaseResult $result
-     * @ORM\Column(name="result",type="MeningitisCaseResult")
+     * @var IBDCaseResult $result
+     * @ORM\Column(name="result",type="IBDCaseResult")
+     * @Groups({"api"})
      */
     private $result;
 
     public function __construct()
     {
         parent::__construct();
-        $this->result = new MeningitisCaseResult(MeningitisCaseResult::UNKNOWN);
+        $this->result = new IBDCaseResult(IBDCaseResult::UNKNOWN);
     }
 
     public function getDistrict()
@@ -863,7 +914,7 @@ class Meningitis extends BaseCase
         return $this->result;
     }
 
-    public function setResult(MeningitisCaseResult $result)
+    public function setResult(IBDCaseResult $result)
     {
         $this->result = $result;
         return $this;
@@ -892,16 +943,16 @@ class Meningitis extends BaseCase
         if($this->age < 60 && $this->menFever && $this->menFever->equal(TripleChoice::YES))
         {
             if(($this->menAltConscious && $this->menAltConscious->equal(TripleChoice::YES)) || ($this->menNeckStiff && $this->menNeckStiff->equal(TripleChoice::YES)) )
-                $this->result->setValue (MeningitisCaseResult::SUSPECTED);
+                $this->result->setValue (IBDCaseResult::SUSPECTED);
         }
         else if($this->age < 60 && $this->admDx && $this->admDx->equal(Diagnosis::SUSPECTED_MENINGITIS))
-            $this->result->setValue (MeningitisCaseResult::SUSPECTED);
+            $this->result->setValue (IBDCaseResult::SUSPECTED);
 
-        if($this->result && $this->result->equal(MeningitisCaseResult::SUSPECTED))
+        if($this->result && $this->result->equal(IBDCaseResult::SUSPECTED))
         {
             // Probable
             if($this->csfAppearance && $this->csfAppearance->equal(CSFAppearance::TURBID))
-                $this->result->setValue (MeningitisCaseResult::PROBABLE);
+                $this->result->setValue (IBDCaseResult::PROBABLE);
 
             // Confirmed
         }
@@ -996,7 +1047,7 @@ class Meningitis extends BaseCase
                     'cxrDone',
                     );
 
-        return ($this->country->getTracksPneumonia()) ? array_merge($fields,$this->getPneumiaRequiredFields()) : $fields;
+        return (!$this->country || ($this->country && $this->country->getTracksPneumonia())) ? array_merge($fields,$this->getPneumiaRequiredFields()) : $fields;
     }
 
     public function getPneumiaRequiredFields()

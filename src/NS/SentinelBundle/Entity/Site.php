@@ -8,6 +8,7 @@ use \NS\SecurityBundle\Annotation\Secured;
 use \NS\SecurityBundle\Annotation\SecuredCondition;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation\Groups;
+use NS\SentinelBundle\Form\Types\SurveillanceConducted;
 
 /**
  * Site
@@ -94,6 +95,66 @@ class Site implements \Serializable
      * @Groups({"user"})
      */
     private $currentCaseId = 1;
+
+    /**
+     * @var SurveillanceConducted $surveillanceConducted
+     * @ORM\Column(name="surveillanceConducted",type="SurveillanceConducted",nullable=false)
+     */
+    private $surveillanceConducted;
+
+    /**
+     * @var integer $ibdTier
+     * @ORM\Column(name="ibdTier",type="integer",nullable=true)
+     */
+    private $ibdTier;
+
+    /**
+     * @var TripleChoice $ibdIntenseSupport
+     * @ORM\Column(name="ibdIntenseSupport",type="TripleChoice",nullable=true)
+     */
+    private $ibdIntenseSupport;
+
+    /**
+     * @var \DateTime $ibdLastSiteAssessmentDate
+     * @ORM\Column(name="ibdLastSiteAssessment",type="date",nullable=true)
+     */
+    private $ibdLastSiteAssessmentDate;
+
+    /**
+     * @var integer $ibdSiteAssessmentScore
+     * @ORM\Column(name="ibdSiteAssessmentScore",type="integer",nullable=true)
+     */
+    private $ibdSiteAssessmentScore;
+
+    /**
+     * @var \DateTime $rvLastSiteAssessmentDate
+     * @ORM\Column(name="rvLastSiteAssessmentDate",type="date",nullable=true)
+     */
+    private $rvLastSiteAssessmentDate;
+
+    /**
+     * @var string $ibvpdRl
+     * @ORM\Column(name="ibvpdRl",type="string",nullable=true)
+     */
+    private $ibvpdRl;
+
+    /**
+     * @var string $rvRl
+     * @ORM\Column(name="rvRl",type="string",nullable=true)
+     */
+    private $rvRl;
+
+    /**
+     * @var string $ibdEqaCode
+     * @ORM\Column(name="ibdEqaCode",type="string",nullable=true)
+     */
+    private $ibdEqaCode;
+
+    /**
+     * @var string $rvEqaCode
+     * @ORM\Column(name="rvEqaCode",type="string",nullable=true)
+     */
+    private $rvEqaCode;
 
     /**
      * @var Country
@@ -349,6 +410,116 @@ class Site implements \Serializable
         return $this;
     }
 
+    public function getIbdTier()
+    {
+        return $this->ibdTier;
+    }
+
+    public function getIbdIntenseSupport()
+    {
+        return $this->ibdIntenseSupport;
+    }
+
+    public function getIbdLastSiteAssessmentDate()
+    {
+        return $this->ibdLastSiteAssessmentDate;
+    }
+
+    public function getIbdSiteAssessmentScore()
+    {
+        return $this->ibdSiteAssessmentScore;
+    }
+
+    public function getRvLastSiteAssessmentDate()
+    {
+        return $this->rvLastSiteAssessmentDate;
+    }
+
+    public function getIbvpdRl()
+    {
+        return $this->ibvpdRl;
+    }
+
+    public function getRvRl()
+    {
+        return $this->rvRl;
+    }
+
+    public function getIbdEqaCode()
+    {
+        return $this->ibdEqaCode;
+    }
+
+    public function getRvEqaCode()
+    {
+        return $this->rvEqaCode;
+    }
+
+    public function getSurveillanceConducted()
+    {
+        return $this->surveillanceConducted;
+    }
+
+    public function setSurveillanceConducted(SurveillanceConducted $surveillanceConducted)
+    {
+        $this->surveillanceConducted = $surveillanceConducted;
+        return $this;
+    }
+
+    public function setIbdTier($ibdTier)
+    {
+        $this->ibdTier = $ibdTier;
+        return $this;
+    }
+
+    public function setIbdIntenseSupport($ibdIntenseSupport)
+    {
+        $this->ibdIntenseSupport = $ibdIntenseSupport;
+        return $this;
+    }
+
+    public function setIbdLastSiteAssessmentDate($ibdLastSiteAssessmentDate)
+    {
+        $this->ibdLastSiteAssessmentDate = $ibdLastSiteAssessmentDate;
+        return $this;
+    }
+
+    public function setIbdSiteAssessmentScore($ibdSiteAssessmentScore)
+    {
+        $this->ibdSiteAssessmentScore = $ibdSiteAssessmentScore;
+        return $this;
+    }
+
+    public function setRvLastSiteAssessmentDate($rvLastSiteAssessmentDate)
+    {
+        $this->rvLastSiteAssessmentDate = $rvLastSiteAssessmentDate;
+        return $this;
+    }
+
+    public function setIbvpdRl($ibvpdRl)
+    {
+        $this->ibvpdRl = $ibvpdRl;
+        return $this;
+    }
+
+    public function setRvRl($rvRl)
+    {
+        $this->rvRl = $rvRl;
+        return $this;
+    }
+
+    public function setIbdEqaCode($ibdEqaCode)
+    {
+        $this->ibdEqaCode = $ibdEqaCode;
+        return $this;
+    }
+
+    public function setRvEqaCode($rvEqaCode)
+    {
+        $this->rvEqaCode = $rvEqaCode;
+        return $this;
+    }
+
     public function serialize()
     {
         return serialize(array(
@@ -360,7 +531,18 @@ class Site implements \Serializable
             $this->street,
             $this->city,
             $this->numberOfBeds,
+            $this->ibdTier,
+            $this->ibdIntenseSupport,
+            $this->ibdLastSiteAssessmentDate,
+            $this->ibdSiteAssessmentScore,
+            $this->rvLastSiteAssessmentDate,
+            $this->ibvpdRl,
+            $this->rvRl,
+            $this->ibdEqaCode,
+            $this->rvEqaCode,
+            $this->surveillanceConducted,
             $this->country,
+
         ));
     }
 
@@ -375,6 +557,16 @@ class Site implements \Serializable
             $this->street,
             $this->city,
             $this->numberOfBeds,
+            $this->ibdTier,
+            $this->ibdIntenseSupport,
+            $this->ibdLastSiteAssessmentDate,
+            $this->ibdSiteAssessmentScore,
+            $this->rvLastSiteAssessmentDate,
+            $this->ibvpdRl,
+            $this->rvRl,
+            $this->ibdEqaCode,
+            $this->rvEqaCode,
+            $this->surveillanceConducted,
             $this->country,
              ) = unserialize($serialized);
     }

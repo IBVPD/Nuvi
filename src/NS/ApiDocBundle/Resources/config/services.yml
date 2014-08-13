@@ -1,0 +1,7 @@
+parameters:
+#    ns_apidoc.example.class: NS\SonataBundle\Example
+
+services:
+#    ns_apidoc.example:
+#        class: %ns_apidoc.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

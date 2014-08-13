@@ -2,7 +2,7 @@
 
 namespace NS\SentinelBundle\Tests\Entity;
 
-use NS\SentinelBundle\Entity\Meningitis;
+use NS\SentinelBundle\Entity\IBD;
 use NS\SentinelBundle\Entity\Country;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Form\Types\Diagnosis;
@@ -17,16 +17,16 @@ use NS\SentinelBundle\Form\Types\MeningitisVaccinationType;
 use NS\SentinelBundle\Form\Types\OtherSpecimen;
 
 /**
- * Description of MeningitisCaseTest
+ * Description of IBDCaseTest
  *
  * @author gnat
  */
-class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
+class IBDCaseTest extends \PHPUnit_Framework_TestCase
 {
 //    public function testCaseRequiresSite()
 //    {
 //        $sites = $this->entityManager->getRepository('NS\SentinelBundle\Entity\Site')->getChain();
-//        $case  = new Meningitis();
+//        $case  = new IBD();
 //
 //        try
 //        {
@@ -55,7 +55,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
 //    public function testCaseRequiresCaseId()
 //    {
 //        $sites = $this->entityManager->getRepository('NS\SentinelBundle\Entity\Site')->getChain();
-//        $case  = new Meningitis();
+//        $case  = new IBD();
 //        $case->setSite(array_pop($sites));
 //
 //        try
@@ -74,7 +74,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
     {
         $country = new Country('Test');
         $country->setTracksPneumonia(true);
-        $case = new Meningitis();
+        $case = new IBD();
         $case->setCountry($country);
 
         $this->assertEquals(34, count($case->getMinimumRequiredFields()));
@@ -84,7 +84,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
     {
         $country = new Country('Test');
         $country->setTracksPneumonia(false);
-        $case = new Meningitis();
+        $case = new IBD();
         $case->setCountry($country);
 
         $this->assertEquals(25, count($case->getMinimumRequiredFields()));
@@ -94,7 +94,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
     // Single complete cases
     public function testSingleMinimumCompleteCaseWithPneunomia()
     {
-        $case = new Meningitis();
+        $case = new IBD();
         $this->_updateCase($case, $this->getSingleCompleteCaseWithPneunomia());
         $case->preUpdateAndPersist();
 
@@ -104,7 +104,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
 
     public function testSingleMinimumCompleteCaseWithoutPneunomia()
     {
-        $case = new Meningitis();
+        $case = new IBD();
         $this->_updateCase($case, $this->getSingleCompleteCaseWithoutPneunomia());
         $case->preUpdateAndPersist();
 
@@ -120,7 +120,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
      */
     public function testCaseIsIncompleteWithPneunomia($data)
     {
-        $case = new Meningitis();
+        $case = new IBD();
         $this->_updateCase($case, $data);
         $case->preUpdateAndPersist();
 
@@ -134,7 +134,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
      */
     public function testCaseIsIncompleteWithoutPneunomia($data)
     {
-        $case = new Meningitis();
+        $case = new IBD();
         $this->_updateCase($case, $data);
         $case->preUpdateAndPersist();
 
@@ -150,7 +150,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
      */
     public function testCaseIsCompleteWithPneuomia($data)
     {
-        $case = new Meningitis();
+        $case = new IBD();
         $this->_updateCase($case, $data);
         $case->preUpdateAndPersist();
 
@@ -164,7 +164,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
      */
     public function testCaseIsCompleteWithoutPneunomia($data)
     {
-        $case = new Meningitis();
+        $case = new IBD();
         $this->_updateCase($case, $data);
         $case->preUpdateAndPersist();
 
@@ -181,7 +181,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
         $complete      = $this->getSingleCompleteCaseWithPneunomia();
         $country       = new Country('TestCountry');
         $country->setTracksPneumonia(true);
-        $case          = new Meningitis();
+        $case          = new IBD();
         $case->setCountry($country);
 
         $data[]        = array('data'=>$complete);
@@ -195,7 +195,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
         $complete      = $this->getSingleCompleteCaseWithoutPneunomia();
         $country       = new Country('TestCountry');
         $country->setTracksPneumonia(true);
-        $case          = new Meningitis();
+        $case          = new IBD();
         $case->setCountry($country);
 
         $data[] = array('data'=>$complete);
@@ -262,7 +262,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
         $complete  = $this->getSingleCompleteCaseWithoutPneunomia();
         $country   = new Country('TestCountry');
         $country->setTracksPneumonia(false);
-        $case      = new Meningitis();
+        $case      = new IBD();
         $case->setCountry($country);
 
         foreach($case->getMinimumRequiredFields() as $field)
@@ -287,7 +287,7 @@ class MeningitisCaseTest extends \PHPUnit_Framework_TestCase
         $complete      = $this->getSingleCompleteCaseWithPneunomia();
         $country       = new Country('TestCountry');
         $country->setTracksPneumonia(true);
-        $case          = new Meningitis();
+        $case          = new IBD();
         $case->setCountry($country);
 
         foreach($case->getMinimumRequiredFields() as $field)

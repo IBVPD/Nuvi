@@ -1,19 +1,19 @@
 {%extends "NSSentinelBundle::layout.html.twig" %}
 {% block pagetitle %}{{'Recent Cases'|trans}}{%endblock %}
-{% block pagedescription %}{{'Lists the last %count% meningitis cases'|trans({'%count%':app.session.get('result_per_page',10)})}}{%endblock %}
+{% block pagedescription %}{{'Lists the last %count% IBD cases'|trans({'%count%':app.session.get('result_per_page',10)})}}{%endblock %}
 
 {% block body %}
 <div class="row">
     <div class="col-sm-9 col-md-9 col-lg-9">
         <div class="widget-box no-border">
             <div class="widget-header widget-header-small header-color-blue">
-                <h5>{{'Latest Meningitis Cases'|trans}}</h5>
+                <h5>{{'Latest IBD Cases'|trans}}</h5>
                 {% if is_granted('ROLE_CAN_CREATE') %}
                     <div class="widget-toolbar">
                         <a href="#modal-form" id="modal-form-create" data-toggle="modal" class="btn btn-xs btn-success">{{'Create/Edit'|trans}}<i class="icon-plus-sign icon-on-right bigger-110"></i></a>
                     </div>
                 {% endif %}                
-                <div class="widget-toolbar"><form method="POST" action="{{ path('meningitisIndex',pagination.query)}}">{{form_rest(form)}}</form></div>
+                <div class="widget-toolbar"><form method="POST" action="{{ path('ibdIndex',pagination.query)}}">{{form_rest(form)}}</form></div>
                 <div class="widget-toolbar no-border">{{ knp_pagination_render(pagination) }}</div>
             </div>
             <div class="table-responsive">
@@ -40,7 +40,7 @@
             </div>
             <div class="widget-body">
                 <div class="widget-main">
-                    <form method="GET" action="{{path('meningitisIndex')}}" >
+                    <form method="GET" action="{{path('ibdIndex')}}" >
                         {{form_rest(filterForm)}}
                     </form>
                 </div>
@@ -56,7 +56,7 @@
                 <button type="button" class="close" data-dismiss="modal">x</button>
                 <h4 class="blue bigger">{{'Create Case'|trans}}</h4>
             </div>
-            <form method="POST" action="{{path('meningitisCreate')}}">
+            <form method="POST" action="{{path('ibdCreate')}}">
 
             <div class="modal-body overflow-visible">
                 <div class="row">

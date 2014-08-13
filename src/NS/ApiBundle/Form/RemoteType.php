@@ -15,13 +15,13 @@ class RemoteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('clientId')
-            ->add('clientSecret')
-            ->add('tokenEndpoint')
-            ->add('authEndpoint')
-            ->add('redirectUrl')
-            ->add('create','submit',array('label'=>'api-create-remote-submit','attr'=>array('class'=> 'btn btn-sm btn-success')))
+            ->add('name',           null,   array('label'=>'form.remote-name'))
+            ->add('clientId',       null,   array('label'=>'form.remote-client-id'))
+            ->add('clientSecret',   null,   array('label'=>'form.remote-client-secret'))
+            ->add('tokenEndpoint',  null,   array('label'=>'form.remote-token-endpoint'))
+            ->add('authEndpoint',   null,   array('label'=>'form.remote-auth-endpoint'))
+            ->add('redirectUrl',    null,   array('label'=>'form.remote-redirect-url'))
+            ->add('create','submit',array('label'=>'form.remote-submit-button','attr'=>array('class'=> 'btn btn-sm btn-success')))
         ;
     }
     

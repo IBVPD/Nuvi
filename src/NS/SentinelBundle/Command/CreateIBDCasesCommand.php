@@ -7,7 +7,7 @@ use \Symfony\Component\Console\Input\InputInterface;
 use \Symfony\Component\Console\Output\OutputInterface;
 use \Symfony\Component\Console\Input\InputOption;
 
-use NS\SentinelBundle\Entity\Meningitis;
+use NS\SentinelBundle\Entity\IBD;
 use NS\SentinelBundle\Entity\IBD\Lab;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Form\Types\Gender;
@@ -28,14 +28,14 @@ class CreateIBDCasesCommand extends ContainerAwareCommand
         $this
             ->setName('nssentinel:ibd:create:cases')
             ->setDescription('Create ibd cases')
-            ->addOption('codes',null, InputOption::VALUE_OPTIONAL, null, 'HND129,HND135,BOL78,BOL85,SLV115,SLV112')
+            ->addOption('codes',null, InputOption::VALUE_OPTIONAL, null, 'NIC-53,NIC-56,NIC-57,NIC-61,NIC-65,SLV-114,SLV-116,SLV-26,SLV-27,SLV-28,SLV-33,SLV-34,SLV-36,SLV-5,BGD-1,BGD-2,BGD-3')
         ; 
     }
-    
+
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         ini_set('memory_limit','768M');
-        $codes    = explode(",", str_replace(' ','',$input->getOption('codes')));
+        $codes = explode(",", str_replace(' ,',',',$input->getOption('codes')));
         if(empty($codes))
         {
             $output->writeln("No codes to add cases to");
@@ -44,6 +44,9 @@ class CreateIBDCasesCommand extends ContainerAwareCommand
 
         $this->em = $this->getContainer()->get('ns.model_manager');
         $sites    = $this->em->getRepository('NSSentinelBundle:Site')->getChainByCode($codes);
+        $output->writeln("Received ".count($sites)." sites");
+        if(count($sites)== 0)
+            return;
 
         $male   = new Gender(Gender::MALE);
         $fmale  = new Gender(Gender::FEMALE);
@@ -60,10 +63,11 @@ class CreateIBDCasesCommand extends ContainerAwareCommand
         {
             $dob  = $this->getRandomDate();
             $done = array_rand($cxDone);
-            $m = new Meningitis();
+            $m = new IBD();
 
             $m->setDob($dob);
             $m->setAdmDate($this->getRandomDate(null,$dob));
+            $m->setCreatedAt($this->getRandomDate(null,$m->getAdmDate()));
             $m->setCsfCollected((($x % 3) == 0));
             $m->setCxrDone($cxDone[$done]);
 
@@ -82,6 +86,8 @@ class CreateIBDCasesCommand extends ContainerAwareCommand
             $siteKey = array_rand($sites);
 
             $m->setDischDx($dx[$dxKey]);
+            $dxKey   = array_rand($dx);
+            $m->setAdmDx($dx[$dxKey]);
             $m->setSite($sites[$siteKey]);
             $m->setCaseId($this->getCaseId($sites[$siteKey]));
 

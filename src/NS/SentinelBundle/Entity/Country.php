@@ -4,9 +4,10 @@ namespace NS\SentinelBundle\Entity;
 
 use \Doctrine\ORM\Mapping as ORM;
 use \Doctrine\Common\Collections\ArrayCollection;
-use \NS\SentinelBundle\Form\Types\GAVIEligible;
 use \NS\SecurityBundle\Annotation\Secured;
 use \NS\SecurityBundle\Annotation\SecuredCondition;
+use JMS\Serializer\Annotation\Groups;
+use NS\SentinelBundle\Form\Types\TripleChoice;
 
 /**
  * Country
@@ -34,6 +35,7 @@ class Country implements \Serializable
      * @var string
      *
      * @ORM\Column(name="code", type="string", length=4)
+     * @Groups({"api"})
      */
     private $code;
 
@@ -48,12 +50,13 @@ class Country implements \Serializable
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Groups({"api"})
      */
     private $name;
 
     /**
-     * @var GAVIEligible
-     * @ORM\Column(name="gaviEligible",type="GAVIEligible",nullable=true)
+     * @var TripleChoice
+     * @ORM\Column(name="gaviEligible",type="TripleChoice",nullable=true)
      */
     private $gaviEligible;
     
@@ -68,7 +71,37 @@ class Country implements \Serializable
      * @ORM\Column(name="populationUnderFive",type="integer",nullable=true)
      */
     private $populationUnderFive;
-    
+
+    /**
+     * @var integer $populationUnderFive2012
+     * @ORM\Column(name="populationUnderFive2012",type="integer",nullable=true)
+     */
+    private $populationUnderFive2012;
+
+    /**
+     * @var integer $populationUnderFive2014
+     * @ORM\Column(name="populationUnderFive2014",type="integer",nullable=true)
+     */
+    private $populationUnderFive2014;
+
+    /**
+     * @var string $hibVaccineIntro
+     * @ORM\Column(name="hibVaccineIntro",type="string",nullable=true)
+     */
+    private $hibVaccineIntro;
+
+    /**
+     * @var string $pcvVaccineIntro
+     * @ORM\Column(name="pcvVaccineIntro",type="string",nullable=true)
+     */
+    private $pcvVaccineIntro;
+
+    /**
+     * @var string $rvVaccineIntro
+     * @ORM\Column(name="rvVaccineIntro",type="string",nullable=true)
+     */
+    private $rvVaccineIntro;
+
     /**
      * @var Site
      * 
@@ -259,10 +292,10 @@ class Country implements \Serializable
     /**
      * Set gaviEligible
      *
-     * @param \GAVIEligible $gaviEligible
+     * @param TripleChoice $gaviEligible
      * @return Country
      */
-    public function setGaviEligible(GAVIEligible $gaviEligible)
+    public function setGaviEligible(TripleChoice $gaviEligible)
     {
         $this->gaviEligible = $gaviEligible;
     
@@ -272,7 +305,7 @@ class Country implements \Serializable
     /**
      * Get gaviEligible
      *
-     * @return \GAVIEligible 
+     * @return TripleChoice
      */
     public function getGaviEligible()
     {
@@ -407,6 +440,11 @@ class Country implements \Serializable
             $this->hasReferenceLab,
             $this->tracksPneumonia,
             $this->language,
+            $this->populationUnderFive2012,
+            $this->populationUnderFive2014,
+            $this->hibVaccineIntro,
+            $this->pcvVaccineIntro,
+            $this->rvVaccineIntro,
             ));
     }
 
@@ -424,6 +462,11 @@ class Country implements \Serializable
             $this->hasReferenceLab,
             $this->tracksPneumonia,
             $this->language,
+            $this->populationUnderFive2012,
+            $this->populationUnderFive2014,
+            $this->hibVaccineIntro,
+            $this->pcvVaccineIntro,
+            $this->rvVaccineIntro,
             ) = unserialize($serialized);
     }
 
@@ -455,5 +498,60 @@ class Country implements \Serializable
     public function setLanguage($language)
     {
         $this->language = $language;
+    }
+
+    public function getPopulationUnderFive2012()
+    {
+        return $this->populationUnderFive2012;
+    }
+
+    public function getPopulationUnderFive2014()
+    {
+        return $this->populationUnderFive2014;
+    }
+
+    public function getHibVaccineIntro()
+    {
+        return $this->hibVaccineIntro;
+    }
+
+    public function getPcvVaccineIntro()
+    {
+        return $this->pcvVaccineIntro;
+    }
+
+    public function getRvVaccineIntro()
+    {
+        return $this->rvVaccineIntro;
+    }
+
+    public function setPopulationUnderFive2012($populationUnderFive2012)
+    {
+        $this->populationUnderFive2012 = $populationUnderFive2012;
+        return $this;
+    }
+
+    public function setPopulationUnderFive2014($populationUnderFive2014)
+    {
+        $this->populationUnderFive2014 = $populationUnderFive2014;
+        return $this;
+    }
+
+    public function setHibVaccineIntro($hibVaccineIntro)
+    {
+        $this->hibVaccineIntro = $hibVaccineIntro;
+        return $this;
+    }
+
+    public function setPcvVaccineIntro($pcvVaccineIntro)
+    {
+        $this->pcvVaccineIntro = $pcvVaccineIntro;
+        return $this;
+    }
+
+    public function setRvVaccineIntro($rvVaccineIntro)
+    {
+        $this->rvVaccineIntro = $rvVaccineIntro;
+        return $this;
     }
 }

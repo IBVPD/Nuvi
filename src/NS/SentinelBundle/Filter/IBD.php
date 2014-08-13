@@ -8,7 +8,7 @@ use NS\SentinelBundle\Form\Types\CaseStatus;
  * Description of Meningitis
  * @author gnat
  */
-class Meningitis
+class IBD
 {
     /**
      * @var string $id
@@ -55,6 +55,8 @@ class Meningitis
      */
     private $status;
     private $lab;
+
+    private $createdAt;
 
     public function getId()
     {
@@ -104,6 +106,17 @@ class Meningitis
     public function getLab()
     {
         return $this->lab;
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
     }
 
     public function setId($id)

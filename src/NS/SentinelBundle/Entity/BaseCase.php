@@ -3,12 +3,13 @@
 namespace NS\SentinelBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use NS\SentinelBundle\Interfaces\IdentityAssignmentInterface;
 use NS\SentinelBundle\Form\Types\CaseStatus;
 use NS\SentinelBundle\Form\Types\Gender;
 use NS\SentinelBundle\Form\Types\TripleChoice;
+
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * Description of BaseCase
@@ -25,31 +26,37 @@ abstract class BaseCase implements IdentityAssignmentInterface
      * @ORM\CustomIdGenerator(class="\NS\SentinelBundle\Generator\Custom")
      * @var string $id
      * @ORM\Column(name="id",type="string")
+     * @Groups({"api"})
      */
     protected $id;
 
     /**
      * @var string $lastName
      * @ORM\Column(name="lastName",type="string",nullable=true)
+     * @Groups({"api"})
      */
     protected $lastName;
 
     /**
      * @var string $parentalName
      * @ORM\Column(name="parentalName",type="string",nullable=true)
+     * @Groups({"api"})
      */
     protected $parentalName;
 
     /**
      * @var string $firstName
      * @ORM\Column(name="firstName",type="string",nullable=true)
+     * @Groups({"api"})
      */
-    private $firstName;
+    protected $firstName;
 
     /**
      * case_ID
      * @var string $caseId
      * @ORM\Column(name="caseId",type="string",nullable=false)
+     * @Assert\NotBlank()
+     * @Groups({"api"})
      */
     protected $caseId;
 
@@ -57,6 +64,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
      * @var DateTime $dob
      * @ORM\Column(name="dob",type="date",nullable=true)
      * @Assert\Date
+     * @Groups({"api"})
      */
     protected $dob;
 
@@ -71,18 +79,21 @@ abstract class BaseCase implements IdentityAssignmentInterface
     /**
      * @var integer $age
      * @ORM\Column(name="age",type="integer",nullable=true)
+     * @Groups({"api"})
      */
     protected $age;
 
     /**
      * @var Gender $gender
      * @ORM\Column(name="gender",type="Gender",nullable=true)
+     * @Groups({"api"})
      */
     protected $gender;
 
     /**
      * @var DateTime $admDate
      * @ORM\Column(name="admDate",type="date",nullable=true)
+     * @Groups({"api"})
      */
     protected $admDate;
 
@@ -94,6 +105,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
      * @var Region $region
      * @ORM\ManyToOne(targetEntity="NS\SentinelBundle\Entity\Region")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"api"})
      */
     protected $region;
 
@@ -101,6 +113,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
      * @var Country $country
      * @ORM\ManyToOne(targetEntity="NS\SentinelBundle\Entity\Country")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"api"})
      */
     protected $country;
 
@@ -108,28 +121,39 @@ abstract class BaseCase implements IdentityAssignmentInterface
      * @var Site $site
      * @ORM\ManyToOne(targetEntity="NS\SentinelBundle\Entity\Site")
      * @ORM\JoinColumn(nullable=false,referencedColumnName="code")
+     * @Groups({"api"})
      */
     protected $site;
 
     /**
      * @var CaseStatus $status
      * @ORM\Column(name="status",type="CaseStatus")
+     * @Groups({"api"})
      */
     protected $status;
 
     /**
      * @var DateTime $updatedAt
      * @ORM\Column(name="updatedAt",type="datetime")
+     * @Groups({"api"})
      */
     protected $updatedAt;
+
+    /**
+     * @var DateTime $createdAt
+     * @ORM\Column(name="createdAt",type="datetime")
+     * @Groups({"api"})
+     */
+    protected $createdAt;
 
     public function __construct()
     {
         if(!is_string($this->labClass) || empty($this->labClass))
             throw new \InvalidArgumentException("The lab class is not set");
 
-        $this->status       = new CaseStatus(CaseStatus::OPEN);
-        $this->updatedAt    = new \DateTime();
+        $this->status    = new CaseStatus(CaseStatus::OPEN);
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
     }
 
     public function __toString()
@@ -156,26 +180,6 @@ abstract class BaseCase implements IdentityAssignmentInterface
     public function getFullIdentifier($id)
     {
         return sprintf("%s-%s-%d-%06d", $this->country->getCode(), $this->site->getCode(), date('y'), $id);
-    }
-
-    /**
-     * Get sentToReferenceLab
-     *
-     * @return boolean
-     */
-    public function getSentToReferenceLab()
-    {
-        return ($this->lab) ? $this->lab->getSentToReferenceLab(): false;
-    }
-
-    /**
-     * Get sentToNationalLab
-     *
-     * @return boolean
-     */
-    public function getSentToNationalLab()
-    {
-        return ($this->lab) ? $this->lab->getSentToNationalLab(): false;
     }
 
     /**
@@ -277,6 +281,17 @@ abstract class BaseCase implements IdentityAssignmentInterface
         return $this;
     }
 
+    public function getLabClass()
+    {
+        return $this->labClass;
+    }
+
+    public function setLabClass($labClass)
+    {
+        $this->labClass = $labClass;
+        return $this;
+    }
+
     public function getStatus()
     {
         return $this->status;
@@ -334,6 +349,17 @@ abstract class BaseCase implements IdentityAssignmentInterface
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
         return $this;
     }
 

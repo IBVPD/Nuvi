@@ -26,14 +26,14 @@ class CreateRotaCasesCommand extends ContainerAwareCommand
         $this
             ->setName('nssentinel:rota:create:cases')
             ->setDescription('Create RotaVirus cases')
-            ->addOption('codes',null, InputOption::VALUE_OPTIONAL, null, 'HND129,HND135,BOL78,BOL85,SLV115,SLV112')
+            ->addOption('codes',null, InputOption::VALUE_OPTIONAL, null,'NIC-53,NIC-56,NIC-57,NIC-61,NIC-65,SLV-114,SLV-116,SLV-26,SLV-27,SLV-28,SLV-33,SLV-34,SLV-36,SLV-5,BGD-1,BGD-2,BGD-3')
         ; 
     }
     
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         ini_set('memory_limit','768M');
-        $codes    = explode(",", str_replace(' ','',$input->getOption('codes')));
+        $codes = explode(",", str_replace(' ','',$input->getOption('codes')));
         $output->writeln(print_r($codes,true));
         if(empty($codes))
         {
@@ -42,16 +42,18 @@ class CreateRotaCasesCommand extends ContainerAwareCommand
         }
 
         $this->em = $this->getContainer()->get('ns.model_manager');
-        try {
         $sites    = $this->em->getRepository('NSSentinelBundle:Site')->getChainByCode($codes);
-        $male     = new Gender(Gender::MALE);
-        $fmale    = new Gender(Gender::FEMALE);
-        }
-        catch(\Exception $e)
-        {
-            die("EXCEPTION? ".$e->getMessage());
-        }
-        
+        $output->writeln("Received ".count($sites)." sites");
+        if(count($sites)== 0)
+            return;
+
+        $male   = new Gender(Gender::MALE);
+        $fmale  = new Gender(Gender::FEMALE);
+        $dx[]   = new Diagnosis(Diagnosis::SUSPECTED_MENINGITIS);
+        $dx[]   = new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA);
+        $dx[]   = new Diagnosis(Diagnosis::SUSPECTED_SEPSIS);
+        $dx[]   = new Diagnosis(Diagnosis::OTHER);
+
         for($x = 0; $x < 2700; $x++)
         {
             $dob     = $this->getRandomDate();

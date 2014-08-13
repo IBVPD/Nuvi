@@ -46,7 +46,8 @@ class CreateAdminCommand extends ContainerAwareCommand
         $encoder = $factory->getEncoder($user);
         $user->setPassword($encoder->encodePassword($pword,$user->getSalt()));
         
-        try{
+        try
+        {
             $em = $this->getContainer()->get('doctrine.orm.entity_manager');
             $em->persist($user);
             $em->flush();

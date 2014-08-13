@@ -6,10 +6,10 @@ use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
 /**
- * Description of MeningitisCaseResult
+ * Description of IBDCaseResult
  *
  */
-class MeningitisCaseResult extends TranslatableArrayChoice implements TranslationContainerInterface
+class IBDCaseResult extends TranslatableArrayChoice implements TranslationContainerInterface
 {
     const UNKNOWN   = 0;
     const SUSPECTED = 1;
@@ -25,6 +25,6 @@ class MeningitisCaseResult extends TranslatableArrayChoice implements Translatio
 
     public function getName()
     {
-        return 'MeningitisCaseResult';
+        return 'IBDCaseResult';
     }
 }

@@ -10,7 +10,7 @@
 
 {% block body %}
 {{form_errors(form)}}
-<form method="POST" action="{{path('meningitisLabEdit',{'id':id})}}" novalidate>
+<form method="POST" action="{{path('ibdLabEdit',{'id':id})}}" novalidate>
 <div class="row">
     <div class="col-sm-12">
         <div class="tabbable">
@@ -18,12 +18,13 @@
                 <li class="active"><a data-toggle="tab" href="#csf">{{'CSF'|trans}}</a></li>
                 <li><a data-toggle="tab" href="#blood">{{'Blood'|trans}}</a></li>
                 <li><a data-toggle="tab" href="#other">{{'Other Fluids'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#lab">{{'NL/RRL Lab Information'|trans}}</a></li>
                 <li><a data-toggle="tab" href="#sero">{{'Serotype Results'|trans}}</a></li>
             </ul>
 
             <div class="tab-content">
                 <div id="csf" class="tab-pane active">
-                    <h4 class="header smaller lighter">Site</h4>
+                    <h4 class="header smaller lighter">{{'Site'|trans}}</h4>
                     <div class="row">
                         <div class="col-sm-3">
                             {{form_row(form.csfSiteDateTime)}}
@@ -39,41 +40,46 @@
                         </div>
                     </div>
 
+                    {% if form.csfSentToNL is defined or form.csfIsolateSentToNL is defined %}
+                    <h4 class="header smaller lighter">{{'NL'|trans}}</h4>
+                    {% endif %}
                     {% if form.csfSentToNL is defined %}
-                    <h4 class="header smaller lighter">NL</h4>
                         <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 {{form_row(form.csfSentToNL)}}
+                            </div>
+                            <div class="col-sm-3">
                                 {{form_row(form.csfDateSentToNL)}}
                             </div>
-                            <div class="col-sm-4">
-                                {{form_row(form.csfNLId)}}
-                                {{form_row(form.csfNLDateTime)}}
+                            <div class="col-sm-3">
+                                {{form_row(form.csfIsolateSentToNL)}}
                             </div>
-                            <div class="col-sm-4">
-                                {{form_row(form.csfNLDNAExtractionDate)}}
-                                {{form_row(form.csfNLDNAVolume)}}
+                            <div class="col-sm-3">
+                                {{form_row(form.csfIsolateDateSentToNL)}}
                             </div>
                         </div>
                     {%endif%}
+
+                    {% if form.csfSentToRRL is defined or form.csfIsolateSentToRRL is defined %}
+                        <h4 class="header smaller lighter">{{'RRL'|trans}}</h4>
+                    {% endif %}
                     {% if form.csfSentToRRL is defined %}
-                        <h4 class="header smaller lighter">RRL</h4>
                         <div class="row">
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 {{form_row(form.csfSentToRRL)}}
+                            </div>
+                            <div class="col-sm-3">
                                 {{form_row(form.csfDateSentToRRL)}}
                             </div>
-                            <div class="col-sm-4">
-                                {{form_row(form.csfRRLId)}}
-                                {{form_row(form.csfRRLDateTime)}}
+                            <div class="col-sm-3">
+                                {{form_row(form.csfIsolateSentToRRL)}}
                             </div>
-                            <div class="col-sm-4">
-                                {{form_row(form.csfRRLDNAExtractionDate)}}
-                                {{form_row(form.csfRRLDNAVolume)}}
+                            <div class="col-sm-3">
+                                {{form_row(form.csfIsolateDateSentToRRL)}}
                             </div>
                         </div>
                     {%endif%}
-                    <h4 class="header smaller lighter">Results</h4>
+                    <h4 class="header smaller lighter">{{'Results'|trans}}</h4>
                     
                     <div class="row">
                         <div class="col-sm-3">
@@ -146,7 +152,7 @@
                             {{form_row(form.csfPcrOther)}}
                         </div>
                     </div>
-                    <h4 class="header smaller lighter">Sample Storage</h4>
+                    <h4 class="header smaller lighter">{{'Sample Storage'|trans}}</h4>
 
                     <div class="row">
                         <div class="col-sm-3">
@@ -159,10 +165,10 @@
                 </div>
 
                 <div id="blood" class="tab-pane">
-                    <h4 class="header smaller lighter">Site</h4>
+                    <h4 class="header smaller lighter">{{'Site'|trans}}</h4>
                     <div class="row">
                         <div class="col-sm-3">
-                            {{form_row(form.bloodSiteDateTime)}}
+                            {{form_row(form.bloodSiteDate)}}
                         </div>
                         <div class="col-sm-3">
                             {{form_row(form.bloodSiteId)}}
@@ -170,7 +176,7 @@
                     </div>
 
                     {% if form.bloodSentToNL is defined %}
-                    <h4 class="header smaller lighter">NL</h4>
+                    <h4 class="header smaller lighter">{{'NL'|trans}}</h4>
                     <div class="row">
                         <div class="col-sm-3">
                         {{form_row(form.bloodSentToNL)}}
@@ -179,33 +185,33 @@
                         {{form_row(form.bloodDateSentToNL)}}
                         </div>
                         <div class="col-sm-3">
-                        {{form_row(form.bloodNLId)}}
+                        {{form_row(form.bloodIsolateSentToNL)}}
                         </div>
                         <div class="col-sm-3">
-                        {{form_row(form.bloodNLDateTime)}}
+                        {{form_row(form.bloodIsolateDateSentToNL)}}
                         </div>
                     </div>
                     {%endif %}
 
                     {% if form.bloodSentToRRL is defined %}
-                        <h4 class="header smaller lighter">RRL</h4>
-                        <div class="row">
-                            <div class="col-sm-3">
-                                {{form_row(form.bloodSentToRRL)}}
-                            </div>
-                            <div class="col-sm-3">
-                                {{form_row(form.bloodDateSentToRRL)}}
-                            </div>
-                            <div class="col-sm-3">
-                                {{form_row(form.bloodRRLId)}}
-                            </div>
-                            <div class="col-sm-3">
-                                {{form_row(form.bloodRRLDateTime)}}
-                            </div>
+                    <h4 class="header smaller lighter">{{'RRL'|trans}}</h4>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            {{form_row(form.bloodSentToRRL)}}
                         </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.bloodDateSentToRRL)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.bloodIsolateSentToRRL)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.bloodIsolateDateSentToRRL)}}
+                        </div>
+                    </div>
                     {%endif %}
 
-                    <h4 class="header smaller lighter">Blood Culture</h4>
+                    <h4 class="header smaller lighter">{{'Blood Culture'|trans}}</h4>
                     <div class="row">
                         <div class="col-sm-3">
                             {{form_row(form.bloodCultDone)}}
@@ -218,7 +224,7 @@
                         </div>
                     </div>
 
-                    <h4 class="header smaller lighter">Gram Stain</h4>
+                    <h4 class="header smaller lighter">{{'Gram Stain'|trans}}</h4>
                     <div class="row">
                         <div class="col-sm-3">
                             {{form_row(form.bloodGramDone)}}
@@ -234,7 +240,7 @@
                         </div>
                     </div>
 
-                    <h4 class="header smaller lighter">PCR Result</h4>
+                    <h4 class="header smaller lighter">{{'PCR Result'|trans}}</h4>
                     <div class="row">
                         <div class="col-sm-3">
                             {{form_row(form.bloodPcrDone)}}
@@ -274,52 +280,40 @@
                 </div>
 
                 <div id="other" class="tab-pane">
-                    <h4 class="header smaller lighter">Site</h4>
+                    <h4 class="header smaller lighter">{{'Site'|trans}}</h4>
                     <div class="row">
                         <div class="col-sm-4">
                         {{form_row(form.otherSiteId)}}
                         </div>
                         <div class="col-sm-4">
-                        {{form_row(form.otherSiteDateTime)}}
+                        {{form_row(form.otherSiteDate)}}
                         </div>
                     </div>
                     {% if form.otherSentToNL is defined %}
-                        <h4 class="header smaller lighter">RRL</h4>
+                        <h4 class="header smaller lighter">{{'NL'|trans}}</h4>
                         <div class="row">
                             <div class="col-sm-3">
                                 {{form_row(form.otherSentToNL)}}
                             </div>
                             <div class="col-sm-3">
-                                {{form_row(form.otherNLId)}}
-                            </div>
-                            <div class="col-sm-3">
                                 {{form_row(form.otherDateSentToNL)}}
-                            </div>
-                            <div class="col-sm-3">
-                                {{form_row(form.otherNLDateTime)}}
                             </div>
                         </div>
                     {%endif %}
 
                     {% if form.otherSentToRRL is defined %}
-                        <h4 class="header smaller lighter" >RRL</h4>
+                        <h4 class="header smaller lighter" >{{'RRL'|trans}}</h4>
                         <div class="row">
                             <div class="col-sm-3">
                                 {{form_row(form.otherSentToRRL)}}
                             </div>
                             <div class="col-sm-3">
-                                {{form_row(form.otherRRLId)}}
-                            </div>
-                            <div class="col-sm-3">
                                 {{form_row(form.otherDateSentToRRL)}}
-                            </div>
-                            <div class="col-sm-3">
-                                {{form_row(form.otherRRLDateTime)}}
                             </div>
                         </div>
                     {%endif %}
 
-                    <h4 class="header smaller lighter">Results</h3>
+                    <h4 class="header smaller lighter">{{'Results'|trans}}</h3>
                     <div class="row">
                         <div class="col-sm-4">
                             {{form_row(form.otherCultDone)}}
@@ -332,10 +326,103 @@
                         </div>
                     </div>
                 </div>
+
+                <div id="lab" class="tab-pane">
+                    <h4 class="header smaller lighter">{{'NL - CSF'|trans}}</h4>
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            {{form_row(form.csfNLDateReceived)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.csfNLId)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.csfNLDNAExtractionDate)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.csfNLDNAVolume)}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            {{form_row(form.csfIsolateNLDateReceived)}}
+                        </div>
+                    </div>
+
+                    <h4 class="header smaller lighter">{{'NL - Blood'|trans}}</h4>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            {{form_row(form.bloodNLDateReceived)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.bloodNLId)}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            {{form_row(form.bloodIsolateNLDateReceived)}}
+                        </div>
+                    </div>
+
+                    <h4 class="header smaller lighter">{{'NL - Other'|trans}}</h4>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            {{form_row(form.otherNLId)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.otherNLDateReceived)}}
+                        </div>
+                    </div>
+
+                    <h4 class="header smaller lighter">{{'RRL - CSF'|trans}}</h4>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            {{form_row(form.csfRRLDateReceived)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.csfRRLId)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.csfRRLDNAExtractionDate)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.csfRRLDNAVolume)}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            {{form_row(form.csfIsolateRRLDateReceived)}}
+                        </div>
+                    </div>
+                    <h4 class="header smaller lighter">{{'RRL - Blood'|trans}}</h4>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            {{form_row(form.bloodRRLDateReceived)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.bloodRRLId)}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            {{form_row(form.bloodIsolateRRLDateReceived)}}
+                        </div>
+                    </div>
+                    <h4 class="header smaller lighter">{{'RRL - Other'|trans}}</h4>
+                    <div class="row">
+                        <div class="col-sm-3">
+                            {{form_row(form.otherRRLId)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.otherRRLDateReceived)}}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="form-actions center">
-            <a href="{{path('meningitisIndex')}}" class="btn btn-sm btn-danger">{{'Cancel'|trans}}</a> <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
+            <a href="{{path('ibdIndex')}}" class="btn btn-sm btn-danger">{{'Cancel'|trans}}</a> <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
         </div>
     </div>
 </div>

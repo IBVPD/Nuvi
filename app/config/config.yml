@@ -10,7 +10,7 @@ framework:
         resource: "%kernel.root_dir%/config/routing.yml"
         strict_requirements: '%kernel.debug%'
     form:            ~
-    csrf_protection: ~
+    csrf_protection: false #TODO this needs to be fixed - FOSRestBundle isn't working without this setting
     validation:      { enable_annotations: true }
     templating:
         engines: ['twig']
@@ -67,7 +67,6 @@ doctrine:
             CSFAppearance: NS\SentinelBundle\Entity\Types\CSFAppearance
             Role: NS\SentinelBundle\Entity\Types\Role
             Gender: NS\SentinelBundle\Entity\Types\Gender
-            GAVIEligible: NS\SentinelBundle\Entity\Types\GAVIEligible
             BinaxResult: NS\SentinelBundle\Entity\Types\BinaxResult
             LatResult: NS\SentinelBundle\Entity\Types\LatResult
             PCRResult: NS\SentinelBundle\Entity\Types\PCRResult
@@ -83,7 +82,7 @@ doctrine:
             RotavirusVaccinationReceived: NS\SentinelBundle\Entity\Types\RotavirusVaccinationReceived
             RotavirusVaccinationType: NS\SentinelBundle\Entity\Types\RotavirusVaccinationType
             ElisaResult: NS\SentinelBundle\Entity\Types\ElisaResult
-            MeningitisCaseResult: NS\SentinelBundle\Entity\Types\MeningitisCaseResult
+            IBDCaseResult: NS\SentinelBundle\Entity\Types\IBDCaseResult
             VaccinationReceived: NS\SentinelBundle\Entity\Types\VaccinationReceived
             MeningitisVaccinationType:  NS\SentinelBundle\Entity\Types\MeningitisVaccinationType
             DischargeClassification: NS\SentinelBundle\Entity\Types\DischargeClassification
@@ -104,6 +103,7 @@ doctrine:
             CultureResult: NS\SentinelBundle\Entity\Types\CultureResult
             ElisaKit: NS\SentinelBundle\Entity\Types\ElisaKit
             OtherSpecimen: NS\SentinelBundle\Entity\Types\OtherSpecimen
+            SurveillanceConducted: NS\SentinelBundle\Entity\Types\SurveillanceConducted
         mapping_types:
             TripleChoice: TripleChoice
             Doses: Doses
@@ -113,7 +113,6 @@ doctrine:
             CSFAppearance: CSFAppearance
             Role: Role
             Gender: Gender
-            GAVIEligible: GAVIEligible
             BinaxResult: BinaxResult
             LatResult: LatResult
             PCRResult: PCRResult
@@ -128,7 +127,7 @@ doctrine:
             RotavirusVaccinationReceived: RotavirusVaccinationReceived
             RotavirusVaccinationType: RotavirusVaccinationType
             ElisaResult: ElisaResult
-            MeningitisCaseResult: MeningitisCaseResult
+            IBDCaseResult: IBDCaseResult
             VaccinationReceived: VaccinationReceived
             MeningitisVaccinationType: MeningitisVaccinationType
             GramStainOrganism: GramStainOrganism
@@ -150,6 +149,8 @@ doctrine:
             CultureResult: CultureResult
             ElisaKit: ElisaKit
             OtherSpecimen: OtherSpecimen
+            SurveillanceConducted: SurveillanceConducted
+            
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
@@ -202,6 +203,17 @@ sonata_doctrine_orm_admin:
     form:
       - NSUtilBundle:Form:SonataDoctrineORM/form_admin_fields.html.twig
 
+jms_serializer:
+    property_naming:
+        separator:  ~
+        lower_case: false
+
+    metadata:
+        cache: file
+        debug: "%kernel.debug%"
+        file_cache:
+            dir: "%kernel.cache_dir%/serializer"
+
 jms_translation:
   locales: %locales%
   configs:
@@ -238,20 +250,23 @@ fos_oauth_server:
 sensio_framework_extra:
     view: { annotations: false }
     router: { annotations: true }
-    request: { converters: true }
-
+#    request: { converters: true }
+    
 fos_rest:
     param_fetcher_listener: true
+    format_listener: true
     view:
-        view_response_listener: 'force'
+        view_response_listener: true
         formats:
-            xml:  true
             json: true
+            xml:  true
         templating_formats:
             html: true
     format_listener:
         rules:
-            - { path: ^/, priorities: [ html, json, xml ], fallback_format: ~, prefer_extension: true }
+            - { path: ^/api, priorities: [ json, xml ], fallback_format: false, prefer_extension: true }
+            - { path: '^/', priorities: [ 'text/html', '*/*'], fallback_format: html, prefer_extension: true }
+
     disable_csrf_role: ROLE_API
     exception:
       codes:

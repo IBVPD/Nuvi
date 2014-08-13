@@ -15,10 +15,10 @@ class ClientType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('redirectUris','TextToArray')
-            ->add('allowedGrantTypes','OAuthGrantTypes')
-            ->add('create','submit',array('label'=>'api-create-client-submit','attr'=>array('class'=> 'btn btn-sm btn-success')))
+            ->add('name',               null,               array('label'=>'form.client-name'))
+            ->add('redirectUris',       'tag',              array('label'=>'form.client.redirect-uris', 'arrayOutput'=>true))
+            ->add('allowedGrantTypes',  'OAuthGrantTypes',  array('label'=>'form.client.allowed-grant-types'))
+            ->add('create',             'submit',           array('label'=>'form.client.submit-button','attr'=>array('class'=> 'btn btn-sm btn-success')))
         ;
     }
 

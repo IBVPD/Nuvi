@@ -3,7 +3,7 @@
 namespace NS\SentinelBundle\Tests\Twig;
 
 use NS\SentinelBundle\Twig\CaseStatus;
-use NS\SentinelBundle\Entity\Meningitis;
+use NS\SentinelBundle\Entity\IBD;
 use NS\SentinelBundle\Form\Types\CaseStatus as FormCaseStatus;
 
 /**
@@ -15,7 +15,7 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
 {
     public function testIncompleteCase()
     {
-        $case   = new Meningitis();
+        $case   = new IBD();
         $status = new CaseStatus();
         $label  = $status->getLabel($case, 'nothing');
 
@@ -24,7 +24,7 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
 
     public function testCompleteCase()
     {
-        $case   = new Meningitis();
+        $case   = new IBD();
         $case->setStatus(new FormCaseStatus(FormCaseStatus::COMPLETE));
         $status = new CaseStatus();
         $label  = $status->getLabel($case, 'nothing');
@@ -36,7 +36,7 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
 //    {
 //        $status = new CaseStatus();
 //
-//        $case   = new Meningitis();
+//        $case   = new IBD();
 //        $lab = new \NS\SentinelBundle\Entity\IBD\Lab();
 //        $lab->setCsfSentToNL(1);
 ////        $lab->setSentToNationalLab(true);
@@ -46,7 +46,7 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
 //
 //        $this->assertContains('label-danger',$label,"Case with data sent to national lab but without a national lab has danger label");
 //
-//        $case   = new Meningitis();
+//        $case   = new IBD();
 //        $lab = new \NS\SentinelBundle\Entity\IBD\Lab();
 ////        $lab->setSentToReferenceLab(true);
 //        $case->setLab($lab);
@@ -60,7 +60,7 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
     {
         $status = new CaseStatus();
 
-        $case   = new Meningitis();
+        $case   = new IBD();
         $lab    = new \NS\SentinelBundle\Entity\IBD\Lab();
         $case->setLab($lab);
 
@@ -73,7 +73,7 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
     {
         $status = new CaseStatus();
 
-        $case   = new Meningitis();
+        $case   = new IBD();
         $lab    = new \NS\SentinelBundle\Entity\IBD\Lab();
         $lab->setStatus(new FormCaseStatus(FormCaseStatus::COMPLETE));
         $case->setLab($lab);
@@ -87,7 +87,7 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
     {
         $status = new CaseStatus();
 
-        $case   = new Meningitis();
+        $case   = new IBD();
 
         $label  = $status->getLabLabel($case, 'nothing');
 

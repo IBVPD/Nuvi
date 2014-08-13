@@ -34,7 +34,7 @@ class CaseActions extends \Twig_Extension
 
     public function getBaseRoute($object)
     {
-        return ($object instanceOf \NS\SentinelBundle\Entity\Meningitis) ? 'meningitis':'rotavirus';
+        return ($object instanceOf \NS\SentinelBundle\Entity\IBD) ? 'ibd':'rotavirus';
     }
 
     public function getBigActions($row, $includeIndex = false)
