@@ -3,8 +3,7 @@
     Author     : gnat
 */
 
-div.filterCol input[type=search] {
-    display: inline;}
-
-div.filterCol button.create {
-    display: inline;}
+form.reportFilters > div:not(.form-group) {
+    float: left;
+    margin-right: 0.5em;
+}

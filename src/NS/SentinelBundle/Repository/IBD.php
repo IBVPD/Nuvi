@@ -2,8 +2,7 @@
 
 namespace NS\SentinelBundle\Repository;
 
-use NS\SecurityBundle\Doctrine\SecuredEntityRepository;
-use NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
+use NS\SentinelBundle\Repository\Common;
 use Doctrine\ORM\Query;
 use \NS\SentinelBundle\Exceptions\NonExistentCase;
 use \Doctrine\ORM\NoResultException;
@@ -13,7 +12,7 @@ use \Doctrine\ORM\NoResultException;
  *
  * @author gnat
  */
-class IBD extends SecuredEntityRepository implements AjaxAutocompleteRepositoryInterface
+class IBD extends Common
 {
     public function getStats(\DateTime $start = null, \DateTime $end = null)
     {

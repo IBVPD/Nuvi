@@ -2,9 +2,13 @@
 
 namespace NS\SentinelBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use DateTime;
+use Exporter\Source\ArraySourceIterator;
+use NS\SentinelBundle\Form\Types\Diagnosis;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Description of ReportController
@@ -25,11 +29,53 @@ class ReportController extends Controller
 
     /**
      * @Route("/percent-enrolled",name="reportPercentEnrolled")
-     * @Template("NSSentinelBundle:Report:unimplemented.html.twig")
+     * @Template()
      */
-    public function percentEnrolledAction()
+    public function percentEnrolledAction(Request $request)
     {
-        return array();
+        $alias        = 'c';
+        $queryBuilder = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:IBD')->numberAndPercentEnrolledByAdmissionDiagnosis($alias);
+        $form         = $this->createForm('IBDReportFilterType');
+        $export       = false;
+
+        $form->handleRequest($request);
+
+        if($form->isValid())
+        {
+            if($form->get('reset')->isClicked())
+                return $this->redirect ($this->generateUrl ('reportPercentEnrolled'));
+            else
+                $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $queryBuilder, $alias);
+
+            $export = ($form->get('export')->isClicked());
+        }
+
+        $ibdResults   = $queryBuilder->getQuery()->getResult();
+        $diagnosis    = new Diagnosis();
+
+        $headers      = array('Month')+$diagnosis->getValues();
+        $headerValues = array_fill_keys($diagnosis->getValues(),0);
+        $results = array();
+
+        foreach($ibdResults as $res)
+        {
+            $diagnosis = $res['admDx']->__toString();
+            if(!isset($results[$res['CreatedMonth']]))
+                $results[$res['CreatedMonth']] = $headerValues;
+
+            $results[$res['CreatedMonth']][$diagnosis] = $res['admDxCount'];
+        }
+
+        if($export)
+        {
+            $format   = 'csv';
+            $source   = new ArraySourceIterator($results,$headers);
+            $filename = sprintf('export_%s.%s',date('Y_m_d_H_i_s'), $format);
+
+            return $this->get('sonata.admin.exporter')->getResponse($format, $filename, $source);
+        }
+
+        return array('results' => $results, 'form' => $form->createView(),'headers'=>$headers);
     }
 
     /**
@@ -56,8 +102,8 @@ class ReportController extends Controller
      */
     public function annualAgeDistributionAction()
     {
-        $from  = new \DateTime("2001-01-01");
-        $today = new \DateTime();
+        $from  = new DateTime("2001-01-01");
+        $today = new DateTime();
 
         $results = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:IBD')->getAnnualAgeDistribution($from,$today);
 

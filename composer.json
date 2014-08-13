@@ -54,7 +54,9 @@
         "friendsofsymfony/rest-bundle": "1.4.x-dev",
         "jms/serializer-bundle": "0.12.*",
         "adoy/oauth2": "dev-master",
-        "liip/functional-test-bundle": "dev-master"
+        "liip/functional-test-bundle": "dev-master",
+        "beberlei/DoctrineExtensions": "dev-master"
+
     },
     "scripts": {
         "post-install-cmd": [

@@ -139,13 +139,21 @@ abstract class BaseCase implements IdentityAssignmentInterface
      */
     protected $updatedAt;
 
+    /**
+     * @var DateTime $createdAt
+     * @ORM\Column(name="createdAt",type="datetime")
+     * @Groups({"api"})
+     */
+    protected $createdAt;
+
     public function __construct()
     {
         if(!is_string($this->labClass) || empty($this->labClass))
             throw new \InvalidArgumentException("The lab class is not set");
 
-        $this->status       = new CaseStatus(CaseStatus::OPEN);
-        $this->updatedAt    = new \DateTime();
+        $this->status    = new CaseStatus(CaseStatus::OPEN);
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
     }
 
     public function __toString()
@@ -341,6 +349,17 @@ abstract class BaseCase implements IdentityAssignmentInterface
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
         return $this;
     }
 

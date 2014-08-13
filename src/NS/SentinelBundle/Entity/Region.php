@@ -4,6 +4,7 @@ namespace NS\SentinelBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use NS\SecurityBundle\Annotation as Security;
 use JMS\Serializer\Annotation\Groups;
 
 use Symfony\Component\Validator\Constraints as Assert;
@@ -13,6 +14,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="regions")
  * @ORM\Entity(repositoryClass="\NS\SentinelBundle\Repository\Region")
+ * @Security\Secured(conditions={
+ *      @Security\SecuredCondition(roles={"ROLE_REGION"},field="id"),
+ *      })
+ *
  */
 class Region implements \Serializable
 {
@@ -110,10 +115,10 @@ class Region implements \Serializable
     /**
      * Add countries
      *
-     * @param \NS\SentinelBundle\Entity\Country $countries
+     * @param Country $countries
      * @return Region
      */
-    public function addCountrie(\NS\SentinelBundle\Entity\Country $countries)
+    public function addCountrie(Country $countries)
     {
         $this->countries[] = $countries;
     
@@ -123,9 +128,9 @@ class Region implements \Serializable
     /**
      * Remove countries
      *
-     * @param \NS\SentinelBundle\Entity\Country $countries
+     * @param Country $countries
      */
-    public function removeCountrie(\NS\SentinelBundle\Entity\Country $countries)
+    public function removeCountrie(Country $countries)
     {
         $this->countries->removeElement($countries);
     }
@@ -133,7 +138,7 @@ class Region implements \Serializable
     /**
      * Get countries
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return Collection
      */
     public function getCountries()
     {

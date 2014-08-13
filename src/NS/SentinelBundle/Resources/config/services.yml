@@ -2,6 +2,18 @@ parameters:
 #    ns_sentinel.example.class: NS\SentinelBundle\Example
 
 services:
+    ns.sentinel.form.ibd.report_filter:
+      class: NS\SentinelBundle\Form\IBD\ReportFilterType
+      arguments: [ @security.context ] 
+      tags:
+        - { name: form.type, alias: IBDReportFilterType }
+    
+    ns.sentinel.form.filters.base_report_filter:
+      class: NS\SentinelBundle\Form\Filters\BaseReportFilterType
+      arguments: [ @security.context ] 
+      tags:
+        - { name: form.type, alias: BaseReportFilterType }
+
     ns.sentinel.form.type.surveillanceconducted:
       class: NS\SentinelBundle\Form\Types\SurveillanceConducted
       tags:

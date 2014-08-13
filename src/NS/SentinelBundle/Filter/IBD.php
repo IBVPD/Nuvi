@@ -56,6 +56,8 @@ class IBD
     private $status;
     private $lab;
 
+    private $createdAt;
+
     public function getId()
     {
         return $this->id;
@@ -104,6 +106,17 @@ class IBD
     public function getLab()
     {
         return $this->lab;
+    }
+
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
     }
 
     public function setId($id)

@@ -4,8 +4,7 @@ namespace NS\SentinelBundle\Form\Filters;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-//use Lexik\Bundle\FormFilterBundle\Filter\Extension\Type\EmbeddedFilterTypeInterface;
-//use Lexik\Bundle\FormFilterBundle\Filter\Query\QueryInterface;
+use Lexik\Bundle\FormFilterBundle\Filter\Doctrine\ORMQuery;
 
 /**
  * Description of BaseObject
@@ -20,15 +19,39 @@ class BaseObject extends AbstractType //implements EmbeddedFilterTypeInterface
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        parent::setDefaultOptions($resolver);
-
-        $qb = $this->em->getRepository($this->class)->getAllSecuredQueryBuilder();
+        $class = $this->class;
         $resolver->setDefaults(array
                                 (
-//                                'data_extraction_method' => 'default',
                                 'class'         => $this->class,
                                 'multiple'      => true,
-                                'query_builder' => $qb,
+                                'query_builder' => $this->em->getRepository($this->class)->getAllSecuredQueryBuilder(),
+                                'apply_filter'  => function (ORMQuery $filterBuilder, $field, $values) use ($class)
+                                    {
+                                        if (!empty($values['value']))
+                                        {
+                                            $fieldName = str_replace(array('\\',':'),array('_','_'),$class);
+                                            $values    = $values['value'];
+
+                                            if(count($values) == 1)
+                                            {
+                                                $filterBuilder->getQueryBuilder()->andWhere($field.'= :'.$fieldName)->setParameter($fieldName,$values[0]);
+                                            }
+                                            else if (count($values) > 0)
+                                            {
+                                                $where  = array();
+                                                $params = array();
+                                                $qb = $filterBuilder->getQueryBuilder();
+                                                foreach($values as $x => $val)
+                                                {
+                                                    $fieldNamex = $fieldName.$x;
+                                                    $where[] = $field.'= :'.$fieldNamex;
+                                                    $qb->setParameter($fieldNamex,$val);
+                                                }
+
+                                                $filterBuilder->getQueryBuilder()->andWhere("(".  implode(" OR ",$where).")");
+                                            }
+                                        }
+                                    }
                                 )
                               );
     }
