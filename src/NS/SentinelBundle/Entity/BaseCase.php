@@ -84,6 +84,12 @@ abstract class BaseCase implements IdentityAssignmentInterface
     protected $age;
 
     /**
+     * @var integer $ageDistribution
+     * @ORM\Column(name="ageDistribution",type="integer",nullable=true)
+     */
+    protected $ageDistribution;
+
+    /**
      * @var Gender $gender
      * @ORM\Column(name="gender",type="Gender",nullable=true)
      * @Groups({"api"})
@@ -331,7 +337,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
         else if($this->admDate && !$this->dob);
         {
             if(!$this->age && (!is_null($this->dobYears) || !is_null($this->dobMonths)))
-                $this->age = (int)(($this->dobYears*12)+$this->dobMonths);
+                $this->setAge((int)(($this->dobYears*12)+$this->dobMonths));
 
             if($this->age)
             {
@@ -339,6 +345,22 @@ abstract class BaseCase implements IdentityAssignmentInterface
                 $this->dob = $d->sub(new \DateInterval("P".((int)$this->age)."M"));
             }
         }
+
+        if($this->age >= 0)
+        {
+            if($this->age <= 5)
+                $this->setAgeDistribution (1);
+            else if ($this->age <= 11)
+                $this->setAgeDistribution (2);
+            else if ($this->age <= 23)
+                $this->setAgeDistribution (3);
+            else if ($this->age <= 59)
+                $this->setAgeDistribution (4);
+            else
+                $this->setAgeDistribution (-1);
+        }
+        else
+            $this->setAgeDistribution (-1);
     }
 
     public function getUpdatedAt()
@@ -381,21 +403,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
 
     public function getYear()
     {
-        return $this->updatedAt->format('Y');
-    }
-
-    public function getAgeDistribution()
-    {
-        if($this->age <= 5)
-            return 5;
-        else if ($this->age <= 11)
-            return 11;
-        else if ($this->age <= 23)
-            return 23;
-        else if ($this->age <= 59)
-            return 59;
-
-        return 'unknown';
+        return $this->createdAt->format('Y');
     }
 
     public function getDob()
@@ -530,5 +538,16 @@ abstract class BaseCase implements IdentityAssignmentInterface
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
+    }
+
+    public function getAgeDistribution()
+    {
+        return $this->ageDistribution;
+    }
+
+    public function setAgeDistribution($ageDistribution)
+    {
+        $this->ageDistribution = $ageDistribution;
+        return $this;
     }
 }

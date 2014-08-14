@@ -2,17 +2,18 @@
 
 namespace NS\SentinelBundle\Command;
 
-use \Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use \Symfony\Component\Console\Input\InputInterface;
-use \Symfony\Component\Console\Output\OutputInterface;
-use \Symfony\Component\Console\Input\InputOption;
-
+use DateTime;
 use NS\SentinelBundle\Entity\IBD;
 use NS\SentinelBundle\Entity\IBD\Lab;
-use NS\SentinelBundle\Form\Types\TripleChoice;
-use NS\SentinelBundle\Form\Types\Gender;
-use NS\SentinelBundle\Form\Types\Diagnosis;
 use NS\SentinelBundle\Entity\Site;
+use NS\SentinelBundle\Form\Types\CSFAppearance;
+use NS\SentinelBundle\Form\Types\Diagnosis;
+use NS\SentinelBundle\Form\Types\Gender;
+use NS\SentinelBundle\Form\Types\TripleChoice;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Description of ImportCommand
@@ -61,8 +62,9 @@ class CreateIBDCasesCommand extends ContainerAwareCommand
 
         for($x = 0; $x < 2700; $x++)
         {
-            $dob  = $this->getRandomDate();
-            $done = array_rand($cxDone);
+            $dob   = $this->getRandomDate();
+            $done  = array_rand($cxDone);
+
             $m = new IBD();
 
             $m->setDob($dob);
@@ -70,26 +72,53 @@ class CreateIBDCasesCommand extends ContainerAwareCommand
             $m->setCreatedAt($this->getRandomDate(null,$m->getAdmDate()));
             $m->setCsfCollected((($x % 3) == 0));
             $m->setCxrDone($cxDone[$done]);
-
-            if($x%12 == 0)
-            {
-                $site = new Lab($m);
-
-                $m->setLab($site);
-
-                $this->em->persist($site);
-            }
-
             $m->setGender(($x%7)?$fmale:$male);
 
             $dxKey   = array_rand($dx);
             $siteKey = array_rand($sites);
 
             $m->setDischDx($dx[$dxKey]);
-            $dxKey   = array_rand($dx);
             $m->setAdmDx($dx[$dxKey]);
             $m->setSite($sites[$siteKey]);
             $m->setCaseId($this->getCaseId($sites[$siteKey]));
+
+            if($x%5 == 0)
+            {
+                $site = new Lab($m);
+
+                $m->setLab($site);
+
+                if($m->getCsfCollected())
+                {
+                    $r = rand(1,100);
+                    $site->setCsfWcc($r);
+
+                    if($r<50)
+                    {
+                        $m->setMenFever($cxDone[0]);
+                        $m->setMenAltConscious($cxDone[0]);
+                    }
+                    else if($r <= 20 || $r >= 75 )
+                    {
+                        $m->setMenFever($cxDone[0]);
+                        $m->setMenNeckStiff($cxDone[0]);
+                    }
+
+                    if($r >=20 && $r <= 75)
+                    {
+                        $m->setCsfAppearance(new CSFAppearance(CSFAppearance::TURBID));
+                    }
+                    else if($r > 40)
+                    {
+                        $site->setCsfWcc(40);
+                        $site->setCsfGlucose(30);
+                        $site->setCsfProtein(140);
+                    }
+
+                }
+
+                $this->em->persist($site);
+            }
 
             $this->em->persist($m);
             if($x % 100 == 0)
@@ -105,7 +134,7 @@ class CreateIBDCasesCommand extends ContainerAwareCommand
         return md5(uniqid().spl_object_hash($site).time());
     }
 
-    public function getRandomDate(\DateTime $before = null, \DateTime $after = null)
+    public function getRandomDate(DateTime $before = null, DateTime $after = null)
     {
         $years  = range(1995,date('Y'));
         $months = range(1,12);
@@ -131,6 +160,6 @@ class CreateIBDCasesCommand extends ContainerAwareCommand
             }
         }
 
-        return new \DateTime("{$years[$yKey]}-{$months[$mKey]}-{$days[$dKey]}");
+        return new DateTime("{$years[$yKey]}-{$months[$mKey]}-{$days[$dKey]}");
     }
 }
