@@ -31,7 +31,7 @@ class ImportController extends Controller
 
         $form->handleRequest($request);
 
-        if($form->isValid() && $form->isSubmitted())
+        if($form->isValid())
         {
             $em   = $this->get('doctrine.orm.entity_manager');
             $map  = $form['map']->getData();
