@@ -1,6 +1,12 @@
 API Controller Bundle Documentation
 ======
 
+What is OAuth
+----------------
+
+Why are we using OAuth
+----------------
+
 OAuth 2.0 Basics
 ----------------
 
