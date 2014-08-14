@@ -953,7 +953,11 @@ class IBD extends BaseCase
             // Probable
             if($this->csfAppearance && $this->csfAppearance->equal(CSFAppearance::TURBID))
                 $this->result->setValue (IBDCaseResult::PROBABLE);
-
+            else if($this->hasLab())
+            {
+                $l = $this->lab;
+                $this->result->setValue( (($l->getCsfWcc() > 10 && $l->getCsfWcc() <=100) && ( ($l->getCsfGlucose() >=0 AND $l->getCsfGlucose() < 40) OR ($l->getCsfProtein() > 100) )) );
+            }
             // Confirmed
         }
     }

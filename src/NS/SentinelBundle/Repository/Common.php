@@ -54,7 +54,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
         $qb = $this->createQueryBuilder($alias)
                                 ->select(sprintf('MONTH(%s.createdAt) as CreatedMonth,COUNT(%s.admDx) as admDxCount,%s.admDx',$alias,$alias,$alias))
                                 ->where($alias.'.age <= :age')
-                                ->setParameter('age',5)
+                                ->setParameter('age',59)
                                 ->groupBy($alias.'.admDx,CreatedMonth');
 
         return $this->secure($qb);

@@ -110,3 +110,18 @@ Scenario Outline: A User can create a case
       | site-seattle@noblet.ca | 1234567-seattle     | /en/rota/ | create_rotavirus_caseId | seattle-case-1  | create_rotavirus_type | 1               | /en/rota/create  | rotavirus_create_submit |
       | site-alberta@noblet.ca | 1234567-alberta     | /en/rota/ | create_rotavirus_caseId | alberta-case-1  | create_rotavirus_type | 1               | /en/rota/create  | rotavirus_create_submit |
       | site-shriner@noblet.ca | 1234567-shriner     | /en/rota/ | create_rotavirus_caseId | shriner-case-1  | create_rotavirus_type | 1               | /en/rota/create  | rotavirus_create_submit |
+
+
+@mink:symfony2
+Scenario Outline: A User can view cases
+    Given I am not logged in
+      And I login with "<email>" "<password>"
+      And I go to "<path>"
+    Then There should be no exception
+      And I should be on "<path>"
+    Examples:
+      | email                  | password            | path                               |
+      | site-seattle@noblet.ca | 1234567-seattle     | /en/ibd/show/US-SGH-14-000005      |
+      | site-alberta@noblet.ca | 1234567-alberta     | /en/ibd/show/CA-ALBCHLD-14-000003  |
+      | site-seattle@noblet.ca | 1234567-seattle     | /en/rota/show/US-SGH-14-000012     |
+      | site-alberta@noblet.ca | 1234567-alberta     | /en/rota/show/CA-ALBCHLD-14-000011 |

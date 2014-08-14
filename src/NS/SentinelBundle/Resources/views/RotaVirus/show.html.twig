@@ -14,7 +14,9 @@
             <li><a data-toggle="tab" href="#clinical">{{'Clinical Data'|trans}}</a></li>
             <li><a data-toggle="tab" href="#collectionData">{{'Specimen Collection Data'|trans}}</a></li>
             <li><a data-toggle="tab" href="#labData">{{'Lab'|trans}}</a></li>
+            {% if record.hasLab %}
             <li><a data-toggle="tab" href="#labData-genotype">{{'Genotype'|trans}}</a></li>
+            {% endif %}
             <li><a data-toggle="tab" href="#outcome">{{'Outcome Data'|trans}}</a></li>
         </ul>
         <div class="tab-content">
@@ -182,10 +184,10 @@
                     </tr>
                 </table>
             </div>
+            {%if record.hasLab %}
+            {% set lab = record.lab %}
             <div id="labData" class="tab-pane">
                 <table class="table table-striped table-bordered table-hover">
-                    {%if record.hasLab %}
-                    {% set lab = record.lab %}
                     <tr>
                         <th>{{'rotavirus-form.hasLab'|trans}}</th>
                         <td>{{'Yes'|trans}}</td>
@@ -261,23 +263,27 @@
                         <th>{{'rotavirus-form.secondaryElisaResult'|trans}}</th>
                         <td>{{lab.secondaryElisaResult}}</td>
                     </tr>
-                    {% else %}
+                </table>
+            </div>
+            <div id="labData-genotype" class="tab-pane">
+                <table class="table table-striped table-bordered table-hover">
+                    <tr><th>{{'external-lab-form.genotyping-date'|trans}}</th><td>{%if lab.genotypingDate %}{{lab.genotypingDate|date}}{%endif%}</td></tr>
+                    <tr><th>{{'external-lab-form.genotyping-result-g'|trans}}</th><td>{{lab.genotypingResultG}}</td></tr>
+                    <tr><th>{{'external-lab-form.genotyping-result-g-specify'|trans}}</th><td>{{lab.genotypingResultGSpecify}}</td></tr>
+                    <tr><th>{{'external-lab-form.genotyping-result-p'|trans}}</th><td>{{lab.genotypeResultP}}</td></tr>
+                    <tr><th>{{'external-lab-form.genotyping-result-p-specify'|trans}}</th><td>{{lab.genotypeResultPSpecify}}</td></tr>
+                </table>
+            </div>
+            {% else %}
+            <div id="labData" class="tab-pane">
+                <table class="table table-striped table-bordered table-hover">
                     <tr>
                         <th>{{'rotavirus-form.hasLab'|trans}}</th>
                         <td>{{'No'|trans}}</td>
                     </tr>
-                    {% endif %}
                 </table>
             </div>
-                <div id="labData-genotype" class="tab-pane">
-                    <table class="table table-striped table-bordered table-hover">
-                        <tr><th>{{'external-lab-form.genotyping-date'|trans}}</th><td>{%if lab.genotypingDate %}{{lab.genotypingDate|date}}{%endif%}</td></tr>
-                        <tr><th>{{'external-lab-form.genotyping-result-g'|trans}}</th><td>{{lab.genotypingResultG}}</td></tr>
-                        <tr><th>{{'external-lab-form.genotyping-result-g-specify'|trans}}</th><td>{{lab.genotypingResultGSpecify}}</td></tr>
-                        <tr><th>{{'external-lab-form.genotyping-result-p'|trans}}</th><td>{{lab.genotypeResultP}}</td></tr>
-                        <tr><th>{{'external-lab-form.genotyping-result-p-specify'|trans}}</th><td>{{lab.genotypeResultPSpecify}}</td></tr>
-                    </table>
-                </div>
+            {% endif %}
         </div>
     </div>
 </div>

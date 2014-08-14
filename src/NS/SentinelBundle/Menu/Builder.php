@@ -44,7 +44,7 @@ class Builder
             $reports->addChild('Enrolment %',array('label'=> 'menu.data-reports-percent-enrolled','route'=>'reportPercentEnrolled'));
             $reports->addChild('# Per Month',array('label'=> 'menu.data-reports-number-per-month','route'=>'reportNumberPerMonth'));
             $reports->addChild('# Per Year Clinical',array('label'=> 'menu.data-reports-per-year-clinical','route'=>'reportNumberPerYearClinical'));
-            $reports->addChild('Age Distribution',array('label'=> 'menu.data-reports-age-distribution','route'=>'reportDataQuality'));
+            $reports->addChild('Data Quality',array('label'=> 'menu.data-reports-data-quality','route'=>'reportDataQuality'));
 
             if($this->securityContext->isGranted('ROLE_API'))
             {

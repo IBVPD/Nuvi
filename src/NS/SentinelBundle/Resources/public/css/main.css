@@ -4,6 +4,6 @@
 */
 
 form.reportFilters > div:not(.form-group) {
-    float: left;
     margin-right: 0.5em;
+    display: inline-block;
 }

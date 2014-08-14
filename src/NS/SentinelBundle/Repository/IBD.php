@@ -2,10 +2,15 @@
 
 namespace NS\SentinelBundle\Repository;
 
-use NS\SentinelBundle\Repository\Common;
+use DateTime;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query;
-use \NS\SentinelBundle\Exceptions\NonExistentCase;
-use \Doctrine\ORM\NoResultException;
+use InvalidArgumentException;
+use NS\SentinelBundle\Entity\IBD as C;
+use NS\SentinelBundle\Exceptions\NonExistentCase;
+use NS\SentinelBundle\Form\Types\IBDCaseResult;
+use NS\SentinelBundle\Form\Types\TripleChoice;
+use NS\SentinelBundle\Repository\Common;
 
 /**
  * Description of Common
@@ -14,7 +19,7 @@ use \Doctrine\ORM\NoResultException;
  */
 class IBD extends Common
 {
-    public function getStats(\DateTime $start = null, \DateTime $end = null)
+    public function getStats(DateTime $start = null, DateTime $end = null)
     {
         $results = array();
         $qb      = $this->_em
@@ -23,7 +28,7 @@ class IBD extends Common
                    ->from($this->getClassName(),'m')
                    ->innerJoin('m.lab', 'sl')
                    ->where('m.cxrDone = :cxr')
-                   ->setParameter('cxr', \NS\SentinelBundle\Form\Types\TripleChoice::YES);
+                   ->setParameter('cxr', TripleChoice::YES);
 
         $results['cxr'] = $this->secure($qb)->getQuery()->getSingleScalarResult();
 
@@ -200,7 +205,7 @@ class IBD extends Common
     public function findOrCreate($caseId, $id = null)
     {
         if($id == null && $caseId == null)
-            throw new \InvalidArgumentException("Id or Case must be provided");
+            throw new InvalidArgumentException("Id or Case must be provided");
 
         $qb = $this->createQueryBuilder('m')
                    ->select('m,s,c,r,l')
@@ -220,7 +225,7 @@ class IBD extends Common
         }
         catch (NoResultException $ex)
         {
-            $res = new \NS\SentinelBundle\Entity\IBD();
+            $res = new C();
             $res->setCaseId($caseId);
 
             return $res;
@@ -252,30 +257,24 @@ class IBD extends Common
         return $qb->getQuery()->getResult();
     }
 
-    public function getAnnualAgeDistribution(\DateTime $from, \DateTime $to)
+    /**
+     *
+     * This depends heavily on NSSentinelBundle:IBD->calculateResult() to calculate the case
+     * status properly.
+     * 
+     * @return array
+     */
+    public function getAnnualAgeDistribution($alias = 'm')
     {
-        $qb = $this->createQueryBuilder("m")
-                   ->where('m.updatedAt BETWEEN :from AND :to')
-                   ->setParameters(array(
-                                    'from' => $from->format('Y-m-d'),
-                                    'to'   => $to->format('Y-m-d'))
-                                  )
+        $this->_em->getConfiguration()->addCustomDatetimeFunction('YEAR', 'DoctrineExtensions\Query\Mysql\Year');
+
+        $qb = $this->createQueryBuilder($alias)
+                   ->select(sprintf('YEAR(%s.createdAt) as theYear,%s',$alias,$alias))
+                   ->where(sprintf('(%s.result = :suspectedMening)',$alias))
+                   ->setParameter('suspectedMening', IBDCaseResult::PROBABLE)
+                   ->orderBy('theYear','ASC')
                 ;
 
-        if(method_exists($this, 'secure'))
-            $qb = $this->secure($qb);
-
-        $r       = $qb->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult();
-        $results = array();
-
-        foreach($r as $case)
-        {
-            if(!isset($results[$case->getYear()]))
-                $results[$case->getYear()] = array(5=>0,11=>0,23=>0,59=>0, 'unknown'=>0);
-
-            $results[$case->getYear()][$case->getAgeDistribution()]++;
-        }
-
-        return $results;
+        return $this->hasSecuredQuery() ? $qb = $this->secure($qb): $qb;
     }
 }
