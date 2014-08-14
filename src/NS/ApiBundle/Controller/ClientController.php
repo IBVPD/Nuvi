@@ -48,7 +48,7 @@ class ClientController extends Controller
     {
         $form = $this->createForm('CreateApiClient');
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid())
+        if($form->isValid())
         {
             $em     = $this->get('doctrine.orm.entity_manager');
             $client = $form->getData();
@@ -77,7 +77,7 @@ class ClientController extends Controller
                      ->getSingleResult();
         $form = $this->createForm('CreateApiClient',$client);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid())
+        if($form->isValid())
         {
             $client = $form->getData();
             $em->persist($client);
@@ -124,7 +124,7 @@ class ClientController extends Controller
     {
         $form = $this->createForm('CreateApiRemote');
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid())
+        if($form->isValid())
         {
             $em     = $this->get('doctrine.orm.entity_manager');
             $client = $form->getData();
@@ -154,7 +154,7 @@ class ClientController extends Controller
 
         $form = $this->createForm('CreateApiRemote',$remote);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid())
+        if($form->isValid())
         {
             $client = $form->getData();
             $client->setUser($em->getReference('NSSentinelBundle:User',$this->getUser()->getId()));

@@ -43,7 +43,7 @@ class AuthorizeController extends Controller
         $oauthServier = $this->get('fos_oauth_server.server');
 
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid())
+        if($form->isValid())
         {
             try
             {
