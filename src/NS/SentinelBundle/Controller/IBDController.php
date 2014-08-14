@@ -25,9 +25,9 @@ class IBDController extends Controller
         $paginator  = $this->get('knp_paginator');
 
         $filterForm = $this->createForm('ibd_filter_form');
-        $filterForm->submit($request);
+        $filterForm->handleRequest($request);
 
-        if($filterForm->isValid() && $filterForm->isSubmitted())
+        if($filterForm->isValid())
         {
             $query = $this->get('ns.model_manager')
                           ->getRepository('NSSentinelBundle:IBD')
@@ -74,7 +74,7 @@ class IBDController extends Controller
         $form = $this->createForm('create_ibd');
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
+        if($form->isValid())
         {
             $caseId = $form->get('caseId')->getData();
             $type   = $form->get('type')->getData();

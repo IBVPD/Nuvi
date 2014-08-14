@@ -26,7 +26,7 @@ class UserController extends Controller
         $form = $this->createForm(new \NS\SentinelBundle\Form\UserType(),$user);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid())
+        if($form->isValid())
         {
             $factory = $this->get('security.encoder_factory');
             $user    = $form->getData();
