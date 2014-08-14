@@ -34,7 +34,7 @@ class ImportCommand extends ContainerAwareCommand
                 InputArgument::REQUIRED,
                 'Directory with CSV Files'
             )
-            ->addOption('with-users', null, InputOption::VALUE_OPTIONAL, true);
+            ->addOption('with-users', null, InputOption::VALUE_OPTIONAL, true)
         ; 
     }
     
