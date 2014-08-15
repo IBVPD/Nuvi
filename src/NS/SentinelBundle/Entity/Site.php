@@ -186,7 +186,7 @@ class Site implements \Serializable
 
     public function __toString()
     {
-        if(strlen($this->name) > 20)
+        if(mb_strlen($this->name,'UTF-8') > 20)
             return mb_substr ($this->name, 0, 31,'UTF-8')."...";
         else
             return $this->name;

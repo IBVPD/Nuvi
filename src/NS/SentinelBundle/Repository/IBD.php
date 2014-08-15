@@ -198,7 +198,7 @@ class IBD extends Common
         }
         catch(NoResultException $e)
         {
-            throw new NonExistentCase("This case does not exist!");
+            return null; //throw new NonExistentCase("This case does not exist!");
         }
     }
 

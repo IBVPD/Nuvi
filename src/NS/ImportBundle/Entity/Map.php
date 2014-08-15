@@ -43,6 +43,7 @@ class Map
     /**
      * @var Array $columns
      * @ORM\OneToMany(targetEntity="Column",mappedBy="map", fetch="EAGER",cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OrderBy({"order" = "ASC"})
      */
     private $columns;
 
@@ -135,19 +136,6 @@ class Map
         return $this;
     }
 
-    public function getValueForColumn($columnKey,$data)
-    {
-        foreach($this->columns as $col)
-        {
-            if($col->getOrder() == $columnKey)
-            {
-                return $col->convert($data);
-            }
-        }
-
-        throw new \RuntimeException();
-    }
-
     public function getColumnHeaders()
     {
         $r = array();
@@ -175,7 +163,32 @@ class Map
         foreach($this->columns as $col)
         {
             if($col->hasConverter())
-                $r[$col->getName()] = $col->getConverter();
+                $r[] = $col;
+        }
+
+        return $r;
+    }
+
+    public function getMappings()
+    {
+        $r = new \NS\ImportBundle\Converter\MappingItemConverter();
+
+        foreach($this->columns as $col)
+        {
+            if($col->hasMapper())
+                $r->addMapping($col->getName(), $col->getMapper());
+        }
+
+        return $r;
+    }
+
+    public function getIgnoredMapper()
+    {
+        $r = new \NS\ImportBundle\Converter\UnsetMappingItemConverter();
+        foreach($this->columns as $col)
+        {
+            if($col->getIsIgnored())
+                $r->addMapping($col->getName(), $col->getMapper());
         }
 
         return $r;

@@ -48,6 +48,8 @@ class ColumnAdmin extends Admin
             ->add('name')
             ->add('order')
             ->add('converter','ConverterChoice',array('required'=>false))
+            ->add('mapper')
+            ->add('isIgnored',null,array('required'=>false))
             ->add('isUnique')
         ;
     }

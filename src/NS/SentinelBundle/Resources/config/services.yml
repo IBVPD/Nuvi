@@ -38,8 +38,27 @@ services:
       tags:
         - { name: form.type, alias: OtherSpecimen }
 
+    ns.sentinel.converter.csfAppearance:
+      class: NS\SentinelBundle\Converter\ArrayChoice
+      arguments: [ "NS\SentinelBundle\Form\Types\CSFAppearance" ]
+      tags:
+        - { name: ns_import.converter }
+
+    ns.sentinel.converter.gender:
+      class: NS\SentinelBundle\Converter\ArrayChoice
+      arguments: [ "NS\SentinelBundle\Form\Types\Gender" ]
+      tags:
+        - { name: ns_import.converter }
+
+    ns.sentinel.converter.diagnosis:
+      class: NS\SentinelBundle\Converter\ArrayChoice
+      arguments: [ "NS\SentinelBundle\Form\Types\Diagnosis" ]
+      tags:
+        - { name: ns_import.converter }
+
     ns.sentinel.converter.triple_choice:
-      class: NS\SentinelBundle\Converter\TripleChoice
+      class: NS\SentinelBundle\Converter\ArrayChoice
+      arguments: [ "NS\SentinelBundle\Form\Types\TripleChoice" ]
       tags:
         - { name: ns_import.converter }
 

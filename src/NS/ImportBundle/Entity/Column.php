@@ -54,6 +54,18 @@ class Column
     private $converter;
 
     /**
+     * @var string $mapper
+     * @ORM\Column(name="mapper",type="string",nullable=true)
+     */
+    private $mapper;
+
+    /**
+     * @var boolean $isIgnored
+     * @ORM\Column(name="isIgnored",type="boolean",nullable=true)
+     */
+    private $isIgnored = false;
+
+    /**
      * @return string
      */
     public function __toString()
@@ -104,6 +116,33 @@ class Column
     public function hasConverter()
     {
         return ($this->converter)?true:false;
+    }
+
+    public function getMapper()
+    {
+        return $this->mapper;
+    }
+
+    public function hasMapper()
+    {
+        return (!empty($this->mapper));
+    }
+
+    public function getIsIgnored()
+    {
+        return $this->isIgnored;
+    }
+
+    public function setIsIgnored($isIgnored)
+    {
+        $this->isIgnored = $isIgnored;
+        return $this;
+    }
+
+    public function setMapper($mapper)
+    {
+        $this->mapper = $mapper;
+        return $this;
     }
 
     public function setConverter($converter)

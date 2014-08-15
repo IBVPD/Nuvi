@@ -21,7 +21,17 @@ class Gender extends TranslatableArrayChoice implements TranslationContainerInte
                             self::FEMALE  => "Female",
                             self::UNKNOWN => 'Unknown',
                              );
-    
+
+    public function __construct($value = null)
+    {
+        if($value == 'M')
+            $value = 'Male';
+        else if($value == 'F')
+            $value = 'Female';
+
+        parent::__construct($value);
+    }
+
     public function getName()
     {
         return 'Gender';

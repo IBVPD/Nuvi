@@ -45,5 +45,4 @@ class Registry extends AbstractType
     {
         return 'ConverterChoice';
     }
-
 }

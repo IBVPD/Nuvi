@@ -42,10 +42,10 @@ ns_api:
     resource: "@NSApiBundle/Resources/config/routing.yml"
     prefix:   /
 
-ns_sentinel:
-    resource: "@NSSentinelBundle/Resources/config/routing.yml"
-    prefix:   /
-
 ns_import:
     resource: "@NSImportBundle/Resources/config/routing.yml"
+    prefix:   /
+
+ns_sentinel:
+    resource: "@NSSentinelBundle/Resources/config/routing.yml"
     prefix:   /
