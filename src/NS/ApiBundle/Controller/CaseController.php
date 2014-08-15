@@ -30,30 +30,6 @@ class CaseController extends FOSRestController
         }
     }
 
-    protected function getCaseLab($type,$id)
-    {
-        try
-        {
-            switch($type)
-            {
-                case 'ibd':
-                    $class ='NSSentinelBundle:IBD\Lab';
-                    break;
-                case 'rota':
-                    $class = 'NSSentinelBundle:Rota\Lab';
-                    break;
-                default:
-                    throw new BadRequestHttpException(sprintf("Invalid request type: %s",$type));
-            }
-
-            return $this->getObject($class, $id);
-        }
-        catch (NotFoundHttpException $ex)
-        {
-            throw new NotFoundHttpException("Lab does not exist",$ex);
-        }
-    }
-
     protected function getCase($type,$id)
     {
         switch($type)
@@ -98,7 +74,7 @@ class CaseController extends FOSRestController
     protected function updateLab(Request $request, $id, $method, $formName, $className, $route)
     {
         $em   = $this->get('ns.model_manager');
-        $obj  = $em->getRepository($className)->findOrCreateNew($id);
+        $obj  = $em->getRepository($className)->find($id);
         $form = $this->createForm($formName, $obj, array('method'=>$method));
 
         return ($this->updateObject($request, $em, $form)) ? $this->view(null, Codes::HTTP_ACCEPTED,array('Location'=>$route)) : $this->view($form, Codes::HTTP_BAD_REQUEST);

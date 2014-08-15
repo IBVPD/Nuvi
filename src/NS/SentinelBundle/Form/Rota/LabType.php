@@ -62,8 +62,8 @@ class LabType extends AbstractType
                     $form    = $event->getForm();
                     $country = null;
 
-                    if($data && $data->getCase() && $data->getCase()->getCountry())
-                        $country = $data->getCase()->getCountry();
+                    if($data && $data->getCountry())
+                        $country = $data->getCountry();
                     else if(!$siteSerializer->hasMultipleSites())
                     {
                         $site    = $siteSerializer->getSite();
@@ -97,7 +97,7 @@ class LabType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'NS\SentinelBundle\Entity\Rota\Lab'
+            'data_class' => 'NS\SentinelBundle\Entity\RotaVirus'
         ));
     }
 

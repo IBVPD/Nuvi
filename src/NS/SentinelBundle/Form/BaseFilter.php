@@ -2,12 +2,13 @@
 
 namespace NS\SentinelBundle\Form;
 
+use Lexik\Bundle\FormFilterBundle\Filter\FilterOperands;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use \Symfony\Component\Security\Core\SecurityContext;
-use \Symfony\Component\Form\FormEvent;
-use \Symfony\Component\Form\FormEvents;
-use \Lexik\Bundle\FormFilterBundle\Filter\FilterOperands;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Security\Core\SecurityContext;
 
 class BaseFilter extends AbstractType
 {
@@ -84,6 +85,16 @@ class BaseFilter extends AbstractType
         }
  */
      }
+
+    /**
+     * @param OptionsResolverInterface $resolver
+     */
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'method'      => 'GET',
+        ));
+    }
 
     /**
      * @return string

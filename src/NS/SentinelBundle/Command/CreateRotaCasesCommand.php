@@ -8,7 +8,6 @@ use \Symfony\Component\Console\Output\OutputInterface;
 use \Symfony\Component\Console\Input\InputOption;
 
 use NS\SentinelBundle\Entity\RotaVirus;
-use NS\SentinelBundle\Entity\Rota\Lab;
 use NS\SentinelBundle\Form\Types\Gender;
 use NS\SentinelBundle\Entity\Site;
 
@@ -64,19 +63,10 @@ class CreateRotaCasesCommand extends ContainerAwareCommand
             $m->setAdmDate($this->getRandomDate(null,$dob));
             $m->setSite($sites[$siteKey]);
             $m->setCaseId($this->getCaseId($sites[$siteKey]));
-
             $m->setGender(($x%7)?$fmale:$male);
 
-            if($x%12 == 0)
-            {
-                $lab = new Lab($m);
-
-                $m->setLab($lab);
-
-                $this->em->persist($lab);
-            }
-
             $this->em->persist($m);
+
             if($x % 100 == 0)
                 $this->em->flush();
         }

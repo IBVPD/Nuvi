@@ -67,7 +67,7 @@ class RotaVirusController extends CaseController
     */
     public function getRotaCaseLabAction($id)
     {
-        return $this->getCaseLab('rota',$id);
+        return $this->getCase('rota',$id);
     }
 
     /**
@@ -119,7 +119,7 @@ class RotaVirusController extends CaseController
     {
         $route = $this->generateUrl('nsApiRotaGetLab', array('id' => $id));
 
-        return $this->updateLab($request, $id, 'PATCH', 'rotavirus_lab', 'NSSentinelBundle:Rota\Lab', $route);
+        return $this->updateLab($request, $id, 'PATCH', 'rotavirus_lab', 'NSSentinelBundle:RotaVirus', $route);
     }
 
     /**
@@ -199,7 +199,7 @@ class RotaVirusController extends CaseController
     {
         $route = $this->generateUrl('nsApiRotaGetLab', array('id' => $id));
 
-        return $this->updateLab($request, $id, 'PUT', 'rotavirus_lab', 'NSSentinelBundle:Rota\Lab', $route);
+        return $this->updateLab($request, $id, 'PUT', 'rotavirus_lab', 'NSSentinelBundle:RotaVirus', $route);
     }
 
     /**

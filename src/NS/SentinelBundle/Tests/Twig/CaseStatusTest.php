@@ -61,8 +61,6 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
         $status = new CaseStatus();
 
         $case   = new IBD();
-        $lab    = new \NS\SentinelBundle\Entity\IBD\Lab();
-        $case->setLab($lab);
 
         $label  = $status->getLabLabel($case, 'nothing');
 
@@ -74,9 +72,6 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
         $status = new CaseStatus();
 
         $case   = new IBD();
-        $lab    = new \NS\SentinelBundle\Entity\IBD\Lab();
-        $lab->setStatus(new FormCaseStatus(FormCaseStatus::COMPLETE));
-        $case->setLab($lab);
 
         $label  = $status->getLabLabel($case, 'nothing');
 

@@ -70,7 +70,7 @@ class IBDController extends CaseController
     */
     public function getIbdCaseLabAction($id)
     {
-        return $this->getCaseLab('ibd',$id);
+        return $this->getCase('ibd',$id);
     }
 
     /**
@@ -123,7 +123,7 @@ class IBDController extends CaseController
     {
         $route = $this->generateUrl('nsApiIbdGetLab', array('id' => $id));
 
-        return $this->updateLab($request, $id, 'PATCH','ibd_lab', 'NSSentinelBundle:IBD\Lab', $route);
+        return $this->updateLab($request, $id, 'PATCH','ibd_lab', 'NSSentinelBundle:IBD', $route);
     }
 
     /**
@@ -203,7 +203,7 @@ class IBDController extends CaseController
     {
         $route = $this->generateUrl('nsApiIbdGetLab', array('id' => $id));
 
-        return $this->updateLab($request, $id, 'PUT','ibd_lab', 'NSSentinelBundle:IBD\Lab', $route);
+        return $this->updateLab($request, $id, 'PUT','ibd_lab', 'NSSentinelBundle:IBD', $route);
     }
 
     /**

@@ -185,7 +185,6 @@
                 </table>
             </div>
             {%if record.hasLab %}
-            {% set lab = record.lab %}
             <div id="labData" class="tab-pane">
                 <table class="table table-striped table-bordered table-hover">
                     <tr>
@@ -194,84 +193,84 @@
                     </tr>                    
                     <tr>
                         <th>{{'rotavirus-form.siteReceivedDate'|trans}}</th>
-                        <td>{%if lab.siteReceivedDate %}{{lab.siteReceivedDate|date}}{%endif%}</td>
+                        <td>{%if record.siteReceivedDate %}{{record.siteReceivedDate|date}}{%endif%}</td>
                     </tr>
                     <tr>
                         <th>{{'rotavirus-form.adequate'|trans}}</th>
-                        <td>{{lab.adequate}}</td>
+                        <td>{{record.adequate}}</td>
                     </tr>
                     <tr>
                         <th>{{'rotavirus-form.stored'|trans}}</th>
-                        <td>{{lab.stored}}</td>
+                        <td>{{record.stored}}</td>
                     </tr>
                     <tr>
                         <th>{{'rotavirus-form.elisaDone'|trans}}</th>
-                        <td>{{lab.elisaDone}}</td>
+                        <td>{{record.elisaDone}}</td>
                     </tr>
                     <tr>
                         <th>{{'rotavirus-form.elisaKit'|trans}}</th>
-                        <td>{{lab.elisaKit}}</td>
+                        <td>{{record.elisaKit}}</td>
                     </tr>
                     <tr>
                         <th>{{'rotavirus-form.elisaKitOther'|trans}}</th>
-                        <td>{{lab.elisaKitOther}}</td>
+                        <td>{{record.elisaKitOther}}</td>
                     </tr>
                     <tr>
                         <th>{{'rotavirus-form.elisaLoadNumber'|trans}}</th>
-                        <td>{{lab.elisaLoadNumber}}</td>
+                        <td>{{record.elisaLoadNumber}}</td>
                     </tr>
                     <tr>
                         <th>{{'rotavirus-form.elisaExpiryDate'|trans}}</th>
-                        <td>{%if lab.elisaExpiryDate %}{{lab.elisaExpiryDate|date}}{%endif%}</td>
+                        <td>{%if record.elisaExpiryDate %}{{record.elisaExpiryDate|date}}{%endif%}</td>
                     </tr>
 
                     <tr>
                         <th>{{'rotavirus-form.elisaTestDate'|trans}}</th>
-                        <td>{%if lab.elisaTestDate %}{{lab.elisaTestDate|date}}{%endif%}</td>
+                        <td>{%if record.elisaTestDate %}{{record.elisaTestDate|date}}{%endif%}</td>
                     </tr>
                     <tr>
                         <th>{{'rotavirus-form.elisaResult'|trans}}</th>
-                        <td>{{lab.elisaResult}}</td>
+                        <td>{{record.elisaResult}}</td>
                     </tr>
                     
                     <tr>
                         <th>{{'rotavirus-form.secondaryElisaDone'|trans}}</th>
-                        <td>{{lab.secondaryElisaDone}}</td>
+                        <td>{{record.secondaryElisaDone}}</td>
                     </tr>
                     <tr>
                         <th>{{'rotavirus-form.secondaryElisaKit'|trans}}</th>
-                        <td>{{lab.secondaryElisaKit}}</td>
+                        <td>{{record.secondaryElisaKit}}</td>
                     </tr>
                     <tr>
                         <th>{{'rotavirus-form.secondaryElisaKitOther'|trans}}</th>
-                        <td>{{lab.secondaryElisaKitOther}}</td>
+                        <td>{{record.secondaryElisaKitOther}}</td>
                     </tr>
                     <tr>
                         <th>{{'rotavirus-form.secondaryElisaLoadNumber'|trans}}</th>
-                        <td>{{lab.secondaryElisaLoadNumber}}</td>
+                        <td>{{record.secondaryElisaLoadNumber}}</td>
                     </tr>
                     <tr>
                         <th>{{'rotavirus-form.secondaryElisaExpiryDate'|trans}}</th>
-                        <td>{%if lab.secondaryElisaExpiryDate %}{{lab.secondaryElisaExpiryDate|date}}{%endif%}</td>
+                        <td>{%if record.secondaryElisaExpiryDate %}{{record.secondaryElisaExpiryDate|date}}{%endif%}</td>
                     </tr>
 
                     <tr>
                         <th>{{'rotavirus-form.secondaryElisaTestDate'|trans}}</th>
-                        <td>{%if lab.secondaryElisaTestDate %}{{lab.secondaryElisaTestDate|date}}{%endif%}</td>
+                        <td>{%if record.secondaryElisaTestDate %}{{record.secondaryElisaTestDate|date}}{%endif%}</td>
                     </tr>
                     <tr>
                         <th>{{'rotavirus-form.secondaryElisaResult'|trans}}</th>
-                        <td>{{lab.secondaryElisaResult}}</td>
+                        <td>{{record.secondaryElisaResult}}</td>
                     </tr>
                 </table>
             </div>
             <div id="labData-genotype" class="tab-pane">
                 <table class="table table-striped table-bordered table-hover">
-                    <tr><th>{{'external-lab-form.genotyping-date'|trans}}</th><td>{%if lab.genotypingDate %}{{lab.genotypingDate|date}}{%endif%}</td></tr>
-                    <tr><th>{{'external-lab-form.genotyping-result-g'|trans}}</th><td>{{lab.genotypingResultG}}</td></tr>
-                    <tr><th>{{'external-lab-form.genotyping-result-g-specify'|trans}}</th><td>{{lab.genotypingResultGSpecify}}</td></tr>
-                    <tr><th>{{'external-lab-form.genotyping-result-p'|trans}}</th><td>{{lab.genotypeResultP}}</td></tr>
-                    <tr><th>{{'external-lab-form.genotyping-result-p-specify'|trans}}</th><td>{{lab.genotypeResultPSpecify}}</td></tr>
+                    <tr><th>{{'external-lab-form.genotyping-date'|trans}}</th><td>{%if record.genotypingDate %}{{record.genotypingDate|date}}{%endif%}</td></tr>
+                    <tr><th>{{'external-lab-form.genotyping-result-g'|trans}}</th><td>{{record.genotypingResultG}}</td></tr>
+                    <tr><th>{{'external-lab-form.genotyping-result-g-specify'|trans}}</th><td>{{record.genotypingResultGSpecify}}</td></tr>
+                    <tr><th>{{'external-lab-form.genotyping-result-p'|trans}}</th><td>{{record.genotypeResultP}}</td></tr>
+                    <tr><th>{{'external-lab-form.genotyping-result-p-specify'|trans}}</th><td>{{record.genotypeResultPSpecify}}</td></tr>
                 </table>
             </div>
             {% else %}

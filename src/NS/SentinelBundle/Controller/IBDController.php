@@ -35,7 +35,7 @@ class IBDController extends Controller
 
             // build the query from the given form object
             $qb    = $this->get('lexik_form_filter.query_builder_updater');
-            $qb->addFilterConditions($filterForm, $query);
+            $qb->addFilterConditions($filterForm, $query,'m');
         }
         else
             $query = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:IBD")->getLatestQuery();
@@ -144,18 +144,16 @@ class IBDController extends Controller
     {
         try 
         {
+            $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:IBD')->find($id): null;
             switch($type)
             {
                 case 'ibd':
-                    $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:IBD')->find($id): null;
                     $form   = $this->createForm('ibd',$record);
                     break;
                 case 'outcome':
-                    $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:IBD')->find($id): null;
                     $form   = $this->createForm('ibd_outcome',$record);
                     break;
                 case 'lab':
-                    $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:IBD\Lab')->findOrCreateNew($id): null;
                     $form   = $this->createForm('ibd_lab',$record);
                     break;
                 default:
