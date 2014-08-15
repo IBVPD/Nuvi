@@ -48,8 +48,13 @@ class MapAdmin extends Admin
         $formMapper
             ->add('name')
             ->add('class','ClassType')
-            ->add('version')
-            ->add('columns', 'sonata_type_collection', array('by_reference'=>true),array('edit'=>'inline','inline'=>'table'))
+            ->add('version');
+
+        $model = $this->getSubject();
+        if(!$model->getId())
+            $formMapper->add('file','file',array('required'=>false));
+
+        $formMapper->add('columns', 'sonata_type_collection', array('by_reference'=>true),array('edit'=>'inline','inline'=>'table'))
         ;
     }
 
@@ -68,7 +73,36 @@ class MapAdmin extends Admin
 
     public function prePersist($map)
     {
-        if($map->getColumns())
+        if(!$map->getId() && $map->getFile()) // have a file so build the columns dynamically
+        {
+            $f = $map->getFile();
+            $csvReader = new \Ddeboer\DataImport\Reader\CsvReader($f->openFile());
+            $csvReader->setHeaderRowNumber(0);
+            $headers = $csvReader->getColumnHeaders();
+            $columns = array();
+            $targetClass = $map->getClass();
+            $target  = new $targetClass();
+
+            foreach($headers as $index => $name)
+            {
+                $c = new \NS\ImportBundle\Entity\Column();
+
+                $c->setName($name);
+                $c->setOrder($index);
+                $c->setMap($map);
+
+                $t = str_replace(array(' '),array(''),ucwords(str_replace(array('_','-'), array(' ',' '), $name)));
+                strtolower($t[0]);
+                $method = sprintf('get%s',$t);
+                if(method_exists($target, $method))
+                    $c->setMapper ($t);
+
+
+                $columns[] = $c;
+            }
+            $map->setColumns($columns);
+        }
+        else if($map->getColumns())
         {
             foreach ($map->getColumns() as $a)
             {

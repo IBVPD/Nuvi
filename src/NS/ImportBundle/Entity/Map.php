@@ -2,8 +2,11 @@
 
 namespace NS\ImportBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+use NS\ImportBundle\Converter\MappingItemConverter;
+use NS\ImportBundle\Converter\UnsetMappingItemConverter;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Description of Map
@@ -39,6 +42,8 @@ class Map
      * @ORM\Column(name="class",type="string")
      */
     private $class;
+
+    private $file;
 
     /**
      * @var Array $columns
@@ -80,6 +85,17 @@ class Map
     public function getClass()
     {
         return $this->class;
+    }
+
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    public function setFile(UploadedFile $file)
+    {
+        $this->file = $file;
+        return $this;
     }
 
     public function setClass($class)
@@ -171,7 +187,7 @@ class Map
 
     public function getMappings()
     {
-        $r = new \NS\ImportBundle\Converter\MappingItemConverter();
+        $r = new MappingItemConverter();
 
         foreach($this->columns as $col)
         {
@@ -184,7 +200,7 @@ class Map
 
     public function getIgnoredMapper()
     {
-        $r = new \NS\ImportBundle\Converter\UnsetMappingItemConverter();
+        $r = new UnsetMappingItemConverter();
         foreach($this->columns as $col)
         {
             if($col->getIsIgnored())
