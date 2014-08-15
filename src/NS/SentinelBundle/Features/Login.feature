@@ -13,6 +13,7 @@ Feature: User Views
 Scenario Outline: A User with create rights can't create any kind of labs
     Given I am not logged in
       And I login with "<email>" "<password>"
+      And I should be on "/en"
       And I go to "<path>"
       And I should be on "<path>"
     Then There should be no exception
