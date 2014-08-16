@@ -91,12 +91,13 @@ class MapAdmin extends Admin
                 $c->setOrder($index);
                 $c->setMap($map);
 
-                $t = str_replace(array(' '),array(''),ucwords(str_replace(array('_','-'), array(' ',' '), $name)));
-                strtolower($t[0]);
+                $t = str_replace(array(' '),array(''),ucwords(str_replace(array('_','-'), array(' ',' '), strtolower($name))));
+                $t[0] = strtolower($t[0]);
                 $method = sprintf('get%s',$t);
                 if(method_exists($target, $method))
                     $c->setMapper ($t);
-
+                else
+                    $c->setIsIgnored(true);
 
                 $columns[] = $c;
             }
