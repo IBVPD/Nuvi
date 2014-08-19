@@ -248,8 +248,8 @@ class IBD extends BaseCase
     private $hibReceived;
 
     /**
-     * @var Doses $hibDoses
-     * @ORM\Column(name="hibDoses",type="Doses",nullable=true)
+     * @var FourDoses $hibDoses
+     * @ORM\Column(name="hibDoses",type="FourDoses",nullable=true)
      * @Groups({"api"})
      */
     private $hibDoses;
@@ -269,8 +269,8 @@ class IBD extends BaseCase
     private $pcvReceived;
 
     /**
-     * @var Doses $pcvDoses
-     * @ORM\Column(name="pcvDoses",type="RotavirusDoses",nullable=true)
+     * @var FourDoses $pcvDoses
+     * @ORM\Column(name="pcvDoses",type="ThreeDoses",nullable=true)
      * @Groups({"api"})
      */
     private $pcvDoses;
@@ -2704,11 +2704,8 @@ class IBD extends BaseCase
             // Probable
             if($this->csfAppearance && $this->csfAppearance->equal(CSFAppearance::TURBID))
                 $this->result->setValue (IBDCaseResult::PROBABLE);
-            else if($this->hasLab())
-            {
-                $l = $this->lab;
-                $this->result->setValue( (($l->getCsfWcc() > 10 && $l->getCsfWcc() <=100) && ( ($l->getCsfGlucose() >=0 AND $l->getCsfGlucose() < 40) OR ($l->getCsfProtein() > 100) )) );
-            }
+            else
+                $this->result->setValue( (($this->getCsfWcc() > 10 && $this->getCsfWcc() <=100) && ( ($this->getCsfGlucose() >=0 AND $this->getCsfGlucose() < 40) OR ($this->getCsfProtein() > 100) )) );
             // Confirmed
         }
     }

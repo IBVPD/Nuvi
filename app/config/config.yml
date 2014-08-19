@@ -60,7 +60,7 @@ doctrine:
         # path:     %database_path%
         types:
             TripleChoice: NS\SentinelBundle\Entity\Types\TripleChoice
-            Doses: NS\SentinelBundle\Entity\Types\Doses
+            FourDoses: NS\SentinelBundle\Entity\Types\FourDoses
             Diagnosis: NS\SentinelBundle\Entity\Types\Diagnosis
             CXRResult: NS\SentinelBundle\Entity\Types\CXRResult
             DischargeClassification: NS\SentinelBundle\Entity\Types\DischargeClassification
@@ -93,7 +93,7 @@ doctrine:
             NmSerogroup: NS\SentinelBundle\Entity\Types\NmSerogroup
             HiSerotype: NS\SentinelBundle\Entity\Types\HiSerotype
             SpnSerotype: NS\SentinelBundle\Entity\Types\SpnSerotype
-            RotavirusDoses: NS\SentinelBundle\Entity\Types\RotavirusDoses
+            ThreeDoses: NS\SentinelBundle\Entity\Types\ThreeDoses
             DischargeDiagnosis: NS\SentinelBundle\Entity\Types\DischargeDiagnosis
             CXRAdditionalResult: NS\SentinelBundle\Entity\Types\CXRAdditionalResult
             PCVType: NS\SentinelBundle\Entity\Types\PCVType
@@ -104,7 +104,7 @@ doctrine:
             SurveillanceConducted: NS\SentinelBundle\Entity\Types\SurveillanceConducted
         mapping_types:
             TripleChoice: TripleChoice
-            Doses: Doses
+            FourDoses: FourDoses
             Diagnosis: Diagnosis
             CXRResult: CXRResult
             DischargeClassification: DischargeClassification
@@ -137,7 +137,7 @@ doctrine:
             NmSerogroup: NmSerogroup
             HiSerotype: HiSerotype
             SpnSerotype: SpnSerotype
-            RotavirusDoses: RotavirusDoses
+            ThreeDoses: ThreeDoses
             DischargeDiagnosis: DischargeDiagnosis
             CXRAdditionalResult: CXRAdditionalResult
             PCVType: PCVType

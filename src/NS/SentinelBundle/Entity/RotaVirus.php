@@ -164,8 +164,8 @@ class RotaVirus extends BaseCase
 
     /**
      * RV_doses
-     * @var RotavirusDoses $doses
-     * @ORM\Column(name="doses",type="RotavirusDoses",nullable=true)
+     * @var ThreeDoses $doses
+     * @ORM\Column(name="doses",type="ThreeDoses",nullable=true)
      * @Groups({"api"})
      */
     private $doses;
