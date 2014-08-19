@@ -63,13 +63,13 @@ services:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.threeDoses:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\Doses
       arguments: [ NS\SentinelBundle\Form\Types\ThreeDoses ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.fourDoses:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\Doses
       arguments: [ NS\SentinelBundle\Form\Types\FourDoses ]
       tags:
         - { name: ns_import.converter }
