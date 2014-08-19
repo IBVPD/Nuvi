@@ -290,9 +290,9 @@ abstract class BaseCase implements IdentityAssignmentInterface
             $interval = $this->dob->diff($this->admDate);
             $this->setAge(($interval->format('%a') / 30));
         }
-        else if($this->admDate && !$this->dob);
+        else if($this->admDate && !$this->dob)
         {
-            if(!$this->age && (!is_null($this->dobYears) || !is_null($this->dobMonths)))
+            if(!$this->age && !is_null($this->dobYears) && !is_null($this->dobMonths))
                 $this->setAge((int)(($this->dobYears*12)+$this->dobMonths));
 
             if($this->age)
