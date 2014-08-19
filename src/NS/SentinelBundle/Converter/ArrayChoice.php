@@ -30,7 +30,7 @@ class ArrayChoice implements NamedValueConverterInterface
     {
         try
         {
-            return (!empty($input) ? new $this->class($input): null);
+            return (!empty($input) ? new $this->class((int)$input): null);
         }
         catch (UnexpectedValueException2 $ex)
         {
