@@ -2,7 +2,10 @@
 
 namespace NS\SentinelBundle\Converter;
 
-use \NS\ImportBundle\Converter\NamedValueConverterInterface;
+use Ddeboer\DataImport\Exception\UnexpectedValueException;
+use NS\ImportBundle\Converter\NamedValueConverterInterface;
+use RuntimeException;
+use UnexpectedValueException as UnexpectedValueException2;
 
 /**
  * Description of TripleChoice
@@ -17,7 +20,7 @@ class ArrayChoice implements NamedValueConverterInterface
     public function __construct($class)
     {
         if(!class_exists($class))
-            throw new \RuntimeException(sprintf("Unable to find class %s",$class));
+            throw new RuntimeException(sprintf("Unable to find class %s",$class));
 
         $this->class = $class;
         $this->name  = join('', array_slice(explode('\\', $class), -1));
@@ -25,7 +28,14 @@ class ArrayChoice implements NamedValueConverterInterface
 
     public function convert($input)
     {
-        return (!empty($input) ? new $this->class($input): null);
+        try
+        {
+            return (!empty($input) ? new $this->class($input): null);
+        }
+        catch (UnexpectedValueException2 $ex)
+        {
+            throw new UnexpectedValueException(sprintf("Unable to convert value '%s' for %s",$input,$this->class), null, $ex);
+        }
     }
 
     public function getName()
