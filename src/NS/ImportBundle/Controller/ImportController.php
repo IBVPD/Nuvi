@@ -2,15 +2,14 @@
 
 namespace NS\ImportBundle\Controller;
 
+use Ddeboer\DataImport\Reader\CsvReader;
+use Ddeboer\DataImport\Workflow;
+use Ddeboer\DataImport\Writer\ArrayWriter;
+use NS\ImportBundle\Writer\DoctrineWriter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-
-use Ddeboer\DataImport\Workflow;
-use Ddeboer\DataImport\Reader\CsvReader;
-use Ddeboer\DataImport\Writer\DoctrineWriter;
-use Ddeboer\DataImport\ValueConverter\DateTimeValueConverter;
 
 /**
  * Description of ImportController
@@ -21,7 +20,7 @@ use Ddeboer\DataImport\ValueConverter\DateTimeValueConverter;
 class ImportController extends Controller
 {
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @Route("/",name="importIndex")
      * @Template()
      */
@@ -48,14 +47,11 @@ class ImportController extends Controller
             // Create the workflow from the reader
             $workflow = new Workflow($csvReader,$log);
 
-            $output = array();
-            $arrayWriter = new \Ddeboer\DataImport\Writer\ArrayWriter($output);
             // Create a writer: you need Doctrine’s EntityManager.
-//            $doctrineWriter = new DoctrineWriter($em, $map->getClass(), $map->getFindBy());
-//            $doctrineWriter->setTruncate(false);
+            $doctrineWriter = new DoctrineWriter($em, $map->getClass(), $map->getFindBy());
+            $doctrineWriter->setTruncate(false);
 
-            $workflow->addWriter($arrayWriter);
-//            $workflow->addWriter($doctrineWriter);
+            $workflow->addWriter($doctrineWriter);
 
             foreach($map->getConverters() as $column)
             {
@@ -67,8 +63,16 @@ class ImportController extends Controller
             $workflow->addItemConverter($map->getIgnoredMapper());
 
             // Process the workflow
-            $c = $workflow->process();
-            die($c->getTotalProcessedCount()." Rows Processed <pre>".print_r(array_keys($output[0]),true)."</pre> <pre>".print_r($output[0]['lab'],true)."</pre>");
+            $workflow->process();
+            $results = $doctrineWriter->getResults();
+
+            $format   = 'csv';
+            $source   = new ArraySourceIterator($results,array('id','caseId','site','country', 'region'));
+            $filename = sprintf('export_%s.%s',date('Y_m_d_H_i_s'), $format);
+
+            return $this->get('sonata.admin.exporter')->getResponse($format, $filename, $source);
+//            $exporter = $this->get('');
+//            die($c->getTotalProcessedCount()." Rows Processed <pre>".print_r(array_keys($output[0]),true)."</pre>");
         }
 
         return array('form'=>$form->createView());
