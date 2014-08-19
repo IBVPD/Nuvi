@@ -50,6 +50,8 @@ services:
     ns_import.admin.map:
         class: NS\ImportBundle\Admin\MapAdmin
         arguments: [~, NS\ImportBundle\Entity\Map, SonataAdminBundle:CRUD]
+        calls: 
+            - [ setConverterRegistry, [ @ns_import.converters ]]
         tags:
             - { name: sonata.admin, manager_type: orm, group: Import/Export, label: Map }
 

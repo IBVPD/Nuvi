@@ -15,6 +15,7 @@ class Registry extends AbstractType
 {
     private $converters;
     private $values;
+    private $sorted = false;
 
     public function __construct()
     {
@@ -30,10 +31,27 @@ class Registry extends AbstractType
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
+        if(!$this->sorted)
+        {
+            asort($this->values);
+            $this->sorted = true;
+        }
+
         $resolver->setDefaults(array(
             'empty_value' => 'Please Select...',
             'choices'     => $this->values,
         ));
+    }
+
+    public function getConverterForField(array $field)
+    {
+        foreach($this->values as $id => $converter)
+        {
+            if($converter == $field['type'])
+                return $id;
+        }
+
+        return null;
     }
 
     public function getParent()

@@ -3,6 +3,7 @@
 namespace NS\ImportBundle\Writer;
 
 use Ddeboer\DataImport\Writer\DoctrineWriter as BaseWriter;
+use Doctrine\ORM\EntityManager;
 
 /**
  * Description of DoctrineWriter

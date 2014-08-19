@@ -46,6 +46,7 @@ class ImportController extends Controller
 
             // Create the workflow from the reader
             $workflow = new Workflow($csvReader,$log);
+            $workflow->setSkipItemOnFailure(true);
 
             // Create a writer: you need Doctrine’s EntityManager.
             $doctrineWriter = new DoctrineWriter($em, $map->getClass(), $map->getFindBy());

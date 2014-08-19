@@ -2,14 +2,25 @@
 
 namespace NS\ImportBundle\Admin;
 
+use Ddeboer\DataImport\Reader\CsvReader;
+use NS\ImportBundle\Entity\Column;
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Component\Form\AbstractType;
 
 class MapAdmin extends Admin
 {
+    private $converterRegistry;
+
+    public function setConverterRegistry(AbstractType $converterRegistry)
+    {
+        $this->converterRegistry = $converterRegistry;
+        return $this;
+    }
+
     /**
      * @param DatagridMapper $datagridMapper
      */
@@ -75,17 +86,18 @@ class MapAdmin extends Admin
     {
         if(!$map->getId() && $map->getFile()) // have a file so build the columns dynamically
         {
-            $f = $map->getFile();
-            $csvReader = new \Ddeboer\DataImport\Reader\CsvReader($f->openFile());
+            $csvReader = new CsvReader($map->getFile()->openFile());
             $csvReader->setHeaderRowNumber(0);
-            $headers = $csvReader->getColumnHeaders();
-            $columns = array();
+
+            $headers     = $csvReader->getColumnHeaders();
+            $columns     = array();
             $targetClass = $map->getClass();
-            $target  = new $targetClass();
+            $target      = new $targetClass();
+            $metaData    = $this->modelManager->getMetadata($map->getClass());
 
             foreach($headers as $index => $name)
             {
-                $c = new \NS\ImportBundle\Entity\Column();
+                $c = new Column();
 
                 $c->setName($name);
                 $c->setOrder($index);
@@ -95,7 +107,15 @@ class MapAdmin extends Admin
                 $t[0] = strtolower($t[0]);
                 $method = sprintf('get%s',$t);
                 if(method_exists($target, $method))
-                    $c->setMapper ($t);
+                {
+                    $c->setMapper($t);
+                    try{
+                    $c->setConverter($this->converterRegistry->getConverterForField($metaData->getFieldMapping($t)));
+                    }
+                    catch(\Doctrine\ORM\Mapping\MappingException $e)
+                    {
+                    }
+                }
                 else
                     $c->setIsIgnored(true);
 
