@@ -72,6 +72,7 @@ class IBD extends BaseCase
      * @var \DateTime $onsetDate
      * @ORM\Column(name="onsetDate",type="date",nullable=true)
      * @Groups({"api"})
+     * @Assert\DateTime
      */
     protected $onsetDate;
 
@@ -1731,6 +1732,9 @@ class IBD extends BaseCase
 
     public function setCsfSiteDateTime($csfSiteDateTime)
     {
+        if(!$csfSiteDateTime instanceof \DateTime)
+            return;
+
         $this->csfSiteDateTime = $csfSiteDateTime;
         return $this;
     }
@@ -1851,6 +1855,9 @@ class IBD extends BaseCase
 
     public function setCsfDateSentToNL($csfDateSentToNL)
     {
+        if(!$csfDateSentToNL instanceof \DateTime)
+            return;
+
         $this->csfDateSentToNL = $csfDateSentToNL;
         return $this;
     }
@@ -1863,6 +1870,9 @@ class IBD extends BaseCase
 
     public function setCsfNLDateReceived($csfNLDateReceived)
     {
+        if(!$csfNLDateReceived instanceof \DateTime)
+            return;
+
         $this->csfNLDateReceived = $csfNLDateReceived;
         return $this;
     }
@@ -1875,12 +1885,18 @@ class IBD extends BaseCase
 
     public function setCsfIsolateDateSentToNL($csfIsolateDateSentToNL)
     {
+        if(!$csfIsolateDateSentToNL instanceof \DateTime)
+            return;
+
         $this->csfIsolateDateSentToNL = $csfIsolateDateSentToNL;
         return $this;
     }
 
     public function setCsfIsolateNLDateReceived($csfIsolateNLDateReceived)
     {
+        if(!$csfIsolateNLDateReceived instanceof \DateTime)
+            return;
+
         $this->csfIsolateNLDateReceived = $csfIsolateNLDateReceived;
         return $this;
     }
@@ -1893,6 +1909,9 @@ class IBD extends BaseCase
 
     public function setCsfDateSentToRRL($csfDateSentToRRL)
     {
+        if(!$csfDateSentToRRL instanceof \DateTime)
+            return;
+
         $this->csfDateSentToRRL = $csfDateSentToRRL;
         return $this;
     }
@@ -1905,6 +1924,9 @@ class IBD extends BaseCase
 
     public function setCsfRRLDateReceived($csfRRLDateReceived)
     {
+        if(!$csfRRLDateReceived instanceof \DateTime)
+            return;
+
         $this->csfRRLDateReceived = $csfRRLDateReceived;
         return $this;
     }
@@ -1917,12 +1939,18 @@ class IBD extends BaseCase
 
     public function setCsfIsolateDateSentToRRL($csfIsolateDateSentToRRL)
     {
+        if(!$csfIsolateDateSentToRRL instanceof \DateTime)
+            return;
+
         $this->csfIsolateDateSentToRRL = $csfIsolateDateSentToRRL;
         return $this;
     }
 
     public function setCsfIsolateRRLDateReceived($csfIsolateRRLDateReceived)
     {
+        if(!$csfIsolateRRLDateReceived instanceof \DateTime)
+            return;
+
         $this->csfIsolateRRLDateReceived = $csfIsolateRRLDateReceived;
         return $this;
     }
@@ -1959,6 +1987,9 @@ class IBD extends BaseCase
 
     public function setCsfNLDNAExtractionDate($csfNLDNAExtractionDate)
     {
+        if(!$csfNLDNAExtractionDate instanceof \DateTime)
+            return;
+
         $this->csfNLDNAExtractionDate = $csfNLDNAExtractionDate;
         return $this;
     }
@@ -1971,6 +2002,9 @@ class IBD extends BaseCase
 
     public function setCsfRRLDNAExtractionDate($csfRRLDNAExtractionDate)
     {
+        if(!$csfRRLDNAExtractionDate instanceof \DateTime)
+            return;
+
         $this->csfRRLDNAExtractionDate = $csfRRLDNAExtractionDate;
         return $this;
     }
@@ -1989,6 +2023,9 @@ class IBD extends BaseCase
 
     public function setBloodSiteDate($bloodSiteDate)
     {
+        if(!$bloodSiteDate instanceof \DateTime)
+            return;
+
         $this->bloodSiteDate = $bloodSiteDate;
         return $this;
     }
@@ -2007,12 +2044,18 @@ class IBD extends BaseCase
 
     public function setBloodDateSentToNL($bloodDateSentToNL)
     {
+        if(!$bloodDateSentToNL instanceof \DateTime)
+            return;
+
         $this->bloodDateSentToNL = $bloodDateSentToNL;
         return $this;
     }
 
     public function setBloodNLDateReceived($bloodNLDateReceived)
     {
+        if(!$bloodNLDateReceived instanceof \DateTime)
+            return;
+
         $this->bloodNLDateReceived = $bloodNLDateReceived;
         return $this;
     }
@@ -2025,12 +2068,18 @@ class IBD extends BaseCase
 
     public function setBloodIsolateDateSentToNL($bloodIsolateDateSentToNL)
     {
+        if(!$bloodIsolateDateSentToNL instanceof \DateTime)
+            return;
+
         $this->bloodIsolateDateSentToNL = $bloodIsolateDateSentToNL;
         return $this;
     }
 
     public function setBloodIsolateNLDateReceived($bloodIsolateNLDateReceived)
     {
+        if(!$bloodIsolateNLDateReceived instanceof \DateTime)
+            return;
+
         $this->bloodIsolateNLDateReceived = $bloodIsolateNLDateReceived;
         return $this;
     }
@@ -2049,12 +2098,18 @@ class IBD extends BaseCase
 
     public function setBloodDateSentToRRL($bloodDateSentToRRL)
     {
+        if(!$bloodDateSentToRRL instanceof \DateTime)
+            return;
+
         $this->bloodDateSentToRRL = $bloodDateSentToRRL;
         return $this;
     }
 
     public function setBloodRRLDateReceived($bloodRRLDateReceived)
     {
+        if(!$bloodRRLDateReceived instanceof \DateTime)
+            return;
+
         $this->bloodRRLDateReceived = $bloodRRLDateReceived;
         return $this;
     }
@@ -2067,12 +2122,18 @@ class IBD extends BaseCase
 
     public function setBloodIsolateDateSentToRRL($bloodIsolateDateSentToRRL)
     {
+        if(!$bloodIsolateDateSentToRRL instanceof \DateTime)
+            return;
+
         $this->bloodIsolateDateSentToRRL = $bloodIsolateDateSentToRRL;
         return $this;
     }
 
     public function setBloodIsolateRRLDateReceived($bloodIsolateRRLDateReceived)
     {
+        if(!$bloodIsolateRRLDateReceived instanceof \DateTime)
+            return;
+
         $this->bloodIsolateRRLDateReceived = $bloodIsolateRRLDateReceived;
         return $this;
     }
@@ -2157,6 +2218,9 @@ class IBD extends BaseCase
 
     public function setOtherSiteDate($otherSiteDate)
     {
+        if(!$otherSiteDate instanceof \DateTime)
+            return;
+
         $this->otherSiteDate = $otherSiteDate;
         return $this;
     }
@@ -2169,12 +2233,18 @@ class IBD extends BaseCase
 
     public function setOtherDateSentToNL($otherDateSentToNL)
     {
+        if(!$otherDateSentToNL instanceof \DateTime)
+            return;
+
         $this->otherDateSentToNL = $otherDateSentToNL;
         return $this;
     }
 
     public function setOtherNLDateReceived($otherNLDateReceived)
     {
+        if(!$otherNLDateReceived instanceof \DateTime)
+            return;
+
         $this->otherNLDateReceived = $otherNLDateReceived;
         return $this;
     }
@@ -2187,12 +2257,18 @@ class IBD extends BaseCase
 
     public function setOtherDateSentToRRL($otherDateSentToRRL)
     {
+        if(!$otherDateSentToRRL instanceof \DateTime)
+            return;
+
         $this->otherDateSentToRRL = $otherDateSentToRRL;
         return $this;
     }
 
     public function setOtherRRLDateReceived($otherRRLDateReceived)
     {
+        if(!$otherRRLDateReceived instanceof \DateTime)
+            return;
+
         $this->otherRRLDateReceived = $otherRRLDateReceived;
         return $this;
     }
@@ -2299,7 +2375,7 @@ class IBD extends BaseCase
         return $this;
     }
 
-        public function setOtherSpecimenOther($otherSpecimenOther)
+    public function setOtherSpecimenOther($otherSpecimenOther)
     {
         $this->otherSpecimenOther = $otherSpecimenOther;
         return $this;
@@ -2570,7 +2646,7 @@ class IBD extends BaseCase
         return $this;
     }
 
-    public function setHibDoses(Doses $hibDoses)
+    public function setHibDoses($hibDoses)
     {
         $this->hibDoses = $hibDoses;
         return $this;
