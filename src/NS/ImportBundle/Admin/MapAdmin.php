@@ -59,6 +59,7 @@ class MapAdmin extends Admin
         $formMapper
             ->add('name')
             ->add('class','ClassType')
+            ->add('duplicateFields','tag', array('arrayOutput'=>true))
             ->add('version');
 
         $model = $this->getSubject();

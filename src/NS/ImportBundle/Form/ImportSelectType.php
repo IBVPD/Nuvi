@@ -2,9 +2,10 @@
 
 namespace NS\ImportBundle\Form;
 
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Description of ImportSelectType
@@ -29,6 +30,13 @@ class ImportSelectType extends AbstractType
                 ->add('file','file')
                 ->add('import','submit')
                 ;
+    }
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class'=>'NS\ImportBundle\Entity\Import'
+        ));
     }
 
     public function getName()

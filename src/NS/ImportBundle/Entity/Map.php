@@ -43,8 +43,13 @@ class Map
      */
     private $class;
 
-    private $file;
+    /**
+     * @var array $duplicateFields
+     * @ORM\Column(name="duplicateFields",type="array",nullable=true)
+     */
+    private $duplicateFields;
 
+    private $file;
     /**
      * @var Array $columns
      * @ORM\OneToMany(targetEntity="Column",mappedBy="map", fetch="EAGER",cascade={"persist"}, orphanRemoval=true)
@@ -90,6 +95,17 @@ class Map
     public function getFile()
     {
         return $this->file;
+    }
+
+    public function getDuplicateFields()
+    {
+        return $this->duplicateFields;
+    }
+
+    public function setDuplicateFields($duplicateFields)
+    {
+        $this->duplicateFields = $duplicateFields;
+        return $this;
     }
 
     public function setFile(UploadedFile $file)
