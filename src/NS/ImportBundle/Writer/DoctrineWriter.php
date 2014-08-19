@@ -3,7 +3,9 @@
 namespace NS\ImportBundle\Writer;
 
 use Ddeboer\DataImport\Writer\DoctrineWriter as BaseWriter;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
+use Exception;
 
 /**
  * Description of DoctrineWriter
@@ -25,16 +27,12 @@ class DoctrineWriter extends BaseWriter
     {
         parent::__construct($entityManager, $entityName, $index);
 
-        $this->results = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->results = new ArrayCollection();
     }
 
     protected function getNewInstance($className, array $item)
     {
-        if (class_exists($className) === false) {
-            throw new \Exception('Unable to create new instance of ' . $className);
-        }
-
-        $cls = new $className;
+        $cls = parent::getNewInstance($className, $item);
 
         $this->results->add($cls);
 

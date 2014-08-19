@@ -34,49 +34,9 @@ class ImportController extends Controller
 
         if($form->isValid())
         {
-            $em     = $this->get('doctrine.orm.entity_manager');
-            $import = $form->getData();
-            $map    = $import->getMap();
+            $importer = $this->get('ns_import.processor');
+            $importer->process($form->getData());
 
-            // Create and configure the reader
-            $csvReader = new CsvReader($import->getFile()->openFile(),',');
-
-            // Tell the reader that the first row in the CSV file contains column headers
-            $csvReader->setHeaderRowNumber(0);
-//            $csvReader->setColumnHeaders($map->getColumnHeaders());
-
-            // Create the workflow from the reader
-            $workflow = new Workflow($csvReader);
-            $workflow->setSkipItemOnFailure(true);
-
-            // Create a writer: you need Doctrine’s EntityManager.
-            $doctrineWriter = new DoctrineWriter($em, $map->getClass(), $map->getFindBy());
-            $doctrineWriter->setTruncate(false);
-
-            $workflow->addWriter($doctrineWriter);
-
-            foreach($map->getConverters() as $column)
-            {
-                $name = ($column->hasMapper())?$column->getMapper():$column->getName();
-                $workflow->addValueConverter($name, $this->get($column->getConverter()));
-            }
-
-            $workflow->addItemConverter($map->getMappings());
-            $workflow->addItemConverter($map->getIgnoredMapper());
-
-            if($map->getDuplicateFields())
-                $workflow->addFilter(new Duplicate($map->getDuplicateFields()));
-            else
-                die("No duplicate field checker");
-
-            // Process the workflow
-            $c  = $workflow->process();
-            $ex = array();
-
-            foreach($c->getExceptions() as $x => $e)
-                $ex[$x] = $e->getMessage();
-
-            die($csvReader->count()." Source Rows<br>".$c->getTotalProcessedCount()." Rows Processed<br>".$c->getSuccessCount()." Successfully Processed <pre>".print_r($ex,true)."</pre>");
 //            $results = $doctrineWriter->getResults();
 
 //            $format   = 'csv';
