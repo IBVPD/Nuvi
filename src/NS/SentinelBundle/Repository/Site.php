@@ -26,10 +26,12 @@ class Site extends CommonRepository
 
     public function getChainQueryBuilder()
     {
-        $qb = $this->createQueryBuilder('s')
-                ->select('s,c,r')
-                ->innerJoin('s.country', 'c')
-                ->innerJoin('c.region', 'r');
+        $qb = $this->_em
+                   ->createQueryBuilder()
+                   ->from($this->getEntityName(), 's','s.code')
+                   ->select('s,c,r')
+                   ->innerJoin('s.country', 'c')
+                   ->innerJoin('c.region', 'r');
 
         return ($this->hasSecuredQuery()) ? $this->secure($qb) : $qb;
     }
@@ -44,6 +46,8 @@ class Site extends CommonRepository
             $qb->add('where', 's.code = :codes')->setParameter('codes',$codes);
         else
             throw new \InvalidArgumentException(sprintf("Must provide an array of codes or single code. Received: %s",gettype($codes)));
+
+        $qb = ($this->hasSecuredQuery()) ? $this->secure($qb) : $qb;
 
         return $qb->getQuery()->getResult();
     }
