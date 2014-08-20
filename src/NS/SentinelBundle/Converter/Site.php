@@ -22,7 +22,7 @@ class Site implements NamedValueConverterInterface
 
     public function convert($input)
     {
-        if(!isset($this->chain[$input]))
+        if(!isset($this->sites[$input]))
             throw new NonExistentSite("Unable to find site chain for $input");
 
         return $this->sites[$input];
