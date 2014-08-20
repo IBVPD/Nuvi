@@ -64,8 +64,15 @@ class ImportProcessor
         if($map->getDuplicateFields())
             $workflow->addFilter(new Duplicate($map->getDuplicateFields()));
 
-        // Process the workflow
-        $c = $workflow->process();
+        try
+        {
+            // Process the workflow
+            $c = $workflow->process();
+        }
+        catch (\Doctrine\DBAL\DBALException $ex)
+        {
+            return new Result("Error", new \DateTime, new \DateTime, 0, array($ex));
+        }
 
         $result = new Result($c->getName(), $c->getStartTime(), $c->getEndTime(), $c->getTotalProcessedCount(), $c->getExceptions());
         $result->setResults($doctrineWriter->getResults());
