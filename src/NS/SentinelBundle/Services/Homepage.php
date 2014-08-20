@@ -34,19 +34,10 @@ class Homepage
         else
         {
             $_locale         = $request->attributes->get('_locale', $request->getLocale());
-            $statusCode      = $request->attributes->get('statusCode', 301);//$this->statusCode);
-            $useReferrer     = true;        //$request->attributes->get('useReferrer', $this->useReferrer);
-            $redirectToRoute = 'homepage';  //$request->attributes->get('route', $this->redirectToRoute);
+            $statusCode      = $request->attributes->get('statusCode', 301);
+            $redirectToRoute = 'homepage';
 
-//            $metaValidator = $this->metaValidator;
-//            if (!$metaValidator->isAllowed($_locale)) {
-//                throw new \InvalidArgumentException(sprintf('Not allowed to switch to locale %s', $_locale));
-//            }
-
-            // Redirect the User
-            /*if ($useReferrer && $request->headers->has('referer'))
-                $response = new RedirectResponse($request->headers->get('referer'), $statusCode);
-            else*/ if ($this->router && $redirectToRoute)
+            if ($this->router && $redirectToRoute)
                 $response = new RedirectResponse($this->router->generate($redirectToRoute, array('_locale' => $_locale)), $statusCode);
             else
             {
