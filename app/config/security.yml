@@ -9,7 +9,7 @@ security:
         ROLE_LAB:         [ ROLE_USER, ROLE_CAN_CREATE_LAB, ROLE_CAN_SEE_LAB ]
         ROLE_COUNTRY:     [ ROLE_USER, ROLE_CAN_SEE_LAB, ROLE_CAN_CHANGE_LANGUAGE ]
         ROLE_REGION:      [ ROLE_USER, ROLE_CAN_SEE_LAB, ROLE_CAN_CHANGE_LANGUAGE ]
-        ROLE_ADMIN:       [ ROLE_USER, ROLE_CAN_CHANGE_LANGUAGE, ROLE_IMPORT ]
+        ROLE_ADMIN:       [ ROLE_USER, ROLE_CAN_CHANGE_LANGUAGE ]
         ROLE_SUPER_ADMIN: [ ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
         ROLE_REGION_API:  ROLE_API
         ROLE_COUNTRY_API: ROLE_API
@@ -73,7 +73,7 @@ security:
         - { path: '^/[^/]+/doc/api', roles: [ ROLE_API, ROLE_USER ] }
         - { path: ^/api, roles: ROLE_API }
         - { path: ^/_trans, roles: ROLE_ADMIN }
-        - { path: '^/[^/]+/import', roles: [ ROLE_ADMIN, ROLE_IMPORT] }
+        - { path: '^/[^/]+/import', roles: [ ROLE_IMPORT] }
         - { path: '^/[^/]+/admin', roles: ROLE_ADMIN }
         - { path: '^/[^/]+/ibd/edit', roles: ROLE_CAN_CREATE_CASE }
         - { path: '^/[^/]+/ibd/create', roles: ROLE_CAN_CREATE }
