@@ -38,8 +38,6 @@ class ImportController extends Controller
             foreach($result->getResults() as $r)
                 $successful[] = array('id'=>$r->getId(),'caseId'=>$r->getCaseId(),'site'=>$r->getSite()->getCode(),'siteName' => $r->getSite()->getName());
 
-            
-
             $errors = array();
             foreach($result->getExceptions() as $row => $e)
                 $errors[$row] = array('row'=>$row,'message'=>$e->getMessage());
@@ -49,7 +47,7 @@ class ImportController extends Controller
 
             $timestamp = $result->getEndtime()->format('Y-m-d\TH:i:s');
 
-            $current = array($timestamp => array('success' => $successful, 'errors' => $errors, 'map' => $import->getMap(), 'result' => $result));
+            $current = array($timestamp => array('success' => $successful, 'errors' => $errors, 'map' => $import->getMap(), 'result' => $result, 'file'=>$import->getFile()->getClientOriginalName()));
             $var     = $session->has('import/results') ? array_merge($session->get('import/results'),$current):$current;
             $session->set('import/results',$var);
 

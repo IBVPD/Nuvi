@@ -27,6 +27,7 @@
                             <tr>
                                 <th>{{'Date/Time'|trans}}</th>
                                 <th>{{'Map'|trans}}</th>
+                                <th>{{'File'|trans}}</th>
                                 <th>{{'Total Count'|trans}}</th>
                                 <th>{{'Success Count'|trans}}</th>
                                 <th>{{'Error Count'|trans}}</th>
@@ -38,6 +39,7 @@
                                 <tr>
                                     <td>{{time}}</td>
                                     <td>{{r.map}} ({{r.map.version}})</td>
+                                    <td>{%if r.file is defined %}{{r.file}}{%endif%}</td>
                                     <td>{{r.result.totalProcessedCount}}</td>
                                     <td>{{r.result.successCount}}</td>
                                     <td>{{r.result.errorCount}}</td>
