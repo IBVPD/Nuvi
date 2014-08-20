@@ -13,6 +13,13 @@ class Result extends BaseResult
 {
     private $results;
 
+    public function __construct($name, \DateTime $startTime, \DateTime $endTime, $totalCount, array $exceptions = array())
+    {
+        parent::__construct($name, $startTime, $endTime, $totalCount,$exceptions);
+
+        $this->results = array();
+    }
+
     public function getResults()
     {
         return $this->results;
