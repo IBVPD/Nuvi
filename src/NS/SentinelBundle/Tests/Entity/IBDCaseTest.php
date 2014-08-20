@@ -2,19 +2,20 @@
 
 namespace NS\SentinelBundle\Tests\Entity;
 
-use NS\SentinelBundle\Entity\IBD;
 use NS\SentinelBundle\Entity\Country;
-use NS\SentinelBundle\Form\Types\TripleChoice;
-use NS\SentinelBundle\Form\Types\Diagnosis;
-use NS\SentinelBundle\Form\Types\Gender;
-use NS\SentinelBundle\Form\Types\Doses;
-use NS\SentinelBundle\Form\Types\MeningitisVaccinationReceived;
-use NS\SentinelBundle\Form\Types\DischargeOutcome;
-use NS\SentinelBundle\Form\Types\DischargeClassification;
+use NS\SentinelBundle\Entity\IBD;
 use NS\SentinelBundle\Form\Types\CaseStatus;
 use NS\SentinelBundle\Form\Types\CSFAppearance;
+use NS\SentinelBundle\Form\Types\Diagnosis;
+use NS\SentinelBundle\Form\Types\DischargeClassification;
+use NS\SentinelBundle\Form\Types\DischargeOutcome;
+use NS\SentinelBundle\Form\Types\FourDoses;
+use NS\SentinelBundle\Form\Types\Gender;
+use NS\SentinelBundle\Form\Types\MeningitisVaccinationReceived;
 use NS\SentinelBundle\Form\Types\MeningitisVaccinationType;
 use NS\SentinelBundle\Form\Types\OtherSpecimen;
+use NS\SentinelBundle\Form\Types\ThreeDoses;
+use NS\SentinelBundle\Form\Types\TripleChoice;
 
 /**
  * Description of IBDCaseTest
@@ -225,19 +226,19 @@ class IBDCaseTest extends \PHPUnit_Framework_TestCase
         $d['setmeningMostRecentDose'] = new \DateTime();
         $data[]                 = array('data'=>$d);
 
-        $doses = new Doses();
+        $doses = new FourDoses();
         foreach($doses->getValues() as $v)
         {
             //hibReceived + hibDoses
             $d                    = $complete;
             $d['sethibReceived']  = $tripleYes;
-            $d['sethibDoses']     = new Doses($v);
+            $d['sethibDoses']     = new FourDoses($v);
             $data[]               = array('data'=>$d);
 
             //pcvReceived + pcvDoses
             $d                    = $complete;
             $d['setpcvReceived']  = $tripleYes;
-            $d['setpcvDoses']     = new Doses($v);
+            $d['setpcvDoses']     = new FourDoses($v);
             $data[]               = array('data'=>$d);
         }
 

@@ -2,11 +2,11 @@
 
 namespace NS\ImportBundle\Admin;
 
-use Sonata\AdminBundle\Admin\Admin;
-use Sonata\AdminBundle\Datagrid\DatagridMapper;
-use Sonata\AdminBundle\Datagrid\ListMapper;
-use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Show\ShowMapper;
+use \Sonata\AdminBundle\Admin\Admin;
+use \Sonata\AdminBundle\Datagrid\DatagridMapper;
+use \Sonata\AdminBundle\Datagrid\ListMapper;
+use \Sonata\AdminBundle\Form\FormMapper;
+use \Sonata\AdminBundle\Show\ShowMapper;
 
 class ColumnAdmin extends Admin
 {
@@ -47,10 +47,10 @@ class ColumnAdmin extends Admin
         $formMapper
             ->add('name')
             ->add('order')
-            ->add('converter','ConverterChoice',array('required'=>false))
+            ->add('converter',  'ConverterChoice',  array('required'=>false))
             ->add('mapper')
-            ->add('isIgnored',null,array('required'=>false))
-            ->add('isUnique')
+            ->add('isIgnored',  null,               array('label'=>'Drop Field', 'required'=>false))
+            ->add('isUnique',   null,               array('label'=>'Is Id Field?'))
         ;
     }
 

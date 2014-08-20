@@ -3,6 +3,7 @@
 namespace NS\ImportBundle\Admin;
 
 use Ddeboer\DataImport\Reader\CsvReader;
+use Doctrine\ORM\Mapping\MappingException;
 use NS\ImportBundle\Entity\Column;
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -59,7 +60,7 @@ class MapAdmin extends Admin
         $formMapper
             ->add('name')
             ->add('class','ClassType')
-            ->add('duplicateFields','tag', array('arrayOutput'=>true))
+            ->add('duplicateFields','tag', array('arrayOutput'=>true,'required'=>false))
             ->add('version');
 
         $model = $this->getSubject();
@@ -110,10 +111,11 @@ class MapAdmin extends Admin
                 if(method_exists($target, $method))
                 {
                     $c->setMapper($t);
-                    try{
-                    $c->setConverter($this->converterRegistry->getConverterForField($metaData->getFieldMapping($t)));
+                    try
+                    {
+                        $c->setConverter($this->converterRegistry->getConverterForField($metaData->getFieldMapping($t)));
                     }
-                    catch(\Doctrine\ORM\Mapping\MappingException $e)
+                    catch(MappingException $e)
                     {
                     }
                 }

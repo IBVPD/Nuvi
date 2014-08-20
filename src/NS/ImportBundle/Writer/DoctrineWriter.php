@@ -2,10 +2,9 @@
 
 namespace NS\ImportBundle\Writer;
 
-use Ddeboer\DataImport\Writer\DoctrineWriter as BaseWriter;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\EntityManager;
-use Exception;
+use \Ddeboer\DataImport\Writer\DoctrineWriter as BaseWriter;
+use \Doctrine\Common\Collections\ArrayCollection;
+use \Doctrine\ORM\EntityManager;
 
 /**
  * Description of DoctrineWriter
@@ -30,9 +29,9 @@ class DoctrineWriter extends BaseWriter
         $this->results = new ArrayCollection();
     }
 
-    protected function getNewInstance($className, array $item)
+    protected function getNewInstance()
     {
-        $cls = parent::getNewInstance($className, $item);
+        $cls = parent::getNewInstance();
 
         $this->results->add($cls);
 

@@ -2,7 +2,8 @@
 
 namespace NS\ImportBundle\Converter;
 
-use Ddeboer\DataImport\ItemConverter\MappingItemConverter as BaseItemConverter;
+use \Ddeboer\DataImport\ItemConverter\MappingItemConverter as BaseItemConverter;
+
 /**
  * Description of MappingItemConverter
  *

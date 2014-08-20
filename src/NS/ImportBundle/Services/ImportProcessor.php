@@ -2,13 +2,14 @@
 
 namespace NS\ImportBundle\Services;
 
-use Ddeboer\DataImport\Reader\CsvReader;
-use Ddeboer\DataImport\Workflow;
-use Doctrine\Common\Persistence\ObjectManager;
-use NS\ImportBundle\Entity\Import;
-use NS\ImportBundle\Filter\Duplicate;
-use NS\ImportBundle\Writer\DoctrineWriter;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use \Ddeboer\DataImport\Reader\CsvReader;
+use \Ddeboer\DataImport\Workflow;
+use \Doctrine\Common\Persistence\ObjectManager;
+use \NS\ImportBundle\Entity\Import;
+use \NS\ImportBundle\Filter\Duplicate;
+use \NS\ImportBundle\Writer\DoctrineWriter;
+use \NS\ImportBundle\Writer\Result;
+use \Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Description of ImportProcessor
@@ -26,6 +27,11 @@ class ImportProcessor
         $this->container = $container;
     }
 
+    /**
+     *
+     * @param \NS\ImportBundle\Entity\Import $import
+     * @return \NS\ImportBundle\Writer\Result
+     */
     public function process(Import $import)
     {
         $map = $import->getMap();
@@ -61,12 +67,9 @@ class ImportProcessor
         // Process the workflow
         $c = $workflow->process();
 
-//        $ex = array();
-//
-//        foreach($c->getExceptions() as $x => $e)
-//            $ex[$x] = $e->getMessage();
-//
-//        die($csvReader->count()." Source Rows<br>".$c->getTotalProcessedCount()." Rows Processed<br>".$c->getSuccessCount()." Successfully Processed <pre>".print_r($ex,true)."</pre>");
-        return $c;
+        $result = new Result($c->getName(), $c->getStartTime(), $c->getEndTime(), $c->getTotalProcessedCount(), $c->getExceptions());
+        $result->setResults($doctrineWriter->getResults());
+
+        return $result;
     }
 }

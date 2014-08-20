@@ -2,7 +2,7 @@
 
 namespace NS\ImportBundle\Converter;
 
-use Ddeboer\DataImport\ItemConverter\MappingItemConverter;
+use \Ddeboer\DataImport\ItemConverter\MappingItemConverter;
 
 /**
  * Description of UnsetMappingItemConverter

@@ -51,7 +51,7 @@ class CaseType extends AbstractType
             ->add('vaccinationType',            'RotavirusVaccinationType',     array('required'=>$required, 'label'=>'rotavirus-form.vaccinationType',
                                                                                         'attr' => array(
                                                                                                         'data-context-parent'=>'vaccineReceived',
-                                                                                                        'data-context-value'=>json_encode(array(ThreeVaccinationReceived::YES_CARD,RotavirusVaccinationReceived::YES_HISTORY)))))
+                                                                                                        'data-context-value'=>json_encode(array(RotavirusVaccinationReceived::YES_CARD,RotavirusVaccinationReceived::YES_HISTORY)))))
             ->add('doses',                      'ThreeDoses',   array('required'=>$required, 'label'=>'rotavirus-form.doses',
                                                                                         'attr' => array(
                                                                                                         'data-context-parent'=>'vaccineReceived',
