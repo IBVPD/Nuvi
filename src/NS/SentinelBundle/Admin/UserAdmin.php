@@ -45,7 +45,6 @@ class UserAdmin extends Admin
             ->add('isAdmin')
             ->add('canCreateCases')
             ->add('canCreateLabs')
-            ->add('canImport')
         ;
     }
 
@@ -60,7 +59,6 @@ class UserAdmin extends Admin
             ->add('isAdmin')
             ->add('canCreateCases')
             ->add('canCreateLabs')
-            ->add('canImport')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -93,7 +91,6 @@ class UserAdmin extends Admin
                 ->add('isAdmin',null,array('required'=>false))
                 ->add('canCreateCases',null,array('required'=>false,'label'=>'admin.form-can-create-case-record'))
                 ->add('canCreateLabs',null,array('required'=>false,'label'=>'admin.form-can-create-sitelab-record'))
-                ->add('canImport',null,array('required'=>false,'label'=>'admin.form-can-import-records'))
                 ->add('acls', 'sonata_type_collection', array('by_reference'=>true),array('edit'=>'inline','inline'=>'table'))
             ;
     }
@@ -106,6 +103,9 @@ class UserAdmin extends Admin
         $showMapper
             ->add('name')
             ->add('email')
+            ->add('isAdmin')
+            ->add('canCreateCases')
+            ->add('canCreateLabs')
         ;
     }
 

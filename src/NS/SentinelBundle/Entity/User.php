@@ -96,12 +96,6 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
     private $canCreateLabs = false;
 
     /**
-     * @var boolean $canImport
-     * @ORM\Column(name="canImport",type="boolean",nullable=true)
-     */
-    private $canImport;
-
-    /**
      * @var boolean
      *
      * @ORM\Column(name="isActive", type="boolean")
@@ -294,7 +288,22 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
     public function isOnlyImport()
     {
         $roles = $this->getRoles();
-        return (count($roles) == 1 && in_array('ROLE_IMPORT', $roles));
+        foreach($roles as $role)
+        {
+            switch($role)
+            {
+                case 'ROLE_REGION_IMPORT':
+                case 'ROLE_COUNTRY_IMPORT':
+                case 'ROLE_SITE_IMPORT':
+                case 'ROLE_CAN_CREATE_CASE':
+                case 'ROLE_CAN_CREATE_LAB':
+                    break;
+                default:
+                    return false;
+            }
+        }
+
+        return true;
     }
 
     public function adjustRoles(array $roles)
@@ -324,9 +333,6 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
 
         if($this->canCreateLabs)
             $roles[] = 'ROLE_CAN_CREATE_LAB';
-
-        if($this->canImport)
-            $roles[] = 'ROLE_IMPORT';
 
         return array_unique($roles);
     }
@@ -478,17 +484,6 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
     public function getCanCreateLabs()
     {
         return $this->canCreateLabs;
-    }
-
-    public function getCanImport()
-    {
-        return $this->canImport;
-    }
-
-    public function setCanImport($canImport)
-    {
-        $this->canImport = $canImport;
-        return $this;
     }
 
     public function setCanCreateCases($canCreateCases)

@@ -15,9 +15,9 @@ use NS\SentinelBundle\Form\Types\TripleChoice;
  * @ORM\Table(name="countries",uniqueConstraints={@ORM\UniqueConstraint(name="code_idx", columns={"code"})})
  * @ORM\Entity(repositoryClass="\NS\SentinelBundle\Repository\Country")
  * @Secured(conditions={
- *      @SecuredCondition(roles={"ROLE_REGION"},relation="region",class="NSSentinelBundle:Region"),
- *      @SecuredCondition(roles={"ROLE_COUNTRY"},field="id"),
- *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},relation="sites",class="NSSentinelBundle:Site"),
+ *      @SecuredCondition(roles={"ROLE_REGION","ROLE_REGION_API","ROLE_REGION_IMPORT"},relation="region",class="NSSentinelBundle:Region"),
+ *      @SecuredCondition(roles={"ROLE_COUNTRY","ROLE_COUNTRY_API","ROLE_COUNTRY_IMPORT"},field="id"),
+ *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB","ROLE_SITE_API","ROLE_SITE_IMPORT"},relation="sites",class="NSSentinelBundle:Site"),
  *      })
  */
 class Country implements \Serializable

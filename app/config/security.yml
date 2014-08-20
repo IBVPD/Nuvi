@@ -15,6 +15,9 @@ security:
         ROLE_COUNTRY_API: ROLE_API
         ROLE_SITE_API:    ROLE_API
         ROLE_IMPORT:      ROLE_USER
+        ROLE_REGION_IMPORT:  ROLE_IMPORT
+        ROLE_COUNTRY_IMPORT: ROLE_IMPORT
+        ROLE_SITE_IMPORT:    ROLE_IMPORT
 
     providers:
         users:

@@ -29,9 +29,9 @@ use JMS\Serializer\Annotation\AccessType;
  * @ORM\Table(name="rotavirus_cases",uniqueConstraints={@ORM\UniqueConstraint(name="rotavirus_site_case_id_idx",columns={"site_id","caseId"})})
  * @Gedmo\Loggable
  * @Secured(conditions={
- *      @SecuredCondition(roles={"ROLE_REGION","ROLE_REGION_API"},relation="region",class="NSSentinelBundle:Region"),
- *      @SecuredCondition(roles={"ROLE_COUNTRY","ROLE_COUNTRY_API"},relation="country",class="NSSentinelBundle:Country"),
- *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB","ROLE_SITE_API"},relation="site",class="NSSentinelBundle:Site"),
+ *      @SecuredCondition(roles={"ROLE_REGION","ROLE_REGION_API","ROLE_REGION_IMPORT"},relation="region",class="NSSentinelBundle:Region"),
+ *      @SecuredCondition(roles={"ROLE_COUNTRY","ROLE_COUNTRY_API","ROLE_COUNTRY_IMPORT"},relation="country",class="NSSentinelBundle:Country"),
+ *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB","ROLE_SITE_API","ROLE_SITE_IMPORT"},relation="site",class="NSSentinelBundle:Site"),
  *      })
  * @AccessType("public_method")
  */
