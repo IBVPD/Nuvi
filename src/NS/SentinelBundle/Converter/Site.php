@@ -13,23 +13,19 @@ use NS\SentinelBundle\Exceptions\NonExistentSite;
  */
 class Site implements NamedValueConverterInterface
 {
-    private $em;
-    private $repo;
+    private $sites;
 
     public function __construct(ObjectManager $em)
     {
-        $this->em   = $em;
-        $this->repo = $this->em->getRepository('NSSentinelBundle:Site');
+        $this->sites = $em->getRepository('NSSentinelBundle:Site')->getChain();
     }
 
     public function convert($input)
     {
-        $r = $this->repo->getChainByCode($input);
+        if(!isset($this->chain[$input]))
+            throw new NonExistentSite("Unable to find site chain for $input");
 
-        if($r && is_array($r) && count($r) == 1)
-            return array_pop($r);
-
-        throw new NonExistentSite("Unable to find site chain for $input");
+        return $this->sites[$input];
     }
 
     public function getName()
