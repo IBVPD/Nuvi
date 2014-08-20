@@ -9,13 +9,13 @@ use NS\UtilBundle\Entity\Types\ArrayChoice;
  *
  * @author gnat
  */
-class Doses extends ArrayChoice
+class FourDoses extends ArrayChoice
 {
-    protected $convert_class = '\NS\SentinelBundle\Form\Types\Doses';
+    protected $convert_class = '\NS\SentinelBundle\Form\Types\FourDoses';
 
     public function getName()
     {
-        return 'Doses';
+        return 'FourDoses';
     }
     
 }

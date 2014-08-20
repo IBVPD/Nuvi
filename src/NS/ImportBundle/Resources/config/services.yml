@@ -1,0 +1,66 @@
+parameters:
+#    ns_import.example.class: NS\ImportBundle\Example
+  ns_import.map.classes: { }
+
+services:
+#    ns_import.example:
+#        class: %ns_import.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+    ns_import.processor:
+        class: NS\ImportBundle\Services\ImportProcessor
+        arguments: [ @doctrine.orm.entity_manager, @service_container ]
+
+    ns_import.form.class:
+        class: NS\ImportBundle\Form\ClassType
+        arguments: [ %ns_import.map.classes% ]
+        tags:
+            - { name: form.type, alias: ClassType }
+
+    ns_import.converters:
+        class: NS\ImportBundle\Converter\Registry
+        tags:
+            - { name: form.type, alias: ConverterChoice }
+
+    ns_import.converter.date.who:
+        class: NS\ImportBundle\Converter\DateTimeValueConverter
+        arguments: [ "D M d H:i:s e Y" ]
+        tags:
+            - { name: ns_import.converter }
+
+    ns_import.converter.date.timestamp:
+        class: NS\ImportBundle\Converter\DateTimeValueConverter
+        arguments: [ "Y-m-d H:i:s" ]
+        tags:
+            - { name: ns_import.converter }
+
+    ns_import.converter.date.year_month_day:
+        class: NS\ImportBundle\Converter\DateTimeValueConverter
+        arguments: [ "Y/m/d" ]
+        tags:
+            - { name: ns_import.converter }
+
+    ns_import.converter.date.month_day_year:
+        class: NS\ImportBundle\Converter\DateTimeValueConverter
+        arguments: [ "m/d/Y" ]
+        tags:
+            - { name: ns_import.converter }
+
+    ns_import.form.import_map_select:
+        class: NS\ImportBundle\Form\ImportSelectType
+        arguments: [ @doctrine.orm.entity_manager ]
+        tags:
+            - { name: form.type, alias: ImportSelect }
+
+    ns_import.admin.map:
+        class: NS\ImportBundle\Admin\MapAdmin
+        arguments: [~, NS\ImportBundle\Entity\Map, SonataAdminBundle:CRUD]
+        calls: 
+            - [ setConverterRegistry, [ @ns_import.converters ]]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Import/Export, label: Map }
+
+    ns_import.admin.column:
+        class: NS\ImportBundle\Admin\ColumnAdmin
+        arguments: [~, NS\ImportBundle\Entity\Column, SonataAdminBundle:CRUD]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: Import/Export, label: Column, show_in_dashboard: false }

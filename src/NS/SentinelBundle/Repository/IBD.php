@@ -22,21 +22,15 @@ class IBD extends Common
     public function getStats(DateTime $start = null, DateTime $end = null)
     {
         $results = array();
-        $qb      = $this->_em
-                   ->createQueryBuilder()
+        $qb      = $this->createQueryBuilder('m')
                    ->select('COUNT(m.id) theCount')
-                   ->from($this->getClassName(),'m')
-                   ->innerJoin('m.lab', 'sl')
                    ->where('m.cxrDone = :cxr')
                    ->setParameter('cxr', TripleChoice::YES);
 
         $results['cxr'] = $this->secure($qb)->getQuery()->getSingleScalarResult();
 
-        $qb      = $this->_em
-                   ->createQueryBuilder()
+        $qb      = $this->createQueryBuilder('m')
                    ->select('m.csfCollected, COUNT(m.csfCollected) theCount')
-                   ->from($this->getClassName(),'m')
-//                   ->innerJoin('m.lab', 'sl')
                    ->groupBy('m.csfCollected');
         
         $res     = $this->secure($qb)->getQuery()->getResult();
@@ -55,10 +49,7 @@ class IBD extends Common
     public function getForAutoComplete($fields, array $value, $limit)
     {
         $alias = 'd';
-        $qb    = $this->_em->createQueryBuilder()
-                              ->select($alias)
-                              ->from($this->getClassName(), $alias)
-                              ->setMaxResults($limit);
+        $qb    = $this->createQueryBuilder($alias)->setMaxResults($limit);
 
         if(!empty($value) && $value['value'][0]=='*') {
             return $qb->getQuery();
@@ -85,23 +76,20 @@ class IBD extends Common
         return $qb->getQuery();        
     }
 
-    public function getLatestQuery()
+    public function getLatestQuery($alias = 'm')
     {
-        $qb = $this->createQueryBuilder('m')
-                   ->select('m,l')
-                   ->leftJoin('m.lab', 'l')
-                   ->orderBy('m.id','DESC');
+        $qb = $this->createQueryBuilder($alias)
+                   ->orderBy($alias.'.id','DESC');
+
         return $this->secure($qb);
     }
 
     public function getLatest($limit = 10)
     {
-        $qb = $this->createQueryBuilder('m')
-                   ->select('m,l')
-                   ->leftJoin('m.lab', 'l')
-                   ->orderBy('m.id','DESC')
-                   ->setMaxResults($limit);
-        return $this->secure($qb)->getQuery()->getResult();
+        return $this->getLatestQuery()
+                    ->setMaxResults($limit)
+                    ->getQuery()
+                    ->getResult();
     }
     
     public function getByCountry()
@@ -136,11 +124,10 @@ class IBD extends Common
     public function get($id)
     {
         $qb = $this->createQueryBuilder('m')
-                   ->select('m,s,c,r,l')
+                   ->select('m,s,c,r')
                    ->innerJoin('m.site', 's')
                    ->innerJoin('s.country', 'c')
                    ->innerJoin('m.region', 'r')
-                   ->leftJoin('m.lab','l')
                    ->where('m.id = :id')->setParameter('id',$id);
         try
         {
@@ -155,7 +142,8 @@ class IBD extends Common
     public function search($id)
     {
         $qb = $this->createQueryBuilder('m')
-                   ->where('m.id LIKE :id')->setParameter('id',"%$id%");
+                   ->where('m.id LIKE :id')
+                   ->setParameter('id',"%$id%");
 
         return $this->secure($qb)->getQuery()->getResult();
     }
@@ -184,11 +172,10 @@ class IBD extends Common
         try
         {
             $qb = $this->createQueryBuilder('m')
-                       ->addSelect('r,c,s,l')
+                       ->addSelect('r,c,s')
                        ->leftJoin('m.region', 'r')
                        ->leftJoin('m.country', 'c')
                        ->leftJoin('m.site', 's')
-                       ->leftJoin('m.lab','l')
                        ->andWhere('m.id = :id')
                        ->setParameter('id', $id);
 
@@ -198,7 +185,7 @@ class IBD extends Common
         }
         catch(NoResultException $e)
         {
-            throw new NonExistentCase("This case does not exist!");
+            return null; //throw new NonExistentCase("This case does not exist!");
         }
     }
 
@@ -208,11 +195,10 @@ class IBD extends Common
             throw new InvalidArgumentException("Id or Case must be provided");
 
         $qb = $this->createQueryBuilder('m')
-                   ->select('m,s,c,r,l')
+                   ->select('m,s,c,r')
                    ->innerJoin('m.site', 's')
                    ->innerJoin('s.country', 'c')
                    ->innerJoin('m.region', 'r')
-                   ->leftJoin('m.lab','l')
                    ->where('m.caseId = :caseId')
                    ->setParameter('caseId', $caseId);
 
@@ -234,22 +220,12 @@ class IBD extends Common
 
     public function getFilterQueryBuilder($alias = 'm')
     {
-        return $this->secure($this->_em
-                    ->createQueryBuilder()
-                    ->select("$alias,l")
-                    ->from($this->getClassName(),$alias)
-                    ->leftJoin("$alias.lab",'l')
-                    ->orderBy('m.id','DESC'))
-                    ;
+        return $this->getLatestQuery($alias);
     }
 
     public function findModified($modifiedSince = null)
     {
-        $qb = $this->createQueryBuilder('m')
-                    ->select('m,l')
-                    ->leftJoin("m.lab",'l')
-                    ->orderBy('m.id','DESC')
-                ;
+        $qb = $this->getLatestQuery('m');
 
         if($modifiedSince)
             $qb->where('m.updatedAt >= :updatedAt')->setParameter ('updatedAt', $modifiedSince);

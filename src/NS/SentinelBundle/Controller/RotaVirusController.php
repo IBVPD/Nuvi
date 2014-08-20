@@ -145,18 +145,17 @@ class RotaVirusController extends Controller
     {
         try 
         {
+            $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:RotaVirus')->find($id): null;
+
             switch($type)
             {
                 case 'rotavirus':
-                    $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:RotaVirus')->find($id): null;
                     $form   = $this->createForm('rotavirus',$record);
                     break;
                 case 'outcome':
-                    $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:RotaVirus')->find($id): null;
                     $form   = $this->createForm('rotavirus_outcome',$record);
                     break;
                 case 'lab':
-                    $record = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:Rota\Lab')->findOrCreateNew($id);
                     $form   = $this->createForm('rotavirus_lab',$record);
                     break;
                 default:

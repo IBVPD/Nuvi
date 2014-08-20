@@ -2,33 +2,29 @@
 
 namespace NS\SentinelBundle\Form\Types;
 
-use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
 /**
- * Description of TripleChoice
+ * Description of ThreeDoses
  *
- * @author gnat
  */
-class Doses extends TranslatableArrayChoice implements TranslationContainerInterface
+class ThreeDoses extends TranslatableArrayChoice implements TranslationContainerInterface
 {
     const ONE     = 1;
     const TWO     = 2;
     const THREE   = 3;
-    const FOUR    = 4;
     const UNKNOWN = 99;
 
     protected $values = array(
                             self::ONE     => "1 dose",
                             self::TWO     => "2 doses",
-                            self::THREE   => "3 doses",
-                            self::FOUR    => "≥ 4 doses",
+                            self::THREE   => "≥ 3 doses",
                             self::UNKNOWN => 'Unknown',
-                            );
-    
+                             );
+
     public function getName()
     {
-        return 'Doses';
+        return 'ThreeDoses';
     }
-
 }

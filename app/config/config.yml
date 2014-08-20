@@ -60,7 +60,7 @@ doctrine:
         # path:     %database_path%
         types:
             TripleChoice: NS\SentinelBundle\Entity\Types\TripleChoice
-            Doses: NS\SentinelBundle\Entity\Types\Doses
+            FourDoses: NS\SentinelBundle\Entity\Types\FourDoses
             Diagnosis: NS\SentinelBundle\Entity\Types\Diagnosis
             CXRResult: NS\SentinelBundle\Entity\Types\CXRResult
             DischargeClassification: NS\SentinelBundle\Entity\Types\DischargeClassification
@@ -73,7 +73,6 @@ doctrine:
             GramStain: NS\SentinelBundle\Entity\Types\GramStain
             GramStainOrganism: NS\SentinelBundle\Entity\Types\GramStainOrganism
             IsolateType: NS\SentinelBundle\Entity\Types\IsolateType
-            SampleType: NS\SentinelBundle\Entity\Types\SampleType
             Volume: NS\SentinelBundle\Entity\Types\Volume
             SerotypeIdentifier: NS\SentinelBundle\Entity\Types\SerotypeIdentifier
             PathogenIdentifier: NS\SentinelBundle\Entity\Types\PathogenIdentifier
@@ -89,13 +88,12 @@ doctrine:
             DischargeOutcome: NS\SentinelBundle\Entity\Types\DischargeOutcome
             CaseStatus: NS\SentinelBundle\Entity\Types\CaseStatus
             IBDCreateRoles: NS\SentinelBundle\Entity\Types\IBDCreateRoles
-            EIAResult: NS\SentinelBundle\Entity\Types\EIAResult
             GenotypeResultG: NS\SentinelBundle\Entity\Types\GenotypeResultG
             GenotypeResultP: NS\SentinelBundle\Entity\Types\GenotypeResultP
             NmSerogroup: NS\SentinelBundle\Entity\Types\NmSerogroup
             HiSerotype: NS\SentinelBundle\Entity\Types\HiSerotype
             SpnSerotype: NS\SentinelBundle\Entity\Types\SpnSerotype
-            RotavirusDoses: NS\SentinelBundle\Entity\Types\RotavirusDoses
+            ThreeDoses: NS\SentinelBundle\Entity\Types\ThreeDoses
             DischargeDiagnosis: NS\SentinelBundle\Entity\Types\DischargeDiagnosis
             CXRAdditionalResult: NS\SentinelBundle\Entity\Types\CXRAdditionalResult
             PCVType: NS\SentinelBundle\Entity\Types\PCVType
@@ -106,7 +104,7 @@ doctrine:
             SurveillanceConducted: NS\SentinelBundle\Entity\Types\SurveillanceConducted
         mapping_types:
             TripleChoice: TripleChoice
-            Doses: Doses
+            FourDoses: FourDoses
             Diagnosis: Diagnosis
             CXRResult: CXRResult
             DischargeClassification: DischargeClassification
@@ -118,7 +116,6 @@ doctrine:
             PCRResult: PCRResult
             GramStain: GramStain
             IsolateType: IsolateType
-            SampleType: SampleType
             Volume: Volume
             SerotypeIdentifier: SerotypeIdentifier
             PathogenIdentifier: PathogenIdentifier
@@ -135,13 +132,12 @@ doctrine:
             DischargeOutcome: DischargeOutcome
             CaseStatus: CaseStatus
             IBDCreateRoles: IBDCreateRoles
-            EIAResult: EIAResult
             GenotypeResultG: GenotypeResultG
             GenotypeResultP: GenotypeResultP
             NmSerogroup: NmSerogroup
             HiSerotype: HiSerotype
             SpnSerotype: SpnSerotype
-            RotavirusDoses: RotavirusDoses
+            ThreeDoses: ThreeDoses
             DischargeDiagnosis: DischargeDiagnosis
             CXRAdditionalResult: CXRAdditionalResult
             PCVType: PCVType
@@ -284,6 +280,9 @@ nelmio_api_doc:
       delivery: header
       name: Authorization
     body_format: json
+
+ns_import:
+  classes: { NS\SentinelBundle\Entity\IBD: IBD, NS\SentinelBundle\Entity\Rotavirus: Rotavirus }
 
 services:
   ns.form.types.autocomplete:

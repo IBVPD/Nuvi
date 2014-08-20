@@ -83,11 +83,6 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $action = new CaseActions($sc,$trans,$router);
 
         $obj = new IBD();
-        $lab = new \NS\SentinelBundle\Entity\IBD\Lab();
-//        $lab->setSentToReferenceLab(true);
-//        $lab->setSentToNationalLab(true);
-        $obj->setLab($lab);
-
         $bigResults = $action->getBigActions($obj);
 
         $this->assertContains("Show IBD Case", $bigResults, "User who can't create can only see");
@@ -95,10 +90,6 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
 
         $obj = new RotaVirus();
-        $lab = new \NS\SentinelBundle\Entity\Rota\Lab();
-//        $lab->setSentToReferenceLab(true);
-//        $lab->setSentToNationalLab(true);
-        $obj->setLab($lab);
 
         $bigResults = $action->getBigActions($obj);
         $this->assertContains("Show Rota Case", $bigResults, "User who can't create can only see");
@@ -123,10 +114,6 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $action     = new CaseActions($sc,$trans,$router);
 
         $obj = new IBD();
-        $lab = new \NS\SentinelBundle\Entity\IBD\Lab();
-//        $lab->setSentToReferenceLab(true);
-//        $lab->setSentToNationalLab(true);
-        $obj->setLab($lab);
 
         $bigResults = $action->getBigActions($obj);
 
@@ -135,11 +122,6 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
 
         $obj = new RotaVirus();
-        $lab = new \NS\SentinelBundle\Entity\Rota\Lab();
-//        $lab->setSentToReferenceLab(true);
-//        $lab->setSentToNationalLab(true);
-        $obj->setLab($lab);
-
         $bigResults = $action->getBigActions($obj);
 
         $this->assertContains("Show Rota Case", $bigResults, "User who can't create can only see");
@@ -163,11 +145,6 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         $action     = new CaseActions($sc,$trans,$router);
         $obj        = new IBD();
-        $lab = new \NS\SentinelBundle\Entity\IBD\Lab();
-//        $lab->setSentToReferenceLab(true);
-//        $lab->setSentToNationalLab(true);
-        $obj->setLab($lab);
-        
         $bigResults = $action->getBigActions($obj);
 
         $this->assertContains("Show IBD Case", $bigResults, "User who can't create can only see");
@@ -175,10 +152,6 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $this->assertContains("Edit Lab", $bigResults, "Lab Link");
 
         $obj = new RotaVirus();
-        $lab = new \NS\SentinelBundle\Entity\Rota\Lab();
-//        $lab->setSentToReferenceLab(true);
-//        $lab->setSentToNationalLab(true);
-        $obj->setLab($lab);
         $bigResults = $action->getBigActions($obj);
 
         $this->assertContains("Show Rota Case", $bigResults, "User who can't create can only see");
@@ -205,7 +178,6 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
 
         $obj        = new RotaVirus();
-
         $bigResults = $action->getSmallActions($obj);
 
         $this->assertContains("Show Rota Case", $bigResults, "User who can't create can only see");
@@ -258,10 +230,6 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         $action     = new CaseActions($sc,$trans,$router);
         $obj        = new IBD();
-        $lab = new \NS\SentinelBundle\Entity\IBD\Lab();
-//        $lab->setSentToReferenceLab(true);
-//        $lab->setSentToNationalLab(true);
-        $obj->setLab($lab);
 
         $bigResults = $action->getSmallActions($obj);
 
@@ -270,10 +238,6 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
 
         $obj        = new RotaVirus();
-        $lab = new \NS\SentinelBundle\Entity\Rota\Lab();
-//        $lab->setSentToReferenceLab(true);
-//        $lab->setSentToNationalLab(true);
-        $obj->setLab($lab);
 
         $bigResults = $action->getSmallActions($obj);
         $this->assertContains("Show Rota Case", $bigResults, "User who can't create can only see");
@@ -297,11 +261,6 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         $action     = new CaseActions($sc,$trans,$router);
         $obj        = new IBD();
-        $lab = new \NS\SentinelBundle\Entity\IBD\Lab();
-//        $lab->setSentToReferenceLab(true);
-//        $lab->setSentToNationalLab(true);
-        $obj->setLab($lab);
-
         $bigResults = $action->getSmallActions($obj);
 
         $this->assertContains("Show IBD Case", $bigResults, "User who can't create can only see");
@@ -309,11 +268,6 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
 
         $obj = new RotaVirus();
-        $lab = new \NS\SentinelBundle\Entity\Rota\Lab();
-//        $lab->setSentToReferenceLab(true);
-//        $lab->setSentToNationalLab(true);
-        $obj->setLab($lab);
-
         $bigResults = $action->getSmallActions($obj);
 
         $this->assertContains("Show Rota Case", $bigResults, "User who can't create can only see");
@@ -337,11 +291,6 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         $action     = new CaseActions($sc,$trans,$router);
         $obj        = new IBD();
-        $lab = new \NS\SentinelBundle\Entity\IBD\Lab();
-//        $lab->setSentToReferenceLab(true);
-//        $lab->setSentToNationalLab(true);
-        $obj->setLab($lab);
-
         $bigResults = $action->getSmallActions($obj);
 
         $this->assertContains("Show IBD Case", $bigResults, "User who can't create can only see");
@@ -349,11 +298,6 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $this->assertContains("Edit Lab", $bigResults, "Lab Link");
 
         $obj = new RotaVirus();
-        $lab = new \NS\SentinelBundle\Entity\Rota\Lab();
-//        $lab->setSentToReferenceLab(true);
-//        $lab->setSentToNationalLab(true);
-        $obj->setLab($lab);
-
         $bigResults = $action->getSmallActions($obj);
 
         $this->assertContains("Show Rota Case", $bigResults, "User who can't create can only see");

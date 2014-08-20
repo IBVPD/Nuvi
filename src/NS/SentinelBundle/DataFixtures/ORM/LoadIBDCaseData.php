@@ -8,7 +8,6 @@ use \Doctrine\Common\DataFixtures\AbstractFixture;
 use \Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use \Symfony\Component\DependencyInjection\ContainerInterface;
 use \NS\SentinelBundle\Entity\IBD;
-use NS\SentinelBundle\Entity\IBD\Lab;
 use \NS\SentinelBundle\Form\Types\Gender;
 use \NS\SentinelBundle\Form\Types\Diagnosis;
 use \NS\SentinelBundle\Entity\Site;
@@ -51,14 +50,6 @@ class LoadIBDCaseData extends AbstractFixture implements OrderedFixtureInterface
                 $m->setDob($dob);
                 $m->setAdmDate($this->getRandomDate(null,$dob));
                 $m->setCsfCollected((($x % 3) == 0));
-                if($x%12 == 0)
-                {
-                    $sl = new Lab();
-    //                $sl->setCxrDone($done);
-                    $m->setLab($sl);
-
-                    $manager->persist($sl);
-                }
 
                 $m->setGender(($x%4)?$fmale:$male);
                 $dxKey = array_rand($dx);

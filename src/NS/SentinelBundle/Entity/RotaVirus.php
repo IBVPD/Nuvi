@@ -10,7 +10,10 @@ use NS\SentinelBundle\Form\Types\RotavirusVaccinationReceived;
 use NS\SentinelBundle\Form\Types\RotavirusVaccinationType;
 use NS\SentinelBundle\Form\Types\Dehydration;
 use NS\SentinelBundle\Form\Types\Rehydration;
-use NS\SentinelBundle\Form\Types\Doses;
+use NS\SentinelBundle\Form\Types\ElisaResult;
+use NS\SentinelBundle\Form\Types\ElisaKit;
+use NS\SentinelBundle\Form\Types\GenotypeResultG;
+use NS\SentinelBundle\Form\Types\GenotypeResultP;
 
 use Gedmo\Mapping\Annotation as Gedmo;
 use NS\SecurityBundle\Annotation\Secured;
@@ -34,14 +37,6 @@ use JMS\Serializer\Annotation\AccessType;
  */
 class RotaVirus extends BaseCase
 {
-//i. Sentinel Site Information
-    /**
-     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\Rota\Lab", mappedBy="case")
-     * @Groups({"api"})
-     */
-    protected $lab;
-    protected $labClass = '\NS\SentinelBundle\Entity\Rota\Lab';
-
 //ii. Case-based Demographic Data
 
     /**
@@ -169,8 +164,8 @@ class RotaVirus extends BaseCase
 
     /**
      * RV_doses
-     * @var RotavirusDoses $doses
-     * @ORM\Column(name="doses",type="RotavirusDoses",nullable=true)
+     * @var ThreeDoses $doses
+     * @ORM\Column(name="doses",type="ThreeDoses",nullable=true)
      * @Groups({"api"})
      */
     private $doses;
@@ -223,7 +218,235 @@ class RotaVirus extends BaseCase
      * @Groups({"api"})
      */
     private $stoolCollectionDate;
+// LAB DATA
 
+    //------------------------------
+    // Site Lab Specific
+    /**
+     * @var \DateTime $siteReceivedDate
+     * @ORM\Column(name="siteReceivedDate",type="date",nullable=true)
+     * @Groups({"api"})
+     */
+    private $siteReceivedDate;
+
+    /**
+     * @var string $siteLabId
+     * @ORM\Column(name="siteLabId",type="string",nullable=true)
+     * @Groups({"api"})
+     */
+    private $siteLabId;
+
+    //------------------------------
+    // National Lab Specific
+    /**
+     * @var TripleChoice $sentToNL
+     * @ORM\Column(name="sentToNL",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
+     */
+    private $sentToNL;
+
+    /**
+     * @var \DateTime $sentToNLDate
+     * @ORM\Column(name="sentToNLDate",type="date",nullable=true)
+     * @Groups({"api"})
+     */
+    private $sentToNLDate;
+
+    /**
+     * @var \DateTime $nlReceivedDate
+     * @ORM\Column(name="nlReceivedDate",type="date",nullable=true)
+     * @Groups({"api"})
+     */
+    private $nlReceivedDate;
+
+    /**
+     * @var string $nlLabId
+     * @ORM\Column(name="nlLabId",type="string",nullable=true)
+     * @Groups({"api"})
+     */
+    private $nlLabId;
+
+    //------------------------------
+    // Regional Reference Lab Specific
+    /**
+     * @var TripleChoice $sentToRRL
+     * @ORM\Column(name="sentToRRL",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
+     */
+    private $sentToRRL;
+
+    /**
+     * @var \DateTime $sentToRRLDate
+     * @ORM\Column(name="sentToRRLDate",type="date",nullable=true)
+     * @Groups({"api"})
+     */
+    private $sentToRRLDate;
+
+    /**
+     * @var \DateTime $rrlReceivedDate
+     * @ORM\Column(name="rrlReceivedDate",type="date",nullable=true)
+     * @Groups({"api"})
+     */
+    private $rrlReceivedDate;
+
+    /**
+     * @var string $rrlLabId
+     * @ORM\Column(name="rrlLabId",type="string",nullable=true)
+     * @Groups({"api"})
+     */
+    private $rrlLabId;
+
+    //---------------------------------
+    // Global Variables
+    /**
+     * stool_adequate
+     * @var TripleChoice $adequate
+     * @ORM\Column(name="adequate",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
+     */
+    private $adequate;
+
+    /**
+     * @var TripleChoice $stored
+     * @ORM\Column(name="stored",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
+     */
+    private $stored;
+
+    /**
+     * @var TripleChoice $elisaDone
+     * @ORM\Column(name="elisaDone",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
+     */
+    private $elisaDone;
+
+    /**
+     * @var ElisaKit $elisaKit
+     * @ORM\Column(name="elisaKit",type="ElisaKit",nullable=true)
+     * @Groups({"api"})
+     */
+    private $elisaKit;
+
+    /**
+     * @var string $elisaKitOther
+     * @ORM\Column(name="elisaKitOther",type="string",nullable=true)
+     * @Groups({"api"})
+     */
+    private $elisaKitOther;
+
+    /**
+     * @var string $elisaLoadNumber
+     * @ORM\Column(name="elisaLoadNumber",type="string",nullable=true)
+     * @Groups({"api"})
+     */
+    private $elisaLoadNumber;
+
+    /**
+     * @var \DateTime $elisaExpiryDate
+     * @ORM\Column(name="elisaExpiryDate",type="date",nullable=true)
+     * @Groups({"api"})
+     */
+    private $elisaExpiryDate;
+
+    /**
+     * @var \DateTime $testDate
+     * @ORM\Column(name="elisaTestDate",type="date",nullable=true)
+     * @Groups({"api"})
+     */
+    private $elisaTestDate;
+
+    /**
+     * @var ElisaResult $elisaResult
+     * @ORM\Column(name="elisaResult",type="ElisaResult",nullable=true)
+     * @Groups({"api"})
+     */
+    private $elisaResult;
+
+    /**
+     * @var TripleChoice $secondaryElisaDone
+     * @ORM\Column(name="secondaryElisaDone",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
+     */
+    private $secondaryElisaDone;
+
+    /**
+     * @var ElisaKit $secondaryElisaKit
+     * @ORM\Column(name="secondaryElisaKit",type="ElisaKit",nullable=true)
+     * @Groups({"api"})
+     */
+    private $secondaryElisaKit;
+
+    /**
+     * @var string $secondaryElisaKitOther
+     * @ORM\Column(name="secondaryElisaKitOther",type="string",nullable=true)
+     * @Groups({"api"})
+     */
+    private $secondaryElisaKitOther;
+
+    /**
+     * @var string $secondaryElisaLoadNumber
+     * @ORM\Column(name="secondaryElisaLoadNumber",type="string",nullable=true)
+     * @Groups({"api"})
+     */
+    private $secondaryElisaLoadNumber;
+
+    /**
+     * @var \DateTime $secondaryElisaExpiryDate
+     * @ORM\Column(name="secondaryElisaExpiryDate",type="date",nullable=true)
+     * @Groups({"api"})
+     */
+    private $secondaryElisaExpiryDate;
+
+    /**
+     * @var \DateTime $testDate
+     * @ORM\Column(name="secondaryElisaTestDate",type="date",nullable=true)
+     * @Groups({"api"})
+     */
+    private $secondaryElisaTestDate;
+
+    /**
+     * @var ElisaResult $secondaryElisaResult
+     * @ORM\Column(name="secondaryElisaResult",type="ElisaResult",nullable=true)
+     * @Groups({"api"})
+     */
+    private $secondaryElisaResult;
+
+    /**
+     * @var \DateTime $genotypingDate
+     * @ORM\Column(name="genotypingDate",type="date", nullable=true)
+     * @Groups({"api"})
+     */
+    private $genotypingDate;
+
+    /**
+     * @var GenotypeResultG $genotypingResultg
+     * @ORM\Column(name="genotypingResultg",type="GenotypeResultG", nullable=true)
+     * @Groups({"api"})
+     */
+    private $genotypingResultg;
+
+    /**
+     * @var string $genotypingResultGSpecify
+     * @ORM\Column(name="genotypingResultGSpecify",type="string", nullable=true)
+     * @Groups({"api"})
+     */
+    private $genotypingResultGSpecify;
+
+    /**
+     * @var GenotypeResultP $genotypeResultP
+     * @ORM\Column(name="genotypeResultP",type="GenotypeResultP", nullable=true)
+     * @Groups({"api"})
+     */
+    private $genotypeResultP;
+
+    /**
+     * @var string $genotypeResultPSpecify
+     * @ORM\Column(name="genotypeResultPSpecify",type="string", nullable=true)
+     * @Groups({"api"})
+     */
+    private $genotypeResultPSpecify;
+
+// LAB DATA END
 //vii. Case-based Outcome Data
     /**
      * disch_outcome
@@ -393,6 +616,346 @@ class RotaVirus extends BaseCase
     public function getComment()
     {
         return $this->comment;
+    }
+    public function getSiteReceivedDate()
+    {
+        return $this->siteReceivedDate;
+    }
+
+    public function getSiteLabId()
+    {
+        return $this->siteLabId;
+    }
+
+    public function getSentToNL()
+    {
+        return $this->sentToNL;
+    }
+
+    public function getSentToNLDate()
+    {
+        return $this->sentToNLDate;
+    }
+
+    public function getNlReceivedDate()
+    {
+        return $this->nlReceivedDate;
+    }
+
+    public function getNlLabId()
+    {
+        return $this->nlLabId;
+    }
+
+    public function getSentToRRL()
+    {
+        return $this->sentToRRL;
+    }
+
+    public function getSentToRRLDate()
+    {
+        return $this->sentToRRLDate;
+    }
+
+    public function getRrlReceivedDate()
+    {
+        return $this->rrlReceivedDate;
+    }
+
+    public function getRrlLabId()
+    {
+        return $this->rrlLabId;
+    }
+
+    public function getAdequate()
+    {
+        return $this->adequate;
+    }
+
+    public function getStored()
+    {
+        return $this->stored;
+    }
+
+    public function getElisaDone()
+    {
+        return $this->elisaDone;
+    }
+
+    public function getElisaKit()
+    {
+        return $this->elisaKit;
+    }
+
+    public function getElisaKitOther()
+    {
+        return $this->elisaKitOther;
+    }
+
+    public function getElisaLoadNumber()
+    {
+        return $this->elisaLoadNumber;
+    }
+
+    public function getElisaExpiryDate()
+    {
+        return $this->elisaExpiryDate;
+    }
+
+    public function getElisaTestDate()
+    {
+        return $this->elisaTestDate;
+    }
+
+    public function getElisaResult()
+    {
+        return $this->elisaResult;
+    }
+
+    public function getSecondaryElisaDone()
+    {
+        return $this->secondaryElisaDone;
+    }
+
+    public function getSecondaryElisaKit()
+    {
+        return $this->secondaryElisaKit;
+    }
+
+    public function getSecondaryElisaKitOther()
+    {
+        return $this->secondaryElisaKitOther;
+    }
+
+    public function getSecondaryElisaLoadNumber()
+    {
+        return $this->secondaryElisaLoadNumber;
+    }
+
+    public function getSecondaryElisaExpiryDate()
+    {
+        return $this->secondaryElisaExpiryDate;
+    }
+
+    public function getSecondaryElisaTestDate()
+    {
+        return $this->secondaryElisaTestDate;
+    }
+
+    public function getSecondaryElisaResult()
+    {
+        return $this->secondaryElisaResult;
+    }
+
+    public function getGenotypingDate()
+    {
+        return $this->genotypingDate;
+    }
+
+    public function getGenotypingResultg()
+    {
+        return $this->genotypingResultg;
+    }
+
+    public function getGenotypingResultGSpecify()
+    {
+        return $this->genotypingResultGSpecify;
+    }
+
+    public function getGenotypeResultP()
+    {
+        return $this->genotypeResultP;
+    }
+
+    public function getGenotypeResultPSpecify()
+    {
+        return $this->genotypeResultPSpecify;
+    }
+
+    public function setSiteReceivedDate($siteReceivedDate)
+    {
+        $this->siteReceivedDate = $siteReceivedDate;
+        return $this;
+    }
+
+    public function setSiteLabId($siteLabId)
+    {
+        $this->siteLabId = $siteLabId;
+        return $this;
+    }
+
+    public function setSentToNL(TripleChoice $sentToNL)
+    {
+        $this->sentToNL = $sentToNL;
+        return $this;
+    }
+
+    public function setSentToNLDate($sentToNLDate)
+    {
+        $this->sentToNLDate = $sentToNLDate;
+        return $this;
+    }
+
+    public function setNlReceivedDate($nlReceivedDate)
+    {
+        $this->nlReceivedDate = $nlReceivedDate;
+        return $this;
+    }
+
+    public function setNlLabId($nlLabId)
+    {
+        $this->nlLabId = $nlLabId;
+        return $this;
+    }
+
+    public function setSentToRRL(TripleChoice $sentToRRL)
+    {
+        $this->sentToRRL = $sentToRRL;
+        return $this;
+    }
+
+    public function setSentToRRLDate($sentToRRLDate)
+    {
+        $this->sentToRRLDate = $sentToRRLDate;
+        return $this;
+    }
+
+    public function setRrlReceivedDate($rrlReceivedDate)
+    {
+        $this->rrlReceivedDate = $rrlReceivedDate;
+        return $this;
+    }
+
+    public function setRrlLabId($rrlLabId)
+    {
+        $this->rrlLabId = $rrlLabId;
+        return $this;
+    }
+
+    public function setAdequate(TripleChoice $adequate)
+    {
+        $this->adequate = $adequate;
+        return $this;
+    }
+
+    public function setStored(TripleChoice $stored)
+    {
+        $this->stored = $stored;
+        return $this;
+    }
+
+    public function setElisaDone(TripleChoice $elisaDone)
+    {
+        $this->elisaDone = $elisaDone;
+        return $this;
+    }
+
+    public function setElisaKit(ElisaKit $elisaKit)
+    {
+        $this->elisaKit = $elisaKit;
+        return $this;
+    }
+
+    public function setElisaKitOther($elisaKitOther)
+    {
+        $this->elisaKitOther = $elisaKitOther;
+        return $this;
+    }
+
+    public function setElisaLoadNumber($elisaLoadNumber)
+    {
+        $this->elisaLoadNumber = $elisaLoadNumber;
+        return $this;
+    }
+
+    public function setElisaExpiryDate($elisaExpiryDate)
+    {
+        $this->elisaExpiryDate = $elisaExpiryDate;
+        return $this;
+    }
+
+    public function setElisaTestDate($elisaTestDate)
+    {
+        $this->elisaTestDate = $elisaTestDate;
+        return $this;
+    }
+
+    public function setElisaResult(ElisaResult $elisaResult)
+    {
+        $this->elisaResult = $elisaResult;
+        return $this;
+    }
+
+    public function setSecondaryElisaDone(TripleChoice $secondaryElisaDone)
+    {
+        $this->secondaryElisaDone = $secondaryElisaDone;
+        return $this;
+    }
+
+    public function setSecondaryElisaKit(ElisaKit $secondaryElisaKit)
+    {
+        $this->secondaryElisaKit = $secondaryElisaKit;
+        return $this;
+    }
+
+    public function setSecondaryElisaKitOther($secondaryElisaKitOther)
+    {
+        $this->secondaryElisaKitOther = $secondaryElisaKitOther;
+        return $this;
+    }
+
+    public function setSecondaryElisaLoadNumber($secondaryElisaLoadNumber)
+    {
+        $this->secondaryElisaLoadNumber = $secondaryElisaLoadNumber;
+        return $this;
+    }
+
+    public function setSecondaryElisaExpiryDate($secondaryElisaExpiryDate)
+    {
+        $this->secondaryElisaExpiryDate = $secondaryElisaExpiryDate;
+        return $this;
+    }
+
+    public function setSecondaryElisaTestDate($secondaryElisaTestDate)
+    {
+        $this->secondaryElisaTestDate = $secondaryElisaTestDate;
+        return $this;
+    }
+
+    public function setSecondaryElisaResult(ElisaResult $secondaryElisaResult)
+    {
+        $this->secondaryElisaResult = $secondaryElisaResult;
+        return $this;
+    }
+
+    public function setGenotypingDate($genotypingDate)
+    {
+        $this->genotypingDate = $genotypingDate;
+        return $this;
+    }
+
+    public function setGenotypingResultg(GenotypeResultG $genotypingResultg)
+    {
+        $this->genotypingResultg = $genotypingResultg;
+        return $this;
+    }
+
+    public function setGenotypingResultGSpecify($genotypingResultGSpecify)
+    {
+        $this->genotypingResultGSpecify = $genotypingResultGSpecify;
+        return $this;
+    }
+
+    public function setGenotypeResultP(GenotypeResultP $genotypeResultP)
+    {
+        $this->genotypeResultP = $genotypeResultP;
+        return $this;
+    }
+
+    public function setGenotypeResultPSpecify($genotypeResultPSpecify)
+    {
+        $this->genotypeResultPSpecify = $genotypeResultPSpecify;
+        return $this;
     }
 
     public function setCode($code)
@@ -575,5 +1138,10 @@ class RotaVirus extends BaseCase
     public function getMinimumRequiredFields()
     {
         return array();
+    }
+
+    public function hasLab()
+    {
+        return ($this->siteLabId || $this->siteReceivedDate);
     }
 }

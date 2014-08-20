@@ -103,10 +103,6 @@ abstract class BaseCase implements IdentityAssignmentInterface
      */
     protected $admDate;
 
-//     * @ORM\OneToMany(targetEntity="BaseLab", mappedBy="case")
-    protected $lab;
-    protected $labClass = null;
- 
     /**
      * @var Region $region
      * @ORM\ManyToOne(targetEntity="NS\SentinelBundle\Entity\Region")
@@ -154,9 +150,6 @@ abstract class BaseCase implements IdentityAssignmentInterface
 
     public function __construct()
     {
-        if(!is_string($this->labClass) || empty($this->labClass))
-            throw new \InvalidArgumentException("The lab class is not set");
-
         $this->status    = new CaseStatus(CaseStatus::OPEN);
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
@@ -261,43 +254,6 @@ abstract class BaseCase implements IdentityAssignmentInterface
         return $this->site;
     }
 
-    public function getLab()
-    {
-        return $this->lab;
-    }
-
-    public function hasLab()
-    {
-        if($this->labClass == null)
-            throw new \RuntimeException("Lab Class is null");
-
-        return ($this->lab instanceof $this->labClass);
-    }
-
-    public function setLab($lab)
-    {
-        if($this->labClass == null)
-            throw new \RuntimeException("Lab Class is null");
-
-        if(!$lab instanceof $this->labClass)
-            throw new \InvalidArgumentException(sprintf("Expecting lab of type %s got %s",$this->labClass,get_class($lab)));
-
-        $lab->setCase($this);
-        $this->lab = $lab;
-        return $this;
-    }
-
-    public function getLabClass()
-    {
-        return $this->labClass;
-    }
-
-    public function setLabClass($labClass)
-    {
-        $this->labClass = $labClass;
-        return $this;
-    }
-
     public function getStatus()
     {
         return $this->status;
@@ -334,9 +290,9 @@ abstract class BaseCase implements IdentityAssignmentInterface
             $interval = $this->dob->diff($this->admDate);
             $this->setAge(($interval->format('%a') / 30));
         }
-        else if($this->admDate && !$this->dob);
+        else if($this->admDate && !$this->dob)
         {
-            if(!$this->age && (!is_null($this->dobYears) || !is_null($this->dobMonths)))
+            if(!$this->age && !is_null($this->dobYears) && !is_null($this->dobMonths))
                 $this->setAge((int)(($this->dobYears*12)+$this->dobMonths));
 
             if($this->age)
@@ -388,7 +344,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
     abstract public function getIncompleteField();
     abstract public function getMinimumRequiredFields();
     abstract public function calculateResult();
-
+    abstract public function hasLab();
     /**
      * @ORM\PrePersist
      * @ORM\PreUpdate

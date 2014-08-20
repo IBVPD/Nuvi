@@ -4,7 +4,6 @@ namespace NS\SentinelBundle\Command;
 
 use DateTime;
 use NS\SentinelBundle\Entity\IBD;
-use NS\SentinelBundle\Entity\IBD\Lab;
 use NS\SentinelBundle\Entity\Site;
 use NS\SentinelBundle\Form\Types\CSFAppearance;
 use NS\SentinelBundle\Form\Types\Diagnosis;
@@ -84,14 +83,10 @@ class CreateIBDCasesCommand extends ContainerAwareCommand
 
             if($x%5 == 0)
             {
-                $site = new Lab($m);
-
-                $m->setLab($site);
-
                 if($m->getCsfCollected())
                 {
                     $r = rand(1,100);
-                    $site->setCsfWcc($r);
+                    $m->setCsfWcc($r);
 
                     if($r<50)
                     {
@@ -110,14 +105,11 @@ class CreateIBDCasesCommand extends ContainerAwareCommand
                     }
                     else if($r > 40)
                     {
-                        $site->setCsfWcc(40);
-                        $site->setCsfGlucose(30);
-                        $site->setCsfProtein(140);
+                        $m->setCsfWcc(40);
+                        $m->setCsfGlucose(30);
+                        $m->setCsfProtein(140);
                     }
-
                 }
-
-                $this->em->persist($site);
             }
 
             $this->em->persist($m);

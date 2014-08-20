@@ -1,0 +1,55 @@
+{%extends "::base.html.twig" %}
+
+{%block body %}
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="widget-box">
+                <div class="widget-header widget-header-small header-color-blue">
+                    <h5>{{'New Uploads'|trans}}</h5>
+                </div>
+                <div class="widget-body">
+                    <div class="widget-main">
+                        <form method="POST" action="{{path('importIndex')}}" {{form_enctype(form)}}>
+                            {{form_rest(form)}}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="widget-box no-border">
+                <div class="widget-header widget-header-small header-color-blue">
+                    <h5>{{'Recent Uploads'|trans}}</h5>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>{{'Date/Time'|trans}}</th>
+                                <th>{{'Map'|trans}}</th>
+                                <th>{{'Total Count'|trans}}</th>
+                                <th>{{'Success Count'|trans}}</th>
+                                <th>{{'Error Count'|trans}}</th>
+                                <th>{{'Actions'|trans}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {%for time,r in recent %}
+                                <tr>
+                                    <td>{{time}}</td>
+                                    <td>{{r.map}} ({{r.map.version}})</td>
+                                    <td>{{r.result.totalProcessedCount}}</td>
+                                    <td>{{r.result.successCount}}</td>
+                                    <td>{{r.result.errorCount}}</td>
+                                    <td>
+                                        <a href="{{path('importResultDownload',{type:'errors','timestamp':time})}}" class="btn btn-xs btn-danger">{{'Get Errors'|trans}} <i class="icon icon-cloud-download"></i></a>
+                                        <a href="{{path('importResultDownload',{type:'success','timestamp':time})}}" class="btn btn-xs btn-success">{{'Get Successful'|trans}} <i class="icon icon-cloud-download"></i></a>
+                                    </td>
+                                </tr>
+                            {%endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+    </div>
+{%endblock%}

@@ -53,6 +53,11 @@ class Builder
                 $api->addChild('Documentation',array('label'=>'Documentation','route'=>'nelmio_api_doc_index'));
             }
 
+            if($this->securityContext->isGranted('ROLE_IMPORT'))
+            {
+                $import = $menu->addChild('Import',array('label'=>'menu.import','route'=>'importIndex'))->setExtra('icon', 'icon-cloud-upload');
+            }
+
             if($this->securityContext->isGranted('ROLE_ADMIN'))
             {
                 $admin = $menu->addChild('Admin', array('label'=> 'menu.data-admin'))->setExtra('icon','icon-desktop');
