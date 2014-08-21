@@ -268,7 +268,7 @@ services:
 
     ns.sentinel.converter.site:
       class: NS\SentinelBundle\Converter\Site
-      arguments: [ @doctrine.orm.entity_manager ]
+      arguments: [ @ns.model_manager ]
       tags:
         - { name: ns_import.converter }
 
