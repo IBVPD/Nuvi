@@ -18,6 +18,11 @@ services:
       tags:
         - { name: form.type, alias: BaseReportFilterType }
 
+    ns.sentinel.form.type.ibdintensesupport:
+      class: NS\SentinelBundle\Form\Types\IBDIntenseSupport
+      tags:
+        - { name: form.type, alias: IBDIntenseSupport }
+
     ns.sentinel.form.type.surveillanceconducted:
       class: NS\SentinelBundle\Form\Types\SurveillanceConducted
       tags:

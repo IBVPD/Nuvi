@@ -102,6 +102,7 @@ doctrine:
             ElisaKit: NS\SentinelBundle\Entity\Types\ElisaKit
             OtherSpecimen: NS\SentinelBundle\Entity\Types\OtherSpecimen
             SurveillanceConducted: NS\SentinelBundle\Entity\Types\SurveillanceConducted
+            IBDIntenseSupport: NS\SentinelBundle\Entity\Types\IBDIntenseSupport
         mapping_types:
             TripleChoice: TripleChoice
             FourDoses: FourDoses
@@ -146,7 +147,7 @@ doctrine:
             ElisaKit: ElisaKit
             OtherSpecimen: OtherSpecimen
             SurveillanceConducted: SurveillanceConducted
-            
+            IBDIntenseSupport: IBDIntenseSupport
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true

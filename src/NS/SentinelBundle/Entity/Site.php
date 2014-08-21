@@ -109,8 +109,8 @@ class Site implements \Serializable
     private $ibdTier;
 
     /**
-     * @var TripleChoice $ibdIntenseSupport
-     * @ORM\Column(name="ibdIntenseSupport",type="TripleChoice",nullable=true)
+     * @var IBDIntenseSupport $ibdIntenseSupport
+     * @ORM\Column(name="ibdIntenseSupport",type="IBDIntenseSupport",nullable=true)
      */
     private $ibdIntenseSupport;
 
