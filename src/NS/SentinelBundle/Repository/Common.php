@@ -2,8 +2,9 @@
 
 namespace NS\SentinelBundle\Repository;
 
-use NS\SecurityBundle\Doctrine\SecuredEntityRepository;
-use NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
+use \Doctrine\ORM\QueryBuilder;
+use \NS\SecurityBundle\Doctrine\SecuredEntityRepository;
+use \NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
 
 /**
  * Description of Common
@@ -12,6 +13,11 @@ use NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
  */
 class Common extends SecuredEntityRepository implements AjaxAutocompleteRepositoryInterface
 {
+    public function secure(QueryBuilder $qb)
+    {
+        return $this->hasSecuredQuery() ? parent::secure($qb) : $qb;
+    }
+
     public function getAllSecuredQueryBuilder($alias = 'o')
     {
         return $this->secure($this->createQueryBuilder($alias)->orderBy("$alias.name","ASC"));
