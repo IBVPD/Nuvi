@@ -2,13 +2,10 @@
 
 namespace NS\SentinelBundle\Controller;
 
-use DateTime;
-use Exporter\Source\ArraySourceIterator;
-use NS\SentinelBundle\Form\Types\Diagnosis;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
+use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use \Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use \Symfony\Component\HttpFoundation\Request;
 
 /**
  * Description of ReportController
@@ -35,8 +32,8 @@ class ReportController extends Controller
     {
         $form = $this->createForm('IBDReportFilterType');
         $s    = $this->get('ns.sentinel.services.report');
-        return $s->numberEnrolled($request,$form,'reportPercentEnrolled');
 
+        return $s->numberEnrolled($request,$form,'reportPercentEnrolled');
     }
 
     /**
@@ -65,6 +62,7 @@ class ReportController extends Controller
     {
         $form  = $this->createForm('IBDReportFilterType');
         $s     = $this->get('ns.sentinel.services.report');
+
         return $s->getAnnualAgeDistribution($request,$form,'reportAnnualAgeDistribution');
     }
 
