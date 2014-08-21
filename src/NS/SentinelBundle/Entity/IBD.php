@@ -242,7 +242,7 @@ class IBD extends BaseCase
 
 //Case-based Vaccination History
     /**
-     * @var TripleChoice $hibReceived
+     * @var VaccinationReceived $hibReceived
      * @ORM\Column(name="hibReceived",type="VaccinationReceived",nullable=true)
      * @Groups({"api"})
      */
@@ -263,7 +263,7 @@ class IBD extends BaseCase
     private $hibMostRecentDose;
 
     /**
-     * @var TripleChoice $pcvReceived
+     * @var VaccinationReceived $pcvReceived
      * @ORM\Column(name="pcvReceived",type="VaccinationReceived",nullable=true)
      * @Groups({"api"})
      */

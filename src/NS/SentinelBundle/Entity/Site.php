@@ -2,13 +2,13 @@
 
 namespace NS\SentinelBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use \Doctrine\Common\Collections\ArrayCollection;
+use \Doctrine\ORM\Mapping as ORM;
+use \JMS\Serializer\Annotation\Groups;
 use \NS\SecurityBundle\Annotation\Secured;
 use \NS\SecurityBundle\Annotation\SecuredCondition;
-use Symfony\Component\Validator\Constraints as Assert;
-use JMS\Serializer\Annotation\Groups;
-use NS\SentinelBundle\Form\Types\SurveillanceConducted;
+use \NS\SentinelBundle\Form\Types\IBDIntenseSupport;
+use \NS\SentinelBundle\Form\Types\SurveillanceConducted;
+use \Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Site
@@ -218,10 +218,10 @@ class Site implements \Serializable
     /**
      * Set country
      *
-     * @param \NS\SentinelBundle\Entity\Country $country
+     * @param Country $country
      * @return Site
      */
-    public function setCountry(\NS\SentinelBundle\Entity\Country $country = null)
+    public function setCountry(Country $country = null)
     {
         $this->country = $country;
     
@@ -231,7 +231,7 @@ class Site implements \Serializable
     /**
      * Get country
      *
-     * @return \NS\SentinelBundle\Entity\Country 
+     * @return Country
      */
     public function getCountry()
     {
