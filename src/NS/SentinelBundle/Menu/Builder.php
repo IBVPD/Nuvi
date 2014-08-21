@@ -45,6 +45,7 @@ class Builder
             $reports->addChild('# Per Month',array('label'=> 'menu.data-reports-number-per-month','route'=>'reportNumberPerMonth'));
             $reports->addChild('# Per Year Clinical',array('label'=> 'menu.data-reports-per-year-clinical','route'=>'reportNumberPerYearClinical'));
             $reports->addChild('Data Quality',array('label'=> 'menu.data-reports-data-quality','route'=>'reportDataQuality'));
+            $reports->addChild('Field Population',array('label'=>'menu.data-reports-field-population','route'=>'reportFieldPopulation'));
 
             if($this->securityContext->isGranted('ROLE_API'))
             {
@@ -55,7 +56,9 @@ class Builder
 
             if($this->securityContext->isGranted('ROLE_IMPORT'))
             {
-                $import = $menu->addChild('Import',array('label'=>'menu.import','route'=>'importIndex'))->setExtra('icon', 'icon-cloud-upload');
+                $import = $menu->addChild('Import',array('label'=>'menu.import-export'));
+                $import->addChild('Import',array('label'=>'menu.import','route'=>'importIndex'))->setExtra('icon', 'icon-cloud-upload');
+                $import->addChild('Export')->setExtra('icon', 'icon-cloud-download');
             }
 
             if($this->securityContext->isGranted('ROLE_ADMIN'))

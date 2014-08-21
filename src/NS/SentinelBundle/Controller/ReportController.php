@@ -115,6 +115,16 @@ class ReportController extends Controller
         return array('reports' => $reports);
     }
 
+    /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @Route("/field-population",name="reportFieldPopulation")
+     * @Template()
+     */
+    public function fieldPopulationAction(Request $request)
+    {
+        return array();
+    }
+
     /*
      * 1 - Number And Percent Enrolled: Admission Diagnosis
      * 4 - Age Distribution - Suspect vs Probable based on admin diagnosis

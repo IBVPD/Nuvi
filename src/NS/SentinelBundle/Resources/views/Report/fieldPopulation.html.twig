@@ -1,0 +1,65 @@
+{%extends "NSSentinelBundle::layout.html.twig" %}
+{%block pagetitle %}{{'Field Population'|trans}}{%endblock %}
+
+{% block body %}
+    <div class="row-fluid">
+        <div class="col-sm-9">
+            <div class="widget-box no-border">
+                <div class="widget-header widget-header-small header-color-blue">
+                    <h5>{{'Results'|trans}}</h5>
+                </div>
+                    <table class="table table-bordered table-striped">
+                        <thead class="thin-border-bottom">
+                        <tr>
+                            <th>site_code</th>
+                            <th>Region</th>
+                            <th>prop ageinmonthscomplete</th>
+                            <th>prop totalcalcagecomplete</th>
+                            <th>prop under5</th>
+                            <th>prop ageequal</th>
+                            <th>proportion CSFcollected</th>
+                            <th>proportion LPdone</th>
+                            <th>prop LPequal</th>
+                            <th>prop bloodcollected</th>
+                            <th>prop totalbloodresult</th>
+                            <th>prop bloodequal</th>
+                            <th>prop CSFcultrecorded</th>
+                            <th>prop bloodcultrecorded</th>
+                            <th>prop binaxrecorded</th>
+                            <th>prop CSFlatrecorded</th>
+                            <th>total CSFspnpcrpositive</th>
+                            <th>total CSFPCRrecorded</th>
+                            <th>prop CSFPCRrecorded</th>
+                            <th>totalSpnresult</th>
+                            <th>propSpnresult</th>
+                            <th>totalHIresult</th>
+                            <th>NMresult</th>
+                            <th>prob dischoutcomerecorded</th>
+                            <th>totalSpnserotyperesult</th>
+                        </tr>
+                        </thead>
+                    </table>
+                
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="widget-box">
+                <div class="widget-header widget-header-small header-color-blue">
+                    <h5>{{'Filters'|trans}}</h5>
+                </div>
+                <div class="widget-body">
+                    <div class="widget-main">
+                        <form method="POST" action="{{path('reportPercentEnrolled')}}" class="reportFilters">
+                        </form>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="col-sm-12">
+            <div id="chart_div" style="width: 1024px; height: 500px;"></div>
+        </div>
+    </div>
+{% endblock %}
+
