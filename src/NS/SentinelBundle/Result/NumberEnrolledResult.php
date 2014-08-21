@@ -28,7 +28,7 @@ class NumberEnrolledResult
     public function load($inputResults)
     {
         foreach($inputResults as $res)
-            $this->resultByMonth[$res['CreatedMonth']][$res['admDx']->getValue()] = $res['admDxCount'];
+            $this->resultByMonth[$res['AdmissionMonth']][$res['admDx']->getValue()] = $res['admDxCount'];
     }
 
     public function getHeaders($asStrings  = false)

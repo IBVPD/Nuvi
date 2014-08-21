@@ -46,16 +46,16 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
         return $qb->getQuery();
     }
 
-    public function numberAndPercentEnrolledByAdmissionDiagnosis($alias = 'c')
+    public function numberAndPercentEnrolledByAdmissionDiagnosis($alias = 'c', $ageInMonths = 59)
     {
         $config = $this->_em->getConfiguration();
         $config->addCustomDatetimeFunction('MONTH', 'DoctrineExtensions\Query\Mysql\Month');
 
         $qb = $this->createQueryBuilder($alias)
-                                ->select(sprintf('MONTH(%s.createdAt) as CreatedMonth,COUNT(%s.admDx) as admDxCount,%s.admDx',$alias,$alias,$alias))
-                                ->where($alias.'.age <= :age')
-                                ->setParameter('age',59)
-                                ->groupBy($alias.'.admDx,CreatedMonth');
+                                ->select(sprintf('MONTH(%s.admDate) as AdmissionMonth,COUNT(%s.admDx) as admDxCount,%s.admDx',$alias,$alias,$alias))
+                                ->where(sprintf("(%s.admDx IS NOT NULL AND %s.age <= :age)",$alias,$alias))
+                                ->setParameter('age',$ageInMonths)
+                                ->groupBy($alias.'.admDx,AdmissionMonth');
 
         return $this->secure($qb);
     }
