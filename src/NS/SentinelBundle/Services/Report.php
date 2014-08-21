@@ -8,7 +8,6 @@ use Exporter\Source\ArraySourceIterator;
 use Sonata\CoreBundle\Exporter\Exporter;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
-use NS\SentinelBundle\Form\Types\Diagnosis;
 
 /**
  * Description of Report
@@ -46,32 +45,23 @@ class Report
             $export = ($form->get('export')->isClicked());
         }
 
-        $ibdResults   = $queryBuilder->getQuery()->getResult();
-        $diagnosis    = new Diagnosis();
+        $result = new \NS\SentinelBundle\Result\NumberEnrolledResult();
+        $result->load($queryBuilder->getQuery()->getResult());
 
-        $headers      = array('Month')+$diagnosis->getValues();
-        $headerValues = array_fill_keys($diagnosis->getValues(),0);
-        $results = array();
-
-        foreach($ibdResults as $res)
-        {
-            $diagnosis = $res['admDx']->__toString();
-            if(!isset($results[$res['CreatedMonth']]))
-                $results[$res['CreatedMonth']] = $headerValues;
-
-            $results[$res['CreatedMonth']][$diagnosis] = $res['admDxCount'];
-        }
-
+        try{
         if($export)
         {
             $format   = 'csv';
-            $source   = new ArraySourceIterator($results,$headers);
-            $filename = sprintf('export_%s.%s',date('Y_m_d_H_i_s'), $format);
+            $source   = new ArraySourceIterator($result->all());
 
-            return $this->exporter->getResponse($format, $filename, $source);
+            return $this->exporter->getResponse($format, sprintf('export_%s.%s',date('Y_m_d_H_i_s'), $format), $source);
         }
 
-        return array('results' => $results, 'form' => $form->createView(),'headers'=>$headers);
+        return array('results' => $result, 'form' => $form->createView());
+        }catch(\Exception $e)
+        {
+            die("GOT EXCEPTION: ".$e->getMessage());
+        }
     }
 
     public function getAnnualAgeDistribution(Request $request,  FormInterface $form, $redirectRoute)

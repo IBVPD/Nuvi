@@ -12,7 +12,7 @@
                 <table class="table table-bordered table-striped">
                     <thead class="thin-border-bottom">
                     <tr>
-                        {% for r in headers %}
+                        {% for r in results.headers %}
                             <th>{{r}}</th>
                         {% endfor %}
 
@@ -21,9 +21,9 @@
                     {% for i in 1..12 %}
                         <tr>
                             <td>{{i}}</td>
-                            {%for c in attribute(results, i) %}
-                            <td>{{c}}</td>
-                        {%endfor%}
+                            {%for c in results.getMonthResult(i) %}
+                                <td>{{c}}</td>
+                            {%endfor%}
                         </tr>
                     {% endfor %}
                 </table>
@@ -55,11 +55,11 @@
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
             [ 
-            {% for r in headers %}
+            {% for r in results.headers %}
                 '{{r}}'{%if not loop.last%},{%endif%}
             {% endfor %}
                 ],
-            {% for i in 1..12 %}['{{i}}', {%for c in attribute(results, i) %}{{c}}{%if not loop.last%},{%endif%}{%endfor%}]{%if not loop.last%},{%endif%}{% endfor %}
+            {% for i in 1..12 %}['{{i}}', {%for c in results.getMonthResult(i) %}{{c}}{%if not loop.last%},{%endif%}{%endfor%}]{%if not loop.last%},{%endif%}{% endfor %}
 
             ]);
 
