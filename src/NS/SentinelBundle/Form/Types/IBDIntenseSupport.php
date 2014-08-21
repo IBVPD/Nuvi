@@ -18,7 +18,7 @@ class IBDIntenseSupport extends ArrayChoice
     protected $values = array(
                                 self::NO            => 'No',
                                 self::NO_MONITORED  => 'No (But monitored by WHO)',
-                                self::YES           => 'YEs'
+                                self::YES           => 'Yes'
                              );
 
     public function getName()
