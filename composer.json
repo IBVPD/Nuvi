@@ -36,7 +36,7 @@
 	"sonata-project/core-bundle": "~2.2@dev",
 
         "ns/util-bundle": "dev-master",
-        "ns/security-bundle": "dev-master",
+        "ns/security-bundle": "dev-ACLConverter",
         "ns/ace-bundle": "dev-master",
         "ns/flash-bundle": "dev-master",
 
@@ -52,7 +52,7 @@
 
         "friendsofsymfony/oauth-server-bundle": "~1.4",
         "nelmio/api-doc-bundle": "2.6.*",
-        "friendsofsymfony/rest-bundle": "1.4.x-dev",
+        "friendsofsymfony/rest-bundle": "1.4@dev",
         "jms/serializer-bundle": "0.12.*",
         "adoy/oauth2": "dev-master",
         "liip/functional-test-bundle": "dev-master",

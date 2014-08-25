@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="regions")
  * @ORM\Entity(repositoryClass="\NS\SentinelBundle\Repository\Region")
  * @Security\Secured(conditions={
- *      @Security\SecuredCondition(roles={"ROLE_REGION","ROLE_REGION_API","ROLE_REGION_IMPORT"},field="id"),
+ *      @Security\SecuredCondition(roles={"ROLE_REGION"},field="id"),
  *      })
  *
  */
