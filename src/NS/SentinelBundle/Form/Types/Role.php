@@ -15,13 +15,13 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
 {
     private $_securityContext;
 
-    const REGION  = 1;
-    const COUNTRY = 2;
-    const SITE    = 3;
-    const LAB     = 4;
-    const REGION_API  = 10;
-    const COUNTRY_API = 11;
-    const SITE_API    = 12;
+    const REGION         = 1;
+    const COUNTRY        = 2;
+    const SITE           = 3;
+    const LAB            = 4;
+    const REGION_API     = 10;
+    const COUNTRY_API    = 11;
+    const SITE_API       = 12;
     const REGION_IMPORT  = 20;
     const COUNTRY_IMPORT = 21;
     const SITE_IMPORT    = 22;
