@@ -151,7 +151,12 @@ class UserAdmin extends Admin
         $role    = new Role();
 
         if($user->isOnlyAdmin())
+        {
+            $ralias = $query->getRootAlias();
+            $query->innerJoin("$ralias.acls",'a');
+
             return $query;
+        }
 
         $highest = $role->getHighest($this->securityContext->getToken()->getRoles());
 
