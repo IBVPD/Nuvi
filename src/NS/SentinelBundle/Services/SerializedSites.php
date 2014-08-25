@@ -25,7 +25,6 @@ class SerializedSites implements SerializedSitesInterface
     {
         $this->session = $session;
         $this->em      = $em;
-        $this->initialize();
     }
 
     public function hasMultipleSites()
