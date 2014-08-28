@@ -8,7 +8,7 @@
                 <div class="widget-header widget-header-small header-color-blue">
                     <h5>{{'Results'|trans}}</h5>
                 </div>
-                    <table class="table table-bordered table-striped">
+<!--                    <table class="table table-bordered table-striped">
                         <thead class="thin-border-bottom">
                         <tr>
                             <th>site_code</th>
@@ -38,7 +38,27 @@
                             <th>totalSpnserotyperesult</th>
                         </tr>
                         </thead>
-                    </table>
+                    </table>-->
+                <table class="table table-bordered table-striped">
+                    <thead class="thin-border-bottom">
+                        <tr>
+                            <th>{{'Region'|trans}}</th>
+                            <th>{{'Country'|trans}}</th>
+                            <th>{{'Site'|trans}}</th>
+                            <th>{{'Intense Support'|trans}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for case in sites %}
+                        <tr>
+                            <td>{{case.site.country.region}}</td>
+                            <td>{{case.site.country}}</td>
+                            <td>{{case.site}}</td>
+                            <td>{{case.site.ibdIntenseSupport}}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
                 
             </div>
         </div>
@@ -49,7 +69,8 @@
                 </div>
                 <div class="widget-body">
                     <div class="widget-main">
-                        <form method="POST" action="{{path('reportPercentEnrolled')}}" class="reportFilters">
+                        <form method="POST" action="{{path('reportFieldPopulation')}}" class="reportFilters">
+                            {{form_rest(form)}}
                         </form>                        
                     </div>
                 </div>

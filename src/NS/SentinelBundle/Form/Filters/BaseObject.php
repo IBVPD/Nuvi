@@ -31,16 +31,14 @@ class BaseObject extends AbstractType //implements EmbeddedFilterTypeInterface
                                         {
                                             $fieldName = str_replace(array('\\',':'),array('_','_'),$class);
                                             $values    = $values['value'];
+                                            $qb        = $filterBuilder->getQueryBuilder();
 
                                             if(count($values) == 1)
-                                            {
-                                                $filterBuilder->getQueryBuilder()->andWhere($field.'= :'.$fieldName)->setParameter($fieldName,$values[0]);
-                                            }
+                                                $qb->andWhere(sprintf("%s = :%s",$field,$fieldName))->setParameter($fieldName,$values[0]);
                                             else if (count($values) > 0)
                                             {
                                                 $where  = array();
-                                                $params = array();
-                                                $qb = $filterBuilder->getQueryBuilder();
+                                                
                                                 foreach($values as $x => $val)
                                                 {
                                                     $fieldNamex = $fieldName.$x;
@@ -48,7 +46,7 @@ class BaseObject extends AbstractType //implements EmbeddedFilterTypeInterface
                                                     $qb->setParameter($fieldNamex,$val);
                                                 }
 
-                                                $filterBuilder->getQueryBuilder()->andWhere("(".  implode(" OR ",$where).")");
+                                                $qb->andWhere("(".implode(" OR ",$where).")");
                                             }
                                         }
                                     }

@@ -33,7 +33,7 @@ class Site extends CommonRepository
                    ->innerJoin('s.country', 'c')
                    ->innerJoin('c.region', 'r');
 
-        return ($this->hasSecuredQuery()) ? $this->secure($qb) : $qb;
+        return $this->secure($qb);
     }
 
     public function getChainByCode($codes)
@@ -47,15 +47,27 @@ class Site extends CommonRepository
         else
             throw new \InvalidArgumentException(sprintf("Must provide an array of codes or single code. Received: %s",gettype($codes)));
 
-        $qb = ($this->hasSecuredQuery()) ? $this->secure($qb) : $qb;
-
-        return $qb->getQuery()->getResult();
+        return $this->secure($qb)->getQuery()->getResult();
     }
 
     public function findAll()
     {
-        $qb = $this->hasSecuredQuery() ? $this->secure($this->createQueryBuilder('s')): $this->createQueryBuilder('s');
+        return  $this->secure($this->createQueryBuilder('s'))->getQuery()->getResult();
+    }
 
-        return  $qb->getQuery()->getResult();
+    public function getWithCasesForDate($alias, \DateTime $from,\DateTime $to)
+    {
+        return $this->secure($this->_em->createQueryBuilder()
+                  ->select($alias.',s,c,r')
+                  ->from('NS\SentinelBundle\Entity\IBD',$alias)
+                  ->innerJoin($alias.'.site', 's','s.code')
+                  ->innerJoin('s.country','c')
+                  ->innerJoin('c.region','r')
+                  ->where($alias.'.admDate BETWEEN :from AND :to')
+                  ->setParameters(array('from'=>$from,'to'=>$to))
+                  ->groupBy($alias.'.site'))
+                  ->addOrderBy('r.name','ASC')
+                  ->addOrderBy('c.name','ASC')
+                  ->addOrderBy('s.name','ASC');
     }
 }

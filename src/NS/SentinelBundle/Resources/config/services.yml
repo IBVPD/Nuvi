@@ -4,17 +4,23 @@ parameters:
 services:
     ns.sentinel.services.report:
       class: NS\SentinelBundle\Services\Report
-      arguments: [@sonata.admin.exporter, @lexik_form_filter.query_builder_updater, @ns.model_manager ]
+      arguments: [@sonata.admin.exporter, @lexik_form_filter.query_builder_updater, @ns.model_manager, @router ]
+
+    ns.sentinel.form.ibd.field_population_filter:
+      class: NS\SentinelBundle\Form\IBD\FieldPopulationReportFilterType
+      arguments: [ @security.context, @ns.security.acl_converter ] 
+      tags:
+        - { name: form.type, alias: IBDFieldPopulationFilterType }
 
     ns.sentinel.form.ibd.report_filter:
       class: NS\SentinelBundle\Form\IBD\ReportFilterType
-      arguments: [ @security.context ] 
+      arguments: [ @security.context, @ns.security.acl_converter ] 
       tags:
         - { name: form.type, alias: IBDReportFilterType }
     
     ns.sentinel.form.filters.base_report_filter:
       class: NS\SentinelBundle\Form\Filters\BaseReportFilterType
-      arguments: [ @security.context ] 
+      arguments: [ @security.context, @ns.security.acl_converter ] 
       tags:
         - { name: form.type, alias: BaseReportFilterType }
 
