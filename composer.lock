@@ -2619,7 +2619,7 @@
             "source": {
                 "type": "git",
                 "url": "gitolite@git.noblet.ca:/symfony/ns/security.git",
-                "reference": "d8503f2f79f32a4db01f2b6c32887289f7366e77"
+                "reference": "f32dac14a3ce3e0172cba896ed419f090f90502b"
             },
             "require": {
                 "php": ">=5.3.2",
@@ -2638,7 +2638,7 @@
                 }
             ],
             "description": "This Bundle provides a basic database row level ACL system",
-            "time": "2014-08-25 17:28:17"
+            "time": "2014-08-25 21:37:57"
         },
         {
             "name": "ns/util-bundle",
