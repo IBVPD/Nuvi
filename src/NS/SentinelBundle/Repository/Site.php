@@ -58,7 +58,7 @@ class Site extends CommonRepository
     public function getWithCasesForDate($alias, \DateTime $from,\DateTime $to)
     {
         return $this->secure($this->_em->createQueryBuilder()
-                  ->select($alias.',s,c,r')
+                  ->select($alias.',s,c,r,COUNT('.$alias.') as totalCases')
                   ->from('NS\SentinelBundle\Entity\IBD',$alias)
                   ->innerJoin($alias.'.site', 's','s.code')
                   ->innerJoin('s.country','c')

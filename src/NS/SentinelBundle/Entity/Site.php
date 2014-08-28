@@ -164,6 +164,10 @@ class Site implements \Serializable
      */
     private $country;
 
+    //Fields used for reporting etc...
+
+    private $totalCases;
+
     /**
      * Get id
      *
@@ -569,5 +573,16 @@ class Site implements \Serializable
             $this->surveillanceConducted,
             $this->country,
              ) = unserialize($serialized);
+    }
+
+    public function getTotalCases()
+    {
+        return $this->totalCases;
+    }
+
+    public function setTotalCases($totalCases)
+    {
+        $this->totalCases = $totalCases;
+        return $this;
     }
 }

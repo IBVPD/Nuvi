@@ -113,12 +113,23 @@ class Report
             $export = ($form->get('export')->isClicked());
         }
 
-        $sites = $qb->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult();
+        $sites     = $qb->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult();
+        $siteCodes = array();
+
+        foreach($sites as $x => $values)
+        {
+            $values[0]->getSite()->setTotalCases($values['totalCases']);
+            $sites[$x] = $values[0];
+            $siteCodes[$values[0]->getSite()->getCode()] = $values[0]->getSite();
+        }
+
+        $ibdRepo      = $this->em->getRepository('NSSentinelBundle:IBD');
+        $csfCollected = $ibdRepo->getCsfCollectedBySites($siteCodes,$from,$to)->getQuery()->getResult();
 
         if($export)
             return $this->export($sites);
 
-        return array('sites' => $sites, 'form' => $form->createView());
+        return array('sites' => $sites, 'form' => $form->createView(),'csfCollected'=>$csfCollected);
     }
 
     public function export($results, $format='csv')

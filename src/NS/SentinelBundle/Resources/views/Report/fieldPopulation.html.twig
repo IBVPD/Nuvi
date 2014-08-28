@@ -46,6 +46,8 @@
                             <th>{{'Country'|trans}}</th>
                             <th>{{'Site'|trans}}</th>
                             <th>{{'Intense Support'|trans}}</th>
+                            <th>{{'Total # of Cases'|trans}}</th>
+                            <th>{{'csfCollected'|trans}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -55,11 +57,13 @@
                             <td>{{case.site.country}}</td>
                             <td>{{case.site}}</td>
                             <td>{{case.site.ibdIntenseSupport}}</td>
+                            <td>{{case.site.totalCases}}</td>
+                            <td></td>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
-                
+                    <pre>{{dump(csfCollected)}}</pre>
             </div>
         </div>
         <div class="col-sm-3">

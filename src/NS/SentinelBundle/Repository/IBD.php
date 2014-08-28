@@ -156,10 +156,7 @@ class IBD extends Common
                        ->where('m.id = :id')
                        ->setParameter('id', $id);
 
-            if($this->hasSecuredQuery())
-                return $this->secure($qb)->getQuery()->getSingleResult();
-            else
-                return $qb->getQuery()->getSingleResult();
+            return $this->secure($qb)->getQuery()->getSingleResult();
         }
         catch(NoResultException $e)
         {
@@ -179,9 +176,7 @@ class IBD extends Common
                        ->andWhere('m.id = :id')
                        ->setParameter('id', $id);
 
-            $qb = ($this->hasSecuredQuery()) ? $this->secure($qb): $qb;
-            
-            return $qb->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD,true)->getSingleResult();
+            return $this->secure($qb)->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD,true)->getSingleResult();
         }
         catch(NoResultException $e)
         {
@@ -251,6 +246,31 @@ class IBD extends Common
                    ->orderBy('theYear','ASC')
                 ;
 
-        return $this->hasSecuredQuery() ? $qb = $this->secure($qb): $qb;
+        return $this->secure($qb);
+    }
+
+    public function getCsfCollectedBySites(array $siteCodes,\DateTime $from, \DateTime $to)
+    {
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select('i.id,COUNT(i.csfCollected) as csfCollectedCount, i.csfCollected,s.code')
+           ->from($this->getClassName(),'i')
+           ->innerJoin('i.site','s')
+           ->groupBy('i.site');
+
+        $where = $params = array();
+        $x     = 0;
+
+        foreach($siteCodes as $site)
+        {
+            $where[] = "i.site = :site$x";
+            $params['site'.$x] = $site;
+            $x++;
+        }
+
+//        die(print_r(array($where,array_keys($params)),true));
+        $qb->where("(".implode(" OR ",$where).")")
+           ->setParameters($params);
+
+        return $qb;
     }
 }
