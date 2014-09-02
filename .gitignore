@@ -13,3 +13,5 @@ NuviSync
 /tmp
 /web/ace
 composer
+.vagrant
+Vagrantfile
