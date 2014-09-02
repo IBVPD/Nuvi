@@ -50,6 +50,7 @@
                             <th colspan="2">{{'csfCollected'|trans}}</th>
                             <th colspan="2">{{'bloodCollected'|trans}}</th>
                             <th colspan="2">{{'bloodResult'|trans}}</th>
+                            <th colspan="2">{{'bloodEqual'|trans}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -63,6 +64,7 @@
                             <td>{{result.csfCollectedCount}}</td><td>{{result.csfCollectedPercent|number_format(1)}} %</td>
                             <td>{{result.bloodCollectedCount}}</td><td>{{result.bloodCollectedPercent|number_format(1)}} %</td>
                             <td>{{result.bloodResultCount}}</td><td>{{result.bloodResultPercent|number_format(1)}} %</td>
+                            <td>{{result.bloodEqual|number_format(1)}} %</td>
                         </tr>
                     {% endfor %}
                     </tbody>

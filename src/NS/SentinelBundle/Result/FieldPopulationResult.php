@@ -65,6 +65,15 @@ class FieldPopulationResult
         return ($this->bloodCollectedCount > 0) ? ($this->bloodResultCount/$this->bloodCollectedCount)*100: 0;
     }
 
+//*next I checked concordance with my bloodresult variable and the blood collected variable
+//gen bloodequal=1 if  blood_collected== bloodresult
+//by site_code: egen totalbloodequal=total(bloodequal)
+//by site_code: gen propbloodequal= (totalbloodequal/ totalcase)*100
+    public function getBloodEqual()
+    {
+        return ($this->totalCases > 0 && ($this->bloodCollectedCount>0 || $this->bloodResultCount>0) ) ? (min(array($this->bloodCollectedCount,$this->bloodResultCount))/$this->totalCases)*100:100;
+    }
+
     public function setBloodResultCount($bloodResultCount)
     {
         $this->bloodResultCount = $bloodResultCount;
