@@ -2,14 +2,16 @@
 
 namespace NS\SentinelBundle\Services;
 
+use \Doctrine\Common\Collections\ArrayCollection;
 use \Doctrine\Common\Persistence\ObjectManager;
 use \Doctrine\ORM\Query;
 use \Exporter\Source\ArraySourceIterator;
 use \NS\SentinelBundle\Result\NumberEnrolledResult;
 use \Sonata\CoreBundle\Exporter\Exporter;
 use \Symfony\Component\Form\FormInterface;
-use \Symfony\Component\HttpFoundation\Request;
 use \Symfony\Component\HttpFoundation\RedirectResponse;
+use \Symfony\Component\HttpFoundation\Request;
+use \Symfony\Component\Routing\RouterInterface;
 
 /**
  * Description of Report
@@ -23,7 +25,7 @@ class Report
     private $em;
     private $router;
 
-    public function __construct(Exporter $exporter, $filter, ObjectManager $em, \Symfony\Component\Routing\RouterInterface $router)
+    public function __construct(Exporter $exporter, $filter, ObjectManager $em, RouterInterface $router)
     {
         $this->exporter = $exporter;
         $this->filter   = $filter;
@@ -95,8 +97,8 @@ class Report
     public function getFieldPopulation(Request $request, FormInterface $form, $redirectRoute)
     {
         $year   = date('Y');
-        $from   = \DateTime::createFromFormat("Y-m-d H:i:s", sprintf("%d-1-1 00:00:00",$year));
-        $to     = \DateTime::createFromFormat("Y-m-d H:i:s", sprintf("%d-12-31 23:59:59",$year));
+        $from   = \DateTime::createFromFormat("Y-m-d H:i:s", sprintf("%d-1-1 00:00:00",$year-1));
+        $to     = \DateTime::createFromFormat("Y-m-d H:i:s", sprintf("%d-12-31 23:59:59",$year-1));
         $export = false;
         $alias  = 'i';
 
@@ -113,23 +115,50 @@ class Report
             $export = ($form->get('export')->isClicked());
         }
 
-        $sites     = $qb->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult();
-        $siteCodes = array();
+        $results = new ArrayCollection();
+        $sites   = $qb->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult();
 
         foreach($sites as $x => $values)
         {
-            $values[0]->getSite()->setTotalCases($values['totalCases']);
-            $sites[$x] = $values[0];
-            $siteCodes[$values[0]->getSite()->getCode()] = $values[0]->getSite();
+            $fpr = new \NS\SentinelBundle\Result\FieldPopulationResult();
+            $fpr->setSite($values[0]->getSite());
+            $fpr->setTotalCases($values['totalCases']);
+
+            $results->set($fpr->getSite()->getCode(),$fpr);
         }
 
         $ibdRepo      = $this->em->getRepository('NSSentinelBundle:IBD');
-        $csfCollected = $ibdRepo->getCsfCollectedBySites($siteCodes,$from,$to)->getQuery()->getResult();
+        $csfCollected = $ibdRepo->getCsfCollectedCountBySites($results->getKeys(),$from,$to)->getQuery()->getResult(Query::HYDRATE_SCALAR);
+
+        foreach($csfCollected as $c)
+        {
+            $fpr = $results->get($c['code']);
+            if($fpr) // this should always be true.
+                $fpr->setCsfCollectedCount($c['csfCollectedCount']);
+        }
+
+        $bloodCollected = $ibdRepo->getBloodCollectedCountBySites($results->getKeys(),$from,$to)->getQuery()->getResult(Query::HYDRATE_SCALAR);
+
+        foreach($bloodCollected as $c)
+        {
+            $fpr = $results->get($c['code']);
+            if($fpr) // this should always be true.
+                $fpr->setBloodCollectedCount($c['bloodCollectedCount']);
+        }
+
+        $bloodResultCount = $ibdRepo->getBloodResultCountBySites($results->getKeys(),$from,$to)->getQuery()->getResult(Query::HYDRATE_SCALAR);
+
+        foreach($bloodResultCount as $c)
+        {
+            $fpr = $results->get($c['code']);
+            if($fpr) // this should always be true.
+                $fpr->setBloodResultCount($c['bloodResultCount']);
+        }
 
         if($export)
             return $this->export($sites);
 
-        return array('sites' => $sites, 'form' => $form->createView(),'csfCollected'=>$csfCollected);
+        return array('sites' => $results, 'form' => $form->createView(),'csfCollected'=>$csfCollected);
     }
 
     public function export($results, $format='csv')

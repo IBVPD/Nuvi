@@ -249,7 +249,7 @@ class IBD extends Common
         return $this->secure($qb);
     }
 
-    public function getCsfCollectedBySites(array $siteCodes,\DateTime $from, \DateTime $to)
+    public function getCsfCollectedCountBySites(array $siteCodes,\DateTime $from, \DateTime $to)
     {
         $qb = $this->_em->createQueryBuilder();
         $qb->select('i.id,COUNT(i.csfCollected) as csfCollectedCount, i.csfCollected,s.code')
@@ -267,9 +267,60 @@ class IBD extends Common
             $x++;
         }
 
-//        die(print_r(array($where,array_keys($params)),true));
-        $qb->where("(".implode(" OR ",$where).")")
-           ->setParameters($params);
+        $qb->where("(".implode(" OR ",$where).") AND i.admDate BETWEEN :from AND :to AND i.csfCollected = :csfCollected")
+           ->setParameters(array_merge($params,array('from'=>$from,'to'=>$to,'csfCollected'=>  TripleChoice::YES)));
+
+        return $qb;
+    }
+
+    public function getBloodCollectedCountBySites(array $siteCodes,\DateTime $from, \DateTime $to)
+    {
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select('i.id,COUNT(i.bloodCollected) as bloodCollectedCount, i.bloodCollected,s.code')
+           ->from($this->getClassName(),'i')
+           ->innerJoin('i.site','s')
+           ->groupBy('i.site');
+
+        $where = $params = array();
+        $x     = 0;
+
+        foreach($siteCodes as $site)
+        {
+            $where[] = "i.site = :site$x";
+            $params['site'.$x] = $site;
+            $x++;
+        }
+
+        $qb->where("(".implode(" OR ",$where).") AND i.admDate BETWEEN :from AND :to AND i.bloodCollected = :bloodCollected")
+           ->setParameters(array_merge($params,array('from'=>$from,'to'=>$to,'bloodCollected'=>  TripleChoice::YES)));
+
+        return $qb;
+    }
+
+//replace bloodresult=1 if  blood_gram_stain!=. & blood_gram_stain!=99
+//replace bloodresult=1 if  blood_gram_result!=. & blood_gram_result!=99
+//replace bloodresult=1 if  blood_PCR_result!=. & blood_PCR_result!=99
+//replace bloodresult=0 if bloodresult==.
+    public function getBloodResultCountBySites(array $siteCodes,\DateTime $from, \DateTime $to)
+    {
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select('i.id,COUNT(i.id) as bloodResultCount,s.code')
+           ->from($this->getClassName(),'i')
+           ->innerJoin('i.site','s')
+           ->groupBy('i.site');
+
+        $where = $params = array();
+        $x     = 0;
+
+        foreach($siteCodes as $site)
+        {
+            $where[] = "i.site = :site$x";
+            $params['site'.$x] = $site;
+            $x++;
+        }
+
+        $qb->where("(".implode(" OR ",$where).") AND i.admDate BETWEEN :from AND :to AND (i.bloodCultResult != :unknown OR i.bloodGramResult != :unknown OR i.bloodPcrResult != :unknown )")
+           ->setParameters(array_merge($params,array('from'=>$from,'to'=>$to,'unknown'=>  TripleChoice::UNKNOWN)));
 
         return $qb;
     }

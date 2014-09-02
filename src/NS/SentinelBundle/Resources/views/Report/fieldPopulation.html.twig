@@ -47,23 +47,26 @@
                             <th>{{'Site'|trans}}</th>
                             <th>{{'Intense Support'|trans}}</th>
                             <th>{{'Total # of Cases'|trans}}</th>
-                            <th>{{'csfCollected'|trans}}</th>
+                            <th colspan="2">{{'csfCollected'|trans}}</th>
+                            <th colspan="2">{{'bloodCollected'|trans}}</th>
+                            <th colspan="2">{{'bloodResult'|trans}}</th>
                         </tr>
                     </thead>
                     <tbody>
-                    {% for case in sites %}
+                    {% for result in sites %}
                         <tr>
-                            <td>{{case.site.country.region}}</td>
-                            <td>{{case.site.country}}</td>
-                            <td>{{case.site}}</td>
-                            <td>{{case.site.ibdIntenseSupport}}</td>
-                            <td>{{case.site.totalCases}}</td>
-                            <td></td>
+                            <td>{{result.site.country.region}}</td>
+                            <td>{{result.site.country}}</td>
+                            <td>{{result.site}} {{result.site.code}}</td>
+                            <td>{{result.site.ibdIntenseSupport}}</td>
+                            <td>{{result.totalCases}}</td>
+                            <td>{{result.csfCollectedCount}}</td><td>{{result.csfCollectedPercent|number_format(1)}} %</td>
+                            <td>{{result.bloodCollectedCount}}</td><td>{{result.bloodCollectedPercent|number_format(1)}} %</td>
+                            <td>{{result.bloodResultCount}}</td><td>{{result.bloodResultPercent|number_format(1)}} %</td>
                         </tr>
                     {% endfor %}
                     </tbody>
                 </table>
-                    <pre>{{dump(csfCollected)}}</pre>
             </div>
         </div>
         <div class="col-sm-3">
