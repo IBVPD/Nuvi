@@ -12,6 +12,9 @@ class FieldPopulationResult
     private $site;
     private $totalCases          = 0;
     private $csfCollectedCount   = 0;
+    private $csfResultCount      = 0;
+    private $csfBinaxDoneCount   = 0;
+    private $csfBinaxResultCount = 0;
     private $bloodCollectedCount = 0;
     private $bloodResultCount    = 0;
 
@@ -72,6 +75,49 @@ class FieldPopulationResult
     public function getBloodEqual()
     {
         return ($this->totalCases > 0 && ($this->bloodCollectedCount>0 || $this->bloodResultCount>0) ) ? (min(array($this->bloodCollectedCount,$this->bloodResultCount))/$this->totalCases)*100:100;
+    }
+
+    public function getCsfBinaxDoneCount()
+    {
+        return $this->csfBinaxDoneCount;
+    }
+
+    public function setCsfBinaxDoneCount($csfBinaxDoneCount)
+    {
+        $this->csfBinaxDoneCount = $csfBinaxDoneCount;
+        return $this;
+    }
+
+    public function getCsfResultCount()
+    {
+        return $this->csfResultCount;
+    }
+
+    public function getCsfResultPercent()
+    {
+        return ($this->csfCollectedCount > 0) ? ($this->csfResultCount/$this->csfCollectedCount)*100: 0;
+    }
+
+    public function getCsfBinaxResultCount()
+    {
+        return $this->csfBinaxResultCount;
+    }
+
+    public function getCsfBinaxResultPercent()
+    {
+        return ($this->csfBinaxDoneCount > 0) ? ($this->csfBinaxResultCount/$this->csfBinaxDoneCount)*100: 0;
+    }
+
+    public function setCsfBinaxResultCount($csfBinaxResultCount)
+    {
+        $this->csfBinaxResultCount = $csfBinaxResultCount;
+        return $this;
+    }
+
+    public function setCsfResultCount($csfResultCount)
+    {
+        $this->csfResultCount = $csfResultCount;
+        return $this;
     }
 
     public function setBloodResultCount($bloodResultCount)

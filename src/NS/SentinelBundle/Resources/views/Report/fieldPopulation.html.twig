@@ -48,9 +48,11 @@
                             <th>{{'Intense Support'|trans}}</th>
                             <th>{{'Total # of Cases'|trans}}</th>
                             <th colspan="2">{{'csfCollected'|trans}}</th>
+                            <th colspan="2">{{'csfResult'|trans}}</th>
                             <th colspan="2">{{'bloodCollected'|trans}}</th>
                             <th colspan="2">{{'bloodResult'|trans}}</th>
-                            <th colspan="2">{{'bloodEqual'|trans}}</th>
+                            <th>{{'bloodEqual'|trans}}</th>
+                            <th>{{'csfBinaxResult'|trans}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,13 +60,15 @@
                         <tr>
                             <td>{{result.site.country.region}}</td>
                             <td>{{result.site.country}}</td>
-                            <td>{{result.site}} {{result.site.code}}</td>
+                            <td>{{result.site.name}}</td>
                             <td>{{result.site.ibdIntenseSupport}}</td>
                             <td>{{result.totalCases}}</td>
                             <td>{{result.csfCollectedCount}}</td><td>{{result.csfCollectedPercent|number_format(1)}} %</td>
+                            <td>{{result.csfResultCount}}</td><td>{{result.csfResultPercent|number_format(1)}} %</td>
                             <td>{{result.bloodCollectedCount}}</td><td>{{result.bloodCollectedPercent|number_format(1)}} %</td>
                             <td>{{result.bloodResultCount}}</td><td>{{result.bloodResultPercent|number_format(1)}} %</td>
                             <td>{{result.bloodEqual|number_format(1)}} %</td>
+                            <td>{{result.csfBinaxResultPercent|number_format(1)}} %</td>
                         </tr>
                     {% endfor %}
                     </tbody>

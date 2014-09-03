@@ -324,4 +324,76 @@ class IBD extends Common
 
         return $qb;
     }
+
+    public function getCsfResultCountBySites(array $siteCodes,\DateTime $from, \DateTime $to)
+    {
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select('i.id,COUNT(i.id) as csfResultCount,s.code')
+           ->from($this->getClassName(),'i')
+           ->innerJoin('i.site','s')
+           ->groupBy('i.site');
+
+        $where = $params = array();
+        $x     = 0;
+
+        foreach($siteCodes as $site)
+        {
+            $where[] = "i.site = :site$x";
+            $params['site'.$x] = $site;
+            $x++;
+        }
+
+        $qb->where("(".implode(" OR ",$where).") AND i.admDate BETWEEN :from AND :to AND i.csfCultResult != :unknown")
+           ->setParameters(array_merge($params,array('from' => $from, 'to' => $to, 'unknown' => TripleChoice::UNKNOWN)));
+
+        return $qb;
+    }
+
+    public function getCsfBinaxResultCountBySites(array $siteCodes,\DateTime $from, \DateTime $to)
+    {
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select('i.id,COUNT(i.id) as csfBinaxResult,s.code')
+           ->from($this->getClassName(),'i')
+           ->innerJoin('i.site','s')
+           ->groupBy('i.site');
+
+        $where = $params = array();
+        $x     = 0;
+
+        foreach($siteCodes as $site)
+        {
+            $where[] = "i.site = :site$x";
+            $params['site'.$x] = $site;
+            $x++;
+        }
+
+        $qb->where("(".implode(" OR ",$where).") AND i.admDate BETWEEN :from AND :to AND i.csfBinaxResult != :unknown")
+           ->setParameters(array_merge($params,array('from' => $from, 'to' => $to, 'unknown' => TripleChoice::UNKNOWN)));
+
+        return $qb;
+    }
+
+    public function getCsfBinaxDoneCountBySites(array $siteCodes,\DateTime $from, \DateTime $to)
+    {
+        $qb = $this->_em->createQueryBuilder();
+        $qb->select('i.id,COUNT(i.id) as csfBinaxDone,s.code')
+           ->from($this->getClassName(),'i')
+           ->innerJoin('i.site','s')
+           ->groupBy('i.site');
+
+        $where = $params = array();
+        $x     = 0;
+
+        foreach($siteCodes as $site)
+        {
+            $where[] = "i.site = :site$x";
+            $params['site'.$x] = $site;
+            $x++;
+        }
+
+        $qb->where("(".implode(" OR ",$where).") AND i.admDate BETWEEN :from AND :to AND i.csfBinaxDone = :yes")
+           ->setParameters(array_merge($params,array('from' => $from, 'to' => $to, 'yes' => TripleChoice::YES)));
+
+        return $qb;
+    }
 }

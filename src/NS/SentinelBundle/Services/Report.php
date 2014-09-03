@@ -128,8 +128,8 @@ class Report
         }
 
         $ibdRepo      = $this->em->getRepository('NSSentinelBundle:IBD');
-        $csfCollected = $ibdRepo->getCsfCollectedCountBySites($results->getKeys(),$from,$to)->getQuery()->getResult(Query::HYDRATE_SCALAR);
 
+        $csfCollected = $ibdRepo->getCsfCollectedCountBySites($results->getKeys(),$from,$to)->getQuery()->getResult(Query::HYDRATE_SCALAR);
         foreach($csfCollected as $c)
         {
             $fpr = $results->get($c['code']);
@@ -138,7 +138,6 @@ class Report
         }
 
         $bloodCollected = $ibdRepo->getBloodCollectedCountBySites($results->getKeys(),$from,$to)->getQuery()->getResult(Query::HYDRATE_SCALAR);
-
         foreach($bloodCollected as $c)
         {
             $fpr = $results->get($c['code']);
@@ -147,12 +146,27 @@ class Report
         }
 
         $bloodResultCount = $ibdRepo->getBloodResultCountBySites($results->getKeys(),$from,$to)->getQuery()->getResult(Query::HYDRATE_SCALAR);
-
         foreach($bloodResultCount as $c)
         {
             $fpr = $results->get($c['code']);
             if($fpr) // this should always be true.
                 $fpr->setBloodResultCount($c['bloodResultCount']);
+        }
+
+        $csfBinaxDoneCount = $ibdRepo->getCsfBinaxDoneCountBySites($results->getKeys(),$from,$to)->getQuery()->getResult(Query::HYDRATE_SCALAR);
+        foreach($csfBinaxDoneCount as $c)
+        {
+            $fpr = $results->get($c['code']);
+            if($fpr) // this should always be true.
+                $fpr->setCsfBinaxDoneCount($c['csfBinaxDone']);
+        }
+
+        $csfBinaxResultCount = $ibdRepo->getCsfBinaxResultCountBySites($results->getKeys(),$from,$to)->getQuery()->getResult(Query::HYDRATE_SCALAR);
+        foreach($csfBinaxResultCount as $c)
+        {
+            $fpr = $results->get($c['code']);
+            if($fpr) // this should always be true.
+                $fpr->setCsfBinaxResultCount($c['csfBinaxResult']);
         }
 
         if($export)
