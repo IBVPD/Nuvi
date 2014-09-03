@@ -2,11 +2,13 @@
 
 namespace NS\SentinelBundle\Filter;
 
-use NS\SentinelBundle\Form\Types\CaseStatus;
+use \Symfony\Component\Validator\Constraints as Assert;
+use \Symfony\Component\Validator\ExecutionContextInterface;
 
 /**
  * Description of Meningitis
  * @author gnat
+ * @Assert\Callback(methods={"fieldPopulationValidation"},groups={"FieldPopulation"})
  */
 class IBD
 {
@@ -177,5 +179,11 @@ class IBD
     {
         $this->lab = $lab;
         return $this;
+    }
+
+    public function fieldPopulationValidation(ExecutionContextInterface $context)
+    {
+        if(empty($this->admDate['left_date']) && empty($this->admDate['right_date']) && empty($this->createdAt['left_date']) && empty($this->createdAt['right_date']))
+            $context->addViolation ("You must select a date range for either created at or admission date");
     }
 }

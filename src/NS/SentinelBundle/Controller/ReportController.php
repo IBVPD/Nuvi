@@ -122,7 +122,7 @@ class ReportController extends Controller
      */
     public function fieldPopulationAction(Request $request)
     {
-        $form  = $this->createForm('IBDFieldPopulationFilterType',null,array('site_type'=>'advanced'));
+        $form  = $this->createForm('IBDFieldPopulationFilterType',null,array('site_type'=>'advanced','validation_groups'=>array('FieldPopulation')));
         $s     = $this->get('ns.sentinel.services.report');
 
         return $s->getFieldPopulation($request,$form,'reportFieldPopulation');
