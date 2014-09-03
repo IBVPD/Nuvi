@@ -6,7 +6,7 @@
         <div class="col-sm-9">
             <div class="widget-box no-border">
                 <div class="widget-header widget-header-small header-color-blue">
-                    <h5>{{'Results'|trans}}</h5>
+                    <h5>{{'%count% Results'|trans({'%count%': sites|length})}}</h5>
                 </div>
                 <table class="table table-bordered table-striped">
                     <thead class="thin-border-bottom">
@@ -65,6 +65,7 @@
                 <div class="widget-body">
                     <div class="widget-main">
                         <form method="POST" action="{{path('reportFieldPopulation')}}" class="reportFilters">
+                            {{form_errors(form)}}
                             {{form_rest(form)}}
                         </form>                        
                     </div>
