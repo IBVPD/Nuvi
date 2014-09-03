@@ -15,6 +15,8 @@ class FieldPopulationResult
     private $csfResultCount      = 0;
     private $csfBinaxDoneCount   = 0;
     private $csfBinaxResultCount = 0;
+    private $csfLatDoneCount     = 0;
+    private $csfLatResultCount   = 0;
     private $bloodCollectedCount = 0;
     private $bloodResultCount    = 0;
 
@@ -77,6 +79,16 @@ class FieldPopulationResult
         return ($this->totalCases > 0 && ($this->bloodCollectedCount>0 || $this->bloodResultCount>0) ) ? (min(array($this->bloodCollectedCount,$this->bloodResultCount))/$this->totalCases)*100:100;
     }
 
+    public function getCsfResultCount()
+    {
+        return $this->csfResultCount;
+    }
+
+    public function getCsfResultPercent()
+    {
+        return ($this->csfCollectedCount > 0) ? ($this->csfResultCount/$this->csfCollectedCount)*100: 0;
+    }
+
     public function getCsfBinaxDoneCount()
     {
         return $this->csfBinaxDoneCount;
@@ -86,16 +98,6 @@ class FieldPopulationResult
     {
         $this->csfBinaxDoneCount = $csfBinaxDoneCount;
         return $this;
-    }
-
-    public function getCsfResultCount()
-    {
-        return $this->csfResultCount;
-    }
-
-    public function getCsfResultPercent()
-    {
-        return ($this->csfCollectedCount > 0) ? ($this->csfResultCount/$this->csfCollectedCount)*100: 0;
     }
 
     public function getCsfBinaxResultCount()
@@ -111,6 +113,33 @@ class FieldPopulationResult
     public function setCsfBinaxResultCount($csfBinaxResultCount)
     {
         $this->csfBinaxResultCount = $csfBinaxResultCount;
+        return $this;
+    }
+
+    public function getCsfLatDoneCount()
+    {
+        return $this->csfLatDoneCount;
+    }
+
+    public function setCsfLatDoneCount($csfLatDoneCount)
+    {
+        $this->csfLatDoneCount = $csfLatDoneCount;
+        return $this;
+    }
+
+    public function getCsfLatResultCount()
+    {
+        return $this->csfLatResultCount;
+    }
+
+    public function getCsfLatResultPercent()
+    {
+        return ($this->csfLatDoneCount > 0) ? ($this->csfLatResultCount/$this->csfLatDoneCount)*100: 0;
+    }
+
+    public function setCsfLatResultCount($csfLatResultCount)
+    {
+        $this->csfLatResultCount = $csfLatResultCount;
         return $this;
     }
 

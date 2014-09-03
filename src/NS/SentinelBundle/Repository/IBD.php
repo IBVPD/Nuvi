@@ -249,14 +249,9 @@ class IBD extends Common
         return $this->secure($qb);
     }
 
-    public function getCsfCollectedCountBySites(array $siteCodes,\DateTime $from, \DateTime $to)
+    private function getCountQueryBuilder(array $siteCodes,\DateTime $from, \DateTime $to)
     {
-        $qb = $this->_em->createQueryBuilder();
-        $qb->select('i.id,COUNT(i.csfCollected) as csfCollectedCount, i.csfCollected,s.code')
-           ->from($this->getClassName(),'i')
-           ->innerJoin('i.site','s')
-           ->groupBy('i.site');
-
+        $qb    = $this->createQueryBuilder('i')->innerJoin('i.site','s')->groupBy('i.site');
         $where = $params = array();
         $x     = 0;
 
@@ -267,34 +262,27 @@ class IBD extends Common
             $x++;
         }
 
-        $qb->where("(".implode(" OR ",$where).") AND i.admDate BETWEEN :from AND :to AND i.csfCollected = :csfCollected")
-           ->setParameters(array_merge($params,array('from'=>$from,'to'=>$to,'csfCollected'=>  TripleChoice::YES)));
+        $qb->where("(".implode(" OR ",$where).") AND i.admDate BETWEEN :from AND :to")
+           ->setParameters(array_merge($params,array('from'=>$from,'to'=>$to)));
 
         return $qb;
+
+    }
+
+    public function getCsfCollectedCountBySites(array $siteCodes,\DateTime $from, \DateTime $to)
+    {
+        return $this->getCountQueryBuilder($siteCodes,$from,$to)
+                    ->select('i.id,COUNT(i.csfCollected) as csfCollectedCount,s.code')
+                    ->andWhere("i.csfCollected = :csfCollected")
+                    ->setParameter('csfCollected', TripleChoice::YES);
     }
 
     public function getBloodCollectedCountBySites(array $siteCodes,\DateTime $from, \DateTime $to)
     {
-        $qb = $this->_em->createQueryBuilder();
-        $qb->select('i.id,COUNT(i.bloodCollected) as bloodCollectedCount, i.bloodCollected,s.code')
-           ->from($this->getClassName(),'i')
-           ->innerJoin('i.site','s')
-           ->groupBy('i.site');
-
-        $where = $params = array();
-        $x     = 0;
-
-        foreach($siteCodes as $site)
-        {
-            $where[] = "i.site = :site$x";
-            $params['site'.$x] = $site;
-            $x++;
-        }
-
-        $qb->where("(".implode(" OR ",$where).") AND i.admDate BETWEEN :from AND :to AND i.bloodCollected = :bloodCollected")
-           ->setParameters(array_merge($params,array('from'=>$from,'to'=>$to,'bloodCollected'=>  TripleChoice::YES)));
-
-        return $qb;
+        return $this->getCountQueryBuilder($siteCodes,$from,$to)
+                    ->select('i.id,COUNT(i.bloodCollected) as bloodCollectedCount,s.code')
+                    ->andWhere("i.bloodCollected = :bloodCollected")
+                    ->setParameter('bloodCollected', TripleChoice::YES);
     }
 
 //replace bloodresult=1 if  blood_gram_stain!=. & blood_gram_stain!=99
@@ -303,97 +291,49 @@ class IBD extends Common
 //replace bloodresult=0 if bloodresult==.
     public function getBloodResultCountBySites(array $siteCodes,\DateTime $from, \DateTime $to)
     {
-        $qb = $this->_em->createQueryBuilder();
-        $qb->select('i.id,COUNT(i.id) as bloodResultCount,s.code')
-           ->from($this->getClassName(),'i')
-           ->innerJoin('i.site','s')
-           ->groupBy('i.site');
-
-        $where = $params = array();
-        $x     = 0;
-
-        foreach($siteCodes as $site)
-        {
-            $where[] = "i.site = :site$x";
-            $params['site'.$x] = $site;
-            $x++;
-        }
-
-        $qb->where("(".implode(" OR ",$where).") AND i.admDate BETWEEN :from AND :to AND (i.bloodCultResult != :unknown OR i.bloodGramResult != :unknown OR i.bloodPcrResult != :unknown )")
-           ->setParameters(array_merge($params,array('from'=>$from,'to'=>$to,'unknown'=>  TripleChoice::UNKNOWN)));
-
-        return $qb;
+        return $this->getCountQueryBuilder($siteCodes,$from,$to)
+                    ->select('i.id,COUNT(i.id) as bloodResultCount,s.code')
+                    ->andWhere("(i.bloodCultResult != :unknown OR i.bloodGramResult != :unknown OR i.bloodPcrResult != :unknown )")
+                    ->setParameter('unknown', TripleChoice::UNKNOWN);
     }
 
     public function getCsfResultCountBySites(array $siteCodes,\DateTime $from, \DateTime $to)
     {
-        $qb = $this->_em->createQueryBuilder();
-        $qb->select('i.id,COUNT(i.id) as csfResultCount,s.code')
-           ->from($this->getClassName(),'i')
-           ->innerJoin('i.site','s')
-           ->groupBy('i.site');
-
-        $where = $params = array();
-        $x     = 0;
-
-        foreach($siteCodes as $site)
-        {
-            $where[] = "i.site = :site$x";
-            $params['site'.$x] = $site;
-            $x++;
-        }
-
-        $qb->where("(".implode(" OR ",$where).") AND i.admDate BETWEEN :from AND :to AND i.csfCultResult != :unknown")
-           ->setParameters(array_merge($params,array('from' => $from, 'to' => $to, 'unknown' => TripleChoice::UNKNOWN)));
-
-        return $qb;
+        return $this->getCountQueryBuilder($siteCodes,$from,$to)
+                    ->select('i.id,COUNT(i.id) as csfResultCount,s.code')
+                    ->andWhere("i.csfCultResult != :unknown")
+                    ->setParameter('unknown', TripleChoice::UNKNOWN);
     }
 
     public function getCsfBinaxResultCountBySites(array $siteCodes,\DateTime $from, \DateTime $to)
     {
-        $qb = $this->_em->createQueryBuilder();
-        $qb->select('i.id,COUNT(i.id) as csfBinaxResult,s.code')
-           ->from($this->getClassName(),'i')
-           ->innerJoin('i.site','s')
-           ->groupBy('i.site');
-
-        $where = $params = array();
-        $x     = 0;
-
-        foreach($siteCodes as $site)
-        {
-            $where[] = "i.site = :site$x";
-            $params['site'.$x] = $site;
-            $x++;
-        }
-
-        $qb->where("(".implode(" OR ",$where).") AND i.admDate BETWEEN :from AND :to AND i.csfBinaxResult != :unknown")
-           ->setParameters(array_merge($params,array('from' => $from, 'to' => $to, 'unknown' => TripleChoice::UNKNOWN)));
-
-        return $qb;
+        return $this->getCountQueryBuilder($siteCodes,$from,$to)
+                    ->select('i.id,COUNT(i.id) as csfBinaxResult,s.code')
+                    ->andWhere("i.csfBinaxResult != :unknown")
+                    ->setParameter('unknown', TripleChoice::UNKNOWN);
     }
 
     public function getCsfBinaxDoneCountBySites(array $siteCodes,\DateTime $from, \DateTime $to)
     {
-        $qb = $this->_em->createQueryBuilder();
-        $qb->select('i.id,COUNT(i.id) as csfBinaxDone,s.code')
-           ->from($this->getClassName(),'i')
-           ->innerJoin('i.site','s')
-           ->groupBy('i.site');
+        return $this->getCountQueryBuilder($siteCodes,$from,$to)
+                    ->select('i.id,COUNT(i.id) as csfBinaxDone,s.code')
+                    ->andWhere("i.csfBinaxDone = :yes")
+                    ->setParameter('yes', TripleChoice::YES);
+    }
 
-        $where = $params = array();
-        $x     = 0;
+    public function getCsfLatResultCountBySites(array $siteCodes,\DateTime $from, \DateTime $to)
+    {
+        return $this->getCountQueryBuilder($siteCodes,$from,$to)
+                    ->select('i.id,COUNT(i.id) as csfLatResult,s.code')
+                    ->andWhere("i.csfLatResult != :unknown")
+                    ->setParameter('unknown', TripleChoice::UNKNOWN);
+    }
 
-        foreach($siteCodes as $site)
-        {
-            $where[] = "i.site = :site$x";
-            $params['site'.$x] = $site;
-            $x++;
-        }
-
-        $qb->where("(".implode(" OR ",$where).") AND i.admDate BETWEEN :from AND :to AND i.csfBinaxDone = :yes")
-           ->setParameters(array_merge($params,array('from' => $from, 'to' => $to, 'yes' => TripleChoice::YES)));
-
-        return $qb;
+    public function getCsfLatDoneCountBySites(array $siteCodes,\DateTime $from, \DateTime $to)
+    {
+        return $this->getCountQueryBuilder($siteCodes,$from,$to)
+                    ->select('i.id,COUNT(i.id) as csfLatDone,s.code')
+                    ->andWhere("i.csfLatDone = :yes")
+                    ->setParameter('yes', TripleChoice::YES);
     }
 }

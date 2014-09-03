@@ -169,6 +169,22 @@ class Report
                 $fpr->setCsfBinaxResultCount($c['csfBinaxResult']);
         }
 
+        $csfLatDoneCount = $ibdRepo->getCsfLatDoneCountBySites($results->getKeys(),$from,$to)->getQuery()->getResult(Query::HYDRATE_SCALAR);
+        foreach($csfLatDoneCount as $c)
+        {
+            $fpr = $results->get($c['code']);
+            if($fpr) // this should always be true.
+                $fpr->setCsfLatDoneCount($c['csfLatDone']);
+        }
+
+        $csfLatResultCount = $ibdRepo->getCsfLatResultCountBySites($results->getKeys(),$from,$to)->getQuery()->getResult(Query::HYDRATE_SCALAR);
+        foreach($csfLatResultCount as $c)
+        {
+            $fpr = $results->get($c['code']);
+            if($fpr) // this should always be true.
+                $fpr->setCsfLatResultCount($c['csfLatResult']);
+        }
+
         if($export)
             return $this->export($sites);
 
