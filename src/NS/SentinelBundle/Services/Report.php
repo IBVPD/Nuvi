@@ -99,159 +99,155 @@ class Report
 
     public function getFieldPopulation(Request $request, FormInterface $form, $redirectRoute)
     {
-        $year   = date('Y');
-        $from   = DateTime::createFromFormat("Y-m-d H:i:s", sprintf("%d-1-1 00:00:00",$year-1));
-        $to     = DateTime::createFromFormat("Y-m-d H:i:s", sprintf("%d-12-31 23:59:59",$year-1));
-        $export = false;
-        $alias  = 'i';
+        $results = new ArrayCollection();
+        $alias   = 'i';
+        $qb      = $this->em->getRepository('NSSentinelBundle:Site')->getWithCasesForDate($alias);
 
-        $qb = $this->em->getRepository('NSSentinelBundle:Site')->getWithCasesForDate($alias, $from, $to);
         $form->handleRequest($request);
-
         if($form->isValid())
         {
             if($form->get('reset')->isClicked())
                 return new RedirectResponse($this->router->generate($redirectRoute));
-            else
-                $this->filter->addFilterConditions($form, $qb, $alias);
+            
+            $this->filter->addFilterConditions($form, $qb, $alias);
 
-            $export = $form->get('export')->isClicked();
+            $sites = $qb->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult();
+
+            if(empty($sites))
+                return array('sites'=>array(),'form'=> $form->createView());
+
+            foreach($sites as $x => $values)
+            {
+                $fpr = new FieldPopulationResult();
+                $fpr->setSite($values[0]->getSite());
+                $fpr->setTotalCases($values['totalCases']);
+
+                $results->set($fpr->getSite()->getCode(),$fpr);
+            }
+
+            $ibdRepo      = $this->em->getRepository('NSSentinelBundle:IBD');
+
+            $csfCollected = $this->filter->addFilterConditions($form, $ibdRepo->getCsfCollectedCountBySites($alias, $results->getKeys()), $alias)->getQuery()->getResult(Query::HYDRATE_SCALAR);
+            foreach($csfCollected as $c)
+            {
+                $fpr = $results->get($c['code']);
+                if($fpr) // this should always be true.
+                    $fpr->setCsfCollectedCount($c['csfCollectedCount']);
+            }
+
+            $bloodCollected = $this->filter->addFilterConditions($form, $ibdRepo->getBloodCollectedCountBySites($alias, $results->getKeys()),$alias)->getQuery()->getResult(Query::HYDRATE_SCALAR);
+            foreach($bloodCollected as $c)
+            {
+                $fpr = $results->get($c['code']);
+                if($fpr) // this should always be true.
+                    $fpr->setBloodCollectedCount($c['bloodCollectedCount']);
+            }
+
+            $bloodResultCount = $this->filter->addFilterConditions($form, $ibdRepo->getBloodResultCountBySites($alias, $results->getKeys()),$alias)->getQuery()->getResult(Query::HYDRATE_SCALAR);
+            foreach($bloodResultCount as $c)
+            {
+                $fpr = $results->get($c['code']);
+                if($fpr) // this should always be true.
+                    $fpr->setBloodResultCount($c['bloodResultCount']);
+            }
+
+            $csfBinaxDoneCount = $this->filter->addFilterConditions($form, $ibdRepo->getCsfBinaxDoneCountBySites($alias, $results->getKeys()),$alias)->getQuery()->getResult(Query::HYDRATE_SCALAR);
+            foreach($csfBinaxDoneCount as $c)
+            {
+                $fpr = $results->get($c['code']);
+                if($fpr) // this should always be true.
+                    $fpr->setCsfBinaxDoneCount($c['csfBinaxDone']);
+            }
+
+            $csfBinaxResultCount = $this->filter->addFilterConditions($form, $ibdRepo->getCsfBinaxResultCountBySites($alias, $results->getKeys()),$alias)->getQuery()->getResult(Query::HYDRATE_SCALAR);
+            foreach($csfBinaxResultCount as $c)
+            {
+                $fpr = $results->get($c['code']);
+                if($fpr) // this should always be true.
+                    $fpr->setCsfBinaxResultCount($c['csfBinaxResult']);
+            }
+
+            $csfLatDoneCount = $this->filter->addFilterConditions($form, $ibdRepo->getCsfLatDoneCountBySites($alias, $results->getKeys()),$alias)->getQuery()->getResult(Query::HYDRATE_SCALAR);
+            foreach($csfLatDoneCount as $c)
+            {
+                $fpr = $results->get($c['code']);
+                if($fpr) // this should always be true.
+                    $fpr->setCsfLatDoneCount($c['csfLatDone']);
+            }
+
+            $csfLatResultCount = $this->filter->addFilterConditions($form, $ibdRepo->getCsfLatResultCountBySites($alias, $results->getKeys()),$alias)->getQuery()->getResult(Query::HYDRATE_SCALAR);
+            foreach($csfLatResultCount as $c)
+            {
+                $fpr = $results->get($c['code']);
+                if($fpr) // this should always be true.
+                    $fpr->setCsfLatResultCount($c['csfLatResult']);
+            }
+
+            $csfPcrRecordedCount = $this->filter->addFilterConditions($form, $ibdRepo->getCsfPcrCountBySites($alias, $results->getKeys()),$alias)->getQuery()->getResult(Query::HYDRATE_SCALAR);
+            foreach($csfPcrRecordedCount as $c)
+            {
+                $fpr = $results->get($c['code']);
+                if($fpr) // this should always be true.
+                    $fpr->setCsfPcrRecordedCount($c['csfPcrResultCount']);
+            }
+
+            $csfSpnRecordedCount = $this->filter->addFilterConditions($form, $ibdRepo->getCsfSpnCountBySites($alias, $results->getKeys()),$alias)->getQuery()->getResult(Query::HYDRATE_SCALAR);
+            foreach($csfSpnRecordedCount as $c)
+            {
+                $fpr = $results->get($c['code']);
+                if($fpr) // this should always be true.
+                    $fpr->setCsfSpnRecordedCount($c['csfSpnResultCount']);
+            }
+
+            $csfHiRecordedCount = $this->filter->addFilterConditions($form, $ibdRepo->getCsfHiCountBySites($alias, $results->getKeys()),$alias)->getQuery()->getResult(Query::HYDRATE_SCALAR);
+            foreach($csfHiRecordedCount as $c)
+            {
+                $fpr = $results->get($c['code']);
+                if($fpr) // this should always be true.
+                    $fpr->setCsfHiRecordedCount($c['csfHiResultCount']);
+            }
+
+            $pcrPositiveCount = $this->filter->addFilterConditions($form, $ibdRepo->getPcrPositiveCountBySites($alias, $results->getKeys()),$alias)->getQuery()->getResult(Query::HYDRATE_SCALAR);
+            foreach($pcrPositiveCount as $c)
+            {
+                $fpr = $results->get($c['code']);
+                if($fpr) // this should always be true.
+                    $fpr->setPcrPositiveCount($c['pcrPositiveCount']);
+            }
+
+            if($form->get('export')->isClicked())
+            {
+                $fields = array(
+                    'site.country.region',
+                    'site.country',
+                    'site',
+                    'site.ibdIntenseSupport',
+                    'totalCases',
+                    'csfCollectedCount',
+                    'csfCollectedPercent',
+                    'csfResultCount',
+                    'csfResultPercent',
+                    'bloodCollectedCount',
+                    'bloodCollectedPercent',
+                    'bloodResultCount',
+                    'bloodResultPercent',
+                    'bloodEqual',
+                    'csfBinaxResultPercent',
+                    'csfLatResultPercent',
+                    'pcrPositiveCount',
+                    'csfPcrRecordedCount',
+                    'csfPcrRecordedPercent',
+                    'csfSpnRecordedCount',
+                    'csfSpnRecordedPercent',
+                    'csfHiRecordedCount',
+                    'csfHiRecordedPercent',
+                );
+
+                return $this->export(new DoctrineCollectionSourceIterator($results,$fields));
+            }
         }
 
-        $results = new ArrayCollection();
-        $sites   = $qb->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult();
-
-        foreach($sites as $x => $values)
-        {
-            $fpr = new FieldPopulationResult();
-            $fpr->setSite($values[0]->getSite());
-            $fpr->setTotalCases($values['totalCases']);
-
-            $results->set($fpr->getSite()->getCode(),$fpr);
-        }
-
-        $ibdRepo      = $this->em->getRepository('NSSentinelBundle:IBD');
-
-        $csfCollected = $ibdRepo->getCsfCollectedCountBySites($results->getKeys(),$from,$to)->getQuery()->getResult(Query::HYDRATE_SCALAR);
-        foreach($csfCollected as $c)
-        {
-            $fpr = $results->get($c['code']);
-            if($fpr) // this should always be true.
-                $fpr->setCsfCollectedCount($c['csfCollectedCount']);
-        }
-
-        $bloodCollected = $ibdRepo->getBloodCollectedCountBySites($results->getKeys(),$from,$to)->getQuery()->getResult(Query::HYDRATE_SCALAR);
-        foreach($bloodCollected as $c)
-        {
-            $fpr = $results->get($c['code']);
-            if($fpr) // this should always be true.
-                $fpr->setBloodCollectedCount($c['bloodCollectedCount']);
-        }
-
-        $bloodResultCount = $ibdRepo->getBloodResultCountBySites($results->getKeys(),$from,$to)->getQuery()->getResult(Query::HYDRATE_SCALAR);
-        foreach($bloodResultCount as $c)
-        {
-            $fpr = $results->get($c['code']);
-            if($fpr) // this should always be true.
-                $fpr->setBloodResultCount($c['bloodResultCount']);
-        }
-
-        $csfBinaxDoneCount = $ibdRepo->getCsfBinaxDoneCountBySites($results->getKeys(),$from,$to)->getQuery()->getResult(Query::HYDRATE_SCALAR);
-        foreach($csfBinaxDoneCount as $c)
-        {
-            $fpr = $results->get($c['code']);
-            if($fpr) // this should always be true.
-                $fpr->setCsfBinaxDoneCount($c['csfBinaxDone']);
-        }
-
-        $csfBinaxResultCount = $ibdRepo->getCsfBinaxResultCountBySites($results->getKeys(),$from,$to)->getQuery()->getResult(Query::HYDRATE_SCALAR);
-        foreach($csfBinaxResultCount as $c)
-        {
-            $fpr = $results->get($c['code']);
-            if($fpr) // this should always be true.
-                $fpr->setCsfBinaxResultCount($c['csfBinaxResult']);
-        }
-
-        $csfLatDoneCount = $ibdRepo->getCsfLatDoneCountBySites($results->getKeys(),$from,$to)->getQuery()->getResult(Query::HYDRATE_SCALAR);
-        foreach($csfLatDoneCount as $c)
-        {
-            $fpr = $results->get($c['code']);
-            if($fpr) // this should always be true.
-                $fpr->setCsfLatDoneCount($c['csfLatDone']);
-        }
-
-        $csfLatResultCount = $ibdRepo->getCsfLatResultCountBySites($results->getKeys(),$from,$to)->getQuery()->getResult(Query::HYDRATE_SCALAR);
-        foreach($csfLatResultCount as $c)
-        {
-            $fpr = $results->get($c['code']);
-            if($fpr) // this should always be true.
-                $fpr->setCsfLatResultCount($c['csfLatResult']);
-        }
-
-        $csfPcrRecordedCount = $ibdRepo->getCsfPcrCountBySites($results->getKeys(),$from,$to)->getQuery()->getResult(Query::HYDRATE_SCALAR);
-        foreach($csfPcrRecordedCount as $c)
-        {
-            $fpr = $results->get($c['code']);
-            if($fpr) // this should always be true.
-                $fpr->setCsfPcrRecordedCount($c['csfPcrResultCount']);
-        }
-
-        $csfSpnRecordedCount = $ibdRepo->getCsfSpnCountBySites($results->getKeys(),$from,$to)->getQuery()->getResult(Query::HYDRATE_SCALAR);
-        foreach($csfSpnRecordedCount as $c)
-        {
-            $fpr = $results->get($c['code']);
-            if($fpr) // this should always be true.
-                $fpr->setCsfSpnRecordedCount($c['csfSpnResultCount']);
-        }
-
-        $csfHiRecordedCount = $ibdRepo->getCsfHiCountBySites($results->getKeys(),$from,$to)->getQuery()->getResult(Query::HYDRATE_SCALAR);
-        foreach($csfHiRecordedCount as $c)
-        {
-            $fpr = $results->get($c['code']);
-            if($fpr) // this should always be true.
-                $fpr->setCsfHiRecordedCount($c['csfHiResultCount']);
-        }
-
-        $pcrPositiveCount = $ibdRepo->getPcrPositiveCountBySites($results->getKeys(),$from,$to)->getQuery()->getResult(Query::HYDRATE_SCALAR);
-        foreach($pcrPositiveCount as $c)
-        {
-            $fpr = $results->get($c['code']);
-            if($fpr) // this should always be true.
-                $fpr->setPcrPositiveCount($c['pcrPositiveCount']);
-        }
-
-        if($export)
-        {
-            $fields = array(
-                'site.country.region',
-                'site.country',
-                'site',
-                'site.ibdIntenseSupport',
-                'totalCases',
-                'csfCollectedCount',
-                'csfCollectedPercent',
-                'csfResultCount',
-                'csfResultPercent',
-                'bloodCollectedCount',
-                'bloodCollectedPercent',
-                'bloodResultCount',
-                'bloodResultPercent',
-                'bloodEqual',
-                'csfBinaxResultPercent',
-                'csfLatResultPercent',
-                'pcrPositiveCount',
-                'csfPcrRecordedCount',
-                'csfPcrRecordedPercent',
-                'csfSpnRecordedCount',
-                'csfSpnRecordedPercent',
-                'csfHiRecordedCount',
-                'csfHiRecordedPercent',
-            );
-
-            return $this->export(new DoctrineCollectionSourceIterator($results,$fields));
-        }
-
-        return array('sites' => $results, 'form' => $form->createView(), 'csfCollected' => $csfCollected);
+        return array('sites' => $results, 'form' => $form->createView());
     }
 
     public function export($source, $format='csv')

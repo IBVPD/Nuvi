@@ -55,7 +55,7 @@ class Site extends CommonRepository
         return  $this->secure($this->createQueryBuilder('s'))->getQuery()->getResult();
     }
 
-    public function getWithCasesForDate($alias, \DateTime $from,\DateTime $to)
+    public function getWithCasesForDate($alias)
     {
         return $this->secure($this->_em->createQueryBuilder()
                   ->select($alias.',s,c,r,COUNT('.$alias.') as totalCases')
@@ -63,8 +63,6 @@ class Site extends CommonRepository
                   ->innerJoin($alias.'.site', 's','s.code')
                   ->innerJoin('s.country','c')
                   ->innerJoin('c.region','r')
-                  ->where($alias.'.admDate BETWEEN :from AND :to')
-                  ->setParameters(array('from'=>$from,'to'=>$to))
                   ->groupBy($alias.'.site'))
                   ->addOrderBy('r.name','ASC')
                   ->addOrderBy('c.name','ASC')

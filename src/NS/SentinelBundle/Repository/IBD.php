@@ -252,39 +252,35 @@ class IBD extends Common
         return $this->secure($qb);
     }
 
-    private function getCountQueryBuilder(array $siteCodes,\DateTime $from, \DateTime $to)
+    private function getCountQueryBuilder($alias, array $siteCodes)
     {
-        $qb    = $this->createQueryBuilder('i')->innerJoin('i.site','s')->groupBy('i.site');
+        $qb    = $this->createQueryBuilder($alias)->innerJoin($alias.'.site','s')->groupBy($alias.'.site');
         $where = $params = array();
         $x     = 0;
 
         foreach($siteCodes as $site)
         {
-            $where[] = "i.site = :site$x";
+            $where[] = "$alias.site = :site$x";
             $params['site'.$x] = $site;
             $x++;
         }
 
-        $qb->where("(".implode(" OR ",$where).") AND i.admDate BETWEEN :from AND :to")
-           ->setParameters(array_merge($params,array('from'=>$from,'to'=>$to)));
-
-        return $qb;
-
+        return $qb->where("(".implode(" OR ",$where).")")->setParameters($params);
     }
 
-    public function getCsfCollectedCountBySites(array $siteCodes,\DateTime $from, \DateTime $to)
+    public function getCsfCollectedCountBySites($alias, array $siteCodes)
     {
-        return $this->getCountQueryBuilder($siteCodes,$from,$to)
-                    ->select('i.id,COUNT(i.csfCollected) as csfCollectedCount,s.code')
-                    ->andWhere("i.csfCollected = :csfCollected")
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+                    ->select(sprintf('%s.id,COUNT(%s.csfCollected) as csfCollectedCount,s.code',$alias,$alias))
+                    ->andWhere(sprintf('%s.csfCollected = :csfCollected',$alias))
                     ->setParameter('csfCollected', TripleChoice::YES);
     }
 
-    public function getBloodCollectedCountBySites(array $siteCodes,\DateTime $from, \DateTime $to)
+    public function getBloodCollectedCountBySites($alias, array $siteCodes)
     {
-        return $this->getCountQueryBuilder($siteCodes,$from,$to)
-                    ->select('i.id,COUNT(i.bloodCollected) as bloodCollectedCount,s.code')
-                    ->andWhere("i.bloodCollected = :bloodCollected")
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+                    ->select(sprintf('%s.id,COUNT(%s.bloodCollected) as bloodCollectedCount,s.code',$alias,$alias))
+                    ->andWhere(sprintf('%s.bloodCollected = :bloodCollected',$alias))
                     ->setParameter('bloodCollected', TripleChoice::YES);
     }
 
@@ -292,85 +288,85 @@ class IBD extends Common
 //replace bloodresult=1 if  blood_gram_result!=. & blood_gram_result!=99
 //replace bloodresult=1 if  blood_PCR_result!=. & blood_PCR_result!=99
 //replace bloodresult=0 if bloodresult==.
-    public function getBloodResultCountBySites(array $siteCodes,\DateTime $from, \DateTime $to)
+    public function getBloodResultCountBySites($alias, array $siteCodes)
     {
-        return $this->getCountQueryBuilder($siteCodes,$from,$to)
-                    ->select('i.id,COUNT(i.id) as bloodResultCount,s.code')
-                    ->andWhere("(i.bloodCultResult != :unknown OR i.bloodGramResult != :unknown OR i.bloodPcrResult != :unknown )")
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+                    ->select(sprintf('%s.id,COUNT(%s.id) as bloodResultCount,s.code',$alias,$alias))
+                    ->andWhere(sprintf('(%s.bloodCultResult != :unknown OR %s.bloodGramResult != :unknown OR %s.bloodPcrResult != :unknown )',$alias,$alias,$alias))
                     ->setParameter('unknown', TripleChoice::UNKNOWN);
     }
 
-    public function getCsfResultCountBySites(array $siteCodes,\DateTime $from, \DateTime $to)
+    public function getCsfResultCountBySites($alias, array $siteCodes)
     {
-        return $this->getCountQueryBuilder($siteCodes,$from,$to)
-                    ->select('i.id,COUNT(i.id) as csfResultCount,s.code')
-                    ->andWhere("i.csfCultResult != :unknown")
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+                    ->select(sprintf('%s.id,COUNT(%s.id) as csfResultCount,s.code',$alias,$alias))
+                    ->andWhere(sprintf('%s.csfCultResult != :unknown',$alias))
                     ->setParameter('unknown', TripleChoice::UNKNOWN);
     }
 
-    public function getCsfBinaxResultCountBySites(array $siteCodes,\DateTime $from, \DateTime $to)
+    public function getCsfBinaxResultCountBySites($alias, array $siteCodes)
     {
-        return $this->getCountQueryBuilder($siteCodes,$from,$to)
-                    ->select('i.id,COUNT(i.id) as csfBinaxResult,s.code')
-                    ->andWhere("i.csfBinaxResult != :unknown")
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+                    ->select(sprintf('%s.id,COUNT(%s.id) as csfBinaxResult,s.code',$alias,$alias))
+                    ->andWhere(sprintf('%s.csfBinaxResult != :unknown',$alias))
                     ->setParameter('unknown', TripleChoice::UNKNOWN);
     }
 
-    public function getCsfBinaxDoneCountBySites(array $siteCodes,\DateTime $from, \DateTime $to)
+    public function getCsfBinaxDoneCountBySites($alias, array $siteCodes)
     {
-        return $this->getCountQueryBuilder($siteCodes,$from,$to)
-                    ->select('i.id,COUNT(i.id) as csfBinaxDone,s.code')
-                    ->andWhere("i.csfBinaxDone = :yes")
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+                    ->select(sprintf('%s.id,COUNT(%s.id) as csfBinaxDone,s.code',$alias,$alias))
+                    ->andWhere(sprintf('%s.csfBinaxDone = :yes',$alias))
                     ->setParameter('yes', TripleChoice::YES);
     }
 
-    public function getCsfLatResultCountBySites(array $siteCodes,\DateTime $from, \DateTime $to)
+    public function getCsfLatResultCountBySites($alias, array $siteCodes)
     {
-        return $this->getCountQueryBuilder($siteCodes,$from,$to)
-                    ->select('i.id,COUNT(i.id) as csfLatResult,s.code')
-                    ->andWhere("i.csfLatResult != :unknown")
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+                    ->select(sprintf('%s.id,COUNT(%s.id) as csfLatResult,s.code',$alias,$alias))
+                    ->andWhere(sprintf('%s.csfLatResult != :unknown',$alias))
                     ->setParameter('unknown', TripleChoice::UNKNOWN);
     }
 
-    public function getCsfLatDoneCountBySites(array $siteCodes,\DateTime $from, \DateTime $to)
+    public function getCsfLatDoneCountBySites($alias, array $siteCodes)
     {
-        return $this->getCountQueryBuilder($siteCodes,$from,$to)
-                    ->select('i.id,COUNT(i.id) as csfLatDone,s.code')
-                    ->andWhere("i.csfLatDone = :yes")
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+                    ->select(sprintf('%s.id,COUNT(%s.id) as csfLatDone,s.code',$alias,$alias))
+                    ->andWhere(sprintf('%s.csfLatDone = :yes',$alias))
                     ->setParameter('yes', TripleChoice::YES);
     }
 
-    public function getCsfPcrCountBySites(array $siteCodes,\DateTime $from, \DateTime $to)
+    public function getCsfPcrCountBySites($alias, array $siteCodes)
     {
-        return $this->getCountQueryBuilder($siteCodes,$from,$to)
-                    ->select('i.id,COUNT(i.id) as csfPcrResultCount,s.code')
-                    ->andWhere("i.csfPcrResult != :unknown")
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+                    ->select(sprintf('%s.id,COUNT(%s.id) as csfPcrResultCount,s.code',$alias,$alias))
+                    ->andWhere(sprintf('%s.csfPcrResult != :unknown',$alias))
                     ->setParameter('unknown', TripleChoice::UNKNOWN);
     }
 
-    public function getCsfSpnCountBySites(array $siteCodes,\DateTime $from, \DateTime $to)
+    public function getCsfSpnCountBySites($alias, array $siteCodes)
     {
-        return $this->getCountQueryBuilder($siteCodes,$from,$to)
-                    ->select('i.id,COUNT(i.id) as csfSpnResultCount,s.code')
-                    ->andWhere("(i.spnSerotype != :other OR i.spnSerotype != :notDone)")
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+                    ->select(sprintf('%s.id,COUNT(%s.id) as csfSpnResultCount,s.code',$alias,$alias))
+                    ->andWhere(sprintf('(%s.spnSerotype != :other OR %s.spnSerotype != :notDone)',$alias,$alias))
                     ->setParameter('other', SpnSerotype::OTHER)
                     ->setParameter('notDone', SpnSerotype::_NOT_DONE);
     }
 
-    public function getCsfHiCountBySites(array $siteCodes,\DateTime $from, \DateTime $to)
+    public function getCsfHiCountBySites($alias, array $siteCodes)
     {
-        return $this->getCountQueryBuilder($siteCodes,$from,$to)
-                    ->select('i.id,COUNT(i.id) as csfHiResultCount,s.code')
-                    ->andWhere("(i.hiSerotype != :other OR i.hiSerotype != :notDone)")
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+                    ->select(sprintf('%s.id,COUNT(%s.id) as csfHiResultCount,s.code',$alias,$alias))
+                    ->andWhere(sprintf('(%s.hiSerotype != :other OR %s.hiSerotype != :notDone)',$alias,$alias))
                     ->setParameter('other', HiSerotype::OTHER)
                     ->setParameter('notDone', HiSerotype::NOT_DONE);
     }
 
-    public function getPcrPositiveCountBySites(array $siteCodes,\DateTime $from, \DateTime $to)
+    public function getPcrPositiveCountBySites($alias, array $siteCodes)
     {
-        return $this->getCountQueryBuilder($siteCodes,$from,$to)
-                    ->select('i.id,COUNT(i.id) as pcrPositiveCount,s.code')
-                    ->andWhere("i.csfPcrResult = :spn ")
+        return $this->getCountQueryBuilder($alias,$siteCodes)
+                    ->select(sprintf('%s.id,COUNT(%s.id) as pcrPositiveCount,s.code',$alias,$alias))
+                    ->andWhere(sprintf('%s.csfPcrResult = :spn',$alias))
                     ->setParameter('spn', PCRResult::SPN);
     }
 }
