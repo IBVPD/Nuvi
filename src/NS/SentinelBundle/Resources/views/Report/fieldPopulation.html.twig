@@ -8,37 +8,6 @@
                 <div class="widget-header widget-header-small header-color-blue">
                     <h5>{{'Results'|trans}}</h5>
                 </div>
-<!--                    <table class="table table-bordered table-striped">
-                        <thead class="thin-border-bottom">
-                        <tr>
-                            <th>site_code</th>
-                            <th>Region</th>
-                            <th>prop ageinmonthscomplete</th>
-                            <th>prop totalcalcagecomplete</th>
-                            <th>prop under5</th>
-                            <th>prop ageequal</th>
-                            <th>proportion CSFcollected</th>
-                            <th>proportion LPdone</th>
-                            <th>prop LPequal</th>
-                            <th>prop bloodcollected</th>
-                            <th>prop totalbloodresult</th>
-                            <th>prop bloodequal</th>
-                            <th>prop CSFcultrecorded</th>
-                            <th>prop bloodcultrecorded</th>
-                            <th>prop binaxrecorded</th>
-                            <th>prop CSFlatrecorded</th>
-                            <th>total CSFspnpcrpositive</th>
-                            <th>total CSFPCRrecorded</th>
-                            <th>prop CSFPCRrecorded</th>
-                            <th>totalSpnresult</th>
-                            <th>propSpnresult</th>
-                            <th>totalHIresult</th>
-                            <th>NMresult</th>
-                            <th>prob dischoutcomerecorded</th>
-                            <th>totalSpnserotyperesult</th>
-                        </tr>
-                        </thead>
-                    </table>-->
                 <table class="table table-bordered table-striped">
                     <thead class="thin-border-bottom">
                         <tr>
@@ -53,10 +22,11 @@
                             <th colspan="2">{{'bloodResult'|trans}}</th>
                             <th>{{'bloodEqual'|trans}}</th>
                             <th>{{'csfBinaxResult'|trans}}</th>
-                            <th>{{'propCSFlatrecorded'|trans}}</th>
+                            <th>{{'csfLatRecorded'|trans}}</th>
                             <th>{{'totalCSFspnpcrpositive'|trans}}</th>
-                            <th>{{'totalCSFPCRrecorded'|trans}}</th>
-                            <th>{{'propCSFPCRrecorded'|trans}}</th>
+                            <th colspan="2">{{'CsfPcr'|trans}}</th>
+                            <th colspan="2">{{'SpnResult'|trans}}</th>
+                            <th colspan="2">{{'HiResult'|trans}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -77,6 +47,12 @@
                             <td></td>
                             <td>{{result.csfPcrRecordedCount}}</td>
                             <td>{{result.csfPcrRecordedPercent|number_format(1)}} %</td>
+
+                            <td>{{result.csfSpnRecordedCount}}</td>
+                            <td>{{result.csfSpnRecordedPercent|number_format(1)}} %</td>
+
+                            <td>{{result.csfHiRecordedCount}}</td>
+                            <td>{{result.csfHiRecordedPercent|number_format(1)}} %</td>
                         </tr>
                     {% endfor %}
                     </tbody>

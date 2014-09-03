@@ -193,6 +193,22 @@ class Report
                 $fpr->setCsfPcrRecordedCount($c['csfPcrResultCount']);
         }
 
+        $csfSpnRecordedCount = $ibdRepo->getCsfSpnCountBySites($results->getKeys(),$from,$to)->getQuery()->getResult(Query::HYDRATE_SCALAR);
+        foreach($csfSpnRecordedCount as $c)
+        {
+            $fpr = $results->get($c['code']);
+            if($fpr) // this should always be true.
+                $fpr->setCsfSpnRecordedCount($c['csfSpnResultCount']);
+        }
+
+        $csfHiRecordedCount = $ibdRepo->getCsfHiCountBySites($results->getKeys(),$from,$to)->getQuery()->getResult(Query::HYDRATE_SCALAR);
+        foreach($csfHiRecordedCount as $c)
+        {
+            $fpr = $results->get($c['code']);
+            if($fpr) // this should always be true.
+                $fpr->setCsfHiRecordedCount($c['csfHiResultCount']);
+        }
+
         if($export)
             return $this->export($sites);
 

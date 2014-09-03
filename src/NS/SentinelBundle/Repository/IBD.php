@@ -2,15 +2,17 @@
 
 namespace NS\SentinelBundle\Repository;
 
-use DateTime;
-use Doctrine\ORM\NoResultException;
-use Doctrine\ORM\Query;
-use InvalidArgumentException;
-use NS\SentinelBundle\Entity\IBD as C;
-use NS\SentinelBundle\Exceptions\NonExistentCase;
-use NS\SentinelBundle\Form\Types\IBDCaseResult;
-use NS\SentinelBundle\Form\Types\TripleChoice;
-use NS\SentinelBundle\Repository\Common;
+use \DateTime;
+use \Doctrine\ORM\NoResultException;
+use \Doctrine\ORM\Query;
+use \InvalidArgumentException;
+use \NS\SentinelBundle\Entity\IBD as C;
+use \NS\SentinelBundle\Exceptions\NonExistentCase;
+use \NS\SentinelBundle\Form\Types\HiSerotype;
+use \NS\SentinelBundle\Form\Types\IBDCaseResult;
+use \NS\SentinelBundle\Form\Types\SpnSerotype;
+use \NS\SentinelBundle\Form\Types\TripleChoice;
+use \NS\SentinelBundle\Repository\Common;
 
 /**
  * Description of Common
@@ -343,5 +345,23 @@ class IBD extends Common
                     ->select('i.id,COUNT(i.id) as csfPcrResultCount,s.code')
                     ->andWhere("i.csfPcrResult != :unknown")
                     ->setParameter('unknown', TripleChoice::UNKNOWN);
+    }
+
+    public function getCsfSpnCountBySites(array $siteCodes,\DateTime $from, \DateTime $to)
+    {
+        return $this->getCountQueryBuilder($siteCodes,$from,$to)
+                    ->select('i.id,COUNT(i.id) as csfSpnResultCount,s.code')
+                    ->andWhere("(i.spnSerotype != :other OR i.spnSerotype != :notDone)")
+                    ->setParameter('other', SpnSerotype::OTHER)
+                    ->setParameter('notDone', SpnSerotype::_NOT_DONE);
+    }
+
+    public function getCsfHiCountBySites(array $siteCodes,\DateTime $from, \DateTime $to)
+    {
+        return $this->getCountQueryBuilder($siteCodes,$from,$to)
+                    ->select('i.id,COUNT(i.id) as csfHiResultCount,s.code')
+                    ->andWhere("(i.hiSerotype != :other OR i.hiSerotype != :notDone)")
+                    ->setParameter('other', HiSerotype::OTHER)
+                    ->setParameter('notDone', HiSerotype::NOT_DONE);
     }
 }

@@ -18,6 +18,8 @@ class FieldPopulationResult
     private $csfLatDoneCount     = 0;
     private $csfLatResultCount   = 0;
     private $csfPcrRecordedCount = 0;
+    private $csfSpnRecordedCount = 0;
+    private $csfHiRecordedCount  = 0;
     private $bloodCollectedCount = 0;
     private $bloodResultCount    = 0;
 
@@ -193,6 +195,38 @@ class FieldPopulationResult
     public function setCsfPcrRecordedCount($csfPcrRecorded)
     {
         $this->csfPcrRecordedCount = $csfPcrRecorded;
+        return $this;
+    }
+
+    public function getCsfSpnRecordedCount()
+    {
+        return $this->csfSpnRecordedCount;
+    }
+
+    public function getCsfSpnRecordedPercent()
+    {
+        return ($this->totalCases > 0) ? ($this->csfSpnRecordedCount/$this->totalCases)*100: 0;
+    }
+
+    public function setCsfSpnRecordedCount($csfSpnRecorded)
+    {
+        $this->csfSpnRecordedCount = $csfSpnRecorded;
+        return $this;
+    }
+
+    public function getCsfHiRecordedCount()
+    {
+        return $this->csfHiRecordedCount;
+    }
+
+    public function getCsfHiRecordedPercent()
+    {
+        return ($this->totalCases > 0) ? ($this->csfHiRecordedCount/$this->totalCases)*100: 0;
+    }
+
+    public function setCsfHiRecordedCount($csfHiRecorded)
+    {
+        $this->csfHiRecordedCount = $csfHiRecorded;
         return $this;
     }
 }
