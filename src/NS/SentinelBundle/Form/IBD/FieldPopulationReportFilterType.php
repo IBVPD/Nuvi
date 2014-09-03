@@ -3,8 +3,7 @@
 namespace NS\SentinelBundle\Form\IBD;
 
 use \NS\SentinelBundle\Form\Filters\BaseReportFilterType;
-use \Symfony\Component\Form\FormBuilderInterface;
-use \NS\SentinelBundle\Form\Filters\SiteFilterType;
+use \Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Description of ReportFilterType
@@ -13,9 +12,12 @@ use \NS\SentinelBundle\Form\Filters\SiteFilterType;
  */
 class FieldPopulationReportFilterType extends BaseReportFilterType
 {
-    public function setDefaults(\Symfony\Component\OptionsResolver\OptionsResolverInterface $resolver)
+    public function setDefaults(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('site_type'=>'advanced'));
+        $resolver->setDefaults(array('site_type'        => 'advanced',
+                                     'data_class'       => '\NS\SentinelBundle\Filter\IBD',
+                                     'validation_groups'=> array('FieldPopulation'),
+                                    ));
     }
 
     public function getName()
