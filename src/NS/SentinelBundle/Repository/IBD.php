@@ -336,4 +336,12 @@ class IBD extends Common
                     ->andWhere("i.csfLatDone = :yes")
                     ->setParameter('yes', TripleChoice::YES);
     }
+
+    public function getCsfPcrCountBySites(array $siteCodes,\DateTime $from, \DateTime $to)
+    {
+        return $this->getCountQueryBuilder($siteCodes,$from,$to)
+                    ->select('i.id,COUNT(i.id) as csfPcrResultCount,s.code')
+                    ->andWhere("i.csfPcrResult != :unknown")
+                    ->setParameter('unknown', TripleChoice::UNKNOWN);
+    }
 }

@@ -17,6 +17,7 @@ class FieldPopulationResult
     private $csfBinaxResultCount = 0;
     private $csfLatDoneCount     = 0;
     private $csfLatResultCount   = 0;
+    private $csfPcrRecordedCount = 0;
     private $bloodCollectedCount = 0;
     private $bloodResultCount    = 0;
 
@@ -176,6 +177,22 @@ class FieldPopulationResult
     public function setTotalCases($totalCases)
     {
         $this->totalCases = $totalCases;
+        return $this;
+    }
+
+    public function getCsfPcrRecordedCount()
+    {
+        return $this->csfPcrRecordedCount;
+    }
+
+    public function getCsfPcrRecordedPercent()
+    {
+        return ($this->totalCases > 0) ? ($this->csfPcrRecordedCount/$this->totalCases)*100: 0;
+    }
+
+    public function setCsfPcrRecordedCount($csfPcrRecorded)
+    {
+        $this->csfPcrRecordedCount = $csfPcrRecorded;
         return $this;
     }
 }

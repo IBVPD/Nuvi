@@ -55,6 +55,8 @@
                             <th>{{'csfBinaxResult'|trans}}</th>
                             <th>{{'propCSFlatrecorded'|trans}}</th>
                             <th>{{'totalCSFspnpcrpositive'|trans}}</th>
+                            <th>{{'totalCSFPCRrecorded'|trans}}</th>
+                            <th>{{'propCSFPCRrecorded'|trans}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -71,8 +73,10 @@
                             <td>{{result.bloodResultCount}}</td><td>{{result.bloodResultPercent|number_format(1)}} %</td>
                             <td>{{result.bloodEqual|number_format(1)}} %</td>
                             <td>{{result.csfBinaxResultPercent|number_format(1)}} %</td>
-                            <td>{{result.csfLatDoneCount}} - {{result.csfLatResultCount}} =>{{result.csfLatResultPercent|number_format(1)}} %</td>
+                            <td>{{result.csfLatResultPercent|number_format(1)}} %</td>
                             <td></td>
+                            <td>{{result.csfPcrRecordedCount}}</td>
+                            <td>{{result.csfPcrRecordedPercent|number_format(1)}} %</td>
                         </tr>
                     {% endfor %}
                     </tbody>

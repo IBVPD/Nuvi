@@ -185,6 +185,14 @@ class Report
                 $fpr->setCsfLatResultCount($c['csfLatResult']);
         }
 
+        $csfPcrRecordedCount = $ibdRepo->getCsfPcrCountBySites($results->getKeys(),$from,$to)->getQuery()->getResult(Query::HYDRATE_SCALAR);
+        foreach($csfPcrRecordedCount as $c)
+        {
+            $fpr = $results->get($c['code']);
+            if($fpr) // this should always be true.
+                $fpr->setCsfPcrRecordedCount($c['csfPcrResultCount']);
+        }
+
         if($export)
             return $this->export($sites);
 
