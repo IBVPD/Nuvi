@@ -16,17 +16,17 @@
                             <th>{{'Site'|trans}}</th>
                             <th>{{'Intense Support'|trans}}</th>
                             <th>{{'Total # of Cases'|trans}}</th>
-                            <th colspan="2">{{'csfCollected'|trans}}</th>
-                            <th colspan="2">{{'csfResult'|trans}}</th>
-                            <th colspan="2">{{'bloodCollected'|trans}}</th>
-                            <th colspan="2">{{'bloodResult'|trans}}</th>
-                            <th>{{'bloodEqual'|trans}}</th>
-                            <th>{{'csfBinaxResult'|trans}}</th>
-                            <th>{{'csfLatRecorded'|trans}}</th>
-                            <th>{{'totalCSFspnpcrpositive'|trans}}</th>
-                            <th colspan="2">{{'CsfPcr'|trans}}</th>
-                            <th colspan="2">{{'SpnResult'|trans}}</th>
-                            <th colspan="2">{{'HiResult'|trans}}</th>
+                            <th colspan="2">{{'csf Collected'|trans}}</th>
+                            <th colspan="2">{{'csf Result'|trans}}</th>
+                            <th colspan="2">{{'blood Collected'|trans}}</th>
+                            <th colspan="2">{{'blood Result'|trans}}</th>
+                            <th>{{'blood Equal'|trans}}</th>
+                            <th>{{'csf Binax Result'|trans}}</th>
+                            <th>{{'csf Lat Recorded'|trans}}</th>
+                            <th>{{'Csf spn pcr positive'|trans}}</th>
+                            <th colspan="2">{{'Csf Pcr'|trans}}</th>
+                            <th colspan="2">{{'Spn Result'|trans}}</th>
+                            <th colspan="2">{{'Hi Result'|trans}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,7 +44,7 @@
                             <td>{{result.bloodEqual|number_format(1)}} %</td>
                             <td>{{result.csfBinaxResultPercent|number_format(1)}} %</td>
                             <td>{{result.csfLatResultPercent|number_format(1)}} %</td>
-                            <td></td>
+                            <td>{{result.pcrPositiveCount}}</td>
                             <td>{{result.csfPcrRecordedCount}}</td>
                             <td>{{result.csfPcrRecordedPercent|number_format(1)}} %</td>
 

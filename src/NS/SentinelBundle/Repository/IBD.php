@@ -10,6 +10,7 @@ use \NS\SentinelBundle\Entity\IBD as C;
 use \NS\SentinelBundle\Exceptions\NonExistentCase;
 use \NS\SentinelBundle\Form\Types\HiSerotype;
 use \NS\SentinelBundle\Form\Types\IBDCaseResult;
+use \NS\SentinelBundle\Form\Types\PCRResult;
 use \NS\SentinelBundle\Form\Types\SpnSerotype;
 use \NS\SentinelBundle\Form\Types\TripleChoice;
 use \NS\SentinelBundle\Repository\Common;
@@ -363,5 +364,13 @@ class IBD extends Common
                     ->andWhere("(i.hiSerotype != :other OR i.hiSerotype != :notDone)")
                     ->setParameter('other', HiSerotype::OTHER)
                     ->setParameter('notDone', HiSerotype::NOT_DONE);
+    }
+
+    public function getPcrPositiveCountBySites(array $siteCodes,\DateTime $from, \DateTime $to)
+    {
+        return $this->getCountQueryBuilder($siteCodes,$from,$to)
+                    ->select('i.id,COUNT(i.id) as pcrPositiveCount,s.code')
+                    ->andWhere("i.csfPcrResult = :spn ")
+                    ->setParameter('spn', PCRResult::SPN);
     }
 }

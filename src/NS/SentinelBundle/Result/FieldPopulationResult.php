@@ -22,6 +22,7 @@ class FieldPopulationResult
     private $csfHiRecordedCount  = 0;
     private $bloodCollectedCount = 0;
     private $bloodResultCount    = 0;
+    private $pcrPositiveCount    = 0;
 
     public function getSite()
     {
@@ -227,6 +228,17 @@ class FieldPopulationResult
     public function setCsfHiRecordedCount($csfHiRecorded)
     {
         $this->csfHiRecordedCount = $csfHiRecorded;
+        return $this;
+    }
+
+    public function getPcrPositiveCount()
+    {
+        return $this->pcrPositiveCount;
+    }
+
+    public function setPcrPositiveCount($pcrPositiveCount)
+    {
+        $this->pcrPositiveCount = $pcrPositiveCount;
         return $this;
     }
 }
