@@ -14,7 +14,7 @@ class ReportFilterType extends BaseReportFilterType
 {
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('data_class'=>'NS\SentinelBundle\Filter\IBD'));
+        $resolver->setDefaults(array('data_class' => 'NS\SentinelBundle\Filter\IBD'));
     }
 
     public function getName()

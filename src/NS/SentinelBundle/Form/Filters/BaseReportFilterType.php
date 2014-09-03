@@ -2,12 +2,12 @@
 
 namespace NS\SentinelBundle\Form\Filters;
 
-use \Lexik\Bundle\FormFilterBundle\Filter\Query\QueryInterface;
 use \NS\SecurityBundle\Role\ACLConverter;
 use \Symfony\Component\Form\AbstractType;
 use \Symfony\Component\Form\FormBuilderInterface;
 use \Symfony\Component\Form\FormEvent;
 use \Symfony\Component\Form\FormEvents;
+use \Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use \Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
@@ -28,7 +28,7 @@ class BaseReportFilterType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('admDate','filter_date_range',array('label'=>'report-filter-form.admitted-between'))
+        $builder->add('admDate',  'filter_date_range',array('label'=>'report-filter-form.admitted-between'))
                 ->add('createdAt','filter_date_range',array('label'=>'report-filter-form.created-between'))
                 ;
 
@@ -77,7 +77,7 @@ class BaseReportFilterType extends AbstractType
                     );
     }
 
-    public function setDefaultOptions(\Symfony\Component\OptionsResolver\OptionsResolverInterface $resolver)
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setOptional(array('site_type'));
         $resolver->setAllowedValues(array('site_type'=>array('simple','advanced')));
