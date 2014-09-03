@@ -2,11 +2,14 @@
 
 namespace NS\SentinelBundle\Services;
 
+use \DateTime;
 use \Doctrine\Common\Collections\ArrayCollection;
 use \Doctrine\Common\Persistence\ObjectManager;
 use \Doctrine\ORM\Query;
 use \Exporter\Source\ArraySourceIterator;
+use \NS\SentinelBundle\Result\FieldPopulationResult;
 use \NS\SentinelBundle\Result\NumberEnrolledResult;
+use \NS\SentinelBundle\Exporter\DoctrineCollectionSourceIterator;
 use \Sonata\CoreBundle\Exporter\Exporter;
 use \Symfony\Component\Form\FormInterface;
 use \Symfony\Component\HttpFoundation\RedirectResponse;
@@ -55,7 +58,7 @@ class Report
         $result->load($queryBuilder->getQuery()->getResult());
 
         if($export)
-            return $this->export($result->all(),'csv');
+            return $this->export(new ArraySourceIterator($result->all()),'csv');
 
         return array('results' => $result, 'form' => $form->createView());
     }
@@ -89,7 +92,7 @@ class Report
         }
 
         if($export)
-            return $this->export($results,'xls');
+            return $this->export(new ArraySourceIterator($results),'xls');
 
         return array('results'=>$results,'form'=>$form->createView());
     }
@@ -97,8 +100,8 @@ class Report
     public function getFieldPopulation(Request $request, FormInterface $form, $redirectRoute)
     {
         $year   = date('Y');
-        $from   = \DateTime::createFromFormat("Y-m-d H:i:s", sprintf("%d-1-1 00:00:00",$year-1));
-        $to     = \DateTime::createFromFormat("Y-m-d H:i:s", sprintf("%d-12-31 23:59:59",$year-1));
+        $from   = DateTime::createFromFormat("Y-m-d H:i:s", sprintf("%d-1-1 00:00:00",$year-1));
+        $to     = DateTime::createFromFormat("Y-m-d H:i:s", sprintf("%d-12-31 23:59:59",$year-1));
         $export = false;
         $alias  = 'i';
 
@@ -112,7 +115,7 @@ class Report
             else
                 $this->filter->addFilterConditions($form, $qb, $alias);
 
-            $export = ($form->get('export')->isClicked());
+            $export = $form->get('export')->isClicked();
         }
 
         $results = new ArrayCollection();
@@ -120,7 +123,7 @@ class Report
 
         foreach($sites as $x => $values)
         {
-            $fpr = new \NS\SentinelBundle\Result\FieldPopulationResult();
+            $fpr = new FieldPopulationResult();
             $fpr->setSite($values[0]->getSite());
             $fpr->setTotalCases($values['totalCases']);
 
@@ -218,14 +221,41 @@ class Report
         }
 
         if($export)
-            return $this->export($results);
+        {
+            $fields = array(
+                'site.country.region',
+                'site.country',
+                'site',
+                'site.ibdIntenseSupport',
+                'totalCases',
+                'csfCollectedCount',
+                'csfCollectedPercent',
+                'csfResultCount',
+                'csfResultPercent',
+                'bloodCollectedCount',
+                'bloodCollectedPercent',
+                'bloodResultCount',
+                'bloodResultPercent',
+                'bloodEqual',
+                'csfBinaxResultPercent',
+                'csfLatResultPercent',
+                'pcrPositiveCount',
+                'csfPcrRecordedCount',
+                'csfPcrRecordedPercent',
+                'csfSpnRecordedCount',
+                'csfSpnRecordedPercent',
+                'csfHiRecordedCount',
+                'csfHiRecordedPercent',
+            );
 
-        return array('sites' => $results, 'form' => $form->createView(),'csfCollected'=>$csfCollected);
+            return $this->export(new DoctrineCollectionSourceIterator($results,$fields));
+        }
+
+        return array('sites' => $results, 'form' => $form->createView(), 'csfCollected' => $csfCollected);
     }
 
-    public function export($results, $format='csv')
+    public function export($source, $format='csv')
     {
-        $source   = new ArraySourceIterator($results);
         $filename = sprintf('export_%s.%s',date('Y_m_d_H_i_s'), $format);
 
         return $this->exporter->getResponse($format, $filename, $source);
