@@ -216,6 +216,17 @@ class IBD extends Common
         }
     }
 
+    public function exportQuery($alias)
+    {
+        return $this->secure(
+                        $this->createQueryBuilder($alias)
+                             ->select($alias.',s,c,r')
+                             ->innerJoin($alias.'.site', 's')
+                             ->innerJoin($alias.'.country', 'c')
+                             ->innerJoin($alias.'.region', 'r')
+                            );
+    }
+
     public function getFilterQueryBuilder($alias = 'm')
     {
         return $this->getLatestQuery($alias);

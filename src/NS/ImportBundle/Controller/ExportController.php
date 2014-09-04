@@ -21,6 +21,38 @@ class ExportController extends Controller
      */
     public function indexAction(Request $request)
     {
-        return array();
+        $format  = 'xls';
+        $ibdForm = $this->createForm('IBDReportFilterType',null,array('validation_groups'=> array('FieldPopulation'),'include_filter'=>false));
+        $ibdForm->handleRequest($request);
+        if($ibdForm->isValid())
+        {
+            $alias  = 'i';
+            $fields = array('id','site.name','country.name','region.name');
+            $query  = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:IBD')->exportQuery($alias);
+
+            return $this->export($format, $ibdForm, $query, $fields);
+        }
+
+        $rotaForm = $this->createForm('RotaVirusReportFilterType',null,array('validation_groups'=> array('FieldPopulation'),'include_filter'=>false));
+        $rotaForm->handleRequest($request);
+        if($rotaForm->isValid())
+        {
+            $alias  = 'i';
+            $fields = array('id','site.name','country.name','region.name');
+            $query  = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:RotaVirus')->exportQuery($alias);
+
+            return $this->export($format, $ibdForm, $query, $fields);
+        }
+
+        return array( 'ibdForm' => $ibdForm->createView(), 'rotaForm'=>$rotaForm->createView() );
+    }
+
+    public function export($format, $form, $query, $fields)
+    {
+        $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $query, $query->getRootAlias());
+        $source   = new \Exporter\Source\DoctrineORMQuerySourceIterator($query->getQuery(),$fields);
+        $filename = sprintf('export_%s.%s',date('Y_m_d_H_i_s'), $format);
+
+        return $this->get('sonata.admin.exporter')->getResponse($format, $filename, $source);
     }
 }

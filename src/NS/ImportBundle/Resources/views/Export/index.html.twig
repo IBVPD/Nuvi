@@ -2,5 +2,36 @@
 {%block pagetitle %}{{'Export'|trans}}{%endblock %}
 
 {%block body %}
-
+<div class="row">
+    <div class="col-sm-4">
+        <div class="widget-box">
+            <div class="widget-header widget-header-small header-color-blue">
+                <h5>{{'IBD Export Filters'|trans}}</h5>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    <form action="{{path('exportIndex')}}" method="POST" class="reportFilters">
+                        {{form_errors(ibdForm)}}
+                        {{form_rest(ibdForm)}}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="widget-box">
+            <div class="widget-header widget-header-small header-color-blue">
+                <h5>{{'RotaVirus Export Filters'|trans}}</h5>
+            </div>
+            <div class="widget-body">
+                <div class="widget-main">
+                    <form action="{{path('exportIndex')}}" method="POST" class="reportFilters">
+                        {{form_errors(rotaForm)}}
+                        {{form_rest(rotaForm)}}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {%endblock%}

@@ -1,6 +1,6 @@
 <?php
 
-namespace NS\SentinelBundle\Form\IBD;
+namespace NS\SentinelBundle\Form\Rota;
 
 use \Symfony\Component\Form\AbstractType;
 use \Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -14,7 +14,7 @@ class ReportFilterType extends AbstractType
 {
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('data_class' => 'NS\SentinelBundle\Filter\IBD'));
+        $resolver->setDefaults(array('data_class' => 'NS\SentinelBundle\Filter\RotaVirus'));
     }
 
     public function getParent()
@@ -24,6 +24,6 @@ class ReportFilterType extends AbstractType
 
     public function getName()
     {
-        return 'IBDReportFilterType';
+        return 'RotaVirusReportFilterType';
     }
 }

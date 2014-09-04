@@ -38,7 +38,7 @@ class BaseReportFilterType extends AbstractType
         
         $builder->addEventListener(
                     FormEvents::PRE_SET_DATA,
-                    function(FormEvent $event) use($sc,$converter,$siteType)
+                    function(FormEvent $event) use($sc, $converter, $siteType, $options)
                     {
                         $form  = $event->getForm();
                         $token = $sc->getToken();
@@ -69,16 +69,23 @@ class BaseReportFilterType extends AbstractType
                                 $form->add('site',$siteType);
                         }
 
-                        $form->add('filter','submit',array('icon' => 'icon-search','attr' => array('class'=>'btn btn-sm btn-success')))
-                             ->add('export','submit',array('icon' => 'icon-cloud-download','attr' => array('class'=>'btn btn-sm btn-info')))
-                             ->add('reset', 'submit',array('icon' => 'icon-times-circle','attr' => array('class'=>'btn btn-sm btn-danger')))
-                            ;
+                        if($options['include_filter'])
+                            $form->add('filter','submit',array('icon' => 'icon-search','attr' => array('class'=>'btn btn-sm btn-success')));
+                        if($options['include_export'])
+                             $form->add('export','submit',array('icon' => 'icon-cloud-download','attr' => array('class'=>'btn btn-sm btn-info')));
+                        if($options['include_reset'])
+                             $form->add('reset', 'submit',array('icon' => 'icon-times-circle','attr' => array('class'=>'btn btn-sm btn-danger')));
                     }
                     );
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
+        $resolver->setDefaults(array('include_filter'=>true,
+                                     'include_export'=>true,
+                                     'include_reset'=>true)
+                              );
+
         $resolver->setOptional(array('site_type'));
         $resolver->setAllowedValues(array('site_type'=>array('simple','advanced')));
     }

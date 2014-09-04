@@ -2,6 +2,12 @@ parameters:
 #    ns_sentinel.example.class: NS\SentinelBundle\Example
 
 services:
+    ns.sentinel.form.rota.report_filter:
+      class: NS\SentinelBundle\Form\Rota\ReportFilterType
+      arguments: [ @security.context, @ns.security.acl_converter ] 
+      tags:
+        - { name: form.type, alias: RotaVirusReportFilterType }
+
     ns.sentinel.services.report:
       class: NS\SentinelBundle\Services\Report
       arguments: [@sonata.admin.exporter, @lexik_form_filter.query_builder_updater, @ns.model_manager, @router ]

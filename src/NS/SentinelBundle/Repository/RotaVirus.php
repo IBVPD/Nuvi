@@ -231,6 +231,17 @@ class RotaVirus extends SecuredEntityRepository implements AjaxAutocompleteRepos
         }
     }
 
+    public function exportQuery($alias)
+    {
+        return $this->secure(
+                        $this->createQueryBuilder($alias)
+                             ->select($alias.',s,c,r')
+                             ->innerJoin($alias.'.site', 's')
+                             ->innerJoin($alias.'.country', 'c')
+                             ->innerJoin($alias.'.region', 'r')
+                            );
+    }
+
     public function getFilterQueryBuilder($alias = 'm')
     {
         return $this->secure($this->createQueryBuilder($alias)->orderBy($alias.'.id','DESC'));

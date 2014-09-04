@@ -2,7 +2,7 @@
 
 namespace NS\SentinelBundle\Form\IBD;
 
-use \NS\SentinelBundle\Form\Filters\BaseReportFilterType;
+use \Symfony\Component\Form\AbstractType;
 use \Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
@@ -10,13 +10,12 @@ use \Symfony\Component\OptionsResolver\OptionsResolverInterface;
  *
  * @author gnat
  */
-class FieldPopulationReportFilterType extends BaseReportFilterType
+class FieldPopulationReportFilterType extends AbstractType
 {
     public function setDefaults(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('site_type'        => 'advanced',
-                                     'data_class'       => '\NS\SentinelBundle\Filter\IBD',
-                                     'validation_groups'=> array('FieldPopulation'),
+        $resolver->setDefaults(array('site_type'         => 'advanced',
+                                     'validation_groups' => array('FieldPopulation'),
                                     ));
     }
 
