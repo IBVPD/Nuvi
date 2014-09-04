@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2014-08-20T14:32:39Z" source-language="en" target-language="hi" datatype="plaintext" original="not.available">
+  <file date="2014-09-04T15:11:58Z" source-language="en" target-language="hi" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
     </header>
     <body>
+      <trans-unit id="18ab4daacc3850d1f77d27057bb1ec6d69b46aa7" resname="%count% Results">
+        <source>%count% Results</source>
+        <target state="new">%count% Results</target>
+        <jms:reference-file line="9">views/Report/fieldPopulation.html.twig</jms:reference-file>
+      </trans-unit>
       <trans-unit id="308ef13db5871494c2383c8cf00970521e3e9ef9" resname="1 dose">
         <source>1 dose</source>
         <target state="new">1 dose</target>
@@ -244,7 +249,7 @@
       <trans-unit id="e6a9bb4fd705c50b883a4ccfb7fdc2c4e47f13a5" resname="Api Resources">
         <source>Api Resources</source>
         <target state="new">Api Resources</target>
-        <jms:reference-file line="51">SentinelBundle/Menu/Builder.php</jms:reference-file>
+        <jms:reference-file line="52">SentinelBundle/Menu/Builder.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="ae4f281df5a5d0ff3cad6371f76d5c29b6d953ec" resname="B">
         <source>B</source>
@@ -386,12 +391,17 @@
       <trans-unit id="d523ebbd10146cdfd39dee077f04c9d08468d0bc" resname="Country">
         <source>Country</source>
         <target state="new">Country</target>
+        <jms:reference-file line="15">views/Report/fieldPopulation.html.twig</jms:reference-file>
         <jms:reference-file line="7">views/RotaVirus/indexRegionHeader.html.twig</jms:reference-file>
         <jms:reference-file line="7">views/IBD/indexRegionHeader.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="1282bad209e4796bde39661d95a44c1be496b25c" resname="Country API">
         <source>Country API</source>
         <target state="new">Country API</target>
+      </trans-unit>
+      <trans-unit id="2503248972e872a7a90502577f453c4393a63475" resname="Country Import/Export">
+        <source>Country Import/Export</source>
+        <target state="new">Country Import/Export</target>
       </trans-unit>
       <trans-unit id="24d5b7573e0f17f42038919c6ee16b45f5c248e6" resname="Country Statistics">
         <source>Country Statistics</source>
@@ -420,6 +430,16 @@
         <jms:reference-file line="30">views/IBD/index.html.twig</jms:reference-file>
         <jms:reference-file line="75">views/IBD/index.html.twig</jms:reference-file>
       </trans-unit>
+      <trans-unit id="5ebca3a6a2449f0bf89505b4220616f518244b2c" resname="Csf Pcr">
+        <source>Csf Pcr</source>
+        <target state="new">Csf Pcr</target>
+        <jms:reference-file line="27">views/Report/fieldPopulation.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="daca76f341170488ecbef5e895d310588588cea6" resname="Csf spn pcr positive">
+        <source>Csf spn pcr positive</source>
+        <target state="new">Csf spn pcr positive</target>
+        <jms:reference-file line="26">views/Report/fieldPopulation.html.twig</jms:reference-file>
+      </trans-unit>
       <trans-unit id="71f440a1dd4cf93fe583dd09db3c514d1b6820c4" resname="Culture Positive and Additional Lab Confirmed Cases By Diagnostic Test">
         <source>Culture Positive and Additional Lab Confirmed Cases By Diagnostic Test</source>
         <target state="new">Culture Positive and Additional Lab Confirmed Cases By Diagnostic Test</target>
@@ -429,7 +449,7 @@
         <source>Dashboard</source>
         <target state="new">Dashboard</target>
         <jms:reference-file line="2">views/Security/homepage.html.twig</jms:reference-file>
-        <jms:reference-file line="52">SentinelBundle/Menu/Builder.php</jms:reference-file>
+        <jms:reference-file line="53">SentinelBundle/Menu/Builder.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="441bda6cd85689e476ebe10440f27967faef61a6" resname="Deleted">
         <source>Deleted</source>
@@ -458,7 +478,7 @@
       <trans-unit id="9e9cf3221a30246219863f1d2366e36cb580debc" resname="Documentation">
         <source>Documentation</source>
         <target state="new">Documentation</target>
-        <jms:reference-file line="53">SentinelBundle/Menu/Builder.php</jms:reference-file>
+        <jms:reference-file line="54">SentinelBundle/Menu/Builder.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="abb454f7083b889c5d49dedd8fca52d3e3a35e35" resname="EPI">
         <source>EPI</source>
@@ -509,11 +529,17 @@
         <source>Female</source>
         <target state="new">Female</target>
       </trans-unit>
+      <trans-unit id="183f6c9b5b650d03aa4ae7c8d7c6ba7b81567727" resname="Field Population">
+        <source>Field Population</source>
+        <target state="new">Field Population</target>
+        <jms:reference-file line="2">views/Report/fieldPopulation.html.twig</jms:reference-file>
+      </trans-unit>
       <trans-unit id="96e578211aa295317cf257310712fa28ccd8f6c6" resname="Filters">
         <source>Filters</source>
         <target state="new">Filters</target>
         <jms:reference-file line="35">views/Report/percentEnrolled.html.twig</jms:reference-file>
         <jms:reference-file line="38">views/Report/annualAgeDistribution.html.twig</jms:reference-file>
+        <jms:reference-file line="63">views/Report/fieldPopulation.html.twig</jms:reference-file>
         <jms:reference-file line="2">views/RotaVirus/filter.html.twig</jms:reference-file>
         <jms:reference-file line="39">views/RotaVirus/index.html.twig</jms:reference-file>
         <jms:reference-file line="2">views/IBD/filter.html.twig</jms:reference-file>
@@ -629,6 +655,11 @@
         <source>Hi</source>
         <target state="new">Hi</target>
       </trans-unit>
+      <trans-unit id="da71976cb422306d363e7e69ce09adb388ce3dda" resname="Hi Result">
+        <source>Hi Result</source>
+        <target state="new">Hi Result</target>
+        <jms:reference-file line="29">views/Report/fieldPopulation.html.twig</jms:reference-file>
+      </trans-unit>
       <trans-unit id="44dd14f03d1c5a08fdcb240040c5d1ecea86ae23" resname="I forgot my password">
         <source>I forgot my password</source>
         <target state="new">I forgot my password</target>
@@ -649,6 +680,11 @@
       <trans-unit id="dc400fa85066d64045bdb76a544ff0c4d68e922a" resname="Indeterminate">
         <source>Indeterminate</source>
         <target state="new">Indeterminate</target>
+      </trans-unit>
+      <trans-unit id="ce74028d54f7533ed149c52db2e9b3c5fcfffc3e" resname="Intense Support">
+        <source>Intense Support</source>
+        <target state="new">Intense Support</target>
+        <jms:reference-file line="17">views/Report/fieldPopulation.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="54c2bc11f746b30e16b38457e62f445d4965c330" resname="Interstitial infiltrate">
         <source>Interstitial infiltrate</source>
@@ -810,11 +846,6 @@
         <source>NL - Other</source>
         <target state="new">NL - Other</target>
         <jms:reference-file line="368">views/IBD/editLab.html.twig</jms:reference-file>
-      </trans-unit>
-      <trans-unit id="71c2e174addf7ff1c8b8bf6a82e7b42f97834009" resname="NL Labs">
-        <source>NL Labs</source>
-        <target state="new">NL Labs</target>
-        <jms:reference-file line="50">views/User/profile.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="f3e49e37fac850e53a98aec2906b082c288d7a54" resname="NL/RRL Lab Information">
         <source>NL/RRL Lab Information</source>
@@ -1013,7 +1044,7 @@
         <target>Password</target>
         <jms:reference-file line="39">views/Security/login.html.twig</jms:reference-file>
         <jms:reference-file line="26">SentinelBundle/Form/UserType.php</jms:reference-file>
-        <jms:reference-file line="88">SentinelBundle/Admin/UserAdmin.php</jms:reference-file>
+        <jms:reference-file line="86">SentinelBundle/Admin/UserAdmin.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="30875c712f9792bec2c92e880e8fde803b4101fd" resname="Please Enter Your Information">
         <source>Please Enter Your Information</source>
@@ -1024,8 +1055,8 @@
         <source>Please Select...</source>
         <target>Please Select...</target>
         <jms:reference-file line="43">SentinelBundle/Form/CreateType.php</jms:reference-file>
-        <jms:reference-file line="147">Form/Types/Role.php</jms:reference-file>
-        <jms:reference-file line="153">Form/Types/Role.php</jms:reference-file>
+        <jms:reference-file line="165">Form/Types/Role.php</jms:reference-file>
+        <jms:reference-file line="171">Form/Types/Role.php</jms:reference-file>
         <jms:reference-file line="50">Form/Types/CreateRoles.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="baaf165357b4ddb22a1db71334044792390ac952" resname="Pleural effusion">
@@ -1077,11 +1108,6 @@
         <target state="new">RRL - Other</target>
         <jms:reference-file line="412">views/IBD/editLab.html.twig</jms:reference-file>
       </trans-unit>
-      <trans-unit id="49aa17260da286ec87bfa5df58f93b9f15fc4d0e" resname="RRL Labs">
-        <source>RRL Labs</source>
-        <target state="new">RRL Labs</target>
-        <jms:reference-file line="49">views/User/profile.html.twig</jms:reference-file>
-      </trans-unit>
       <trans-unit id="e7ec4476e3b6bfeaf98730dcb24de308ca089956" resname="Realtime PCR">
         <source>Realtime PCR</source>
         <target state="new">Realtime PCR</target>
@@ -1099,17 +1125,22 @@
       <trans-unit id="0f217179940c6d89f5cb2c7002a58d91ab7286c1" resname="Region">
         <source>Region</source>
         <target>Region</target>
+        <jms:reference-file line="14">views/Report/fieldPopulation.html.twig</jms:reference-file>
         <jms:reference-file line="47">SentinelBundle/Admin/SiteAdmin.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="3406b0a2aba3d78143f9395f10b3aec35a209650" resname="Region API">
         <source>Region API</source>
         <target state="new">Region API</target>
       </trans-unit>
+      <trans-unit id="b846d1c08e6f20ab3876a6108664a6e90d0e469d" resname="Region Import/Export">
+        <source>Region Import/Export</source>
+        <target state="new">Region Import/Export</target>
+      </trans-unit>
       <trans-unit id="bab9bc458f38d4d574e5baa63c72341db6ddaa30" resname="Repeat Password">
         <source>Repeat Password</source>
         <target>Repeat Password</target>
         <jms:reference-file line="27">SentinelBundle/Form/UserType.php</jms:reference-file>
-        <jms:reference-file line="89">SentinelBundle/Admin/UserAdmin.php</jms:reference-file>
+        <jms:reference-file line="87">SentinelBundle/Admin/UserAdmin.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="9ddb6a16cac44822c3b084efd14af99b02048827" resname="Report Dashboard">
         <source>Report Dashboard</source>
@@ -1145,7 +1176,7 @@
       <trans-unit id="efc007a393f66cdb14d57d385822a3d9e36ef873" resname="Save">
         <source>Save</source>
         <target state="new">Save</target>
-        <jms:reference-file line="58">views/User/profile.html.twig</jms:reference-file>
+        <jms:reference-file line="56">views/User/profile.html.twig</jms:reference-file>
         <jms:reference-file line="37">views/RotaVirus/editOutcome.html.twig</jms:reference-file>
         <jms:reference-file line="114">views/RotaVirus/edit.html.twig</jms:reference-file>
         <jms:reference-file line="131">views/RotaVirus/editLab.html.twig</jms:reference-file>
@@ -1169,6 +1200,7 @@
       <trans-unit id="5b6825d3c67a35898b7b65fd986a7fe6ca47771d" resname="Site">
         <source>Site</source>
         <target state="new">Site</target>
+        <jms:reference-file line="16">views/Report/fieldPopulation.html.twig</jms:reference-file>
         <jms:reference-file line="5">views/RotaVirus/indexCountryHeader.html.twig</jms:reference-file>
         <jms:reference-file line="6">views/RotaVirus/indexRegionHeader.html.twig</jms:reference-file>
         <jms:reference-file line="5">views/IBD/indexCountryHeader.html.twig</jms:reference-file>
@@ -1191,6 +1223,10 @@
         <jms:reference-file line="3">views/IBD/indexCountryHeader.html.twig</jms:reference-file>
         <jms:reference-file line="4">views/IBD/indexRegionHeader.html.twig</jms:reference-file>
       </trans-unit>
+      <trans-unit id="501fbc593e79084b78bc093c5b3331e7303a780c" resname="Site Import/Export">
+        <source>Site Import/Export</source>
+        <target state="new">Site Import/Export</target>
+      </trans-unit>
       <trans-unit id="00b2aad45d07b70e1b7eefea74316913901b6e42" resname="Some">
         <source>Some</source>
         <target state="new">Some</target>
@@ -1210,6 +1246,11 @@
       <trans-unit id="9e70307496fc8fb8da6ef26cb6551b41fef23f3a" resname="Spn Not able to be serotyped because of high lytA Ct value">
         <source>Spn Not able to be serotyped because of high lytA Ct value</source>
         <target state="new">Spn Not able to be serotyped because of high lytA Ct value</target>
+      </trans-unit>
+      <trans-unit id="e306248f0d41edc7373128a8677e69a684fe7ad8" resname="Spn Result">
+        <source>Spn Result</source>
+        <target state="new">Spn Result</target>
+        <jms:reference-file line="28">views/Report/fieldPopulation.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="be763e9aba2af6b8baabada85d5e26c043c93fed" resname="Stats">
         <source>Stats</source>
@@ -1266,6 +1307,11 @@
         <source>Target</source>
         <target>Target</target>
         <jms:reference-file line="49">SentinelBundle/Admin/ACLAdmin.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="1208423354693a4ecea29f76f0627bcf0eaa080d" resname="Total # of Cases">
+        <source>Total # of Cases</source>
+        <target state="new">Total # of Cases</target>
+        <jms:reference-file line="18">views/Report/fieldPopulation.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="f76d1e2a50543a098caaec8da67e10271c0a83af" resname="Transferred">
         <source>Transferred</source>
@@ -1337,25 +1383,55 @@
       <trans-unit id="6f7f85459fa94aded8f2a0499ebd5f33231883fa" resname="admin.form-can-create-case-record">
         <source>admin.form-can-create-case-record</source>
         <target state="new">admin.form-can-create-case-record</target>
-        <jms:reference-file line="94">SentinelBundle/Admin/UserAdmin.php</jms:reference-file>
+        <jms:reference-file line="92">SentinelBundle/Admin/UserAdmin.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="83dc047b895b5a3ea8064c71b7bea957ee38c40e" resname="admin.form-can-create-sitelab-record">
         <source>admin.form-can-create-sitelab-record</source>
         <target state="new">admin.form-can-create-sitelab-record</target>
-        <jms:reference-file line="95">SentinelBundle/Admin/UserAdmin.php</jms:reference-file>
-      </trans-unit>
-      <trans-unit id="b31a818484e0187295f9f165f4a80e675e01482c" resname="admin.form-can-import-records">
-        <source>admin.form-can-import-records</source>
-        <target state="new">admin.form-can-import-records</target>
-        <jms:reference-file line="96">SentinelBundle/Admin/UserAdmin.php</jms:reference-file>
+        <jms:reference-file line="93">SentinelBundle/Admin/UserAdmin.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e9d71f5ee7c92d6dc9e92ffdad17b8bd49418f98" resname="b">
         <source>b</source>
         <target state="new">b</target>
       </trans-unit>
+      <trans-unit id="49e1d7a45d0316b95e2388d2dc2b0f1b94a33dbc" resname="blood Collected">
+        <source>blood Collected</source>
+        <target state="new">blood Collected</target>
+        <jms:reference-file line="21">views/Report/fieldPopulation.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="cfcd821ea6e7348be0b6c0de8ed4a4383c1ae01e" resname="blood Equal">
+        <source>blood Equal</source>
+        <target state="new">blood Equal</target>
+        <jms:reference-file line="23">views/Report/fieldPopulation.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="a53658753e1d351efc751c39527cd0994c80bf81" resname="blood Result">
+        <source>blood Result</source>
+        <target state="new">blood Result</target>
+        <jms:reference-file line="22">views/Report/fieldPopulation.html.twig</jms:reference-file>
+      </trans-unit>
       <trans-unit id="84a516841ba77a5b4648de2cd0dfcb30ea46dbb4" resname="c">
         <source>c</source>
         <target state="new">c</target>
+      </trans-unit>
+      <trans-unit id="e23e32ba593b3f97acca179a8075c1aab17ecf53" resname="csf Binax Result">
+        <source>csf Binax Result</source>
+        <target state="new">csf Binax Result</target>
+        <jms:reference-file line="24">views/Report/fieldPopulation.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="abbbc28952e061627f8fd4ad474944cec585a2e7" resname="csf Collected">
+        <source>csf Collected</source>
+        <target state="new">csf Collected</target>
+        <jms:reference-file line="19">views/Report/fieldPopulation.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="d933c100a3344322c1679817f118083d26a627a7" resname="csf Lat Recorded">
+        <source>csf Lat Recorded</source>
+        <target state="new">csf Lat Recorded</target>
+        <jms:reference-file line="25">views/Report/fieldPopulation.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="78a8804d05d15573c53379b34f5c7febef6b507b" resname="csf Result">
+        <source>csf Result</source>
+        <target state="new">csf Result</target>
+        <jms:reference-file line="20">views/Report/fieldPopulation.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="3c363836cf4e16666669a25da280a1865c2d2874" resname="d">
         <source>d</source>
@@ -2443,8 +2519,8 @@
       <trans-unit id="5c6441c54e28f6fe1e8319a1069edb607e328614" resname="menu.data-admin">
         <source>menu.data-admin</source>
         <target state="new">menu.data-admin</target>
-        <jms:reference-file line="63">SentinelBundle/Menu/Builder.php</jms:reference-file>
-        <jms:reference-file line="64">SentinelBundle/Menu/Builder.php</jms:reference-file>
+        <jms:reference-file line="66">SentinelBundle/Menu/Builder.php</jms:reference-file>
+        <jms:reference-file line="67">SentinelBundle/Menu/Builder.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="aef873a71a05175f437cbe2967b04c1b446dfd2b" resname="menu.data-entry">
         <source>menu.data-entry</source>
@@ -2466,6 +2542,11 @@
         <target state="new">menu.data-reports-data-quality</target>
         <jms:reference-file line="47">SentinelBundle/Menu/Builder.php</jms:reference-file>
       </trans-unit>
+      <trans-unit id="7957870acc95548d273cdbe96a5e710f52a7669f" resname="menu.data-reports-field-population">
+        <source>menu.data-reports-field-population</source>
+        <target state="new">menu.data-reports-field-population</target>
+        <jms:reference-file line="48">SentinelBundle/Menu/Builder.php</jms:reference-file>
+      </trans-unit>
       <trans-unit id="0977caabc785b46095f0d196b1bfc6489613d845" resname="menu.data-reports-number-per-month">
         <source>menu.data-reports-number-per-month</source>
         <target state="new">menu.data-reports-number-per-month</target>
@@ -2481,10 +2562,20 @@
         <target state="new">menu.data-reports-percent-enrolled</target>
         <jms:reference-file line="44">SentinelBundle/Menu/Builder.php</jms:reference-file>
       </trans-unit>
+      <trans-unit id="540cd0fc2fe5af1c6ee1e78f1ef303a5abc43171" resname="menu.export">
+        <source>menu.export</source>
+        <target state="new">menu.export</target>
+        <jms:reference-file line="61">SentinelBundle/Menu/Builder.php</jms:reference-file>
+      </trans-unit>
       <trans-unit id="ce6399d3bacfea49ed276b16f403667a7886d5b7" resname="menu.import">
         <source>menu.import</source>
         <target state="new">menu.import</target>
-        <jms:reference-file line="58">SentinelBundle/Menu/Builder.php</jms:reference-file>
+        <jms:reference-file line="60">SentinelBundle/Menu/Builder.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="5a371a391a2d1a3b1d5ae22065144126a5fc6308" resname="menu.import-export">
+        <source>menu.import-export</source>
+        <target state="new">menu.import-export</target>
+        <jms:reference-file line="59">SentinelBundle/Menu/Builder.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="cc19664b64336d18c98237a18b15aa4c2eb352b7" resname="menu.meningitis">
         <source>menu.meningitis</source>
@@ -2494,7 +2585,17 @@
       <trans-unit id="c136d5b4518049cb39d5e06e6b8dc16619e7f7af" resname="menu.translation">
         <source>menu.translation</source>
         <target state="new">menu.translation</target>
-        <jms:reference-file line="65">SentinelBundle/Menu/Builder.php</jms:reference-file>
+        <jms:reference-file line="68">SentinelBundle/Menu/Builder.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="eb33f39189da6e994faddf9398756c7ca05641e2" resname="report-filter-form.admitted-between">
+        <source>report-filter-form.admitted-between</source>
+        <target state="new">report-filter-form.admitted-between</target>
+        <jms:reference-file line="31">Form/Filters/BaseReportFilterType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="77fc283564e57886245b0776cfc690aa3abc4f86" resname="report-filter-form.created-between">
+        <source>report-filter-form.created-between</source>
+        <target state="new">report-filter-form.created-between</target>
+        <jms:reference-file line="32">Form/Filters/BaseReportFilterType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="487ef4638703ce80913ffeb25a51fd0d889a1306" resname="rotavirus-form.adequate">
         <source>rotavirus-form.adequate</source>
