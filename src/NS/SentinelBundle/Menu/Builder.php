@@ -58,7 +58,7 @@ class Builder
             {
                 $import = $menu->addChild('Import',array('label'=>'menu.import-export'));
                 $import->addChild('Import',array('label'=>'menu.import','route'=>'importIndex'))->setExtra('icon', 'icon-cloud-upload');
-                $import->addChild('Export')->setExtra('icon', 'icon-cloud-download');
+                $import->addChild('Export',array('label'=>'menu.export','route'=>'exportIndex'))->setExtra('icon', 'icon-cloud-download');
             }
 
             if($this->securityContext->isGranted('ROLE_ADMIN'))
