@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\ExecutionContextInterface;
 use NS\SecurityBundle\Model\SecuredEntityInterface;
 use NS\SentinelBundle\Form\Types\Role;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * User
@@ -16,6 +17,7 @@ use NS\SentinelBundle\Form\Types\Role;
  * @ORM\Table(name="users",uniqueConstraints={@ORM\UniqueConstraint(name="email_idx",columns={"email"})})
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\User")
  * @Assert\Callback(methods={"validate"})
+ * @UniqueEntity("email")
  */
 class User implements AdvancedUserInterface, SecuredEntityInterface
 {

@@ -153,7 +153,7 @@ class UserAdmin extends Admin
         if($user->isOnlyAdmin())
         {
             $ralias = $query->getRootAlias();
-            $query->innerJoin("$ralias.acls",'a');
+            $query->leftJoin("$ralias.acls",'a');
 
             return $query;
         }
@@ -164,7 +164,7 @@ class UserAdmin extends Admin
             throw new \RuntimeException("Unable to determine highest role");
 
         $ralias = $query->getRootAlias();
-        $query->innerJoin("$ralias.acls",'a')
+        $query->leftJoin("$ralias.acls",'a')
               ->where('a.type >= :type')
               ->setParameter('type',$highest);
 
