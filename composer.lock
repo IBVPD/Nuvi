@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8ba6cc26e1e87cd586530f03e1b2d789",
+    "hash": "7a03e8a0cf423bf19cf3c0538b2272df",
     "packages": [
         {
             "name": "adoy/oauth2",
@@ -74,16 +74,16 @@
         },
         {
             "name": "ddeboer/data-import",
-            "version": "0.16.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ddeboer/data-import.git",
-                "reference": "72d4f9315600eb2e5ec2b8688b3bdd5e00dc2ef5"
+                "reference": "39ac4dcffd927e68e1ebbd32cc0c750d231a3928"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ddeboer/data-import/zipball/72d4f9315600eb2e5ec2b8688b3bdd5e00dc2ef5",
-                "reference": "72d4f9315600eb2e5ec2b8688b3bdd5e00dc2ef5",
+                "url": "https://api.github.com/repos/ddeboer/data-import/zipball/39ac4dcffd927e68e1ebbd32cc0c750d231a3928",
+                "reference": "39ac4dcffd927e68e1ebbd32cc0c750d231a3928",
                 "shasum": ""
             },
             "require": {
@@ -139,7 +139,7 @@
                 "export",
                 "import"
             ],
-            "time": "2014-07-28 11:57:13"
+            "time": "2014-08-21 20:27:50"
         },
         {
             "name": "ddeboer/data-import-bundle",
@@ -5433,6 +5433,7 @@
         "adoy/oauth2": 20,
         "liip/functional-test-bundle": 20,
         "beberlei/doctrineextensions": 20,
+        "ddeboer/data-import": 20,
         "behat/behat": 0,
         "behat/mink": 0
     },
