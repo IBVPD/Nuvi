@@ -285,6 +285,19 @@ nelmio_api_doc:
 ns_import:
   classes: { NS\SentinelBundle\Entity\IBD: IBD, NS\SentinelBundle\Entity\Rotavirus: Rotavirus }
 
+deploy:
+  prodwhodemo:
+    rsync-options: '-azC --force --delete --progress -h --checksum'
+    host: beryllium.noblet.ca
+    dir: /var/www/local/whodemo
+    user: apache
+    port: 22
+    timeout: 120 # Connection timeout in seconds. 0 for no timeout.
+    post_deploy_operations: 
+        - composer install --no-dev --optimize-autoloader
+        - app/console cache:clear --env=prod
+        - app/console assets:install
+
 services:
   ns.form.types.autocomplete:
     class: NS\UtilBundle\Form\Types\Autocomplete

@@ -58,7 +58,8 @@
         "liip/functional-test-bundle": "dev-master",
         "beberlei/DoctrineExtensions": "dev-master",
         "ddeboer/data-import-bundle": "~0.1",
-        "ddeboer/data-import": "dev-master"
+        "ddeboer/data-import": "dev-gnat",
+        "hpatoio/deploy-bundle": "~1.4"
     },
     "scripts": {
         "post-install-cmd": [
@@ -91,7 +92,8 @@
         }
     },
     "repositories": [ 
-			{ "type": "composer", "url": "http://packages.noblet.ca/" }
+			{ "type": "composer", "url": "http://packages.noblet.ca/" },
+                        { "type": "vcs", "url": "https://github.com/gnat42/data-import" }
 		    ],
     "require-dev": {
         "phpunit/phpunit": "~4.0",
