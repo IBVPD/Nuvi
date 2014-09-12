@@ -53,7 +53,7 @@ services:
 
     ns_import.admin.map:
         class: NS\ImportBundle\Admin\MapAdmin
-        arguments: [~, NS\ImportBundle\Entity\Map, SonataAdminBundle:CRUD]
+        arguments: [~, NS\ImportBundle\Entity\Map, NSImportBundle:MapAdmin ]
         calls: 
             - [ setConverterRegistry, [ @ns_import.converters ]]
         tags:

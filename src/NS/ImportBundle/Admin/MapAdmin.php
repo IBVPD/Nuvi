@@ -11,6 +11,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\Form\AbstractType;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 class MapAdmin extends Admin
 {
@@ -47,6 +48,7 @@ class MapAdmin extends Admin
                     'show' => array(),
                     'edit' => array(),
                     'delete' => array(),
+                    'clone' => array('template'=>'NSImportBundle:MapAdmin:list__action_clone.html.twig'),
                 )
             ))
         ;
@@ -148,5 +150,10 @@ class MapAdmin extends Admin
         }
 
         return $map;
+    }
+
+    protected function configureRoutes(RouteCollection $collection)
+    {
+        $collection->add('clone', $this->getRouterIdParameter().'/clone');
     }
 }

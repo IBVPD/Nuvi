@@ -57,6 +57,22 @@ class Map
      */
     private $columns;
 
+    public function __clone()
+    {
+        if($this->id)
+            $this->id = null;
+
+        if($this->columns)
+        {
+            $columns = array();
+
+            foreach($this->columns as $col)
+                $columns[] = clone $col;
+
+            $this->columns = $columns;
+        }
+    }
+
     public function __construct()
     {
         $this->columns = new ArrayCollection();
