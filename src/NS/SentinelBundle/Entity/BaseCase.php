@@ -178,6 +178,13 @@ abstract class BaseCase implements IdentityAssignmentInterface
 
     public function getFullIdentifier($id)
     {
+        if(property_exists($this, 'admDate') && $this->admDate)
+            $year = $this->admDate->format('y');
+        else if(property_exists($this, 'onsetDate') && $this->onsetDate)
+            $year = $this->onsetDate->format('y');
+        else
+            $year = date('y');
+
         return sprintf("%s-%s-%d-%06d", $this->country->getCode(), $this->site->getCode(), date('y'), $id);
     }
 
