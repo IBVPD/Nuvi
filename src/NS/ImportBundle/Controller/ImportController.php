@@ -40,7 +40,10 @@ class ImportController extends Controller
 
             $errors = array();
             foreach($result->getExceptions() as $row => $e)
-                $errors[$row] = array('row'=>$row,'message'=>$e->getMessage());
+            {
+                $msg = ($e->getPrevious()) ? sprintf("%s - %s",$e->getMessage(),$e->getPrevious()->getMessage()):$e->getMessage();
+                $errors[$row] = array('row' => $row,'message' => $msg);
+            }
 
             $result->setExceptions(array());
             $result->setResults(array());
