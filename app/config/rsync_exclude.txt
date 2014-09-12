@@ -24,3 +24,5 @@ phpci.yml
 who.yml
 *odt*
 bin
+web/ace
+app/Resources/translations
