@@ -20,6 +20,12 @@ use JMS\Serializer\Annotation\Groups;
  */
 abstract class BaseCase implements IdentityAssignmentInterface
 {
+    const AGE_DISTRIBUTION_UNKNOWN  = -1;
+    const AGE_DISTRIBUTION_00_TO_05 = 1;
+    const AGE_DISTRIBUTION_05_TO_11 = 2;
+    const AGE_DISTRIBUTION_11_TO_23 = 3;
+    const AGE_DISTRIBUTION_23_TO_59 = 4;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="CUSTOM")
@@ -312,18 +318,18 @@ abstract class BaseCase implements IdentityAssignmentInterface
         if($this->age >= 0)
         {
             if($this->age <= 5)
-                $this->setAgeDistribution (1);
+                $this->setAgeDistribution (self::AGE_DISTRIBUTION_00_TO_05);
             else if ($this->age <= 11)
-                $this->setAgeDistribution (2);
+                $this->setAgeDistribution (self::AGE_DISTRIBUTION_05_TO_11);
             else if ($this->age <= 23)
-                $this->setAgeDistribution (3);
+                $this->setAgeDistribution (self::AGE_DISTRIBUTION_11_TO_23);
             else if ($this->age <= 59)
-                $this->setAgeDistribution (4);
+                $this->setAgeDistribution (self::AGE_DISTRIBUTION_23_TO_59);
             else
-                $this->setAgeDistribution (-1);
+                $this->setAgeDistribution (self::AGE_DISTRIBUTION_UNKNOWN);
         }
         else
-            $this->setAgeDistribution (-1);
+            $this->setAgeDistribution (self::AGE_DISTRIBUTION_UNKNOWN);
     }
 
     public function getUpdatedAt()
