@@ -254,7 +254,7 @@ class IBD extends Common
         $this->_em->getConfiguration()->addCustomDatetimeFunction('YEAR', 'DoctrineExtensions\Query\Mysql\Year');
 
         $qb = $this->createQueryBuilder($alias)
-                   ->select(sprintf('YEAR(%s.createdAt) as theYear,%s',$alias,$alias))
+                   ->select(sprintf('YEAR(%s.admDate) as theYear,%s',$alias,$alias))
                    ->where(sprintf('(%s.result = :suspectedMening)',$alias))
                    ->setParameter('suspectedMening', IBDCaseResult::PROBABLE)
                    ->orderBy('theYear','ASC')

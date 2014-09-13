@@ -86,9 +86,10 @@ class Report
         foreach($r as $case)
         {
             if(!isset($results[$case['theYear']]))
-                $results[$case['theYear']] = array('year'=>$case['theYear'],1=>0,2=>0,3=>0,4=>0, -1=>0);
+                $results[$case['theYear']] = array('year'=>$case['theYear'],0=>0,1=>0,2=>0,3=>0,4=>0, -1=>0);
 
             $results[$case['theYear']][$case[0]->getAgeDistribution()]++;
+            $results[$case['theYear']][0]++;
         }
 
         if($export)
