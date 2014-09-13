@@ -42,29 +42,41 @@ class AgeDistribution
         return $this->getResult($year,'total');
     }
 
-    public function getZeroToFive($year)
+    public function sumYears($ageDistribution)
     {
-        return $this->getResult($year, BaseCase::AGE_DISTRIBUTION_00_TO_05);
+        $s = 0;
+        foreach($this->results as $values)
+        {
+            if(isset($values[$ageDistribution]))
+                $s+= $values[$ageDistribution];
+        }
+
+        return $s;
     }
 
-    public function getFiveToEleven($year)
+    public function getZeroToFive($year = null)
     {
-        return $this->getResult($year, BaseCase::AGE_DISTRIBUTION_05_TO_11);
+        return is_null($year) ? $this->sumYears(BaseCase::AGE_DISTRIBUTION_00_TO_05):$this->getResult($year, BaseCase::AGE_DISTRIBUTION_00_TO_05);
     }
 
-    public function getElevenToTwentyThree($year)
+    public function getFiveToEleven($year = null)
     {
-        return $this->getResult($year, BaseCase::AGE_DISTRIBUTION_11_TO_23);
+        return is_null($year) ? $this->sumYears(BaseCase::AGE_DISTRIBUTION_05_TO_11):$this->getResult($year, BaseCase::AGE_DISTRIBUTION_05_TO_11);
     }
 
-    public function getTwentyThreeToFiftyNine($year)
+    public function getElevenToTwentyThree($year = null)
     {
-        return $this->getResult($year, BaseCase::AGE_DISTRIBUTION_23_TO_59);
+        return is_null($year) ? $this->sumYears(BaseCase::AGE_DISTRIBUTION_11_TO_23):$this->getResult($year, BaseCase::AGE_DISTRIBUTION_11_TO_23);
     }
 
-    public function getUnknown($year)
+    public function getTwentyThreeToFiftyNine($year = null)
     {
-        return $this->getResult($year, BaseCase::AGE_DISTRIBUTION_UNKNOWN);
+        return is_null($year) ? $this->sumYears(BaseCase::AGE_DISTRIBUTION_23_TO_59):$this->getResult($year, BaseCase::AGE_DISTRIBUTION_23_TO_59);
+    }
+
+    public function getUnknown($year = null)
+    {
+        return is_null($year) ? $this->sumYears(BaseCase::AGE_DISTRIBUTION_UNKNOWN):$this->getResult($year, BaseCase::AGE_DISTRIBUTION_UNKNOWN);
     }
 
     public function getZeroToFivePercent($year)

@@ -2,40 +2,47 @@
 {% block body %}
 <div class="row">
     <div class="col-xs-9">
-        <div class="widget-box no-border">
-            <div class="widget-header widget-header-small header-color-blue">
-                <h5>{{'Results'|trans}}</h5>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="widget-box no-border">
+                    <div class="widget-header widget-header-small header-color-blue">
+                        <h5>{{'Results'|trans}}</h5>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th colspan="2">{{'Year & Total'|trans}}</th>
+                                <td colspan="2">{{'0-5'|trans}}</td>
+                                <td colspan="2">{{'6-11'|trans}}</td>
+                                <td colspan="2">{{'12-23'|trans}}</td>
+                                <td colspan="2">{{'24-59'|trans}}</td>
+                                <td colspan="2">{{'Unknown'|trans}}</td>
+                            </tr>
+                            </thead>
+                            {% for year in results.getYears() %}
+                            <tr>
+                                <td>{{ year }}</td>
+                                <td>{{ results.getTotal(year) }}</td>
+                                <td>{{ results.getZeroToFive(year) }}</td>
+                                <td>{{ results.getZeroToFivePercent(year)|number_format }} %</td>
+                                <td>{{ results.getFiveToEleven(year) }}</td>
+                                <td>{{ results.getFiveToElevenPercent(year)|number_format }} %</td>
+                                <td>{{ results.getElevenToTwentyThree(year) }}</td>
+                                <td>{{ results.getElevenToTwentyThreePercent(year)|number_format }} %</td>
+                                <td>{{ results.getTwentyThreeToFiftyNine(year) }}</td>
+                                <td>{{ results.getTwentyThreeToFiftyNinePercent(year)|number_format }} %</td>
+                                <td>{{ results.getUnknown(year) }}</td>
+                                <td>{{ results.getUnknownPercent(year)|number_format }}%</td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
             </div>
-            <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover">
-                    <thead>
-                    <tr>
-                        <th colspan="2">{{'Year & Total'|trans}}</th>
-                        <td colspan="2">{{'0-5'|trans}}</td>
-                        <td colspan="2">{{'6-11'|trans}}</td>
-                        <td colspan="2">{{'12-23'|trans}}</td>
-                        <td colspan="2">{{'24-59'|trans}}</td>
-                        <td colspan="2">{{'Unknown'|trans}}</td>
-                    </tr>
-                    </thead>
-                    {% for year in results.getYears() %}
-                    <tr>
-                        <td>{{ year }}</td>
-                        <td>{{ results.getTotal(year) }}</td>
-                        <td>{{ results.getZeroToFive(year) }}</td>
-                        <td>{{ results.getZeroToFivePercent(year)|number_format }} %</td>
-                        <td>{{ results.getFiveToEleven(year) }}</td>
-                        <td>{{ results.getFiveToElevenPercent(year)|number_format }} %</td>
-                        <td>{{ results.getElevenToTwentyThree(year) }}</td>
-                        <td>{{ results.getElevenToTwentyThreePercent(year)|number_format }} %</td>
-                        <td>{{ results.getTwentyThreeToFiftyNine(year) }}</td>
-                        <td>{{ results.getTwentyThreeToFiftyNinePercent(year)|number_format }} %</td>
-                        <td>{{ results.getUnknown(year) }}</td>
-                        <td>{{ results.getUnknownPercent(year)|number_format }}%</td>
-                    </tr>
-                    {% endfor %}
-                </table>
-            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12"><div id="totalPercent" style="width: 1024px; height: 500px;"></div></div>
         </div>
     </div>
     <div class="col-sm-3">
@@ -53,4 +60,30 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Distribution','Count'],
+            ['0-5',{{results.getZeroToFive()}}],
+            ['6-11',{{results.getFiveToEleven()}}],
+            ['12-23',{{results.getElevenToTwentyThree()}}],
+            ['24-59',{{results.getTwentyThreeToFiftyNine()}}],
+            ['Unknown',{{results.getUnknown()}}]
+            ]);
+
+        var options = {
+          title: 'Number Enrolled By Month & Suspected Diagnosis',
+          vAxis: { title: 'Occurances'},
+          hAxis: { title: 'Month'},
+          bar: {groupWidth: '90%'},
+          annotations: { boxStyle: { stroke: '#888', strokeWidth: 1,} }
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('totalPercent'));
+        chart.draw(data, options);
+      }
+</script>
+
 {% endblock %}
