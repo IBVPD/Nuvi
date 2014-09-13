@@ -84,7 +84,7 @@ class Report
         $results = new \NS\SentinelBundle\Result\AgeDistribution($r);
 
         if($export)
-            return $this->export(new ArraySourceIterator($results),'xls');
+            return $this->export(new ArraySourceIterator($results->toArray()),'xls');
 
         return array('results'=>$results,'form'=>$form->createView());
     }

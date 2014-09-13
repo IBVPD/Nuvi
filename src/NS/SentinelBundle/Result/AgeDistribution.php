@@ -106,4 +106,21 @@ class AgeDistribution
 
         return 0;
     }
+
+    public function toArray()
+    {
+        $res = array();//array(array('year'=>'year','total'=>'total','0-5'=>'0-5','6-11'=>'6-11','12-23'=>'12-23','24-59'=>'24-59','Unknown'=>'Unknown'));
+        foreach($this->results as $year => $values)
+        {
+            $res[] = array( 'year'    => $year,
+                            'total'   => (isset($values['total'])?$values['total']:0),
+                            '0-5'     => (isset($values[BaseCase::AGE_DISTRIBUTION_00_TO_05])?$values[BaseCase::AGE_DISTRIBUTION_00_TO_05]:0),
+                            '5-11'    => (isset($values[BaseCase::AGE_DISTRIBUTION_05_TO_11])?$values[BaseCase::AGE_DISTRIBUTION_05_TO_11]:0),
+                            '11-23'   => (isset($values[BaseCase::AGE_DISTRIBUTION_11_TO_23])?$values[BaseCase::AGE_DISTRIBUTION_11_TO_23]:0),
+                            '23-59'   => (isset($values[BaseCase::AGE_DISTRIBUTION_23_TO_59])?$values[BaseCase::AGE_DISTRIBUTION_23_TO_59]:0),
+                            'Unknown' => (isset($values[BaseCase::AGE_DISTRIBUTION_UNKNOWN])?$values[BaseCase::AGE_DISTRIBUTION_UNKNOWN]:0));
+        }
+
+        return $res;
+    }
 }
