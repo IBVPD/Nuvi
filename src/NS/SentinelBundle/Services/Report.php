@@ -80,17 +80,8 @@ class Report
             $export = ($form->get('export')->isClicked());
         }
 
-        $r       = $qb->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult();
-        $results = array();
-
-        foreach($r as $case)
-        {
-            if(!isset($results[$case['theYear']]))
-                $results[$case['theYear']] = array('year'=>$case['theYear'],0=>0,1=>0,2=>0,3=>0,4=>0, -1=>0);
-
-            $results[$case['theYear']][$case[0]->getAgeDistribution()]++;
-            $results[$case['theYear']][0]++;
-        }
+        $r       = $qb->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult(Query::HYDRATE_ARRAY);
+        $results = new \NS\SentinelBundle\Result\AgeDistribution($r);
 
         if($export)
             return $this->export(new ArraySourceIterator($results),'xls');

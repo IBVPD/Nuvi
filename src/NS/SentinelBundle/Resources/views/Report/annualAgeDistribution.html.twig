@@ -11,22 +11,27 @@
                     <thead>
                     <tr>
                         <th colspan="2">{{'Year & Total'|trans}}</th>
-                        <td>{{'0-5'|trans}}</td>
-                        <td>{{'6-11'|trans}}</td>
-                        <td>{{'12-23'|trans}}</td>
-                        <td>{{'24-59'|trans}}</td>
-                        <td>{{'Unknown'|trans}}</td>
+                        <td colspan="2">{{'0-5'|trans}}</td>
+                        <td colspan="2">{{'6-11'|trans}}</td>
+                        <td colspan="2">{{'12-23'|trans}}</td>
+                        <td colspan="2">{{'24-59'|trans}}</td>
+                        <td colspan="2">{{'Unknown'|trans}}</td>
                     </tr>
                     </thead>
-                    {% for res in results %}
+                    {% for year in results.getYears() %}
                     <tr>
-                        <td>{{ res.year }}</td>
-                        <td>{{ attribute(res,0) }}</td>
-                        <td>{{ attribute(res,1) }}</td>
-                        <td>{{ attribute(res,2) }}</td>
-                        <td>{{ attribute(res,3) }}</td>
-                        <td>{{ attribute(res,4) }}</td>
-                        <td>{{ attribute(res,-1) }}</td>
+                        <td>{{ year }}</td>
+                        <td>{{ results.getTotal(year) }}</td>
+                        <td>{{ results.getZeroToFive(year) }}</td>
+                        <td>{{ results.getZeroToFivePercent(year)|number_format }} %</td>
+                        <td>{{ results.getFiveToEleven(year) }}</td>
+                        <td>{{ results.getFiveToElevenPercent(year)|number_format }} %</td>
+                        <td>{{ results.getElevenToTwentyThree(year) }}</td>
+                        <td>{{ results.getElevenToTwentyThreePercent(year)|number_format }} %</td>
+                        <td>{{ results.getTwentyThreeToFiftyNine(year) }}</td>
+                        <td>{{ results.getTwentyThreeToFiftyNinePercent(year)|number_format }} %</td>
+                        <td>{{ results.getUnknown(year) }}</td>
+                        <td>{{ results.getUnknownPercent(year)|number_format }}%</td>
                     </tr>
                     {% endfor %}
                 </table>
