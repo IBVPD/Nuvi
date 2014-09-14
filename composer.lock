@@ -2633,7 +2633,7 @@
             "source": {
                 "type": "git",
                 "url": "gitolite@git.noblet.ca:/symfony/ns/flash.git",
-                "reference": "47d4670e6e921f7e9ef600c775b434eb169c6899"
+                "reference": "7028f2c359fbf93305f4134b9fd64a12f236bf7c"
             },
             "require": {
                 "php": ">=5.3.2",
@@ -2656,7 +2656,7 @@
                 }
             ],
             "description": "This Bundle provides a flash message service and twig renderer",
-            "time": "2014-06-24 21:55:04"
+            "time": "2014-09-14 04:22:32"
         },
         {
             "name": "ns/security-bundle",
