@@ -2,11 +2,12 @@
 
 namespace NS\ImportBundle\Controller;
 
-use \Exporter\Source\ArraySourceIterator;
-use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use \Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use \Symfony\Component\HttpFoundation\Request;
+use Exporter\Source\ArraySourceIterator;
+use NS\ImportBundle\Entity\Result;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Description of ImportController
@@ -26,61 +27,60 @@ class ImportController extends Controller
         $form = $this->createForm('ImportSelect');
 
         $form->handleRequest($request);
-        $session   = $request->getSession();
-
         if($form->isValid())
         {
             $importer   = $this->get('ns_import.processor');
             $import     = $form->getData();
-            $result     = $importer->process($import);
+            $wresult    = $importer->process($import);
 
-            $successful = array();
-            foreach($result->getResults() as $r)
-                $successful[] = array('id'=>$r->getId(),'caseId'=>$r->getCaseId(),'site'=>$r->getSite()->getCode(),'siteName' => $r->getSite()->getName());
-
-            $errors = array();
-            foreach($result->getExceptions() as $row => $e)
+            $result = new Result($import,$wresult);
+            $em = $this->get('doctrine.orm.entity_manager');
+            if($em->isOpen())
             {
-                $msg = ($e->getPrevious()) ? sprintf("%s - %s",$e->getMessage(),$e->getPrevious()->getMessage()):$e->getMessage();
-                $errors[$row] = array('row' => $row,'message' => $msg);
+                $u = $this->getUser();
+                $result->setUser($em->getReference(get_class($u),$u->getId()));
+
+                $em->persist($result);
+                $em->flush($result);
             }
-
-            $result->setExceptions(array());
-            $result->setResults(array());
-
-            $timestamp = $result->getEndtime()->format('Y-m-d\TH:i:s');
-
-            $current = array($timestamp => array('success' => $successful, 'errors' => $errors, 'map' => $import->getMap(), 'result' => $result, 'file'=>$import->getFile()->getClientOriginalName()));
-            $var     = $session->has('import/results') ? array_merge($session->get('import/results'),$current):$current;
-            $session->set('import/results',$var);
 
             return $this->redirect($this->generateUrl('importIndex'));
         }
 
-        $recent = array();
-        if($session->has('import/results'))
-            $recent = $session->get('import/results');
-
-        return array('form'=>$form->createView(), 'recent'=>$recent);
+        return array('form'=>$form->createView());
     }
 
     /**
-     * @Route("/download/{type}/{timestamp}",name="importResultDownload")
+     * @Route("/recent",name="importRecentResults")
+     * @Template()
      */
-    public function resultDownloadAction(Request $request, $type, $timestamp)
+    public function recentAction(Request $request)
     {
-        $res = $request->getSession()->get('import/results');
-        if(isset($res[$timestamp][$type]))
+        $paginator  = $this->get('knp_paginator');
+        $query      = $this->get('doctrine.orm.entity_manager')->getRepository('NSImportBundle:Result')->getResultsForUser($this->getUser(),'r');
+        $pagination = $paginator->paginate( $query,
+                                            $request->query->get('page',1),
+                                            $request->getSession()->get('result_per_page',10) );
+
+        return array('results'=>$pagination);
+    }
+
+    /**
+     * @Route("/download/{type}/{id}",name="importResultDownload")
+     */
+    public function resultDownloadAction($type, $id)
+    {
+        $res = $this->get('doctrine.orm.entity_manager')->getRepository('NSImportBundle:Result')->findForUser($this->getUser(),$id);
+        if($res)
         {
             $format = 'csv';
-            $output = $res[$timestamp][$type];
 
             if($type == 'success')
-                $source = new ArraySourceIterator($output,array('id','caseId','site','siteName'));
+                $source = new ArraySourceIterator($res->getSuccesses(),array('id','caseId','site','siteName'));
             else if($type == 'errors')
-                $source = new ArraySourceIterator($output,array('row','message'));
+                $source = new ArraySourceIterator($res->getErrors(),array('row','column','message'));
 
-            $filename = sprintf('export_%s.%s',date('Y_m_d_H_i_s'), $format);
+            $filename = sprintf('export_%s_%s.%s',$type,date('Ymd_His'), $format);
 
             return $this->get('sonata.admin.exporter')->getResponse($format, $filename, $source);
         }

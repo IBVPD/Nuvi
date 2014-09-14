@@ -34,7 +34,7 @@ class ArrayChoice implements NamedValueConverterInterface
         }
         catch (UnexpectedValueException2 $ex)
         {
-            throw new UnexpectedValueException(sprintf("Unable to convert value '%s' for %s",$input,$this->class), null, $ex);
+            throw new UnexpectedValueException(sprintf("Unable to convert value '%s' for %s",$input,join('', array_slice(explode('\\', $this->class), -1))), null, $ex);
         }
     }
 
