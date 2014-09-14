@@ -141,13 +141,13 @@ class Result
         return $this->errors;
     }
 
-    function setSuccesses(text $successes)
+    function setSuccesses(array $successes = array())
     {
         $this->successes = $successes;
         return $this;
     }
 
-    function setErrors(text $errors)
+    function setErrors(array $errors = array())
     {
         $this->errors = $errors;
         return $this;
