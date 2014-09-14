@@ -42,6 +42,15 @@ class ImportController extends Controller
 
                 $em->persist($result);
                 $em->flush($result);
+
+                $this->get('ns_flash')->addSuccess(null, null, "Import completed");
+            }
+            else
+            {
+                $exceptions = $wresult->getExceptions();
+                $exception  = end($exceptions);
+
+                $this->get('ns_flash')->addError(null,"Import failed",($exception->getPrevious()) ? $exception->getPrevious()->getMessage():$exception->getMessage());
             }
 
             return $this->redirect($this->generateUrl('importIndex'));
