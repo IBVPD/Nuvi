@@ -22,7 +22,7 @@ class CaseStatus extends \Twig_Extension
     public function getLabLabel(BaseCase $obj, $message)
     {
         if($obj->hasLab())
-            $class = $obj->getLab()->isComplete() ? 'label-success icon icon-ok':'label-warning icon icon-exclamation-sign';
+            $class = $obj->isComplete() ? 'label-success icon icon-ok':'label-warning icon icon-exclamation-sign';
         else
             $class = 'label-danger icon icon-exclamation-sign';
 
@@ -52,7 +52,6 @@ class CaseStatus extends \Twig_Extension
 
         if($obj->getLab()->getOtherSentToNL() && !$obj->getLab()->getOtherNLDateTime())
             $noError = false;
-
 
         if(!$obj->hasReferenceLab() && $obj->getSentToReferenceLab())
             $noError = false;
