@@ -42,7 +42,8 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-12"><div id="totalPercent" style="width: 1024px; height: 500px;"></div></div>
+            <div class="col-xs-6"><div id="totalPercent"></div></div>
+            <div class="col-xs-6"><div id="ageProgression"></div></div>
         </div>
     </div>
     <div class="col-sm-3">
@@ -74,7 +75,7 @@
             ]);
 
         var options = {
-          title: 'Number Enrolled By Month & Suspected Diagnosis',
+          title: '{{'Number Enrolled By Month & Suspected Diagnosis'|trans}}',
           vAxis: { title: 'Occurances'},
           hAxis: { title: 'Month'},
           bar: {groupWidth: '90%'},
@@ -85,5 +86,24 @@
         chart.draw(data, options);
       }
 </script>
+<script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['{{'Year'|trans}}','0-5','6-11','12-23','24-59','Unknown','{{'Total'|trans}}'],
+            {%for year in results.years %}
+                [{{year}},{{results.getZeroToFive(year)}},{{results.getFiveToEleven(year)}},{{results.getElevenToTwentyThree(year)}},{{results.getTwentyThreeToFiftyNine(year)}},{{results.getUnknown(year)}},{{results.getTotal(year)}}]{%if not loop.last%},{%endif%}
+            {%endfor%}
+            ]);
 
+        var options = {
+          title: '{{'Case Progression'|trans}}',
+          hAxis: { format: '####'},
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('ageProgression'));
+        chart.draw(data, options);
+      }
+</script>
 {% endblock %}

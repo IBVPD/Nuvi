@@ -80,7 +80,7 @@ class Report
             $export = ($form->get('export')->isClicked());
         }
 
-        $r       = $qb->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult(Query::HYDRATE_ARRAY);
+        $r       = $qb->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult(Query::HYDRATE_SCALAR);
         $results = new \NS\SentinelBundle\Result\AgeDistribution($r);
 
         if($export)
