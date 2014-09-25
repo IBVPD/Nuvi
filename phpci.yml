@@ -1,0 +1,41 @@
+build_settings:
+    ignore:
+        - "vendor"
+        - "tests"
+        - "app/cache"
+        - "src/*/*/DataFixtures"
+#    mysql:
+#        host: "localhost"
+#        user: "root"
+#        pass: ""
+
+setup:
+#    mysql:
+#        - "DROP DATABASE IF EXISTS nuvitest;"
+#        - "CREATE DATABASE nuvitest;"
+#        - "GRANT ALL PRIVILEGES ON nuvitest.* TO nuvitest@'localhost' IDENTIFIED BY 'nuvitest';"
+    composer:
+        action: "install"
+
+test:
+#    php_unit:
+#        config:
+#            - "PHPUnit-all.xml"
+#            - "PHPUnit-ubuntu-fix.xml"
+#        directory:
+#            - "app/"
+#        run_from: "phpunit/"
+    php_loc: ~
+    php_mess_detector:
+        allow_failures: true
+        ignore: app/cache
+#    php_code_sniffer:
+#        standard: "PSR2"
+    php_cpd:
+        allow_failures: true
+#    grunt:
+#        task: "build"
+
+#complete:
+#    mysql:
+#        - "DROP DATABASE IF EXISTS nuvitest;"
