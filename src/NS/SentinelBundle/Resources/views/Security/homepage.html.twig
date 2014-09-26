@@ -4,7 +4,7 @@
 
 {% block body %}
 <div class="row">
-    <div class="col-sm-3 col-md-3 col-lg-3">
+    <div class="col-sm-6 col-md-6 col-lg-6">
         <div class="widget-box transparent">
             <div class="widget-header widget-header-flat">
                 <h5 class="lighter"><i class="icon-signal"></i>{{'Culture Positive and Additional Lab Confirmed Cases By Diagnostic Test'|trans}}</h5>
@@ -18,7 +18,7 @@
             </div>
         </div>
     </div>    
-    <div class="col-sm-3 col-md-3 col-lg-3">
+    <div class="col-sm-6 col-md-6 col-lg-6">
         <div class="widget-box transparent">
             <div class="widget-header widget-header-flat">
                 <h5 class="lighter"><i class="icon-signal"></i>{{'By Diagnosis'|trans}}</h5>
@@ -40,7 +40,9 @@
 
         </div>
     </div>
-    <div class="col-sm-3 col-md-3 col-lg-3">
+</div>
+<div class="row">
+    <div class="col-sm-6 col-md-6 col-lg-6">
         <div class="widget-box transparent">
             <div class="widget-header widget-header-flat">
                 <h5 class="lighter"><i class="icon-signal"></i>{{'By Country'|trans}}</h5>
@@ -62,7 +64,7 @@
 
         </div>
     </div>
-    <div class="col-sm-3 col-md-3 col-lg-3">
+    <div class="col-sm-6 col-md-6 col-lg-6">
         <div class="widget-box transparent">
             <div class="widget-header widget-header-flat">
                 <h5 class="lighter"><i class="icon-signal"></i>{{'By Site'|trans}}</h5>
@@ -86,80 +88,12 @@
     </div>    
 </div>
 
-<div class="row">
-    <div class="col-sm-3 col-md-3 col-lg-3">
-        <div class="widget-box transparent">
-            <div class="widget-header widget-header-flat">
-                <h5 class="lighter"><i class="icon-signal"></i>{{'Age Distribution of Suspect Meningitis Cases'|trans}}</h5>
-            </div>
-
-            <div class="widget-body">
-                <div class="widget-main padding-3">
-                    <div id="annual-age-distribution-suspect-meningitis" style="width: 100%; height: 220px; padding: 0px; position: relative;"></div>
-                </div>
-            </div> 
-        </div> 
-    </div>
-    <div class="col-sm-3 col-md-3 col-lg-3">
-        <div class="widget-box transparent">
-            <div class="widget-header widget-header-flat">
-                <h5 class="lighter"><i class="icon-signal"></i>{{'Age Distribution of PBM Cases'|trans}}</h5>
-
-            </div>
-
-            <div class="widget-body">
-                <div class="widget-main padding-3">
-                    <div id="annual-age-distribution-probable-meningitis" style="width: 100%; height: 220px; padding: 0px; position: relative;">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="col-sm-3 col-md-3 col-lg-3">
-        <div class="widget-box transparent">
-            <div class="widget-header widget-header-flat">
-                <h5 class="lighter"><i class="icon-signal"></i>{{'Monthly # Suspect Meningitis, Pneumonia and Sepsis'|trans}}</h5>
-            </div>
-
-            <div class="widget-body">
-                <div class="widget-main padding-3">
-                    <div id="sales-charts" style="width: 100%; height: 220px; padding: 0px; position: relative;">
-                    </div>
-                </div> 
-            </div>
-        </div>
-    </div>
-
-    <div class="col-sm-3 col-md-3 col-lg-3">
-        <div class="widget-box transparent">
-            <div class="widget-header widget-header-flat">
-                <h5 class="lighter"><i class="icon-signal"></i>{{'Stats'|trans}}</h5>
-
-                <div class="widget-toolbar">
-                    <a href="#" data-action="collapse">
-                        <i class="icon-chevron-up"></i>
-                    </a>
-                </div>
-            </div>
-
-            <div class="widget-body">
-                <div class="widget-main padding-3">
-                    <div id="generalStatistics" style="width: 100%; height: 220px; padding: 0px; position: relative;">
-                        
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
-
 {% endblock %}
 {% block javascripts %}
     {{parent()}}
-    <script>
-$(window).load(function(){
+<script type="text/javascript">
+$(window).load(function()
+{
     var c        = new Array();
     c['element'] = document.getElementById('byDiagnosisStatistics');
     if(c['element'])
@@ -220,77 +154,21 @@ $(window).load(function(){
     {
         c['chart'] = new google.visualization.ColumnChart(c['element']);
         c['data'] = google.visualization.arrayToDataTable([
-            ['Year',
-             'Culture+',
-             'Culture- & Binax+',
-             'PCR+ & Binax Culture- & Culture-', { role: 'annotation' } ],
-            ['2008', 10, 24, 20, ''],
-            ['2009', 16, 22, 23, ''],
-            ['2010', 28, 19, 29, ''],
-            ['2011', 10, 24, 20, ''],
-            ['2012', 16, 22, 23, ''],
-            ['2013', 28, 19, 29, ''],
+            ['Year', 'Culture+', 'Culture- & Binax+', 'PCR+ & Binax Culture- & Culture-' ],
+            {% for year in cResult.years %}
+                [{{year}},{{cResult.getCulturePositive(year)}},{{cResult.getCultureNegative(year)}},{{cResult.getPcrPositive(year)}}]{%if not loop.last%},{%endif%}
+            {% endfor %}
           ]);
 
         c['options'] = {
           legend: { position: 'top', maxLines: 3 },
           bar: { groupWidth: '75%' },
           isStacked: true,
+          hAxis: { format: '####'},
         };
 
         c['chart'].draw(c['data'],c['options']);
     }
-
-    var c        = new Array();
-    c['element'] = document.getElementById('generalStatistics');
-    if(c['element'])
-    {
-        c['chart']   = new google.visualization.BarChart(c['element']);
-        c['data']    = google.visualization.arrayToDataTable([
-                        ['Type','Number'],
-                            {%spaceless%}
-                            {%for k,s in byStats %}
-                                ['{{k|e('js')}}', {{s}}]{%if not loop.last %},{%endif%}
-                            {%endfor%}
-                            {%endspaceless%}
-                        ]);
-        var formatter = new google.visualization.NumberFormat({negativeParens: true, fractionDigits: 0, groupingSymbol: ','});
-        formatter.format(c['data'], 1);
-        c['chart'].draw(c['data'], c['options']);
-    }
-    
-    
-    var data = new google.visualization.DataTable();
-    data.addColumn('string', 'x');
-    data.addColumn('number', 'values');
-    data.addColumn({id:'i0', type:'number', role:'interval'});
-    data.addColumn({id:'i1', type:'number', role:'interval'});
-    data.addColumn({id:'i2', type:'number', role:'interval'});
-    data.addColumn({id:'i2', type:'number', role:'interval'});
-    data.addColumn({id:'i2', type:'number', role:'interval'});
-    data.addColumn({id:'i2', type:'number', role:'interval'});
-
-    data.addRows([
-        ['2008', 100, 90, 110, 85, 96, 104, 120],
-        ['2009', 120, 95, 130, 90, 113, 124, 140],
-        ['2010', 130, 105, 140, 100, 117, 133, 139],
-        ['2011', 90, 85, 95, 85, 88, 92, 95],
-        ['2012', 70, 74, 63, 67, 69, 70, 72],
-        ['2013', 30, 39, 22, 21, 28, 34, 40],
-        ['2014', 80, 77, 83, 70, 77, 85, 90],
-        ['2008-2014', 100, 90, 110, 85, 95, 102, 110]]);
-
-    // The intervals data as narrow lines (useful for showing raw source
-    // data)
-    var options_lines = {
-        curveType:'function',
-        lineWidth: 1,
-        intervals: { 'style':'boxes' }, // Use line intervals.
-        legend: 'none',
-    };
-
-    var chart_lines = new google.visualization.LineChart(document.getElementById('annual-age-distribution-suspect-meningitis'));
-    chart_lines.draw(data, options_lines);    
 });
     </script>
 {%endblock%}

@@ -46,6 +46,7 @@ class Builder
             $reports->addChild('# Per Year Clinical',array('label'=> 'menu.data-reports-per-year-clinical','route'=>'reportNumberPerYearClinical'));
             $reports->addChild('Data Quality',array('label'=> 'menu.data-reports-data-quality','route'=>'reportDataQuality'));
             $reports->addChild('Field Population',array('label'=>'menu.data-reports-field-population','route'=>'reportFieldPopulation'));
+            $reports->addChild('Culture Positive',array('label'=>'menu.data-reports-culture-positive','route'=>'reportCulturePositive'));
 
             if($this->securityContext->isGranted('ROLE_API'))
             {

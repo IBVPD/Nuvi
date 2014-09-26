@@ -128,6 +128,20 @@ class ReportController extends Controller
         return $s->getFieldPopulation($request,$form,'reportFieldPopulation');
     }
 
+    /**
+     *
+     * @param Request $request
+     * @Route("/culture-positive",name="reportCulturePositive")
+     * @Template()
+     */
+    public function culturePositiveAction(Request $request)
+    {
+        $form  = $this->createForm('IBDFieldPopulationFilterType',null,array('site_type'=>'advanced'));
+        $s     = $this->get('ns.sentinel.services.report');
+
+        return $s->getCulturePositive($request,$form,'reportCulturePositive');
+    }
+
     /*
      * 1 - Number And Percent Enrolled: Admission Diagnosis
      * 4 - Age Distribution - Suspect vs Probable based on admin diagnosis

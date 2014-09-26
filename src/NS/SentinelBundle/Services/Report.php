@@ -7,9 +7,11 @@ use \Doctrine\Common\Collections\ArrayCollection;
 use \Doctrine\Common\Persistence\ObjectManager;
 use \Doctrine\ORM\Query;
 use \Exporter\Source\ArraySourceIterator;
+use \NS\SentinelBundle\Exporter\DoctrineCollectionSourceIterator;
+use \NS\SentinelBundle\Result\AgeDistribution;
+use \NS\SentinelBundle\Result\CulturePositive;
 use \NS\SentinelBundle\Result\FieldPopulationResult;
 use \NS\SentinelBundle\Result\NumberEnrolledResult;
-use \NS\SentinelBundle\Exporter\DoctrineCollectionSourceIterator;
 use \Sonata\CoreBundle\Exporter\Exporter;
 use \Symfony\Component\Form\FormInterface;
 use \Symfony\Component\HttpFoundation\RedirectResponse;
@@ -81,7 +83,7 @@ class Report
         }
 
         $r       = $qb->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult(Query::HYDRATE_SCALAR);
-        $results = new \NS\SentinelBundle\Result\AgeDistribution($r);
+        $results = new AgeDistribution($r);
 
         if($export)
             return $this->export(new ArraySourceIterator($results->toArray()),'xls');
@@ -240,6 +242,40 @@ class Report
         }
 
         return array('sites' => $results, 'form' => $form->createView());
+    }
+
+    public function getCulturePositive(Request $request, FormInterface $form, $redirectRoute)
+    {
+        $alias          = 'c';
+        $repo           = $this->em->getRepository('NSSentinelBundle:IBD');
+        $cultPositiveQB = $repo->getCountByCulture($alias, true, null, null);
+        $cultNegativeQB = $repo->getCountByCulture($alias, false, true, null);
+        $pcrPositiveQB  = $repo->getCountByCulture($alias, false, false, true);
+
+        $form->handleRequest($request);
+
+        if($form->isValid())
+        {
+            if($form->get('reset')->isClicked())
+                return new RedirectResponse($this->router->generate($redirectRoute));
+            else
+            {
+                $this->filter->addFilterConditions($form, $cultPositiveQB, $alias);
+                $this->filter->addFilterConditions($form, $cultNegativeQB, $alias);
+                $this->filter->addFilterConditions($form, $pcrPositiveQB, $alias);
+            }
+        }
+
+        $cp = $cultPositiveQB->groupBy('theYear')->getQuery()->getResult();
+        $cn = $cultNegativeQB->groupBy('theYear')->getQuery()->getResult();
+        $pp = $pcrPositiveQB->groupBy('theYear')->getQuery()->getResult();
+
+        $ro = new CulturePositive($cp,$cn,$pp);
+
+        if($form->get('export')->isClicked())
+            return $this->export(new ArraySourceIterator($ro->toArray()));
+
+        return array('results' => $ro, 'form' => $form->createView());
     }
 
     public function export($source, $format='csv')
