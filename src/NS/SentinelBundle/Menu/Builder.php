@@ -39,12 +39,9 @@ class Builder
                 $d->addChild('Rotavirus', array('route'=>'rotavirusIndex'))->setExtra('translation_domain', 'NSSentinelBundle');
             }
 
-            $reports = $menu->addChild('Reports', array('label'=> 'menu.data-reports','route'=>'reportDashboard'))->setExtra('icon','icon-dashboard');
+            $reports = $menu->addChild('Reports', array('label'=> 'menu.data-reports'))->setExtra('icon','icon-dashboard');
             $reports->addChild('Age Distribution',array('label'=> 'menu.data-reports-age-distribution','route'=>'reportAnnualAgeDistribution'));
             $reports->addChild('Enrolment %',array('label'=> 'menu.data-reports-percent-enrolled','route'=>'reportPercentEnrolled'));
-            $reports->addChild('# Per Month',array('label'=> 'menu.data-reports-number-per-month','route'=>'reportNumberPerMonth'));
-            $reports->addChild('# Per Year Clinical',array('label'=> 'menu.data-reports-per-year-clinical','route'=>'reportNumberPerYearClinical'));
-            $reports->addChild('Data Quality',array('label'=> 'menu.data-reports-data-quality','route'=>'reportDataQuality'));
             $reports->addChild('Field Population',array('label'=>'menu.data-reports-field-population','route'=>'reportFieldPopulation'));
             $reports->addChild('Culture Positive',array('label'=>'menu.data-reports-culture-positive','route'=>'reportCulturePositive'));
 
@@ -57,7 +54,7 @@ class Builder
 
             if($this->securityContext->isGranted('ROLE_IMPORT'))
             {
-                $import = $menu->addChild('Import',array('label'=>'menu.import-export'));
+                $import = $menu->addChild('Import',array('label'=>'menu.import-export'))->setExtra('icon', 'icon-cloud-upload');
                 $import->addChild('Import',array('label'=>'menu.import','route'=>'importIndex'))->setExtra('icon', 'icon-cloud-upload');
                 $import->addChild('Export',array('label'=>'menu.export','route'=>'exportIndex'))->setExtra('icon', 'icon-cloud-download');
             }

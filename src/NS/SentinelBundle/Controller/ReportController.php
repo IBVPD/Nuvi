@@ -16,15 +16,6 @@ use \Symfony\Component\HttpFoundation\Request;
 class ReportController extends Controller
 {
     /**
-     * @Route("/dashboard",name="reportDashboard")
-     * @Template("NSSentinelBundle:Report:unimplemented.html.twig")
-     */
-    public function dashboardAction()
-    {
-        return array();
-    }
-
-    /**
      * @Route("/percent-enrolled",name="reportPercentEnrolled")
      * @Template()
      */
@@ -37,24 +28,6 @@ class ReportController extends Controller
     }
 
     /**
-     * @Route("/monthly",name="reportNumberPerMonth")
-     * @Template("NSSentinelBundle:Report:unimplemented.html.twig")
-     */
-    public function numberPerMonthAction()
-    {
-        return array();
-    }
-
-    /**
-     * @Route("/per-year-clinical",name="reportNumberPerYearClinical")
-     * @Template("NSSentinelBundle:Report:unimplemented.html.twig")
-     */
-    public function numberPerYearClinicalAction()
-    {
-        return array();
-    }
-
-    /**
      * @Route("/annual-age-distribution",name="reportAnnualAgeDistribution")
      * @Template()
      */
@@ -64,15 +37,6 @@ class ReportController extends Controller
         $s     = $this->get('ns.sentinel.services.report');
 
         return $s->getAnnualAgeDistribution($request,$form,'reportAnnualAgeDistribution');
-    }
-
-    /**
-     * @Route("/data-quality",name="reportDataQuality")
-     * @Template("NSSentinelBundle:Report:unimplemented.html.twig")
-     */
-    public function dataQualityAction()
-    {
-        return array();
     }
 
     /**
