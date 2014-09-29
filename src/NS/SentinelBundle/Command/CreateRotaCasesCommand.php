@@ -2,14 +2,14 @@
 
 namespace NS\SentinelBundle\Command;
 
+use \NS\SentinelBundle\Entity\RotaVirus;
+use \NS\SentinelBundle\Entity\Site;
+use \NS\SentinelBundle\Form\Types\Diagnosis;
+use \NS\SentinelBundle\Form\Types\Gender;
 use \Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use \Symfony\Component\Console\Input\InputInterface;
-use \Symfony\Component\Console\Output\OutputInterface;
 use \Symfony\Component\Console\Input\InputOption;
-
-use NS\SentinelBundle\Entity\RotaVirus;
-use NS\SentinelBundle\Form\Types\Gender;
-use NS\SentinelBundle\Entity\Site;
+use \Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Description of ImportCommand

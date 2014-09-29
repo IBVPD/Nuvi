@@ -45,36 +45,4 @@ class UserController extends Controller
 
         return array('form' => $form->createView(),'user'=>$this->getUser());
     }
-
-    /**
-     * @Template()
-     */
-    public function regionDashboardAction()
-    {
-        return array();
-    }
-
-    /**
-     * @Template()
-     */
-    public function countryDashboardAction()
-    {
-        return array();
-    }
-
-    /**
-     * @Template()
-     */
-    public function siteDashboardAction()
-    {
-        return array();
-    }
-
-    /**
-     * @Template()
-     */
-    public function labDashboardAction()
-    {
-        return array();
-    }
 }

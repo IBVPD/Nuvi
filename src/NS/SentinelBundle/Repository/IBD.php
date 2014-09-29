@@ -8,6 +8,8 @@ use \Doctrine\ORM\Query;
 use \InvalidArgumentException;
 use \NS\SentinelBundle\Entity\IBD as C;
 use \NS\SentinelBundle\Exceptions\NonExistentCase;
+use \NS\SentinelBundle\Form\Types\BinaxResult;
+use \NS\SentinelBundle\Form\Types\CultureResult;
 use \NS\SentinelBundle\Form\Types\HiSerotype;
 use \NS\SentinelBundle\Form\Types\IBDCaseResult;
 use \NS\SentinelBundle\Form\Types\PCRResult;
@@ -270,6 +272,9 @@ class IBD extends Common
         $where = $params = array();
         $x     = 0;
 
+        if(empty($siteCodes))
+            return $qb;
+
         foreach($siteCodes as $site)
         {
             $where[] = "$alias.site = :site$x";
@@ -380,5 +385,46 @@ class IBD extends Common
                     ->select(sprintf('%s.id,COUNT(%s.id) as pcrPositiveCount,s.code',$alias,$alias))
                     ->andWhere(sprintf('%s.csfPcrResult = :spn',$alias))
                     ->setParameter('spn', PCRResult::SPN);
+    }
+
+    public function getCountByCulture($alias, $culture, $binax = null, $pcr = null, array $siteCodes = array())
+    {
+        $this->_em->getConfiguration()->addCustomDatetimeFunction('YEAR', 'DoctrineExtensions\Query\Mysql\Year');
+
+        $qb = $this->getCountQueryBuilder($alias,$siteCodes)
+                    ->select(sprintf('%s.id,COUNT(%s.id) as caseCount, s.code, YEAR(%s.admDate) as theYear',$alias, $alias, $alias));
+
+        if($culture)
+        {
+            $qb->andWhere(sprintf(' ( %s.csfCultResult = :spn OR %s.csfCultResult = :hi OR %s.csfCultResult = :nm) ',$alias,$alias,$alias))
+               ->setParameter('spn', CultureResult::SPN)
+               ->setParameter('hi', CultureResult::HI)
+               ->setParameter('nm', CultureResult::NM);
+        }
+        else
+        {
+            $qb->andWhere(sprintf(' ( %s.csfCultResult = :negative ) ',$alias))
+               ->setParameter('negative', CultureResult::NEGATIVE);
+        }
+
+        if(!is_null($binax))
+        {
+            $qb->andWhere(sprintf(' ( %s.csfBinaxResult = :binax ) ',$alias));
+            if($binax)
+                $qb->setParameter('binax', BinaxResult::POSITIVE);
+            else
+                $qb->setParameter('binax', BinaxResult::NEGATIVE);
+        }
+
+        if(!is_null($pcr))
+        {
+            $qb->andWhere(sprintf(' ( %s.csfPcrResult = :pcr ) ',$alias));
+            if($pcr)
+                $qb->setParameter('pcr', CultureResult::NEGATIVE);
+            else
+                $qb->setParameter('pcr', CultureResult::NEGATIVE);
+        }
+
+        return $qb;
     }
 }
