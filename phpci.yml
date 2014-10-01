@@ -18,14 +18,7 @@ setup:
         action: "install"
 
 test:
-     behat: ~
-
-#    php_unit:
-#        config:
-#             - phpunit.xml.dist
-#        directory:
-#            - "app/"
-#        run_from: "phpunit/"
+    behat: ~
     php_loc: 
         directory: "src"
     php_mess_detector:
