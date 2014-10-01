@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Repository;
 
+use \Doctrine\ORM\NoResultException;
 use \Doctrine\ORM\QueryBuilder;
 use \NS\SecurityBundle\Doctrine\SecuredEntityRepository;
 use \NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
@@ -88,7 +89,8 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
         }
         catch (NoResultException $ex)
         {
-            $res = new C();
+            $cls = $this->getClassName();
+            $res = new $cls();
             $res->setCaseId($caseId);
 
             return $res;

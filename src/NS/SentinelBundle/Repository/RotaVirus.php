@@ -2,20 +2,20 @@
 
 namespace NS\SentinelBundle\Repository;
 
-use NS\SecurityBundle\Doctrine\SecuredEntityRepository;
 use NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
 use Doctrine\ORM\Query;
 use \NS\SentinelBundle\Exceptions\NonExistentCase;
 use \Doctrine\ORM\NoResultException;
+use \NS\SentinelBundle\Repository\Common;
 
 /**
  * Description of Common
  *
  * @author gnat
  */
-class RotaVirus extends SecuredEntityRepository implements AjaxAutocompleteRepositoryInterface
+class RotaVirus extends Common implements AjaxAutocompleteRepositoryInterface
 {
-    public function getStats(\DateTime $start = null, \DateTime $end = null)
+    public function getStats()
     {
         $results = array();
         $qb      = $this->_em
