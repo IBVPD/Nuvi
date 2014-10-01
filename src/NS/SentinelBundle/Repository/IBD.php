@@ -51,36 +51,6 @@ class IBD extends Common
         return $results;
     }
 
-    public function getForAutoComplete($fields, array $value, $limit)
-    {
-        $alias = 'd';
-        $qb    = $this->createQueryBuilder($alias)->setMaxResults($limit);
-
-        if(!empty($value) && $value['value'][0]=='*') {
-            return $qb->getQuery();
-        }
-        
-        if(!empty($value))
-        {
-            if(is_array($fields))
-            {
-                foreach ($fields as $f)
-                {
-                    $field = "$alias.$f";
-                    $qb->addOrderBy($field)
-                       ->orWhere("$field LIKE :param")->setParameter('param',$value['value'].'%');
-                }
-            }
-            else
-            {
-                $field = "$alias.$fields";
-                $qb->orderBy($field)->andWhere("$field LIKE :param")->setParameter('param',$value['value'].'%');
-            }
-        }
-
-        return $qb->getQuery();        
-    }
-
     public function getLatestQuery($alias = 'm')
     {
         $qb = $this->createQueryBuilder($alias)
@@ -186,35 +156,6 @@ class IBD extends Common
         catch(NoResultException $e)
         {
             return null; //throw new NonExistentCase("This case does not exist!");
-        }
-    }
-
-    public function findOrCreate($caseId, $id = null)
-    {
-        if($id == null && $caseId == null)
-            throw new InvalidArgumentException("Id or Case must be provided");
-
-        $qb = $this->createQueryBuilder('m')
-                   ->select('m,s,c,r')
-                   ->innerJoin('m.site', 's')
-                   ->innerJoin('s.country', 'c')
-                   ->innerJoin('m.region', 'r')
-                   ->where('m.caseId = :caseId')
-                   ->setParameter('caseId', $caseId);
-
-        if($id)
-            $qb->orWhere('m.id = :id')->setParameter('id', $id);
-
-        try
-        {
-            return $this->secure($qb)->getQuery()->getSingleResult();
-        }
-        catch (NoResultException $ex)
-        {
-            $res = new C();
-            $res->setCaseId($caseId);
-
-            return $res;
         }
     }
 
