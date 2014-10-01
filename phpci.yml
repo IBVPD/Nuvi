@@ -18,6 +18,8 @@ setup:
         action: "install"
 
 test:
+     behat: ~
+
 #    php_unit:
 #        config:
 #             - phpunit.xml.dist
