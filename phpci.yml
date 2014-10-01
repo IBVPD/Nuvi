@@ -24,14 +24,15 @@ test:
 #        directory:
 #            - "app/"
 #        run_from: "phpunit/"
-    php_loc: ~
+    php_loc: 
+        directory: "src"
     php_mess_detector:
         allow_failures: true
         ignore: app/cache
 #    php_code_sniffer:
 #        standard: "PSR2"
-#    php_cpd:
-#        allow_failures: true
+    php_cpd:
+        allow_failures: true
 #    grunt:
 #        task: "build"
 
