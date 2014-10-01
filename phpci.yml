@@ -18,11 +18,11 @@ setup:
         action: "install"
 
 test:
-    php_unit:
-        config:
-             - phpunit.xml.dist
-        directory:
-            - "app/"
+#    php_unit:
+#        config:
+#             - phpunit.xml.dist
+#        directory:
+#            - "app/"
 #        run_from: "phpunit/"
     php_loc: ~
     php_mess_detector:
