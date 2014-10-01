@@ -54,7 +54,7 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
     
     public function __construct($value = null)
     {
-        if(!is_null($value) && is_string($value) && strstr($value,'ROLE_'))
+        if(is_string($value) && strstr($value,'ROLE_') !== false)
         {
             if(isset($this->rolemapping[$value]))
                 $value = $this->rolemapping[$value];
