@@ -2597,7 +2597,7 @@
             "target-dir": "NS/AceBundle",
             "source": {
                 "type": "git",
-                "url": "gitolite@git.noblet.ca:/symfony/ns/ace.git",
+                "url": "git@gitlab.noblet.ca:nobletsolutions/ace-bundle.git",
                 "reference": "1462c09b62c4af3aee59887c3bf3a608aa1574df"
             },
             "require": {
@@ -2632,7 +2632,7 @@
             "target-dir": "NS/FlashBundle",
             "source": {
                 "type": "git",
-                "url": "gitolite@git.noblet.ca:/symfony/ns/flash.git",
+                "url": "https://gitlab.noblet.ca/nobletsolutions/flash-bundle.git",
                 "reference": "7028f2c359fbf93305f4134b9fd64a12f236bf7c"
             },
             "require": {
@@ -2664,7 +2664,7 @@
             "target-dir": "NS/SecurityBundle",
             "source": {
                 "type": "git",
-                "url": "gitolite@git.noblet.ca:/symfony/ns/security.git",
+                "url": "https://gitlab.noblet.ca/nobletsolutions/security-bundle.git",
                 "reference": "73147d034ee13fdbe6fb22d63313dfbeb1f337e1"
             },
             "require": {
@@ -2692,7 +2692,7 @@
             "target-dir": "NS/UtilBundle",
             "source": {
                 "type": "git",
-                "url": "gitolite@git.noblet.ca:/symfony/ns/utils.git",
+                "url": "https://gitlab.noblet.ca/nobletsolutions/util-bundle.git",
                 "reference": "565f2327920ecbae05ed1a92864cc30e90ec16db"
             },
             "require": {
