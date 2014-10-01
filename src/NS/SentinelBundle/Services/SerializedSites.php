@@ -59,15 +59,7 @@ class SerializedSites implements SerializedSitesInterface
         $site = current($this->sites);
 
         if($managed && !$this->em->contains($site))
-        {
-            $uow = $this->em->getUnitOfWork();
-            $c   = $site->getCountry();
-            $r   = $c->getRegion();
-
-            $uow->registerManaged($site,array('code'=>$site->getCode()),array('code'=>$site->getCode()));
-            $uow->registerManaged($c,array('id'=>$c->getId()),array('id'=>$c->getId(),'code'=>$c->getCode()));
-            $uow->registerManaged($r,array('id'=>$r->getId()),array('id'=>$r->getId(),'code'=>$r->getCode()));
-        }
+            $this->_registerSite ($site);
 
         return $site;
     }
@@ -81,34 +73,51 @@ class SerializedSites implements SerializedSitesInterface
 
         if(!$sites || count($sites) == 0) // empty session site array so build and store
         {
-            $sites = array();
-            foreach($this->em->getRepository('NS\SentinelBundle\Entity\Site')->getChain() as $site)
-            {
-                $r = new Region();
-                $r->setName($site->getCountry()->getRegion()->getName());
-                $r->setId($site->getCountry()->getRegion()->getId());
-                $r->setCode($site->getCountry()->getRegion()->getcode());
-
-                $c = new Country();
-                $c->setId($site->getCountry()->getId());
-                $c->setName($site->getCountry()->getName());
-                $c->setCode($site->getCountry()->getCode());
-                $c->setLanguage($site->getCountry()->getLanguage());
-                $c->setRegion($r);
-
-                $s = new Site();
-                $s->setCode($site->getCode());
-                $s->setName($site->getName());
-                $s->setCountry($c);
-
-                $sites[] = $s;
-            }
-
+            $sites = $this->_populateSiteArray();
             $this->session->set('sites',serialize($sites));
         }
 
         $this->sites = $sites;
         $this->isInitialized = true;
+    }
+
+    private function _registerSite($site)
+    {
+        $uow = $this->em->getUnitOfWork();
+        $c   = $site->getCountry();
+        $r   = $c->getRegion();
+
+        $uow->registerManaged($site,array('code'=>$site->getCode()),array('code'=>$site->getCode()));
+        $uow->registerManaged($c,array('id'=>$c->getId()),array('id'=>$c->getId(),'code'=>$c->getCode()));
+        $uow->registerManaged($r,array('id'=>$r->getId()),array('id'=>$r->getId(),'code'=>$r->getCode()));
+    }
+
+    private function _populateSiteArray()
+    {
+        $sites = array();
+        foreach($this->em->getRepository('NS\SentinelBundle\Entity\Site')->getChain() as $site)
+        {
+            $r = new Region();
+            $r->setName($site->getCountry()->getRegion()->getName());
+            $r->setId($site->getCountry()->getRegion()->getId());
+            $r->setCode($site->getCountry()->getRegion()->getcode());
+
+            $c = new Country();
+            $c->setId($site->getCountry()->getId());
+            $c->setName($site->getCountry()->getName());
+            $c->setCode($site->getCountry()->getCode());
+            $c->setLanguage($site->getCountry()->getLanguage());
+            $c->setRegion($r);
+
+            $s = new Site();
+            $s->setCode($site->getCode());
+            $s->setName($site->getName());
+            $s->setCountry($c);
+
+            $sites[] = $s;
+        }
+
+        return $sites;
     }
 
     public function getIsInitialized()
