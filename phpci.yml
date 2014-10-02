@@ -18,18 +18,14 @@ setup:
         action: "install"
 
 test:
-    behat: ~
-    php_loc: 
-        directory: "src"
     php_mess_detector:
         allow_failures: true
-        ignore: app/cache
-#    php_code_sniffer:
-#        standard: "PSR2"
+    php_loc: 
+        directory: "src"
     php_cpd:
         allow_failures: true
-#    grunt:
-#        task: "build"
+#    php_code_sniffer:
+#        standard: "PSR2"
 
 #complete:
 #    mysql:
