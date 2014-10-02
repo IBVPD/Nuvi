@@ -121,7 +121,7 @@ class AgeDistribution
 
     public function toArray()
     {
-        $res = array();//array(array('year'=>'year','total'=>'total','0-5'=>'0-5','6-11'=>'6-11','12-23'=>'12-23','24-59'=>'24-59','Unknown'=>'Unknown'));
+        $res = array();
         foreach($this->results as $year => $values)
         {
             $res[] = array( 'year'    => $year,
