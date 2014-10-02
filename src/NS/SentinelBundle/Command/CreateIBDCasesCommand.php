@@ -81,36 +81,8 @@ class CreateIBDCasesCommand extends ContainerAwareCommand
             $m->setSite($sites[$siteKey]);
             $m->setCaseId($this->getCaseId($sites[$siteKey]));
 
-            if($x%5 == 0)
-            {
-                if($m->getCsfCollected())
-                {
-                    $r = rand(1,100);
-                    $m->setCsfWcc($r);
-
-                    if($r<50)
-                    {
-                        $m->setMenFever($cxDone[0]);
-                        $m->setMenAltConscious($cxDone[0]);
-                    }
-                    else if($r <= 20 || $r >= 75 )
-                    {
-                        $m->setMenFever($cxDone[0]);
-                        $m->setMenNeckStiff($cxDone[0]);
-                    }
-
-                    if($r >=20 && $r <= 75)
-                    {
-                        $m->setCsfAppearance(new CSFAppearance(CSFAppearance::TURBID));
-                    }
-                    else if($r > 40)
-                    {
-                        $m->setCsfWcc(40);
-                        $m->setCsfGlucose(30);
-                        $m->setCsfProtein(140);
-                    }
-                }
-            }
+            if($x%5 == 0 && $m->getCsfCollected())
+                $this->addCsfCollected($m,$cxDone[0]);
 
             $this->em->persist($m);
             if($x % 100 == 0)
@@ -153,5 +125,33 @@ class CreateIBDCasesCommand extends ContainerAwareCommand
         }
 
         return new DateTime("{$years[$yKey]}-{$months[$mKey]}-{$days[$dKey]}");
+    }
+
+    private function addCsfCollected($m,$cxDone)
+    {
+        $r = rand(1,100);
+        $m->setCsfWcc($r);
+
+        if($r<50)
+        {
+            $m->setMenFever($cxDone[0]);
+            $m->setMenAltConscious($cxDone[0]);
+        }
+        else if($r <= 20 || $r >= 75 )
+        {
+            $m->setMenFever($cxDone[0]);
+            $m->setMenNeckStiff($cxDone[0]);
+        }
+
+        if($r >=20 && $r <= 75)
+        {
+            $m->setCsfAppearance(new CSFAppearance(CSFAppearance::TURBID));
+        }
+        else if($r > 40)
+        {
+            $m->setCsfWcc(40);
+            $m->setCsfGlucose(30);
+            $m->setCsfProtein(140);
+        }
     }
 }
