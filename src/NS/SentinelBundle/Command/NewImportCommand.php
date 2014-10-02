@@ -19,7 +19,7 @@ use NS\SentinelBundle\Entity\Site;
 class NewImportCommand extends ContainerAwareCommand
 {
     private $em;
-    
+
     protected function configure()
     {
         $this
@@ -32,18 +32,18 @@ class NewImportCommand extends ContainerAwareCommand
             )
         ; 
     }
-    
+
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $dir = $input->getArgument('directory');
         $files = scandir($dir);
         $this->em = $this->getContainer()->get('doctrine.orm.entity_manager');
-        
+
         foreach($files as $x => $file)
         {
             if($file[0] == '.')
                 unset($files[$x]);
-            
+
             switch ($file)
             {
                 case 'Countries.csv':
@@ -84,7 +84,7 @@ class NewImportCommand extends ContainerAwareCommand
             }
         }
     }
-    
+
     private function processRegions($file,$output)
     {
         $fd = fopen($file,'r');
@@ -109,17 +109,17 @@ class NewImportCommand extends ContainerAwareCommand
             else
                 $output->writeln("Row[1] is empty!");
         }
-        
+
         fclose($fd);
-        
+
         return $regions;
     }
-    
+
     private function processCountries($file,$regions)
     {
         $countries = array();
         $fd        = fopen($file,'r');
-        
+
         while(true)
         {
             $row = fgetcsv($fd);
@@ -142,12 +142,12 @@ class NewImportCommand extends ContainerAwareCommand
                 $countries[$row[2]] = $c;
             }
         }
-        
+
         fclose($fd);
-        
+
         return $countries;
     }
-    
+
     private function processSites($file,$countries)
     {
         $sites = array();
@@ -163,7 +163,6 @@ class NewImportCommand extends ContainerAwareCommand
 
             if($row== null)
                 break;
-
 
             $c = new Site();
             $c->setCode($row[2]);
@@ -232,9 +231,9 @@ class NewImportCommand extends ContainerAwareCommand
             $sites[$row[2]] = $c;
             $x++;
         }
-        
+
         fclose($fd);
-        
+
         return array('sites'=>$sites,'errors'=>$errorSites);
     }
 }
