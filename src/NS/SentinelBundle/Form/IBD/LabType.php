@@ -24,7 +24,7 @@ class LabType extends AbstractType
 {
     private $siteSerializer;
 
-    public function __consturct(SerializedSitesInterface $serializer)
+    public function __construct(SerializedSitesInterface $serializer)
     {
         $this->siteSerializer = $serializer;
     }
