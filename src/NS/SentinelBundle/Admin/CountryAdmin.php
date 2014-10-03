@@ -108,10 +108,11 @@ class CountryAdmin extends Admin
         if(empty($value['value']))
             return;
 
+        throw new \RuntimeException("FIELD: $field $alias ".print_r($value,true));
         $out = $params = array();
         foreach($value['value'] as $x => $role)
         {
-            $out[] = "$alias.$field = :type$x";
+            $out[] = "$alias.gaviEligible = :type$x";
             $params["type$x"] = $role;
         }
 
