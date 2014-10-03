@@ -78,8 +78,8 @@ class IBDController extends Controller
         {
             $caseId = $form->get('caseId')->getData();
             $type   = $form->get('type')->getData();
-            $em     = $this->get('ns.model_manager');
-            $case   = $em->getRepository('NSSentinelBundle:IBD')->findOrCreate($caseId,null);
+            $entityMgr = $this->get('ns.model_manager');
+            $case   = $entityMgr->getRepository('NSSentinelBundle:IBD')->findOrCreate($caseId,null);
 
             if(!$case->getId())
             {
@@ -104,8 +104,8 @@ class IBDController extends Controller
                     break;
             }
 
-            $em->persist($case);
-            $em->flush();
+            $entityMgr->persist($case);
+            $entityMgr->flush();
 
             return $this->redirect($this->generateUrl($res,array('id' => $case->getId())));
         }
@@ -171,17 +171,17 @@ class IBDController extends Controller
             $form->handleRequest($request);
             if($form->isValid())
             {
-                $em     = $this->getDoctrine()->getManager();
+                $entityMgr = $this->getDoctrine()->getManager();
                 $record = $form->getData();
 
-                $em->persist($record);
+                $entityMgr->persist($record);
 
                 if($type == 'lab')
-                    $em->persist($record->getCase());
+                    $entityMgr->persist($record->getCase());
 
                 try
                 {
-                    $em->flush();
+                    $entityMgr->flush();
                 }
                 catch(\Doctrine\DBAL\DBALException $e)
                 {

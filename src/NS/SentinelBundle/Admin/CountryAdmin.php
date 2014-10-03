@@ -111,7 +111,7 @@ class CountryAdmin extends Admin
         $out = $params = array();
         foreach($value['value'] as $x => $role)
         {
-            $out[] = "$alias.gaviEligible = :type$x";
+            $out[] = "$alias.$field = :type$x";
             $params["type$x"] = $role;
         }
 

@@ -24,24 +24,24 @@ class ImportController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $em   = $this->get('doctrine.orm.entity_manager');
+        $entityMgr = $this->get('doctrine.orm.entity_manager');
         $form = $this->createForm('ImportSelect');
 
         $form->handleRequest($request);
         if($form->isValid())
         {
-            $importer   = $this->get('ns_import.processor');
-            $import     = $form->getData();
-            $wresult    = $importer->process($import);
-            $result     = new Result($import,$wresult);
+            $importer = $this->get('ns_import.processor');
+            $import   = $form->getData();
+            $wresult  = $importer->process($import);
+            $result   = new Result($import,$wresult);
 
-            if($em->isOpen())
+            if($entityMgr->isOpen())
             {
                 $u = $this->getUser();
-                $result->setUser($em->getReference(get_class($u),$u->getId()));
+                $result->setUser($entityMgr->getReference(get_class($u),$u->getId()));
 
-                $em->persist($result);
-                $em->flush($result);
+                $entityMgr->persist($result);
+                $entityMgr->flush($result);
 
                 $this->get('ns_flash')->addSuccess(null, null, "Import completed");
             }
@@ -57,7 +57,7 @@ class ImportController extends Controller
         }
 
         $paginator  = $this->get('knp_paginator');
-        $query      = $em->getRepository('NSImportBundle:Result')->getResultsForUser($this->getUser(),'r');
+        $query      = $entityMgr->getRepository('NSImportBundle:Result')->getResultsForUser($this->getUser(),'r');
         $pagination = $paginator->paginate( $query,
                                             $request->query->get('page',1),
                                             $request->getSession()->get('result_per_page',10) );

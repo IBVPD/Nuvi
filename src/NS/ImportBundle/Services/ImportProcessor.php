@@ -18,12 +18,12 @@ use \Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class ImportProcessor
 {
-    private $em;
+    private $entityMgr;
     private $container;
 
-    public function __construct(ObjectManager $em, ContainerInterface $container)
+    public function __construct(ObjectManager $entityMgr, ContainerInterface $container)
     {
-        $this->em = $em;
+        $this->entityMgr = $entityMgr;
         $this->container = $container;
     }
 
@@ -49,7 +49,7 @@ class ImportProcessor
         $workflow->setSkipItemOnFailure(true);
 
         // Create a writer: you need Doctrine’s EntityManager.
-        $doctrineWriter = new DoctrineWriter($this->em, $map->getClass(), $map->getFindBy());
+        $doctrineWriter = new DoctrineWriter($this->entityMgr, $map->getClass(), $map->getFindBy());
         $doctrineWriter->setTruncate(false);
 
         $workflow->addWriter($doctrineWriter);
@@ -69,14 +69,14 @@ class ImportProcessor
         try
         {
             // Process the workflow
-            $c = $workflow->process();
+            $processResult = $workflow->process();
         }
         catch (\Doctrine\DBAL\DBALException $ex)
         {
             return new Result("Error", new \DateTime, new \DateTime, 0, array($ex));
         }
 
-        $result = new Result($c->getName(), $c->getStartTime(), $c->getEndTime(), $c->getTotalProcessedCount(), $c->getExceptions());
+        $result = new Result($processResult->getName(), $processResult->getStartTime(), $processResult->getEndTime(), $processResult->getTotalProcessedCount(), $processResult->getExceptions());
         $result->setResults($doctrineWriter->getResults());
 
         return $result;

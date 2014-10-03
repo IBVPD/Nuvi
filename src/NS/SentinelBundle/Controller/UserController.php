@@ -20,8 +20,8 @@ class UserController extends Controller
      */
     public function profileAction(Request $request)
     {
-        $em   = $this->get('doctrine.orm.entity_manager');
-        $user = $em->getRepository('NSSentinelBundle:User')->find($this->getUser()->getId());
+        $entityMgr = $this->get('doctrine.orm.entity_manager');
+        $user = $entityMgr->getRepository('NSSentinelBundle:User')->find($this->getUser()->getId());
 
         $form = $this->createForm(new \NS\SentinelBundle\Form\UserType(),$user);
         $form->handleRequest($request);
@@ -35,8 +35,8 @@ class UserController extends Controller
             if($user->getPlainPassword())
                 $user->setPassword( $encoder->encodePassword($user->getPlainPassword(),$user->getSalt()) );
 
-            $em->persist($user);
-            $em->flush();
+            $entityMgr->persist($user);
+            $entityMgr->flush();
 
             $this->get('ns_flash')->addSuccess(null, null, "User Successfully updated");
 

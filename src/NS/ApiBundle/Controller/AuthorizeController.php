@@ -65,9 +65,9 @@ class AuthorizeController extends Controller
      */
     public function remoteAuthorizationCallbackAction(Request $request)
     {
-        $em      = $this->get('doctrine.orm.entity_manager');
-        $repo    = $em->getRepository('NSApiBundle:Remote');
-        $remotes = $repo->findByUser($this->getUser());
+        $entityMgr = $this->get('doctrine.orm.entity_manager');
+        $repo      = $entityMgr->getRepository('NSApiBundle:Remote');
+        $remotes   = $repo->findByUser($this->getUser());
 
         // TODO handle more than one remote... how would we know which client_id/secret is being authorized...
         // Ask the user since they started off the authorization so should know. - Use a session var?
@@ -93,18 +93,18 @@ class AuthorizeController extends Controller
      */
     public function authTestAction()
     {
-        $em     = $this->get('doctrine.orm.entity_manager');
-        $repo   = $em->getRepository('NSApiBundle:Remote');
-        $tokens = $repo->findByUser($this->getUser());
-        $client = $this->get('oauth2.client');
-        $r      = array();
+        $entityMgr = $this->get('doctrine.orm.entity_manager');
+        $repo      = $entityMgr->getRepository('NSApiBundle:Remote');
+        $tokens    = $repo->findByUser($this->getUser());
+        $client    = $this->get('oauth2.client');
+        $result    = array();
 
         foreach($tokens as $token)
         {
             $client->setRemote($token);
-            $r[] = $client->fetch('http://nuvi.noblet.ca/api/v1/test');
+            $result[] = $client->fetch('http://nuvi.noblet.ca/api/v1/test');
         }
 
-        return new Response("Returned: <pre>".print_r($r,true)."</pre>");
+        return new Response("Returned: <pre>".print_r($result, true)."</pre>");
     }
 }

@@ -47,14 +47,14 @@ class CaseController extends FOSRestController
         return $this->getObject($class, $id);
     }
 
-    private function updateObject(Request $request, ObjectManager $em, FormInterface $form)
+    private function updateObject(Request $request, ObjectManager $entityMgr, FormInterface $form)
     {
         $form->handleRequest($request);
 
         if($form->isValid())
         {
-            $em->persist($form->getData());
-            $em->flush();
+            $entityMgr->persist($form->getData());
+            $entityMgr->flush();
 
             return true;
         }
@@ -64,20 +64,20 @@ class CaseController extends FOSRestController
 
     protected function updateCase(Request $request, $id, $method, $formName, $className, $route)
     {
-        $em    = $this->get('ns.model_manager');
-        $obj   = $em->getRepository($className)->find($id);
+        $entityMgr    = $this->get('ns.model_manager');
+        $obj   = $entityMgr->getRepository($className)->find($id);
         $form  = $this->createForm($formName, $obj, array('method'=>$method));
 
-        return ($this->updateObject($request, $em, $form)) ? $this->view(null, Codes::HTTP_ACCEPTED,array('Location'=>$route)) : $this->view($form, Codes::HTTP_BAD_REQUEST);
+        return ($this->updateObject($request, $entityMgr, $form)) ? $this->view(null, Codes::HTTP_ACCEPTED,array('Location'=>$route)) : $this->view($form, Codes::HTTP_BAD_REQUEST);
     }
 
     protected function updateLab(Request $request, $id, $method, $formName, $className, $route)
     {
-        $em   = $this->get('ns.model_manager');
-        $obj  = $em->getRepository($className)->find($id);
+        $entityMgr   = $this->get('ns.model_manager');
+        $obj  = $entityMgr->getRepository($className)->find($id);
         $form = $this->createForm($formName, $obj, array('method'=>$method));
 
-        return ($this->updateObject($request, $em, $form)) ? $this->view(null, Codes::HTTP_ACCEPTED,array('Location'=>$route)) : $this->view($form, Codes::HTTP_BAD_REQUEST);
+        return ($this->updateObject($request, $entityMgr, $form)) ? $this->view(null, Codes::HTTP_ACCEPTED,array('Location'=>$route)) : $this->view($form, Codes::HTTP_BAD_REQUEST);
     }
 
     protected function postCase(Request $request, $route, $formName, $className)
@@ -90,9 +90,9 @@ class CaseController extends FOSRestController
             if(!$form->isValid())
                 return $this->view($form, Codes::HTTP_BAD_REQUEST);
 
-            $em     = $this->get('ns.model_manager');
+            $entityMgr     = $this->get('ns.model_manager');
             $caseId = $form->get('caseId')->getData();
-            $case   = $em->getRepository($className)->findOrCreate($caseId,null);
+            $case   = $entityMgr->getRepository($className)->findOrCreate($caseId,null);
 
             if(!$case->getId())
             {
@@ -100,8 +100,8 @@ class CaseController extends FOSRestController
                 $case->setSite($site);
             }
 
-            $em->persist($case);
-            $em->flush();
+            $entityMgr->persist($case);
+            $entityMgr->flush();
 
             return $this->routeRedirectView($route, array('id' => $case->getId()));
         }

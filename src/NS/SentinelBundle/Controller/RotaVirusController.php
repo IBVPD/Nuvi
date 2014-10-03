@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 use \NS\SentinelBundle\Exceptions\NonExistentCase;
 use \NS\SentinelBundle\Form\Types\CreateRoles;
 use \Symfony\Component\Form\FormError;
-use NS\SentinelBundle\Entity\Rota\Lab;
 
 /**
  * @Route("/{_locale}/rota")
@@ -79,8 +78,8 @@ class RotaVirusController extends Controller
         {
             $caseId = $form->get('caseId')->getData();
             $type   = $form->get('type')->getData();
-            $em     = $this->get('ns.model_manager');
-            $case   = $em->getRepository('NSSentinelBundle:RotaVirus')->findOrCreate($caseId);
+            $entityMgr = $this->get('ns.model_manager');
+            $case   = $entityMgr->getRepository('NSSentinelBundle:RotaVirus')->findOrCreate($caseId);
 
             if(!$case->getId())
             {
@@ -105,8 +104,8 @@ class RotaVirusController extends Controller
                     break;
             }
 
-            $em->persist($case);
-            $em->flush();
+            $entityMgr->persist($case);
+            $entityMgr->flush();
 
             return $this->redirect($this->generateUrl($res,array('id' => $case->getId())));
         }
@@ -173,13 +172,13 @@ class RotaVirusController extends Controller
             $form->handleRequest($request);
             if($form->isValid())
             {
-                $em     = $this->getDoctrine()->getManager();
+                $entityMgr = $this->getDoctrine()->getManager();
                 $record = $form->getData();
-                $em->persist($record);
+                $entityMgr->persist($record);
 
                 try
                 {
-                    $em->flush();
+                    $entityMgr->flush();
                 }
                 catch(\Doctrine\DBAL\DBALException $e)
                 {
