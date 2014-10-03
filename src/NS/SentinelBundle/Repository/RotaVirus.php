@@ -18,22 +18,22 @@ class RotaVirus extends Common implements AjaxAutocompleteRepositoryInterface
     public function getStats()
     {
         $results = array();
-        $qb      = $this->_em
+        $queryBuilder = $this->_em
                    ->createQueryBuilder()
                    ->select('COUNT(m.id) theCount')
                    ->from($this->getClassName(),'m')
                    ->where('m.cxrDone = :cxr')
                    ->setParameter('cxr', \NS\SentinelBundle\Form\Types\TripleChoice::YES);
 
-        $results['cxr'] = $this->secure($qb)->getQuery()->getSingleScalarResult();
+        $results['cxr'] = $this->secure($queryBuilder)->getQuery()->getSingleScalarResult();
 
-        $qb      = $this->_em
+        $queryBuilder = $this->_em
                    ->createQueryBuilder()
                    ->select('m.csfCollected, COUNT(m.csfCollected) theCount')
                    ->from($this->getClassName(),'m')
                    ->groupBy('m.csfCollected');
         
-        $res     = $this->secure($qb)->getQuery()->getResult();
+        $res     = $this->secure($queryBuilder)->getQuery()->getResult();
 
         foreach($res as $r)
         {
@@ -48,10 +48,10 @@ class RotaVirus extends Common implements AjaxAutocompleteRepositoryInterface
 
     public function getLatestQuery( $alias = 'm')
     {
-        $qb = $this->createQueryBuilder($alias)
+        $queryBuilder = $this->createQueryBuilder($alias)
                    ->orderBy($alias.'.id','DESC');
 
-        return $this->secure($qb);
+        return $this->secure($queryBuilder);
     }
 
     public function getLatest($limit = 10)
@@ -64,39 +64,39 @@ class RotaVirus extends Common implements AjaxAutocompleteRepositoryInterface
     
     public function getByCountry()
     {
-        $qb = $this->_em->createQueryBuilder()
+        $queryBuilder = $this->_em->createQueryBuilder()
                    ->select('COUNT(m) as numberOfCases, partial m.{id,admDate}, c')
                    ->from($this->getClassName(),'m')
                    ->innerJoin('m.country', 'c')
                    ->groupBy('m.country');
 
-        return $this->secure($qb)->getQuery()->getResult(Query::HYDRATE_ARRAY);
+        return $this->secure($queryBuilder)->getQuery()->getResult(Query::HYDRATE_ARRAY);
     }
 
     public function getByDiagnosis()
     {
-        $qb = $this->_em->createQueryBuilder()
+        $queryBuilder = $this->_em->createQueryBuilder()
                    ->select('COUNT(m) as numberOfCases, partial m.{id,dischDx}')
                    ->from($this->getClassName(),'m')
                    ->groupBy('m.dischDx');
 
-        return $this->secure($qb)->getQuery()->getResult(Query::HYDRATE_ARRAY);
+        return $this->secure($queryBuilder)->getQuery()->getResult(Query::HYDRATE_ARRAY);
     }
 
     public function getBySite()
     {
-        $qb = $this->_em->createQueryBuilder()
+        $queryBuilder = $this->_em->createQueryBuilder()
                    ->select('COUNT(m) as numberOfCases, partial m.{id,admDate}, s ')
                    ->from($this->getClassName(),'m')
                    ->innerJoin('m.site', 's')
                    ->groupBy('m.site');
 
-        return $this->secure($qb)->getQuery()->getResult(Query::HYDRATE_ARRAY);
+        return $this->secure($queryBuilder)->getQuery()->getResult(Query::HYDRATE_ARRAY);
     }
 
     public function get($id)
     {
-        $qb = $this->_em->createQueryBuilder()
+        $queryBuilder = $this->_em->createQueryBuilder()
                         ->select('m,s,c,r')
                         ->from($this->getClassName(),'m')
                         ->innerJoin('m.site', 's')
@@ -105,7 +105,7 @@ class RotaVirus extends Common implements AjaxAutocompleteRepositoryInterface
                         ->where('m.id = :id')->setParameter('id',$id);
 
         try {
-            return $this->secure($qb)->getQuery()->getSingleResult();
+            return $this->secure($queryBuilder)->getQuery()->getSingleResult();
         }
         catch(NoResultException $e)
         {
@@ -115,19 +115,19 @@ class RotaVirus extends Common implements AjaxAutocompleteRepositoryInterface
 
     public function search($id)
     {
-        $qb = $this->_em->createQueryBuilder()
+        $queryBuilder = $this->_em->createQueryBuilder()
                         ->select('m')
                         ->from($this->getClassName(),'m')
                         ->where('m.id LIKE :id')->setParameter('id',"%$id%");
 
-        return $this->secure($qb)->getQuery()->getResult();
+        return $this->secure($queryBuilder)->getQuery()->getResult();
     }
 
     public function checkExistence($id)
     {
         try 
         {
-            $qb = $this->_em
+            $queryBuilder = $this->_em
                        ->createQueryBuilder('m')
                        ->select('m')
                        ->from($this->getClassName(),'m')
@@ -135,11 +135,11 @@ class RotaVirus extends Common implements AjaxAutocompleteRepositoryInterface
                        ->setParameter('id', $id);
             
             if($this->hasSecuredQuery())
-                return $this->secure($qb)
+                return $this->secure($queryBuilder)
                             ->getQuery()
                             ->getSingleResult();
             else
-                return $qb->getQuery()->getSingleResult();
+                return $queryBuilder->getQuery()->getSingleResult();
         }
         catch(NoResultException $e)
         {
@@ -152,7 +152,7 @@ class RotaVirus extends Common implements AjaxAutocompleteRepositoryInterface
         if($id == null && $caseId == null)
             throw new \InvalidArgumentException("Id or Case must be provided");
 
-        $qb = $this->createQueryBuilder('m')
+        $queryBuilder = $this->createQueryBuilder('m')
                    ->select('m,s,c,r')
                    ->innerJoin('m.site', 's')
                    ->innerJoin('s.country', 'c')
@@ -161,11 +161,11 @@ class RotaVirus extends Common implements AjaxAutocompleteRepositoryInterface
                    ->setParameter('caseId', $caseId);
 
         if($id)
-            $qb->orWhere('m.id = :id')->setParameter('id', $id);
+            $queryBuilder->orWhere('m.id = :id')->setParameter('id', $id);
 
         try
         {
-            return $this->secure($qb)->getQuery()->getSingleResult();
+            return $this->secure($queryBuilder)->getQuery()->getSingleResult();
         }
         catch (NoResultException $ex)
         {
@@ -180,7 +180,7 @@ class RotaVirus extends Common implements AjaxAutocompleteRepositoryInterface
     {
         try
         {
-            $qb = $this->createQueryBuilder('m')
+            $queryBuilder = $this->createQueryBuilder('m')
                        ->addSelect('r,c,s')
                        ->leftJoin('m.region', 'r')
                        ->leftJoin('m.country', 'c')
@@ -188,9 +188,9 @@ class RotaVirus extends Common implements AjaxAutocompleteRepositoryInterface
                        ->andWhere('m.id = :id')
                        ->setParameter('id', $id);
 
-            $qb = ($this->hasSecuredQuery()) ? $this->secure($qb): $qb;
+            $queryBuilder = ($this->hasSecuredQuery()) ? $this->secure($queryBuilder): $queryBuilder;
 
-            return $qb->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD,true)->getSingleResult();
+            return $queryBuilder->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD,true)->getSingleResult();
         }
         catch(NoResultException $e)
         {

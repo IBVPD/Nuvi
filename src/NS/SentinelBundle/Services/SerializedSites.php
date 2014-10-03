@@ -17,14 +17,14 @@ use \NS\SentinelBundle\Entity\Site;
 class SerializedSites implements SerializedSitesInterface
 {
     private $sites;
-    private $em;
+    private $entityMgr;
     private $isInitialized = false;
     private $session;
 
-    public function __construct(Session $session, ObjectManager $em)
+    public function __construct(Session $session, ObjectManager $entityMgr)
     {
-        $this->session = $session;
-        $this->em      = $em;
+        $this->session   = $session;
+        $this->entityMgr = $entityMgr;
     }
 
     public function hasMultipleSites()
@@ -58,7 +58,7 @@ class SerializedSites implements SerializedSitesInterface
 
         $site = current($this->sites);
 
-        if($managed && !$this->em->contains($site))
+        if($managed && !$this->entityMgr->contains($site))
             $this->_registerSite ($site);
 
         return $site;
@@ -83,7 +83,7 @@ class SerializedSites implements SerializedSitesInterface
 
     private function _registerSite($site)
     {
-        $uow = $this->em->getUnitOfWork();
+        $uow = $this->entityMgr->getUnitOfWork();
         $c   = $site->getCountry();
         $r   = $c->getRegion();
 
@@ -95,7 +95,7 @@ class SerializedSites implements SerializedSitesInterface
     private function _populateSiteArray()
     {
         $sites = array();
-        foreach($this->em->getRepository('NS\SentinelBundle\Entity\Site')->getChain() as $site)
+        foreach($this->entityMgr->getRepository('NS\SentinelBundle\Entity\Site')->getChain() as $site)
         {
             $r = new Region();
             $r->setName($site->getCountry()->getRegion()->getName());

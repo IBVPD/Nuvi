@@ -24,18 +24,18 @@ class IBD extends Common
     public function getStats()
     {
         $results = array();
-        $qb      = $this->createQueryBuilder('m')
+        $queryBuilder = $this->createQueryBuilder('m')
                    ->select('COUNT(m.id) theCount')
                    ->where('m.cxrDone = :cxr')
                    ->setParameter('cxr', TripleChoice::YES);
 
-        $results['cxr'] = $this->secure($qb)->getQuery()->getSingleScalarResult();
+        $results['cxr'] = $this->secure($queryBuilder)->getQuery()->getSingleScalarResult();
 
-        $qb      = $this->createQueryBuilder('m')
+        $queryBuilder = $this->createQueryBuilder('m')
                    ->select('m.csfCollected, COUNT(m.csfCollected) theCount')
                    ->groupBy('m.csfCollected');
         
-        $res     = $this->secure($qb)->getQuery()->getResult();
+        $res     = $this->secure($queryBuilder)->getQuery()->getResult();
 
         foreach($res as $r)
         {
@@ -50,10 +50,10 @@ class IBD extends Common
 
     public function getLatestQuery($alias = 'm')
     {
-        $qb = $this->createQueryBuilder($alias)
+        $queryBuilder = $this->createQueryBuilder($alias)
                    ->orderBy($alias.'.id','DESC');
 
-        return $this->secure($qb);
+        return $this->secure($queryBuilder);
     }
 
     public function getLatest($limit = 10)
@@ -66,36 +66,36 @@ class IBD extends Common
     
     public function getByCountry()
     {
-        $qb = $this->createQueryBuilder('m')
+        $queryBuilder = $this->createQueryBuilder('m')
                    ->select('COUNT(m) as numberOfCases, partial m.{id,admDate}, c')
                    ->innerJoin('m.country', 'c')
                    ->groupBy('m.country');
 
-        return $this->secure($qb)->getQuery()->getResult(Query::HYDRATE_ARRAY);
+        return $this->secure($queryBuilder)->getQuery()->getResult(Query::HYDRATE_ARRAY);
     }
 
     public function getByDiagnosis()
     {
-        $qb = $this->createQueryBuilder('m')
+        $queryBuilder = $this->createQueryBuilder('m')
                    ->select('COUNT(m) as numberOfCases, partial m.{id,dischDx}')
                    ->groupBy('m.dischDx');
 
-        return $this->secure($qb)->getQuery()->getResult(Query::HYDRATE_ARRAY);
+        return $this->secure($queryBuilder)->getQuery()->getResult(Query::HYDRATE_ARRAY);
     }
 
     public function getBySite()
     {
-        $qb = $this->createQueryBuilder('m')
+        $queryBuilder = $this->createQueryBuilder('m')
                    ->select('COUNT(m) as numberOfCases, partial m.{id,admDate}, s ')
                    ->innerJoin('m.site', 's')
                    ->groupBy('m.site');
 
-        return $this->secure($qb)->getQuery()->getResult(Query::HYDRATE_ARRAY);
+        return $this->secure($queryBuilder)->getQuery()->getResult(Query::HYDRATE_ARRAY);
     }
 
     public function get($id)
     {
-        $qb = $this->createQueryBuilder('m')
+        $queryBuilder = $this->createQueryBuilder('m')
                    ->select('m,s,c,r')
                    ->innerJoin('m.site', 's')
                    ->innerJoin('s.country', 'c')
@@ -103,7 +103,7 @@ class IBD extends Common
                    ->where('m.id = :id')->setParameter('id',$id);
         try
         {
-            return $this->secure($qb)->getQuery()->getSingleResult();
+            return $this->secure($queryBuilder)->getQuery()->getSingleResult();
         }
         catch(NoResultException $e)
         {
@@ -113,22 +113,22 @@ class IBD extends Common
 
     public function search($id)
     {
-        $qb = $this->createQueryBuilder('m')
+        $queryBuilder = $this->createQueryBuilder('m')
                    ->where('m.id LIKE :id')
                    ->setParameter('id',"%$id%");
 
-        return $this->secure($qb)->getQuery()->getResult();
+        return $this->secure($queryBuilder)->getQuery()->getResult();
     }
 
     public function checkExistence($id)
     {
         try 
         {
-            $qb = $this->createQueryBuilder('m')
+            $queryBuilder = $this->createQueryBuilder('m')
                        ->where('m.id = :id')
                        ->setParameter('id', $id);
 
-            return $this->secure($qb)->getQuery()->getSingleResult();
+            return $this->secure($queryBuilder)->getQuery()->getSingleResult();
         }
         catch(NoResultException $e)
         {
@@ -140,7 +140,7 @@ class IBD extends Common
     {
         try
         {
-            $qb = $this->createQueryBuilder('m')
+            $queryBuilder = $this->createQueryBuilder('m')
                        ->addSelect('r,c,s')
                        ->leftJoin('m.region', 'r')
                        ->leftJoin('m.country', 'c')
@@ -148,7 +148,7 @@ class IBD extends Common
                        ->andWhere('m.id = :id')
                        ->setParameter('id', $id);
 
-            return $this->secure($qb)->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD,true)->getSingleResult();
+            return $this->secure($queryBuilder)->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD,true)->getSingleResult();
         }
         catch(NoResultException $e)
         {
@@ -174,12 +174,12 @@ class IBD extends Common
 
     public function findModified($modifiedSince = null)
     {
-        $qb = $this->getLatestQuery('m');
+        $queryBuilder = $this->getLatestQuery('m');
 
         if($modifiedSince)
-            $qb->where('m.updatedAt >= :updatedAt')->setParameter ('updatedAt', $modifiedSince);
+            $queryBuilder->where('m.updatedAt >= :updatedAt')->setParameter ('updatedAt', $modifiedSince);
 
-        return $qb->getQuery()->getResult();
+        return $queryBuilder->getQuery()->getResult();
     }
 
     /**
@@ -193,7 +193,7 @@ class IBD extends Common
     {
         $this->_em->getConfiguration()->addCustomDatetimeFunction('YEAR', 'DoctrineExtensions\Query\Mysql\Year');
 
-        $qb = $this->createQueryBuilder($alias)
+        $queryBuilder = $this->createQueryBuilder($alias)
                    ->select(sprintf('YEAR(%s.admDate) as theYear, COUNT(%s.id) as theCount,%s.ageDistribution',$alias,$alias,$alias))
                    ->where(sprintf('(%s.result = :suspectedMening)',$alias))
                    ->setParameter('suspectedMening', IBDCaseResult::PROBABLE)
@@ -201,17 +201,17 @@ class IBD extends Common
                    ->orderBy('theYear','ASC')
                 ;
 
-        return $this->secure($qb);
+        return $this->secure($queryBuilder);
     }
 
     private function getCountQueryBuilder($alias, array $siteCodes)
     {
-        $qb    = $this->createQueryBuilder($alias)->innerJoin($alias.'.site','s')->groupBy($alias.'.site');
+        $queryBuilder    = $this->createQueryBuilder($alias)->innerJoin($alias.'.site','s')->groupBy($alias.'.site');
         $where = $params = array();
         $x     = 0;
 
         if(empty($siteCodes))
-            return $qb;
+            return $queryBuilder;
 
         foreach($siteCodes as $site)
         {
@@ -220,7 +220,7 @@ class IBD extends Common
             $x++;
         }
 
-        return $qb->where("(".implode(" OR ",$where).")")->setParameters($params);
+        return $queryBuilder->where("(".implode(" OR ",$where).")")->setParameters($params);
     }
 
     public function getCsfCollectedCountBySites($alias, array $siteCodes)
@@ -329,40 +329,40 @@ class IBD extends Common
     {
         $this->_em->getConfiguration()->addCustomDatetimeFunction('YEAR', 'DoctrineExtensions\Query\Mysql\Year');
 
-        $qb = $this->getCountQueryBuilder($alias,$siteCodes)
+        $queryBuilder = $this->getCountQueryBuilder($alias,$siteCodes)
                    ->select(sprintf('%s.id,COUNT(%s.id) as caseCount, s.code, YEAR(%s.admDate) as theYear',$alias, $alias, $alias));
 
         if($culture)
         {
-            $qb->andWhere(sprintf(' ( %s.csfCultResult = :spn OR %s.csfCultResult = :hi OR %s.csfCultResult = :nm) ',$alias,$alias,$alias))
+            $queryBuilder->andWhere(sprintf(' ( %s.csfCultResult = :spn OR %s.csfCultResult = :hi OR %s.csfCultResult = :nm) ',$alias,$alias,$alias))
                ->setParameter('spn', CultureResult::SPN)
                ->setParameter('hi', CultureResult::HI)
                ->setParameter('nm', CultureResult::NM);
         }
         else
         {
-            $qb->andWhere(sprintf(' ( %s.csfCultResult = :negative ) ',$alias))
+            $queryBuilder->andWhere(sprintf(' ( %s.csfCultResult = :negative ) ',$alias))
                ->setParameter('negative', CultureResult::NEGATIVE);
         }
 
         if(!is_null($binax))
         {
-            $qb->andWhere(sprintf(' ( %s.csfBinaxResult = :binax ) ',$alias));
+            $queryBuilder->andWhere(sprintf(' ( %s.csfBinaxResult = :binax ) ',$alias));
             if($binax)
-                $qb->setParameter('binax', BinaxResult::POSITIVE);
+                $queryBuilder->setParameter('binax', BinaxResult::POSITIVE);
             else
-                $qb->setParameter('binax', BinaxResult::NEGATIVE);
+                $queryBuilder->setParameter('binax', BinaxResult::NEGATIVE);
         }
 
         if(!is_null($pcr))
         {
-            $qb->andWhere(sprintf(' ( %s.csfPcrResult = :pcr ) ',$alias));
+            $queryBuilder->andWhere(sprintf(' ( %s.csfPcrResult = :pcr ) ',$alias));
             if($pcr)
-                $qb->setParameter('pcr', CultureResult::NEGATIVE);
+                $queryBuilder->setParameter('pcr', CultureResult::NEGATIVE);
             else
-                $qb->setParameter('pcr', CultureResult::NEGATIVE);
+                $queryBuilder->setParameter('pcr', CultureResult::NEGATIVE);
         }
 
-        return $qb;
+        return $queryBuilder;
     }
 }

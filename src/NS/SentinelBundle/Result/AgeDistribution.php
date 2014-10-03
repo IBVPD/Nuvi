@@ -126,11 +126,12 @@ class AgeDistribution
         {
             $res[] = array( 'year'    => $year,
                             'total'   => (isset($values['total'])?$values['total']:0),
-                            '0-5'     => (isset($values[BaseCase::AGE_DISTRIBUTION_00_TO_05])?$values[BaseCase::AGE_DISTRIBUTION_00_TO_05]:0),
-                            '5-11'    => (isset($values[BaseCase::AGE_DISTRIBUTION_05_TO_11])?$values[BaseCase::AGE_DISTRIBUTION_05_TO_11]:0),
-                            '11-23'   => (isset($values[BaseCase::AGE_DISTRIBUTION_11_TO_23])?$values[BaseCase::AGE_DISTRIBUTION_11_TO_23]:0),
-                            '23-59'   => (isset($values[BaseCase::AGE_DISTRIBUTION_23_TO_59])?$values[BaseCase::AGE_DISTRIBUTION_23_TO_59]:0),
-                            'Unknown' => (isset($values[BaseCase::AGE_DISTRIBUTION_UNKNOWN])?$values[BaseCase::AGE_DISTRIBUTION_UNKNOWN]:0));
+                            '0-5'     => $this->getZeroToFive($year),
+                            '5-11'    => $this->getFiveToEleven($year),
+                            '11-23'   => $this->getElevenToTwentyThree($year),
+                            '23-59'   => $this->getTwentyThreeToFiftyNine($year),
+                            'Unknown' => $this->getUnknown($year)
+                          );
         }
 
         return $res;

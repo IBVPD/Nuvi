@@ -14,40 +14,40 @@ class Site extends CommonRepository
 {
     public function getChain($codes = null)
     {
-        $qb = $this->getChainQueryBuilder();
+        $queryBuilder = $this->getChainQueryBuilder();
 
         if(is_array($codes))
-            $qb->add('where', $qb->expr()->in('s.code', '?1'))->setParameter(1, $codes);
+            $queryBuilder->add('where', $queryBuilder->expr()->in('s.code', '?1'))->setParameter(1, $codes);
         else if($codes != null)
-            $qb->andWhere('s.code = :code')->setParameter('code',$codes);
+            $queryBuilder->andWhere('s.code = :code')->setParameter('code',$codes);
 
-        return $qb->getQuery()->getResult();
+        return $queryBuilder->getQuery()->getResult();
     }
 
     public function getChainQueryBuilder()
     {
-        $qb = $this->_em
+        $queryBuilder = $this->_em
                    ->createQueryBuilder()
                    ->from($this->getEntityName(), 's','s.code')
                    ->select('s,c,r')
                    ->innerJoin('s.country', 'c')
                    ->innerJoin('c.region', 'r');
 
-        return $this->secure($qb);
+        return $this->secure($queryBuilder);
     }
 
     public function getChainByCode($codes)
     {
-        $qb = $this->getChainQueryBuilder();
+        $queryBuilder = $this->getChainQueryBuilder();
 
         if(is_array($codes))
-            $qb->add('where', $qb->expr()->in('s.code', '?1'))->setParameter(1, $codes);
+            $queryBuilder->add('where', $queryBuilder->expr()->in('s.code', '?1'))->setParameter(1, $codes);
         else if(is_string($codes))
-            $qb->add('where', 's.code = :codes')->setParameter('codes',$codes);
+            $queryBuilder->add('where', 's.code = :codes')->setParameter('codes',$codes);
         else
             throw new \InvalidArgumentException(sprintf("Must provide an array of codes or single code. Received: %s",gettype($codes)));
 
-        return $this->secure($qb)->getQuery()->getResult();
+        return $this->secure($queryBuilder)->getQuery()->getResult();
     }
 
     public function findAll()

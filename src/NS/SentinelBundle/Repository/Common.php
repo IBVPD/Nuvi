@@ -14,9 +14,9 @@ use \NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
  */
 class Common extends SecuredEntityRepository implements AjaxAutocompleteRepositoryInterface
 {
-    public function secure(QueryBuilder $qb)
+    public function secure(QueryBuilder $queryBuilder)
     {
-        return $this->hasSecuredQuery() ? parent::secure($qb) : $qb;
+        return $this->hasSecuredQuery() ? parent::secure($queryBuilder) : $queryBuilder;
     }
 
     public function getAllSecuredQueryBuilder($alias = 'o')
@@ -27,10 +27,10 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
     public function getForAutoComplete($fields, array $value, $limit)
     {
         $alias = 'd';
-        $qb    = $this->createQueryBuilder($alias)->setMaxResults($limit);
+        $queryBuilder = $this->createQueryBuilder($alias)->setMaxResults($limit);
 
         if(!empty($value) && $value['value'][0]=='*')
-            return $qb->getQuery();
+            return $queryBuilder->getQuery();
 
         if(!empty($value))
         {
@@ -39,18 +39,18 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
                 foreach ($fields as $f)
                 {
                     $field = "$alias.$f";
-                    $qb->addOrderBy($field)
+                    $queryBuilder->addOrderBy($field)
                        ->orWhere("$field LIKE :param")->setParameter('param',$value['value'].'%');
                 }
             }
             else
             {
                 $field = "$alias.$fields";
-                $qb->orderBy($field)->andWhere("$field LIKE :param")->setParameter('param',$value['value'].'%');
+                $queryBuilder->orderBy($field)->andWhere("$field LIKE :param")->setParameter('param',$value['value'].'%');
             }
         }
 
-        return $qb->getQuery();
+        return $queryBuilder->getQuery();
     }
 
     public function numberAndPercentEnrolledByAdmissionDiagnosis($alias = 'c', $ageInMonths = 59)
@@ -58,13 +58,13 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
         $config = $this->_em->getConfiguration();
         $config->addCustomDatetimeFunction('MONTH', 'DoctrineExtensions\Query\Mysql\Month');
 
-        $qb = $this->createQueryBuilder($alias)
+        $queryBuilder = $this->createQueryBuilder($alias)
                                 ->select(sprintf('MONTH(%s.admDate) as AdmissionMonth,COUNT(%s.admDx) as admDxCount,%s.admDx',$alias,$alias,$alias))
                                 ->where(sprintf("(%s.admDx IS NOT NULL AND %s.age <= :age)",$alias,$alias))
                                 ->setParameter('age',$ageInMonths)
                                 ->groupBy($alias.'.admDx,AdmissionMonth');
 
-        return $this->secure($qb);
+        return $this->secure($queryBuilder);
     }
 
     public function findOrCreate($caseId, $id = null)
@@ -72,7 +72,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
         if($id == null && $caseId == null)
             throw new InvalidArgumentException("Id or Case must be provided");
 
-        $qb = $this->createQueryBuilder('m')
+        $queryBuilder = $this->createQueryBuilder('m')
                    ->select('m,s,c,r')
                    ->innerJoin('m.site', 's')
                    ->innerJoin('s.country', 'c')
@@ -81,11 +81,11 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
                    ->setParameter('caseId', $caseId);
 
         if($id)
-            $qb->orWhere('m.id = :id')->setParameter('id', $id);
+            $queryBuilder->orWhere('m.id = :id')->setParameter('id', $id);
 
         try
         {
-            return $this->secure($qb)->getQuery()->getSingleResult();
+            return $this->secure($queryBuilder)->getQuery()->getSingleResult();
         }
         catch (NoResultException $ex)
         {

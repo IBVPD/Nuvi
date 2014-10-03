@@ -35,23 +35,26 @@ class NewImportCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $dir = $input->getArgument('directory');
-        $files = scandir($dir);
+        $dir      = $input->getArgument('directory');
+        $files    = scandir($dir);
         $this->em = $this->getContainer()->get('doctrine.orm.entity_manager');
 
         foreach($files as $x => $file)
         {
             if($file[0] == '.')
+            {
                 unset($files[$x]);
+                continue;
+            }
 
             switch ($file)
             {
-                case 'Countries.csv':
-                    $files['country'] = $dir.'/'.$file;
-                    unset($files[$x]);
-                    break;
                 case 'Regions.csv':
                     $files['region'] = $dir.'/'.$file;
+                    unset($files[$x]);
+                    break;
+                case 'Countries.csv':
+                    $files['country'] = $dir.'/'.$file;
                     unset($files[$x]);
                     break;
                 case 'Sites.csv':
@@ -87,15 +90,11 @@ class NewImportCommand extends ContainerAwareCommand
 
     private function processRegions($file,$output)
     {
-        $fd = fopen($file,'r');
+        $fd      = fopen($file,'r');
         $regions = array();
-        while(true)
+
+        while($row = fgetcsv($fd))
         {
-            $row = fgetcsv($fd);
-
-            if($row== null)
-                break;
-
             if(!empty($row[1]))
             {
                 $region = new Region();
@@ -120,13 +119,8 @@ class NewImportCommand extends ContainerAwareCommand
         $countries = array();
         $fd        = fopen($file,'r');
 
-        while(true)
+        while($row = fgetcsv($fd))
         {
-            $row = fgetcsv($fd);
-
-            if($row== null)
-                break;
-
             if(isset($regions[$row[0]]) && !empty($row[2]) && !empty($row[0]) && !empty($row[1]))
             {
                 $c = new Country();
@@ -156,75 +150,26 @@ class NewImportCommand extends ContainerAwareCommand
         $errorSites = array();
 
         $row = fgetcsv($fd);
-        $row = fgetcsv($fd);
-        while(true)
+        while($row = fgetcsv($fd))
         {
-            $row = fgetcsv($fd);
-
-            if($row== null)
-                break;
-
             $c = new Site();
             $c->setCode($row[2]);
             $c->setName($row[3]);
-
-            try {
-            $c->setSurveillanceConducted(new \NS\SentinelBundle\Form\Types\SurveillanceConducted($row[9]));
-            }
-            catch (\Exception $e)
-            {
-                throw new \Exception("Tried to pass {$row[9]} to SurveillanceConducted\n ".$e->getMessage());
-            }
             $c->setibdTier($row[10]);
 
-            try{
-            $c->setibdIntenseSupport(new \NS\SentinelBundle\Form\Types\TripleChoice($row[11]));
-            }
-            catch(\Exception $e)
-            {
-                $errorSites[] = "{$row[2]}:{$row[3]} - Has Invalid Intense Support Value";
-            }
-
-            if($row[12])
-            {
-                try {
-                $c->setibdLastSiteAssessmentDate(new \DateTime($row[12]));
-                }
-                catch(\Exception $e)
-                {
-                    $errorSites[] = "{$row[2]}:{$row[3]} - Has Invalid IBD Last Site Assessment Date '{$row[12]}'";
-                }
-            }
+            $this->surveillanceAndSupport($row,$c);
+            $this->setSiteIbdLastAssessment($c, $row, $errorSites);
+            $this->setSiteRvLastAssessment($c, $row, $errorSites);
 
             if($row[13])
                 $c->setibdSiteAssessmentScore($row[13]);
 
-            if($row[14])
-            {
-                try {
-                $c->setrvLastSiteAssessmentDate(new \DateTime($row[14]));
-                }
-                catch(\Exception $e)
-                {
-                    $errorSites[] = "{$row[2]}:{$row[3]} - Has Invalid RV Last Site Assessment Date '{$row[14]}'";
-                }
-            }
             $c->setibvpdRl($row[15]);
             $c->setrvRl($row[16]);
             $c->setibdEqaCode($row[17]);
             $c->setrvEqaCode($row[18]);
 
-            $country = $countries[$row[1]];
-            if($country instanceof Country)
-            {
-                $country->setGaviEligible(new \NS\SentinelBundle\Form\Types\TripleChoice($row[5]));
-                $country->setHibVaccineIntro($row[19]);
-                $country->setPcvVaccineIntro($row[20]);
-                $country->setRvVaccineIntro($row[21]);
-                $country->setPopulationUnderFive2014($row[22]);
-                $country->setPopulationUnderFive2014($row[23]);
-                $c->setCountry($country);
-            }
+            $this->modifyCountry($c,$countries[$row[1]]);
 
             $this->em->persist($c);
             $this->em->flush();
@@ -235,5 +180,70 @@ class NewImportCommand extends ContainerAwareCommand
         fclose($fd);
 
         return array('sites'=>$sites,'errors'=>$errorSites);
+    }
+
+    private function modifyCountry($c, $country)
+    {
+        if($country instanceof Country)
+        {
+            $country->setGaviEligible(new \NS\SentinelBundle\Form\Types\TripleChoice($row[5]));
+            $country->setHibVaccineIntro($row[19]);
+            $country->setPcvVaccineIntro($row[20]);
+            $country->setRvVaccineIntro($row[21]);
+            $country->setPopulationUnderFive2014($row[22]);
+            $country->setPopulationUnderFive2014($row[23]);
+            $c->setCountry($country);
+        }
+    }
+
+    private function surveillanceAndSupport($c,$row, &$errorSites)
+    {
+        try
+        {
+            $c->setSurveillanceConducted(new \NS\SentinelBundle\Form\Types\SurveillanceConducted($row[9]));
+        }
+        catch (\Exception $e)
+        {
+            throw new \Exception("Tried to pass {$row[9]} to SurveillanceConducted\n ".$e->getMessage());
+        }
+
+        try
+        {
+            $c->setibdIntenseSupport(new \NS\SentinelBundle\Form\Types\IBDIntenseSupport($row[11]));
+        }
+        catch(\Exception $e)
+        {
+            $errorSites[] = "{$row[2]}:{$row[3]} - Has Invalid Intense Support Value {$row[11]}";
+        }
+    }
+
+    private function setSiteIbdLastAssessment($c, $row, &$errorSites)
+    {
+        if($row[12])
+        {
+            try
+            {
+                $c->setibdLastSiteAssessmentDate(new \DateTime($row[12]));
+            }
+            catch(\Exception $e)
+            {
+                $errorSites[] = "{$row[2]}:{$row[3]} - Has Invalid IBD Last Site Assessment Date '{$row[12]}'";
+            }
+        }
+    }
+
+    private function setSiteRvLastAssessment($c, $row, &$errorSites)
+    {
+        if($row[14])
+        {
+            try
+            {
+                $c->setRvLastSiteAssessmentDate(new \DateTime($row[14]));
+            }
+            catch(\Exception $e)
+            {
+                $errorSites[] = "{$row[2]}:{$row[3]} - Has Invalid RV Last Site Assessment Date '{$row[14]}'";
+            }
+        }
     }
 }

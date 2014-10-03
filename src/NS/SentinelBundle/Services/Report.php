@@ -26,21 +26,21 @@ class Report
 {
     private $exporter;
     private $filter;
-    private $em;
+    private $entityMgr;
     private $router;
 
-    public function __construct(Exporter $exporter, $filter, ObjectManager $em, RouterInterface $router)
+    public function __construct(Exporter $exporter, $filter, ObjectManager $entityMgr, RouterInterface $router)
     {
-        $this->exporter = $exporter;
-        $this->filter   = $filter;
-        $this->em       = $em;
-        $this->router   = $router;
+        $this->exporter  = $exporter;
+        $this->filter    = $filter;
+        $this->entityMgr = $entityMgr;
+        $this->router    = $router;
     }
 
     public function numberEnrolled(Request $request, FormInterface $form, $redirectRoute)
     {
         $alias        = 'c';
-        $queryBuilder = $this->em->getRepository('NSSentinelBundle:IBD')->numberAndPercentEnrolledByAdmissionDiagnosis($alias);
+        $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:IBD')->numberAndPercentEnrolledByAdmissionDiagnosis($alias);
         $export       = false;
 
         $form->handleRequest($request);
@@ -68,7 +68,7 @@ class Report
     {
         $export = false;
         $alias  = 'i';
-        $qb     = $this->em->getRepository('NSSentinelBundle:IBD')->getAnnualAgeDistribution($alias);
+        $qb     = $this->entityMgr->getRepository('NSSentinelBundle:IBD')->getAnnualAgeDistribution($alias);
 
         $form->handleRequest($request);
         if($form->isValid())
@@ -106,7 +106,7 @@ class Report
     {
         $results = new ArrayCollection();
         $alias   = 'i';
-        $qb      = $this->em->getRepository('NSSentinelBundle:Site')->getWithCasesForDate($alias);
+        $qb      = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getWithCasesForDate($alias);
 
         $form->handleRequest($request);
         if($form->isValid())
@@ -123,7 +123,7 @@ class Report
 
             $this->_populateSites($sites, $results);
 
-            $ibdRepo = $this->em->getRepository('NSSentinelBundle:IBD');
+            $ibdRepo = $this->entityMgr->getRepository('NSSentinelBundle:IBD');
             $columns = array('getCsfCollectedCountBySites','getBloodCollectedCountBySites',
                             'getBloodResultCountBySites','getCsfBinaxDoneCountBySites',
                             'getCsfBinaxResultCountBySites','getCsfLatDoneCountBySites',
@@ -184,7 +184,7 @@ class Report
     public function getCulturePositive(Request $request, FormInterface $form, $redirectRoute)
     {
         $alias          = 'c';
-        $repo           = $this->em->getRepository('NSSentinelBundle:IBD');
+        $repo           = $this->entityMgr->getRepository('NSSentinelBundle:IBD');
         $cultPositiveQB = $repo->getCountByCulture($alias, true, null, null);
         $cultNegativeQB = $repo->getCountByCulture($alias, false, true, null);
         $pcrPositiveQB  = $repo->getCountByCulture($alias, false, false, true);
