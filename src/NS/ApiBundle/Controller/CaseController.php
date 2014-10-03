@@ -18,11 +18,11 @@ use \Symfony\Component\Form\FormInterface;
  */
 class CaseController extends FOSRestController
 {
-    private function getObject($class, $id)
+    private function getObject($class, $objId)
     {
         try
         {
-            return $this->get('ns.model_manager')->getRepository($class)->find($id);
+            return $this->get('ns.model_manager')->getRepository($class)->find($objId);
         }
         catch(NonExistentCase $e)
         {
@@ -30,7 +30,7 @@ class CaseController extends FOSRestController
         }
     }
 
-    protected function getCase($type,$id)
+    protected function getCase($type,$objId)
     {
         switch($type)
         {
@@ -44,7 +44,7 @@ class CaseController extends FOSRestController
                 throw new NotFoundHttpException("Invalid type: $type");
         }
 
-        return $this->getObject($class, $id);
+        return $this->getObject($class, $objId);
     }
 
     private function updateObject(Request $request, ObjectManager $entityMgr, FormInterface $form)
@@ -62,19 +62,19 @@ class CaseController extends FOSRestController
             return false;
     }
 
-    protected function updateCase(Request $request, $id, $method, $formName, $className, $route)
+    protected function updateCase(Request $request, $objId, $method, $formName, $className, $route)
     {
         $entityMgr    = $this->get('ns.model_manager');
-        $obj   = $entityMgr->getRepository($className)->find($id);
+        $obj   = $entityMgr->getRepository($className)->find($objId);
         $form  = $this->createForm($formName, $obj, array('method'=>$method));
 
         return ($this->updateObject($request, $entityMgr, $form)) ? $this->view(null, Codes::HTTP_ACCEPTED,array('Location'=>$route)) : $this->view($form, Codes::HTTP_BAD_REQUEST);
     }
 
-    protected function updateLab(Request $request, $id, $method, $formName, $className, $route)
+    protected function updateLab(Request $request, $objId, $method, $formName, $className, $route)
     {
         $entityMgr   = $this->get('ns.model_manager');
-        $obj  = $entityMgr->getRepository($className)->find($id);
+        $obj  = $entityMgr->getRepository($className)->find($objId);
         $form = $this->createForm($formName, $obj, array('method'=>$method));
 
         return ($this->updateObject($request, $entityMgr, $form)) ? $this->view(null, Codes::HTTP_ACCEPTED,array('Location'=>$route)) : $this->view($form, Codes::HTTP_BAD_REQUEST);

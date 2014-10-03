@@ -63,16 +63,16 @@ class ClientController extends Controller
     }
 
     /**
-     * @Route("/client/edit/{id}",name="ApiEditClient")
+     * @Route("/client/edit/{objId}",name="ApiEditClient")
      * @Template("NSApiBundle:Client:create.html.twig")
      */
-    public function editAction(Request $request,$id)
+    public function editAction(Request $request,$objId)
     {
         $entityMgr = $this->get('doctrine.orm.entity_manager');
         $user      = $this->getUser();
         $client    = $entityMgr->getRepository('NSApiBundle:Client')
                      ->createQueryBuilder('c')->where('c.user = :user AND c.id = :id')
-                     ->setParameters(array('id'=>$id, 'user'=>$entityMgr->getReference(get_class($user),$user->getId())))
+                     ->setParameters(array('id'=>$objId, 'user'=>$entityMgr->getReference(get_class($user),$user->getId())))
                      ->getQuery()
                      ->getSingleResult();
         $form = $this->createForm('CreateApiClient',$client);
@@ -86,19 +86,19 @@ class ClientController extends Controller
             return $this->redirect($this->generateUrl('ns_api_dashboard'));
         }
 
-        return array('form'=>$form->createView(),'route'=>'ApiEditClient','id'=>$id);
+        return array('form'=>$form->createView(),'route'=>'ApiEditClient','id'=>$objId);
     }
 
     /**
-     * @Route("/client/delete/{id}",name="ApiDeleteClient")
+     * @Route("/client/delete/{objId}",name="ApiDeleteClient")
      */
-    public function deleteAction($id)
+    public function deleteAction($objId)
     {
         $entityMgr = $this->get('doctrine.orm.entity_manager');
         $user   = $this->getUser();
         $client = $entityMgr->getRepository('NSApiBundle:Client')
                      ->createQueryBuilder('c')->where('c.user = :user AND c.id = :id')
-                     ->setParameters(array('id'=>$id, 'user'=>$entityMgr->getReference(get_class($user),$user->getId())))
+                     ->setParameters(array('id'=>$objId, 'user'=>$entityMgr->getReference(get_class($user),$user->getId())))
                      ->getQuery()
                      ->getSingleResult();
 
@@ -139,16 +139,16 @@ class ClientController extends Controller
     }
 
     /**
-     * @Route("/remote/edit/{id}",name="ApiEditRemote")
+     * @Route("/remote/edit/{objId}",name="ApiEditRemote")
      * @Template("NSApiBundle:Client:createRemote.html.twig")
      */
-    public function editRemoteAction(Request $request,$id)
+    public function editRemoteAction(Request $request,$objId)
     {
         $entityMgr = $this->get('doctrine.orm.entity_manager');
         $user   = $this->getUser();
         $remote = $entityMgr->getRepository('NSApiBundle:Remote')
                      ->createQueryBuilder('c')->where('c.user = :user AND c.id = :id')
-                     ->setParameters(array('id'=>$id, 'user'=>$entityMgr->getReference(get_class($user),$user->getId())))
+                     ->setParameters(array('id'=>$objId, 'user'=>$entityMgr->getReference(get_class($user),$user->getId())))
                      ->getQuery()
                      ->getSingleResult();
 
@@ -164,19 +164,19 @@ class ClientController extends Controller
             return $this->redirect($this->generateUrl('ns_api_dashboard'));
         }
 
-        return array('form'=>$form->createView(),'route'=>'ApiEditRemote','id'=>$id);
+        return array('form'=>$form->createView(),'route'=>'ApiEditRemote','id'=>$objId);
     }
 
     /**
-     * @Route("/remote/delete/{id}",name="ApiDeleteRemote")
+     * @Route("/remote/delete/{objId}",name="ApiDeleteRemote")
      */
-    public function deleteRemoteAction($id)
+    public function deleteRemoteAction($objId)
     {
         $entityMgr = $this->get('doctrine.orm.entity_manager');
         $user   = $this->getUser();
         $remote = $entityMgr->getRepository('NSApiBundle:Remote')
                      ->createQueryBuilder('c')->where('c.user = :user AND c.id = :id')
-                     ->setParameters(array('id'=>$id, 'user'=>$entityMgr->getReference(get_class($user),$user->getId())))
+                     ->setParameters(array('id'=>$objId, 'user'=>$entityMgr->getReference(get_class($user),$user->getId())))
                      ->getQuery()
                      ->getSingleResult();
         try

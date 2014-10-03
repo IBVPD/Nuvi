@@ -223,10 +223,10 @@ class Remote
         return (!is_null($this->refreshToken));
     }
 
-    public function updateFromArray(array $r)
+    public function updateFromArray(array $result)
     {
-        $this->setAccessToken($r['access_token']);
-        $this->setRefreshToken($r['refresh_token']);
-        $this->setExpiry($r['expires_in']);
+        $this->setAccessToken($result['access_token']);
+        $this->setRefreshToken($result['refresh_token']);
+        $this->setExpiry($result['expires_in']);
     }
 }
