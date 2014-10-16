@@ -356,11 +356,14 @@ class IBD extends Common
 
         if(!is_null($pcr))
         {
-            $queryBuilder->andWhere(sprintf(' ( %s.csfPcrResult = :pcr ) ',$alias));
             if($pcr)
-                $queryBuilder->setParameter('pcr', CultureResult::NEGATIVE);
+                $queryBuilder->andWhere(sprintf(' ( %s.csfPcrResult != :pcrNegative AND %s.csfPcrResult != :pcrContaminant AND %s.csfPcrResult != :pcrUnknown ) ',$alias,$alias,$alias))
+                             ->setParameter('pcrNegative', CultureResult::NEGATIVE)
+                             ->setParameter('pcrUnknown', CultureResult::UNKNOWN)
+                             ->setParameter('pcrContaminant', CultureResult::CONTAMINANT);
             else
-                $queryBuilder->setParameter('pcr', CultureResult::NEGATIVE);
+                $queryBuilder->andWhere(sprintf(' ( %s.csfPcrResult = :pcr ) ',$alias))
+                             ->setParameter('pcr', CultureResult::NEGATIVE);
         }
 
         return $queryBuilder;
