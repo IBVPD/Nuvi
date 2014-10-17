@@ -4,6 +4,7 @@ build_settings:
         - "tests"
         - "app/cache"
         - "src/*/*/DataFixtures"
+        - "app/SymfonyRequirements.php"
 #    mysql:
 #        host: "localhost"
 #        user: "root"
