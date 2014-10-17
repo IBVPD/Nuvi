@@ -93,9 +93,7 @@
     },
     "repositories": [ 
 			{ "type": "composer", "url": "http://packages.noblet.ca/" },
-                        { "type": "vcs", "url": "https://github.com/gnat42/data-import" },
-		        {"type": "composer", "url": "http://platinum.noblet.ca:8888/repo/packagist/"},
-		        {"packagist": false}
+                        { "type": "vcs", "url": "https://github.com/gnat42/data-import" }
 		    ],
     "require-dev": {
         "phpunit/phpunit": "~4.0",
