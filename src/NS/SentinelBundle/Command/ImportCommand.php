@@ -22,7 +22,7 @@ use NS\SentinelBundle\Form\Types\Role;
  */
 class ImportCommand extends ContainerAwareCommand
 {
-    private $em;
+    private $entityMgr;
     
     protected function configure()
     {
@@ -42,7 +42,7 @@ class ImportCommand extends ContainerAwareCommand
     {
         $dir = $input->getArgument('directory');
         $files = scandir($dir);
-        $this->em = $this->getContainer()->get('doctrine.orm.entity_manager');
+        $this->entityMgr = $this->getContainer()->get('doctrine.orm.entity_manager');
         
         foreach($files as $x => $file)
         {
@@ -90,11 +90,11 @@ class ImportCommand extends ContainerAwareCommand
     
     private function processRegions($file,$output)
     {
-        $fd = fopen($file,'r');
+        $fileId = fopen($file,'r');
         $regions = array();
         while(true)
         {
-            $row = fgetcsv($fd);
+            $row = fgetcsv($fileId);
 
             if($row== null)
                 break;
@@ -105,15 +105,15 @@ class ImportCommand extends ContainerAwareCommand
                 $region->setName($row[1]);
                 $region->setCode($row[0]);
                 $region->setWebsite($row[2]);
-                $this->em->persist($region);
-                $this->em->flush();
+                $this->entityMgr->persist($region);
+                $this->entityMgr->flush();
                 $regions[$row[0]] = $region;
             }
             else
                 $output->writeln("Row[1] is empty!");
         }
         
-        fclose($fd);
+        fclose($fileId);
         
         return $regions;
     }
@@ -121,68 +121,68 @@ class ImportCommand extends ContainerAwareCommand
     private function processCountries($file,$regions)
     {
         $countries = array();
-        $fd        = fopen($file,'r');
+        $fileId    = fopen($file,'r');
         
         while(true)
         {
-            $row = fgetcsv($fd);
+            $row = fgetcsv($fileId);
 
             if($row== null)
                 break;
 
             if(isset($regions[$row[0]]) && !empty($row[2]) && !empty($row[0]) && !empty($row[1]))
             {
-                $c = new Country();
-                $c->setName($row[1]);
-                $c->setCode($row[2]);
-                $c->setPopulation($row[3]);
-                $c->setPopulationUnderFive($row[4]);
-                $c->setIsActive(true);
-                $c->setRegion($regions[$row[0]]);
-                $c->setHasReferenceLab(true);
-                $c->setHasNationalLab(true);
+                $cnt = new Country();
+                $cnt->setName($row[1]);
+                $cnt->setCode($row[2]);
+                $cnt->setPopulation($row[3]);
+                $cnt->setPopulationUnderFive($row[4]);
+                $cnt->setIsActive(true);
+                $cnt->setRegion($regions[$row[0]]);
+                $cnt->setHasReferenceLab(true);
+                $cnt->setHasNationalLab(true);
 
-                $this->em->persist($c);
-                $this->em->flush();
-                $countries[$row[2]] = $c;
+                $this->entityMgr->persist($cnt);
+                $this->entityMgr->flush();
+                $countries[$row[2]] = $cnt;
             }
         }
         
-        fclose($fd);
+        fclose($fileId);
         
         return $countries;
     }
     
     private function processSites($file,$countries)
     {
-        $sites = array();
-        $fd    = fopen($file,'r');
-        $x     = 1;
+        $sites  = array();
+        $fileId = fopen($file,'r');
+        $x      = 1;
         while(true)
         {
-            $row = fgetcsv($fd);
+            $row = fgetcsv($fileId);
 
             if($row== null)
                 break;
 
-            $c = new Site();
-            $c->setName($row[2]);
-            $c->setCode("{$row[1]}$x");
-            $c->setRvYearIntro($row[3]);
-            $c->setIbdYearIntro($row[4]);
-            $c->setStreet($row[5]);
-            $c->setCity($row[6]);
-            $c->setNumberOfBeds($row[7]);
-            $c->setWebsite($row[8]);
-            $c->setCountry($countries[$row[1]]);
+            $site = new Site();
+            $site->setName($row[2]);
+            $site->setCode("{$row[1]}$x");
+            $site->setRvYearIntro($row[3]);
+            $site->setIbdYearIntro($row[4]);
+            $site->setStreet($row[5]);
+            $site->setCity($row[6]);
+            $site->setNumberOfBeds($row[7]);
+            $site->setWebsite($row[8]);
+            $site->setCountry($countries[$row[1]]);
 
-            $this->em->persist($c);
-            $this->em->flush();
-            $sites[$row[2]] = $c;
+            $this->entityMgr->persist($site);
+            $this->entityMgr->flush();
+            $sites[$row[2]] = $site;
             $x++;
         }
         
-        fclose($fd);
+        fclose($fileId);
         
         return $sites;
     }
@@ -202,7 +202,7 @@ class ImportCommand extends ContainerAwareCommand
 
         $adminUser->setPassword($encoder->encodePassword("GnatAndDaveWho",$adminUser->getSalt()));
 
-        $this->em->persist($adminUser);
+        $this->entityMgr->persist($adminUser);
 
         foreach($regions as $obj)
         {
@@ -216,12 +216,12 @@ class ImportCommand extends ContainerAwareCommand
             $acl->setUser($user);
             $acl->setType(new Role(Role::REGION));
             $acl->setObjectId($obj->getId());
-            $this->em->persist($acl);
-            $this->em->persist($user);
+            $this->entityMgr->persist($acl);
+            $this->entityMgr->persist($user);
             ++$users;
         }
 
-        $this->em->flush();
+        $this->entityMgr->flush();
         foreach($countries as $obj)
         {
             $user = new User();
@@ -234,12 +234,12 @@ class ImportCommand extends ContainerAwareCommand
             $acl->setUser($user);
             $acl->setType(new Role(Role::COUNTRY));
             $acl->setObjectId($obj->getId());
-            $this->em->persist($acl);
-            $this->em->persist($user);
+            $this->entityMgr->persist($acl);
+            $this->entityMgr->persist($user);
             ++$users;
         }
 
-        $this->em->flush();
+        $this->entityMgr->flush();
         foreach($sites as $obj)
         {
             $user = new User();
@@ -252,8 +252,8 @@ class ImportCommand extends ContainerAwareCommand
             $acl->setUser($user);
             $acl->setType(new Role(Role::SITE));
             $acl->setObjectId($obj->getId());
-            $this->em->persist($acl);
-            $this->em->persist($user);
+            $this->entityMgr->persist($acl);
+            $this->entityMgr->persist($user);
 
             ++$users;
 
@@ -267,8 +267,8 @@ class ImportCommand extends ContainerAwareCommand
             $labacl->setUser($labUser);
             $labacl->setType(new Role(Role::LAB));
             $labacl->setObjectId($obj->getId());
-            $this->em->persist($labacl);
-            $this->em->persist($labUser);
+            $this->entityMgr->persist($labacl);
+            $this->entityMgr->persist($labUser);
 
             ++$users;
             $rrlUser = new User();
@@ -281,8 +281,8 @@ class ImportCommand extends ContainerAwareCommand
             $acl->setUser($rrlUser);
             $acl->setType(new Role(Role::LAB));
             $acl->setObjectId($obj->getId());
-            $this->em->persist($acl);
-            $this->em->persist($rrlUser);
+            $this->entityMgr->persist($acl);
+            $this->entityMgr->persist($rrlUser);
 
             ++$users;
             $nlUser = new User();
@@ -295,13 +295,13 @@ class ImportCommand extends ContainerAwareCommand
             $acl->setUser($nlUser);
             $acl->setType(new Role(Role::LAB));
             $acl->setObjectId($obj->getId());
-            $this->em->persist($acl);
-            $this->em->persist($nlUser);
+            $this->entityMgr->persist($acl);
+            $this->entityMgr->persist($nlUser);
 
             ++$users;
         }
 
-        $this->em->flush();
+        $this->entityMgr->flush();
 
         return $users;
     }

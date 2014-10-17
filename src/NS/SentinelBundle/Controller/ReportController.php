@@ -21,10 +21,10 @@ class ReportController extends Controller
      */
     public function percentEnrolledAction(Request $request)
     {
-        $form = $this->createForm('IBDReportFilterType');
-        $s    = $this->get('ns.sentinel.services.report');
+        $form    = $this->createForm('IBDReportFilterType');
+        $service = $this->get('ns.sentinel.services.report');
 
-        return $s->numberEnrolled($request,$form,'reportPercentEnrolled');
+        return $service->numberEnrolled($request,$form,'reportPercentEnrolled');
     }
 
     /**
@@ -33,10 +33,10 @@ class ReportController extends Controller
      */
     public function annualAgeDistributionAction(Request $request)
     {
-        $form  = $this->createForm('IBDReportFilterType');
-        $s     = $this->get('ns.sentinel.services.report');
+        $form    = $this->createForm('IBDReportFilterType');
+        $service = $this->get('ns.sentinel.services.report');
 
-        return $s->getAnnualAgeDistribution($request,$form,'reportAnnualAgeDistribution');
+        return $service->getAnnualAgeDistribution($request,$form,'reportAnnualAgeDistribution');
     }
 
     /**
@@ -86,10 +86,10 @@ class ReportController extends Controller
      */
     public function fieldPopulationAction(Request $request)
     {
-        $form  = $this->createForm('IBDFieldPopulationFilterType',null,array('site_type'=>'advanced','validation_groups'=>array('FieldPopulation')));
-        $s     = $this->get('ns.sentinel.services.report');
+        $form    = $this->createForm('IBDFieldPopulationFilterType',null,array('site_type'=>'advanced','validation_groups'=>array('FieldPopulation')));
+        $service = $this->get('ns.sentinel.services.report');
 
-        return $s->getFieldPopulation($request,$form,'reportFieldPopulation');
+        return $service->getFieldPopulation($request,$form,'reportFieldPopulation');
     }
 
     /**
@@ -100,10 +100,10 @@ class ReportController extends Controller
      */
     public function culturePositiveAction(Request $request)
     {
-        $form  = $this->createForm('IBDFieldPopulationFilterType',null,array('site_type'=>'advanced'));
-        $s     = $this->get('ns.sentinel.services.report');
+        $form    = $this->createForm('IBDFieldPopulationFilterType',null,array('site_type'=>'advanced'));
+        $service = $this->get('ns.sentinel.services.report');
 
-        return $s->getCulturePositive($request,$form,'reportCulturePositive');
+        return $service->getCulturePositive($request,$form,'reportCulturePositive');
     }
 
     /*

@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @Security\Secured(conditions={
  *      @Security\SecuredCondition(roles={"ROLE_REGION"},field="id"),
  *      })
- *
+ * @SuppressWarnings(PHPMD.ShortVariable)
  */
 class Region implements \Serializable
 {

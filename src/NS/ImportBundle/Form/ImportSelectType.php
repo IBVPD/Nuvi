@@ -14,18 +14,18 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  */
 class ImportSelectType extends AbstractType
 {
-    private $em;
+    private $entityMgr;
 
-    public function __construct(ObjectManager $em)
+    public function __construct(ObjectManager $entityMgr)
     {
-        $this->em = $em;
+        $this->entityMgr = $entityMgr;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('map','entity',array( 'class'         => 'NSImportBundle:Map',
                                             'empty_value'   => 'Please Select...',
-                                            'query_builder' => $this->em->getRepository('NSImportBundle:Map')->createQueryBuilder('m')->addSelect('c')->leftJoin('m.columns','c')->orderBy('m.name','ASC')->addOrderBy('m.version','ASC')->addOrderBy('c.order')
+                                            'query_builder' => $this->entityMgr->getRepository('NSImportBundle:Map')->createQueryBuilder('m')->addSelect('c')->leftJoin('m.columns','c')->orderBy('m.name','ASC')->addOrderBy('m.version','ASC')->addOrderBy('c.order')
                                           ))
                 ->add('file','file')
                 ->add('import','submit')

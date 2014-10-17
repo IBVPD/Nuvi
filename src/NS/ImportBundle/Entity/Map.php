@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * @author gnat
  * @ORM\Entity
  * @ORM\Table(name="import_map")
+ * @SuppressWarnings(PHPMD.ShortVariable)
  */
 class Map
 {
@@ -201,12 +202,12 @@ class Map
 
     public function getColumnHeaders()
     {
-        $r = array();
+        $headers = array();
 
         foreach($this->columns as $col)
-            $r[] = $col->getName();
+            $headers[] = $col->getName();
 
-        return $r;
+        return $headers;
     }
 
     public function getFindBy()

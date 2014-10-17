@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="NS\ApiBundle\Repository\Client")
  * @ORM\Table(name="api_clients")
  * @author gnat
+ * @SuppressWarnings(PHPMD.ShortVariable)
  */
 class Client extends BaseClient
 {

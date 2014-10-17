@@ -20,6 +20,7 @@ use \Symfony\Component\Validator\Constraints as Assert;
  *      @SecuredCondition(roles={"ROLE_COUNTRY"},relation="country",class="NSSentinelBundle:Country"),
  *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},field="code"),
  *      }) 
+ * @SuppressWarnings(PHPMD.ShortVariable)
  */
 class Site implements \Serializable
 {

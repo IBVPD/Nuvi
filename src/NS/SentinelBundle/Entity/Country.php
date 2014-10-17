@@ -19,6 +19,7 @@ use NS\SentinelBundle\Form\Types\TripleChoice;
  *      @SecuredCondition(roles={"ROLE_COUNTRY"},field="id"),
  *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},relation="sites",class="NSSentinelBundle:Site"),
  *      })
+ * @SuppressWarnings(PHPMD.ShortVariable)
  */
 class Country implements \Serializable
 {

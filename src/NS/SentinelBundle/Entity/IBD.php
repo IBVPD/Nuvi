@@ -55,6 +55,7 @@ use JMS\Serializer\Annotation\AccessType;
  *      })
  * @Assert\Callback(methods={"validate"})
  * @AccessType("public_method")
+ * @SuppressWarnings(PHPMD.ShortVariable)
  */
 class IBD extends BaseCase
 {

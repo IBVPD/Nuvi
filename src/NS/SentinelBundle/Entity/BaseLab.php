@@ -17,6 +17,7 @@ use JMS\Serializer\Annotation\Exclude;
  * @ORM\MappedSuperclass
  * 
  * @author gnat
+ * @SuppressWarnings(PHPMD.ShortVariable)
  */
 class BaseLab
 {

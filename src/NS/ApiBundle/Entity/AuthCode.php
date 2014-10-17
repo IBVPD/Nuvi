@@ -12,6 +12,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity
  * @ORM\Table(name="auth_codes")
  * @author gnat
+ * @SuppressWarnings(PHPMD.ShortVariable)
+ *
  */
 class AuthCode extends BaseAuthCode
 {

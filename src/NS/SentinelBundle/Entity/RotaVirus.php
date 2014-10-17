@@ -34,6 +34,7 @@ use JMS\Serializer\Annotation\AccessType;
  *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},relation="site",class="NSSentinelBundle:Site"),
  *      })
  * @AccessType("public_method")
+ * @SuppressWarnings(PHPMD.ShortVariable)
  */
 class RotaVirus extends BaseCase
 {

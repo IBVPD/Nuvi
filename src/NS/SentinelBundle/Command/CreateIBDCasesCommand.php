@@ -21,7 +21,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class CreateIBDCasesCommand extends ContainerAwareCommand
 {
-    private $em;
+    private $entityMgr;
     
     protected function configure()
     {
@@ -43,7 +43,7 @@ class CreateIBDCasesCommand extends ContainerAwareCommand
         }
 
         $this->em = $this->getContainer()->get('ns.model_manager');
-        $sites    = $this->em->getRepository('NSSentinelBundle:Site')->getChainByCode($codes);
+        $sites    = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getChainByCode($codes);
         $output->writeln("Received ".count($sites)." sites");
         if(count($sites)== 0)
             return;
@@ -84,12 +84,12 @@ class CreateIBDCasesCommand extends ContainerAwareCommand
             if($x%5 == 0 && $m->getCsfCollected())
                 $this->addCsfCollected($m,$cxDone[0]);
 
-            $this->em->persist($m);
+            $this->entityMgr->persist($m);
             if($x % 100 == 0)
-                $this->em->flush();
+                $this->entityMgr->flush();
         }
 
-        $this->em->flush();
+        $this->entityMgr->flush();
         $output->writeln("Create 2700 ibd cases");
     }
 
@@ -129,25 +129,25 @@ class CreateIBDCasesCommand extends ContainerAwareCommand
 
     private function addCsfCollected($m,$cxDone)
     {
-        $r = rand(1,100);
-        $m->setCsfWcc($r);
+        $randArray = rand(1,100);
+        $m->setCsfWcc($randArray);
 
-        if($r<50)
+        if($randArray<50)
         {
             $m->setMenFever($cxDone[0]);
             $m->setMenAltConscious($cxDone[0]);
         }
-        else if($r <= 20 || $r >= 75 )
+        else if($randArray <= 20 || $randArray >= 75 )
         {
             $m->setMenFever($cxDone[0]);
             $m->setMenNeckStiff($cxDone[0]);
         }
 
-        if($r >=20 && $r <= 75)
+        if($randArray >=20 && $randArray <= 75)
         {
             $m->setCsfAppearance(new CSFAppearance(CSFAppearance::TURBID));
         }
-        else if($r > 40)
+        else if($randArray > 40)
         {
             $m->setCsfWcc(40);
             $m->setCsfGlucose(30);

@@ -12,6 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity
  * @ORM\Table(name="access_tokens")
  * @author gnat
+ * @SuppressWarnings(PHPMD.ShortVariable)
  */
 class AccessToken extends BaseAccessToken
 {

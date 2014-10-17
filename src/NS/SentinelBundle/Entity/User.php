@@ -18,6 +18,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\User")
  * @Assert\Callback(methods={"validate"})
  * @UniqueEntity("email")
+ * @SuppressWarnings(PHPMD.ShortVariable)
  */
 class User implements AdvancedUserInterface, SecuredEntityInterface
 {

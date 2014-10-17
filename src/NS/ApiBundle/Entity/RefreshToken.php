@@ -11,6 +11,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Entity
  * @ORM\Table(name="refresh_tokens")
  * @author gnat
+ * @SuppressWarnings(PHPMD.ShortVariable)
  */
 class RefreshToken extends BaseRefreshToken
 {

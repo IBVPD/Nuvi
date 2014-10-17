@@ -11,6 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @author gnat
  * @ORM\Entity
  * @ORM\Table(name="remote_oauth_providers")
+ * @SuppressWarnings(PHPMD.ShortVariable)
  */
 class Remote
 {

@@ -11,6 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @author gnat
  * @ORM\Entity
  * @ORM\Table(name="import_columns")
+ * @SuppressWarnings(PHPMD.ShortVariable)
  */
 class Column
 {

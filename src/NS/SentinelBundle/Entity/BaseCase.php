@@ -17,6 +17,7 @@ use JMS\Serializer\Annotation\Groups;
  * @author gnat
  * @ORM\MappedSuperclass
  * @ORM\HasLifecycleCallbacks
+ * @SuppressWarnings(PHPMD.ShortVariable)
  */
 abstract class BaseCase implements IdentityAssignmentInterface
 {

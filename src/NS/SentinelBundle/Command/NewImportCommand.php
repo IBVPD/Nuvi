@@ -18,7 +18,7 @@ use NS\SentinelBundle\Entity\Site;
  */
 class NewImportCommand extends ContainerAwareCommand
 {
-    private $em;
+    private $entityMgr;
 
     protected function configure()
     {
@@ -90,10 +90,10 @@ class NewImportCommand extends ContainerAwareCommand
 
     private function processRegions($file,$output)
     {
-        $fd      = fopen($file,'r');
+        $fileId      = fopen($file,'r');
         $regions = array();
 
-        while($row = fgetcsv($fd))
+        while($row = fgetcsv($fileId))
         {
             if(!empty($row[1]))
             {
@@ -101,15 +101,15 @@ class NewImportCommand extends ContainerAwareCommand
                 $region->setName($row[1]);
                 $region->setCode($row[0]);
                 $region->setWebsite($row[2]);
-                $this->em->persist($region);
-                $this->em->flush();
+                $this->entityMgr->persist($region);
+                $this->entityMgr->flush();
                 $regions[$row[0]] = $region;
             }
             else
                 $output->writeln("Row[1] is empty!");
         }
 
-        fclose($fd);
+        fclose($fileId);
 
         return $regions;
     }
@@ -117,9 +117,9 @@ class NewImportCommand extends ContainerAwareCommand
     private function processCountries($file,$regions)
     {
         $countries = array();
-        $fd        = fopen($file,'r');
+        $fileId        = fopen($file,'r');
 
-        while($row = fgetcsv($fd))
+        while($row = fgetcsv($fileId))
         {
             if(isset($regions[$row[0]]) && !empty($row[2]) && !empty($row[0]) && !empty($row[1]))
             {
@@ -131,53 +131,52 @@ class NewImportCommand extends ContainerAwareCommand
                 $c->setHasReferenceLab(true);
                 $c->setHasNationalLab(true);
 
-                $this->em->persist($c);
-                $this->em->flush();
+                $this->entityMgr->persist($c);
+                $this->entityMgr->flush();
                 $countries[$row[2]] = $c;
             }
         }
 
-        fclose($fd);
+        fclose($fileId);
 
         return $countries;
     }
 
     private function processSites($file,$countries)
     {
-        $sites = array();
-        $fd    = fopen($file,'r');
-        $x     = 1;
+        $sites      = array();
+        $fileId     = fopen($file,'r');
+        $x          = 1;
         $errorSites = array();
-
-        $row = fgetcsv($fd);
-        while($row = fgetcsv($fd))
+        $row        = fgetcsv($fileId);
+        while($row = fgetcsv($fileId))
         {
-            $c = new Site();
-            $c->setCode($row[2]);
-            $c->setName($row[3]);
-            $c->setibdTier($row[10]);
+            $site = new Site();
+            $site->setCode($row[2]);
+            $site->setName($row[3]);
+            $site->setibdTier($row[10]);
 
-            $this->surveillanceAndSupport($c, $row, $errorSites);
-            $this->setSiteIbdLastAssessment($c, $row, $errorSites);
-            $this->setSiteRvLastAssessment($c, $row, $errorSites);
+            $this->surveillanceAndSupport($site, $row, $errorSites);
+            $this->setSiteIbdLastAssessment($site, $row, $errorSites);
+            $this->setSiteRvLastAssessment($site, $row, $errorSites);
 
             if($row[13])
-                $c->setibdSiteAssessmentScore($row[13]);
+                $site->setibdSiteAssessmentScore($row[13]);
 
-            $c->setibvpdRl($row[15]);
-            $c->setrvRl($row[16]);
-            $c->setibdEqaCode($row[17]);
-            $c->setrvEqaCode($row[18]);
+            $site->setibvpdRl($row[15]);
+            $site->setrvRl($row[16]);
+            $site->setibdEqaCode($row[17]);
+            $site->setrvEqaCode($row[18]);
 
-            $this->modifyCountry($c,$row, $countries[$row[1]]);
+            $this->modifyCountry($site,$row, $countries[$row[1]]);
 
-            $this->em->persist($c);
-            $this->em->flush();
-            $sites[$row[2]] = $c;
+            $this->entityMgr->persist($site);
+            $this->entityMgr->flush();
+            $sites[$row[2]] = $site;
             $x++;
         }
 
-        fclose($fd);
+        fclose($fileId);
 
         return array('sites'=>$sites,'errors'=>$errorSites);
     }

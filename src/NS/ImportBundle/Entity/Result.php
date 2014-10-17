@@ -12,6 +12,7 @@ use Ddeboer\DataImport\Result as WorkflowResult;
  *
  * @ORM\Entity(repositoryClass="NS\ImportBundle\Repository\Result")
  * @ORM\Table(name="import_results")
+ * @SuppressWarnings(PHPMD.ShortVariable)
  */
 class Result
 {

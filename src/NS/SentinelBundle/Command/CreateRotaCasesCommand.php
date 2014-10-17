@@ -18,7 +18,7 @@ use \Symfony\Component\Console\Output\OutputInterface;
  */
 class CreateRotaCasesCommand extends ContainerAwareCommand
 {
-    private $em;
+    private $entityMgr;
     
     protected function configure()
     {
@@ -40,8 +40,8 @@ class CreateRotaCasesCommand extends ContainerAwareCommand
             return;
         }
 
-        $this->em = $this->getContainer()->get('ns.model_manager');
-        $sites    = $this->em->getRepository('NSSentinelBundle:Site')->getChainByCode($codes);
+        $this->entityMgr = $this->getContainer()->get('ns.model_manager');
+        $sites    = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getChainByCode($codes);
         $output->writeln("Received ".count($sites)." sites");
         if(count($sites)== 0)
             return;
@@ -65,13 +65,13 @@ class CreateRotaCasesCommand extends ContainerAwareCommand
             $m->setCaseId($this->getCaseId($sites[$siteKey]));
             $m->setGender(($x%7)?$fmale:$male);
 
-            $this->em->persist($m);
+            $this->entityMgr->persist($m);
 
             if($x % 100 == 0)
-                $this->em->flush();
+                $this->entityMgr->flush();
         }
 
-        $this->em->flush();
+        $this->entityMgr->flush();
         $output->writeln("Create 2700 rota cases");
     }
 

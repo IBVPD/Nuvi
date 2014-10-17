@@ -34,8 +34,8 @@ class RotaVirusController extends Controller
                           ->getFilterQueryBuilder();
 
             // build the query from the given form object
-            $qb    = $this->get('lexik_form_filter.query_builder_updater');
-            $qb->addFilterConditions($filterForm, $query, 'm');
+            $queryBuilderUpdater = $this->get('lexik_form_filter.query_builder_updater');
+            $queryBuilderUpdater->addFilterConditions($filterForm, $query, 'm');
         }
         else
             $query = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:RotaVirus")->getLatestQuery();
@@ -44,20 +44,20 @@ class RotaVirusController extends Controller
                                             $request->query->get('page',1),
                                             $request->getSession()->get('result_per_page',10) );
 
-        $sc = $this->get('security.context');
+        $securityContext = $this->get('security.context');
 
-        if($sc->isGranted('ROLE_SITE') || $sc->isGranted('ROLE_LAB'))
-            $t = array('header_template'=>'NSSentinelBundle:RotaVirus:indexSiteHeader.html.twig', 'row_template'=>'NSSentinelBundle:RotaVirus:indexSiteRow.html.twig');
-        else if($sc->isGranted('ROLE_COUNTRY'))
-            $t = array('header_template'=>'NSSentinelBundle:RotaVirus:indexCountryHeader.html.twig', 'row_template'=>'NSSentinelBundle:RotaVirus:indexCountryRow.html.twig');
-        else if($sc->isGranted('ROLE_REGION'))
-            $t = array('header_template'=>'NSSentinelBundle:RotaVirus:indexRegionHeader.html.twig', 'row_template'=>'NSSentinelBundle:RotaVirus:indexRegionRow.html.twig');
+        if($securityContext->isGranted('ROLE_SITE') || $securityContext->isGranted('ROLE_LAB'))
+            $template = array('header_template'=>'NSSentinelBundle:RotaVirus:indexSiteHeader.html.twig', 'row_template'=>'NSSentinelBundle:RotaVirus:indexSiteRow.html.twig');
+        else if($securityContext->isGranted('ROLE_COUNTRY'))
+            $template = array('header_template'=>'NSSentinelBundle:RotaVirus:indexCountryHeader.html.twig', 'row_template'=>'NSSentinelBundle:RotaVirus:indexCountryRow.html.twig');
+        else if($securityContext->isGranted('ROLE_REGION'))
+            $template = array('header_template'=>'NSSentinelBundle:RotaVirus:indexRegionHeader.html.twig', 'row_template'=>'NSSentinelBundle:RotaVirus:indexRegionRow.html.twig');
 
-        $createForm = ($sc->isGranted('ROLE_CAN_CREATE')) ? $this->createForm('create_rotavirus')->createView():null;
+        $createForm = ($securityContext->isGranted('ROLE_CAN_CREATE')) ? $this->createForm('create_rotavirus')->createView():null;
 
         return array(
                     'pagination' => $pagination,
-                    't'          => $t,
+                    't'          => $template,
                     'form'       => $this->createForm('results_per_page')->createView(),
                     'filterForm' => $filterForm->createView(),
                     'createForm' => $createForm);
