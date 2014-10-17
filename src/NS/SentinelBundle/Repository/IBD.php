@@ -368,4 +368,23 @@ class IBD extends Common
 
         return $queryBuilder;
     }
+
+    public function exists(array $params)
+    {
+        $qb = $this->createQueryBuilder('i')->select('i.id');
+        foreach($params as $field=>$value)
+            $qb->andWhere(sprintf("%s.%s = :%s",'i',$field,$field))
+               ->setParameter ($field, $value);
+
+        try
+        {
+            $qb->getQuery()->getSingleResult(Query::HYDRATE_SCALAR);
+
+            return true;
+        }
+        catch(\Doctrine\ORM\NoResultException $e)
+        {
+            return false;
+        }
+    }
 }

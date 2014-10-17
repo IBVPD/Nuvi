@@ -5,8 +5,10 @@ namespace NS\ImportBundle\Services;
 use \Ddeboer\DataImport\Reader\CsvReader;
 use \Ddeboer\DataImport\Workflow;
 use \Doctrine\Common\Persistence\ObjectManager;
+use \Doctrine\DBAL\DBALException;
 use \NS\ImportBundle\Entity\Import;
 use \NS\ImportBundle\Filter\Duplicate;
+use \NS\ImportBundle\Filter\Unique;
 use \NS\ImportBundle\Writer\DoctrineWriter;
 use \NS\ImportBundle\Writer\Result;
 use \Symfony\Component\DependencyInjection\ContainerInterface;
@@ -29,8 +31,8 @@ class ImportProcessor
 
     /**
      *
-     * @param \NS\ImportBundle\Entity\Import $import
-     * @return \NS\ImportBundle\Writer\Result
+     * @param Import $import
+     * @return Result
      */
     public function process(Import $import)
     {
@@ -64,16 +66,21 @@ class ImportProcessor
         $workflow->addItemConverter($map->getIgnoredMapper());
 
         if($map->getDuplicateFields())
+        {
             $workflow->addFilter(new Duplicate($map->getDuplicateFields()));
+
+            if(!$map->getFindBy()) // FindBy is basically the id which means we don't care if the record exists as it'll be loaded anyway
+                $workflow->addFilterAfterConversion(new Unique($this->entityMgr->getRepository($map->getClass()), $map->getMappedDuplicateFields()));
+        }
 
         try
         {
             // Process the workflow
             $processResult = $workflow->process();
         }
-        catch (\Doctrine\DBAL\DBALException $ex)
+        catch (DBALException $ex)
         {
-            return new Result("Error", new \DateTime, new \DateTime, 0, array($ex));
+            return new Result("Error", new \DateTime(), new \DateTime(), 0, array($ex));
         }
 
         $result = new Result($processResult->getName(), $processResult->getStartTime(), $processResult->getEndTime(), $processResult->getTotalProcessedCount(), $processResult->getExceptions());

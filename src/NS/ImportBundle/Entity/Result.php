@@ -25,7 +25,7 @@ class Result
 
     /**
      * @var \DateTime $importedAt
-     * @ORM\Column(name="importedAt",type="date")
+     * @ORM\Column(name="importedAt",type="datetime")
      */
     private $importedAt;
 

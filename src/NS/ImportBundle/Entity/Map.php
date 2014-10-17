@@ -118,6 +118,21 @@ class Map
         return $this->duplicateFields;
     }
 
+    public function getMappedDuplicateFields()
+    {
+        $duplicateFields = array();
+        foreach($this->columns as $column)
+        {
+            if(count($duplicateFields) == count($this->duplicateFields))
+                break;
+
+            if(in_array($column->getName(), $this->duplicateFields))
+                $duplicateFields[$column->getName()] = $column->getMapper();
+        }
+
+        return $duplicateFields;
+    }
+
     public function setDuplicateFields($duplicateFields)
     {
         $this->duplicateFields = $duplicateFields;
