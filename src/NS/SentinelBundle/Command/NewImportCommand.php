@@ -157,7 +157,7 @@ class NewImportCommand extends ContainerAwareCommand
             $c->setName($row[3]);
             $c->setibdTier($row[10]);
 
-            $this->surveillanceAndSupport($row,$c);
+            $this->surveillanceAndSupport($c, $row, $errorSites);
             $this->setSiteIbdLastAssessment($c, $row, $errorSites);
             $this->setSiteRvLastAssessment($c, $row, $errorSites);
 
@@ -169,7 +169,7 @@ class NewImportCommand extends ContainerAwareCommand
             $c->setibdEqaCode($row[17]);
             $c->setrvEqaCode($row[18]);
 
-            $this->modifyCountry($c,$countries[$row[1]]);
+            $this->modifyCountry($c,$row, $countries[$row[1]]);
 
             $this->em->persist($c);
             $this->em->flush();
@@ -182,7 +182,7 @@ class NewImportCommand extends ContainerAwareCommand
         return array('sites'=>$sites,'errors'=>$errorSites);
     }
 
-    private function modifyCountry($c, $country)
+    private function modifyCountry($c, $row, $country)
     {
         if($country instanceof Country)
         {
@@ -204,7 +204,7 @@ class NewImportCommand extends ContainerAwareCommand
         }
         catch (\Exception $e)
         {
-            throw new \Exception("Tried to pass {$row[9]} to SurveillanceConducted\n ".$e->getMessage());
+            throw new \Exception("Tried to pass '{$row[9]}' to SurveillanceConducted\n ".$e->getMessage());
         }
 
         try
