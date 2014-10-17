@@ -58,11 +58,9 @@ class ImportController extends Controller
 
         $paginator  = $this->get('knp_paginator');
         $query      = $entityMgr->getRepository('NSImportBundle:Result')->getResultsForUser($this->getUser(),'r');
-        $pagination = $paginator->paginate( $query,
-                                            $request->query->get('page',1),
-                                            $request->getSession()->get('result_per_page',10) );
+        $pagination = $paginator->paginate( $query, $request->query->get('page',1), 10 );
 
-        return array('form'=>$form->createView(),'  '=>$pagination);
+        return array('form'=>$form->createView(),'results'=>$pagination);
     }
 
     /**
