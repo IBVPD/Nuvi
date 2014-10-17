@@ -28,7 +28,7 @@ class Duplicate implements FilterInterface
         foreach($this->fields as $field)
         {
             if(!isset($item[$field]))
-                throw new UnexpectedValueException("'$field' doesn't exist ".print_r(array_keys($item),true));
+                throw new UnexpectedValueException("'$field' doesn't exist ");
 
             $fieldKey .= $item[$field];
         }
