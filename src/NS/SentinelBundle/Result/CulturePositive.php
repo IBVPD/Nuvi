@@ -18,13 +18,13 @@ class CulturePositive
     public function __construct($cultPos = array(), $cultNeg = array(), $pcrPos = array())
     {
         $this->results = array();
-        $ar            = array('year' => 0, self::CULTURE_POSITIVE => 0, self::CULTURE_NEGATIVE => 0, self::PCR_POSITIVE => 0);
+        $tmp            = array('year' => 0, self::CULTURE_POSITIVE => 0, self::CULTURE_NEGATIVE => 0, self::PCR_POSITIVE => 0);
 
         foreach($cultPos as $r)
         {
             if(!isset($this->results[$r['theYear']]))
             {
-                $this->results[$r['theYear']] = $ar;
+                $this->results[$r['theYear']] = $tmp;
                 $this->results[$r['theYear']]['year'] = $r['theYear'];
             }
 
@@ -35,7 +35,7 @@ class CulturePositive
         {
             if(!isset($this->results[$r['theYear']]))
             {
-                $this->results[$r['theYear']] = $ar;
+                $this->results[$r['theYear']] = $tmp;
                 $this->results[$r['theYear']]['year'] = $r['theYear'];
             }
 
@@ -46,7 +46,7 @@ class CulturePositive
         {
             if(!isset($this->results[$r['theYear']]))
             {
-                $this->results[$r['theYear']] = $ar;
+                $this->results[$r['theYear']] = $tmp;
                 $this->results[$r['theYear']]['year'] = $r['theYear'];
             }
 

@@ -15,10 +15,11 @@ class Site implements NamedValueConverterInterface
 {
     private $sites;
     private $initialized = false;
+    private $entityMgr;
 
-    public function __construct(ObjectManager $em)
+    public function __construct(ObjectManager $entityMgr)
     {
-        $this->em = $em;
+        $this->entityMgr = $entityMgr;
     }
 
     public function convert($input)
@@ -34,7 +35,7 @@ class Site implements NamedValueConverterInterface
 
     public function initialize()
     {
-        $this->sites       = $this->em->getRepository('NSSentinelBundle:Site')->getChain();
+        $this->sites       = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getChain();
         $this->initialized = true;
     }
 

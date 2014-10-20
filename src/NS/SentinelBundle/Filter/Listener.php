@@ -31,8 +31,8 @@ class Listener implements EventSubscriberInterface
 
     public function filterObject(ApplyFilterEvent $event)
     {
-        $qb = $event->getQueryBuilder();
-        if ( ! $qb instanceof QueryBuilder)
+        $queryBuilder = $event->getQueryBuilder();
+        if ( ! $queryBuilder instanceof QueryBuilder)
             return;
 
         $expr   = $event->getFilterQuery()->getExpr();
@@ -53,7 +53,7 @@ class Listener implements EventSubscriberInterface
                 }
 
                 if (count($ids) > 0)
-                    $qb->andWhere($expr->in($event->getField(), $ids));
+                    $queryBuilder->andWhere($expr->in($event->getField(), $ids));
             }
             else
             {
@@ -62,8 +62,8 @@ class Listener implements EventSubscriberInterface
 
                 $fieldAlias = 'p_'.substr($event->getField(), strpos($event->getField(), '.') + 1);
 
-                $qb->andWhere($expr->eq($event->getField(), ':'.$fieldAlias));
-                $qb->setParameter($fieldAlias, $values['value']->getId());
+                $queryBuilder->andWhere($expr->eq($event->getField(), ':'.$fieldAlias));
+                $queryBuilder->setParameter($fieldAlias, $values['value']->getId());
             }
         }
     }

@@ -11,10 +11,10 @@ use Doctrine\Common\Persistence\ObjectManager;
  */
 class Region extends BaseObject
 {
-    public function __construct(ObjectManager $em, $class = null)
+    public function __construct(ObjectManager $entityMgr, $class = null)
     {
-        $this->em    = $em;
-        $this->class = $class;
+        $this->entityMgr = $entityMgr;
+        $this->class     = $class;
     }
 
     public function getName()

@@ -66,9 +66,9 @@ class Report
 
     public function getAnnualAgeDistribution(Request $request,  FormInterface $form, $redirectRoute)
     {
-        $export = false;
-        $alias  = 'i';
-        $qb     = $this->entityMgr->getRepository('NSSentinelBundle:IBD')->getAnnualAgeDistribution($alias);
+        $export       = false;
+        $alias        = 'i';
+        $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:IBD')->getAnnualAgeDistribution($alias);
 
         $form->handleRequest($request);
         if($form->isValid())
@@ -76,12 +76,12 @@ class Report
             if($form->get('reset')->isClicked())
                 return new RedirectResponse($this->router->generate($redirectRoute));
             else
-                $this->filter->addFilterConditions($form, $qb, $alias);
+                $this->filter->addFilterConditions($form, $queryBuilder, $alias);
 
             $export = ($form->get('export')->isClicked());
         }
 
-        $r       = $qb->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult(Query::HYDRATE_SCALAR);
+        $r       = $queryBuilder->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult(Query::HYDRATE_SCALAR);
         $results = new AgeDistribution($r);
 
         if($export)
@@ -104,9 +104,9 @@ class Report
 
     public function getFieldPopulation(Request $request, FormInterface $form, $redirectRoute)
     {
-        $results = new ArrayCollection();
-        $alias   = 'i';
-        $qb      = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getWithCasesForDate($alias);
+        $results      = new ArrayCollection();
+        $alias        = 'i';
+        $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getWithCasesForDate($alias);
 
         $form->handleRequest($request);
         if($form->isValid())
@@ -114,9 +114,9 @@ class Report
             if($form->get('reset')->isClicked())
                 return new RedirectResponse($this->router->generate($redirectRoute));
             
-            $this->filter->addFilterConditions($form, $qb, $alias);
+            $this->filter->addFilterConditions($form, $queryBuilder, $alias);
 
-            $sites = $qb->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult();
+            $sites = $queryBuilder->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult();
 
             if(empty($sites))
                 return array('sites'=>array(),'form'=> $form->createView());

@@ -17,9 +17,9 @@ class CaseActions extends \Twig_Extension
     private $translator;
     private $router;
 
-    function __construct(SecurityContextInterface $sc, TranslatorInterface $trans, RouterInterface $router)
+    function __construct(SecurityContextInterface $securityContext, TranslatorInterface $trans, RouterInterface $router)
     {
-        $this->securityContext = $sc;
+        $this->securityContext = $securityContext;
         $this->translator      = $trans;
         $this->router          = $router;
     }

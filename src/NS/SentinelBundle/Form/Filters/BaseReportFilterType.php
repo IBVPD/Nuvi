@@ -20,9 +20,9 @@ class BaseReportFilterType extends AbstractType
     private $securityContext;
     private $converter;
 
-    public function __construct(SecurityContextInterface $sc, ACLConverter $converter)
+    public function __construct(SecurityContextInterface $securityContext, ACLConverter $converter)
     {
-        $this->securityContext = $sc;
+        $this->securityContext = $securityContext;
         $this->converter       = $converter;
     }
 
@@ -32,18 +32,18 @@ class BaseReportFilterType extends AbstractType
                 ->add('createdAt','filter_date_range',array('label'=>'report-filter-form.created-between'))
                 ;
 
-        $sc        = $this->securityContext;
+        $securityContext = $this->securityContext;
         $converter = $this->converter;
         $siteType  = ( isset($options['site_type']) && $options['site_type'] == 'advanced') ? new SiteFilterType():'site';
         
         $builder->addEventListener(
                     FormEvents::PRE_SET_DATA,
-                    function(FormEvent $event) use($sc, $converter, $siteType, $options)
+                    function(FormEvent $event) use($securityContext, $converter, $siteType, $options)
                     {
                         $form  = $event->getForm();
-                        $token = $sc->getToken();
+                        $token = $securityContext->getToken();
 
-                        if($sc->isGranted('ROLE_REGION'))
+                        if($securityContext->isGranted('ROLE_REGION'))
                         {
                             $objectIds = $converter->getObjectIdsForRole($token,'ROLE_REGION');
 //                            if(count($objectIds) > 1)
@@ -53,7 +53,7 @@ class BaseReportFilterType extends AbstractType
                             $form->add('site', $siteType);
                         }
 
-                        if($sc->isGranted('ROLE_COUNTRY'))
+                        if($securityContext->isGranted('ROLE_COUNTRY'))
                         {
                             $objectIds = $converter->getObjectIdsForRole($token,'ROLE_COUNTRY');
 //                            if(count($objectIds) > 1)
@@ -62,7 +62,7 @@ class BaseReportFilterType extends AbstractType
                             $form->add('site',$siteType);
                         }
 
-                        if($sc->isGranted('ROLE_SITE'))
+                        if($securityContext->isGranted('ROLE_SITE'))
                         {
                             $objectIds = $converter->getObjectIdsForRole($token,'ROLE_SITE');
                             if(count($objectIds) > 1)

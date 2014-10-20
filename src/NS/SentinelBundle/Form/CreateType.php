@@ -15,13 +15,13 @@ use NS\SentinelBundle\Interfaces\SerializedSitesInterface;
 class CreateType extends AbstractType
 {
     private $siteSerializer;
-    private $em;
+    private $entityMgr;
     private $type;
 
-    public function __construct(SerializedSitesInterface $siteSerializer, ObjectManager $em, $type)
+    public function __construct(SerializedSitesInterface $siteSerializer, ObjectManager $entityMgr, $type)
     {
         $this->siteSerializer = $siteSerializer;
-        $this->em             = $em;
+        $this->entityMgr      = $entityMgr;
         $this->type           = $type;
     }
 
@@ -42,7 +42,7 @@ class CreateType extends AbstractType
                                                 'mapped'          => false,
                                                 'empty_value'     => 'Please Select...',
                                                 'label'           => 'meningitis-form.site',
-                                                'query_builder'   => $this->em->getRepository('NS\SentinelBundle\Entity\Site')->getChainQueryBuilder()->orderBy('s.name','ASC'),
+                                                'query_builder'   => $this->entityMgr->getRepository('NS\SentinelBundle\Entity\Site')->getChainQueryBuilder()->orderBy('s.name','ASC'),
                                                 'class'           => 'NS\SentinelBundle\Entity\Site',
                                                 'auto_initialize' => false));
         }

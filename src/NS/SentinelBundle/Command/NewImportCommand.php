@@ -35,9 +35,36 @@ class NewImportCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $dir      = $input->getArgument('directory');
-        $files    = scandir($dir);
-        $this->em = $this->getContainer()->get('doctrine.orm.entity_manager');
+        $files     = $this->processFiles($input->getArgument('directory'));
+        $this->em  = $this->getContainer()->get('doctrine.orm.entity_manager');
+        $regions   = $this->processRegions($files['region'],$output);
+
+        $output->writeln("Added ".count($regions)." Regions");
+
+        if(isset($files['country']))
+        {
+            $countries = $this->processCountries($files['country'], $regions);
+            $output->writeln("Added ".count($countries)." Countries");
+        }
+
+        if(isset($files['site']))
+        {
+            $ret = $this->processSites($files['site'], $countries);
+            $output->writeln("Added ".count($ret['sites'])." Sites");
+
+            if(isset($ret['errors']) && !empty($ret['errors']))
+            {
+                $output->writeln("");
+                $output->writeln("Site import errors");
+                foreach($ret['errors'] as $error)
+                    $output->writeln($error);
+            }
+        }
+    }
+
+    private function processFiles($dir)
+    {
+        $files = scandir($dir);
 
         foreach($files as $x => $file)
         {
@@ -64,28 +91,7 @@ class NewImportCommand extends ContainerAwareCommand
             }
         }
 
-        $regions   = $this->processRegions($files['region'],$output);
-        $output->writeln("Added ".count($regions)." Regions");
-
-        if(isset($files['country']))
-        {
-            $countries = $this->processCountries($files['country'], $regions);
-            $output->writeln("Added ".count($countries)." Countries");
-        }
-
-        if(isset($files['site']))
-        {
-            $ret = $this->processSites($files['site'], $countries);
-            $output->writeln("Added ".count($ret['sites'])." Sites");
-
-            if(isset($ret['errors']) && !empty($ret['errors']))
-            {
-                $output->writeln("");
-                $output->writeln("Site import errors");
-                foreach($ret['errors'] as $error)
-                    $output->writeln($error);
-            }
-        }
+        return $files;
     }
 
     private function processRegions($file,$output)

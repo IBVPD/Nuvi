@@ -48,12 +48,12 @@ class CreateIBDCasesCommand extends ContainerAwareCommand
         if(count($sites)== 0)
             return;
 
-        $male   = new Gender(Gender::MALE);
-        $fmale  = new Gender(Gender::FEMALE);
-        $dx[]   = new Diagnosis(Diagnosis::SUSPECTED_MENINGITIS);
-        $dx[]   = new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA);
-        $dx[]   = new Diagnosis(Diagnosis::SUSPECTED_SEPSIS);
-        $dx[]   = new Diagnosis(Diagnosis::OTHER);
+        $male        = new Gender(Gender::MALE);
+        $fmale       = new Gender(Gender::FEMALE);
+        $diagnosis[] = new Diagnosis(Diagnosis::SUSPECTED_MENINGITIS);
+        $diagnosis[] = new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA);
+        $diagnosis[] = new Diagnosis(Diagnosis::SUSPECTED_SEPSIS);
+        $diagnosis[] = new Diagnosis(Diagnosis::OTHER);
         $cxDone = array(
                      new TripleChoice(TripleChoice::YES),
                      new TripleChoice(TripleChoice::NO)
@@ -64,27 +64,27 @@ class CreateIBDCasesCommand extends ContainerAwareCommand
             $dob   = $this->getRandomDate();
             $done  = array_rand($cxDone);
 
-            $m = new IBD();
+            $case = new IBD();
 
-            $m->setDob($dob);
-            $m->setAdmDate($this->getRandomDate(null,$dob));
-            $m->setCreatedAt($this->getRandomDate(null,$m->getAdmDate()));
-            $m->setCsfCollected((($x % 3) == 0));
-            $m->setCxrDone($cxDone[$done]);
-            $m->setGender(($x%7)?$fmale:$male);
+            $case->setDob($dob);
+            $case->setAdmDate($this->getRandomDate(null,$dob));
+            $case->setCreatedAt($this->getRandomDate(null,$case->getAdmDate()));
+            $case->setCsfCollected((($x % 3) == 0));
+            $case->setCxrDone($cxDone[$done]);
+            $case->setGender(($x%7)?$fmale:$male);
 
-            $dxKey   = array_rand($dx);
+            $diagnosisKey   = array_rand($diagnosis);
             $siteKey = array_rand($sites);
 
-            $m->setDischDx($dx[$dxKey]);
-            $m->setAdmDx($dx[$dxKey]);
-            $m->setSite($sites[$siteKey]);
-            $m->setCaseId($this->getCaseId($sites[$siteKey]));
+            $case->setDischDx($diagnosis[$diagnosisKey]);
+            $case->setAdmDx($diagnosis[$diagnosisKey]);
+            $case->setSite($sites[$siteKey]);
+            $case->setCaseId($this->getCaseId($sites[$siteKey]));
 
-            if($x%5 == 0 && $m->getCsfCollected())
-                $this->addCsfCollected($m,$cxDone[0]);
+            if($x%5 == 0 && $case->getCsfCollected())
+                $this->addCsfCollected($case,$cxDone[0]);
 
-            $this->entityMgr->persist($m);
+            $this->entityMgr->persist($case);
             if($x % 100 == 0)
                 $this->entityMgr->flush();
         }
@@ -127,31 +127,31 @@ class CreateIBDCasesCommand extends ContainerAwareCommand
         return new DateTime("{$years[$yKey]}-{$months[$mKey]}-{$days[$dKey]}");
     }
 
-    private function addCsfCollected($m,$cxDone)
+    private function addCsfCollected($case,$cxDone)
     {
         $randArray = rand(1,100);
-        $m->setCsfWcc($randArray);
+        $case->setCsfWcc($randArray);
 
         if($randArray<50)
         {
-            $m->setMenFever($cxDone[0]);
-            $m->setMenAltConscious($cxDone[0]);
+            $case->setMenFever($cxDone[0]);
+            $case->setMenAltConscious($cxDone[0]);
         }
         else if($randArray <= 20 || $randArray >= 75 )
         {
-            $m->setMenFever($cxDone[0]);
-            $m->setMenNeckStiff($cxDone[0]);
+            $case->setMenFever($cxDone[0]);
+            $case->setMenNeckStiff($cxDone[0]);
         }
 
         if($randArray >=20 && $randArray <= 75)
         {
-            $m->setCsfAppearance(new CSFAppearance(CSFAppearance::TURBID));
+            $case->setCsfAppearance(new CSFAppearance(CSFAppearance::TURBID));
         }
         else if($randArray > 40)
         {
-            $m->setCsfWcc(40);
-            $m->setCsfGlucose(30);
-            $m->setCsfProtein(140);
+            $case->setCsfWcc(40);
+            $case->setCsfGlucose(30);
+            $case->setCsfProtein(140);
         }
     }
 }

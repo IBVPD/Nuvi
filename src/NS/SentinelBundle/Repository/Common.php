@@ -67,9 +67,9 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
         return $this->secure($queryBuilder);
     }
 
-    public function findOrCreate($caseId, $id = null)
+    public function findOrCreate($caseId, $objId = null)
     {
-        if($id == null && $caseId == null)
+        if($objId == null && $caseId == null)
             throw new InvalidArgumentException("Id or Case must be provided");
 
         $queryBuilder = $this->createQueryBuilder('m')
@@ -80,14 +80,14 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
                    ->where('m.caseId = :caseId')
                    ->setParameter('caseId', $caseId);
 
-        if($id)
-            $queryBuilder->orWhere('m.id = :id')->setParameter('id', $id);
+        if($objId)
+            $queryBuilder->orWhere('m.id = :id')->setParameter('id', $objId);
 
         try
         {
             return $this->secure($queryBuilder)->getQuery()->getSingleResult();
         }
-        catch (NoResultException $ex)
+        catch (NoResultException $exception)
         {
             $cls = $this->getClassName();
             $res = new $cls();

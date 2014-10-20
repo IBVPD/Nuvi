@@ -13,7 +13,7 @@ use Lexik\Bundle\FormFilterBundle\Filter\Doctrine\ORMQuery;
  */
 class BaseObject extends AbstractType //implements EmbeddedFilterTypeInterface
 {
-    protected $em;
+    protected $entityMgr;
 
     protected $class;
 
@@ -24,17 +24,17 @@ class BaseObject extends AbstractType //implements EmbeddedFilterTypeInterface
                                 (
                                 'class'         => $this->class,
                                 'multiple'      => true,
-                                'query_builder' => $this->em->getRepository($this->class)->getAllSecuredQueryBuilder(),
+                                'query_builder' => $this->entityMgr->getRepository($this->class)->getAllSecuredQueryBuilder(),
                                 'apply_filter'  => function (ORMQuery $filterBuilder, $field, $values) use ($class)
                                     {
                                         if (!empty($values['value']))
                                         {
-                                            $fieldName = str_replace(array('\\',':'),array('_','_'),$class);
-                                            $values    = $values['value'];
-                                            $qb        = $filterBuilder->getQueryBuilder();
+                                            $fieldName    = str_replace(array('\\',':'),array('_','_'),$class);
+                                            $values       = $values['value'];
+                                            $queryBuilder = $filterBuilder->getQueryBuilder();
 
                                             if(count($values) == 1)
-                                                $qb->andWhere(sprintf("%s = :%s",$field,$fieldName))->setParameter($fieldName,$values[0]);
+                                                $queryBuilder->andWhere(sprintf("%s = :%s",$field,$fieldName))->setParameter($fieldName,$values[0]);
                                             else if (count($values) > 0)
                                             {
                                                 $where  = array();
@@ -43,10 +43,10 @@ class BaseObject extends AbstractType //implements EmbeddedFilterTypeInterface
                                                 {
                                                     $fieldNamex = $fieldName.$x;
                                                     $where[] = $field.'= :'.$fieldNamex;
-                                                    $qb->setParameter($fieldNamex,$val);
+                                                    $queryBuilder->setParameter($fieldNamex,$val);
                                                 }
 
-                                                $qb->andWhere("(".implode(" OR ",$where).")");
+                                                $queryBuilder->andWhere("(".implode(" OR ",$where).")");
                                             }
                                         }
                                     }

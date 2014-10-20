@@ -2,10 +2,11 @@
 
 namespace NS\SentinelBundle\Listeners;
 
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Symfony\Component\HttpKernel\HttpKernel;
 use \Symfony\Component\Form\FormFactoryInterface;
 use \Symfony\Component\HttpFoundation\RedirectResponse;
+use \Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use \Symfony\Component\HttpKernel\HttpKernel;
+use \Symfony\Component\Routing\Router;
 
 /**
  * Description of ResultPerPage
@@ -17,7 +18,7 @@ class ResultPerPage
     private $form;
     private $router;
 
-    public function __construct(\Symfony\Component\Routing\Router $router, FormFactoryInterface $formFactory)
+    public function __construct(Router $router, FormFactoryInterface $formFactory)
     {
         $this->router = $router;
         $this->form = $formFactory->create('results_per_page');
@@ -34,8 +35,8 @@ class ResultPerPage
         {
             $this->form->handleRequest($request);
             $request->getSession()->set('result_per_page',$this->form->get('recordsperpage')->getData());
-            $r = new RedirectResponse($this->router->generate($this->form->get('target')->getData(),$request->query->all()));
-            $event->setResponse($r);
+            $response = new RedirectResponse($this->router->generate($this->form->get('target')->getData(),$request->query->all()));
+            $event->setResponse($response);
         }
 
         return;

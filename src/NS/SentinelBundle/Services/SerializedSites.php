@@ -83,13 +83,13 @@ class SerializedSites implements SerializedSitesInterface
 
     private function _registerSite($site)
     {
-        $uow = $this->entityMgr->getUnitOfWork();
-        $c   = $site->getCountry();
-        $r   = $c->getRegion();
+        $uow     = $this->entityMgr->getUnitOfWork();
+        $country = $site->getCountry();
+        $region  = $country->getRegion();
 
-        $uow->registerManaged($site,array('code'=>$site->getCode()),array('code'=>$site->getCode()));
-        $uow->registerManaged($c,array('id'=>$c->getId()),array('id'=>$c->getId(),'code'=>$c->getCode()));
-        $uow->registerManaged($r,array('id'=>$r->getId()),array('id'=>$r->getId(),'code'=>$r->getCode()));
+        $uow->registerManaged($site,   array('code' => $site->getCode()), array('code' => $site->getCode()));
+        $uow->registerManaged($country,array('id'   => $country->getId()),array('id'   => $country->getId(), 'code' => $country->getCode()));
+        $uow->registerManaged($region, array('id'   => $region->getId()), array('id'   => $region->getId(),  'code' => $region->getCode()));
     }
 
     private function _populateSiteArray()
@@ -97,24 +97,24 @@ class SerializedSites implements SerializedSitesInterface
         $sites = array();
         foreach($this->entityMgr->getRepository('NS\SentinelBundle\Entity\Site')->getChain() as $site)
         {
-            $r = new Region();
-            $r->setName($site->getCountry()->getRegion()->getName());
-            $r->setId($site->getCountry()->getRegion()->getId());
-            $r->setCode($site->getCountry()->getRegion()->getcode());
+            $region = new Region();
+            $region->setName($site->getCountry()->getRegion()->getName());
+            $region->setId($site->getCountry()->getRegion()->getId());
+            $region->setCode($site->getCountry()->getRegion()->getcode());
 
-            $c = new Country();
-            $c->setId($site->getCountry()->getId());
-            $c->setName($site->getCountry()->getName());
-            $c->setCode($site->getCountry()->getCode());
-            $c->setLanguage($site->getCountry()->getLanguage());
-            $c->setRegion($r);
+            $country = new Country();
+            $country->setId($site->getCountry()->getId());
+            $country->setName($site->getCountry()->getName());
+            $country->setCode($site->getCountry()->getCode());
+            $country->setLanguage($site->getCountry()->getLanguage());
+            $country->setRegion($region);
 
-            $s = new Site();
-            $s->setCode($site->getCode());
-            $s->setName($site->getName());
-            $s->setCountry($c);
+            $newSite = new Site();
+            $newSite->setCode($site->getCode());
+            $newSite->setName($site->getName());
+            $newSite->setCountry($country);
 
-            $sites[] = $s;
+            $sites[] = $newSite;
         }
 
         return $sites;

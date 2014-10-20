@@ -2,11 +2,12 @@
 
 namespace NS\SentinelBundle\Repository;
 
-use NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
-use Doctrine\ORM\Query;
-use \NS\SentinelBundle\Exceptions\NonExistentCase;
 use \Doctrine\ORM\NoResultException;
+use \Doctrine\ORM\Query;
+use \NS\SentinelBundle\Exceptions\NonExistentCase;
+use \NS\SentinelBundle\Form\Types\TripleChoice;
 use \NS\SentinelBundle\Repository\Common;
+use \NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
 
 /**
  * Description of Common
@@ -23,7 +24,7 @@ class RotaVirus extends Common implements AjaxAutocompleteRepositoryInterface
                    ->select('COUNT(m.id) theCount')
                    ->from($this->getClassName(),'m')
                    ->where('m.cxrDone = :cxr')
-                   ->setParameter('cxr', \NS\SentinelBundle\Form\Types\TripleChoice::YES);
+                   ->setParameter('cxr', TripleChoice::YES);
 
         $results['cxr'] = $this->secure($queryBuilder)->getQuery()->getSingleScalarResult();
 
@@ -94,7 +95,7 @@ class RotaVirus extends Common implements AjaxAutocompleteRepositoryInterface
         return $this->secure($queryBuilder)->getQuery()->getResult(Query::HYDRATE_ARRAY);
     }
 
-    public function get($id)
+    public function get($objId)
     {
         $queryBuilder = $this->_em->createQueryBuilder()
                         ->select('m,s,c,r')
@@ -102,7 +103,7 @@ class RotaVirus extends Common implements AjaxAutocompleteRepositoryInterface
                         ->innerJoin('m.site', 's')
                         ->innerJoin('s.country', 'c')
                         ->innerJoin('m.region', 'r')
-                        ->where('m.id = :id')->setParameter('id',$id);
+                        ->where('m.id = :id')->setParameter('id',$objId);
 
         try {
             return $this->secure($queryBuilder)->getQuery()->getSingleResult();
@@ -113,17 +114,17 @@ class RotaVirus extends Common implements AjaxAutocompleteRepositoryInterface
         }
     }
 
-    public function search($id)
+    public function search($objId)
     {
         $queryBuilder = $this->_em->createQueryBuilder()
                         ->select('m')
                         ->from($this->getClassName(),'m')
-                        ->where('m.id LIKE :id')->setParameter('id',"%$id%");
+                        ->where('m.id LIKE :id')->setParameter('id',"%$objId%");
 
         return $this->secure($queryBuilder)->getQuery()->getResult();
     }
 
-    public function checkExistence($id)
+    public function checkExistence($objId)
     {
         try 
         {
@@ -132,7 +133,7 @@ class RotaVirus extends Common implements AjaxAutocompleteRepositoryInterface
                        ->select('m')
                        ->from($this->getClassName(),'m')
                        ->where('m.id = :id')
-                       ->setParameter('id', $id);
+                       ->setParameter('id', $objId);
             
             if($this->hasSecuredQuery())
                 return $this->secure($queryBuilder)
@@ -147,9 +148,9 @@ class RotaVirus extends Common implements AjaxAutocompleteRepositoryInterface
         }
     }
 
-    public function findOrCreate($caseId, $id = null)
+    public function findOrCreate($caseId, $objId = null)
     {
-        if($id == null && $caseId == null)
+        if($objId == null && $caseId == null)
             throw new \InvalidArgumentException("Id or Case must be provided");
 
         $queryBuilder = $this->createQueryBuilder('m')
@@ -160,14 +161,14 @@ class RotaVirus extends Common implements AjaxAutocompleteRepositoryInterface
                    ->where('m.caseId = :caseId')
                    ->setParameter('caseId', $caseId);
 
-        if($id)
-            $queryBuilder->orWhere('m.id = :id')->setParameter('id', $id);
+        if($objId)
+            $queryBuilder->orWhere('m.id = :id')->setParameter('id', $objId);
 
         try
         {
             return $this->secure($queryBuilder)->getQuery()->getSingleResult();
         }
-        catch (NoResultException $ex)
+        catch (NoResultException $exception)
         {
             $res = new \NS\SentinelBundle\Entity\RotaVirus();
             $res->setCaseId($caseId);
@@ -176,7 +177,7 @@ class RotaVirus extends Common implements AjaxAutocompleteRepositoryInterface
         }
     }
 
-    public function find($id)
+    public function find($objId)
     {
         try
         {
@@ -186,7 +187,7 @@ class RotaVirus extends Common implements AjaxAutocompleteRepositoryInterface
                        ->leftJoin('m.country', 'c')
                        ->leftJoin('m.site', 's')
                        ->andWhere('m.id = :id')
-                       ->setParameter('id', $id);
+                       ->setParameter('id', $objId);
 
             $queryBuilder = ($this->hasSecuredQuery()) ? $this->secure($queryBuilder): $queryBuilder;
 

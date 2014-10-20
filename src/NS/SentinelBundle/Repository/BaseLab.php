@@ -20,10 +20,10 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
     public function getForAutoComplete($fields, array $value, $limit)
     {
         $alias = 'd';
-        $qb    = $this->createQueryBuilder($alias)->setMaxResults($limit);
+        $queryBuilder    = $this->createQueryBuilder($alias)->setMaxResults($limit);
         
         if(!empty($value) && $value['value'][0]=='*')
-            return $this->secure($qb)->getQuery();
+            return $this->secure($queryBuilder)->getQuery();
         
         if(!empty($value))
         {
@@ -32,18 +32,18 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
                 foreach ($fields as $f)
                 {
                     $field = "$alias.$f";
-                    $qb->addOrderBy($field)
+                    $queryBuilder->addOrderBy($field)
                        ->orWhere("$field LIKE :param")->setParameter('param',$value['value'].'%');
                 }
             }
             else
             {
                 $field = "$alias.$fields";
-                $qb->orderBy($field)->andWhere("$field LIKE :param")->setParameter('param',$value['value'].'%');
+                $queryBuilder->orderBy($field)->andWhere("$field LIKE :param")->setParameter('param',$value['value'].'%');
             }
         }
 
-        return $this->secure($qb)->getQuery();
+        return $this->secure($queryBuilder)->getQuery();
     }
 
     public function findOrCreateNew($id)
@@ -56,11 +56,11 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
                 $r = $this->find($id);
             else
             {
-                $qb = $this->createQueryBuilder('r')
+                $queryBuilder = $this->createQueryBuilder('r')
                            ->where('r.case = :case')
                            ->setParameter('case',$this->_em->getReference($this->parentClass, $id));
 
-                $r = $this->secure($qb)->getQuery()->getSingleResult();
+                $r = $this->secure($queryBuilder)->getQuery()->getSingleResult();
             }
 
             if($r)
@@ -82,15 +82,15 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
         }
     }
 
-    public function find($id)
+    public function find($objId)
     {
         try
         {
-            $qb = $this->createQueryBuilder('m')
-                       ->where('m.case = :case')
-                       ->setParameter('case', $this->_em->getReference($this->parentClass, $id));
+            $queryBuilder = $this->createQueryBuilder('m')
+                                 ->where('m.case = :case')
+                                 ->setParameter('case', $this->_em->getReference($this->parentClass, $objId));
 
-            return $this->secure($qb)->getQuery()->getSingleResult();    
+            return $this->secure($queryBuilder)->getQuery()->getSingleResult();
         }
         catch(NoResultException $e)
         {

@@ -131,14 +131,14 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
     {
         $highest = null;
 
-        foreach($roles as $r)
+        foreach($roles as $role)
         {
-            if(isset($this->rolemapping[$r->getRole()]))
+            if(isset($this->rolemapping[$role->getRole()]))
             {
                 if($highest == null)
-                    $highest = $this->rolemapping[$r->getRole()];
-                else if ($highest > $this->rolemapping[$r->getRole()])//highest is actually 1...
-                    $highest = $this->rolemapping[$r->getRole()];
+                    $highest = $this->rolemapping[$role->getRole()];
+                else if ($highest > $this->rolemapping[$role->getRole()])//highest is actually 1...
+                    $highest = $this->rolemapping[$role->getRole()];
             }
         }
 
@@ -154,10 +154,10 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
         if(!is_null($highest) && $highest != self::REGION)
         {
             $values = $this->values;
-            foreach($values as $k=>$v)
+            foreach(array_keys($values) as $key)
             {
-                if($k < $highest)
-                    unset($values[$k]);
+                if($key < $highest)
+                    unset($values[$key]);
             }
 
             $resolver->setDefaults(array(
@@ -172,14 +172,14 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
             ));
     }
 
-    public function equal($to)
+    public function equal($compared)
     {
-        if(is_numeric($to))
-            return ($to == $this->current);
-        else if(is_string($to))
-            return (array($to) == $this->getAsCredential());
-        else if($to instanceof Role)
-            return ($to->getValue () == $this->current);
+        if(is_numeric($compared))
+            return ($compared == $this->current);
+        else if(is_string($compared))
+            return (array($compared) == $this->getAsCredential());
+        else if($compared instanceof Role)
+            return ($compared->getValue () == $this->current);
 
         return false;
     }

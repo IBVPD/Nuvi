@@ -34,9 +34,9 @@ class Builder
         {
             if($this->securityContext->isGranted('ROLE_CAN_CREATE'))
             {
-                $d = $menu->addChild('Data Entry', array('label'=> 'menu.data-entry'))->setExtra('icon','icon-edit');
-                $d->addChild('Meningitis',array('label'=>'menu.meningitis','route'=>'ibdIndex'));
-                $d->addChild('Rotavirus', array('route'=>'rotavirusIndex'))->setExtra('translation_domain', 'NSSentinelBundle');
+                $data = $menu->addChild('Data Entry', array('label'=> 'menu.data-entry'))->setExtra('icon','icon-edit');
+                $data->addChild('Meningitis',array('label'=>'menu.meningitis','route'=>'ibdIndex'));
+                $data->addChild('Rotavirus', array('route'=>'rotavirusIndex'))->setExtra('translation_domain', 'NSSentinelBundle');
             }
 
             $reports = $menu->addChild('Reports', array('label'=> 'menu.data-reports'))->setExtra('icon','icon-dashboard');
@@ -75,13 +75,13 @@ class Builder
         $menu = $this->factory->createItem('root');
         $menu->setChildrenAttribute('class', 'nav ace-nav');
 
-        $p = $menu->addChild('Profile')->setExtra('icon', 'icon-profile');
-        $p->setChildrenAttribute('class', 'user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close');
+        $profile = $menu->addChild('Profile')->setExtra('icon', 'icon-profile');
+        $profile->setChildrenAttribute('class', 'user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close');
 
-        $p->addChild('Settings')->setExtra('icon', 'icon-cog');
-        $p->addChild(' ')->setAttribute('class', 'divider');
-        $p->addChild('Logout',array('route' => 'logout'))->setExtra('icon','icon-off');
-        
+        $profile->addChild('Settings')->setExtra('icon', 'icon-cog');
+        $profile->addChild(' ')->setAttribute('class', 'divider');
+        $profile->addChild('Logout',array('route' => 'logout'))->setExtra('icon','icon-off');
+
         return $menu;
     }
 }

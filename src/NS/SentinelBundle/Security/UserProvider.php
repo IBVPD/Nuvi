@@ -16,18 +16,18 @@ use NS\SentinelBundle\Entity\User;
  */
 class UserProvider implements UserProviderInterface
 {
-    private $em;
+    private $entityMgr;
     
-    public function __construct(ObjectManager $em)
+    public function __construct(ObjectManager $entityMgr)
     {
-        $this->em = $em;
+        $this->entityMgr = $entityMgr;
     }
 
     public function loadUserByUsername($username) 
     {
         try 
         {
-            $user = $this->em->createQuery("SELECT u,a FROM NS\SentinelBundle\Entity\User u LEFT JOIN u.acls a WHERE u.email = :username")
+            $user = $this->entityMgr->createQuery("SELECT u,a FROM NS\SentinelBundle\Entity\User u LEFT JOIN u.acls a WHERE u.email = :username")
                              ->setParameter('username',$username)
                              ->getSingleResult();
 

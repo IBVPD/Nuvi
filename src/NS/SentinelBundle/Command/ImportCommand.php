@@ -44,24 +44,24 @@ class ImportCommand extends ContainerAwareCommand
         $files = scandir($dir);
         $this->entityMgr = $this->getContainer()->get('doctrine.orm.entity_manager');
         
-        foreach($files as $x => $file)
+        foreach($files as $key => $file)
         {
             if($file[0] == '.')
-                unset($files[$x]);
+                unset($files[$key]);
             
             switch ($file)
             {
                 case 'Countries.csv':
                     $files['country'] = $dir.'/'.$file;
-                    unset($files[$x]);
+                    unset($files[$key]);
                     break;
                 case 'Regions.csv':
                     $files['region'] = $dir.'/'.$file;
-                    unset($files[$x]);
+                    unset($files[$key]);
                     break;
                 case 'Sites.csv':
                     $files['site'] = $dir.'/'.$file;
-                    unset($files[$x]);
+                    unset($files[$key]);
                     break;
             }
         }
@@ -157,7 +157,7 @@ class ImportCommand extends ContainerAwareCommand
     {
         $sites  = array();
         $fileId = fopen($file,'r');
-        $x      = 1;
+        $index  = 1;
         while(true)
         {
             $row = fgetcsv($fileId);
@@ -167,7 +167,7 @@ class ImportCommand extends ContainerAwareCommand
 
             $site = new Site();
             $site->setName($row[2]);
-            $site->setCode("{$row[1]}$x");
+            $site->setCode("{$row[1]}$index");
             $site->setRvYearIntro($row[3]);
             $site->setIbdYearIntro($row[4]);
             $site->setStreet($row[5]);
@@ -179,7 +179,7 @@ class ImportCommand extends ContainerAwareCommand
             $this->entityMgr->persist($site);
             $this->entityMgr->flush();
             $sites[$row[2]] = $site;
-            $x++;
+            $index++;
         }
         
         fclose($fileId);

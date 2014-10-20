@@ -46,26 +46,26 @@ class CreateRotaCasesCommand extends ContainerAwareCommand
         if(count($sites)== 0)
             return;
 
-        $male   = new Gender(Gender::MALE);
-        $fmale  = new Gender(Gender::FEMALE);
-        $dx[]   = new Diagnosis(Diagnosis::SUSPECTED_MENINGITIS);
-        $dx[]   = new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA);
-        $dx[]   = new Diagnosis(Diagnosis::SUSPECTED_SEPSIS);
-        $dx[]   = new Diagnosis(Diagnosis::OTHER);
+        $male        = new Gender(Gender::MALE);
+        $fmale       = new Gender(Gender::FEMALE);
+        $diagnosis[] = new Diagnosis(Diagnosis::SUSPECTED_MENINGITIS);
+        $diagnosis[] = new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA);
+        $diagnosis[] = new Diagnosis(Diagnosis::SUSPECTED_SEPSIS);
+        $diagnosis[] = new Diagnosis(Diagnosis::OTHER);
 
         for($x = 0; $x < 2700; $x++)
         {
             $dob     = $this->getRandomDate();
             $siteKey = array_rand($sites);
 
-            $m = new RotaVirus();
-            $m->setDob($dob);
-            $m->setAdmDate($this->getRandomDate(null,$dob));
-            $m->setSite($sites[$siteKey]);
-            $m->setCaseId($this->getCaseId($sites[$siteKey]));
-            $m->setGender(($x%7)?$fmale:$male);
+            $case = new RotaVirus();
+            $case>setDob($dob);
+            $case>setAdmDate($this->getRandomDate(null,$dob));
+            $case>setSite($sites[$siteKey]);
+            $case>setCaseId($this->getCaseId($sites[$siteKey]));
+            $case>setGender(($x%7)?$fmale:$male);
 
-            $this->entityMgr->persist($m);
+            $this->entityMgr->persist($case);
 
             if($x % 100 == 0)
                 $this->entityMgr->flush();

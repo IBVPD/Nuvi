@@ -48,9 +48,9 @@ class CreateAdminCommand extends ContainerAwareCommand
         
         try
         {
-            $em = $this->getContainer()->get('doctrine.orm.entity_manager');
-            $em->persist($user);
-            $em->flush();
+            $entityMgr = $this->getContainer()->get('doctrine.orm.entity_manager');
+            $entityMgr->persist($user);
+            $entityMgr->flush();
 
             $output->writeln("User Created Successfully");
         }

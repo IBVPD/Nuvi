@@ -93,14 +93,14 @@ class IBD extends Common
         return $this->secure($queryBuilder)->getQuery()->getResult(Query::HYDRATE_ARRAY);
     }
 
-    public function get($id)
+    public function get($objId)
     {
         $queryBuilder = $this->createQueryBuilder('m')
                    ->select('m,s,c,r')
                    ->innerJoin('m.site', 's')
                    ->innerJoin('s.country', 'c')
                    ->innerJoin('m.region', 'r')
-                   ->where('m.id = :id')->setParameter('id',$id);
+                   ->where('m.id = :id')->setParameter('id',$objId);
         try
         {
             return $this->secure($queryBuilder)->getQuery()->getSingleResult();
@@ -111,22 +111,22 @@ class IBD extends Common
         }
     }
 
-    public function search($id)
+    public function search($objId)
     {
         $queryBuilder = $this->createQueryBuilder('m')
                    ->where('m.id LIKE :id')
-                   ->setParameter('id',"%$id%");
+                   ->setParameter('id',"%$objId%");
 
         return $this->secure($queryBuilder)->getQuery()->getResult();
     }
 
-    public function checkExistence($id)
+    public function checkExistence($objId)
     {
         try 
         {
             $queryBuilder = $this->createQueryBuilder('m')
                        ->where('m.id = :id')
-                       ->setParameter('id', $id);
+                       ->setParameter('id', $objId);
 
             return $this->secure($queryBuilder)->getQuery()->getSingleResult();
         }
@@ -136,7 +136,7 @@ class IBD extends Common
         }
     }
 
-    public function find($id)
+    public function find($objId)
     {
         try
         {
@@ -146,7 +146,7 @@ class IBD extends Common
                        ->leftJoin('m.country', 'c')
                        ->leftJoin('m.site', 's')
                        ->andWhere('m.id = :id')
-                       ->setParameter('id', $id);
+                       ->setParameter('id', $objId);
 
             return $this->secure($queryBuilder)->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD,true)->getSingleResult();
         }
@@ -382,7 +382,7 @@ class IBD extends Common
 
             return true;
         }
-        catch(\Doctrine\ORM\NoResultException $e)
+        catch(NoResultException $exception)
         {
             return false;
         }

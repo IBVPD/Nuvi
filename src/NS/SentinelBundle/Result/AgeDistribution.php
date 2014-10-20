@@ -44,14 +44,14 @@ class AgeDistribution
 
     public function sumYears($ageDistribution)
     {
-        $s = 0;
+        $theSum = 0;
         foreach($this->results as $values)
         {
             if(isset($values[$ageDistribution]))
-                $s+= $values[$ageDistribution];
+                $theSum+= $values[$ageDistribution];
         }
 
-        return $s;
+        return $theSum;
     }
 
     public function getZeroToFive($year = null)

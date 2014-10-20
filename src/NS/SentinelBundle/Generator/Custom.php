@@ -17,7 +17,7 @@ class Custom extends AbstractIdGenerator
 {
     static $cache = array();
 
-    public function generate(EntityManager $em, $entity)
+    public function generate(EntityManager $entityMgr, $entity)
     {
         if(!$entity instanceOf IdentityAssignmentInterface)
             throw new \InvalidArgumentException("Entity must implement IdentityAssignmentInterface");
@@ -39,17 +39,17 @@ class Custom extends AbstractIdGenerator
 
         try
         {
-            $em->beginTransaction();
-            $id = $em->createNativeQuery("SELECT s.currentCaseId FROM sites s WHERE s.code = '".$site->getCode()."'", $rsm)->getResult(Query::HYDRATE_SINGLE_SCALAR);
-            $em->getConnection()->executeUpdate('UPDATE sites SET currentCaseId = currentCaseId +1 WHERE code = :code', array('code'=>$site->getCode()));
-            $em->commit();
+            $entityMgr->beginTransaction();
+            $newId = $entityMgr->createNativeQuery("SELECT s.currentCaseId FROM sites s WHERE s.code = '".$site->getCode()."'", $rsm)->getResult(Query::HYDRATE_SINGLE_SCALAR);
+            $entityMgr->getConnection()->executeUpdate('UPDATE sites SET currentCaseId = currentCaseId +1 WHERE code = :code', array('code'=>$site->getCode()));
+            $entityMgr->commit();
+
+            return $entity->getFullIdentifier($newId);
         }
         catch(\Exception $e)
         {
-            $em->rollback();
+            $entityMgr->rollback();
             throw new \RuntimeException("Site issue: ".$site->getName()." ".$site->getId()." ".$e->getMessage());
         }
-
-        return $entity->getFullIdentifier($id);
     }
 }

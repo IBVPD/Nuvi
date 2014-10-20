@@ -55,9 +55,9 @@ class CreateRoles extends TranslatableArrayChoice implements TranslationContaine
         $resolver->addAllowedTypes(array('special_values'=>'array'));
     }
 
-    public function setSecurityContext(SecurityContextInterface $sc)
+    public function setSecurityContext(SecurityContextInterface $securityContext)
     {
-        $this->securityContext = $sc;
+        $this->securityContext = $securityContext;
     }
 
     public function getName()

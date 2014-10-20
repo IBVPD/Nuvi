@@ -23,9 +23,9 @@ class LabFilterType extends AbstractType implements EmbeddedFilterTypeInterface
     {
         if ($values['value'] instanceof CaseStatus && $values['value']->getValue() >= 0)
         {
-            $qb = $filterQuery->getQueryBuilder();
+            $queryBuilder = $filterQuery->getQueryBuilder();
 
-            $qb->andWhere($filterQuery->getExpr()->eq('l.status', $values['value']->getValue()));
+            $queryBuilder->andWhere($filterQuery->getExpr()->eq('l.status', $values['value']->getValue()));
         }
     }
 

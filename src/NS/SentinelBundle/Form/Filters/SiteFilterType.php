@@ -25,9 +25,9 @@ class SiteFilterType extends AbstractType implements EmbeddedFilterTypeInterface
     {
         if ($values['value'] instanceof IBDIntenseSupport && $values['value']->getValue() >= 0)
         {
-            $qb    = $filterBuilder->getQueryBuilder();
-            $joins = $qb->getDQLPart('join');
-            $alias = $values['alias'];
+            $queryBuilder = $filterBuilder->getQueryBuilder();
+            $joins        = $queryBuilder->getDQLPart('join');
+            $alias        = $values['alias'];
 
             foreach(current($joins) as $join)
             {
@@ -35,7 +35,7 @@ class SiteFilterType extends AbstractType implements EmbeddedFilterTypeInterface
                     $alias = $join->getAlias();
             }
 
-            $qb->andWhere($filterBuilder->getExpr()->eq($alias.'.ibdIntenseSupport', $values['value']->getValue()));
+            $queryBuilder->andWhere($filterBuilder->getExpr()->eq($alias.'.ibdIntenseSupport', $values['value']->getValue()));
         }
     }
 

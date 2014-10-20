@@ -13,17 +13,17 @@ use \NS\SentinelBundle\Form\Types\Role;
 
 class UserAdmin extends Admin
 {
-    private $factory;
+    private $encoderFactory;
+    private $securityContext;
 
     public function setEncoderFactory(EncoderFactoryInterface $factory )
     {
-        $this->factory = $factory;
+        $this->encoderFactory = $factory;
     }
 
-    private $securityContext;
-    public function setSecurityContext(SecurityContextInterface $sc )
+    public function setSecurityContext(SecurityContextInterface $securityContext )
     {
-        $this->securityContext = $sc;
+        $this->securityContext = $securityContext;
     }
 
     public function getTemplate($name)
@@ -111,7 +111,7 @@ class UserAdmin extends Admin
 
     public function prePersist($user)
     {
-        $encoder = $this->factory->getEncoder($user);
+        $encoder = $this->encoderFactory->getEncoder($user);
 
         $user->resetSalt();
         $user->setPassword($encoder->encodePassword($user->getPlainPassword(),$user->getSalt()));
@@ -128,7 +128,7 @@ class UserAdmin extends Admin
 
     public function preUpdate($user)
     {
-        $encoder        = $this->factory->getEncoder($user);
+        $encoder        = $this->encoderFactory->getEncoder($user);
         $plain_password = $user->getPlainPassword();
 
         if(strlen($plain_password)> 0)
