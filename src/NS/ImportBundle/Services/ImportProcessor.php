@@ -37,6 +37,7 @@ class ImportProcessor
     public function process(Import $import)
     {
         ini_set('max_execution_time', 90);
+        ini_set('memory_limit', '512M');
 
         $map = $import->getMap();
 
