@@ -24,4 +24,4 @@ who.yml
 *odt*
 bin
 web/ace
-app/Resources/translations
+*xliff
