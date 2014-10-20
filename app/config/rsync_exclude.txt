@@ -18,7 +18,6 @@ web/uploads
 nbproject
 app/data
 *[vV]agrant*
-src/NS/SentinelBundle/Resources/translations
 php_errors.log
 phpci.yml
 who.yml

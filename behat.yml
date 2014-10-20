@@ -6,7 +6,7 @@ default:
       mink_driver: true
       kernel:
         env: test
-        debug: true
+        debug: false
     Behat\MinkExtension\Extension:
       base_url: http://nuvi.noblet.ca/app_test.php/
       default_session: symfony2

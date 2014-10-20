@@ -216,7 +216,7 @@ jms_translation:
   configs:
     sentinel:
       output_dir: %kernel.root_dir%/../src/NS/SentinelBundle/Resources/translations        
-      dirs: [ "%kernel.root_dir%/../src/NS/SentinelBundle" ]
+      dirs: [ "%kernel.root_dir%","%kernel.root_dir%/../src/NS/SentinelBundle", "%kernel.root_dir%/../src/NS/ImportBundle", "%kernel.root_dir%/../src/NS/ApiBundle" ]
       excluded_names: [ "*TestCase.php", "*Test.php" ]
       excluded_dirs: [ cache, data, logs, Features ]
       output_format: xliff
