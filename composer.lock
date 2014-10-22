@@ -2596,9 +2596,10 @@
             "source": {
                 "type": "git",
                 "url": "git@gitlab.noblet.ca:nobletsolutions/ace-bundle.git",
-                "reference": "d7f41f355ac489cd433268fb262fa4ad1bf71da6"
+                "reference": "b7c4d8407662fc3a356a722d3198e5d790e753de"
             },
             "require": {
+                "jms/translation-bundle": "1.1.x-dev",
                 "php": ">=5.3.2",
                 "symfony/symfony": ">=2.1"
             },
@@ -2622,7 +2623,7 @@
                 }
             ],
             "description": "This bundle provides bootstrap template",
-            "time": "2014-09-19 20:13:36"
+            "time": "2014-10-20 16:20:24"
         },
         {
             "name": "ns/flash-bundle",
@@ -2630,7 +2631,7 @@
             "target-dir": "NS/FlashBundle",
             "source": {
                 "type": "git",
-                "url": "https://gitlab.noblet.ca/nobletsolutions/flash-bundle.git",
+                "url": "gitolite@git.noblet.ca:/symfony/ns/flash.git",
                 "reference": "7028f2c359fbf93305f4134b9fd64a12f236bf7c"
             },
             "require": {
@@ -2662,7 +2663,7 @@
             "target-dir": "NS/SecurityBundle",
             "source": {
                 "type": "git",
-                "url": "https://gitlab.noblet.ca/nobletsolutions/security-bundle.git",
+                "url": "gitolite@git.noblet.ca:/symfony/ns/security.git",
                 "reference": "73147d034ee13fdbe6fb22d63313dfbeb1f337e1"
             },
             "require": {
@@ -2690,7 +2691,7 @@
             "target-dir": "NS/UtilBundle",
             "source": {
                 "type": "git",
-                "url": "https://gitlab.noblet.ca/nobletsolutions/util-bundle.git",
+                "url": "gitolite@git.noblet.ca:/symfony/ns/utils.git",
                 "reference": "565f2327920ecbae05ed1a92864cc30e90ec16db"
             },
             "require": {
