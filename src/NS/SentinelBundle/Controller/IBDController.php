@@ -176,8 +176,8 @@ class IBDController extends Controller
 
                 $entityMgr->persist($record);
 
-                if($type == 'lab')
-                    $entityMgr->persist($record->getCase());
+//                if($type == 'lab')
+//                    $entityMgr->persist($record->getCase());
 
                 try
                 {
