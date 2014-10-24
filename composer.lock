@@ -73,6 +73,63 @@
             "time": "2013-12-20 22:02:19"
         },
         {
+            "name": "cocur/slugify",
+            "version": "v0.10.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cocur/slugify.git",
+                "reference": "b9518567cefdb9ca1e8f9b6bfb81fc5b023bd24e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cocur/slugify/zipball/b9518567cefdb9ca1e8f9b6bfb81fc5b023bd24e",
+                "reference": "b9518567cefdb9ca1e8f9b6bfb81fc5b023bd24e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "dev-master",
+                "laravel/framework": "~4.1",
+                "mockery/mockery": "~0.9",
+                "phpunit/phpunit": "~3.7",
+                "sami/sami": "~1.3",
+                "satooshi/php-coveralls": "0.6.*",
+                "silex/silex": "~1.2",
+                "symfony/dependency-injection": "~2.4",
+                "symfony/http-kernel": "~2.4",
+                "twig/twig": "~1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Cocur\\Slugify\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ivo Bathke",
+                    "email": "ivo.bathke@gmail.com"
+                },
+                {
+                    "name": "Florian Eckerstorfer",
+                    "email": "florian@eckerstorfer.co",
+                    "homepage": "https://florian.ec"
+                }
+            ],
+            "description": "Converts a string into a slug.",
+            "keywords": [
+                "slug",
+                "slugify"
+            ],
+            "time": "2014-10-18 17:20:59"
+        },
+        {
             "name": "ddeboer/data-import",
             "version": "dev-gnat",
             "source": {
@@ -2596,7 +2653,7 @@
             "source": {
                 "type": "git",
                 "url": "git@gitlab.noblet.ca:nobletsolutions/ace-bundle.git",
-                "reference": "b7c4d8407662fc3a356a722d3198e5d790e753de"
+                "reference": "e47cfd5257f262ed03789603c8187e0e3a1c23d8"
             },
             "require": {
                 "jms/translation-bundle": "1.1.x-dev",
@@ -2623,7 +2680,7 @@
                 }
             ],
             "description": "This bundle provides bootstrap template",
-            "time": "2014-10-20 16:20:24"
+            "time": "2014-10-24 03:44:22"
         },
         {
             "name": "ns/flash-bundle",
@@ -3408,15 +3465,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataCoreBundle.git",
-                "reference": "6883f1fa0efbaa05cf670ee009514fd2d88d8ee8"
+                "reference": "5de4744806d59672fdd46c0a89c9829ad96c9acc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/6883f1fa0efbaa05cf670ee009514fd2d88d8ee8",
-                "reference": "6883f1fa0efbaa05cf670ee009514fd2d88d8ee8",
+                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/5de4744806d59672fdd46c0a89c9829ad96c9acc",
+                "reference": "5de4744806d59672fdd46c0a89c9829ad96c9acc",
                 "shasum": ""
             },
             "require": {
+                "cocur/slugify": "*",
                 "symfony/config": "~2.3",
                 "symfony/form": "~2.3",
                 "symfony/http-foundation": "~2.3",
@@ -3429,6 +3487,8 @@
                 "friendsofsymfony/rest-bundle": "~1.1",
                 "jackalope/jackalope-doctrine-dbal": "~1.0",
                 "jms/serializer-bundle": "~0.11",
+                "matthiasnoback/symfony-config-test": "~0.4",
+                "matthiasnoback/symfony-dependency-injection-test": "~0.7",
                 "sensio/framework-extra-bundle": "~2.3",
                 "sonata-project/exporter": "~1.3"
             },
@@ -3462,7 +3522,7 @@
             "keywords": [
                 "sonata"
             ],
-            "time": "2014-10-06 13:03:25"
+            "time": "2014-10-23 15:03:11"
         },
         {
             "name": "sonata-project/doctrine-orm-admin-bundle",
@@ -5081,16 +5141,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.3.3",
+            "version": "4.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "5a0bc4dcbb7340c0a9a9bc3507854a67c564edc4"
+                "reference": "23e4e0310f037aae873cc81b8658dbbb82878f71"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/5a0bc4dcbb7340c0a9a9bc3507854a67c564edc4",
-                "reference": "5a0bc4dcbb7340c0a9a9bc3507854a67c564edc4",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/23e4e0310f037aae873cc81b8658dbbb82878f71",
+                "reference": "23e4e0310f037aae873cc81b8658dbbb82878f71",
                 "shasum": ""
             },
             "require": {
@@ -5101,7 +5161,7 @@
                 "ext-spl": "*",
                 "php": ">=5.3.3",
                 "phpunit/php-code-coverage": "~2.0",
-                "phpunit/php-file-iterator": "~1.3.1",
+                "phpunit/php-file-iterator": "~1.3.2",
                 "phpunit/php-text-template": "~1.2",
                 "phpunit/php-timer": "~1.0.2",
                 "phpunit/phpunit-mock-objects": "~2.3",
@@ -5151,7 +5211,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-10-16 16:53:00"
+            "time": "2014-10-22 11:43:12"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -5326,16 +5386,16 @@
         },
         {
             "name": "sebastian/environment",
-            "version": "1.1.0",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/environment.git",
-                "reference": "6288ebbf6fa3ed2b2ff2d69c356fbaaf4f0971a7"
+                "reference": "0d9bf79554d2a999da194a60416c15cf461eb67d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/6288ebbf6fa3ed2b2ff2d69c356fbaaf4f0971a7",
-                "reference": "6288ebbf6fa3ed2b2ff2d69c356fbaaf4f0971a7",
+                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/0d9bf79554d2a999da194a60416c15cf461eb67d",
+                "reference": "0d9bf79554d2a999da194a60416c15cf461eb67d",
                 "shasum": ""
             },
             "require": {
@@ -5347,7 +5407,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.1.x-dev"
+                    "dev-master": "1.2.x-dev"
                 }
             },
             "autoload": {
@@ -5372,7 +5432,7 @@
                 "environment",
                 "hhvm"
             ],
-            "time": "2014-10-07 09:23:16"
+            "time": "2014-10-22 06:38:05"
         },
         {
             "name": "sebastian/exporter",
