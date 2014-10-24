@@ -35,9 +35,9 @@ class NewImportCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $files     = $this->processFiles($input->getArgument('directory'));
-        $this->em  = $this->getContainer()->get('doctrine.orm.entity_manager');
-        $regions   = $this->processRegions($files['region'],$output);
+        $files           = $this->processFiles($input->getArgument('directory'));
+        $this->entityMgr = $this->getContainer()->get('doctrine.orm.entity_manager');
+        $regions         = $this->processRegions($files['region'], $output);
 
         $output->writeln("Added ".count($regions)." Regions");
 
