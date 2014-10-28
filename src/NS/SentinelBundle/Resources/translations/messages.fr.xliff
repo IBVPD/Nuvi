@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2014-10-20T12:34:59Z" source-language="en" target-language="fr" datatype="plaintext" original="not.available">
+  <file date="2014-10-23T09:49:20Z" source-language="en" target-language="fr" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -554,6 +554,7 @@
       <trans-unit id="eede5d359286bb963ca85c2cdf35c36ca4e63945" resname="Email / Username">
         <source>Email / Username</source>
         <target state="new">Email / Username</target>
+        <jms:reference-file line="31">views/Security/forgotPassword.html.twig</jms:reference-file>
         <jms:reference-file line="32">views/Security/login.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="b7c17e97d3d625694b836d85ace6edc18bbef0e6" resname="Female">
@@ -1088,6 +1089,11 @@
         <target state="new">Please Enter Your Information</target>
         <jms:reference-file line="26">views/Security/login.html.twig</jms:reference-file>
       </trans-unit>
+      <trans-unit id="e3b21a540a718b7284f94d7105bb256a826d03ca" resname="Please Provide Your Email Address">
+        <source>Please Provide Your Email Address</source>
+        <target state="new">Please Provide Your Email Address</target>
+        <jms:reference-file line="25">views/Security/forgotPassword.html.twig</jms:reference-file>
+      </trans-unit>
       <trans-unit id="a7942f226ed1080246f2b2fde35b11e19a91e6a8" resname="Please Select...">
         <source>Please Select...</source>
         <target state="new">Please Select...</target>
@@ -1178,6 +1184,11 @@
         <target state="new">Repeat Password</target>
         <jms:reference-file line="27">SentinelBundle/Form/UserType.php</jms:reference-file>
         <jms:reference-file line="87">SentinelBundle/Admin/UserAdmin.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="3fb75e3bfe4de94eb5198656fa9de95352dab915" resname="Reset Password">
+        <source>Reset Password</source>
+        <target state="new">Reset Password</target>
+        <jms:reference-file line="40">views/Security/forgotPassword.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="612e12d29278b5519294bc25cdaddffec6d0f1c6" resname="Results">
         <source>Results</source>
