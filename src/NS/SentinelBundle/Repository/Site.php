@@ -52,7 +52,7 @@ class Site extends CommonRepository
 
     public function findAll()
     {
-        return  $this->secure($this->createQueryBuilder('s'))->getQuery()->getResult();
+        return  $this->secure($this->createQueryBuilder('s')->orderBy('s.name','ASC'))->getQuery()->getResult();
     }
 
     public function getWithCasesForDate($alias)
