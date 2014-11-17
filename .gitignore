@@ -15,3 +15,11 @@ NuviSync
 composer
 .vagrant
 Vagrantfile
+Makefile
+*.rpm
+packagin*
+provision.yml
+templates/
+tmp2/
+web/bangladesh.php
+
