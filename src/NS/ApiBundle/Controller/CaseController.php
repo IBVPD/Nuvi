@@ -8,7 +8,6 @@ use \NS\SentinelBundle\Exceptions\NonExistentCase;
 use FOS\RestBundle\Util\Codes;
 use FOS\RestBundle\Controller\FOSRestController;
 use \Doctrine\Common\Persistence\ObjectManager;
-use \Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use \Symfony\Component\Form\FormInterface;
 
 /**
@@ -103,7 +102,7 @@ class CaseController extends FOSRestController
             $entityMgr->persist($case);
             $entityMgr->flush();
 
-            return $this->routeRedirectView($route, array('id' => $case->getId()));
+            return $this->routeRedirectView($route, array('objId' => $case->getId()));
         }
         catch (\Exception $e)
         {

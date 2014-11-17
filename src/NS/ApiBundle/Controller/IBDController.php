@@ -96,7 +96,7 @@ class IBDController extends CaseController
      */
     public function patchIbdCaseAction(Request $request, $objId)
     {
-        $route = $this->generateUrl('nsApiIbdGetCase', array('id' => $objId));
+        $route = $this->generateUrl('nsApiIbdGetCase', array('objId' => $objId));
 
         return $this->updateCase($request, $objId, 'PATCH', 'ibd', 'NSSentinelBundle:IBD',$route);
     }
@@ -121,7 +121,7 @@ class IBDController extends CaseController
      */
     public function patchIbdLabAction(Request $request, $objId)
     {
-        $route = $this->generateUrl('nsApiIbdGetLab', array('id' => $objId));
+        $route = $this->generateUrl('nsApiIbdGetLab', array('objId' => $objId));
 
         return $this->updateLab($request, $objId, 'PATCH','ibd_lab', 'NSSentinelBundle:IBD', $route);
     }
@@ -148,7 +148,7 @@ class IBDController extends CaseController
      */
     public function patchIbdOutcomeAction(Request $request, $objId)
     {
-        $route = $this->generateUrl('nsApiIbdGetCase', array('id' => $objId));
+        $route = $this->generateUrl('nsApiIbdGetCase', array('objId' => $objId));
 
         return $this->updateCase($request, $objId, 'PATCH', 'ibd_outcome', 'NSSentinelBundle:IBD', $route);
     }
@@ -176,7 +176,7 @@ class IBDController extends CaseController
      */
     public function putIbdCaseAction(Request $request, $objId)
     {
-        $route = $this->generateUrl('nsApiIbdGetCase', array('id' => $objId));
+        $route = $this->generateUrl('nsApiIbdGetCase', array('objId' => $objId));
 
         return $this->updateCase($request, $objId, 'PUT', 'ibd', 'NSSentinelBundle:IBD', $route);
     }
@@ -201,7 +201,7 @@ class IBDController extends CaseController
      */
     public function putIbdLabAction(Request $request, $objId)
     {
-        $route = $this->generateUrl('nsApiIbdGetLab', array('id' => $objId));
+        $route = $this->generateUrl('nsApiIbdGetLab', array('objId' => $objId));
 
         return $this->updateLab($request, $objId, 'PUT','ibd_lab', 'NSSentinelBundle:IBD', $route);
     }
@@ -228,7 +228,7 @@ class IBDController extends CaseController
      */
     public function putIbdOutcomeAction(Request $request, $objId)
     {
-        $route = $this->generateUrl('nsApiIbdGetCase', array('id' => $objId));
+        $route = $this->generateUrl('nsApiIbdGetCase', array('objId' => $objId));
 
         return $this->updateCase($request, $objId, 'PUT', 'ibd_outcome', 'NSSentinelBundle:IBD',$route);
     }

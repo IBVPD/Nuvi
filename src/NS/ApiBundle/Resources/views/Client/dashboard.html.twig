@@ -33,8 +33,8 @@
                         <td>{%for uri in c.redirectUris  %}{{uri}}<br />{%endfor%}</td>
                         <td>{%for uri in c.allowedGrantTypes  %}{{uri}}<br />{%endfor%}</td>
                         <td>
-                            <a class="btn btn-xs btn-success" href="{{path('ApiEditClient',{id: c.id})}}">{{'Edit'|trans}} <i class="icon-edit-sign icon-on-right bigger-110"></i></a>
-                            <a class="btn btn-xs btn-danger" href="{{path('ApiDeleteClient',{id:c.id})}}">{{'Delete'|trans}} </a>
+                            <a class="btn btn-xs btn-success" href="{{path('ApiEditClient',{objId: c.id})}}">{{'Edit'|trans}} <i class="icon-edit-sign icon-on-right bigger-110"></i></a>
+                            <a class="btn btn-xs btn-danger" href="{{path('ApiDeleteClient',{objId:c.id})}}">{{'Delete'|trans}} </a>
                         </td>
                     </tr>
                 {%endfor %}
@@ -77,8 +77,8 @@
                                 {%else%}
                                     {{'Authorization Complete'|trans}}
                                 {%endif%}
-                                <a class="btn btn-xs btn-success" href="{{path('ApiEditRemote',{id:c.id})}}">Edit  <i class="icon-edit-sign icon-on-right bigger-110"></i></a>
-                                <a class="btn btn-xs btn-danger" href="{{path('ApiDeleteRemote',{id:c.id})}}">Delete </a>
+                                <a class="btn btn-xs btn-success" href="{{path('ApiEditRemote',{objId:c.id})}}">Edit  <i class="icon-edit-sign icon-on-right bigger-110"></i></a>
+                                <a class="btn btn-xs btn-danger" href="{{path('ApiDeleteRemote',{objId:c.id})}}">Delete </a>
                             </td>
                         </tr>
                     {%endfor %}

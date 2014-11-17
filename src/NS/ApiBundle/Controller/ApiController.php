@@ -3,13 +3,8 @@
 namespace NS\ApiBundle\Controller;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use NS\SentinelBundle\Exceptions\NonExistentCase;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use FOS\RestBundle\Controller\Annotations as REST;
-use FOS\RestBundle\Util\Codes;
-use JMS\Serializer\SerializationContext;
 use FOS\RestBundle\Controller\FOSRestController;
 
 /**
@@ -58,9 +53,9 @@ class ApiController extends FOSRestController
     */
     public function testAction()
     {
-        return array('username'=>$this->getUser()->getUsername(),
-                          'roles'=>$this->getUser()->getRoles(),
-                          'hasToken'=>($this->get('security.context')->getToken())?'Yes':'No');
+        return array('username' => $this->getUser()->getUsername(),
+                     'roles'    => $this->getUser()->getRoles(),
+                     'hasToken' => ($this->get('security.context')->getToken())?'Yes':'No');
 
     }
 }
