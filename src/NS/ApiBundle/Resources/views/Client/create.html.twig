@@ -13,7 +13,7 @@
         <div class="widget-box no-border">
             <div>
                 {%if route == 'ApiEditClient' %}
-                <form action="{{path('ApiEditClient',{id:id})}}" method="POST" novalidate>
+                <form action="{{path('ApiEditClient',{objId:id})}}" method="POST" novalidate>
                 {%else%}
                 <form action="{{path('ApiCreateClient')}}" method="POST" novalidate>
                 {%endif%}

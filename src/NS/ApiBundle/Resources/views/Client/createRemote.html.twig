@@ -14,7 +14,7 @@
         <div class="widget-box no-border">
             <div>
             {%if route == 'ApiEditRemote' %}
-                <form action="{{path('ApiEditRemote',{id:id})}}" method="POST" novalidate>
+                <form action="{{path('ApiEditRemote',{objId:id})}}" method="POST" novalidate>
             {%else%}
                 <form action="{{path('ApiCreateRemote')}}" method="POST" novalidate>
             {%endif%}
