@@ -25,3 +25,6 @@ who.yml
 bin
 web/ace
 *xliff
+*.rpm
+*.xlxs
+*.ppt
