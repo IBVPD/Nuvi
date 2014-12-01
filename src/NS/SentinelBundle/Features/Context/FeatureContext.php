@@ -5,8 +5,6 @@ namespace NS\SentinelBundle\Features\Context;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Behat\Symfony2Extension\Context\KernelAwareInterface;
 use Behat\MinkExtension\Context\MinkContext;
-use Behat\Behat\Exception\PendingException;
-use Behat\Gherkin\Node\TableNode;
 use Behat\Behat\Context\Step\When;
 use Behat\Mink\Exception\UnsupportedDriverActionException;
 use \Behat\Symfony2Extension\Driver\KernelDriver;
@@ -125,27 +123,27 @@ class FeatureContext extends MinkContext //MinkContext if you want to test web
         $container   = $this->kernel->getContainer();
         $formFactory = $container->get('form.factory');
 
-        $user = $container->get('security.context')->getToken()->getUser();
-        $form = $formFactory->create('create_ibd');
-        $view = $form->createView();
+        $user    = $container->get('security.context')->getToken()->getUser();
+        $ibdForm = $formFactory->create('create_ibd');
+        $ibdView = $ibdForm->createView();
 
         if($arg1 == 0)
-            \PHPUnit_Framework_Assert::assertFalse($form->has('site'),"Form has Site field: ".$user->getName());
+            \PHPUnit_Framework_Assert::assertFalse($ibdForm->has('site'), "Form has Site field: " . $user->getName());
         else
         {
-            \PHPUnit_Framework_Assert::assertTrue($form->has('site'),"Form has Site field ".$user->getName());
-            \PHPUnit_Framework_Assert::assertCount(intval($arg1),$view['site']->vars['choices'],"$arg1 was passed in ".$user->getName());
+            \PHPUnit_Framework_Assert::assertTrue($ibdForm->has('site'), "Form has Site field " . $user->getName());
+            \PHPUnit_Framework_Assert::assertCount(intval($arg1), $ibdView['site']->vars['choices'], "$arg1 was passed in " . $user->getName());
         }
 
-        $form = $formFactory->create('create_rotavirus');
-        $view = $form->createView();
+        $rotaForm = $formFactory->create('create_rotavirus');
+        $rotaView = $rotaForm->createView();
 
         if($arg1 == 0)
-            \PHPUnit_Framework_Assert::assertFalse($form->has('site'),"Form has Site field".$user->getName());
+            \PHPUnit_Framework_Assert::assertFalse($rotaForm->has('site'), "Form has Site field" . $user->getName());
         else
         {
-            \PHPUnit_Framework_Assert::assertTrue($form->has('site'),"Form has Site field ".$user->getName());
-            \PHPUnit_Framework_Assert::assertCount(intval($arg1),$view['site']->vars['choices'],"$arg1 was passed in ".$user->getName());
+            \PHPUnit_Framework_Assert::assertTrue($rotaForm->has('site'), "Form has Site field " . $user->getName());
+            \PHPUnit_Framework_Assert::assertCount(intval($arg1), $rotaView['site']->vars['choices'], "$arg1 was passed in " . $user->getName());
         }
     }
 
@@ -157,27 +155,27 @@ class FeatureContext extends MinkContext //MinkContext if you want to test web
         $container   = $this->kernel->getContainer();
         $formFactory = $container->get('form.factory');
 
-        $user = $container->get('security.context')->getToken()->getUser();
-        $form = $formFactory->create('create_ibd');
-        $view = $form->createView();
+        $user    = $container->get('security.context')->getToken()->getUser();
+        $ibdForm = $formFactory->create('create_ibd');
+        $ibdView = $ibdForm->createView();
 
         if($arg1 == 0)
-            \PHPUnit_Framework_Assert::assertFalse($form->has('type'),"IBD Form has types field ".$user->getName());
+            \PHPUnit_Framework_Assert::assertFalse($ibdForm->has('type'), "IBD Form has types field " . $user->getName());
         else
         {
-            \PHPUnit_Framework_Assert::assertTrue($form->has('type'),"IBD Form has types ".$user->getName());
-            \PHPUnit_Framework_Assert::assertCount(intval($arg1),$view['type']->vars['choices'],"IBD Form $arg1 was passed in ".$user->getName());
+            \PHPUnit_Framework_Assert::assertTrue($ibdForm->has('type'), "IBD Form has types " . $user->getName());
+            \PHPUnit_Framework_Assert::assertCount(intval($arg1), $ibdView['type']->vars['choices'], "IBD Form $arg1 was passed in " . $user->getName());
         }
 
-        $form = $formFactory->create('create_rotavirus');
-        $view = $form->createView();
+        $rotaForm = $formFactory->create('create_rotavirus');
+        $rotaView = $rotaForm->createView();
 
         if($arg1 == 0)
-            \PHPUnit_Framework_Assert::assertFalse($form->has('type'),"Rota Form does not have type field ".$user->getName());
+            \PHPUnit_Framework_Assert::assertFalse($rotaForm->has('type'), "Rota Form does not have type field " . $user->getName());
         else
         {
-            \PHPUnit_Framework_Assert::assertTrue($form->has('type'),"Form has types ".$user->getName());
-            \PHPUnit_Framework_Assert::assertCount(intval($arg1),$view['type']->vars['choices'],"$arg1 was passed in ".$user->getName());
+            \PHPUnit_Framework_Assert::assertTrue($rotaForm->has('type'), "Form has types " . $user->getName());
+            \PHPUnit_Framework_Assert::assertCount(intval($arg1), $rotaView['type']->vars['choices'], "$arg1 was passed in " . $user->getName());
         }
     }
 }

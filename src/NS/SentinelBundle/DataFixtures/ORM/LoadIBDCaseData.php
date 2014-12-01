@@ -2,15 +2,16 @@
 
 namespace NS\SentinelBundle\DataFixtures\ORM;
 
-use \Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Doctrine\Common\Persistence\ObjectManager;
 use \Doctrine\Common\DataFixtures\AbstractFixture;
 use \Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use \Symfony\Component\DependencyInjection\ContainerInterface;
+use \Doctrine\Common\Persistence\ObjectManager;
 use \NS\SentinelBundle\Entity\IBD;
-use \NS\SentinelBundle\Form\Types\Gender;
-use \NS\SentinelBundle\Form\Types\Diagnosis;
 use \NS\SentinelBundle\Entity\Site;
+use \NS\SentinelBundle\Form\Types\Diagnosis;
+use \NS\SentinelBundle\Form\Types\Gender;
+use \NS\SentinelBundle\Form\Types\TripleChoice;
+use \Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use \Symfony\Component\DependencyInjection\ContainerInterface;
 
 class LoadIBDCaseData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
@@ -25,9 +26,9 @@ class LoadIBDCaseData extends AbstractFixture implements OrderedFixtureInterface
     {
         ini_set('memory_limit','768M');
 
-//        $done  = new TripleChoice(TripleChoice::YES);
-//        $nDone = new TripleChoice(TripleChoice::NO);
-        
+        $done  = new TripleChoice(TripleChoice::YES);
+        $nDone = new TripleChoice(TripleChoice::NO);
+
         $male  = new Gender(Gender::MALE);
         $fmale = new Gender(Gender::FEMALE);
         $dx[]  = new Diagnosis(Diagnosis::SUSPECTED_MENINGITIS);
@@ -48,8 +49,11 @@ class LoadIBDCaseData extends AbstractFixture implements OrderedFixtureInterface
                 $dob = $this->getRandomDate();
                 $m = new IBD();
                 $m->setDob($dob);
-                $m->setAdmDate($this->getRandomDate(null,$dob));
-                $m->setCsfCollected((($x % 3) == 0));
+                $m->setAdmDate($this->getRandomDate(null, $dob));
+                if ($x % 3)
+                    $m->setCsfCollected($done);
+                else
+                    $m->setCsfCollected($nDone);
 
                 $m->setGender(($x%4)?$fmale:$male);
                 $dxKey = array_rand($dx);

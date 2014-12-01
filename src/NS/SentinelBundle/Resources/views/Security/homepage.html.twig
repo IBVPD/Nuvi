@@ -151,6 +151,7 @@ $(window).load(function()
         c['chart'].draw(c['data'], c['options']);
     }
 
+{% if cResult.years is defined %}
     var c = new Array();
     c['element'] = document.getElementById('lab-results');
     if(c['element'])
@@ -172,6 +173,7 @@ $(window).load(function()
 
         c['chart'].draw(c['data'],c['options']);
     }
+{% endif %}
 });
     </script>
 {%endblock%}

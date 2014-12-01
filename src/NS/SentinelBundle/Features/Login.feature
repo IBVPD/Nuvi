@@ -28,9 +28,9 @@ Scenario Outline: A User with create rights can't create any kind of labs
       | site-seattle@noblet.ca | 1234567-seattle     | 1     | 0        | /en/ibd/ |
       | site-alberta@noblet.ca | 1234567-alberta     | 1     | 0        | /en/ibd/ |
       | site-shriner@noblet.ca | 1234567-shriner     | 2     | 0        | /en/ibd/ |
-      | ca-crrl@noblet.ca      | 1234567-ca-crrl     | 2     | 3        | /en/ibd/ |
+      | ca-crrl@noblet.ca      | 1234567-ca-crrl     | 3     | 3        | /en/ibd/ |
       | ca-clab@noblet.ca      | 1234567-ca-clab     | 2     | 3        | /en/ibd/ |
-      | ca-cnl@noblet.ca       | 1234567-ca-cnl      | 2     | 3        | /en/ibd/ |
+      | ca-cnl@noblet.ca       | 1234567-ca-cnl      | 3     | 3        | /en/ibd/ |
 
 @mink:symfony2
 Scenario Outline: A user cannot find cases outside their rights

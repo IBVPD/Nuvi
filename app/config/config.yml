@@ -60,6 +60,7 @@ doctrine:
         # path:     %database_path%
         types:
             TripleChoice: NS\SentinelBundle\Entity\Types\TripleChoice
+            AlternateTripleChoice: NS\SentinelBundle\Entity\Types\AlternateTripleChoice
             FourDoses: NS\SentinelBundle\Entity\Types\FourDoses
             Diagnosis: NS\SentinelBundle\Entity\Types\Diagnosis
             CXRResult: NS\SentinelBundle\Entity\Types\CXRResult
@@ -103,8 +104,10 @@ doctrine:
             OtherSpecimen: NS\SentinelBundle\Entity\Types\OtherSpecimen
             SurveillanceConducted: NS\SentinelBundle\Entity\Types\SurveillanceConducted
             IBDIntenseSupport: NS\SentinelBundle\Entity\Types\IBDIntenseSupport
+            SampleType: NS\SentinelBundle\Entity\Types\SampleType
         mapping_types:
             TripleChoice: TripleChoice
+            AlternateTripleChoice: AlternateTripleChoice
             FourDoses: FourDoses
             Diagnosis: Diagnosis
             CXRResult: CXRResult
@@ -148,6 +151,7 @@ doctrine:
             OtherSpecimen: OtherSpecimen
             SurveillanceConducted: SurveillanceConducted
             IBDIntenseSupport: IBDIntenseSupport
+            SampleType: SampleType
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true

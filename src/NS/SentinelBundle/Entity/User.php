@@ -101,6 +101,20 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
     /**
      * @var boolean
      *
+     * @ORM\Column(name="canCreateRRLLabs", type="boolean")
+     */
+    private $canCreateRRLLabs = false;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="canCreateNLLabs", type="boolean")
+     */
+    private $canCreateNLLabs = false;
+
+    /**
+     * @var boolean
+     *
      * @ORM\Column(name="isActive", type="boolean")
      */
     private $isActive = false;
@@ -314,7 +328,13 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
         if(in_array('ROLE_SITE',$roles))
             $this->setCanCreateCases(true);
 
-        if(in_array('ROLE_LAB',$roles))
+        if (in_array('ROLE_RRL_LAB', $roles))
+            $this->setCanCreateRRLLabs(true);
+
+        if (in_array('ROLE_NL_LAB', $roles))
+            $this->setCanCreateNLLabs(true);
+
+        if (in_array('ROLE_LAB', $roles))
             $this->setCanCreateLabs(true);
     }
 
@@ -336,6 +356,12 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
 
         if($this->canCreateLabs)
             $roles[] = 'ROLE_CAN_CREATE_LAB';
+
+        if ($this->canCreateRRLLabs)
+            $roles[] = 'ROLE_CAN_CREATE_RRL_LAB';
+
+        if ($this->canCreateNLLabs)
+            $roles[] = 'ROLE_CAN_CREATE_NL_LAB';
 
         return array_unique($roles);
     }
@@ -476,7 +502,7 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
 
     public function getCanCreate()
     {
-        return ($this->canCreateCases || $this->canCreateLabs);
+        return ($this->canCreateCases || $this->canCreateLabs || $this->canCreateRRLLabs || $this->canCreateNLLabs);
     }
 
     public function getCanCreateCases()
@@ -489,6 +515,16 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
         return $this->canCreateLabs;
     }
 
+    public function getCanCreateRRLLabs()
+    {
+        return $this->canCreateRRLLabs;
+    }
+
+    public function getCanCreateNLLabs()
+    {
+        return $this->canCreateNLLabs;
+    }
+
     public function setCanCreateCases($canCreateCases)
     {
         $this->canCreateCases = $canCreateCases;
@@ -498,6 +534,18 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
     public function setCanCreateLabs($canCreateLabs)
     {
         $this->canCreateLabs = $canCreateLabs;
+        return $this;
+    }
+
+    public function setCanCreateRRLLabs($canCreateRRLLabs)
+    {
+        $this->canCreateRRLLabs = $canCreateRRLLabs;
+        return $this;
+    }
+
+    public function setCanCreateNLLabs($canCreateNLLabs)
+    {
+        $this->canCreateNLLabs = $canCreateNLLabs;
         return $this;
     }
 

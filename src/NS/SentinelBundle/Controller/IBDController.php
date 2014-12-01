@@ -46,7 +46,7 @@ class IBDController extends Controller
 
         $securityContext = $this->get('security.context');
 
-        if($securityContext->isGranted('ROLE_SITE') || $securityContext->isGranted('ROLE_LAB'))
+        if ($securityContext->isGranted('ROLE_SITE') || $securityContext->isGranted('ROLE_LAB') || $securityContext->isGranted('ROLE_RRL_LAB') || $securityContext->isGranted('ROLE_NL_LAB'))
             $template = array('header_template'=>'NSSentinelBundle:IBD:indexSiteHeader.html.twig', 'row_template'=>'NSSentinelBundle:IBD:indexSiteRow.html.twig');
         else if($securityContext->isGranted('ROLE_COUNTRY'))
             $template = array('header_template'=>'NSSentinelBundle:IBD:indexCountryHeader.html.twig', 'row_template'=>'NSSentinelBundle:IBD:indexCountryRow.html.twig');
@@ -96,6 +96,30 @@ class IBDController extends Controller
                 case CreateRoles::BASE:
                     $res = 'ibdEdit';
                     break;
+                case CreateRoles::SITE:
+                    $res = 'ibdEdit';
+                    break;
+                case CreateRoles::RRL:
+                    /*
+                     * Only create a sitelab when this is a new case otherwise we're in an error condition
+                     * Meaning that a site lab has already been created but
+                     */
+                    if (!$case->getId() || ($case->getId() && !$case->hasSiteLab()))
+                    {
+                        $siteLab = new \NS\SentinelBundle\Entity\IBD\SiteLab();
+                        $siteLab->setSentToReferenceLab(true);
+                        $case->setSiteLab($siteLab);
+                    }
+                    $res = 'ibdRRLEdit';
+                    break;
+                case CreateRoles::NL:
+                    if (!$case->getId() || ($case->getId() && !$case->hasSiteLab()))
+                    {
+                        $siteLab = new \NS\SentinelBundle\Entity\IBD\SiteLab();
+                        $siteLab->setSentToNationalLab(true);
+                        $case->setSiteLab($siteLab);
+                    }
+                    $res = 'ibdNLEdit';
                 case CreateRoles::LAB:
                     $res = 'ibdLabEdit';
                     break;
@@ -123,6 +147,24 @@ class IBDController extends Controller
     }
 
     /**
+     * @Route("/rrl/edit/{id}",name="ibdRRLEdit",defaults={"id"=null})
+     * @Template("NSSentinelBundle:IBD:editBaseLab.html.twig")
+     */
+    public function editRRLAction(Request $request, $id = null)
+    {
+        return $this->edit($request, 'rrl', $id);
+    }
+
+    /**
+     * @Route("/nl/edit/{id}",name="ibdNLEdit",defaults={"id"=null})
+     * @Template("NSSentinelBundle:IBD:editBaseLab.html.twig")
+     */
+    public function editNLAction(Request $request, $id = null)
+    {
+        return $this->edit($request, 'nl', $id);
+    }
+
+    /**
      * @Route("/lab/edit/{id}",name="ibdLabEdit",defaults={"id"=null})
      * @Template()
      */
@@ -142,19 +184,29 @@ class IBDController extends Controller
 
     private function edit(Request $request, $type, $id = null)
     {
-        try 
+        try
         {
-            $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:IBD')->find($id): null;
-            switch($type)
+            switch ($type)
             {
                 case 'ibd':
-                    $form   = $this->createForm('ibd',$record);
+                    $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:IBD')->find($id) : null;
+                    $form   = $this->createForm('ibd', $record);
                     break;
                 case 'outcome':
-                    $form   = $this->createForm('ibd_outcome',$record);
+                    $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:IBD')->find($id) : null;
+                    $form   = $this->createForm('ibd_outcome', $record);
                     break;
                 case 'lab':
-                    $form   = $this->createForm('ibd_lab',$record);
+                    $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:IBD\SiteLab')->findOrCreateNew($id) : null;
+                    $form   = $this->createForm('ibd_lab', $record);
+                    break;
+                case 'rrl':
+                    $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:IBD\ReferenceLab')->findOrCreateNew($id) : null;
+                    $form   = $this->createForm('ibd_referencelab', $record);
+                    break;
+                case 'nl':
+                    $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:IBD\NationalLab')->findOrCreateNew($id) : null;
+                    $form   = $this->createForm('ibd_nationallab', $record);
                     break;
                 default:
                     throw new \Exception("Unknown type");
@@ -176,8 +228,8 @@ class IBDController extends Controller
 
                 $entityMgr->persist($record);
 
-//                if($type == 'lab')
-//                    $entityMgr->persist($record->getCase());
+                if ($type != 'ibd' && $type != 'outcome')
+                    $entityMgr->persist($record->getCase());
 
                 try
                 {

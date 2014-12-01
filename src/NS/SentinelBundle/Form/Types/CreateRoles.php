@@ -15,34 +15,40 @@ use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 class CreateRoles extends TranslatableArrayChoice implements TranslationContainerInterface
 {
     const BASE = 1;
-    const LAB  = 2;
+    const SITE = 2;
+    const RRL  = 3;
+    const NL   = 4;
 
     private $securityContext;
 
     protected $values = array(
-                                self::BASE => 'Case',
-                                self::LAB  => 'Lab',
-                             );
+        self::BASE => 'Case',
+        self::SITE => 'Site Lab',
+        self::RRL  => 'RRL',
+        self::NL   => 'NL',
+    );
 
     // Form AbstractType functions
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         parent::setDefaultOptions($resolver);
 
-        if($this->securityContext->getToken())
+        if ($this->securityContext->isGranted('ROLE_CAN_CREATE'))
         {
-            $user = $this->securityContext->getToken()->getUser();
-            if($user->getCanCreate())
-            {
-                $values = array();
-                if($user->getCanCreateCases())
-                    $values[self::BASE] = $this->values[self::BASE];
+            $values = array();
+            if ($this->securityContext->isGranted('ROLE_CAN_CREATE_CASE'))
+                $values[self::BASE] = $this->values[self::BASE];
 
-                if($user->getCanCreateLabs())
-                    $values[self::LAB] = $this->values[self::LAB];
+            if ($this->securityContext->isGranted('ROLE_CAN_CREATE_LAB'))
+                $values[self::SITE] = $this->values[self::SITE];
 
-                $this->values = $values;
-            }
+            if ($this->securityContext->isGranted('ROLE_CAN_CREATE_RRL_LAB'))
+                $values[self::RRL] = $this->values[self::RRL];
+
+            if ($this->securityContext->isGranted('ROLE_CAN_CREATE_NL_LAB'))
+                $values[self::NL] = $this->values[self::NL];
+
+            $this->values = $values;
         }
 
         $resolver->setDefaults(array(
