@@ -30,10 +30,6 @@
                         {{form_row(form.firstName)}}
                         {{form_row(form.lastName)}}
                         {{form_row(form.parentalName)}}
-
-                        {{form_row(form.gender)}}
-
-                        {{form_row(form.dobKnown)}}
                         {{form_row(form.dob)}}
                         {{form_row(form.dobYears)}}
                         {{form_row(form.dobMonths)}}
@@ -45,10 +41,6 @@
                         <div class="form-group">
                             <label for="ibd_id">{{'System Id'|trans}}</label>
                             <div class="input-group">{{id}}</div>
-                        </div>
-                        <div class="form-group">
-                            <label for="ibd_age">{{'Age In Months'|trans}}</label>
-                            <div class="input-group">{{form.vars.value.age}}</div>
                         </div>
                     </div>
                 </div>
@@ -101,35 +93,22 @@
             </div>
             
             <div id="specimen" class="tab-pane">
-                <h4 class="header smaller lighter">{{'CSF'|trans}}</h4>
                 <div class="row">
                     <div class="col-sm-6">
                         {{form_row(form.csfCollected)}}
                         {{form_row(form.csfCollectDateTime)}}
                         {{form_row(form.csfAppearance)}}
                     </div>
-                </div>
-                {% if form.pneuDiffBreathe is defined %}
-                    <h4 class="header smaller lighter">{{'Blood'|trans}}</h4>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            {{form_row(form.bloodCollected)}}
-                        </div>
-                    </div>
-                {%endif %}
-                <h4 class="header smaller lighter">{{'Other'|trans}}</h4>
-                <div class="row">
-                    <div class="col-sm-4">
-                        {{form_row(form.otherSpecimenCollected)}}
-                    </div>
-                    <div class="col-sm-4">
-                        {{form_row(form.otherSpecimenOther)}}
+                    <div class="col-sm-6">
+                    {% if form.pneuDiffBreathe is defined %}
+                        {{form_row(form.bloodCollected)}}
+                    {% endif %}
                     </div>
                 </div>
             </div>
 
             <div id="meningitis" class="tab-pane">
-                <h4 class="header smaller lighter">{{'Symptoms/signs related to the sickness'|trans}}</h4>
+                <h4>{{'Symptoms/signs related to the sickness'|trans}}</h4>
                 <div class="row">
                     <div class="col-sm-6">
                         {{form_row(form.menSeizures)}}
@@ -147,7 +126,7 @@
             </div>
             {%if form.pneuDiffBreathe is defined %}
             <div id="pneumonia" class="tab-pane">
-                <h4 class="header smaller lighter">{{'Symptoms/signs related to the sickness'|trans}}</h4>
+                <h4>{{'Symptoms/signs related to the sickness'|trans}}</h4>
                 <div class="row">
                     <div class="col-sm-6">
                         {{form_row(form.pneuDiffBreathe)}}

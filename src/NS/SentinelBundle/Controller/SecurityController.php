@@ -54,16 +54,17 @@ class SecurityController extends Controller
     public function homepageAction(Request $request)
     {
         $repo        = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:IBD");
-        $byCountry   = $repo->getByCountry();
+        $byCountry   = array(); //$repo->getByCountry();
         $bySite      = $repo->getBySite();
-        $byDiagnosis = $repo->getByDiagnosis();
+        $byDiagnosis = array(); //$repo->getByDiagnosis();
 
         $form        = $this->createForm('IBDFieldPopulationFilterType',null,array('site_type'=>'advanced'));
         $s           = $this->get('ns.sentinel.services.report');
 
-        $cResult     = $s->getCulturePositive($request,$form,'homepage');
+        $cResult = array(); //$s->getCulturePositive($request,$form,'homepage');
 
-        return array('byCountry' => $byCountry, 'bySite' => $bySite, 'byDiagnosis' => $byDiagnosis, 'cResult' => $cResult['results']);
+        return array('byCountry' => $byCountry, 'bySite' => $bySite, 'byDiagnosis' => $byDiagnosis,
+            'cResult' => array()); //$cResult['results']);
     }
 
     /**

@@ -2,14 +2,15 @@
 
 namespace NS\SentinelBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use NS\SentinelBundle\Interfaces\IdentityAssignmentInterface;
-use NS\SentinelBundle\Form\Types\CaseStatus;
-use NS\SentinelBundle\Form\Types\Gender;
-use NS\SentinelBundle\Form\Types\TripleChoice;
-
-use JMS\Serializer\Annotation\Groups;
+use \Doctrine\Common\Collections\ArrayCollection;
+use \Doctrine\Common\Collections\Collection;
+use \Doctrine\ORM\Mapping as ORM;
+use \JMS\Serializer\Annotation\Groups;
+use \NS\SentinelBundle\Form\Types\CaseStatus;
+use \NS\SentinelBundle\Form\Types\Gender;
+use \NS\SentinelBundle\Form\Types\TripleChoice;
+use \NS\SentinelBundle\Interfaces\IdentityAssignmentInterface;
+use \Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Description of BaseCase
@@ -111,30 +112,6 @@ abstract class BaseCase implements IdentityAssignmentInterface
     protected $admDate;
 
     /**
-     * @var Region $region
-     * @ORM\ManyToOne(targetEntity="NS\SentinelBundle\Entity\Region")
-     * @ORM\JoinColumn(nullable=false)
-     * @Groups({"api"})
-     */
-    protected $region;
-
-    /**
-     * @var Country $country
-     * @ORM\ManyToOne(targetEntity="NS\SentinelBundle\Entity\Country")
-     * @ORM\JoinColumn(nullable=false)
-     * @Groups({"api"})
-     */
-    protected $country;
-
-    /**
-     * @var Site $site
-     * @ORM\ManyToOne(targetEntity="NS\SentinelBundle\Entity\Site")
-     * @ORM\JoinColumn(nullable=false,referencedColumnName="code")
-     * @Groups({"api"})
-     */
-    protected $site;
-
-    /**
      * @var CaseStatus $status
      * @ORM\Column(name="status",type="CaseStatus")
      * @Groups({"api"})
@@ -155,11 +132,55 @@ abstract class BaseCase implements IdentityAssignmentInterface
      */
     protected $createdAt;
 
+    /**
+     * @var Region $region
+     * @ORM\ManyToOne(targetEntity="\NS\SentinelBundle\Entity\Region")
+     * @ORM\JoinColumn(nullable=false)
+     * @Groups({"api"})
+     */
+    protected $region;
+
+    /**
+     * @var Country $country
+     * @ORM\ManyToOne(targetEntity="\NS\SentinelBundle\Entity\Country")
+     * @ORM\JoinColumn(nullable=false)
+     * @Groups({"api"})
+     */
+    protected $country;
+
+    /**
+     * @var Site $site
+     * @ORM\ManyToOne(targetEntity="\NS\SentinelBundle\Entity\Site")
+     * @ORM\JoinColumn(nullable=false,referencedColumnName="code")
+     * @Groups({"api"})
+     */
+    protected $site;
+
+//     * @ORM\OneToMany(targetEntity="BaseLab", mappedBy="case")
+    protected $externalLabs;
+//     * @ORM\OneToOne(targetEntity="SiteLab", mappedBy="case")
+    protected $siteLab;
+    protected $referenceLab   = -1;
+    protected $nationalLab    = -1;
+    protected $siteLabClass   = null;
+    protected $referenceClass = null;
+    protected $nationalClass  = null;
+
     public function __construct()
     {
-        $this->status    = new CaseStatus(CaseStatus::OPEN);
-        $this->createdAt = new \DateTime();
-        $this->updatedAt = new \DateTime();
+        if (!is_string($this->nationalClass) || empty($this->nationalClass))
+            throw new \InvalidArgumentException("The NationalLab class is not set");
+
+        if (!is_string($this->referenceClass) || empty($this->referenceClass))
+            throw new \InvalidArgumentException("The ReferenceLab class is not set");
+
+        if (!is_string($this->siteLabClass) || empty($this->siteLabClass))
+            throw new \InvalidArgumentException("The SiteLab class is not set");
+
+        $this->externalLabs = new ArrayCollection();
+        $this->status       = new CaseStatus(CaseStatus::OPEN);
+        $this->createdAt    = new \DateTime();
+        $this->updatedAt    = new \DateTime();
     }
 
     public function __toString()
@@ -192,14 +213,14 @@ abstract class BaseCase implements IdentityAssignmentInterface
         else
             $year = date('y');
 
-        return sprintf("%s-%s-%d-%06d", $this->country->getCode(), $this->site->getCode(), date('y'), $id);
+        return sprintf("%s-%s-%d-%06d", $this->country->getCode(), $this->site->getCode(), $year, $id);
     }
 
     /**
      * Set region
      *
      * @param \NS\SentinelBundle\Entity\Region $region
-     * @return Meningitis
+     * @return BaseCase
      */
     public function setRegion(Region $region = null)
     {
@@ -222,7 +243,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
      * Set country
      *
      * @param \NS\SentinelBundle\Entity\Country $country
-     * @return Meningitis
+     * @return BaseCase
      */
     public function setCountry(Country $country = null)
     {
@@ -247,7 +268,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
      * Set site
      *
      * @param \NS\SentinelBundle\Entity\Site $site
-     * @return Meningitis
+     * @return BaseCase
      */
     public function setSite(Site $site = null)
     {
@@ -276,6 +297,148 @@ abstract class BaseCase implements IdentityAssignmentInterface
     public function setStatus(CaseStatus $status)
     {
         $this->status = $status;
+        return $this;
+    }
+
+    protected function _findLab($class)
+    {
+        foreach ($this->externalLabs as $l)
+        {
+            if ($l instanceof $class)
+                return $l;
+        }
+
+        return null;
+    }
+
+    protected function _findReferenceLab()
+    {
+        if (is_integer($this->referenceLab) && $this->referenceLab == -1)
+            $this->referenceLab = $this->_findLab($this->referenceClass);
+
+        return $this->referenceLab;
+    }
+
+    protected function _findNationalLab()
+    {
+        if (is_integer($this->nationalLab) && $this->nationalLab == -1)
+            $this->nationalLab = $this->_findLab($this->nationalClass);
+
+        return $this->nationalLab;
+    }
+
+    /**
+     * Add externalLabs
+     *
+     * @param  $externalLabs
+     * @return BaseCase
+     */
+    public function addExternalLab($externalLabs)
+    {
+        $this->externalLabs[] = $externalLabs;
+
+        return $this;
+    }
+
+    /**
+     * Remove externalLabs
+     *
+     * @param  $externalLabs
+     */
+    public function removeExternalLab($externalLabs)
+    {
+        $this->externalLabs->removeElement($externalLabs);
+    }
+
+    /**
+     * Get externalLabs
+     *
+     * @return Collection
+     */
+    public function getExternalLabs()
+    {
+        return $this->externalLabs;
+    }
+
+    /**
+     * Get ReferenceLab
+     *
+     * @return \NS\SentinelBundle\Entity\ReferenceLab
+     */
+    public function getReferenceLab()
+    {
+        return $this->_findReferenceLab();
+    }
+
+    public function hasReferenceLab()
+    {
+        $this->_findReferenceLab();
+
+        return ($this->referenceLab instanceof $this->referenceClass);
+    }
+
+    /**
+     * Get NationalLab
+     *
+     * @return \NS\SentinelBundle\Entity\NationalLab
+     */
+    public function getNationalLab()
+    {
+        return $this->_findNationalLab();
+    }
+
+    public function hasNationalLab()
+    {
+        $this->_findNationalLab();
+
+        return ($this->nationalLab instanceof $this->nationalClass);
+    }
+
+    /**
+     * Get sentToReferenceLab
+     *
+     * @return boolean
+     */
+    public function getSentToReferenceLab()
+    {
+        return ($this->siteLab) ? $this->siteLab->getSentToReferenceLab() : false;
+    }
+
+    /**
+     * Get sentToNationalLab
+     *
+     * @return boolean
+     */
+    public function getSentToNationalLab()
+    {
+        return ($this->siteLab) ? $this->siteLab->getSentToNationalLab() : false;
+    }
+
+    public function setReferenceClass($referenceClass)
+    {
+        $this->referenceClass = $referenceClass;
+        return $this;
+    }
+
+    public function setNationalClass($nationalClass)
+    {
+        $this->nationalClass = $nationalClass;
+        return $this;
+    }
+
+    public function hasSiteLab()
+    {
+        return ($this->siteLab instanceof $this->siteLabClass);
+    }
+
+    public function getSiteLab()
+    {
+        return $this->siteLab;
+    }
+
+    public function setSiteLab($siteLab)
+    {
+        $this->siteLab = $siteLab;
         return $this;
     }
 
@@ -358,7 +521,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
     abstract public function getIncompleteField();
     abstract public function getMinimumRequiredFields();
     abstract public function calculateResult();
-    abstract public function hasLab();
+
     /**
      * @ORM\PrePersist
      * @ORM\PreUpdate

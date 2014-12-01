@@ -1,10 +1,11 @@
 <?php
 
 namespace NS\SentinelBundle\Form\Types;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Security\Core\SecurityContext;
-use JMS\TranslationBundle\Translation\TranslationContainerInterface;
-use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
+
+use \Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use \Symfony\Component\Security\Core\SecurityContext;
+use \JMS\TranslationBundle\Translation\TranslationContainerInterface;
+use \NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 
 /**
  * Description of Role
@@ -19,6 +20,8 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
     const COUNTRY        = 2;
     const SITE           = 3;
     const LAB            = 4;
+    const RRL_LAB        = 5;
+    const NL_LAB         = 6;
     const REGION_API     = 10;
     const COUNTRY_API    = 11;
     const SITE_API       = 12;
@@ -27,30 +30,34 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
     const SITE_IMPORT    = 22;
 
     protected $values = array(
-                                self::REGION     => 'Region',
-                                self::COUNTRY    => 'Country',
-                                self::SITE       => 'Site',
-                                self::LAB        => 'Lab',
-                                self::REGION_API  => 'Region API',
-                                self::COUNTRY_API => 'Country API',
-                                self::SITE_API    => 'Site API',
-                                self::REGION_IMPORT  => 'Region Import/Export',
-                                self::COUNTRY_IMPORT => 'Country Import/Export',
-                                self::SITE_IMPORT    => 'Site Import/Export',
+        self::REGION         => 'Region',
+        self::COUNTRY        => 'Country',
+        self::SITE           => 'Site',
+        self::LAB            => 'Lab',
+        self::RRL_LAB        => 'RRL',
+        self::NL_LAB         => 'NL',
+        self::REGION_API     => 'Region API',
+        self::COUNTRY_API    => 'Country API',
+        self::SITE_API       => 'Site API',
+        self::REGION_IMPORT  => 'Region Import/Export',
+        self::COUNTRY_IMPORT => 'Country Import/Export',
+        self::SITE_IMPORT    => 'Site Import/Export',
                              );
 
     protected $rolemapping = array(
-                                'ROLE_REGION'   => self::REGION,
-                                'ROLE_COUNTRY'  => self::COUNTRY,
-                                'ROLE_SITE'     => self::SITE,
-                                'ROLE_LAB'      => self::LAB,
-                                'ROLE_REGION_API'  => self::REGION_API,
-                                'ROLE_COUNTRY_API' => self::COUNTRY_API,
-                                'ROLE_SITE_API'    => self::SITE_API,
-                                'ROLE_REGION_IMPORT'  => self::REGION_IMPORT,
-                                'ROLE_COUNTRY_IMPORT' => self::COUNTRY_IMPORT,
-                                'ROLE_SITE_IMPORT'    => self::SITE_IMPORT,
-                              );
+        'ROLE_REGION'         => self::REGION,
+        'ROLE_COUNTRY'        => self::COUNTRY,
+        'ROLE_SITE'           => self::SITE,
+        'ROLE_LAB'            => self::LAB,
+        'ROLE_RRL_LAB'        => self::RRL_LAB,
+        'ROLE_NL_LAB'         => self::NL_LAB,
+        'ROLE_REGION_API'     => self::REGION_API,
+        'ROLE_COUNTRY_API'    => self::COUNTRY_API,
+        'ROLE_SITE_API'       => self::SITE_API,
+        'ROLE_REGION_IMPORT'  => self::REGION_IMPORT,
+        'ROLE_COUNTRY_IMPORT' => self::COUNTRY_IMPORT,
+        'ROLE_SITE_IMPORT'    => self::SITE_IMPORT,
+        );
     
     public function __construct($value = null)
     {
@@ -82,6 +89,10 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
                 return array('ROLE_SITE');
             case self::LAB:
                 return array('ROLE_LAB');
+            case self::RRL_LAB:
+                return array('ROLE_RRL_LAB');
+            case self::NL_LAB:
+                return array('ROLE_NL_LAB');
             case self::REGION_API:
                 return array('ROLE_REGION_API');
             case self::COUNTRY_API:
@@ -112,6 +123,8 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
             case self::COUNTRY_API:
             case self::COUNTRY_IMPORT:
                 return $class."\Country";
+            case self::NL_LAB:
+            case self::RRL_LAB:
             case self::LAB:
             case self::SITE:
             case self::SITE_API:
