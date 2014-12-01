@@ -14,6 +14,7 @@ use \NS\SentinelBundle\Form\Types\Gender;
 use \NS\SentinelBundle\Form\Types\MeningitisVaccinationReceived;
 use \NS\SentinelBundle\Form\Types\MeningitisVaccinationType;
 use \NS\SentinelBundle\Form\Types\OtherSpecimen;
+use \NS\SentinelBundle\Form\Types\ThreeDoses;
 use \NS\SentinelBundle\Form\Types\TripleChoice;
 use \NS\SentinelBundle\Form\Types\VaccinationReceived;
 
@@ -226,7 +227,7 @@ class IBDCaseTest extends \PHPUnit_Framework_TestCase
         $d['setmeningMostRecentDose'] = new \DateTime();
         $data[]                       = array('data' => $d);
 
-        $doses = new \NS\SentinelBundle\Form\Types\ThreeDoses();
+        $doses = new ThreeDoses();
         foreach ($doses->getValues() as $x => $v)
         {
             //hibReceived + hibDoses
@@ -238,7 +239,7 @@ class IBDCaseTest extends \PHPUnit_Framework_TestCase
             //pcvReceived + pcvDoses
             $d                   = $complete;
             $d['setpcvReceived'] = new VaccinationReceived(VaccinationReceived::YES_CARD);
-            $d['setpcvDoses']    = new \NS\SentinelBundle\Form\Types\ThreeDoses($x);
+            $d['setpcvDoses']    = new ThreeDoses($x);
             $data[]              = array('data' => $d);
         }
 
