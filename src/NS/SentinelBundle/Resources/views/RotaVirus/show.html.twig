@@ -14,7 +14,7 @@
             <li><a data-toggle="tab" href="#clinical">{{'Clinical Data'|trans}}</a></li>
             <li><a data-toggle="tab" href="#collectionData">{{'Specimen Collection Data'|trans}}</a></li>
             <li><a data-toggle="tab" href="#labData">{{'Lab'|trans}}</a></li>
-            {% if record.hasLab %}
+            {% if record.hasSiteLab %}
             <li><a data-toggle="tab" href="#labData-genotype">{{'Genotype'|trans}}</a></li>
             {% endif %}
             <li><a data-toggle="tab" href="#outcome">{{'Outcome Data'|trans}}</a></li>
@@ -184,7 +184,8 @@
                     </tr>
                 </table>
             </div>
-            {%if record.hasLab %}
+            {%if record.hasSiteLab %}
+            {% set lab = record.lab %}
             <div id="labData" class="tab-pane">
                 <table class="table table-striped table-bordered table-hover">
                     <tr>
@@ -193,74 +194,74 @@
                     </tr>                    
                     <tr>
                         <th>{{'rotavirus-form.siteReceivedDate'|trans}}</th>
-                        <td>{%if record.siteReceivedDate %}{{record.siteReceivedDate|date}}{%endif%}</td>
+                        <td>{%if lab.siteReceivedDate %}{{lab.siteReceivedDate|date}}{%endif%}</td>
                     </tr>
                     <tr>
                         <th>{{'rotavirus-form.adequate'|trans}}</th>
-                        <td>{{record.adequate}}</td>
+                        <td>{{lab.adequate}}</td>
                     </tr>
                     <tr>
                         <th>{{'rotavirus-form.stored'|trans}}</th>
-                        <td>{{record.stored}}</td>
+                        <td>{{lab.stored}}</td>
                     </tr>
                     <tr>
                         <th>{{'rotavirus-form.elisaDone'|trans}}</th>
-                        <td>{{record.elisaDone}}</td>
+                        <td>{{lab.elisaDone}}</td>
                     </tr>
                     <tr>
                         <th>{{'rotavirus-form.elisaKit'|trans}}</th>
-                        <td>{{record.elisaKit}}</td>
+                        <td>{{lab.elisaKit}}</td>
                     </tr>
                     <tr>
                         <th>{{'rotavirus-form.elisaKitOther'|trans}}</th>
-                        <td>{{record.elisaKitOther}}</td>
+                        <td>{{lab.elisaKitOther}}</td>
                     </tr>
                     <tr>
                         <th>{{'rotavirus-form.elisaLoadNumber'|trans}}</th>
-                        <td>{{record.elisaLoadNumber}}</td>
+                        <td>{{lab.elisaLoadNumber}}</td>
                     </tr>
                     <tr>
                         <th>{{'rotavirus-form.elisaExpiryDate'|trans}}</th>
-                        <td>{%if record.elisaExpiryDate %}{{record.elisaExpiryDate|date}}{%endif%}</td>
+                        <td>{%if lab.elisaExpiryDate %}{{lab.elisaExpiryDate|date}}{%endif%}</td>
                     </tr>
 
                     <tr>
                         <th>{{'rotavirus-form.elisaTestDate'|trans}}</th>
-                        <td>{%if record.elisaTestDate %}{{record.elisaTestDate|date}}{%endif%}</td>
+                        <td>{%if lab.elisaTestDate %}{{lab.elisaTestDate|date}}{%endif%}</td>
                     </tr>
                     <tr>
                         <th>{{'rotavirus-form.elisaResult'|trans}}</th>
-                        <td>{{record.elisaResult}}</td>
+                        <td>{{lab.elisaResult}}</td>
                     </tr>
                     
                     <tr>
                         <th>{{'rotavirus-form.secondaryElisaDone'|trans}}</th>
-                        <td>{{record.secondaryElisaDone}}</td>
+                        <td>{{lab.secondaryElisaDone}}</td>
                     </tr>
                     <tr>
                         <th>{{'rotavirus-form.secondaryElisaKit'|trans}}</th>
-                        <td>{{record.secondaryElisaKit}}</td>
+                        <td>{{lab.secondaryElisaKit}}</td>
                     </tr>
                     <tr>
                         <th>{{'rotavirus-form.secondaryElisaKitOther'|trans}}</th>
-                        <td>{{record.secondaryElisaKitOther}}</td>
+                        <td>{{lab.secondaryElisaKitOther}}</td>
                     </tr>
                     <tr>
                         <th>{{'rotavirus-form.secondaryElisaLoadNumber'|trans}}</th>
-                        <td>{{record.secondaryElisaLoadNumber}}</td>
+                        <td>{{lab.secondaryElisaLoadNumber}}</td>
                     </tr>
                     <tr>
                         <th>{{'rotavirus-form.secondaryElisaExpiryDate'|trans}}</th>
-                        <td>{%if record.secondaryElisaExpiryDate %}{{record.secondaryElisaExpiryDate|date}}{%endif%}</td>
+                        <td>{%if lab.secondaryElisaExpiryDate %}{{lab.secondaryElisaExpiryDate|date}}{%endif%}</td>
                     </tr>
 
                     <tr>
                         <th>{{'rotavirus-form.secondaryElisaTestDate'|trans}}</th>
-                        <td>{%if record.secondaryElisaTestDate %}{{record.secondaryElisaTestDate|date}}{%endif%}</td>
+                        <td>{%if lab.secondaryElisaTestDate %}{{lab.secondaryElisaTestDate|date}}{%endif%}</td>
                     </tr>
                     <tr>
                         <th>{{'rotavirus-form.secondaryElisaResult'|trans}}</th>
-                        <td>{{record.secondaryElisaResult}}</td>
+                        <td>{{lab.secondaryElisaResult}}</td>
                     </tr>
                 </table>
             </div>

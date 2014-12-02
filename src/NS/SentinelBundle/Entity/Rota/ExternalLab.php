@@ -190,14 +190,13 @@ abstract class ExternalLab extends BaseExternalLab
     public function getMandatoryFields()
     {
         return array(
-                    'eiaResult',
-                    'genotypingDate',
-                    'genotypingResultg',
-                    'genotypingResultGSpecify',
-                    'genotypeResultP',
-                    'genotypeResultPSpecify',
-                    'pcrVp6Result',
-                    'genotypeResultSentToCountry',
-                    'genotypeResultSentToWHO',);
+            'genotypingDate',
+            'genotypingResultg',
+            'genotypingResultGSpecify',
+            'genotypeResultP',
+            'genotypeResultPSpecify',
+            'pcrVp6Result',
+            'genotypeResultSentToCountry',
+            'genotypeResultSentToWHO',);
     }
 }

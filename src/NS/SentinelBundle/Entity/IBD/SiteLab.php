@@ -49,7 +49,7 @@ class SiteLab extends BaseSiteLab
      * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\IBD",inversedBy="siteLab")
      * @ORM\JoinColumn(nullable=false,unique=true)
      */
-    private $case;
+    protected $case;
 
     //Case-based Laboratory Data
     /**
