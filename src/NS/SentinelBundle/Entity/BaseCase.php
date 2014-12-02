@@ -6,6 +6,7 @@ use \Doctrine\Common\Collections\ArrayCollection;
 use \Doctrine\Common\Collections\Collection;
 use \Doctrine\ORM\Mapping as ORM;
 use \JMS\Serializer\Annotation\Groups;
+use \JMS\Serializer\Annotation\Exclude;
 use \NS\SentinelBundle\Form\Types\CaseStatus;
 use \NS\SentinelBundle\Form\Types\Gender;
 use \NS\SentinelBundle\Form\Types\TripleChoice;
@@ -160,10 +161,30 @@ abstract class BaseCase implements IdentityAssignmentInterface
     protected $externalLabs;
 //     * @ORM\OneToOne(targetEntity="SiteLab", mappedBy="case")
     protected $siteLab;
-    protected $referenceLab   = -1;
-    protected $nationalLab    = -1;
+
+    /**
+     * @Exclude()
+     */
+    protected $referenceLab = -1;
+
+    /**
+     * @Exclude()
+     */
+    protected $nationalLab  = -1;
+
+    /**
+     * @Exclude()
+     */
     protected $siteLabClass   = null;
+
+    /**
+     * @Exclude()
+     */
     protected $referenceClass = null;
+
+    /**
+     * @Exclude()
+     */
     protected $nationalClass  = null;
 
     public function __construct()
@@ -335,6 +356,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
      */
     public function addExternalLab($externalLabs)
     {
+        $externalLabs->setCase($this);
         $this->externalLabs[] = $externalLabs;
 
         return $this;
@@ -358,6 +380,17 @@ abstract class BaseCase implements IdentityAssignmentInterface
     public function getExternalLabs()
     {
         return $this->externalLabs;
+    }
+
+    public function setExternalLabs($externalLabs)
+    {
+        $this->referenceLab = $this->nationalLab  = -1;
+        $this->externalLabs->clear();
+
+        foreach ($externalLabs as $externalLab)
+            $this->addExternalLab($externalLab);
+
+        return $this;
     }
 
     /**

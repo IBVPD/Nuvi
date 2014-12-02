@@ -6,6 +6,7 @@ use \Doctrine\ORM\Mapping as ORM;
 use \Gedmo\Mapping\Annotation as Gedmo;
 use \JMS\Serializer\Annotation\AccessType;
 use \JMS\Serializer\Annotation\Groups;
+use \JMS\Serializer\Annotation\Exclude;
 use \NS\SecurityBundle\Annotation\Secured;
 use \NS\SecurityBundle\Annotation\SecuredCondition;
 use \NS\SentinelBundle\Form\Types\CaseStatus;
@@ -41,7 +42,6 @@ use \Symfony\Component\Validator\ExecutionContextInterface;
  *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB","ROLE_RRL_LAB","ROLE_NL_LAB"},relation="site",class="NSSentinelBundle:Site"),
  *      })
  * @Assert\Callback(methods={"validate"})
- * @AccessType("public_method")
  * @SuppressWarnings(PHPMD.ShortVariable)
  */
 class IBD extends BaseCase
@@ -55,8 +55,20 @@ class IBD extends BaseCase
      * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\IBD\SiteLab", mappedBy="case",cascade={"persist"})
      */
     protected $siteLab;
-    protected $siteLabClass   = '\NS\SentinelBundle\Entity\IBD\SiteLab';
+
+    /**
+     * @Exclude()
+     */
+    protected $siteLabClass = '\NS\SentinelBundle\Entity\IBD\SiteLab';
+
+    /**
+     * @Exclude()
+     */
     protected $referenceClass = '\NS\SentinelBundle\Entity\IBD\ReferenceLab';
+
+    /**
+     * @Exclude()
+     */
     protected $nationalClass  = '\NS\SentinelBundle\Entity\IBD\NationalLab';
 // Case based demographic
     /**
@@ -645,9 +657,11 @@ class IBD extends BaseCase
         return $this;
     }
 
-    public function setOnsetDate(\DateTime $onsetDate)
+    public function setOnsetDate($onsetDate)
     {
-        $this->onsetDate = $onsetDate;
+        if ($onsetDate instanceof \DateTime)
+            $this->onsetDate = $onsetDate;
+
         return $this;
     }
 
@@ -801,9 +815,11 @@ class IBD extends BaseCase
         return $this;
     }
 
-    public function setHibMostRecentDose(\DateTime $hibMostRecentDose)
+    public function setHibMostRecentDose($hibMostRecentDose)
     {
-        $this->hibMostRecentDose = $hibMostRecentDose;
+        if ($hibMostRecentDose instanceof \DateTime)
+            $this->hibMostRecentDose = $hibMostRecentDose;
+
         return $this;
     }
 
@@ -825,9 +841,11 @@ class IBD extends BaseCase
         return $this;
     }
 
-    public function setPcvMostRecentDose(\DateTime $pcvMostRecentDose)
+    public function setPcvMostRecentDose($pcvMostRecentDose)
     {
-        $this->pcvMostRecentDose = $pcvMostRecentDose;
+        if ($pcvMostRecentDose instanceof \DateTime)
+            $this->pcvMostRecentDose = $pcvMostRecentDose;
+
         return $this;
     }
 
@@ -843,9 +861,11 @@ class IBD extends BaseCase
         return $this;
     }
 
-    public function setMeningMostRecentDose(\DateTime $meningMostRecentDose)
+    public function setMeningMostRecentDose($meningMostRecentDose)
     {
-        $this->meningMostRecentDose = $meningMostRecentDose;
+        if ($meningMostRecentDose instanceof \DateTime)
+            $this->meningMostRecentDose = $meningMostRecentDose;
+
         return $this;
     }
 
@@ -855,9 +875,11 @@ class IBD extends BaseCase
         return $this;
     }
 
-    public function setCsfCollectDateTime(\DateTime $csfCollectDateTime)
+    public function setCsfCollectDateTime($csfCollectDateTime)
     {
-        $this->csfCollectDateTime = $csfCollectDateTime;
+        if ($csfCollectDateTime instanceof \DateTime)
+            $this->csfCollectDateTime = $csfCollectDateTime;
+
         return $this;
     }
 

@@ -17,21 +17,54 @@ use \Symfony\Component\Form\FormInterface;
  */
 class CaseController extends FOSRestController
 {
-    private function getObject($class, $objId)
+    private function getObject($class, $objId, $method = 'find')
     {
         try
         {
-            return $this->get('ns.model_manager')->getRepository($class)->find($objId);
+            $repo = $this->get('ns.model_manager')->getRepository($class);
+            if (method_exists($repo, $method))
+                return call_user_func(array($repo, $method), $objId);
+            else
+                throw new NotFoundHttpException("System Error");
         }
-        catch(NonExistentCase $e)
+        catch (NonExistentCase $e)
         {
             throw new NotFoundHttpException("This case does not exist or you are not allowed to retrieve it");
         }
     }
 
-    protected function getCase($type,$objId)
+    protected function getLab($type, $objId)
     {
-        switch($type)
+        switch ($type)
+        {
+            case 'ibd_sitelab':
+                $class = 'NSSentinelBundle:IBD\SiteLab';
+                break;
+            case 'ibd_rrl':
+                $class = 'NSSentinelBundle:IBD\ReferenceLab';
+                break;
+            case 'ibd_nl':
+                $class = 'NSSentinelBundle:IBD\NationalLab';
+                break;
+            case 'rota_sitelab':
+                $class = 'NSSentinelBundle:Rota\SiteLab';
+                break;
+            case 'rota_rrl':
+                $class = 'NSSentinelBundle:Rota\ReferenceLab';
+                break;
+            case 'rota_nl':
+                $class = 'NSSentinelBundle:Rota\NationalLab';
+                break;
+            default:
+                throw new NotFoundHttpException("Invalid type: $type");
+        }
+
+        return $this->getObject($class, $objId, 'findOrCreateNew');
+    }
+
+    protected function getCase($type, $objId)
+    {
+        switch ($type)
         {
             case 'ibd':
                 $class = 'NSSentinelBundle:IBD';
@@ -50,7 +83,7 @@ class CaseController extends FOSRestController
     {
         $form->handleRequest($request);
 
-        if($form->isValid())
+        if ($form->isValid())
         {
             $entityMgr->persist($form->getData());
             $entityMgr->flush();
@@ -63,20 +96,22 @@ class CaseController extends FOSRestController
 
     protected function updateCase(Request $request, $objId, $method, $formName, $className, $route)
     {
-        $entityMgr    = $this->get('ns.model_manager');
-        $obj   = $entityMgr->getRepository($className)->find($objId);
-        $form  = $this->createForm($formName, $obj, array('method'=>$method));
+        $entityMgr = $this->get('ns.model_manager');
+        $obj       = $entityMgr->getRepository($className)->find($objId);
+        $form      = $this->createForm($formName, $obj, array('method' => $method));
 
-        return ($this->updateObject($request, $entityMgr, $form)) ? $this->view(null, Codes::HTTP_ACCEPTED,array('Location'=>$route)) : $this->view($form, Codes::HTTP_BAD_REQUEST);
+        return ($this->updateObject($request, $entityMgr, $form)) ? $this->view(null, Codes::HTTP_ACCEPTED, array(
+                'Location' => $route)) : $this->view($form, Codes::HTTP_BAD_REQUEST);
     }
 
     protected function updateLab(Request $request, $objId, $method, $formName, $className, $route)
     {
-        $entityMgr   = $this->get('ns.model_manager');
-        $obj  = $entityMgr->getRepository($className)->find($objId);
-        $form = $this->createForm($formName, $obj, array('method'=>$method));
+        $entityMgr = $this->get('ns.model_manager');
+        $obj       = $entityMgr->getRepository($className)->findOrCreateNew($objId);
+        $form      = $this->createForm($formName, $obj, array('method' => $method));
 
-        return ($this->updateObject($request, $entityMgr, $form)) ? $this->view(null, Codes::HTTP_ACCEPTED,array('Location'=>$route)) : $this->view($form, Codes::HTTP_BAD_REQUEST);
+        return ($this->updateObject($request, $entityMgr, $form)) ? $this->view(null, Codes::HTTP_ACCEPTED, array(
+                'Location' => $route)) : $this->view($form, Codes::HTTP_BAD_REQUEST);
     }
 
     protected function postCase(Request $request, $route, $formName, $className)
@@ -86,14 +121,14 @@ class CaseController extends FOSRestController
             $form = $this->createForm($formName);
             $form->handleRequest($request);
 
-            if(!$form->isValid())
+            if (!$form->isValid())
                 return $this->view($form, Codes::HTTP_BAD_REQUEST);
 
-            $entityMgr     = $this->get('ns.model_manager');
-            $caseId = $form->get('caseId')->getData();
-            $case   = $entityMgr->getRepository($className)->findOrCreate($caseId,null);
+            $entityMgr = $this->get('ns.model_manager');
+            $caseId    = $form->get('caseId')->getData();
+            $case      = $entityMgr->getRepository($className)->findOrCreate($caseId, null);
 
-            if(!$case->getId())
+            if (!$case->getId())
             {
                 $site = ($form->has('site')) ? $form->get('site')->getData() : $this->get('ns.sentinel.sites')->getSite();
                 $case->setSite($site);
@@ -106,7 +141,8 @@ class CaseController extends FOSRestController
         }
         catch (\Exception $e)
         {
-            return array('exception'=>$e->getMessage());
+            return array('exception' => $e->getMessage());
         }
     }
+
 }

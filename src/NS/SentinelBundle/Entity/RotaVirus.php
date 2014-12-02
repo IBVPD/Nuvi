@@ -2,27 +2,20 @@
 
 namespace NS\SentinelBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
-use NS\SentinelBundle\Form\Types\TripleChoice;
-use NS\SentinelBundle\Form\Types\DischargeOutcome;
-use NS\SentinelBundle\Form\Types\RotavirusVaccinationReceived;
-use NS\SentinelBundle\Form\Types\RotavirusVaccinationType;
-use NS\SentinelBundle\Form\Types\Dehydration;
-use NS\SentinelBundle\Form\Types\Rehydration;
-use NS\SentinelBundle\Form\Types\ElisaResult;
-use NS\SentinelBundle\Form\Types\ElisaKit;
-use NS\SentinelBundle\Form\Types\GenotypeResultG;
-use NS\SentinelBundle\Form\Types\GenotypeResultP;
-use NS\SentinelBundle\Form\Types\ThreeDoses;
-use NS\SentinelBundle\Form\Types\RotavirusDischargeOutcome;
-
-use Gedmo\Mapping\Annotation as Gedmo;
-use NS\SecurityBundle\Annotation\Secured;
-use NS\SecurityBundle\Annotation\SecuredCondition;
-
-use JMS\Serializer\Annotation\Groups;
-use JMS\Serializer\Annotation\AccessType;
+use \Doctrine\ORM\Mapping as ORM;
+use \NS\SentinelBundle\Form\Types\TripleChoice;
+use \NS\SentinelBundle\Form\Types\RotavirusVaccinationReceived;
+use \NS\SentinelBundle\Form\Types\RotavirusVaccinationType;
+use \NS\SentinelBundle\Form\Types\Dehydration;
+use \NS\SentinelBundle\Form\Types\Rehydration;
+use \NS\SentinelBundle\Form\Types\ThreeDoses;
+use \NS\SentinelBundle\Form\Types\RotavirusDischargeOutcome;
+use \Gedmo\Mapping\Annotation as Gedmo;
+use \NS\SecurityBundle\Annotation\Secured;
+use \NS\SecurityBundle\Annotation\SecuredCondition;
+use \JMS\Serializer\Annotation\Groups;
+use \JMS\Serializer\Annotation\AccessType;
+use \JMS\Serializer\Annotation\Exclude;
 
 /**
  * Description of RotaVirus
@@ -35,7 +28,6 @@ use JMS\Serializer\Annotation\AccessType;
  *      @SecuredCondition(roles={"ROLE_COUNTRY"},relation="country",class="NSSentinelBundle:Country"),
  *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB","ROLE_RRL_LAB","ROLE_NL_LAB"},relation="site",class="NSSentinelBundle:Site"),
  *      })
- * @AccessType("public_method")
  * @SuppressWarnings(PHPMD.ShortVariable)
  */
 class RotaVirus extends BaseCase
@@ -50,8 +42,19 @@ class RotaVirus extends BaseCase
      * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\Rota\SiteLab", mappedBy="case",cascade={"persist"})
      */
     protected $siteLab;
+
+    /**
+     * @Exclude()
+     */
     protected $siteLabClass   = '\NS\SentinelBundle\Entity\Rota\SiteLab';
+    /**
+     * @Exclude()
+     */
     protected $referenceClass = '\NS\SentinelBundle\Entity\Rota\ReferenceLab';
+
+    /**
+     * @Exclude()
+     */
     protected $nationalClass  = '\NS\SentinelBundle\Entity\Rota\NationalLab';
 
 //ii. Case-based Demographic Data
