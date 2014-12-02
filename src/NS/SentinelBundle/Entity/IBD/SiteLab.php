@@ -184,34 +184,6 @@ class SiteLab extends BaseSiteLab
     private $csfPcrOther;
 
     /**
-     * @var DateTime $rrlCsfDate
-     * @ORM\Column(name="rrlCsfDate",type="date",nullable=true)
-     * @Assert\Date
-     */
-    private $rrlCsfDate;
-
-    /**
-     * @var DateTime $rrlIsoDate
-     * @ORM\Column(name="rrlIsoDate",type="date",nullable=true)
-     * @Assert\Date
-     */
-    private $rrlIsolDate;
-
-    /**
-     * @var DateTime $rrlIsolBloodDate
-     * @ORM\Column(name="rrlIsolBloodDate",type="date",nullable=true)
-     * @Assert\Date
-     */
-    private $rrlIsolBloodDate;
-
-    /**
-     * @var DateTime $rrlBrothDate
-     * @ORM\Column(name="rrlBrothDate",type="date",nullable=true)
-     * @Assert\Date
-     */
-    private $rrlBrothDate;
-
-    /**
      * @var TripleChoice $csfStore
      * @ORM\Column(name="csfStore",type="TripleChoice",nullable=true)
      */
@@ -222,12 +194,6 @@ class SiteLab extends BaseSiteLab
      * @ORM\Column(name="isolStore",type="TripleChoice",nullable=true)
      */
     private $isolStore;
-
-    /**
-     * @var string $rrlName
-     * @ORM\Column(name="rrlName",type="string",nullable=true)
-     */
-    private $rrlName;
 
     /**
      * @var SpnSerotype $spnSerotype
@@ -514,26 +480,6 @@ class SiteLab extends BaseSiteLab
         return $this->csfPcrOther;
     }
 
-    public function getRrlCsfDate()
-    {
-        return $this->rrlCsfDate;
-    }
-
-    public function getRrlIsolDate()
-    {
-        return $this->rrlIsolDate;
-    }
-
-    public function getRrlIsolBloodDate()
-    {
-        return $this->rrlIsolBloodDate;
-    }
-
-    public function getRrlBrothDate()
-    {
-        return $this->rrlBrothDate;
-    }
-
     public function getCsfStore()
     {
         return $this->csfStore;
@@ -542,11 +488,6 @@ class SiteLab extends BaseSiteLab
     public function getIsolStore()
     {
         return $this->isolStore;
-    }
-
-    public function getRrlName()
-    {
-        return $this->rrlName;
     }
 
     public function getSpnSerotype()
@@ -825,30 +766,6 @@ class SiteLab extends BaseSiteLab
         return $this;
     }
 
-    public function setRrlCsfDate($rrlCsfDate)
-    {
-        $this->rrlCsfDate = $rrlCsfDate;
-        return $this;
-    }
-
-    public function setRrlIsolDate($rrlIsolDate)
-    {
-        $this->rrlIsolDate = $rrlIsolDate;
-        return $this;
-    }
-
-    public function setRrlIsolBloodDate($rrlIsolBloodDate)
-    {
-        $this->rrlIsolBloodDate = $rrlIsolBloodDate;
-        return $this;
-    }
-
-    public function setRrlBrothDate($rrlBrothDate)
-    {
-        $this->rrlBrothDate = $rrlBrothDate;
-        return $this;
-    }
-
     public function setCsfStore(TripleChoice $csfStore)
     {
         $this->csfStore = $csfStore;
@@ -858,12 +775,6 @@ class SiteLab extends BaseSiteLab
     public function setIsolStore(TripleChoice $isolStore)
     {
         $this->isolStore = $isolStore;
-        return $this;
-    }
-
-    public function setRrlName($rrlName)
-    {
-        $this->rrlName = $rrlName;
         return $this;
     }
 
@@ -1072,15 +983,11 @@ class SiteLab extends BaseSiteLab
                     'csfBinaxDone',
                     'csfLatDone',
                     'csfPcrDone',
-                    'rrlCsfDate',
-                    'rrlIsolDate',
                     'csfStore',
                     'isolStore',
                     'bloodCultDone',
                     'bloodGramDone',
                     'bloodPcrDone',
-                    'rrlBrothDate',
-                    'rrlIsolBloodDate',
                     'otherCultDone',
                     'spnSerotype',
                     'hiSerotype',
