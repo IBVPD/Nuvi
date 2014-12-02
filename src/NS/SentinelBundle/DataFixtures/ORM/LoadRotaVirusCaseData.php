@@ -41,15 +41,17 @@ class LoadRotaVirusCaseData extends AbstractFixture implements OrderedFixtureInt
         $t     = $this->getReference('site-toronto');
         $mx    = $this->getReference('site-mexico');
         $sites = array(8=>$a,7=>$s,4=>$t,2=>$mx);
+        $before = new \DateTime("2015-01-01");
+        $after  = new \DateTime("2014-01-01");
 
         foreach($sites as $num=>$site)
         {
             for($x = 0; $x < $num; $x++)
             {
-                $dob = $this->getRandomDate();
+                $dob = $this->getRandomDate(null, $after);
                 $m = new RotaVirus();
                 $m->setDob($dob);
-                $m->setAdmDate($this->getRandomDate(null,$dob));
+                $m->setAdmDate($this->getRandomDate($before, $dob));
                 $m->setGender(($x%3)?$fmale:$male);
                 $m->setCaseId($this->getCaseId($site,$x));
                 $m->setSite($site);

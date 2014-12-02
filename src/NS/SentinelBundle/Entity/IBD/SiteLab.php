@@ -22,6 +22,7 @@ use \NS\UtilBundle\Form\Types\ArrayChoice;
 use \Symfony\Component\Validator\Constraints as Assert;
 use \Symfony\Component\Validator\Constraints\DateTime;
 use \Symfony\Component\Validator\ExecutionContextInterface;
+use \JMS\Serializer\Annotation\Groups;
 
 /**
  * Description of SiteLab
@@ -38,6 +39,7 @@ use \Symfony\Component\Validator\ExecutionContextInterface;
  */
 class SiteLab extends BaseSiteLab
 {
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -50,24 +52,26 @@ class SiteLab extends BaseSiteLab
      * @ORM\JoinColumn(nullable=false,unique=true)
      */
     protected $case;
-
     //Case-based Laboratory Data
     /**
      * @var DateTime $csfLabDateTime
      * @ORM\Column(name="csfLabDateTime",type="datetime",nullable=true)
      * @Assert\DateTime
+     * @Groups({"api"})
      */
     private $csfLabDateTime;
 
     /**
      * @var string $csfId
      * @ORM\Column(name="csfId",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $csfId;
 
     /**
      * @var string $bloodId
      * @ORM\Column(name="bloodId",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodId;
 
@@ -75,6 +79,7 @@ class SiteLab extends BaseSiteLab
      * @var boolean $csfWcc
      * @ORM\Column(name="csfWcc", type="integer",nullable=true)
      * @Assert\Range(min=0,max=9999,minMessage="You cannot have a negative white blood cell count",maxMessage="Invalid value")
+     * @Groups({"api"})
      */
     private $csfWcc;
 
@@ -82,7 +87,7 @@ class SiteLab extends BaseSiteLab
      * @var boolean $csfGlucose
      * @ORM\Column(name="csfGlucose", type="integer",nullable=true)
      * @Assert\GreaterThanOrEqual(value=0,message="Invalid value - value must be greater than 0")
-     *
+     * @Groups({"api"})
      */
     private $csfGlucose;
 
@@ -90,144 +95,168 @@ class SiteLab extends BaseSiteLab
      * @var boolean $csfProtein
      * @ORM\Column(name="csfProtein", type="integer",nullable=true)
      * @Assert\GreaterThanOrEqual(value=0,message="Invalid value - value must be greater than 0")
+     * @Groups({"api"})
      */
     private $csfProtein;
 
     /**
      * @var TripleChoice $csfCultDone
      * @ORM\Column(name="csfCultDone",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $csfCultDone;
 
     /**
      * @var TripleChoice $csfGramDone
      * @ORM\Column(name="csfGramDone",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $csfGramDone;
 
     /**
      * @var TripleChoice $csfBinaxDone
      * @ORM\Column(name="csfBinaxDone",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $csfBinaxDone;
 
     /**
      * @var TripleChoice $csfLatDone
      * @ORM\Column(name="csfLatDone",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $csfLatDone;
 
     /**
      * @var TripleChoice $csfPcrDone
      * @ORM\Column(name="csfPcrDone",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $csfPcrDone;
 
     /**
      * @var CultureResult $csfCultResult
      * @ORM\Column(name="csfCultResult",type="CultureResult",nullable=true)
+     * @Groups({"api"})
      */
     private $csfCultResult;
 
     /**
      * @var string $csfCultOther
      * @ORM\Column(name="csfCultOther",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $csfCultOther;
 
     /**
      * @var GramStain
      * @ORM\Column(name="csfGramResult",type="GramStain",nullable=true)
+     * @Groups({"api"})
      */
     private $csfGramResult;
 
     /**
      * @var GramStainOrganism $csfGramResultOrganism
      * @ORM\Column(name="csfGramResultOrganism",type="GramStainOrganism",nullable=true)
+     * @Groups({"api"})
      */
     private $csfGramResultOrganism;
 
     /**
      * @var string $csfGramOther
      * @ORM\Column(name="csfGramOther",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $csfGramOther;
 
     /**
      * @var BinaxResult
      * @ORM\Column(name="csfBinaxResult",type="BinaxResult",nullable=true)
+     * @Groups({"api"})
      */
     private $csfBinaxResult;
 
     /**
      * @var LatResult
      * @ORM\Column(name="csfLatResult",type="LatResult",nullable=true)
+     * @Groups({"api"})
      */
     private $csfLatResult;
 
     /**
      * @var string
      * @ORM\Column(name="csfLatOther",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $csfLatOther;
 
     /**
      * @var PCRResult
      * @ORM\Column(name="csfPcrResult",type="PCRResult",nullable=true)
+     * @Groups({"api"})
      */
     private $csfPcrResult;
 
     /**
      * @var string $csfPcrOther
      * @ORM\Column(name="csfPcrOther",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $csfPcrOther;
 
     /**
      * @var TripleChoice $csfStore
      * @ORM\Column(name="csfStore",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $csfStore;
 
     /**
      * @var TripleChoice $csfStore
      * @ORM\Column(name="isolStore",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $isolStore;
 
     /**
      * @var SpnSerotype $spnSerotype
      * @ORM\Column(name="spnSerotype",type="SpnSerotype",nullable=true)
+     * @Groups({"api"})
      */
     private $spnSerotype;
 
     /**
      * @var string $spnSerotypeOther
      * @ORM\Column(name="spnSerotypeOther",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $spnSerotypeOther;
 
     /**
      * @var HiSerotype $hiSerotyoe
      * @ORM\Column(name="hiSerotyoe",type="HiSerotype",nullable=true)
+     * @Groups({"api"})
      */
     private $hiSerotype;
 
     /**
      * @var string $hiSerotypeOther
      * @ORM\Column(name="hiSerotypeOther",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $hiSerotypeOther;
 
     /**
      * @var NmSerogroup $nmSerogroup
      * @ORM\Column(name="nmSerogroup",type="NmSerogroup",nullable=true)
+     * @Groups({"api"})
      */
     private $nmSerogroup;
 
     /**
      * @var string $nmSerogroupOther
      * @ORM\Column(name="nmSerogroupOther",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $nmSerogroupOther;
 
@@ -237,102 +266,119 @@ class SiteLab extends BaseSiteLab
     /**
      * @var TripleChoice $bloodCultDone
      * @ORM\Column(name="bloodCultDone",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodCultDone;
 
     /**
      * @var TripleChoice $bloodGramDone
      * @ORM\Column(name="bloodGramDone",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodGramDone;
 
     /**
      * @var TripleChoice $bloodPcrDone
      * @ORM\Column(name="bloodPcrDone",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodPcrDone;
 
     /**
      * @var TripleChoice $otherCultDone
      * @ORM\Column(name="otherCultDone",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $otherCultDone;
 
     /**
      * @var TripleChoice $otherTestDone
      * @ORM\Column(name="otherTestDone",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
      */
     private $otherTestDone;
 
     /**
      * @var string $otherTest
      * @ORM\Column(name="otherTest",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $otherTest;
 
     /**
      * @var CultureResult
      * @ORM\Column(name="bloodCultResult",type="CultureResult",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodCultResult;
 
     /**
      * @var string
      * @ORM\Column(name="bloodCultOther",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodCultOther;
 
     /**
      * @var GramStain
      * @ORM\Column(name="bloodGramResult",type="GramStain",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodGramResult;
 
     /**
      * @var GramStainOrganism $bloodGramResultOrganism
      * @ORM\Column(name="bloodGramResultOrganism",type="GramStainOrganism",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodGramResultOrganism;
 
     /**
      * @var string $bloodGramOther
      * @ORM\Column(name="bloodGramOther",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodGramOther;
 
     /**
      * @var PCRResult
      * @ORM\Column(name="bloodPcrResult",type="PCRResult",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodPcrResult;
 
     /**
      * @var string $bloodPcrOther
      * @ORM\Column(name="bloodPcrOther",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $bloodPcrOther;
 
     /**
      * @var CultureResult
      * @ORM\Column(name="otherCultResult",type="CultureResult",nullable=true)
+     * @Groups({"api"})
      */
     private $otherCultResult;
 
     /**
      * @var string
      * @ORM\Column(name="otherCultOther",type="string",nullable=true)
+     * @Groups({"api"})
      */
     private $otherCultOther;
 
     /**
      * @var DateTime $updatedAt
      * @ORM\Column(name="updatedAt",type="datetime")
+     * @Groups({"api"})
      */
     private $updatedAt;
 
     /**
      * @var CaseStatus $status
      * @ORM\Column(name="status",type="CaseStatus")
+     * @Groups({"api"})
      */
     private $status;
 
@@ -901,56 +947,56 @@ class SiteLab extends BaseSiteLab
 
     public function validate(ExecutionContextInterface $context)
     {
-        if($this->csfCultDone && $this->csfCultDone->equal(TripleChoice::YES) && !$this->csfCultResult)
-            $context->addViolationAt('csfCultDone',"form.validation.meningitis-sitelab-csfCult-was-done-without-result");
+        if ($this->csfCultDone && $this->csfCultDone->equal(TripleChoice::YES) && !$this->csfCultResult)
+            $context->addViolationAt('csfCultDone', "form.validation.meningitis-sitelab-csfCult-was-done-without-result");
 
         if ($this->csfCultDone && $this->csfCultDone->equal(TripleChoice::YES) && $this->csfCultResult && $this->csfCultResult->equal(CultureResult::OTHER) && empty($this->csfCultOther))
-            $context->addViolationAt('csfCultDone',"form.validation.meningitis-sitelab-csfCult-was-done-without-result-other");
+            $context->addViolationAt('csfCultDone', "form.validation.meningitis-sitelab-csfCult-was-done-without-result-other");
 
-        if($this->csfBinaxDone && $this->csfBinaxDone->equal(TripleChoice::YES) && !$this->csfBinaxResult)
-            $context->addViolationAt('csfBinaxDone',"form.validation.meningitis-sitelab-csfBinax-was-done-without-result");
+        if ($this->csfBinaxDone && $this->csfBinaxDone->equal(TripleChoice::YES) && !$this->csfBinaxResult)
+            $context->addViolationAt('csfBinaxDone', "form.validation.meningitis-sitelab-csfBinax-was-done-without-result");
 
-        if($this->csfLatDone && $this->csfLatDone->equal(TripleChoice::YES) && !$this->csfLatResult)
-            $context->addViolationAt('csfLatDone',"form.validation.meningitis-sitelab-csfLat-was-done-without-result");
+        if ($this->csfLatDone && $this->csfLatDone->equal(TripleChoice::YES) && !$this->csfLatResult)
+            $context->addViolationAt('csfLatDone', "form.validation.meningitis-sitelab-csfLat-was-done-without-result");
 
-        if($this->csfLatDone && $this->csfLatDone->equal(TripleChoice::YES) && $this->csfLatResult && $this->csfLatResult->equal(LatResult::OTHER) && empty($this->csfLatOther))
-            $context->addViolationAt('csfLatDone',"form.validation.meningitis-sitelab-csfLat-was-done-without-result-other");
+        if ($this->csfLatDone && $this->csfLatDone->equal(TripleChoice::YES) && $this->csfLatResult && $this->csfLatResult->equal(LatResult::OTHER) && empty($this->csfLatOther))
+            $context->addViolationAt('csfLatDone', "form.validation.meningitis-sitelab-csfLat-was-done-without-result-other");
 
-        if($this->csfPcrDone && $this->csfPcrDone->equal(TripleChoice::YES) && !$this->csfPcrResult)
-            $context->addViolationAt('csfPcrDone',"form.validation.meningitis-sitelab-csfPcr-was-done-without-result");
+        if ($this->csfPcrDone && $this->csfPcrDone->equal(TripleChoice::YES) && !$this->csfPcrResult)
+            $context->addViolationAt('csfPcrDone', "form.validation.meningitis-sitelab-csfPcr-was-done-without-result");
 
-        if($this->csfPcrDone && $this->csfPcrDone->equal(TripleChoice::YES) && $this->csfPcrResult && $this->csfPcrResult->equal(PCRResult::OTHER) && empty($this->csfPcrOther))
-            $context->addViolationAt('csfPcrDone',"form.validation.meningitis-sitelab-csfPcr-was-done-without-result");
+        if ($this->csfPcrDone && $this->csfPcrDone->equal(TripleChoice::YES) && $this->csfPcrResult && $this->csfPcrResult->equal(PCRResult::OTHER) && empty($this->csfPcrOther))
+            $context->addViolationAt('csfPcrDone', "form.validation.meningitis-sitelab-csfPcr-was-done-without-result");
 
-        if($this->spnSerotype && $this->spnSerotype->equal(SpnSerotype::OTHER) && (!$this->spnSerotypeOther || empty($this->spnSerotypeOther)))
-            $context->addViolationAt('spnSerotype',"form.validation.meningitis-sitelab-spnSerotype-other-without-data");
+        if ($this->spnSerotype && $this->spnSerotype->equal(SpnSerotype::OTHER) && (!$this->spnSerotypeOther || empty($this->spnSerotypeOther)))
+            $context->addViolationAt('spnSerotype', "form.validation.meningitis-sitelab-spnSerotype-other-without-data");
 
-        if($this->hiSerotype && $this->hiSerotype->equal(HiSerotype::OTHER) && (!$this->hiSerotypeOther || empty($this->hiSerotypeOther)))
-            $context->addViolationAt('hiSerotype',"form.validation.meningitis-sitelab-hiSerotype-other-without-data");
+        if ($this->hiSerotype && $this->hiSerotype->equal(HiSerotype::OTHER) && (!$this->hiSerotypeOther || empty($this->hiSerotypeOther)))
+            $context->addViolationAt('hiSerotype', "form.validation.meningitis-sitelab-hiSerotype-other-without-data");
 
-        if($this->nmSerogroup && $this->nmSerogroup->equal(NmSerogroup::OTHER) && (!$this->nmSerogroupOther || empty($this->nmSerogroupOther)))
-            $context->addViolationAt('nmSerogroup',"form.validation.meningitis-sitelab-nmSerogroup-other-without-data");
+        if ($this->nmSerogroup && $this->nmSerogroup->equal(NmSerogroup::OTHER) && (!$this->nmSerogroupOther || empty($this->nmSerogroupOther)))
+            $context->addViolationAt('nmSerogroup', "form.validation.meningitis-sitelab-nmSerogroup-other-without-data");
 
-        if($this->bloodCultDone && $this->bloodCultDone->equal(TripleChoice::YES) && !$this->bloodCultResult)
-            $context->addViolationAt('csfCultDone',"form.validation.meningitis-sitelab-bloodCult-was-done-without-result");
+        if ($this->bloodCultDone && $this->bloodCultDone->equal(TripleChoice::YES) && !$this->bloodCultResult)
+            $context->addViolationAt('csfCultDone', "form.validation.meningitis-sitelab-bloodCult-was-done-without-result");
 
         if ($this->bloodCultDone && $this->bloodCultDone->equal(TripleChoice::YES) && $this->bloodCultResult && $this->bloodCultResult->equal(CultureResult::OTHER) && empty($this->bloodCultOther))
-            $context->addViolationAt('bloodCultDone',"form.validation.meningitis-sitelab-bloodCult-was-done-without-result");
+            $context->addViolationAt('bloodCultDone', "form.validation.meningitis-sitelab-bloodCult-was-done-without-result");
 
-        if($this->otherCultDone && $this->otherCultDone->equal(TripleChoice::YES) && !$this->otherCultResult)
-            $context->addViolationAt('csfCultDone',"form.validation.meningitis-sitelab-otherCult-was-done-without-result");
+        if ($this->otherCultDone && $this->otherCultDone->equal(TripleChoice::YES) && !$this->otherCultResult)
+            $context->addViolationAt('csfCultDone', "form.validation.meningitis-sitelab-otherCult-was-done-without-result");
 
         if ($this->otherCultDone && $this->otherCultDone->equal(TripleChoice::YES) && $this->otherCultResult && $this->otherCultResult->equal(CultureResult::OTHER) && empty($this->otherCultOther))
-            $context->addViolationAt('otherCultDone',"form.validation.meningitis-sitelab-otherCult-was-done-without-result");
+            $context->addViolationAt('otherCultDone', "form.validation.meningitis-sitelab-otherCult-was-done-without-result");
     }
 
     private function _calculateStatus()
     {
         // Don't adjust cancelled or deleted records
-        if($this->status->getValue() >= CaseStatus::CANCELLED)
+        if ($this->status->getValue() >= CaseStatus::CANCELLED)
             return;
 
-        if($this->getIncompleteField())
+        if ($this->getIncompleteField())
             $this->status->setValue(CaseStatus::OPEN);
         else
             $this->status->setValue(CaseStatus::COMPLETE);
@@ -960,7 +1006,7 @@ class SiteLab extends BaseSiteLab
 
     public function getIncompleteField()
     {
-        foreach($this->getMinimumRequiredFields() as $field)
+        foreach ($this->getMinimumRequiredFields() as $field)
         {
             if (is_null($this->$field) || empty($this->$field) || ($this->$field instanceof ArrayChoice && $this->$field->equal(-1)))
                 return $field;
@@ -974,24 +1020,25 @@ class SiteLab extends BaseSiteLab
     public function getMinimumRequiredFields()
     {
         return array(
-                    'csfLabDateTime',
-                    'csfWcc',
-                    'csfGlucose',
-                    'csfProtein',
-                    'csfCultDone',
-                    'csfGramDone',
-                    'csfBinaxDone',
-                    'csfLatDone',
-                    'csfPcrDone',
-                    'csfStore',
-                    'isolStore',
-                    'bloodCultDone',
-                    'bloodGramDone',
-                    'bloodPcrDone',
-                    'otherCultDone',
-                    'spnSerotype',
-                    'hiSerotype',
-                    'nmSerogroup',
-                    );
+            'csfLabDateTime',
+            'csfWcc',
+            'csfGlucose',
+            'csfProtein',
+            'csfCultDone',
+            'csfGramDone',
+            'csfBinaxDone',
+            'csfLatDone',
+            'csfPcrDone',
+            'csfStore',
+            'isolStore',
+            'bloodCultDone',
+            'bloodGramDone',
+            'bloodPcrDone',
+            'otherCultDone',
+            'spnSerotype',
+            'hiSerotype',
+            'nmSerogroup',
+        );
     }
+
 }

@@ -26,7 +26,7 @@ class IBDControllerTest extends WebTestCase
         $this->loadFixtures($classes);
 
         $user   = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:User')->findOneBy(array('email'=>'ca-api@noblet.ca'));
-        $route  = $this->getUrl('nsApiIbdGetCase',array('id'=>'CA-ALBCHLD-14-000001'));
+        $route = $this->getUrl('nsApiIbdGetCase', array('objId' => 'CA-ALBCHLD-14-000001'));
 
         $client = $this->createApiClient($user);
         $client->request('GET', $route);
@@ -43,9 +43,9 @@ class IBDControllerTest extends WebTestCase
 
     public function testPatchCase()
     {
-        $id     = 'CA-ALBCHLD-14-000001';
-        $user   = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:User')->findOneBy(array('email'=>'ca-api@noblet.ca'));
-        $route  = $this->getUrl('nsApiIbdPatchCase',array('id'=>$id));
+        $id    = 'CA-ALBCHLD-14-000001';
+        $user  = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:User')->findOneBy(array('email'=>'ca-api@noblet.ca'));
+        $route = $this->getUrl('nsApiIbdPatchCase', array('objId' => $id));
 
         $client = $this->createApiClient($user);
         $client->request('PATCH',$route,array(),array(),array(),'{"ibd":{"lastName":"Fabien"}}');
@@ -54,7 +54,7 @@ class IBDControllerTest extends WebTestCase
         $this->assertJsonResponse($response, 202);
         $this->assertTrue($response->headers->has('Location'), "We have a location header");
 
-        $gRoute = $this->getUrl('nsApiIbdGetCase',array('id'=>$id));
+        $gRoute = $this->getUrl('nsApiIbdGetCase', array('objId' => $id));
         $this->assertEquals($response->headers->get('Location'), $gRoute, "The location matches the expected response");
 
         $case = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:IBD')->find($id);
@@ -88,10 +88,10 @@ class IBDControllerTest extends WebTestCase
     {
         $id     = 'CA-ALBCHLD-14-000001';
         $user   = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:User')->findOneBy(array('email'=>'ca-api@noblet.ca'));
-        $route  = $this->getUrl('nsApiIbdPatchLab',array('id'=>$id));
+        $route = $this->getUrl('nsApiIbdPatchLab', array('objId' => $id));
 
         $client = $this->createApiClient($user);
-        $client->request('PATCH',$route,array(),array(),array(),'{"ibd_lab":{"csfSiteId":"ANewCaseId","csfGramDone":0,"csfCultDone":0}}');
+        $client->request('PATCH',$route,array(),array(),array(),'{"ibd_lab":{"csfId":"ANewCaseId","csfGramDone":0,"csfCultDone":0}}');
 
         $response = $client->getResponse();
         $this->assertJsonResponse($response, 202);
@@ -102,15 +102,15 @@ class IBDControllerTest extends WebTestCase
         $this->assertJsonResponse($response,200);
         $decoded = json_decode($response->getContent(),true);
 
-        $this->assertArrayHasKey('CsfSiteId', $decoded);
-        $this->assertEquals("ANewCaseId",$decoded['CsfSiteId']);
+        $this->assertArrayHasKey('CsfId', $decoded);
+        $this->assertEquals("ANewCaseId",$decoded['CsfId']);
     }
 
     public function testPutCase()
     {
         $id     = 'CA-ALBCHLD-14-000001';
         $user   = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:User')->findOneBy(array('email'=>'ca-api@noblet.ca'));
-        $route  = $this->getUrl('nsApiIbdPutCase',array('id'=>$id));
+        $route = $this->getUrl('nsApiIbdPutCase', array('objId' => $id));
 
         $client = $this->createApiClient($user);
         $client->request('PUT',$route,array(),array(),array(),'{"ibd":{"lastName":"Fabien","caseId":"12"}}');
@@ -119,7 +119,7 @@ class IBDControllerTest extends WebTestCase
         $this->assertJsonResponse($response, 202);
         $this->assertTrue($response->headers->has('Location'), "We have a location header");
 
-        $gRoute = $this->getUrl('nsApiIbdGetCase',array('id'=>$id));
+        $gRoute = $this->getUrl('nsApiIbdGetCase', array('objId' => $id));
         $this->assertEquals($response->headers->get('Location'), $gRoute, "The location matches the expected response");
 
         $case = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:IBD')->find($id);
@@ -131,7 +131,7 @@ class IBDControllerTest extends WebTestCase
     {
         $id     = 'CA-ALBCHLD-14-000001';
         $user   = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:User')->findOneBy(array('email'=>'ca-api@noblet.ca'));
-        $route  = $this->getUrl('nsApiIbdPutCase',array('id'=>$id));
+        $route = $this->getUrl('nsApiIbdPutCase', array('objId' => $id));
 
         $client = $this->createApiClient($user);
         $client->request('PUT',$route,array(),array(),array(),'{"rotavirus":{"lastName":"Fabien"');

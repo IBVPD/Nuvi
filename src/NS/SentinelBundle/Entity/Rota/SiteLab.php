@@ -44,7 +44,8 @@ class SiteLab extends BaseSiteLab
     // Global Variables
     /**
      * @var \DateTime $received
-     * @ORM\Column(name="received",type="datetime")
+     * @ORM\Column(name="received",type="datetime",nullable=true)
+     * @Groups({"api"})
      */
     private $received;
 

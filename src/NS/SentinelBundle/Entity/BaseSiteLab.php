@@ -2,7 +2,8 @@
 
 namespace NS\SentinelBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use \Doctrine\ORM\Mapping as ORM;
+use \JMS\Serializer\Annotation\Groups;
 
 /**
  * Description of BaseSiteLab
@@ -16,13 +17,17 @@ class BaseSiteLab
 
     /**
      * @var boolean $sentToReferenceLab
+     * 
      * @ORM\Column(name="sentToReferenceLab",type="boolean")
+     * @Groups({"api"})
      */
     protected $sentToReferenceLab = false;
 
     /**
      * @var boolean $sentToNationalLab
      * @ORM\Column(name="sentToNationalLab",type="boolean")
+     * 
+     * @Groups({"api"})
      */
     protected $sentToNationalLab = false;
 

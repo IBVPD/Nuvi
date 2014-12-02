@@ -15,6 +15,7 @@ use FOS\RestBundle\Controller\Annotations as REST;
  */
 class IBDController extends CaseController
 {
+
     /**
      * Retrieves an IBD case by id. Most fields are returned, however some fields
      * if empty are excluded from the result set. For example the firstName and
@@ -38,10 +39,10 @@ class IBDController extends CaseController
      *
      * @throws NotFoundHttpException when case not exist
      * @throws NonExistentCase when case doees not exist
-    */
+     */
     public function getIbdCaseAction($objId)
     {
-        return $this->getCase('ibd',$objId);
+        return $this->getCase('ibd', $objId);
     }
 
     /**
@@ -67,10 +68,10 @@ class IBDController extends CaseController
      *
      * @throws NotFoundHttpException when case not exist
      * @throws NonExistentCase when case doees not exist
-    */
+     */
     public function getIbdCaseLabAction($objId)
     {
-        return $this->getCase('ibd',$objId);
+        return $this->getLab('ibd_sitelab', $objId);
     }
 
     /**
@@ -98,7 +99,7 @@ class IBDController extends CaseController
     {
         $route = $this->generateUrl('nsApiIbdGetCase', array('objId' => $objId));
 
-        return $this->updateCase($request, $objId, 'PATCH', 'ibd', 'NSSentinelBundle:IBD',$route);
+        return $this->updateCase($request, $objId, 'PATCH', 'ibd', 'NSSentinelBundle:IBD', $route);
     }
 
     /**
@@ -123,7 +124,7 @@ class IBDController extends CaseController
     {
         $route = $this->generateUrl('nsApiIbdGetLab', array('objId' => $objId));
 
-        return $this->updateLab($request, $objId, 'PATCH','ibd_lab', 'NSSentinelBundle:IBD', $route);
+        return $this->updateLab($request, $objId, 'PATCH', 'ibd_lab', 'NSSentinelBundle:IBD\SiteLab', $route);
     }
 
     /**
@@ -203,7 +204,7 @@ class IBDController extends CaseController
     {
         $route = $this->generateUrl('nsApiIbdGetLab', array('objId' => $objId));
 
-        return $this->updateLab($request, $objId, 'PUT','ibd_lab', 'NSSentinelBundle:IBD', $route);
+        return $this->updateLab($request, $objId, 'PUT', 'ibd_lab', 'NSSentinelBundle:IBD\SiteLab', $route);
     }
 
     /**
@@ -230,7 +231,7 @@ class IBDController extends CaseController
     {
         $route = $this->generateUrl('nsApiIbdGetCase', array('objId' => $objId));
 
-        return $this->updateCase($request, $objId, 'PUT', 'ibd_outcome', 'NSSentinelBundle:IBD',$route);
+        return $this->updateCase($request, $objId, 'PUT', 'ibd_outcome', 'NSSentinelBundle:IBD', $route);
     }
 
     /**
@@ -253,9 +254,10 @@ class IBDController extends CaseController
      *
      * @param Request $request the request object
      *
-    */
+     */
     public function postIbdCaseAction(Request $request)
     {
-        return $this->postCase($request,'nsApiIbdGetCase','create_ibd','NSSentinelBundle:IBD');
+        return $this->postCase($request, 'nsApiIbdGetCase', 'create_ibd', 'NSSentinelBundle:IBD');
     }
+
 }

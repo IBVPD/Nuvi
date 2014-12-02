@@ -67,7 +67,7 @@ class RotaVirusController extends CaseController
     */
     public function getRotaCaseLabAction($objId)
     {
-        return $this->getCase('rota',$objId);
+        return $this->getLab('rota_sitelab', $objId);
     }
 
     /**
@@ -92,7 +92,7 @@ class RotaVirusController extends CaseController
      */
     public function patchRotaCaseAction(Request $request, $objId)
     {
-        $route = $this->generateUrl('nsApiRotaGetCase', array('id' => $objId));
+        $route = $this->generateUrl('nsApiRotaGetCase', array('objId' => $objId));
 
         return $this->updateCase($request, $objId, 'PATCH', 'rotavirus', 'NSSentinelBundle:RotaVirus', $route);
     }
@@ -117,9 +117,9 @@ class RotaVirusController extends CaseController
      */
     public function patchRotaLabAction(Request $request, $objId)
     {
-        $route = $this->generateUrl('nsApiRotaGetLab', array('id' => $objId));
+        $route = $this->generateUrl('nsApiRotaGetLab', array('objId' => $objId));
 
-        return $this->updateLab($request, $objId, 'PATCH', 'rotavirus_lab', 'NSSentinelBundle:RotaVirus', $route);
+        return $this->updateLab($request, $objId, 'PATCH', 'rotavirus_lab', 'NSSentinelBundle:Rota\SiteLab', $route);
     }
 
     /**
@@ -144,7 +144,7 @@ class RotaVirusController extends CaseController
      */
     public function patchRotaOutcomeAction(Request $request, $objId)
     {
-        $route = $this->generateUrl('nsApiRotaGetCase', array('id' => $objId));
+        $route = $this->generateUrl('nsApiRotaGetCase', array('objId' => $objId));
 
         return $this->updateCase($request, $objId, 'PATCH', 'rotavirus_outcome', 'NSSentinelBundle:RotaVirus', $route);
     }
@@ -171,7 +171,7 @@ class RotaVirusController extends CaseController
      */
     public function putRotaCaseAction(Request $request, $objId)
     {
-        $route = $this->generateUrl('nsApiRotaGetCase', array('id' => $objId));
+        $route = $this->generateUrl('nsApiRotaGetCase', array('objId' => $objId));
 
         return $this->updateCase($request, $objId, 'PUT', 'rotavirus', 'NSSentinelBundle:RotaVirus', $route);
     }
@@ -197,9 +197,9 @@ class RotaVirusController extends CaseController
      */
     public function putRotaLabAction(Request $request, $objId)
     {
-        $route = $this->generateUrl('nsApiRotaGetLab', array('id' => $objId));
+        $route = $this->generateUrl('nsApiRotaGetLab', array('objId' => $objId));
 
-        return $this->updateLab($request, $objId, 'PUT', 'rotavirus_lab', 'NSSentinelBundle:RotaVirus', $route);
+        return $this->updateLab($request, $objId, 'PUT', 'rotavirus_lab', 'NSSentinelBundle:Rota\SiteLab', $route);
     }
 
     /**
@@ -224,7 +224,7 @@ class RotaVirusController extends CaseController
      */
     public function putRotaOutcomeAction(Request $request, $objId)
     {
-        $route = $this->generateUrl('nsApiRotaGetCase', array('id' => $objId));
+        $route = $this->generateUrl('nsApiRotaGetCase', array('objId' => $objId));
 
         return $this->updateCase($request, $objId, 'PUT', 'rotavirus_outcome', 'NSSentinelBundle:RotaVirus', $route);
     }

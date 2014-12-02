@@ -2,7 +2,7 @@
 
 namespace NS\ApiBundle\Tests;
 
-use Liip\FunctionalTestBundle\Test\WebTestCase as BaseWebTestCase;
+use \Liip\FunctionalTestBundle\Test\WebTestCase as BaseWebTestCase;
 use \Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -28,7 +28,7 @@ class WebTestCase extends BaseWebTestCase
         return static::createClient($options, $server);
     }
 
-    public function getAccessToken(\Symfony\Component\Security\Core\User\UserInterface $user)
+    public function getAccessToken(UserInterface $user)
     {
         $uname = $user->getUsername();
         if(isset($this->accessToken[$uname]) && $this->accessToken[$uname]['expires_at'] < time())
