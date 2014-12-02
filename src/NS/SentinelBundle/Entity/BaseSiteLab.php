@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class BaseSiteLab
 {
+    protected $case;
+
     /**
      * @var boolean $sentToReferenceLab
      * @ORM\Column(name="sentToReferenceLab",type="boolean")
@@ -45,6 +47,17 @@ class BaseSiteLab
     public function getSentToReferenceLab()
     {
         return $this->sentToReferenceLab;
+    }
+
+    public function getCase()
+    {
+        return $this->case;
+    }
+
+    public function setCase($case)
+    {
+        $this->case = $case;
+        return $this;
     }
 
     /**

@@ -41,15 +41,17 @@ class LoadIBDCaseData extends AbstractFixture implements OrderedFixtureInterface
         $t     = $this->getReference('site-toronto');
         $mx    = $this->getReference('site-mexico');
         $sites = array(3=>$a,5=>$s,7=>$t,8=>$mx);
-        
+
+        $before = new \DateTime("2015-01-01");
+        $after  = new \DateTime("2014-01-01");
         foreach($sites as $num => $site)
         {
             for($x = 0; $x < $num; $x++)
             {
-                $dob = $this->getRandomDate();
+                $dob = $this->getRandomDate(null, $after);
                 $m = new IBD();
                 $m->setDob($dob);
-                $m->setAdmDate($this->getRandomDate(null, $dob));
+                $m->setAdmDate($this->getRandomDate($before, $after));
                 if ($x % 3)
                     $m->setCsfCollected($done);
                 else
@@ -90,7 +92,7 @@ class LoadIBDCaseData extends AbstractFixture implements OrderedFixtureInterface
             while($years[$yKey] > $byear)
                 $yKey = array_rand($years);
         }
-        
+
         if($after != null)
         {
             $ayear = $after->format('Y');
