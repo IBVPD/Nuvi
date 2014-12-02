@@ -51,7 +51,7 @@ class LoadIBDCaseData extends AbstractFixture implements OrderedFixtureInterface
                 $dob = $this->getRandomDate(null, $after);
                 $m = new IBD();
                 $m->setDob($dob);
-                $m->setAdmDate($this->getRandomDate($before, $after));
+                $m->setAdmDate($this->getRandomDate($before, $dob));
                 if ($x % 3)
                     $m->setCsfCollected($done);
                 else
