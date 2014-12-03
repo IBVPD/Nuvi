@@ -71,6 +71,64 @@ class RotaVirusController extends CaseController
     }
 
     /**
+     * Retrieves an RotaVirus case RRL by id. Most fields are returned, however some fields
+     * if empty are excluded from the result set. For example the firstName and
+     * lastName fields are only returned when there is data in them.
+     *
+     * @ApiDoc(
+     *   resource = true,
+     *   description = "Gets a case RRL for a given id",
+     *   statusCodes = {
+     *     200 = "Returned when successful",
+     *     404 = "Returned when the case is not found"
+     *   }
+     * )
+     *
+     * @REST\View(templateVar="case",serializerGroups={"api"})
+     * @REST\Get("/case/{objId}/rrl",name="nsApiRotaGetRRL")
+     *
+     * @param string  $objId      the object id
+     *
+     * @return array
+     *
+     * @throws NotFoundHttpException when case not exist
+     * @throws NonExistentCase when case doees not exist
+     */
+    public function getRotaCaseRRLAction($objId)
+    {
+        return $this->getLab('rota_referencelab', $objId);
+    }
+
+    /**
+     * Retrieves an RotaVirus case NL by id. Most fields are returned, however some fields
+     * if empty are excluded from the result set. For example the firstName and
+     * lastName fields are only returned when there is data in them.
+     *
+     * @ApiDoc(
+     *   resource = true,
+     *   description = "Gets a case NL for a given id",
+     *   statusCodes = {
+     *     200 = "Returned when successful",
+     *     404 = "Returned when the case is not found"
+     *   }
+     * )
+     *
+     * @REST\View(templateVar="case",serializerGroups={"api"})
+     * @REST\Get("/case/{objId}/nl",name="nsApiRotaGetNL")
+     *
+     * @param string  $objId      the object id
+     *
+     * @return array
+     *
+     * @throws NotFoundHttpException when case not exist
+     * @throws NonExistentCase when case doees not exist
+     */
+    public function getRotaCaseNLAction($objId)
+    {
+        return $this->getLab('rota_nationallab', $objId);
+    }
+
+    /**
      * Patch RotaVirus Case
      *
      * @ApiDoc(
@@ -120,6 +178,56 @@ class RotaVirusController extends CaseController
         $route = $this->generateUrl('nsApiRotaGetLab', array('objId' => $objId));
 
         return $this->updateLab($request, $objId, 'PATCH', 'rotavirus_lab', 'NSSentinelBundle:Rota\SiteLab', $route);
+    }
+
+    /**
+     * Patch RotaVirus RRL Data,
+     *
+     * @ApiDoc(
+     *  resource = true,
+     *  description = "Updates a RotaVirus RRL data",
+     *  input = "rotavirus_referencelab",
+     *  statusCodes={
+     *         202 = "Returned when successful",
+     *         406 = "Returned when there is an issue with the form data"
+     *         }
+     * )
+     * @REST\Patch("/case/{objId}/rrl",name="nsApiRotaPatchRRL")
+     * @REST\View()
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param string $objId
+     */
+    public function patchRotaRRLAction(Request $request, $objId)
+    {
+        $route = $this->generateUrl('nsApiRotaGetRRL', array('objId' => $objId));
+
+        return $this->updateLab($request, $objId, 'PATCH', 'rotavirus_referencelab', 'NSSentinelBundle:Rota\ReferenceLab', $route);
+    }
+
+    /**
+     * Patch RotaVirus NL Data,
+     *
+     * @ApiDoc(
+     *  resource = true,
+     *  description = "Updates a RotaVirus NL data",
+     *  input = "rotavirus_nationallab",
+     *  statusCodes={
+     *         202 = "Returned when successful",
+     *         406 = "Returned when there is an issue with the form data"
+     *         }
+     * )
+     * @REST\Patch("/case/{objId}/nl",name="nsApiRotaPatchNL")
+     * @REST\View()
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param string $objId
+     */
+    public function patchRotaNLAction(Request $request, $objId)
+    {
+        $route = $this->generateUrl('nsApiRotaGetNL', array('objId' => $objId));
+
+        return $this->updateLab($request, $objId, 'PATCH', 'rotavirus_nationallab', 'NSSentinelBundle:Rota\NationalLab', $route);
     }
 
     /**
@@ -200,6 +308,58 @@ class RotaVirusController extends CaseController
         $route = $this->generateUrl('nsApiRotaGetLab', array('objId' => $objId));
 
         return $this->updateLab($request, $objId, 'PUT', 'rotavirus_lab', 'NSSentinelBundle:Rota\SiteLab', $route);
+    }
+
+    /**
+     * Put RotaVirus RRL Data,
+     *
+     * @ApiDoc(
+     *  resource = true,
+     *  description = "Updates a RotaVirus RRL data",
+     *  input = "rotavirus_referencelab",
+     *  statusCodes={
+     *         202 = "Returned when successful",
+     *         406 = "Returned when there is an issue with the form data"
+     *         }
+     * )
+     *
+     * @REST\Put("/case/{objId}/rrl",name="nsApiRotaPutRRL")
+     * @REST\View()
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param string $objId
+     */
+    public function putRotaRRLAction(Request $request, $objId)
+    {
+        $route = $this->generateUrl('nsApiRotaGetRRL', array('objId' => $objId));
+
+        return $this->updateLab($request, $objId, 'PUT', 'rotavirus_referencelab', 'NSSentinelBundle:Rota\ReferenceLab', $route);
+    }
+
+    /**
+     * Put RotaVirus NL Data,
+     *
+     * @ApiDoc(
+     *  resource = true,
+     *  description = "Updates a RotaVirus NL data",
+     *  input = "rotavirus_nationallab",
+     *  statusCodes={
+     *         202 = "Returned when successful",
+     *         406 = "Returned when there is an issue with the form data"
+     *         }
+     * )
+     *
+     * @REST\Put("/case/{objId}/nl",name="nsApiRotaPutNL")
+     * @REST\View()
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param string $objId
+     */
+    public function putRotaNLAction(Request $request, $objId)
+    {
+        $route = $this->generateUrl('nsApiRotaGetNL', array('objId' => $objId));
+
+        return $this->updateLab($request, $objId, 'PUT', 'rotavirus_nationallab', 'NSSentinelBundle:Rota\NationalLab', $route);
     }
 
     /**

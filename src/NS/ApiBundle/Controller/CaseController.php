@@ -40,19 +40,19 @@ class CaseController extends FOSRestController
             case 'ibd_sitelab':
                 $class = 'NSSentinelBundle:IBD\SiteLab';
                 break;
-            case 'ibd_rrl':
+            case 'ibd_referencelab':
                 $class = 'NSSentinelBundle:IBD\ReferenceLab';
                 break;
-            case 'ibd_nl':
+            case 'ibd_nationallab':
                 $class = 'NSSentinelBundle:IBD\NationalLab';
                 break;
             case 'rota_sitelab':
                 $class = 'NSSentinelBundle:Rota\SiteLab';
                 break;
-            case 'rota_rrl':
+            case 'rota_referencelab':
                 $class = 'NSSentinelBundle:Rota\ReferenceLab';
                 break;
-            case 'rota_nl':
+            case 'rota_nationallab':
                 $class = 'NSSentinelBundle:Rota\NationalLab';
                 break;
             default:
@@ -76,7 +76,7 @@ class CaseController extends FOSRestController
                 throw new NotFoundHttpException("Invalid type: $type");
         }
 
-        return $this->getObject($class, $objId);
+        return $this->getObject($class, $objId, 'find');
     }
 
     private function updateObject(Request $request, ObjectManager $entityMgr, FormInterface $form)
@@ -110,8 +110,9 @@ class CaseController extends FOSRestController
         $obj       = $entityMgr->getRepository($className)->findOrCreateNew($objId);
         $form      = $this->createForm($formName, $obj, array('method' => $method));
 
-        return ($this->updateObject($request, $entityMgr, $form)) ? $this->view(null, Codes::HTTP_ACCEPTED, array(
-                'Location' => $route)) : $this->view($form, Codes::HTTP_BAD_REQUEST);
+        return ($this->updateObject($request, $entityMgr, $form)) ?
+            $this->view(null, Codes::HTTP_ACCEPTED, array('Location' => $route)) :
+            $this->view($form, Codes::HTTP_BAD_REQUEST);
     }
 
     protected function postCase(Request $request, $route, $formName, $className)

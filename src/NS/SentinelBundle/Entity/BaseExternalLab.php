@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use NS\SentinelBundle\Form\Types\CaseStatus;
 
+use \JMS\Serializer\Annotation as Serializer;
+
 /**
  * Description of BaseLab
  *
@@ -31,18 +33,21 @@ abstract class BaseExternalLab
      * @var string $labId
      * @ORM\Column(name="labId",type="string")
      * @Assert\NotBlank
+     * @Serializer\Groups({"api"})
      */
     protected $labId;
 
     /**
      * @var CaseStatus $status
      * @ORM\Column(name="status",type="CaseStatus")
+     * @Serializer\Groups({"api"})
      */
     protected $status;
 
     /**
      * @var DateTime $updatedAt
      * @ORM\Column(name="updatedAt",type="datetime")
+     * @Serializer\Groups({"api"})
      */
     protected $updatedAt;
 

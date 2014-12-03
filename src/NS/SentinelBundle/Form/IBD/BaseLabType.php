@@ -20,8 +20,10 @@ class BaseLabType extends AbstractType
             ->add('sampleType',                 'SampleType',           array('label'=>'meningitis-rrl-form.sample-type','required'=>false))
             ->add('dateReceived',               'acedatepicker',        array('label'=>'meningitis-rrl-form.date-received','required'=>false))
             ->add('csfVolumeExtracted', 'Volume', array('label'    => 'meningitis-rrl-form.volume','required' => false))
-            ->add('DNAExtractionDate',          'acedatepicker',        array('label'=>'meningitis-rrl-form.dna-extraction-date','required'=>false))
-            ->add('DNAVolume',                  null,                   array('label'=>'meningitis-rrl-form.dna-volume','required'=>false))
+            ->add('dnaExtractionDate', 'acedatepicker', array('label' => 'meningitis-rrl-form.dna-extraction-date',
+                'required' => false))
+            ->add('dnaVolume', null, array('label' => 'meningitis-rrl-form.dna-volume',
+                'required' => false))
             ->add('isolateViable', 'AlternateTripleChoice', array('label' => 'meningitis-rrl-form.isolate-viable',
                 'required' => false))
             ->add('isolateType',                'IsolateType',          array('label'=>'meningitis-rrl-form.isolate-type','required'=>false))
