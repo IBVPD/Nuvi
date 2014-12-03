@@ -10,6 +10,7 @@ use NS\SecurityBundle\Annotation\Secured;
 use NS\SecurityBundle\Annotation\SecuredCondition;
 
 use \NS\SentinelBundle\Entity\BaseExternalLab;
+use \JMS\Serializer\Annotation as Serializer;
 
 /**
  * Description of ExternalLab
@@ -25,6 +26,7 @@ use \NS\SentinelBundle\Entity\BaseExternalLab;
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr",type="string")
  * @ORM\DiscriminatorMap({"reference" = "ReferenceLab", "national" = "NationalLab"})
+ * @Serializer\Discriminator(field = "disc", map = {"reference": "ReferenceLab", "national": "NationalLab"})
  */
 abstract class ExternalLab extends BaseExternalLab
 {
@@ -38,54 +40,63 @@ abstract class ExternalLab extends BaseExternalLab
     /**
      * @var \DateTime $dateReceived
      * @ORM\Column(name="dateReceived",type="date",nullable=true)
+     * @Serializer\Groups({"api"})
      */
     protected $dateReceived;
 
     /**
      * @var \DateTime $genotypingDate
      * @ORM\Column(name="genotypingDate",type="date", nullable=true)
+     * @Serializer\Groups({"api"})
      */
     protected $genotypingDate;
 
     /**
      * @var GenotypeResultG $genotypingResultg
      * @ORM\Column(name="genotypingResultg",type="GenotypeResultG", nullable=true)
+     * @Serializer\Groups({"api"})
      */
     protected $genotypingResultg;
 
     /**
      * @var string $genotypingResultGSpecify
      * @ORM\Column(name="genotypingResultGSpecify",type="string", nullable=true)
+     * @Serializer\Groups({"api"})
      */
     protected $genotypingResultGSpecify;
 
     /**
      * @var GenotypeResultP $genotypeResultP
      * @ORM\Column(name="genotypeResultP",type="GenotypeResultP", nullable=true)
+     * @Serializer\Groups({"api"})
      */
     protected $genotypeResultP;
 
     /**
      * @var string $genotypeResultPSpecify
      * @ORM\Column(name="genotypeResultPSpecify",type="string", nullable=true)
+     * @Serializer\Groups({"api"})
      */
     protected $genotypeResultPSpecify;
 
     /**
      * @var ElisaResult $pcrVp6Result
      * @ORM\Column(name="pcrVp6Result",type="ElisaResult", nullable=true)
+     * @Serializer\Groups({"api"})
      */
     protected $pcrVp6Result;
 
     /**
      * @var \DateTime $genotypeResultSentToCountry
      * @ORM\Column(name="genotypeResultSentToCountry",type="date", nullable=true)
+     * @Serializer\Groups({"api"})
      */
     protected $genotypeResultSentToCountry;
 
     /**
      * @var \DateTime $genotypeResultSentToWHO
      * @ORM\Column(name="genotypeResultSentToWHO",type="date", nullable=true)
+     * @Serializer\Groups({"api"})
      */
     protected $genotypeResultSentToWHO;
 

@@ -75,6 +75,64 @@ class IBDController extends CaseController
     }
 
     /**
+     * Retrieves an IBD case RRL lab by id. Most fields are returned, however some 
+     * fields if empty are excluded from the result set. For example the firstName
+     * and lastName fields are only returned when there is data in them.
+     *
+     * @ApiDoc(
+     *   resource = true,
+     *   description = "Gets a case RRL lab for a given id",
+     *   statusCodes = {
+     *     200 = "Returned when successful",
+     *     404 = "Returned when the case is not found"
+     *   }
+     * )
+     *
+     * @REST\View(templateVar="case",serializerGroups={"api"})
+     * @REST\Get("/case/{objId}/rrl",name="nsApiIbdGetRRL")
+     *
+     * @param string  $objId      the object id
+     *
+     * @return array
+     *
+     * @throws NotFoundHttpException when case not exist
+     * @throws NonExistentCase when case doees not exist
+     */
+    public function getIbdCaseRRLAction($objId)
+    {
+        return $this->getLab('ibd_referencelab', $objId);
+    }
+
+    /**
+     * Retrieves an IBD case NL lab by id. Most fields are returned, however some
+     * fields if empty are excluded from the result set. For example the firstName
+     * and lastName fields are only returned when there is data in them.
+     *
+     * @ApiDoc(
+     *   resource = true,
+     *   description = "Gets a case NL lab for a given id",
+     *   statusCodes = {
+     *     200 = "Returned when successful",
+     *     404 = "Returned when the case is not found"
+     *   }
+     * )
+     *
+     * @REST\View(templateVar="case",serializerGroups={"api"})
+     * @REST\Get("/case/{objId}/nl",name="nsApiIbdGetNL")
+     *
+     * @param string  $objId      the object id
+     *
+     * @return array
+     *
+     * @throws NotFoundHttpException when case not exist
+     * @throws NonExistentCase when case doees not exist
+     */
+    public function getIbdCaseNLAction($objId)
+    {
+        return $this->getLab('ibd_nationallab', $objId);
+    }
+
+    /**
      * Patch IBD Case
      *
      * @ApiDoc(
@@ -125,6 +183,56 @@ class IBDController extends CaseController
         $route = $this->generateUrl('nsApiIbdGetLab', array('objId' => $objId));
 
         return $this->updateLab($request, $objId, 'PATCH', 'ibd_lab', 'NSSentinelBundle:IBD\SiteLab', $route);
+    }
+
+    /**
+     * Patch IBD RRL Data,
+     *
+     * @ApiDoc(
+     *  resource = true,
+     *  description = "Updates Reference Lab data for an IBD case",
+     *  input = "ibd_referencelab",
+     *  statusCodes={
+     *         202 = "Returned when successful",
+     *         406 = "Returned when there is an issue with the form data"
+     *         }
+     * )
+     * @REST\Patch("/case/{objId}/rrl",name="nsApiIbdPatchRRL")
+     * @REST\View()
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param string $objId
+     */
+    public function patchIbdRRLAction(Request $request, $objId)
+    {
+        $route = $this->generateUrl('nsApiIbdGetRRL', array('objId' => $objId));
+
+        return $this->updateLab($request, $objId, 'PATCH', 'ibd_referencelab', 'NSSentinelBundle:IBD\ReferenceLab', $route);
+    }
+
+    /**
+     * Patch IBD NL Data,
+     *
+     * @ApiDoc(
+     *  resource = true,
+     *  description = "Updates National Lab data for an IBD case",
+     *  input = "ibd_nationallab",
+     *  statusCodes={
+     *         202 = "Returned when successful",
+     *         406 = "Returned when there is an issue with the form data"
+     *         }
+     * )
+     * @REST\Patch("/case/{objId}/nl",name="nsApiIbdPatchNL")
+     * @REST\View()
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param string $objId
+     */
+    public function patchIbdNLAction(Request $request, $objId)
+    {
+        $route = $this->generateUrl('nsApiIbdGetNL', array('objId' => $objId));
+
+        return $this->updateLab($request, $objId, 'PATCH', 'ibd_nationallab', 'NSSentinelBundle:IBD\NationalLab', $route);
     }
 
     /**
@@ -205,6 +313,56 @@ class IBDController extends CaseController
         $route = $this->generateUrl('nsApiIbdGetLab', array('objId' => $objId));
 
         return $this->updateLab($request, $objId, 'PUT', 'ibd_lab', 'NSSentinelBundle:IBD\SiteLab', $route);
+    }
+
+    /**
+     * Put IBD RRL Data,
+     *
+     * @ApiDoc(
+     *  resource = true,
+     *  description = "Updates RRL data for an IBD case",
+     *  input = "ibd_referencelab",
+     *  statusCodes={
+     *         202 = "Returned when successful",
+     *         406 = "Returned when there is an issue with the form data"
+     *         }
+     * )
+     * @REST\Put("/case/{objId}/rrl",name="nsApiIbdPutRRLCase")
+     * @REST\View()
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param string $objId
+     */
+    public function putIbdRRLAction(Request $request, $objId)
+    {
+        $route = $this->generateUrl('nsApiIbdGetRRL', array('objId' => $objId));
+
+        return $this->updateLab($request, $objId, 'PUT', 'ibd_referencelab', 'NSSentinelBundle:IBD\ReferenceLab', $route);
+    }
+
+    /**
+     * Put IBD NL Data,
+     *
+     * @ApiDoc(
+     *  resource = true,
+     *  description = "Updates NL data for an IBD case",
+     *  input = "ibd_nationallab",
+     *  statusCodes={
+     *         202 = "Returned when successful",
+     *         406 = "Returned when there is an issue with the form data"
+     *         }
+     * )
+     * @REST\Put("/case/{objId}/nl",name="nsApiIbdPutNLCase")
+     * @REST\View()
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param string $objId
+     */
+    public function putIbdNLAction(Request $request, $objId)
+    {
+        $route = $this->generateUrl('nsApiIbdGetNL', array('objId' => $objId));
+
+        return $this->updateLab($request, $objId, 'PUT', 'ibd_nationallab', 'NSSentinelBundle:IBD\NationalLab', $route);
     }
 
     /**

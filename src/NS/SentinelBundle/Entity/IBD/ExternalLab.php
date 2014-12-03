@@ -19,6 +19,8 @@ use NS\SecurityBundle\Annotation\SecuredCondition;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\ExecutionContextInterface;
 
+use \JMS\Serializer\Annotation as Serializer;
+
 /**
  * Description of ExternalLab
  * @author gnat
@@ -35,6 +37,7 @@ use Symfony\Component\Validator\ExecutionContextInterface;
  * @ORM\DiscriminatorColumn(name="discr",type="string")
  * @ORM\DiscriminatorMap({"reference" = "ReferenceLab", "national" = "NationalLab"})
  * @Assert\Callback(methods={"validate"})
+ * @Serializer\Discriminator(field = "disc", map = {"reference": "ReferenceLab", "national": "NationalLab"})
  */
 abstract class ExternalLab extends BaseExternalLab
 {
@@ -47,66 +50,77 @@ abstract class ExternalLab extends BaseExternalLab
     /**
      * @var SampleType
      * @ORM\Column(type="SampleType",nullable=true)
+     * @Serializer\Groups({"api"})
      */
     protected $sampleType;
 
     /**
      * @var \DateTime $dateReceived
      * @ORM\Column(name="dateReceived", type="date",nullable=true)
+     * @Serializer\Groups({"api"})
      */
     protected $dateReceived;
 
     /**
      * @var Volume
      * @ORM\Column(name="csfVolumeExtracted",type="Volume",nullable=true)
+     * @Serializer\Groups({"api"})
      */
     protected $csfVolumeExtracted;
 
     /**
-     * @var \DateTime $DNAExtractionDate;
-     * @ORM\Column(name="DNAExtractionDate",type="date",nullable=true)
+     * @var \DateTime $dnaExtractionDate;
+     * @ORM\Column(name="dnaExtractionDate",type="date",nullable=true)
+     * @Serializer\Groups({"api"})
      */
-    protected $DNAExtractionDate;
+    protected $dnaExtractionDate;
 
     /**
      * @var integer
-     * @ORM\Column(name="DNAVolume",type="integer",nullable=true)
+     * @ORM\Column(name="dnaVolume",type="integer",nullable=true)
+     * @Serializer\Groups({"api"})
      */
-    protected $DNAVolume;
+    protected $dnaVolume;
 
     /**
      * @var AlternateTripleChoice
      * @ORM\Column(name="isolateViable",type="AlternateTripleChoice",nullable=true)
+     * @Serializer\Groups({"api"})
      */
     protected $isolateViable;
 
     /**
      * @var IsolateType
      * @ORM\Column(name="isolateType",type="IsolateType",nullable=true)
+     * @Serializer\Groups({"api"})
      */
     protected $isolateType;
 
     /**
      * @var PathogenIdentifier
      * @ORM\Column(name="pathogenIdentifierMethod",type="PathogenIdentifier",nullable=true)
+     * @Serializer\Groups({"api"})
      */
     protected $pathogenIdentifierMethod;
 
     /**
      * @var string
      * @ORM\Column(name="pathogenIdentifierOther", type="string",nullable=true)
+     * @Serializer\Groups({"api"})
      */
     protected $pathogenIdentifierOther;
 
     /**
      * @var SerotypeIdentifier
      * @ORM\Column(name="serotypeIdentifier",type="SerotypeIdentifier",nullable=true)
+     * @Serializer\Groups({"api"})
      */
     protected $serotypeIdentifier;
 
     /**
      * @var string
      * @ORM\Column(name="serotypeIdentifierOther",type="string",nullable=true)
+     * @Serializer\Groups({"api"})
      */
     protected $serotypeIdentifierOther;
 
@@ -114,13 +128,15 @@ abstract class ExternalLab extends BaseExternalLab
      * @var double
      * @ORM\Column(name="lytA",type="decimal",precision=3, scale=1,nullable=true)
      * @Assert\Range(min=0,max=50)
+     * @Serializer\Groups({"api"})
      */
     protected $lytA;
 
     /**
      * @var integer $ctrA
-     * @ORM\Column(name="ctrA",type="integer")
+     * @ORM\Column(name="ctrA",type="integer",nullable=true)
      * @Assert\Range(min=0,max=50)
+     * @Serializer\Groups({"api"})
      */
     protected $ctrA;
 
@@ -128,6 +144,7 @@ abstract class ExternalLab extends BaseExternalLab
      * @var double
      * @ORM\Column(name="sodC",type="decimal",precision=3, scale=1,nullable=true)
      * @Assert\Range(min=0,max=50)
+     * @Serializer\Groups({"api"})
      */
     protected $sodC;
 
@@ -135,6 +152,7 @@ abstract class ExternalLab extends BaseExternalLab
      * @var double
      * @ORM\Column(name="hpd1",type="decimal",precision=3, scale=1,nullable=true)
      * @Assert\Range(min=0,max=50)
+     * @Serializer\Groups({"api"})
      */
     protected $hpd1;
 
@@ -142,6 +160,7 @@ abstract class ExternalLab extends BaseExternalLab
      * @var double
      * @ORM\Column(name="hpd3",type="decimal",precision=3, scale=1,nullable=true)
      * @Assert\Range(min=0,max=50)
+     * @Serializer\Groups({"api"})
      */
     protected $hpd3;
 
@@ -149,32 +168,38 @@ abstract class ExternalLab extends BaseExternalLab
      * @var double
      * @ORM\Column(name="bexA",type="decimal",precision=3, scale=1,nullable=true)
      * @Assert\Range(min=0,max=50)
+     * @Serializer\Groups({"api"})
      */
     protected $bexA;
 
     /**
      * @var double
      * @ORM\Column(name="rNaseP",type="decimal",precision=3, scale=1,nullable=true)
+     * @Serializer\Groups({"api"})
      */
     protected $rNaseP;
 
     /**
      * @var double
      * @ORM\Column(name="spnSerotype",type="decimal",precision=3, scale=1,nullable=true)
+     * @Serializer\Groups({"api"})
      */
     protected $spnSerotype;
 
     /**
      * @var double
      * @ORM\Column(name="hiSerotype",type="decimal",precision=3, scale=1,nullable=true)
+     * @Serializer\Groups({"api"})
      */
     protected $hiSerotype;
 
     /**
      * @var double
      * @ORM\Column(name="nmSerogroup",type="decimal",precision=3, scale=1,nullable=true)
+     * @Serializer\Groups({"api"})
      */
     protected $nmSerogroup;
+
     public function getSampleType()
     {
         return $this->sampleType;
@@ -190,14 +215,14 @@ abstract class ExternalLab extends BaseExternalLab
         return $this->csfVolumeExtracted;
     }
 
-    public function getDNAExtractionDate()
+    public function getDnaExtractionDate()
     {
-        return $this->DNAExtractionDate;
+        return $this->dnaExtractionDate;
     }
 
-    public function getDNAVolume()
+    public function getDnaVolume()
     {
-        return $this->DNAVolume;
+        return $this->dnaVolume;
     }
 
     public function getIsolateViable()
@@ -300,17 +325,17 @@ abstract class ExternalLab extends BaseExternalLab
         return $this;
     }
 
-    public function setDNAExtractionDate($DNAExtractionDate)
+    public function setDnaExtractionDate($dnaExtractionDate)
     {
-        if ($DNAExtractionDate instanceof \DateTime)
-            $this->DNAExtractionDate = $DNAExtractionDate;
+        if ($dnaExtractionDate instanceof \DateTime)
+            $this->dnaExtractionDate = $dnaExtractionDate;
 
         return $this;
     }
 
-    public function setDNAVolume($DNAVolume)
+    public function setDNAVolume($dnaVolume)
     {
-        $this->DNAVolume = $DNAVolume;
+        $this->dnaVolume = $dnaVolume;
         return $this;
     }
 

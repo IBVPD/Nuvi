@@ -15,31 +15,32 @@ use Doctrine\ORM\UnexpectedResultException;
  */
 class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteRepositoryInterface
 {
+
     protected $parentClass = null;
 
     public function getForAutoComplete($fields, array $value, $limit)
     {
-        $alias = 'd';
-        $queryBuilder    = $this->createQueryBuilder($alias)->setMaxResults($limit);
-        
-        if(!empty($value) && $value['value'][0]=='*')
+        $alias        = 'd';
+        $queryBuilder = $this->createQueryBuilder($alias)->setMaxResults($limit);
+
+        if (!empty($value) && $value['value'][0] == '*')
             return $this->secure($queryBuilder)->getQuery();
-        
-        if(!empty($value))
+
+        if (!empty($value))
         {
-            if(is_array($fields))
+            if (is_array($fields))
             {
                 foreach ($fields as $f)
                 {
                     $field = "$alias.$f";
                     $queryBuilder->addOrderBy($field)
-                       ->orWhere("$field LIKE :param")->setParameter('param',$value['value'].'%');
+                        ->orWhere("$field LIKE :param")->setParameter('param', $value['value'] . '%');
                 }
             }
             else
             {
                 $field = "$alias.$fields";
-                $queryBuilder->orderBy($field)->andWhere("$field LIKE :param")->setParameter('param',$value['value'].'%');
+                $queryBuilder->orderBy($field)->andWhere("$field LIKE :param")->setParameter('param', $value['value'] . '%');
             }
         }
 
@@ -50,25 +51,19 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
     {
         try
         {
-            $r = null;
+            $reference    = $this->_em->getReference($this->parentClass, $id);
+            $queryBuilder = $this->createQueryBuilder('r')
+                ->where('r.case = :case')
+                ->setParameter('case', $reference);
 
-            if(is_numeric($id))
-                $r = $this->find($id);
-            else
-            {
-                $queryBuilder = $this->createQueryBuilder('r')
-                           ->where('r.case = :case')
-                           ->setParameter('case',$this->_em->getReference($this->parentClass, $id));
+            $r = $this->secure($queryBuilder)->getQuery()->getSingleResult();
 
-                $r = $this->secure($queryBuilder)->getQuery()->getSingleResult();
-            }
-
-            if($r)
+            if ($r)
                 return $r;
         }
-        catch(UnexpectedResultException $e)
+        catch (UnexpectedResultException $e)
         {
-            if($e instanceof NoResultException || $e instanceof NonExistentCase)
+            if ($e instanceof NoResultException || $e instanceof NonExistentCase)
             {
                 $class  = $this->getClassName();
                 $record = new $class();
@@ -87,14 +82,15 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
         try
         {
             $queryBuilder = $this->createQueryBuilder('m')
-                                 ->where('m.case = :case')
-                                 ->setParameter('case', $this->_em->getReference($this->parentClass, $objId));
+                ->where('m.case = :case')
+                ->setParameter('case', $this->_em->getReference($this->parentClass, $objId));
 
             return $this->secure($queryBuilder)->getQuery()->getSingleResult();
         }
-        catch(NoResultException $e)
+        catch (NoResultException $e)
         {
             throw new NonExistentCase("This case does not exist!");
         }
     }
+
 }
