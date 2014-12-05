@@ -1526,9 +1526,9 @@
             ],
             "authors": [
                 {
-                    "name": "Johannes M. Schmitt",
+                    "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
+                    "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -1843,12 +1843,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/JMSTranslationBundle.git",
-                "reference": "aa1cc4797997a30d4fdc55eb1f6042965b4b823f"
+                "reference": "8eff56746b73762dfe06414faf0fb609bfe51754"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/JMSTranslationBundle/zipball/aa1cc4797997a30d4fdc55eb1f6042965b4b823f",
-                "reference": "aa1cc4797997a30d4fdc55eb1f6042965b4b823f",
+                "url": "https://api.github.com/repos/schmittjoh/JMSTranslationBundle/zipball/8eff56746b73762dfe06414faf0fb609bfe51754",
+                "reference": "8eff56746b73762dfe06414faf0fb609bfe51754",
                 "shasum": ""
             },
             "require": {
@@ -1906,7 +1906,7 @@
                 "ui",
                 "webinterface"
             ],
-            "time": "2014-09-09 15:47:55"
+            "time": "2014-10-29 13:23:47"
         },
         {
             "name": "knplabs/knp-components",
@@ -2286,12 +2286,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/liip/LiipFunctionalTestBundle.git",
-                "reference": "2574c9d319067b122ec783e5be9408e306b62673"
+                "reference": "eb42b04f27d4dcf350a40274a67c9807e2b11a85"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/liip/LiipFunctionalTestBundle/zipball/2574c9d319067b122ec783e5be9408e306b62673",
-                "reference": "2574c9d319067b122ec783e5be9408e306b62673",
+                "url": "https://api.github.com/repos/liip/LiipFunctionalTestBundle/zipball/eb42b04f27d4dcf350a40274a67c9807e2b11a85",
+                "reference": "eb42b04f27d4dcf350a40274a67c9807e2b11a85",
                 "shasum": ""
             },
             "require": {
@@ -2334,7 +2334,7 @@
             "keywords": [
                 "Symfony2"
             ],
-            "time": "2014-08-13 18:37:00"
+            "time": "2014-11-04 21:08:17"
         },
         {
             "name": "lunetics/locale-bundle",
@@ -2653,10 +2653,10 @@
             "source": {
                 "type": "git",
                 "url": "git@gitlab.noblet.ca:nobletsolutions/ace-bundle.git",
-                "reference": "e47cfd5257f262ed03789603c8187e0e3a1c23d8"
+                "reference": "efae4b9ca6db64e5b1839fa9cb25762d86adca27"
             },
             "require": {
-                "jms/translation-bundle": "1.1.x-dev",
+                "jms/translation-bundle": "~1.1",
                 "php": ">=5.3.2",
                 "symfony/symfony": ">=2.1"
             },
@@ -2680,7 +2680,7 @@
                 }
             ],
             "description": "This bundle provides bootstrap template",
-            "time": "2014-10-24 03:44:22"
+            "time": "2014-12-05 17:33:41"
         },
         {
             "name": "ns/flash-bundle",
@@ -3465,12 +3465,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataCoreBundle.git",
-                "reference": "5de4744806d59672fdd46c0a89c9829ad96c9acc"
+                "reference": "c4b5743bb66b28b97a9f87c18cc81930bb37a344"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/5de4744806d59672fdd46c0a89c9829ad96c9acc",
-                "reference": "5de4744806d59672fdd46c0a89c9829ad96c9acc",
+                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/c4b5743bb66b28b97a9f87c18cc81930bb37a344",
+                "reference": "c4b5743bb66b28b97a9f87c18cc81930bb37a344",
                 "shasum": ""
             },
             "require": {
@@ -3522,7 +3522,7 @@
             "keywords": [
                 "sonata"
             ],
-            "time": "2014-10-23 15:03:11"
+            "time": "2014-11-03 10:41:41"
         },
         {
             "name": "sonata-project/doctrine-orm-admin-bundle",
