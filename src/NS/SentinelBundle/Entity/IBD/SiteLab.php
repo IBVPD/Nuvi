@@ -54,12 +54,12 @@ class SiteLab extends BaseSiteLab
     protected $case;
     //Case-based Laboratory Data
     /**
-     * @var DateTime $csfLabDateTime
-     * @ORM\Column(name="csfLabDateTime",type="datetime",nullable=true)
+     * @var DateTime $csfDateTime
+     * @ORM\Column(name="csfDateTime",type="datetime",nullable=true)
      * @Assert\DateTime
      * @Groups({"api"})
      */
-    private $csfLabDateTime;
+    private $csfDateTime;
 
     /**
      * @var string $csfId
@@ -431,9 +431,9 @@ class SiteLab extends BaseSiteLab
         return ($this->case instanceof IBD);
     }
 
-    public function getCsfLabDateTime()
+    public function getCsfDateTime()
     {
-        return $this->csfLabDateTime;
+        return $this->csfDateTime;
     }
 
     public function getCsfWcc()
@@ -698,9 +698,9 @@ class SiteLab extends BaseSiteLab
         return $this;
     }
 
-    public function setCsfLabDateTime($csfLabDateTime)
+    public function setCsfDateTime($csfDateTime)
     {
-        $this->csfLabDateTime = $csfLabDateTime;
+        $this->csfDateTime = $csfDateTime;
         return $this;
     }
 

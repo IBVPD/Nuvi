@@ -22,9 +22,9 @@ use \Behat\Symfony2Extension\Driver\KernelDriver;
 /**
  * Feature context.
  */
-class FeatureContext extends MinkContext //MinkContext if you want to test web
-                  implements KernelAwareInterface
+class FeatureContext extends MinkContext implements KernelAwareInterface
 {
+
     private $kernel;
     private $parameters;
 
@@ -67,10 +67,10 @@ class FeatureContext extends MinkContext //MinkContext if you want to test web
     {
         return array(
             new When('I am on "/login"'),
-            new When('I fill in "_username" with "'.$arg1.'"'),
-            new When('I fill in "_password" with "'.$arg2.'"'),
+            new When('I fill in "_username" with "' . $arg1 . '"'),
+            new When('I fill in "_password" with "' . $arg2 . '"'),
             new When('I press "login"'),
-            );
+        );
     }
 
     /**
@@ -78,7 +78,7 @@ class FeatureContext extends MinkContext //MinkContext if you want to test web
      */
     public function iVisitWith($arg1, $arg2)
     {
-        $path = str_replace('//','/',"$arg1/".sprintf($arg2,date('y')));
+        $path = str_replace('//', '/', "$arg1/" . sprintf($arg2, date('y')));
 
         $this->visit($path);
     }
@@ -98,7 +98,8 @@ class FeatureContext extends MinkContext //MinkContext if you want to test web
     {
         $profile   = $this->getSymfonyProfile();
         $collector = $profile->getCollector('exception');
-        \PHPUnit_Framework_Assert::assertFalse($collector->hasException(),($collector->hasException()?$collector->getException()->getMessage():null));
+
+        \PHPUnit_Framework_Assert::assertFalse($collector->hasException(), ($collector->hasException() ? $collector->getException()->getMessage() : null));
     }
 
     public function getSymfonyProfile()
@@ -120,14 +121,16 @@ class FeatureContext extends MinkContext //MinkContext if you want to test web
      */
     public function theCreateFormHasSites($arg1)
     {
+        if (!$this->kernel)
+            \PHPUnit_Framework_Assert::assertFalse(true, "There is no kernel");
+
         $container   = $this->kernel->getContainer();
         $formFactory = $container->get('form.factory');
+        $user        = $container->get('security.context')->getToken()->getUser();
+        $ibdForm     = $formFactory->create('create_ibd');
+        $ibdView     = $ibdForm->createView();
 
-        $user    = $container->get('security.context')->getToken()->getUser();
-        $ibdForm = $formFactory->create('create_ibd');
-        $ibdView = $ibdForm->createView();
-
-        if($arg1 == 0)
+        if ($arg1 == 0)
             \PHPUnit_Framework_Assert::assertFalse($ibdForm->has('site'), "Form has Site field: " . $user->getName());
         else
         {
@@ -138,7 +141,7 @@ class FeatureContext extends MinkContext //MinkContext if you want to test web
         $rotaForm = $formFactory->create('create_rotavirus');
         $rotaView = $rotaForm->createView();
 
-        if($arg1 == 0)
+        if ($arg1 == 0)
             \PHPUnit_Framework_Assert::assertFalse($rotaForm->has('site'), "Form has Site field" . $user->getName());
         else
         {
@@ -152,14 +155,16 @@ class FeatureContext extends MinkContext //MinkContext if you want to test web
      */
     public function theCreateFormHasTypes($arg1)
     {
+        if (!$this->kernel)
+            \PHPUnit_Framework_Assert::assertFalse(true, "There is no kernel");
+
         $container   = $this->kernel->getContainer();
         $formFactory = $container->get('form.factory');
+        $user        = $container->get('security.context')->getToken()->getUser();
+        $ibdForm     = $formFactory->create('create_ibd');
+        $ibdView     = $ibdForm->createView();
 
-        $user    = $container->get('security.context')->getToken()->getUser();
-        $ibdForm = $formFactory->create('create_ibd');
-        $ibdView = $ibdForm->createView();
-
-        if($arg1 == 0)
+        if ($arg1 == 0)
             \PHPUnit_Framework_Assert::assertFalse($ibdForm->has('type'), "IBD Form has types field " . $user->getName());
         else
         {
@@ -170,7 +175,7 @@ class FeatureContext extends MinkContext //MinkContext if you want to test web
         $rotaForm = $formFactory->create('create_rotavirus');
         $rotaView = $rotaForm->createView();
 
-        if($arg1 == 0)
+        if ($arg1 == 0)
             \PHPUnit_Framework_Assert::assertFalse($rotaForm->has('type'), "Rota Form does not have type field " . $user->getName());
         else
         {
@@ -178,4 +183,5 @@ class FeatureContext extends MinkContext //MinkContext if you want to test web
             \PHPUnit_Framework_Assert::assertCount(intval($arg1), $rotaView['type']->vars['choices'], "$arg1 was passed in " . $user->getName());
         }
     }
+
 }

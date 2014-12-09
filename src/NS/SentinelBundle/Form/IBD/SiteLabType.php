@@ -34,7 +34,7 @@ class SiteLabType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('csfLabDateTime',     'acedatetime',          array('required'=>false, 'label'=>'meningitis-form.csf-lab-datetime'))
+            ->add('csfDateTime', 'acedatetime', array('required' => false, 'label' => 'meningitis-form.csf-lab-datetime'))
             ->add('csfId',              null,                   array('required'=>false, 'label'=>'meningitis-form.csf-id'))
             ->add('csfWcc',             null,                   array('required'=>false, 'label'=>'meningitis-form.csf-wcc'))
             ->add('csfGlucose',         null,                   array('required'=>false, 'label'=>'meningitis-form.csf-glucose'))

@@ -2,332 +2,334 @@
 {% block pagetitle %}{{'View Case %id%'|trans({'%id%': record.id})}}{%endblock %}
 
 {%block pageactions %}
-<div class="pull-right">{{case_big_actions(record,true)}}</div>
+    <div class="pull-right">{{case_big_actions(record,true)}}</div>
 {%endblock %}
 
 {% block body %}
-<div class="col-sm-12">
-    <div class="tabbable tabs-left">
-        <ul class="nav nav-tabs" id="myTab2">
-            <li class="active"><a data-toggle="tab" href="#demographics">{{'Case Based Demographics'|trans}}</a></li>
-            <li><a data-toggle="tab" href="#vacination">{{'Vaccination History'|trans}}</a></li>
-            <li><a data-toggle="tab" href="#clinical">{{'Clinical Data'|trans}}</a></li>
-            <li><a data-toggle="tab" href="#meningitis">{{'Meningitis'|trans}}</a></li>
-            {% if record.country.getTracksPneumonia %}
-            <li><a data-toggle="tab" href="#pneumonia">{{'Pneumonia / Sepsis'|trans}}</a></li>
-            {% endif %}
-            <li><a data-toggle="tab" href="#collectionData">{{'Specimen Collection Data'|trans}}</a></li>
-            {% if is_granted('ROLE_CAN_SEE_LAB') %}
-            {% if record.hasLab %}
-            <li><a data-toggle="tab" href="#labData-CSF">{{'Lab CSF'|trans}}</a></li>
-            <li><a data-toggle="tab" href="#labData-Blood">{{'Lab Blood'|trans}}</a></li>
-            <li><a data-toggle="tab" href="#labData-Other">{{'Lab Other Fluid'|trans}}</a></li>
-            <li><a data-toggle="tab" href="#labData-Lab">{{'Lab (NL/RRL)'|trans}}</a></li>
-            <li><a data-toggle="tab" href="#labData-Serotype">{{'Lab Serotype'|trans}}</a></li>
-            {%else%}
-            <li><a data-toggle="tab" href="#labData">{{'Lab'|trans}}</a></li>
-            {% endif %}
-            {% endif %}
-            
-        </ul>
+    <div class="col-sm-12">
+        <div class="tabbable tabs-left">
+            <ul class="nav nav-tabs" id="myTab2">
+                <li class="active"><a data-toggle="tab" href="#demographics">{{'Case Based Demographics'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#vacination">{{'Vaccination History'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#clinical">{{'Clinical Data'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#meningitis">{{'Meningitis'|trans}}</a></li>
+                {% if record.country.getTracksPneumonia %}
+                <li><a data-toggle="tab" href="#pneumonia">{{'Pneumonia / Sepsis'|trans}}</a></li>
+                {% endif %}
+                <li><a data-toggle="tab" href="#collectionData">{{'Specimen Collection Data'|trans}}</a></li>
+                {% if is_granted('ROLE_CAN_SEE_LAB') %}
+                    {% if record.hasSiteLab %}
+                    <li><a data-toggle="tab" href="#labData-CSF">{{'Lab CSF'|trans}}</a></li>
+                    <li><a data-toggle="tab" href="#labData-Blood">{{'Lab Blood'|trans}}</a></li>
+                    <li><a data-toggle="tab" href="#labData-Other">{{'Lab Other Fluid'|trans}}</a></li>
+                    <li><a data-toggle="tab" href="#labData-Lab">{{'Lab (NL/RRL)'|trans}}</a></li>
+                    <li><a data-toggle="tab" href="#labData-Serotype">{{'Lab Serotype'|trans}}</a></li>
+                    {%else%}
+                    <li><a data-toggle="tab" href="#labData">{{'Lab'|trans}}</a></li>
+                    {% endif %}
+                {% endif %}
+            </ul>
 
-        <div class="tab-content">
-            <div id="demographics" class="tab-pane active">
-                <table class="table table-striped table-bordered table-hover">
-                    <tr>
-                        <th>{{'meningitis-form.id'|trans}}</th>
-                        <td>{{record.id}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'meningitis-form.case-id'|trans}}</th>
-                        <td>{{record.caseId}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'meningitis-form.dob'|trans}}</th>
-                        <td>{%if record.dob %}{{record.dob|date}}{%endif%}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'meningitis-form.age'|trans}}</th>
-                        <td>{{record.age}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'meningitis-form.gender'|trans}}</th>
-                        <td>{{record.gender}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'meningitis-form.first-name'|trans}}</th>
-                        <td>{{record.firstName}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'meningitis-form.last-name'|trans}}</th>
-                        <td>{{record.lastName}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'meningitis-form.parental-name'|trans}}</th>
-                        <td>{{record.parentalName}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'rotavirus-form.district'|trans}}</th>
-                        <td>{{record.district}}</td>
-                    </tr>
-                </table>
-            </div>
-
-            <div id="vacination" class="tab-pane">
-                <table class="table table-striped table-bordered table-hover">
-                    <tr>
-                        <th>{{'meningitis-form.hib-received'|trans}}</th>
-                        <td>{{record.hibReceived}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'meningitis-form.hib-doses'|trans}}</th>
-                        <td>{{record.hibDoses}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'meningitis-form.pcv-received'|trans}}</th>
-                        <td>{{record.pcvReceived}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'meningitis-form.pcv-doses'|trans}}</th>
-                        <td>{{record.pcvDoses}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'meningitis-form.mening-received'|trans}}</th>
-                        <td>{{record.meningReceived}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'meningitis-form.men-type'|trans}}</th>
-                        <td>{{record.meningType}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'meningitis-form.meningMostRecentDose'|trans}}</th>
-                        <td>{{record.meningMostRecentDose}}</td>
-                    </tr>
-                </table>
-            </div>
-
-            <div id="clinical" class="tab-pane">
-                <table class="table table-striped table-bordered table-hover">
-                    <tr>
-                        <th>{{'meningitis-form.adm-date'|trans}}</th>
-                        <td>{%if record.admDate %}{{record.admDate|date}}{%endif%}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'meningitis-form.adm-dx'|trans}}</th>
-                        <td>{{record.admDx}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'meningitis-form.adm-dx-other'|trans}}</th>
-                        <td>{{record.admDxOther}}</td>
-                    </tr>
-                </table>
-            </div>
-
-            <div id="meningitis" class="tab-pane">
-                <table class="table table-striped table-bordered table-hover">
-                    <tr>
-                        <th>{{'meningitis-form.men-seizures'|trans}}</th>
-                        <td>{{record.menSeizures}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'meningitis-form.men-fever'|trans}}</th>
-                        <td>{{record.menFever}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'meningitis-form.men-alt-conscious'|trans}}</th>
-                        <td>{{record.menAltConscious}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'meningitis-form.men-inability-feed'|trans}}</th>
-                        <td>{{record.menInabilityFeed}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'meningitis-form.men-neck-stiff'|trans}}</th>
-                        <td>{{record.menNeckStiff}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'meningitis-form.men-rash'|trans}}</th>
-                        <td>{{record.menRash}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'meningitis-form.men-fontanelle-bulge'|trans}}</th>
-                        <td>{{record.menFontanelleBulge}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'meningitis-form.men-lethargy'|trans}}</th>
-                        <td>{{record.menLethargy}}</td>
-                    </tr>
-                </table>
-            </div>
-
-            <div id="pneumonia" class="tab-pane">
-                <table class="table table-striped table-bordered table-hover">
-                    <tr>
-                        <th>{{'meningitis-form.pneu-diff-breathe'|trans}}</th>
-                        <td>{{record.pneuDiffBreathe}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'meningitis-form.pneu-chest-indraw'|trans}}</th>
-                        <td>{{record.pneuChestIndraw}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'meningitis-form.pneu-cough'|trans}}</th>
-                        <td>{{record.pneuCough}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'meningitis-form.pneu-cyanosis'|trans}}</th>
-                        <td>{{record.pneuCyanosis}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'meningitis-form.pneu-resp-rate'|trans}}</th>
-                        <td>{{record.pneuRespRate}}</td>
-                    </tr>
-                    <tr><th>{{'meningitis-form.cxr-done'|trans}}</th><td>{{record.cxrDone}}</td></tr>
-                    <tr><th>{{'meningitis-form.cxr-result'|trans}}</th><td>{{record.cxrResult}}</td></tr>
-                    <tr><th>{{'meningitis-form.cxr-additional-result'|trans}}</th><td>{{record.cxrAdditionalResult}}</td></tr>
-                </table>
-            </div>
-            
-            <div id="collectionData" class="tab-pane">
-                <table class="table table-striped table-bordered table-hover">
-                    <tr>
-                        <th>{{'meningitis-form.csf-collected'|trans}}</th>
-                        <td>{{record.csfCollected}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'meningitis-form.csf-collect-datetime'|trans}}</th>
-                        <td>{%if record.csfCollectDateTime %}{{record.csfCollectDateTime|date}}{%endif%}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'meningitis-form.csf-appearance'|trans}}</th>
-                        <td>{{record.csfAppearance}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'meningitis-form.blood-collected'|trans}}</th>
-                        <td>{{record.bloodCollected}}</td>
-                    </tr>
-                </table>
-            </div>
-            {% if record.hasLab %}
-                <div id="labData-CSF" class="tab-pane">
-                <table class="table table-striped table-bordered table-hover">
-                    <tr><th>{{'meningitis-form.csfSiteId'|trans}}</th><td>{{record.csfSiteId}}</td></tr>
-                    <tr><th>{{'meningitis-form.csfSiteId'|trans}}</th><td>{%if record.csfSiteDateTime %}{{record.csfSiteDateTime|date}}{%endif%}</td></tr>
-                    <tr><th>{{'meningitis-form.csf-wcc'|trans}}</th><td>{{record.csfWcc}}</td></tr>
-                    <tr><th>{{'meningitis-form.csf-glucose'|trans}}</th><td>{{record.csfGlucose}}</td></tr>
-                    <tr><th>{{'meningitis-form.csf-protein'|trans}}</th><td>{{record.csfProtein}}</td></tr>
-                    <tr><th>{{'meningitis-form.csf-cult-done'|trans}}</th><td>{{record.csfCultDone}}</td></tr>
-                    <tr><th>{{'meningitis-form.csf-gram-done'|trans}}</th><td>{{record.csfGramDone}}</td></tr>
-                    <tr><th>{{'meningitis-form.csf-binax-done'|trans}}</th><td>{{record.csfBinaxDone}}</td></tr>
-                    <tr><th>{{'meningitis-form.csf-lat-done'|trans}}</th><td>{{record.csfLatDone}}</td></tr>
-                    <tr><th>{{'meningitis-form.csf-pcr-done'|trans}}</th><td>{{record.csfPcrDone}}</td></tr>
-                    <tr><th>{{'meningitis-form.csf-culture-other'|trans}}</th><td>{{record.csfCultOther}}</td></tr>
-                    <tr><th>{{'meningitis-form.csf-store'|trans}}</th><td>{{record.csfStore}}</td></tr>
-                    <tr><th>{{'meningitis-form.isol-store'|trans}}</th><td>{{record.csfIsolStore}}</td></tr>
-                </table>    
+            <div class="tab-content">
+                <div id="demographics" class="tab-pane active">
+                    <table class="table table-striped table-bordered table-hover">
+                        <tr>
+                            <th>{{'meningitis-form.id'|trans}}</th>
+                            <td>{{record.id}}</td>
+                        </tr>
+                        <tr>
+                            <th>{{'meningitis-form.case-id'|trans}}</th>
+                            <td>{{record.caseId}}</td>
+                        </tr>
+                        <tr>
+                            <th>{{'meningitis-form.dob'|trans}}</th>
+                            <td>{%if record.dob %}{{record.dob|date}}{%endif%}</td>
+                        </tr>
+                        <tr>
+                            <th>{{'meningitis-form.age'|trans}}</th>
+                            <td>{{record.age}}</td>
+                        </tr>
+                        <tr>
+                            <th>{{'meningitis-form.gender'|trans}}</th>
+                            <td>{{record.gender}}</td>
+                        </tr>
+                        <tr>
+                            <th>{{'meningitis-form.first-name'|trans}}</th>
+                            <td>{{record.firstName}}</td>
+                        </tr>
+                        <tr>
+                            <th>{{'meningitis-form.last-name'|trans}}</th>
+                            <td>{{record.lastName}}</td>
+                        </tr>
+                        <tr>
+                            <th>{{'meningitis-form.parental-name'|trans}}</th>
+                            <td>{{record.parentalName}}</td>
+                        </tr>
+                        <tr>
+                            <th>{{'rotavirus-form.district'|trans}}</th>
+                            <td>{{record.district}}</td>
+                        </tr>
+                    </table>
                 </div>
-                <div id="labData-Blood" class="tab-pane">
-                <table class="table table-striped table-bordered table-hover">
-                    <tr><th>{{'meningitis-form.blood-cult-done'|trans}}</th><td>{{record.bloodCultDone}}</td></tr>
-                    <tr><th>{{'meningitis-form.blood-gram-done'|trans}}</th><td>{{record.bloodGramDone}}</td></tr>
-                    <tr><th>{{'meningitis-form.blood-pcr-done'|trans}}</th><td>{{record.bloodPcrDone}}</td></tr>
-                    <tr><th>{{'meningitis-form.blood-cult-other'|trans}}</th><td>{{record.bloodCultOther}}</td></tr>
-                    <tr><th>{{'meningitis-form.blood-gram-result'|trans}}</th><td>{{record.bloodGramResult}}</td></tr>
-                    <tr><th>{{'meningitis-form.blood-pcr-result'|trans}}</th><td>{{record.bloodPcrResult}}</td></tr>
-                </table>    
-                    
+
+                <div id="vacination" class="tab-pane">
+                    <table class="table table-striped table-bordered table-hover">
+                        <tr>
+                            <th>{{'meningitis-form.hib-received'|trans}}</th>
+                            <td>{{record.hibReceived}}</td>
+                        </tr>
+                        <tr>
+                            <th>{{'meningitis-form.hib-doses'|trans}}</th>
+                            <td>{{record.hibDoses}}</td>
+                        </tr>
+                        <tr>
+                            <th>{{'meningitis-form.pcv-received'|trans}}</th>
+                            <td>{{record.pcvReceived}}</td>
+                        </tr>
+                        <tr>
+                            <th>{{'meningitis-form.pcv-doses'|trans}}</th>
+                            <td>{{record.pcvDoses}}</td>
+                        </tr>
+                        <tr>
+                            <th>{{'meningitis-form.mening-received'|trans}}</th>
+                            <td>{{record.meningReceived}}</td>
+                        </tr>
+                        <tr>
+                            <th>{{'meningitis-form.men-type'|trans}}</th>
+                            <td>{{record.meningType}}</td>
+                        </tr>
+                        <tr>
+                            <th>{{'meningitis-form.meningMostRecentDose'|trans}}</th>
+                            <td>{{record.meningMostRecentDose}}</td>
+                        </tr>
+                    </table>
                 </div>
-                <div id="labData-Other" class="tab-pane">
-                <table class="table table-striped table-bordered table-hover">
-                    <tr><th>{{'meningitis-form.other-culture'|trans}}</th><td>{{record.otherCultDone}}</td></tr>
-                    <tr><th>{{'meningitis-form.other-cult-result'|trans}}</th><td>{{record.otherCultResult}}</td></tr>
-                    <tr><th>{{'meningitis-form.other-cult-other'|trans}}</th><td>{{record.otherCultOther}}</td></tr>
-                </table>                    
+
+                <div id="clinical" class="tab-pane">
+                    <table class="table table-striped table-bordered table-hover">
+                        <tr>
+                            <th>{{'meningitis-form.adm-date'|trans}}</th>
+                            <td>{%if record.admDate %}{{record.admDate|date}}{%endif%}</td>
+                        </tr>
+                        <tr>
+                            <th>{{'meningitis-form.adm-dx'|trans}}</th>
+                            <td>{{record.admDx}}</td>
+                        </tr>
+                        <tr>
+                            <th>{{'meningitis-form.adm-dx-other'|trans}}</th>
+                            <td>{{record.admDxOther}}</td>
+                        </tr>
+                    </table>
                 </div>
-                <div id="labData-Lab" class="tab-pane">
-                <table class="table table-striped table-bordered table-hover">
-                    <tr><th>{{'meningitis-form.csfSentToNL'|trans}}</th><td>{{record.csfSentToNL}}</td></tr>
-                    <tr><th>{{'meningitis-form.csfDateSentToNL'|trans}}</th><td>{%if record.csfDateSentToNL %}{{record.csfDateSentToNL|date}}{%endif%}</td></tr>
-                    <tr><th>{{'meningitis-form.csfNLId'|trans}}</th><td>{{record.csfNLId}}</td></tr>
-                    <tr><th>{{'meningitis-form.csfNLDateReceived'|trans}}</th><td>{%if record.csfNLDateReceived %}{{record.csfNLDateReceived|date}}{%endif%}</td></tr>
-                    <tr><th>{{'meningitis-form.csfNLDNAExtractionDate'|trans}}</th><td>{%if record.csfNLDNAExtractionDate %}{{record.csfNLDNAExtractionDate|date}}{%endif%}</td></tr>
-                    <tr><th>{{'meningitis-form.csfNLDNAVolume'|trans}}</th><td>{{record.csfNLDNAVolume}}</td></tr>
 
-                    <tr><th>{{'meningitis-form.csfIsolateSentToNL'|trans}}</th><td>{{record.csfIsolateSentToNL}}</td></tr>
-                    <tr><th>{{'meningitis-form.csfIsolateDateSentToNL'|trans}}</th><td>{%if record.csfIsolateDateSentToNL %}{{record.csfIsolateDateSentToNL|date}}{%endif%}</td></tr>
-                    <tr><th>{{'meningitis-form.csfIsolateNLDateReceived'|trans}}</th><td>{%if record.csfIsolateNLDateReceived %}{{record.csfIsolateNLDateReceived|date}}{%endif%}</td></tr>
-
-                    <tr><th>{{'meningitis-form.bloodSentToNL'|trans}}</th><td>{{record.bloodSentToNL}}</td></tr>
-                    <tr><th>{{'meningitis-form.bloodDateSentToNL'|trans}}</th><td>{%if record.bloodDateSentToNL %}{{record.bloodDateSentToNL|date}}{%endif%}</td></tr>
-                    <tr><th>{{'meningitis-form.bloodNLId'|trans}}</th><td>{{record.bloodNLId}}</td></tr>
-                    <tr><th>{{'meningitis-form.bloodNLDateReceived'|trans}}</th><td>{%if record.bloodNLDateReceived %}{{record.bloodNLDateReceived|date}}{%endif%}</td></tr>
-
-                    <tr><th>{{'meningitis-form.bloodIsolateSentToNL'|trans}}</th><td>{{record.bloodIsolateSentToNL}}</td></tr>
-                    <tr><th>{{'meningitis-form.bloodIsolateDateSentToNL'|trans}}</th><td>{%if record.bloodIsolateDateSentToNL %}{{record.bloodIsolateDateSentToNL|date}}{%endif%}</td></tr>
-                    <tr><th>{{'meningitis-form.bloodIsolateNLDateReceived'|trans}}</th><td>{%if record.bloodIsolateNLDateReceived %}{{record.bloodIsolateNLDateReceived|date}}{%endif%}</td></tr>
-
-                    <tr><th>{{'meningitis-form.otherSentToNL'|trans}}</th><td>{{record.otherSentToNL}}</td></tr>
-                    <tr><th>{{'meningitis-form.otherNLId'|trans}}</th><td>{{record.otherNLId}}</td></tr>
-                    <tr><th>{{'meningitis-form.otherDateSentToNL'|trans}}</th><td>{%if record.otherDateSentToNL %}{{record.otherDateSentToNL|date}}{%endif%}</td></tr>
-                    <tr><th>{{'meningitis-form.otherNLDateReceived'|trans}}</th><td>{%if record.otherNLDateReceived %}{{record.otherNLDateReceived|date}}{%endif%}</td></tr>
-
-                    
-                    <tr><th>{{'meningitis-form.csfSentToRRL'|trans}}</th><td>{{record.csfSentToRRL}}</td></tr>
-                    <tr><th>{{'meningitis-form.csfDateSentToRRL'|trans}}</th><td>{%if record.csfDateSentToRRL %}{{record.csfDateSentToRRL|date}}{%endif%}</td></tr>
-                    <tr><th>{{'meningitis-form.csfRRLId'|trans}}</th><td>{{record.csfRRLId}}</td></tr>
-                    <tr><th>{{'meningitis-form.csfRRLDateReceived'|trans}}</th><td>{%if record.csfRRLDateReceived %}{{record.csfRRLDateReceived|date}}{%endif%}</td></tr>
-                    <tr><th>{{'meningitis-form.csfRRLDNAExtractionDate'|trans}}</th><td>{%if record.csfRRLDNAExtractionDate %}{{record.csfRRLDNAExtractionDate|date}}{%endif%}</td></tr>
-                    <tr><th>{{'meningitis-form.csfRRLDNAVolume'|trans}}</th><td>{{record.csfRRLDNAVolume}}</td></tr>
-
-                    <tr><th>{{'meningitis-form.csfIsolateSentToRRL'|trans}}</th><td>{{record.csfIsolateSentToRRL}}</td></tr>
-                    <tr><th>{{'meningitis-form.csfIsolateDateSentToRRL'|trans}}</th><td>{%if record.csfIsolateDateSentToRRL %}{{record.csfIsolateDateSentToRRL|date}}{%endif%}</td></tr>
-                    <tr><th>{{'meningitis-form.csfIsolateRRLDateReceived'|trans}}</th><td>{%if record.csfIsolateRRLDateReceived %}{{record.csfIsolateRRLDateReceived|date}}{%endif%}</td></tr>
-
-                    <tr><th>{{'meningitis-form.bloodSentToRRL'|trans}}</th><td>{{record.bloodSentToRRL}}</td></tr>
-                    <tr><th>{{'meningitis-form.bloodDateSentToRRL'|trans}}</th><td>{%if record.bloodDateSentToRRL %}{{record.bloodDateSentToRRL|date}}{%endif%}</td></tr>
-                    <tr><th>{{'meningitis-form.bloodRRLId'|trans}}</th><td>{{record.bloodRRLId}}</td></tr>
-                    <tr><th>{{'meningitis-form.bloodRRLDateReceived'|trans}}</th><td>{%if record.bloodRRLDateReceived %}{{record.bloodRRLDateReceived|date}}{%endif%}</td></tr>
-
-                    <tr><th>{{'meningitis-form.bloodIsolateSentToRRL'|trans}}</th><td>{{record.bloodIsolateSentToRRL}}</td></tr>
-                    <tr><th>{{'meningitis-form.bloodIsolateDateSentToRRL'|trans}}</th><td>{%if record.bloodIsolateDateSentToRRL %}{{record.bloodIsolateDateSentToRRL|date}}{%endif%}</td></tr>
-                    <tr><th>{{'meningitis-form.bloodIsolateRRLDateReceived'|trans}}</th><td>{%if record.bloodIsolateRRLDateReceived %}{{record.bloodIsolateRRLDateReceived|date}}{%endif%}</td></tr>
-
-                    <tr><th>{{'meningitis-form.otherSentToRRL'|trans}}</th><td>{{record.otherSentToRRL}}</td></tr>
-                    <tr><th>{{'meningitis-form.otherRRLId'|trans}}</th><td>{{record.otherRRLId}}</td></tr>
-                    <tr><th>{{'meningitis-form.otherDateSentToRRL'|trans}}</th><td>{%if record.otherDateSentToRRL %}{{record.otherDateSentToRRL|date}}{%endif%}</td></tr>
-                    <tr><th>{{'meningitis-form.otherRRLDateReceived'|trans}}</th><td>{%if record.otherRRLDateReceived %}{{record.otherRRLDateReceived|date}}{%endif%}</td></tr>
-
-                </table>                    
+                <div id="meningitis" class="tab-pane">
+                    <table class="table table-striped table-bordered table-hover">
+                        <tr>
+                            <th>{{'meningitis-form.men-seizures'|trans}}</th>
+                            <td>{{record.menSeizures}}</td>
+                        </tr>
+                        <tr>
+                            <th>{{'meningitis-form.men-fever'|trans}}</th>
+                            <td>{{record.menFever}}</td>
+                        </tr>
+                        <tr>
+                            <th>{{'meningitis-form.men-alt-conscious'|trans}}</th>
+                            <td>{{record.menAltConscious}}</td>
+                        </tr>
+                        <tr>
+                            <th>{{'meningitis-form.men-inability-feed'|trans}}</th>
+                            <td>{{record.menInabilityFeed}}</td>
+                        </tr>
+                        <tr>
+                            <th>{{'meningitis-form.men-neck-stiff'|trans}}</th>
+                            <td>{{record.menNeckStiff}}</td>
+                        </tr>
+                        <tr>
+                            <th>{{'meningitis-form.men-rash'|trans}}</th>
+                            <td>{{record.menRash}}</td>
+                        </tr>
+                        <tr>
+                            <th>{{'meningitis-form.men-fontanelle-bulge'|trans}}</th>
+                            <td>{{record.menFontanelleBulge}}</td>
+                        </tr>
+                        <tr>
+                            <th>{{'meningitis-form.men-lethargy'|trans}}</th>
+                            <td>{{record.menLethargy}}</td>
+                        </tr>
+                    </table>
                 </div>
-                <div id="labData-Serotype" class="tab-pane">
-                <table class="table table-striped table-bordered table-hover">
-                    <tr><th>{{'meningitis-rrl-form.spnSerotype'|trans}}</th><td>{{record.spnSerotype}}</td></tr>
-                    <tr><th>{{'meningitis-rrl-form.spnSerotype-other'|trans}}</th><td>{{record.spnSerotypeOther}}</td></tr>
-                    <tr><th>{{'meningitis-form.hi-serotype'|trans}}</th><td>{{record.hiSerotype}}</td></tr>
-                    <tr><th>{{'meningitis-rrl-form.hiSerotype-other'|trans}}</th><td>{{record.hiSerotypeOther}}</td></tr>
-                    <tr><th>{{'meningitis-form.nm-serogroup'|trans}}</th><td>{{record.nmSerogroup}}</td></tr>
-                    <tr><th>{{'meningitis-rrl-form.nmSerogroup-other'|trans}}</th><td>{{record.nmSerogroupOther}}</td></tr>
-                    <tr><th>{{'meningitis-rrl-form.pathogenIdentifierMethod'|trans}}</th><td>{{record.pathogenIdentifierMethod}}</td></tr>
-                    <tr><th>{{'meningitis-rrl-form.pathogen-id-other'|trans}}</th><td>{{record.pathogenIdentifierOther}}</td></tr>
-                    <tr><th>{{'meningitis-rrl-form.serotype-id-method'|trans}}</th><td>{{record.serotypeIdentifier}}</td></tr>
-                    <tr><th>{{'meningitis-rrl-form.serotype-id-other'|trans}}</th><td>{{record.serotypeIdentifierOther}}</td></tr>
-                    <tr><th>{{'meningitis-rrl-form.lytA'|trans}}</th><td>{{record.lytA}}</td></tr>
-                    <tr><th>{{'meningitis-rrl-form.sodC'|trans}}</th><td>{{record.sodC}}</td></tr>
-                    <tr><th>{{'meningitis-rrl-form.hpd'|trans}}</th><td>{{record.hpd}}</td></tr>
-                    <tr><th>{{'meningitis-rrl-form.rNasP'|trans}}</th><td>{{record.rNaseP}}</td></tr>
-                </table>
+
+                <div id="pneumonia" class="tab-pane">
+                    <table class="table table-striped table-bordered table-hover">
+                        <tr>
+                            <th>{{'meningitis-form.pneu-diff-breathe'|trans}}</th>
+                            <td>{{record.pneuDiffBreathe}}</td>
+                        </tr>
+                        <tr>
+                            <th>{{'meningitis-form.pneu-chest-indraw'|trans}}</th>
+                            <td>{{record.pneuChestIndraw}}</td>
+                        </tr>
+                        <tr>
+                            <th>{{'meningitis-form.pneu-cough'|trans}}</th>
+                            <td>{{record.pneuCough}}</td>
+                        </tr>
+                        <tr>
+                            <th>{{'meningitis-form.pneu-cyanosis'|trans}}</th>
+                            <td>{{record.pneuCyanosis}}</td>
+                        </tr>
+                        <tr>
+                            <th>{{'meningitis-form.pneu-resp-rate'|trans}}</th>
+                            <td>{{record.pneuRespRate}}</td>
+                        </tr>
+                        <tr><th>{{'meningitis-form.cxr-done'|trans}}</th><td>{{record.cxrDone}}</td></tr>
+                        <tr><th>{{'meningitis-form.cxr-result'|trans}}</th><td>{{record.cxrResult}}</td></tr>
+                        <tr><th>{{'meningitis-form.cxr-additional-result'|trans}}</th><td>{{record.cxrAdditionalResult}}</td></tr>
+                    </table>
                 </div>
-            {%else%}
-            <div id="labData" class="tab-pane">
-                <table class="table table-striped table-bordered table-hover">
-                    <tr>
-                        <th>{{'meningitis.has-site-lab'|trans}}</th>
-                        <td>{{'No'|trans}}</td>
-                    </tr>
-                </table>
+
+                <div id="collectionData" class="tab-pane">
+                    <table class="table table-striped table-bordered table-hover">
+                        <tr>
+                            <th>{{'meningitis-form.csf-collected'|trans}}</th>
+                            <td>{{record.csfCollected}}</td>
+                        </tr>
+                        <tr>
+                            <th>{{'meningitis-form.csf-collect-datetime'|trans}}</th>
+                            <td>{%if record.csfCollectDateTime %}{{record.csfCollectDateTime|date}}{%endif%}</td>
+                        </tr>
+                        <tr>
+                            <th>{{'meningitis-form.csf-appearance'|trans}}</th>
+                            <td>{{record.csfAppearance}}</td>
+                        </tr>
+                        <tr>
+                            <th>{{'meningitis-form.blood-collected'|trans}}</th>
+                            <td>{{record.bloodCollected}}</td>
+                        </tr>
+                    </table>
+                </div>
+
+                {% if record.hasSiteLab %}
+                    <div id="labData-CSF" class="tab-pane">
+                        <table class="table table-striped table-bordered table-hover">
+                            <tr><th>{{'meningitis-form.csfSiteId'|trans}}</th><td>{{record.siteLab.csfId}}</td></tr>
+                            <tr><th>{{'meningitis-form.csfSiteId'|trans}}</th><td>{%if record.siteLab.csfDateTime %}{{record.siteLab.csfDateTime|date}}{%endif%}</td></tr>
+                            <tr><th>{{'meningitis-form.csf-wcc'|trans}}</th><td>{{record.siteLab.csfWcc}}</td></tr>
+                            <tr><th>{{'meningitis-form.csf-glucose'|trans}}</th><td>{{record.siteLab.csfGlucose}}</td></tr>
+                            <tr><th>{{'meningitis-form.csf-protein'|trans}}</th><td>{{record.siteLab.csfProtein}}</td></tr>
+                            <tr><th>{{'meningitis-form.csf-cult-done'|trans}}</th><td>{{record.siteLab.csfCultDone}}</td></tr>
+                            <tr><th>{{'meningitis-form.csf-gram-done'|trans}}</th><td>{{record.siteLab.csfGramDone}}</td></tr>
+                            <tr><th>{{'meningitis-form.csf-binax-done'|trans}}</th><td>{{record.siteLab.csfBinaxDone}}</td></tr>
+                            <tr><th>{{'meningitis-form.csf-lat-done'|trans}}</th><td>{{record.siteLab.csfLatDone}}</td></tr>
+                            <tr><th>{{'meningitis-form.csf-pcr-done'|trans}}</th><td>{{record.siteLab.csfPcrDone}}</td></tr>
+                            <tr><th>{{'meningitis-form.csf-culture-other'|trans}}</th><td>{{record.siteLab.csfCultOther}}</td></tr>
+                            <tr><th>{{'meningitis-form.csf-store'|trans}}</th><td>{{record.siteLab.csfStore}}</td></tr>
+                            <tr><th>{{'meningitis-form.isol-store'|trans}}</th><td>{{record.siteLab.csfIsolStore}}</td></tr>
+                        </table>
+                    </div>
+
+                    <div id="labData-Blood" class="tab-pane">
+                        <table class="table table-striped table-bordered table-hover">
+                            <tr><th>{{'meningitis-form.blood-cult-done'|trans}}</th><td>{{record.siteLab.bloodCultDone}}</td></tr>
+                            <tr><th>{{'meningitis-form.blood-gram-done'|trans}}</th><td>{{record.siteLab.bloodGramDone}}</td></tr>
+                            <tr><th>{{'meningitis-form.blood-pcr-done'|trans}}</th><td>{{record.siteLab.bloodPcrDone}}</td></tr>
+                            <tr><th>{{'meningitis-form.blood-cult-other'|trans}}</th><td>{{record.siteLab.bloodCultOther}}</td></tr>
+                            <tr><th>{{'meningitis-form.blood-gram-result'|trans}}</th><td>{{record.siteLab.bloodGramResult}}</td></tr>
+                            <tr><th>{{'meningitis-form.blood-pcr-result'|trans}}</th><td>{{record.siteLab.bloodPcrResult}}</td></tr>
+                        </table>
+                    </div>
+
+                    <div id="labData-Other" class="tab-pane">
+                        <table class="table table-striped table-bordered table-hover">
+                            <tr><th>{{'meningitis-form.other-culture'|trans}}</th><td>{{record.siteLab.otherCultDone}}</td></tr>
+                            <tr><th>{{'meningitis-form.other-cult-result'|trans}}</th><td>{{record.siteLab.otherCultResult}}</td></tr>
+                            <tr><th>{{'meningitis-form.other-cult-other'|trans}}</th><td>{{record.siteLab.otherCultOther}}</td></tr>
+                        </table>
+                    </div>
+
+                    <div id="labData-Lab" class="tab-pane">
+                        <table class="table table-striped table-bordered table-hover">
+                            <tr><th>{{'meningitis-form.csfSentToNL'|trans}}</th><td>{{record.siteLab.csfSentToNL}}</td></tr>
+                            <tr><th>{{'meningitis-form.csfDateSentToNL'|trans}}</th><td>{%if record.siteLab.csfDateSentToNL %}{{record.siteLab.csfDateSentToNL|date}}{%endif%}</td></tr>
+                            <tr><th>{{'meningitis-form.csfNLId'|trans}}</th><td>{{record.siteLab.csfNLId}}</td></tr>
+                            <tr><th>{{'meningitis-form.csfNLDateReceived'|trans}}</th><td>{%if record.siteLab.csfNLDateReceived %}{{record.siteLab.csfNLDateReceived|date}}{%endif%}</td></tr>
+                            <tr><th>{{'meningitis-form.csfNLDNAExtractionDate'|trans}}</th><td>{%if record.siteLab.csfNLDNAExtractionDate %}{{record.siteLab.csfNLDNAExtractionDate|date}}{%endif%}</td></tr>
+                            <tr><th>{{'meningitis-form.csfNLDNAVolume'|trans}}</th><td>{{record.siteLab.csfNLDNAVolume}}</td></tr>
+
+                            <tr><th>{{'meningitis-form.csfIsolateSentToNL'|trans}}</th><td>{{record.siteLab.csfIsolateSentToNL}}</td></tr>
+                            <tr><th>{{'meningitis-form.csfIsolateDateSentToNL'|trans}}</th><td>{%if record.siteLab.csfIsolateDateSentToNL %}{{record.siteLab.csfIsolateDateSentToNL|date}}{%endif%}</td></tr>
+                            <tr><th>{{'meningitis-form.csfIsolateNLDateReceived'|trans}}</th><td>{%if record.siteLab.csfIsolateNLDateReceived %}{{record.siteLab.csfIsolateNLDateReceived|date}}{%endif%}</td></tr>
+
+                            <tr><th>{{'meningitis-form.bloodSentToNL'|trans}}</th><td>{{record.siteLab.bloodSentToNL}}</td></tr>
+                            <tr><th>{{'meningitis-form.bloodDateSentToNL'|trans}}</th><td>{%if record.siteLab.bloodDateSentToNL %}{{record.siteLab.bloodDateSentToNL|date}}{%endif%}</td></tr>
+                            <tr><th>{{'meningitis-form.bloodNLId'|trans}}</th><td>{{record.siteLab.bloodNLId}}</td></tr>
+                            <tr><th>{{'meningitis-form.bloodNLDateReceived'|trans}}</th><td>{%if record.siteLab.bloodNLDateReceived %}{{record.siteLab.bloodNLDateReceived|date}}{%endif%}</td></tr>
+
+                            <tr><th>{{'meningitis-form.bloodIsolateSentToNL'|trans}}</th><td>{{record.siteLab.bloodIsolateSentToNL}}</td></tr>
+                            <tr><th>{{'meningitis-form.bloodIsolateDateSentToNL'|trans}}</th><td>{%if record.siteLab.bloodIsolateDateSentToNL %}{{record.siteLab.bloodIsolateDateSentToNL|date}}{%endif%}</td></tr>
+                            <tr><th>{{'meningitis-form.bloodIsolateNLDateReceived'|trans}}</th><td>{%if record.siteLab.bloodIsolateNLDateReceived %}{{record.siteLab.bloodIsolateNLDateReceived|date}}{%endif%}</td></tr>
+
+                            <tr><th>{{'meningitis-form.otherSentToNL'|trans}}</th><td>{{record.siteLab.otherSentToNL}}</td></tr>
+                            <tr><th>{{'meningitis-form.otherNLId'|trans}}</th><td>{{record.siteLab.otherNLId}}</td></tr>
+                            <tr><th>{{'meningitis-form.otherDateSentToNL'|trans}}</th><td>{%if record.siteLab.otherDateSentToNL %}{{record.siteLab.otherDateSentToNL|date}}{%endif%}</td></tr>
+                            <tr><th>{{'meningitis-form.otherNLDateReceived'|trans}}</th><td>{%if record.siteLab.otherNLDateReceived %}{{record.siteLab.otherNLDateReceived|date}}{%endif%}</td></tr>
+
+
+                            <tr><th>{{'meningitis-form.csfSentToRRL'|trans}}</th><td>{{record.siteLab.csfSentToRRL}}</td></tr>
+                            <tr><th>{{'meningitis-form.csfDateSentToRRL'|trans}}</th><td>{%if record.siteLab.csfDateSentToRRL %}{{record.siteLab.csfDateSentToRRL|date}}{%endif%}</td></tr>
+                            <tr><th>{{'meningitis-form.csfRRLId'|trans}}</th><td>{{record.siteLab.csfRRLId}}</td></tr>
+                            <tr><th>{{'meningitis-form.csfRRLDateReceived'|trans}}</th><td>{%if record.siteLab.csfRRLDateReceived %}{{record.siteLab.csfRRLDateReceived|date}}{%endif%}</td></tr>
+                            <tr><th>{{'meningitis-form.csfRRLDNAExtractionDate'|trans}}</th><td>{%if record.siteLab.csfRRLDNAExtractionDate %}{{record.siteLab.csfRRLDNAExtractionDate|date}}{%endif%}</td></tr>
+                            <tr><th>{{'meningitis-form.csfRRLDNAVolume'|trans}}</th><td>{{record.siteLab.csfRRLDNAVolume}}</td></tr>
+
+                            <tr><th>{{'meningitis-form.csfIsolateSentToRRL'|trans}}</th><td>{{record.siteLab.csfIsolateSentToRRL}}</td></tr>
+                            <tr><th>{{'meningitis-form.csfIsolateDateSentToRRL'|trans}}</th><td>{%if record.siteLab.csfIsolateDateSentToRRL %}{{record.siteLab.csfIsolateDateSentToRRL|date}}{%endif%}</td></tr>
+                            <tr><th>{{'meningitis-form.csfIsolateRRLDateReceived'|trans}}</th><td>{%if record.siteLab.csfIsolateRRLDateReceived %}{{record.siteLab.csfIsolateRRLDateReceived|date}}{%endif%}</td></tr>
+
+                            <tr><th>{{'meningitis-form.bloodSentToRRL'|trans}}</th><td>{{record.siteLab.bloodSentToRRL}}</td></tr>
+                            <tr><th>{{'meningitis-form.bloodDateSentToRRL'|trans}}</th><td>{%if record.siteLab.bloodDateSentToRRL %}{{record.siteLab.bloodDateSentToRRL|date}}{%endif%}</td></tr>
+                            <tr><th>{{'meningitis-form.bloodRRLId'|trans}}</th><td>{{record.siteLab.bloodRRLId}}</td></tr>
+                            <tr><th>{{'meningitis-form.bloodRRLDateReceived'|trans}}</th><td>{%if record.siteLab.bloodRRLDateReceived %}{{record.siteLab.bloodRRLDateReceived|date}}{%endif%}</td></tr>
+
+                            <tr><th>{{'meningitis-form.bloodIsolateSentToRRL'|trans}}</th><td>{{record.siteLab.bloodIsolateSentToRRL}}</td></tr>
+                            <tr><th>{{'meningitis-form.bloodIsolateDateSentToRRL'|trans}}</th><td>{%if record.siteLab.bloodIsolateDateSentToRRL %}{{record.siteLab.bloodIsolateDateSentToRRL|date}}{%endif%}</td></tr>
+                            <tr><th>{{'meningitis-form.bloodIsolateRRLDateReceived'|trans}}</th><td>{%if record.siteLab.bloodIsolateRRLDateReceived %}{{record.siteLab.bloodIsolateRRLDateReceived|date}}{%endif%}</td></tr>
+
+                            <tr><th>{{'meningitis-form.otherSentToRRL'|trans}}</th><td>{{record.siteLab.otherSentToRRL}}</td></tr>
+                            <tr><th>{{'meningitis-form.otherRRLId'|trans}}</th><td>{{record.siteLab.otherRRLId}}</td></tr>
+                            <tr><th>{{'meningitis-form.otherDateSentToRRL'|trans}}</th><td>{%if record.siteLab.otherDateSentToRRL %}{{record.siteLab.otherDateSentToRRL|date}}{%endif%}</td></tr>
+                            <tr><th>{{'meningitis-form.otherRRLDateReceived'|trans}}</th><td>{%if record.siteLab.otherRRLDateReceived %}{{record.siteLab.otherRRLDateReceived|date}}{%endif%}</td></tr>
+                        </table>
+                    </div>
+
+                    <div id="labData-Serotype" class="tab-pane">
+                        <table class="table table-striped table-bordered table-hover">
+                            <tr><th>{{'meningitis-rrl-form.spnSerotype'|trans}}</th><td>{{record.siteLab.spnSerotype}}</td></tr>
+                            <tr><th>{{'meningitis-rrl-form.spnSerotype-other'|trans}}</th><td>{{record.siteLab.spnSerotypeOther}}</td></tr>
+                            <tr><th>{{'meningitis-form.hi-serotype'|trans}}</th><td>{{record.siteLab.hiSerotype}}</td></tr>
+                            <tr><th>{{'meningitis-rrl-form.hiSerotype-other'|trans}}</th><td>{{record.siteLab.hiSerotypeOther}}</td></tr>
+                            <tr><th>{{'meningitis-form.nm-serogroup'|trans}}</th><td>{{record.siteLab.nmSerogroup}}</td></tr>
+                            <tr><th>{{'meningitis-rrl-form.nmSerogroup-other'|trans}}</th><td>{{record.siteLab.nmSerogroupOther}}</td></tr>
+                            <tr><th>{{'meningitis-rrl-form.pathogenIdentifierMethod'|trans}}</th><td>{{record.siteLab.pathogenIdentifierMethod}}</td></tr>
+                            <tr><th>{{'meningitis-rrl-form.pathogen-id-other'|trans}}</th><td>{{record.siteLab.pathogenIdentifierOther}}</td></tr>
+                            <tr><th>{{'meningitis-rrl-form.serotype-id-method'|trans}}</th><td>{{record.siteLab.serotypeIdentifier}}</td></tr>
+                            <tr><th>{{'meningitis-rrl-form.serotype-id-other'|trans}}</th><td>{{record.siteLab.serotypeIdentifierOther}}</td></tr>
+                            <tr><th>{{'meningitis-rrl-form.lytA'|trans}}</th><td>{{record.siteLab.lytA}}</td></tr>
+                            <tr><th>{{'meningitis-rrl-form.sodC'|trans}}</th><td>{{record.siteLab.sodC}}</td></tr>
+                            <tr><th>{{'meningitis-rrl-form.hpd'|trans}}</th><td>{{record.siteLab.hpd}}</td></tr>
+                            <tr><th>{{'meningitis-rrl-form.rNasP'|trans}}</th><td>{{record.siteLab.rNaseP}}</td></tr>
+                        </table>
+                    </div>
+                {%else%}
+                    <div id="labData" class="tab-pane">
+                        <table class="table table-striped table-bordered table-hover">
+                            <tr>
+                                <th>{{'meningitis.has-site-lab'|trans}}</th>
+                                <td>{{'No'|trans}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                {%endif%}
             </div>
-            {%endif%}
         </div>
     </div>
-</div>
 {% endblock %}
