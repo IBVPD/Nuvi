@@ -4,6 +4,11 @@ parameters:
     ns_api.client.class: NS\ApiBundle\Service\OAuth2Client
 
 services:
+    ns.api.serializer.array_choice_handler:
+      class: NS\ApiBundle\Serializer\ArrayChoiceHandler
+      tags:
+        - { name: jms_serializer.subscribing_handler }
+    
     ns_api.form.api_remote_type:
       class: NS\ApiBundle\Form\RemoteType
       tags:

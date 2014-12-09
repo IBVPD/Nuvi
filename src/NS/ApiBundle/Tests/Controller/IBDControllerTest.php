@@ -27,10 +27,8 @@ class IBDControllerTest extends WebTestCase
 
         $this->loadFixtures($classes);
 
-        $user  = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:User')->findOneBy(array(
-            'email' => 'ca-api@noblet.ca'));
-        $route = $this->getUrl('nsApiIbdGetCase', array('objId' => 'CA-ALBCHLD-14-000001'));
-
+        $route  = $this->getRoute();
+        $user   = $this->getUser();
         $client = $this->createApiClient($user);
         $client->request('GET', $route);
 
@@ -43,21 +41,18 @@ class IBDControllerTest extends WebTestCase
         $this->assertArrayHasKey('Id', $decoded);
         $this->assertEquals('CA-ALBCHLD-14-000001', $decoded['Id']);
     }
+//nsApiIbdGetLab
 
     public function testPatchCase()
     {
-        $user  = $this->getUser();
-        $route = $this->getUrl('nsApiIbdPatchCase', array('objId' => self::ID));
-
+        $user   = $this->getUser();
+        $route  = $this->getRoute('nsApiIbdPatchCase');
         $client = $this->createApiClient($user);
-        $client->request('PATCH', $route, array(), array(), array(), '{"ibd":{"lastName":"Fabien"}}');
+        $client->request('PATCH', $route, array(), array(), array(), '{"ibd":{"lastName":"Fabien","gender":"1"}}');
 
         $response = $client->getResponse();
-        $this->assertJsonResponse($response, 202);
-        $this->assertTrue($response->headers->has('Location'), "We have a location header");
-
-        $gRoute = $this->getUrl('nsApiIbdGetCase', array('objId' => self::ID));
-        $this->assertEquals($response->headers->get('Location'), $gRoute, "The location matches the expected response");
+        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertFalse($response->headers->has('Location'), "We have a location header");
 
         $case = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:IBD')->find(self::ID);
         $this->assertEquals("Fabien", $case->getLastName(), "Change has occurred");
@@ -73,7 +68,7 @@ class IBDControllerTest extends WebTestCase
         $client->request('POST', $route, array(), array(), array(), '{"create_ibd":{"caseId":"ANewCaseId","type":1,"site":"ALBCHLD"}}');
 
         $response = $client->getResponse();
-        $this->assertJsonResponse($response, 201);
+        $this->assertEquals(201, $response->getStatusCode());
         $this->assertTrue($response->headers->has('Location'), "We have a location header");
 
         $client->request('GET', $response->headers->get('Location'));
@@ -95,46 +90,43 @@ class IBDControllerTest extends WebTestCase
         $client->request('PATCH', $route, array(), array(), array(), '{"ibd_lab":{"csfId":"ANewCaseId","csfGramDone":0,"csfCultDone":0}}');
 
         $response = $client->getResponse();
-        $this->assertJsonResponse($response, 202);
-        $this->assertTrue($response->headers->has('Location'), "We have a location header");
+        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertFalse($response->headers->has('Location'), "We have a location header");
 
-        $client->request('GET', $response->headers->get('Location'));
+        $client->request('GET', $this->getRoute('nsApiIbdGetLab'));
         $response = $client->getResponse();
         $this->assertJsonResponse($response, 200);
         $decoded  = json_decode($response->getContent(), true);
 
-        $this->assertArrayHasKey('CsfId', $decoded);
+        $this->assertArrayHasKey('CsfId', $decoded, print_r($decoded, true));
         $this->assertEquals("ANewCaseId", $decoded['CsfId']);
     }
 
     public function testGetRRLCase()
     {
-        $user  = $this->getUser();
-        $route = $this->getUrl('nsApiIbdGetRRL', array('objId' => self::ID));
-
+        $user   = $this->getUser();
         $client = $this->createApiClient($user);
-        $client->request('GET', $route);
+        $client->request('GET', $this->getRoute('nsApiIbdGetRRL'));
 
         $response = $client->getResponse();
-        $this->assertJsonResponse($response, 200);
+        $this->assertEquals(200, $response->getStatusCode());
         $decoded  = json_decode($response->getContent(), true);
 
-        $this->assertArrayHasKey('Status', $decoded, print_r($decoded, true));
+//        $this->assertArrayHasKey('Status', $decoded, print_r($decoded, true));
     }
 
-    public function testRRLCase()
+    public function testPatchRRLCase()
     {
-        $user  = $this->getUser();
-        $route = $this->getUrl('nsApiIbdPatchRRL', array('objId' => self::ID));
-
+        $user   = $this->getUser();
+        $route  = $this->getRoute('nsApiIbdPatchRRL');
         $client = $this->createApiClient($user);
         $client->request('PATCH', $route, array(), array(), array(), '{"ibd_referencelab":{"labId":"ANewCaseId","sampleType":1}}');
 
         $response = $client->getResponse();
-        $this->assertJsonResponse($response, 202);
-        $this->assertTrue($response->headers->has('Location'), "We have a location header");
+        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertFalse($response->headers->has('Location'), "We have a location header");
 
-        $client->request('GET', $response->headers->get('Location'));
+        $client->request('GET', $this->getRoute('nsApiIbdGetRRL'));
         $response = $client->getResponse();
         $this->assertJsonResponse($response, 200);
         $decoded  = json_decode($response->getContent(), true);
@@ -143,13 +135,33 @@ class IBDControllerTest extends WebTestCase
         $this->assertEquals("ANewCaseId", $decoded['LabId']);
     }
 
-    public function testGetNLCase()
+    public function testPutRRLCase()
     {
         $user  = $this->getUser();
-        $route = $this->getUrl('nsApiIbdGetNL', array('objId' => self::ID));
+        $route = $this->getRoute('nsApiIbdPutRRL');
 
         $client = $this->createApiClient($user);
-        $client->request('GET', $route);
+        $client->request('PUT', $route, array(), array(), array(), '{"ibd_referencelab":{"labId":"ANewCaseId","sampleType":2}}');
+
+        $response = $client->getResponse();
+        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertFalse($response->headers->has('Location'), "We have a location header");
+
+        $client->request('GET', $this->getRoute('nsApiIbdGetRRL'));
+        $response = $client->getResponse();
+        $this->assertJsonResponse($response, 200);
+        $decoded  = json_decode($response->getContent(), true);
+
+        $this->assertArrayHasKey('LabId', $decoded);
+        $this->assertEquals("ANewCaseId", $decoded['LabId']);
+        $this->assertArrayHasKey('SampleType', $decoded);
+    }
+
+    public function testGetNLCase()
+    {
+        $user   = $this->getUser();
+        $client = $this->createApiClient($user);
+        $client->request('GET', $this->getRoute());
 
         $response = $client->getResponse();
         $this->assertJsonResponse($response, 200);
@@ -158,19 +170,18 @@ class IBDControllerTest extends WebTestCase
         $this->assertArrayHasKey('Status', $decoded, print_r($decoded, true));
     }
 
-    public function testNLCase()
+    public function testPatchNLCase()
     {
-        $user  = $this->getUser();
-        $route = $this->getUrl('nsApiIbdPatchNL', array('objId' => self::ID));
-
+        $user   = $this->getUser();
+        $route  = $this->getRoute('nsApiIbdPatchNL');
         $client = $this->createApiClient($user);
         $client->request('PATCH', $route, array(), array(), array(), '{"ibd_nationallab":{"labId":"ANewCaseId","sampleType":1}}');
 
         $response = $client->getResponse();
-        $this->assertJsonResponse($response, 202);
-        $this->assertTrue($response->headers->has('Location'), "We have a location header");
+        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertFalse($response->headers->has('Location'), "We have a location header");
 
-        $client->request('GET', $response->headers->get('Location'));
+        $client->request('GET', $this->getRoute('nsApiIbdGetNL'));
         $response = $client->getResponse();
         $this->assertJsonResponse($response, 200);
         $decoded  = json_decode($response->getContent(), true);
@@ -179,20 +190,38 @@ class IBDControllerTest extends WebTestCase
         $this->assertEquals("ANewCaseId", $decoded['LabId']);
     }
 
+    public function testPutNLCase()
+    {
+        $user   = $this->getUser();
+        $route  = $this->getRoute('nsApiIbdPutNL');
+        $client = $this->createApiClient($user);
+        $client->request('PUT', $route, array(), array(), array(), '{"ibd_nationallab":{"labId":"ANewCaseId","sampleType":2}}');
+
+        $response = $client->getResponse();
+        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertFalse($response->headers->has('Location'), "We have a location header");
+
+        $client->request('GET', $this->getRoute('nsApiIbdGetNL'));
+        $response = $client->getResponse();
+        $this->assertJsonResponse($response, 200);
+        $decoded  = json_decode($response->getContent(), true);
+
+        $this->assertArrayHasKey('LabId', $decoded);
+        $this->assertEquals("ANewCaseId", $decoded['LabId']);
+        $this->assertArrayHasKey('SampleType', $decoded);
+//        $this->assertEquals("2", $decoded['SampleType']);
+    }
+
     public function testPutCase()
     {
-        $user  = $this->getUser();
-        $route = $this->getUrl('nsApiIbdPutCase', array('objId' => self::ID));
-
+        $user   = $this->getUser();
+        $route  = $this->getRoute('nsApiIbdPutCase');
         $client = $this->createApiClient($user);
         $client->request('PUT', $route, array(), array(), array(), '{"ibd":{"lastName":"Fabien","caseId":"12"}}');
 
         $response = $client->getResponse();
-        $this->assertJsonResponse($response, 202);
-        $this->assertTrue($response->headers->has('Location'), "We have a location header");
-
-        $gRoute = $this->getUrl('nsApiIbdGetCase', array('objId' => self::ID));
-        $this->assertEquals($response->headers->get('Location'), $gRoute, "The location matches the expected response");
+        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertFalse($response->headers->has('Location'), "We have a location header");
 
         $case = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:IBD')->find(self::ID);
         $this->assertEquals("Fabien", $case->getLastName(), "Change has occurred");
@@ -201,11 +230,10 @@ class IBDControllerTest extends WebTestCase
 
     public function testPutCaseWithoutCaseId()
     {
-        $user  = $this->getUser();
-        $route = $this->getUrl('nsApiIbdPutCase', array('objId' => self::ID));
-
+        $user   = $this->getUser();
+        $route  = $this->getRoute('nsApiIbdPutCase');
         $client = $this->createApiClient($user);
-        $client->request('PUT', $route, array(), array(), array(), '{"rotavirus":{"lastName":"Fabien"');
+        $client->request('PUT', $route, array(), array(), array(), '{"rotavirus":{"lastName":"Fabien"}}');
 
         $response = $client->getResponse();
         $this->assertJsonResponse($response, 400);
@@ -217,4 +245,10 @@ class IBDControllerTest extends WebTestCase
                 'email' => 'ca-api@noblet.ca'));
     }
 
+    private function getRoute($route = 'nsApiIbdGetCase', $id = null)
+    { 
+        $objId = is_null($id) ? self::ID : $id;
+
+        return $this->getUrl($route, array('objId' => $objId));
+    }
 }

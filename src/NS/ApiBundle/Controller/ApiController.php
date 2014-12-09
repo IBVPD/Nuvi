@@ -15,6 +15,7 @@ use FOS\RestBundle\Controller\FOSRestController;
  */
 class ApiController extends FOSRestController
 {
+
     /**
      * Get Sites
      *
@@ -31,10 +32,9 @@ class ApiController extends FOSRestController
      */
     public function sitesAction()
     {
-        $sites   = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:Site')->findAll();
-        return array('sites'=>$sites);
+        $sites = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:Site')->findAll();
+        return array('sites' => $sites);
     }
-
 
     /**
      * Api Test Action,
@@ -49,13 +49,22 @@ class ApiController extends FOSRestController
      *   }
      * )
      * @REST\GET("/test")
-     * @Rest\View()
-    */
+     * @Rest\View(serializerGroups={"api"})
+     */
     public function testAction()
     {
-        return array('username' => $this->getUser()->getUsername(),
-                     'roles'    => $this->getUser()->getRoles(),
-                     'hasToken' => ($this->get('security.context')->getToken())?'Yes':'No');
+        $mGender = new \NS\SentinelBundle\Form\Types\Gender(\NS\SentinelBundle\Form\Types\Gender::MALE);
+        $ibd     = new \NS\SentinelBundle\Entity\IBD();
+        $ibd->setGender($mGender);
+        $ibd->setCaseId(rand(500, 10000));
 
+        return array(
+            'username' => $this->getUser()->getUsername(),
+            'roles'    => $this->getUser()->getRoles(),
+            'hasToken' => ($this->get('security.context')->getToken()) ? 'Yes' : 'No',
+            'gender'   => $mGender,
+            'ibd'      => $ibd,
+        );
     }
+
 }

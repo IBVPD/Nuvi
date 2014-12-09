@@ -94,24 +94,25 @@ class CaseController extends FOSRestController
             return false;
     }
 
-    protected function updateCase(Request $request, $objId, $method, $formName, $className, $route)
+    protected function updateCase(Request $request, $objId, $method, $formName, $className)
     {
         $entityMgr = $this->get('ns.model_manager');
         $obj       = $entityMgr->getRepository($className)->find($objId);
         $form      = $this->createForm($formName, $obj, array('method' => $method));
 
-        return ($this->updateObject($request, $entityMgr, $form)) ? $this->view(null, Codes::HTTP_ACCEPTED, array(
-                'Location' => $route)) : $this->view($form, Codes::HTTP_BAD_REQUEST);
+        return ($this->updateObject($request, $entityMgr, $form)) ?
+            $this->view(null, Codes::HTTP_NO_CONTENT) :
+            $this->view($form, Codes::HTTP_BAD_REQUEST);
     }
 
-    protected function updateLab(Request $request, $objId, $method, $formName, $className, $route)
+    protected function updateLab(Request $request, $objId, $method, $formName, $className)
     {
         $entityMgr = $this->get('ns.model_manager');
         $obj       = $entityMgr->getRepository($className)->findOrCreateNew($objId);
         $form      = $this->createForm($formName, $obj, array('method' => $method));
 
         return ($this->updateObject($request, $entityMgr, $form)) ?
-            $this->view(null, Codes::HTTP_ACCEPTED, array('Location' => $route)) :
+            $this->view(null, Codes::HTTP_NO_CONTENT) :
             $this->view($form, Codes::HTTP_BAD_REQUEST);
     }
 
