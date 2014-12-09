@@ -181,21 +181,21 @@ abstract class ExternalLab extends BaseExternalLab
 
     /**
      * @var double
-     * @ORM\Column(name="spnSerotype",type="decimal",precision=3, scale=1,nullable=true)
+     * @ORM\Column(name="spnSerotype",type="SpnSerotype",nullable=true)
      * @Serializer\Groups({"api"})
      */
     protected $spnSerotype;
 
     /**
      * @var double
-     * @ORM\Column(name="hiSerotype",type="decimal",precision=3, scale=1,nullable=true)
+     * @ORM\Column(name="hiSerotype",type="HiSerotype",nullable=true)
      * @Serializer\Groups({"api"})
      */
     protected $hiSerotype;
 
     /**
      * @var double
-     * @ORM\Column(name="nmSerogroup",type="decimal",precision=3, scale=1,nullable=true)
+     * @ORM\Column(name="nmSerogroup",type="NmSerogroup",nullable=true)
      * @Serializer\Groups({"api"})
      */
     protected $nmSerogroup;

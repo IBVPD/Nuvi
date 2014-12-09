@@ -948,46 +948,46 @@ class SiteLab extends BaseSiteLab
     public function validate(ExecutionContextInterface $context)
     {
         if ($this->csfCultDone && $this->csfCultDone->equal(TripleChoice::YES) && !$this->csfCultResult)
-            $context->addViolationAt('csfCultDone', "form.validation.meningitis-sitelab-csfCult-was-done-without-result");
+            $context->addViolationAt('csfCultDone', "form.validation.ibd-sitelab-csfCult-was-done-without-result");
 
         if ($this->csfCultDone && $this->csfCultDone->equal(TripleChoice::YES) && $this->csfCultResult && $this->csfCultResult->equal(CultureResult::OTHER) && empty($this->csfCultOther))
-            $context->addViolationAt('csfCultDone', "form.validation.meningitis-sitelab-csfCult-was-done-without-result-other");
+            $context->addViolationAt('csfCultDone', "form.validation.ibd-sitelab-csfCult-was-done-without-result-other");
 
         if ($this->csfBinaxDone && $this->csfBinaxDone->equal(TripleChoice::YES) && !$this->csfBinaxResult)
-            $context->addViolationAt('csfBinaxDone', "form.validation.meningitis-sitelab-csfBinax-was-done-without-result");
+            $context->addViolationAt('csfBinaxDone', "form.validation.ibd-sitelab-csfBinax-was-done-without-result");
 
         if ($this->csfLatDone && $this->csfLatDone->equal(TripleChoice::YES) && !$this->csfLatResult)
-            $context->addViolationAt('csfLatDone', "form.validation.meningitis-sitelab-csfLat-was-done-without-result");
+            $context->addViolationAt('csfLatDone', "form.validation.ibd-sitelab-csfLat-was-done-without-result");
 
         if ($this->csfLatDone && $this->csfLatDone->equal(TripleChoice::YES) && $this->csfLatResult && $this->csfLatResult->equal(LatResult::OTHER) && empty($this->csfLatOther))
-            $context->addViolationAt('csfLatDone', "form.validation.meningitis-sitelab-csfLat-was-done-without-result-other");
+            $context->addViolationAt('csfLatDone', "form.validation.ibd-sitelab-csfLat-was-done-without-result-other");
 
         if ($this->csfPcrDone && $this->csfPcrDone->equal(TripleChoice::YES) && !$this->csfPcrResult)
-            $context->addViolationAt('csfPcrDone', "form.validation.meningitis-sitelab-csfPcr-was-done-without-result");
+            $context->addViolationAt('csfPcrDone', "form.validation.ibd-sitelab-csfPcr-was-done-without-result");
 
         if ($this->csfPcrDone && $this->csfPcrDone->equal(TripleChoice::YES) && $this->csfPcrResult && $this->csfPcrResult->equal(PCRResult::OTHER) && empty($this->csfPcrOther))
-            $context->addViolationAt('csfPcrDone', "form.validation.meningitis-sitelab-csfPcr-was-done-without-result");
+            $context->addViolationAt('csfPcrDone', "form.validation.ibd-sitelab-csfPcr-was-done-without-result");
 
         if ($this->spnSerotype && $this->spnSerotype->equal(SpnSerotype::OTHER) && (!$this->spnSerotypeOther || empty($this->spnSerotypeOther)))
-            $context->addViolationAt('spnSerotype', "form.validation.meningitis-sitelab-spnSerotype-other-without-data");
+            $context->addViolationAt('spnSerotype', "form.validation.ibd-sitelab-spnSerotype-other-without-data");
 
         if ($this->hiSerotype && $this->hiSerotype->equal(HiSerotype::OTHER) && (!$this->hiSerotypeOther || empty($this->hiSerotypeOther)))
-            $context->addViolationAt('hiSerotype', "form.validation.meningitis-sitelab-hiSerotype-other-without-data");
+            $context->addViolationAt('hiSerotype', "form.validation.ibd-sitelab-hiSerotype-other-without-data");
 
         if ($this->nmSerogroup && $this->nmSerogroup->equal(NmSerogroup::OTHER) && (!$this->nmSerogroupOther || empty($this->nmSerogroupOther)))
-            $context->addViolationAt('nmSerogroup', "form.validation.meningitis-sitelab-nmSerogroup-other-without-data");
+            $context->addViolationAt('nmSerogroup', "form.validation.ibd-sitelab-nmSerogroup-other-without-data");
 
         if ($this->bloodCultDone && $this->bloodCultDone->equal(TripleChoice::YES) && !$this->bloodCultResult)
-            $context->addViolationAt('csfCultDone', "form.validation.meningitis-sitelab-bloodCult-was-done-without-result");
+            $context->addViolationAt('csfCultDone', "form.validation.ibd-sitelab-bloodCult-was-done-without-result");
 
         if ($this->bloodCultDone && $this->bloodCultDone->equal(TripleChoice::YES) && $this->bloodCultResult && $this->bloodCultResult->equal(CultureResult::OTHER) && empty($this->bloodCultOther))
-            $context->addViolationAt('bloodCultDone', "form.validation.meningitis-sitelab-bloodCult-was-done-without-result");
+            $context->addViolationAt('bloodCultDone', "form.validation.ibd-sitelab-bloodCult-was-done-without-result");
 
         if ($this->otherCultDone && $this->otherCultDone->equal(TripleChoice::YES) && !$this->otherCultResult)
-            $context->addViolationAt('csfCultDone', "form.validation.meningitis-sitelab-otherCult-was-done-without-result");
+            $context->addViolationAt('csfCultDone', "form.validation.ibd-sitelab-otherCult-was-done-without-result");
 
         if ($this->otherCultDone && $this->otherCultDone->equal(TripleChoice::YES) && $this->otherCultResult && $this->otherCultResult->equal(CultureResult::OTHER) && empty($this->otherCultOther))
-            $context->addViolationAt('otherCultDone', "form.validation.meningitis-sitelab-otherCult-was-done-without-result");
+            $context->addViolationAt('otherCultDone', "form.validation.ibd-sitelab-otherCult-was-done-without-result");
     }
 
     private function _calculateStatus()

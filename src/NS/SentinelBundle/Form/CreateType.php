@@ -41,8 +41,8 @@ class CreateType extends AbstractType
             $builder->add('site','entity',array('required'        => true,
                                                 'mapped'          => false,
                                                 'empty_value'     => 'Please Select...',
-                                                'label'           => 'meningitis-form.site',
-                                                'query_builder'   => $this->entityMgr->getRepository('NS\SentinelBundle\Entity\Site')->getChainQueryBuilder()->orderBy('s.name','ASC'),
+                                                'label'           => 'ibd-form.site',
+                'query_builder'   => $this->entityMgr->getRepository('NS\SentinelBundle\Entity\Site')->getChainQueryBuilder()->orderBy('s.name','ASC'),
                                                 'class'           => 'NS\SentinelBundle\Entity\Site',
                                                 'auto_initialize' => false));
         }
