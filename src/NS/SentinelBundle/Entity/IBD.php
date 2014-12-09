@@ -4,7 +4,6 @@ namespace NS\SentinelBundle\Entity;
 
 use \Doctrine\ORM\Mapping as ORM;
 use \Gedmo\Mapping\Annotation as Gedmo;
-use \JMS\Serializer\Annotation\AccessType;
 use \JMS\Serializer\Annotation\Groups;
 use \JMS\Serializer\Annotation\Exclude;
 use \NS\SecurityBundle\Annotation\Secured;
