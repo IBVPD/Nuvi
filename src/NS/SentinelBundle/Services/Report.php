@@ -45,9 +45,9 @@ class Report
 
         $form->handleRequest($request);
 
-        if($form->isValid())
+        if ($form->isValid())
         {
-            if($form->get('reset')->isClicked())
+            if ($form->get('reset')->isClicked())
                 return new RedirectResponse($this->router->generate($redirectRoute));
             else
                 $this->filter->addFilterConditions($form, $queryBuilder, $alias);
@@ -58,22 +58,22 @@ class Report
         $result = new NumberEnrolledResult();
         $result->load($queryBuilder->getQuery()->getResult());
 
-        if($export)
-            return $this->export(new ArraySourceIterator($result->all()),'csv');
+        if ($export)
+            return $this->export(new ArraySourceIterator($result->all()), 'csv');
 
         return array('results' => $result, 'form' => $form->createView());
     }
 
-    public function getAnnualAgeDistribution(Request $request,  FormInterface $form, $redirectRoute)
+    public function getAnnualAgeDistribution(Request $request, FormInterface $form, $redirectRoute)
     {
         $export       = false;
         $alias        = 'i';
         $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:IBD')->getAnnualAgeDistribution($alias);
 
         $form->handleRequest($request);
-        if($form->isValid())
+        if ($form->isValid())
         {
-            if($form->get('reset')->isClicked())
+            if ($form->get('reset')->isClicked())
                 return new RedirectResponse($this->router->generate($redirectRoute));
             else
                 $this->filter->addFilterConditions($form, $queryBuilder, $alias);
@@ -84,21 +84,21 @@ class Report
         $r       = $queryBuilder->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult(Query::HYDRATE_SCALAR);
         $results = new AgeDistribution($r);
 
-        if($export)
-            return $this->export(new ArraySourceIterator($results->toArray()),'xls');
+        if ($export)
+            return $this->export(new ArraySourceIterator($results->toArray()), 'xls');
 
-        return array('results'=>$results,'form'=>$form->createView());
+        return array('results' => $results, 'form' => $form->createView());
     }
 
-    private function _populateSites($sites,&$results)
+    private function populateSites($sites, &$results)
     {
-        foreach($sites as $values)
+        foreach ($sites as $values)
         {
             $fpr = new FieldPopulationResult();
             $fpr->setSite($values[0]->getSite());
             $fpr->setTotalCases($values['totalCases']);
 
-            $results->set($fpr->getSite()->getCode(),$fpr);
+            $results->set($fpr->getSite()->getCode(), $fpr);
         }
     }
 
@@ -109,34 +109,34 @@ class Report
         $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getWithCasesForDate($alias);
 
         $form->handleRequest($request);
-        if($form->isValid())
+        if ($form->isValid())
         {
-            if($form->get('reset')->isClicked())
+            if ($form->get('reset')->isClicked())
                 return new RedirectResponse($this->router->generate($redirectRoute));
-            
+
             $this->filter->addFilterConditions($form, $queryBuilder, $alias);
 
             $sites = $queryBuilder->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult();
 
-            if(empty($sites))
-                return array('sites'=>array(),'form'=> $form->createView());
+            if (empty($sites))
+                return array('sites' => array(), 'form' => $form->createView());
 
-            $this->_populateSites($sites, $results);
+            $this->populateSites($sites, $results);
 
             $ibdRepo = $this->entityMgr->getRepository('NSSentinelBundle:IBD');
-            $columns = array('getCsfCollectedCountBySites','getBloodCollectedCountBySites',
-                            'getBloodResultCountBySites','getCsfBinaxDoneCountBySites',
-                            'getCsfBinaxResultCountBySites','getCsfLatDoneCountBySites',
-                            'getCsfLatResultCountBySites','getCsfPcrCountBySites','getCsfSpnCountBySites',
-                            'getCsfHiCountBySites','getPcrPositiveCountBySites');
+            $columns = array('getCsfCollectedCountBySites', 'getBloodCollectedCountBySites',
+                'getBloodResultCountBySites', 'getCsfBinaxDoneCountBySites',
+                'getCsfBinaxResultCountBySites', 'getCsfLatDoneCountBySites',
+                'getCsfLatResultCountBySites', 'getCsfPcrCountBySites', 'getCsfSpnCountBySites',
+                'getCsfHiCountBySites', 'getPcrPositiveCountBySites');
 
-            foreach($columns as $f)
+            foreach ($columns as $f)
             {
                 $r = $this->filter->addFilterConditions($form, $ibdRepo->$f($alias, $results->getKeys()), $alias)->getQuery()->getResult(Query::HYDRATE_SCALAR);
-                $this->processColumn($results,$r);
+                $this->processColumn($results, $r);
             }
 
-            if($form->get('export')->isClicked())
+            if ($form->get('export')->isClicked())
             {
                 $fields = array(
                     'site.country.region',
@@ -164,7 +164,7 @@ class Report
                     'csfHiRecordedPercent',
                 );
 
-                return $this->export(new DoctrineCollectionSourceIterator($results,$fields));
+                return $this->export(new DoctrineCollectionSourceIterator($results, $fields));
             }
         }
 
@@ -173,14 +173,14 @@ class Report
 
     private function processColumn($results, $counts)
     {
-        foreach($counts as $c)
+        foreach ($counts as $c)
         {
             $fpr = $results->get($c['code']);
-            if($fpr) // this should always be true.
+            if ($fpr) // this should always be true.
                 $fpr->setCsfCollectedCount($c['caseCount']);
         }
-
     }
+
     public function getCulturePositive(Request $request, FormInterface $form, $redirectRoute)
     {
         $alias          = 'c';
@@ -191,9 +191,9 @@ class Report
 
         $form->handleRequest($request);
 
-        if($form->isValid())
+        if ($form->isValid())
         {
-            if($form->get('reset')->isClicked())
+            if ($form->get('reset')->isClicked())
                 return new RedirectResponse($this->router->generate($redirectRoute));
             else
             {
@@ -207,17 +207,17 @@ class Report
         $cn = $cultNegativeQB->groupBy('theYear')->getQuery()->getResult();
         $pp = $pcrPositiveQB->groupBy('theYear')->getQuery()->getResult();
 
-        $ro = new CulturePositive($cp,$cn,$pp);
+        $ro = new CulturePositive($cp, $cn, $pp);
 
-        if($form->get('export')->isClicked())
+        if ($form->get('export')->isClicked())
             return $this->export(new ArraySourceIterator($ro->toArray()));
 
         return array('results' => $ro, 'form' => $form->createView());
     }
 
-    public function export($source, $format='csv')
+    public function export($source, $format = 'csv')
     {
-        $filename = sprintf('export_%s.%s',date('Y_m_d_H_i_s'), $format);
+        $filename = sprintf('export_%s.%s', date('Y_m_d_H_i_s'), $format);
 
         return $this->exporter->getResponse($format, $filename, $source);
     }
