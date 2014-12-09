@@ -51,7 +51,7 @@
         "lunetics/locale-bundle": "~2.2",
 
         "friendsofsymfony/oauth-server-bundle": "~1.4",
-        "nelmio/api-doc-bundle": "2.6.*",
+        "nelmio/api-doc-bundle": "2.7.*",
         "friendsofsymfony/rest-bundle": "1.4@dev",
         "jms/serializer-bundle": "0.12.*",
         "adoy/oauth2": "dev-master",
