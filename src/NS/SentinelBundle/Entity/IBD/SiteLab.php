@@ -233,8 +233,8 @@ class SiteLab extends BaseSiteLab
     private $spnSerotypeOther;
 
     /**
-     * @var HiSerotype $hiSerotyoe
-     * @ORM\Column(name="hiSerotyoe",type="HiSerotype",nullable=true)
+     * @var HiSerotype $hiSerotype
+     * @ORM\Column(name="hiSerotype",type="HiSerotype",nullable=true)
      * @Groups({"api"})
      */
     private $hiSerotype;
