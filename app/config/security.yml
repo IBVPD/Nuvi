@@ -74,8 +74,8 @@ security:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/authorize, roles: ROLE_API }
         - { path: ^/oauth, roles: ROLE_API }
-        - { path: '^/[^/]+/doc/api', roles: [ ROLE_API, ROLE_USER ] }
-        - { path: ^/api, roles: ROLE_API }
+        - { path: '^/[^/]+/doc/api', roles: [ ROLE_API, ROLE_USER ], requires_channel: https }
+        - { path: ^/api, roles: ROLE_API, requires_channel: https }
         - { path: ^/_trans, roles: ROLE_ADMIN }
         - { path: '^/[^/]+/import', roles: [ ROLE_IMPORT] }
         - { path: '^/[^/]+/admin', roles: ROLE_ADMIN }

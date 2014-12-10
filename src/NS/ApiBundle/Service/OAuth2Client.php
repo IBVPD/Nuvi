@@ -2,10 +2,11 @@
 
 namespace NS\ApiBundle\Service;
 
-use OAuth2\Client;
-use OAuth2\Exception;
-use NS\ApiBundle\Entity\Remote;
 use \Doctrine\Common\Persistence\ObjectManager;
+use \FOS\RestBundle\Util\Codes;
+use \NS\ApiBundle\Entity\Remote;
+use \OAuth2\Client;
+use \OAuth2\Exception;
 
 /**
  * Description of OAuth2Client
@@ -14,7 +15,7 @@ use \Doctrine\Common\Persistence\ObjectManager;
  */
 class OAuth2Client extends \Twig_Extension
 {
-    private $em;
+    private $entityMgr;
 
     /**
      * @var Remote $remote
@@ -24,7 +25,7 @@ class OAuth2Client extends \Twig_Extension
 
     public function __construct(ObjectManager $em)
     {
-        $this->em = $em;
+        $this->entityMgr = $em;
     }
 
     public function getRemote()
@@ -52,7 +53,8 @@ class OAuth2Client extends \Twig_Extension
 
     public function getAccessTokenByAuthorizationCode($code)
     {
-        $this->_getAccessToken(Client::GRANT_TYPE_AUTH_CODE, array('code'=>$code,'redirect_uri'=>$this->remote->getRedirectUrl()));
+        $this->getAccessToken(Client::GRANT_TYPE_AUTH_CODE, array('code' => $code,
+            'redirect_uri' => $this->remote->getRedirectUrl()));
 
         return true;
     }
@@ -62,30 +64,27 @@ class OAuth2Client extends \Twig_Extension
         if(!$this->remote->hasRefreshToken())
             throw new \RuntimeException("No refresh token");
 
-        $this->_getAccessToken(Client::GRANT_TYPE_REFRESH_TOKEN, array('refresh_token'=>$this->remote->getRefreshToken()));
+        $this->getAccessToken(Client::GRANT_TYPE_REFRESH_TOKEN, array('refresh_token' => $this->remote->getRefreshToken()));
 
         return true;
     }
 
     public function getAccessTokenByClientCredentials()
     {
-        $this->_getAccessToken(Client::GRANT_TYPE_CLIENT_CREDENTIALS, array());
+        $this->getAccessToken(Client::GRANT_TYPE_CLIENT_CREDENTIALS, array());
 
         return true;
     }
 
-    private function _getAccessToken($grant, $params)
+    private function getAccessToken($grant, $params)
     {
-//        if($grant !== Client::GRANT_TYPE_REFRESH_TOKEN && $this->remote->hasAccessToken() && !$this->remote->isExpired())
-//            return;
-
         $response = $this->client->getAccessToken($this->remote->getTokenEndpoint(), $grant, $params);
 
         if(isset($response['result']) && isset($response['result']['access_token']))
         {
             $this->remote->updateFromArray($response['result']);
-            $this->em->persist($this->remote);
-            $this->em->flush();
+            $this->entityMgr->persist($this->remote);
+            $this->entityMgr->flush();
 
             return;
         }
@@ -99,9 +98,9 @@ class OAuth2Client extends \Twig_Extension
             $this->getAccessTokenByRefreshToken();
 
         $this->client->setAccessToken($this->remote->getAccessToken());
-        $r = array($this->client->fetch($url));
+        $results = array($this->client->fetch($url));
 
-        if($r[0]['code'] == \FOS\RestBundle\Util\Codes::HTTP_UNAUTHORIZED)
+        if ($results[0]['code'] == Codes::HTTP_UNAUTHORIZED)
         {
             $this->getAccessTokenByRefreshToken();
             $this->client->setAccessToken($this->remote->getAccessToken());
@@ -109,7 +108,7 @@ class OAuth2Client extends \Twig_Extension
             return $this->client->fetch($url);
         }
 
-        return $r;
+        return $results;
     }
 
     public function getAuthenticationPath(Remote $remote = null)
