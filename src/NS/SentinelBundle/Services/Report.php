@@ -124,16 +124,32 @@ class Report
             $this->populateSites($sites, $results);
 
             $ibdRepo = $this->entityMgr->getRepository('NSSentinelBundle:IBD');
-            $columns = array('getCsfCollectedCountBySites', 'getBloodCollectedCountBySites',
-                'getBloodResultCountBySites', 'getCsfBinaxDoneCountBySites',
-                'getCsfBinaxResultCountBySites', 'getCsfLatDoneCountBySites',
-                'getCsfLatResultCountBySites', 'getCsfPcrCountBySites', 'getCsfSpnCountBySites',
-                'getCsfHiCountBySites', 'getPcrPositiveCountBySites');
+            $columns = array(
+                'getCsfCollectedCountBySites'   => 'setCsfCollectedCount',
+                'getBloodCollectedCountBySites' => 'setBloodCollectedCount',
+                'getBloodResultCountBySites'    => 'setBloodResultCount',
+                'getCsfBinaxDoneCountBySites'   => 'setCsfBinaxDoneCount',
+                'getCsfBinaxResultCountBySites' => 'setCsfBinaxResultCount',
+                'getCsfLatDoneCountBySites'     => 'setCsfLatDoneCount',
+                'getCsfLatResultCountBySites'   => 'setCsfLatResultCount',
+                'getCsfPcrCountBySites'         => 'setCsfPcrRecordedCount',
+                'getCsfSpnCountBySites'         => 'setCsfSpnRecordedCount',
+                'getCsfHiCountBySites'          => 'setCsfHiRecordedCount',
+                'getPcrPositiveCountBySites'    => 'setPcrPositiveCount');
 
-            foreach ($columns as $f)
+            foreach ($columns as $f => $pf)
             {
-                $r = $this->filter->addFilterConditions($form, $ibdRepo->$f($alias, $results->getKeys()), $alias)->getQuery()->getResult(Query::HYDRATE_SCALAR);
-                $this->processColumn($results, $r);
+                if (method_exists($ibdRepo, $f))
+                {
+                    $query = $ibdRepo->$f($alias, $results->getKeys());
+
+                    $res = $this->filter
+                        ->addFilterConditions($form, $query, $alias)
+                        ->getQuery()
+                        ->getResult(Query::HYDRATE_SCALAR);
+
+                    $this->processColumn($results, $res, $pf);
+                }
             }
 
             if ($form->get('export')->isClicked())
@@ -171,13 +187,13 @@ class Report
         return array('sites' => $results, 'form' => $form->createView());
     }
 
-    private function processColumn($results, $counts)
+    private function processColumn($results, $counts, $function)
     {
         foreach ($counts as $c)
         {
             $fpr = $results->get($c['code']);
-            if ($fpr) // this should always be true.
-                $fpr->setCsfCollectedCount($c['caseCount']);
+            if ($fpr && method_exists($fpr, $function)) // this should always be true.
+                call_user_func(array($fpr, $function), $c['caseCount']);
         }
     }
 

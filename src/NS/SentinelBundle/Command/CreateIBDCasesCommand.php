@@ -2,17 +2,21 @@
 
 namespace NS\SentinelBundle\Command;
 
-use DateTime;
-use NS\SentinelBundle\Entity\IBD;
-use NS\SentinelBundle\Entity\Site;
-use NS\SentinelBundle\Form\Types\CSFAppearance;
-use NS\SentinelBundle\Form\Types\Diagnosis;
-use NS\SentinelBundle\Form\Types\Gender;
-use NS\SentinelBundle\Form\Types\TripleChoice;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Output\OutputInterface;
+use \DateTime;
+use \NS\SentinelBundle\Entity\IBD;
+use \NS\SentinelBundle\Entity\Site;
+use \NS\SentinelBundle\Form\Types\BinaxResult;
+use \NS\SentinelBundle\Form\Types\CSFAppearance;
+use \NS\SentinelBundle\Form\Types\CultureResult;
+use \NS\SentinelBundle\Form\Types\Diagnosis;
+use \NS\SentinelBundle\Form\Types\Gender;
+use \NS\SentinelBundle\Form\Types\LatResult;
+use \NS\SentinelBundle\Form\Types\PCRResult;
+use \NS\SentinelBundle\Form\Types\TripleChoice;
+use \Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use \Symfony\Component\Console\Input\InputInterface;
+use \Symfony\Component\Console\Input\InputOption;
+use \Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Description of ImportCommand
@@ -21,31 +25,33 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class CreateIBDCasesCommand extends ContainerAwareCommand
 {
-    private $entityMgr;
-    
+
     protected function configure()
     {
         $this
             ->setName('nssentinel:ibd:create:cases')
             ->setDescription('Create ibd cases')
-            ->addOption('codes',null, InputOption::VALUE_OPTIONAL, null, 'NIC-53,NIC-56,NIC-57,NIC-61,NIC-65,SLV-114,SLV-116,SLV-26,SLV-27,SLV-28,SLV-33,SLV-34,SLV-36,SLV-5,BGD-1,BGD-2,BGD-3')
-        ; 
+            ->addArgument('codes', null, InputOption::VALUE_REQUIRED)
+            ->addOption('casecount', null, InputOption::VALUE_OPTIONAL, null, 2700)
+        ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        ini_set('memory_limit','768M');
-        $codes = explode(",", str_replace(' ,',',',$input->getOption('codes')));
-        if(empty($codes))
+        ini_set('memory_limit', '768M');
+        $codes = explode(",", str_replace(' ,', ',', $input->getArgument('codes')));
+
+        if (empty($codes))
         {
             $output->writeln("No codes to add cases to");
             return;
         }
 
-        $this->em = $this->getContainer()->get('ns.model_manager');
-        $sites    = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getChainByCode($codes);
-        $output->writeln("Received ".count($sites)." sites");
-        if(count($sites)== 0)
+        $caseCount = $input->getOption('casecount');
+        $entityMgr = $this->getContainer()->get('ns.model_manager');
+        $sites     = $entityMgr->getRepository('NSSentinelBundle:Site')->getChainByCode($codes);
+        $output->writeln("Received " . count($sites) . " sites");
+        if (count($sites) == 0)
             return;
 
         $male        = new Gender(Gender::MALE);
@@ -54,71 +60,74 @@ class CreateIBDCasesCommand extends ContainerAwareCommand
         $diagnosis[] = new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA);
         $diagnosis[] = new Diagnosis(Diagnosis::SUSPECTED_SEPSIS);
         $diagnosis[] = new Diagnosis(Diagnosis::OTHER);
-        $cxDone = array(
-                     new TripleChoice(TripleChoice::YES),
-                     new TripleChoice(TripleChoice::NO)
-                       );
+        $cxDone      = array(
+            new TripleChoice(TripleChoice::YES),
+            new TripleChoice(TripleChoice::NO)
+        );
 
-        for($x = 0; $x < 2700; $x++)
+        for ($x = 0; $x < $caseCount; $x++)
         {
-            $dob   = $this->getRandomDate();
-            $done  = array_rand($cxDone);
+            $dob            = $this->getRandomDate();
+            $done           = array_rand($cxDone);
+            $csfCollected   = (($x % 3) == 0) ? $cxDone[0] : $cxDone[1];
+            $bloodCollected = (($x % 2) == 0) ? $cxDone[0] : $cxDone[1];
 
             $case = new IBD();
 
             $case->setDob($dob);
-            $case->setAdmDate($this->getRandomDate(null,$dob));
-            $case->setCreatedAt($this->getRandomDate(null,$case->getAdmDate()));
-            $case->setCsfCollected((($x % 3) == 0));
+            $case->setAdmDate($this->getRandomDate(null, $dob));
+            $case->setCreatedAt($this->getRandomDate(null, $case->getAdmDate()));
+            $case->setCsfCollected($csfCollected);
+            $case->setBloodCollected($bloodCollected);
             $case->setCxrDone($cxDone[$done]);
-            $case->setGender(($x%7)?$fmale:$male);
+            $case->setGender(($x % 7) ? $fmale : $male);
 
-            $diagnosisKey   = array_rand($diagnosis);
-            $siteKey = array_rand($sites);
+            $diagnosisKey = array_rand($diagnosis);
+            $siteKey      = array_rand($sites);
 
             $case->setDischDx($diagnosis[$diagnosisKey]);
             $case->setAdmDx($diagnosis[$diagnosisKey]);
             $case->setSite($sites[$siteKey]);
             $case->setCaseId($this->getCaseId($sites[$siteKey]));
 
-            if($x%5 == 0 && $case->getCsfCollected())
-                $this->addCsfCollected($case,$cxDone[0]);
+            if ($x % 5 == 0 && $case->getCsfCollected())
+                $this->addCsfCollected($case, $cxDone);
 
-            $this->entityMgr->persist($case);
-            if($x % 100 == 0)
-                $this->entityMgr->flush();
+            $entityMgr->persist($case);
+            if ($x % 100 == 0)
+                $entityMgr->flush();
         }
 
-        $this->entityMgr->flush();
-        $output->writeln("Create 2700 ibd cases");
+        $entityMgr->flush();
+        $output->writeln(sprintf("Create %d ibd cases", $x));
     }
 
     public function getCaseId(Site $site)
     {
-        return md5(uniqid().spl_object_hash($site).time());
+        return md5(uniqid() . spl_object_hash($site) . time());
     }
 
     public function getRandomDate(DateTime $before = null, DateTime $after = null)
     {
-        $years  = range(1995,date('Y'));
-        $months = range(1,12);
-        $days   = range(1,28);
+        $years  = range(1995, date('Y'));
+        $months = range(1, 12);
+        $days   = range(1, 28);
 
-        $yKey   = array_rand($years);
-        $mKey   = array_rand($months);
-        $dKey   = array_rand($days);
+        $yKey = array_rand($years);
+        $mKey = array_rand($months);
+        $dKey = array_rand($days);
 
-        if($before != null)
+        if ($before != null)
         {
             $byear = $before->format('Y');
-            while($years[$yKey] > $byear)
-                $yKey = array_rand($years);
+            while ($years[$yKey] > $byear)
+                $yKey  = array_rand($years);
         }
 
-        if($after != null)
+        if ($after != null)
         {
             $ayear = $after->format('Y');
-            while($years[$yKey] < $ayear)
+            while ($years[$yKey] < $ayear)
             {
                 $yKey = array_rand($years);
             }
@@ -127,31 +136,77 @@ class CreateIBDCasesCommand extends ContainerAwareCommand
         return new DateTime("{$years[$yKey]}-{$months[$mKey]}-{$days[$dKey]}");
     }
 
-    private function addCsfCollected($case,$cxDone)
+    private function addCsfCollected(IBD $case, $tripleChoice)
     {
-        $randArray = rand(1,100);
-        $case->setCsfWcc($randArray);
+        $randArray = rand(1, 100);
+        $sLab      = new IBD\SiteLab();
+        $sLab->setCsfWcc($randArray);
 
-        if($randArray<50)
+        if ($case->getBloodCollected() && $case->getBloodCollected()->equal(TripleChoice::YES))
+            $sLab->setBloodCultResult(new CultureResult(CultureResult::HI));
+
+        if ($case->getCsfCollected() && $case->getCsfCollected()->equal(TripleChoice::YES))
         {
-            $case->setMenFever($cxDone[0]);
-            $case->setMenAltConscious($cxDone[0]);
-        }
-        else if($randArray <= 20 || $randArray >= 75 )
-        {
-            $case->setMenFever($cxDone[0]);
-            $case->setMenNeckStiff($cxDone[0]);
+            if ($randArray < 50)
+            {
+                $sLab->setCsfCultResult(new CultureResult(CultureResult::NM));
+                $sLab->setCsfBinaxDone($tripleChoice[0]);
+                if ($randArray < 20)
+                    $sLab->setCsfBinaxResult(new BinaxResult(BinaxResult::NEGATIVE));
+            }
+            else
+            {
+                if ($randArray < 70)
+                {
+                    $sLab->setCsfCultResult(new CultureResult(CultureResult::NEGATIVE));
+                    $sLab->setCsfBinaxDone($tripleChoice[0]);
+                    if ($randArray < 50)
+                        $sLab->setCsfBinaxResult(new BinaxResult(BinaxResult::POSITIVE));
+                }
+                else //PCR+ & Binax- & Culture-
+                {
+                    $sLab->setCsfCultDone($tripleChoice[0]);
+                    $sLab->setCsfCultResult(new CultureResult(CultureResult::NEGATIVE));
+                    $sLab->setCsfBinaxDone($tripleChoice[0]);
+                    if ($randArray > 90)
+                        $sLab->setCsfBinaxResult(new BinaxResult(BinaxResult::NEGATIVE));
+
+                    $sLab->setCsfPcrDone($tripleChoice[0]);
+                    $sLab->setCsfPcrResult(new PCRResult(PCRResult::HI));
+                }
+            }
+
+            if ($randArray > 40 && $randArray < 75)
+            {
+                $sLab->setCsfLatDone($tripleChoice[0]);
+                if ($randArray > 60)
+                    $sLab->setCsfLatResult(new LatResult(LatResult::NM));
+            }
         }
 
-        if($randArray >=20 && $randArray <= 75)
+        if ($randArray < 50)
+        {
+            $case->setMenFever($tripleChoice[0]);
+            $case->setMenAltConscious($tripleChoice[0]);
+        }
+        else if ($randArray <= 20 || $randArray >= 75)
+        {
+            $case->setMenFever($tripleChoice[0]);
+            $case->setMenNeckStiff($tripleChoice[0]);
+        }
+
+        if ($randArray >= 20 && $randArray <= 75)
         {
             $case->setCsfAppearance(new CSFAppearance(CSFAppearance::TURBID));
         }
-        else if($randArray > 40)
+        else if ($randArray > 40)
         {
-            $case->setCsfWcc(40);
-            $case->setCsfGlucose(30);
-            $case->setCsfProtein(140);
+            $sLab->setCsfWcc(40);
+            $sLab->setCsfGlucose(30);
+            $sLab->setCsfProtein(140);
         }
+
+        $case->setSiteLab($sLab);
     }
+
 }
