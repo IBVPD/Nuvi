@@ -25,14 +25,15 @@ class CreateRotaCasesCommand extends ContainerAwareCommand
         $this
             ->setName('nssentinel:rota:create:cases')
             ->setDescription('Create RotaVirus cases')
-            ->addOption('codes',null, InputOption::VALUE_OPTIONAL, null,'NIC-53,NIC-56,NIC-57,NIC-61,NIC-65,SLV-114,SLV-116,SLV-26,SLV-27,SLV-28,SLV-33,SLV-34,SLV-36,SLV-5,BGD-1,BGD-2,BGD-3')
-        ; 
+            ->addArgument('codes', null, InputOption::VALUE_REQUIRED)
+            ->addOption('casecount', null, InputOption::VALUE_OPTIONAL, null, 2700)
+        ;
     }
     
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         ini_set('memory_limit','768M');
-        $codes = explode(",", str_replace(' ','',$input->getOption('codes')));
+        $codes = explode(",", str_replace(' ', '', $input->getArgument('codes')));
         $output->writeln(print_r($codes,true));
         if(empty($codes))
         {
@@ -40,6 +41,7 @@ class CreateRotaCasesCommand extends ContainerAwareCommand
             return;
         }
 
+        $caseCount       = $input->getOption('casecount');
         $this->entityMgr = $this->getContainer()->get('ns.model_manager');
         $sites    = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getChainByCode($codes);
         $output->writeln("Received ".count($sites)." sites");
@@ -53,17 +55,17 @@ class CreateRotaCasesCommand extends ContainerAwareCommand
         $diagnosis[] = new Diagnosis(Diagnosis::SUSPECTED_SEPSIS);
         $diagnosis[] = new Diagnosis(Diagnosis::OTHER);
 
-        for($x = 0; $x < 2700; $x++)
+        for ($x = 0; $x < $caseCount; $x++)
         {
             $dob     = $this->getRandomDate();
             $siteKey = array_rand($sites);
 
             $case = new RotaVirus();
-            $case>setDob($dob);
-            $case>setAdmDate($this->getRandomDate(null,$dob));
-            $case>setSite($sites[$siteKey]);
-            $case>setCaseId($this->getCaseId($sites[$siteKey]));
-            $case>setGender(($x%7)?$fmale:$male);
+            $case->setDob($dob);
+            $case->setAdmDate($this->getRandomDate(null, $dob));
+            $case->setSite($sites[$siteKey]);
+            $case->setCaseId($this->getCaseId($sites[$siteKey]));
+            $case->setGender(($x % 7) ? $fmale : $male);
 
             $this->entityMgr->persist($case);
 
@@ -72,7 +74,7 @@ class CreateRotaCasesCommand extends ContainerAwareCommand
         }
 
         $this->entityMgr->flush();
-        $output->writeln("Create 2700 rota cases");
+        $output->writeln(sprintf("Create %d rota cases", $caseCount));
     }
 
     public function getCaseId(Site $site)
