@@ -165,6 +165,12 @@ class Site implements \Serializable
      */
     private $country;
 
+    /**
+     * @var boolean $active
+     * @ORM\Column(name="active",type="boolean",nullable=false)
+     */
+    private $active = true;
+
     //Fields used for reporting etc...
 
     private $totalCases;
@@ -522,6 +528,22 @@ class Site implements \Serializable
     public function setRvEqaCode($rvEqaCode)
     {
         $this->rvEqaCode = $rvEqaCode;
+        return $this;
+    }
+
+    public function isActive()
+    {
+        return $this->active;
+    }
+
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    public function setActive($active)
+    {
+        $this->active = $active;
         return $this;
     }
 

@@ -2,7 +2,8 @@
 
 namespace NS\ApiBundle\Tests\Controller;
 
-use NS\ApiBundle\Tests\WebTestCase;
+use \NS\ApiBundle\Tests\WebTestCase;
+use \NS\SentinelBundle\Form\Types\Gender;
 use \NS\UtilBundle\Form\Types\ArrayChoice;
 
 /**
@@ -12,8 +13,6 @@ use \NS\UtilBundle\Form\Types\ArrayChoice;
  */
 class IBDControllerTest extends WebTestCase
 {
-    const ID = 'CA-ALBCHLD-14-000001';
-
     public function testGetCase()
     {
         // add all your doctrine fixtures classes
@@ -28,8 +27,7 @@ class IBDControllerTest extends WebTestCase
         $this->loadFixtures($classes);
 
         $route  = $this->getRoute();
-        $user   = $this->getUser();
-        $client = $this->createApiClient($user);
+        $client = $this->getClient();
         $client->request('GET', $route);
 
         $response = $client->getResponse();
@@ -45,9 +43,9 @@ class IBDControllerTest extends WebTestCase
 
     public function testPatchCase()
     {
-        $user   = $this->getUser();
         $route  = $this->getRoute('nsApiIbdPatchCase');
-        $client = $this->createApiClient($user);
+        $client = $this->getClient();
+        $client->followRedirects();
         $client->request('PATCH', $route, array(), array(), array(), '{"ibd":{"lastName":"Fabien","gender":"1"}}');
 
         $response = $client->getResponse();
@@ -56,15 +54,13 @@ class IBDControllerTest extends WebTestCase
 
         $case = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:IBD')->find(self::ID);
         $this->assertEquals("Fabien", $case->getLastName(), "Change has occurred");
-        $this->assertTrue($case->getGender()->equal(\NS\SentinelBundle\Form\Types\Gender::MALE));
+        $this->assertTrue($case->getGender()->equal(Gender::MALE));
     }
 
     public function testPostCase()
     {
-        $user  = $this->getUser();
-        $route = $this->getUrl('nsApiIbdPostCase');
-
-        $client = $this->createApiClient($user);
+        $route  = $this->getUrl('nsApiIbdPostCase');
+        $client = $this->getClient();
         $client->request('POST', $route, array(), array(), array(), '{"create_ibd":{"caseId":"ANewCaseId","type":1,"site":"ALBCHLD"}}');
 
         $response = $client->getResponse();
@@ -83,10 +79,9 @@ class IBDControllerTest extends WebTestCase
 
     public function testLabCase()
     {
-        $user  = $this->getUser();
-        $route = $this->getUrl('nsApiIbdPatchLab', array('objId' => self::ID));
-
-        $client = $this->createApiClient($user);
+        $route  = $this->getUrl('nsApiIbdPatchLab', array('objId' => self::ID));
+        $client = $this->getClient();
+        $client->followRedirects();
         $client->request('PATCH', $route, array(), array(), array(), '{"ibd_lab":{"csfId":"ANewCaseId","csfGramDone":0,"csfCultDone":0}}');
 
         $response = $client->getResponse();
@@ -104,8 +99,7 @@ class IBDControllerTest extends WebTestCase
 
     public function testGetRRLCase()
     {
-        $user   = $this->getUser();
-        $client = $this->createApiClient($user);
+        $client = $this->getClient();
         $client->request('GET', $this->getRoute('nsApiIbdGetRRL'));
 
         $response = $client->getResponse();
@@ -117,9 +111,8 @@ class IBDControllerTest extends WebTestCase
 
     public function testPatchRRLCase()
     {
-        $user   = $this->getUser();
         $route  = $this->getRoute('nsApiIbdPatchRRL');
-        $client = $this->createApiClient($user);
+        $client = $this->getClient();
         $client->request('PATCH', $route, array(), array(), array(), '{"ibd_referencelab":{"labId":"ANewCaseId","sampleType":1}}');
 
         $response = $client->getResponse();
@@ -137,10 +130,8 @@ class IBDControllerTest extends WebTestCase
 
     public function testPutRRLCase()
     {
-        $user  = $this->getUser();
-        $route = $this->getRoute('nsApiIbdPutRRL');
-
-        $client = $this->createApiClient($user);
+        $route  = $this->getRoute('nsApiIbdPutRRL');
+        $client = $this->getClient();
         $client->request('PUT', $route, array(), array(), array(), '{"ibd_referencelab":{"labId":"ANewCaseId","sampleType":2}}');
 
         $response = $client->getResponse();
@@ -159,8 +150,7 @@ class IBDControllerTest extends WebTestCase
 
     public function testGetNLCase()
     {
-        $user   = $this->getUser();
-        $client = $this->createApiClient($user);
+        $client = $this->getClient();
         $client->request('GET', $this->getRoute());
 
         $response = $client->getResponse();
@@ -172,9 +162,8 @@ class IBDControllerTest extends WebTestCase
 
     public function testPatchNLCase()
     {
-        $user   = $this->getUser();
         $route  = $this->getRoute('nsApiIbdPatchNL');
-        $client = $this->createApiClient($user);
+        $client = $this->getClient();
         $client->request('PATCH', $route, array(), array(), array(), '{"ibd_nationallab":{"labId":"ANewCaseId","sampleType":1}}');
 
         $response = $client->getResponse();
@@ -192,9 +181,8 @@ class IBDControllerTest extends WebTestCase
 
     public function testPutNLCase()
     {
-        $user   = $this->getUser();
         $route  = $this->getRoute('nsApiIbdPutNL');
-        $client = $this->createApiClient($user);
+        $client = $this->getClient();
         $client->request('PUT', $route, array(), array(), array(), '{"ibd_nationallab":{"labId":"ANewCaseId","sampleType":2}}');
 
         $response = $client->getResponse();
@@ -214,9 +202,8 @@ class IBDControllerTest extends WebTestCase
 
     public function testPutCase()
     {
-        $user   = $this->getUser();
         $route  = $this->getRoute('nsApiIbdPutCase');
-        $client = $this->createApiClient($user);
+        $client = $this->getClient();
         $client->request('PUT', $route, array(), array(), array(), '{"ibd":{"lastName":"Fabien","caseId":"12"}}');
 
         $response = $client->getResponse();
@@ -230,23 +217,16 @@ class IBDControllerTest extends WebTestCase
 
     public function testPutCaseWithoutCaseId()
     {
-        $user   = $this->getUser();
         $route  = $this->getRoute('nsApiIbdPutCase');
-        $client = $this->createApiClient($user);
+        $client = $this->getClient();
         $client->request('PUT', $route, array(), array(), array(), '{"rotavirus":{"lastName":"Fabien"}}');
 
         $response = $client->getResponse();
         $this->assertJsonResponse($response, 400);
     }
 
-    private function getUser()
+    protected function getRoute($route = 'nsApiIbdGetCase', $id = null)
     {
-        return $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:User')->findOneBy(array(
-                'email' => 'ca-api@noblet.ca'));
-    }
-
-    private function getRoute($route = 'nsApiIbdGetCase', $id = null)
-    { 
         $objId = is_null($id) ? self::ID : $id;
 
         return $this->getUrl($route, array('objId' => $objId));

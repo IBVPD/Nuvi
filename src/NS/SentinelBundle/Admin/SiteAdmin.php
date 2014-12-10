@@ -19,6 +19,7 @@ class SiteAdmin extends Admin
             ->add('name')
             ->add('code')
             ->add('country')
+            ->add('active')
             ->add('rvYearIntro')
             ->add('ibdYearIntro')
             ->add('numberOfBeds')
@@ -43,6 +44,7 @@ class SiteAdmin extends Admin
         $listMapper
             ->add('name')
             ->add('code')
+            ->add('active')
             ->add('country')
             ->add('country.region',null,array('label'=>'Region'))
             ->add('_action', 'actions', array(
@@ -64,6 +66,7 @@ class SiteAdmin extends Admin
             ->add('name')
             ->add('code')
             ->add('country')
+            ->add('active')
             ->add('rvYearIntro')
             ->add('ibdYearIntro')
             ->add('street')
@@ -91,6 +94,7 @@ class SiteAdmin extends Admin
         $showMapper
             ->add('name')
             ->add('code')
+            ->add('active')
             ->add('country')
             ->add('country.region')
             ->add('rvYearIntro')

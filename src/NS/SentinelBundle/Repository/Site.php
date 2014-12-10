@@ -17,7 +17,7 @@ class Site extends CommonRepository
         $queryBuilder = $this->getChainQueryBuilder();
 
         if(is_array($codes))
-            $queryBuilder->add('where', $queryBuilder->expr()->in('s.code', '?1'))->setParameter(1, $codes);
+            $queryBuilder->andWhere($queryBuilder->expr()->in('s.code', '?1'))->setParameter(1, $codes);
         else if($codes != null)
             $queryBuilder->andWhere('s.code = :code')->setParameter('code',$codes);
 
@@ -27,11 +27,13 @@ class Site extends CommonRepository
     public function getChainQueryBuilder()
     {
         $queryBuilder = $this->_em
-                   ->createQueryBuilder()
-                   ->from($this->getEntityName(), 's','s.code')
-                   ->select('s,c,r')
-                   ->innerJoin('s.country', 'c')
-                   ->innerJoin('c.region', 'r');
+            ->createQueryBuilder()
+            ->from($this->getEntityName(), 's', 's.code')
+            ->select('s,c,r')
+            ->innerJoin('s.country', 'c')
+            ->innerJoin('c.region', 'r')
+            ->where('s.active = :isActive')
+            ->setParameter('isActive', true);
 
         return $this->secure($queryBuilder);
     }
@@ -41,9 +43,9 @@ class Site extends CommonRepository
         $queryBuilder = $this->getChainQueryBuilder();
 
         if(is_array($codes))
-            $queryBuilder->add('where', $queryBuilder->expr()->in('s.code', '?1'))->setParameter(1, $codes);
+            $queryBuilder->andWhere($queryBuilder->expr()->in('s.code', '?1'))->setParameter(1, $codes);
         else if(is_string($codes))
-            $queryBuilder->add('where', 's.code = :codes')->setParameter('codes',$codes);
+            $queryBuilder->andWhere('s.code = :codes')->setParameter('codes', $codes);
         else
             throw new \InvalidArgumentException(sprintf("Must provide an array of codes or single code. Received: %s",gettype($codes)));
 
@@ -52,7 +54,7 @@ class Site extends CommonRepository
 
     public function findAll()
     {
-        return  $this->secure($this->createQueryBuilder('s')->orderBy('s.name','ASC'))->getQuery()->getResult();
+        return $this->secure($this->createQueryBuilder('s')->where('s.active = :isActive')->setParameter('isActive', true)->orderBy('s.name', 'ASC'))->getQuery()->getResult();
     }
 
     public function getWithCasesForDate($alias)

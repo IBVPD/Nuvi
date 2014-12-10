@@ -23,10 +23,9 @@ class ApiControllerTest extends WebTestCase
 
         $this->loadFixtures($classes);
 
-        $user   = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:User')->findOneBy(array('email'=>'ca-api@noblet.ca'));
         $route  = $this->getUrl('ns_api_api_test');
 
-        $client = $this->createApiClient($user);
+        $client = $this->getClient();
         $client->request('GET',$route);
 
         $response = $client->getResponse();
@@ -42,10 +41,9 @@ class ApiControllerTest extends WebTestCase
 
     public function testSites()
     {
-        $user   = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:User')->findOneBy(array('email'=>'ca-api@noblet.ca'));
         $route  = $this->getUrl('ns_api_api_sites');
 
-        $client = $this->createApiClient($user);
+        $client = $this->getClient();
         $client->request('GET',$route);
 
         $response = $client->getResponse();

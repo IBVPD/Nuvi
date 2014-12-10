@@ -12,16 +12,18 @@ use \Symfony\Component\Security\Core\User\UserInterface;
  */
 class WebTestCase extends BaseWebTestCase
 {
+    const ID = 'CA-ALBCHLD-14-000001';
+
     private $accessToken;
 
     public function createApiClient(UserInterface $user, array $options = array(), array $server = array())
     {
         $accessToken = $this->getAccessToken($user);
-        $server = array_merge(array(
-                                'HTTP_ACCEPT'=>'application/json',
-                                'Content-Type'=>'application/json',
-                                'CONTENT_TYPE'=>'application/json',
-                                'HTTP_AUTHORIZATION'=>'Bearer '.$accessToken['access_token']),$server);
+        $server      = array_merge(array(
+            'HTTP_ACCEPT'        => 'application/json',
+            'Content-Type'       => 'application/json',
+            'CONTENT_TYPE'       => 'application/json',
+            'HTTP_AUTHORIZATION' => 'Bearer ' . $accessToken['access_token']), $server);
 
         $this->assertContains($accessToken['access_token'], $server['HTTP_AUTHORIZATION'], "Contains http authorization");
 
@@ -31,7 +33,7 @@ class WebTestCase extends BaseWebTestCase
     public function getAccessToken(UserInterface $user)
     {
         $uname = $user->getUsername();
-        if(isset($this->accessToken[$uname]) && $this->accessToken[$uname]['expires_at'] < time())
+        if (isset($this->accessToken[$uname]) && $this->accessToken[$uname]['expires_at'] < time())
             return $this->accessToken[$uname]['access_token'];
 
         $cont        = $this->getContainer();
@@ -41,16 +43,16 @@ class WebTestCase extends BaseWebTestCase
 
         $cont->get('fos_oauth_server.auth_code_manager')->deleteExpired();
 
-        $this->assertNotNull($oauthClient,"OauthClient is not null");
-        $this->assertNotEmpty($oauthClient,"OauthClient is not empty");
+        $this->assertNotNull($oauthClient, "OauthClient is not null");
+        $this->assertNotEmpty($oauthClient, "OauthClient is not empty");
         $this->assertTrue(is_object($oauthClient[0]));
 
-        $accessToken = $oauth->createAccessToken($oauthClient[0],$user);
+        $accessToken = $oauth->createAccessToken($oauthClient[0], $user);
 
         $this->assertNotNull($accessToken);
         $this->assertArrayHasKey('access_token', $accessToken);
 
-        $accessToken['expires_at'] = time()+$accessToken['expires_in'];
+        $accessToken['expires_at'] = time() + $accessToken['expires_in'];
         $this->accessToken[$uname] = $accessToken;
 
         return $accessToken;
@@ -59,13 +61,28 @@ class WebTestCase extends BaseWebTestCase
     public function assertJsonResponse($response, $statusCode = 200)
     {
         $this->assertEquals(
-            $statusCode, $response->getStatusCode(),
-            $response->getContent()
+            $statusCode, $response->getStatusCode(), $response->getContent()
         );
 
         $this->assertTrue(
-            $response->headers->contains('Content-Type', 'application/json'),
-            $response->headers
+            $response->headers->contains('Content-Type', 'application/json'), $response->headers
         );
+    }
+
+    protected function getClient()
+    {
+        $user   = $this->getUser();
+        $client = $this->createApiClient($user, array('HTTPS' => true));
+        $client->followRedirects();
+
+        return $client;
+    }
+
+    protected function getUser()
+    {
+        return $this->getContainer()
+                ->get('doctrine.orm.entity_manager')
+                ->getRepository('NSSentinelBundle:User')
+                ->findOneBy(array('email' => 'ca-api@noblet.ca'));
     }
 }
