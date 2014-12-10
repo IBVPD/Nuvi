@@ -25,9 +25,9 @@ test:
         directory: "src"
     php_cpd:
         allow_failures: true
-    php_unit:
-        config:
-           - "app/"
+#    php_unit:
+#        config:
+#           - "app/"
 
 
 #    php_code_sniffer:
