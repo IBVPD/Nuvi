@@ -26,16 +26,19 @@
         <div class="tab-content">
             <div id="demographics" class="tab-pane active">
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                         {{form_row(form.firstName)}}
                         {{form_row(form.lastName)}}
                         {{form_row(form.parentalName)}}
+                        {{form_row(form.gender)}}
+                    </div>
+                    <div class="col-sm-4">
+                        {{form_row(form.dobKnown)}}
                         {{form_row(form.dob)}}
                         {{form_row(form.dobYears)}}
                         {{form_row(form.dobMonths)}}
-{#                        {{form_row(form.age)}}#}
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                         {{form_row(form.caseId)}}
                         {{form_row(form.district)}}
                         <div class="form-group">
@@ -49,36 +52,18 @@
                 <div class="row">
                     <div class="col-sm-3">
                         {{form_row(form.hibReceived)}}
-                    </div>
-                    <div class="col-sm-3">
                         {{form_row(form.hibDoses)}}
-                    </div>
-                    <div class="col-sm-3">
                         {{form_row(form.hibMostRecentDose)}}
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-sm-3">
                         {{form_row(form.pcvReceived)}}
-                    </div>
-                    <div class="col-sm-3">
                         {{form_row(form.pcvDoses)}}
-                    </div>
-                    <div class="col-sm-3">
                         {{form_row(form.pcvType)}}
-                    </div>
-                    <div class="col-sm-3">
                         {{form_row(form.pcvMostRecentDose)}}
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-sm-3">
                         {{form_row(form.meningReceived)}}
-                    </div>
-                    <div class="col-sm-3">
                         {{form_row(form.meningType)}}
-                    </div>
-                    <div class="col-sm-3">
                         {{form_row(form.meningMostRecentDose)}}
                     </div>
                 </div>
@@ -94,15 +79,19 @@
             
             <div id="specimen" class="tab-pane">
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                         {{form_row(form.csfCollected)}}
                         {{form_row(form.csfCollectDateTime)}}
                         {{form_row(form.csfAppearance)}}
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                     {% if form.pneuDiffBreathe is defined %}
                         {{form_row(form.bloodCollected)}}
                     {% endif %}
+                    </div>
+                    <div class="col-sm-4">
+                        {{form_row(form.otherSpecimenCollected)}}
+                        {{form_row(form.otherSpecimenOther)}}
                     </div>
                 </div>
             </div>
