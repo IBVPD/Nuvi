@@ -21,6 +21,19 @@ use \NS\SentinelBundle\Repository\Common;
  */
 class IBD extends Common
 {
+    public function numberAndPercentEnrolledByAdmissionDiagnosis($alias = 'c', $ageInMonths = 59)
+    {
+        $config = $this->_em->getConfiguration();
+        $config->addCustomDatetimeFunction('MONTH', 'DoctrineExtensions\Query\Mysql\Month');
+
+        $queryBuilder = $this->createQueryBuilder($alias)
+            ->select(sprintf('MONTH(%s.admDate) as AdmissionMonth,COUNT(%s.admDx) as admDxCount,%s.admDx', $alias, $alias, $alias))
+            ->where(sprintf("(%s.admDx IS NOT NULL AND %s.age <= :age)", $alias, $alias))
+            ->setParameter('age', $ageInMonths)
+            ->groupBy($alias . '.admDx,AdmissionMonth');
+
+        return $this->secure($queryBuilder);
+    }
 
     public function getStats()
     {
