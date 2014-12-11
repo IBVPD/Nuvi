@@ -21,6 +21,10 @@ setup:
 test:
     php_mess_detector:
         allow_failures: true
+        rules:
+          - "codesize"
+          - "unusedcode"
+          - "app/naming.xml"
     php_loc: 
         directory: "src"
     php_cpd:
