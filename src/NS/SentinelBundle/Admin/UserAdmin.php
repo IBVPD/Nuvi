@@ -134,13 +134,13 @@ class UserAdmin extends Admin
 
     public function preUpdate($user)
     {
-        $encoder        = $this->encoderFactory->getEncoder($user);
-        $plain_password = $user->getPlainPassword();
+        $encoder = $this->encoderFactory->getEncoder($user);
+        $plainPw = $user->getPlainPassword();
 
-        if(strlen($plain_password)> 0)
+        if (strlen($plainPw) > 0)
         {
             $user->resetSalt();
-            $user->setPassword($encoder->encodePassword($plain_password,$user->getSalt()));
+            $user->setPassword($encoder->encodePassword($plainPw, $user->getSalt()));
         }
 
         foreach ($user->getAcls() as $a) {

@@ -61,7 +61,7 @@ class IBDControllerTest extends WebTestCase
     {
         $route  = $this->getUrl('nsApiIbdPostCase');
         $client = $this->getClient();
-        $client->request('POST', $route, array(), array(), array(), '{"create_ibd":{"caseId":"ANewCaseId","type":1,"site":"ALBCHLD"}}');
+        $client->request('POST', $route, array(), array(), array(), '{"create_case":{"caseId":"ANewCaseId","type":1,"site":"ALBCHLD"}}');
 
         $response = $client->getResponse();
         $this->assertEquals(201, $response->getStatusCode());

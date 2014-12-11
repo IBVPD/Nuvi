@@ -7,6 +7,7 @@ use \NS\SentinelBundle\Entity\Site;
 use \NS\SentinelBundle\Form\Types\Diagnosis;
 use \NS\SentinelBundle\Form\Types\Gender;
 use \Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use \Symfony\Component\Console\Input\InputArgument;
 use \Symfony\Component\Console\Input\InputInterface;
 use \Symfony\Component\Console\Input\InputOption;
 use \Symfony\Component\Console\Output\OutputInterface;
@@ -18,36 +19,24 @@ use \Symfony\Component\Console\Output\OutputInterface;
  */
 class CreateRotaCasesCommand extends ContainerAwareCommand
 {
-    private $entityMgr;
-    
     protected function configure()
     {
         $this
             ->setName('nssentinel:rota:create:cases')
             ->setDescription('Create RotaVirus cases')
-            ->addArgument('codes', null, InputOption::VALUE_REQUIRED)
+            ->addArgument('codes', null, InputArgument::REQUIRED)
             ->addOption('casecount', null, InputOption::VALUE_OPTIONAL, null, 2700)
         ;
     }
-    
+
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        ini_set('memory_limit','768M');
-        $codes = explode(",", str_replace(' ', '', $input->getArgument('codes')));
-        $output->writeln(print_r($codes,true));
-        if(empty($codes))
-        {
-            $output->writeln("No codes to add cases to");
-            return;
-        }
+        ini_set('memory_limit', '768M');
 
-        $caseCount       = $input->getOption('casecount');
-        $this->entityMgr = $this->getContainer()->get('ns.model_manager');
-        $sites    = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getChainByCode($codes);
-        $output->writeln("Received ".count($sites)." sites");
-        if(count($sites)== 0)
-            return;
-
+        $codes       = explode(",", str_replace(' ', '', $input->getArgument('codes')));
+        $caseCount   = $input->getOption('casecount');
+        $entityMgr   = $this->getContainer()->get('ns.model_manager');
+        $sites       = $entityMgr->getRepository('NSSentinelBundle:Site')->getChainByCode($codes);
         $male        = new Gender(Gender::MALE);
         $fmale       = new Gender(Gender::FEMALE);
         $diagnosis[] = new Diagnosis(Diagnosis::SUSPECTED_MENINGITIS);
@@ -67,42 +56,42 @@ class CreateRotaCasesCommand extends ContainerAwareCommand
             $case->setCaseId($this->getCaseId($sites[$siteKey]));
             $case->setGender(($x % 7) ? $fmale : $male);
 
-            $this->entityMgr->persist($case);
+            $entityMgr->persist($case);
 
-            if($x % 100 == 0)
-                $this->entityMgr->flush();
+            if ($x % 100 == 0)
+                $entityMgr->flush();
         }
 
-        $this->entityMgr->flush();
+        $entityMgr->flush();
         $output->writeln(sprintf("Create %d rota cases", $caseCount));
     }
 
     public function getCaseId(Site $site)
     {
-        return md5(uniqid().spl_object_hash($site).time());
+        return md5(uniqid() . spl_object_hash($site) . time());
     }
 
     public function getRandomDate(\DateTime $before = null, \DateTime $after = null)
     {
-        $years  = range(1995,date('Y'));
-        $months = range(1,12);
-        $days   = range(1,28);
+        $years  = range(1995, date('Y'));
+        $months = range(1, 12);
+        $days   = range(1, 28);
 
-        $yKey   = array_rand($years);
-        $mKey   = array_rand($months);
-        $dKey   = array_rand($days);
+        $yKey = array_rand($years);
+        $mKey = array_rand($months);
+        $dKey = array_rand($days);
 
-        if($before != null)
+        if ($before != null)
         {
             $byear = $before->format('Y');
-            while($years[$yKey] > $byear)
-                $yKey = array_rand($years);
+            while ($years[$yKey] > $byear)
+                $yKey  = array_rand($years);
         }
 
-        if($after != null)
+        if ($after != null)
         {
             $ayear = $after->format('Y');
-            while($years[$yKey] < $ayear)
+            while ($years[$yKey] < $ayear)
             {
                 $yKey = array_rand($years);
             }
@@ -110,4 +99,5 @@ class CreateRotaCasesCommand extends ContainerAwareCommand
 
         return new \DateTime("{$years[$yKey]}-{$months[$mKey]}-{$days[$dKey]}");
     }
+
 }

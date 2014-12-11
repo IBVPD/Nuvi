@@ -112,7 +112,7 @@ class CaseType extends AbstractType
                 'label' => 'ibd-form.otherSpecimenCollected', 'attr' => array('data-context-child' => 'otherSpecimenCollected')))
             ->add('otherSpecimenOther', null, array('required' => $required, 'label' => 'ibd-form.otherSpecimenOther',
                 'attr' => array('data-context-parent' => 'otherSpecimenCollected',
-                    'data-context-value' => OtherSpecimen::OTHER)))
+                    'data-context-value'  => OtherSpecimen::OTHER)))
         ;
 
         $siteSerializer = $this->siteSerializer;

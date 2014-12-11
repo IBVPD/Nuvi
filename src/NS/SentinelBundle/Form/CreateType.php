@@ -16,13 +16,11 @@ class CreateType extends AbstractType
 {
     private $siteSerializer;
     private $entityMgr;
-    private $type;
 
-    public function __construct(SerializedSitesInterface $siteSerializer, ObjectManager $entityMgr, $type)
+    public function __construct(SerializedSitesInterface $siteSerializer, ObjectManager $entityMgr)
     {
         $this->siteSerializer = $siteSerializer;
         $this->entityMgr      = $entityMgr;
-        $this->type           = $type;
     }
 
     /**
@@ -33,16 +31,17 @@ class CreateType extends AbstractType
     {
         $builder
             ->add('caseId', null,   array('label'=>'site-assigned-case-id'))
-            ->add('type',   $this->type, array('description'=>'This should always be "1"'))
-            ;
+            ->add('type', 'CreateRoles', array('description' => 'This should always be "1"'))
+        ;
 
         if($this->siteSerializer->hasMultipleSites())
         {
+            $queryBuilder = $this->entityMgr->getRepository('NS\SentinelBundle\Entity\Site')->getChainQueryBuilder()->orderBy('s.name', 'ASC');
             $builder->add('site','entity',array('required'        => true,
                                                 'mapped'          => false,
                                                 'empty_value'     => 'Please Select...',
                                                 'label'           => 'ibd-form.site',
-                'query_builder'   => $this->entityMgr->getRepository('NS\SentinelBundle\Entity\Site')->getChainQueryBuilder()->orderBy('s.name','ASC'),
+                                                'query_builder'   => $queryBuilder,
                                                 'class'           => 'NS\SentinelBundle\Entity\Site',
                                                 'auto_initialize' => false));
         }
@@ -50,6 +49,6 @@ class CreateType extends AbstractType
 
     public function getName()
     {
-        return $this->type == 'IBDCreateRoles' ? 'create_ibd':'create_rotavirus';
+        return 'create_case';
     }
 }

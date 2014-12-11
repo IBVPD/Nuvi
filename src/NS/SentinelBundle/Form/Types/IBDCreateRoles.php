@@ -2,14 +2,14 @@
 
 namespace NS\SentinelBundle\Form\Types;
 
-use Symfony\Component\Form\AbstractType;
-
 /**
  * Description of IBDCreateRoles
  *
  */
-class IBDCreateRoles extends AbstractType
+class IBDCreateRoles extends CreateRoles
 {
+    const ROUTE_BASE = 'ibd';
+
     public function getParent()
     {
         return 'CreateRoles';

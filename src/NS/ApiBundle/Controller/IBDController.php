@@ -380,7 +380,7 @@ class IBDController extends CaseController
      * @ApiDoc\ApiDoc(
      *   resource = true,
      *   description = "Creates a new IBD case",
-     *   input = "create_ibd",
+     *   input = "create_case",
      *   statusCodes = {
      *      201 = "Returned when the case is created"
      *  }
@@ -394,7 +394,7 @@ class IBDController extends CaseController
      */
     public function postIbdCaseAction(Request $request)
     {
-        return $this->postCase($request, 'nsApiIbdGetCase', 'create_ibd', 'NSSentinelBundle:IBD');
+        return $this->postCase($request, 'nsApiIbdGetCase', 'create_case', 'NSSentinelBundle:IBD');
     }
 
 }

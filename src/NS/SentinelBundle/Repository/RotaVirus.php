@@ -36,21 +36,24 @@ class RotaVirus extends Common implements AjaxAutocompleteRepositoryInterface
         
         $res     = $this->secure($queryBuilder)->getQuery()->getResult();
 
-        foreach($res as $r)
+        foreach ($res as $row)
         {
-            if($r['csfCollected'])
-                $results['csfCollected'] = $r['theCount'];
+            if ($row['csfCollected'])
+                $results['csfCollected']    = $row['theCount'];
             else
-                $results['csfNotCollected'] = $r['theCount'];
+                $results['csfNotCollected'] = $row['theCount'];
         }
-        
+
         return $results;
     }
 
     public function getLatestQuery( $alias = 'm')
     {
         $queryBuilder = $this->createQueryBuilder($alias)
-                   ->orderBy($alias.'.id','DESC');
+            ->addSelect("sl,el")
+            ->leftJoin(sprintf("%s.siteLab", $alias), "sl")
+            ->leftJoin(sprintf("%s.externalLabs", $alias), "el")
+            ->orderBy($alias.'.id','DESC');
 
         return $this->secure($queryBuilder);
     }

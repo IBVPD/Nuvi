@@ -70,4 +70,24 @@ class CreateRoles extends TranslatableArrayChoice implements TranslationContaine
     {
         return 'CreateRoles';
     }
+
+    public function getRoute($routeBase)
+    {
+        switch ($this->getValue())
+        {
+            case CreateRoles::BASE:
+                return $routeBase . 'Edit';
+            case CreateRoles::SITE:
+                return $routeBase . 'Edit';
+            case CreateRoles::RRL:
+                return $routeBase . 'RRLEdit';
+            case CreateRoles::NL:
+                return $routeBase . 'NLEdit';
+            case CreateRoles::LAB:
+                return $routeBase . 'LabEdit';
+            default:
+                return $routeBase . 'Index';
+        }
+    }
+
 }

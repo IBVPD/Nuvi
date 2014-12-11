@@ -5,13 +5,13 @@ namespace NS\SentinelBundle\Entity;
 use \Doctrine\Common\Collections\ArrayCollection;
 use \Doctrine\Common\Collections\Collection;
 use \Doctrine\ORM\Mapping as ORM;
-use \JMS\Serializer\Annotation\Groups;
-use \JMS\Serializer\Annotation\Exclude;
+use \JMS\Serializer\Annotation as Serializer;
 use \NS\SentinelBundle\Form\Types\CaseStatus;
 use \NS\SentinelBundle\Form\Types\Gender;
 use \NS\SentinelBundle\Form\Types\TripleChoice;
 use \NS\SentinelBundle\Interfaces\IdentityAssignmentInterface;
 use \Symfony\Component\Validator\Constraints as Assert;
+use \Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Description of BaseCase
@@ -20,6 +20,7 @@ use \Symfony\Component\Validator\Constraints as Assert;
  * @ORM\MappedSuperclass
  * @ORM\HasLifecycleCallbacks
  * @SuppressWarnings(PHPMD.ShortVariable)
+ * @UniqueEntity(fields={"site","caseId"}, message="The case id already exists for this site!")
  */
 abstract class BaseCase implements IdentityAssignmentInterface
 {
@@ -35,28 +36,28 @@ abstract class BaseCase implements IdentityAssignmentInterface
      * @ORM\CustomIdGenerator(class="\NS\SentinelBundle\Generator\Custom")
      * @var string $id
      * @ORM\Column(name="id",type="string")
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     protected $id;
 
     /**
      * @var string $lastName
      * @ORM\Column(name="lastName",type="string",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     protected $lastName;
 
     /**
      * @var string $parentalName
      * @ORM\Column(name="parentalName",type="string",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     protected $parentalName;
 
     /**
      * @var string $firstName
      * @ORM\Column(name="firstName",type="string",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     protected $firstName;
 
@@ -65,7 +66,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
      * @var string $caseId
      * @ORM\Column(name="caseId",type="string",nullable=false)
      * @Assert\NotBlank()
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     protected $caseId;
 
@@ -73,7 +74,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
      * @var DateTime $dob
      * @ORM\Column(name="dob",type="date",nullable=true)
      * @Assert\Date
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     protected $dob;
 
@@ -88,7 +89,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
     /**
      * @var integer $age
      * @ORM\Column(name="age",type="integer",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     protected $age;
 
@@ -101,35 +102,35 @@ abstract class BaseCase implements IdentityAssignmentInterface
     /**
      * @var Gender $gender
      * @ORM\Column(name="gender",type="Gender",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     protected $gender;
 
     /**
      * @var DateTime $admDate
      * @ORM\Column(name="admDate",type="date",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     protected $admDate;
 
     /**
      * @var CaseStatus $status
      * @ORM\Column(name="status",type="CaseStatus")
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     protected $status;
 
     /**
      * @var DateTime $updatedAt
      * @ORM\Column(name="updatedAt",type="datetime")
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     protected $updatedAt;
 
     /**
      * @var DateTime $createdAt
      * @ORM\Column(name="createdAt",type="datetime")
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     protected $createdAt;
 
@@ -137,7 +138,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
      * @var Region $region
      * @ORM\ManyToOne(targetEntity="\NS\SentinelBundle\Entity\Region")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     protected $region;
 
@@ -145,7 +146,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
      * @var Country $country
      * @ORM\ManyToOne(targetEntity="\NS\SentinelBundle\Entity\Country")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     protected $country;
 
@@ -153,7 +154,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
      * @var Site $site
      * @ORM\ManyToOne(targetEntity="\NS\SentinelBundle\Entity\Site")
      * @ORM\JoinColumn(nullable=false,referencedColumnName="code")
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     protected $site;
 
@@ -163,27 +164,27 @@ abstract class BaseCase implements IdentityAssignmentInterface
     protected $siteLab;
 
     /**
-     * @Exclude()
+     * @Serializer\Exclude()
      */
     protected $referenceLab = -1;
 
     /**
-     * @Exclude()
+     * @Serializer\Exclude()
      */
     protected $nationalLab  = -1;
 
     /**
-     * @Exclude()
+     * @Serializer\Exclude()
      */
     protected $siteLabClass   = null;
 
     /**
-     * @Exclude()
+     * @Serializer\Exclude()
      */
     protected $referenceClass = null;
 
     /**
-     * @Exclude()
+     * @Serializer\Exclude()
      */
     protected $nationalClass  = null;
 

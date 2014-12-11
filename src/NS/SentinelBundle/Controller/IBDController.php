@@ -2,14 +2,12 @@
 
 namespace NS\SentinelBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Form\FormError;
-use NS\SentinelBundle\Exceptions\NonExistentCase;
-use NS\SentinelBundle\Form\Types\CreateRoles;
+use \Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use \Symfony\Component\HttpFoundation\Request;
+use \NS\SentinelBundle\Exceptions\NonExistentCase;
 
 /**
  * @Route("/{_locale}/ibd")
@@ -22,45 +20,31 @@ class IBDController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $paginator  = $this->get('knp_paginator');
-
         $filterForm = $this->createForm('ibd_filter_form');
         $filterForm->handleRequest($request);
 
-        if($filterForm->isValid())
+        if ($filterForm->isValid())
         {
             $query = $this->get('ns.model_manager')
-                          ->getRepository('NSSentinelBundle:IBD')
-                          ->getFilterQueryBuilder();
+                ->getRepository('NSSentinelBundle:IBD')
+                ->getFilterQueryBuilder();
 
             // build the query from the given form object
             $queryBuilderUpdater = $this->get('lexik_form_filter.query_builder_updater');
-            $queryBuilderUpdater->addFilterConditions($filterForm, $query,'m');
+            $queryBuilderUpdater->addFilterConditions($filterForm, $query, 'm');
         }
         else
             $query = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:IBD")->getLatestQuery();
 
-        $pagination = $paginator->paginate( $query,
-                                            $request->query->get('page',1),
-                                            $request->getSession()->get('result_per_page',10) );
-
-        $securityContext = $this->get('security.context');
-
-        if ($securityContext->isGranted('ROLE_SITE') || $securityContext->isGranted('ROLE_LAB') || $securityContext->isGranted('ROLE_RRL_LAB') || $securityContext->isGranted('ROLE_NL_LAB'))
-            $template = array('header_template'=>'NSSentinelBundle:IBD:indexSiteHeader.html.twig', 'row_template'=>'NSSentinelBundle:IBD:indexSiteRow.html.twig');
-        else if($securityContext->isGranted('ROLE_COUNTRY'))
-            $template = array('header_template'=>'NSSentinelBundle:IBD:indexCountryHeader.html.twig', 'row_template'=>'NSSentinelBundle:IBD:indexCountryRow.html.twig');
-        else if($securityContext->isGranted('ROLE_REGION'))
-            $template = array('header_template'=>'NSSentinelBundle:IBD:indexRegionHeader.html.twig', 'row_template'=>'NSSentinelBundle:IBD:indexRegionRow.html.twig');
-
-        $createForm = ($securityContext->isGranted('ROLE_CAN_CREATE')) ? $this->createForm('create_ibd')->createView():null;
+        $paginator       = $this->get('knp_paginator');
+        $pagination      = $paginator->paginate($query, $request->query->get('page', 1), $request->getSession()->get('result_per_page', 10));
+        $createForm = ($this->get('security.context')->isGranted('ROLE_CAN_CREATE')) ? $this->createForm('create_case')->createView() : null;
 
         return array(
-                    'pagination' => $pagination,
-                    't'          => $template,
-                    'form'       => $this->createForm('results_per_page')->createView(),
-                    'filterForm' => $filterForm->createView(),
-                    'createForm' => $createForm);
+            'pagination' => $pagination,
+            'form'       => $this->createForm('results_per_page')->createView(),
+            'filterForm' => $filterForm->createView(),
+            'createForm' => $createForm);
     }
 
     /**
@@ -71,67 +55,27 @@ class IBDController extends Controller
      */
     public function createAction(Request $request)
     {
-        $form = $this->createForm('create_ibd');
+        $form = $this->createForm('create_case');
         $form->handleRequest($request);
 
-        if($form->isValid())
+        if ($form->isValid())
         {
-            $caseId = $form->get('caseId')->getData();
-            $type   = $form->get('type')->getData();
+            $caseId    = $form->get('caseId')->getData();
+            $type      = $form->get('type')->getData();
             $entityMgr = $this->get('ns.model_manager');
-            $case   = $entityMgr->getRepository('NSSentinelBundle:IBD')->findOrCreate($caseId,null);
+            $case      = $entityMgr->getRepository('NSSentinelBundle:IBD')->findOrCreate($caseId, null);
 
-            if(!$case->getId())
+            if (!$case->getId())
             {
-                if($form->has('site'))
-                    $site = $form->get('site')->getData();
-                else
-                    $site = $this->get('ns.sentinel.sites')->getSite();
-
+                $site = ($form->has('site')) ? $form->get('site')->getData() : $this->get('ns.sentinel.sites')->getSite();
                 $case->setSite($site);
-            }
-
-            switch($type->getValue())
-            {
-                case CreateRoles::BASE:
-                    $res = 'ibdEdit';
-                    break;
-                case CreateRoles::SITE:
-                    $res = 'ibdEdit';
-                    break;
-                case CreateRoles::RRL:
-                    /*
-                     * Only create a sitelab when this is a new case otherwise we're in an error condition
-                     * Meaning that a site lab has already been created but
-                     */
-                    if (!$case->getId() || ($case->getId() && !$case->hasSiteLab()))
-                    {
-                        $siteLab = new \NS\SentinelBundle\Entity\IBD\SiteLab();
-                        $siteLab->setSentToReferenceLab(true);
-                        $case->setSiteLab($siteLab);
-                    }
-                    $res = 'ibdRRLEdit';
-                    break;
-                case CreateRoles::NL:
-                    if (!$case->getId() || ($case->getId() && !$case->hasSiteLab()))
-                    {
-                        $siteLab = new \NS\SentinelBundle\Entity\IBD\SiteLab();
-                        $siteLab->setSentToNationalLab(true);
-                        $case->setSiteLab($siteLab);
-                    }
-                    $res = 'ibdNLEdit';
-                case CreateRoles::LAB:
-                    $res = 'ibdLabEdit';
-                    break;
-                default:
-                    $res = 'ibdIndex';
-                    break;
             }
 
             $entityMgr->persist($case);
             $entityMgr->flush();
 
-            return $this->redirect($this->generateUrl($res,array('id' => $case->getId())));
+            return $this->redirect($this->generateUrl($type->getRoute('ibd'), array(
+                        'id' => $case->getId())));
         }
 
         return $this->redirect($this->generateUrl('ibdIndex'));
@@ -141,9 +85,9 @@ class IBDController extends Controller
      * @Route("/edit/{id}",name="ibdEdit",defaults={"id"=null})
      * @Template()
      */
-    public function editAction(Request $request,$id = null)
+    public function editAction(Request $request, $id = null)
     {
-        return $this->edit($request,'ibd',$id);
+        return $this->edit($request, 'ibd', $id);
     }
 
     /**
@@ -152,7 +96,7 @@ class IBDController extends Controller
      */
     public function editRRLAction(Request $request, $id = null)
     {
-        return $this->edit($request, 'rrl', $id);
+        return $this->edit($request, 'ibd_referencelab', $id);
     }
 
     /**
@@ -161,97 +105,83 @@ class IBDController extends Controller
      */
     public function editNLAction(Request $request, $id = null)
     {
-        return $this->edit($request, 'nl', $id);
+        return $this->edit($request, 'ibd_nationallab', $id);
     }
 
     /**
      * @Route("/lab/edit/{id}",name="ibdLabEdit",defaults={"id"=null})
      * @Template()
      */
-    public function editLabAction(Request $request,$id = null)
+    public function editLabAction(Request $request, $id = null)
     {
-        return $this->edit($request, 'lab', $id);
+        return $this->edit($request, 'ibd_lab', $id);
     }
 
     /**
      * @Route("/outcome/edit/{id}",name="ibdOutcomeEdit",defaults={"id"=null})
      * @Template()
      */
-    public function editOutcomeAction(Request $request,$id = null)
+    public function editOutcomeAction(Request $request, $id = null)
     {
-        return $this->edit($request, 'outcome', $id);
+        return $this->edit($request, 'ibd_outcome', $id);
     }
 
-    private function edit(Request $request, $type, $id = null)
+    private function getForm($type, $objId = null)
     {
-        try
+        $record = null;
+
+        if ($objId)
         {
             switch ($type)
             {
                 case 'ibd':
-                    $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:IBD')->find($id) : null;
-                    $form   = $this->createForm('ibd', $record);
+                case 'ibd_outcome':
+                    $record = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:IBD')->find($objId);
                     break;
-                case 'outcome':
-                    $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:IBD')->find($id) : null;
-                    $form   = $this->createForm('ibd_outcome', $record);
+                case 'ibd_lab':
+                    $record = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:IBD\SiteLab')->findOrCreateNew($objId);
                     break;
-                case 'lab':
-                    $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:IBD\SiteLab')->findOrCreateNew($id) : null;
-                    $form   = $this->createForm('ibd_lab', $record);
+                case 'ibd_referencelab':
+                    $record = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:IBD\ReferenceLab')->findOrCreateNew($objId);
                     break;
-                case 'rrl':
-                    $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:IBD\ReferenceLab')->findOrCreateNew($id) : null;
-                    $form   = $this->createForm('ibd_referencelab', $record);
-                    break;
-                case 'nl':
-                    $record = $id ? $this->get('ns.model_manager')->getRepository('NSSentinelBundle:IBD\NationalLab')->findOrCreateNew($id) : null;
-                    $form   = $this->createForm('ibd_nationallab', $record);
+                case 'ibd_nationallab':
+                    $record = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:IBD\NationalLab')->findOrCreateNew($objId);
                     break;
                 default:
-                    throw new \Exception("Unknown type");
+                    throw new \RuntimeException("Unknown type");
             }
         }
-        catch (NonExistentCase $ex) 
+
+        return $this->createForm($type, $record);
+    }
+
+    private function edit(Request $request, $type, $objId = null)
+    {
+        try
+        {
+            $form = $this->getForm($type, $objId);
+        }
+        catch (NonExistentCase $ex)
         {
             // TODO Flash service required
-            return $this->render('NSSentinelBundle:User:unknownCase.html.twig',array('message' => $ex->getMessage()));
+            return $this->render('NSSentinelBundle:User:unknownCase.html.twig', array(
+                    'message' => $ex->getMessage()));
         }
 
-        if($request->getMethod() == 'POST')
+        $form->handleRequest($request);
+        if ($form->isValid())
         {
-            $form->handleRequest($request);
-            if($form->isValid())
-            {
-                $entityMgr = $this->getDoctrine()->getManager();
-                $record = $form->getData();
+            $entityMgr = $this->get('doctrine.orm.entity_manager');
+            $entityMgr->persist($form->getData());
+            $entityMgr->flush();
 
-                $entityMgr->persist($record);
-
-                if ($type != 'ibd' && $type != 'outcome')
-                    $entityMgr->persist($record->getCase());
-
-                try
-                {
-                    $entityMgr->flush();
-                }
-                catch(\Doctrine\DBAL\DBALException $e)
-                {
-                    // TODO Flash service required
-                    if($e->getPrevious()->getCode() === '23000')
-                        $form->addError(new FormError ("The case id already exists for this site!"));
-                    else
-                        die("ERROR: ".$e->getMessage());
-
-                    return array('form' => $form->createView(),'id'=>$id, 'type'=>strtoupper($type));
-                }
-
-                // TODO Flash service required
-                return $this->redirect($this->generateUrl("ibdIndex"));
-            }
+            // TODO Flash service required
+            return $this->redirect($this->generateUrl("ibdIndex"));
         }
 
-        return array('form' => $form->createView(),'id'=>$id, 'type'=>strtoupper($type));
+        $routeType = ($type == 'ibd_referencelab') ? 'RRL' : 'NL';
+
+        return array('form' => $form->createView(), 'id' => $objId, 'type' => $routeType);
     }
 
     /**
@@ -264,9 +194,11 @@ class IBDController extends Controller
         {
             return array('record' => $this->get('ns.model_manager')->getRepository('NSSentinelBundle:IBD')->get($id));
         }
-        catch (NonExistentCase $ex) 
+        catch (NonExistentCase $ex)
         {
-            return $this->render('NSSentinelBundle:User:unknownCase.html.twig',array('message' => $ex->getMessage()));
+            return $this->render('NSSentinelBundle:User:unknownCase.html.twig', array(
+                    'message' => $ex->getMessage()));
         }
     }
+
 }

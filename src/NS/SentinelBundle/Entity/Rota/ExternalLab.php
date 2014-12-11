@@ -27,6 +27,7 @@ use \JMS\Serializer\Annotation as Serializer;
  * @ORM\DiscriminatorColumn(name="discr",type="string")
  * @ORM\DiscriminatorMap({"reference" = "ReferenceLab", "national" = "NationalLab"})
  * @Serializer\Discriminator(field = "disc", map = {"reference": "ReferenceLab", "national": "NationalLab"})
+ * @SuppressWarnings(PHPMD.LongVariable)
  */
 abstract class ExternalLab extends BaseExternalLab
 {

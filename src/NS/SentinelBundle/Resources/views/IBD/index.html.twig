@@ -17,19 +17,12 @@
                 <div class="widget-toolbar no-border">{{ knp_pagination_render(pagination) }}</div>
             </div>
             <div class="table-responsive">
-                <table id="ibdCases" class="table table-striped table-bordered table-hover">
-                    {% include t.header_template %}
-                    <tbody>
-                    {% for row in pagination %}
-                        {% include t.row_template %}
-                    {% endfor %}
-                    </tbody>
-                </table>
-            {% if is_granted('ROLE_CAN_CREATE') %}
+                {{ case_index_template(pagination,'ibdCases') }}
+                {% if is_granted('ROLE_CAN_CREATE') %}
                 <div class="align-right">
                     <a href="#modal-form" id="modal-form-create" data-toggle="modal" class="btn btn-sm btn-success">{{'Create/Edit'|trans}}<i class="icon-plus-sign icon-on-right bigger-110"></i></a>
                 </div>
-            {% endif %}
+                {% endif %}
             </div>
         </div>
     </div>

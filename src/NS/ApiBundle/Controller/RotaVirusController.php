@@ -375,7 +375,7 @@ class RotaVirusController extends CaseController
      * @ApiDoc(
      *   resource = true,
      *   description = "Creates a new Rotavirus case",
-     *   input = "create_rotavirus"
+     *   input = "create_case"
      * )
      *
      * @REST\Post("/",name="nsApiRotaPostCase")
@@ -385,6 +385,6 @@ class RotaVirusController extends CaseController
     */
     public function postRotaCaseAction(Request $request)
     {
-        return $this->postCase($request,'nsApiRotaGetCase','create_rotavirus','NSSentinelBundle:RotaVirus');
+        return $this->postCase($request, 'nsApiRotaGetCase', 'create_case', 'NSSentinelBundle:RotaVirus');
     }
 }

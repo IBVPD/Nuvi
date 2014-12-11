@@ -14,6 +14,7 @@ use \NS\SentinelBundle\Form\Types\LatResult;
 use \NS\SentinelBundle\Form\Types\PCRResult;
 use \NS\SentinelBundle\Form\Types\TripleChoice;
 use \Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use \Symfony\Component\Console\Input\InputArgument;
 use \Symfony\Component\Console\Input\InputInterface;
 use \Symfony\Component\Console\Input\InputOption;
 use \Symfony\Component\Console\Output\OutputInterface;
@@ -31,7 +32,7 @@ class CreateIBDCasesCommand extends ContainerAwareCommand
         $this
             ->setName('nssentinel:ibd:create:cases')
             ->setDescription('Create ibd cases')
-            ->addArgument('codes', null, InputOption::VALUE_REQUIRED)
+            ->addArgument('codes', null, InputArgument::REQUIRED)
             ->addOption('casecount', null, InputOption::VALUE_OPTIONAL, null, 2700)
         ;
     }
@@ -39,21 +40,10 @@ class CreateIBDCasesCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         ini_set('memory_limit', '768M');
-        $codes = explode(",", str_replace(' ,', ',', $input->getArgument('codes')));
-
-        if (empty($codes))
-        {
-            $output->writeln("No codes to add cases to");
-            return;
-        }
-
-        $caseCount = $input->getOption('casecount');
-        $entityMgr = $this->getContainer()->get('ns.model_manager');
-        $sites     = $entityMgr->getRepository('NSSentinelBundle:Site')->getChainByCode($codes);
-        $output->writeln("Received " . count($sites) . " sites");
-        if (count($sites) == 0)
-            return;
-
+        $codes       = explode(",", str_replace(' ,', ',', $input->getArgument('codes')));
+        $caseCount   = $input->getOption('casecount');
+        $entityMgr   = $this->getContainer()->get('ns.model_manager');
+        $sites       = $entityMgr->getRepository('NSSentinelBundle:Site')->getChainByCode($codes);
         $male        = new Gender(Gender::MALE);
         $fmale       = new Gender(Gender::FEMALE);
         $diagnosis[] = new Diagnosis(Diagnosis::SUSPECTED_MENINGITIS);

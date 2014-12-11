@@ -66,11 +66,11 @@ class NewImportCommand extends ContainerAwareCommand
     {
         $files = scandir($dir);
 
-        foreach($files as $x => $file)
+        foreach ($files as $index => $file)
         {
             if($file[0] == '.')
             {
-                unset($files[$x]);
+                unset($files[$index]);
                 continue;
             }
 
@@ -78,15 +78,15 @@ class NewImportCommand extends ContainerAwareCommand
             {
                 case 'Regions.csv':
                     $files['region'] = $dir.'/'.$file;
-                    unset($files[$x]);
+                    unset($files[$index]);
                     break;
                 case 'Countries.csv':
                     $files['country'] = $dir.'/'.$file;
-                    unset($files[$x]);
+                    unset($files[$index]);
                     break;
                 case 'Sites.csv':
                     $files['site'] = $dir.'/'.$file;
-                    unset($files[$x]);
+                    unset($files[$index]);
                     break;
             }
         }
@@ -96,7 +96,7 @@ class NewImportCommand extends ContainerAwareCommand
 
     private function processRegions($file,$output)
     {
-        $fileId      = fopen($file,'r');
+        $fileId  = fopen($file,'r');
         $regions = array();
 
         while($row = fgetcsv($fileId))
@@ -129,17 +129,17 @@ class NewImportCommand extends ContainerAwareCommand
         {
             if(isset($regions[$row[0]]) && !empty($row[2]) && !empty($row[0]) && !empty($row[1]))
             {
-                $c = new Country();
-                $c->setName($row[1]);
-                $c->setCode($row[2]);
-                $c->setIsActive(true);
-                $c->setRegion($regions[$row[0]]);
-                $c->setHasReferenceLab(true);
-                $c->setHasNationalLab(true);
+                $country = new Country();
+                $country->setName($row[1]);
+                $country->setCode($row[2]);
+                $country->setIsActive(true);
+                $country->setRegion($regions[$row[0]]);
+                $country->setHasReferenceLab(true);
+                $country->setHasNationalLab(true);
 
-                $this->entityMgr->persist($c);
+                $this->entityMgr->persist($country);
                 $this->entityMgr->flush();
-                $countries[$row[2]] = $c;
+                $countries[$row[2]] = $country;
             }
         }
 
@@ -152,9 +152,9 @@ class NewImportCommand extends ContainerAwareCommand
     {
         $sites      = array();
         $fileId     = fopen($file,'r');
-        $x          = 1;
         $errorSites = array();
         $row        = fgetcsv($fileId);
+
         while($row = fgetcsv($fileId))
         {
             $site = new Site();
@@ -179,7 +179,6 @@ class NewImportCommand extends ContainerAwareCommand
             $this->entityMgr->persist($site);
             $this->entityMgr->flush();
             $sites[$row[2]] = $site;
-            $x++;
         }
 
         fclose($fileId);
@@ -187,7 +186,7 @@ class NewImportCommand extends ContainerAwareCommand
         return array('sites'=>$sites,'errors'=>$errorSites);
     }
 
-    private function modifyCountry($c, $row, $country)
+    private function modifyCountry($site, $row, $country)
     {
         if($country instanceof Country)
         {
@@ -197,55 +196,55 @@ class NewImportCommand extends ContainerAwareCommand
             $country->setRvVaccineIntro($row[21]);
             $country->setPopulationUnderFive2014($row[22]);
             $country->setPopulationUnderFive2014($row[23]);
-            $c->setCountry($country);
+            $site->setCountry($country);
         }
     }
 
-    private function surveillanceAndSupport($c,$row, &$errorSites)
+    private function surveillanceAndSupport($site, $row, &$errorSites)
     {
         try
         {
-            $c->setSurveillanceConducted(new \NS\SentinelBundle\Form\Types\SurveillanceConducted($row[9]));
+            $site->setSurveillanceConducted(new \NS\SentinelBundle\Form\Types\SurveillanceConducted($row[9]));
         }
-        catch (\Exception $e)
+        catch (\Exception $except)
         {
-            throw new \Exception("Tried to pass '{$row[9]}' to SurveillanceConducted\n ".$e->getMessage());
+            throw new \Exception("Tried to pass '{$row[9]}' to SurveillanceConducted\n " . $except->getMessage());
         }
 
         try
         {
-            $c->setibdIntenseSupport(new \NS\SentinelBundle\Form\Types\IBDIntenseSupport($row[11]));
+            $site->setibdIntenseSupport(new \NS\SentinelBundle\Form\Types\IBDIntenseSupport($row[11]));
         }
-        catch(\Exception $e)
+        catch (\Exception $except)
         {
             $errorSites[] = "{$row[2]}:{$row[3]} - Has Invalid Intense Support Value {$row[11]}";
         }
     }
 
-    private function setSiteIbdLastAssessment($c, $row, &$errorSites)
+    private function setSiteIbdLastAssessment($site, $row, &$errorSites)
     {
         if($row[12])
         {
             try
             {
-                $c->setibdLastSiteAssessmentDate(new \DateTime($row[12]));
+                $site->setibdLastSiteAssessmentDate(new \DateTime($row[12]));
             }
-            catch(\Exception $e)
+            catch (\Exception $except)
             {
                 $errorSites[] = "{$row[2]}:{$row[3]} - Has Invalid IBD Last Site Assessment Date '{$row[12]}'";
             }
         }
     }
 
-    private function setSiteRvLastAssessment($c, $row, &$errorSites)
+    private function setSiteRvLastAssessment($site, $row, &$errorSites)
     {
         if($row[14])
         {
             try
             {
-                $c->setRvLastSiteAssessmentDate(new \DateTime($row[14]));
+                $site->setRvLastSiteAssessmentDate(new \DateTime($row[14]));
             }
-            catch(\Exception $e)
+            catch (\Exception $except)
             {
                 $errorSites[] = "{$row[2]}:{$row[3]} - Has Invalid RV Last Site Assessment Date '{$row[14]}'";
             }

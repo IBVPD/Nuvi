@@ -85,43 +85,50 @@ class LoadRegionData extends AbstractFixture implements OrderedFixtureInterface,
         $s->setCountry($c);
         $s->setCode('ALBCHLD');
         $s->setSurveillanceConducted($sc);
-        
+        $s->setActive(true);
+
         $s1 = new Site();
         $s1->setName('Toronto Childrens Hospital');
         $s1->setCountry($c);
         $s1->setCode('TCHLD');
         $s1->setSurveillanceConducted($sc);
-        
+        $s1->setActive(true);
+
         $s2 = new Site();
         $s2->setName('Shriners Childrens Hospital');
         $s2->setCountry($c);
         $s2->setCode('SHCHLD');
         $s2->setSurveillanceConducted($sc);
+        $s2->setActive(true);
 
         $s3 = new Site();
         $s3->setName('Seattle Grace Hospital');
         $s3->setCountry($c2);
         $s3->setCode('SGH');
         $s3->setSurveillanceConducted($sc);
+        $s3->setActive(true);
 
         $s4 = new Site();
         $s4->setName('Mexico General Hospital');
         $s4->setCountry($c3);
         $s4->setCode("MGH");
         $s4->setSurveillanceConducted($sc);
+        $s4->setActive(true);
 
         $s5 = new Site();
         $s5->setName('New Dehli Main Hospital');
         $s5->setCountry($c4);
         $s5->setCode("NDMH");
         $s5->setSurveillanceConducted($sc);
+        $s5->setActive(true);
 
         $s6 = new Site();
         $s6->setName('Thailand Main Hospital');
         $s6->setCountry($c6);
         $s6->setCode("TMH");
         $s6->setSurveillanceConducted($sc);
-        
+        $s6->setActive(true);
+
         $manager->persist($r);
         $manager->persist($r2);
         $manager->persist($c);

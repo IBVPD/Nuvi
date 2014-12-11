@@ -38,6 +38,7 @@ use \JMS\Serializer\Annotation as Serializer;
  * @ORM\DiscriminatorMap({"reference" = "ReferenceLab", "national" = "NationalLab"})
  * @Assert\Callback(methods={"validate"})
  * @Serializer\Discriminator(field = "disc", map = {"reference": "ReferenceLab", "national": "NationalLab"})
+ * @SuppressWarnings(PHPMD.LongVariable)
  */
 abstract class ExternalLab extends BaseExternalLab
 {

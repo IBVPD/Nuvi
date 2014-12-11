@@ -51,12 +51,12 @@ class IBD extends Common
 
         $res = $this->secure($queryBuilder)->getQuery()->getResult();
 
-        foreach ($res as $r)
+        foreach ($res as $row)
         {
-            if ($r['csfCollected'])
-                $results['csfCollected']    = $r['theCount'];
+            if ($row['csfCollected'])
+                $results['csfCollected']    = $row['theCount'];
             else
-                $results['csfNotCollected'] = $r['theCount'];
+                $results['csfNotCollected'] = $row['theCount'];
         }
 
         return $results;
@@ -65,6 +65,9 @@ class IBD extends Common
     public function getLatestQuery($alias = 'm')
     {
         $queryBuilder = $this->createQueryBuilder($alias)
+            ->addSelect("sl,el")
+            ->leftJoin(sprintf("%s.siteLab", $alias), "sl")
+            ->leftJoin(sprintf("%s.externalLabs", $alias), "el")
             ->orderBy($alias . '.id', 'DESC');
 
         return $this->secure($queryBuilder);

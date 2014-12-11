@@ -104,13 +104,13 @@ Scenario Outline: A User can create a case
     Then There should be no exception
       And I should not be on "<resultpath>"
     Examples:
-      | email                  | password            | path      | form-case               | form-case-value | form-type             | form-type-value | resultpath       | submit                  |
-      | site-seattle@noblet.ca | 1234567-seattle     | /en/ibd/  | create_ibd_caseId       | seattle-case-1  | create_ibd_type       | 1               | /en/ibd/create   | ibd_create_submit       |
-      | site-alberta@noblet.ca | 1234567-alberta     | /en/ibd/  | create_ibd_caseId       | alberta-case-1  | create_ibd_type       | 1               | /en/ibd/create   | ibd_create_submit       |
-      | site-shriner@noblet.ca | 1234567-shriner     | /en/ibd/  | create_ibd_caseId       | shriner-case-1  | create_ibd_type       | 1               | /en/ibd/create   | ibd_create_submit       |
-      | site-seattle@noblet.ca | 1234567-seattle     | /en/rota/ | create_rotavirus_caseId | seattle-case-1  | create_rotavirus_type | 1               | /en/rota/create  | rotavirus_create_submit |
-      | site-alberta@noblet.ca | 1234567-alberta     | /en/rota/ | create_rotavirus_caseId | alberta-case-1  | create_rotavirus_type | 1               | /en/rota/create  | rotavirus_create_submit |
-      | site-shriner@noblet.ca | 1234567-shriner     | /en/rota/ | create_rotavirus_caseId | shriner-case-1  | create_rotavirus_type | 1               | /en/rota/create  | rotavirus_create_submit |
+      | email                  | password            | path      | form-case          | form-case-value | form-type        | form-type-value | resultpath       | submit                  |
+      | site-seattle@noblet.ca | 1234567-seattle     | /en/ibd/  | create_case_caseId | seattle-case-1  | create_case_type | 1               | /en/ibd/create   | ibd_create_submit       |
+      | site-alberta@noblet.ca | 1234567-alberta     | /en/ibd/  | create_case_caseId | alberta-case-1  | create_case_type | 1               | /en/ibd/create   | ibd_create_submit       |
+      | site-shriner@noblet.ca | 1234567-shriner     | /en/ibd/  | create_case_caseId | shriner-case-1  | create_case_type | 1               | /en/ibd/create   | ibd_create_submit       |
+      | site-seattle@noblet.ca | 1234567-seattle     | /en/rota/ | create_case_caseId | seattle-case-1  | create_case_type | 1               | /en/rota/create  | rotavirus_create_submit |
+      | site-alberta@noblet.ca | 1234567-alberta     | /en/rota/ | create_case_caseId | alberta-case-1  | create_case_type | 1               | /en/rota/create  | rotavirus_create_submit |
+      | site-shriner@noblet.ca | 1234567-shriner     | /en/rota/ | create_case_caseId | shriner-case-1  | create_case_type | 1               | /en/rota/create  | rotavirus_create_submit |
 
 
 @mink:symfony2

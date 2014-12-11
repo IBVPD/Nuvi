@@ -58,8 +58,8 @@ class SerializedSites implements SerializedSitesInterface
 
         $site = current($this->sites);
 
-        if($managed && !$this->entityMgr->contains($site))
-            $this->_registerSite ($site);
+        if ($managed && $site instanceof Site && !$this->entityMgr->contains($site))
+            $this->registerSite ($site);
 
         return $site;
     }
@@ -73,7 +73,7 @@ class SerializedSites implements SerializedSitesInterface
 
         if(!$sites || count($sites) == 0) // empty session site array so build and store
         {
-            $sites = $this->_populateSiteArray();
+            $sites = $this->populateSiteArray();
             $this->session->set('sites',serialize($sites));
         }
 
@@ -81,7 +81,7 @@ class SerializedSites implements SerializedSitesInterface
         $this->isInitialized = true;
     }
 
-    private function _registerSite($site)
+    private function registerSite($site)
     {
         $uow     = $this->entityMgr->getUnitOfWork();
         $country = $site->getCountry();
@@ -92,7 +92,7 @@ class SerializedSites implements SerializedSitesInterface
         $uow->registerManaged($region, array('id'   => $region->getId()), array('id'   => $region->getId(),  'code' => $region->getCode()));
     }
 
-    private function _populateSiteArray()
+    private function populateSiteArray()
     {
         $sites = array();
         foreach($this->entityMgr->getRepository('NS\SentinelBundle\Entity\Site')->getChain() as $site)

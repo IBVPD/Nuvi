@@ -262,7 +262,7 @@ class Country implements \Serializable
      *
      * @return boolean 
      */
-    public function getIsActive()
+    public function isActive()
     {
         return $this->isActive;
     }
@@ -469,26 +469,6 @@ class Country implements \Serializable
             $this->pcvVaccineIntro,
             $this->rvVaccineIntro,
             ) = unserialize($serialized);
-    }
-
-    /**
-     * Get hasReferenceLab
-     *
-     * @return boolean 
-     */
-    public function getHasReferenceLab()
-    {
-        return $this->hasReferenceLab;
-    }
-
-    /**
-     * Get hasNationalLab
-     *
-     * @return boolean 
-     */
-    public function getHasNationalLab()
-    {
-        return $this->hasNationalLab;
     }
 
     public function getLanguage()

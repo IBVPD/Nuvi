@@ -63,10 +63,13 @@ class SecurityController extends Controller
         $byDiagnosis = $repo->getByDiagnosis();
         $form        = $this->createForm('IBDFieldPopulationFilterType', null, array(
             'site_type' => 'advanced'));
-        $s           = $this->get('ns.sentinel.services.report');
-        $cResult     = $s->getCulturePositive($request, $form, 'homepage');
+        $report      = $this->get('ns.sentinel.services.report');
+        $cResult     = $report      ->getCulturePositive($request, $form, 'homepage');
 
-        return array('byCountry'   => $byCountry, 'bySite'      => $bySite, 'byDiagnosis' => $byDiagnosis,
+        return array(
+            'byCountry'   => $byCountry,
+            'bySite'      => $bySite,
+            'byDiagnosis' => $byDiagnosis,
             'cResult'     => $cResult['results']);
     }
 

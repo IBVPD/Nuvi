@@ -9,8 +9,10 @@ use Symfony\Component\Form\AbstractType;
  *
  * @author gnat
  */
-class RotavirusCreateRoles extends AbstractType
+class RotavirusCreateRoles extends CreateRoles
 {
+    const ROUTE_BASE = 'rotavirus';
+
     public function getParent()
     {
         return 'CreateRoles';
