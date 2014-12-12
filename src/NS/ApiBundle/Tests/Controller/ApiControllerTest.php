@@ -16,8 +16,9 @@ class ApiControllerTest extends WebTestCase
         // add all your doctrine fixtures classes
         $classes = array(
             // classes implementing Doctrine\Common\DataFixtures\FixtureInterface
-            'NS\SentinelBundle\DataFixtures\ORM\LoadUserData',
             'NS\SentinelBundle\DataFixtures\ORM\LoadRegionData',
+            'NS\SentinelBundle\DataFixtures\ORM\LoadReferenceLabsData',
+            'NS\SentinelBundle\DataFixtures\ORM\LoadUserData',
             'NS\ApiBundle\DataFixtures\ORM\LoadApiClientData',
         );
 

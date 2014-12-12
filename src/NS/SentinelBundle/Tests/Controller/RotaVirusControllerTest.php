@@ -5,15 +5,15 @@ namespace NS\SentinelBundle\Tests\Controller;
 use \Liip\FunctionalTestBundle\Test\WebTestCase;
 
 /**
- * Description of IBDControllerTest
+ * Description of RotaVirusControllerTest
  *
  * @author gnat
  */
-class IBDControllerTest extends WebTestCase
+class RotaVirusControllerTest extends WebTestCase
 {
     const ID = 'CA-ALBCHLD-14-000001';
 
-    public function testIbdEdit()
+    public function testRotaEdit()
     {
         // add all your doctrine fixtures classes
         $classes = array(
@@ -21,71 +21,71 @@ class IBDControllerTest extends WebTestCase
             'NS\SentinelBundle\DataFixtures\ORM\LoadRegionData',
             'NS\SentinelBundle\DataFixtures\ORM\LoadReferenceLabsData',
             'NS\SentinelBundle\DataFixtures\ORM\LoadUserData',
-            'NS\SentinelBundle\DataFixtures\ORM\LoadIBDCaseData',
+            'NS\SentinelBundle\DataFixtures\ORM\LoadRotaVirusCaseData',
         );
         $this->loadFixtures($classes);
 
         $client   = $this->login();
-        $crawler  = $client->request('GET', '/en/ibd/edit/' . self::ID);
+        $crawler  = $client->request('GET', '/en/rota/edit/' . self::ID);
         $response = $client->getResponse();
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(200, $response->getStatusCode(), $response->getContent());
         $this->assertEquals(0, $crawler->filter('div.blockException')->count());
     }
 
-    public function testIbdIndex()
+    public function testRotaIndex()
     {
         $client   = $this->login();
-        $crawler  = $client->request('GET', '/en/ibd/');
-        $response = $client->getResponse();
-
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(0, $crawler->filter('div.blockException')->count());
-    }
-
-    public function testIbdShow()
-    {
-        $client   = $this->login();
-        $crawler  = $client->request('GET', '/en/ibd/show/' . self::ID);
+        $crawler  = $client->request('GET', '/en/rota/');
         $response = $client->getResponse();
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(0, $crawler->filter('div.blockException')->count());
     }
 
-    public function testIbdLab()
+    public function testRotaShow()
     {
         $client   = $this->login();
-        $crawler  = $client->request('GET', '/en/ibd/lab/edit/' . self::ID);
+        $crawler  = $client->request('GET', '/en/rota/show/' . self::ID);
         $response = $client->getResponse();
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(0, $crawler->filter('div.blockException')->count());
     }
 
-    public function testIbdRRL()
+    public function testRotaLab()
     {
         $client   = $this->login();
-        $crawler  = $client->request('GET', '/en/ibd/rrl/edit/' . self::ID);
+        $crawler  = $client->request('GET', '/en/rota/lab/edit/' . self::ID);
         $response = $client->getResponse();
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(0, $crawler->filter('div.blockException')->count());
     }
 
-    public function testIbdNL()
+    public function testRotaRRL()
     {
         $client   = $this->login();
-        $crawler  = $client->request('GET', '/en/ibd/nl/edit/' . self::ID);
+        $crawler  = $client->request('GET', '/en/rota/rrl/edit/' . self::ID);
         $response = $client->getResponse();
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(0, $crawler->filter('div.blockException')->count());
     }
 
-    public function testIbdOutcome()
+    public function testRotaNL()
     {
         $client   = $this->login();
-        $crawler  = $client->request('GET', '/en/ibd/outcome/edit/' . self::ID);
+        $crawler  = $client->request('GET', '/en/rota/nl/edit/' . self::ID);
+        $response = $client->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(0, $crawler->filter('div.blockException')->count());
+    }
+
+    public function testRotaOutcome()
+    {
+        $client   = $this->login();
+        $crawler  = $client->request('GET', '/en/rota/outcome/edit/' . self::ID);
         $response = $client->getResponse();
 
         $this->assertEquals(200, $response->getStatusCode());
