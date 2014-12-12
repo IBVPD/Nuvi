@@ -67,11 +67,11 @@ class CulturePositive
         }
         else
         {
-            $t = 0;
+            $total = 0;
             foreach($this->results as $r)
-                $t += $r[$param];
+                $total += $r[$param];
 
-            return $t;
+            return $total;
         }
 
     }

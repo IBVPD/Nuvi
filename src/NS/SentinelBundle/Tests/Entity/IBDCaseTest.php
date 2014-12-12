@@ -209,50 +209,50 @@ class IBDCaseTest extends \PHPUnit_Framework_TestCase
         $tripleYes = new TripleChoice(TripleChoice::YES);
 
         //admDx + admDxOther
-        $d                  = $complete;
-        $d['setadmDx']      = new Diagnosis(Diagnosis::OTHER);
-        $d['setadmDxOther'] = 'null';
-        $data[]             = array('data' => $d);
+        $row                  = $complete;
+        $row['setadmDx']      = new Diagnosis(Diagnosis::OTHER);
+        $row['setadmDxOther'] = 'null';
+        $data[]               = array('data' => $row);
 
         //dischDx + dischDxOther
-        $d                    = $complete;
-        $d['setdischDx']      = new Diagnosis(Diagnosis::OTHER);
-        $d['setdischDxOther'] = 'null';
-        $data[]               = array('data' => $d);
+        $row                    = $complete;
+        $row['setdischDx']      = new Diagnosis(Diagnosis::OTHER);
+        $row['setdischDxOther'] = 'null';
+        $data[]                 = array('data' => $row);
 
         //meningReceived + meningDoses
-        $d                            = $complete;
-        $d['setmeningReceived']       = new MeningitisVaccinationReceived(MeningitisVaccinationReceived::YES_CARD);
-        $d['setmeningType']           = new MeningitisVaccinationType(MeningitisVaccinationType::ACW135);
-        $d['setmeningMostRecentDose'] = new \DateTime();
-        $data[]                       = array('data' => $d);
+        $row                            = $complete;
+        $row['setmeningReceived']       = new MeningitisVaccinationReceived(MeningitisVaccinationReceived::YES_CARD);
+        $row['setmeningType']           = new MeningitisVaccinationType(MeningitisVaccinationType::ACW135);
+        $row['setmeningMostRecentDose'] = new \DateTime();
+        $data[]                         = array('data' => $row);
 
         $doses = new ThreeDoses();
         foreach ($doses->getValues() as $x => $v)
         {
             //hibReceived + hibDoses
-            $d                   = $complete;
-            $d['sethibReceived'] = new VaccinationReceived(VaccinationReceived::YES_CARD);
-            $d['sethibDoses']    = new FourDoses($x);
-            $data[]              = array('data' => $d);
+            $row                   = $complete;
+            $row['sethibReceived'] = new VaccinationReceived(VaccinationReceived::YES_CARD);
+            $row['sethibDoses']    = new FourDoses($x);
+            $data[]                = array('data' => $row);
 
             //pcvReceived + pcvDoses
-            $d                   = $complete;
-            $d['setpcvReceived'] = new VaccinationReceived(VaccinationReceived::YES_CARD);
-            $d['setpcvDoses']    = new ThreeDoses($x);
-            $data[]              = array('data' => $d);
+            $row                   = $complete;
+            $row['setpcvReceived'] = new VaccinationReceived(VaccinationReceived::YES_CARD);
+            $row['setpcvDoses']    = new ThreeDoses($x);
+            $data[]                = array('data' => $row);
         }
 
         //csfCollected + related
-        $a = new CSFAppearance();
-        foreach ($a->getValues() as $v)
+        $csfAppearance = new CSFAppearance();
+        foreach ($csfAppearance->getValues() as $v)
         {
-            $d                          = $complete;
-            $d['setcsfCollected']       = $tripleYes;
-            $d['setcsfId']              = 'null';
-            $d['setcsfCollectDateTime'] = new \DateTime();
-            $d['setcsfAppearance']      = new CSFAppearance($v);
-            $data[]                     = array('data' => $d);
+            $row                          = $complete;
+            $row['setcsfCollected']       = $tripleYes;
+            $row['setcsfId']              = 'null';
+            $row['setcsfCollectDateTime'] = new \DateTime();
+            $row['setcsfAppearance']      = new CSFAppearance($v);
+            $data[]                       = array('data' => $row);
         }
 
         return $data;

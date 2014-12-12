@@ -56,10 +56,10 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
                 ->where('r.case = :case')
                 ->setParameter('case', $reference);
 
-            $r = $this->secure($queryBuilder)->getQuery()->getSingleResult();
+            $result = $this->secure($queryBuilder)->getQuery()->getSingleResult();
 
-            if ($r)
-                return $r;
+            if ($result)
+                return $result;
         }
         catch (UnexpectedResultException $e)
         {
@@ -67,8 +67,8 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
             {
                 $class  = $this->getClassName();
                 $record = new $class();
-                $m      = $this->_em->getRepository($this->parentClass)->checkExistence($id);
-                $record->setCase($m);
+                $case   = $this->_em->getRepository($this->parentClass)->checkExistence($id);
+                $record->setCase($case);
 
                 return $record;
             }

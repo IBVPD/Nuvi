@@ -10,6 +10,7 @@ use NS\SentinelBundle\Form\Types\CaseStatus as FormCaseStatus;
  * Description of CaseStatusTest
  *
  * @author gnat
+ * @SuppressWarnings(PHPMD.ShortVariable)
  */
 class CaseStatusTest extends \PHPUnit_Framework_TestCase
 {

@@ -31,20 +31,20 @@ class LoadIBDCaseData extends AbstractFixture implements OrderedFixtureInterface
 
         $male  = new Gender(Gender::MALE);
         $fmale = new Gender(Gender::FEMALE);
-        $dx[]  = new Diagnosis(Diagnosis::SUSPECTED_MENINGITIS);
-        $dx[]  = new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA);
-        $dx[]  = new Diagnosis(Diagnosis::SUSPECTED_SEPSIS);
-        $dx[]  = new Diagnosis(Diagnosis::OTHER);
+        $diagnosis[] = new Diagnosis(Diagnosis::SUSPECTED_MENINGITIS);
+        $diagnosis[] = new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA);
+        $diagnosis[] = new Diagnosis(Diagnosis::SUSPECTED_SEPSIS);
+        $diagnosis[] = new Diagnosis(Diagnosis::OTHER);
 
-        $a     = $this->getReference('site-alberta');
-        $s     = $this->getReference('site-seattle');
-        $t     = $this->getReference('site-toronto');
-        $mx    = $this->getReference('site-mexico');
-        $sites = array(3=>$a,5=>$s,7=>$t,8=>$mx);
+        $salberta = $this->getReference('site-alberta');
+        $sseattle = $this->getReference('site-seattle');
+        $storonto = $this->getReference('site-toronto');
+        $smexico  = $this->getReference('site-mexico');
+        $sites    = array(3 => $salberta, 5 => $sseattle, 7 => $storonto, 8 => $smexico);
+        $before   = new \DateTime("2015-01-01");
+        $after    = new \DateTime("2014-01-01");
 
-        $before = new \DateTime("2015-01-01");
-        $after  = new \DateTime("2014-01-01");
-        foreach($sites as $num => $site)
+        foreach ($sites as $num => $site)
         {
             for($x = 0; $x < $num; $x++)
             {
@@ -58,8 +58,8 @@ class LoadIBDCaseData extends AbstractFixture implements OrderedFixtureInterface
                     $m->setCsfCollected($nDone);
 
                 $m->setGender(($x%4)?$fmale:$male);
-                $dxKey = array_rand($dx);
-                $m->setDischDx($dx[$dxKey]);
+                $dxKey = array_rand($diagnosis);
+                $m->setDischDx($diagnosis[$dxKey]);
 
                 $m->setCaseId($this->getCaseId($site,$x));
                 $m->setSite($site);
@@ -71,9 +71,9 @@ class LoadIBDCaseData extends AbstractFixture implements OrderedFixtureInterface
         $manager->flush();
     }
 
-    private function getCaseId(Site $site, $x)
+    private function getCaseId(Site $site, $index)
     {
-        return $site->getCode().'-'.$x;
+        return $site->getCode() . '-' . $index;
     }
 
     public function getRandomDate(\DateTime $before = null, \DateTime $after = null)

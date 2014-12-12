@@ -229,16 +229,16 @@ class IBD extends Common
             ->groupBy($alias . '.site');
 
         $where = $params = array();
-        $x     = 0;
+        $index = 0;
 
         if (empty($siteCodes))
             return $queryBuilder;
 
         foreach ($siteCodes as $site)
         {
-            $where[]             = "$alias.site = :site$x";
-            $params['site' . $x] = $site;
-            $x++;
+            $where[]                 = "$alias.site = :site$index";
+            $params['site' . $index] = $site;
+            $index++;
         }
 
         return $queryBuilder->where("(" . implode(" OR ", $where) . ")")->setParameters($params);

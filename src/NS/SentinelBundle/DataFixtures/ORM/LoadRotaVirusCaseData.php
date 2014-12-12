@@ -15,8 +15,9 @@ use \NS\SentinelBundle\Entity\Site;
 
 class LoadRotaVirusCaseData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
+
     private $container;
-    
+
     public function getOrder()
     {
         return 4;
@@ -24,36 +25,36 @@ class LoadRotaVirusCaseData extends AbstractFixture implements OrderedFixtureInt
 
     public function load(ObjectManager $manager)
     {
-        ini_set('memory_limit','768M');
+        ini_set('memory_limit', '768M');
 
         $done  = new TripleChoice(TripleChoice::YES);
         $nDone = new TripleChoice(TripleChoice::NO);
-        
-        $male  = new Gender(Gender::MALE);
-        $fmale = new Gender(Gender::FEMALE);
-        $dx[]  = new Diagnosis(Diagnosis::SUSPECTED_MENINGITIS);
-        $dx[]   = new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA);
-        $dx[]   = new Diagnosis(Diagnosis::SUSPECTED_SEPSIS);
-        $dx[]   = new Diagnosis(Diagnosis::OTHER);
 
-        $a     = $this->getReference('site-alberta');
-        $s     = $this->getReference('site-seattle');
-        $t     = $this->getReference('site-toronto');
-        $mx    = $this->getReference('site-mexico');
-        $sites = array(8=>$a,7=>$s,4=>$t,2=>$mx);
-        $before = new \DateTime("2015-01-01");
-        $after  = new \DateTime("2014-01-01");
+        $male        = new Gender(Gender::MALE);
+        $fmale       = new Gender(Gender::FEMALE);
+        $diagnosis[] = new Diagnosis(Diagnosis::SUSPECTED_MENINGITIS);
+        $diagnosis[] = new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA);
+        $diagnosis[] = new Diagnosis(Diagnosis::SUSPECTED_SEPSIS);
+        $diagnosis[] = new Diagnosis(Diagnosis::OTHER);
 
-        foreach($sites as $num=>$site)
+        $salberta = $this->getReference('site-alberta');
+        $sseattle = $this->getReference('site-seattle');
+        $storonto = $this->getReference('site-toronto');
+        $smexico  = $this->getReference('site-mexico');
+        $sites    = array(8 => $salberta, 7 => $sseattle, 4 => $storonto, 2 => $smexico);
+        $before   = new \DateTime("2015-01-01");
+        $after    = new \DateTime("2014-01-01");
+
+        foreach ($sites as $num => $site)
         {
-            for($x = 0; $x < $num; $x++)
+            for ($x = 0; $x < $num; $x++)
             {
                 $dob = $this->getRandomDate(null, $after);
-                $m = new RotaVirus();
+                $m   = new RotaVirus();
                 $m->setDob($dob);
                 $m->setAdmDate($this->getRandomDate($before, $dob));
-                $m->setGender(($x%3)?$fmale:$male);
-                $m->setCaseId($this->getCaseId($site,$x));
+                $m->setGender(($x % 3) ? $fmale : $male);
+                $m->setCaseId($this->getCaseId($site, $x));
                 $m->setSite($site);
 
                 $manager->persist($m);
@@ -65,30 +66,30 @@ class LoadRotaVirusCaseData extends AbstractFixture implements OrderedFixtureInt
 
     private function getCaseId(Site $site)
     {
-        return md5(uniqid().spl_object_hash($site).time());
+        return md5(uniqid() . spl_object_hash($site) . time());
     }
 
     public function getRandomDate(\DateTime $before = null, \DateTime $after = null)
     {
-        $years  = range(1995,date('Y'));
-        $months = range(1,12);
-        $days   = range(1,28);
+        $years  = range(1995, date('Y'));
+        $months = range(1, 12);
+        $days   = range(1, 28);
 
-        $yKey   = array_rand($years);
-        $mKey   = array_rand($months);
-        $dKey   = array_rand($days);
+        $yKey = array_rand($years);
+        $mKey = array_rand($months);
+        $dKey = array_rand($days);
 
-        if($before != null)
+        if ($before != null)
         {
             $byear = $before->format('Y');
-            while($years[$yKey] > $byear)
-                $yKey = array_rand($years);
+            while ($years[$yKey] > $byear)
+                $yKey  = array_rand($years);
         }
-        
-        if($after != null)
+
+        if ($after != null)
         {
             $ayear = $after->format('Y');
-            while($years[$yKey] < $ayear)
+            while ($years[$yKey] < $ayear)
             {
                 $yKey = array_rand($years);
             }
@@ -101,4 +102,5 @@ class LoadRotaVirusCaseData extends AbstractFixture implements OrderedFixtureInt
     {
         $this->container = $container;
     }
+
 }

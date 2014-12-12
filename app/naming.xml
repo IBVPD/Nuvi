@@ -6,13 +6,21 @@
                      http://pmd.sf.net/ruleset_xml_schema.xsd"
         xsi:noNamespaceSchemaLocation="
                      http://pmd.sf.net/ruleset_xml_schema.xsd">
+
 <rule ref="rulesets/naming.xml">
     <exclude name="ShortVariable"/>
+    <exclude name="LongVariable" />
 </rule>
 
 <rule ref="rulesets/naming.xml/ShortVariable">
     <properties>
-       <property name="exceptions" value="id,em,qb,e,fd" />
+       <property name="exceptions" value="id,em,qb,e,fd,sc" />
     </properties>
 </rule>
+<rule ref="rulesets/naming.xml/LongVariable">
+    <properties>
+       <property name="maximum" value="30"/>
+    </properties>
+</rule>
+
 </ruleset>

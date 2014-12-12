@@ -90,21 +90,21 @@ class SerializedSiteTest extends \PHPUnit_Framework_TestCase
         $country->setName('Country Name');
         $country->setRegion($region);
 
-        $s1 = new Site();
-        $s1->setId(1);
-        $s1->setName('Site 1');
-        $s1->setCountry($country);
+        $site1 = new Site();
+        $site1->setId(1);
+        $site1->setName('Site 1');
+        $site1->setCountry($country);
 
-        $s2 = new Site();
-        $s2->setId(2);
-        $s2->setName('Site 2');
-        $s2->setCountry($country);
+        $site2 = new Site();
+        $site2->setId(2);
+        $site2->setName('Site 2');
+        $site2->setCountry($country);
 
-        $s3 = new Site();
-        $s3->setId(3);
-        $s3->setName('Site 3');
-        $s3->setCountry($country);
+        $site3 = new Site();
+        $site3->setId(3);
+        $site3->setName('Site 3');
+        $site3->setCountry($country);
 
-        return array($s1,$s2,$s3);
+        return array($site1, $site2, $site3);
     }
 }

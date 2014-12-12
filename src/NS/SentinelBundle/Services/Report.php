@@ -81,8 +81,8 @@ class Report
             $export = ($form->get('export')->isClicked());
         }
 
-        $r       = $queryBuilder->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult(Query::HYDRATE_SCALAR);
-        $results = new AgeDistribution($r);
+        $result  = $queryBuilder->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult(Query::HYDRATE_SCALAR);
+        $results = new AgeDistribution($result);
 
         if ($export)
             return $this->export(new ArraySourceIterator($results->toArray()), 'xls');
@@ -219,16 +219,15 @@ class Report
             }
         }
 
-        $cp = $cultPositiveQB->groupBy('theYear')->getQuery()->getResult();
-        $cn = $cultNegativeQB->groupBy('theYear')->getQuery()->getResult();
-        $pp = $pcrPositiveQB->groupBy('theYear')->getQuery()->getResult();
-
-        $ro = new CulturePositive($cp, $cn, $pp);
+        $culturePositive = $cultPositiveQB->groupBy('theYear')->getQuery()->getResult();
+        $cultureNegative = $cultNegativeQB->groupBy('theYear')->getQuery()->getResult();
+        $pcrPositive     = $pcrPositiveQB->groupBy('theYear')->getQuery()->getResult();
+        $results         = new CulturePositive($culturePositive, $cultureNegative, $pcrPositive);
 
         if ($form->get('export')->isClicked())
-            return $this->export(new ArraySourceIterator($ro->toArray()));
+            return $this->export(new ArraySourceIterator($results->toArray()));
 
-        return array('results' => $ro, 'form' => $form->createView());
+        return array('results' => $results, 'form' => $form->createView());
     }
 
     public function export($source, $format = 'csv')

@@ -22,141 +22,141 @@ class LoadRegionData extends AbstractFixture implements OrderedFixtureInterface,
 
     public function load(ObjectManager $manager)
     {
-        $r = new Region();
-        $r->setName('North America');
-        $r->setCode('NA');
-        
-        $r2 = new Region();
-        $r2->setName('South East Asia');
-        $r2->setCode('SEA');
+        $region = new Region();
+        $region->setName('North America');
+        $region->setCode('NA');
 
-        $c = new Country();
-        $c->setCode('CA');
-        $c->setName('Canada');
-        $c->setIsActive(true);
-        $c->setRegion($r);
-        $c->setHasReferenceLab(true);
-        $c->setHasNationalLab(true);
+        $region2 = new Region();
+        $region2->setName('South East Asia');
+        $region2->setCode('SEA');
 
-        $c2 = new Country();
-        $c2->setCode('US');
-        $c2->setName('United States');
-        $c2->setIsActive(true);
-        $c2->setRegion($r);
-        $c2->setHasReferenceLab(true);
-        $c2->setHasNationalLab(true);
+        $country = new Country();
+        $country->setCode('CA');
+        $country->setName('Canada');
+        $country->setIsActive(true);
+        $country->setRegion($region);
+        $country->setHasReferenceLab(true);
+        $country->setHasNationalLab(true);
 
-        $c3 = new Country();
-        $c3->setCode('MX');
-        $c3->setName('Mexico');
-        $c3->setIsActive(true);
-        $c3->setRegion($r);
-        $c3->setHasReferenceLab(true);
-        $c3->setHasNationalLab(true);
+        $country2 = new Country();
+        $country2->setCode('US');
+        $country2->setName('United States');
+        $country2->setIsActive(true);
+        $country2->setRegion($region);
+        $country2->setHasReferenceLab(true);
+        $country2->setHasNationalLab(true);
 
-        $c4 = new Country();
-        $c4->setCode('IN');
-        $c4->setName('India');
-        $c4->setIsActive(true);
-        $c4->setRegion($r2);
-        $c4->setHasReferenceLab(true);
-        $c4->setHasNationalLab(true);
+        $country3 = new Country();
+        $country3->setCode('MX');
+        $country3->setName('Mexico');
+        $country3->setIsActive(true);
+        $country3->setRegion($region);
+        $country3->setHasReferenceLab(true);
+        $country3->setHasNationalLab(true);
 
-        $c5 = new Country();
-        $c5->setCode('MA');
-        $c5->setName('Malaysia');
-        $c5->setIsActive(true);
-        $c5->setRegion($r2);
-        $c5->setHasReferenceLab(true);
-        $c5->setHasNationalLab(true);
+        $country4 = new Country();
+        $country4->setCode('IN');
+        $country4->setName('India');
+        $country4->setIsActive(true);
+        $country4->setRegion($region2);
+        $country4->setHasReferenceLab(true);
+        $country4->setHasNationalLab(true);
 
-        $c6 = new Country();
-        $c6->setCode('TH');
-        $c6->setName('Thailand');
-        $c6->setIsActive(true);
-        $c6->setRegion($r2);
-        $c6->setHasReferenceLab(true);
-        $c6->setHasNationalLab(true);
+        $country5 = new Country();
+        $country5->setCode('MA');
+        $country5->setName('Malaysia');
+        $country5->setIsActive(true);
+        $country5->setRegion($region2);
+        $country5->setHasReferenceLab(true);
+        $country5->setHasNationalLab(true);
 
-        $sc = new \NS\SentinelBundle\Form\Types\SurveillanceConducted(\NS\SentinelBundle\Form\Types\SurveillanceConducted::BOTH);
+        $country6 = new Country();
+        $country6->setCode('TH');
+        $country6->setName('Thailand');
+        $country6->setIsActive(true);
+        $country6->setRegion($region2);
+        $country6->setHasReferenceLab(true);
+        $country6->setHasNationalLab(true);
 
-        $s = new Site();
-        $s->setName('Alberta Childrens Hospital');
-        $s->setCountry($c);
-        $s->setCode('ALBCHLD');
-        $s->setSurveillanceConducted($sc);
-        $s->setActive(true);
+        $surveillance = new \NS\SentinelBundle\Form\Types\SurveillanceConducted(\NS\SentinelBundle\Form\Types\SurveillanceConducted::BOTH);
 
-        $s1 = new Site();
-        $s1->setName('Toronto Childrens Hospital');
-        $s1->setCountry($c);
-        $s1->setCode('TCHLD');
-        $s1->setSurveillanceConducted($sc);
-        $s1->setActive(true);
+        $site = new Site();
+        $site->setName('Alberta Childrens Hospital');
+        $site->setCountry($country);
+        $site->setCode('ALBCHLD');
+        $site->setSurveillanceConducted($surveillance);
+        $site->setActive(true);
 
-        $s2 = new Site();
-        $s2->setName('Shriners Childrens Hospital');
-        $s2->setCountry($c);
-        $s2->setCode('SHCHLD');
-        $s2->setSurveillanceConducted($sc);
-        $s2->setActive(true);
+        $site1 = new Site();
+        $site1->setName('Toronto Childrens Hospital');
+        $site1->setCountry($country);
+        $site1->setCode('TCHLD');
+        $site1->setSurveillanceConducted($surveillance);
+        $site1->setActive(true);
 
-        $s3 = new Site();
-        $s3->setName('Seattle Grace Hospital');
-        $s3->setCountry($c2);
-        $s3->setCode('SGH');
-        $s3->setSurveillanceConducted($sc);
-        $s3->setActive(true);
+        $site2 = new Site();
+        $site2->setName('Shriners Childrens Hospital');
+        $site2->setCountry($country);
+        $site2->setCode('SHCHLD');
+        $site2->setSurveillanceConducted($surveillance);
+        $site2->setActive(true);
 
-        $s4 = new Site();
-        $s4->setName('Mexico General Hospital');
-        $s4->setCountry($c3);
-        $s4->setCode("MGH");
-        $s4->setSurveillanceConducted($sc);
-        $s4->setActive(true);
+        $site3 = new Site();
+        $site3->setName('Seattle Grace Hospital');
+        $site3->setCountry($country2);
+        $site3->setCode('SGH');
+        $site3->setSurveillanceConducted($surveillance);
+        $site3->setActive(true);
 
-        $s5 = new Site();
-        $s5->setName('New Dehli Main Hospital');
-        $s5->setCountry($c4);
-        $s5->setCode("NDMH");
-        $s5->setSurveillanceConducted($sc);
-        $s5->setActive(true);
+        $site4 = new Site();
+        $site4->setName('Mexico General Hospital');
+        $site4->setCountry($country3);
+        $site4->setCode("MGH");
+        $site4->setSurveillanceConducted($surveillance);
+        $site4->setActive(true);
 
-        $s6 = new Site();
-        $s6->setName('Thailand Main Hospital');
-        $s6->setCountry($c6);
-        $s6->setCode("TMH");
-        $s6->setSurveillanceConducted($sc);
-        $s6->setActive(true);
+        $site5 = new Site();
+        $site5->setName('New Dehli Main Hospital');
+        $site5->setCountry($country4);
+        $site5->setCode("NDMH");
+        $site5->setSurveillanceConducted($surveillance);
+        $site5->setActive(true);
 
-        $manager->persist($r);
-        $manager->persist($r2);
-        $manager->persist($c);
-        $manager->persist($c2);
-        $manager->persist($c3);
-        $manager->persist($c4);
-        $manager->persist($c5);
-        $manager->persist($c6);
-        
-        $manager->persist($s);
-        $manager->persist($s1);
-        $manager->persist($s2);
-        $manager->persist($s3);
-        $manager->persist($s4);
-        $manager->persist($s5);
-        $manager->persist($s6);
-        
+        $site6 = new Site();
+        $site6->setName('Thailand Main Hospital');
+        $site6->setCountry($country6);
+        $site6->setCode("TMH");
+        $site6->setSurveillanceConducted($surveillance);
+        $site6->setActive(true);
+
+        $manager->persist($region);
+        $manager->persist($region2);
+        $manager->persist($country);
+        $manager->persist($country2);
+        $manager->persist($country3);
+        $manager->persist($country4);
+        $manager->persist($country5);
+        $manager->persist($country6);
+
+        $manager->persist($site);
+        $manager->persist($site1);
+        $manager->persist($site2);
+        $manager->persist($site3);
+        $manager->persist($site4);
+        $manager->persist($site5);
+        $manager->persist($site6);
+
         $manager->flush();
         
-        $this->addReference('region-na', $r);
-        $this->addReference('country-ca',$c);
-        $this->addReference('region-in', $r2);
-        $this->addReference('country-us',$c2);
-        $this->addReference('site-alberta', $s);
-        $this->addReference('site-shriners', $s2);
-        $this->addReference('site-toronto', $s1);
-        $this->addReference('site-seattle', $s3);
-        $this->addReference('site-mexico', $s4);
+        $this->addReference('region-na', $region);
+        $this->addReference('country-ca', $country);
+        $this->addReference('region-in', $region2);
+        $this->addReference('country-us', $country2);
+        $this->addReference('site-alberta', $site);
+        $this->addReference('site-shriners', $site2);
+        $this->addReference('site-toronto', $site1);
+        $this->addReference('site-seattle', $site3);
+        $this->addReference('site-mexico', $site4);
     }
     
     public function setContainer(\Symfony\Component\DependencyInjection\ContainerInterface $container = null)

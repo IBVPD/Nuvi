@@ -16,14 +16,14 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
     public function testBigShowOnlyActions()
     {
-        list($sc, $trans, $router) = $this->getMockedObjects();
+        list($securityContext, $trans, $router) = $this->getMockedObjects();
 
-        $sc->expects($this->any())
+        $securityContext->expects($this->any())
             ->method('isGranted')
             ->with('ROLE_CAN_CREATE')
             ->will($this->returnValue(false));
 
-        $action     = new CaseActions($sc, $trans, $router);
+        $action     = new CaseActions($securityContext, $trans, $router);
         $obj        = new IBD();
         $bigResults = $action->getBigActions($obj);
 
@@ -45,18 +45,18 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
     public function testBigCanCreateCaseActions()
     {
-        list($sc, $trans, $router) = $this->getMockedObjects();
+        list($securityContext, $trans, $router) = $this->getMockedObjects();
 
         $map = array(
             array('ROLE_CAN_CREATE', null, true),
             array('ROLE_CAN_CREATE_CASE', null, true),
         );
 
-        $sc->expects($this->any())
+        $securityContext->expects($this->any())
             ->method('isGranted')
             ->will($this->returnValueMap($map));
 
-        $action     = new CaseActions($sc, $trans, $router);
+        $action     = new CaseActions($securityContext, $trans, $router);
         $obj        = new IBD();
         $bigResults = $action->getBigActions($obj);
 
@@ -77,7 +77,7 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
     public function testBigCanCreateRRLActions()
     {
-        list($sc, $trans, $router) = $this->getMockedObjects();
+        list($securityContext, $trans, $router) = $this->getMockedObjects();
 
         $map = array(
             array('ROLE_CAN_CREATE', null, true),
@@ -85,11 +85,11 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
             array('ROLE_CAN_CREATE_RRL_LAB', null, true),
         );
 
-        $sc->expects($this->any())
+        $securityContext->expects($this->any())
             ->method('isGranted')
             ->will($this->returnValueMap($map));
 
-        $action = new CaseActions($sc, $trans, $router);
+        $action = new CaseActions($securityContext, $trans, $router);
 
         $obj = new IBD();
         $lab = new \NS\SentinelBundle\Entity\IBD\SiteLab();
@@ -121,7 +121,7 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
     public function testBigCanCreateNLActions()
     {
-        list($sc, $trans, $router) = $this->getMockedObjects();
+        list($securityContext, $trans, $router) = $this->getMockedObjects();
 
         $map = array(
             array('ROLE_CAN_CREATE', null, true),
@@ -131,11 +131,11 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
             array('ROLE_CAN_CREATE_NL_LAB', null, true),
         );
 
-        $sc->expects($this->any())
+        $securityContext->expects($this->any())
             ->method('isGranted')
             ->will($this->returnValueMap($map));
 
-        $action = new CaseActions($sc, $trans, $router);
+        $action = new CaseActions($securityContext, $trans, $router);
 
         $obj = new IBD();
         $lab = new \NS\SentinelBundle\Entity\IBD\SiteLab();
@@ -168,7 +168,7 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
     public function testBigCanCreateAllActions()
     {
-        list($sc, $trans, $router) = $this->getMockedObjects();
+        list($securityContext, $trans, $router) = $this->getMockedObjects();
 
         $map = array(
             array('ROLE_CAN_CREATE', null, true),
@@ -178,11 +178,11 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
             array('ROLE_CAN_CREATE_NL_LAB', null, true),
         );
 
-        $sc->expects($this->any())
+        $securityContext->expects($this->any())
             ->method('isGranted')
             ->will($this->returnValueMap($map));
 
-        $action = new CaseActions($sc, $trans, $router);
+        $action = new CaseActions($securityContext, $trans, $router);
         $obj    = new IBD();
         $lab    = new \NS\SentinelBundle\Entity\IBD\SiteLab();
         $lab->setSentToReferenceLab(true);
@@ -213,15 +213,15 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
     public function testSmallShowOnlyActions()
     {
-        list($sc, $trans, $router) = $this->getMockedObjects();
+        list($securityContext, $trans, $router) = $this->getMockedObjects();
 
-        $sc->expects($this->any())
+        $securityContext->expects($this->any())
             ->method('isGranted')
             ->with('ROLE_CAN_CREATE')
             ->will($this->returnValue(false));
 
 
-        $action     = new CaseActions($sc, $trans, $router);
+        $action     = new CaseActions($securityContext, $trans, $router);
         $obj        = new IBD();
         $bigResults = $action->getSmallActions($obj);
 
@@ -244,18 +244,18 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
     public function testSmallCanCreateCaseActions()
     {
-        list($sc, $trans, $router) = $this->getMockedObjects();
+        list($securityContext, $trans, $router) = $this->getMockedObjects();
 
         $map = array(
             array('ROLE_CAN_CREATE', null, true),
             array('ROLE_CAN_CREATE_CASE', null, true),
         );
 
-        $sc->expects($this->any())
+        $securityContext->expects($this->any())
             ->method('isGranted')
             ->will($this->returnValueMap($map));
 
-        $action     = new CaseActions($sc, $trans, $router);
+        $action     = new CaseActions($securityContext, $trans, $router);
         $obj        = new IBD();
         $bigResults = $action->getSmallActions($obj);
 
@@ -277,7 +277,7 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
     public function testSmallCanCreateRRLActions()
     {
-        list($sc, $trans, $router) = $this->getMockedObjects();
+        list($securityContext, $trans, $router) = $this->getMockedObjects();
 
         $map = array(
             array('ROLE_CAN_CREATE', null, true),
@@ -285,11 +285,11 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
             array('ROLE_CAN_CREATE_RRL_LAB', null, true),
         );
 
-        $sc->expects($this->any())
+        $securityContext->expects($this->any())
             ->method('isGranted')
             ->will($this->returnValueMap($map));
 
-        $action = new CaseActions($sc, $trans, $router);
+        $action = new CaseActions($securityContext, $trans, $router);
         $obj    = new IBD();
         $lab    = new \NS\SentinelBundle\Entity\IBD\SiteLab();
         $lab->setSentToReferenceLab(true);
@@ -320,7 +320,7 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
     public function testSmallCanCreateNLActions()
     {
-        list($sc, $trans, $router) = $this->getMockedObjects();
+        list($securityContext, $trans, $router) = $this->getMockedObjects();
 
         $map = array(
             array('ROLE_CAN_CREATE', null, true),
@@ -330,11 +330,11 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
             array('ROLE_CAN_CREATE_NL_LAB', null, true),
         );
 
-        $sc->expects($this->any())
+        $securityContext->expects($this->any())
             ->method('isGranted')
             ->will($this->returnValueMap($map));
 
-        $action = new CaseActions($sc, $trans, $router);
+        $action = new CaseActions($securityContext, $trans, $router);
         $obj    = new IBD();
         $lab    = new \NS\SentinelBundle\Entity\IBD\SiteLab();
         $lab->setSentToReferenceLab(true);
@@ -366,7 +366,7 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
     public function testSmallCanCreateAllActions()
     {
-        list($sc, $trans, $router) = $this->getMockedObjects();
+        list($securityContext, $trans, $router) = $this->getMockedObjects();
 
         $map = array(
             array('ROLE_CAN_CREATE', null, true),
@@ -376,11 +376,11 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
             array('ROLE_CAN_CREATE_NL_LAB', null, true),
         );
 
-        $sc->expects($this->any())
+        $securityContext->expects($this->any())
             ->method('isGranted')
             ->will($this->returnValueMap($map));
 
-        $action = new CaseActions($sc, $trans, $router);
+        $action = new CaseActions($securityContext, $trans, $router);
         $obj    = new IBD();
         $lab    = new \NS\SentinelBundle\Entity\IBD\SiteLab();
         $lab->setSentToReferenceLab(true);
@@ -414,7 +414,7 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
     {
         //================================
         // SecurityContext
-        $sc = $this->getMockBuilder('\Symfony\Component\Security\Core\SecurityContextInterface')
+        $securityContext = $this->getMockBuilder('\Symfony\Component\Security\Core\SecurityContextInterface')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -458,7 +458,7 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
             ->method('generate')
             ->will($this->returnValueMap($rmap));
 
-        return array($sc, $trans, $router);
+        return array($securityContext, $trans, $router);
     }
 
 }

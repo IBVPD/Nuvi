@@ -54,10 +54,10 @@ class SiteLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
         try
         {
             // find existing rota virus
-            $r = null;
+            $result = null;
 
             if(is_numeric($id))
-                $r = $this->find($id);
+                $result = $this->find($id);
             else
             {
                 $qb = $this->_em
@@ -67,11 +67,11 @@ class SiteLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
                            ->where('r.case = :case')
                            ->setParameter('case',$this->_em->getReference('NSSentinelBundle:Rota\SiteLab',$id));
 
-                $r = $this->secure($qb)->getQuery()->getSingleResult();
+                $result = $this->secure($qb)->getQuery()->getSingleResult();
             }
 
-            if($r)
-                return $r;
+            if ($result)
+                return $result;
         }
         catch(UnexpectedResultException $e)
         {
@@ -79,8 +79,8 @@ class SiteLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
             if($e instanceof NoResultException || $e instanceof NonExistentCase)
             {
                 $record = new \NS\SentinelBundle\Entity\Rota\SiteLab();
-                $m      = $this->_em->getRepository('NSSentinelBundle:RotaVirus')->checkExistence($id);
-                $record->setCase($m);
+                $case   = $this->_em->getRepository('NSSentinelBundle:RotaVirus')->checkExistence($id);
+                $record->setCase($case);
 
                 return $record;
             }
