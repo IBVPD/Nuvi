@@ -27,8 +27,8 @@ class UserProvider implements UserProviderInterface
     {
         try 
         {
-            $user = $this->entityMgr->createQuery("SELECT u,a FROM NS\SentinelBundle\Entity\User u LEFT JOIN u.acls a WHERE u.email = :username")
-                             ->setParameter('username',$username)
+            $user = $this->entityMgr->createQuery("SELECT u,a,l FROM NS\SentinelBundle\Entity\User u LEFT JOIN u.acls a LEFT JOIN u.referenceLab l WHERE u.email = :username")
+                ->setParameter('username',$username)
                              ->getSingleResult();
 
             if (null === $user)

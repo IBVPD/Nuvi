@@ -37,8 +37,8 @@ use \Symfony\Component\Validator\ExecutionContextInterface;
  * @Gedmo\Loggable
  * @Secured(conditions={
  *      @SecuredCondition(roles={"ROLE_REGION"},relation="region",class="NSSentinelBundle:Region"),
- *      @SecuredCondition(roles={"ROLE_COUNTRY"},relation="country",class="NSSentinelBundle:Country"),
- *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB","ROLE_RRL_LAB","ROLE_NL_LAB"},relation="site",class="NSSentinelBundle:Site"),
+ *      @SecuredCondition(roles={"ROLE_COUNTRY","ROLE_RRL_LAB","ROLE_NL_LAB"},relation="country",class="NSSentinelBundle:Country"),
+ *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},relation="site",class="NSSentinelBundle:Site"),
  *      })
  * @Assert\Callback(methods={"validate"})
  * @SuppressWarnings(PHPMD.ShortVariable)

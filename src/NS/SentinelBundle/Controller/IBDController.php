@@ -172,7 +172,12 @@ class IBDController extends Controller
         if ($form->isValid())
         {
             $entityMgr = $this->get('doctrine.orm.entity_manager');
-            $entityMgr->persist($form->getData());
+            $record    = $form->getData();
+
+            if ($type == 'ibd_referencelab' && $this->getUser()->hasReferenceLab())
+                $record->setLab($entityMgr->getReference('NSSentinelBundle:ReferenceLab', $this->getUser()->getReferenceLab()->getId()));
+
+            $entityMgr->persist($record);
             $entityMgr->flush();
 
             // TODO Flash service required

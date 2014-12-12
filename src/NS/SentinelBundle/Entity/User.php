@@ -125,6 +125,13 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
      */
     private $language;
 
+    /**
+     * @var ReferenceLab $referenceLab
+     * @ORM\ManyToOne(targetEntity="ReferenceLab",inversedBy="users")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $referenceLab;
+
     private $ttl = 0;
 
     public function __toString()
@@ -500,65 +507,105 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
         return $object_ids;        
     }
 
+    /**
+     * @return boolean
+     */
     public function getCanCreate()
     {
         return ($this->canCreateCases || $this->canCreateLabs || $this->canCreateRRLLabs || $this->canCreateNLLabs);
     }
 
+    /**
+     * @return boolean
+     */
     public function getCanCreateCases()
     {
         return $this->canCreateCases;
     }
 
+    /**
+     * @return boolean
+     */
     public function getCanCreateLabs()
     {
         return $this->canCreateLabs;
     }
 
+    /**
+     * @return boolean
+     */
     public function getCanCreateRRLLabs()
     {
         return $this->canCreateRRLLabs;
     }
 
+    /**
+     * @return boolean
+     */
     public function getCanCreateNLLabs()
     {
         return $this->canCreateNLLabs;
     }
 
+    /**
+     * @param boolean $canCreateCases
+     * @return \NS\SentinelBundle\Entity\User
+     */
     public function setCanCreateCases($canCreateCases)
     {
         $this->canCreateCases = $canCreateCases;
         return $this;
     }
 
+    /**
+     * @param boolean $canCreateLabs
+     * @return \NS\SentinelBundle\Entity\User
+     */
     public function setCanCreateLabs($canCreateLabs)
     {
         $this->canCreateLabs = $canCreateLabs;
         return $this;
     }
 
+    /**
+     * @param boolean $canCreateRRLLabs
+     * @return \NS\SentinelBundle\Entity\User
+     */
     public function setCanCreateRRLLabs($canCreateRRLLabs)
     {
         $this->canCreateRRLLabs = $canCreateRRLLabs;
         return $this;
     }
 
+    /**
+     * @param boolean $canCreateNLLabs
+     * @return \NS\SentinelBundle\Entity\User
+     */
     public function setCanCreateNLLabs($canCreateNLLabs)
     {
         $this->canCreateNLLabs = $canCreateNLLabs;
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getLanguage()
     {
         return $this->language;
     }
 
+    /**
+     * @param string $language
+     */
     public function setLanguage($language)
     {
         $this->language = $language;
     }
 
+    /**
+     * @param ExecutionContextInterface $context
+     */
     public function validate(ExecutionContextInterface $context)
     {
         if(count($this->acls) == 0)
@@ -568,6 +615,51 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
 
             if($this->getCanCreateLabs())
                 $context->addViolationAt('canCreateLabs', "The user is designated as able to create labs but has no roles");
+
+            if ($this->getCanCreateNLLabs())
+                $context->addViolationAt('canCreateNLLabs', "The user is designated as able to create national lab records but has no roles");
+
+            if ($this->getCanCreateRRLLabs())
+                $context->addViolationAt('canCreateRRLLabs', "The user is designated as able to create reference lab records but has no roles");
+        }
+
+        if ($this->getCanCreateRRLLabs() && !$this->hasReferenceLab())
+            $context->addViolationAt('referenceLab', "The user is designated as able to create reference lab records but no reference lab has been linked");
+
+        foreach ($this->acls as $acl)
+        {
+            if ($acl->getType()->getValue() == Role::RRL_LAB && !$this->hasReferenceLab())
+            {
+                $context->addViolationAt('acls', "The user is designated as able to create reference lab records but no reference lab has been linked");
+                break;
+            }
         }
     }
+
+    /**
+     * @return NS\SentinelBundle\Entity\ReferenceLab
+     */
+    public function getReferenceLab()
+    {
+        return $this->referenceLab;
+    }
+
+    /**
+     * @param \NS\SentinelBundle\Entity\ReferenceLab $referenceLab
+     * @return \NS\SentinelBundle\Entity\User
+     */
+    public function setReferenceLab(ReferenceLab $referenceLab)
+    {
+        $this->referenceLab = $referenceLab;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function hasReferenceLab()
+    {
+        return ($this->referenceLab instanceof ReferenceLab);
+    }
+
 }

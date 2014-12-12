@@ -17,7 +17,7 @@ class LoadRegionData extends AbstractFixture implements OrderedFixtureInterface,
     
     public function getOrder()
     {
-        return 1;
+        return 10;
     }
 
     public function load(ObjectManager $manager)

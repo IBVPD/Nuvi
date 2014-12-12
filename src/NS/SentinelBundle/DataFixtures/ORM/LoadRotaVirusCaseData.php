@@ -20,7 +20,7 @@ class LoadRotaVirusCaseData extends AbstractFixture implements OrderedFixtureInt
 
     public function getOrder()
     {
-        return 4;
+        return 31;
     }
 
     public function load(ObjectManager $manager)

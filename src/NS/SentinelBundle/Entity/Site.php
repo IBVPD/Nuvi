@@ -17,8 +17,8 @@ use \Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="\NS\SentinelBundle\Repository\Site")
  * @Secured(conditions={
  *      @SecuredCondition(roles={"ROLE_REGION"},relation="region",through={"country"},class="NSSentinelBundle:Region"),
- *      @SecuredCondition(roles={"ROLE_COUNTRY"},relation="country",class="NSSentinelBundle:Country"),
- *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB","ROLE_RRL_LAB","ROLE_NL_LAB"},field="code"),
+ *      @SecuredCondition(roles={"ROLE_COUNTRY","ROLE_RRL_LAB","ROLE_NL_LAB"},relation="country",class="NSSentinelBundle:Country"),
+ *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},field="code"),
  *      }) 
  * @SuppressWarnings(PHPMD.ShortVariable)
  */

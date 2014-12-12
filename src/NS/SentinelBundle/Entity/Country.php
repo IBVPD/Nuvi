@@ -16,8 +16,8 @@ use NS\SentinelBundle\Form\Types\TripleChoice;
  * @ORM\Entity(repositoryClass="\NS\SentinelBundle\Repository\Country")
  * @Secured(conditions={
  *      @SecuredCondition(roles={"ROLE_REGION"},relation="region",class="NSSentinelBundle:Region"),
- *      @SecuredCondition(roles={"ROLE_COUNTRY"},field="id"),
- *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB","ROLE_RRL_LAB","ROLE_NL_LAB"},relation="site",class="NSSentinelBundle:Site"),
+ *      @SecuredCondition(roles={"ROLE_COUNTRY","ROLE_RRL_LAB","ROLE_NL_LAB"},field="id"),
+ *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},relation="site",class="NSSentinelBundle:Site"),
  *      })
  * @SuppressWarnings(PHPMD.ShortVariable)
  */
@@ -61,30 +61,6 @@ class Country implements \Serializable
      */
     private $gaviEligible;
     
-    /**
-     * @var integer $population
-     * @ORM\Column(name="population",type="integer",nullable=true,nullable=true)
-     */
-    private $population;
-    
-    /**
-     * @var integer $populationUnderFive
-     * @ORM\Column(name="populationUnderFive",type="integer",nullable=true)
-     */
-    private $populationUnderFive;
-
-    /**
-     * @var integer $populationUnderFive2012
-     * @ORM\Column(name="populationUnderFive2012",type="integer",nullable=true)
-     */
-    private $populationUnderFive2012;
-
-    /**
-     * @var integer $populationUnderFive2014
-     * @ORM\Column(name="populationUnderFive2014",type="integer",nullable=true)
-     */
-    private $populationUnderFive2014;
-
     /**
      * @var string $hibVaccineIntro
      * @ORM\Column(name="hibVaccineIntro",type="string",nullable=true)
@@ -140,6 +116,12 @@ class Country implements \Serializable
      * @ORM\Column(name="language",type="string",nullable=true)
      */
     private $language;
+
+    /**
+     * @var ReferenceLab $referenceLab
+     * @ORM\OneToOne(targetEntity="ReferenceLab",mappedBy="country")
+     */
+    private $referenceLab;
 
     /**
      * Constructor
@@ -314,52 +296,6 @@ class Country implements \Serializable
     }
 
     /**
-     * Set population
-     *
-     * @param integer $population
-     * @return Country
-     */
-    public function setPopulation($population)
-    {
-        $this->population = $population;
-    
-        return $this;
-    }
-
-    /**
-     * Get population
-     *
-     * @return integer 
-     */
-    public function getPopulation()
-    {
-        return $this->population;
-    }
-
-    /**
-     * Set populationUnderFive
-     *
-     * @param integer $populationUnderFive
-     * @return Country
-     */
-    public function setPopulationUnderFive($populationUnderFive)
-    {
-        $this->populationUnderFive = $populationUnderFive;
-    
-        return $this;
-    }
-
-    /**
-     * Get populationUnderFive
-     *
-     * @return integer 
-     */
-    public function getPopulationUnderFive()
-    {
-        return $this->populationUnderFive;
-    }
-
-    /**
      * Get tracksPneumonia
      *
      * @return boolean
@@ -434,15 +370,11 @@ class Country implements \Serializable
             $this->isActive,
             $this->name,
             $this->gaviEligible,
-            $this->population,
-            $this->populationUnderFive,
             $this->region,
             $this->hasNationalLab,
             $this->hasReferenceLab,
             $this->tracksPneumonia,
             $this->language,
-            $this->populationUnderFive2012,
-            $this->populationUnderFive2014,
             $this->hibVaccineIntro,
             $this->pcvVaccineIntro,
             $this->rvVaccineIntro,
@@ -456,15 +388,11 @@ class Country implements \Serializable
             $this->isActive,
             $this->name,
             $this->gaviEligible,
-            $this->population,
-            $this->populationUnderFive,
             $this->region,
             $this->hasNationalLab,
             $this->hasReferenceLab,
             $this->tracksPneumonia,
             $this->language,
-            $this->populationUnderFive2012,
-            $this->populationUnderFive2014,
             $this->hibVaccineIntro,
             $this->pcvVaccineIntro,
             $this->rvVaccineIntro,
@@ -481,16 +409,6 @@ class Country implements \Serializable
         $this->language = $language;
     }
 
-    public function getPopulationUnderFive2012()
-    {
-        return $this->populationUnderFive2012;
-    }
-
-    public function getPopulationUnderFive2014()
-    {
-        return $this->populationUnderFive2014;
-    }
-
     public function getHibVaccineIntro()
     {
         return $this->hibVaccineIntro;
@@ -504,18 +422,6 @@ class Country implements \Serializable
     public function getRvVaccineIntro()
     {
         return $this->rvVaccineIntro;
-    }
-
-    public function setPopulationUnderFive2012($populationUnderFive2012)
-    {
-        $this->populationUnderFive2012 = $populationUnderFive2012;
-        return $this;
-    }
-
-    public function setPopulationUnderFive2014($populationUnderFive2014)
-    {
-        $this->populationUnderFive2014 = $populationUnderFive2014;
-        return $this;
     }
 
     public function setHibVaccineIntro($hibVaccineIntro)
@@ -535,4 +441,16 @@ class Country implements \Serializable
         $this->rvVaccineIntro = $rvVaccineIntro;
         return $this;
     }
+
+    public function getReferenceLab()
+    {
+        return $this->referenceLab;
+    }
+
+    public function setReferenceLab(ReferenceLab $referenceLab)
+    {
+        $this->referenceLab = $referenceLab;
+        return $this;
+    }
+
 }

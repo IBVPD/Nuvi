@@ -32,8 +32,8 @@ use \JMS\Serializer\Annotation\Groups;
  * @Gedmo\Loggable
  * @Secured(conditions={
  *      @SecuredCondition(roles={"ROLE_REGION"},through={"case"},relation="region",class="NSSentinelBundle:Region"),
- *      @SecuredCondition(roles={"ROLE_COUNTRY"},through={"case"},relation="country",class="NSSentinelBundle:Country"),
- *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB","ROLE_RRL_LAB","ROLE_NL_LAB"},through="case",relation="site",class="NSSentinelBundle:Site"),
+ *      @SecuredCondition(roles={"ROLE_COUNTRY","ROLE_RRL_LAB","ROLE_NL_LAB"},through={"case"},relation="country",class="NSSentinelBundle:Country"),
+ *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},through="case",relation="site",class="NSSentinelBundle:Site"),
  *      })
  * @Assert\Callback(methods={"validate"})
  */

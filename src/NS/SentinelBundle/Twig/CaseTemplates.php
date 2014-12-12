@@ -35,9 +35,9 @@ class CaseTemplates extends \Twig_Extension
 
         if ($this->securityContext->isGranted('ROLE_SITE_LEVEL'))
             return $this->twig->render('NSSentinelBundle:Case:site.html.twig', $params);
-        else if ($this->securityContext->isGranted('ROLE_COUNTRY'))
+        else if ($this->securityContext->isGranted('ROLE_COUNTRY_LEVEL'))
             return $this->twig->render('NSSentinelBundle:Case:country.html.twig', $params);
-        else if ($this->securityContext->isGranted('ROLE_REGION'))
+        else if ($this->securityContext->isGranted('ROLE_REGION_LEVEL'))
             return $this->twig->render('NSSentinelBundle:Case:region.html.twig', $params);
     }
 

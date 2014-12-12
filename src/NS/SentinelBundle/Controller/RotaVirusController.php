@@ -2,9 +2,7 @@
 
 namespace NS\SentinelBundle\Controller;
 
-use \NS\SentinelBundle\Entity\Rota\SiteLab;
 use \NS\SentinelBundle\Exceptions\NonExistentCase;
-use \NS\SentinelBundle\Form\Types\CreateRoles;
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -176,8 +174,12 @@ class RotaVirusController extends Controller
         $form->handleRequest($request);
         if ($form->isValid())
         {
-            $entityMgr = $this->getDoctrine()->getManager();
+            $entityMgr = $this->get('doctrine.orm.entity_manager');
             $record    = $form->getData();
+
+            if ($type == 'rotavirus_referencelab' && $this->getUser()->hasReferenceLab())
+                $record->setLab($entityMgr->getReference('NSSentinelBundle:ReferenceLab', $this->getUser()->getReferenceLab()->getId()));
+
             $entityMgr->persist($record);
             $entityMgr->flush();
 

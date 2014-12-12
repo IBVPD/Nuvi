@@ -14,7 +14,7 @@ use \NS\UtilBundle\Form\Types\TranslatableArrayChoice;
  */
 class Role extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    private $_securityContext;
+    private $securityContext;
 
     const REGION         = 1;
     const COUNTRY        = 2;
@@ -122,9 +122,9 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
             case self::COUNTRY:
             case self::COUNTRY_API:
             case self::COUNTRY_IMPORT:
-                return $class."\Country";
             case self::NL_LAB:
             case self::RRL_LAB:
+                return $class . "\Country";
             case self::LAB:
             case self::SITE:
             case self::SITE_API:
@@ -137,7 +137,7 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
 
     public function setSecurityContext(SecurityContext $context)
     {
-        $this->_securityContext = $context;
+        $this->securityContext = $context;
     }
 
     public function getHighest(array $roles)
@@ -162,7 +162,7 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
     {
         parent::setDefaultOptions($resolver);
 
-        $highest = $this->getHighest($this->_securityContext->getToken()->getRoles());
+        $highest = $this->getHighest($this->securityContext->getToken()->getRoles());
 
         if(!is_null($highest) && $highest != self::REGION)
         {

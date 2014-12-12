@@ -21,9 +21,9 @@ Scenario Outline: A User with create rights can't create any kind of labs
       And The Create Form Has <sites> Sites
     Examples:
       | email                  | password            | types | sites    | path     |
-      | rrl-alberta@noblet.ca  | 1234567-alberta-rrl | 1     | 0        | /en/ibd/ |
+      | rrl-alberta@noblet.ca  | 1234567-alberta-rrl | 1     | 3        | /en/ibd/ |
       | lab-alberta@noblet.ca  | 1234567-alberta-lab | 1     | 0        | /en/ibd/ |
-      | nl-alberta@noblet.ca   | 1234567-alberta-nl  | 1     | 0        | /en/ibd/ |
+      | nl-alberta@noblet.ca   | 1234567-alberta-nl  | 1     | 3        | /en/ibd/ |
       | ca-create@noblet.ca    | 1234567-ca-create   | 1     | 3        | /en/ibd/ |
       | site-seattle@noblet.ca | 1234567-seattle     | 1     | 0        | /en/ibd/ |
       | site-alberta@noblet.ca | 1234567-alberta     | 1     | 0        | /en/ibd/ |

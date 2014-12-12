@@ -17,7 +17,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
 
     public function getOrder()
     {
-        return 2;
+        return 20;
     }
 
     public function load(ObjectManager $manager)
@@ -109,6 +109,9 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
             $user->setName($data['name']);
             $user->resetSalt();
             $user->setPassword($encoder->encodePassword($data['password'], $user->getSalt()));
+
+            if (isset($data['reference-lab']))
+                $user->setReferenceLab($this->getReference($data['reference-lab']));
 
             $acl = new ACL();
             $acl->setUser($user);
@@ -238,32 +241,47 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
     public function getSiteData()
     {
         return array(
-            array('name'             => 'Alberta Site User', 'password'         => '1234567-alberta',
-                'email'            => 'site-alberta@noblet.ca', 'ref-name'         => 'site-alberta',
+            array(
+                'name'             => 'Alberta Site User',
+                'password'         => '1234567-alberta',
+                'email'            => 'site-alberta@noblet.ca',
+                'ref-name'         => 'site-alberta',
                 'can_create_cases' => true,
                 'can_create_labs'  => false,
                 'can_create_rrl'   => false,
                 'can_create_nl'    => false,),
-            array('name'             => 'Seattle Site User', 'password'         => '1234567-seattle',
-                'email'            => 'site-seattle@noblet.ca', 'ref-name'         => 'site-seattle',
+            array(
+                'name'             => 'Seattle Site User',
+                'password'         => '1234567-seattle',
+                'email'            => 'site-seattle@noblet.ca',
+                'ref-name'         => 'site-seattle',
                 'can_create_cases' => true,
                 'can_create_labs'  => false,
                 'can_create_rrl'   => false,
                 'can_create_nl'    => false,),
-            array('name'             => 'Shriners Site User', 'password'         => '1234567-shriner',
-                'email'            => 'site-shriner@noblet.ca', 'ref-name'         => 'site-shriners',
+            array(
+                'name'             => 'Shriners Site User',
+                'password'         => '1234567-shriner',
+                'email'            => 'site-shriner@noblet.ca',
+                'ref-name'         => 'site-shriners',
                 'can_create_cases' => true,
                 'can_create_labs'  => true,
                 'can_create_rrl'   => false,
                 'can_create_nl'    => false,),
-            array('name'             => 'Toronto Site User', 'password'         => '1234567-toronto',
-                'email'            => 'site-toronto@noblet.ca', 'ref-name'         => 'site-toronto',
+            array(
+                'name'             => 'Toronto Site User',
+                'password'         => '1234567-toronto',
+                'email'            => 'site-toronto@noblet.ca',
+                'ref-name'         => 'site-toronto',
                 'can_create_cases' => true,
                 'can_create_labs'  => false,
                 'can_create_rrl'   => false,
                 'can_create_nl'    => false,),
-            array('name'             => 'Mexico Site User', 'password'         => '1234567-mexico',
-                'email'            => 'site-mexico@noblet.ca', 'ref-name'         => 'site-mexico',
+            array(
+                'name'             => 'Mexico Site User',
+                'password'         => '1234567-mexico',
+                'email'            => 'site-mexico@noblet.ca',
+                'ref-name'         => 'site-mexico',
                 'can_create_cases' => true,
                 'can_create_labs'  => false,
                 'can_create_rrl'   => false,
@@ -274,25 +292,26 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
     public function getLabData()
     {
         return array(
-            array('name'             => 'Alberta RRL User',
+            array('name'           => 'Alberta RRL User',
                 'password'         => '1234567-alberta-rrl',
                 'email'            => 'rrl-alberta@noblet.ca',
-                'ref-name'         => 'site-alberta',
+                'ref-name'         => 'country-ca',
+                'reference-lab'    => 'reference-lab',
                 'role_type'        => ROLE::RRL_LAB,
                 'can_create_cases' => false,
                 'can_create_labs'  => false,
                 'can_create_rrl'   => false,
                 'can_create_nl'    => false,),
-            array('name'             => 'Alberta NL User',
+            array('name'           => 'Alberta NL User',
                 'password'         => '1234567-alberta-nl',
                 'email'            => 'nl-alberta@noblet.ca',
-                'ref-name'         => 'site-alberta',
+                'ref-name'         => 'country-ca',
                 'role_type'        => ROLE::NL_LAB,
                 'can_create_cases' => false,
                 'can_create_labs'  => false,
                 'can_create_rrl'   => false,
                 'can_create_nl'    => false,),
-            array('name'             => 'Alberta Lab User',
+            array('name'           => 'Alberta Lab User',
                 'password'         => '1234567-alberta-lab',
                 'email'            => 'lab-alberta@noblet.ca',
                 'ref-name'         => 'site-alberta',

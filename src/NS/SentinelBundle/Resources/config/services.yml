@@ -746,3 +746,9 @@ services:
         arguments: [~, NS\SentinelBundle\Entity\ACL, SonataAdminBundle:CRUD]
         tags:
           - {name: sonata.admin, manager_type: orm, group: Administration, label: ACL, show_in_dashboard: false}
+
+    ns_sentinel.admin.reference_lab:
+        class: NS\SentinelBundle\Admin\ReferenceLabAdmin
+        arguments: [~, NS\SentinelBundle\Entity\ReferenceLab, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: Administration, label: Reference Labs}
