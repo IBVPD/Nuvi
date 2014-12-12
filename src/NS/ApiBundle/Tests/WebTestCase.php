@@ -18,16 +18,16 @@ class WebTestCase extends BaseWebTestCase
 
     public function createApiClient(UserInterface $user, array $options = array(), array $server = array())
     {
-        $accessToken = $this->getAccessToken($user);
-        $server      = array_merge(array(
+        $accessToken  = $this->getAccessToken($user);
+        $serverParams = array_merge(array(
             'HTTP_ACCEPT'        => 'application/json',
             'Content-Type'       => 'application/json',
             'CONTENT_TYPE'       => 'application/json',
             'HTTP_AUTHORIZATION' => 'Bearer ' . $accessToken['access_token']), $server);
 
-        $this->assertContains($accessToken['access_token'], $server['HTTP_AUTHORIZATION'], "Contains http authorization");
+        $this->assertContains($accessToken['access_token'], $serverParams['HTTP_AUTHORIZATION'], "Contains http authorization");
 
-        return static::createClient($options, $server);
+        return static::createClient($options, $serverParams);
     }
 
     public function getAccessToken(UserInterface $user)
