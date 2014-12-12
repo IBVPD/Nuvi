@@ -2699,7 +2699,7 @@
             "target-dir": "NS/FlashBundle",
             "source": {
                 "type": "git",
-                "url": "gitolite@git.noblet.ca:/symfony/ns/flash.git",
+                "url": "git@gitlab.noblet.ca:nobletsolutions/flash-bundle.git",
                 "reference": "7028f2c359fbf93305f4134b9fd64a12f236bf7c"
             },
             "require": {

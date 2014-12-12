@@ -15,13 +15,13 @@ use \Symfony\Component\Routing\Router;
  */
 class ResultPerPage
 {
-    private $form;
+    private $formFactory;
     private $router;
 
     public function __construct(Router $router, FormFactoryInterface $formFactory)
     {
         $this->router = $router;
-        $this->form = $formFactory->create('results_per_page');
+        $this->formFactory = $formFactory;
     }
 
     public function onRequest(GetResponseEvent $event)
@@ -31,11 +31,12 @@ class ResultPerPage
 
         $request = $event->getRequest();
 
-        if($request->request->has($this->form->getName()))
+        $form = $this->formFactory->create('results_per_page');
+        if($request->request->has($form->getName()))
         {
-            $this->form->handleRequest($request);
-            $request->getSession()->set('result_per_page',$this->form->get('recordsperpage')->getData());
-            $response = new RedirectResponse($this->router->generate($this->form->get('target')->getData(),$request->query->all()));
+            $form->handleRequest($request);
+            $request->getSession()->set('result_per_page', $form->get('recordsperpage')->getData());
+            $response = new RedirectResponse($this->router->generate($form->get('target')->getData(), $request->query->all()));
             $event->setResponse($response);
         }
 
