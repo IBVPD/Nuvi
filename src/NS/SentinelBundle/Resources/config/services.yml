@@ -79,6 +79,12 @@ services:
       tags:
         - { name: ns_import.converter }
 
+    ns.sentinel.converter.VaccinationReceived:
+      class: NS\SentinelBundle\Converter\ArrayChoice
+      arguments: [ NS\SentinelBundle\Form\Types\VaccinationReceived ]
+      tags:
+        - { name: ns_import.converter }
+
     ns.sentinel.converter.threeDoses:
       class: NS\SentinelBundle\Converter\Doses
       arguments: [ NS\SentinelBundle\Form\Types\ThreeDoses ]

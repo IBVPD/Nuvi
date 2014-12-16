@@ -8,7 +8,7 @@ use \Doctrine\Common\Persistence\ObjectManager;
 use \Doctrine\DBAL\DBALException;
 use \NS\ImportBundle\Entity\Import;
 use \NS\ImportBundle\Filter\Duplicate;
-use \NS\ImportBundle\Filter\Unique;
+use \NS\ImportBundle\Filter\NotBlank;
 use \NS\ImportBundle\Writer\DoctrineWriter;
 use \NS\ImportBundle\Writer\Result;
 use \Symfony\Component\DependencyInjection\ContainerInterface;
@@ -45,15 +45,19 @@ class ImportProcessor
         $csvReader = new CsvReader($import->getFile()->openFile(),',');
 
         // Tell the reader that the first row in the CSV file contains column headers
-        $csvReader->setHeaderRowNumber(0);
+        $csvReader->setHeaderRowNumber(0); // should be tested by looking at the column names and value to see if the first row has headers
 
         // Create the workflow from the reader
         $workflow = new Workflow($csvReader);
         $workflow->setSkipItemOnFailure(true);
 
+        $uniqueFields = array('getcode' => 'site', 'caseId');
+        $duplicate    = new Duplicate($uniqueFields);
+
         // Create a writer: you need Doctrine’s EntityManager.
-        $doctrineWriter = new DoctrineWriter($this->entityMgr, $map->getClass(), $map->getFindBy());
+        $doctrineWriter = new DoctrineWriter($this->entityMgr, $map->getClass(), $uniqueFields);
         $doctrineWriter->setTruncate(false);
+        $doctrineWriter->setBatchSize(2);
 
         $workflow->addWriter($doctrineWriter);
 
@@ -65,14 +69,8 @@ class ImportProcessor
 
         $workflow->addItemConverter($map->getMappings());
         $workflow->addItemConverter($map->getIgnoredMapper());
-
-        if($map->getDuplicateFields())
-        {
-            $workflow->addFilter(new Duplicate($map->getDuplicateFields()));
-
-            if(!$map->getFindBy()) // FindBy is basically the id which means we don't care if the record exists as it'll be loaded anyway
-                $workflow->addFilterAfterConversion(new Unique($this->entityMgr->getRepository($map->getClass()), $map->getMappedDuplicateFields()));
-        }
+        $workflow->addFilterAfterConversion(new NotBlank('caseId'));
+        $workflow->addFilterAfterConversion($duplicate);
 
         try
         {
@@ -81,10 +79,11 @@ class ImportProcessor
         }
         catch (DBALException $ex)
         {
-            return new Result("Error", new \DateTime(), new \DateTime(), 0, array($ex));
+            $now = new \DateTime();
+            return new Result("Error", $now, $now, 0, $duplicate, array($ex));
         }
 
-        $result = new Result($processResult->getName(), $processResult->getStartTime(), $processResult->getEndTime(), $processResult->getTotalProcessedCount(), $processResult->getExceptions());
+        $result = new Result($processResult->getName(), $processResult->getStartTime(), $processResult->getEndTime(), $processResult->getTotalProcessedCount(), $duplicate, $processResult->getExceptions());
         $result->setResults($doctrineWriter->getResults());
 
         return $result;

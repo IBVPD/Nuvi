@@ -114,32 +114,6 @@ class Map
         return $this->file;
     }
 
-    public function getDuplicateFields()
-    {
-        return $this->duplicateFields;
-    }
-
-    public function getMappedDuplicateFields()
-    {
-        $duplicateFields = array();
-        foreach($this->columns as $column)
-        {
-            if(count($duplicateFields) == count($this->duplicateFields))
-                break;
-
-            if(in_array($column->getName(), $this->duplicateFields))
-                $duplicateFields[$column->getName()] = $column->getMapper();
-        }
-
-        return $duplicateFields;
-    }
-
-    public function setDuplicateFields($duplicateFields)
-    {
-        $this->duplicateFields = $duplicateFields;
-        return $this;
-    }
-
     public function setFile(UploadedFile $file)
     {
         $this->file = $file;
@@ -208,17 +182,6 @@ class Map
             $headers[] = $col->getName();
 
         return $headers;
-    }
-
-    public function getFindBy()
-    {
-        foreach($this->columns as $col)
-        {
-            if($col->isUnique())
-                return $col->getName();
-        }
-
-        return null;
     }
 
     public function getConverters()

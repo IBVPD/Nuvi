@@ -138,12 +138,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/gnat42/data-import.git",
-                "reference": "f97709f024e025492d1ce049987212efe4d04abd"
+                "reference": "918343d0824f22a05578887fba84bf36b454c83e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gnat42/data-import/zipball/f97709f024e025492d1ce049987212efe4d04abd",
-                "reference": "f97709f024e025492d1ce049987212efe4d04abd",
+                "url": "https://api.github.com/repos/gnat42/data-import/zipball/918343d0824f22a05578887fba84bf36b454c83e",
+                "reference": "918343d0824f22a05578887fba84bf36b454c83e",
                 "shasum": ""
             },
             "require": {
@@ -202,7 +202,7 @@
                 "issues": "https://github.com/ddeboer/data-import/issues",
                 "source": "https://github.com/ddeboer/data-import"
             },
-            "time": "2014-10-17 16:50:37"
+            "time": "2014-12-15 21:50:15"
         },
         {
             "name": "ddeboer/data-import-bundle",
@@ -5616,6 +5616,7 @@
         "phpmd/phpmd": 0
     },
     "prefer-stable": false,
+    "prefer-lowest": false,
     "platform": {
         "php": ">=5.3.3"
     },

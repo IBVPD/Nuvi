@@ -50,7 +50,6 @@ class ColumnAdmin extends Admin
             ->add('converter',  'ConverterChoice',  array('required'=>false))
             ->add('mapper')
             ->add('isIgnored',  null,               array('label'=>'Drop Field', 'required'=>false))
-            ->add('isUnique',   null,               array('label'=>'Is Id Field?'))
         ;
     }
 

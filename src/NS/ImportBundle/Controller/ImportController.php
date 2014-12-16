@@ -73,14 +73,33 @@ class ImportController extends Controller
         {
             $format = 'csv';
 
-            if($type == 'success')
-                $source = new ArraySourceIterator($res->getSuccesses(),array('id','caseId','site','siteName'));
-            else if($type == 'errors')
-                $source = new ArraySourceIterator($res->getErrors(),array('row','column','message'));
+            switch ($type)
+            {
+                case 'success':
+                    $source = new ArraySourceIterator($res->getSuccesses(), array(
+                        'id', 'caseId', 'site', 'siteName'));
+                    break;
+                case 'errors':
+                    $source = new ArraySourceIterator($res->getErrors(), array('row',
+                        'column',
+                        'message'));
+                    break;
+                case 'duplicates':
+                    $source = new ArraySourceIterator($res->getDuplicateMessages(), array(
+                        'row', 'message'));
+                    break;
+            }
 
-            $filename = sprintf('export_%s_%s.%s',$type,date('Ymd_His'), $format);
+            $filename = sprintf('export_%s_%s.%s', $type, date('Ymd_His'), $format);
 
-            return $this->get('sonata.admin.exporter')->getResponse($format, $filename, $source);
+            try
+            {
+                return $this->get('sonata.admin.exporter')->getResponse($format, $filename, $source);
+            }
+            catch (\Exception $excep)
+            {
+                die("I GOT AN EXCEPTION! " . $excep->getMessage());
+            }
         }
 
         throw $this->createNotFoundException();

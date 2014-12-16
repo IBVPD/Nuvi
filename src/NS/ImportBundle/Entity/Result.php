@@ -4,6 +4,7 @@ namespace NS\ImportBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Ddeboer\DataImport\Result as WorkflowResult;
+use \NS\SentinelBundle\Entity\User;
 
 /**
  * Description of Result
@@ -16,6 +17,7 @@ use Ddeboer\DataImport\Result as WorkflowResult;
  */
 class Result
 {
+
     /**
      * @var integer $id
      * @ORM\Column(name="id",type="integer")
@@ -67,6 +69,12 @@ class Result
     private $errors;
 
     /**
+     * @var array $duplicates
+     * @ORM\Column(name="duplicates",type="array")
+     */
+    private $duplicates;
+
+    /**
      * @var User $user
      * @ORM\ManyToOne(targetEntity="NS\SentinelBundle\Entity\User")
      */
@@ -74,116 +82,259 @@ class Result
 
     public function __construct(Import $import, WorkflowResult $result)
     {
-        $this->successes = array();
-        foreach($result->getResults() as $r)
-            $this->successes[] = array('id'=>$r->getId(),'caseId'=>$r->getCaseId(),'site'=>$r->getSite()->getCode(),'siteName' => $r->getSite()->getName());
-
-        $this->errors = array();
-        foreach($result->getExceptions() as $row => $e)
+        $this->successes   = array();
+        foreach ($result->getResults() as $r)
         {
-            $msg2 = ($e->getPrevious()) ? $e->getPrevious()->getMessage():null;
-            $this->errors[$row] = array('row' => $row, 'column' => $e->getMessage(),'message'=>$msg2);
+            $this->successes[] = array(
+                'id'       => $r->getId(),
+                'caseId'   => $r->getCaseId(),
+                'site'     => $r->getSite()->getCode(),
+                'siteName' => $r->getSite()->getName());
         }
 
-        $this->totalCount = $result->getTotalProcessedCount();
+        $this->errors = array();
+        foreach ($result->getExceptions() as $row => $e)
+        {
+            $this->errors[$row] = array(
+                'row'     => $row,
+                'column'  => $e->getMessage(),
+                'message' => ($e->getPrevious()) ? $e->getPrevious()->getMessage() : null
+            );
+        }
+
+        $this->totalCount   = $result->getTotalProcessedCount();
         $this->successCount = $result->getSuccessCount();
-        $this->importedAt = $result->getEndtime();
-        $this->mapName    = sprintf("%s (%s)",$import->getMap()->getName(),$import->getMap()->getVersion());
-        $this->filename   = $import->getFile()->getClientOriginalName();
+        $this->importedAt   = $result->getEndtime();
+        $this->duplicates   = $result->getDuplicates()->toArray();
+        $this->mapName      = sprintf("%s (%s)", $import->getMap()->getName(), $import->getMap()->getVersion());
+        $this->filename     = $import->getFile()->getClientOriginalName();
     }
 
+    /**
+     *
+     * @return integer
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     *
+     * @return \DateTime
+     */
     public function getImportedAt()
     {
         return $this->importedAt;
     }
 
+    /**
+     *
+     * @return string
+     */
     public function getFilename()
     {
         return $this->filename;
     }
 
+    /**
+     *
+     * @return integer
+     */
     public function getTotalCount()
     {
         return $this->totalCount;
     }
 
+    /**
+     *
+     * @return integer
+     */
     public function getSuccessCount()
     {
         return $this->successCount;
     }
 
+    /**
+     *
+     * @return integer
+     */
     public function getErrorCount()
     {
-        return $this->totalCount-$this->successCount;
+        return $this->totalCount - $this->successCount;
     }
 
+    /**
+     *
+     * @return string
+     */
     public function getMapName()
     {
         return $this->mapName;
     }
 
+    /**
+     *
+     * @return User
+     */
     public function getUser()
     {
         return $this->user;
     }
 
-    function getSuccesses()
+    /**
+     *
+     * @return array
+     */
+    public function getSuccesses()
     {
         return $this->successes;
     }
 
-    function getErrors()
+    /**
+     *
+     * @return array
+     */
+    public function getErrors()
     {
         return $this->errors;
     }
 
-    function setSuccesses(array $successes = array())
+    /**
+     *
+     * @return integer
+     */
+    public function getTotal()
+    {
+        return $this->getSuccessCount() + $this->getDuplicateCount() + $this->getErrorCount();
+    }
+
+    /**
+     *
+     * @return integer
+     */
+    public function getDuplicateCount()
+    {
+        return count($this->duplicates);
+    }
+
+    /**
+     *
+     * @return array
+     */
+    public function getDuplicateMessages()
+    {
+        $out = array();
+        foreach ($this->duplicates as $row => $msg)
+        {
+            $out[] = array('row' => $row, 'message' => $msg);
+        }
+
+        return $out;
+    }
+
+    /**
+     *
+     * @return array
+     */
+    public function getDuplicates()
+    {
+        return $this->duplicates;
+    }
+
+    /**
+     *
+     * @param array $duplicates
+     * @return \NS\ImportBundle\Entity\Result
+     */
+    public function setDuplicates(array $duplicates)
+    {
+        $this->duplicates = $duplicates;
+        return $this;
+    }
+
+    /**
+     *
+     * @param array $successes
+     * @return \NS\ImportBundle\Entity\Result
+     */
+    public function setSuccesses(array $successes = array())
     {
         $this->successes = $successes;
         return $this;
     }
 
-    function setErrors(array $errors = array())
+    /**
+     *
+     * @param array $errors
+     * @return \NS\ImportBundle\Entity\Result
+     */
+    public function setErrors(array $errors = array())
     {
         $this->errors = $errors;
         return $this;
     }
 
-    public function setUser($user)
+    /**
+     *
+     * @param \NS\SentinelBundle\Entity\User $user
+     * @return \NS\ImportBundle\Entity\Result
+     */
+    public function setUser(User $user)
     {
         $this->user = $user;
         return $this;
     }
 
+    /**
+     *
+     * @param \DateTime $importedAt
+     * @return \NS\ImportBundle\Entity\Result
+     */
     public function setImportedAt($importedAt)
     {
         $this->importedAt = $importedAt;
         return $this;
     }
 
+    /**
+     *
+     * @param string $filename
+     * @return \NS\ImportBundle\Entity\Result
+     */
     public function setFilename($filename)
     {
         $this->filename = $filename;
         return $this;
     }
 
+    /**
+     *
+     * @param integer $totalCount
+     * @return \NS\ImportBundle\Entity\Result
+     */
     public function setTotalCount($totalCount)
     {
         $this->totalCount = $totalCount;
         return $this;
     }
 
+    /**
+     *
+     * @param integer $successCount
+     * @return \NS\ImportBundle\Entity\Result
+     */
     public function setSuccessCount($successCount)
     {
         $this->successCount = $successCount;
         return $this;
     }
 
+    /**
+     *
+     * @param string $mapName
+     * @return \NS\ImportBundle\Entity\Result
+     */
     public function setMapName($mapName)
     {
         $this->mapName = $mapName;

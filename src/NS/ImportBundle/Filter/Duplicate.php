@@ -13,44 +13,55 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Duplicate implements FilterInterface
 {
+
     private $items;
     private $fields;
+    private $duplicates;
 
     public function __construct(array $fields = array())
     {
-        $this->items  = new ArrayCollection();
-        $this->fields = $fields;
+        $this->items      = new ArrayCollection();
+        $this->duplicates = new ArrayCollection();
+        $this->fields     = $fields;
     }
 
     public function getFieldKey(array $item)
     {
         $fieldKey = null;
-        foreach($this->fields as $field)
+        foreach ($this->fields as $method => $field)
         {
-            if(!isset($item[$field]))
+            if (!isset($item[$field]))
                 throw new UnexpectedValueException("'$field' doesn't exist ");
 
-            $fieldKey .= $item[$field];
+            $fieldKey .= (is_object($item[$field]) && $method && method_exists($item[$field], $method)) ? sprintf('%s-', $item[$field]->$method()) : sprintf('%s-', $item[$field]);
         }
 
-        return $fieldKey;
+        return substr($fieldKey, 0, -1);
     }
 
     public function filter(array $item)
     {
         $field = $this->getFieldKey($item);
 
-        if(!$this->items->contains($field))
+        if (!$this->items->contains($field))
         {
             $this->items->add($field);
             return true;
         }
 
+        $this->duplicates->add($field);
+
         return false;
+    }
+
+    public function toArray()
+    {
+        return $this->duplicates->toArray();
     }
 
     public function getPriority()
     {
         return 1;
     }
+
 }

@@ -2,8 +2,7 @@
 
 namespace NS\ImportBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
+use \Doctrine\ORM\Mapping as ORM;
 
 /**
  * Description of Column
@@ -41,12 +40,6 @@ class Column
      * @ORM\Column(name="orderCol",type="integer")
      */
     private $order;
-
-    /**
-     * @var boolean $isUnique
-     * @ORM\Column(name="isUnique",type="boolean",nullable=true)
-     */
-    private $isUnique;
 
     /**
      * @var string $converter
