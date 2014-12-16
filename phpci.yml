@@ -13,6 +13,7 @@ build_settings:
 setup:
     composer:
         action: "install"
+        prefer_dist: true
     shell:
         - "cd %BUILD_PATH% && cp app/config/parameters_test.yml.dist app/config/parameters_test.yml"
         - "cd %BUILD_PATH% && ./app/console doctrine:database:drop --env=test --force"
