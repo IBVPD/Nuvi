@@ -61,16 +61,28 @@ class CreateRoles extends TranslatableArrayChoice implements TranslationContaine
         $resolver->addAllowedTypes(array('special_values'=>'array'));
     }
 
+    /**
+     *
+     * @param SecurityContextInterface $securityContext
+     */
     public function setSecurityContext(SecurityContextInterface $securityContext)
     {
         $this->securityContext = $securityContext;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'CreateRoles';
     }
 
+    /**
+     *
+     * @param string $routeBase
+     * @return string
+     */
     public function getRoute($routeBase)
     {
         switch ($this->getValue())

@@ -28,7 +28,9 @@ class LatResult extends TranslatableArrayChoice implements TranslationContainerI
                                 self::INCONCLUSIVE  => 'Inconclusive',
                                 self::UNKNOWN       => 'Unknown',
                              );
-
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'LatResult';

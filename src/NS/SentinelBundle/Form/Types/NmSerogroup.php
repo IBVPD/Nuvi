@@ -41,6 +41,9 @@ class NmSerogroup extends TranslatableArrayChoice implements TranslationContaine
         self::OTHER       => 'Other',
     );
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'NmSerogroup';

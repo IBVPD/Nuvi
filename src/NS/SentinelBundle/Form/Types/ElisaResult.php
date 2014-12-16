@@ -22,7 +22,9 @@ class ElisaResult extends TranslatableArrayChoice implements TranslationContaine
                                 self::INDETERMINATE => 'Indeterminate',
                                 self::UNKNOWN => 'Unknown',
                              );
-
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'ElisaResult';

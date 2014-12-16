@@ -17,6 +17,10 @@ class CreateType extends AbstractType
     private $siteSerializer;
     private $entityMgr;
 
+    /**
+     * @param SerializedSitesInterface $siteSerializer
+     * @param ObjectManager $entityMgr
+     */
     public function __construct(SerializedSitesInterface $siteSerializer, ObjectManager $entityMgr)
     {
         $this->siteSerializer = $siteSerializer;
@@ -26,6 +30,7 @@ class CreateType extends AbstractType
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -47,6 +52,9 @@ class CreateType extends AbstractType
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'create_case';

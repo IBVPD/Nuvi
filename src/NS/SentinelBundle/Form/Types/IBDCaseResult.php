@@ -22,7 +22,9 @@ class IBDCaseResult extends TranslatableArrayChoice implements TranslationContai
                                 self::PROBABLE  => 'Probable',
                                 self::CONFIRMED => 'Confirmed',
                              );
-
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'IBDCaseResult';

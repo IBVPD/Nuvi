@@ -21,6 +21,9 @@ class PathogenIdentifier extends TranslatableArrayChoice implements TranslationC
                                 self::OTHER        => 'Other',
                              );
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'PathogenIdentifier';

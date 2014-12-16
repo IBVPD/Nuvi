@@ -37,6 +37,9 @@ class HiSerotype extends TranslatableArrayChoice implements TranslationContainer
         self::OTHER                => 'Other (specify)',
     );
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'HiSerotype';

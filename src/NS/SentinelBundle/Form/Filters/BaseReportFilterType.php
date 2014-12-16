@@ -20,12 +20,20 @@ class BaseReportFilterType extends AbstractType
     private $securityContext;
     private $converter;
 
+    /**
+     * @param SecurityContextInterface $securityContext
+     * @param ACLConverter $converter
+     */
     public function __construct(SecurityContextInterface $securityContext, ACLConverter $converter)
     {
         $this->securityContext = $securityContext;
         $this->converter       = $converter;
     }
 
+    /**
+     * {@inheritdoc}
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('admDate',  'filter_date_range',array('label'=>'report-filter-form.admitted-between'))

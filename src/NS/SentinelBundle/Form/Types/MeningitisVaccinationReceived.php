@@ -8,6 +8,10 @@ namespace NS\SentinelBundle\Form\Types;
  */
 class MeningitisVaccinationReceived extends VaccinationReceived
 {
+
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'MeningitisVaccinationReceived';

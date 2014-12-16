@@ -12,6 +12,14 @@ use JMS\Serializer\SerializationContext;
  */
 class Serialization
 {
+    /**
+     * @param JsonSerializationVisitor $visitor
+     * @param type $obj
+     * @param array $type
+     * @param SerializationContext $context
+     * @return integer
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function serializeArrayChoiceToJson(JsonSerializationVisitor $visitor, $obj, array $type, SerializationContext $context)
     {
         return $obj->getValue();

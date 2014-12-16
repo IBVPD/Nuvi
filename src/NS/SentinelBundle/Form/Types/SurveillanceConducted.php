@@ -20,6 +20,9 @@ class SurveillanceConducted extends ArrayChoice
                                 self::BOTH => 'Both',
                              );
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'SurveillanceConducted';

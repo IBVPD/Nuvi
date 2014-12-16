@@ -13,6 +13,10 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class ImportConverterCompilerPass implements CompilerPassInterface
 {
+    /**
+     * {@inheritdoc}
+     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
+     */
     public function process(ContainerBuilder $container)
     {
         if (false === $container->hasDefinition('ns_import.converters'))

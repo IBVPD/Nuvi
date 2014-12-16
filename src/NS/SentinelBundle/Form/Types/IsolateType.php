@@ -23,6 +23,9 @@ class IsolateType extends TranslatableArrayChoice implements TranslationContaine
                                 self::OTHER => 'Other',
                              );
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'IsolateType';

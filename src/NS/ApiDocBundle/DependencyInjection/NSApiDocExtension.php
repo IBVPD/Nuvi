@@ -16,6 +16,7 @@ class NSApiDocExtension extends Extension
 {
     /**
      * {@inheritDoc}
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function load(array $configs, ContainerBuilder $container)
     {

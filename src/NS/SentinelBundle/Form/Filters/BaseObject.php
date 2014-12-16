@@ -17,6 +17,9 @@ class BaseObject extends AbstractType //implements EmbeddedFilterTypeInterface
 
     protected $class;
 
+    /**
+     * {@inheritdoc}
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $class = $this->class;
@@ -54,11 +57,17 @@ class BaseObject extends AbstractType //implements EmbeddedFilterTypeInterface
                               );
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getParent()
     {
         return 'filter_entity';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'filter_object';

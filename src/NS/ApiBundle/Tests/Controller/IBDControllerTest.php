@@ -98,6 +98,10 @@ class IBDControllerTest extends WebTestCase
         $this->assertEquals("ANewCaseId", $decoded['CsfId']);
     }
 
+    /**
+     * {@inheritdoc}
+     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
+     */
     public function testGetRRLCase()
     {
         $client = $this->getClient();

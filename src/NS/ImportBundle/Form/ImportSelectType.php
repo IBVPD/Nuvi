@@ -16,11 +16,18 @@ class ImportSelectType extends AbstractType
 {
     private $entityMgr;
 
+    /**
+     * @param ObjectManager $entityMgr
+     */
     public function __construct(ObjectManager $entityMgr)
     {
         $this->entityMgr = $entityMgr;
     }
 
+    /**
+     * {@inheritdoc}
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('map','entity',array( 'class'         => 'NSImportBundle:Map',
@@ -32,6 +39,9 @@ class ImportSelectType extends AbstractType
                 ;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
@@ -39,6 +49,9 @@ class ImportSelectType extends AbstractType
         ));
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'ImportSelect';

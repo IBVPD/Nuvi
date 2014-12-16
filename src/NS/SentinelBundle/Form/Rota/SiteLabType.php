@@ -14,9 +14,11 @@ use \NS\SentinelBundle\Form\Types\ElisaKit;
 
 class SiteLabType extends AbstractType
 {
-
     private $siteSerializer;
 
+    /**
+     * @param SerializedSites $siteSerializer
+     */
     public function __construct(SerializedSites $siteSerializer)
     {
         $this->siteSerializer = $siteSerializer;
@@ -25,6 +27,7 @@ class SiteLabType extends AbstractType
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

@@ -26,11 +26,17 @@ class CXRAdditionalResult extends TranslatableSetChoice implements TranslationCo
                                 self::UNKNOWN           => 'Unknown',
                              );
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'CXRAdditionalResult';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getValues()
     {
         return $this->set;

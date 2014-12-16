@@ -18,12 +18,20 @@ class ResultPerPage
     private $formFactory;
     private $router;
 
+    /**
+     * @param Router $router
+     * @param FormFactoryInterface $formFactory
+     */
     public function __construct(Router $router, FormFactoryInterface $formFactory)
     {
         $this->router = $router;
         $this->formFactory = $formFactory;
     }
 
+    /**
+     * @param GetResponseEvent $event
+     * @return null
+     */
     public function onRequest(GetResponseEvent $event)
     {
         if (HttpKernel::MASTER_REQUEST != $event->getRequestType())

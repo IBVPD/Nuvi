@@ -58,7 +58,13 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
         'ROLE_COUNTRY_IMPORT' => self::COUNTRY_IMPORT,
         'ROLE_SITE_IMPORT'    => self::SITE_IMPORT,
         );
-    
+
+    /**
+     *
+     * @param string $value
+     * @return ArrayChoice
+     * @throws \UnexpectedValueException
+     */
     public function __construct($value = null)
     {
         if(is_string($value) && strstr($value,'ROLE_') !== false)
@@ -72,11 +78,17 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
         return parent::__construct($value);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'role';
     }
 
+    /**
+     * @return array
+     */
     public function getAsCredential()
     {
         switch($this->current)
@@ -110,6 +122,9 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
         }
     }
 
+    /**
+     * @return string
+     */
     public function getClassMatch()
     {
         $class = 'NS\SentinelBundle\Entity';
@@ -135,11 +150,19 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
         }
     }
 
+    /**
+     * @param SecurityContext $context
+     */
     public function setSecurityContext(SecurityContext $context)
     {
         $this->securityContext = $context;
     }
 
+    /**
+     *
+     * @param array $roles
+     * @return integer
+     */
     public function getHighest(array $roles)
     {
         $highest = null;
@@ -158,6 +181,9 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
         return $highest;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         parent::setDefaultOptions($resolver);
@@ -185,6 +211,10 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
             ));
     }
 
+
+    /**
+     * {@inheritdoc}
+     */
     public function equal($compared)
     {
         if(is_numeric($compared))

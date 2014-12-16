@@ -27,9 +27,6 @@ class LoadRotaVirusCaseData extends AbstractFixture implements OrderedFixtureInt
     {
         ini_set('memory_limit', '768M');
 
-        $done  = new TripleChoice(TripleChoice::YES);
-        $nDone = new TripleChoice(TripleChoice::NO);
-
         $male        = new Gender(Gender::MALE);
         $fmale       = new Gender(Gender::FEMALE);
         $diagnosis[] = new Diagnosis(Diagnosis::SUSPECTED_MENINGITIS);

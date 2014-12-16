@@ -44,12 +44,6 @@ class Map
      */
     private $class;
 
-    /**
-     * @var array $duplicateFields
-     * @ORM\Column(name="duplicateFields",type="array",nullable=true)
-     */
-    private $duplicateFields;
-
     private $file;
     /**
      * @var Array $columns

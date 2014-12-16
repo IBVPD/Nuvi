@@ -27,6 +27,9 @@ class MeningitisVaccinationType extends TranslatableArrayChoice implements Trans
                             self::UNKNOWN      => 'Unknown',
                              );
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'MeningitisVaccinationType';

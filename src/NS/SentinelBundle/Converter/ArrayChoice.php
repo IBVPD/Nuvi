@@ -28,6 +28,9 @@ class ArrayChoice implements NamedValueConverterInterface
 
     public function convert($input)
     {
+        $input = ($input == 9) ? 99 : $input;
+        $input = ($input == 98) ? 99 : $input;
+
         try
         {
             return (!empty($input) ? new $this->class((int)$input): null);

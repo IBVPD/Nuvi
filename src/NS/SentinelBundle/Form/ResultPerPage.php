@@ -17,11 +17,20 @@ class ResultPerPage extends AbstractType
 {
     private $target;
 
+    /**
+     * @param string $target
+     */
     public function __construct($target = null)
     {
         $this->target = $target;
     }
 
+    /**
+     *
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $target = $this->target;
@@ -45,6 +54,9 @@ class ResultPerPage extends AbstractType
         ));
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'results_per_page';

@@ -16,6 +16,9 @@ class AlternateTripleChoice extends TripleChoice
         self::NOT_APPLICABLE => 'Not Applicable',
     );
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'AlternateTripleChoice';

@@ -13,16 +13,26 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class TextToArray extends AbstractType
 {
+    /**
+     * {@inheritdoc}
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->addViewTransformer(new TextToArrayTransformer());
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'TextToArray';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getParent()
     {
         return 'text';

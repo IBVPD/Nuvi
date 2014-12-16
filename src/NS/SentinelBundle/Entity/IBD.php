@@ -27,6 +27,7 @@ use \NS\SentinelBundle\Form\Types\VaccinationReceived;
 use \NS\UtilBundle\Form\Types\ArrayChoice;
 use \Symfony\Component\Validator\Constraints as Assert;
 use \Symfony\Component\Validator\ExecutionContextInterface;
+use \NS\SentinelBundle\Validators\Other;
 
 /**
  * Description of IBD
@@ -42,6 +43,7 @@ use \Symfony\Component\Validator\ExecutionContextInterface;
  *      })
  * @Assert\Callback(methods={"validate"})
  * @SuppressWarnings(PHPMD.ShortVariable)
+ * @Other()
  */
 class IBD extends BaseCase
 {

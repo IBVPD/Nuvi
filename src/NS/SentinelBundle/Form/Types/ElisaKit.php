@@ -21,7 +21,9 @@ class ElisaKit extends TranslatableArrayChoice
                                 self::ROTA        => 'Rotaclone',
                                 self::OTHER       => 'Other',
                              );
-
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'ElisaKit';

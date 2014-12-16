@@ -22,6 +22,10 @@ class Gender extends TranslatableArrayChoice implements TranslationContainerInte
                             self::UNKNOWN => 'Unknown',
                              );
 
+    /**
+     *
+     * @param string $value
+     */
     public function __construct($value = null)
     {
         if($value == 'M')
@@ -32,6 +36,9 @@ class Gender extends TranslatableArrayChoice implements TranslationContainerInte
         parent::__construct($value);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'Gender';

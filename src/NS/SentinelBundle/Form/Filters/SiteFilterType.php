@@ -15,12 +15,24 @@ use \Symfony\Component\Form\FormBuilderInterface;
  */
 class SiteFilterType extends AbstractType implements EmbeddedFilterTypeInterface
 {
+
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name',               'filter_text',       array('required' => false))
                 ->add('ibdIntenseSupport',  'IBDIntenseSupport', array('required' => false, 'apply_filter' => array($this,'applyFilter')));
     }
 
+    /**
+     * @param QueryInterface $filterBuilder
+     * @param string $field
+     * @param IBDIntenseSupport $values
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function applyFilter(QueryInterface $filterBuilder, $field, $values)
     {
         if ($values['value'] instanceof IBDIntenseSupport && $values['value']->getValue() >= 0)
@@ -39,6 +51,9 @@ class SiteFilterType extends AbstractType implements EmbeddedFilterTypeInterface
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'SiteFilterType';

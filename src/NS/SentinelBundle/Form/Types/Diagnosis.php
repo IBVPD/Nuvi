@@ -28,7 +28,9 @@ class Diagnosis extends TranslatableArrayChoice implements TranslationContainerI
                             self::MULTIPLE                   => 'Multiple (i.e. suspected meningitis and/or pneumonia and/or sepsis)',
                             self::OTHER                      => 'Other',
                             self::UNKNOWN                    => 'Unknown');
-
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'Diagnosis';

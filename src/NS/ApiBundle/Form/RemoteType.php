@@ -8,9 +8,10 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class RemoteType extends AbstractType
 {
-        /**
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

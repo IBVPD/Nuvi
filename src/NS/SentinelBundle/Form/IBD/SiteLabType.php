@@ -22,14 +22,17 @@ class SiteLabType extends AbstractType
 {
     private $siteSerializer;
 
+    /**
+     * @param SerializedSites $siteSerializer
+     */
     public function __construct(SerializedSites $siteSerializer)
     {
         $this->siteSerializer = $siteSerializer;
     }
 
     /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
+     * {@inheritdoc}
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -153,7 +156,7 @@ class SiteLabType extends AbstractType
     }
 
     /**
-     * @param OptionsResolverInterface $resolver
+     * {@inheritdoc}
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
@@ -163,7 +166,7 @@ class SiteLabType extends AbstractType
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getName()
     {

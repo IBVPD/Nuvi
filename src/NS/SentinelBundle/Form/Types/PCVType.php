@@ -19,6 +19,9 @@ class PCVType extends TranslatableArrayChoice implements TranslationContainerInt
                                 self::PCV13 => 'PCV13',
                              );
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'PCVType';

@@ -27,7 +27,9 @@ class CSFAppearance extends TranslatableArrayChoice implements TranslationContai
                             self::OTHER => 'Other',
                             self::NOT_ASSESSED => 'Not assessed',
                             self::UNKNOWN => 'Unknown');
-    
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'CSFAppearance';

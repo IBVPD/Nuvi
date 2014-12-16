@@ -14,11 +14,22 @@ use \JMS\Serializer\SerializationContext;
  */
 class ArrayChoiceHandler implements SubscribingHandlerInterface
 {
+    /**
+     * @param JsonSerializationVisitor $visitor
+     * @param mixed $data
+     * @param array $type
+     * @param SerializationContext $context
+     * @return integer
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function serializeToJson(JsonSerializationVisitor $visitor, $data, array $type, SerializationContext $context)
     {
         return (int) $data->getValue();
     }
 
+    /**
+     * @return array
+     */
     public static function getSubscribingMethods()
     {
         return array(

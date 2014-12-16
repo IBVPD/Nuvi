@@ -14,6 +14,9 @@ class BaseFilter extends AbstractType
 {
     private $securityContext;
 
+    /**
+     * @param SecurityContext $securityContext
+     */
     public function __construct(SecurityContext $securityContext)
     {
         $this->securityContext = $securityContext;
@@ -22,6 +25,7 @@ class BaseFilter extends AbstractType
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -97,7 +101,7 @@ class BaseFilter extends AbstractType
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getName()
     {

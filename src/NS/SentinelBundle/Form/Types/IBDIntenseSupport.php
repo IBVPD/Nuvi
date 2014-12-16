@@ -21,6 +21,9 @@ class IBDIntenseSupport extends ArrayChoice
                                 self::YES           => 'Yes'
                              );
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'IBDIntenseSupport';

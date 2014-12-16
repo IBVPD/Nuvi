@@ -28,7 +28,9 @@ class CultureResult extends TranslatableArrayChoice implements TranslationContai
                                 self::CONTAMINANT   => 'Contaminant',
                                 self::UNKNOWN       => 'Unknown',
                              );
-
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'CultureResult';

@@ -18,13 +18,16 @@ class FilterType extends AbstractType
         ));
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getParent()
     {
         return 'base_filter_form';
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getName()
     {

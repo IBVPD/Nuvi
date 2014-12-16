@@ -22,6 +22,9 @@ class OtherSpecimen extends TranslatableArrayChoice
                                 self::OTHER   => 'Other',
                              );
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'OtherSpecimen';

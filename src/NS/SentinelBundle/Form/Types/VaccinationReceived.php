@@ -23,6 +23,9 @@ class VaccinationReceived extends TranslatableArrayChoice implements Translation
                                 self::UNKNOWN       => 'Unknown',
                              );
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'VaccinationReceived';

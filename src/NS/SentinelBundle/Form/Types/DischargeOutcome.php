@@ -26,7 +26,9 @@ class DischargeOutcome extends TranslatableArrayChoice implements TranslationCon
                                 self::LEFT_AGAINST_ADVICE               => 'Left/Discharged against medical advice',
                                 self::UNKNOWN                           => 'Unknown',
                              );
-
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'DischargeOutcome';

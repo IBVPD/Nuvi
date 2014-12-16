@@ -24,7 +24,9 @@ class CXRResult extends TranslatableArrayChoice implements TranslationContainerI
                             self::INCONCLUSIVE => 'Inconclusive',
                             self::OTHER        => 'Other',
                             self::UNKNOWN => 'Unknown');
-
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'CXRResult';

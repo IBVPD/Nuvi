@@ -22,7 +22,9 @@ class CaseStatus extends TranslatableArrayChoice implements TranslationContainer
                                 self::CANCELLED => 'Cancelled',
                                 self::DELETED   => 'Deleted',
                              );
-
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'CaseStatus';

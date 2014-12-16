@@ -15,6 +15,14 @@ class ReferenceLab extends AbstractIdGenerator
 {
     static $cache = array();
 
+    /**
+     * @param EntityManager $entityMgr
+     * @param ReferenceLabEntity $entity
+     * @return string
+     * @throws \InvalidArgumentException
+     * @throws \UnexpectedValueException
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function generate(EntityManager $entityMgr, $entity)
     {
         if (!$entity instanceOf ReferenceLabEntity)

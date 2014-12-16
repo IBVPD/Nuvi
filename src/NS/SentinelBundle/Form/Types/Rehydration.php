@@ -23,6 +23,9 @@ class Rehydration extends TranslatableArrayChoice implements TranslationContaine
                                 self::UNKNOWN   => 'Unknown',
                              );
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'Rehydration';

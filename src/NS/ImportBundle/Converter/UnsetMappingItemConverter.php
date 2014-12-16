@@ -26,6 +26,10 @@ class UnsetMappingItemConverter extends BaseMappingItemConverter
         return $this;
     }
 
+    /**
+     * {@inheritdoc}
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     protected function applyMapping(array $item, $from, $to)
     {
         if(isset($item[$from]))

@@ -22,6 +22,9 @@ class RotavirusVaccinationType extends TranslatableArrayChoice implements Transl
                                 self::UNKNOWN => 'Unknown',
                              );
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'RotavirusVaccinationType';

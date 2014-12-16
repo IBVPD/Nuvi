@@ -19,6 +19,9 @@ class Volume extends TranslatableArrayChoice implements TranslationContainerInte
                                 self::NO  => '<200µl',
                              );
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'Volume';

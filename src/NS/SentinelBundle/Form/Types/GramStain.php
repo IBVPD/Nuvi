@@ -22,7 +22,9 @@ class GramStain extends TranslatableArrayChoice implements TranslationContainerI
                                 self::GM_NEGATIVE          => 'Gram-negative organism',
                                 self::UNKNOWN              => 'Unknown',
                              );
-
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'GramStain';

@@ -95,6 +95,10 @@ class RotaVirusControllerTest extends WebTestCase
         $this->assertArrayHasKey('Adequate', $decoded, print_r($decoded, true));
     }
 
+    /**
+     * {@inheritdoc}
+     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
+     */
     public function testGetRRLCase()
     {
         $client = $this->getClient();

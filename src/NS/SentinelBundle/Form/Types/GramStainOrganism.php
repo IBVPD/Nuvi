@@ -28,7 +28,9 @@ class GramStainOrganism extends TranslatableArrayChoice implements TranslationCo
                                 self::OTHER                => 'Other',
                                 self::UNKNOWN              => 'Unknown',
                              );
-
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'GramStainOrganism';

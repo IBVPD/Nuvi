@@ -8,6 +8,10 @@ namespace NS\SentinelBundle\Form\Types;
  */
 class PCRResult extends LatResult
 {
+
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'PCRResult';

@@ -23,6 +23,9 @@ class SerotypeIdentifier extends TranslatableArrayChoice implements TranslationC
                                 self::OTHER        => 'Other',
                              );
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'SerotypeIdentifier';

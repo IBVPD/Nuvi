@@ -27,6 +27,9 @@ class SampleType extends TranslatableArrayChoice implements TranslationContainer
         self::INOCULATED => 'Inoculated TI or other media',
     );
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'SampleType';
