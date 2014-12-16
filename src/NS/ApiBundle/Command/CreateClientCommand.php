@@ -2,12 +2,11 @@
 
 namespace NS\ApiBundle\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use Acme\OAuthServerBundle\Document\Client;
+use \Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use \Symfony\Component\Console\Input\InputArgument;
+use \Symfony\Component\Console\Input\InputOption;
+use \Symfony\Component\Console\Input\InputInterface;
+use \Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Description of CreateClientCommand
@@ -16,6 +15,9 @@ use Acme\OAuthServerBundle\Document\Client;
  */
 class CreateClientCommand extends ContainerAwareCommand
 {
+    /**
+     * {@inheritdoc}
+     */
     protected function configure()
     {
         $this
@@ -33,6 +35,9 @@ EOT
         );
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $clientManager = $this->getContainer()->get('fos_oauth_server.client_manager.default');

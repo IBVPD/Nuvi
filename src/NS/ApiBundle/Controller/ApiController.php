@@ -2,10 +2,10 @@
 
 namespace NS\ApiBundle\Controller;
 
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use FOS\RestBundle\Controller\Annotations as REST;
-use FOS\RestBundle\Controller\FOSRestController;
+use \Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use \FOS\RestBundle\Controller\Annotations as REST;
+use \FOS\RestBundle\Controller\FOSRestController;
 
 /**
  * Description of ApiController
@@ -15,7 +15,6 @@ use FOS\RestBundle\Controller\FOSRestController;
  */
 class ApiController extends FOSRestController
 {
-
     /**
      * Get Sites
      *
