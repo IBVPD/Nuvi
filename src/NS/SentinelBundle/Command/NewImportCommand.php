@@ -194,8 +194,6 @@ class NewImportCommand extends ContainerAwareCommand
             $country->setHibVaccineIntro($row[19]);
             $country->setPcvVaccineIntro($row[20]);
             $country->setRvVaccineIntro($row[21]);
-            $country->setPopulationUnderFive2014($row[22]);
-            $country->setPopulationUnderFive2014($row[23]);
             $site->setCountry($country);
         }
     }
