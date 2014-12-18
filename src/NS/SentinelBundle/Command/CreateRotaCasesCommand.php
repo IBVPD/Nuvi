@@ -3,10 +3,8 @@
 namespace NS\SentinelBundle\Command;
 
 use \NS\SentinelBundle\Entity\RotaVirus;
-use \NS\SentinelBundle\Entity\Site;
 use \NS\SentinelBundle\Form\Types\Diagnosis;
 use \NS\SentinelBundle\Form\Types\Gender;
-use \Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use \Symfony\Component\Console\Input\InputArgument;
 use \Symfony\Component\Console\Input\InputInterface;
 use \Symfony\Component\Console\Input\InputOption;
@@ -17,7 +15,7 @@ use \Symfony\Component\Console\Output\OutputInterface;
  *
  * @author gnat
  */
-class CreateRotaCasesCommand extends ContainerAwareCommand
+class CreateRotaCasesCommand extends BaseCreateCaseCommand
 {
     protected function configure()
     {
@@ -65,39 +63,4 @@ class CreateRotaCasesCommand extends ContainerAwareCommand
         $entityMgr->flush();
         $output->writeln(sprintf("Create %d rota cases", $caseCount));
     }
-
-    public function getCaseId(Site $site)
-    {
-        return md5(uniqid() . spl_object_hash($site) . time());
-    }
-
-    public function getRandomDate(\DateTime $before = null, \DateTime $after = null)
-    {
-        $years  = range(1995, date('Y'));
-        $months = range(1, 12);
-        $days   = range(1, 28);
-
-        $yKey = array_rand($years);
-        $mKey = array_rand($months);
-        $dKey = array_rand($days);
-
-        if ($before != null)
-        {
-            $byear = $before->format('Y');
-            while ($years[$yKey] > $byear)
-                $yKey  = array_rand($years);
-        }
-
-        if ($after != null)
-        {
-            $ayear = $after->format('Y');
-            while ($years[$yKey] < $ayear)
-            {
-                $yKey = array_rand($years);
-            }
-        }
-
-        return new \DateTime("{$years[$yKey]}-{$months[$mKey]}-{$days[$dKey]}");
-    }
-
 }

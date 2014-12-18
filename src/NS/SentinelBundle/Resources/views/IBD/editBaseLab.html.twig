@@ -1,7 +1,7 @@
 {%extends "NSSentinelBundle::layout.html.twig" %}
 
 {% block pagetitle %}
-{{'Edit %type% For Case %id%'|trans({'%id%': form.vars.value.case.caseId,'%type%': type})}}
+{{'Edit %type% For Case %id%'|trans({'%id%': form.vars.value.case.caseId,'%type%': form.vars.value.type})}}
 {% endblock %}
 
 {%block pageactions %}
@@ -10,7 +10,7 @@
 
 {% block body %}
 {{form_errors(form)}}
-<form method="POST" action="{{path('ibd'~type~'Edit',{'id':id})}}" novalidate>
+<form method="POST" action="{{path(editRoute,{'id':id})}}" novalidate>
 <div class="row">
     <div class="col-sm-12">
         <div class="tabbable">

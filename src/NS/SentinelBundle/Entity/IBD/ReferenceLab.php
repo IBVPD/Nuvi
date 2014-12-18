@@ -19,6 +19,8 @@ class ReferenceLab extends ExternalLab
      */
     private $lab;
 
+    private $type = 'RRL';
+
     public function getLab()
     {
         return $this->lab;
@@ -30,4 +32,14 @@ class ReferenceLab extends ExternalLab
         return $this;
     }
 
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    public function setType($type)
+    {
+        $this->type = $type;
+        return $this;
+    }
 }

@@ -7,46 +7,14 @@ use \Doctrine\ORM\Query;
 use \NS\SentinelBundle\Exceptions\NonExistentCase;
 use \NS\SentinelBundle\Form\Types\TripleChoice;
 use \NS\SentinelBundle\Repository\Common;
-use \NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
 
 /**
  * Description of Common
  *
  * @author gnat
  */
-class RotaVirus extends Common implements AjaxAutocompleteRepositoryInterface
+class RotaVirus extends Common
 {
-    public function getStats()
-    {
-        $results = array();
-        $queryBuilder = $this->_em
-                   ->createQueryBuilder()
-                   ->select('COUNT(m.id) theCount')
-                   ->from($this->getClassName(),'m')
-                   ->where('m.cxrDone = :cxr')
-                   ->setParameter('cxr', TripleChoice::YES);
-
-        $results['cxr'] = $this->secure($queryBuilder)->getQuery()->getSingleScalarResult();
-
-        $queryBuilder = $this->_em
-                   ->createQueryBuilder()
-                   ->select('m.csfCollected, COUNT(m.csfCollected) theCount')
-                   ->from($this->getClassName(),'m')
-                   ->groupBy('m.csfCollected');
-        
-        $res     = $this->secure($queryBuilder)->getQuery()->getResult();
-
-        foreach ($res as $row)
-        {
-            if ($row['csfCollected'])
-                $results['csfCollected']    = $row['theCount'];
-            else
-                $results['csfNotCollected'] = $row['theCount'];
-        }
-
-        return $results;
-    }
-
     public function getLatestQuery( $alias = 'm')
     {
         $queryBuilder = $this->createQueryBuilder($alias)

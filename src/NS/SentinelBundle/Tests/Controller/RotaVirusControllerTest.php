@@ -2,14 +2,14 @@
 
 namespace NS\SentinelBundle\Tests\Controller;
 
-use \Liip\FunctionalTestBundle\Test\WebTestCase;
+use \NS\SentinelBundle\Tests\BaseWebTestCase;
 
 /**
  * Description of RotaVirusControllerTest
  *
  * @author gnat
  */
-class RotaVirusControllerTest extends WebTestCase
+class RotaVirusControllerTest extends BaseWebTestCase
 {
     const ID = 'CA-ALBCHLD-14-000001';
 
@@ -91,22 +91,4 @@ class RotaVirusControllerTest extends WebTestCase
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals(0, $crawler->filter('div.blockException')->count());
     }
-
-    private function login()
-    {
-        $user = $this->getContainer()
-            ->get('doctrine.orm.entity_manager')
-            ->getRepository('NSSentinelBundle:User')
-            ->findOneByEmail(array('email' => 'ca-full@noblet.ca'));
-
-        $this->loginAs($user, 'main_app');
-        $client = $this->makeClient();
-        $client->followRedirects();
-        $client->request('GET', '/');
-
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-
-        return $client;
-    }
-
 }
