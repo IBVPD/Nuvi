@@ -23,8 +23,11 @@ use \Symfony\Component\Validator\Constraints as Assert;
 use \Symfony\Component\Validator\Constraints\DateTime;
 use \Symfony\Component\Validator\ExecutionContextInterface;
 use \JMS\Serializer\Annotation\Groups;
+use \NS\SentinelBundle\Validators as NSValidators;
+
 
 /**
+ *
  * Description of SiteLab
  * @author gnat
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\IBD\SiteLab")
@@ -35,7 +38,27 @@ use \JMS\Serializer\Annotation\Groups;
  *      @SecuredCondition(roles={"ROLE_COUNTRY","ROLE_RRL_LAB","ROLE_NL_LAB"},through={"case"},relation="country",class="NSSentinelBundle:Country"),
  *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},through="case",relation="site",class="NSSentinelBundle:Site"),
  *      })
- * @Assert\Callback(methods={"validate"})
+ * @NSValidators\AllOther( {
+ *                      @NSValidators\Other(field="csfCultDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="csfCultResult"),
+ *                      @NSValidators\Other(field="csfCultResult",value="\NS\SentinelBundle\Form\Types\CultureResult::OTHER",otherField="csfCultOther"),
+ *
+ *                      @NSValidators\Other(field="csfLatDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="csfLatResult"),
+ *                      @NSValidators\Other(field="csfLatResult",value="\NS\SentinelBundle\Form\Types\LatResult::OTHER",otherField="csfLatOther"),
+ * 
+ *                      @NSValidators\Other(field="csfPcrDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="csfPcrResult"),
+ *                      @NSValidators\Other(field="csfPcrResult",value="\NS\SentinelBundle\Form\Types\PCRResult::OTHER",otherField="csfPcrOther"),
+ *
+ *                      @NSValidators\Other(field="bloodCultDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="bloodCultResult"),
+ *                      @NSValidators\Other(field="bloodCultResult",value="\NS\SentinelBundle\Form\Types\CultureResult::OTHER",otherField="bloodCultOther"),
+ *
+ *                      @NSValidators\Other(field="otherCultDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="otherCultResult"),
+ *                      @NSValidators\Other(field="otherCultResult",value="\NS\SentinelBundle\Form\Types\CultureResult::OTHER",otherField="otherCultOther"),
+ *
+ *                      @NSValidators\Other(field="csfBinaxDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="csfBinaxResult"),
+ *                      @NSValidators\Other(field="spnSerotype",value="\NS\SentinelBundle\Form\Types\SpnSerotype::OTHER",otherField="spnSerotypeOther"),
+ *                      @NSValidators\Other(field="hiSerotype",value="\NS\SentinelBundle\Form\Types\HiSerotype::OTHER",otherField="hiSerotypeOther"),
+ *                      @NSValidators\Other(field="nmSerogroup",value="\NS\SentinelBundle\Form\Types\NmSerogroup::OTHER",otherField="nmSerogroupOther"),
+ *                      } )
  */
 class SiteLab extends BaseSiteLab
 {
@@ -943,51 +966,6 @@ class SiteLab extends BaseSiteLab
         $this->_calculateStatus();
 
         $this->updatedAt = new \DateTime();
-    }
-
-    public function validate(ExecutionContextInterface $context)
-    {
-        if ($this->csfCultDone && $this->csfCultDone->equal(TripleChoice::YES) && !$this->csfCultResult)
-            $context->addViolationAt('csfCultDone', "form.validation.ibd-sitelab-csfCult-was-done-without-result");
-
-        if ($this->csfCultDone && $this->csfCultDone->equal(TripleChoice::YES) && $this->csfCultResult && $this->csfCultResult->equal(CultureResult::OTHER) && empty($this->csfCultOther))
-            $context->addViolationAt('csfCultDone', "form.validation.ibd-sitelab-csfCult-was-done-without-result-other");
-
-        if ($this->csfBinaxDone && $this->csfBinaxDone->equal(TripleChoice::YES) && !$this->csfBinaxResult)
-            $context->addViolationAt('csfBinaxDone', "form.validation.ibd-sitelab-csfBinax-was-done-without-result");
-
-        if ($this->csfLatDone && $this->csfLatDone->equal(TripleChoice::YES) && !$this->csfLatResult)
-            $context->addViolationAt('csfLatDone', "form.validation.ibd-sitelab-csfLat-was-done-without-result");
-
-        if ($this->csfLatDone && $this->csfLatDone->equal(TripleChoice::YES) && $this->csfLatResult && $this->csfLatResult->equal(LatResult::OTHER) && empty($this->csfLatOther))
-            $context->addViolationAt('csfLatDone', "form.validation.ibd-sitelab-csfLat-was-done-without-result-other");
-
-        if ($this->csfPcrDone && $this->csfPcrDone->equal(TripleChoice::YES) && !$this->csfPcrResult)
-            $context->addViolationAt('csfPcrDone', "form.validation.ibd-sitelab-csfPcr-was-done-without-result");
-
-        if ($this->csfPcrDone && $this->csfPcrDone->equal(TripleChoice::YES) && $this->csfPcrResult && $this->csfPcrResult->equal(PCRResult::OTHER) && empty($this->csfPcrOther))
-            $context->addViolationAt('csfPcrDone', "form.validation.ibd-sitelab-csfPcr-was-done-without-result");
-
-        if ($this->spnSerotype && $this->spnSerotype->equal(SpnSerotype::OTHER) && (!$this->spnSerotypeOther || empty($this->spnSerotypeOther)))
-            $context->addViolationAt('spnSerotype', "form.validation.ibd-sitelab-spnSerotype-other-without-data");
-
-        if ($this->hiSerotype && $this->hiSerotype->equal(HiSerotype::OTHER) && (!$this->hiSerotypeOther || empty($this->hiSerotypeOther)))
-            $context->addViolationAt('hiSerotype', "form.validation.ibd-sitelab-hiSerotype-other-without-data");
-
-        if ($this->nmSerogroup && $this->nmSerogroup->equal(NmSerogroup::OTHER) && (!$this->nmSerogroupOther || empty($this->nmSerogroupOther)))
-            $context->addViolationAt('nmSerogroup', "form.validation.ibd-sitelab-nmSerogroup-other-without-data");
-
-        if ($this->bloodCultDone && $this->bloodCultDone->equal(TripleChoice::YES) && !$this->bloodCultResult)
-            $context->addViolationAt('csfCultDone', "form.validation.ibd-sitelab-bloodCult-was-done-without-result");
-
-        if ($this->bloodCultDone && $this->bloodCultDone->equal(TripleChoice::YES) && $this->bloodCultResult && $this->bloodCultResult->equal(CultureResult::OTHER) && empty($this->bloodCultOther))
-            $context->addViolationAt('bloodCultDone', "form.validation.ibd-sitelab-bloodCult-was-done-without-result");
-
-        if ($this->otherCultDone && $this->otherCultDone->equal(TripleChoice::YES) && !$this->otherCultResult)
-            $context->addViolationAt('csfCultDone', "form.validation.ibd-sitelab-otherCult-was-done-without-result");
-
-        if ($this->otherCultDone && $this->otherCultDone->equal(TripleChoice::YES) && $this->otherCultResult && $this->otherCultResult->equal(CultureResult::OTHER) && empty($this->otherCultOther))
-            $context->addViolationAt('otherCultDone', "form.validation.ibd-sitelab-otherCult-was-done-without-result");
     }
 
     private function _calculateStatus()
