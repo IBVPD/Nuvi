@@ -25,7 +25,6 @@ use \Symfony\Component\Validator\ExecutionContextInterface;
 use \JMS\Serializer\Annotation\Groups;
 use \NS\SentinelBundle\Validators as NSValidators;
 
-
 /**
  *
  * Description of SiteLab
@@ -39,30 +38,30 @@ use \NS\SentinelBundle\Validators as NSValidators;
  *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},through="case",relation="site",class="NSSentinelBundle:Site"),
  *      })
  * @NSValidators\AllOther( {
- *                      @NSValidators\Other(field="csfCultDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="csfCultResult"),
- *                      @NSValidators\Other(field="csfCultResult",value="\NS\SentinelBundle\Form\Types\CultureResult::OTHER",otherField="csfCultOther"),
+ *                      @NSValidators\Other(field="csfCultDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="csfCultResult",message="form.validation.ibd-sitelab-csfCult-was-done-without-result"),
+ *                      @NSValidators\Other(field="csfCultResult",value="\NS\SentinelBundle\Form\Types\CultureResult::OTHER",otherField="csfCultOther",message="form.validation.ibd-sitelab-csfCult-was-done-without-result-other"),
  *
- *                      @NSValidators\Other(field="csfLatDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="csfLatResult"),
- *                      @NSValidators\Other(field="csfLatResult",value="\NS\SentinelBundle\Form\Types\LatResult::OTHER",otherField="csfLatOther"),
+ *                      @NSValidators\Other(field="csfLatDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="csfLatResult",message="form.validation.ibd-sitelab-csfLat-was-done-without-result"),
+ *                      @NSValidators\Other(field="csfLatResult",value="\NS\SentinelBundle\Form\Types\LatResult::OTHER",otherField="csfLatOther",message="form.validation.ibd-sitelab-csfLat-was-done-without-result-other"),
  * 
- *                      @NSValidators\Other(field="csfPcrDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="csfPcrResult"),
- *                      @NSValidators\Other(field="csfPcrResult",value="\NS\SentinelBundle\Form\Types\PCRResult::OTHER",otherField="csfPcrOther"),
+ *                      @NSValidators\Other(field="csfPcrDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="csfPcrResult",message="form.validation.ibd-sitelab-csfPcr-was-done-without-result"),
+ *                      @NSValidators\Other(field="csfPcrResult",value="\NS\SentinelBundle\Form\Types\PCRResult::OTHER",otherField="csfPcrOther",message="form.validation.ibd-sitelab-csfPcr-was-done-without-result-other"),
  *
- *                      @NSValidators\Other(field="bloodCultDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="bloodCultResult"),
- *                      @NSValidators\Other(field="bloodCultResult",value="\NS\SentinelBundle\Form\Types\CultureResult::OTHER",otherField="bloodCultOther"),
+ *                      @NSValidators\Other(field="bloodCultDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="bloodCultResult",message="form.validation.ibd-sitelab-bloodCult-was-done-without-result"),
+ *                      @NSValidators\Other(field="bloodCultResult",value="\NS\SentinelBundle\Form\Types\CultureResult::OTHER",otherField="bloodCultOther",message="form.validation.ibd-sitelab-bloodCult-was-done-without-result-other"),
  *
- *                      @NSValidators\Other(field="otherCultDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="otherCultResult"),
- *                      @NSValidators\Other(field="otherCultResult",value="\NS\SentinelBundle\Form\Types\CultureResult::OTHER",otherField="otherCultOther"),
+ *                      @NSValidators\Other(field="otherCultDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="otherCultResult",message="form.validation.ibd-sitelab-otherCult-was-done-without-result"),
+ *                      @NSValidators\Other(field="otherCultResult",value="\NS\SentinelBundle\Form\Types\CultureResult::OTHER",otherField="otherCultOther",message="form.validation.ibd-sitelab-otherCult-was-done-without-result-other"),
  *
- *                      @NSValidators\Other(field="csfBinaxDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="csfBinaxResult"),
- *                      @NSValidators\Other(field="spnSerotype",value="\NS\SentinelBundle\Form\Types\SpnSerotype::OTHER",otherField="spnSerotypeOther"),
- *                      @NSValidators\Other(field="hiSerotype",value="\NS\SentinelBundle\Form\Types\HiSerotype::OTHER",otherField="hiSerotypeOther"),
- *                      @NSValidators\Other(field="nmSerogroup",value="\NS\SentinelBundle\Form\Types\NmSerogroup::OTHER",otherField="nmSerogroupOther"),
+ *                      @NSValidators\Other(field="csfBinaxDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="csfBinaxResult",message="form.validation.ibd-sitelab-csfBinax-was-done-without-result"),
+ *
+ *                      @NSValidators\Other(field="spnSerotype",value="\NS\SentinelBundle\Form\Types\SpnSerotype::OTHER",otherField="spnSerotypeOther",message="form.validation.ibd-sitelab-spnSerotype-other-without-data"),
+ *                      @NSValidators\Other(field="hiSerotype",value="\NS\SentinelBundle\Form\Types\HiSerotype::OTHER",otherField="hiSerotypeOther",message="form.validation.ibd-sitelab-hiSerotype-other-without-data"),
+ *                      @NSValidators\Other(field="nmSerogroup",value="\NS\SentinelBundle\Form\Types\NmSerogroup::OTHER",otherField="nmSerogroupOther",message="form.validation.ibd-sitelab-nmSerotype-other-without-data"),
  *                      } )
  */
 class SiteLab extends BaseSiteLab
 {
-
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -75,6 +74,7 @@ class SiteLab extends BaseSiteLab
      * @ORM\JoinColumn(nullable=false,unique=true)
      */
     protected $case;
+
     //Case-based Laboratory Data
     /**
      * @var DateTime $csfDateTime
@@ -1018,5 +1018,4 @@ class SiteLab extends BaseSiteLab
             'nmSerogroup',
         );
     }
-
 }
