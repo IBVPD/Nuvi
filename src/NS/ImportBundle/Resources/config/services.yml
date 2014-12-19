@@ -3,12 +3,9 @@ parameters:
   ns_import.map.classes: { }
 
 services:
-#    ns_import.example:
-#        class: %ns_import.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
     ns_import.processor:
         class: NS\ImportBundle\Services\ImportProcessor
-        arguments: [ @doctrine.orm.entity_manager, @service_container ]
+        arguments: [ @service_container ]
 
     ns_import.form.class:
         class: NS\ImportBundle\Form\ClassType

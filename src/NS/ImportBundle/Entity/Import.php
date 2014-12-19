@@ -33,4 +33,19 @@ class Import
         $this->file = $file;
         return $this;
     }
+
+    public function getConverters()
+    {
+        return $this->map->getConverters();
+    }
+
+    public function getMappings()
+    {
+        return $this->map->getMappings();
+    }
+
+    public function getIgnoredMapper()
+    {
+        return $this->map->getIgnoredMapper();
+    }
 }
