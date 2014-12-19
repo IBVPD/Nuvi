@@ -44,6 +44,6 @@ class NotBlank implements FilterInterface
      */
     public function getPriority()
     {
-        return 2;
+        return 1;
     }
 }

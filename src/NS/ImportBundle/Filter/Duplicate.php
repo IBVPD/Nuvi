@@ -81,4 +81,12 @@ class Duplicate implements FilterInterface
         $this->fields = $fields;
         return $this;
     }
+
+    /**
+     * @return int
+     */
+    public function getPriority()
+    {
+        return 2;
+    }
 }
