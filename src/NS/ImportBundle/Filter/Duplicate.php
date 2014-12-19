@@ -13,7 +13,6 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Duplicate implements FilterInterface
 {
-
     private $items;
     private $fields;
     private $duplicates;
@@ -39,6 +38,13 @@ class Duplicate implements FilterInterface
         return substr($fieldKey, 0, -1);
     }
 
+    /**
+     * Filter input
+     *
+     * @param array $item Input
+     *
+     * @return boolean If false is returned, the workflow will skip the input
+     */
     public function filter(array $item)
     {
         $field = $this->getFieldKey($item);
@@ -46,6 +52,7 @@ class Duplicate implements FilterInterface
         if (!$this->items->contains($field))
         {
             $this->items->add($field);
+
             return true;
         }
 
@@ -64,4 +71,14 @@ class Duplicate implements FilterInterface
         return 1;
     }
 
+    public function getFields()
+    {
+        return $this->fields;
+    }
+
+    public function setFields($fields)
+    {
+        $this->fields = $fields;
+        return $this;
+    }
 }

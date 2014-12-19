@@ -35,5 +35,4 @@ class DuplicateTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey(0, $duplicateArray);
         $this->assertEquals('MY-CODE-12223', $duplicateArray[0], "The duplicate array has the proper duplicate key");
     }
-
 }

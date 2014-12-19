@@ -34,6 +34,8 @@ class Import
         return $this;
     }
 
+    // Pass through functions
+
     public function getConverters()
     {
         return $this->map->getConverters();
@@ -47,5 +49,13 @@ class Import
     public function getIgnoredMapper()
     {
         return $this->map->getIgnoredMapper();
+    }
+
+    /**
+     * @return string
+     */
+    public function getClass()
+    {
+        return $this->map->getClass();
     }
 }

@@ -7,7 +7,6 @@ use \Ddeboer\DataImport\Workflow;
 use \Doctrine\Common\Persistence\ObjectManager;
 use \Doctrine\DBAL\DBALException;
 use \NS\ImportBundle\Entity\Import;
-use \NS\ImportBundle\Entity\Map;
 use \NS\ImportBundle\Filter\Duplicate;
 use \NS\ImportBundle\Filter\NotBlank;
 use \NS\ImportBundle\Writer\DoctrineWriter;
@@ -23,17 +22,25 @@ class ImportProcessor
 {
     private $container;
 
-    private $uniqueFields;
+    private $duplicate;
+
+    private $notBlankFields;
+
+    private $memoryLimit      = '512M';
+
+    private $maxExecutionTime = 90;
 
     /**
      * @param ObjectManager $entityMgr
      * @param ContainerInterface $container
+     * @param Duplicate $duplicateFilter
+     * @param array|string $notBlankFields
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerInterface $container, Duplicate $duplicateFilter, $notBlankFields)
     {
-        $this->container    = $container;
-        $this->uniqueFields = array('getcode' => 'site', 'caseId');
-        $this->duplicate    = new Duplicate($this->uniqueFields);
+        $this->container      = $container;
+        $this->duplicate      = $duplicateFilter;
+        $this->notBlankFields = $notBlankFields;
     }
 
     /**
@@ -42,8 +49,8 @@ class ImportProcessor
      */
     public function process(Import $import)
     {
-        ini_set('max_execution_time', 90);
-        ini_set('memory_limit', '512M');
+        ini_set('max_execution_time', $this->maxExecutionTime);
+        ini_set('memory_limit', $this->memoryLimit);
 
         try
         {
@@ -76,7 +83,7 @@ class ImportProcessor
         // Create a writer: you need Doctrine’s EntityManager.
         if ($doctrineWriter == null)
         {
-            $doctrineWriter = new DoctrineWriter($this->container->get('doctrine.orm.entity_manager'), $class, $this->uniqueFields);
+            $doctrineWriter = new DoctrineWriter($this->container->get('doctrine.orm.entity_manager'), $class, $this->duplicate->getFields());
             $doctrineWriter->setTruncate(false);
         }
 
@@ -93,7 +100,7 @@ class ImportProcessor
         $csvReader = new CsvReader($import->getFile()->openFile(), ',');
 
         // Tell the reader that the first row in the CSV file contains column headers
-        $csvReader->setHeaderRowNumber(0); 
+        $csvReader->setHeaderRowNumber(0);
 
         $fields  = $csvReader->getFields();
         $columns = $import->getMap()->getColumns();
@@ -122,10 +129,14 @@ class ImportProcessor
 
         $workflow->addItemConverter($import->getMappings());
         $workflow->addItemConverter($import->getIgnoredMapper());
-        $workflow->addFilterAfterConversion(new NotBlank('caseId'));
+        $workflow->addFilterAfterConversion(new NotBlank($this->notBlankFields));
         $workflow->addFilterAfterConversion($this->duplicate);
     }
 
+    /**
+     * @param Workflow $workflow
+     * @return Result
+     */
     public function workflowProcess(Workflow $workflow)
     {
         try
@@ -142,5 +153,69 @@ class ImportProcessor
         $result->setResults($this->getWriter()->getResults());
 
         return $result;
+    }
+
+    /**
+     * @return array
+     */
+    public function getNotBlankFields()
+    {
+        return $this->notBlankFields;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMemoryLimit()
+    {
+        return $this->memoryLimit;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getMaxExecutionTime()
+    {
+        return $this->maxExecutionTime;
+    }
+
+    /**
+     * @param string|array $notBlankFields
+     * @return \NS\ImportBundle\Services\ImportProcessor
+     */
+    public function setNotBlankFields($notBlankFields)
+    {
+        $this->notBlankFields = $notBlankFields;
+        return $this;
+    }
+
+    /**
+     * @param string $memoryLimit
+     * @return \NS\ImportBundle\Services\ImportProcessor
+     */
+    public function setMemoryLimit($memoryLimit)
+    {
+        $this->memoryLimit = $memoryLimit;
+        return $this;
+    }
+
+    /**
+     * @param integer $maxExecutionTime
+     * @return \NS\ImportBundle\Services\ImportProcessor
+     */
+    public function setMaxExecutionTime($maxExecutionTime)
+    {
+        $this->maxExecutionTime = $maxExecutionTime;
+        return $this;
+    }
+
+    public function getDuplicate()
+    {
+        return $this->duplicate;
+    }
+
+    public function getDuplicateHash()
+    {
+        return spl_object_hash($this->duplicate);
     }
 }

@@ -2,10 +2,15 @@
 
 namespace NS\ImportBundle\Tests\Services;
 
+use \Ddeboer\DataImport\Writer\ArrayWriter;
+use \InvalidArgumentException;
 use \Liip\FunctionalTestBundle\Test\WebTestCase;
 use \NS\ImportBundle\Entity\Column;
 use \NS\ImportBundle\Entity\Import;
 use \NS\ImportBundle\Entity\Map;
+use \NS\ImportBundle\Filter\Duplicate;
+use \NS\ImportBundle\Services\ImportProcessor;
+use \NS\ImportBundle\Tests\Workflow;
 use \Symfony\Component\HttpFoundation\File\File;
 
 /**
@@ -104,7 +109,7 @@ class ImportProcessorTest extends WebTestCase
             ),
         );
 
-        $import  = new Import();
+        $import = new Import();
         $import->setFile($file);
         $import->setMap($this->getIbdMap($columns));
 
@@ -154,7 +159,6 @@ class ImportProcessorTest extends WebTestCase
         $processor->getWriter();
     }
 
-
     public function testGetDoctrineWriter()
     {
         $em = $this->getMockBuilder('\Doctrine\ORM\EntityManager')
@@ -170,12 +174,239 @@ class ImportProcessorTest extends WebTestCase
             ->with('doctrine.orm.entity_manager')
             ->will($this->returnValue($em));
 
-        $processor = new \NS\ImportBundle\Services\ImportProcessor($mockContainer);
-        $writer    = $processor->getWriter('NS\SentinelBundle\Entity\IBD');
+        $uniqueFields = array('getcode' => 'site', 'caseId');
+        $processor    = new ImportProcessor($mockContainer, new Duplicate($uniqueFields), 'caseId');
+        $writer       = $processor->getWriter('NS\SentinelBundle\Entity\IBD');
         $this->assertInstanceOf('\Ddeboer\DataImport\Writer\DoctrineWriter', $writer);
-        $writer2   = $processor->getWriter('NS\SentinelBundle\Entity\IBD');
+        $writer2      = $processor->getWriter('NS\SentinelBundle\Entity\IBD');
 
         $this->assertEquals($writer, $writer2);
+    }
+
+    public function testAddMappers()
+    {
+        $user = $this->getContainer()
+            ->get('doctrine.orm.entity_manager')
+            ->getRepository('NSSentinelBundle:User')
+            ->findOneByEmail(array('email' => 'ca-full@noblet.ca'));
+
+        $this->loginAs($user, 'main_app');
+
+        $file = new File(__DIR__ . '/../Fixtures/IBD.csv');
+
+        $import = new Import();
+        $import->setFile($file);
+        $import->setMap($this->getIbdMap($this->getIbdColumns()));
+
+        $processor = $this->getContainer()->get('ns_import.processor');
+        $reader    = $processor->getReader($import);
+        $this->assertInstanceOf('\Ddeboer\DataImport\Reader\ReaderInterface', $reader);
+
+        $outputData = array();
+        $workflow   = new Workflow($reader);
+        $workflow->setSkipItemOnFailure(true);
+        $workflow->addWriter(new ArrayWriter($outputData));
+
+        $processor->addFilters($workflow, $import);
+        $duplicate = $processor->getDuplicate();
+
+        $this->assertCount(2, $workflow->getAfterConversionFilters());
+
+        foreach ($workflow->getAfterConversionFilters() as $filter)
+        {
+            if ($filter instanceof Duplicate)
+            {
+                $this->assertEquals($duplicate, $filter);
+                $this->assertCount(count($duplicate->toArray()), $filter->toArray());
+            }
+        }
+        $this->assertCount(2, $workflow->getValueConverters());
+        $this->assertCount(2, $workflow->getItemConverters());
+    }
+
+    public function testDuplicateFilterIsCalled()
+    {
+        $file    = new File(__DIR__ . '/../Fixtures/IBD-DuplicateRows.csv');
+        $columns = array(
+            array(
+                'name'      => 'Col1',
+                'converter' => null,
+                'mapper'    => 'col1',
+                'ignored'   => true,
+            ),
+            array(
+                'name'      => 'Col2',
+                'converter' => '',
+                'mapper'    => 'col2',
+                'ignored'   => false,
+            ),
+            array(
+                'name'      => 'Col3',
+                'converter' => null,
+                'mapper'    => null,
+                'ignored'   => false,
+            ),
+            array(
+                'name'      => 'Col4',
+                'converter' => null,
+                'mapper'    => null,
+                'ignored'   => true,
+            ),
+        );
+
+        $import = new Import();
+        $import->setFile($file);
+        $import->setMap($this->getIbdMap($columns));
+
+        $uniqueFields  = array('col1', 'col2');
+        $mockDuplicate = $this->getMockBuilder('NS\ImportBundle\Filter\Duplicate')
+            ->setMethods(array('filter', 'getFieldKey'))
+            ->getMock(array($uniqueFields));
+
+        $mockDuplicate
+            ->expects($this->at(0))
+            ->method('filter')
+            ->with(array('col1' => 1, 'col2' => 2, 'Col3' => 3))
+            ->willReturn(true);
+
+        $mockDuplicate
+            ->expects($this->at(1))
+            ->method('filter')
+            ->with(array('col1' => 3, 'col2' => 3, 'Col3' => 4))
+            ->willReturn(true);
+
+        $mockDuplicate
+            ->expects($this->at(2))
+            ->method('filter')
+            ->with(array('col1' => 1, 'col2' => 2, 'Col3' => 5))
+            ->willReturn(false);
+
+        $mockDuplicate
+            ->expects($this->at(3))
+            ->method('filter')
+            ->with(array('col1' => 4, 'col2' => 5, 'Col3' => 6))
+            ->willReturn(true);
+
+        $processor = new ImportProcessor($this->getContainer(), $mockDuplicate, 'col1');
+        $reader    = $processor->getReader($import);
+
+        $this->assertInstanceOf('\Ddeboer\DataImport\Reader\ReaderInterface', $reader);
+        $this->assertCount(4, $reader);
+
+        $outputData = array();
+        // Create the workflow from the reader
+        $workflow   = new Workflow($reader);
+        $workflow->setSkipItemOnFailure(true);
+        $workflow->addWriter(new ArrayWriter($outputData));
+
+        $processor->addFilters($workflow, $import);
+
+        $workflow->process();
+        $this->assertCount(3, $outputData);
+    }
+
+    public function testDuplicates()
+    {
+        $file    = new File(__DIR__ . '/../Fixtures/IBD-DuplicateRows.csv');
+        $columns = array(
+            array(
+                'name'      => 'Col1',
+                'converter' => null,
+                'mapper'    => null,
+                'ignored'   => false,
+            ),
+            array(
+                'name'      => 'Col2',
+                'converter' => null,
+                'mapper'    => 'col2',
+                'ignored'   => false,
+            ),
+            array(
+                'name'      => 'Col3',
+                'converter' => null,
+                'mapper'    => null,
+                'ignored'   => false,
+            ),
+            array(
+                'name'      => 'Col4',
+                'converter' => null,
+                'mapper'    => null,
+                'ignored'   => true,
+            ),
+        );
+
+        $import = new Import();
+        $import->setFile($file);
+        $import->setMap($this->getIbdMap($columns));
+
+        $uniqueFields = array('Col1', 'col2');
+        $duplicate    = new Duplicate($uniqueFields);
+
+        $processor = new ImportProcessor($this->getContainer(), $duplicate, 'Col1');
+        $reader    = $processor->getReader($import);
+
+        $this->assertInstanceOf('\Ddeboer\DataImport\Reader\ReaderInterface', $reader);
+        $this->assertCount(4, $reader);
+
+        $outputData = array();
+        $workflow   = new Workflow($reader);
+        $workflow->setSkipItemOnFailure(true);
+        $workflow->addWriter(new ArrayWriter($outputData));
+
+        $processor->addFilters($workflow, $import);
+
+        $workflow->process();
+
+        $this->assertCount(3, $outputData);
+        $this->assertCount(1, $duplicate->toArray());
+    }
+
+    public function testBadDateFormat()
+    {
+        $file    = new File(__DIR__ . '/../Fixtures/IBD-BadDate.csv');
+        $columns = array(
+            array(
+                'name'      => 'date',
+                'converter' => 'ns_import.converter.date.who',
+                'mapper'    => null,
+                'ignored'   => false,
+            ),
+            array(
+                'name'      => 'ignored',
+                'converter' => null,
+                'mapper'    => null,
+                'ignored'   => true,
+            ),
+        );
+
+        $import = new Import();
+        $import->setFile($file);
+        $import->setMap($this->getIbdMap($columns));
+
+        $duplicate = new Duplicate(array());
+        $processor = new ImportProcessor($this->getContainer(), $duplicate, 'date');
+        $reader    = $processor->getReader($import);
+
+        $this->assertInstanceOf('\Ddeboer\DataImport\Reader\ReaderInterface', $reader);
+        $this->assertCount(2, $reader);
+
+        $outputData = array();
+        $workflow   = new Workflow($reader);
+        $workflow->setSkipItemOnFailure(true);
+        $workflow->addWriter(new ArrayWriter($outputData));
+
+        $processor->addFilters($workflow, $import);
+
+        $result = $workflow->process();
+
+        $this->assertCount(0, $outputData);
+        $this->assertCount(0, $duplicate->toArray());
+        $this->assertCount(2, $result->getExceptions());
+    }
+
+    public function testNotBlank()
+    {
+//        $this->assertTrue(false);
     }
 
     public function getIbdMap(array $columns)

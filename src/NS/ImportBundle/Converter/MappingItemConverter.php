@@ -11,7 +11,6 @@ use \Ddeboer\DataImport\ItemConverter\MappingItemConverter as BaseItemConverter;
  */
 class MappingItemConverter extends BaseItemConverter
 {
-
     /**
      * Applies a mapping to an item
      *
@@ -46,5 +45,10 @@ class MappingItemConverter extends BaseItemConverter
         }
         else
             return parent::applyMapping($item, $from, $to);
+    }
+
+    public function getMappings()
+    {
+        return $this->mappings;
     }
 }

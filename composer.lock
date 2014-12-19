@@ -138,12 +138,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/gnat42/data-import.git",
-                "reference": "918343d0824f22a05578887fba84bf36b454c83e"
+                "reference": "164f156b858028c254ad0f770480b07b60053f1d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gnat42/data-import/zipball/918343d0824f22a05578887fba84bf36b454c83e",
-                "reference": "918343d0824f22a05578887fba84bf36b454c83e",
+                "url": "https://api.github.com/repos/gnat42/data-import/zipball/164f156b858028c254ad0f770480b07b60053f1d",
+                "reference": "164f156b858028c254ad0f770480b07b60053f1d",
                 "shasum": ""
             },
             "require": {
@@ -202,7 +202,7 @@
                 "issues": "https://github.com/ddeboer/data-import/issues",
                 "source": "https://github.com/ddeboer/data-import"
             },
-            "time": "2014-12-15 21:50:15"
+            "time": "2014-12-19 22:41:44"
         },
         {
             "name": "ddeboer/data-import-bundle",
@@ -250,16 +250,16 @@
         },
         {
             "name": "doctrine/annotations",
-            "version": "v1.2.1",
+            "version": "v1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/annotations.git",
-                "reference": "6a6bec0670bb6e71a263b08bc1b98ea242928633"
+                "reference": "d63108433190110c0ceb8be6460dda6f78348950"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/annotations/zipball/6a6bec0670bb6e71a263b08bc1b98ea242928633",
-                "reference": "6a6bec0670bb6e71a263b08bc1b98ea242928633",
+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/d63108433190110c0ceb8be6460dda6f78348950",
+                "reference": "d63108433190110c0ceb8be6460dda6f78348950",
                 "shasum": ""
             },
             "require": {
@@ -314,7 +314,7 @@
                 "docblock",
                 "parser"
             ],
-            "time": "2014-09-25 16:45:30"
+            "time": "2014-12-18 18:30:08"
         },
         {
             "name": "doctrine/cache",
@@ -3476,12 +3476,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataCoreBundle.git",
-                "reference": "c4b5743bb66b28b97a9f87c18cc81930bb37a344"
+                "reference": "4e905cc1cee2cc50fec25cd0282f2e61b5158082"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/c4b5743bb66b28b97a9f87c18cc81930bb37a344",
-                "reference": "c4b5743bb66b28b97a9f87c18cc81930bb37a344",
+                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/4e905cc1cee2cc50fec25cd0282f2e61b5158082",
+                "reference": "4e905cc1cee2cc50fec25cd0282f2e61b5158082",
                 "shasum": ""
             },
             "require": {
@@ -3533,7 +3533,7 @@
             "keywords": [
                 "sonata"
             ],
-            "time": "2014-11-03 10:41:41"
+            "time": "2014-12-17 13:33:58"
         },
         {
             "name": "sonata-project/doctrine-orm-admin-bundle",
