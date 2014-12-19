@@ -10,7 +10,7 @@ use \Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
  *
  * @author gnat
  */
-class BaseCreateCaseCommand extends ContainerAwareCommand
+abstract class BaseCreateCaseCommand extends ContainerAwareCommand
 {
     public function getCaseId(Site $site)
     {
