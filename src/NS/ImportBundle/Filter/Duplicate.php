@@ -66,11 +66,6 @@ class Duplicate implements FilterInterface
         return $this->duplicates->toArray();
     }
 
-    public function getPriority()
-    {
-        return 1;
-    }
-
     public function getFields()
     {
         return $this->fields;
