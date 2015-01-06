@@ -12,6 +12,14 @@
                 <div class="widget-main">
                     <form action="{{path('exportIndex')}}" method="POST" class="reportFilters">
                         {{form_errors(ibdForm)}}
+                        <div class="row">
+                            <div class="col col-sm-6">
+                                {{form_row(ibdForm.admDate)}}
+                            </div>
+                            <div class="col col-sm-6">
+                                {{form_row(ibdForm.createdAt)}}
+                            </div>
+                        </div>
                         {{form_rest(ibdForm)}}
                     </form>
                 </div>
@@ -27,6 +35,14 @@
                 <div class="widget-main">
                     <form action="{{path('exportIndex')}}" method="POST" class="reportFilters">
                         {{form_errors(rotaForm)}}
+                        <div class="row">
+                            <div class="col col-sm-6">
+                                {{form_row(rotaForm.admDate)}}
+                            </div>
+                            <div class="col col-sm-6">
+                                {{form_row(rotaForm.createdAt)}}
+                            </div>
+                        </div>
                         {{form_rest(rotaForm)}}
                     </form>
                 </div>

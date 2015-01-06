@@ -36,9 +36,21 @@ class BaseReportFilterType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('admDate',  'filter_date_range',array('label'=>'report-filter-form.admitted-between'))
-                ->add('createdAt','filter_date_range',array('label'=>'report-filter-form.created-between'))
-                ;
+        $builder->add('admDate', 'ns_filter_date_range', array('label' => 'report-filter-form.admitted-between',))
+            ->add('createdAt', 'ns_filter_date_range', array('label' => 'report-filter-form.created-between'))
+            ->add('includeLab', 'choice', array('label'   => 'report-filter-form.include-site-lab',
+                'choices' => array('Yes', 'No'),
+                'empty_value' => '',
+                'mapped'  => false))
+            ->add('includeRRL', 'choice', array('label'   => 'report-filter-form.include-reference-lab',
+                'choices'     => array('Yes', 'No'),
+                'empty_value' => '',
+                'mapped'  => false))
+            ->add('includeNL', 'choice', array('label'   => 'report-filter-form.include-national-lab',
+                'choices'     => array('Yes', 'No'),
+                'empty_value' => '',
+                'mapped'  => false))
+        ;
 
         $securityContext = $this->securityContext;
         $converter = $this->converter;
