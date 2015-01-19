@@ -31,7 +31,7 @@ use \Symfony\Component\Validator\ExecutionContextInterface;
 /**
  * Description of IBD
  * @author gnat
- * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\IBD")
+ * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\IBDRepository")
  * @ORM\Table(name="ibd_cases",uniqueConstraints={@ORM\UniqueConstraint(name="ibd_site_case_id_idx",columns={"site_id","caseId"})})
  * @ORM\HasLifecycleCallbacks
  * @Gedmo\Loggable

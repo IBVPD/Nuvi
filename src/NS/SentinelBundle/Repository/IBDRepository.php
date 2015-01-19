@@ -19,7 +19,7 @@ use \NS\SentinelBundle\Repository\Common;
  *
  * @author gnat
  */
-class IBD extends Common
+class IBDRepository extends Common
 {
     public function numberAndPercentEnrolledByAdmissionDiagnosis($alias = 'c', $ageInMonths = 59)
     {
