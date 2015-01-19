@@ -37,7 +37,7 @@
 
         "ns/util-bundle": "dev-master",
         "ns/security-bundle": "dev-ACLConverter",
-        "ns/ace-bundle": "dev-master",
+        "ns/ace-bundle": "1.2.x-dev",
         "ns/flash-bundle": "dev-master",
 
         "jms/translation-bundle": "1.1.x-dev",
