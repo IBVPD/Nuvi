@@ -37,7 +37,7 @@ class IBDController extends CaseController
      * @return array
      *
      * @throws NotFoundHttpException when case not exist
-     * @throws NonExistentCase when case doees not exist
+     * @throws NonExistentCase when case does not exist
      */
     public function getIbdCaseAction($objId)
     {
