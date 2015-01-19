@@ -13,7 +13,9 @@ use \NS\UtilBundle\Form\Types\ArrayChoice;
  */
 class IBDControllerTest extends WebTestCase
 {
-    public function testGetCase()
+    const ID = 'CA-ALBCHLD-15-000001';
+
+    public function setUp()
     {
         // add all your doctrine fixtures classes
         $classes = array(
@@ -26,7 +28,10 @@ class IBDControllerTest extends WebTestCase
         );
 
         $this->loadFixtures($classes);
+    }
 
+    public function testGetCase()
+    {
         $route  = $this->getRoute();
         $client = $this->getClient();
         $client->request('GET', $route);
@@ -38,15 +43,13 @@ class IBDControllerTest extends WebTestCase
         $decoded = json_decode($content, true);
 
         $this->assertArrayHasKey('Id', $decoded);
-        $this->assertEquals('CA-ALBCHLD-14-000001', $decoded['Id']);
+        $this->assertEquals(self::ID, $decoded['Id']);
     }
-//nsApiIbdGetLab
 
     public function testPatchCase()
     {
         $route  = $this->getRoute('nsApiIbdPatchCase');
         $client = $this->getClient();
-        $client->followRedirects();
         $client->request('PATCH', $route, array(), array(), array(), '{"ibd":{"lastName":"Fabien","gender":"1"}}');
 
         $response = $client->getResponse();
@@ -82,7 +85,6 @@ class IBDControllerTest extends WebTestCase
     {
         $route  = $this->getUrl('nsApiIbdPatchLab', array('objId' => self::ID));
         $client = $this->getClient();
-        $client->followRedirects();
         $client->request('PATCH', $route, array(), array(), array(), '{"ibd_lab":{"csfId":"ANewCaseId","csfGramDone":0,"csfCultDone":0}}');
 
         $response = $client->getResponse();
@@ -110,8 +112,6 @@ class IBDControllerTest extends WebTestCase
         $response = $client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
         $decoded  = json_decode($response->getContent(), true);
-
-//        $this->assertArrayHasKey('Status', $decoded, print_r($decoded, true));
     }
 
     public function testPatchRRLCase()
@@ -202,7 +202,6 @@ class IBDControllerTest extends WebTestCase
         $this->assertArrayHasKey('LabId', $decoded);
         $this->assertEquals("ANewCaseId", $decoded['LabId']);
         $this->assertArrayHasKey('SampleType', $decoded);
-//        $this->assertEquals("2", $decoded['SampleType']);
     }
 
     public function testPutCase()

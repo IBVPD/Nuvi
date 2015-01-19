@@ -11,7 +11,7 @@ use \NS\SentinelBundle\Tests\BaseWebTestCase;
  */
 class IBDControllerTest extends BaseWebTestCase
 {
-    const ID = 'CA-ALBCHLD-14-000001';
+    const ID = 'CA-ALBCHLD-15-000001';
 
     public function testIbdEdit()
     {

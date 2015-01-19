@@ -12,9 +12,9 @@ use NS\UtilBundle\Form\Types\ArrayChoice;
  */
 class RotaVirusControllerTest extends WebTestCase
 {
-    const ID = 'CA-ALBCHLD-14-000001';
+    const ID = 'CA-ALBCHLD-15-000001';
 
-    public function testGetCase()
+    public function setUp()
     {
         // add all your doctrine fixtures classes
         $classes = array(
@@ -27,7 +27,10 @@ class RotaVirusControllerTest extends WebTestCase
         );
 
         $this->loadFixtures($classes);
+    }
 
+    public function testGetCase()
+    {
         $route  = $this->getRoute();
         $client = $this->getClient();
         $client->request('GET', $route);
@@ -39,7 +42,7 @@ class RotaVirusControllerTest extends WebTestCase
         $decoded = json_decode($content, true);
 
         $this->assertArrayHasKey('Id', $decoded);
-        $this->assertEquals('CA-ALBCHLD-14-000001', $decoded['Id']);
+        $this->assertEquals(self::ID, $decoded['Id']);
     }
 
     public function testPatchCase()
