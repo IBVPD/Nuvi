@@ -134,6 +134,14 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
 
     private $ttl = 0;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->acls = new ArrayCollection();
+    }
+
     public function __toString()
     {
         return $this->name;
@@ -267,6 +275,9 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
         return $this->plainPassword;
     }
 
+    /**
+     * Resets the salt
+     */
     public function resetSalt()
     {
         $this->salt = User::_resetSalt(array($this->name,$this->email));
@@ -277,6 +288,9 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
         return sha1(implode("",$fields).microtime());
     }
 
+    /**
+     *
+     */
     public function eraseCredentials()
     {
 
@@ -373,37 +387,44 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
         return array_unique($roles);
     }
 
+    /**
+     * @return string
+     */
     public function getUsername()
     {
         return $this->email;
     }
 
+    /**
+     * @return boolean
+     */
     public function isAccountNonExpired() 
     {
         return true;
     }
 
+    /**
+     * @return type
+     */
     public function isAccountNonLocked() 
     {
         return $this->isActive;
     }
 
+    /**
+     * @return boolean
+     */
     public function isCredentialsNonExpired() 
     {
         return true;
     }
 
+    /**
+     * @return boolean
+     */
     public function isEnabled() 
     {
         return $this->isActive;
-    }
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->acls = new ArrayCollection();
     }
 
     /**

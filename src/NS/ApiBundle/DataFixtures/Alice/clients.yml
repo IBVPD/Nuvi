@@ -1,0 +1,8 @@
+## YAML Template.
+---
+NS\ApiBundle\Entity\Client:
+    client0:
+        name: Api Test Client
+        redirectUris: [ http://localhost/authorize ]
+        allowedGrantTypes: [ OAuth2::GRANT_TYPE_CLIENT_CREDENTIALS ]
+        user: @ca-user6

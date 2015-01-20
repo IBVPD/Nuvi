@@ -11,20 +11,10 @@ use \NS\SentinelBundle\Tests\BaseWebTestCase;
  */
 class RotaVirusControllerTest extends BaseWebTestCase
 {
-    const ID = 'CA-ALBCHLD-15-000001';
+    const ID = 'CA-ALBCHLD-15-000081';
 
     public function testRotaEdit()
     {
-        // add all your doctrine fixtures classes
-        $classes = array(
-            // classes implementing Doctrine\Common\DataFixtures\FixtureInterface
-            'NS\SentinelBundle\DataFixtures\ORM\LoadRegionData',
-            'NS\SentinelBundle\DataFixtures\ORM\LoadReferenceLabsData',
-            'NS\SentinelBundle\DataFixtures\ORM\LoadUserData',
-            'NS\SentinelBundle\DataFixtures\ORM\LoadRotaVirusCaseData',
-        );
-        $this->loadFixtures($classes);
-
         $client   = $this->login();
         $crawler  = $client->request('GET', '/en/rota/edit/' . self::ID);
         $response = $client->getResponse();

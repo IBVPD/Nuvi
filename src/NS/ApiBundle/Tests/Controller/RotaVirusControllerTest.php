@@ -12,22 +12,7 @@ use NS\UtilBundle\Form\Types\ArrayChoice;
  */
 class RotaVirusControllerTest extends WebTestCase
 {
-    const ID = 'CA-ALBCHLD-15-000001';
-
-    public function setUp()
-    {
-        // add all your doctrine fixtures classes
-        $classes = array(
-            // classes implementing Doctrine\Common\DataFixtures\FixtureInterface
-            'NS\SentinelBundle\DataFixtures\ORM\LoadRegionData',
-            'NS\SentinelBundle\DataFixtures\ORM\LoadReferenceLabsData',
-            'NS\SentinelBundle\DataFixtures\ORM\LoadUserData',
-            'NS\SentinelBundle\DataFixtures\ORM\LoadRotaVirusCaseData',
-            'NS\ApiBundle\DataFixtures\ORM\LoadApiClientData',
-        );
-
-        $this->loadFixtures($classes);
-    }
+    const ID = 'CA-ALBCHLD-15-000081';
 
     public function testGetCase()
     {

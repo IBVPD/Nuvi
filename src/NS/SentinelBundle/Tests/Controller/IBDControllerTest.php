@@ -15,16 +15,6 @@ class IBDControllerTest extends BaseWebTestCase
 
     public function testIbdEdit()
     {
-        // add all your doctrine fixtures classes
-        $classes = array(
-            // classes implementing Doctrine\Common\DataFixtures\FixtureInterface
-            'NS\SentinelBundle\DataFixtures\ORM\LoadRegionData',
-            'NS\SentinelBundle\DataFixtures\ORM\LoadReferenceLabsData',
-            'NS\SentinelBundle\DataFixtures\ORM\LoadUserData',
-            'NS\SentinelBundle\DataFixtures\ORM\LoadIBDCaseData',
-        );
-        $this->loadFixtures($classes);
-
         $client   = $this->login();
         $crawler  = $client->request('GET', '/en/ibd/edit/' . self::ID);
         $response = $client->getResponse();

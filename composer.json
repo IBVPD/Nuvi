@@ -59,7 +59,8 @@
         "beberlei/DoctrineExtensions": "dev-master",
         "ddeboer/data-import-bundle": "~0.1",
         "ddeboer/data-import": "dev-gnat",
-        "hpatoio/deploy-bundle": "~1.4"
+        "hpatoio/deploy-bundle": "~1.4",
+        "h4cc/alice-fixtures-bundle": "0.5.*"
     },
     "scripts": {
         "post-install-cmd": [

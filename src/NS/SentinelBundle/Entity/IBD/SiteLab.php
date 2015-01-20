@@ -4,8 +4,7 @@ namespace NS\SentinelBundle\Entity\IBD;
 
 use \Doctrine\ORM\Mapping as ORM;
 use \Gedmo\Mapping\Annotation as Gedmo;
-use \NS\SecurityBundle\Annotation\Secured;
-use \NS\SecurityBundle\Annotation\SecuredCondition;
+use \NS\SecurityBundle\Annotation as Security;
 use \NS\SentinelBundle\Entity\BaseSiteLab;
 use \NS\SentinelBundle\Form\Types\BinaxResult;
 use \NS\SentinelBundle\Form\Types\CaseStatus;
@@ -21,7 +20,6 @@ use \NS\SentinelBundle\Form\Types\TripleChoice;
 use \NS\UtilBundle\Form\Types\ArrayChoice;
 use \Symfony\Component\Validator\Constraints as Assert;
 use \Symfony\Component\Validator\Constraints\DateTime;
-use \Symfony\Component\Validator\ExecutionContextInterface;
 use \JMS\Serializer\Annotation\Groups;
 use \NS\SentinelBundle\Validators as NSValidators;
 
@@ -32,10 +30,10 @@ use \NS\SentinelBundle\Validators as NSValidators;
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\IBD\SiteLab")
  * @ORM\Table(name="ibd_site_labs")
  * @Gedmo\Loggable
- * @Secured(conditions={
- *      @SecuredCondition(roles={"ROLE_REGION"},through={"case"},relation="region",class="NSSentinelBundle:Region"),
- *      @SecuredCondition(roles={"ROLE_COUNTRY","ROLE_RRL_LAB","ROLE_NL_LAB"},through={"case"},relation="country",class="NSSentinelBundle:Country"),
- *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},through="case",relation="site",class="NSSentinelBundle:Site"),
+ * @Security\Secured(conditions={
+ *      @Security\SecuredCondition(roles={"ROLE_REGION"},through={"case"},relation="region",class="NSSentinelBundle:Region"),
+ *      @Security\SecuredCondition(roles={"ROLE_COUNTRY","ROLE_RRL_LAB","ROLE_NL_LAB"},through={"case"},relation="country",class="NSSentinelBundle:Country"),
+ *      @Security\SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},through="case",relation="site",class="NSSentinelBundle:Site"),
  *      })
  * @NSValidators\AllOther( {
  *                      @NSValidators\Other(field="csfCultDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="csfCultResult",message="form.validation.ibd-sitelab-csfCult-was-done-without-result"),

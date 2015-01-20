@@ -15,21 +15,6 @@ class IBDControllerTest extends WebTestCase
 {
     const ID = 'CA-ALBCHLD-15-000001';
 
-    public function setUp()
-    {
-        // add all your doctrine fixtures classes
-        $classes = array(
-            // classes implementing Doctrine\Common\DataFixtures\FixtureInterface
-            'NS\SentinelBundle\DataFixtures\ORM\LoadRegionData',
-            'NS\SentinelBundle\DataFixtures\ORM\LoadReferenceLabsData',
-            'NS\SentinelBundle\DataFixtures\ORM\LoadUserData',
-            'NS\SentinelBundle\DataFixtures\ORM\LoadIBDCaseData',
-            'NS\ApiBundle\DataFixtures\ORM\LoadApiClientData',
-        );
-
-        $this->loadFixtures($classes);
-    }
-
     public function testGetCase()
     {
         $route  = $this->getRoute();
@@ -88,7 +73,7 @@ class IBDControllerTest extends WebTestCase
         $client->request('PATCH', $route, array(), array(), array(), '{"ibd_lab":{"csfId":"ANewCaseId","csfGramDone":0,"csfCultDone":0}}');
 
         $response = $client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertEquals(204, $response->getStatusCode(), $route);
         $this->assertFalse($response->headers->has('Location'), "We have a location header");
 
         $client->request('GET', $this->getRoute('nsApiIbdGetLab'));
@@ -155,11 +140,12 @@ class IBDControllerTest extends WebTestCase
 
     public function testGetNLCase()
     {
+        $route  = $this->getRoute('nsApiIbdGetNL');
         $client = $this->getClient();
-        $client->request('GET', $this->getRoute());
+        $client->request('GET', $route);
 
         $response = $client->getResponse();
-        $this->assertJsonResponse($response, 200);
+        $this->assertJsonResponse($response, 200, $route);
         $decoded  = json_decode($response->getContent(), true);
 
         $this->assertArrayHasKey('Status', $decoded, print_r($decoded, true));

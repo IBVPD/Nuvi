@@ -1,0 +1,83 @@
+## YAML Template.
+---
+NS\SentinelBundle\Entity\IBD:
+    ibdTest:
+        caseId: 12
+        dob: <dateTimeBetween('2014-01-01', '2014-12-25')>
+        gender: <gender()>
+        admDx: <diagnosis()>
+        antibiotics: <done()>
+        menSeizures: <done()>
+        menFever: <done()>
+        menAltConscious: <done()>
+        menInabilityFeed: <done()>
+        menNeckStiff: <done()>
+        menRash: <done()>
+        menFontanelleBulge: <done()>
+        menLethargy: <done()>
+        pneuDiffBreathe: <done()>
+        pneuChestIndraw: <done()>
+        pneuCough: <done()>
+        pneuCyanosis: <done()>
+        pneuStridor: <done()>
+        pneuRespRate: <numberBetween(11,99)>
+        pneuVomit: <done()>
+        pneuHypothermia: <done()>
+        pneuMalnutrition: <done()>
+        cxrDone: <done()>
+        cxrResult: <cxrResult()>
+        hibReceived: <vaccinationReceived()>
+        hibDoses: <fourDoses()>
+        hibMostRecentDose: <dateTimeBetween($dob,'now')>
+        admDate: <dateTimeBetween('2015-01-01', '2015-01-05')>
+        csfCollected: <done()>
+        csfCollectDateTime: <dateTimeBetween($admDate,'now')>
+        csfAppearance: <csfAppearance($csfCollected)>
+        site: @site0
+    ibd{0..500}:
+        caseId: <numberBetween(1, 20000000)>
+        dob: <dateTimeBetween('-1825 days', 'now')>
+        gender: <gender()>
+        admDx: <diagnosis()>
+        antibiotics: <done()>
+        menSeizures: <done()>
+        menFever: <done()>
+        menAltConscious: <done()>
+        menInabilityFeed: <done()>
+        menNeckStiff: <done()>
+        menRash: <done()>
+        menFontanelleBulge: <done()>
+        menLethargy: <done()>
+        pneuDiffBreathe: <done()>
+        pneuChestIndraw: <done()>
+        pneuCough: <done()>
+        pneuCyanosis: <done()>
+        pneuStridor: <done()>
+        pneuRespRate: <numberBetween(11,99)>
+        pneuVomit: <done()>
+        pneuHypothermia: <done()>
+        pneuMalnutrition: <done()>
+        cxrDone: <done()>
+        cxrResult: <cxrResult()>
+        hibReceived: <vaccinationReceived()>
+        hibDoses: <fourDoses()>
+        hibMostRecentDose: <dateTimeBetween($dob,'now')>
+        admDate: <dateTimeBetween($dob, 'now')>
+        csfCollected: <done()>
+        csfCollectDateTime: <dateTimeBetween($admDate,'now')>
+        csfAppearance: <csfAppearance($csfCollected)>
+        site: @site*
+
+NS\SentinelBundle\Entity\RotaVirus:
+    rotaTest:
+        caseId: 12
+        dob: <dateTimeBetween('2014-01-01', '2014-12-25')>
+        gender: <gender()>
+        admDate: <dateTimeBetween('2015-01-01', '2015-01-05')>
+        site: @site0
+#    rota{0..500}:
+#        caseId: <numberBetween(1,90000000)>
+#        dob: <dateTimeBetween('-1825 days', 'now')>
+#        gender: <gender()>
+#        admDate: <dateTimeBetween($dob, 'now')>
+#        site: @site*
