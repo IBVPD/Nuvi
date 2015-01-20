@@ -20,11 +20,9 @@
         </testsuite>
     </testsuites>
 
-    <!--
     <php>
-        <server name="KERNEL_DIR" value="/path/to/your/app/" />
+        <ini name="memory_limit" value="256M" />
     </php>
-    -->
 
     <filter>
         <whitelist>
