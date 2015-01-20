@@ -16,14 +16,14 @@ use NS\SentinelBundle\Entity\Site;
  *
  * @author gnat
  */
-class NewImportCommand extends ContainerAwareCommand
+class ImportCommand extends ContainerAwareCommand
 {
     private $entityMgr;
 
     protected function configure()
     {
         $this
-            ->setName('nssentinel:new-import')
+            ->setName('nssentinel:import')
             ->setDescription('Import Initial Regions and Sites')
             ->addArgument(
                 'directory',
