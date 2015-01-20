@@ -37,6 +37,7 @@ NS\SentinelBundle\Entity\IBD:
     ibd{0..500}:
         caseId: <numberBetween(1, 20000000)>
         dob: <dateTimeBetween('-1825 days', 'now')>
+        admDate: <dateTimeBetween($dob, 'now')>
         gender: <gender()>
         admDx: <diagnosis()>
         antibiotics: <done()>
@@ -62,7 +63,6 @@ NS\SentinelBundle\Entity\IBD:
         hibReceived: <vaccinationReceived()>
         hibDoses: <fourDoses()>
         hibMostRecentDose: <dateTimeBetween($dob,'now')>
-        admDate: <dateTimeBetween($dob, 'now')>
         csfCollected: <done()>
         csfCollectDateTime: <dateTimeBetween($admDate,'now')>
         csfAppearance: <csfAppearance($csfCollected)>
@@ -75,9 +75,9 @@ NS\SentinelBundle\Entity\RotaVirus:
         gender: <gender()>
         admDate: <dateTimeBetween('2015-01-01', '2015-01-05')>
         site: @site0
-#    rota{0..500}:
-#        caseId: <numberBetween(1,90000000)>
-#        dob: <dateTimeBetween('-1825 days', 'now')>
-#        gender: <gender()>
-#        admDate: <dateTimeBetween($dob, 'now')>
-#        site: @site*
+    rota{0..500}:
+        caseId: <numberBetween(1,90000000)>
+        dob: <dateTimeBetween('-1825 days', 'now')>
+        admDate: <dateTimeBetween($dob, 'now')>
+        gender: <gender()>
+        site: @site*
