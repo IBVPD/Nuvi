@@ -6,7 +6,6 @@ use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use \Symfony\Component\HttpFoundation\Request;
-use \NS\SentinelBundle\Exceptions\NonExistentCase;
 
 /**
  * @Route("/{_locale}/ibd")
