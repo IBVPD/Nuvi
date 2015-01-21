@@ -14,8 +14,9 @@ class BaseWebTestCase extends WebTestCase
     {
         $user = $this->getContainer()
             ->get('doctrine.orm.entity_manager')
-            ->getRepository('NSSentinelBundle:User')
-            ->findOneByEmail(array('email' => 'ca-full@noblet.ca'));
+            ->createQuery("SELECT u,a,r FROM NSSentinelBundle:User u LEFT JOIN u.acls a LEFT JOIN u.referenceLab r WHERE u.email = :email")
+            ->setParameter('email', 'ca-full@noblet.ca')
+            ->getSingleResult();
 
         $this->loginAs($user, 'main_app');
         $client = $this->makeClient();

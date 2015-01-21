@@ -45,6 +45,14 @@ NS\SentinelBundle\Entity\ACL:
         type: <countryApiRole()>
         objectId: @country0->id
         user: @ca-user6
+    canadaCountryAcl1:
+        type: <countryApiRole()>
+        objectId: @country0->id
+        user: @ca-user5
+    canadaCountryAcl2:
+        type: <countryExportRole()>
+        objectId: @country0->id
+        user: @ca-user5
 
 NS\SentinelBundle\Entity\User:
     user0:
@@ -107,6 +115,7 @@ NS\SentinelBundle\Entity\User:
         canCreateLabs: true
         canCreateRrlLabs: true
         canCreateNlLabs: false
+        referenceLab: @lab1
     ca-user4:
         name: CA NL User
         email: ca-cnl@noblet.ca
@@ -116,6 +125,7 @@ NS\SentinelBundle\Entity\User:
         canCreateLabs: true
         canCreateRrlLabs: false
         canCreateNlLabs: true
+        referenceLab: @lab1
     ca-user5:
         name: CA Full User
         email: ca-full@noblet.ca
@@ -125,6 +135,7 @@ NS\SentinelBundle\Entity\User:
         canCreateLabs: true
         canCreateRrlLabs: true
         canCreateNlLabs: true
+        referenceLab: @lab1
     ca-user6:
         name: CA Api User
         email: ca-api@noblet.ca
@@ -134,6 +145,7 @@ NS\SentinelBundle\Entity\User:
         canCreateLabs: true
         canCreateRrlLabs: true
         canCreateNlLabs: true
+        referenceLab: @lab1
     sUser0:
         name: Alberta Site User
         email: site-alberta@noblet.ca

@@ -148,6 +148,11 @@ class LoadFixtures implements FixtureInterface, ContainerAwareInterface
         return new Role(Role::COUNTRY_API);
     }
 
+    public function countryExportRole()
+    {
+        return new Role(Role::COUNTRY_IMPORT);
+    }
+
     public function siteRole()
     {
         return new Role(Role::SITE);

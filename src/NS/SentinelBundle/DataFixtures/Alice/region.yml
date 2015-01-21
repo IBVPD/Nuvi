@@ -88,3 +88,10 @@ NS\SentinelBundle\Entity\Site:
         active: true
         country: @country4
         surveillanceConducted: <surveillanceConducted()>
+
+NS\SentinelBundle\Entity\ReferenceLab:
+    lab1:
+        name: Canadian Reference Lab
+        location: <address()>
+        type: <surveillanceConducted()>
+        country: @country0
