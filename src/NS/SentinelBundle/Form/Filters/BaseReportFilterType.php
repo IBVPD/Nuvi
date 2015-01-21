@@ -2,7 +2,9 @@
 
 namespace NS\SentinelBundle\Form\Filters;
 
+use \Lexik\Bundle\FormFilterBundle\Filter\Query\QueryInterface;
 use \NS\SecurityBundle\Role\ACLConverter;
+use \NS\SentinelBundle\Form\Filters\SiteFilterType;
 use \Symfony\Component\Form\AbstractType;
 use \Symfony\Component\Form\FormBuilderInterface;
 use \Symfony\Component\Form\FormEvent;
@@ -37,22 +39,35 @@ class BaseReportFilterType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $choices = array(1 => 'Yes', 0 => 'No');
+
         $builder->add('admDate', 'ns_filter_date_range', array('label' => 'report-filter-form.admitted-between',))
             ->add('createdAt', 'ns_filter_date_range', array('label' => 'report-filter-form.created-between'))
-            ->add('includeLab', 'choice', array('label'       => 'report-filter-form.include-site-lab',
-                'choices'     => array('Yes', 'No'),
-                'empty_value' => '',
-                'mapped'      => false,
-                'required'    => false,
+            ->add('includeLab', 'choice', array(
+                'label'        => 'report-filter-form.include-site-lab',
+                'choices'      => $choices,
+                'empty_value'  => '',
+                'mapped'       => false,
+                'required'     => false,
+                'apply_filter' => function(QueryInterface $filterQuery, $field, $values) {
+                    if ($values['value'] == 1)
+                        $filterQuery->getQueryBuilder()->leftJoin(sprintf("%s.siteLab", $values['alias']), 'sl')->addSelect('sl');
+                },
             ))
-            ->add('includeRRL', 'choice', array('label'       => 'report-filter-form.include-reference-lab',
-                'choices'     => array('Yes', 'No'),
-                'empty_value' => '',
-                'mapped'      => false,
-                'required'    => false,
+            ->add('includeRRL', 'choice', array(
+                'label'        => 'report-filter-form.include-reference-lab',
+                'choices'      => $choices,
+                'empty_value'  => '',
+                'mapped'       => false,
+                'required'     => false,
+                'apply_filter' => function(QueryInterface $filterQuery, $field, $values) {
+                    if ($values['value'] == 1)
+                        $filterQuery->getQueryBuilder()->leftJoin(sprintf("%s.externalLabs", $values['alias']), 'el')->addSelect('el');
+                },
             ))
-            ->add('includeNL', 'choice', array('label'       => 'report-filter-form.include-national-lab',
-                'choices'     => array('Yes', 'No'),
+            ->add('includeNL', 'choice', array(
+                'label'       => 'report-filter-form.include-national-lab',
+                'choices'     => $choices,
                 'empty_value' => '',
                 'mapped'      => false,
                 'required'    => false,
@@ -71,23 +86,15 @@ class BaseReportFilterType extends AbstractType
             if ($securityContext->isGranted('ROLE_REGION'))
             {
                 $objectIds = $converter->getObjectIdsForRole($token, 'ROLE_REGION');
-//                            if(count($objectIds) > 1)
-//                                $form->add('region','region');
-
                 $form->add('country', 'country');
                 $form->add('site', $siteType);
             }
-
-            if ($securityContext->isGranted('ROLE_COUNTRY'))
+            else if ($securityContext->isGranted('ROLE_COUNTRY'))
             {
                 $objectIds = $converter->getObjectIdsForRole($token, 'ROLE_COUNTRY');
-//                            if(count($objectIds) > 1)
-//                                $form->add('country','country');
-
                 $form->add('site', $siteType);
             }
-
-            if ($securityContext->isGranted('ROLE_SITE'))
+            else if ($securityContext->isGranted('ROLE_SITE'))
             {
                 $objectIds = $converter->getObjectIdsForRole($token, 'ROLE_SITE');
                 if (count($objectIds) > 1)
@@ -95,13 +102,16 @@ class BaseReportFilterType extends AbstractType
             }
 
             if ($options['include_filter'])
-                $form->add('filter', 'submit', array('icon' => 'icon-search', 'attr' => array(
-                        'class' => 'btn btn-sm btn-success')));
+                $form->add('filter', 'submit', array(
+                    'icon' => 'icon-search',
+                    'attr' => array('class' => 'btn btn-sm btn-success')));
             if ($options['include_export'])
-                $form->add('export', 'submit', array('icon' => 'icon-cloud-download',
+                $form->add('export', 'submit', array(
+                    'icon' => 'icon-cloud-download',
                     'attr' => array('class' => 'btn btn-sm btn-info')));
             if ($options['include_reset'])
-                $form->add('reset', 'submit', array('icon' => 'icon-times-circle',
+                $form->add('reset', 'submit', array(
+                    'icon' => 'icon-times-circle',
                     'attr' => array('class' => 'btn btn-sm btn-danger')));
         }
         );
@@ -109,7 +119,8 @@ class BaseReportFilterType extends AbstractType
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array('include_filter' => true,
+        $resolver->setDefaults(array(
+            'include_filter' => true,
             'include_export' => true,
             'include_reset'  => true)
         );

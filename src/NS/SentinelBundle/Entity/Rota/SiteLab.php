@@ -21,9 +21,9 @@ use \JMS\Serializer\Annotation\Groups;
  * @ORM\Table(name="rotavirus_site_labs")
  * @Gedmo\Loggable
  * @Secured(conditions={
- *      @SecuredCondition(roles={"ROLE_REGION"},through={"case"},relation="region",class="NSSentinelBundle:Region"),
- *      @SecuredCondition(roles={"ROLE_COUNTRY","ROLE_RRL_LAB","ROLE_NL_LAB"},through={"case"},relation="country",class="NSSentinelBundle:Country"),
- *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},through="case",relation="site",class="NSSentinelBundle:Site"),
+ *      @SecuredCondition(roles={"ROLE_REGION"},through={"caseFile"},relation="region",class="NSSentinelBundle:Region"),
+ *      @SecuredCondition(roles={"ROLE_COUNTRY","ROLE_RRL_LAB","ROLE_NL_LAB"},through={"caseFile"},relation="country",class="NSSentinelBundle:Country"),
+ *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},through={"caseFile"},relation="site",class="NSSentinelBundle:Site"),
  *      })
  */
 class SiteLab extends BaseSiteLab
@@ -39,7 +39,7 @@ class SiteLab extends BaseSiteLab
      * @ORM\OneToOne(targetEntity="NS\SentinelBundle\Entity\RotaVirus",inversedBy="siteLab")
      * @ORM\JoinColumn(nullable=false,unique=true)
      */
-    protected $case;
+    protected $caseFile;
 //---------------------------------
     // Global Variables
     /**
@@ -232,7 +232,7 @@ class SiteLab extends BaseSiteLab
     public function __construct($virus = null)
     {
         if($virus instanceof RotaVirus)
-            $this->case = $virus;
+            $this->caseFile = $virus;
 
         return $this;
     }

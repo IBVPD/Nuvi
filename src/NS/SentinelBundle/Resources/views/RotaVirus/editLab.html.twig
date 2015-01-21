@@ -1,11 +1,11 @@
 {%extends "NSSentinelBundle::layout.html.twig" %}
 
 {% block pagetitle %}
-    {{'Edit Lab For Case %id%'|trans({'%id%': form.vars.value.case.caseId})}}
+    {{'Edit Lab For Case %id%'|trans({'%id%': form.vars.value.caseFile.caseId})}}
 {% endblock %}
 
 {%block pageactions %}
-    <div class="pull-right">{{case_big_actions(form.vars.value.case,true)}}</div>
+    <div class="pull-right">{{case_big_actions(form.vars.value.caseFile,true)}}</div>
 {%endblock %}
 
 {% block body %}

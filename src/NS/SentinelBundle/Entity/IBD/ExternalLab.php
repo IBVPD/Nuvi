@@ -2,36 +2,40 @@
 
 namespace NS\SentinelBundle\Entity\IBD;
 
+// Annotations
+
+
 use \Doctrine\ORM\Mapping as ORM;
 use \NS\SentinelBundle\Entity\BaseExternalLab;
-use \NS\SentinelBundle\Form\Types\PathogenIdentifier;
-use \NS\SentinelBundle\Form\Types\SerotypeIdentifier;
-use \NS\SentinelBundle\Form\Types\SampleType;
-use \NS\SentinelBundle\Form\Types\Volume;
-use \NS\SentinelBundle\Form\Types\IsolateType;
 use \NS\SentinelBundle\Form\Types\AlternateTripleChoice;
+use \NS\SentinelBundle\Form\Types\HiSerotype;
+use \NS\SentinelBundle\Form\Types\IsolateType;
+use \NS\SentinelBundle\Form\Types\NmSerogroup;
+use \NS\SentinelBundle\Form\Types\PathogenIdentifier;
+use \NS\SentinelBundle\Form\Types\SampleType;
+use \NS\SentinelBundle\Form\Types\SerotypeIdentifier;
+use \NS\SentinelBundle\Form\Types\SpnSerotype;
+use \NS\SentinelBundle\Form\Types\Volume;
+use \Symfony\Component\Validator\Constraints as Assert;
+use \Symfony\Component\Validator\ExecutionContextInterface;
 
 // Annotations
-use Gedmo\Mapping\Annotation as Gedmo;
-use NS\SecurityBundle\Annotation\Secured;
-use NS\SecurityBundle\Annotation\SecuredCondition;
-
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\ExecutionContextInterface;
-
+use \Gedmo\Mapping\Annotation as Gedmo;
+use \NS\SecurityBundle\Annotation\Secured;
+use \NS\SecurityBundle\Annotation\SecuredCondition;
 use \JMS\Serializer\Annotation as Serializer;
 
 /**
  * Description of ExternalLab
  * @author gnat
  * @ORM\Entity()
- * @ORM\Table(name="ibd_external_labs",uniqueConstraints={@ORM\UniqueConstraint(name="site_type_idx",columns={"case_id","discr"})})
+ * @ORM\Table(name="ibd_external_labs",uniqueConstraints={@ORM\UniqueConstraint(name="site_type_idx",columns={"caseFile_id","discr"})})
  * @ORM\HasLifecycleCallbacks
  * @Gedmo\Loggable
  * @Secured(conditions={
- *      @SecuredCondition(roles={"ROLE_REGION"},through={"case"},relation="region",class="NSSentinelBundle:Region"),
- *      @SecuredCondition(roles={"ROLE_COUNTRY","ROLE_RRL_LAB","ROLE_NL_LAB"},through={"case"},relation="country",class="NSSentinelBundle:Country"),
- *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},through="case",relation="site",class="NSSentinelBundle:Site"),
+ *      @SecuredCondition(roles={"ROLE_REGION"},through={"caseFile"},relation="region",class="NSSentinelBundle:Region"),
+ *      @SecuredCondition(roles={"ROLE_COUNTRY","ROLE_RRL_LAB","ROLE_NL_LAB"},through={"caseFile"},relation="country",class="NSSentinelBundle:Country"),
+ *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},through={"caseFile"},relation="site",class="NSSentinelBundle:Site"),
  *      })
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr",type="string")
@@ -46,7 +50,7 @@ abstract class ExternalLab extends BaseExternalLab
      * @ORM\ManyToOne(targetEntity="\NS\SentinelBundle\Entity\IBD",inversedBy="externalLabs")
      * @ORM\JoinColumn(nullable=false)
      */
-    protected $case;
+    protected $caseFile;
 
     /**
      * @var SampleType
@@ -448,9 +452,9 @@ abstract class ExternalLab extends BaseExternalLab
                     'spnSerotype',
                     'hiSerotype',
                     'nmSerogroup',
-                    'resultSentToCountry',
-                    'resultSentToWHO',
-                    );
+        //                    'resultSentToCountry',
+//                    'resultSentToWHO',
+        );
     }
 
     public function validate(ExecutionContextInterface $context)
@@ -470,10 +474,10 @@ abstract class ExternalLab extends BaseExternalLab
         if($ret)
             return $ret;
 
-        if($this->pathogenIdentifierMethod && $this->pathogenIdentifierMethod->equal(Diagnosis::OTHER) && empty($this->pathogenIdentifierOther))
+        if ($this->pathogenIdentifierMethod && $this->pathogenIdentifierMethod->equal(PathogenIdentifier::OTHER) && empty($this->pathogenIdentifierOther))
             return 'pathogenIdentier';
 
-        if($this->serotypeIdentifierMethod && $this->serotypeIdentifierMethod->equal(Diagnosis::OTHER) && empty($this->serotypeIdentifierOther))
+        if ($this->serotypeIdentifier && $this->serotypeIdentifier->equal(SerotypeIdentifier::OTHER) && empty($this->serotypeIdentifierOther))
             return 'serotypeIdentier';
     }
 }

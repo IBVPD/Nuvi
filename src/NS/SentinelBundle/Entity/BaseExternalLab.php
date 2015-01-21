@@ -26,7 +26,8 @@ abstract class BaseExternalLab
 
 //     * @ORM\ManyToOne(targetEntity="\NS\SentinelBundle\Entity\IBD",inversedBy="externalLabs")
 //     * @ORM\JoinColumn(nullable=false)
-    protected $case;
+    protected $caseFile;
+
     protected $caseClass;
 
     /**
@@ -59,6 +60,11 @@ abstract class BaseExternalLab
         $this->status = new CaseStatus(0);
     }
 
+    public function setLab(\NS\SentinelBundle\Entity\ReferenceLab $lab)
+    {
+
+    }
+
     /**
      * Get id
      *
@@ -75,12 +81,12 @@ abstract class BaseExternalLab
      * @param  $case
      * @return MeningitisLab
      */
-    public function setCase($case = null)
+    public function setCaseFile($case = null)
     {
         if(!$case instanceof $this->caseClass)
             throw new \InvalidArgumentException("Expected ".$this->caseClass." got ".get_class ($case));
 
-        $this->case = $case;
+        $this->caseFile = $case;
 
         return $this;
     }
@@ -90,14 +96,14 @@ abstract class BaseExternalLab
      *
      * @return \NS\SentinelBundle\Entity\Meningitis
      */
-    public function getCase()
+    public function getCaseFile()
     {
-        return $this->case;
+        return $this->caseFile;
     }
 
     public function hasCase()
     {
-        return ($this->case instanceof $this->caseClass);
+        return ($this->caseFile instanceof $this->caseClass);
     }
 
     public function isComplete()

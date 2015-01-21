@@ -89,8 +89,8 @@ class SiteLabType extends AbstractType
             $form    = $event->getForm();
             $country = null;
 
-            if ($data && $data->getCase() && $data->getCase()->getCountry())
-                $country = $data->getCase()->getCountry();
+            if ($data && $data->getCaseFile() && $data->getCaseFile()->getCountry())
+                $country = $data->getCaseFile()->getCountry();
             else if (!$siteSerializer->hasMultipleSites())
             {
                 $site    = $siteSerializer->getSite();
@@ -109,7 +109,8 @@ class SiteLabType extends AbstractType
                         ->add('stoolSentToRRLDate', 'acedatepicker', array(
                             'required' => false,
                             'label'    => 'rotavirus-form.stoolSentToRRLDate',
-                            'attr'     => array('data-context-parent' => 'stoolSentToRRL',
+                            'attr'     => array(
+                                'data-context-parent' => 'stoolSentToRRL',
                                 'data-context-value' => TripleChoice::YES)
                         ));
                 }
@@ -124,7 +125,8 @@ class SiteLabType extends AbstractType
                         ->add('stoolSentToNLDate', 'acedatepicker', array(
                             'required' => false,
                             'label'    => 'rotavirus-form.stoolSentToNLDate',
-                            'attr'     => array('data-context-parent' => 'stoolSentToNL',
+                            'attr'     => array(
+                                'data-context-parent' => 'stoolSentToNL',
                                 'data-context-value' => TripleChoice::YES)
                         ));
                 }

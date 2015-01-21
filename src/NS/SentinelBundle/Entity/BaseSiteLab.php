@@ -13,7 +13,7 @@ use \JMS\Serializer\Annotation\Groups;
  */
 class BaseSiteLab
 {
-    protected $case;
+    protected $caseFile;
 
     /**
      * @var boolean $sentToReferenceLab
@@ -54,14 +54,14 @@ class BaseSiteLab
         return $this->sentToReferenceLab;
     }
 
-    public function getCase()
+    public function getCaseFile()
     {
-        return $this->case;
+        return $this->caseFile;
     }
 
-    public function setCase($case)
+    public function setCaseFile($case)
     {
-        $this->case = $case;
+        $this->caseFile = $case;
         return $this;
     }
 

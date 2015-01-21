@@ -158,9 +158,9 @@ abstract class BaseCase implements IdentityAssignmentInterface
      */
     protected $site;
 
-//     * @ORM\OneToMany(targetEntity="BaseLab", mappedBy="case")
+//     * @ORM\OneToMany(targetEntity="BaseLab", mappedBy="caseFile")
     protected $externalLabs;
-//     * @ORM\OneToOne(targetEntity="SiteLab", mappedBy="case")
+//     * @ORM\OneToOne(targetEntity="SiteLab", mappedBy="caseFile")
     protected $siteLab;
 
     /**
@@ -357,7 +357,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
      */
     public function addExternalLab($externalLabs)
     {
-        $externalLabs->setCase($this);
+        $externalLabs->setCaseFile($this);
         $this->externalLabs[] = $externalLabs;
 
         return $this;
@@ -472,7 +472,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
 
     public function setSiteLab($siteLab)
     {
-        $siteLab->setCase($this);
+        $siteLab->setCaseFile($this);
         $this->siteLab = $siteLab;
 
         return $this;

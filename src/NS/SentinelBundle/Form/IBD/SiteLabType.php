@@ -131,28 +131,28 @@ class SiteLabType extends AbstractType
 
         $siteSerializer = $this->siteSerializer;
         $builder->addEventListener(FormEvents::POST_SET_DATA, function(FormEvent $event) use($siteSerializer)
-                {
-                    $data    = $event->getData();
-                    $form    = $event->getForm();
-                    $country = null;
+        {
+            $data    = $event->getData();
+            $form    = $event->getForm();
+            $country = null;
 
-                    if($data && $data->getCase() && $data->getCase()->getCountry())
-                        $country = $data->getCase()->getCountry();
-                    else if(!$siteSerializer->hasMultipleSites())
-                    {
-                        $site    = $siteSerializer->getSite();
-                        $country = ($site instanceof \NS\SentinelBundle\Entity\Site) ? $site->getCountry():null;
-                    }
+            if ($data && $data->getCaseFile() && $data->getCaseFile()->getCountry())
+                $country = $data->getCaseFile()->getCountry();
+            else if (!$siteSerializer->hasMultipleSites())
+            {
+                $site    = $siteSerializer->getSite();
+                $country = ($site instanceof \NS\SentinelBundle\Entity\Site) ? $site->getCountry() : null;
+            }
 
-                    if($country instanceof Country)
-                    {
-                        if($country->hasReferenceLab())
-                            $form->add('sentToReferenceLab','switch',array('required'=>false));
+            if ($country instanceof Country)
+            {
+                if ($country->hasReferenceLab())
+                    $form->add('sentToReferenceLab', 'switch', array('required' => false));
 
-                        if($country->hasNationalLab())
-                            $form->add('sentToNationalLab','switch',array('required'=>false));
-                    }
-                });
+                if ($country->hasNationalLab())
+                    $form->add('sentToNationalLab', 'switch', array('required' => false));
+            }
+        });
     }
 
     /**

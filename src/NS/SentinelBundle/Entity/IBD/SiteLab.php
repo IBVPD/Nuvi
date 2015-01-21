@@ -31,9 +31,9 @@ use \NS\SentinelBundle\Validators as NSValidators;
  * @ORM\Table(name="ibd_site_labs")
  * @Gedmo\Loggable
  * @Security\Secured(conditions={
- *      @Security\SecuredCondition(roles={"ROLE_REGION"},through={"case"},relation="region",class="NSSentinelBundle:Region"),
- *      @Security\SecuredCondition(roles={"ROLE_COUNTRY","ROLE_RRL_LAB","ROLE_NL_LAB"},through={"case"},relation="country",class="NSSentinelBundle:Country"),
- *      @Security\SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},through="case",relation="site",class="NSSentinelBundle:Site"),
+ *      @Security\SecuredCondition(roles={"ROLE_REGION"},through={"caseFile"},relation="region",class="NSSentinelBundle:Region"),
+ *      @Security\SecuredCondition(roles={"ROLE_COUNTRY","ROLE_RRL_LAB","ROLE_NL_LAB"},through={"caseFile"},relation="country",class="NSSentinelBundle:Country"),
+ *      @Security\SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},through={"caseFile"},relation="site",class="NSSentinelBundle:Site"),
  *      })
  * @NSValidators\AllOther( {
  *                      @NSValidators\Other(field="csfCultDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="csfCultResult",message="form.validation.ibd-sitelab-csfCult-was-done-without-result"),
@@ -71,7 +71,7 @@ class SiteLab extends BaseSiteLab
      * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\IBD",inversedBy="siteLab")
      * @ORM\JoinColumn(nullable=false,unique=true)
      */
-    protected $case;
+    protected $caseFile;
 
     //Case-based Laboratory Data
     /**
@@ -406,7 +406,7 @@ class SiteLab extends BaseSiteLab
     public function __construct($case = null)
     {
         if ($case instanceof IBD)
-            $this->case = $case;
+            $this->caseFile = $case;
 
         $this->updatedAt = new \DateTime();
         $this->status    = new CaseStatus(CaseStatus::OPEN);
@@ -442,14 +442,9 @@ class SiteLab extends BaseSiteLab
         return $this->id;
     }
 
-    public function getCase()
-    {
-        return $this->case;
-    }
-
     public function hasCase()
     {
-        return ($this->case instanceof IBD);
+        return ($this->caseFile instanceof IBD);
     }
 
     public function getCsfDateTime()
@@ -710,12 +705,6 @@ class SiteLab extends BaseSiteLab
     public function setId($id)
     {
         $this->id = $id;
-        return $this;
-    }
-
-    public function setCase($case)
-    {
-        $this->case = $case;
         return $this;
     }
 

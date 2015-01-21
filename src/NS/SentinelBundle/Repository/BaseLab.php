@@ -53,7 +53,7 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
         {
             $reference    = $this->_em->getReference($this->parentClass, $id);
             $queryBuilder = $this->createQueryBuilder('r')
-                ->where('r.case = :case')
+                ->where('r.caseFile = :case')
                 ->setParameter('case', $reference);
 
             $result = $this->secure($queryBuilder)->getQuery()->getSingleResult();
@@ -68,7 +68,7 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
                 $class  = $this->getClassName();
                 $record = new $class();
                 $case   = $this->_em->getRepository($this->parentClass)->checkExistence($id);
-                $record->setCase($case);
+                $record->setCaseFile($case);
 
                 return $record;
             }
@@ -82,7 +82,7 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
         try
         {
             $queryBuilder = $this->createQueryBuilder('m')
-                ->where('m.case = :case')
+                ->where('m.caseFile = :case')
                 ->setParameter('case', $this->_em->getReference($this->parentClass, $objId));
 
             return $this->secure($queryBuilder)->getQuery()->getSingleResult();

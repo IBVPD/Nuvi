@@ -46,12 +46,12 @@ use \Symfony\Component\Validator\ExecutionContextInterface;
 class IBD extends BaseCase
 {
     /**
-     * @ORM\OneToMany(targetEntity="\NS\SentinelBundle\Entity\IBD\ExternalLab", mappedBy="case")
+     * @ORM\OneToMany(targetEntity="\NS\SentinelBundle\Entity\IBD\ExternalLab", mappedBy="caseFile")
      */
     protected $externalLabs;
 
     /**
-     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\IBD\SiteLab", mappedBy="case",cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\IBD\SiteLab", mappedBy="caseFile",cascade={"persist"})
      */
     protected $siteLab;
 
