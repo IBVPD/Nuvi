@@ -186,8 +186,6 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        parent::setDefaultOptions($resolver);
-
         $highest = $this->getHighest($this->securityContext->getToken()->getRoles());
 
         if(!is_null($highest) && $highest != self::REGION)

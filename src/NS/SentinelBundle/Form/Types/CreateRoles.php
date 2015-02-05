@@ -31,8 +31,6 @@ class CreateRoles extends TranslatableArrayChoice implements TranslationContaine
     // Form AbstractType functions
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        parent::setDefaultOptions($resolver);
-
         if ($this->securityContext->isGranted('ROLE_CAN_CREATE'))
         {
             $values = array();

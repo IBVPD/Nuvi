@@ -17,8 +17,6 @@ class DateFilterType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        parent::setDefaultOptions($resolver);
-
         $resolver
             ->setDefaults(array(
                 'required'               => false,
@@ -38,6 +36,9 @@ class DateFilterType extends AbstractType
         return 'acedatepicker';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'ns_filter_date';

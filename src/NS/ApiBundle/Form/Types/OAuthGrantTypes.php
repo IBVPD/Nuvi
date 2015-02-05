@@ -12,9 +12,11 @@ use OAuth2\OAuth2;
  */
 class OAuthGrantTypes extends AbstractType
 {
+    /**
+     * {@inheritdoc}
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        parent::setDefaultOptions($resolver);
         $resolver->setDefaults(array(
                                     'multiple' => true,
                                     'choices'  => array(
@@ -29,11 +31,17 @@ class OAuthGrantTypes extends AbstractType
                                 );
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getParent()
     {
         return 'choice';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'OAuthGrantTypes';
