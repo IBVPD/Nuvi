@@ -79,7 +79,7 @@ class IBDCaseTest extends \PHPUnit_Framework_TestCase
         $case    = new IBD();
         $case->setCountry($country);
 
-        $this->assertEquals(34, count($case->getMinimumRequiredFields()));
+        $this->assertEquals(35, count($case->getMinimumRequiredFields()));
     }
 
     public function testMinimumRequiredFieldsWithoutPneunomia()
@@ -89,7 +89,7 @@ class IBDCaseTest extends \PHPUnit_Framework_TestCase
         $case    = new IBD();
         $case->setCountry($country);
 
-        $this->assertEquals(25, count($case->getMinimumRequiredFields()));
+        $this->assertEquals(26, count($case->getMinimumRequiredFields()));
     }
 
     //============================================================
@@ -100,7 +100,7 @@ class IBDCaseTest extends \PHPUnit_Framework_TestCase
         $this->_updateCase($case, $this->getSingleCompleteCaseWithPneunomia());
         $case->preUpdateAndPersist();
 
-        $this->assertEquals(34, count($case->getMinimumRequiredFields()));
+        $this->assertEquals(35, count($case->getMinimumRequiredFields()));
         $this->assertTrue($case->isComplete(), "New cases are incomplete " . $case->getIncompleteField() . ' ' . $case->getStatus());
     }
 
@@ -110,7 +110,7 @@ class IBDCaseTest extends \PHPUnit_Framework_TestCase
         $this->_updateCase($case, $this->getSingleCompleteCaseWithoutPneunomia());
         $case->preUpdateAndPersist();
 
-        $this->assertEquals(25, count($case->getMinimumRequiredFields()));
+        $this->assertEquals(26, count($case->getMinimumRequiredFields()));
         $this->assertTrue($case->isComplete(), "New cases are incomplete" . $case->getIncompleteField() . ' ' . $case->getStatus());
     }
 
@@ -373,7 +373,8 @@ class IBDCaseTest extends \PHPUnit_Framework_TestCase
             'setcountry'              => $country,
             'setcaseId'               => 'blah',
             'setdob'                  => new \DateTime(),
-            'setgender'               => new Gender(Gender::MALE),
+            'setgender'                 => new Gender(Gender::MALE),
+            'setdistrict'               => 'The District',
             'setadmDate'              => new \DateTime(),
             'setonsetDate'            => new \DateTime(),
             'setadmDx'                => new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA),
@@ -425,8 +426,9 @@ class IBDCaseTest extends \PHPUnit_Framework_TestCase
         $country->setTracksPneumonia(false);
 
         return array(
-                    'setcountry'                => $country,
+            'setcountry'                => $country,
             'setcaseId'                 => 'blah',
+            'setdistrict'               => 'The District',
             'setdob'                    => new \DateTime(),
             'setgender'                 => new Gender(Gender::MALE),
             'setadmDate'                => new \DateTime(),
