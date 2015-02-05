@@ -28,7 +28,9 @@ class CreateRoles extends TranslatableArrayChoice implements TranslationContaine
         self::NL   => 'NL',
     );
 
-    // Form AbstractType functions
+    /**
+     * {@inheritdoc}
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         if ($this->securityContext->isGranted('ROLE_CAN_CREATE'))
@@ -48,6 +50,8 @@ class CreateRoles extends TranslatableArrayChoice implements TranslationContaine
 
             $this->values = $values;
         }
+        else
+            $this->values = array();
 
         $resolver->setDefaults(array(
             'choices'     => $this->values,
@@ -55,7 +59,6 @@ class CreateRoles extends TranslatableArrayChoice implements TranslationContaine
         ));
 
         $resolver->setOptional(array('special_values'));
-
         $resolver->addAllowedTypes(array('special_values'=>'array'));
     }
 
@@ -99,5 +102,4 @@ class CreateRoles extends TranslatableArrayChoice implements TranslationContaine
                 return $routeBase . 'Index';
         }
     }
-
 }
