@@ -37,8 +37,8 @@ class ImportController extends Controller
 
             if($entityMgr->isOpen())
             {
-                $u = $this->getUser();
-                $result->setUser($entityMgr->getReference(get_class($u),$u->getId()));
+                $user = $this->getUser();
+                $result->setUser($entityMgr->getReference(get_class($user), $user->getId()));
 
                 $entityMgr->persist($result);
                 $entityMgr->flush($result);

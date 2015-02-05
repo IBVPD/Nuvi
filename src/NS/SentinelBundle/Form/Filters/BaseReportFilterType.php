@@ -43,35 +43,6 @@ class BaseReportFilterType extends AbstractType
 
         $builder->add('admDate', 'ns_filter_date_range', array('label' => 'report-filter-form.admitted-between',))
             ->add('createdAt', 'ns_filter_date_range', array('label' => 'report-filter-form.created-between'))
-            ->add('includeLab', 'choice', array(
-                'label'        => 'report-filter-form.include-site-lab',
-                'choices'      => $choices,
-                'empty_value'  => '',
-                'mapped'       => false,
-                'required'     => false,
-                'apply_filter' => function(QueryInterface $filterQuery, $field, $values) {
-                    if ($values['value'] == 1)
-                        $filterQuery->getQueryBuilder()->leftJoin(sprintf("%s.siteLab", $values['alias']), 'sl')->addSelect('sl');
-                },
-            ))
-            ->add('includeRRL', 'choice', array(
-                'label'        => 'report-filter-form.include-reference-lab',
-                'choices'      => $choices,
-                'empty_value'  => '',
-                'mapped'       => false,
-                'required'     => false,
-                'apply_filter' => function(QueryInterface $filterQuery, $field, $values) {
-                    if ($values['value'] == 1)
-                        $filterQuery->getQueryBuilder()->leftJoin(sprintf("%s.externalLabs", $values['alias']), 'el')->addSelect('el');
-                },
-            ))
-            ->add('includeNL', 'choice', array(
-                'label'       => 'report-filter-form.include-national-lab',
-                'choices'     => $choices,
-                'empty_value' => '',
-                'mapped'      => false,
-                'required'    => false,
-            ))
         ;
 
         $securityContext = $this->securityContext;

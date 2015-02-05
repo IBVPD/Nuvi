@@ -3,6 +3,12 @@ parameters:
   ns_import.map.classes: { }
 
 services:
+
+    ns_import.event.subscriber.doctrine_subscriber:
+        class: NS\ImportBundle\Event\Subscriber\DoctrineSubscriber
+        tags:
+            - { name: kernel.event_subscriber }
+
     ns_import.form.ns_filter_date:
         class: NS\ImportBundle\Form\DateFilterType
         tags:
