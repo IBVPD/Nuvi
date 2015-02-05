@@ -209,7 +209,6 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
             ));
     }
 
-
     /**
      * {@inheritdoc}
      */
