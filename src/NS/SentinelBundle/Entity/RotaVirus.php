@@ -581,8 +581,11 @@ class RotaVirus extends BaseCase
     public function getMinimumRequiredFields()
     {
         return array(
-            'admDate',
+            'caseId',
+            'dob',
+            'gender',
             'district',
+            'admDate',
             'symptomDiarrhea',
             'symptomDiarrheaOnset',
             'symptomDiarrheaEpisodes',
