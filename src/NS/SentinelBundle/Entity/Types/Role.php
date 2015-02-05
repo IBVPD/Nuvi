@@ -8,6 +8,9 @@ class Role extends ArrayChoice
 {
     protected $convert_class = '\NS\SentinelBundle\Form\Types\Role';
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'Role';
