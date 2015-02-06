@@ -14,7 +14,7 @@ use \Symfony\Component\Validator\Constraints as Assert;
  * Site
  *
  * @ORM\Table(name="sites")
- * @ORM\Entity(repositoryClass="\NS\SentinelBundle\Repository\Site")
+ * @ORM\Entity(repositoryClass="\NS\SentinelBundle\Repository\SiteRepository")
  * @Secured(conditions={
  *      @SecuredCondition(roles={"ROLE_REGION"},relation="region",through={"country"},class="NSSentinelBundle:Region"),
  *      @SecuredCondition(roles={"ROLE_COUNTRY","ROLE_RRL_LAB","ROLE_NL_LAB"},relation="country",class="NSSentinelBundle:Country"),
@@ -185,16 +185,31 @@ class Site implements \Serializable
         return $this->code;
     }
 
+    /**
+     *
+     * @return boolean
+     */
     public function hasId()
     {
         return (!empty($this->code) || (is_integer($this->code) && $this->code == 0) || !is_null($this->code));
     }
 
+    /**
+     *
+     * @param string $id
+     * @return \NS\SentinelBundle\Entity\Site
+     */
     public function setId($id)
     {
-        return $this->code = $id;
+        $this->code = $id;
+
+        return $this;
     }
 
+    /**
+     *
+     * @return string
+     */
     public function __toString()
     {
         if(mb_strlen($this->name,'UTF-8') > 20)
@@ -410,143 +425,259 @@ class Site implements \Serializable
         return $this->website;
     }
 
+    /**
+     *
+     * @return integer
+     */
     public function getCurrentCaseId()
     {
         return $this->currentCaseId;
     }
 
+    /**
+     *
+     * @param integer $currentCaseId
+     * @return \NS\SentinelBundle\Entity\Site
+     */
     public function setCurrentCaseId($currentCaseId)
     {
         $this->currentCaseId = $currentCaseId;
         return $this;
     }
 
+    /**
+     *
+     * @return integer
+     */
     public function getIbdTier()
     {
         return $this->ibdTier;
     }
 
+    /**
+     *
+     * @return IbdIntenseSupport
+     */
     public function getIbdIntenseSupport()
     {
         return $this->ibdIntenseSupport;
     }
 
+    /**
+     *
+     * @return \DateTime
+     */
     public function getIbdLastSiteAssessmentDate()
     {
         return $this->ibdLastSiteAssessmentDate;
     }
 
+    /**
+     *
+     * @return integer
+     */
     public function getIbdSiteAssessmentScore()
     {
         return $this->ibdSiteAssessmentScore;
     }
 
+    /**
+     *
+     * @return \DateTime
+     */
     public function getRvLastSiteAssessmentDate()
     {
         return $this->rvLastSiteAssessmentDate;
     }
 
+    /**
+     *
+     * @return string
+     */
     public function getIbvpdRl()
     {
         return $this->ibvpdRl;
     }
 
+    /**
+     *
+     * @return string
+     */
     public function getRvRl()
     {
         return $this->rvRl;
     }
 
+    /**
+     *
+     * @return string
+     */
     public function getIbdEqaCode()
     {
         return $this->ibdEqaCode;
     }
 
+    /**
+     *
+     * @return string
+     */
     public function getRvEqaCode()
     {
         return $this->rvEqaCode;
     }
 
+    /**
+     *
+     * @return SurveillanceConducted
+     */
     public function getSurveillanceConducted()
     {
         return $this->surveillanceConducted;
     }
 
+    /**
+     *
+     * @param SurveillanceConducted $surveillanceConducted
+     * @return \NS\SentinelBundle\Entity\Site
+     */
     public function setSurveillanceConducted(SurveillanceConducted $surveillanceConducted)
     {
         $this->surveillanceConducted = $surveillanceConducted;
         return $this;
     }
 
+    /**
+     *
+     * @param type $ibdTier
+     * @return \NS\SentinelBundle\Entity\Site
+     */
     public function setIbdTier($ibdTier)
     {
         $this->ibdTier = $ibdTier;
         return $this;
     }
 
-    public function setIbdIntenseSupport($ibdIntenseSupport)
+    /**
+     *
+     * @param IBDIntenseSupport $ibdIntenseSupport
+     * @return \NS\SentinelBundle\Entity\Site
+     */
+    public function setIbdIntenseSupport(IBDIntenseSupport $ibdIntenseSupport)
     {
         $this->ibdIntenseSupport = $ibdIntenseSupport;
         return $this;
     }
 
-    public function setIbdLastSiteAssessmentDate($ibdLastSiteAssessmentDate)
+    /**
+     *
+     * @param \DateTime $ibdLastSiteAssessmentDate
+     * @return \NS\SentinelBundle\Entity\Site
+     */
+    public function setIbdLastSiteAssessmentDate(\DateTime $ibdLastSiteAssessmentDate = null)
     {
         $this->ibdLastSiteAssessmentDate = $ibdLastSiteAssessmentDate;
         return $this;
     }
 
+    /**
+     *
+     * @param string $ibdSiteAssessmentScore
+     * @return \NS\SentinelBundle\Entity\Site
+     */
     public function setIbdSiteAssessmentScore($ibdSiteAssessmentScore)
     {
         $this->ibdSiteAssessmentScore = $ibdSiteAssessmentScore;
         return $this;
     }
 
-    public function setRvLastSiteAssessmentDate($rvLastSiteAssessmentDate)
+    /**
+     *
+     * @param string $rvLastSiteAssessmentDate
+     * @return \NS\SentinelBundle\Entity\Site
+     */
+    public function setRvLastSiteAssessmentDate(\DateTime $rvLastSiteAssessmentDate = null)
     {
         $this->rvLastSiteAssessmentDate = $rvLastSiteAssessmentDate;
         return $this;
     }
 
+    /**
+     *
+     * @param string $ibvpdRl
+     * @return \NS\SentinelBundle\Entity\Site
+     */
     public function setIbvpdRl($ibvpdRl)
     {
         $this->ibvpdRl = $ibvpdRl;
         return $this;
     }
 
+    /**
+     *
+     * @param string $rvRl
+     * @return \NS\SentinelBundle\Entity\Site
+     */
     public function setRvRl($rvRl)
     {
         $this->rvRl = $rvRl;
         return $this;
     }
 
+    /**
+     *
+     * @param string $ibdEqaCode
+     * @return \NS\SentinelBundle\Entity\Site
+     */
     public function setIbdEqaCode($ibdEqaCode)
     {
         $this->ibdEqaCode = $ibdEqaCode;
         return $this;
     }
 
+    /**
+     *
+     * @param string $rvEqaCode
+     * @return \NS\SentinelBundle\Entity\Site
+     */
     public function setRvEqaCode($rvEqaCode)
     {
         $this->rvEqaCode = $rvEqaCode;
         return $this;
     }
 
+    /**
+     *
+     * @return boolean
+     */
     public function isActive()
     {
         return $this->active;
     }
 
+    /**
+     *
+     * @return boolean
+     */
     public function getActive()
     {
         return $this->active;
     }
 
+    /**
+     *
+     * @param boolean $active
+     * @return \NS\SentinelBundle\Entity\Site
+     */
     public function setActive($active)
     {
         $this->active = $active;
         return $this;
     }
 
+    /**
+     *
+     * @return string
+     */
     public function serialize()
     {
         return serialize(array(
@@ -573,6 +704,10 @@ class Site implements \Serializable
         ));
     }
 
+    /**
+     *
+     * @param string $serialized
+     */
     public function unserialize($serialized)
     {
         list(
@@ -598,11 +733,20 @@ class Site implements \Serializable
              ) = unserialize($serialized);
     }
 
+    /**
+     *
+     * @return integer
+     */
     public function getTotalCases()
     {
         return $this->totalCases;
     }
 
+    /**
+     *
+     * @param integer $totalCases
+     * @return \NS\SentinelBundle\Entity\Site
+     */
     public function setTotalCases($totalCases)
     {
         $this->totalCases = $totalCases;
