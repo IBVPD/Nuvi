@@ -290,7 +290,7 @@ services:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.site:
-      class: NS\SentinelBundle\Converter\Site
+      class: NS\SentinelBundle\Converter\SiteConverter
       arguments: [ @ns.model_manager ]
       tags:
         - { name: ns_import.converter }

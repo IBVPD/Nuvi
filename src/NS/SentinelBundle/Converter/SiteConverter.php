@@ -11,7 +11,7 @@ use NS\SentinelBundle\Exceptions\NonExistentSite;
  *
  * @author gnat
  */
-class Site implements NamedValueConverterInterface
+class SiteConverter implements NamedValueConverterInterface
 {
     private $sites;
     private $initialized = false;
