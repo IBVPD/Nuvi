@@ -2,8 +2,8 @@
 
 namespace NS\ApiBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
+use \Doctrine\ORM\Mapping as ORM;
+use \Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Description of Remote
@@ -44,18 +44,21 @@ class Remote
     /**
      * @var string $tokenEndpoint
      * @ORM\Column(name="tokenEndpoint",type="string")
+     * @Assert\Url()
      */
     private $tokenEndpoint;
 
     /**
      * @var string $authEndpoint
      * @ORM\Column(name="authEndpoint",type="string")
+     * @Assert\Url()
      */
     private $authEndpoint;
 
     /**
      * @var string $redirectUrl
      * @ORM\Column(name="redirectUrl",type="string")
+     * @Assert\Url()
      */
     private $redirectUrl;
 

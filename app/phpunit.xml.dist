@@ -32,8 +32,10 @@
                 <directory>../src/*/*Bundle/Tests</directory>
                 <directory>../src/*/Bundle/*Bundle/Resources</directory>
                 <directory>../src/*/Bundle/*Bundle/Tests</directory>
+                <directory>../src/*/Bundle/*Bundle/Command</directory>
                 <directory>../src/NS/ApiDocBundle</directory>
                 <directory>../src/NS/SonataBundle</directory>
+                <directory>../src/NS/TranslateBundle</directory>
                 <directory>../src/*/*Bundle/Features</directory>
                 <directory>../src/*/*Bundle/DataFixtures</directory>
             </exclude>
