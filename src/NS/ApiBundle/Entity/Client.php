@@ -39,49 +39,78 @@ class Client extends BaseClient
      */
     private $user;
 
+    /**
+     *
+     * @return string
+     */
     public function __toString()
     {
         return $this->name;
     }
 
+    /**
+     *
+     * @return string
+     */
     public function getId()
     {
         return $this->id;
     }
 
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
-
+    /**
+     *
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     *
+     * @param string $name
+     * @return \NS\ApiBundle\Entity\Client
+     */
     public function setName($name)
     {
         $this->name = $name;
         return $this;
     }
 
+    /**
+     *
+     * @return NS\SentinelBundle\Entity\User
+     */
     public function getUser()
     {
         return $this->user;
     }
 
-    public function setUser($user)
+    /**
+     *
+     * @param NS\SentinelBundle\Entity\User $user
+     * @return \NS\ApiBundle\Entity\Client
+     */
+    public function setUser(\NS\SentinelBundle\Entity\User $user)
     {
         $this->user = $user;
         return $this;
     }
 
+    /**
+     *
+     * @return string
+     */
     public function getAccessTokens()
     {
         return $this->accessTokens;
     }
 
+    /**
+     *
+     * @param array $accessTokens
+     * @return \NS\ApiBundle\Entity\Client
+     */
     public function setAccessTokens(array $accessTokens)
     {
         $this->accessTokens = $accessTokens;
@@ -89,6 +118,11 @@ class Client extends BaseClient
         return $this;
     }
 
+    /**
+     *
+     * @param \NS\ApiBundle\Entity\AccessToken $token
+     * @return \NS\ApiBundle\Entity\Client
+     */
     public function addAccessToken(AccessToken $token)
     {
         $this->accessTokens->add($token);
@@ -96,6 +130,11 @@ class Client extends BaseClient
         return $this;
     }
 
+    /**
+     *
+     * @param \NS\ApiBundle\Entity\AccessToken $token
+     * @return \NS\ApiBundle\Entity\Client
+     */
     public function removeAccessToken(AccessToken $token)
     {
         $this->accessTokens->remove($token);
@@ -103,6 +142,10 @@ class Client extends BaseClient
         return $this;
     }
 
+    /**
+     *
+     * @return boolean
+     */
     public function hasAccessToken()
     {
         return (count($this->accessTokens) > 0);

@@ -2,6 +2,7 @@
 
 namespace NS\ImportBundle\Converter;
 
+use \Ddeboer\DataImport\Exception\InvalidArgumentException;
 use \Ddeboer\DataImport\ItemConverter\MappingItemConverter as BaseItemConverter;
 
 /**
@@ -23,22 +24,19 @@ class MappingItemConverter extends BaseItemConverter
     protected function applyMapping(array $item, $from, $to)
     {
         // skip fields that dont exist
-        if (!isset($item[$from]) && !array_key_exists($from, $item))
+        if (!array_key_exists($from, $item))
             return $item;
 
         if (strpos($to, ".") !== false) // convert to sub array
         {
             $fields = explode(".", $to);
-            $index  = &$item;
+            if (count($fields) > 2)
+                throw new InvalidArgumentException(sprintf("Only one dimension arrays are supported"));
 
-            foreach ($fields as $f)
-            {
-                if (!isset($index[$f]))
-                {
-                    $index[$f] = array();
-                    $index     = &$index[$f];
-                }
-            }
+            if (!isset($item[$fields[0]]))
+                $item[$fields[0]]             = array($fields[1] => $item[$from]);
+            else
+                $item[$fields[0]][$fields[1]] = $item[$from];
 
             unset($item[$from]);
             return $item;

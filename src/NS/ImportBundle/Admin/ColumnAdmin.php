@@ -62,7 +62,8 @@ class ColumnAdmin extends Admin
             ->add('name')
             ->add('order')
             ->add('converter')
-            ->add('isUnique')
+            ->add('mapper')
+            ->add('isIgnored')
         ;
     }
 }

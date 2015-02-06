@@ -88,4 +88,33 @@ class AppKernel extends Kernel
 
         return parent::getLogDir();
     }
+
+    protected function initializeContainer()
+    {
+        static $first = true;
+
+        if ('test' !== $this->getEnvironment())
+            return parent::initializeContainer();
+
+        $debug = $this->debug;
+
+        // disable debug mode on all but the first initialization
+        if (!$first)
+            $this->debug = false;
+
+        // will not work with --process-isolation
+        $first = false;
+
+        try
+        {
+            parent::initializeContainer();
+        }
+        catch (\Exception $e)
+        {
+            $this->debug = $debug;
+            throw $e;
+        }
+
+        $this->debug = $debug;
+    }
 }

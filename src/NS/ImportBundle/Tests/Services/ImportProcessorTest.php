@@ -422,7 +422,7 @@ class ImportProcessorTest extends WebTestCase
             $column->setName($colArray['name']);
             $column->setConverter($colArray['converter']);
             $column->setMapper($colArray['mapper']);
-            $column->setIsIgnored($colArray['ignored']);
+            $column->setIgnored($colArray['ignored']);
             $map->addColumn($column);
         }
 
@@ -465,7 +465,7 @@ class ImportProcessorTest extends WebTestCase
       |  1 | IBD Clinical | 1       | NS\SentinelBundle\Entity\IBD | N;              |
       +----+--------------+---------+------------------------------+-----------------+
 
-      | id | map_id | name                 | orderCol | converter                                     | mapper             | isIgnored |
+      | id | map_id | name                 | orderCol | converter                                     | mapper             | ignored   |
       +----+--------+----------------------+----------+-----------------------------------------------+--------------------+-----------+
       |  1 |      1 | Region               |        0 | NULL                                          | NULL               |         1 |
       |  2 |      1 | ISO3_code            |        1 | NULL                                          | NULL               |         1 |

@@ -36,21 +36,38 @@ class AccessToken extends BaseAccessToken
      */
     protected $user;
 
+    /**
+     *
+     * @return integer
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     *
+     * @return Client
+     */
     public function getClient()
     {
         return $this->client;
     }
 
+    /**
+     *
+     * @return NS\SentinelBundle\Entity\User
+     */
     public function getUser()
     {
         return $this->user;
     }
 
+    /**
+     *
+     * @param UserInterface $user
+     * @return \NS\ApiBundle\Entity\AccessToken
+     */
     public function setUser(UserInterface $user)
     {
         $this->user = $user;
@@ -58,12 +75,11 @@ class AccessToken extends BaseAccessToken
         return $this;
     }
 
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
-
+    /**
+     *
+     * @param ClientInterface $client
+     * @return \NS\ApiBundle\Entity\AccessToken
+     */
     public function setClient(ClientInterface $client)
     {
         $this->client = $client;

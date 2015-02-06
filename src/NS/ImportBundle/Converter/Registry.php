@@ -17,18 +17,30 @@ class Registry extends AbstractType
     private $values;
     private $sorted = false;
 
+    /**
+     *
+     */
     public function __construct()
     {
         $this->converters = array();
         $this->values     = array();
     }
 
+    /**
+     *
+     * @param string $id
+     * @param NamedValueConverterInterface $converter
+     */
     public function addConverter($id, NamedValueConverterInterface $converter)
     {
         $this->converters[$id] = $converter;
         $this->values[$id]     = $converter->getName();
     }
 
+    /**
+     *
+     * @param OptionsResolverInterface $resolver
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         if(!$this->sorted)
@@ -43,6 +55,11 @@ class Registry extends AbstractType
         ));
     }
 
+    /**
+     *
+     * @param array $field
+     * @return string|null
+     */
     public function getConverterForField(array $field)
     {
         foreach($this->values as $id => $converter)
@@ -54,11 +71,19 @@ class Registry extends AbstractType
         return null;
     }
 
+    /**
+     *
+     * @return string
+     */
     public function getParent()
     {
         return 'choice';
     }
 
+    /**
+     *
+     * @return string
+     */
     public function getName()
     {
         return 'ConverterChoice';

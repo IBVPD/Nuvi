@@ -10,16 +10,15 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Symfony\Component\Form\AbstractType;
 use Sonata\AdminBundle\Route\RouteCollection;
 
 class MapAdmin extends Admin
 {
-    private $converterRegistry;
+    private $mapBuilder;
 
-    public function setConverterRegistry(AbstractType $converterRegistry)
+    public function setMapBuilder($mapBuilder)
     {
-        $this->converterRegistry = $converterRegistry;
+        $this->mapBuilder = $mapBuilder;
         return $this;
     }
 
@@ -84,55 +83,14 @@ class MapAdmin extends Admin
         ;
     }
 
-
     public function prePersist($map)
     {
         if(!$map->getId() && $map->getFile()) // have a file so build the columns dynamically
-        {
-            $csvReader = new CsvReader($map->getFile()->openFile());
-            $csvReader->setHeaderRowNumber(0);
-
-            $headers     = $csvReader->getColumnHeaders();
-            $columns     = array();
-            $targetClass = $map->getClass();
-            $target      = new $targetClass();
-            $metaData    = $this->modelManager->getMetadata($map->getClass());
-
-            foreach($headers as $index => $name)
-            {
-                $c = new Column();
-
-                $c->setName($name);
-                $c->setOrder($index);
-                $c->setMap($map);
-
-                $t = str_replace(array(' '),array(''),ucwords(str_replace(array('_','-'), array(' ',' '), strtolower($name))));
-                $t[0] = strtolower($t[0]);
-                $method = sprintf('get%s',$t);
-                if(method_exists($target, $method))
-                {
-                    $c->setMapper($t);
-                    try
-                    {
-                        $c->setConverter($this->converterRegistry->getConverterForField($metaData->getFieldMapping($t)));
-                    }
-                    catch(MappingException $e)
-                    {
-                    }
-                }
-                else
-                    $c->setIsIgnored(true);
-
-                $columns[] = $c;
-            }
-            $map->setColumns($columns);
-        }
+            $map = $this->mapBuilder->process($map, $this->modelManager->getMetadata($map->getClass()));
         else if($map->getColumns())
         {
             foreach ($map->getColumns() as $a)
-            {
                 $a->setMap($map);
-            }
         }
 
         return $map;

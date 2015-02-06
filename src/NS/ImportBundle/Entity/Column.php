@@ -54,10 +54,10 @@ class Column
     private $mapper;
 
     /**
-     * @var boolean $isIgnored
-     * @ORM\Column(name="isIgnored",type="boolean",nullable=true)
+     * @var boolean $ignored
+     * @ORM\Column(name="ignored",type="boolean",nullable=true)
      */
-    private $isIgnored = false;
+    private $ignored = false;
 
     /**
      * @return string
@@ -87,21 +87,6 @@ class Column
         return $this->map;
     }
 
-    public function getIsUnique()
-    {
-        return $this->isUnique;
-    }
-
-    public function isUnique()
-    {
-        return $this->isUnique;
-    }
-
-    public function setIsUnique($isUnique)
-    {
-        $this->isUnique = $isUnique;
-    }
-
     public function getConverter()
     {
         return $this->converter;
@@ -122,14 +107,14 @@ class Column
         return (!empty($this->mapper));
     }
 
-    public function getIsIgnored()
+    public function isIgnored()
     {
-        return $this->isIgnored;
+        return $this->ignored;
     }
 
-    public function setIsIgnored($isIgnored)
+    public function setIgnored($isIgnored)
     {
-        $this->isIgnored = $isIgnored;
+        $this->ignored = $isIgnored;
         return $this;
     }
 

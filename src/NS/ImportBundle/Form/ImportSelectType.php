@@ -14,6 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  */
 class ImportSelectType extends AbstractType
 {
+    /* @var $entityMgr ObjectManager */
     private $entityMgr;
 
     /**

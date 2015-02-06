@@ -3,6 +3,7 @@
 namespace NS\ImportBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use NS\ImportBundle\Converter\MappingItemConverter;
 use NS\ImportBundle\Converter\UnsetMappingItemConverter;
@@ -46,12 +47,15 @@ class Map
 
     private $file;
     /**
-     * @var Array $columns
+     * @var Collection $columns
      * @ORM\OneToMany(targetEntity="Column",mappedBy="map", fetch="EAGER",cascade={"persist"}, orphanRemoval=true)
      * @ORM\OrderBy({"order" = "ASC"})
      */
     private $columns;
 
+    /**
+     * {@inheritdoc}
+     */
     public function __clone()
     {
         if($this->id)
@@ -68,57 +72,108 @@ class Map
         }
     }
 
+    /**
+     *
+     * @return \NS\ImportBundle\Entity\Map
+     */
     public function __construct()
     {
         $this->columns = new ArrayCollection();
+
+        return $this;
     }
 
+    /**
+     *
+     * @return string
+     */
     public function __toString()
     {
         return $this->name.' '.$this->version;
     }
 
+    /**
+     *
+     * @return integer
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     *
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     *
+     * @return Collection
+     */
     public function getColumns()
     {
         return $this->columns;
     }
 
+    /**
+     *
+     * @return string
+     */
     public function getVersion()
     {
         return $this->version;
     }
 
+    /**
+     *
+     * @return string
+     */
     public function getClass()
     {
         return $this->class;
     }
 
+    /**
+     *
+     * @return File
+     */
     public function getFile()
     {
         return $this->file;
     }
 
+    /**
+     *
+     * @param UploadedFile $file
+     * @return \NS\ImportBundle\Entity\Map
+     */
     public function setFile(UploadedFile $file)
     {
         $this->file = $file;
         return $this;
     }
 
+    /**
+     *
+     * @param string $class
+     * @return \NS\ImportBundle\Entity\Map
+     */
     public function setClass($class)
     {
         $this->class = $class;
+
+        return $this;
     }
 
+    /**
+     *
+     * @param string $version
+     * @return \NS\ImportBundle\Entity\Map
+     */
     public function setVersion($version)
     {
         $this->version = $version;
@@ -126,13 +181,11 @@ class Map
         return $this;
     }
 
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
+    /**
+     *
+     * @param string $name
+     * @return \NS\ImportBundle\Entity\Map
+     */
     public function setName($name)
     {
         $this->name = $name;
@@ -140,7 +193,12 @@ class Map
         return $this;
     }
 
-    public function setColumns(Array $columns)
+    /**
+     *
+     * @param Collection $columns
+     * @return \NS\ImportBundle\Entity\Map
+     */
+    public function setColumns(Collection $columns)
     {
         foreach($columns as $c)
             $c->setMap($this);
@@ -150,6 +208,11 @@ class Map
         return $this;
     }
 
+    /**
+     *
+     * @param \NS\ImportBundle\Entity\Column $column
+     * @return \NS\ImportBundle\Entity\Map
+     */
     public function addColumn(Column $column)
     {
         $column->setMap($this);
@@ -159,6 +222,11 @@ class Map
         return $this;
     }
 
+    /**
+     *
+     * @param \NS\ImportBundle\Entity\Column $column
+     * @return \NS\ImportBundle\Entity\Map
+     */
     public function removeColumn(Column $column)
     {
         $column->setMap(null);
@@ -168,6 +236,10 @@ class Map
         return $this;
     }
 
+    /**
+     *
+     * @return array
+     */
     public function getColumnHeaders()
     {
         $headers = array();
@@ -178,6 +250,10 @@ class Map
         return $headers;
     }
 
+    /**
+     *
+     * @return array
+     */
     public function getConverters()
     {
         $r = array();
@@ -190,6 +266,10 @@ class Map
         return $r;
     }
 
+    /**
+     *
+     * @return MappingItemConverter
+     */
     public function getMappings()
     {
         $r = new MappingItemConverter();
@@ -203,12 +283,16 @@ class Map
         return $r;
     }
 
+    /**
+     *
+     * @return UnsetMappingItemConverter
+     */
     public function getIgnoredMapper()
     {
         $r = new UnsetMappingItemConverter();
         foreach($this->columns as $col)
         {
-            if($col->getIsIgnored())
+            if ($col->isIgnored())
                 $r->addMapping($col->getName(), $col->getMapper());
         }
 

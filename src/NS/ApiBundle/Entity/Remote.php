@@ -84,150 +84,253 @@ class Remote
      */
     protected $user;
 
-    public function __construct()
-    {
-        $this->tokens = new ArrayCollection();
-    }
-
+    /**
+     *
+     * @return integer
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     *
+     * @return string
+     */
     public function getTokenEndpoint()
     {
         return $this->tokenEndpoint;
     }
 
+    /**
+     *
+     * @return string
+     */
     public function getAuthEndpoint()
     {
         return $this->authEndpoint;
     }
 
+    /**
+     *
+     * @return string
+     */
     public function getRedirectUrl()
     {
         return $this->redirectUrl;
     }
 
-    public function getTokens()
-    {
-        return $this->tokens;
-    }
-
+    /**
+     *
+     * @return NS\SentinelBundle\Entity\User
+     */
     public function getUser()
     {
         return $this->user;
     }
 
+    /**
+     *
+     * @return string
+     */
     public function getClientId()
     {
         return $this->clientId;
     }
 
+    /**
+     *
+     * @return string
+     */
     public function getClientSecret()
     {
         return $this->clientSecret;
     }
 
+    /**
+     *
+     * @return string
+     */
     public function getAccessToken()
     {
         return $this->accessToken;
     }
 
+    /**
+     *
+     * @return string
+     */
     public function getRefreshToken()
     {
         return $this->refreshToken;
     }
 
+    /**
+     *
+     * @return integer
+     */
     public function getExpiry()
     {
         return $this->expiry;
     }
 
+    /**
+     *
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     *
+     * @param string $name
+     * @return \NS\ApiBundle\Entity\Remote
+     */
     public function setName($name)
     {
         $this->name = $name;
         return $this;
     }
 
+    /**
+     *
+     * @param string $accessToken
+     * @return \NS\ApiBundle\Entity\Remote
+     */
     public function setAccessToken($accessToken)
     {
         $this->accessToken = $accessToken;
         return $this;
     }
 
+    /**
+     *
+     * @param string $refreshToken
+     * @return \NS\ApiBundle\Entity\Remote
+     */
     public function setRefreshToken($refreshToken)
     {
         $this->refreshToken = $refreshToken;
         return $this;
     }
 
+    /**
+     *
+     * @param integer $expiry
+     * @return \NS\ApiBundle\Entity\Remote
+     */
     public function setExpiry($expiry)
     {
         $this->expiry = ($expiry <= 5000) ? time()+$expiry-5:$expiry-5;
         return $this;
     }
 
+    /**
+     *
+     * @param string $clientSecret
+     * @return \NS\ApiBundle\Entity\Remote
+     */
     public function setClientSecret($clientSecret)
     {
         $this->clientSecret = $clientSecret;
         return $this;
     }
 
+    /**
+     *
+     * @param string $clientId
+     * @return \NS\ApiBundle\Entity\Remote
+     */
     public function setClientId($clientId)
     {
         $this->clientId = $clientId;
         return $this;
     }
 
+    /**
+     *
+     * @param string $tokenEndpoint
+     * @return \NS\ApiBundle\Entity\Remote
+     */
     public function setTokenEndpoint($tokenEndpoint)
     {
         $this->tokenEndpoint = $tokenEndpoint;
         return $this;
     }
 
+    /**
+     *
+     * @param string $authEndpoint
+     * @return \NS\ApiBundle\Entity\Remote
+     */
     public function setAuthEndpoint($authEndpoint)
     {
         $this->authEndpoint = $authEndpoint;
         return $this;
     }
 
+    /**
+     *
+     * @param string $redirectUrl
+     * @return \NS\ApiBundle\Entity\Remote
+     */
     public function setRedirectUrl($redirectUrl)
     {
         $this->redirectUrl = $redirectUrl;
         return $this;
     }
 
+    /**
+     *
+     * @param \NS\SentinelBundle\Entity\User $user
+     * @return \NS\ApiBundle\Entity\Remote
+     */
     public function setUser(\NS\SentinelBundle\Entity\User $user)
     {
         $this->user = $user;
         return $this;
     }
 
+    /**
+     *
+     * @return boolean
+     */
     public function isExpired()
     {
         return (time() > $this->expiry);
     }
 
+    /**
+     *
+     * @return boolean
+     */
     public function hasAccessToken()
     {
         return (!is_null($this->accessToken));
     }
 
+    /**
+     *
+     * @return boolean
+     */
     public function hasRefreshToken()
     {
         return (!is_null($this->refreshToken));
     }
 
+    /**
+     *
+     * @param array $result
+     * @return \NS\ApiBundle\Entity\Remote
+     */
     public function updateFromArray(array $result)
     {
         $this->setAccessToken($result['access_token']);
         $this->setRefreshToken($result['refresh_token']);
         $this->setExpiry($result['expires_in']);
+
+        return $this;
     }
 }

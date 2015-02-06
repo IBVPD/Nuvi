@@ -35,21 +35,38 @@ class RefreshToken extends BaseRefreshToken
      */
     protected $user;
 
+    /**
+     *
+     * @return integer
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     *
+     * @return Client
+     */
     public function getClient()
     {
         return $this->client;
     }
 
+    /**
+     *
+     * @return NS\SentinelBundle\Entity\User
+     */
     public function getUser()
     {
         return $this->user;
     }
 
+    /**
+     *
+     * @param UserInterface $user
+     * @return \NS\ApiBundle\Entity\RefreshToken
+     */
     public function setUser(UserInterface $user)
     {
         $this->user = $user;
@@ -57,12 +74,11 @@ class RefreshToken extends BaseRefreshToken
         return $this;
     }
 
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
-    }
-
+    /**
+     *
+     * @param ClientInterface $client
+     * @return \NS\ApiBundle\Entity\RefreshToken
+     */
     public function setClient(ClientInterface $client)
     {
         $this->client = $client;
