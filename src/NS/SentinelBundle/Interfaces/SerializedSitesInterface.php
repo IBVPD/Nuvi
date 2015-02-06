@@ -9,7 +9,6 @@ namespace NS\SentinelBundle\Interfaces;
 interface SerializedSitesInterface
 {
     public function hasMultipleSites();
-    public function setSites(array $sites);
     public function getSites();
     public function getSite($managed = false);
 }

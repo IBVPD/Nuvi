@@ -4,7 +4,6 @@ namespace NS\SentinelBundle\Form\Types;
 
 use NS\UtilBundle\Form\Types\TranslatableSetChoice;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Description of CXRAdditionalResult

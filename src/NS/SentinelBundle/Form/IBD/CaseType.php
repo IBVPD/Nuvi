@@ -2,24 +2,30 @@
 
 namespace NS\SentinelBundle\Form\IBD;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormEvent;
-use NS\SentinelBundle\Entity\Country;
-use NS\SentinelBundle\Form\Types\Diagnosis;
-use NS\SentinelBundle\Form\Types\VaccinationReceived;
-use NS\SentinelBundle\Form\Types\TripleChoice;
-use NS\SentinelBundle\Services\SerializedSites;
-use NS\SentinelBundle\Form\Types\CXRResult;
-use NS\SentinelBundle\Form\Types\OtherSpecimen;
+use \NS\SentinelBundle\Entity\Country;
+use \NS\SentinelBundle\Entity\Site;
+use \NS\SentinelBundle\Form\Types\CXRResult;
+use \NS\SentinelBundle\Form\Types\Diagnosis;
+use \NS\SentinelBundle\Form\Types\OtherSpecimen;
+use \NS\SentinelBundle\Form\Types\TripleChoice;
+use \NS\SentinelBundle\Form\Types\VaccinationReceived;
+use \NS\SentinelBundle\Interfaces\SerializedSitesInterface;
+use \NS\SentinelBundle\Services\SerializedSites;
+use \Symfony\Component\Form\AbstractType;
+use \Symfony\Component\Form\FormBuilderInterface;
+use \Symfony\Component\Form\FormEvent;
+use \Symfony\Component\Form\FormEvents;
+use \Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class CaseType extends AbstractType
 {
     private $siteSerializer;
 
-    public function __construct(SerializedSites $siteSerializer)
+    /**
+     *
+     * @param SerializedSites $siteSerializer
+     */
+    public function __construct(SerializedSitesInterface $siteSerializer)
     {
         $this->siteSerializer = $siteSerializer;
     }
@@ -128,10 +134,10 @@ class CaseType extends AbstractType
                     else if(!$siteSerializer->hasMultipleSites())
                     {
                         $site    = $siteSerializer->getSite();
-                        $country = ($site instanceof \NS\SentinelBundle\Entity\Site) ? $site->getCountry():null;
+                        $country = ($site instanceof Site) ? $site->getCountry() : null;
                     }
 
-                    if(!$country || ($country instanceof Country && $country->getTracksPneumonia()))
+            if(!$country || ($country instanceof Country && $country->getTracksPneumonia()))
                     {
                         $form->add('pneuDiffBreathe', 'TripleChoice', array('required' => $required,
                         'label' => 'ibd-form.pneu-diff-breathe'))

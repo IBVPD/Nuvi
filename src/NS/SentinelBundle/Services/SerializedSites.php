@@ -2,7 +2,7 @@
 
 namespace NS\SentinelBundle\Services;
 
-use Symfony\Component\HttpFoundation\Session\Session;
+use \Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use NS\SentinelBundle\Interfaces\SerializedSitesInterface;
 use \NS\SentinelBundle\Entity\Region;
@@ -21,12 +21,21 @@ class SerializedSites implements SerializedSitesInterface
     private $isInitialized = false;
     private $session;
 
-    public function __construct(Session $session, ObjectManager $entityMgr)
+    /**
+     *
+     * @param Session $session
+     * @param ObjectManager $entityMgr
+     */
+    public function __construct(SessionInterface $session, ObjectManager $entityMgr)
     {
         $this->session   = $session;
         $this->entityMgr = $entityMgr;
     }
 
+    /**
+     *
+     * @return boolean
+     */
     public function hasMultipleSites()
     {
         if(!$this->isInitialized)
@@ -35,14 +44,10 @@ class SerializedSites implements SerializedSitesInterface
         return (count($this->sites) > 1);
     }
 
-    public function setSites(array $sites)
-    {
-        if(!$this->isInitialized)
-            $this->initialize();
-
-        $this->sites = $sites;
-    }
-
+    /**
+     *
+     * @return array
+     */
     public function getSites()
     {
         if(!$this->isInitialized)
@@ -51,6 +56,11 @@ class SerializedSites implements SerializedSitesInterface
         return $this->sites;
     }
 
+    /**
+     *
+     * @param boolean $managed
+     * @return Site
+     */
     public function getSite($managed = true)
     {
         if(!$this->isInitialized)
@@ -64,6 +74,10 @@ class SerializedSites implements SerializedSitesInterface
         return $site;
     }
 
+    /**
+     *
+     * @return null
+     */
     public function initialize()
     {
         if($this->isInitialized) /* || !$this->session->isStarted() - Used to be required to pass behat/phpunit tests but breaks the API stateless access */
@@ -81,7 +95,11 @@ class SerializedSites implements SerializedSitesInterface
         $this->isInitialized = true;
     }
 
-    private function registerSite($site)
+    /**
+     *
+     * @param Site $site
+     */
+    private function registerSite(Site $site)
     {
         $uow     = $this->entityMgr->getUnitOfWork();
         $country = $site->getCountry();
@@ -92,6 +110,10 @@ class SerializedSites implements SerializedSitesInterface
         $uow->registerManaged($region, array('id'   => $region->getId()), array('id'   => $region->getId(),  'code' => $region->getCode()));
     }
 
+    /**
+     *
+     * @return Site
+     */
     private function populateSiteArray()
     {
         $sites = array();
@@ -118,10 +140,5 @@ class SerializedSites implements SerializedSitesInterface
         }
 
         return $sites;
-    }
-
-    public function getIsInitialized()
-    {
-        return $this->isInitialized;
     }
 }
