@@ -2,20 +2,21 @@
 
 namespace NS\SentinelBundle\Services;
 
-use \Doctrine\Common\Collections\ArrayCollection;
-use \Doctrine\Common\Persistence\ObjectManager;
-use \Doctrine\ORM\Query;
-use \Exporter\Source\ArraySourceIterator;
-use \NS\SentinelBundle\Exporter\DoctrineCollectionSourceIterator;
-use \NS\SentinelBundle\Result\AgeDistribution;
-use \NS\SentinelBundle\Result\CulturePositive;
-use \NS\SentinelBundle\Result\FieldPopulationResult;
-use \NS\SentinelBundle\Result\NumberEnrolledResult;
-use \Sonata\CoreBundle\Exporter\Exporter;
-use \Symfony\Component\Form\FormInterface;
-use \Symfony\Component\HttpFoundation\RedirectResponse;
-use \Symfony\Component\HttpFoundation\Request;
-use \Symfony\Component\Routing\RouterInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\Query;
+use Exporter\Source\ArraySourceIterator;
+use Exporter\Source\SourceIteratorInterface;
+use NS\SentinelBundle\Exporter\DoctrineCollectionSourceIterator;
+use NS\SentinelBundle\Result\AgeDistribution;
+use NS\SentinelBundle\Result\CulturePositive;
+use NS\SentinelBundle\Result\FieldPopulationResult;
+use NS\SentinelBundle\Result\NumberEnrolledResult;
+use Sonata\CoreBundle\Exporter\Exporter;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\RouterInterface;
 
 /**
  * Description of Report
@@ -29,6 +30,13 @@ class Report
     private $entityMgr;
     private $router;
 
+    /**
+     *
+     * @param Exporter $exporter
+     * @param type $filter
+     * @param ObjectManager $entityMgr
+     * @param RouterInterface $router
+     */
     public function __construct(Exporter $exporter, $filter, ObjectManager $entityMgr, RouterInterface $router)
     {
         $this->exporter  = $exporter;
@@ -37,6 +45,13 @@ class Report
         $this->router    = $router;
     }
 
+    /**
+     *
+     * @param Request $request
+     * @param FormInterface $form
+     * @param string $redirectRoute
+     * @return RedirectResponse|array
+     */
     public function numberEnrolled(Request $request, FormInterface $form, $redirectRoute)
     {
         $alias        = 'c';
@@ -64,6 +79,13 @@ class Report
         return array('results' => $result, 'form' => $form->createView());
     }
 
+    /**
+     *
+     * @param Request $request
+     * @param FormInterface $form
+     * @param string $redirectRoute
+     * @return RedirectResponse|array
+     */
     public function getAnnualAgeDistribution(Request $request, FormInterface $form, $redirectRoute)
     {
         $export       = false;
@@ -90,6 +112,11 @@ class Report
         return array('results' => $results, 'form' => $form->createView());
     }
 
+    /**
+     *
+     * @param array $sites
+     * @param array $results
+     */
     private function populateSites($sites, &$results)
     {
         foreach ($sites as $values)
@@ -102,6 +129,13 @@ class Report
         }
     }
 
+    /**
+     *
+     * @param Request $request
+     * @param FormInterface $form
+     * @param string $redirectRoute
+     * @return RedirectResponse|array
+     */
     public function getFieldPopulation(Request $request, FormInterface $form, $redirectRoute)
     {
         $results      = new ArrayCollection();
@@ -187,6 +221,12 @@ class Report
         return array('sites' => $results, 'form' => $form->createView());
     }
 
+    /**
+     *
+     * @param array $results
+     * @param array $counts
+     * @param callback $function
+     */
     private function processColumn($results, $counts, $function)
     {
         foreach ($counts as $c)
@@ -197,6 +237,13 @@ class Report
         }
     }
 
+    /**
+     *
+     * @param Request $request
+     * @param FormInterface $form
+     * @param string $redirectRoute
+     * @return RedirectResponse|array
+     */
     public function getCulturePositive(Request $request, FormInterface $form, $redirectRoute)
     {
         $alias          = 'c';
@@ -230,7 +277,13 @@ class Report
         return array('results' => $results, 'form' => $form->createView());
     }
 
-    public function export($source, $format = 'csv')
+    /**
+     *
+     * @param SourceIteratorInterface $source
+     * @param string $format
+     * @return Response
+     */
+    public function export(SourceIteratorInterface $source, $format = 'csv')
     {
         $filename = sprintf('export_%s.%s', date('Y_m_d_H_i_s'), $format);
 

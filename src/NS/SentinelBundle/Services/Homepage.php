@@ -17,12 +17,22 @@ class Homepage
     private $security;
     private $router;
 
+    /**
+     *
+     * @param SecurityContextInterface $security
+     * @param RouterInterface $router
+     */
     public function __construct(SecurityContextInterface $security, RouterInterface $router)
     {
         $this->security = $security;
         $this->router   = $router;
     }
 
+    /**
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
     public function getHomepageResponse(Request $request)
     {
         $user = $this->security->getToken()->getUser();

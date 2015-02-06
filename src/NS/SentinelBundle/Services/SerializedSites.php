@@ -23,7 +23,7 @@ class SerializedSites implements SerializedSitesInterface
 
     /**
      *
-     * @param Session $session
+     * @param SessionInterface $session
      * @param ObjectManager $entityMgr
      */
     public function __construct(SessionInterface $session, ObjectManager $entityMgr)

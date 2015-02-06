@@ -55,8 +55,8 @@ class SerializedSiteTest extends \PHPUnit_Framework_TestCase
     private function getMockObjectManager()
     {
         $obj  = $this->getObjects();
-        $repo = $this->getMockBuilder('NS\SentinelBundle\Repository\Site')
-                     ->disableOriginalConstructor()
+        $repo = $this->getMockBuilder('NS\SentinelBundle\Repository\SiteRepository')
+            ->disableOriginalConstructor()
                      ->getMock();
 
         $repo->expects($this->any())
