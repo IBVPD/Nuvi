@@ -69,10 +69,14 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
     {
         if(is_string($value) && strstr($value,'ROLE_') !== false)
         {
-            if(isset($this->rolemapping[$value]))
+            if (isset($this->rolemapping[$value]))
+            {
                 $value = $this->rolemapping[$value];
+            }
             else
+            {
                 throw new \UnexpectedValueException("$value is not a valid role mapping");
+            }
         }
 
         return parent::__construct($value);

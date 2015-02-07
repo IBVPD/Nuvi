@@ -38,6 +38,9 @@
                 <directory>../src/NS/TranslateBundle</directory>
                 <directory>../src/*/*Bundle/Features</directory>
                 <directory>../src/*/*Bundle/DataFixtures</directory>
+                <file>../src/*/*Bundle/*Bundle.php</file>
+                <file>../src/*/*Bundle/DependencyInjection/Configuration.php</file>
+                <file>../src/*/*Bundle/DependencyInjection/*Extension.php</file>
             </exclude>
         </whitelist>
     </filter>
