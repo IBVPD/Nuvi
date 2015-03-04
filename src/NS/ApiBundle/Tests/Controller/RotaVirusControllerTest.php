@@ -205,7 +205,7 @@ class RotaVirusControllerTest extends WebTestCase
     {
         $route  = $this->getUrl('nsApiRotaPutCase', array('objId' => self::ID));
         $client = $this->getClient();
-        $client->request('PUT', $route, array(), array(), array(), '{"rotavirus":{"lastName":"Fabien"');
+        $client->request('PUT', $route, array(), array(), array(), '{"rotavirus":{"lastName":"Fabien"}}');
 
         $response = $client->getResponse();
         $this->assertJsonResponse($response, 400);
