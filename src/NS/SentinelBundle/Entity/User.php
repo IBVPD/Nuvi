@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\ExecutionContextInterface;
-use NS\SecurityBundle\Model\SecuredEntityInterface;
 use NS\SentinelBundle\Form\Types\Role;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -20,7 +19,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity("email")
  * @SuppressWarnings(PHPMD.ShortVariable)
  */
-class User implements AdvancedUserInterface, SecuredEntityInterface
+class User implements AdvancedUserInterface
 {
     /**
      * @var integer
@@ -504,28 +503,6 @@ class User implements AdvancedUserInterface, SecuredEntityInterface
         $this->isActive = $isActive;
 
         return $this;
-    }
-
-    public function getACLObjectIdsForRole($irole)
-    {
-        $object_ids = array();
-
-        try
-        {
-            $role = new Role($irole);
-        }
-        catch(\UnexpectedValueException $e)
-        {
-            return null;
-        }
-
-        foreach($this->acls as $acl)
-        {
-            if($acl->getType()->equal($role)) // found an object id for this role
-                $object_ids[] = $acl->getObjectId();
-        }
-
-        return $object_ids;        
     }
 
     /**

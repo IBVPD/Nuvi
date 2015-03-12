@@ -2,24 +2,28 @@
 
 namespace NS\SentinelBundle\Form;
 
-use Lexik\Bundle\FormFilterBundle\Filter\FilterOperands;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Security\Core\SecurityContext;
+use \Lexik\Bundle\FormFilterBundle\Filter\FilterOperands;
+use \Symfony\Component\Form\AbstractType;
+use \Symfony\Component\Form\FormBuilderInterface;
+use \Symfony\Component\Form\FormEvent;
+use \Symfony\Component\Form\FormEvents;
+use \Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use \Symfony\Component\Security\Core\SecurityContextInterface;
 
 class BaseFilter extends AbstractType
 {
     private $securityContext;
 
+    private $aclConverter;
+
     /**
-     * @param SecurityContext $securityContext
+     * @param SecurityContextInterface $securityContext
+     * @param ACLConverter $aclConverter
      */
-    public function __construct(SecurityContext $securityContext)
+    public function __construct(SecurityContextInterface $securityContext, \NS\SecurityBundle\Role\ACLConverter $aclConverter)
     {
         $this->securityContext = $securityContext;
+        $this->aclConverter    = $aclConverter;
     }
 
     /**
@@ -30,65 +34,54 @@ class BaseFilter extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('caseId', 'filter_text', array(
-                                            'required'          => false,
-                                            'condition_pattern' => FilterOperands::STRING_BOTH,
-                                            'label'             => 'site-assigned-case-id'));
+            'required'          => false,
+            'condition_pattern' => FilterOperands::STRING_BOTH,
+            'label'             => 'site-assigned-case-id'));
         $builder->add('admDate', 'filter_date_range', array(
-                                            'required'          => false,
-                                            'label'             => 'filter.admission-date'));
+            'required' => false,
+            'label'    => 'filter.admission-date'));
 
-        $securityContext = $this->securityContext;
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'preSetData'));
+    }
 
-        $builder->addEventListener(
-                    FormEvents::PRE_SET_DATA,
-                    function(FormEvent $event) use($securityContext)
-                    {
-                        $form = $event->getForm();
-                        $user = $securityContext->getToken()->getUser();
+    public function preSetData(FormEvent $event)
+    {
+        $form  = $event->getForm();
+        $token = $this->securityContext->getToken();
 
-                        if($securityContext->isGranted('ROLE_REGION'))
-                        {
-                            $objectIds = $user->getACLObjectIdsForRole('ROLE_REGION');
-                            if(count($objectIds) > 1)
-                                $form->add('region','region');
-
-                            $form->add('id', 'filter_text', array(
-                                                                    'required'          => false,
-                                                                    'condition_pattern' => FilterOperands::STRING_BOTH,
-                                                                    'label'             => 'db-generated-id'));
-                            $form->add('country','country');
-                            $form->add('site','site');
-                        }
-
-                        if($securityContext->isGranted('ROLE_COUNTRY'))
-                        {
-                            $objectIds = $user->getACLObjectIdsForRole('ROLE_COUNTRY');
-                            if(count($objectIds) > 1)
-                                $form->add('country','country');
-
-                            $form->add('site','site');
-                        }
-
-                        if($securityContext->isGranted('ROLE_SITE'))
-                        {
-                            $objectIds = $user->getACLObjectIdsForRole('ROLE_SITE');
-                            if(count($objectIds) > 1)
-                                $form->add('site','site');
-                        }
-
-                        $form->add('find','iconbutton',array('type' => 'submit', 'icon' => 'icon-search','attr' => array('class'=>'btn btn-sm btn-success')));
-                    }
-                    );
-/*
-        if($this->securityContext->isGranted('ROLE_CAN_CREATE'))
+        if ($this->securityContext->isGranted('ROLE_REGION'))
         {
-            if($this->securityContext->isGranted('ROLE_CAN_CREATE_LAB'))
-            {
-                $builder->add('isComplete',null,array('required'=>false, 'label' => 'filter-case-is-complete'));
-            }
+            $objectIds = $this->aclConverter->getObjectIdsForRole($token, 'ROLE_REGION');
+            if (count($objectIds) > 1)
+                $form->add('region', 'region');
+
+            $form->add('id', 'filter_text', array(
+                'required'          => false,
+                'condition_pattern' => FilterOperands::STRING_BOTH,
+                'label'             => 'db-generated-id'));
+            $form->add('country', 'country');
+            $form->add('site', 'site');
         }
- */
-     }
+
+        if ($this->securityContext->isGranted('ROLE_COUNTRY'))
+        {
+            $objectIds = $this->aclConverter->getObjectIdsForRole($token, 'ROLE_COUNTRY');
+            if (count($objectIds) > 1)
+                $form->add('country', 'country');
+
+            $form->add('site', 'site');
+        }
+
+        if ($this->securityContext->isGranted('ROLE_SITE'))
+        {
+            $objectIds = $this->aclConverter->getObjectIdsForRole($token, 'ROLE_SITE');
+            if (count($objectIds) > 1)
+                $form->add('site', 'site');
+        }
+
+        $form->add('find', 'iconbutton', array('type' => 'submit', 'icon' => 'icon-search',
+            'attr' => array('class' => 'btn btn-sm btn-success')));
+    }
 
     /**
      * @param OptionsResolverInterface $resolver
@@ -96,7 +89,7 @@ class BaseFilter extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'method'      => 'GET',
+            'method' => 'GET',
         ));
     }
 

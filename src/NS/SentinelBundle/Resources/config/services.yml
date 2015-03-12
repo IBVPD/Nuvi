@@ -534,7 +534,7 @@ services:
 
     ns.sentinel.base.filter:
       class: NS\SentinelBundle\Form\BaseFilter
-      arguments: [ "@security.context" ]
+      arguments: [ @security.context, @ns.security.acl_converter ]
       tags:
         - { name: form.type, alias: base_filter_form }
 
