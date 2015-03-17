@@ -24,6 +24,7 @@ who.yml
 *odt*
 bin
 web/ace
+web/coverage
 *xliff
 *.rpm
 *.xlxs
