@@ -33,7 +33,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="CUSTOM")
-     * @ORM\CustomIdGenerator(class="\NS\SentinelBundle\Generator\Custom")
+     * @ORM\CustomIdGenerator(class="\NS\SentinelBundle\Generator\BaseCaseGenerator")
      * @var string $id
      * @ORM\Column(name="id",type="string")
      * @Serializer\Groups({"api"})
