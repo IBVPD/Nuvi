@@ -2,8 +2,9 @@
 
 namespace NS\ApiBundle\Tests\Controller;
 
-use NS\ApiBundle\Tests\WebTestCase;
-use NS\UtilBundle\Form\Types\ArrayChoice;
+use \NS\ApiBundle\Tests\WebTestCase;
+use \NS\SentinelBundle\Form\Types\Gender;
+use \NS\UtilBundle\Form\Types\ArrayChoice;
 
 /**
  * Description of RotaVirusController
@@ -42,7 +43,7 @@ class RotaVirusControllerTest extends WebTestCase
 
         $case = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:RotaVirus')->find(self::ID);
         $this->assertEquals("Fabien", $case->getLastName(), "Change has occurred");
-        $this->assertTrue($case->getGender()->equal(\NS\SentinelBundle\Form\Types\Gender::FEMALE));
+        $this->assertTrue($case->getGender()->equal(Gender::FEMALE));
     }
 
     public function testPostCase()
