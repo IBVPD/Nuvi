@@ -20,7 +20,7 @@ use \JMS\Serializer\Annotation\Exclude;
 /**
  * Description of RotaVirus
  * @author gnat
- * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\RotaVirus")
+ * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\RotaVirusRepository")
  * @ORM\Table(name="rotavirus_cases",uniqueConstraints={@ORM\UniqueConstraint(name="rotavirus_site_case_id_idx",columns={"site_id","caseId"})})
  * @Gedmo\Loggable
  * @Secured(conditions={

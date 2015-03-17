@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *
  * @author gnat
  */
-class Result extends EntityRepository
+class ResultRepository extends EntityRepository
 {
     public function getResultsForUser(UserInterface $user, $alias ='r')
     {

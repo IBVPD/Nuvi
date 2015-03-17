@@ -5,7 +5,6 @@ namespace NS\SentinelBundle\Repository;
 use \Doctrine\ORM\NoResultException;
 use \Doctrine\ORM\Query;
 use \NS\SentinelBundle\Exceptions\NonExistentCase;
-use \NS\SentinelBundle\Form\Types\TripleChoice;
 use \NS\SentinelBundle\Repository\Common;
 
 /**
@@ -13,7 +12,7 @@ use \NS\SentinelBundle\Repository\Common;
  *
  * @author gnat
  */
-class RotaVirus extends Common
+class RotaVirusRepository extends Common
 {
     public function getLatestQuery( $alias = 'm')
     {

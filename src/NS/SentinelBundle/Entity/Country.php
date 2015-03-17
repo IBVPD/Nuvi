@@ -13,7 +13,7 @@ use NS\SentinelBundle\Form\Types\TripleChoice;
  * Country
  *
  * @ORM\Table(name="countries",uniqueConstraints={@ORM\UniqueConstraint(name="code_idx", columns={"code"})})
- * @ORM\Entity(repositoryClass="\NS\SentinelBundle\Repository\Country")
+ * @ORM\Entity(repositoryClass="\NS\SentinelBundle\Repository\CountryRepository")
  * @Secured(conditions={
  *      @SecuredCondition(roles={"ROLE_REGION"},relation="region",class="NSSentinelBundle:Region"),
  *      @SecuredCondition(roles={"ROLE_COUNTRY","ROLE_RRL_LAB","ROLE_NL_LAB"},field="id"),

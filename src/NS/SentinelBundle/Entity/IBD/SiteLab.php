@@ -27,7 +27,7 @@ use \NS\SentinelBundle\Validators as NSValidators;
  *
  * Description of SiteLab
  * @author gnat
- * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\IBD\SiteLab")
+ * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\IBD\SiteLabRepository")
  * @ORM\Table(name="ibd_site_labs")
  * @Gedmo\Loggable
  * @Security\Secured(conditions={

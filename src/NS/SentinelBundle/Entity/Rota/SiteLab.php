@@ -17,7 +17,7 @@ use \JMS\Serializer\Annotation\Groups;
 /**
  * Description of RotaVirusSiteLab
  * @author gnat
- * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\Rota\SiteLab")
+ * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\Rota\SiteLabRepository")
  * @ORM\Table(name="rotavirus_site_labs")
  * @Gedmo\Loggable
  * @Secured(conditions={

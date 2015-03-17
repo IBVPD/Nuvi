@@ -11,7 +11,7 @@ use \NS\SentinelBundle\Entity\User;
  *
  * @author gnat
  *
- * @ORM\Entity(repositoryClass="NS\ImportBundle\Repository\Result")
+ * @ORM\Entity(repositoryClass="NS\ImportBundle\Repository\ResultRepository")
  * @ORM\Table(name="import_results")
  * @SuppressWarnings(PHPMD.ShortVariable)
  */

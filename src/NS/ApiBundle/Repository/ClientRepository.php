@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityRepository;
  *
  * @author gnat
  */
-class Client extends EntityRepository
+class ClientRepository extends EntityRepository
 {
     public function getForUser($user)
     {

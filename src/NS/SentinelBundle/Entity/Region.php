@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Region
  *
  * @ORM\Table(name="regions")
- * @ORM\Entity(repositoryClass="\NS\SentinelBundle\Repository\Region")
+ * @ORM\Entity(repositoryClass="\NS\SentinelBundle\Repository\RegionRepository")
  * @Security\Secured(conditions={
  *      @Security\SecuredCondition(roles={"ROLE_REGION"},field="id"),
  *      })

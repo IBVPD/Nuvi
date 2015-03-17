@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Description of ReferenceLab
  * @author gnat
- * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\IBD\NationalLab")
+ * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\IBD\NationalLabRepository")
  */
 class NationalLab extends ExternalLab
 {

@@ -14,7 +14,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * User
  *
  * @ORM\Table(name="users",uniqueConstraints={@ORM\UniqueConstraint(name="email_idx",columns={"email"})})
- * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\User")
+ * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\UserRepository")
  * @Assert\Callback(methods={"validate"})
  * @UniqueEntity("email")
  * @SuppressWarnings(PHPMD.ShortVariable)
