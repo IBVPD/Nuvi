@@ -478,6 +478,19 @@ class ImportProcessorTest extends WebTestCase
         $this->assertEquals($processor->getMemoryLimit(), '1024M');
     }
 
+    public function testReferenceLabDuplicateFields()
+    {
+        $processor = new ImportProcessor($this->getContainer(), new DuplicateFilterFactory(), 'date');
+        $import    = new Import();
+        $map       = new Map();
+        $map->setClass('NS\SentinelBundle\Entity\IBD\ReferenceLab');
+        $import->setMap($map);
+
+        $processor->initializeDuplicateFilter($import);
+        $this->assertNotNull($processor->getDuplicate());
+        $this->assertEquals(array('getid' => 'caseFile', 1 => 'id'), $processor->getDuplicate()->getFields());
+    }
+
     public function getIbdMap(array $columns)
     {
         $map = new Map();
