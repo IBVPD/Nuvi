@@ -17,6 +17,9 @@ class Duplicate implements FilterInterface
     private $fields;
     private $duplicates;
 
+    /**
+     * @param array $fields
+     */
     public function __construct(array $fields = array())
     {
         $this->items      = new ArrayCollection();
@@ -24,13 +27,21 @@ class Duplicate implements FilterInterface
         $this->fields     = $fields;
     }
 
+    /**
+     *
+     * @param array $item
+     * @return string
+     * @throws UnexpectedValueException
+     */
     public function getFieldKey(array $item)
     {
         $fieldKey = null;
         foreach ($this->fields as $method => $field)
         {
             if (!isset($item[$field]))
+            {
                 throw new UnexpectedValueException("'$field' doesn't exist ");
+            }
 
             $fieldKey .= (is_object($item[$field]) && $method && method_exists($item[$field], $method)) ? sprintf('%s-', $item[$field]->$method()) : sprintf('%s-', $item[$field]);
         }
@@ -61,16 +72,26 @@ class Duplicate implements FilterInterface
         return false;
     }
 
+    /**
+     * @return array
+     */
     public function toArray()
     {
         return $this->duplicates->toArray();
     }
 
+    /**
+     * @return array
+     */
     public function getFields()
     {
         return $this->fields;
     }
 
+    /**
+     * @param array $fields
+     * @return \NS\ImportBundle\Filter\Duplicate
+     */
     public function setFields($fields)
     {
         $this->fields = $fields;

@@ -404,9 +404,41 @@ class ImportProcessorTest extends WebTestCase
         $this->assertCount(2, $result->getExceptions());
     }
 
+    public function testBlankFieldConversion()
+    {
+        $container = $this->getMockBuilder('\Symfony\Component\DependencyInjection\ContainerInterface')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $duplicate = new Duplicate();
+        $processor = new ImportProcessor($container, $duplicate, "caseId");
+        $this->assertTrue(is_array($processor->getNotBlankFields()));
+        $this->assertEquals(array('caseId'), $processor->getNotBlankFields());
+    }
+
     public function testNotBlank()
     {
-//        $this->assertTrue(false);
+        $notBlankStr = new \NS\ImportBundle\Filter\NotBlank("field");
+        $this->assertEquals(array('field'), $notBlankStr->fields);
+
+        $notBlankArr = new \NS\ImportBundle\Filter\NotBlank(array("field"));
+        $this->assertEquals(array('field'), $notBlankArr->fields);
+
+        $this->assertTrue($notBlankArr->filter(array('field' => '1', 'something' => 2)));
+        $this->assertFalse($notBlankArr->filter(array('field' => null, 'something' => 2)));
+        $this->assertFalse($notBlankArr->filter(array('field' => '', 'something' => 2)));
+    }
+
+    public function testDefaultValues()
+    {
+        $duplicate = new Duplicate(array());
+        $processor = new ImportProcessor($this->getContainer(), $duplicate, 'date');
+        $this->assertEquals($processor->getMaxExecutionTime(), '90');
+        $this->assertEquals($processor->getMemoryLimit(), '512M');
+
+        $processor->setMaxExecutionTime(120);
+        $processor->setMemoryLimit('1024M');
+        $this->assertEquals($processor->getMaxExecutionTime(), '120');
+        $this->assertEquals($processor->getMemoryLimit(), '1024M');
     }
 
     public function getIbdMap(array $columns)

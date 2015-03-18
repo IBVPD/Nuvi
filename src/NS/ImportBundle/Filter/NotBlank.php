@@ -11,14 +11,14 @@ use \Ddeboer\DataImport\Filter\FilterInterface;
  */
 class NotBlank implements FilterInterface
 {
-    private $fields;
+    public $fields;
 
     /**
      * @param string $fields The field(s) that will be checked to not be empty
      */
     public function __construct($fields)
     {
-        $this->fields = (is_array($fields)) ? : array($fields);
+        $this->fields = ((is_array($fields)) ? $fields : array($fields));
     }
 
     /**
@@ -33,7 +33,9 @@ class NotBlank implements FilterInterface
         foreach ($this->fields as $field)
         {
             if (empty($item[$field]))
+            {
                 return false;
+            }
         }
 
         return true;

@@ -29,7 +29,7 @@ services:
 
     ns_import.processor:
         class: NS\ImportBundle\Services\ImportProcessor
-        arguments: [ @service_container, @ns_import.filter.duplicate, caseId ]
+        arguments: [ @service_container, @ns_import.filter.duplicate, [caseId] ]
 
     ns_import.form.class:
         class: NS\ImportBundle\Form\ClassType

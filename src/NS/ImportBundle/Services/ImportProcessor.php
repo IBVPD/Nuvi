@@ -38,9 +38,9 @@ class ImportProcessor
      */
     public function __construct(ContainerInterface $container, Duplicate $duplicateFilter, $notBlankFields)
     {
-        $this->container      = $container;
-        $this->duplicate      = $duplicateFilter;
-        $this->notBlankFields = $notBlankFields;
+        $this->setContainer($container);
+        $this->setDuplicate($duplicateFilter);
+        $this->setNotBlankFields($notBlankFields);
     }
 
     /**
@@ -73,6 +73,13 @@ class ImportProcessor
         return $this->workflowProcess($workflow);
     }
 
+    /**
+     *
+     * @staticvar DoctrineWriter $doctrineWriter
+     * @param string $class
+     * @return DoctrineWriter
+     * @throws \InvalidArgumentException
+     */
     public function getWriter($class = null)
     {
         static $doctrineWriter = null;
@@ -185,7 +192,7 @@ class ImportProcessor
      */
     public function setNotBlankFields($notBlankFields)
     {
-        $this->notBlankFields = $notBlankFields;
+        $this->notBlankFields = (is_array($notBlankFields)) ? $notBlankFields : array($notBlankFields);
         return $this;
     }
 
@@ -209,13 +216,31 @@ class ImportProcessor
         return $this;
     }
 
+    /**
+     * @return Duplicate
+     */
     public function getDuplicate()
     {
         return $this->duplicate;
     }
 
-    public function getDuplicateHash()
+    /**
+     * @param ContainerInterface $container
+     * @return \NS\ImportBundle\Services\ImportProcessor
+     */
+    public function setContainer(ContainerInterface $container)
     {
-        return spl_object_hash($this->duplicate);
+        $this->container = $container;
+        return $this;
+    }
+
+    /**
+     * @param Duplicate $duplicate
+     * @return \NS\ImportBundle\Services\ImportProcessor
+     */
+    public function setDuplicate(Duplicate $duplicate)
+    {
+        $this->duplicate = $duplicate;
+        return $this;
     }
 }
