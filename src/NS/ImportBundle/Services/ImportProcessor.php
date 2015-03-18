@@ -3,11 +3,13 @@
 namespace NS\ImportBundle\Services;
 
 use \Ddeboer\DataImport\Reader\CsvReader;
+use \Ddeboer\DataImport\Reader\ReaderInterface;
 use \Ddeboer\DataImport\Workflow;
 use \Doctrine\Common\Persistence\ObjectManager;
 use \Doctrine\DBAL\DBALException;
 use \NS\ImportBundle\Entity\Import;
 use \NS\ImportBundle\Filter\Duplicate;
+use \NS\ImportBundle\Filter\DuplicateFilterFactory;
 use \NS\ImportBundle\Filter\NotBlank;
 use \NS\ImportBundle\Writer\DoctrineWriter;
 use \NS\ImportBundle\Writer\Result;
@@ -24,6 +26,8 @@ class ImportProcessor
 
     private $duplicate;
 
+    private $duplicateFactory;
+
     private $notBlankFields;
 
     private $memoryLimit      = '512M';
@@ -36,10 +40,10 @@ class ImportProcessor
      * @param Duplicate $duplicateFilter
      * @param array|string $notBlankFields
      */
-    public function __construct(ContainerInterface $container, Duplicate $duplicateFilter, $notBlankFields)
+    public function __construct(ContainerInterface $container, DuplicateFilterFactory $duplicateFilter, $notBlankFields)
     {
         $this->setContainer($container);
-        $this->setDuplicate($duplicateFilter);
+        $this->setDuplicateFactory($duplicateFilter);
         $this->setNotBlankFields($notBlankFields);
     }
 
@@ -51,6 +55,8 @@ class ImportProcessor
     {
         ini_set('max_execution_time', $this->maxExecutionTime);
         ini_set('memory_limit', $this->memoryLimit);
+
+        $this->initializeDuplicateFilter($import);
 
         try
         {
@@ -137,7 +143,16 @@ class ImportProcessor
         $workflow->addItemConverter($import->getMappings());
         $workflow->addItemConverter($import->getIgnoredMapper());
         $workflow->addFilterAfterConversion(new NotBlank($this->notBlankFields));
-        $workflow->addFilterAfterConversion($this->duplicate);
+        if (!$this->duplicate)
+        {
+            $this->initializeDuplicateFilter($import);
+        }
+
+        if ($this->duplicate)
+        {
+            $workflow->addFilterAfterConversion($this->duplicate);
+        }
+
     }
 
     /**
@@ -242,5 +257,29 @@ class ImportProcessor
     {
         $this->duplicate = $duplicate;
         return $this;
+    }
+
+    /**
+     * @return DuplicateFilterFactory
+     */
+    public function getDuplicateFactory()
+    {
+        return $this->duplicateFactory;
+    }
+
+    /**
+     *
+     * @param DuplicateFilterFactory $duplicateFactory
+     * @return \NS\ImportBundle\Services\ImportProcessor
+     */
+    public function setDuplicateFactory(DuplicateFilterFactory $duplicateFactory)
+    {
+        $this->duplicateFactory = $duplicateFactory;
+        return $this;
+    }
+
+    public function initializeDuplicateFilter(Import $import)
+    {
+        $this->duplicate = $this->duplicateFactory->createDuplicateFilter($import->getClass());
     }
 }

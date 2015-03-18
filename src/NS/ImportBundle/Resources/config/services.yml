@@ -23,13 +23,12 @@ services:
         tags:
             - { name: form.type, alias: ns_filter_date_range }
 
-    ns_import.filter.duplicate:
-        class: NS\ImportBundle\Filter\Duplicate
-        arguments: [ {getcode: site, 1: caseId} ]
+    ns_import.filter.duplicate_factory:
+        class: NS\ImportBundle\Filter\DuplicateFilterFactory
 
     ns_import.processor:
         class: NS\ImportBundle\Services\ImportProcessor
-        arguments: [ @service_container, @ns_import.filter.duplicate, [caseId] ]
+        arguments: [ @service_container, @ns_import.filter.duplicate_factory, [caseId] ]
 
     ns_import.form.class:
         class: NS\ImportBundle\Form\ClassType
