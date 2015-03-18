@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 class Homepage
 {
     private $security;
+
     private $router;
 
     /**
@@ -37,26 +38,18 @@ class Homepage
     {
         $user = $this->security->getToken()->getUser();
 
-        if($user->isOnlyAdmin())
-            $response = new RedirectResponse($this->router->generate('sonata_admin_dashboard'));
-        else if($user->isOnlyApi())
-            $response = new RedirectResponse($this->router->generate('ns_api_dashboard'));
-        else
+        if ($user->isOnlyAdmin())
         {
-            $_locale         = $request->attributes->get('_locale', $request->getLocale());
-            $statusCode      = $request->attributes->get('statusCode', 301);
-            $redirectToRoute = 'homepage';
-
-            if ($this->router && $redirectToRoute)
-                $response = new RedirectResponse($this->router->generate($redirectToRoute, array('_locale' => $_locale)), $statusCode);
-            else
-            {
-                // TODO: this seems broken, as it will not handle if the site runs in a subdir
-                // TODO: also it doesn't handle the locale at all and can therefore lead to an infinite redirect
-                $response = new RedirectResponse($request->getScheme() . '://' . $request->getHttpHost() . '/', $statusCode);
-            }
+            return new RedirectResponse($this->router->generate('sonata_admin_dashboard'));
+        }
+        else if ($user->isOnlyApi())
+        {
+            return new RedirectResponse($this->router->generate('ns_api_dashboard'));
         }
 
-        return $response;
+        $locale = $request->attributes->get('_locale', $request->getLocale());
+        $route  = $this->router->generate('homepage', array('_locale' => $locale));
+
+        return new RedirectResponse($route);
     }
 }
