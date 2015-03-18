@@ -12,7 +12,10 @@ use \Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class DoctrineSubscriber implements EventSubscriberInterface
 {
-
+    /**
+     * {@inheritdoc}
+     * @return array
+     */
     public static function getSubscribedEvents()
     {
         $dateRange = array('filterDateRange');
@@ -25,6 +28,9 @@ class DoctrineSubscriber implements EventSubscriberInterface
         );
     }
 
+    /**
+     * @param ApplyFilterEvent $event
+     */
     public function filterDateRange(ApplyFilterEvent $event)
     {
         $qb     = $event->getQueryBuilder();
