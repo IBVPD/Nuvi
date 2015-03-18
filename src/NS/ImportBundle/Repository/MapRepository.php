@@ -2,12 +2,15 @@
 
 namespace NS\ImportBundle\Repository;
 
+use \Doctrine\ORM\EntityRepository;
+use \Doctrine\ORM\QueryBuilder;
+
 /**
  * Description of MapRepository
  *
  * @author gnat
  */
-class MapRepository extends \Doctrine\ORM\EntityRepository
+class MapRepository extends EntityRepository
 {
     /**
      * @return QueryBuilder

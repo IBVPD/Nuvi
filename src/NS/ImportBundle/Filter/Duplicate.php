@@ -92,7 +92,7 @@ class Duplicate implements FilterInterface
      * @param array $fields
      * @return \NS\ImportBundle\Filter\Duplicate
      */
-    public function setFields($fields)
+    public function setFields(array $fields)
     {
         $this->fields = $fields;
         return $this;
