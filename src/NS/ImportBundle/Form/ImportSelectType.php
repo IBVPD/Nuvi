@@ -31,13 +31,15 @@ class ImportSelectType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('map','entity',array( 'class'         => 'NSImportBundle:Map',
-                                            'empty_value'   => 'Please Select...',
-                                            'query_builder' => $this->entityMgr->getRepository('NSImportBundle:Map')->createQueryBuilder('m')->addSelect('c')->leftJoin('m.columns','c')->orderBy('m.name','ASC')->addOrderBy('m.version','ASC')->addOrderBy('c.order')
-                                          ))
-                ->add('file','file')
-                ->add('import','submit')
-                ;
+        $builder->add('map', 'entity', array(
+                'class'         => 'NSImportBundle:Map',
+                'empty_value'   => 'Please Select...',
+                'query_builder' => $this->entityMgr->getRepository('NSImportBundle:Map')->getWithColumnsQuery(),
+                )
+            )
+            ->add('file', 'file')
+            ->add('import', 'submit')
+        ;
     }
 
     /**
@@ -46,7 +48,7 @@ class ImportSelectType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class'=>'NS\ImportBundle\Entity\Import'
+            'data_class' => 'NS\ImportBundle\Entity\Import'
         ));
     }
 

@@ -305,7 +305,15 @@ nelmio_api_doc:
     body_format: json
 
 ns_import:
-  classes: { NS\SentinelBundle\Entity\IBD: IBD, NS\SentinelBundle\Entity\Rotavirus: Rotavirus }
+  classes:
+    NS\SentinelBundle\Entity\IBD: IBD
+    NS\SentinelBundle\Entity\IBD\SiteLab: IBD Site Lab
+    NS\SentinelBundle\Entity\IBD\ReferenceLab: IBD Reference Lab
+    NS\SentinelBundle\Entity\IBD\NationalLab: IBD National Lab
+    NS\SentinelBundle\Entity\Rotavirus: Rotavirus
+    NS\SentinelBundle\Entity\RotaVirus\SiteLab: Rotavirus Site Lab
+    NS\SentinelBundle\Entity\RotaVirus\ReferenceLab: Rotavirus Reference Lab
+    NS\SentinelBundle\Entity\RotaVirus\NationalLab: Rotavirus National Lab
 
 deploy:
   prodwhodemo:

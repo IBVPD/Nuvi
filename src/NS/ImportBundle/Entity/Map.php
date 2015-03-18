@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * Description of Map
  *
  * @author gnat
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="NS\ImportBundle\Repository\MapRepository")
  * @ORM\Table(name="import_map")
  * @SuppressWarnings(PHPMD.ShortVariable)
  */
