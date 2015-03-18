@@ -10,6 +10,7 @@ use \Sonata\AdminBundle\Show\ShowMapper;
 
 class ColumnAdmin extends Admin
 {
+
     /**
      * @param DatagridMapper $datagridMapper
      */
@@ -31,8 +32,8 @@ class ColumnAdmin extends Admin
             ->add('order')
             ->add('_action', 'actions', array(
                 'actions' => array(
-                    'show' => array(),
-                    'edit' => array(),
+                    'show'   => array(),
+                    'edit'   => array(),
                     'delete' => array(),
                 )
             ))
@@ -47,9 +48,9 @@ class ColumnAdmin extends Admin
         $formMapper
             ->add('name')
             ->add('order')
-            ->add('converter',  'ConverterChoice',  array('required'=>false))
+            ->add('converter', 'ConverterChoice', array('required' => false))
             ->add('mapper')
-            ->add('isIgnored',  null,               array('label'=>'Drop Field', 'required'=>false))
+            ->add('ignored', null, array('label' => 'Drop Field', 'required' => false))
         ;
     }
 
@@ -63,7 +64,7 @@ class ColumnAdmin extends Admin
             ->add('order')
             ->add('converter')
             ->add('mapper')
-            ->add('isIgnored')
+            ->add('ignored')
         ;
     }
 }
