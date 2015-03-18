@@ -24,11 +24,15 @@ class SiteConverter implements NamedValueConverterInterface
 
     public function convert($input)
     {
-        if(!$this->initialized)
+        if (!$this->initialized)
+        {
             $this->initialize();
+        }
 
-        if(!isset($this->sites[$input]))
+        if (!isset($this->sites[$input]))
+        {
             throw new NonExistentSite("Unable to find site chain for $input");
+        }
 
         return $this->sites[$input];
     }
