@@ -2,9 +2,9 @@
 
 namespace NS\SentinelBundle\Converter;
 
-use Doctrine\Common\Persistence\ObjectManager;
-use NS\ImportBundle\Converter\NamedValueConverterInterface;
-use NS\SentinelBundle\Exceptions\NonExistentSite;
+use \Doctrine\Common\Persistence\ObjectManager;
+use \NS\ImportBundle\Converter\NamedValueConverterInterface;
+use \NS\SentinelBundle\Exceptions\NonExistentSite;
 
 /**
  * Description of Site
@@ -17,11 +17,21 @@ class SiteConverter implements NamedValueConverterInterface
     private $initialized = false;
     private $entityMgr;
 
+    /**
+     *
+     * @param ObjectManager $entityMgr
+     */
     public function __construct(ObjectManager $entityMgr)
     {
         $this->entityMgr = $entityMgr;
     }
 
+    /**
+     *
+     * @param string $input
+     * @return Site
+     * @throws NonExistentSite
+     */
     public function convert($input)
     {
         if (!$this->initialized)
@@ -37,12 +47,19 @@ class SiteConverter implements NamedValueConverterInterface
         return $this->sites[$input];
     }
 
+    /**
+     * Initializes the site list
+     */
     public function initialize()
     {
         $this->sites       = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getChain();
         $this->initialized = true;
     }
 
+    /**
+     *
+     * @return string
+     */
     public function getName()
     {
         return 'Site';
