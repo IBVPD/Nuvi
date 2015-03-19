@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Tests\Form\Types;
 
+use \NS\SentinelBundle\Form\Types\Role;
 use \Symfony\Component\Form\Test\TypeTestCase;
 
 /**
@@ -17,7 +18,7 @@ class RoleTypeTest extends TypeTestCase
      */
     public function testInvalidRoleMap()
     {
-        new \NS\SentinelBundle\Form\Types\Role('ROLE_REGION2');
+        new Role('ROLE_REGION2');
     }
 
     /**
@@ -25,8 +26,31 @@ class RoleTypeTest extends TypeTestCase
      */
     public function testGetCredential($roleStr)
     {
-        $role = new \NS\SentinelBundle\Form\Types\Role($roleStr);
+        $role = new Role($roleStr);
         $this->assertEquals(array($roleStr), $role->getAsCredential());
+    }
+
+    public function testEmptyCredential()
+    {
+        $role = new Role();
+        $this->assertNull($role->getAsCredential());
+        $this->assertNull($role->getClassMatch());
+    }
+
+    public function testEqualTo()
+    {
+        $role      = new Role(Role::COUNTRY);
+        $cntryRole = clone $role;
+        $this->assertTrue($role->equal('ROLE_COUNTRY'));
+        $this->assertTrue($role->equal(2));
+        $this->assertTrue($role->equal($cntryRole));
+
+        $siteRole = new Role(Role::SITE);
+        $this->assertFalse($role->equal(3));
+        $this->assertFalse($role->equal('3'));
+        $this->assertFalse($role->equal('ROLE_REGION'));
+        $this->assertFalse($role->equal($siteRole));
+        $this->assertFalse($role->equal(false));
     }
 
     /**
@@ -34,7 +58,7 @@ class RoleTypeTest extends TypeTestCase
      */
     public function testGetClassMatch($roleStr, $entity)
     {
-        $role = new \NS\SentinelBundle\Form\Types\Role($roleStr);
+        $role = new Role($roleStr);
         $this->assertEquals($entity, $role->getClassMatch());
     }
 
@@ -70,7 +94,7 @@ class RoleTypeTest extends TypeTestCase
             array('roleStr' => 'ROLE_SITE_API'),
             array('roleStr' => 'ROLE_LAB'),
             array('roleStr' => 'ROLE_NL_LAB'),
-            array('roleStr' => 'ROLE_RRL_LAB')
+            array('roleStr' => 'ROLE_RRL_LAB'),
         );
     }
 }

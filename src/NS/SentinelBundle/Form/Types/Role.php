@@ -67,14 +67,12 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
      */
     public function __construct($value = null)
     {
-        if(is_string($value) && strstr($value,'ROLE_') !== false)
-        {
-            if (isset($this->rolemapping[$value]))
-            {
+        $this->rolemapping = array_flip($this->values);
+        if (is_string($value) && strstr($value, 'ROLE_') !== false) {
+            if (isset($this->rolemapping[$value])) {
                 $value = $this->rolemapping[$value];
             }
-            else
-            {
+            else {
                 throw new \UnexpectedValueException("$value is not a valid role mapping");
             }
         }
@@ -171,14 +169,14 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
     {
         $highest = null;
 
-        foreach($roles as $role)
-        {
-            if(isset($this->rolemapping[$role->getRole()]))
-            {
-                if($highest == null)
+        foreach ($roles as $role) {
+            if (isset($this->rolemapping[$role->getRole()])) {
+                if ($highest == null) {
                     $highest = $this->rolemapping[$role->getRole()];
-                else if ($highest > $this->rolemapping[$role->getRole()])//highest is actually 1...
+                }
+                else if ($highest > $this->rolemapping[$role->getRole()]) { //highest is actually 1...
                     $highest = $this->rolemapping[$role->getRole()];
+                }
             }
         }
 
@@ -192,13 +190,12 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
     {
         $highest = $this->getHighest($this->securityContext->getToken()->getRoles());
 
-        if(!is_null($highest) && $highest != self::REGION)
-        {
+        if (!is_null($highest) && $highest != self::REGION) {
             $values = $this->values;
-            foreach(array_keys($values) as $key)
-            {
-                if($key < $highest)
+            foreach (array_keys($values) as $key) {
+                if ($key < $highest) {
                     unset($values[$key]);
+                }
             }
 
             $resolver->setDefaults(array(
@@ -206,11 +203,12 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
                 'empty_value' => 'Please Select...',
             ));
         }
-        else
+        else {
             $resolver->setDefaults(array(
                 'choices'     => $this->values,
                 'empty_value' => 'Please Select...',
             ));
+        }
     }
 
     /**

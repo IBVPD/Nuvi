@@ -176,7 +176,8 @@ class BaseCase
 
     public function fieldPopulationValidation(ExecutionContextInterface $context)
     {
-        if(empty($this->admDate['left_date']) && empty($this->admDate['right_date']) && empty($this->createdAt['left_date']) && empty($this->createdAt['right_date']))
-            $context->addViolation ("You must select a date range for either created at or admission date");
+        if (empty($this->admDate['left_date']) && empty($this->admDate['right_date']) && empty($this->createdAt['left_date']) && empty($this->createdAt['right_date'])) {
+            $context->addViolation("You must select a date range for either created at or admission date");
+        }
     }
 }

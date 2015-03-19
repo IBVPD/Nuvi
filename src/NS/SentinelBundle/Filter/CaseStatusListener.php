@@ -30,7 +30,7 @@ class CaseStatusListener implements EventSubscriberInterface
     /**
      * Apply a filter for a filter_locale type.
      *
-     * This method should work whih both ORM and DBAL query builder.
+     * This method should work with both ORM and DBAL query builder.
      */
     public function filterCaseStatus(ApplyFilterEvent $event)
     {

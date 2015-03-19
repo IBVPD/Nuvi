@@ -17,8 +17,11 @@ use \NS\SentinelBundle\Entity\Site;
 class SerializedSites implements SerializedSitesInterface
 {
     private $sites;
+
     private $entityMgr;
+
     private $isInitialized = false;
+
     private $session;
 
     /**
@@ -38,8 +41,9 @@ class SerializedSites implements SerializedSitesInterface
      */
     public function hasMultipleSites()
     {
-        if(!$this->isInitialized)
+        if (!$this->isInitialized) {
             $this->initialize();
+        }
 
         return (count($this->sites) > 1);
     }
@@ -50,8 +54,9 @@ class SerializedSites implements SerializedSitesInterface
      */
     public function getSites()
     {
-        if(!$this->isInitialized)
+        if (!$this->isInitialized) {
             $this->initialize();
+        }
 
         return $this->sites;
     }
@@ -63,13 +68,15 @@ class SerializedSites implements SerializedSitesInterface
      */
     public function getSite($managed = true)
     {
-        if(!$this->isInitialized)
+        if (!$this->isInitialized) {
             $this->initialize();
+        }
 
         $site = current($this->sites);
 
-        if ($managed && $site instanceof Site && !$this->entityMgr->contains($site))
-            $this->registerSite ($site);
+        if ($managed && $site instanceof Site && !$this->entityMgr->contains($site)) {
+            $this->registerSite($site);
+        }
 
         return $site;
     }
@@ -80,18 +87,17 @@ class SerializedSites implements SerializedSitesInterface
      */
     public function initialize()
     {
-        if($this->isInitialized) /* || !$this->session->isStarted() - Used to be required to pass behat/phpunit tests but breaks the API stateless access */
+        if ($this->isInitialized) /* || !$this->session->isStarted() - Used to be required to pass behat/phpunit tests but breaks the API stateless access */
             return;
 
         $sites = unserialize($this->session->get('sites'));
 
-        if(!$sites || count($sites) == 0) // empty session site array so build and store
-        {
+        if (!$sites || count($sites) == 0) { // empty session site array so build and store
             $sites = $this->populateSiteArray();
-            $this->session->set('sites',serialize($sites));
+            $this->session->set('sites', serialize($sites));
         }
 
-        $this->sites = $sites;
+        $this->sites         = $sites;
         $this->isInitialized = true;
     }
 
@@ -105,9 +111,13 @@ class SerializedSites implements SerializedSitesInterface
         $country = $site->getCountry();
         $region  = $country->getRegion();
 
-        $uow->registerManaged($site,   array('code' => $site->getCode()), array('code' => $site->getCode()));
-        $uow->registerManaged($country,array('id'   => $country->getId()),array('id'   => $country->getId(), 'code' => $country->getCode()));
-        $uow->registerManaged($region, array('id'   => $region->getId()), array('id'   => $region->getId(),  'code' => $region->getCode()));
+        $uow->registerManaged($site, array('code' => $site->getCode()), array('code' => $site->getCode()));
+        $uow->registerManaged($country, array('id' => $country->getId()), array(
+            'id'   => $country->getId(),
+            'code' => $country->getCode()));
+        $uow->registerManaged($region, array('id' => $region->getId()), array(
+            'id'   => $region->getId(),
+            'code' => $region->getCode()));
     }
 
     /**
@@ -117,8 +127,7 @@ class SerializedSites implements SerializedSitesInterface
     private function populateSiteArray()
     {
         $sites = array();
-        foreach($this->entityMgr->getRepository('NS\SentinelBundle\Entity\Site')->getChain() as $site)
-        {
+        foreach ($this->entityMgr->getRepository('NS\SentinelBundle\Entity\Site')->getChain() as $site) {
             $region = new Region();
             $region->setName($site->getCountry()->getRegion()->getName());
             $region->setId($site->getCountry()->getRegion()->getId());
