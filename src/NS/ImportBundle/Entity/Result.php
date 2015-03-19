@@ -118,7 +118,8 @@ class Result
         foreach ($results as $r)
         {
             $this->successes[] = array(
-                'id'       => $r->getId(),
+                'dbId'     => $r->getId(),
+                'caseDbId' => $r->getCaseFile()->getId(),
                 'labId'    => $r->getLabId(),
                 'caseId'   => $r->getCaseFile()->getCaseId(),
                 'site'     => $r->getCaseFile()->getSite()->getCode(),
