@@ -38,7 +38,7 @@ class ImportSelectType extends AbstractType
                 )
             )
             ->add('file', 'file')
-            ->add('import', 'submit')
+            ->add('import', 'submit', array('attr' => array('class' => 'btn btn-xs btn-success pull-right')))
         ;
     }
 
