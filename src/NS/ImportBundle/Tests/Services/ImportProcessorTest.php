@@ -11,6 +11,7 @@ use \NS\ImportBundle\Entity\Map;
 use \NS\ImportBundle\Filter\Duplicate;
 use \NS\ImportBundle\Filter\DuplicateFilterFactory;
 use \NS\ImportBundle\Filter\NotBlank;
+use \NS\ImportBundle\Filter\NotBlankFilterFactory;
 use \NS\ImportBundle\Services\ImportProcessor;
 use \NS\ImportBundle\Tests\Workflow;
 use \Symfony\Component\HttpFoundation\File\File;
@@ -176,8 +177,8 @@ class ImportProcessorTest extends WebTestCase
             ->with('doctrine.orm.entity_manager')
             ->will($this->returnValue($entityMgr));
 
-        $uniqueFields = array('getcode' => 'site', 'caseId');
-        $processor    = new ImportProcessor($mockContainer, new DuplicateFilterFactory(), 'caseId');
+
+        $processor = new ImportProcessor($mockContainer, new DuplicateFilterFactory(), new NotBlankFilterFactory());
         $processor->setDuplicate(new Duplicate());
         $writer       = $processor->getWriter('NS\SentinelBundle\Entity\IBD');
         $this->assertInstanceOf('\Ddeboer\DataImport\Writer\DoctrineWriter', $writer);
@@ -254,7 +255,7 @@ class ImportProcessorTest extends WebTestCase
 
         $processor->addFilters($workflow, $import);
 
-        $this->assertCount(1, $workflow->getAfterConversionFilters());
+        $this->assertCount(0, $workflow->getAfterConversionFilters());
         $this->assertCount(2, $workflow->getValueConverters());
         $this->assertCount(2, $workflow->getItemConverters());
     }
@@ -322,8 +323,9 @@ class ImportProcessorTest extends WebTestCase
             ->with(array('col1' => 4, 'col2' => 5, 'Col3' => 6))
             ->willReturn(true);
 
-        $processor = new ImportProcessor($this->getContainer(), new DuplicateFilterFactory(), 'col1');
+        $processor = new ImportProcessor($this->getContainer(), new DuplicateFilterFactory(), new NotBlankFilterFactory());
         $processor->setDuplicate($mockDuplicate);
+        $processor->setNotBlank(new NotBlank('col1'));
         $reader    = $processor->getReader($import);
 
         $this->assertInstanceOf('\Ddeboer\DataImport\Reader\ReaderInterface', $reader);
@@ -378,8 +380,9 @@ class ImportProcessorTest extends WebTestCase
         $uniqueFields = array('Col1', 'col2');
         $duplicate    = new Duplicate($uniqueFields);
 
-        $processor = new ImportProcessor($this->getContainer(), new DuplicateFilterFactory(), 'Col1');
+        $processor = new ImportProcessor($this->getContainer(), new DuplicateFilterFactory(), new NotBlankFilterFactory());
         $processor->setDuplicate($duplicate);
+        $processor->setNotBlank(new NotBlank('Col1'));
         $reader    = $processor->getReader($import);
 
         $this->assertInstanceOf('\Ddeboer\DataImport\Reader\ReaderInterface', $reader);
@@ -421,8 +424,9 @@ class ImportProcessorTest extends WebTestCase
         $import->setMap($this->getIbdMap($columns));
 
         $duplicate = new Duplicate(array());
-        $processor = new ImportProcessor($this->getContainer(), new DuplicateFilterFactory(), 'date');
+        $processor = new ImportProcessor($this->getContainer(), new DuplicateFilterFactory(), new NotBlankFilterFactory());
         $processor->setDuplicate($duplicate);
+        $processor->setNotBlank(new NotBlank('date'));
         $reader    = $processor->getReader($import);
 
         $this->assertInstanceOf('\Ddeboer\DataImport\Reader\ReaderInterface', $reader);
@@ -448,9 +452,12 @@ class ImportProcessorTest extends WebTestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $processor = new ImportProcessor($container, new DuplicateFilterFactory(), "caseId");
-        $this->assertTrue(is_array($processor->getNotBlankFields()));
-        $this->assertEquals(array('caseId'), $processor->getNotBlankFields());
+        $processor = new ImportProcessor($container, new DuplicateFilterFactory(), new NotBlankFilterFactory());
+        $processor->setNotBlank(new NotBlank("caseId"));
+        $this->assertInstanceOf('NS\ImportBundle\Filter\NotBlank', $processor->getNotBlank());
+        $this->assertInstanceOf('\Ddeboer\DataImport\Filter\FilterInterface', $processor->getNotBlank());
+        $this->assertTrue(is_array($processor->getNotBlank()->fields));
+        $this->assertEquals(array('caseId'), $processor->getNotBlank()->fields);
     }
 
     public function testNotBlank()
@@ -468,7 +475,7 @@ class ImportProcessorTest extends WebTestCase
 
     public function testDefaultValues()
     {
-        $processor = new ImportProcessor($this->getContainer(), new DuplicateFilterFactory(), 'date');
+        $processor = new ImportProcessor($this->getContainer(), new DuplicateFilterFactory(), new NotBlankFilterFactory());
         $this->assertEquals($processor->getMaxExecutionTime(), '90');
         $this->assertEquals($processor->getMemoryLimit(), '512M');
 
@@ -478,9 +485,9 @@ class ImportProcessorTest extends WebTestCase
         $this->assertEquals($processor->getMemoryLimit(), '1024M');
     }
 
-    public function testReferenceLabDuplicateFields()
+    public function testReferenceLabDuplicateAndNotBlankFields()
     {
-        $processor = new ImportProcessor($this->getContainer(), new DuplicateFilterFactory(), 'date');
+        $processor = new ImportProcessor($this->getContainer(), new DuplicateFilterFactory(), new NotBlankFilterFactory());
         $import    = new Import();
         $map       = new Map();
         $map->setClass('NS\SentinelBundle\Entity\IBD\ReferenceLab');
@@ -488,7 +495,11 @@ class ImportProcessorTest extends WebTestCase
 
         $processor->initializeDuplicateFilter($import);
         $this->assertNotNull($processor->getDuplicate());
-        $this->assertEquals(array('getid' => 'caseFile', 1 => 'id'), $processor->getDuplicate()->getFields());
+        $this->assertEquals(array('getid' => 'caseFile'), $processor->getDuplicate()->getFields());
+
+        $processor->initializeNotBlankFilter($import);
+        $this->assertNotNull($processor->getNotBlank());
+        $this->assertEquals(array('caseFile', 'labId'), $processor->getNotBlank()->fields);
     }
 
     public function getIbdMap(array $columns)

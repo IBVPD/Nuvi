@@ -11,6 +11,7 @@ use \NS\ImportBundle\Entity\Import;
 use \NS\ImportBundle\Filter\Duplicate;
 use \NS\ImportBundle\Filter\DuplicateFilterFactory;
 use \NS\ImportBundle\Filter\NotBlank;
+use \NS\ImportBundle\Filter\NotBlankFilterFactory;
 use \NS\ImportBundle\Writer\DoctrineWriter;
 use \NS\ImportBundle\Writer\Result;
 use \Symfony\Component\DependencyInjection\ContainerInterface;
@@ -24,11 +25,13 @@ class ImportProcessor
 {
     private $container;
 
-    private $duplicate;
-
     private $duplicateFactory;
 
-    private $notBlankFields;
+    private $duplicate;
+
+    private $notBlankFactory;
+
+    private $notBlank;
 
     private $memoryLimit      = '512M';
 
@@ -37,14 +40,14 @@ class ImportProcessor
     /**
      * @param ObjectManager $entityMgr
      * @param ContainerInterface $container
-     * @param Duplicate $duplicateFilter
-     * @param array|string $notBlankFields
+     * @param DuplicateFilterFactory $duplicateFactory
+     * @param NotBlankFilterFactory $notBlankFactory
      */
-    public function __construct(ContainerInterface $container, DuplicateFilterFactory $duplicateFilter, $notBlankFields)
+    public function __construct(ContainerInterface $container, DuplicateFilterFactory $duplicateFactory, NotBlankFilterFactory $notBlankFactory)
     {
         $this->setContainer($container);
-        $this->setDuplicateFactory($duplicateFilter);
-        $this->setNotBlankFields($notBlankFields);
+        $this->setDuplicateFactory($duplicateFactory);
+        $this->setNotBlankFactory($notBlankFactory);
     }
 
     /**
@@ -57,6 +60,7 @@ class ImportProcessor
         ini_set('memory_limit', $this->memoryLimit);
 
         $this->initializeDuplicateFilter($import);
+        $this->initializeNotBlankFilter($import);
 
         try
         {
@@ -142,7 +146,17 @@ class ImportProcessor
 
         $workflow->addItemConverter($import->getMappings());
         $workflow->addItemConverter($import->getIgnoredMapper());
-        $workflow->addFilterAfterConversion(new NotBlank($this->notBlankFields));
+
+        if (!$this->notBlank)
+        {
+            $this->initializeNotBlankFilter($import);
+        }
+
+        if ($this->notBlank)
+        {
+            $workflow->addFilterAfterConversion($this->notBlank);
+        }
+
         if (!$this->duplicate)
         {
             $this->initializeDuplicateFilter($import);
@@ -152,7 +166,6 @@ class ImportProcessor
         {
             $workflow->addFilterAfterConversion($this->duplicate);
         }
-
     }
 
     /**
@@ -180,9 +193,9 @@ class ImportProcessor
     /**
      * @return array
      */
-    public function getNotBlankFields()
+    public function getNotBlank()
     {
-        return $this->notBlankFields;
+        return $this->notBlank;
     }
 
     /**
@@ -202,12 +215,12 @@ class ImportProcessor
     }
 
     /**
-     * @param string|array $notBlankFields
+     * @param NotBlank $notBlankFilter
      * @return \NS\ImportBundle\Services\ImportProcessor
      */
-    public function setNotBlankFields($notBlankFields)
+    public function setNotBlank(NotBlank $notBlankFilter)
     {
-        $this->notBlankFields = (is_array($notBlankFields)) ? $notBlankFields : array($notBlankFields);
+        $this->notBlank = $notBlankFilter;
         return $this;
     }
 
@@ -278,8 +291,39 @@ class ImportProcessor
         return $this;
     }
 
+    /**
+     *
+     * @return NotBlankFilterFactory
+     */
+    public function getNotBlankFactory()
+    {
+        return $this->notBlankFactory;
+    }
+
+    /**
+     *
+     * @param NotBlankFilterFactory $notBlankFactory
+     * @return \NS\ImportBundle\Services\ImportProcessor
+     */
+    public function setNotBlankFactory(NotBlankFilterFactory $notBlankFactory)
+    {
+        $this->notBlankFactory = $notBlankFactory;
+        return $this;
+    }
+
+    /**
+     * @param Import $import
+     */
     public function initializeDuplicateFilter(Import $import)
     {
-        $this->duplicate = $this->duplicateFactory->createDuplicateFilter($import->getClass());
+        $this->duplicate = $this->duplicateFactory->createFilter($import->getClass());
+    }
+
+    /**
+     * @param Import $import
+     */
+    public function initializeNotBlankFilter(Import $import)
+    {
+        $this->notBlank = $this->notBlankFactory->createFilter($import->getClass());
     }
 }

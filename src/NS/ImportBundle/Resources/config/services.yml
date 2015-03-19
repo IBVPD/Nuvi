@@ -26,9 +26,12 @@ services:
     ns_import.filter.duplicate_factory:
         class: NS\ImportBundle\Filter\DuplicateFilterFactory
 
+    ns_import.filter.notblank_factory:
+        class: NS\ImportBundle\Filter\NotBlankFilterFactory
+
     ns_import.processor:
         class: NS\ImportBundle\Services\ImportProcessor
-        arguments: [ @service_container, @ns_import.filter.duplicate_factory, [caseId] ]
+        arguments: [ @service_container, @ns_import.filter.duplicate_factory, @ns_import.filter.notblank_factory ]
 
     ns_import.form.class:
         class: NS\ImportBundle\Form\ClassType

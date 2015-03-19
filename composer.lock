@@ -52,34 +52,61 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/beberlei/DoctrineExtensions.git",
-                "reference": "f2024137f24786ce07a98acdf277a3904f3fec2a"
+                "reference": "f28f7362a40c4327990d9a59d5ae93b752704be2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/beberlei/DoctrineExtensions/zipball/f2024137f24786ce07a98acdf277a3904f3fec2a",
-                "reference": "f2024137f24786ce07a98acdf277a3904f3fec2a",
+                "url": "https://api.github.com/repos/beberlei/DoctrineExtensions/zipball/f28f7362a40c4327990d9a59d5ae93b752704be2",
+                "reference": "f28f7362a40c4327990d9a59d5ae93b752704be2",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2"
             },
             "require-dev": {
-                "doctrine/orm": "<2.2",
+                "doctrine/orm": "~2.1",
+                "nesbot/carbon": "*",
                 "phpunit/phpunit": "~4.5",
+                "symfony/yaml": "~2.6",
                 "zf1/zend-date": "~1.12",
                 "zf1/zend-registry": "~1.12"
             },
             "suggest": {
+                "nesbot/carbon": "Alternative to DateTime",
                 "zf1/zend-date": "Alternative to DateTime"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
             "autoload": {
-                "psr-0": {
-                    "DoctrineExtensions": "lib/"
+                "psr-4": {
+                    "DoctrineExtensions\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-            "time": "2015-03-09 13:23:41"
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                },
+                {
+                    "name": "Steve Lacey",
+                    "email": "steve@stevelacey.net"
+                }
+            ],
+            "description": "A set of extensions to Doctrine 2 that add support for additional query functions available in MySQL and Oracle.",
+            "keywords": [
+                "database",
+                "doctrine",
+                "orm"
+            ],
+            "time": "2015-03-16 09:49:07"
         },
         {
             "name": "behat/transliterator",
@@ -123,16 +150,16 @@
         },
         {
             "name": "cocur/slugify",
-            "version": "v1.0",
+            "version": "v1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cocur/slugify.git",
-                "reference": "2c929c56997e663747be9bb635e58db918a0134f"
+                "reference": "2b67d4e2b75dbaed2ebefa9eb5683e8940513847"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cocur/slugify/zipball/2c929c56997e663747be9bb635e58db918a0134f",
-                "reference": "2c929c56997e663747be9bb635e58db918a0134f",
+                "url": "https://api.github.com/repos/cocur/slugify/zipball/2b67d4e2b75dbaed2ebefa9eb5683e8940513847",
+                "reference": "2b67d4e2b75dbaed2ebefa9eb5683e8940513847",
                 "shasum": ""
             },
             "require": {
@@ -141,7 +168,9 @@
             "require-dev": {
                 "codeclimate/php-test-reporter": "dev-master",
                 "laravel/framework": "~4.1",
+                "latte/latte": "~2.2",
                 "mockery/mockery": "~0.9",
+                "nette/di": "~2.2",
                 "phpunit/phpunit": "~3.7",
                 "sami/sami": "~1.3",
                 "satooshi/php-coveralls": "0.6.*",
@@ -179,7 +208,7 @@
                 "slug",
                 "slugify"
             ],
-            "time": "2014-11-26 22:45:14"
+            "time": "2015-03-18 08:21:30"
         },
         {
             "name": "ddeboer/data-import",
@@ -187,17 +216,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/gnat42/data-import.git",
-                "reference": "164f156b858028c254ad0f770480b07b60053f1d"
+                "reference": "ad98b190881adf3a3e3ad71ce1c6bde613b1097d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gnat42/data-import/zipball/164f156b858028c254ad0f770480b07b60053f1d",
-                "reference": "164f156b858028c254ad0f770480b07b60053f1d",
+                "url": "https://api.github.com/repos/gnat42/data-import/zipball/ad98b190881adf3a3e3ad71ce1c6bde613b1097d",
+                "reference": "ad98b190881adf3a3e3ad71ce1c6bde613b1097d",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0",
-                "psr/log": "1.0.0"
+                "psr/log": "~1.0"
             },
             "require-dev": {
                 "doctrine/dbal": "*",
@@ -251,7 +280,7 @@
                 "issues": "https://github.com/ddeboer/data-import/issues",
                 "source": "https://github.com/ddeboer/data-import"
             },
-            "time": "2014-12-19 22:41:44"
+            "time": "2015-03-19 19:48:40"
         },
         {
             "name": "ddeboer/data-import-bundle",
@@ -2451,16 +2480,15 @@
         {
             "name": "liip/functional-test-bundle",
             "version": "dev-master",
-            "target-dir": "Liip/FunctionalTestBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/liip/LiipFunctionalTestBundle.git",
-                "reference": "5b41140b5eede7ef3447303a4063609663be65ec"
+                "reference": "490cdcf7d1bd96a93de0317294ec9cd8d30880f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/liip/LiipFunctionalTestBundle/zipball/5b41140b5eede7ef3447303a4063609663be65ec",
-                "reference": "5b41140b5eede7ef3447303a4063609663be65ec",
+                "url": "https://api.github.com/repos/liip/LiipFunctionalTestBundle/zipball/490cdcf7d1bd96a93de0317294ec9cd8d30880f9",
+                "reference": "490cdcf7d1bd96a93de0317294ec9cd8d30880f9",
                 "shasum": ""
             },
             "require": {
@@ -2481,8 +2509,8 @@
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Liip\\FunctionalTestBundle": ""
+                "psr-4": {
+                    "Liip\\FunctionalTestBundle\\": ""
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -2503,21 +2531,21 @@
             "keywords": [
                 "Symfony2"
             ],
-            "time": "2015-02-23 13:20:49"
+            "time": "2015-03-19 13:18:51"
         },
         {
             "name": "lunetics/locale-bundle",
-            "version": "v2.4.0",
+            "version": "2.4.1",
             "target-dir": "Lunetics/LocaleBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lunetics/LocaleBundle.git",
-                "reference": "8ea05b46f80010645de21696c84b76f564249341"
+                "reference": "f222f10832e7be141f415418cdcb54b678f00ec7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lunetics/LocaleBundle/zipball/8ea05b46f80010645de21696c84b76f564249341",
-                "reference": "8ea05b46f80010645de21696c84b76f564249341",
+                "url": "https://api.github.com/repos/lunetics/LocaleBundle/zipball/f222f10832e7be141f415418cdcb54b678f00ec7",
+                "reference": "f222f10832e7be141f415418cdcb54b678f00ec7",
                 "shasum": ""
             },
             "require": {
@@ -2571,7 +2599,7 @@
                 "multilanguage",
                 "router"
             ],
-            "time": "2015-01-15 16:31:30"
+            "time": "2015-03-18 14:04:16"
         },
         {
             "name": "michelf/php-markdown",
@@ -3494,22 +3522,22 @@
         },
         {
             "name": "sonata-project/block-bundle",
-            "version": "2.2.13",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataBlockBundle.git",
-                "reference": "ec47e5152ea9a2ea98cb284aa873d37edf903cd7"
+                "reference": "3b0a01e074e7327d07aa03f9e1c2fc7f4a7ce905"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataBlockBundle/zipball/ec47e5152ea9a2ea98cb284aa873d37edf903cd7",
-                "reference": "ec47e5152ea9a2ea98cb284aa873d37edf903cd7",
+                "url": "https://api.github.com/repos/sonata-project/SonataBlockBundle/zipball/3b0a01e074e7327d07aa03f9e1c2fc7f4a7ce905",
+                "reference": "3b0a01e074e7327d07aa03f9e1c2fc7f4a7ce905",
                 "shasum": ""
             },
             "require": {
                 "doctrine/common": "~2.3",
                 "sonata-project/cache": "~1.0",
-                "sonata-project/core-bundle": "~2.2",
+                "sonata-project/core-bundle": "~2.3,>=2.3.1",
                 "symfony/form": "~2.2",
                 "symfony/http-kernel": "~2.2"
             },
@@ -3519,13 +3547,12 @@
             },
             "suggest": {
                 "knplabs/knp-menu-bundle": "~2.0",
-                "sonata-project/admin-bundle": "~2.2",
                 "sonata-project/cache-bundle": "~2.1"
             },
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.2.x-dev"
+                    "dev-master": "2.3.x-dev"
                 }
             },
             "autoload": {
@@ -3554,7 +3581,7 @@
                 "block",
                 "sonata"
             ],
-            "time": "2014-09-11 10:42:35"
+            "time": "2015-03-16 08:44:28"
         },
         {
             "name": "sonata-project/cache",
@@ -4054,16 +4081,16 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v5.3.1",
+            "version": "v5.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "c5f963e7f9d6f6438fda4f22d5cc2db296ec621a"
+                "reference": "31454f258f10329ae7c48763eb898a75c39e0a9f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/c5f963e7f9d6f6438fda4f22d5cc2db296ec621a",
-                "reference": "c5f963e7f9d6f6438fda4f22d5cc2db296ec621a",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/31454f258f10329ae7c48763eb898a75c39e0a9f",
+                "reference": "31454f258f10329ae7c48763eb898a75c39e0a9f",
                 "shasum": ""
             },
             "require": {
@@ -4075,7 +4102,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "5.3-dev"
+                    "dev-master": "5.4-dev"
                 }
             },
             "autoload": {
@@ -4102,7 +4129,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2014-12-05 14:17:14"
+            "time": "2015-03-14 06:06:39"
         },
         {
             "name": "symfony/assetic-bundle",
@@ -4335,16 +4362,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v2.3.25",
+            "version": "v2.3.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "959733dc4b1da99b9e93a1762f4217eee20fc933"
+                "reference": "dd70065d94468de18b722ec692fc3c34e87fd863"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/959733dc4b1da99b9e93a1762f4217eee20fc933",
-                "reference": "959733dc4b1da99b9e93a1762f4217eee20fc933",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/dd70065d94468de18b722ec692fc3c34e87fd863",
+                "reference": "dd70065d94468de18b722ec692fc3c34e87fd863",
                 "shasum": ""
             },
             "require": {
@@ -4399,7 +4426,8 @@
                 "ircmaxell/password-compat": "~1.0",
                 "monolog/monolog": "~1.3",
                 "ocramius/proxy-manager": "~0.3.1",
-                "propel/propel1": "~1.6"
+                "propel/propel1": "~1.6",
+                "symfony/phpunit-bridge": "~2.7"
             },
             "type": "library",
             "extra": {
@@ -4438,7 +4466,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2015-01-30 13:55:40"
+            "time": "2015-03-17 14:18:00"
         },
         {
             "name": "twig/extensions",

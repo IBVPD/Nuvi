@@ -2,8 +2,8 @@
 
 namespace NS\ImportBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Ddeboer\DataImport\Result as WorkflowResult;
+use \Doctrine\ORM\Mapping as ORM;
+use \NS\ImportBundle\Writer\Result as WorkflowResult;
 use \NS\SentinelBundle\Entity\User;
 
 /**
@@ -60,13 +60,13 @@ class Result
      * @var array $successes
      * @ORM\Column(name="successes",type="array")
      */
-    private $successes;
+    private $successes = array();
 
     /**
      * @var array $errors
      * @ORM\Column(name="errors",type="array")
      */
-    private $errors;
+    private $errors = array();
 
     /**
      * @var array $duplicates
@@ -82,17 +82,66 @@ class Result
 
     public function __construct(Import $import, WorkflowResult $result)
     {
-        $this->successes   = array();
-        foreach ($result->getResults() as $r)
+        $this->buildSuccesses($result);
+        $this->buildExceptions($result);
+
+        $this->totalCount   = $result->getTotalProcessedCount();
+        $this->successCount = $result->getSuccessCount();
+        $this->importedAt   = $result->getEndtime();
+        $this->duplicates   = $result->getDuplicates()->toArray();
+        $this->mapName      = sprintf("%s (%s)", $import->getMap()->getName(), $import->getMap()->getVersion());
+        $this->filename     = $import->getFile()->getClientOriginalName();
+    }
+
+    public function buildSuccesses(WorkflowResult $result)
+    {
+        $results = $result->getResults();
+        if ($results && isset($results[0]) && is_object($results[0]))
+        {
+            if ($results[0] instanceof \NS\SentinelBundle\Entity\BaseCase)
+            {
+                $this->buildCaseSuccess($results);
+            }
+            else if ($results[0] instanceof \NS\SentinelBundle\Entity\BaseExternalLab)
+            {
+                $this->buildExternalLabSuccess($results);
+            }
+            else
+            {
+                throw new \RuntimeException(sprintf("Unable to build success map for object of type: %s", get_class($results[0])));
+            }
+        }
+    }
+
+    public function buildExternalLabSuccess($results)
+    {
+        foreach ($results as $r)
+        {
+            $this->successes[] = array(
+                'id'       => $r->getId(),
+                'labId'    => $r->getLabId(),
+                'caseId'   => $r->getCaseFile()->getCaseId(),
+                'site'     => $r->getCaseFile()->getSite()->getCode(),
+                'siteName' => $r->getCaseFile()->getSite()->getName()
+            );
+        }
+    }
+
+    public function buildCaseSuccess($results)
+    {
+        foreach ($results as $r)
         {
             $this->successes[] = array(
                 'id'       => $r->getId(),
                 'caseId'   => $r->getCaseId(),
                 'site'     => $r->getSite()->getCode(),
-                'siteName' => $r->getSite()->getName());
+                'siteName' => $r->getSite()->getName()
+            );
         }
+    }
 
-        $this->errors = array();
+    public function buildExceptions(WorkflowResult $result)
+    {
         foreach ($result->getExceptions() as $row => $e)
         {
             $this->errors[$row] = array(
@@ -101,13 +150,6 @@ class Result
                 'message' => ($e->getPrevious()) ? $e->getPrevious()->getMessage() : null
             );
         }
-
-        $this->totalCount   = $result->getTotalProcessedCount();
-        $this->successCount = $result->getSuccessCount();
-        $this->importedAt   = $result->getEndtime();
-        $this->duplicates   = $result->getDuplicates()->toArray();
-        $this->mapName      = sprintf("%s (%s)", $import->getMap()->getName(), $import->getMap()->getVersion());
-        $this->filename     = $import->getFile()->getClientOriginalName();
     }
 
     /**

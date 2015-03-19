@@ -48,4 +48,15 @@ class DoctrineWriter extends BaseWriter
     {
         return $this->results;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function findOrCreateItem(array $item)
+    {
+        $entity = parent::findOrCreateItem($item);
+        $this->results->add($entity);
+
+        return $entity;
+    }
 }

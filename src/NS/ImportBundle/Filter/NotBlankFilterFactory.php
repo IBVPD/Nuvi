@@ -3,16 +3,16 @@
 namespace NS\ImportBundle\Filter;
 
 /**
- * Description of DuplicateFactory
+ * Description of NotBlankFilterFactory
  *
  * @author gnat
  */
-class DuplicateFilterFactory extends AbstractFilterFactory
+class NotBlankFilterFactory extends AbstractFilterFactory
 {
     public function __construct()
     {
-        $caseFields = array('getcode' => 'site', 1 => 'caseId');
-        $labFields  = array('getid' => 'caseFile');
+        $caseFields = array('caseId', 'site');
+        $labFields  = array('caseFile', 'labId');
 
         $this->setTypelist(array(
             'NS\SentinelBundle\Entity\IBD'               => $caseFields,
@@ -24,7 +24,6 @@ class DuplicateFilterFactory extends AbstractFilterFactory
             'NS\SentinelBundle\Entity\Rota\ReferenceLab' => $labFields,
             'NS\SentinelBundle\Entity\Rota\NationalLab'  => $labFields,
         ));
-
-        $this->setFilterClass('\NS\ImportBundle\Filter\Duplicate');
+        $this->setFilterClass('\NS\ImportBundle\Filter\NotBlank');
     }
 }
