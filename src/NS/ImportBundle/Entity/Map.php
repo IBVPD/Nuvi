@@ -58,15 +58,19 @@ class Map
      */
     public function __clone()
     {
-        if($this->id)
+        if ($this->id)
+        {
             $this->id = null;
+        }
 
         if($this->columns)
         {
             $columns = array();
 
-            foreach($this->columns as $col)
+            foreach ($this->columns as $col)
+            {
                 $columns[] = clone $col;
+            }
 
             $this->columns = $columns;
         }
@@ -200,8 +204,10 @@ class Map
      */
     public function setColumns(Collection $columns)
     {
-        foreach($columns as $c)
+        foreach ($columns as $c)
+        {
             $c->setMap($this);
+        }
 
         $this->columns = $columns;
 
@@ -244,8 +250,10 @@ class Map
     {
         $headers = array();
 
-        foreach($this->columns as $col)
+        foreach ($this->columns as $col)
+        {
             $headers[] = $col->getName();
+        }
 
         return $headers;
     }
@@ -259,8 +267,10 @@ class Map
         $r = array();
         foreach($this->columns as $col)
         {
-            if($col->hasConverter())
+            if ($col->hasConverter())
+            {
                 $r[] = $col;
+            }
         }
 
         return $r;
@@ -276,8 +286,10 @@ class Map
 
         foreach($this->columns as $col)
         {
-            if($col->hasMapper())
+            if ($col->hasMapper())
+            {
                 $r->addMapping($col->getName(), $col->getMapper());
+            }
         }
 
         return $r;
@@ -293,7 +305,9 @@ class Map
         foreach($this->columns as $col)
         {
             if ($col->isIgnored())
+            {
                 $r->addMapping($col->getName(), $col->getMapper());
+            }
         }
 
         return $r;

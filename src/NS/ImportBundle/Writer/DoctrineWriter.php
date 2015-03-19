@@ -20,15 +20,18 @@ class DoctrineWriter extends BaseWriter
      *
      * @param EntityManager $entityManager
      * @param string        $entityName
-     * @param string        $index         Index to find current entities by
+     * @param string|array  $lookupFields Index column or array of lookup fields to find current entities by
      */
-    public function __construct(EntityManager $entityManager, $entityName, $index = null)
+    public function __construct(EntityManager $entityManager, $entityName, $lookupFields = null)
     {
-        parent::__construct($entityManager, $entityName, $index);
+        parent::__construct($entityManager, $entityName, $lookupFields);
 
         $this->results = new ArrayCollection();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     protected function getNewInstance()
     {
         $cls = parent::getNewInstance();
@@ -38,6 +41,9 @@ class DoctrineWriter extends BaseWriter
         return $cls;
     }
 
+    /**
+     * @return array
+     */
     public function getResults()
     {
         return $this->results;
