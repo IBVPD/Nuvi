@@ -2,37 +2,42 @@
 
 namespace NS\SentinelBundle\Listeners;
 
+use Gedmo\Loggable\Loggable;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-
-use Gedmo\Mapping\Annotation as Gedmo; // gedmo annotations
+use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Description of DoctrineExtensionListener
  *
  * @author gnat
- * @Gedmo\Loggable
  */
-class DoctrineExtensionListener implements ContainerAwareInterface
+class DoctrineExtensionListener
 {
-    /**
-     * @var ContainerInterface
-     */
-    protected $container;
 
-    public function setContainer(ContainerInterface $container = null)
+    private $securityContext;
+    private $gedmoLoggable;
+
+    /**
+     * 
+     * @param SecurityContextInterface $securityContext
+     * @param Loggable $loggable
+     */
+    public function __construct(SecurityContextInterface $securityContext, \Gedmo\Mapping\MappedEventSubscriber $loggable)
     {
-        $this->container = $container;
+        $this->securityContext = $securityContext;
+        $this->gedmoLoggable   = $loggable;
     }
 
+    /**
+     * 
+     * @param GetResponseEvent $event
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function onKernelRequest(GetResponseEvent $event)
     {
-        $securityContext = $this->container->get('security.context', ContainerInterface::NULL_ON_INVALID_REFERENCE);
-        if (null !== $securityContext && null !== $securityContext->getToken() && $securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            $loggable = $this->container->get('gedmo.listener.loggable');
-            $loggable->setUsername($securityContext->getToken()->getUsername());
+        if (null !== $this->securityContext->getToken() && $this->securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $this->gedmoLoggable->setUsername($this->securityContext->getToken()->getUsername());
         }
     }
-}
 
+}

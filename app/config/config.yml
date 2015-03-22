@@ -347,13 +347,6 @@ services:
     class: Twig_Extensions_Extension_Text
     tags:
       - name: twig.extension
-  extension.listener:
-    class: NS\SentinelBundle\Listeners\DoctrineExtensionListener
-    calls:
-      - [ setContainer, [ @service_container ] ]
-    tags:
-      # loggable hooks user username if one is in security context
-      - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
   gedmo.listener.loggable:
     class: Gedmo\Loggable\LoggableListener
     tags:

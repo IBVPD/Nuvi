@@ -2,6 +2,12 @@ parameters:
 #    ns_sentinel.example.class: NS\SentinelBundle\Example
 
 services:
+    extension.listener:
+      class: NS\SentinelBundle\Listeners\DoctrineExtensionListener
+      arguments: [ @security.context, @gedmo.listener.loggable ]
+      tags:
+        - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
     ns.sentinel.form.rota.report_filter:
       class: NS\SentinelBundle\Form\Rota\ReportFilterType
       arguments: [ @security.context, @ns.security.acl_converter ] 
