@@ -43,7 +43,15 @@ class Duplicate implements FilterInterface
                 throw new UnexpectedValueException("'$field' doesn't exist ");
             }
 
-            $fieldKey .= (is_object($item[$field]) && $method && method_exists($item[$field], $method)) ? sprintf('%s-', $item[$field]->$method()) : sprintf('%s-', $item[$field]);
+            if(is_object($item[$field]) && $method && method_exists($item[$field], $method)) {
+                $fieldKey .= sprintf('%s-',$item[$field]->$method());
+            }
+            else if(is_array($item[$field])) {
+                $fieldKey .= sprintf('%s-',implode('-',$item[$field]));
+            }
+            else {
+                $fieldKey .= sprintf('%s-', $item[$field]);
+            }
         }
 
         return substr($fieldKey, 0, -1);

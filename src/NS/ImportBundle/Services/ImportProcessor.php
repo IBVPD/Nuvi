@@ -138,14 +138,14 @@ class ImportProcessor
      */
     public function addFilters(Workflow $workflow, Import $import)
     {
+        $workflow->addItemConverter($import->getMappings());
+        $workflow->addItemConverter($import->getIgnoredMapper());
+
         foreach ($import->getConverters() as $column)
         {
             $name = ($column->hasMapper()) ? $column->getMapper() : $column->getName();
             $workflow->addValueConverter($name, $this->container->get($column->getConverter()));
         }
-
-        $workflow->addItemConverter($import->getMappings());
-        $workflow->addItemConverter($import->getIgnoredMapper());
 
         if (!$this->notBlank)
         {

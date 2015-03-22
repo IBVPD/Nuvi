@@ -196,8 +196,7 @@ class ImportProcessorTest extends WebTestCase
 
         $this->loginAs($user, 'main_app');
 
-        $file = new File(__DIR__ . '/../Fixtures/IBD.csv');
-
+        $file   = new File(__DIR__ . '/../Fixtures/IBD.csv');
         $import = new Import();
         $import->setFile($file);
         $import->setMap($this->getIbdMap($this->getIbdColumns()));
@@ -502,11 +501,82 @@ class ImportProcessorTest extends WebTestCase
         $this->assertEquals(array('caseFile', 'labId'), $processor->getNotBlank()->fields);
     }
 
+    public function testDeepArrayMap()
+    {
+        $columns = array(
+            array(
+                'name'      => 'Date Sample received-RRL',
+                'converter' => 'ns_import.converter.date.year_month_day',
+                'mapper'    => 'dateReceived',
+                'ignored'   => true,
+            ),
+            array(
+                'name'      => 'RRL lab #',
+                'converter' => null,
+                'mapper'    => 'labId',
+                'ignored'   => false,
+            ),
+            array(
+                'name'      => 'patient first name',
+                'converter' => null,
+                'mapper'    => 'caseFile.firstName',
+                'ignored'   => false,
+            ),
+            array(
+                'name'      => 'Site Code',
+                'converter' => 'ns.sentinel.converter.site',
+                'mapper'    => 'caseFile.site',
+                'ignored'   => false,
+            ),
+            array(
+                'name'      => 'case id',
+                'converter' => null,
+                'mapper'    => 'caseFile.caseId',
+                'ignored'   => false,
+            ),
+        );
+
+        $source = array(
+            array('Date Sample received-RRL'=>'2014/01/01','RRL lab #'=>'13314','Site Code'=>'S1','case id'=>'12','patient first name'=>'Fname 1'),
+            array('Date Sample received-RRL'=>'2014/06/10','RRL lab #'=>'1314','Site Code'=>'S1','case id'=>'14','patient first name'=>'Fname 2'),
+            array('Date Sample received-RRL'=>'2014/07/18','RRL lab #'=>'12345','Site Code'=>'S1','case id'=>'15','patient first name'=>'Fname 3'),
+            array('Date Sample received-RRL'=>'2014/09/15','RRL lab #'=>'54321','Site Code'=>'S1','case id'=>'16','patient first name'=>'Fname 4'),
+        );
+
+        $processor = $this->getContainer()->get('ns_import.processor');
+        $reader    = new \Ddeboer\DataImport\Reader\ArrayReader($source);
+        $import    = new Import();
+        $import->setMap($this->getReferenceLabMap($columns));
+
+        $this->assertInstanceOf('\Ddeboer\DataImport\Reader\ReaderInterface', $reader);
+
+        $outputData = array();
+        $workflow   = new Workflow($reader);
+        $workflow->setSkipItemOnFailure(true);
+        $workflow->addWriter(new ArrayWriter($outputData));
+
+        $processor->addFilters($workflow, $import);
+
+        $res = $workflow->process();
+        $this->assertInstanceOf("Ddeboer\DataImport\Result", $res);
+        $this->assertCount(4, $outputData,sprintf("Error count: %s",$res->getErrorCount()));
+    }
+
+    public function getReferenceLabMap(array $columns)
+    {
+        return $this->getMap('NS\SentinelBundle\Entity\IBD\ReferenceLab','IBD Reference Lab',$columns);
+    }
+
     public function getIbdMap(array $columns)
     {
+        return $this->getMap('NS\SentinelBundle\Entity\IBD','IBD Clinical',$columns);
+    }
+
+    public function getMap($class,$name,$columns)
+    {
         $map = new Map();
-        $map->setName('IBD Clinical');
-        $map->setClass('NS\SentinelBundle\Entity\IBD');
+        $map->setName($name);
+        $map->setClass($class);
 
         foreach ($columns as $index => $colArray)
         {
