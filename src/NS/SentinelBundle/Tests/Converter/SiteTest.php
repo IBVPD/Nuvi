@@ -26,6 +26,8 @@ class SiteTest extends \PHPUnit_Framework_TestCase
         $convertedObj = $converter->convert('S2');
         $this->assertInstanceOf('NS\SentinelBundle\Entity\Site', $convertedObj);
         $this->assertEquals('S2', $convertedObj->getCode());
+
+        $this->assertEquals('Site',$converter->getName());
     }
 
     /**
