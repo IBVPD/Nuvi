@@ -12,10 +12,9 @@ use \NS\ImportBundle\Converter\NamedValueConverterInterface;
  */
 class CaseConverter implements NamedValueConverterInterface
 {
+
     private $entityMgr;
-
     private $className;
-
     private $name;
 
     public function __construct(ObjectManager $entityMgr, $className, $name)
@@ -31,7 +30,14 @@ class CaseConverter implements NamedValueConverterInterface
      */
     public function convert($input)
     {
-        return $this->entityMgr->find($this->className, $input);
+        if (is_string($input)) {
+            return $this->entityMgr->find($this->className, $input);
+        }
+        else if (is_array($input)) {
+            return $this->entityMgr->getRepository($this->className)->findOneBy($input);
+        }
+
+        throw new \InvalidArgumentException(sprintf("Input of %s is neither string nor array!", gettype($input)));
     }
 
     /**
@@ -41,4 +47,5 @@ class CaseConverter implements NamedValueConverterInterface
     {
         return $this->name;
     }
+
 }
