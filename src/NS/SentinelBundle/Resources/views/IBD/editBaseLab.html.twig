@@ -32,11 +32,8 @@
                     <div class="col-sm-6 col-md-6 col-lg-6">
                         {{form_row(form.dateReceived)}}
                         {{form_row(form.sampleType)}}
-                        {{form_row(form.csfVolumeExtracted)}}
                     </div>
                     <div class="col-sm-6 col-md-6 col-lg-6">
-                        {{form_row(form.dnaExtractionDate)}}
-                        {{form_row(form.dnaVolume)}}
                         {{form_row(form.isolateViable)}}
                         {{form_row(form.isolateType)}}                    
                     </div>
@@ -62,6 +59,11 @@
                         {{form_row(form.hpd3)}}
                         {{form_row(form.bexA)}}
                         {{form_row(form.rNaseP)}}
+                    </div>
+                </div>
+                    <div class="row">
+                    <div class="col-md-12">
+                        {{form_row(form.finalResult)}}
                     </div>
                 </div>
             </div>

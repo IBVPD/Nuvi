@@ -105,6 +105,7 @@ doctrine:
             SurveillanceConducted: NS\SentinelBundle\Entity\Types\SurveillanceConducted
             IBDIntenseSupport: NS\SentinelBundle\Entity\Types\IBDIntenseSupport
             SampleType: NS\SentinelBundle\Entity\Types\SampleType
+            FinalResult: NS\SentinelBundle\Entity\Types\FinalResult
         mapping_types:
             TripleChoice: TripleChoice
             AlternateTripleChoice: AlternateTripleChoice
@@ -152,6 +153,7 @@ doctrine:
             SurveillanceConducted: SurveillanceConducted
             IBDIntenseSupport: IBDIntenseSupport
             SampleType: SampleType
+            FinalResult: FinalResult
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
@@ -334,6 +336,11 @@ deploy:
         - app/console assets:install
 
 services:
+  extension.listener:
+    class: NS\SentinelBundle\Listeners\DoctrineExtensionListener
+    arguments: [ @security.context, @gedmo.listener.loggable ]
+    tags:
+      - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }    
   ns.form.types.autocomplete:
     class: NS\UtilBundle\Form\Types\Autocomplete
     arguments: [ "@doctrine.orm.entity_manager", "@router" ]

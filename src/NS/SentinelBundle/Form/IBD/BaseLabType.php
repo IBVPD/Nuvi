@@ -22,12 +22,6 @@ class BaseLabType extends AbstractType
                 'required' => false))
             ->add('dateReceived', 'acedatepicker', array('label'    => 'ibd-rrl-form.date-received',
                 'required' => false))
-            ->add('csfVolumeExtracted', 'Volume', array('label' => 'ibd-rrl-form.volume',
-                'required' => false))
-            ->add('dnaExtractionDate', 'acedatepicker', array('label'    => 'ibd-rrl-form.dna-extraction-date',
-                'required' => false))
-            ->add('dnaVolume', null, array('label'    => 'ibd-rrl-form.dna-volume',
-                'required' => false))
             ->add('isolateViable', 'AlternateTripleChoice', array('label'    => 'ibd-rrl-form.isolate-viable',
                 'required' => false))
             ->add('isolateType', 'IsolateType', array('label'    => 'ibd-rrl-form.isolate-type',
@@ -49,6 +43,7 @@ class BaseLabType extends AbstractType
             ->add('hpd3', null, array('label' => 'ibd-rrl-form.hpd3', 'required' => false))
             ->add('bexA', null, array('label' => 'ibd-rrl-form.bexA', 'required' => false))
             ->add('rNaseP', null, array('label' => 'ibd-rrl-form.rNasP', 'required' => false))
+            ->add('finalResult', 'FinalResult', array('label' => 'ibd-rrl-form.finalResult', 'required' => false))
             ->add('spnSerotype', 'SpnSerotype', array('label'    => 'ibd-rrl-form.spnSerotype',
                 'required' => false))
             ->add('hiSerotype', 'HiSerotype', array('label'    => 'ibd-rrl-form.hiSerotype',

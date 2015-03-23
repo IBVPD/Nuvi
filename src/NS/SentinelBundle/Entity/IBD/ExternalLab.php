@@ -67,27 +67,6 @@ abstract class ExternalLab extends BaseExternalLab
     protected $dateReceived;
 
     /**
-     * @var Volume
-     * @ORM\Column(name="csfVolumeExtracted",type="Volume",nullable=true)
-     * @Serializer\Groups({"api"})
-     */
-    protected $csfVolumeExtracted;
-
-    /**
-     * @var \DateTime $dnaExtractionDate;
-     * @ORM\Column(name="dnaExtractionDate",type="date",nullable=true)
-     * @Serializer\Groups({"api"})
-     */
-    protected $dnaExtractionDate;
-
-    /**
-     * @var integer
-     * @ORM\Column(name="dnaVolume",type="integer",nullable=true)
-     * @Serializer\Groups({"api"})
-     */
-    protected $dnaVolume;
-
-    /**
      * @var AlternateTripleChoice
      * @ORM\Column(name="isolateViable",type="AlternateTripleChoice",nullable=true)
      * @Serializer\Groups({"api"})
@@ -185,6 +164,12 @@ abstract class ExternalLab extends BaseExternalLab
     protected $rNaseP;
 
     /**
+     * @var FinalResult $variableName
+     * @ORM\Column(name="finalResult",type="FinalResult")
+     */
+    private $finalResult;
+
+    /**
      * @var double
      * @ORM\Column(name="spnSerotype",type="SpnSerotype",nullable=true)
      * @Serializer\Groups({"api"})
@@ -204,6 +189,12 @@ abstract class ExternalLab extends BaseExternalLab
      * @Serializer\Groups({"api"})
      */
     protected $nmSerogroup;
+
+    /**
+     * @var string $comment
+     * @ORM\Column(name="comment",type="text")
+     */
+    private $comment;
 
     public function getSampleType()
     {
@@ -479,5 +470,45 @@ abstract class ExternalLab extends BaseExternalLab
 
         if ($this->serotypeIdentifier && $this->serotypeIdentifier->equal(SerotypeIdentifier::OTHER) && empty($this->serotypeIdentifierOther))
             return 'serotypeIdentier';
+    }
+
+    /**
+     * 
+     * @return FinalResult
+     */
+    public function getFinalResult()
+    {
+        return $this->finalResult;
+    }
+
+    /**
+     * 
+     * @param \NS\SentinelBundle\Entity\IBD\FinalResult $finalResult
+     * @return \NS\SentinelBundle\Entity\IBD\ExternalLab
+     */
+    public function setFinalResult(FinalResult $finalResult)
+    {
+        $this->finalResult = $finalResult;
+        return $this;
+    }
+
+        /**
+     * 
+     * @return string
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * 
+     * @param string $comment
+     * @return ExternalLab
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+        return $this;
     }
 }

@@ -84,7 +84,7 @@ class CaseType extends AbstractType
                         VaccinationReceived::YES_HISTORY)))))
             ->add('pcvReceived', 'VaccinationReceived', array('required' => $required,
                 'label' => 'ibd-form.pcv-received', 'attr' => array('data-context-child' => 'pcvReceived')))
-            ->add('pcvDoses', 'ThreeDoses', array('required' => $required, 'label' => 'ibd-form.pcv-doses',
+            ->add('pcvDoses', 'FourDoses', array('required' => $required, 'label' => 'ibd-form.pcv-doses',
                 'attr' => array('data-context-parent' => 'pcvReceived', 'data-context-value' => json_encode(array(
                         VaccinationReceived::YES_CARD, VaccinationReceived::YES_HISTORY)))))
             ->add('pcvType', 'PCVType', array('required' => $required, 'label' => 'ibd-form.pcv-type',

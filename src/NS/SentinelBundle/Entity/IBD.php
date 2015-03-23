@@ -16,7 +16,6 @@ use \NS\SentinelBundle\Form\Types\Diagnosis;
 use \NS\SentinelBundle\Form\Types\DischargeClassification;
 use \NS\SentinelBundle\Form\Types\DischargeOutcome;
 use \NS\SentinelBundle\Form\Types\FourDoses;
-use \NS\SentinelBundle\Form\Types\ThreeDoses;
 use \NS\SentinelBundle\Form\Types\IBDCaseResult;
 use \NS\SentinelBundle\Form\Types\MeningitisVaccinationReceived;
 use \NS\SentinelBundle\Form\Types\MeningitisVaccinationType;
@@ -280,8 +279,8 @@ class IBD extends BaseCase
     private $pcvReceived;
 
     /**
-     * @var ThreeDoses $pcvDoses
-     * @ORM\Column(name="pcvDoses",type="ThreeDoses",nullable=true)
+     * @var FourDoses $pcvDoses
+     * @ORM\Column(name="pcvDoses",type="FourDoses",nullable=true)
      * @Groups({"api"})
      */
     private $pcvDoses;
@@ -394,6 +393,12 @@ class IBD extends BaseCase
      * @Groups({"api"})
      */
     private $dischClass;
+
+    /**
+     * @var string $dischClassOther
+     * @ORM\Column(name="dischClassOther",type="string")
+     */
+    private $dischClassOther;
 
     /**
      * @var string $comment
@@ -828,7 +833,7 @@ class IBD extends BaseCase
         return $this;
     }
 
-    public function setPcvDoses(ThreeDoses $pcvDoses)
+    public function setPcvDoses(FourDoses $pcvDoses)
     {
         $this->pcvDoses = $pcvDoses;
         return $this;
@@ -939,6 +944,24 @@ class IBD extends BaseCase
     public function setResult(IBDCaseResult $result)
     {
         $this->result = $result;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDischClassOther()
+    {
+        return $this->dischClassOther;
+    }
+
+    /**
+     * @param string $dischClassOther
+     * @return \NS\SentinelBundle\Entity\IBD
+     */
+    public function setDischClassOther($dischClassOther)
+    {
+        $this->dischClassOther = $dischClassOther;
         return $this;
     }
 
