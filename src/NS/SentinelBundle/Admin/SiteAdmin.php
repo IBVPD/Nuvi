@@ -66,7 +66,7 @@ class SiteAdmin extends Admin
             ->add('name')
             ->add('code')
             ->add('country')
-            ->add('active')
+            ->add('active',null,array('required'=>false))
             ->add('rvYearIntro')
             ->add('ibdYearIntro')
             ->add('street')
