@@ -44,6 +44,12 @@ services:
         tags:
             - { name: form.type, alias: ConverterChoice }
 
+    ns_import.converter.date.afr1:
+        class: NS\ImportBundle\Converter\DateTimeValueConverter
+        arguments: [ "d-M-y|" ]
+        tags:
+            - { name: ns_import.converter }
+
     ns_import.converter.date.who:
         class: NS\ImportBundle\Converter\DateTimeValueConverter
         arguments: [ "D M d H:i:s e Y" ]
