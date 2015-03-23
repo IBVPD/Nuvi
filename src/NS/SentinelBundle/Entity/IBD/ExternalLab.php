@@ -192,7 +192,7 @@ abstract class ExternalLab extends BaseExternalLab
 
     /**
      * @var string $comment
-     * @ORM\Column(name="comment",type="text")
+     * @ORM\Column(name="comment",type="text",nullable=true)
      */
     private $comment;
 

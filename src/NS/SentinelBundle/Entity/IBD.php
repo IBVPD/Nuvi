@@ -396,7 +396,7 @@ class IBD extends BaseCase
 
     /**
      * @var string $dischClassOther
-     * @ORM\Column(name="dischClassOther",type="string")
+     * @ORM\Column(name="dischClassOther",type="string",nullable=true)
      */
     private $dischClassOther;
 
