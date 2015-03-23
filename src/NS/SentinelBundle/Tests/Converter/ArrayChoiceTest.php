@@ -91,7 +91,6 @@ class ArrayChoiceTest extends \PHPUnit_Framework_TestCase
             $this->assertInstanceOf($class, $convertedObj);
             $this->assertEquals($key, $convertedObj->getValue());
         }
-
     }
 
     public function converterProvider()

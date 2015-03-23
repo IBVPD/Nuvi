@@ -42,7 +42,7 @@ class ArrayChoice implements NamedValueConverterInterface
     public function convert($value)
     {
         $input = trim($value);
-        if (empty($input)) {
+        if ($input != 0 && (empty($input) || !is_numeric($input))) {
             return new $this->class();
         }
 
