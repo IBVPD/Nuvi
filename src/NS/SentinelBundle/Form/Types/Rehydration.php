@@ -11,17 +11,22 @@ use JMS\TranslationBundle\Translation\TranslationContainerInterface;
  */
 class Rehydration extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    const ORAL    = 1;
-    const IV      = 2;
-    const OTHER   = 3;
-    const UNKNOWN = 99;
+
+    const ORAL     = 1;
+    const IV       = 2;
+    const OTHER    = 3;
+    const BOTH     = 4;
+    const MULTIPLE = 5;
+    const UNKNOWN  = 99;
 
     protected $values = array(
-                                self::ORAL      => 'Oral',
-                                self::IV        => 'IV',
-                                self::OTHER     => 'Other',
-                                self::UNKNOWN   => 'Unknown',
-                             );
+        self::ORAL     => 'Oral - ORS/ORT',
+        self::IV       => 'IV fluids',
+        self::OTHER    => 'Other',
+        self::BOTH     => 'Both (ORS/ORT and IV fluids)',
+        self::MULTIPLE => 'ORS/ORT and/or IV fluids and/or Other/Multiple',
+        self::UNKNOWN  => 'Unknown',
+    );
 
     /**
      * {@inheritdoc}
@@ -30,4 +35,5 @@ class Rehydration extends TranslatableArrayChoice implements TranslationContaine
     {
         return 'Rehydration';
     }
+
 }

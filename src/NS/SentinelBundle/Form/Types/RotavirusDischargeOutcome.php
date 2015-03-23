@@ -30,6 +30,6 @@ class RotavirusDischargeOutcome extends TranslatableArrayChoice implements Trans
      */
     public function getName()
     {
-        return 'DischargeOutcome';
+        return 'RotavirusDischargeOutcome';
     }
 }

@@ -18,7 +18,7 @@ class RotavirusVaccinationType extends TranslatableArrayChoice implements Transl
 
     protected $values = array(
                                 self::GSK     => 'Rotarix, GSK',
-                                self::MERK    => 'RotaTeq, Merk',
+                                self::MERK    => 'RotaTeq, Merck',
                                 self::UNKNOWN => 'Unknown',
                              );
 

@@ -16,7 +16,7 @@ class OutcomeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('dischargeOutcome',           'DischargeOutcome', array('required'=>false, 'label'=>'rotavirus-form.dischargeOutcome'))
+            ->add('dischargeOutcome',           'RotavirusDischargeOutcome', array('required'=>false, 'label'=>'rotavirus-form.dischargeOutcome'))
             ->add('dischargeDate',              'acedatepicker',    array('required'=>false, 'label'=>'rotavirus-form.dischargeDate'))
             ->add('dischargeClassOther',        null,               array('required'=>false, 'label'=>'rotavirus-form.dischargeClassOther'))
             ->add('comment',                    null,               array('required'=>false, 'label'=>'rotavirus-form.comment'))

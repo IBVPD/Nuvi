@@ -32,12 +32,10 @@ class SiteLabType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $attr1 = array(
-            'data-context-parent' => 'stool',
             'data-context-child'  => 'stool1Reminder',
             'data-context-value'  => TripleChoice::YES);
 
         $attr2 = array(
-            'data-context-parent' => 'stool',
             'data-context-child'  => 'stool2Reminder',
             'data-context-value'  => TripleChoice::YES);
 
@@ -51,7 +49,7 @@ class SiteLabType extends AbstractType
 
         $builder
             ->add('received', 'acedatepicker')
-            ->add('adequate', 'TripleChoice', array('attr' => array('data-context-child' => 'stool')))
+            ->add('adequate', 'TripleChoice')
             ->add('stored', 'TripleChoice')
             ->add('elisaDone', 'TripleChoice', array('attr' => $attr1))
             ->add('elisaKit', 'ElisaKit', array('attr' => array(
