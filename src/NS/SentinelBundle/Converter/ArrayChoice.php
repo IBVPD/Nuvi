@@ -14,6 +14,7 @@ use UnexpectedValueException as UnexpectedValueException2;
  */
 class ArrayChoice implements NamedValueConverterInterface
 {
+
     private $class;
     private $name;
 
@@ -24,8 +25,9 @@ class ArrayChoice implements NamedValueConverterInterface
      */
     public function __construct($class)
     {
-        if(!class_exists($class))
-            throw new RuntimeException(sprintf("Unable to find class %s",$class));
+        if (!class_exists($class)) {
+            throw new RuntimeException(sprintf("Unable to find class %s", $class));
+        }
 
         $this->class = $class;
         $this->name  = join('', array_slice(explode('\\', $class), -1));
@@ -37,17 +39,18 @@ class ArrayChoice implements NamedValueConverterInterface
      * @return object 
      * @throws UnexpectedValueException
      */
-    public function convert($input)
+    public function convert($value)
     {
-        $input = ($input == 98) ? 99 : $input;
-
-        try
-        {
-            return new $this->class((int)$input);
+        $input = trim($value);
+        if (empty($input)) {
+            return new $this->class();
         }
-        catch (UnexpectedValueException2 $ex)
-        {
-            throw new UnexpectedValueException(sprintf("Unable to convert value '%s' for %s",$input,$this->name), null, $ex);
+
+        try {
+            return new $this->class((int) $input);
+        }
+        catch (UnexpectedValueException2 $ex) {
+            throw new UnexpectedValueException(sprintf("Unable to convert value '%s' for %s", $input, $this->name), null, $ex);
         }
     }
 
@@ -59,4 +62,5 @@ class ArrayChoice implements NamedValueConverterInterface
     {
         return $this->name;
     }
+
 }
