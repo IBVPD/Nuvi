@@ -9,6 +9,18 @@ namespace NS\ImportBundle\Tests\Filter;
  */
 class DuplicateTest extends \PHPUnit_Framework_TestCase
 {
+    public function testGetFieldKeyIsLowerCase()
+    {
+        
+        $uniqueFields = array('site', 'caseId');
+        $paramsOne    = array('site' => 'sitecode', 'caseId' => '12223');
+        $paramsTwo    = array('site' => 'sIteCode', 'caseId' => '12223');
+
+        $duplicate    = new \NS\ImportBundle\Filter\Duplicate($uniqueFields);
+        $this->assertTrue($duplicate->filter($paramsOne), "First set of params is not a duplicate");
+        $this->assertFalse($duplicate->filter($paramsTwo), "Second set of params is a duplicate");
+    }
+
     public function testDuplicateTextOnlyItemIsDetected()
     {
         $uniqueFields = array('site', 'caseId');
@@ -33,6 +45,6 @@ class DuplicateTest extends \PHPUnit_Framework_TestCase
 
         $this->assertCount(1, $duplicateArray);
         $this->assertArrayHasKey(0, $duplicateArray);
-        $this->assertEquals('MY-CODE-12223', $duplicateArray[0], "The duplicate array has the proper duplicate key");
+        $this->assertEquals('my-code-12223', $duplicateArray[0], "The duplicate array has the proper duplicate key");
     }
 }

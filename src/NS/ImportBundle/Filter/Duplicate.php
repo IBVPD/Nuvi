@@ -44,13 +44,13 @@ class Duplicate implements FilterInterface
             }
 
             if(is_object($item[$field]) && $method && method_exists($item[$field], $method)) {
-                $fieldKey .= sprintf('%s-',$item[$field]->$method());
+                $fieldKey .= sprintf('%s-',  strtolower($item[$field]->$method()));
             }
             else if(is_array($item[$field])) {
                 $fieldKey .= sprintf('%s-',implode('-',$item[$field]));
             }
             else {
-                $fieldKey .= sprintf('%s-', $item[$field]);
+                $fieldKey .= sprintf('%s-', strtolower($item[$field]));
             }
         }
 
