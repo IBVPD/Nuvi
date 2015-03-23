@@ -22,7 +22,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-9">
             <div class="widget-box no-border">
                 <div class="widget-header widget-header-small header-color-blue">
                     <h5>{{'Recent Uploads'|trans}}</h5>
@@ -55,9 +55,9 @@
                                     <td>{{r.errorCount}}</td>
                                     <td>{{r.total}}</td>
                                     <td>
-                                        <a href="{{path('importResultDownload',{type:'errors','id':r.id})}}" class="btn btn-xs btn-danger">{{'Get Errors'|trans}} <i class="icon icon-cloud-download"></i></a>
-                                        <a href="{{path('importResultDownload',{type:'duplicates','id':r.id})}}" class="btn btn-xs btn-danger">{{'Get Duplicates'|trans}} <i class="icon icon-cloud-download"></i></a>
-                                        <a href="{{path('importResultDownload',{type:'success','id':r.id})}}" class="btn btn-xs btn-success">{{'Get Successful'|trans}} <i class="icon icon-cloud-download"></i></a>
+                                        <a href="{{path('importResultDownload',{type:'errors','id':r.id})}}" class="btn btn-xs btn-danger">{{'Errors'|trans}} <i class="icon icon-cloud-download"></i></a>
+                                        <a href="{{path('importResultDownload',{type:'duplicates','id':r.id})}}" class="btn btn-xs btn-danger">{{'Duplicates'|trans}} <i class="icon icon-cloud-download"></i></a>
+                                        <a href="{{path('importResultDownload',{type:'success','id':r.id})}}" class="btn btn-xs btn-success">{{'Successful'|trans}} <i class="icon icon-cloud-download"></i></a>
                                     </td>
                                 </tr>
                             {%endfor %}
