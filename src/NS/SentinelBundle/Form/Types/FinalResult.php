@@ -10,7 +10,6 @@ use NS\UtilBundle\Form\Types\ArrayChoice;
  */
 class FinalResult extends ArrayChoice
 {
-
     const SPN          = 1;
     const HI           = 2;
     const NM           = 3;
