@@ -10,6 +10,6 @@ class FinalResult extends ArrayChoice
     public function getName()
     {
         return 'FinalResult';
-    }   
+    }
 }
 
