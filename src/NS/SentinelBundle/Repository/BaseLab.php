@@ -77,6 +77,17 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
         }
     }
 
+    public function findBySiteAndCaseId($site, $caseId)
+    {
+        $siteParam = (!$site instanceOf \NS\SentinelBundle\Entity\Site) ? $this->_em->getReference('NS\SentinelBundle\Entity\Site', $site) : $site;
+        $queryB = $this->createQueryBuilder('sl')
+            ->innerJoin('sl.caseFile','c')
+            ->where('c.caseId = :caseId AND c.site = :site')
+            ->setParameters(array('caseId'=>$caseId,'site'=>$siteParam));
+
+        return $this->secure($queryB)->getQuery()->getSingleResult();
+    }
+
     public function find($objId)
     {
         try
@@ -85,12 +96,11 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
                 ->where('m.caseFile = :case')
                 ->setParameter('case', $this->_em->getReference($this->parentClass, $objId));
 
-            return $this->secure($queryBuilder)->getQuery()->getSingleResult();
+            return $this->secure($queryBuilder)->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getSingleResult();
         }
         catch (NoResultException $e)
         {
             throw new NonExistentCase("This case does not exist!");
         }
     }
-
 }

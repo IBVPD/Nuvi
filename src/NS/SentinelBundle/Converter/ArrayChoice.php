@@ -35,14 +35,14 @@ class ArrayChoice implements NamedValueConverterInterface
 
     /**
      *
-     * @param mixed $input
+     * @param mixed $value
      * @return object 
      * @throws UnexpectedValueException
      */
     public function convert($value)
     {
         $input = trim($value);
-        if ($input != 0 && (empty($input) || !is_numeric($input))) {
+        if ($input !== 0 && (empty($input) || !is_numeric($input))) {
             return new $this->class();
         }
 

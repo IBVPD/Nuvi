@@ -17,6 +17,12 @@ class CaseConverter implements NamedValueConverterInterface
     private $className;
     private $name;
 
+    /**
+     * 
+     * @param ObjectManager $entityMgr
+     * @param string $className
+     * @param string $name
+     */
     public function __construct(ObjectManager $entityMgr, $className, $name)
     {
         $this->entityMgr = $entityMgr;
@@ -47,5 +53,4 @@ class CaseConverter implements NamedValueConverterInterface
     {
         return $this->name;
     }
-
 }

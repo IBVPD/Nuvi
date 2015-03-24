@@ -54,11 +54,19 @@ class BaseSiteLab
         return $this->sentToReferenceLab;
     }
 
+    /**
+     * @return BaseCase
+     */
     public function getCaseFile()
     {
         return $this->caseFile;
     }
 
+    /**
+     * 
+     * @param BaseCase $case
+     * @return \NS\SentinelBundle\Entity\BaseSiteLab
+     */
     public function setCaseFile($case)
     {
         $this->caseFile = $case;

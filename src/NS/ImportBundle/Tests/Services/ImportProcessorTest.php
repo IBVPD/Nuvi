@@ -2,19 +2,21 @@
 
 namespace NS\ImportBundle\Tests\Services;
 
-use \Ddeboer\DataImport\Writer\ArrayWriter;
-use \InvalidArgumentException;
-use \Liip\FunctionalTestBundle\Test\WebTestCase;
-use \NS\ImportBundle\Entity\Column;
-use \NS\ImportBundle\Entity\Import;
-use \NS\ImportBundle\Entity\Map;
-use \NS\ImportBundle\Filter\Duplicate;
-use \NS\ImportBundle\Filter\DuplicateFilterFactory;
-use \NS\ImportBundle\Filter\NotBlank;
-use \NS\ImportBundle\Filter\NotBlankFilterFactory;
-use \NS\ImportBundle\Services\ImportProcessor;
-use \NS\ImportBundle\Tests\Workflow;
-use \Symfony\Component\HttpFoundation\File\File;
+use Ddeboer\DataImport\Reader\ArrayReader;
+use Ddeboer\DataImport\Writer\ArrayWriter;
+use InvalidArgumentException;
+use Liip\FunctionalTestBundle\Test\WebTestCase;
+use NS\ImportBundle\Entity\Column;
+use NS\ImportBundle\Entity\Import;
+use NS\ImportBundle\Entity\Map;
+use NS\ImportBundle\Filter\Duplicate;
+use NS\ImportBundle\Filter\DuplicateFilterFactory;
+use NS\ImportBundle\Filter\LinkerFilterFactory;
+use NS\ImportBundle\Filter\NotBlank;
+use NS\ImportBundle\Filter\NotBlankFilterFactory;
+use NS\ImportBundle\Services\ImportProcessor;
+use NS\ImportBundle\Workflow\Workflow;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Description of ImportProcessorTest
@@ -174,11 +176,11 @@ class ImportProcessorTest extends WebTestCase
 
         $mockContainer->expects($this->once())
             ->method('get')
-            ->with('doctrine.orm.entity_manager')
+            ->with('ns.model_manager')
             ->will($this->returnValue($entityMgr));
 
 
-        $processor = new ImportProcessor($mockContainer, new DuplicateFilterFactory(), new NotBlankFilterFactory());
+        $processor = new ImportProcessor($mockContainer, new DuplicateFilterFactory(), new NotBlankFilterFactory(), new LinkerFilterFactory(array()));
         $processor->setDuplicate(new Duplicate());
         $writer       = $processor->getWriter('NS\SentinelBundle\Entity\IBD');
         $this->assertInstanceOf('\Ddeboer\DataImport\Writer\DoctrineWriter', $writer);
@@ -322,7 +324,7 @@ class ImportProcessorTest extends WebTestCase
             ->with(array('col1' => 4, 'col2' => 5, 'Col3' => 6))
             ->willReturn(true);
 
-        $processor = new ImportProcessor($this->getContainer(), new DuplicateFilterFactory(), new NotBlankFilterFactory());
+        $processor = new ImportProcessor($this->getContainer(), new DuplicateFilterFactory(), new NotBlankFilterFactory(), new LinkerFilterFactory(array()));
         $processor->setDuplicate($mockDuplicate);
         $processor->setNotBlank(new NotBlank('col1'));
         $reader    = $processor->getReader($import);
@@ -379,7 +381,7 @@ class ImportProcessorTest extends WebTestCase
         $uniqueFields = array('Col1', 'col2');
         $duplicate    = new Duplicate($uniqueFields);
 
-        $processor = new ImportProcessor($this->getContainer(), new DuplicateFilterFactory(), new NotBlankFilterFactory());
+        $processor = new ImportProcessor($this->getContainer(), new DuplicateFilterFactory(), new NotBlankFilterFactory(), new LinkerFilterFactory(array()));
         $processor->setDuplicate($duplicate);
         $processor->setNotBlank(new NotBlank('Col1'));
         $reader    = $processor->getReader($import);
@@ -423,7 +425,7 @@ class ImportProcessorTest extends WebTestCase
         $import->setMap($this->getIbdMap($columns));
 
         $duplicate = new Duplicate(array());
-        $processor = new ImportProcessor($this->getContainer(), new DuplicateFilterFactory(), new NotBlankFilterFactory());
+        $processor = new ImportProcessor($this->getContainer(), new DuplicateFilterFactory(), new NotBlankFilterFactory(), new LinkerFilterFactory(array()));
         $processor->setDuplicate($duplicate);
         $processor->setNotBlank(new NotBlank('date'));
         $reader    = $processor->getReader($import);
@@ -451,7 +453,7 @@ class ImportProcessorTest extends WebTestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $processor = new ImportProcessor($container, new DuplicateFilterFactory(), new NotBlankFilterFactory());
+        $processor = new ImportProcessor($container, new DuplicateFilterFactory(), new NotBlankFilterFactory(), new LinkerFilterFactory(array()));
         $processor->setNotBlank(new NotBlank("caseId"));
         $this->assertInstanceOf('NS\ImportBundle\Filter\NotBlank', $processor->getNotBlank());
         $this->assertInstanceOf('\Ddeboer\DataImport\Filter\FilterInterface', $processor->getNotBlank());
@@ -474,7 +476,7 @@ class ImportProcessorTest extends WebTestCase
 
     public function testDefaultValues()
     {
-        $processor = new ImportProcessor($this->getContainer(), new DuplicateFilterFactory(), new NotBlankFilterFactory());
+        $processor = new ImportProcessor($this->getContainer(), new DuplicateFilterFactory(), new NotBlankFilterFactory(), new LinkerFilterFactory(array()));
         $this->assertEquals($processor->getMaxExecutionTime(), '90');
         $this->assertEquals($processor->getMemoryLimit(), '512M');
 
@@ -486,7 +488,7 @@ class ImportProcessorTest extends WebTestCase
 
     public function testReferenceLabDuplicateAndNotBlankFields()
     {
-        $processor = new ImportProcessor($this->getContainer(), new DuplicateFilterFactory(), new NotBlankFilterFactory());
+        $processor = new ImportProcessor($this->getContainer(), new DuplicateFilterFactory(), new NotBlankFilterFactory(), new LinkerFilterFactory(array()));
         $import    = new Import();
         $map       = new Map();
         $map->setClass('NS\SentinelBundle\Entity\IBD\ReferenceLab');
@@ -537,14 +539,14 @@ class ImportProcessorTest extends WebTestCase
         );
 
         $source = array(
-            array('Date Sample received-RRL'=>'2014/01/01','RRL lab #'=>'13314','Site Code'=>'S1','case id'=>'12','patient first name'=>'Fname 1'),
-            array('Date Sample received-RRL'=>'2014/06/10','RRL lab #'=>'1314','Site Code'=>'S1','case id'=>'14','patient first name'=>'Fname 2'),
-            array('Date Sample received-RRL'=>'2014/07/18','RRL lab #'=>'12345','Site Code'=>'S1','case id'=>'15','patient first name'=>'Fname 3'),
-            array('Date Sample received-RRL'=>'2014/09/15','RRL lab #'=>'54321','Site Code'=>'S1','case id'=>'16','patient first name'=>'Fname 4'),
+            array('Date Sample received-RRL'=>'2014/01/01','RRL lab #'=>'13314','Site Code'=>'ALBCHLD','case id'=>'12','patient first name'=>'Fname 1'),
+            array('Date Sample received-RRL'=>'2014/06/10','RRL lab #'=>'1314','Site Code'=>'ALBCHLD','case id'=>'14','patient first name'=>'Fname 2'),
+            array('Date Sample received-RRL'=>'2014/07/18','RRL lab #'=>'12345','Site Code'=>'ALBCHLD','case id'=>'15','patient first name'=>'Fname 3'),
+            array('Date Sample received-RRL'=>'2014/09/15','RRL lab #'=>'54321','Site Code'=>'ALBCHLD','case id'=>'16','patient first name'=>'Fname 4'),
         );
 
         $processor = $this->getContainer()->get('ns_import.processor');
-        $reader    = new \Ddeboer\DataImport\Reader\ArrayReader($source);
+        $reader    = new ArrayReader($source);
         $import    = new Import();
         $import->setMap($this->getReferenceLabMap($columns));
 
@@ -559,7 +561,60 @@ class ImportProcessorTest extends WebTestCase
 
         $res = $workflow->process();
         $this->assertInstanceOf("Ddeboer\DataImport\Result", $res);
-        $this->assertCount(4, $outputData,sprintf("Error count: %s",$res->getErrorCount()));
+        if($res->getErrorCount() > 0)
+        {
+            $exceptions = $res->getExceptions();
+            $this->fail($exceptions[0]->getMessage());
+        }
+
+        $this->assertCount(4, $outputData, sprintf("Didn't receive proper output - Error count: %d",$res->getErrorCount()));
+        $this->assertInstanceOf('NS\SentinelBundle\Entity\Site', $outputData[0]['caseFile']['site']);
+//        $this->fail(print_r(array_keys($outputData[0]['caseFile']),true));
+//        $this->fail($outputData[0]['caseFile']['site']->getName());
+    }
+
+    public function testSiteLabConverter()
+    {
+        $columns = array(
+            array(
+                'name'      => 'site_CODE',
+                'converter' => 'ns.sentinel.converter.site',
+                'mapper'    => 'site',
+                'ignored'   => false,
+            ),
+            array(
+                'name'      => 'case_id',
+                'converter' => null,
+                'mapper'    => 'caseId',
+                'ignored'   => false,
+            ),
+            array(
+                'name'      => 'firstName',
+                'converter' => null,
+                'mapper'    => null,
+                'ignored'   => false,
+            ),
+            array(
+                'name'      => 'csf Date',
+                'converter' => 'ns_import.converter.date.timestamp',
+                'mapper'    => 'siteLab.csfDateTime',
+                'ignored'   => false,
+            ),
+        );
+        $file    = new File(__DIR__ . '/../Fixtures/IBD-CasePlusSiteLab.csv');
+
+        $import = new Import();
+        $import->setFile($file);
+        $import->setMap($this->getIbdMap($columns));
+
+        $processor = $this->getContainer()->get('ns_import.processor');
+        $result = $processor->process($import);
+        if($result->getErrorCount() > 0)
+        {
+            $exceptions = $result->getExceptions();
+            $this->fail($exceptions[0]->getMessage());
+        }
+        $this->assertEquals(2, $result->getSuccessCount());
     }
 
     public function getReferenceLabMap(array $columns)

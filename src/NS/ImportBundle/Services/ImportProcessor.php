@@ -2,19 +2,21 @@
 
 namespace NS\ImportBundle\Services;
 
-use \Ddeboer\DataImport\Reader\CsvReader;
-use \Ddeboer\DataImport\Reader\ReaderInterface;
-use \Ddeboer\DataImport\Workflow;
-use \Doctrine\Common\Persistence\ObjectManager;
-use \Doctrine\DBAL\DBALException;
-use \NS\ImportBundle\Entity\Import;
-use \NS\ImportBundle\Filter\Duplicate;
-use \NS\ImportBundle\Filter\DuplicateFilterFactory;
-use \NS\ImportBundle\Filter\NotBlank;
-use \NS\ImportBundle\Filter\NotBlankFilterFactory;
-use \NS\ImportBundle\Writer\DoctrineWriter;
-use \NS\ImportBundle\Writer\Result;
-use \Symfony\Component\DependencyInjection\ContainerInterface;
+use Ddeboer\DataImport\Reader\CsvReader;
+use Ddeboer\DataImport\Reader\ReaderInterface;
+use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\DBAL\DBALException;
+use InvalidArgumentException;
+use NS\ImportBundle\Entity\Import;
+use NS\ImportBundle\Filter\Duplicate;
+use NS\ImportBundle\Filter\DuplicateFilterFactory;
+use NS\ImportBundle\Filter\LinkerFilterFactory;
+use NS\ImportBundle\Filter\NotBlank;
+use NS\ImportBundle\Filter\NotBlankFilterFactory;
+use NS\ImportBundle\Workflow\Workflow;
+use NS\ImportBundle\Writer\DoctrineWriter;
+use NS\ImportBundle\Writer\Result;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Description of ImportProcessor
@@ -24,30 +26,28 @@ use \Symfony\Component\DependencyInjection\ContainerInterface;
 class ImportProcessor
 {
     private $container;
-
     private $duplicateFactory;
-
     private $duplicate;
-
     private $notBlankFactory;
-
     private $notBlank;
-
-    private $memoryLimit      = '512M';
-
-    private $maxExecutionTime = 90;
+    private $linkerFactory;
+    private $linkers;
+    private $memoryLimit = '1024M';
+    private $maxExecutionTime = 190;
 
     /**
      * @param ObjectManager $entityMgr
      * @param ContainerInterface $container
      * @param DuplicateFilterFactory $duplicateFactory
      * @param NotBlankFilterFactory $notBlankFactory
+     * @param LinkerFilterFactory $linkerFactory
      */
-    public function __construct(ContainerInterface $container, DuplicateFilterFactory $duplicateFactory, NotBlankFilterFactory $notBlankFactory)
+    public function __construct(ContainerInterface $container, DuplicateFilterFactory $duplicateFactory, NotBlankFilterFactory $notBlankFactory, LinkerFilterFactory $linkerFactory)
     {
         $this->setContainer($container);
         $this->setDuplicateFactory($duplicateFactory);
         $this->setNotBlankFactory($notBlankFactory);
+        $this->linkerFactory = $linkerFactory;
     }
 
     /**
@@ -62,12 +62,10 @@ class ImportProcessor
         $this->initializeDuplicateFilter($import);
         $this->initializeNotBlankFilter($import);
 
-        try
-        {
+        try {
             $reader = $this->getReader($import);
         }
-        catch (\InvalidArgumentException $excep)
-        {
+        catch (InvalidArgumentException $excep) {
             $now = new \DateTime();
             return new Result("Error", $now, $now, 0, $this->duplicate, array($excep));
         }
@@ -88,19 +86,19 @@ class ImportProcessor
      * @staticvar DoctrineWriter $doctrineWriter
      * @param string $class
      * @return DoctrineWriter
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function getWriter($class = null)
     {
         static $doctrineWriter = null;
 
-        if ($doctrineWriter == null && $class == null)
-            throw new \InvalidArgumentException("The writer isn't yet initialized and we need to know the class we're dealing with");
+        if ($doctrineWriter == null && $class == null) {
+            throw new InvalidArgumentException("The writer isn't yet initialized and we need to know the class we're dealing with");
+        }
 
         // Create a writer: you need Doctrine’s EntityManager.
-        if ($doctrineWriter == null)
-        {
-            $doctrineWriter = new DoctrineWriter($this->container->get('doctrine.orm.entity_manager'), $class, $this->duplicate->getFields());
+        if ($doctrineWriter == null) {
+            $doctrineWriter = new DoctrineWriter($this->container->get('ns.model_manager'), $class, $this->duplicate->getFields());
             $doctrineWriter->setTruncate(false);
         }
 
@@ -122,10 +120,9 @@ class ImportProcessor
         $fields  = $csvReader->getFields();
         $columns = $import->getMap()->getColumns();
 
-        foreach ($columns as $column)
-        {
+        foreach ($columns as $column) {
             if ($column->getName() != $fields[$column->getOrder()])
-                throw new \InvalidArgumentException(sprintf("%s != %s probably the wrong file or missing headers", $fields[$column->getOrder()], $column->getName()));
+                throw new InvalidArgumentException(sprintf("%s != %s probably the wrong file or missing headers", $fields[$column->getOrder()], $column->getName()));
         }
 
         return $csvReader;
@@ -138,33 +135,40 @@ class ImportProcessor
      */
     public function addFilters(Workflow $workflow, Import $import)
     {
+        // These map column headers i.e site_Code -> site
         $workflow->addItemConverter($import->getMappings());
+        // These allow us to ignore a column i.e. - region or country_ISO 
         $workflow->addItemConverter($import->getIgnoredMapper());
 
-        foreach ($import->getConverters() as $column)
-        {
+        foreach ($import->getConverters() as $column) {
             $name = ($column->hasMapper()) ? $column->getMapper() : $column->getName();
             $workflow->addValueConverter($name, $this->container->get($column->getConverter()));
         }
 
-        if (!$this->notBlank)
-        {
+        if (!$this->notBlank) {
             $this->initializeNotBlankFilter($import);
         }
 
-        if ($this->notBlank)
-        {
+        if ($this->notBlank) {
             $workflow->addFilterAfterConversion($this->notBlank);
         }
 
-        if (!$this->duplicate)
-        {
+        if (!$this->duplicate) {
             $this->initializeDuplicateFilter($import);
         }
 
-        if ($this->duplicate)
-        {
+        if ($this->duplicate) {
             $workflow->addFilterAfterConversion($this->duplicate);
+        }
+
+        if (!$this->linkers) {
+            $this->initializeLinkerFilter($import);
+        }
+
+        if ($this->linkers) {
+            foreach($this->linkers as $linkerConverter) {
+                $workflow->addObjectLinker($linkerConverter);
+            }
         }
     }
 
@@ -174,12 +178,10 @@ class ImportProcessor
      */
     public function workflowProcess(Workflow $workflow)
     {
-        try
-        {
+        try {
             $processResult = $workflow->process();
         }
-        catch (DBALException $ex)
-        {
+        catch (DBALException $ex) {
             $now = new \DateTime();
             return new Result("Error", $now, $now, 0, $this->duplicate, array($ex));
         }
@@ -216,7 +218,7 @@ class ImportProcessor
 
     /**
      * @param NotBlank $notBlankFilter
-     * @return \NS\ImportBundle\Services\ImportProcessor
+     * @return ImportProcessor
      */
     public function setNotBlank(NotBlank $notBlankFilter)
     {
@@ -226,7 +228,7 @@ class ImportProcessor
 
     /**
      * @param string $memoryLimit
-     * @return \NS\ImportBundle\Services\ImportProcessor
+     * @return ImportProcessor
      */
     public function setMemoryLimit($memoryLimit)
     {
@@ -236,7 +238,7 @@ class ImportProcessor
 
     /**
      * @param integer $maxExecutionTime
-     * @return \NS\ImportBundle\Services\ImportProcessor
+     * @return ImportProcessor
      */
     public function setMaxExecutionTime($maxExecutionTime)
     {
@@ -254,7 +256,7 @@ class ImportProcessor
 
     /**
      * @param ContainerInterface $container
-     * @return \NS\ImportBundle\Services\ImportProcessor
+     * @return ImportProcessor
      */
     public function setContainer(ContainerInterface $container)
     {
@@ -264,7 +266,7 @@ class ImportProcessor
 
     /**
      * @param Duplicate $duplicate
-     * @return \NS\ImportBundle\Services\ImportProcessor
+     * @return ImportProcessor
      */
     public function setDuplicate(Duplicate $duplicate)
     {
@@ -283,7 +285,7 @@ class ImportProcessor
     /**
      *
      * @param DuplicateFilterFactory $duplicateFactory
-     * @return \NS\ImportBundle\Services\ImportProcessor
+     * @return ImportProcessor
      */
     public function setDuplicateFactory(DuplicateFilterFactory $duplicateFactory)
     {
@@ -303,7 +305,7 @@ class ImportProcessor
     /**
      *
      * @param NotBlankFilterFactory $notBlankFactory
-     * @return \NS\ImportBundle\Services\ImportProcessor
+     * @return ImportProcessor
      */
     public function setNotBlankFactory(NotBlankFilterFactory $notBlankFactory)
     {
@@ -326,4 +328,21 @@ class ImportProcessor
     {
         $this->notBlank = $this->notBlankFactory->createFilter($import->getClass());
     }
+
+    public function getLinkerFactory()
+    {
+        return $this->linkerFactory;
+    }
+
+    public function setLinkerFactory($linkerFactory)
+    {
+        $this->linkerFactory = $linkerFactory;
+        return $this;
+    }
+
+    public function initializeLinkerFilter(Import $import)
+    {
+        $this->linkers = $this->linkerFactory->createFilter($import->getClass());
+    }
+
 }

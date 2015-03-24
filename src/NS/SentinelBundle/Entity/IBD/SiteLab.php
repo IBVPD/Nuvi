@@ -68,7 +68,7 @@ class SiteLab extends BaseSiteLab
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\IBD",inversedBy="siteLab")
+     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\IBD",inversedBy="siteLab",cascade={"persist"})
      * @ORM\JoinColumn(nullable=false,unique=true)
      */
     protected $caseFile;

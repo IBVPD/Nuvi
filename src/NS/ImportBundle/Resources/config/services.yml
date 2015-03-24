@@ -22,7 +22,11 @@ services:
         class: NS\ImportBundle\Form\DateRangeFilterType
         tags:
             - { name: form.type, alias: ns_filter_date_range }
-
+    
+    ns_import.filter.linker_factory:
+       class: NS\ImportBundle\Filter\LinkerFilterFactory
+       arguments: [ [ @ns.sentinel.converter.ibd_site_lab_linker, @ns.sentinel.converter.rota_site_lab_linker] ]
+       
     ns_import.filter.duplicate_factory:
         class: NS\ImportBundle\Filter\DuplicateFilterFactory
 
@@ -31,7 +35,7 @@ services:
 
     ns_import.processor:
         class: NS\ImportBundle\Services\ImportProcessor
-        arguments: [ @service_container, @ns_import.filter.duplicate_factory, @ns_import.filter.notblank_factory ]
+        arguments: [ @service_container, @ns_import.filter.duplicate_factory, @ns_import.filter.notblank_factory, @ns_import.filter.linker_factory ]
 
     ns_import.form.class:
         class: NS\ImportBundle\Form\ClassType

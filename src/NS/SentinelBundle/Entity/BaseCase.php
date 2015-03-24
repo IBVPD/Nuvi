@@ -474,7 +474,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
     {
         $siteLab->setCaseFile($this);
         $this->siteLab = $siteLab;
-
+        
         return $this;
     }
 
