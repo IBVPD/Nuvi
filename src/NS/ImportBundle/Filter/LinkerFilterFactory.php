@@ -9,7 +9,9 @@ namespace NS\ImportBundle\Filter;
  */
 class LinkerFilterFactory extends AbstractFilterFactory
 {
-
+    /**
+     * @param array $services
+     */
     public function __construct(array $services)
     {
         $classes = array(
@@ -24,9 +26,14 @@ class LinkerFilterFactory extends AbstractFilterFactory
                 }
             }
         }
+
         $this->setTypelist($classes);
     }
 
+    /**
+     * @param string $className
+     * @return null|array
+     */
     public function createFilter($className)
     {
         if (!$className) {
@@ -39,5 +46,4 @@ class LinkerFilterFactory extends AbstractFilterFactory
 
         return $this->typelist[$className];
     }
-
 }
