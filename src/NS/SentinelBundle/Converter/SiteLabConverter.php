@@ -4,7 +4,6 @@ namespace NS\SentinelBundle\Converter;
 
 use Ddeboer\DataImport\ValueConverter\ValueConverterInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use NS\SentinelBundle\Entity\IBD\SiteLab;
 
 /**
  * Description of SiteLabConverter
@@ -46,7 +45,7 @@ class SiteLabConverter implements ValueConverterInterface
             $siteLab = $this->repository->findBySiteAndCaseId($input['site'], $input['caseId']);
         }
         catch (\Doctrine\ORM\NoResultException $exception) {
-            $siteLab = new SiteLab();
+            $siteLab = new $this->class;
         }
         catch (\Exception $except) {
             throw $except;
