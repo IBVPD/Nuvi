@@ -320,6 +320,12 @@ services:
       tags:
         - { name: ns_import.converter }
 
+    ns.sentinel.converter.RotavirusVaccinationType:
+      class: NS\SentinelBundle\Converter\ArrayChoice
+      arguments: [ NS\SentinelBundle\Form\Types\RotavirusVaccinationType ]
+      tags:
+          - { name: ns_import.converter }
+
     ns.sentinel.form.type.cultureresult:
       class: NS\SentinelBundle\Form\Types\CultureResult
       tags:
