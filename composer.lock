@@ -612,24 +612,24 @@
         },
         {
             "name": "doctrine/data-fixtures",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/data-fixtures.git",
-                "reference": "b4a135c7db56ecc4602b54a2184368f440cac33e"
+                "reference": "b6e28afc4a52bfbb6768091f890d08085aa77e70"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/data-fixtures/zipball/b4a135c7db56ecc4602b54a2184368f440cac33e",
-                "reference": "b4a135c7db56ecc4602b54a2184368f440cac33e",
+                "url": "https://api.github.com/repos/doctrine/data-fixtures/zipball/b6e28afc4a52bfbb6768091f890d08085aa77e70",
+                "reference": "b6e28afc4a52bfbb6768091f890d08085aa77e70",
                 "shasum": ""
             },
             "require": {
-                "doctrine/common": ">=2.2,<2.5-dev",
+                "doctrine/common": "~2.2",
                 "php": ">=5.3.2"
             },
             "require-dev": {
-                "doctrine/orm": ">=2.2,<2.5-dev"
+                "doctrine/orm": "~2.4"
             },
             "suggest": {
                 "doctrine/mongodb-odm": "For loading MongoDB ODM fixtures",
@@ -654,9 +654,7 @@
             "authors": [
                 {
                     "name": "Jonathan Wage",
-                    "email": "jonwage@gmail.com",
-                    "homepage": "http://www.jwage.com/",
-                    "role": "Creator"
+                    "email": "jonwage@gmail.com"
                 }
             ],
             "description": "Data Fixtures for all Doctrine Object Managers",
@@ -664,7 +662,7 @@
             "keywords": [
                 "database"
             ],
-            "time": "2013-07-10 17:04:07"
+            "time": "2015-03-23 01:13:09"
         },
         {
             "name": "doctrine/dbal",
@@ -2483,12 +2481,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/liip/LiipFunctionalTestBundle.git",
-                "reference": "490cdcf7d1bd96a93de0317294ec9cd8d30880f9"
+                "reference": "7976f4aa8396b81fe4d363a97d09de11ece98d7d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/liip/LiipFunctionalTestBundle/zipball/490cdcf7d1bd96a93de0317294ec9cd8d30880f9",
-                "reference": "490cdcf7d1bd96a93de0317294ec9cd8d30880f9",
+                "url": "https://api.github.com/repos/liip/LiipFunctionalTestBundle/zipball/7976f4aa8396b81fe4d363a97d09de11ece98d7d",
+                "reference": "7976f4aa8396b81fe4d363a97d09de11ece98d7d",
                 "shasum": ""
             },
             "require": {
@@ -2500,12 +2498,13 @@
             "suggest": {
                 "doctrine/dbal": "Required when using the fixture loading functionality with an ORM and SQLite",
                 "doctrine/doctrine-fixtures-bundle": "Required when using the fixture loading functionality",
-                "doctrine/orm": "Required when using the fixture loading functionality with an ORM and SQLite"
+                "doctrine/orm": "Required when using the fixture loading functionality with an ORM and SQLite",
+                "nelmio/alice": "Required when using loadFixtureFiles functionality"
             },
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.2.x-dev"
                 }
             },
             "autoload": {
@@ -2531,7 +2530,7 @@
             "keywords": [
                 "Symfony2"
             ],
-            "time": "2015-03-19 13:18:51"
+            "time": "2015-03-23 07:42:08"
         },
         {
             "name": "lunetics/locale-bundle",
@@ -3720,12 +3719,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataCoreBundle.git",
-                "reference": "c1f8d31f16a3833d1a9e8c8a3e9cdd183a252e50"
+                "reference": "7a7017003ce409b2583abf1de7efbf8780145764"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/c1f8d31f16a3833d1a9e8c8a3e9cdd183a252e50",
-                "reference": "c1f8d31f16a3833d1a9e8c8a3e9cdd183a252e50",
+                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/7a7017003ce409b2583abf1de7efbf8780145764",
+                "reference": "7a7017003ce409b2583abf1de7efbf8780145764",
                 "shasum": ""
             },
             "require": {
@@ -3773,11 +3772,11 @@
                 }
             ],
             "description": "Symfony SonataCoreBundle",
-            "homepage": "http://sonata-project.org/bundles/core",
+            "homepage": "https://sonata-project.org/bundles/core",
             "keywords": [
                 "sonata"
             ],
-            "time": "2015-03-12 10:32:14"
+            "time": "2015-03-21 08:39:36"
         },
         {
             "name": "sonata-project/doctrine-orm-admin-bundle",
