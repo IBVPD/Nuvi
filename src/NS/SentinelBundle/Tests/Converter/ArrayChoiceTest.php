@@ -91,6 +91,18 @@ class ArrayChoiceTest extends \PHPUnit_Framework_TestCase
             $this->assertInstanceOf($class, $convertedObj);
             $this->assertEquals($key, $convertedObj->getValue());
         }
+
+        $convertedObj = $converter->convert(' ');
+        $this->assertInstanceOf($class, $convertedObj);
+        $this->assertEquals(-1, $convertedObj->getValue());
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testUnknownClass()
+    {
+        new ArrayChoice('NS\SentinelBundle\Form\Types\UnknownClass');
     }
 
     public function converterProvider()

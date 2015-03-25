@@ -14,7 +14,6 @@ use UnexpectedValueException as UnexpectedValueException2;
  */
 class ArrayChoice implements NamedValueConverterInterface
 {
-
     private $class;
     private $name;
 
@@ -41,13 +40,13 @@ class ArrayChoice implements NamedValueConverterInterface
      */
     public function convert($value)
     {
-        $input = trim($value);
+        $input = (is_string($value))? trim($value):$value;
         if ($input !== 0 && (empty($input) || !is_numeric($input))) {
             return new $this->class();
         }
 
         try {
-            return new $this->class((int) $input);
+            return new $this->class($input);
         }
         catch (UnexpectedValueException2 $ex) {
             throw new UnexpectedValueException(sprintf("Unable to convert value '%s' for %s", $input, $this->name), null, $ex);
