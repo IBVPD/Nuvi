@@ -92,7 +92,7 @@ class SiteLabConverter implements ValueConverterInterface
      * @param mixed $value
      * @param string $setter
      */
-    protected function setValue($entity, $value, $setter)
+    public function setValue($entity, $value, $setter)
     {
         if (method_exists($entity, $setter)) {
             $entity->$setter($value);
@@ -137,7 +137,7 @@ class SiteLabConverter implements ValueConverterInterface
      */
     public function getName()
     {
-        return sprintf('%s SiteLab', $this->class);
+        return sprintf('%s Converter', $this->class);
     }
 
     /**
