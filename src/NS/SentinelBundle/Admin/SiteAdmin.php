@@ -46,7 +46,6 @@ class SiteAdmin extends Admin
             ->add('code')
             ->add('active')
             ->add('country')
-            ->add('country.region',null,array('label'=>'Region'))
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -95,8 +94,6 @@ class SiteAdmin extends Admin
             ->add('name')
             ->add('code')
             ->add('active')
-            ->add('country')
-            ->add('country.region')
             ->add('rvYearIntro')
             ->add('ibdYearIntro')
             ->add('street')
