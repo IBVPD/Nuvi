@@ -2,24 +2,20 @@
 
 namespace NS\SentinelBundle\Entity\IBD;
 
-// Annotations
-
-
-use \Doctrine\ORM\Mapping as ORM;
-use \NS\SentinelBundle\Entity\BaseExternalLab;
-use \NS\SentinelBundle\Form\Types\AlternateTripleChoice;
-use \NS\SentinelBundle\Form\Types\HiSerotype;
-use \NS\SentinelBundle\Form\Types\IsolateType;
-use \NS\SentinelBundle\Form\Types\NmSerogroup;
-use \NS\SentinelBundle\Form\Types\PathogenIdentifier;
-use \NS\SentinelBundle\Form\Types\SampleType;
-use \NS\SentinelBundle\Form\Types\SerotypeIdentifier;
-use \NS\SentinelBundle\Form\Types\SpnSerotype;
-use \NS\SentinelBundle\Form\Types\Volume;
-use \Symfony\Component\Validator\Constraints as Assert;
-use \Symfony\Component\Validator\ExecutionContextInterface;
-
-// Annotations
+use Doctrine\ORM\Mapping as ORM;
+use NS\SentinelBundle\Entity\BaseExternalLab;
+use NS\SentinelBundle\Form\Types\AlternateTripleChoice;
+use NS\SentinelBundle\Form\Types\FinalResult;
+use NS\SentinelBundle\Form\Types\HiSerotype;
+use NS\SentinelBundle\Form\Types\IsolateType;
+use NS\SentinelBundle\Form\Types\NmSerogroup;
+use NS\SentinelBundle\Form\Types\PathogenIdentifier;
+use NS\SentinelBundle\Form\Types\SampleType;
+use NS\SentinelBundle\Form\Types\SerotypeIdentifier;
+use NS\SentinelBundle\Form\Types\SpnSerotype;
+use NS\SentinelBundle\Form\Types\Volume;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\ExecutionContextInterface;
 use \Gedmo\Mapping\Annotation as Gedmo;
 use \NS\SecurityBundle\Annotation\Secured;
 use \NS\SecurityBundle\Annotation\SecuredCondition;
@@ -164,8 +160,8 @@ abstract class ExternalLab extends BaseExternalLab
     protected $rNaseP;
 
     /**
-     * @var FinalResult $variableName
-     * @ORM\Column(name="finalResult",type="FinalResult")
+     * @var FinalResult $finalResult
+     * @ORM\Column(name="finalResult",type="FinalResult",nullable=true)
      */
     private $finalResult;
 
@@ -204,16 +200,6 @@ abstract class ExternalLab extends BaseExternalLab
     public function getDateReceived()
     {
         return $this->dateReceived;
-    }
-
-    public function getCsfVolumeExtracted()
-    {
-        return $this->csfVolumeExtracted;
-    }
-
-    public function getDnaExtractionDate()
-    {
-        return $this->dnaExtractionDate;
     }
 
     public function getDnaVolume()
@@ -311,20 +297,6 @@ abstract class ExternalLab extends BaseExternalLab
     {
         if ($dateReceived instanceof \DateTime)
             $this->dateReceived = $dateReceived;
-
-        return $this;
-    }
-
-    public function setCsfVolumeExtracted(Volume $csfVolumeExtracted)
-    {
-        $this->csfVolumeExtracted = $csfVolumeExtracted;
-        return $this;
-    }
-
-    public function setDnaExtractionDate($dnaExtractionDate)
-    {
-        if ($dnaExtractionDate instanceof \DateTime)
-            $this->dnaExtractionDate = $dnaExtractionDate;
 
         return $this;
     }
@@ -483,8 +455,8 @@ abstract class ExternalLab extends BaseExternalLab
 
     /**
      * 
-     * @param \NS\SentinelBundle\Entity\IBD\FinalResult $finalResult
-     * @return \NS\SentinelBundle\Entity\IBD\ExternalLab
+     * @param FinalResult $finalResult
+     * @return ExternalLab
      */
     public function setFinalResult(FinalResult $finalResult)
     {

@@ -476,8 +476,8 @@ class ImportProcessorTest extends WebTestCase
     public function testDefaultValues()
     {
         $processor = new ImportProcessor($this->getContainer(), new DuplicateFilterFactory(), new NotBlankFilterFactory(), new LinkerFilterFactory(array()));
-        $this->assertEquals($processor->getMaxExecutionTime(), '90');
-        $this->assertEquals($processor->getMemoryLimit(), '512M');
+        $this->assertEquals($processor->getMaxExecutionTime(), '190');
+        $this->assertEquals($processor->getMemoryLimit(), '1024M');
 
         $processor->setMaxExecutionTime(120);
         $processor->setMemoryLimit('1024M');

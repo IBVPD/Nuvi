@@ -239,7 +239,7 @@ class IBDCaseTest extends \PHPUnit_Framework_TestCase
             //pcvReceived + pcvDoses
             $row                   = $complete;
             $row['setpcvReceived'] = new VaccinationReceived(VaccinationReceived::YES_CARD);
-            $row['setpcvDoses']    = new ThreeDoses($x);
+            $row['setpcvDoses']    = new FourDoses($x);
             $data[]                = array('data' => $row);
         }
 
