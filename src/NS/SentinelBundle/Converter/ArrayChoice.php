@@ -14,6 +14,7 @@ use UnexpectedValueException as UnexpectedValueException2;
  */
 class ArrayChoice implements NamedValueConverterInterface
 {
+
     private $class;
     private $name;
 
@@ -40,9 +41,15 @@ class ArrayChoice implements NamedValueConverterInterface
      */
     public function convert($value)
     {
-        $input = (is_string($value))? trim($value):$value;
+        $input = (is_string($value)) ? trim($value) : $value;
         if ($input !== 0 && (empty($input) || !is_numeric($input))) {
-            return new $this->class();
+            if (is_string($input) && strpos($input, " = ")) {
+                $values = explode(" = ", $input);
+                $input  = $values[0];
+            }
+            else {
+                return new $this->class();
+            }
         }
 
         try {

@@ -64,7 +64,7 @@ class ArrayChoiceTest extends \PHPUnit_Framework_TestCase
      * @dataProvider converterProvider
      * @expectedException UnexpectedValueException
      */
-    public function testArrayChoiceExceptions($obj,$name)
+    public function testArrayChoiceExceptions($obj, $name)
     {
         $class     = get_class($obj);
         $converter = new ArrayChoice($class);
@@ -72,21 +72,20 @@ class ArrayChoiceTest extends \PHPUnit_Framework_TestCase
         $obj->getValues();
         $converter->convert(-12);
     }
-    
+
     /**
      *
      * @param ArrayChoice2 $obj
      * @dataProvider converterProvider
      */
-    public function testArrayChoice($obj,$name)
+    public function testArrayChoice($obj, $name)
     {
         $class     = get_class($obj);
         $converter = new ArrayChoice($class);
         $this->assertEquals($name, $converter->getName());
         $values    = $obj->getValues();
 
-        foreach (array_keys($values) as $key)
-        {
+        foreach (array_keys($values) as $key) {
             $convertedObj = $converter->convert($key);
             $this->assertInstanceOf($class, $convertedObj);
             $this->assertEquals($key, $convertedObj->getValue());
@@ -95,6 +94,32 @@ class ArrayChoiceTest extends \PHPUnit_Framework_TestCase
         $convertedObj = $converter->convert(' ');
         $this->assertInstanceOf($class, $convertedObj);
         $this->assertEquals(-1, $convertedObj->getValue());
+    }
+
+    public function testPahoEqualsConverter()
+    {
+        $converter = new ArrayChoice('NS\SentinelBundle\Form\Types\Gender');
+        $genders   = array(Gender::MALE => "M = Masculino", Gender::FEMALE => "F = Femenino");
+
+        foreach ($genders as $intType => $strType) {
+            $convertedObj = $converter->convert($strType);
+            $this->assertEquals($intType, $convertedObj->getValue());
+        }
+    }
+
+    public function testPahoInterEqualsConverter()
+    {
+        $values    = array(
+            TripleChoice::YES     => "1 = Si",
+            TripleChoice::UNKNOWN => "99 = Desconocido",
+            TripleChoice::NO      => "0 = No",
+        );
+        $converter = new ArrayChoice('NS\SentinelBundle\Form\Types\TripleChoice');
+
+        foreach ($values as $intType => $strType) {
+            $convertedObj = $converter->convert($strType);
+            $this->assertEquals($intType, $convertedObj->getValue());
+        }
     }
 
     /**
@@ -109,162 +134,163 @@ class ArrayChoiceTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array(
-                'obj' => new AlternateTripleChoice(),
-                'name'=>'AlternateTripleChoice'
-                ),
+                'obj'  => new AlternateTripleChoice(),
+                'name' => 'AlternateTripleChoice'
+            ),
             array(
-                'obj' => new BinaxResult(),
-                'name'=>'BinaxResult',
-                ),
+                'obj'  => new BinaxResult(),
+                'name' => 'BinaxResult',
+            ),
             array(
-                'obj' => new CSFAppearance(),
-                'name'=>'CSFAppearance',
-                ),
+                'obj'  => new CSFAppearance(),
+                'name' => 'CSFAppearance',
+            ),
             array(
-                'obj' => new CXRResult(),
-                'name'=>'CXRResult',
-                ),
+                'obj'  => new CXRResult(),
+                'name' => 'CXRResult',
+            ),
             array(
-                'obj' => new CaseStatus(),
-                'name'=>'CaseStatus',
-                ),
+                'obj'  => new CaseStatus(),
+                'name' => 'CaseStatus',
+            ),
             array(
-                'obj' => new CreateRoles(),
-                'name'=>'CreateRoles',
-                ),
+                'obj'  => new CreateRoles(),
+                'name' => 'CreateRoles',
+            ),
             array(
-                'obj' => new CultureResult(),
-                'name'=>'CultureResult',
-                ),
+                'obj'  => new CultureResult(),
+                'name' => 'CultureResult',
+            ),
             array(
-                'obj' => new Dehydration(),
-                'name'=>'Dehydration',
-                ),
+                'obj'  => new Dehydration(),
+                'name' => 'Dehydration',
+            ),
             array(
-                'obj' => new Diagnosis(),
-                'name'=>'Diagnosis',
-                ),
+                'obj'  => new Diagnosis(),
+                'name' => 'Diagnosis',
+            ),
             array(
-                'obj' => new DischargeClassification(),
-                'name'=>'DischargeClassification',
-                ),
+                'obj'  => new DischargeClassification(),
+                'name' => 'DischargeClassification',
+            ),
             array(
-                'obj' => new DischargeDiagnosis(),
-                'name'=>'DischargeDiagnosis',
-                ),
+                'obj'  => new DischargeDiagnosis(),
+                'name' => 'DischargeDiagnosis',
+            ),
             array(
-                'obj' => new DischargeOutcome(),
-                'name'=>'DischargeOutcome',
-                ),
+                'obj'  => new DischargeOutcome(),
+                'name' => 'DischargeOutcome',
+            ),
             array(
-                'obj' => new ElisaKit(),
-                'name'=>'ElisaKit',
-                ),
+                'obj'  => new ElisaKit(),
+                'name' => 'ElisaKit',
+            ),
             array(
-                'obj' => new ElisaResult(),
-                'name'=>'ElisaResult',
-                ),
+                'obj'  => new ElisaResult(),
+                'name' => 'ElisaResult',
+            ),
             array(
-                'obj' => new FourDoses(),
-                'name'=>'FourDoses',
-                ),
+                'obj'  => new FourDoses(),
+                'name' => 'FourDoses',
+            ),
             array(
-                'obj' => new Gender(),
-                'name'=>'Gender',
-                ),
+                'obj'  => new Gender(),
+                'name' => 'Gender',
+            ),
             array(
-                'obj' => new GenotypeResultG(),
-                'name'=>'GenotypeResultG',
-                ),
+                'obj'  => new GenotypeResultG(),
+                'name' => 'GenotypeResultG',
+            ),
             array(
-                'obj' => new GenotypeResultP(),
-                'name'=>'GenotypeResultP',
-                ),
+                'obj'  => new GenotypeResultP(),
+                'name' => 'GenotypeResultP',
+            ),
             array(
-                'obj' => new GramStain(),
-                'name'=>'GramStain',
-                ),
+                'obj'  => new GramStain(),
+                'name' => 'GramStain',
+            ),
             array(
-                'obj' => new GramStainOrganism(),
-                'name'=>'GramStainOrganism'),
+                'obj'  => new GramStainOrganism(),
+                'name' => 'GramStainOrganism'),
             array(
-                'obj' => new HiSerotype(),
-                'name'=>'HiSerotype'),
+                'obj'  => new HiSerotype(),
+                'name' => 'HiSerotype'),
             array(
-                'obj' => new IBDCaseResult(),
-                'name'=>'IBDCaseResult'),
+                'obj'  => new IBDCaseResult(),
+                'name' => 'IBDCaseResult'),
             array(
-                'obj' => new IBDIntenseSupport(),
-                'name'=>'IBDIntenseSupport'),
+                'obj'  => new IBDIntenseSupport(),
+                'name' => 'IBDIntenseSupport'),
             array(
-                'obj' => new IsolateType(),
-                'name'=>'IsolateType'),
+                'obj'  => new IsolateType(),
+                'name' => 'IsolateType'),
             array(
-                'obj' => new LatResult(),
-                'name'=>'LatResult'),
+                'obj'  => new LatResult(),
+                'name' => 'LatResult'),
             array(
-                'obj' => new MeningitisVaccinationReceived(),
+                'obj'  => new MeningitisVaccinationReceived(),
                 'name' => 'MeningitisVaccinationReceived'),
             array(
-                'obj' => new MeningitisVaccinationType(),
-                'name'=>'MeningitisVaccinationType'),
+                'obj'  => new MeningitisVaccinationType(),
+                'name' => 'MeningitisVaccinationType'),
             array(
-                'obj' => new NmSerogroup(),
-                'name'=>'NmSerogroup'),
+                'obj'  => new NmSerogroup(),
+                'name' => 'NmSerogroup'),
             array(
-                'obj' => new OtherSpecimen(),
-                'name'=>'OtherSpecimen'),
+                'obj'  => new OtherSpecimen(),
+                'name' => 'OtherSpecimen'),
             array(
-                'obj' => new PCRResult(),
-                'name'=>'PCRResult'),
+                'obj'  => new PCRResult(),
+                'name' => 'PCRResult'),
             array(
-                'obj' => new PCVType(),
-                'name'=>'PCVType'),
+                'obj'  => new PCVType(),
+                'name' => 'PCVType'),
             array(
-                'obj' => new PathogenIdentifier(),
-                'name'=>'PathogenIdentifier'),
+                'obj'  => new PathogenIdentifier(),
+                'name' => 'PathogenIdentifier'),
             array(
-                'obj' => new Rehydration(),
-                'name'=>'Rehydration'),
+                'obj'  => new Rehydration(),
+                'name' => 'Rehydration'),
             array(
-                'obj' => new Role(),
-                'name'=>'Role'),
+                'obj'  => new Role(),
+                'name' => 'Role'),
             array(
-                'obj' => new RotavirusDischargeOutcome(),
-                'name'=>'RotavirusDischargeOutcome'),
+                'obj'  => new RotavirusDischargeOutcome(),
+                'name' => 'RotavirusDischargeOutcome'),
             array(
-                'obj' => new RotavirusVaccinationReceived(),
-                'name'=>'RotavirusVaccinationReceived',
-                ),
+                'obj'  => new RotavirusVaccinationReceived(),
+                'name' => 'RotavirusVaccinationReceived',
+            ),
             array(
-                'obj' => new RotavirusVaccinationType(),
-                'name'=>'RotavirusVaccinationType'),
+                'obj'  => new RotavirusVaccinationType(),
+                'name' => 'RotavirusVaccinationType'),
             array(
-                'obj' => new SampleType(),
-                'name'=>'SampleType'),
+                'obj'  => new SampleType(),
+                'name' => 'SampleType'),
             array(
-                'obj' => new SerotypeIdentifier(),
-                'name'=>'SerotypeIdentifier'),
+                'obj'  => new SerotypeIdentifier(),
+                'name' => 'SerotypeIdentifier'),
             array(
-                'obj' => new SpnSerotype(),
-                'name'=> 'SpnSerotype'
-                ),
+                'obj'  => new SpnSerotype(),
+                'name' => 'SpnSerotype'
+            ),
             array(
-                'obj' => new SurveillanceConducted(),
-                'name'=>'SurveillanceConducted'),
+                'obj'  => new SurveillanceConducted(),
+                'name' => 'SurveillanceConducted'),
             array(
-                'obj' => new ThreeDoses(),
-                'name'=>'ThreeDoses'),
+                'obj'  => new ThreeDoses(),
+                'name' => 'ThreeDoses'),
             array(
-                'obj' => new TripleChoice(),
-                'name'=>'TripleChoice'),
+                'obj'  => new TripleChoice(),
+                'name' => 'TripleChoice'),
             array(
-                'obj' => new VaccinationReceived(),
-                'name'=>'VaccinationReceived'),
+                'obj'  => new VaccinationReceived(),
+                'name' => 'VaccinationReceived'),
             array(
-                'obj' => new Volume(),
-                'name'=>'Volume',
-                ),
-                );
+                'obj'  => new Volume(),
+                'name' => 'Volume',
+            ),
+        );
     }
+
 }
