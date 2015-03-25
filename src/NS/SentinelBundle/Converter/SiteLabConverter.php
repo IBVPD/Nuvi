@@ -4,6 +4,7 @@ namespace NS\SentinelBundle\Converter;
 
 use Ddeboer\DataImport\ValueConverter\ValueConverterInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\NoResultException;
 
 /**
  * Description of SiteLabConverter
@@ -12,7 +13,6 @@ use Doctrine\Common\Persistence\ObjectManager;
  */
 class SiteLabConverter implements ValueConverterInterface
 {
-
     private $entityMgr;
     private $repository;
     private $entityMetadata;
@@ -44,7 +44,7 @@ class SiteLabConverter implements ValueConverterInterface
         try {
             $siteLab = $this->repository->findBySiteAndCaseId($input['site'], $input['caseId']);
         }
-        catch (\Doctrine\ORM\NoResultException $exception) {
+        catch (NoResultException $exception) {
             $siteLab = new $this->class;
         }
         catch (\Exception $except) {
@@ -66,7 +66,6 @@ class SiteLabConverter implements ValueConverterInterface
     {
         $fieldNames = array_merge($this->entityMetadata->getFieldNames(), $this->entityMetadata->getAssociationNames());
         foreach ($fieldNames as $fieldName) {
-
             $value = null;
             if (isset($item[$fieldName])) {
                 $value = $item[$fieldName];
