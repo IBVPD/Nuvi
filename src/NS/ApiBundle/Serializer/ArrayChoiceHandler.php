@@ -285,12 +285,6 @@ class ArrayChoiceHandler implements SubscribingHandlerInterface
                 'type'      => 'NS\SentinelBundle\Form\Types\ThreeDoses',
                 'method'    => 'serializeToJson',
             ),
-            array(
-                'direction' => GraphNavigator::DIRECTION_SERIALIZATION,
-                'format'    => 'json',
-                'type'      => 'NS\SentinelBundle\Form\Types\Volume',
-                'method'    => 'serializeToJson',
-            ),
         );
     }
 }

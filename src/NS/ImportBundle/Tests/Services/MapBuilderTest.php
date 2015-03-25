@@ -52,7 +52,6 @@ class MapBuilderTest extends \Liip\FunctionalTestBundle\Test\WebTestCase
     private function addConverters(MapBuilder $builder)
     {
         $converters = array(
-            'ns.sentinel.converter.volume'                        => new ArrayChoice('NS\SentinelBundle\Form\Types\Volume'),
             'ns.sentinel.converter.spnSerotype'                   => new ArrayChoice('NS\SentinelBundle\Form\Types\SpnSerotype'),
             'ns.sentinel.converter.serotypeIdentifier'            => new ArrayChoice('NS\SentinelBundle\Form\Types\SerotypeIdentifier'),
             'ns.sentinel.converter.rotavirusVaccinationReceived'  => new ArrayChoice('NS\SentinelBundle\Form\Types\RotavirusVaccinationReceived'),

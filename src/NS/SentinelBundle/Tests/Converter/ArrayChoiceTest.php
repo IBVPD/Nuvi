@@ -48,7 +48,6 @@ use NS\SentinelBundle\Form\Types\SurveillanceConducted;
 use NS\SentinelBundle\Form\Types\ThreeDoses;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Form\Types\VaccinationReceived;
-use NS\SentinelBundle\Form\Types\Volume;
 use NS\UtilBundle\Form\Types\ArrayChoice as ArrayChoice2;
 
 /**
@@ -289,10 +288,6 @@ class ArrayChoiceTest extends \PHPUnit_Framework_TestCase
             array(
                 'obj'  => new VaccinationReceived(),
                 'name' => 'VaccinationReceived'),
-            array(
-                'obj'  => new Volume(),
-                'name' => 'Volume',
-            ),
         );
     }
 

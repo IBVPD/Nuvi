@@ -13,7 +13,6 @@ use NS\SentinelBundle\Form\Types\PathogenIdentifier;
 use NS\SentinelBundle\Form\Types\SampleType;
 use NS\SentinelBundle\Form\Types\SerotypeIdentifier;
 use NS\SentinelBundle\Form\Types\SpnSerotype;
-use NS\SentinelBundle\Form\Types\Volume;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\ExecutionContextInterface;
 use \Gedmo\Mapping\Annotation as Gedmo;
@@ -202,11 +201,6 @@ abstract class ExternalLab extends BaseExternalLab
         return $this->dateReceived;
     }
 
-    public function getDnaVolume()
-    {
-        return $this->dnaVolume;
-    }
-
     public function getIsolateViable()
     {
         return $this->isolateViable;
@@ -298,12 +292,6 @@ abstract class ExternalLab extends BaseExternalLab
         if ($dateReceived instanceof \DateTime)
             $this->dateReceived = $dateReceived;
 
-        return $this;
-    }
-
-    public function setDNAVolume($dnaVolume)
-    {
-        $this->dnaVolume = $dnaVolume;
         return $this;
     }
 

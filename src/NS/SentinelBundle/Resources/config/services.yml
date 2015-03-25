@@ -68,12 +68,6 @@ services:
       tags:
         - { name: form.type, alias: OtherSpecimen }
 
-    ns.sentinel.converter.volume:
-      class: NS\SentinelBundle\Converter\ArrayChoice
-      arguments: [ NS\SentinelBundle\Form\Types\Volume ]
-      tags:
-        - { name: ns_import.converter }
-
     ns.sentinel.converter.spnSerotype:
       class: NS\SentinelBundle\Converter\ArrayChoice
       arguments: [ NS\SentinelBundle\Form\Types\SpnSerotype ]
@@ -301,6 +295,19 @@ services:
       arguments: [ NS\SentinelBundle\Form\Types\TripleChoice ]
       tags:
         - { name: ns_import.converter }
+
+    ns.sentinel.converter.alternate_triple_choice:
+      class: NS\SentinelBundle\Converter\ArrayChoice
+      arguments: [ NS\SentinelBundle\Form\Types\AlternateTripleChoice ]
+      tags:
+        - { name: ns_import.converter }
+
+    ns.sentinel.converter.finalResult:
+      class: NS\SentinelBundle\Converter\ArrayChoice
+      arguments: [ NS\SentinelBundle\Form\Types\FinalResult ]
+      tags:
+        - { name: ns_import.converter }
+
 
     ns.sentinel.converter.ibd_case:
       class: NS\SentinelBundle\Converter\CaseConverter
@@ -668,11 +675,6 @@ services:
       class: NS\SentinelBundle\Form\Types\SerotypeIdentifier
       tags:
         - { name: form.type, alias: SerotypeIdentifier }
-
-    ns.sentinel.form.type.volume:
-      class: NS\SentinelBundle\Form\Types\Volume
-      tags:
-        - { name: form.type, alias: Volume }
 
     ns.sentinel.form.type.sampletype:
       class: NS\SentinelBundle\Form\Types\SampleType
