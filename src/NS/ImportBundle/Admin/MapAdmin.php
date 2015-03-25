@@ -42,6 +42,7 @@ class MapAdmin extends Admin
             ->add('name')
             ->add('class')
             ->add('version')
+            ->add('description')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -60,6 +61,7 @@ class MapAdmin extends Admin
     {
         $formMapper
             ->add('name')
+            ->add('description')
             ->add('class','ClassType')
             ->add('version');
 

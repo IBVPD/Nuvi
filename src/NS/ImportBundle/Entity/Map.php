@@ -34,6 +34,12 @@ class Map
     private $name;
 
     /**
+     * @var string $description
+     * @ORM\Column(name="description",type="text",nullable=true)
+     */
+    private $description;
+
+    /**
      * @var string version
      * @ORM\Column(name="version",type="string")
      */
@@ -148,6 +154,26 @@ class Map
     public function getFile()
     {
         return $this->file;
+    }
+    
+    /**
+     * 
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * 
+     * @param string $description
+     * @return \NS\ImportBundle\Entity\Map
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+        return $this;
     }
 
     /**
