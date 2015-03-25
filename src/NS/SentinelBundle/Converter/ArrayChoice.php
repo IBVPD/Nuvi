@@ -43,9 +43,9 @@ class ArrayChoice implements NamedValueConverterInterface
     {
         $input = (is_string($value)) ? trim($value) : $value;
         if ($input !== 0 && (empty($input) || !is_numeric($input))) {
-            if (is_string($input) && strpos($input, " = ")) {
-                $values = explode(" = ", $input);
-                $input  = $values[0];
+            if (is_string($input) && strpos($input, "=")) {
+                $values = explode("=", $input);
+                $input  = trim($values[0]);
             }
             else {
                 return new $this->class();

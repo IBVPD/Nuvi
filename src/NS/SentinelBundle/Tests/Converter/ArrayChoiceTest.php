@@ -58,6 +58,7 @@ use NS\UtilBundle\Form\Types\ArrayChoice as ArrayChoice2;
  */
 class ArrayChoiceTest extends \PHPUnit_Framework_TestCase
 {
+
     /**
      *
      * @param ArrayChoice2 $obj
@@ -111,7 +112,9 @@ class ArrayChoiceTest extends \PHPUnit_Framework_TestCase
     {
         $values    = array(
             TripleChoice::YES     => "1 = Si",
+            TripleChoice::YES     => "1 =Sí",
             TripleChoice::UNKNOWN => "99 = Desconocido",
+            TripleChoice::UNKNOWN => "99 =Desconocido",
             TripleChoice::NO      => "0 = No",
         );
         $converter = new ArrayChoice('NS\SentinelBundle\Form\Types\TripleChoice');
