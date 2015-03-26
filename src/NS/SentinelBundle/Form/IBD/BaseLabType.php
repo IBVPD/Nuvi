@@ -22,7 +22,7 @@ class BaseLabType extends AbstractType
                 'required' => false))
             ->add('dateReceived', 'acedatepicker', array('label'    => 'ibd-rrl-form.date-received',
                 'required' => false))
-            ->add('isolateViable', 'AlternateTripleChoice', array('label'    => 'ibd-rrl-form.isolate-viable',
+            ->add('isolateViable', 'IsolateViable', array('label'    => 'ibd-rrl-form.isolate-viable',
                 'required' => false))
             ->add('isolateType', 'IsolateType', array('label'    => 'ibd-rrl-form.isolate-type',
                 'required' => false))

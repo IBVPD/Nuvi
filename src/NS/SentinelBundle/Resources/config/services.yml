@@ -284,6 +284,12 @@ services:
       tags:
         - { name: ns_import.converter }
 
+    ns.sentinel.converter.sample_type:
+      class: NS\SentinelBundle\Converter\ArrayChoice
+      arguments: [ NS\SentinelBundle\Form\Types\SampleType ]
+      tags:
+        - { name: ns_import.converter }
+
     ns.sentinel.converter.diagnosis:
       class: NS\SentinelBundle\Converter\ArrayChoice
       arguments: [ NS\SentinelBundle\Form\Types\Diagnosis ]
@@ -296,9 +302,9 @@ services:
       tags:
         - { name: ns_import.converter }
 
-    ns.sentinel.converter.alternate_triple_choice:
+    ns.sentinel.converter.isolate_viable:
       class: NS\SentinelBundle\Converter\ArrayChoice
-      arguments: [ NS\SentinelBundle\Form\Types\AlternateTripleChoice ]
+      arguments: [ NS\SentinelBundle\Form\Types\IsolateViable ]
       tags:
         - { name: ns_import.converter }
 
@@ -307,7 +313,6 @@ services:
       arguments: [ NS\SentinelBundle\Form\Types\FinalResult ]
       tags:
         - { name: ns_import.converter }
-
 
     ns.sentinel.converter.ibd_case:
       class: NS\SentinelBundle\Converter\CaseConverter
@@ -701,10 +706,10 @@ services:
       tags:
         - { name: form.type, alias: PCRResult }
 
-    ns.sentinel.form.type.alternatetriplechoice:
-      class: NS\SentinelBundle\Form\Types\AlternateTripleChoice
+    ns.sentinel.form.type.isolateviable:
+      class: NS\SentinelBundle\Form\Types\IsolateViable
       tags:
-        - { name: form.type, alias: AlternateTripleChoice }
+        - { name: form.type, alias: IsolateViable }
 
     ns.sentinel.form.type.triple_choice:
       class: NS\SentinelBundle\Form\Types\TripleChoice

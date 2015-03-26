@@ -4,7 +4,7 @@ namespace NS\SentinelBundle\Tests\Converter;
 
 use Ddeboer\DataImport\Exception\UnexpectedValueException;
 use NS\SentinelBundle\Converter\ArrayChoice;
-use NS\SentinelBundle\Form\Types\AlternateTripleChoice;
+use NS\SentinelBundle\Form\Types\IsolateViable;
 use NS\SentinelBundle\Form\Types\BinaxResult;
 use NS\SentinelBundle\Form\Types\CaseStatus;
 use NS\SentinelBundle\Form\Types\CreateRoles;
@@ -136,8 +136,8 @@ class ArrayChoiceTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array(
-                'obj'  => new AlternateTripleChoice(),
-                'name' => 'AlternateTripleChoice'
+                'obj'  => new IsolateViable(),
+                'name' => 'IsolateViable'
             ),
             array(
                 'obj'  => new BinaxResult(),

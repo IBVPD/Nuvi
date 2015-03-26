@@ -4,7 +4,7 @@ namespace NS\SentinelBundle\Entity\IBD;
 
 use Doctrine\ORM\Mapping as ORM;
 use NS\SentinelBundle\Entity\BaseExternalLab;
-use NS\SentinelBundle\Form\Types\AlternateTripleChoice;
+use NS\SentinelBundle\Form\Types\IsolateViable;
 use NS\SentinelBundle\Form\Types\FinalResult;
 use NS\SentinelBundle\Form\Types\HiSerotype;
 use NS\SentinelBundle\Form\Types\IsolateType;
@@ -62,8 +62,8 @@ abstract class ExternalLab extends BaseExternalLab
     protected $dateReceived;
 
     /**
-     * @var AlternateTripleChoice
-     * @ORM\Column(name="isolateViable",type="AlternateTripleChoice",nullable=true)
+     * @var IsolateViable
+     * @ORM\Column(name="isolateViable",type="IsolateViable",nullable=true)
      * @Serializer\Groups({"api"})
      */
     protected $isolateViable;
@@ -289,7 +289,7 @@ abstract class ExternalLab extends BaseExternalLab
         return $this;
     }
 
-    public function setIsolateViable(AlternateTripleChoice $isolateViable)
+    public function setIsolateViable(IsolateViable $isolateViable)
     {
         $this->isolateViable = $isolateViable;
         return $this;

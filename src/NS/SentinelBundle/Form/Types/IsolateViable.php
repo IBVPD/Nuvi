@@ -2,12 +2,16 @@
 
 namespace NS\SentinelBundle\Form\Types;
 
+use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
+
 /**
- * Description of AlternateTripleChoice
+ * Description of IsolateViable
  *
  */
-class AlternateTripleChoice extends TripleChoice
+class IsolateViable extends TranslatableArrayChoice
 {
+    const YES            = 1;
+    const NO             = 2;
     const NOT_APPLICABLE = 3;
 
     protected $values = array(
@@ -21,6 +25,7 @@ class AlternateTripleChoice extends TripleChoice
      */
     public function getName()
     {
-        return 'AlternateTripleChoice';
+        return 'IsolateViable';
     }
+
 }

@@ -54,7 +54,7 @@ class ArrayChoiceHandler implements SubscribingHandlerInterface
             array(
                 'direction' => GraphNavigator::DIRECTION_SERIALIZATION,
                 'format'    => 'json',
-                'type'      => 'NS\SentinelBundle\Form\Types\AlternateTripleChoice',
+                'type'      => 'NS\SentinelBundle\Form\Types\IsolateViable',
                 'method'    => 'serializeToJson',
             ),
             array(

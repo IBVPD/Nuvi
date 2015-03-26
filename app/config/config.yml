@@ -60,7 +60,7 @@ doctrine:
         # path:     %database_path%
         types:
             TripleChoice: NS\SentinelBundle\Entity\Types\TripleChoice
-            AlternateTripleChoice: NS\SentinelBundle\Entity\Types\AlternateTripleChoice
+            IsolateViable: NS\SentinelBundle\Entity\Types\IsolateViable
             FourDoses: NS\SentinelBundle\Entity\Types\FourDoses
             Diagnosis: NS\SentinelBundle\Entity\Types\Diagnosis
             CXRResult: NS\SentinelBundle\Entity\Types\CXRResult
@@ -107,7 +107,7 @@ doctrine:
             FinalResult: NS\SentinelBundle\Entity\Types\FinalResult
         mapping_types:
             TripleChoice: TripleChoice
-            AlternateTripleChoice: AlternateTripleChoice
+            IsolateViable: IsolateViable
             FourDoses: FourDoses
             Diagnosis: Diagnosis
             CXRResult: CXRResult
