@@ -185,12 +185,6 @@ abstract class ExternalLab extends BaseExternalLab
      */
     protected $nmSerogroup;
 
-    /**
-     * @var string $comment
-     * @ORM\Column(name="comment",type="text",nullable=true)
-     */
-    private $comment;
-
     public function getSampleType()
     {
         return $this->sampleType;
@@ -403,8 +397,6 @@ abstract class ExternalLab extends BaseExternalLab
                     'spnSerotype',
                     'hiSerotype',
                     'nmSerogroup',
-        //                    'resultSentToCountry',
-//                    'resultSentToWHO',
         );
     }
 
@@ -449,26 +441,6 @@ abstract class ExternalLab extends BaseExternalLab
     public function setFinalResult(FinalResult $finalResult)
     {
         $this->finalResult = $finalResult;
-        return $this;
-    }
-
-        /**
-     * 
-     * @return string
-     */
-    public function getComment()
-    {
-        return $this->comment;
-    }
-
-    /**
-     * 
-     * @param string $comment
-     * @return ExternalLab
-     */
-    public function setComment($comment)
-    {
-        $this->comment = $comment;
         return $this;
     }
 }

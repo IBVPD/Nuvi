@@ -1,91 +1,94 @@
 {%extends "NSSentinelBundle::layout.html.twig" %}
 
 {% block pagetitle %}
-{{'Edit %type% For Case %id%'|trans({'%id%': form.vars.value.caseFile.caseId,'%type%': form.vars.value.type})}}
+    {{'Edit %type% For Case %id%'|trans({'%id%': form.vars.value.caseFile.caseId,'%type%': form.vars.value.type})}}
 {% endblock %}
 
 {%block pageactions %}
-<div class="pull-right">{{case_big_actions(form.vars.value.caseFile)}}</div>
+    <div class="pull-right">{{case_big_actions(form.vars.value.caseFile)}}</div>
 {%endblock %}
 
 {% block body %}
-{{form_errors(form)}}
-<form method="POST" action="{{path(editRoute,{'id':id})}}" novalidate>
-<div class="row">
-    <div class="col-sm-12">
-        <div class="tabbable">
-            <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
-                <li class="active"><a data-toggle="tab" href="#labinfo">{{'Lab Information'|trans}}</a></li>
-                <li><a data-toggle="tab" href="#sample">{{'Sample Information'|trans}}</a></li>
-                <li><a data-toggle="tab" href="#methods">{{'Methods'|trans}}</a></li>
-                <li><a data-toggle="tab" href="#ctvalues">{{'CT Values From PCR'|trans}}</a></li>
-                <li><a data-toggle="tab" href="#serotype">{{'Serotype / Serogroup Results'|trans}}</a></li>
-            </ul>
+    {{form_errors(form)}}
+    <form method="POST" action="{{path(editRoute,{'id':id})}}" novalidate>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="tabbable">
+                    <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                        <li class="active"><a data-toggle="tab" href="#labinfo">{{'Lab Information'|trans}}</a></li>
+                        <li><a data-toggle="tab" href="#sample">{{'Sample Information'|trans}}</a></li>
+                        <li><a data-toggle="tab" href="#methods">{{'Methods'|trans}}</a></li>
+                        <li><a data-toggle="tab" href="#ctvalues">{{'CT Values From PCR'|trans}}</a></li>
+                        <li><a data-toggle="tab" href="#serotype">{{'Serotype / Serogroup Results'|trans}}</a></li>
+                    </ul>
+                </div>
+                <div class="tab-content">
+                    <div id="labinfo" class="tab-pane active">
+                        {{form_row(form.labId)}}
+                    </div>
+
+                    <div id="sample" class="tab-pane">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6 col-lg-6">
+                                {{form_row(form.dateReceived)}}
+                                {{form_row(form.sampleType)}}
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-6">
+                                {{form_row(form.isolateViable)}}
+                                {{form_row(form.isolateType)}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="methods" class="tab-pane">
+                        {{form_row(form.pathogenIdentifierMethod)}}
+                        {{form_row(form.pathogenIdentifierOther)}}
+                        {{form_row(form.serotypeIdentifier)}}
+                        {{form_row(form.serotypeIdentifierOther)}}
+                    </div>
+
+                    <div id="ctvalues" class="tab-pane">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6 col-lg-6">
+                                {{form_row(form.lytA)}}
+                                {{form_row(form.ctrA)}}
+                                {{form_row(form.sodC)}}
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-6">
+                                {{form_row(form.hpd1)}}
+                                {{form_row(form.hpd3)}}
+                                {{form_row(form.bexA)}}
+                                {{form_row(form.rNaseP)}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{form_row(form.finalResult)}}
+                            </div>
+                            <div class="col-md-6">
+                                {{form_row(form.comment)}}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="serotype" class="tab-pane">
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6 col-lg-6">
+                                {{form_row(form.spnSerotype)}}
+                                {{form_row(form.hiSerotype)}}
+                            </div>
+                            <div class="col-sm-6 col-md-6 col-lg-6">
+                                {{form_row(form.nmSerogroup)}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions center">
+                    <a href="{{path('ibdIndex')}}" class="btn btn-sm btn-danger">{{'Cancel'|trans}}</a> <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
+                </div>
+            </div>
+            {{form_rest(form)}}
         </div>
-        <div class="tab-content">
-            <div id="labinfo" class="tab-pane active">
-                {{form_row(form.labId)}}
-            </div>
 
-            <div id="sample" class="tab-pane">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6 col-lg-6">
-                        {{form_row(form.dateReceived)}}
-                        {{form_row(form.sampleType)}}
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-6">
-                        {{form_row(form.isolateViable)}}
-                        {{form_row(form.isolateType)}}                    
-                    </div>
-                </div>
-            </div>
-
-            <div id="methods" class="tab-pane">
-                {{form_row(form.pathogenIdentifierMethod)}}
-                {{form_row(form.pathogenIdentifierOther)}}
-                {{form_row(form.serotypeIdentifier)}}
-                {{form_row(form.serotypeIdentifierOther)}}
-            </div>
-
-            <div id="ctvalues" class="tab-pane">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6 col-lg-6">
-                        {{form_row(form.lytA)}}
-                        {{form_row(form.ctrA)}}
-                        {{form_row(form.sodC)}}
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-6">
-                        {{form_row(form.hpd1)}}
-                        {{form_row(form.hpd3)}}
-                        {{form_row(form.bexA)}}
-                        {{form_row(form.rNaseP)}}
-                    </div>
-                </div>
-                    <div class="row">
-                    <div class="col-md-12">
-                        {{form_row(form.finalResult)}}
-                    </div>
-                </div>
-            </div>
-
-            <div id="serotype" class="tab-pane">
-                <div class="row">
-                    <div class="col-sm-6 col-md-6 col-lg-6">
-                        {{form_row(form.spnSerotype)}}
-                        {{form_row(form.hiSerotype)}}
-                    </div>
-                    <div class="col-sm-6 col-md-6 col-lg-6">
-                        {{form_row(form.nmSerogroup)}}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="form-actions center">
-            <a href="{{path('ibdIndex')}}" class="btn btn-sm btn-danger">{{'Cancel'|trans}}</a> <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="icon-arrow-right icon-on-right bigger-110"></i></button>
-        </div>
-    </div>
-    {{form_rest(form)}}
-</div>
-
-</form>
+    </form>
 {% endblock %}

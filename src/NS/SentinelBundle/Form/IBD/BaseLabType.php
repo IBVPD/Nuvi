@@ -50,6 +50,7 @@ class BaseLabType extends AbstractType
                 'required' => false))
             ->add('nmSerogroup', 'NmSerogroup', array('label'    => 'ibd-rrl-form.nmSerogroup',
                 'required' => false))
+            ->add('comment',null,array('label'=>'ibd-rrl-form.comment','required'=>false))
         ;
     }
 

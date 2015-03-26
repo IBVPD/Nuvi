@@ -52,17 +52,18 @@ abstract class BaseExternalLab
      */
     protected $updatedAt;
 
+    /**
+     * @var string $comment
+     * @ORM\Column(name="comment",type="text",nullable=true)
+     */
+    protected $comment;
+
     public function __construct()
     {
         if(!is_string($this->caseClass) || empty($this->caseClass))
             throw new \InvalidArgumentException("The case class is not set");
 
         $this->status = new CaseStatus(0);
-    }
-
-    public function setLab(\NS\SentinelBundle\Entity\ReferenceLab $lab)
-    {
-
     }
 
     /**
@@ -183,5 +184,25 @@ abstract class BaseExternalLab
     {
         $this->calculateStatus();
         $this->setUpdatedAt(new \DateTime());
+    }
+
+    /**
+     *
+     * @return string
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     *
+     * @param string $comment
+     * @return ExternalLab
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+        return $this;
     }
 }

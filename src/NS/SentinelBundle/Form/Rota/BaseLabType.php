@@ -25,6 +25,7 @@ class BaseLabType extends AbstractType
             ->add('genotypeResultP','GenotypeResultP',  array('required'=>false,'label'=>'external-lab-form.genotyping-result-p',         'attr' => array('data-context-child'  => 'genotypingResultP')))
             ->add('genotypeResultPSpecify',null,        array('required'=>false,'label'=>'external-lab-form.genotyping-result-p-specify', 'attr' => array('data-context-parent' => 'genotypingResultP', 'data-context-value' => json_encode(array(GenotypeResultP::OTHER,GenotypeResultP::MIXED)))))
             ->add('pcrVp6Result', 'ElisaResult', array('required' => false, 'label' => 'external-lab-form.pcr-vp6-result'))
+            ->add('comment',null,array('required'=>false,'label'=>'external-lab-form.comment'))
         ;
     }
 
