@@ -2,9 +2,6 @@
 
 namespace NS\ImportBundle\Admin;
 
-use Ddeboer\DataImport\Reader\CsvReader;
-use Doctrine\ORM\Mapping\MappingException;
-use NS\ImportBundle\Entity\Column;
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -66,11 +63,11 @@ class MapAdmin extends Admin
             ->add('version');
 
         $model = $this->getSubject();
-        if(!$model->getId())
+        if(!$model->getId()) {
             $formMapper->add('file','file',array('required'=>false));
+        }
 
-        $formMapper->add('columns', 'sonata_type_collection', array('by_reference'=>true),array('edit'=>'inline','inline'=>'table'))
-        ;
+        $formMapper->add('columns', 'sonata_type_collection', array('by_reference'=>true),array('edit'=>'inline','inline'=>'table'));
     }
 
     /**
@@ -87,8 +84,9 @@ class MapAdmin extends Admin
 
     public function prePersist($map)
     {
-        if(!$map->getId() && $map->getFile()) // have a file so build the columns dynamically
+        if(!$map->getId() && $map->getFile()) { // have a file so build the columns dynamically
             $map = $this->mapBuilder->process($map, $this->modelManager->getMetadata($map->getClass()));
+        }
         else if($map->getColumns())
         {
             foreach ($map->getColumns() as $a)
