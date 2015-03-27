@@ -35,11 +35,13 @@
                                 <th>{{'Date/Time'|trans}}</th>
                                 <th>{{'Map'|trans}}</th>
                                 <th>{{'File'|trans}}</th>
+                                <th>{{'File Record Count'|trans}}</th>
+                                <th>{{'Records Read'|trans}}</th>
                                 <th>{{'Total Processed'|trans}}</th>
                                 <th>{{'Success Count'|trans}}</th>
                                 <th>{{'Duplicate Count'|trans}}</th>
                                 <th>{{'Error Count'|trans}}</th>
-                                <th>{{'Total Rows'|trans}}</th>
+                                <th>{{'Warning Count'|trans}}</th>
                                 <th>{{'Actions'|trans}}</th>
                             </tr>
                         </thead>
@@ -49,11 +51,13 @@
                                     <td>{{r.importedAt.format('Y-m-d H:i:s')}}</td>
                                     <td>{{r.mapName}}</td>
                                     <td>{{r.filename}}</td>
+                                    <td>{{r.totalRowCount}}</td>
+                                    <td>{{r.total}}</td>
                                     <td>{{r.totalCount}}</td>
                                     <td>{{r.successCount}}</td>
                                     <td>{{r.duplicateCount}}</td>
                                     <td>{{r.errorCount}}</td>
-                                    <td>{{r.total}}</td>
+                                    <td>{{r.warningCount}}</td>
                                     <td>
                                         <a href="{{path('importResultDownload',{type:'errors','id':r.id})}}" class="btn btn-xs btn-danger">{{'Errors'|trans}} <i class="icon icon-cloud-download"></i></a>
                                         <a href="{{path('importResultDownload',{type:'duplicates','id':r.id})}}" class="btn btn-xs btn-danger">{{'Duplicates'|trans}} <i class="icon icon-cloud-download"></i></a>

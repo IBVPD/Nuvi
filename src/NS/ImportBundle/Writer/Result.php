@@ -12,6 +12,7 @@ use \NS\ImportBundle\Filter\Duplicate;
  */
 class Result extends BaseResult
 {
+    private $totalRows;
     private $results;
     private $duplicates;
 
@@ -69,6 +70,25 @@ class Result extends BaseResult
     public function setDuplicates(Duplicate $duplicates)
     {
         $this->duplicates = $duplicates;
+        return $this;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getTotalRows()
+    {
+        return $this->totalRows;
+    }
+
+    /**
+     *
+     * @param integer $totalRows
+     * @return \NS\ImportBundle\Writer\Result
+     */
+    public function setTotalRows($totalRows)
+    {
+        $this->totalRows = $totalRows;
         return $this;
     }
 }

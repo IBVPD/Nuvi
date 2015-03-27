@@ -39,6 +39,12 @@ class Result
     private $filename;
 
     /**
+     * @var integer $totalRows
+     * @ORM\Column(name="totalRows",type="integer")
+     */
+    private $totalRowCount;
+
+    /**
      * @var integer $totalCount
      * @ORM\Column(name="totalCount",type="integer")
      */
@@ -55,6 +61,12 @@ class Result
      * @ORM\Column(name="mapName",type="array")
      */
     private $mapName;
+
+    /**
+     * @var array $warnings
+     * @ORM\Column(name="warnings",type="array")
+     */
+    private $warnings;
 
     /**
      * @var array $successes
@@ -85,29 +97,26 @@ class Result
         $this->buildSuccesses($result);
         $this->buildExceptions($result);
 
-        $this->totalCount   = $result->getTotalProcessedCount();
-        $this->successCount = $result->getSuccessCount();
-        $this->importedAt   = $result->getEndtime();
-        $this->duplicates   = $result->getDuplicates()->toArray();
-        $this->mapName      = sprintf("%s (%s)", $import->getMap()->getName(), $import->getMap()->getVersion());
-        $this->filename     = $import->getFile()->getClientOriginalName();
+        $this->totalCount    = $result->getTotalProcessedCount();
+        $this->successCount  = $result->getSuccessCount();
+        $this->importedAt    = $result->getEndtime();
+        $this->duplicates    = $result->getDuplicates()->toArray();
+        $this->mapName       = sprintf("%s (%s)", $import->getMap()->getName(), $import->getMap()->getVersion());
+        $this->filename      = $import->getFile()->getClientOriginalName();
+        $this->totalRowCount = $result->getTotalRows();
     }
 
     public function buildSuccesses(WorkflowResult $result)
     {
         $results = $result->getResults();
-        if ($results && isset($results[0]) && is_object($results[0]))
-        {
-            if ($results[0] instanceof \NS\SentinelBundle\Entity\BaseCase)
-            {
+        if ($results && isset($results[0]) && is_object($results[0])) {
+            if ($results[0] instanceof \NS\SentinelBundle\Entity\BaseCase) {
                 $this->buildCaseSuccess($results);
             }
-            else if ($results[0] instanceof \NS\SentinelBundle\Entity\BaseExternalLab)
-            {
+            else if ($results[0] instanceof \NS\SentinelBundle\Entity\BaseExternalLab) {
                 $this->buildExternalLabSuccess($results);
             }
-            else
-            {
+            else {
                 throw new \RuntimeException(sprintf("Unable to build success map for object of type: %s", get_class($results[0])));
             }
         }
@@ -115,8 +124,7 @@ class Result
 
     public function buildExternalLabSuccess($results)
     {
-        foreach ($results as $r)
-        {
+        foreach ($results as $r) {
             $this->successes[] = array(
                 'dbId'     => $r->getId(),
                 'caseDbId' => $r->getCaseFile()->getId(),
@@ -130,8 +138,7 @@ class Result
 
     public function buildCaseSuccess($results)
     {
-        foreach ($results as $r)
-        {
+        foreach ($results as $r) {
             $this->successes[] = array(
                 'id'       => $r->getId(),
                 'caseId'   => $r->getCaseId(),
@@ -143,8 +150,7 @@ class Result
 
     public function buildExceptions(WorkflowResult $result)
     {
-        foreach ($result->getExceptions() as $row => $e)
-        {
+        foreach ($result->getExceptions() as $row => $e) {
             $this->errors[$row] = array(
                 'row'     => $row,
                 'column'  => $e->getMessage(),
@@ -268,8 +274,7 @@ class Result
     public function getDuplicateMessages()
     {
         $out = array();
-        foreach ($this->duplicates as $row => $msg)
-        {
+        foreach ($this->duplicates as $row => $msg) {
             $out[] = array('row' => $row, 'message' => $msg);
         }
 
@@ -283,6 +288,55 @@ class Result
     public function getDuplicates()
     {
         return $this->duplicates;
+    }
+
+    /**
+     *
+     * @return integer
+     */
+    public function getTotalRowCount()
+    {
+        return $this->totalRowCount;
+    }
+
+    /**
+     *
+     * @return array
+     */
+    public function getWarnings()
+    {
+        return $this->warnings;
+    }
+
+    /**
+     *
+     * @return integer
+     */
+    public function getWarningCount()
+    {
+        return count($this->warnings);
+    }
+
+    /**
+     *
+     * @param integer $totalRowCount
+     * @return \NS\ImportBundle\Entity\Result
+     */
+    public function setTotalRowCount($totalRowCount)
+    {
+        $this->totalRowCount = $totalRowCount;
+        return $this;
+    }
+
+    /**
+     *
+     * @param array $warnings
+     * @return \NS\ImportBundle\Entity\Result
+     */
+    public function setWarnings(array $warnings)
+    {
+        $this->warnings = $warnings;
+        return $this;
     }
 
     /**
@@ -383,4 +437,5 @@ class Result
         $this->mapName = $mapName;
         return $this;
     }
+
 }

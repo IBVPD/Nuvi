@@ -78,7 +78,7 @@ class ImportProcessor
         $this->addFilters($workflow, $import);
 
         // Process the workflow
-        return $this->workflowProcess($workflow);
+        return $this->workflowProcess($workflow)->setTotalRows($reader->count());
     }
 
     /**
