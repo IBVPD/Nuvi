@@ -57,16 +57,6 @@ class RotaVirus extends BaseCase
      */
     protected $nationalClass  = '\NS\SentinelBundle\Entity\Rota\NationalLab';
 
-//ii. Case-based Demographic Data
-
-    /**
-     * case_district
-     * @var string $district
-     * @ORM\Column(name="district",type="string",nullable=true)
-     * @Groups({"api"})
-     */
-    private $district;
-
 //iii. Case-based Clinical Data
 
     /**
@@ -270,11 +260,6 @@ class RotaVirus extends BaseCase
      */
     private $comment;
 
-    public function getDistrict()
-    {
-        return $this->district;
-    }
-
     public function getSymptomDiarrhea()
     {
         return $this->symptomDiarrhea;
@@ -398,12 +383,6 @@ class RotaVirus extends BaseCase
     public function getComment()
     {
         return $this->comment;
-    }
-
-    public function setDistrict($district)
-    {
-        $this->district = $district;
-        return $this;
     }
 
     public function setSymptomDiarrhea(TripleChoice $symptomDiarrhea)

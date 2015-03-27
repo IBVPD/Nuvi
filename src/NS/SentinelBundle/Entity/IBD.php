@@ -68,13 +68,6 @@ class IBD extends BaseCase
      * @Exclude()
      */
     protected $nationalClass  = '\NS\SentinelBundle\Entity\IBD\NationalLab';
-// Case based demographic
-    /**
-     * @var string $district
-     * @ORM\Column(name="district",type="string",nullable=true)
-     * @Groups({"api"})
-     */
-    private $district;
 
 //Case-based Clinical Data
     /**
@@ -420,11 +413,6 @@ class IBD extends BaseCase
         $this->result = new IBDCaseResult(IBDCaseResult::UNKNOWN);
     }
 
-    public function getDistrict()
-    {
-        return $this->district;
-    }
-
     public function getOnsetDate()
     {
         return $this->onsetDate;
@@ -653,12 +641,6 @@ class IBD extends BaseCase
     public function getResult()
     {
         return $this->result;
-    }
-
-    public function setDistrict($district)
-    {
-        $this->district = $district;
-        return $this;
     }
 
     public function setOnsetDate($onsetDate)

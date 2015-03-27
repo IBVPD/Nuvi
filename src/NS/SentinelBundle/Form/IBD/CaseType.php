@@ -53,6 +53,7 @@ class CaseType extends AbstractType
                 'attr' => array('data-context-parent' => 'dob', 'data-context-value' => TripleChoice::NO)))
             ->add('gender', 'Gender', array('required' => $required, 'label' => 'ibd-form.gender'))
             ->add('district', null, array('required' => $required, 'label' => 'ibd-form.district'))
+            ->add('district', null, array('required' => $required, 'label' => 'ibd-form.state'))
             ->add('caseId', null, array('required' => true, 'label' => 'ibd-form.case-id'))
             ->add('admDate', 'acedatepicker', array('required' => $required, 'label' => 'ibd-form.adm-date'))
             ->add('admDx', 'Diagnosis', array('required' => $required, 'label' => 'ibd-form.adm-dx',

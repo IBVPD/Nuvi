@@ -71,6 +71,19 @@ abstract class BaseCase implements IdentityAssignmentInterface
     protected $caseId;
 
     /**
+     * @var string $district
+     * @ORM\Column(name="district",type="string",nullable=true)
+     * @Groups({"api"})
+     */
+    protected $district;
+
+    /**
+     * @var string $state
+     * @ORM\Column(name="state",type="string")
+     */
+    protected $state;
+
+    /**
      * @var DateTime $dob
      * @ORM\Column(name="dob",type="date",nullable=true)
      * @Assert\Date
@@ -496,12 +509,15 @@ abstract class BaseCase implements IdentityAssignmentInterface
         return;
     }
 
+    /**
+     * 
+     */
     public function calculateAge()
     {
         if($this->dob && $this->admDate)
         {
             $interval = $this->dob->diff($this->admDate);
-            $this->setAge(($interval->format('%a') / 30));
+            $this->setAge(($interval->format('%a') / 30.5));
         }
         else if($this->admDate && !$this->dob)
         {
@@ -517,16 +533,21 @@ abstract class BaseCase implements IdentityAssignmentInterface
 
         if($this->age >= 0)
         {
-            if($this->age <= 5)
-                $this->setAgeDistribution (self::AGE_DISTRIBUTION_00_TO_05);
-            else if ($this->age <= 11)
-                $this->setAgeDistribution (self::AGE_DISTRIBUTION_05_TO_11);
-            else if ($this->age <= 23)
-                $this->setAgeDistribution (self::AGE_DISTRIBUTION_11_TO_23);
-            else if ($this->age <= 59)
-                $this->setAgeDistribution (self::AGE_DISTRIBUTION_23_TO_59);
-            else
-                $this->setAgeDistribution (self::AGE_DISTRIBUTION_UNKNOWN);
+            if ($this->age < 6) {
+                $this->setAgeDistribution(self::AGE_DISTRIBUTION_00_TO_05);
+            }
+            else if ($this->age < 12) {
+                $this->setAgeDistribution(self::AGE_DISTRIBUTION_05_TO_11);
+            }
+            else if ($this->age < 24) {
+                $this->setAgeDistribution(self::AGE_DISTRIBUTION_11_TO_23);
+            }
+            else if ($this->age < 60) {
+                $this->setAgeDistribution(self::AGE_DISTRIBUTION_23_TO_59);
+            }
+            else {
+                $this->setAgeDistribution(self::AGE_DISTRIBUTION_UNKNOWN);
+            }
         }
         else
             $this->setAgeDistribution (self::AGE_DISTRIBUTION_UNKNOWN);
@@ -719,4 +740,44 @@ abstract class BaseCase implements IdentityAssignmentInterface
         $this->ageDistribution = $ageDistribution;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getDistrict()
+    {
+        return $this->district;
+    }
+
+    /**
+     * @return string
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
+     *
+     * @param string $district
+     * @return \NS\SentinelBundle\Entity\BaseCase
+     */
+    public function setDistrict($district)
+    {
+        $this->district = $district;
+        return $this;
+    }
+
+    /**
+     *
+     * @param string $state
+     * @return \NS\SentinelBundle\Entity\BaseCase
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
+        return $this;
+    }
+
+
 }
