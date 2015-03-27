@@ -345,6 +345,12 @@ class IBD extends BaseCase
     private $bloodCollected;
 
     /**
+     * @var \DateTime $bloodCollectDate
+     * @ORM\Column(name="bloodCollectDate",type="date",nullable=true)
+     */
+    private $bloodCollectDate;
+
+    /**
      * @var OtherSpecimen $otherSpecimenCollected
      * @ORM\Column(name="otherSpecimenCollected",type="OtherSpecimen",nullable=true)
      * @Groups({"api"})
@@ -601,6 +607,15 @@ class IBD extends BaseCase
     public function getBloodCollected()
     {
         return $this->bloodCollected;
+    }
+
+    /**
+     * 
+     * @return \DateTime
+     */
+    public function getBloodCollectDate()
+    {
+        return $this->bloodCollectDate;
     }
 
     public function getOtherSpecimenCollected()
@@ -872,6 +887,13 @@ class IBD extends BaseCase
     public function setCsfAppearance(CSFAppearance $csfAppearance)
     {
         $this->csfAppearance = $csfAppearance;
+        return $this;
+    }
+
+    public function setBloodCollectDate(\DateTime $date = null)
+    {
+        $this->bloodCollectDate = $date;
+
         return $this;
     }
 

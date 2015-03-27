@@ -73,13 +73,13 @@ abstract class BaseCase implements IdentityAssignmentInterface
     /**
      * @var string $district
      * @ORM\Column(name="district",type="string",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     protected $district;
 
     /**
      * @var string $state
-     * @ORM\Column(name="state",type="string")
+     * @ORM\Column(name="state",type="string",nullable=true)
      */
     protected $state;
 

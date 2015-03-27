@@ -60,6 +60,12 @@ class RotaVirus extends BaseCase
 //iii. Case-based Clinical Data
 
     /**
+     * @var TripleChoice $intensiveCare
+     * @ORM\Column(name="intensiveCare",type="TripleChoice")
+     */
+    private $intensiveCare;
+
+    /**
      * symp_diarrhoea
      * @var TripleChoice $symptomDiarrhea
      * @ORM\Column(name="symptomDiarrhea",type="TripleChoice",nullable=true)
@@ -544,6 +550,26 @@ class RotaVirus extends BaseCase
     public function setComment($comment)
     {
         $this->comment = $comment;
+        return $this;
+    }
+
+    /**
+     * 
+     * @return TripleChoice
+     */
+    public function getIntensiveCare()
+    {
+        return $this->intensiveCare;
+    }
+
+    /**
+     *
+     * @param TripleChoice $intensiveCare
+     * @return \NS\SentinelBundle\Entity\RotaVirus
+     */
+    public function setIntensiveCare(TripleChoice $intensiveCare)
+    {
+        $this->intensiveCare = $intensiveCare;
         return $this;
     }
 

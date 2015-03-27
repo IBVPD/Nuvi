@@ -49,6 +49,8 @@ class SiteLabType extends AbstractType
                     'data-context-value' => TripleChoice::YES)))
             ->add('csfCultOther', null, array('required' => false, 'label' => 'ibd-form.csf-culture-other',
                 'attr' => array('data-context-parent' => 'csfCultDoneOther', 'data-context-value' => CultureResult::OTHER)))
+            ->add('csfCultContaminant', null, array('required' => false, 'label' => 'ibd-form.csf-culture-contaminant',
+                'attr' => array('data-context-parent' => 'csfCultDoneOther', 'data-context-value' => CultureResult::CONTAMINANT)))
             ->add('csfGramDone', 'TripleChoice', array('required' => false, 'label' => 'ibd-form.csf-gram-done',
                 'attr' => array('data-context-child' => 'csfGramDone')))
             ->add('csfGramResult', 'GramStain', array('required' => false, 'label' => 'ibd-form.csf-gram-result',

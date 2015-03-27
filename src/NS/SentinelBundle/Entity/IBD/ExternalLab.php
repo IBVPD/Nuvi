@@ -106,7 +106,7 @@ abstract class ExternalLab extends BaseExternalLab
     /**
      * @var double
      * @ORM\Column(name="lytA",type="decimal",precision=3, scale=1,nullable=true)
-     * @Assert\Range(min=0,max=50)
+     * @Assert\Range(min=-10,max=50)
      * @Serializer\Groups({"api"})
      */
     protected $lytA;
@@ -114,7 +114,7 @@ abstract class ExternalLab extends BaseExternalLab
     /**
      * @var integer $ctrA
      * @ORM\Column(name="ctrA",type="integer",nullable=true)
-     * @Assert\Range(min=0,max=50)
+     * @Assert\Range(min=-10,max=50)
      * @Serializer\Groups({"api"})
      */
     protected $ctrA;
@@ -122,7 +122,7 @@ abstract class ExternalLab extends BaseExternalLab
     /**
      * @var double
      * @ORM\Column(name="sodC",type="decimal",precision=3, scale=1,nullable=true)
-     * @Assert\Range(min=0,max=50)
+     * @Assert\Range(min=-10,max=50)
      * @Serializer\Groups({"api"})
      */
     protected $sodC;
@@ -130,7 +130,7 @@ abstract class ExternalLab extends BaseExternalLab
     /**
      * @var double
      * @ORM\Column(name="hpd1",type="decimal",precision=3, scale=1,nullable=true)
-     * @Assert\Range(min=0,max=50)
+     * @Assert\Range(min=-10,max=50)
      * @Serializer\Groups({"api"})
      */
     protected $hpd1;
@@ -138,7 +138,7 @@ abstract class ExternalLab extends BaseExternalLab
     /**
      * @var double
      * @ORM\Column(name="hpd3",type="decimal",precision=3, scale=1,nullable=true)
-     * @Assert\Range(min=0,max=50)
+     * @Assert\Range(min=-10,max=50)
      * @Serializer\Groups({"api"})
      */
     protected $hpd3;
@@ -146,7 +146,7 @@ abstract class ExternalLab extends BaseExternalLab
     /**
      * @var double
      * @ORM\Column(name="bexA",type="decimal",precision=3, scale=1,nullable=true)
-     * @Assert\Range(min=0,max=50)
+     * @Assert\Range(min=-10,max=50)
      * @Serializer\Groups({"api"})
      */
     protected $bexA;
@@ -154,6 +154,7 @@ abstract class ExternalLab extends BaseExternalLab
     /**
      * @var double
      * @ORM\Column(name="rNaseP",type="decimal",precision=3, scale=1,nullable=true)
+     * @Assert\Range(min=-10,max=50)
      * @Serializer\Groups({"api"})
      */
     protected $rNaseP;

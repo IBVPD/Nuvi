@@ -170,6 +170,12 @@ class SiteLab extends BaseSiteLab
     private $csfCultOther;
 
     /**
+     * @var string $csfCultContaminant
+     * @ORM\Column(name="csfCultContaminant",type="string")
+     */
+    private $csfCultContaminant;
+
+    /**
      * @var GramStain
      * @ORM\Column(name="csfGramResult",type="GramStain",nullable=true)
      * @Groups({"api"})
@@ -472,6 +478,15 @@ class SiteLab extends BaseSiteLab
         return $this->csfCultDone;
     }
 
+    /**
+     * 
+     * @return string
+     */
+    public function getCsfCultContaminant()
+    {
+        return $this->csfCultContaminant;
+    }
+
     public function getCsfGramDone()
     {
         return $this->csfGramDone;
@@ -729,6 +744,17 @@ class SiteLab extends BaseSiteLab
     public function setCsfProtein($csfProtein)
     {
         $this->csfProtein = $csfProtein;
+        return $this;
+    }
+
+    /**
+     *
+     * @param string $csfCultContaminant
+     * @return \NS\SentinelBundle\Entity\IBD\SiteLab
+     */
+    public function setCsfCultContaminant($csfCultContaminant)
+    {
+        $this->csfCultContaminant = $csfCultContaminant;
         return $this;
     }
 

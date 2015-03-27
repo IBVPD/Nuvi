@@ -53,7 +53,7 @@ class CaseType extends AbstractType
                 'attr' => array('data-context-parent' => 'dob', 'data-context-value' => TripleChoice::NO)))
             ->add('gender', 'Gender', array('required' => $required, 'label' => 'ibd-form.gender'))
             ->add('district', null, array('required' => $required, 'label' => 'ibd-form.district'))
-            ->add('district', null, array('required' => $required, 'label' => 'ibd-form.state'))
+            ->add('state', null, array('required' => $required, 'label' => 'ibd-form.state'))
             ->add('caseId', null, array('required' => true, 'label' => 'ibd-form.case-id'))
             ->add('admDate', 'acedatepicker', array('required' => $required, 'label' => 'ibd-form.adm-date'))
             ->add('admDx', 'Diagnosis', array('required' => $required, 'label' => 'ibd-form.adm-dx',
@@ -106,7 +106,10 @@ class CaseType extends AbstractType
                     'data-context-value' => json_encode(array(VaccinationReceived::YES_CARD,
                         VaccinationReceived::YES_HISTORY)))))
             ->add('bloodCollected', 'TripleChoice', array('required' => $required,
-                'label' => 'ibd-form.blood-collected'))
+                'label' => 'ibd-form.blood-collected','attr' => array('data-context-child' => 'bloodCollected')))
+            ->add('bloodCollectDate', 'acedatetime', array('required' => $required,
+                'label' => 'ibd-form.blood-collect-date', 'attr' => array('data-context-parent' => 'bloodCollected',
+                    'data-context-value' => TripleChoice::YES)))
             ->add('csfCollected', 'TripleChoice', array('required' => $required,
                 'label' => 'ibd-form.csf-collected', 'attr' => array('data-context-child' => 'csfCollected')))
             ->add('csfCollectDateTime', 'acedatetime', array('required' => $required,

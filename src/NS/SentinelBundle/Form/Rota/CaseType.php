@@ -33,6 +33,7 @@ class CaseType extends AbstractType
             ->add('state',                      null,               array('required'=>$required, 'label'=>'rotavirus-form.state'))
             ->add('admDate',                    'acedatepicker',    array('required'=>$required, 'label'=>'rotavirus-form.admissionDate'))
 
+            ->add('intensiveCare',              'TripleChoice',     array('required'=>$required, 'label'=>'rotavirus-form.intensiveCare',))
             ->add('symptomDiarrhea',            'TripleChoice',     array('required'=>$required, 'label'=>'rotavirus-form.symptomDiarrhea',         'attr' => array('data-context-child'=>'vaccineReceived')))
             ->add('symptomDiarrheaOnset',       'acedatepicker',    array('required'=>$required, 'label'=>'rotavirus-form.symptomDiarrheaOnset',    'attr' => array('data-context-parent'=>'vaccineReceived','data-context-value'=>  TripleChoice::YES)))
             ->add('symptomDiarrheaEpisodes',    null,               array('required'=>$required, 'label'=>'rotavirus-form.symptomDiarrheaEpisodes', 'attr' => array('data-context-parent'=>'vaccineReceived','data-context-value'=>  TripleChoice::YES)))
