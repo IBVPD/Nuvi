@@ -61,7 +61,7 @@ class RotaVirus extends BaseCase
 
     /**
      * @var TripleChoice $intensiveCare
-     * @ORM\Column(name="intensiveCare",type="TripleChoice")
+     * @ORM\Column(name="intensiveCare",type="TripleChoice",nullable=true)
      */
     private $intensiveCare;
 

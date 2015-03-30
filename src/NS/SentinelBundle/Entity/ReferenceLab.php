@@ -33,7 +33,7 @@ class ReferenceLab
 
     /**
      * @var string $location
-     * @ORM\Column(name="location",type="string")
+     * @ORM\Column(name="location",type="string",nullable=true)
      */
     private $location;
 
@@ -45,7 +45,7 @@ class ReferenceLab
 
     /**
      * @var SurveillanceConducted $type
-     * @ORM\Column(name="type",type="SurveillanceConducted")
+     * @ORM\Column(name="type",type="SurveillanceConducted",nullable=true)
      */
     private $type;
 

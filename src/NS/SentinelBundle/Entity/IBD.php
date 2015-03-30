@@ -408,7 +408,7 @@ class IBD extends BaseCase
 
     /**
      * @var IBDCaseResult $result
-     * @ORM\Column(name="result",type="IBDCaseResult")
+     * @ORM\Column(name="result",type="IBDCaseResult",nullable=true)
      * @Groups({"api"})
      */
     private $result;
