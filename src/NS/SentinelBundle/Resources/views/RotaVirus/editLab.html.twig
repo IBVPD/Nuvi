@@ -58,26 +58,6 @@
                             </div>
                             <hr />
                             <div class="row">
-                                <div class="col-sm-3">
-                                    {{form_row(form.secondaryElisaDone)}}
-                                </div>
-                                <div class="col-sm-9">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            {{form_row(form.secondaryElisaKit)}}
-                                            {{form_row(form.secondaryElisaKitOther)}}
-                                            {{form_row(form.secondaryElisaLoadNumber)}}
-                                        </div>
-                                        <div class="col-sm-6">                                
-                                            {{form_row(form.secondaryElisaExpiryDate)}}
-                                            {{form_row(form.secondaryElisaTestDate)}}
-                                            {{form_row(form.secondaryElisaResult)}}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr />
-                            <div class="row">
                                 {% if form.stoolSentToRRL is defined %}
                                     <div class="col-md-6">
                                         {{form_row(form.stoolSentToRRL)}}

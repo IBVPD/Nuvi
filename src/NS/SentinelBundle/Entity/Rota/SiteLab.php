@@ -114,55 +114,6 @@ class SiteLab extends BaseSiteLab
     private $elisaResult;
 
     /**
-     * @var TripleChoice $secondaryElisaDone
-     * @ORM\Column(name="secondaryElisaDone",type="TripleChoice",nullable=true)
-     * @Groups({"api"})
-     */
-    private $secondaryElisaDone;
-
-    /**
-     * @var ElisaKit $secondaryElisaKit
-     * @ORM\Column(name="secondaryElisaKit",type="ElisaKit",nullable=true)
-     * @Groups({"api"})
-     */
-    private $secondaryElisaKit;
-
-    /**
-     * @var string $secondaryElisaKitOther
-     * @ORM\Column(name="secondaryElisaKitOther",type="string",nullable=true)
-     * @Groups({"api"})
-     */
-    private $secondaryElisaKitOther;
-
-    /**
-     * @var string $secondaryElisaLoadNumber
-     * @ORM\Column(name="secondaryElisaLoadNumber",type="string",nullable=true)
-     * @Groups({"api"})
-     */
-    private $secondaryElisaLoadNumber;
-
-    /**
-     * @var \DateTime $secondaryElisaExpiryDate
-     * @ORM\Column(name="secondaryElisaExpiryDate",type="date",nullable=true)
-     * @Groups({"api"})
-     */
-    private $secondaryElisaExpiryDate;
-
-    /**
-     * @var \DateTime $testDate
-     * @ORM\Column(name="secondaryElisaTestDate",type="date",nullable=true)
-     * @Groups({"api"})
-     */
-    private $secondaryElisaTestDate;
-
-    /**
-     * @var ElisaResult $secondaryElisaResult
-     * @ORM\Column(name="secondaryElisaResult",type="ElisaResult",nullable=true)
-     * @Groups({"api"})
-     */
-    private $secondaryElisaResult;
-
-    /**
      * @var \DateTime $genotypingDate
      * @ORM\Column(name="genotypingDate",type="date", nullable=true)
      * @Groups({"api"})
@@ -292,41 +243,6 @@ class SiteLab extends BaseSiteLab
         return $this->elisaResult;
     }
 
-    public function getSecondaryElisaDone()
-    {
-        return $this->secondaryElisaDone;
-    }
-
-    public function getSecondaryElisaKit()
-    {
-        return $this->secondaryElisaKit;
-    }
-
-    public function getSecondaryElisaKitOther()
-    {
-        return $this->secondaryElisaKitOther;
-    }
-
-    public function getSecondaryElisaLoadNumber()
-    {
-        return $this->secondaryElisaLoadNumber;
-    }
-
-    public function getSecondaryElisaExpiryDate()
-    {
-        return $this->secondaryElisaExpiryDate;
-    }
-
-    public function getSecondaryElisaTestDate()
-    {
-        return $this->secondaryElisaTestDate;
-    }
-
-    public function getSecondaryElisaResult()
-    {
-        return $this->secondaryElisaResult;
-    }
-
     public function getGenotypingDate()
     {
         return $this->genotypingDate;
@@ -435,51 +351,6 @@ class SiteLab extends BaseSiteLab
     public function setElisaResult(ElisaResult $elisaResult)
     {
         $this->elisaResult = $elisaResult;
-        return $this;
-    }
-
-    public function setSecondaryElisaDone(TripleChoice $secondaryElisaDone)
-    {
-        $this->secondaryElisaDone = $secondaryElisaDone;
-        return $this;
-    }
-
-    public function setSecondaryElisaKit(ElisaKit $secondaryElisaKit)
-    {
-        $this->secondaryElisaKit = $secondaryElisaKit;
-        return $this;
-    }
-
-    public function setSecondaryElisaKitOther($secondaryElisaKitOther)
-    {
-        $this->secondaryElisaKitOther = $secondaryElisaKitOther;
-        return $this;
-    }
-
-    public function setSecondaryElisaLoadNumber($secondaryElisaLoadNumber)
-    {
-        $this->secondaryElisaLoadNumber = $secondaryElisaLoadNumber;
-        return $this;
-    }
-
-    public function setSecondaryElisaExpiryDate($secondaryElisaExpiryDate)
-    {
-        if ($secondaryElisaExpiryDate instanceof \DateTime)
-            $this->secondaryElisaExpiryDate = $secondaryElisaExpiryDate;
-
-        return $this;
-    }
-
-    public function setSecondaryElisaTestDate($secondaryElisaTestDate)
-    {
-        if ($secondaryElisaTestDate instanceof \DateTime)
-            $this->secondaryElisaTestDate = $secondaryElisaTestDate;
-        return $this;
-    }
-
-    public function setSecondaryElisaResult(ElisaResult $secondaryElisaResult)
-    {
-        $this->secondaryElisaResult = $secondaryElisaResult;
         return $this;
     }
 
