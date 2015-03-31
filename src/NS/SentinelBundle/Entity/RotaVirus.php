@@ -14,7 +14,6 @@ use \Gedmo\Mapping\Annotation as Gedmo;
 use \NS\SecurityBundle\Annotation\Secured;
 use \NS\SecurityBundle\Annotation\SecuredCondition;
 use \JMS\Serializer\Annotation\Groups;
-use \JMS\Serializer\Annotation\AccessType;
 use \JMS\Serializer\Annotation\Exclude;
 
 /**
