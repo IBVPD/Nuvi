@@ -171,7 +171,7 @@ class SiteLab extends BaseSiteLab
 
     /**
      * @var string $csfCultContaminant
-     * @ORM\Column(name="csfCultContaminant",type="string")
+     * @ORM\Column(name="csfCultContaminant",type="string",nullable=true)
      */
     private $csfCultContaminant;
 
