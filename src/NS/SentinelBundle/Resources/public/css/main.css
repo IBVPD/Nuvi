@@ -7,3 +7,23 @@ form.reportFilters > div:not(.form-group) {
     margin-right: 0.5em;
     display: inline-block;
 }
+
+.input-group.inputOrSelect {
+    width: 100%;
+}
+
+input.inputOrSelect {
+    position: absolute;
+    width: 90%;
+    border: none;
+    margin: 1px 0 0 1px;
+    height: 94%;
+}
+
+input.inputOrSelect + select.inputOrSelect {
+    width: 100%;
+}
+
+input.inputOrSelect + select.inputOrSelect option[value=""] {
+    padding: 3px 4px;
+}
