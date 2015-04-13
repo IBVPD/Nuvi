@@ -28,8 +28,9 @@ twig:
     strict_variables: %kernel.debug%
     form:
       resources:
-        - 'NSUtilBundle:Form:fields.html.twig'
-        - 'NSAceBundle:Form:fields.html.twig'
+        - NSUtilBundle:Form:fields.html.twig
+        - NSAceBundle:Form:fields.html.twig
+        - NSSentinelBundle::form_fields.html.twig
     exception_controller: 'FOS\RestBundle\Controller\ExceptionController::showAction'
 
 # Assetic Configuration
