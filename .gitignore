@@ -23,3 +23,6 @@ templates/
 tmp2/
 web/bangladesh.php
 web/coverage
+*.csv
+*.tar*
+*.sql
