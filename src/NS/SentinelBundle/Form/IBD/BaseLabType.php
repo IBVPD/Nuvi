@@ -2,10 +2,11 @@
 
 namespace NS\SentinelBundle\Form\IBD;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use NS\SentinelBundle\Form\Types\PathogenIdentifier;
-use NS\SentinelBundle\Form\Types\SerotypeIdentifier;
+use \NS\SentinelBundle\Form\Types\CTValueType;
+use \NS\SentinelBundle\Form\Types\PathogenIdentifier;
+use \NS\SentinelBundle\Form\Types\SerotypeIdentifier;
+use \Symfony\Component\Form\AbstractType;
+use \Symfony\Component\Form\FormBuilderInterface;
 
 class BaseLabType extends AbstractType
 {
@@ -36,13 +37,13 @@ class BaseLabType extends AbstractType
             ->add('serotypeIdentifierOther', null, array('label'    => 'ibd-rrl-form.serotype-id-other',
                 'required' => false, 'attr' => array('data-context-parent' => 'serotypeIdentifier',
                     'data-context-value' => SerotypeIdentifier::OTHER)))
-            ->add('lytA', null, array('label' => 'ibd-rrl-form.lytA', 'required' => false))
-            ->add('ctrA', null, array('label' => 'ibd-rrl-form.ctrA', 'required' => false))
-            ->add('sodC', null, array('label' => 'ibd-rrl-form.sodC', 'required' => false))
-            ->add('hpd1', null, array('label' => 'ibd-rrl-form.hpd1', 'required' => false))
-            ->add('hpd3', null, array('label' => 'ibd-rrl-form.hpd3', 'required' => false))
-            ->add('bexA', null, array('label' => 'ibd-rrl-form.bexA', 'required' => false))
-            ->add('rNaseP', null, array('label' => 'ibd-rrl-form.rNasP', 'required' => false))
+            ->add('lytA', new CTValueType(), array('label' => 'ibd-rrl-form.lytA', 'required' => false))
+            ->add('ctrA', new CTValueType(), array('label' => 'ibd-rrl-form.ctrA', 'required' => false))
+            ->add('sodC', new CTValueType(), array('label' => 'ibd-rrl-form.sodC', 'required' => false))
+            ->add('hpd1', new CTValueType(), array('label' => 'ibd-rrl-form.hpd1', 'required' => false))
+            ->add('hpd3', new CTValueType(), array('label' => 'ibd-rrl-form.hpd3', 'required' => false))
+            ->add('bexA', new CTValueType(), array('label' => 'ibd-rrl-form.bexA', 'required' => false))
+            ->add('rNaseP', new CTValueType(), array('label' => 'ibd-rrl-form.rNasP', 'required' => false))
             ->add('finalResult', 'FinalResult', array('label' => 'ibd-rrl-form.finalResult', 'required' => false))
             ->add('spnSerotype', 'SpnSerotype', array('label'    => 'ibd-rrl-form.spnSerotype',
                 'required' => false))

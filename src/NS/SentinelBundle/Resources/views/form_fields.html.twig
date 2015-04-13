@@ -1,0 +1,11 @@
+{% block CTValueType_row %}
+    {{form_label(form)}}
+    <div class="row">
+        <div class="col-md-3">
+            {{form_row(form.choice)}}
+        </div>
+        <div class="col-md-3">
+            {{form_widget(form.number)}}
+        </div>
+    </div>
+{% endblock %}
