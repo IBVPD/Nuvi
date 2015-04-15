@@ -2,14 +2,8 @@
 
 namespace NS\ImportBundle\Tests\Form;
 
-use \Doctrine\Common\Collections\ArrayCollection;
 use \NS\ImportBundle\Form\ClassType;
-use \NS\ImportBundle\Form\ImportSelectType;
-use \Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use \Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use \Symfony\Component\Form\PreloadedExtension;
 use \Symfony\Component\Form\Test\TypeTestCase;
-use \Doctrine\ORM\Mapping\ClassMetadata;
 
 /**
  * Description of AllFormsTest
