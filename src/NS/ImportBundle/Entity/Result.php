@@ -3,7 +3,6 @@
 namespace NS\ImportBundle\Entity;
 
 use \Doctrine\ORM\Mapping as ORM;
-use \NS\ImportBundle\Repository\ResultRepository;
 use \NS\ImportBundle\Writer\Result as WorkflowResult;
 use \NS\SentinelBundle\Entity\User;
 use \Symfony\Component\HttpFoundation\File\File;
@@ -14,7 +13,7 @@ use \Vich\UploaderBundle\Mapping\Annotation as Vich;
  *
  * @author gnat
  *
- * @ORM\Entity(repositoryClass="ResultRepository")
+ * @ORM\Entity(repositoryClass="NS\ImportBundle\Repository\ResultRepository")
  * @ORM\Table(name="import_results")
  * @SuppressWarnings(PHPMD.ShortVariable)
  */
