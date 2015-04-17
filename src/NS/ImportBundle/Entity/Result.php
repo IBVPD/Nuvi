@@ -117,8 +117,8 @@ class Result
     private $duplicates;
 
     /**
-     * @var User $user
-     * @ORM\ManyToOne(targetEntity="User")
+     * @var NS\SentinelBundle\Entity\User $user
+     * @ORM\ManyToOne(targetEntity="NS\SentinelBundle\Entity\User")
      */
     private $user;
 
