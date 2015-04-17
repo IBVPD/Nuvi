@@ -14,8 +14,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Duplicate implements FilterInterface
 {
     private $items;
+
     private $fields;
+
     private $duplicates;
+
+    private $fd;
+
+    private $log = false;
 
     /**
      * @param array $fields
@@ -36,18 +42,16 @@ class Duplicate implements FilterInterface
     public function getFieldKey(array $item)
     {
         $fieldKey = null;
-        foreach ($this->fields as $method => $field)
-        {
-            if (!isset($item[$field]))
-            {
-                throw new UnexpectedValueException("'$field' doesn't exist ");
+        foreach ($this->fields as $method => $field) {
+            if (!isset($item[$field])) {
+                throw new UnexpectedValueException(sprintf("Field: '%s' doesn't exist!",$field));
             }
 
-            if(is_object($item[$field]) && $method && method_exists($item[$field], $method)) {
-                $fieldKey .= sprintf('%s-',  strtolower($item[$field]->$method()));
+            if (is_object($item[$field]) && $method && method_exists($item[$field], $method)) {
+                $fieldKey .= sprintf('%s-', strtolower($item[$field]->$method()));
             }
-            else if(is_array($item[$field])) {
-                $fieldKey .= sprintf('%s-',implode('-',$item[$field]));
+            else if (is_array($item[$field])) {
+                $fieldKey .= sprintf('%s-', implode('-', $item[$field]));
             }
             else {
                 $fieldKey .= sprintf('%s-', strtolower($item[$field]));
@@ -68,8 +72,7 @@ class Duplicate implements FilterInterface
     {
         $field = $this->getFieldKey($item);
 
-        if (!$this->items->contains($field))
-        {
+        if (!$this->items->contains($field)) {
             $this->items->add($field);
 
             return true;
@@ -103,6 +106,7 @@ class Duplicate implements FilterInterface
     public function setFields(array $fields)
     {
         $this->fields = $fields;
+
         return $this;
     }
 

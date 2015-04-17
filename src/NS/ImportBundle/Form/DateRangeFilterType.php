@@ -17,8 +17,6 @@ class DateRangeFilterType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        parent::buildForm($builder, $options);
-
         $builder->add('left_date', 'ns_filter_date', $options['left_date_options']);
         $builder->add('right_date', 'ns_filter_date', $options['right_date_options']);
 
@@ -28,6 +26,9 @@ class DateRangeFilterType extends AbstractType
         ));
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'ns_filter_date_range';

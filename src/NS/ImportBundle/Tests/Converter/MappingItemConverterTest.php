@@ -69,8 +69,8 @@ class MappingItemConverterTest extends \PHPUnit_Framework_TestCase
         );
 
         $converter = $map->getMappings();
-        $result    = $converter->convert($data);
-        $this->assertEquals($expected, $result);
+        $converter->process($data);
+        $this->assertEquals($expected, $data);
     }
 
     public function testDeepMapping()
@@ -88,29 +88,11 @@ class MappingItemConverterTest extends \PHPUnit_Framework_TestCase
             'Col2' => array('sub1' => 2, 'sub2' => 3),
         );
 
-        $converter = new \NS\ImportBundle\Converter\MappingItemConverter();
-        $converter->addMapping('sub1', 'Col2.sub1');
-        $converter->addMapping('sub2', 'Col2.sub2');
-        $result    = $converter->convert($data);
-        $this->assertEquals($expected, $result);
-    }
-
-    /**
-     * @expectedException \Ddeboer\DataImport\Exception\InvalidArgumentException
-     */
-    public function testTooDeepMapping()
-    {
-        $data = array(
-            'Col1' => 1,
-            'sub1' => 2,
-            'sub2' => 3,
-            'Col4' => 4,
-        );
-
-
-        $converter = new \NS\ImportBundle\Converter\MappingItemConverter();
-        $converter->addMapping('sub1', 'Col2.sub1.subthree');
-        $converter->convert($data);
+        $converter = new \Ddeboer\DataImport\Step\MappingStep();
+        $converter->map('[sub1]', '[Col2][sub1]');
+        $converter->map('[sub2]', '[Col2][sub2]');
+        $converter->process($data);
+        $this->assertEquals($expected, $data);
     }
 
     public function testUnsetMappingConverter()
@@ -128,9 +110,9 @@ class MappingItemConverterTest extends \PHPUnit_Framework_TestCase
         );
 
         $converter = new \NS\ImportBundle\Converter\UnsetMappingItemConverter();
-        $converter->addMapping('sub1', 'Col2.sub1');
-        $converter->addMapping('sub2', 'Col2.sub2');
-        $result    = $converter->convert($data);
-        $this->assertEquals($expected, $result);
+        $converter->map('sub1', 'Col2.sub1');
+        $converter->map('sub2', 'Col2.sub2');
+        $converter->process($data);
+        $this->assertEquals($expected, $data);
     }
 }

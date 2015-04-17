@@ -3,15 +3,18 @@
 namespace NS\ImportBundle\Entity;
 
 use \Doctrine\ORM\Mapping as ORM;
+use \NS\ImportBundle\Repository\ResultRepository;
 use \NS\ImportBundle\Writer\Result as WorkflowResult;
 use \NS\SentinelBundle\Entity\User;
+use \Symfony\Component\HttpFoundation\File\File;
+use \Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * Description of Result
  *
  * @author gnat
  *
- * @ORM\Entity(repositoryClass="NS\ImportBundle\Repository\ResultRepository")
+ * @ORM\Entity(repositoryClass="ResultRepository")
  * @ORM\Table(name="import_results")
  * @SuppressWarnings(PHPMD.ShortVariable)
  */
@@ -27,10 +30,37 @@ class Result
     private $id;
 
     /**
-     * @var \DateTime $importedAt
-     * @ORM\Column(name="importedAt",type="datetime")
+     * @var Map $map
+     * @ORM\ManyToOne(targetEntity="Map",inversedBy="results")
      */
-    private $importedAt;
+    private $map;
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     *
+     * @Vich\UploadableField(mapping="import_file", fileNameProperty="filename")
+     *
+     * @var File $imageFile
+     */
+    private $importFile;
+
+    /**
+     * @var \DateTime $createdAt
+     * @ORM\Column(name="createdAt",type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTime $importStartedAt
+     * @ORM\Column(name="importStartedAt",type="datetime")
+     */
+    private $importStartedAt;
+
+    /**
+     * @var \DateTime $importEndedAt
+     * @ORM\Column(name="importEndedAt",type="datetime")
+     */
+    private $importEndedAt;
 
     /**
      * @var string $filename
@@ -88,24 +118,42 @@ class Result
 
     /**
      * @var User $user
-     * @ORM\ManyToOne(targetEntity="NS\SentinelBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="User")
      */
     private $user;
 
-    public function __construct(Import $import, WorkflowResult $result)
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
+
+    /**
+     *
+     * @param WorkflowResult $result
+     */
+    public function update(WorkflowResult $result)
     {
         $this->buildSuccesses($result);
-        $this->buildExceptions($result);
+        $this->buildExceptions($result->getExceptions());
 
         $this->totalCount    = $result->getTotalProcessedCount();
         $this->successCount  = $result->getSuccessCount();
-        $this->importedAt    = $result->getEndtime();
+        if(!$this->importStartedAt){
+            $this->importStartedAt = $result->getStartTime();
+        }
+        $this->importEndedAt = $result->getEndtime();
         $this->duplicates    = $result->getDuplicates()->toArray();
-        $this->mapName       = sprintf("%s (%s)", $import->getMap()->getName(), $import->getMap()->getVersion());
-        $this->filename      = $import->getFile()->getClientOriginalName();
         $this->totalRowCount = $result->getTotalRows();
     }
 
+    /**
+     *
+     * @param WorkflowResult $result
+     * @throws \RuntimeException
+     */
     public function buildSuccesses(WorkflowResult $result)
     {
         $results = $result->getResults();
@@ -122,6 +170,10 @@ class Result
         }
     }
 
+    /**
+     *
+     * @param array $results
+     */
     public function buildExternalLabSuccess($results)
     {
         foreach ($results as $r) {
@@ -136,6 +188,10 @@ class Result
         }
     }
 
+    /**
+     *
+     * @param array $results
+     */
     public function buildCaseSuccess($results)
     {
         foreach ($results as $r) {
@@ -148,14 +204,22 @@ class Result
         }
     }
 
-    public function buildExceptions(WorkflowResult $result)
+    /**
+     * @param array $exceptions
+     */
+    public function buildExceptions(\SplObjectStorage $exceptions)
     {
-        foreach ($result->getExceptions() as $row => $e) {
+        $exceptions->rewind();
+        while($exceptions->valid()) {
+            $object = $exceptions->current(); // similar to current($s)
+            $row = $exceptions->offsetGet($object);
             $this->errors[$row] = array(
                 'row'     => $row,
-                'column'  => $e->getMessage(),
-                'message' => ($e->getPrevious()) ? $e->getPrevious()->getMessage() : null
+                'column'  => $object->getMessage(),
+                'message' => ($object->getPrevious()) ? $object->getPrevious()->getMessage() : null
             );
+
+            $exceptions->next();
         }
     }
 
@@ -166,15 +230,6 @@ class Result
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     *
-     * @return \DateTime
-     */
-    public function getImportedAt()
-    {
-        return $this->importedAt;
     }
 
     /**
@@ -385,17 +440,6 @@ class Result
 
     /**
      *
-     * @param \DateTime $importedAt
-     * @return \NS\ImportBundle\Entity\Result
-     */
-    public function setImportedAt($importedAt)
-    {
-        $this->importedAt = $importedAt;
-        return $this;
-    }
-
-    /**
-     *
      * @param string $filename
      * @return \NS\ImportBundle\Entity\Result
      */
@@ -438,4 +482,140 @@ class Result
         return $this;
     }
 
+    /**
+     * 
+     * @return Map
+     */
+    public function getMap()
+    {
+        return $this->map;
+    }
+
+    /**
+     *
+     * @param \NS\ImportBundle\Entity\Map $map
+     * @return \NS\ImportBundle\Entity\Result
+     */
+    public function setMap(Map $map)
+    {
+        $this->map     = $map;
+        $this->mapName = sprintf("%s (%s)", $this->map->getName(), $this->map->getVersion());
+
+        return $this;
+    }
+
+        /**
+     *
+     * @return File
+     */
+    public function getImportFile()
+    {
+        return $this->importFile;
+    }
+
+    /**
+     *
+     * @param File $importFile
+     * @return \NS\ImportBundle\Entity\Result
+     */
+    public function setImportFile(File $importFile)
+    {
+        $this->importFile = $importFile;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getImportStartedAt()
+    {
+        return $this->importStartedAt;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getImportEndedAt()
+    {
+        return $this->importEndedAt;
+    }
+
+    /**
+     *
+     * @param \DateTime $createdAt
+     * @return \NS\ImportBundle\Entity\Result
+     */
+    public function setCreatedAt(\DateTime $createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    /**
+     *
+     * @param \DateTime $importStartedAt
+     * @return \NS\ImportBundle\Entity\Result
+     */
+    public function setImportStartedAt(\DateTime $importStartedAt)
+    {
+        if(!$this->importStartedAt) {
+            $this->importStartedAt = $importStartedAt;
+        }
+
+        return $this;
+    }
+
+    /**
+     *
+     * @param \DateTime $importEndedAt
+     * @return \NS\ImportBundle\Entity\Result
+     */
+    public function setImportEndedAt(\DateTime $importEndedAt)
+    {
+        $this->importEndedAt = $importEndedAt;
+        return $this;
+    }
+
+    // Pass through functions
+
+    /**
+     * @return array
+     */
+    public function getConverters()
+    {
+        return $this->map->getConverters();
+    }
+
+    /**
+     * @return array
+     */
+    public function getMappings()
+    {
+        return $this->map->getMappings();
+    }
+
+    /**
+     * @return array
+     */
+    public function getIgnoredMapper()
+    {
+        return $this->map->getIgnoredMapper();
+    }
+
+    /**
+     * @return string
+     */
+    public function getClass()
+    {
+        return $this->map->getClass();
+    }
 }
