@@ -8,20 +8,18 @@
     },
     "require": {
         "php": ">=5.3.3",
-        "symfony/symfony": "2.3.*",
-        "doctrine/orm": "~2.4",
-        "doctrine/dbal": "~2.4",
-        "doctrine/common": "~2.4",
-        "doctrine/doctrine-bundle": "1.2.*",
-        "twig/extensions": "1.0.*",
-        "symfony/assetic-bundle": "2.3.*",
-        "symfony/swiftmailer-bundle": "2.3.*",
-        "symfony/monolog-bundle": "2.3.*",
-        "sensio/distribution-bundle": "2.3.*",
-        "sensio/framework-extra-bundle": "2.3.*",
-        "sensio/generator-bundle": "2.3.*",
+        "symfony/symfony": "~2.7",
+        "doctrine/orm": "~2.2,>=2.2.3,<2.5",
+        "doctrine/dbal": "<2.5",
+        "doctrine/doctrine-bundle": "~1.4",
+        "twig/extensions": "~1.0",
+        "symfony/assetic-bundle": "~2.3",
+        "symfony/swiftmailer-bundle": "~2.3",
+        "symfony/monolog-bundle": "~2.4",
+        "sensio/distribution-bundle": "~3.0,>=3.0.12",
+        "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
         "incenteev/composer-parameter-handler": "~2.0",
-	"symfony/icu": "1.1.*",
+        "symfony/icu": "1.1.*",
 
         "jms/security-extra-bundle": "1.5.x-dev",
         "jms/di-extra-bundle": "~1.1",
@@ -37,7 +35,7 @@
 	"sonata-project/core-bundle": "~2.2@dev",
 
         "ns/util-bundle": "dev-master",
-        "ns/security-bundle": "dev-ACLConverter",
+        "ns/security-bundle": "2.7.x-dev",
         "ns/ace-bundle": "1.2.x-dev",
         "ns/flash-bundle": "dev-master",
 
@@ -51,7 +49,7 @@
         "knplabs/knp-paginator-bundle": "~2.4",
         "lunetics/locale-bundle": "~2.2",
 
-        "friendsofsymfony/oauth-server-bundle": "~1.4",
+        "friendsofsymfony/oauth-server-bundle": "dev-patch-1 as 1.4.x-dev",
         "nelmio/api-doc-bundle": "2.7.*",
         "friendsofsymfony/rest-bundle": "1.4@dev",
         "jms/serializer-bundle": "0.12.*",
@@ -97,16 +95,17 @@
     },
     "repositories": [ 
 			{ "type": "composer", "url": "http://packages.noblet.ca/" },
-                        { "type": "vcs", "url": "https://github.com/gnat42/data-import" }
+                        { "type": "vcs", "url": "https://github.com/gnat42/data-import" },
+                        { "type": "vcs", "url": "https://github.com/gnat42/FOSOAuthServerBundle" }
 		    ],
     "require-dev": {
         "phpunit/phpunit": "~4.0",
-        "behat/behat": "2.4.*@stable",
-        "behat/mink":  "1.4.*@stable",
+        "phpmd/phpmd": "@stable",
 
-        "behat/symfony2-extension":      "*",
-        "behat/mink-extension":          "*",
-        "behat/mink-browserkit-driver":  "*",
-        "phpmd/phpmd": "@stable"
+        "behat/behat": "3.0.*",
+        "behat/mink":  "1.6.*",
+        "behat/symfony2-extension":      "2.0.*",
+        "behat/mink-extension":          "2.0.*",
+        "behat/mink-browserkit-driver":  "*"
     }
 }
