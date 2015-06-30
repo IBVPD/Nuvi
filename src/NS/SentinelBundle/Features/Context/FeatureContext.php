@@ -2,11 +2,12 @@
 
 namespace NS\SentinelBundle\Features\Context;
 
-use Symfony\Component\HttpKernel\KernelInterface;
-use Behat\Symfony2Extension\Context\KernelAwareInterface;
-use Behat\MinkExtension\Context\MinkContext;
-use Behat\Behat\Context\Step\When;
-use Behat\Mink\Exception\UnsupportedDriverActionException;
+use \Behat\Behat\Definition\Call\Given;
+use \Behat\Behat\Definition\Call\Then;
+use \Behat\Behat\Definition\Call\When;
+use \Behat\Mink\Exception\UnsupportedDriverActionException;
+use \Behat\MinkExtension\Context\MinkContext;
+use \Behat\Symfony2Extension\Context\KernelAwareContext;
 use \Behat\Symfony2Extension\Driver\KernelDriver;
 
 //
@@ -18,25 +19,12 @@ use \Behat\Symfony2Extension\Driver\KernelDriver;
 // Use PHP Assertions:
 //   \PHPUnit_Framework_Assert::assertTrue(true,"Have an event log of $arg1 type");
 //
-
 /**
  * Feature context.
  */
-class FeatureContext extends MinkContext implements KernelAwareInterface
+class FeatureContext extends MinkContext implements KernelAwareContext
 {
-
     private $kernel;
-    private $parameters;
-
-    /**
-     * Initializes context with parameters from behat.yml.
-     *
-     * @param array $parameters
-     */
-    public function __construct(array $parameters)
-    {
-        $this->parameters = $parameters;
-    }
 
     /**
      * Sets HttpKernel instance.
@@ -44,7 +32,7 @@ class FeatureContext extends MinkContext implements KernelAwareInterface
      *
      * @param KernelInterface $kernel
      */
-    public function setKernel(KernelInterface $kernel)
+    public function setKernel(\Symfony\Component\HttpKernel\KernelInterface $kernel)
     {
         $this->kernel = $kernel;
     }
@@ -54,10 +42,8 @@ class FeatureContext extends MinkContext implements KernelAwareInterface
      */
     public function iAmNotLoggedIn()
     {
-        return array(
-            new When('I go to "/logout"'),
-            new When('I should be on "/login"'),
-        );
+        $this->visit("/logout");
+        $this->visit("/login");
     }
 
     /**
@@ -65,12 +51,10 @@ class FeatureContext extends MinkContext implements KernelAwareInterface
      */
     public function iLoginWith($arg1, $arg2)
     {
-        return array(
-            new When('I am on "/login"'),
-            new When('I fill in "_username" with "' . $arg1 . '"'),
-            new When('I fill in "_password" with "' . $arg2 . '"'),
-            new When('I press "login"'),
-        );
+        $this->visit("/login");
+        $this->fillField("_username", $arg1);
+        $this->fillField("_password", $arg2);
+        $this->pressButton("login");
     }
 
     /**
@@ -106,12 +90,14 @@ class FeatureContext extends MinkContext implements KernelAwareInterface
     {
         $driver = $this->getSession()->getDriver();
 
-        if (!$driver instanceof KernelDriver)
+        if (!$driver instanceof KernelDriver) {
             throw new UnsupportedDriverActionException('You need to tag the scenario with "@mink:symfony2". Using the profiler is not supported by %s', $driver);
+        }
 
         $profile = $driver->getClient()->getProfile();
-        if (false === $profile)
+        if (false === $profile) {
             throw new \RuntimeException('Profiler is disabled.');
+        }
 
         return $profile;
     }
@@ -121,8 +107,9 @@ class FeatureContext extends MinkContext implements KernelAwareInterface
      */
     public function theCreateFormHasSites($arg1)
     {
-        if (!$this->kernel)
+        if (!$this->kernel) {
             \PHPUnit_Framework_Assert::assertFalse(true, "There is no kernel");
+        }
 
         $container   = $this->kernel->getContainer();
         $formFactory = $container->get('form.factory');
@@ -130,10 +117,10 @@ class FeatureContext extends MinkContext implements KernelAwareInterface
         $ibdForm     = $formFactory->create('create_case');
         $ibdView     = $ibdForm->createView();
 
-        if ($arg1 == 0)
+        if ($arg1 == 0) {
             \PHPUnit_Framework_Assert::assertFalse($ibdForm->has('site'), "Form has Site field: " . $user->getName());
-        else
-        {
+        }
+        else {
             \PHPUnit_Framework_Assert::assertTrue($ibdForm->has('site'), "Form has Site field " . $user->getName());
             \PHPUnit_Framework_Assert::assertCount(intval($arg1), $ibdView['site']->vars['choices'], "$arg1 was passed in " . $user->getName());
         }
@@ -144,8 +131,9 @@ class FeatureContext extends MinkContext implements KernelAwareInterface
      */
     public function theCreateFormHasTypes($arg1)
     {
-        if (!$this->kernel)
+        if (!$this->kernel) {
             \PHPUnit_Framework_Assert::assertFalse(true, "There is no kernel");
+        }
 
         $container   = $this->kernel->getContainer();
         $formFactory = $container->get('form.factory');
@@ -153,10 +141,10 @@ class FeatureContext extends MinkContext implements KernelAwareInterface
         $ibdForm     = $formFactory->create('create_case');
         $ibdView     = $ibdForm->createView();
 
-        if ($arg1 == 0)
+        if ($arg1 == 0) {
             \PHPUnit_Framework_Assert::assertFalse($ibdForm->has('type'), "IBD Form has types field " . $user->getName());
-        else
-        {
+        }
+        else {
             \PHPUnit_Framework_Assert::assertTrue($ibdForm->has('type'), "IBD Form has types " . $user->getName());
             \PHPUnit_Framework_Assert::assertCount(intval($arg1), $ibdView['type']->vars['choices'], "IBD Form $arg1 was passed in " . $user->getName());
         }

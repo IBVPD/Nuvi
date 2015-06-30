@@ -1,12 +1,11 @@
 default:
-  formatter:
-    name: progress
+  suites:
+    sentinel:
+      type: symfony_bundle
+      bundle: NSSentinelBundle
   extensions:
-    Behat\Symfony2Extension\Extension:
-      mink_driver: true
-      kernel:
-        env: test
-        debug: false
-    Behat\MinkExtension\Extension:
-      base_url: http://nuvi.noblet.ca/app_test.php/
-      default_session: symfony2
+    Behat\Symfony2Extension: ~
+    Behat\MinkExtension:
+        sessions:
+            symfony2:
+                symfony2: ~
