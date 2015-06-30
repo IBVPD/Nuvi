@@ -87,16 +87,16 @@ class IBDController extends BaseCaseController
             {
                 case 'ibd':
                 case 'ibd_outcome':
-                    $record = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:IBD')->find($objId);
+                    $record = $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:IBD')->find($objId);
                     break;
                 case 'ibd_lab':
-                    $record = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:IBD\SiteLab')->findOrCreateNew($objId);
+                    $record = $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:IBD\SiteLab')->findOrCreateNew($objId);
                     break;
                 case 'ibd_referencelab':
-                    $record = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:IBD\ReferenceLab')->findOrCreateNew($objId);
+                    $record = $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:IBD\ReferenceLab')->findOrCreateNew($objId);
                     break;
                 case 'ibd_nationallab':
-                    $record = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:IBD\NationalLab')->findOrCreateNew($objId);
+                    $record = $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:IBD\NationalLab')->findOrCreateNew($objId);
                     break;
                 default:
                     throw new \RuntimeException("Unknown type");

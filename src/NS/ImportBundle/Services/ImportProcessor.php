@@ -103,7 +103,7 @@ class ImportProcessor
 
         // Create a writer: you need Doctrine’s EntityManager.
         if ($doctrineWriter == null) {
-            $doctrineWriter = new DoctrineWriter($this->container->get('ns.model_manager'), $class, $this->duplicate->getFields());
+            $doctrineWriter = new DoctrineWriter($this->container->get('doctrine.orm.entity_manager'), $class, $this->duplicate->getFields());
             $doctrineWriter->setTruncate(false);
         }
 

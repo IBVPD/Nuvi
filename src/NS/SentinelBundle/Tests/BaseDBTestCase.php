@@ -39,7 +39,7 @@ abstract class BaseDBTestCase extends \PHPUnit_Framework_TestCase
 
         // Store the container and the entity manager in test case properties
         $this->container     = $this->kernel->getContainer();
-        $this->entityManager = $this->container->get('ns.model_manager');
+        $this->entityManager = $this->container->get('doctrine.orm.entity_manager');
 
         // Build the schema
 //        $this->generateSchema();

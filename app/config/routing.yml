@@ -24,9 +24,8 @@ _sonata_admin:
      prefix: /{_locale}/admin
 
 ns_api:
-    resource: "@NSApiBundle/Controller"
-    prefix:   /oauth/v2/auth
-    type:     annotation
+    resource: "@NSApiBundle/Resources/config/routing.yml"
+    prefix:   /
 
 fos_oauth_server_token:
     resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"
@@ -37,10 +36,6 @@ fos_oauth_server_authorize:
 NelmioApiDocBundle:
     resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
     prefix:   /{_locale}/doc/api
-
-ns_api:
-    resource: "@NSApiBundle/Resources/config/routing.yml"
-    prefix:   /
 
 ns_import:
     resource: "@NSImportBundle/Resources/config/routing.yml"

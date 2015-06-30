@@ -86,19 +86,19 @@ class RotaVirusController extends BaseCaseController
             {
                 case 'rotavirus':
                 case 'rotavirus_outcome':
-                    $record = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:RotaVirus')->find($objId);
+                    $record = $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:RotaVirus')->find($objId);
                     break;
 
                 case 'rotavirus_lab':
-                    $record = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:Rota\SiteLab')->findOrCreateNew($objId);
+                    $record = $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:Rota\SiteLab')->findOrCreateNew($objId);
                     break;
 
                 case 'rotavirus_referencelab':
-                    $record = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:Rota\ReferenceLab')->findOrCreateNew($objId);
+                    $record = $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:Rota\ReferenceLab')->findOrCreateNew($objId);
                     break;
 
                 case 'rotavirus_nationallab':
-                    $record = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:Rota\NationalLab')->findOrCreateNew($objId);
+                    $record = $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:Rota\NationalLab')->findOrCreateNew($objId);
                     break;
 
                 default:

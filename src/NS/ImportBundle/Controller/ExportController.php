@@ -38,7 +38,7 @@ class ExportController extends Controller
         if ($ibdForm->isValid())
         {
             $obj          = new IBD();
-            $modelManager = $this->get('ns.model_manager');
+            $modelManager = $this->get('doctrine.orm.entity_manager');
             $fields       = array_merge($baseField, $obj->getMinimumRequiredFields());
 
             $metas = array(
@@ -59,7 +59,7 @@ class ExportController extends Controller
         if ($rotaForm->isValid())
         {
             $obj          = new RotaVirus();
-            $modelManager = $this->get('ns.model_manager');
+            $modelManager = $this->get('doctrine.orm.entity_manager');
             $fields       = array_merge($baseField, $obj->getMinimumRequiredFields());
             $metas        = array(
                 "siteLab.%s"      => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\Rota\SiteLab'),
@@ -68,7 +68,7 @@ class ExportController extends Controller
             );
 
             $this->adjustFields($metas, $fields);
-            $query = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:RotaVirus')->exportQuery($alias);
+            $query = $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:RotaVirus')->exportQuery($alias);
 
             return $this->export('xls', $rotaForm, $query, $fields);
         }

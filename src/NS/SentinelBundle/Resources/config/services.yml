@@ -4,11 +4,11 @@ parameters:
 services:
     ns.sentinel.converter.ibd_site_lab_linker:
         class: NS\SentinelBundle\Converter\SiteLabConverter
-        arguments: [ @ns.model_manager, NS\SentinelBundle\Entity\IBD\SiteLab ]
+        arguments: [ @doctrine.orm.entity_manager, NS\SentinelBundle\Entity\IBD\SiteLab ]
 
     ns.sentinel.converter.rota_site_lab_linker:
         class: NS\SentinelBundle\Converter\SiteLabConverter
-        arguments: [ @ns.model_manager, NS\SentinelBundle\Entity\Rota\SiteLab ]
+        arguments: [ @doctrine.orm.entity_manager, NS\SentinelBundle\Entity\Rota\SiteLab ]
 
     ns.sentinel.form.type.finalresult:
       class: NS\SentinelBundle\Form\Types\FinalResult
@@ -23,7 +23,7 @@ services:
 
     ns.sentinel.services.report:
       class: NS\SentinelBundle\Services\Report
-      arguments: [@sonata.admin.exporter, @lexik_form_filter.query_builder_updater, @ns.model_manager, @router ]
+      arguments: [@sonata.admin.exporter, @lexik_form_filter.query_builder_updater, @doctrine.orm.entity_manager, @router ]
 
     ns.sentinel.form.ibd.field_population_filter:
       class: NS\SentinelBundle\Form\IBD\FieldPopulationReportFilterType
@@ -316,19 +316,19 @@ services:
 
     ns.sentinel.converter.ibd_case:
       class: NS\SentinelBundle\Converter\CaseConverter
-      arguments: [ @ns.model_manager, NS\SentinelBundle\Entity\IBD, IBD Case ]
+      arguments: [ @doctrine.orm.entity_manager, NS\SentinelBundle\Entity\IBD, IBD Case ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.rota_case:
       class: NS\SentinelBundle\Converter\CaseConverter
-      arguments: [ @ns.model_manager, NS\SentinelBundle\Entity\RotaVirus, RotaVirus Case ]
+      arguments: [ @doctrine.orm.entity_manager, NS\SentinelBundle\Entity\RotaVirus, RotaVirus Case ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.site:
       class: NS\SentinelBundle\Converter\SiteConverter
-      arguments: [ @ns.model_manager ]
+      arguments: [ @doctrine.orm.entity_manager ]
       tags:
         - { name: ns_import.converter }
 
@@ -450,19 +450,19 @@ services:
 
     ns.sentinel.form.filter.country:
       class: NS\SentinelBundle\Form\Filters\Country
-      arguments: [ @ns.model_manager, "NSSentinelBundle:Country" ]
+      arguments: [ @doctrine.orm.entity_manager, "NSSentinelBundle:Country" ]
       tags:
         - { name: form.type, alias: country }
 
     ns.sentinel.form.filter.region:
       class: NS\SentinelBundle\Form\Filters\Region
-      arguments: [ @ns.model_manager, "NSSentinelBundle:Region" ]
+      arguments: [ @doctrine.orm.entity_manager, "NSSentinelBundle:Region" ]
       tags:
         - { name: form.type, alias: region }
 
     ns.sentinel.form.filter.site:
       class: NS\SentinelBundle\Form\Filters\Site
-      arguments: [ @ns.model_manager, "NSSentinelBundle:Site" ]
+      arguments: [ @doctrine.orm.entity_manager, "NSSentinelBundle:Site" ]
       tags:
         - { name: form.type, alias: site }
 
@@ -485,13 +485,13 @@ services:
 
     ns.sentinel.form.create:
       class: NS\SentinelBundle\Form\CreateType
-      arguments: [ "@ns.sentinel.sites", "@ns.model_manager" ]
+      arguments: [ "@ns.sentinel.sites", "@doctrine.orm.entity_manager" ]
       tags:
         - { name: form.type, alias: create_case }
 
     ns.sentinel.sites:
       class: NS\SentinelBundle\Services\SerializedSites
-      arguments: [ "@session", "@ns.model_manager" ]
+      arguments: [ "@session", "@doctrine.orm.entity_manager" ]
 
     ns.sentinel.form.type.casestatus:
       class: NS\SentinelBundle\Form\Types\CaseStatus
@@ -640,7 +640,7 @@ services:
 
     ns.sentinel.form.type.ibd:
       class: NS\SentinelBundle\Form\IBD\CaseType
-      arguments: [ "@ns.sentinel.sites","@ns.model_manager" ]
+      arguments: [ "@ns.sentinel.sites","@doctrine.orm.entity_manager" ]
       tags:
         - { name: form.type, alias: ibd }
 
@@ -667,7 +667,7 @@ services:
 
     ns.sentinel.form.type.rotavirus:
       class: NS\SentinelBundle\Form\Rota\CaseType
-      arguments: [ "@ns.sentinel.sites", "@ns.model_manager" ]
+      arguments: [ "@ns.sentinel.sites", "@doctrine.orm.entity_manager" ]
       tags:
         - { name: form.type, alias: rotavirus }
 

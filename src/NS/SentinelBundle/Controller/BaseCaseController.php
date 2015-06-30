@@ -21,7 +21,7 @@ abstract class BaseCaseController extends Controller
 
         if ($filterForm->isValid())
         {
-            $query = $this->get('ns.model_manager')
+            $query = $this->get('doctrine.orm.entity_manager')
                 ->getRepository($class)
                 ->getFilterQueryBuilder();
 
@@ -30,7 +30,7 @@ abstract class BaseCaseController extends Controller
             $queryBuilderUpdater->addFilterConditions($filterForm, $query, 'm');
         }
         else
-            $query = $this->get('ns.model_manager')->getRepository($class)->getLatestQuery();
+            $query = $this->get('doctrine.orm.entity_manager')->getRepository($class)->getLatestQuery();
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate($query, $request->query->get('page', 1), $request->getSession()->get('result_per_page', 10));
@@ -52,7 +52,7 @@ abstract class BaseCaseController extends Controller
         {
             $caseId    = $form->get('caseId')->getData();
             $type      = $form->get('type')->getData();
-            $entityMgr = $this->get('ns.model_manager');
+            $entityMgr = $this->get('doctrine.orm.entity_manager');
             $case      = $entityMgr->getRepository($class)->findOrCreate($caseId);
 
             if (!$case->getId())
@@ -109,7 +109,7 @@ abstract class BaseCaseController extends Controller
     {
         try
         {
-            return array('record' => $this->get('ns.model_manager')->getRepository($class)->get($id));
+            return array('record' => $this->get('doctrine.orm.entity_manager')->getRepository($class)->get($id));
         }
         catch (NonExistentCase $ex)
         {

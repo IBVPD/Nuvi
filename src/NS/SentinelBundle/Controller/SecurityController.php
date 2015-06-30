@@ -57,7 +57,7 @@ class SecurityController extends Controller
      */
     public function homepageAction(Request $request)
     {
-        $repo        = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:IBD");
+        $repo        = $this->get('doctrine.orm.entity_manager')->getRepository("NSSentinelBundle:IBD");
         $byCountry   = $repo->getByCountry();
         $bySite      = $repo->getBySite();
         $byDiagnosis = $repo->getByDiagnosis();

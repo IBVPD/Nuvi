@@ -31,7 +31,7 @@ class ApiController extends FOSRestController
      */
     public function sitesAction()
     {
-        $sites = $this->get('ns.model_manager')->getRepository('NSSentinelBundle:Site')->findAll();
+        $sites = $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:Site')->findAll();
         return array('sites' => $sites);
     }
 

@@ -273,7 +273,6 @@ sensio_framework_extra:
     
 fos_rest:
     param_fetcher_listener: true
-    format_listener: true
     serializer:
         serialize_null: true
     view:
@@ -284,10 +283,10 @@ fos_rest:
         templating_formats:
             html: true
     format_listener:
+        enabled: true
         rules:
-            - { path: ^/api, priorities: [ json, xml ], fallback_format: false, prefer_extension: true }
-            - { path: '^/', priorities: [ 'text/html', '*/*'], fallback_format: html, prefer_extension: true }
-
+            - { path: ^/api, priorities: [ json, xml ], fallback_format: json, prefer_extension: false }
+            - { path: '^/', stop: true }
     disable_csrf_role: ROLE_API
     exception:
       codes:
@@ -349,15 +348,6 @@ services:
     arguments: [ @security.context, @gedmo.listener.loggable ]
     tags:
       - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }    
-  ns.form.types.autocomplete:
-    class: NS\UtilBundle\Form\Types\Autocomplete
-    arguments: [ "@doctrine.orm.entity_manager", "@router" ]
-    tags:
-      - { name: form.type, alias: ns_autocomplete }
-  ns.ajax_autocompleter:
-    class: NS\UtilBundle\Service\Ajax
-    arguments: [ "@doctrine.orm.entity_manager", "@request", "@templating" ]
-    scope: request
   twig.text_extension:
     class: Twig_Extensions_Extension_Text
     tags:

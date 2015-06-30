@@ -178,7 +178,7 @@ class ImportProcessorTest extends WebTestCase
 //
 //        $mockContainer->expects($this->once())
 //            ->method('get')
-//            ->with('ns.model_manager')
+//            ->with('doctrine.orm.entity_manager')
 //            ->will($this->returnValue($entityMgr));
 //
 //

@@ -44,7 +44,7 @@ class ReportController extends Controller
      */
     public function byCountryGraphAction()
     {
-        $reports = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:IBD")->getByCountry();
+        $reports = $this->get('doctrine.orm.entity_manager')->getRepository("NSSentinelBundle:IBD")->getByCountry();
 
         return array('reports' => $reports);
     }
@@ -54,7 +54,7 @@ class ReportController extends Controller
      */
     public function bySiteGraphAction()
     {
-        $reports = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:IBD")->getBySite();
+        $reports = $this->get('doctrine.orm.entity_manager')->getRepository("NSSentinelBundle:IBD")->getBySite();
 
         return array('reports' => $reports);
     }
@@ -64,7 +64,7 @@ class ReportController extends Controller
      */
     public function generalStatsAction()
     {
-        $reports = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:IBD")->getStats();
+        $reports = $this->get('doctrine.orm.entity_manager')->getRepository("NSSentinelBundle:IBD")->getStats();
        
         return array('reports' => $reports);
     }
@@ -74,7 +74,7 @@ class ReportController extends Controller
      */
     public function byDiagnosisGraphAction()
     {
-        $reports = $this->get('ns.model_manager')->getRepository("NSSentinelBundle:IBD")->getByDiagnosis();
+        $reports = $this->get('doctrine.orm.entity_manager')->getRepository("NSSentinelBundle:IBD")->getByDiagnosis();
        
         return array('reports' => $reports);
     }

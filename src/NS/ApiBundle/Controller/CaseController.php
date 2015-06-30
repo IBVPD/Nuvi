@@ -21,7 +21,7 @@ class CaseController extends FOSRestController
     {
         try
         {
-            $repo = $this->get('ns.model_manager')->getRepository($class);
+            $repo = $this->get('doctrine.orm.entity_manager')->getRepository($class);
             if (method_exists($repo, $method))
                 return call_user_func(array($repo, $method), $objId);
             else
@@ -96,7 +96,7 @@ class CaseController extends FOSRestController
 
     protected function updateCase(Request $request, $objId, $method, $formName, $className)
     {
-        $entityMgr = $this->get('ns.model_manager');
+        $entityMgr = $this->get('doctrine.orm.entity_manager');
         $obj       = $entityMgr->getRepository($className)->find($objId);
         $form      = $this->createForm($formName, $obj, array('method' => $method));
 
@@ -107,7 +107,7 @@ class CaseController extends FOSRestController
 
     protected function updateLab(Request $request, $objId, $method, $formName, $className)
     {
-        $entityMgr = $this->get('ns.model_manager');
+        $entityMgr = $this->get('doctrine.orm.entity_manager');
         $obj       = $entityMgr->getRepository($className)->findOrCreateNew($objId);
         $form      = $this->createForm($formName, $obj, array('method' => $method));
 
@@ -126,7 +126,7 @@ class CaseController extends FOSRestController
             if (!$form->isValid())
                 return $this->view($form, Codes::HTTP_BAD_REQUEST);
 
-            $entityMgr = $this->get('ns.model_manager');
+            $entityMgr = $this->get('doctrine.orm.entity_manager');
             $caseId    = $form->get('caseId')->getData();
             $case      = $entityMgr->getRepository($className)->findOrCreate($caseId, null);
 
