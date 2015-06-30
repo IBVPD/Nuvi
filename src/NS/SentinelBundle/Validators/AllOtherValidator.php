@@ -4,7 +4,6 @@ namespace NS\SentinelBundle\Validators;
 
 use \Symfony\Component\Validator\Constraint;
 use \Symfony\Component\Validator\ConstraintValidator;
-use \Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 /**
  * Description of OtherValidator
@@ -19,12 +18,14 @@ class AllOtherValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraintInput)
     {
-        if (null === $value)
+        if (null === $value) {
             return;
+        }
 
         $group = $this->context->getGroup();
 
-        foreach ($constraintInput->constraints as $key => $constraint)
+        foreach ($constraintInput->constraints as $constraint) {
             $this->context->validateValue($value, $constraint, $constraint->field, $group);
+        }
     }
 }

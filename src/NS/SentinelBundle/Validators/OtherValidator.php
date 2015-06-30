@@ -18,18 +18,17 @@ class OtherValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
-        $fMethod = sprintf("get%s", $constraint->field);
+        $fMethod      = sprintf("get%s", $constraint->field);
         $otherFMethod = sprintf("get%s", $constraint->otherField);
 
-        if (!method_exists($value, $fMethod) || !method_exists($value, $otherFMethod))
+        if (!method_exists($value, $fMethod) || !method_exists($value, $otherFMethod)) {
             throw new \InvalidArgumentException(sprintf("Either %s or %s doesn't exist for object %s", $constraint->field, $constraint->otherField, get_class($value)));
+        }
 
         $const = constant($constraint->value);
 
-        if ($value->$fMethod() && $value->$fMethod()->equal($const))
-        {
-            if ($value->$otherFMethod() == null || $value->$otherFMethod() == '')
-                $this->context->addViolation($constraint->message);
+        if ($value->$fMethod() && $value->$fMethod()->equal($const) && ($value->$otherFMethod() == null || $value->$otherFMethod() == '')) {
+            $this->context->addViolation($constraint->message);
         }
     }
 }
