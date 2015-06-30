@@ -54,6 +54,7 @@ class AppKernel extends Kernel
             new NS\ImportBundle\NSImportBundle(),
 
             new Hpatoio\DeployBundle\DeployBundle(),
+            new Vich\UploaderBundle\VichUploaderBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

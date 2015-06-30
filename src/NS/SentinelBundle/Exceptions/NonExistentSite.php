@@ -2,14 +2,13 @@
 
 namespace NS\SentinelBundle\Exceptions;
 
-use Ddeboer\DataImport\Exception\ExceptionInterface;
-use RuntimeException;
+use \Ddeboer\DataImport\Exception\ExceptionInterface;
 
 /**
  * Description of NonExistentSite
  *
  * @author gnat
  */
-class NonExistentSite extends RuntimeException implements ExceptionInterface
+class NonExistentSite extends \RuntimeException implements ExceptionInterface
 {
 }

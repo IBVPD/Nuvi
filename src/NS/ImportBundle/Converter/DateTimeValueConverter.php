@@ -24,6 +24,9 @@ class DateTimeValueConverter extends BaseDateTimeValueConverter implements Named
         $this->name = 'Date: '.$inputFormat;
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->name;

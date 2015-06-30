@@ -2,39 +2,24 @@
 
 namespace NS\ImportBundle\Converter;
 
-use \Ddeboer\DataImport\ItemConverter\MappingItemConverter as BaseMappingItemConverter;
+use \Ddeboer\DataImport\Step\MappingStep;
 
 /**
  * Description of UnsetMappingItemConverter
  *
  * @author gnat
  */
-class UnsetMappingItemConverter extends BaseMappingItemConverter
+class UnsetMappingItemConverter extends MappingStep
 {
     /**
-     * Add a mapping
-     *
-     * @param string       $from Field to map from
-     * @param string|array $to   Field name or array to map to
-     *
-     * @return $this
-     */
-    public function addMapping($from, $to = 'null')
-    {
-        $this->mappings[$from] = $to;
-
-        return $this;
-    }
-
-    /**
      * {@inheritdoc}
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    protected function applyMapping(array $item, $from, $to)
+    public function process(&$item)
     {
-        if(isset($item[$from]))
-            unset($item[$from]);
-
-        return $item;
+        foreach (array_keys($this->mappings) as $from) {
+            if(isset($item[$from])) {
+                unset($item[$from]);
+            }
+        }
     }
 }

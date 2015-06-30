@@ -31,6 +31,7 @@ twig:
         - NSUtilBundle:Form:fields.html.twig
         - NSAceBundle:Form:fields.html.twig
         - NSSentinelBundle::form_fields.html.twig
+        - VichUploaderBundle:Form:fields.html.twig
     exception_controller: 'FOS\RestBundle\Controller\ExceptionController::showAction'
 
 # Assetic Configuration
@@ -333,6 +334,14 @@ deploy:
         - app/console doctrine:schema:update --force
         - app/console cache:clear --env=prod
         - app/console assets:install
+
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        import_file:
+            uri_prefix:         /imports/files
+            upload_destination: %kernel.root_dir%/../web/imports/files
 
 services:
   extension.listener:

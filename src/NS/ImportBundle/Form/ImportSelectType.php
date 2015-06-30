@@ -37,7 +37,7 @@ class ImportSelectType extends AbstractType
                 'query_builder' => $this->entityMgr->getRepository('NSImportBundle:Map')->getWithColumnsQuery(),
                 )
             )
-            ->add('file', 'file')
+            ->add('importFile', 'file')
             ->add('import', 'submit', array('attr' => array('class' => 'btn btn-xs btn-success pull-right')))
         ;
     }
@@ -48,7 +48,7 @@ class ImportSelectType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'NS\ImportBundle\Entity\Import'
+            'data_class' => 'NS\ImportBundle\Entity\Result'
         ));
     }
 

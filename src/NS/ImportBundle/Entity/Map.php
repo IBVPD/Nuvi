@@ -52,6 +52,7 @@ class Map
     private $class;
 
     private $file;
+
     /**
      * @var Collection $columns
      * @ORM\OneToMany(targetEntity="Column",mappedBy="map", fetch="EAGER",cascade={"persist"}, orphanRemoval=true)
@@ -64,17 +65,14 @@ class Map
      */
     public function __clone()
     {
-        if ($this->id)
-        {
+        if ($this->id) {
             $this->id = null;
         }
 
-        if($this->columns)
-        {
+        if ($this->columns) {
             $columns = array();
 
-            foreach ($this->columns as $col)
-            {
+            foreach ($this->columns as $col) {
                 $columns[] = clone $col;
             }
 
@@ -99,7 +97,7 @@ class Map
      */
     public function __toString()
     {
-        return $this->name.' '.$this->version;
+        return $this->name . ' ' . $this->version;
     }
 
     /**
@@ -155,7 +153,7 @@ class Map
     {
         return $this->file;
     }
-    
+
     /**
      * 
      * @return string
@@ -230,8 +228,7 @@ class Map
      */
     public function setColumns(Collection $columns)
     {
-        foreach ($columns as $c)
-        {
+        foreach ($columns as $c) {
             $c->setMap($this);
         }
 
@@ -276,8 +273,7 @@ class Map
     {
         $headers = array();
 
-        foreach ($this->columns as $col)
-        {
+        foreach ($this->columns as $col) {
             $headers[] = $col->getName();
         }
 
@@ -291,10 +287,8 @@ class Map
     public function getConverters()
     {
         $r = array();
-        foreach($this->columns as $col)
-        {
-            if ($col->hasConverter())
-            {
+        foreach ($this->columns as $col) {
+            if ($col->hasConverter()) {
                 $r[] = $col;
             }
         }
@@ -308,17 +302,17 @@ class Map
      */
     public function getMappings()
     {
-        $r = new MappingItemConverter();
+        $mappings = array();
 
-        foreach($this->columns as $col)
-        {
-            if ($col->hasMapper())
-            {
-                $r->addMapping($col->getName(), $col->getMapper());
+        foreach ($this->columns as $col) {
+            if ($col->hasMapper()) {
+                $name            = $this->adjustMappingName($col->getName());
+                $target          = $this->adjustMappingTarget($col->getMapper());
+                $mappings[$name] = $target;
             }
         }
 
-        return $r;
+        return new \Ddeboer\DataImport\Step\MappingStep($mappings);
     }
 
     /**
@@ -327,15 +321,35 @@ class Map
      */
     public function getIgnoredMapper()
     {
-        $r = new UnsetMappingItemConverter();
-        foreach($this->columns as $col)
-        {
-            if ($col->isIgnored())
-            {
-                $r->addMapping($col->getName(), $col->getMapper());
+        $mappings = array();
+
+        foreach ($this->columns as $col) {
+            if ($col->isIgnored()) {
+                $name            = $this->adjustMappingName($col->getName());
+                $target          = $this->adjustMappingTarget($col->getMapper());
+                $mappings[$name] = $target;
             }
         }
 
-        return $r;
+        return new UnsetMappingItemConverter($mappings);
+
+    }
+
+    /**
+     * @param string $name
+     * @return string
+     */
+    public function adjustMappingName($name)
+    {
+        return sprintf("[%s]", $name);
+    }
+
+    /**
+     * @param string $name
+     * @return string
+     */
+    public function adjustMappingTarget($name)
+    {
+        return sprintf("[%s]", str_replace('.', '][', $name));
     }
 }

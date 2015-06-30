@@ -59,10 +59,11 @@
         "liip/functional-test-bundle": "dev-master",
         "beberlei/DoctrineExtensions": "dev-master",
         "ddeboer/data-import-bundle": "~0.1",
-        "ddeboer/data-import": "dev-gnat",
+        "ddeboer/data-import": "dev-gnat-steps",
         "hpatoio/deploy-bundle": "~1.4",
         "h4cc/alice-fixtures-bundle": "0.5.*",
-        "phpoffice/phpexcel": "~1.8"
+        "phpoffice/phpexcel": "~1.8",
+        "vich/uploader-bundle": "1.0.0-beta3"
     },
     "scripts": {
         "post-install-cmd": [
