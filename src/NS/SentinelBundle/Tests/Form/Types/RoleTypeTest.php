@@ -24,10 +24,10 @@ class RoleTypeTest extends TypeTestCase
     /**
      * @dataProvider getCredentialProvider
      */
-    public function testGetCredential($roleStr)
+    public function testGetCredential($roleStr, $expected)
     {
         $role = new Role($roleStr);
-        $this->assertEquals(array($roleStr), $role->getAsCredential());
+        $this->assertEquals($expected, $role->getAsCredential());
     }
 
     public function testEmptyCredential()
@@ -83,18 +83,18 @@ class RoleTypeTest extends TypeTestCase
     public function getCredentialProvider()
     {
         return array(
-            array('roleStr' => 'ROLE_REGION'),
-            array('roleStr' => 'ROLE_REGION_API'),
-            array('roleStr' => 'ROLE_REGION_IMPORT'),
-            array('roleStr' => 'ROLE_COUNTRY'),
-            array('roleStr' => 'ROLE_COUNTRY_IMPORT'),
-            array('roleStr' => 'ROLE_COUNTRY_API'),
-            array('roleStr' => 'ROLE_SITE'),
-            array('roleStr' => 'ROLE_SITE_IMPORT'),
-            array('roleStr' => 'ROLE_SITE_API'),
-            array('roleStr' => 'ROLE_LAB'),
-            array('roleStr' => 'ROLE_NL_LAB'),
-            array('roleStr' => 'ROLE_RRL_LAB'),
+            array('ROLE_REGION', array('ROLE_REGION')),
+            array('ROLE_REGION_API', array('ROLE_REGION_API','ROLE_CAN_CREATE_CASE','ROLE_CAN_CREATE_LAB','ROLE_CAN_CREATE_NL_LAB')),
+            array('ROLE_REGION_IMPORT', array('ROLE_REGION_IMPORT')),
+            array('ROLE_COUNTRY', array('ROLE_COUNTRY')),
+            array('ROLE_COUNTRY_IMPORT', array('ROLE_COUNTRY_IMPORT')),
+            array('ROLE_COUNTRY_API', array('ROLE_COUNTRY_API','ROLE_CAN_CREATE_CASE','ROLE_CAN_CREATE_LAB','ROLE_CAN_CREATE_NL_LAB')),
+            array('ROLE_SITE', array('ROLE_SITE')),
+            array('ROLE_SITE_IMPORT', array('ROLE_SITE_IMPORT')),
+            array('ROLE_SITE_API', array('ROLE_SITE_API','ROLE_CAN_CREATE_CASE','ROLE_CAN_CREATE_LAB')),
+            array('ROLE_LAB', array('ROLE_LAB')),
+            array('ROLE_NL_LAB', array('ROLE_NL_LAB')),
+            array('ROLE_RRL_LAB', array('ROLE_RRL_LAB')),
         );
     }
 }

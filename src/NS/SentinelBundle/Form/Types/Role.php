@@ -107,11 +107,11 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
             case self::NL_LAB:
                 return array('ROLE_NL_LAB');
             case self::REGION_API:
-                return array('ROLE_REGION_API');
+                return array('ROLE_REGION_API', 'ROLE_CAN_CREATE_CASE','ROLE_CAN_CREATE_LAB','ROLE_CAN_CREATE_NL_LAB');
             case self::COUNTRY_API:
-                return array('ROLE_COUNTRY_API');
+                return array('ROLE_COUNTRY_API','ROLE_CAN_CREATE_CASE','ROLE_CAN_CREATE_LAB','ROLE_CAN_CREATE_NL_LAB');
             case self::SITE_API:
-                return array('ROLE_SITE_API');
+                return array('ROLE_SITE_API','ROLE_CAN_CREATE_CASE','ROLE_CAN_CREATE_LAB');
             case self::REGION_IMPORT:
                 return array('ROLE_REGION_IMPORT');
             case self::COUNTRY_IMPORT:

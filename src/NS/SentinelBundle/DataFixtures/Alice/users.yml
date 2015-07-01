@@ -141,10 +141,10 @@ NS\SentinelBundle\Entity\User:
         email: ca-api@noblet.ca
         isActive: true
         plainPassword: 1234567-ca
-        canCreateCases: true
-        canCreateLabs: true
-        canCreateRrlLabs: true
-        canCreateNlLabs: true
+        canCreateCases: false
+        canCreateLabs: false
+        canCreateRrlLabs: false
+        canCreateNlLabs: false
         referenceLab: @lab1
     sUser0:
         name: Alberta Site User
