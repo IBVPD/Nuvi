@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2014-10-23T21:55:01Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
+  <file date="2015-07-01T13:05:00Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -24,7 +24,7 @@
       <trans-unit id="c888af71c60ef42f28669c9ef2a31c6cbef49e09" resname="confirm_exit">
         <source>confirm_exit</source>
         <target state="new">confirm_exit</target>
-        <jms:reference-file line="70">views/Sonata/layout.html.twig</jms:reference-file>
+        <jms:reference-file line="72">views/Sonata/layout.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="0516db21082eb2502f2810d16dd65a032c6c13b9" resname="label_export_download">
         <source>label_export_download</source>
