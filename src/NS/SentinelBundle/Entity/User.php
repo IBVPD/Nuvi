@@ -141,6 +141,9 @@ class User implements AdvancedUserInterface
         $this->acls = new ArrayCollection();
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->name;
@@ -222,8 +225,9 @@ class User implements AdvancedUserInterface
      */
     public function getSalt()
     {
-        if(is_null($this->salt) || empty($this->salt))
+        if(is_null($this->salt) || empty($this->salt)) {
             $this->resetSalt();
+        }
 
         return $this->salt;
     }
@@ -298,10 +302,8 @@ class User implements AdvancedUserInterface
     public function isOnlyApi()
     {
         $roles = $this->getRoles();
-        foreach($roles as $role)
-        {
-            switch($role)
-            {
+        foreach ($roles as $role) {
+            switch ($role) {
                 case 'ROLE_REGION_API':
                 case 'ROLE_COUNTRY_API':
                 case 'ROLE_SITE_API':
@@ -325,10 +327,8 @@ class User implements AdvancedUserInterface
     public function isOnlyImport()
     {
         $roles = $this->getRoles();
-        foreach($roles as $role)
-        {
-            switch($role)
-            {
+        foreach ($roles as $role) {
+            switch ($role) {
                 case 'ROLE_REGION_IMPORT':
                 case 'ROLE_COUNTRY_IMPORT':
                 case 'ROLE_SITE_IMPORT':
@@ -345,17 +345,21 @@ class User implements AdvancedUserInterface
 
     public function adjustRoles(array $roles)
     {
-        if(in_array('ROLE_SITE',$roles))
+        if (in_array('ROLE_SITE', $roles)) {
             $this->setCanCreateCases(true);
+        }
 
-        if (in_array('ROLE_RRL_LAB', $roles))
+        if (in_array('ROLE_RRL_LAB', $roles)) {
             $this->setCanCreateRRLLabs(true);
+        }
 
-        if (in_array('ROLE_NL_LAB', $roles))
+        if (in_array('ROLE_NL_LAB', $roles)) {
             $this->setCanCreateNLLabs(true);
+        }
 
-        if (in_array('ROLE_LAB', $roles))
+        if (in_array('ROLE_LAB', $roles)) {
             $this->setCanCreateLabs(true);
+        }
     }
 
     public function getRoles()
@@ -368,20 +372,25 @@ class User implements AdvancedUserInterface
 
         $this->adjustRoles($roles);
 
-        if($this->isAdmin)
+        if ($this->isAdmin) {
             $roles[] = 'ROLE_ADMIN';
+        }
 
-        if($this->canCreateCases)
+        if ($this->canCreateCases) {
             $roles[] = 'ROLE_CAN_CREATE_CASE';
+        }
 
-        if($this->canCreateLabs)
+        if ($this->canCreateLabs) {
             $roles[] = 'ROLE_CAN_CREATE_LAB';
+        }
 
-        if ($this->canCreateRRLLabs)
+        if ($this->canCreateRRLLabs) {
             $roles[] = 'ROLE_CAN_CREATE_RRL_LAB';
+        }
 
-        if ($this->canCreateNLLabs)
+        if ($this->canCreateNLLabs) {
             $roles[] = 'ROLE_CAN_CREATE_NL_LAB';
+        }
 
         return array_unique($roles);
     }
@@ -482,22 +491,40 @@ class User implements AdvancedUserInterface
         return $this->isAdmin;
     }
 
+    /**
+     *
+     * @return cache time to live
+     */
     public function getTTL()
     {
         return $this->ttl;
     }
 
+    /**
+     *
+     * @param integer $ttl
+     * @return \NS\SentinelBundle\Entity\User
+     */
     public function setTTL($ttl)
     {
         $this->ttl = $ttl;
         return $this;
     }
 
-    public function getIsActive()
+    /**
+     *
+     * @return boolean
+     */
+    public function isActive()
     {
         return $this->isActive;
     }
 
+    /**
+     *
+     * @param boolean $isActive
+     * @return \NS\SentinelBundle\Entity\User
+     */
     public function setIsActive($isActive)
     {
         $this->isActive = $isActive;
@@ -606,28 +633,30 @@ class User implements AdvancedUserInterface
      */
     public function validate(ExecutionContextInterface $context)
     {
-        if(count($this->acls) == 0)
-        {
-            if($this->getCanCreateCases())
+        if (count($this->acls) == 0) {
+            if ($this->getCanCreateCases()) {
                 $context->addViolationAt('canCreateCases', "The user is designated as able to create cases but has no roles");
+            }
 
-            if($this->getCanCreateLabs())
+            if ($this->getCanCreateLabs()) {
                 $context->addViolationAt('canCreateLabs', "The user is designated as able to create labs but has no roles");
+            }
 
-            if ($this->getCanCreateNLLabs())
+            if ($this->getCanCreateNLLabs()) {
                 $context->addViolationAt('canCreateNLLabs', "The user is designated as able to create national lab records but has no roles");
+            }
 
-            if ($this->getCanCreateRRLLabs())
+            if ($this->getCanCreateRRLLabs()) {
                 $context->addViolationAt('canCreateRRLLabs', "The user is designated as able to create reference lab records but has no roles");
+            }
         }
 
-        if ($this->getCanCreateRRLLabs() && !$this->hasReferenceLab())
+        if ($this->getCanCreateRRLLabs() && !$this->hasReferenceLab()) {
             $context->addViolationAt('referenceLab', "The user is designated as able to create reference lab records but no reference lab has been linked");
+        }
 
-        foreach ($this->acls as $acl)
-        {
-            if ($acl->getType()->getValue() == Role::RRL_LAB && !$this->hasReferenceLab())
-            {
+        foreach ($this->acls as $acl) {
+            if ($acl->getType()->getValue() == Role::RRL_LAB && !$this->hasReferenceLab()) {
                 $context->addViolationAt('acls', "The user is designated as able to create reference lab records but no reference lab has been linked");
                 break;
             }
@@ -659,5 +688,4 @@ class User implements AdvancedUserInterface
     {
         return ($this->referenceLab instanceof ReferenceLab);
     }
-
 }
