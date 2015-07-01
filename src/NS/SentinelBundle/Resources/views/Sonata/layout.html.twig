@@ -1,5 +1,7 @@
 {%extends "NSSentinelBundle::layout.html.twig" %}
 
+{% block html_attributes %}class="no-js"{% endblock %}
+
 {% set _editTabs = block('editTabs') %}
 {% block widget_title %}
     {% if _actions is not empty %}
@@ -13,9 +15,9 @@
                 {{ _actions|raw }}
             </div>
             {% if _editTabs is not empty %}
-            <div class="widget-toolbar">
-                 {{ _editTabs|raw }}
-            </div>
+                <div class="widget-toolbar">
+                    {{ _editTabs|raw }}
+                </div>
             {% endif %}
         </div>
     {% endif %}
@@ -31,156 +33,156 @@
 {% set _title        = block('title') %}
 {% set _breadcrumb   = block('breadcrumb') %}
 {% set _actions      = block('actions') %}
-{% set _widget_title      = block('widget_title') %}
+{% set _widget_title = block('widget_title') %}
 
-        {% block stylesheets %}
-            {{parent()}}
-            <!-- jQuery code -->
-            <link rel="stylesheet" href="{{ asset('bundles/sonatajquery/themes/flick/jquery-ui-1.8.16.custom.css') }}" type="text/css" media="all" />
+{% block stylesheets %}
+    {{parent()}}
+    <!-- jQuery code -->
+    <link rel="stylesheet" href="{{ asset('bundles/sonatajquery/themes/flick/jquery-ui-1.8.16.custom.css') }}" type="text/css" media="all" />
 
-            {#<link rel="stylesheet" href="{{ asset('bundles/sonataadmin/bootstrap/css/bootstrap.min.css') }}" type="text/css" media="all"  />
-            <link rel="stylesheet" href="{{ asset('bundles/sonataadmin/bootstrap/css/bootstrap-responsive.min.css') }}" type="text/css" media="all" />#}
+    {#<link rel="stylesheet" href="{{ asset('bundles/sonataadmin/bootstrap/css/bootstrap.min.css') }}" type="text/css" media="all"  />
+    <link rel="stylesheet" href="{{ asset('bundles/sonataadmin/bootstrap/css/bootstrap-responsive.min.css') }}" type="text/css" media="all" />#}
 
-            {% if admin_pool is defined and admin_pool.getOption('use_select2') %}
-                <link rel="stylesheet" href="{{ asset('bundles/sonataadmin/select2/select2.css') }}" type="text/css" media="all" />
-                <style>
-                    div.select2-container {
-                        margin-left: 0px !important;
-                    }
+    {% if admin_pool is defined and admin_pool.getOption('use_select2') %}
+        <link rel="stylesheet" href="{{ asset('bundles/sonataadmin/select2/select2.css') }}" type="text/css" media="all" />
+        <style>
+            div.select2-container {
+                margin-left: 0px !important;
+            }
 
-                    div.select2-drop ul {
-                        margin: 0px !important;
-                    }
-                </style>
-            {% endif %}
+            div.select2-drop ul {
+                margin: 0px !important;
+            }
+        </style>
+    {% endif %}
 
-            <!-- base application asset -->
-            <link rel="stylesheet" href="{{ asset('bundles/sonataadmin/css/layout.css') }}" type="text/css" media="all" />
-            <link rel="stylesheet" href="{{ asset('bundles/sonataadmin/css/colors.css') }}" type="text/css" media="all" />
+    <!-- base application asset -->
+    <link rel="stylesheet" href="{{ asset('bundles/sonataadmin/css/layout.css') }}" type="text/css" media="all" />
+    <link rel="stylesheet" href="{{ asset('bundles/sonataadmin/css/colors.css') }}" type="text/css" media="all" />
 
-        {% endblock %}
+{% endblock %}
 
-        {% block javascripts %}
-            <script type="text/javascript">
-                window.SONATA_CONFIG = {
-                    CONFIRM_EXIT: {% if admin_pool is defined and admin_pool.getOption('confirm_exit') %}true{% else %}false{% endif %},
-                    USE_SELECT2: {% if admin_pool is defined and admin_pool.getOption('use_select2') %}true{% else %}false{% endif %}
-                };
-                window.SONATA_TRANSLATIONS = {
-                    CONFIRM_EXIT:  '{{ 'confirm_exit'|trans({}, 'SonataAdminBundle')|escape('js') }}'
-               };
-            </script>
-            {#<script src="{{ asset('bundles/sonatajquery/jquery-1.8.3.js') }}" type="text/javascript"></script>
-            <script src="{{ asset('bundles/sonatajquery/jquery-ui-1.8.23.js') }}" type="text/javascript"></script>
-            <script src="{{ asset('bundles/sonatajquery/jquery-ui-i18n.js') }}" type="text/javascript"></script>#}
+{% block javascripts %}
+    <script type="text/javascript">
+        window.SONATA_CONFIG = {
+            CONFIRM_EXIT: {% if admin_pool is defined and admin_pool.getOption('confirm_exit') %}true{% else %}false{% endif %},
+            USE_SELECT2: {% if admin_pool is defined and admin_pool.getOption('use_select2') %}true{% else %}false{% endif %}
+        };
+        window.SONATA_TRANSLATIONS = {
+            CONFIRM_EXIT: '{{ 'confirm_exit'|trans({}, 'SonataAdminBundle')|escape('js') }}'
+        };
+    </script>
+    {#<script src="{{ asset('bundles/sonatajquery/jquery-1.8.3.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/sonatajquery/jquery-ui-1.8.23.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/sonatajquery/jquery-ui-i18n.js') }}" type="text/javascript"></script>#}
 
-            {{parent()}}
-            
-            {#<script src="{{ asset('bundles/sonataadmin/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>#}
+    {{parent()}}
 
-            {% if admin_pool is defined and admin_pool.getOption('use_select2') %}
-                <script src="{{ asset('bundles/sonataadmin/select2/select2.min.js') }}" type="text/javascript"></script>
-            {% endif %}
+    {#<script src="{{ asset('bundles/sonataadmin/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>#}
 
-            <script src="{{ asset('bundles/sonataadmin/jquery/jquery.form.js') }}" type="text/javascript"></script>
-            {% if admin_pool is defined and admin_pool.getOption('confirm_exit') %}<script src="{{ asset('bundles/sonataadmin/jquery/jquery.confirmExit.js') }}" type="text/javascript"></script>{% endif %}
-            <script src="{{ asset('bundles/sonataadmin/base.js') }}" type="text/javascript"></script>
-        {% endblock %}
+    {% if admin_pool is defined and admin_pool.getOption('use_select2') %}
+        <script src="{{ asset('bundles/sonataadmin/select2/select2.min.js') }}" type="text/javascript"></script>
+    {% endif %}
+
+    <script src="{{ asset('bundles/sonataadmin/jquery/jquery.form.js') }}" type="text/javascript"></script>
+    {% if admin_pool is defined and admin_pool.getOption('confirm_exit') %}<script src="{{ asset('bundles/sonataadmin/jquery/jquery.confirmExit.js') }}" type="text/javascript"></script>{% endif %}
+    <script src="{{ asset('bundles/sonataadmin/base.js') }}" type="text/javascript"></script>
+{% endblock %}
 
 {% block body %}
-        {% block sonata_page_content %}
-            {% block notice %}
-                {% for notice_level in ['success','error','info', 'warning'] %}
-                    {% set session_var = 'sonata_flash_' ~ notice_level %}
-                    {% for flash in app.session.flashbag.get(session_var) %}
-                        <div class="alert {{ 'alert-' ~ notice_level }}">
-                            {{ flash|trans([], 'SonataAdminBundle') }}
-                        </div>
-                    {% endfor %}
+    {% block sonata_page_content %}
+        {% block notice %}
+            {% for notice_level in ['success','error','info', 'warning'] %}
+                {% set session_var = 'sonata_flash_' ~ notice_level %}
+                {% for flash in app.session.flashbag.get(session_var) %}
+                    <div class="alert {{ 'alert-' ~ notice_level }}">
+                        {{ flash|trans([], 'SonataAdminBundle') }}
+                    </div>
                 {% endfor %}
-            {% endblock %}
+            {% endfor %}
+        {% endblock %}
 
-            <div class="row-fluid">
+        <div class="row-fluid">
 
-                <div class="content {{ _side_menu is not empty ? ' span10' : 'span12' }}">
-                    {% block sonata_admin_content %}
+            <div class="content {{ _side_menu is not empty ? ' span10' : 'span12' }}">
+                {% block sonata_admin_content %}
 
-                        {% if _preview is not empty %}
-                            <div class="sonata-ba-preview">
-                                {{ _widget_title|raw }}
-                                {{ _preview|raw }}</div>
+                    {% if _preview is not empty %}
+                        <div class="sonata-ba-preview">
+                            {{ _widget_title|raw }}
+                            {{ _preview|raw }}</div>
                         {% endif %}
 
-                        {% if _content is not empty %}
-                            <div class="sonata-ba-content">
-                                {{ _widget_title|raw }}
-                                {{ _content|raw }}</div>
+                    {% if _content is not empty %}
+                        <div class="sonata-ba-content">
+                            {{ _widget_title|raw }}
+                            {{ _content|raw }}</div>
                         {% endif %}
 
-                        {% if _show is not empty %}
-                            <div class="sonata-ba-show">
-                                {{ _widget_title|raw }}
-                                {{ _show|raw }}</div>
+                    {% if _show is not empty %}
+                        <div class="sonata-ba-show">
+                            {{ _widget_title|raw }}
+                            {{ _show|raw }}</div>
                         {% endif %}
 
-                        {% if _form is not empty %}
-                            <div class="sonata-ba-form">
+                    {% if _form is not empty %}
+                        <div class="sonata-ba-form">
+                            <div class="widget-box no-border">
+                                {{ _widget_title|raw }}
+                                {{ _form|raw }}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if _list_table is not empty or _list_filters is not empty %}
+                        <div class="row-fluid">
+                            <div class="sonata-ba-list col-sm-9 col-md-9 col-lg-9">
                                 <div class="widget-box no-border">
                                     {{ _widget_title|raw }}
-                                    {{ _form|raw }}
-                                </div>
-                            </div>
-                        {% endif %}
-
-                        {% if _list_table is not empty or _list_filters is not empty %}
-                            <div class="row-fluid">
-                                <div class="sonata-ba-list col-sm-9 col-md-9 col-lg-9">
-                                    <div class="widget-box no-border">
-                                        {{ _widget_title|raw }}
-                                        <div class="widget-body">
-                                            {{ _list_table|raw }}
-                                        </div>
+                                    <div class="widget-body">
+                                        {{ _list_table|raw }}
                                     </div>
                                 </div>
-                                <div class="sonata-ba-filter col-sm-3 col-md-3 col-lg-3">
-                                    {{ _list_filters|raw }}
-                                </div>
                             </div>
-                        {% endif %}
+                            <div class="sonata-ba-filter col-sm-3 col-md-3 col-lg-3">
+                                {{ _list_filters|raw }}
+                            </div>
+                        </div>
+                    {% endif %}
 
-                    {% endblock %}
-                </div>
+                {% endblock %}
             </div>
+        </div>
 
-        {% endblock %}
+    {% endblock %}
 {% endblock %}
 
 {% block breadcrumbs %}
-<div class="breadcrumbs">
-    {% if _breadcrumb is not empty or action is defined %}
-        <div class="col-sm-8 col-md-8 col-lg-8">
-            <ul class="breadcrumb">
-                {% if _breadcrumb is empty %}
-                    {% if action is defined %}
-                        {% for menu in admin.breadcrumbs(action) %}
-                            {% if not loop.last  %}
-                                <li>
-                                    {% if menu.uri is not empty %}
-                                        <a href="{{ menu.uri }}">{{ menu.label }}</a>
-                                    {% else %}
-                                        {{ menu.label }}
+    <div class="breadcrumbs">
+        {% if _breadcrumb is not empty or action is defined %}
+            <div class="col-sm-8 col-md-8 col-lg-8">
+                <ul class="breadcrumb">
+                    {% if _breadcrumb is empty %}
+                        {% if action is defined %}
+                            {% for menu in admin.breadcrumbs(action) %}
+                                {% if not loop.last  %}
+                                    <li>
+                                        {% if menu.uri is not empty %}
+                                            <a href="{{ menu.uri }}">{{ menu.label }}</a>
+                                        {% else %}
+                                            {{ menu.label }}
+                                        {% endif %}
+                                    </li>
+                                {% else %}
+                                    <li class="active">{{ menu.label }}</li>
                                     {% endif %}
-                                </li>
-                            {% else %}
-                                <li class="active">{{ menu.label }}</li>
+                                {% endfor %}
                             {% endif %}
-                        {% endfor %}
-                    {% endif %}
-                {% else %}
-                    {{ _breadcrumb|raw }}
-                {% endif %}
-            </ul>
-        </div>
-    {% endif %}
-</div>
+                        {% else %}
+                            {{ _breadcrumb|raw }}
+                        {% endif %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}
