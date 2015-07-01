@@ -286,6 +286,11 @@ class User implements AdvancedUserInterface
         $this->salt = User::_resetSalt(array($this->name,$this->email));
     }
 
+    /**
+     *
+     * @param type $fields
+     * @return type
+     */
     static public function _resetSalt($fields = array())
     {
         return sha1(implode("",$fields).microtime());
@@ -299,6 +304,10 @@ class User implements AdvancedUserInterface
 
     }
 
+    /**
+     *
+     * @return boolean
+     */
     public function isOnlyApi()
     {
         $roles = $this->getRoles();
@@ -318,12 +327,20 @@ class User implements AdvancedUserInterface
         return true;
     }
 
+    /**
+     *
+     * @return boolean
+     */
     public function isOnlyAdmin()
     {
         $roles = $this->getRoles();
         return (count($roles) == 1 && in_array('ROLE_ADMIN', $roles));
     }
 
+    /**
+     *
+     * @return boolean
+     */
     public function isOnlyImport()
     {
         $roles = $this->getRoles();
@@ -343,6 +360,10 @@ class User implements AdvancedUserInterface
         return true;
     }
 
+    /**
+     *
+     * @param array $roles
+     */
     public function adjustRoles(array $roles)
     {
         if (in_array('ROLE_SITE', $roles)) {
@@ -362,13 +383,17 @@ class User implements AdvancedUserInterface
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getRoles()
     {
         $roles = array();
 
         // what happens if this returns null??
-        foreach($this->acls as $acl)
+        foreach($this->acls as $acl) {
             $roles = array_merge($roles,$acl->getType()->getAsCredential());
+        }
 
         $this->adjustRoles($roles);
 
