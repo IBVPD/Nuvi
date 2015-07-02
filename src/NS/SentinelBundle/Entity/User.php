@@ -2,20 +2,22 @@
 
 namespace NS\SentinelBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Security\Core\User\AdvancedUserInterface;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\ExecutionContextInterface;
-use NS\SentinelBundle\Form\Types\Role;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use \Doctrine\Common\Collections\ArrayCollection;
+use \Doctrine\Common\Collections\Collection;
+use \Doctrine\ORM\Mapping as ORM;
+use \NS\SentinelBundle\Form\Types\Role;
+use \NS\SentinelBundle\Validators as LocalAssert;
+use \Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use \Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use \Symfony\Component\Validator\Constraints as Assert;
+use \Symfony\Component\Validator\ExecutionContextInterface;
 
 /**
  * User
  *
  * @ORM\Table(name="users",uniqueConstraints={@ORM\UniqueConstraint(name="email_idx",columns={"email"})})
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\UserRepository")
- * @Assert\Callback(methods={"validate"})
+ * @LocalAssert\UserAcl()
  * @UniqueEntity("email")
  * @SuppressWarnings(PHPMD.ShortVariable)
  */
@@ -69,9 +71,9 @@ class User implements AdvancedUserInterface
 
     /**
      *
-     * @var ACL $acls
+     * @var \NS\SentinelBundle\Entity\ACL $acls
      * 
-     * @ORM\OneToMany(targetEntity="ACL", mappedBy="user", fetch="EAGER",cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="\NS\SentinelBundle\Entity\ACL", mappedBy="user", fetch="EAGER",cascade={"persist"}, orphanRemoval=true)
      * @ORM\JoinColumn(name="id",referencedColumnName="user_id")
      */
     private $acls;
@@ -466,7 +468,7 @@ class User implements AdvancedUserInterface
      * @param \NS\SentinelBundle\Entity\ACL $acls
      * @return User
      */
-    public function addAcl(ACL $acls)
+    public function addAcl(\NS\SentinelBundle\Entity\ACL $acls)
     {
         $this->acls[] = $acls;
 
@@ -478,7 +480,7 @@ class User implements AdvancedUserInterface
      *
      * @param \NS\SentinelBundle\Entity\ACL $acls
      */
-    public function removeAcl(ACL $acls)
+    public function removeAcl(\NS\SentinelBundle\Entity\ACL $acls)
     {
         $this->acls->removeElement($acls);
     }
@@ -486,7 +488,7 @@ class User implements AdvancedUserInterface
     /**
      * Get acls
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return Collection
      */
     public function getAcls()
     {
@@ -654,42 +656,7 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * @param ExecutionContextInterface $context
-     */
-    public function validate(ExecutionContextInterface $context)
-    {
-        if (count($this->acls) == 0) {
-            if ($this->getCanCreateCases()) {
-                $context->addViolationAt('canCreateCases', "The user is designated as able to create cases but has no roles");
-            }
-
-            if ($this->getCanCreateLabs()) {
-                $context->addViolationAt('canCreateLabs', "The user is designated as able to create labs but has no roles");
-            }
-
-            if ($this->getCanCreateNLLabs()) {
-                $context->addViolationAt('canCreateNLLabs', "The user is designated as able to create national lab records but has no roles");
-            }
-
-            if ($this->getCanCreateRRLLabs()) {
-                $context->addViolationAt('canCreateRRLLabs', "The user is designated as able to create reference lab records but has no roles");
-            }
-        }
-
-        if ($this->getCanCreateRRLLabs() && !$this->hasReferenceLab()) {
-            $context->addViolationAt('referenceLab', "The user is designated as able to create reference lab records but no reference lab has been linked");
-        }
-
-        foreach ($this->acls as $acl) {
-            if ($acl->getType()->getValue() == Role::RRL_LAB && !$this->hasReferenceLab()) {
-                $context->addViolationAt('acls', "The user is designated as able to create reference lab records but no reference lab has been linked");
-                break;
-            }
-        }
-    }
-
-    /**
-     * @return NS\SentinelBundle\Entity\ReferenceLab
+     * @return \NS\SentinelBundle\Entity\ReferenceLab
      */
     public function getReferenceLab()
     {
