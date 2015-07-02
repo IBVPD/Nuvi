@@ -215,12 +215,15 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
      */
     public function equal($compared)
     {
-        if(is_numeric($compared))
+        if (is_numeric($compared)) {
             return ($compared == $this->current);
-        else if(is_string($compared))
+        }
+        elseif (is_string($compared)) {
             return (array($compared) == $this->getAsCredential());
-        else if($compared instanceof Role)
-            return ($compared->getValue () == $this->current);
+        }
+        elseif ($compared instanceof Role) {
+            return ($compared->getValue() == $this->current);
+        }
 
         return false;
     }
