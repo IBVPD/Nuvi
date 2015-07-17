@@ -30,7 +30,7 @@ class Result
 
     /**
      * @var Map $map
-     * @ORM\ManyToOne(targetEntity="Map",inversedBy="results")
+     * @ORM\ManyToOne(targetEntity="Map")
      */
     private $map;
 
