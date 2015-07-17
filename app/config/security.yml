@@ -75,7 +75,17 @@ security:
         - { path: ^/authorize, roles: ROLE_API }
         - { path: ^/oauth, roles: ROLE_API }
         - { path: '^/[^/]+/doc/api', roles: [ ROLE_API, ROLE_USER ], requires_channel: https }
-        - { path: ^/api, roles: ROLE_API, requires_channel: https }
+        - { path: '/api/ibd/[A-Z0-9-]+/rrl', roles: [ ROLE_CAN_CREATE_RRL_LAB ], methods: [ PUT, POST, PATCH ], requires_channel: https }
+        - { path: '/api/ibd/[A-Z0-9-]+/nl', roles: [ ROLE_CAN_CREATE_NL_LAB ], methods: [ PUT, POST, PATCH ], requires_channel: https }
+        - { path: '/api/ibd/[A-Z0-9-]+/lab', roles: [ ROLE_CAN_CREATE_LAB ], methods: [ PUT, POST, PATCH ], requires_channel: https }
+        - { path: '/api/ibd/[A-Z0-9-]+/outcome', roles: [ ROLE_CAN_CREATE_CASE ], methods: [ PUT, POST, PATCH ], requires_channel: https }
+        - { path: '/api/ibd/[A-Z0-9-]+', roles: [ ROLE_CAN_CREATE_CASE ], methods: [ PUT, POST, PATCH ], requires_channel: https }
+        - { path: '/api/rota/[A-Z0-9-]+/rrl', roles: [ ROLE_CAN_CREATE_RRL_LAB ], methods: [ PUT, POST, PATCH ], requires_channel: https }
+        - { path: '/api/rota/[A-Z0-9-]+/nl', roles: [ ROLE_CAN_CREATE_NL_LAB ], methods: [ PUT, POST, PATCH ], requires_channel: https }
+        - { path: '/api/rota/[A-Z0-9-]+/lab', roles: [ ROLE_CAN_CREATE_LAB ], methods: [ PUT, POST, PATCH ], requires_channel: https }
+        - { path: '/api/rota/[A-Z0-9-]+/outcome', roles: [ ROLE_CAN_CREATE_CASE ], methods: [ PUT, POST, PATCH ], requires_channel: https }
+        - { path: '/api/rota/[A-Z0-9-]+', roles: [ ROLE_CAN_CREATE_CASE ], methods: [ PUT, POST, PATCH ], requires_channel: https }
+        - { path: ^/api, roles: ROLE_API, requires_channel: https, methods: [ GET ] }
         - { path: ^/_trans, roles: ROLE_ADMIN }
         - { path: '^/[^/]+/import', roles: [ ROLE_IMPORT] }
         - { path: '^/[^/]+/admin', roles: ROLE_ADMIN }
