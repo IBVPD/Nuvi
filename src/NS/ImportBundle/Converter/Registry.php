@@ -14,7 +14,9 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class Registry extends AbstractType
 {
     private $converters;
+
     private $values;
+
     private $sorted = false;
 
     /**
@@ -43,8 +45,7 @@ class Registry extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        if(!$this->sorted)
-        {
+        if (!$this->sorted) {
             asort($this->values);
             $this->sorted = true;
         }
@@ -62,10 +63,10 @@ class Registry extends AbstractType
      */
     public function getConverterForField(array $field)
     {
-        foreach($this->values as $id => $converter)
-        {
-            if($converter == $field['type'])
+        foreach ($this->values as $id => $converter) {
+            if ($converter == $field['type']) {
                 return $id;
+            }
         }
 
         return null;

@@ -14,11 +14,19 @@ class ClassType extends AbstractType
 {
     private $choices;
 
+    /**
+     * Constructor
+     *
+     * @param array $choices
+     */
     public function __construct(array $choices = array())
     {
         $this->choices = $choices;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
@@ -27,11 +35,17 @@ class ClassType extends AbstractType
         ));
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getParent()
     {
         return 'choice';
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'ClassType';

@@ -68,6 +68,12 @@ class MapBuilder
         }
     }
 
+    /**
+     * @param Column $column
+     * @param string $name
+     * @param object $target
+     * @return null
+     */
     public function updateMapper(Column $column, $name, $target)
     {
         $temp   = $this->camelCase($name);
@@ -87,6 +93,10 @@ class MapBuilder
         return;
     }
 
+    /**
+     * @param string $input
+     * @return string
+     */
     public function camelCase($input)
     {
         if (empty($input)) {
