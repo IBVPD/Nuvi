@@ -1,8 +1,23 @@
 parameters:
-#    ns_import.example.class: NS\ImportBundle\Example
   ns_import.map.classes: { }
 
 services:
+    ns_import.converter.columns:
+        class: NS\ImportBundle\Converter\ColumnChooser
+        arguments: [ @doctrine.orm.entity_manager, @doctrine_cache.providers.my_phpfile_cache ]
+
+    ns_import.form.type.ibd_columns:
+        class: NS\ImportBundle\Form\Type\IBDColumnType
+        arguments: [ @ns_import.converter.columns, 'NS\SentinelBundle\Entity\IBD' ]
+        tags:
+            - { name: form.type, alias: ibd_columns }
+
+    ns_import.form.type.rota_columns:
+        class: NS\ImportBundle\Form\Type\RotavirusColumnType
+        arguments: [ @ns_import.converter.columns, 'NS\SentinelBundle\Entity\RotaVirus' ]
+        tags:
+            - { name: form.type, alias: rota_columns }
+
     ns_import.services.map_builder:
         class: NS\ImportBundle\Services\MapBuilder
         calls:

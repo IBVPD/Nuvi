@@ -17,8 +17,8 @@ class DuplicateTest extends \PHPUnit_Framework_TestCase
         $paramsTwo    = array('site' => 'sIteCode', 'caseId' => '12223');
 
         $duplicate    = new \NS\ImportBundle\Filter\Duplicate($uniqueFields);
-        $this->assertTrue($duplicate->filter($paramsOne), "First set of params is not a duplicate");
-        $this->assertFalse($duplicate->filter($paramsTwo), "Second set of params is a duplicate");
+        $this->assertTrue($duplicate->__invoke($paramsOne), "First set of params is not a duplicate");
+        $this->assertFalse($duplicate->__invoke($paramsTwo), "Second set of params is a duplicate");
     }
 
     public function testDuplicateTextOnlyItemIsDetected()
@@ -26,8 +26,8 @@ class DuplicateTest extends \PHPUnit_Framework_TestCase
         $uniqueFields = array('site', 'caseId');
         $params       = array('site' => 'sitecode', 'caseId' => '12223');
         $duplicate    = new \NS\ImportBundle\Filter\Duplicate($uniqueFields);
-        $this->assertTrue($duplicate->filter($params), "First set of params is not a duplicate");
-        $this->assertFalse($duplicate->filter($params), "Second set of params is a duplicate");
+        $this->assertTrue($duplicate->__invoke($params), "First set of params is not a duplicate");
+        $this->assertFalse($duplicate->__invoke($params), "Second set of params is a duplicate");
     }
 
     public function testDuplicateObjectItemIsDetected()
@@ -39,8 +39,8 @@ class DuplicateTest extends \PHPUnit_Framework_TestCase
         $uniqueFields = array('getcode' => 'site', 'caseId');
         $params       = array('site' => $site, 'caseId' => '12223');
         $duplicate    = new \NS\ImportBundle\Filter\Duplicate($uniqueFields);
-        $this->assertTrue($duplicate->filter($params), "First set of params is not a duplicate");
-        $this->assertFalse($duplicate->filter($params), "Second set of params is a duplicate");
+        $this->assertTrue($duplicate->__invoke($params), "First set of params is not a duplicate");
+        $this->assertFalse($duplicate->__invoke($params), "Second set of params is a duplicate");
         $duplicateArray = $duplicate->toArray();
 
         $this->assertCount(1, $duplicateArray);

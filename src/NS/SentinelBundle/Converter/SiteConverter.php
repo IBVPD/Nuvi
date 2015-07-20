@@ -32,7 +32,7 @@ class SiteConverter implements NamedValueConverterInterface
      * @return Site
      * @throws NonExistentSite
      */
-    public function convert($input)
+    public function __invoke($input)
     {
         if (!$this->initialized) {
             $this->initialize();

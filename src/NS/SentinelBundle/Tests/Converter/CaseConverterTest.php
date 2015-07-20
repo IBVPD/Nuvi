@@ -29,7 +29,7 @@ class CaseConverterTest extends \PHPUnit_Framework_TestCase
             ->willReturn($stdClass);
 
         $converter    = new CaseConverter($entityMgr, 'stdClass', 'Standard');
-        $convertedObj = $converter->convert('one');
+        $convertedObj = $converter->__invoke('one');
         $this->assertInstanceOf('\stdClass', $convertedObj);
         $this->assertEquals($stdClass, $convertedObj);
     }
@@ -53,7 +53,7 @@ class CaseConverterTest extends \PHPUnit_Framework_TestCase
             ->willReturn($repository);
         
         $converter = new CaseConverter($entityMgr,'stdClass','NonStandard');
-        $this->assertTrue($converter->convert($params));
+        $this->assertTrue($converter->__invoke($params));
     }
 
     /**
@@ -63,7 +63,7 @@ class CaseConverterTest extends \PHPUnit_Framework_TestCase
     {
         $stdObj    = new \stdClass();
         $converter = new CaseConverter($this->getEntityManager(), 'stdClass', 'Standard');
-        $converter->convert($stdObj);
+        $converter->__invoke($stdObj);
     }
 
     public function getEntityManager()

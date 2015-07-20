@@ -22,7 +22,7 @@ class DateTimeValueConverterTest extends \PHPUnit_Framework_TestCase
     {
         $converter = new DateTimeValueConverter('Y-m-d|');
         $dateObj   = new \DateTime('2014-01-10');
-        $this->assertEquals($dateObj, $converter->convert($dateObj->format('Y-m-d')));
+        $this->assertEquals($dateObj, $converter->__invoke($dateObj->format('Y-m-d')));
     }
 
     /**
@@ -32,6 +32,6 @@ class DateTimeValueConverterTest extends \PHPUnit_Framework_TestCase
     {
         $converter = new DateTimeValueConverter('Y-m-d');
         $dateStr   = '2014/10/01';
-        $this->assertEquals(new \DateTime('2014-10-01'), $converter->convert($dateStr));
+        $this->assertEquals(new \DateTime('2014-10-01'), $converter->__invoke($dateStr));
     }
 }

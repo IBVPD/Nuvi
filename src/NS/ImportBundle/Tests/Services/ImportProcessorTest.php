@@ -3,9 +3,8 @@
 namespace NS\ImportBundle\Tests\Services;
 
 use \Ddeboer\DataImport\Reader\ArrayReader;
-use \Ddeboer\DataImport\Writer\ArrayWriter;
 use \Ddeboer\DataImport\Workflow;
-use \InvalidArgumentException;
+use \Ddeboer\DataImport\Writer\ArrayWriter;
 use \Liip\FunctionalTestBundle\Test\WebTestCase;
 use \NS\ImportBundle\Entity\Column;
 use \NS\ImportBundle\Entity\Map;
@@ -17,7 +16,6 @@ use \NS\ImportBundle\Filter\NotBlank;
 use \NS\ImportBundle\Filter\NotBlankFilterFactory;
 use \NS\ImportBundle\Services\ImportProcessor;
 use \Symfony\Component\HttpFoundation\File\File;
-use \Ddeboer\DataImport\Exception\UnexpectedValueException;
 
 /**
  * Description of ImportProcessorTest
@@ -431,11 +429,11 @@ class ImportProcessorTest extends WebTestCase
         $processor->setNotBlank(new NotBlank('date'));
         $reader    = $processor->getReader($import);
 
-        $this->assertInstanceOf('\Ddeboer\DataImport\Reader\ReaderInterface', $reader);
+        $this->assertInstanceOf('\Ddeboer\DataImport\Reader\CsvReader', $reader);
         $this->assertCount(2, $reader);
 
         $outputData = array();
-        $workflow   = new Workflow($reader);
+        $workflow   = new Workflow\StepAggregator($reader);
         $workflow->setSkipItemOnFailure(true);
         $workflow->addWriter(new ArrayWriter($outputData));
 
@@ -457,7 +455,7 @@ class ImportProcessorTest extends WebTestCase
         $processor = new ImportProcessor($container, new DuplicateFilterFactory(), new NotBlankFilterFactory(), new LinkerFilterFactory(array()));
         $processor->setNotBlank(new NotBlank("caseId"));
         $this->assertInstanceOf('NS\ImportBundle\Filter\NotBlank', $processor->getNotBlank());
-        $this->assertInstanceOf('\Ddeboer\DataImport\Filter\FilterInterface', $processor->getNotBlank());
+//        $this->assertInstanceOf('\Ddeboer\DataImport\Filter\FilterInterface', $processor->getNotBlank());
         $this->assertTrue(is_array($processor->getNotBlank()->fields));
         $this->assertEquals(array('caseId'), $processor->getNotBlank()->fields);
     }
@@ -470,9 +468,9 @@ class ImportProcessorTest extends WebTestCase
         $notBlankArr = new NotBlank(array("field"));
         $this->assertEquals(array('field'), $notBlankArr->fields);
 
-        $this->assertTrue($notBlankArr->filter(array('field' => '1', 'something' => 2)));
-        $this->assertFalse($notBlankArr->filter(array('field' => null, 'something' => 2)));
-        $this->assertFalse($notBlankArr->filter(array('field' => '', 'something' => 2)));
+        $this->assertTrue($notBlankArr->__invoke(array('field' => '1', 'something' => 2)));
+        $this->assertFalse($notBlankArr->__invoke(array('field' => null, 'something' => 2)));
+        $this->assertFalse($notBlankArr->__invoke(array('field' => '', 'something' => 2)));
     }
 
     public function testDefaultValues()
@@ -562,10 +560,10 @@ class ImportProcessorTest extends WebTestCase
         $this->assertCount(2,$converters);
 //        $this->assertEquals('Site',end($converters)->getName());
 
-        $this->assertInstanceOf('\Ddeboer\DataImport\Reader\ReaderInterface', $reader);
+        $this->assertInstanceOf('\Ddeboer\DataImport\Reader\ArrayReader', $reader);
 
         $outputData = array();
-        $workflow   = new Workflow($reader);
+        $workflow   = new Workflow\StepAggregator($reader);
         $workflow->setSkipItemOnFailure(true);
         $workflow->addWriter(new ArrayWriter($outputData));
 

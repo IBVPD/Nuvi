@@ -2,14 +2,12 @@
 
 namespace NS\ImportBundle\Filter;
 
-use \Ddeboer\DataImport\Filter\FilterInterface;
-
 /**
  * Description of NotBlank
  *
  * @author gnat
  */
-class NotBlank implements FilterInterface
+class NotBlank
 {
     public $fields;
 
@@ -28,12 +26,10 @@ class NotBlank implements FilterInterface
      *
      * @return boolean If false is returned, the workflow will skip the input
      */
-    public function filter(array $item)
+    public function __invoke(array $item)
     {
-        foreach ($this->fields as $field)
-        {
-            if (empty($item[$field]))
-            {
+        foreach ($this->fields as $field) {
+            if (empty($item[$field])) {
                 return false;
             }
         }

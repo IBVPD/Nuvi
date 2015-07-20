@@ -309,14 +309,12 @@ nelmio_api_doc:
 ns_import:
   classes:
     NS\SentinelBundle\Entity\IBD: IBD
-    NS\SentinelBundle\Entity\IBD\SiteLab: IBD Site Lab
-    NS\SentinelBundle\Entity\IBD\ReferenceLab: IBD Reference Lab
-    NS\SentinelBundle\Entity\IBD\NationalLab: IBD National Lab
     NS\SentinelBundle\Entity\RotaVirus: Rotavirus
-    NS\SentinelBundle\Entity\Rota\SiteLab: Rotavirus Site Lab
-    NS\SentinelBundle\Entity\Rota\ReferenceLab: Rotavirus Reference Lab
-    NS\SentinelBundle\Entity\Rota\NationalLab: Rotavirus National Lab
 
+doctrine_cache:
+    providers:
+        my_phpfile_cache:
+            type: php_file
 deploy:
   prodwhodemo:
     rsync-options: '-azC --force --delete --progress -h --checksum'

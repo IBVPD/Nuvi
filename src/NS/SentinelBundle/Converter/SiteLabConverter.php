@@ -2,16 +2,16 @@
 
 namespace NS\SentinelBundle\Converter;
 
-use Ddeboer\DataImport\ValueConverter\ValueConverterInterface;
-use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\ORM\NoResultException;
+use \Doctrine\Common\Persistence\ObjectManager;
+use \Doctrine\ORM\NoResultException;
+use \NS\ImportBundle\Converter\NamedValueConverterInterface;
 
 /**
  * Description of SiteLabConverter
  *
  * @author gnat
  */
-class SiteLabConverter implements ValueConverterInterface
+class SiteLabConverter implements NamedValueConverterInterface
 {
     private $entityMgr;
     private $repository;
@@ -31,7 +31,7 @@ class SiteLabConverter implements ValueConverterInterface
     /**
      * {@inheritdoc}
      */
-    public function convert($input)
+    public function __invoke($input)
     {
         if (!$this->initialized) {
             $this->initialize();
@@ -155,5 +155,4 @@ class SiteLabConverter implements ValueConverterInterface
 
         return false;
     }
-
 }

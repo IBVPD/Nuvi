@@ -2,18 +2,26 @@
 
 namespace NS\ImportBundle\Admin;
 
-use Sonata\AdminBundle\Admin\Admin;
-use Sonata\AdminBundle\Datagrid\DatagridMapper;
-use Sonata\AdminBundle\Datagrid\ListMapper;
-use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Show\ShowMapper;
-use Sonata\AdminBundle\Route\RouteCollection;
+use \NS\ImportBundle\Services\MapBuilder;
+use \Sonata\AdminBundle\Admin\Admin;
+use \Sonata\AdminBundle\Datagrid\DatagridMapper;
+use \Sonata\AdminBundle\Datagrid\ListMapper;
+use \Sonata\AdminBundle\Form\FormMapper;
+use \Sonata\AdminBundle\Route\RouteCollection;
+use \Sonata\AdminBundle\Show\ShowMapper;
 
+/**
+ * MapAdmin class
+ */
 class MapAdmin extends Admin
 {
     private $mapBuilder;
 
-    public function setMapBuilder($mapBuilder)
+    /**
+     * @param MapBuilder $mapBuilder
+     * @return \NS\ImportBundle\Admin\MapAdmin
+     */
+    public function setMapBuilder(MapBuilder $mapBuilder)
     {
         $this->mapBuilder = $mapBuilder;
         return $this;
@@ -42,10 +50,10 @@ class MapAdmin extends Admin
             ->add('description')
             ->add('_action', 'actions', array(
                 'actions' => array(
-                    'show' => array(),
-                    'edit' => array(),
+                    'show'   => array(),
+                    'edit'   => array(),
                     'delete' => array(),
-                    'clone' => array('template'=>'NSImportBundle:MapAdmin:list__action_clone.html.twig'),
+                    'clone'  => array('template' => 'NSImportBundle:MapAdmin:list__action_clone.html.twig'),
                 )
             ))
         ;
@@ -59,15 +67,16 @@ class MapAdmin extends Admin
         $formMapper
             ->add('name')
             ->add('description')
-            ->add('class','ClassType')
+            ->add('class', 'ClassType')
             ->add('version');
 
-        $model = $this->getSubject();
-        if(!$model->getId()) {
-            $formMapper->add('file','file',array('required'=>false));
+        if (!$this->getSubject()->getId()) {
+            $formMapper->add('file', 'file', array('required' => false));
+        } else {
+            $formMapper->add('columns', 'sonata_type_collection',
+                array('by_reference' => true),
+                array('edit'=>'inline','inline'=>'table'));
         }
-
-        $formMapper->add('columns', 'sonata_type_collection', array('by_reference'=>true),array('edit'=>'inline','inline'=>'table'));
     }
 
     /**
@@ -82,26 +91,16 @@ class MapAdmin extends Admin
         ;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function prePersist($map)
     {
-        if(!$map->getId() && $map->getFile()) { // have a file so build the columns dynamically
+        if (!$map->getId() && $map->getFile()) { // have a file so build the columns dynamically
             $map = $this->mapBuilder->process($map, $this->modelManager->getMetadata($map->getClass()));
         }
-        else if($map->getColumns())
-        {
-            foreach ($map->getColumns() as $a)
-                $a->setMap($map);
-        }
-
-        return $map;
-    }
-
-    public function preUpdate($map)
-    {
-        if($map->getColumns())
-        {
-            foreach ($map->getColumns() as $a)
-            {
+        else if ($map->getColumns()) {
+            foreach ($map->getColumns() as $a) {
                 $a->setMap($map);
             }
         }
@@ -109,8 +108,25 @@ class MapAdmin extends Admin
         return $map;
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function preUpdate($map)
+    {
+        if ($map->getColumns()) {
+            foreach ($map->getColumns() as $a) {
+                $a->setMap($map);
+            }
+        }
+
+        return $map;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     protected function configureRoutes(RouteCollection $collection)
     {
-        $collection->add('clone', $this->getRouterIdParameter().'/clone');
+        $collection->add('clone', $this->getRouterIdParameter() . '/clone');
     }
 }

@@ -9,7 +9,7 @@ namespace NS\SentinelBundle\Converter;
  */
 class Doses extends ArrayChoice
 {
-    public function convert($input)
+    public function __invoke($input)
     {
         return ($input == 0) ? null : parent::convert ($input);
     }

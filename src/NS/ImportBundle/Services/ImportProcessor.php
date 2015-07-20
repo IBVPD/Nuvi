@@ -113,6 +113,7 @@ class ImportProcessor
     /**
      * @param Result $import
      * @return ReaderInterface
+     * @throws \InvalidArgumentException
      */
     public function getReader(Result $import)
     {
@@ -126,8 +127,9 @@ class ImportProcessor
         $columns = $import->getMap()->getColumns();
 
         foreach ($columns as $column) {
-            if ($column->getName() != $fields[$column->getOrder()])
+            if ($column->getName() != $fields[$column->getOrder()]) {
                 throw new InvalidArgumentException(sprintf("%s != %s probably the wrong file or missing headers", $fields[$column->getOrder()], $column->getName()));
+            }
         }
 
         return $csvReader;

@@ -2,15 +2,49 @@
 
 namespace NS\ImportBundle\Converter;
 
-use \Ddeboer\DataImport\Step\MappingStep;
+use \Ddeboer\DataImport\Step;
+use \Symfony\Component\PropertyAccess\PropertyAccessor;
 
 /**
  * Description of UnsetMappingItemConverter
  *
  * @author gnat
  */
-class UnsetMappingItemConverter extends MappingStep
+class UnsetMappingItemConverter implements Step
 {
+    /**
+     * @var array
+     */
+    private $mappings = [];
+
+    /**
+     * @var PropertyAccessor
+     */
+    private $accessor;
+
+    /**
+     * @param array            $mappings
+     * @param PropertyAccessor $accessor
+     */
+    public function __construct(array $mappings = [], PropertyAccessor $accessor = null)
+    {
+        $this->mappings = $mappings;
+        $this->accessor = $accessor ?: new PropertyAccessor();
+    }
+
+    /**
+     * @param string $from
+     * @param string $to
+     *
+     * @return $this
+     */
+    public function map($from, $to)
+    {
+        $this->mappings[$from] = $to;
+
+        return $this;
+    }
+
     /**
      * {@inheritdoc}
      */

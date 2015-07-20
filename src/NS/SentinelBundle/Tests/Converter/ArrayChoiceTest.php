@@ -70,7 +70,7 @@ class ArrayChoiceTest extends \PHPUnit_Framework_TestCase
         $converter = new ArrayChoice($class);
         $this->assertEquals($name, $converter->getName());
         $obj->getValues();
-        $converter->convert(-12);
+        $converter->__invoke(-12);
     }
 
     /**
@@ -86,12 +86,12 @@ class ArrayChoiceTest extends \PHPUnit_Framework_TestCase
         $values    = $obj->getValues();
 
         foreach (array_keys($values) as $key) {
-            $convertedObj = $converter->convert($key);
+            $convertedObj = $converter->__invoke($key);
             $this->assertInstanceOf($class, $convertedObj);
             $this->assertEquals($key, $convertedObj->getValue());
         }
 
-        $convertedObj = $converter->convert(' ');
+        $convertedObj = $converter->__invoke(' ');
         $this->assertInstanceOf($class, $convertedObj);
         $this->assertEquals(-1, $convertedObj->getValue());
     }
@@ -102,7 +102,7 @@ class ArrayChoiceTest extends \PHPUnit_Framework_TestCase
         $genders   = array(Gender::MALE => "M = Masculino", Gender::FEMALE => "F = Femenino");
 
         foreach ($genders as $intType => $strType) {
-            $convertedObj = $converter->convert($strType);
+            $convertedObj = $converter->__invoke($strType);
             $this->assertEquals($intType, $convertedObj->getValue());
         }
     }
@@ -119,7 +119,7 @@ class ArrayChoiceTest extends \PHPUnit_Framework_TestCase
         $converter = new ArrayChoice('NS\SentinelBundle\Form\Types\TripleChoice');
 
         foreach ($values as $intType => $strType) {
-            $convertedObj = $converter->convert($strType);
+            $convertedObj = $converter->__invoke($strType);
             $this->assertEquals($intType, $convertedObj->getValue());
         }
     }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7da9b22533c4930875ff9fe29f404df9",
+    "hash": "5c98a4af940bf94c2964f21e4a5d90ea",
     "packages": [
         {
             "name": "adoy/oauth2",
@@ -213,31 +213,33 @@
         },
         {
             "name": "ddeboer/data-import",
-            "version": "dev-gnat-steps",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/gnat42/data-import.git",
-                "reference": "a3f8e223a1650c2dc11195d62408e4497e4cb173"
+                "url": "https://github.com/ddeboer/data-import.git",
+                "reference": "043baa8a6c82412972eae7b156774906b6a577a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gnat42/data-import/zipball/a3f8e223a1650c2dc11195d62408e4497e4cb173",
-                "reference": "a3f8e223a1650c2dc11195d62408e4497e4cb173",
+                "url": "https://api.github.com/repos/ddeboer/data-import/zipball/043baa8a6c82412972eae7b156774906b6a577a6",
+                "reference": "043baa8a6c82412972eae7b156774906b6a577a6",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0",
+                "php": ">=5.4.0",
                 "psr/log": "~1.0"
             },
             "require-dev": {
-                "doctrine/dbal": "*",
-                "doctrine/orm": "*",
+                "doctrine/dbal": "~2.4",
+                "doctrine/orm": "~2.4",
                 "ext-iconv": "*",
                 "ext-mbstring": "*",
                 "ext-sqlite3": "*",
+                "henrikbjorn/phpspec-code-coverage": "~1.0",
                 "phpoffice/phpexcel": "*",
+                "phpspec/phpspec": "~2.1",
                 "symfony/console": "~2.5.0",
-                "symfony/property-access": "*",
+                "symfony/property-access": "~2.5",
                 "symfony/validator": "~2.3.0"
             },
             "suggest": {
@@ -251,21 +253,23 @@
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "Ddeboer\\DataImport": "src"
+                "psr-4": {
+                    "Ddeboer\\DataImport\\": "src/",
+                    "Ddeboer\\DataImport\\Tests\\": "tests/"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
             "authors": [
                 {
-                    "name": "David de Boer",
-                    "email": "david@ddeboer.nl"
-                },
-                {
                     "name": "The community",
                     "homepage": "https://github.com/ddeboer/data-import/graphs/contributors"
+                },
+                {
+                    "name": "David de Boer",
+                    "email": "david@ddeboer.nl"
                 }
             ],
             "description": "Import data from, and export data to, a range of file formats and media",
@@ -277,11 +281,7 @@
                 "export",
                 "import"
             ],
-            "support": {
-                "issues": "https://github.com/ddeboer/data-import/issues",
-                "source": "https://github.com/ddeboer/data-import"
-            },
-            "time": "2015-04-17 04:48:37"
+            "time": "2015-05-30 08:46:44"
         },
         {
             "name": "ddeboer/data-import-bundle",
@@ -3067,17 +3067,21 @@
         },
         {
             "name": "ns/ace-bundle",
-            "version": "1.2.x-dev",
+            "version": "1.3.11",
             "target-dir": "NS/AceBundle",
             "source": {
                 "type": "git",
                 "url": "git@gitlab.noblet.ca:nobletsolutions/ace-bundle.git",
-                "reference": "42abc02ea09de07e74545e13bd336e06e464abaa"
+                "reference": "9e7df1b465220fc7b28c92a09b0d43e31bf43acb"
             },
             "require": {
                 "jms/translation-bundle": "~1.1",
                 "php": ">=5.3.2",
                 "symfony/symfony": ">=2.1"
+            },
+            "require-dev": {
+                "liip/rmt": "~1.1",
+                "phpunit/phpunit": "~4.0"
             },
             "suggest": {
                 "punkave/symfony2-file-uploader-bundle": "Allows for drag & drop or multiple file upload"
@@ -3099,7 +3103,7 @@
                 }
             ],
             "description": "This bundle provides bootstrap template",
-            "time": "2015-01-28 23:26:10"
+            "time": "2015-07-20 20:19:11"
         },
         {
             "name": "ns/flash-bundle",
@@ -6558,7 +6562,6 @@
         "sonata-project/core-bundle": 20,
         "ns/util-bundle": 20,
         "ns/security-bundle": 20,
-        "ns/ace-bundle": 20,
         "ns/flash-bundle": 20,
         "jms/translation-bundle": 20,
         "doctrine/doctrine-fixtures-bundle": 20,

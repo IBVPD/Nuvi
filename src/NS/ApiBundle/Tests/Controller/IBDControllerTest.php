@@ -106,7 +106,7 @@ class IBDControllerTest extends WebTestCase
         $client->request('PATCH', $route, array(), array(), array(), '{"ibd_referencelab":{"labId":"ANewCaseId","sampleType":1}}');
 
         $response = $client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertEquals(403, $response->getStatusCode());
         $this->assertFalse($response->headers->has('Location'), "We have a location header");
 
         $client->request('GET', $this->getRoute('nsApiIbdGetRRL'));
@@ -125,7 +125,7 @@ class IBDControllerTest extends WebTestCase
         $client->request('PUT', $route, array(), array(), array(), '{"ibd_referencelab":{"labId":"ANewCaseId","sampleType":2}}');
 
         $response = $client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertEquals(403, $response->getStatusCode());
         $this->assertFalse($response->headers->has('Location'), "We have a location header");
 
         $client->request('GET', $this->getRoute('nsApiIbdGetRRL'));

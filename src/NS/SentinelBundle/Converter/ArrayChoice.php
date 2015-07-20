@@ -39,7 +39,7 @@ class ArrayChoice implements NamedValueConverterInterface
      * @return object 
      * @throws UnexpectedValueException
      */
-    public function convert($value)
+    public function __invoke($value)
     {
         $input = (is_string($value)) ? trim($value) : $value;
         if ($input !== 0 && (empty($input) || !is_numeric($input))) {

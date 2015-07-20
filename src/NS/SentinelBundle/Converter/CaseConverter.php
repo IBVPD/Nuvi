@@ -34,7 +34,7 @@ class CaseConverter implements NamedValueConverterInterface
      * @param string $input
      * {@inheritdoc}
      */
-    public function convert($input)
+    public function __invoke($input)
     {
         if (is_string($input)) {
             return $this->entityMgr->find($this->className, $input);

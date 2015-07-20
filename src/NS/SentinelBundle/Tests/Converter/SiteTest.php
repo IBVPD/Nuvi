@@ -19,11 +19,11 @@ class SiteTest extends \PHPUnit_Framework_TestCase
         $entityMgr = $this->getMockObjectManager();
         $converter = new \NS\SentinelBundle\Converter\SiteConverter($entityMgr);
 
-        $convertedObj = $converter->convert('S1');
+        $convertedObj = $converter->__invoke('S1');
         $this->assertInstanceOf('NS\SentinelBundle\Entity\Site', $convertedObj);
         $this->assertEquals('S1', $convertedObj->getCode());
 
-        $convertedObj = $converter->convert('S2');
+        $convertedObj = $converter->__invoke('S2');
         $this->assertInstanceOf('NS\SentinelBundle\Entity\Site', $convertedObj);
         $this->assertEquals('S2', $convertedObj->getCode());
 
@@ -38,7 +38,7 @@ class SiteTest extends \PHPUnit_Framework_TestCase
         $entityMgr = $this->getMockObjectManager();
         $converter = new \NS\SentinelBundle\Converter\SiteConverter($entityMgr);
 
-        $converter->convert('S4');
+        $converter->__invoke('S4');
     }
 
     private function getMockObjectManager()

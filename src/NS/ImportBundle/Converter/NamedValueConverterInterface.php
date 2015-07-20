@@ -2,13 +2,11 @@
 
 namespace NS\ImportBundle\Converter;
 
-use Ddeboer\DataImport\ValueConverter\ValueConverterInterface;
-
 /**
  *
  * @author gnat
  */
-interface NamedValueConverterInterface extends ValueConverterInterface
+interface NamedValueConverterInterface
 {
     public function getName();
 }

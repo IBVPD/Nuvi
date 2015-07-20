@@ -2,26 +2,21 @@
 
 namespace NS\ImportBundle\Filter;
 
-use Ddeboer\DataImport\Exception\UnexpectedValueException;
-use Ddeboer\DataImport\Filter\FilterInterface;
-use Doctrine\Common\Collections\ArrayCollection;
+use \Ddeboer\DataImport\Exception\UnexpectedValueException;
+use \Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Description of Duplicate
  *
  * @author gnat
  */
-class Duplicate implements FilterInterface
+class Duplicate
 {
     private $items;
 
     private $fields;
 
     private $duplicates;
-
-    private $fd;
-
-    private $log = false;
 
     /**
      * @param array $fields
@@ -68,7 +63,7 @@ class Duplicate implements FilterInterface
      *
      * @return boolean If false is returned, the workflow will skip the input
      */
-    public function filter(array $item)
+    public function __invoke(array $item)
     {
         $field = $this->getFieldKey($item);
 
