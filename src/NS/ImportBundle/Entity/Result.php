@@ -19,7 +19,6 @@ use \Vich\UploaderBundle\Mapping\Annotation as Vich;
  */
 class Result
 {
-
     /**
      * @var integer $id
      * @ORM\Column(name="id",type="integer")

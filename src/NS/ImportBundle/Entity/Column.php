@@ -64,7 +64,7 @@ class Column
      */
     public function __toString()
     {
-        return sprintf("%s-%s (%s)",$this->name,$this->type,$this->order);
+        return sprintf("%s-%s (%s)", $this->name, $this->type, $this->order);
     }
 
     public function getId()
