@@ -54,7 +54,7 @@ class ColumnAdmin extends Admin
             ->add('order',null,array('attr'=>array('class'=>'col-xs-3')))
             ->add('converter', 'ConverterChoice', array('required' => false,'attr'=>array('class'=>'chosen-select')))
             ->add('mapper',$columns,array('required'=>false))
-            ->add('ignored', null, array('label' => 'Drop Field', 'required' => false))
+            ->add('ignored', null, array('label' => 'Drop?', 'required' => false))
         ;
     }
 
