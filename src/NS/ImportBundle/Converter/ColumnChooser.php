@@ -31,12 +31,12 @@ class ColumnChooser
     public function getChoices($class)
     {
         if (!$this->cache->contains($class)) {
-            $metaData    = $this->entityMgr->getClassMetadata($class);
-            $choices     = array('site' => 'site');
-            $siteChoices = $externLabOne = $externLabTwo = array();
+            $metaData     = $this->entityMgr->getClassMetadata($class);
+            $choices      = array('site' => 'site (Site)');
+            $siteChoices  = $externLabOne = $externLabTwo = array();
 
             foreach ($metaData->getFieldNames() as $field) {
-                $choices[$field] = sprintf('%s (%s)',$field,$metaData->getTypeOfField($field));
+                $choices[$field] = sprintf('%s (%s)', $field, $metaData->getTypeOfField($field));
             }
 
             ksort($choices);
@@ -45,15 +45,17 @@ class ColumnChooser
             $extLabMeta = $this->entityMgr->getClassMetadata($metaData->getAssociationTargetClass('externalLabs'));
 
             foreach ($siteMeta->getFieldNames() as $siteField) {
-                $field               = sprintf('siteLab.%s', $siteField);
+                $fieldType           = $siteMeta->getTypeOfField($siteField);
+                $field               = sprintf('siteLab.%s (%s)', $siteField, $fieldType);
                 $siteChoices[$field] = $field;
             }
 
             ksort($siteChoices);
 
             foreach ($extLabMeta->getFieldNames() as $externalField) {
-                $fieldOne                = sprintf('referenceLab.%s', $externalField);
-                $fieldTwo                = sprintf('nationalLab.%s', $externalField);
+                $fieldType               = $extLabMeta->getTypeOfField($externalField);
+                $fieldOne                = sprintf('referenceLab.%s (%s)', $externalField, $fieldType);
+                $fieldTwo                = sprintf('nationalLab.%s (%s)', $externalField, $fieldType);
                 $externLabOne[$fieldOne] = $fieldOne;
                 $externLabTwo[$fieldTwo] = $fieldTwo;
             }
