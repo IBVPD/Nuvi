@@ -23,13 +23,12 @@ class RegistryTest extends TypeTestCase
         );
 
         $type = new Registry();
-        foreach ($converters as $id => $converter)
+        foreach ($converters as $id => $converter) {
             $type->addConverter($id, $converter);
+        }
 
         $form = $this->factory->create($type);
         $this->assertCount(4, $form->getConfig()->getOption('choices'));
-
-        $this->assertEquals('ns_import.converter.date.who', $type->getConverterForField(array(
-                'type' => 'Date: D M d H:i:s e Y')));
+        $this->assertEquals('ns_import.converter.date.who', $type->getConverterForField('Date: D M d H:i:s e Y'));
     }
 }

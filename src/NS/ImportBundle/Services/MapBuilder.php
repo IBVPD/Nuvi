@@ -18,6 +18,8 @@ class MapBuilder
 {
     private $converterRegistry;
     private $metaData;
+    private $siteMetaData;
+    private $externLabMetaData;
 
     /**
      *
@@ -42,19 +44,39 @@ class MapBuilder
     }
 
     /**
+     * @param ClassMetadata $siteMetaData
+     * @return \NS\ImportBundle\Services\MapBuilder
+     */
+    public function setSiteMetaData(ClassMetadata $siteMetaData)
+    {
+        $this->siteMetaData = $siteMetaData;
+        return $this;
+    }
+
+    /**
+     * @param ClassMetadata $externLabMetaData
+     * @return \NS\ImportBundle\Services\MapBuilder
+     */
+    public function setExternLabMetaData(ClassMetadata $externLabMetaData)
+    {
+        $this->externLabMetaData = $externLabMetaData;
+        return $this;
+    }
+
+        /**
      *
      * @param Map $map
      * @param ClassMetadata $metaData
      */
-    public function process(Map $map, ClassMetadata $metaData)
+    public function process(Map $map)
     {
-        $this->metaData = $metaData;
+        if(!$this->metaData || !$this->siteMetaData || !$this->externLabMetaData) {
+            throw new \InvalidArgumentException("Missing either class, site lab or external lab metadata");
+        }
+
         $csvReader = new CsvReader($map->getFile()->openFile());
         $csvReader->setHeaderRowNumber(0);
-
-        $headers     = $csvReader->getColumnHeaders();
-        $targetClass = $map->getClass();
-        $target      = new $targetClass;
+        $headers   = $csvReader->getColumnHeaders();
 
         foreach ($headers as $index => $name) {
             $column = new Column();
@@ -62,7 +84,7 @@ class MapBuilder
             $column->setName($name);
             $column->setOrder($index);
             $column->setMap($map);
-            $this->updateMapper($column, $name, $target);
+            $this->updateMapper($column, $name);
 
             $map->addColumn($column);
         }
@@ -70,25 +92,39 @@ class MapBuilder
 
     /**
      * @param Column $column
-     * @param string $name
+     * @param string $fieldName
      * @param object $target
      * @return null
      */
-    public function updateMapper(Column $column, $name, $target)
+    public function updateMapper(Column $column, $fieldName)
     {
-        $temp   = $this->camelCase($name);
-        $method = sprintf('get%s', $temp);
-        if (method_exists($target, $method)) {
-            $column->setMapper($temp);
-            try {
-                $column->setConverter($this->converterRegistry->getConverterForField($this->metaData->getFieldMapping($temp)));
-                return;
-            }
-            catch (MappingException $except) {
+        $field = $this->camelCase($fieldName);
 
-            }
+        if (in_array($field,$this->metaData->getFieldNames())) {
+            $column->setMapper($field);
+            $column->setConverter($this->converterRegistry->getConverterForField($this->metaData->getTypeOfField($field)));
+            return;
+        }
+        elseif ($field == 'site') {
+            $column->setMapper($field);
+            $column->setConverter($this->converterRegistry->getConverterForField($field));
+            return;
+        }
+        elseif(in_array($field,$this->siteMetaData->getFieldNames())) {
+            $column->setMapper(sprintf('siteLab.%s',$field));
+            $column->setConverter($this->converterRegistry->getConverterForField($this->siteMetaData->getTypeOfField($field)));
+            return;
+        }
+        elseif(in_array($field,$this->externLabMetaData->getFieldNames())) {
+            $column->setMapper(sprintf('nationalLab.%s',$field));
+            $column->setConverter($this->converterRegistry->getConverterForField($this->externLabMetaData->getTypeOfField($field)));
+            return;
         }
 
+        if($field == 'sfCultOther') {
+            print $field;
+            die;
+        }
         $column->setIgnored(true);
         return;
     }
@@ -107,5 +143,4 @@ class MapBuilder
 
         return str_replace(' ', '', lcfirst(ucwords($output)));
     }
-
 }

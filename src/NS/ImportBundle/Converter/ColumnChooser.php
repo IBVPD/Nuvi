@@ -32,7 +32,7 @@ class ColumnChooser
     {
         if (!$this->cache->contains($class)) {
             $metaData     = $this->entityMgr->getClassMetadata($class);
-            $choices      = array('site' => 'site (Site)');
+            $choices      = array();
             $siteChoices  = $externLabOne = $externLabTwo = array();
 
             foreach ($metaData->getFieldNames() as $field) {
@@ -46,27 +46,27 @@ class ColumnChooser
 
             foreach ($siteMeta->getFieldNames() as $siteField) {
                 $fieldType           = $siteMeta->getTypeOfField($siteField);
-                $field               = sprintf('siteLab.%s (%s)', $siteField, $fieldType);
-                $siteChoices[$field] = $field;
+                $field               = sprintf('siteLab.%s', $siteField);
+                $siteChoices[$field] = sprintf('%s (%s)',$field,$fieldType);
             }
 
             ksort($siteChoices);
 
             foreach ($extLabMeta->getFieldNames() as $externalField) {
                 $fieldType               = $extLabMeta->getTypeOfField($externalField);
-                $fieldOne                = sprintf('referenceLab.%s (%s)', $externalField, $fieldType);
-                $fieldTwo                = sprintf('nationalLab.%s (%s)', $externalField, $fieldType);
-                $externLabOne[$fieldOne] = $fieldOne;
-                $externLabTwo[$fieldTwo] = $fieldTwo;
+                $fieldOne                = sprintf('referenceLab.%s', $externalField);
+                $fieldTwo                = sprintf('nationalLab.%s', $externalField);
+                $externLabOne[$fieldOne] = sprintf('%s (%s)',$fieldOne,$fieldType);
+                $externLabOne[$fieldTwo] = sprintf('%s (%s)',$fieldTwo,$fieldType);
             }
 
             ksort($externLabOne);
             ksort($externLabTwo);
 
-            $choices = array_merge($choices, $siteChoices, $externLabTwo, $externLabOne);
-            $this->cache->save($class, $choices);
+            $result = array_merge(array('site'=>'site (Site)'),$choices, $siteChoices, $externLabTwo, $externLabOne);
+            $this->cache->save($class, $result);
 
-            return $choices;
+            return $result;
         }
 
         return $this->cache->fetch($class);

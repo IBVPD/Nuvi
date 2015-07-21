@@ -2,27 +2,37 @@
 
 namespace NS\ImportBundle\Tests\Services;
 
+use \Liip\FunctionalTestBundle\Test\WebTestCase;
 use \NS\ImportBundle\Converter\Registry;
+use \NS\ImportBundle\Entity\Map;
 use \NS\ImportBundle\Services\MapBuilder;
 use \NS\SentinelBundle\Converter\ArrayChoice;
 use \NS\SentinelBundle\Converter\Doses;
+use \Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Description of MapBuilderTest
  *
  * @author gnat
  */
-class MapBuilderTest extends \Liip\FunctionalTestBundle\Test\WebTestCase
+class MapBuilderTest extends WebTestCase
 {
 
     public function testProcessFile()
     {
+        $ibdClass   = 'NS\SentinelBundle\Entity\IBD';
+        $meta       = $this->getContainer()->get('doctrine.orm.entity_manager')->getClassMetadata($ibdClass);
+        $siteMeta   = $this->getContainer()->get('doctrine.orm.entity_manager')->getClassMetadata('NS\SentinelBundle\Entity\IBD\SiteLab');
+        $externMeta = $this->getContainer()->get('doctrine.orm.entity_manager')->getClassMetadata('NS\SentinelBundle\Entity\IBD\NationalLab');
+
         $mapBuilder = new MapBuilder();
         $this->addConverters($mapBuilder);
-        $ibdClass   = 'NS\SentinelBundle\Entity\IBD';
-        $meta       = $this->getContainer()->get('doctrine.orm.entity_manager')->getClassMetadata('NS\SentinelBundle\Entity\IBD');
-        $map        = new \NS\ImportBundle\Entity\Map();
-        $file       = new \Symfony\Component\HttpFoundation\File\UploadedFile(__DIR__ . '/../Fixtures/IBD.csv', 'IBD.csv');
+        $mapBuilder->setMetaData($meta);
+        $mapBuilder->setSiteMetaData($siteMeta);
+        $mapBuilder->setExternLabMetaData($externMeta);
+
+        $map  = new Map();
+        $file = new UploadedFile(__DIR__ . '/../Fixtures/IBD.csv', 'IBD.csv');
 
         $map->setClass($ibdClass);
         $map->setName('Test IBD From File');
@@ -34,7 +44,7 @@ class MapBuilderTest extends \Liip\FunctionalTestBundle\Test\WebTestCase
         $this->assertEquals($file, $map->getFile());
         $this->assertEquals(sprintf("%s %s", $map->getName(), $map->getVersion()), $map->__toString());
 
-        $mapBuilder->process($map, $meta);
+        $mapBuilder->process($map);
         $columns    = $map->getColumns();
         $this->assertGreaterThan(0, $columns->count());
         $this->assertTrue($columns[0]->isIgnored());
@@ -45,8 +55,9 @@ class MapBuilderTest extends \Liip\FunctionalTestBundle\Test\WebTestCase
         $this->assertEquals('ns.sentinel.converter.gender', $columns[3]->getConverter());
 
         $headers = $map->getColumnHeaders();
-        foreach ($headers as $index => $name)
+        foreach ($headers as $index => $name) {
             $this->assertEquals($columns[$index]->getName(), $name);
+        }
     }
 
     private function addConverters(MapBuilder $builder)
@@ -93,8 +104,9 @@ class MapBuilderTest extends \Liip\FunctionalTestBundle\Test\WebTestCase
         );
 
         $converterRegistry = new Registry();
-        foreach ($converters as $id => $converter)
+        foreach ($converters as $id => $converter) {
             $converterRegistry->addConverter($id, $converter);
+        }
 
         $builder->setConverterRegistry($converterRegistry);
     }

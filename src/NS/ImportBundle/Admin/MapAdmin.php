@@ -96,10 +96,15 @@ class MapAdmin extends Admin
      */
     public function prePersist($map)
     {
-        if (!$map->getId() && $map->getFile()) { // have a file so build the columns dynamically
-            $map = $this->mapBuilder->process($map, $this->modelManager->getMetadata($map->getClass()));
-        }
-        else if ($map->getColumns()) {
+        // have a file so build the columns dynamically
+        if (!$map->getId() && $map->getFile()) {
+            $metaData   = $this->modelManager->getMetadata($map->getClass());
+            $this->mapBuilder->setMetaData($metaData);
+            $this->mapBuilder->setSiteMetaData($this->modelManager->getMetadata($metaData->getAssociationTargetClass('siteLab')));
+            $this->mapBuilder->setExternLabMetaData($this->modelManager->getMetadata($metaData->getAssociationTargetClass('externalLabs')));
+
+            return $this->mapBuilder->process($map);
+        } elseif ($map->getColumns()) {
             foreach ($map->getColumns() as $a) {
                 $a->setMap($map);
             }

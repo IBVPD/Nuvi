@@ -61,10 +61,10 @@ class Registry extends AbstractType
      * @param array $field
      * @return string|null
      */
-    public function getConverterForField(array $field)
+    public function getConverterForField($field)
     {
         foreach ($this->values as $id => $converter) {
-            if ($converter == $field['type']) {
+            if ($converter == $field) {
                 return $id;
             }
         }
