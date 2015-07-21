@@ -34,12 +34,12 @@ class Builder
         {
             if($this->securityContext->isGranted('ROLE_CAN_CREATE'))
             {
-                $data = $menu->addChild('Data Entry', array('label'=> 'menu.data-entry'))->setExtra('icon','icon-edit');
+                $data = $menu->addChild('Data Entry', array('label'=> 'menu.data-entry'))->setExtra('icon','fa fa-edit');
                 $data->addChild('Meningitis', array('label' => 'menu.ibd', 'route' => 'ibdIndex'));
                 $data->addChild('Rotavirus', array('route'=>'rotavirusIndex'))->setExtra('translation_domain', 'NSSentinelBundle');
             }
 
-            $reports = $menu->addChild('Reports', array('label'=> 'menu.data-reports'))->setExtra('icon','icon-dashboard');
+            $reports = $menu->addChild('Reports', array('label'=> 'menu.data-reports'))->setExtra('icon','fa fa-dashboard');
             $ibdReport = $reports->addChild('IBD');
             $rotaReport = $reports->addChild('Rota');
             $ibdReport->addChild('Age Distribution',array('label'=> 'menu.data-reports-age-distribution','route'=>'reportAnnualAgeDistribution'));
@@ -49,21 +49,21 @@ class Builder
 
             if($this->securityContext->isGranted('ROLE_API'))
             {
-                $api = $menu->addChild('Api Resources',array('label'=>'Api Resources'))->setExtra('icon','icon-book');
+                $api = $menu->addChild('Api Resources',array('label'=>'Api Resources'))->setExtra('icon','fa fa-book');
                 $api->addChild('Dashboard',array('label'=>'Dashboard','route'=>'ns_api_dashboard'));
                 $api->addChild('Documentation',array('label'=>'Documentation','route'=>'nelmio_api_doc_index'));
             }
 
             if($this->securityContext->isGranted('ROLE_IMPORT'))
             {
-                $import = $menu->addChild('Import',array('label'=>'menu.import-export'))->setExtra('icon', 'icon-cloud-upload');
-                $import->addChild('Import',array('label'=>'menu.import','route'=>'importIndex'))->setExtra('icon', 'icon-cloud-upload');
-                $import->addChild('Export',array('label'=>'menu.export','route'=>'exportIndex'))->setExtra('icon', 'icon-cloud-download');
+                $import = $menu->addChild('Import',array('label'=>'menu.import-export'))->setExtra('icon', 'fa fa-cloud-upload');
+                $import->addChild('Import',array('label'=>'menu.import','route'=>'importIndex'))->setExtra('icon', 'fa fa-cloud-upload');
+                $import->addChild('Export',array('label'=>'menu.export','route'=>'exportIndex'))->setExtra('icon', 'fa fa-cloud-download');
             }
 
             if($this->securityContext->isGranted('ROLE_ADMIN'))
             {
-                $admin = $menu->addChild('Admin', array('label'=> 'menu.data-admin'))->setExtra('icon','icon-desktop');
+                $admin = $menu->addChild('Admin', array('label'=> 'menu.data-admin'))->setExtra('icon','fa fa-desktop');
                 $admin->addChild('Admin', array('label'=> 'menu.data-admin','route'=>'sonata_admin_dashboard'));
                 $admin->addChild('Translation',array('label'=> 'menu.translation','route'=>'jms_translation_index'));
             }
@@ -77,12 +77,12 @@ class Builder
         $menu = $this->factory->createItem('root');
         $menu->setChildrenAttribute('class', 'nav ace-nav');
 
-        $profile = $menu->addChild('Profile')->setExtra('icon', 'icon-profile');
+        $profile = $menu->addChild('Profile')->setExtra('icon', 'fa fa-profile');
         $profile->setChildrenAttribute('class', 'user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close');
 
-        $profile->addChild('Settings')->setExtra('icon', 'icon-cog');
+        $profile->addChild('Settings')->setExtra('icon', 'fa fa-cog');
         $profile->addChild(' ')->setAttribute('class', 'divider');
-        $profile->addChild('Logout',array('route' => 'logout'))->setExtra('icon','icon-off');
+        $profile->addChild('Logout',array('route' => 'logout'))->setExtra('icon','fa fa-off');
 
         return $menu;
     }
