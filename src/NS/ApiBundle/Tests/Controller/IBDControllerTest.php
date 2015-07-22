@@ -109,13 +109,14 @@ class IBDControllerTest extends WebTestCase
         $this->assertEquals(403, $response->getStatusCode());
         $this->assertFalse($response->headers->has('Location'), "We have a location header");
 
-        $client->request('GET', $this->getRoute('nsApiIbdGetRRL'));
-        $response = $client->getResponse();
-        $this->assertJsonResponse($response, 200);
-        $decoded  = json_decode($response->getContent(), true);
-
-        $this->assertArrayHasKey('LabId', $decoded, print_r(array_keys($decoded), true));
-        $this->assertEquals("ANewCaseId", $decoded['LabId']);
+// Because our user can't patch the RRL, no data is set/changed.
+//        $client->request('GET', $this->getRoute('nsApiIbdGetRRL'));
+//        $response = $client->getResponse();
+//        $this->assertJsonResponse($response, 200);
+//        $decoded  = json_decode($response->getContent(), true);
+//
+//        $this->assertArrayHasKey('LabId', $decoded, print_r(array_keys($decoded), true));
+//        $this->assertEquals("ANewCaseId", $decoded['LabId']);
     }
 
     public function testPutRRLCase()
@@ -128,14 +129,15 @@ class IBDControllerTest extends WebTestCase
         $this->assertEquals(403, $response->getStatusCode());
         $this->assertFalse($response->headers->has('Location'), "We have a location header");
 
-        $client->request('GET', $this->getRoute('nsApiIbdGetRRL'));
-        $response = $client->getResponse();
-        $this->assertJsonResponse($response, 200);
-        $decoded  = json_decode($response->getContent(), true);
-
-        $this->assertArrayHasKey('LabId', $decoded);
-        $this->assertEquals("ANewCaseId", $decoded['LabId']);
-        $this->assertArrayHasKey('SampleType', $decoded);
+// Because our user can't patch the RRL, no data is set/changed.
+//        $client->request('GET', $this->getRoute('nsApiIbdGetRRL'));
+//        $response = $client->getResponse();
+//        $this->assertJsonResponse($response, 200);
+//        $decoded  = json_decode($response->getContent(), true);
+//
+//        $this->assertArrayHasKey('LabId', $decoded);
+//        $this->assertEquals("ANewCaseId", $decoded['LabId']);
+//        $this->assertArrayHasKey('SampleType', $decoded);
     }
 
     public function testGetNLCase()
