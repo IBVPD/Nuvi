@@ -49,16 +49,16 @@
                         <span class="user-info">
                             <small>Welcome,</small> {{ app.security.token.user.name }}
                         </span>
-                        <i class="icon-caret-down"></i>
+                        <i class="fa fa-caret-down"></i>
                     </a>
 
                     <ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
                         <li>
-                            <a href="{{path('userProfile')}}"><i class="icon-user"></i>Profile</a>
+                            <a href="{{path('userProfile')}}"><i class="fa fa-user"></i> Profile</a>
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="{{path('logout')}}"><i class="icon-off"></i>{{'Logout'|trans}}</a>
+                            <a href="{{path('logout')}}"><i class="fa fa-off"></i> {{'Logout'|trans}}</a>
                         </li>
                     </ul>
                 </li>

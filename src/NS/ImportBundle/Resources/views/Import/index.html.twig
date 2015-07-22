@@ -4,9 +4,9 @@
 {%block body %}
     <div class="row">
         <div class="col-sm-3">
-            <div class="widget-box">
-                <div class="widget-header widget-header-small header-color-blue">
-                    <h5>{{'New Uploads'|trans}}</h5>
+            <div class="widget-box widget-color-blue">
+                <div class="widget-header widget-header-small">
+                    <h5 class="widget-title">{{'New Uploads'|trans}}</h5>
                 </div>
                 <div class="widget-body">
                     <form method="POST" action="{{path('importIndex')}}" {{form_enctype(form)}}>
@@ -23,9 +23,9 @@
             </div>
         </div>
         <div class="col-sm-9">
-            <div class="widget-box no-border">
-                <div class="widget-header widget-header-small header-color-blue">
-                    <h5>{{'Recent Uploads'|trans}}</h5>
+            <div class="widget-box widget-color-blue no-border">
+                <div class="widget-header widget-header-small">
+                    <h5 class="widget-title">{{'Recent Uploads'|trans}}</h5>
                     <div class="widget-toolbar no-border">{{ knp_pagination_render(results) }}</div>
                 </div>
                 <div class="table-responsive">
@@ -59,9 +59,9 @@
                                     <td>{{r.errorCount}}</td>
                                     <td>{{r.warningCount}}</td>
                                     <td>
-                                        <a href="{{path('importResultDownload',{type:'errors','id':r.id})}}" class="btn btn-xs btn-danger">{{'Errors'|trans}} <i class="icon icon-cloud-download"></i></a>
-                                        <a href="{{path('importResultDownload',{type:'duplicates','id':r.id})}}" class="btn btn-xs btn-danger">{{'Duplicates'|trans}} <i class="icon icon-cloud-download"></i></a>
-                                        <a href="{{path('importResultDownload',{type:'success','id':r.id})}}" class="btn btn-xs btn-success">{{'Successful'|trans}} <i class="icon icon-cloud-download"></i></a>
+                                        <a href="{{path('importResultDownload',{type:'errors','id':r.id})}}" class="btn btn-xs btn-danger">{{'Errors'|trans}} <i class="fa fa-cloud-download"></i></a>
+                                        <a href="{{path('importResultDownload',{type:'duplicates','id':r.id})}}" class="btn btn-xs btn-danger">{{'Duplicates'|trans}} <i class="fa fa-cloud-download"></i></a>
+                                        <a href="{{path('importResultDownload',{type:'success','id':r.id})}}" class="btn btn-xs btn-success">{{'Successful'|trans}} <i class="fa fa-cloud-download"></i></a>
                                     </td>
                                 </tr>
                             {%endfor %}

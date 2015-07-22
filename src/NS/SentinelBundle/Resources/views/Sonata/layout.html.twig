@@ -5,11 +5,11 @@
 {% set _editTabs = block('editTabs') %}
 {% block widget_title %}
     {% if _actions is not empty %}
-        <div class="widget-header widget-header-small header-color-blue">
+        <div class="widget-header widget-header-small">
             {% if _title is not empty %}
-                <h5>{{ _title|raw }}</h5>
+                <h5 class="widget-title">{{ _title|raw }}</h5>
             {% else %}
-                <h5>{{ (admin.breadcrumbs(action)|last).label }}</h5>
+                <h5 class="widget-title">{{ (admin.breadcrumbs(action)|last).label }}</h5>
             {% endif %}
             <div class="widget-toolbar">
                 {{ _actions|raw }}
@@ -127,7 +127,7 @@
 
                     {% if _form is not empty %}
                         <div class="sonata-ba-form">
-                            <div class="widget-box no-border">
+                            <div class="widget-box widget-color-blue no-border">
                                 {{ _widget_title|raw }}
                                 {{ _form|raw }}
                             </div>
@@ -137,7 +137,7 @@
                     {% if _list_table is not empty or _list_filters is not empty %}
                         <div class="row-fluid">
                             <div class="sonata-ba-list col-sm-9 col-md-9 col-lg-9">
-                                <div class="widget-box no-border">
+                                <div class="widget-box widget-color-blue no-border">
                                     {{ _widget_title|raw }}
                                     <div class="widget-body">
                                         {{ _list_table|raw }}

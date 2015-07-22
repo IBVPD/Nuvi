@@ -74,15 +74,15 @@ class BaseReportFilterType extends AbstractType
 
             if ($options['include_filter'])
                 $form->add('filter', 'submit', array(
-                    'icon' => 'icon-search',
+                    'icon' => 'fa fa-search',
                     'attr' => array('class' => 'btn btn-sm btn-success')));
             if ($options['include_export'])
                 $form->add('export', 'submit', array(
-                    'icon' => 'icon-cloud-download',
+                    'icon' => 'fa fa-cloud-download',
                     'attr' => array('class' => 'btn btn-sm btn-info')));
             if ($options['include_reset'])
                 $form->add('reset', 'submit', array(
-                    'icon' => 'icon-times-circle',
+                    'icon' => 'fa fa-times-circle',
                     'attr' => array('class' => 'btn btn-sm btn-danger')));
         }
         );

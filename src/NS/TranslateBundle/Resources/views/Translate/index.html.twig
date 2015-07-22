@@ -23,10 +23,10 @@
                             $(self).parent().closest('td').prev('td').children('.alert-message').remove();
                         },
                         error: function() {
-                            $(self).parent().closest('td').prev('td').append('<div class="alert alert-block alert-error"><button type="button" class="close" data-dismiss="alert"><i class="icon-remove"></i></button><p>Could not be saved.</p></div>');
+                            $(self).parent().closest('td').prev('td').append('<div class="alert alert-block alert-error"><button type="button" class="close" data-dismiss="alert"><i class="fa fa-remove"></i></button><p>Could not be saved.</p></div>');
                         },
                         success: function() {
-                            $(self).parent().closest('td').prev('td').append('<div class="alert alert-block alert-success"><button type="button" class="close" data-dismiss="alert"><i class="icon-remove"></i></button><p>Translation was saved.</p></div>');
+                            $(self).parent().closest('td').prev('td').append('<div class="alert alert-block alert-success"><button type="button" class="close" data-dismiss="alert"><i class="fa fa-remove"></i></button><p>Translation was saved.</p></div>');
                         },
                         complete: function() {
                             var parent = $(self).parent();
@@ -78,9 +78,9 @@
     <div class="row">
     {% if newMessages is not empty %}
         <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 widget-container-span ui-sortable">
-            <div class="widget-box">
-                <div class="widget-header widget-header-small header-color-blue">
-                    <h5 class="bigger lighter">New Messages</h5>
+            <div class="widget-box widget-color-blue">
+                <div class="widget-header widget-header-small">
+                    <h5 class="widget-title bigger lighter">New Messages</h5>
                 </div>
 
                 <div class="widget-body">
@@ -106,9 +106,9 @@
         <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 widget-container-span ui-sortable">&nbsp;</div>
     {% endif %}
         <div class="col-sm-3 col-md-3 col-lg-3">
-            <div class="widget-box">
-                <div class="widget-header widget-header-small header-color-blue">
-                    <h5 class="bigger lighter">Change Messages or Language</h5>
+            <div class="widget-box widget-color-blue">
+                <div class="widget-header widget-header-small">
+                    <h5 class="widget-title bigger lighter">Change Messages or Language</h5>
                 </div>
                 <div class="widget-body">
                     <div class="widget-main">
@@ -140,9 +140,9 @@
     {% if existingMessages is not empty %}
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 widget-container-span ui-sortable">
-            <div class="widget-box">
-                <div class="widget-header widget-header-small header-color-blue">
-                    <h5 class="bigger lighter">Existing Messages</h5>
+            <div class="widget-box widget-color-blue">
+                <div class="widget-header widget-header-small">
+                    <h5 class="widget-title bigger lighter">Existing Messages</h5>
                 </div>
 
                 <div class="widget-body">

@@ -5,11 +5,11 @@
 {% block body %}
 <div class="row">
     <div class="col-sm-10 col-md-10 col-lg-10">
-        <div class="widget-box no-border">
-            <div class="widget-header widget-header-small header-color-blue">
-                <h5>{{'Registered Clients'|trans}}</h5>
+        <div class="widget-box widget-color-blue no-border">
+            <div class="widget-header widget-header-small">
+                <h5 class="widget-title">{{'Registered Clients'|trans}}</h5>
                 <div class="widget-toolbar">
-                    <a class="btn btn-xs btn-success" href="{{path('ApiCreateClient')}}">{{'Create'|trans}}<i class="icon-plus-sign icon-on-right bigger-110"></i></a>
+                    <a class="btn btn-xs btn-success" href="{{path('ApiCreateClient')}}">{{'Create'|trans}} <i class="fa fa-plus-sign fa-on-right bigger-110"></i></a>
                 </div>
             </div>
             <div class="table-responsive">
@@ -33,7 +33,7 @@
                         <td>{%for uri in c.redirectUris  %}{{uri}}<br />{%endfor%}</td>
                         <td>{%for uri in c.allowedGrantTypes  %}{{uri}}<br />{%endfor%}</td>
                         <td>
-                            <a class="btn btn-xs btn-success" href="{{path('ApiEditClient',{objId: c.id})}}">{{'Edit'|trans}} <i class="icon-edit-sign icon-on-right bigger-110"></i></a>
+                            <a class="btn btn-xs btn-success" href="{{path('ApiEditClient',{objId: c.id})}}">{{'Edit'|trans}} <i class="fa fa-edit fa-on-right bigger-110"></i></a>
                             <a class="btn btn-xs btn-danger" href="{{path('ApiDeleteClient',{objId:c.id})}}">{{'Delete'|trans}} </a>
                         </td>
                     </tr>
@@ -46,11 +46,11 @@
 </div>
 <div class="row">
     <div class="col-sm-10 col-md-10 col-lg-10">
-        <div class="widget-box no-border">
-            <div class="widget-header widget-header-small header-color-blue">
-                <h5>{{'Remote Systems'|trans}}</h5>
+        <div class="widget-box widget-color-blue no-border">
+            <div class="widget-header widget-header-small">
+                <h5 class="widget-title">{{'Remote Systems'|trans}}</h5>
                 <div class="widget-toolbar">
-                    <a class="btn btn-xs btn-success" href="{{path('ApiCreateRemote')}}">{{'Create'|trans}}<i class="icon-plus-sign icon-on-right bigger-110"></i></a>
+                    <a class="btn btn-xs btn-success" href="{{path('ApiCreateRemote')}}">{{'Create'|trans}} <i class="fa fa-plus-sign fa-on-right bigger-110"></i></a>
                 </div>
             </div>
             <div class="table-responsive">
@@ -77,7 +77,7 @@
                                 {%else%}
                                     {{'Authorization Complete'|trans}}
                                 {%endif%}
-                                <a class="btn btn-xs btn-success" href="{{path('ApiEditRemote',{objId:c.id})}}">Edit  <i class="icon-edit-sign icon-on-right bigger-110"></i></a>
+                                <a class="btn btn-xs btn-success" href="{{path('ApiEditRemote',{objId:c.id})}}">Edit <i class="fa fa-edit fa-on-right bigger-110"></i></a>
                                 <a class="btn btn-xs btn-danger" href="{{path('ApiDeleteRemote',{objId:c.id})}}">Delete </a>
                             </td>
                         </tr>

@@ -29,9 +29,9 @@ class CaseStatus extends \Twig_Extension
         if ($obj->getSentToNationalLab() || $obj->hasNationalLab())
         {
             if ($obj->getSentToNationalLab() && $obj->hasNationalLab())
-                $class = ($obj->getNationalLab()->getIsComplete()) ? 'label-success icon icon-ok' : 'label-warning icon icon-warning-sign';
+                $class = ($obj->getNationalLab()->getIsComplete()) ? 'label-success fa fa-check' : 'label-warning fa fa-warning-sign';
             else
-                $class = 'label-danger icon icon-exclamation-sign';
+                $class = 'label-danger fa fa-exclamation-sign';
 
             return '<span class="label label-sm ' . $class . '">' . $message . '</span>';
         }
@@ -44,9 +44,9 @@ class CaseStatus extends \Twig_Extension
         if ($obj->getSentToReferenceLab() || $obj->hasReferenceLab())
         {
             if ($obj->getSentToReferenceLab() && $obj->hasReferenceLab())
-                $class = ($obj->getReferenceLab()->getIsComplete()) ? 'label-success icon icon-ok' : 'label-warning icon icon-warning-sign';
+                $class = ($obj->getReferenceLab()->getIsComplete()) ? 'label-success fa fa-check' : 'label-warning fa fa-warning-sign';
             else
-                $class = 'label-danger icon icon-exclamation-sign';
+                $class = 'label-danger fa fa-exclamation-sign';
 
             return '<span class="label label-sm ' . $class . '">' . $message . '</span>';
         }
@@ -57,9 +57,9 @@ class CaseStatus extends \Twig_Extension
     public function getLabLabel(BaseCase $obj, $message)
     {
         if ($obj->hasSiteLab())
-            $class = $obj->getSiteLab()->isComplete() ? 'label-success icon icon-ok' : 'label-warning icon icon-exclamation-sign';
+            $class = $obj->getSiteLab()->isComplete() ? 'label-success fa fa-check' : 'label-warning fa fa-exclamation-sign';
         else
-            $class = 'label-danger icon icon-exclamation-sign';
+            $class = 'label-danger fa fa-exclamation-sign';
 
         return '<span class="label label-sm ' . $class . '">' . $message . '</span>';
     }
@@ -68,22 +68,28 @@ class CaseStatus extends \Twig_Extension
     {
         $noError = true;
 
-        if ($obj->hasReferenceLab() && !$obj->getSentToReferenceLab())
+        if ($obj->hasReferenceLab() && !$obj->getSentToReferenceLab()) {
             $noError = false;
+        }
 
-        if (!$obj->hasReferenceLab() && $obj->getSentToReferenceLab())
+        if (!$obj->hasReferenceLab() && $obj->getSentToReferenceLab()) {
             $noError = false;
+        }
 
-        if ($obj->hasNationalLab() && !$obj->getSentToNationalLab())
+        if ($obj->hasNationalLab() && !$obj->getSentToNationalLab()) {
             $noError = false;
+        }
 
-        if (!$obj->hasNationalLab() && $obj->getSentToNationalLab())
+        if (!$obj->hasNationalLab() && $obj->getSentToNationalLab()) {
             $noError = false;
+        }
 
-        if ($noError)
-            $class = ($obj->isComplete()) ? 'label-success icon icon-ok' : 'label-warning icon icon-exclamation-sign';
-        else
-            $class = 'label-danger icon icon-exclamation-sign';
+        if ($noError) {
+            $class = ($obj->isComplete()) ? 'label-success fa fa-check' : 'label-warning fa fa-exclamation-sign';
+        }
+        else {
+            $class = 'label-danger fa fa-exclamation-sign';
+        }
 
         return '<span class="label label-sm ' . $class . '">' . $message . '</span>';
     }

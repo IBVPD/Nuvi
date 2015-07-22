@@ -4,9 +4,9 @@
 {% block body %}
     <div class="row-fluid">
         <div class="col-sm-9">
-            <div class="widget-box no-border">
-                <div class="widget-header widget-header-small header-color-blue">
-                    <h5>{{'%count% Results'|trans({'%count%': sites|length})}}</h5>
+            <div class="widget-box widget-color-blue no-border">
+                <div class="widget-header widget-header-small">
+                    <h5 class="widget-title">{{'%count% Results'|trans({'%count%': sites|length})}}</h5>
                 </div>
                 <table class="table table-bordered table-striped">
                     <thead class="thin-border-bottom">
@@ -58,9 +58,9 @@
             </div>
         </div>
         <div class="col-sm-3">
-            <div class="widget-box">
-                <div class="widget-header widget-header-small header-color-blue">
-                    <h5>{{'Filters'|trans}}</h5>
+            <div class="widget-box widget-color-blue">
+                <div class="widget-header widget-header-small">
+                    <h5 class="widget-title">{{'Filters'|trans}}</h5>
                 </div>
                 <div class="widget-body">
                     <div class="widget-main">

@@ -15,11 +15,11 @@
         {% endif %}
 
         {% if alternativeMessages[id] is defined %}
-        <div class="widget-box collapsed no-border">
-            <div class="widget-header widget-header-small header-color-blue2">
-                <h6 class="smaller">Alternate Translations</h6>
+        <div class="widget-box widget-color-blue2 collapsed no-border">
+            <div class="widget-header widget-header-small">
+                <h6 class="widget-title smaller">Alternate Translations</h6>
                 <div class="widget-toolbar">
-                    <a href="#" data-action="collapse"><i class="icon-chevron-down"></i></a>
+                    <a href="#" data-action="collapse"><i class="fa fa-chevron-down"></i></a>
                 </div>
             </div>
             <div class="widget-body " id="{{elementId}}">
@@ -31,11 +31,11 @@
         {% endif %}
 
         {% if message.sources|length > 0 %}
-        <div class="widget-box collapsed no-border">
-            <div class="widget-header widget-header-small header-color-grey">
-                <h6 class="smaller">Sources</h6>
+        <div class="widget-box widget-color-grey collapsed no-border">
+            <div class="widget-header widget-header-small">
+                <h6 class="widget-title smaller">Sources</h6>
                 <div class="widget-toolbar">
-                    <a href="#" data-action="collapse"><i class="icon-chevron-down"></i></a>
+                    <a href="#" data-action="collapse"><i class="fa fa-chevron-down"></i></a>
                 </div>
             </div>
             <div class="widget-body " id="{{elementId}}">
@@ -54,11 +54,11 @@
                 and (alternativeMessages[id][sourceLanguage] is not defined
                      or alternativeMessages[id][sourceLanguage].localeString != message.desc) %}
 
-        <div class="widget-box collapsed no-border">
-            <div class="widget-header widget-header-small header-color-dark ">
-                <h6 class="smaller">Message Description</h6>
+        <div class="widget-box widget-color-grey collapsed no-border">
+            <div class="widget-header widget-header-small">
+                <h6 class="widget-title smaller">Message Description</h6>
                 <div class="widget-toolbar">
-                    <a href="#" data-action="collapse"><i class="icon-chevron-down"></i></a>
+                    <a href="#" data-action="collapse"><i class="fa fa-chevron-down"></i></a>
                 </div>
             </div>
             <div class="widget-body " id="{{elementId}}">

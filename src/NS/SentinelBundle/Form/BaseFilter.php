@@ -79,7 +79,7 @@ class BaseFilter extends AbstractType
                 $form->add('site', 'site');
         }
 
-        $form->add('find', 'iconbutton', array('type' => 'submit', 'icon' => 'icon-search',
+        $form->add('find', 'iconbutton', array('type' => 'submit', 'icon' => 'fa fa-search',
             'attr' => array('class' => 'btn btn-sm btn-success')));
     }
 

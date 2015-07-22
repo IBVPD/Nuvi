@@ -5,12 +5,12 @@
 {% block body %}
     <div class="row">
         <div class="col-sm-9 col-md-9 col-lg-9">
-            <div class="widget-box no-border">
-                <div class="widget-header widget-header-small header-color-blue">
-                    <h5>{{'Latest Rotavirus Cases'|trans}}</h5>
+            <div class="widget-box widget-color-blue no-border">
+                <div class="widget-header widget-header-small">
+                    <h5 class="widget-title">{{'Latest Rotavirus Cases'|trans}}</h5>
                     {% if is_granted('ROLE_CAN_CREATE') %}
                         <div class="widget-toolbar">
-                            <a href="#modal-form" id="modal-form-create" data-toggle="modal" class="btn btn-xs btn-success">{{'Create/Edit'|trans}}<i class="icon-plus-sign icon-on-right bigger-110"></i></a>
+                            <a href="#modal-form" id="modal-form-create" data-toggle="modal" class="btn btn-xs btn-success">{{'Create/Edit'|trans}}&nbsp;<i class="fa fa-plus fa-on-right bigger-110"></i></a>
                         </div>
                     {% endif %}
                     <div class="widget-toolbar"><form method="POST" action="{{ path('rotavirusIndex',pagination.query)}}">{{form_rest(form)}}</form></div>
@@ -24,16 +24,16 @@
                     </div>
                     {% if is_granted('ROLE_CAN_CREATE') %}
                         <div class="widget-toolbox padding-8 clearfix">
-                            <a href="#modal-form" data-toggle="modal" class="btn btn-sm btn-success pull-right">{{'Create/Edit'|trans}}<i class="icon-plus-sign icon-on-right bigger-110"></i></a>
+                            <a href="#modal-form" data-toggle="modal" class="btn btn-sm btn-success pull-right">{{'Create/Edit'|trans}}&nbsp;<i class="fa fa-plus fa-on-right bigger-110"></i></a>
                         </div>
                     {% endif %}
                 </div>
             </div>
         </div>
         <div class="col-xs-3 widget-container-span">
-            <div class="widget-box">
-                <div class="widget-header widget-header-small header-color-blue">
-                    <h5>{{'Filters'|trans}}</h5>
+            <div class="widget-box widget-color-blue">
+                <div class="widget-header widget-header-small">
+                    <h5 class="widget-title">{{'Filters'|trans}}</h5>
                 </div>
                 <div class="widget-body">
                     <div class="widget-main">
@@ -65,11 +65,11 @@
 
                         <div class="modal-footer">
                             <button class="btn btn-sm" data-dismiss="modal">
-                                <i class="icon-remove"></i> {{'Cancel'|trans}}
+                                <i class="fa fa-remove"></i> {{'Cancel'|trans}}
                             </button>
 
                             <button class="btn btn-sm btn-primary" id="rotavirus_create_submit">
-                                <i class="icon-ok"></i> {{'Create/Edit'|trans}}
+                                <i class="fa fa-check"></i> {{'Create/Edit'|trans}}
                             </button>
                         </div>
 

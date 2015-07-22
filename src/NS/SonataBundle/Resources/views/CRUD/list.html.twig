@@ -1,11 +1,11 @@
 {% extends 'SonataAdminBundle:CRUD:base_list.html.twig' %}
 {% block list_filters %}
     {% if admin.datagrid.filters %}
-        <div class="widget-box">
-            <div class="widget-header widget-header-small header-color-blue">
-                <h5>{{ 'label_filters'|trans({}, 'SonataAdminBundle') }}</h5>
+        <div class="widget-box widget-color-blue">
+            <div class="widget-header widget-header-small">
+                <h5 class="widget-title">{{ 'label_filters'|trans({}, 'SonataAdminBundle') }}</h5>
                 <div class="widget-toolbar">
-                    <a href="#" class="filter_legend white" data-action="expand"><i class="orange icon-chevron-down"></i> <span>Advanced<span></a>
+                    <a href="#" class="filter_legend white" data-action="expand"><i class="orange fa fa-chevron-down"></i> <span>Advanced<span></a>
                 </div>
             </div>
             <div class="widget-body">
@@ -41,7 +41,7 @@
 
                 </div>
                 <div class="widget-toolbox">
-                    <button type="submit" class="btn btn-xs btn-primary"><i class="icon-arrow-right icon-on-right bigger-110"></i> {{ 'btn_filter'|trans({}, 'SonataAdminBundle') }}</button>
+                    <button type="submit" class="btn btn-xs btn-primary"><i class="fa fa-arrow-right fa-on-right bigger-110"></i> {{ 'btn_filter'|trans({}, 'SonataAdminBundle') }}</button>
                     <a class="btn btn-xs" href="{{ admin.generateUrl('list', {filters: 'reset'}) }}">{{ 'link_reset_filter'|trans({}, 'SonataAdminBundle') }}</a>
                 </div>
                 </form>
