@@ -25,18 +25,16 @@ class ImportController extends Controller
     public function indexAction(Request $request)
     {
         $entityMgr = $this->get('doctrine.orm.entity_manager');
-        $form = $this->createForm('ImportSelect');
+        $form      = $this->createForm('ImportSelect');
 
         $form->handleRequest($request);
-        if($form->isValid())
-        {
+        if ($form->isValid()) {
             $importer = $this->get('ns_import.processor');
             $import   = $form->getData();
             $wresult  = $importer->process($import);
-            $result   = new Result($import,$wresult);
+            $result   = new Result($import, $wresult);
 
-            if($entityMgr->isOpen())
-            {
+            if ($entityMgr->isOpen()) {
                 $user = $this->getUser();
                 $result->setUser($entityMgr->getReference(get_class($user), $user->getId()));
 
@@ -45,22 +43,21 @@ class ImportController extends Controller
 
                 $this->get('ns_flash')->addSuccess(null, null, "Import completed");
             }
-            else
-            {
+            else {
                 $exceptions = $wresult->getExceptions();
                 $exception  = end($exceptions);
 
-                $this->get('ns_flash')->addError(null,"Import failed",($exception->getPrevious()) ? $exception->getPrevious()->getMessage():$exception->getMessage());
+                $this->get('ns_flash')->addError(null, "Import failed", ($exception->getPrevious()) ? $exception->getPrevious()->getMessage() : $exception->getMessage());
             }
 
             return $this->redirect($this->generateUrl('importIndex'));
         }
 
         $paginator  = $this->get('knp_paginator');
-        $query      = $entityMgr->getRepository('NSImportBundle:Result')->getResultsForUser($this->getUser(),'r');
-        $pagination = $paginator->paginate( $query, $request->query->get('page',1), 10 );
+        $query      = $entityMgr->getRepository('NSImportBundle:Result')->getResultsForUser($this->getUser(), 'r');
+        $pagination = $paginator->paginate($query, $request->query->get('page', 1), 10);
 
-        return array('form'=>$form->createView(),'results'=>$pagination);
+        return array('form' => $form->createView(), 'results' => $pagination);
     }
 
     /**
@@ -68,36 +65,28 @@ class ImportController extends Controller
      */
     public function resultDownloadAction($type, $id)
     {
-        $res = $this->get('doctrine.orm.entity_manager')->getRepository('NSImportBundle:Result')->findForUser($this->getUser(),$id);
-        if($res)
-        {
+        $res = $this->get('doctrine.orm.entity_manager')->getRepository('NSImportBundle:Result')->findForUser($this->getUser(), $id);
+        if ($res) {
             $format = 'csv';
 
-            switch ($type)
-            {
+            switch ($type) {
                 case 'success':
-                    $source = new ArraySourceIterator($res->getSuccesses(), array(
-                        'id', 'caseId', 'site', 'siteName'));
+                    $source = new ArraySourceIterator($res->getSuccesses(), array('id', 'caseId', 'site', 'siteName'));
                     break;
                 case 'errors':
-                    $source = new ArraySourceIterator($res->getErrors(), array('row',
-                        'column',
-                        'message'));
+                    $source = new ArraySourceIterator($res->getErrors(), array('row','column', 'message'));
                     break;
                 case 'duplicates':
-                    $source = new ArraySourceIterator($res->getDuplicateMessages(), array(
-                        'row', 'message'));
+                    $source = new ArraySourceIterator($res->getDuplicateMessages(), array('row', 'message'));
                     break;
             }
 
             $filename = sprintf('export_%s_%s.%s', $type, date('Ymd_His'), $format);
 
-            try
-            {
+            try {
                 return $this->get('sonata.admin.exporter')->getResponse($format, $filename, $source);
             }
-            catch (\Exception $excep)
-            {
+            catch (\Exception $excep) {
                 die("I GOT AN EXCEPTION! " . $excep->getMessage());
             }
         }
