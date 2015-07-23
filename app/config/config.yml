@@ -340,6 +340,7 @@ vich_uploader:
         import_file:
             uri_prefix:         /imports/files
             upload_destination: %kernel.root_dir%/data/imports/files
+            inject_on_load:     true
 
 services:
   extension.listener:
