@@ -7,6 +7,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use NS\SentinelBundle\Form\Types\GenotypeResultG;
 use NS\SentinelBundle\Form\Types\GenotypeResultP;
 
+/**
+ * Class BaseLabType
+ * @package NS\SentinelBundle\Form\Rota
+ */
 class BaseLabType extends AbstractType
 {
     /**

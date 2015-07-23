@@ -3,7 +3,7 @@
 namespace NS\ApiBundle\Form\Types;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use OAuth2\OAuth2;
 
 /**
@@ -15,7 +15,7 @@ class OAuthGrantTypes extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
                                     'multiple' => true,

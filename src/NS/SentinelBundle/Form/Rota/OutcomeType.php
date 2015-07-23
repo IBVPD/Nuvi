@@ -4,8 +4,12 @@ namespace NS\SentinelBundle\Form\Rota;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Class OutcomeType
+ * @package NS\SentinelBundle\Form\Rota
+ */
 class OutcomeType extends AbstractType
 {
     /**
@@ -24,9 +28,9 @@ class OutcomeType extends AbstractType
     }
     
     /**
-     * @param OptionsResolverInterface $resolver
+     * @param OptionsResolver $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'NS\SentinelBundle\Entity\RotaVirus'

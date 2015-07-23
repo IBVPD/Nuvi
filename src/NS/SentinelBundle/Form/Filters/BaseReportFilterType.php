@@ -2,14 +2,12 @@
 
 namespace NS\SentinelBundle\Form\Filters;
 
-use \Lexik\Bundle\FormFilterBundle\Filter\Query\QueryInterface;
 use \NS\SecurityBundle\Role\ACLConverter;
-use \NS\SentinelBundle\Form\Filters\SiteFilterType;
 use \Symfony\Component\Form\AbstractType;
 use \Symfony\Component\Form\FormBuilderInterface;
 use \Symfony\Component\Form\FormEvent;
 use \Symfony\Component\Form\FormEvents;
-use \Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use \Symfony\Component\OptionsResolver\OptionsResolver;
 use \Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
@@ -19,8 +17,14 @@ use \Symfony\Component\Security\Core\SecurityContextInterface;
  */
 class BaseReportFilterType extends AbstractType
 {
+    /**
+     * @var SecurityContextInterface
+     */
     private $securityContext;
 
+    /**
+     * @var ACLConverter
+     */
     private $converter;
 
     /**
@@ -39,8 +43,6 @@ class BaseReportFilterType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $choices = array(1 => 'Yes', 0 => 'No');
-
         $builder->add('admDate', 'ns_filter_date_range', array('label' => 'report-filter-form.admitted-between',))
             ->add('createdAt', 'ns_filter_date_range', array('label' => 'report-filter-form.created-between'))
         ;
@@ -54,22 +56,16 @@ class BaseReportFilterType extends AbstractType
             $form  = $event->getForm();
             $token = $securityContext->getToken();
 
-            if ($securityContext->isGranted('ROLE_REGION'))
-            {
-                $objectIds = $converter->getObjectIdsForRole($token, 'ROLE_REGION');
+            if ($securityContext->isGranted('ROLE_REGION')) {
                 $form->add('country', 'country');
                 $form->add('site', $siteType);
-            }
-            else if ($securityContext->isGranted('ROLE_COUNTRY'))
-            {
-                $objectIds = $converter->getObjectIdsForRole($token, 'ROLE_COUNTRY');
+            } elseif ($securityContext->isGranted('ROLE_COUNTRY')) {
                 $form->add('site', $siteType);
-            }
-            else if ($securityContext->isGranted('ROLE_SITE'))
-            {
+            } elseif ($securityContext->isGranted('ROLE_SITE')) {
                 $objectIds = $converter->getObjectIdsForRole($token, 'ROLE_SITE');
-                if (count($objectIds) > 1)
+                if (count($objectIds) > 1) {
                     $form->add('site', $siteType);
+                }
             }
 
             if ($options['include_filter'])
@@ -88,7 +84,10 @@ class BaseReportFilterType extends AbstractType
         );
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    /**
+     * @param OptionsResolver $resolver
+     */
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'include_filter' => true,
@@ -96,10 +95,13 @@ class BaseReportFilterType extends AbstractType
             'include_reset'  => true)
         );
 
-        $resolver->setOptional(array('site_type'));
+        $resolver->setDefined(array('site_type'));
         $resolver->setAllowedValues(array('site_type' => array('simple', 'advanced')));
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return 'BaseReportFilterType';

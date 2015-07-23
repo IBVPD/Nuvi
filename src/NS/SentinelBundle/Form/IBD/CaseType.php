@@ -10,12 +10,11 @@ use \NS\SentinelBundle\Form\Types\OtherSpecimen;
 use \NS\SentinelBundle\Form\Types\TripleChoice;
 use \NS\SentinelBundle\Form\Types\VaccinationReceived;
 use \NS\SentinelBundle\Interfaces\SerializedSitesInterface;
-use \NS\SentinelBundle\Services\SerializedSites;
 use \Symfony\Component\Form\AbstractType;
 use \Symfony\Component\Form\FormBuilderInterface;
 use \Symfony\Component\Form\FormEvent;
 use \Symfony\Component\Form\FormEvents;
-use \Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use \Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CaseType extends AbstractType
 {
@@ -23,7 +22,7 @@ class CaseType extends AbstractType
 
     /**
      *
-     * @param SerializedSites $siteSerializer
+     * @param SerializedSitesInterface $siteSerializer
      */
     public function __construct(SerializedSitesInterface $siteSerializer)
     {
@@ -174,9 +173,9 @@ class CaseType extends AbstractType
     }
     
     /**
-     * @param OptionsResolverInterface $resolver
+     * @param OptionsResolver $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'NS\SentinelBundle\Entity\IBD'

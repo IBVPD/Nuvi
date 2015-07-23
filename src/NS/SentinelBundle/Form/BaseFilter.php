@@ -7,7 +7,7 @@ use \Symfony\Component\Form\AbstractType;
 use \Symfony\Component\Form\FormBuilderInterface;
 use \Symfony\Component\Form\FormEvent;
 use \Symfony\Component\Form\FormEvents;
-use \Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use \Symfony\Component\OptionsResolver\OptionsResolver;
 use \Symfony\Component\Security\Core\SecurityContextInterface;
 
 class BaseFilter extends AbstractType
@@ -33,13 +33,16 @@ class BaseFilter extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('caseId', 'filter_text', array(
-            'required'          => false,
-            'condition_pattern' => FilterOperands::STRING_BOTH,
-            'label'             => 'site-assigned-case-id'));
-        $builder->add('admDate', 'filter_date_range', array(
-            'required' => false,
-            'label'    => 'filter.admission-date'));
+        $builder
+            ->add('caseId', 'filter_text', array(
+                'required'          => false,
+                'condition_pattern' => FilterOperands::STRING_BOTH,
+                'label'             => 'site-assigned-case-id'
+            ))
+            ->add('admDate', 'filter_date_range', array(
+                'required' => false,
+                'label'    => 'filter.admission-date'
+            ));
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'preSetData'));
     }
@@ -52,8 +55,9 @@ class BaseFilter extends AbstractType
         if ($this->securityContext->isGranted('ROLE_REGION'))
         {
             $objectIds = $this->aclConverter->getObjectIdsForRole($token, 'ROLE_REGION');
-            if (count($objectIds) > 1)
+            if (count($objectIds) > 1) {
                 $form->add('region', 'region');
+            }
 
             $form->add('id', 'filter_text', array(
                 'required'          => false,
@@ -63,11 +67,11 @@ class BaseFilter extends AbstractType
             $form->add('site', 'site');
         }
 
-        if ($this->securityContext->isGranted('ROLE_COUNTRY'))
-        {
+        if ($this->securityContext->isGranted('ROLE_COUNTRY')) {
             $objectIds = $this->aclConverter->getObjectIdsForRole($token, 'ROLE_COUNTRY');
-            if (count($objectIds) > 1)
+            if (count($objectIds) > 1) {
                 $form->add('country', 'country');
+            }
 
             $form->add('site', 'site');
         }
@@ -75,8 +79,9 @@ class BaseFilter extends AbstractType
         if ($this->securityContext->isGranted('ROLE_SITE'))
         {
             $objectIds = $this->aclConverter->getObjectIdsForRole($token, 'ROLE_SITE');
-            if (count($objectIds) > 1)
+            if (count($objectIds) > 1) {
                 $form->add('site', 'site');
+            }
         }
 
         $form->add('find', 'iconbutton', array('type' => 'submit', 'icon' => 'fa fa-search',
@@ -84,9 +89,9 @@ class BaseFilter extends AbstractType
     }
 
     /**
-     * @param OptionsResolverInterface $resolver
+     * @param OptionsResolver $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'method' => 'GET',

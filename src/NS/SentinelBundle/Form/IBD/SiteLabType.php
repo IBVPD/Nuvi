@@ -2,24 +2,31 @@
 
 namespace NS\SentinelBundle\Form\IBD;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormEvent;
-use NS\SentinelBundle\Services\SerializedSites;
-use NS\SentinelBundle\Form\Types\TripleChoice;
-use NS\SentinelBundle\Form\Types\CultureResult;
-use NS\SentinelBundle\Form\Types\SpnSerotype;
-use NS\SentinelBundle\Form\Types\HiSerotype;
-use NS\SentinelBundle\Form\Types\NmSerogroup;
-use NS\SentinelBundle\Form\Types\PCRResult;
-use NS\SentinelBundle\Form\Types\GramStain;
-use NS\SentinelBundle\Form\Types\GramStainOrganism;
-use NS\SentinelBundle\Entity\Country;
+use \Symfony\Component\Form\AbstractType;
+use \Symfony\Component\Form\FormBuilderInterface;
+use \Symfony\Component\OptionsResolver\OptionsResolver;
+use \Symfony\Component\Form\FormEvents;
+use \Symfony\Component\Form\FormEvent;
+use \NS\SentinelBundle\Services\SerializedSites;
+use \NS\SentinelBundle\Form\Types\TripleChoice;
+use \NS\SentinelBundle\Form\Types\CultureResult;
+use \NS\SentinelBundle\Form\Types\SpnSerotype;
+use \NS\SentinelBundle\Form\Types\HiSerotype;
+use \NS\SentinelBundle\Form\Types\NmSerogroup;
+use \NS\SentinelBundle\Form\Types\PCRResult;
+use \NS\SentinelBundle\Form\Types\GramStain;
+use \NS\SentinelBundle\Form\Types\GramStainOrganism;
+use \NS\SentinelBundle\Entity\Country;
 
+/**
+ * Class SiteLabType
+ * @package NS\SentinelBundle\Form\IBD
+ */
 class SiteLabType extends AbstractType
 {
+    /**
+     * @var SerializedSites
+     */
     private $siteSerializer;
 
     /**
@@ -160,7 +167,7 @@ class SiteLabType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'NS\SentinelBundle\Entity\IBD\SiteLab'

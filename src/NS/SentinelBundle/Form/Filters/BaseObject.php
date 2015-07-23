@@ -3,7 +3,7 @@
 namespace NS\SentinelBundle\Form\Filters;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Lexik\Bundle\FormFilterBundle\Filter\Doctrine\ORMQuery;
 
 /**
@@ -13,14 +13,20 @@ use Lexik\Bundle\FormFilterBundle\Filter\Doctrine\ORMQuery;
  */
 class BaseObject extends AbstractType //implements EmbeddedFilterTypeInterface
 {
+    /**
+     * @var
+     */
     protected $entityMgr;
 
+    /**
+     * @var
+     */
     protected $class;
 
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $class = $this->class;
         $resolver->setDefaults(array
