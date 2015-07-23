@@ -10,7 +10,6 @@ use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
  *
  */
 class CXRResult extends TranslatableArrayChoice implements TranslationContainerInterface
-
 {
     const NORMAL       = 0;
     const CONSISTENT   = 1;
