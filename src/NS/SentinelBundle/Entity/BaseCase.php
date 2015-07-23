@@ -604,7 +604,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
                 $this->setAge((int)(($this->dobYears*12)+$this->dobMonths));
             }
 
-            if ($this->age) {
+            if ($this->age >= 0) {
                 $d         = clone $this->admDate;
                 $this->dob = $d->sub(new \DateInterval("P" . ((int) $this->age) . "M"));
             }
