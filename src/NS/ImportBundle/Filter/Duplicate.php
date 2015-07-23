@@ -106,7 +106,7 @@ class Duplicate
     }
 
     /**
-     * @return int
+     * @return integer
      */
     public function getPriority()
     {
