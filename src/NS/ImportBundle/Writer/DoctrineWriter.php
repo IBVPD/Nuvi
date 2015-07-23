@@ -4,6 +4,7 @@ namespace NS\ImportBundle\Writer;
 
 use \Ddeboer\DataImport\Writer\DoctrineWriter as BaseWriter;
 use \Doctrine\Common\Collections\ArrayCollection;
+use \Doctrine\Common\Persistence\ObjectManager;
 use \Doctrine\ORM\EntityManager;
 
 /**
@@ -24,9 +25,8 @@ class DoctrineWriter extends BaseWriter
      * @param string        $entityName
      * @param string|array  $lookupFields Index column or array of lookup fields to find current entities by
      */
-    public function __construct(\Doctrine\Common\Persistence\ObjectManager $entityManager, $entityName, $lookupFields = null)
+    public function __construct(ObjectManager $entityManager, $entityName, $lookupFields = null)
     {
-//        throw new \RuntimeException("EntityManager is ".get_class($entityManager));
         parent::__construct($entityManager, $entityName, $lookupFields);
 
         $this->results = new ArrayCollection();
@@ -134,7 +134,6 @@ class DoctrineWriter extends BaseWriter
             return $this->getNewInstance();
         }
 
-//        $entity = parent::findOrCreateItem($item);
         $this->results->add($entity);
 
         return $entity;
@@ -150,5 +149,4 @@ class DoctrineWriter extends BaseWriter
         $this->loadAssociations = $loadAssociations;
         return $this;
     }
-
 }
