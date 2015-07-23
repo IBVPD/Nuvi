@@ -14,7 +14,6 @@ use UnexpectedValueException as UnexpectedValueException2;
  */
 class ArrayChoice implements NamedValueConverterInterface
 {
-
     private $class;
     private $name;
 
