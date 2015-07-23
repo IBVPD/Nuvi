@@ -201,16 +201,24 @@ abstract class BaseCase implements IdentityAssignmentInterface
      */
     protected $nationalClass  = null;
 
+    /**
+     * Constructor
+     * 
+     * @throws \InvalidArgumentException
+     */
     public function __construct()
     {
-        if (!is_string($this->nationalClass) || empty($this->nationalClass))
+        if (!is_string($this->nationalClass) || empty($this->nationalClass)) {
             throw new \InvalidArgumentException("The NationalLab class is not set");
+        }
 
-        if (!is_string($this->referenceClass) || empty($this->referenceClass))
+        if (!is_string($this->referenceClass) || empty($this->referenceClass)) {
             throw new \InvalidArgumentException("The ReferenceLab class is not set");
+        }
 
-        if (!is_string($this->siteLabClass) || empty($this->siteLabClass))
+        if (!is_string($this->siteLabClass) || empty($this->siteLabClass)) {
             throw new \InvalidArgumentException("The SiteLab class is not set");
+        }
 
         $this->externalLabs = new ArrayCollection();
         $this->status       = new CaseStatus(CaseStatus::OPEN);
@@ -218,35 +226,55 @@ abstract class BaseCase implements IdentityAssignmentInterface
         $this->updatedAt    = new \DateTime();
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * @param string $id
+     * @return \NS\SentinelBundle\Entity\BaseCase
+     */
     public function setId($id)
     {
         $this->id = $id;
         return $this;
     }
 
+    /**
+     * @return boolean
+     */
     public function hasId()
     {
         return !empty($this->id);
     }
 
+    /**
+     * @param string $id
+     * @return string
+     */
     public function getFullIdentifier($id)
     {
-        if(property_exists($this, 'admDate') && $this->admDate)
+        if (property_exists($this, 'admDate') && $this->admDate) {
             $year = $this->admDate->format('y');
-        else if(property_exists($this, 'onsetDate') && $this->onsetDate)
+        }
+        elseif (property_exists($this, 'onsetDate') && $this->onsetDate) {
             $year = $this->onsetDate->format('y');
-        else
+        }
+        else {
             $year = date('y');
+        }
 
         return sprintf("%s-%s-%d-%06d", $this->country->getCode(), $this->site->getCode(), $year, $id);
     }
@@ -324,40 +352,59 @@ abstract class BaseCase implements IdentityAssignmentInterface
         return $this->site;
     }
 
+    /**
+     * @return CaseStatus
+     */
     public function getStatus()
     {
         return $this->status;
     }
 
+    /**
+     * @param CaseStatus $status
+     * @return \NS\SentinelBundle\Entity\BaseCase
+     */
     public function setStatus(CaseStatus $status)
     {
         $this->status = $status;
         return $this;
     }
 
+    /**
+     * @param string $class
+     * @return BaseExternalLab
+     */
     protected function _findLab($class)
     {
-        foreach ($this->externalLabs as $l)
-        {
-            if ($l instanceof $class)
-                return $l;
+        foreach ($this->externalLabs as $lab) {
+            if ($lab instanceof $class) {
+                return $lab;
+            }
         }
 
         return null;
     }
 
+    /**
+     * @return BaseExternalLab
+     */
     protected function _findReferenceLab()
     {
-        if (is_integer($this->referenceLab) && $this->referenceLab == -1)
+        if (is_integer($this->referenceLab) && $this->referenceLab == -1) {
             $this->referenceLab = $this->_findLab($this->referenceClass);
+        }
 
         return $this->referenceLab;
     }
 
+    /**
+     * @return BaseExternalLab
+     */
     protected function _findNationalLab()
     {
-        if (is_integer($this->nationalLab) && $this->nationalLab == -1)
+        if (is_integer($this->nationalLab) && $this->nationalLab == -1) {
             $this->nationalLab = $this->_findLab($this->nationalClass);
+        }
 
         return $this->nationalLab;
     }
@@ -396,13 +443,18 @@ abstract class BaseCase implements IdentityAssignmentInterface
         return $this->externalLabs;
     }
 
+    /**
+     * @param array $externalLabs
+     * @return \NS\SentinelBundle\Entity\BaseCase
+     */
     public function setExternalLabs($externalLabs)
     {
         $this->referenceLab = $this->nationalLab  = -1;
         $this->externalLabs->clear();
 
-        foreach ($externalLabs as $externalLab)
+        foreach ($externalLabs as $externalLab) {
             $this->addExternalLab($externalLab);
+        }
 
         return $this;
     }
@@ -417,6 +469,9 @@ abstract class BaseCase implements IdentityAssignmentInterface
         return $this->_findReferenceLab();
     }
 
+    /**
+     * @return boolean
+     */
     public function hasReferenceLab()
     {
         $this->_findReferenceLab();
@@ -434,6 +489,10 @@ abstract class BaseCase implements IdentityAssignmentInterface
         return $this->_findNationalLab();
     }
 
+    /**
+     *
+     * @return boolean
+     */
     public function hasNationalLab()
     {
         $this->_findNationalLab();
@@ -461,29 +520,47 @@ abstract class BaseCase implements IdentityAssignmentInterface
         return ($this->siteLab) ? $this->siteLab->getSentToNationalLab() : false;
     }
 
+    /**
+     * @param string $referenceClass
+     * @return \NS\SentinelBundle\Entity\BaseCase
+     */
     public function setReferenceClass($referenceClass)
     {
         $this->referenceClass = $referenceClass;
         return $this;
     }
 
+    /**
+     * @param string $nationalClass
+     * @return \NS\SentinelBundle\Entity\BaseCase
+     */
     public function setNationalClass($nationalClass)
     {
         $this->nationalClass = $nationalClass;
         return $this;
     }
 
+    /**
+     * @return boolean
+     */
     public function hasSiteLab()
     {
         return ($this->siteLab instanceof $this->siteLabClass);
     }
 
+    /**
+     * @return BaseSiteLab
+     */
     public function getSiteLab()
     {
         return $this->siteLab;
     }
 
-    public function setSiteLab($siteLab)
+    /**
+     * @param \NS\SentinelBundle\Entity\BaseSiteLab $siteLab
+     * @return \NS\SentinelBundle\Entity\BaseCase
+     */
+    public function setSiteLab(BaseSiteLab $siteLab)
     {
         $siteLab->setCaseFile($this);
         $this->siteLab = $siteLab;
@@ -491,20 +568,24 @@ abstract class BaseCase implements IdentityAssignmentInterface
         return $this;
     }
 
+    /**
+     * @return boolean
+     */
     public function isComplete()
     {
         return $this->status->getValue() == CaseStatus::COMPLETE;
     }
 
+    /**
+     * @return null
+     */
     public function calculateStatus()
     {
-        if($this->status->getValue() >= CaseStatus::CANCELLED)
+        if($this->status->getValue() >= CaseStatus::CANCELLED) {
             return;
+        }
 
-        if($this->getIncompleteField())
-            $this->status = new CaseStatus(CaseStatus::OPEN);
-        else
-            $this->status = new CaseStatus(CaseStatus::COMPLETE);
+        $this->status = ($this->getIncompleteField()) ? new CaseStatus(CaseStatus::OPEN) :new CaseStatus(CaseStatus::COMPLETE);
 
         return;
     }
@@ -514,25 +595,22 @@ abstract class BaseCase implements IdentityAssignmentInterface
      */
     public function calculateAge()
     {
-        if($this->dob && $this->admDate)
-        {
+        if ($this->dob && $this->admDate) {
             $interval = $this->dob->diff($this->admDate);
             $this->setAge(($interval->format('%a') / 30.5));
         }
-        else if($this->admDate && !$this->dob)
-        {
-            if(!$this->age && !is_null($this->dobYears) && !is_null($this->dobMonths))
+        elseif ($this->admDate && !$this->dob) {
+            if(!$this->age && !is_null($this->dobYears) && !is_null($this->dobMonths)) {
                 $this->setAge((int)(($this->dobYears*12)+$this->dobMonths));
+            }
 
-            if($this->age)
-            {
-                $d = clone $this->admDate;
-                $this->dob = $d->sub(new \DateInterval("P".((int)$this->age)."M"));
+            if ($this->age) {
+                $d         = clone $this->admDate;
+                $this->dob = $d->sub(new \DateInterval("P" . ((int) $this->age) . "M"));
             }
         }
 
-        if($this->age >= 0)
-        {
+        if ($this->age >= 0) {
             if ($this->age < 6) {
                 $this->setAgeDistribution(self::AGE_DISTRIBUTION_00_TO_05);
             }
@@ -549,26 +627,42 @@ abstract class BaseCase implements IdentityAssignmentInterface
                 $this->setAgeDistribution(self::AGE_DISTRIBUTION_UNKNOWN);
             }
         }
-        else
+        else {
             $this->setAgeDistribution (self::AGE_DISTRIBUTION_UNKNOWN);
+        }
     }
 
+    /**
+     *
+     * @return \DateTime
+     */
     public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
 
+    /**
+     * @param \DateTime $updatedAt
+     * @return \NS\SentinelBundle\Entity\BaseCase
+     */
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
         return $this;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getCreatedAt()
     {
         return $this->createdAt;
     }
 
+    /**
+     * @param \DateTime $createdAt
+     * @return \NS\SentinelBundle\Entity\BaseCase
+     */
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
@@ -591,66 +685,108 @@ abstract class BaseCase implements IdentityAssignmentInterface
         $this->setUpdatedAt(new \DateTime());
     }
 
+    /**
+     * @return integer
+     */
     public function getYear()
     {
         return $this->createdAt->format('Y');
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getDob()
     {
         return $this->dob;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getAdmDate()
     {
         return $this->admDate;
     }
 
+    /**
+     * @return string
+     */
     public function getCaseId()
     {
         return $this->caseId;
     }
 
+    /**
+     *
+     * @return integer
+     */
     public function getAge()
     {
         return $this->age;
     }
 
+    /**
+     *
+     * @return Gender
+     */
     public function getGender()
     {
         return $this->gender;
     }
 
+    /**
+     *
+     * @return TripleChoice
+     */
     public function getDobKnown()
     {
         return $this->dobKnown;
     }
 
+    /**
+     *
+     * @return integer
+     */
     public function getDobYears()
     {
-        if(!$this->dobYears && $this->age)
+        if(!$this->dobYears && $this->age) {
             $this->dobYears = (int)($this->age/12);
+        }
 
         return $this->dobYears;
     }
 
+    /**
+     *
+     * @return month
+     */
     public function getDobMonths()
     {
-        if(!$this->dobMonths && $this->age)
-        {
+        if (!$this->dobMonths && $this->age) {
             $this->getDobYears();
-            $this->dobMonths = (int)($this->age-($this->dobYears*12));
+            $this->dobMonths = (int) ($this->age - ($this->dobYears * 12));
         }
 
         return $this->dobMonths;
     }
 
+    /**
+     *
+     * @param TripleChoice $dobKnown
+     * @return \NS\SentinelBundle\Entity\BaseCase
+     */
     public function setDobKnown(TripleChoice $dobKnown)
     {
         $this->dobKnown = $dobKnown;
         return $this;
     }
 
+    /**
+     *
+     * @param integer $dobYears
+     * @return \NS\SentinelBundle\Entity\BaseCase
+     */
     public function setDobYears($dobYears)
     {
         $this->dobYears = $dobYears;
@@ -658,6 +794,11 @@ abstract class BaseCase implements IdentityAssignmentInterface
         return $this;
     }
 
+    /**
+     *
+     * @param integer $dobMonths
+     * @return \NS\SentinelBundle\Entity\BaseCase
+     */
     public function setDobMonths($dobMonths)
     {
         $this->dobMonths = $dobMonths;
@@ -665,79 +806,147 @@ abstract class BaseCase implements IdentityAssignmentInterface
         return $this;
     }
 
-    public function setDob($dob)
+    /**
+     *
+     * @param \DateTime $dob
+     * @return \NS\SentinelBundle\Entity\BaseCase
+     */
+    public function setDob(\DateTime $dob = null)
     {
-        if(!$dob instanceOf \DateTime)
-            return;
-
         $this->dob = $dob;
 
         return $this;
     }
 
-    public function setAdmDate($admDate)
+    /**
+     *
+     * @param \DateTime $admDate
+     * @return \NS\SentinelBundle\Entity\BaseCase
+     */
+    public function setAdmDate(\DateTime $admDate = null)
     {
-        if(!$admDate instanceOf \DateTime)
-            return;
-
         $this->admDate = $admDate;
 
         return $this;
     }
 
+    /**
+     *
+     * @param string $caseId
+     * @return \NS\SentinelBundle\Entity\BaseCase
+     */
     public function setCaseId($caseId)
     {
         $this->caseId = $caseId;
+
+        return $this;
     }
 
+    /**
+     *
+     * @param integer $age
+     * @return \NS\SentinelBundle\Entity\BaseCase
+     */
     public function setAge($age)
     {
         $this->age = $age;
+
+        return $this;
     }
 
+    /**
+     *
+     * @param Gender $gender
+     * @return \NS\SentinelBundle\Entity\BaseCase
+     */
     public function setGender(Gender $gender)
     {
         $this->gender = $gender;
+
+        return $this;
     }
 
+    /**
+     *
+     * @return string
+     */
     public function getLastName()
     {
         return $this->lastName;
     }
 
+    /**
+     *
+     * @return string
+     */
     public function getFirstName()
     {
         return $this->firstName;
     }
 
+    /**
+     *
+     * @return string
+     */
     public function getParentalName()
     {
         return $this->parentalName;
     }
 
+    /**
+     *
+     * @param string $parentalName
+     * @return \NS\SentinelBundle\Entity\BaseCase
+     */
     public function setParentalName($parentalName)
     {
         $this->parentalName = $parentalName;
+
+        return $this;
     }
 
+    /**
+     *
+     * @param string $lastName
+     * @return \NS\SentinelBundle\Entity\BaseCase
+     */
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
+
+        return $this;
     }
 
+    /**
+     *
+     * @param string $firstName
+     * @return \NS\SentinelBundle\Entity\BaseCase
+     */
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
+
+        return $this;
     }
 
+    /**
+     *
+     * @return integer
+     */
     public function getAgeDistribution()
     {
         return $this->ageDistribution;
     }
 
+    /**
+     *
+     * @param integer $ageDistribution
+     * @return \NS\SentinelBundle\Entity\BaseCase
+     */
     public function setAgeDistribution($ageDistribution)
     {
         $this->ageDistribution = $ageDistribution;
+
         return $this;
     }
 
@@ -765,6 +974,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
     public function setDistrict($district)
     {
         $this->district = $district;
+
         return $this;
     }
 
@@ -776,8 +986,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
     public function setState($state)
     {
         $this->state = $state;
+
         return $this;
     }
-
-
 }
