@@ -52,7 +52,7 @@ class ArrayChoice implements NamedValueConverterInterface
         }
 
         try {
-            return new $this->class($input);
+            return new $this->class( is_numeric($input) ? (int) $input : $input );
         }
         catch (UnexpectedValueException2 $ex) {
             throw new UnexpectedValueException(sprintf("Unable to convert value '%s' for %s", $input, $this->name), null, $ex);

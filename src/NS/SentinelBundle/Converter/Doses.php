@@ -11,6 +11,6 @@ class Doses extends ArrayChoice
 {
     public function __invoke($input)
     {
-        return ($input == 0) ? null : parent::convert ($input);
+        return ($input == 0) ? null : parent::__invoke($input);
     }
 }
