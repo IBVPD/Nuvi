@@ -22,3 +22,4 @@ web/coverage
 *.csv
 *.tar*
 *.sql
+.idea
