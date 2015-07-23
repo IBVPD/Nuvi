@@ -6,7 +6,9 @@ use \Doctrine\ORM\Mapping as ORM;
 use \NS\ImportBundle\Writer\Result as WorkflowResult;
 use \NS\SentinelBundle\Entity\User;
 use \Symfony\Component\HttpFoundation\File\File;
+use \Symfony\Component\Security\Core\User\UserInterface;
 use \Vich\UploaderBundle\Mapping\Annotation as Vich;
+use \Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Description of Result
@@ -15,6 +17,9 @@ use \Vich\UploaderBundle\Mapping\Annotation as Vich;
  *
  * @ORM\Entity(repositoryClass="NS\ImportBundle\Repository\ResultRepository")
  * @ORM\Table(name="import_results")
+ * 
+ * @Vich\Uploadable
+ * 
  * @SuppressWarnings(PHPMD.ShortVariable)
  */
 class Result
@@ -37,7 +42,7 @@ class Result
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
      * @Vich\UploadableField(mapping="import_file", fileNameProperty="filename")
-     *
+     * @Assert\File
      * @var File $imageFile
      */
     private $importFile;
@@ -50,13 +55,13 @@ class Result
 
     /**
      * @var \DateTime $importStartedAt
-     * @ORM\Column(name="importStartedAt",type="datetime")
+     * @ORM\Column(name="importStartedAt",type="datetime",nullable=true)
      */
     private $importStartedAt;
 
     /**
      * @var \DateTime $importEndedAt
-     * @ORM\Column(name="importEndedAt",type="datetime")
+     * @ORM\Column(name="importEndedAt",type="datetime",nullable=true)
      */
     private $importEndedAt;
 
@@ -68,25 +73,25 @@ class Result
 
     /**
      * @var integer $totalRows
-     * @ORM\Column(name="totalRows",type="integer")
+     * @ORM\Column(name="totalRows",type="integer",nullable=true)
      */
-    private $totalRowCount;
+    private $totalRowCount = 0;
 
     /**
      * @var integer $totalCount
-     * @ORM\Column(name="totalCount",type="integer")
+     * @ORM\Column(name="totalCount",type="integer",nullable=true)
      */
-    private $totalCount;
+    private $totalCount = 0;
 
     /**
      * @var integer $successCount
-     * @ORM\Column(name="successCount",type="integer")
+     * @ORM\Column(name="successCount",type="integer",nullable=true)
      */
-    private $successCount;
+    private $successCount = 0;
 
     /**
      * @var array $mapName
-     * @ORM\Column(name="mapName",type="array")
+     * @ORM\Column(name="mapName",type="string")
      */
     private $mapName;
 
@@ -94,7 +99,7 @@ class Result
      * @var array $warnings
      * @ORM\Column(name="warnings",type="array")
      */
-    private $warnings;
+    private $warnings = array();
 
     /**
      * @var array $successes
@@ -112,20 +117,22 @@ class Result
      * @var array $duplicates
      * @ORM\Column(name="duplicates",type="array")
      */
-    private $duplicates;
+    private $duplicates = array();
 
     /**
      * @var NS\SentinelBundle\Entity\User $user
      * @ORM\ManyToOne(targetEntity="NS\SentinelBundle\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct(UserInterface $user)
     {
         $this->createdAt = new \DateTime();
+        $this->user      = $user;
     }
 
     /**

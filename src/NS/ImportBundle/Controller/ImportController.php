@@ -25,31 +25,15 @@ class ImportController extends Controller
     public function indexAction(Request $request)
     {
         $entityMgr = $this->get('doctrine.orm.entity_manager');
-        $form      = $this->createForm('ImportSelect');
+        $form      = $this->createForm('ImportSelect', null, array('user' => $entityMgr->getReference('NS\SentinelBundle\Entity\User', $this->getUser()->getId())));
 
         $form->handleRequest($request);
         if ($form->isValid()) {
-            $importer = $this->get('ns_import.processor');
-            $import   = $form->getData();
-            $wresult  = $importer->process($import);
-            $result   = new Result($import, $wresult);
+            $import = $form->getData();
+            $entityMgr->persist($import);
+            $entityMgr->flush($import);
 
-            if ($entityMgr->isOpen()) {
-                $user = $this->getUser();
-                $result->setUser($entityMgr->getReference(get_class($user), $user->getId()));
-
-                $entityMgr->persist($result);
-                $entityMgr->flush($result);
-
-                $this->get('ns_flash')->addSuccess(null, null, "Import completed");
-            }
-            else {
-                $exceptions = $wresult->getExceptions();
-                $exception  = end($exceptions);
-
-                $this->get('ns_flash')->addError(null, "Import failed", ($exception->getPrevious()) ? $exception->getPrevious()->getMessage() : $exception->getMessage());
-            }
-
+            $this->get('ns_flash')->addSuccess(null, null, "Import Added");
             return $this->redirect($this->generateUrl('importIndex'));
         }
 

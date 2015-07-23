@@ -419,7 +419,8 @@ class ImportProcessorTest extends WebTestCase
             ),
         );
 
-        $import = new Result();
+        $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
+        $import = new Result($mockUser);
         $import->setImportFile($file);
         $import->setMap($this->getIbdMap($columns));
 
@@ -488,7 +489,8 @@ class ImportProcessorTest extends WebTestCase
     public function testReferenceLabDuplicateAndNotBlankFields()
     {
         $processor = new ImportProcessor($this->getContainer(), new DuplicateFilterFactory(), new NotBlankFilterFactory(), new LinkerFilterFactory(array()));
-        $import    = new Result();
+        $mockUser  = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
+        $import    = new Result($mockUser);
         $map       = new Map();
         $map->setClass('NS\SentinelBundle\Entity\IBD\ReferenceLab');
         $import->setMap($map);
@@ -553,7 +555,8 @@ class ImportProcessorTest extends WebTestCase
 
         $processor = $this->getContainer()->get('ns_import.processor');
         $reader    = new ArrayReader($source);
-        $import    = new Result();
+        $mockUser  = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
+        $import    = new Result($mockUser);
         $import->setMap($this->getReferenceLabMap($columns));
 
         $converters = $import->getConverters();

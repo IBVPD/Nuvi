@@ -2,10 +2,10 @@
 
 namespace NS\ImportBundle\Form;
 
-use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use \Doctrine\Common\Persistence\ObjectManager;
+use \Symfony\Component\Form\AbstractType;
+use \Symfony\Component\Form\FormBuilderInterface;
+use \Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Description of ImportSelectType
@@ -33,11 +33,11 @@ class ImportSelectType extends AbstractType
     {
         $builder->add('map', 'entity', array(
                 'class'         => 'NSImportBundle:Map',
-                'empty_value'   => 'Please Select...',
+                'placeholder'   => 'Please Select...',
                 'query_builder' => $this->entityMgr->getRepository('NSImportBundle:Map')->getWithColumnsQuery(),
                 )
             )
-            ->add('importFile', 'file')
+            ->add('importFile', 'vich_file',array('error_bubbling'=>false))
             ->add('import', 'submit', array('attr' => array('class' => 'btn btn-xs btn-success pull-right')))
         ;
     }
@@ -45,10 +45,16 @@ class ImportSelectType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
+        $resolver->setRequired('user');
         $resolver->setDefaults(array(
-            'data_class' => 'NS\ImportBundle\Entity\Result'
+            'data_class' => 'NS\ImportBundle\Entity\Result',
+            'empty_data' => function(\Symfony\Component\OptionsResolver\Options $options) {
+                return function() use ($options) {
+                    return new \NS\ImportBundle\Entity\Result($options['user']);
+                };
+            }
         ));
     }
 
