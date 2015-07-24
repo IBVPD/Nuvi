@@ -12,7 +12,6 @@ use \NS\SentinelBundle\Form\Types\IBDCaseResult;
 use \NS\SentinelBundle\Form\Types\PCRResult;
 use \NS\SentinelBundle\Form\Types\SpnSerotype;
 use \NS\SentinelBundle\Form\Types\TripleChoice;
-use \NS\SentinelBundle\Repository\Common;
 
 /**
  * Description of Common

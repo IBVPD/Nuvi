@@ -118,7 +118,7 @@ class LoadFixtures implements FixtureInterface, ContainerAwareInterface
         return $choices[array_rand($choices)];
     }
 
-    public function csfAppearance(TripleChoice $csfDone = null)
+    public function csfAppearance()
     {
         $choices = array(
             new CSFAppearance(CSFAppearance::CLEAR),

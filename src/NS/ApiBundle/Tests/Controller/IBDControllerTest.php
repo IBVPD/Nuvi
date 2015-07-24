@@ -96,7 +96,7 @@ class IBDControllerTest extends WebTestCase
 
         $response = $client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
-        $decoded  = json_decode($response->getContent(), true);
+        json_decode($response->getContent(), true);
     }
 
     public function testPatchRRLCase()
@@ -147,7 +147,7 @@ class IBDControllerTest extends WebTestCase
         $client->request('GET', $route);
 
         $response = $client->getResponse();
-        $this->assertJsonResponse($response, 200, $route);
+        $this->assertJsonResponse($response, 200);
         $decoded  = json_decode($response->getContent(), true);
 
         $this->assertArrayHasKey('Status', $decoded, print_r($decoded, true));

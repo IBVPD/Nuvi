@@ -77,18 +77,22 @@ class AuthorizeController extends Controller
          *           - Use a session var?
          * @todo we need to also somehow check that we're using the user the remote is linked to - another point for using a session var
          */
-        if (count($remotes) > 1)
+        if (count($remotes) > 1) {
             throw new UnexpectedResultException("We really only support one remote per user at the moment");
+        }
 
-        $remote = current($remotes);
-
+        $remote          = current($remotes);
         $authorizeClient = $this->get('oauth2.client');
         $authorizeClient->setRemote($remote);
 
-        if (!$request->query->get('code'))
+        if (!$request->query->get('code')) {
             return new RedirectResponse($authorizeClient->getAuthenticationUrl());
+        }
 
-        if ($authorizeClient->getAccessTokenByAuthorizationCode($request->query->get('code')))
+        if ($authorizeClient->getAccessTokenByAuthorizationCode($request->query->get('code'))) {
             return $this->redirect($this->generateUrl('ns_api_dashboard'));
+        }
+
+        return $this->createNotFoundException("Unable to complete authorization");
     }
 }

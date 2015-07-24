@@ -2,8 +2,6 @@
 
 namespace NS\ApiBundle\Tests\Service;
 
-use \OAuth2\Client;
-
 /**
  * Description of OAuth2ClientTest
  *

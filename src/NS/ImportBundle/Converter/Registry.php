@@ -2,9 +2,8 @@
 
 namespace NS\ImportBundle\Converter;
 
-use NS\ImportBundle\Converter\NamedValueConverterInterface;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use \Symfony\Component\Form\AbstractType;
+use \Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Description of Registry
@@ -41,9 +40,9 @@ class Registry extends AbstractType
 
     /**
      *
-     * @param OptionsResolverInterface $resolver
+     * @param OptionsResolver $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         if (!$this->sorted) {
             asort($this->values);

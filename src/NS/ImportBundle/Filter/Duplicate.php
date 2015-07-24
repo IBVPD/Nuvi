@@ -43,13 +43,13 @@ class Duplicate
             }
 
             if (is_object($item[$field]) && $method && method_exists($item[$field], $method)) {
-                $fieldKey .= sprintf('%s-', strtolower($item[$field]->$method()));
+                $fieldKey .= sprintf('%s_', strtolower($item[$field]->$method()));
             }
             else if (is_array($item[$field])) {
-                $fieldKey .= sprintf('%s-', implode('-', $item[$field]));
+                $fieldKey .= sprintf('%s_', implode('-', $item[$field]));
             }
             else {
-                $fieldKey .= sprintf('%s-', strtolower($item[$field]));
+                $fieldKey .= sprintf('%s_', strtolower($item[$field]));
             }
         }
 

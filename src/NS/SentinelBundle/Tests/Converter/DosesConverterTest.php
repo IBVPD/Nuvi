@@ -7,14 +7,14 @@ namespace NS\SentinelBundle\Tests\Converter;
  *
  * @author gnat
  */
-class DosesTest extends \PHPUnit_Framework_TestCase
+class DosesConverterTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testFourDoses()
     {
         $four          = new \NS\SentinelBundle\Form\Types\FourDoses();
         $class         = get_class($four);
-        $doseConverter = new \NS\SentinelBundle\Converter\Doses($class);
+        $doseConverter = new \NS\SentinelBundle\Converter\DosesConverter($class);
         $converted     = $doseConverter->__invoke(0);
 
         $this->assertNull($converted);
@@ -24,7 +24,7 @@ class DosesTest extends \PHPUnit_Framework_TestCase
     {
         $three = new \NS\SentinelBundle\Form\Types\ThreeDoses();
         $class         = get_class($three);
-        $doseConverter = new \NS\SentinelBundle\Converter\Doses($class);
+        $doseConverter = new \NS\SentinelBundle\Converter\DosesConverter($class);
         $converted     = $doseConverter->__invoke(0);
 
         $this->assertNull($converted);

@@ -6,8 +6,8 @@ use \Liip\FunctionalTestBundle\Test\WebTestCase;
 use \NS\ImportBundle\Converter\Registry;
 use \NS\ImportBundle\Entity\Map;
 use \NS\ImportBundle\Services\MapBuilder;
-use \NS\SentinelBundle\Converter\ArrayChoice;
-use \NS\SentinelBundle\Converter\Doses;
+use \NS\SentinelBundle\Converter\ArrayChoiceConverter;
+use \NS\SentinelBundle\Converter\DosesConverter;
 use \Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
@@ -63,44 +63,43 @@ class MapBuilderTest extends WebTestCase
     private function addConverters(MapBuilder $builder)
     {
         $converters = array(
-            'ns.sentinel.converter.spnSerotype'                   => new ArrayChoice('NS\SentinelBundle\Form\Types\SpnSerotype'),
-            'ns.sentinel.converter.serotypeIdentifier'            => new ArrayChoice('NS\SentinelBundle\Form\Types\SerotypeIdentifier'),
-            'ns.sentinel.converter.rotavirusVaccinationReceived'  => new ArrayChoice('NS\SentinelBundle\Form\Types\RotavirusVaccinationReceived'),
-            'ns.sentinel.converter.VaccinationReceived'           => new ArrayChoice('NS\SentinelBundle\Form\Types\VaccinationReceived'),
-            'ns.sentinel.converter.threeDoses'                    => new Doses('NS\SentinelBundle\Form\Types\ThreeDoses'),
-            'ns.sentinel.converter.fourDoses'                     => new Doses('NS\SentinelBundle\Form\Types\FourDoses'),
-            'ns.sentinel.converter.rotavirusDischargeOutcome'     => new ArrayChoice('NS\SentinelBundle\Form\Types\RotavirusDischargeOutcome'),
-            'ns.sentinel.converter.rehydration'                   => new ArrayChoice('NS\SentinelBundle\Form\Types\Rehydration'),
-            'ns.sentinel.converter.pathogenIdentifier'            => new ArrayChoice('NS\SentinelBundle\Form\Types\PathogenIdentifier'),
-            'ns.sentinel.converter.pcvType'                       => new ArrayChoice('NS\SentinelBundle\Form\Types\PCVType'),
-            'ns.sentinel.converter.pcrResult'                     => new ArrayChoice('NS\SentinelBundle\Form\Types\PCRResult'),
-            'ns.sentinel.converter.otherSpecimen'                 => new ArrayChoice('NS\SentinelBundle\Form\Types\OtherSpecimen'),
-            'ns.sentinel.converter.nmSerogroup'                   => new ArrayChoice('NS\SentinelBundle\Form\Types\NmSerogroup'),
-            'ns.sentinel.converter.MeningVaccinationType'         => new ArrayChoice('NS\SentinelBundle\Form\Types\MeningitisVaccinationType'),
-            'ns.sentinel.converter.meningitisVaccinationReceived' => new ArrayChoice('NS\SentinelBundle\Form\Types\MeningitisVaccinationReceived'),
-            'ns.sentinel.converter.latResult'                     => new ArrayChoice('NS\SentinelBundle\Form\Types\LatResult'),
-            'ns.sentinel.converter.isolateType'                   => new ArrayChoice('NS\SentinelBundle\Form\Types\IsolateType'),
-            'ns.sentinel.converter.ibdCaseResult'                 => new ArrayChoice('NS\SentinelBundle\Form\Types\IBDCaseResult'),
-            'ns.sentinel.converter.hiSerotype'                    => new ArrayChoice('NS\SentinelBundle\Form\Types\HiSerotype'),
-            'ns.sentinel.converter.gramStainOrganism'             => new ArrayChoice('NS\SentinelBundle\Form\Types\GramStainOrganism'),
-            'ns.sentinel.converter.gramStain'                     => new ArrayChoice('NS\SentinelBundle\Form\Types\GramStain'),
-            'ns.sentinel.converter.genotypeResultP'               => new ArrayChoice('NS\SentinelBundle\Form\Types\GenotypeResultP'),
-            'ns.sentinel.converter.genotypeResultG'               => new ArrayChoice('NS\SentinelBundle\Form\Types\GenotypeResultG'),
-            'ns.sentinel.converter.elisaKit'                      => new ArrayChoice('NS\SentinelBundle\Form\Types\ElisaKit'),
-            'ns.sentinel.converter.elisaResult'                   => new ArrayChoice('NS\SentinelBundle\Form\Types\ElisaResult'),
-            'ns.sentinel.converter.dischargeOutcome'              => new ArrayChoice('NS\SentinelBundle\Form\Types\DischargeOutcome'),
-            'ns.sentinel.converter.dischargeClassification'       => new ArrayChoice('NS\SentinelBundle\Form\Types\DischargeClassification'),
-            'ns.sentinel.converter.diagnosis'                     => new ArrayChoice('NS\SentinelBundle\Form\Types\Diagnosis'),
-            'ns.sentinel.converter.dehydration'                   => new ArrayChoice('NS\SentinelBundle\Form\Types\Dehydration'),
-            'ns.sentinel.converter.cultureResult'                 => new ArrayChoice('NS\SentinelBundle\Form\Types\CultureResult'),
-            'ns.sentinel.converter.caseStatus'                    => new ArrayChoice('NS\SentinelBundle\Form\Types\CaseStatus'),
-            'ns.sentinel.converter.cxrResult'                     => new ArrayChoice('NS\SentinelBundle\Form\Types\CXRResult'),
-            'ns.sentinel.converter.cxrAdditionalResult'           => new ArrayChoice('NS\SentinelBundle\Form\Types\CXRAdditionalResult'),
-            'ns.sentinel.converter.binaxResult'                   => new ArrayChoice('NS\SentinelBundle\Form\Types\BinaxResult'),
-            'ns.sentinel.converter.csfAppearance'                 => new ArrayChoice('NS\SentinelBundle\Form\Types\CSFAppearance'),
-            'ns.sentinel.converter.gender'                        => new ArrayChoice('NS\SentinelBundle\Form\Types\Gender'),
-            'ns.sentinel.converter.diagnosis'                     => new ArrayChoice('NS\SentinelBundle\Form\Types\Diagnosis'),
-            'ns.sentinel.converter.triple_choice'                 => new ArrayChoice('NS\SentinelBundle\Form\Types\TripleChoice'),
+            'ns.sentinel.converter.spnSerotype'                   => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\SpnSerotype'),
+            'ns.sentinel.converter.serotypeIdentifier'            => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\SerotypeIdentifier'),
+            'ns.sentinel.converter.rotavirusVaccinationReceived'  => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\RotavirusVaccinationReceived'),
+            'ns.sentinel.converter.VaccinationReceived'           => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\VaccinationReceived'),
+            'ns.sentinel.converter.threeDoses'                    => new DosesConverter('NS\SentinelBundle\Form\Types\ThreeDoses'),
+            'ns.sentinel.converter.fourDoses'                     => new DosesConverter('NS\SentinelBundle\Form\Types\FourDoses'),
+            'ns.sentinel.converter.rotavirusDischargeOutcome'     => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\RotavirusDischargeOutcome'),
+            'ns.sentinel.converter.rehydration'                   => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\Rehydration'),
+            'ns.sentinel.converter.pathogenIdentifier'            => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\PathogenIdentifier'),
+            'ns.sentinel.converter.pcvType'                       => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\PCVType'),
+            'ns.sentinel.converter.pcrResult'                     => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\PCRResult'),
+            'ns.sentinel.converter.otherSpecimen'                 => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\OtherSpecimen'),
+            'ns.sentinel.converter.nmSerogroup'                   => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\NmSerogroup'),
+            'ns.sentinel.converter.MeningVaccinationType'         => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\MeningitisVaccinationType'),
+            'ns.sentinel.converter.meningitisVaccinationReceived' => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\MeningitisVaccinationReceived'),
+            'ns.sentinel.converter.latResult'                     => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\LatResult'),
+            'ns.sentinel.converter.isolateType'                   => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\IsolateType'),
+            'ns.sentinel.converter.ibdCaseResult'                 => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\IBDCaseResult'),
+            'ns.sentinel.converter.hiSerotype'                    => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\HiSerotype'),
+            'ns.sentinel.converter.gramStainOrganism'             => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\GramStainOrganism'),
+            'ns.sentinel.converter.gramStain'                     => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\GramStain'),
+            'ns.sentinel.converter.genotypeResultP'               => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\GenotypeResultP'),
+            'ns.sentinel.converter.genotypeResultG'               => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\GenotypeResultG'),
+            'ns.sentinel.converter.elisaKit'                      => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\ElisaKit'),
+            'ns.sentinel.converter.elisaResult'                   => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\ElisaResult'),
+            'ns.sentinel.converter.dischargeOutcome'              => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\DischargeOutcome'),
+            'ns.sentinel.converter.dischargeClassification'       => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\DischargeClassification'),
+            'ns.sentinel.converter.diagnosis'                     => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\Diagnosis'),
+            'ns.sentinel.converter.dehydration'                   => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\Dehydration'),
+            'ns.sentinel.converter.cultureResult'                 => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\CultureResult'),
+            'ns.sentinel.converter.caseStatus'                    => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\CaseStatus'),
+            'ns.sentinel.converter.cxrResult'                     => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\CXRResult'),
+            'ns.sentinel.converter.cxrAdditionalResult'           => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\CXRAdditionalResult'),
+            'ns.sentinel.converter.binaxResult'                   => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\BinaxResult'),
+            'ns.sentinel.converter.csfAppearance'                 => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\CSFAppearance'),
+            'ns.sentinel.converter.gender'                        => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\Gender'),
+            'ns.sentinel.converter.triple_choice'                 => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\TripleChoice'),
         );
 
         $converterRegistry = new Registry();

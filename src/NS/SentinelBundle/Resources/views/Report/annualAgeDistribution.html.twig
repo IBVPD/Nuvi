@@ -80,7 +80,7 @@
           vAxis: { title: 'Occurances'},
           hAxis: { title: 'Month'},
           bar: {groupWidth: '90%'},
-          annotations: { boxStyle: { stroke: '#888', strokeWidth: 1,} }
+          annotations: { boxStyle: { stroke: '#888', strokeWidth: 1} }
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('totalPercent'));
@@ -100,7 +100,7 @@
 
         var options = {
           title: '{{'Case Progression'|trans}}',
-          hAxis: { format: '####'},
+          hAxis: { format: '####'}
         };
 
         var chart = new google.visualization.LineChart(document.getElementById('ageProgression'));

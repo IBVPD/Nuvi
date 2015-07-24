@@ -69,247 +69,247 @@ services:
         - { name: form.type, alias: OtherSpecimen }
 
     ns.sentinel.converter.spnSerotype:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\SpnSerotype ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.serotypeIdentifier:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\SerotypeIdentifier ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.rotavirusVaccinationReceived:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\RotavirusVaccinationReceived ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.VaccinationReceived:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\VaccinationReceived ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.threeDoses:
-      class: NS\SentinelBundle\Converter\Doses
+      class: NS\SentinelBundle\Converter\DosesConverter
       arguments: [ NS\SentinelBundle\Form\Types\ThreeDoses ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.fourDoses:
-      class: NS\SentinelBundle\Converter\Doses
+      class: NS\SentinelBundle\Converter\DosesConverter
       arguments: [ NS\SentinelBundle\Form\Types\FourDoses ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.rotavirusDischargeOutcome:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\RotavirusDischargeOutcome ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.rehydration:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\Rehydration ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.pathogenIdentifier:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\PathogenIdentifier ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.pcvType:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\PCVType ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.pcrResult:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\PCRResult ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.otherSpecimen:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\OtherSpecimen ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.nmSerogroup:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\NmSerogroup ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.MeningVaccinationType:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\MeningitisVaccinationType ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.meningitisVaccinationReceived:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\MeningitisVaccinationReceived ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.latResult:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\LatResult ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.isolateType:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\IsolateType ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.ibdCaseResult:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\IBDCaseResult ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.hiSerotype:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\HiSerotype ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.gramStainOrganism:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\GramStainOrganism ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.gramStain:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\GramStain ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.genotypeResultP:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\GenotypeResultP ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.genotypeResultG:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\GenotypeResultG ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.elisaKit:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\ElisaKit ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.elisaResult:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\ElisaResult ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.dischargeOutcome:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\DischargeOutcome ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.dischargeClassification:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\DischargeClassification ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.diagnosis:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\Diagnosis ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.dehydration:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\Dehydration ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.cultureResult:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\CultureResult ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.caseStatus:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\CaseStatus ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.cxrResult:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\CXRResult ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.cxrAdditionalResult:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\CXRAdditionalResult ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.binaxResult:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\BinaxResult ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.csfAppearance:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\CSFAppearance ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.gender:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\Gender ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.sample_type:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\SampleType ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.diagnosis:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\Diagnosis ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.triple_choice:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\TripleChoice ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.isolate_viable:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\IsolateViable ]
       tags:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.finalResult:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\FinalResult ]
       tags:
         - { name: ns_import.converter }
@@ -333,7 +333,7 @@ services:
         - { name: ns_import.converter }
 
     ns.sentinel.converter.RotavirusVaccinationType:
-      class: NS\SentinelBundle\Converter\ArrayChoice
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\RotavirusVaccinationType ]
       tags:
           - { name: ns_import.converter }

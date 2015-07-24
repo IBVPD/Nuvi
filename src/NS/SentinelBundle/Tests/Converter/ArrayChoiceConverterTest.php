@@ -2,8 +2,8 @@
 
 namespace NS\SentinelBundle\Tests\Converter;
 
-use Ddeboer\DataImport\Exception\UnexpectedValueException;
-use NS\SentinelBundle\Converter\ArrayChoice;
+use NS\UtilBundle\Form\Types\ArrayChoice;
+use NS\SentinelBundle\Converter\ArrayChoiceConverter;
 use NS\SentinelBundle\Form\Types\IsolateViable;
 use NS\SentinelBundle\Form\Types\BinaxResult;
 use NS\SentinelBundle\Form\Types\CaseStatus;
@@ -48,40 +48,39 @@ use NS\SentinelBundle\Form\Types\SurveillanceConducted;
 use NS\SentinelBundle\Form\Types\ThreeDoses;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Form\Types\VaccinationReceived;
-use NS\UtilBundle\Form\Types\ArrayChoice as ArrayChoice2;
 
 /**
- * Description of ArrayChoiceTest
+ * Description of ArrayChoiceConverterTest
  *
  * @author gnat
  */
-class ArrayChoiceTest extends \PHPUnit_Framework_TestCase
+class ArrayChoiceConverterTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
      *
-     * @param ArrayChoice2 $obj
+     * @param ArrayChoiceConverter2 $obj
      * @dataProvider converterProvider
-     * @expectedException UnexpectedValueException
      */
-    public function testArrayChoiceExceptions($obj, $name)
+    public function testArrayChoiceConverterOutOfRange($obj, $name)
     {
         $class     = get_class($obj);
-        $converter = new ArrayChoice($class);
+        $converter = new ArrayChoiceConverter($class);
         $this->assertEquals($name, $converter->getName());
         $obj->getValues();
-        $converter->__invoke(-12);
+        $ret = $converter->__invoke(-12);
+        $this->assertEquals($ret->getValue(),ArrayChoice::OUT_OF_RANGE);
     }
 
     /**
      *
-     * @param ArrayChoice2 $obj
+     * @param ArrayChoiceConverter2 $obj
      * @dataProvider converterProvider
      */
-    public function testArrayChoice($obj, $name)
+    public function testArrayChoiceConverter($obj, $name)
     {
         $class     = get_class($obj);
-        $converter = new ArrayChoice($class);
+        $converter = new ArrayChoiceConverter($class);
         $this->assertEquals($name, $converter->getName());
         $values    = $obj->getValues();
 
@@ -98,7 +97,7 @@ class ArrayChoiceTest extends \PHPUnit_Framework_TestCase
 
     public function testPahoEqualsConverter()
     {
-        $converter = new ArrayChoice('NS\SentinelBundle\Form\Types\Gender');
+        $converter = new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\Gender');
         $genders   = array(Gender::MALE => "M = Masculino", Gender::FEMALE => "F = Femenino");
 
         foreach ($genders as $intType => $strType) {
@@ -116,7 +115,7 @@ class ArrayChoiceTest extends \PHPUnit_Framework_TestCase
             TripleChoice::UNKNOWN => "99 =Desconocido",
             TripleChoice::NO      => "0 = No",
         );
-        $converter = new ArrayChoice('NS\SentinelBundle\Form\Types\TripleChoice');
+        $converter = new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\TripleChoice');
 
         foreach ($values as $intType => $strType) {
             $convertedObj = $converter->__invoke($strType);
@@ -129,7 +128,7 @@ class ArrayChoiceTest extends \PHPUnit_Framework_TestCase
      */
     public function testUnknownClass()
     {
-        new ArrayChoice('NS\SentinelBundle\Form\Types\UnknownClass');
+        new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\UnknownClass');
     }
 
     public function converterProvider()

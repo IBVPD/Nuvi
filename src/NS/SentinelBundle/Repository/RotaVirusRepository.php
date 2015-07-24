@@ -5,7 +5,6 @@ namespace NS\SentinelBundle\Repository;
 use \Doctrine\ORM\NoResultException;
 use \Doctrine\ORM\Query;
 use \NS\SentinelBundle\Exceptions\NonExistentCase;
-use \NS\SentinelBundle\Repository\Common;
 
 /**
  * Description of Common
@@ -98,10 +97,7 @@ class RotaVirusRepository extends Common
     {
         try 
         {
-            $queryBuilder = $this->_em
-                       ->createQueryBuilder('m')
-                       ->select('m')
-                       ->from($this->getClassName(),'m')
+            $queryBuilder = $this->createQueryBuilder('m')
                        ->where('m.id = :id')
                        ->setParameter('id', $objId);
             

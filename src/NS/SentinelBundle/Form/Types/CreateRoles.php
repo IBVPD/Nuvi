@@ -3,8 +3,9 @@
 namespace NS\SentinelBundle\Form\Types;
 
 use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Security\Core\SecurityContextInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
 /**
@@ -33,32 +34,35 @@ class CreateRoles extends TranslatableArrayChoice implements TranslationContaine
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        if ($this->securityContext->isGranted('ROLE_CAN_CREATE'))
-        {
+        if ($this->securityContext->isGranted('ROLE_CAN_CREATE')) {
             $values = array();
-            if ($this->securityContext->isGranted('ROLE_CAN_CREATE_CASE'))
+            if ($this->securityContext->isGranted('ROLE_CAN_CREATE_CASE')) {
                 $values[self::BASE] = $this->values[self::BASE];
+            }
 
-            if ($this->securityContext->isGranted('ROLE_CAN_CREATE_LAB'))
+            if ($this->securityContext->isGranted('ROLE_CAN_CREATE_LAB')) {
                 $values[self::SITE] = $this->values[self::SITE];
+            }
 
-            if ($this->securityContext->isGranted('ROLE_CAN_CREATE_RRL_LAB'))
+            if ($this->securityContext->isGranted('ROLE_CAN_CREATE_RRL_LAB')) {
                 $values[self::RRL] = $this->values[self::RRL];
+            }
 
-            if ($this->securityContext->isGranted('ROLE_CAN_CREATE_NL_LAB'))
+            if ($this->securityContext->isGranted('ROLE_CAN_CREATE_NL_LAB')) {
                 $values[self::NL] = $this->values[self::NL];
+            }
 
             $this->values = $values;
-        }
-        else
+        } else {
             $this->values = array();
+        }
 
         $resolver->setDefaults(array(
             'choices'     => $this->values,
             'empty_value' => 'Please Select...',
         ));
 
-        $resolver->setOptional(array('special_values'));
+        $resolver->setDefined(array('special_values'));
         $resolver->addAllowedTypes(array('special_values'=>'array'));
     }
 

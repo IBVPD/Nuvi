@@ -62,7 +62,7 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
     /**
      *
      * @param string $value
-     * @return ArrayChoice
+     * @return Role
      * @throws \UnexpectedValueException
      */
     public function __construct($value = null)

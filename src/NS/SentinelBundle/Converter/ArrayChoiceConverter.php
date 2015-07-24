@@ -4,21 +4,28 @@ namespace NS\SentinelBundle\Converter;
 
 use Ddeboer\DataImport\Exception\UnexpectedValueException;
 use NS\ImportBundle\Converter\NamedValueConverterInterface;
+use NS\UtilBundle\Validator\Constraints\ArrayChoice;
 use RuntimeException;
 use UnexpectedValueException as UnexpectedValueException2;
 
 /**
- * Description of TripleChoice
+ * Description of ArrayChoiceConverter
  *
  * @author gnat
  */
-class ArrayChoice implements NamedValueConverterInterface
+class ArrayChoiceConverter implements NamedValueConverterInterface
 {
+    /**
+     * @var string
+     */
     private $class;
+
+    /**
+     * @var string
+     */
     private $name;
 
     /**
-     *
      * @param string $class
      * @throws RuntimeException
      */
@@ -55,6 +62,12 @@ class ArrayChoice implements NamedValueConverterInterface
             return new $this->class( is_numeric($input) ? (int) $input : $input );
         }
         catch (UnexpectedValueException2 $ex) {
+            $cons = constant(sprintf('%s::OUT_OF_RANGE',$this->class));
+
+            if($cons) {
+                return new $this->class($cons);
+            }
+
             throw new UnexpectedValueException(sprintf("Unable to convert value '%s' for %s", $input, $this->name), null, $ex);
         }
     }

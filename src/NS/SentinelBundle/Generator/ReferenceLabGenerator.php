@@ -5,7 +5,6 @@ namespace NS\SentinelBundle\Generator;
 use \Doctrine\ORM\EntityManager;
 use \Doctrine\ORM\Id\AbstractIdGenerator;
 use \NS\SentinelBundle\Entity\ReferenceLab as ReferenceLabEntity;
-use \NS\SentinelBundle\Entity\Region;
 
 /**
  *

@@ -81,8 +81,9 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
     public function findWithRelations(array $params)
     {
         $qb = $this->createQueryBuilder('c')
-            ->addSelect('sl')
-            ->leftJoin('c.siteLab', 'sl');
+            ->addSelect('sl,el')
+            ->leftJoin('c.siteLab', 'sl')
+            ->leftJoin('c.externalLabs', 'el');
 
         foreach ($params as $field => $value) {
             $param = sprintf("%sField", $field);

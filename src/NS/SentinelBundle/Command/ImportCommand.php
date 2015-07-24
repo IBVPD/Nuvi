@@ -153,7 +153,7 @@ class ImportCommand extends ContainerAwareCommand
         $sites      = array();
         $fileId     = fopen($file,'r');
         $errorSites = array();
-        $row        = fgetcsv($fileId);
+        fgetcsv($fileId);
 
         while($row = fgetcsv($fileId))
         {

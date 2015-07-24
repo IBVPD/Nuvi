@@ -4,7 +4,6 @@ namespace NS\ImportBundle\Services;
 
 use \Ddeboer\DataImport\Reader\CsvReader;
 use \Doctrine\ORM\Mapping\ClassMetadata;
-use \Doctrine\ORM\Mapping\MappingException;
 use \NS\ImportBundle\Entity\Column;
 use \NS\ImportBundle\Entity\Map;
 use \Symfony\Component\Form\AbstractType;

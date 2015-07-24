@@ -12,7 +12,7 @@
 
             <div class="widget-body">
                 <div class="widget-main padding-3">
-                    <div id="lab-results" style="width: 100%; height: 220px; padding: 0px; position: relative;">
+                    <div id="lab-results" style="width: 100%; height: 220px; padding: 0; position: relative;">
                     </div>
                 </div>
             </div>
@@ -32,7 +32,7 @@
 
             <div class="widget-body">
                 <div class="widget-main padding-3">
-                    <div id="byDiagnosisStatistics" style="width: 100%; height: 220px; padding: 0px; position: relative;">
+                    <div id="byDiagnosisStatistics" style="width: 100%; height: 220px; padding: 0; position: relative;">
                         
                     </div>
                 </div>
@@ -168,7 +168,7 @@ $(window).load(function()
           legend: { position: 'top', maxLines: 3 },
           bar: { groupWidth: '75%' },
           isStacked: true,
-          hAxis: { format: '####'},
+          hAxis: { format: '####'}
         };
 
         c['chart'].draw(c['data'],c['options']);
