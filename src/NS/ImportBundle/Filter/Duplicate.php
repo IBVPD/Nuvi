@@ -3,6 +3,7 @@
 namespace NS\ImportBundle\Filter;
 
 use \Ddeboer\DataImport\Exception\UnexpectedValueException;
+use Ddeboer\DataImport\ReporterInterface;
 use \Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -10,13 +11,15 @@ use \Doctrine\Common\Collections\ArrayCollection;
  *
  * @author gnat
  */
-class Duplicate
+class Duplicate implements ReporterInterface
 {
     private $items;
 
     private $fields;
 
     private $duplicates;
+
+    private $message;
 
     /**
      * @param array $fields
@@ -39,16 +42,14 @@ class Duplicate
         $fieldKey = null;
         foreach ($this->fields as $method => $field) {
             if (!isset($item[$field])) {
-                throw new UnexpectedValueException(sprintf("Field: '%s' doesn't exist!",$field));
+                throw new UnexpectedValueException(sprintf("Field: '%s' doesn't exist!", $field));
             }
 
             if (is_object($item[$field]) && $method && method_exists($item[$field], $method)) {
                 $fieldKey .= sprintf('%s_', strtolower($item[$field]->$method()));
-            }
-            else if (is_array($item[$field])) {
+            } else if (is_array($item[$field])) {
                 $fieldKey .= sprintf('%s_', implode('-', $item[$field]));
-            }
-            else {
+            } else {
                 $fieldKey .= sprintf('%s_', strtolower($item[$field]));
             }
         }
@@ -65,6 +66,8 @@ class Duplicate
      */
     public function __invoke(array $item)
     {
+        $this->message = null;
+
         $field = $this->getFieldKey($item);
 
         if (!$this->items->contains($field)) {
@@ -73,9 +76,27 @@ class Duplicate
             return true;
         }
 
+        $this->message = sprintf('Duplicate row detected with key \'%s\'', $field);
+
         $this->duplicates->add($field);
 
         return false;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function hasMessage()
+    {
+        return ($this->message !== null);
+    }
+
+    /**
+     * @return string
+     */
+    public function getMessage()
+    {
+        return $this->message;
     }
 
     /**

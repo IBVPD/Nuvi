@@ -10,10 +10,7 @@ use \NS\ImportBundle\Entity\Column;
 use \NS\ImportBundle\Entity\Map;
 use \NS\ImportBundle\Entity\Result;
 use \NS\ImportBundle\Filter\Duplicate;
-use \NS\ImportBundle\Filter\DuplicateFilterFactory;
-use \NS\ImportBundle\Filter\LinkerFilterFactory;
 use \NS\ImportBundle\Filter\NotBlank;
-use \NS\ImportBundle\Filter\NotBlankFilterFactory;
 use \NS\ImportBundle\Importer\ImportProcessor;
 use \Symfony\Component\HttpFoundation\File\File;
 
@@ -159,15 +156,6 @@ class ImportProcessorTest extends WebTestCase
         $this->assertInstanceOf('\Ddeboer\DataImport\Reader\CsvReader', $reader);
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
-    public function testGetDoctrineWriterWithoutClass()
-    {
-        $processor = $this->getContainer()->get('ns_import.processor');
-        $processor->getWriter();
-    }
-
     public function testGetDoctrineWriter()
     {
         $meta = $this->getMockBuilder('Doctrine\ORM\Mapping\ClassMetadata')
@@ -197,7 +185,6 @@ class ImportProcessorTest extends WebTestCase
             ->will($this->returnValue($entityMgr));
 
         $processor = new ImportProcessor($mockContainer);
-        $processor->setDuplicate(new Duplicate());
         $writer    = $processor->getWriter('NS\SentinelBundle\Entity\IBD');
         $this->assertInstanceOf('\Ddeboer\DataImport\Writer\DoctrineWriter', $writer);
         $writer2   = $processor->getWriter('NS\SentinelBundle\Entity\IBD');
@@ -205,160 +192,95 @@ class ImportProcessorTest extends WebTestCase
         $this->assertEquals($writer, $writer2);
     }
 
-////    public function testAddMappersWithDuplicate()
-////    {
-////        $user = $this->getContainer()
-////            ->get('doctrine.orm.entity_manager')
-////            ->getRepository('NSSentinelBundle:User')
-////            ->findOneByEmail(array('email' => 'ca-full@noblet.ca'));
-////
-////        $this->loginAs($user, 'main_app');
-////
-////        $file   = new File(__DIR__ . '/../Fixtures/IBD.csv');
-////        $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
-////        $import = new Result($mockUser);
-////        $import->setMap($this->getIbdMap($this->getIbdColumns()));
-////
-////        $processor = $this->getContainer()->get('ns_import.processor');
-////        $reader    = $processor->getReader($import);
-////        $this->assertInstanceOf('\Ddeboer\DataImport\Reader\CsvReader', $reader);
-////
-////        $outputData = array();
-////        $workflow   = new Workflow($reader);
-////        $workflow->setSkipItemOnFailure(true);
-////        $workflow->addWriter(new ArrayWriter($outputData));
-////
-////        $processor->addSteps($workflow, $import);
-//////        $duplicate = $processor->getDuplicate();
-////
-////        $this->assertEquals(4, $workflow->getStepCount());
-////        $this->assertCount(2,$workflow->getAfterConversionFilters());
-//////        foreach ($workflow->getAfterConversionFilters() as $filter) {
-//////            if ($filter instanceof Duplicate) {
-//////                $this->assertEquals($duplicate, $filter);
-//////                $this->assertCount(count($duplicate->toArray()), $filter->toArray());
-//////            }
-//////        }
-//////        $this->assertCount(2, $workflow->getValueConverters());
-//////        $this->assertCount(2, $workflow->getItemConverters());
-////    }
-//
-////    public function testAddMappersWithoutDuplicate()
-////    {
-////        $user = $this->getContainer()
-////            ->get('doctrine.orm.entity_manager')
-////            ->getRepository('NSSentinelBundle:User')
-////            ->findOneByEmail(array('email' => 'ca-full@noblet.ca'));
-////
-////        $this->loginAs($user, 'main_app');
-////
-////        $file = new File(__DIR__ . '/../Fixtures/IBD.csv');
-////
-////        $import = new Result();
-////        $import->setImportFile($file);
-////        $import->setMap($this->getIbdMap($this->getIbdColumns()));
-////        $import->getMap()->setClass(null);
-////
-////        $processor = $this->getContainer()->get('ns_import.processor');
-////        $reader    = $processor->getReader($import);
-////        $this->assertInstanceOf('\Ddeboer\DataImport\Reader\CsvReader', $reader);
-////
-////        $outputData = array();
-////        $workflow   = new Workflow($reader);
-////        $workflow->setSkipItemOnFailure(true);
-////        $workflow->addWriter(new ArrayWriter($outputData));
-////
-////        $processor->addSteps($workflow, $import);
-////        $this->assertEquals(0, $workflow->getStepCount());
-////
-//////        $this->assertCount(0, $workflow->getAfterConversionFilters());
-//////        $this->assertCount(2, $workflow->getValueConverters());
-//////        $this->assertCount(2, $workflow->getItemConverters());
-////    }
-//
-//    public function testDuplicateFilterIsCalled()
-//    {
-//        $file    = new File(__DIR__ . '/../Fixtures/IBD-DuplicateRows.csv');
-//        $columns = array(
-//            array(
-//                'name'      => 'Col1',
-//                'converter' => null,
-//                'mapper'    => 'col1',
-//                'ignored'   => true,
-//            ),
-//            array(
-//                'name'      => 'Col2',
-//                'converter' => '',
-//                'mapper'    => 'col2',
-//                'ignored'   => false,
-//            ),
-//            array(
-//                'name'      => 'Col3',
-//                'converter' => null,
-//                'mapper'    => null,
-//                'ignored'   => false,
-//            ),
-//            array(
-//                'name'      => 'Col4',
-//                'converter' => null,
-//                'mapper'    => null,
-//                'ignored'   => true,
-//            ),
-//        );
-//
-//        $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
-//        $import = new Result($mockUser);
-//        $import->setImportFile($file);
-//        $import->setMap($this->getIbdMap($columns));
-//
+    public function testGetDoctrineWriterEntityManager()
+    {
+        $processor = new ImportProcessor($this->getContainer());
+        $writer = $processor->getWriter('NS\SentinelBundle\Entity\IBD');
+        $writer->prepare();
+    }
+
+    public function testDuplicateFilterIsCalled()
+    {
+        $file    = new File(__DIR__ . '/../Fixtures/IBD-DuplicateRows.csv');
+        $columns = array(
+            array(
+                'name'      => 'Col1',
+                'converter' => null,
+                'mapper'    => 'col1',
+                'ignored'   => true,
+            ),
+            array(
+                'name'      => 'Col2',
+                'converter' => '',
+                'mapper'    => 'col2',
+                'ignored'   => false,
+            ),
+            array(
+                'name'      => 'Col3',
+                'converter' => null,
+                'mapper'    => null,
+                'ignored'   => false,
+            ),
+            array(
+                'name'      => 'Col4',
+                'converter' => null,
+                'mapper'    => null,
+                'ignored'   => true,
+            ),
+        );
+
+        $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
+        $import = new Result($mockUser);
+        $import->setImportFile($file);
+        $import->setMap($this->getIbdMap($columns));
+
 //        $uniqueFields  = array('col1', 'col2');
-//        $mockDuplicate = $this->getMockBuilder('NS\ImportBundle\Filter\Duplicate')
-//            ->setMethods(array('filter', 'getFieldKey'))
-//            ->getMock(array($uniqueFields));
-//
-//        $mockDuplicate
-//            ->expects($this->at(0))
-//            ->method('filter')
-//            ->with(array('col1' => 1,'col2' => 2, 'Col3' => 3, 'Col1' => 1, 'Col2' => 2, 'Col4' => 4))
-//            ->willReturn(true);
-//
-//        $mockDuplicate
-//            ->expects($this->at(1))
-//            ->method('filter')
-//            ->with(array('col1' => 3, 'col2' => 3, 'Col3' => 4,'Col1'=>3,'Col2'=>3,'Col4'=>5))
-//            ->willReturn(true);
-//
-//        $mockDuplicate
-//            ->expects($this->at(2))
-//            ->method('filter')
-//            ->with(array('col1' => 1, 'col2' => 2, 'Col3' => 5,'Col1'=>1,'Col2'=>2,'Col4'=>6))
-//            ->willReturn(false);
-//
-//        $mockDuplicate
-//            ->expects($this->at(3))
-//            ->method('filter')
-//            ->with(array('col1' => 4, 'col2' => 5, 'Col3' => 6,'Col1'=>4,'Col2'=>5,'Col4'=>7))
-//            ->willReturn(true);
-//
-//        $processor = new ImportProcessor($this->getContainer());
-//        $processor->setDuplicate($mockDuplicate);
-//        $processor->setNotBlank(new NotBlank('col1'));
-//        $reader    = $processor->getReader($import);
-//
-//        $this->assertInstanceOf('\Ddeboer\DataImport\Reader\CsvReader', $reader);
-//        $this->assertCount(4, $reader);
-//
-//        $outputData = array();
-//        // Create the workflow from the reader
-//        $workflow   = new Workflow\StepAggregator($reader);
-//        $workflow->setSkipItemOnFailure(true);
-//        $workflow->addWriter(new ArrayWriter($outputData));
-//
-//        $processor->addSteps($workflow, $import);
-//
-//        $workflow->process();
-//        $this->assertCount(3, $outputData, print_r($outputData,true));
-//    }
+        $mockDuplicate = $this->getMockBuilder('NS\ImportBundle\Filter\Duplicate')
+            ->setMethods(array('__invoke', 'getFieldKey'))
+            ->getMock();
+
+        $mockDuplicate
+            ->expects($this->at(0))
+            ->method('__invoke')
+            ->with(array('col1' => 1,'col2' => 2, 'Col3' => 3, 'Col4' => 4))
+            ->willReturn(true);
+
+        $mockDuplicate
+            ->expects($this->at(1))
+            ->method('__invoke')
+            ->with(array('col1' => 3, 'col2' => 3, 'Col3' => 4, 'Col4' => 5))
+            ->willReturn(true);
+
+        $mockDuplicate
+            ->expects($this->at(2))
+            ->method('__invoke')
+            ->with(array('col1' => 1, 'col2' => 2, 'Col3' => 5, 'Col4' => 6))
+            ->willReturn(false);
+
+        $mockDuplicate
+            ->expects($this->at(3))
+            ->method('__invoke')
+            ->with(array('col1' => 4, 'col2' => 5, 'Col3' => 6, 'Col4' => 7))
+            ->willReturn(true);
+
+        $processor = new ImportProcessor($this->getContainer());
+        $processor->setDuplicate($mockDuplicate);
+        $reader    = $processor->getReader($import);
+
+        $this->assertInstanceOf('\Ddeboer\DataImport\Reader\CsvReader', $reader);
+        $this->assertCount(4, $reader);
+
+        $outputData = array();
+        // Create the workflow from the reader
+        $workflow   = new Workflow\StepAggregator($reader);
+        $workflow->setSkipItemOnFailure(true);
+        $workflow->addWriter(new ArrayWriter($outputData));
+
+        $processor->addSteps($workflow, $import);
+
+        $workflow->process();
+        $this->assertCount(3, $outputData, print_r($outputData,true));
+    }
 
     public function testDuplicates()
     {
@@ -505,9 +427,6 @@ class ImportProcessorTest extends WebTestCase
         $this->assertEquals($processor->getMemoryLimit(), '1024M');
     }
 
-    /**
-     * @group deep
-     */
     public function testDeepArrayMap()
     {
         $columns = array(
@@ -595,49 +514,113 @@ class ImportProcessorTest extends WebTestCase
 //        $this->fail($outputData[0]['caseFile']['site']->getName());
     }
 
-//    public function testSiteLabConverter()
-//    {
-//        $columns = array(
-//            array(
-//                'name'      => 'site_CODE',
-//                'converter' => 'ns.sentinel.converter.site',
-//                'mapper'    => 'site',
-//                'ignored'   => false,
-//            ),
-//            array(
-//                'name'      => 'case_id',
-//                'converter' => null,
-//                'mapper'    => 'caseId',
-//                'ignored'   => false,
-//            ),
-//            array(
-//                'name'      => 'firstName',
-//                'converter' => null,
-//                'mapper'    => null,
-//                'ignored'   => false,
-//            ),
-//            array(
-//                'name'      => 'csf Date',
-//                'converter' => 'ns_import.converter.date.timestamp',
-//                'mapper'    => 'siteLab.csfDateTime',
-//                'ignored'   => false,
-//            ),
-//        );
-//        $file    = new File(__DIR__ . '/../Fixtures/IBD-CasePlusSiteLab.csv');
-//
-//        $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
-//        $import = new Result($mockUser);
-//        $import->setImportFile($file);
-//        $import->setMap($this->getIbdMap($columns));
-//
-//        $processor = $this->getContainer()->get('ns_import.processor');
-//        $result    = $processor->process($import);
-//        if ($result->getErrorCount() > 0) {
-//            $exceptions = $result->getExceptions();
-//            $this->fail($exceptions[0]->getMessage());
-//        }
-//        $this->assertEquals(2, $result->getSuccessCount());
-//    }
+    public function testImportWithSiteLabFields()
+    {
+        $columns = array(
+            array(
+                'name'      => 'site_CODE',
+                'converter' => 'ns.sentinel.converter.site',
+                'mapper'    => 'site',
+                'ignored'   => false,
+            ),
+            array(
+                'name'      => 'case_id',
+                'converter' => null,
+                'mapper'    => 'caseId',
+                'ignored'   => false,
+            ),
+            array(
+                'name'      => 'firstName',
+                'converter' => null,
+                'mapper'    => null,
+                'ignored'   => false,
+            ),
+            array(
+                'name'      => 'csf Date',
+                'converter' => 'ns_import.converter.date.timestamp',
+                'mapper'    => 'siteLab.csfDateTime',
+                'ignored'   => false,
+            ),
+        );
+
+        $file = new File(__DIR__ . '/../Fixtures/IBD-CasePlusSiteLab.csv');
+        $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
+        $import = new Result($mockUser);
+
+        $import->setImportFile($file);
+        $import->setMap($this->getIbdMap($columns));
+
+        $processor = new ImportProcessor($this->getContainer());
+        $processor->setDuplicate(new Duplicate(array('getcode' => 'site', 1 => 'caseId')));
+        $writer = $processor->getWriter($import->getClass());
+        $this->assertEquals('findWithRelations', $writer->getEntityRepositoryMethod());
+
+        $result    = $processor->process($import);
+
+        if (count($result->getErrors()) > 0) {
+            $exceptions = $result->getErrors();
+            $this->fail(print_r($exceptions,true).' '.$result->getErrorCount());
+        }
+
+        $this->assertCount(2,$result->getSuccesses());
+    }
+
+    public function testImportWithReferenceLabFields()
+    {
+        $columns = array(
+            array(
+                'name'      => 'site_CODE',
+                'converter' => 'ns.sentinel.converter.site',
+                'mapper'    => 'site',
+                'ignored'   => false,
+            ),
+            array(
+                'name'      => 'case_id',
+                'converter' => null,
+                'mapper'    => 'caseId',
+                'ignored'   => false,
+            ),
+            array(
+                'name'      => 'lastName',
+                'converter' => null,
+                'mapper'    => null,
+                'ignored'   => false,
+            ),
+            array(
+                'name'      => 'date received',
+                'converter' => 'ns_import.converter.date.afr1',
+                'mapper'    => 'referenceLab.dateReceived',
+                'ignored'   => false,
+            ),
+            array(
+                'name'      => 'lab id',
+                'converter' => null,
+                'mapper'    => 'referenceLab.labId',
+                'ignored'   => false,
+            ),
+        );
+
+        $file = new File(__DIR__ . '/../Fixtures/IBD-CasePlusRRL.csv');
+        $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
+        $import = new Result($mockUser);
+
+        $import->setImportFile($file);
+        $import->setMap($this->getIbdMap($columns));
+
+        $processor = new ImportProcessor($this->getContainer());
+        $processor->setDuplicate(new Duplicate(array('getcode' => 'site', 1 => 'caseId')));
+        $writer = $processor->getWriter($import->getClass());
+        $this->assertEquals('findWithRelations', $writer->getEntityRepositoryMethod());
+
+        $result    = $processor->process($import);
+
+        if (count($result->getErrors()) > 0) {
+            $exceptions = $result->getErrors();
+            $this->fail(print_r($exceptions,true).' '.$result->getErrorCount());
+        }
+
+        $this->assertCount(2,$result->getSuccesses());
+    }
 
     public function getReferenceLabMap(array $columns)
     {

@@ -3,10 +3,13 @@
 namespace NS\ImportBundle\Controller;
 
 use Exporter\Source\ArraySourceIterator;
-use NS\ImportBundle\Entity\Result;
+use NS\ImportBundle\Filter\Duplicate;
+use NS\ImportBundle\Filter\NotBlank;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sonata\CoreBundle\Exporter\Exporter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -21,6 +24,7 @@ class ImportController extends Controller
      * @param Request $request
      * @Route("/",name="importIndex")
      * @Template()
+     * @return array|RedirectResponse
      */
     public function indexAction(Request $request)
     {
@@ -45,7 +49,28 @@ class ImportController extends Controller
     }
 
     /**
+     * @param $id
+     * @Route("/execute/{id}",name="importExecute")
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function executeAction($id)
+    {
+        $entityMgr = $this->get('doctrine.orm.entity_manager');
+        $import = $entityMgr->getRepository('NSImportBundle:Result')->find($id);
+        $processor = $this->get('ns_import.processor');
+        $processor->setDuplicate(new Duplicate(array('getcode' => 'site', 1 => 'caseId')));
+        $processor->setNotBlank(new NotBlank(array('caseId', 'site')));
+
+        $processor->process($import);
+
+        return $this->redirect($this->generateUrl('importIndex'));
+    }
+
+    /**
      * @Route("/download/{type}/{id}",name="importResultDownload")
+     * @param $type
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\StreamedResponse
      */
     public function resultDownloadAction($type, $id)
     {
@@ -66,9 +91,10 @@ class ImportController extends Controller
             }
 
             $filename = sprintf('export_%s_%s.%s', $type, date('Ymd_His'), $format);
+            $exporter = new Exporter();
 
             try {
-                return $this->get('sonata.admin.exporter')->getResponse($format, $filename, $source);
+                return $exporter->getResponse($format, $filename, $source);
             }
             catch (\Exception $excep) {
                 die("I GOT AN EXCEPTION! " . $excep->getMessage());

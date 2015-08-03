@@ -2,18 +2,17 @@
 
 namespace NS\SentinelBundle\Converter;
 
-use Ddeboer\DataImport\Exception\UnexpectedValueException;
-use NS\ImportBundle\Converter\NamedValueConverterInterface;
-use NS\UtilBundle\Validator\Constraints\ArrayChoice;
-use RuntimeException;
-use UnexpectedValueException as UnexpectedValueException2;
+use \Ddeboer\DataImport\Exception\UnexpectedValueException;
+use \Ddeboer\DataImport\ReporterInterface;
+use \NS\ImportBundle\Converter\NamedValueConverterInterface;
+use \UnexpectedValueException as UnexpectedValueException2;
 
 /**
  * Description of ArrayChoiceConverter
  *
  * @author gnat
  */
-class ArrayChoiceConverter implements NamedValueConverterInterface
+class ArrayChoiceConverter implements NamedValueConverterInterface, ReporterInterface
 {
     /**
      * @var string
@@ -26,13 +25,18 @@ class ArrayChoiceConverter implements NamedValueConverterInterface
     private $name;
 
     /**
+     * @var string
+     */
+    private $message = null;
+
+    /**
      * @param string $class
      * @throws RuntimeException
      */
     public function __construct($class)
     {
         if (!class_exists($class)) {
-            throw new RuntimeException(sprintf("Unable to find class %s", $class));
+            throw new \RuntimeException(sprintf("Unable to find class %s", $class));
         }
 
         $this->class = $class;
@@ -65,11 +69,28 @@ class ArrayChoiceConverter implements NamedValueConverterInterface
             $cons = constant(sprintf('%s::OUT_OF_RANGE',$this->class));
 
             if($cons) {
+                $this->message = sprintf('%s is invalid - setting to out of range value',$value);
                 return new $this->class($cons);
             }
 
             throw new UnexpectedValueException(sprintf("Unable to convert value '%s' for %s", $input, $this->name), null, $ex);
         }
+    }
+
+    /**
+     * @return boolean
+     */
+    public function hasMessage()
+    {
+        return ($this->message === null);
+    }
+
+    /**
+     * @return string
+     */
+    public function getMessage()
+    {
+        return $this->message;
     }
 
     /**

@@ -4,7 +4,7 @@ namespace NS\ImportBundle\Importer;
 
 use \Ddeboer\DataImport\Reader\CsvReader;
 use \Ddeboer\DataImport\Workflow;
-use \Ddeboer\DataImport\Reader\ReaderInterface;
+use \Ddeboer\DataImport\Reader;
 use \Ddeboer\DataImport\Step\FilterStep;
 use \Ddeboer\DataImport\Step\ValueConverterStep;
 use \Doctrine\DBAL\DBALException;
@@ -26,6 +26,7 @@ class ImportProcessor
     private $notBlankFilter;
     private $memoryLimit = '1024M';
     private $maxExecutionTime = 190;
+    private $doctrineWriter;
 
     /**
      * @param ContainerInterface $container
@@ -38,6 +39,7 @@ class ImportProcessor
     /**
      * @param Result $import
      * @return Result
+     * @throws \Exception
      */
     public function process(Result $import)
     {
@@ -48,11 +50,16 @@ class ImportProcessor
             $reader = $this->getReader($import);
         }
         catch (\InvalidArgumentException $excep) {
+
+            $exceptions = new \SplObjectStorage();
+            $exceptions->attach($excep);
+
             $now = new \DateTime();
             $import->setTotalCount(0);
             $import->setImportStartedAt($now);
             $import->setImportEndedAt($now);
-            $import->buildExceptions(array($excep));
+            $import->buildExceptions($exceptions);
+
             return $import;
         }
 
@@ -69,32 +76,24 @@ class ImportProcessor
 
     /**
      *
-     * @staticvar DoctrineWriter $doctrineWriter
      * @param string $class
      * @return DoctrineWriter
      * @throws \InvalidArgumentException
      */
-    public function getWriter($class = null)
+    public function getWriter($class)
     {
-        static $doctrineWriter = null;
-
-        if ($doctrineWriter == null && $class == null) {
-            throw new \InvalidArgumentException("The writer isn't yet initialized and we need to know the class we're dealing with");
+        if ($this->doctrineWriter === null || $this->doctrineWriter->getEntityName() != $class) {
+            $this->doctrineWriter = new DoctrineWriter($this->container->get('doctrine.orm.entity_manager'), $class, array('getcode' => 'site', 1 => 'caseId'));
+            $this->doctrineWriter->setTruncate(false);
+            $this->doctrineWriter->setEntityRepositoryMethod('findWithRelations');
         }
 
-        // Create a writer: you need Doctrine’s EntityManager.
-        if ($doctrineWriter == null) {
-            $doctrineWriter = new DoctrineWriter($this->container->get('doctrine.orm.entity_manager'), $class, $this->duplicateFilter->getFields());
-            $doctrineWriter->setTruncate(false);
-        }
-
-        return $doctrineWriter;
+        return $this->doctrineWriter;
     }
 
     /**
      * @param Result $import
-     * @return ReaderInterface
-     * @throws \InvalidArgumentException
+     * @return Reader $csvReader
      */
     public function getReader(Result $import)
     {
@@ -149,7 +148,7 @@ class ImportProcessor
         }
 
         if ($this->duplicateFilter) {
-            $filterStep->add($this->duplicateFilter);
+            $filterStep->add($this->getDuplicate());
             $addFilter = true;
         }
 
@@ -172,7 +171,9 @@ class ImportProcessor
             $import->setImportStartedAt($now);
             $import->setImportEndedAt($now);
             $import->setTotalCount(0);
-            $import->buildExceptions(array($ex));
+            $exceptions = new \SplObjectStorage();
+            $exceptions->attach($ex);
+            $import->buildExceptions($exceptions);
 
             return $import;
         }
@@ -180,9 +181,9 @@ class ImportProcessor
         $import->setImportStartedAt($processResult->getStartTime());
         $import->setImportEndedAt($processResult->getEndTime());
         $import->setTotalCount($processResult->getTotalProcessedCount());
-        $import->setDuplicates($this->duplicateFilter->toArray());
+        $import->setDuplicates($this->getDuplicate()->toArray());
         $import->buildExceptions($processResult->getExceptions());
-//        $import->setSuccesses($this->getWriter()->getResults());
+        $import->setSuccesses($this->getWriter($import->getClass())->getResults()->toArray());
 
         return $import;
     }

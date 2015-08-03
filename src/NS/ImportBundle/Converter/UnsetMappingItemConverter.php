@@ -2,6 +2,7 @@
 
 namespace NS\ImportBundle\Converter;
 
+use \Ddeboer\DataImport\Report;
 use \Ddeboer\DataImport\Step;
 use \Symfony\Component\PropertyAccess\PropertyAccessor;
 
@@ -48,7 +49,7 @@ class UnsetMappingItemConverter implements Step
     /**
      * {@inheritdoc}
      */
-    public function process(&$item)
+    public function process(&$item, Report $result = null)
     {
         foreach (array_keys($this->mappings) as $from) {
             if(isset($item[$from])) {
