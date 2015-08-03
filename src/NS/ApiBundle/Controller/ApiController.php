@@ -60,7 +60,7 @@ class ApiController extends FOSRestController
         return array(
             'username' => $this->getUser()->getUsername(),
             'roles'    => $this->getUser()->getRoles(),
-            'hasToken' => ($this->get('security.context')->getToken()) ? 'Yes' : 'No',
+            'hasToken' => ($this->get('security.token_storage')->getToken()) ? 'Yes' : 'No',
             'gender'   => $mGender,
             'ibd'      => $ibd,
         );
