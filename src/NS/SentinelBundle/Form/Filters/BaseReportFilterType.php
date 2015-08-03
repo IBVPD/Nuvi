@@ -43,45 +43,52 @@ class BaseReportFilterType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('admDate', 'ns_filter_date_range', array('label' => 'report-filter-form.admitted-between',))
-            ->add('createdAt', 'ns_filter_date_range', array('label' => 'report-filter-form.created-between'))
-        ;
+        $builder
+            ->add('admDate', 'ns_filter_date_range', array('label' => 'report-filter-form.admitted-between',))
+            ->add('createdAt', 'ns_filter_date_range', array('label' => 'report-filter-form.created-between'));
 
-        $securityContext = $this->securityContext;
-        $converter       = $this->converter;
-        $siteType        = ( isset($options['site_type']) && $options['site_type'] == 'advanced') ? new SiteFilterType() : 'site';
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, array($this,'preSetData'));
+    }
 
-        $builder->addEventListener(
-            FormEvents::PRE_SET_DATA, function(FormEvent $event) use($securityContext, $converter, $siteType, $options) {
-            $form  = $event->getForm();
-            $token = $securityContext->getToken();
+    /**
+     * @param FormEvent $event
+     */
+    public function preSetData(FormEvent $event)
+    {
+        $form     = $event->getForm();
+        $options  = $form->getConfig()->getOptions();
+        $siteType = ( isset($options['site_type']) && $options['site_type'] == 'advanced') ? new SiteFilterType() : 'site';
 
-            if ($securityContext->isGranted('ROLE_REGION')) {
-                $form->add('country', 'country');
+        if ($this->securityContext->isGranted('ROLE_REGION')) {
+            $form->add('country', 'country');
+            $form->add('site', $siteType);
+        } elseif ($this->securityContext->isGranted('ROLE_COUNTRY')) {
+            $form->add('site', $siteType);
+        } elseif ($this->securityContext->isGranted('ROLE_SITE')) {
+            $token     = $this->securityContext->getToken();
+            $objectIds = $this->converter->getObjectIdsForRole($token, 'ROLE_SITE');
+            if (count($objectIds) > 1) {
                 $form->add('site', $siteType);
-            } elseif ($securityContext->isGranted('ROLE_COUNTRY')) {
-                $form->add('site', $siteType);
-            } elseif ($securityContext->isGranted('ROLE_SITE')) {
-                $objectIds = $converter->getObjectIdsForRole($token, 'ROLE_SITE');
-                if (count($objectIds) > 1) {
-                    $form->add('site', $siteType);
-                }
             }
-
-            if ($options['include_filter'])
-                $form->add('filter', 'submit', array(
-                    'icon' => 'fa fa-search',
-                    'attr' => array('class' => 'btn btn-sm btn-success')));
-            if ($options['include_export'])
-                $form->add('export', 'submit', array(
-                    'icon' => 'fa fa-cloud-download',
-                    'attr' => array('class' => 'btn btn-sm btn-info')));
-            if ($options['include_reset'])
-                $form->add('reset', 'submit', array(
-                    'icon' => 'fa fa-times-circle',
-                    'attr' => array('class' => 'btn btn-sm btn-danger')));
         }
-        );
+
+        if ($options['include_filter']) {
+            $form->add('filter', 'submit', array(
+                'icon' => 'fa fa-search',
+                'attr' => array('class' => 'btn btn-sm btn-success')));
+        }
+
+        if ($options['include_export']) {
+            $form->add('export', 'submit', array(
+                'icon' => 'fa fa-cloud-download',
+                'attr' => array('class' => 'btn btn-sm btn-info')));
+        }
+
+        if ($options['include_reset']) {
+            $form->add('reset', 'submit', array(
+                'icon' => 'fa fa-times-circle',
+                'attr' => array('class' => 'btn btn-sm btn-danger')));
+        }
     }
 
     /**

@@ -12,7 +12,6 @@ use \NS\ImportBundle\Converter\NamedValueConverterInterface;
  */
 class CaseConverter implements NamedValueConverterInterface
 {
-
     private $entityMgr;
     private $className;
     private $name;
