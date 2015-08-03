@@ -64,9 +64,10 @@ class IBDRepository extends Common
     public function getLatestQuery($alias = 'm')
     {
         $queryBuilder = $this->createQueryBuilder($alias)
-            ->addSelect("sl,el")
-            ->leftJoin(sprintf("%s.siteLab", $alias), "sl")
-            ->leftJoin(sprintf("%s.externalLabs", $alias), "el")
+            ->addSelect('sl,rl,nl')
+            ->leftJoin(sprintf('%s.siteLab', $alias), 'sl')
+            ->leftJoin(sprintf('%s.referenceLab', $alias), 'rl')
+            ->leftJoin(sprintf('%s.nationalLab', $alias),'nl')
             ->orderBy($alias . '.id', 'DESC');
 
         return $this->secure($queryBuilder);

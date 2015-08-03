@@ -2,8 +2,6 @@
 
 namespace NS\SentinelBundle\Entity;
 
-use \Doctrine\Common\Collections\ArrayCollection;
-use \Doctrine\Common\Collections\Collection;
 use \Doctrine\ORM\Mapping as ORM;
 use \JMS\Serializer\Annotation as Serializer;
 use \NS\SentinelBundle\Form\Types\CaseStatus;
@@ -84,7 +82,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
     protected $state;
 
     /**
-     * @var DateTime $dob
+     * @var \DateTime $dob
      * @ORM\Column(name="dob",type="date",nullable=true)
      * @Assert\Date
      * @Serializer\Groups({"api"})
@@ -120,7 +118,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
     protected $gender;
 
     /**
-     * @var DateTime $admDate
+     * @var \DateTime $admDate
      * @ORM\Column(name="admDate",type="date",nullable=true)
      * @Serializer\Groups({"api"})
      */
@@ -134,14 +132,14 @@ abstract class BaseCase implements IdentityAssignmentInterface
     protected $status;
 
     /**
-     * @var DateTime $updatedAt
+     * @var \DateTime $updatedAt
      * @ORM\Column(name="updatedAt",type="datetime")
      * @Serializer\Groups({"api"})
      */
     protected $updatedAt;
 
     /**
-     * @var DateTime $createdAt
+     * @var \DateTime $createdAt
      * @ORM\Column(name="createdAt",type="datetime")
      * @Serializer\Groups({"api"})
      */
@@ -171,18 +169,15 @@ abstract class BaseCase implements IdentityAssignmentInterface
      */
     protected $site;
 
-//     * @ORM\OneToMany(targetEntity="BaseLab", mappedBy="caseFile")
-    protected $externalLabs;
-//     * @ORM\OneToOne(targetEntity="SiteLab", mappedBy="caseFile")
     protected $siteLab;
 
     /**
-     * @Serializer\Exclude()
+     * @var int|BaseExternalLab $referenceLab
      */
     protected $referenceLab = -1;
 
     /**
-     * @Serializer\Exclude()
+     * @var int|BaseExternalLab $referenceLab
      */
     protected $nationalLab  = -1;
 
@@ -220,10 +215,9 @@ abstract class BaseCase implements IdentityAssignmentInterface
             throw new \InvalidArgumentException("The SiteLab class is not set");
         }
 
-        $this->externalLabs = new ArrayCollection();
-        $this->status       = new CaseStatus(CaseStatus::OPEN);
-        $this->createdAt    = new \DateTime();
-        $this->updatedAt    = new \DateTime();
+        $this->status    = new CaseStatus(CaseStatus::OPEN);
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
     }
 
     /**
@@ -263,16 +257,15 @@ abstract class BaseCase implements IdentityAssignmentInterface
     /**
      * @param string $id
      * @return string
+     * @TODO Move this functionality out of the entity
      */
     public function getFullIdentifier($id)
     {
         if (property_exists($this, 'admDate') && $this->admDate) {
             $year = $this->admDate->format('y');
-        }
-        elseif (property_exists($this, 'onsetDate') && $this->onsetDate) {
+        } elseif (property_exists($this, 'onsetDate') && $this->onsetDate) {
             $year = $this->onsetDate->format('y');
-        }
-        else {
+        } else {
             $year = date('y');
         }
 
@@ -371,90 +364,23 @@ abstract class BaseCase implements IdentityAssignmentInterface
     }
 
     /**
-     * @param string $class
-     * @return BaseExternalLab
+     * @param BaseExternalLab $lab
+     * @return $this
      */
-    protected function _findLab($class)
-    {
-        foreach ($this->externalLabs as $lab) {
-            if ($lab instanceof $class) {
-                return $lab;
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * @return BaseExternalLab
-     */
-    protected function _findReferenceLab()
-    {
-        if (is_integer($this->referenceLab) && $this->referenceLab == -1) {
-            $this->referenceLab = $this->_findLab($this->referenceClass);
-        }
-
-        return $this->referenceLab;
-    }
-
-    /**
-     * @return BaseExternalLab
-     */
-    protected function _findNationalLab()
-    {
-        if (is_integer($this->nationalLab) && $this->nationalLab == -1) {
-            $this->nationalLab = $this->_findLab($this->nationalClass);
-        }
-
-        return $this->nationalLab;
-    }
-
-    /**
-     * Add externalLabs
-     *
-     * @param  $externalLabs
-     * @return BaseCase
-     */
-    public function addExternalLab($externalLabs)
-    {
-        $externalLabs->setCaseFile($this);
-        $this->externalLabs[] = $externalLabs;
+    public function setReferenceLab(BaseExternalLab $lab) {
+        $lab->setCaseFile($this);
+        $this->referenceLab = $lab;
 
         return $this;
     }
 
     /**
-     * Remove externalLabs
-     *
-     * @param  $externalLabs
+     * @param BaseExternalLab $lab
+     * @return $this
      */
-    public function removeExternalLab($externalLabs)
-    {
-        $this->externalLabs->removeElement($externalLabs);
-    }
-
-    /**
-     * Get externalLabs
-     *
-     * @return Collection
-     */
-    public function getExternalLabs()
-    {
-        return $this->externalLabs;
-    }
-
-    /**
-     * @param array $externalLabs
-     * @return \NS\SentinelBundle\Entity\BaseCase
-     */
-    public function setExternalLabs($externalLabs)
-    {
-        $this->referenceLab = $this->nationalLab  = -1;
-        $this->externalLabs->clear();
-
-        foreach ($externalLabs as $externalLab) {
-            $this->addExternalLab($externalLab);
-        }
+    public function setNationalLab(BaseExternalLab $lab) {
+        $lab->setCaseFile($this);
+        $this->nationalLab = $lab;
 
         return $this;
     }
@@ -466,7 +392,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
      */
     public function getReferenceLab()
     {
-        return $this->_findReferenceLab();
+        return $this->referenceLab;
     }
 
     /**
@@ -474,19 +400,17 @@ abstract class BaseCase implements IdentityAssignmentInterface
      */
     public function hasReferenceLab()
     {
-        $this->_findReferenceLab();
-
         return ($this->referenceLab instanceof $this->referenceClass);
     }
 
     /**
      * Get NationalLab
      *
-     * @return \NS\SentinelBundle\Entity\NationalLab
+     * @return \NS\SentinelBundle\Entity\BaseExternalLab
      */
     public function getNationalLab()
     {
-        return $this->_findNationalLab();
+        return $this->nationalLab;
     }
 
     /**
@@ -495,9 +419,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
      */
     public function hasNationalLab()
     {
-        $this->_findNationalLab();
-
-        return ($this->nationalLab instanceof $this->nationalClass);
+        return ($this->nationalLab !== null);
     }
 
     /**
@@ -518,26 +440,6 @@ abstract class BaseCase implements IdentityAssignmentInterface
     public function getSentToNationalLab()
     {
         return ($this->siteLab) ? $this->siteLab->getSentToNationalLab() : false;
-    }
-
-    /**
-     * @param string $referenceClass
-     * @return \NS\SentinelBundle\Entity\BaseCase
-     */
-    public function setReferenceClass($referenceClass)
-    {
-        $this->referenceClass = $referenceClass;
-        return $this;
-    }
-
-    /**
-     * @param string $nationalClass
-     * @return \NS\SentinelBundle\Entity\BaseCase
-     */
-    public function setNationalClass($nationalClass)
-    {
-        $this->nationalClass = $nationalClass;
-        return $this;
     }
 
     /**
@@ -591,7 +493,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
     }
 
     /**
-     * 
+     * @TODO Move from this princess
      */
     public function calculateAge()
     {
@@ -669,8 +571,19 @@ abstract class BaseCase implements IdentityAssignmentInterface
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     abstract public function getIncompleteField();
+
+    /**
+     * @return mixed
+     */
     abstract public function getMinimumRequiredFields();
+
+    /**
+     * @return mixed
+     */
     abstract public function calculateResult();
 
     /**
@@ -759,7 +672,7 @@ abstract class BaseCase implements IdentityAssignmentInterface
 
     /**
      *
-     * @return month
+     * @return integer
      */
     public function getDobMonths()
     {

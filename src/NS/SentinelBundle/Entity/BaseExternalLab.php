@@ -10,10 +10,8 @@ use \JMS\Serializer\Annotation as Serializer;
 
 /**
  * Description of BaseLab
- *
- * @author gnat
  * @ORM\MappedSuperclass
- * @ORM\HasLifecycleCallbacks
+ * @author gnat
  */
 abstract class BaseExternalLab
 {
@@ -24,11 +22,10 @@ abstract class BaseExternalLab
      */
     protected $id;
 
-//     * @ORM\ManyToOne(targetEntity="\NS\SentinelBundle\Entity\IBD",inversedBy="externalLabs")
-//     * @ORM\JoinColumn(nullable=false)
+    /**
+     * @var
+     */
     protected $caseFile;
-
-    protected $caseClass;
 
     /**
      * @var string $labId
@@ -46,7 +43,14 @@ abstract class BaseExternalLab
     protected $status;
 
     /**
-     * @var DateTime $updatedAt
+     * @var \DateTime $createdAt
+     * @ORM\Column(name="createdAt", type="datetime")
+     * @Serializer\Groups({"api"})
+     */
+    protected $createdAt;
+
+    /**
+     * @var \DateTime $updatedAt
      * @ORM\Column(name="updatedAt",type="datetime")
      * @Serializer\Groups({"api"})
      */
@@ -58,12 +62,13 @@ abstract class BaseExternalLab
      */
     protected $comment;
 
+    /**
+     *
+     */
     public function __construct()
     {
-        if(!is_string($this->caseClass) || empty($this->caseClass))
-            throw new \InvalidArgumentException("The case class is not set");
-
         $this->status = new CaseStatus(0);
+        $this->createdAt = $this->updatedAt = new \DateTime();
     }
 
     /**
@@ -80,13 +85,10 @@ abstract class BaseExternalLab
      * Set case
      *
      * @param  $case
-     * @return MeningitisLab
+     * @return $this
      */
     public function setCaseFile($case = null)
     {
-        if(!$case instanceof $this->caseClass)
-            throw new \InvalidArgumentException("Expected ".$this->caseClass." got ".get_class ($case));
-
         $this->caseFile = $case;
 
         return $this;
@@ -95,61 +97,94 @@ abstract class BaseExternalLab
     /**
      * Get case
      *
-     * @return \NS\SentinelBundle\Entity\Meningitis
+     * @return \NS\SentinelBundle\Entity\BaseCase
      */
     public function getCaseFile()
     {
         return $this->caseFile;
     }
 
+    /**
+     * @return bool
+     */
     public function hasCase()
     {
-        return ($this->caseFile instanceof $this->caseClass);
+        return ($this->caseFile !== null);
     }
 
+    /**
+     * @return bool
+     */
     public function isComplete()
     {
         return $this->status->getValue() == CaseStatus::COMPLETE;
     }
 
+    /**
+     * @return bool
+     */
     public function getIsComplete()
     {
         return $this->status->getValue() == CaseStatus::COMPLETE;
     }
 
+    /**
+     * @return string
+     */
     public function getLabId()
     {
         return $this->labId;
     }
 
+    /**
+     * @param $labId
+     * @return $this
+     */
     public function setLabId($labId)
     {
         $this->labId = $labId;
         return $this;
     }
 
+    /**
+     * @return CaseStatus
+     */
     public function getStatus()
     {
         return $this->status;
     }
 
+    /**
+     * @param CaseStatus $status
+     * @return $this
+     */
     public function setStatus(CaseStatus $status)
     {
         $this->status = $status;
         return $this;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getUpdatedAt()
     {
         return $this->updatedAt;
     }
 
+    /**
+     * @param $updatedAt
+     * @return $this
+     */
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
         return $this;
     }
 
+    /**
+     *
+     */
     public function calculateStatus()
     {
         if($this->status->getValue() >= CaseStatus::CANCELLED)
@@ -163,17 +198,23 @@ abstract class BaseExternalLab
         return;
     }
 
+    /**
+     *
+     */
     public function getIncompleteField()
     {
-        foreach($this->getMandatoryFields() as $fieldName)
-        {
-            if(!$this->$fieldName)
+        foreach ($this->getMandatoryFields() as $fieldName) {
+            if (!$this->$fieldName) {
                 return $fieldName;
+            }
         }
 
         return;
     }
 
+    /**
+     * @return mixed
+     */
     abstract public function getMandatoryFields();
 
     /**
@@ -198,11 +239,29 @@ abstract class BaseExternalLab
     /**
      *
      * @param string $comment
-     * @return ExternalLab
+     * @return $this
      */
     public function setComment($comment)
     {
         $this->comment = $comment;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param \DateTime $createdAt
+     * @return BaseExternalLab
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
         return $this;
     }
 }

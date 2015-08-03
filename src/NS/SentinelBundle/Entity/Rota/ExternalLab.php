@@ -4,41 +4,30 @@ namespace NS\SentinelBundle\Entity\Rota;
 
 use Doctrine\ORM\Mapping as ORM;
 
-// Annotations
-use Gedmo\Mapping\Annotation as Gedmo;
-use NS\SecurityBundle\Annotation\Secured;
-use NS\SecurityBundle\Annotation\SecuredCondition;
-
+use \Gedmo\Mapping\Annotation as Gedmo;
+use \NS\SecurityBundle\Annotation\Secured;
+use \NS\SecurityBundle\Annotation\SecuredCondition;
+use \NS\SentinelBundle\Form\Types\GenotypeResultG;
+use \NS\SentinelBundle\Form\Types\GenotypeResultP;
+use \NS\SentinelBundle\Form\Types\ElisaResult;
 use \NS\SentinelBundle\Entity\BaseExternalLab;
 use \JMS\Serializer\Annotation as Serializer;
 
 /**
  * Description of ExternalLab
  * @author gnat
- * @ORM\Entity()
- * @ORM\Table(name="rota_external_labs",uniqueConstraints={@ORM\UniqueConstraint(name="site_type_idx",columns={"caseFile_id","discr"})})
+ *
  * @Gedmo\Loggable
  * @Secured(conditions={
  *      @SecuredCondition(roles={"ROLE_REGION"},through={"caseFile"},relation="region",class="NSSentinelBundle:Region"),
  *      @SecuredCondition(roles={"ROLE_COUNTRY","ROLE_RRL_LAB","ROLE_NL_LAB"},through={"caseFile"},relation="country",class="NSSentinelBundle:Country"),
  *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},through={"caseFile"},relation="site",class="NSSentinelBundle:Site"),
  *      })
- * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="discr",type="string")
- * @ORM\DiscriminatorMap({"reference" = "ReferenceLab", "national" = "NationalLab"})
- * @Serializer\Discriminator(field = "disc", map = {"reference": "ReferenceLab", "national": "NationalLab"})
  * @SuppressWarnings(PHPMD.LongVariable)
+ * @ORM\MappedSuperclass
  */
 abstract class ExternalLab extends BaseExternalLab
 {
-    /**
-     * @ORM\ManyToOne(targetEntity="\NS\SentinelBundle\Entity\RotaVirus",inversedBy="externalLabs")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    protected $caseFile;
-
-    protected $caseClass = "\NS\SentinelBundle\Entity\RotaVirus";
-
     /**
      * @var \DateTime $dateReceived
      * @ORM\Column(name="dateReceived",type="date",nullable=true)
@@ -102,104 +91,169 @@ abstract class ExternalLab extends BaseExternalLab
      */
     protected $genotypeResultSentToWHO;
 
+    /**
+     * @return \DateTime
+     */
     public function getGenotypingDate()
     {
         return $this->genotypingDate;
     }
 
+    /**
+     * @return GenotypeResultG
+     */
     public function getGenotypingResultg()
     {
         return $this->genotypingResultg;
     }
 
+    /**
+     * @return string
+     */
     public function getGenotypingResultGSpecify()
     {
         return $this->genotypingResultGSpecify;
     }
 
+    /**
+     * @return GenotypeResultP
+     */
     public function getGenotypeResultP()
     {
         return $this->genotypeResultP;
     }
 
+    /**
+     * @return string
+     */
     public function getGenotypeResultPSpecify()
     {
         return $this->genotypeResultPSpecify;
     }
 
+    /**
+     * @return ElisaResult
+     */
     public function getPcrVp6Result()
     {
         return $this->pcrVp6Result;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getGenotypeResultSentToCountry()
     {
         return $this->genotypeResultSentToCountry;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getGenotypeResultSentToWHO()
     {
         return $this->genotypeResultSentToWHO;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getDateReceived()
     {
         return $this->dateReceived;
     }
 
-    public function setDateReceived($dateReceived)
+    /**
+     * @param \DateTime $dateReceived
+     */
+    public function setDateReceived(\DateTime $dateReceived = null)
     {
         $this->dateReceived = $dateReceived;
     }
 
-    public function setGenotypingDate($genotypingDate)
+    /**
+     * @param \DateTime $genotypingDate
+     * @return $this
+     */
+    public function setGenotypingDate(\DateTime $genotypingDate = null)
     {
         $this->genotypingDate = $genotypingDate;
         return $this;
     }
 
+    /**
+     * @param $genotypingResultg
+     * @return $this
+     */
     public function setGenotypingResultg($genotypingResultg)
     {
         $this->genotypingResultg = $genotypingResultg;
         return $this;
     }
 
+    /**
+     * @param $genotypingResultGSpecify
+     * @return $this
+     */
     public function setGenotypingResultGSpecify($genotypingResultGSpecify)
     {
         $this->genotypingResultGSpecify = $genotypingResultGSpecify;
         return $this;
     }
 
+    /**
+     * @param $genotypeResultP
+     * @return $this
+     */
     public function setGenotypeResultP($genotypeResultP)
     {
         $this->genotypeResultP = $genotypeResultP;
         return $this;
     }
 
+    /**
+     * @param $genotypeResultPSpecify
+     * @return $this
+     */
     public function setGenotypeResultPSpecify($genotypeResultPSpecify)
     {
         $this->genotypeResultPSpecify = $genotypeResultPSpecify;
         return $this;
     }
 
+    /**
+     * @param $pcrVp6Result
+     * @return $this
+     */
     public function setPcrVp6Result($pcrVp6Result)
     {
         $this->pcrVp6Result = $pcrVp6Result;
         return $this;
     }
 
+    /**
+     * @param $genotypeResultSentToCountry
+     * @return $this
+     */
     public function setGenotypeResultSentToCountry($genotypeResultSentToCountry)
     {
         $this->genotypeResultSentToCountry = $genotypeResultSentToCountry;
         return $this;
     }
 
+    /**
+     * @param $genotypeResultSentToWHO
+     * @return $this
+     */
     public function setGenotypeResultSentToWHO($genotypeResultSentToWHO)
     {
         $this->genotypeResultSentToWHO = $genotypeResultSentToWHO;
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getMandatoryFields()
     {
         return array(

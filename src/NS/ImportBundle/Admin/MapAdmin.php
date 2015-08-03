@@ -101,7 +101,7 @@ class MapAdmin extends Admin
             $metaData   = $this->modelManager->getMetadata($map->getClass());
             $this->mapBuilder->setMetaData($metaData);
             $this->mapBuilder->setSiteMetaData($this->modelManager->getMetadata($metaData->getAssociationTargetClass('siteLab')));
-            $this->mapBuilder->setExternLabMetaData($this->modelManager->getMetadata($metaData->getAssociationTargetClass('externalLabs')));
+            $this->mapBuilder->setNlMetaData($this->modelManager->getMetadata($metaData->getAssociationTargetClass('nationalLab')));
 
             return $this->mapBuilder->process($map);
         } elseif ($map->getColumns()) {

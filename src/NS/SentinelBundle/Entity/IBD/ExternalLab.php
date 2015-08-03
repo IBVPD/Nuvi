@@ -23,29 +23,19 @@ use \JMS\Serializer\Annotation as Serializer;
 /**
  * Description of ExternalLab
  * @author gnat
- * @ORM\Entity()
- * @ORM\Table(name="ibd_external_labs",uniqueConstraints={@ORM\UniqueConstraint(name="site_type_idx",columns={"caseFile_id","discr"})})
- * @ORM\HasLifecycleCallbacks
+ *
  * @Gedmo\Loggable
  * @Secured(conditions={
  *      @SecuredCondition(roles={"ROLE_REGION"},through={"caseFile"},relation="region",class="NSSentinelBundle:Region"),
  *      @SecuredCondition(roles={"ROLE_COUNTRY","ROLE_RRL_LAB","ROLE_NL_LAB"},through={"caseFile"},relation="country",class="NSSentinelBundle:Country"),
  *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},through={"caseFile"},relation="site",class="NSSentinelBundle:Site"),
  *      })
- * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="discr",type="string")
- * @ORM\DiscriminatorMap({"reference" = "ReferenceLab", "national" = "NationalLab"})
  * @Assert\Callback(methods={"validate"})
- * @Serializer\Discriminator(field = "disc", map = {"reference": "ReferenceLab", "national": "NationalLab"})
  * @SuppressWarnings(PHPMD.LongVariable)
+ * @ORM\MappedSuperclass
  */
 abstract class ExternalLab extends BaseExternalLab
 {
-    /**
-     * @ORM\ManyToOne(targetEntity="\NS\SentinelBundle\Entity\IBD",inversedBy="externalLabs")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    protected $caseFile;
 
     /**
      * @var SampleType
@@ -368,19 +358,19 @@ abstract class ExternalLab extends BaseExternalLab
         return $this;
     }
 
-    public function setSpnSerotype($spnSerotype)
+    public function setSpnSerotype(SpnSerotype $spnSerotype)
     {
         $this->spnSerotype = $spnSerotype;
         return $this;
     }
 
-    public function setHiSerotype($hiSerotype)
+    public function setHiSerotype(HiSerotype $hiSerotype)
     {
         $this->hiSerotype = $hiSerotype;
         return $this;
     }
 
-    public function setNmSerogroup($nmSerogroup)
+    public function setNmSerogroup(NmSerogroup $nmSerogroup)
     {
         $this->nmSerogroup = $nmSerogroup;
         return $this;
@@ -415,14 +405,19 @@ abstract class ExternalLab extends BaseExternalLab
     public function getIncompleteField()
     {
         $ret = parent::getIncompleteField();
-        if($ret)
+        if($ret) {
             return $ret;
+        }
 
-        if ($this->pathogenIdentifierMethod && $this->pathogenIdentifierMethod->equal(PathogenIdentifier::OTHER) && empty($this->pathogenIdentifierOther))
+        if ($this->pathogenIdentifierMethod && $this->pathogenIdentifierMethod->equal(PathogenIdentifier::OTHER) && empty($this->pathogenIdentifierOther)) {
             return 'pathogenIdentier';
+        }
 
-        if ($this->serotypeIdentifier && $this->serotypeIdentifier->equal(SerotypeIdentifier::OTHER) && empty($this->serotypeIdentifierOther))
+        if ($this->serotypeIdentifier && $this->serotypeIdentifier->equal(SerotypeIdentifier::OTHER) && empty($this->serotypeIdentifierOther)) {
             return 'serotypeIdentier';
+        }
+
+        return null;
     }
 
     /**

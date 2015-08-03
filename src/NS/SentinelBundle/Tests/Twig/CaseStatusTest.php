@@ -119,7 +119,7 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
         $case1->setSiteLab($lab);
 
         $rrl = new \NS\SentinelBundle\Entity\IBD\ReferenceLab();
-        $case1->addExternalLab($rrl);
+        $case1->setReferenceLab($rrl);
 
         $l1 = $status->getRRLLabel($case1, 'nothing');
 
@@ -130,7 +130,7 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
         $lab->setSentToNationalLab(true);
         $case2->setSiteLab($lab);
         $nl    = new \NS\SentinelBundle\Entity\IBD\NationalLab();
-        $case2->addExternalLab($nl);
+        $case2->setNationalLab($nl);
 
         $l2 = $status->getNLLabel($case2, 'nothing');
 
@@ -152,7 +152,7 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
         $rrl = new \NS\SentinelBundle\Entity\IBD\ReferenceLab();
         $rrl->setStatus(new FormCaseStatus(FormCaseStatus::COMPLETE));
 
-        $case1->addExternalLab($rrl);
+        $case1->setReferenceLab($rrl);
 
         $l1 = $status->getRRLLabel($case1, 'nothing');
 
@@ -166,7 +166,7 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
         $nl = new \NS\SentinelBundle\Entity\IBD\NationalLab();
         $nl->setStatus(new FormCaseStatus(FormCaseStatus::COMPLETE));
 
-        $case2->addExternalLab($nl);
+        $case2->setNationalLab($nl);
 
         $l2 = $status->getNLLabel($case2, 'nothing');
 
@@ -196,7 +196,7 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
         // RRL - lab data but no sent to lab
         $case2 = new IBD();
         $rrl   = new \NS\SentinelBundle\Entity\IBD\ReferenceLab();
-        $case2->addExternalLab($rrl);
+        $case2->setReferenceLab($rrl);
 
         $l2  = $status->getRRLLabel($case2, 'nothing');
         $l21 = $status->getLabel($case2, 'nothing');
@@ -215,7 +215,7 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
         // NL - lab data but no sent to lab
         $case4 = new IBD();
         $nl    = new \NS\SentinelBundle\Entity\IBD\NationalLab();
-        $case4->addExternalLab($nl);
+        $case4->setNationalLab($nl);
 
         $l4  = $status->getNLLabel($case4, 'nothing');
         $l41 = $status->getLabel($case4, 'nothing');

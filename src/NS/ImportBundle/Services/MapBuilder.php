@@ -18,7 +18,7 @@ class MapBuilder
     private $converterRegistry;
     private $metaData;
     private $siteMetaData;
-    private $externLabMetaData;
+    private $nlMetaData;
 
     /**
      *
@@ -53,24 +53,24 @@ class MapBuilder
     }
 
     /**
-     * @param ClassMetadata $externLabMetaData
-     * @return \NS\ImportBundle\Services\MapBuilder
+     * @param mixed $nlMetaData
+     * @return MapBuilder
      */
-    public function setExternLabMetaData(ClassMetadata $externLabMetaData)
+    public function setNlMetaData(ClassMetadata $nlMetaData)
     {
-        $this->externLabMetaData = $externLabMetaData;
+        $this->nlMetaData = $nlMetaData;
         return $this;
     }
 
-        /**
+    /**
      *
      * @param Map $map
      * @param ClassMetadata $metaData
      */
     public function process(Map $map)
     {
-        if(!$this->metaData || !$this->siteMetaData || !$this->externLabMetaData) {
-            throw new \InvalidArgumentException("Missing either class, site lab or external lab metadata");
+        if(!$this->metaData || !$this->siteMetaData || !$this->nlMetaData) {
+            throw new \InvalidArgumentException('Missing either class, site, national or reference lab metadata');
         }
 
         $csvReader = new CsvReader($map->getFile()->openFile());
@@ -114,9 +114,9 @@ class MapBuilder
             $column->setConverter($this->converterRegistry->getConverterForField($this->siteMetaData->getTypeOfField($field)));
             return;
         }
-        elseif(in_array($field,$this->externLabMetaData->getFieldNames())) {
+        elseif(in_array($field,$this->nlMetaData->getFieldNames())) {
             $column->setMapper(sprintf('nationalLab.%s',$field));
-            $column->setConverter($this->converterRegistry->getConverterForField($this->externLabMetaData->getTypeOfField($field)));
+            $column->setConverter($this->converterRegistry->getConverterForField($this->nlMetaData->getTypeOfField($field)));
             return;
         }
 

@@ -29,7 +29,7 @@ class MapBuilderTest extends WebTestCase
         $this->addConverters($mapBuilder);
         $mapBuilder->setMetaData($meta);
         $mapBuilder->setSiteMetaData($siteMeta);
-        $mapBuilder->setExternLabMetaData($externMeta);
+        $mapBuilder->setNlMetaData($externMeta);
 
         $map  = new Map();
         $file = new UploadedFile(__DIR__ . '/../Fixtures/IBD.csv', 'IBD.csv');

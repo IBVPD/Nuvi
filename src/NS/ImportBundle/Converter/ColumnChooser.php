@@ -33,7 +33,7 @@ class ColumnChooser
         if (!$this->cache->contains($class)) {
             $metaData     = $this->entityMgr->getClassMetadata($class);
             $choices      = array();
-            $siteChoices  = $externLabOne = $externLabTwo = array();
+            $siteChoices  = $nlLab = $rrlLab = array();
 
             foreach ($metaData->getFieldNames() as $field) {
                 $choices[$field] = sprintf('%s (%s)', $field, $metaData->getTypeOfField($field));
@@ -42,7 +42,8 @@ class ColumnChooser
             ksort($choices);
 
             $siteMeta   = $this->entityMgr->getClassMetadata($metaData->getAssociationTargetClass('siteLab'));
-            $extLabMeta = $this->entityMgr->getClassMetadata($metaData->getAssociationTargetClass('externalLabs'));
+            $nlLabMeta  = $this->entityMgr->getClassMetadata($metaData->getAssociationTargetClass('nationalLab'));
+            $rrlLabMeta = $this->entityMgr->getClassMetadata($metaData->getAssociationTargetClass('referenceLab'));
 
             foreach ($siteMeta->getFieldNames() as $siteField) {
                 $fieldType           = $siteMeta->getTypeOfField($siteField);
@@ -52,16 +53,20 @@ class ColumnChooser
 
             ksort($siteChoices);
 
-            foreach ($extLabMeta->getFieldNames() as $externalField) {
-                $fieldType               = $extLabMeta->getTypeOfField($externalField);
-                $fieldOne                = sprintf('referenceLab.%s', $externalField);
-                $fieldTwo                = sprintf('nationalLab.%s', $externalField);
-                $externLabOne[$fieldOne] = sprintf('%s (%s)',$fieldOne,$fieldType);
-                $externLabOne[$fieldTwo] = sprintf('%s (%s)',$fieldTwo,$fieldType);
+            foreach ($nlLabMeta->getFieldNames() as $externalField) {
+                $fieldType = $nlLabMeta->getTypeOfField($externalField);
+                $field     = sprintf('nationalLab.%s', $externalField);
+                $nlLab[$field] = sprintf('%s (%s)',$field,$fieldType);
             }
 
-            ksort($externLabOne);
-            ksort($externLabTwo);
+            foreach ($rrlLabMeta->getFieldNames() as $externalField) {
+                $fieldType = $rrlLabMeta->getTypeOfField($externalField);
+                $field     = sprintf('referenceLab.%s', $externalField);
+                $rrlLab[$field] = sprintf('%s (%s)',$field,$fieldType);
+            }
+
+            ksort($nlLab);
+            ksort($rrlLab);
 
             $result = array_merge(array('site'=>'site (Site)'),$choices, $siteChoices, $externLabTwo, $externLabOne);
             $this->cache->save($class, $result);

@@ -111,7 +111,7 @@ class IBDCaseTest extends \PHPUnit_Framework_TestCase
         $case->preUpdateAndPersist();
 
         $this->assertEquals(26, count($case->getMinimumRequiredFields()));
-        $this->assertTrue($case->isComplete(), "New cases are incomplete" . $case->getIncompleteField() . ' ' . $case->getStatus());
+        $this->assertTrue($case->isComplete(), "New cases are incomplete " . $case->getIncompleteField() . ' ' . $case->getStatus());
     }
 
     //============================================================

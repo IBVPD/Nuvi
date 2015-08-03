@@ -52,8 +52,9 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
 
     public function findOrCreate($caseId, $objId = null)
     {
-        if ($objId == null && $caseId == null)
-            throw new InvalidArgumentException("Id or Case must be provided");
+        if ($objId == null && $caseId == null) {
+            throw new \InvalidArgumentException("Id or Case must be provided");
+        }
 
         $queryBuilder = $this->createQueryBuilder('m')
             ->select('m,s,c,r')
@@ -81,18 +82,23 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
     public function findWithRelations(array $params)
     {
         $qb = $this->createQueryBuilder('c')
-            ->addSelect('sl,el')
+            ->addSelect('sl,rl,nl')
             ->leftJoin('c.siteLab', 'sl')
-            ->leftJoin('c.externalLabs', 'el');
+            ->leftJoin('c.referenceLab', 'rl')
+            ->leftJoin('c.nationalLab','nl');
 
         foreach ($params as $field => $value) {
             $param = sprintf("%sField", $field);
             $qb->andWhere(sprintf('c.%s = :%s', $field, $param))->setParameter($param, $value);
         }
+
         try {
             return $qb->getQuery()->getSingleResult();
         }
         catch (\Exception $e) {
+            if(!$e instanceof NoResultException) {
+            throw new \Exception("CALLED ".__FUNCTION__.' '.get_class($e).' '.$e->getMessage());
+            }
             return null;
         }
     }
