@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e952308049d07af44f300064b7a6b008",
+    "hash": "494b35574fa8429bdac61d35a6a0a546",
     "packages": [
         {
             "name": "adoy/oauth2",
@@ -216,7 +216,7 @@
             "version": "dev-gnat",
             "source": {
                 "type": "git",
-                "url": "/var/www/local/data-import",
+                "url": "https://github.com/gnat42/data-import.git",
                 "reference": "aa42aafc2a2f2e8de347a44271a7b52ec8a41360"
             },
             "require": {
