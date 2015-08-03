@@ -2,14 +2,6 @@ parameters:
 #    ns_sentinel.example.class: NS\SentinelBundle\Example
 
 services:
-    ns.sentinel.converter.ibd_site_lab_linker:
-        class: NS\SentinelBundle\Converter\SiteLabConverter
-        arguments: [ @doctrine.orm.entity_manager, NS\SentinelBundle\Entity\IBD\SiteLab ]
-
-    ns.sentinel.converter.rota_site_lab_linker:
-        class: NS\SentinelBundle\Converter\SiteLabConverter
-        arguments: [ @doctrine.orm.entity_manager, NS\SentinelBundle\Entity\Rota\SiteLab ]
-
     ns.sentinel.form.type.finalresult:
       class: NS\SentinelBundle\Form\Types\FinalResult
       tags:
