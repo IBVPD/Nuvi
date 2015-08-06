@@ -2,10 +2,6 @@ parameters:
   ns_import.map.classes: { }
 
 services:
-    ns_import.services.queue_processor:
-        class: NS\ImportBundle\Services\QueueProcessor
-        arguments: [ @doctrine.orm.entity_manager, @ns_import.processor ]
-
     ns_import.importer.upload_handler:
         class: NS\ImportBundle\Importer\ImportResultUpdater
         arguments: [ @vich_uploader.property_mapping_factory ]
