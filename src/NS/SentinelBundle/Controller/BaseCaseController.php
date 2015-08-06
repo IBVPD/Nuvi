@@ -14,6 +14,7 @@ use \Symfony\Component\HttpFoundation\Request;
  */
 abstract class BaseCaseController extends Controller
 {
+
     public function index(Request $request, $class, $filterFormName)
     {
         $filterForm = $this->createForm($filterFormName);
@@ -48,8 +49,8 @@ abstract class BaseCaseController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $caseId = $form->get('caseId')->getData();
-            $type = $form->get('type')->getData();
+            $caseId    = $form->get('caseId')->getData();
+            $type      = $form->get('type')->getData();
             $entityMgr = $this->get('doctrine.orm.entity_manager');
             $case = $entityMgr->getRepository($class)->findOrCreate($caseId);
 
@@ -77,6 +78,7 @@ abstract class BaseCaseController extends Controller
             // TODO Flash service required
             return $this->render('NSSentinelBundle:User:unknownCase.html.twig', array(
                 'message' => $ex->getMessage()));
+        }
         }
 
         $form->handleRequest($request);
@@ -107,4 +109,5 @@ abstract class BaseCaseController extends Controller
                 'message' => $ex->getMessage()));
         }
     }
+
 }
