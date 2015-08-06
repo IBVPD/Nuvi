@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
 class ReferenceLab extends ExternalLab
 {
     /**
-     * @ORM\ManyToOne(targetEntity="\NS\SentinelBundle\Entity\IBD",inversedBy="referenceLab")
+     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\IBD",inversedBy="referenceLab")
      * @ORM\JoinColumn(nullable=false)
      */
     protected $caseFile;
