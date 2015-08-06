@@ -2,12 +2,14 @@
 
 namespace NS\ImportBundle\Importer;
 
+use Ddeboer\DataImport\Filter\OffsetFilter;
 use \Ddeboer\DataImport\Reader\CsvReader;
 use \Ddeboer\DataImport\Workflow;
 use \Ddeboer\DataImport\Reader;
 use \Ddeboer\DataImport\Step\FilterStep;
 use \Ddeboer\DataImport\Step\ValueConverterStep;
 use \Doctrine\DBAL\DBALException;
+use NS\ImportBundle\Entity\Import;
 use \NS\ImportBundle\Entity\Result;
 use \NS\ImportBundle\Filter\Duplicate;
 use \NS\ImportBundle\Filter\NotBlank;
@@ -24,9 +26,11 @@ class ImportProcessor
     private $container;
     private $duplicateFilter;
     private $notBlankFilter;
+    private $doctrineWriter;
+
     private $memoryLimit = '1024M';
     private $maxExecutionTime = 190;
-    private $doctrineWriter;
+    private $limit  = null;
 
     /**
      * @param ContainerInterface $container
@@ -37,31 +41,16 @@ class ImportProcessor
     }
 
     /**
-     * @param Result $import
+     * @param Import $import
      * @return Result
      * @throws \Exception
      */
-    public function process(Result $import)
+    public function process(Import $import)
     {
         ini_set('max_execution_time', $this->maxExecutionTime);
         ini_set('memory_limit', $this->memoryLimit);
 
-        try {
-            $reader = $this->getReader($import);
-        }
-        catch (\InvalidArgumentException $excep) {
-
-            $exceptions = new \SplObjectStorage();
-            $exceptions->attach($excep);
-
-            $now = new \DateTime();
-            $import->setTotalCount(0);
-            $import->setImportStartedAt($now);
-            $import->setImportEndedAt($now);
-            $import->buildExceptions($exceptions);
-
-            return $import;
-        }
+        $reader = $this->getReader($import);
 
         // Create the workflow from the reader
         $workflow = new Workflow\StepAggregator($reader);
@@ -71,7 +60,7 @@ class ImportProcessor
         $this->addSteps($workflow, $import);
 
         // Process the workflow
-        return $this->workflowProcess($workflow,$import);
+        return $workflow->process();
     }
 
     /**
@@ -92,18 +81,20 @@ class ImportProcessor
     }
 
     /**
-     * @param Result $import
+     * @param Import $import
      * @return Reader $csvReader
      */
-    public function getReader(Result $import)
+    public function getReader(Import $import)
     {
         // Create and configure the reader
-        $csvReader = new CsvReader($import->getImportFile()->openFile(), ',');
+        $csvReader = new CsvReader($import->getSourceFile()->openFile(), ',');
 
         // Tell the reader that the first row in the CSV file contains column headers
         $csvReader->setHeaderRowNumber(0);
 
-        $fields  = $csvReader->getFields();
+        $import->setSourceCount($csvReader->count());
+
+        $fields = $csvReader->getFields();
         $columns = $import->getMap()->getColumns();
 
         foreach ($columns as $column) {
@@ -117,30 +108,36 @@ class ImportProcessor
 
     /**
      * @param Workflow $workflow
-     * @param Result $import
+     * @param Import $import
      * @return Duplicate $duplicate
      */
-    public function addSteps(Workflow $workflow, Result $import)
+    public function addSteps(Workflow $workflow, Import $import)
     {
-        // These map column headers i.e site_Code -> site
-        $workflow->addStep($import->getMappings());
-        // These allow us to ignore a column i.e. - region or country_ISO 
-        $workflow->addStep($import->getIgnoredMapper());
+        $offsetFilter = new FilterStep();
+        $offsetFilter->add(new OffsetFilter($import->getPosition(),$this->getLimit()));
+        // Move to current position
+        $workflow->addStep($offsetFilter,5);
 
-        $valueConverter      = new ValueConverterStep();
+        // These map column headers i.e site_Code -> site
+        $workflow->addStep($import->getMappings(),4);
+
+        // These allow us to ignore a column i.e. - region or country_ISO 
+        $workflow->addStep($import->getIgnoredMapper(),3);
+
+        $valueConverter = new ValueConverterStep();
         $valueConverterCount = 0;
         foreach ($import->getConverters() as $column) {
             $name = ($column->hasMapper()) ? $column->getMapper() : $column->getName();
-            $valueConverter->add(sprintf('[%s]',  str_replace('.', '][', $name)), $this->container->get($column->getConverter()));
+            $valueConverter->add(sprintf('[%s]', str_replace('.', '][', $name)), $this->container->get($column->getConverter()));
             $valueConverterCount++;
         }
 
         if ($valueConverterCount > 0) {
-            $workflow->addStep($valueConverter);
+            $workflow->addStep($valueConverter,2);
         }
 
         $filterStep = new FilterStep();
-        $addFilter  = false;
+        $addFilter = false;
 
         if ($this->notBlankFilter) {
             $filterStep->add($this->notBlankFilter);
@@ -153,39 +150,8 @@ class ImportProcessor
         }
 
         if ($addFilter) {
-            $workflow->addStep($filterStep);
+            $workflow->addStep($filterStep,1);
         }
-    }
-
-    /**
-     * @param Workflow $workflow
-     * @return Result
-     */
-    public function workflowProcess(Workflow $workflow, Result $import)
-    {
-        try {
-            $processResult = $workflow->process();
-        }
-        catch (DBALException $ex) {
-            $now = new \DateTime();
-            $import->setImportStartedAt($now);
-            $import->setImportEndedAt($now);
-            $import->setTotalCount(0);
-            $exceptions = new \SplObjectStorage();
-            $exceptions->attach($ex);
-            $import->buildExceptions($exceptions);
-
-            return $import;
-        }
-
-        $import->setImportStartedAt($processResult->getStartTime());
-        $import->setImportEndedAt($processResult->getEndTime());
-        $import->setTotalCount($processResult->getTotalProcessedCount());
-        $import->setDuplicates($this->getDuplicate()->toArray());
-        $import->buildExceptions($processResult->getExceptions());
-        $import->setSuccesses($this->getWriter($import->getClass())->getResults()->toArray());
-
-        return $import;
     }
 
     /**
@@ -267,6 +233,24 @@ class ImportProcessor
     public function setDuplicate(Duplicate $duplicate)
     {
         $this->duplicateFilter = $duplicate;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLimit()
+    {
+        return $this->limit;
+    }
+
+    /**
+     * @param mixed $limit
+     * @return ImportProcessor
+     */
+    public function setLimit($limit)
+    {
+        $this->limit = $limit;
         return $this;
     }
 }

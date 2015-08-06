@@ -12,7 +12,7 @@
                     <form method="POST" action="{{path('importIndex')}}" {{form_enctype(form)}}>
                         <div class="widget-main">
                             {{form_row(form.map)}}
-                            {{form_row(form.importFile)}}
+                            {{form_row(form.sourceFile)}}
                         </div>
                         <div class="widget-toolbox padding-6 clearfix">
                             {{form_row(form.import)}}
@@ -36,12 +36,11 @@
                                 <th>{{'Map'|trans}}</th>
                                 <th>{{'File'|trans}}</th>
                                 <th>{{'File Record Count'|trans}}</th>
-                                <th>{{'Records Read'|trans}}</th>
-                                <th>{{'Total Processed'|trans}}</th>
-                                <th>{{'Success Count'|trans}}</th>
-                                <th>{{'Duplicate Count'|trans}}</th>
-                                <th>{{'Error Count'|trans}}</th>
-                                <th>{{'Warning Count'|trans}}</th>
+                                <th>{{'Processed'|trans}}</th>
+                                <th>{{'Imported'|trans}}</th>
+                                <th>{{'Successes'|trans}}</th>
+                                <th>{{'Warnings'|trans}}</th>
+                                <th>{{'Errors'|trans}}</th>
                                 <th>{{'Actions'|trans}}</th>
                             </tr>
                         </thead>
@@ -50,18 +49,22 @@
                                 <tr>
                                     <td>{{r.createdAt.format('Y-m-d H:i:s')}}</td>
                                     <td>{{r.mapName}}</td>
-                                    <td>{{r.filename}}</td>
-                                    <td>{{r.totalRowCount}}</td>
-                                    <td>{{r.total}}</td>
-                                    <td>{{r.totalCount}}</td>
-                                    <td>{{r.successCount}}</td>
-                                    <td>{{r.duplicateCount}}</td>
-                                    <td>{{r.errorCount}}</td>
-                                    <td>{{r.warningCount}}</td>
+                                    <td><a href="{{path('importResultDownload',{type:'source','id':r.id})}}"/>{{ r.source }}</a></td>
+                                    <td> {{ r.sourceCount }} </td>
+                                    <td> {{ r.processedCount }} </td>
+                                    <td> {{ r.importedCount }} </td>
                                     <td>
-                                        <a href="{{path('importResultDownload',{type:'errors','id':r.id})}}" class="btn btn-xs btn-danger">{{'Errors'|trans}} <i class="fa fa-cloud-download"></i></a>
-                                        <a href="{{path('importResultDownload',{type:'duplicates','id':r.id})}}" class="btn btn-xs btn-danger">{{'Duplicates'|trans}} <i class="fa fa-cloud-download"></i></a>
                                         <a href="{{path('importResultDownload',{type:'success','id':r.id})}}" class="btn btn-xs btn-success">{{'Successful'|trans}} <i class="fa fa-cloud-download"></i></a>
+                                    </td>
+                                    <td>
+                                        <a href="{{path('importResultDownload',{type:'warnings','id':r.id})}}" class="btn btn-xs btn-warning">{{r.warningCount}} {{'Warnings'|trans}} <i class="fa fa-cloud-download"></i></a>
+                                    </td>
+                                    <td>
+                                        <a href="{{path('importResultDownload',{type:'errors','id':r.id})}}" class="btn btn-xs btn-danger">{{r.errorCount}} {{'Errors'|trans}} <i class="fa fa-cloud-download"></i></a>
+                                    </td>
+                                    <td>
+
+                                        <a href="{{ path('importExecute',{id: r.id}) }}">Execute</a>
                                     </td>
                                 </tr>
                             {%endfor %}

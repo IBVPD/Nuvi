@@ -29,6 +29,8 @@ class ArrayChoiceConverter implements NamedValueConverterInterface, ReporterInte
      */
     private $message = null;
 
+    private $severity = ReporterInterface::INFO;
+
     /**
      * @param string $class
      * @throws RuntimeException
@@ -94,6 +96,14 @@ class ArrayChoiceConverter implements NamedValueConverterInterface, ReporterInte
     }
 
     /**
+     * @return int
+     */
+    public function getSeverity()
+    {
+        return $this->severity;
+    }
+
+    /**
      *
      * @return string
      */
@@ -101,5 +111,4 @@ class ArrayChoiceConverter implements NamedValueConverterInterface, ReporterInte
     {
         return $this->name;
     }
-
 }

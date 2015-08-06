@@ -7,8 +7,8 @@ use \Ddeboer\DataImport\Workflow;
 use \Ddeboer\DataImport\Writer\ArrayWriter;
 use \Liip\FunctionalTestBundle\Test\WebTestCase;
 use \NS\ImportBundle\Entity\Column;
+use \NS\ImportBundle\Entity\Import;
 use \NS\ImportBundle\Entity\Map;
-use \NS\ImportBundle\Entity\Result;
 use \NS\ImportBundle\Filter\Duplicate;
 use \NS\ImportBundle\Filter\NotBlank;
 use \NS\ImportBundle\Importer\ImportProcessor;
@@ -30,8 +30,8 @@ class ImportProcessorTest extends WebTestCase
         $file = new File(__DIR__ . '/../Fixtures/IBD-BadHeader.csv');
 
         $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
-        $import   = new Result($mockUser);
-        $import->setImportFile($file);
+        $import   = new Import($mockUser);
+        $import->setSourceFile($file);
         $import->setMap($this->getIbdMap($this->getIbdColumns()));
 
         $processor = $this->getContainer()->get('ns_import.processor');
@@ -66,8 +66,8 @@ class ImportProcessorTest extends WebTestCase
         );
 
         $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
-        $import = new Result($mockUser);
-        $import->setImportFile($file);
+        $import = new Import($mockUser);
+        $import->setSourceFile($file);
         $import->setMap($this->getIbdMap($columns));
 
         $processor = $this->getContainer()->get('ns_import.processor');
@@ -114,8 +114,8 @@ class ImportProcessorTest extends WebTestCase
         );
 
         $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
-        $import = new Result($mockUser);
-        $import->setImportFile($file);
+        $import = new Import($mockUser);
+        $import->setSourceFile($file);
         $import->setMap($this->getIbdMap($columns));
 
         $processor = $this->getContainer()->get('ns_import.processor');
@@ -147,8 +147,8 @@ class ImportProcessorTest extends WebTestCase
         );
 
         $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
-        $import = new Result($mockUser);
-        $import->setImportFile($file);
+        $import = new Import($mockUser);
+        $import->setSourceFile($file);
         $import->setMap($this->getIbdMap($columns));
 
         $processor = $this->getContainer()->get('ns_import.processor');
@@ -230,8 +230,8 @@ class ImportProcessorTest extends WebTestCase
         );
 
         $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
-        $import = new Result($mockUser);
-        $import->setImportFile($file);
+        $import = new Import($mockUser);
+        $import->setSourceFile($file);
         $import->setMap($this->getIbdMap($columns));
 
 //        $uniqueFields  = array('col1', 'col2');
@@ -265,12 +265,16 @@ class ImportProcessorTest extends WebTestCase
 
         $processor = new ImportProcessor($this->getContainer());
         $processor->setDuplicate($mockDuplicate);
+
         $reader    = $processor->getReader($import);
 
         $this->assertInstanceOf('\Ddeboer\DataImport\Reader\CsvReader', $reader);
         $this->assertCount(4, $reader);
 
         $outputData = array();
+
+        $this->assertEquals(0,$import->getPosition());
+
         // Create the workflow from the reader
         $workflow   = new Workflow\StepAggregator($reader);
         $workflow->setSkipItemOnFailure(true);
@@ -313,8 +317,8 @@ class ImportProcessorTest extends WebTestCase
         );
 
         $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
-        $import = new Result($mockUser);
-        $import->setImportFile($file);
+        $import = new Import($mockUser);
+        $import->setSourceFile($file);
         $import->setMap($this->getIbdMap($columns));
 
         $uniqueFields = array('Col1', 'col2');
@@ -360,8 +364,8 @@ class ImportProcessorTest extends WebTestCase
         );
 
         $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
-        $import = new Result($mockUser);
-        $import->setImportFile($file);
+        $import = new Import($mockUser);
+        $import->setSourceFile($file);
         $import->setMap($this->getIbdMap($columns));
 
         $duplicate = new Duplicate(array());
@@ -386,7 +390,7 @@ class ImportProcessorTest extends WebTestCase
         $this->assertInstanceOf('\SplObjectStorage', $except);
 
         // THIS SHOULD BE 2 ???
-        $this->assertEquals(1, $except->count());
+        $this->assertEquals(2, $except->count());
     }
 
     public function testBlankFieldConversion()
@@ -476,7 +480,7 @@ class ImportProcessorTest extends WebTestCase
         $processor = $this->getContainer()->get('ns_import.processor');
         $reader    = new ArrayReader($source);
         $mockUser  = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
-        $import    = new Result($mockUser);
+        $import    = new Import($mockUser);
         $import->setMap($this->getReferenceLabMap($columns));
 
         $converters = $import->getConverters();
@@ -545,9 +549,9 @@ class ImportProcessorTest extends WebTestCase
 
         $file = new File(__DIR__ . '/../Fixtures/IBD-CasePlusSiteLab.csv');
         $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
-        $import = new Result($mockUser);
+        $import = new Import($mockUser);
 
-        $import->setImportFile($file);
+        $import->setSourceFile($file);
         $import->setMap($this->getIbdMap($columns));
 
         $processor = new ImportProcessor($this->getContainer());
@@ -557,12 +561,11 @@ class ImportProcessorTest extends WebTestCase
 
         $result    = $processor->process($import);
 
-        if (count($result->getErrors()) > 0) {
-            $exceptions = $result->getErrors();
-            $this->fail(print_r($exceptions,true).' '.$result->getErrorCount());
+        if (count($result->getExceptions()) > 0) {
+            $this->fail("Error Count: ".$result->getErrorCount());
         }
 
-        $this->assertCount(2,$result->getSuccesses());
+        $this->assertEquals(2,$result->getSuccessCount());
     }
 
     public function testImportWithReferenceLabFields()
@@ -602,9 +605,9 @@ class ImportProcessorTest extends WebTestCase
 
         $file = new File(__DIR__ . '/../Fixtures/IBD-CasePlusRRL.csv');
         $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
-        $import = new Result($mockUser);
+        $import = new Import($mockUser);
 
-        $import->setImportFile($file);
+        $import->setSourceFile($file);
         $import->setMap($this->getIbdMap($columns));
 
         $processor = new ImportProcessor($this->getContainer());
@@ -614,12 +617,12 @@ class ImportProcessorTest extends WebTestCase
 
         $result    = $processor->process($import);
 
-        if (count($result->getErrors()) > 0) {
-            $exceptions = $result->getErrors();
-            $this->fail(print_r($exceptions,true).' '.$result->getErrorCount());
+        if (count($result->getExceptions()) > 0) {
+            $this->fail('Error Count: '.$result->getErrorCount());
         }
 
-        $this->assertCount(2,$result->getSuccesses());
+
+        $this->assertEquals(2,$result->getSuccessCount());
     }
 
     public function getReferenceLabMap(array $columns)

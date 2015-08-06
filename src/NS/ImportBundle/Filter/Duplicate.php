@@ -3,7 +3,8 @@
 namespace NS\ImportBundle\Filter;
 
 use \Ddeboer\DataImport\Exception\UnexpectedValueException;
-use Ddeboer\DataImport\ReporterInterface;
+use \Ddeboer\DataImport\ReporterInterface;
+use \Ddeboer\DataImport\Step\PriorityStep;
 use \Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -20,6 +21,8 @@ class Duplicate implements ReporterInterface
     private $duplicates;
 
     private $message;
+
+    private $severity = 4;
 
     /**
      * @param array $fields
@@ -127,10 +130,10 @@ class Duplicate implements ReporterInterface
     }
 
     /**
-     * @return integer
+     * @return int
      */
-    public function getPriority()
+    public function getSeverity()
     {
-        return 2;
+        return $this->severity;
     }
 }

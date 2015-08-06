@@ -37,7 +37,7 @@ class ImportSelectType extends AbstractType
                 'query_builder' => $this->entityMgr->getRepository('NSImportBundle:Map')->getWithColumnsQuery(),
                 )
             )
-            ->add('importFile', 'vich_file',array('error_bubbling'=>false))
+            ->add('sourceFile', 'vich_file',array('error_bubbling'=>false))
             ->add('import', 'submit', array('attr' => array('class' => 'btn btn-xs btn-success pull-right')))
         ;
     }
@@ -49,10 +49,10 @@ class ImportSelectType extends AbstractType
     {
         $resolver->setRequired('user');
         $resolver->setDefaults(array(
-            'data_class' => 'NS\ImportBundle\Entity\Result',
+            'data_class' => 'NS\ImportBundle\Entity\Import',
             'empty_data' => function(\Symfony\Component\OptionsResolver\Options $options) {
                 return function() use ($options) {
-                    return new \NS\ImportBundle\Entity\Result($options['user']);
+                    return new \NS\ImportBundle\Entity\Import($options['user']);
                 };
             }
         ));

@@ -1,18 +1,22 @@
 <?php
 
 namespace NS\ImportBundle\Filter;
-use Ddeboer\DataImport\ReporterInterface;
+
+use \Ddeboer\DataImport\ReporterInterface;
+use \Ddeboer\DataImport\Step\PriorityStep;
 
 /**
  * Description of NotBlank
  *
  * @author gnat
  */
-class NotBlank implements  ReporterInterface
+class NotBlank implements ReporterInterface
 {
     public $fields;
 
     private $message;
+
+    private $severity = ReporterInterface::ERROR;
 
     /**
      * @param string $fields The field(s) that will be checked to not be empty
@@ -62,8 +66,8 @@ class NotBlank implements  ReporterInterface
     /**
      * @return int
      */
-    public function getPriority()
+    public function getSeverity()
     {
-        return 1;
+        return $this->severity;
     }
 }
