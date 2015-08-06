@@ -79,7 +79,6 @@ abstract class BaseCaseController extends Controller
             return $this->render('NSSentinelBundle:User:unknownCase.html.twig', array(
                 'message' => $ex->getMessage()));
         }
-        }
 
         $form->handleRequest($request);
         if ($form->isValid()) {
