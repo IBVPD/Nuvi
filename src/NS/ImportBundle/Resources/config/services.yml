@@ -2,6 +2,9 @@ parameters:
   ns_import.map.classes: { }
 
 services:
+    ns_import.vich.directory_namer:
+        class: NS\ImportBundle\Vich\DirectoryNamer
+
     ns_import.converter.columns:
         class: NS\ImportBundle\Converter\ColumnChooser
         arguments: [ @doctrine.orm.entity_manager, @doctrine_cache.providers.my_phpfile_cache ]
