@@ -4,7 +4,6 @@ parameters:
 services:
     ns_import.importer.upload_handler:
         class: NS\ImportBundle\Importer\ImportResultUpdater
-        arguments: [ @vich_uploader.property_mapping_factory ]
 
     ns_import.vich.directory_namer:
         class: NS\ImportBundle\Vich\DirectoryNamer
@@ -98,7 +97,7 @@ services:
 
     ns_import.form.import_map_select:
         class: NS\ImportBundle\Form\ImportSelectType
-        arguments: [ @doctrine.orm.entity_manager ]
+        arguments: [ @doctrine.orm.entity_manager, @vich_uploader.property_mapping_factory ]
         tags:
             - { name: form.type, alias: ImportSelect }
 

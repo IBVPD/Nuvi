@@ -165,11 +165,19 @@ class ImportProcessorTest extends WebTestCase
             ->method('getName')
             ->willReturn('NS\SentinelBundle\Entity\IBD');
 
+        $mockRepo = $this->getMockBuilder('Doctrine\ORM\EntityRepository')
+            ->setMethods(array('findWithRelations'))
+            ->disableOriginalConstructor()
+            ->getMock();
+        $mockRepo->expects($this->never())
+            ->method('findWithRelations');
+
         $entityMgr = $this->getMockBuilder('\Doctrine\ORM\EntityManager')
             ->disableOriginalConstructor()
             ->getMock();
         $entityMgr->expects($this->once())
-            ->method('getRepository');
+            ->method('getRepository')
+            ->willReturn($mockRepo);
 
         $entityMgr->expects($this->once())
             ->method('getClassMetadata')
@@ -234,7 +242,6 @@ class ImportProcessorTest extends WebTestCase
         $import->setSourceFile($file);
         $import->setMap($this->getIbdMap($columns));
 
-//        $uniqueFields  = array('col1', 'col2');
         $mockDuplicate = $this->getMockBuilder('NS\ImportBundle\Filter\Duplicate')
             ->setMethods(array('__invoke', 'getFieldKey'))
             ->getMock();
@@ -557,7 +564,9 @@ class ImportProcessorTest extends WebTestCase
         $processor = new ImportProcessor($this->getContainer());
         $processor->setDuplicate(new Duplicate(array('getcode' => 'site', 1 => 'caseId')));
         $writer = $processor->getWriter($import->getClass());
-        $this->assertEquals('findWithRelations', $writer->getEntityRepositoryMethod());
+        $repoMethod = $writer->getEntityRepositoryMethod();
+        $this->assertTrue(is_callable($repoMethod));
+        $this->assertEquals($repoMethod[1],'findWithRelations');
 
         $result    = $processor->process($import);
 
@@ -613,14 +622,15 @@ class ImportProcessorTest extends WebTestCase
         $processor = new ImportProcessor($this->getContainer());
         $processor->setDuplicate(new Duplicate(array('getcode' => 'site', 1 => 'caseId')));
         $writer = $processor->getWriter($import->getClass());
-        $this->assertEquals('findWithRelations', $writer->getEntityRepositoryMethod());
+        $repoMethod = $writer->getEntityRepositoryMethod();
+        $this->assertTrue(is_callable($repoMethod));
+        $this->assertEquals($repoMethod[1],'findWithRelations');
 
         $result    = $processor->process($import);
 
         if (count($result->getExceptions()) > 0) {
             $this->fail('Error Count: '.$result->getErrorCount());
         }
-
 
         $this->assertEquals(2,$result->getSuccessCount());
     }

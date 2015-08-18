@@ -29,7 +29,7 @@ class ArrayChoiceConverter implements NamedValueConverterInterface, ReporterInte
      */
     private $message = null;
 
-    private $severity = ReporterInterface::INFO;
+    private $severity = ReporterInterface::WARNING;
 
     /**
      * @param string $class
@@ -53,6 +53,8 @@ class ArrayChoiceConverter implements NamedValueConverterInterface, ReporterInte
      */
     public function __invoke($value)
     {
+        $this->message = null;
+
         $input = (is_string($value)) ? trim($value) : $value;
         if ($input !== 0 && (empty($input) || !is_numeric($input))) {
             if (is_string($input) && strpos($input, "=")) {
@@ -84,7 +86,7 @@ class ArrayChoiceConverter implements NamedValueConverterInterface, ReporterInte
      */
     public function hasMessage()
     {
-        return ($this->message === null);
+        return ($this->message !== null);
     }
 
     /**

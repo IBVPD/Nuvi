@@ -133,6 +133,35 @@ class Import
      */
     private $errors;
 
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     *
+     * @Vich\UploadableField(mapping="import_file", fileNameProperty="messages")
+     * @Assert\File
+     * @var File $messageFile
+     */
+    private $messageFile;
+
+    /**
+     * @var string $messages
+     * @ORM\Column(name="messages",type="string",nullable=true)
+     */
+    private $messages;
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     *
+     * @Vich\UploadableField(mapping="import_file", fileNameProperty="duplicates")
+     * @Assert\File
+     * @var File $duplicateFile
+     */
+    private $duplicateFile;
+
+    /**
+     * @var string $duplicates
+     * @ORM\Column(name="duplicates",type="string",nullable=true)
+     */
+    private $duplicates;
     // ---------------------------------------------------------------------------------------
 
     /**
@@ -536,7 +565,7 @@ class Import
 
     /**
      *
-     * @param array $warnings
+     * @param string $warnings
      * @return \NS\ImportBundle\Entity\Result
      */
     public function setWarnings($warnings)
@@ -555,7 +584,7 @@ class Import
 
     /**
      *
-     * @param array $successes
+     * @param string $successes
      * @return \NS\ImportBundle\Entity\Result
      */
     public function setSuccesses($successes)
@@ -571,6 +600,78 @@ class Import
     public function setSuccessFile(File $successFile)
     {
         $this->successFile = $successFile;
+        return $this;
+    }
+
+    /**
+     * @return File
+     */
+    public function getMessageFile()
+    {
+        return $this->messageFile;
+    }
+
+    /**
+     * @param File $messageFile
+     * @return $this
+     */
+    public function setMessageFile(File $messageFile)
+    {
+        $this->messageFile = $messageFile;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMessages()
+    {
+        return $this->messages;
+    }
+
+    /**
+     * @param string $messages
+     * @return $this
+     */
+    public function setMessages($messages)
+    {
+        $this->messages = $messages;
+        return $this;
+    }
+
+    /**
+     * @return File
+     */
+    public function getDuplicateFile()
+    {
+        return $this->duplicateFile;
+    }
+
+    /**
+     * @param File $duplicateFile
+     * @return $this
+     */
+    public function setDuplicateFile(File $duplicateFile)
+    {
+        $this->duplicateFile = $duplicateFile;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDuplicates()
+    {
+        return $this->duplicates;
+    }
+
+    /**
+     * @param string $duplicates
+     * @return $this
+     */
+    public function setDuplicates($duplicates)
+    {
+        $this->duplicates = $duplicates;
         return $this;
     }
 

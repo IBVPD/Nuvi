@@ -60,7 +60,12 @@ class ImportProcessor
         $this->addSteps($workflow, $import);
 
         // Process the workflow
-        return $workflow->process();
+        $result = $workflow->process();
+        if($this->duplicateFilter) {
+            $this->duplicateFilter->finish();
+        }
+
+        return $result;
     }
 
     /**
@@ -74,6 +79,7 @@ class ImportProcessor
         if ($this->doctrineWriter === null || $this->doctrineWriter->getEntityName() != $class) {
             $this->doctrineWriter = new DoctrineWriter($this->container->get('doctrine.orm.entity_manager'), $class, array('getcode' => 'site', 1 => 'caseId'));
             $this->doctrineWriter->setTruncate(false);
+            $this->doctrineWriter->setClearOnFlush(false);
             $this->doctrineWriter->setEntityRepositoryMethod('findWithRelations');
         }
 

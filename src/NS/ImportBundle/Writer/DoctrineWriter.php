@@ -20,7 +20,7 @@ class DoctrineWriter extends BaseWriter
      *
      * @param ObjectManager $entityManager
      * @param string $entityName
-     * @param string|array $lookupFields    Index column or array of lookup fields to find current entities by
+     * @param string|array $lookupFields Index column or array of lookup fields to find current entities by
      */
     public function __construct(ObjectManager $entityManager, $entityName, $lookupFields = null)
     {
@@ -68,14 +68,14 @@ class DoctrineWriter extends BaseWriter
 
     public function updateAssociations(array &$item, $entity)
     {
-        parent::updateAssociations($item,$entity);
+        parent::updateAssociations($item, $entity);
 
-        if(isset($item['referenceLab'])) {
-            $this->updateAssociation($item,$entity,'referenceLab','NS\SentinelBundle\Entity\IBD\ReferenceLab');
+        if (isset($item['referenceLab'])) {
+            $this->updateAssociation($item, $entity, 'referenceLab', 'NS\SentinelBundle\Entity\IBD\ReferenceLab');
         }
 
-        if(isset($item['nationalLab'])) {
-            $this->updateAssociation($item,$entity,'nationalLab','NS\SentinelBundle\Entity\IBD\NationalLab');
+        if (isset($item['nationalLab'])) {
+            $this->updateAssociation($item, $entity, 'nationalLab', 'NS\SentinelBundle\Entity\IBD\NationalLab');
         }
     }
 }

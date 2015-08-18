@@ -2,16 +2,16 @@
 
 namespace NS\ImportBundle\Controller;
 
-use \Exporter\Source\ArraySourceIterator;
 use \NS\ImportBundle\Filter\Duplicate;
 use \NS\ImportBundle\Filter\NotBlank;
-use \NS\ImportBundle\Importer\ImportResultUpdater;
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use \Sonata\CoreBundle\Exporter\Exporter;
 use \Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use \Symfony\Component\HttpFoundation\BinaryFileResponse;
 use \Symfony\Component\HttpFoundation\RedirectResponse;
 use \Symfony\Component\HttpFoundation\Request;
+use \Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 /**
  * Description of ImportController
@@ -60,15 +60,15 @@ class ImportController extends Controller
         $import = $entityMgr->getRepository('NSImportBundle:Import')->find($id);
 
         $processor = $this->get('ns_import.processor');
-        $processor->setDuplicate(new Duplicate(array('getcode' => 'site', 1 => 'caseId')));
+        $processor->setDuplicate(new Duplicate(array('getcode' => 'site', 1 => 'caseId'),$import->getDuplicateFile()));
         $processor->setNotBlank(new NotBlank(array('caseId', 'site')));
-        $processor->setLimit(100);
+        $processor->setLimit(400);
 
         $result = $processor->process($import);
+        $entityMgr->flush();
+
         $updater = $this->get('ns_import.importer.upload_handler');
         $updater->update($import, $result, $processor->getWriter($import->getClass())->getResults());
-
-//        die(sprintf('Pre: %d Post: %d',$prePosition,$import->getPosition()));
 
         $entityMgr = $this->get('doctrine.orm.entity_manager');
         $entityMgr->persist($import);
@@ -81,33 +81,39 @@ class ImportController extends Controller
      * @Route("/download/{type}/{id}",name="importResultDownload",requirements={"type": "success|errors|warnings|source"})
      * @param $type
      * @param $id
-     * @return \Symfony\Component\HttpFoundation\StreamedResponse
+     * @return BinaryFileResponse
      */
     public function resultDownloadAction($type, $id)
     {
         $res = $this->get('doctrine.orm.entity_manager')->getRepository('NSImportBundle:Import')->findForUser($this->getUser(), $id);
         if ($res) {
-            $format = 'csv';
+            $sourceFile = null;
 
             switch ($type) {
                 case 'success':
-                    $source = new ArraySourceIterator($res->getSuccesses(), array('id', 'caseId', 'site', 'siteName'));
+                    $sourceFile = $res->getSuccessFile();
                     break;
                 case 'errors':
-                    $source = new ArraySourceIterator($res->getErrors(), array('row','column', 'message'));
+                    $sourceFile = $res->getErrorFile();
                     break;
-                case 'duplicates':
-                    $source = new ArraySourceIterator($res->getDuplicateMessages(), array('row', 'message'));
+                case 'source':
+                    $sourceFile = $res->getSourceFile();
+                    break;
+                case 'warnings':
+                    $sourceFile = $res->getWarningFile();
                     break;
             }
 
-            $filename = sprintf('export_%s_%s.%s', $type, date('Ymd_His'), $format);
-            $exporter = new Exporter();
+            if($sourceFile) {
+                BinaryFileResponse::trustXSendfileTypeHeader();
+                $response = new BinaryFileResponse($sourceFile);
+                $response->headers->set('Content-Type', 'text/plain');
+                $response->setContentDisposition(
+                    ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+                    $sourceFile->getFilename()
+                );
 
-            try {
-                return $exporter->getResponse($format, $filename, $source);
-            } catch (\Exception $excep) {
-                die("I GOT AN EXCEPTION! " . $excep->getMessage());
+                return $response;
             }
         }
 

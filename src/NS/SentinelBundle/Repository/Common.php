@@ -95,10 +95,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
         try {
             return $qb->getQuery()->getSingleResult();
         }
-        catch (\Exception $e) {
-            if(!$e instanceof NoResultException) {
-            throw new \Exception("CALLED ".__FUNCTION__.' '.get_class($e).' '.$e->getMessage());
-            }
+        catch (NoResultException $e) {
             return null;
         }
     }

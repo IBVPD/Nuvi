@@ -14,7 +14,6 @@ use Doctrine\Common\Collections\Collection;
 use \NS\ImportBundle\Entity\Import;
 use NS\SentinelBundle\Entity\BaseCase;
 use \Symfony\Component\HttpFoundation\File\File;
-use \Vich\UploaderBundle\Mapping\PropertyMappingFactory;
 
 /**
  * Class ImportResultUpdater
@@ -22,12 +21,7 @@ use \Vich\UploaderBundle\Mapping\PropertyMappingFactory;
  */
 class ImportResultUpdater
 {
-    private $factory;
-
-    public function __construct(PropertyMappingFactory $factory)
-    {
-        $this->factory = $factory;
-    }
+    private $messageFile;
 
     /**
      * @param Import $import
@@ -39,115 +33,112 @@ class ImportResultUpdater
             $import->setStartedAt($result->getStartTime());
         }
 
-        $import->setPosition($import->getPosition()+$result->getTotalProcessedCount());
+        $writeHeaders = ($import->getPosition() == 0);
+
+        $import->setPosition($import->getPosition() + $result->getTotalProcessedCount());
         $import->setEndedAt($result->getEndTime());
         $import->incrementProcessedCount($result->getTotalProcessedCount());
         $import->incrementImportedCount($result->getSuccessCount());
 
-        $this->buildLogs($import, $result->getReports());
-        $this->buildExceptions($import, $result->getExceptions());
-        $this->buildSuccesses($import,$entities);
-//        $import->setSuccesses($this->getWriter($import->getClass())->getResults()->toArray());
+        $mFile = $import->getMessageFile();
+        $this->messageFile = $mFile->openFile('a+');
+
+        $this->buildLogs($import, $result->getReports(), $writeHeaders);
+        $this->buildExceptions($import, $result->getExceptions(), $writeHeaders);
+        $this->buildSuccesses($import, $entities, $writeHeaders);
     }
 
     /**
      * @param Import $import
-     * @param $name
-     * @param $property
-     * @return File
-     */
-    public function createNewFile(Import $import, $name, $property) //PropertyMapping $mapping)
-    {
-        $file    = new File(tempnam(sys_get_temp_dir(), 'warning'));
-        $mapping = $this->factory->fromField($import,$property);
-        $mapping->setFileName($import, $name);
-
-        // determine the file's directory
-        $dir = $mapping->getUploadDir($import);
-
-        $uploadDir = $mapping->getUploadDestination().DIRECTORY_SEPARATOR.$dir;
-
-        return $file->move($uploadDir, $name);
-    }
-
-    /**
      * @param \SplObjectStorage $reports
+     * @param boolean $writeHeader
      */
-    public function buildLogs(Import $import, \SplObjectStorage $reports)
+    public function buildLogs(Import $import, \SplObjectStorage $reports, $writeHeader)
     {
-        $warningFile = ($import->getWarningFile()) ? $import->getWarningFile() : $this->createNewFile($import,'warnings.csv','warningFile');
-        $warningCount = $this->buildLog($reports, $warningFile->openFile('a'), ReporterInterface::WARNING);
-
-        $import->setWarningFile($warningFile);
+        $warningFile = $import->getWarningFile();
+        $warningCount = $this->buildLog($reports, $warningFile->openFile('a'), ReporterInterface::WARNING, $writeHeader);
         $import->incrementWarningCount($warningCount);
     }
 
     /**
      * @param $reports
      * @param \SplFileObject $writer
-     * @param $severity
+     * @param int $severity
+     * @param boolean $writeHeader
+     * @return int
      */
-    public function buildLog($reports, \SplFileObject $writer, $severity)
+    public function buildLog($reports, \SplFileObject $writer, $severity = null, $writeHeader = false)
     {
-        $row = 0;
+        $rowCount = 0;
+        $first = true;
         $reports->rewind();
         while ($reports->valid()) {
             $obj = $reports->current();
             foreach ($obj->getMessages($severity) as $message) {
-                $item = array('row' => $obj->getRow(), 'message' => $message->getMessage());
+                $item = array('row' => $obj->getRow(), 'message' => $message->getMessage(),'column'=>($message->getColumn()?$message->getColumn():'unknown'));
 
-                if (1 == $row++) {
+                if ($writeHeader && $first) {
                     $headers = array_keys($item);
                     $writer->fputcsv($headers);
+                    $first = false;
                 }
 
                 $writer->fputcsv($item);
+                $this->messageFile->fputcsv($item);
+                $rowCount++;
             }
 
             $reports->next();
         }
 
-        return $row;
+        return $rowCount;
     }
 
     /**
+     * @param Import $import
      * @param array|\SplObjectStorage $exceptions
+     * @param boolean $writeHeader
      */
-    public function buildExceptions(Import $import, \SplObjectStorage $exceptions)
+    public function buildExceptions(Import $import, \SplObjectStorage $exceptions, $writeHeader)
     {
-        $errorFile = ($import->getErrorFile()) ? $import->getErrorFile() : $this->createNewFile($import,'errors.csv','errorFile');
+        $first = true;
+        $rowCount = 0;
+
+        $errorFile = $import->getErrorFile();
         $fileWriter = $errorFile->openFile('a');
-        $row = 0;
+
         $exceptions->rewind();
         while ($exceptions->valid()) {
             $object = $exceptions->current(); // similar to current($s)
             $row = $exceptions->offsetGet($object);
 
-            $item = array('row' => $row,'column' => $object->getMessage(),'message' => ($object->getPrevious()) ? $object->getPrevious()->getMessage() : null);
-            if (1 == $row++) {
+            $item = array('row' => $row, 'column' => $object->getMessage(), 'message' => ($object->getPrevious()) ? $object->getPrevious()->getMessage() : null);
+            if ($writeHeader && $fileWriter) {
                 $headers = array_keys($item);
                 $fileWriter->fputcsv($headers);
+                $first = false;
             }
 
             $fileWriter->fputcsv($item);
+            $this->messageFile->fputcsv($item);
 
             $exceptions->next();
         }
-
-        $import->setErrorFile($errorFile);
     }
 
     /**
-     * @param Import $result
+     * @param Import $import
      * @param Collection $entities
+     * @param boolean $writeHeaders
+     * @internal param Import $result
      */
-    public function buildSuccesses(Import $import, Collection $entities)
+    public function buildSuccesses(Import $import, Collection $entities, $writeHeaders)
     {
-        $successFile = ($import->getSuccessFile()) ? $import->getSuccessFile() : $this->createNewFile($import,'successes.csv','successFile');
+        $successFile = $import->getSuccessFile();
         $fileWriter = $successFile->openFile('a');
 
-        $row = 0;
-        foreach($entities as $entity) {
+        $first = false;
+        foreach ($entities as $entity) {
             $item = array(
                 'id' => $entity->getId(),
                 'caseId' => $entity->getCaseId(),
@@ -156,11 +147,14 @@ class ImportResultUpdater
             );
 
             $this->addLabSuccess($entity, $item);
-            if (1 == $row++) {
+            if ($writeHeaders && $first) {
                 $headers = array_keys($item);
                 $fileWriter->fputcsv($headers);
+                $first = false;
             }
+
             $fileWriter->fputcsv($item);
+            $this->messageFile->fputcsv($item);
         }
     }
 
@@ -171,10 +165,11 @@ class ImportResultUpdater
      */
     public function addLabSuccess(BaseCase $entity, array &$item)
     {
-        if($entity->hasReferenceLab()){
+        if ($entity->hasReferenceLab()) {
             $item['referenceLab.id'] = $entity->getReferenceLab()->getLabId();
         }
-        if($entity->hasNationalLab()){
+
+        if ($entity->hasNationalLab()) {
             $item['nationalLab.id'] = $entity->getNationalLab()->getLabId();
         }
     }
