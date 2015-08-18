@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "494b35574fa8429bdac61d35a6a0a546",
+    "hash": "7c7fd5e430af23d2d9f458159b015510",
     "packages": [
         {
             "name": "adoy/oauth2",
@@ -3212,16 +3212,16 @@
         },
         {
             "name": "ocramius/proxy-manager",
-            "version": "0.5.2",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Ocramius/ProxyManager.git",
-                "reference": "0ac0eb3e8e04c7fa75caaf1a43c5405623abf8f5"
+                "reference": "57e9272ec0e8deccf09421596e0e2252df440e11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Ocramius/ProxyManager/zipball/0ac0eb3e8e04c7fa75caaf1a43c5405623abf8f5",
-                "reference": "0ac0eb3e8e04c7fa75caaf1a43c5405623abf8f5",
+                "url": "https://api.github.com/repos/Ocramius/ProxyManager/zipball/57e9272ec0e8deccf09421596e0e2252df440e11",
+                "reference": "57e9272ec0e8deccf09421596e0e2252df440e11",
                 "shasum": ""
             },
             "require": {
@@ -3243,7 +3243,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.6.x-dev"
+                    "dev-master": "2.0.x-dev"
                 }
             },
             "autoload": {
@@ -3271,7 +3271,7 @@
                 "proxy pattern",
                 "service proxies"
             ],
-            "time": "2014-09-28 14:18:11"
+            "time": "2015-08-09 04:28:19"
         },
         {
             "name": "oneup/uploader-bundle",
@@ -4921,22 +4921,22 @@
         },
         {
             "name": "vich/uploader-bundle",
-            "version": "1.0.0-beta3",
+            "version": "1.0.0-beta4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dustin10/VichUploaderBundle.git",
-                "reference": "9085fa77bd15f56af2d795246737572b3466f398"
+                "reference": "41a74352fac4668f50cc42f9155a570727f62051"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dustin10/VichUploaderBundle/zipball/9085fa77bd15f56af2d795246737572b3466f398",
-                "reference": "9085fa77bd15f56af2d795246737572b3466f398",
+                "url": "https://api.github.com/repos/dustin10/VichUploaderBundle/zipball/41a74352fac4668f50cc42f9155a570727f62051",
+                "reference": "41a74352fac4668f50cc42f9155a570727f62051",
                 "shasum": ""
             },
             "require": {
                 "jms/metadata": "~1.5",
-                "ocramius/proxy-manager": "~0.5",
-                "php": ">=5.3.2",
+                "ocramius/proxy-manager": "~1.0",
+                "php": ">=5.4",
                 "symfony/finder": ">=2.0",
                 "symfony/framework-bundle": "~2.3",
                 "symfony/property-access": "~2.3"
@@ -4945,6 +4945,7 @@
                 "doctrine/doctrine-bundle": "*",
                 "doctrine/mongodb-odm": "@dev",
                 "doctrine/orm": "*",
+                "ext-sqlite3": "*",
                 "knplabs/knp-gaufrette-bundle": "*",
                 "matthiasnoback/symfony-dependency-injection-test": "0.*",
                 "mikey179/vfsstream": "~1.0",
@@ -4989,7 +4990,7 @@
                 "file uploads",
                 "upload"
             ],
-            "time": "2015-01-20 10:07:48"
+            "time": "2015-08-12 07:04:24"
         },
         {
             "name": "willdurand/jsonp-callback-validator",

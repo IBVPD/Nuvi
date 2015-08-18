@@ -61,7 +61,7 @@
         "hpatoio/deploy-bundle": "~1.4",
         "h4cc/alice-fixtures-bundle": "0.5.*",
         "phpoffice/phpexcel": "~1.8",
-        "vich/uploader-bundle": "1.0.0-beta3"
+        "vich/uploader-bundle": "1.0.0-beta4"
     },
     "scripts": {
         "post-install-cmd": [
