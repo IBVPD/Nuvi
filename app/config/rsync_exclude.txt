@@ -29,3 +29,4 @@ web/coverage
 *.rpm
 *.xlxs
 *.ppt
+- app/data/*
