@@ -11,6 +11,7 @@ use \Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use \Symfony\Component\HttpFoundation\BinaryFileResponse;
 use \Symfony\Component\HttpFoundation\RedirectResponse;
 use \Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use \Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 /**
@@ -47,6 +48,18 @@ class ImportController extends Controller
         $pagination = $paginator->paginate($query, $request->query->get('page', 1), 10);
 
         return array('form' => $form->createView(), 'results' => $pagination);
+    }
+
+    /**
+     * @param $id
+     * @return Response
+     *
+     * @Route("/status/{id}",name="importStatus",requirements={"id"="\d+"})
+     */
+    public function statusAction($id)
+    {
+        $percent = $this->get('doctrine.orm.entity_manager')->getRepository('NS\ImportBundle\Entity\Import')->getPercent($id);
+        return new Response((int)$percent);
     }
 
     /**
