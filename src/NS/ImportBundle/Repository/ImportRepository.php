@@ -28,4 +28,14 @@ class ImportRepository extends EntityRepository
                     ->getQuery()
                     ->getSingleResult();
     }
+
+    public function getPercent($id)
+    {
+        return $this->createQueryBuilder('r')
+                ->select(' (r.processedCount/r.sourceCount) * 100')
+                ->where('r.id = :id')
+                ->setParameter('id',$id)
+                ->getQuery()
+                ->getSingleScalarResult();
+    }
 }

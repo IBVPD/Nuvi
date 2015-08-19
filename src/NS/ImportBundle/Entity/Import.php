@@ -249,6 +249,10 @@ class Import
         return $this->importedCount;
     }
 
+    /**
+     * @param $importedCount
+     * @return $this
+     */
     public function incrementImportedCount($importedCount)
     {
         $this->importedCount += $importedCount;
@@ -702,6 +706,14 @@ class Import
     {
         $this->errors = $errors;
         return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPercentComplete()
+    {
+        return (int)(($this->sourceCount>0)? ($this->processedCount/$this->sourceCount)*100:0);
     }
 
     // =================================================================================================================
