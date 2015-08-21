@@ -58,8 +58,9 @@ class ImportController extends Controller
      */
     public function statusAction($id)
     {
-        $percent = $this->get('doctrine.orm.entity_manager')->getRepository('NS\ImportBundle\Entity\Import')->getPercent($id);
-        return new Response((int)$percent);
+        $percent = $this->get('doctrine.orm.entity_manager')->getRepository('NS\ImportBundle\Entity\Import')->getStatistics($id);
+
+        return new Response(json_encode($percent));
     }
 
     /**

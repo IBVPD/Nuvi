@@ -3,6 +3,8 @@
 namespace NS\ImportBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\Query;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -29,13 +31,23 @@ class ImportRepository extends EntityRepository
                     ->getSingleResult();
     }
 
-    public function getPercent($id)
+    public function getStatistics($id)
     {
-        return $this->createQueryBuilder('r')
-                ->select(' (r.processedCount/r.sourceCount) * 100')
+        try {
+            $result = $this->createQueryBuilder('r')
+                ->select('r.id,r.importedCount, r.processedCount, r.sourceCount, r.warningCount, r.skippedCount')
                 ->where('r.id = :id')
-                ->setParameter('id',$id)
+                ->setParameter('id', $id)
                 ->getQuery()
-                ->getSingleScalarResult();
+                ->setHydrationMode(Query::HYDRATE_ARRAY)
+                ->getSingleResult();
+            $result['percent'] = sprintf("%d%%",($result['sourceCount'] > 0) ? (($result['processedCount']/$result['sourceCount']) * 100):0);
+            $result['errorCount'] = $result['processedCount'] - $result['importedCount'];
+
+            return $result;
+        }
+        catch(NoResultException $exception) {
+            return array();
+        }
     }
 }
