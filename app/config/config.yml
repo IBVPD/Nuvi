@@ -343,6 +343,12 @@ vich_uploader:
             directory_namer:    ns_import.vich.directory_namer
             inject_on_load:     true
 
+leezy_pheanstalk:
+    pheanstalks:
+        primary:
+            server: localhost
+            default: true
+
 services:
   extension.listener:
     class: NS\SentinelBundle\Listeners\DoctrineExtensionListener

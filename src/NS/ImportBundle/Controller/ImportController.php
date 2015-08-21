@@ -33,9 +33,29 @@ class ImportController extends Controller
 
         $form->handleRequest($request);
         if ($form->isValid()) {
+            $entityMgr->getConnection()->beginTransaction();
             $import = $form->getData();
-            $entityMgr->persist($import);
-            $entityMgr->flush($import);
+            try {
+                $entityMgr->persist($import);
+                $entityMgr->flush($import);
+
+                $pheanstalk = $this->get("leezy.pheanstalk");
+                $pheanstalk->useTube('import')->put($import->getId());
+                $entityMgr->getConnection()->commit();
+
+            } catch(\Pheanstalk_Exception_ConnectionException $excep) {
+                $entityMgr->getConnection()->rollBack();
+                @unlink($import->getSourceFile()->getPathname());
+                @unlink($import->getWarningFile()->getPathname());
+                @unlink($import->getErrorFile()->getPathname());
+                @unlink($import->getSuccessFile()->getPathname());
+                @unlink($import->getMessageFile()->getPathname());
+                @unlink($import->getDuplicateFile()->getPathname());
+                @rmdir($import->getSourceFile()->getPath());
+
+                $this->get('ns_flash')->addError(null, 'Unable to add import', 'There was an error communicating with the beanstalk server');
+                return $this->redirect($this->generateUrl('importIndex'));
+            }
 
             $this->get('ns_flash')->addSuccess(null, null, "Import Added");
             return $this->redirect($this->generateUrl('importIndex'));

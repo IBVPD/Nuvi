@@ -56,6 +56,7 @@ class AppKernel extends Kernel
 
             new Hpatoio\DeployBundle\DeployBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
+            new Leezy\PheanstalkBundle\LeezyPheanstalkBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
