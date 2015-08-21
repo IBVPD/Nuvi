@@ -168,8 +168,15 @@ class Duplicate implements ReporterInterface
      */
     public function finish()
     {
+        if (!$this->initialized) {
+            $this->initialize();
+        }
+
         if ($this->logFile) {
-            file_put_contents($this->logFile->getPathname(), json_encode(array($this->items->toArray(), $this->duplicates->toArray())));
+            file_put_contents($this->logFile->getPathname(), json_encode(array(
+                $this->items->toArray(),
+                $this->duplicates->toArray())
+            ));
         }
     }
 }
