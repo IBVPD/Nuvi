@@ -2,8 +2,6 @@
 
 namespace NS\ImportBundle\Controller;
 
-use \NS\ImportBundle\Filter\Duplicate;
-use \NS\ImportBundle\Filter\NotBlank;
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use \Sonata\CoreBundle\Exporter\Exporter;
@@ -11,7 +9,7 @@ use \Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use \Symfony\Component\HttpFoundation\BinaryFileResponse;
 use \Symfony\Component\HttpFoundation\RedirectResponse;
 use \Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use \Symfony\Component\HttpFoundation\Response;
 use \Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 /**
@@ -70,23 +68,8 @@ class ImportController extends Controller
      */
     public function executeAction($id)
     {
-        $entityMgr = $this->get('doctrine.orm.entity_manager');
-        $import = $entityMgr->getRepository('NSImportBundle:Import')->find($id);
-
-        $processor = $this->get('ns_import.processor');
-        $processor->setDuplicate(new Duplicate(array('getcode' => 'site', 1 => 'caseId'),$import->getDuplicateFile()));
-        $processor->setNotBlank(new NotBlank(array('caseId', 'site')));
-        $processor->setLimit(400);
-
-        $result = $processor->process($import);
-        $entityMgr->flush();
-
-        $updater = $this->get('ns_import.importer.upload_handler');
-        $updater->update($import, $result, $processor->getWriter($import->getClass())->getResults());
-
-        $entityMgr = $this->get('doctrine.orm.entity_manager');
-        $entityMgr->persist($import);
-        $entityMgr->flush();
+        $worker = $this->get('ns_import.batch_worker');
+        $worker->consume($id,400);
 
         return $this->redirect($this->generateUrl('importIndex'));
     }
