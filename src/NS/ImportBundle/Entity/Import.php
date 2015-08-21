@@ -740,6 +740,13 @@ class Import
         return (int)(($this->sourceCount>0)? ($this->processedCount/$this->sourceCount)*100:0);
     }
 
+    /**
+     * @return bool
+     */
+    public function isComplete()
+    {
+        return ($this->sourceCount > 0) ? $this->sourceCount == $this->processedCount : false;
+    }
     // =================================================================================================================
     // Pass through functions
     /**
