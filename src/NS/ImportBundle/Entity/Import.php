@@ -177,6 +177,12 @@ class Import
     private $processedCount = 0;
 
     /**
+     * @var int $skippedCount
+     * @ORM\Column(name="skippedCount",type="integer",nullable=true)
+     */
+    private $skippedCount = 0;
+
+    /**
      * @var integer $importedCount
      * @ORM\Column(name="importedCount",type="integer",nullable=true)
      */
@@ -369,6 +375,24 @@ class Import
     public function setSourceCount($sourceCount)
     {
         $this->sourceCount = $sourceCount;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSkippedCount()
+    {
+        return $this->skippedCount;
+    }
+
+    /**
+     * @param int $skippedCount
+     * @return Import
+     */
+    public function setSkippedCount($skippedCount)
+    {
+        $this->skippedCount = $skippedCount;
         return $this;
     }
 

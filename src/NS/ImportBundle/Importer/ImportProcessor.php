@@ -51,7 +51,7 @@ class ImportProcessor
         ini_set('memory_limit', $this->memoryLimit);
 
         $reader = $this->getReader($import);
-
+        $reader->seek($import->getPosition());
         // Create the workflow from the reader
         $workflow = new Workflow\StepAggregator($reader);
         $workflow->setSkipItemOnFailure(true);
@@ -120,7 +120,8 @@ class ImportProcessor
     public function addSteps(Workflow $workflow, Import $import)
     {
         $offsetFilter = new FilterStep();
-        $offsetFilter->add(new OffsetFilter($import->getPosition(),$this->getLimit()));
+        $offsetFilter->add(new OffsetFilter(0,$this->getLimit(),true));
+
         // Move to current position
         $workflow->addStep($offsetFilter,5);
 

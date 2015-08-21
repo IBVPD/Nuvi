@@ -36,6 +36,7 @@ class ImportResultUpdater
         $writeHeaders = ($import->getPosition() == 0);
 
         $import->setPosition($import->getPosition() + $result->getTotalProcessedCount());
+        $import->setSkippedCount($result->getSkippedCount());
         $import->setEndedAt($result->getEndTime());
         $import->incrementProcessedCount($result->getTotalProcessedCount());
         $import->incrementImportedCount($result->getSuccessCount());
