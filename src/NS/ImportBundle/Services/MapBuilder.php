@@ -120,10 +120,6 @@ class MapBuilder
             return;
         }
 
-        if($field == 'sfCultOther') {
-            print $field;
-            die;
-        }
         $column->setIgnored(true);
         return;
     }
