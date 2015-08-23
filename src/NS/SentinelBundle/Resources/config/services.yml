@@ -372,7 +372,7 @@ services:
 
     ns.sentinel.locale_listener:
       class: NS\SentinelBundle\Locale\Login
-      arguments: [ @security.context, @service_container, %kernel.default_locale% ]
+      arguments: [ @security.context, %kernel.default_locale% ]
       tags:
         - { name: kernel.event_subscriber }
         - { name: kernel.event_listener, event: security.authentication.success, method: onLogin }

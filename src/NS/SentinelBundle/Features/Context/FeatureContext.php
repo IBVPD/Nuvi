@@ -2,23 +2,13 @@
 
 namespace NS\SentinelBundle\Features\Context;
 
-use \Behat\Behat\Definition\Call\Given;
-use \Behat\Behat\Definition\Call\Then;
-use \Behat\Behat\Definition\Call\When;
+use \Behat\Behat\Definition\Annotation\Then;
+use \Behat\Behat\Definition\Annotation\Given;
 use \Behat\Mink\Exception\UnsupportedDriverActionException;
 use \Behat\MinkExtension\Context\MinkContext;
 use \Behat\Symfony2Extension\Context\KernelAwareContext;
 use \Behat\Symfony2Extension\Driver\KernelDriver;
 
-//
-// Require 3rd-party libraries here:
-//
-//   require_once 'PHPUnit/Autoload.php';
-//   require_once 'PHPUnit/Framework/Assert/Functions.php';
-//
-// Use PHP Assertions:
-//   \PHPUnit_Framework_Assert::assertTrue(true,"Have an event log of $arg1 type");
-//
 /**
  * Feature context.
  */

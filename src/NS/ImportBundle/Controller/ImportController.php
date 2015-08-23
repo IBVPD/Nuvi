@@ -4,7 +4,6 @@ namespace NS\ImportBundle\Controller;
 
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use \Sonata\CoreBundle\Exporter\Exporter;
 use \Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use \Symfony\Component\HttpFoundation\BinaryFileResponse;
 use \Symfony\Component\HttpFoundation\RedirectResponse;

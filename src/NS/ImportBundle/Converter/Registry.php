@@ -12,8 +12,6 @@ use \Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class Registry extends AbstractType
 {
-    private $converters;
-
     private $values;
 
     private $sorted = false;
@@ -23,7 +21,6 @@ class Registry extends AbstractType
      */
     public function __construct()
     {
-        $this->converters = array();
         $this->values     = array();
     }
 
@@ -34,7 +31,6 @@ class Registry extends AbstractType
      */
     public function addConverter($id, NamedValueConverterInterface $converter)
     {
-        $this->converters[$id] = $converter;
         $this->values[$id]     = $converter->getName();
     }
 

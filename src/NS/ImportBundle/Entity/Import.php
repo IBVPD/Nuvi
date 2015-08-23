@@ -2,9 +2,7 @@
 
 namespace NS\ImportBundle\Entity;
 
-use Ddeboer\DataImport\Writer\CsvWriter;
 use \Doctrine\ORM\Mapping as ORM;
-use \NS\ImportBundle\Writer\Result as WorkflowResult;
 use \NS\SentinelBundle\Entity\User;
 use \Symfony\Component\HttpFoundation\File\File;
 use \Symfony\Component\Security\Core\User\UserInterface;
