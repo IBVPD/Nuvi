@@ -9,14 +9,14 @@
                     <h5 class="widget-title">{{'New Uploads'|trans}}</h5>
                 </div>
                 <div class="widget-body">
-                    <form method="POST" action="{{path('importIndex')}}" {{form_enctype(form)}}>
+                    <form method="POST" action="{{ path('importIndex') }}" {{ form_enctype(form) }}>
                         <div class="widget-main">
-                            {{form_row(form.map)}}
-                            {{form_row(form.sourceFile)}}
+                            {{ form_row(form.map) }}
+                            {{ form_row(form.sourceFile) }}
                         </div>
                         <div class="widget-toolbox padding-6 clearfix">
-                            {{form_row(form.import)}}
-                            {{form_rest(form)}}
+                            {{ form_row(form.import) }}
+                            {{ form_rest(form) }}
                         </div>
                     </form>
                 </div>
@@ -41,7 +41,6 @@
                                 <th>{{'Successes'|trans}}</th>
                                 <th>{{'Warnings'|trans}}</th>
                                 <th>{{'Errors'|trans}}</th>
-                                <th>{{'Actions'|trans}}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -62,14 +61,12 @@
                                     <td>
                                         <a href="{{path('importResultDownload',{type:'errors','id':r.id})}}" class="btn btn-xs btn-danger">{{r.errorCount}} {{'Errors'|trans}} <i class="fa fa-cloud-download"></i></a>
                                     </td>
-                                    <td><a href="{{ path('importExecute',{id: r.id}) }}">Execute</a></td>
                                 </tr>
                                 {%  if r.percentComplete < 100 %}
-                                <tr>
+                                <tr id="progress-{{ r.id }}-row">
                                     <td colspan="6">
                                         <div class="progress pos-rel" id="progress-{{ r.id }}-percent" data-percent="{{ r.percentComplete }}%">
                                             <div class="progress-bar" style="width:{{ r.percentComplete }}%;" id="progress-{{ r.id }}"></div>
-                                            {#<i class="ace-icon fa fa-spinner fa-spin bigger-125"></i>#}
                                         </div>
 
                                         <script type="text/javascript">
@@ -85,13 +82,14 @@
 
                                                         if (retValue['percent'] == '100%') {
                                                             clearInterval(pollTimer);
+                                                            $('#progress-{{ r.id }}-row').hide();
                                                         }
                                                     });
                                                 }
 
                                                 var pollTimer;
                                                 $(document).ready(function () {
-                                                    pollTimer = setInterval(pollLatestResponse, 6000);
+                                                    pollTimer = setInterval(pollLatestResponse, 10000);
                                                 });
                                             });
                                         </script>
