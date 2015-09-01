@@ -27,15 +27,23 @@ class WorkerCommand extends ContainerAwareCommand
         $container  = $this->getContainer();
         $pheanstalk = $container->get("leezy.pheanstalk");
         $worker     = $container->get('ns_import.batch_worker');
+        $pheanstalk
+            ->watch('import')
+            ->ignore('default');
 
-        while ($job = $pheanstalk->reserveFromTube('import')) {
+        while ($job = $pheanstalk->reserve(0)) {
             $output->writeln(sprintf("Processing Job %d, ImportId: %d", $job->getId(), $job->getData()));
 
-            if (!$worker->consume($job->getData())) {
-                $output->writeln("Processed and returned for additional processing");
-                $pheanstalk->put($job->getData());
-            } else {
-                $output->writeln("Import complete");
+            try {
+                if (!$worker->consume($job->getData(),250)) {
+                    $pheanstalk->release($job);
+                    $output->writeln("Processed and returned for additional processing");
+                } else {
+                    $output->writeln("Import complete - Job removed");
+                    $pheanstalk->delete($job);
+                }
+            } catch(\Exception $exception) {
+                $pheanstalk->bury($job);
             }
         }
     }
