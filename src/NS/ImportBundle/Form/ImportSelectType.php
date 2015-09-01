@@ -52,6 +52,9 @@ class ImportSelectType extends AbstractType
         $builder->addEventListener(FormEvents::POST_SUBMIT,array($this,'postSubmit'));
     }
 
+    /**
+     * @param FormEvent $event
+     */
     public function postSubmit(FormEvent $event)
     {
         $import = $event->getData();
