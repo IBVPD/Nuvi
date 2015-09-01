@@ -99,9 +99,8 @@ class Import
 
     /**
      * @var string $warnings
-     * @ORM\Column(name="warnings",type="string",nullable=true)
      */
-    private $warnings;
+    private $warnings = 'warnings.csv';
 
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
@@ -114,9 +113,8 @@ class Import
 
     /**
      * @var string $successes
-     * @ORM\Column(name="successes",type="string",nullable=true)
      */
-    private $successes;
+    private $successes = 'successes.csv';
 
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
@@ -129,9 +127,8 @@ class Import
 
     /**
      * @var string $errors
-     * @ORM\Column(name="errors",type="string",nullable=true)
      */
-    private $errors;
+    private $errors = 'errors.csv';
 
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
@@ -144,9 +141,8 @@ class Import
 
     /**
      * @var string $messages
-     * @ORM\Column(name="messages",type="string",nullable=true)
      */
-    private $messages;
+    private $messages = 'messages.csv';
 
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
@@ -159,9 +155,8 @@ class Import
 
     /**
      * @var string $duplicates
-     * @ORM\Column(name="duplicates",type="string",nullable=true)
      */
-    private $duplicates;
+    private $duplicates = 'duplicate-state.txt';
     // ---------------------------------------------------------------------------------------
 
     /**
@@ -295,24 +290,6 @@ class Import
 
     /**
      *
-     * @return array
-     */
-    public function getSuccesses()
-    {
-        return $this->successes;
-    }
-
-    /**
-     *
-     * @return array
-     */
-    public function getErrors()
-    {
-        return $this->errors;
-    }
-
-    /**
-     *
      * @return integer
      */
     public function getTotal()
@@ -327,15 +304,6 @@ class Import
     public function getSourceCount()
     {
         return $this->sourceCount;
-    }
-
-    /**
-     *
-     * @return array
-     */
-    public function getWarnings()
-    {
-        return $this->warnings;
     }
 
     /**
@@ -592,33 +560,11 @@ class Import
     }
 
     /**
-     *
-     * @param string $warnings
-     * @return \NS\ImportBundle\Entity\Result
-     */
-    public function setWarnings($warnings)
-    {
-        $this->warnings = $warnings;
-        return $this;
-    }
-
-    /**
      * @return File
      */
     public function getSuccessFile()
     {
         return $this->successFile;
-    }
-
-    /**
-     *
-     * @param string $successes
-     * @return \NS\ImportBundle\Entity\Result
-     */
-    public function setSuccesses($successes)
-    {
-        $this->successes = $successes;
-        return $this;
     }
 
     /**
@@ -686,24 +632,6 @@ class Import
     }
 
     /**
-     * @return string
-     */
-    public function getDuplicates()
-    {
-        return $this->duplicates;
-    }
-
-    /**
-     * @param string $duplicates
-     * @return $this
-     */
-    public function setDuplicates($duplicates)
-    {
-        $this->duplicates = $duplicates;
-        return $this;
-    }
-
-    /**
      * @return File
      */
     public function getErrorFile()
@@ -722,17 +650,6 @@ class Import
     }
 
     /**
-     *
-     * @param array $errors
-     * @return \NS\ImportBundle\Entity\Result
-     */
-    public function setErrors($errors)
-    {
-        $this->errors = $errors;
-        return $this;
-    }
-
-    /**
      * @return int
      */
     public function getPercentComplete()
@@ -745,8 +662,81 @@ class Import
      */
     public function isComplete()
     {
-        return ($this->sourceCount > 0) ? $this->sourceCount == $this->processedCount : false;
+        return ($this->sourceCount > 0) ? ($this->sourceCount <= $this->processedCount): false;
     }
+
+    /**
+     * @return string
+     */
+    public function getWarnings()
+    {
+        return $this->warnings;
+    }
+
+    /**
+     * @param string $warnings
+     * @return Import
+     */
+    public function setWarnings($warnings)
+    {
+        $this->warnings = $warnings;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSuccesses()
+    {
+        return $this->successes;
+    }
+
+    /**
+     * @param string $successes
+     * @return Import
+     */
+    public function setSuccesses($successes)
+    {
+        $this->successes = $successes;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getErrors()
+    {
+        return $this->errors;
+    }
+
+    /**
+     * @param string $errors
+     * @return Import
+     */
+    public function setErrors($errors)
+    {
+        $this->errors = $errors;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDuplicates()
+    {
+        return $this->duplicates;
+    }
+
+    /**
+     * @param string $duplicates
+     * @return Import
+     */
+    public function setDuplicates($duplicates)
+    {
+        $this->duplicates = $duplicates;
+        return $this;
+    }
+
     // =================================================================================================================
     // Pass through functions
     /**
