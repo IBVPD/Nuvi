@@ -114,7 +114,7 @@ class ImportResultUpdater
             $row = $exceptions->offsetGet($object);
 
             $item = array('row' => $row, 'column' => $object->getMessage(), 'message' => ($object->getPrevious()) ? $object->getPrevious()->getMessage() : null);
-            if ($writeHeader && $fileWriter) {
+            if ($writeHeader && $first) {
                 $headers = array_keys($item);
                 $fileWriter->fputcsv($headers);
                 $first = false;
