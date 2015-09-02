@@ -5,10 +5,6 @@ build_settings:
         - "app/cache"
         - "src/*/*/DataFixtures"
         - "app/SymfonyRequirements.php"
-    mysql:
-        host: "localhost"
-        user: "phpunit"
-        pass: "phpunit2014"
 
 setup:
     composer:

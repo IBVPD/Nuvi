@@ -10,10 +10,9 @@ namespace NS\ImportBundle\Importer;
 
 use \Ddeboer\DataImport\ReporterInterface;
 use \Ddeboer\DataImport\Result;
-use Doctrine\Common\Collections\Collection;
+use \Doctrine\Common\Collections\Collection;
 use \NS\ImportBundle\Entity\Import;
-use NS\SentinelBundle\Entity\BaseCase;
-use \Symfony\Component\HttpFoundation\File\File;
+use \NS\SentinelBundle\Entity\BaseCase;
 
 /**
  * Class ImportResultUpdater

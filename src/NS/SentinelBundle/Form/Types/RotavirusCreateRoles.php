@@ -2,8 +2,6 @@
 
 namespace NS\SentinelBundle\Form\Types;
 
-use Symfony\Component\Form\AbstractType;
-
 /**
  * Description of RotaCreateRoles
  *

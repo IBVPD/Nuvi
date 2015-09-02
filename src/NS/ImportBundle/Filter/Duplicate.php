@@ -4,7 +4,6 @@ namespace NS\ImportBundle\Filter;
 
 use \Ddeboer\DataImport\Exception\UnexpectedValueException;
 use \Ddeboer\DataImport\ReporterInterface;
-use \Ddeboer\DataImport\Step\PriorityStep;
 use \Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\File\File;
 

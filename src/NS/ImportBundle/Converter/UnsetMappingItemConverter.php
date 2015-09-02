@@ -19,18 +19,12 @@ class UnsetMappingItemConverter implements Step
     private $mappings = [];
 
     /**
-     * @var PropertyAccessor
-     */
-    private $accessor;
-
-    /**
      * @param array            $mappings
      * @param PropertyAccessor $accessor
      */
     public function __construct(array $mappings = [], PropertyAccessor $accessor = null)
     {
         $this->mappings = $mappings;
-        $this->accessor = $accessor ?: new PropertyAccessor();
     }
 
     /**
