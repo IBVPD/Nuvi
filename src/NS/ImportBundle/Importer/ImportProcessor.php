@@ -4,10 +4,12 @@ namespace NS\ImportBundle\Importer;
 
 use Ddeboer\DataImport\Filter\OffsetFilter;
 use \Ddeboer\DataImport\Reader\CsvReader;
+use Ddeboer\DataImport\Step\ConverterStep;
 use \Ddeboer\DataImport\Workflow;
 use \Ddeboer\DataImport\Reader;
 use \Ddeboer\DataImport\Step\FilterStep;
 use \Ddeboer\DataImport\Step\ValueConverterStep;
+use NS\ImportBundle\Converter\WarningConverter;
 use \NS\ImportBundle\Entity\Import;
 use \NS\ImportBundle\Entity\Result;
 use \NS\ImportBundle\Filter\Duplicate;
@@ -122,13 +124,13 @@ class ImportProcessor
         $offsetFilter->add(new OffsetFilter(0,$this->getLimit(),true));
 
         // Move to current position
-        $workflow->addStep($offsetFilter,5);
+        $workflow->addStep($offsetFilter,50);
 
         // These map column headers i.e site_Code -> site
-        $workflow->addStep($import->getMappings(),4);
+        $workflow->addStep($import->getMappings(),40);
 
         // These allow us to ignore a column i.e. - region or country_ISO 
-        $workflow->addStep($import->getIgnoredMapper(),3);
+        $workflow->addStep($import->getIgnoredMapper(),30);
 
         $valueConverter = new ValueConverterStep();
         $valueConverterCount = 0;
@@ -139,7 +141,7 @@ class ImportProcessor
         }
 
         if ($valueConverterCount > 0) {
-            $workflow->addStep($valueConverter,2);
+            $workflow->addStep($valueConverter,20);
         }
 
         $filterStep = new FilterStep();
@@ -156,8 +158,15 @@ class ImportProcessor
         }
 
         if ($addFilter) {
-            $workflow->addStep($filterStep,1);
+            $workflow->addStep($filterStep,10);
         }
+
+        // Adds warnings for out of range values
+        $converter = new ConverterStep();
+        $warningConverter = new WarningConverter();
+        $converter->add($warningConverter);
+
+        $workflow->addStep($converter,5);
     }
 
     /**

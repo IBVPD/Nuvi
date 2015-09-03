@@ -12,6 +12,8 @@ use \NS\ImportBundle\Entity\Map;
 use \NS\ImportBundle\Filter\Duplicate;
 use \NS\ImportBundle\Filter\NotBlank;
 use \NS\ImportBundle\Importer\ImportProcessor;
+use NS\SentinelBundle\Converter\ArrayChoiceConverter;
+use NS\SentinelBundle\Form\Types\TripleChoice;
 use \Symfony\Component\HttpFoundation\File\File;
 
 /**
@@ -633,6 +635,78 @@ class ImportProcessorTest extends WebTestCase
         }
 
         $this->assertEquals(2,$result->getSuccessCount());
+    }
+
+    /**
+     * @group warnings
+     */
+    public function testWarningsAdded()
+    {
+        $columns = array(
+            array(
+                'name'      => 'site_CODE',
+                'converter' => 'ns.sentinel.converter.site',
+                'mapper'    => 'site',
+                'ignored'   => false,
+            ),
+            array(
+                'name'      => 'case_id',
+                'converter' => null,
+                'mapper'    => 'caseId',
+                'ignored'   => false,
+            ),
+            array(
+                'name'      => 'lastName',
+                'converter' => null,
+                'mapper'    => null,
+                'ignored'   => false,
+            ),
+            array(
+                'name'      => 'anTibioTics',
+                'converter' => 'ns.sentinel.converter.triple_choice',
+                'mapper'    => 'antibiotics',
+                'ignored'   => false,
+            ),
+            array(
+                'name'      => 'date received',
+                'converter' => 'ns_import.converter.date.afr1',
+                'mapper'    => 'referenceLab.dateReceived',
+                'ignored'   => false,
+            ),
+            array(
+                'name'      => 'lab id',
+                'converter' => null,
+                'mapper'    => 'referenceLab.labId',
+                'ignored'   => false,
+            ),
+        );
+
+        $file = new File(__DIR__ . '/../Fixtures/IBD-CasePlusRRL-WithWarning.csv');
+        $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
+        $import = new Import($mockUser);
+
+        $import->setSourceFile($file);
+        $import->setMap($this->getIbdMap($columns));
+
+        $processor = new ImportProcessor($this->getContainer());
+        $processor->setDuplicate(new Duplicate(array('getcode' => 'site', 1 => 'caseId')));
+        $writer = $processor->getWriter($import->getClass());
+        $repoMethod = $writer->getEntityRepositoryMethod();
+        $this->assertTrue(is_callable($repoMethod));
+        $this->assertEquals($repoMethod[1],'findWithRelations');
+
+        $result    = $processor->process($import);
+
+        if (count($result->getExceptions()) > 0) {
+            $this->fail('Error Count: '.$result->getErrorCount());
+        }
+
+        $this->assertEquals(2,$result->getSuccessCount());
+        $results = $writer->getResults();
+        $this->assertInstanceOf('NS\SentinelBundle\Entity\IBD',$results[0]);
+        $this->assertTrue($results[0]->hasWarning());
+        $this->assertInstanceOf('NS\SentinelBundle\Entity\IBD',$results[1]);
+        $this->assertFalse($results[1]->hasWarning());
     }
 
     public function getReferenceLabMap(array $columns)
