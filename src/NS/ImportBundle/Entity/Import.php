@@ -8,6 +8,7 @@ use \Symfony\Component\HttpFoundation\File\File;
 use \Symfony\Component\Security\Core\User\UserInterface;
 use \Vich\UploaderBundle\Mapping\Annotation as Vich;
 use \Symfony\Component\Validator\Constraints as Assert;
+use \NS\ImportBundle\Entity\Validator as LocalAssert;
 
 /**
  * Description of Result
@@ -18,7 +19,8 @@ use \Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="import_results")
  * 
  * @Vich\Uploadable
- * 
+ *
+ * @LocalAssert\Import()
  * @SuppressWarnings(PHPMD.ShortVariable)
  */
 class Import
@@ -60,6 +62,8 @@ class Import
     /**
      * @var \DateTime $inputDateEnd
      * @ORM\Column(name="inputDateEnd",type="date")
+     * @Assert\NotBlank()
+     * @Assert\Date()
      */
     private $inputDateEnd;
 
@@ -89,7 +93,8 @@ class Import
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *
      * @Vich\UploadableField(mapping="import_file", fileNameProperty="source")
-     * @Assert\File
+     * @Assert\File()
+     * @Assert\NotBlank()
      * @var File $imageFile
      */
     private $sourceFile;

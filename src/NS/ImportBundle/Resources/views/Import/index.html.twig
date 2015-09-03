@@ -9,7 +9,14 @@
                     <h5 class="widget-title">{{'New Uploads'|trans}}</h5>
                 </div>
                 <div class="widget-body">
-                    <form method="POST" action="{{ path('importIndex') }}" {{ form_enctype(form) }}>
+                    <form method="POST" action="{{ path('importIndex') }}" {{ form_enctype(form) }} novalidate>
+                        {% if not form.vars.valid %}
+                        <div class="alert alert-block alert-danger">
+                            {{ 'There were errors with the form'|trans }}
+                            {{ form_errors(form) }}
+                        </div>
+                        {% endif %}
+
                         <div class="widget-main">
                             {{ form_row(form.map) }}
                             {{ form_row(form.inputDateStart) }}
