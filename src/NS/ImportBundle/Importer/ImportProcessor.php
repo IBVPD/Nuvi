@@ -9,6 +9,7 @@ use \Ddeboer\DataImport\Workflow;
 use \Ddeboer\DataImport\Reader;
 use \Ddeboer\DataImport\Step\FilterStep;
 use \Ddeboer\DataImport\Step\ValueConverterStep;
+use NS\ImportBundle\Converter\DateRangeConverter;
 use NS\ImportBundle\Converter\NoFutureDateConverter;
 use NS\ImportBundle\Converter\WarningConverter;
 use \NS\ImportBundle\Entity\Import;
@@ -165,7 +166,7 @@ class ImportProcessor
         // Adds warnings for out of range values
         $converter = new ConverterStep();
         $converter->add(new WarningConverter());
-        $converter->add(new NoFutureDateConverter());
+        $converter->add(new DateRangeConverter(new \DateTime()));
 
         $workflow->addStep($converter,5);
     }
