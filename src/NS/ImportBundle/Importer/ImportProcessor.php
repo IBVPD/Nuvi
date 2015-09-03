@@ -168,6 +168,11 @@ class ImportProcessor
         $converter->add(new WarningConverter());
         $converter->add(new DateRangeConverter(new \DateTime()));
 
+        $start = clone $import->getInputDateStart();
+        $start->sub(new \DateInterval('P5Y'));
+
+        $converter->add(new DateRangeConverter($import->getInputDateEnd(),$start));
+
         $workflow->addStep($converter,5);
     }
 
