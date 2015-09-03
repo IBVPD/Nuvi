@@ -75,9 +75,7 @@ abstract class BaseCaseController extends Controller
         try {
             $form = $this->getForm($type, $objId);
         } catch (NonExistentCase $ex) {
-            // TODO Flash service required
-            return $this->render('NSSentinelBundle:User:unknownCase.html.twig', array(
-                'message' => $ex->getMessage()));
+            return $this->render('NSSentinelBundle:User:unknownCase.html.twig', array('message' => $ex->getMessage()));
         }
 
         $form->handleRequest($request);
@@ -92,7 +90,7 @@ abstract class BaseCaseController extends Controller
             $entityMgr->persist($record);
             $entityMgr->flush();
 
-            // TODO Flash service required
+            $this->get('ns_flash')->addSuccess('Success!',null,'Case edited successfully');
             return $this->redirect($this->generateUrl($indexRoute));
         }
 
