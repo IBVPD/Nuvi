@@ -172,6 +172,12 @@ abstract class BaseCase implements IdentityAssignmentInterface
     protected $siteLab;
 
     /**
+     * @var boolean $warning
+     * @ORM\Column(name="hasWarning",type="boolean")
+     */
+    protected $warning = false;
+
+    /**
      * @var int|BaseExternalLab $referenceLab
      */
     protected $referenceLab = -1;
@@ -900,6 +906,24 @@ abstract class BaseCase implements IdentityAssignmentInterface
     {
         $this->state = $state;
 
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function hasWarning()
+    {
+        return $this->warning;
+    }
+
+    /**
+     * @param boolean $warning
+     * @return BaseCase
+     */
+    public function setWarning($warning)
+    {
+        $this->warning = $warning;
         return $this;
     }
 }
