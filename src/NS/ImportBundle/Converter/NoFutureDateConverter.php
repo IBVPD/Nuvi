@@ -21,22 +21,59 @@ class NoFutureDateConverter extends ConverterStep implements ReporterInterface
      */
     private $severity;
 
+    private $today;
+
+    /**
+     * NoFutureDateConverter constructor.
+     */
+    public function __construct()
+    {
+        $this->today = new \DateTime();
+    }
+
+
     /**
      * @inheritDoc
      */
     public function __invoke($item)
     {
-        $today = new \DateTime();
+        $this->message = null;
 
-        foreach($item as $key=>$value) {
-            if($value instanceof \DateTime && $value > $today) {
-                $this->message .= sprintf('[%s] has a date in the future (%s). ',$key,$value->format('Y-m-d'));
+        $data = $this->findDate($item);
+        if($this->hasMessage()) {
+            $data['warning'] = true;
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param $item
+     * @param null $parent
+     * @return mixed
+     */
+    public function findDate($item, $parent = null)
+    {
+        foreach($item as $key => $value) {
+            if(is_array($value)) {
+                $item[$key] = $this->findDate($value, $this->getKey($key,$parent));
+            } elseif ($value instanceof \DateTime && $value > $this->today) {
+                $this->message .= sprintf('[%s] has a date in the future (%s). ', $this->getKey($key,$parent), $value->format('Y-m-d'));
                 $item[$key] = null;
-                $item['warning'] = true;
             }
         }
 
         return $item;
+    }
+
+    /**
+     * @param $key
+     * @param null $parent
+     * @return string
+     */
+    public function getKey($key, $parent = null)
+    {
+        return ($parent) ? "$parent.$key":$key;
     }
 
     /**
