@@ -36,7 +36,6 @@
                                 <th>{{'Map'|trans}}</th>
                                 <th>{{'File'|trans}}</th>
                                 <th>{{'File Record Count'|trans}}</th>
-                                <th>{{'Processed'|trans}}</th>
                                 <th>{{'Imported'|trans}}</th>
                                 <th>{{'Successes'|trans}}</th>
                                 <th>{{'Warnings'|trans}}</th>
@@ -49,8 +48,7 @@
                                     <td>{{r.createdAt.format('Y-m-d H:i:s')}}</td>
                                     <td>{{r.mapName}}</td>
                                     <td><a href="{{path('importResultDownload',{type:'source','id':r.id})}}"/>{{ r.source }}</a></td>
-                                    <td id="progress-{{ r.id }}-source"> {{ r.sourceCount }} </td>
-                                    <td id="progress-{{ r.id }}-processed"> {{ r.processedCount }} </td>
+                                    <td id="progress-{{ r.id }}-source"> {{ r.sourceCount }} ({{ r.percentComplete|number_format(0) }}%) </td>
                                     <td id="progress-{{ r.id }}-imported"> {{ r.importedCount }} </td>
                                     <td>
                                         <a href="{{path('importResultDownload',{type:'success','id':r.id})}}" class="btn btn-xs btn-success">{{'Successful'|trans}} <i class="fa fa-cloud-download"></i></a>
@@ -76,7 +74,7 @@
                                                         var retValue = jQuery.parseJSON(ret);
                                                         $('#progress-{{r.id}}').css({'width':retValue['percent']});
                                                         $('#progress-{{r.id}}-percent').attr('data-percent',retValue['percent']);
-                                                        $('#progress-{{r.id}}-source').html(retValue['sourceCount']);
+                                                        $('#progress-{{r.id}}-source').html(retValue['sourceCount']+ '( '+retValue['percent']+' )');
                                                         $('#progress-{{r.id}}-processed').html(retValue['processedCount']);
                                                         $('#progress-{{r.id}}-imported').html(retValue['importedCount']);
 
