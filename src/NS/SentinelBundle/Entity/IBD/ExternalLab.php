@@ -272,11 +272,9 @@ abstract class ExternalLab extends BaseExternalLab
         return $this;
     }
 
-    public function setDateReceived($dateReceived)
+    public function setDateReceived(\DateTime $dateReceived = null)
     {
-        if ($dateReceived instanceof \DateTime)
-            $this->dateReceived = $dateReceived;
-
+        $this->dateReceived = $dateReceived;
         return $this;
     }
 

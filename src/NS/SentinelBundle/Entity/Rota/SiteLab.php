@@ -288,10 +288,9 @@ class SiteLab extends BaseSiteLab
         return $this->stoolSentToNLDate;
     }
 
-    public function setReceived($received)
+    public function setReceived(\DateTime $received = null)
     {
-        if ($received instanceof \DateTime)
-            $this->received = $received;
+        $this->received = $received;
 
         return $this;
     }
@@ -332,18 +331,16 @@ class SiteLab extends BaseSiteLab
         return $this;
     }
 
-    public function setElisaExpiryDate($elisaExpiryDate)
+    public function setElisaExpiryDate(\DateTime $elisaExpiryDate = null)
     {
-        if ($elisaExpiryDate instanceof \DateTime)
-            $this->elisaExpiryDate = $elisaExpiryDate;
+        $this->elisaExpiryDate = $elisaExpiryDate;
 
         return $this;
     }
 
-    public function setElisaTestDate($elisaTestDate)
+    public function setElisaTestDate(\DateTime $elisaTestDate = null)
     {
-        if ($elisaTestDate instanceof \DateTime)
-            $this->elisaTestDate = $elisaTestDate;
+        $this->elisaTestDate = $elisaTestDate;
 
         return $this;
     }
@@ -354,10 +351,9 @@ class SiteLab extends BaseSiteLab
         return $this;
     }
 
-    public function setGenotypingDate($genotypingDate)
+    public function setGenotypingDate(\DateTime $genotypingDate = null)
     {
-        if ($genotypingDate instanceof \DateTime)
-            $this->genotypingDate = $genotypingDate;
+        $this->genotypingDate = $genotypingDate;
 
         return $this;
     }
@@ -392,10 +388,9 @@ class SiteLab extends BaseSiteLab
         return $this;
     }
 
-    public function setStoolSentToRRLDate($stoolSentToRRLDate)
+    public function setStoolSentToRRLDate(\DateTime $stoolSentToRRLDate = null)
     {
-        if ($stoolSentToRRLDate instanceof \DateTime)
-            $this->stoolSentToRRLDate = $stoolSentToRRLDate;
+        $this->stoolSentToRRLDate = $stoolSentToRRLDate;
 
         return $this;
     }
@@ -406,10 +401,9 @@ class SiteLab extends BaseSiteLab
         return $this;
     }
 
-    public function setStoolSentToNLDate($stoolSentToNLDate)
+    public function setStoolSentToNLDate(\DateTime $stoolSentToNLDate = null)
     {
-        if ($stoolSentToNLDate instanceof \DateTime)
-            $this->stoolSentToNLDate = $stoolSentToNLDate;
+        $this->stoolSentToNLDate = $stoolSentToNLDate;
 
         return $this;
     }

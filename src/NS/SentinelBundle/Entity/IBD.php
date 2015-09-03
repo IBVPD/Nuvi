@@ -1068,10 +1068,9 @@ class IBD extends BaseCase
      * @param $hibMostRecentDose
      * @return $this
      */
-    public function setHibMostRecentDose($hibMostRecentDose)
+    public function setHibMostRecentDose(\DateTime $hibMostRecentDose = null)
     {
-        if ($hibMostRecentDose instanceof \DateTime)
-            $this->hibMostRecentDose = $hibMostRecentDose;
+        $this->hibMostRecentDose = $hibMostRecentDose;
 
         return $this;
     }
@@ -1110,10 +1109,9 @@ class IBD extends BaseCase
      * @param $pcvMostRecentDose
      * @return $this
      */
-    public function setPcvMostRecentDose($pcvMostRecentDose)
+    public function setPcvMostRecentDose(\DateTime $pcvMostRecentDose = null)
     {
-        if ($pcvMostRecentDose instanceof \DateTime)
-            $this->pcvMostRecentDose = $pcvMostRecentDose;
+        $this->pcvMostRecentDose = $pcvMostRecentDose;
 
         return $this;
     }
@@ -1142,10 +1140,9 @@ class IBD extends BaseCase
      * @param $meningMostRecentDose
      * @return $this
      */
-    public function setMeningMostRecentDose($meningMostRecentDose)
+    public function setMeningMostRecentDose(\DateTime $meningMostRecentDose = null)
     {
-        if ($meningMostRecentDose instanceof \DateTime)
-            $this->meningMostRecentDose = $meningMostRecentDose;
+        $this->meningMostRecentDose = $meningMostRecentDose;
 
         return $this;
     }

@@ -400,10 +400,9 @@ class RotaVirus extends BaseCase
         return $this;
     }
 
-    public function setSymptomDiarrheaOnset($symptomDiarrheaOnset)
+    public function setSymptomDiarrheaOnset(\DateTime $symptomDiarrheaOnset = null)
     {
-        if ($symptomDiarrheaOnset instanceof \DateTime)
-            $this->symptomDiarrheaOnset = $symptomDiarrheaOnset;
+        $this->symptomDiarrheaOnset = $symptomDiarrheaOnset;
 
         return $this;
     }
@@ -486,26 +485,23 @@ class RotaVirus extends BaseCase
         return $this;
     }
 
-    public function setFirstVaccinationDose($firstVaccinationDose)
+    public function setFirstVaccinationDose(\DateTime $firstVaccinationDose = null)
     {
-        if ($firstVaccinationDose instanceof \DateTime)
-            $this->firstVaccinationDose = $firstVaccinationDose;
+        $this->firstVaccinationDose = $firstVaccinationDose;
 
         return $this;
     }
 
-    public function setSecondVaccinationDose($secondVaccinationDose)
+    public function setSecondVaccinationDose(\DateTime $secondVaccinationDose = null)
     {
-        if ($secondVaccinationDose instanceof \DateTime)
-            $this->secondVaccinationDose = $secondVaccinationDose;
+        $this->secondVaccinationDose = $secondVaccinationDose;
 
         return $this;
     }
 
-    public function setThirdVaccinationDose($thirdVaccinationDose)
+    public function setThirdVaccinationDose(\DateTime $thirdVaccinationDose = null)
     {
-        if ($thirdVaccinationDose instanceof \DateTime)
-            $this->thirdVaccinationDose = $thirdVaccinationDose;
+        $this->thirdVaccinationDose = $thirdVaccinationDose;
 
         return $this;
     }
@@ -522,10 +518,9 @@ class RotaVirus extends BaseCase
         return $this;
     }
 
-    public function setStoolCollectionDate($stoolCollectionDate)
+    public function setStoolCollectionDate(\DateTime $stoolCollectionDate = null)
     {
-        if ($stoolCollectionDate instanceof \DateTime)
-            $this->stoolCollectionDate = $stoolCollectionDate;
+        $this->stoolCollectionDate = $stoolCollectionDate;
 
         return $this;
     }
@@ -536,10 +531,9 @@ class RotaVirus extends BaseCase
         return $this;
     }
 
-    public function setDischargeDate($dischargeDate)
+    public function setDischargeDate(\DateTime $dischargeDate = null)
     {
-        if ($dischargeDate instanceof \DateTime)
-            $this->dischargeDate = $dischargeDate;
+        $this->dischargeDate = $dischargeDate;
 
         return $this;
     }
