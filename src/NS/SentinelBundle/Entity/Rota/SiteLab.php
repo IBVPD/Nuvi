@@ -180,6 +180,9 @@ class SiteLab extends BaseSiteLab
      */
     private $stoolSentToNLDate;
 
+    /**
+     * @param null $virus
+     */
     public function __construct($virus = null)
     {
         if($virus instanceof RotaVirus)
@@ -188,106 +191,170 @@ class SiteLab extends BaseSiteLab
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getReceived()
     {
         return $this->received;
     }
 
+    /**
+     * @return TripleChoice
+     */
     public function getAdequate()
     {
         return $this->adequate;
     }
 
+    /**
+     * @return TripleChoice
+     */
     public function getStored()
     {
         return $this->stored;
     }
 
+    /**
+     * @return TripleChoice
+     */
     public function getElisaDone()
     {
         return $this->elisaDone;
     }
 
+    /**
+     * @return ElisaKit
+     */
     public function getElisaKit()
     {
         return $this->elisaKit;
     }
 
+    /**
+     * @return string
+     */
     public function getElisaKitOther()
     {
         return $this->elisaKitOther;
     }
 
+    /**
+     * @return string
+     */
     public function getElisaLoadNumber()
     {
         return $this->elisaLoadNumber;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getElisaExpiryDate()
     {
         return $this->elisaExpiryDate;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getElisaTestDate()
     {
         return $this->elisaTestDate;
     }
 
+    /**
+     * @return ElisaResult
+     */
     public function getElisaResult()
     {
         return $this->elisaResult;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getGenotypingDate()
     {
         return $this->genotypingDate;
     }
 
+    /**
+     * @return GenotypeResultG
+     */
     public function getGenotypingResultg()
     {
         return $this->genotypingResultG;
     }
 
+    /**
+     * @return string
+     */
     public function getGenotypingResultGSpecify()
     {
         return $this->genotypingResultGSpecify;
     }
 
+    /**
+     * @return GenotypeResultP
+     */
     public function getGenotypeResultP()
     {
         return $this->genotypeResultP;
     }
 
+    /**
+     * @return string
+     */
     public function getGenotypeResultPSpecify()
     {
         return $this->genotypeResultPSpecify;
     }
 
+    /**
+     * @return TripleChoice
+     */
     public function getStoolSentToRRL()
     {
         return $this->stoolSentToRRL;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getStoolSentToRRLDate()
     {
         return $this->stoolSentToRRLDate;
     }
 
+    /**
+     * @return TripleChoice
+     */
     public function getStoolSentToNL()
     {
         return $this->stoolSentToNL;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getStoolSentToNLDate()
     {
         return $this->stoolSentToNLDate;
     }
 
+    /**
+     * @param \DateTime|null $received
+     * @return $this
+     */
     public function setReceived(\DateTime $received = null)
     {
         $this->received = $received;
@@ -295,42 +362,70 @@ class SiteLab extends BaseSiteLab
         return $this;
     }
 
+    /**
+     * @param TripleChoice $adequate
+     * @return $this
+     */
     public function setAdequate(TripleChoice $adequate)
     {
         $this->adequate = $adequate;
         return $this;
     }
 
+    /**
+     * @param TripleChoice $stored
+     * @return $this
+     */
     public function setStored(TripleChoice $stored)
     {
         $this->stored = $stored;
         return $this;
     }
 
+    /**
+     * @param TripleChoice $elisaDone
+     * @return $this
+     */
     public function setElisaDone(TripleChoice $elisaDone)
     {
         $this->elisaDone = $elisaDone;
         return $this;
     }
 
+    /**
+     * @param ElisaKit $elisaKit
+     * @return $this
+     */
     public function setElisaKit(ElisaKit $elisaKit)
     {
         $this->elisaKit = $elisaKit;
         return $this;
     }
 
+    /**
+     * @param $elisaKitOther
+     * @return $this
+     */
     public function setElisaKitOther($elisaKitOther)
     {
         $this->elisaKitOther = $elisaKitOther;
         return $this;
     }
 
+    /**
+     * @param $elisaLoadNumber
+     * @return $this
+     */
     public function setElisaLoadNumber($elisaLoadNumber)
     {
         $this->elisaLoadNumber = $elisaLoadNumber;
         return $this;
     }
 
+    /**
+     * @param \DateTime|null $elisaExpiryDate
+     * @return $this
+     */
     public function setElisaExpiryDate(\DateTime $elisaExpiryDate = null)
     {
         $this->elisaExpiryDate = $elisaExpiryDate;
@@ -338,6 +433,10 @@ class SiteLab extends BaseSiteLab
         return $this;
     }
 
+    /**
+     * @param \DateTime|null $elisaTestDate
+     * @return $this
+     */
     public function setElisaTestDate(\DateTime $elisaTestDate = null)
     {
         $this->elisaTestDate = $elisaTestDate;
@@ -345,12 +444,20 @@ class SiteLab extends BaseSiteLab
         return $this;
     }
 
+    /**
+     * @param ElisaResult $elisaResult
+     * @return $this
+     */
     public function setElisaResult(ElisaResult $elisaResult)
     {
         $this->elisaResult = $elisaResult;
         return $this;
     }
 
+    /**
+     * @param \DateTime|null $genotypingDate
+     * @return $this
+     */
     public function setGenotypingDate(\DateTime $genotypingDate = null)
     {
         $this->genotypingDate = $genotypingDate;
@@ -358,36 +465,60 @@ class SiteLab extends BaseSiteLab
         return $this;
     }
 
+    /**
+     * @param GenotypeResultG $genotypingResultG
+     * @return $this
+     */
     public function setGenotypingResultg(GenotypeResultG $genotypingResultG)
     {
         $this->genotypingResultG = $genotypingResultG;
         return $this;
     }
 
+    /**
+     * @param $genotypingResultGSpecify
+     * @return $this
+     */
     public function setGenotypingResultGSpecify($genotypingResultGSpecify)
     {
         $this->genotypingResultGSpecify = $genotypingResultGSpecify;
         return $this;
     }
 
+    /**
+     * @param GenotypeResultP $genotypeResultP
+     * @return $this
+     */
     public function setGenotypeResultP(GenotypeResultP $genotypeResultP)
     {
         $this->genotypeResultP = $genotypeResultP;
         return $this;
     }
 
+    /**
+     * @param $genotypeResultPSpecify
+     * @return $this
+     */
     public function setGenotypeResultPSpecify($genotypeResultPSpecify)
     {
         $this->genotypeResultPSpecify = $genotypeResultPSpecify;
         return $this;
     }
 
+    /**
+     * @param TripleChoice $stoolSentToRRL
+     * @return $this
+     */
     public function setStoolSentToRRL(TripleChoice $stoolSentToRRL)
     {
         $this->stoolSentToRRL = $stoolSentToRRL;
         return $this;
     }
 
+    /**
+     * @param \DateTime|null $stoolSentToRRLDate
+     * @return $this
+     */
     public function setStoolSentToRRLDate(\DateTime $stoolSentToRRLDate = null)
     {
         $this->stoolSentToRRLDate = $stoolSentToRRLDate;
@@ -395,12 +526,20 @@ class SiteLab extends BaseSiteLab
         return $this;
     }
 
+    /**
+     * @param TripleChoice $stoolSentToNL
+     * @return $this
+     */
     public function setStoolSentToNL(TripleChoice $stoolSentToNL)
     {
         $this->stoolSentToNL = $stoolSentToNL;
         return $this;
     }
 
+    /**
+     * @param \DateTime|null $stoolSentToNLDate
+     * @return $this
+     */
     public function setStoolSentToNLDate(\DateTime $stoolSentToNLDate = null)
     {
         $this->stoolSentToNLDate = $stoolSentToNLDate;
@@ -408,6 +547,9 @@ class SiteLab extends BaseSiteLab
         return $this;
     }
 
+    /**
+     *
+     */
     public function isComplete()
     {
      

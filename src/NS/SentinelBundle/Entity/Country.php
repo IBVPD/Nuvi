@@ -155,16 +155,25 @@ class Country implements \Serializable
         return $this->name;
     }
 
+    /**
+     * @return null|string
+     */
     public function __toString()
     {
         return $this->name;
     }
-    
+
+    /**
+     * @return string
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * @param $id
+     */
     public function setId($id)
     {
         $this->id = $id;
@@ -362,6 +371,9 @@ class Country implements \Serializable
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function serialize()
     {
         return serialize(array(
@@ -381,6 +393,9 @@ class Country implements \Serializable
             ));
     }
 
+    /**
+     * @param string $serialized
+     */
     public function unserialize($serialized)
     {
         list($this->id,
@@ -399,54 +414,88 @@ class Country implements \Serializable
             ) = unserialize($serialized);
     }
 
+    /**
+     * @return string
+     */
     public function getLanguage()
     {
         return $this->language;
     }
 
+    /**
+     * @param $language
+     */
     public function setLanguage($language)
     {
         $this->language = $language;
     }
 
+    /**
+     * @return string
+     */
     public function getHibVaccineIntro()
     {
         return $this->hibVaccineIntro;
     }
 
+    /**
+     * @return string
+     */
     public function getPcvVaccineIntro()
     {
         return $this->pcvVaccineIntro;
     }
 
+    /**
+     * @return string
+     */
     public function getRvVaccineIntro()
     {
         return $this->rvVaccineIntro;
     }
 
+    /**
+     * @param $hibVaccineIntro
+     * @return $this
+     */
     public function setHibVaccineIntro($hibVaccineIntro)
     {
         $this->hibVaccineIntro = $hibVaccineIntro;
         return $this;
     }
 
+    /**
+     * @param $pcvVaccineIntro
+     * @return $this
+     */
     public function setPcvVaccineIntro($pcvVaccineIntro)
     {
         $this->pcvVaccineIntro = $pcvVaccineIntro;
         return $this;
     }
 
+    /**
+     * @param $rvVaccineIntro
+     * @return $this
+     */
     public function setRvVaccineIntro($rvVaccineIntro)
     {
         $this->rvVaccineIntro = $rvVaccineIntro;
         return $this;
     }
 
+    /**
+     * @return ReferenceLab
+     */
     public function getReferenceLab()
     {
         return $this->referenceLab;
     }
 
+    /**
+     * @param ReferenceLab $referenceLab
+     * @return $this
+     */
     public function setReferenceLab(ReferenceLab $referenceLab)
     {
         $this->referenceLab = $referenceLab;

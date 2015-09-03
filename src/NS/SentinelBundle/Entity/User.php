@@ -131,6 +131,9 @@ class User implements AdvancedUserInterface
      */
     private $referenceLab;
 
+    /**
+     * @var int
+     */
     private $ttl = 0;
 
     /**

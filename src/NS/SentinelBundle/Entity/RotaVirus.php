@@ -269,137 +269,220 @@ class RotaVirus extends BaseCase
      */
     private $comment;
 
+    /**
+     * @return TripleChoice
+     */
     public function getSymptomDiarrhea()
     {
         return $this->symptomDiarrhea;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getSymptomDiarrheaOnset()
     {
         return $this->symptomDiarrheaOnset;
     }
 
+    /**
+     * @return int
+     */
     public function getSymptomDiarrheaEpisodes()
     {
         return $this->symptomDiarrheaEpisodes;
     }
 
+    /**
+     * @return int
+     */
     public function getSymptomDiarrheaDuration()
     {
         return $this->symptomDiarrheaDuration;
     }
 
+    /**
+     * @return TripleChoice
+     */
     public function getSymptomVomit()
     {
         return $this->symptomVomit;
     }
 
+    /**
+     * @return int
+     */
     public function getSymptomVomitEpisodes()
     {
         return $this->symptomVomitEpisodes;
     }
 
+    /**
+     * @return int
+     */
     public function getSymptomVomitDuration()
     {
         return $this->symptomVomitDuration;
     }
 
+    /**
+     * @return TripleChoice
+     */
     public function getSymptomDehydration()
     {
         return $this->symptomDehydration;
     }
 
+    /**
+     * @return Dehydration
+     */
     public function getSymptomDehydrationAmount()
     {
         return $this->symptomDehydrationAmount;
     }
 
+    /**
+     * @return TripleChoice
+     */
     public function getRehydration()
     {
         return $this->rehydration;
     }
 
+    /**
+     * @return Rehydration
+     */
     public function getRehydrationType()
     {
         return $this->rehydrationType;
     }
 
+    /**
+     * @return string
+     */
     public function getRehydrationOther()
     {
         return $this->rehydrationOther;
     }
 
+    /**
+     * @return RotavirusVaccinationReceived
+     */
     public function getVaccinationReceived()
     {
         return $this->vaccinationReceived;
     }
 
+    /**
+     * @return RotavirusVaccinationType
+     */
     public function getVaccinationType()
     {
         return $this->vaccinationType;
     }
 
+    /**
+     * @return ThreeDoses
+     */
     public function getDoses()
     {
         return $this->doses;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getFirstVaccinationDose()
     {
         return $this->firstVaccinationDose;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getSecondVaccinationDose()
     {
         return $this->secondVaccinationDose;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getThirdVaccinationDose()
     {
         return $this->thirdVaccinationDose;
     }
 
+    /**
+     * @return TripleChoice
+     */
     public function getStoolCollected()
     {
         return $this->stoolCollected;
     }
 
+    /**
+     * @return string
+     */
     public function getStoolId()
     {
         return $this->stoolId;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getStoolCollectionDate()
     {
         return $this->stoolCollectionDate;
     }
 
+    /**
+     * @return RotavirusDischargeOutcome
+     */
     public function getDischargeOutcome()
     {
         return $this->dischargeOutcome;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getDischargeDate()
     {
         return $this->dischargeDate;
     }
 
+    /**
+     * @return string
+     */
     public function getDischargeClassOther()
     {
         return $this->dischargeClassOther;
     }
 
+    /**
+     * @return string
+     */
     public function getComment()
     {
         return $this->comment;
     }
 
+    /**
+     * @param TripleChoice $symptomDiarrhea
+     * @return $this
+     */
     public function setSymptomDiarrhea(TripleChoice $symptomDiarrhea)
     {
         $this->symptomDiarrhea = $symptomDiarrhea;
         return $this;
     }
 
+    /**
+     * @param \DateTime|null $symptomDiarrheaOnset
+     * @return $this
+     */
     public function setSymptomDiarrheaOnset(\DateTime $symptomDiarrheaOnset = null)
     {
         $this->symptomDiarrheaOnset = $symptomDiarrheaOnset;
@@ -407,84 +490,140 @@ class RotaVirus extends BaseCase
         return $this;
     }
 
+    /**
+     * @param $symptomDiarrheaEpisodes
+     * @return $this
+     */
     public function setSymptomDiarrheaEpisodes($symptomDiarrheaEpisodes)
     {
         $this->symptomDiarrheaEpisodes = $symptomDiarrheaEpisodes;
         return $this;
     }
 
+    /**
+     * @param $symptomDiarrheaDuration
+     * @return $this
+     */
     public function setSymptomDiarrheaDuration($symptomDiarrheaDuration)
     {
         $this->symptomDiarrheaDuration = $symptomDiarrheaDuration;
         return $this;
     }
 
+    /**
+     * @param TripleChoice $symptomVomit
+     * @return $this
+     */
     public function setSymptomVomit(TripleChoice $symptomVomit)
     {
         $this->symptomVomit = $symptomVomit;
         return $this;
     }
 
+    /**
+     * @param $symptomVomitEpisodes
+     * @return $this
+     */
     public function setSymptomVomitEpisodes($symptomVomitEpisodes)
     {
         $this->symptomVomitEpisodes = $symptomVomitEpisodes;
         return $this;
     }
 
+    /**
+     * @param $symptomVomitDuration
+     * @return $this
+     */
     public function setSymptomVomitDuration($symptomVomitDuration)
     {
         $this->symptomVomitDuration = $symptomVomitDuration;
         return $this;
     }
 
+    /**
+     * @param TripleChoice $symptomDehydration
+     * @return $this
+     */
     public function setSymptomDehydration(TripleChoice $symptomDehydration)
     {
         $this->symptomDehydration = $symptomDehydration;
         return $this;
     }
 
+    /**
+     * @param Dehydration $symptomDehydrationAmount
+     * @return $this
+     */
     public function setSymptomDehydrationAmount(Dehydration $symptomDehydrationAmount)
     {
         $this->symptomDehydrationAmount = $symptomDehydrationAmount;
         return $this;
     }
 
+    /**
+     * @param TripleChoice $rehydration
+     * @return $this
+     */
     public function setRehydration(TripleChoice $rehydration)
     {
         $this->rehydration = $rehydration;
         return $this;
     }
 
+    /**
+     * @param Rehydration $rehydrationType
+     * @return $this
+     */
     public function setRehydrationType(Rehydration $rehydrationType)
     {
         $this->rehydrationType = $rehydrationType;
         return $this;
     }
 
+    /**
+     * @param $rehydrationOther
+     * @return $this
+     */
     public function setRehydrationOther($rehydrationOther)
     {
         $this->rehydrationOther = $rehydrationOther;
         return $this;
     }
 
+    /**
+     * @param RotavirusVaccinationReceived $vaccinationReceived
+     * @return $this
+     */
     public function setVaccinationReceived(RotavirusVaccinationReceived $vaccinationReceived)
     {
         $this->vaccinationReceived = $vaccinationReceived;
         return $this;
     }
 
+    /**
+     * @param RotavirusVaccinationType $vaccinationType
+     * @return $this
+     */
     public function setVaccinationType(RotavirusVaccinationType $vaccinationType)
     {
         $this->vaccinationType = $vaccinationType;
         return $this;
     }
 
+    /**
+     * @param ThreeDoses $doses
+     * @return $this
+     */
     public function setDoses(ThreeDoses $doses)
     {
         $this->doses = $doses;
         return $this;
     }
 
+    /**
+     * @param \DateTime|null $firstVaccinationDose
+     * @return $this
+     */
     public function setFirstVaccinationDose(\DateTime $firstVaccinationDose = null)
     {
         $this->firstVaccinationDose = $firstVaccinationDose;
@@ -492,6 +631,10 @@ class RotaVirus extends BaseCase
         return $this;
     }
 
+    /**
+     * @param \DateTime|null $secondVaccinationDose
+     * @return $this
+     */
     public function setSecondVaccinationDose(\DateTime $secondVaccinationDose = null)
     {
         $this->secondVaccinationDose = $secondVaccinationDose;
@@ -499,6 +642,10 @@ class RotaVirus extends BaseCase
         return $this;
     }
 
+    /**
+     * @param \DateTime|null $thirdVaccinationDose
+     * @return $this
+     */
     public function setThirdVaccinationDose(\DateTime $thirdVaccinationDose = null)
     {
         $this->thirdVaccinationDose = $thirdVaccinationDose;
@@ -506,18 +653,30 @@ class RotaVirus extends BaseCase
         return $this;
     }
 
+    /**
+     * @param TripleChoice $stoolCollected
+     * @return $this
+     */
     public function setStoolCollected(TripleChoice $stoolCollected)
     {
         $this->stoolCollected = $stoolCollected;
         return $this;
     }
 
+    /**
+     * @param $stoolId
+     * @return $this
+     */
     public function setStoolId($stoolId)
     {
         $this->stoolId = $stoolId;
         return $this;
     }
 
+    /**
+     * @param \DateTime|null $stoolCollectionDate
+     * @return $this
+     */
     public function setStoolCollectionDate(\DateTime $stoolCollectionDate = null)
     {
         $this->stoolCollectionDate = $stoolCollectionDate;
@@ -525,12 +684,20 @@ class RotaVirus extends BaseCase
         return $this;
     }
 
+    /**
+     * @param RotavirusDischargeOutcome $dischargeOutcome
+     * @return $this
+     */
     public function setDischargeOutcome(RotavirusDischargeOutcome $dischargeOutcome)
     {
         $this->dischargeOutcome = $dischargeOutcome;
         return $this;
     }
 
+    /**
+     * @param \DateTime|null $dischargeDate
+     * @return $this
+     */
     public function setDischargeDate(\DateTime $dischargeDate = null)
     {
         $this->dischargeDate = $dischargeDate;
@@ -538,12 +705,20 @@ class RotaVirus extends BaseCase
         return $this;
     }
 
+    /**
+     * @param $dischargeClassOther
+     * @return $this
+     */
     public function setDischargeClassOther($dischargeClassOther)
     {
         $this->dischargeClassOther = $dischargeClassOther;
         return $this;
     }
 
+    /**
+     * @param $comment
+     * @return $this
+     */
     public function setComment($comment)
     {
         $this->comment = $comment;
@@ -570,16 +745,25 @@ class RotaVirus extends BaseCase
         return $this;
     }
 
+    /**
+     *
+     */
     public function calculateResult()
     {
 
     }
 
+    /**
+     * @return null
+     */
     public function getIncompleteField()
     {
         return null;
     }
 
+    /**
+     * @return array
+     */
     public function getMinimumRequiredFields()
     {
         return array(

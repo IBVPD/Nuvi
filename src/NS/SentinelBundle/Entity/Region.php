@@ -72,6 +72,9 @@ class Region implements \Serializable
         return $this->id;
     }
 
+    /**
+     * @param $id
+     */
     public function setId($id)
     {
         $this->id = $id;
@@ -106,7 +109,10 @@ class Region implements \Serializable
     {
         $this->countries       = new ArrayCollection();
     }
-    
+
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->name;
@@ -191,6 +197,9 @@ class Region implements \Serializable
         return $this->website;
     }
 
+    /**
+     * @return string
+     */
     public function serialize()
     {
         return serialize(array(
@@ -201,6 +210,9 @@ class Region implements \Serializable
         ));
     }
 
+    /**
+     * @param string $serialized
+     */
     public function unserialize($serialized)
     {
         list(

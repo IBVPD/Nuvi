@@ -13,6 +13,9 @@ use \JMS\Serializer\Annotation\Groups;
  */
 class BaseSiteLab
 {
+    /**
+     * @var
+     */
     protected $caseFile;
 
     /**

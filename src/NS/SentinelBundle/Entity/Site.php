@@ -173,6 +173,9 @@ class Site implements \Serializable
 
     //Fields used for reporting etc...
 
+    /**
+     * @var
+     */
     private $totalCases;
 
     /**

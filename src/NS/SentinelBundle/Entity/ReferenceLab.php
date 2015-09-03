@@ -23,6 +23,9 @@ class ReferenceLab
      * @ORM\CustomIdGenerator(class="\NS\SentinelBundle\Generator\ReferenceLabGenerator")
      */
     private $id;
+    /**
+     * @var
+     */
     private $userId;
 
     /**
@@ -123,22 +126,36 @@ class ReferenceLab
         return $this->userId;
     }
 
+    /**
+     * @return Collection
+     */
     public function getIbdCases()
     {
         return $this->ibdCases;
     }
 
+    /**
+     * @return Collection
+     */
     public function getRotaCases()
     {
         return $this->rotaCases;
     }
 
+    /**
+     * @param Collection $ibdCases
+     * @return $this
+     */
     public function setIbdCases(Collection $ibdCases)
     {
         $this->ibdCases = $ibdCases;
         return $this;
     }
 
+    /**
+     * @param IBD $case
+     * @return $this
+     */
     public function addIbdCase(IBD $case)
     {
         $case->setLab($this);
@@ -147,6 +164,10 @@ class ReferenceLab
         return $this;
     }
 
+    /**
+     * @param IBD $case
+     * @return $this
+     */
     public function removeIbdCase(IBD $case)
     {
         $this->ibdCases->removeElement($case);
@@ -154,12 +175,20 @@ class ReferenceLab
         return $this;
     }
 
+    /**
+     * @param Collection $rotaCases
+     * @return $this
+     */
     public function setRotaCases(Collection $rotaCases)
     {
         $this->rotaCases = $rotaCases;
         return $this;
     }
 
+    /**
+     * @param RotaVirus $case
+     * @return $this
+     */
     public function addRotaCase(RotaVirus $case)
     {
         $case->setLab($this);
@@ -168,6 +197,10 @@ class ReferenceLab
         return $this;
     }
 
+    /**
+     * @param RotaVirus $case
+     * @return $this
+     */
     public function removeRotaCase(RotaVirus $case)
     {
         $this->rotaCases->removeElement($case);
@@ -175,17 +208,28 @@ class ReferenceLab
         return $this;
     }
 
+    /**
+     * @return Collection
+     */
     public function getUsers()
     {
         return $this->users;
     }
 
+    /**
+     * @param Collection $users
+     * @return $this
+     */
     public function setUsers(Collection $users)
     {
         $this->users = $users;
         return $this;
     }
 
+    /**
+     * @param User $user
+     * @return $this
+     */
     public function addUser(User $user)
     {
         $user->setReferenceLab($this);
@@ -194,6 +238,10 @@ class ReferenceLab
         return $this;
     }
 
+    /**
+     * @param User $user
+     * @return $this
+     */
     public function removeUser(User $user)
     {
         $this->users->removeElement($user);
