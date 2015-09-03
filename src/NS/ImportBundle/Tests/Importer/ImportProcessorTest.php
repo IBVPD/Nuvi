@@ -637,9 +637,6 @@ class ImportProcessorTest extends WebTestCase
         $this->assertEquals(2,$result->getSuccessCount());
     }
 
-    /**
-     * @group warnings
-     */
     public function testWarningsAdded()
     {
         $columns = array(
