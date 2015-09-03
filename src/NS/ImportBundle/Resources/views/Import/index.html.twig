@@ -12,6 +12,8 @@
                     <form method="POST" action="{{ path('importIndex') }}" {{ form_enctype(form) }}>
                         <div class="widget-main">
                             {{ form_row(form.map) }}
+                            {{ form_row(form.inputDateStart) }}
+                            {{ form_row(form.inputDateEnd) }}
                             {{ form_row(form.sourceFile) }}
                         </div>
                         <div class="widget-toolbox padding-6 clearfix">

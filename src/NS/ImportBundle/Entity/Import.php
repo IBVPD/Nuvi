@@ -49,6 +49,20 @@ class Import
      */
     private $position = 0;
 
+    /**
+     * @var \DateTime $inputDateStart
+     * @ORM\Column(name="inputDateStart",type="date")
+     * @Assert\NotBlank()
+     * @Assert\Date()
+     */
+    private $inputDateStart;
+
+    /**
+     * @var \DateTime $inputDateEnd
+     * @ORM\Column(name="inputDateEnd",type="date")
+     */
+    private $inputDateEnd;
+
     // ---------------------------------------------------------------------------------------
 
     /**
@@ -227,6 +241,42 @@ class Import
     public function setPosition($position)
     {
         $this->position = $position;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getInputDateStart()
+    {
+        return $this->inputDateStart;
+    }
+
+    /**
+     * @param \DateTime $inputDateStart
+     * @return Import
+     */
+    public function setInputDateStart(\DateTime $inputDateStart = null)
+    {
+        $this->inputDateStart = $inputDateStart;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getInputDateEnd()
+    {
+        return $this->inputDateEnd;
+    }
+
+    /**
+     * @param \DateTime $inputDateEnd
+     * @return Import
+     */
+    public function setInputDateEnd(\DateTime $inputDateEnd = null)
+    {
+        $this->inputDateEnd = $inputDateEnd;
         return $this;
     }
 
