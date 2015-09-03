@@ -706,6 +706,69 @@ class ImportProcessorTest extends WebTestCase
         $this->assertFalse($results[1]->hasWarning());
     }
 
+    /**
+     * @group futureDate
+     */
+    public function testNoFutureDate()
+    {
+        $columns = array(
+            array(
+                'name'      => 'site_CODE',
+                'converter' => 'ns.sentinel.converter.site',
+                'mapper'    => 'site',
+                'ignored'   => false,
+            ),
+            array(
+                'name'      => 'case_id',
+                'converter' => null,
+                'mapper'    => 'caseId',
+                'ignored'   => false,
+            ),
+            array(
+                'name'      => 'lastName',
+                'converter' => null,
+                'mapper'    => null,
+                'ignored'   => false,
+            ),
+            array(
+                'name'      => 'date received',
+                'converter' => 'ns_import.converter.date.year_month_day',
+                'mapper'    => 'referenceLab.dateReceived',
+                'ignored'   => false,
+            ),
+            array(
+                'name'      => 'lab id',
+                'converter' => null,
+                'mapper'    => 'referenceLab.labId',
+                'ignored'   => false,
+            ),
+        );
+
+        $file = new File(__DIR__ . '/../Fixtures/IBD-CasePlusRRL-FutureDate.csv');
+        $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
+        $import = new Import($mockUser);
+
+        $import->setSourceFile($file);
+        $import->setMap($this->getIbdMap($columns));
+
+        $processor = new ImportProcessor($this->getContainer());
+        $processor->setDuplicate(new Duplicate(array('getcode' => 'site', 1 => 'caseId')));
+        $writer = $processor->getWriter($import->getClass());
+        $result = $processor->process($import);
+
+        if (count($result->getExceptions()) > 0) {
+            $this->fail('Error Count: '.$result->getErrorCount());
+        }
+
+        $this->assertEquals(2,$result->getSuccessCount());
+        $results = $writer->getResults();
+        $this->assertInstanceOf('NS\SentinelBundle\Entity\IBD',$results[0]);
+        $this->assertTrue($results[0]->hasWarning());
+        $this->assertNull($results[0]->getReferenceLab()->getDateReceived());
+        $this->assertInstanceOf('NS\SentinelBundle\Entity\IBD',$results[1]);
+        $this->assertFalse($results[1]->hasWarning());
+    }
+
     public function getReferenceLabMap(array $columns)
     {
         return $this->getMap('NS\SentinelBundle\Entity\IBD\ReferenceLab', 'IBD Reference Lab', $columns);
