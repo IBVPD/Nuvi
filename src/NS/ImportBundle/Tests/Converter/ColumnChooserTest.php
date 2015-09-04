@@ -2,12 +2,45 @@
 
 namespace NS\ImportBundle\Tests\Converter;
 
-use Doctrine\Common\Cache\ArrayCache;
-use Doctrine\ORM\Mapping\ClassMetadata;
-use NS\ImportBundle\Converter\ColumnChooser;
+use \Doctrine\Common\Cache\ArrayCache;
+use \NS\ImportBundle\Converter\ColumnChooser;
 
 class ColumnChooserTest extends \PHPUnit_Framework_TestCase
 {
+    public function testCacheHitDoesNotBuild()
+    {
+        $cacheMock = $this->getMock('\Doctrine\Common\Cache\ArrayCache');
+        $cacheMock->expects($this->once())
+            ->method('contains')
+            ->with('class')
+            ->willReturn(true);
+
+        $cacheMock->expects($this->once())
+            ->method('fetch')
+            ->with('class')
+            ->willReturn(true);
+
+        $chooser = $this->getChooser($cacheMock);
+        $this->assertTrue($chooser->getChoices('class'));
+    }
+
+    public function testCacheMissBuilds()
+    {
+        $mockEntityMgr = $this->getMockBuilder('Doctrine\ORM\EntityManager')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $cache = new ArrayCache();
+
+        $chooser = $this->getMock('NS\ImportBundle\Converter\ColumnChooser',array('buildChoices'),array($mockEntityMgr,$cache));
+        $chooser->expects($this->once())
+            ->method('buildChoices')
+            ->with('class')
+            ->willReturn(array('here'));
+        $retValue = $chooser->getChoices('class');
+        $this->assertEquals(array('here'),$retValue);
+        $this->assertEquals(array('here'),$cache->fetch('class'));
+    }
+
     public function testMetaChoicesWithoutAssociationName()
     {
         $meta = $this->getMockBuilder('Doctrine\ORM\Mapping\ClassMetadata')
@@ -114,12 +147,12 @@ class ColumnChooserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('assocName.field3 (TripleChoice)',$choices['assocName.field3']);
     }
 
-    public function getChooser()
+    public function getChooser($cache = null)
     {
         $mockEntityMgr = $this->getMockBuilder('Doctrine\ORM\EntityManager')
             ->disableOriginalConstructor()
             ->getMock();
 
-        return new ColumnChooser($mockEntityMgr,new ArrayCache());
+        return new ColumnChooser($mockEntityMgr,(!$cache)?new ArrayCache():$cache);
     }
 }

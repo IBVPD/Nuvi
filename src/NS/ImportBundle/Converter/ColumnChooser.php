@@ -13,8 +13,14 @@ use \Doctrine\Common\Persistence\ObjectManager;
  */
 class ColumnChooser
 {
+    /**
+     * @var ObjectManager
+     */
     private $entityMgr;
 
+    /**
+     * @var CacheProvider
+     */
     private $cache;
 
     /**
@@ -33,17 +39,7 @@ class ColumnChooser
     public function getChoices($class)
     {
         if (!$this->cache->contains($class)) {
-            $metaData    = $this->entityMgr->getClassMetadata($class);
-            $siteMeta    = $this->entityMgr->getClassMetadata($metaData->getAssociationTargetClass('siteLab'));
-            $nlLabMeta   = $this->entityMgr->getClassMetadata($metaData->getAssociationTargetClass('nationalLab'));
-            $rrlLabMeta  = $this->entityMgr->getClassMetadata($metaData->getAssociationTargetClass('referenceLab'));
-
-            $choices      = $this->getMetaChoices($metaData);
-            $siteChoices = $this->getMetaChoices($siteMeta,'siteLab');
-            $nlLab       = $this->getMetaChoices($nlLabMeta,'nationalLab');
-            $rrlLab      = $this->getMetaChoices($rrlLabMeta,'referenceLab');
-
-            $result = array_merge(array('site'=>'site (Site)'), $choices, $siteChoices, $nlLab, $rrlLab);
+            $result = $this->buildChoices($class);
             $this->cache->save($class, $result);
 
             return $result;
@@ -52,6 +48,30 @@ class ColumnChooser
         return $this->cache->fetch($class);
     }
 
+    /**
+     * @param $class
+     * @return array
+     */
+    public function buildChoices($class)
+    {
+        $choices  = array('site'=>'site (Site)');
+        $metaData = $this->entityMgr->getClassMetadata($class);
+
+        $choices += $this->getMetaChoices($metaData);
+
+        foreach(array('siteLab','nationalLab','referenceLab') as $metaArg) {
+            $associationClass = $metaData->getAssociationTargetClass($metaArg);
+            $choices += $this->getMetaChoices($associationClass,$metaArg);
+        }
+
+        return array_merge(array('site'=>'site (Site)'), $choices, $siteChoices, $nlLab, $rrlLab);
+    }
+
+    /**
+     * @param ClassMetadata $metadata
+     * @param null $associationName
+     * @return array
+     */
     public function getMetaChoices(ClassMetadata $metadata, $associationName = null)
     {
         $choices = array();
