@@ -11,6 +11,7 @@ use \Ddeboer\DataImport\Step\FilterStep;
 use \Ddeboer\DataImport\Step\ValueConverterStep;
 use NS\ImportBundle\Converter\DateRangeConverter;
 use NS\ImportBundle\Converter\NoFutureDateConverter;
+use NS\ImportBundle\Converter\TrimInputConverter;
 use NS\ImportBundle\Converter\WarningConverter;
 use \NS\ImportBundle\Entity\Import;
 use \NS\ImportBundle\Entity\Result;
@@ -127,6 +128,9 @@ class ImportProcessor
 
         // Move to current position
         $workflow->addStep($offsetFilter,50);
+
+        // Trim all input
+        $workflow->addStep(new ConverterStep(array(new TrimInputConverter())),45);
 
         // These map column headers i.e site_Code -> site
         $workflow->addStep($import->getMappings(),40);
