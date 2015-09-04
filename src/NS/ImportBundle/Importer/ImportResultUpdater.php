@@ -101,10 +101,8 @@ class ImportResultUpdater
      */
     public function buildExceptions(Import $import, \SplObjectStorage $exceptions, $writeHeader)
     {
-        $first = true;
-        $rowCount = 0;
-
-        $errorFile = $import->getErrorFile();
+        $first      = true;
+        $errorFile  = $import->getErrorFile();
         $fileWriter = $errorFile->openFile('a');
 
         $exceptions->rewind();
