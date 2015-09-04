@@ -42,6 +42,12 @@ class Column
     private $order;
 
     /**
+     * @var string $preProcessor
+     * @ORM\Column(name="preProcessor",type="string",nullable=true)
+     */
+    private $preProcessor;
+
+    /**
      * @var string $converter
      * @ORM\Column(name="converter",type="string",nullable=true)
      */
@@ -97,6 +103,24 @@ class Column
     public function getMap()
     {
         return $this->map;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPreProcessor()
+    {
+        return $this->preProcessor;
+    }
+
+    /**
+     * @param string $preProcessor
+     * @return Column
+     */
+    public function setPreProcessor($preProcessor)
+    {
+        $this->preProcessor = $preProcessor;
+        return $this;
     }
 
     /**

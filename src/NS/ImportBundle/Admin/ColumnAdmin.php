@@ -52,6 +52,7 @@ class ColumnAdmin extends Admin
         $formMapper
             ->add('name')
             ->add('order',null,array('attr'=>array('class'=>'col-xs-3')))
+            ->add('preProcessor')
             ->add('converter', 'ConverterChoice', array('required' => false,'attr'=>array('class'=>'chosen-select')))
             ->add('mapper',$columns,array('required'=>false))
             ->add('ignored', null, array('label' => 'Drop?', 'required' => false))
