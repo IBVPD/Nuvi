@@ -1,0 +1,125 @@
+<?php
+
+namespace NS\ImportBundle\Tests\Converter;
+
+use Doctrine\Common\Cache\ArrayCache;
+use Doctrine\ORM\Mapping\ClassMetadata;
+use NS\ImportBundle\Converter\ColumnChooser;
+
+class ColumnChooserTest extends \PHPUnit_Framework_TestCase
+{
+    public function testMetaChoicesWithoutAssociationName()
+    {
+        $meta = $this->getMockBuilder('Doctrine\ORM\Mapping\ClassMetadata')
+            ->disableOriginalConstructor()
+            ->setMethods(array('getFieldNames','getTypeOfField'))
+            ->getMock();
+
+        $meta->expects($this->once())
+            ->method('getFieldNames')
+            ->willReturn(array('field1','field2','field3'));
+
+        $map = array(
+            array('field1','string'),
+            array('field2','integer'),
+            array('field3','TripleChoice'),
+        );
+        $meta->method('getTypeOfField')
+            ->will($this->returnValueMap($map));
+
+        $chooser = $this->getChooser();
+
+        $choices = $chooser->getMetaChoices($meta);
+        $this->assertTrue(is_array($choices));
+        $this->assertCount(3,$choices);
+
+        $this->assertArrayHasKey('field1',$choices);
+        $this->assertEquals('field1 (string)',$choices['field1']);
+
+        $this->assertArrayHasKey('field2',$choices);
+        $this->assertEquals('field2 (integer)',$choices['field2']);
+
+        $this->assertArrayHasKey('field3',$choices);
+        $this->assertEquals('field3 (TripleChoice)',$choices['field3']);
+    }
+
+    public function testMetaChoicesWithoutAssociationNameSorted()
+    {
+        $meta = $this->getMockBuilder('Doctrine\ORM\Mapping\ClassMetadata')
+            ->disableOriginalConstructor()
+            ->setMethods(array('getFieldNames','getTypeOfField'))
+            ->getMock();
+
+        $meta->expects($this->once())
+            ->method('getFieldNames')
+            ->willReturn(array('field2','field1','field3'));
+
+        $map = array(
+            array('field1','string'),
+            array('field2','integer'),
+            array('field3','TripleChoice'),
+        );
+        $meta->method('getTypeOfField')
+            ->will($this->returnValueMap($map));
+
+        $chooser = $this->getChooser();
+
+        $choices = $chooser->getMetaChoices($meta);
+        $this->assertTrue(is_array($choices));
+        $this->assertCount(3,$choices);
+
+        $this->assertArrayHasKey('field1',$choices);
+        $this->assertEquals('field1 (string)',$choices['field1']);
+
+        $this->assertArrayHasKey('field2',$choices);
+        $this->assertEquals('field2 (integer)',$choices['field2']);
+
+        $this->assertArrayHasKey('field3',$choices);
+        $this->assertEquals('field3 (TripleChoice)',$choices['field3']);
+        $this->assertEquals(array('field1','field2','field3'),array_keys($choices));
+    }
+
+    public function testMetaChoicesWithAssociationName()
+    {
+        $meta = $this->getMockBuilder('Doctrine\ORM\Mapping\ClassMetadata')
+            ->disableOriginalConstructor()
+            ->setMethods(array('getFieldNames','getTypeOfField'))
+            ->getMock();
+
+        $meta->expects($this->once())
+            ->method('getFieldNames')
+            ->willReturn(array('field1','field2','field3'));
+
+        $map = array(
+            array('field1','string'),
+            array('field2','integer'),
+            array('field3','TripleChoice'),
+        );
+        $meta->method('getTypeOfField')
+            ->will($this->returnValueMap($map));
+
+        $chooser = $this->getChooser();
+
+        $choices = $chooser->getMetaChoices($meta,'assocName');
+        $this->assertTrue(is_array($choices));
+        $this->assertCount(3,$choices);
+
+        $this->assertArrayHasKey('assocName.field1',$choices);
+        $this->assertEquals('assocName.field1 (string)',$choices['assocName.field1']);
+
+        $this->assertArrayHasKey('assocName.field2',$choices);
+        $this->assertEquals('assocName.field2 (integer)',$choices['assocName.field2']);
+
+        $this->assertArrayHasKey('assocName.field3',$choices);
+        $this->assertEquals('assocName.field3 (TripleChoice)',$choices['assocName.field3']);
+    }
+
+    public function getChooser()
+    {
+        $mockEntityMgr = $this->getMockBuilder('Doctrine\ORM\EntityManager')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        return new ColumnChooser($mockEntityMgr,new ArrayCache());
+    }
+}

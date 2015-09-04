@@ -3,6 +3,7 @@
 namespace NS\ImportBundle\Converter;
 
 use \Doctrine\Common\Cache\CacheProvider;
+use \Doctrine\Common\Persistence\Mapping\ClassMetadata;
 use \Doctrine\Common\Persistence\ObjectManager;
 
 /**
@@ -27,53 +28,48 @@ class ColumnChooser
 
     /**
      * @param string $class
+     * @return array
      */
     public function getChoices($class)
     {
         if (!$this->cache->contains($class)) {
-            $metaData     = $this->entityMgr->getClassMetadata($class);
-            $choices      = array();
-            $siteChoices  = $nlLab = $rrlLab = array();
+            $metaData    = $this->entityMgr->getClassMetadata($class);
+            $siteMeta    = $this->entityMgr->getClassMetadata($metaData->getAssociationTargetClass('siteLab'));
+            $nlLabMeta   = $this->entityMgr->getClassMetadata($metaData->getAssociationTargetClass('nationalLab'));
+            $rrlLabMeta  = $this->entityMgr->getClassMetadata($metaData->getAssociationTargetClass('referenceLab'));
 
-            foreach ($metaData->getFieldNames() as $field) {
-                $choices[$field] = sprintf('%s (%s)', $field, $metaData->getTypeOfField($field));
-            }
+            $choices      = $this->getMetaChoices($metaData);
+            $siteChoices = $this->getMetaChoices($siteMeta,'siteLab');
+            $nlLab       = $this->getMetaChoices($nlLabMeta,'nationalLab');
+            $rrlLab      = $this->getMetaChoices($rrlLabMeta,'referenceLab');
 
-            ksort($choices);
-
-            $siteMeta   = $this->entityMgr->getClassMetadata($metaData->getAssociationTargetClass('siteLab'));
-            $nlLabMeta  = $this->entityMgr->getClassMetadata($metaData->getAssociationTargetClass('nationalLab'));
-            $rrlLabMeta = $this->entityMgr->getClassMetadata($metaData->getAssociationTargetClass('referenceLab'));
-
-            foreach ($siteMeta->getFieldNames() as $siteField) {
-                $fieldType           = $siteMeta->getTypeOfField($siteField);
-                $field               = sprintf('siteLab.%s', $siteField);
-                $siteChoices[$field] = sprintf('%s (%s)',$field,$fieldType);
-            }
-
-            ksort($siteChoices);
-
-            foreach ($nlLabMeta->getFieldNames() as $externalField) {
-                $fieldType = $nlLabMeta->getTypeOfField($externalField);
-                $field     = sprintf('nationalLab.%s', $externalField);
-                $nlLab[$field] = sprintf('%s (%s)',$field,$fieldType);
-            }
-
-            foreach ($rrlLabMeta->getFieldNames() as $externalField) {
-                $fieldType = $rrlLabMeta->getTypeOfField($externalField);
-                $field     = sprintf('referenceLab.%s', $externalField);
-                $rrlLab[$field] = sprintf('%s (%s)',$field,$fieldType);
-            }
-
-            ksort($nlLab);
-            ksort($rrlLab);
-
-            $result = array_merge(array('site'=>'site (Site)'),$choices, $siteChoices, $externLabTwo, $externLabOne);
+            $result = array_merge(array('site'=>'site (Site)'), $choices, $siteChoices, $nlLab, $rrlLab);
             $this->cache->save($class, $result);
 
             return $result;
         }
 
         return $this->cache->fetch($class);
+    }
+
+    public function getMetaChoices(ClassMetadata $metadata, $associationName = null)
+    {
+        $choices = array();
+
+        if($associationName) {
+            foreach ($metadata->getFieldNames() as $fieldName) {
+                $fieldType = $metadata->getTypeOfField($fieldName);
+                $field     = sprintf('%s.%s', $associationName, $fieldName);
+                $choices[$field] = sprintf('%s (%s)',$field,$fieldType);
+            }
+        } else {
+            foreach ($metadata->getFieldNames() as $fieldName) {
+                $choices[$fieldName] = sprintf('%s (%s)',$fieldName,$metadata->getTypeOfField($fieldName));
+            }
+        }
+
+        ksort($choices);
+
+        return $choices;
     }
 }
