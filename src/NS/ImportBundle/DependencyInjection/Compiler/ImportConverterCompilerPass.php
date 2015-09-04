@@ -13,24 +13,21 @@ use Symfony\Component\DependencyInjection\Reference;
  */
 class ImportConverterCompilerPass implements CompilerPassInterface
 {
-
     /**
      * {@inheritdoc}
      * @SuppressWarnings(PHPMD.UnusedLocalVariable)
      */
     public function process(ContainerBuilder $container)
     {
-        if (false === $container->hasDefinition('ns_import.converters'))
-        {
+        if (false === $container->hasDefinition('ns_import.converters')) {
             return;
         }
 
         $definition = $container->getDefinition('ns_import.converters');
-        $calls      = $definition->getMethodCalls();
+        $calls = $definition->getMethodCalls();
         $definition->setMethodCalls(array());
 
-        foreach ($container->findTaggedServiceIds('ns_import.converter') as $id => $attributes)
-        {
+        foreach ($container->findTaggedServiceIds('ns_import.converter') as $id => $attributes) {
             $definition->addMethodCall('addConverter', array($id, new Reference($id)));
         }
 
