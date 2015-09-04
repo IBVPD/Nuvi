@@ -17,11 +17,6 @@ class DateRangeConverter extends ConverterStep implements ReporterInterface
     private $message;
 
     /**
-     * @var int
-     */
-    private $severity;
-
-    /**
      * @var \DateTime
      */
     private $lessThanDate;

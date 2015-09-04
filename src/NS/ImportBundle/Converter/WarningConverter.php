@@ -19,7 +19,7 @@ class WarningConverter extends ConverterStep
      */
     public function __invoke($item)
     {
-        foreach($item as $key=>$value) {
+        foreach($item as $value) {
             if($value instanceof ArrayChoice) {
                 if($value->equal(ArrayChoice::OUT_OF_RANGE)) {
                     $item['warning'] = true;
