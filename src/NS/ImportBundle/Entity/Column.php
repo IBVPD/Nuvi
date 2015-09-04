@@ -67,63 +67,102 @@ class Column
         return sprintf("%s-%s (%s)", $this->name, $this->type, $this->order);
     }
 
+    /**
+     * @return int
+     */
     public function getId()
     {
         return $this->id;
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     * @return int
+     */
     public function getOrder()
     {
         return $this->order;
     }
 
+    /**
+     * @return Map
+     */
     public function getMap()
     {
         return $this->map;
     }
 
+    /**
+     * @return string
+     */
     public function getConverter()
     {
         return $this->converter;
     }
 
+    /**
+     * @return bool
+     */
     public function hasConverter()
     {
-        return ($this->converter)?true:false;
+        return ($this->converter) ? true : false;
     }
 
+    /**
+     * @return string
+     */
     public function getMapper()
     {
         return $this->mapper;
     }
 
+    /**
+     * @return bool
+     */
     public function hasMapper()
     {
         return (!empty($this->mapper));
     }
 
+    /**
+     * @return bool
+     */
     public function isIgnored()
     {
         return $this->ignored;
     }
 
+    /**
+     * @param $isIgnored
+     * @return $this
+     */
     public function setIgnored($isIgnored)
     {
         $this->ignored = $isIgnored;
         return $this;
     }
 
+    /**
+     * @param $mapper
+     * @return $this
+     */
     public function setMapper($mapper)
     {
         $this->mapper = $mapper;
         return $this;
     }
 
+    /**
+     * @param $converter
+     * @return $this
+     */
     public function setConverter($converter)
     {
         $this->converter = $converter;
@@ -131,6 +170,10 @@ class Column
         return $this;
     }
 
+    /**
+     * @param Map $map
+     * @return $this
+     */
     public function setMap(Map $map)
     {
         $this->map = $map;
@@ -138,6 +181,10 @@ class Column
         return $this;
     }
 
+    /**
+     * @param $name
+     * @return $this
+     */
     public function setName($name)
     {
         $this->name = $name;
@@ -145,6 +192,10 @@ class Column
         return $this;
     }
 
+    /**
+     * @param $order
+     * @return $this
+     */
     public function setOrder($order)
     {
         $this->order = $order;

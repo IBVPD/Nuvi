@@ -51,6 +51,9 @@ class Map
      */
     private $class;
 
+    /**
+     * @var
+     */
     private $file;
 
     /**
@@ -155,7 +158,7 @@ class Map
     }
 
     /**
-     * 
+     *
      * @return string
      */
     public function getDescription()
@@ -164,7 +167,7 @@ class Map
     }
 
     /**
-     * 
+     *
      * @param string $description
      * @return \NS\ImportBundle\Entity\Map
      */
@@ -306,8 +309,8 @@ class Map
 
         foreach ($this->columns as $col) {
             if ($col->hasMapper()) {
-                $name            = $this->adjustMappingName($col->getName());
-                $target          = $this->adjustMappingTarget($col->getMapper());
+                $name = $this->adjustMappingName($col->getName());
+                $target = $this->adjustMappingTarget($col->getMapper());
                 $mappings[$name] = $target;
             }
         }
@@ -325,8 +328,8 @@ class Map
 
         foreach ($this->columns as $col) {
             if ($col->isIgnored()) {
-                $name            = $this->adjustMappingName($col->getName());
-                $target          = $this->adjustMappingTarget($col->getMapper());
+                $name = $this->adjustMappingName($col->getName());
+                $target = $this->adjustMappingTarget($col->getMapper());
                 $mappings[$name] = $target;
             }
         }
