@@ -64,7 +64,7 @@ class ColumnChooser
             $choices += $this->getMetaChoices($this->entityMgr->getClassMetadata($associationClass),$metaArg);
         }
 
-        return array_merge(array('site'=>'site (Site)'), $choices, $siteChoices, $nlLab, $rrlLab);
+        return $choices;
     }
 
     /**
