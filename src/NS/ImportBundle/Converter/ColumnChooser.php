@@ -61,7 +61,7 @@ class ColumnChooser
 
         foreach(array('siteLab','nationalLab','referenceLab') as $metaArg) {
             $associationClass = $metaData->getAssociationTargetClass($metaArg);
-            $choices += $this->getMetaChoices($associationClass,$metaArg);
+            $choices += $this->getMetaChoices($this->entityMgr->getClassMetadata($associationClass),$metaArg);
         }
 
         return array_merge(array('site'=>'site (Site)'), $choices, $siteChoices, $nlLab, $rrlLab);
