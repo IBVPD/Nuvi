@@ -1,0 +1,72 @@
+{% block PreProcessorType_widget %}
+    {% set prototype = '<div class="formRow"><a class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+            If:
+            <div id="__id__" class="queryBuilder">
+
+            </div>
+            Then:
+            <input type="text" id="__id___value" />
+        </div>'
+    %}
+    {% set id = "queryBuilder_" ~ form.vars.id %}
+    <div class="queryBuilderRow" id="queryBuilder_{{id}}_row">
+        <input type="hidden" id="{{form.vars.id}}" name="{{form.vars.full_name}}" value="{{form.vars.value}}" />
+        {#{{prototype|replace({'__id__':id})|raw}}#}
+        <a class="btn btn-success btn-xs" id="queryBuilder_{{id}}_add"><i class="fa fa-plus"></i></a>
+    </div>
+    <script type="text/javascript">
+        $(function()
+        {
+            var $row = $('#queryBuilder_{{id}}_row');
+            $row.builders = [];
+            var row_count = 1;
+            var qb_conf = {
+                filters: [
+                {% for field in csv_fields %}    
+                {
+                    id: '{{field}}',
+                    label: '{{field|humanize}}',
+                    type: 'string',
+    //                operators: ['equal', 'not_equal', 'in', 'not_in', 'is_null', 'is_not_null']
+                }{{ not loop.last ? ',' }}
+                {% endfor %}
+                ]
+            };
+            
+            var prototype = '{{prototype|replace({"\n":' ', "\r":' '})|raw}}';
+//            $('#{{id}}').queryBuilder(qb_conf);
+//            $row.builders.push($('#{{id}}'));
+            $('#queryBuilder_{{id}}_add').click(function()
+            {
+                var newid = '{{id}}' + row_count++;
+                var row = $(prototype.replace(/__id__/g, newid)); //RegEx because .replace only does single instances
+                $(this).before(row);
+                $('#'+newid).queryBuilder(qb_conf);
+                $row.builders.push($('#'+newid));
+            });
+            
+            $row.closest('form').submit(function()
+            {
+//                submitEvent.stopPropagation();
+                $form = $(this);
+                var formData = [];
+                $row.find('.queryBuilder').each(function()
+                {
+                    $qb = $(this);
+                    var d = {'conditions':$qb.queryBuilder('getRules')};
+                    d.output_value = $('#' + $qb.attr('id') + '_value').val();
+                    
+                    formData.push(d);
+                });
+                
+                $('#{{form.vars.id}}').val(JSON.stringify(formData));
+//                console.log($('#{{form.vars.id}}').val());
+//                $.each($row.builders, function(index, builder)
+//                {
+//                    console.log(builder.queryBuilder('getRules'));
+//                });
+//                return false;
+            });
+        });
+    </script>
+{% endblock %}

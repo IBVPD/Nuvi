@@ -2,6 +2,7 @@
 
     {% block stylesheets %}
         {{parent()}}
+        <link rel="stylesheet" href="{{asset('bundles/nsimport/css/query-builder.default.min.css')}}" />
         <link rel="stylesheet" href="{{asset('bundles/nssentinel/css/main.css')}}" />
     {%endblock %}
 
@@ -12,6 +13,9 @@
             google.load("visualization", "1", {packages:["corechart"]});
             var google_charts   = new Array();
         </script>
+        <script type="text/javascript" src="{{asset('/bundles/nsimport/js/JQuery.extendext.min.js')}}"></script>
+        <script type="text/javascript" src="{{asset('/bundles/nsimport/js/doT.min.js')}}"></script>
+        <script type="text/javascript" src="{{asset('/bundles/nsimport/js/query-builder.min.js')}}"></script>
         <script type="text/javascript" src="{{asset('/bundles/nssentinel/js/main.js')}}"></script>
     {% endblock %}
 

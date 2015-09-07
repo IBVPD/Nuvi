@@ -118,3 +118,8 @@ services:
         arguments: [~, NS\ImportBundle\Entity\Column, SonataAdminBundle:CRUD]
         tags:
             - { name: sonata.admin, manager_type: orm, group: Import/Export, label: Column, show_in_dashboard: false }
+
+    ns_import.form.pre_processor_type:
+        class: NS\ImportBundle\Form\Type\PreProcessorType
+        tags:
+            - { name: form.type, alias: PreProcessorType }
