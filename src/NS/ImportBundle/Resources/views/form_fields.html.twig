@@ -1,17 +1,58 @@
 {% block PreProcessorType_widget %}
-    {% set prototype = '<div class="formRow queryBuilderEntry"><a class="btn btn-danger btn-xs" id="__id___delete"><i class="fa fa-trash"></i></a>
-            If:
-            <div id="__id__" class="queryBuilder">
-
-            </div>
-            Then:
-            <input type="text" id="__id___value" />
-        </div>'
+    {% set prototype = '
+        <tr class="queryBuilderEntry">
+            <td>
+                <a class="btn btn-primary btn-xs" data-toggle="modal" data-target="#__id___modal"><i class="fa fa-pencil-square-o"></i> Modify Conditions</a>
+            </td>
+            <td>
+                <input type="text" id="__id___value" />
+                <div class="modal fade" id="__id___modal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Edit Conditions</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div id="__id__" class="queryBuilder">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" data-dismiss="modal">Continue</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <a class="btn btn-danger btn-xs" id="__id___delete"><i class="fa fa-trash"></i></a>
+            </td>
+        </tr>'
     %}
     {% set id = "queryBuilder_" ~ form.vars.id %}
     <div class="queryBuilderRow" id="queryBuilder_{{id}}_row">
         <input type="hidden" id="{{form.vars.id}}" name="{{form.vars.full_name}}" value="{{form.vars.value}}" />
-        <a class="btn btn-success btn-xs" id="queryBuilder_{{id}}_add"><i class="fa fa-plus"></i></a>
+        <table class="table table-condensed table-striped table-bordered dataTable" id="queryBuilder_{{id}}_data">
+            <thead>
+                <tr id="queryBuilder_{{id}}_header">
+                    <th>Conditions</th>
+                    <th>Output value</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="queryBuilder_{{id}}_placeholder">
+                    <td colspan="3">None set</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3">
+                        <a class="btn btn-success btn-xs pull-right" id="queryBuilder_{{id}}_add"><i class="fa fa-plus"></i> Add new conditions</a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
     </div>
     <script type="text/javascript">
         $(function()
@@ -19,6 +60,7 @@
             var prototype = '{{prototype|replace({"\n":' ', "\r":' '})|raw}}';
             var $row = $('#queryBuilder_{{id}}_row');
             var row_count = 0;
+            var $contentBody = $('#queryBuilder_{{id}}_data tbody');
             var qb_conf = { //define QueryBuilder filters
                 filters: [
                 {% for field in csv_fields %}    
@@ -42,7 +84,7 @@
                 if(rules) //add existing data if applicable
                     conf.rules = rules;
                     
-                $el.before($nrow);
+                $el.append($nrow);
                 $('#'+newid).queryBuilder(conf);
                 
                 if(output_value !== undefined)
@@ -50,6 +92,7 @@
                     $('#'+newid+'_value').val(output_value);
                 }
                 
+                $('#queryBuilder_{{id}}_placeholder').remove();
             
                 $('#'+newid+'_delete').click(function()
                 {
@@ -68,7 +111,7 @@
                 var v = $.parseJSON('{{form.vars.value|raw}}');
                 $.each(v, function(index, conditional)
                 {
-                    newrow($('#queryBuilder_{{id}}_add'), conditional.conditions.rules, conditional.output_value);
+                    newrow($contentBody, conditional.conditions.rules, conditional.output_value);
                 });
             }
             catch(err)
@@ -76,7 +119,7 @@
             
             $('#queryBuilder_{{id}}_add').click(function()
             {
-                newrow($(this));
+                newrow($contentBody);
             });
             
             $row.closest('form').submit(function()
