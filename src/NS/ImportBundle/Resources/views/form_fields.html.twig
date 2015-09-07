@@ -1,5 +1,5 @@
 {% block PreProcessorType_widget %}
-    {% set prototype = '<div class="formRow"><a class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></a>
+    {% set prototype = '<div class="formRow queryBuilderEntry"><a class="btn btn-danger btn-xs" id="__id___delete"><i class="fa fa-trash"></i></a>
             If:
             <div id="__id__" class="queryBuilder">
 
@@ -11,15 +11,16 @@
     {% set id = "queryBuilder_" ~ form.vars.id %}
     <div class="queryBuilderRow" id="queryBuilder_{{id}}_row">
         <input type="hidden" id="{{form.vars.id}}" name="{{form.vars.full_name}}" value="{{form.vars.value}}" />
-        {#{{prototype|replace({'__id__':id})|raw}}#}
         <a class="btn btn-success btn-xs" id="queryBuilder_{{id}}_add"><i class="fa fa-plus"></i></a>
     </div>
     <script type="text/javascript">
         $(function()
         {
+//            console.log('running');
+            var prototype = '{{prototype|replace({"\n":' ', "\r":' '})|raw}}';
             var $row = $('#queryBuilder_{{id}}_row');
-            $row.builders = [];
-            var row_count = 1;
+//            $row.builders = [];
+            var row_count = 0;
             var qb_conf = {
                 filters: [
                 {% for field in csv_fields %}    
@@ -33,21 +34,58 @@
                 ]
             };
             
-            var prototype = '{{prototype|replace({"\n":' ', "\r":' '})|raw}}';
-//            $('#{{id}}').queryBuilder(qb_conf);
-//            $row.builders.push($('#{{id}}'));
+            function newrow($el, rules, output_value)
+            {
+                var conf = qb_conf;
+                var newid = '{{id}}' + row_count++;
+                var $nrow = $(prototype.replace(/__id__/g, newid)); //RegEx because .replace only does single instances
+                
+                if(rules)
+                    conf.rules = rules;
+                    
+                $el.before($nrow);
+                $('#'+newid).queryBuilder(conf);
+//                $row.builders.push($('#'+newid));
+                
+//                var lastIndex = $row.builders.length -1;
+                
+                if(output_value !== undefined)
+                {
+                    $('#'+newid+'_value').val(output_value);
+                }
+                
+            
+                $('#'+newid+'_delete').click(function()
+                {
+                    if(confirm('Are you sure you want to remove this condition?'))
+                    {
+                        $nrow.fadeOut(500, function()
+                        {
+                            $(this).remove();
+                        });
+                    }
+                });
+            }
+            
+            try
+            {
+                var v = $.parseJSON('{{form.vars.value|raw}}');
+                var config = qb_conf;
+                $.each(v, function(index, conditional)
+                {
+                    newrow($('#queryBuilder_{{id}}_add'), conditional.conditions.rules, conditional.output_value);
+                });
+            }
+            catch(err)
+            {}
+            
             $('#queryBuilder_{{id}}_add').click(function()
             {
-                var newid = '{{id}}' + row_count++;
-                var row = $(prototype.replace(/__id__/g, newid)); //RegEx because .replace only does single instances
-                $(this).before(row);
-                $('#'+newid).queryBuilder(qb_conf);
-                $row.builders.push($('#'+newid));
+                newrow($(this));
             });
             
             $row.closest('form').submit(function()
             {
-//                submitEvent.stopPropagation();
                 $form = $(this);
                 var formData = [];
                 $row.find('.queryBuilder').each(function()
@@ -60,12 +98,6 @@
                 });
                 
                 $('#{{form.vars.id}}').val(JSON.stringify(formData));
-//                console.log($('#{{form.vars.id}}').val());
-//                $.each($row.builders, function(index, builder)
-//                {
-//                    console.log(builder.queryBuilder('getRules'));
-//                });
-//                return false;
             });
         });
     </script>

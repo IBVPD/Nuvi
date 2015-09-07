@@ -43,7 +43,7 @@ class Column
 
     /**
      * @var string $preProcessor
-     * @ORM\Column(name="preProcessor",type="string",nullable=true)
+     * @ORM\Column(name="preProcessor",type="string",nullable=true, length=4096)
      */
     private $preProcessor;
 
