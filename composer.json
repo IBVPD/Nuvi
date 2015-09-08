@@ -95,7 +95,6 @@
         }
     },
     "repositories": [ 
-                        { "type": "composer", "url": "http://packages.noblet.ca/" },
                         { "type": "vcs", "url": "https://github.com/gnat42/FOSOAuthServerBundle" },
                         { "type": "vcs", "url": "https://github.com/gnat42/data-import" }
                     ],

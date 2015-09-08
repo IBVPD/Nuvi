@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "381cfcc3673e9874244fe585fdb19dd0",
+    "hash": "e94bd517827ccf2c366d88cc5dd101d7",
     "packages": [
         {
             "name": "adoy/oauth2",
@@ -3137,8 +3137,14 @@
             "target-dir": "NS/AceBundle",
             "source": {
                 "type": "git",
-                "url": "git@gitlab.noblet.ca:nobletsolutions/ace-bundle.git",
+                "url": "https://github.com/NobletSolutions/AceBundle.git",
                 "reference": "a61fe45d6c8c5f638a98d34ba32e2d861f17bfc0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/NobletSolutions/AceBundle/zipball/a61fe45d6c8c5f638a98d34ba32e2d861f17bfc0",
+                "reference": "a61fe45d6c8c5f638a98d34ba32e2d861f17bfc0",
+                "shasum": ""
             },
             "require": {
                 "jms/translation-bundle": "~1.1",
@@ -3159,6 +3165,7 @@
                     "NS\\AceBundle": ""
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "authors": [
                 {
                     "name": "Nathanael David Noblet",
@@ -3178,8 +3185,14 @@
             "target-dir": "NS/FlashBundle",
             "source": {
                 "type": "git",
-                "url": "git@gitlab.noblet.ca:nobletsolutions/flash-bundle.git",
-                "reference": "55d2863777a6623f4114832aa3f2f3506b86e2b0"
+                "url": "https://github.com/NobletSolutions/FlashBundle.git",
+                "reference": "3abaa7da6dfbe12a67e7ad86f959a17a07189d81"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/NobletSolutions/FlashBundle/zipball/3abaa7da6dfbe12a67e7ad86f959a17a07189d81",
+                "reference": "3abaa7da6dfbe12a67e7ad86f959a17a07189d81",
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2",
@@ -3191,6 +3204,10 @@
                     "NS\\FlashBundle": ""
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
             "authors": [
                 {
                     "name": "Nathanael David Noblet",
@@ -3202,7 +3219,7 @@
                 }
             ],
             "description": "This Bundle provides a flash message service and twig renderer",
-            "time": "2015-04-17 23:09:15"
+            "time": "2015-09-08 20:27:44"
         },
         {
             "name": "ns/security-bundle",
@@ -3210,8 +3227,14 @@
             "target-dir": "NS/SecurityBundle",
             "source": {
                 "type": "git",
-                "url": "git@gitlab.noblet.ca:nobletsolutions/security-bundle.git",
-                "reference": "f81e70c3c2285d9a44eb2a706b91cd082954b224"
+                "url": "https://github.com/NobletSolutions/SecurityBundle.git",
+                "reference": "043479a484ef80b7c86fa8e6e81cfeba3f8bea9b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/NobletSolutions/SecurityBundle/zipball/043479a484ef80b7c86fa8e6e81cfeba3f8bea9b",
+                "reference": "043479a484ef80b7c86fa8e6e81cfeba3f8bea9b",
+                "shasum": ""
             },
             "require": {
                 "doctrine/orm": "~2.4",
@@ -3227,6 +3250,10 @@
                     "NS\\SecurityBundle": ""
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
             "authors": [
                 {
                     "name": "Nathanael David Noblet",
@@ -3234,7 +3261,7 @@
                 }
             ],
             "description": "This Bundle provides a basic database row level ACL system",
-            "time": "2015-08-12 20:43:23"
+            "time": "2015-09-08 20:34:51"
         },
         {
             "name": "ns/util-bundle",
@@ -3242,8 +3269,14 @@
             "target-dir": "NS/UtilBundle",
             "source": {
                 "type": "git",
-                "url": "git@gitlab.noblet.ca:nobletsolutions/util-bundle.git",
+                "url": "https://github.com/NobletSolutions/UtilBundle.git",
                 "reference": "5abc9500e4f82f57f494c6bbc26c906065a96cc8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/NobletSolutions/UtilBundle/zipball/5abc9500e4f82f57f494c6bbc26c906065a96cc8",
+                "reference": "5abc9500e4f82f57f494c6bbc26c906065a96cc8",
+                "shasum": ""
             },
             "require": {
                 "ext-mbstring": "*",
@@ -3260,6 +3293,7 @@
                     "NS\\UtilBundle": ""
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "authors": [
                 {
                     "name": "Nathanael David Noblet",
