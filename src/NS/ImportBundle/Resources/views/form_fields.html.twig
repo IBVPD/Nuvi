@@ -68,7 +68,11 @@
                     id: '{{field}}',
                     label: '{{field|humanize}}',
                     type: 'string',
-    //                operators: ['equal', 'not_equal', 'in', 'not_in', 'is_null', 'is_not_null']
+                    operators: [
+                        {% for opr in operators %}
+                            '{{ opr }}'{{ not loop.last ? ',' }}
+                        {% endfor %}
+                    ]
                 }{{ not loop.last ? ',' }}
                 {% endfor %}
                 ]
