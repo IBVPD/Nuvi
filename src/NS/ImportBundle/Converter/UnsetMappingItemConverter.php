@@ -21,6 +21,7 @@ class UnsetMappingItemConverter implements Step
     /**
      * @param array            $mappings
      * @param PropertyAccessor $accessor
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function __construct(array $mappings = [], PropertyAccessor $accessor = null)
     {

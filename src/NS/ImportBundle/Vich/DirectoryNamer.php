@@ -20,6 +20,7 @@ class DirectoryNamer implements DirectoryNamerInterface
      * @param PropertyMapping $mapping The mapping to use to manipulate the given object.
      *
      * @return string The directory name.
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function directoryName($object, PropertyMapping $mapping)
     {

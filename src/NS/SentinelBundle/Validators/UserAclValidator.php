@@ -12,6 +12,11 @@ use \Symfony\Component\Validator\ConstraintValidator;
  */
 class UserAclValidator extends ConstraintValidator
 {
+    /**
+     * @param $value
+     * @param Constraint $constraint
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function validate($value, Constraint $constraint)
     {
         if (count($value->getAcls()) == 0) {
