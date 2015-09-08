@@ -98,10 +98,20 @@
                 
                 if(rules) //add existing data if applicable
                     conf.rules = rules;
+                else
+                {
+                    conf.rules = [{
+                        id: $nameField.val()
+                    }];
+                }
                 
                 $el.append($nrow); //add the new row to the table
                 
                 $('#'+newid).queryBuilder(conf);//init the queryBuilder
+                
+                $('#'+newid).on('afterCreateRuleFilters.queryBuilder', function(e, rule) {
+                    rule.filter = $('#'+newid).queryBuilder('getFilterById', $nameField.val());
+                });
                 
                 if(output_value !== undefined)
                 {
@@ -127,7 +137,6 @@
                 {
                     $('#'+newid+'_modal').modal('show');
                 }
-                
             }
             
             try //Ignore if badly-formed JSON
