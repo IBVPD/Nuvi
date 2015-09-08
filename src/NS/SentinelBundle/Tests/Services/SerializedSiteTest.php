@@ -107,4 +107,42 @@ class SerializedSiteTest extends \PHPUnit_Framework_TestCase
 
         return array($site1, $site2, $site3);
     }
+
+    public function testRegisterSite()
+    {
+        $region = new Region('rId','RegionName','rCode');
+        $country = new Country('cId','CountryName','cCode');
+        $country->setRegion($region);
+        $site = new Site('sId','SiteName');
+        $site->setCountry($country);
+
+        $mockUoW = $this->getMockBuilder('Doctrine\ORM\UnitOfWork')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $mockUoW->expects($this->at(0))
+            ->method('registerManaged')
+            ->with($site,   array('code' => 'sId'), array('code' => 'sId'));
+
+        $mockUoW->expects($this->at(1))
+            ->method('registerManaged')
+            ->with($country, array('id' => 'cId'), array('id' => 'cId', 'code'=>'cCode'));
+
+        $mockUoW->expects($this->at(2))
+            ->method('registerManaged')
+            ->with($region, array('id' => 'rId'), array('id' => 'rId', 'code'=>'rCode'));
+
+        $mockEntityMgr = $this->getMockBuilder('Doctrine\ORM\EntityManager')
+            ->disableOriginalConstructor()
+            ->getMock();
+        $mockEntityMgr->expects($this->once())
+            ->method('getUnitOfWork')
+            ->willReturn($mockUoW);
+
+        $session        = new Session(new MockFileSessionStorage());
+        $session->start();
+
+        $serializedSites = new SerializedSites($session,$mockEntityMgr);
+        $serializedSites->registerSite($site);
+    }
 }
