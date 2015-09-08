@@ -22,7 +22,6 @@ class PreProcessorType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        $view->vars['csv_fields'] = $options['csv_fields'];
         $view->vars['operators'] = $options['operators'];
     }
 
@@ -32,7 +31,6 @@ class PreProcessorType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'csv_fields'     => array('name', 'address', 'phone_number'),
             'operators'     => array('equal', 'not_equal', 'in', 'not_in', 'less', 'less_or_equal', 'greater', 'greater_or_equal', 'is_empty', 'is_null'),
         ));
     }
