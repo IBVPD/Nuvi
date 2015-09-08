@@ -2,25 +2,38 @@
 
 namespace NS\ImportBundle\Converter\Expression;
 
+/**
+ * Class Condition
+ * @package NS\ImportBundle\Converter\Expression
+ */
 class Condition
 {
-    private $rules = array();
+    /**
+     * @var Rule
+     */
+    private $rule;
+
+    /**
+     * @var
+     */
     private $outputValue;
 
-    public function __construct($rules, $value)
+    /**
+     * @param $rules
+     * @param $value
+     */
+    public function __construct($rule, $value)
     {
         $this->outputValue = $value;
-        foreach($rules as $rule) {
-            $this->rules[] = new Rule($rule);
-        }
+        $this->rule = new Rule($rule);
     }
 
     /**
      * @return Rule
      */
-    public function getRules()
+    public function getRule()
     {
-        return $this->rules;
+        return $this->rule;
     }
 
     /**

@@ -1,36 +1,65 @@
 <?php
 
 namespace NS\ImportBundle\Converter\Expression;
+use Doctrine\DBAL\Query\Expression\ExpressionBuilder;
 
+/**
+ * Class Rule
+ * @package NS\ImportBundle\Converter\Expression
+ */
 class Rule
 {
-    const AND_CONDITION = 0;
-    const OR_CONDITION  = 1;
+    const AND_CONDITION = '&&';
+    const OR_CONDITION  = '||';
 
+    /**
+     * @var array
+     */
     private $rules = array();
+
+    /**
+     * @var int
+     */
     private $condition;
+
+    /**
+     * @var string
+     */
     private $field;
+
+    /**
+     * @var string
+     */
     private $operator;
+
+    /**
+     * @var string
+     */
     private $value;
 
+    /**
+     * @var boolean
+     */
+    private $complex = false;
+
+    /**
+     * @param array $json
+     */
     public function __construct(array $json)
     {
         if(isset($json['condition']) && count($json['rules']) > 1)  {
-            $this->condition = ($json['condition'] == 'AND') ? self::AND_CONDITION:self::OR_CONDITION;
+            $this->condition = ($json['condition'] == 'AND') ? self::AND_CONDITION : self::OR_CONDITION;
+            $this->complex = true;
             foreach($json['rules'] as $jsonRule) {
                 $this->rules[] = new Rule($jsonRule);
             }
-        } elseif(isset($json['rules'])) {
-            $rule = &$json['rules'][0];
+        } else {
+            $rule = (isset($json['rules'])) ? $json['rules'][0]: $json;
+
             $this->field = $rule['field'];
             $this->operator = $rule['operator'];
             $this->value = $rule['value'];
-        } else {
-            $this->field = $json['field'];
-            $this->operator = $json['operator'];
-            $this->value = $json['value'];
         }
-        
     }
 
     /**
@@ -71,5 +100,13 @@ class Rule
     public function getValue()
     {
         return $this->value;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isComplex()
+    {
+        return $this->complex;
     }
 }

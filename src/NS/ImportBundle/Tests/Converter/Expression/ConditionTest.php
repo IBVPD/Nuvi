@@ -10,14 +10,14 @@ class ConditionTest extends \PHPUnit_Framework_TestCase
     public $json = '[
            {
               "condition":{
-                 "condition":"AND",
+                 "condition": "OR",
                  "rules":[
-                    { "id":"name", "field":"name", "type":"string", "input":"text","operator":"equal", "value":"Mistic"},
+                    { "id": "name", "field": "name", "type": "string", "input": "text","operator": "equal", "value": "Mistic"},
                     {
-                       "condition":"OR",
+                       "condition": "OR",
                        "rules": [
-                          { "id":"category", "field":"category", "type":"integer", "input":"checkbox", "operator":"in", "value":[ "1", "2" ]},
-                          { "id":"in_stock", "field":"in_stock", "type":"integer", "input":"radio", "operator":"equal", "value":"0"}
+                          { "id": "category", "field": "category", "type": "integer", "input": "checkbox", "operator": "in", "value":[ "1", "2" ]},
+                          { "id": "in_stock", "field": "in_stock", "type": "integer", "input": "radio", "operator": "equal", "value": "0"}
                        ]
                     }
                  ]
@@ -26,14 +26,14 @@ class ConditionTest extends \PHPUnit_Framework_TestCase
            },
            {
               "condition":{
-                 "condition":"AND",
+                 "condition": "AND",
                  "rules":[
-                    { "id":"name", "field":"name", "type":"string", "input":"text", "operator":"equal", "value":"Mistic" },
+                    { "id": "name", "field": "name", "type": "string", "input": "text", "operator": "equal", "value": "Mistic" },
                     {
-                       "condition":"OR",
+                       "condition": "OR",
                        "rules":[
-                          { "id":"category", "field":"category", "type":"integer", "input":"checkbox", "operator":"in", "value":[ "1", "2" ] },
-                          { "id":"in_stock", "field":"in_stock", "type":"integer", "input":"radio", "operator":"equal", "value":"0" }
+                          { "id": "category", "field": "category", "type": "integer", "input": "checkbox", "operator": "in", "value":[ "1", "2" ] },
+                          { "id": "in_stock", "field": "in_stock", "type": "integer", "input": "radio", "operator": "equal", "value": "0" }
                        ]
                     }
                  ]
@@ -42,14 +42,14 @@ class ConditionTest extends \PHPUnit_Framework_TestCase
            },
            {
               "condition":{
-                 "condition":"AND",
+                 "condition": "OR",
                  "rules":[
-                    { "id":"name", "field":"name", "type":"string", "input":"text", "operator":"equal", "value":"Mistic" },
+                    { "id": "name", "field": "name", "type": "string", "input": "text", "operator": "equal", "value": "Mistic" },
                     {
-                       "condition":"OR",
+                       "condition": "OR",
                        "rules":[
-                          { "id":"category", "field":"category", "type":"integer", "input":"checkbox", "operator":"in", "value":[ "1", "2" ] },
-                          { "id":"in_stock", "field":"in_stock", "type":"integer", "input":"radio", "operator":"equal", "value":"0" }
+                          { "id": "category", "field": "category", "type": "integer", "input": "checkbox", "operator": "in", "value":[ "1", "2" ] },
+                          { "id": "in_stock", "field": "in_stock", "type": "integer", "input": "radio", "operator": "equal", "value": "0" }
                        ]
                     }
                  ]
@@ -64,14 +64,18 @@ class ConditionTest extends \PHPUnit_Framework_TestCase
 
         $this->assertCount(3,$json);
         $this->assertArrayHasKey('condition',$json[0]['condition']);
-        $this->assertArrayHasKey('rules',$json[0]['condition'],print_r($json[0]['condition'],true));
+        $this->assertArrayHasKey('rules',$json[0]['condition']);
 
-        $cond = new Condition($json[0]['condition']['rules'],$json[0]['output_value']);
-        $rules = $cond->getRules();
+        $cond = new Condition($json[0]['condition'],$json[0]['output_value']);
+        $this->assertEquals(5,$cond->getOutputValue());
+
+        $rule = $cond->getRule();
+        $this->assertInstanceOf('NS\ImportBundle\Converter\Expression\Rule',$rule);
+        $this->assertEquals(Rule::OR_CONDITION,$rule->getCondition());
+
+        $rules = $rule->getRules();
         $this->assertTrue(is_array($rules));
         $this->assertCount(2,$rules);
-        $this->assertEquals(Rule::AND_CONDITION,$rules[0]->getCondition());
         $this->assertCount(2,$rules[1]->getRules());
-//        $this->fail(print_r($rules,true));
     }
 }

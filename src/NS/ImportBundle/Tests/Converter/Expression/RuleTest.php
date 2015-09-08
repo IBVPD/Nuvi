@@ -28,7 +28,7 @@ class RuleTest extends \PHPUnit_Framework_TestCase
     public function testSimpleRule()
     {
         $json = \json_decode($this->simpleJson,true);
-        $this->assertTrue(is_array($json),gettype($json).' '.json_last_error());
+        $this->assertTrue(is_array($json));
         $this->assertArrayHasKey('rules',$json);
         $this->assertArrayHasKey('condition',$json);
         $this->assertCount(1,$json['rules']);
@@ -37,18 +37,20 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('name',$rule->getField());
         $this->assertEquals('equal',$rule->getOperator());
         $this->assertEquals('Mistic',$rule->getValue());
+        $this->assertFalse($rule->isComplex());
     }
 
     public function testBuildRules()
     {
         $json = \json_decode($this->json,true);
-        $this->assertTrue(is_array($json),gettype($json).' '.json_last_error());
+        $this->assertTrue(is_array($json));
         $this->assertArrayHasKey('rules',$json);
         $this->assertArrayHasKey('condition',$json);
         $this->assertCount(2,$json['rules']);
 
         $rule = new Rule($json);
         $this->assertEquals(Rule::AND_CONDITION,$rule->getCondition());
+        $this->assertTrue($rule->isComplex());
 
         $subRules = $rule->getRules();
         $this->assertCount(2,$subRules);
@@ -58,9 +60,11 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('name',$firstRule->getField());
         $this->assertEquals('equal',$firstRule->getOperator());
         $this->assertEquals('Mistic',$firstRule->getValue());
+        $this->assertFalse($firstRule->isComplex());
 
         $secondRules = $subRules[1];
         $this->assertEquals(Rule::OR_CONDITION,$secondRules->getCondition());
         $this->assertCount(2,$secondRules->getRules());
+        $this->assertTrue($secondRules->isComplex());
     }
 }
