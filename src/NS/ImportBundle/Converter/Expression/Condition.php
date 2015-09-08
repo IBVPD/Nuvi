@@ -16,7 +16,7 @@ class Condition
     /**
      * @var
      */
-    private $outputValue;
+    private $value;
 
     /**
      * @param $rules
@@ -24,7 +24,7 @@ class Condition
      */
     public function __construct($rule, $value)
     {
-        $this->outputValue = $value;
+        $this->value = $value;
         $this->rule = new Rule($rule);
     }
 
@@ -39,8 +39,8 @@ class Condition
     /**
      * @return mixed
      */
-    public function getOutputValue()
+    public function getValue()
     {
-        return $this->outputValue;
+        return $this->value;
     }
 }

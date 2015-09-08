@@ -67,7 +67,7 @@ class ConditionTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('rules',$json[0]['condition']);
 
         $cond = new Condition($json[0]['condition'],$json[0]['output_value']);
-        $this->assertEquals(5,$cond->getOutputValue());
+        $this->assertEquals(5,$cond->getValue());
 
         $rule = $cond->getRule();
         $this->assertInstanceOf('NS\ImportBundle\Converter\Expression\Rule',$rule);
