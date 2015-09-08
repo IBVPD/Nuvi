@@ -50,7 +50,7 @@ class ColumnAdmin extends Admin
             $columns = ($this->getSubject()->getMap()->getClass() == 'NS\SentinelBundle\Entity\IBD')  ? 'ibd_columns':'rota_columns';
         }
         $formMapper
-            ->add('name')
+            ->add('name',null,array('attr'=>array('data-queryBuilder'=>'columnName')))
             ->add('order',null,array('attr'=>array('class'=>'col-xs-3')))
             ->add('preProcessor', 'PreProcessorType')
             ->add('converter', 'ConverterChoice', array('required' => false,'attr'=>array('class'=>'chosen-select')))
