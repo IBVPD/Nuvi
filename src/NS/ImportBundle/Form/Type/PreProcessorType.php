@@ -14,18 +14,12 @@ use \Symfony\Component\Form\FormInterface;
  */
 class PreProcessorType extends AbstractType
 {
-//    private $choices;
-
     /**
-     * Constructor
-     *
-     * @param array $choices
+     * @param FormView $view
+     * @param FormInterface $form
+     * @param array $options
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function __construct()
-    {
-//        $this->choices = $choices;
-    }
-
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $view->vars['operators'] = $options['operators'];
