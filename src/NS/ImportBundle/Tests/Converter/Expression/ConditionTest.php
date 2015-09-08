@@ -9,7 +9,7 @@ class ConditionTest extends \PHPUnit_Framework_TestCase
 {
     public $json = '[
            {
-              "condition":{
+              "conditions":{
                  "condition": "OR",
                  "rules":[
                     { "id": "name", "field": "name", "type": "string", "input": "text","operator": "equal", "value": "Mistic"},
@@ -25,7 +25,7 @@ class ConditionTest extends \PHPUnit_Framework_TestCase
               "output_value":5
            },
            {
-              "condition":{
+              "conditions":{
                  "condition": "AND",
                  "rules":[
                     { "id": "name", "field": "name", "type": "string", "input": "text", "operator": "equal", "value": "Mistic" },
@@ -41,7 +41,7 @@ class ConditionTest extends \PHPUnit_Framework_TestCase
               "output_value":8
            },
            {
-              "condition":{
+              "conditions":{
                  "condition": "OR",
                  "rules":[
                     { "id": "name", "field": "name", "type": "string", "input": "text", "operator": "equal", "value": "Mistic" },
@@ -63,10 +63,10 @@ class ConditionTest extends \PHPUnit_Framework_TestCase
         $json = json_decode($this->json,true);
 
         $this->assertCount(3,$json);
-        $this->assertArrayHasKey('condition',$json[0]['condition']);
-        $this->assertArrayHasKey('rules',$json[0]['condition']);
+        $this->assertArrayHasKey('condition',$json[0]['conditions']);
+        $this->assertArrayHasKey('rules',$json[0]['conditions']);
 
-        $cond = new Condition($json[0]['condition'],$json[0]['output_value']);
+        $cond = new Condition($json[0]['conditions'],$json[0]['output_value']);
         $this->assertEquals(5,$cond->getValue());
 
         $rule = $cond->getRule();
