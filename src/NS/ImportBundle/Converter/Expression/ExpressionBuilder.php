@@ -2,8 +2,15 @@
 
 namespace NS\ImportBundle\Converter\Expression;
 
+/**
+ * Class ExpressionBuilder
+ * @package NS\ImportBundle\Converter\Expression
+ */
 class ExpressionBuilder
 {
+    /**
+     * @var array
+     */
     public $operatorMap = array(
         'equal' => '%s == %s',
         'not_equal' => '%s != %s',
@@ -13,25 +20,21 @@ class ExpressionBuilder
         'less_or_equal' => '%s <= %s',
         'greater' => '%s > %s',
         'greater_or_equal' => '%s >= %s',
-//        {type: 'between',          nb_inputs: 2, multiple: false, apply_to: ['number', 'datetime']},
-//        {type: 'not_between',      nb_inputs: 2, multiple: false, apply_to: ['number', 'datetime']},
-//        {type: 'begins_with',      nb_inputs: 1, multiple: false, apply_to: ['string']},
-//        {type: 'not_begins_with',  nb_inputs: 1, multiple: false, apply_to: ['string']},
-//        {type: 'contains',         nb_inputs: 1, multiple: false, apply_to: ['string']},
-//        {type: 'not_contains',     nb_inputs: 1, multiple: false, apply_to: ['string']},
-//        {type: 'ends_with',        nb_inputs: 1, multiple: false, apply_to: ['string']},
-//        {type: 'not_ends_with',    nb_inputs: 1, multiple: false, apply_to: ['string']},
-//        {type: 'is_empty',         nb_inputs: 0, multiple: false, apply_to: ['string']},
-//        {type: 'is_not_empty',     nb_inputs: 0, multiple: false, apply_to: ['string']},
-//        {type: 'is_null',          nb_inputs: 0, multiple: false, apply_to: ['string', 'number', 'datetime', 'boolean']},
-//        {type: 'is_not_null',      nb_inputs: 0, multiple: false, apply_to: ['string', 'number', 'datetime', 'boolean']}
     );
 
+    /**
+     * @param Condition $condition
+     * @return string
+     */
     public function getExpression(Condition $condition)
     {
         return $this->convertRuleToExpression($condition->getRule());
     }
 
+    /**
+     * @param Rule $rule
+     * @return string
+     */
     public function convertRuleToExpression(Rule $rule)
     {
         if (!$rule->isComplex()) {
@@ -46,16 +49,28 @@ class ExpressionBuilder
         return sprintf('(%s)',implode(sprintf(') %s (',$rule->getCondition()),$rules));
     }
 
+    /**
+     * @param Rule $rule
+     * @return string
+     */
     public function getField(Rule $rule)
     {
         return sprintf('item["%s"]', $rule->getField());
     }
 
+    /**
+     * @param Rule $rule
+     * @return mixed
+     */
     public function getOperator(Rule $rule)
     {
         return $this->operatorMap[$rule->getOperator()];
     }
 
+    /**
+     * @param Rule $rule
+     * @return mixed|string
+     */
     public function getValue(Rule $rule)
     {
         if (is_array($rule->getValue())) {

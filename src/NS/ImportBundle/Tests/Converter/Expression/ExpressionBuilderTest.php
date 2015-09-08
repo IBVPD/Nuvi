@@ -36,7 +36,6 @@ class ExpressionBuilderTest extends \PHPUnit_Framework_TestCase
         $builder = new ExpressionBuilder();
         $expression = $builder->getExpression($condition);
         $this->assertEquals('(item["name"] == Mistic) && ((item["category"] in [1,2]) || (item["in_stock"] == 0))',$expression);
-//        $this->fail($expression);
     }
 
     /**
