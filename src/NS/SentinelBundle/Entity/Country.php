@@ -124,12 +124,15 @@ class Country implements \Serializable
     private $referenceLab;
 
     /**
-     * Constructor
+     * @param null $id
+     * @param null $name
      */
-    public function __construct($name = null)
+    public function __construct($id = null, $name = null, $code = null)
     {
-        $this->name            = $name;
-        $this->sites           = new ArrayCollection();
+        $this->id    = $id;
+        $this->name  = $name;
+        $this->code  = $code;
+        $this->sites = new ArrayCollection();
     }
 
     /**

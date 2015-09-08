@@ -63,6 +63,26 @@ class Region implements \Serializable
     private $countries;
 
     /**
+     * @param null $id
+     * @param null $name
+     */
+    public function __construct($id = null, $name = null, $code = null)
+    {
+        $this->id        = $id;
+        $this->name      = $name;
+        $this->code      = $code;
+        $this->countries = new ArrayCollection();
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->name;
+    }
+
+    /**
      * Get id
      *
      * @return integer 
@@ -99,21 +119,6 @@ class Region implements \Serializable
      * @return string 
      */
     public function getName()
-    {
-        return $this->name;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->countries       = new ArrayCollection();
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
     {
         return $this->name;
     }

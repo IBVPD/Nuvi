@@ -74,7 +74,7 @@ class IBDCaseTest extends \PHPUnit_Framework_TestCase
 
     public function testMinimumRequiredFieldsWithPneunomia()
     {
-        $country = new Country('Test');
+        $country = new Country('tId', 'Test');
         $country->setTracksPneumonia(true);
         $case    = new IBD();
         $case->setCountry($country);
@@ -84,7 +84,7 @@ class IBDCaseTest extends \PHPUnit_Framework_TestCase
 
     public function testMinimumRequiredFieldsWithoutPneunomia()
     {
-        $country = new Country('Test');
+        $country = new Country('tId', 'Test');
         $country->setTracksPneumonia(false);
         $case    = new IBD();
         $case->setCountry($country);
@@ -181,7 +181,7 @@ class IBDCaseTest extends \PHPUnit_Framework_TestCase
     {
         $data     = array();
         $complete = $this->getSingleCompleteCaseWithPneunomia();
-        $country  = new Country('TestCountry');
+        $country  = new Country('tId', 'TestCountry');
         $country->setTracksPneumonia(true);
         $case     = new IBD();
         $case->setCountry($country);
@@ -195,7 +195,7 @@ class IBDCaseTest extends \PHPUnit_Framework_TestCase
     {
         $data     = array();
         $complete = $this->getSingleCompleteCaseWithoutPneunomia();
-        $country  = new Country('TestCountry');
+        $country  = new Country('tId', 'TestCountry');
         $country->setTracksPneumonia(true);
         $case     = new IBD();
         $case->setCountry($country);
@@ -262,7 +262,7 @@ class IBDCaseTest extends \PHPUnit_Framework_TestCase
     {
         $data     = array();
         $complete = $this->getSingleCompleteCaseWithoutPneunomia();
-        $country  = new Country('TestCountry');
+        $country  = new Country('tId', 'TestCountry');
         $country->setTracksPneumonia(false);
         $case     = new IBD();
         $case->setCountry($country);
@@ -287,7 +287,7 @@ class IBDCaseTest extends \PHPUnit_Framework_TestCase
         $data      = array();
         $tripleYes = new TripleChoice(TripleChoice::YES);
         $complete  = $this->getSingleCompleteCaseWithPneunomia();
-        $country   = new Country('TestCountry');
+        $country   = new Country('tId', 'TestCountry');
         $country->setTracksPneumonia(true);
         $case      = new IBD();
         $case->setCountry($country);
@@ -366,7 +366,7 @@ class IBDCaseTest extends \PHPUnit_Framework_TestCase
     private function getSingleCompleteCaseWithPneunomia()
     {
         $tripleNo = new TripleChoice(TripleChoice::NO);
-        $country  = new Country('Test Country');
+        $country  = new Country('tId', 'Test Country');
         $country->setTracksPneumonia(true);
 
         return array(
@@ -422,7 +422,7 @@ class IBDCaseTest extends \PHPUnit_Framework_TestCase
     private function getSingleCompleteCaseWithoutPneunomia()
     {
         $tripleNo = new TripleChoice(TripleChoice::NO);
-        $country  = new Country('Test Country');
+        $country  = new Country('tId', 'Test Country');
         $country->setTracksPneumonia(false);
 
         return array(

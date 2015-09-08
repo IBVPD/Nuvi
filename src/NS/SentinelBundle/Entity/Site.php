@@ -179,6 +179,30 @@ class Site implements \Serializable
     private $totalCases;
 
     /**
+     * Site constructor.
+     * @param string $code
+     * @param string $name
+     */
+    public function __construct($code = null, $name = null)
+    {
+        $this->code = $code;
+        $this->name = $name;
+    }
+
+    /**
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        if(mb_strlen($this->name,'UTF-8') > 20) {
+            return mb_substr($this->name, 0, 31, 'UTF-8') . "...";
+        }
+
+        return $this->name;
+    }
+
+    /**
      * Get id
      *
      * @return integer
@@ -208,18 +232,6 @@ class Site implements \Serializable
 
         return $this;
     }
-
-    /**
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        if(mb_strlen($this->name,'UTF-8') > 20)
-            return mb_substr ($this->name, 0, 31,'UTF-8')."...";
-        else
-            return $this->name;
-    }    
 
     /**
      * Set name
