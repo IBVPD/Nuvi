@@ -56,25 +56,36 @@
     <script type="text/javascript">
         $(function()
         {
+            //Scrape the imported column names.  Only do this once per page
+            if(window.querybuilderFields === undefined)
+            {
+                window.querybuilderFields = [];
+                $('input[data-querybuilder=columnName]').each(function()
+                {
+                    var v = $(this).val();
+                    var qf = {
+                        id: v,
+                        label: v,
+                        type: 'string',
+                        operators: [
+                            {% for opr in operators %}
+                                '{{ opr }}'{{ not loop.last ? ',' }}
+                            {% endfor %}
+                        ]
+                    }
+                    window.querybuilderFields.push(qf);
+                })
+            }
+            
+            //Setup
+            var $dataField = $('#{{form.vars.id}}');
+            var $nameField = $('#' + $dataField.attr('id').replace('preProcessor', 'name'));
             var prototype = '{{prototype|replace({"\n":' ', "\r":' '})|raw}}';
             var $row = $('#queryBuilder_{{id}}_row');
             var row_count = 0;
             var $contentBody = $('#queryBuilder_{{id}}_data tbody');
             var qb_conf = { //define QueryBuilder filters
-                filters: [
-                {% for field in csv_fields %}    
-                {
-                    id: '{{field}}',
-                    label: '{{field|humanize}}',
-                    type: 'string',
-                    operators: [
-                        {% for opr in operators %}
-                            '{{ opr }}'{{ not loop.last ? ',' }}
-                        {% endfor %}
-                    ]
-                }{{ not loop.last ? ',' }}
-                {% endfor %}
-                ]
+                filters: window.querybuilderFields
             };
             
             function newrow($el, rules, output_value, event)
@@ -87,18 +98,19 @@
                 
                 if(rules) //add existing data if applicable
                     conf.rules = rules;
-                    
-                $el.append($nrow);
-                $('#'+newid).queryBuilder(conf);
+                
+                $el.append($nrow); //add the new row to the table
+                
+                $('#'+newid).queryBuilder(conf);//init the queryBuilder
                 
                 if(output_value !== undefined)
                 {
-                    $('#'+newid+'_value').val(output_value);
+                    $('#'+newid+'_value').val(output_value); //Assign the existing output value, if defined in existing data
                 }
                 
-                $('#queryBuilder_{{id}}_placeholder').remove();
+                $('#queryBuilder_{{id}}_placeholder').remove(); //Remove the "None set" message
             
-                $('#'+newid+'_delete').click(function()
+                $('#'+newid+'_delete').click(function() //initialize the delete button
                 {
                     if(confirm('Are you sure you want to remove this condition?'))
                     {
@@ -109,18 +121,18 @@
                     }
                 });
                 
-                $nrow.show();
+                $nrow.show(); //Show the new row
                 
-                if(event)
+                if(event) //Open the modal window that contains the query builder
                 {
                     $('#'+newid+'_modal').modal('show');
-                    console.log($('#'+newid+'_modal'));
                 }
                 
             }
             
-            try
+            try //Ignore if badly-formed JSON
             {
+                //Prepopulate with existing data
                 var v = $.parseJSON('{{form.vars.value|raw}}');
                 $.each(v, function(index, conditional)
                 {
@@ -130,17 +142,17 @@
             catch(err)
             {}
             
-            $('#queryBuilder_{{id}}_add').click(function(event)
+            $('#queryBuilder_{{id}}_add').click(function(event) //Initialize Add New button
             {
                 newrow($contentBody, null, null, event);
             });
             
-            $row.closest('form').submit(function()
+            $row.closest('form').submit(function() //Save the querybuilder data to the form when it's submitted
             {
-                $form = $(this);
                 var formData = [];
                 $row.find('.queryBuilder').each(function()
                 {
+                    //Format output JSON
                     $qb = $(this);
                     var d = {'conditions':$qb.queryBuilder('getRules')};
                     d.output_value = $('#' + $qb.attr('id') + '_value').val();
@@ -148,7 +160,7 @@
                     formData.push(d);
                 });
                 
-                $('#{{form.vars.id}}').val(JSON.stringify(formData));
+                $dataField.val(JSON.stringify(formData));
             });
         });
     </script>
