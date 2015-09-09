@@ -282,12 +282,6 @@ services:
       tags:
         - { name: ns_import.converter }
 
-    ns.sentinel.converter.diagnosis:
-      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
-      arguments: [ NS\SentinelBundle\Form\Types\Diagnosis ]
-      tags:
-        - { name: ns_import.converter }
-
     ns.sentinel.converter.triple_choice:
       class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\TripleChoice ]
