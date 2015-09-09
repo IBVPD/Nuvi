@@ -106,6 +106,14 @@ class Column
     }
 
     /**
+     * @return bool
+     */
+    public function hasPreProcessor()
+    {
+        return !empty($this->preProcessor);
+    }
+
+    /**
      * @return string
      */
     public function getPreProcessor()
