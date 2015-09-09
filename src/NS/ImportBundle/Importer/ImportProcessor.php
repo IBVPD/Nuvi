@@ -2,19 +2,18 @@
 
 namespace NS\ImportBundle\Importer;
 
-use Ddeboer\DataImport\Filter\OffsetFilter;
+use \Ddeboer\DataImport\Filter\OffsetFilter;
 use \Ddeboer\DataImport\Reader\CsvReader;
-use Ddeboer\DataImport\Step\ConverterStep;
+use \Ddeboer\DataImport\Step\ConverterStep;
 use \Ddeboer\DataImport\Workflow;
 use \Ddeboer\DataImport\Reader;
 use \Ddeboer\DataImport\Step\FilterStep;
 use \Ddeboer\DataImport\Step\ValueConverterStep;
-use NS\ImportBundle\Converter\DateRangeConverter;
-use NS\ImportBundle\Converter\NoFutureDateConverter;
-use NS\ImportBundle\Converter\TrimInputConverter;
-use NS\ImportBundle\Converter\WarningConverter;
+use \NS\ImportBundle\Converter\DateRangeConverter;
+use \NS\ImportBundle\Converter\NoFutureDateConverter;
+use \NS\ImportBundle\Converter\TrimInputConverter;
+use \NS\ImportBundle\Converter\WarningConverter;
 use \NS\ImportBundle\Entity\Import;
-use \NS\ImportBundle\Entity\Result;
 use \NS\ImportBundle\Filter\Duplicate;
 use \NS\ImportBundle\Filter\NotBlank;
 use \NS\ImportBundle\Writer\DoctrineWriter;
