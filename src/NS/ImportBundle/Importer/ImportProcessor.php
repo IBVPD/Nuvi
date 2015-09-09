@@ -123,24 +123,24 @@ class ImportProcessor
     public function addSteps(Workflow $workflow, Import $import)
     {
         $offsetFilter = new FilterStep();
-        $offsetFilter->add(new OffsetFilter(0,$this->getLimit(),true));
+        $offsetFilter->add(new OffsetFilter(0, $this->getLimit(), true));
 
         // Move to current position
-        $workflow->addStep($offsetFilter,50);
+        $workflow->addStep($offsetFilter, 80);
 
         // Trim all input
-        $workflow->addStep(new ConverterStep(array(new TrimInputConverter())),45);
+        $workflow->addStep(new ConverterStep(array(new TrimInputConverter())), 70);
 
         $preProcessor = $import->getPreprocessor();
         if ($preProcessor) {
-            $workflow->addStep($preProcessor,42);
+            $workflow->addStep($preProcessor, 60);
         }
 
         // These map column headers i.e site_Code -> site
-        $workflow->addStep($import->getMappings(),40);
+        $workflow->addStep($import->getMappings(), 50);
 
         // These allow us to ignore a column i.e. - region or country_ISO 
-        $workflow->addStep($import->getIgnoredMapper(),30);
+        $workflow->addStep($import->getIgnoredMapper(), 40);
 
         $valueConverter = new ValueConverterStep();
         $valueConverterCount = 0;
@@ -151,7 +151,7 @@ class ImportProcessor
         }
 
         if ($valueConverterCount > 0) {
-            $workflow->addStep($valueConverter,20);
+            $workflow->addStep($valueConverter, 30);
         }
 
         $filterStep = new FilterStep();
@@ -168,7 +168,7 @@ class ImportProcessor
         }
 
         if ($addFilter) {
-            $workflow->addStep($filterStep,10);
+            $workflow->addStep($filterStep, 20);
         }
 
         // Adds warnings for out of range values
@@ -179,9 +179,9 @@ class ImportProcessor
         $start = clone $import->getInputDateStart();
         $start->sub(new \DateInterval('P5Y'));
 
-        $converter->add(new DateRangeConverter($import->getInputDateEnd(),$start));
+        $converter->add(new DateRangeConverter($import->getInputDateEnd(), $start));
 
-        $workflow->addStep($converter,5);
+        $workflow->addStep($converter, 10);
     }
 
     /**
