@@ -823,4 +823,12 @@ class Import
     {
         return $this->map->getClass();
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPreprocessor()
+    {
+        return $this->map->getPreProcessor();
+    }
 }

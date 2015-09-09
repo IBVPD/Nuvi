@@ -847,6 +847,89 @@ class ImportProcessorTest extends WebTestCase
         $this->assertFalse($results[1]->hasWarning());
     }
 
+    /**
+     * @group preprocessor
+     */
+    public function testPreProcessor()
+    {
+        $columns = array(
+            array(
+                'name'      => 'site_CODE',
+                'converter' => 'ns.sentinel.converter.site',
+                'mapper'    => 'site',
+                'ignored'   => false,
+            ),
+            array(
+                'name'      => 'case_ID',
+                'converter' => null,
+                'mapper'    => 'caseId',
+                'ignored'   => false,
+            ),
+            array(
+                'name'      => 'adm_dx',
+                'preProcessor' => '[
+                                     {"conditions":{"condition":"AND","rules":[{"id":"adm_dx","field":"adm_dx","type":"string","input":"text","operator":"equal","value":"1"}]},"output_value":"3"},
+                                     {"conditions":{"condition":"AND","rules":[{"id":"adm_dx","field":"adm_dx","type":"string","input":"text","operator":"equal","value":"2"}]},"output_value":"1"},
+                                     {"conditions":{"condition":"AND","rules":[{"id":"adm_dx","field":"adm_dx","type":"string","input":"text","operator":"equal","value":"3"}]},"output_value":"4"},
+                                     {"conditions":{"condition":"AND","rules":[{"id":"adm_dx","field":"adm_dx","type":"string","input":"text","operator":"equal","value":"4"}]},"output_value":"6"},
+                                     {"conditions":{"condition":"AND","rules":[{"id":"adm_dx","field":"adm_dx","type":"string","input":"text","operator":"equal","value":"9"}]},"output_value":"99"}
+                                   ]',
+                'converter' => 'ns.sentinel.converter.diagnosis',
+                'mapper'    => 'admDx',
+                'ignored'   => false,
+            ),
+            array(
+                'name'      => 'lName',
+                'converter' => null,
+                'mapper'    => 'lastName',
+                'ignored'   => false,
+            ),
+        );
+
+        $file = new File(__DIR__ . '/../Fixtures/IBD-PreProcess.csv');
+        $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
+        $import = new Import($mockUser);
+        $import->setInputDateStart(new \DateTime('2015-08-01'));
+        $import->setInputDateEnd(new \DateTime('2015-08-30'));
+        $import->setSourceFile($file);
+        $import->setMap($this->getIbdMap($columns));
+
+        $processor = new ImportProcessor($this->getContainer());
+        $processor->setDuplicate(new Duplicate(array('getcode' => 'site', 1 => 'caseId')));
+        $writer = $processor->getWriter($import->getClass());
+        $result = $processor->process($import);
+
+        if (count($result->getExceptions()) > 0) {
+            $exceptions = $result->getExceptions();
+            $exceptions->rewind();
+            $object = $exceptions->current();
+
+            $this->fail('Error Count: '.$result->getErrorCount().' '.$object->getMessage());
+        }
+
+        $this->assertEquals(6,$result->getSuccessCount());
+        $results = $writer->getResults();
+        $this->assertInstanceOf('NS\SentinelBundle\Entity\IBD',$results[0]);
+
+        $this->assertInstanceOf('NS\SentinelBundle\Form\Types\Diagnosis',$results[0]->getAdmDx());
+        $this->assertTrue($results[0]->getAdmDx()->equal(3),sprintf('%d != %d',3,$results[0]->getAdmDx()->getValue()));
+
+        $this->assertInstanceOf('NS\SentinelBundle\Form\Types\Diagnosis',$results[1]->getAdmDx());
+        $this->assertTrue($results[1]->getAdmDx()->equal(1),sprintf('%d != %d',1,$results[1]->getAdmDx()->getValue()));
+
+        $this->assertInstanceOf('NS\SentinelBundle\Form\Types\Diagnosis',$results[2]->getAdmDx());
+        $this->assertTrue($results[2]->getAdmDx()->equal(4),sprintf('%d != %d',4,$results[2]->getAdmDx()->getValue()));
+
+        $this->assertInstanceOf('NS\SentinelBundle\Form\Types\Diagnosis',$results[3]->getAdmDx());
+        $this->assertTrue($results[3]->getAdmDx()->equal(6),sprintf('%d != %d',6,$results[3]->getAdmDx()->getValue()));
+
+        $this->assertInstanceOf('NS\SentinelBundle\Form\Types\Diagnosis',$results[4]->getAdmDx());
+        $this->assertTrue($results[4]->getAdmDx()->equal(99),sprintf('%d != %d',99,$results[4]->getAdmDx()->getValue()));
+
+        $this->assertInstanceOf('NS\SentinelBundle\Form\Types\Diagnosis',$results[5]->getAdmDx());
+        $this->assertTrue($results[5]->getAdmDx()->equal(6),sprintf('%d != %d',6,$results[5]->getAdmDx()->getValue()));
+    }
+
     public function getReferenceLabMap(array $columns)
     {
         return $this->getMap('NS\SentinelBundle\Entity\IBD\ReferenceLab', 'IBD Reference Lab', $columns);
@@ -870,6 +953,9 @@ class ImportProcessorTest extends WebTestCase
             $column->setConverter($colArray['converter']);
             $column->setMapper($colArray['mapper']);
             $column->setIgnored($colArray['ignored']);
+            if(isset($colArray['preProcessor'])) {
+                $column->setPreProcessor($colArray['preProcessor']);
+            }
             $map->addColumn($column);
         }
 

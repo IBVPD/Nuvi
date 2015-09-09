@@ -5,7 +5,10 @@ namespace NS\ImportBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use NS\ImportBundle\Converter\Expression\Condition;
+use NS\ImportBundle\Converter\Expression\ExpressionBuilder;
 use NS\ImportBundle\Converter\MappingItemConverter;
+use NS\ImportBundle\Converter\PreprocessorStep;
 use NS\ImportBundle\Converter\UnsetMappingItemConverter;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -336,6 +339,28 @@ class Map
 
         return new UnsetMappingItemConverter($mappings);
 
+    }
+
+    public function getPreProcessor()
+    {
+        $processor = new PreprocessorStep(new ExpressionBuilder());
+        $haveConditions = false;
+
+        foreach($this->columns as $col) {
+            if($col->hasPreProcessor()) {
+                $haveConditions = true;
+                $conditions     = array();
+                $preConditions  = json_decode($col->getPreProcessor(),true);
+
+                foreach($preConditions as $json) {
+                    $conditions[] = new Condition($json['conditions'],$json['output_value']);
+                }
+
+                $processor->add($col->getName(),$conditions);
+            }
+        }
+
+        return ($haveConditions) ? $processor:null;
     }
 
     /**

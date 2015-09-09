@@ -131,6 +131,11 @@ class ImportProcessor
         // Trim all input
         $workflow->addStep(new ConverterStep(array(new TrimInputConverter())),45);
 
+        $preProcessor = $import->getPreprocessor();
+        if ($preProcessor) {
+            $workflow->addStep($preProcessor,42);
+        }
+
         // These map column headers i.e site_Code -> site
         $workflow->addStep($import->getMappings(),40);
 
