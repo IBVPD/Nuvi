@@ -36,12 +36,6 @@ class Column
     private $name;
 
     /**
-     * @var integer $type
-     * @ORM\Column(name="orderCol",type="integer")
-     */
-    private $order;
-
-    /**
      * @var string $preProcessor
      * @ORM\Column(name="preProcessor",type="string",nullable=true, length=4096)
      */
@@ -87,14 +81,6 @@ class Column
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * @return int
-     */
-    public function getOrder()
-    {
-        return $this->order;
     }
 
     /**
@@ -220,17 +206,6 @@ class Column
     public function setName($name)
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @param $order
-     * @return $this
-     */
-    public function setOrder($order)
-    {
-        $this->order = $order;
 
         return $this;
     }

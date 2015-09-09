@@ -18,7 +18,6 @@ class ColumnAdmin extends Admin
     {
         $datagridMapper
             ->add('name')
-            ->add('order')
         ;
     }
 
@@ -29,7 +28,6 @@ class ColumnAdmin extends Admin
     {
         $listMapper
             ->add('name')
-            ->add('order')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show'   => array(),
@@ -52,7 +50,6 @@ class ColumnAdmin extends Admin
 
         $formMapper
             ->add('name',null,array('attr'=>array('data-queryBuilder'=>'columnName')))
-            ->add('order',null,array('attr'=>array('class'=>'col-xs-3')))
             ->add('preProcessor', 'PreProcessorType')
             ->add('converter', 'ConverterChoice', array('required' => false,'attr'=>array('class'=>'chosen-select')))
             ->add('mapper',$columns,array('required'=>false))
@@ -67,7 +64,6 @@ class ColumnAdmin extends Admin
     {
         $showMapper
             ->add('name')
-            ->add('order')
             ->add('converter')
             ->add('mapper')
             ->add('ignored')

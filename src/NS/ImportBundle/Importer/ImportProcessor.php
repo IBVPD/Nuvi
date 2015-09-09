@@ -107,8 +107,8 @@ class ImportProcessor
         $columns = $import->getMap()->getColumns();
 
         foreach ($columns as $column) {
-            if ($column->getName() != $fields[$column->getOrder()]) {
-                throw new \InvalidArgumentException(sprintf("%s != %s probably the wrong file or missing headers", $fields[$column->getOrder()], $column->getName()));
+            if (!in_array($column->getName(),$fields)) {
+                throw new \InvalidArgumentException(sprintf("Missing field '%s'! Perhaps you've uploaded the wrong file?", $column->getName()));
             }
         }
 

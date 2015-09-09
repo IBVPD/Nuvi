@@ -77,11 +77,10 @@ class MapBuilder
         $csvReader->setHeaderRowNumber(0);
         $headers   = $csvReader->getColumnHeaders();
 
-        foreach ($headers as $index => $name) {
+        foreach ($headers as $name) {
             $column = new Column();
 
             $column->setName($name);
-            $column->setOrder($index);
             $column->setMap($map);
             $this->updateMapper($column, $name);
 

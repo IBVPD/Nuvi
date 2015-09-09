@@ -45,7 +45,6 @@ class MappingItemConverterTest extends \PHPUnit_Framework_TestCase
 
         foreach ($columns as $index => $colArray) {
             $column = new Column();
-            $column->setOrder($index);
             $column->setName($colArray['name']);
             $column->setConverter($colArray['converter']);
             $column->setMapper($colArray['mapper']);

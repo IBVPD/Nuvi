@@ -17,7 +17,7 @@ class MapRepository extends EntityRepository
      */
     public function getWithColumnsQuery()
     {
-        return $this->createQueryBuilder('m')->addSelect('c')->leftJoin('m.columns', 'c')->orderBy('m.name', 'ASC')->addOrderBy('m.version', 'ASC')->addOrderBy('c.order');
+        return $this->createQueryBuilder('m')->addSelect('c')->leftJoin('m.columns', 'c')->orderBy('m.name', 'ASC')->addOrderBy('m.version', 'ASC');
     }
 
     /**

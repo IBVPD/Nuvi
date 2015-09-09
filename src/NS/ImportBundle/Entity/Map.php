@@ -62,7 +62,6 @@ class Map
     /**
      * @var Collection $columns
      * @ORM\OneToMany(targetEntity="Column",mappedBy="map", fetch="EAGER",cascade={"persist"}, orphanRemoval=true)
-     * @ORM\OrderBy({"order" = "ASC"})
      */
     private $columns;
 

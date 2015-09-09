@@ -41,42 +41,6 @@ class ImportProcessorTest extends WebTestCase
     /**
      * @expectedException InvalidArgumentException
      */
-    public function testOutOfOrderReader()
-    {
-        $file    = new File(__DIR__ . '/../Fixtures/IBD-BadHeader.csv');
-        $columns = array(
-            array(
-                'name'      => 'Col1',
-                'converter' => null,
-                'mapper'    => null,
-                'ignored'   => true,
-            ),
-            array(
-                'name'      => 'Col3',
-                'converter' => '',
-                'mapper'    => '',
-                'ignored'   => false,
-            ),
-            array(
-                'name'      => 'Col2',
-                'converter' => null,
-                'mapper'    => '',
-                'ignored'   => false,
-            ),
-        );
-
-        $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
-        $import = new Import($mockUser);
-        $import->setSourceFile($file);
-        $import->setMap($this->getIbdMap($columns));
-
-        $processor = $this->getContainer()->get('ns_import.processor');
-        $processor->getReader($import);
-    }
-
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testExtraColumnReader()
     {
         $file    = new File(__DIR__ . '/../Fixtures/IBD-BadHeader.csv');
@@ -946,9 +910,8 @@ class ImportProcessorTest extends WebTestCase
         $map->setName($name);
         $map->setClass($class);
 
-        foreach ($columns as $index => $colArray) {
+        foreach ($columns as $colArray) {
             $column = new Column();
-            $column->setOrder($index);
             $column->setName($colArray['name']);
             $column->setConverter($colArray['converter']);
             $column->setMapper($colArray['mapper']);
