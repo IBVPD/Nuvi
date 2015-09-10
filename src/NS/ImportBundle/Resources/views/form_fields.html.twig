@@ -5,19 +5,22 @@
                 <a class="btn btn-primary btn-xs" data-toggle="modal" id="#__id___modal_trigger" data-target="#__id___modal"><i class="fa fa-pencil-square-o"></i> Modify Conditions</a>
             </td>
             <td>
-                <input type="text" id="__id___value" />
-                <div class="modal fade" id="__id___modal">
+                <input type="text" class="outputValue" id="__id___value" />
+                <div class="modal fade queryModal" id="__id___modal">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                 <h4 class="modal-title">Edit Conditions</h4>
                             </div>
                             <div class="modal-body">
+                                <input type="hidden" class="valueHolder" id="__id___valueHolder" />
                                 <div id="__id__" class="queryBuilder">
                                 </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" data-dismiss="modal">Continue</button>
+                            <div class="modal-footer clearfix">
+                                <button type="button" class="btn btn-warning pull-left" data-dismiss="modal"><i class="fa fa-undo"></i> Cancel</button>
+                                <button type="button" class="btn btn-primary pull-right" data-dismiss="modal"><i class="fa fa-arrow-right"></i> Continue</button>
                             </div>
                         </div>
                     </div>
@@ -54,12 +57,14 @@
         </table>
     </div>
     <script type="text/javascript">
-        $(function()
+        $(function() //Closure so the vars we define here are scoped only to this instance of the formType
         {
             //Scrape the imported column names.  Only do this once per page
             if(window.querybuilderFields === undefined)
             {
                 window.querybuilderFields = [];
+                
+                //define default QueryBuilder filters
                 $('input[data-querybuilder=columnName]').each(function()
                 {
                     var v = $(this).val();
@@ -84,7 +89,8 @@
             var $row = $('#queryBuilder_{{id}}_row');
             var row_count = 0;
             var $contentBody = $('#queryBuilder_{{id}}_data tbody');
-            var qb_conf = { //define QueryBuilder filters
+            
+            var qb_conf = { //copy default QueryBuilder filters
                 filters: window.querybuilderFields
             };
             
@@ -107,20 +113,53 @@
                 
                 $el.append($nrow); //add the new row to the table
                 
-                $('#'+newid).queryBuilder(conf);//init the queryBuilder
+                $('#'+newid+'_valueHolder').val(JSON.stringify(conf.rules)); //Copy the current ruleset into the holder field
                 
-                $('#'+newid).on('afterCreateRuleFilters.queryBuilder', function(e, rule) {
-                    rule.filter = $('#'+newid).queryBuilder('getFilterById', $nameField.val());
-                });
-                
+                //Assign the existing output value, if defined in existing data
                 if(output_value !== undefined)
                 {
-                    $('#'+newid+'_value').val(output_value); //Assign the existing output value, if defined in existing data
+                    $('#'+newid+'_value').val(output_value); 
                 }
+                
+                //render the querybuilder when we open the modal
+                $('#'+newid+'_modal').on('show.bs.modal', function()
+                {
+                    try
+                    {
+                        // try to parse the ruleset out of the holder field
+                        conf.rules = JSON.parse($('#'+newid+'_valueHolder').val());
+                    }
+                    catch(e)
+                    {
+                        //use the existing rules
+                    }
+                    
+                    $('#'+newid).queryBuilder(conf);//init the queryBuilder
+                
+                    //set the default field name to whatever column we're working with
+                    $('#'+newid).on('afterCreateRuleFilters.queryBuilder', function(e, rule) {
+                        rule.filter = $('#'+newid).queryBuilder('getFilterById', $nameField.val());
+                    });
+                });
+                
+                //destroy the querybuilder when we close the modal
+                $('#'+newid+'_modal').on('hide.bs.modal', function()
+                {
+                    $('#'+newid).queryBuilder('destroy');
+                });
+                
+                //if modal is closed with the "continue" button, copy the ruleset from the querybuilder to the holder field before we destoy the querybuilder
+                $('#'+newid+'_modal .btn-primary').on('click', function(event)
+                {
+                    var qbRules = $('#'+newid).queryBuilder('getRules');
+                    
+                    $('#'+newid+'_valueHolder').val(JSON.stringify(qbRules));
+                });
                 
                 $('#queryBuilder_{{id}}_placeholder').remove(); //Remove the "None set" message
             
-                $('#'+newid+'_delete').click(function() //initialize the delete button
+                //initialize the delete button
+                $('#'+newid+'_delete').click(function() 
                 {
                     if(confirm('Are you sure you want to remove this condition?'))
                     {
@@ -139,7 +178,8 @@
                 }
             }
             
-            try //Ignore if badly-formed JSON
+            //Read the existing data out of the form
+            try 
             {
                 //Prepopulate with existing data
                 var v = $.parseJSON('{{form.vars.value|raw}}');
@@ -148,27 +188,43 @@
                     newrow($contentBody, conditional.conditions.rules, conditional.output_value);
                 });
             }
-            catch(err)
+            catch(err)//Ignore if badly-formed JSON
             {}
             
-            $('#queryBuilder_{{id}}_add').click(function(event) //Initialize Add New button
+            //Initialize Add New button
+            $('#queryBuilder_{{id}}_add').click(function(event)
             {
                 newrow($contentBody, null, null, event);
             });
             
-            $row.closest('form').submit(function() //Save the querybuilder data to the form when it's submitted
+             //Save the querybuilder data to the form when it's submitted
+            $row.closest('form').submit(function()
             {
                 var formData = [];
-                $row.find('.queryBuilder').each(function()
+                
+                $row.find('.queryBuilderEntry').each(function()
                 {
-                    //Format output JSON
-                    $qb = $(this);
-                    var d = {'conditions':$qb.queryBuilder('getRules')};
-                    d.output_value = $('#' + $qb.attr('id') + '_value').val();
+                    //read the ruleset and output value out of the value holder and output value fields, respectively
+                    $vh = $(this).find('input.valueHolder');
+                    $ov = $(this).find('input.outputValue');
                     
+                    
+                    //Format output JSON
+                    try
+                    {
+                        var d = {'conditions':JSON.parse($vh.val())};
+                        d.output_value = $ov.val();
+                    }
+                    catch(e)
+                    {
+                        var d = {}
+                    }
+                    
+                    //add the final rules to the form data
                     formData.push(d);
                 });
                 
+                //write the processed output from the querybuilder(s) to the form field before we submit it
                 $dataField.val(JSON.stringify(formData));
             });
         });
