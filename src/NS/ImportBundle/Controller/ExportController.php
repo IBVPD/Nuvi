@@ -8,7 +8,7 @@ use \NS\SentinelBundle\Entity\IBD;
 use \NS\SentinelBundle\Entity\RotaVirus;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sonata\CoreBundle\Exporter\Exporter;
 use \Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use \Symfony\Component\Form\FormInterface;
 use \Symfony\Component\HttpFoundation\Request;
@@ -25,7 +25,6 @@ class ExportController extends Controller
 
     /**
      * @Route("/",name="exportIndex")
-     * @Template()
      * @Method(methods={"GET","POST"})
      */
     public function indexAction(Request $request)
@@ -33,7 +32,6 @@ class ExportController extends Controller
         $alias = 'i';
         $params = array('validation_groups' => array('FieldPopulation'), 'include_filter' => false);
         $baseField = array('id', 'site.name', 'country.name', 'region.name');
-
 
         $ibdForm = $this->createForm('IBDReportFilterType', null, $params);
         $ibdForm->handleRequest($request);
@@ -73,7 +71,7 @@ class ExportController extends Controller
             return $this->export('xls', $rotaForm, $query, $fields);
         }
 
-        return array('ibdForm' => $ibdForm->createView(), 'rotaForm' => $rotaForm->createView());
+        return $this->render('NSImportBundle:Export:index.html.twig',array('ibdForm' => $ibdForm->createView(), 'rotaForm' => $rotaForm->createView()));
     }
 
     /**
@@ -85,8 +83,9 @@ class ExportController extends Controller
     {
         foreach ($metas as $sprint => $meta) {
             foreach ($meta->getFieldNames() as $field) {
-                if ($field == 'id')
+                if ($field == 'id') {
                     continue;
+                }
 
                 $fields[] = sprintf($sprint, $field);
             }
@@ -109,6 +108,7 @@ class ExportController extends Controller
         $source = new DoctrineORMQuerySourceIterator($query, $fields);
         $filename = sprintf('export_%s.%s', date('Y_m_d_H_i_s'), $format);
 
-        return $this->get('sonata.admin.exporter')->getResponse($format, $filename, $source);
+        $exporter = new Exporter();
+        return $exporter->getResponse($format, $filename, $source);
     }
 }

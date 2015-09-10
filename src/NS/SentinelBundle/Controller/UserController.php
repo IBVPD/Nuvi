@@ -3,7 +3,6 @@ namespace NS\SentinelBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -17,7 +16,6 @@ class UserController extends Controller
 {
     /**
      * @Route("/profile",name="userProfile")
-     * @Template()
      * @Method(methods={"GET","POST"})
      */
     public function profileAction(Request $request)
@@ -45,6 +43,6 @@ class UserController extends Controller
             return $this->redirect($this->generateUrl('userProfile'));
         }
 
-        return array('form' => $form->createView(),'user'=>$this->getUser());
+        return $this->render('NSSentinelBundle:User:profile.html.twig',array('form' => $form->createView(),'user'=>$this->getUser()));
     }
 }

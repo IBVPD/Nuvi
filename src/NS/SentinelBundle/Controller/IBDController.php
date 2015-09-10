@@ -3,7 +3,6 @@
 namespace NS\SentinelBundle\Controller;
 
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use \Symfony\Component\HttpFoundation\Request;
 
@@ -14,18 +13,16 @@ class IBDController extends BaseCaseController
 {
     /**
      * @Route("/",name="ibdIndex")
-     * @Template()
      * @Method(methods={"GET"})
      */
     public function indexAction(Request $request)
     {
-        return $this->index($request, 'NSSentinelBundle:IBD', 'ibd_filter_form');
+        return $this->render('NSSentinelBundle:IBD:index.html.twig',$this->index($request, 'NSSentinelBundle:IBD', 'ibd_filter_form'));
     }
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @Route("/create",name="ibdCreate")
-     * @Template()
      * @Method({"POST"})
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
@@ -36,54 +33,56 @@ class IBDController extends BaseCaseController
 
     /**
      * @Route("/edit/{id}",name="ibdEdit",defaults={"id"=null})
-     * @Template()
      * @Method(methods={"GET","POST"})
      */
     public function editAction(Request $request, $id = null)
     {
-        return $this->edit($request, 'ibd', "ibdIndex", "ibdEdit", $id);
+        return $this->render('NSSentinelBundle:IBD:edit.html.twig',$this->edit($request, 'ibd', "ibdIndex", "ibdEdit", $id));
     }
 
     /**
      * @Route("/rrl/edit/{id}",name="ibdRRLEdit",defaults={"id"=null})
-     * @Template("NSSentinelBundle:IBD:editBaseLab.html.twig")
      * @Method(methods={"GET","POST"})
      */
     public function editRRLAction(Request $request, $id = null)
     {
-        return $this->edit($request, 'ibd_referencelab', "ibdIndex", "ibdRRLEdit", $id);
+        return $this->render('NSSentinelBundle:IBD:editBaseLab.html.twig',$this->edit($request, 'ibd_referencelab', "ibdIndex", "ibdRRLEdit", $id));
     }
 
     /**
      * @Route("/nl/edit/{id}",name="ibdNLEdit",defaults={"id"=null})
-     * @Template("NSSentinelBundle:IBD:editBaseLab.html.twig")
      * @Method(methods={"GET","POST"})
      */
     public function editNLAction(Request $request, $id = null)
     {
-        return $this->edit($request, 'ibd_nationallab', "ibdIndex", "ibdNLEdit", $id);
+        return $this->render('NSSentinelBundle:IBD:editBaseLab.html.twig',$this->edit($request, 'ibd_nationallab', "ibdIndex", "ibdNLEdit", $id));
     }
 
     /**
      * @Route("/lab/edit/{id}",name="ibdLabEdit",defaults={"id"=null})
-     * @Template()
      * @Method(methods={"GET","POST"})
      */
     public function editLabAction(Request $request, $id = null)
     {
-        return $this->edit($request, 'ibd_lab', "ibdIndex", "ibdLabEdit", $id);
+        return $this->render('NSSentinelBundle:IBD:editLab.html.twig',$this->edit($request, 'ibd_lab', "ibdIndex", "ibdLabEdit", $id));
     }
 
     /**
      * @Route("/outcome/edit/{id}",name="ibdOutcomeEdit",defaults={"id"=null})
-     * @Template()
      * @Method(methods={"GET","POST"})
      */
     public function editOutcomeAction(Request $request, $id = null)
     {
-        return $this->edit($request, 'ibd_outcome', "ibdIndex", "ibdOutcomeEdit", $id);
+        return $this->render('NSSentinelBundle:IBD:editOutcome.html.twig',$this->edit($request, 'ibd_outcome', "ibdIndex", "ibdOutcomeEdit", $id));
     }
 
+    /**
+     * @param $type
+     * @param null $objId
+     * @return \Symfony\Component\Form\Form
+     * @throws \Doctrine\ORM\UnexpectedResultException
+     * @throws \Exception
+     */
     protected function getForm($type, $objId = null)
     {
         $record = null;
@@ -115,12 +114,11 @@ class IBDController extends BaseCaseController
 
     /**
      * @Route("/show/{id}",name="ibdShow")
-     * @Template()
      * @Method(methods={"GET"})
      */
     public function showAction($id)
     {
-        return $this->show('NSSentinelBundle:IBD', $id);
+        return $this->render('NSSentinelBundle:IBD:show.html.twig',$this->show('NSSentinelBundle:IBD', $id));
     }
 
 }

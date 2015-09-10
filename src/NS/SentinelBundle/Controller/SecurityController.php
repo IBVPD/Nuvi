@@ -6,7 +6,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\SecurityContext;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 
 class SecurityController extends Controller
@@ -14,7 +13,6 @@ class SecurityController extends Controller
 
     /**
      * @Route("/login", name="admin_login")
-     * @Template()
      * @Method(methods={"GET"})
      */
     public function loginAction(Request $request)
@@ -29,16 +27,15 @@ class SecurityController extends Controller
             $session->remove(SecurityContext::AUTHENTICATION_ERROR);
         }
 
-        return array(
+        return $this->render('NSSentinelBundle:Security:login.html.twig', array(
             // last username entered by the user
             'last_username' => $session->get(SecurityContext::LAST_USERNAME),
             'error' => $error,
-        );
+        ));
     }
 
     /**
      * @Route("/switchLanguage", name="switchLangugae")
-     * @Template()
      * @Method(methods={"GET"})
      */
     public function switchLanguageAction(Request $request)
@@ -53,7 +50,6 @@ class SecurityController extends Controller
 
     /**
      * @Route("/{_locale}",name="homepage")
-     * @Template()
      * @Method(methods={"GET"})
      */
     public function homepageAction(Request $request)
@@ -62,16 +58,15 @@ class SecurityController extends Controller
         $byCountry = $repo->getByCountry();
         $bySite = $repo->getBySite();
         $byDiagnosis = $repo->getByDiagnosis();
-        $form = $this->createForm('IBDFieldPopulationFilterType', null, array(
-            'site_type' => 'advanced'));
+        $form = $this->createForm('IBDFieldPopulationFilterType', null, array('site_type' => 'advanced'));
         $report = $this->get('ns.sentinel.services.report');
         $cResult = $report->getCulturePositive($request, $form, 'homepage');
 
-        return array(
+        return $this->render('NSSentinelBundle:Security:homepage.html.twig', array(
             'byCountry' => $byCountry,
             'bySite' => $bySite,
             'byDiagnosis' => $byDiagnosis,
-            'cResult' => $cResult['results']);
+            'cResult' => $cResult['results']));
     }
 
     /**

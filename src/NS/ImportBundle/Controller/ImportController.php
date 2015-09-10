@@ -4,7 +4,6 @@ namespace NS\ImportBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use \Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use \Symfony\Component\HttpFoundation\BinaryFileResponse;
 use \Symfony\Component\HttpFoundation\RedirectResponse;
@@ -23,7 +22,6 @@ class ImportController extends Controller
     /**
      * @param Request $request
      * @Route("/",name="importIndex")
-     * @Template()
      * @return array|RedirectResponse
      * @Method(methods={"GET","POST"})
      */
@@ -66,7 +64,7 @@ class ImportController extends Controller
         $query      = $entityMgr->getRepository('NSImportBundle:Import')->getResultsForUser($this->getUser(), 'r');
         $pagination = $paginator->paginate($query, $request->query->get('page', 1), 10);
 
-        return array('form' => $form->createView(), 'results' => $pagination);
+        return $this->render('NSImportBundle:Import:index.html.twig',array('form' => $form->createView(), 'results' => $pagination));
     }
 
     /**
