@@ -2,6 +2,7 @@
 
 namespace NS\ImportBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use \Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -24,6 +25,7 @@ class ImportController extends Controller
      * @Route("/",name="importIndex")
      * @Template()
      * @return array|RedirectResponse
+     * @Method(methods={"GET","POST"})
      */
     public function indexAction(Request $request)
     {
@@ -72,6 +74,7 @@ class ImportController extends Controller
      * @return Response
      *
      * @Route("/status/{id}",name="importStatus",requirements={"id"="\d+"})
+     * @Method(methods={"GET"})
      */
     public function statusAction($id)
     {
@@ -97,6 +100,7 @@ class ImportController extends Controller
      * @Route("/download/{type}/{id}",name="importResultDownload",requirements={"type": "success|errors|warnings|source"})
      * @param $type
      * @param $id
+     * @Method(methods={"GET"})
      * @return BinaryFileResponse
      */
     public function resultDownloadAction($type, $id)

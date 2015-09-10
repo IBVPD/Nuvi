@@ -1,6 +1,7 @@
 <?php
 namespace NS\SentinelBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -17,6 +18,7 @@ class UserController extends Controller
     /**
      * @Route("/profile",name="userProfile")
      * @Template()
+     * @Method(methods={"GET","POST"})
      */
     public function profileAction(Request $request)
     {
