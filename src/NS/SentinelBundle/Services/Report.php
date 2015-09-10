@@ -39,10 +39,10 @@ class Report
      */
     public function __construct(Exporter $exporter, $filter, ObjectManager $entityMgr, RouterInterface $router)
     {
-        $this->exporter  = $exporter;
-        $this->filter    = $filter;
+        $this->exporter = $exporter;
+        $this->filter = $filter;
         $this->entityMgr = $entityMgr;
-        $this->router    = $router;
+        $this->router = $router;
     }
 
     /**
@@ -54,18 +54,18 @@ class Report
      */
     public function numberEnrolled(Request $request, FormInterface $form, $redirectRoute)
     {
-        $alias        = 'c';
+        $alias = 'c';
         $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:IBD')->numberAndPercentEnrolledByAdmissionDiagnosis($alias);
-        $export       = false;
+        $export = false;
 
         $form->handleRequest($request);
 
-        if ($form->isValid())
-        {
-            if ($form->get('reset')->isClicked())
+        if ($form->isValid()) {
+            if ($form->get('reset')->isClicked()) {
                 return new RedirectResponse($this->router->generate($redirectRoute));
-            else
+            } else {
                 $this->filter->addFilterConditions($form, $queryBuilder, $alias);
+            }
 
             $export = ($form->get('export')->isClicked());
         }
@@ -73,8 +73,9 @@ class Report
         $result = new NumberEnrolledResult();
         $result->load($queryBuilder->getQuery()->getResult());
 
-        if ($export)
+        if ($export) {
             return $this->export(new ArraySourceIterator($result->all()), 'csv');
+        }
 
         return array('results' => $result, 'form' => $form->createView());
     }
@@ -88,26 +89,27 @@ class Report
      */
     public function getAnnualAgeDistribution(Request $request, FormInterface $form, $redirectRoute)
     {
-        $export       = false;
-        $alias        = 'i';
+        $export = false;
+        $alias = 'i';
         $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:IBD')->getAnnualAgeDistribution($alias);
 
         $form->handleRequest($request);
-        if ($form->isValid())
-        {
-            if ($form->get('reset')->isClicked())
+        if ($form->isValid()) {
+            if ($form->get('reset')->isClicked()) {
                 return new RedirectResponse($this->router->generate($redirectRoute));
-            else
+            } else {
                 $this->filter->addFilterConditions($form, $queryBuilder, $alias);
+            }
 
             $export = ($form->get('export')->isClicked());
         }
 
-        $result  = $queryBuilder->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult(Query::HYDRATE_SCALAR);
+        $result = $queryBuilder->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult(Query::HYDRATE_SCALAR);
         $results = new AgeDistribution($result);
 
-        if ($export)
+        if ($export) {
             return $this->export(new ArraySourceIterator($results->toArray()), 'xls');
+        }
 
         return array('results' => $results, 'form' => $form->createView());
     }
@@ -115,12 +117,11 @@ class Report
     /**
      *
      * @param array $sites
-     * @param array $results
+     * @param ArrayCollection $results
      */
-    private function populateSites($sites, &$results)
+    private function populateSites($sites, ArrayCollection &$results)
     {
-        foreach ($sites as $values)
-        {
+        foreach ($sites as $values) {
             $fpr = new FieldPopulationResult();
             $fpr->setSite($values[0]->getSite());
             $fpr->setTotalCases($values['totalCases']);
@@ -138,43 +139,42 @@ class Report
      */
     public function getFieldPopulation(Request $request, FormInterface $form, $redirectRoute)
     {
-        $results      = new ArrayCollection();
-        $alias        = 'i';
+        $results = new ArrayCollection();
+        $alias = 'i';
         $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getWithCasesForDate($alias);
 
         $form->handleRequest($request);
-        if ($form->isValid())
-        {
-            if ($form->get('reset')->isClicked())
+        if ($form->isValid()) {
+            if ($form->get('reset')->isClicked()) {
                 return new RedirectResponse($this->router->generate($redirectRoute));
+            }
 
             $this->filter->addFilterConditions($form, $queryBuilder, $alias);
 
             $sites = $queryBuilder->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult();
 
-            if (empty($sites))
+            if (empty($sites)) {
                 return array('sites' => array(), 'form' => $form->createView());
+            }
 
             $this->populateSites($sites, $results);
 
             $ibdRepo = $this->entityMgr->getRepository('NSSentinelBundle:IBD');
             $columns = array(
-                'getCsfCollectedCountBySites'   => 'setCsfCollectedCount',
+                'getCsfCollectedCountBySites' => 'setCsfCollectedCount',
                 'getBloodCollectedCountBySites' => 'setBloodCollectedCount',
-                'getBloodResultCountBySites'    => 'setBloodResultCount',
-                'getCsfBinaxDoneCountBySites'   => 'setCsfBinaxDoneCount',
+                'getBloodResultCountBySites' => 'setBloodResultCount',
+                'getCsfBinaxDoneCountBySites' => 'setCsfBinaxDoneCount',
                 'getCsfBinaxResultCountBySites' => 'setCsfBinaxResultCount',
-                'getCsfLatDoneCountBySites'     => 'setCsfLatDoneCount',
-                'getCsfLatResultCountBySites'   => 'setCsfLatResultCount',
-                'getCsfPcrCountBySites'         => 'setCsfPcrRecordedCount',
-                'getCsfSpnCountBySites'         => 'setCsfSpnRecordedCount',
-                'getCsfHiCountBySites'          => 'setCsfHiRecordedCount',
-                'getPcrPositiveCountBySites'    => 'setPcrPositiveCount');
+                'getCsfLatDoneCountBySites' => 'setCsfLatDoneCount',
+                'getCsfLatResultCountBySites' => 'setCsfLatResultCount',
+                'getCsfPcrCountBySites' => 'setCsfPcrRecordedCount',
+                'getCsfSpnCountBySites' => 'setCsfSpnRecordedCount',
+                'getCsfHiCountBySites' => 'setCsfHiRecordedCount',
+                'getPcrPositiveCountBySites' => 'setPcrPositiveCount');
 
-            foreach ($columns as $f => $pf)
-            {
-                if (method_exists($ibdRepo, $f))
-                {
+            foreach ($columns as $f => $pf) {
+                if (method_exists($ibdRepo, $f)) {
                     $query = $ibdRepo->$f($alias, $results->getKeys());
 
                     $res = $this->filter
@@ -186,8 +186,7 @@ class Report
                 }
             }
 
-            if ($form->get('export')->isClicked())
-            {
+            if ($form->get('export')->isClicked()) {
                 $fields = array(
                     'site.country.region',
                     'site.country',
@@ -223,17 +222,18 @@ class Report
 
     /**
      *
-     * @param array $results
+     * @param ArrayCollection $results
      * @param array $counts
      * @param callback $function
      */
-    private function processColumn($results, $counts, $function)
+    private function processColumn(ArrayCollection $results, $counts, $function)
     {
-        foreach ($counts as $c)
-        {
+        foreach ($counts as $c) {
             $fpr = $results->get($c['code']);
-            if ($fpr && method_exists($fpr, $function)) // this should always be true.
+            // this should always be true.
+            if ($fpr && method_exists($fpr, $function)) {
                 call_user_func(array($fpr, $function), $c['caseCount']);
+            }
         }
     }
 
@@ -246,20 +246,18 @@ class Report
      */
     public function getCulturePositive(Request $request, FormInterface $form, $redirectRoute)
     {
-        $alias          = 'c';
-        $repo           = $this->entityMgr->getRepository('NSSentinelBundle:IBD');
+        $alias = 'c';
+        $repo = $this->entityMgr->getRepository('NSSentinelBundle:IBD');
         $cultPositiveQB = $repo->getCountByCulture($alias, true, null, null);
         $cultNegativeQB = $repo->getCountByCulture($alias, false, true, null);
-        $pcrPositiveQB  = $repo->getCountByCulture($alias, false, false, true);
+        $pcrPositiveQB = $repo->getCountByCulture($alias, false, false, true);
 
         $form->handleRequest($request);
 
-        if ($form->isValid())
-        {
-            if ($form->get('reset')->isClicked())
+        if ($form->isValid()) {
+            if ($form->get('reset')->isClicked()) {
                 return new RedirectResponse($this->router->generate($redirectRoute));
-            else
-            {
+            } else {
                 $this->filter->addFilterConditions($form, $cultPositiveQB, $alias);
                 $this->filter->addFilterConditions($form, $cultNegativeQB, $alias);
                 $this->filter->addFilterConditions($form, $pcrPositiveQB, $alias);
@@ -268,11 +266,12 @@ class Report
 
         $culturePositive = $cultPositiveQB->groupBy('theYear')->getQuery()->getResult();
         $cultureNegative = $cultNegativeQB->groupBy('theYear')->getQuery()->getResult();
-        $pcrPositive     = $pcrPositiveQB->groupBy('theYear')->getQuery()->getResult();
-        $results         = new CulturePositive($culturePositive, $cultureNegative, $pcrPositive);
+        $pcrPositive = $pcrPositiveQB->groupBy('theYear')->getQuery()->getResult();
+        $results = new CulturePositive($culturePositive, $cultureNegative, $pcrPositive);
 
-        if ($form->get('export')->isClicked())
+        if ($form->get('export')->isClicked()) {
             return $this->export(new ArraySourceIterator($results->toArray()));
+        }
 
         return array('results' => $results, 'form' => $form->createView());
     }

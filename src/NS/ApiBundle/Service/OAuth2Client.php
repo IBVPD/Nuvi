@@ -49,8 +49,7 @@ class OAuth2Client extends \Twig_Extension
     public function setRemote(Remote $remote)
     {
         $this->remote = $remote;
-    
-        $this->client = new Client($remote->getClientId(),$remote->getClientSecret());
+        $this->client = new Client($remote->getClientId(), $remote->getClientSecret());
         $this->client->setAccessTokenType(Client::ACCESS_TOKEN_BEARER);
 
         return $this;
@@ -65,8 +64,9 @@ class OAuth2Client extends \Twig_Extension
      */
     public function getAuthenticationUrl(Client $client = null, Remote $remote = null)
     {
-        if($client !== null && $remote == null || $client == null && $remote !== null)
+        if ($client !== null && $remote === null || $client === null && $remote !== null) {
             throw new \UnexpectedValueException("You can't provide only one parameter. Either pass two or none");
+        }
 
         return ($client) ? $client->getAuthenticationUrl($remote->getAuthEndpoint(), $remote->getRedirectUrl()) : $this->client->getAuthenticationUrl($this->remote->getAuthEndpoint(), $this->remote->getRedirectUrl());
     }
@@ -91,8 +91,9 @@ class OAuth2Client extends \Twig_Extension
      */
     public function getAccessTokenByRefreshToken()
     {
-        if(!$this->remote->hasRefreshToken())
+        if (!$this->remote->hasRefreshToken()) {
             throw new \RuntimeException("No refresh token");
+        }
 
         $this->getAccessToken(Client::GRANT_TYPE_REFRESH_TOKEN, array('refresh_token' => $this->remote->getRefreshToken()));
 
@@ -121,8 +122,7 @@ class OAuth2Client extends \Twig_Extension
     {
         $response = $this->client->getAccessToken($this->remote->getTokenEndpoint(), $grant, $params);
 
-        if(isset($response['result']) && isset($response['result']['access_token']))
-        {
+        if (isset($response['result']) && isset($response['result']['access_token'])) {
             $this->remote->updateFromArray($response['result']);
             $this->entityMgr->persist($this->remote);
             $this->entityMgr->flush();
@@ -130,7 +130,7 @@ class OAuth2Client extends \Twig_Extension
             return;
         }
 
-        throw new Exception(sprintf('Unable to obtain Access Token. Response from the Server: "%s"', var_export($response,true)));
+        throw new Exception(sprintf('Unable to obtain Access Token. Response from the Server: "%s"', var_export($response, true)));
     }
 
     /**
@@ -140,14 +140,14 @@ class OAuth2Client extends \Twig_Extension
      */
     public function fetch($url)
     {
-        if($this->remote->isExpired())
+        if ($this->remote->isExpired()) {
             $this->getAccessTokenByRefreshToken();
+        }
 
         $this->client->setAccessToken($this->remote->getAccessToken());
         $results = array($this->client->fetch($url));
 
-        if ($results[0]['code'] == Codes::HTTP_UNAUTHORIZED)
-        {
+        if ($results[0]['code'] == Codes::HTTP_UNAUTHORIZED) {
             $this->getAccessTokenByRefreshToken();
             $this->client->setAccessToken($this->remote->getAccessToken());
 
@@ -164,12 +164,13 @@ class OAuth2Client extends \Twig_Extension
      */
     public function getAuthenticationPath(Remote $remote = null)
     {
-        if ($remote == null && $this->remote)
+        if ($remote === null && $this->remote) {
             $remote = $this->remote;
+        }
 
-        $client = new Client($remote->getClientId(),$remote->getClientSecret());
+        $client = new Client($remote->getClientId(), $remote->getClientSecret());
 
-        return $this->getAuthenticationUrl($client,$remote);
+        return $this->getAuthenticationUrl($client, $remote);
     }
 
     /**
@@ -179,7 +180,7 @@ class OAuth2Client extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'oauth_authenticate_path' => new \Twig_Function_Method($this, 'getAuthenticationPath',array('is_safe'=>array('html'))),
+            'oauth_authenticate_path' => new \Twig_Function_Method($this, 'getAuthenticationPath', array('is_safe' => array('html'))),
         );
     }
 

@@ -61,13 +61,13 @@ class ImportResultUpdater
     }
 
     /**
-     * @param $reports
+     * @param \SplFileObject $reports
      * @param \SplFileObject $writer
-     * @param int $severity
-     * @param boolean $writeHeader
+     * @param int            $severity
+     * @param boolean        $writeHeader
      * @return int
      */
-    public function buildLog($reports, \SplFileObject $writer, $severity = null, $writeHeader = false)
+    public function buildLog(\SplFileObject $reports, \SplFileObject $writer, $severity = null, $writeHeader = false)
     {
         $rowCount = 0;
         $first = true;

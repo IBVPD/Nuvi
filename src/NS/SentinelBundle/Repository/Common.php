@@ -14,24 +14,38 @@ use \NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
  */
 class Common extends SecuredEntityRepository implements AjaxAutocompleteRepositoryInterface
 {
-
+    /**
+     * @param QueryBuilder $queryBuilder
+     * @return QueryBuilder
+     */
     public function secure(QueryBuilder $queryBuilder)
     {
         return $this->hasSecuredQuery() ? parent::secure($queryBuilder) : $queryBuilder;
     }
 
+    /**
+     * @param string $alias
+     * @return QueryBuilder
+     */
     public function getAllSecuredQueryBuilder($alias = 'o')
     {
         return $this->secure($this->createQueryBuilder($alias)->orderBy("$alias.name", "ASC"));
     }
 
+    /**
+     * @param $fields
+     * @param array $value
+     * @param $limit
+     * @return \Doctrine\ORM\Query
+     */
     public function getForAutoComplete($fields, array $value, $limit)
     {
-        $alias        = 'd';
+        $alias = 'd';
         $queryBuilder = $this->createQueryBuilder($alias)->setMaxResults($limit);
 
-        if (!empty($value) && $value['value'][0] == '*')
+        if (!empty($value) && $value['value'][0] == '*') {
             return $queryBuilder->getQuery();
+        }
 
         if (!empty($value)) {
             if (is_array($fields)) {
@@ -40,8 +54,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
                     $queryBuilder->addOrderBy($field)
                         ->orWhere("$field LIKE :param")->setParameter('param', $value['value'] . '%');
                 }
-            }
-            else {
+            } else {
                 $field = "$alias.$fields";
                 $queryBuilder->orderBy($field)->andWhere("$field LIKE :param")->setParameter('param', $value['value'] . '%');
             }
@@ -50,9 +63,15 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
         return $queryBuilder->getQuery();
     }
 
+    /**
+     * @param $caseId
+     * @param null $objId
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function findOrCreate($caseId, $objId = null)
     {
-        if ($objId == null && $caseId == null) {
+        if ($objId === null && $caseId === null) {
             throw new \InvalidArgumentException("Id or Case must be provided");
         }
 
@@ -64,13 +83,13 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
             ->where('m.caseId = :caseId')
             ->setParameter('caseId', $caseId);
 
-        if ($objId)
+        if ($objId) {
             $queryBuilder->orWhere('m.id = :id')->setParameter('id', $objId);
+        }
 
         try {
             return $this->secure($queryBuilder)->getQuery()->getSingleResult();
-        }
-        catch (NoResultException $exception) {
+        } catch (NoResultException $exception) {
             $cls = $this->getClassName();
             $res = new $cls();
             $res->setCaseId($caseId);
@@ -79,13 +98,18 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
         }
     }
 
+    /**
+     * @param array $params
+     * @return mixed|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function findWithRelations(array $params)
     {
         $qb = $this->createQueryBuilder('c')
             ->addSelect('sl,rl,nl')
             ->leftJoin('c.siteLab', 'sl')
             ->leftJoin('c.referenceLab', 'rl')
-            ->leftJoin('c.nationalLab','nl');
+            ->leftJoin('c.nationalLab', 'nl');
 
         foreach ($params as $field => $value) {
             $param = sprintf("%sField", $field);
@@ -94,10 +118,8 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
 
         try {
             return $qb->getQuery()->getSingleResult();
-        }
-        catch (NoResultException $e) {
+        } catch (NoResultException $e) {
             return null;
         }
     }
-
 }

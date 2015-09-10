@@ -13,27 +13,44 @@ use \NS\SentinelBundle\Form\Types\Role;
 
 class UserAdmin extends Admin
 {
+    /**
+     * @var
+     */
     private $encoderFactory;
+    /**
+     * @var
+     */
     private $securityContext;
 
-    public function setEncoderFactory(EncoderFactoryInterface $factory )
+    /**
+     * @param EncoderFactoryInterface $factory
+     */
+    public function setEncoderFactory(EncoderFactoryInterface $factory)
     {
         $this->encoderFactory = $factory;
     }
 
-    public function setSecurityContext(SecurityContextInterface $securityContext )
+    /**
+     * @param SecurityContextInterface $securityContext
+     */
+    public function setSecurityContext(SecurityContextInterface $securityContext)
     {
         $this->securityContext = $securityContext;
     }
 
+    /**
+     * @param string $name
+     * @return null|string|void
+     */
     public function getTemplate($name)
     {
-        if($name == 'edit')
+        if ($name == 'edit') {
             return 'NSSentinelBundle:Admin:User/edit.html.twig';
-        else
-            return parent::getTemplate($name);
+        }
+
+        return parent::getTemplate($name);
     }
-    
+
     /**
      * @param DatagridMapper $datagridMapper
      */
@@ -46,8 +63,7 @@ class UserAdmin extends Admin
             ->add('canCreateCases')
             ->add('canCreateLabs')
             ->add('canCreateRRLLabs')
-            ->add('canCreateNLLabs')
-        ;
+            ->add('canCreateNLLabs');
     }
 
     /**
@@ -69,8 +85,7 @@ class UserAdmin extends Admin
                     'edit' => array(),
                     'delete' => array(),
                 )
-            ))
-        ;
+            ));
     }
 
     /**
@@ -79,27 +94,26 @@ class UserAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-                ->add('name')
-                ->add('email')
-                ->add('plainPassword','repeated',
-                           array(
-                               'type'            => 'password',
-                               'invalid_message' => 'The password fields must match.',
-                               'options'         => array('attr' => array('class' => 'password-field')),
-                               'required'        => false,
-                               'first_options'   => array('label' => 'Password'),
-                               'second_options'  => array('label' => 'Repeat Password'),
-                               )
-                      )
-                ->add('isActive',null,array('required'=>false))
-                ->add('isAdmin',null,array('required'=>false))
-                ->add('canCreateCases',null,array('required'=>false,'label'=>'admin.form-can-create-case-record'))
-                ->add('canCreateLabs',null,array('required'=>false,'label'=>'admin.form-can-create-sitelab-record'))
-                ->add('canCreateRRLLabs', null, array('required' => false, 'label' => 'admin.form-can-create-reference-lab-record'))
-                ->add('canCreateNLLabs', null, array('required' => false, 'label' => 'admin.form-can-create-national-lab-record'))
+            ->add('name')
+            ->add('email')
+            ->add('plainPassword', 'repeated',
+                array(
+                    'type' => 'password',
+                    'invalid_message' => 'The password fields must match.',
+                    'options' => array('attr' => array('class' => 'password-field')),
+                    'required' => false,
+                    'first_options' => array('label' => 'Password'),
+                    'second_options' => array('label' => 'Repeat Password'),
+                )
+            )
+            ->add('isActive', null, array('required' => false))
+            ->add('isAdmin', null, array('required' => false))
+            ->add('canCreateCases', null, array('required' => false, 'label' => 'admin.form-can-create-case-record'))
+            ->add('canCreateLabs', null, array('required' => false, 'label' => 'admin.form-can-create-sitelab-record'))
+            ->add('canCreateRRLLabs', null, array('required' => false, 'label' => 'admin.form-can-create-reference-lab-record'))
+            ->add('canCreateNLLabs', null, array('required' => false, 'label' => 'admin.form-can-create-national-lab-record'))
             ->add('referenceLab', null, array('required' => false, 'label' => 'admin.form-reference-lab'))
-            ->add('acls', 'sonata_type_collection', array('by_reference' => true), array('edit' => 'inline', 'inline' => 'table'))
-        ;
+            ->add('acls', 'sonata_type_collection', array('by_reference' => true), array('edit' => 'inline', 'inline' => 'table'));
     }
 
     /**
@@ -112,19 +126,21 @@ class UserAdmin extends Admin
             ->add('email')
             ->add('isAdmin')
             ->add('canCreateCases')
-            ->add('canCreateLabs')
-        ;
+            ->add('canCreateLabs');
     }
 
+    /**
+     * @param mixed $user
+     * @return mixed
+     */
     public function prePersist($user)
     {
         $encoder = $this->encoderFactory->getEncoder($user);
 
         $user->resetSalt();
-        $user->setPassword($encoder->encodePassword($user->getPlainPassword(),$user->getSalt()));
+        $user->setPassword($encoder->encodePassword($user->getPlainPassword(), $user->getSalt()));
 
-        if($user->getAcls())
-        {
+        if ($user->getAcls()) {
             foreach ($user->getAcls() as $a) {
                 $a->setUser($user);
             }
@@ -133,13 +149,16 @@ class UserAdmin extends Admin
         return $user;
     }
 
+    /**
+     * @param mixed $user
+     * @return mixed
+     */
     public function preUpdate($user)
     {
         $encoder = $this->encoderFactory->getEncoder($user);
         $plainPw = $user->getPlainPassword();
 
-        if (strlen($plainPw) > 0)
-        {
+        if (strlen($plainPw) > 0) {
             $user->resetSalt();
             $user->setPassword($encoder->encodePassword($plainPw, $user->getSalt()));
         }
@@ -151,29 +170,33 @@ class UserAdmin extends Admin
         return $user;
     }
 
+    /**
+     * @param string $context
+     * @return \Sonata\AdminBundle\Datagrid\ProxyQueryInterface
+     */
     public function createQuery($context = 'list')
     {
-        $query   = parent::createQuery($context);
-        $user    = $this->securityContext->getToken()->getUser();
-        $role    = new Role();
+        $query = parent::createQuery($context);
+        $user = $this->securityContext->getToken()->getUser();
+        $role = new Role();
 
-        if($user->isOnlyAdmin())
-        {
+        if ($user->isOnlyAdmin()) {
             $ralias = $query->getRootAlias();
-            $query->leftJoin("$ralias.acls",'a');
+            $query->leftJoin("$ralias.acls", 'a');
 
             return $query;
         }
 
         $highest = $role->getHighest($this->securityContext->getToken()->getRoles());
 
-        if($highest == null)
+        if ($highest === null) {
             throw new \RuntimeException("Unable to determine highest role");
+        }
 
         $ralias = $query->getRootAlias();
-        $query->leftJoin("$ralias.acls",'a')
-              ->where('a.type >= :type')
-              ->setParameter('type',$highest);
+        $query->leftJoin("$ralias.acls", 'a')
+            ->where('a.type >= :type')
+            ->setParameter('type', $highest);
 
         return $query;
     }

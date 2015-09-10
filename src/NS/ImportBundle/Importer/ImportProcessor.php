@@ -9,7 +9,6 @@ use \Ddeboer\DataImport\Reader;
 use \Ddeboer\DataImport\Step\FilterStep;
 use \Ddeboer\DataImport\Step\ValueConverterStep;
 use \NS\ImportBundle\Converter\DateRangeConverter;
-use \NS\ImportBundle\Converter\NoFutureDateConverter;
 use \NS\ImportBundle\Converter\TrimInputConverter;
 use \NS\ImportBundle\Converter\WarningConverter;
 use \NS\ImportBundle\Entity\Import;
