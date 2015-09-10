@@ -80,6 +80,19 @@ app/console doctrine:schema:create
 On first run of this command or any time new parameters are introduced, it will ask a number of setup questions. Such as
 the DB type, username, password etc.
 
+Configure cronjob
+-------------------
+
+The importation system runs in the background by talking with the beanstalk server. The command checks for a job in the queue. 
+When it finds one or more it will continue to run in batches until all jobs are complete so there is no need to have a short
+interval. We recommend running it every hour. To avoid file permission issues, it should be run as the same user the websever
+runs as in the project root. The command to run is
+
+```shell
+app/console nsimport:run-batch
+```
+which will output the jobs it is working on and will return when complete.
+
 
 Configure Apache
 ================
@@ -123,8 +136,9 @@ If behind a proxy there are additional configuration steps to follow [here](http
 Updates / Moving between releases
 =================================
 
-Releases are marked via git tags. Viewing all releases is possible by running 'git tag -l' within the project root which will
-output something like
+Run 'git fetch origin' periodically to update the repository without changing the local copy of the project. Releases 
+are marked via git tags. Viewing all releases is possible by running 'git tag -l' within the project root which will 
+output
 ```shell
 [gnat@iridium nuvi]$ git tag -l
 0.1.0
