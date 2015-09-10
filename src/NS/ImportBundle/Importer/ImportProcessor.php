@@ -3,7 +3,6 @@
 namespace NS\ImportBundle\Importer;
 
 use \Ddeboer\DataImport\Filter\OffsetFilter;
-use \Ddeboer\DataImport\Reader\CsvReader;
 use \Ddeboer\DataImport\Step\ConverterStep;
 use \Ddeboer\DataImport\Workflow;
 use \Ddeboer\DataImport\Reader;
@@ -18,6 +17,7 @@ use \NS\ImportBundle\Filter\Duplicate;
 use \NS\ImportBundle\Filter\NotBlank;
 use \NS\ImportBundle\Writer\DoctrineWriter;
 use \Symfony\Component\DependencyInjection\ContainerInterface;
+use \NS\ImportBundle\Importer\ReaderFactory;
 
 /**
  * Description of ImportProcessor
@@ -91,14 +91,12 @@ class ImportProcessor
     public function getReader(Import $import)
     {
         // Create and configure the reader
-        $csvReader = new CsvReader($import->getSourceFile()->openFile(), ',');
+        $reader = ReaderFactory::getReader($import->getSourceFile());
+        $reader->setHeaderRowNumber(0);
 
-        // Tell the reader that the first row in the CSV file contains column headers
-        $csvReader->setHeaderRowNumber(0);
+        $import->setSourceCount($reader->count());
 
-        $import->setSourceCount($csvReader->count());
-
-        $fields = $csvReader->getFields();
+        $fields = $reader->getFields();
         $columns = $import->getMap()->getColumns();
 
         foreach ($columns as $column) {
@@ -107,7 +105,7 @@ class ImportProcessor
             }
         }
 
-        return $csvReader;
+        return $reader;
     }
 
     /**

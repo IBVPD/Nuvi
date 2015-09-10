@@ -6,6 +6,7 @@ use \Ddeboer\DataImport\Reader\CsvReader;
 use \Doctrine\ORM\Mapping\ClassMetadata;
 use \NS\ImportBundle\Entity\Column;
 use \NS\ImportBundle\Entity\Map;
+use NS\ImportBundle\Importer\ReaderFactory;
 use \Symfony\Component\Form\AbstractType;
 
 /**
@@ -63,9 +64,7 @@ class MapBuilder
     }
 
     /**
-     *
      * @param Map $map
-     * @param ClassMetadata $metaData
      */
     public function process(Map $map)
     {
@@ -73,9 +72,9 @@ class MapBuilder
             throw new \InvalidArgumentException('Missing either class, site, national or reference lab metadata');
         }
 
-        $csvReader = new CsvReader($map->getFile()->openFile());
-        $csvReader->setHeaderRowNumber(0);
-        $headers   = $csvReader->getColumnHeaders();
+        $reader = ReaderFactory::getReader($map->getFile());
+        $reader->setHeaderRowNumber(0);
+        $headers = $reader->getColumnHeaders();
 
         foreach ($headers as $name) {
             $column = new Column();
