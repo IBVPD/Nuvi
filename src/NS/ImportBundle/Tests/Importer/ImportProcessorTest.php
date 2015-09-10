@@ -171,7 +171,7 @@ class ImportProcessorTest extends WebTestCase
         $writer->prepare();
     }
 
-    public function testnlterIsCalled()
+    public function testDuplicateFilterIsCalled()
     {
         $file    = new File(__DIR__ . '/../Fixtures/IBD-DuplicateRows.csv');
         $columns = array(
