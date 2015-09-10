@@ -15,7 +15,7 @@ use \Symfony\Component\HttpFoundation\Request;
 abstract class BaseCaseController extends Controller
 {
 
-    public function index(Request $request, $class, $filterFormName)
+    protected function index(Request $request, $class, $filterFormName)
     {
         $filterForm = $this->createForm($filterFormName);
         $filterForm->handleRequest($request);
@@ -43,7 +43,7 @@ abstract class BaseCaseController extends Controller
             'createForm' => $createForm);
     }
 
-    public function create(Request $request, $class, $indexRoute, $typeName)
+    protected function create(Request $request, $class, $indexRoute, $typeName)
     {
         $form = $this->createForm('create_case');
         $form->handleRequest($request);
@@ -68,9 +68,9 @@ abstract class BaseCaseController extends Controller
         return $this->redirect($this->generateUrl($indexRoute));
     }
 
-    abstract public function getForm($type, $objId = null);
+    abstract protected function getForm($type, $objId = null);
 
-    public function edit(Request $request, $type, $indexRoute, $editRoute, $objId = null)
+    protected function edit(Request $request, $type, $indexRoute, $editRoute, $objId = null)
     {
         try {
             $form = $this->getForm($type, $objId);
@@ -97,7 +97,7 @@ abstract class BaseCaseController extends Controller
         return array('form' => $form->createView(), 'id' => $objId, 'editRoute' => $editRoute);
     }
 
-    public function show($class, $id)
+    protected function show($class, $id)
     {
         try {
             return array('record' => $this->get('doctrine.orm.entity_manager')->getRepository($class)->get($id));

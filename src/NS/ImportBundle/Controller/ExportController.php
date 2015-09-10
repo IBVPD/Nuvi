@@ -103,7 +103,7 @@ class ExportController extends Controller
      * @param array $fields
      * @return Response
      */
-    public function export($format, FormInterface $form, QueryBuilder $queryBuilder, array $fields)
+    private function export($format, FormInterface $form, QueryBuilder $queryBuilder, array $fields)
     {
         $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $queryBuilder, $queryBuilder->getRootAlias());
 

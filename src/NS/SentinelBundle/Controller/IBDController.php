@@ -78,7 +78,7 @@ class IBDController extends BaseCaseController
         return $this->edit($request, 'ibd_outcome', "ibdIndex", "ibdOutcomeEdit", $id);
     }
 
-    public function getForm($type, $objId = null)
+    protected function getForm($type, $objId = null)
     {
         $record = null;
 

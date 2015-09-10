@@ -77,7 +77,7 @@ class RotaVirusController extends BaseCaseController
         return $this->edit($request, 'rotavirus_outcome', "rotavirusIndex", "rotavirusOutcomeEdit", $id);
     }
 
-    public function getForm($type, $objId = null)
+    protected function getForm($type, $objId = null)
     {
         $record = null;
         if ($objId)
