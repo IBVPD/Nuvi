@@ -66,10 +66,15 @@ Clone the project via git
 git clone https://gitlab.noblet.ca/who/nuvi.git /var/www/local/nuvi
 ```
 
-Install the dependencies. On first run this will
+Install the dependencies. 
 ```shell
 composer install -o
 ```
+
+On first run of this command or any time new parameters are introduced, it will ask a number of setup questions. Such as
+the DB type, username, password etc. One of the important parameter it asks is the 'secret'. It is used for form CSRF 
+protection. It can be set to anything but should be kept private. We often use the output of the uuidgen command available
+on unix servers.
 
 Initiate the database
 ```shell
@@ -77,8 +82,6 @@ app/console doctrine:database:create
 app/console doctrine:schema:create
 ```
 
-On first run of this command or any time new parameters are introduced, it will ask a number of setup questions. Such as
-the DB type, username, password etc.
 
 Configure cronjob
 -------------------
