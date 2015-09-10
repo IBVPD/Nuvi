@@ -57,13 +57,8 @@ class ReaderFactory
             case 'csv':
                 return new CsvReader($file->openFile('r'));
             case 'xls':
-                return new ExcelReader($file->openFile('r'));
-        }
-
-        switch($file->getClientMimeType()) {
-            case 'csv':
-                return new CsvReader($file->openFile('r'));
-            case 'xls':
+            case 'xlsx':
+            case 'ods':
                 return new ExcelReader($file->openFile('r'));
         }
 

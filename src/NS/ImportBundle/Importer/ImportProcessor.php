@@ -31,8 +31,6 @@ class ImportProcessor
     private $notBlankFilter;
     private $doctrineWriter;
 
-    private $memoryLimit = '1024M';
-    private $maxExecutionTime = 190;
     private $limit  = null;
 
     /**
@@ -50,9 +48,6 @@ class ImportProcessor
      */
     public function process(Import $import)
     {
-        ini_set('max_execution_time', $this->maxExecutionTime);
-        ini_set('memory_limit', $this->memoryLimit);
-
         $reader = $this->getReader($import);
         $reader->seek($import->getPosition());
         // Create the workflow from the reader
@@ -182,42 +177,6 @@ class ImportProcessor
         $converter->add(new DateRangeConverter($import->getInputDateEnd(), $start));
 
         $workflow->addStep($converter, 10);
-    }
-
-    /**
-     * @return string
-     */
-    public function getMemoryLimit()
-    {
-        return $this->memoryLimit;
-    }
-
-    /**
-     * @return integer
-     */
-    public function getMaxExecutionTime()
-    {
-        return $this->maxExecutionTime;
-    }
-
-    /**
-     * @param string $memoryLimit
-     * @return \NS\ImportBundle\Services\ImportProcessor
-     */
-    public function setMemoryLimit($memoryLimit)
-    {
-        $this->memoryLimit = $memoryLimit;
-        return $this;
-    }
-
-    /**
-     * @param integer $maxExecutionTime
-     * @return \NS\ImportBundle\Services\ImportProcessor
-     */
-    public function setMaxExecutionTime($maxExecutionTime)
-    {
-        $this->maxExecutionTime = $maxExecutionTime;
-        return $this;
     }
 
     /**

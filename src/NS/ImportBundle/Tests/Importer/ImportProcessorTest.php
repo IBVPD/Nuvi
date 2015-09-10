@@ -396,18 +396,6 @@ class ImportProcessorTest extends WebTestCase
         $this->assertFalse($notBlankArr->__invoke(array('field' => '', 'something' => 2)));
     }
 
-    public function testDefaultValues()
-    {
-        $processor = new ImportProcessor($this->getContainer());
-        $this->assertEquals($processor->getMaxExecutionTime(), '190');
-        $this->assertEquals($processor->getMemoryLimit(), '1024M');
-
-        $processor->setMaxExecutionTime(120);
-        $processor->setMemoryLimit('1024M');
-        $this->assertEquals($processor->getMaxExecutionTime(), '120');
-        $this->assertEquals($processor->getMemoryLimit(), '1024M');
-    }
-
     public function testDeepArrayMap()
     {
         $columns = array(
