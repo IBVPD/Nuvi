@@ -1,7 +1,6 @@
 <?php
 
 namespace NS\ImportBundle\Converter\Expression;
-use Doctrine\DBAL\Query\Expression\ExpressionBuilder;
 
 /**
  * Class Rule
