@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Form\Filters;
 
+use NS\SentinelBundle\Form\Types\CaseStatus;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Lexik\Bundle\FormFilterBundle\Filter\Extension\Type\EmbeddedFilterTypeInterface;

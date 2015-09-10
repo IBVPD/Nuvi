@@ -7,6 +7,7 @@ use \Gedmo\Mapping\Annotation as Gedmo;
 use \NS\SecurityBundle\Annotation\Secured;
 use \NS\SecurityBundle\Annotation\SecuredCondition;
 use \NS\SentinelBundle\Entity\BaseSiteLab;
+use NS\SentinelBundle\Entity\RotaVirus;
 use \NS\SentinelBundle\Form\Types\ElisaKit;
 use \NS\SentinelBundle\Form\Types\ElisaResult;
 use \NS\SentinelBundle\Form\Types\GenotypeResultG;
