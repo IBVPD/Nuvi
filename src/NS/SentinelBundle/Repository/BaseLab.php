@@ -2,7 +2,9 @@
 
 namespace NS\SentinelBundle\Repository;
 
+use Doctrine\ORM\Query;
 use NS\SecurityBundle\Doctrine\SecuredEntityRepository;
+use NS\SentinelBundle\Exceptions\NonExistentCase;
 use NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\UnexpectedResultException;
@@ -20,25 +22,21 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
 
     public function getForAutoComplete($fields, array $value, $limit)
     {
-        $alias        = 'd';
+        $alias = 'd';
         $queryBuilder = $this->createQueryBuilder($alias)->setMaxResults($limit);
 
-        if (!empty($value) && $value['value'][0] == '*')
+        if (!empty($value) && $value['value'][0] == '*') {
             return $this->secure($queryBuilder)->getQuery();
+        }
 
-        if (!empty($value))
-        {
-            if (is_array($fields))
-            {
-                foreach ($fields as $f)
-                {
+        if (!empty($value)) {
+            if (is_array($fields)) {
+                foreach ($fields as $f) {
                     $field = "$alias.$f";
                     $queryBuilder->addOrderBy($field)
                         ->orWhere("$field LIKE :param")->setParameter('param', $value['value'] . '%');
                 }
-            }
-            else
-            {
+            } else {
                 $field = "$alias.$fields";
                 $queryBuilder->orderBy($field)->andWhere("$field LIKE :param")->setParameter('param', $value['value'] . '%');
             }
@@ -50,7 +48,7 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
     public function findOrCreateNew($id)
     {
         try {
-            $reference    = $this->_em->getReference($this->parentClass, $id);
+            $reference = $this->_em->getReference($this->parentClass, $id);
             $queryBuilder = $this->createQueryBuilder('r')
                 ->where('r.caseFile = :case')
                 ->setParameter('case', $reference);
@@ -60,12 +58,11 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
             if ($result) {
                 return $result;
             }
-        }
-        catch (UnexpectedResultException $excep) {
+        } catch (UnexpectedResultException $excep) {
             if ($excep instanceof NoResultException || $excep instanceof NonExistentCase) {
-                $class  = $this->getClassName();
+                $class = $this->getClassName();
                 $record = new $class();
-                $case   = $this->_em->getRepository($this->parentClass)->checkExistence($id);
+                $case = $this->_em->getRepository($this->parentClass)->checkExistence($id);
                 $record->setCaseFile($case);
 
                 return $record;
@@ -79,25 +76,22 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
     {
         $siteParam = (!$site instanceOf \NS\SentinelBundle\Entity\Site) ? $this->_em->getReference('NS\SentinelBundle\Entity\Site', $site) : $site;
         $queryB = $this->createQueryBuilder('sl')
-            ->innerJoin('sl.caseFile','c')
+            ->innerJoin('sl.caseFile', 'c')
             ->where('c.caseId = :caseId AND c.site = :site')
-            ->setParameters(array('caseId'=>$caseId,'site'=>$siteParam));
+            ->setParameters(array('caseId' => $caseId, 'site' => $siteParam));
 
         return $this->secure($queryB)->getQuery()->getSingleResult();
     }
 
     public function find($objId)
     {
-        try
-        {
+        try {
             $queryBuilder = $this->createQueryBuilder('m')
                 ->where('m.caseFile = :case')
                 ->setParameter('case', $this->_em->getReference($this->parentClass, $objId));
 
             return $this->secure($queryBuilder)->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getSingleResult();
-        }
-        catch (NoResultException $e)
-        {
+        } catch (NoResultException $e) {
             throw new NonExistentCase("This case does not exist!");
         }
     }

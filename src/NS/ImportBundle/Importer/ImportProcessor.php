@@ -3,14 +3,12 @@
 namespace NS\ImportBundle\Importer;
 
 use \Ddeboer\DataImport\Filter\OffsetFilter;
-use \Ddeboer\DataImport\Reader\CsvReader;
 use \Ddeboer\DataImport\Step\ConverterStep;
 use \Ddeboer\DataImport\Workflow;
 use \Ddeboer\DataImport\Reader;
 use \Ddeboer\DataImport\Step\FilterStep;
 use \Ddeboer\DataImport\Step\ValueConverterStep;
 use \NS\ImportBundle\Converter\DateRangeConverter;
-use \NS\ImportBundle\Converter\NoFutureDateConverter;
 use \NS\ImportBundle\Converter\TrimInputConverter;
 use \NS\ImportBundle\Converter\WarningConverter;
 use \NS\ImportBundle\Entity\Import;
@@ -18,6 +16,7 @@ use \NS\ImportBundle\Filter\Duplicate;
 use \NS\ImportBundle\Filter\NotBlank;
 use \NS\ImportBundle\Writer\DoctrineWriter;
 use \Symfony\Component\DependencyInjection\ContainerInterface;
+use \NS\ImportBundle\Importer\ReaderFactory;
 
 /**
  * Description of ImportProcessor
@@ -31,8 +30,6 @@ class ImportProcessor
     private $notBlankFilter;
     private $doctrineWriter;
 
-    private $memoryLimit = '1024M';
-    private $maxExecutionTime = 190;
     private $limit  = null;
 
     /**
@@ -50,9 +47,6 @@ class ImportProcessor
      */
     public function process(Import $import)
     {
-        ini_set('max_execution_time', $this->maxExecutionTime);
-        ini_set('memory_limit', $this->memoryLimit);
-
         $reader = $this->getReader($import);
         $reader->seek($import->getPosition());
         // Create the workflow from the reader
@@ -96,14 +90,12 @@ class ImportProcessor
     public function getReader(Import $import)
     {
         // Create and configure the reader
-        $csvReader = new CsvReader($import->getSourceFile()->openFile(), ',');
+        $reader = ReaderFactory::getReader($import->getSourceFile());
+        $reader->setHeaderRowNumber(0);
 
-        // Tell the reader that the first row in the CSV file contains column headers
-        $csvReader->setHeaderRowNumber(0);
+        $import->setSourceCount($reader->count());
 
-        $import->setSourceCount($csvReader->count());
-
-        $fields = $csvReader->getFields();
+        $fields = $reader->getFields();
         $columns = $import->getMap()->getColumns();
 
         foreach ($columns as $column) {
@@ -112,7 +104,7 @@ class ImportProcessor
             }
         }
 
-        return $csvReader;
+        return $reader;
     }
 
     /**
@@ -182,42 +174,6 @@ class ImportProcessor
         $converter->add(new DateRangeConverter($import->getInputDateEnd(), $start));
 
         $workflow->addStep($converter, 10);
-    }
-
-    /**
-     * @return string
-     */
-    public function getMemoryLimit()
-    {
-        return $this->memoryLimit;
-    }
-
-    /**
-     * @return integer
-     */
-    public function getMaxExecutionTime()
-    {
-        return $this->maxExecutionTime;
-    }
-
-    /**
-     * @param string $memoryLimit
-     * @return \NS\ImportBundle\Services\ImportProcessor
-     */
-    public function setMemoryLimit($memoryLimit)
-    {
-        $this->memoryLimit = $memoryLimit;
-        return $this;
-    }
-
-    /**
-     * @param integer $maxExecutionTime
-     * @return \NS\ImportBundle\Services\ImportProcessor
-     */
-    public function setMaxExecutionTime($maxExecutionTime)
-    {
-        $this->maxExecutionTime = $maxExecutionTime;
-        return $this;
     }
 
     /**

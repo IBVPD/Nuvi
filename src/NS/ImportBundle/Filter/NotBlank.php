@@ -3,7 +3,6 @@
 namespace NS\ImportBundle\Filter;
 
 use \Ddeboer\DataImport\ReporterInterface;
-use \Ddeboer\DataImport\Step\PriorityStep;
 
 /**
  * Description of NotBlank

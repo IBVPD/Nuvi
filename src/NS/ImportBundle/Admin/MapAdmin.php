@@ -73,9 +73,7 @@ class MapAdmin extends Admin
         if (!$this->getSubject()->getId()) {
             $formMapper->add('file', 'file', array('required' => false));
         } else {
-            $formMapper->add('columns', 'sonata_type_collection',
-                array('by_reference' => true),
-                array('edit'=>'inline','inline'=>'table'));
+            $formMapper->add('columns', 'sonata_type_collection', array('by_reference' => true), array('edit'=>'inline','inline'=>'table'));
         }
     }
 

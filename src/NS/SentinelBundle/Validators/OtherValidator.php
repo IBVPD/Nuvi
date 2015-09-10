@@ -27,7 +27,7 @@ class OtherValidator extends ConstraintValidator
 
         $const = constant($constraint->value);
 
-        if ($value->$fMethod() && $value->$fMethod()->equal($const) && ($value->$otherFMethod() == null || $value->$otherFMethod() == '')) {
+        if ($value->$fMethod() && $value->$fMethod()->equal($const) && ($value->$otherFMethod() === null || $value->$otherFMethod() == '')) {
             $this->context->addViolation($constraint->message);
         }
     }

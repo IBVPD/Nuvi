@@ -3,6 +3,8 @@
 namespace NS\SentinelBundle\Validators;
 
 use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Constraints\Valid;
+use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
 
 /**
  * Description of Other
@@ -25,8 +27,7 @@ class AllOther extends Constraint
             $this->constraints = array($this->constraints);
         }
 
-        foreach ($this->constraints as $constraint)
-        {
+        foreach ($this->constraints as $constraint) {
             if (!$constraint instanceof Constraint) {
                 throw new ConstraintDefinitionException(sprintf('The value %s is not an instance of Constraint in constraint %s', $constraint, __CLASS__));
             }

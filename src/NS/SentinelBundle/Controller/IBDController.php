@@ -15,6 +15,7 @@ class IBDController extends BaseCaseController
     /**
      * @Route("/",name="ibdIndex")
      * @Template()
+     * @Method(methods={"GET"})
      */
     public function indexAction(Request $request)
     {
@@ -36,6 +37,7 @@ class IBDController extends BaseCaseController
     /**
      * @Route("/edit/{id}",name="ibdEdit",defaults={"id"=null})
      * @Template()
+     * @Method(methods={"GET","POST"})
      */
     public function editAction(Request $request, $id = null)
     {
@@ -45,6 +47,7 @@ class IBDController extends BaseCaseController
     /**
      * @Route("/rrl/edit/{id}",name="ibdRRLEdit",defaults={"id"=null})
      * @Template("NSSentinelBundle:IBD:editBaseLab.html.twig")
+     * @Method(methods={"GET","POST"})
      */
     public function editRRLAction(Request $request, $id = null)
     {
@@ -54,6 +57,7 @@ class IBDController extends BaseCaseController
     /**
      * @Route("/nl/edit/{id}",name="ibdNLEdit",defaults={"id"=null})
      * @Template("NSSentinelBundle:IBD:editBaseLab.html.twig")
+     * @Method(methods={"GET","POST"})
      */
     public function editNLAction(Request $request, $id = null)
     {
@@ -63,6 +67,7 @@ class IBDController extends BaseCaseController
     /**
      * @Route("/lab/edit/{id}",name="ibdLabEdit",defaults={"id"=null})
      * @Template()
+     * @Method(methods={"GET","POST"})
      */
     public function editLabAction(Request $request, $id = null)
     {
@@ -72,13 +77,14 @@ class IBDController extends BaseCaseController
     /**
      * @Route("/outcome/edit/{id}",name="ibdOutcomeEdit",defaults={"id"=null})
      * @Template()
+     * @Method(methods={"GET","POST"})
      */
     public function editOutcomeAction(Request $request, $id = null)
     {
         return $this->edit($request, 'ibd_outcome', "ibdIndex", "ibdOutcomeEdit", $id);
     }
 
-    public function getForm($type, $objId = null)
+    protected function getForm($type, $objId = null)
     {
         $record = null;
 
@@ -110,6 +116,7 @@ class IBDController extends BaseCaseController
     /**
      * @Route("/show/{id}",name="ibdShow")
      * @Template()
+     * @Method(methods={"GET"})
      */
     public function showAction($id)
     {

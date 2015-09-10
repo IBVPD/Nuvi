@@ -11,6 +11,7 @@ use NS\ImportBundle\Converter\MappingItemConverter;
 use NS\ImportBundle\Converter\PreprocessorStep;
 use NS\ImportBundle\Converter\UnsetMappingItemConverter;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Description of Map
@@ -56,6 +57,7 @@ class Map
 
     /**
      * @var
+     * @Assert\File
      */
     private $file;
 

@@ -39,6 +39,53 @@ class ImportProcessorTest extends WebTestCase
     }
 
     /**
+     * @param $file
+     * @param $interface
+     * @dataProvider getFiles
+     */
+    public function testGetReader($file, $interface)
+    {
+        $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
+        $columns = array(
+            array(
+                'name'      => 'Country',
+                'converter' => null,
+                'mapper'    => null,
+                'ignored'   => true,
+            ),
+            array(
+                'name'      => 'Auto_ID',
+                'converter' => '',
+                'mapper'    => '',
+                'ignored'   => false,
+            ),
+        );
+
+        $map    = $this->getIbdMap($columns);
+        $import = new Import($mockUser);
+        $import->setSourceFile($file);
+        $import->setMap($map);
+
+        $mockContainer = $this->getMockBuilder('\Symfony\Component\DependencyInjection\ContainerInterface')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $processor = new ImportProcessor($mockContainer);
+        $reader    = $processor->getReader($import);
+        $this->assertInstanceOf($interface,$reader);
+    }
+
+    public function getFiles()
+    {
+        return array(
+            array(new File(__DIR__ . '/../Fixtures/EMR-IBD-headers.xls'), 'Ddeboer\DataImport\Reader\ExcelReader'),
+            array(new File(__DIR__ . '/../Fixtures/EMR-IBD-headers.csv'), 'Ddeboer\DataImport\Reader\CsvReader'),
+            array(new File(__DIR__ . '/../Fixtures/EMR-IBD-headers.xlsx'), 'Ddeboer\DataImport\Reader\ExcelReader'),
+            array(new File(__DIR__ . '/../Fixtures/EMR-IBD-headers.ods'), 'Ddeboer\DataImport\Reader\ExcelReader'),
+        );
+    }
+
+    /**
      * @expectedException InvalidArgumentException
      */
     public function testExtraColumnReader()
@@ -171,7 +218,7 @@ class ImportProcessorTest extends WebTestCase
         $writer->prepare();
     }
 
-    public function testnlterIsCalled()
+    public function testDuplicateFilterIsCalled()
     {
         $file    = new File(__DIR__ . '/../Fixtures/IBD-DuplicateRows.csv');
         $columns = array(
@@ -394,18 +441,6 @@ class ImportProcessorTest extends WebTestCase
         $this->assertTrue($notBlankArr->__invoke(array('field' => '1', 'something' => 2)));
         $this->assertFalse($notBlankArr->__invoke(array('field' => null, 'something' => 2)));
         $this->assertFalse($notBlankArr->__invoke(array('field' => '', 'something' => 2)));
-    }
-
-    public function testDefaultValues()
-    {
-        $processor = new ImportProcessor($this->getContainer());
-        $this->assertEquals($processor->getMaxExecutionTime(), '190');
-        $this->assertEquals($processor->getMemoryLimit(), '1024M');
-
-        $processor->setMaxExecutionTime(120);
-        $processor->setMemoryLimit('1024M');
-        $this->assertEquals($processor->getMaxExecutionTime(), '120');
-        $this->assertEquals($processor->getMemoryLimit(), '1024M');
     }
 
     public function testDeepArrayMap()

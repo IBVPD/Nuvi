@@ -6,6 +6,7 @@ use \Doctrine\ORM\Mapping as ORM;
 use \Gedmo\Mapping\Annotation as Gedmo;
 use \NS\SecurityBundle\Annotation as Security;
 use \NS\SentinelBundle\Entity\BaseSiteLab;
+use \NS\SentinelBundle\Entity\IBD;
 use \NS\SentinelBundle\Form\Types\BinaxResult;
 use \NS\SentinelBundle\Form\Types\CaseStatus;
 use \NS\SentinelBundle\Form\Types\CultureResult;

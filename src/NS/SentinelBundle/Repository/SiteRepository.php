@@ -12,18 +12,26 @@ use NS\SentinelBundle\Repository\Common as CommonRepository;
  */
 class SiteRepository extends CommonRepository
 {
+    /**
+     * @param null $codes
+     * @return array
+     */
     public function getChain($codes = null)
     {
         $queryBuilder = $this->getChainQueryBuilder();
 
-        if(is_array($codes))
+        if (is_array($codes)) {
             $queryBuilder->andWhere($queryBuilder->expr()->in('s.code', '?1'))->setParameter(1, $codes);
-        else if($codes != null)
-            $queryBuilder->andWhere('s.code = :code')->setParameter('code',$codes);
+        } elseif ($codes !== null) {
+            $queryBuilder->andWhere('s.code = :code')->setParameter('code', $codes);
+        }
 
         return $queryBuilder->getQuery()->getResult();
     }
 
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
     public function getChainQueryBuilder()
     {
         $queryBuilder = $this->_em
@@ -38,36 +46,48 @@ class SiteRepository extends CommonRepository
         return $this->secure($queryBuilder);
     }
 
+    /**
+     * @param $codes
+     * @return array
+     */
     public function getChainByCode($codes)
     {
         $queryBuilder = $this->getChainQueryBuilder();
 
-        if(is_array($codes))
+        if (is_array($codes)) {
             $queryBuilder->andWhere($queryBuilder->expr()->in('s.code', '?1'))->setParameter(1, $codes);
-        else if(is_string($codes))
+        } elseif (is_string($codes)) {
             $queryBuilder->andWhere('s.code = :codes')->setParameter('codes', $codes);
-        else
-            throw new \InvalidArgumentException(sprintf("Must provide an array of codes or single code. Received: %s",gettype($codes)));
+        } else {
+            throw new \InvalidArgumentException(sprintf("Must provide an array of codes or single code. Received: %s", gettype($codes)));
+        }
 
         return $this->secure($queryBuilder)->getQuery()->getResult();
     }
 
+    /**
+     * @return array
+     */
     public function findAll()
     {
         return $this->secure($this->createQueryBuilder('s')->where('s.active = :isActive')->setParameter('isActive', true)->orderBy('s.name', 'ASC'))->getQuery()->getResult();
     }
 
+    /**
+     * @param $alias
+     * @return \Doctrine\ORM\QueryBuilder
+     */
     public function getWithCasesForDate($alias)
     {
         return $this->secure($this->_em->createQueryBuilder()
-                  ->select($alias.',s,c,r,COUNT('.$alias.') as totalCases')
-                  ->from('NS\SentinelBundle\Entity\IBD',$alias)
-                  ->innerJoin($alias.'.site', 's','s.code')
-                  ->innerJoin('s.country','c')
-                  ->innerJoin('c.region','r')
-                  ->groupBy($alias.'.site'))
-                  ->addOrderBy('r.name','ASC')
-                  ->addOrderBy('c.name','ASC')
-                  ->addOrderBy('s.name','ASC');
+            ->select($alias . ',s,c,r,COUNT(' . $alias . ') as totalCases')
+            ->from('NS\SentinelBundle\Entity\IBD', $alias)
+            ->innerJoin($alias . '.site', 's', 's.code')
+            ->innerJoin('s.country', 'c')
+            ->innerJoin('c.region', 'r')
+            ->groupBy($alias . '.site'))
+            ->addOrderBy('r.name', 'ASC')
+            ->addOrderBy('c.name', 'ASC')
+            ->addOrderBy('s.name', 'ASC');
     }
 }
