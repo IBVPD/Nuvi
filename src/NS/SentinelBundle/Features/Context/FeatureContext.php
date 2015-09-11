@@ -2,8 +2,6 @@
 
 namespace NS\SentinelBundle\Features\Context;
 
-use \Behat\Behat\Definition\Annotation\Then;
-use \Behat\Behat\Definition\Annotation\Given;
 use \Behat\Mink\Exception\UnsupportedDriverActionException;
 use \Behat\MinkExtension\Context\MinkContext;
 use \Behat\Symfony2Extension\Context\KernelAwareContext;

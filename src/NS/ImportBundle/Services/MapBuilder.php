@@ -2,7 +2,6 @@
 
 namespace NS\ImportBundle\Services;
 
-use \Ddeboer\DataImport\Reader\CsvReader;
 use \Doctrine\ORM\Mapping\ClassMetadata;
 use \NS\ImportBundle\Entity\Column;
 use \NS\ImportBundle\Entity\Map;
