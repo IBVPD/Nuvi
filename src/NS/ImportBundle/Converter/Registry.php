@@ -2,6 +2,7 @@
 
 namespace NS\ImportBundle\Converter;
 
+use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 use \Symfony\Component\Form\AbstractType;
 use \Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -12,17 +13,19 @@ use \Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class Registry extends AbstractType
 {
-    private $values;
-
-    private $sorted = false;
+    /**
+     * @var array
+     */
+    private $values = array();
 
     /**
-     *
+     * @var array
      */
-    public function __construct()
-    {
-        $this->values     = array();
-    }
+    private $converters = array();
+    /**
+     * @var bool
+     */
+    private $sorted = false;
 
     /**
      *
@@ -32,6 +35,7 @@ class Registry extends AbstractType
     public function addConverter($id, NamedValueConverterInterface $converter)
     {
         $this->values[$id]     = $converter->getName();
+        $this->converters[$id] = $converter;
     }
 
     /**
@@ -83,5 +87,18 @@ class Registry extends AbstractType
     public function getName()
     {
         return 'ConverterChoice';
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function get($id)
+    {
+        if(!isset($this->converters[$id])) {
+            throw new ServiceNotFoundException($id);
+        }
+
+        return $this->converters[$id];
     }
 }

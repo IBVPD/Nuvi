@@ -8,14 +8,15 @@ use \Ddeboer\DataImport\Workflow;
 use \Ddeboer\DataImport\Reader;
 use \Ddeboer\DataImport\Step\FilterStep;
 use \Ddeboer\DataImport\Step\ValueConverterStep;
+use \Doctrine\Common\Persistence\ObjectManager;
 use \NS\ImportBundle\Converter\DateRangeConverter;
+use \NS\ImportBundle\Converter\Registry;
 use \NS\ImportBundle\Converter\TrimInputConverter;
 use \NS\ImportBundle\Converter\WarningConverter;
 use \NS\ImportBundle\Entity\Import;
 use \NS\ImportBundle\Filter\Duplicate;
 use \NS\ImportBundle\Filter\NotBlank;
 use \NS\ImportBundle\Writer\DoctrineWriter;
-use \Symfony\Component\DependencyInjection\ContainerInterface;
 use \NS\ImportBundle\Importer\ReaderFactory;
 
 /**
@@ -25,7 +26,8 @@ use \NS\ImportBundle\Importer\ReaderFactory;
  */
 class ImportProcessor
 {
-    private $container;
+    private $registry;
+    private $entityMgr;
     private $duplicateFilter;
     private $notBlankFilter;
     private $doctrineWriter;
@@ -33,11 +35,13 @@ class ImportProcessor
     private $limit  = null;
 
     /**
-     * @param ContainerInterface $container
+     * @param Registry $registry
+     * @param ObjectManager $entityMgr
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(Registry $registry, ObjectManager $entityMgr)
     {
-        $this->setContainer($container);
+        $this->registry = $registry;
+        $this->entityMgr = $entityMgr;
     }
 
     /**
@@ -74,7 +78,7 @@ class ImportProcessor
     public function getWriter($class)
     {
         if ($this->doctrineWriter === null || $this->doctrineWriter->getEntityName() != $class) {
-            $this->doctrineWriter = new DoctrineWriter($this->container->get('doctrine.orm.entity_manager'), $class, array('getcode' => 'site', 1 => 'caseId'));
+            $this->doctrineWriter = new DoctrineWriter($this->entityMgr, $class, array('getcode' => 'site', 1 => 'caseId'));
             $this->doctrineWriter->setTruncate(false);
             $this->doctrineWriter->setClearOnFlush(false);
             $this->doctrineWriter->setEntityRepositoryMethod('findWithRelations');
@@ -138,7 +142,7 @@ class ImportProcessor
         $valueConverterCount = 0;
         foreach ($import->getConverters() as $column) {
             $name = ($column->hasMapper()) ? $column->getMapper() : $column->getName();
-            $valueConverter->add(sprintf('[%s]', str_replace('.', '][', $name)), $this->container->get($column->getConverter()));
+            $valueConverter->add(sprintf('[%s]', str_replace('.', '][', $name)), $this->registry->get($column->getConverter()));
             $valueConverterCount++;
         }
 
@@ -174,16 +178,6 @@ class ImportProcessor
         $converter->add(new DateRangeConverter($import->getInputDateEnd(), $start));
 
         $workflow->addStep($converter, 10);
-    }
-
-    /**
-     * @param ContainerInterface $container
-     * @return \NS\ImportBundle\Services\ImportProcessor
-     */
-    public function setContainer(ContainerInterface $container)
-    {
-        $this->container = $container;
-        return $this;
     }
 
     /**

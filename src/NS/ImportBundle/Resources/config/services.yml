@@ -50,7 +50,7 @@ services:
     
     ns_import.processor:
         class: NS\ImportBundle\Importer\ImportProcessor
-        arguments: [ @service_container ]
+        arguments: [ @ns_import.converters, @doctrine.orm.entity_manager ]
 
     ns_import.form.class:
         class: NS\ImportBundle\Form\ClassType

@@ -6,6 +6,7 @@ use \Ddeboer\DataImport\Reader\ArrayReader;
 use \Ddeboer\DataImport\Workflow;
 use \Ddeboer\DataImport\Writer\ArrayWriter;
 use \Liip\FunctionalTestBundle\Test\WebTestCase;
+use NS\ImportBundle\Converter\Registry;
 use \NS\ImportBundle\Entity\Column;
 use \NS\ImportBundle\Entity\Import;
 use \NS\ImportBundle\Entity\Map;
@@ -21,7 +22,6 @@ use \Symfony\Component\HttpFoundation\File\File;
  */
 class ImportProcessorTest extends WebTestCase
 {
-
     /**
      * @expectedException InvalidArgumentException
      */
@@ -66,11 +66,13 @@ class ImportProcessorTest extends WebTestCase
         $import->setSourceFile($file);
         $import->setMap($map);
 
-        $mockContainer = $this->getMockBuilder('\Symfony\Component\DependencyInjection\ContainerInterface')
+        $registry = new Registry();
+        $mockEntityMgr = $this->getMockBuilder('\Doctrine\ORM\EntityManager')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $processor = new ImportProcessor($mockContainer);
+
+        $processor = new ImportProcessor($registry,$mockEntityMgr);
         $reader    = $processor->getReader($import);
         $this->assertInstanceOf($interface,$reader);
     }
@@ -194,16 +196,8 @@ class ImportProcessorTest extends WebTestCase
             ->method('getClassMetadata')
             ->willReturn($meta);
 
-        $mockContainer = $this->getMockBuilder('\Symfony\Component\DependencyInjection\ContainerInterface')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $mockContainer->expects($this->once())
-            ->method('get')
-            ->with('doctrine.orm.entity_manager')
-            ->will($this->returnValue($entityMgr));
-
-        $processor = new ImportProcessor($mockContainer);
+        $registry  = new Registry();
+        $processor = new ImportProcessor($registry,$entityMgr);
         $writer    = $processor->getWriter('NS\SentinelBundle\Entity\IBD');
         $this->assertInstanceOf('\Ddeboer\DataImport\Writer\DoctrineWriter', $writer);
         $writer2   = $processor->getWriter('NS\SentinelBundle\Entity\IBD');
@@ -211,12 +205,12 @@ class ImportProcessorTest extends WebTestCase
         $this->assertEquals($writer, $writer2);
     }
 
-    public function testGetDoctrineWriterEntityManager()
-    {
-        $processor = new ImportProcessor($this->getContainer());
-        $writer = $processor->getWriter('NS\SentinelBundle\Entity\IBD');
-        $writer->prepare();
-    }
+//    public function testGetDoctrineWriterEntityManager()
+//    {
+//        $processor = new ImportProcessor($this->getContainer());
+//        $writer = $processor->getWriter('NS\SentinelBundle\Entity\IBD');
+//        $writer->prepare();
+//    }
 
     public function testDuplicateFilterIsCalled()
     {
@@ -283,7 +277,8 @@ class ImportProcessorTest extends WebTestCase
             ->with(array('col1' => 4, 'col2' => 5, 'Col3' => 6, 'Col4' => 7))
             ->willReturn(true);
 
-        $processor = new ImportProcessor($this->getContainer());
+        $container = $this->getContainer();
+        $processor = new ImportProcessor($container->get('ns_import.converters'),$container->get('doctrine.orm.entity_manager'));
         $processor->setDuplicate($mockDuplicate);
 
         $reader    = $processor->getReader($import);
@@ -346,7 +341,8 @@ class ImportProcessorTest extends WebTestCase
         $uniqueFields = array('Col1', 'col2');
         $duplicate    = new Duplicate($uniqueFields);
 
-        $processor = new ImportProcessor($this->getContainer());
+        $container = $this->getContainer();
+        $processor = new ImportProcessor($container->get('ns_import.converters'),$container->get('doctrine.orm.entity_manager'));
         $processor->setDuplicate($duplicate);
         $processor->setNotBlank(new NotBlank('Col1'));
         $reader    = $processor->getReader($import);
@@ -393,7 +389,9 @@ class ImportProcessorTest extends WebTestCase
         $import->setMap($this->getIbdMap($columns));
 
         $duplicate = new Duplicate(array());
-        $processor = new ImportProcessor($this->getContainer());
+        $container = $this->getContainer();
+
+        $processor = new ImportProcessor($container->get('ns_import.converters'),$container->get('doctrine.orm.entity_manager'));
         $processor->setDuplicate($duplicate);
         $processor->setNotBlank(new NotBlank('date'));
         $reader    = $processor->getReader($import);
@@ -419,11 +417,12 @@ class ImportProcessorTest extends WebTestCase
 
     public function testBlankFieldConversion()
     {
-        $container = $this->getMockBuilder('\Symfony\Component\DependencyInjection\ContainerInterface')
+        $entityMgr = $this->getMockBuilder('\Doctrine\ORM\EntityManager')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $processor = new ImportProcessor($container);
+        $registry  = new Registry();
+        $processor = new ImportProcessor($registry,$entityMgr);
         $processor->setNotBlank(new NotBlank("caseId"));
         $this->assertInstanceOf('NS\ImportBundle\Filter\NotBlank', $processor->getNotBlank());
         $this->assertTrue(is_array($processor->getNotBlank()->fields));
@@ -569,7 +568,9 @@ class ImportProcessorTest extends WebTestCase
         $import->setSourceFile($file);
         $import->setMap($this->getIbdMap($columns));
 
-        $processor = new ImportProcessor($this->getContainer());
+        $container = $this->getContainer();
+
+        $processor = new ImportProcessor($container->get('ns_import.converters'),$container->get('doctrine.orm.entity_manager'));
         $processor->setDuplicate(new Duplicate(array('getcode' => 'site', 1 => 'caseId')));
         $writer = $processor->getWriter($import->getClass());
         $repoMethod = $writer->getEntityRepositoryMethod();
@@ -628,7 +629,9 @@ class ImportProcessorTest extends WebTestCase
         $import->setSourceFile($file);
         $import->setMap($this->getIbdMap($columns));
 
-        $processor = new ImportProcessor($this->getContainer());
+        $container = $this->getContainer();
+
+        $processor = new ImportProcessor($container->get('ns_import.converters'),$container->get('doctrine.orm.entity_manager'));
         $processor->setDuplicate(new Duplicate(array('getcode' => 'site', 1 => 'caseId')));
         $writer = $processor->getWriter($import->getClass());
         $repoMethod = $writer->getEntityRepositoryMethod();
@@ -693,7 +696,9 @@ class ImportProcessorTest extends WebTestCase
         $import->setSourceFile($file);
         $import->setMap($this->getIbdMap($columns));
 
-        $processor = new ImportProcessor($this->getContainer());
+        $container = $this->getContainer();
+
+        $processor = new ImportProcessor($container->get('ns_import.converters'),$container->get('doctrine.orm.entity_manager'));
         $processor->setDuplicate(new Duplicate(array('getcode' => 'site', 1 => 'caseId')));
         $writer = $processor->getWriter($import->getClass());
         $repoMethod = $writer->getEntityRepositoryMethod();
@@ -757,7 +762,9 @@ class ImportProcessorTest extends WebTestCase
         $import->setSourceFile($file);
         $import->setMap($this->getIbdMap($columns));
 
-        $processor = new ImportProcessor($this->getContainer());
+        $container = $this->getContainer();
+
+        $processor = new ImportProcessor($container->get('ns_import.converters'),$container->get('doctrine.orm.entity_manager'));
         $processor->setDuplicate(new Duplicate(array('getcode' => 'site', 1 => 'caseId')));
         $writer = $processor->getWriter($import->getClass());
         $result = $processor->process($import);
@@ -828,7 +835,9 @@ class ImportProcessorTest extends WebTestCase
         $import->setSourceFile($file);
         $import->setMap($this->getIbdMap($columns));
 
-        $processor = new ImportProcessor($this->getContainer());
+        $container = $this->getContainer();
+
+        $processor = new ImportProcessor($container->get('ns_import.converters'),$container->get('doctrine.orm.entity_manager'));
         $processor->setDuplicate(new Duplicate(array('getcode' => 'site', 1 => 'caseId')));
         $writer = $processor->getWriter($import->getClass());
         $result = $processor->process($import);
@@ -893,7 +902,9 @@ class ImportProcessorTest extends WebTestCase
         $import->setSourceFile($file);
         $import->setMap($this->getIbdMap($columns));
 
-        $processor = new ImportProcessor($this->getContainer());
+        $container = $this->getContainer();
+
+        $processor = new ImportProcessor($container->get('ns_import.converters'),$container->get('doctrine.orm.entity_manager'));
         $processor->setDuplicate(new Duplicate(array('getcode' => 'site', 1 => 'caseId')));
         $writer = $processor->getWriter($import->getClass());
         $result = $processor->process($import);
