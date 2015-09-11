@@ -20,7 +20,7 @@ class ApiControllerTest extends WebTestCase
 
         $response = $client->getResponse();
         $this->assertJsonResponse($response, 200);
-        
+
         $content = $response->getContent();
         $decoded = json_decode($content, true);
 
