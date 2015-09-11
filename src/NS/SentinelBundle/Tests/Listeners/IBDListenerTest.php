@@ -1,6 +1,6 @@
 <?php
 
-namespace NS\SentinelBundle\Tests\Entity;
+namespace NS\SentinelBundle\Tests\Listeners;
 
 use \NS\SentinelBundle\Entity\Country;
 use \NS\SentinelBundle\Entity\IBD;
@@ -17,60 +17,16 @@ use \NS\SentinelBundle\Form\Types\OtherSpecimen;
 use \NS\SentinelBundle\Form\Types\ThreeDoses;
 use \NS\SentinelBundle\Form\Types\TripleChoice;
 use \NS\SentinelBundle\Form\Types\VaccinationReceived;
+use NS\SentinelBundle\Listeners\IBDListener;
 
-/**
- * Description of IBDCaseTest
- *
- * @author gnat
- */
-class IBDCaseTest extends \PHPUnit_Framework_TestCase
+class IBDListenerTest extends \PHPUnit_Framework_TestCase
 {
-//    public function testCaseRequiresSite()
-//    {
-//        $sites = $this->entityManager->getRepository('NS\SentinelBundle\Entity\Site')->getChain();
-//        $case  = new IBD();
-//
-//        try
-//        {
-//            $this->entityManager->persist($case);
-//            $this->entityManager->flush();
-//            $this->fail("A case requires a site");
-//        }
-//        catch(\UnexpectedValueException $e)
-//        {
-//            //$this->success("A case requires a site");
-//        }
-//
-//        try
-//        {
-//            $case->setSite(array_pop($sites));
-//            $this->entityManager->persist($case);
-//            $this->entityManager->flush();
-//            $this->assertNotNull($case->getId(),"A case requires a site");
-//        }
-//        catch(\Doctrine\DBAL\DBALException $ex)
-//        {
-//            //$this->success(true,"A case requires a site");
-//        }
-//    }
-//
-//    public function testCaseRequiresCaseId()
-//    {
-//        $sites = $this->entityManager->getRepository('NS\SentinelBundle\Entity\Site')->getChain();
-//        $case  = new IBD();
-//        $case->setSite(array_pop($sites));
-//
-//        try
-//        {
-//            $this->entityManager->persist($case);
-//            $this->entityManager->flush();
-//            $this->fail("A case requires a case id");
-//        }
-//        catch(\Doctrine\DBAL\DBALException $e)
-//        {
-//            //$this->assertTrue(true,"A case requires a site");
-//        }
-//    }
+    public function getEventArgs()
+    {
+        return $this->getMockBuilder('Doctrine\ORM\Event\LifecycleEventArgs')
+            ->disableOriginalConstructor()
+            ->getMock();
+    }
 
     public function testMinimumRequiredFieldsWithPneunomia()
     {
@@ -79,7 +35,9 @@ class IBDCaseTest extends \PHPUnit_Framework_TestCase
         $case    = new IBD();
         $case->setCountry($country);
 
-        $this->assertEquals(35, count($case->getMinimumRequiredFields()));
+        $listener = new IBDListener();
+
+        $this->assertCount(35, $listener->getMinimumRequiredFields($case));
     }
 
     public function testMinimumRequiredFieldsWithoutPneunomia()
@@ -89,7 +47,9 @@ class IBDCaseTest extends \PHPUnit_Framework_TestCase
         $case    = new IBD();
         $case->setCountry($country);
 
-        $this->assertEquals(26, count($case->getMinimumRequiredFields()));
+        $listener = new IBDListener();
+
+        $this->assertCount(26, $listener->getMinimumRequiredFields($case));
     }
 
     //============================================================
@@ -98,20 +58,20 @@ class IBDCaseTest extends \PHPUnit_Framework_TestCase
     {
         $case = new IBD();
         $this->_updateCase($case, $this->getSingleCompleteCaseWithPneunomia());
-        $case->preUpdateAndPersist();
+        $listener = new IBDListener();
+        $listener->prePersist($case, $this->getEventArgs());
 
-        $this->assertEquals(35, count($case->getMinimumRequiredFields()));
-        $this->assertTrue($case->isComplete(), "New cases are incomplete " . $case->getIncompleteField() . ' ' . $case->getStatus());
+        $this->assertTrue($case->isComplete(), "New cases are incomplete " . $listener->getIncompleteField($case) . ' ' . $case->getStatus());
     }
 
     public function testSingleMinimumCompleteCaseWithoutPneunomia()
     {
         $case = new IBD();
         $this->_updateCase($case, $this->getSingleCompleteCaseWithoutPneunomia());
-        $case->preUpdateAndPersist();
+        $listener = new IBDListener();
+        $listener->prePersist($case, $this->getEventArgs());
 
-        $this->assertEquals(26, count($case->getMinimumRequiredFields()));
-        $this->assertTrue($case->isComplete(), "New cases are incomplete " . $case->getIncompleteField() . ' ' . $case->getStatus());
+        $this->assertTrue($case->isComplete(), "New cases are incomplete " . $listener->getIncompleteField($case) . ' ' . $case->getStatus());
     }
 
     //============================================================
@@ -124,7 +84,8 @@ class IBDCaseTest extends \PHPUnit_Framework_TestCase
     {
         $case = new IBD();
         $this->_updateCase($case, $data);
-        $case->preUpdateAndPersist();
+        $listener = new IBDListener();
+        $listener->prePersist($case, $this->getEventArgs());
 
         $this->assertFalse($case->isComplete(), "New cases are incomplete data removed '" . (isset($data['removed']) ? $data['removed'] : 'no removed') . "'");
         $this->assertEquals($case->getStatus()->getValue(), CaseStatus::OPEN);
@@ -138,7 +99,8 @@ class IBDCaseTest extends \PHPUnit_Framework_TestCase
     {
         $case = new IBD();
         $this->_updateCase($case, $data);
-        $case->preUpdateAndPersist();
+        $listener = new IBDListener();
+        $listener->prePersist($case, $this->getEventArgs());
 
         $this->assertFalse($case->isComplete(), "New cases are incomplete " . (isset($data['removed']) ? $data['removed'] : 'no removed'));
         $this->assertEquals($case->getStatus()->getValue(), CaseStatus::OPEN);
@@ -154,9 +116,10 @@ class IBDCaseTest extends \PHPUnit_Framework_TestCase
     {
         $case = new IBD();
         $this->_updateCase($case, $data);
-        $case->preUpdateAndPersist();
+        $listener = new IBDListener();
+        $listener->prePersist($case, $this->getEventArgs());
 
-        $this->assertTrue($case->isComplete(), "Cases with pneunomia are complete " . (!$case->isComplete()) ? $case->getIncompleteField() : null);
+        $this->assertTrue($case->isComplete(), "Cases with pneunomia are complete " . (!$case->isComplete()) ? $listener->getIncompleteField($case) : null);
         $this->assertEquals($case->getStatus()->getValue(), CaseStatus::COMPLETE);
     }
 
@@ -168,9 +131,10 @@ class IBDCaseTest extends \PHPUnit_Framework_TestCase
     {
         $case = new IBD();
         $this->_updateCase($case, $data);
-        $case->preUpdateAndPersist();
+        $listener = new IBDListener();
+        $listener->prePersist($case, $this->getEventArgs());
 
-        $this->assertTrue($case->isComplete(), "Cases without pneunomia are complete " . (!$case->isComplete()) ? $case->getIncompleteField() : null);
+        $this->assertTrue($case->isComplete(), "Cases without pneunomia are complete " . (!$case->isComplete()) ? $listener->getIncompleteField($case) : null);
         $this->assertEquals($case->getStatus()->getValue(), CaseStatus::COMPLETE);
     }
 
@@ -228,31 +192,29 @@ class IBDCaseTest extends \PHPUnit_Framework_TestCase
         $data[]                         = array('data' => $row);
 
         $doses = new ThreeDoses();
-        foreach ($doses->getValues() as $x => $v)
-        {
+        foreach ($doses->getValues() as $x => $v) {
             //hibReceived + hibDoses
-            $row                   = $complete;
+            $row = $complete;
             $row['sethibReceived'] = new VaccinationReceived(VaccinationReceived::YES_CARD);
-            $row['sethibDoses']    = new FourDoses($x);
-            $data[]                = array('data' => $row);
+            $row['sethibDoses'] = new FourDoses($x);
+            $data[] = array('data' => $row);
 
             //pcvReceived + pcvDoses
-            $row                   = $complete;
+            $row = $complete;
             $row['setpcvReceived'] = new VaccinationReceived(VaccinationReceived::YES_CARD);
-            $row['setpcvDoses']    = new FourDoses($x);
-            $data[]                = array('data' => $row);
+            $row['setpcvDoses'] = new FourDoses($x);
+            $data[] = array('data' => $row);
         }
 
         //csfCollected + related
         $csfAppearance = new CSFAppearance();
-        foreach ($csfAppearance->getValues() as $v)
-        {
-            $row                          = $complete;
-            $row['setcsfCollected']       = $tripleYes;
-            $row['setcsfId']              = 'null';
+        foreach ($csfAppearance->getValues() as $v) {
+            $row = $complete;
+            $row['setcsfCollected'] = $tripleYes;
+            $row['setcsfId'] = 'null';
             $row['setcsfCollectDateTime'] = new \DateTime();
-            $row['setcsfAppearance']      = new CSFAppearance($v);
-            $data[]                       = array('data' => $row);
+            $row['setcsfAppearance'] = new CSFAppearance($v);
+            $data[] = array('data' => $row);
         }
 
         return $data;
@@ -262,20 +224,41 @@ class IBDCaseTest extends \PHPUnit_Framework_TestCase
     {
         $data     = array();
         $complete = $this->getSingleCompleteCaseWithoutPneunomia();
-        $country  = new Country('tId', 'TestCountry');
-        $country->setTracksPneumonia(false);
-        $case     = new IBD();
-        $case->setCountry($country);
-
-        foreach ($case->getMinimumRequiredFields() as $field)
-        {
-            if (isset($complete["set$field"]))
-            {
+        $fields = array(
+            'caseId',
+            'dob',
+            'gender',
+            'district',
+            'admDate',
+            'onsetDate',
+            'admDx',
+            'antibiotics',
+            'menSeizures',
+            'menFever',
+            'menAltConscious',
+            'menInabilityFeed',
+            'menNeckStiff',
+            'menRash',
+            'menFontanelleBulge',
+            'menLethargy',
+            'hibReceived',
+            'pcvReceived',
+            'meningReceived',
+            'csfCollected',
+            'bloodCollected',
+            'otherSpecimenCollected',
+            'dischOutcome',
+            'dischDx',
+            'dischClass',
+            'cxrDone',
+        );
+        foreach ($fields as $field) {
+            if (isset($complete["set$field"])) {
                 $d = $complete;
                 unset($d["set$field"]);
 
                 $d['removed'] = $field;
-                $data[]       = array('data' => $d);
+                $data[] = array('data' => $d);
             }
         }
 
@@ -287,20 +270,49 @@ class IBDCaseTest extends \PHPUnit_Framework_TestCase
         $data      = array();
         $tripleYes = new TripleChoice(TripleChoice::YES);
         $complete  = $this->getSingleCompleteCaseWithPneunomia();
-        $country   = new Country('tId', 'TestCountry');
-        $country->setTracksPneumonia(true);
-        $case      = new IBD();
-        $case->setCountry($country);
-
-        foreach ($case->getMinimumRequiredFields() as $field)
-        {
-            if (isset($complete["set$field"]))
-            {
+        $fields = array(
+            'caseId',
+            'dob',
+            'gender',
+            'district',
+            'admDate',
+            'onsetDate',
+            'admDx',
+            'antibiotics',
+            'menSeizures',
+            'menFever',
+            'menAltConscious',
+            'menInabilityFeed',
+            'menNeckStiff',
+            'menRash',
+            'menFontanelleBulge',
+            'menLethargy',
+            'hibReceived',
+            'pcvReceived',
+            'meningReceived',
+            'csfCollected',
+            'bloodCollected',
+            'otherSpecimenCollected',
+            'dischOutcome',
+            'dischDx',
+            'dischClass',
+            'cxrDone',
+            'pneuDiffBreathe',
+            'pneuChestIndraw',
+            'pneuCough',
+            'pneuCyanosis',
+            'pneuStridor',
+            'pneuRespRate',
+            'pneuVomit',
+            'pneuHypothermia',
+            'pneuMalnutrition',);
+        foreach ($fields as $field) {
+            if (isset($complete["set$field"])) {
                 $d = $complete;
                 unset($d["set$field"]);
 
                 $d['removed'] = $field;
-                $data[]       = array('data' => $d);
+                $data[] = array('data' => $d);
             }
         }
 
@@ -373,8 +385,8 @@ class IBDCaseTest extends \PHPUnit_Framework_TestCase
             'setcountry'              => $country,
             'setcaseId'               => 'blah',
             'setdob'                  => new \DateTime(),
-            'setgender'                 => new Gender(Gender::MALE),
-            'setdistrict'               => 'The District',
+            'setgender'               => new Gender(Gender::MALE),
+            'setdistrict'             => 'The District',
             'setadmDate'              => new \DateTime(),
             'setonsetDate'            => new \DateTime(),
             'setadmDx'                => new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA),
@@ -468,10 +480,10 @@ class IBDCaseTest extends \PHPUnit_Framework_TestCase
 
     private function _updateCase($case, $data)
     {
-        foreach ($data as $method => $d)
-        {
-            if (!is_null($d) && method_exists($case, $method))
+        foreach ($data as $method => $d) {
+            if (!is_null($d) && method_exists($case, $method)) {
                 $case->$method($d);
+            }
         }
     }
 }

@@ -28,6 +28,7 @@ use \JMS\Serializer\Annotation\Exclude;
  *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},relation="site",class="NSSentinelBundle:Site"),
  *      })
  * @SuppressWarnings(PHPMD.ShortVariable)
+ * @ORM\EntityListeners(value={"NS\SentinelBundle\Listeners\RotaVirusListener"})
  */
 class RotaVirus extends BaseCase
 {
@@ -743,60 +744,5 @@ class RotaVirus extends BaseCase
     {
         $this->intensiveCare = $intensiveCare;
         return $this;
-    }
-
-    /**
-     *
-     */
-    public function calculateResult()
-    {
-
-    }
-
-    /**
-     * @return null
-     */
-    public function getIncompleteField()
-    {
-        return null;
-    }
-
-    /**
-     * @return array
-     */
-    public function getMinimumRequiredFields()
-    {
-        return array(
-            'caseId',
-            'dob',
-            'gender',
-            'district',
-            'admDate',
-            'symptomDiarrhea',
-            'symptomDiarrheaOnset',
-            'symptomDiarrheaEpisodes',
-            'symptomDiarrheaDuration',
-            'symptomVomit',
-            'symptomVomitEpisodes',
-            'symptomVomitDuration',
-            'symptomDehydration',
-            'symptomDehydrationAmount',
-            'rehydration',
-            'rehydrationType',
-            'rehydrationOther',
-            'vaccinationReceived',
-            'vaccinationType',
-            'doses',
-            'firstVaccinationDose',
-            'secondVaccinationDose',
-            'thirdVaccinationDose',
-            'stoolCollected',
-            'stoolId',
-            'stoolCollectionDate',
-            'dischargeOutcome',
-            'dischargeDate',
-            'dischargeClassOther',
-            'comment',
-        );
     }
 }

@@ -15,7 +15,6 @@ use \Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @author gnat
  * @ORM\MappedSuperclass
- * @ORM\HasLifecycleCallbacks
  * @SuppressWarnings(PHPMD.ShortVariable)
  * @UniqueEntity(fields={"site","caseId"}, message="The case id already exists for this site!")
  */
@@ -466,62 +465,6 @@ abstract class BaseCase
     }
 
     /**
-     * @return null
-     */
-    public function calculateStatus()
-    {
-        if($this->status->getValue() >= CaseStatus::CANCELLED) {
-            return;
-        }
-
-        $this->status = ($this->getIncompleteField()) ? new CaseStatus(CaseStatus::OPEN) :new CaseStatus(CaseStatus::COMPLETE);
-
-        return;
-    }
-
-    /**
-     * @TODO Move from this princess
-     */
-    public function calculateAge()
-    {
-        if ($this->dob && $this->admDate) {
-            $interval = $this->dob->diff($this->admDate);
-            $this->setAge(($interval->format('%a') / 30.5));
-        }
-        elseif ($this->admDate && !$this->dob) {
-            if(!$this->age && !is_null($this->dobYears) && !is_null($this->dobMonths)) {
-                $this->setAge((int)(($this->dobYears*12)+$this->dobMonths));
-            }
-
-            if ($this->age >= 0) {
-                $d         = clone $this->admDate;
-                $this->dob = $d->sub(new \DateInterval("P" . ((int) $this->age) . "M"));
-            }
-        }
-
-        if ($this->age >= 0) {
-            if ($this->age < 6) {
-                $this->setAgeDistribution(self::AGE_DISTRIBUTION_00_TO_05);
-            }
-            else if ($this->age < 12) {
-                $this->setAgeDistribution(self::AGE_DISTRIBUTION_05_TO_11);
-            }
-            else if ($this->age < 24) {
-                $this->setAgeDistribution(self::AGE_DISTRIBUTION_11_TO_23);
-            }
-            else if ($this->age < 60) {
-                $this->setAgeDistribution(self::AGE_DISTRIBUTION_23_TO_59);
-            }
-            else {
-                $this->setAgeDistribution(self::AGE_DISTRIBUTION_UNKNOWN);
-            }
-        }
-        else {
-            $this->setAgeDistribution (self::AGE_DISTRIBUTION_UNKNOWN);
-        }
-    }
-
-    /**
      *
      * @return \DateTime
      */
@@ -556,33 +499,6 @@ abstract class BaseCase
     {
         $this->createdAt = $createdAt;
         return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    abstract public function getIncompleteField();
-
-    /**
-     * @return mixed
-     */
-    abstract public function getMinimumRequiredFields();
-
-    /**
-     * @return mixed
-     */
-    abstract public function calculateResult();
-
-    /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
-    public function preUpdateAndPersist()
-    {
-        $this->calculateAge();
-        $this->calculateStatus();
-        $this->calculateResult();
-        $this->setUpdatedAt(new \DateTime());
     }
 
     /**
