@@ -152,7 +152,7 @@ class RotaVirusRepository extends Common
      */
     public function findOrCreate($caseId, $objId = null)
     {
-        if ($objId == null && $caseId == null) {
+        if ($objId === null && $caseId === null) {
             throw new \InvalidArgumentException("Id or Case must be provided");
         }
 
