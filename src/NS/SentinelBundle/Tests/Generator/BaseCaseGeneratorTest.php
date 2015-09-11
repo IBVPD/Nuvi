@@ -15,7 +15,7 @@ class BaseCaseGeneratorTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @expectedExceptionMessage Entity must implement IdentityAssignmentInterface
+     * @expectedExceptionMessage Entity must extend NS\SentinelBundle\Entity\BaseCase
      * @expectedException \InvalidArgumentException
      */
     public function testInvalidInterface()

@@ -3,7 +3,7 @@
 namespace NS\SentinelBundle\Generator;
 
 use \Doctrine\ORM\Id\AbstractIdGenerator;
-use \NS\SentinelBundle\Interfaces\IdentityAssignmentInterface;
+use \NS\SentinelBundle\Entity\BaseCase;
 use \Doctrine\ORM\EntityManager;
 use \Doctrine\ORM\Query\ResultSetMapping;
 use \Doctrine\ORM\Query;
@@ -21,8 +21,8 @@ class BaseCaseGenerator extends AbstractIdGenerator
      */
     public function generate(EntityManager $entityMgr, $entity)
     {
-        if (!$entity instanceOf IdentityAssignmentInterface) {
-            throw new \InvalidArgumentException("Entity must implement IdentityAssignmentInterface");
+        if (!$entity instanceOf BaseCase) {
+            throw new \InvalidArgumentException('Entity must extend NS\\SentinelBundle\\Entity\\BaseCase');
         }
 
         $site = $entity->getSite();
@@ -53,10 +53,28 @@ class BaseCaseGenerator extends AbstractIdGenerator
 
             $entityMgr->commit();
 
-            return $entity->getFullIdentifier($newId);
+            return $this->getFullIdentifier($entity,$newId);
         } catch (\Exception $exception) {
             $entityMgr->rollback();
             throw new \RuntimeException(sprintf('Site issue: %s %s %s',$site->getName(),$site->getId(),$exception->getMessage()));
         }
+    }
+
+    /**
+     * @param BaseCase $case
+     * @param $id
+     * @return string
+     */
+    public function getFullIdentifier(BaseCase $case, $id)
+    {
+        if (property_exists($case, 'admDate') && $case->getAdmDate() instanceof \DateTime) {
+            $year = $case->getAdmDate()->format('y');
+        } elseif (property_exists($case, 'onsetDate') && $case->getOnsetDate() instanceof \DateTime) {
+            $year = $case->getOnsetDate()->format('y');
+        } else {
+            $year = date('y');
+        }
+
+        return sprintf("%s-%s-%d-%06d", $case->getCountry()->getCode(), $case->getSite()->getCode(), $year, $id);
     }
 }

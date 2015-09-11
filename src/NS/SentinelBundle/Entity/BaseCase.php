@@ -7,7 +7,6 @@ use \JMS\Serializer\Annotation as Serializer;
 use \NS\SentinelBundle\Form\Types\CaseStatus;
 use \NS\SentinelBundle\Form\Types\Gender;
 use \NS\SentinelBundle\Form\Types\TripleChoice;
-use \NS\SentinelBundle\Interfaces\IdentityAssignmentInterface;
 use \Symfony\Component\Validator\Constraints as Assert;
 use \Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -20,7 +19,7 @@ use \Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @SuppressWarnings(PHPMD.ShortVariable)
  * @UniqueEntity(fields={"site","caseId"}, message="The case id already exists for this site!")
  */
-abstract class BaseCase implements IdentityAssignmentInterface
+abstract class BaseCase
 {
     const AGE_DISTRIBUTION_UNKNOWN  = -1;
     const AGE_DISTRIBUTION_00_TO_05 = 1;
@@ -258,24 +257,6 @@ abstract class BaseCase implements IdentityAssignmentInterface
     public function hasId()
     {
         return !empty($this->id);
-    }
-
-    /**
-     * @param string $id
-     * @return string
-     * @TODO Move this functionality out of the entity
-     */
-    public function getFullIdentifier($id)
-    {
-        if (property_exists($this, 'admDate') && $this->admDate) {
-            $year = $this->admDate->format('y');
-        } elseif (property_exists($this, 'onsetDate') && $this->onsetDate) {
-            $year = $this->onsetDate->format('y');
-        } else {
-            $year = date('y');
-        }
-
-        return sprintf("%s-%s-%d-%06d", $this->country->getCode(), $this->site->getCode(), $year, $id);
     }
 
     /**

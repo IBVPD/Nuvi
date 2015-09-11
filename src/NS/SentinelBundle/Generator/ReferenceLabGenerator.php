@@ -22,20 +22,17 @@ class ReferenceLabGenerator extends AbstractIdGenerator
      */
     public function generate(EntityManager $entityMgr, $entity)
     {
-        if (!$entity instanceOf ReferenceLabEntity)
-        {
-            throw new \InvalidArgumentException("Entity must implement IdentityAssignmentInterface");
+        if (!$entity instanceOf ReferenceLabEntity) {
+            throw new \InvalidArgumentException('Entity must implement ReferenceLabEntity');
         }
 
         $region = $entity->getCountry()->getRegion();
 
-        if (is_null($region))
-        {
+        if (is_null($region)) {
             throw new \UnexpectedValueException("Can't generate an id for entities without an assigned country and region");
         }
 
-        if (!$region->getCode())
-        {
+        if (!$region->getCode()) {
             throw new \UnexpectedValueException(sprintf("Can't generate an id for entities with a region without an code '%s'", $region->getCode()));
         }
 
