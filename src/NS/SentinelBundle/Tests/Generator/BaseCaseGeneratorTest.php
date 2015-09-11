@@ -13,7 +13,6 @@ use \NS\SentinelBundle\Generator\BaseCaseGenerator;
  */
 class BaseCaseGeneratorTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      * @expectedExceptionMessage Entity must extend NS\SentinelBundle\Entity\BaseCase
      * @expectedException \InvalidArgumentException
@@ -89,7 +88,7 @@ class BaseCaseGeneratorTest extends \PHPUnit_Framework_TestCase
             ->willReturn($nativeQuery);
         $entityMgr->expects($this->once())
             ->method('createQuery')
-            ->with('UPDATE sites SET currentCaseId = currentCaseId +1 WHERE code = :code')
+            ->with('UPDATE NS\SentinelBundle\Entity\Site s SET s.currentCaseId = s.currentCaseId +1 WHERE s.code = :code')
             ->willReturnSelf();
         $entityMgr->expects($this->once())
             ->method('setParameter')
