@@ -103,7 +103,7 @@ abstract class ExternalLab extends BaseExternalLab
 
     /**
      * @var integer $ctrA
-     * @ORM\Column(name="ctrA",type="integer",nullable=true)
+     * @ORM\Column(name="ctrA",type="decimal",precision=3, scale=1,nullable=true)
      * @Assert\Range(min=-10,max=50)
      * @Serializer\Groups({"api"})
      */
