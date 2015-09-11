@@ -60,10 +60,10 @@ the User's data **@Server**.
 
 Step Two
 --------
-ClientApp creates a link that sends the User can click on sending them to the
-Server. This url will include the client id and secret and as such should
-be accessed over a secured channel such as HTTPS/SSL. The url is the **Server's**
-Auth Endpoint providing OAuth2 required parameters.
+ClientApp creates a link that User can click on sending them to **@Server's** auth 
+endpoint. This url will include the client id and secret and as such should be accessed 
+over a secured channel such as HTTPS/SSL. The url is the **Server's** Auth Endpoint 
+providing OAuth2 required parameters.
 
  * Client Id
  * Client Secret
@@ -131,7 +131,7 @@ The response of which would be a JSON encoded array that provides the access tok
 expiry in seconds and if granted by the server a refresh_token. It would look something
 like:
 
-```
+```JSON
 { "access_token": "NjlmNDNiZT....", "expires_in": 3600, "refresh_token": "ZGU2NzlhOT...." }
 ```
 
@@ -236,3 +236,4 @@ Additional Resources
  * [https://github.com/adoy/PHP-OAuth2] - A very simple PHP based OAuth2 client.
  * Chrome has a browser extension called 'POSTMAN' that allows one to manually
    craft requests to help debug and develop an OAuth client.
+ * The WHO/NUVI system has api documentation and sandbox available at https://server.domain.com/en/doc/api

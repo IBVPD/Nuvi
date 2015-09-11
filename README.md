@@ -196,3 +196,8 @@ Time: 20.26 seconds, Memory: 231.50Mb
 
 OK (455 tests, 2197 assertions)
 ```
+
+API Documentation
+=================
+
+API documentation is available [here](src/NS/ApiBundle/README.md)
