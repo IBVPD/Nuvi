@@ -108,7 +108,9 @@ to function.
   ServerName nuvi
 
   DocumentRoot "/var/www/local/nuvi/web"
+
   <Directory "/var/www/local/nuvi/web">
+    DirectoryIndex app.php
     Options Indexes FollowSymLinks MultiViews
     AllowOverride None
     <IfModule mod_rewrite.c>
@@ -119,6 +121,14 @@ to function.
     Require all granted
   </Directory>
 
+  <Directory "/var/www/local/nuvi/app">
+    deny from all
+  </Directory>
+  
+  <Directory "/var/www/local/nuvi/src">
+    deny from all
+  </Directory>
+      
   SSLEngine on
   SSLCertificateFile /etc/pki/tls/certs/server.crt
   SSLCertificateKeyFile /etc/pki/tls/private/server.key
