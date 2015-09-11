@@ -33,8 +33,9 @@ class WebTestCase extends BaseWebTestCase
     public function getAccessToken(UserInterface $user)
     {
         $uname = $user->getUsername();
-        if (isset($this->accessToken[$uname]) && $this->accessToken[$uname]['expires_at'] < time())
+        if (isset($this->accessToken[$uname]) && $this->accessToken[$uname]['expires_at'] < time()) {
             return $this->accessToken[$uname]['access_token'];
+        }
 
         $cont        = $this->getContainer();
         $em          = $cont->get('doctrine.orm.entity_manager');
