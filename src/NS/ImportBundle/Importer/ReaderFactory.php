@@ -26,46 +26,41 @@ class ReaderFactory
      */
     static public function getReader(File $file)
     {
-        if($file instanceof UploadedFile) {
-            return self::getReaderForUploadedFile($file);
-        }
-
-        switch($file->getExtension()) {
+        switch (self::getExtension($file)) {
             case 'csv':
                 return new CsvReader($file->openFile('r'));
             case 'xls':
-            case 'xlsx':
-            case 'ods':
                 return new ExcelReader($file->openFile('r'));
         }
 
-        switch($file->guessExtension()) {
-            case 'csv':
-                return new CsvReader($file->openFile('r'));
-            case 'xls':
-            case 'xlsx':
-            case 'ods':
-                return new ExcelReader($file->openFile('r'));
-        }
-
-        throw new \InvalidArgumentException(sprintf('Unable to find reader for file with extension "%s or %s" mime:',$file->getExtension(),$file->guessExtension(),$file->getMimeType()));
+        throw new \InvalidArgumentException(sprintf('Unable to find reader for file with extension "%s or %s" mime: %s', $file->getExtension(), $file->guessExtension(), $file->getMimeType()));
     }
 
     /**
      * @param UploadedFile $file
      * @return CsvReader|ExcelReader
      */
-    static public function getReaderForUploadedFile(UploadedFile $file)
+    static public function getUploadedFileExtension(UploadedFile $file)
     {
-        switch($file->getClientOriginalExtension()) {
-            case 'csv':
-                return new CsvReader($file->openFile('r'));
-            case 'xls':
-            case 'xlsx':
-            case 'ods':
-                return new ExcelReader($file->openFile('r'));
+        return $file->getClientOriginalExtension();
+    }
+
+    static public function getExtension(File $file)
+    {
+        if ($file instanceof UploadedFile) {
+            return self::getUploadedFileExtension($file);
         }
 
-        throw new \InvalidArgumentException(sprintf('Unable to find reader for file with extension "%s or %s" mime:',$file->getClientOriginalExtension(),$file->getClientMimeType(),$file->getClientMimeType()));
+        $extension = $file->getExtension();
+
+        if (!$extension) {
+            $extension = $file->guessExtension();
+        }
+
+        if (in_array($extension, array('xlsx', 'ods'))) {
+            $extension = 'xls';
+        }
+
+        return $extension;
     }
 }
