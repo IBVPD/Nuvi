@@ -2,6 +2,11 @@ parameters:
   ns_import.map.classes: { }
 
 services:
+    ns_import.vich.event_listener:
+        class: NS\ImportBundle\Vich\EventListener
+        tags:
+            - { type: kernel.event_listener, name: vich_uploader.post_upload, method: onPostUpload }
+
     ns_import.batch_worker:
         class: NS\ImportBundle\Importer\ImportBatchWorker
         arguments: [ @doctrine.orm.entity_manager, @ns_import.processor ]
