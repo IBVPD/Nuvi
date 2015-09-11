@@ -13,8 +13,14 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
  */
 class DoctrineExtensionListener
 {
-
+    /**
+     * @var SecurityContextInterface
+     */
     private $securityContext;
+
+    /**
+     * @var Loggable|\Gedmo\Mapping\MappedEventSubscriber
+     */
     private $gedmoLoggable;
 
     /**
@@ -30,14 +36,11 @@ class DoctrineExtensionListener
 
     /**
      * 
-     * @param GetResponseEvent $event
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function onKernelRequest(GetResponseEvent $event)
+    public function onKernelRequest()
     {
         if (null !== $this->securityContext->getToken() && $this->securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
             $this->gedmoLoggable->setUsername($this->securityContext->getToken()->getUsername());
         }
     }
-
 }
