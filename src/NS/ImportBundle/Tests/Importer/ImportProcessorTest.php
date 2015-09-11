@@ -37,55 +37,55 @@ class ImportProcessorTest extends WebTestCase
         $processor = $this->getContainer()->get('ns_import.processor');
         $processor->getReader($import);
     }
-
-    /**
-     * @param $file
-     * @param $interface
-     * @dataProvider getFiles
-     */
-    public function testGetReader($file, $interface)
-    {
-        $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
-        $columns = array(
-            array(
-                'name'      => 'Country',
-                'converter' => null,
-                'mapper'    => null,
-                'ignored'   => true,
-            ),
-            array(
-                'name'      => 'Auto_ID',
-                'converter' => '',
-                'mapper'    => '',
-                'ignored'   => false,
-            ),
-        );
-
-        $map    = $this->getIbdMap($columns);
-        $import = new Import($mockUser);
-        $import->setSourceFile($file);
-        $import->setMap($map);
-
-        $registry = new Registry();
-        $mockEntityMgr = $this->getMockBuilder('\Doctrine\ORM\EntityManager')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-
-        $processor = new ImportProcessor($registry,$mockEntityMgr);
-        $reader    = $processor->getReader($import);
-        $this->assertInstanceOf($interface,$reader);
-    }
-
-    public static function getFiles()
-    {
-        return array(
-            array(new File(__DIR__ . '/../Fixtures/EMR-IBD-headers.xls'), 'Ddeboer\DataImport\Reader\ExcelReader'),
-            array(new File(__DIR__ . '/../Fixtures/EMR-IBD-headers.csv'), 'Ddeboer\DataImport\Reader\CsvReader'),
-            array(new File(__DIR__ . '/../Fixtures/EMR-IBD-headers.xlsx'), 'Ddeboer\DataImport\Reader\ExcelReader'),
-            array(new File(__DIR__ . '/../Fixtures/EMR-IBD-headers.ods'), 'Ddeboer\DataImport\Reader\ExcelReader'),
-        );
-    }
+//
+//    /**
+//     * @param $file
+//     * @param $interface
+//     * @dataProvider getFiles
+//     */
+//    public function testGetReader($file, $interface)
+//    {
+//        $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
+//        $columns = array(
+//            array(
+//                'name'      => 'Country',
+//                'converter' => null,
+//                'mapper'    => null,
+//                'ignored'   => true,
+//            ),
+//            array(
+//                'name'      => 'Auto_ID',
+//                'converter' => '',
+//                'mapper'    => '',
+//                'ignored'   => false,
+//            ),
+//        );
+//
+//        $map    = $this->getIbdMap($columns);
+//        $import = new Import($mockUser);
+//        $import->setSourceFile($file);
+//        $import->setMap($map);
+//
+//        $registry = new Registry();
+//        $mockEntityMgr = $this->getMockBuilder('\Doctrine\ORM\EntityManager')
+//            ->disableOriginalConstructor()
+//            ->getMock();
+//
+//
+//        $processor = new ImportProcessor($registry,$mockEntityMgr);
+//        $reader    = $processor->getReader($import);
+//        $this->assertInstanceOf($interface,$reader);
+//    }
+//
+//    public static function getFiles()
+//    {
+//        return array(
+//            array(new File(__DIR__ . '/../Fixtures/EMR-IBD-headers.xls'), 'Ddeboer\DataImport\Reader\ExcelReader'),
+//            array(new File(__DIR__ . '/../Fixtures/EMR-IBD-headers.csv'), 'Ddeboer\DataImport\Reader\CsvReader'),
+//            array(new File(__DIR__ . '/../Fixtures/EMR-IBD-headers.xlsx'), 'Ddeboer\DataImport\Reader\ExcelReader'),
+//            array(new File(__DIR__ . '/../Fixtures/EMR-IBD-headers.ods'), 'Ddeboer\DataImport\Reader\ExcelReader'),
+//        );
+//    }
 
     /**
      * @expectedException InvalidArgumentException
