@@ -10,27 +10,17 @@ use Symfony\Component\HttpFoundation\Request;
 
 class SecurityController extends Controller
 {
-
     /**
      * @Route("/login", name="admin_login")
      * @Method(methods={"GET"})
      */
     public function loginAction(Request $request)
     {
-        $session = $request->getSession();
-
-        // get the login error if there is one
-        if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
-            $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
-        } else {
-            $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
-            $session->remove(SecurityContext::AUTHENTICATION_ERROR);
-        }
+        $helper = $this->get('security.authentication_utils');
 
         return $this->render('NSSentinelBundle:Security:login.html.twig', array(
-            // last username entered by the user
-            'last_username' => $session->get(SecurityContext::LAST_USERNAME),
-            'error' => $error,
+            'last_username' => $helper->getLastUsername(),
+            'error'         => $helper->getLastAuthenticationError(),
         ));
     }
 
@@ -77,5 +67,4 @@ class SecurityController extends Controller
     {
         return $this->get('ns.sentinel.services.homepage')->getHomepageResponse($request);
     }
-
 }

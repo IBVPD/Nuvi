@@ -2,6 +2,7 @@
 
 namespace NS\ApiBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContext;
@@ -16,35 +17,23 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class SecurityController extends Controller
 {
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/login",name="apiLogin")
+     * @Method(methods={"GET"})
      */
-    public function loginAction(Request $request)
+    public function loginAction()
     {
-        $session = $request->getSession();
+        $helper = $this->get('security.authentication_utils');
 
-        if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR))
-            $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
-        else if (null !== $session && $session->has(SecurityContext::AUTHENTICATION_ERROR))
-        {
-            $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
-            $session->remove(SecurityContext::AUTHENTICATION_ERROR);
-        }
-        else
-            $error = '';
-
-        if ($error)
-            $error = $error->getMessage(); // WARNING! Symfony source code identifies this line as a potential security threat.
-
-        $lastUsername = (null === $session) ? '' : $session->get(SecurityContext::LAST_USERNAME);
-
-        return $this->render('NSApiBundle:Security:login.html.twig', array('last_username' => $lastUsername, 'error' => $error));
+        return $this->render('NSApiBundle:Security:login.html.twig', array(
+            'last_username' => $helper->getLastUsername(),
+            'error'         => $helper->getLastAuthenticationError(),
+        ));
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
      * @Route("/login_check",name="apiLoginCheck")
+     * @Method(methods={"POST"})
      */
     public function loginCheckAction()
     {
