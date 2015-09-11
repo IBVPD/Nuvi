@@ -5,6 +5,7 @@ namespace NS\SentinelBundle\Controller;
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use \Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @Route("/{_locale}/ibd")
@@ -37,7 +38,9 @@ class IBDController extends BaseCaseController
      */
     public function editAction(Request $request, $id = null)
     {
-        return $this->render('NSSentinelBundle:IBD:edit.html.twig',$this->edit($request, 'ibd', "ibdIndex", "ibdEdit", $id));
+        $response = $this->edit($request, 'ibd', "ibdIndex", "ibdEdit", $id);
+
+        return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:IBD:edit.html.twig',$response);
     }
 
     /**
@@ -46,7 +49,8 @@ class IBDController extends BaseCaseController
      */
     public function editRRLAction(Request $request, $id = null)
     {
-        return $this->render('NSSentinelBundle:IBD:editBaseLab.html.twig',$this->edit($request, 'ibd_referencelab', "ibdIndex", "ibdRRLEdit", $id));
+        $response = $this->edit($request, 'ibd_referencelab', "ibdIndex", "ibdRRLEdit", $id);
+        return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:IBD:editBaseLab.html.twig',$response);
     }
 
     /**
@@ -55,7 +59,9 @@ class IBDController extends BaseCaseController
      */
     public function editNLAction(Request $request, $id = null)
     {
-        return $this->render('NSSentinelBundle:IBD:editBaseLab.html.twig',$this->edit($request, 'ibd_nationallab', "ibdIndex", "ibdNLEdit", $id));
+        $response = $this->edit($request, 'ibd_nationallab', "ibdIndex", "ibdNLEdit", $id);
+
+        return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:IBD:editBaseLab.html.twig',$response);
     }
 
     /**
@@ -64,7 +70,8 @@ class IBDController extends BaseCaseController
      */
     public function editLabAction(Request $request, $id = null)
     {
-        return $this->render('NSSentinelBundle:IBD:editLab.html.twig',$this->edit($request, 'ibd_lab', "ibdIndex", "ibdLabEdit", $id));
+        $response = $this->edit($request, 'ibd_lab', "ibdIndex", "ibdLabEdit", $id);
+        return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:IBD:editLab.html.twig',$response);
     }
 
     /**
@@ -73,7 +80,8 @@ class IBDController extends BaseCaseController
      */
     public function editOutcomeAction(Request $request, $id = null)
     {
-        return $this->render('NSSentinelBundle:IBD:editOutcome.html.twig',$this->edit($request, 'ibd_outcome', "ibdIndex", "ibdOutcomeEdit", $id));
+        $response = $this->edit($request, 'ibd_outcome', "ibdIndex", "ibdOutcomeEdit", $id);
+        return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:IBD:editOutcome.html.twig',$response);
     }
 
     /**
