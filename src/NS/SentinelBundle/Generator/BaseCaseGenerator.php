@@ -47,7 +47,7 @@ class BaseCaseGenerator extends AbstractIdGenerator
                 ->getResult(Query::HYDRATE_SINGLE_SCALAR);
 
             $entityMgr
-                ->createQuery('UPDATE sites SET currentCaseId = currentCaseId +1 WHERE code = :code')
+                ->createQuery('UPDATE NS\SentinelBundle\Entity\Site s SET s.currentCaseId = s.currentCaseId +1 WHERE s.code = :code')
                 ->setParameter('code', $site->getCode())
                 ->execute();
 
