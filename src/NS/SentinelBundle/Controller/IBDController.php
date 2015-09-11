@@ -120,5 +120,4 @@ class IBDController extends BaseCaseController
     {
         return $this->render('NSSentinelBundle:IBD:show.html.twig',$this->show('NSSentinelBundle:IBD', $id));
     }
-
 }
