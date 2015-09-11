@@ -13,6 +13,6 @@ parameters:
 
     locale:            en
     locales:           [ en, fr ]
-    secret:            ThisTokenIsNotSoSecretChangeIt
+    secret:            e24d2ace-dd63-4b42-950e-8c9ac77d44fb
 
     beanstalk_server:  127.0.0.1
