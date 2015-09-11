@@ -121,14 +121,6 @@ abstract class BaseExternalLab
     }
 
     /**
-     * @return bool
-     */
-    public function getIsComplete()
-    {
-        return $this->status->getValue() == CaseStatus::COMPLETE;
-    }
-
-    /**
      * @return string
      */
     public function getLabId()

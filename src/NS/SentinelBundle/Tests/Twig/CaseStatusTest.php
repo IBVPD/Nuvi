@@ -171,10 +171,10 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
         $l2 = $status->getNLLabel($case2, 'nothing');
 
 
-        $this->assertTrue($rrl->getIsComplete(), 'rrl is complete');
+        $this->assertTrue($rrl->isComplete(), 'rrl is complete');
         $this->assertContains('label-success', $l1, "Complete RRL lab has success label");
 
-        $this->assertTrue($nl->getIsComplete(), 'nl is complete');
+        $this->assertTrue($nl->isComplete(), 'nl is complete');
         $this->assertContains('label-success', $l2, "Complete NL lab has success label");
     }
 

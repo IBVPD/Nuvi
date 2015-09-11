@@ -11,7 +11,9 @@ use NS\SentinelBundle\Entity\BaseCase;
  */
 class CaseStatus extends \Twig_Extension
 {
-
+    /**
+     * @return array
+     */
     public function getFunctions()
     {
         $isSafe = array('is_safe' => array('html'));
@@ -24,14 +26,19 @@ class CaseStatus extends \Twig_Extension
         );
     }
 
+    /**
+     * @param BaseCase $obj
+     * @param $message
+     * @return null|string
+     */
     public function getNLLabel(BaseCase $obj, $message)
     {
-        if ($obj->getSentToNationalLab() || $obj->hasNationalLab())
-        {
-            if ($obj->getSentToNationalLab() && $obj->hasNationalLab())
-                $class = ($obj->getNationalLab()->getIsComplete()) ? 'label-success fa fa-check' : 'label-warning fa fa-warning-sign';
-            else
+        if ($obj->getSentToNationalLab() || $obj->hasNationalLab()) {
+            if ($obj->getSentToNationalLab() && $obj->hasNationalLab()) {
+                $class = ($obj->getNationalLab()->isComplete()) ? 'label-success fa fa-check' : 'label-warning fa fa-warning-sign';
+            } else {
                 $class = 'label-danger fa fa-exclamation-sign';
+            }
 
             return '<span class="label label-sm ' . $class . '">' . $message . '</span>';
         }
@@ -39,14 +46,19 @@ class CaseStatus extends \Twig_Extension
         return null;
     }
 
+    /**
+     * @param BaseCase $obj
+     * @param $message
+     * @return null|string
+     */
     public function getRRLLabel(BaseCase $obj, $message)
     {
-        if ($obj->getSentToReferenceLab() || $obj->hasReferenceLab())
-        {
-            if ($obj->getSentToReferenceLab() && $obj->hasReferenceLab())
-                $class = ($obj->getReferenceLab()->getIsComplete()) ? 'label-success fa fa-check' : 'label-warning fa fa-warning-sign';
-            else
+        if ($obj->getSentToReferenceLab() || $obj->hasReferenceLab()) {
+            if ($obj->getSentToReferenceLab() && $obj->hasReferenceLab()) {
+                $class = ($obj->getReferenceLab()->isComplete()) ? 'label-success fa fa-check' : 'label-warning fa fa-warning-sign';
+            } else {
                 $class = 'label-danger fa fa-exclamation-sign';
+            }
 
             return '<span class="label label-sm ' . $class . '">' . $message . '</span>';
         }
@@ -54,16 +66,27 @@ class CaseStatus extends \Twig_Extension
         return null;
     }
 
+    /**
+     * @param BaseCase $obj
+     * @param $message
+     * @return string
+     */
     public function getLabLabel(BaseCase $obj, $message)
     {
-        if ($obj->hasSiteLab())
+        if ($obj->hasSiteLab()) {
             $class = $obj->getSiteLab()->isComplete() ? 'label-success fa fa-check' : 'label-warning fa fa-exclamation-sign';
-        else
+        } else {
             $class = 'label-danger fa fa-exclamation-sign';
+        }
 
         return '<span class="label label-sm ' . $class . '">' . $message . '</span>';
     }
 
+    /**
+     * @param BaseCase $obj
+     * @param $message
+     * @return string
+     */
     public function getLabel(BaseCase $obj, $message)
     {
         $noError = true;
@@ -86,14 +109,16 @@ class CaseStatus extends \Twig_Extension
 
         if ($noError) {
             $class = ($obj->isComplete()) ? 'label-success fa fa-check' : 'label-warning fa fa-exclamation-sign';
-        }
-        else {
+        } else {
             $class = 'label-danger fa fa-exclamation-sign';
         }
 
         return '<span class="label label-sm ' . $class . '">' . $message . '</span>';
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return 'twig_case_status';
