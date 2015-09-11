@@ -3,7 +3,6 @@
 namespace NS\SentinelBundle\Listeners;
 
 use Gedmo\Loggable\Loggable;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
