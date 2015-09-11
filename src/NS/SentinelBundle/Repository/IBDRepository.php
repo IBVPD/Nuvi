@@ -169,7 +169,7 @@ class IBDRepository extends Common
         }
         catch (NoResultException $e)
         {
-            return null; //throw new NonExistentCase("This case does not exist!");
+            return null;
         }
     }
 

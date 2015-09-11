@@ -79,7 +79,7 @@ class DoctrineCollectionSourceIterator implements SourceIteratorInterface
             }
             catch (\Exception $e)
             {
-                $data[$name] = $e->getMessage();//null;
+                $data[$name] = $e->getMessage();
             }
         }
 
