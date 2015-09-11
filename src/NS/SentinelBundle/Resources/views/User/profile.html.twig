@@ -1,61 +1,64 @@
-{%extends "NSSentinelBundle::layout.html.twig" %}
+{% extends "NSSentinelBundle::layout.html.twig" %}
 
 {% block body %}
-{{form_errors(form)}}
-<div class="row">
-    <div class="col-sm-8" >
-        <form action="{{path('userProfile')}}" method="POST" autocomplete="off">
-            <div class="profile-user-info profile-user-info-striped">
-                <div class="profile-info-row">
-                    <div class="profile-info-name"> {{'Name'|trans}} </div>
-                    <div class="profile-info-value">
-                        {{form_widget(form.name)}}
+    {{ form_errors(form) }}
+    <div class="row">
+        <div class="col-sm-8">
+            <form action="{{ path('userProfile') }}" method="POST" autocomplete="off">
+                <div class="profile-user-info profile-user-info-striped">
+                    <div class="profile-info-row">
+                        <div class="profile-info-name"> {{ 'Name'|trans }} </div>
+                        <div class="profile-info-value">
+                            {{ form_widget(form.name) }}
+                        </div>
+                    </div>
+
+                    <div class="profile-info-row">
+                        <div class="profile-info-name"> {{ 'Email'|trans }} </div>
+                        <div class="profile-info-value">
+                            {{ form_widget(form.email) }}
+                        </div>
+                    </div>
+
+                    <div class="profile-info-row">
+                        <div class="profile-info-name"></div>
+                        <div class="profile-info-value">
+                            {{ form_widget(form.plainPassword) }}
+                        </div>
+                    </div>
+
+                    <div class="profile-info-row">
+                        <div class="profile-info-name"></div>
+                        <div class="profile-info-value">
+                            {{ form_widget(form.language) }}
+                        </div>
+                    </div>
+
+                    <div class="profile-info-row">
+                        <div class="profile-info-name"> {{ 'Is Admin'|trans }} </div>
+                        <div class="profile-info-value">
+                            <i class="fa {% if user.admin %}fa-check{% else %}fa-check-empty{% endif %} bigger-110"></i>
+                        </div>
+                    </div>
+
+                    <div class="profile-info-row">
+                        <div class="profile-info-name"> {{ 'Create Rights'|trans }} </div>
+                        <div class="profile-info-value">
+                            <span><i class="fa {% if user.canCreateCases %}fa-check{% else %}fa-check-empty{% endif %} bigger-110"></i> {{ 'Case'|trans }}</span>
+                            <span><i class="fa {% if user.canCreateLabs %}fa-check{% else %}fa-check-empty{% endif %} bigger-110"></i> {{ 'Labs'|trans }}</span>
+                        </div>
                     </div>
                 </div>
 
-                <div class="profile-info-row">
-                    <div class="profile-info-name"> {{'Email'|trans}} </div>
-                    <div class="profile-info-value">
-                        {{form_widget(form.email)}}
-                    </div>
+                {{ form_rest(form) }}
+
+                <div class="form-actions center">
+                    <button type="submit" class="btn btn-sm btn-success">
+                        {{ 'Save'|trans }}
+                        <i class="fa fa-arrow-right fa-on-right bigger-110"></i>
+                    </button>
                 </div>
-
-                <div class="profile-info-row">
-                    <div class="profile-info-name"> </div>
-                    <div class="profile-info-value">
-                        {{form_widget(form.plainPassword)}}
-                    </div>
-                </div>
-
-                <div class="profile-info-row">
-                    <div class="profile-info-name"> </div>
-                    <div class="profile-info-value">
-                        {{form_widget(form.language)}}
-                    </div>
-                </div>
-
-                <div class="profile-info-row">
-                    <div class="profile-info-name"> {{'Is Admin'|trans}} </div>
-                    <div class="profile-info-value">
-                        <i class="fa {%if user.isAdmin%}fa-check{%else%}fa-check-empty{%endif%} bigger-110"></i>
-                    </div>
-                </div>
-
-                <div class="profile-info-row">
-                    <div class="profile-info-name"> {{'Create Rights'|trans}} </div>
-                    <div class="profile-info-value">
-                        <span><i class="fa {%if user.canCreateCases %}fa-check{%else%}fa-check-empty{%endif%} bigger-110"></i> {{'Case'|trans}}</span>
-                        <span><i class="fa {%if user.canCreateLabs %}fa-check{%else%}fa-check-empty{%endif%} bigger-110"></i> {{'Labs'|trans}}</span>
-                    </div>
-                </div>
-            </div>
-
-            {{form_rest(form)}}
-
-            <div class="form-actions center">
-                <button type="submit" class="btn btn-sm btn-success">{{'Save'|trans}}<i class="fa fa-arrow-right fa-on-right bigger-110"></i></button>
-            </div>    
-        </form>
+            </form>
+        </div>
     </div>
-</div>
 {% endblock %}

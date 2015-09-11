@@ -43,9 +43,9 @@ class Country implements \Serializable
     /**
      * @var boolean
      * 
-     * @ORM\Column(name="isActive",type="boolean")
+     * @ORM\Column(name="active",type="boolean")
      */
-    private $isActive;
+    private $active;
     
     /**
      * @var string
@@ -239,26 +239,26 @@ class Country implements \Serializable
     }
 
     /**
-     * Set isActive
+     * Set active
      *
-     * @param boolean $isActive
+     * @param boolean $active
      * @return Country
      */
-    public function setIsActive($isActive)
+    public function setActive($active)
     {
-        $this->isActive = $isActive;
+        $this->active = $active;
     
         return $this;
     }
 
     /**
-     * Get isActive
+     * Get active
      *
      * @return boolean 
      */
     public function isActive()
     {
-        return $this->isActive;
+        return $this->active;
     }
 
     /**
@@ -382,7 +382,7 @@ class Country implements \Serializable
         return serialize(array(
             $this->id,
             $this->code,
-            $this->isActive,
+            $this->active,
             $this->name,
             $this->gaviEligible,
             $this->region,
@@ -403,7 +403,7 @@ class Country implements \Serializable
     {
         list($this->id,
             $this->code,
-            $this->isActive,
+            $this->active,
             $this->name,
             $this->gaviEligible,
             $this->region,

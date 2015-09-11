@@ -79,9 +79,9 @@ class User implements AdvancedUserInterface
     /**
      * @var boolean
      *
-     * @ORM\Column(name="isAdmin", type="boolean")
+     * @ORM\Column(name="admin", type="boolean")
      */
-    private $isAdmin = false;
+    private $admin = false;
 
     /**
      * @var boolean
@@ -114,9 +114,9 @@ class User implements AdvancedUserInterface
     /**
      * @var boolean
      *
-     * @ORM\Column(name="isActive", type="boolean")
+     * @ORM\Column(name="active", type="boolean")
      */
-    private $isActive = false;
+    private $active = false;
 
     /**
      * @var string $language
@@ -400,7 +400,7 @@ class User implements AdvancedUserInterface
 
         $this->adjustRoles($roles);
 
-        if ($this->isAdmin) {
+        if ($this->admin) {
             $roles[] = 'ROLE_ADMIN';
         }
 
@@ -444,7 +444,7 @@ class User implements AdvancedUserInterface
      */
     public function isAccountNonLocked() 
     {
-        return $this->isActive;
+        return $this->active;
     }
 
     /**
@@ -460,7 +460,7 @@ class User implements AdvancedUserInterface
      */
     public function isEnabled() 
     {
-        return $this->isActive;
+        return $this->active;
     }
 
     /**
@@ -497,26 +497,26 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * Set isAdmin
+     * Set admin
      *
-     * @param boolean $isAdmin
+     * @param boolean $admin
      * @return User
      */
-    public function setIsAdmin($isAdmin)
+    public function setAdmin($admin)
     {
-        $this->isAdmin = $isAdmin;
+        $this->admin = $admin;
 
         return $this;
     }
 
     /**
-     * Get isAdmin
+     * Get admin
      *
      * @return boolean 
      */
-    public function getIsAdmin()
+    public function isAdmin()
     {
-        return $this->isAdmin;
+        return $this->admin;
     }
 
     /**
@@ -545,17 +545,17 @@ class User implements AdvancedUserInterface
      */
     public function isActive()
     {
-        return $this->isActive;
+        return $this->active;
     }
 
     /**
      *
-     * @param boolean $isActive
+     * @param boolean $active
      * @return \NS\SentinelBundle\Entity\User
      */
-    public function setIsActive($isActive)
+    public function setActive($active)
     {
-        $this->isActive = $isActive;
+        $this->active = $active;
 
         return $this;
     }

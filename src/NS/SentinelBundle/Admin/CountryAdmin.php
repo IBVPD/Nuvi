@@ -22,15 +22,14 @@ class CountryAdmin extends Admin
             ->add('name')
             ->add('code')
             ->add('region')
-            ->add('isActive')
+            ->add('active')
             ->add('tracksPneumonia')
             ->add('hasReferenceLab')
             ->add('hasNationalLab')
-            ->add('gaviEligible','doctrine_orm_callback',array('callback'=> array($this,'filterGaviEligible'),'field_type'=>'choice','field_options'=>array('choices'=>$type->getValues(),'multiple'=>true)))
+            ->add('gaviEligible', 'doctrine_orm_callback', array('callback' => array($this, 'filterGaviEligible'), 'field_type' => 'choice', 'field_options' => array('choices' => $type->getValues(), 'multiple' => true)))
             ->add('hibVaccineIntro')
             ->add('pcvVaccineIntro')
-            ->add('rvVaccineIntro')
-        ;
+            ->add('rvVaccineIntro');
     }
 
     /**
@@ -45,15 +44,14 @@ class CountryAdmin extends Admin
             ->add('tracksPneumonia')
             ->add('hasReferenceLab')
             ->add('hasNationalLab')
-            ->add('isActive')
+            ->add('active')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
                     'edit' => array(),
                     'delete' => array(),
                 )
-            ))
-        ;
+            ));
     }
 
     /**
@@ -64,17 +62,16 @@ class CountryAdmin extends Admin
         $formMapper
             ->add('code')
             ->add('name')
-            ->add('language','lunetics_locale',array('required'=>false))
-            ->add('tracksPneumonia',null,array('required'=>false))
-            ->add('hasReferenceLab',null,array('required'=>false))
-            ->add('hasNationalLab',null,array('required'=>false))
-            ->add('gaviEligible','TripleChoice',array('required'=>false))
+            ->add('language', 'lunetics_locale', array('required' => false))
+            ->add('tracksPneumonia', null, array('required' => false))
+            ->add('hasReferenceLab', null, array('required' => false))
+            ->add('hasNationalLab', null, array('required' => false))
+            ->add('gaviEligible', 'TripleChoice', array('required' => false))
             ->add('hibVaccineIntro')
             ->add('pcvVaccineIntro')
             ->add('rvVaccineIntro')
-            ->add('isActive',null,array('required' => false))
-            ->add('region')
-        ;
+            ->add('active', null, array('required' => false))
+            ->add('region');
     }
 
     /**
@@ -93,8 +90,7 @@ class CountryAdmin extends Admin
             ->add('pcvVaccineIntro')
             ->add('rvVaccineIntro')
             ->add('region')
-            ->add('sites')
-        ;
+            ->add('sites');
     }
 
     /**
@@ -105,19 +101,19 @@ class CountryAdmin extends Admin
      * @return boolean
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function filterGaviEligible($queryBuilder,$alias,$field,$value)
+    public function filterGaviEligible($queryBuilder, $alias, $field, $value)
     {
-        if(empty($value['value']))
+        if (empty($value['value'])) {
             return;
+        }
 
         $out = $params = array();
-        foreach($value['value'] as $x => $role)
-        {
+        foreach ($value['value'] as $x => $role) {
             $out[] = "$alias.gaviEligible = :type$x";
             $params["type$x"] = $role;
         }
 
-        $queryBuilder->andWhere("(".implode(" OR ",$out).")")->setParameters($params);
+        $queryBuilder->andWhere("(" . implode(" OR ", $out) . ")")->setParameters($params);
 
         return true;
     }

@@ -58,18 +58,18 @@ NS\SentinelBundle\Entity\User:
     user0:
         email: superadmin@noblet.ca
         name: NS Admin User
-        isAdmin: true
-        isActive: true
+        admin: true
+        active: true
         plainPassword: GnatAndDaveInIndia
     user1:
         email: na@noblet.ca
         name: NA User
-        isActive: true
+        active: true
         plainPassword: 1234567-na
     multiuser:
         email: site-multiple@noblet.ca
         name: Multiple User
-        isActive: true
+        active: true
         plainPassword: 1234567-multi
     us-user:
         name: US User
@@ -82,7 +82,7 @@ NS\SentinelBundle\Entity\User:
     ca-user0:
         name: CA User
         email: ca@noblet.ca
-        isActive: true
+        active: true
         plainPassword: 1234567-ca
         canCreateCases: false
         canCreateLabs: false
@@ -91,7 +91,7 @@ NS\SentinelBundle\Entity\User:
     ca-user1:
         name: CA Create User
         email: ca-create@noblet.ca
-        isActive: true
+        active: true
         plainPassword: 1234567-ca
         canCreateCases: true
         canCreateLabs: false
@@ -100,7 +100,7 @@ NS\SentinelBundle\Entity\User:
     ca-user2:
         name: CA Lab User
         email: ca-clab@noblet.ca
-        isActive: true
+        active: true
         plainPassword: 1234567-ca
         canCreateCases: true
         canCreateLabs: true
@@ -109,7 +109,7 @@ NS\SentinelBundle\Entity\User:
     ca-user3:
         name: CA RRL User
         email: ca-crrl@noblet.ca
-        isActive: true
+        active: true
         plainPassword: 1234567-ca
         canCreateCases: true
         canCreateLabs: true
@@ -119,7 +119,7 @@ NS\SentinelBundle\Entity\User:
     ca-user4:
         name: CA NL User
         email: ca-cnl@noblet.ca
-        isActive: true
+        active: true
         plainPassword: 1234567-ca
         canCreateCases: true
         canCreateLabs: true
@@ -129,7 +129,7 @@ NS\SentinelBundle\Entity\User:
     ca-user5:
         name: CA Full User
         email: ca-full@noblet.ca
-        isActive: true
+        active: true
         plainPassword: 1234567-ca
         canCreateCases: true
         canCreateLabs: true
@@ -139,7 +139,7 @@ NS\SentinelBundle\Entity\User:
     ca-user6:
         name: CA Api User
         email: ca-api@noblet.ca
-        isActive: true
+        active: true
         plainPassword: 1234567-ca
         canCreateCases: false
         canCreateLabs: false
@@ -149,7 +149,7 @@ NS\SentinelBundle\Entity\User:
     sUser0:
         name: Alberta Site User
         email: site-alberta@noblet.ca
-        isActive: true
+        active: true
         plainPassword: 1234567-alberta
         canCreateCases: true
         canCreateLabs: false
@@ -158,7 +158,7 @@ NS\SentinelBundle\Entity\User:
     sUser1:
         name: Seattle Site User
         email: site-seattle@noblet.ca
-        isActive: true
+        active: true
         plainPassword: 1234567-seattle
         canCreateCases: true
         canCreateLabs: false
@@ -167,7 +167,7 @@ NS\SentinelBundle\Entity\User:
     sUser2:
         name: Shriners Site User
         email: site-shriner@noblet.ca
-        isActive: true
+        active: true
         plainPassword: 1234567-shriner
         canCreateCases: true
         canCreateLabs: true
@@ -176,7 +176,7 @@ NS\SentinelBundle\Entity\User:
     sUser3:
         name: Toronto Site User
         email: site-toronto@noblet.ca
-        isActive: true
+        active: true
         plainPassword: 1234567-toronto
         canCreateCases: true
         canCreateLabs: false
@@ -185,7 +185,7 @@ NS\SentinelBundle\Entity\User:
     sUser4:
         name: Mexico Site User
         email: site-mexico@noblet.ca
-        isActive: true
+        active: true
         plainPassword: 1234567-mexico
         canCreateCases: true
         canCreateLabs: false

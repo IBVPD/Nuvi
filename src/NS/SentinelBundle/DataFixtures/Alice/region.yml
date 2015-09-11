@@ -12,35 +12,35 @@ NS\SentinelBundle\Entity\Country:
     country0:
         name: Canada
         code: CA
-        isActive: true
+        active: true
         hasReferenceLab: true
         hasNationalLab: true
         region: @region0
     country1:
         name: United States of America
         code: US
-        isActive: true
+        active: true
         hasReferenceLab: true
         hasNationalLab: true
         region: @region0
     country2:
         name: Mexico
         code: MX
-        isActive: true
+        active: true
         hasReferenceLab: true
         hasNationalLab: true
         region: @region0
     country3:
         name: India
         code: IN
-        isActive: true
+        active: true
         hasReferenceLab: true
         hasNationalLab: true
         region: @region1
     country4:
         name: Thailand
         code: TH
-        isActive: true
+        active: true
         hasReferenceLab: true
         hasNationalLab: true
         region: @region1

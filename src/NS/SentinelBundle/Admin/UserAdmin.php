@@ -59,7 +59,7 @@ class UserAdmin extends Admin
         $datagridMapper
             ->add('name')
             ->add('email')
-            ->add('isAdmin')
+            ->add('admin')
             ->add('canCreateCases')
             ->add('canCreateLabs')
             ->add('canCreateRRLLabs')
@@ -74,7 +74,7 @@ class UserAdmin extends Admin
         $listMapper
             ->add('name')
             ->add('email')
-            ->add('isAdmin')
+            ->add('admin')
             ->add('canCreateCases')
             ->add('canCreateLabs')
             ->add('canCreateRRLLabs')
@@ -106,8 +106,8 @@ class UserAdmin extends Admin
                     'second_options' => array('label' => 'Repeat Password'),
                 )
             )
-            ->add('isActive', null, array('required' => false))
-            ->add('isAdmin', null, array('required' => false))
+            ->add('active', null, array('required' => false))
+            ->add('admin', null, array('required' => false))
             ->add('canCreateCases', null, array('required' => false, 'label' => 'admin.form-can-create-case-record'))
             ->add('canCreateLabs', null, array('required' => false, 'label' => 'admin.form-can-create-sitelab-record'))
             ->add('canCreateRRLLabs', null, array('required' => false, 'label' => 'admin.form-can-create-reference-lab-record'))
@@ -124,7 +124,7 @@ class UserAdmin extends Admin
         $showMapper
             ->add('name')
             ->add('email')
-            ->add('isAdmin')
+            ->add('admin')
             ->add('canCreateCases')
             ->add('canCreateLabs');
     }
