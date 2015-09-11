@@ -77,7 +77,7 @@ class ImportProcessorTest extends WebTestCase
         $this->assertInstanceOf($interface,$reader);
     }
 
-    public function getFiles()
+    public static function getFiles()
     {
         return array(
             array(new File(__DIR__ . '/../Fixtures/EMR-IBD-headers.xls'), 'Ddeboer\DataImport\Reader\ExcelReader'),
