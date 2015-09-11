@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Tests\Generator;
 
+use Doctrine\ORM\Query;
 use \InvalidArgumentException;
 use \NS\SentinelBundle\Generator\BaseCaseGenerator;
 
@@ -79,25 +80,23 @@ class BaseCaseGeneratorTest extends \PHPUnit_Framework_TestCase
             ->method('getResult')
             ->willReturn(12);
 
-        $connection = $this->getMockBuilder('Doctrine\DBAL\Connection')
-            ->disableOriginalConstructor()
-            ->getMock();
-        $connection->expects($this->once())
-            ->method('executeUpdate')
-            ->with('UPDATE sites SET currentCaseId = currentCaseId +1 WHERE code = :code', array(
-                'code' => 'SITE'));
-
         $entityMgr = $this->getMockBuilder('Doctrine\ORM\EntityManager')
             ->disableOriginalConstructor()
-            ->setMethods(array('beginTransaction', 'createNativeQuery', 'getConnection',
-                'rollback', 'commit'))
+            ->setMethods(array('beginTransaction', 'createNativeQuery', 'rollback', 'commit','createQuery','setParameter','execute'))
             ->getMock();
         $entityMgr->expects($this->once())
             ->method('createNativeQuery')
             ->willReturn($nativeQuery);
         $entityMgr->expects($this->once())
-            ->method('getConnection')
-            ->willReturn($connection);
+            ->method('createQuery')
+            ->with('UPDATE sites SET currentCaseId = currentCaseId +1 WHERE code = :code')
+            ->willReturnSelf();
+        $entityMgr->expects($this->once())
+            ->method('setParameter')
+            ->with('code','SITE')
+            ->willReturnSelf();
+        $entityMgr->expects($this->once())
+            ->method('execute');
         $entityMgr->expects($this->never())
             ->method('rollback');
 

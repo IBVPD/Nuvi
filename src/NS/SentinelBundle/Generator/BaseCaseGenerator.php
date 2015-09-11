@@ -14,22 +14,24 @@ use \Doctrine\ORM\Query;
  */
 class BaseCaseGenerator extends AbstractIdGenerator
 {
+    /**
+     * @param EntityManager $entityMgr
+     * @param \Doctrine\ORM\Mapping\Entity $entity
+     * @return mixed
+     */
     public function generate(EntityManager $entityMgr, $entity)
     {
-        if (!$entity instanceOf IdentityAssignmentInterface)
-        {
+        if (!$entity instanceOf IdentityAssignmentInterface) {
             throw new \InvalidArgumentException("Entity must implement IdentityAssignmentInterface");
         }
 
         $site = $entity->getSite();
 
-        if (is_null($site))
-        {
+        if (is_null($site)) {
             throw new \UnexpectedValueException("Can't generate an id for entities without an assigned site");
         }
 
-        if (!$site->hasId())
-        {
+        if (!$site->hasId()) {
             throw new \UnexpectedValueException(sprintf("Can't generate an id for entities with a site without an id '%s'", $site->getId()));
         }
 
@@ -37,27 +39,24 @@ class BaseCaseGenerator extends AbstractIdGenerator
         $rsm->addEntityResult('NS\SentinelBundle\Entity\Site', 's');
         $rsm->addFieldResult('s', 'currentCaseId', 'currentCaseId');
 
-        try
-        {
+        try {
             $entityMgr->beginTransaction();
 
-            $native = sprintf("SELECT s.currentCaseId FROM sites s WHERE s.code = '%s'", $site->getCode());
-            $newId  = $entityMgr
-                ->createNativeQuery($native, $rsm)
+            $newId = $entityMgr
+                ->createNativeQuery(sprintf("SELECT s.currentCaseId FROM sites s WHERE s.code = '%s'", $site->getCode()), $rsm)
                 ->getResult(Query::HYDRATE_SINGLE_SCALAR);
 
             $entityMgr
-                ->getConnection()
-                ->executeUpdate('UPDATE sites SET currentCaseId = currentCaseId +1 WHERE code = :code', array('code' => $site->getCode()));
+                ->createQuery('UPDATE sites SET currentCaseId = currentCaseId +1 WHERE code = :code')
+                ->setParameter('code', $site->getCode())
+                ->execute();
 
             $entityMgr->commit();
 
             return $entity->getFullIdentifier($newId);
-        }
-        catch (\Exception $e)
-        {
+        } catch (\Exception $exception) {
             $entityMgr->rollback();
-            throw new \RuntimeException("Site issue: " . $site->getName() . " " . $site->getId() . " " . $e->getMessage());
+            throw new \RuntimeException(sprintf('Site issue: %s %s %s',$site->getName(),$site->getId(),$exception->getMessage()));
         }
     }
 }
