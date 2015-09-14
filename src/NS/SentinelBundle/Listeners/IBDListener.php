@@ -61,7 +61,7 @@ class IBDListener extends BaseCaseListener
         if($case->getAge() < 60)
         {
             if ($case->getMenFever() && $case->getMenFever()->equal(TripleChoice::YES)) {
-                if (($case->getMenAltConscious() && $case->getMenAltConscious()->equal(TripleChoice::YES)) || ($case->getMenNextStiff() && $case->getMenNeckStiff()->equal(TripleChoice::YES))) {
+                if (($case->getMenAltConscious() && $case->getMenAltConscious()->equal(TripleChoice::YES)) || ($case->getMenNeckStiff() && $case->getMenNeckStiff()->equal(TripleChoice::YES))) {
                     $case->getResult()->setValue(IBDCaseResult::SUSPECTED);
                     return true;
                 }
