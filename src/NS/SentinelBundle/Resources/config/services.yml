@@ -300,18 +300,6 @@ services:
       tags:
         - { name: ns_import.converter }
 
-    ns.sentinel.converter.ibd_case:
-      class: NS\SentinelBundle\Converter\CaseConverter
-      arguments: [ @doctrine.orm.entity_manager, NS\SentinelBundle\Entity\IBD, IBD Case ]
-      tags:
-        - { name: ns_import.converter }
-
-    ns.sentinel.converter.rota_case:
-      class: NS\SentinelBundle\Converter\CaseConverter
-      arguments: [ @doctrine.orm.entity_manager, NS\SentinelBundle\Entity\RotaVirus, RotaVirus Case ]
-      tags:
-        - { name: ns_import.converter }
-
     ns.sentinel.converter.site:
       class: NS\SentinelBundle\Converter\SiteConverter
       arguments: [ @doctrine.orm.entity_manager ]
