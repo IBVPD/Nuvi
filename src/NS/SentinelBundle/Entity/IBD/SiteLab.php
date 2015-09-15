@@ -320,6 +320,20 @@ class SiteLab extends BaseSiteLab
     private $otherCultDone;
 
     /**
+     * @var CultureResult
+     * @ORM\Column(name="otherCultResult",type="CultureResult",nullable=true)
+     * @Groups({"api"})
+     */
+    private $otherCultResult;
+
+    /**
+     * @var string
+     * @ORM\Column(name="otherCultOther",type="string",nullable=true)
+     * @Groups({"api"})
+     */
+    private $otherCultOther;
+
+    /**
      * @var TripleChoice $otherTestDone
      * @ORM\Column(name="otherTestDone",type="TripleChoice",nullable=true)
      * @Groups({"api"})
@@ -381,20 +395,6 @@ class SiteLab extends BaseSiteLab
      * @Groups({"api"})
      */
     private $bloodPcrOther;
-
-    /**
-     * @var CultureResult
-     * @ORM\Column(name="otherCultResult",type="CultureResult",nullable=true)
-     * @Groups({"api"})
-     */
-    private $otherCultResult;
-
-    /**
-     * @var string
-     * @ORM\Column(name="otherCultOther",type="string",nullable=true)
-     * @Groups({"api"})
-     */
-    private $otherCultOther;
 
     /**
      * @var DateTime $updatedAt
