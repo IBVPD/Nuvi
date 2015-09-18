@@ -12,6 +12,7 @@ use \NS\SentinelBundle\Form\Types\IBDCaseResult;
 use \NS\SentinelBundle\Form\Types\PCRResult;
 use \NS\SentinelBundle\Form\Types\SpnSerotype;
 use \NS\SentinelBundle\Form\Types\TripleChoice;
+use NS\UtilBundle\Form\Types\ArrayChoice;
 
 /**
  * Description of Common
@@ -384,6 +385,40 @@ class IBDRepository extends Common
         }
 
         return $queryBuilder;
+    }
+
+    public function getMissingAdmissionDiagnosisCountBySites($alias, array $siteCodes)
+    {
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+            ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
+            ->andWhere(sprintf('(%s.admDx IS NULL OR %s.admDx IN (:noSelection,:outOfRange))', $alias, $alias))
+            ->setParameter('noSelection',ArrayChoice::NO_SELECTION)
+            ->setParameter('outOfRange', ArrayChoice::OUT_OF_RANGE);
+    }
+
+    public function getMissingDischargeOutcomeCountBySites($alias, array $siteCodes)
+    {
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+            ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
+            ->andWhere(sprintf('(%s.dischOutcome IS NULL OR %s.dischOutcome IN (:noSelection,:outOfRange))', $alias, $alias))
+            ->setParameter('noSelection',ArrayChoice::NO_SELECTION)
+            ->setParameter('outOfRange', ArrayChoice::OUT_OF_RANGE);
+    }
+
+    public function getMissingDischargeDiagnosisCountBySites($alias, array $siteCodes)
+    {
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+            ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
+            ->andWhere(sprintf('(%s.dischDx IS NULL OR %s.dischDx IN (:noSelection,:outOfRange))', $alias, $alias))
+            ->setParameter('noSelection',ArrayChoice::NO_SELECTION)
+            ->setParameter('outOfRange', ArrayChoice::OUT_OF_RANGE);
+    }
+
+    public function getBirthdateErrorCountBySites($alias, array $siteCodes)
+    {
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+            ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
+            ->andWhere(sprintf('(%s.admDate < %s.dob)', $alias, $alias));
     }
 
     public function exists(array $params)

@@ -4,6 +4,7 @@ namespace NS\SentinelBundle\Controller;
 
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use \Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use \Symfony\Component\HttpFoundation\Response;
 use \Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -16,24 +17,36 @@ class ReportController extends Controller
 {
     /**
      * @Route("/percent-enrolled",name="reportPercentEnrolled")
+     * @param Request $request
+     * @return array|RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function percentEnrolledAction(Request $request)
     {
         $form    = $this->createForm('IBDReportFilterType');
         $service = $this->get('ns.sentinel.services.report');
+        $params  = $service->numberEnrolled($request,$form,'reportPercentEnrolled');
+        if($params instanceof Response) {
+            return $params;
+        }
 
-        return $this->render('NSSentinelBundle:Report:percentEnrolled.html.twig',$service->numberEnrolled($request,$form,'reportPercentEnrolled'));
+        return $this->render('NSSentinelBundle:Report:percentEnrolled.html.twig',$params);
     }
 
     /**
      * @Route("/annual-age-distribution",name="reportAnnualAgeDistribution")
+     * @param Request $request
+     * @return array|RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function annualAgeDistributionAction(Request $request)
     {
         $form    = $this->createForm('IBDReportFilterType');
         $service = $this->get('ns.sentinel.services.report');
+        $params  = $service->getAnnualAgeDistribution($request,$form,'reportAnnualAgeDistribution');
+        if($params instanceof Response) {
+            return $params;
+        }
 
-        return $this->render('NSSentinelBundle:Report:annualAgeDistribution.html.twig',$service->getAnnualAgeDistribution($request,$form,'reportAnnualAgeDistribution'));
+        return $this->render('NSSentinelBundle:Report:annualAgeDistribution.html.twig',$params);
     }
 
     /**
@@ -77,30 +90,37 @@ class ReportController extends Controller
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
      * @Route("/field-population",name="reportFieldPopulation")
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param Request $request
+     * @return array|RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function fieldPopulationAction(Request $request)
     {
         $form    = $this->createForm('IBDFieldPopulationFilterType',null,array('site_type'=>'advanced','validation_groups'=>array('FieldPopulation')));
         $service = $this->get('ns.sentinel.services.report');
+        $params = $service->getFieldPopulation($request,$form,'reportFieldPopulation');
+        if($params instanceof Response) {
+            return $params;
+        }
 
-        return $this->render('NSSentinelBundle:Report:fieldPopulation.html.twig',$service->getFieldPopulation($request,$form,'reportFieldPopulation'));
+        return $this->render('NSSentinelBundle:Report:fieldPopulation.html.twig',$params);
     }
 
     /**
-     *
-     * @param Request $request
      * @Route("/culture-positive",name="reportCulturePositive")
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @param Request $request
+     * @return array|RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function culturePositiveAction(Request $request)
     {
         $form    = $this->createForm('IBDFieldPopulationFilterType',null,array('site_type'=>'advanced'));
         $service = $this->get('ns.sentinel.services.report');
+        $params  = $service->getCulturePositive($request,$form,'reportCulturePositive');
+        if($params instanceof Response) {
+            return $params;
+        }
 
-        return $this->render('NSSentinelBundle:Report:culturePositive.html.twig',$service->getCulturePositive($request,$form,'reportCulturePositive'));
+        return $this->render('NSSentinelBundle:Report:culturePositive.html.twig',$params);
     }
 
     /*
@@ -116,4 +136,19 @@ class ReportController extends Controller
      * Export - Never dumps identifiable data
      *   - Includes filters - country, site, date range etc.
      */
+
+    /**
+     * @Route("/data-quality",name="reportDataQuality")
+     */
+    public function dataQualityAction(Request $request)
+    {
+        $form    = $this->createForm('IBDFieldPopulationFilterType',null,array('site_type'=>'advanced'));
+        $service = $this->get('ns.sentinel.services.report');
+        $params  = $service->getDataQuality($request,$form,'reportDataQuality');
+        if($params instanceof Response) {
+            return $params;
+        }
+
+        return $this->render('NSSentinelBundle:Report:dataQuality.html.twig',$params);
+    }
 }

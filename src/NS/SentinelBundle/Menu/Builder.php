@@ -44,6 +44,7 @@ class Builder
             $ibdReport = $reports->addChild('IBD');
             $reports->addChild('Rota');
 
+            $ibdReport->addChild('Data Quality Checks',array('label'=>'menu.data-reports-data-quality','route'=>'reportDataQuality'));
             $ibdReport->addChild('Age Distribution',array('label'=> 'menu.data-reports-age-distribution','route'=>'reportAnnualAgeDistribution'));
             $ibdReport->addChild('Enrolment %',array('label'=> 'menu.data-reports-percent-enrolled','route'=>'reportPercentEnrolled'));
             $ibdReport->addChild('Field Population',array('label'=>'menu.data-reports-field-population','route'=>'reportFieldPopulation'));

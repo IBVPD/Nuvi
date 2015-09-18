@@ -1,0 +1,76 @@
+{% extends "NSSentinelBundle::layout.html.twig" %}
+{% block pagetitle %}Data Quality Checks{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-xs-9">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="widget-box widget-color-blue no-border">
+                        <div class="widget-header widget-header-small">
+                            <h5 class="widget-title">{{ 'Results'|trans }}</h5>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th rowspan="2">{{ 'Region'|trans }}</th>
+                                    <th rowspan="2">{{ 'Country'|trans }}</th>
+                                    <th rowspan="2">{{ 'Site'|trans }}</th>
+                                    <th rowspan="2">{{ 'Total Cases'|trans }}</th>
+                                    <th colspan="2">{{ 'Birthdate vs Admission Date Errors'|trans }}</th>
+                                    <th colspan="2">{{ 'Missing Admission Diagnosis'|trans }}</th>
+                                    <th colspan="2">{{ 'Missing Discharge Outcome'|trans }}</th>
+                                    <th colspan="2">{{ 'Missing Discharge Diagnosis'|trans }}</th>
+                                </tr>
+                                <tr><td>#</td><td>%</td><td>#</td><td>%</td><td>#</td><td>%</td><td>#</td><td>%</td></tr>
+                                </thead>
+                                <tbody>
+                                {% for result in sites %}
+                                    <tr>
+                                        <td>{{ result.site.country.region.code }}</td>
+                                        <td>{{ result.site.country.code }}</td>
+                                        <td>{{ result.site.code }}</td>
+                                        <td>{{ result.totalCases }}</td>
+
+                                        <td>{{ result.dateOfBirthErrorCount }}</td>
+                                        <td>{{ result.dateOfBirthErrorPercent|number_format }}%</td>
+
+                                        <td>{{ result.missingAdmissionDiagnosisCount }}</td>
+                                        <td>{{ result.missingAdmissionDiagnosisPercent|number_format }}%</td>
+
+                                        <td>{{ result.missingDischargeOutcomeCount }}</td>
+                                        <td>{{ result.missingDischargeOutcomePercent|number_format }}%</td>
+
+                                        <td>{{ result.missingDischargeDiagnosisCount }}</td>
+                                        <td>{{ result.missingDischargeDiagnosisPercent|number_format }}%</td>
+
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div id="lab-results"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="widget-box widget-color-blue">
+                <div class="widget-header widget-header-small">
+                    <h5 class="widget-title">{{ 'Filters'|trans }}</h5>
+                </div>
+                <div class="widget-body">
+                    <div class="widget-main">
+                        <form method="POST" action="{{ path('reportDataQuality') }}" class="reportFilters">
+                            {{ form_rest(form) }}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
