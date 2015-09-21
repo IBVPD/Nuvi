@@ -154,8 +154,8 @@ class Duplicate implements ReporterInterface
         if ($this->logFile) {
             list($items, $duplicates) = json_decode(file_get_contents($this->logFile->getPathname()), true);
         }
-        $items = (is_null($items)) ? array() : $items;
-        $duplicates = (is_null($duplicates)) ? array() : $duplicates;
+        $items = $items === null ? array() : $items;
+        $duplicates = $duplicates === null ? array() : $duplicates;
 
         $this->items = new ArrayCollection($items);
         $this->duplicates = new ArrayCollection($duplicates);

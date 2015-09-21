@@ -83,7 +83,7 @@ class IBDListener extends BaseCaseListener
             $method = sprintf('get%s',$field);
             $value  = call_user_func(array($case,$method));
 
-            if (is_null($value) || empty($value) || ($value instanceof ArrayChoice && $value->equal(-1))) {
+            if ($value === null || empty($value) || ($value instanceof ArrayChoice && $value->equal(-1))) {
                 return $field;
             }
         }
@@ -101,20 +101,20 @@ class IBDListener extends BaseCaseListener
             return 'dischDx';
         }
 
-        if ($case->getHibReceived() && ($case->getHibReceived()->equal(VaccinationReceived::YES_HISTORY) || $case->getHibReceived()->equal(VaccinationReceived::YES_CARD)) && (is_null($case->getHibDoses()) || $case->getHibDoses()->equal(ArrayChoice::NO_SELECTION))) {
+        if ($case->getHibReceived() && ($case->getHibReceived()->equal(VaccinationReceived::YES_HISTORY) || $case->getHibReceived()->equal(VaccinationReceived::YES_CARD)) && ($case->getHibDoses() === null || $case->getHibDoses()->equal(ArrayChoice::NO_SELECTION))) {
             return 'hibReceived';
         }
 
-        if ($case->getPcvReceived() && ($case->getPcvReceived()->equal(VaccinationReceived::YES_HISTORY) || $case->getPcvReceived()->equal(VaccinationReceived::YES_CARD)) && (is_null($case->getPcvDoses()) || $case->getPcvDoses()->equal(ArrayChoice::NO_SELECTION))) {
+        if ($case->getPcvReceived() && ($case->getPcvReceived()->equal(VaccinationReceived::YES_HISTORY) || $case->getPcvReceived()->equal(VaccinationReceived::YES_CARD)) && ($case->getPcvDoses() === null || $case->getPcvDoses()->equal(ArrayChoice::NO_SELECTION))) {
             return 'pcvReceived';
         }
 
-        if ($case->getCxrDone() && $case->getCxrDone()->equal(TripleChoice::YES) && (is_null($case->getCxrResult()) || $case->getCxrResult()->equal(ArrayChoice::NO_SELECTION))) {
+        if ($case->getCxrDone() && $case->getCxrDone()->equal(TripleChoice::YES) && ($case->getCxrResult() === null || $case->getCxrResult()->equal(ArrayChoice::NO_SELECTION))) {
             return 'cxrDone';
         }
 
         if ($case->getMeningReceived() && ($case->getMeningReceived()->equal(MeningitisVaccinationReceived::YES_CARD) || $case->getMeningReceived()->equal(MeningitisVaccinationReceived::YES_HISTORY))) {
-            if (is_null($case->getMeningType())) {
+            if ($case->getMeningType() === null) {
                 return 'meningType1';
             }
 
@@ -122,18 +122,18 @@ class IBDListener extends BaseCaseListener
                 return 'meningType2';
             }
 
-            if (is_null($case->getMeningMostRecentDose())) {
+            if ($case->getMeningMostRecentDose() === null) {
                 return 'meningMostRecentDose';
             }
         }
 
         if ($case->getCsfCollected() && $case->getCsfCollected()->equal(TripleChoice::YES)) {
 
-            if (is_null($case->getCsfCollectDateTime())) {
+            if ($case->getCsfCollectDateTime() === null) {
                 return 'csfCollectDateTime';
             }
 
-            if (is_null($case->getCsfAppearance())) {
+            if ($case->getCsfAppearance() === null) {
                 return 'csfAppearance1';
             }
 

@@ -219,7 +219,7 @@ class IBDControllerTest extends WebTestCase
 
     protected function getRoute($route = 'nsApiIbdGetCase', $id = null)
     {
-        $objId = is_null($id) ? self::ID : $id;
+        $objId = $id === null ? self::ID : $id;
 
         return $this->getUrl($route, array('objId' => $objId));
     }

@@ -228,7 +228,7 @@ class User implements AdvancedUserInterface
      */
     public function getSalt()
     {
-        if(is_null($this->salt) || empty($this->salt)) {
+        if($this->salt === null || empty($this->salt)) {
             $this->resetSalt();
         }
 

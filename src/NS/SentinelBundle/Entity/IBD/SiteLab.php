@@ -1337,7 +1337,7 @@ class SiteLab extends BaseSiteLab
     {
         foreach ($this->getMinimumRequiredFields() as $field)
         {
-            if (is_null($this->$field) || empty($this->$field) || ($this->$field instanceof ArrayChoice && $this->$field->equal(-1)))
+            if ($this->$field === null || empty($this->$field) || ($this->$field instanceof ArrayChoice && $this->$field->equal(-1)))
                 return $field;
         }
 

@@ -82,7 +82,7 @@ class AgeDistribution
      */
     public function getZeroToFive($year = null)
     {
-        return is_null($year) ? $this->sumYears(BaseCase::AGE_DISTRIBUTION_00_TO_05):$this->getResult($year, BaseCase::AGE_DISTRIBUTION_00_TO_05);
+        return $year === null ? $this->sumYears(BaseCase::AGE_DISTRIBUTION_00_TO_05):$this->getResult($year, BaseCase::AGE_DISTRIBUTION_00_TO_05);
     }
 
     /**
@@ -91,7 +91,7 @@ class AgeDistribution
      */
     public function getFiveToEleven($year = null)
     {
-        return is_null($year) ? $this->sumYears(BaseCase::AGE_DISTRIBUTION_05_TO_11):$this->getResult($year, BaseCase::AGE_DISTRIBUTION_05_TO_11);
+        return $year === null ? $this->sumYears(BaseCase::AGE_DISTRIBUTION_05_TO_11):$this->getResult($year, BaseCase::AGE_DISTRIBUTION_05_TO_11);
     }
 
     /**
@@ -100,7 +100,7 @@ class AgeDistribution
      */
     public function getElevenToTwentyThree($year = null)
     {
-        return is_null($year) ? $this->sumYears(BaseCase::AGE_DISTRIBUTION_11_TO_23):$this->getResult($year, BaseCase::AGE_DISTRIBUTION_11_TO_23);
+        return $year === null ? $this->sumYears(BaseCase::AGE_DISTRIBUTION_11_TO_23):$this->getResult($year, BaseCase::AGE_DISTRIBUTION_11_TO_23);
     }
 
     /**
@@ -109,7 +109,7 @@ class AgeDistribution
      */
     public function getTwentyThreeToFiftyNine($year = null)
     {
-        return is_null($year) ? $this->sumYears(BaseCase::AGE_DISTRIBUTION_23_TO_59):$this->getResult($year, BaseCase::AGE_DISTRIBUTION_23_TO_59);
+        return $year === null ? $this->sumYears(BaseCase::AGE_DISTRIBUTION_23_TO_59):$this->getResult($year, BaseCase::AGE_DISTRIBUTION_23_TO_59);
     }
 
     /**
@@ -118,7 +118,7 @@ class AgeDistribution
      */
     public function getUnknown($year = null)
     {
-        return is_null($year) ? $this->sumYears(BaseCase::AGE_DISTRIBUTION_UNKNOWN):$this->getResult($year, BaseCase::AGE_DISTRIBUTION_UNKNOWN);
+        return $year === null ? $this->sumYears(BaseCase::AGE_DISTRIBUTION_UNKNOWN):$this->getResult($year, BaseCase::AGE_DISTRIBUTION_UNKNOWN);
     }
 
     /**

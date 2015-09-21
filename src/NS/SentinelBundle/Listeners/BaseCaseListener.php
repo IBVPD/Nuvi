@@ -45,7 +45,7 @@ abstract class BaseCaseListener
             $interval = $case->getDob()->diff($case->getAdmDate());
             $case->setAge(($interval->format('%a') / 30.5));
         } elseif ($case->getAdmDate() && !$case->getDob()) {
-            if (!$case->getAge() && !is_null($case->getDobYears()) && !is_null($case->getDobMonths())) {
+            if (!$case->getAge() && $case->getDobYears() !== null && $case->getDobMonths() !== null) {
                 $case->setAge( (int) ( ($case->getDobYears() * 12) + $case->getDobMonths() ) );
             }
 

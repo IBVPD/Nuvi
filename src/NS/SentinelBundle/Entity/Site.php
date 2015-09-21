@@ -218,7 +218,7 @@ class Site implements \Serializable
      */
     public function hasId()
     {
-        return (!empty($this->code) || (is_integer($this->code) && $this->code == 0) || !is_null($this->code));
+        return (!empty($this->code) || (is_integer($this->code) && $this->code == 0) || $this->code !== null);
     }
 
     /**

@@ -311,7 +311,7 @@ class Remote
      */
     public function hasAccessToken()
     {
-        return (!is_null($this->accessToken));
+        return ($this->accessToken !== null);
     }
 
     /**
@@ -320,7 +320,7 @@ class Remote
      */
     public function hasRefreshToken()
     {
-        return (!is_null($this->refreshToken));
+        return ($this->refreshToken !== null);
     }
 
     /**
