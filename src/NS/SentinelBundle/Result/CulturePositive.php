@@ -7,23 +7,33 @@ namespace NS\SentinelBundle\Result;
  *
  * @author gnat
  */
+/**
+ * Class CulturePositive
+ * @package NS\SentinelBundle\Result
+ */
 class CulturePositive
 {
     const CULTURE_POSITIVE = 'cultPositive';
     const CULTURE_NEGATIVE = 'cultNegative';
-    const PCR_POSITIVE     = 'pcrPositive';
+    const PCR_POSITIVE = 'pcrPositive';
 
+    /**
+     * @var array
+     */
     private $results;
 
+    /**
+     * @param array $cultPos
+     * @param array $cultNeg
+     * @param array $pcrPos
+     */
     public function __construct($cultPos = array(), $cultNeg = array(), $pcrPos = array())
     {
         $this->results = array();
-        $tmp            = array('year' => 0, self::CULTURE_POSITIVE => 0, self::CULTURE_NEGATIVE => 0, self::PCR_POSITIVE => 0);
+        $tmp = array('year' => 0, self::CULTURE_POSITIVE => 0, self::CULTURE_NEGATIVE => 0, self::PCR_POSITIVE => 0);
 
-        foreach($cultPos as $r)
-        {
-            if(!isset($this->results[$r['theYear']]))
-            {
+        foreach ($cultPos as $r) {
+            if (!isset($this->results[$r['theYear']])) {
                 $this->results[$r['theYear']] = $tmp;
                 $this->results[$r['theYear']]['year'] = $r['theYear'];
             }
@@ -31,10 +41,8 @@ class CulturePositive
             $this->results[$r['theYear']][self::CULTURE_POSITIVE] = $r['caseCount'];
         }
 
-        foreach($cultNeg as $r)
-        {
-            if(!isset($this->results[$r['theYear']]))
-            {
+        foreach ($cultNeg as $r) {
+            if (!isset($this->results[$r['theYear']])) {
                 $this->results[$r['theYear']] = $tmp;
                 $this->results[$r['theYear']]['year'] = $r['theYear'];
             }
@@ -42,10 +50,8 @@ class CulturePositive
             $this->results[$r['theYear']]['cultNegative'] = $r['caseCount'];
         }
 
-        foreach($pcrPos as $r)
-        {
-            if(!isset($this->results[$r['theYear']]))
-            {
+        foreach ($pcrPos as $r) {
+            if (!isset($this->results[$r['theYear']])) {
                 $this->results[$r['theYear']] = $tmp;
                 $this->results[$r['theYear']]['year'] = $r['theYear'];
             }
@@ -54,43 +60,64 @@ class CulturePositive
         }
     }
 
+    /**
+     * @return array
+     */
     public function getYears()
     {
         return array_keys($this->results);
     }
 
-    public function get($param, $year=null)
+    /**
+     * @param $param
+     * @param null $year
+     * @return int
+     */
+    public function get($param, $year = null)
     {
-        if(!is_null($year))
-        {
-            return (isset($this->results[$year][$param])) ? $this->results[$year][$param]:0;
-        }
-        else
-        {
+        if ($year !== null) {
+            return (isset($this->results[$year][$param])) ? $this->results[$year][$param] : 0;
+        } else {
             $total = 0;
-            foreach($this->results as $r)
+            foreach ($this->results as $r) {
                 $total += $r[$param];
+            }
 
             return $total;
         }
 
     }
 
+    /**
+     * @param null $year
+     * @return int
+     */
     public function getCulturePositive($year = null)
     {
         return $this->get(self::CULTURE_POSITIVE, $year);
     }
 
+    /**
+     * @param null $year
+     * @return int
+     */
     public function getCultureNegative($year = null)
     {
         return $this->get(self::CULTURE_NEGATIVE, $year);
     }
 
+    /**
+     * @param null $year
+     * @return int
+     */
     public function getPcrPositive($year = null)
     {
         return $this->get(self::PCR_POSITIVE, $year);
     }
 
+    /**
+     * @return array
+     */
     public function toArray()
     {
         return $this->results;

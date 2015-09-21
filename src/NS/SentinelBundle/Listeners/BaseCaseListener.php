@@ -36,6 +36,7 @@ abstract class BaseCaseListener
         $this->calculateResult($case);
         $case->setUpdatedAt(new \DateTime());
     }
+
     /**
      * @param BaseCase $case
      */
@@ -71,8 +72,6 @@ abstract class BaseCaseListener
             $case->setAgeDistribution(BaseCase::AGE_DISTRIBUTION_UNKNOWN);
         }
     }
-
-
 
     /**
      * @return null
