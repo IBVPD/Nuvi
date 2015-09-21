@@ -29,7 +29,7 @@ abstract class BaseCase
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="CUSTOM")
-     * @ORM\CustomIdGenerator(class="\NS\SentinelBundle\Generator\BaseCaseGenerator")
+     * @ORM\CustomIdGenerator(class="\NS\SentinelBundle\Entity\Generator\BaseCaseGenerator")
      * @var string $id
      * @ORM\Column(name="id",type="string")
      * @Serializer\Groups({"api"})

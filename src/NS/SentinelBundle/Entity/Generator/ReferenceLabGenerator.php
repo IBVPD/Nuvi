@@ -1,6 +1,6 @@
 <?php
 
-namespace NS\SentinelBundle\Generator;
+namespace NS\SentinelBundle\Entity\Generator;
 
 use \Doctrine\ORM\EntityManager;
 use \Doctrine\ORM\Id\AbstractIdGenerator;
@@ -28,7 +28,7 @@ class ReferenceLabGenerator extends AbstractIdGenerator
 
         $region = $entity->getCountry()->getRegion();
 
-        if (is_null($region)) {
+        if ($region === null) {
             throw new \UnexpectedValueException("Can't generate an id for entities without an assigned country and region");
         }
 

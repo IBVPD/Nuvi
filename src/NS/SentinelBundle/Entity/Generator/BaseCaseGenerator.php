@@ -1,6 +1,6 @@
 <?php
 
-namespace NS\SentinelBundle\Generator;
+namespace NS\SentinelBundle\Entity\Generator;
 
 use \Doctrine\ORM\Id\AbstractIdGenerator;
 use \NS\SentinelBundle\Entity\BaseCase;
@@ -27,7 +27,7 @@ class BaseCaseGenerator extends AbstractIdGenerator
 
         $site = $entity->getSite();
 
-        if (is_null($site)) {
+        if ($site === null) {
             throw new \UnexpectedValueException("Can't generate an id for entities without an assigned site");
         }
 
