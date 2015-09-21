@@ -2,8 +2,7 @@
 
 namespace NS\SentinelBundle\Tests\Listeners;
 
-use NS\SentinelBundle\Listeners\DoctrineExtensionListener;
-use PHPUnit_Framework_TestCase;
+use NS\SentinelBundle\Listeners\LoggableListener;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernel;
@@ -13,7 +12,7 @@ use Symfony\Component\HttpKernel\HttpKernel;
  *
  * @author gnat
  */
-class DoctrineExtenstionListenerTest extends PHPUnit_Framework_TestCase
+class DoctrineExtenstionListenerTest extends \PHPUnit_Framework_TestCase
 {
     public function testNoToken()
     {
@@ -30,7 +29,7 @@ class DoctrineExtenstionListenerTest extends PHPUnit_Framework_TestCase
         $loggable->expects($this->never())
             ->method('setUsername');
 
-        $listener = new DoctrineExtensionListener($securityContext,$loggable);
+        $listener = new LoggableListener($securityContext,$loggable);
         $listener->onKernelRequest($this->getEvent());
     }
 
@@ -53,7 +52,7 @@ class DoctrineExtenstionListenerTest extends PHPUnit_Framework_TestCase
         $loggable->expects($this->never())
             ->method('setUsername');
 
-        $listener = new DoctrineExtensionListener($securityContext,$loggable);
+        $listener = new LoggableListener($securityContext,$loggable);
         $listener->onKernelRequest($this->getEvent());
     }
 
@@ -83,7 +82,7 @@ class DoctrineExtenstionListenerTest extends PHPUnit_Framework_TestCase
             ->method('setUsername')
             ->with('gnat');
 
-        $listener = new DoctrineExtensionListener($securityContext,$loggable);
+        $listener = new LoggableListener($securityContext,$loggable);
         $listener->onKernelRequest($this->getEvent());
     }
 

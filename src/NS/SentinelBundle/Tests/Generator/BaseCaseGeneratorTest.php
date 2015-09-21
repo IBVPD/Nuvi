@@ -4,7 +4,7 @@ namespace NS\SentinelBundle\Tests\Generator;
 
 use Doctrine\ORM\Query;
 use \InvalidArgumentException;
-use \NS\SentinelBundle\Generator\BaseCaseGenerator;
+use \NS\SentinelBundle\Entity\Generator\BaseCaseGenerator;
 
 /**
  * Description of EntityGeneratorTest

@@ -7,7 +7,7 @@ use \Gedmo\Mapping\MappedEventSubscriber;
 use \Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
- * Description of DoctrineExtensionListener
+ * Description of LoggableListener
  *
  * @author gnat
  */

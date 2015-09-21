@@ -41,7 +41,7 @@ use \Symfony\Component\Validator\ExecutionContextInterface;
  *      })
  * @Assert\Callback(methods={"validate"})
  * @SuppressWarnings(PHPMD.ShortVariable)
- * @ORM\EntityListeners(value={"NS\SentinelBundle\Listeners\IBDListener"})
+ * @ORM\EntityListeners(value={"NS\SentinelBundle\Entity\Listener\IBDListener"})
  */
 class IBD extends BaseCase
 {

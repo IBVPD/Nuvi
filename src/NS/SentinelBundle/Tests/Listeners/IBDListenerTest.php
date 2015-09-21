@@ -17,7 +17,7 @@ use \NS\SentinelBundle\Form\Types\OtherSpecimen;
 use \NS\SentinelBundle\Form\Types\ThreeDoses;
 use \NS\SentinelBundle\Form\Types\TripleChoice;
 use \NS\SentinelBundle\Form\Types\VaccinationReceived;
-use NS\SentinelBundle\Listeners\IBDListener;
+use NS\SentinelBundle\Entity\Listener\IBDListener;
 
 class IBDListenerTest extends \PHPUnit_Framework_TestCase
 {

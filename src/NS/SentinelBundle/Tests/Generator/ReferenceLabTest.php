@@ -2,6 +2,8 @@
 
 namespace NS\SentinelBundle\Tests\Generator;
 
+use \NS\SentinelBundle\Entity\Generator\ReferenceLabGenerator;
+
 /**
  * Description of ReferenceLabTest
  *
@@ -20,7 +22,7 @@ class ReferenceLabTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $stdClass  = new \stdClass();
-        $generator = new \NS\SentinelBundle\Generator\ReferenceLabGenerator();
+        $generator = new ReferenceLabGenerator();
         $generator->generate($entityMgr, $stdClass);
     }
 
@@ -37,7 +39,7 @@ class ReferenceLabTest extends \PHPUnit_Framework_TestCase
         $entity = new \NS\SentinelBundle\Entity\ReferenceLab();
         $entity->setCountry(new \NS\SentinelBundle\Entity\Country());
 
-        $generator = new \NS\SentinelBundle\Generator\ReferenceLabGenerator();
+        $generator = new ReferenceLabGenerator();
         $generator->generate($entityMgr, $entity);
     }
 
@@ -57,7 +59,7 @@ class ReferenceLabTest extends \PHPUnit_Framework_TestCase
         $entity = new \NS\SentinelBundle\Entity\ReferenceLab();
         $entity->setCountry($country);
 
-        $generator = new \NS\SentinelBundle\Generator\ReferenceLabGenerator();
+        $generator = new ReferenceLabGenerator();
         $generator->generate($entityMgr, $entity);
     }
 
@@ -75,7 +77,7 @@ class ReferenceLabTest extends \PHPUnit_Framework_TestCase
         $entity->setCountry($country);
         $entity->setUserId('RL12');
 
-        $generator = new \NS\SentinelBundle\Generator\ReferenceLabGenerator();
+        $generator = new ReferenceLabGenerator();
         $id        = $generator->generate($entityMgr, $entity);
         $this->assertEquals('REG-RL12', $id);
     }

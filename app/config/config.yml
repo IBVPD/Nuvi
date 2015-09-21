@@ -352,7 +352,7 @@ leezy_pheanstalk:
 
 services:
   extension.listener:
-    class: NS\SentinelBundle\Listeners\DoctrineExtensionListener
+    class: NS\SentinelBundle\Listeners\LoggableListener
     arguments: [ @security.context, @gedmo.listener.loggable ]
     tags:
       - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }    

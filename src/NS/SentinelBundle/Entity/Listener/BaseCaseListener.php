@@ -8,7 +8,7 @@ use NS\SentinelBundle\Form\Types\CaseStatus;
 
 /**
  * Class BaseCaseListener
- * @package NS\SentinelBundle\Listeners
+ * @package NS\SentinelBundle\Entity\Listener
  */
 abstract class BaseCaseListener
 {

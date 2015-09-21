@@ -28,7 +28,7 @@ use \JMS\Serializer\Annotation\Exclude;
  *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},relation="site",class="NSSentinelBundle:Site"),
  *      })
  * @SuppressWarnings(PHPMD.ShortVariable)
- * @ORM\EntityListeners(value={"NS\SentinelBundle\Listeners\RotaVirusListener"})
+ * @ORM\EntityListeners(value={"NS\SentinelBundle\Entity\Listener\RotaVirusListener"})
  */
 class RotaVirus extends BaseCase
 {
