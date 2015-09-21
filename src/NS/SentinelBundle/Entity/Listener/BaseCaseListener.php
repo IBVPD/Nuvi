@@ -1,6 +1,6 @@
 <?php
 
-namespace NS\SentinelBundle\Listeners;
+namespace NS\SentinelBundle\Entity\Listener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use NS\SentinelBundle\Entity\BaseCase;

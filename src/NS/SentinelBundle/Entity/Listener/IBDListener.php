@@ -1,6 +1,6 @@
 <?php
 
-namespace NS\SentinelBundle\Listeners;
+namespace NS\SentinelBundle\Entity\Listener;
 
 use \NS\SentinelBundle\Entity\BaseCase;
 use \NS\SentinelBundle\Entity\IBD;
