@@ -119,7 +119,7 @@ class Country implements \Serializable
 
     /**
      * @var ReferenceLab $referenceLab
-     * @ORM\OneToOne(targetEntity="ReferenceLab",mappedBy="country")
+     * @ORM\ManyToOne(targetEntity="ReferenceLab",inversedBy="country")
      */
     private $referenceLab;
 

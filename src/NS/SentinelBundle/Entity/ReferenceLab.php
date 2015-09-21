@@ -42,7 +42,7 @@ class ReferenceLab
 
     /**
      * @var Country $country
-     * @ORM\OneToOne(targetEntity="Country",inversedBy="referenceLab")
+     * @ORM\OneToMany(targetEntity="Country",mappedBy="referenceLab")
      */
     private $country;
 
