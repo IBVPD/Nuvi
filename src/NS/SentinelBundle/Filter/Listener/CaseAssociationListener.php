@@ -1,6 +1,6 @@
 <?php
 
-namespace NS\SentinelBundle\Filter;
+namespace NS\SentinelBundle\Filter\Listener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Lexik\Bundle\FormFilterBundle\Event\ApplyFilterEvent;
@@ -12,35 +12,29 @@ use Doctrine\Common\Collections\Collection;
  *
  * @author gnat
  */
-class Listener implements EventSubscriberInterface
+class CaseAssociationListener implements EventSubscriberInterface
 {
-
     /**
      * {@inheritDoc}
      */
     public static function getSubscribedEvents()
     {
         return array(
-            'lexik_form_filter.apply.orm.ibd_filter_form.country'       => array(
-                'filterObject'),
-            'lexik_form_filter.apply.orm.ibd_filter_form.region'        => array(
-                'filterObject'),
-            'lexik_form_filter.apply.orm.ibd_filter_form.site'          => array(
-                'filterObject'),
-            'lexik_form_filter.apply.orm.rotavirus_filter_form.country' => array(
-                'filterObject'),
-            'lexik_form_filter.apply.orm.rotavirus_filter_form.region'  => array(
-                'filterObject'),
-            'lexik_form_filter.apply.orm.rotavirus_filter_form.site'    => array(
-                'filterObject'),
+            'lexik_form_filter.apply.orm.ibd_filter_form.country'       => array('filterObject'),
+            'lexik_form_filter.apply.orm.ibd_filter_form.region'        => array('filterObject'),
+            'lexik_form_filter.apply.orm.ibd_filter_form.site'          => array('filterObject'),
+            'lexik_form_filter.apply.orm.rotavirus_filter_form.country' => array('filterObject'),
+            'lexik_form_filter.apply.orm.rotavirus_filter_form.region'  => array('filterObject'),
+            'lexik_form_filter.apply.orm.rotavirus_filter_form.site'    => array('filterObject'),
         );
     }
 
     public function filterObject(ApplyFilterEvent $event)
     {
         $queryBuilder = $event->getQueryBuilder();
-        if (!$queryBuilder instanceof QueryBuilder)
+        if (!$queryBuilder instanceof QueryBuilder) {
             return;
+        }
 
         $expr   = $event->getFilterQuery()->getExpr();
         $values = $event->getValues();
@@ -57,8 +51,9 @@ class Listener implements EventSubscriberInterface
                     $ids[] = $value->getId();
                 }
 
-                if (count($ids) > 0)
+                if (count($ids) > 0) {
                     $queryBuilder->andWhere($expr->in($event->getField(), $ids));
+                }
             }
             else {
                 if (!is_callable(array($values['value'], 'getId'))) {
@@ -67,7 +62,7 @@ class Listener implements EventSubscriberInterface
 
                 $fieldAlias = 'p_' . substr($event->getField(), strpos($event->getField(), '.') + 1);
 
-                $queryBuilder->andWhere($expr->eq($event->getField(), ':' . $fieldAlias));
+                $queryBuilder->andWhere($expr->eq($event->getField(), ":$fieldAlias"));
                 $queryBuilder->setParameter($fieldAlias, $values['value']->getId());
             }
         }

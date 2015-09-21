@@ -8,29 +8,31 @@ services:
         - { name: form.type, alias: FinalResult }
 
     ns.sentinel.form.rota.report_filter:
-      class: NS\SentinelBundle\Form\Rota\ReportFilterType
+      class: NS\SentinelBundle\Filter\Type\RotaVirus\FilterType
       arguments: [ @security.context, @ns.security.acl_converter ] 
       tags:
         - { name: form.type, alias: RotaVirusReportFilterType }
 
-    ns.sentinel.services.report:
-      class: NS\SentinelBundle\Services\Report
-      arguments: [@sonata.admin.exporter, @lexik_form_filter.query_builder_updater, @doctrine.orm.entity_manager, @router ]
+    ns_sentinel.rotavirus_report:
+      class: NS\SentinelBundle\Services\RotaVirusReporter
+      arguments: [@lexik_form_filter.query_builder_updater, @doctrine.orm.entity_manager, @router ]
 
-    ns.sentinel.form.ibd.field_population_filter:
-      class: NS\SentinelBundle\Form\IBD\FieldPopulationReportFilterType
-      arguments: [ @security.context, @ns.security.acl_converter ] 
+    ns_sentinel.ibd_report:
+      class: NS\SentinelBundle\Services\IBDReporter
+      arguments: [@lexik_form_filter.query_builder_updater, @doctrine.orm.entity_manager, @router ]
+
+    ns.sentinel.form.filter.rota.report_filter:
+      class: NS\SentinelBundle\Filter\Type\RotaVirus\ReportFilterType
       tags:
-        - { name: form.type, alias: IBDFieldPopulationFilterType }
+        - { name: form.type, alias: RotaVirusReportFilterType }
 
     ns.sentinel.form.ibd.report_filter:
-      class: NS\SentinelBundle\Form\IBD\ReportFilterType
-      arguments: [ @security.context, @ns.security.acl_converter ] 
+      class: NS\SentinelBundle\Filter\Type\IBD\ReportFilterType
       tags:
         - { name: form.type, alias: IBDReportFilterType }
     
     ns.sentinel.form.filters.base_report_filter:
-      class: NS\SentinelBundle\Form\Filters\BaseReportFilterType
+      class: NS\SentinelBundle\Filter\Type\BaseReportFilterType
       arguments: [ @security.context, @ns.security.acl_converter ] 
       tags:
         - { name: form.type, alias: BaseReportFilterType }
@@ -396,7 +398,7 @@ services:
         - { name: form.type, alias: GenotypeResultP }
 
     ns.sentinel.form.filters.lab_filter:
-      class: NS\SentinelBundle\Form\Filters\LabFilterType
+      class: NS\SentinelBundle\Filter\Type\LabFilterType
       tags:
         - { name: form.type, alias: lab_filter }
 
@@ -418,35 +420,35 @@ services:
         - { name: twig.extension, alias: twig_case_status }
 
     ns.sentinel.form.filter.base:
-      class: NS\SentinelBundle\Form\Filters\BaseObject
+      class: NS\SentinelBundle\Filter\Type\BaseObject
       tags:
         - { name: form.type, alias: filter_object }
 
     ns.sentinel.form.filter.country:
-      class: NS\SentinelBundle\Form\Filters\Country
+      class: NS\SentinelBundle\Filter\Type\CountryType
       arguments: [ @doctrine.orm.entity_manager, "NSSentinelBundle:Country" ]
       tags:
         - { name: form.type, alias: country }
 
     ns.sentinel.form.filter.region:
-      class: NS\SentinelBundle\Form\Filters\Region
+      class: NS\SentinelBundle\Filter\Type\RegionType
       arguments: [ @doctrine.orm.entity_manager, "NSSentinelBundle:Region" ]
       tags:
         - { name: form.type, alias: region }
 
     ns.sentinel.form.filter.site:
-      class: NS\SentinelBundle\Form\Filters\Site
+      class: NS\SentinelBundle\Filter\Type\SiteType
       arguments: [ @doctrine.orm.entity_manager, "NSSentinelBundle:Site" ]
       tags:
         - { name: form.type, alias: site }
 
     ns.sentinel.filter.listener:
-      class: NS\SentinelBundle\Filter\Listener
+      class: NS\SentinelBundle\Filter\Listener\CaseAssociationListener
       tags:
         - { name: kernel.event_subscriber }
 
     ns.sentinel.filter.case_status_listener:
-      class: NS\SentinelBundle\Filter\CaseStatusListener
+      class: NS\SentinelBundle\Filter\Listener\CaseStatusListener
       tags:
         - { name: kernel.event_subscriber } 
 
@@ -550,18 +552,18 @@ services:
         - { name: kernel.event_listener, event: kernel.request, method: onRequest }
 
     ns.sentinel.base.filter:
-      class: NS\SentinelBundle\Form\BaseFilter
+      class: NS\SentinelBundle\Filter\Type\BaseFilterType
       arguments: [ @security.context, @ns.security.acl_converter ]
       tags:
         - { name: form.type, alias: base_filter_form }
 
     ns.sentinel.rotavirus.filter:
-      class: NS\SentinelBundle\Form\Rota\FilterType
+      class: NS\SentinelBundle\Filter\Type\RotaVirus\FilterType
       tags:
         - { name: form.type, alias: rotavirus_filter_form }
 
     ns.sentinel.meningitis.filter:
-      class: NS\SentinelBundle\Form\IBD\FilterType
+      class: NS\SentinelBundle\Filter\Type\IBD\FilterType
       tags:
         - { name: form.type, alias: ibd_filter_form }
 

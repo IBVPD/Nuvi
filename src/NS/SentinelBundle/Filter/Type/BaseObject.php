@@ -1,10 +1,11 @@
 <?php
 
-namespace NS\SentinelBundle\Form\Filters;
+namespace NS\SentinelBundle\Filter\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Lexik\Bundle\FormFilterBundle\Filter\Doctrine\ORMQuery;
+use Doctrine\Common\Persistence\ObjectManager;
 
 /**
  * Description of BaseObject
@@ -22,6 +23,16 @@ class BaseObject extends AbstractType //implements EmbeddedFilterTypeInterface
      * @var
      */
     protected $class;
+
+    /**
+     * @param ObjectManager $entityMgr
+     * @param string $class
+     */
+    public function __construct(ObjectManager $entityMgr, $class = null)
+    {
+        $this->entityMgr = $entityMgr;
+        $this->class     = $class;
+    }
 
     /**
      * {@inheritdoc}
@@ -42,14 +53,12 @@ class BaseObject extends AbstractType //implements EmbeddedFilterTypeInterface
                                             $values       = $values['value'];
                                             $queryBuilder = $filterBuilder->getQueryBuilder();
 
-                                            if(count($values) == 1)
-                                                $queryBuilder->andWhere(sprintf("%s = :%s",$field,$fieldName))->setParameter($fieldName,$values[0]);
-                                            else if (count($values) > 0)
-                                            {
+                                            if(count($values) == 1) {
+                                                $queryBuilder->andWhere(sprintf("%s = :%s", $field, $fieldName))->setParameter($fieldName, $values[0]);
+                                            } elseif (count($values) > 0) {
                                                 $where  = array();
                                                 
-                                                foreach($values as $x => $val)
-                                                {
+                                                foreach($values as $x => $val) {
                                                     $fieldNamex = $fieldName.$x;
                                                     $where[] = $field.'= :'.$fieldNamex;
                                                     $queryBuilder->setParameter($fieldNamex,$val);

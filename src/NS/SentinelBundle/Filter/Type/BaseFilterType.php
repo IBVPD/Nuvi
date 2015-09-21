@@ -1,8 +1,9 @@
 <?php
 
-namespace NS\SentinelBundle\Form;
+namespace NS\SentinelBundle\Filter\Type;
 
 use \Lexik\Bundle\FormFilterBundle\Filter\FilterOperands;
+use NS\SecurityBundle\Role\ACLConverter;
 use \Symfony\Component\Form\AbstractType;
 use \Symfony\Component\Form\FormBuilderInterface;
 use \Symfony\Component\Form\FormEvent;
@@ -10,7 +11,7 @@ use \Symfony\Component\Form\FormEvents;
 use \Symfony\Component\OptionsResolver\OptionsResolver;
 use \Symfony\Component\Security\Core\SecurityContextInterface;
 
-class BaseFilter extends AbstractType
+class BaseFilterType extends AbstractType
 {
     private $securityContext;
 
@@ -20,7 +21,7 @@ class BaseFilter extends AbstractType
      * @param SecurityContextInterface $securityContext
      * @param ACLConverter $aclConverter
      */
-    public function __construct(SecurityContextInterface $securityContext, \NS\SecurityBundle\Role\ACLConverter $aclConverter)
+    public function __construct(SecurityContextInterface $securityContext, ACLConverter $aclConverter)
     {
         $this->securityContext = $securityContext;
         $this->aclConverter    = $aclConverter;

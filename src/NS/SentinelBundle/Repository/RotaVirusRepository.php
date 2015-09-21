@@ -5,6 +5,8 @@ namespace NS\SentinelBundle\Repository;
 use \Doctrine\ORM\NoResultException;
 use \Doctrine\ORM\Query;
 use \NS\SentinelBundle\Exceptions\NonExistentCase;
+use NS\SentinelBundle\Form\Types\TripleChoice;
+use NS\UtilBundle\Form\Types\ArrayChoice;
 
 /**
  * Description of Common
@@ -226,4 +228,59 @@ class RotaVirusRepository extends Common
     {
         return $this->secure($this->createQueryBuilder($alias)->orderBy($alias . '.id', 'DESC'));
     }
+
+    private function getCountQueryBuilder($alias, array $siteCodes)
+    {
+        $queryBuilder = $this->createQueryBuilder($alias)
+            ->leftJoin("$alias.siteLab", 'sl')
+            ->innerJoin("$alias.site", 's')
+            ->groupBy("$alias.site");
+
+        $where = $params = array();
+        $index = 0;
+
+        if (empty($siteCodes)) {
+            return $queryBuilder;
+        }
+
+        foreach ($siteCodes as $site) {
+            $where[] = "$alias.site = :site$index";
+            $params["site$index"] = $site;
+            $index++;
+        }
+
+        return $queryBuilder->where("(" . implode(" OR ", $where) . ")")->setParameters($params);
+    }
+
+    public function getBirthdateErrorCountBySites($alias, array $siteCodes)
+    {
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+            ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
+            ->andWhere(sprintf('(%s.admDate < %s.dob)', $alias, $alias));
+    }
+
+    public function getMissingDischargeOutcomeCountBySites($alias, array $siteCodes)
+    {
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+            ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
+            ->andWhere(sprintf('(%s.dischargeOutcome IS NULL OR %s.dischargeOutcome IN (:noSelection,:outOfRange))', $alias, $alias))
+            ->setParameter('noSelection',ArrayChoice::NO_SELECTION)
+            ->setParameter('outOfRange', ArrayChoice::OUT_OF_RANGE);
+    }
+
+    public function getStoolCollectionDateErrorCountBySites($alias, array $siteCodes)
+    {
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+            ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
+            ->andWhere(sprintf('%s.stoolCollected = :collectedYes AND %s.stoolCollectionDate IS NULL', $alias, $alias))
+            ->setParameter('collectedYes', TripleChoice::YES);
+    }
+
+    public function getMissingDischargeDateCountBySites($alias, array $siteCodes)
+    {
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+            ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
+            ->andWhere(sprintf('%s.dischargeDate IS NULL', $alias));
+    }
+
 }

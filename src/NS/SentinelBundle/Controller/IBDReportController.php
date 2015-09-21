@@ -11,9 +11,9 @@ use \Symfony\Component\HttpFoundation\Request;
  * Description of ReportController
  *
  * @author gnat
- * @Route("/{_locale}/reports")
+ * @Route("/{_locale}/ibd/reports")
  */
-class ReportController extends Controller
+class IBDReportController extends Controller
 {
     /**
      * @Route("/percent-enrolled",name="reportPercentEnrolled")
@@ -23,7 +23,7 @@ class ReportController extends Controller
     public function percentEnrolledAction(Request $request)
     {
         $form    = $this->createForm('IBDReportFilterType');
-        $service = $this->get('ns.sentinel.services.report');
+        $service = $this->get('ns_sentinel.ibd_report');
         $params  = $service->numberEnrolled($request,$form,'reportPercentEnrolled');
         if($params instanceof Response) {
             return $params;
@@ -40,7 +40,7 @@ class ReportController extends Controller
     public function annualAgeDistributionAction(Request $request)
     {
         $form    = $this->createForm('IBDReportFilterType');
-        $service = $this->get('ns.sentinel.services.report');
+        $service = $this->get('ns_sentinel.ibd_report');
         $params  = $service->getAnnualAgeDistribution($request,$form,'reportAnnualAgeDistribution');
         if($params instanceof Response) {
             return $params;
@@ -96,8 +96,8 @@ class ReportController extends Controller
      */
     public function fieldPopulationAction(Request $request)
     {
-        $form    = $this->createForm('IBDFieldPopulationFilterType',null,array('site_type'=>'advanced','validation_groups'=>array('FieldPopulation')));
-        $service = $this->get('ns.sentinel.services.report');
+        $form    = $this->createForm('IBDReportFilterType',null,array('site_type'=>'advanced','validation_groups'=>array('FieldPopulation')));
+        $service = $this->get('ns_sentinel.ibd_report');
         $params = $service->getFieldPopulation($request,$form,'reportFieldPopulation');
         if($params instanceof Response) {
             return $params;
@@ -113,8 +113,8 @@ class ReportController extends Controller
      */
     public function culturePositiveAction(Request $request)
     {
-        $form    = $this->createForm('IBDFieldPopulationFilterType',null,array('site_type'=>'advanced'));
-        $service = $this->get('ns.sentinel.services.report');
+        $form    = $this->createForm('IBDReportFilterType',null,array('site_type'=>'advanced'));
+        $service = $this->get('ns_sentinel.ibd_report');
         $params  = $service->getCulturePositive($request,$form,'reportCulturePositive');
         if($params instanceof Response) {
             return $params;
@@ -138,13 +138,13 @@ class ReportController extends Controller
      */
 
     /**
-     * @Route("/data-quality",name="reportDataQuality")
+     * @Route("/data-quality",name="reportIbdDataQuality")
      */
     public function dataQualityAction(Request $request)
     {
-        $form    = $this->createForm('IBDFieldPopulationFilterType',null,array('site_type'=>'advanced'));
-        $service = $this->get('ns.sentinel.services.report');
-        $params  = $service->getDataQuality($request,$form,'reportDataQuality');
+        $form    = $this->createForm('IBDReportFilterType',null,array('site_type'=>'advanced'));
+        $service = $this->get('ns_sentinel.ibd_report');
+        $params  = $service->getDataQuality($request,$form,'reportIBDDataQuality');
         if($params instanceof Response) {
             return $params;
         }

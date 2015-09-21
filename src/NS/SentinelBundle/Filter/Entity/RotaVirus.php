@@ -1,6 +1,6 @@
 <?php
 
-namespace NS\SentinelBundle\Filter;
+namespace NS\SentinelBundle\Filter\Entity;
 
 /**
  * Description of RotaVirus

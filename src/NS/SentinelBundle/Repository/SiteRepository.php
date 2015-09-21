@@ -75,19 +75,20 @@ class SiteRepository extends CommonRepository
 
     /**
      * @param $alias
+     * @param $caseClass
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function getWithCasesForDate($alias)
+    public function getWithCasesForDate($alias, $caseClass)
     {
         return $this->secure($this->_em->createQueryBuilder()
-            ->select($alias . ',s,c,r,COUNT(' . $alias . ') as totalCases')
-            ->from('NS\SentinelBundle\Entity\IBD', $alias)
-            ->innerJoin($alias . '.site', 's', 's.code')
+            ->select("$alias ,s,c,r,COUNT($alias) as totalCases")
+            ->from($caseClass, $alias)
+            ->innerJoin("$alias.site", 's', 's.code')
             ->innerJoin('s.country', 'c')
             ->innerJoin('c.region', 'r')
-            ->groupBy($alias . '.site'))
+            ->groupBy("$alias.site")
             ->addOrderBy('r.name', 'ASC')
             ->addOrderBy('c.name', 'ASC')
-            ->addOrderBy('s.name', 'ASC');
+            ->addOrderBy('s.name', 'ASC'));
     }
 }

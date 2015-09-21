@@ -11,8 +11,14 @@ use NS\SentinelBundle\Entity\BaseCase;
  */
 class AgeDistribution
 {
+    /**
+     * @var array
+     */
     private $results;
 
+    /**
+     * @param array $results
+     */
     public function __construct(array $results = array())
     {
         $this->results = array();
@@ -27,21 +33,37 @@ class AgeDistribution
         }
     }
 
+    /**
+     * @return array
+     */
     public function getYears()
     {
         return array_keys($this->results);
     }
 
+    /**
+     * @param $year
+     * @param $ageDistribution
+     * @return int
+     */
     public function getResult($year,$ageDistribution)
     {
         return (isset($this->results[$year][$ageDistribution])) ? $this->results[$year][$ageDistribution]:0;
     }
 
+    /**
+     * @param $year
+     * @return int
+     */
     public function getTotal($year)
     {
         return $this->getResult($year,'total');
     }
 
+    /**
+     * @param $ageDistribution
+     * @return int
+     */
     public function sumYears($ageDistribution)
     {
         $theSum = 0;
@@ -54,31 +76,55 @@ class AgeDistribution
         return $theSum;
     }
 
+    /**
+     * @param null $year
+     * @return int
+     */
     public function getZeroToFive($year = null)
     {
         return is_null($year) ? $this->sumYears(BaseCase::AGE_DISTRIBUTION_00_TO_05):$this->getResult($year, BaseCase::AGE_DISTRIBUTION_00_TO_05);
     }
 
+    /**
+     * @param null $year
+     * @return int
+     */
     public function getFiveToEleven($year = null)
     {
         return is_null($year) ? $this->sumYears(BaseCase::AGE_DISTRIBUTION_05_TO_11):$this->getResult($year, BaseCase::AGE_DISTRIBUTION_05_TO_11);
     }
 
+    /**
+     * @param null $year
+     * @return int
+     */
     public function getElevenToTwentyThree($year = null)
     {
         return is_null($year) ? $this->sumYears(BaseCase::AGE_DISTRIBUTION_11_TO_23):$this->getResult($year, BaseCase::AGE_DISTRIBUTION_11_TO_23);
     }
 
+    /**
+     * @param null $year
+     * @return int
+     */
     public function getTwentyThreeToFiftyNine($year = null)
     {
         return is_null($year) ? $this->sumYears(BaseCase::AGE_DISTRIBUTION_23_TO_59):$this->getResult($year, BaseCase::AGE_DISTRIBUTION_23_TO_59);
     }
 
+    /**
+     * @param null $year
+     * @return int
+     */
     public function getUnknown($year = null)
     {
         return is_null($year) ? $this->sumYears(BaseCase::AGE_DISTRIBUTION_UNKNOWN):$this->getResult($year, BaseCase::AGE_DISTRIBUTION_UNKNOWN);
     }
 
+    /**
+     * @param $year
+     * @return float|int
+     */
     public function getZeroToFivePercent($year)
     {
         if(isset($this->results[$year]['total']) && $this->results[$year]['total'] > 0)
@@ -87,6 +133,10 @@ class AgeDistribution
         return 0;
     }
 
+    /**
+     * @param $year
+     * @return float|int
+     */
     public function getFiveToElevenPercent($year)
     {
         if(isset($this->results[$year]['total']) && $this->results[$year]['total'] > 0)
@@ -95,6 +145,10 @@ class AgeDistribution
         return 0;
     }
 
+    /**
+     * @param $year
+     * @return float|int
+     */
     public function getElevenToTwentyThreePercent($year)
     {
         if(isset($this->results[$year]['total']) && $this->results[$year]['total'] > 0)
@@ -103,6 +157,10 @@ class AgeDistribution
         return 0;
     }
 
+    /**
+     * @param $year
+     * @return float|int
+     */
     public function getTwentyThreeToFiftyNinePercent($year)
     {
         if(isset($this->results[$year]['total']) && $this->results[$year]['total'] > 0)
@@ -111,6 +169,10 @@ class AgeDistribution
         return 0;
     }
 
+    /**
+     * @param $year
+     * @return float|int
+     */
     public function getUnknownPercent($year)
     {
         if(isset($this->results[$year]['total']) && $this->results[$year]['total'] > 0)
@@ -119,6 +181,9 @@ class AgeDistribution
         return 0;
     }
 
+    /**
+     * @return array
+     */
     public function toArray()
     {
         $res = array();

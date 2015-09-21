@@ -1,6 +1,6 @@
 <?php
 
-namespace NS\SentinelBundle\Form\Filters;
+namespace NS\SentinelBundle\Filter\Type;
 
 use NS\SentinelBundle\Form\Types\CaseStatus;
 use Symfony\Component\Form\AbstractType;
@@ -22,7 +22,7 @@ class LabFilterType extends AbstractType implements EmbeddedFilterTypeInterface
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('status', 'CaseStatus',array( 'required'=>false, 'label' => 'filter-case-lab-status', 'apply_filter' => array($this,'labFilter')));
+        $builder->add('status', 'CaseStatus', array('required' => false, 'label' => 'filter-case-lab-status', 'apply_filter' => array($this, 'labFilter')));
     }
 
     /**
@@ -33,8 +33,7 @@ class LabFilterType extends AbstractType implements EmbeddedFilterTypeInterface
      */
     public function labFilter(QueryInterface $filterQuery, $field, $values)
     {
-        if ($values['value'] instanceof CaseStatus && $values['value']->getValue() >= 0)
-        {
+        if ($values['value'] instanceof CaseStatus && $values['value']->getValue() >= 0) {
             $queryBuilder = $filterQuery->getQueryBuilder();
 
             $queryBuilder->andWhere($filterQuery->getExpr()->eq('l.status', $values['value']->getValue()));

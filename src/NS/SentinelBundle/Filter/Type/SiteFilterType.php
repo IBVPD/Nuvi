@@ -1,6 +1,6 @@
 <?php
 
-namespace NS\SentinelBundle\Form\Filters;
+namespace NS\SentinelBundle\Filter\Type;
 
 use \Lexik\Bundle\FormFilterBundle\Filter\Extension\Type\EmbeddedFilterTypeInterface;
 use \Lexik\Bundle\FormFilterBundle\Filter\Query\QueryInterface;

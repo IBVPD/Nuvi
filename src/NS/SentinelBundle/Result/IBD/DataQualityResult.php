@@ -1,23 +1,15 @@
 <?php
 
-namespace NS\SentinelBundle\Result;
+namespace NS\SentinelBundle\Result\IBD;
+
+use NS\SentinelBundle\Result\AbstractSiteBasedResult;
 
 /**
  * Class DataQualityResult
  * @package NS\SentinelBundle\Result
  */
-class DataQualityResult
+class DataQualityResult extends AbstractSiteBasedResult
 {
-    /**
-     * @var
-     */
-    private $site;
-
-    /**
-     * @var int
-     */
-    private $totalCases = 0;
-
     /**
      * @var int
      */
@@ -39,42 +31,6 @@ class DataQualityResult
     private $missingDischargeDiagnosisCount = 0;
 
     /**
-     * @return mixed
-     */
-    public function getSite()
-    {
-        return $this->site;
-    }
-
-    /**
-     * @param mixed $site
-     * @return DataQualityResult
-     */
-    public function setSite($site)
-    {
-        $this->site = $site;
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getTotalCases()
-    {
-        return $this->totalCases;
-    }
-
-    /**
-     * @param int $totalCases
-     * @return DataQualityResult
-     */
-    public function setTotalCases($totalCases)
-    {
-        $this->totalCases = $totalCases;
-        return $this;
-    }
-
-    /**
      * @return int
      */
     public function getDateOfBirthErrorCount()
@@ -87,7 +43,7 @@ class DataQualityResult
      */
     public function getDateOfBirthErrorPercent()
     {
-        return ($this->totalCases > 0) ? $this->dateOfBirthErrorCount / $this->totalCases * 100 : 0;
+        return ($this->getTotalCases() > 0) ? $this->dateOfBirthErrorCount / $this->getTotalCases() * 100 : 0;
     }
 
     /**
@@ -113,7 +69,7 @@ class DataQualityResult
      */
     public function getMissingAdmissionDiagnosisPercent()
     {
-        return ($this->totalCases > 0) ? $this->missingAdmissionDiagnosisCount / $this->totalCases * 100 : 0;
+        return ($this->getTotalCases() > 0) ? $this->missingAdmissionDiagnosisCount / $this->getTotalCases() * 100 : 0;
     }
 
     /**
@@ -139,7 +95,7 @@ class DataQualityResult
      */
     public function getMissingDischargeOutcomePercent()
     {
-        return ($this->totalCases > 0) ? $this->missingDischargeOutcomeCount / $this->totalCases * 100 : 0;
+        return ($this->getTotalCases() > 0) ? $this->missingDischargeOutcomeCount / $this->getTotalCases() * 100 : 0;
     }
 
     /**
@@ -165,7 +121,7 @@ class DataQualityResult
      */
     public function getMissingDischargeDiagnosisPercent()
     {
-        return ($this->totalCases > 0) ? $this->missingAdmissionDiagnosisCount / $this->totalCases * 100 : 0;
+        return ($this->getTotalCases() > 0) ? $this->missingDischargeDiagnosisCount / $this->getTotalCases() * 100 : 0;
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace NS\SentinelBundle\Filter;
+namespace NS\SentinelBundle\Filter\Listener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Lexik\Bundle\FormFilterBundle\Event\ApplyFilterEvent;

@@ -48,7 +48,7 @@ class SecurityController extends Controller
         $bySite = $repo->getBySite();
         $byDiagnosis = $repo->getByDiagnosis();
         $form = $this->createForm('IBDFieldPopulationFilterType', null, array('site_type' => 'advanced'));
-        $report = $this->get('ns.sentinel.services.report');
+        $report = $this->get('ns_sentinel.ibd_report');
         $cResult = $report->getCulturePositive($request, $form, 'homepage');
 
         return $this->render('NSSentinelBundle:Security:homepage.html.twig', array(

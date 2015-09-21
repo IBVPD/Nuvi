@@ -1,12 +1,16 @@
 <?php
 
-namespace NS\SentinelBundle\Form\IBD;
+namespace NS\SentinelBundle\Filter\Type\IBD;
 
 use \Symfony\Component\Form\AbstractType;
 use \Symfony\Component\OptionsResolver\OptionsResolver;
 use \Symfony\Component\Form\FormBuilderInterface;
 use \Lexik\Bundle\FormFilterBundle\Filter\Extension\Type\EmbeddedFilterTypeInterface;
 
+/**
+ * Class FilterType
+ * @package NS\SentinelBundle\Filter\Type\IBD
+ */
 class FilterType extends AbstractType implements EmbeddedFilterTypeInterface
 {
      /**
@@ -26,11 +30,14 @@ class FilterType extends AbstractType implements EmbeddedFilterTypeInterface
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class'      => 'NS\SentinelBundle\Filter\IBD',
+            'data_class'      => 'NS\SentinelBundle\Filter\Entity\IBD',
             'csrf_protection' => false,
         ));
     }
 
+    /**
+     * @return string
+     */
     public function getParent()
     {
         return 'base_filter_form';

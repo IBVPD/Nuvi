@@ -18,9 +18,9 @@
                                     <th rowspan="2">{{ 'Site'|trans }}</th>
                                     <th rowspan="2">{{ 'Total Cases'|trans }}</th>
                                     <th colspan="2">{{ 'Birthdate vs Admission Date Errors'|trans }}</th>
-                                    <th colspan="2">{{ 'Missing Admission Diagnosis'|trans }}</th>
+                                    <th colspan="2">{{ 'Stool Collection Date Errors'|trans }}</th>
+                                    <th colspan="2">{{ 'Missing Discharge Date'|trans }}</th>
                                     <th colspan="2">{{ 'Missing Discharge Outcome'|trans }}</th>
-                                    <th colspan="2">{{ 'Missing Discharge Diagnosis'|trans }}</th>
                                 </tr>
                                 <tr><td>#</td><td>%</td><td>#</td><td>%</td><td>#</td><td>%</td><td>#</td><td>%</td></tr>
                                 </thead>
@@ -35,14 +35,14 @@
                                         <td>{{ result.dateOfBirthErrorCount }}</td>
                                         <td>{{ result.dateOfBirthErrorPercent|number_format }}%</td>
 
-                                        <td>{{ result.missingAdmissionDiagnosisCount }}</td>
-                                        <td>{{ result.missingAdmissionDiagnosisPercent|number_format }}%</td>
+                                        <td>{{ result.stoolCollectionDateErrorCount }}</td>
+                                        <td>{{ result.stoolCollectionDateErrorPercent|number_format }}%</td>
+
+                                        <td>{{ result.missingDischargeDateCount }}</td>
+                                        <td>{{ result.missingDischargeDatePercent|number_format }}%</td>
 
                                         <td>{{ result.missingDischargeOutcomeCount }}</td>
                                         <td>{{ result.missingDischargeOutcomePercent|number_format }}%</td>
-
-                                        <td>{{ result.missingDischargeDiagnosisCount }}</td>
-                                        <td>{{ result.missingDischargeDiagnosisPercent|number_format }}%</td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>
@@ -64,7 +64,7 @@
                 </div>
                 <div class="widget-body">
                     <div class="widget-main">
-                        <form method="POST" action="{{ path('reportIbdDataQuality') }}" class="reportFilters">
+                        <form method="POST" action="{{ path('reportRotaDataQuality') }}" class="reportFilters">
                             {{ form_rest(form) }}
                         </form>
                     </div>

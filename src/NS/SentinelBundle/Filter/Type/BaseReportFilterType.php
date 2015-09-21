@@ -1,6 +1,6 @@
 <?php
 
-namespace NS\SentinelBundle\Form\Filters;
+namespace NS\SentinelBundle\Filter\Type;
 
 use \NS\SecurityBundle\Role\ACLConverter;
 use \Symfony\Component\Form\AbstractType;
@@ -11,7 +11,7 @@ use \Symfony\Component\OptionsResolver\OptionsResolver;
 use \Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
- * Description of BaseFilter
+ * Description of BaseReportFilterType
  *
  * @author gnat
  */
@@ -104,6 +104,7 @@ class BaseReportFilterType extends AbstractType
 
         $resolver->setDefined(array('site_type'));
         $resolver->setAllowedValues(array('site_type' => array('simple', 'advanced')));
+        $resolver->setRequired('data_class');
     }
 
     /**

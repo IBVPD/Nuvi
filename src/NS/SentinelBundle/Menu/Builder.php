@@ -42,9 +42,10 @@ class Builder
 
             $reports   = $menu->addChild('Reports', array('label' => 'menu.data-reports'))->setExtra('icon', 'fa fa-dashboard');
             $ibdReport = $reports->addChild('IBD');
-            $reports->addChild('Rota');
+            $rotaReport = $reports->addChild('Rota');
+            $rotaReport->addChild('Data Quality Checks',array('label'=>'menu.data-reports-data-quality','route'=>'reportRotaDataQuality'));
 
-            $ibdReport->addChild('Data Quality Checks',array('label'=>'menu.data-reports-data-quality','route'=>'reportDataQuality'));
+            $ibdReport->addChild('Data Quality Checks',array('label'=>'menu.data-reports-data-quality','route'=>'reportIbdDataQuality'));
             $ibdReport->addChild('Age Distribution',array('label'=> 'menu.data-reports-age-distribution','route'=>'reportAnnualAgeDistribution'));
             $ibdReport->addChild('Enrolment %',array('label'=> 'menu.data-reports-percent-enrolled','route'=>'reportPercentEnrolled'));
             $ibdReport->addChild('Field Population',array('label'=>'menu.data-reports-field-population','route'=>'reportFieldPopulation'));
