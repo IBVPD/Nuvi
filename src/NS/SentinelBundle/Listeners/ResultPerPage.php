@@ -34,14 +34,14 @@ class ResultPerPage
      */
     public function onRequest(GetResponseEvent $event)
     {
-        if (HttpKernel::MASTER_REQUEST != $event->getRequestType())
+        if (HttpKernel::MASTER_REQUEST != $event->getRequestType()) {
             return;
+        }
 
         $request = $event->getRequest();
 
         $form = $this->formFactory->create('results_per_page');
-        if($request->request->has($form->getName()))
-        {
+        if ($request->request->has($form->getName())) {
             $form->handleRequest($request);
             $request->getSession()->set('result_per_page', $form->get('recordsperpage')->getData());
             $response = new RedirectResponse($this->router->generate($form->get('target')->getData(), $request->query->all()));

@@ -2,15 +2,16 @@
 
 namespace NS\SentinelBundle\Listeners;
 
-use Gedmo\Loggable\Loggable;
-use Symfony\Component\Security\Core\SecurityContextInterface;
+use \Gedmo\Loggable\Loggable;
+use \Gedmo\Mapping\MappedEventSubscriber;
+use \Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Description of DoctrineExtensionListener
  *
  * @author gnat
  */
-class DoctrineExtensionListener
+class LoggableListener
 {
     /**
      * @var SecurityContextInterface
@@ -27,7 +28,7 @@ class DoctrineExtensionListener
      * @param SecurityContextInterface $securityContext
      * @param Loggable $loggable
      */
-    public function __construct(SecurityContextInterface $securityContext, \Gedmo\Mapping\MappedEventSubscriber $loggable)
+    public function __construct(SecurityContextInterface $securityContext, MappedEventSubscriber $loggable)
     {
         $this->securityContext = $securityContext;
         $this->gedmoLoggable   = $loggable;

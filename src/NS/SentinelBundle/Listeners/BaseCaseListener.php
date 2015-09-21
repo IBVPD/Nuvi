@@ -59,11 +59,11 @@ abstract class BaseCaseListener
         if ($case->getAge() >= 0) {
             if ($case->getAge() < 6) {
                 $case->setAgeDistribution(BaseCase::AGE_DISTRIBUTION_00_TO_05);
-            } else if ($case->getAge() < 12) {
+            } elseif ($case->getAge() < 12) {
                 $case->setAgeDistribution(BaseCase::AGE_DISTRIBUTION_05_TO_11);
-            } else if ($case->getAge() < 24) {
+            } elseif ($case->getAge() < 24) {
                 $case->setAgeDistribution(BaseCase::AGE_DISTRIBUTION_11_TO_23);
-            } else if ($case->getAge() < 60) {
+            } elseif ($case->getAge() < 60) {
                 $case->setAgeDistribution(BaseCase::AGE_DISTRIBUTION_23_TO_59);
             } else {
                 $case->setAgeDistribution(BaseCase::AGE_DISTRIBUTION_UNKNOWN);
