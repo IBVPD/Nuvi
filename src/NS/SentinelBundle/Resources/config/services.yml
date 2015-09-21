@@ -546,7 +546,7 @@ services:
         - { name: form.type, alias: results_per_page }
 
     ns.sentinel.result_per_page:
-      class: NS\SentinelBundle\Listeners\ResultPerPage
+      class: NS\SentinelBundle\Form\Listener\ResultPerPage
       arguments: [ "@router","@form.factory" ]
       tags:
         - { name: kernel.event_listener, event: kernel.request, method: onRequest }

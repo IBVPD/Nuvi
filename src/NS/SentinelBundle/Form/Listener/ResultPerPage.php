@@ -1,6 +1,6 @@
 <?php
 
-namespace NS\SentinelBundle\Listeners;
+namespace NS\SentinelBundle\Form\Listener;
 
 use \Symfony\Component\Form\FormFactoryInterface;
 use \Symfony\Component\HttpFoundation\RedirectResponse;
