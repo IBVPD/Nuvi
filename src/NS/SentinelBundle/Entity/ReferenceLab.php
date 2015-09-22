@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use \Doctrine\Common\Collections\Collection;
 use \Doctrine\ORM\Mapping as ORM;
 use \NS\SentinelBundle\Form\Types\SurveillanceConducted;
@@ -42,10 +43,10 @@ class ReferenceLab
     private $location;
 
     /**
-     * @var Country $country
+     * @var Collection $countries
      * @ORM\OneToMany(targetEntity="Country",mappedBy="referenceLab")
      */
-    private $country;
+    private $countries;
 
     /**
      * @var SurveillanceConducted $type
@@ -70,6 +71,17 @@ class ReferenceLab
      * @ORM\OneToMany(targetEntity="NS\SentinelBundle\Entity\Rota\ReferenceLab",mappedBy="lab")
      */
     private $rotaCases;
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        $this->countries = new ArrayCollection();
+        $this->ibdCases = new ArrayCollection();
+        $this->rotaCases = new ArrayCollection();
+        $this->users = new ArrayCollection();
+    }
 
     /**
      * @return string
@@ -101,14 +113,6 @@ class ReferenceLab
     public function getLocation()
     {
         return $this->location;
-    }
-
-    /**
-     * @return Country
-     */
-    public function getCountry()
-    {
-        return $this->country;
     }
 
     /**
@@ -291,22 +295,60 @@ class ReferenceLab
     }
 
     /**
-     * @param \NS\SentinelBundle\Entity\Country $country
-     * @return \NS\SentinelBundle\Entity\ReferenceLab
-     */
-    public function setCountry(Country $country)
-    {
-        $this->country = $country;
-        return $this;
-    }
-
-    /**
-     * @param \NS\SentinelBundle\Forms\Type\SurveillanceConducted $type
+     * @param \NS\SentinelBundle\Form\Types\SurveillanceConducted $type
      * @return \NS\SentinelBundle\Entity\ReferenceLab
      */
     public function setType(SurveillanceConducted $type)
     {
         $this->type = $type;
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getCountries()
+    {
+        return $this->countries;
+    }
+
+    /**
+     * @param Collection $countries
+     * @return ReferenceLab
+     */
+    public function setCountries($countries)
+    {
+        $this->countries = new ArrayCollection();
+
+        foreach($countries as $country){
+            $this->addCountry($country);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param Country $country
+     * @return $this
+     */
+    public function addCountry(Country $country)
+    {
+        $country->setReferenceLab($this);
+        $this->countries->add($country);
+
+        return $this;
+    }
+
+    /**
+     * @param Country $country
+     * @return $this
+     */
+    public function removeCountry(Country $country)
+    {
+        if($this->countries->contains($country)) {
+            $this->countries->removeElement($country);
+        }
+
         return $this;
     }
 }

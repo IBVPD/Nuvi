@@ -26,7 +26,7 @@ class ReferenceLabGenerator extends AbstractIdGenerator
             throw new \InvalidArgumentException('Entity must implement ReferenceLabEntity');
         }
 
-        $region = $entity->getCountry()->getRegion();
+        $region = $entity->getCountries()->first()->getRegion();
 
         if ($region === null) {
             throw new \UnexpectedValueException("Can't generate an id for entities without an assigned country and region");

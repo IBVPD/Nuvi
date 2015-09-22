@@ -37,7 +37,7 @@ class ReferenceLabTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $entity = new \NS\SentinelBundle\Entity\ReferenceLab();
-        $entity->setCountry(new \NS\SentinelBundle\Entity\Country());
+        $entity->addCountry(new \NS\SentinelBundle\Entity\Country());
 
         $generator = new ReferenceLabGenerator();
         $generator->generate($entityMgr, $entity);
@@ -57,7 +57,7 @@ class ReferenceLabTest extends \PHPUnit_Framework_TestCase
         $country = new \NS\SentinelBundle\Entity\Country();
         $country->setRegion($region);
         $entity = new \NS\SentinelBundle\Entity\ReferenceLab();
-        $entity->setCountry($country);
+        $entity->addCountry($country);
 
         $generator = new ReferenceLabGenerator();
         $generator->generate($entityMgr, $entity);
@@ -74,7 +74,7 @@ class ReferenceLabTest extends \PHPUnit_Framework_TestCase
         $country = new \NS\SentinelBundle\Entity\Country();
         $country->setRegion($region);
         $entity  = new \NS\SentinelBundle\Entity\ReferenceLab();
-        $entity->setCountry($country);
+        $entity->addCountry($country);
         $entity->setUserId('RL12');
 
         $generator = new ReferenceLabGenerator();

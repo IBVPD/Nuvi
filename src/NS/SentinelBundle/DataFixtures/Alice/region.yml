@@ -94,4 +94,4 @@ NS\SentinelBundle\Entity\ReferenceLab:
         name: Canadian Reference Lab
         location: <address()>
         type: <surveillanceConducted()>
-        country: @country0
+        countries: [ @country0, @country1 ]
