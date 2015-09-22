@@ -1,8 +1,8 @@
 <?php
 
-namespace NS\SentinelBundle\Result\IBD;
+namespace NS\SentinelBundle\Report\Result\IBD;
 
-use NS\SentinelBundle\Result\AbstractSiteBasedResult;
+use NS\SentinelBundle\Report\Result\AbstractSiteBasedResult;
 
 /**
  * Class DataQualityResult

@@ -1,12 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gnat
- * Date: 21/09/15
- * Time: 11:30 AM
- */
 
-namespace NS\SentinelBundle\Result;
+namespace NS\SentinelBundle\Report\Result;
 
 
 use NS\SentinelBundle\Entity\Site;

@@ -1,16 +1,15 @@
 <?php
 
-namespace NS\SentinelBundle\Services;
+namespace NS\SentinelBundle\Report;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query;
 use Exporter\Source\ArraySourceIterator;
 use NS\SentinelBundle\Exporter\DoctrineCollectionSourceIterator;
-use NS\SentinelBundle\Result\AgeDistribution;
-use NS\SentinelBundle\Result\CulturePositive;
-use NS\SentinelBundle\Result\DataQualityResult;
-use NS\SentinelBundle\Result\FieldPopulationResult;
-use NS\SentinelBundle\Result\NumberEnrolledResult;
+use NS\SentinelBundle\Report\Result\AgeDistribution;
+use NS\SentinelBundle\Report\Result\CulturePositive;
+use NS\SentinelBundle\Report\Result\DataQualityResult;
+use NS\SentinelBundle\Report\Result\NumberEnrolledResult;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -118,7 +117,7 @@ class IBDReporter extends AbstractReporter
                 return array('sites' => array(), 'form' => $form->createView());
             }
 
-            $this->populateSites($sites, $results, 'NS\SentinelBundle\Result\FieldPopulationResult');
+            $this->populateSites($sites, $results, 'NS\SentinelBundle\Report\Result\FieldPopulationResult');
 
             $repo = $this->entityMgr->getRepository('NSSentinelBundle:IBD');
             $columns = array(
@@ -235,7 +234,7 @@ class IBDReporter extends AbstractReporter
                 return array('sites' => array(), 'form' => $form->createView());
             }
 
-            $this->populateSites($sites,$results,'NS\SentinelBundle\Result\IBD\DataQualityResult');
+            $this->populateSites($sites,$results,'NS\SentinelBundle\Report\Result\IBD\DataQualityResult');
 
             $repo = $this->entityMgr->getRepository('NSSentinelBundle:IBD');
             $columns = array(

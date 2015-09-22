@@ -1,8 +1,8 @@
 <?php
 
-namespace NS\SentinelBundle\Result\RotaVirus;
+namespace NS\SentinelBundle\Report\Result\RotaVirus;
 
-use NS\SentinelBundle\Result\AbstractSiteBasedResult;
+use NS\SentinelBundle\Report\Result\AbstractSiteBasedResult;
 
 /**
  * Class DataQualityResult

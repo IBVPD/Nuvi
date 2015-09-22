@@ -1,21 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gnat
- * Date: 21/09/15
- * Time: 11:22 AM
- */
 
-namespace NS\SentinelBundle\Services;
+namespace NS\SentinelBundle\Report;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query;
 use NS\SentinelBundle\Exporter\DoctrineCollectionSourceIterator;
-use NS\SentinelBundle\Result\DataQualityResult;
+use NS\SentinelBundle\Report\Result\DataQualityResult;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-
 
 class RotaVirusReporter extends AbstractReporter
 {
@@ -45,14 +38,14 @@ class RotaVirusReporter extends AbstractReporter
                 return array('sites' => array(), 'form' => $form->createView());
             }
 
-            $this->populateSites($sites,$results,'NS\SentinelBundle\Result\RotaVirus\DataQualityResult');
+            $this->populateSites($sites,$results,'NS\SentinelBundle\Report\Result\RotaVirus\DataQualityResult');
 
             $repo = $this->entityMgr->getRepository('NSSentinelBundle:RotaVirus');
             $columns = array(
                 'getBirthdateErrorCountBySites'=>'setBirthdayErrorCount',
                 'getStoolCollectionDateErrorCountBySites' => 'setStoolCollectionDateErrorCount',
                 'getMissingDischargeOutcomeCountBySites' => 'setMissingDischargeOutcomeCount',
-                'getMissingDischargeDiagnosisCountBySites' => 'setMissingDischargeDiagnosisCount',
+                'getMissingDischargeDateCountBySites' => 'setMissingDischargeDateCount',
             );
 
             $this->processResult($columns, $repo, $alias, $results, $form);

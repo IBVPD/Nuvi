@@ -14,11 +14,11 @@ services:
         - { name: form.type, alias: RotaVirusReportFilterType }
 
     ns_sentinel.rotavirus_report:
-      class: NS\SentinelBundle\Services\RotaVirusReporter
+      class: NS\SentinelBundle\Report\RotaVirusReporter
       arguments: [@lexik_form_filter.query_builder_updater, @doctrine.orm.entity_manager, @router ]
 
     ns_sentinel.ibd_report:
-      class: NS\SentinelBundle\Services\IBDReporter
+      class: NS\SentinelBundle\Report\IBDReporter
       arguments: [@lexik_form_filter.query_builder_updater, @doctrine.orm.entity_manager, @router ]
 
     ns.sentinel.form.filter.rota.report_filter:

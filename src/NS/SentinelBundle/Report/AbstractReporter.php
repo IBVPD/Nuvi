@@ -1,6 +1,6 @@
 <?php
 
-namespace NS\SentinelBundle\Services;
+namespace NS\SentinelBundle\Report;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;

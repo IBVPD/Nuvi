@@ -1,6 +1,6 @@
 <?php
 
-namespace NS\SentinelBundle\Result;
+namespace NS\SentinelBundle\Report\Result;
 
 use \NS\SentinelBundle\Form\Types\Diagnosis;
 
