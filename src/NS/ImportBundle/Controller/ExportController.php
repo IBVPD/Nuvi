@@ -18,7 +18,7 @@ use \Symfony\Component\HttpFoundation\Response;
  * Description of ExportController
  *
  * @author gnat
- * @Route("/export")
+ * @Route("/{_locale}/export")
  */
 class ExportController extends Controller
 {

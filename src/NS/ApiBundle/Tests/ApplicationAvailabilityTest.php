@@ -1,17 +1,13 @@
 <?php
 
-namespace NS\ImportBundle\Tests;
+namespace NS\ApiBundle\Tests;
 
 use \Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use \Symfony\Component\BrowserKit\Cookie;
 use \Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
-/**
- * Description of SmokeTest
- *
- * @author gnat
- */
-class ApplicationAvailabilityFunctionalTest extends WebTestCase
+
+class ApplicationAvailabilityTest extends WebTestCase
 {
     /**
      * @dataProvider urlProvider
@@ -28,9 +24,8 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
     public function urlProvider()
     {
         return array(
-            array('/en/import'),
-            array('/en/export'),
-            // ...
+            array('/oauth/dashboard'),
+            array('/en/doc/api'),
         );
     }
 
