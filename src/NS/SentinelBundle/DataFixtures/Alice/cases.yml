@@ -81,7 +81,7 @@ NS\SentinelBundle\Entity\RotaVirus:
     admDate: <dateTimeBetween($dob, 'now')>
     stoolCollected: <done()>
     stoolCollectionDate: 33%? <dateTimeBetween($admDate,'now')>
-    dischargeDate: 50%? <dateTimeBetween($admDate,'now')>
+    dischargeDate: 67%? <dateTimeBetween($admDate,'now')>
     dischargeOutcome: 50%? <rotaDischargeOutcome()>
     gender: <gender()>
     site: @site*
