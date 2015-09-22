@@ -132,7 +132,7 @@ class ImportCommand extends ContainerAwareCommand
                 $country = new Country();
                 $country->setName($row[1]);
                 $country->setCode($row[2]);
-                $country->setIsActive(true);
+                $country->setActive(true);
                 $country->setRegion($regions[$row[0]]);
                 $country->setHasReferenceLab(true);
                 $country->setHasNationalLab(true);
@@ -166,8 +166,9 @@ class ImportCommand extends ContainerAwareCommand
             $this->setSiteIbdLastAssessment($site, $row, $errorSites);
             $this->setSiteRvLastAssessment($site, $row, $errorSites);
 
-            if($row[13])
+            if($row[13]) {
                 $site->setibdSiteAssessmentScore($row[13]);
+            }
 
             $site->setibvpdRl($row[15]);
             $site->setrvRl($row[16]);
