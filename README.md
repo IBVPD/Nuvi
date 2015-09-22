@@ -178,10 +178,12 @@ If you'd like to check what changes will occur prior to making the changes you c
 
 Running Tests
 =============
-There are a number of unit and functional tests. They require a database and some fixtures. Setup database access rights
-and configure the app/config/parameters_test.yml to match.
+There are a number of unit and functional tests. They require a database and some fixtures. So as to not disturb live data 
+create a second database with the same or different access rights. Copy app/config/parameters.yml.dist to 
+app/config/parameters_test.yml.  This will allow the system to load fixture data which the tests will run 
+against.
 
-Load the fixtures
+Rebuild the test database and load the fixtures
 ```shell
 app/console doctrine:database:drop --env=test --force
 app/console doctrine:database:create --env=test
