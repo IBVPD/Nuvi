@@ -589,6 +589,11 @@ services:
       tags:
         - { name: knp_menu.menu, alias: sidebar } # The alias is what is used to retrieve the menu    
 
+    ns_sentinel.misc_provider:
+      class: NS\SentinelBundle\DataFixtures\Alice\MiscProvider
+      tags:
+        - { name: h4cc_alice_fixtures.provider }
+
     ns.sentinel.user_provider:
       class: NS\SentinelBundle\Security\UserProvider
       arguments: [ "@doctrine.orm.entity_manager" ]

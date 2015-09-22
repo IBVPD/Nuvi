@@ -474,7 +474,7 @@ class RotaVirus extends BaseCase
      * @param TripleChoice $symptomDiarrhea
      * @return $this
      */
-    public function setSymptomDiarrhea(TripleChoice $symptomDiarrhea)
+    public function setSymptomDiarrhea(TripleChoice $symptomDiarrhea = null)
     {
         $this->symptomDiarrhea = $symptomDiarrhea;
         return $this;
@@ -515,7 +515,7 @@ class RotaVirus extends BaseCase
      * @param TripleChoice $symptomVomit
      * @return $this
      */
-    public function setSymptomVomit(TripleChoice $symptomVomit)
+    public function setSymptomVomit(TripleChoice $symptomVomit = null)
     {
         $this->symptomVomit = $symptomVomit;
         return $this;
@@ -545,7 +545,7 @@ class RotaVirus extends BaseCase
      * @param TripleChoice $symptomDehydration
      * @return $this
      */
-    public function setSymptomDehydration(TripleChoice $symptomDehydration)
+    public function setSymptomDehydration(TripleChoice $symptomDehydration = null)
     {
         $this->symptomDehydration = $symptomDehydration;
         return $this;
@@ -555,7 +555,7 @@ class RotaVirus extends BaseCase
      * @param Dehydration $symptomDehydrationAmount
      * @return $this
      */
-    public function setSymptomDehydrationAmount(Dehydration $symptomDehydrationAmount)
+    public function setSymptomDehydrationAmount(Dehydration $symptomDehydrationAmount = null)
     {
         $this->symptomDehydrationAmount = $symptomDehydrationAmount;
         return $this;
@@ -565,7 +565,7 @@ class RotaVirus extends BaseCase
      * @param TripleChoice $rehydration
      * @return $this
      */
-    public function setRehydration(TripleChoice $rehydration)
+    public function setRehydration(TripleChoice $rehydration = null)
     {
         $this->rehydration = $rehydration;
         return $this;
@@ -575,7 +575,7 @@ class RotaVirus extends BaseCase
      * @param Rehydration $rehydrationType
      * @return $this
      */
-    public function setRehydrationType(Rehydration $rehydrationType)
+    public function setRehydrationType(Rehydration $rehydrationType = null)
     {
         $this->rehydrationType = $rehydrationType;
         return $this;
@@ -595,7 +595,7 @@ class RotaVirus extends BaseCase
      * @param RotavirusVaccinationReceived $vaccinationReceived
      * @return $this
      */
-    public function setVaccinationReceived(RotavirusVaccinationReceived $vaccinationReceived)
+    public function setVaccinationReceived(RotavirusVaccinationReceived $vaccinationReceived = null)
     {
         $this->vaccinationReceived = $vaccinationReceived;
         return $this;
@@ -605,7 +605,7 @@ class RotaVirus extends BaseCase
      * @param RotavirusVaccinationType $vaccinationType
      * @return $this
      */
-    public function setVaccinationType(RotavirusVaccinationType $vaccinationType)
+    public function setVaccinationType(RotavirusVaccinationType $vaccinationType = null)
     {
         $this->vaccinationType = $vaccinationType;
         return $this;
@@ -615,7 +615,7 @@ class RotaVirus extends BaseCase
      * @param ThreeDoses $doses
      * @return $this
      */
-    public function setDoses(ThreeDoses $doses)
+    public function setDoses(ThreeDoses $doses = null)
     {
         $this->doses = $doses;
         return $this;
@@ -658,7 +658,7 @@ class RotaVirus extends BaseCase
      * @param TripleChoice $stoolCollected
      * @return $this
      */
-    public function setStoolCollected(TripleChoice $stoolCollected)
+    public function setStoolCollected(TripleChoice $stoolCollected = null)
     {
         $this->stoolCollected = $stoolCollected;
         return $this;
@@ -689,7 +689,7 @@ class RotaVirus extends BaseCase
      * @param RotavirusDischargeOutcome $dischargeOutcome
      * @return $this
      */
-    public function setDischargeOutcome(RotavirusDischargeOutcome $dischargeOutcome)
+    public function setDischargeOutcome(RotavirusDischargeOutcome $dischargeOutcome = null)
     {
         $this->dischargeOutcome = $dischargeOutcome;
         return $this;
@@ -740,7 +740,7 @@ class RotaVirus extends BaseCase
      * @param TripleChoice $intensiveCare
      * @return \NS\SentinelBundle\Entity\RotaVirus
      */
-    public function setIntensiveCare(TripleChoice $intensiveCare)
+    public function setIntensiveCare(TripleChoice $intensiveCare = null)
     {
         $this->intensiveCare = $intensiveCare;
         return $this;
