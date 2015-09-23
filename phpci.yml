@@ -38,7 +38,3 @@ test:
 #
 #    php_code_sniffer:
 #        standard: "PSR2"
-
-failure:
-    copy:
-        directory: /tmp/phpci-failed
