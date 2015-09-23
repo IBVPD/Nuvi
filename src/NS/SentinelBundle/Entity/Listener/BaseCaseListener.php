@@ -15,6 +15,7 @@ abstract class BaseCaseListener
     /**
      * @param BaseCase $case
      * @param LifecycleEventArgs $event
+     * @SuppressWarnings(PHPMD.UnsusedFormalParameter)
      */
     public function preUpdate(BaseCase $case, LifecycleEventArgs $event)
     {
@@ -28,6 +29,7 @@ abstract class BaseCaseListener
     /**
      * @param BaseCase $case
      * @param LifecycleEventArgs $event
+     * @SuppressWarnings(PHPMD.UnsusedFormalParameter)
      */
     public function prePersist(BaseCase $case, LifecycleEventArgs $event)
     {
