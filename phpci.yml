@@ -5,6 +5,7 @@ build_settings:
         - "app/cache"
         - "src/*/*/DataFixtures"
         - "app/SymfonyRequirements.php"
+        - "src/*/*/Tests"
 
 setup:
     composer:
