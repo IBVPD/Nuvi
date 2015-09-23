@@ -32,7 +32,7 @@ class AppKernel extends Kernel
             new NS\FlashBundle\NSFlashBundle(),
 
             new Sonata\CoreBundle\SonataCoreBundle(),
-          //new Sonata\CacheBundle\SonataCacheBundle(),
+            //new Sonata\CacheBundle\SonataCacheBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
             new Sonata\AdminBundle\SonataAdminBundle(),
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
@@ -72,35 +72,6 @@ class AppKernel extends Kernel
 
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
-    }
-
-    protected function initializeContainer()
-    {
-        static $first = true;
-
-        if ('test' !== $this->getEnvironment())
-            return parent::initializeContainer();
-
-        $debug = $this->debug;
-
-        // disable debug mode on all but the first initialization
-        if (!$first)
-            $this->debug = false;
-
-        // will not work with --process-isolation
-        $first = false;
-
-        try
-        {
-            parent::initializeContainer();
-        }
-        catch (\Exception $e)
-        {
-            $this->debug = $debug;
-            throw $e;
-        }
-
-        $this->debug = $debug;
+        $loader->load(__DIR__ . '/config/config_' . $this->getEnvironment() . '.yml');
     }
 }
