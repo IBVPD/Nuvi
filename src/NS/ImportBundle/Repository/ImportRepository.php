@@ -14,6 +14,12 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class ImportRepository extends EntityRepository
 {
+    /**
+     * @param UserInterface $user
+     * @param string $alias
+     * @return \Doctrine\ORM\QueryBuilder
+     * @throws \Doctrine\ORM\ORMException
+     */
     public function getResultsForUser(UserInterface $user, $alias ='r')
     {
         return $this->createQueryBuilder($alias)
@@ -22,6 +28,14 @@ class ImportRepository extends EntityRepository
                     ->orderBy($alias.'.id','DESC');
     }
 
+    /**
+     * @param UserInterface $user
+     * @param $resultId
+     * @return mixed
+     * @throws NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Doctrine\ORM\ORMException
+     */
     public function findForUser(UserInterface $user, $resultId)
     {
         return $this->createQueryBuilder('r')
@@ -31,6 +45,11 @@ class ImportRepository extends EntityRepository
                     ->getSingleResult();
     }
 
+    /**
+     * @param $id
+     * @return array|mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function getStatistics($id)
     {
         try {

@@ -29,6 +29,10 @@ class CaseAssociationListener implements EventSubscriberInterface
         );
     }
 
+    /**
+     * @param ApplyFilterEvent $event
+     * @throws \Exception
+     */
     public function filterObject(ApplyFilterEvent $event)
     {
         $queryBuilder = $event->getQueryBuilder();

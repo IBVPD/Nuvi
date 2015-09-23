@@ -3,10 +3,20 @@
 namespace NS\SentinelBundle\Entity\Types;
 use NS\UtilBundle\Entity\Types\ArrayChoice;
 
+/**
+ * Class DischargeOutcome
+ * @package NS\SentinelBundle\Entity\Types
+ */
 class DischargeOutcome extends ArrayChoice
 {
+    /**
+     * @var string
+     */
     protected $convert_class = 'NS\SentinelBundle\Form\Types\DischargeOutcome';
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return 'DischargeOutcome';

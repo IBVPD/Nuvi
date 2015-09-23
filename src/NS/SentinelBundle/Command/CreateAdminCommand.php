@@ -15,6 +15,9 @@ use \NS\SentinelBundle\Entity\User;
  */
 class CreateAdminCommand extends ContainerAwareCommand
 {
+    /**
+     * {@inheritdoc}
+     */
     protected function configure()
     {
         $this
@@ -26,6 +29,10 @@ class CreateAdminCommand extends ContainerAwareCommand
         ;
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $pword = $input->getArgument('password');

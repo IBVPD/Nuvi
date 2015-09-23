@@ -16,7 +16,9 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class CsvReaderCommand extends Command
 {
-
+    /**
+     * {@inheritdoc}
+     */
     protected function configure()
     {
         $this
@@ -26,6 +28,11 @@ class CsvReaderCommand extends Command
         ;
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return null
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $filePath  = $input->getArgument('file');

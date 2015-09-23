@@ -234,12 +234,19 @@ class BaseCase
         return $this;
     }
 
+    /**
+     * @param $createdAt
+     * @return $this
+     */
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
         return $this;
     }
 
+    /**
+     * @param ExecutionContextInterface $context
+     */
     public function fieldPopulationValidation(ExecutionContextInterface $context)
     {
         if (empty($this->admDate['left_date']) && empty($this->admDate['right_date']) && empty($this->createdAt['left_date']) && empty($this->createdAt['right_date'])) {

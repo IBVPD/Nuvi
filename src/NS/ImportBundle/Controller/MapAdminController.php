@@ -14,6 +14,10 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class MapAdminController extends CRUDController
 {
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
     public function cloneAction(Request $request)
     {
         $id = $request->get($this->admin->getIdParameter());

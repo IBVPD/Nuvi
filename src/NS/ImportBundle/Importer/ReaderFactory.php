@@ -45,6 +45,10 @@ class ReaderFactory
         return $file->getClientOriginalExtension();
     }
 
+    /**
+     * @param File $file
+     * @return CsvReader|ExcelReader|null|string
+     */
     static public function getExtension(File $file)
     {
         if ($file instanceof UploadedFile) {

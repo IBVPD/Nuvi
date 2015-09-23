@@ -14,7 +14,12 @@ use \Symfony\Component\HttpFoundation\Request;
  */
 abstract class BaseCaseController extends Controller
 {
-
+    /**
+     * @param Request $request
+     * @param $class
+     * @param $filterFormName
+     * @return array
+     */
     protected function index(Request $request, $class, $filterFormName)
     {
         $filterForm = $this->createForm($filterFormName);
@@ -43,6 +48,13 @@ abstract class BaseCaseController extends Controller
             'createForm' => $createForm);
     }
 
+    /**
+     * @param Request $request
+     * @param $class
+     * @param $indexRoute
+     * @param $typeName
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     protected function create(Request $request, $class, $indexRoute, $typeName)
     {
         $form = $this->createForm('create_case');
@@ -68,8 +80,21 @@ abstract class BaseCaseController extends Controller
         return $this->redirect($this->generateUrl($indexRoute));
     }
 
+    /**
+     * @param $type
+     * @param null $objId
+     * @return mixed
+     */
     abstract protected function getForm($type, $objId = null);
 
+    /**
+     * @param Request $request
+     * @param $type
+     * @param $indexRoute
+     * @param $editRoute
+     * @param null $objId
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     protected function edit(Request $request, $type, $indexRoute, $editRoute, $objId = null)
     {
         try {
@@ -97,6 +122,11 @@ abstract class BaseCaseController extends Controller
         return array('form' => $form->createView(), 'id' => $objId, 'editRoute' => $editRoute);
     }
 
+    /**
+     * @param $class
+     * @param $id
+     * @return array|\Symfony\Component\HttpFoundation\Response
+     */
     protected function show($class, $id)
     {
         try {

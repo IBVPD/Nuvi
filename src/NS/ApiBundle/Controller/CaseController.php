@@ -17,6 +17,12 @@ use \Symfony\Component\Form\FormInterface;
  */
 class CaseController extends FOSRestController
 {
+    /**
+     * @param $class
+     * @param $objId
+     * @param string $method
+     * @return mixed
+     */
     private function getObject($class, $objId, $method = 'find')
     {
         try {
@@ -26,12 +32,16 @@ class CaseController extends FOSRestController
             }
 
             throw new NotFoundHttpException("System Error");
-        }
-        catch (NonExistentCase $e) {
+        } catch (NonExistentCase $e) {
             throw new NotFoundHttpException("This case does not exist or you are not allowed to retrieve it");
         }
     }
 
+    /**
+     * @param $type
+     * @param $objId
+     * @return mixed
+     */
     protected function getLab($type, $objId)
     {
         switch ($type) {
@@ -60,6 +70,11 @@ class CaseController extends FOSRestController
         return $this->getObject($class, $objId, 'findOrCreateNew');
     }
 
+    /**
+     * @param $type
+     * @param $objId
+     * @return mixed
+     */
     protected function getCase($type, $objId)
     {
         switch ($type) {
@@ -76,6 +91,12 @@ class CaseController extends FOSRestController
         return $this->getObject($class, $objId, 'find');
     }
 
+    /**
+     * @param Request $request
+     * @param ObjectManager $entityMgr
+     * @param FormInterface $form
+     * @return bool
+     */
     private function updateObject(Request $request, ObjectManager $entityMgr, FormInterface $form)
     {
         $form->handleRequest($request);
@@ -90,28 +111,51 @@ class CaseController extends FOSRestController
         return false;
     }
 
+    /**
+     * @param Request $request
+     * @param $objId
+     * @param $method
+     * @param $formName
+     * @param $className
+     * @return \FOS\RestBundle\View\View
+     */
     protected function updateCase(Request $request, $objId, $method, $formName, $className)
     {
         $entityMgr = $this->get('doctrine.orm.entity_manager');
-        $obj       = $entityMgr->getRepository($className)->find($objId);
-        $form      = $this->createForm($formName, $obj, array('method' => $method));
+        $obj = $entityMgr->getRepository($className)->find($objId);
+        $form = $this->createForm($formName, $obj, array('method' => $method));
 
         return ($this->updateObject($request, $entityMgr, $form)) ?
             $this->view(null, Codes::HTTP_NO_CONTENT) :
             $this->view($form, Codes::HTTP_BAD_REQUEST);
     }
 
+    /**
+     * @param Request $request
+     * @param $objId
+     * @param $method
+     * @param $formName
+     * @param $className
+     * @return \FOS\RestBundle\View\View
+     */
     protected function updateLab(Request $request, $objId, $method, $formName, $className)
     {
         $entityMgr = $this->get('doctrine.orm.entity_manager');
-        $obj       = $entityMgr->getRepository($className)->findOrCreateNew($objId);
-        $form      = $this->createForm($formName, $obj, array('method' => $method));
+        $obj = $entityMgr->getRepository($className)->findOrCreateNew($objId);
+        $form = $this->createForm($formName, $obj, array('method' => $method));
 
         return ($this->updateObject($request, $entityMgr, $form)) ?
             $this->view(null, Codes::HTTP_NO_CONTENT) :
             $this->view($form, Codes::HTTP_BAD_REQUEST);
     }
 
+    /**
+     * @param Request $request
+     * @param $route
+     * @param $formName
+     * @param $className
+     * @return array|\FOS\RestBundle\View\View
+     */
     protected function postCase(Request $request, $route, $formName, $className)
     {
         try {
@@ -123,8 +167,8 @@ class CaseController extends FOSRestController
             }
 
             $entityMgr = $this->get('doctrine.orm.entity_manager');
-            $caseId    = $form->get('caseId')->getData();
-            $case      = $entityMgr->getRepository($className)->findOrCreate($caseId, null);
+            $caseId = $form->get('caseId')->getData();
+            $case = $entityMgr->getRepository($className)->findOrCreate($caseId, null);
 
             if (!$case->getId()) {
                 $site = ($form->has('site')) ? $form->get('site')->getData() : $this->get('ns.sentinel.sites')->getSite();
@@ -135,8 +179,7 @@ class CaseController extends FOSRestController
             $entityMgr->flush();
 
             return $this->routeRedirectView($route, array('objId' => $case->getId()));
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             return array('exception' => $e->getMessage());
         }
     }

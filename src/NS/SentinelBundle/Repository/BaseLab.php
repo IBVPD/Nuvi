@@ -17,9 +17,17 @@ use Doctrine\ORM\UnexpectedResultException;
  */
 class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteRepositoryInterface
 {
-
+    /**
+     * @var null
+     */
     protected $parentClass = null;
 
+    /**
+     * @param $fields
+     * @param array $value
+     * @param $limit
+     * @return mixed
+     */
     public function getForAutoComplete($fields, array $value, $limit)
     {
         $alias = 'd';
@@ -45,6 +53,13 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
         return $this->secure($queryBuilder)->getQuery();
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     * @throws UnexpectedResultException
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Exception
+     */
     public function findOrCreateNew($id)
     {
         try {
@@ -72,6 +87,12 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
         }
     }
 
+    /**
+     * @param $site
+     * @param $caseId
+     * @return mixed
+     * @throws \Doctrine\ORM\ORMException
+     */
     public function findBySiteAndCaseId($site, $caseId)
     {
         $siteParam = (!$site instanceOf \NS\SentinelBundle\Entity\Site) ? $this->_em->getReference('NS\SentinelBundle\Entity\Site', $site) : $site;
@@ -83,6 +104,12 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
         return $this->secure($queryB)->getQuery()->getSingleResult();
     }
 
+    /**
+     * @param mixed $objId
+     * @return mixed
+     * @throws NonExistentCase
+     * @throws \Doctrine\ORM\ORMException
+     */
     public function find($objId)
     {
         try {

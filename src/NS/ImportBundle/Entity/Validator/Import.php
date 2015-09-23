@@ -12,6 +12,9 @@ use Symfony\Component\Validator\Constraint;
  */
 class Import extends Constraint
 {
+    /**
+     * @return string
+     */
     public function getTargets()
     {
         return self::CLASS_CONSTRAINT;

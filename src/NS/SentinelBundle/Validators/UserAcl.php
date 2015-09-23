@@ -14,6 +14,9 @@ class UserAcl extends Constraint
 {
     public $message = 'Invalid User account';
 
+    /**
+     * @return string
+     */
     public function getTargets()
     {
         return self::CLASS_CONSTRAINT;

@@ -11,11 +11,26 @@ use \NS\SentinelBundle\Form\Types\Diagnosis;
  */
 class NumberEnrolledResult
 {
+    /**
+     * @var Diagnosis
+     */
     private $diagnosis;
+    /**
+     * @var array
+     */
     private $dValues;
+    /**
+     * @var array
+     */
     private $resultByMonth;
+    /**
+     * @var array
+     */
     private $headers;
 
+    /**
+     *
+     */
     public function __construct()
     {
         $this->diagnosis     = new Diagnosis();
@@ -25,25 +40,41 @@ class NumberEnrolledResult
         $this->headers       = array_merge(array('month'=>'Month'),$this->dValues);
     }
 
+    /**
+     * @param $inputResults
+     */
     public function load($inputResults)
     {
-        foreach($inputResults as $res)
+        foreach($inputResults as $res) {
             $this->resultByMonth[$res['AdmissionMonth']][$res['admDx']->getValue()] = $res['admDxCount'];
+        }
     }
 
+    /**
+     * @param bool|false $asStrings
+     * @return array
+     */
     public function getHeaders($asStrings  = false)
     {
-        if($asStrings)
+        if($asStrings) {
             return array_flip($this->headers);
+        }
 
         return $this->headers;
     }
 
+    /**
+     * @return array
+     */
     public function all()
     {
         return $this->resultByMonth;
     }
 
+    /**
+     * @param $month
+     * @return array
+     */
     public function getMonthResult($month)
     {
         return (isset($this->resultByMonth[$month]))? $this->resultByMonth[$month]: $this->empty;

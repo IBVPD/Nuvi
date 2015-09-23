@@ -10,6 +10,10 @@ use Doctrine\ORM\EntityRepository;
  */
 class ClientRepository extends EntityRepository
 {
+    /**
+     * @param $user
+     * @return array
+     */
     public function getForUser($user)
     {
         return $this->createQueryBuilder('c')

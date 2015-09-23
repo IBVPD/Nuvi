@@ -11,10 +11,20 @@ use \Symfony\Component\Form\FormEvents;
 use \Symfony\Component\OptionsResolver\OptionsResolver;
 use \Symfony\Component\Security\Core\SecurityContextInterface;
 
+/**
+ * Class BaseFilterType
+ * @package NS\SentinelBundle\Filter\Type
+ */
 class BaseFilterType extends AbstractType
 {
+    /**
+     * @var SecurityContextInterface
+     */
     private $securityContext;
 
+    /**
+     * @var ACLConverter
+     */
     private $aclConverter;
 
     /**
@@ -48,6 +58,9 @@ class BaseFilterType extends AbstractType
         $builder->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'preSetData'));
     }
 
+    /**
+     * @param FormEvent $event
+     */
     public function preSetData(FormEvent $event)
     {
         $form  = $event->getForm();

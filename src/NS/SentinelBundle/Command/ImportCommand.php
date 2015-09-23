@@ -18,8 +18,14 @@ use NS\SentinelBundle\Entity\Site;
  */
 class ImportCommand extends ContainerAwareCommand
 {
+    /**
+     * @var
+     */
     private $entityMgr;
 
+    /**
+     *
+     */
     protected function configure()
     {
         $this
@@ -33,6 +39,10 @@ class ImportCommand extends ContainerAwareCommand
         ; 
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $files           = $this->processFiles($input->getArgument('directory'));
@@ -62,6 +72,10 @@ class ImportCommand extends ContainerAwareCommand
         }
     }
 
+    /**
+     * @param $dir
+     * @return array
+     */
     private function processFiles($dir)
     {
         $files = scandir($dir);
@@ -94,6 +108,11 @@ class ImportCommand extends ContainerAwareCommand
         return $files;
     }
 
+    /**
+     * @param $file
+     * @param $output
+     * @return array
+     */
     private function processRegions($file,$output)
     {
         $fileId  = fopen($file,'r');
@@ -120,6 +139,11 @@ class ImportCommand extends ContainerAwareCommand
         return $regions;
     }
 
+    /**
+     * @param $file
+     * @param $regions
+     * @return array
+     */
     private function processCountries($file,$regions)
     {
         $countries = array();
@@ -148,6 +172,12 @@ class ImportCommand extends ContainerAwareCommand
         return $countries;
     }
 
+    /**
+     * @param $file
+     * @param $countries
+     * @return array
+     * @throws \Exception
+     */
     private function processSites($file,$countries)
     {
         $sites      = array();
@@ -187,6 +217,11 @@ class ImportCommand extends ContainerAwareCommand
         return array('sites'=>$sites,'errors'=>$errorSites);
     }
 
+    /**
+     * @param $site
+     * @param $row
+     * @param $country
+     */
     private function modifyCountry($site, $row, $country)
     {
         if($country instanceof Country)
@@ -199,6 +234,12 @@ class ImportCommand extends ContainerAwareCommand
         }
     }
 
+    /**
+     * @param $site
+     * @param $row
+     * @param $errorSites
+     * @throws \Exception
+     */
     private function surveillanceAndSupport($site, $row, &$errorSites)
     {
         try
@@ -220,6 +261,11 @@ class ImportCommand extends ContainerAwareCommand
         }
     }
 
+    /**
+     * @param $site
+     * @param $row
+     * @param $errorSites
+     */
     private function setSiteIbdLastAssessment($site, $row, &$errorSites)
     {
         if($row[12])
@@ -235,6 +281,11 @@ class ImportCommand extends ContainerAwareCommand
         }
     }
 
+    /**
+     * @param $site
+     * @param $row
+     * @param $errorSites
+     */
     private function setSiteRvLastAssessment($site, $row, &$errorSites)
     {
         if($row[14])

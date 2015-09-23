@@ -342,6 +342,9 @@ class Map
 
     }
 
+    /**
+     * @return PreprocessorStep|null
+     */
     public function getPreProcessor()
     {
         $processor = new PreprocessorStep(new ExpressionBuilder());

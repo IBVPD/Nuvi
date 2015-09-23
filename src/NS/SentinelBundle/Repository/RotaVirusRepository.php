@@ -229,6 +229,11 @@ class RotaVirusRepository extends Common
         return $this->secure($this->createQueryBuilder($alias)->orderBy($alias . '.id', 'DESC'));
     }
 
+    /**
+     * @param $alias
+     * @param array $siteCodes
+     * @return \Doctrine\ORM\QueryBuilder
+     */
     private function getCountQueryBuilder($alias, array $siteCodes)
     {
         $queryBuilder = $this->createQueryBuilder($alias)
@@ -252,6 +257,11 @@ class RotaVirusRepository extends Common
         return $queryBuilder->where("(" . implode(" OR ", $where) . ")")->setParameters($params);
     }
 
+    /**
+     * @param $alias
+     * @param array $siteCodes
+     * @return \Doctrine\ORM\QueryBuilder
+     */
     public function getBirthdateErrorCountBySites($alias, array $siteCodes)
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
@@ -259,6 +269,11 @@ class RotaVirusRepository extends Common
             ->andWhere(sprintf('(%s.admDate < %s.dob)', $alias, $alias));
     }
 
+    /**
+     * @param $alias
+     * @param array $siteCodes
+     * @return \Doctrine\ORM\QueryBuilder
+     */
     public function getMissingDischargeOutcomeCountBySites($alias, array $siteCodes)
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
@@ -268,6 +283,11 @@ class RotaVirusRepository extends Common
             ->setParameter('outOfRange', ArrayChoice::OUT_OF_RANGE);
     }
 
+    /**
+     * @param $alias
+     * @param array $siteCodes
+     * @return \Doctrine\ORM\QueryBuilder
+     */
     public function getStoolCollectionDateErrorCountBySites($alias, array $siteCodes)
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
@@ -276,6 +296,11 @@ class RotaVirusRepository extends Common
             ->setParameter('collectedYes', TripleChoice::YES);
     }
 
+    /**
+     * @param $alias
+     * @param array $siteCodes
+     * @return \Doctrine\ORM\QueryBuilder
+     */
     public function getMissingDischargeDateCountBySites($alias, array $siteCodes)
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)

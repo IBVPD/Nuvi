@@ -3,10 +3,20 @@
 namespace NS\SentinelBundle\Entity\Types;
 use NS\UtilBundle\Entity\Types\ArrayChoice;
 
+/**
+ * Class CXRAdditionalResult
+ * @package NS\SentinelBundle\Entity\Types
+ */
 class CXRAdditionalResult extends ArrayChoice
 {
+    /**
+     * @var string
+     */
     protected $convert_class = 'NS\SentinelBundle\Form\Types\CXRAdditionalResult';
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return 'CXRAdditionalResult';

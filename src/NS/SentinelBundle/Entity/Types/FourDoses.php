@@ -11,8 +11,14 @@ use NS\UtilBundle\Entity\Types\ArrayChoice;
  */
 class FourDoses extends ArrayChoice
 {
+    /**
+     * @var string
+     */
     protected $convert_class = '\NS\SentinelBundle\Form\Types\FourDoses';
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return 'FourDoses';

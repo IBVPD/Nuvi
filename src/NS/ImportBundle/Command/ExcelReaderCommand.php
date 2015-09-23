@@ -16,7 +16,9 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class ExcelReaderCommand extends Command
 {
-
+    /**
+     * {@inheritdoc}
+     */
     protected function configure()
     {
         $this
@@ -26,6 +28,12 @@ class ExcelReaderCommand extends Command
         ;
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     *
+     * @return int|null|void
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $filePath  = $input->getArgument('file');
@@ -40,5 +48,4 @@ class ExcelReaderCommand extends Command
 
         $output->writeln(sprintf("%s has %d rows", $filePath, $csvReader->count()));
     }
-
 }
