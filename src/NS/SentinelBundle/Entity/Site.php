@@ -671,15 +671,6 @@ class Site implements \Serializable
 
     /**
      *
-     * @return boolean
-     */
-    public function getActive()
-    {
-        return $this->active;
-    }
-
-    /**
-     *
      * @param boolean $active
      * @return \NS\SentinelBundle\Entity\Site
      */
