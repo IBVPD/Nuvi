@@ -98,7 +98,7 @@ class SiteLab extends BaseSiteLab
     private $bloodId;
 
     /**
-     * @var boolean $csfWcc
+     * @var integer $csfWcc
      * @ORM\Column(name="csfWcc", type="integer",nullable=true)
      * @Assert\Range(min=0,max=9999,minMessage="You cannot have a negative white blood cell count",maxMessage="Invalid value")
      * @Groups({"api"})
@@ -106,7 +106,7 @@ class SiteLab extends BaseSiteLab
     private $csfWcc;
 
     /**
-     * @var boolean $csfGlucose
+     * @var integer $csfGlucose
      * @ORM\Column(name="csfGlucose", type="integer",nullable=true)
      * @Assert\GreaterThanOrEqual(value=0,message="Invalid value - value must be greater than 0")
      * @Groups({"api"})
@@ -114,7 +114,7 @@ class SiteLab extends BaseSiteLab
     private $csfGlucose;
 
     /**
-     * @var boolean $csfProtein
+     * @var integer $csfProtein
      * @ORM\Column(name="csfProtein", type="integer",nullable=true)
      * @Assert\GreaterThanOrEqual(value=0,message="Invalid value - value must be greater than 0")
      * @Groups({"api"})
@@ -486,7 +486,7 @@ class SiteLab extends BaseSiteLab
     }
 
     /**
-     * @return bool
+     * @return integer
      */
     public function getCsfWcc()
     {
@@ -494,7 +494,7 @@ class SiteLab extends BaseSiteLab
     }
 
     /**
-     * @return bool
+     * @return integer
      */
     public function getCsfGlucose()
     {
@@ -502,7 +502,7 @@ class SiteLab extends BaseSiteLab
     }
 
     /**
-     * @return bool
+     * @return integer
      */
     public function getCsfProtein()
     {
