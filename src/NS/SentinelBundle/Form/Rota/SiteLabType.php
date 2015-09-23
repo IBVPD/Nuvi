@@ -71,6 +71,9 @@ class SiteLabType extends AbstractType
         $builder->addEventListener(FormEvents::POST_SET_DATA, array($this, 'postSetData'));
     }
 
+    /**
+     * @param FormEvent $event
+     */
     public function postSetData(FormEvent $event)
     {
         $data = $event->getData();

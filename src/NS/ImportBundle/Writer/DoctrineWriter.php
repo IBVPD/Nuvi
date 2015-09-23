@@ -66,6 +66,10 @@ class DoctrineWriter extends BaseWriter
         return $res;
     }
 
+    /**
+     * @param array $item
+     * @param $entity
+     */
     public function updateAssociations(array &$item, $entity)
     {
         parent::updateAssociations($item, $entity);

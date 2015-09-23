@@ -11,6 +11,9 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class NSApiDocBundle extends Bundle
 {
+    /**
+     * @return string
+     */
     public function getParent()
     {
         return 'NelmioApiDocBundle';

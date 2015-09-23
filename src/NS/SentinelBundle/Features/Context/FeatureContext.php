@@ -74,6 +74,10 @@ class FeatureContext extends MinkContext implements KernelAwareContext
         \PHPUnit_Framework_Assert::assertFalse($collector->hasException(), ($collector->hasException() ? $collector->getException()->getMessage() : null));
     }
 
+    /**
+     * @return mixed
+     * @throws UnsupportedDriverActionException
+     */
     public function getSymfonyProfile()
     {
         $driver = $this->getSession()->getDriver();

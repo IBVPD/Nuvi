@@ -26,6 +26,9 @@ class FinalResult extends ArrayChoice
         self::NOT_DONE     => 'Not Done',
     );
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return 'FinalResult';
