@@ -32,6 +32,13 @@ class ApplicationAvailabilityTest extends WebTestCase
             array('/en/ibd/reports/field-population'),
             array('/en/ibd/reports/culture-positive'),
             array('/en/rota/reports/data-quality'),
+            array('/en/profile'),
+            array('/en/ibd/reports/percent-enrolled'),
+            array('/en/ibd/reports/annual-age-distribution'),
+            array('/en/ibd/reports/field-population'),
+            array('/en/ibd/reports/culture-positive'),
+            array('/en/ibd/reports/data-quality'),
+            array('/en/rota/reports/data-quality'),
             // ...
         );
     }
