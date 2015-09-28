@@ -14,10 +14,12 @@ use \NS\ImportBundle\Converter\Registry;
 use \NS\ImportBundle\Converter\TrimInputConverter;
 use \NS\ImportBundle\Converter\WarningConverter;
 use \NS\ImportBundle\Entity\Import;
+use NS\ImportBundle\Filter\DateOfBirthFilter;
 use \NS\ImportBundle\Filter\Duplicate;
 use \NS\ImportBundle\Filter\NotBlank;
 use \NS\ImportBundle\Writer\DoctrineWriter;
 use \NS\ImportBundle\Importer\ReaderFactory;
+use Ddeboer\DataImport\Result;
 
 /**
  * Description of ImportProcessor
@@ -151,21 +153,17 @@ class ImportProcessor
         }
 
         $filterStep = new FilterStep();
-        $addFilter = false;
+        $filterStep->add(new DateOfBirthFilter());
 
         if ($this->notBlankFilter) {
             $filterStep->add($this->notBlankFilter);
-            $addFilter = true;
         }
 
         if ($this->duplicateFilter) {
             $filterStep->add($this->getDuplicate());
-            $addFilter = true;
         }
 
-        if ($addFilter) {
-            $workflow->addStep($filterStep, 20);
-        }
+        $workflow->addStep($filterStep, 20);
 
         // Adds warnings for out of range values
         $converter = new ConverterStep();

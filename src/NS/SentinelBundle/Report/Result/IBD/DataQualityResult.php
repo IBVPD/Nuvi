@@ -13,11 +13,6 @@ class DataQualityResult extends AbstractSiteBasedResult
     /**
      * @var int
      */
-    private $dateOfBirthErrorCount = 0;
-
-    /**
-     * @var int
-     */
     private $missingAdmissionDiagnosisCount = 0;
 
     /**
@@ -29,32 +24,6 @@ class DataQualityResult extends AbstractSiteBasedResult
      * @var int
      */
     private $missingDischargeDiagnosisCount = 0;
-
-    /**
-     * @return int
-     */
-    public function getDateOfBirthErrorCount()
-    {
-        return $this->dateOfBirthErrorCount;
-    }
-
-    /**
-     * @return float|int
-     */
-    public function getDateOfBirthErrorPercent()
-    {
-        return ($this->getTotalCases() > 0) ? $this->dateOfBirthErrorCount / $this->getTotalCases() * 100 : 0;
-    }
-
-    /**
-     * @param int $dateOfBirthErrorCount
-     * @return DataQualityResult
-     */
-    public function setDateOfBirthErrorCount($dateOfBirthErrorCount)
-    {
-        $this->dateOfBirthErrorCount = $dateOfBirthErrorCount;
-        return $this;
-    }
 
     /**
      * @return int

@@ -42,7 +42,6 @@ class RotaVirusReporter extends AbstractReporter
 
             $repo = $this->entityMgr->getRepository('NSSentinelBundle:RotaVirus');
             $columns = array(
-                'getBirthdateErrorCountBySites'=>'setBirthdayErrorCount',
                 'getStoolCollectionDateErrorCountBySites' => 'setStoolCollectionDateErrorCount',
                 'getMissingDischargeOutcomeCountBySites' => 'setMissingDischargeOutcomeCount',
                 'getMissingDischargeDateCountBySites' => 'setMissingDischargeDateCount',
@@ -56,8 +55,6 @@ class RotaVirusReporter extends AbstractReporter
                     'site.country.code',
                     'site.code',
                     'totalCases',
-                    'dateOfBirthErrorCount',
-                    'dateOfBirthErrorPercent',
                     'missingAdmissionDiagnosisCount',
                     'missingAdmissionDiagnosisPercent',
                     'missingDischargeOutcomeCount',

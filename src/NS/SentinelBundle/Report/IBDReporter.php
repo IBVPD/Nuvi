@@ -238,7 +238,6 @@ class IBDReporter extends AbstractReporter
 
             $repo = $this->entityMgr->getRepository('NSSentinelBundle:IBD');
             $columns = array(
-                'getBirthdateErrorCountBySites'=>'setBirthdayErrorCount',
                 'getMissingAdmissionDiagnosisCountBySites' => 'setMissingAdmissionDiagnosisCount',
                 'getMissingDischargeOutcomeCountBySites' => 'setMissingDischargeOutcomeCount',
                 'getMissingDischargeDiagnosisCountBySites' => 'setMissingDischargeDiagnosisCount',
@@ -252,8 +251,6 @@ class IBDReporter extends AbstractReporter
                     'site.country.code',
                     'site.code',
                     'totalCases',
-                    'dateOfBirthErrorCount',
-                    'dateOfBirthErrorPercent',
                     'missingAdmissionDiagnosisCount',
                     'missingAdmissionDiagnosisPercent',
                     'missingDischargeOutcomeCount',

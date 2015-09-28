@@ -940,6 +940,53 @@ class ImportProcessorTest extends WebTestCase
         $this->assertTrue($results[5]->getAdmDx()->equal(6),sprintf('%d != %d',6,$results[5]->getAdmDx()->getValue()));
     }
 
+    /**
+     * @group dobFilter
+     */
+    public function testDateOfBirthFilter()
+    {
+        $columns = array(
+            array(
+                'name'      => 'site_CODE',
+                'converter' => 'ns.sentinel.converter.site',
+                'mapper'    => 'site',
+                'ignored'   => false,
+            ),
+            array(
+                'name'      => 'case_ID',
+                'converter' => null,
+                'mapper'    => 'caseId',
+                'ignored'   => false,
+            ),
+            array(
+                'name'      => 'adm_date',
+                'converter' => 'ns_import.converter.date.iso',
+                'mapper'    => 'admDate',
+                'ignored'   => false,
+            ),
+            array(
+                'name'      => 'birthday',
+                'converter' => 'ns_import.converter.date.iso',
+                'mapper'    => 'dob',
+                'ignored'   => false,
+            ),
+        );
+
+        $file = new File(__DIR__ . '/../Fixtures/DobAdmDate.csv');
+        $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
+        $import = new Import($mockUser);
+        $import->setInputDateStart(new \DateTime('2014-01-01'));
+        $import->setInputDateEnd(new \DateTime('2017-01-30'));
+        $import->setSourceFile($file);
+        $import->setMap($this->getIbdMap($columns));
+
+        $importer = $this->getContainer()->get('ns_import.processor');
+        $result = $importer->process($import);
+        $this->assertEquals(2,$result->getTotalProcessedCount());
+        $this->assertEquals(1,$result->getSuccessCount());
+        $this->assertEquals(1,$result->getSkippedCount());
+    }
+
     public function getReferenceLabMap(array $columns)
     {
         return $this->getMap('NS\SentinelBundle\Entity\IBD\ReferenceLab', 'IBD Reference Lab', $columns);

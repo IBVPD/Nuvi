@@ -9,6 +9,7 @@ use \NS\SentinelBundle\Form\Types\Gender;
 use \NS\SentinelBundle\Form\Types\TripleChoice;
 use \Symfony\Component\Validator\Constraints as Assert;
 use \Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use \NS\SentinelBundle\Validators as LocalAssert;
 
 /**
  * Description of BaseCase
@@ -17,6 +18,8 @@ use \Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\MappedSuperclass
  * @SuppressWarnings(PHPMD.ShortVariable)
  * @UniqueEntity(fields={"site","caseId"}, message="The case id already exists for this site!")
+ *
+ * @LocalAssert\GreaterThanDate(lessThanField="dob",greaterThanField="admDate",message="The date of birth is past the date of admission")
  */
 abstract class BaseCase
 {

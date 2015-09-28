@@ -17,7 +17,6 @@
                                     <th rowspan="2">{{ 'Country'|trans }}</th>
                                     <th rowspan="2">{{ 'Site'|trans }}</th>
                                     <th rowspan="2">{{ 'Total Cases'|trans }}</th>
-                                    <th colspan="2">{{ 'Birthdate vs Admission Date Errors'|trans }}</th>
                                     <th colspan="2">{{ 'Missing Admission Diagnosis'|trans }}</th>
                                     <th colspan="2">{{ 'Missing Discharge Outcome'|trans }}</th>
                                     <th colspan="2">{{ 'Missing Discharge Diagnosis'|trans }}</th>
@@ -31,9 +30,6 @@
                                         <td>{{ result.site.country.code }}</td>
                                         <td>{{ result.site.code }}</td>
                                         <td>{{ result.totalCases }}</td>
-
-                                        <td>{{ result.dateOfBirthErrorCount }}</td>
-                                        <td>{{ result.dateOfBirthErrorPercent|number_format }}%</td>
 
                                         <td>{{ result.missingAdmissionDiagnosisCount }}</td>
                                         <td>{{ result.missingAdmissionDiagnosisPercent|number_format }}%</td>

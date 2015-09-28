@@ -68,6 +68,12 @@ services:
         tags:
             - { name: form.type, alias: ConverterChoice }
 
+    ns_import.converter.date.iso:
+        class: NS\ImportBundle\Converter\DateTimeValueConverter
+        arguments: [ "Y-m-d|" ]
+        tags:
+            - { name: ns_import.converter }
+
     ns_import.converter.date.paho1:
         class: NS\ImportBundle\Converter\DateTimeValueConverter
         arguments: [ "d/m/Y|" ]
