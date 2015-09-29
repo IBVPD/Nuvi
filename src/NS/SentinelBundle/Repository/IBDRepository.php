@@ -550,18 +550,6 @@ class IBDRepository extends Common
     }
 
     /**
-     * @param $alias
-     * @param array $siteCodes
-     * @return \Doctrine\ORM\QueryBuilder
-     */
-    public function getBirthdateErrorCountBySites($alias, array $siteCodes)
-    {
-        return $this->getCountQueryBuilder($alias, $siteCodes)
-            ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
-            ->andWhere(sprintf('(%s.admDate < %s.dob)', $alias, $alias));
-    }
-
-    /**
      * @param array $params
      * @return bool
      * @throws \Doctrine\ORM\NonUniqueResultException

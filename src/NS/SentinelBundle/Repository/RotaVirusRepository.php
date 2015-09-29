@@ -262,18 +262,6 @@ class RotaVirusRepository extends Common
      * @param array $siteCodes
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function getBirthdateErrorCountBySites($alias, array $siteCodes)
-    {
-        return $this->getCountQueryBuilder($alias, $siteCodes)
-            ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
-            ->andWhere(sprintf('(%s.admDate < %s.dob)', $alias, $alias));
-    }
-
-    /**
-     * @param $alias
-     * @param array $siteCodes
-     * @return \Doctrine\ORM\QueryBuilder
-     */
     public function getMissingDischargeOutcomeCountBySites($alias, array $siteCodes)
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
@@ -307,5 +295,4 @@ class RotaVirusRepository extends Common
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
             ->andWhere(sprintf('%s.dischargeDate IS NULL', $alias));
     }
-
 }
