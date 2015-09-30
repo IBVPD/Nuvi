@@ -66,6 +66,9 @@ NS\SentinelBundle\Entity\IBD:
     csfCollected: <done()>
     csfCollectDateTime: <dateTimeBetween($admDate,'now')>
     csfAppearance: <csfAppearance($csfCollected)>
+    admDx: 75%? <ibdDiagnosis()>
+    dischDx: 77%? <ibdDischargeDiagnosis()>
+    dischOutcome: 91%? <ibdDischargeOutcome()>
     site: @site*
 
 NS\SentinelBundle\Entity\RotaVirus:

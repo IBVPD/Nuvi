@@ -6,6 +6,8 @@ use \Nelmio\Alice\Fixtures;
 use \NS\SentinelBundle\Form\Types\CSFAppearance;
 use \NS\SentinelBundle\Form\Types\CXRResult;
 use \NS\SentinelBundle\Form\Types\Diagnosis;
+use NS\SentinelBundle\Form\Types\DischargeDiagnosis;
+use NS\SentinelBundle\Form\Types\DischargeOutcome;
 use \NS\SentinelBundle\Form\Types\FourDoses;
 use \NS\SentinelBundle\Form\Types\Gender;
 use \NS\SentinelBundle\Form\Types\Role;
@@ -16,6 +18,52 @@ use \NS\SentinelBundle\Form\Types\VaccinationReceived;
 
 class MiscProvider
 {
+    public function ibdDiagnosis()
+    {
+        $choices = array(
+            new Diagnosis(Diagnosis::OUT_OF_RANGE),
+            new Diagnosis(Diagnosis::NO_SELECTION),
+            new Diagnosis(Diagnosis::MULTIPLE),
+            new Diagnosis(Diagnosis::OTHER),
+            new Diagnosis(Diagnosis::SUSPECTED_MENINGITIS),
+            new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA),
+            new Diagnosis(Diagnosis::SUSPECTED_SEPSIS),
+            new Diagnosis(Diagnosis::SUSPECTED_SEVERE_PNEUMONIA),
+            new Diagnosis(Diagnosis::UNKNOWN),
+        );
+
+        return $choices[array_rand($choices)];
+    }
+
+    public function ibdDischargeOutcome()
+    {
+        $choices = array(
+            new DischargeOutcome(DischargeOutcome::OUT_OF_RANGE),
+            new DischargeOutcome(DischargeOutcome::NO_SELECTION),
+            new DischargeOutcome(DischargeOutcome::DIED),
+            new DischargeOutcome(DischargeOutcome::TRANSFERRED),
+            new DischargeOutcome(DischargeOutcome::DISCHARGED_ALIVE_WITH_SEQUELAE),
+            new DischargeOutcome(DischargeOutcome::DISCHARGED_ALIVE_WITHOUT_SEQUELAE),
+            new DischargeOutcome(DischargeOutcome::LEFT_AGAINST_ADVICE),
+        );
+
+        return $choices[array_rand($choices)];
+    }
+
+    public function ibdDischargeDiagnosis()
+    {
+        $choices = array(
+            new DischargeDiagnosis(DischargeDiagnosis::OUT_OF_RANGE),
+            new DischargeDiagnosis(DischargeDiagnosis::NO_SELECTION),
+            new DischargeDiagnosis(DischargeDiagnosis::BACTERIAL_MENINGITIS),
+            new DischargeDiagnosis(DischargeDiagnosis::BACTERIAL_PNEUMONIA),
+            new DischargeDiagnosis(DischargeDiagnosis::MULTIPLE),
+            new DischargeDiagnosis(DischargeDiagnosis::OTHER),
+            new DischargeDiagnosis(DischargeDiagnosis::SEPSIS),
+        );
+
+        return $choices[array_rand($choices)];
+    }
 
     public function rotaDischargeOutcome()
     {

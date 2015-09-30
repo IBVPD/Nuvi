@@ -822,7 +822,7 @@ class IBD extends BaseCase
      * @param Diagnosis $admDx
      * @return $this
      */
-    public function setAdmDx(Diagnosis $admDx)
+    public function setAdmDx(Diagnosis $admDx = null)
     {
         $this->admDx = $admDx;
         return $this;
@@ -842,7 +842,7 @@ class IBD extends BaseCase
      * @param TripleChoice $antibiotics
      * @return $this
      */
-    public function setAntibiotics(TripleChoice $antibiotics)
+    public function setAntibiotics(TripleChoice $antibiotics = null)
     {
         $this->antibiotics = $antibiotics;
         return $this;
@@ -852,7 +852,7 @@ class IBD extends BaseCase
      * @param TripleChoice $menSeizures
      * @return $this
      */
-    public function setMenSeizures(TripleChoice $menSeizures)
+    public function setMenSeizures(TripleChoice $menSeizures = null)
     {
         $this->menSeizures = $menSeizures;
         return $this;
@@ -862,7 +862,7 @@ class IBD extends BaseCase
      * @param TripleChoice $menFever
      * @return $this
      */
-    public function setMenFever(TripleChoice $menFever)
+    public function setMenFever(TripleChoice $menFever = null)
     {
         $this->menFever = $menFever;
         return $this;
@@ -872,7 +872,7 @@ class IBD extends BaseCase
      * @param TripleChoice $menAltConscious
      * @return $this
      */
-    public function setMenAltConscious(TripleChoice $menAltConscious)
+    public function setMenAltConscious(TripleChoice $menAltConscious = null)
     {
         $this->menAltConscious = $menAltConscious;
         return $this;
@@ -882,7 +882,7 @@ class IBD extends BaseCase
      * @param TripleChoice $menInabilityFeed
      * @return $this
      */
-    public function setMenInabilityFeed(TripleChoice $menInabilityFeed)
+    public function setMenInabilityFeed(TripleChoice $menInabilityFeed = null)
     {
         $this->menInabilityFeed = $menInabilityFeed;
         return $this;
@@ -892,7 +892,7 @@ class IBD extends BaseCase
      * @param TripleChoice $menNeckStiff
      * @return $this
      */
-    public function setMenNeckStiff(TripleChoice $menNeckStiff)
+    public function setMenNeckStiff(TripleChoice $menNeckStiff = null)
     {
         $this->menNeckStiff = $menNeckStiff;
         return $this;
@@ -902,7 +902,7 @@ class IBD extends BaseCase
      * @param TripleChoice $menRash
      * @return $this
      */
-    public function setMenRash(TripleChoice $menRash)
+    public function setMenRash(TripleChoice $menRash = null)
     {
         $this->menRash = $menRash;
         return $this;
@@ -912,7 +912,7 @@ class IBD extends BaseCase
      * @param TripleChoice $menFontanelleBulge
      * @return $this
      */
-    public function setMenFontanelleBulge(TripleChoice $menFontanelleBulge)
+    public function setMenFontanelleBulge(TripleChoice $menFontanelleBulge = null)
     {
         $this->menFontanelleBulge = $menFontanelleBulge;
         return $this;
@@ -922,7 +922,7 @@ class IBD extends BaseCase
      * @param TripleChoice $menLethargy
      * @return $this
      */
-    public function setMenLethargy(TripleChoice $menLethargy)
+    public function setMenLethargy(TripleChoice $menLethargy = null)
     {
         $this->menLethargy = $menLethargy;
         return $this;
@@ -932,7 +932,7 @@ class IBD extends BaseCase
      * @param TripleChoice $pneuDiffBreathe
      * @return $this
      */
-    public function setPneuDiffBreathe(TripleChoice $pneuDiffBreathe)
+    public function setPneuDiffBreathe(TripleChoice $pneuDiffBreathe = null)
     {
         $this->pneuDiffBreathe = $pneuDiffBreathe;
         return $this;
@@ -942,7 +942,7 @@ class IBD extends BaseCase
      * @param TripleChoice $pneuChestIndraw
      * @return $this
      */
-    public function setPneuChestIndraw(TripleChoice $pneuChestIndraw)
+    public function setPneuChestIndraw(TripleChoice $pneuChestIndraw = null)
     {
         $this->pneuChestIndraw = $pneuChestIndraw;
         return $this;
@@ -952,7 +952,7 @@ class IBD extends BaseCase
      * @param TripleChoice $pneuCough
      * @return $this
      */
-    public function setPneuCough(TripleChoice $pneuCough)
+    public function setPneuCough(TripleChoice $pneuCough = null)
     {
         $this->pneuCough = $pneuCough;
         return $this;
@@ -962,7 +962,7 @@ class IBD extends BaseCase
      * @param TripleChoice $pneuCyanosis
      * @return $this
      */
-    public function setPneuCyanosis(TripleChoice $pneuCyanosis)
+    public function setPneuCyanosis(TripleChoice $pneuCyanosis = null)
     {
         $this->pneuCyanosis = $pneuCyanosis;
         return $this;
@@ -972,7 +972,7 @@ class IBD extends BaseCase
      * @param TripleChoice $pneuStridor
      * @return $this
      */
-    public function setPneuStridor(TripleChoice $pneuStridor)
+    public function setPneuStridor(TripleChoice $pneuStridor = null)
     {
         $this->pneuStridor = $pneuStridor;
         return $this;
@@ -992,7 +992,7 @@ class IBD extends BaseCase
      * @param TripleChoice $pneuVomit
      * @return $this
      */
-    public function setPneuVomit(TripleChoice $pneuVomit)
+    public function setPneuVomit(TripleChoice $pneuVomit = null)
     {
         $this->pneuVomit = $pneuVomit;
         return $this;
@@ -1002,7 +1002,7 @@ class IBD extends BaseCase
      * @param TripleChoice $pneuHypothermia
      * @return $this
      */
-    public function setPneuHypothermia(TripleChoice $pneuHypothermia)
+    public function setPneuHypothermia(TripleChoice $pneuHypothermia = null)
     {
         $this->pneuHypothermia = $pneuHypothermia;
         return $this;
@@ -1012,7 +1012,7 @@ class IBD extends BaseCase
      * @param TripleChoice $pneuMalnutrition
      * @return $this
      */
-    public function setPneuMalnutrition(TripleChoice $pneuMalnutrition)
+    public function setPneuMalnutrition(TripleChoice $pneuMalnutrition = null)
     {
         $this->pneuMalnutrition = $pneuMalnutrition;
         return $this;
@@ -1022,7 +1022,7 @@ class IBD extends BaseCase
      * @param TripleChoice $cxrDone
      * @return $this
      */
-    public function setCxrDone(TripleChoice $cxrDone)
+    public function setCxrDone(TripleChoice $cxrDone = null)
     {
         $this->cxrDone = $cxrDone;
         return $this;
@@ -1032,7 +1032,7 @@ class IBD extends BaseCase
      * @param CXRResult $cxrResult
      * @return $this
      */
-    public function setCxrResult(CXRResult $cxrResult)
+    public function setCxrResult(CXRResult $cxrResult = null)
     {
         $this->cxrResult = $cxrResult;
         return $this;
@@ -1042,7 +1042,7 @@ class IBD extends BaseCase
      * @param CXRAdditionalResult $cxrAdditionalResult
      * @return $this
      */
-    public function setCxrAdditionalResult(CXRAdditionalResult $cxrAdditionalResult)
+    public function setCxrAdditionalResult(CXRAdditionalResult $cxrAdditionalResult = null)
     {
         $this->cxrAdditionalResult = $cxrAdditionalResult;
         return $this;
@@ -1052,7 +1052,7 @@ class IBD extends BaseCase
      * @param VaccinationReceived $hibReceived
      * @return $this
      */
-    public function setHibReceived(VaccinationReceived $hibReceived)
+    public function setHibReceived(VaccinationReceived $hibReceived = null)
     {
         $this->hibReceived = $hibReceived;
         return $this;
@@ -1062,7 +1062,7 @@ class IBD extends BaseCase
      * @param FourDoses $hibDoses
      * @return $this
      */
-    public function setHibDoses(FourDoses $hibDoses)
+    public function setHibDoses(FourDoses $hibDoses = null)
     {
         $this->hibDoses = $hibDoses;
         return $this;
@@ -1083,7 +1083,7 @@ class IBD extends BaseCase
      * @param VaccinationReceived $pcvReceived
      * @return $this
      */
-    public function setPcvReceived(VaccinationReceived $pcvReceived)
+    public function setPcvReceived(VaccinationReceived $pcvReceived = null)
     {
         $this->pcvReceived = $pcvReceived;
         return $this;
@@ -1093,7 +1093,7 @@ class IBD extends BaseCase
      * @param FourDoses $pcvDoses
      * @return $this
      */
-    public function setPcvDoses(FourDoses $pcvDoses)
+    public function setPcvDoses(FourDoses $pcvDoses = null)
     {
         $this->pcvDoses = $pcvDoses;
         return $this;
@@ -1103,7 +1103,7 @@ class IBD extends BaseCase
      * @param PCVType $pcvType
      * @return $this
      */
-    public function setPcvType(PCVType $pcvType)
+    public function setPcvType(PCVType $pcvType = null)
     {
         $this->pcvType = $pcvType;
         return $this;
@@ -1124,7 +1124,7 @@ class IBD extends BaseCase
      * @param VaccinationReceived $meningReceived
      * @return $this
      */
-    public function setMeningReceived(VaccinationReceived $meningReceived)
+    public function setMeningReceived(VaccinationReceived $meningReceived = null)
     {
         $this->meningReceived = $meningReceived;
         return $this;
@@ -1134,7 +1134,7 @@ class IBD extends BaseCase
      * @param MeningitisVaccinationType $meningType
      * @return $this
      */
-    public function setMeningType(MeningitisVaccinationType $meningType)
+    public function setMeningType(MeningitisVaccinationType $meningType = null)
     {
         $this->meningType = $meningType;
         return $this;
@@ -1155,7 +1155,7 @@ class IBD extends BaseCase
      * @param TripleChoice $csfCollected
      * @return $this
      */
-    public function setCsfCollected(TripleChoice $csfCollected)
+    public function setCsfCollected(TripleChoice $csfCollected = null)
     {
         $this->csfCollected = $csfCollected;
         return $this;
@@ -1175,7 +1175,7 @@ class IBD extends BaseCase
      * @param CSFAppearance $csfAppearance
      * @return $this
      */
-    public function setCsfAppearance(CSFAppearance $csfAppearance)
+    public function setCsfAppearance(CSFAppearance $csfAppearance = null)
     {
         $this->csfAppearance = $csfAppearance;
         return $this;
@@ -1196,7 +1196,7 @@ class IBD extends BaseCase
      * @param TripleChoice $bloodCollected
      * @return $this
      */
-    public function setBloodCollected(TripleChoice $bloodCollected)
+    public function setBloodCollected(TripleChoice $bloodCollected = null)
     {
         $this->bloodCollected = $bloodCollected;
         return $this;
@@ -1206,7 +1206,7 @@ class IBD extends BaseCase
      * @param OtherSpecimen $otherSpecimenCollected
      * @return $this
      */
-    public function setOtherSpecimenCollected(OtherSpecimen $otherSpecimenCollected)
+    public function setOtherSpecimenCollected(OtherSpecimen $otherSpecimenCollected = null)
     {
         $this->otherSpecimenCollected = $otherSpecimenCollected;
         return $this;
@@ -1256,7 +1256,7 @@ class IBD extends BaseCase
      * @param DischargeClassification $dischClass
      * @return $this
      */
-    public function setDischClass(DischargeClassification $dischClass)
+    public function setDischClass(DischargeClassification $dischClass = null)
     {
         $this->dischClass = $dischClass;
         return $this;
@@ -1276,7 +1276,7 @@ class IBD extends BaseCase
      * @param IBDCaseResult $result
      * @return $this
      */
-    public function setResult(IBDCaseResult $result)
+    public function setResult(IBDCaseResult $result = null)
     {
         $this->result = $result;
         return $this;
