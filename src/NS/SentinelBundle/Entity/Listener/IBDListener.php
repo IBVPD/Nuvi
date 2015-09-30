@@ -7,6 +7,7 @@ use \NS\SentinelBundle\Entity\IBD;
 use \NS\SentinelBundle\Form\Types\CaseStatus;
 use \NS\SentinelBundle\Form\Types\CSFAppearance;
 use \NS\SentinelBundle\Form\Types\Diagnosis;
+use NS\SentinelBundle\Form\Types\DischargeDiagnosis;
 use \NS\SentinelBundle\Form\Types\IBDCaseResult;
 use NS\SentinelBundle\Form\Types\MeningitisVaccinationReceived;
 use NS\SentinelBundle\Form\Types\OtherSpecimen;
@@ -97,7 +98,7 @@ class IBDListener extends BaseCaseListener
             return 'admDx';
         }
 
-        if ($case->getDischDx() && $case->getDischDx()->equal(Diagnosis::OTHER) && !$case->getDischDxOther()) {
+        if ($case->getDischDx() && $case->getDischDx()->equal(DischargeDiagnosis::OTHER) && !$case->getDischDxOther()) {
             return 'dischDx';
         }
 

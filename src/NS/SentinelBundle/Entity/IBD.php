@@ -14,6 +14,7 @@ use \NS\SentinelBundle\Form\Types\CXRAdditionalResult;
 use \NS\SentinelBundle\Form\Types\CXRResult;
 use \NS\SentinelBundle\Form\Types\Diagnosis;
 use \NS\SentinelBundle\Form\Types\DischargeClassification;
+use \NS\SentinelBundle\Form\Types\DischargeDiagnosis;
 use \NS\SentinelBundle\Form\Types\DischargeOutcome;
 use \NS\SentinelBundle\Form\Types\FourDoses;
 use \NS\SentinelBundle\Form\Types\IBDCaseResult;
@@ -23,9 +24,9 @@ use \NS\SentinelBundle\Form\Types\OtherSpecimen;
 use \NS\SentinelBundle\Form\Types\PCVType;
 use \NS\SentinelBundle\Form\Types\TripleChoice;
 use \NS\SentinelBundle\Form\Types\VaccinationReceived;
-use \NS\UtilBundle\Form\Types\ArrayChoice;
 use \Symfony\Component\Validator\Constraints as Assert;
 use \Symfony\Component\Validator\ExecutionContextInterface;
+use \NS\SentinelBundle\Validators as LocalAssert;
 
 /**
  * Description of IBD
@@ -39,9 +40,11 @@ use \Symfony\Component\Validator\ExecutionContextInterface;
  *      @SecuredCondition(roles={"ROLE_COUNTRY","ROLE_RRL_LAB","ROLE_NL_LAB"},relation="country",class="NSSentinelBundle:Country"),
  *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},relation="site",class="NSSentinelBundle:Site"),
  *      })
- * @Assert\Callback(methods={"validate"})
  * @SuppressWarnings(PHPMD.ShortVariable)
  * @ORM\EntityListeners(value={"NS\SentinelBundle\Entity\Listener\IBDListener"})
+ *
+ * @LocalAssert\GreaterThanDate(lessThanField="onsetDate",greaterThanField="admDate",message="form.validation.admission-after-onset")
+ * @LocalAssert\GreaterThanDate(lessThanField="dob",greaterThanField="onsetDate",message="form.validation.onset-after-dob")
  */
 class IBD extends BaseCase
 {
@@ -380,7 +383,7 @@ class IBD extends BaseCase
 
     /**
      * @var Diagnosis $dischDx
-     * @ORM\Column(name="dischDx",type="Diagnosis",nullable=true)
+     * @ORM\Column(name="dischDx",type="DischargeDiagnosis",nullable=true)
      * @Groups({"api"})
      */
     private $dischDx;
@@ -1223,17 +1226,17 @@ class IBD extends BaseCase
      * @param DischargeOutcome $dischOutcome
      * @return $this
      */
-    public function setDischOutcome(DischargeOutcome $dischOutcome)
+    public function setDischOutcome(DischargeOutcome $dischOutcome = null)
     {
         $this->dischOutcome = $dischOutcome;
         return $this;
     }
 
     /**
-     * @param Diagnosis $dischDx
+     * @param DischargeDiagnosis $dischDx
      * @return $this
      */
-    public function setDischDx(Diagnosis $dischDx)
+    public function setDischDx(DischargeDiagnosis $dischDx = null)
     {
         $this->dischDx = $dischDx;
         return $this;
@@ -1297,20 +1300,19 @@ class IBD extends BaseCase
         return $this;
     }
 
-
-    /**
-     * @param ExecutionContextInterface $context
-     */
-    public function validate(ExecutionContextInterface $context)
-    {
-        // with both an admission date and onset date, ensure the admission happened after onset
-        if($this->admDate && $this->onsetDate && $this->admDate < $this->onsetDate)
-            $context->addViolationAt('admDate', "form.validation.admission-after-onset");
-
-        // with both an dob and onset date, ensure the onset is after dob
-        if($this->dob && $this->onsetDate && $this->onsetDate < $this->dob)
-            $context->addViolationAt ('dob', "form.validation.onset-after-dob");
-
+//    /**
+//     * @param ExecutionContextInterface $context
+//     */
+//    public function validate(ExecutionContextInterface $context)
+//    {
+//        // with both an admission date and onset date, ensure the admission happened after onset
+//        if($this->admDate && $this->onsetDate && $this->admDate < $this->onsetDate)
+//            $context->addViolationAt('admDate', "form.validation.admission-after-onset");
+//
+//        // with both an dob and onset date, ensure the onset is after dob
+//        if($this->dob && $this->onsetDate && $this->onsetDate < $this->dob)
+//            $context->addViolationAt ('dob', "form.validation.onset-after-dob");
+//
 // The following validations need to store errors in the object or force form validation prior to form submission
 //        // if admission diagnosis is other, enforce value in 'admission diagnosis other' field
 //        if($this->admDx && $this->admDx->equal(Diagnosis::OTHER) && empty($this->admDxOther))
@@ -1349,5 +1351,5 @@ class IBD extends BaseCase
 //            if(is_null($this->csfAppearance) || $this->csfAppearance->equal(ArrayChoice::NO_SELECTION))
 //                $context->addViolationAt('csfId', "form.validation.csfCollected-csfAppearance-empty");
 //        }
-    }
+//    }
 }

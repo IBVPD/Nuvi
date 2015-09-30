@@ -8,6 +8,7 @@ use \NS\SentinelBundle\Form\Types\CaseStatus;
 use \NS\SentinelBundle\Form\Types\CSFAppearance;
 use \NS\SentinelBundle\Form\Types\Diagnosis;
 use \NS\SentinelBundle\Form\Types\DischargeClassification;
+use NS\SentinelBundle\Form\Types\DischargeDiagnosis;
 use \NS\SentinelBundle\Form\Types\DischargeOutcome;
 use \NS\SentinelBundle\Form\Types\FourDoses;
 use \NS\SentinelBundle\Form\Types\Gender;
@@ -180,7 +181,7 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
 
         //dischDx + dischDxOther
         $row                    = $complete;
-        $row['setdischDx']      = new Diagnosis(Diagnosis::OTHER);
+        $row['setdischDx']      = new DischargeDiagnosis(DischargeDiagnosis::OTHER);
         $row['setdischDxOther'] = 'null';
         $data[]                 = array('data' => $row);
 
@@ -324,7 +325,7 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
 
         //dischDx + dischDxOther
         $d                    = $complete;
-        $d['setdischDx']      = new Diagnosis(Diagnosis::OTHER);
+        $d['setdischDx']      = new DischargeDiagnosis(DischargeDiagnosis::OTHER);
         $d['setdischDxOther'] = null;
         $data[]               = array('data' => $d);
 
@@ -424,7 +425,7 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
             'setbloodCollected'       => $tripleNo,
             'setbloodId'              => null,
             'setdischOutcome'         => new DischargeOutcome(DischargeOutcome::DISCHARGED_ALIVE_WITHOUT_SEQUELAE),
-            'setdischDx'              => new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA),
+            'setdischDx'              => new DischargeDiagnosis(DischargeDiagnosis::BACTERIAL_PNEUMONIA),
             'setdischDxOther'         => null,
             'setdischClass'           => new DischargeClassification(DischargeClassification::CONFIRMED_SPN),
             'setCxrDone'              => new TripleChoice(TripleChoice::NO),
@@ -471,7 +472,7 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
             'setOtherSpecimenCollected' => new OtherSpecimen(OtherSpecimen::NONE),
             'setbloodId'                => null,
             'setdischOutcome'           => new DischargeOutcome(DischargeOutcome::DISCHARGED_ALIVE_WITHOUT_SEQUELAE),
-            'setdischDx'                => new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA),
+            'setdischDx'                => new DischargeDiagnosis(DischargeDiagnosis::BACTERIAL_PNEUMONIA),
             'setdischDxOther'           => null,
             'setdischClass'             => new DischargeClassification(DischargeClassification::CONFIRMED_SPN),
             'setCxrDone'                => new TripleChoice(TripleChoice::NO),
