@@ -193,10 +193,10 @@ class RotaVirusControllerTest extends WebTestCase
     {
         $route  = $this->getUrl('nsApiRotaPutCase', array('objId' => self::ID));
         $client = $this->getClient();
-        $client->request('PUT', $route, array(), array(), array(), '{"rotavirus":{"lastName":"Fabien","caseId":"12"}}');
+        $client->request('PUT', $route, array(), array(), array(), '{"rotavirus":{"lastName":"Fabien","caseId":"122"}}');
 
         $response = $client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertEquals(204, $response->getStatusCode(),$response->getContent());
         $this->assertFalse($response->headers->has('Location'), "We have a location header");
 
         $case = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:RotaVirus')->find(self::ID);
