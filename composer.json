@@ -63,7 +63,8 @@
         "phpoffice/phpexcel": "~1.8",
         "vich/uploader-bundle": "1.0.0-beta4",
         "leezy/pheanstalk-bundle": "~2.5",
-        "liip/rmt": "^1.1"
+        "liip/rmt": "^1.1",
+        "liuggio/excelbundle": "^2.0"
     },
     "scripts": {
         "post-install-cmd": [
