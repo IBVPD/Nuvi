@@ -52,6 +52,9 @@ use \NS\SentinelBundle\Validators as NSValidators;
  *                      @NSValidators\Other(field="otherCultDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="otherCultResult",message="form.validation.ibd-sitelab-otherCult-was-done-without-result"),
  *                      @NSValidators\Other(field="otherCultResult",value="\NS\SentinelBundle\Form\Types\CultureResult::OTHER",otherField="otherCultOther",message="form.validation.ibd-sitelab-otherCult-was-done-without-result-other"),
  *
+ *                      @NSValidators\Other(field="otherTestDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="otherTestResult",message="form.validation.ibd-sitelab-otherTest-was-done-without-result"),
+ *                      @NSValidators\Other(field="otherTestResult",value="\NS\SentinelBundle\Form\Types\CultureResult::OTHER",otherField="otherTestOther",message="form.validation.ibd-sitelab-otherTest-was-done-without-result-other"),
+ *
  *                      @NSValidators\Other(field="csfBinaxDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="csfBinaxResult",message="form.validation.ibd-sitelab-csfBinax-was-done-without-result"),
  *
  *                      @NSValidators\Other(field="spnSerotype",value="\NS\SentinelBundle\Form\Types\SpnSerotype::OTHER",otherField="spnSerotypeOther",message="form.validation.ibd-sitelab-spnSerotype-other-without-data"),
@@ -341,11 +344,18 @@ class SiteLab extends BaseSiteLab
     private $otherTestDone;
 
     /**
-     * @var string $otherTest
-     * @ORM\Column(name="otherTest",type="string",nullable=true)
+     * @var CultureResult
+     * @ORM\Column(name="otherTestResult",type="CultureResult",nullable=true)
      * @Groups({"api"})
      */
-    private $otherTest;
+    private $otherTestResult;
+
+    /**
+     * @var string $otherTestOther
+     * @ORM\Column(name="otherTestOther",type="string",nullable=true)
+     * @Groups({"api"})
+     */
+    private $otherTestOther;
 
     /**
      * @var CultureResult
@@ -396,6 +406,40 @@ class SiteLab extends BaseSiteLab
      */
     private $bloodPcrOther;
 
+//==================================
+    /**
+     * RRL_CSF_date     Date when CSF sample was sent to RRL
+     *
+     * @var \DateTime
+     * @ORM\Column(name="csfSentToRRLDate",type="date",nullable=true)
+     */
+    private $csfSentToRRLDate;
+
+    /**
+     * RRL_isol_CSF_date	Date when isolate from CSF was sent to RRL
+     *
+     * @var \DateTime
+     * @ORM\Column(name="csfIsolSentToRRLDate",type="date",nullable=true)
+     */
+    private $csfIsolSentToRRLDate;
+
+    /**
+     * RRL_isol_blood_date	Date when isolate from blood was sent to RRL
+     *
+     * @var \DateTime
+     * @ORM\Column(name="bloodIsolSentToRRLDate",type="date",nullable=true)
+     */
+    private $bloodIsolSentToRRLDate;
+
+    /**
+     * RRL_broth_date	Date when blood broth was sent to RRL
+     *
+     * @var \DateTime
+     * @ORM\Column(name="brothSentToRRLDate",type="date",nullable=true)
+     */
+    private $brothSentToRRLDate;
+
+//==================================
     /**
      * @var DateTime $updatedAt
      * @ORM\Column(name="updatedAt",type="datetime")
@@ -415,8 +459,9 @@ class SiteLab extends BaseSiteLab
      */
     public function __construct($case = null)
     {
-        if ($case instanceof IBD)
+        if ($case instanceof IBD) {
             $this->caseFile = $case;
+        }
 
         $this->updatedAt = new \DateTime();
         $this->status    = new CaseStatus(CaseStatus::OPEN);
@@ -831,14 +876,6 @@ class SiteLab extends BaseSiteLab
     }
 
     /**
-     * @return string
-     */
-    public function getOtherTest()
-    {
-        return $this->otherTest;
-    }
-
-    /**
      * @param TripleChoice $otherTestDone
      */
     public function setOtherTestDone(TripleChoice $otherTestDone)
@@ -847,11 +884,39 @@ class SiteLab extends BaseSiteLab
     }
 
     /**
-     * @param $otherTest
+     * @return CultureResult
      */
-    public function setOtherTest($otherTest)
+    public function getOtherTestResult()
     {
-        $this->otherTest = $otherTest;
+        return $this->otherTestResult;
+    }
+
+    /**
+     * @param CultureResult $otherTestResult
+     * @return SiteLab
+     */
+    public function setOtherTestResult($otherTestResult)
+    {
+        $this->otherTestResult = $otherTestResult;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOtherTestOther()
+    {
+        return $this->otherTestOther;
+    }
+
+    /**
+     * @param string $otherTestOther
+     * @return SiteLab
+     */
+    public function setOtherTestOther($otherTestOther)
+    {
+        $this->otherTestOther = $otherTestOther;
+        return $this;
     }
 
     /**
@@ -1286,6 +1351,79 @@ class SiteLab extends BaseSiteLab
     }
 
     /**
+     * @return \DateTime
+     */
+    public function getCsfSentToRRLDate()
+    {
+        return $this->csfSentToRRLDate;
+    }
+
+    /**
+     * @param \DateTime $csfSentToRRLDate
+     * @return SiteLab
+     */
+    public function setCsfSentToRRLDate(\DateTime $csfSentToRRLDate = null)
+    {
+        $this->csfSentToRRLDate = $csfSentToRRLDate;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCsfIsolSentToRRLDate()
+    {
+        return $this->csfIsolSentToRRLDate;
+    }
+
+    /**
+     * @param \DateTime $csfIsolSentToRRLDate
+     * @return SiteLab
+     */
+    public function setCsfIsolSentToRRLDate(\DateTime $csfIsolSentToRRLDate = null)
+    {
+        $this->csfIsolSentToRRLDate = $csfIsolSentToRRLDate;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getBloodIsolSentToRRLDate()
+    {
+        return $this->bloodIsolSentToRRLDate;
+    }
+
+    /**
+     * @param \DateTime $bloodIsolSentToRRLDate
+     * @return SiteLab
+     */
+    public function setBloodIsolSentToRRLDate(\DateTime $bloodIsolSentToRRLDate = null)
+    {
+        $this->bloodIsolSentToRRLDate = $bloodIsolSentToRRLDate;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getBrothSentToRRLDate()
+    {
+        return $this->brothSentToRRLDate;
+    }
+
+    /**
+     * @param \DateTime $brothSentToRRLDate
+     * @return SiteLab
+     */
+    public function setBrothSentToRRLDate(\DateTime $brothSentToRRLDate = null)
+    {
+        $this->brothSentToRRLDate = $brothSentToRRLDate;
+        return $this;
+    }
+
+
+    /**
      * @return bool
      */
     public function isComplete()
@@ -1319,13 +1457,15 @@ class SiteLab extends BaseSiteLab
     private function _calculateStatus()
     {
         // Don't adjust cancelled or deleted records
-        if ($this->status->getValue() >= CaseStatus::CANCELLED)
+        if ($this->status->getValue() >= CaseStatus::CANCELLED) {
             return;
+        }
 
-        if ($this->getIncompleteField())
+        if ($this->getIncompleteField()) {
             $this->status->setValue(CaseStatus::OPEN);
-        else
+        } else {
             $this->status->setValue(CaseStatus::COMPLETE);
+        }
 
         return;
     }

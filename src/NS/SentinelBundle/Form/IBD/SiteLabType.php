@@ -129,41 +129,68 @@ class SiteLabType extends AbstractType
                 'attr' => array('data-context-parent' => 'bloodPcrDone', 'data-context-value' => TripleChoice::YES)))
             ->add('bloodPcrOther', null, array('required' => false, 'label' => 'ibd-form.blood-pcr-other',
                 'attr' => array('data-context-parent' => 'bloodPcrDone', 'data-context-value' => TripleChoice::YES)))
-            ->add('otherCultDone', 'TripleChoice', array('required' => false, 'label' => 'ibd-form.other-cult-done1',
+            ->add('otherCultDone', 'TripleChoice', array(
+                'required' => false,
+                'label' => 'ibd-form.other-cult-done1',
                 'attr' => array('data-context-child' => 'otherCultDone')))
-            ->add('otherCultResult', 'CultureResult', array('required' => false,
-                'label' => 'ibd-form.other-cult-result', 'attr' => array('data-context-parent' => 'otherCultDone',
-                    'data-context-value' => TripleChoice::YES)))
-            ->add('otherCultOther', null, array('required' => false, 'label' => 'ibd-form.other-cult-other',
-                'attr' => array('data-context-parent' => 'otherCultDone', 'data-context-value' => TripleChoice::YES)))
+            ->add('otherCultResult', 'CultureResult', array(
+                'required' => false,
+                'label' => 'ibd-form.other-cult-result',
+                'attr' => array('data-context-parent' => 'otherCultDone','data-context-child' => 'otherCultResult', 'data-context-value' => TripleChoice::YES)))
+            ->add('otherCultOther', null, array(
+                'required' => false,
+                'label' => 'ibd-form.other-cult-other',
+                'attr' => array('data-context-parent' => 'otherCultResult', 'data-context-value' => CultureResult::OTHER)))
+            ->add('otherTestDone', 'TripleChoice', array(
+                'required' => false,
+                'label' => 'ibd-form.other-test-done1',
+                'attr' => array('data-context-child' => 'otherTestDone')))
+            ->add('otherTestResult', 'CultureResult', array(
+                'required' => false,
+                'label' => 'ibd-form.other-test-result',
+                'attr' => array('data-context-parent' => 'otherTestDone','data-context-child'=>'otherTestResult', 'data-context-value' => TripleChoice::YES)))
+            ->add('otherTestOther', null, array(
+                'required' => false,
+                'label' => 'ibd-form.other-test-other',
+                'attr' => array('data-context-parent' => 'otherTestResult', 'data-context-value' => CultureResult::OTHER)))
         ;
 
-        $siteSerializer = $this->siteSerializer;
-        $builder->addEventListener(FormEvents::POST_SET_DATA, function(FormEvent $event) use($siteSerializer)
-        {
-            $data    = $event->getData();
-            $form    = $event->getForm();
-            $country = null;
+        $builder->addEventListener(FormEvents::POST_SET_DATA,array($this,'postSetData'));
 
-            if ($data && $data->getCaseFile() && $data->getCaseFile()->getCountry())
-                $country = $data->getCaseFile()->getCountry();
-            else if (!$siteSerializer->hasMultipleSites())
-            {
-                $site    = $siteSerializer->getSite();
-                $country = ($site instanceof \NS\SentinelBundle\Entity\Site) ? $site->getCountry() : null;
-            }
-
-            if ($country instanceof Country)
-            {
-                if ($country->hasReferenceLab())
-                    $form->add('sentToReferenceLab', 'switch', array('required' => false));
-
-                if ($country->hasNationalLab())
-                    $form->add('sentToNationalLab', 'switch', array('required' => false));
-            }
-        });
     }
 
+    /**
+     * @param FormEvent $event
+     */
+    public function postSetData(FormEvent $event)
+    {
+        $data = $event->getData();
+        $form = $event->getForm();
+        $country = null;
+
+        if ($data && $data->getCaseFile() && $data->getCaseFile()->getCountry()) {
+            $country = $data->getCaseFile()->getCountry();
+        } elseif (!$this->siteSerializer->hasMultipleSites()) {
+            $site = $this->siteSerializer->getSite();
+            $country = ($site instanceof \NS\SentinelBundle\Entity\Site) ? $site->getCountry() : null;
+        }
+
+        if ($country instanceof Country) {
+            if ($country->hasReferenceLab()) {
+                $form
+                    ->add('sentToReferenceLab', 'switch', array('required' => false,'attr'=>array('data-context-child'=>'sentToReferenceLab')))
+                    ->add('csfSentToRRLDate','acedatepicker',array('label'=>'ibd-form.csf-sent-to-rrl-date','required'=>false,'attr'=>array('data-context-parent'=>'sentToReferenceLab','data-context-value'=>1)))
+                    ->add('csfIsolSentToRRLDate','acedatepicker',array('label'=>'ibd-form.csf-isol-sent-to-rrl-date','required'=>false,'attr'=>array('data-context-parent'=>'sentToReferenceLab','data-context-value'=>1)))
+                    ->add('bloodIsolSentToRRLDate','acedatepicker',array('label'=>'ibd-form.blood-sent-to-rrl-date','required'=>false,'attr'=>array('data-context-parent'=>'sentToReferenceLab','data-context-value'=>1)))
+                    ->add('brothSentToRRLDate','acedatepicker',array('label'=>'ibd-form.broth-sent-to-rrl-date','required'=>false,'attr'=>array('data-context-parent'=>'sentToReferenceLab','data-context-value'=>1)))
+                ;
+            }
+
+            if ($country->hasNationalLab()) {
+                $form->add('sentToNationalLab', 'switch', array('required' => false));
+            }
+        }
+    }
     /**
      * {@inheritdoc}
      */

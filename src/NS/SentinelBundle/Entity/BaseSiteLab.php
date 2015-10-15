@@ -39,6 +39,7 @@ class BaseSiteLab
      *
      * @param boolean $sentToReferenceLab
      *
+     * @return $this
      */
     public function setSentToReferenceLab($sentToReferenceLab)
     {

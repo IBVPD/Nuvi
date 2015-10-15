@@ -27,7 +27,25 @@
                 <div id="collection" class="tab-pane active">
                     {{form_row(form.csfDateTime)}}
                     {% if form.sentToReferenceLab is defined %}
-                        {{form_row(form.sentToReferenceLab )}}
+                        <div class="row">
+                            <div class="col-md-3">
+                                {{ form_row(form.sentToReferenceLab) }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                {{ form_row(form.csfSentToRRLDate) }}
+                            </div>
+                            <div class="col-md-3">
+                                {{ form_row(form.csfIsolSentToRRLDate) }}
+                            </div>
+                            <div class="col-md-3">
+                                {{ form_row(form.bloodIsolSentToRRLDate) }}
+                            </div>
+                            <div class="col-md-3">
+                                {{ form_row(form.brothSentToRRLDate) }}
+                            </div>
+                        </div>
                     {% endif %}
                     {% if form.sentToNationalLab is defined %}
                         {{form_row(form.sentToNationalLab )}}
@@ -173,9 +191,28 @@
                 </div>
 
                 <div id="other" class="tab-pane">
-                    {{form_row(form.otherCultDone)}}
-                    {{form_row(form.otherCultResult)}}                    
-                    {{form_row(form.otherCultOther)}}
+                    <div class="row">
+                        <div class="col-md-4">
+                            {{form_row(form.otherCultDone)}}
+                        </div>
+                        <div class="col-md-4">
+                            {{form_row(form.otherCultResult)}}
+                        </div>
+                        <div class="col-md-4">
+                            {{form_row(form.otherCultOther)}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            {{form_row(form.otherTestDone)}}
+                        </div>
+                        <div class="col-md-4">
+                            {{form_row(form.otherTestResult)}}
+                        </div>
+                        <div class="col-md-4">
+                            {{form_row(form.otherTestOther)}}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
