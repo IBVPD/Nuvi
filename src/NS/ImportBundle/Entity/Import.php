@@ -206,6 +206,19 @@ class Import
      */
     private $warningCount = 0;
 
+    // ---------------------------------------------------------------------------------------
+    /**
+     * @var integer $pheanstalkJobId
+     * @ORM\Column(name="pheanstalkJobId",type="integer",nullable=true)
+     */
+    private $pheanstalkJobId;
+
+    /**
+     * @var string $pheanstalkStatus
+     * @ORM\Column(name="pheanstalkStatus",type="string",nullable=true)
+     */
+    private $pheanstalkStatus;
+
     /**
      * @var \NS\SentinelBundle\Entity\User $user
      * @ORM\ManyToOne(targetEntity="NS\SentinelBundle\Entity\User")
@@ -703,22 +716,6 @@ class Import
     }
 
     /**
-     * @return int
-     */
-    public function getPercentComplete()
-    {
-        return (int)(($this->sourceCount>0)? ($this->processedCount/$this->sourceCount)*100:0);
-    }
-
-    /**
-     * @return bool
-     */
-    public function isComplete()
-    {
-        return ($this->sourceCount > 0) ? ($this->sourceCount <= $this->processedCount): false;
-    }
-
-    /**
      * @return string
      */
     public function getWarnings()
@@ -788,6 +785,95 @@ class Import
     {
         $this->duplicates = $duplicates;
         return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPheanstalkJobId()
+    {
+        return $this->pheanstalkJobId;
+    }
+
+    /**
+     * @param int $pheanstalkJobId
+     * @return Import
+     */
+    public function setPheanstalkJobId($pheanstalkJobId)
+    {
+        $this->pheanstalkJobId = $pheanstalkJobId;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPheanstalkStatus()
+    {
+        return $this->pheanstalkStatus;
+    }
+
+    const STATUS_RUNNING = 'running';
+    const STATUS_PAUSED = 'paused';
+    const STATUS_COMPLETE = 'complete';
+    const STATUS_BURRIED = 'buried';
+
+    /**
+     * @param string $pheanstalkStatus
+     * @return Import
+     */
+    public function setPheanstalkStatus($pheanstalkStatus)
+    {
+        $this->pheanstalkStatus = $pheanstalkStatus;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPercentComplete()
+    {
+        return (int)(($this->sourceCount>0)? ($this->processedCount/$this->sourceCount)*100:0);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isComplete()
+    {
+        return ($this->sourceCount > 0) ? ($this->sourceCount <= $this->processedCount): false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRunning()
+    {
+        return (!$this->isComplete() && $this->pheanstalkJobId && $this->pheanstalkStatus == self::STATUS_RUNNING);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPaused()
+    {
+        return (!$this->isComplete() && $this->pheanstalkJobId && $this->pheanstalkStatus == self::STATUS_PAUSED);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isQueued()
+    {
+        return ($this->pheanstalkJobId && ($this->pheanstalkStatus === self::STATUS_RUNNING || $this->pheanstalkStatus == self::STATUS_PAUSED));
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasError()
+    {
+        return (!$this->isComplete() && $this->pheanstalkStatus == self::STATUS_BURRIED);
     }
 
     // =================================================================================================================

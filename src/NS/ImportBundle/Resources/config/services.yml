@@ -2,6 +2,16 @@ parameters:
   ns_import.map.classes: { }
 
 services:
+    ns_import.workqueue:
+      class: NS\ImportBundle\Services\WorkQueue
+      arguments: [ @leezy.pheanstalk, @doctrine.orm.entity_manager, @ns_import.import_file_creator ]
+
+    ns_import.twig.import_actions:
+        class: NS\ImportBundle\Twig\ImportResultActions
+        arguments: [ @router, @translator ]
+        tags:
+          - { name: twig.extension, alias: ImportResultAction }
+
     ns_import.import_file_creator:
       class: NS\ImportBundle\Services\ImportFileCreator
       arguments: [ @vich_uploader.property_mapping_factory ]

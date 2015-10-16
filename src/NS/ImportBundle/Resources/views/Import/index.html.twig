@@ -49,6 +49,7 @@
                                 <th>{{'Successes'|trans}}</th>
                                 <th>{{'Warnings'|trans}}</th>
                                 <th>{{'Errors'|trans}}</th>
+                                <th>{{'Actions'|trans }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -68,6 +69,7 @@
                                     <td>
                                         <a href="{{path('importResultDownload',{type:'errors','id':r.id})}}" class="btn btn-xs btn-danger">{{r.errorCount}} {{'Errors'|trans}} <i class="fa fa-cloud-download"></i></a>
                                     </td>
+                                    <td>{{ import_actions(r) }}</td>
                                 </tr>
                                 {%  if r.percentComplete < 100 %}
                                 <tr id="progress-{{ r.id }}-row">

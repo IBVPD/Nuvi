@@ -32,31 +32,14 @@ class ImportController extends Controller
 
         $form->handleRequest($request);
         if ($form->isValid()) {
-            $entityMgr->getConnection()->beginTransaction();
-            $import = $form->getData();
-            try {
-                $entityMgr->persist($import);
-                $entityMgr->flush($import);
+            $queue = $this->get('ns_import.workqueue');
 
-                $pheanstalk = $this->get("leezy.pheanstalk");
-                $pheanstalk->useTube('import')->put($import->getId());
-                $entityMgr->getConnection()->commit();
-
-            } catch(\Pheanstalk_Exception_ConnectionException $excep) {
-                $entityMgr->getConnection()->rollBack();
-                @unlink($import->getSourceFile()->getPathname());
-                @unlink($import->getWarningFile()->getPathname());
-                @unlink($import->getErrorFile()->getPathname());
-                @unlink($import->getSuccessFile()->getPathname());
-                @unlink($import->getMessageFile()->getPathname());
-                @unlink($import->getDuplicateFile()->getPathname());
-                @rmdir($import->getSourceFile()->getPath());
-
+            if($queue->submit($form->getData())) {
+                $this->get('ns_flash')->addSuccess(null, null, "Import Added");
+            } else {
                 $this->get('ns_flash')->addError(null, 'Unable to add import', 'There was an error communicating with the beanstalk server');
-                return $this->redirect($this->generateUrl('importIndex'));
             }
 
-            $this->get('ns_flash')->addSuccess(null, null, "Import Added");
             return $this->redirect($this->generateUrl('importIndex'));
         }
 
@@ -83,7 +66,7 @@ class ImportController extends Controller
 
     /**
      * @param $id
-     * @Route("/execute/{id}",name="importExecute")
+     * @Route("/execute/{id}",name="importExecute",requirements={"id"="\d+"})
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function executeAction($id)
@@ -91,6 +74,62 @@ class ImportController extends Controller
         $worker = $this->get('ns_import.batch_worker');
         $worker->consume($id,400);
 
+        return $this->redirect($this->generateUrl('importIndex'));
+    }
+
+    /**
+     * @param $id integer
+     * @Route("/resubmit/{id}", name="importResubmit",requirements={"id"="\d+"})
+     *
+     * @return RedirectResponse
+     */
+    public function resubmitAction($id)
+    {
+        $import = $this->get('doctrine.orm.entity_manager')->find('NSImportBundle:Import',$id);
+        $queue = $this->get('ns_import.workqueue');
+
+        if($queue->reSubmit($import)) {
+            $this->get('ns_flash')->addSuccess(null, null, "Import Re-Submitted");
+        } else {
+            $this->get('ns_flash')->addError(null, 'Unable to re-submit import', 'There was an error communicating with the beanstalk server');
+        }
+
+        return $this->redirect($this->generateUrl('importIndex'));
+    }
+
+    /**
+     * @param $id
+     * @Route("/pause/{id}",name="importDelete",requirements={"id"="\d+"})
+     */
+    public function deleteAction($id)
+    {
+        $import = $this->get('doctrine.orm.entity_manager')->find('NSImportBundle:Import',$id);
+        $queue = $this->get('ns_import.workqueue');
+        $queue->delete($import);
+        return $this->redirect($this->generateUrl('importIndex'));
+    }
+
+    /**
+     * @param $id
+     * @Route("/pause/{id}",name="importPause",requirements={"id"="\d+"})
+     */
+    public function pauseAction($id)
+    {
+        $import = $this->get('doctrine.orm.entity_manager')->find('NSImportBundle:Import',$id);
+        $queue = $this->get('ns_import.workqueue');
+        $queue->pause($import);
+        return $this->redirect($this->generateUrl('importIndex'));
+    }
+
+    /**
+     * @param $id
+     * @Route("/resume/{id}",name="importResume",requirements={"id"="\d+"})
+     */
+    public function resumeAction($id)
+    {
+        $import = $this->get('doctrine.orm.entity_manager')->find('NSImportBundle:Import',$id);
+        $queue = $this->get('ns_import.workqueue');
+        $queue->resume($import);
         return $this->redirect($this->generateUrl('importIndex'));
     }
 

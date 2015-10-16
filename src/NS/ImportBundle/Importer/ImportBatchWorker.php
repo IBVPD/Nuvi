@@ -9,6 +9,7 @@
 namespace NS\ImportBundle\Importer;
 
 use \Doctrine\Common\Persistence\ObjectManager;
+use NS\ImportBundle\Entity\Import;
 use \NS\ImportBundle\Filter\Duplicate;
 use \NS\ImportBundle\Filter\NotBlank;
 use \NS\ImportBundle\Importer\ImportResultUpdater;
@@ -40,10 +41,10 @@ class ImportBatchWorker
     }
 
     /**
-     * @param $id           Import id
-     * @param $batchSize    Number of rows to process at a time
+     * @param int           $id             Import id
+     * @param int|Number    $batchSize      Number of rows to process at a time
      *
-     * @return bool         Returns true when the import has been completely processed
+     * @return bool Returns true when the import has been completely processed
      */
     public function consume($id, $batchSize = 500)
     {
@@ -62,6 +63,10 @@ class ImportBatchWorker
 
         $updater = new ImportResultUpdater();
         $updater->update($import, $result, $this->processor->getWriter($import->getClass())->getResults());
+
+        if ($import->isComplete()) {
+            $import->setPheanstalkStatus(Import::STATUS_COMPLETE);
+        }
 
         $this->entityMgr->persist($import);
         $this->entityMgr->flush();
