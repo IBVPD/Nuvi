@@ -2,6 +2,10 @@ parameters:
   ns_import.map.classes: { }
 
 services:
+    ns_import.import_file_creator:
+      class: NS\ImportBundle\Services\ImportFileCreator
+      arguments: [ @vich_uploader.property_mapping_factory ]
+
     ns_import.vich.event_listener:
         class: NS\ImportBundle\Vich\EventListener
         tags:
@@ -112,7 +116,7 @@ services:
 
     ns_import.form.import_map_select:
         class: NS\ImportBundle\Form\ImportSelectType
-        arguments: [ @doctrine.orm.entity_manager, @vich_uploader.property_mapping_factory ]
+        arguments: [ @doctrine.orm.entity_manager, @ns_import.import_file_creator ]
         tags:
             - { name: form.type, alias: ImportSelect }
 

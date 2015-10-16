@@ -3,14 +3,13 @@
 namespace NS\ImportBundle\Form;
 
 use \Doctrine\Common\Persistence\ObjectManager;
+use \NS\ImportBundle\Services\ImportFileCreator;
 use \Symfony\Component\Form\AbstractType;
 use \Symfony\Component\Form\FormBuilderInterface;
 use \Symfony\Component\Form\FormEvent;
 use \Symfony\Component\Form\FormEvents;
 use \Symfony\Component\OptionsResolver\OptionsResolver;
 use \NS\ImportBundle\Entity\Import;
-use \Symfony\Component\HttpFoundation\File\File;
-use \Vich\UploaderBundle\Mapping\PropertyMappingFactory;
 
 /**
  * Description of ImportSelectType
@@ -19,18 +18,23 @@ use \Vich\UploaderBundle\Mapping\PropertyMappingFactory;
  */
 class ImportSelectType extends AbstractType
 {
-    /* @var $entityMgr ObjectManager */
+    /**
+     * @var $entityMgr ObjectManager
+     */
     private $entityMgr;
 
-    private $factory;
+    /**
+     * @var ImportFileCreator
+     */
+    private $fileCreator;
 
     /**
      * @param ObjectManager $entityMgr
      */
-    public function __construct(ObjectManager $entityMgr, PropertyMappingFactory $factory)
+    public function __construct(ObjectManager $entityMgr, ImportFileCreator $fileCreator)
     {
         $this->entityMgr = $entityMgr;
-        $this->factory = $factory;
+        $this->fileCreator = $fileCreator;
     }
 
     /**
@@ -60,35 +64,11 @@ class ImportSelectType extends AbstractType
     public function postSubmit(FormEvent $event)
     {
         $import = $event->getData();
-        $import->setDuplicateFile($this->createNewFile($import, 'duplicate-state.txt', 'duplicateFile'));
-        $import->setMessageFile($this->createNewFile($import, 'messages.csv', 'messageFile'));
-        $import->setWarningFile($this->createNewFile($import, 'warnings.csv', 'warningFile'));
-        $import->setErrorFile($this->createNewFile($import, 'errors.csv', 'errorFile'));
-        $import->setSuccessFile($this->createNewFile($import, 'successes.csv', 'successFile'));
-    }
-
-    /**
-     * @param Import $import
-     * @param $name
-     * @param $property
-     * @return File
-     */
-    public function createNewFile(Import $import, $name, $property)
-    {
-        $file = new File(tempnam(sys_get_temp_dir(), 'import-output'));
-        $mapping = $this->factory->fromField($import, $property);
-        if($mapping) {
-            $mapping->setFileName($import, $name);
-
-            // determine the file's directory
-            $dir = $mapping->getUploadDir($import);
-
-            $uploadDir = $mapping->getUploadDestination() . DIRECTORY_SEPARATOR . $dir;
-
-            return $file->move($uploadDir, $name);
-        }
-
-        return $file;
+        $import->setDuplicateFile($this->fileCreator->createNewFile($import, 'duplicate-state.txt', 'duplicateFile'));
+        $import->setMessageFile($this->fileCreator->createNewFile($import, 'messages.csv', 'messageFile'));
+        $import->setWarningFile($this->fileCreator->createNewFile($import, 'warnings.csv', 'warningFile'));
+        $import->setErrorFile($this->fileCreator->createNewFile($import, 'errors.csv', 'errorFile'));
+        $import->setSuccessFile($this->fileCreator->createNewFile($import, 'successes.csv', 'successFile'));
     }
 
     /**
