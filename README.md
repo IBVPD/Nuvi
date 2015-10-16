@@ -146,6 +146,14 @@ to function.
 
 If behind a proxy there are additional configuration steps to follow [here](http://symfony.com/doc/current/cookbook/request/load_balancer_reverse_proxy.html)
 
+Configure PHP
+=============
+It is recommended to change the following settings in /etc/php.ini
+
+- memory_limit: Somewhere between 256 and 512M (our VM is set to 512M).
+- post_max_size: 20-30M
+- upload_max_filesize: 10-30M
+
 Updates / Moving between releases
 =================================
 
