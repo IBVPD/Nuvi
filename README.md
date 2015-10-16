@@ -66,7 +66,8 @@ Clone the project via git
 git clone https://gitlab.noblet.ca/who/nuvi.git /var/www/local/nuvi
 ```
 
-Install the dependencies. 
+Install the dependencies.
+
 ```shell
 composer install -o
 ```
@@ -77,11 +78,11 @@ protection. It can be set to anything but should be kept private. We often use t
 on unix servers.
 
 Initiate the database
+
 ```shell
 app/console doctrine:database:create
 app/console doctrine:schema:create
 ```
-
 
 Configure cronjob
 -------------------
@@ -94,6 +95,7 @@ runs as in the project root. The command to run is
 ```shell
 app/console nsimport:run-batch
 ```
+
 which will output the jobs it is working on and will return when complete.
 
 
@@ -154,12 +156,13 @@ It is recommended to change the following settings in /etc/php.ini
 - post_max_size: 20-30M
 - upload_max_filesize: 10-30M
 
-Updates / Moving between releases
+Moving between releases
 =================================
 
 Run 'git fetch origin' periodically to update the repository without changing the local copy of the project. Releases 
 are marked via git tags. Viewing all releases is possible by running 'git tag -l' within the project root which will 
-output
+output.
+
 ```shell
 [gnat@iridium nuvi]$ git tag -l
 0.1.0
@@ -169,19 +172,30 @@ output
 ```
 
 For example to move the project to the 0.1.1 version run.
+
 ```shell
 git checkout 0.1.1
 composer install -o
 ```
 
-Update the database schema. You can check what
+Updates
+=======
+Whenever you move between releases or pull a new version it is prudent to run a couple of commands.
+
 ```shell
- app/console doctrine:schema:update --force
+composer install -o
 ```
 
-If you'd like to check what changes will occur prior to making the changes you can run
+If you'd like to check what changes will occur prior to making the changes you can run.
+
 ```shell
  app/console doctrine:schema:update --dump-sql
+```
+
+To update the database schema run.
+
+```shell
+ app/console doctrine:schema:update --force
 ```
 
 Running Tests
@@ -191,14 +205,17 @@ create a second database with the same or different access rights. Copy app/conf
 app/config/parameters_test.yml.  This will allow the system to load fixture data which the tests will run 
 against.
 
-Rebuild the test database and load the fixtures
+Rebuild the test database and load the fixtures.
+
 ```shell
 app/console doctrine:database:drop --env=test --force
 app/console doctrine:database:create --env=test
 app/console doctrine:schema:create --env=test
 app/console doctrine:fixtures:load --env=test -n
 ```
+
 Then run the tests
+
 ```shell
 -sh-4.1$ ./bin/phpunit -c app/
 PHPUnit 4.8.6 by Sebastian Bergmann and contributors.
