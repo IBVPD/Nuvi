@@ -43,6 +43,7 @@ class WorkerCommand extends ContainerAwareCommand
                     $pheanstalk->delete($job);
                 }
             } catch(\Exception $exception) {
+                $output->writeln('Exception: '.$exception->getMessage());
                 $pheanstalk->bury($job);
             }
         }
