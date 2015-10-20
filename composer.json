@@ -32,7 +32,7 @@
         "sonata-project/doctrine-orm-admin-bundle": "~2.2",
         "sonata-project/intl-bundle": "~2.2",
         "sonata-project/exporter": "~1.1",
-        "sonata-project/core-bundle": "~2.2@dev",
+        "sonata-project/core-bundle": "~2.2",
 
         "ns/util-bundle": "~1.0",
         "ns/security-bundle": "2.7.x-dev",
@@ -54,7 +54,7 @@
         "friendsofsymfony/rest-bundle": "~1.7",
         "jms/serializer-bundle": "~1.0",
         "adoy/oauth2": "dev-master",
-        "liip/functional-test-bundle": "dev-master",
+        "liip/functional-test-bundle": "~1.2",
         "beberlei/DoctrineExtensions": "dev-master",
         "ddeboer/data-import-bundle": "~0.1",
         "ddeboer/data-import": "dev-gnat",

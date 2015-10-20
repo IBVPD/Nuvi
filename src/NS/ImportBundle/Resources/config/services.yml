@@ -2,6 +2,16 @@ parameters:
   ns_import.map.classes: { }
 
 services:
+    ns_import.converter.excel_date:
+      class: NS\ImportBundle\Converter\ExcelDateConverter
+      tags:
+        - { name: ns_import.converter }
+
+    ns_import.converter.excel_datetime:
+      class: NS\ImportBundle\Converter\ExcelDateTimeConverter
+      tags:
+        - { name: ns_import.converter }
+
     ns_import.workqueue:
       class: NS\ImportBundle\Services\WorkQueue
       arguments: [ @leezy.pheanstalk, @doctrine.orm.entity_manager, @ns_import.import_file_creator ]
