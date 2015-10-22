@@ -31,7 +31,9 @@ class WorkerCommand extends ContainerAwareCommand
             ->watch('import')
             ->ignore('default');
 
-        while ($job = $pheanstalk->reserve(0)) {
+        $job = $pheanstalk->reserve(0);
+
+        if($job) {
             $output->writeln(sprintf("Processing Job %d, ImportId: %d", $job->getId(), $job->getData()));
 
             try {

@@ -87,10 +87,10 @@ app/console doctrine:schema:create
 Configure cronjob
 -------------------
 
-The importation system runs in the background by talking with the beanstalk server. The command checks for a job in the queue. 
-When it finds one or more it will continue to run in batches until all jobs are complete so there is no need to have a short
-interval. We recommend running it every hour. To avoid file permission issues, it should be run as the same user the websever
-runs as in the project root. The command to run is
+The importation system runs in the background by talking with the beanstalk server. The command checks for a job in the queue
+and will run that one job. It will process the batch amount and then exit. Therefore we recommend a low time differential between
+ runs. Something between 2-5 minutes. To avoid file permission issues, it should be run as the same user the websever
+runs as in the project root. The command to run is.
 
 ```shell
 app/console nsimport:run-batch
