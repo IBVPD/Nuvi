@@ -47,8 +47,8 @@ class CreateAdminCommand extends ContainerAwareCommand
         $user = new User();
         $user->setName($input->getArgument('name'));
         $user->setEmail($input->getArgument('email'));
-        $user->setIsActive(true);
-        $user->setIsAdmin(true);
+        $user->setActive(true);
+        $user->setAdmin(true);
 
         $encoder = $factory->getEncoder($user);
         $user->setPassword($encoder->encodePassword($pword,$user->getSalt()));
