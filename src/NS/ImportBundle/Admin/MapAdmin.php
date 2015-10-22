@@ -101,14 +101,12 @@ class MapAdmin extends Admin
             $this->mapBuilder->setSiteMetaData($this->modelManager->getMetadata($metaData->getAssociationTargetClass('siteLab')));
             $this->mapBuilder->setNlMetaData($this->modelManager->getMetadata($metaData->getAssociationTargetClass('nationalLab')));
 
-            return $this->mapBuilder->process($map);
+            $this->mapBuilder->process($map);
         } elseif ($map->getColumns()) {
             foreach ($map->getColumns() as $a) {
                 $a->setMap($map);
             }
         }
-
-        return $map;
     }
 
     /**
@@ -121,8 +119,6 @@ class MapAdmin extends Admin
                 $a->setMap($map);
             }
         }
-
-        return $map;
     }
 
     /**
