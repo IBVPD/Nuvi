@@ -15,9 +15,24 @@ use \Symfony\Component\Form\AbstractType;
  */
 class MapBuilder
 {
+    /**
+     * @var AbstractType
+     */
     private $converterRegistry;
+
+    /**
+     * @var ClassMetaData
+     */
     private $metaData;
+
+    /**
+     * @var ClassMetaData
+     */
     private $siteMetaData;
+
+    /**
+     * @var ClassMetaData
+     */
     private $nlMetaData;
 
     /**
