@@ -86,7 +86,12 @@ class MapBuilder
             throw new \InvalidArgumentException('Missing either class, site, national or reference lab metadata');
         }
 
-        $reader = ReaderFactory::getReader($map->getFile());
+        try {
+            $reader = ReaderFactory::getReader($map->getFile());
+        } catch (\InvalidArgumentException $exception) {
+            return;
+        }
+
         $reader->setHeaderRowNumber(0);
         $headers = $reader->getColumnHeaders();
 
