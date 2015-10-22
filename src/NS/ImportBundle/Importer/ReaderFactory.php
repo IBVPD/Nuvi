@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gnat
- * Date: 09/09/15
- * Time: 1:02 PM
- */
 
 namespace NS\ImportBundle\Importer;
-
 
 use Ddeboer\DataImport\Reader\CsvReader;
 use Ddeboer\DataImport\Reader\ExcelReader;
@@ -26,14 +19,16 @@ class ReaderFactory
      */
     static public function getReader(File $file)
     {
-        switch (self::getExtension($file)) {
+        $extension = self::getExtension($file);
+        switch ($extension) {
             case 'csv':
                 return new CsvReader($file->openFile('r'));
+            case 'xlsx':
             case 'xls':
                 return new ExcelReader($file->openFile('r'));
         }
 
-        throw new \InvalidArgumentException(sprintf('Unable to find reader for file with extension "%s or %s" mime: %s', $file->getExtension(), $file->guessExtension(), $file->getMimeType()));
+        throw new \InvalidArgumentException(sprintf('Unable to find reader for file with extension "%s"', $extension));
     }
 
     /**
@@ -51,11 +46,7 @@ class ReaderFactory
      */
     static public function getExtension(File $file)
     {
-        if ($file instanceof UploadedFile) {
-            return self::getUploadedFileExtension($file);
-        }
-
-        $extension = $file->getExtension();
+        $extension = ($file instanceof UploadedFile) ? self::getUploadedFileExtension($file) : $file->getExtension();
 
         if (!$extension) {
             $extension = $file->guessExtension();
