@@ -29,7 +29,7 @@ class IBDReportController extends Controller
             return $params;
         }
 
-        return $this->render('NSSentinelBundle:Report:percentEnrolled.html.twig',$params);
+        return $this->render('NSSentinelBundle:Report/IBD:percentEnrolled.html.twig',$params);
     }
 
     /**
@@ -46,7 +46,7 @@ class IBDReportController extends Controller
             return $params;
         }
 
-        return $this->render('NSSentinelBundle:Report:annualAgeDistribution.html.twig',$params);
+        return $this->render('NSSentinelBundle:Report/IBD:annualAgeDistribution.html.twig',$params);
     }
 
     /**
@@ -56,7 +56,7 @@ class IBDReportController extends Controller
     {
         $reports = $this->get('doctrine.orm.entity_manager')->getRepository("NSSentinelBundle:IBD")->getByCountry();
 
-        return $this->render('NSSentinelBundle:Report:byCountryGraph.html.twig',array('reports' => $reports));
+        return $this->render('NSSentinelBundle:Report/IBD:byCountryGraph.html.twig',array('reports' => $reports));
     }
 
     /**
@@ -66,7 +66,7 @@ class IBDReportController extends Controller
     {
         $reports = $this->get('doctrine.orm.entity_manager')->getRepository("NSSentinelBundle:IBD")->getBySite();
 
-        return $this->render('NSSentinelBundle:Report:bySiteGraph.html.twig',array('reports' => $reports));
+        return $this->render('NSSentinelBundle:Report/IBD:bySiteGraph.html.twig',array('reports' => $reports));
     }
 
     /**
@@ -76,7 +76,7 @@ class IBDReportController extends Controller
     {
         $reports = $this->get('doctrine.orm.entity_manager')->getRepository("NSSentinelBundle:IBD")->getStats();
        
-        return $this->render('NSSentinelBundle:Report:generalStats.html.twig',array('reports' => $reports));
+        return $this->render('NSSentinelBundle:Report/IBD:generalStats.html.twig',array('reports' => $reports));
     }
 
     /**
@@ -86,7 +86,7 @@ class IBDReportController extends Controller
     {
         $reports = $this->get('doctrine.orm.entity_manager')->getRepository("NSSentinelBundle:IBD")->getByDiagnosis();
        
-        return $this->render('NSSentinelBundle:Report:byDiagnosisGraph.html.twig',array('reports' => $reports));
+        return $this->render('NSSentinelBundle:Report/IBD:byDiagnosisGraph.html.twig',array('reports' => $reports));
     }
 
     /**
@@ -103,7 +103,7 @@ class IBDReportController extends Controller
             return $params;
         }
 
-        return $this->render('NSSentinelBundle:Report:fieldPopulation.html.twig',$params);
+        return $this->render('NSSentinelBundle:Report/IBD:fieldPopulation.html.twig',$params);
     }
 
     /**
@@ -120,7 +120,7 @@ class IBDReportController extends Controller
             return $params;
         }
 
-        return $this->render('NSSentinelBundle:Report:culturePositive.html.twig',$params);
+        return $this->render('NSSentinelBundle:Report/IBD:culturePositive.html.twig',$params);
     }
 
     /*
@@ -149,6 +149,6 @@ class IBDReportController extends Controller
             return $params;
         }
 
-        return $this->render('NSSentinelBundle:Report:dataQuality.html.twig',$params);
+        return $this->render('NSSentinelBundle:Report/IBD:dataQuality.html.twig',$params);
     }
 }
