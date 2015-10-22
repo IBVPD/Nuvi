@@ -8,16 +8,18 @@ use NS\SecurityBundle\Annotation as Security;
 use JMS\Serializer\Annotation\Groups;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Region
  *
- * @ORM\Table(name="regions")
+ * @ORM\Table(name="regions",uniqueConstraints={@ORM\UniqueConstraint(name="region_code_idx",columns={"code"})})
  * @ORM\Entity(repositoryClass="\NS\SentinelBundle\Repository\RegionRepository")
  * @Security\Secured(conditions={
  *      @Security\SecuredCondition(roles={"ROLE_REGION"},field="id"),
  *      })
  * @SuppressWarnings(PHPMD.ShortVariable)
+ * @UniqueEntity(fields={"code"})
  */
 class Region implements \Serializable
 {
