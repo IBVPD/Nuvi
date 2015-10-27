@@ -16,3 +16,7 @@ parameters:
     secret:            e24d2ace-dd63-4b42-950e-8c9ac77d44fb
 
     beanstalk_server:  127.0.0.1
+
+    monolog.error.to_email: nathanael@noblet.ca
+    monolog.error.from_email: noreply@aamclientcare.ca
+    monolog.error.subject: NUVI HQ ERROR
