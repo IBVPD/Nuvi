@@ -31,7 +31,7 @@ class PreprocessorStep implements Step
 
     /**
      * ExpressionConverter constructor.
-     * @param array $conditions
+     * @param ExpressionBuilder $builder
      */
     public function __construct(ExpressionBuilder $builder)
     {
