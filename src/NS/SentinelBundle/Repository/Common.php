@@ -52,11 +52,11 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
                 foreach ($fields as $f) {
                     $field = "$alias.$f";
                     $queryBuilder->addOrderBy($field)
-                        ->orWhere("$field LIKE :param")->setParameter('param', $value['value'] . '%');
+                        ->orWhere("$field LIKE :param")->setParameter('param', '%'.$value['value'] . '%');
                 }
             } else {
                 $field = "$alias.$fields";
-                $queryBuilder->orderBy($field)->andWhere("$field LIKE :param")->setParameter('param', $value['value'] . '%');
+                $queryBuilder->orderBy($field)->andWhere("$field LIKE :param")->setParameter('param', '%'.$value['value'] . '%');
             }
         }
 
