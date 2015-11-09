@@ -73,10 +73,14 @@ class ExpressionBuilder
      */
     public function getValue(Rule $rule)
     {
-        if (is_array($rule->getValue())) {
-            return sprintf('[%s]', implode(',', $rule->getValue()));
+        $value = $rule->getValue();
+
+        if (is_array($value)) {
+            return sprintf('[%s]', implode(',', $value));
+        } elseif (is_numeric($value)) {
+            return $value;
         }
 
-        return $rule->getValue();
+        return sprintf('\'%s\'',$value);
     }
 }

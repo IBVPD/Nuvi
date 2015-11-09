@@ -35,7 +35,7 @@ class ExpressionBuilderTest extends \PHPUnit_Framework_TestCase
         $condition = new Condition($json['condition'],$json['output_value']);
         $builder = new ExpressionBuilder();
         $expression = $builder->getExpression($condition);
-        $this->assertEquals('(item["name"] == Mistic) && ((item["category"] in [1,2]) || (item["in_stock"] == 0))',$expression);
+        $this->assertEquals('(item["name"] == \'Mistic\') && ((item["category"] in [1,2]) || (item["in_stock"] == 0))',$expression);
     }
 
     /**
@@ -101,6 +101,12 @@ class ExpressionBuilderTest extends \PHPUnit_Framework_TestCase
                 'operator' => '%s >= %s',
                 'expression' => 'item["field8"] >= 1',
             ),
+            array(
+                'rule' => new Rule(array('field'=>'field8','operator'=>'equal', 'value'=> 'ARM-01')),
+                'fieldOutput' => 'item["field8"]',
+                'operator' => '%s == %s',
+                'expression' => 'item["field8"] == \'ARM-01\'',
+            )
         );
     }
 }
