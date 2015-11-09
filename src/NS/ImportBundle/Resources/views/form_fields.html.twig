@@ -185,7 +185,7 @@
                 var v = $.parseJSON('{{form.vars.value|raw}}');
                 $.each(v, function(index, conditional)
                 {
-                    newrow($contentBody, conditional.conditions.rules, conditional.output_value);
+                    newrow($contentBody, conditional.conditions, conditional.output_value);
                 });
             }
             catch(err)//Ignore if badly-formed JSON
