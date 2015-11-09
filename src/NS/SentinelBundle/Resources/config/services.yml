@@ -218,6 +218,13 @@ services:
       tags:
         - { name: ns_import.converter }
 
+    ns.sentinel.converter.dischargeDiagnosis:
+      class: NS\SentinelBundle\Converter\ArrayChoiceConverter
+      arguments: [ NS\SentinelBundle\Form\Types\DischargeDiagnosis ]
+      tags:
+        - { name: ns_import.converter }
+
+
     ns.sentinel.converter.dischargeClassification:
       class: NS\SentinelBundle\Converter\ArrayChoiceConverter
       arguments: [ NS\SentinelBundle\Form\Types\DischargeClassification ]
