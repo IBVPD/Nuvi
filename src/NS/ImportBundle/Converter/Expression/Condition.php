@@ -14,12 +14,12 @@ class Condition
     private $rule;
 
     /**
-     * @var
+     * @var mixed
      */
     private $value;
 
     /**
-     * @param $rules
+     * @param $rule
      * @param $value
      */
     public function __construct($rule, $value)
