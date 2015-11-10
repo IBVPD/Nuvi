@@ -35,7 +35,7 @@ class ExcelReader extends BaseReader implements OffsetableReader
         parent::rewind();
 
         if($this->offset > 0) {
-            $this->pointer += $this->offset;
+            $this->pointer += $this->offset-1;
         }
     }
 }

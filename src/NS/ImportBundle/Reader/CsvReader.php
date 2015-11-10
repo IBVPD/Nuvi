@@ -37,7 +37,7 @@ class CsvReader extends BaseReader
     {
         parent::rewind();
         if($this->offset > 0) {
-            $this->seek($this->offset);
+            $this->seek($this->offset-1);
         }
     }
 }
