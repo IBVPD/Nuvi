@@ -5,6 +5,7 @@ namespace NS\ImportBundle\Command;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Output\ConsoleOutputInterface;
 
 class WorkerCommand extends ContainerAwareCommand
 {
@@ -23,6 +24,7 @@ class WorkerCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln('Checking for jobs');
+        $errOutput = $output instanceof ConsoleOutputInterface ? $output->getErrorOutput() : $output;
 
         $container  = $this->getContainer();
         $pheanstalk = $container->get("leezy.pheanstalk");
@@ -45,8 +47,12 @@ class WorkerCommand extends ContainerAwareCommand
                     $pheanstalk->delete($job);
                 }
             } catch(\Exception $exception) {
-                $output->writeln('Exception: '.$exception->getMessage());
                 $pheanstalk->bury($job);
+
+                $errOutput->writeln('Exception: '.$exception->getMessage());
+                foreach($exception->getTrace() as $index => $trace) {
+                    $errOutput->writeln(sprintf('%d: %s::%s on line %d',$index,$trace['class'],$trace['function'],$trace['line']));
+                }
             }
         }
     }
