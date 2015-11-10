@@ -40,6 +40,8 @@ class SiteConverter implements NamedValueConverterInterface
 
         if (!isset($this->sites[$input])) {
             throw new NonExistentSite("Unable to find site chain for $input");
+        } elseif (!$this->sites[$input]->isActive()) {
+            throw new NonExistentSite(sprintf('Site %s is inactive, import disabled!',$input));
         }
 
         return $this->sites[$input];
@@ -50,7 +52,7 @@ class SiteConverter implements NamedValueConverterInterface
      */
     public function initialize()
     {
-        $this->sites       = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getChain();
+        $this->sites       = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getChain(null,true);
         $this->initialized = true;
     }
 
