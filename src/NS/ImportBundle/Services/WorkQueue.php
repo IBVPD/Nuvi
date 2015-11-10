@@ -69,7 +69,14 @@ class WorkQueue
      */
     public function reSubmit(Import $import)
     {
-        if($import->getPheanstalkJobId()) {
+        if($import->isBuried()) {
+            $this->pheanstalk->useTube('import')->kickJob(new \Pheanstalk_Job($import->getPheanstalkJobId(),$import->getId()));
+            $import->setPheanstalkStatus(Import::STATUS_RUNNING);
+            $this->entityMgr->persist($import);
+            $this->entityMgr->flush($import);
+
+            return true;
+        } elseif($import->getPheanstalkJobId()) {
             $newImport = new Import($import->getUser());
             $newImport->setMap($import->getMap());
             $newImport->setInputDateStart($import->getInputDateStart());

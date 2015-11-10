@@ -895,6 +895,14 @@ class Import
     /**
      * @return bool
      */
+    public function isBuried()
+    {
+        return ($this->pheanstalkStatus == self::STATUS_BURIED);
+    }
+
+    /**
+     * @return bool
+     */
     public function hasError()
     {
         return (!$this->isComplete() && $this->pheanstalkStatus == self::STATUS_BURIED);

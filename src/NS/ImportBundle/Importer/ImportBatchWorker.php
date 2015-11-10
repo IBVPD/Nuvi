@@ -66,6 +66,8 @@ class ImportBatchWorker
 
         if ($import->isComplete()) {
             $import->setPheanstalkStatus(Import::STATUS_COMPLETE);
+        } else {
+            $import->setPheanstalkStatus(Import::STATUS_RUNNING);
         }
 
         $this->entityMgr->persist($import);

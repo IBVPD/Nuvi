@@ -72,15 +72,16 @@
                                     <td>{{ import_actions(r) }}</td>
                                 </tr>
 
-                                <tr id="progress-{{ r.id }}-row">
+                                <tr>
                                     <td>{{ r.inputDateStart.format('Y-m-d') }} - {{ r.inputDateEnd.format('Y-m-d') }}</td>
                                     <td id="progress-{{ r.id }}-status">{{ r.pheanstalkStatus }}</td>
                                     <td colspan="6">
                                 {%  if r.running %}
-                                        <div class="progress pos-rel" id="progress-{{ r.id }}-percent" data-percent="{{ r.percentComplete }}%">
-                                            <div class="progress-bar" style="width:{{ r.percentComplete }}%;" id="progress-{{ r.id }}"></div>
+                                        <div id="progress-{{ r.id }}-row">
+                                            <div class="progress pos-rel" id="progress-{{ r.id }}-percent" data-percent="{{ r.percentComplete }}%">
+                                                <div class="progress-bar" style="width:{{ r.percentComplete }}%;" id="progress-{{ r.id }}"></div>
+                                            </div>
                                         </div>
-
                                         <script type="text/javascript">
                                             $(function() {
                                                 function pollLatestResponse() {
@@ -93,7 +94,7 @@
                                                         $('#progress-{{r.id}}-status').html(retValue['status']);
                                                         $('#progress-{{r.id}}-imported').html(retValue['importedCount']);
 
-                                                        if (retValue['status'] == constant('NS\\ImportBundle\\Entity\\Import::STATUS_BURIED')) {
+                                                        if (retValue['status'] == '{{ constant('NS\\ImportBundle\\Entity\\Import::STATUS_BURIED') }}' ) {
                                                             clearInterval(pollTimer);
                                                             $('#progress-{{ r.id }}-row').hide();
                                                         }

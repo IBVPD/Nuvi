@@ -51,13 +51,17 @@ class ImportResultActions extends \Twig_Extension
             $output[] = sprintf('<a class="btn btn-xs btn-success" href="%s">%s</button>',$this->router->generate('importResubmit',array('id'=>$import->getId())),'Re-submit');
         }
 
-        if(!$import->isComplete() && !$import->isQueued()) {
+        if(!$import->isComplete() && !$import->isQueued() && !$import->hasError()) {
             $output[] = sprintf('<a class="btn btn-xs btn-success" href="%s">%s</button>',$this->router->generate('importResubmit',array('id'=>$import->getId())),'Queue');
         }
 
         if($import->hasError()) {
+            if(!$import->isComplete()) {
+                $output[] = sprintf('<a class="btn btn-xs btn-success" href="%s">%s</button>',$this->router->generate('importResubmit',array('id'=>$import->getId())),'Restart');
+            }
             $output[] = sprintf('<a class="btn btn-xs btn-info" href="#" onclick="$(\'#progress-%d-exceptions\').toggle();">Toggle Errors</a>',$import->getId());
         }
+
         return implode('&nbsp',$output);
     }
 
