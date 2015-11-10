@@ -1,9 +1,7 @@
 <?php
 
-namespace NS\ImportBundle\Importer;
+namespace NS\ImportBundle\Reader;
 
-use Ddeboer\DataImport\Reader\CsvReader;
-use Ddeboer\DataImport\Reader\ExcelReader;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 

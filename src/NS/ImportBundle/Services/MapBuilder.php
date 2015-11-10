@@ -5,7 +5,7 @@ namespace NS\ImportBundle\Services;
 use \Doctrine\ORM\Mapping\ClassMetadata;
 use \NS\ImportBundle\Entity\Column;
 use \NS\ImportBundle\Entity\Map;
-use NS\ImportBundle\Importer\ReaderFactory;
+use \NS\ImportBundle\Reader\ReaderFactory;
 use \Symfony\Component\Form\AbstractType;
 
 /**

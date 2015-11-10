@@ -17,9 +17,10 @@ use \NS\ImportBundle\Entity\Import;
 use NS\ImportBundle\Filter\DateOfBirthFilter;
 use \NS\ImportBundle\Filter\Duplicate;
 use \NS\ImportBundle\Filter\NotBlank;
+use NS\ImportBundle\Reader\OffsetableReader;
 use \NS\ImportBundle\Writer\DoctrineWriter;
-use \NS\ImportBundle\Importer\ReaderFactory;
 use Ddeboer\DataImport\Result;
+use NS\ImportBundle\Reader\ReaderFactory;
 
 /**
  * Description of ImportProcessor
@@ -54,7 +55,12 @@ class ImportProcessor
     public function process(Import $import)
     {
         $reader = $this->getReader($import);
-        $reader->seek($import->getPosition());
+
+        if($reader instanceof OffsetableReader) {
+            // Move to current position
+            $reader->setOffset($import->getPosition());
+        }
+
         // Create the workflow from the reader
         $workflow = new Workflow\StepAggregator($reader);
         $workflow->setSkipItemOnFailure(true);
@@ -123,7 +129,7 @@ class ImportProcessor
         $offsetFilter = new FilterStep();
         $offsetFilter->add(new OffsetFilter(0, $this->getLimit(), true));
 
-        // Move to current position
+        // Stop processing after limit
         $workflow->addStep($offsetFilter, 80);
 
         // Trim all input

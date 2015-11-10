@@ -3,8 +3,7 @@
 namespace NS\ImportBundle\Vich;
 
 use NS\ImportBundle\Entity\Import;
-use NS\ImportBundle\Importer\ReaderFactory;
-use Symfony\Component\HttpFoundation\File\File;
+use NS\ImportBundle\Reader\ReaderFactory;
 use Vich\UploaderBundle\Event\Event;
 
 

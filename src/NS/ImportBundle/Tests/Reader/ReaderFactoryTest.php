@@ -1,18 +1,22 @@
 <?php
 
-namespace NS\ImportBundle\Tests\Importer;
+namespace NS\ImportBundle\Tests\Reader;
 
-
-use NS\ImportBundle\Importer\ReaderFactory;
+use NS\ImportBundle\Reader\ReaderFactory;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ReaderFactoryTest extends \PHPUnit_Framework_TestCase
 {
+
     /**
+     * @param $file
+     * @param $extension
+     * @param $reader
+     *
      * @dataProvider getFiles
      */
-    public function testReader($file, $extension,$reader)
+    public function testReader($file, $extension, $reader)
     {
         $this->assertEquals($extension,ReaderFactory::getExtension($file));
         $this->assertInstanceOf($reader,ReaderFactory::getReader($file));
