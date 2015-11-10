@@ -14,7 +14,9 @@ class RotaVirusController extends BaseCaseController
 {
     /**
      * @Route("/",name="rotavirusIndex")
-     * @Method(methods={"GET"})
+     * @Method(methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function indexAction(Request $request)
     {
@@ -35,6 +37,9 @@ class RotaVirusController extends BaseCaseController
     /**
      * @Route("/edit/{id}",name="rotavirusEdit",defaults={"id"=null})
      * @Method(methods={"GET","POST"})
+     * @param Request $request
+     * @param null $id
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function editAction(Request $request, $id = null)
     {
@@ -45,6 +50,9 @@ class RotaVirusController extends BaseCaseController
     /**
      * @Route("/lab/edit/{id}",name="rotavirusLabEdit",defaults={"id"=null})
      * @Method(methods={"GET","POST"})
+     * @param Request $request
+     * @param null $id
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function editLabAction(Request $request, $id = null)
     {
@@ -56,6 +64,9 @@ class RotaVirusController extends BaseCaseController
     /**
      * @Route("/rrl/edit/{id}",name="rotavirusRRLEdit",defaults={"id"=null})
      * @Method(methods={"GET","POST"})
+     * @param Request $request
+     * @param null $id
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function editRRLAction(Request $request, $id = null)
     {
@@ -66,6 +77,9 @@ class RotaVirusController extends BaseCaseController
     /**
      * @Route("/nl/edit/{id}",name="rotavirusNLEdit",defaults={"id"=null})
      * @Method(methods={"GET","POST"})
+     * @param Request $request
+     * @param null $id
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function editNLAction(Request $request, $id = null)
     {
@@ -76,6 +90,9 @@ class RotaVirusController extends BaseCaseController
     /**
      * @Route("/outcome/edit/{id}",name="rotavirusOutcomeEdit",defaults={"id"=null})
      * @Method(methods={"GET","POST"})
+     * @param Request $request
+     * @param null $id
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function editOutcomeAction(Request $request, $id = null)
     {
@@ -126,6 +143,8 @@ class RotaVirusController extends BaseCaseController
     /**
      * @Route("/show/{id}",name="rotavirusShow")
      * @Method(methods={"GET"})
+     * @param $id
+     * @return Response
      */
     public function showAction($id)
     {

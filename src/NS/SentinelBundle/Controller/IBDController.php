@@ -14,7 +14,9 @@ class IBDController extends BaseCaseController
 {
     /**
      * @Route("/",name="ibdIndex")
-     * @Method(methods={"GET"})
+     * @Method(methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function indexAction(Request $request)
     {
@@ -35,6 +37,9 @@ class IBDController extends BaseCaseController
     /**
      * @Route("/edit/{id}",name="ibdEdit",defaults={"id"=null})
      * @Method(methods={"GET","POST"})
+     * @param Request $request
+     * @param null $id
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function editAction(Request $request, $id = null)
     {
@@ -46,6 +51,9 @@ class IBDController extends BaseCaseController
     /**
      * @Route("/rrl/edit/{id}",name="ibdRRLEdit",defaults={"id"=null})
      * @Method(methods={"GET","POST"})
+     * @param Request $request
+     * @param null $id
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function editRRLAction(Request $request, $id = null)
     {
@@ -56,6 +64,9 @@ class IBDController extends BaseCaseController
     /**
      * @Route("/nl/edit/{id}",name="ibdNLEdit",defaults={"id"=null})
      * @Method(methods={"GET","POST"})
+     * @param Request $request
+     * @param null $id
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function editNLAction(Request $request, $id = null)
     {
@@ -67,6 +78,9 @@ class IBDController extends BaseCaseController
     /**
      * @Route("/lab/edit/{id}",name="ibdLabEdit",defaults={"id"=null})
      * @Method(methods={"GET","POST"})
+     * @param Request $request
+     * @param null $id
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function editLabAction(Request $request, $id = null)
     {
@@ -77,6 +91,9 @@ class IBDController extends BaseCaseController
     /**
      * @Route("/outcome/edit/{id}",name="ibdOutcomeEdit",defaults={"id"=null})
      * @Method(methods={"GET","POST"})
+     * @param Request $request
+     * @param null $id
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function editOutcomeAction(Request $request, $id = null)
     {
@@ -123,6 +140,8 @@ class IBDController extends BaseCaseController
     /**
      * @Route("/show/{id}",name="ibdShow")
      * @Method(methods={"GET"})
+     * @param $id
+     * @return Response
      */
     public function showAction($id)
     {
