@@ -5,6 +5,7 @@ namespace NS\SentinelBundle\Tests\Converter;
 use NS\SentinelBundle\Entity\Country;
 use NS\SentinelBundle\Entity\Region;
 use NS\SentinelBundle\Entity\Site;
+use NS\SentinelBundle\Converter\SiteConverter;
 
 /**
  * Description of SiteTest
@@ -17,7 +18,7 @@ class SiteTest extends \PHPUnit_Framework_TestCase
     public function testSiteConverter()
     {
         $entityMgr = $this->getMockObjectManager();
-        $converter = new \NS\SentinelBundle\Converter\SiteConverter($entityMgr);
+        $converter = new SiteConverter($entityMgr);
 
         $convertedObj = $converter->__invoke('S1');
         $this->assertInstanceOf('NS\SentinelBundle\Entity\Site', $convertedObj);
@@ -31,12 +32,25 @@ class SiteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException NS\SentinelBundle\Exceptions\NonExistentSite
+     * @expectedException \NS\SentinelBundle\Exceptions\NonExistentSite
+     * @expectedExceptionMessage Unable to find site chain for S5
      */
-    public function testSiteConverterException()
+    public function testSiteConverterNonExistentSiteException()
     {
         $entityMgr = $this->getMockObjectManager();
-        $converter = new \NS\SentinelBundle\Converter\SiteConverter($entityMgr);
+        $converter = new SiteConverter($entityMgr);
+
+        $converter->__invoke('S5');
+    }
+
+    /**
+     * @expectedException \NS\SentinelBundle\Exceptions\NonExistentSite
+     * @expectedExceptionMessage Site S4 is inactive, import disabled!
+     */
+    public function testSiteConverterInactiveSiteException()
+    {
+        $entityMgr = $this->getMockObjectManager();
+        $converter = new SiteConverter($entityMgr);
 
         $converter->__invoke('S4');
     }
@@ -90,7 +104,13 @@ class SiteTest extends \PHPUnit_Framework_TestCase
         $site3->setName('Site 3');
         $site3->setCountry($country);
 
-        return array($site1->getCode() => $site1, $site2->getCode() => $site2, $site3->getCode() => $site3);
+        $site4 = new Site();
+        $site4->setId('S4');
+        $site4->setName('Site 5');
+        $site4->setCountry($country);
+        $site4->setActive(false);
+
+        return array($site1->getCode() => $site1, $site2->getCode() => $site2, $site3->getCode() => $site3, $site4->getCode()=>$site4);
     }
 
 }
