@@ -100,6 +100,7 @@ class ImportController extends Controller
     /**
      * @param $id
      * @Route("/pause/{id}",name="importDelete",requirements={"id"="\d+"})
+     * @return RedirectResponse
      */
     public function deleteAction($id)
     {
@@ -112,6 +113,7 @@ class ImportController extends Controller
     /**
      * @param $id
      * @Route("/pause/{id}",name="importPause",requirements={"id"="\d+"})
+     * @return RedirectResponse
      */
     public function pauseAction($id)
     {
@@ -124,6 +126,7 @@ class ImportController extends Controller
     /**
      * @param $id
      * @Route("/resume/{id}",name="importResume",requirements={"id"="\d+"})
+     * @return RedirectResponse
      */
     public function resumeAction($id)
     {
