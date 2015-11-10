@@ -5,6 +5,8 @@ namespace NS\ImportBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\UnexpectedResultException;
+use NS\ImportBundle\Entity\Import;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -47,14 +49,14 @@ class ImportRepository extends EntityRepository
 
     /**
      * @param $id
-     * @return array|mixed
+     * @return array
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function getStatistics($id)
     {
         try {
             $result = $this->createQueryBuilder('r')
-                ->select('r.id,r.importedCount, r.processedCount, r.sourceCount, r.warningCount, r.skippedCount')
+                ->select('r.id,r.importedCount, r.processedCount, r.sourceCount, r.warningCount, r.skippedCount, r.pheanstalkStatus')
                 ->where('r.id = :id')
                 ->setParameter('id', $id)
                 ->getQuery()
@@ -62,11 +64,37 @@ class ImportRepository extends EntityRepository
                 ->getSingleResult();
             $result['percent'] = sprintf("%d%%",($result['sourceCount'] > 0) ? (($result['processedCount']/$result['sourceCount']) * 100):0);
             $result['errorCount'] = $result['processedCount'] - $result['importedCount'];
+            $result['status'] = $result['pheanstalkStatus'];
 
             return $result;
-        }
-        catch(NoResultException $exception) {
+        } catch(UnexpectedResultException $exception) {
             return array();
         }
+    }
+
+    /**
+     * @param $importId
+     * @param \Exception $exception
+     *
+     * @return mixed
+     */
+    public function setImportException($importId, \Exception $exception)
+    {
+        $exceptionStr = $exception->getMessage()."\n\n";
+
+        foreach($exception->getTrace() as $index => $trace) {
+            $exceptionStr .= sprintf("%d: %s::%s on line %d\n",$index,$trace['class'],$trace['function'],$trace['line']);
+        }
+
+        return $this->_em->createQueryBuilder()
+            ->update($this->getClassName(),'i')
+            ->set('i.pheanstalkStackTrace',':exceptStr')
+            ->set('i.pheanstalkStatus',':status')
+            ->where('i.id = :id')
+            ->setParameter('id',$importId)
+            ->setParameter('exceptStr',$exceptionStr)
+            ->setParameter('status',Import::STATUS_BURIED)
+            ->getQuery()
+            ->execute();
     }
 }

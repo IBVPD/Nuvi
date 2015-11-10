@@ -220,6 +220,12 @@ class Import
     private $pheanstalkStatus;
 
     /**
+     * @var string
+     * @ORM\Column(name="pheanstalkStackTrace",type="text",nullable=true)
+     */
+    private $pheanstalkStackTrace;
+
+    /**
      * @var \NS\SentinelBundle\Entity\User $user
      * @ORM\ManyToOne(targetEntity="NS\SentinelBundle\Entity\User")
      * @ORM\JoinColumn(nullable=false)
@@ -816,7 +822,7 @@ class Import
     const STATUS_RUNNING = 'running';
     const STATUS_PAUSED = 'paused';
     const STATUS_COMPLETE = 'complete';
-    const STATUS_BURRIED = 'buried';
+    const STATUS_BURIED = 'buried';
 
     /**
      * @param string $pheanstalkStatus
@@ -825,6 +831,24 @@ class Import
     public function setPheanstalkStatus($pheanstalkStatus)
     {
         $this->pheanstalkStatus = $pheanstalkStatus;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPheanstalkStackTrace()
+    {
+        return $this->pheanstalkStackTrace;
+    }
+
+    /**
+     * @param string $pheanstalkStackTrace
+     * @return Import
+     */
+    public function setPheanstalkStackTrace($pheanstalkStackTrace)
+    {
+        $this->pheanstalkStackTrace = $pheanstalkStackTrace;
         return $this;
     }
 
@@ -873,7 +897,7 @@ class Import
      */
     public function hasError()
     {
-        return (!$this->isComplete() && $this->pheanstalkStatus == self::STATUS_BURRIED);
+        return (!$this->isComplete() && $this->pheanstalkStatus == self::STATUS_BURIED);
     }
 
     // =================================================================================================================

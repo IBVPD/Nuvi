@@ -22,7 +22,7 @@ class ImportResultActions extends \Twig_Extension
     /**
      * ImportResultActions constructor.
      * @param RouterInterface $router
-     * @param Translator $translator
+     * @param TranslatorInterface $translator
      */
     public function __construct(RouterInterface $router, TranslatorInterface $translator)
     {
@@ -35,7 +35,7 @@ class ImportResultActions extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return array(new \Twig_SimpleFunction('import_actions',array($this,'importActions'),array('is_safe'=>array('html'))));
+        return array(new \Twig_SimpleFunction('import_actions',array($this,'importActions'),array('is_safe'=>array('html','js'))));
     }
 
     /**
@@ -55,6 +55,9 @@ class ImportResultActions extends \Twig_Extension
             $output[] = sprintf('<a class="btn btn-xs btn-success" href="%s">%s</button>',$this->router->generate('importResubmit',array('id'=>$import->getId())),'Queue');
         }
 
+        if($import->hasError()) {
+            $output[] = sprintf('<a class="btn btn-xs btn-info" href="#" onclick="$(\'#progress-%d-exceptions\').toggle();">Toggle Errors</a>',$import->getId());
+        }
         return implode('&nbsp',$output);
     }
 

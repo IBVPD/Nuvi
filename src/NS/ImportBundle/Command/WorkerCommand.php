@@ -36,6 +36,8 @@ class WorkerCommand extends ContainerAwareCommand
         $container  = $this->getContainer();
         $pheanstalk = $container->get("leezy.pheanstalk");
         $worker     = $container->get('ns_import.batch_worker');
+        $entityMgr  = $container->get('doctrine.orm.entity_manager');
+
         $pheanstalk
             ->watch('import')
             ->ignore('default');
@@ -56,9 +58,16 @@ class WorkerCommand extends ContainerAwareCommand
             } catch(\Exception $exception) {
                 $pheanstalk->bury($job);
 
-                $errOutput->writeln('Exception: '.$exception->getMessage());
-                foreach($exception->getTrace() as $index => $trace) {
-                    $errOutput->writeln(sprintf('%d: %s::%s on line %d',$index,$trace['class'],$trace['function'],$trace['line']));
+                $errOutput->writeln('Error processing job');
+                if($entityMgr->isOpen()) {
+                    $errOutput->writeln('Entity Manager is open, setting error status');
+                    $ret = $entityMgr->getRepository('NSImportBundle:Import')->setImportException($job->getData(),$exception);
+                    $errOutput->writeln('Got '.gettype($ret));
+                } else {
+                    $errOutput->writeln('Exception: '.$exception->getMessage());
+                    foreach($exception->getTrace() as $index => $trace) {
+                        $errOutput->writeln(sprintf('%d: %s::%s on line %d',$index,$trace['class'],$trace['function'],$trace['line']));
+                    }
                 }
             }
         }
