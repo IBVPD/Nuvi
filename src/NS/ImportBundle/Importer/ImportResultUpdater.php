@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gnat
- * Date: 05/08/15
- * Time: 2:01 PM
- */
 
 namespace NS\ImportBundle\Importer;
 
@@ -25,6 +19,7 @@ class ImportResultUpdater
     /**
      * @param Import $import
      * @param Result $result
+     * @param Collection $entities
      */
     public function update(Import $import, Result $result, Collection $entities)
     {

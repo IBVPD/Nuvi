@@ -1,18 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gnat
- * Date: 21/08/15
- * Time: 2:44 PM
- */
 
 namespace NS\ImportBundle\Importer;
 
 use \Doctrine\Common\Persistence\ObjectManager;
-use NS\ImportBundle\Entity\Import;
+use \NS\ImportBundle\Entity\Import;
 use \NS\ImportBundle\Filter\Duplicate;
 use \NS\ImportBundle\Filter\NotBlank;
-use \NS\ImportBundle\Importer\ImportResultUpdater;
 
 /**
  * Class ImportBatchWorker
@@ -32,7 +25,8 @@ class ImportBatchWorker
 
     /**
      * ImportBatchWorker constructor.
-     * @param $entityMgr
+     * @param ObjectManager $entityMgr
+     * @param ImportProcessor $processor
      */
     public function __construct(ObjectManager $entityMgr, ImportProcessor $processor)
     {

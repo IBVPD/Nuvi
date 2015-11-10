@@ -5,7 +5,7 @@ namespace NS\ImportBundle\Filter;
 use \Ddeboer\DataImport\Exception\UnexpectedValueException;
 use \Ddeboer\DataImport\ReporterInterface;
 use \Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\HttpFoundation\File\File;
+use \Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Description of Duplicate
@@ -30,6 +30,7 @@ class Duplicate implements ReporterInterface
 
     /**
      * @param array $fields
+     * @param File $logFile
      */
     public function __construct(array $fields = array(), File $logFile = null)
     {
