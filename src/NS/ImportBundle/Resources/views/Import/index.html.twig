@@ -55,8 +55,8 @@
                         <tbody>
                             {%for r in results %}
                                 <tr>
-                                    <td>{{r.createdAt.format('Y-m-d H:i:s')}}</td>
-                                    <td>{{r.mapName}}</td>
+                                    <td rowspan="2">{{r.createdAt.format('Y-m-d H:i:s')}}</td>
+                                    <td rowspan="2">{{r.mapName}}</td>
                                     <td><a href="{{path('importResultDownload',{type:'source','id':r.id})}}"/>{{ r.source }}</a></td>
                                     <td id="progress-{{ r.id }}-source"> {{ r.sourceCount }} ({{ r.percentComplete|number_format(0) }}%) </td>
                                     <td id="progress-{{ r.id }}-imported"> {{ r.importedCount }} </td>
@@ -71,9 +71,10 @@
                                     </td>
                                     <td>{{ import_actions(r) }}</td>
                                 </tr>
-                                {%  if r.percentComplete < 100 %}
+
                                 <tr id="progress-{{ r.id }}-row">
                                     <td colspan="6">
+                                {%  if r.percentComplete < 100 %}
                                         <div class="progress pos-rel" id="progress-{{ r.id }}-percent" data-percent="{{ r.percentComplete }}%">
                                             <div class="progress-bar" style="width:{{ r.percentComplete }}%;" id="progress-{{ r.id }}"></div>
                                         </div>
@@ -85,7 +86,7 @@
                                                         var retValue = jQuery.parseJSON(ret);
                                                         $('#progress-{{r.id}}').css({'width':retValue['percent']});
                                                         $('#progress-{{r.id}}-percent').attr('data-percent',retValue['percent']);
-                                                        $('#progress-{{r.id}}-source').html(retValue['sourceCount']+ '( '+retValue['percent']+' )');
+                                                        $('#progress-{{r.id}}-source').html(retValue['sourceCount']+ ' ('+retValue['percent']+')');
                                                         $('#progress-{{r.id}}-processed').html(retValue['processedCount']);
                                                         $('#progress-{{r.id}}-imported').html(retValue['importedCount']);
 
@@ -98,13 +99,13 @@
 
                                                 var pollTimer;
                                                 $(document).ready(function () {
-                                                    pollTimer = setInterval(pollLatestResponse, 10000);
+                                                    pollTimer = setInterval(pollLatestResponse, 5000);
                                                 });
                                             });
                                         </script>
+                                {% endif %}
                                     </td>
                                 </tr>
-                                {% endif %}
                             {%endfor %}
                         </tbody>
                     </table>
