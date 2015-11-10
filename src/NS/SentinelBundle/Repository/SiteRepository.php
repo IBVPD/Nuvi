@@ -14,11 +14,12 @@ class SiteRepository extends CommonRepository
 {
     /**
      * @param null $codes
+     * @param bool $includeInactive
      * @return array
      */
-    public function getChain($codes = null)
+    public function getChain($codes = null, $includeInactive = false)
     {
-        $queryBuilder = $this->getChainQueryBuilder();
+        $queryBuilder = $this->getChainQueryBuilder($includeInactive);
 
         if (is_array($codes)) {
             $queryBuilder->andWhere($queryBuilder->expr()->in('s.code', '?1'))->setParameter(1, $codes);
@@ -30,18 +31,22 @@ class SiteRepository extends CommonRepository
     }
 
     /**
+     *
+     * @param bool $includeInactive
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function getChainQueryBuilder()
+    public function getChainQueryBuilder($includeInactive = false)
     {
         $queryBuilder = $this->_em
             ->createQueryBuilder()
             ->from($this->getEntityName(), 's', 's.code')
             ->select('s,c,r')
             ->innerJoin('s.country', 'c')
-            ->innerJoin('c.region', 'r')
-            ->where('s.active = :isActive')
-            ->setParameter('isActive', true);
+            ->innerJoin('c.region', 'r');
+
+        if (!$includeInactive) {
+            $queryBuilder->where('s.active = :isActive')->setParameter('isActive', true);
+        }
 
         return $this->secure($queryBuilder);
     }
