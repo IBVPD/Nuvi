@@ -4,6 +4,7 @@ namespace NS\ImportBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
 
@@ -15,7 +16,12 @@ class WorkerCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this->setName('nsimport:run-batch')
-            ->setDescription('Check and run beanstalk batches');
+            ->setDescription('Check and run beanstalk batches')
+            ->setDefinition(array(
+                    new InputOption('batch-size','b',InputOption::VALUE_REQUIRED,'Set the number of rows to process at a time',250)
+                )
+
+            );
     }
 
     /**
@@ -23,6 +29,7 @@ class WorkerCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $batchSize = $input->getOption('batch-size');
         $output->writeln('Checking for jobs');
         $errOutput = $output instanceof ConsoleOutputInterface ? $output->getErrorOutput() : $output;
 
@@ -39,7 +46,7 @@ class WorkerCommand extends ContainerAwareCommand
             $output->writeln(sprintf("Processing Job %d, ImportId: %d", $job->getId(), $job->getData()));
 
             try {
-                if (!$worker->consume($job->getData(),250)) {
+                if (!$worker->consume($job->getData(),$batchSize)) {
                     $pheanstalk->release($job);
                     $output->writeln("Processed and returned for additional processing");
                 } else {
