@@ -96,7 +96,7 @@ class Column
      */
     public function hasPreProcessor()
     {
-        return !empty($this->preProcessor);
+        return (!empty($this->preProcessor) && $this->preProcessor != '[]');
     }
 
     /**
