@@ -20,7 +20,6 @@ class CsvReaderTest extends \PHPUnit_Framework_TestCase
         }
 
         $this->assertEquals(0, $index);
-
     }
 
     public function testZeroOffset()
@@ -40,6 +39,7 @@ class CsvReaderTest extends \PHPUnit_Framework_TestCase
 
             break;
         }
+
         $this->assertEquals(1,$index);
     }
 
