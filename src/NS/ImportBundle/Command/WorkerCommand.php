@@ -60,14 +60,12 @@ class WorkerCommand extends ContainerAwareCommand
 
                 $errOutput->writeln('Error processing job');
                 if($entityMgr->isOpen()) {
-                    $errOutput->writeln('Entity Manager is open, setting error status');
-                    $ret = $entityMgr->getRepository('NSImportBundle:Import')->setImportException($job->getData(),$exception);
-                    $errOutput->writeln('Got '.gettype($ret));
-                } else {
-                    $errOutput->writeln('Exception: '.$exception->getMessage());
-                    foreach($exception->getTrace() as $index => $trace) {
-                        $errOutput->writeln(sprintf('%d: %s::%s on line %d',$index,$trace['class'],$trace['function'],$trace['line']));
-                    }
+                    $entityMgr->getRepository('NSImportBundle:Import')->setImportException($job->getData(),$exception);
+                }
+
+                $errOutput->writeln('Exception: '.$exception->getMessage());
+                foreach($exception->getTrace() as $index => $trace) {
+                    $errOutput->writeln(sprintf('%d: %s::%s on line %d',$index,$trace['class'],$trace['function'],$trace['line']));
                 }
             }
         }
