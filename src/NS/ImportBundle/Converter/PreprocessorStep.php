@@ -41,7 +41,7 @@ class PreprocessorStep implements Step
 
     /**
      * @param callable $property
-     * @param array $conditions
+     * @param mixed $conditions
      * @return $this|void
      */
     public function add($property, $conditions)
@@ -61,7 +61,6 @@ class PreprocessorStep implements Step
                 $expr = $this->expressionBuilder->convertRuleToExpression($condition->getRule());
                 if ($this->language->evaluate($expr, array('item' => $item))) {
                     $accessor->setValue($item, sprintf('[%s]', $property), $condition->getValue());
-                    return true;
                 }
             }
         }
