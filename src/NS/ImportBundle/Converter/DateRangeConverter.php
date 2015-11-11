@@ -3,13 +3,12 @@
 namespace NS\ImportBundle\Converter;
 
 use Ddeboer\DataImport\ReporterInterface;
-use Ddeboer\DataImport\Step\ConverterStep;
 
 /**
  * Class DateRangeConverter
  * @package NS\ImportBundle\Converter
  */
-class DateRangeConverter extends ConverterStep implements ReporterInterface
+class DateRangeConverter implements ReporterInterface
 {
     /**
      * @var string
@@ -28,6 +27,8 @@ class DateRangeConverter extends ConverterStep implements ReporterInterface
 
     /**
      * NoFutureDateConverter constructor.
+     * @param \DateTime $lessThanDate
+     * @param \DateTime $greaterThanDate
      */
     public function __construct(\DateTime $lessThanDate = null, \DateTime $greaterThanDate = null)
     {
@@ -72,6 +73,7 @@ class DateRangeConverter extends ConverterStep implements ReporterInterface
 
     /**
      * @param \DateTime $value
+     * @param $key
      * @return bool
      */
     public function inRange(\DateTime $value, $key)
