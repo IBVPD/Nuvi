@@ -94,10 +94,10 @@ class CountryAdmin extends Admin
     }
 
     /**
-     * @param type $queryBuilder
-     * @param type $alias
-     * @param type $field
-     * @param type $value
+     * @param $queryBuilder
+     * @param string $alias
+     * @param string $field
+     * @param array $value
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function filterGaviEligible($queryBuilder, $alias, $field, $value)
@@ -113,7 +113,5 @@ class CountryAdmin extends Admin
         }
 
         $queryBuilder->andWhere("(" . implode(" OR ", $out) . ")")->setParameters($params);
-
-        return true;
     }
 }
