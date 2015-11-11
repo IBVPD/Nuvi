@@ -1,23 +1,16 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gnat
- * Date: 03/09/15
- * Time: 10:03 AM
- */
 
 namespace NS\ImportBundle\Converter;
 
-
-use Ddeboer\DataImport\Step\ConverterStep;
 use NS\UtilBundle\Form\Types\ArrayChoice;
 
-class WarningConverter extends ConverterStep
+class WarningConverter
 {
     /**
-     * @inheritDoc
+     * @param array $item
+     * @return array
      */
-    public function __invoke($item)
+    public function __invoke(array $item)
     {
         foreach($item as $value) {
             if($value instanceof ArrayChoice) {

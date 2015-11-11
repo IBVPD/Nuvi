@@ -2,19 +2,17 @@
 
 namespace NS\ImportBundle\Converter;
 
-use Ddeboer\DataImport\Step\ConverterStep;
-
 /**
  * Class TrimInputConverter
  * @package NS\ImportBundle\Converter
  */
-class TrimInputConverter extends ConverterStep
+class TrimInputConverter
 {
     /**
-     * @param $item
-     * @return mixed
+     * @param array $item
+     * @return array
      */
-    public function __invoke($item)
+    public function __invoke(array $item)
     {
         return $this->trim($item);
     }
