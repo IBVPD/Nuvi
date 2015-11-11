@@ -17,6 +17,7 @@ use \NS\ImportBundle\Entity\Import;
 use NS\ImportBundle\Filter\DateOfBirthFilter;
 use \NS\ImportBundle\Filter\Duplicate;
 use \NS\ImportBundle\Filter\NotBlank;
+use NS\ImportBundle\Reader\ExcelReader;
 use NS\ImportBundle\Reader\OffsetableReader;
 use \NS\ImportBundle\Writer\DoctrineWriter;
 use Ddeboer\DataImport\Result;
@@ -58,7 +59,8 @@ class ImportProcessor
 
         if($reader instanceof OffsetableReader) {
             // Move to current position
-            $reader->setOffset($import->getPosition());
+            $offset = ($reader instanceof ExcelReader) ? -1:0;
+            $reader->setOffset($import->getPosition() - $offset);
         }
 
         // Create the workflow from the reader
