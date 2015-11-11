@@ -98,7 +98,6 @@ class CountryAdmin extends Admin
      * @param type $alias
      * @param type $field
      * @param type $value
-     * @return boolean
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function filterGaviEligible($queryBuilder, $alias, $field, $value)

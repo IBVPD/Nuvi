@@ -11,6 +11,9 @@ class UserAdminController extends Controller
 {
     /**
      * @Route("/ajax/acls", name="adminACLAjaxAutocomplete")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
      */
     public function ajaxAccountContactAction(Request $request)
     {

@@ -18,7 +18,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext
      * Sets HttpKernel instance.
      * This method will be automatically called by Symfony2Extension ContextInitializer.
      *
-     * @param KernelInterface $kernel
+     * @param KernelInterface|\Symfony\Component\HttpKernel\KernelInterface $kernel
      */
     public function setKernel(\Symfony\Component\HttpKernel\KernelInterface $kernel)
     {

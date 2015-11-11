@@ -75,6 +75,7 @@ class ReferenceLab extends ExternalLab
 
     /**
      * @param mixed $caseFile
+     * @return $this|void
      */
     public function setCaseFile($caseFile = null)
     {

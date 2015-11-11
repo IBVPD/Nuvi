@@ -7,7 +7,8 @@ use NS\SentinelBundle\Entity\BaseCase;
 class RotaVirusListener extends BaseCaseListener
 {
     /**
-     *
+     * @param BaseCase $case
+     * @return mixed|null
      */
     public function calculateResult(BaseCase $case)
     {

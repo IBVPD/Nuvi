@@ -17,6 +17,8 @@ class UserController extends Controller
     /**
      * @Route("/profile",name="userProfile")
      * @Method(methods={"GET","POST"})
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function profileAction(Request $request)
     {

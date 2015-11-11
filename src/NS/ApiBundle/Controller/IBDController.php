@@ -151,6 +151,7 @@ class IBDController extends CaseController
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $objId
      *
+     * @return \FOS\RestBundle\View\View
      */
     public function patchIbdCaseAction(Request $request, $objId)
     {
@@ -174,6 +175,7 @@ class IBDController extends CaseController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $objId
+     * @return \FOS\RestBundle\View\View
      */
     public function patchIbdLabAction(Request $request, $objId)
     {
@@ -197,6 +199,7 @@ class IBDController extends CaseController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $objId
+     * @return \FOS\RestBundle\View\View
      */
     public function patchIbdRRLAction(Request $request, $objId)
     {
@@ -220,6 +223,7 @@ class IBDController extends CaseController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $objId
+     * @return \FOS\RestBundle\View\View
      */
     public function patchIbdNLAction(Request $request, $objId)
     {
@@ -245,6 +249,7 @@ class IBDController extends CaseController
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $objId
      *
+     * @return \FOS\RestBundle\View\View
      */
     public function patchIbdOutcomeAction(Request $request, $objId)
     {
@@ -271,6 +276,7 @@ class IBDController extends CaseController
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $objId
      *
+     * @return \FOS\RestBundle\View\View
      */
     public function putIbdCaseAction(Request $request, $objId)
     {
@@ -294,6 +300,7 @@ class IBDController extends CaseController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $objId
+     * @return \FOS\RestBundle\View\View
      */
     public function putIbdLabAction(Request $request, $objId)
     {
@@ -317,6 +324,7 @@ class IBDController extends CaseController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $objId
+     * @return \FOS\RestBundle\View\View
      */
     public function putIbdRRLAction(Request $request, $objId)
     {
@@ -340,6 +348,7 @@ class IBDController extends CaseController
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $objId
+     * @return \FOS\RestBundle\View\View
      */
     public function putIbdNLAction(Request $request, $objId)
     {
@@ -365,6 +374,7 @@ class IBDController extends CaseController
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $objId
      *
+     * @return \FOS\RestBundle\View\View
      */
     public function putIbdOutcomeAction(Request $request, $objId)
     {
@@ -391,6 +401,7 @@ class IBDController extends CaseController
      *
      * @param Request $request the request object
      *
+     * @return array|\FOS\RestBundle\View\View
      */
     public function postIbdCaseAction(Request $request)
     {
