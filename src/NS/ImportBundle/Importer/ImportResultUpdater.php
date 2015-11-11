@@ -38,8 +38,9 @@ class ImportResultUpdater
         $mFile = $import->getMessageFile();
         $this->messageFile = $mFile->openFile('a+');
 
-        $this->buildLogs($import, $result->getReports(), $writeHeaders);
+        $this->buildWarnings($import, $result->getReports(), $writeHeaders);
         $this->buildExceptions($import, $result->getExceptions(), $writeHeaders);
+        $this->buildErrors($import,$result->getReports(),($writeHeaders && $result->getExceptions()->count() > 0));
         $this->buildSuccesses($import, $entities, $writeHeaders);
     }
 
@@ -47,11 +48,14 @@ class ImportResultUpdater
      * @param Import $import
      * @param \SplObjectStorage $reports
      * @param boolean $writeHeader
+     *
+     * todo This really should handle everything the reports have (errors and any other messages of any other severity)
+     *      It would alleviate the call to buildErrors above.
      */
-    public function buildLogs(Import $import, \SplObjectStorage $reports, $writeHeader)
+    public function buildWarnings(Import $import, \SplObjectStorage $reports, $writeHeader)
     {
         $warningFile = $import->getWarningFile();
-        $warningCount = $this->buildLog($reports, $warningFile->openFile('a'), ReporterInterface::WARNING, $writeHeader);
+        $warningCount = $this->updateWarning($reports, $warningFile->openFile('a'), ReporterInterface::WARNING, $writeHeader);
         $import->incrementWarningCount($warningCount);
     }
 
@@ -62,7 +66,7 @@ class ImportResultUpdater
      * @param boolean $writeHeader
      * @return int
      */
-    public function buildLog(\SplObjectStorage $reports, \SplFileObject $writer, $severity = null, $writeHeader = false)
+    public function updateWarning(\SplObjectStorage $reports, \SplFileObject $writer, $severity = null, $writeHeader = false)
     {
         $rowCount = 0;
         $first = true;
@@ -116,6 +120,32 @@ class ImportResultUpdater
             $this->messageFile->fputcsv($item);
 
             $exceptions->next();
+        }
+    }
+
+    public function buildErrors(Import $import, \SplObjectStorage $reports,$writeHeader)
+    {
+        $first = true;
+        $errorFile  = $import->getErrorFile();
+        $writer = $errorFile->openFile('a');
+
+        $reports->rewind();
+        while ($reports->valid()) {
+            $obj = $reports->current();
+            foreach ($obj->getMessages(ReporterInterface::ERROR) as $message) {
+                $item = array('row' => $obj->getRow(), 'message' => $message->getMessage(),'column'=>($message->getColumn()?$message->getColumn():'unknown'));
+
+                if ($writeHeader && $first) {
+                    $headers = array_keys($item);
+                    $writer->fputcsv($headers);
+                    $first = false;
+                }
+
+                $writer->fputcsv($item);
+                $this->messageFile->fputcsv($item);
+            }
+
+            $reports->next();
         }
     }
 

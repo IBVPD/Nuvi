@@ -53,12 +53,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/beberlei/DoctrineExtensions.git",
-                "reference": "b2cd9db7f15a974b6656ba74eb6c8c9d80293c8e"
+                "reference": "8c11618897b73acd37d03dca098ed4a6da08bdf9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/beberlei/DoctrineExtensions/zipball/b2cd9db7f15a974b6656ba74eb6c8c9d80293c8e",
-                "reference": "b2cd9db7f15a974b6656ba74eb6c8c9d80293c8e",
+                "url": "https://api.github.com/repos/beberlei/DoctrineExtensions/zipball/8c11618897b73acd37d03dca098ed4a6da08bdf9",
+                "reference": "8c11618897b73acd37d03dca098ed4a6da08bdf9",
                 "shasum": ""
             },
             "require": {
@@ -107,7 +107,7 @@
                 "doctrine",
                 "orm"
             ],
-            "time": "2015-11-09 13:44:50"
+            "time": "2015-11-11 09:48:55"
         },
         {
             "name": "behat/transliterator",
@@ -218,12 +218,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/gnat42/data-import.git",
-                "reference": "b8ff9727406cb624fee98e8de66514a3ce78a9b8"
+                "reference": "84fcf0549c344cef690c6ee019e9ec705b2c5db4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gnat42/data-import/zipball/b8ff9727406cb624fee98e8de66514a3ce78a9b8",
-                "reference": "b8ff9727406cb624fee98e8de66514a3ce78a9b8",
+                "url": "https://api.github.com/repos/gnat42/data-import/zipball/84fcf0549c344cef690c6ee019e9ec705b2c5db4",
+                "reference": "84fcf0549c344cef690c6ee019e9ec705b2c5db4",
                 "shasum": ""
             },
             "require": {
@@ -285,7 +285,7 @@
                 "issues": "https://github.com/ddeboer/data-import/issues",
                 "source": "https://github.com/ddeboer/data-import"
             },
-            "time": "2015-11-10 17:54:42"
+            "time": "2015-11-11 10:09:52"
         },
         {
             "name": "ddeboer/data-import-bundle",
@@ -6395,16 +6395,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.16",
+            "version": "4.8.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "625f8c345606ed0f3a141dfb88f4116f0e22978e"
+                "reference": "6cc501c1adf86482fbb54fb2958e1c7685f57a61"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/625f8c345606ed0f3a141dfb88f4116f0e22978e",
-                "reference": "625f8c345606ed0f3a141dfb88f4116f0e22978e",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/6cc501c1adf86482fbb54fb2958e1c7685f57a61",
+                "reference": "6cc501c1adf86482fbb54fb2958e1c7685f57a61",
                 "shasum": ""
             },
             "require": {
@@ -6463,7 +6463,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-10-23 06:48:33"
+            "time": "2015-11-10 21:39:46"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
