@@ -103,5 +103,4 @@ class UpdateSiteCommand extends ContainerAwareCommand
 
         return $country;
     }
-
 }
