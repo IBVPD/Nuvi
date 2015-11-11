@@ -3,7 +3,8 @@
 namespace NS\SentinelBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
-use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
  * Description of Builder
@@ -13,16 +14,20 @@ use Symfony\Component\Security\Core\SecurityContext;
 class Builder 
 {
     private $factory;
-    protected $securityContext;
+    private $authChecker;
+    private $requestStack;
 
     /**
      * @param FactoryInterface $factory
-     * @param SecurityContext $securityContext
+     * @param AuthorizationCheckerInterface $authChecker
+     * @param RequestStack $requestStack
+     * @internal param SecurityContext $authChecker
      */
-    public function __construct(FactoryInterface $factory, SecurityContext $securityContext)
+    public function __construct(FactoryInterface $factory, AuthorizationCheckerInterface $authChecker, RequestStack $requestStack)
     {
-        $this->factory         = $factory;
-        $this->securityContext = $securityContext;
+        $this->factory      = $factory;
+        $this->authChecker  = $authChecker;
+        $this->requestStack = $requestStack;
     }
 
     /**
@@ -31,10 +36,10 @@ class Builder
     public function sidebar()
     {
         $menu = $this->factory->createItem('root');
-
+        $menu->setCurrentUri($this->requestStack->getCurrentRequest()->getRequestUri());
         $menu->setChildrenAttribute('class','nav nav-list');
-        if ($this->securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
-            if ($this->securityContext->isGranted('ROLE_CAN_CREATE')) {
+        if ($this->authChecker->isGranted('IS_AUTHENTICATED_FULLY')) {
+            if ($this->authChecker->isGranted('ROLE_CAN_CREATE')) {
                 $data = $menu->addChild('Data Entry', array('label'=> 'menu.data-entry'))->setExtra('icon','fa fa-edit');
                 $data->addChild('Meningitis', array('label' => 'menu.ibd', 'route' => 'ibdIndex'));
                 $data->addChild('Rotavirus', array('route'=>'rotavirusIndex'))->setExtra('translation_domain', 'NSSentinelBundle');
@@ -51,19 +56,19 @@ class Builder
             $ibdReport->addChild('Field Population',array('label'=>'menu.data-reports-field-population','route'=>'reportFieldPopulation'));
             $ibdReport->addChild('Culture Positive',array('label'=>'menu.data-reports-culture-positive','route'=>'reportCulturePositive'));
 
-            if ($this->securityContext->isGranted('ROLE_API')) {
+            if ($this->authChecker->isGranted('ROLE_API')) {
                 $api = $menu->addChild('Api Resources', array('label' => 'Api Resources'))->setExtra('icon', 'fa fa-book');
                 $api->addChild('Dashboard', array('label' => 'Dashboard', 'route' => 'ns_api_dashboard'));
                 $api->addChild('Documentation', array('label' => 'Documentation','route' => 'nelmio_api_doc_index'));
             }
 
-            if ($this->securityContext->isGranted('ROLE_IMPORT')) {
+            if ($this->authChecker->isGranted('ROLE_IMPORT')) {
                 $import = $menu->addChild('Import', array('label' => 'menu.import-export'))->setExtra('icon', 'fa fa-cloud-upload');
                 $import->addChild('Import', array('label' => 'menu.import', 'route' => 'importIndex'))->setExtra('icon', 'fa fa-cloud-upload');
                 $import->addChild('Export', array('label' => 'menu.export', 'route' => 'exportIndex'))->setExtra('icon', 'fa fa-cloud-download');
             }
 
-            if ($this->securityContext->isGranted('ROLE_ADMIN')) {
+            if ($this->authChecker->isGranted('ROLE_ADMIN')) {
                 $admin = $menu->addChild('Admin', array('label' => 'menu.data-admin'))->setExtra('icon', 'fa fa-desktop');
                 $admin->addChild('Admin', array('label' => 'menu.data-admin', 'route' => 'sonata_admin_dashboard'));
                 $admin->addChild('Translation', array('label' => 'menu.translation','route' => 'jms_translation_index'));
