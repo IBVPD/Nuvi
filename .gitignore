@@ -4,6 +4,7 @@
 /app/logs/*
 /vendor/
 /app/config/parameters.yml
+/app/config/parameters_live.yml
 /nbproject/private/
 bin
 *.xls*
