@@ -46,7 +46,7 @@ class WorkQueue
             $this->entityMgr->persist($import);
             $this->entityMgr->flush($import);
 
-            $jobId = $this->pheanstalk->useTube('import')->put($import->getId());
+            $jobId = $this->pheanstalk->useTube('import')->put($import->getId(),null,null,180);
 
             $import->setPheanstalkJobId($jobId);
             $import->setPheanstalkStatus(Import::STATUS_RUNNING);
