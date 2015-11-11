@@ -7,6 +7,13 @@ use Symfony\Component\HttpFoundation\File\File;
 
 class CsvReaderTest extends \PHPUnit_Framework_TestCase
 {
+    public function testImplementsInterface()
+    {
+        $file = new File(__DIR__ . '/../Fixtures/ReaderOffset.xls');
+        $reader = new CsvReader($file->openFile());
+
+        $this->assertInstanceOf('NS\ImportBundle\Reader\OffsetableReaderInterface',$reader);
+    }
 
     public function testNoOffset()
     {

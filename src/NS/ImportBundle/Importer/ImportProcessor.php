@@ -17,8 +17,8 @@ use \NS\ImportBundle\Entity\Import;
 use NS\ImportBundle\Filter\DateOfBirthFilter;
 use \NS\ImportBundle\Filter\Duplicate;
 use \NS\ImportBundle\Filter\NotBlank;
-use NS\ImportBundle\Reader\ExcelReader;
-use NS\ImportBundle\Reader\OffsetableReader;
+use \NS\ImportBundle\Reader\ExcelReader;
+use \NS\ImportBundle\Reader\OffsetableReaderInterface;
 use \NS\ImportBundle\Writer\DoctrineWriter;
 use Ddeboer\DataImport\Result;
 use NS\ImportBundle\Reader\ReaderFactory;
@@ -57,7 +57,7 @@ class ImportProcessor
     {
         $reader = $this->getReader($import);
 
-        if($reader instanceof OffsetableReader) {
+        if($reader instanceof OffsetableReaderInterface) {
             // Move to current position
             $offset = ($reader instanceof ExcelReader) ? -1:0;
             $reader->setOffset($import->getPosition() - $offset);

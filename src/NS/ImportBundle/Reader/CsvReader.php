@@ -4,7 +4,7 @@ namespace NS\ImportBundle\Reader;
 
 use Ddeboer\DataImport\Reader\CsvReader as BaseReader;
 
-class CsvReader extends BaseReader
+class CsvReader extends BaseReader implements OffsetableReaderInterface
 {
     /**
      * @var integer

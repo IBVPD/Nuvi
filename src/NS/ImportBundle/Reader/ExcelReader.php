@@ -4,7 +4,7 @@ namespace NS\ImportBundle\Reader;
 
 use Ddeboer\DataImport\Reader\ExcelReader as BaseReader;
 
-class ExcelReader extends BaseReader implements OffsetableReader
+class ExcelReader extends BaseReader implements OffsetableReaderInterface
 {
     /**
      * @var integer

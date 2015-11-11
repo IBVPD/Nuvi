@@ -2,7 +2,7 @@
 
 namespace NS\ImportBundle\Reader;
 
-interface OffsetableReader
+interface OffsetableReaderInterface
 {
 
     /**
