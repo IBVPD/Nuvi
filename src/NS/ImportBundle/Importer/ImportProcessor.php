@@ -14,14 +14,14 @@ use \NS\ImportBundle\Converter\Registry;
 use \NS\ImportBundle\Converter\TrimInputConverter;
 use \NS\ImportBundle\Converter\WarningConverter;
 use \NS\ImportBundle\Entity\Import;
-use NS\ImportBundle\Filter\DateOfBirthFilter;
+use \NS\ImportBundle\Filter\DateOfBirthFilter;
 use \NS\ImportBundle\Filter\Duplicate;
 use \NS\ImportBundle\Filter\NotBlank;
 use \NS\ImportBundle\Reader\ExcelReader;
 use \NS\ImportBundle\Reader\OffsetableReaderInterface;
 use \NS\ImportBundle\Writer\DoctrineWriter;
-use Ddeboer\DataImport\Result;
-use NS\ImportBundle\Reader\ReaderFactory;
+use \Ddeboer\DataImport\Result;
+use \NS\ImportBundle\Reader\ReaderFactory;
 
 /**
  * Description of ImportProcessor
