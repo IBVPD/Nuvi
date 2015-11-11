@@ -8,7 +8,6 @@ use \JMS\Serializer\Annotation\Groups;
 use \JMS\Serializer\Annotation\Exclude;
 use \NS\SecurityBundle\Annotation\Secured;
 use \NS\SecurityBundle\Annotation\SecuredCondition;
-use \NS\SentinelBundle\Form\Types\CaseStatus;
 use \NS\SentinelBundle\Form\Types\CSFAppearance;
 use \NS\SentinelBundle\Form\Types\CXRAdditionalResult;
 use \NS\SentinelBundle\Form\Types\CXRResult;
@@ -18,14 +17,12 @@ use \NS\SentinelBundle\Form\Types\DischargeDiagnosis;
 use \NS\SentinelBundle\Form\Types\DischargeOutcome;
 use \NS\SentinelBundle\Form\Types\FourDoses;
 use \NS\SentinelBundle\Form\Types\IBDCaseResult;
-use \NS\SentinelBundle\Form\Types\MeningitisVaccinationReceived;
 use \NS\SentinelBundle\Form\Types\MeningitisVaccinationType;
 use \NS\SentinelBundle\Form\Types\OtherSpecimen;
 use \NS\SentinelBundle\Form\Types\PCVType;
 use \NS\SentinelBundle\Form\Types\TripleChoice;
 use \NS\SentinelBundle\Form\Types\VaccinationReceived;
 use \Symfony\Component\Validator\Constraints as Assert;
-use \Symfony\Component\Validator\ExecutionContextInterface;
 use \NS\SentinelBundle\Validators as LocalAssert;
 
 /**
