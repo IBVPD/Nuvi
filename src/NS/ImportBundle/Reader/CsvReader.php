@@ -36,8 +36,32 @@ class CsvReader extends BaseReader
     public function rewind()
     {
         parent::rewind();
-        if($this->offset > 0) {
-            $this->seek($this->offset-1);
+        if ($this->offset > 0) {
+            $this->seek($this->offset);
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function count()
+    {
+        if (null === $this->count) {
+            $position = $this->key();
+
+            $this->count = 0;
+            // if we call any iterator on ourselves, our offset gets introduced which causes rewind to be called
+            // and then invalid count response is returned
+            $this->count = iterator_count($this->file);
+
+
+            if (null !== $this->headerRowNumber) {
+                $this->count -= $this->headerRowNumber + 1;
+            }
+
+            $this->seek($position);
+        }
+
+        return $this->count;
     }
 }

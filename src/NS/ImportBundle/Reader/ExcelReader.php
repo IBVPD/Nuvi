@@ -16,6 +16,10 @@ class ExcelReader extends BaseReader implements OffsetableReader
      */
     public function setOffset($offset)
     {
+        if($this->headerRowNumber !== null) {
+            $offset--;
+        }
+
         $this->offset = $offset;
     }
 
@@ -35,7 +39,7 @@ class ExcelReader extends BaseReader implements OffsetableReader
         parent::rewind();
 
         if($this->offset > 0) {
-            $this->pointer += $this->offset-1;
+            $this->pointer += $this->offset;
         }
     }
 }
