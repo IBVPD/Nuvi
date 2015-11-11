@@ -91,7 +91,7 @@ class ImportController extends Controller
         if($queue->reSubmit($import)) {
             $this->get('ns_flash')->addSuccess(null, null, "Import Re-Submitted");
         } else {
-            $this->get('ns_flash')->addError(null, 'Unable to re-submit import', 'There was an error communicating with the beanstalk server');
+            $this->get('ns_flash')->addWarning(null, 'Unable to re-submit import for background processing', 'There was an error communicating with the beanstalk server');
         }
 
         return $this->redirect($this->generateUrl('importIndex'));
