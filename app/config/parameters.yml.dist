@@ -18,5 +18,5 @@ parameters:
     beanstalk_server:  127.0.0.1
 
     monolog.error.to_email: nathanael@noblet.ca
-    monolog.error.from_email: 
+    monolog.error.from_email: NUVI IBD/RV Network
     monolog.error.subject: NUVI HQ ERROR
