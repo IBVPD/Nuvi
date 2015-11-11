@@ -6,7 +6,7 @@ use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
 /**
- * Description of RotavirusVaccinationReceived
+ * Description of VaccinationReceived
  *
  */
 class VaccinationReceived extends TranslatableArrayChoice implements TranslationContainerInterface
