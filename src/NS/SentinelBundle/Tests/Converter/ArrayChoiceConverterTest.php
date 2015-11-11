@@ -56,13 +56,13 @@ use NS\SentinelBundle\Form\Types\VaccinationReceived;
  */
 class ArrayChoiceConverterTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
      *
-     * @param ArrayChoiceConverter2 $obj
+     * @param ArrayChoice $obj
+     * @param string $name
      * @dataProvider converterProvider
      */
-    public function testArrayChoiceConverterOutOfRange($obj, $name)
+    public function testArrayChoiceConverterOutOfRange(ArrayChoice $obj, $name)
     {
         $class = get_class($obj);
         $converter = new ArrayChoiceConverter($class);
@@ -75,10 +75,11 @@ class ArrayChoiceConverterTest extends \PHPUnit_Framework_TestCase
 
     /**
      *
-     * @param ArrayChoiceConverter2 $obj
+     * @param ArrayChoice $obj
+     * @param string $name
      * @dataProvider converterProvider
      */
-    public function testArrayChoiceConverter($obj, $name)
+    public function testArrayChoiceConverter(ArrayChoice $obj, $name)
     {
         $class = get_class($obj);
         $converter = new ArrayChoiceConverter($class);
