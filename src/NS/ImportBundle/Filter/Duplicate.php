@@ -5,6 +5,7 @@ namespace NS\ImportBundle\Filter;
 use \Ddeboer\DataImport\Exception\UnexpectedValueException;
 use \Ddeboer\DataImport\ReporterInterface;
 use \Doctrine\Common\Collections\ArrayCollection;
+use \NS\ImportBundle\Exceptions\InvalidEncodingException;
 use \Symfony\Component\HttpFoundation\File\File;
 
 /**
@@ -24,7 +25,7 @@ class Duplicate implements ReporterInterface
 
     private $logFile;
 
-    private $severity = 4;
+    private $severity = ReporterInterface::ERROR;
 
     private $initialized = false;
 
@@ -54,15 +55,32 @@ class Duplicate implements ReporterInterface
             }
 
             if (is_object($item[$field]) && $method && method_exists($item[$field], $method)) {
-                $fieldKey .= sprintf('%s_', strtolower($item[$field]->$method()));
-            } elseif (is_array($item[$field])) {
-                $fieldKey .= sprintf('%s_', implode('-', $item[$field]));
+                $fieldKey .= sprintf('%s_', strtoupper($item[$field]->$method()));
             } else {
-                $fieldKey .= sprintf('%s_', strtolower($item[$field]));
+                $value = $this->cleanValues($item[$field]);
+                $fieldKey .= sprintf('%s_', $value);
             }
         }
 
-        return substr($fieldKey, 0, -1);
+        return mb_substr($fieldKey, 0, -1);
+    }
+
+    public function cleanValues($input)
+    {
+        if(is_array($input)) {
+            $output = '';
+            foreach($input as $value) {
+                $output .= sprintf('%s_',$this->cleanValues($value));
+            }
+
+            return $output;
+        }
+
+        if(!mb_check_encoding($input,'UTF-8')) {
+            throw new InvalidEncodingException(sprintf('Invalid UTF-8 key value %s',$value));
+        }
+
+        return mb_strtoupper($input);
     }
 
     /**
