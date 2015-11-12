@@ -96,7 +96,7 @@ class Column
      */
     public function hasPreProcessor()
     {
-        return (!empty($this->preProcessor) && $this->preProcessor != '[]');
+        return (!$this->isIgnored() && !empty($this->preProcessor) && $this->preProcessor != '[]');
     }
 
     /**
@@ -130,7 +130,7 @@ class Column
      */
     public function hasConverter()
     {
-        return ($this->converter) ? true : false;
+        return (!$this->isIgnored() && $this->converter) ? true : false;
     }
 
     /**

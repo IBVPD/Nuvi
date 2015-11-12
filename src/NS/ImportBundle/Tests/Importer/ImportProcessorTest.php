@@ -497,7 +497,7 @@ class ImportProcessorTest extends WebTestCase
         $import->setMap($this->getReferenceLabMap($columns));
 
         $converters = $import->getConverters();
-        $this->assertCount(2,$converters);
+        $this->assertCount(1,$converters); // fields where ignored == true are completely dropped
 //        $this->assertEquals('Site',end($converters)->getName());
 
         $this->assertInstanceOf('\Ddeboer\DataImport\Reader\ArrayReader', $reader);

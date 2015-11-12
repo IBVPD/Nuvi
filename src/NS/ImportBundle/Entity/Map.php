@@ -333,8 +333,7 @@ class Map
         foreach ($this->columns as $col) {
             if ($col->isIgnored()) {
                 $name = $this->adjustMappingName($col->getName());
-                $target = $this->adjustMappingTarget($col->getMapper());
-                $mappings[$name] = $target;
+                $mappings[$name] = $name;
             }
         }
 
