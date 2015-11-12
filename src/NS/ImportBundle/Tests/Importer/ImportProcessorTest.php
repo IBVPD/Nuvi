@@ -220,7 +220,7 @@ class ImportProcessorTest extends WebTestCase
                 'name'      => 'Col1',
                 'converter' => null,
                 'mapper'    => 'col1',
-                'ignored'   => true,
+                'ignored'   => false,
             ),
             array(
                 'name'      => 'Col2',
@@ -238,7 +238,7 @@ class ImportProcessorTest extends WebTestCase
                 'name'      => 'Col4',
                 'converter' => null,
                 'mapper'    => null,
-                'ignored'   => true,
+                'ignored'   => false,
             ),
         );
 

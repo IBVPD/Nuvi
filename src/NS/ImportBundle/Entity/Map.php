@@ -5,6 +5,7 @@ namespace NS\ImportBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Ddeboer\DataImport\Step\MappingStep;
 use NS\ImportBundle\Converter\Expression\Condition;
 use NS\ImportBundle\Converter\Expression\ExpressionBuilder;
 use NS\ImportBundle\Converter\MappingItemConverter;
@@ -328,7 +329,7 @@ class Map
             }
         }
 
-        return new \Ddeboer\DataImport\Step\MappingStep($mappings);
+        return new MappingStep($mappings);
     }
 
     /**
@@ -341,11 +342,9 @@ class Map
 
         foreach ($this->columns as $col) {
             if ($col->isIgnored()) {
-                $name = $this->adjustMappingName($col->getName());
-                $mappings[$name] = $name;
+                $mappings[] = $col->getName();
             }
         }
-
         return new UnsetMappingItemConverter($mappings);
 
     }
@@ -393,3 +392,4 @@ class Map
         return sprintf("[%s]", str_replace('.', '][', $name));
     }
 }
+

@@ -33,10 +33,12 @@ class UnsetMappingItemConverter implements Step
      * @param string $to
      *
      * @return $this
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function map($from, $to)
     {
-        $this->mappings[$from] = $to;
+        $this->mappings[] = $from;
 
         return $this;
     }
@@ -46,7 +48,7 @@ class UnsetMappingItemConverter implements Step
      */
     public function process(&$item, Report $result = null)
     {
-        foreach (array_keys($this->mappings) as $from) {
+        foreach ($this->mappings as $from) {
             if(isset($item[$from])) {
                 unset($item[$from]);
             }

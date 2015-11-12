@@ -146,7 +146,7 @@ class Column
      */
     public function hasMapper()
     {
-        return (!empty($this->mapper));
+        return (!$this->isIgnored() && !empty($this->mapper));
     }
 
     /**
