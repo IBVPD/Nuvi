@@ -104,7 +104,16 @@ class Map
      */
     public function __toString()
     {
-        return $this->name . ' ' . $this->version;
+        return sprintf('%s (%s)',$this->name, $this->version);
+    }
+
+    /**
+     * @return string
+     */
+    public function getSelectName()
+    {
+        $name = $this->__toString();
+        return (mb_strlen($name) <= 30) ? $name: sprintf('%s (%s...)',$this->name,mb_substr($this->version,0,27-mb_strlen($this->name)));
     }
 
     /**

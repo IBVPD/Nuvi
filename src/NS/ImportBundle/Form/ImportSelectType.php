@@ -47,6 +47,7 @@ class ImportSelectType extends AbstractType
                 'class'         => 'NSImportBundle:Map',
                 'placeholder'   => 'Please Select...',
                 'query_builder' => $this->entityMgr->getRepository('NSImportBundle:Map')->getWithColumnsQuery(),
+                'property' => 'selectName'
                 )
             )
             ->add('sourceFile', 'vich_file',array('error_bubbling'=>false))
