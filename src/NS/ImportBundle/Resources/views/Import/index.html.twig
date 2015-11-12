@@ -2,124 +2,137 @@
 {%block pagetitle %}{{'Import Cases'|trans}}{%endblock %}
 
 {%block body %}
-    <div class="row">
-        <div class="col-md-3 col-sm-2 col-xs-12">
-            <div class="widget-box widget-color-blue">
-                <div class="widget-header widget-header-small">
-                    <h5 class="widget-title">{{'New Uploads'|trans}}</h5>
-                </div>
-                <div class="widget-body">
-                    <form method="POST" action="{{ path('importIndex') }}" {{ form_enctype(form) }} novalidate>
-                        {% if not form.vars.valid %}
-                        <div class="alert alert-block alert-danger">
-                            {{ 'There were errors with the form'|trans }}
-                            {{ form_errors(form) }}
-                        </div>
-                        {% endif %}
-
-                        <div class="widget-main">
-                            {{ form_row(form.map) }}
-                            {{ form_row(form.inputDateStart) }}
-                            {{ form_row(form.inputDateEnd) }}
-                            {{ form_row(form.sourceFile) }}
-                        </div>
-                        <div class="widget-toolbox padding-6 clearfix">
-                            {{ form_row(form.import) }}
-                            {{ form_rest(form) }}
-                        </div>
-                    </form>
-                </div>
-            </div>
+    {% if not form.vars.valid %}
+        <div class="alert alert-block alert-danger">
+            {{ 'There were errors with the form'|trans }}
+            {{ form_errors(form) }}
         </div>
-        <div class="col-md-9 col-sm-10 col-xs-12">
-            <div class="widget-box widget-color-blue no-border">
+    {% endif %}
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="widget-box widget-color-blue">
                 <div class="widget-header widget-header-small">
                     <h5 class="widget-title">{{'Recent Uploads'|trans}}</h5>
                     <div class="widget-toolbar no-border">{{ knp_pagination_render(results) }}</div>
+                    <div class="widget-toolbar">
+                        <a href="#waitlistFilter" data-toggle="collapse" class="white small">
+                        <i class="ace-icon fa fa-plus" data-icon-hide="fa-minus" data-icon-show="fa-plus"></i> New Upload
+                        </a>
+                    </div>
                 </div>
-                <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th>{{'Created'|trans}}</th>
-                                <th>{{'Map'|trans}}</th>
-                                <th>{{'File'|trans}}</th>
-                                <th rowspan="2">{{'File Record Count'|trans}}</th>
-                                <th rowspan="2">{{'Imported'|trans}}</th>
-                                <th rowspan="2">{{'Successes'|trans}}</th>
-                                <th rowspan="2">{{'Warnings'|trans}}</th>
-                                <th rowspan="2">{{'Errors'|trans}}</th>
-                                <th rowspan="2">{{'Actions'|trans }}</th>
-                            </tr>
-                            <tr>
-                                <th colspan="2">{{ 'Range'|trans }}</th>
-                                <th>{{ 'Status' }}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {%for r in results %}
-                                <tr>
-                                    <td>{{r.createdAt.format('Y-m-d H:i:s')}}</td>
-                                    <td>{{r.mapName}}</td>
-                                    <td><a href="{{path('importResultDownload',{type:'source','id':r.id})}}"/>{{ r.source }}</a></td>
-                                    <td id="progress-{{ r.id }}-source"> {{ r.sourceCount }} ({{ r.percentComplete|number_format(0) }}%) </td>
-                                    <td id="progress-{{ r.id }}-imported"> {{ r.importedCount }} </td>
-                                    <td>
-                                        <a href="{{path('importResultDownload',{type:'success','id':r.id})}}" class="btn btn-xs btn-success">{{'Successful'|trans}} <i class="fa fa-cloud-download"></i></a>
-                                    </td>
-                                    <td>
-                                        <a href="{{path('importResultDownload',{type:'warnings','id':r.id})}}" class="btn btn-xs btn-warning">{{r.warningCount}} {{'Warnings'|trans}} <i class="fa fa-cloud-download"></i></a>
-                                    </td>
-                                    <td>
-                                        <a href="{{path('importResultDownload',{type:'errors','id':r.id})}}" class="btn btn-xs btn-danger">{{r.errorCount}} {{'Errors'|trans}} <i class="fa fa-cloud-download"></i></a>
-                                    </td>
-                                    <td>{{ import_actions(r) }}</td>
-                                </tr>
+                <div class="widget-body">
+                    <div class="widget-toolbox padding-8">
+                        <div class="collapse" id="waitlistFilter">
+                            <form method="POST" action="{{ path('importIndex') }}" {{ form_enctype(form) }} novalidate>
 
-                                <tr>
-                                    <td colspan="2">{{ r.inputDateStart.format('Y-m-d') }} - {{ r.inputDateEnd.format('Y-m-d') }}</td>
-                                    <td id="progress-{{ r.id }}-status">{{ r.pheanstalkStatus }}</td>
-                                    <td colspan="6">
-                                {%  if r.running %}
-                                        <div id="progress-{{ r.id }}-row">
-                                            <div class="progress pos-rel" id="progress-{{ r.id }}-percent" data-percent="{{ r.percentComplete }}%">
-                                                <div class="progress-bar" style="width:{{ r.percentComplete }}%;" id="progress-{{ r.id }}"></div>
-                                            </div>
+                                <div class="widget-main">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            {{ form_row(form.map) }}
                                         </div>
-                                        <script type="text/javascript">
-                                            $(function() {
-                                                function pollLatestResponse() {
-                                                    $.get("{{ path('importStatus', {'id': r.id}) }}").done(function (ret) {
-                                                        var retValue = jQuery.parseJSON(ret);
-                                                        $('#progress-{{r.id}}').css({'width':retValue['percent']});
-                                                        $('#progress-{{r.id}}-percent').attr('data-percent',retValue['percent']);
-                                                        $('#progress-{{r.id}}-source').html(retValue['sourceCount']+ ' ('+retValue['percent']+')');
-                                                        $('#progress-{{r.id}}-processed').html(retValue['processedCount']);
-                                                        $('#progress-{{r.id}}-status').html(retValue['status']);
-                                                        $('#progress-{{r.id}}-imported').html(retValue['importedCount']);
+                                        <div class="col-xs-3">
+                                            {{ form_row(form.inputDateStart) }}
+                                            {{ form_row(form.inputDateEnd) }}
+                                        </div>
+                                        <div class="col-xs-3">
+                                            {{ form_row(form.sourceFile) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="widget-toolbox padding-6 clearfix">
+                                    {{ form_row(form.import) }}
+                                    {{ form_rest(form) }}
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="widget-main">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>{{'Created'|trans}}</th>
+                                    <th>{{'Map'|trans}}</th>
+                                    <th>{{'File'|trans}}</th>
+                                    <th rowspan="2">{{'File Record Count'|trans}}</th>
+                                    <th rowspan="2">{{'Imported'|trans}}</th>
+                                    <th rowspan="2">{{'Successes'|trans}}</th>
+                                    <th rowspan="2">{{'Warnings'|trans}}</th>
+                                    <th rowspan="2">{{'Errors'|trans}}</th>
+                                    <th rowspan="2">{{'Actions'|trans }}</th>
+                                </tr>
+                                <tr>
+                                    <th colspan="2">{{ 'Range'|trans }}</th>
+                                    <th>{{ 'Status' }}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {%for r in results %}
+                                    <tr>
+                                        <td>{{r.createdAt.format('Y-m-d H:i:s')}}</td>
+                                        <td>{{r.mapName}}</td>
+                                        <td><a href="{{path('importResultDownload',{type:'source','id':r.id})}}"/>{{ r.source }}</a></td>
+                                        <td id="progress-{{ r.id }}-source"> {{ r.sourceCount }} ({{ r.percentComplete|number_format(0) }}%) </td>
+                                        <td id="progress-{{ r.id }}-imported"> {{ r.importedCount }} </td>
+                                        <td>
+                                            <a href="{{path('importResultDownload',{type:'success','id':r.id})}}" class="btn btn-xs btn-success">{{'Successful'|trans}} <i class="fa fa-cloud-download"></i></a>
+                                        </td>
+                                        <td>
+                                            <a href="{{path('importResultDownload',{type:'warnings','id':r.id})}}" class="btn btn-xs btn-warning">{{r.warningCount}} {{'Warnings'|trans}} <i class="fa fa-cloud-download"></i></a>
+                                        </td>
+                                        <td>
+                                            <a href="{{path('importResultDownload',{type:'errors','id':r.id})}}" class="btn btn-xs btn-danger">{{r.errorCount}} {{'Errors'|trans}} <i class="fa fa-cloud-download"></i></a>
+                                        </td>
+                                        <td>{{ import_actions(r) }}</td>
+                                    </tr>
 
-                                                        if (retValue['status'] == '{{ constant('NS\\ImportBundle\\Entity\\Import::STATUS_BURIED') }}' ) {
-                                                            clearInterval(pollTimer);
-                                                            $('#progress-{{ r.id }}-row').hide();
+                                    <tr>
+                                        <td colspan="2">{{ r.inputDateStart.format('Y-m-d') }} - {{ r.inputDateEnd.format('Y-m-d') }}</td>
+                                        <td id="progress-{{ r.id }}-status">{{ r.pheanstalkStatus }}</td>
+                                        <td colspan="6">
+                                            {%  if r.running %}
+                                                <div id="progress-{{ r.id }}-row">
+                                                    <div class="progress pos-rel" id="progress-{{ r.id }}-percent" data-percent="{{ r.percentComplete }}%">
+                                                        <div class="progress-bar" style="width:{{ r.percentComplete }}%;" id="progress-{{ r.id }}"></div>
+                                                    </div>
+                                                </div>
+                                                <script type="text/javascript">
+                                                    $(function() {
+                                                        function pollLatestResponse() {
+                                                            $.get("{{ path('importStatus', {'id': r.id}) }}").done(function (ret) {
+                                                                var retValue = jQuery.parseJSON(ret);
+                                                                $('#progress-{{r.id}}').css({'width':retValue['percent']});
+                                                                $('#progress-{{r.id}}-percent').attr('data-percent',retValue['percent']);
+                                                                $('#progress-{{r.id}}-source').html(retValue['sourceCount']+ ' ('+retValue['percent']+')');
+                                                                $('#progress-{{r.id}}-processed').html(retValue['processedCount']);
+                                                                $('#progress-{{r.id}}-status').html(retValue['status']);
+                                                                $('#progress-{{r.id}}-imported').html(retValue['importedCount']);
+
+                                                                if (retValue['status'] == '{{ constant('NS\\ImportBundle\\Entity\\Import::STATUS_BURIED') }}' ) {
+                                                                    clearInterval(pollTimer);
+                                                                    $('#progress-{{ r.id }}-row').hide();
+                                                                }
+                                                            });
                                                         }
-                                                    });
-                                                }
 
-                                                var pollTimer;
-                                                $(document).ready(function () {
-                                                    pollTimer = setInterval(pollLatestResponse, 5000);
-                                                });
-                                            });
-                                        </script>
-                                {% endif %}
-                                        <div id="progress-{{ r.id }}-exceptions" style="display: none;">
-                                            {{ r.pheanstalkStackTrace|nl2br }}
-                                        </div>
-                                    </td>
-                                </tr>
-                            {%endfor %}
-                        </tbody>
-                    </table>
+                                                        var pollTimer;
+                                                        $(document).ready(function () {
+                                                            pollTimer = setInterval(pollLatestResponse, 5000);
+                                                        });
+                                                    });
+                                                </script>
+                                            {% endif %}
+                                            <div id="progress-{{ r.id }}-exceptions" style="display: none;">
+                                                {{ r.pheanstalkStackTrace|nl2br }}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {%endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
