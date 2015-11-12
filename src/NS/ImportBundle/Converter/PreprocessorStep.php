@@ -61,6 +61,7 @@ class PreprocessorStep implements Step
                 $expr = $this->expressionBuilder->convertRuleToExpression($condition->getRule());
                 if ($this->language->evaluate($expr, array('item' => $item))) {
                     $accessor->setValue($item, sprintf('[%s]', $property), $condition->getValue());
+                    break;
                 }
             }
         }

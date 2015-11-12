@@ -857,6 +857,16 @@ class ImportProcessorTest extends WebTestCase
 
     /**
      * @group preprocessor
+     *
+     * This tests *two critical* features of the PreProcessorStep.
+     *
+     * Given an item array with with two PreProcessors per row, ensure that a match on the first property does not stop
+     * the preProcessor at looking at the second property with a match.
+     *
+     * Given a preprocessor set with multiple independent conditions, once one match is made it stops looking
+     * For example in the adm_dx preProcessor, if the first condition is true (orgValue = 3) it should stop processing,
+     * otherwise it will change it to 3, which matches the third condition which then changes it to 6. This would seem
+     * like a nice feature, except a single condition can be individually complex enough to express something like that.
      */
     public function testPreProcessor()
     {
@@ -888,6 +898,9 @@ class ImportProcessorTest extends WebTestCase
             ),
             array(
                 'name'      => 'lName',
+                'preProcessor'=> '[
+                                 {"conditions":{"condition":"AND","rules":[{"id":"lName","field":"lName","type":"string","input":"text","operator":"equal","value":"l Name2"}]},"output_value":"Second"}
+                                ]',
                 'converter' => null,
                 'mapper'    => 'lastName',
                 'ignored'   => false,
@@ -926,6 +939,7 @@ class ImportProcessorTest extends WebTestCase
 
         $this->assertInstanceOf('NS\SentinelBundle\Form\Types\Diagnosis',$results[1]->getAdmDx());
         $this->assertTrue($results[1]->getAdmDx()->equal(1),sprintf('%d != %d',1,$results[1]->getAdmDx()->getValue()));
+        $this->assertEquals('Second',$results[1]->getLastName());
 
         $this->assertInstanceOf('NS\SentinelBundle\Form\Types\Diagnosis',$results[2]->getAdmDx());
         $this->assertTrue($results[2]->getAdmDx()->equal(4),sprintf('%d != %d',4,$results[2]->getAdmDx()->getValue()));
