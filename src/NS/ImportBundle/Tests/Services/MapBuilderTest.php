@@ -42,7 +42,7 @@ class MapBuilderTest extends WebTestCase
         $this->assertEquals('Test IBD From File', $map->getName());
         $this->assertEquals('1.0', $map->getVersion());
         $this->assertEquals($file, $map->getFile());
-        $this->assertEquals(sprintf("%s %s", $map->getName(), $map->getVersion()), $map->__toString());
+        $this->assertEquals(sprintf("%s (%s)", $map->getName(), $map->getVersion()), $map->__toString());
 
         $mapBuilder->process($map);
         $columns    = $map->getColumns();
