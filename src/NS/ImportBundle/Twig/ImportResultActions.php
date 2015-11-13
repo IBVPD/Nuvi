@@ -49,9 +49,7 @@ class ImportResultActions extends \Twig_Extension
 
         if($import->isComplete()) {
             $output[] = sprintf('<a class="btn btn-xs btn-success" href="%s">%s</button>',$this->router->generate('importResubmit',array('id'=>$import->getId())),'Re-submit');
-        }
-
-        if(!$import->isComplete() && !$import->isQueued() && !$import->hasError()) {
+        } elseif(!$import->isQueued() && !$import->hasError()) {
             $output[] = sprintf('<a class="btn btn-xs btn-success" href="%s">%s</button>',$this->router->generate('importResubmit',array('id'=>$import->getId())),'Queue');
         }
 
