@@ -154,7 +154,8 @@ class ImportProcessor
     public function getReader(Import $import)
     {
         // Create and configure the reader
-        $reader = ReaderFactory::getReader($import->getSourceFile());
+        $factory = new ReaderFactory();
+        $reader = $factory->getReader($import->getSourceFile());
         $reader->setHeaderRowNumber(0);
 
         $import->setSourceCount($reader->count());

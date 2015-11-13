@@ -17,7 +17,7 @@ class ReaderFactory
      */
     public function getReader(File $file)
     {
-        $extension = self::getExtension($file);
+        $extension = $this->getExtension($file);
         switch ($extension) {
             case 'csv':
                 return new CsvReader($file->openFile('r'));
@@ -44,7 +44,7 @@ class ReaderFactory
      */
     public function getExtension(File $file)
     {
-        $extension = ($file instanceof UploadedFile) ? self::getUploadedFileExtension($file) : $file->getExtension();
+        $extension = ($file instanceof UploadedFile) ? $this->getUploadedFileExtension($file) : $file->getExtension();
 
         if (!$extension) {
             $extension = $file->guessExtension();

@@ -13,6 +13,16 @@ use Vich\UploaderBundle\Event\Event;
  */
 class EventListener
 {
+    private $readerFactory;
+
+    /**
+     * EventListener constructor.
+     */
+    public function __construct()
+    {
+        $this->readerFactory = new ReaderFactory();
+    }
+
     /**
      * @param Event $event
      */
@@ -21,7 +31,7 @@ class EventListener
         $obj      = $event->getObject();
         $property = $event->getMapping()->getFilePropertyName();
 
-        if($obj instanceof Import && $property == 'source' && ReaderFactory::getExtension($obj->getSourceFile()) == 'csv') {
+        if($obj instanceof Import && $property == 'source' && $this->readerFactory->getExtension($obj->getSourceFile()) == 'csv') {
             $this->convertToUtf8($obj->getSourceFile()->getPathname());
         }
     }
