@@ -53,12 +53,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/beberlei/DoctrineExtensions.git",
-                "reference": "8c11618897b73acd37d03dca098ed4a6da08bdf9"
+                "reference": "d7be90e5273f5fea20fc159c50dedc679feb5178"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/beberlei/DoctrineExtensions/zipball/8c11618897b73acd37d03dca098ed4a6da08bdf9",
-                "reference": "8c11618897b73acd37d03dca098ed4a6da08bdf9",
+                "url": "https://api.github.com/repos/beberlei/DoctrineExtensions/zipball/d7be90e5273f5fea20fc159c50dedc679feb5178",
+                "reference": "d7be90e5273f5fea20fc159c50dedc679feb5178",
                 "shasum": ""
             },
             "require": {
@@ -107,7 +107,7 @@
                 "doctrine",
                 "orm"
             ],
-            "time": "2015-11-11 09:48:55"
+            "time": "2015-11-12 13:25:24"
         },
         {
             "name": "behat/transliterator",
@@ -6395,16 +6395,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.17",
+            "version": "4.8.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "6cc501c1adf86482fbb54fb2958e1c7685f57a61"
+                "reference": "fa33d4ad96481b91df343d83e8c8aabed6b1dfd3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/6cc501c1adf86482fbb54fb2958e1c7685f57a61",
-                "reference": "6cc501c1adf86482fbb54fb2958e1c7685f57a61",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/fa33d4ad96481b91df343d83e8c8aabed6b1dfd3",
+                "reference": "fa33d4ad96481b91df343d83e8c8aabed6b1dfd3",
                 "shasum": ""
             },
             "require": {
@@ -6463,7 +6463,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-11-10 21:39:46"
+            "time": "2015-11-11 11:32:49"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
