@@ -15,21 +15,14 @@ class CaseLinker implements CaseLinkerInterface
     private $repositoryMethod;
 
     /**
-     * @var string
-     */
-    private $serviceId;
-
-    /**
      * CaseLinker constructor.
      * @param array $criteria
      * @param string $repositoryMethod
-     * @param string $serviceId
      */
-    public function __construct(array $criteria, $repositoryMethod, $serviceId)
+    public function __construct(array $criteria, $repositoryMethod)
     {
         $this->criteria = $criteria;
         $this->repositoryMethod = $repositoryMethod;
-        $this->serviceId = $serviceId;
     }
 
 
@@ -47,13 +40,5 @@ class CaseLinker implements CaseLinkerInterface
     public function getRepositoryMethod()
     {
         return $this->repositoryMethod;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getName()
-    {
-        return $this->serviceId;
     }
 }

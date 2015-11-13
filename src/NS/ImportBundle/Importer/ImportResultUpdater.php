@@ -19,9 +19,9 @@ class ImportResultUpdater
     /**
      * @param Import $import
      * @param Result $result
-     * @param Collection $entities
+     * @param array $entities
      */
-    public function update(Import $import, Result $result, Collection $entities)
+    public function update(Import $import, Result $result, array $entities)
     {
         if (!$import->getStartedAt()) {
             $import->setStartedAt($result->getStartTime());
@@ -151,11 +151,11 @@ class ImportResultUpdater
 
     /**
      * @param Import $import
-     * @param Collection $entities
+     * @param array $entities
      * @param boolean $writeHeaders
      * @internal param Import $result
      */
-    public function buildSuccesses(Import $import, Collection $entities, $writeHeaders)
+    public function buildSuccesses(Import $import, array $entities, $writeHeaders)
     {
         $successFile = $import->getSuccessFile();
         $fileWriter = $successFile->openFile('a');

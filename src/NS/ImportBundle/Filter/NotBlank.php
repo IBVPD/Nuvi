@@ -11,10 +11,19 @@ use \Ddeboer\DataImport\ReporterInterface;
  */
 class NotBlank implements ReporterInterface
 {
+    /**
+     * @var array
+     */
     public $fields;
 
+    /**
+     * @var string
+     */
     private $message;
 
+    /**
+     * @var int
+     */
     private $severity = ReporterInterface::ERROR;
 
     /**
@@ -22,7 +31,7 @@ class NotBlank implements ReporterInterface
      */
     public function __construct($fields)
     {
-        $this->fields = ((is_array($fields)) ? $fields : array($fields));
+        $this->fields = ((is_array($fields)) ? array_values($fields) : array($fields));
     }
 
     /**

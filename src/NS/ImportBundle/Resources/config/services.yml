@@ -2,6 +2,18 @@ parameters:
   ns_import.map.classes: { }
 
 services:
+    ns_import.linker_registry:
+      class: NS\ImportBundle\Linker\CaseLinkerRegistry
+      arguments: [ {'ns_import.standard_case_linker': "@ns_import.standard_case_linker", 'ns_import.reference_case_linker': "@ns_import.reference_case_linker" }]
+
+    ns_import.standard_case_linker:
+      class: NS\ImportBundle\Linker\CaseLinker
+      arguments: [ ['site', 'caseId'], 'findBySiteAndCaseId' ]
+
+    ns_import.reference_case_linker:
+      class: NS\ImportBundle\Linker\CaseLinker
+      arguments: [ ['country','caseId'], 'findByCaseIdAndCheckCountry' ]
+
     ns_import.reader_factory:
       class: NS\ImportBundle\Reader\ReaderFactory
 
@@ -83,7 +95,7 @@ services:
     
     ns_import.processor:
         class: NS\ImportBundle\Importer\ImportProcessor
-        arguments: [ @ns_import.converters, @doctrine.orm.entity_manager ]
+        arguments: [ @ns_import.converters, @doctrine.orm.entity_manager, "@ns_import.linker_registry" ]
 
     ns_import.form.class:
         class: NS\ImportBundle\Form\ClassType

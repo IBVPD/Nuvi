@@ -949,4 +949,12 @@ class Import
     {
         return $this->map->getPreProcessor();
     }
+
+    /**
+     * @return string
+     */
+    public function getCaseLinkerId()
+    {
+        return $this->map->getCaseLinker();
+    }
 }

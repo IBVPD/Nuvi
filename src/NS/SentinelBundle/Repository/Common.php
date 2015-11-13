@@ -4,6 +4,7 @@ namespace NS\SentinelBundle\Repository;
 
 use \Doctrine\ORM\NoResultException;
 use \Doctrine\ORM\QueryBuilder;
+use NS\ImportBundle\Exceptions\DuplicateCaseException;
 use \NS\SecurityBundle\Doctrine\SecuredEntityRepository;
 use \NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
 
@@ -118,8 +119,60 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
 
         try {
             return $qb->getQuery()->getSingleResult();
-        } catch (NoResultException $e) {
+        } catch (NoResultException $exception) {
             return null;
         }
+    }
+
+    /**
+     * @param $requiredField
+     * @param array $criteria
+     */
+    private function checkRequiredField($requiredField, array $criteria)
+    {
+        if(!isset($criteria[$requiredField])) {
+            throw new \InvalidArgumentException(sprintf('Missing required "%s" parameter key',$requiredField));
+        }
+    }
+
+    /**
+     * @param array $params
+     * @return mixed|null
+     */
+    public function findBySiteAndCaseId(array $params)
+    {
+        $this->checkRequiredField('site',$params);
+        $this->checkRequiredField('caseId',$params);
+
+        return $this->findWithRelations($params);
+    }
+
+    /**
+     * @param array $params
+     * @return mixed|null
+     */
+    public function findByCaseIdAndCheckCountry(array $params)
+    {
+        $this->checkRequiredField('country',$params);
+        $this->checkRequiredField('caseId',$params);
+
+        $ret = $this->findWithRelations(array('caseId'=>$params['caseId']));
+        $found = 0;
+        $caseRet = $ret;
+
+        if(count($ret) > 1) {
+            foreach($ret as $case) {
+                if($case->getCountry()->getCode() == $params['country']) {
+                    $found++;
+                    $caseRet = $case;
+                }
+            }
+        }
+
+        if($found>1) {
+            throw new DuplicateCaseException(array('found'=>$found,'caseId'=>$params['caseId'],'country'=>$params['count']));
+        }
+
+        return $caseRet;
     }
 }

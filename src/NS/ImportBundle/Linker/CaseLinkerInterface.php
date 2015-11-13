@@ -20,9 +20,4 @@ interface CaseLinkerInterface
      * @return string|null
      */
     public function getRepositoryMethod();
-
-    /**
-     * @return mixed
-     */
-    public function getName();
 }

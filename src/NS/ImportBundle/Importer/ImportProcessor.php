@@ -14,9 +14,13 @@ use \NS\ImportBundle\Converter\Registry;
 use \NS\ImportBundle\Converter\TrimInputConverter;
 use \NS\ImportBundle\Converter\WarningConverter;
 use \NS\ImportBundle\Entity\Import;
+use NS\ImportBundle\Exceptions\CaseLinkerNotFoundException;
 use \NS\ImportBundle\Filter\DateOfBirthFilter;
 use \NS\ImportBundle\Filter\Duplicate;
 use \NS\ImportBundle\Filter\NotBlank;
+use NS\ImportBundle\Linker\CaseLinker;
+use NS\ImportBundle\Linker\CaseLinkerInterface;
+use NS\ImportBundle\Linker\CaseLinkerRegistry;
 use \NS\ImportBundle\Reader\ExcelReader;
 use \NS\ImportBundle\Reader\OffsetableReaderInterface;
 use \NS\ImportBundle\Writer\DoctrineWriter;
@@ -30,22 +34,51 @@ use \NS\ImportBundle\Reader\ReaderFactory;
  */
 class ImportProcessor
 {
+    /**
+     * @var Registry
+     */
     private $registry;
+
+    /**
+     * @var ObjectManager
+     */
     private $entityMgr;
+
+    /**
+     * @var Duplicate
+     */
     private $duplicateFilter;
+
+    /**
+     * @var NotBlank
+     */
     private $notBlankFilter;
+
+    /**
+     * @var DoctrineWriter
+     */
     private $doctrineWriter;
 
+    /**
+     * @var CaseLinkerRegistry
+     */
+    private $linkerRegistry;
+
+    /**
+     * @var integer
+     */
     private $limit  = null;
 
     /**
      * @param Registry $registry
      * @param ObjectManager $entityMgr
+     * @param CaseLinkerRegistry $linkerRegistry
      */
-    public function __construct(Registry $registry, ObjectManager $entityMgr)
+    public function __construct(Registry $registry, ObjectManager $entityMgr, CaseLinkerRegistry $linkerRegistry)
     {
         $this->registry = $registry;
         $this->entityMgr = $entityMgr;
+        $this->linkerRegistry = $linkerRegistry;
     }
 
     /**
@@ -63,10 +96,12 @@ class ImportProcessor
             $reader->setOffset($import->getPosition() - $offset);
         }
 
+        $linker = $this->linkerRegistry->getLinker($import->getCaseLinkerId());
+
         // Create the workflow from the reader
         $workflow = new Workflow\StepAggregator($reader);
         $workflow->setSkipItemOnFailure(true);
-        $workflow->addWriter($this->getWriter($import->getClass()));
+        $workflow->addWriter($this->getWriter($import->getClass(),$linker->getCriteria(),$linker->getRepositoryMethod()));
 
         $this->addSteps($workflow, $import);
 
@@ -80,18 +115,33 @@ class ImportProcessor
     }
 
     /**
+     * @param $linkerName
+     * @return mixed
+     */
+    public function getLinker($linkerName)
+    {
+        if(isset($this->caseLinkers[$linkerName])) {
+            return $this->caseLinkers[$linkerName];
+        }
+
+        throw new CaseLinkerNotFoundException('Unable to locate case linker with id %s');
+    }
+
+    /**
      *
      * @param string $class
+     * @param array $lookupFields
+     * @param string $entityRepositoryMethod
      * @return DoctrineWriter
      * @throws \InvalidArgumentException
      */
-    public function getWriter($class)
+    public function getWriter($class, $lookupFields, $entityRepositoryMethod)
     {
         if ($this->doctrineWriter === null || $this->doctrineWriter->getEntityName() != $class) {
-            $this->doctrineWriter = new DoctrineWriter($this->entityMgr, $class, array('getcode' => 'site', 1 => 'caseId'));
+            $this->doctrineWriter = new DoctrineWriter($this->entityMgr, $class, $lookupFields);
             $this->doctrineWriter->setTruncate(false);
             $this->doctrineWriter->setClearOnFlush(false);
-            $this->doctrineWriter->setEntityRepositoryMethod('findWithRelations');
+            $this->doctrineWriter->setEntityRepositoryMethod($entityRepositoryMethod);
         }
 
         return $this->doctrineWriter;
@@ -246,6 +296,7 @@ class ImportProcessor
 
     /**
      * @param Workflow $workflow
+     * @param Import $import
      * @param int $priority
      */
     public function addWarningStep(Workflow $workflow, Import $import, $priority = 10)

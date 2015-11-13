@@ -10,18 +10,16 @@ class CaseLinkerTest extends \PHPUnit_Framework_TestCase
     /**
      * @param array $data
      * @param $method
-     * @param $id
      *
      * @dataProvider getTestData
      */
-    public function testBasicFunctions(array $data, $method, $id)
+    public function testBasicFunctions(array $data, $method)
     {
-        $linker = new CaseLinker($data,$method,$id);
+        $linker = new CaseLinker($data,$method);
 
         $this->assertInstanceOf('NS\ImportBundle\Linker\CaseLinkerInterface',$linker);
         $this->assertEquals($data,$linker->getCriteria());
         $this->assertEquals($method,$linker->getRepositoryMethod());
-        $this->assertEquals($id,$linker->getName());
     }
 
     public function getTestData()
@@ -30,7 +28,6 @@ class CaseLinkerTest extends \PHPUnit_Framework_TestCase
             array(
                 array('getcode'=>'site','caseId'),
                 'findBySiteAndCaseId',
-                'ns_import.some_service',
             ),
         );
     }
