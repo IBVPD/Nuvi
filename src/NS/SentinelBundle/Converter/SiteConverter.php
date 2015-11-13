@@ -4,7 +4,7 @@ namespace NS\SentinelBundle\Converter;
 
 use \Doctrine\Common\Persistence\ObjectManager;
 use \NS\ImportBundle\Converter\NamedValueConverterInterface;
-use \NS\SentinelBundle\Exceptions\NonExistentSite;
+use \NS\SentinelBundle\Exceptions\NonExistentSiteException;
 
 /**
  * Description of Site
@@ -39,9 +39,9 @@ class SiteConverter implements NamedValueConverterInterface
         }
 
         if (!isset($this->sites[$input])) {
-            throw new NonExistentSite("Unable to find site chain for $input");
+            throw new NonExistentSiteException("Unable to find site chain for $input");
         } elseif (!$this->sites[$input]->isActive()) {
-            throw new NonExistentSite(sprintf('Site %s is inactive, import disabled!',$input));
+            throw new NonExistentSiteException(sprintf('Site %s is inactive, import disabled!',$input));
         }
 
         return $this->sites[$input];
