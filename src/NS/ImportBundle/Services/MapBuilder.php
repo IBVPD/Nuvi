@@ -3,10 +3,10 @@
 namespace NS\ImportBundle\Services;
 
 use \Doctrine\ORM\Mapping\ClassMetadata;
+use \NS\ImportBundle\Converter\Registry;
 use \NS\ImportBundle\Entity\Column;
 use \NS\ImportBundle\Entity\Map;
 use \NS\ImportBundle\Reader\ReaderFactory;
-use \Symfony\Component\Form\AbstractType;
 
 /**
  * Description of MapBuilder
@@ -16,7 +16,12 @@ use \Symfony\Component\Form\AbstractType;
 class MapBuilder
 {
     /**
-     * @var AbstractType
+     * @var ReaderFactory
+     */
+    private $readerFactory;
+
+    /**
+     * @var Registry
      */
     private $converterRegistry;
 
@@ -36,11 +41,38 @@ class MapBuilder
     private $nlMetaData;
 
     /**
+     * MapBuilder constructor.
+     * @param ReaderFactory $readerFactory
+     */
+    public function __construct(ReaderFactory $readerFactory)
+    {
+        $this->readerFactory = $readerFactory;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReaderFactory()
+    {
+        return $this->readerFactory;
+    }
+
+    /**
+     * @param ReaderFactory $readerFactory
+     * @return MapBuilder
+     */
+    public function setReaderFactory(ReaderFactory $readerFactory)
+    {
+        $this->readerFactory = $readerFactory;
+        return $this;
+    }
+
+    /**
      *
-     * @param AbstractType $converterRegistry
+     * @param Registry $converterRegistry
      * @return \NS\ImportBundle\Services\MapBuilder
      */
-    public function setConverterRegistry(AbstractType $converterRegistry)
+    public function setConverterRegistry(Registry $converterRegistry)
     {
         $this->converterRegistry = $converterRegistry;
         return $this;
@@ -87,12 +119,12 @@ class MapBuilder
         }
 
         try {
-            $reader = ReaderFactory::getReader($map->getFile());
+            $reader = $this->readerFactory->getReader($map->getFile());
         } catch (\InvalidArgumentException $exception) {
             return;
         }
 
-        $reader->setHeaderRowNumber(0);
+        $reader->setHeaderRowNumber($map->getHeaderRow()-1);
         $headers = $reader->getColumnHeaders();
 
         foreach ($headers as $name) {
@@ -100,7 +132,7 @@ class MapBuilder
 
             $column->setName($name);
             $column->setMap($map);
-            $this->updateMapper($column, $name);
+            $this->updateMapper($column, $name, $map->getLabPreference());
 
             $map->addColumn($column);
         }
@@ -109,10 +141,9 @@ class MapBuilder
     /**
      * @param Column $column
      * @param string $fieldName
-     * @param object $target
-     * @return null
+     * @param string $labPreference
      */
-    public function updateMapper(Column $column, $fieldName)
+    public function updateMapper(Column $column, $fieldName, $labPreference = 'referenceLab')
     {
         $field = $this->camelCase($fieldName);
 
@@ -132,13 +163,12 @@ class MapBuilder
             return;
         }
         elseif(in_array($field,$this->nlMetaData->getFieldNames())) {
-            $column->setMapper(sprintf('nationalLab.%s',$field));
+            $column->setMapper(sprintf('%s.%s',$labPreference,$field));
             $column->setConverter($this->converterRegistry->getConverterForField($this->nlMetaData->getTypeOfField($field)));
             return;
         }
 
         $column->setIgnored(true);
-        return;
     }
 
     /**

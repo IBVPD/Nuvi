@@ -2,6 +2,9 @@ parameters:
   ns_import.map.classes: { }
 
 services:
+    ns_import.reader_factory:
+      class: NS\ImportBundle\Reader\ReaderFactory
+
     ns_import.converter.excel_date:
       class: NS\ImportBundle\Converter\ExcelDateConverter
       tags:
@@ -59,6 +62,7 @@ services:
 
     ns_import.services.map_builder:
         class: NS\ImportBundle\Services\MapBuilder
+        arguments: [ "@ns_import.reader_factory" ]
         calls:
             - [ setConverterRegistry, [ @ns_import.converters ] ]
 

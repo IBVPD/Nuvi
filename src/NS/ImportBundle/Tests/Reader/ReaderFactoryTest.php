@@ -18,8 +18,9 @@ class ReaderFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testReader($file, $extension, $reader)
     {
-        $this->assertEquals($extension,ReaderFactory::getExtension($file));
-        $this->assertInstanceOf($reader,ReaderFactory::getReader($file));
+        $factory = new ReaderFactory();
+        $this->assertEquals($extension,$factory->getExtension($file));
+        $this->assertInstanceOf($reader,$factory->getReader($file));
     }
 
     public function getFiles()

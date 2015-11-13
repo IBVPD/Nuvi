@@ -5,6 +5,7 @@ namespace NS\ImportBundle\Tests\Services;
 use \Liip\FunctionalTestBundle\Test\WebTestCase;
 use \NS\ImportBundle\Converter\Registry;
 use \NS\ImportBundle\Entity\Map;
+use NS\ImportBundle\Reader\ReaderFactory;
 use \NS\ImportBundle\Services\MapBuilder;
 use \NS\SentinelBundle\Converter\ArrayChoiceConverter;
 use \NS\SentinelBundle\Converter\DosesConverter;
@@ -17,16 +18,16 @@ use \Symfony\Component\HttpFoundation\File\UploadedFile;
  */
 class MapBuilderTest extends WebTestCase
 {
-
     public function testProcessFile()
     {
         $ibdClass   = 'NS\SentinelBundle\Entity\IBD';
         $meta       = $this->getContainer()->get('doctrine.orm.entity_manager')->getClassMetadata($ibdClass);
         $siteMeta   = $this->getContainer()->get('doctrine.orm.entity_manager')->getClassMetadata('NS\SentinelBundle\Entity\IBD\SiteLab');
         $externMeta = $this->getContainer()->get('doctrine.orm.entity_manager')->getClassMetadata('NS\SentinelBundle\Entity\IBD\NationalLab');
+        $readerFact = new ReaderFactory();
 
-        $mapBuilder = new MapBuilder();
-        $this->addConverters($mapBuilder);
+        $mapBuilder = new MapBuilder($readerFact);
+        $mapBuilder->setConverterRegistry($this->getConverterRegistry());
         $mapBuilder->setMetaData($meta);
         $mapBuilder->setSiteMetaData($siteMeta);
         $mapBuilder->setNlMetaData($externMeta);
@@ -35,14 +36,9 @@ class MapBuilderTest extends WebTestCase
         $file = new UploadedFile(__DIR__ . '/../Fixtures/IBD.csv', 'IBD.csv');
 
         $map->setClass($ibdClass);
-        $map->setName('Test IBD From File');
+        $map->setName('Test File');
         $map->setVersion('1.0');
         $map->setFile($file);
-
-        $this->assertEquals('Test IBD From File', $map->getName());
-        $this->assertEquals('1.0', $map->getVersion());
-        $this->assertEquals($file, $map->getFile());
-        $this->assertEquals(sprintf("%s (%s)", $map->getName(), $map->getVersion()), $map->__toString());
 
         $mapBuilder->process($map);
         $columns    = $map->getColumns();
@@ -60,7 +56,7 @@ class MapBuilderTest extends WebTestCase
         }
     }
 
-    private function addConverters(MapBuilder $builder)
+    private function getConverterRegistry()
     {
         $converters = array(
             'ns.sentinel.converter.spnSerotype'                   => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\SpnSerotype'),
@@ -107,7 +103,7 @@ class MapBuilderTest extends WebTestCase
             $converterRegistry->addConverter($id, $converter);
         }
 
-        $builder->setConverterRegistry($converterRegistry);
+        return $converterRegistry;
     }
 
     /**
@@ -118,7 +114,7 @@ class MapBuilderTest extends WebTestCase
      */
     public function testCamelCase($expected, $input)
     {
-        $mapBuilder = new MapBuilder();
+        $mapBuilder = new MapBuilder(new ReaderFactory());
         $this->assertEquals($expected, $mapBuilder->camelCase($input));
     }
 
@@ -141,4 +137,45 @@ class MapBuilderTest extends WebTestCase
             array('expected' => 'csfWcc', 'input' => 'CSF  WCC'),
         );
     }
+
+    public function testSetHeaderIsCalled()
+    {
+        $mockReader = $this->getMockBuilder('NS\ImportBundle\Reader\CsvReader')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $mockReader->expects($this->once())
+            ->method('setHeaderRowNumber')
+            ->with(0);
+        $mockReader->expects($this->once())
+            ->method('getColumnHeaders')
+            ->willReturn(array('columnOne','columnTwo'));
+
+        $mockReaderFactory = $this->getMock('NS\ImportBundle\Reader\ReaderFactory');
+        $mockReaderFactory->expects($this->once())
+            ->method('getReader')
+            ->willReturn($mockReader);
+
+        $ibdClass   = 'NS\SentinelBundle\Entity\IBD';
+        $meta       = $this->getContainer()->get('doctrine.orm.entity_manager')->getClassMetadata($ibdClass);
+        $siteMeta   = $this->getContainer()->get('doctrine.orm.entity_manager')->getClassMetadata('NS\SentinelBundle\Entity\IBD\SiteLab');
+        $externMeta = $this->getContainer()->get('doctrine.orm.entity_manager')->getClassMetadata('NS\SentinelBundle\Entity\IBD\NationalLab');
+
+        $mapBuilder = new MapBuilder($mockReaderFactory);
+        $mapBuilder->setConverterRegistry($this->getConverterRegistry());
+        $mapBuilder->setMetaData($meta);
+        $mapBuilder->setSiteMetaData($siteMeta);
+        $mapBuilder->setNlMetaData($externMeta);
+
+        $map  = new Map();
+        $file = new UploadedFile(__DIR__ . '/../Fixtures/IBD.csv', 'IBD.csv');
+
+        $map->setClass($ibdClass);
+        $map->setName('Test File');
+        $map->setVersion('1.0');
+        $map->setFile($file);
+
+        $mapBuilder->process($map);
+    }
+
 }

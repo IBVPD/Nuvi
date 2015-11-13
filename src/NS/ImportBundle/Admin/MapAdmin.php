@@ -35,7 +35,27 @@ class MapAdmin extends Admin
         $datagridMapper
             ->add('name')
             ->add('version')
+            ->add('class','doctrine_orm_callback',
+                array(
+                    'field_type'=>'choice',
+                    'field_options'=> array('choices'=>array('NS\\SentinelBundle\\Entity\\IBD'=>'IBD','NS\\SentinelBundle\\Entity\\RotaVirus'=>'RotaVirus',),'placeholder'=>' '),
+                    'callback' => array($this,'filterClassType')
+                )
+            )
         ;
+    }
+
+    public function filterClassType($queryBuilder, $alias, $field, $value)
+    {
+        if (!$value['value']) {
+            return;
+        }
+
+        $queryBuilder
+            ->andWhere(sprintf('%s.class = :class', $alias))
+            ->setParameter('class',$value['value']);
+
+        return true;
     }
 
     /**
@@ -44,10 +64,11 @@ class MapAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('name')
-            ->add('class')
-            ->add('version')
-            ->add('description')
+            ->addIdentifier('selectName')
+//            ->add('name')
+//            ->add('simpleClass',null,array('label'=>'Type'))
+//            ->add('version')
+            ->add('description',null,array('label'=>'notes'))
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show'   => array(),
@@ -66,12 +87,16 @@ class MapAdmin extends Admin
     {
         $formMapper
             ->add('name')
-            ->add('description')
+            ->add('description',null,array('label'=>'Notes'))
             ->add('class', 'ClassType')
-            ->add('version');
+            ->add('version')
+            ->add('headerRow','integer')
+        ;
 
         if (!$this->getSubject()->getId()) {
-            $formMapper->add('file', 'file', array('required' => false));
+            $formMapper
+                ->add('labPreference','choice',array('choices'=>array('referenceLab'=>'RRL','nationalLab'=>'NL')))
+                ->add('file', 'file', array('required' => false));
         } else {
             $formMapper->add('columns', 'sonata_type_collection', array('by_reference' => true), array('edit'=>'inline','inline'=>'table'));
         }

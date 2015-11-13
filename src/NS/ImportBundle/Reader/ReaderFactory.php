@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Class ReaderFactory
- * @package NS\ImportBundle\Importer
+ * @package NS\ImportBundle\Reader
  */
 class ReaderFactory
 {
@@ -15,7 +15,7 @@ class ReaderFactory
      * @param File $file
      * @return CsvReader|ExcelReader
      */
-    static public function getReader(File $file)
+    public function getReader(File $file)
     {
         $extension = self::getExtension($file);
         switch ($extension) {
@@ -42,7 +42,7 @@ class ReaderFactory
      * @param File $file
      * @return CsvReader|ExcelReader|null|string
      */
-    static public function getExtension(File $file)
+    public function getExtension(File $file)
     {
         $extension = ($file instanceof UploadedFile) ? self::getUploadedFileExtension($file) : $file->getExtension();
 

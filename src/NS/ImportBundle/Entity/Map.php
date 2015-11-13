@@ -57,6 +57,11 @@ class Map
     private $class;
 
     /**
+     * @var int
+     * @Assert\GreaterThan(value="0",message="This must be greater than zero")
+     */
+    private $headerRow = 1;
+    /**
      * @var
      * @Assert\File
      */
@@ -67,6 +72,12 @@ class Map
      * @ORM\OneToMany(targetEntity="Column",mappedBy="map", fetch="EAGER",cascade={"persist"}, orphanRemoval=true)
      */
     private $columns;
+
+    /**
+     * @var string
+     * @Assert\Choice(choices={"referenceLab","nationalLab"})
+     */
+    private $labPreference = 'referenceLab';
 
     /**
      * {@inheritdoc}
@@ -105,7 +116,7 @@ class Map
      */
     public function __toString()
     {
-        return sprintf('%s (%s)',$this->name, $this->version);
+        return sprintf('%s (%s %s)',$this->name, $this->getSimpleClass(), $this->version);
     }
 
     /**
@@ -114,7 +125,7 @@ class Map
     public function getSelectName()
     {
         $name = $this->__toString();
-        return (mb_strlen($name) <= 30) ? $name: sprintf('%s (%s...)',$this->name,mb_substr($this->version,0,27-mb_strlen($this->name)));
+        return (mb_strlen($name) <= 30) ? $name: sprintf('%s (%s: %s...)',$this->name,$this->getSimpleClass(),mb_substr($this->version,0,27-mb_strlen($this->name)));
     }
 
     /**
@@ -162,6 +173,10 @@ class Map
         return $this->class;
     }
 
+    public function getSimpleClass()
+    {
+        return substr($this->class,strrpos($this->class,'\\')+1);
+    }
     /**
      *
      * @return File
@@ -279,6 +294,42 @@ class Map
 
         $this->columns->remove($column);
 
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getHeaderRow()
+    {
+        return $this->headerRow;
+    }
+
+    /**
+     * @param int $headerRow
+     * @return Map
+     */
+    public function setHeaderRow($headerRow)
+    {
+        $this->headerRow = $headerRow;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLabPreference()
+    {
+        return $this->labPreference;
+    }
+
+    /**
+     * @param string $labPreference
+     * @return Map
+     */
+    public function setLabPreference($labPreference)
+    {
+        $this->labPreference = $labPreference;
         return $this;
     }
 
