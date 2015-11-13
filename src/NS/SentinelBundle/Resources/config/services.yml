@@ -2,6 +2,23 @@ parameters:
 #    ns_sentinel.example.class: NS\SentinelBundle\Example
 
 services:
+    ns_sentinel.twig.report.site_performance:
+      class: NS\SentinelBundle\Twig\Report\SitePerformanceTwig
+      arguments: [ "@twig" ]
+      tags:
+        - { name: twig.extension }
+
+    ns_sentinel.filter.type.ibd_quarterly:
+      class: NS\SentinelBundle\Filter\Type\IBD\QuarterlyReportFilterType
+      tags:
+        - { name: form.type, alias: QuarterlyReportFilter }
+
+    ns_sentinel.filter.type.base_quarterly:
+      class: NS\SentinelBundle\Filter\Type\BaseQuarterlyFilterType
+      arguments: [ @security.context, @ns.security.acl_converter ]
+      tags:
+        - { name: form.type, alias: BaseQuarterlyFilter }
+
     ns.sentinel.form.type.finalresult:
       class: NS\SentinelBundle\Form\Types\FinalResult
       tags:

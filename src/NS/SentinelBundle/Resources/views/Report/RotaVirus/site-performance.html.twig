@@ -1,0 +1,134 @@
+{% extends "NSSentinelBundle::layout.html.twig" %}
+{% block pagetitle %}{{ 'Site Performance'|trans }}{% endblock %}
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="widget-box widget-color-blue no-border">
+                <div class="widget-header widget-header-small">
+                    <h5 class="widget-title">{{ 'Results'|trans }}</h5>
+                    <div class="widget-toolbar">
+                        <a href="#performanceFilters" data-toggle="collapse" class="white small">
+                            <i class="ace-icon fa fa-plus" data-icon-hide="fa-minus" data-icon-show="fa-plus"></i> Filters
+                        </a>
+                    </div>
+                </div>
+                <div class="widget-body">
+                    <div class="widget-toolbox padding-8">
+                        <div class="collapse" id="performanceFilters">
+                            <form method="POST" action="{{ path('reportRotaSitePerformance') }}">
+                                <div class="row">
+                                    <div class="col-lg-2 col-md-3">
+                                        {{ form_row(form.year) }}
+                                    </div>
+                                    {% if form.region is defined %}
+                                        <div class="col-lg-2 col-md-3">
+                                            {{ form_row(form.region) }}
+                                        </div>
+                                    {% endif %}
+                                    {% if form.country is defined %}
+                                        <div class="col-lg-2 col-md-3">
+                                            {{ form_row(form.country) }}
+                                        </div>
+                                    {% endif %}
+                                    {% if form.site is defined %}
+                                        <div class="col-lg-2 col-md-3">
+                                            {{ form_widget(form.site) }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        {{ form.filter is defined ? form_widget(form.filter) }}
+                                        {{ form.export is defined ? form_widget(form.export) }}
+                                        {{ form.reset is defined ? form_widget(form.reset) }}
+                                        {{ form_rest(form) }}
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="widget-main no-padding">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead class="thin-border-bottom">
+                                <tr>
+                                    <th>{{ 'Region'|trans }}</th>
+                                    <th>{{ 'Country'|trans }}</th>
+                                    <th colspan="2">{{ 'Site'|trans }}</th>
+                                    <th>{{ 'Total Cases'|trans }}</th>
+                                    <th colspan="2">{{ 'Consistent Reporting'|trans }}</th>
+                                    <th>{{ 'Minimum No. Cases'|trans }}</th>
+                                    <th>{{ 'Specimen Collection'|trans }}</th>
+                                    <th>{{ 'Lab Confirmed'|trans }}</th>
+                                </tr>
+                                </thead>
+                                {% for result in sites %}
+                                    <tr>
+                                        <td>{{ result.site.country.region.code }}</td>
+                                        <td>{{ result.site.country.code }}</td>
+                                        <td>{{ result.site.code }}</td>
+                                        <td>{{ result.site.name }}</td>
+                                        <td>{{ result.totalCases }}</td>
+                                        {#
+                                            1. Consistent reporting throughout year
+                                                b. Zero reporting if no cases
+                                                a. 12 months
+                                        #}
+
+                                        <td>{{ consistentReporting(result) }}</td>
+                                        <td>{{ result.consistentReportingCount }}</td>
+
+                                        {#2. ≥100 suspected diarrhea cases reported annually#}
+                                        <td>{{ minimumCases(result)}}<br/>{{ result.minimumNumberOfCasesString|trans }}</td>
+                                        {#3. ≥90% of suspect cases with specimen collected within 2 days of admission#}
+                                        <td class="no-padding specimenCollection"><div class="well no-margin no-padding">{{ specimenCollected(result) }}</div></td>
+                                        {#4. ≥90% of specimens tested for rotavirus by EIA#}
+                                        <td class="no-padding specimenCollection"><div class="well no-margin no-padding">{{ labConfirmed(result) }}</div></td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        jQuery(function($) {
+            $('.easy-pie-chart.percentage').each(function(){
+                var $box = $(this).closest('.infobox');
+                var barColor = $(this).data('color') || (!$box.hasClass('infobox-dark') ? $box.css('color') : 'rgba(255,255,255,0.95)');
+                var trackColor = barColor == 'rgba(255,255,255,0.95)' ? 'rgba(255,255,255,0.25)' : '#E2E2E2';
+                var size = parseInt($(this).data('size')) || 50;
+                $(this).easyPieChart({
+                    barColor: barColor,
+                    trackColor: trackColor,
+                    scaleColor: false,
+                    lineCap: 'butt',
+                    lineWidth: parseInt(size/10),
+                    animate: /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase()) ? false : 1000,
+                    size: size
+                });
+            })
+
+            $('.sparkline').each(function(){
+                var $box = $(this).closest('.infobox');
+                var barColor = !$box.hasClass('infobox-dark') ? $box.css('color') : '#FFF';
+                $(this).sparkline('html',
+                        {
+                            tagValuesAttribute:'data-values',
+                            type: 'bar',
+                            barColor: barColor ,
+                            chartRangeMin:$(this).data('min') || 0
+                        });
+            });
+        })
+    </script>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{asset('/bundles/nsace/js/jquery.easypiechart.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('/bundles/nsace/js/jquery.sparkline.min.js')}}"></script>
+{% endblock %}
+

@@ -1,0 +1,7 @@
+{% if result == constant('NS\\SentinelBundle\\Report\\Result\\AbstractSitePerformanceResult::GOOD') %}
+    <span class="label label-success arrowed-in arrowed-right">{{ 'Yes'|trans }}</span>
+{% elseif result == constant('NS\\SentinelBundle\\Report\\Result\\AbstractSitePerformanceResult::WARN') %}
+    <span class="label label-warning arrowed arrowed-in-right">{{ 'No'|trans }}</span>
+{% else %}
+    {{ 'No'|trans }}
+{% endif %}

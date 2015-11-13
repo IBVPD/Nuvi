@@ -69,4 +69,62 @@ class RotaVirusReporter extends AbstractReporter
 
         return array('sites' => $results, 'form' => $form->createView());
     }
+
+
+    public function getSitePerformance(Request $request, FormInterface $form, $redirectRoute)
+    {
+        $results = new ArrayCollection();
+        $alias = 'i';
+        $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getWithCasesForDate($alias,'NS\SentinelBundle\Entity\RotaVirus');
+
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            if ($form->get('reset')->isClicked()) {
+                return new RedirectResponse($this->router->generate($redirectRoute));
+            }
+
+            $this->filter->addFilterConditions($form, $queryBuilder, $alias);
+
+            $sites = $queryBuilder->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult();
+
+            if (empty($sites)) {
+                return array('sites' => array(), 'form' => $form->createView());
+            }
+
+            $this->populateSites($sites,$results,'NS\SentinelBundle\Report\Result\RotaVirus\SitePerformanceResult');
+
+            $repo = $this->entityMgr->getRepository('NSSentinelBundle:RotaVirus');
+            $columns = array(
+                'getConsistentReporting' => 'addConsistentReporting',
+            );
+
+            $this->processSitePerformanceResult($columns, $repo, $alias, $results, $form);
+
+            $columns = array(
+                'getSpecimenCollectedWithinTwoDays' => 'setSpecimenCollection',
+                'getLabConfirmedCount' => 'setLabConfirmed',
+            );
+
+            $this->processResult($columns,$repo,$alias,$results,$form);
+
+//            if ($form->get('export')->isClicked()) {
+//                $fields = array(
+//                    'site.country.region.code',
+//                    'site.country.code',
+//                    'site.code',
+//                    'totalCases',
+//                    'missingAdmissionDiagnosisCount',
+//                    'missingAdmissionDiagnosisPercent',
+//                    'missingDischargeOutcomeCount',
+//                    'missingDischargeOutcomePercent',
+//                    'missingDischargeDiagnosisCount',
+//                    'missingDischargeDiagnosisPercent'
+//                );
+//
+//                return $this->export(new DoctrineCollectionSourceIterator($results, $fields));
+//            }
+        }
+
+        return array('sites' => $results, 'form' => $form->createView());
+    }
 }

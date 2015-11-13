@@ -72,6 +72,8 @@ class AbstractReporter
             // this should always be true.
             if ($fpr && method_exists($fpr, $function)) {
                 call_user_func(array($fpr, $function), $c['caseCount']);
+            } else {
+                throw new \RunTimeException(sprintf('method error %s',$function));
             }
         }
     }
@@ -98,6 +100,7 @@ class AbstractReporter
             }
         }
     }
+
     /**
      *
      * @param SourceIteratorInterface $source
@@ -110,5 +113,46 @@ class AbstractReporter
         $exporter = new Exporter();
 
         return $exporter->getResponse($format, $filename, $source);
+    }
+
+
+    /**
+     * @param $columns
+     * @param $repo
+     * @param $alias
+     * @param $results
+     * @param $form
+     */
+    public function processSitePerformanceResult($columns, $repo, $alias, &$results, $form)
+    {
+        foreach ($columns as $func => $pf) {
+            if (method_exists($repo, $func)) {
+                $query = $repo->$func($alias, $results->getKeys());
+
+                $res = $this->filter
+                    ->addFilterConditions($form, $query, $alias)
+                    ->getQuery()
+                    ->getResult(Query::HYDRATE_SCALAR);
+
+                $this->processSitePerformanceColumn($results, $res, $pf);
+            }
+        }
+    }
+
+    /**
+     *
+     * @param ArrayCollection $results
+     * @param array $counts
+     * @param callback $function
+     */
+    public function processSitePerformanceColumn(ArrayCollection &$results, $counts, $function)
+    {
+        foreach ($counts as $c) {
+            $fpr = $results->get($c['code']);
+            // this should always be true.
+            if ($fpr && method_exists($fpr, $function)) {
+                call_user_func(array($fpr, $function), $c);
+            }
+        }
     }
 }

@@ -151,4 +151,21 @@ class IBDReportController extends Controller
 
         return $this->render('NSSentinelBundle:Report/IBD:dataQuality.html.twig',$params);
     }
+
+    /**
+     * @Route("/site-performance",name="reportIbdSitePerformance")
+     * @param Request $request
+     * @return Response
+     */
+    public function sitePerformanceAction(Request $request)
+    {
+        $form    = $this->createForm('QuarterlyReportFilter',null,array('site_type'=>'advanced'));
+        $service = $this->get('ns_sentinel.ibd_report');
+        $params  = $service->getSitePerformance($request,$form,'reportIBDDataQuality');
+        if($params instanceof Response) {
+            return $params;
+        }
+
+        return $this->render('NSSentinelBundle:Report/IBD:site-performance.html.twig', $params);
+    }
 }

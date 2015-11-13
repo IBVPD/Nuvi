@@ -295,4 +295,35 @@ class RotaVirusRepository extends Common
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
             ->andWhere(sprintf('%s.dischargeDate IS NULL', $alias));
     }
+
+    public function getConsistentReporting($alias, array $siteCodes)
+    {
+        $config = $this->_em->getConfiguration();
+        $config->addCustomDatetimeFunction('MONTH', 'DoctrineExtensions\Query\Mysql\Month');
+
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+            ->select(sprintf('%s.id,MONTH(%s.admDate) as theMonth,COUNT(%s.id) as caseCount,s.code', $alias, $alias, $alias))
+            ->addGroupBy('theMonth')
+            ;
+    }
+
+    public function getSpecimenCollectedWithinTwoDays($alias, array $siteCodes)
+    {
+        $config = $this->_em->getConfiguration();
+        $config->addCustomDatetimeFunction('DATEDIFF', 'DoctrineExtensions\Query\Mysql\DateDiff');
+
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+            ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
+            ->andWhere(sprintf('DATEDIFF(%s.stoolCollectionDate,%s.admDate) <=2 ',$alias,$alias))
+            ;
+    }
+
+    public function getLabConfirmedCount($alias, array $siteCodes)
+    {
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+            ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
+            ->andWhere('sl.elisaDone = :tripleYes OR sl.elisaResult IS NOT NULL OR sl.elisaResult != \'\'')
+            ->setParameter('tripleYes',TripleChoice::YES)
+            ;
+    }
 }

@@ -28,4 +28,21 @@ class RotaVirusReportController extends Controller
 
         return $this->render('NSSentinelBundle:Report:RotaVirus/dataQuality.html.twig',$params);
     }
+
+    /**
+     * @Route("/site-performance",name="reportRotaSitePerformance")
+     * @param Request $request
+     * @return Response
+     */
+    public function sitePerformanceAction(Request $request)
+    {
+        $form    = $this->createForm('QuarterlyReportFilter',null,array('site_type'=>'advanced','include_intense'=>false));
+        $service = $this->get('ns_sentinel.rotavirus_report');
+        $params  = $service->getSitePerformance($request,$form,'reportRotaSitePerformance');
+        if($params instanceof Response) {
+            return $params;
+        }
+
+        return $this->render('NSSentinelBundle:Report/RotaVirus:site-performance.html.twig', $params);
+    }
 }

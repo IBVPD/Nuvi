@@ -9,7 +9,7 @@ use NS\SentinelBundle\Entity\Site;
  * Class AbstractSiteBasedResult
  * @package NS\SentinelBundle\Result
  */
-class AbstractSiteBasedResult
+abstract class AbstractSiteBasedResult
 {
     /**
      * @var Site

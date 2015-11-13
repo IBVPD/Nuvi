@@ -7,6 +7,7 @@ use \Doctrine\ORM\Query;
 use \NS\SentinelBundle\Exceptions\NonExistentCase;
 use \NS\SentinelBundle\Form\Types\BinaxResult;
 use \NS\SentinelBundle\Form\Types\CultureResult;
+use NS\SentinelBundle\Form\Types\Diagnosis;
 use \NS\SentinelBundle\Form\Types\HiSerotype;
 use \NS\SentinelBundle\Form\Types\IBDCaseResult;
 use \NS\SentinelBundle\Form\Types\PCRResult;
@@ -547,6 +548,25 @@ class IBDRepository extends Common
             ->andWhere(sprintf('(%s.dischDx IS NULL OR %s.dischDx IN (:noSelection,:outOfRange))', $alias, $alias))
             ->setParameter('noSelection', ArrayChoice::NO_SELECTION)
             ->setParameter('outOfRange', ArrayChoice::OUT_OF_RANGE);
+    }
+
+    public function getConsistentReporting($alias, array $siteCodes)
+    {
+        $config = $this->_em->getConfiguration();
+        $config->addCustomDatetimeFunction('MONTH', 'DoctrineExtensions\Query\Mysql\Month');
+
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+            ->select(sprintf('%s.id,MONTH(%s.admDate) as theMonth,COUNT(%s.id) as caseCount,s.code', $alias, $alias, $alias))
+            ->addGroupBy('theMonth')
+            ;
+    }
+
+    public function getNumberOfSpecimenCollectedCount($alias, array $siteCodes)
+    {
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+            ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
+            ->andWhere(sprintf('(%s.csfCollected = :tripleYes OR %s.bloodCollected = :tripleYes)', $alias, $alias))
+            ->setParameter('tripleYes', TripleChoice::YES);
     }
 
     /**

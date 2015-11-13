@@ -1,0 +1,27 @@
+<div class="infobox infobox-dark {{ color }}" data-percent="{{ percent }}">
+    {% if includeInfobox %}
+    <div class="infobox-progress">
+        <div class="easy-pie-chart percentage" data-percent="{{ percent }}" data-size="46" style="height: 46px; width: 46px; line-height: 45px;">
+            <span class="percent">{{ percent }}</span>%
+            <canvas height="92" width="92" style="height: 46px; width: 46px;"></canvas></div>
+    </div>
+    {% endif %}
+
+    <div class="infobox-data">
+        <span class="infobox-text">
+            {% if classification == constant('NS\\SentinelBundle\\Report\\Result\\AbstractSitePerformanceResult::GOOD') %}
+                {{ 'Yes'|trans }}
+            {% elseif classification == constant('NS\\SentinelBundle\\Report\\Result\\AbstractSitePerformanceResult::WARN') %}
+                {{ 'No'|trans }}
+            {% else %}
+                {{ 'No'|trans }}
+            {% endif %}
+            -
+            {{ '%count% cases'|trans({'%count%':value}) }}
+        </span>
+
+        <div class="infobox-content">
+            {{ classificationString|trans }}
+        </div>
+    </div>
+</div>

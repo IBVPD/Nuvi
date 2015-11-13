@@ -27,3 +27,18 @@ input.inputOrSelect + select.inputOrSelect {
 input.inputOrSelect + select.inputOrSelect option[value=""] {
     padding: 3px 4px;
 }
+
+.specimenCollection .infobox {
+    width: 100%;
+    padding: 10px;
+}
+
+.specimenCollection .infobox-progress {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.specimenCollection .infobox-data {
+    display: inline-block;
+    vertical-align: middle;
+}

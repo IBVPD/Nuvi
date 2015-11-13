@@ -31,7 +31,7 @@ class BaseObject extends AbstractType //implements EmbeddedFilterTypeInterface
     public function __construct(ObjectManager $entityMgr, $class = null)
     {
         $this->entityMgr = $entityMgr;
-        $this->class     = $class;
+        $this->class = $class;
     }
 
     /**
@@ -39,37 +39,35 @@ class BaseObject extends AbstractType //implements EmbeddedFilterTypeInterface
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $class = $this->class;
-        $resolver->setDefaults(array
-                                (
-                                'class'         => $this->class,
-                                'multiple'      => true,
-                                'query_builder' => $this->entityMgr->getRepository($this->class)->getAllSecuredQueryBuilder(),
-                                'apply_filter'  => function (ORMQuery $filterBuilder, $field, $values) use ($class)
-                                    {
-                                        if (!empty($values['value']))
-                                        {
-                                            $fieldName    = str_replace(array('\\',':'),array('_','_'),$class);
-                                            $values       = $values['value'];
-                                            $queryBuilder = $filterBuilder->getQueryBuilder();
+        $resolver->setDefaults(array(
+            'class' => $this->class,
+            'multiple' => true,
+            'query_builder' => $this->entityMgr->getRepository($this->class)->getAllSecuredQueryBuilder(),
+            'apply_filter' => array($this, 'applyFilter'),
+        ));
+    }
 
-                                            if(count($values) == 1) {
-                                                $queryBuilder->andWhere(sprintf("%s = :%s", $field, $fieldName))->setParameter($fieldName, $values[0]);
-                                            } elseif (count($values) > 0) {
-                                                $where  = array();
-                                                
-                                                foreach($values as $x => $val) {
-                                                    $fieldNamex = $fieldName.$x;
-                                                    $where[] = $field.'= :'.$fieldNamex;
-                                                    $queryBuilder->setParameter($fieldNamex,$val);
-                                                }
+    public function applyFilter(ORMQuery $filterBuilder, $field, $values)
+    {
+        if (!empty($values['value'])) {
+            $fieldName = str_replace(array('\\', ':'), array('_', '_'), $this->class);
+            $values = $values['value'];
+            $queryBuilder = $filterBuilder->getQueryBuilder();
 
-                                                $queryBuilder->andWhere("(".implode(" OR ",$where).")");
-                                            }
-                                        }
-                                    }
-                                )
-                              );
+            if (count($values) == 1) {
+                $queryBuilder->andWhere(sprintf("%s = :%s", $field, $fieldName))->setParameter($fieldName, $values[0]);
+            } elseif (count($values) > 0) {
+                $where = array();
+
+                foreach ($values as $x => $val) {
+                    $fieldNameX = $fieldName . $x;
+                    $where[] = $field . '= :' . $fieldNameX;
+                    $queryBuilder->setParameter($fieldNameX, $val);
+                }
+
+                $queryBuilder->andWhere("(" . implode(" OR ", $where) . ")");
+            }
+        }
     }
 
     /**
