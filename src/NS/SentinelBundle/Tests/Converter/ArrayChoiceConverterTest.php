@@ -97,34 +97,6 @@ class ArrayChoiceConverterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(-1, $convertedObj->getValue());
     }
 
-    public function testPahoEqualsConverter()
-    {
-        $converter = new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\Gender');
-        $genders = array(Gender::MALE => "M = Masculino", Gender::FEMALE => "F = Femenino");
-
-        foreach ($genders as $intType => $strType) {
-            $convertedObj = $converter->__invoke($strType);
-            $this->assertEquals($intType, $convertedObj->getValue());
-        }
-    }
-
-    public function testPahoInterEqualsConverter()
-    {
-        $values = array(
-            TripleChoice::YES => "1 = Si",
-            TripleChoice::YES => "1 =Sí",
-            TripleChoice::UNKNOWN => "99 = Desconocido",
-            TripleChoice::UNKNOWN => "99 =Desconocido",
-            TripleChoice::NO => "0 = No",
-        );
-        $converter = new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\TripleChoice');
-
-        foreach ($values as $intType => $strType) {
-            $convertedObj = $converter->__invoke($strType);
-            $this->assertEquals($intType, $convertedObj->getValue());
-        }
-    }
-
     /**
      * @expectedException \RuntimeException
      */

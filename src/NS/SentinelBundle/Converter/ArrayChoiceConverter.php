@@ -56,28 +56,17 @@ class ArrayChoiceConverter implements NamedValueConverterInterface, ReporterInte
         $this->message = null;
 
         $input = (is_string($value)) ? trim($value) : $value;
-        if ($input !== 0 && (empty($input) || !is_numeric($input))) {
-            if (is_string($input) && strpos($input, "=")) {
-                $values = explode("=", $input);
-                $input  = trim($values[0]);
-            }
-            else {
-                return new $this->class();
-            }
+        if ($input !== 0 && empty($input)) {
+            return new $this->class();
         }
 
         try {
             return new $this->class( is_numeric($input) ? (int) $input : $input );
-        }
-        catch (UnexpectedValueException2 $ex) {
+        } catch (UnexpectedValueException2 $ex) {
             $cons = constant(sprintf('%s::OUT_OF_RANGE',$this->class));
 
-            if($cons) {
-                $this->message = sprintf('%s is invalid - setting to out of range value',$value);
-                return new $this->class($cons);
-            }
-
-            throw new UnexpectedValueException(sprintf("Unable to convert value '%s' for %s", $input, $this->name), null, $ex);
+            $this->message = sprintf('Invalid value (out of range). Set to %s to %d', $value, $cons);
+            return new $this->class($cons);
         }
     }
 
