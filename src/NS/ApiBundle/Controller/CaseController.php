@@ -4,7 +4,7 @@ namespace NS\ApiBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use \NS\SentinelBundle\Exceptions\NonExistentCase;
+use \NS\SentinelBundle\Exceptions\NonExistentCaseException;
 use FOS\RestBundle\Util\Codes;
 use FOS\RestBundle\Controller\FOSRestController;
 use \Doctrine\Common\Persistence\ObjectManager;
@@ -32,7 +32,7 @@ class CaseController extends FOSRestController
             }
 
             throw new NotFoundHttpException("System Error");
-        } catch (NonExistentCase $e) {
+        } catch (NonExistentCaseException $e) {
             throw new NotFoundHttpException("This case does not exist or you are not allowed to retrieve it");
         }
     }

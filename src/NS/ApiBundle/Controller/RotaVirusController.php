@@ -63,7 +63,7 @@ class RotaVirusController extends CaseController
      * @return array
      *
      * @throws NotFoundHttpException when case not exist
-     * @throws NonExistentCase when case doees not exist
+     * @throws NonExistentCaseException when case doees not exist
     */
     public function getRotaCaseLabAction($objId)
     {
@@ -92,7 +92,7 @@ class RotaVirusController extends CaseController
      * @return array
      *
      * @throws NotFoundHttpException when case not exist
-     * @throws NonExistentCase when case doees not exist
+     * @throws NonExistentCaseException when case doees not exist
      */
     public function getRotaCaseRRLAction($objId)
     {
@@ -121,7 +121,7 @@ class RotaVirusController extends CaseController
      * @return array
      *
      * @throws NotFoundHttpException when case not exist
-     * @throws NonExistentCase when case doees not exist
+     * @throws NonExistentCaseException when case doees not exist
      */
     public function getRotaCaseNLAction($objId)
     {

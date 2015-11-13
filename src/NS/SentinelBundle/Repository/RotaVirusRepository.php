@@ -4,7 +4,7 @@ namespace NS\SentinelBundle\Repository;
 
 use \Doctrine\ORM\NoResultException;
 use \Doctrine\ORM\Query;
-use \NS\SentinelBundle\Exceptions\NonExistentCase;
+use \NS\SentinelBundle\Exceptions\NonExistentCaseException;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\UtilBundle\Form\Types\ArrayChoice;
 
@@ -87,7 +87,7 @@ class RotaVirusRepository extends Common
     /**
      * @param $objId
      * @return mixed
-     * @throws NonExistentCase
+     * @throws NonExistentCaseException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function get($objId)
@@ -103,7 +103,7 @@ class RotaVirusRepository extends Common
         try {
             return $this->secure($queryBuilder)->getQuery()->getSingleResult();
         } catch (NoResultException $e) {
-            throw new NonExistentCase("This case does not exist!");
+            throw new NonExistentCaseException("This case does not exist!");
         }
     }
 
@@ -124,7 +124,7 @@ class RotaVirusRepository extends Common
     /**
      * @param $objId
      * @return mixed
-     * @throws NonExistentCase
+     * @throws NonExistentCaseException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function checkExistence($objId)
@@ -142,7 +142,7 @@ class RotaVirusRepository extends Common
 
             return $queryBuilder->getQuery()->getSingleResult();
         } catch (NoResultException $e) {
-            throw new NonExistentCase("This case does not exist!");
+            throw new NonExistentCaseException("This case does not exist!");
         }
     }
 
@@ -183,7 +183,7 @@ class RotaVirusRepository extends Common
     /**
      * @param mixed $objId
      * @return mixed
-     * @throws NonExistentCase
+     * @throws NonExistentCaseException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function find($objId)
@@ -201,7 +201,7 @@ class RotaVirusRepository extends Common
 
             return $queryBuilder->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getSingleResult();
         } catch (NoResultException $e) {
-            throw new NonExistentCase("This case does not exist!");
+            throw new NonExistentCaseException("This case does not exist!");
         }
     }
 

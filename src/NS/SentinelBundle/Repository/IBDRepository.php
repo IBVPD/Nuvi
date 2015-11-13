@@ -4,7 +4,7 @@ namespace NS\SentinelBundle\Repository;
 
 use \Doctrine\ORM\NoResultException;
 use \Doctrine\ORM\Query;
-use \NS\SentinelBundle\Exceptions\NonExistentCase;
+use \NS\SentinelBundle\Exceptions\NonExistentCaseException;
 use \NS\SentinelBundle\Form\Types\BinaxResult;
 use \NS\SentinelBundle\Form\Types\CultureResult;
 use NS\SentinelBundle\Form\Types\Diagnosis;
@@ -141,7 +141,7 @@ class IBDRepository extends Common
     /**
      * @param $objId
      * @return mixed
-     * @throws NonExistentCase
+     * @throws NonExistentCaseException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function get($objId)
@@ -155,7 +155,7 @@ class IBDRepository extends Common
         try {
             return $this->secure($queryBuilder)->getQuery()->getSingleResult();
         } catch (NoResultException $e) {
-            throw new NonExistentCase("This case does not exist!");
+            throw new NonExistentCaseException("This case does not exist!");
         }
     }
 
@@ -175,7 +175,7 @@ class IBDRepository extends Common
     /**
      * @param $objId
      * @return mixed
-     * @throws NonExistentCase
+     * @throws NonExistentCaseException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function checkExistence($objId)
@@ -187,7 +187,7 @@ class IBDRepository extends Common
 
             return $this->secure($queryBuilder)->getQuery()->getSingleResult();
         } catch (NoResultException $e) {
-            throw new NonExistentCase("This case does not exist!");
+            throw new NonExistentCaseException("This case does not exist!");
         }
     }
 

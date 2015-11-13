@@ -4,7 +4,7 @@ namespace NS\SentinelBundle\Repository;
 
 use Doctrine\ORM\Query;
 use NS\SecurityBundle\Doctrine\SecuredEntityRepository;
-use NS\SentinelBundle\Exceptions\NonExistentCase;
+use NS\SentinelBundle\Exceptions\NonExistentCaseException;
 use NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\UnexpectedResultException;
@@ -74,7 +74,7 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
                 return $result;
             }
         } catch (UnexpectedResultException $excep) {
-            if ($excep instanceof NoResultException || $excep instanceof NonExistentCase) {
+            if ($excep instanceof NoResultException || $excep instanceof NonExistentCaseException) {
                 $class = $this->getClassName();
                 $record = new $class();
                 $case = $this->_em->getRepository($this->parentClass)->checkExistence($id);
@@ -107,7 +107,7 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
     /**
      * @param mixed $objId
      * @return mixed
-     * @throws NonExistentCase
+     * @throws NonExistentCaseException
      * @throws \Doctrine\ORM\ORMException
      */
     public function find($objId)
@@ -119,7 +119,7 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
 
             return $this->secure($queryBuilder)->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getSingleResult();
         } catch (NoResultException $e) {
-            throw new NonExistentCase("This case does not exist!");
+            throw new NonExistentCaseException("This case does not exist!");
         }
     }
 }

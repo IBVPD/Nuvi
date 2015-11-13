@@ -293,7 +293,7 @@ fos_rest:
     exception:
       codes:
         '\Symfony\Component\HttpKernel\Exception\NotFoundHttpException': 404
-        '\NS\SentinelBundle\Exceptions\NonExistentCase': 404
+        '\NS\SentinelBundle\Exceptions\NonExistentCaseException': 404
 
 nelmio_api_doc:
   name: WHO API Documentation

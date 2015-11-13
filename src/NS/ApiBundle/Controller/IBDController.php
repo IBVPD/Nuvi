@@ -37,7 +37,7 @@ class IBDController extends CaseController
      * @return array
      *
      * @throws NotFoundHttpException when case not exist
-     * @throws NonExistentCase when case does not exist
+     * @throws NonExistentCaseException when case does not exist
      */
     public function getIbdCaseAction($objId)
     {
@@ -66,7 +66,7 @@ class IBDController extends CaseController
      * @return array
      *
      * @throws NotFoundHttpException when case not exist
-     * @throws NonExistentCase when case doees not exist
+     * @throws NonExistentCaseException when case doees not exist
      */
     public function getIbdCaseLabAction($objId)
     {
@@ -95,7 +95,7 @@ class IBDController extends CaseController
      * @return array
      *
      * @throws NotFoundHttpException when case not exist
-     * @throws NonExistentCase when case doees not exist
+     * @throws NonExistentCaseException when case doees not exist
      */
     public function getIbdCaseRRLAction($objId)
     {
@@ -124,7 +124,7 @@ class IBDController extends CaseController
      * @return array
      *
      * @throws NotFoundHttpException when case not exist
-     * @throws NonExistentCase when case doees not exist
+     * @throws NonExistentCaseException when case doees not exist
      */
     public function getIbdCaseNLAction($objId)
     {

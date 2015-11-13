@@ -32,7 +32,7 @@ class SiteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \NS\SentinelBundle\Exceptions\NonExistentSite
+     * @expectedException \NS\SentinelBundle\Exceptions\NonExistentSiteException
      * @expectedExceptionMessage Unable to find site chain for S5
      */
     public function testSiteConverterNonExistentSiteException()
@@ -44,7 +44,7 @@ class SiteTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \NS\SentinelBundle\Exceptions\NonExistentSite
+     * @expectedException \NS\SentinelBundle\Exceptions\NonExistentSiteException
      * @expectedExceptionMessage Site S4 is inactive, import disabled!
      */
     public function testSiteConverterInactiveSiteException()

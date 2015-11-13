@@ -9,6 +9,6 @@ use \Ddeboer\DataImport\Exception;
  *
  * @author gnat
  */
-class NonExistentSite extends \RuntimeException implements Exception
+class NonExistentSiteException extends NonExistentObjectException implements Exception
 {
 }
