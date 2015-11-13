@@ -20,6 +20,7 @@ class BaseLabType extends AbstractType
         $builder
             ->add('labId', null, array('label' => 'ibd-rrl-form.lab-id', 'required' => true))
             ->add('sampleType', 'SampleType', array('label' => 'ibd-rrl-form.sample-type', 'required' => false))
+            ->add('sampleCollectionDate','acedatepicker',array('label'=>'ibd-rrl-form.sample-collection-date','required'=>false))
             ->add('dateReceived', 'acedatepicker', array('label' => 'ibd-rrl-form.date-received', 'required' => false))
             ->add('isolateViable', 'IsolateViable', array('label' => 'ibd-rrl-form.isolate-viable', 'required' => false))
             ->add('isolateType', 'IsolateType', array('label' => 'ibd-rrl-form.isolate-type', 'required' => false))

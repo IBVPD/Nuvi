@@ -36,6 +36,12 @@ use \JMS\Serializer\Annotation as Serializer;
  */
 abstract class ExternalLab extends BaseExternalLab
 {
+    /**
+     * @var \DateTime $sampleCollectionDate
+     * @ORM\Column(name="sampleCollectionDate",type="date",nullable=true)
+     * @Serializer\Groups({"api"})
+     */
+    protected $sampleCollectionDate;
 
     /**
      * @var SampleType
@@ -497,6 +503,24 @@ abstract class ExternalLab extends BaseExternalLab
     public function setNmSerogroup(NmSerogroup $nmSerogroup)
     {
         $this->nmSerogroup = $nmSerogroup;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getSampleCollectionDate()
+    {
+        return $this->sampleCollectionDate;
+    }
+
+    /**
+     * @param \DateTime $sampleCollectionDate
+     * @return ExternalLab
+     */
+    public function setSampleCollectionDate($sampleCollectionDate)
+    {
+        $this->sampleCollectionDate = $sampleCollectionDate;
         return $this;
     }
 
