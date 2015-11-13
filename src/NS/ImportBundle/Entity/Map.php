@@ -35,6 +35,7 @@ class Map
     /**
      * @var string name
      * @ORM\Column(name="name",type="string")
+     * @Assert\NotBlank()
      */
     private $name;
 
@@ -53,14 +54,24 @@ class Map
     /**
      * @var string $class
      * @ORM\Column(name="class",type="string")
+     * @Assert\NotBlank()
      */
     private $class;
 
     /**
      * @var int
      * @Assert\GreaterThan(value="0",message="This must be greater than zero")
+     * @Assert\NotBlank()
      */
     private $headerRow = 1;
+
+    /**
+     * @var string
+     * @ORM\Column(name="caseLinker",type="string",nullable=true)
+     * @Assert\NotBlank()
+     */
+    private $caseLinker;
+
     /**
      * @var
      * @Assert\File
@@ -333,6 +344,25 @@ class Map
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getCaseLinker()
+    {
+        return $this->caseLinker;
+    }
+
+    /**
+     * @param string $caseLinker
+     * @return Map
+     */
+    public function setCaseLinker($caseLinker)
+    {
+        $this->caseLinker = $caseLinker;
+        return $this;
+    }
+
+    //----------------------------------------------
     /**
      *
      * @return array

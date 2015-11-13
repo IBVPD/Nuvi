@@ -89,12 +89,15 @@ class MapAdmin extends Admin
             ->add('name')
             ->add('description',null,array('label'=>'Notes'))
             ->add('class', 'ClassType')
-            ->add('version')
+            ->add('version',null,array('required'=>false))
             ->add('headerRow','integer')
         ;
 
         if (!$this->getSubject()->getId()) {
             $formMapper
+                ->add('caseLinker','choice',array(
+                    'choices' => array('ns_import.standard_case_linker' => 'Case Id and Site Code','ns_import.reference_case_linker'=>'Case Id and Verify Country'),
+                    'placeholder' => 'Please Select...'))
                 ->add('labPreference','choice',array('choices'=>array('referenceLab'=>'RRL','nationalLab'=>'NL')))
                 ->add('file', 'file', array('required' => false));
         } else {
