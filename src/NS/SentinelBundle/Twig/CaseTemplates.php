@@ -2,7 +2,7 @@
 
 namespace NS\SentinelBundle\Twig;
 
-use \Symfony\Component\Security\Core\SecurityContextInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
  * Description of Templates
@@ -11,18 +11,18 @@ use \Symfony\Component\Security\Core\SecurityContextInterface;
  */
 class CaseTemplates extends \Twig_Extension
 {
-    private $securityContext;
+    private $authChecker;
     private $twig;
 
     /**
      *
-     * @param SecurityContextInterface $context
+     * @param AuthorizationCheckerInterface $checkerInterface
      * @param \Twig_Environment $twig
      */
-    public function __construct(SecurityContextInterface $context, \Twig_Environment $twig)
+    public function __construct(AuthorizationCheckerInterface $checkerInterface, \Twig_Environment $twig)
     {
-        $this->securityContext = $context;
-        $this->twig            = $twig;
+        $this->authChecker = $checkerInterface;
+        $this->twig        = $twig;
     }
 
     /**
@@ -48,16 +48,11 @@ class CaseTemplates extends \Twig_Extension
     {
         $params = array('results' => $results, 'tableId' => $tableId);
 
-        if ($this->securityContext->isGranted('ROLE_SITE_LEVEL'))
-        {
+        if ($this->authChecker->isGranted('ROLE_SITE_LEVEL')) {
             return $this->twig->render('NSSentinelBundle:Case:site.html.twig', $params);
-        }
-        else if ($this->securityContext->isGranted('ROLE_COUNTRY_LEVEL'))
-        {
+        } else if ($this->authChecker->isGranted('ROLE_COUNTRY_LEVEL')) {
             return $this->twig->render('NSSentinelBundle:Case:country.html.twig', $params);
-        }
-        else if ($this->securityContext->isGranted('ROLE_REGION_LEVEL'))
-        {
+        } else if ($this->authChecker->isGranted('ROLE_REGION_LEVEL')) {
             return $this->twig->render('NSSentinelBundle:Case:region.html.twig', $params);
         }
     }
