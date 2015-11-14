@@ -45,6 +45,14 @@ class MapAdmin extends Admin
         ;
     }
 
+    /**
+     * @param $queryBuilder
+     * @param $alias
+     * @param $field
+     * @param $value
+     * @return bool|void
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function filterClassType($queryBuilder, $alias, $field, $value)
     {
         if (!$value['value']) {
@@ -65,9 +73,6 @@ class MapAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('selectName')
-//            ->add('name')
-//            ->add('simpleClass',null,array('label'=>'Type'))
-//            ->add('version')
             ->add('description',null,array('label'=>'notes'))
             ->add('_action', 'actions', array(
                 'actions' => array(

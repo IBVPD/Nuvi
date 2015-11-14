@@ -15,7 +15,7 @@ abstract class BaseCaseListener
     /**
      * @param BaseCase $case
      * @param LifecycleEventArgs $event
-     * @SuppressWarnings(PHPMD.UnsusedFormalParameter)
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function preUpdate(BaseCase $case, LifecycleEventArgs $event)
     {
@@ -29,7 +29,7 @@ abstract class BaseCaseListener
     /**
      * @param BaseCase $case
      * @param LifecycleEventArgs $event
-     * @SuppressWarnings(PHPMD.UnsusedFormalParameter)
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function prePersist(BaseCase $case, LifecycleEventArgs $event)
     {
@@ -76,6 +76,7 @@ abstract class BaseCaseListener
     }
 
     /**
+     * @param BaseCase $case
      * @return null
      */
     public function calculateStatus(BaseCase $case)
@@ -89,16 +90,20 @@ abstract class BaseCaseListener
     }
 
     /**
+     * @param BaseCase $case
+     *
      * @return mixed
      */
     abstract public function getIncompleteField(BaseCase $case);
 
     /**
+     * @param BaseCase $case
      * @return mixed
      */
     abstract public function getMinimumRequiredFields(BaseCase $case);
 
     /**
+     * @param BaseCase $case
      * @return mixed
      */
     abstract public function calculateResult(BaseCase $case);

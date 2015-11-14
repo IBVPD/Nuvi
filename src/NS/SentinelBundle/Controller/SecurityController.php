@@ -13,7 +13,7 @@ class SecurityController extends Controller
      * @Route("/login", name="admin_login")
      * @Method(methods={"GET"})
      */
-    public function loginAction(Request $request)
+    public function loginAction()
     {
         $helper = $this->get('security.authentication_utils');
 

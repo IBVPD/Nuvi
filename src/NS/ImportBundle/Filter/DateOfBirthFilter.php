@@ -15,7 +15,6 @@ class DateOfBirthFilter implements ReporterInterface
      */
     private $message;
 
-    private $fd;
     /**
      * @inheritDoc
      *
@@ -35,7 +34,6 @@ class DateOfBirthFilter implements ReporterInterface
 
         return true;
     }
-
 
     /**
      * @return bool

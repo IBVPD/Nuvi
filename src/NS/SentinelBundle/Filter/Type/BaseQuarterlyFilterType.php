@@ -47,6 +47,7 @@ class BaseQuarterlyFilterType extends AbstractType
      * @param QueryInterface $filterQuery
      * @param $field
      * @param $values
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function filterYear(QueryInterface $filterQuery,$field, $values)
     {
