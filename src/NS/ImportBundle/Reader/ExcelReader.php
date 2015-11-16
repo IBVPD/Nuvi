@@ -42,4 +42,13 @@ class ExcelReader extends BaseReader implements OffsetableReaderInterface
             $this->pointer += $this->offset;
         }
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function valid()
+    {
+        return ($this->pointer < $this->maxRow+$this->headerRowNumber);
+    }
+
 }
