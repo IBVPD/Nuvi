@@ -49,7 +49,7 @@ class MapAdminController extends CRUDController
      */
     public function conditionExpressionAction(Request $request)
     {
-        $preConditions  = json_decode($request->request->conditions,true);
+        $preConditions  = json_decode($request->request->get('conditions'),true);
         $converter = new ConditionConverter();
 
         return $converter->toString($preConditions);
