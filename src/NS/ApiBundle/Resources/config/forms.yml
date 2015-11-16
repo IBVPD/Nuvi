@@ -1,0 +1,20 @@
+services:
+  ns_api.form.api_remote_type:
+    class: NS\ApiBundle\Form\RemoteType
+    tags:
+      - { name: form.type, alias: CreateApiRemote }
+
+  ns_api.form.api_client_type:
+    class: NS\ApiBundle\Form\ClientType
+    tags:
+      - { name: form.type, alias: CreateApiClient }
+
+  ns_api.form.oauth_grant_types:
+    class: NS\ApiBundle\Form\Types\OAuthGrantTypes
+    tags:
+      - { name: form.type, alias: OAuthGrantTypes }
+
+  ns_api_oauth_server.authorize.form_type:
+    class: NS\ApiBundle\Form\Types\AuthorizeFormType
+    tags:
+      - { name: form.type, alias: api_oauth_server_authorize }

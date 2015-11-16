@@ -1,0 +1,12 @@
+services:
+  ns_sentinel.admin.api_client:
+    class: NS\ApiBundle\Admin\ClientAdmin
+    arguments: [~, NS\ApiBundle\Entity\Client, SonataAdminBundle:CRUD]
+    tags:
+      - {name: sonata.admin, manager_type: orm, group: Sync, label: Api Clients}
+
+  ns_api.admin.remote:
+    class: NS\ApiBundle\Admin\RemoteAdmin
+    arguments: [~, NS\ApiBundle\Entity\Remote, SonataAdminBundle:CRUD]
+    tags:
+      - {name: sonata.admin, manager_type: orm, group: Sync, label: Remote}
