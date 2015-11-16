@@ -1,176 +1,83 @@
+imports:
+    - { resource: converters.yml }
+    - { resource: forms.yml }
+    - { resource: sonata.yml }
+
 parameters:
   ns_import.map.classes: { }
 
 services:
-    ns_import.linker_registry:
-      class: NS\ImportBundle\Linker\CaseLinkerRegistry
-      arguments: [ {'ns_import.standard_case_linker': "@ns_import.standard_case_linker", 'ns_import.reference_case_linker': "@ns_import.reference_case_linker" }]
+  ns_import.linker_registry:
+    class: NS\ImportBundle\Linker\CaseLinkerRegistry
+    arguments: [ {'ns_import.standard_case_linker': "@ns_import.standard_case_linker", 'ns_import.reference_case_linker': "@ns_import.reference_case_linker" }]
 
-    ns_import.standard_case_linker:
-      class: NS\ImportBundle\Linker\CaseLinker
-      arguments: [ ['site', 'caseId'], 'findBySiteAndCaseId' ]
+  ns_import.standard_case_linker:
+    class: NS\ImportBundle\Linker\CaseLinker
+    arguments: [ ['site', 'caseId'], 'findBySiteAndCaseId' ]
 
-    ns_import.reference_case_linker:
-      class: NS\ImportBundle\Linker\CaseLinker
-      arguments: [ ['country','caseId'], 'findByCaseIdAndCheckCountry' ]
+  ns_import.reference_case_linker:
+    class: NS\ImportBundle\Linker\CaseLinker
+    arguments: [ ['country','caseId'], 'findByCaseIdAndCheckCountry' ]
 
-    ns_import.reader_factory:
-      class: NS\ImportBundle\Reader\ReaderFactory
+  ns_import.reader_factory:
+    class: NS\ImportBundle\Reader\ReaderFactory
 
-    ns_import.converter.excel_date:
-      class: NS\ImportBundle\Converter\ExcelDateConverter
-      tags:
-        - { name: ns_import.converter }
+  ns_import.workqueue:
+    class: NS\ImportBundle\Services\WorkQueue
+    arguments: [ @leezy.pheanstalk, @doctrine.orm.entity_manager, @ns_import.import_file_creator ]
 
-    ns_import.converter.excel_datetime:
-      class: NS\ImportBundle\Converter\ExcelDateTimeConverter
-      tags:
-        - { name: ns_import.converter }
+  ns_import.twig.import_actions:
+    class: NS\ImportBundle\Twig\ImportResultActions
+    arguments: [ @router, @translator ]
+    tags:
+      - { name: twig.extension, alias: ImportResultAction }
 
-    ns_import.workqueue:
-      class: NS\ImportBundle\Services\WorkQueue
-      arguments: [ @leezy.pheanstalk, @doctrine.orm.entity_manager, @ns_import.import_file_creator ]
+  ns_import.import_file_creator:
+    class: NS\ImportBundle\Services\ImportFileCreator
+    arguments: [ @vich_uploader.property_mapping_factory ]
 
-    ns_import.twig.import_actions:
-        class: NS\ImportBundle\Twig\ImportResultActions
-        arguments: [ @router, @translator ]
-        tags:
-          - { name: twig.extension, alias: ImportResultAction }
+  ns_import.vich.event_listener:
+    class: NS\ImportBundle\Vich\EventListener
+    tags:
+      - { type: kernel.event_listener, name: vich_uploader.post_upload, method: onPostUpload }
 
-    ns_import.import_file_creator:
-      class: NS\ImportBundle\Services\ImportFileCreator
-      arguments: [ @vich_uploader.property_mapping_factory ]
+  ns_import.batch_worker:
+    class: NS\ImportBundle\Importer\ImportBatchWorker
+    arguments: [ @doctrine.orm.entity_manager, @ns_import.processor, @ns_import.linker_registry ]
 
-    ns_import.vich.event_listener:
-        class: NS\ImportBundle\Vich\EventListener
-        tags:
-            - { type: kernel.event_listener, name: vich_uploader.post_upload, method: onPostUpload }
+  ns_import.importer.upload_handler:
+    class: NS\ImportBundle\Importer\ImportResultUpdater
 
-    ns_import.batch_worker:
-        class: NS\ImportBundle\Importer\ImportBatchWorker
-        arguments: [ @doctrine.orm.entity_manager, @ns_import.processor, @ns_import.linker_registry ]
+  ns_import.vich.directory_namer:
+    class: NS\ImportBundle\Vich\DirectoryNamer
 
-    ns_import.importer.upload_handler:
-        class: NS\ImportBundle\Importer\ImportResultUpdater
+  ns_import.converter.columns:
+    class: NS\ImportBundle\Converter\ColumnChooser
+    arguments: [ @doctrine.orm.entity_manager, @doctrine_cache.providers.my_phpfile_cache ]
 
-    ns_import.vich.directory_namer:
-        class: NS\ImportBundle\Vich\DirectoryNamer
+  ns_import.form.type.ibd_columns:
+    class: NS\ImportBundle\Form\Type\IBDColumnType
+    arguments: [ @ns_import.converter.columns, 'NS\SentinelBundle\Entity\IBD' ]
+    tags:
+      - { name: form.type, alias: ibd_columns }
 
-    ns_import.converter.columns:
-        class: NS\ImportBundle\Converter\ColumnChooser
-        arguments: [ @doctrine.orm.entity_manager, @doctrine_cache.providers.my_phpfile_cache ]
+  ns_import.form.type.rota_columns:
+    class: NS\ImportBundle\Form\Type\RotavirusColumnType
+    arguments: [ @ns_import.converter.columns, 'NS\SentinelBundle\Entity\RotaVirus' ]
+    tags:
+      - { name: form.type, alias: rota_columns }
 
-    ns_import.form.type.ibd_columns:
-        class: NS\ImportBundle\Form\Type\IBDColumnType
-        arguments: [ @ns_import.converter.columns, 'NS\SentinelBundle\Entity\IBD' ]
-        tags:
-            - { name: form.type, alias: ibd_columns }
+  ns_import.services.map_builder:
+    class: NS\ImportBundle\Services\MapBuilder
+    arguments: [ "@ns_import.reader_factory" ]
+    calls:
+      - [ setConverterRegistry, [ @ns_import.converters ] ]
 
-    ns_import.form.type.rota_columns:
-        class: NS\ImportBundle\Form\Type\RotavirusColumnType
-        arguments: [ @ns_import.converter.columns, 'NS\SentinelBundle\Entity\RotaVirus' ]
-        tags:
-            - { name: form.type, alias: rota_columns }
+  ns_import.event.subscriber.doctrine_subscriber:
+    class: NS\ImportBundle\Event\Subscriber\DoctrineSubscriber
+    tags:
+      - { name: kernel.event_subscriber }
 
-    ns_import.services.map_builder:
-        class: NS\ImportBundle\Services\MapBuilder
-        arguments: [ "@ns_import.reader_factory" ]
-        calls:
-            - [ setConverterRegistry, [ @ns_import.converters ] ]
-
-    ns_import.event.subscriber.doctrine_subscriber:
-        class: NS\ImportBundle\Event\Subscriber\DoctrineSubscriber
-        tags:
-            - { name: kernel.event_subscriber }
-
-    ns_import.form.ns_filter_date:
-        class: NS\ImportBundle\Form\DateFilterType
-        tags:
-            - { name: form.type, alias: ns_filter_date }
-
-    ns_import.form.ns_filter_date_range:
-        class: NS\ImportBundle\Form\DateRangeFilterType
-        tags:
-            - { name: form.type, alias: ns_filter_date_range }
-    
-    ns_import.processor:
-        class: NS\ImportBundle\Importer\ImportProcessor
-        arguments: [ @ns_import.converters, @doctrine.orm.entity_manager, "@ns_import.linker_registry" ]
-
-    ns_import.form.class:
-        class: NS\ImportBundle\Form\ClassType
-        arguments: [ %ns_import.map.classes% ]
-        tags:
-            - { name: form.type, alias: ClassType }
-
-    ns_import.converters:
-        class: NS\ImportBundle\Converter\Registry
-        tags:
-            - { name: form.type, alias: ConverterChoice }
-
-    ns_import.converter.date.iso:
-        class: NS\ImportBundle\Converter\DateTimeValueConverter
-        arguments: [ "Y-m-d|" ]
-        tags:
-            - { name: ns_import.converter }
-
-    ns_import.converter.date.paho1:
-        class: NS\ImportBundle\Converter\DateTimeValueConverter
-        arguments: [ "d/m/Y|" ]
-        tags:
-            - { name: ns_import.converter }
-
-    ns_import.converter.date.afr1:
-        class: NS\ImportBundle\Converter\DateTimeValueConverter
-        arguments: [ "d-M-y|" ]
-        tags:
-            - { name: ns_import.converter }
-
-    ns_import.converter.date.who:
-        class: NS\ImportBundle\Converter\DateTimeValueConverter
-        arguments: [ "D M d H:i:s e Y" ]
-        tags:
-            - { name: ns_import.converter }
-
-    ns_import.converter.date.timestamp:
-        class: NS\ImportBundle\Converter\DateTimeValueConverter
-        arguments: [ "Y-m-d H:i:s" ]
-        tags:
-            - { name: ns_import.converter }
-
-    ns_import.converter.date.year_month_day:
-        class: NS\ImportBundle\Converter\DateTimeValueConverter
-        arguments: [ "Y/m/d|" ]
-        tags:
-            - { name: ns_import.converter }
-
-    ns_import.converter.date.month_day_year:
-        class: NS\ImportBundle\Converter\DateTimeValueConverter
-        arguments: [ "m/d/Y|" ]
-        tags:
-            - { name: ns_import.converter }
-
-    ns_import.form.import_map_select:
-        class: NS\ImportBundle\Form\ImportSelectType
-        arguments: [ @doctrine.orm.entity_manager, @ns_import.import_file_creator ]
-        tags:
-            - { name: form.type, alias: ImportSelect }
-
-    ns_import.admin.map:
-        class: NS\ImportBundle\Admin\MapAdmin
-        arguments: [~, NS\ImportBundle\Entity\Map, NSImportBundle:MapAdmin ]
-        calls: 
-            - [ setMapBuilder, [ @ns_import.services.map_builder ]]
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: Import/Export, label: Map }
-
-    ns_import.admin.column:
-        class: NS\ImportBundle\Admin\ColumnAdmin
-        arguments: [~, NS\ImportBundle\Entity\Column, SonataAdminBundle:CRUD]
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: Import/Export, label: Column, show_in_dashboard: false }
-
-    ns_import.form.pre_processor_type:
-        class: NS\ImportBundle\Form\Type\PreProcessorType
-        tags:
-            - { name: form.type, alias: PreProcessorType }
+  ns_import.processor:
+    class: NS\ImportBundle\Importer\ImportProcessor
+    arguments: [ @ns_import.converters, @doctrine.orm.entity_manager, "@ns_import.linker_registry" ]

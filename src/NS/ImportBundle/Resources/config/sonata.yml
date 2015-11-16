@@ -1,0 +1,14 @@
+services:
+  ns_import.admin.map:
+    class: NS\ImportBundle\Admin\MapAdmin
+    arguments: [~, NS\ImportBundle\Entity\Map, NSImportBundle:MapAdmin ]
+    calls:
+      - [ setMapBuilder, [ @ns_import.services.map_builder ]]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: Import/Export, label: Map }
+
+  ns_import.admin.column:
+    class: NS\ImportBundle\Admin\ColumnAdmin
+    arguments: [~, NS\ImportBundle\Entity\Column, SonataAdminBundle:CRUD]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: Import/Export, label: Column, show_in_dashboard: false }

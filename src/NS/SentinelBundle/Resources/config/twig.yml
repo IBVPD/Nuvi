@@ -1,0 +1,24 @@
+services:
+
+  ns.sentinel.twig.case_actions:
+    class: NS\SentinelBundle\Twig\CaseActions
+    arguments: [ @security.context, @translator, @router ]
+    tags:
+      - { name: twig.extension, alias: twig_case_actions }
+
+  ns.sentinel.twig.case_templates:
+    class: NS\SentinelBundle\Twig\CaseTemplates
+    arguments: [ @security.context, @twig ]
+    tags:
+      - { name: twig.extension, alias: twig_case_templates }
+
+  ns.sentinel.twig.case_status:
+    class: NS\SentinelBundle\Twig\CaseStatus
+    tags:
+      - { name: twig.extension, alias: twig_case_status }
+
+  ns_sentinel.twig.report.site_performance:
+    class: NS\SentinelBundle\Twig\Report\SitePerformanceTwig
+    arguments: [ "@twig" ]
+    tags:
+      - { name: twig.extension }

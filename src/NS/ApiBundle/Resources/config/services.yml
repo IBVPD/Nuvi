@@ -1,59 +1,62 @@
+imports:
+  - { resource: forms.yml }
+  - { resource: sonata.yml }
+
 parameters:
-#    ns_api.example.class: NS\ApiBundle\Example
-    adoy_oauth2.client.class: OAuth2\Client
-    ns_api.client.class: NS\ApiBundle\Service\OAuth2Client
+  adoy_oauth2.client.class: OAuth2\Client
+  ns_api.client.class: NS\ApiBundle\Service\OAuth2Client
 
 services:
-    ns.api.serializer.array_choice_handler:
-      class: NS\ApiBundle\Serializer\ArrayChoiceHandler
-      tags:
-        - { name: jms_serializer.subscribing_handler }
-    
-    ns_api.form.api_remote_type:
-      class: NS\ApiBundle\Form\RemoteType
-      tags:
-        - { name: form.type, alias: CreateApiRemote }
+  ns.api.serializer.array_choice_handler:
+    class: NS\ApiBundle\Serializer\ArrayChoiceHandler
+    tags:
+      - { name: jms_serializer.subscribing_handler }
 
-    ns_api.form.api_client_type:
-      class: NS\ApiBundle\Form\ClientType
-      tags:
-        - { name: form.type, alias: CreateApiClient }
+  ns_api.form.api_remote_type:
+    class: NS\ApiBundle\Form\RemoteType
+    tags:
+      - { name: form.type, alias: CreateApiRemote }
 
-    ns_api.form.oauth_grant_types:
-      class: NS\ApiBundle\Form\Types\OAuthGrantTypes
-      tags:
-        - { name: form.type, alias: OAuthGrantTypes }
+  ns_api.form.api_client_type:
+    class: NS\ApiBundle\Form\ClientType
+    tags:
+      - { name: form.type, alias: CreateApiClient }
 
-    ns_api_oauth_server.authorize.form_type:
-      class: NS\ApiBundle\Form\Types\AuthorizeFormType
-      tags:
-        - { name: form.type, alias: api_oauth_server_authorize }
+  ns_api.form.oauth_grant_types:
+    class: NS\ApiBundle\Form\Types\OAuthGrantTypes
+    tags:
+      - { name: form.type, alias: OAuthGrantTypes }
 
-    ns_api_oauth_server.authorize.form:
-      factory-method: createNamed
-      factory-service: form.factory
-      class: Symfony\Component\Form\Form
-      arguments: [ "@ns_api_oauth_server.authorize.form_type", ns_api_oauth_server_auth ]
+  ns_api_oauth_server.authorize.form_type:
+    class: NS\ApiBundle\Form\Types\AuthorizeFormType
+    tags:
+      - { name: form.type, alias: api_oauth_server_authorize }
 
-    ns_api_oauth_server.authorize.form_handler:
-      class: NS\ApiBundle\Form\Handler\AuthorizeFormHandler
-      scope: request
-      arguments: [ "@ns_api_oauth_server.authorize.form", "@request", "@security.context", "@fos_oauth_server.server" ]
+  ns_api_oauth_server.authorize.form:
+    factory-method: createNamed
+    factory-service: form.factory
+    class: Symfony\Component\Form\Form
+    arguments: [ "@ns_api_oauth_server.authorize.form_type", ns_api_oauth_server_auth ]
 
-    ns_sentinel.admin.api_client:
-        class: NS\ApiBundle\Admin\ClientAdmin
-        arguments: [~, NS\ApiBundle\Entity\Client, SonataAdminBundle:CRUD]
-        tags:
-            - {name: sonata.admin, manager_type: orm, group: Sync, label: Api Clients}
+  ns_api_oauth_server.authorize.form_handler:
+    class: NS\ApiBundle\Form\Handler\AuthorizeFormHandler
+    scope: request
+    arguments: [ "@ns_api_oauth_server.authorize.form", "@request", "@security.context", "@fos_oauth_server.server" ]
 
-    ns_api.admin.remote:
-        class: NS\ApiBundle\Admin\RemoteAdmin
-        arguments: [~, NS\ApiBundle\Entity\Remote, SonataAdminBundle:CRUD]
-        tags:
-            - {name: sonata.admin, manager_type: orm, group: Sync, label: Remote}
+  ns_sentinel.admin.api_client:
+    class: NS\ApiBundle\Admin\ClientAdmin
+    arguments: [~, NS\ApiBundle\Entity\Client, SonataAdminBundle:CRUD]
+    tags:
+      - {name: sonata.admin, manager_type: orm, group: Sync, label: Api Clients}
 
-    oauth2.client:
-        class: %ns_api.client.class%
-        arguments: [ @doctrine.orm.entity_manager ]
-        tags:
-            - { name: twig.extension, alias: oauth_client }
+  ns_api.admin.remote:
+    class: NS\ApiBundle\Admin\RemoteAdmin
+    arguments: [~, NS\ApiBundle\Entity\Remote, SonataAdminBundle:CRUD]
+    tags:
+      - {name: sonata.admin, manager_type: orm, group: Sync, label: Remote}
+
+  oauth2.client:
+    class: %ns_api.client.class%
+    arguments: [ @doctrine.orm.entity_manager ]
+    tags:
+      - { name: twig.extension, alias: oauth_client }

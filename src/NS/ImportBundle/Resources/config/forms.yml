@@ -1,0 +1,32 @@
+services:
+  ns_import.form.ns_filter_date:
+    class: NS\ImportBundle\Form\DateFilterType
+    tags:
+      - { name: form.type, alias: ns_filter_date }
+
+  ns_import.form.ns_filter_date_range:
+    class: NS\ImportBundle\Form\DateRangeFilterType
+    tags:
+      - { name: form.type, alias: ns_filter_date_range }
+
+  ns_import.form.class:
+    class: NS\ImportBundle\Form\ClassType
+    arguments: [ %ns_import.map.classes% ]
+    tags:
+      - { name: form.type, alias: ClassType }
+
+  ns_import.converters:
+    class: NS\ImportBundle\Converter\Registry
+    tags:
+      - { name: form.type, alias: ConverterChoice }
+
+  ns_import.form.import_map_select:
+    class: NS\ImportBundle\Form\ImportSelectType
+    arguments: [ @doctrine.orm.entity_manager, @ns_import.import_file_creator ]
+    tags:
+      - { name: form.type, alias: ImportSelect }
+
+  ns_import.form.pre_processor_type:
+    class: NS\ImportBundle\Form\Type\PreProcessorType
+    tags:
+      - { name: form.type, alias: PreProcessorType }

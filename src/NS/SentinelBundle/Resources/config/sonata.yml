@@ -1,0 +1,39 @@
+services:
+  ns_sentinel.admin.region:
+    class: NS\SentinelBundle\Admin\RegionAdmin
+    arguments: [~, NS\SentinelBundle\Entity\Region, SonataAdminBundle:CRUD]
+    tags:
+      - {name: sonata.admin, manager_type: orm, group: Administration, label: Region}
+
+  ns_sentinel.admin.country:
+    class: NS\SentinelBundle\Admin\CountryAdmin
+    arguments: [~, NS\SentinelBundle\Entity\Country, SonataAdminBundle:CRUD]
+    tags:
+      - {name: sonata.admin, manager_type: orm, group: Administration, label: Country}
+
+  ns_sentinel.admin.site:
+    class: NS\SentinelBundle\Admin\SiteAdmin
+    arguments: [~, NS\SentinelBundle\Entity\Site, SonataAdminBundle:CRUD]
+    tags:
+      - {name: sonata.admin, manager_type: orm, group: Administration, label: Site}
+
+  ns_sentinel.admin.user:
+    class: NS\SentinelBundle\Admin\UserAdmin
+    arguments: [~, NS\SentinelBundle\Entity\User, SonataAdminBundle:CRUD]
+    calls:
+      - [ setEncoderFactory, [ "@security.encoder_factory" ] ]
+      - [ setSecurityContext, [ "@security.context" ] ]
+    tags:
+      - {name: sonata.admin, manager_type: orm, group: Users, label: User}
+
+  ns_sentinel.admin.acl:
+    class: NS\SentinelBundle\Admin\ACLAdmin
+    arguments: [~, NS\SentinelBundle\Entity\ACL, SonataAdminBundle:CRUD]
+    tags:
+      - {name: sonata.admin, manager_type: orm, group: Administration, label: ACL, show_in_dashboard: false}
+
+  ns_sentinel.admin.reference_lab:
+    class: NS\SentinelBundle\Admin\ReferenceLabAdmin
+    arguments: [~, NS\SentinelBundle\Entity\ReferenceLab, SonataAdminBundle:CRUD]
+    tags:
+      - {name: sonata.admin, manager_type: orm, group: Administration, label: Reference Labs}
