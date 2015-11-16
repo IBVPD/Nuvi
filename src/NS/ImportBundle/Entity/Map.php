@@ -60,6 +60,7 @@ class Map
 
     /**
      * @var int
+     * @ORM\Column(name="headerRow",type="integer")
      * @Assert\GreaterThan(value="0",message="This must be greater than zero")
      * @Assert\NotBlank()
      */
