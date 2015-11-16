@@ -518,7 +518,7 @@ abstract class ExternalLab extends BaseExternalLab
      * @param \DateTime $sampleCollectionDate
      * @return ExternalLab
      */
-    public function setSampleCollectionDate($sampleCollectionDate)
+    public function setSampleCollectionDate(\DateTime $sampleCollectionDate = null)
     {
         $this->sampleCollectionDate = $sampleCollectionDate;
         return $this;
