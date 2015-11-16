@@ -2,6 +2,8 @@
 
 namespace NS\ImportBundle\Linker;
 
+use NS\ImportBundle\Exceptions\CaseLinkerNotFoundException;
+
 class CaseLinkerRegistry
 {
     /**
@@ -40,7 +42,7 @@ class CaseLinkerRegistry
             return $this->caseLinkers[$linkerName];
         }
 
-        throw new CaseLinkerNotFoundException('Unable to locate case linker with id %s');
+        throw new CaseLinkerNotFoundException($linkerName);
     }
 
 }
