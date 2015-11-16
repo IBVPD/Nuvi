@@ -3,7 +3,7 @@
 namespace NS\SentinelBundle\Controller;
 
 use \NS\SentinelBundle\Entity\BaseExternalLab;
-use \NS\SentinelBundle\Exceptions\NonExistentCase;
+use \NS\SentinelBundle\Exceptions\NonExistentCaseException;
 use \Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use \Symfony\Component\HttpFoundation\Request;
 
@@ -99,7 +99,7 @@ abstract class BaseCaseController extends Controller
     {
         try {
             $form = $this->getForm($type, $objId);
-        } catch (NonExistentCase $ex) {
+        } catch (NonExistentCaseException $ex) {
             return $this->render('NSSentinelBundle:User:unknownCase.html.twig', array('message' => $ex->getMessage()));
         }
 
@@ -131,7 +131,7 @@ abstract class BaseCaseController extends Controller
     {
         try {
             return array('record' => $this->get('doctrine.orm.entity_manager')->getRepository($class)->get($id));
-        } catch (NonExistentCase $ex) {
+        } catch (NonExistentCaseException $ex) {
             return $this->render('NSSentinelBundle:User:unknownCase.html.twig', array(
                 'message' => $ex->getMessage()));
         }

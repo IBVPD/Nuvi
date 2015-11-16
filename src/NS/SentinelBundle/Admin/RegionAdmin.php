@@ -16,8 +16,8 @@ class RegionAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('name')
             ->add('code')
+            ->add('name')
         ;
     }
 
@@ -27,8 +27,8 @@ class RegionAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
+            ->addIdentifier('code')
             ->add('name')
-            ->add('code')
             ->add('website')
             ->add('_action', 'actions', array(
                 'actions' => array(
@@ -46,8 +46,8 @@ class RegionAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('name')
             ->add('code')
+            ->add('name')
             ->add('website')
         ;
     }
@@ -58,8 +58,8 @@ class RegionAdmin extends Admin
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
-            ->add('name')
             ->add('code')
+            ->add('name')
             ->add('website')
             ->add('countries')
         ;

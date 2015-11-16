@@ -19,8 +19,8 @@ class CountryAdmin extends Admin
         $type = new TripleChoice();
 
         $datagridMapper
-            ->add('name')
             ->add('code')
+            ->add('name')
             ->add('region')
             ->add('active')
             ->add('tracksPneumonia')
@@ -38,7 +38,7 @@ class CountryAdmin extends Admin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->add('code')
+            ->addIdentifier('code')
             ->add('name')
             ->add('gaviEligible')
             ->add('tracksPneumonia')

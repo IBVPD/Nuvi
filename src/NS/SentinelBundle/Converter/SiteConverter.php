@@ -11,40 +11,18 @@ use \NS\SentinelBundle\Exceptions\NonExistentSiteException;
  *
  * @author gnat
  */
-class SiteConverter implements NamedValueConverterInterface
+class SiteConverter extends AbstractBaseObjectConverter
 {
-    private $sites;
-    private $initialized = false;
-    private $entityMgr;
-
-    /**
-     *
-     * @param ObjectManager $entityMgr
-     */
-    public function __construct(ObjectManager $entityMgr)
-    {
-        $this->entityMgr = $entityMgr;
-    }
-
-    /**
-     *
-     * @param string $input
-     * @return Site
-     * @throws NonExistentSite
-     */
     public function __invoke($input)
     {
-        if (!$this->initialized) {
-            $this->initialize();
-        }
-
-        if (!isset($this->sites[$input])) {
+        $res = $this->findObject($input);
+        if (!$res) {
             throw new NonExistentSiteException("Unable to find site chain for $input");
-        } elseif (!$this->sites[$input]->isActive()) {
+        } elseif (!$res->isActive()) {
             throw new NonExistentSiteException(sprintf('Site %s is inactive, import disabled!',$input));
         }
 
-        return $this->sites[$input];
+        return $res;
     }
 
     /**
@@ -52,8 +30,7 @@ class SiteConverter implements NamedValueConverterInterface
      */
     public function initialize()
     {
-        $this->sites       = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getChain(null,true);
-        $this->initialized = true;
+        return $this->entityMgr->getRepository('NSSentinelBundle:Site')->getChain(null,true);
     }
 
     /**

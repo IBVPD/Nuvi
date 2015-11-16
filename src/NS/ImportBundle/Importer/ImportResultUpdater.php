@@ -4,7 +4,7 @@ namespace NS\ImportBundle\Importer;
 
 use \Ddeboer\DataImport\ReporterInterface;
 use \Ddeboer\DataImport\Result;
-use \Doctrine\Common\Collections\Collection;
+use \Doctrine\ORM\Proxy\Proxy;
 use \NS\ImportBundle\Entity\Import;
 use \NS\SentinelBundle\Entity\BaseCase;
 
@@ -21,7 +21,7 @@ class ImportResultUpdater
      * @param Result $result
      * @param array $entities
      */
-    public function update(Import $import, Result $result, array $entities)
+    public function update(Import $import, Result $result, $entities)
     {
         if (!$import->getStartedAt()) {
             $import->setStartedAt($result->getStartTime());
@@ -155,23 +155,29 @@ class ImportResultUpdater
      * @param boolean $writeHeaders
      * @internal param Import $result
      */
-    public function buildSuccesses(Import $import, array $entities, $writeHeaders)
+    public function buildSuccesses(Import $import, $entities, $writeHeaders)
     {
         $successFile = $import->getSuccessFile();
         $fileWriter = $successFile->openFile('a');
-
+        $headers = array('id','caseId','country','site','siteName');
         $first = false;
         foreach ($entities as $entity) {
             $item = array(
                 'id' => $entity->getId(),
                 'caseId' => $entity->getCaseId(),
-                'site' => $entity->getSite()->getCode(),
-                'siteName' => $entity->getSite()->getName(),
+                'country' => $entity->getCountry()->getCode(),
             );
+
+            if($entity->getSite()) {
+                $item['site'] = $entity->getSite()->getCode();//:'Not linked to site',
+                $item['siteName'] = ($entity->getSite() instanceof Proxy ) ? null : $entity->getSite()->getName();
+            } else {
+                $item['site'] = 'XXX';
+                $item['siteName'] = 'NOT LINKED!!';
+            }
 
             $this->addLabSuccess($entity, $item);
             if ($writeHeaders && $first) {
-                $headers = array_keys($item);
                 $fileWriter->fputcsv($headers);
                 $first = false;
             }

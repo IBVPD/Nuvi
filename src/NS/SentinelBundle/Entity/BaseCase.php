@@ -149,7 +149,7 @@ abstract class BaseCase
     /**
      * @var Region $region
      * @ORM\ManyToOne(targetEntity="\NS\SentinelBundle\Entity\Region")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false,referencedColumnName="code")
      * @Serializer\Groups({"api"})
      */
     protected $region;
@@ -157,7 +157,7 @@ abstract class BaseCase
     /**
      * @var Country $country
      * @ORM\ManyToOne(targetEntity="\NS\SentinelBundle\Entity\Country")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=false,referencedColumnName="code")
      * @Serializer\Groups({"api"})
      */
     protected $country;
@@ -165,7 +165,7 @@ abstract class BaseCase
     /**
      * @var Site $site
      * @ORM\ManyToOne(targetEntity="\NS\SentinelBundle\Entity\Site")
-     * @ORM\JoinColumn(nullable=false,referencedColumnName="code")
+     * @ORM\JoinColumn(nullable=true,referencedColumnName="code")
      * @Serializer\Groups({"api"})
      */
     protected $site;

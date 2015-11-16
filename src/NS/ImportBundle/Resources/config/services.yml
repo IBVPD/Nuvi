@@ -48,7 +48,7 @@ services:
 
     ns_import.batch_worker:
         class: NS\ImportBundle\Importer\ImportBatchWorker
-        arguments: [ @doctrine.orm.entity_manager, @ns_import.processor ]
+        arguments: [ @doctrine.orm.entity_manager, @ns_import.processor, @ns_import.linker_registry ]
 
     ns_import.importer.upload_handler:
         class: NS\ImportBundle\Importer\ImportResultUpdater

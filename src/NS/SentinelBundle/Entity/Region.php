@@ -13,10 +13,10 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * Region
  *
- * @ORM\Table(name="regions",uniqueConstraints={@ORM\UniqueConstraint(name="region_code_idx",columns={"code"})})
+ * @ORM\Table(name="regions")
  * @ORM\Entity(repositoryClass="\NS\SentinelBundle\Repository\RegionRepository")
  * @Security\Secured(conditions={
- *      @Security\SecuredCondition(roles={"ROLE_REGION"},field="id"),
+ *      @Security\SecuredCondition(roles={"ROLE_REGION"},field="code"),
  *      })
  * @SuppressWarnings(PHPMD.ShortVariable)
  * @UniqueEntity(fields={"code"})
@@ -24,13 +24,13 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Region implements \Serializable
 {
     /**
-     * @var integer
+     * @var string
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="code", type="string", length=15)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @Groups({"api"})
      */
-    private $id;
+    private $code;
 
     /**
      * @var string
@@ -39,14 +39,6 @@ class Region implements \Serializable
      * @Groups({"api"})
      */
     private $name;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="code", type="string", length=255)
-     * @Groups({"api"})
-     */
-    private $code;
 
     /**
      * @var string
@@ -65,12 +57,11 @@ class Region implements \Serializable
     private $countries;
 
     /**
-     * @param null $id
-     * @param null $name
+     * @param string|null $code
+     * @param string|null $name
      */
-    public function __construct($id = null, $name = null, $code = null)
+    public function __construct($code = null, $name = null)
     {
-        $this->id        = $id;
         $this->name      = $name;
         $this->code      = $code;
         $this->countries = new ArrayCollection();
@@ -84,6 +75,7 @@ class Region implements \Serializable
         return $this->name;
     }
 
+
     /**
      * Get id
      *
@@ -91,15 +83,40 @@ class Region implements \Serializable
      */
     public function getId()
     {
-        return $this->id;
+        return $this->code;
     }
 
     /**
      * @param $id
+     *
+     * @return Region
      */
     public function setId($id)
     {
-        $this->id = $id;
+        return $this->setCode($id);
+    }
+
+    /**
+     * Set code
+     *
+     * @param string $code
+     * @return Region
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->code;
     }
 
     /**
@@ -131,7 +148,7 @@ class Region implements \Serializable
      * @param Country $countries
      * @return Region
      */
-    public function addCountrie(Country $countries)
+    public function addCountry(Country $countries)
     {
         $this->countries[] = $countries;
     
@@ -143,7 +160,7 @@ class Region implements \Serializable
      *
      * @param Country $countries
      */
-    public function removeCountrie(Country $countries)
+    public function removeCountry(Country $countries)
     {
         $this->countries->removeElement($countries);
     }
@@ -156,29 +173,6 @@ class Region implements \Serializable
     public function getCountries()
     {
         return $this->countries;
-    }
-
-    /**
-     * Set code
-     *
-     * @param string $code
-     * @return Region
-     */
-    public function setCode($code)
-    {
-        $this->code = $code;
-    
-        return $this;
-    }
-
-    /**
-     * Get code
-     *
-     * @return string 
-     */
-    public function getCode()
-    {
-        return $this->code;
     }
 
     /**
@@ -210,9 +204,8 @@ class Region implements \Serializable
     public function serialize()
     {
         return serialize(array(
-            $this->id,
-            $this->name,
             $this->code,
+            $this->name,
             $this->website,
         ));
     }
@@ -223,9 +216,8 @@ class Region implements \Serializable
     public function unserialize($serialized)
     {
         list(
-            $this->id,
-            $this->name,
             $this->code,
+            $this->name,
             $this->website,
              ) = unserialize($serialized);
     }

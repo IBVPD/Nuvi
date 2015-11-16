@@ -54,7 +54,7 @@ class ColumnChooser
      */
     public function buildChoices($class)
     {
-        $choices  = array('site'=>'site (Site)');
+        $choices  = array('site'=>'site (Site)','country'=>'country (Country)');
         $metaData = $this->entityMgr->getClassMetadata($class);
 
         $choices += $this->getMetaChoices($metaData);

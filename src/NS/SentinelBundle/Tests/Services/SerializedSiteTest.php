@@ -81,28 +81,18 @@ class SerializedSiteTest extends \PHPUnit_Framework_TestCase
 
     private function getObjects()
     {
-        $region = new Region();
-        $region->setId(1);
-        $region->setName('Region Name');
+        $region = new Region(1,'Region Name');
 
-        $country = new Country();
-        $country->setId(1);
-        $country->setName('Country Name');
+        $country = new Country(1,'Country Name');
         $country->setRegion($region);
 
-        $site1 = new Site();
-        $site1->setId(1);
-        $site1->setName('Site 1');
+        $site1 = new Site(1, 'Site 1');
         $site1->setCountry($country);
 
-        $site2 = new Site();
-        $site2->setId(2);
-        $site2->setName('Site 2');
+        $site2 = new Site(2,'Site 2');
         $site2->setCountry($country);
 
-        $site3 = new Site();
-        $site3->setId(3);
-        $site3->setName('Site 3');
+        $site3 = new Site(3,'Site 3');
         $site3->setCountry($country);
 
         return array($site1, $site2, $site3);
@@ -110,8 +100,8 @@ class SerializedSiteTest extends \PHPUnit_Framework_TestCase
 
     public function testRegisterSite()
     {
-        $region = new Region('rId','RegionName','rCode');
-        $country = new Country('cId','CountryName','cCode');
+        $region = new Region('rCode','RegionName');
+        $country = new Country('cCode','CountryName');
         $country->setRegion($region);
         $site = new Site('sId','SiteName');
         $site->setCountry($country);
@@ -126,11 +116,11 @@ class SerializedSiteTest extends \PHPUnit_Framework_TestCase
 
         $mockUoW->expects($this->at(1))
             ->method('registerManaged')
-            ->with($country, array('id' => 'cId'), array('id' => 'cId', 'code'=>'cCode'));
+            ->with($country, array('code' => 'cCode'), array('code'=>'cCode'));
 
         $mockUoW->expects($this->at(2))
             ->method('registerManaged')
-            ->with($region, array('id' => 'rId'), array('id' => 'rId', 'code'=>'rCode'));
+            ->with($region, array('code' => 'rCode'), array('code'=>'rCode'));
 
         $mockEntityMgr = $this->getMockBuilder('Doctrine\ORM\EntityManager')
             ->disableOriginalConstructor()

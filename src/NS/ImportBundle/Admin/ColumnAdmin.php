@@ -43,16 +43,16 @@ class ColumnAdmin extends Admin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
-        $columns = null;
+        $mapperType = null;
         if($this->getSubject()) {
-            $columns = ($this->getSubject()->getMap()->getClass() == 'NS\SentinelBundle\Entity\IBD')  ? 'ibd_columns':'rota_columns';
+            $mapperType = ($this->getSubject()->getMap()->getClass() == 'NS\SentinelBundle\Entity\IBD')  ? 'ibd_columns':'rota_columns';
         }
 
         $formMapper
             ->add('name',null,array('attr'=>array('data-queryBuilder'=>'columnName')))
             ->add('preProcessor', 'PreProcessorType',array('required'=>false))
             ->add('converter', 'ConverterChoice', array('required' => false,'attr'=>array('class'=>'chosen-select'),'label'=>'Validator'))
-            ->add('mapper',$columns,array('required'=>false, 'label' => 'DB Column'))
+            ->add('mapper',$mapperType,array('required'=>false, 'label' => 'DB Column'))
             ->add('ignored', null, array('label' => 'Drop?', 'required' => false))
         ;
     }

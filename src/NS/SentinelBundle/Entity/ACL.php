@@ -31,7 +31,7 @@ class ACL extends BaseACL
     /**
      * @var string $object_id
      *
-     * @ORM\Column(name="object_id",type="string")
+     * @ORM\Column(name="object_id",type="string",length=15)
      */
     protected $object_id;
 

@@ -8,7 +8,9 @@ use \NS\SecurityBundle\Annotation\Secured;
 use \NS\SecurityBundle\Annotation\SecuredCondition;
 use \NS\SentinelBundle\Form\Types\IBDIntenseSupport;
 use \NS\SentinelBundle\Form\Types\SurveillanceConducted;
-use \Symfony\Component\Validator\Constraints as Assert;
+
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Site
@@ -21,13 +23,15 @@ use \Symfony\Component\Validator\Constraints as Assert;
  *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},field="code"),
  *      }) 
  * @SuppressWarnings(PHPMD.ShortVariable)
+ * @UniqueEntity(fields={"code"})
+ *
  */
 class Site implements \Serializable
 {
     /**
      * @var string
      *
-     * @ORM\Column(name="code", type="string", length=255)
+     * @ORM\Column(name="code", type="string", length=15)
      * @ORM\Id
      * @Groups({"user","api"})
      */
@@ -161,6 +165,7 @@ class Site implements \Serializable
      * @var Country
      * 
      * @ORM\ManyToOne(targetEntity="Country",inversedBy="sites")
+     * @ORM\JoinColumn(referencedColumnName="code")
      * @Groups({"user"})
      */
     private $country;
@@ -607,7 +612,7 @@ class Site implements \Serializable
 
     /**
      *
-     * @param string $rvLastSiteAssessmentDate
+     * @param \DateTime $rvLastSiteAssessmentDate
      * @return \NS\SentinelBundle\Entity\Site
      */
     public function setRvLastSiteAssessmentDate(\DateTime $rvLastSiteAssessmentDate = null)

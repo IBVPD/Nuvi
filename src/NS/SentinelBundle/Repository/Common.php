@@ -3,6 +3,7 @@
 namespace NS\SentinelBundle\Repository;
 
 use \Doctrine\ORM\NoResultException;
+use Doctrine\ORM\Query;
 use \Doctrine\ORM\QueryBuilder;
 use NS\ImportBundle\Exceptions\DuplicateCaseException;
 use \NS\SecurityBundle\Doctrine\SecuredEntityRepository;
@@ -16,12 +17,20 @@ use \NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
 class Common extends SecuredEntityRepository implements AjaxAutocompleteRepositoryInterface
 {
     /**
-     * @param QueryBuilder $queryBuilder
-     * @return QueryBuilder
+    * @param QueryBuilder $queryBuilder
+    * @return QueryBuilder
      */
     public function secure(QueryBuilder $queryBuilder)
     {
         return $this->hasSecuredQuery() ? parent::secure($queryBuilder) : $queryBuilder;
+    }
+
+    /**
+     * @return array
+     */
+    public function getAll()
+    {
+        return $this->getAllSecuredQueryBuilder()->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD,true)->getResult();
     }
 
     /**
@@ -30,7 +39,11 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
      */
     public function getAllSecuredQueryBuilder($alias = 'o')
     {
-        return $this->secure($this->createQueryBuilder($alias)->orderBy("$alias.name", "ASC"));
+        return $this->secure($this->_em
+            ->createQueryBuilder($alias)
+            ->select($alias)
+            ->from($this->getClassName(),$alias,sprintf('%s.code',$alias))
+            ->orderBy($alias.'.name', 'ASC'));
     }
 
     /**
@@ -53,11 +66,11 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
                 foreach ($fields as $f) {
                     $field = "$alias.$f";
                     $queryBuilder->addOrderBy($field)
-                        ->orWhere("$field LIKE :param")->setParameter('param', '%'.$value['value'] . '%');
+                        ->orWhere("$field LIKE :param")->setParameter('param', '%'.$value['value'].'%');
                 }
             } else {
                 $field = "$alias.$fields";
-                $queryBuilder->orderBy($field)->andWhere("$field LIKE :param")->setParameter('param', '%'.$value['value'] . '%');
+                $queryBuilder->orderBy($field)->andWhere("$field LIKE :param")->setParameter('param', '%'.$value['value'].'%');
             }
         }
 
@@ -127,11 +140,16 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
     /**
      * @param $requiredField
      * @param array $criteria
+     * @param string|null $class
      */
-    private function checkRequiredField($requiredField, array $criteria)
+    private function checkRequiredField($requiredField, array $criteria, $class = null)
     {
-        if(!isset($criteria[$requiredField])) {
-            throw new \InvalidArgumentException(sprintf('Missing required "%s" parameter key',$requiredField));
+        if (!isset($criteria[$requiredField])) {
+            throw new \InvalidArgumentException(sprintf('Missing required "%s" parameter key', $requiredField));
+        }
+
+        if($class !== null && !$criteria[$requiredField] instanceof $class) {
+            throw new \InvalidArgumentException(sprintf('Unexpected type! Expecting \'%s\' to be class \'%s\' got \'%s\' instead.',$requiredField,$class,get_class($criteria[$requiredField])));
         }
     }
 
@@ -141,7 +159,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
      */
     public function findBySiteAndCaseId(array $params)
     {
-        $this->checkRequiredField('site',$params);
+        $this->checkRequiredField('site',$params,'NS\SentinelBundle\Entity\Site');
         $this->checkRequiredField('caseId',$params);
 
         return $this->findWithRelations($params);
@@ -153,24 +171,24 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
      */
     public function findByCaseIdAndCheckCountry(array $params)
     {
-        $this->checkRequiredField('country',$params);
-        $this->checkRequiredField('caseId',$params);
+        $this->checkRequiredField('country', $params,'NS\SentinelBundle\Entity\Country');
+        $this->checkRequiredField('caseId', $params);
 
-        $ret = $this->findWithRelations(array('caseId'=>$params['caseId']));
+        $ret = $this->findWithRelations(array('caseId' => $params['caseId']));
         $found = 0;
         $caseRet = $ret;
 
-        if(count($ret) > 1) {
-            foreach($ret as $case) {
-                if($case->getCountry()->getCode() == $params['country']) {
+        if (count($ret) > 1) {
+            foreach ($ret as $case) {
+                if ($case->getCountry()->getCode() == $params['country']->getCode()) {
                     $found++;
                     $caseRet = $case;
+
+                    if ($found > 1) {
+                        throw new DuplicateCaseException(array('found' => $found, 'caseId' => $params['caseId'], 'country' => $params['count']));
+                    }
                 }
             }
-        }
-
-        if($found>1) {
-            throw new DuplicateCaseException(array('found'=>$found,'caseId'=>$params['caseId'],'country'=>$params['count']));
         }
 
         return $caseRet;

@@ -135,9 +135,12 @@ class ImportProcessor
      * @return DoctrineWriter
      * @throws \InvalidArgumentException
      */
-    public function getWriter($class, $lookupFields, $entityRepositoryMethod)
+    public function getWriter($class, $lookupFields = null, $entityRepositoryMethod = null)
     {
         if ($this->doctrineWriter === null || $this->doctrineWriter->getEntityName() != $class) {
+            if($lookupFields ===null || $entityRepositoryMethod === null) {
+                throw new \InvalidArgumentException("When creating a new writer, the lookupFields and entityRepositoryMethod arguments are required");
+            }
             $this->doctrineWriter = new DoctrineWriter($this->entityMgr, $class, $lookupFields);
             $this->doctrineWriter->setTruncate(false);
             $this->doctrineWriter->setClearOnFlush(false);

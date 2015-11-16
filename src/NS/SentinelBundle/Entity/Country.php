@@ -6,36 +6,33 @@ use \Doctrine\ORM\Mapping as ORM;
 use \Doctrine\Common\Collections\ArrayCollection;
 use \NS\SecurityBundle\Annotation\Secured;
 use \NS\SecurityBundle\Annotation\SecuredCondition;
-use JMS\Serializer\Annotation\Groups;
-use NS\SentinelBundle\Form\Types\TripleChoice;
+use \JMS\Serializer\Annotation\Groups;
+use \NS\SentinelBundle\Form\Types\TripleChoice;
+
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Country
  *
- * @ORM\Table(name="countries",uniqueConstraints={@ORM\UniqueConstraint(name="code_idx", columns={"code"})})
+ * @ORM\Table(name="countries")
  * @ORM\Entity(repositoryClass="\NS\SentinelBundle\Repository\CountryRepository")
  * @Secured(conditions={
  *      @SecuredCondition(roles={"ROLE_REGION"},relation="region",class="NSSentinelBundle:Region"),
- *      @SecuredCondition(roles={"ROLE_COUNTRY","ROLE_RRL_LAB","ROLE_NL_LAB"},field="id"),
+ *      @SecuredCondition(roles={"ROLE_COUNTRY","ROLE_RRL_LAB","ROLE_NL_LAB"},field="code"),
  *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},relation="site",class="NSSentinelBundle:Site"),
  *      })
  * @SuppressWarnings(PHPMD.ShortVariable)
+ * @UniqueEntity(fields={"code"})
  */
 class Country implements \Serializable
 {
     /**
      * @var string
      *
-     * @ORM\Column(name="id", type="integer")
+     * @ORM\Column(name="code", type="string", length=15)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="code", type="string", length=4)
+     * @Assert\NotBlank(message="This field cannot be blank")
      * @Groups({"api"})
      */
     private $code;
@@ -90,6 +87,7 @@ class Country implements \Serializable
      * @var Region
      * 
      * @ORM\ManyToOne(targetEntity="Region",inversedBy="countries")
+     * @ORM\JoinColumn(referencedColumnName="code")
      */
     private $region;
 
@@ -124,15 +122,62 @@ class Country implements \Serializable
     private $referenceLab;
 
     /**
-     * @param null $id
-     * @param null $name
+     * @param string|null $code
+     * @param string|null $name
      */
-    public function __construct($id = null, $name = null, $code = null)
+    public function __construct($code = null, $name = null)
     {
-        $this->id    = $id;
         $this->name  = $name;
         $this->code  = $code;
         $this->sites = new ArrayCollection();
+    }
+
+    /**
+     * @return null|string
+     */
+    public function __toString()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set code
+     *
+     * @param string $code
+     * @return Country
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * Get code
+     *
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->code;
+    }
+
+    /**
+     * @param $id
+     * @return Country
+     */
+    public function setId($id)
+    {
+        return $this->setCode($id);
     }
 
     /**
@@ -151,36 +196,13 @@ class Country implements \Serializable
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
         return $this->name;
     }
 
-    /**
-     * @return null|string
-     */
-    public function __toString()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
 
     /**
      * Add sites
@@ -259,29 +281,6 @@ class Country implements \Serializable
     public function isActive()
     {
         return $this->active;
-    }
-
-    /**
-     * Set code
-     *
-     * @param string $code
-     * @return Country
-     */
-    public function setCode($code)
-    {
-        $this->code = $code;
-    
-        return $this;
-    }
-
-    /**
-     * Get code
-     *
-     * @return string 
-     */
-    public function getCode()
-    {
-        return $this->code;
     }
 
     /**
@@ -380,7 +379,6 @@ class Country implements \Serializable
     public function serialize()
     {
         return serialize(array(
-            $this->id,
             $this->code,
             $this->active,
             $this->name,
@@ -401,8 +399,7 @@ class Country implements \Serializable
      */
     public function unserialize($serialized)
     {
-        list($this->id,
-            $this->code,
+        list($this->code,
             $this->active,
             $this->name,
             $this->gaviEligible,

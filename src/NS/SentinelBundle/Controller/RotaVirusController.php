@@ -106,7 +106,7 @@ class RotaVirusController extends BaseCaseController
      * @return \Symfony\Component\Form\Form
      * @throws \Doctrine\ORM\UnexpectedResultException
      * @throws \Exception
-     * @throws \NS\SentinelBundle\Exceptions\NonExistentCase
+     * @throws \NS\SentinelBundle\Exceptions\NonExistentCaseException
      */
     protected function getForm($type, $objId = null)
     {

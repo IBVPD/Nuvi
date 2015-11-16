@@ -2,9 +2,13 @@
 
 namespace NS\SentinelBundle\Tests\Generator;
 
-use Doctrine\ORM\Query;
+use \Doctrine\ORM\Query;
 use \InvalidArgumentException;
 use \NS\SentinelBundle\Entity\Generator\BaseCaseGenerator;
+use \NS\SentinelBundle\Entity\IBD;
+use \NS\SentinelBundle\Entity\Region;
+use \NS\SentinelBundle\Entity\Country;
+use \NS\SentinelBundle\Entity\Site;
 
 /**
  * Description of EntityGeneratorTest
@@ -30,7 +34,7 @@ class BaseCaseGeneratorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedExceptionMessage Can't generate an id for entities without an assigned site
+     * @expectedExceptionMessage Can't generate an id for entities without an site or country
      * @expectedException \UnexpectedValueException
      */
     public function testEntityNullSite()
@@ -39,34 +43,27 @@ class BaseCaseGeneratorTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $entity = new \NS\SentinelBundle\Entity\IBD();
+        $entity = new IBD();
 
         $generator = new BaseCaseGenerator();
         $generator->generate($entityMgr, $entity);
     }
 
-    /**
-     * @expectedExceptionMessage Can't generate an id for entities with a site without an id ''
-     * @expectedException \UnexpectedValueException
-     */
-    public function testEntitySiteHasNoId()
+    public function testEntitySiteNullWithCountry()
     {
         $entityMgr = $this->getMockBuilder('Doctrine\ORM\EntityManager')
             ->disableOriginalConstructor()
             ->getMock();
 
-        $site = $this->getMock('\NS\SentinelBundle\Entity\Site');
-        $site->expects($this->once())
-            ->method('hasId')
-            ->willReturn(false);
+        $country = new Country('CDN','Canada');
 
-        $entity    = $this->getMock('\NS\SentinelBundle\Entity\IBD');
-        $entity->expects($this->once())
-            ->method('getSite')
-            ->willReturn($site);
+        $entity = new IBD();
+        $entity->setAdmDate(new \DateTime('2015-11-13'));
+        $entity->setCountry($country);
 
         $generator = new BaseCaseGenerator();
-        $generator->generate($entityMgr, $entity);
+        $id = $generator->generate($entityMgr, $entity);
+        $this->assertEquals('CDN-XXX-15-',substr($id,0,11));
     }
 
     public function testCaseIdGeneration()
@@ -99,16 +96,16 @@ class BaseCaseGeneratorTest extends \PHPUnit_Framework_TestCase
         $entityMgr->expects($this->never())
             ->method('rollback');
 
-        $region  = new \NS\SentinelBundle\Entity\Region();
+        $region  = new Region();
         $region->setCode('REG');
-        $country = new \NS\SentinelBundle\Entity\Country();
+        $country = new Country();
         $country->setCode('CNT');
         $country->setRegion($region);
-        $site    = new \NS\SentinelBundle\Entity\Site();
+        $site    = new Site();
         $site->setCode('SITE');
         $site->setCountry($country);
 
-        $entity = new \NS\SentinelBundle\Entity\IBD();
+        $entity = new IBD();
         $entity->setSite($site);
 
         $generator = new BaseCaseGenerator();
