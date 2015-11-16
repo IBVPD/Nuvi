@@ -127,4 +127,40 @@ class RotaVirusReporter extends AbstractReporter
 
         return array('sites' => $results, 'form' => $form->createView());
     }
+
+    public function getDataLinking(Request $request, FormInterface $form, $redirectRoute)
+    {
+        $results = new ArrayCollection();
+        $alias = 'i';
+        $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Country')->getWithCasesForDate($alias,'NS\SentinelBundle\Entity\RotaVirus');
+
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            if ($form->get('reset')->isClicked()) {
+                return new RedirectResponse($this->router->generate($redirectRoute));
+            }
+
+            $this->filter->addFilterConditions($form, $queryBuilder, $alias);
+
+            $sql = $queryBuilder->getQuery()->getSQL();
+            $countries =  $queryBuilder->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult();
+
+            if (empty($countries)) {
+                return array('sites' => array(), 'form' => $form->createView());
+            }
+
+            $this->populateCountries($countries,$results,'NS\SentinelBundle\Report\Result\DataLinkingResult');
+
+            $repo = $this->entityMgr->getRepository('NSSentinelBundle:RotaVirus');
+            $columns = array(
+                'getLinkedCount' => 'setLinked',
+                'getFailedLinkedCount' => 'setNotLinked',
+                'getNoLabCount' => 'setNoLab',
+            );
+
+            $this->processLinkingResult($columns,$repo,$alias,$results,$form);
+        }
+
+        return array('sites' => $results, 'form' => $form->createView());
+    }
 }

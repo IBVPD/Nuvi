@@ -50,7 +50,7 @@ class Builder
             $rotaReport = $reports->addChild('Rota');
             $rotaReport->addChild('Data Quality Checks',array('label'=>'menu.data-reports-data-quality','route'=>'reportRotaDataQuality'));
             $rotaReport->addChild('Site Performance',array('label'=>'menu.data-reports-site-performance','route'=>'reportRotaSitePerformance'));
-            $rotaReport->addChild('RRL Linking',array('label'=>'menu.data-reports-rrl-linking'));
+            $rotaReport->addChild('RRL Linking',array('label'=>'menu.data-reports-rrl-linking','route'=>'reportRotaDataLinking'));
 
             $ibdReport->addChild('Site Performance',array('label'=>'menu.data-reports-site-performance','route'=>'reportIbdSitePerformance'));
             $ibdReport->addChild('Data Quality Checks',array('label'=>'menu.data-reports-data-quality','route'=>'reportIbdDataQuality'));

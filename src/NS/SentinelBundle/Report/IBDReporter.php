@@ -325,7 +325,7 @@ class IBDReporter extends AbstractReporter
                 return array('sites' => array(), 'form' => $form->createView());
             }
 
-            $this->populateCountries($countries,$results,'NS\SentinelBundle\Report\Result\IBD\DataLinkingResult');
+            $this->populateCountries($countries,$results,'NS\SentinelBundle\Report\Result\DataLinkingResult');
 
             $repo = $this->entityMgr->getRepository('NSSentinelBundle:IBD');
             $columns = array(
@@ -340,42 +340,4 @@ class IBDReporter extends AbstractReporter
         return array('sites' => $results, 'form' => $form->createView());
     }
 
-    /**
-     * @param $sites
-     * @param ArrayCollection $results
-     * @param $resultClass
-     */
-    public function populateCountries($sites, ArrayCollection &$results, $resultClass)
-    {
-        foreach ($sites as $values) {
-            $resultObj = new $resultClass;
-            $resultObj->setCountry($values[0]->getCountry());
-            $resultObj->setTotalCases($values['totalCases']);
-
-            $results->set($resultObj->getCountry()->getCode(), $resultObj);
-        }
-    }
-
-    /**
-     * @param $columns
-     * @param $repo
-     * @param $alias
-     * @param $results
-     * @param $form
-     */
-    public function processLinkingResult($columns, $repo, $alias, &$results, $form)
-    {
-        foreach ($columns as $func => $pf) {
-            if (method_exists($repo, $func)) {
-                $query = $repo->$func($alias, $results->getKeys());
-
-                $res = $this->filter
-                    ->addFilterConditions($form, $query, 'i')
-                    ->getQuery()
-                    ->getResult(Query::HYDRATE_SCALAR);
-
-                $this->processColumn($results, $res, $pf);
-            }
-        }
-    }
 }

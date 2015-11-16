@@ -45,4 +45,47 @@ class RotaVirusReportController extends Controller
 
         return $this->render('NSSentinelBundle:Report/RotaVirus:site-performance.html.twig', $params);
     }
+
+    /**
+     * @param Request $request
+     * @return Response
+     *
+     * @Route("/data-linking",name="reportRotaDataLinking")
+     */
+    public function dataLinking(Request $request)
+    {
+        $form    = $this->createForm('RotaVirusQuarterlyLinkingReportFilter',null,array('site_type'=>'advanced'));
+        $service = $this->get('ns_sentinel.rotavirus_report');
+        $params  = $service->getDataLinking($request,$form,'reportRotaDataLinking');
+        if($params instanceof Response) {
+            return $params;
+        }
+
+        return $this->render('NSSentinelBundle:Report/RotaVirus:data-linking.html.twig',$params);
+    }
+
+    public function getLinkedCount($alias, array $countryCodes)
+    {
+        return $this->getByCountryCountQueryBuilder($alias, $countryCodes)
+            ->select(sprintf('COUNT(%s) as caseCount,c.code', $alias, $alias))
+            ->innerJoin('cf.referenceLab',$alias)
+            ->innerJoin('cf.site','s');
+    }
+
+    public function getFailedLinkedCount($alias, array $countryCodes)
+    {
+        return $this->getByCountryCountQueryBuilder($alias, $countryCodes)
+            ->select(sprintf('COUNT(%s) as caseCount,c.code', $alias, $alias))
+            ->innerJoin('cf.referenceLab',$alias)
+            ->leftJoin('cf.site','s')
+            ->andWhere('s.code IS NULL');
+    }
+
+    public function getNoLabCount($alias, array $countryCodes)
+    {
+        return $this->getByCountryCountQueryBuilder($alias, $countryCodes)
+            ->select(sprintf('COUNT(%s) as caseCount,c.code', $alias, $alias))
+            ->leftJoin('cf.referenceLab',$alias)
+            ->andWhere($alias.' IS NULL');
+    }
 }

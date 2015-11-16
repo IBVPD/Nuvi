@@ -29,6 +29,13 @@ use \JMS\Serializer\Annotation as Serializer;
 abstract class ExternalLab extends BaseExternalLab
 {
     /**
+     * @var \DateTime $specimenCollectionDate
+     * @ORM\Column(name="specimenCollectionDate",type="date",nullable=true)
+     * @Serializer\Groups({"api"})
+     */
+    protected $specimenCollectionDate;
+
+    /**
      * @var \DateTime $dateReceived
      * @ORM\Column(name="dateReceived",type="date",nullable=true)
      * @Serializer\Groups({"api"})
@@ -90,6 +97,24 @@ abstract class ExternalLab extends BaseExternalLab
      * @Serializer\Groups({"api"})
      */
     protected $genotypeResultSentToWHO;
+
+    /**
+     * @return \DateTime
+     */
+    public function getSpecimenCollectionDate()
+    {
+        return $this->specimenCollectionDate;
+    }
+
+    /**
+     * @param \DateTime $specimenCollectionDate
+     * @return ExternalLab
+     */
+    public function setSpecimenCollectionDate($specimenCollectionDate)
+    {
+        $this->specimenCollectionDate = $specimenCollectionDate;
+        return $this;
+    }
 
     /**
      * @return \DateTime

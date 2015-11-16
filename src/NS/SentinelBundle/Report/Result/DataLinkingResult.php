@@ -1,6 +1,6 @@
 <?php
 
-namespace NS\SentinelBundle\Report\Result\IBD;
+namespace NS\SentinelBundle\Report\Result;
 
 use NS\SentinelBundle\Entity\Country;
 

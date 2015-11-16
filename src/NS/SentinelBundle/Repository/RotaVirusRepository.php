@@ -326,4 +326,52 @@ class RotaVirusRepository extends Common
             ->setParameter('tripleYes',TripleChoice::YES)
             ;
     }
+
+
+    private function getByCountryCountQueryBuilder($alias, array $countryCodes)
+    {
+        $queryBuilder = $this->createQueryBuilder('cf')
+            ->innerJoin('cf.country', 'c')
+            ->groupBy('cf.country');
+
+        $where = $params = array();
+        $index = 0;
+
+        if (empty($countryCodes)) {
+            return $queryBuilder;
+        }
+
+        foreach (array_unique($countryCodes) as $country) {
+            $where[] = "cf.country = :country$index";
+            $params['country' . $index] = $country;
+            $index++;
+        }
+
+        return $queryBuilder->where("(" . implode(" OR ", $where) . ")")->setParameters($params);
+    }
+
+    public function getLinkedCount($alias, array $countryCodes)
+    {
+        return $this->getByCountryCountQueryBuilder($alias, $countryCodes)
+            ->select(sprintf('COUNT(%s) as caseCount,c.code', $alias, $alias))
+            ->innerJoin('cf.referenceLab',$alias)
+            ->innerJoin('cf.site','s');
+    }
+
+    public function getFailedLinkedCount($alias, array $countryCodes)
+    {
+        return $this->getByCountryCountQueryBuilder($alias, $countryCodes)
+            ->select(sprintf('COUNT(%s) as caseCount,c.code', $alias, $alias))
+            ->innerJoin('cf.referenceLab',$alias)
+            ->leftJoin('cf.site','s')
+            ->andWhere('s.code IS NULL');
+    }
+
+    public function getNoLabCount($alias, array $countryCodes)
+    {
+        return $this->getByCountryCountQueryBuilder($alias, $countryCodes)
+            ->select(sprintf('COUNT(%s) as caseCount,c.code', $alias, $alias))
+            ->leftJoin('cf.referenceLab',$alias)
+            ->andWhere($alias.' IS NULL');
+    }
 }

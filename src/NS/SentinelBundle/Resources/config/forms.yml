@@ -1,9 +1,15 @@
 services:
+  ns_sentinel.filter.type.rota_linking_quarterly:
+    class: NS\SentinelBundle\Filter\Type\RotaVirus\QuarterlyLinkingReportFilterType
+    arguments: [ @security.context, @ns.security.acl_converter ]
+    tags:
+      - { name: form.type, alias: RotaVirusQuarterlyLinkingReportFilter }
+
   ns_sentinel.filter.type.ibd_linking_quarterly:
     class: NS\SentinelBundle\Filter\Type\IBD\QuarterlyLinkingReportFilterType
     arguments: [ @security.context, @ns.security.acl_converter ]
     tags:
-      - { name: form.type, alias: QuarterlyLinkingReportFilter }
+      - { name: form.type, alias: IBDQuarterlyLinkingReportFilter }
 
   ns_sentinel.filter.type.ibd_quarterly:
     class: NS\SentinelBundle\Filter\Type\IBD\QuarterlyReportFilterType

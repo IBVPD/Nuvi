@@ -23,6 +23,8 @@ class BaseQuarterlyFilterType extends AbstractType
      */
     private $converter;
 
+    protected $fieldName = 'admDate';
+
     /**
      * @param SecurityContextInterface $securityContext
      * @param ACLConverter $converter
@@ -60,7 +62,7 @@ class BaseQuarterlyFilterType extends AbstractType
             $alias = $values['alias'];
 
             $queryBuilder
-                ->andWhere(sprintf('YEAR(%s.admDate) = :%s_year',$alias, $alias))
+                ->andWhere(sprintf('YEAR(%s.%s) = :%s_year',$alias, $this->fieldName, $alias))
                 ->setParameter($alias.'_year',$values['value']);
         }
     }

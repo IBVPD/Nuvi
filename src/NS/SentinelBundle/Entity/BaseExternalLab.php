@@ -29,7 +29,7 @@ abstract class BaseExternalLab
 
     /**
      * @var string $labId
-     * @ORM\Column(name="labId",type="string")
+     * @ORM\Column(name="labId",type="string",nullable=true)
      * @Assert\NotBlank
      * @Serializer\Groups({"api"})
      */

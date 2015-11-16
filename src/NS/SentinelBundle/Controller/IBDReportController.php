@@ -177,7 +177,7 @@ class IBDReportController extends Controller
      */
     public function dataLinking(Request $request)
     {
-        $form    = $this->createForm('QuarterlyLinkingReportFilter',null,array('site_type'=>'advanced','year_field'=>'sampleCollectionDate'));
+        $form    = $this->createForm('IBDQuarterlyLinkingReportFilter',null,array('site_type'=>'advanced'));
         $service = $this->get('ns_sentinel.ibd_report');
         $params  = $service->getDataLinking($request,$form,'reportIbdDataLinking');
         if($params instanceof Response) {
