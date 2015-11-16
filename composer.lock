@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f72eaa1bad20530a0e0caed3ca84aba1",
-    "content-hash": "abadb607f0066f1fadcfd35a0516af7b",
+    "hash": "d5de1c61d09583eb068d8bfc8d83f086",
+    "content-hash": "308affb11ff1429f950a6576724b7902",
     "packages": [
         {
             "name": "adoy/oauth2",
@@ -3396,17 +3396,16 @@
         },
         {
             "name": "ns/util-bundle",
-            "version": "1.0.7",
-            "target-dir": "NS/UtilBundle",
+            "version": "1.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/UtilBundle.git",
-                "reference": "5abc9500e4f82f57f494c6bbc26c906065a96cc8"
+                "reference": "3b99603e6e15ae6e2ab9cac1b90c7c3c83ce04d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/UtilBundle/zipball/5abc9500e4f82f57f494c6bbc26c906065a96cc8",
-                "reference": "5abc9500e4f82f57f494c6bbc26c906065a96cc8",
+                "url": "https://api.github.com/repos/NobletSolutions/UtilBundle/zipball/3b99603e6e15ae6e2ab9cac1b90c7c3c83ce04d3",
+                "reference": "3b99603e6e15ae6e2ab9cac1b90c7c3c83ce04d3",
                 "shasum": ""
             },
             "require": {
@@ -3420,11 +3419,14 @@
             },
             "type": "symfony-bundle",
             "autoload": {
-                "psr-0": {
-                    "NS\\UtilBundle": ""
+                "psr-4": {
+                    "NS\\UtilBundle\\": ""
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
             "authors": [
                 {
                     "name": "Nathanael David Noblet",
@@ -3436,7 +3438,7 @@
                 }
             ],
             "description": "Various Utilitity Services and Classes",
-            "time": "2015-07-24 01:27:57"
+            "time": "2015-11-16 19:22:33"
         },
         {
             "name": "ocramius/proxy-manager",
