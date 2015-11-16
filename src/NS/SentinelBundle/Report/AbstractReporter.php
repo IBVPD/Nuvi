@@ -30,9 +30,7 @@ class AbstractReporter
     protected $router;
 
     /**
-     *
-     * @param Exporter $exporter
-     * @param type $filter
+     * @param $filter
      * @param ObjectManager $entityMgr
      * @param RouterInterface $router
      */

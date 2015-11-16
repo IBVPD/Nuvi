@@ -2,19 +2,11 @@
 
 namespace NS\SentinelBundle\Filter\Type\IBD;
 
-use Symfony\Component\Form\AbstractType;
+use NS\SentinelBundle\Filter\Type\BaseQuarterlyFilterType;
 
-class QuarterlyReportFilterType extends AbstractType
+
+class QuarterlyReportFilterType extends BaseQuarterlyFilterType
 {
-    /**
-     * @inheritDoc
-     */
-    public function getParent()
-    {
-        return 'BaseQuarterlyFilter';
-    }
-
-
     /**
      * @inheritDoc
      */

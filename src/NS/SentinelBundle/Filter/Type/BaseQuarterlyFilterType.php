@@ -49,7 +49,7 @@ class BaseQuarterlyFilterType extends AbstractType
      * @param $values
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function filterYear(QueryInterface $filterQuery,$field, $values)
+    public function filterYear(QueryInterface $filterQuery, $field, $values)
     {
         if ($values['value'] > 0) {
             $queryBuilder = $filterQuery->getQueryBuilder();
@@ -60,7 +60,7 @@ class BaseQuarterlyFilterType extends AbstractType
             $alias = $values['alias'];
 
             $queryBuilder
-                ->andWhere(sprintf('YEAR(%s.admDate) = :%s_year',$alias,$alias))
+                ->andWhere(sprintf('YEAR(%s.admDate) = :%s_year',$alias, $alias))
                 ->setParameter($alias.'_year',$values['value']);
         }
     }
@@ -122,6 +122,7 @@ class BaseQuarterlyFilterType extends AbstractType
                 'include_export' => true,
                 'include_reset'  => true,
                 'include_intense'=> true,
+                'year_field'     => 'admDate',
                 ));
 
         $resolver->setDefined(array('site_type'));

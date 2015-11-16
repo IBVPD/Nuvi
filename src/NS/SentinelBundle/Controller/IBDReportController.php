@@ -168,4 +168,22 @@ class IBDReportController extends Controller
 
         return $this->render('NSSentinelBundle:Report/IBD:site-performance.html.twig', $params);
     }
+
+    /**
+     * @param Request $request
+     * @return Response
+     *
+     * @Route("/data-linking",name="reportIbdDataLinking")
+     */
+    public function dataLinking(Request $request)
+    {
+        $form    = $this->createForm('QuarterlyLinkingReportFilter',null,array('site_type'=>'advanced','year_field'=>'sampleCollectionDate'));
+        $service = $this->get('ns_sentinel.ibd_report');
+        $params  = $service->getDataLinking($request,$form,'reportIbdDataLinking');
+        if($params instanceof Response) {
+            return $params;
+        }
+
+        return $this->render('NSSentinelBundle:Report/IBD:data-linking.html.twig',$params);
+    }
 }

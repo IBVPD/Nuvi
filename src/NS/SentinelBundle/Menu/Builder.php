@@ -50,9 +50,12 @@ class Builder
             $rotaReport = $reports->addChild('Rota');
             $rotaReport->addChild('Data Quality Checks',array('label'=>'menu.data-reports-data-quality','route'=>'reportRotaDataQuality'));
             $rotaReport->addChild('Site Performance',array('label'=>'menu.data-reports-site-performance','route'=>'reportRotaSitePerformance'));
+            $rotaReport->addChild('RRL Linking',array('label'=>'menu.data-reports-rrl-linking'));
 
             $ibdReport->addChild('Site Performance',array('label'=>'menu.data-reports-site-performance','route'=>'reportIbdSitePerformance'));
             $ibdReport->addChild('Data Quality Checks',array('label'=>'menu.data-reports-data-quality','route'=>'reportIbdDataQuality'));
+            $ibdReport->addChild('RRL Linking',array('label'=>'menu.data-reports-rrl-linking','route' => 'reportIbdDataLinking'));
+
             $ibdReport->addChild('Age Distribution',array('label'=> 'menu.data-reports-age-distribution','route'=>'reportAnnualAgeDistribution'));
             $ibdReport->addChild('Enrolment %',array('label'=> 'menu.data-reports-percent-enrolled','route'=>'reportPercentEnrolled'));
             $ibdReport->addChild('Field Population',array('label'=>'menu.data-reports-field-population','route'=>'reportFieldPopulation'));

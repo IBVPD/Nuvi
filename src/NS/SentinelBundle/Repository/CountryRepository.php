@@ -49,4 +49,23 @@ class CountryRepository extends CommonRepository
 
         return $this->secure($queryBuilder);
     }
+
+    /**
+     * @param $alias
+     * @param $caseClass
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getWithCasesForDate($alias, $caseClass)
+    {
+        return $this->secure($this->_em->createQueryBuilder()
+            ->select("cf, $alias ,s,c,r,COUNT($alias) as totalCases")
+            ->from($caseClass, 'cf')
+            ->innerJoin("cf.referenceLab",$alias)
+            ->leftJoin('cf.site','s')
+            ->innerJoin('cf.country', 'c')
+            ->innerJoin('c.region', 'r')
+            ->groupBy("cf.country")
+            ->addOrderBy('r.name', 'ASC')
+            ->addOrderBy('c.name', 'ASC'));
+    }
 }

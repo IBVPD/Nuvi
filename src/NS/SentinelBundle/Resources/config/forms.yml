@@ -1,6 +1,13 @@
 services:
+  ns_sentinel.filter.type.ibd_linking_quarterly:
+    class: NS\SentinelBundle\Filter\Type\IBD\QuarterlyLinkingReportFilterType
+    arguments: [ @security.context, @ns.security.acl_converter ]
+    tags:
+      - { name: form.type, alias: QuarterlyLinkingReportFilter }
+
   ns_sentinel.filter.type.ibd_quarterly:
     class: NS\SentinelBundle\Filter\Type\IBD\QuarterlyReportFilterType
+    arguments: [ @security.context, @ns.security.acl_converter ]
     tags:
       - { name: form.type, alias: QuarterlyReportFilter }
 

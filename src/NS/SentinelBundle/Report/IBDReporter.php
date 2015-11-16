@@ -300,25 +300,82 @@ class IBDReporter extends AbstractReporter
             );
 
             $this->processResult($columns,$repo,$alias,$results,$form);
-
-//            if ($form->get('export')->isClicked()) {
-//                $fields = array(
-//                    'site.country.region.code',
-//                    'site.country.code',
-//                    'site.code',
-//                    'totalCases',
-//                    'missingAdmissionDiagnosisCount',
-//                    'missingAdmissionDiagnosisPercent',
-//                    'missingDischargeOutcomeCount',
-//                    'missingDischargeOutcomePercent',
-//                    'missingDischargeDiagnosisCount',
-//                    'missingDischargeDiagnosisPercent'
-//                );
-//
-//                return $this->export(new DoctrineCollectionSourceIterator($results, $fields));
-//            }
         }
 
         return array('sites' => $results, 'form' => $form->createView());
+    }
+
+    public function getDataLinking(Request $request, FormInterface $form, $redirectRoute)
+    {
+        $results = new ArrayCollection();
+        $alias = 'i';
+        $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Country')->getWithCasesForDate($alias,'NS\SentinelBundle\Entity\IBD');
+
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            if ($form->get('reset')->isClicked()) {
+                return new RedirectResponse($this->router->generate($redirectRoute));
+            }
+
+            $this->filter->addFilterConditions($form, $queryBuilder, $alias);
+
+            $countries = $queryBuilder->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult();
+
+            if (empty($countries)) {
+                return array('sites' => array(), 'form' => $form->createView());
+            }
+
+            $this->populateCountries($countries,$results,'NS\SentinelBundle\Report\Result\IBD\DataLinkingResult');
+
+            $repo = $this->entityMgr->getRepository('NSSentinelBundle:IBD');
+            $columns = array(
+                'getLinkedCount' => 'setLinked',
+                'getFailedLinkedCount' => 'setNotLinked',
+                'getNoLabCount' => 'setNoLab',
+            );
+
+            $this->processLinkingResult($columns,$repo,$alias,$results,$form);
+        }
+
+        return array('sites' => $results, 'form' => $form->createView());
+    }
+
+    /**
+     * @param $sites
+     * @param ArrayCollection $results
+     * @param $resultClass
+     */
+    public function populateCountries($sites, ArrayCollection &$results, $resultClass)
+    {
+        foreach ($sites as $values) {
+            $resultObj = new $resultClass;
+            $resultObj->setCountry($values[0]->getCountry());
+            $resultObj->setTotalCases($values['totalCases']);
+
+            $results->set($resultObj->getCountry()->getCode(), $resultObj);
+        }
+    }
+
+    /**
+     * @param $columns
+     * @param $repo
+     * @param $alias
+     * @param $results
+     * @param $form
+     */
+    public function processLinkingResult($columns, $repo, $alias, &$results, $form)
+    {
+        foreach ($columns as $func => $pf) {
+            if (method_exists($repo, $func)) {
+                $query = $repo->$func($alias, $results->getKeys());
+
+                $res = $this->filter
+                    ->addFilterConditions($form, $query, 'i')
+                    ->getQuery()
+                    ->getResult(Query::HYDRATE_SCALAR);
+
+                $this->processColumn($results, $res, $pf);
+            }
+        }
     }
 }
