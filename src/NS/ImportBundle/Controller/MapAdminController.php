@@ -2,10 +2,14 @@
 
 namespace NS\ImportBundle\Controller;
 
+use NS\ImportBundle\Converter\Expression\Condition;
+use NS\ImportBundle\Converter\Expression\ConditionConverter;
+use NS\ImportBundle\Converter\Expression\ExpressionBuilder;
 use Sonata\AdminBundle\Controller\CRUDController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
  * Description of MapAdminController
@@ -36,5 +40,18 @@ class MapAdminController extends CRUDController
         $this->addFlash('sonata_flash_success', 'Cloned successfully');
 
         return new RedirectResponse($this->admin->generateUrl('list'));
+    }
+
+    /**
+     * @param Request $request
+     * @Route("/ajax/conditions-as-expression",name="adminConditionAjaxConverter")
+     * @return string
+     */
+    public function conditionExpressionAction(Request $request)
+    {
+        $preConditions  = json_decode($request->request->conditions,true);
+        $converter = new ConditionConverter();
+
+        return $converter->toString($preConditions);
     }
 }
