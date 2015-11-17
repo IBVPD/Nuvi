@@ -67,7 +67,7 @@ class ExcelReader extends BaseReader implements OffsetableReaderInterface
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function cleanColumnHeaders(&$item, $key, $prefix)
+    public function cleanColumnHeaders(&$item, $key, $prefix =null)
     {
         $item =  preg_replace('/[\x00-\x1F\x80-\xFF]/', '', trim($item));
     }
