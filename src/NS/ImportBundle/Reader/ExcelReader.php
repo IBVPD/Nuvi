@@ -51,4 +51,24 @@ class ExcelReader extends BaseReader implements OffsetableReaderInterface
         return ($this->pointer < $this->maxRow+$this->headerRowNumber);
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function setColumnHeaders(array $columnHeaders)
+    {
+        array_walk($columnHeaders,array($this,'cleanColumnHeaders'));
+        parent::setColumnHeaders($columnHeaders);
+    }
+
+    /**
+     * @param $item
+     * @param $key
+     * @param $prefix
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
+    public function cleanColumnHeaders(&$item, $key, $prefix)
+    {
+        $item =  preg_replace('/[\x00-\x1F\x80-\xFF]/', '', trim($item));
+    }
 }
