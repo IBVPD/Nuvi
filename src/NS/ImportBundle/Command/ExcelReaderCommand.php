@@ -2,11 +2,12 @@
 
 namespace NS\ImportBundle\Command;
 
-use Ddeboer\DataImport\Reader\ExcelReader;
+use NS\ImportBundle\Reader\ExcelReader;
 use SplFileObject;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -25,6 +26,7 @@ class ExcelReaderCommand extends Command
             ->setName('nsimport:readexcel')
             ->setDescription('Reads and analysis a CSV')
             ->addArgument('file', InputArgument::REQUIRED)
+            ->addOption('headerRole','r',InputOption::VALUE_REQUIRED,'What header row to read from',0)
         ;
     }
 
@@ -39,7 +41,7 @@ class ExcelReaderCommand extends Command
         $filePath  = $input->getArgument('file');
         $file      = new SplFileObject($filePath);
         $csvReader = new ExcelReader($file);
-        $csvReader->setHeaderRowNumber(0);
+        $csvReader->setHeaderRowNumber($input->getOption('headerRole')-1);
 
         $output->writeln("File Columns");
         foreach ($csvReader->getColumnHeaders() as $index => $column) {
