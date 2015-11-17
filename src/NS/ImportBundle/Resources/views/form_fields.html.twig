@@ -1,11 +1,8 @@
 {% block PreProcessorType_widget %}
     {% set prototype = '
-        <tr class="queryBuilderEntry">
+        <tr class="queryBuilderEntry" id="queryBuilderEntry___id__">
             <td>
-                <a class="btn btn-primary btn-xs" data-toggle="modal" id="#__id___modal_trigger" data-target="#__id___modal"><i class="fa fa-pencil-square-o"></i> Modify Conditions</a>
-            </td>
-            <td>
-                <input type="text" class="outputValue" id="__id___value" />
+                <span class="conditionString" id="__id___conditionString"></span>
                 <div class="modal fade queryModal" id="__id___modal">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -17,6 +14,13 @@
                                 <input type="hidden" class="valueHolder" id="__id___valueHolder" />
                                 <div id="__id__" class="queryBuilder">
                                 </div>
+                                <hr />
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Output Value</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="outputValue" id="__id___outputValue" />
+                                    </div>
+                                </div>
                             </div>
                             <div class="modal-footer clearfix">
                                 <button type="button" class="btn btn-warning pull-left" data-dismiss="modal"><i class="fa fa-undo"></i> Cancel</button>
@@ -26,7 +30,10 @@
                     </div>
                 </div>
             </td>
+        </tr>
+        <tr>
             <td>
+                <a class="btn btn-primary btn-xs" data-toggle="modal" id="#__id___modal_trigger" data-target="#__id___modal"><i class="fa fa-pencil-square-o"></i> Modify</a>
                 <a class="btn btn-danger btn-xs" id="__id___delete"><i class="fa fa-trash"></i></a>
             </td>
         </tr>'
@@ -38,18 +45,16 @@
             <thead>
                 <tr id="queryBuilder_{{id}}_header">
                     <th>Conditions</th>
-                    <th>Output value</th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr id="queryBuilder_{{id}}_placeholder">
-                    <td colspan="3">None set</td>
+                    <td>None set</td>
                 </tr>
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="3">
+                    <td>
                         <a class="btn btn-success btn-xs pull-right" id="queryBuilder_{{id}}_add"><i class="fa fa-plus"></i> Add new conditions</a>
                     </td>
                 </tr>
@@ -63,6 +68,7 @@
             if(window.querybuilderFields === undefined)
             {
                 window.querybuilderFields = [];
+                window.querybuilderCount = 0;
                 
                 //define default QueryBuilder filters
                 $('input[data-querybuilder=columnName]').each(function()
@@ -79,7 +85,83 @@
                         ]
                     }
                     window.querybuilderFields.push(qf);
-                })
+                });
+
+                window.commitModal = function(id, $row)
+                {
+                    var builder = $('#'+id);
+
+                    if(!builder.queryBuilder('validate'))
+                    {
+                        return false;
+                    }
+
+                    var qbRules = builder.queryBuilder('getRules');
+
+                    $('#'+id+'_valueHolder').val(JSON.stringify(qbRules));
+
+                    window.readableConditions($row);
+
+                    return true;
+                };
+
+                window.readableConditions = function($row)
+                {
+                    var conditions = window.formatData($row);
+                    var out = {};
+
+                    jQuery.ajax(
+                    '{{ path('adminConditionAjaxConverter') }}',
+                    {
+                        'type': 'post',
+                        'data': {
+                            'conditions': JSON.stringify(conditions)
+                        },
+                        'success': function(data, status, jqXHR)
+                        {
+                            out = JSON.parse(data);
+                            window.displayConditions(out);
+                        }
+                    });
+                }
+
+                window.displayConditions = function(conditions)
+                {
+                    jQuery.each(conditions, function(key, value)
+                    {
+                        $('#'+key+' span.conditionString').html(value);
+                    });
+                }
+
+                window.formatData = function($row)
+                {
+                    var formData = {};
+
+                    $row.find('.queryBuilderEntry').each(function()
+                    {
+                        var id = this.id;
+                        //read the ruleset and output value out of the value holder and output value fields, respectively
+                        $vh = $(this).find('input.valueHolder');
+                        $ov = $(this).find('input.outputValue');
+
+
+                        //Format output JSON
+                        try
+                        {
+                            var d = {'conditions':JSON.parse($vh.val())};
+                            d.output_value = $ov.val();
+                        }
+                        catch(e)
+                        {
+                            var d = {}
+                        }
+
+                        //add the final rules to the form data
+                        formData[id] = d;
+                    });
+
+                    return formData;
+                }
             }
             
             //Setup
@@ -100,6 +182,7 @@
                 conf.filters = qb_conf.filters; //copy the default querybuilder config
                 var newid = '{{id}}' + row_count++;
                 var $nrow = $(prototype.replace(/__id__/g, newid)); //RegEx because .replace only does single instances
+//                var $nrow = $(prototype.replace(/__condition__/g, newid));
                 $nrow.hide();
                 
                 if(rules) //add existing data if applicable
@@ -110,7 +193,7 @@
                         id: $nameField.val()
                     }];
                 }
-                
+
                 $el.append($nrow); //add the new row to the table
                 
                 $('#'+newid+'_valueHolder').val(JSON.stringify(conf.rules)); //Copy the current ruleset into the holder field
@@ -118,7 +201,7 @@
                 //Assign the existing output value, if defined in existing data
                 if(output_value !== undefined)
                 {
-                    $('#'+newid+'_value').val(output_value); 
+                    $('#'+newid+'_outputValue').val(output_value);
                 }
                 
                 //render the querybuilder when we open the modal
@@ -127,7 +210,14 @@
                     try
                     {
                         // try to parse the ruleset out of the holder field
-                        conf.rules = JSON.parse($('#'+newid+'_valueHolder').val());
+                        var r = JSON.parse($('#'+newid+'_valueHolder').val());
+
+                        if(jQuery.isEmptyObject(r))
+                        {
+                            throw "Empty JSON object";
+                        }
+
+                        conf.rules = r;
                     }
                     catch(e)
                     {
@@ -141,19 +231,43 @@
                         rule.filter = $('#'+newid).queryBuilder('getFilterById', $nameField.val());
                     });
                 });
+
+                $('#'+newid+'_modal').on('shown.bs.modal', function()
+                {
+                    $modal = $(this);
+
+                    $modal.find('input:visible').first().focus();
+                });
                 
                 //destroy the querybuilder when we close the modal
-                $('#'+newid+'_modal').on('hide.bs.modal', function()
+                $('#'+newid+'_modal').on('hidden.bs.modal', function()
                 {
                     $('#'+newid).queryBuilder('destroy');
                 });
-                
+
+                $('#'+newid+'_modal').on('keyup keypress', function(e)
+                {
+                    var $modal = $(this);
+                    if (e.keycode == 13 || e.which == 13) //Enter key
+                    {
+                        e.preventDefault();
+                        $modal.find('input:focus').blur();
+
+                        if(window.commitModal(newid, $row)) //if we pass validation
+                            $modal.modal('hide');
+
+                        return false;
+                    }
+                });
                 //if modal is closed with the "continue" button, copy the ruleset from the querybuilder to the holder field before we destoy the querybuilder
                 $('#'+newid+'_modal .btn-primary').on('click', function(event)
                 {
-                    var qbRules = $('#'+newid).queryBuilder('getRules');
-                    
-                    $('#'+newid+'_valueHolder').val(JSON.stringify(qbRules));
+                    if(!window.commitModal(newid, $row)) //If we fail validation
+                    {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        return false;
+                    }
                 });
                 
                 $('#queryBuilder_{{id}}_placeholder').remove(); //Remove the "None set" message
@@ -196,36 +310,18 @@
             {
                 newrow($contentBody, null, null, event);
             });
-            
+
+            window.querybuilderCount++;
+
+            if(window.querybuilderCount == window.querybuilderFields.length) //Only do this once all the rows have been processed
+            {
+                window.readableConditions($('body'));
+            }
+
              //Save the querybuilder data to the form when it's submitted
             $row.closest('form').submit(function()
             {
-                var formData = [];
-                
-                $row.find('.queryBuilderEntry').each(function()
-                {
-                    //read the ruleset and output value out of the value holder and output value fields, respectively
-                    $vh = $(this).find('input.valueHolder');
-                    $ov = $(this).find('input.outputValue');
-                    
-                    
-                    //Format output JSON
-                    try
-                    {
-                        var d = {'conditions':JSON.parse($vh.val())};
-                        d.output_value = $ov.val();
-                    }
-                    catch(e)
-                    {
-                        var d = {}
-                    }
-                    
-                    //add the final rules to the form data
-                    formData.push(d);
-                });
-                
-                //write the processed output from the querybuilder(s) to the form field before we submit it
-                $dataField.val(JSON.stringify(formData));
+                $dataField.val(JSON.stringify(window.formatData($row)));
             });
         });
     </script>

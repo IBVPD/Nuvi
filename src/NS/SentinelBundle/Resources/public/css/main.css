@@ -42,3 +42,19 @@ input.inputOrSelect + select.inputOrSelect option[value=""] {
     display: inline-block;
     vertical-align: middle;
 }
+
+td.field-preProcessor table {
+    width: 200px;
+}
+
+td.field-mapper .chosen-container{
+    max-width: 360px;
+}
+
+td.field-converter .chosen-container{
+    max-width: 160px;
+}
+
+th.field-ignored input.ace.ace-switch[type="checkbox"] + .lbl::before {
+    font-size: 10px;
+}

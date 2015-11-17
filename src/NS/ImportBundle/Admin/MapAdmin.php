@@ -91,11 +91,11 @@ class MapAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('name')
-            ->add('description',null,array('label'=>'Notes'))
-            ->add('class', 'ClassType')
-            ->add('version',null,array('required'=>false))
-            ->add('headerRow','integer')
+            ->add('name',null,array('label_attr'=>array('class'=>'col-sm-2')))
+            ->add('description',null,array('label'=>'Notes','label_attr'=>array('class'=>'col-sm-2')))
+            ->add('class', 'ClassType',array('label_attr'=>array('class'=>'col-sm-2')))
+            ->add('version',null,array('required'=>true, 'label_attr'=>array('class'=>'col-sm-2')))
+            ->add('headerRow','integer', array('label_attr'=>array('class'=>'col-sm-2')))
         ;
 
         if (!$this->getSubject()->getId()) {
@@ -106,7 +106,7 @@ class MapAdmin extends Admin
                 ->add('labPreference','choice',array('choices'=>array('referenceLab'=>'RRL','nationalLab'=>'NL')))
                 ->add('file', 'file', array('required' => false));
         } else {
-            $formMapper->add('columns', 'sonata_type_collection', array('by_reference' => true), array('edit'=>'inline','inline'=>'table'));
+            $formMapper->add('columns', 'sonata_type_collection', array('by_reference' => true, 'label_attr'=>array('class'=>'col-md-12 align-left')), array('edit'=>'inline','inline'=>'table', 'template'=>'NSImportBundle:edi_orm_one_to_many.html.twig'));
         }
     }
 

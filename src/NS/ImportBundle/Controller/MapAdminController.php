@@ -41,17 +41,4 @@ class MapAdminController extends CRUDController
 
         return new RedirectResponse($this->admin->generateUrl('list'));
     }
-
-    /**
-     * @param Request $request
-     * @Route("/ajax/conditions-as-expression",name="adminConditionAjaxConverter")
-     * @return string
-     */
-    public function conditionExpressionAction(Request $request)
-    {
-        $preConditions  = json_decode($request->request->get('conditions'),true);
-        $converter = new ConditionConverter();
-
-        return $converter->toString($preConditions);
-    }
 }
