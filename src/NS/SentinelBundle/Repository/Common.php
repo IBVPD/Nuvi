@@ -171,7 +171,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
      */
     public function findByCaseIdAndCheckCountry(array $params)
     {
-        $this->checkRequiredField('country', $params,'NS\SentinelBundle\Entity\Country');
+        $this->checkRequiredField('country', $params, 'NS\SentinelBundle\Entity\Country');
         $this->checkRequiredField('caseId', $params);
 
         $ret = $this->findWithRelations(array('caseId' => $params['caseId']));
@@ -185,7 +185,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
                     $caseRet = $case;
 
                     if ($found > 1) {
-                        throw new DuplicateCaseException(array('found' => $found, 'caseId' => $params['caseId'], 'country' => $params['count']));
+                        throw new DuplicateCaseException(array('found' => $found, 'caseId' => $params['caseId'], 'country' => $params['country']));
                     }
                 }
             }
