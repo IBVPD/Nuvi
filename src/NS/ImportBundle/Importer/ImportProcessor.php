@@ -159,7 +159,7 @@ class ImportProcessor
         // Create and configure the reader
         $factory = new ReaderFactory();
         $reader = $factory->getReader($import->getSourceFile());
-        $reader->setHeaderRowNumber(0);
+        $reader->setHeaderRowNumber($import->getMap()->getHeaderRow()-1);
 
         $import->setSourceCount($reader->count());
 
