@@ -232,17 +232,19 @@ jms_translation:
       output_dir: %kernel.root_dir%/../src/NS/SentinelBundle/Resources/translations
       dirs: [ "%kernel.root_dir%/../src/NS/SentinelBundle" ]
       excluded_names: [ "*TestCase.php", "*Test.php" ]
-      excluded_dirs: [ Features ]
+      excluded_dirs: [ Features, Tests ]
       output_format: xliff
     import:
       output_dir: %kernel.root_dir%/../src/NS/ImportBundle/Resources/translations
       dirs: [ "%kernel.root_dir%/../src/NS/ImportBundle"]
       excluded_names: [ "*TestCase.php", "*Test.php" ]
+      excluded_dirs: [ Tests ]
       output_format: xliff
     api:
       output_dir: %kernel.root_dir%/../src/NS/ApiBundle/Resources/translations
       dirs: [ "%kernel.root_dir%/../src/NS/ApiBundle" ]
-      excluded_names: [ "*TestCase.php", "*Test.php" ]
+      excluded_names: [ "Test","*TestCase.php", "*Test.php" ]
+      excluded_dirs: [ Tests ]
       output_format: xliff
 
 knp_paginator:
