@@ -22,25 +22,37 @@ use \Symfony\Component\HttpFoundation\Response;
  */
 class ExportController extends Controller
 {
+    private $baseField = array('region.code','country.code','site.code', 'id');
+    private $formParams = array('validation_groups' => array('FieldPopulation'), 'include_filter' => false);
 
     /**
      * @Route("/",name="exportIndex")
      * @Method(methods={"GET","POST"})
      */
-    public function indexAction(Request $request)
+    public function indexAction()
     {
-        $alias = 'i';
-        $params = array('validation_groups' => array('FieldPopulation'), 'include_filter' => false);
-        $baseField = array('id', 'site.name', 'country.name', 'region.name');
+        $ibdForm = $this->createForm('IBDReportFilterType', null, $this->formParams);
+        $rotaForm = $this->createForm('RotaVirusReportFilterType', null, $this->formParams);
 
-        $ibdForm = $this->createForm('IBDReportFilterType', null, $params);
+        return $this->render('NSImportBundle:Export:index.html.twig',array('ibdForm' => $ibdForm->createView(), 'rotaForm' => $rotaForm->createView()));
+    }
+
+    /**
+     * @param Request $request
+     * @return Response
+     *
+     * @Route("/ibd",name="exportIbd")
+     */
+    public function exportIBD(Request $request)
+    {
+        $ibdForm = $this->createForm('IBDReportFilterType', null, $this->formParams);
         $ibdForm->handleRequest($request);
         if ($ibdForm->isValid()) {
-            $obj = new IBD();
             $modelManager = $this->get('doctrine.orm.entity_manager');
-            $fields = array_merge($baseField, $obj->getMinimumRequiredFields());
+            $fields = $this->baseField;
 
             $metas = array(
+                "%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\IBD'),
                 "siteLab.%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\IBD\SiteLab'),
                 "referenceLab.%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\IBD\ReferenceLab'),
                 "nationalLab.%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\IBD\NationalLab'),
@@ -48,30 +60,37 @@ class ExportController extends Controller
 
             $this->adjustFields($metas, $fields);
 
-            $query = $modelManager->getRepository('NSSentinelBundle:IBD')->exportQuery($alias);
+            $query = $modelManager->getRepository('NSSentinelBundle:IBD')->exportQuery('i');
 
             return $this->export('xls', $ibdForm, $query, $fields);
         }
+    }
 
-        $rotaForm = $this->createForm('RotaVirusReportFilterType', null, $params);
+    /**
+     * @param Request $request
+     * @return Response
+     *
+     * @Route("/rota",name="exportRota")
+     */
+    public function exportRotaVirus(Request $request)
+    {
+        $rotaForm = $this->createForm('RotaVirusReportFilterType', null, $this->formParams);
         $rotaForm->handleRequest($request);
         if ($rotaForm->isValid()) {
-            $obj = new RotaVirus();
             $modelManager = $this->get('doctrine.orm.entity_manager');
-            $fields = array_merge($baseField, $obj->getMinimumRequiredFields());
+            $fields = $this->baseField;
             $metas = array(
+                "%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\RotaVirus'),
                 "siteLab.%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\Rota\SiteLab'),
                 "referenceLab.%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\Rota\ReferenceLab'),
                 "nationalLab.%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\Rota\NationalLab'),
             );
 
             $this->adjustFields($metas, $fields);
-            $query = $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:RotaVirus')->exportQuery($alias);
+            $query = $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:RotaVirus')->exportQuery('i');
 
             return $this->export('xls', $rotaForm, $query, $fields);
         }
-
-        return $this->render('NSImportBundle:Export:index.html.twig',array('ibdForm' => $ibdForm->createView(), 'rotaForm' => $rotaForm->createView()));
     }
 
     /**
