@@ -3262,16 +3262,16 @@
         },
         {
             "name": "ns/ace-bundle",
-            "version": "1.3.25",
+            "version": "1.3.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/AceBundle.git",
-                "reference": "8c001e7e7ee71fe522f47974c6e47e45680c8f40"
+                "reference": "bfba26e34bf131d690565ff037e90bf673678a7b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/AceBundle/zipball/8c001e7e7ee71fe522f47974c6e47e45680c8f40",
-                "reference": "8c001e7e7ee71fe522f47974c6e47e45680c8f40",
+                "url": "https://api.github.com/repos/NobletSolutions/AceBundle/zipball/bfba26e34bf131d690565ff037e90bf673678a7b",
+                "reference": "bfba26e34bf131d690565ff037e90bf673678a7b",
                 "shasum": ""
             },
             "require": {
@@ -3309,7 +3309,7 @@
                 }
             ],
             "description": "This bundle provides bootstrap template",
-            "time": "2015-11-04 21:42:45"
+            "time": "2015-11-17 23:28:45"
         },
         {
             "name": "ns/flash-bundle",
