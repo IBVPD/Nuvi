@@ -11,6 +11,7 @@ use \NS\SentinelBundle\Services\SerializedSites;
 use \NS\SentinelBundle\Entity\Country;
 use \NS\SentinelBundle\Form\Types\TripleChoice;
 use \NS\SentinelBundle\Form\Types\ElisaKit;
+use NS\SentinelBundle\Entity\Site;
 
 /**
  * Class SiteLabType
@@ -84,7 +85,7 @@ class SiteLabType extends AbstractType
             $country = $data->getCaseFile()->getCountry();
         } else if (!$this->siteSerializer->hasMultipleSites()) {
             $site = $this->siteSerializer->getSite();
-            $country = ($site instanceof \NS\SentinelBundle\Entity\Site) ? $site->getCountry() : null;
+            $country = ($site instanceof Site) ? $site->getCountry() : null;
         }
 
         if ($country instanceof Country) {

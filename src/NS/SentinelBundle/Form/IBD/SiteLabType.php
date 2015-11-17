@@ -17,6 +17,7 @@ use \NS\SentinelBundle\Form\Types\PCRResult;
 use \NS\SentinelBundle\Form\Types\GramStain;
 use \NS\SentinelBundle\Form\Types\GramStainOrganism;
 use \NS\SentinelBundle\Entity\Country;
+use NS\SentinelBundle\Entity\Site;
 
 /**
  * Class SiteLabType
@@ -172,7 +173,7 @@ class SiteLabType extends AbstractType
             $country = $data->getCaseFile()->getCountry();
         } elseif (!$this->siteSerializer->hasMultipleSites()) {
             $site = $this->siteSerializer->getSite();
-            $country = ($site instanceof \NS\SentinelBundle\Entity\Site) ? $site->getCountry() : null;
+            $country = ($site instanceof Site) ? $site->getCountry() : null;
         }
 
         if ($country instanceof Country) {
