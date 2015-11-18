@@ -59,6 +59,14 @@ abstract class AbstractBaseObjectConverter implements NamedValueConverterInterfa
             $this->initialized = true;
         }
 
-        return isset($this->objects[$input]) ? $this->objects[$input] : null;
+        if (isset($this->objects[$input])) {
+            return $this->objects[$input];
+        }
+
+        foreach ($this->objects as $obj) {
+            if (strcasecmp($input,$obj->getName()) === 0) {
+                return $obj;
+            }
+        }
     }
 }

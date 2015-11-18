@@ -14,9 +14,6 @@ class CountryConverterTest extends \PHPUnit_Framework_TestCase
         $objects = $this->getObjects();
         $this->assertEquals(array('C1','C2','C3'),array_keys($objects));
         $this->assertCount(3,$objects);
-
-//        $entityMgr = $this->getMockObjectManager();
-//        $this->assertCount(3,$entityMgr->getRepository('NSSentinelBundle:Country')->getAll());
     }
 
     public function testCountryConverter()
@@ -58,6 +55,28 @@ class CountryConverterTest extends \PHPUnit_Framework_TestCase
         $converter = new CountryConverter($entityMgr);
 
         $converter->__invoke('C3');
+    }
+
+    public function testCountryByName()
+    {
+        $entityMgr = $this->getMockObjectManager();
+        $converter = new CountryConverter($entityMgr);
+
+        $obj = $converter->__invoke('CName2');
+        $this->assertInstanceOf('NS\SentinelBundle\Entity\Country',$obj);
+        $this->assertEquals('CName2',$obj->getName());
+        $this->assertEquals('C2',$obj->getCode());
+    }
+
+    public function testCountryByCaseName()
+    {
+        $entityMgr = $this->getMockObjectManager();
+        $converter = new CountryConverter($entityMgr);
+
+        $obj = $converter->__invoke('cname2');
+        $this->assertInstanceOf('NS\SentinelBundle\Entity\Country', $obj);
+        $this->assertEquals('CName2', $obj->getName());
+        $this->assertEquals('C2', $obj->getCode());
     }
 
     private function getMockObjectManager()
