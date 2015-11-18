@@ -58,3 +58,7 @@ td.field-converter .chosen-container{
 th.field-ignored input.ace.ace-switch[type="checkbox"] + .lbl::before {
     font-size: 10px;
 }
+
+.progress {
+    background: #666666;
+}
