@@ -1,0 +1,13 @@
+diff --git a/src/NS/SentinelBundle/Twig/CaseActions.php b/src/NS/SentinelBundle/Twig/CaseActions.php
+index 3a11e20..50f9e4c 100644
+--- a/src/NS/SentinelBundle/Twig/CaseActions.php
++++ b/src/NS/SentinelBundle/Twig/CaseActions.php
+@@ -92,7 +92,7 @@ class CaseActions extends \Twig_Extension
+                         'id' => $row->getId())) . '" class="btn btn-xs btn-info"><i class="' . ($row->hasNationalLab() ? 'fa fa-edit' : 'fa fa-plus') . ' bigger-120"></i>' . $this->translator->trans('NL') . '</a>';
+             }
+ 
+-            if ($this->securityContext->isGranted('ROLE_CAN_CREATE_RRL_LAB') && $row->getSentToReferenceLab()) {
++            if (/*$this->securityContext->isGranted('ROLE_CAN_CREATE_RRL_LAB') && */$row->getSentToReferenceLab()) {
+                 $out .= '<a href="' . $this->router->generate($baseRoute . 'RRLEdit', array(
+                         'id' => $row->getId())) . '" class="btn btn-xs btn-info"><i class="' . ($row->hasReferenceLab() ? 'fa fa-edit' : 'fa fa-plus') . ' bigger-120"></i>' . $this->translator->trans('RRL') . '</a>';
+             }

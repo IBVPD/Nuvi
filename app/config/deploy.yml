@@ -1,0 +1,12 @@
+---
+- hosts: who.tndg.ca
+  user: root
+  sudo: true
+  sudo_user: apache
+  vars:
+    symfony_root_dir: /var/www/vhosts/ibvpd
+    symfony_repo: https://gitlab.noblet.ca/who/nuvi.git
+    symfony_composer_path: /usr/local/bin/composer
+    symfony_strategy: git
+  roles:
+    - blacklight.symfony-deploy

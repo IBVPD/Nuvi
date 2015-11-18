@@ -19,7 +19,7 @@ $loader = require_once __DIR__.'/../app/bootstrap.php.cache';
 
 require_once __DIR__.'/../app/AppKernel.php';
 
-$kernel = new AppKernel('live', true);
+$kernel = new AppKernel('live', false);
 $kernel->loadClassCache();
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
