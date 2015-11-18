@@ -19,10 +19,10 @@ class CaseStatus extends \Twig_Extension
         $isSafe = array('is_safe' => array('html'));
 
         return array(
-            'case_label' => new \Twig_Function_Method($this, 'getLabel', $isSafe),
-            'case_lab_label' => new \Twig_Function_Method($this, 'getLabLabel', $isSafe),
-            'case_rrl_label' => new \Twig_Function_Method($this, 'getRRLLabel', $isSafe),
-            'case_nl_label' => new \Twig_Function_Method($this, 'getNLLabel', $isSafe),
+            new \Twig_SimpleFunction('case_label',array($this, 'getLabel'),$isSafe),
+            new \Twig_SimpleFunction('case_lab_label',array($this, 'getLabLabel'),$isSafe),
+            new \Twig_SimpleFunction('case_rrl_label',array($this, 'getRRLLabel'),$isSafe),
+            new \Twig_SimpleFunction('case_nl_label',array($this, 'getNLLabel'),$isSafe),
         );
     }
 

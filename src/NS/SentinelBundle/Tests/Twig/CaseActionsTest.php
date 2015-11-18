@@ -4,7 +4,7 @@ namespace NS\SentinelBundle\Tests\Twig;
 
 use \NS\SentinelBundle\Twig\CaseActions;
 use \NS\SentinelBundle\Entity\IBD;
-use NS\SentinelBundle\Entity\RotaVirus;
+use \NS\SentinelBundle\Entity\RotaVirus;
 
 /**
  * Description of CaseActionsTest
@@ -414,7 +414,7 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
     {
         //================================
         // SecurityContext
-        $securityContext = $this->getMockBuilder('\Symfony\Component\Security\Core\SecurityContextInterface')
+        $securityContext = $this->getMockBuilder('\Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface')
             ->disableOriginalConstructor()
             ->getMock();
 

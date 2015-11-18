@@ -180,7 +180,7 @@ class OAuth2Client extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'oauth_authenticate_path' => new \Twig_Function_Method($this, 'getAuthenticationPath', array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('oauth_authenticate_path',array($this, 'getAuthenticationPath'),array('is_safe' => array('html'))),
         );
     }
 

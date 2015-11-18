@@ -11,7 +11,13 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
  */
 class CaseTemplates extends \Twig_Extension
 {
+    /**
+     * @var AuthorizationCheckerInterface
+     */
     private $authChecker;
+    /**
+     * @var \Twig_Environment
+     */
     private $twig;
 
     /**
@@ -34,7 +40,7 @@ class CaseTemplates extends \Twig_Extension
         $isSafe = array('is_safe' => array('html'));
 
         return array(
-            'case_index_template' => new \Twig_Function_Method($this, 'renderTable', $isSafe),
+            new \Twig_SimpleFunction('case_index_template', array($this, 'renderTable'),$isSafe),
         );
     }
 
