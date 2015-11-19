@@ -3,6 +3,7 @@
 namespace NS\ImportBundle\Entity;
 
 use \Doctrine\ORM\Mapping as ORM;
+use NS\ImportBundle\Validators as LocalAssert;
 
 /**
  * Description of Column
@@ -11,6 +12,7 @@ use \Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="import_columns")
  * @SuppressWarnings(PHPMD.ShortVariable)
+ * @LocalAssert\ImportMapColumn()
  */
 class Column
 {

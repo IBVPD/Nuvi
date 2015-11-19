@@ -106,7 +106,7 @@ class MapAdmin extends Admin
                 ->add('labPreference','choice',array('choices'=>array('referenceLab'=>'RRL','nationalLab'=>'NL')))
                 ->add('file', 'file', array('required' => false));
         } else {
-            $formMapper->add('columns', 'sonata_type_collection', array('by_reference' => true, 'label_attr'=>array('class'=>'col-md-12 align-left')), array('edit'=>'inline','inline'=>'table', 'template'=>'NSImportBundle:edi_orm_one_to_many.html.twig'));
+            $formMapper->add('columns', 'sonata_type_collection', array('error_bubbling'=>false, 'by_reference' => true, 'label_attr'=>array('class'=>'col-md-12 align-left')), array('edit'=>'inline','inline'=>'table', 'template'=>'NSImportBundle:edi_orm_one_to_many.html.twig'));
         }
     }
 

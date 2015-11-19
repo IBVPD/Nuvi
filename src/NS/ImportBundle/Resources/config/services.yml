@@ -7,6 +7,12 @@ parameters:
   ns_import.map.classes: { }
 
 services:
+  ns_import.map_column_validator:
+    class: NS\ImportBundle\Validators\ImportMapColumnValidator
+    arguments: [ "@ns_import.converter.columns" ]
+    tags:
+      - { name: validator.constraint_validator, alias: map_column_validator }
+
   ns_import.linker_registry:
     class: NS\ImportBundle\Linker\CaseLinkerRegistry
     arguments: [ {'ns_import.standard_case_linker': "@ns_import.standard_case_linker", 'ns_import.reference_case_linker': "@ns_import.reference_case_linker" }]

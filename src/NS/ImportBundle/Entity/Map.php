@@ -82,6 +82,7 @@ class Map
     /**
      * @var Collection $columns
      * @ORM\OneToMany(targetEntity="Column",mappedBy="map", fetch="EAGER",cascade={"persist"}, orphanRemoval=true)
+     * @Assert\Valid()
      */
     private $columns;
 
