@@ -3,11 +3,12 @@
 namespace NS\ImportBundle\Tests\Converter;
 
 use \Doctrine\Common\Cache\ArrayCache;
+use Doctrine\DBAL\Types\Type;
 use \NS\ImportBundle\Converter\ColumnChooser;
 
 class ColumnChooserTest extends \PHPUnit_Framework_TestCase
 {
-    public function testCacheHitDoesNotBuild()
+    public function testCacheHitDoesNotBuildChoices()
     {
         $cacheMock = $this->getMock('\Doctrine\Common\Cache\ArrayCache');
         $cacheMock->expects($this->once())
@@ -18,27 +19,62 @@ class ColumnChooserTest extends \PHPUnit_Framework_TestCase
         $cacheMock->expects($this->once())
             ->method('fetch')
             ->with('class')
-            ->willReturn(true);
+            ->willReturn(array('choices'=>true,'complex'=>false));
 
         $chooser = $this->getChooser($cacheMock);
+        $this->assertTrue($chooser->getChoices('class'));
+        $this->assertFalse($chooser->getComplexChoices('class'));
+    }
+
+    public function testCacheHitDoesNotBuildComplex()
+    {
+        $cacheMock = $this->getMock('\Doctrine\Common\Cache\ArrayCache');
+        $cacheMock->expects($this->once())
+            ->method('contains')
+            ->with('class')
+            ->willReturn(true);
+
+        $cacheMock->expects($this->once())
+            ->method('fetch')
+            ->with('class')
+            ->willReturn(array('choices'=>true,'complex'=>false));
+
+        $chooser = $this->getChooser($cacheMock);
+        $this->assertFalse($chooser->getComplexChoices('class'));
         $this->assertTrue($chooser->getChoices('class'));
     }
 
     public function testCacheMissBuilds()
     {
+        $meta = $this->getMockBuilder('Doctrine\ORM\Mapping\ClassMetadata')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $mockEntityMgr = $this->getMockBuilder('Doctrine\ORM\EntityManager')
             ->disableOriginalConstructor()
             ->getMock();
+        $mockEntityMgr
+            ->expects($this->once())
+            ->method('getClassMetadata')
+            ->willReturn($meta);
+
         $cache = new ArrayCache();
 
-        $chooser = $this->getMock('NS\ImportBundle\Converter\ColumnChooser',array('buildChoices'),array($mockEntityMgr,$cache));
+        $chooser = $this->getMock('NS\ImportBundle\Converter\ColumnChooser',array('buildChoices','buildComplex'),array($mockEntityMgr,$cache));
         $chooser->expects($this->once())
             ->method('buildChoices')
-            ->with('class')
+            ->with($meta)
             ->willReturn(array('here'));
+
+        $chooser->expects($this->once())
+            ->method('buildComplex')
+            ->with($meta)
+            ->willReturn(array('here'=>false));
+
         $retValue = $chooser->getChoices('class');
+
         $this->assertEquals(array('here'),$retValue);
-        $this->assertEquals(array('here'),$cache->fetch('class'));
+        $this->assertEquals(array('choices'=>array('here'),'complex'=>array('here'=>false)),$cache->fetch('class'));
     }
 
     public function testMetaChoicesWithoutAssociationName()
@@ -154,5 +190,42 @@ class ColumnChooserTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         return new ColumnChooser($mockEntityMgr,(!$cache)?new ArrayCache():$cache);
+    }
+
+    /**
+     * @param $type
+     * @param $isComplex
+     *
+     * @dataProvider getTypes
+     */
+    public function testIsComplex($type,$isComplex)
+    {
+        $chooser = $this->getChooser();
+        $this->assertEquals($isComplex,$chooser->isComplex($type));
+    }
+
+    public function getTypes()
+    {
+        return array(
+            array(Type::TARRAY,false),
+            array(Type::SIMPLE_ARRAY,false),
+            array(Type::JSON_ARRAY,false),
+            array(Type::BIGINT,false),
+            array(Type::BOOLEAN,false),
+            array(Type::DATETIME,true),
+            array(Type::DATETIMETZ,true),
+            array(Type::DATE,true),
+            array(Type::TIME,true),
+            array(Type::DECIMAL,false),
+            array(Type::INTEGER,false),
+            array(Type::OBJECT,false),
+            array(Type::SMALLINT,false),
+            array(Type::STRING,false),
+            array(Type::TEXT,false),
+            array(Type::BLOB,false),
+            array(Type::FLOAT,false),
+            array(Type::GUID,false),
+            array('SampleType',true),
+        );
     }
 }
