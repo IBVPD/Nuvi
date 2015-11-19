@@ -25,7 +25,6 @@ class CaseLinker implements CaseLinkerInterface
         $this->repositoryMethod = $repositoryMethod;
     }
 
-
     /**
      * @return mixed
      */
