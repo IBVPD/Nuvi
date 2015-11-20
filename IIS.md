@@ -11,8 +11,8 @@ This will pull in a whole bunch of dependent packages (IIS CGI, URL Rewrite etc.
 
 *Note: The guide I followed recommended that IIS was *NOT* previously installed via the normal addition of the IIS role however I didn't do that. 
 
-INTL:
-===================
+INTL
+----
 Open IIS Manager, locate the PHP Manager icon.
 "Enable or Disable an extension"
 Ensure that the intl is enabled.
