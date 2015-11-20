@@ -9,7 +9,7 @@ PHP 5.6.x
 
 This will pull in a whole bunch of dependent packages (IIS CGI, URL Rewrite etc...)
 
-*Note: The guide I followed recommended that IIS was *NOT* previously installed via the normal addition of the IIS role however I didn't do that. 
+**Note**: The guide I followed recommended that IIS was *NOT* previously installed via the normal addition of the IIS role however I didn't do that. 
 
 INTL
 ----
