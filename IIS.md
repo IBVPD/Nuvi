@@ -58,7 +58,7 @@ php app\console doctrine:schema:create
 
 Configure IIS
 ===================
-Ensure that whatever user the PHP CGI/FastCGI app is running as can write to app/cache and app/logs. For my tests I just allowed all "Users" write/modify to that directory.
+Ensure that whatever user the PHP CGI/FastCGI app is running as can write to app/cache, app/logs, app/data. For my tests I just allowed all "Users" write/modify to that directory.
 I did this by going to Authentication-> Set Anonymous = Whatever user is installing the application (in my case nuviadmin)
 
 http://www.iis.net/learn/application-frameworks/install-and-configure-php-applications-on-iis/using-fastcgi-to-host-php-applications-on-iis
