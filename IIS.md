@@ -15,7 +15,7 @@ INTL
 ----
 Open IIS Manager, locate the PHP Manager icon.
 "Enable or Disable an extension"
-Ensure that the intl is enabled.
+Ensure that the intl extension is enabled.
 
 "Manage All Settings":
 Add 'date.timezone' and set the value to a valid and logical timezone (for example locally I use America/Edmonton).
@@ -59,15 +59,16 @@ php app\console doctrine:schema:create
 Configure IIS
 ===================
 Ensure that whatever user the PHP CGI/FastCGI app is running as can write to app/cache and app/logs. For my tests I just allowed all "Users" write/modify to that directory.
-I did this by going to Authentication-> Set Anonymous = Whatever user is intalling the application (in my case nuviadmin)
+I did this by going to Authentication-> Set Anonymous = Whatever user is installing the application (in my case nuviadmin)
 
 http://www.iis.net/learn/application-frameworks/install-and-configure-php-applications-on-iis/using-fastcgi-to-host-php-applications-on-iis
 
 SECURITY ISOLATION FOR PHP WEB SITES
+------------------------------------
 
 The recommendation for isolating PHP Web sites in a shared hosting environment is consistent with all general security isolation recommendations for IIS. In particular, it is recommended to:
 
-Use one application pool per Web site
-Use a dedicated user account as an identity for the application pool
-Configure an anonymous user identity to use the application pool identity
-Ensure that FastCGI impersonation is enabled in the php.ini file (fastcgi.impersonate=1)
+* Use one application pool per Web site
+* Use a dedicated user account as an identity for the application pool
+* Configure an anonymous user identity to use the application pool identity
+* Ensure that FastCGI impersonation is enabled in the php.ini file (fastcgi.impersonate=1)
