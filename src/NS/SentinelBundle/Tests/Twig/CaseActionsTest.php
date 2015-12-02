@@ -5,6 +5,7 @@ namespace NS\SentinelBundle\Tests\Twig;
 use \NS\SentinelBundle\Twig\CaseActions;
 use \NS\SentinelBundle\Entity\IBD;
 use \NS\SentinelBundle\Entity\RotaVirus;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * Description of CaseActionsTest
@@ -442,16 +443,16 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         $rmap = array(
-            array('ibdShow', array('id' => null), false, 'Show IBD Case'),
-            array('ibdEdit', array('id' => null), false, 'Edit IBD Case'),
-            array('ibdRRLEdit', array('id' => null), false, 'Edit RRL'),
-            array('ibdNLEdit', array('id' => null), false, 'Edit NL'),
-            array('ibdLabEdit', array('id' => null), false, 'Edit Lab'),
-            array('rotavirusShow', array('id' => null), false, 'Show Rota Case'),
-            array('rotavirusEdit', array('id' => null), false, 'Edit Rota Case'),
-            array('rotavirusRRLEdit', array('id' => null), false, 'Edit RRL'),
-            array('rotavirusNLEdit', array('id' => null), false, 'Edit NL'),
-            array('rotavirusLabEdit', array('id' => null), false, 'Edit Lab'),
+            array('ibdShow', array('id' => null), UrlGeneratorInterface::ABSOLUTE_PATH, 'Show IBD Case'),
+            array('ibdEdit', array('id' => null), UrlGeneratorInterface::ABSOLUTE_PATH, 'Edit IBD Case'),
+            array('ibdRRLEdit', array('id' => null), UrlGeneratorInterface::ABSOLUTE_PATH, 'Edit RRL'),
+            array('ibdNLEdit', array('id' => null), UrlGeneratorInterface::ABSOLUTE_PATH, 'Edit NL'),
+            array('ibdLabEdit', array('id' => null), UrlGeneratorInterface::ABSOLUTE_PATH, 'Edit Lab'),
+            array('rotavirusShow', array('id' => null), UrlGeneratorInterface::ABSOLUTE_PATH, 'Show Rota Case'),
+            array('rotavirusEdit', array('id' => null), UrlGeneratorInterface::ABSOLUTE_PATH, 'Edit Rota Case'),
+            array('rotavirusRRLEdit', array('id' => null), UrlGeneratorInterface::ABSOLUTE_PATH, 'Edit RRL'),
+            array('rotavirusNLEdit', array('id' => null), UrlGeneratorInterface::ABSOLUTE_PATH, 'Edit NL'),
+            array('rotavirusLabEdit', array('id' => null), UrlGeneratorInterface::ABSOLUTE_PATH, 'Edit Lab'),
         );
 
         $router->expects($this->any())

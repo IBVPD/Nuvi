@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Twig;
 
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use \Symfony\Component\Routing\RouterInterface;
@@ -73,36 +74,30 @@ class CaseActions extends \Twig_Extension
 
         $out = '';
         if ($includeIndex) {
-            $out .= '<a href="' . $this->router->generate($baseRoute . 'Index') . '" class="btn btn-xs btn-info"><i class="fa fa-list bigger-120"></i></a>';
+            $out .= sprintf('<a href="%s" class="btn btn-xs btn-info"><i class="fa fa-list bigger-120"></i></a>',$this->router->generate($baseRoute . 'Index'));
         }
 
-        $out = '<a href="' . $this->router->generate($baseRoute . 'Show', array(
-                'id' => $row->getId())) . '" class="btn btn-xs btn-info"><i class="fa fa-eye bigger-120"></i></a>';
+        $out .= sprintf( '<a href="%s" class="btn btn-xs btn-info"><i class="fa fa-eye bigger-120"></i></a>',$this->router->generate($baseRoute . 'Show', array('id' => $row->getId()),UrlGeneratorInterface::ABSOLUTE_PATH));
 
         if ($this->authChecker->isGranted('ROLE_CAN_CREATE')) {
             if ($this->authChecker->isGranted('ROLE_CAN_CREATE_CASE')) {
-                $out .= '<a href="' . $this->router->generate($baseRoute . 'Edit', array(
-                        'id' => $row->getId())) . '" class="btn btn-xs btn-info"><i class="fa fa-edit bigger-120"></i> ' . $this->translator->trans('EPI') . '</a>';
+                $out .= sprintf('<a href="%s" class="btn btn-xs btn-info"><i class="fa fa-edit bigger-120"></i> %s</a>',$this->router->generate($baseRoute . 'Edit', array('id' => $row->getId()),UrlGeneratorInterface::ABSOLUTE_PATH),$this->translator->trans('EPI'));
             }
 
             if ($this->authChecker->isGranted('ROLE_CAN_CREATE_LAB')) {
-                $out .= '<a href="' . $this->router->generate($baseRoute . 'LabEdit', array(
-                        'id' => $row->getId())) . '" class="btn btn-xs btn-info"><i class="' . ($row->hasSiteLab() ? 'fa fa-edit' : 'fa fa-plus') . ' bigger-120"></i> ' . $this->translator->trans('Lab') . '</a>';
+                $out .= sprintf('<a href="%s" class="btn btn-xs btn-info"><i class="%s bigger-120"></i> %s</a>',$this->router->generate($baseRoute . 'LabEdit', array('id' => $row->getId()),UrlGeneratorInterface::ABSOLUTE_PATH),($row->hasSiteLab() ? 'fa fa-edit' : 'fa fa-plus'),$this->translator->trans('Lab'));
             }
 
             if ($this->authChecker->isGranted('ROLE_CAN_CREATE_NL_LAB') && $row->getSentToNationalLab()) {
-                $out .= '<a href="' . $this->router->generate($baseRoute . 'NLEdit', array(
-                        'id' => $row->getId())) . '" class="btn btn-xs btn-info"><i class="' . ($row->hasNationalLab() ? 'fa fa-edit' : 'fa fa-plus') . ' bigger-120"></i>' . $this->translator->trans('NL') . '</a>';
+                $out .= sprintf('<a href="%s" class="btn btn-xs btn-info"><i class="%s bigger-120"></i> %s</a>',$this->router->generate($baseRoute . 'NLEdit', array('id' => $row->getId()),UrlGeneratorInterface::ABSOLUTE_PATH),($row->hasNationalLab() ? 'fa fa-edit' : 'fa fa-plus'),$this->translator->trans('NL'));
             }
 
             if ($this->authChecker->isGranted('ROLE_CAN_CREATE_RRL_LAB') && $row->getSentToReferenceLab()) {
-                $out .= '<a href="' . $this->router->generate($baseRoute . 'RRLEdit', array(
-                        'id' => $row->getId())) . '" class="btn btn-xs btn-info"><i class="' . ($row->hasReferenceLab() ? 'fa fa-edit' : 'fa fa-plus') . ' bigger-120"></i>' . $this->translator->trans('RRL') . '</a>';
+                $out .= sprintf('<a href="%s" class="btn btn-xs btn-info"><i class="%s bigger-120"></i> %s</a>',$this->router->generate($baseRoute . 'RRLEdit', array('id' => $row->getId()),UrlGeneratorInterface::ABSOLUTE_PATH),($row->hasReferenceLab() ? 'fa fa-edit' : 'fa fa-plus'),$this->translator->trans('RRL'));
             }
 
             if ($this->authChecker->isGranted('ROLE_CAN_CREATE_CASE')) {
-                $out .= '<a href="' . $this->router->generate($baseRoute . 'OutcomeEdit', array(
-                        'id' => $row->getId())) . '" class="btn btn-xs btn-info"><i class="fa fa-edit bigger-120"></i> ' . $this->translator->trans('Outcome') . '</a>';
+                $out .= sprintf('<a href="%s" class="btn btn-xs btn-info"><i class="fa fa-edit bigger-120"></i> %s</a>',$this->router->generate($baseRoute . 'OutcomeEdit', array('id' => $row->getId()),UrlGeneratorInterface::ABSOLUTE_PATH),$this->translator->trans('Outcome'));
             }
         }
 
