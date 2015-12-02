@@ -234,6 +234,7 @@ class Import
 
     /**
      * Constructor
+     * @param UserInterface $user
      */
     public function __construct(UserInterface $user)
     {
@@ -410,7 +411,7 @@ class Import
     /**
      *
      * @param integer $sourceCount
-     * @return \NS\ImportBundle\Entity\Result
+     * @return \NS\ImportBundle\Entity\Import
      */
     public function setSourceCount($sourceCount)
     {
@@ -439,7 +440,7 @@ class Import
     /**
      *
      * @param \NS\SentinelBundle\Entity\User $user
-     * @return \NS\ImportBundle\Entity\Result
+     * @return \NS\ImportBundle\Entity\Import
      */
     public function setUser(User $user)
     {
@@ -450,7 +451,7 @@ class Import
     /**
      *
      * @param integer $processedCount
-     * @return \NS\ImportBundle\Entity\Result
+     * @return \NS\ImportBundle\Entity\Import
      */
     public function setProcessedCount($processedCount)
     {
@@ -471,7 +472,7 @@ class Import
     /**
      *
      * @param integer $importedCount
-     * @return \NS\ImportBundle\Entity\Result
+     * @return \NS\ImportBundle\Entity\Import
      */
     public function setImportedCount($importedCount)
     {
@@ -482,7 +483,7 @@ class Import
     /**
      *
      * @param string $mapName
-     * @return \NS\ImportBundle\Entity\Result
+     * @return \NS\ImportBundle\Entity\Import
      */
     public function setMapName($mapName)
     {
@@ -502,7 +503,7 @@ class Import
     /**
      *
      * @param \NS\ImportBundle\Entity\Map $map
-     * @return \NS\ImportBundle\Entity\Result
+     * @return \NS\ImportBundle\Entity\Import
      */
     public function setMap(Map $map)
     {
@@ -539,7 +540,7 @@ class Import
     /**
      *
      * @param \DateTime $createdAt
-     * @return \NS\ImportBundle\Entity\Result
+     * @return \NS\ImportBundle\Entity\Import
      */
     public function setCreatedAt(\DateTime $createdAt)
     {
@@ -550,7 +551,7 @@ class Import
     /**
      *
      * @param \DateTime $startedAt
-     * @return \NS\ImportBundle\Entity\Result
+     * @return \NS\ImportBundle\Entity\Import
      */
     public function setStartedAt(\DateTime $startedAt)
     {
@@ -564,7 +565,7 @@ class Import
     /**
      *
      * @param \DateTime $endedAt
-     * @return \NS\ImportBundle\Entity\Result
+     * @return \NS\ImportBundle\Entity\Import
      */
     public function setEndedAt(\DateTime $endedAt)
     {
@@ -584,7 +585,7 @@ class Import
     /**
      *
      * @param File $sourceFile
-     * @return \NS\ImportBundle\Entity\Result
+     * @return \NS\ImportBundle\Entity\Import
      */
     public function setSourceFile(File $sourceFile)
     {
@@ -605,7 +606,7 @@ class Import
     /**
      *
      * @param string $source
-     * @return \NS\ImportBundle\Entity\Result
+     * @return \NS\ImportBundle\Entity\Import
      */
     public function setSource($source)
     {
@@ -623,7 +624,7 @@ class Import
 
     /**
      * @param File $warningFile
-     * @return Result
+     * @return Import
      */
     public function setWarningFile(File $warningFile)
     {
@@ -641,7 +642,7 @@ class Import
 
     /**
      * @param File $successFile
-     * @return Result
+     * @return Import
      */
     public function setSuccessFile(File $successFile)
     {
@@ -713,7 +714,7 @@ class Import
 
     /**
      * @param File $errorFile
-     * @return Result
+     * @return Import
      */
     public function setErrorFile(File $errorFile)
     {
