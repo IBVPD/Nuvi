@@ -228,6 +228,25 @@ abstract class BaseCase
     }
 
     /**
+     *
+     */
+    public function __clone()
+    {
+        $this->setId(null);
+        if(is_object($this->siteLab)) {
+            $this->setSiteLab(clone $this->siteLab);
+        }
+
+        if(is_object($this->referenceLab)) {
+            $this->setReferenceLab(clone $this->referenceLab);
+        }
+
+        if(is_object($this->nationalLab)) {
+            $this->setNationalLab(clone $this->nationalLab);
+        }
+    }
+
+    /**
      * @return string
      */
     public function __toString()
@@ -825,5 +844,13 @@ abstract class BaseCase
     {
         $this->warning = $warning;
         return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isUnlinked()
+    {
+        return (strpos($this->id,'-XXX-') !== false);
     }
 }

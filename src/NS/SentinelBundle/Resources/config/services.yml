@@ -5,6 +5,11 @@ imports:
     - { resource: twig.yml }
 
 services:
+  ns_sentinel.entity.listener:
+    class: NS\SentinelBundle\Entity\Listener\OnFlushListener
+    tags:
+      - { name: doctrine.event_listener, event: onFlush, method: onFlush }
+
   ns_sentinel.rotavirus_report:
     class: NS\SentinelBundle\Report\RotaVirusReporter
     arguments: [@lexik_form_filter.query_builder_updater, @doctrine.orm.entity_manager, @router ]

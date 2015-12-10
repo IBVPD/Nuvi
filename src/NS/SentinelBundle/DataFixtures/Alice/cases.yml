@@ -34,8 +34,11 @@ NS\SentinelBundle\Entity\IBD:
     csfCollectDateTime: <dateTimeBetween($admDate,'now')>
     csfAppearance: <csfAppearance($csfCollected)>
     site: @site0
+  ibdNoSite:
+    caseId: 25
+    country: @country0
   ibd{0..500}:
-    caseId: <numberBetween(1, 20000000)>
+    caseId: <numberBetween(500, 20000000)>
     dob: <dateTimeBetween('-1825 days', 'now')>
     admDate: <dateTimeBetween($dob, 'now')>
     gender: <gender()>
@@ -78,8 +81,11 @@ NS\SentinelBundle\Entity\RotaVirus:
     gender: <gender()>
     admDate: <dateTimeBetween('2015-01-01', '2015-01-05')>
     site: @site0
+  rotaNoSite:
+    caseId: 25
+    country: @country0
   rota{0..500}:
-    caseId: <numberBetween(1,90000000)>
+    caseId: <numberBetween(500,90000000)>
     dob: <dateTimeBetween('-1825 days', 'now')>
     admDate: <dateTimeBetween($dob, 'now')>
     stoolCollected: <done()>
@@ -88,3 +94,13 @@ NS\SentinelBundle\Entity\RotaVirus:
     dischargeOutcome: 50%? <rotaDischargeOutcome()>
     gender: <gender()>
     site: @site*
+
+NS\SentinelBundle\Entity\IBD\ReferenceLab:
+  ibdRrlNoSite:
+    caseFile: @ibdNoSite
+    sampleCollectionDate: <dateTimeBetween('2015-01-01', '2015-01-05')>
+
+NS\SentinelBundle\Entity\Rota\ReferenceLab:
+  rotaRrlNoSite:
+    caseFile: @rotaNoSite
+    specimenCollectionDate: <dateTimeBetween('2015-01-01', '2015-01-05')>

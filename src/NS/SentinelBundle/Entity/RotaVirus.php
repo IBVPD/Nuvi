@@ -33,17 +33,17 @@ use \JMS\Serializer\Annotation\Exclude;
 class RotaVirus extends BaseCase
 {
     /**
-     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\Rota\SiteLab", mappedBy="caseFile",cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\Rota\SiteLab", mappedBy="caseFile", cascade={"persist","remove"}, orphanRemoval=true)
      */
     protected $siteLab;
 
     /**
-     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\Rota\NationalLab", mappedBy="caseFile",cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\Rota\NationalLab", mappedBy="caseFile", cascade={"persist","remove"}, orphanRemoval=true)
      */
     protected $nationalLab;
 
     /**
-     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\Rota\ReferenceLab", mappedBy="caseFile",cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\Rota\ReferenceLab", mappedBy="caseFile", cascade={"persist","remove"}, orphanRemoval=true)
      */
     protected $referenceLab;
 

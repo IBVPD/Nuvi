@@ -2,11 +2,13 @@
 
 namespace NS\SentinelBundle\Repository;
 
+
 use \Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query;
 use \Doctrine\ORM\QueryBuilder;
 use NS\ImportBundle\Exceptions\DuplicateCaseException;
 use \NS\SecurityBundle\Doctrine\SecuredEntityRepository;
+use NS\SentinelBundle\Exceptions\InvalidCaseException;
 use \NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
 
 /**
@@ -81,7 +83,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
      * @param $caseId
      * @param null $objId
      * @return mixed
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Doctrine\ORM\NoResultException
      */
     public function findOrCreate($caseId, $objId = null)
     {
@@ -120,7 +122,8 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
     public function findWithRelations(array $params)
     {
         $qb = $this->createQueryBuilder('c')
-            ->addSelect('sl,rl,nl')
+            ->addSelect('sl,rl,nl,s')
+            ->leftJoin('c.site','s')
             ->leftJoin('c.siteLab', 'sl')
             ->leftJoin('c.referenceLab', 'rl')
             ->leftJoin('c.nationalLab', 'nl');
@@ -130,11 +133,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
             $qb->andWhere(sprintf('c.%s = :%s', $field, $param))->setParameter($param, $value);
         }
 
-        try {
-            return $qb->getQuery()->getSingleResult();
-        } catch (NoResultException $exception) {
-            return null;
-        }
+        return $qb->getQuery()->getResult();
     }
 
     /**
@@ -162,7 +161,23 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
         $this->checkRequiredField('site',$params,'NS\SentinelBundle\Entity\Site');
         $this->checkRequiredField('caseId',$params);
 
-        return $this->findWithRelations($params);
+        $cases = $this->findWithRelations(array('caseId'=> $params['caseId']));
+
+        if (empty($cases)) {
+            return null;
+        }
+
+        if (count($cases) > 1) {
+            throw new DuplicateCaseException(array('found' => count($cases), 'caseId' => $params['caseId']));
+        }
+
+        $case = current($cases);
+
+        if (!$case->isUnlinked() && $case->getSite() && $case->getSite()->getCode() !== $params['site']->getCode()) {
+            throw new InvalidCaseException(sprintf("Retrieved a single case '%s' with an existing site mis-match. caseSite: %s vs requestedSite: %s",$params['caseId'],$case->getSite(),$params['site']->getCode()));
+        }
+
+        return $case;
     }
 
     /**
@@ -175,18 +190,22 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
         $this->checkRequiredField('caseId', $params);
 
         $ret = $this->findWithRelations(array('caseId' => $params['caseId']));
+
+        if (empty($ret)) {
+            return null;
+        } elseif (count($ret) == 1) {
+            return current($ret);
+        }
+
         $found = 0;
-        $caseRet = $ret;
 
-        if (count($ret) > 1) {
-            foreach ($ret as $case) {
-                if ($case->getCountry()->getCode() == $params['country']->getCode()) {
-                    $found++;
-                    $caseRet = $case;
+        foreach ($ret as $case) {
+            if ($case->getCountry()->getCode() == $params['country']->getCode()) {
+                $found++;
+                $caseRet = $case;
 
-                    if ($found > 1) {
-                        throw new DuplicateCaseException(array('found' => $found, 'caseId' => $params['caseId'], 'country' => $params['country']));
-                    }
+                if ($found > 1) {
+                    throw new DuplicateCaseException(array('found' => $found, 'caseId' => $params['caseId'], 'country' => $params['country']));
                 }
             }
         }

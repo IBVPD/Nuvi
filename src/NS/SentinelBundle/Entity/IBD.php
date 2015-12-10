@@ -46,17 +46,17 @@ use \NS\SentinelBundle\Validators as LocalAssert;
 class IBD extends BaseCase
 {
     /**
-     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\IBD\NationalLab", mappedBy="caseFile",cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\IBD\NationalLab", mappedBy="caseFile", cascade={"persist","remove"}, orphanRemoval=true)
      */
     protected $nationalLab;
 
     /**
-     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\IBD\ReferenceLab", mappedBy="caseFile",cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\IBD\ReferenceLab", mappedBy="caseFile", cascade={"persist","remove"}, orphanRemoval=true)
      */
     protected $referenceLab;
 
     /**
-     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\IBD\SiteLab", mappedBy="caseFile",cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\IBD\SiteLab", mappedBy="caseFile", cascade={"persist","remove"}, orphanRemoval=true)
      */
     protected $siteLab;
 
