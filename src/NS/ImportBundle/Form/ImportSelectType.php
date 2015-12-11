@@ -3,6 +3,7 @@
 namespace NS\ImportBundle\Form;
 
 use \Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityRepository;
 use \NS\ImportBundle\Services\ImportFileCreator;
 use \Symfony\Component\Form\AbstractType;
 use \Symfony\Component\Form\FormBuilderInterface;
@@ -48,9 +49,16 @@ class ImportSelectType extends AbstractType
                 'placeholder'   => 'Please Select...',
                 'query_builder' => $this->entityMgr->getRepository('NSImportBundle:Map')->getWithColumnsQuery(),
                 'property' => 'selectName',
-                'label_attr' => array('class'=>'col-sm-1')
                 )
             )
+            ->add('referenceLab','entity',array(
+                'class' => 'NS\SentinelBundle\Entity\ReferenceLab',
+                'placeholder' => 'Please Select...',
+                'query_builder'=> function(EntityRepository $repository) {
+                    return $repository->createQueryBuilder('r')->orderBy('r.name','ASC');
+                },
+                'required' => false,
+            ))
             ->add('sourceFile', 'vich_file',array('error_bubbling'=>false))
             ->add('inputDateStart','acedatepicker',array('label'=>'Import file date start'))
             ->add('inputDateEnd','acedatepicker',array('label'=>'Import file date end'))

@@ -3,6 +3,7 @@
 namespace NS\ImportBundle\Entity;
 
 use \Doctrine\ORM\Mapping as ORM;
+use NS\SentinelBundle\Entity\ReferenceLab;
 use \NS\SentinelBundle\Entity\User;
 use \Symfony\Component\HttpFoundation\File\File;
 use \Symfony\Component\Security\Core\User\UserInterface;
@@ -66,6 +67,12 @@ class Import
      * @Assert\Date()
      */
     private $inputDateEnd;
+
+    /**
+     * @var \NS\SentinelBundle\Entity\ReferenceLab $referenceLab
+     * @ORM\ManyToOne(targetEntity="NS\SentinelBundle\Entity\ReferenceLab")
+     */
+    private $referenceLab;
 
     // ---------------------------------------------------------------------------------------
 
@@ -303,6 +310,43 @@ class Import
     {
         $this->inputDateEnd = $inputDateEnd;
         return $this;
+    }
+
+    /**
+     * @return \NS\SentinelBundle\Entity\ReferenceLab
+     */
+    public function getReferenceLab()
+    {
+        return $this->referenceLab;
+    }
+
+    /**
+     * @param \NS\SentinelBundle\Entity\ReferenceLab $referenceLab
+     * @return Import
+     */
+    public function setReferenceLab(ReferenceLab $referenceLab = null)
+    {
+        $this->referenceLab = $referenceLab;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasReferenceLabResults()
+    {
+        if (!$this->referenceLab) {
+            return false;
+        }
+
+        $mappings = $this->map->getMappedColumns();
+        foreach ($mappings as $target) {
+            if (strpos($target, 'referenceLab') !== false) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -911,29 +955,6 @@ class Import
 
     // =================================================================================================================
     // Pass through functions
-    /**
-     * @return array
-     */
-    public function getConverters()
-    {
-        return $this->map->getConverters();
-    }
-
-    /**
-     * @return array
-     */
-    public function getMappings()
-    {
-        return $this->map->getMappings();
-    }
-
-    /**
-     * @return array
-     */
-    public function getIgnoredMapper()
-    {
-        return $this->map->getIgnoredMapper();
-    }
 
     /**
      * @return string
@@ -944,11 +965,35 @@ class Import
     }
 
     /**
+     * @return array
+     */
+    public function getConverters()
+    {
+        return $this->map->getConvertedColumns();
+    }
+
+    /**
+     * @return array
+     */
+    public function getMappings()
+    {
+        return $this->map->getMappedColumns();
+    }
+
+    /**
+     * @return array
+     */
+    public function getIgnoredMapper()
+    {
+        return $this->map->getIgnoredColumns();
+    }
+
+    /**
      * @return mixed
      */
     public function getPreprocessor()
     {
-        return $this->map->getPreProcessor();
+        return $this->map->getPreProcessorConditions();
     }
 
     /**

@@ -81,6 +81,7 @@ class WorkQueue
             $newImport->setMap($import->getMap());
             $newImport->setInputDateStart($import->getInputDateStart());
             $newImport->setInputDateEnd($import->getInputDateEnd());
+            $newImport->setReferenceLab($import->getReferenceLab());
 
             $orgSourceFile = $import->getSourceFile();
 

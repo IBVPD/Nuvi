@@ -4,23 +4,25 @@ namespace NS\ImportBundle\Importer;
 
 use \Ddeboer\DataImport\Filter\OffsetFilter;
 use \Ddeboer\DataImport\Step\ConverterStep;
+use \Ddeboer\DataImport\Step\MappingStep;
 use \Ddeboer\DataImport\Workflow;
 use \Ddeboer\DataImport\Reader;
 use \Ddeboer\DataImport\Step\FilterStep;
 use \Ddeboer\DataImport\Step\ValueConverterStep;
 use \Doctrine\Common\Persistence\ObjectManager;
 use \NS\ImportBundle\Converter\DateRangeConverter;
+use \NS\ImportBundle\Converter\Expression\ExpressionBuilder;
+use \NS\ImportBundle\Converter\PreprocessorStep;
 use \NS\ImportBundle\Converter\Registry;
 use \NS\ImportBundle\Converter\TrimInputConverter;
+use \NS\ImportBundle\Converter\UnsetMappingItemConverter;
 use \NS\ImportBundle\Converter\WarningConverter;
 use \NS\ImportBundle\Entity\Import;
-use NS\ImportBundle\Exceptions\CaseLinkerNotFoundException;
+use \NS\ImportBundle\Exceptions\CaseLinkerNotFoundException;
 use \NS\ImportBundle\Filter\DateOfBirthFilter;
 use \NS\ImportBundle\Filter\Duplicate;
 use \NS\ImportBundle\Filter\NotBlank;
-use NS\ImportBundle\Linker\CaseLinker;
-use NS\ImportBundle\Linker\CaseLinkerInterface;
-use NS\ImportBundle\Linker\CaseLinkerRegistry;
+use \NS\ImportBundle\Linker\CaseLinkerRegistry;
 use \NS\ImportBundle\Reader\ExcelReader;
 use \NS\ImportBundle\Reader\OffsetableReaderInterface;
 use \NS\ImportBundle\Writer\DoctrineWriter;
@@ -192,6 +194,8 @@ class ImportProcessor
 
         $this->addColumnNameMappingStep($workflow,$import, 40);
 
+        $this->addReferenceLabLinkingStep($workflow,$import, 35);
+
         $this->addColumnValueConversionStep($workflow,$import, 30);
 
         $this->addFilterStep($workflow, 20);
@@ -230,7 +234,10 @@ class ImportProcessor
     public function addDroppedColumnStep(Workflow $workflow, Import $import, $priority = 70)
     {
         // These allow us to ignore a column i.e. - region or country_ISO
-        $workflow->addStep($import->getIgnoredMapper(), $priority);
+        $mappings = $import->getIgnoredMapper();
+        if(!empty($mappings)) {
+            $workflow->addStep(new UnsetMappingItemConverter($mappings), $priority);
+        }
     }
 
     /**
@@ -240,9 +247,15 @@ class ImportProcessor
      */
     public function addPreProcessorStep(Workflow $workflow, Import $import, $priority = 50)
     {
-        $preProcessor = $import->getPreprocessor();
-        if ($preProcessor) {
-            $workflow->addStep($preProcessor, $priority);
+        $allConditions = $import->getPreprocessor();
+        if (!empty($allConditions)) {
+
+            $processor = new PreprocessorStep(new ExpressionBuilder());
+            foreach($allConditions as $name => $conditions) {
+                $processor->add($name,$conditions);
+            }
+
+            $workflow->addStep($processor, $priority);
         }
     }
 
@@ -254,8 +267,45 @@ class ImportProcessor
     public function addColumnNameMappingStep(Workflow $workflow, Import $import, $priority = 40)
     {
         // These map column headers i.e site_Code -> site
-        $workflow->addStep($import->getMappings(), $priority);
+        $mappings = $import->getMappings();
+        if(!empty($mappings)) {
+            $workflow->addStep(new MappingStep($mappings), $priority);
+        }
+    }
 
+    /**
+     * @var
+     */
+    private $lab;
+
+    /**
+     * @param Workflow $workflow
+     * @param Import $import
+     * @param int $priority
+     */
+    public function addReferenceLabLinkingStep(Workflow $workflow, Import $import, $priority = 35)
+    {
+        if ($import->hasReferenceLabResults()) {
+            $this->lab = $import->getReferenceLab();
+
+            $step = new ConverterStep();
+            $step->add(array($this,'addReferenceLabConverter'));
+
+            $workflow->addStep($step,$priority);
+        }
+    }
+
+    /**
+     * @param array $item
+     * @return array
+     */
+    public function addReferenceLabConverter(array $item)
+    {
+        if(isset($item['referenceLab'])) {
+            $item['referenceLab']['lab'] = $this->lab;
+        }
+
+        return $item;
     }
 
     /**
@@ -265,15 +315,15 @@ class ImportProcessor
      */
     public function addColumnValueConversionStep(Workflow $workflow, Import $import, $priority = 30)
     {
-        $valueConverter = new ValueConverterStep();
-        $valueConverterCount = 0;
-        foreach ($import->getConverters() as $column) {
-            $name = ($column->hasMapper()) ? $column->getMapper() : $column->getName();
-            $valueConverter->add(sprintf('[%s]', str_replace('.', '][', $name)), $this->registry->get($column->getConverter()));
-            $valueConverterCount++;
-        }
+        $converters = $import->getConverters();
+        if(!empty($converters)) {
+            $valueConverter = new ValueConverterStep();
 
-        if ($valueConverterCount > 0) {
+            foreach ($converters as $column) {
+                $name = ($column->hasMapper()) ? $column->getMapper() : $column->getName();
+                $valueConverter->add(sprintf('[%s]', str_replace('.', '][', $name)), $this->registry->get($column->getConverter()));
+            }
+
             $workflow->addStep($valueConverter, $priority);
         }
     }

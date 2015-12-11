@@ -6,6 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use \Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use \Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use \Symfony\Component\HttpFoundation\RedirectResponse;
 use \Symfony\Component\HttpFoundation\Request;
 use \Symfony\Component\HttpFoundation\Response;
@@ -61,7 +62,7 @@ class ImportController extends Controller
     {
         $percent = $this->get('doctrine.orm.entity_manager')->getRepository('NS\ImportBundle\Entity\Import')->getStatistics($id);
 
-        return new Response(json_encode($percent));
+        return new JsonResponse($percent);
     }
 
     /**
