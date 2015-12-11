@@ -3,8 +3,8 @@ parameters:
     database_host: localhost
     database_port: null
     database_name: nuvitest
-    database_user: phpunit
-    database_password: phpunit2014
+    database_user: travis
+    database_password: 
     mailer_transport: smtp
     mailer_host: 127.0.0.1
     mailer_user: null
