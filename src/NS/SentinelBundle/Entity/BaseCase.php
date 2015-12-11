@@ -377,7 +377,7 @@ abstract class BaseCase
     /**
      * Get ReferenceLab
      *
-     * @return \NS\SentinelBundle\Entity\ReferenceLab
+     * @return \NS\SentinelBundle\Entity\BaseExternalLab
      */
     public function getReferenceLab()
     {
