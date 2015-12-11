@@ -11,7 +11,7 @@ php:
 before_script:
   - composer self-update
   - cp app/config/parameters_test.yml.dist app/config/parameters_test.yml
-  - composer install -o
+  - composer install -o --prefer-source
   - app/console doctrine:database:create --env=test
   - app/console doctrine:schema:create --env=test
   - app/console doctrine:fixtures:load -n --env=test
