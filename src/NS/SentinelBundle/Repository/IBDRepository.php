@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Repository;
 
+use Doctrine\DBAL\Platforms\SQLServerPlatform;
 use \Doctrine\ORM\NoResultException;
 use \Doctrine\ORM\Query;
 use \NS\SentinelBundle\Exceptions\NonExistentCaseException;
@@ -36,8 +37,13 @@ class IBDRepository extends Common
         $queryBuilder = $this->createQueryBuilder($alias)
             ->select(sprintf('MONTH(%s.admDate) as AdmissionMonth,COUNT(%s.admDx) as admDxCount,%s.admDx', $alias, $alias, $alias))
             ->where(sprintf("(%s.admDx IS NOT NULL AND %s.age <= :age)", $alias, $alias))
-            ->setParameter('age', $ageInMonths)
-            ->groupBy($alias . '.admDx,AdmissionMonth');
+            ->setParameter('age', $ageInMonths);
+
+        if($this->getEntityManager()->getConnection()->getDatabasePlatform() instanceof SQLServerPlatform) {
+            $queryBuilder->groupBy($alias . '.admDx,MONTH(%s.admDate)');
+        } else {
+            $queryBuilder->groupBy($alias . '.admDx,AdmissionMonth');
+        }
 
         return $this->secure($queryBuilder);
     }
@@ -267,8 +273,13 @@ class IBDRepository extends Common
             ->select(sprintf('YEAR(%s.admDate) as theYear, COUNT(%s.id) as theCount,%s.ageDistribution', $alias, $alias, $alias))
             ->where(sprintf('(%s.result = :suspectedMening)', $alias))
             ->setParameter('suspectedMening', IBDCaseResult::PROBABLE)
-            ->groupBy(sprintf('theYear,%s.ageDistribution', $alias))
             ->orderBy('theYear', 'ASC');
+
+        if($this->getEntityManager()->getConnection()->getDatabasePlatform() instanceof SQLServerPlatform) {
+            $queryBuilder->groupBy(sprintf('YEAR(%s.admDate),%s.ageDistribution',$alias,$alias));
+        } else {
+            $queryBuilder->groupBy(sprintf('theYear,%s.ageDistribution', $alias));
+        }
 
         return $this->secure($queryBuilder);
     }
@@ -555,10 +566,16 @@ class IBDRepository extends Common
         $config = $this->_em->getConfiguration();
         $config->addCustomDatetimeFunction('MONTH', 'DoctrineExtensions\Query\Mysql\Month');
 
-        return $this->getCountQueryBuilder($alias, $siteCodes)
-            ->select(sprintf('%s.id,MONTH(%s.admDate) as theMonth,COUNT(%s.id) as caseCount,s.code', $alias, $alias, $alias))
-            ->addGroupBy('theMonth')
-            ;
+        $queryBuilder = $this->getCountQueryBuilder($alias, $siteCodes)
+            ->select(sprintf('%s.id,MONTH(%s.admDate) as theMonth,COUNT(%s.id) as caseCount,s.code', $alias, $alias, $alias));
+
+        if($this->getEntityManager()->getConnection()->getDatabasePlatform() instanceof SQLServerPlatform) {
+            $queryBuilder->groupBy('MONTH(%s.admDate)');
+        } else {
+            $queryBuilder->groupBy('theMonth');
+        }
+
+        return $queryBuilder;
     }
 
     public function getNumberOfSpecimenCollectedCount($alias, array $siteCodes)
