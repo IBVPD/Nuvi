@@ -122,6 +122,11 @@ to function.
     </IfModule>
     Require all granted
   </Directory>
+  <Directory "/var/www/local/nuvi/web/bundles">
+    <IfModule mod_rewrite.c>
+        RewriteEngine Off
+    </IfModule>
+  </Directory>
 
   <Directory "/var/www/local/nuvi/app">
     deny from all
