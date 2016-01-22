@@ -3,6 +3,7 @@ VERSION 0  INITIAL RELEASE
 ==========================
 
    Version 0.3 - Initial HQ Server release
+      22/01/2016 10:29  0.3.1  Updated config for security scan
       11/12/2015 14:25  0.3.0  initial release
 
    Version 0.2 - Import builder processor
