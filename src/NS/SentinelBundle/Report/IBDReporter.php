@@ -266,6 +266,12 @@ class IBDReporter extends AbstractReporter
         return array('sites' => $results, 'form' => $form->createView());
     }
 
+    /**
+     * @param Request $request
+     * @param FormInterface $form
+     * @param $redirectRoute
+     * @return array|RedirectResponse
+     */
     public function getSitePerformance(Request $request, FormInterface $form, $redirectRoute)
     {
         $results = new ArrayCollection();
@@ -305,6 +311,12 @@ class IBDReporter extends AbstractReporter
         return array('sites' => $results, 'form' => $form->createView());
     }
 
+    /**
+     * @param Request $request
+     * @param FormInterface $form
+     * @param $redirectRoute
+     * @return array|RedirectResponse
+     */
     public function getDataLinking(Request $request, FormInterface $form, $redirectRoute)
     {
         $results = new ArrayCollection();
