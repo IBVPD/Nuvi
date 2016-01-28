@@ -76,7 +76,7 @@
                                     {{ 'all_elements'|trans({}, 'SonataAdminBundle') }}
                                 </label>
 
-                                <select name="action" style="width: auto; height: auto">
+                                <select name="action" style="width: auto; height: auto;">
                                     {% for action, options in batchactions %}
                                         <option value="{{ action }}">{{ options.label }}</option>
                                     {% endfor %}
