@@ -2,7 +2,6 @@
 
 namespace NS\SentinelBundle\Tests\Validators;
 
-
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Validators\Done;
 use NS\SentinelBundle\Validators\DoneValidator;

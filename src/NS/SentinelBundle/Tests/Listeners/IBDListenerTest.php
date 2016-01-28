@@ -22,6 +22,9 @@ use NS\SentinelBundle\Entity\Listener\IBDListener;
 
 class IBDListenerTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @return \Doctrine\ORM\Event\LifecycleEventArgs
+     */
     public function getEventArgs()
     {
         return $this->getMockBuilder('Doctrine\ORM\Event\LifecycleEventArgs')

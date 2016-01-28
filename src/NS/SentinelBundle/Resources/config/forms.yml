@@ -134,11 +134,6 @@ services:
     tags:
       - { name: form.type, alias: lab_filter }
 
-  ns.sentinel.form.filter.base:
-    class: NS\SentinelBundle\Filter\Type\BaseObject
-    tags:
-      - { name: form.type, alias: filter_object }
-
   ns.sentinel.form.filter.country:
     class: NS\SentinelBundle\Filter\Type\CountryType
     arguments: [ "@doctrine.orm.entity_manager", "NSSentinelBundle:Country" ]

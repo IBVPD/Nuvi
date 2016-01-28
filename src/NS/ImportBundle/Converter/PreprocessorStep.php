@@ -40,7 +40,7 @@ class PreprocessorStep implements Step
     }
 
     /**
-     * @param callable $property
+     * @param string $property
      * @param mixed $conditions
      * @return $this|void
      */
