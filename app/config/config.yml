@@ -356,16 +356,18 @@ leezy_pheanstalk:
 services:
   extension.listener:
     class: NS\SentinelBundle\Listeners\LoggableListener
-    arguments: [ @security.context, @gedmo.listener.loggable ]
+    arguments: [ "@security.token_storage", "@security.authorization_checker", "@gedmo.listener.loggable" ]
     tags:
-      - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }    
+      - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
   twig.text_extension:
     class: Twig_Extensions_Extension_Text
     tags:
       - name: twig.extension
+
   gedmo.listener.loggable:
     class: Gedmo\Loggable\LoggableListener
     tags:
       - { name: doctrine.event_subscriber, connection: default }
     calls:
-      - [ setAnnotationReader, [ @annotation_reader ] ]
+      - [ setAnnotationReader, [ "@annotation_reader" ] ]

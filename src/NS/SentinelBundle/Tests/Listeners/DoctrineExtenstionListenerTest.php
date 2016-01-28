@@ -16,12 +16,16 @@ class DoctrineExtenstionListenerTest extends \PHPUnit_Framework_TestCase
 {
     public function testNoToken()
     {
-        $securityContext = $this->getMockBuilder('\Symfony\Component\Security\Core\SecurityContextInterface')
+        $tokenStorage = $this->getMockBuilder('\Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface')
             ->disableOriginalConstructor()
             ->getMock();
-        $securityContext->expects($this->once())
+        $tokenStorage->expects($this->once())
             ->method('getToken')
             ->willReturn(null);
+
+        $authChecker = $this->getMockBuilder('\Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface')
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $loggable = $this->getMockBuilder('Gedmo\Loggable\LoggableListener')
             ->disableOriginalConstructor()
@@ -29,19 +33,25 @@ class DoctrineExtenstionListenerTest extends \PHPUnit_Framework_TestCase
         $loggable->expects($this->never())
             ->method('setUsername');
 
-        $listener = new LoggableListener($securityContext,$loggable);
+        $listener = new LoggableListener($tokenStorage,$authChecker,$loggable);
         $listener->onKernelRequest($this->getEvent());
     }
 
     public function testIsNotAuthenticated()
     {
-        $securityContext = $this->getMockBuilder('\Symfony\Component\Security\Core\SecurityContextInterface')
+        $tokenStorage = $this->getMockBuilder('\Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface')
             ->disableOriginalConstructor()
             ->getMock();
-        $securityContext->expects($this->once())
+
+        $tokenStorage->expects($this->once())
             ->method('getToken')
             ->willReturn(' ');
-        $securityContext->expects($this->once())
+
+        $authChecker = $this->getMockBuilder('\Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $authChecker->expects($this->once())
             ->method('isGranted')
             ->with('IS_AUTHENTICATED_FULLY')
             ->willReturn(false);
@@ -52,7 +62,7 @@ class DoctrineExtenstionListenerTest extends \PHPUnit_Framework_TestCase
         $loggable->expects($this->never())
             ->method('setUsername');
 
-        $listener = new LoggableListener($securityContext,$loggable);
+        $listener = new LoggableListener($tokenStorage,$authChecker,$loggable);
         $listener->onKernelRequest($this->getEvent());
     }
 
@@ -61,16 +71,24 @@ class DoctrineExtenstionListenerTest extends \PHPUnit_Framework_TestCase
         $token = $this->getMockBuilder('\Symfony\Component\Security\Core\Authentication\Token\TokenInterface')
             ->disableOriginalConstructor()
             ->getMock();
+
         $token->expects($this->once())
             ->method('getUsername')
             ->willReturn('gnat');
-        $securityContext = $this->getMockBuilder('\Symfony\Component\Security\Core\SecurityContextInterface')
+
+        $tokenStorage = $this->getMockBuilder('\Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface')
             ->disableOriginalConstructor()
             ->getMock();
-        $securityContext->expects($this->any())
+
+        $authChecker = $this->getMockBuilder('\Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $tokenStorage->expects($this->any())
             ->method('getToken')
             ->willReturn($token);
-        $securityContext->expects($this->once())
+
+        $authChecker->expects($this->once())
             ->method('isGranted')
             ->with('IS_AUTHENTICATED_FULLY')
             ->willReturn(true);
@@ -82,7 +100,7 @@ class DoctrineExtenstionListenerTest extends \PHPUnit_Framework_TestCase
             ->method('setUsername')
             ->with('gnat');
 
-        $listener = new LoggableListener($securityContext,$loggable);
+        $listener = new LoggableListener($tokenStorage,$authChecker,$loggable);
         $listener->onKernelRequest($this->getEvent());
     }
 
