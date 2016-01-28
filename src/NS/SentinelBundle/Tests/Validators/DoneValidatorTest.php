@@ -17,10 +17,18 @@ class DoneValidatorTest extends \PHPUnit_Framework_TestCase
             'resultField' => '',
         );
 
+        $context = $this->getMockBuilder('Symfony\Component\Validator\Context\ExecutionContextInterface')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $context->expects($this->never())
+            ->method('buildViolation');
+
         $constraint = new Done(array('resultField'=>'resultField','tripleChoiceField'=>'tripleChoiceField'));
         $validator = new DoneValidator();
-        $violationList = $validator->validate($data,$constraint);
-        $this->assertNull($violationList);
+        $validator->initialize($context);
+
+        $validator->validate($data,$constraint);
     }
 
     public function testTripleChoiceFieldIsSet()
@@ -36,7 +44,6 @@ class DoneValidatorTest extends \PHPUnit_Framework_TestCase
 
         $context->expects($this->never())
             ->method('buildViolation');
-
 
         $constraint = new Done(array('resultField'=>'resultField','tripleChoiceField'=>'tripleChoiceField'));
         $validator = new DoneValidator();
@@ -73,8 +80,7 @@ class DoneValidatorTest extends \PHPUnit_Framework_TestCase
         $constraint = new Done(array('resultField'=>'resultField','tripleChoiceField'=>'tripleChoiceField'));
         $validator = new DoneValidator();
         $validator->initialize($context);
-        $violationList = $validator->validate($data,$constraint);
-        $this->assertNull($violationList);
+        $validator->validate($data,$constraint);
     }
 
     static public function getInvalidStates()
@@ -104,10 +110,16 @@ class DoneValidatorTest extends \PHPUnit_Framework_TestCase
             'tripleChoiceField' => new \stdClass(),
 
         );
+        $context = $this->getMockBuilder('Symfony\Component\Validator\Context\ExecutionContextInterface')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $context->expects($this->never())
+            ->method('buildViolation');
 
         $constraint = new Done(array('resultField'=>'resultField','tripleChoiceField'=>'tripleChoiceField'));
         $validator = new DoneValidator();
-        $violationList = $validator->validate($data,$constraint);
-        $this->assertNull($violationList);
+        $validator->initialize($context);
+        $validator->validate($data,$constraint);
     }
 }

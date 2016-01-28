@@ -14,10 +14,18 @@ class GreaterThanDateValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testNotDates($ibd)
     {
-        $validator = new GreaterThanDateValidator();
-        $constraint = new GreaterThanDate(array('lessThanField'=>'dob','greaterThanField' => 'admDate'));
+        $context = $this->getMockBuilder('Symfony\Component\Validator\Context\ExecutionContextInterface')
+            ->disableOriginalConstructor()
+            ->getMock();
 
-        $this->assertNull($validator->validate($ibd,$constraint));
+        $context->expects($this->never())
+            ->method('buildViolation');
+
+        $validator = new GreaterThanDateValidator();
+        $validator->initialize($context);
+
+        $constraint = new GreaterThanDate(array('lessThanField'=>'dob','greaterThanField' => 'admDate'));
+        $validator->validate($ibd,$constraint);
     }
 
     public function getIbd()
@@ -53,7 +61,7 @@ class GreaterThanDateValidatorTest extends \PHPUnit_Framework_TestCase
         $ibd->setDob(new \DateTime('2015-12-28'));
         $ibd->setAdmDate(new \DateTime('2016-07-15'));
 
-        $this->assertNull($validator->validate($ibd,$constraint));
+        $validator->validate($ibd,$constraint);
     }
 
     public function testInvalidDates()
