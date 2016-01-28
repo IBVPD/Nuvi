@@ -2,7 +2,7 @@
 
 namespace NS\SentinelBundle\Services;
 
-use Symfony\Component\Security\Core\SecurityContextInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -14,19 +14,25 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
  */
 class Homepage
 {
-    private $security;
+    /**
+     * @var
+     */
+    private $tokenStorage;
 
+    /**
+     * @var RouterInterface
+     */
     private $router;
 
     /**
-     *
-     * @param SecurityContextInterface $security
+     * Homepage constructor.
+     * @param TokenStorageInterface $tokenStorage
      * @param RouterInterface $router
      */
-    public function __construct(SecurityContextInterface $security, RouterInterface $router)
+    public function __construct(TokenStorageInterface $tokenStorage, RouterInterface $router)
     {
-        $this->security = $security;
-        $this->router   = $router;
+        $this->tokenStorage = $tokenStorage;
+        $this->router = $router;
     }
 
     /**
@@ -36,14 +42,11 @@ class Homepage
      */
     public function getHomepageResponse(Request $request)
     {
-        $user = $this->security->getToken()->getUser();
+        $user = $this->tokenStorage->getToken()->getUser();
 
-        if ($user->isOnlyAdmin())
-        {
+        if ($user->isOnlyAdmin()) {
             return new RedirectResponse($this->router->generate('sonata_admin_dashboard'));
-        }
-        else if ($user->isOnlyApi())
-        {
+        } elseif ($user->isOnlyApi()) {
             return new RedirectResponse($this->router->generate('ns_api_dashboard'));
         }
 

@@ -5,6 +5,8 @@ namespace NS\SentinelBundle\Locale;
 use \Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use \Symfony\Component\HttpKernel\KernelEvents;
 use \Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use \Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundException;
 use \Symfony\Component\Security\Core\SecurityContextInterface;
 use \Symfony\Component\Security\Core\Event\AuthenticationEvent;
@@ -19,26 +21,27 @@ class Login implements EventSubscriberInterface
     /**
      * @var string
      */
-    private $_defaultLocale;
+    private $defaultLocale;
 
     /**
-     * @var SecurityContextInterface
+     * @var TokenStorageInterface
      */
-    private $_securityContext;
+    private $tokenStorage;
 
     /**
      * @var
      */
-    private $_session;
+    private $session;
 
     /**
-     * @param SecurityContextInterface $context
+     * Login constructor.
+     * @param TokenStorageInterface $tokenStorage
      * @param string $defaultLocale
      */
-    public function __construct(SecurityContextInterface $context, $defaultLocale = 'en')
+    public function __construct(TokenStorageInterface $tokenStorage, $defaultLocale = 'en')
     {
-        $this->_defaultLocale = $defaultLocale;
-        $this->_securityContext = $context;
+        $this->tokenStorage = $tokenStorage;
+        $this->defaultLocale = $defaultLocale;
     }
 
     /**
@@ -47,30 +50,31 @@ class Login implements EventSubscriberInterface
     public function onKernelRequest(GetResponseEvent $event)
     {
         $request = $event->getRequest();
-        $this->_session = $request->getSession();
+        $this->session = $request->getSession();
 
-        if (!$request->hasPreviousSession() || !$this->_session->isStarted()) {
+        if (!$request->hasPreviousSession() || !$this->session->isStarted()) {
             return;
         }
 
         // try to see if the locale has been set as a _locale session parameter
         try {
-            $locale = $this->_session->get('_locale', $request->attributes->get('_locale'));
+            $locale = $this->session->get('_locale', $request->attributes->get('_locale'));
+            $token = $this->tokenStorage->getToken();
+
             if ($locale) {
                 $request->setLocale($locale);
-            } elseif ($this->_securityContext->isGranted('IS_FULLY_AUTHENTICATED')) {
-                $user = $this->_securityContext->getToken()->getUser();
+            } elseif ($token) {
+                $user = $token->getUser();
                 if ($user->getLanguage()) {
                     $locale = $user->getLanguage();
-                    $this->_session->set('_locale', $locale);
+                    $this->session->set('_locale', $locale);
                     $request->setLocale($locale);
                 }
             } else {
-                $request->setLocale($this->_session->get('_locale', $this->_defaultLocale));
+                $request->setLocale($this->session->get('_locale', $this->defaultLocale));
             }
-
         } catch (AuthenticationCredentialsNotFoundException $e) {
-            $request->setLocale($this->_session->get('_locale', $this->_defaultLocale));
+            $request->setLocale($this->session->get('_locale', $this->defaultLocale));
         }
     }
 
@@ -81,13 +85,14 @@ class Login implements EventSubscriberInterface
     {
         $user = $event->getAuthenticationToken()->getUser();
 
-        if (!$user || !$this->_session || !$this->_session->isStarted())
+        if (!$user || !$this->session || !$this->session->isStarted()) {
             return;
+        }
 
-        if (!$this->_session->get('_locale', false)) {
+        if (!$this->session->get('_locale', false)) {
             $locale = $this->findLocale($user);
             if ($locale) {
-                $this->_session->set('_locale', $locale);
+                $this->session->set('_locale', $locale);
             }
         }
     }

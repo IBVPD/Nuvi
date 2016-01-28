@@ -7,6 +7,8 @@ use \NS\SecurityBundle\Role\ACLConverter;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use \Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -14,25 +16,36 @@ use Symfony\Component\Form\FormEvents;
 class BaseQuarterlyFilterType extends AbstractType
 {
     /**
-     * @var SecurityContextInterface
+     * @var TokenStorageInterface
      */
-    private $securityContext;
+    private $tokenStorage;
+
+    /**
+     * @var AuthorizationCheckerInterface
+     */
+    private $authChecker;
 
     /**
      * @var ACLConverter
      */
     private $converter;
 
+    /**
+     * @var string
+     */
     protected $fieldName = 'admDate';
 
     /**
-     * @param SecurityContextInterface $securityContext
+     * BaseQuarterlyFilterType constructor.
+     * @param TokenStorageInterface $tokenStorage
+     * @param AuthorizationCheckerInterface $authChecker
      * @param ACLConverter $converter
      */
-    public function __construct(SecurityContextInterface $securityContext, ACLConverter $converter)
+    public function __construct(TokenStorageInterface $tokenStorage, AuthorizationCheckerInterface $authChecker, ACLConverter $converter)
     {
-        $this->securityContext = $securityContext;
-        $this->converter       = $converter;
+        $this->tokenStorage = $tokenStorage;
+        $this->authChecker  = $authChecker;
+        $this->converter    = $converter;
     }
 
     /**
@@ -77,18 +90,18 @@ class BaseQuarterlyFilterType extends AbstractType
         $siteType = ( isset($options['site_type']) && $options['site_type'] == 'advanced') ? new SiteFilterType() : 'site';
         $siteOpt  = ($siteType instanceof SiteFilterType) ? array('include_intense'=>$options['include_intense'],'label'=>'Site'): array();
 
-        $token    = $this->securityContext->getToken();
+        $token    = $this->tokenStorage->getToken();
 
-        if ($this->securityContext->isGranted('ROLE_REGION')) {
+        if ($this->authChecker->isGranted('ROLE_REGION')) {
             $objectIds = $this->converter->getObjectIdsForRole($token, 'ROLE_REGION');
             if (count($objectIds) > 1) {
                 $form->add('region', 'region');
             }
             $form->add('country', 'country');
             $form->add('site', $siteType,$siteOpt);
-        } elseif ($this->securityContext->isGranted('ROLE_COUNTRY')) {
+        } elseif ($this->authChecker->isGranted('ROLE_COUNTRY')) {
             $form->add('site', $siteType,$siteOpt);
-        } elseif ($this->securityContext->isGranted('ROLE_SITE')) {
+        } elseif ($this->authChecker->isGranted('ROLE_SITE')) {
             $objectIds = $this->converter->getObjectIdsForRole($token, 'ROLE_SITE');
             if (count($objectIds) > 1) {
                 $form->add('site', $siteType,$siteOpt);

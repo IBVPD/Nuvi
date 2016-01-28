@@ -29,9 +29,9 @@ class CreateRolesTest extends TypeTestCase
      */
     public function testByRoles($count, $data)
     {
-        $securityCtx = $this->getSecurityContext($data);
+        $authChecker = $this->getAuthorizationChecker($data);
         $createRole  = new CreateRoles();
-        $createRole->setSecurityContext($securityCtx);
+        $createRole->setAuthChecker($authChecker);
         $form        = $this->factory->create($createRole);
         $this->assertEquals('CreateRoles', $form->getName());
         $choices     = $form->getConfig()->getOption('choices');
@@ -96,20 +96,19 @@ class CreateRolesTest extends TypeTestCase
         );
     }
 
-    public function getSecurityContext(array $calls = array())
+    public function getAuthorizationChecker(array $calls = array())
     {
-        $sc = $this->getMockBuilder('\Symfony\Component\Security\Core\SecurityContextInterface')
+        $authChecker = $this->getMockBuilder('\Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface')
             ->disableOriginalConstructor()
             ->getMock();
 
-        foreach ($calls as $index => $call)
-        {
-            $sc->expects($this->at($index))
+        foreach ($calls as $index => $call) {
+            $authChecker->expects($this->at($index))
                 ->method('isGranted')
                 ->with($call['param'])
                 ->willReturn($call['ret']);
         }
 
-        return $sc;
+        return $authChecker;
     }
 }

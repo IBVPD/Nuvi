@@ -8,7 +8,8 @@ use \Symfony\Component\Form\FormBuilderInterface;
 use \Symfony\Component\Form\FormEvent;
 use \Symfony\Component\Form\FormEvents;
 use \Symfony\Component\OptionsResolver\OptionsResolver;
-use \Symfony\Component\Security\Core\SecurityContextInterface;
+use \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * Description of BaseReportFilterType
@@ -18,9 +19,14 @@ use \Symfony\Component\Security\Core\SecurityContextInterface;
 class BaseReportFilterType extends AbstractType
 {
     /**
-     * @var SecurityContextInterface
+     * @var TokenStorageInterface
      */
-    private $securityContext;
+    private $tokenStorage;
+
+    /**
+     * @var AuthorizationCheckerInterface
+     */
+    private $authChecker;
 
     /**
      * @var ACLConverter
@@ -28,13 +34,16 @@ class BaseReportFilterType extends AbstractType
     private $converter;
 
     /**
-     * @param SecurityContextInterface $securityContext
+     * BaseReportFilterType constructor.
+     * @param TokenStorageInterface $tokenStorage
+     * @param AuthorizationCheckerInterface $authChecker
      * @param ACLConverter $converter
      */
-    public function __construct(SecurityContextInterface $securityContext, ACLConverter $converter)
+    public function __construct(TokenStorageInterface $tokenStorage, AuthorizationCheckerInterface $authChecker, ACLConverter $converter)
     {
-        $this->securityContext = $securityContext;
-        $this->converter       = $converter;
+        $this->tokenStorage = $tokenStorage;
+        $this->authChecker  = $authChecker;
+        $this->converter    = $converter;
     }
 
     /**
@@ -59,13 +68,13 @@ class BaseReportFilterType extends AbstractType
         $options  = $form->getConfig()->getOptions();
         $siteType = ( isset($options['site_type']) && $options['site_type'] == 'advanced') ? new SiteFilterType() : 'site';
 
-        if ($this->securityContext->isGranted('ROLE_REGION')) {
+        if ($this->authChecker->isGranted('ROLE_REGION')) {
             $form->add('country', 'country');
             $form->add('site', $siteType);
-        } elseif ($this->securityContext->isGranted('ROLE_COUNTRY')) {
+        } elseif ($this->authChecker->isGranted('ROLE_COUNTRY')) {
             $form->add('site', $siteType);
-        } elseif ($this->securityContext->isGranted('ROLE_SITE')) {
-            $token     = $this->securityContext->getToken();
+        } elseif ($this->authChecker->isGranted('ROLE_SITE')) {
+            $token     = $this->tokenStorage->getToken();
             $objectIds = $this->converter->getObjectIdsForRole($token, 'ROLE_SITE');
             if (count($objectIds) > 1) {
                 $form->add('site', $siteType);

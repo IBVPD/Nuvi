@@ -1,25 +1,25 @@
 services:
   ns_sentinel.filter.type.rota_linking_quarterly:
     class: NS\SentinelBundle\Filter\Type\RotaVirus\QuarterlyLinkingReportFilterType
-    arguments: [ @security.context, @ns.security.acl_converter ]
+    arguments: [ "@security.token_storage", "@security.authorization_checker", "@ns.security.acl_converter" ]
     tags:
       - { name: form.type, alias: RotaVirusQuarterlyLinkingReportFilter }
 
   ns_sentinel.filter.type.ibd_linking_quarterly:
     class: NS\SentinelBundle\Filter\Type\IBD\QuarterlyLinkingReportFilterType
-    arguments: [ @security.context, @ns.security.acl_converter ]
+    arguments: [ "@security.token_storage", "@security.authorization_checker", "@ns.security.acl_converter" ]
     tags:
       - { name: form.type, alias: IBDQuarterlyLinkingReportFilter }
 
   ns_sentinel.filter.type.ibd_quarterly:
     class: NS\SentinelBundle\Filter\Type\IBD\QuarterlyReportFilterType
-    arguments: [ @security.context, @ns.security.acl_converter ]
+    arguments: [ "@security.token_storage", "@security.authorization_checker", "@ns.security.acl_converter" ]
     tags:
       - { name: form.type, alias: QuarterlyReportFilter }
 
   ns_sentinel.filter.type.base_quarterly:
     class: NS\SentinelBundle\Filter\Type\BaseQuarterlyFilterType
-    arguments: [ @security.context, @ns.security.acl_converter ]
+    arguments: [ "@security.token_storage", "@security.authorization_checker", "@ns.security.acl_converter" ]
     tags:
       - { name: form.type, alias: BaseQuarterlyFilter }
 
@@ -30,7 +30,6 @@ services:
 
   ns.sentinel.form.rota.report_filter:
     class: NS\SentinelBundle\Filter\Type\RotaVirus\FilterType
-    arguments: [ @security.context, @ns.security.acl_converter ]
     tags:
       - { name: form.type, alias: RotaVirusReportFilterType }
 
@@ -46,7 +45,7 @@ services:
 
   ns.sentinel.form.filters.base_report_filter:
     class: NS\SentinelBundle\Filter\Type\BaseReportFilterType
-    arguments: [ @security.context, @ns.security.acl_converter ]
+    arguments: [ "@security.token_storage", "@security.authorization_checker", "@ns.security.acl_converter" ]
     tags:
       - { name: form.type, alias: BaseReportFilterType }
 
@@ -142,26 +141,26 @@ services:
 
   ns.sentinel.form.filter.country:
     class: NS\SentinelBundle\Filter\Type\CountryType
-    arguments: [ @doctrine.orm.entity_manager, "NSSentinelBundle:Country" ]
+    arguments: [ "@doctrine.orm.entity_manager", "NSSentinelBundle:Country" ]
     tags:
       - { name: form.type, alias: country }
 
   ns.sentinel.form.filter.region:
     class: NS\SentinelBundle\Filter\Type\RegionType
-    arguments: [ @doctrine.orm.entity_manager, "NSSentinelBundle:Region" ]
+    arguments: [ "@doctrine.orm.entity_manager", "NSSentinelBundle:Region" ]
     tags:
       - { name: form.type, alias: region }
 
   ns.sentinel.form.filter.site:
     class: NS\SentinelBundle\Filter\Type\SiteType
-    arguments: [ @doctrine.orm.entity_manager, "NSSentinelBundle:Site" ]
+    arguments: [ "@doctrine.orm.entity_manager", "NSSentinelBundle:Site" ]
     tags:
       - { name: form.type, alias: site }
 
   ns.sentinel.form.type.createroles:
     class: NS\SentinelBundle\Form\Types\CreateRoles
     calls:
-      - [ setSecurityContext, [ @security.context ] ]
+      - [ setAuthChecker, [ "@security.authorization_checker" ] ]
     tags:
       - { name: form.type, alias: CreateRoles }
 
@@ -249,7 +248,7 @@ services:
 
   ns.sentinel.base.filter:
     class: NS\SentinelBundle\Filter\Type\BaseFilterType
-    arguments: [ @security.context, @ns.security.acl_converter ]
+    arguments: [ "@security.token_storage", "@security.authorization_checker", "@ns.security.acl_converter" ]
     tags:
       - { name: form.type, alias: base_filter_form }
 
