@@ -30,7 +30,8 @@ class IBDListener extends BaseCaseListener
      * Confirmed: Suspected + culture or (Gram stain, antigen detection, immunochromotagraphy, PCR or other methods)
      *            a bacterial pathogen (Hib, pneumococcus or meningococcus) in the CSF or from the blood in a child with a clinical
      *            syndrome consistent with bacterial meningitis
-     *
+     * @param BaseCase $case
+     * @return mixed|void
      */
     public function calculateResult(BaseCase $case)
     {
@@ -76,6 +77,7 @@ class IBDListener extends BaseCaseListener
     }
 
     /**
+     * @param BaseCase $case
      * @return null|string
      */
     public function getIncompleteField(BaseCase $case)
@@ -151,6 +153,7 @@ class IBDListener extends BaseCaseListener
     }
 
     /**
+     * @param BaseCase $case
      * @return array
      */
     public function getMinimumRequiredFields(BaseCase $case)

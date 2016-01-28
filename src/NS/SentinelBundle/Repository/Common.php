@@ -42,7 +42,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
     public function getAllSecuredQueryBuilder($alias = 'o')
     {
         return $this->secure($this->_em
-            ->createQueryBuilder($alias)
+            ->createQueryBuilder()
             ->select($alias)
             ->from($this->getClassName(),$alias,sprintf('%s.code',$alias))
             ->orderBy($alias.'.name', 'ASC'));

@@ -52,6 +52,8 @@ class HomepageTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider getRequests
+     * @param $request
+     * @param $locale
      */
     public function testNeitherOnlyAdminNorOnlyApi($request, $locale)
     {

@@ -88,8 +88,8 @@ class Client extends BaseClient
 
     /**
      *
-     * @param NS\SentinelBundle\Entity\User $user
-     * @return \NS\ApiBundle\Entity\Client
+     * @param \NS\SentinelBundle\Entity\User $user
+     * @return Client
      */
     public function setUser(\NS\SentinelBundle\Entity\User $user)
     {

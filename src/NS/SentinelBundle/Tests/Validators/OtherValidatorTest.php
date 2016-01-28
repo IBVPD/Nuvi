@@ -33,6 +33,8 @@ class OtherValidatorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider getNoViolationFields
+     * @param $field
+     * @param $otherField
      */
     public function testValidateNoViolation($field, $otherField)
     {
@@ -75,6 +77,8 @@ class OtherValidatorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider getViolationFields
+     * @param $field
+     * @param $otherField
      */
     public function testValidateWithViolation($field, $otherField)
     {

@@ -46,6 +46,7 @@ class DoneValidatorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider getInvalidStates
+     * @param array $data
      */
     public function testEmptyTripleChoiceField(array $data)
     {

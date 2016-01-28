@@ -139,6 +139,8 @@ class IBDReportController extends Controller
 
     /**
      * @Route("/data-quality",name="reportIbdDataQuality")
+     * @param Request $request
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function dataQualityAction(Request $request)
     {

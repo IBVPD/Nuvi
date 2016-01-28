@@ -78,8 +78,9 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
     //============================================================
     // Incomplete
     /**
-     * @depends testSingleMinimumCompleteCaseWithPneunomia
+     * @depends      testSingleMinimumCompleteCaseWithPneunomia
      * @dataProvider getIncompleteTestDataWithPneunomia
+     * @param $data
      */
     public function testCaseIsIncompleteWithPneunomia($data)
     {
@@ -93,8 +94,9 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @depends testSingleMinimumCompleteCaseWithoutPneunomia
+     * @depends      testSingleMinimumCompleteCaseWithoutPneunomia
      * @dataProvider getIncompleteTestDataWithoutPneunomia
+     * @param $data
      */
     public function testCaseIsIncompleteWithoutPneunomia($data)
     {
@@ -110,8 +112,9 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
     //============================================================
     // Complete
     /**
-     * @depends testSingleMinimumCompleteCaseWithPneunomia
+     * @depends      testSingleMinimumCompleteCaseWithPneunomia
      * @dataProvider getCompleteCaseWithPneunomiaData
+     * @param $data
      */
     public function testCaseIsCompleteWithPneuomia($data)
     {
@@ -125,8 +128,9 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @depends testSingleMinimumCompleteCaseWithPneunomia
+     * @depends      testSingleMinimumCompleteCaseWithPneunomia
      * @dataProvider getCompleteCaseWithoutPneunomiaData
+     * @param $data
      */
     public function testCaseIsCompleteWithoutPneunomia($data)
     {

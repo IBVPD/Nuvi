@@ -31,6 +31,7 @@ class ImportSelectType extends AbstractType
 
     /**
      * @param ObjectManager $entityMgr
+     * @param ImportFileCreator $fileCreator
      */
     public function __construct(ObjectManager $entityMgr, ImportFileCreator $fileCreator)
     {

@@ -63,6 +63,9 @@ class AuthorizeController extends Controller
 
     /**
      * @Route("/authorize", name="remoteAuthorizationCallback")
+     * @param Request $request
+     * @return RedirectResponse|NotFoundHttpException
+     * @throws UnexpectedResultException
      */
     public function remoteAuthorizationCallbackAction(Request $request)
     {

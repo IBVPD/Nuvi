@@ -26,6 +26,8 @@ class SecurityController extends Controller
     /**
      * @Route("/switchLanguage", name="switchLangugae")
      * @Method(methods={"GET"})
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function switchLanguageAction(Request $request)
     {
@@ -40,6 +42,8 @@ class SecurityController extends Controller
     /**
      * @Route("/{_locale}",name="homepage")
      * @Method(methods={"GET"})
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function homepageAction(Request $request)
     {
@@ -61,6 +65,8 @@ class SecurityController extends Controller
     /**
      * @Route("/",name="homepage_redirect")
      * @Method(methods={"GET"})
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function homepageRedirectAction(Request $request)
     {

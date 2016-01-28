@@ -23,6 +23,8 @@ class RoleTypeTest extends TypeTestCase
 
     /**
      * @dataProvider getCredentialProvider
+     * @param $roleStr
+     * @param $expected
      */
     public function testGetCredential($roleStr, $expected)
     {
@@ -55,6 +57,8 @@ class RoleTypeTest extends TypeTestCase
 
     /**
      * @dataProvider getClassMatchProvider
+     * @param $roleStr
+     * @param $entity
      */
     public function testGetClassMatch($roleStr, $entity)
     {

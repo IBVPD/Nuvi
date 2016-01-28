@@ -24,6 +24,8 @@ class CreateRolesTest extends TypeTestCase
 
     /**
      * @dataProvider roleProvider
+     * @param $count
+     * @param $data
      */
     public function testByRoles($count, $data)
     {

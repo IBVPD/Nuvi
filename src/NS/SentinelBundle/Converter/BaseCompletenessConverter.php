@@ -24,7 +24,8 @@ abstract class BaseCompletenessConverter implements ReporterInterface
 
     /**
      * BaseCompletenessConverter constructor.
-     * @param $validator
+     * @param RecursiveValidator $validator
+     * @param array $configration
      */
     public function __construct(RecursiveValidator $validator, array $configration)
     {
@@ -34,6 +35,8 @@ abstract class BaseCompletenessConverter implements ReporterInterface
 
     /**
      * @param array $item
+     * @param array $configs
+     * @return
      */
     abstract public function handleFields(array &$item, array $configs);
 

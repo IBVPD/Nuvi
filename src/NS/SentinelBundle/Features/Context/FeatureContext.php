@@ -36,6 +36,8 @@ class FeatureContext extends MinkContext implements KernelAwareContext
 
     /**
      * @Given /^I login with "([^"]*)" "([^"]*)"$/
+     * @param $arg1
+     * @param $arg2
      */
     public function iLoginWith($arg1, $arg2)
     {
@@ -47,6 +49,8 @@ class FeatureContext extends MinkContext implements KernelAwareContext
 
     /**
      * @Given /^I visit "([^"]*)" with "([^"]*)"$/
+     * @param $arg1
+     * @param $arg2
      */
     public function iVisitWith($arg1, $arg2)
     {
@@ -57,6 +61,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext
 
     /**
      * @Then /^I should not be on "([^"]*)"$/
+     * @param $arg1
      */
     public function iShouldNotBeOn($arg1)
     {
@@ -96,6 +101,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext
 
     /**
      * @Then /^The Create Form Has (\d+) Sites$/
+     * @param $arg1
      */
     public function theCreateFormHasSites($arg1)
     {
@@ -120,6 +126,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext
 
     /**
      * @Then /^The Create Form Has (\d+) Types$/
+     * @param $arg1
      */
     public function theCreateFormHasTypes($arg1)
     {

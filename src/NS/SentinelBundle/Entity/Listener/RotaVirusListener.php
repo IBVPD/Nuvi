@@ -16,6 +16,7 @@ class RotaVirusListener extends BaseCaseListener
     }
 
     /**
+     * @param BaseCase $case
      * @return null
      */
     public function getIncompleteField(BaseCase $case)
@@ -24,6 +25,7 @@ class RotaVirusListener extends BaseCaseListener
     }
 
     /**
+     * @param BaseCase $case
      * @return array
      */
     public function getMinimumRequiredFields(BaseCase $case)

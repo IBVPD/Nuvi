@@ -257,7 +257,9 @@ class IBDRepository extends Common
      * This depends heavily on NSSentinelBundle:IBD->calculateResult() to calculate the case
      * status properly.
      *
+     * @param string $alias
      * @return array
+     * @throws \Doctrine\ORM\ORMException
      */
     public function getAnnualAgeDistribution($alias = 'm')
     {

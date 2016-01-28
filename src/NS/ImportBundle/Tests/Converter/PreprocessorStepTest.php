@@ -11,6 +11,9 @@ class PreprocessorStepTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider getCondition
+     * @param array $condParam
+     * @param $value
+     * @param array $item
      */
     public function testConverter(array $condParam, $value, array $item)
     {

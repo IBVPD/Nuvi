@@ -16,6 +16,8 @@ class RotaVirusReportController extends Controller
 {
     /**
      * @Route("/data-quality",name="reportRotaDataQuality")
+     * @param Request $request
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function dataQualityAction(Request $request)
     {

@@ -10,6 +10,7 @@ class GreaterThanDateValidatorTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider getIbd
+     * @param $ibd
      */
     public function testNotDates($ibd)
     {
