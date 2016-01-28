@@ -36,7 +36,7 @@ class SecurityController extends Controller
         $locale = ($currentLocale == 'en') ? 'fr' : 'en';
 
         $session->set('_locale', $locale);
-        return $this->redirect($this->generateUrl('user_dashboard', array('_locale' => $locale)));
+        return $this->redirect($this->generateUrl('homepage', array('_locale' => $locale)));
     }
 
     /**
