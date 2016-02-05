@@ -3,8 +3,7 @@
 namespace NS\SentinelBundle\Form\Types;
 
 use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
@@ -20,7 +19,10 @@ class CreateRoles extends TranslatableArrayChoice implements TranslationContaine
     const RRL  = 3;
     const NL   = 4;
 
-    private $securityContext;
+    /**
+     * @var
+     */
+    private $authChecker;
 
     protected $values = array(
         self::BASE => 'Case',
@@ -32,23 +34,23 @@ class CreateRoles extends TranslatableArrayChoice implements TranslationContaine
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        if ($this->securityContext->isGranted('ROLE_CAN_CREATE')) {
+        if ($this->authChecker->isGranted('ROLE_CAN_CREATE')) {
             $values = array();
-            if ($this->securityContext->isGranted('ROLE_CAN_CREATE_CASE')) {
+            if ($this->authChecker->isGranted('ROLE_CAN_CREATE_CASE')) {
                 $values[self::BASE] = $this->values[self::BASE];
             }
 
-            if ($this->securityContext->isGranted('ROLE_CAN_CREATE_LAB')) {
+            if ($this->authChecker->isGranted('ROLE_CAN_CREATE_LAB')) {
                 $values[self::SITE] = $this->values[self::SITE];
             }
 
-            if ($this->securityContext->isGranted('ROLE_CAN_CREATE_RRL_LAB')) {
+            if ($this->authChecker->isGranted('ROLE_CAN_CREATE_RRL_LAB')) {
                 $values[self::RRL] = $this->values[self::RRL];
             }
 
-            if ($this->securityContext->isGranted('ROLE_CAN_CREATE_NL_LAB')) {
+            if ($this->authChecker->isGranted('ROLE_CAN_CREATE_NL_LAB')) {
                 $values[self::NL] = $this->values[self::NL];
             }
 
@@ -67,12 +69,11 @@ class CreateRoles extends TranslatableArrayChoice implements TranslationContaine
     }
 
     /**
-     *
-     * @param SecurityContextInterface $securityContext
+     * @param AuthorizationCheckerInterface $authChecker
      */
-    public function setSecurityContext(SecurityContextInterface $securityContext)
+    public function setAuthChecker(AuthorizationCheckerInterface $authChecker)
     {
-        $this->securityContext = $securityContext;
+        $this->authChecker = $authChecker;
     }
 
     /**

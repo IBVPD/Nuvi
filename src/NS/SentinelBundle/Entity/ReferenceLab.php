@@ -20,8 +20,7 @@ class ReferenceLab
      * @var string $id
      * @ORM\Column(name="id",type="string")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="CUSTOM")
-     * @ORM\CustomIdGenerator(class="\NS\SentinelBundle\Entity\Generator\ReferenceLabGenerator")
+     * @ORM\GeneratedValue(strategy="NONE")
      */
     private $id;
 

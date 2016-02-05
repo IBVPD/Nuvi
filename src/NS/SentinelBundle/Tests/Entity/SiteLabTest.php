@@ -20,6 +20,11 @@ class SiteLabTest extends WebTestCase
 
     /**
      * @dataProvider getIncompleteSiteLabs
+     * @param $failSite
+     * @param $failures
+     * @param $message
+     * @param $path
+     * @param $passSite
      */
     public function testSiteLabValidation($failSite, $failures, $message, $path, $passSite)
     {

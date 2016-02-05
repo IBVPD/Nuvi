@@ -20,7 +20,7 @@ class ReferenceLabAdmin extends Admin
             ->add('name')
             ->add('location')
             ->add('type')
-            ->add('country')
+            ->add('countries')
         ;
     }
 
@@ -50,14 +50,15 @@ class ReferenceLabAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $model = $this->getSubject();
-        if (!$model->getId())
-            $formMapper->add('userId', 'text', array('label' => 'Code'));
+        if (!$model->getId()) {
+            $formMapper->add('id', 'text', array('label' => 'Code'));
+        }
 
         $formMapper
             ->add('name')
             ->add('location')
             ->add('type', 'SurveillanceConducted')
-            ->add('country')
+            ->add('countries')
         ;
     }
 

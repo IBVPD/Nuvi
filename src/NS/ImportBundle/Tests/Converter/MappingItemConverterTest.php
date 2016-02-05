@@ -2,6 +2,8 @@
 
 namespace NS\ImportBundle\Tests\Converter;
 
+use Ddeboer\DataImport\Step\MappingStep;
+use NS\ImportBundle\Converter\UnsetMappingItemConverter;
 use \NS\ImportBundle\Entity\Column;
 use \NS\ImportBundle\Entity\Map;
 
@@ -66,7 +68,7 @@ class MappingItemConverterTest extends \PHPUnit_Framework_TestCase
             'col2' => 2,
         );
 
-        $converter = $map->getMappings();
+        $converter = new MappingStep($map->getMappedColumns());
         $converter->process($data);
         $this->assertEquals($expected, $data);
     }
@@ -86,7 +88,7 @@ class MappingItemConverterTest extends \PHPUnit_Framework_TestCase
             'Col2' => array('sub1' => 2, 'sub2' => 3),
         );
 
-        $converter = new \Ddeboer\DataImport\Step\MappingStep();
+        $converter = new MappingStep();
         $converter->map('[sub1]', '[Col2][sub1]');
         $converter->map('[sub2]', '[Col2][sub2]');
         $converter->process($data);
@@ -107,7 +109,7 @@ class MappingItemConverterTest extends \PHPUnit_Framework_TestCase
             'Col4' => 4,
         );
 
-        $converter = new \NS\ImportBundle\Converter\UnsetMappingItemConverter();
+        $converter = new UnsetMappingItemConverter();
         $converter->map('sub1', 'Col2.sub1');
         $converter->map('sub2', 'Col2.sub2');
         $converter->process($data);

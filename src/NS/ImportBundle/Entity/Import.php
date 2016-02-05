@@ -3,6 +3,7 @@
 namespace NS\ImportBundle\Entity;
 
 use \Doctrine\ORM\Mapping as ORM;
+use NS\SentinelBundle\Entity\ReferenceLab;
 use \NS\SentinelBundle\Entity\User;
 use \Symfony\Component\HttpFoundation\File\File;
 use \Symfony\Component\Security\Core\User\UserInterface;
@@ -66,6 +67,12 @@ class Import
      * @Assert\Date()
      */
     private $inputDateEnd;
+
+    /**
+     * @var \NS\SentinelBundle\Entity\ReferenceLab $referenceLab
+     * @ORM\ManyToOne(targetEntity="NS\SentinelBundle\Entity\ReferenceLab")
+     */
+    private $referenceLab;
 
     // ---------------------------------------------------------------------------------------
 
@@ -234,6 +241,7 @@ class Import
 
     /**
      * Constructor
+     * @param UserInterface $user
      */
     public function __construct(UserInterface $user)
     {
@@ -302,6 +310,43 @@ class Import
     {
         $this->inputDateEnd = $inputDateEnd;
         return $this;
+    }
+
+    /**
+     * @return \NS\SentinelBundle\Entity\ReferenceLab
+     */
+    public function getReferenceLab()
+    {
+        return $this->referenceLab;
+    }
+
+    /**
+     * @param \NS\SentinelBundle\Entity\ReferenceLab $referenceLab
+     * @return Import
+     */
+    public function setReferenceLab(ReferenceLab $referenceLab = null)
+    {
+        $this->referenceLab = $referenceLab;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasReferenceLabResults()
+    {
+        if (!$this->referenceLab) {
+            return false;
+        }
+
+        $mappings = $this->map->getMappedColumns();
+        foreach ($mappings as $target) {
+            if (strpos($target, 'referenceLab') !== false) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -410,7 +455,7 @@ class Import
     /**
      *
      * @param integer $sourceCount
-     * @return \NS\ImportBundle\Entity\Result
+     * @return \NS\ImportBundle\Entity\Import
      */
     public function setSourceCount($sourceCount)
     {
@@ -439,7 +484,7 @@ class Import
     /**
      *
      * @param \NS\SentinelBundle\Entity\User $user
-     * @return \NS\ImportBundle\Entity\Result
+     * @return \NS\ImportBundle\Entity\Import
      */
     public function setUser(User $user)
     {
@@ -450,7 +495,7 @@ class Import
     /**
      *
      * @param integer $processedCount
-     * @return \NS\ImportBundle\Entity\Result
+     * @return \NS\ImportBundle\Entity\Import
      */
     public function setProcessedCount($processedCount)
     {
@@ -471,7 +516,7 @@ class Import
     /**
      *
      * @param integer $importedCount
-     * @return \NS\ImportBundle\Entity\Result
+     * @return \NS\ImportBundle\Entity\Import
      */
     public function setImportedCount($importedCount)
     {
@@ -482,7 +527,7 @@ class Import
     /**
      *
      * @param string $mapName
-     * @return \NS\ImportBundle\Entity\Result
+     * @return \NS\ImportBundle\Entity\Import
      */
     public function setMapName($mapName)
     {
@@ -502,7 +547,7 @@ class Import
     /**
      *
      * @param \NS\ImportBundle\Entity\Map $map
-     * @return \NS\ImportBundle\Entity\Result
+     * @return \NS\ImportBundle\Entity\Import
      */
     public function setMap(Map $map)
     {
@@ -539,7 +584,7 @@ class Import
     /**
      *
      * @param \DateTime $createdAt
-     * @return \NS\ImportBundle\Entity\Result
+     * @return \NS\ImportBundle\Entity\Import
      */
     public function setCreatedAt(\DateTime $createdAt)
     {
@@ -550,7 +595,7 @@ class Import
     /**
      *
      * @param \DateTime $startedAt
-     * @return \NS\ImportBundle\Entity\Result
+     * @return \NS\ImportBundle\Entity\Import
      */
     public function setStartedAt(\DateTime $startedAt)
     {
@@ -564,7 +609,7 @@ class Import
     /**
      *
      * @param \DateTime $endedAt
-     * @return \NS\ImportBundle\Entity\Result
+     * @return \NS\ImportBundle\Entity\Import
      */
     public function setEndedAt(\DateTime $endedAt)
     {
@@ -584,7 +629,7 @@ class Import
     /**
      *
      * @param File $sourceFile
-     * @return \NS\ImportBundle\Entity\Result
+     * @return \NS\ImportBundle\Entity\Import
      */
     public function setSourceFile(File $sourceFile)
     {
@@ -605,7 +650,7 @@ class Import
     /**
      *
      * @param string $source
-     * @return \NS\ImportBundle\Entity\Result
+     * @return \NS\ImportBundle\Entity\Import
      */
     public function setSource($source)
     {
@@ -623,7 +668,7 @@ class Import
 
     /**
      * @param File $warningFile
-     * @return Result
+     * @return Import
      */
     public function setWarningFile(File $warningFile)
     {
@@ -641,7 +686,7 @@ class Import
 
     /**
      * @param File $successFile
-     * @return Result
+     * @return Import
      */
     public function setSuccessFile(File $successFile)
     {
@@ -713,7 +758,7 @@ class Import
 
     /**
      * @param File $errorFile
-     * @return Result
+     * @return Import
      */
     public function setErrorFile(File $errorFile)
     {
@@ -910,29 +955,6 @@ class Import
 
     // =================================================================================================================
     // Pass through functions
-    /**
-     * @return array
-     */
-    public function getConverters()
-    {
-        return $this->map->getConverters();
-    }
-
-    /**
-     * @return array
-     */
-    public function getMappings()
-    {
-        return $this->map->getMappings();
-    }
-
-    /**
-     * @return array
-     */
-    public function getIgnoredMapper()
-    {
-        return $this->map->getIgnoredMapper();
-    }
 
     /**
      * @return string
@@ -943,11 +965,35 @@ class Import
     }
 
     /**
+     * @return array
+     */
+    public function getConverters()
+    {
+        return $this->map->getConvertedColumns();
+    }
+
+    /**
+     * @return array
+     */
+    public function getMappings()
+    {
+        return $this->map->getMappedColumns();
+    }
+
+    /**
+     * @return array
+     */
+    public function getIgnoredMapper()
+    {
+        return $this->map->getIgnoredColumns();
+    }
+
+    /**
      * @return mixed
      */
     public function getPreprocessor()
     {
-        return $this->map->getPreProcessor();
+        return $this->map->getPreProcessorConditions();
     }
 
     /**

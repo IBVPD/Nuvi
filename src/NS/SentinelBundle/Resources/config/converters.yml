@@ -248,13 +248,13 @@ services:
 
   ns.sentinel.converter.country:
     class: NS\SentinelBundle\Converter\CountryConverter
-    arguments: [ @doctrine.orm.entity_manager ]
+    arguments: [ "@doctrine.orm.entity_manager" ]
     tags:
       - { name: ns_import.converter }
 
   ns.sentinel.converter.site:
     class: NS\SentinelBundle\Converter\SiteConverter
-    arguments: [ @doctrine.orm.entity_manager ]
+    arguments: [ "@doctrine.orm.entity_manager" ]
     tags:
       - { name: ns_import.converter }
 

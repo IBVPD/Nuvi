@@ -15,6 +15,7 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
 {
     /**
      * @dataProvider urlProvider
+     * @param $url
      */
     public function testPageIsSuccessful($url)
     {

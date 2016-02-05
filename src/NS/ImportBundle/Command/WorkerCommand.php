@@ -2,11 +2,13 @@
 
 namespace NS\ImportBundle\Command;
 
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class WorkerCommand extends ContainerAwareCommand
 {
@@ -47,6 +49,8 @@ class WorkerCommand extends ContainerAwareCommand
         if($job) {
             $output->writeln(sprintf("Processing Job %d, ImportId: %d", $job->getId(), $job->getData()));
 
+            $this->setupUser($job->getData(),$entityMgr);
+
             try {
                 if (!$worker->consume($job->getData(),$batchSize)) {
                     $pheanstalk->release($job);
@@ -69,5 +73,13 @@ class WorkerCommand extends ContainerAwareCommand
                 }
             }
         }
+    }
+
+    protected function setupUser($importId, ObjectManager $entityMgr) {
+        $import = $entityMgr->getRepository('NSImportBundle:Import')->find($importId);
+        $user = $import->getUser();
+        $user->getAcls();
+        $token = new UsernamePasswordToken($user,'','main_app',$user->getRoles());
+        $this->getContainer()->get('security.token_storage')->setToken($token);
     }
 }

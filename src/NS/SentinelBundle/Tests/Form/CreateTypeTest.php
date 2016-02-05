@@ -66,16 +66,16 @@ class CreateTypeTest extends TypeTestCase
 
     public function getExtensions()
     {
-        $securityCtx = $this->getMockBuilder('\Symfony\Component\Security\Core\SecurityContextInterface')
-            ->setMethods(array('isGranted', 'getToken', 'setToken'))
+        $authChecker = $this->getMockBuilder('\Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface')
+            ->setMethods(array('isGranted'))
             ->getMock();
 
-        $securityCtx->expects($this->any())
+        $authChecker->expects($this->any())
             ->method('isGranted')
             ->willReturn(true);
 
         $childType = new CreateRoles();
-        $childType->setSecurityContext($securityCtx);
+        $childType->setAuthChecker($authChecker);
 
         return array(new PreloadedExtension(array(
                 $childType->getName() => $childType,

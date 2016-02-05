@@ -2,13 +2,13 @@ services:
 
   ns.sentinel.twig.case_actions:
     class: NS\SentinelBundle\Twig\CaseActions
-    arguments: [ @security.authorization_checker, @translator, @router ]
+    arguments: [ "@security.authorization_checker", "@translator", "@router" ]
     tags:
       - { name: twig.extension, alias: twig_case_actions }
 
   ns.sentinel.twig.case_templates:
     class: NS\SentinelBundle\Twig\CaseTemplates
-    arguments: [ @security.authorization_checker, @twig ]
+    arguments: [ "@security.authorization_checker", "@twig" ]
     tags:
       - { name: twig.extension, alias: twig_case_templates }
 

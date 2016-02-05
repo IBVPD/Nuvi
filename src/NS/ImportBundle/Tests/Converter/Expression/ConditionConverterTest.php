@@ -10,6 +10,7 @@ class ConditionConverterTest extends \PHPUnit_Framework_TestCase
      * @param $json
      * @param $expectedResults
      *
+     * @param array $perRows
      * @dataProvider getJsonConditions
      */
     public function testConversionToArray($json,$expectedResults,array $perRows)

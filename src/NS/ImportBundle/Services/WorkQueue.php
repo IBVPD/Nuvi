@@ -28,6 +28,7 @@ class WorkQueue
      * WorkQueue constructor.
      * @param PheanstalkProxy $pheanstalk
      * @param ObjectManager $entityMgr
+     * @param ImportFileCreator $fileCreator
      */
     public function __construct(PheanstalkProxy $pheanstalk, ObjectManager $entityMgr, ImportFileCreator $fileCreator)
     {
@@ -81,6 +82,7 @@ class WorkQueue
             $newImport->setMap($import->getMap());
             $newImport->setInputDateStart($import->getInputDateStart());
             $newImport->setInputDateEnd($import->getInputDateEnd());
+            $newImport->setReferenceLab($import->getReferenceLab());
 
             $orgSourceFile = $import->getSourceFile();
 

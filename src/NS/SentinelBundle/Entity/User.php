@@ -291,8 +291,8 @@ class User implements AdvancedUserInterface
 
     /**
      *
-     * @param type $fields
-     * @return type
+     * @param array $fields
+     * @return string
      */
     static public function _resetSalt($fields = array())
     {

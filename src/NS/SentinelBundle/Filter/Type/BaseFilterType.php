@@ -9,7 +9,8 @@ use \Symfony\Component\Form\FormBuilderInterface;
 use \Symfony\Component\Form\FormEvent;
 use \Symfony\Component\Form\FormEvents;
 use \Symfony\Component\OptionsResolver\OptionsResolver;
-use \Symfony\Component\Security\Core\SecurityContextInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * Class BaseFilterType
@@ -18,9 +19,14 @@ use \Symfony\Component\Security\Core\SecurityContextInterface;
 class BaseFilterType extends AbstractType
 {
     /**
-     * @var SecurityContextInterface
+     * @var TokenStorageInterface
      */
-    private $securityContext;
+    private $tokenStorage;
+
+    /**
+     * @var AuthorizationCheckerInterface
+     */
+    private $authChecker;
 
     /**
      * @var ACLConverter
@@ -28,13 +34,16 @@ class BaseFilterType extends AbstractType
     private $aclConverter;
 
     /**
-     * @param SecurityContextInterface $securityContext
+     * BaseFilterType constructor.
+     * @param TokenStorageInterface $tokenStorage
+     * @param AuthorizationCheckerInterface $authChecker
      * @param ACLConverter $aclConverter
      */
-    public function __construct(SecurityContextInterface $securityContext, ACLConverter $aclConverter)
+    public function __construct(TokenStorageInterface $tokenStorage, AuthorizationCheckerInterface $authChecker, ACLConverter $aclConverter)
     {
-        $this->securityContext = $securityContext;
-        $this->aclConverter    = $aclConverter;
+        $this->tokenStorage = $tokenStorage;
+        $this->authChecker  = $authChecker;
+        $this->aclConverter = $aclConverter;
     }
 
     /**
@@ -64,24 +73,25 @@ class BaseFilterType extends AbstractType
     public function preSetData(FormEvent $event)
     {
         $form  = $event->getForm();
-        $token = $this->securityContext->getToken();
+        $token = $this->tokenStorage->getToken();
 
-        if ($this->securityContext->isGranted('ROLE_REGION'))
-        {
+        if ($this->authChecker->isGranted('ROLE_REGION')) {
             $objectIds = $this->aclConverter->getObjectIdsForRole($token, 'ROLE_REGION');
             if (count($objectIds) > 1) {
                 $form->add('region', 'region');
             }
 
-            $form->add('id', 'filter_text', array(
-                'required'          => false,
-                'condition_pattern' => FilterOperands::STRING_BOTH,
-                'label'             => 'db-generated-id'));
-            $form->add('country', 'country');
-            $form->add('site', 'site');
+            $form
+                ->add('id', 'filter_text', array(
+                    'required'          => false,
+                    'condition_pattern' => FilterOperands::STRING_BOTH,
+                    'label'             => 'db-generated-id')
+                )
+                ->add('country', 'country')
+                ->add('site', 'site');
         }
 
-        if ($this->securityContext->isGranted('ROLE_COUNTRY')) {
+        if ($this->authChecker->isGranted('ROLE_COUNTRY')) {
             $objectIds = $this->aclConverter->getObjectIdsForRole($token, 'ROLE_COUNTRY');
             if (count($objectIds) > 1) {
                 $form->add('country', 'country');
@@ -90,8 +100,7 @@ class BaseFilterType extends AbstractType
             $form->add('site', 'site');
         }
 
-        if ($this->securityContext->isGranted('ROLE_SITE'))
-        {
+        if ($this->authChecker->isGranted('ROLE_SITE')) {
             $objectIds = $this->aclConverter->getObjectIdsForRole($token, 'ROLE_SITE');
             if (count($objectIds) > 1) {
                 $form->add('site', 'site');

@@ -40,6 +40,10 @@ class ExpressionBuilderTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider getRules
+     * @param Rule $rule
+     * @param $fieldOutput
+     * @param $operator
+     * @param $expression
      */
     public function testSimpleBuilderFunctions(Rule $rule, $fieldOutput, $operator, $expression)
     {

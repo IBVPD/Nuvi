@@ -4,7 +4,8 @@ namespace NS\SentinelBundle\Listeners;
 
 use \Gedmo\Loggable\Loggable;
 use \Gedmo\Mapping\MappedEventSubscriber;
-use \Symfony\Component\Security\Core\SecurityContextInterface;
+use \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
  * Description of LoggableListener
@@ -14,9 +15,14 @@ use \Symfony\Component\Security\Core\SecurityContextInterface;
 class LoggableListener
 {
     /**
-     * @var SecurityContextInterface
+     * @var TokenStorageInterface
      */
-    private $securityContext;
+    private $tokenStorage;
+
+    /**
+     * @var AuthorizationCheckerInterface
+     */
+    private $authChecker;
 
     /**
      * @var Loggable|\Gedmo\Mapping\MappedEventSubscriber
@@ -24,14 +30,16 @@ class LoggableListener
     private $gedmoLoggable;
 
     /**
-     * 
-     * @param SecurityContextInterface $securityContext
-     * @param Loggable $loggable
+     * LoggableListener constructor.
+     * @param TokenStorageInterface $tokenStorage
+     * @param AuthorizationCheckerInterface $authChecker
+     * @param MappedEventSubscriber $loggable
      */
-    public function __construct(SecurityContextInterface $securityContext, MappedEventSubscriber $loggable)
+    public function __construct(TokenStorageInterface $tokenStorage, AuthorizationCheckerInterface $authChecker, MappedEventSubscriber $loggable)
     {
-        $this->securityContext = $securityContext;
-        $this->gedmoLoggable   = $loggable;
+        $this->tokenStorage = $tokenStorage;
+        $this->authChecker  = $authChecker;
+        $this->gedmoLoggable = $loggable;
     }
 
     /**
@@ -39,8 +47,8 @@ class LoggableListener
      */
     public function onKernelRequest()
     {
-        if (null !== $this->securityContext->getToken() && $this->securityContext->isGranted('IS_AUTHENTICATED_FULLY')) {
-            $this->gedmoLoggable->setUsername($this->securityContext->getToken()->getUsername());
+        if (null !== $this->tokenStorage->getToken() && $this->authChecker->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $this->gedmoLoggable->setUsername($this->tokenStorage->getToken()->getUsername());
         }
     }
 }

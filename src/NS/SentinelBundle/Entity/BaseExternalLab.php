@@ -200,8 +200,6 @@ abstract class BaseExternalLab
                 return $fieldName;
             }
         }
-
-        return;
     }
 
     /**

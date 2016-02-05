@@ -132,8 +132,7 @@ abstract class BaseCaseController extends Controller
         try {
             return array('record' => $this->get('doctrine.orm.entity_manager')->getRepository($class)->get($id));
         } catch (NonExistentCaseException $ex) {
-            return $this->render('NSSentinelBundle:User:unknownCase.html.twig', array(
-                'message' => $ex->getMessage()));
+            return $this->render('NSSentinelBundle:User:unknownCase.html.twig', array('message' => $ex->getMessage()));
         }
     }
 

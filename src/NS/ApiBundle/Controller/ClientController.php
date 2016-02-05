@@ -43,6 +43,8 @@ class ClientController extends Controller
     /**
      * @Route("/client/create",name="ApiCreateClient")
      * @Template()
+     * @param Request $request
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function createAction(Request $request)
     {
@@ -65,6 +67,11 @@ class ClientController extends Controller
     /**
      * @Route("/client/edit/{objId}",name="ApiEditClient")
      * @Template("NSApiBundle:Client:create.html.twig")
+     * @param Request $request
+     * @param $objId
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function editAction(Request $request,$objId)
     {
@@ -91,6 +98,10 @@ class ClientController extends Controller
 
     /**
      * @Route("/client/delete/{objId}",name="ApiDeleteClient")
+     * @param $objId
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function deleteAction($objId)
     {
@@ -119,6 +130,8 @@ class ClientController extends Controller
     /**
      * @Route("/remote/create",name="ApiCreateRemote")
      * @Template()
+     * @param Request $request
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function createRemoteAction(Request $request)
     {
@@ -141,6 +154,9 @@ class ClientController extends Controller
     /**
      * @Route("/remote/edit/{objId}",name="ApiEditRemote")
      * @Template("NSApiBundle:Client:createRemote.html.twig")
+     * @param Request $request
+     * @param $objId
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function editRemoteAction(Request $request,$objId)
     {
@@ -169,6 +185,8 @@ class ClientController extends Controller
 
     /**
      * @Route("/remote/delete/{objId}",name="ApiDeleteRemote")
+     * @param $objId
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteRemoteAction($objId)
     {

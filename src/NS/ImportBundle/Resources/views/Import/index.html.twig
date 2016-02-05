@@ -30,6 +30,7 @@
                                     <div class="row">
                                         <div class="col-xs-3">
                                             {{ form_row(form.map) }}
+                                            {{ form_row(form.referenceLab) }}
                                         </div>
                                         <div class="col-xs-3">
                                             {{ form_row(form.inputDateStart) }}
@@ -72,7 +73,7 @@
                                     <tr>
                                         <td>{{r.createdAt.format('Y-m-d H:i:s')}}</td>
                                         <td>{{r.mapName}}</td>
-                                        <td><a href="{{path('importResultDownload',{type:'source','id':r.id})}}"/>{{ r.source }}</a></td>
+                                        <td><a href="{{path('importResultDownload',{type:'source','id':r.id})}}">{{ r.source }}</a></td>
                                         <td id="progress-{{ r.id }}-source"> {{ r.sourceCount }} ({{ r.percentComplete|number_format(0) }}%) </td>
                                         <td id="progress-{{ r.id }}-imported"> {{ r.importedCount }} </td>
                                         <td>

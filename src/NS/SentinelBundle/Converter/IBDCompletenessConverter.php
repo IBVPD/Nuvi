@@ -26,6 +26,7 @@ class IBDCompletenessConverter extends BaseCompletenessConverter
 
     /**
      * @param array $item
+     * @param array $configs
      * @return array
      */
     public function handleFields(array &$item,array $configs)

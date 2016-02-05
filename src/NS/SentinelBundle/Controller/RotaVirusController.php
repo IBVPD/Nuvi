@@ -148,6 +148,11 @@ class RotaVirusController extends BaseCaseController
      */
     public function showAction($id)
     {
-        return $this->render('NSSentinelBundle:RotaVirus:show.html.twig',$this->show('NSSentinelBundle:RotaVirus', $id));
+        $ret = $this->show('NSSentinelBundle:RotaVirus', $id);
+        if( $ret instanceof Response ) {
+            return $ret;
+        }
+
+        return $this->render('NSSentinelBundle:RotaVirus:show.html.twig', $ret);
     }
 }
