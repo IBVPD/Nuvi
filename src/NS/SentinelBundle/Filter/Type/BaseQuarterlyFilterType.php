@@ -97,7 +97,7 @@ class BaseQuarterlyFilterType extends AbstractType
             if (count($objectIds) > 1) {
                 $form->add('region', 'region');
             }
-            $form->add('country', 'country');
+            $form->add('country', 'country',array('required'=>false,'placeholder'=>''));
             $form->add('site', $siteType,$siteOpt);
         } elseif ($this->authChecker->isGranted('ROLE_COUNTRY')) {
             $form->add('site', $siteType,$siteOpt);

@@ -87,14 +87,14 @@ class BaseFilterType extends AbstractType
                     'condition_pattern' => FilterOperands::STRING_BOTH,
                     'label'             => 'db-generated-id')
                 )
-                ->add('country', 'country')
+                ->add('country', 'country',array('required'=>false,'placeholder'=>''))
                 ->add('site', 'site');
         }
 
         if ($this->authChecker->isGranted('ROLE_COUNTRY')) {
             $objectIds = $this->aclConverter->getObjectIdsForRole($token, 'ROLE_COUNTRY');
             if (count($objectIds) > 1) {
-                $form->add('country', 'country');
+                $form->add('country', 'country',array('required'=>false,'placeholder'=>''));
             }
 
             $form->add('site', 'site');
