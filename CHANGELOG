@@ -3,6 +3,7 @@ VERSION 0  INITIAL RELEASE
 ==========================
 
    Version 0.3 - Initial HQ Server release
+      09/02/2016 15:47  0.3.3  Updated bundles, various code style fixes
       22/01/2016 11:33  0.3.2  Fix 500 error on show routes
       22/01/2016 10:29  0.3.1  Updated config for security scan
       11/12/2015 14:25  0.3.0  initial release
