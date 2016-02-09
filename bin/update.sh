@@ -27,7 +27,7 @@ function getLatestRelease() {
 
 if [[ -n "$command" ]]; then
    git fetch > /dev/null 2>&1 || { echo >&2 "git is required.  Aborting."; exit 1; }
-
+   git stash
    case "$command" in
      'latest')
         getLatest
@@ -39,6 +39,7 @@ if [[ -n "$command" ]]; then
         echo 'unknown command';
         ;;
    esac
+   git stash pop
 else
     echo "Missing arguments [latest|latest-release]";
 fi
