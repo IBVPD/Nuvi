@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [[ $EUID -eq 0 ]]; then
-   echo "This script must not be run as root" 1>&2
+   echo "This script must not be run as root probably apache 'su - apache -s /bin/sh' " 1>&2
    exit 1
 fi
 
