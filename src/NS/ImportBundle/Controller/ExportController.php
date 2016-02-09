@@ -50,15 +50,14 @@ class ExportController extends Controller
         if ($ibdForm->isValid()) {
             $modelManager = $this->get('doctrine.orm.entity_manager');
             $fields = $this->baseField;
-
-            $metas = array(
+            $meta = array(
                 "%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\IBD'),
                 "siteLab.%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\IBD\SiteLab'),
                 "referenceLab.%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\IBD\ReferenceLab'),
                 "nationalLab.%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\IBD\NationalLab'),
             );
 
-            $this->adjustFields($metas, $fields);
+            $this->adjustFields($meta, $fields);
 
             $query = $modelManager->getRepository('NSSentinelBundle:IBD')->exportQuery('i');
 
@@ -79,14 +78,14 @@ class ExportController extends Controller
         if ($rotaForm->isValid()) {
             $modelManager = $this->get('doctrine.orm.entity_manager');
             $fields = $this->baseField;
-            $metas = array(
+            $meta = array(
                 "%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\RotaVirus'),
                 "siteLab.%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\Rota\SiteLab'),
                 "referenceLab.%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\Rota\ReferenceLab'),
                 "nationalLab.%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\Rota\NationalLab'),
             );
 
-            $this->adjustFields($metas, $fields);
+            $this->adjustFields($meta, $fields);
             $query = $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:RotaVirus')->exportQuery('i');
 
             return $this->export('xls', $rotaForm, $query, $fields);
