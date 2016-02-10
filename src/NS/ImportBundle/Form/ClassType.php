@@ -31,7 +31,7 @@ class ClassType extends AbstractType
     {
         $resolver->setDefaults(array(
             'choices'     => $this->choices,
-            'empty_value' => ' '
+            'placeholder' => ' '
         ));
     }
 

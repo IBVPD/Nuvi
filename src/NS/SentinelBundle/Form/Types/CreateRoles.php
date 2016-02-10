@@ -61,7 +61,7 @@ class CreateRoles extends TranslatableArrayChoice implements TranslationContaine
 
         $resolver->setDefaults(array(
             'choices'     => $this->values,
-            'empty_value' => 'Please Select...',
+            'placeholder' => 'Please Select...',
         ));
 
         $resolver->setDefined(array('special_values'));

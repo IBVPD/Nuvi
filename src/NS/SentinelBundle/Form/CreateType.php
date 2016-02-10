@@ -44,7 +44,7 @@ class CreateType extends AbstractType
             $queryBuilder = $this->entityMgr->getRepository('NS\SentinelBundle\Entity\Site')->getChainQueryBuilder()->orderBy('s.name', 'ASC');
             $builder->add('site','entity',array('required'        => true,
                                                 'mapped'          => false,
-                                                'empty_value'     => 'Please Select...',
+                                                'placeholder'     => 'Please Select...',
                                                 'label'           => 'ibd-form.site',
                                                 'query_builder'   => $queryBuilder,
                                                 'class'           => 'NS\SentinelBundle\Entity\Site',

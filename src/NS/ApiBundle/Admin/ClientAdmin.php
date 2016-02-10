@@ -24,7 +24,7 @@ class ClientAdmin extends Admin
             ->add('name')
             ->add('redirectUris',       'tag', array('arrayOutput'=>true))
             ->add('allowedGrantTypes',  'OAuthGrantTypes')
-            ->add('user',null,array('empty_value'=>'Please Select', 'query_builder'=>function(\Doctrine\ORM\EntityRepository $repo){
+            ->add('user',null,array('placeholder'=>'Please Select', 'query_builder'=>function(\Doctrine\ORM\EntityRepository $repo){
                                                 return $repo->createQueryBuilder('u')
                                                             ->leftJoin('u.acls','a')
                                                             ->addSelect('a')

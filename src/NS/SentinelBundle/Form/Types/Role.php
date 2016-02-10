@@ -195,12 +195,12 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
 
             $resolver->setDefaults(array(
                 'choices' => $values,
-                'empty_value' => 'Please Select...',
+                'placeholder' => 'Please Select...',
             ));
         } else {
             $resolver->setDefaults(array(
                 'choices' => $this->values,
-                'empty_value' => 'Please Select...',
+                'placeholder' => 'Please Select...',
             ));
         }
     }

@@ -50,7 +50,7 @@ class Registry extends AbstractType
         }
 
         $resolver->setDefaults(array(
-            'empty_value' => 'Please Select...',
+            'placeholder' => 'Please Select...',
             'choices'     => $this->values,
         ));
     }

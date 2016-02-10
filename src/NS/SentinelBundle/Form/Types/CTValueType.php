@@ -27,7 +27,7 @@ class CTValueType extends AbstractType
         );
 
         $builder
-            ->add('choice','choice',array('choices'=>$choices,'empty_value'=>"[Enter value]",'label'=>'Non-result choices', 'attr'=>array('class'=>'inputOrSelect')))
+            ->add('choice','choice',array('choices'=>$choices,'placeholder'=>"[Enter value]",'label'=>'Non-result choices', 'attr'=>array('class'=>'inputOrSelect')))
             ->add('number','number',array('precision'=>2,'label'=>'', 'attr'=>array('class'=>'inputOrSelect')))
             ->addModelTransformer(new \NS\SentinelBundle\Form\Transformer\CTValueTransformer());
     }
