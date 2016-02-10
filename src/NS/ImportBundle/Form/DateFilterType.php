@@ -22,9 +22,7 @@ class DateFilterType extends AbstractType
                 'required'               => false,
                 'data_extraction_method' => 'default',
             ))
-            ->setAllowedValues(array(
-                'data_extraction_method' => array('default'),
-            ))
+            ->setAllowedValues('data_extraction_method',array('default'))
         ;
     }
 

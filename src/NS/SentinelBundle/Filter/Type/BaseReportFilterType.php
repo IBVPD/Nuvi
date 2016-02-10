@@ -112,7 +112,7 @@ class BaseReportFilterType extends AbstractType
         );
 
         $resolver->setDefined(array('site_type'));
-        $resolver->setAllowedValues(array('site_type' => array('simple', 'advanced')));
+        $resolver->setAllowedValues('site_type', array('simple', 'advanced'));
         $resolver->setRequired('data_class');
     }
 
