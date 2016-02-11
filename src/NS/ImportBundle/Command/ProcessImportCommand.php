@@ -28,10 +28,9 @@ class ProcessImportCommand extends ContainerAwareCommand
     {
         $batchSize = $input->getOption('batch-size');
 
-        $worker = $this->get('ns_import.batch_worker');
+        $worker = $this->getContainer()->get('ns_import.batch_worker');
         $worker->consume($input->getArgument('id'),$batchSize);
 
         $output->writeln(sprintf("Processed %d lines",$batchSize));
     }
-
 }
