@@ -594,9 +594,9 @@ class IBDRepository extends Common
 
     private function getByCountryCountQueryBuilder($alias, array $countryCodes)
     {
-        $queryBuilder = $this->createQueryBuilder('cf')
-            ->innerJoin('cf.country', 'c')
-            ->groupBy('cf.country');
+        $queryBuilder = $this->createQueryBuilder($alias)
+            ->innerJoin($alias.'.country', 'c')
+            ->groupBy($alias.'.country');
 
         $where = $params = array();
         $index = 0;
@@ -606,25 +606,25 @@ class IBDRepository extends Common
         }
 
         foreach (array_unique($countryCodes) as $country) {
-            $where[] = "cf.country = :country$index";
+            $where[] = "$alias.country = :country$index";
             $params['country' . $index] = $country;
             $index++;
         }
 
-        return $queryBuilder->where("(" . implode(" OR ", $where) . ")")->setParameters($params);
+        return $queryBuilder->where('(' . implode(' OR ', $where) . ')')->setParameters($params);
     }
 
     public function getLinkedCount($alias, array $countryCodes)
     {
-        return $this->getByCountryCountQueryBuilder($alias, $countryCodes)
+        return $this->getByCountryCountQueryBuilder('cf', $countryCodes)
             ->select(sprintf('COUNT(%s) as caseCount,c.code', $alias, $alias))
-            ->innerJoin('cf.referenceLab',$alias)
+            ->innerJoin('cf.referenceLab','i')
             ->innerJoin('cf.site','s');
     }
 
     public function getFailedLinkedCount($alias, array $countryCodes)
     {
-        return $this->getByCountryCountQueryBuilder($alias, $countryCodes)
+        return $this->getByCountryCountQueryBuilder('cf', $countryCodes)
             ->select(sprintf('COUNT(%s) as caseCount,c.code', $alias, $alias))
             ->innerJoin('cf.referenceLab',$alias)
             ->leftJoin('cf.site','s')
@@ -633,9 +633,9 @@ class IBDRepository extends Common
 
     public function getNoLabCount($alias, array $countryCodes)
     {
-        return $this->getByCountryCountQueryBuilder($alias, $countryCodes)
+        return $this->getByCountryCountQueryBuilder('cf', $countryCodes)
             ->select(sprintf('COUNT(%s) as caseCount,c.code', $alias, $alias))
             ->leftJoin('cf.referenceLab',$alias)
-            ->andWhere($alias.' IS NULL');
+            ->andWhere($alias.'.id IS NULL');
     }
 }

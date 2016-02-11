@@ -183,10 +183,14 @@ class AbstractReporter
             if (method_exists($repo, $func)) {
                 $query = $repo->$func($alias, $results->getKeys());
 
-                $res = $this->filter
-                    ->addFilterConditions($form, $query, 'i')
-                    ->getQuery()
-                    ->getResult(Query::HYDRATE_SCALAR);
+                try {
+                    $res = $this->filter
+                        ->addFilterConditions($form, $query, 'i')
+                        ->getQuery()
+                        ->getResult(Query::HYDRATE_SCALAR);
+                } catch (\Exception $exception) {
+                    throw new \RuntimeException('SQL Exception with func: '.$func, null, $exception);
+                }
 
                 $this->processColumn($results, $res, $pf);
             }
