@@ -90,21 +90,31 @@ class MapAdmin extends Admin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $isNew = ($this->getSubject()->getId() > 0);
+
         $formMapper
             ->add('name',null,array('label_attr'=>array('class'=>'col-sm-2')))
             ->add('description',null,array('label'=>'Notes','label_attr'=>array('class'=>'col-sm-2')))
             ->add('class', 'ClassType',array('label_attr'=>array('class'=>'col-sm-2')))
             ->add('version',null,array('required'=>true, 'label_attr'=>array('class'=>'col-sm-2')))
             ->add('headerRow','integer', array('label_attr'=>array('class'=>'col-sm-2')))
+            ->add('caseLinker','choice',array(
+                'label_attr' => array('class'=>'col-sm-2'),
+                'choices' => array('ns_import.standard_case_linker' => 'Case Id and Site Code','ns_import.reference_case_linker'=>'Case Id and Verify Country'),
+                'placeholder' => 'Please Select...',
+                'disabled'=>$isNew))
         ;
 
-        if (!$this->getSubject()->getId()) {
+        if (!$isNew) {
             $formMapper
-                ->add('caseLinker','choice',array(
-                    'choices' => array('ns_import.standard_case_linker' => 'Case Id and Site Code','ns_import.reference_case_linker'=>'Case Id and Verify Country'),
-                    'placeholder' => 'Please Select...'))
-                ->add('labPreference','choice',array('choices'=>array('referenceLab'=>'RRL','nationalLab'=>'NL')))
-                ->add('file', 'file', array('required' => false));
+                ->add('labPreference','choice',array(
+                    'label_attr' => array('class'=>'col-sm-2'),
+                    'choices'=>array('referenceLab'=>'RRL','nationalLab'=>'NL')
+                ))
+                ->add('file', 'file', array(
+                    'required' => false,
+                    'label_attr' => array('class'=>'col-sm-2'),
+                ));
         } else {
             $formMapper->add('columns', 'sonata_type_collection', array('error_bubbling'=>false, 'by_reference' => true, 'label_attr'=>array('class'=>'col-md-12 align-left')), array('edit'=>'inline','inline'=>'table', 'template'=>'NSImportBundle:edi_orm_one_to_many.html.twig'));
         }
