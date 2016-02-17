@@ -113,7 +113,6 @@ to function.
 
   <Directory "/var/www/local/nuvi/web">
     DirectoryIndex app.php
-    Options Indexes FollowSymLinks MultiViews
     AllowOverride None
     <IfModule mod_rewrite.c>
         RewriteEngine On
@@ -121,6 +120,9 @@ to function.
         RewriteRule ^(.*)$ /app.php [QSA,L]
     </IfModule>
     Require all granted
+    <LimitExcept POST GET PATCH PUT>
+      Deny from all
+    </LimitExcept>
   </Directory>
   <Directory "/var/www/local/nuvi/web/bundles">
     <IfModule mod_rewrite.c>
