@@ -40,7 +40,7 @@ class OutcomeType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'rotavirus_outcome';
     }

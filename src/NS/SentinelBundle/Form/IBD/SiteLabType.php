@@ -2,21 +2,21 @@
 
 namespace NS\SentinelBundle\Form\IBD;
 
-use \Symfony\Component\Form\AbstractType;
-use \Symfony\Component\Form\FormBuilderInterface;
-use \Symfony\Component\OptionsResolver\OptionsResolver;
-use \Symfony\Component\Form\FormEvents;
-use \Symfony\Component\Form\FormEvent;
-use \NS\SentinelBundle\Services\SerializedSites;
-use \NS\SentinelBundle\Form\Types\TripleChoice;
+use \NS\SentinelBundle\Entity\Country;
 use \NS\SentinelBundle\Form\Types\CultureResult;
-use \NS\SentinelBundle\Form\Types\SpnSerotype;
+use \NS\SentinelBundle\Form\Types\GramStain;
+use \NS\SentinelBundle\Form\Types\GramStainOrganism;
 use \NS\SentinelBundle\Form\Types\HiSerotype;
 use \NS\SentinelBundle\Form\Types\NmSerogroup;
 use \NS\SentinelBundle\Form\Types\PCRResult;
-use \NS\SentinelBundle\Form\Types\GramStain;
-use \NS\SentinelBundle\Form\Types\GramStainOrganism;
-use \NS\SentinelBundle\Entity\Country;
+use \NS\SentinelBundle\Form\Types\SpnSerotype;
+use \NS\SentinelBundle\Form\Types\TripleChoice;
+use \NS\SentinelBundle\Services\SerializedSites;
+use \Symfony\Component\Form\AbstractType;
+use \Symfony\Component\Form\FormBuilderInterface;
+use \Symfony\Component\Form\FormEvent;
+use \Symfony\Component\Form\FormEvents;
+use \Symfony\Component\OptionsResolver\OptionsResolver;
 use NS\SentinelBundle\Entity\Site;
 
 /**

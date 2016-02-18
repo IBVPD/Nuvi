@@ -3,14 +3,14 @@
 namespace NS\ImportBundle\Form;
 
 use \Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\ORM\EntityRepository;
+use \NS\ImportBundle\Entity\Import;
 use \NS\ImportBundle\Services\ImportFileCreator;
 use \Symfony\Component\Form\AbstractType;
 use \Symfony\Component\Form\FormBuilderInterface;
 use \Symfony\Component\Form\FormEvent;
 use \Symfony\Component\Form\FormEvents;
 use \Symfony\Component\OptionsResolver\OptionsResolver;
-use \NS\ImportBundle\Entity\Import;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * Description of ImportSelectType

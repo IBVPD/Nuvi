@@ -2,10 +2,10 @@
 
 namespace NS\SentinelBundle\Form\Rota;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
 use NS\SentinelBundle\Form\Types\GenotypeResultG;
 use NS\SentinelBundle\Form\Types\GenotypeResultP;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
 
 /**
  * Class BaseLabType
@@ -36,7 +36,7 @@ class BaseLabType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'rotavirus_base_lab';
     }

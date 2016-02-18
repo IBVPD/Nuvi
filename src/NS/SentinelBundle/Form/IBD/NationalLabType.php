@@ -28,7 +28,7 @@ class NationalLabType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'ibd_nationallab';
     }

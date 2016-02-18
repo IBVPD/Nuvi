@@ -2,13 +2,13 @@
 
 namespace NS\SentinelBundle\Form\Rota;
 
+use \NS\SentinelBundle\Form\Types\ThreeDoses;
+use NS\SentinelBundle\Form\Types\Dehydration;
+use NS\SentinelBundle\Form\Types\RotavirusVaccinationReceived;
+use NS\SentinelBundle\Form\Types\TripleChoice;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use NS\SentinelBundle\Form\Types\RotavirusVaccinationReceived;
-use NS\SentinelBundle\Form\Types\TripleChoice;
-use NS\SentinelBundle\Form\Types\Dehydration;
-use \NS\SentinelBundle\Form\Types\ThreeDoses;
 
 /**
  * Class CaseType
@@ -95,7 +95,7 @@ class CaseType extends AbstractType
     /**
      * @return string
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'rotavirus';
     }

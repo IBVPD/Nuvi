@@ -33,7 +33,7 @@ class FilterType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'rotavirus_filter_form';
     }

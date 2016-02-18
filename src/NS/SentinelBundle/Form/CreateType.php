@@ -2,10 +2,10 @@
 
 namespace NS\SentinelBundle\Form;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use NS\SentinelBundle\Interfaces\SerializedSitesInterface;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
 
 /**
  * Description of CreateIBDType
@@ -55,7 +55,7 @@ class CreateType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'create_case';
     }

@@ -87,12 +87,12 @@ file that was distributed with this source code.
         </ul>
     {% else %}
     <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}>
-        {% if empty_value is not none %}
+        {% if placeholder is not none %}
             <option value="">
                 {% if not sonata_admin.admin %}
-                    {{- empty_value|trans({}, translation_domain) -}}
+                    {{- placeholder|trans({}, translation_domain) -}}
                 {% else %}
-                    {{- empty_value|trans({}, sonata_admin.field_description.translationDomain) -}}
+                    {{- placeholder|trans({}, sonata_admin.field_description.translationDomain) -}}
                 {% endif%}
             </option>
         {% endif %}

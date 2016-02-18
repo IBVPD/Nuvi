@@ -2,10 +2,10 @@
 
 namespace NS\SentinelBundle\Form\IBD;
 
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\FormBuilderInterface;
 use NS\SentinelBundle\Form\Types\DischargeDiagnosis;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Description of OutcomeType
@@ -46,7 +46,7 @@ class OutcomeType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getName() 
+    public function getBlockPrefix() 
     {
         return 'ibd_outcome';
     }

@@ -2,10 +2,10 @@
 
 namespace NS\SentinelBundle\Filter\Type;
 
+use Doctrine\Common\Persistence\ObjectManager;
+use Lexik\Bundle\FormFilterBundle\Filter\Doctrine\ORMQuery;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Lexik\Bundle\FormFilterBundle\Filter\Doctrine\ORMQuery;
-use Doctrine\Common\Persistence\ObjectManager;
 
 /**
  * Description of BaseObject
@@ -81,7 +81,7 @@ class BaseObject extends AbstractType //implements EmbeddedFilterTypeInterface
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'filter_object';
     }

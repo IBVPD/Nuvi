@@ -2,16 +2,18 @@
 
 namespace NS\SentinelBundle\Filter\Type;
 
-use Lexik\Bundle\FormFilterBundle\Filter\Query\QueryInterface;
 use \NS\SecurityBundle\Role\ACLConverter;
+use \Symfony\Component\Security\Core\SecurityContextInterface;
+use Lexik\Bundle\FormFilterBundle\Filter\Query\QueryInterface;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use \Symfony\Component\Security\Core\SecurityContextInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 
 class BaseQuarterlyFilterType extends AbstractType
 {
@@ -97,7 +99,7 @@ class BaseQuarterlyFilterType extends AbstractType
             if (count($objectIds) > 1) {
                 $form->add('region', 'region');
             }
-            $form->add('country', 'country',array('required'=>false,'placeholder'=>''));
+            $form->add('country', CountryType::class,array('required'=>false,'placeholder'=>''));
             $form->add('site', $siteType,$siteOpt);
         } elseif ($this->authChecker->isGranted('ROLE_COUNTRY')) {
             $form->add('site', $siteType,$siteOpt);
@@ -109,19 +111,19 @@ class BaseQuarterlyFilterType extends AbstractType
         }
 
         if ($options['include_filter']) {
-            $form->add('filter', 'submit', array(
+            $form->add('filter', SubmitType::class, array(
                 'icon' => 'fa fa-search',
                 'attr' => array('class' => 'btn btn-sm btn-success','type'=>'submit')));
         }
 
         if ($options['include_export']) {
-            $form->add('export', 'submit', array(
+            $form->add('export', SubmitType::class, array(
                 'icon' => 'fa fa-cloud-download',
                 'attr' => array('class' => 'btn btn-sm btn-info','type'=>'submit')));
         }
 
         if ($options['include_reset']) {
-            $form->add('reset', 'submit', array(
+            $form->add('reset', SubmitType::class, array(
                 'icon' => 'fa fa-times-circle',
                 'attr' => array('class' => 'btn btn-sm btn-danger','type'=>'submit')));
         }
@@ -147,7 +149,7 @@ class BaseQuarterlyFilterType extends AbstractType
     /**
      * @inheritDoc
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'BaseQuarterlyFilter';
     }

@@ -3,6 +3,7 @@
 namespace NS\SentinelBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -18,7 +19,7 @@ class UserType extends AbstractType
         $builder
             ->add('name')
             ->add('email')
-            ->add('plainPassword','repeated',
+            ->add('plainPassword',RepeatedType::class,
                      array(
                          'type'            => 'password',
                          'invalid_message' => 'The password fields must match.',
@@ -45,7 +46,7 @@ class UserType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'ns_sentinelbundle_user';
     }

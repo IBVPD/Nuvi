@@ -2,8 +2,8 @@
 
 namespace NS\SentinelBundle\Form\Types;
 
-use NS\UtilBundle\Form\Types\TranslatableSetChoice;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
+use NS\UtilBundle\Form\Types\TranslatableSetChoice;
 
 /**
  * Description of CXRAdditionalResult

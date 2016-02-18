@@ -2,10 +2,10 @@
 
 namespace NS\SentinelBundle\Filter\Type\IBD;
 
-use \Symfony\Component\Form\AbstractType;
-use \Symfony\Component\OptionsResolver\OptionsResolver;
-use \Symfony\Component\Form\FormBuilderInterface;
 use \Lexik\Bundle\FormFilterBundle\Filter\Extension\Type\EmbeddedFilterTypeInterface;
+use \Symfony\Component\Form\AbstractType;
+use \Symfony\Component\Form\FormBuilderInterface;
+use \Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class FilterType
