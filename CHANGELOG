@@ -3,6 +3,7 @@ VERSION 0  INITIAL RELEASE
 ==========================
 
    Version 0.3 - Initial HQ Server release
+      18/02/2016 15:44  0.3.6  Updated jms-translation bundle for jquery fix
       09/02/2016 16:20  0.3.4  Updated update.sh script
       09/02/2016 15:47  0.3.3  Updated bundles, various code style fixes
       22/01/2016 11:33  0.3.2  Fix 500 error on show routes
