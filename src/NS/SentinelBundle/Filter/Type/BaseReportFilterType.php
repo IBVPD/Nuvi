@@ -69,6 +69,11 @@ class BaseReportFilterType extends AbstractType
         $siteType = ( isset($options['site_type']) && $options['site_type'] == 'advanced') ? new SiteFilterType() : 'site';
 
         if ($this->authChecker->isGranted('ROLE_REGION')) {
+            $objectIds = $this->converter->getObjectIdsForRole($this->tokenStorage->getToken(), 'ROLE_REGION');
+            if (count($objectIds) > 1) {
+                $form->add('region', 'region');
+            }
+
             $form->add('country', 'country',array('placeholder' => '','required' => false));
             $form->add('site', $siteType);
         } elseif ($this->authChecker->isGranted('ROLE_COUNTRY')) {
