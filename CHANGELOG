@@ -3,6 +3,7 @@ VERSION 0  INITIAL RELEASE
 ==========================
 
    Version 0.3 - Initial HQ Server release
+      29/02/2016 15:34  0.3.7  Handful of requested changes/fixes
       18/02/2016 15:44  0.3.6  Updated jms-translation bundle for jquery fix
       09/02/2016 16:20  0.3.4  Updated update.sh script
       09/02/2016 15:47  0.3.3  Updated bundles, various code style fixes
