@@ -394,7 +394,7 @@ services:
   ns.sentinel.form.type.role:
       class: NS\SentinelBundle\Form\Types\Role
       calls:
-        - [ setSecurityContext, [ "@security.context" ] ]
+        - [ setTokenStorage, [ "@security.token_storage" ] ]
       tags:
         - { name: form.type, alias: role }
 
