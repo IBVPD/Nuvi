@@ -71,7 +71,7 @@ class BaseReportFilterType extends AbstractType
         if ($this->authChecker->isGranted('ROLE_REGION')) {
             $objectIds = $this->converter->getObjectIdsForRole($this->tokenStorage->getToken(), 'ROLE_REGION');
             if (count($objectIds) > 1) {
-                $form->add('region', 'region');
+                $form->add('region', 'NS\SentinelBundle\Filter\Type\RegionType');
             }
 
             $form->add('country', 'NS\SentinelBundle\Filter\Type\CountryType', array('placeholder' => '','required' => false));

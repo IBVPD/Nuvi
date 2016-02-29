@@ -95,16 +95,16 @@ class BaseQuarterlyFilterType extends AbstractType
         if ($this->authChecker->isGranted('ROLE_REGION')) {
             $objectIds = $this->converter->getObjectIdsForRole($token, 'ROLE_REGION');
             if (count($objectIds) > 1) {
-                $form->add('region', 'region');
+                $form->add('region', 'NS\SentinelBundle\Filter\Type\RegionType');
             }
             $form->add('country', 'NS\SentinelBundle\Filter\Type\CountryType',array('required'=>false,'placeholder'=>''));
-            $form->add('site', $siteType,$siteOpt);
+            $form->add('site', $siteType, $siteOpt);
         } elseif ($this->authChecker->isGranted('ROLE_COUNTRY')) {
-            $form->add('site', $siteType,$siteOpt);
+            $form->add('site', $siteType, $siteOpt);
         } elseif ($this->authChecker->isGranted('ROLE_SITE')) {
             $objectIds = $this->converter->getObjectIdsForRole($token, 'ROLE_SITE');
             if (count($objectIds) > 1) {
-                $form->add('site', $siteType,$siteOpt);
+                $form->add('site', $siteType, $siteOpt);
             }
         }
 
