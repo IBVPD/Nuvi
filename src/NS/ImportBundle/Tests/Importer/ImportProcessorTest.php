@@ -786,7 +786,7 @@ class ImportProcessorTest extends WebTestCase
         $results = $writer->getResults();
         $this->assertInstanceOf('NS\SentinelBundle\Entity\IBD',$results[0]);
         $this->assertTrue($results[0]->hasWarning());
-        $this->assertNull($results[0]->getReferenceLab()->getDateReceived());
+        $this->assertInstanceOf('\DateTime',$results[0]->getReferenceLab()->getDateReceived());
         $this->assertInstanceOf('NS\SentinelBundle\Entity\IBD',$results[1]);
         $this->assertFalse($results[1]->hasWarning());
     }
@@ -861,7 +861,7 @@ class ImportProcessorTest extends WebTestCase
         $results = $writer->getResults();
         $this->assertInstanceOf('NS\SentinelBundle\Entity\IBD',$results[0]);
         $this->assertTrue($results[0]->hasWarning());
-        $this->assertNull($results[0]->getAdmDate());
+        $this->assertInstanceOf('\DateTime',$results[0]->getAdmDate());
         $this->assertInstanceOf('NS\SentinelBundle\Entity\IBD',$results[1]);
         $this->assertFalse($results[1]->hasWarning());
     }
@@ -1010,8 +1010,8 @@ class ImportProcessorTest extends WebTestCase
         $importer = $this->getContainer()->get('ns_import.processor');
         $result = $importer->process($import);
         $this->assertEquals(2,$result->getTotalProcessedCount());
-        $this->assertEquals(1,$result->getSuccessCount());
-        $this->assertEquals(1,$result->getSkippedCount());
+        $this->assertEquals(2,$result->getSuccessCount());
+        $this->assertEquals(0,$result->getSkippedCount());
     }
 
     public function getReferenceLabMap(array $columns)

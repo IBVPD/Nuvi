@@ -10,6 +10,7 @@ use \Ddeboer\DataImport\Reader;
 use \Ddeboer\DataImport\Step\FilterStep;
 use \Ddeboer\DataImport\Step\ValueConverterStep;
 use \Doctrine\Common\Persistence\ObjectManager;
+use NS\ImportBundle\Converter\DateOfBirthConverter;
 use \NS\ImportBundle\Converter\DateRangeConverter;
 use \NS\ImportBundle\Converter\Expression\ExpressionBuilder;
 use \NS\ImportBundle\Converter\PreprocessorStep;
@@ -335,7 +336,7 @@ class ImportProcessor
     public function addFilterStep(Workflow $workflow, $priority = 20)
     {
         $filterStep = new FilterStep();
-        $filterStep->add(new DateOfBirthFilter());
+//        $filterStep->add(new DateOfBirthFilter());
 
         if ($this->notBlankFilter) {
             $filterStep->add($this->notBlankFilter);
@@ -357,13 +358,14 @@ class ImportProcessor
     {
         // Adds warnings for out of range values
         $converter = new ConverterStep();
+        $converter->add(new DateOfBirthConverter());
         $converter->add(new WarningConverter());
-        $converter->add(new DateRangeConverter(new \DateTime()));
+        $converter->add(new DateRangeConverter(new \DateTime(),null,true));
 
         $start = clone $import->getInputDateStart();
         $start->sub(new \DateInterval('P5Y'));
 
-        $converter->add(new DateRangeConverter($import->getInputDateEnd(), $start));
+        $converter->add(new DateRangeConverter($import->getInputDateEnd(), $start,true));
 
         $workflow->addStep($converter, $priority);
     }

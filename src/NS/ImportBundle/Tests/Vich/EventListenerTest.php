@@ -58,6 +58,10 @@ class EventListenerTest extends \PHPUnit_Framework_TestCase
 
     public function testCsvFile()
     {
+        if (PHP_VERSION_ID >= 50600) {
+            $this->markTestSkipped('Regression in 5.6');
+        }
+
         $filePath = realpath(__DIR__ . '/../Fixtures/EMR-IBD-headers-utf16.csv');
         $newFile = '/tmp/headers.csv';
         if(!copy($filePath,$newFile)) {

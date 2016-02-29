@@ -26,14 +26,21 @@ class DateRangeConverter implements ReporterInterface
     private $greaterThanDate;
 
     /**
+     * @var bool
+     */
+    private $warningOnly = false;
+
+    /**
      * NoFutureDateConverter constructor.
      * @param \DateTime $lessThanDate
      * @param \DateTime $greaterThanDate
+     * @param bool $warningOnly
      */
-    public function __construct(\DateTime $lessThanDate = null, \DateTime $greaterThanDate = null)
+    public function __construct(\DateTime $lessThanDate = null, \DateTime $greaterThanDate = null, $warningOnly = false)
     {
         $this->lessThanDate = $lessThanDate;
         $this->greaterThanDate = $greaterThanDate;
+        $this->warningOnly = $warningOnly;
     }
 
     /**
@@ -62,13 +69,23 @@ class DateRangeConverter implements ReporterInterface
             if (is_array($value)) {
                 $item[$key] = $this->findDate($value, $this->getKey($key, $parent));
             } elseif ($value instanceof \DateTime) {
-                if(!$this->inRange($value,$this->getKey($key,$parent))){
-                    $item[$key] = null;
+                if (!$this->inRange($value, $this->getKey($key, $parent))) {
+                    $this->handleNotInRange($item[$key]);//$item[$key] = null;
                 }
             }
         }
 
         return $item;
+    }
+
+    /**
+     * @param $item
+     */
+    public function handleNotInRange(&$item)
+    {
+        if (!$this->warningOnly) {
+            $item = null;
+        }
     }
 
     /**
