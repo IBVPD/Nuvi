@@ -78,7 +78,7 @@ class BaseFilterType extends AbstractType
         if ($this->authChecker->isGranted('ROLE_REGION')) {
             $objectIds = $this->aclConverter->getObjectIdsForRole($token, 'ROLE_REGION');
             if (count($objectIds) > 1) {
-                $form->add('region', 'region');
+                $form->add('region', 'NS\SentinelBundle\Filter\Type\RegionType');
             }
 
             $form
@@ -87,27 +87,29 @@ class BaseFilterType extends AbstractType
                     'condition_pattern' => FilterOperands::STRING_BOTH,
                     'label'             => 'db-generated-id')
                 )
-                ->add('country', 'country',array('required'=>false,'placeholder'=>''))
-                ->add('site', 'site');
+                ->add('country', 'NS\SentinelBundle\Filter\Type\CountryType',array('required'=>false,'placeholder'=>''))
+                ->add('site', 'NS\SentinelBundle\Filter\Type\SiteType');
         }
 
         if ($this->authChecker->isGranted('ROLE_COUNTRY')) {
             $objectIds = $this->aclConverter->getObjectIdsForRole($token, 'ROLE_COUNTRY');
             if (count($objectIds) > 1) {
-                $form->add('country', 'country',array('required'=>false,'placeholder'=>''));
+                $form->add('country', 'NS\SentinelBundle\Filter\Type\CountryType',array('required'=>false,'placeholder'=>''));
             }
 
-            $form->add('site', 'site');
+            $form->add('site', 'NS\SentinelBundle\Filter\Type\SiteType');
         }
 
         if ($this->authChecker->isGranted('ROLE_SITE')) {
             $objectIds = $this->aclConverter->getObjectIdsForRole($token, 'ROLE_SITE');
             if (count($objectIds) > 1) {
-                $form->add('site', 'site');
+                $form->add('site', 'NS\SentinelBundle\Filter\Type\SiteType');
             }
         }
 
-        $form->add('find', 'iconbutton', array('type' => 'submit', 'icon' => 'fa fa-search',
+        $form->add('find', 'NS\AceBundle\Form\IconButtonType', array(
+            'type' => 'submit',
+            'icon' => 'fa fa-search',
             'attr' => array('class' => 'btn btn-sm btn-success')));
     }
 

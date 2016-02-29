@@ -138,19 +138,19 @@ services:
     class: NS\SentinelBundle\Filter\Type\CountryType
     arguments: [ "@doctrine.orm.entity_manager", "NSSentinelBundle:Country" ]
     tags:
-      - { name: form.type, alias: country }
+      - { name: form.type }
 
   ns.sentinel.form.filter.region:
     class: NS\SentinelBundle\Filter\Type\RegionType
     arguments: [ "@doctrine.orm.entity_manager", "NSSentinelBundle:Region" ]
     tags:
-      - { name: form.type, alias: region }
+      - { name: form.type }
 
   ns.sentinel.form.filter.site:
     class: NS\SentinelBundle\Filter\Type\SiteType
     arguments: [ "@doctrine.orm.entity_manager", "NSSentinelBundle:Site" ]
     tags:
-      - { name: form.type, alias: site }
+      - { name: form.type }
 
   ns.sentinel.form.type.createroles:
     class: NS\SentinelBundle\Form\Types\CreateRoles

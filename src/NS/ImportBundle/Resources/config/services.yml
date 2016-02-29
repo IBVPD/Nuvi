@@ -30,17 +30,17 @@ services:
 
   ns_import.workqueue:
     class: NS\ImportBundle\Services\WorkQueue
-    arguments: [ @leezy.pheanstalk, @doctrine.orm.entity_manager, @ns_import.import_file_creator ]
+    arguments: [ "@leezy.pheanstalk", "@doctrine.orm.entity_manager", "@ns_import.import_file_creator" ]
 
   ns_import.twig.import_actions:
     class: NS\ImportBundle\Twig\ImportResultActions
-    arguments: [ @router, @translator ]
+    arguments: [ "@router", "@translator" ]
     tags:
       - { name: twig.extension, alias: ImportResultAction }
 
   ns_import.import_file_creator:
     class: NS\ImportBundle\Services\ImportFileCreator
-    arguments: [ @vich_uploader.property_mapping_factory ]
+    arguments: [ "@vich_uploader.property_mapping_factory" ]
 
   ns_import.vich.event_listener:
     class: NS\ImportBundle\Vich\EventListener
@@ -49,7 +49,7 @@ services:
 
   ns_import.batch_worker:
     class: NS\ImportBundle\Importer\ImportBatchWorker
-    arguments: [ @doctrine.orm.entity_manager, @ns_import.processor, @ns_import.linker_registry ]
+    arguments: [ "@doctrine.orm.entity_manager", "@ns_import.processor", "@ns_import.linker_registry" ]
 
   ns_import.importer.upload_handler:
     class: NS\ImportBundle\Importer\ImportResultUpdater
@@ -59,17 +59,17 @@ services:
 
   ns_import.converter.columns:
     class: NS\ImportBundle\Converter\ColumnChooser
-    arguments: [ @doctrine.orm.entity_manager, @doctrine_cache.providers.my_phpfile_cache ]
+    arguments: [ "@doctrine.orm.entity_manager", "@doctrine_cache.providers.my_phpfile_cache" ]
 
   ns_import.form.type.ibd_columns:
     class: NS\ImportBundle\Form\Type\IBDColumnType
-    arguments: [ @ns_import.converter.columns, 'NS\SentinelBundle\Entity\IBD' ]
+    arguments: [ "@ns_import.converter.columns", 'NS\SentinelBundle\Entity\IBD' ]
     tags:
       - { name: form.type, alias: ibd_columns }
 
   ns_import.form.type.rota_columns:
     class: NS\ImportBundle\Form\Type\RotavirusColumnType
-    arguments: [ @ns_import.converter.columns, 'NS\SentinelBundle\Entity\RotaVirus' ]
+    arguments: [ "@ns_import.converter.columns", 'NS\SentinelBundle\Entity\RotaVirus' ]
     tags:
       - { name: form.type, alias: rota_columns }
 
@@ -77,7 +77,7 @@ services:
     class: NS\ImportBundle\Services\MapBuilder
     arguments: [ "@ns_import.reader_factory" ]
     calls:
-      - [ setConverterRegistry, [ @ns_import.converters ] ]
+      - [ setConverterRegistry, [ "@ns_import.converters" ] ]
 
   ns_import.event.subscriber.doctrine_subscriber:
     class: NS\ImportBundle\Event\Subscriber\DoctrineSubscriber
@@ -86,4 +86,4 @@ services:
 
   ns_import.processor:
     class: NS\ImportBundle\Importer\ImportProcessor
-    arguments: [ @ns_import.converters, @doctrine.orm.entity_manager, "@ns_import.linker_registry" ]
+    arguments: [ "@ns_import.converters", "@doctrine.orm.entity_manager", "@ns_import.linker_registry" ]

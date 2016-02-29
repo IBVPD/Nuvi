@@ -63,7 +63,7 @@ class ImportSelectType extends AbstractType
             ->add('sourceFile', 'vich_file',array('error_bubbling'=>false))
             ->add('inputDateStart','acedatepicker',array('label'=>'Import file date start'))
             ->add('inputDateEnd','acedatepicker',array('label'=>'Import file date end'))
-            ->add('import', 'submit', array('attr' => array('class' => 'btn btn-xs btn-success pull-right')))
+            ->add('import', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array('attr' => array('class' => 'btn btn-xs btn-success pull-right')))
         ;
 
         $builder->addEventListener(FormEvents::POST_SUBMIT,array($this,'postSubmit'));
