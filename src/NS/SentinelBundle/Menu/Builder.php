@@ -13,8 +13,19 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
  */
 class Builder 
 {
+    /**
+     * @var FactoryInterface
+     */
     private $factory;
+
+    /**
+     * @var AuthorizationCheckerInterface
+     */
     private $authChecker;
+
+    /**
+     * @var RequestStack
+     */
     private $requestStack;
 
     /**
@@ -36,7 +47,7 @@ class Builder
     public function sidebar()
     {
         $menu = $this->factory->createItem('root');
-        $menu->setCurrentUri($this->requestStack->getCurrentRequest()->getRequestUri());
+//        $menu->setCurrentUri($this->requestStack->getCurrentRequest()->getRequestUri());
         $menu->setChildrenAttribute('class','nav nav-list');
         if ($this->authChecker->isGranted('IS_AUTHENTICATED_FULLY')) {
             if ($this->authChecker->isGranted('ROLE_CAN_CREATE')) {
