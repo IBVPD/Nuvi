@@ -61,7 +61,7 @@ class ExportController extends Controller
 
             $query = $modelManager->getRepository('NSSentinelBundle:IBD')->exportQuery('i');
 
-            return $this->export('xls', $ibdForm, $query, $fields);
+            return $this->export('csv', $ibdForm, $query, $fields);
         }
     }
 
@@ -88,7 +88,7 @@ class ExportController extends Controller
             $this->adjustFields($meta, $fields);
             $query = $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:RotaVirus')->exportQuery('i');
 
-            return $this->export('xls', $rotaForm, $query, $fields);
+            return $this->export('csv', $rotaForm, $query, $fields);
         }
     }
 
