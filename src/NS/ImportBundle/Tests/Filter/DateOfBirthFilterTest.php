@@ -23,33 +23,33 @@ class DateOfBirthFilterTest extends \PHPUnit_Framework_TestCase
 
     public function getNotSet()
     {
-        $dob = new \DateTime('2015-05-07');
+        $birthdate = new \DateTime('2015-05-07');
         $admDate = new \DateTime('2015-06-01');
 
         return array(
             array(
-                array('dob' => null), true
+                array('birthdate' => null), true
             ),
             array(
                 array('admDate' => null), true
             ),
             array(
-                array('dob' => null, 'admDate' => null), true
+                array('birthdate' => null, 'admDate' => null), true
             ),
             array(
-                array('dob' => null, 'admDate' => $admDate), true
+                array('birthdate' => null, 'admDate' => $admDate), true
             ),
             array(
-                array('dob' => $dob, 'admDate' => null), true
+                array('birthdate' => $birthdate, 'admDate' => null), true
             ),
             array(
-                array('dob' => $dob, 'admDate' => null), true
+                array('birthdate' => $birthdate, 'admDate' => null), true
             ),
             array(
-                array('dob' => $dob, 'admDate' => $admDate), true
+                array('birthdate' => $birthdate, 'admDate' => $admDate), true
             ),
             array(
-                array('dob' => $admDate, 'admDate' => $dob), false
+                array('birthdate' => $admDate, 'admDate' => $birthdate), false
             ),
         );
     }

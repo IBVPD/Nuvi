@@ -47,6 +47,7 @@ class AppKernel extends Kernel
 
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
+            new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
 
             new PunkAve\FileUploaderBundle\PunkAveFileUploaderBundle(),
             new Lexik\Bundle\FormFilterBundle\LexikFormFilterBundle(),

@@ -19,7 +19,7 @@ use \NS\SentinelBundle\Validators as LocalAssert;
  * @SuppressWarnings(PHPMD.ShortVariable)
  * @UniqueEntity(fields={"site","caseId"}, message="The case id already exists for this site!")
  *
- * @LocalAssert\GreaterThanDate(lessThanField="dob",greaterThanField="admDate",message="The date of birth is past the date of admission")
+ * @LocalAssert\GreaterThanDate(lessThanField="birthdate",greaterThanField="admDate",message="The date of birth is past the date of admission")
  */
 abstract class BaseCase
 {
@@ -83,12 +83,12 @@ abstract class BaseCase
     protected $state;
 
     /**
-     * @var \DateTime $dob
-     * @ORM\Column(name="dob",type="date",nullable=true)
+     * @var \DateTime $birthdate
+     * @ORM\Column(name="birthdate",type="date",nullable=true)
      * @Assert\Date
      * @Serializer\Groups({"api"})
      */
-    protected $dob;
+    protected $birthdate;
 
     /**
      * @var TripleChoice $dobKnown
@@ -536,7 +536,15 @@ abstract class BaseCase
      */
     public function getDob()
     {
-        return $this->dob;
+        return $this->birthdate;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getBirthdate()
+    {
+        return $this->birthdate;
     }
 
     /**
@@ -645,13 +653,23 @@ abstract class BaseCase
     }
 
     /**
+     * @param \DateTime $birthdate
+     * @return BaseCase
+     */
+    public function setBirthdate($birthdate)
+    {
+        $this->birthdate = $birthdate;
+        return $this;
+    }
+
+    /**
      *
      * @param \DateTime $dob
      * @return \NS\SentinelBundle\Entity\BaseCase
      */
     public function setDob(\DateTime $dob = null)
     {
-        $this->dob = $dob;
+        $this->birthdate = $dob;
 
         return $this;
     }

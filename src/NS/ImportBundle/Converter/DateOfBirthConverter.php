@@ -19,10 +19,10 @@ class DateOfBirthConverter implements ReporterInterface
     {
         $this->message = null;
 
-        if (isset($item['dob']) && $item['dob'] instanceof \DateTime && isset($item['admDate']) && $item['admDate'] instanceof \DateTime) {
-            if ($item['dob'] > $item['admDate']) {
+        if (isset($item['birthdate']) && $item['birthdate'] instanceof \DateTime && isset($item['admDate']) && $item['admDate'] instanceof \DateTime) {
+            if ($item['birthdate'] > $item['admDate']) {
                 $item['warning'] = true;
-                $this->message = 'Admission date is before dob';
+                $this->message = 'Admission date is before birthdate';
             }
         }
 

@@ -9,7 +9,7 @@ command=$1
 
 function update() {
     composer install -o
-    app/console doctrine:schema:update --dump-sql --force
+    app/console doctrine:migrations:migrate --env=prod
     rm -rf app/cache/*
 }
 

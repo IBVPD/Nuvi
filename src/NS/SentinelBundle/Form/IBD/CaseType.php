@@ -43,7 +43,7 @@ class CaseType extends AbstractType
             ->add('parentalName', null, array('required' => $required, 'label' => 'ibd-form.parental-name'))
             ->add('dobKnown', 'TripleChoice', array('required' => $required, 'label' => 'ibd-form.date-of-birth-known',
                 'attr' => array('data-context-child' => 'dob')))
-            ->add('dob', 'acedatepicker', array('required' => $required, 'label' => 'ibd-form.date-of-birth',
+            ->add('birthdate', 'acedatepicker', array('required' => $required, 'label' => 'ibd-form.date-of-birth',
                 'attr' => array('data-context-parent' => 'dob', 'data-context-value' => TripleChoice::YES),
                 'widget' => 'single_text'))
             ->add('dobYears', null, array('required' => $required, 'label' => 'ibd-form.date-of-birth-years',

@@ -122,7 +122,7 @@ class ImportProcessorTest extends WebTestCase
             array(
                 'name'      => 'birthday',
                 'converter' => 'ns_import.converter.date.who',
-                'mapper'    => 'dob',
+                'mapper'    => 'birthdate',
                 'ignored'   => false,
             ),
         );
@@ -994,7 +994,7 @@ class ImportProcessorTest extends WebTestCase
             array(
                 'name'      => 'birthday',
                 'converter' => 'ns_import.converter.date.iso',
-                'mapper'    => 'dob',
+                'mapper'    => 'birthdate',
                 'ignored'   => false,
             ),
         );

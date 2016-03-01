@@ -3,7 +3,7 @@
 NS\SentinelBundle\Entity\IBD:
   ibdTest:
     caseId: 12
-    dob: <dateTimeBetween('2014-01-01', '2014-12-25')>
+    birthdate: <dateTimeBetween('2014-01-01', '2014-12-25')>
     gender: <gender()>
     admDx: <diagnosis()>
     antibiotics: <done()>
@@ -28,7 +28,7 @@ NS\SentinelBundle\Entity\IBD:
     cxrResult: <cxrResult()>
     hibReceived: <vaccinationReceived()>
     hibDoses: <fourDoses()>
-    hibMostRecentDose: <dateTimeBetween($dob,'now')>
+    hibMostRecentDose: <dateTimeBetween($birthdate,'now')>
     admDate: <dateTimeBetween('2015-01-01', '2015-01-05')>
     csfCollected: <done()>
     csfCollectDateTime: <dateTimeBetween($admDate,'now')>
@@ -39,8 +39,8 @@ NS\SentinelBundle\Entity\IBD:
     country: @country0
   ibd{0..500}:
     caseId: <numberBetween(500, 20000000)>
-    dob: <dateTimeBetween('-1825 days', 'now')>
-    admDate: <dateTimeBetween($dob, 'now')>
+    birthdate: <dateTimeBetween('-1825 days', 'now')>
+    admDate: <dateTimeBetween($birthdate, 'now')>
     gender: <gender()>
     admDx: <diagnosis()>
     antibiotics: <done()>
@@ -65,7 +65,7 @@ NS\SentinelBundle\Entity\IBD:
     cxrResult: <cxrResult()>
     hibReceived: <vaccinationReceived()>
     hibDoses: <fourDoses()>
-    hibMostRecentDose: <dateTimeBetween($dob,'now')>
+    hibMostRecentDose: <dateTimeBetween($birthdate,'now')>
     csfCollected: <done()>
     csfCollectDateTime: <dateTimeBetween($admDate,'now')>
     csfAppearance: <csfAppearance($csfCollected)>
@@ -77,7 +77,7 @@ NS\SentinelBundle\Entity\IBD:
 NS\SentinelBundle\Entity\RotaVirus:
   rotaTest:
     caseId: 12
-    dob: <dateTimeBetween('2014-01-01', '2014-12-25')>
+    birthdate: <dateTimeBetween('2014-01-01', '2014-12-25')>
     gender: <gender()>
     admDate: <dateTimeBetween('2015-01-01', '2015-01-05')>
     site: @site0
@@ -86,8 +86,8 @@ NS\SentinelBundle\Entity\RotaVirus:
     country: @country0
   rota{0..500}:
     caseId: <numberBetween(500,90000000)>
-    dob: <dateTimeBetween('-1825 days', 'now')>
-    admDate: <dateTimeBetween($dob, 'now')>
+    birthdate: <dateTimeBetween('-1825 days', 'now')>
+    admDate: <dateTimeBetween($birthdate, 'now')>
     stoolCollected: <done()>
     stoolCollectionDate: 33%? <dateTimeBetween($admDate,'now')>
     dischargeDate: 67%? <dateTimeBetween($admDate,'now')>

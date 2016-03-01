@@ -23,7 +23,7 @@ use NS\SentinelBundle\Form\Types\Gender;
 use NS\SentinelBundle\Form\Types\GenotypeResultG;
 use NS\SentinelBundle\Form\Types\GenotypeResultP;
 use NS\SentinelBundle\Form\Types\GramStain;
-use NS\SentinelBundle\Form\Types\GramStainOrganism;
+use NS\SentinelBundle\Form\Types\GramStainResult;
 use NS\SentinelBundle\Form\Types\HiSerotype;
 use NS\SentinelBundle\Form\Types\IBDCaseResult;
 use NS\SentinelBundle\Form\Types\IBDIntenseSupport;
@@ -166,8 +166,8 @@ class ArrayChoiceConverterTest extends \PHPUnit_Framework_TestCase
                 'obj' => new GramStain(),
                 'name' => 'GramStain',),
             array(
-                'obj' => new GramStainOrganism(),
-                'name' => 'GramStainOrganism'),
+                'obj' => new GramStainResult(),
+                'name' => 'GramStainResult'),
             array(
                 'obj' => new HiSerotype(),
                 'name' => 'HiSerotype'),

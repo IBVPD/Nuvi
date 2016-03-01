@@ -57,7 +57,7 @@ class ArrayChoiceHandler implements SubscribingHandlerInterface
             'NS\SentinelBundle\Form\Types\GenotypeResultG',
             'NS\SentinelBundle\Form\Types\GenotypeResultP',
             'NS\SentinelBundle\Form\Types\GramStain',
-            'NS\SentinelBundle\Form\Types\GramStainOrganism',
+            'NS\SentinelBundle\Form\Types\GramStainResult',
             'NS\SentinelBundle\Form\Types\HiSerotype',
             'NS\SentinelBundle\Form\Types\IsolateType',
             'NS\SentinelBundle\Form\Types\LatResult',

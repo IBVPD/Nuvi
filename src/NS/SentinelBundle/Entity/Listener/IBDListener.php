@@ -160,7 +160,7 @@ class IBDListener extends BaseCaseListener
     {
         $fields = array(
             'caseId',
-            'dob',
+            'birthdate',
             'gender',
             'district',
             'admDate',

@@ -28,18 +28,18 @@ class DateOfBirthConverterTest extends \PHPUnit_Framework_TestCase
 
     public function getData()
     {
-        $dob = new \DateTime('2015-05-07');
+        $birthdate = new \DateTime('2015-05-07');
         $admDate = new \DateTime('2015-06-01');
 
         return array(
-            array(array('dob' => null), false ),
+            array(array('birthdate' => null), false ),
             array(array('admDate' => null), false),
-            array(array('dob' => null, 'admDate' => null), false),
-            array(array('dob' => null, 'admDate' => $admDate), false),
-            array(array('dob' => $dob, 'admDate' => null), false),
-            array(array('dob' => $dob, 'admDate' => null), false),
-            array(array('dob' => $dob, 'admDate' => $admDate), false),
-            array(array('dob' => $admDate, 'admDate' => $dob), true),
+            array(array('birthdate' => null, 'admDate' => null), false),
+            array(array('birthdate' => null, 'admDate' => $admDate), false),
+            array(array('birthdate' => $birthdate, 'admDate' => null), false),
+            array(array('birthdate' => $birthdate, 'admDate' => null), false),
+            array(array('birthdate' => $birthdate, 'admDate' => $admDate), false),
+            array(array('birthdate' => $admDate, 'admDate' => $birthdate), true),
         );
     }
 }

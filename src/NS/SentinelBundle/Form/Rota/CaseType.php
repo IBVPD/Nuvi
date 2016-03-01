@@ -31,7 +31,7 @@ class CaseType extends AbstractType
             ->add('parentalName',               null,               array('required'=>$required, 'label'=>'rotavirus-form.parental-name'))
             ->add('caseId',                     null,               array('required'=>true,      'label'=>'rotavirus-form.caseId'))
             ->add('gender',                     'Gender',           array('required'=>$required, 'label'=>'rotavirus-form.gender'))
-            ->add('dob',                        'acedatepicker',    array('required'=>$required, 'label'=>'rotavirus-form.dob'))
+            ->add('birthdate',                  'acedatepicker',    array('required'=>$required, 'label'=>'rotavirus-form.dob'))
             ->add('age',                        null,               array('required'=>$required, 'label'=>'rotavirus-form.age-in-months'))
             ->add('district',                   null,               array('required'=>$required, 'label'=>'rotavirus-form.district'))
             ->add('state',                      null,               array('required'=>$required, 'label'=>'rotavirus-form.state'))

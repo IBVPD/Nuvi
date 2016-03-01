@@ -41,7 +41,7 @@ use \NS\SentinelBundle\Validators as LocalAssert;
  * @ORM\EntityListeners(value={"NS\SentinelBundle\Entity\Listener\IBDListener"})
  *
  * @LocalAssert\GreaterThanDate(lessThanField="onsetDate",greaterThanField="admDate",message="form.validation.admission-after-onset")
- * @LocalAssert\GreaterThanDate(lessThanField="dob",greaterThanField="onsetDate",message="form.validation.onset-after-dob")
+ * @LocalAssert\GreaterThanDate(lessThanField="birthdate",greaterThanField="onsetDate",message="form.validation.onset-after-dob")
  */
 class IBD extends BaseCase
 {
@@ -1306,9 +1306,9 @@ class IBD extends BaseCase
 //        if($this->admDate && $this->onsetDate && $this->admDate < $this->onsetDate)
 //            $context->addViolationAt('admDate', "form.validation.admission-after-onset");
 //
-//        // with both an dob and onset date, ensure the onset is after dob
-//        if($this->dob && $this->onsetDate && $this->onsetDate < $this->dob)
-//            $context->addViolationAt ('dob', "form.validation.onset-after-dob");
+//        // with both an birthdate and onset date, ensure the onset is after birthdate
+//        if($this->birthdate && $this->onsetDate && $this->onsetDate < $this->birthdate)
+//            $context->addViolationAt ('birthdate', "form.validation.onset-after-dob");
 //
 // The following validations need to store errors in the object or force form validation prior to form submission
 //        // if admission diagnosis is other, enforce value in 'admission diagnosis other' field

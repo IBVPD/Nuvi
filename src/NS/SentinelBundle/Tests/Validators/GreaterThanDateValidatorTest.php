@@ -24,7 +24,7 @@ class GreaterThanDateValidatorTest extends \PHPUnit_Framework_TestCase
         $validator = new GreaterThanDateValidator();
         $validator->initialize($context);
 
-        $constraint = new GreaterThanDate(array('lessThanField'=>'dob','greaterThanField' => 'admDate'));
+        $constraint = new GreaterThanDate(array('lessThanField'=>'birthdate','greaterThanField' => 'admDate'));
         $validator->validate($ibd,$constraint);
     }
 
@@ -55,7 +55,7 @@ class GreaterThanDateValidatorTest extends \PHPUnit_Framework_TestCase
         $validator = new GreaterThanDateValidator();
         $validator->initialize($context);
 
-        $constraint = new GreaterThanDate(array('lessThanField'=>'dob','greaterThanField' => 'admDate'));
+        $constraint = new GreaterThanDate(array('lessThanField'=>'birthdate','greaterThanField' => 'admDate'));
 
         $ibd = new IBD();
         $ibd->setDob(new \DateTime('2015-12-28'));
@@ -83,7 +83,7 @@ class GreaterThanDateValidatorTest extends \PHPUnit_Framework_TestCase
         $validator = new GreaterThanDateValidator();
         $validator->initialize($context);
 
-        $constraint = new GreaterThanDate(array('lessThanField'=>'dob','greaterThanField' => 'admDate'));
+        $constraint = new GreaterThanDate(array('lessThanField'=>'birthdate','greaterThanField' => 'admDate'));
 
         $ibd = new IBD();
         $ibd->setDob(new \DateTime('2016-07-15'));

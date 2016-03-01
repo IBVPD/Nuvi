@@ -175,15 +175,15 @@ services:
     tags:
       - { name: form.type, alias: DischargeOutcome }
 
-  ns.sentinel.form.type.gramstainorganism:
-    class: NS\SentinelBundle\Form\Types\GramStainOrganism
-    tags:
-      - { name: form.type, alias: GramStainOrganism }
-
   ns.sentinel.form.type.gramstain:
     class: NS\SentinelBundle\Form\Types\GramStain
     tags:
       - { name: form.type, alias: GramStain }
+
+  ns.sentinel.form.type.gramstain_result:
+    class: NS\SentinelBundle\Form\Types\GramStainResult
+    tags:
+      - { name: form.type, alias: GramStainResult }
 
   ns.sentinel.form.type.meningitisvaccinationtype:
     class: NS\SentinelBundle\Form\Types\MeningitisVaccinationType
