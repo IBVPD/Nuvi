@@ -54,10 +54,10 @@
                                 <tr>
                                     <th>{{ 'Region'|trans }}</th>
                                     <th>{{ 'Country'|trans }}</th>
-                                    <th colspan="2">{{ 'Site'|trans }}</th>
+                                    <th colspan="2" style="max-width: 25%; width: 20%;">{{ 'Site'|trans }}</th>
                                     <th>{{ 'Tier'|trans }}</th>
                                     <th>{{ 'Total Cases'|trans }}</th>
-                                    <th colspan="2">{{ 'Consistent Reporting'|trans }}</th>
+                                    <th>{{ 'Consistent Reporting'|trans }}</th>
                                     <th>{{ 'Minimum No. Cases'|trans }}</th>
                                     <th>{{ 'Specimen Collection'|trans }}</th>
                                     <th>{{ 'Lab Confirmed'|trans }}</th>
@@ -72,10 +72,9 @@
                                         <td>{{ result.site.ibdTier }}</td>
                                         <td>{{ result.totalCases }}</td>
                                         <td>{{ consistentReporting(result) }}</td>
-                                        <td>{{ result.consistentReportingCount }}</td>
-                                        <td>{{ minimumCases(result)}}<br/>{{ result.minimumNumberOfCasesString|trans }}</td>
-                                        <td class="no-padding specimenCollection"><div class="well no-margin no-padding">{{ specimenCollected(result) }}</div></td>
-                                        <td>{{ result.labConfirmed }}</td>
+                                        <td>{{ minimumCases(result)}}</td>
+                                        <td>{{ specimenCollected(result) }}</td>
+                                        <td>{{ labConfirmed(result) }}</td>
                                     </tr>
                                 {% endfor %}
 

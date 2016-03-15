@@ -42,6 +42,9 @@ class SitePerformanceResult extends AbstractSitePerformanceResult
     const TIER1_MIN_CASES_STR = '≥ 100 cases';
     const TIER2_MIN_CASES_STR = '≥ 500 cases';
 
+    /**
+     * @return string
+     */
     public function getMinimumNumberOfCasesString()
     {
         switch($this->getSite()->getIbdTier()) {
@@ -57,6 +60,9 @@ class SitePerformanceResult extends AbstractSitePerformanceResult
     const TIER1_MIN_SPECIMEN_STR = '≥ 90% with specimen';
     const TIER2_MIN_SPECIMEN_STR = '≥ 75% with specimen';
 
+    /**
+     * @return string
+     */
     public function getMinimumSpecimenCollectedString()
     {
         switch($this->getSite()->getIbdTier()) {
@@ -67,11 +73,17 @@ class SitePerformanceResult extends AbstractSitePerformanceResult
         }
     }
 
+    /**
+     *
+     */
     public function getMinimumLabConfirmedString()
     {
 
     }
 
+    /**
+     * @return string
+     */
     public function hasMinimumLabConfirmed()
     {
         return 'N/A';
