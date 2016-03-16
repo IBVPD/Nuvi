@@ -61,7 +61,6 @@ class AppKernel extends Kernel
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new NS\ImportBundle\NSImportBundle(),
 
-            new Hpatoio\DeployBundle\DeployBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
             new Leezy\PheanstalkBundle\LeezyPheanstalkBundle(),
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
