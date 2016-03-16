@@ -21,13 +21,17 @@ Export:
 Reports:
 - Export the performance indicator.
 
-1. For the "site performance" one, can you make the style consistent? Either all arrows or all circles. Also, for each indicator, please list the requirement, the actual number, and then whether it has met the standard or not. For example, with minimum number of cases, the column giving the number enrolled and the column giving whether it met the requirement are separated by a couple of columns.
-2. Give total columns. (e.g., for "age distribution" one, give for all years; for "number percent enrolled" one, give for the entire year)
-3. Include more labels so the tables are self-explanatory. (e.g., for "age distribution" one, label "months"; for consistent reporting on "site performance" one, list months and the minimum needed). An example of confusion for me is in the pie chart in "age distribution"--were these over all years, or just the most recent?
-4. For "Culture positive" one, we may want to list the type of method used to confirm the cases in mutually exclusive categories.
+1. For the "site performance" one, can you make the style consistent? Either all arrows or all circles.
+    Also, for each indicator, please list the requirement, the actual number, and then whether it has met the standard or not.
+    For example, with minimum number of cases, the column giving the number enrolled and the column giving whether it met the requirement are separated by a couple of columns.
 
-Thanks Adam and Nathanael. I agree with all of Adam's comments plus a few additional points below.
-One important point I want to discuss on the call is the naming convention used for the variables. Was there a reason to change the variable names? We have a standard variable list which most Regions use now and I think it would be ideal to use that if we can.
+2. Give total columns. (e.g., for "age distribution" one, give for all years; for "number percent enrolled" one, give for the entire year)
+
+3. Include more labels so the tables are self-explanatory. (e.g., for "age distribution" one, label "months";
+    for consistent reporting on "site performance" one, list months and the minimum needed).
+    An example of confusion for me is in the pie chart in "age distribution"--were these over all years, or just the most recent?
+
+4. For "Culture positive" one, we may want to list the type of method used to confirm the cases in mutually exclusive categories.
 
 Age Distribution :
 1. The text "&amp;" appears in a few places - what is this? There needs to be more labelling of the graphs and figures.
