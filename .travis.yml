@@ -5,8 +5,6 @@ language: php
 php:
   - '5.5'
   - '5.6'
-  - '7.0'
-  - 'hhvm'
 
 before_script:
   - composer self-update
@@ -17,3 +15,4 @@ before_script:
   - app/console doctrine:fixtures:load -n --env=test
 
 script: phpunit -c app
+
