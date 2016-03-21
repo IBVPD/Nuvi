@@ -64,6 +64,7 @@ class AppKernel extends Kernel
             new Vich\UploaderBundle\VichUploaderBundle(),
             new Leezy\PheanstalkBundle\LeezyPheanstalkBundle(),
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
+            new NS\SonataDoctrineORMAdminBundle\NSSonataDoctrineORMAdminBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test','live'))) {

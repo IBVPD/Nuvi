@@ -22,13 +22,13 @@
         "jms/security-extra-bundle": "1.5.x-dev",
         "jms/di-extra-bundle": "~1.1",
 
-        "sonata-project/admin-bundle": "~2.3",
-        "sonata-project/cache-bundle": "~2.1",
+        "sonata-project/admin-bundle": "^2.3.7",
+        "sonata-project/cache-bundle": "~2.2",
         "sonata-project/block-bundle": "~2.2",
-        "sonata-project/doctrine-orm-admin-bundle": "~2.2",
+        "sonata-project/doctrine-orm-admin-bundle": "~2.3",
         "sonata-project/intl-bundle": "~2.2",
         "sonata-project/exporter": "~1.1",
-        "sonata-project/core-bundle": "~2.2",
+        "sonata-project/core-bundle": "~2.3",
 
         "ns/util-bundle": "^1.0",
         "ns/security-bundle": "2.7.x-dev",
@@ -105,6 +105,8 @@
         "behat/mink":  "1.6.*",
         "behat/symfony2-extension":      "2.0.*",
         "behat/mink-extension":          "2.0.*",
-        "behat/mink-browserkit-driver":  "*"
+        "behat/mink-browserkit-driver":  "*",
+
+        "sensio/generator-bundle": "~2.3"
     }
 }

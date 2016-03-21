@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "58fcc699aa226bbc01a9d63b50762e6f",
-    "content-hash": "8ae3dd7ceb2e572a54224431381d49c2",
+    "hash": "2a458e314c886187f1cfc9b42cb56d4e",
+    "content-hash": "95a1c0decfe6475404e55a9d150806ff",
     "packages": [
         {
             "name": "adoy/oauth2",
@@ -3745,16 +3745,16 @@
         },
         {
             "name": "paragonie/random_compat",
-            "version": "v1.3.0",
+            "version": "v1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/random_compat.git",
-                "reference": "ff76e1a660669bb56ba74ba0583fd8d41417bf39"
+                "reference": "c7e26a21ba357863de030f0b9e701c7d04593774"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/ff76e1a660669bb56ba74ba0583fd8d41417bf39",
-                "reference": "ff76e1a660669bb56ba74ba0583fd8d41417bf39",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/c7e26a21ba357863de030f0b9e701c7d04593774",
+                "reference": "c7e26a21ba357863de030f0b9e701c7d04593774",
                 "shasum": ""
             },
             "require": {
@@ -3789,7 +3789,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2016-03-17 16:11:57"
+            "time": "2016-03-18 20:34:03"
         },
         {
             "name": "pda/pheanstalk",
@@ -4035,12 +4035,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/punkave/symfony2-file-uploader-bundle.git",
-                "reference": "414ba0afa11076dab1e30654d9cae7ee583154d8"
+                "reference": "3dd8c13b3f4b50f0b49c04c6632ee705f16ae864"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/punkave/symfony2-file-uploader-bundle/zipball/414ba0afa11076dab1e30654d9cae7ee583154d8",
-                "reference": "414ba0afa11076dab1e30654d9cae7ee583154d8",
+                "url": "https://api.github.com/repos/punkave/symfony2-file-uploader-bundle/zipball/3dd8c13b3f4b50f0b49c04c6632ee705f16ae864",
+                "reference": "3dd8c13b3f4b50f0b49c04c6632ee705f16ae864",
                 "shasum": ""
             },
             "require": {
@@ -4088,7 +4088,7 @@
                 "upload",
                 "uploader"
             ],
-            "time": "2015-03-26 19:13:38"
+            "time": "2016-03-18 14:09:40"
         },
         {
             "name": "sensio/distribution-bundle",
