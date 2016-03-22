@@ -1,0 +1,160 @@
+diff --git a/src/NS/SentinelBundle/Entity/BaseCase.php b/src/NS/SentinelBundle/Entity/BaseCase.php
+index d487283..c528011 100644
+--- a/src/NS/SentinelBundle/Entity/BaseCase.php
++++ b/src/NS/SentinelBundle/Entity/BaseCase.php
+@@ -826,4 +826,12 @@ abstract class BaseCase
+         $this->warning = $warning;
+         return $this;
+     }
++
++    /**
++     * @return bool
++     */
++    public function isUnlinked()
++    {
++        return (strpos($this->id,'-XXX-') !== false);
++    }
+ }
+diff --git a/src/NS/SentinelBundle/Entity/Listener/BaseCaseListener.php b/src/NS/SentinelBundle/Entity/Listener/BaseCaseListener.php
+index 1137da3..d1f3e4e 100644
+--- a/src/NS/SentinelBundle/Entity/Listener/BaseCaseListener.php
++++ b/src/NS/SentinelBundle/Entity/Listener/BaseCaseListener.php
+@@ -2,8 +2,11 @@
+ 
+ namespace NS\SentinelBundle\Entity\Listener;
+ 
++use Doctrine\Common\Persistence\ObjectManager;
+ use Doctrine\ORM\Event\LifecycleEventArgs;
+ use NS\SentinelBundle\Entity\BaseCase;
++use NS\SentinelBundle\Entity\Generator\BaseCaseGenerator;
++use NS\SentinelBundle\Entity\Site;
+ use NS\SentinelBundle\Form\Types\CaseStatus;
+ 
+ /**
+@@ -12,13 +15,23 @@ use NS\SentinelBundle\Form\Types\CaseStatus;
+  */
+ abstract class BaseCaseListener
+ {
++    private $generator;
++
++    /**
++     * BaseCaseListener constructor.
++     */
++    public function __construct()
++    {
++        $this->generator = new BaseCaseGenerator();
++    }
++
+     /**
+      * @param BaseCase $case
+      * @param LifecycleEventArgs $event
+-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+      */
+     public function preUpdate(BaseCase $case, LifecycleEventArgs $event)
+     {
++        $this->checkLinking($case,$event->getEntityManager());
+         $this->calculateAge($case);
+         $this->calculateStatus($case);
+         $this->calculateResult($case);
+@@ -89,6 +102,19 @@ abstract class BaseCaseListener
+         $case->setStatus($status);
+     }
+ 
++    public function checkLinking(BaseCase $case, ObjectManager $manager)
++    {
++        if(!$case->getId()) {
++            return;
++        }
++
++        // Have a case with a newly assigned site
++        if($case->getSite() instanceof Site && strpos($case->getId(),'-XXX-') !== false) {
++            $newId = $this->generator->generate($manager,$case);
++            $case->setId($newId);
++        }
++    }
++
+     /**
+      * @param BaseCase $case
+      *
+diff --git a/src/NS/SentinelBundle/Exceptions/InvalidCaseException.php b/src/NS/SentinelBundle/Exceptions/InvalidCaseException.php
+new file mode 100644
+index 0000000..f8b061c
+--- /dev/null
++++ b/src/NS/SentinelBundle/Exceptions/InvalidCaseException.php
+@@ -0,0 +1,10 @@
++<?php
++
++namespace NS\SentinelBundle\Exceptions;
++
++use Ddeboer\DataImport\Exception;
++
++class InvalidCaseException extends \RuntimeException implements Exception
++{
++
++}
+diff --git a/src/NS/SentinelBundle/Repository/Common.php b/src/NS/SentinelBundle/Repository/Common.php
+index 1895e3c..7c068af 100644
+--- a/src/NS/SentinelBundle/Repository/Common.php
++++ b/src/NS/SentinelBundle/Repository/Common.php
+@@ -2,11 +2,13 @@
+ 
+ namespace NS\SentinelBundle\Repository;
+ 
++use Doctrine\ORM\NonUniqueResultException;
+ use \Doctrine\ORM\NoResultException;
+ use Doctrine\ORM\Query;
+ use \Doctrine\ORM\QueryBuilder;
+ use NS\ImportBundle\Exceptions\DuplicateCaseException;
+ use \NS\SecurityBundle\Doctrine\SecuredEntityRepository;
++use NS\SentinelBundle\Exceptions\InvalidCaseException;
+ use \NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
+ 
+ /**
+@@ -120,7 +122,8 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
+     public function findWithRelations(array $params)
+     {
+         $qb = $this->createQueryBuilder('c')
+-            ->addSelect('sl,rl,nl')
++            ->addSelect('sl,rl,nl,s')
++            ->leftJoin('c.site','s')
+             ->leftJoin('c.siteLab', 'sl')
+             ->leftJoin('c.referenceLab', 'rl')
+             ->leftJoin('c.nationalLab', 'nl');
+@@ -130,11 +133,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
+             $qb->andWhere(sprintf('c.%s = :%s', $field, $param))->setParameter($param, $value);
+         }
+ 
+-        try {
+-            return $qb->getQuery()->getSingleResult();
+-        } catch (NoResultException $exception) {
+-            return null;
+-        }
++        return $qb->getQuery()->getResult();
+     }
+ 
+     /**
+@@ -162,7 +161,23 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
+         $this->checkRequiredField('site',$params,'NS\SentinelBundle\Entity\Site');
+         $this->checkRequiredField('caseId',$params);
+ 
+-        return $this->findWithRelations($params);
++        $cases = $this->findWithRelations(array('caseId'=> $params['caseId']));
++
++        if (empty($cases)) {
++            return null;
++        }
++
++        if (count($cases) > 1) {
++            throw new DuplicateCaseException(array('found' => count($cases), 'caseId' => $params['caseId']));
++        }
++
++        $case = current($cases);
++
++        if (!$case->isUnlinked() && $case->getSite() && $case->getSite()->getCode() !== $params['site']->getCode()) {
++            throw new InvalidCaseException(sprintf("Retrieved a single case '%s' with an existing site mis-match. caseSite: %s vs requestedSite: %s",$params['caseId'],$case->getSite(),$params['site']->getCode()));
++        }
++
++        return $case;
+     }
+ 
+     /**

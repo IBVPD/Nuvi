@@ -3,6 +3,7 @@ VERSION 0  INITIAL RELEASE
 ==========================
 
    Version 0.3 - Initial HQ Server release
+      22/03/2016 08:42  0.3.11  Adjusted migrations for already existing constraints
       21/03/2016 15:35  0.3.10  Fix urls for proper proxy operation
       01/03/2016 15:10  0.3.9  Modified field names to match core variables
       29/02/2016 16:32  0.3.8  Fixed forms, exports and updated bundles
