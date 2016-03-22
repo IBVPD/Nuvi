@@ -78,6 +78,7 @@ doctrine:
             PCRResult: NS\SentinelBundle\Entity\Types\PCRResult
             GramStain: NS\SentinelBundle\Entity\Types\GramStain
             GramStainResult: NS\SentinelBundle\Entity\Types\GramStainResult
+            GramStainOrganism: NS\SentinelBundle\Entity\Types\GramStainOrganism
             IsolateType: NS\SentinelBundle\Entity\Types\IsolateType
             SerotypeIdentifier: NS\SentinelBundle\Entity\Types\SerotypeIdentifier
             PathogenIdentifier: NS\SentinelBundle\Entity\Types\PathogenIdentifier
@@ -111,6 +112,7 @@ doctrine:
             SampleType: NS\SentinelBundle\Entity\Types\SampleType
             FinalResult: NS\SentinelBundle\Entity\Types\FinalResult
         mapping_types:
+            GramStainOrganism: GramStainOrganism
             TripleChoice: TripleChoice
             IsolateViable: IsolateViable
             FourDoses: FourDoses
