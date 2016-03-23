@@ -207,11 +207,6 @@ sonata_admin:
         pager_links: NSSentinelBundle:Sonata:pager.html.twig
         edit: NSSonataBundle:CRUD:edit.html.twig
 
-sonata_doctrine_orm_admin:
-  templates:
-    form:
-      - NSUtilBundle:Form:SonataDoctrineORM/form_admin_fields.html.twig
-
 jms_serializer:
     property_naming:
         separator:  ~
