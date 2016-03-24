@@ -2493,22 +2493,22 @@
       </trans-unit>
       <trans-unit id="540cd0fc2fe5af1c6ee1e78f1ef303a5abc43171" resname="menu.export">
         <source>menu.export</source>
-        <target state="new">menu.export</target>
+        <target state="new">Exportar</target>
         <jms:reference-file line="61">SentinelBundle/Menu/Builder.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="a7a9a2039b03a8d5e569588adeae98caa145db3f" resname="menu.ibd">
         <source>menu.ibd</source>
-        <target state="new">menu.ibd</target>
+        <target state="new">IBD</target>
         <jms:reference-file line="38">SentinelBundle/Menu/Builder.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="ce6399d3bacfea49ed276b16f403667a7886d5b7" resname="menu.import">
         <source>menu.import</source>
-        <target state="new">menu.import</target>
+        <target state="new">Importar</target>
         <jms:reference-file line="60">SentinelBundle/Menu/Builder.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="5a371a391a2d1a3b1d5ae22065144126a5fc6308" resname="menu.import-export">
         <source>menu.import-export</source>
-        <target state="new">menu.import-export</target>
+        <target state="new">Importar/Exportar</target>
         <jms:reference-file line="59">SentinelBundle/Menu/Builder.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="c136d5b4518049cb39d5e06e6b8dc16619e7f7af" resname="menu.translation">
