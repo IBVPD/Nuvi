@@ -33,7 +33,8 @@
         "ns/util-bundle": "^1.0",
         "ns/security-bundle": "2.7.x-dev",
         "ns/ace-bundle": "~1.4",
-        "ns/flash-bundle": "dev-master",
+        "ns/flash-bundle": "~1.0",
+        "ns/filtered-pagination-bundle": "~2.0",
 
         "jms/translation-bundle": "~1.2",
         "doctrine/doctrine-fixtures-bundle": "dev-master",
@@ -41,7 +42,7 @@
         "stof/doctrine-extensions-bundle": "~1.1",
         "punkave/symfony2-file-uploader-bundle": "dev-master",
         "oneup/uploader-bundle": "1.0.*@dev",
-        "lexik/form-filter-bundle": "~2.1",
+
         "knplabs/knp-paginator-bundle": "~2.4",
         "lunetics/locale-bundle": "~2.2",
 

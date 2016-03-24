@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5aa61c9cb361c3c89fdfbaeba62340cb",
-    "content-hash": "846742adf0746dc7aa01d7113bf1931f",
+    "hash": "fc349116d1d88736c806bb1721cc5f1f",
+    "content-hash": "affe1d1b6569ee78f57e552bf7d25612",
     "packages": [
         {
             "name": "adoy/oauth2",
@@ -53,12 +53,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/beberlei/DoctrineExtensions.git",
-                "reference": "5e4eeb632b18da7a848b9b470ff1e688200c0d4e"
+                "reference": "d21b82cd305bd06a97a9befa2c0c750d64c53ebb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/beberlei/DoctrineExtensions/zipball/5e4eeb632b18da7a848b9b470ff1e688200c0d4e",
-                "reference": "5e4eeb632b18da7a848b9b470ff1e688200c0d4e",
+                "url": "https://api.github.com/repos/beberlei/DoctrineExtensions/zipball/d21b82cd305bd06a97a9befa2c0c750d64c53ebb",
+                "reference": "d21b82cd305bd06a97a9befa2c0c750d64c53ebb",
                 "shasum": ""
             },
             "require": {
@@ -107,7 +107,7 @@
                 "doctrine",
                 "orm"
             ],
-            "time": "2016-03-12 14:13:55"
+            "time": "2016-03-24 18:00:50"
         },
         {
             "name": "behat/transliterator",
@@ -2805,24 +2805,24 @@
         },
         {
             "name": "lexik/form-filter-bundle",
-            "version": "v2.1.2",
+            "version": "v3.0.8",
             "target-dir": "Lexik/Bundle/FormFilterBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lexik/LexikFormFilterBundle.git",
-                "reference": "3664af15d9c0483ce5a0293d076253b49f5e8521"
+                "reference": "73eacc444e6f3314a5a5209cda52a58355388b66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lexik/LexikFormFilterBundle/zipball/3664af15d9c0483ce5a0293d076253b49f5e8521",
-                "reference": "3664af15d9c0483ce5a0293d076253b49f5e8521",
+                "url": "https://api.github.com/repos/lexik/LexikFormFilterBundle/zipball/73eacc444e6f3314a5a5209cda52a58355388b66",
+                "reference": "73eacc444e6f3314a5a5209cda52a58355388b66",
                 "shasum": ""
             },
             "require": {
                 "doctrine/orm": "~2.2",
                 "php": ">=5.3.2",
-                "symfony/form": "~2.1",
-                "symfony/framework-bundle": "~2.1"
+                "symfony/form": "~2.3",
+                "symfony/framework-bundle": "~2.3"
             },
             "require-dev": {
                 "phpunit/phpunit": "~3.7"
@@ -2830,7 +2830,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.x.x-dev"
+                    "dev-master": "3.x.x-dev"
                 }
             },
             "autoload": {
@@ -2861,7 +2861,7 @@
                 "filter",
                 "form"
             ],
-            "time": "2014-09-25 13:07:14"
+            "time": "2015-06-12 15:46:04"
         },
         {
             "name": "liip/functional-test-bundle",
@@ -3421,16 +3421,16 @@
         },
         {
             "name": "ns/ace-bundle",
-            "version": "1.4.2",
+            "version": "1.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/AceBundle.git",
-                "reference": "2ec8922d2333b71d6329ad719f99b7140473196e"
+                "reference": "8a6e95dfbb05f4f71205dbeb55e3a2984e5ceb0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/AceBundle/zipball/2ec8922d2333b71d6329ad719f99b7140473196e",
-                "reference": "2ec8922d2333b71d6329ad719f99b7140473196e",
+                "url": "https://api.github.com/repos/NobletSolutions/AceBundle/zipball/8a6e95dfbb05f4f71205dbeb55e3a2984e5ceb0b",
+                "reference": "8a6e95dfbb05f4f71205dbeb55e3a2984e5ceb0b",
                 "shasum": ""
             },
             "require": {
@@ -3469,11 +3469,54 @@
                 }
             ],
             "description": "This bundle provides bootstrap template",
-            "time": "2016-03-23 23:35:47"
+            "time": "2016-03-24 22:01:39"
+        },
+        {
+            "name": "ns/filtered-pagination-bundle",
+            "version": "2.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/NobletSolutions/FilteredPaginationBundle.git",
+                "reference": "bdfb05c2e0196136a20f0be6150e74a2831712ed"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/NobletSolutions/FilteredPaginationBundle/zipball/bdfb05c2e0196136a20f0be6150e74a2831712ed",
+                "reference": "bdfb05c2e0196136a20f0be6150e74a2831712ed",
+                "shasum": ""
+            },
+            "require": {
+                "knplabs/knp-paginator-bundle": "~2.4",
+                "lexik/form-filter-bundle": "~3.0",
+                "php": ">=5.3.2",
+                "symfony/symfony": ">=2.1"
+            },
+            "require-dev": {
+                "liip/rmt": "~1.1",
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "NS\\FilteredPaginationBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nathanael d. Noblet",
+                    "email": "nathanael@noblet.ca"
+                }
+            ],
+            "description": "This bundle provides a paginated filter handler",
+            "time": "2016-03-02 19:14:16"
         },
         {
             "name": "ns/flash-bundle",
-            "version": "dev-master",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/FlashBundle.git",
@@ -7603,7 +7646,6 @@
     "stability-flags": {
         "jms/security-extra-bundle": 20,
         "ns/security-bundle": 20,
-        "ns/flash-bundle": 20,
         "doctrine/doctrine-fixtures-bundle": 20,
         "punkave/symfony2-file-uploader-bundle": 20,
         "oneup/uploader-bundle": 20,

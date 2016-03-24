@@ -2,7 +2,7 @@
 
 namespace NS\SentinelBundle\Filter\Type;
 
-use \Lexik\Bundle\FormFilterBundle\Filter\Extension\Type\EmbeddedFilterTypeInterface;
+use \Lexik\Bundle\FormFilterBundle\Filter\Form\Type\EmbeddedFilterTypeInterface;
 use \Lexik\Bundle\FormFilterBundle\Filter\Query\QueryInterface;
 use \NS\SentinelBundle\Form\Types\IBDIntenseSupport;
 use \Symfony\Component\Form\AbstractType;
@@ -74,3 +74,4 @@ class SiteFilterType extends AbstractType implements EmbeddedFilterTypeInterface
         return 'SiteFilterType';
     }
 }
+

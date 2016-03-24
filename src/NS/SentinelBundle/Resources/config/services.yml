@@ -50,12 +50,6 @@ services:
     class: NS\SentinelBundle\Services\SerializedSites
     arguments: [ "@session", "@doctrine.orm.entity_manager" ]
 
-  ns.sentinel.result_per_page:
-    class: NS\SentinelBundle\Form\Listener\ResultPerPage
-    arguments: [ "@router", "@form.factory" ]
-    tags:
-      - { name: kernel.event_listener, event: kernel.request, method: onRequest }
-
   ns.sentinel.menu_builder:
     class: NS\SentinelBundle\Menu\Builder
     arguments: [ "@knp_menu.factory", "@security.authorization_checker", "@request_stack" ]

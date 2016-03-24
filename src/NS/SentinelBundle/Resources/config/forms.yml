@@ -235,12 +235,6 @@ services:
     tags:
       - { name: form.type, alias: Rehydration }
 
-  ns.sentinel.form.result_per_page:
-    class: NS\SentinelBundle\Form\ResultPerPage
-    arguments: [ "ibdIndex" ]
-    tags:
-      - { name: form.type, alias: results_per_page }
-
   ns.sentinel.base.filter:
     class: NS\SentinelBundle\Filter\Type\BaseFilterType
     arguments: [ "@security.token_storage", "@security.authorization_checker", "@ns.security.acl_converter" ]

@@ -1,6 +1,11 @@
 {%extends "NSSentinelBundle::layout.html.twig" %}
 {% block pagetitle %}{{'Recent Cases'|trans}}{%endblock %}
-{% block pagedescription %}{{'Lists the last %count% rotavirus cases'|trans({'%count%':app.session.get('result_per_page',10)})}}{%endblock %}
+{% block pagedescription %}{{'Lists the last %count% rotavirus cases'|trans({'%count%':app.session.get('rota.index.limit',10)})}}{%endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('/bundles/nsfilteredpagination/js/main.js') }}"></script>
+{% endblock %}
 
 {% block body %}
     <div class="row">
@@ -13,7 +18,7 @@
                             <a href="#modal-form" id="modal-form-create" data-toggle="modal" class="btn btn-xs btn-success">{{'Create/Edit'|trans}}&nbsp;<i class="fa fa-plus fa-on-right bigger-110"></i></a>
                         </div>
                     {% endif %}
-                    <div class="widget-toolbar"><form method="POST" action="{{ path('rotavirusIndex',pagination.query)}}">{{form_rest(form)}}</form></div>
+                    <div class="widget-toolbar">{{ form_widget(limitForm.limit) }} {{ 'Results per page'|trans }}</div>
                     <div class="widget-toolbar no-border">{{ knp_pagination_render(pagination) }}</div>
                 </div>
                 <div class="widget-body">

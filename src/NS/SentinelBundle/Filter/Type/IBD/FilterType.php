@@ -5,7 +5,7 @@ namespace NS\SentinelBundle\Filter\Type\IBD;
 use \Symfony\Component\Form\AbstractType;
 use \Symfony\Component\OptionsResolver\OptionsResolver;
 use \Symfony\Component\Form\FormBuilderInterface;
-use \Lexik\Bundle\FormFilterBundle\Filter\Extension\Type\EmbeddedFilterTypeInterface;
+use \Lexik\Bundle\FormFilterBundle\Filter\Form\Type\EmbeddedFilterTypeInterface;
 
 /**
  * Class FilterType
@@ -51,3 +51,4 @@ class FilterType extends AbstractType implements EmbeddedFilterTypeInterface
         return 'ibd_filter_form';
     }
 }
+

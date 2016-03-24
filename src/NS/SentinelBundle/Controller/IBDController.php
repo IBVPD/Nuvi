@@ -20,7 +20,7 @@ class IBDController extends BaseCaseController
      */
     public function indexAction(Request $request)
     {
-        return $this->render('NSSentinelBundle:IBD:index.html.twig',$this->index($request, 'NSSentinelBundle:IBD', 'ibd_filter_form'));
+        return $this->render('NSSentinelBundle:IBD:index.html.twig',$this->index($request, 'NSSentinelBundle:IBD', 'ibd_filter_form','ibd.index'));
     }
 
     /**

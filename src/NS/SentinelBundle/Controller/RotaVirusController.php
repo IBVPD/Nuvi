@@ -20,7 +20,7 @@ class RotaVirusController extends BaseCaseController
      */
     public function indexAction(Request $request)
     {
-        return $this->render('NSSentinelBundle:RotaVirus:index.html.twig',$this->index($request, 'NSSentinelBundle:RotaVirus', 'rotavirus_filter_form'));
+        return $this->render('NSSentinelBundle:RotaVirus:index.html.twig',$this->index($request, 'NSSentinelBundle:RotaVirus', 'rotavirus_filter_form','rota.index'));
     }
 
     /**
