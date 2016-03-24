@@ -1,35 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2015-11-17T13:52:07Z" source-language="en" target-language="fr" datatype="plaintext" original="not.available">
+  <file date="2016-03-24T16:26:58Z" source-language="en" target-language="fr" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
     </header>
     <body>
-      <trans-unit id="b858cb282617fb0956d960215c8e84d1ccf909c6" resname=" ">
-        <source> </source>
-        <target state="new"> </target>
-        <jms:reference-file line="34">ImportBundle/Form/ClassType.php</jms:reference-file>
-      </trans-unit>
       <trans-unit id="c3cd636a585b20c40ac2df5ffb403e83cb2eef51" resname="Actions">
         <source>Actions</source>
         <target state="new">Actions</target>
-        <jms:reference-file line="63">views/Import/index.html.twig</jms:reference-file>
+        <jms:reference-file line="64">views/Import/index.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="03a870f31de5780dd1657152a7a8a97101a081ef" resname="Case Id and Site Code">
         <source>Case Id and Site Code</source>
         <target state="new">Case Id and Site Code</target>
-        <jms:reference-file line="104">ImportBundle/Admin/MapAdmin.php</jms:reference-file>
+        <jms:reference-file line="103">ImportBundle/Admin/MapAdmin.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="2998a9a262038ba16b22bf2d64e86eae00ecd00a" resname="Case Id and Verify Country">
         <source>Case Id and Verify Country</source>
         <target state="new">Case Id and Verify Country</target>
-        <jms:reference-file line="104">ImportBundle/Admin/MapAdmin.php</jms:reference-file>
+        <jms:reference-file line="103">ImportBundle/Admin/MapAdmin.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="accf40c89baa4fa88e6a7ff11e1f805beecafd3f" resname="Created">
         <source>Created</source>
         <target state="new">Created</target>
-        <jms:reference-file line="55">views/Import/index.html.twig</jms:reference-file>
+        <jms:reference-file line="56">views/Import/index.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="5c051b1bba7d22157050c9bf8d2bf196f0fab730" resname="DB Column">
         <source>DB Column</source>
@@ -44,8 +39,8 @@
       <trans-unit id="805e86a8cbf628e38e4c45612c005a504009e79a" resname="Errors">
         <source>Errors</source>
         <target state="new">Errors</target>
-        <jms:reference-file line="62">views/Import/index.html.twig</jms:reference-file>
-        <jms:reference-file line="85">views/Import/index.html.twig</jms:reference-file>
+        <jms:reference-file line="63">views/Import/index.html.twig</jms:reference-file>
+        <jms:reference-file line="86">views/Import/index.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="f3e4fadb9e370a1e2c0c622c01fc8c77daf93a2c" resname="Export">
         <source>Export</source>
@@ -55,12 +50,12 @@
       <trans-unit id="2c3cafa4db3f3e1e51b3dff4303502dbe42b7a89" resname="File">
         <source>File</source>
         <target state="new">File</target>
-        <jms:reference-file line="57">views/Import/index.html.twig</jms:reference-file>
+        <jms:reference-file line="58">views/Import/index.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="36311f89fed6588550efc9df752b8d9f3922e8a6" resname="File Record Count">
         <source>File Record Count</source>
         <target state="new">File Record Count</target>
-        <jms:reference-file line="58">views/Import/index.html.twig</jms:reference-file>
+        <jms:reference-file line="59">views/Import/index.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="5cf2c55914c62a448334c6f264ec7223d032a277" resname="IBD">
         <source>IBD</source>
@@ -80,47 +75,42 @@
       <trans-unit id="a18219ff2d3515751f2a7c8e2ce52f279c00638f" resname="Import file date end">
         <source>Import file date end</source>
         <target state="new">Import file date end</target>
-        <jms:reference-file line="55">ImportBundle/Form/ImportSelectType.php</jms:reference-file>
+        <jms:reference-file line="65">ImportBundle/Form/ImportSelectType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="139c09f5655f8976e2db619041ec46e5c24feb9f" resname="Import file date start">
         <source>Import file date start</source>
         <target state="new">Import file date start</target>
-        <jms:reference-file line="54">ImportBundle/Form/ImportSelectType.php</jms:reference-file>
+        <jms:reference-file line="64">ImportBundle/Form/ImportSelectType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="434eb26f4835b699c5bbfe751657f0da2407270e" resname="Imported">
         <source>Imported</source>
         <target state="new">Imported</target>
-        <jms:reference-file line="59">views/Import/index.html.twig</jms:reference-file>
+        <jms:reference-file line="60">views/Import/index.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="ab478f3efc840eebab919dff1b9512286f70c10c" resname="Map">
         <source>Map</source>
         <target state="new">Map</target>
-        <jms:reference-file line="56">views/Import/index.html.twig</jms:reference-file>
+        <jms:reference-file line="57">views/Import/index.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="a59ba24d63e9c67fe81bbc277e1424777efe1eda" resname="NL">
         <source>NL</source>
         <target state="new">NL</target>
-        <jms:reference-file line="106">ImportBundle/Admin/MapAdmin.php</jms:reference-file>
+        <jms:reference-file line="112">ImportBundle/Admin/MapAdmin.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="70440046a3dc2e079f23ee1c57dfa76669b732aa" resname="Notes">
         <source>Notes</source>
         <target state="new">Notes</target>
-        <jms:reference-file line="95">ImportBundle/Admin/MapAdmin.php</jms:reference-file>
-      </trans-unit>
-      <trans-unit id="a7942f226ed1080246f2b2fde35b11e19a91e6a8" resname="Please Select...">
-        <source>Please Select...</source>
-        <target state="new">Please Select...</target>
-        <jms:reference-file line="53">ImportBundle/Converter/Registry.php</jms:reference-file>
+        <jms:reference-file line="97">ImportBundle/Admin/MapAdmin.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="77a6375224e36db93fce73f97c1a77ea403437cb" resname="RRL">
         <source>RRL</source>
         <target state="new">RRL</target>
-        <jms:reference-file line="106">ImportBundle/Admin/MapAdmin.php</jms:reference-file>
+        <jms:reference-file line="112">ImportBundle/Admin/MapAdmin.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="a16c5bbe4bf996740f257aa1e81bd57e4c52c8dd" resname="Range">
         <source>Range</source>
         <target state="new">Range</target>
-        <jms:reference-file line="66">views/Import/index.html.twig</jms:reference-file>
+        <jms:reference-file line="67">views/Import/index.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="aac6b21dddf7e2e5c39ca299949d480fda8d7ca1" resname="Recent Uploads">
         <source>Recent Uploads</source>
@@ -140,12 +130,12 @@
       <trans-unit id="f918892a0be28ec22ae2148c6c8b20e089383319" resname="Successes">
         <source>Successes</source>
         <target state="new">Successes</target>
-        <jms:reference-file line="60">views/Import/index.html.twig</jms:reference-file>
+        <jms:reference-file line="61">views/Import/index.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="d7932a2917dddbb80846320a21d156b7f66a71c7" resname="Successful">
         <source>Successful</source>
         <target state="new">Successful</target>
-        <jms:reference-file line="79">views/Import/index.html.twig</jms:reference-file>
+        <jms:reference-file line="80">views/Import/index.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="f0ff99eb96b6db85f97fe3698886281eda22ed6c" resname="There were errors with the form">
         <source>There were errors with the form</source>
@@ -160,8 +150,8 @@
       <trans-unit id="1430f976c596795274458abcfbc4f280cbfcebac" resname="Warnings">
         <source>Warnings</source>
         <target state="new">Warnings</target>
-        <jms:reference-file line="61">views/Import/index.html.twig</jms:reference-file>
-        <jms:reference-file line="82">views/Import/index.html.twig</jms:reference-file>
+        <jms:reference-file line="62">views/Import/index.html.twig</jms:reference-file>
+        <jms:reference-file line="83">views/Import/index.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="5e0072329d5085c5bc5c23c2fa873dd42900958b" resname="clone">
         <source>clone</source>
