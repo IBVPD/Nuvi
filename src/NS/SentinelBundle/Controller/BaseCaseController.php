@@ -107,7 +107,14 @@ abstract class BaseCaseController extends Controller
             $entityMgr->flush();
 
             $this->get('ns_flash')->addSuccess('Success!',null,'Case edited successfully');
-            return $this->redirect($this->generateUrl($indexRoute));
+
+            if ($request->request->has('saveclose')) {
+                return $this->redirect($this->generateUrl($indexRoute));
+            }
+
+            return $this->redirect($this->generateUrl($editRoute,array('id'=>$objId)));
+        } elseif ($form->isSubmitted()) {
+            $this->get('ns_flash')->addWarning('Warning!','There were errors with saving the form.', 'Please review each tab for error messages');
         }
 
         return array('form' => $form->createView(), 'id' => $objId, 'editRoute' => $editRoute);
