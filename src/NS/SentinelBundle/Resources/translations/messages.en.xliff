@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2016-03-24T16:29:50Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
+  <file date="2016-03-25T10:43:58Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -520,7 +520,7 @@
       </trans-unit>
       <trans-unit id="4f6bb885ab76beef285b275113f6fbbdecb57176" resname="Data Linking">
         <source>Data Linking</source>
-        <target state="new">Data Linking</target>
+        <target>Data Linking</target>
         <jms:reference-file line="2">Report/RotaVirus/data-linking.html.twig</jms:reference-file>
         <jms:reference-file line="2">Report/IBD/data-linking.html.twig</jms:reference-file>
       </trans-unit>
@@ -1286,7 +1286,7 @@
       </trans-unit>
       <trans-unit id="e08b0f0cdec57fe8860ddaf468b9e5654b98cc9d" resname="Results per page">
         <source>Results per page</source>
-        <target state="new">Results per page</target>
+        <target>Results per page</target>
         <jms:reference-file line="21">views/RotaVirus/index.html.twig</jms:reference-file>
         <jms:reference-file line="21">views/IBD/index.html.twig</jms:reference-file>
       </trans-unit>
@@ -1450,7 +1450,7 @@
       </trans-unit>
       <trans-unit id="8cd9373697bbf06a7131190c7884bfbefb226aa9" resname="Symptoms">
         <source>Symptoms</source>
-        <target state="new">Symptoms</target>
+        <target>Symptoms</target>
         <jms:reference-file line="15">views/RotaVirus/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="e13672b32cc497b95ef94e1ab13419a0f9f22362" resname="Symptoms/signs related to meningitis">
@@ -1839,12 +1839,14 @@
       </trans-unit>
       <trans-unit id="0263dfd0afae8ee3b162f51e20acde9abb221e9b" resname="ibd-form.blood-sent-to-rrl-date">
         <source>ibd-form.blood-sent-to-rrl-date</source>
-        <target state="new">ibd-form.blood-sent-to-rrl-date</target>
+        <target>Date when isolate from blood was sent to RL
+</target>
         <jms:reference-file line="204">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="47273c1794b96aa871e2d953555f1e69235cd108" resname="ibd-form.broth-sent-to-rrl-date">
         <source>ibd-form.broth-sent-to-rrl-date</source>
-        <target state="new">ibd-form.broth-sent-to-rrl-date</target>
+        <target>Date when blood broth was sent to RL
+</target>
         <jms:reference-file line="205">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e5ba7a020342f19b8f355132f7dd2674f76c52e0" resname="ibd-form.case-id">
@@ -1900,7 +1902,7 @@
       </trans-unit>
       <trans-unit id="592e81911f3db51a32610e8f0ba4421adc702f03" resname="ibd-form.csf-culture-contaminant">
         <source>ibd-form.csf-culture-contaminant</source>
-        <target state="new">ibd-form.csf-culture-contaminant</target>
+        <target>ibd-form.csf-culture-contaminant</target>
         <jms:reference-file line="60">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="3332d66e09ea8b6dd4eca625c491c87904e6aa2a" resname="ibd-form.csf-culture-other">
@@ -1943,7 +1945,7 @@
       </trans-unit>
       <trans-unit id="75fb3d80d4a8e37fb9daf249e9197bed37ba6c96" resname="ibd-form.csf-isol-sent-to-rrl-date">
         <source>ibd-form.csf-isol-sent-to-rrl-date</source>
-        <target state="new">ibd-form.csf-isol-sent-to-rrl-date</target>
+        <target>Date when isolate from CSF was sent to RL</target>
         <jms:reference-file line="203">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="5bd6a0e287156c72e1ca281ce63053256252457c" resname="ibd-form.csf-lab-datetime">
@@ -1991,7 +1993,7 @@
       </trans-unit>
       <trans-unit id="917bd0ef3ef2d3df7e4c6185d959d676c56a5241" resname="ibd-form.csf-sent-to-rrl-date">
         <source>ibd-form.csf-sent-to-rrl-date</source>
-        <target state="new">ibd-form.csf-sent-to-rrl-date</target>
+        <target>Date when CSF sample was sent to RL</target>
         <jms:reference-file line="202">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="6f3302e375553355129bf6ddd6e5e3ac374d6783" resname="ibd-form.csf-store">
@@ -2267,7 +2269,7 @@
       </trans-unit>
       <trans-unit id="dac15dc0e75761c8518c20cfd8b4c291e4ae66b9" resname="ibd-form.other-test-result">
         <source>ibd-form.other-test-result</source>
-        <target state="new">ibd-form.other-test-result</target>
+        <target>Results of other test performed in the lab</target>
         <jms:reference-file line="170">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="200fbe0f4392a0194affd6dada0367aa49ad8166" resname="ibd-form.otherSpecimenCollected">
@@ -2609,7 +2611,7 @@
       </trans-unit>
       <trans-unit id="afc949b4dd71f9655e84e5ee9bbec57836fc2eb3" resname="ibd.spnSerotype">
         <source>ibd.spnSerotype</source>
-        <target>spn Serotype</target>
+        <target>Spn Serotype</target>
         <jms:reference-file line="293">views/IBD/show.html.twig</jms:reference-file>
         <jms:reference-file line="327">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
