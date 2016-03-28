@@ -14,7 +14,7 @@ use NS\SentinelBundle\Form\Types\SampleType;
 use NS\SentinelBundle\Form\Types\SerotypeIdentifier;
 use NS\SentinelBundle\Form\Types\SpnSerotype;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\ExecutionContextInterface;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use \Gedmo\Mapping\Annotation as Gedmo;
 use \NS\SecurityBundle\Annotation\Secured;
 use \NS\SecurityBundle\Annotation\SecuredCondition;
@@ -548,12 +548,14 @@ abstract class ExternalLab extends BaseExternalLab
     public function validate(ExecutionContextInterface $context)
     {
         // if pathogenIdentifierMethod is other, enforce value in 'pathogenIdentifierMethod other' field
-        if($this->pathogenIdentifierMethod && $this->pathogenIdentifierMethod->equal(PathogenIdentifier::OTHER) && empty($this->pathogenIdentifierOther))
-            $context->addViolationAt('pathogenIdentifierMethod',"form.validation.pathogenIdentifierMethod-other-without-other-text");
+        if ($this->pathogenIdentifierMethod && $this->pathogenIdentifierMethod->equal(PathogenIdentifier::OTHER) && empty($this->pathogenIdentifierOther)) {
+            $context->buildViolation('form.validation.pathogenIdentifierMethod-other-without-other-text')->atPath('pathogenIdentifierMethod')->addViolation();
+        }
 
         // if serotypeIdentifier is other, enforce value in 'serotypeIdentifier other' field
-        if($this->serotypeIdentifier && $this->serotypeIdentifier->equal(SerotypeIdentifier::OTHER) && empty($this->serotypeIdentifierOther))
-            $context->addViolationAt('serotypeIdentifier',"form.validation.serotypeIdentifier-other-without-other-text");
+        if ($this->serotypeIdentifier && $this->serotypeIdentifier->equal(SerotypeIdentifier::OTHER) && empty($this->serotypeIdentifierOther)) {
+            $context->buildViolation('form.validation.serotypeIdentifier-other-without-other-text')->atPath('serotypeIdentifier')->addViolation();
+        }
     }
 
     /**
