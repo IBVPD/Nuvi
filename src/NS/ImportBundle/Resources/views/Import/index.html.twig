@@ -101,8 +101,7 @@
                                                 <script type="text/javascript">
                                                     $(function() {
                                                         function pollLatestResponse() {
-                                                            $.get("{{ path('importStatus', {'id': r.id}) }}").done(function (ret) {
-                                                                var retValue = jQuery.parseJSON(ret);
+                                                            $.get("{{ path('importStatus', {'id': r.id}) }}").done(function (retValue) {
                                                                 $('#progress-{{r.id}}').css({'width':retValue['percent']});
                                                                 $('#progress-{{r.id}}-percent').attr('data-percent',retValue['percent']);
                                                                 $('#progress-{{r.id}}-source').html(retValue['sourceCount']+ ' ('+retValue['percent']+')');
