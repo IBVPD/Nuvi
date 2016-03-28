@@ -40,7 +40,7 @@ class DateOfBirthFilter implements ReporterInterface
      */
     public function hasMessage()
     {
-        return (!empty($this->message));
+        return ($this->message !== null);
     }
 
     /**
