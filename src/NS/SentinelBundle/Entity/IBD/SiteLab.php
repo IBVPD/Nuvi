@@ -780,7 +780,7 @@ class SiteLab extends BaseSiteLab
     }
 
     /**
-     * @return GramStainResult
+     * @return GramStain
      */
     public function getBloodGramStain()
     {
@@ -1281,20 +1281,20 @@ class SiteLab extends BaseSiteLab
     }
 
     /**
-     * @param GramStain $bloodGramResult
+     * @param GramStainResult $bloodGramResult
      * @return $this
      */
-    public function setBloodGramResult(GramStain $bloodGramResult)
+    public function setBloodGramResult(GramStainResult $bloodGramResult)
     {
         $this->bloodGramResult = $bloodGramResult;
         return $this;
     }
 
     /**
-     * @param GramStainResult $bloodGramStain
+     * @param GramStain $bloodGramStain
      * @return $this
      */
-    public function setBloodGramStain(GramStainResult $bloodGramStain)
+    public function setBloodGramStain(GramStain $bloodGramStain)
     {
         $this->bloodGramStain = $bloodGramStain;
         return $this;
