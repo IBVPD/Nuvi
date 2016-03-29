@@ -40,7 +40,7 @@ class CaseTemplates extends \Twig_Extension
         $isSafe = array('is_safe' => array('html'));
 
         return array(
-            new \Twig_SimpleFunction('case_index_template', array($this, 'renderTable'),$isSafe),
+            new \Twig_SimpleFunction('case_index_template', array($this, 'renderTable'), $isSafe),
         );
     }
 
@@ -56,9 +56,9 @@ class CaseTemplates extends \Twig_Extension
 
         if ($this->authChecker->isGranted('ROLE_SITE_LEVEL')) {
             return $this->twig->render('NSSentinelBundle:Case:site.html.twig', $params);
-        } else if ($this->authChecker->isGranted('ROLE_COUNTRY_LEVEL')) {
+        } elseif ($this->authChecker->isGranted('ROLE_COUNTRY_LEVEL')) {
             return $this->twig->render('NSSentinelBundle:Case:country.html.twig', $params);
-        } else if ($this->authChecker->isGranted('ROLE_REGION_LEVEL')) {
+        } elseif ($this->authChecker->isGranted('ROLE_REGION_LEVEL')) {
             return $this->twig->render('NSSentinelBundle:Case:region.html.twig', $params);
         }
     }

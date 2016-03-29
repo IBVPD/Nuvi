@@ -16,8 +16,8 @@ class MapTest extends \PHPUnit_Framework_TestCase
     {
         $map = new Map();
 
-        $this->assertEquals('[some.thing]',$map->adjustMappingName('some.thing'));
-        $this->assertEquals('[some][thing]',$map->adjustMappingTarget('some.thing'));
+        $this->assertEquals('[some.thing]', $map->adjustMappingName('some.thing'));
+        $this->assertEquals('[some][thing]', $map->adjustMappingTarget('some.thing'));
     }
 
     public function testNameFields()
@@ -38,6 +38,5 @@ class MapTest extends \PHPUnit_Framework_TestCase
 
         $map->setName('Really Really Long Map Name');
         $this->assertEquals(sprintf("%s (%s: ...)", $map->getName(), $map->getSimpleClass(), $map->getVersion()), $map->getSelectName());
-
     }
 }

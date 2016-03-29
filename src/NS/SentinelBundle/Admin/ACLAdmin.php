@@ -16,7 +16,7 @@ class ACLAdmin extends Admin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('type','role')
+            ->add('type', 'role')
         ;
     }
 
@@ -44,15 +44,15 @@ class ACLAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('type','role')
-            ->add('object_id','ns_autocomplete',array(
+            ->add('type', 'role')
+            ->add('object_id', 'ns_autocomplete', array(
                                                         'label'               => 'Target',
                                                         'route'               => 'adminACLAjaxAutocomplete',
                                                         'class'               => '',
                                                         'collection'          => false,
                                                         'required'            => false,
                                                         'use_datatransformer' => true,
-                                                        'secondary-field'     => array('s' => 'object_id','r' => 'type')))    
+                                                        'secondary-field'     => array('s' => 'object_id', 'r' => 'type')))
         ;
     }
 

@@ -10,7 +10,7 @@ class ConditionConverter
      */
     public function toString(array $conditions)
     {
-        return implode("\n",$this->convert($conditions));
+        return implode("\n", $this->convert($conditions));
     }
 
     /**
@@ -31,10 +31,10 @@ class ConditionConverter
         $builder = new ExpressionBuilder();
         $expr = array();
 
-        foreach($conditions as $id=>$value) {
-            $condition = new Condition($value['conditions'],$value['output_value']);
+        foreach ($conditions as $id=>$value) {
+            $condition = new Condition($value['conditions'], $value['output_value']);
 
-            $expr[$id] = sprintf('if (%s) then %s',$builder->convertRuleToExpression($condition->getRule()),$condition->getValue());
+            $expr[$id] = sprintf('if (%s) then %s', $builder->convertRuleToExpression($condition->getRule()), $condition->getValue());
         }
 
         return $expr;

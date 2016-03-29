@@ -13,13 +13,13 @@ class ConditionConverterTest extends \PHPUnit_Framework_TestCase
      * @param array $perRows
      * @dataProvider getJsonConditions
      */
-    public function testConversionToArray($json,$expectedResults,array $perRows)
+    public function testConversionToArray($json, $expectedResults, array $perRows)
     {
-        $conditions = json_decode($json,true);
+        $conditions = json_decode($json, true);
         $converter = new ConditionConverter();
         $results = $converter->toArray($conditions);
-        $this->assertCount($expectedResults,$results);
-        $this->assertEquals($perRows[0],$results[0]);
+        $this->assertCount($expectedResults, $results);
+        $this->assertEquals($perRows[0], $results[0]);
     }
 
     public function getJsonConditions()

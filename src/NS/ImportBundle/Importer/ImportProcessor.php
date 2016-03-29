@@ -93,7 +93,7 @@ class ImportProcessor
     {
         $reader = $this->getReader($import);
 
-        if($reader instanceof OffsetableReaderInterface) {
+        if ($reader instanceof OffsetableReaderInterface) {
             // Move to current position
             $offset = ($reader instanceof ExcelReader) ? -1:0;
             $reader->setOffset($import->getPosition() - $offset);
@@ -104,13 +104,13 @@ class ImportProcessor
         // Create the workflow from the reader
         $workflow = new Workflow\StepAggregator($reader);
         $workflow->setSkipItemOnFailure(true);
-        $workflow->addWriter($this->getWriter($import->getClass(),$linker->getCriteria(),$linker->getRepositoryMethod()));
+        $workflow->addWriter($this->getWriter($import->getClass(), $linker->getCriteria(), $linker->getRepositoryMethod()));
 
         $this->addSteps($workflow, $import);
 
         // Process the workflow
         $result = $workflow->process();
-        if($this->duplicateFilter) {
+        if ($this->duplicateFilter) {
             $this->duplicateFilter->finish();
         }
 
@@ -123,7 +123,7 @@ class ImportProcessor
      */
     public function getLinker($linkerName)
     {
-        if(isset($this->caseLinkers[$linkerName])) {
+        if (isset($this->caseLinkers[$linkerName])) {
             return $this->caseLinkers[$linkerName];
         }
 
@@ -141,7 +141,7 @@ class ImportProcessor
     public function getWriter($class, $lookupFields = null, $entityRepositoryMethod = null)
     {
         if ($this->doctrineWriter === null || $this->doctrineWriter->getEntityName() != $class) {
-            if($lookupFields ===null || $entityRepositoryMethod === null) {
+            if ($lookupFields ===null || $entityRepositoryMethod === null) {
                 throw new \InvalidArgumentException("When creating a new writer, the lookupFields and entityRepositoryMethod arguments are required");
             }
             $this->doctrineWriter = new DoctrineWriter($this->entityMgr, $class, $lookupFields);
@@ -170,7 +170,7 @@ class ImportProcessor
         $columns = $import->getMap()->getColumns();
 
         foreach ($columns as $column) {
-            if (!in_array($column->getName(),$fields)) {
+            if (!in_array($column->getName(), $fields)) {
                 throw new \InvalidArgumentException(sprintf("Missing field '%s'! Perhaps you've uploaded the wrong file?", $column->getName()));
             }
         }
@@ -187,17 +187,17 @@ class ImportProcessor
     {
         $this->addOffsetStep($workflow, 80);
 
-        $this->addDroppedColumnStep($workflow,$import,70);
+        $this->addDroppedColumnStep($workflow, $import, 70);
 
-        $this->addCleaningStep($workflow,60);
+        $this->addCleaningStep($workflow, 60);
 
-        $this->addPreProcessorStep($workflow,$import, 50);
+        $this->addPreProcessorStep($workflow, $import, 50);
 
-        $this->addColumnNameMappingStep($workflow,$import, 40);
+        $this->addColumnNameMappingStep($workflow, $import, 40);
 
-        $this->addReferenceLabLinkingStep($workflow,$import, 35);
+        $this->addReferenceLabLinkingStep($workflow, $import, 35);
 
-        $this->addColumnValueConversionStep($workflow,$import, 30);
+        $this->addColumnValueConversionStep($workflow, $import, 30);
 
         $this->addFilterStep($workflow, 20);
 
@@ -236,7 +236,7 @@ class ImportProcessor
     {
         // These allow us to ignore a column i.e. - region or country_ISO
         $mappings = $import->getIgnoredMapper();
-        if(!empty($mappings)) {
+        if (!empty($mappings)) {
             $workflow->addStep(new UnsetMappingItemConverter($mappings), $priority);
         }
     }
@@ -250,10 +250,9 @@ class ImportProcessor
     {
         $allConditions = $import->getPreprocessor();
         if (!empty($allConditions)) {
-
             $processor = new PreprocessorStep(new ExpressionBuilder());
-            foreach($allConditions as $name => $conditions) {
-                $processor->add($name,$conditions);
+            foreach ($allConditions as $name => $conditions) {
+                $processor->add($name, $conditions);
             }
 
             $workflow->addStep($processor, $priority);
@@ -269,7 +268,7 @@ class ImportProcessor
     {
         // These map column headers i.e site_Code -> site
         $mappings = $import->getMappings();
-        if(!empty($mappings)) {
+        if (!empty($mappings)) {
             $workflow->addStep(new MappingStep($mappings), $priority);
         }
     }
@@ -290,9 +289,9 @@ class ImportProcessor
             $this->lab = $import->getReferenceLab();
 
             $step = new ConverterStep();
-            $step->add(array($this,'addReferenceLabConverter'));
+            $step->add(array($this, 'addReferenceLabConverter'));
 
-            $workflow->addStep($step,$priority);
+            $workflow->addStep($step, $priority);
         }
     }
 
@@ -302,7 +301,7 @@ class ImportProcessor
      */
     public function addReferenceLabConverter(array $item)
     {
-        if(isset($item['referenceLab'])) {
+        if (isset($item['referenceLab'])) {
             $item['referenceLab']['lab'] = $this->lab;
         }
 
@@ -317,7 +316,7 @@ class ImportProcessor
     public function addColumnValueConversionStep(Workflow $workflow, Import $import, $priority = 30)
     {
         $converters = $import->getConverters();
-        if(!empty($converters)) {
+        if (!empty($converters)) {
             $valueConverter = new ValueConverterStep();
 
             foreach ($converters as $column) {
@@ -360,12 +359,12 @@ class ImportProcessor
         $converter = new ConverterStep();
         $converter->add(new DateOfBirthConverter());
         $converter->add(new WarningConverter());
-        $converter->add(new DateRangeConverter(new \DateTime(),null,true));
+        $converter->add(new DateRangeConverter(new \DateTime(), null, true));
 
         $start = clone $import->getInputDateStart();
         $start->sub(new \DateInterval('P5Y'));
 
-        $converter->add(new DateRangeConverter($import->getInputDateEnd(), $start,true));
+        $converter->add(new DateRangeConverter($import->getInputDateEnd(), $start, true));
 
         $workflow->addStep($converter, $priority);
     }

@@ -20,4 +20,3 @@ class Configuration implements ConfigurationInterface
         return new TreeBuilder();
     }
 }
-

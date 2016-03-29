@@ -28,10 +28,11 @@ class Gender extends TranslatableArrayChoice implements TranslationContainerInte
      */
     public function __construct($value = null)
     {
-        if($value == 'M')
+        if ($value == 'M') {
             $value = 'Male';
-        else if($value == 'F')
+        } elseif ($value == 'F') {
             $value = 'Female';
+        }
 
         parent::__construct($value);
     }

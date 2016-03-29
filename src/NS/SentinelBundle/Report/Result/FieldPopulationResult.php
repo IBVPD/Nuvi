@@ -119,7 +119,7 @@ class FieldPopulationResult extends AbstractSiteBasedResult
      */
     public function getBloodEqual()
     {
-        return ($this->getTotalCases() > 0 && ($this->bloodCollectedCount>0 || $this->bloodResultCount>0) ) ? (min(array($this->bloodCollectedCount,$this->bloodResultCount))/$this->getTotalCases())*100:100;
+        return ($this->getTotalCases() > 0 && ($this->bloodCollectedCount>0 || $this->bloodResultCount>0)) ? (min(array($this->bloodCollectedCount, $this->bloodResultCount))/$this->getTotalCases())*100:100;
     }
 
     /**

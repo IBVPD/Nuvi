@@ -11,16 +11,16 @@ class DateOfBirthFilterTest extends \PHPUnit_Framework_TestCase
      * @param $data
      * @param $retValue
      */
-    public function testNotIsset($data,$retValue)
+    public function testNotIsset($data, $retValue)
     {
         $filter = new DateOfBirthFilter();
-        if($retValue) {
+        if ($retValue) {
             $this->assertTrue($filter->__invoke($data));
             $this->assertFalse($filter->hasMessage());
         } else {
             $this->assertFalse($filter->__invoke($data));
             $this->assertTrue($filter->hasMessage());
-            $this->assertEquals('Admission date is before birthdate',$filter->getMessage());
+            $this->assertEquals('Admission date is before birthdate', $filter->getMessage());
         }
     }
 

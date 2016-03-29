@@ -49,7 +49,7 @@ class UnsetMappingItemConverter implements Step
     public function process(&$item, Report $result = null)
     {
         foreach ($this->mappings as $from) {
-            if(isset($item[$from])) {
+            if (isset($item[$from])) {
                 unset($item[$from]);
             }
         }

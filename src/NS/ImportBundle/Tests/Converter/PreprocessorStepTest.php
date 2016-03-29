@@ -2,7 +2,6 @@
 
 namespace NS\ImportBundle\Tests\Converter;
 
-
 use NS\ImportBundle\Converter\Expression\Condition;
 use NS\ImportBundle\Converter\Expression\ExpressionBuilder;
 use NS\ImportBundle\Converter\PreprocessorStep;
@@ -20,7 +19,7 @@ class PreprocessorStepTest extends \PHPUnit_Framework_TestCase
         $condition = new Condition($condParam, $value);
 
         $step = new PreprocessorStep(new ExpressionBuilder());
-        $step->add('fieldOne',$condition);
+        $step->add('fieldOne', $condition);
         $step->process($item);
         $this->assertEquals($value, $item['fieldOne']);
     }

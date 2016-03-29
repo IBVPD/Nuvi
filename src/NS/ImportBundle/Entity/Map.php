@@ -124,7 +124,7 @@ class Map
      */
     public function __toString()
     {
-        return sprintf('%s (%s %s)',$this->name, $this->getSimpleClass(), $this->version);
+        return sprintf('%s (%s %s)', $this->name, $this->getSimpleClass(), $this->version);
     }
 
     /**
@@ -133,7 +133,7 @@ class Map
     public function getSelectName()
     {
         $name = $this->__toString();
-        return (mb_strlen($name) <= 30) ? $name: sprintf('%s (%s: %s...)',$this->name,$this->getSimpleClass(),mb_substr($this->version,0,27-mb_strlen($this->name)));
+        return (mb_strlen($name) <= 30) ? $name: sprintf('%s (%s: %s...)', $this->name, $this->getSimpleClass(), mb_substr($this->version, 0, 27-mb_strlen($this->name)));
     }
 
     /**
@@ -183,7 +183,7 @@ class Map
 
     public function getSimpleClass()
     {
-        return substr($this->class,strrpos($this->class,'\\')+1);
+        return substr($this->class, strrpos($this->class, '\\')+1);
     }
     /**
      *
@@ -432,13 +432,13 @@ class Map
     {
         $allConditions = array();
 
-        foreach($this->columns as $col) {
-            if($col->hasPreProcessor()) {
+        foreach ($this->columns as $col) {
+            if ($col->hasPreProcessor()) {
                 $conditions     = array();
-                $preConditions  = json_decode($col->getPreProcessor(),true);
+                $preConditions  = json_decode($col->getPreProcessor(), true);
 
-                foreach($preConditions as $json) {
-                    $conditions[] = new Condition($json['conditions'],$json['output_value']);
+                foreach ($preConditions as $json) {
+                    $conditions[] = new Condition($json['conditions'], $json['output_value']);
                 }
 
                 $allConditions[$col->getName()] = $conditions;
@@ -466,4 +466,3 @@ class Map
         return sprintf("[%s]", str_replace('.', '][', $name));
     }
 }
-

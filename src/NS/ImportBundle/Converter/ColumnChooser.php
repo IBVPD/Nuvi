@@ -63,7 +63,7 @@ class ColumnChooser
      */
     public function getChoices($class)
     {
-        if(!isset($this->results[$class])) {
+        if (!isset($this->results[$class])) {
             $this->results[$class] = $this->getClassData($class);
         }
 
@@ -76,7 +76,7 @@ class ColumnChooser
      */
     public function getComplexChoices($class)
     {
-        if(!isset($this->results[$class])) {
+        if (!isset($this->results[$class])) {
             $this->results[$class] = $this->getClassData($class);
         }
 
@@ -89,7 +89,7 @@ class ColumnChooser
      */
     public function getClassData($class)
     {
-        if(!$this->cache->contains($class)) {
+        if (!$this->cache->contains($class)) {
             return $this->build($class);
         }
 
@@ -182,7 +182,7 @@ class ColumnChooser
 
         foreach ($metadata->getFieldNames() as $fieldName) {
             $fieldType = $metadata->getTypeOfField($fieldName);
-            if($this->isComplex($fieldType)) {
+            if ($this->isComplex($fieldType)) {
                 $choices[$fieldName] = true;
             }
         }
@@ -198,6 +198,6 @@ class ColumnChooser
      */
     public function isComplex($fieldType)
     {
-        return !in_array($fieldType,$this->simpleTypes);
+        return !in_array($fieldType, $this->simpleTypes);
     }
 }

@@ -117,8 +117,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext
 
         if ($arg1 == 0) {
             \PHPUnit_Framework_Assert::assertFalse($ibdForm->has('site'), "Form has Site field: " . $user->getName());
-        }
-        else {
+        } else {
             \PHPUnit_Framework_Assert::assertTrue($ibdForm->has('site'), "Form has Site field " . $user->getName());
             \PHPUnit_Framework_Assert::assertCount(intval($arg1), $ibdView['site']->vars['choices'], "$arg1 was passed in " . $user->getName());
         }
@@ -142,8 +141,7 @@ class FeatureContext extends MinkContext implements KernelAwareContext
 
         if ($arg1 == 0) {
             \PHPUnit_Framework_Assert::assertFalse($ibdForm->has('type'), "IBD Form has types field " . $user->getName());
-        }
-        else {
+        } else {
             \PHPUnit_Framework_Assert::assertTrue($ibdForm->has('type'), "IBD Form has types " . $user->getName());
             \PHPUnit_Framework_Assert::assertCount(intval($arg1), $ibdView['type']->vars['choices'], "IBD Form $arg1 was passed in " . $user->getName());
         }

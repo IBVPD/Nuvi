@@ -64,7 +64,7 @@ abstract class AbstractBaseObjectConverter implements NamedValueConverterInterfa
         }
 
         foreach ($this->objects as $obj) {
-            if (strcasecmp($input,$obj->getName()) === 0) {
+            if (strcasecmp($input, $obj->getName()) === 0) {
                 return $obj;
             }
         }

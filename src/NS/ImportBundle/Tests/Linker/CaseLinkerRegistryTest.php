@@ -11,7 +11,7 @@ class CaseLinkerRegistryTest extends \PHPUnit_Framework_TestCase
     {
         $linkers= $this->getLinkers();
         $registry = new CaseLinkerRegistry($linkers);
-        $this->assertEquals($linkers['id1'],$registry->getLinker('id1'));
+        $this->assertEquals($linkers['id1'], $registry->getLinker('id1'));
     }
 
     public function testLinkerBySetter()
@@ -19,27 +19,27 @@ class CaseLinkerRegistryTest extends \PHPUnit_Framework_TestCase
         $linkers= $this->getLinkers();
         $registry = new CaseLinkerRegistry();
 
-        foreach($linkers as $id => $linker) {
-            $registry->addLinker($id,$linker);
+        foreach ($linkers as $id => $linker) {
+            $registry->addLinker($id, $linker);
         }
 
-        $this->assertEquals($linkers['id1'],$registry->getLinker('id1'));
+        $this->assertEquals($linkers['id1'], $registry->getLinker('id1'));
     }
 
     public function testGetLinkerByNumber()
     {
         $linkers= $this->getLinkers();
         $registry = new CaseLinkerRegistry($linkers);
-        $this->assertEquals($linkers[0],$registry->getLinker(0));
+        $this->assertEquals($linkers[0], $registry->getLinker(0));
     }
 
     public function getLinkers()
     {
         // the third item in this array is 0 because its the first non string based key
         return array(
-            'id1' => new CaseLinker(array('one','two'),'findOneBy'),
-            'id2' => new CaseLinker(array('three','four'),'findOneBy'),
-            new CaseLinker(array('two','one'),'findOneBy'),
+            'id1' => new CaseLinker(array('one', 'two'), 'findOneBy'),
+            'id2' => new CaseLinker(array('three', 'four'), 'findOneBy'),
+            new CaseLinker(array('two', 'one'), 'findOneBy'),
         );
     }
 }

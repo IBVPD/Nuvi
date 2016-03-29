@@ -186,8 +186,9 @@ class SiteLab extends BaseSiteLab
      */
     public function __construct($virus = null)
     {
-        if($virus instanceof RotaVirus)
+        if ($virus instanceof RotaVirus) {
             $this->caseFile = $virus;
+        }
 
         return $this;
     }
@@ -553,6 +554,5 @@ class SiteLab extends BaseSiteLab
      */
     public function isComplete()
     {
-     
     }
 }

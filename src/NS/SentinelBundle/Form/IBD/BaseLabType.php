@@ -20,7 +20,7 @@ class BaseLabType extends AbstractType
         $builder
             ->add('labId', null, array('label' => 'ibd-rrl-form.lab-id', 'required' => true))
             ->add('sampleType', 'SampleType', array('label' => 'ibd-rrl-form.sample-type', 'required' => false))
-            ->add('sampleCollectionDate','acedatepicker',array('label'=>'ibd-rrl-form.sample-collection-date','required'=>false))
+            ->add('sampleCollectionDate', 'acedatepicker', array('label'=>'ibd-rrl-form.sample-collection-date', 'required'=>false))
             ->add('dateReceived', 'acedatepicker', array('label' => 'ibd-rrl-form.date-received', 'required' => false))
             ->add('isolateViable', 'IsolateViable', array('label' => 'ibd-rrl-form.isolate-viable', 'required' => false))
             ->add('isolateType', 'IsolateType', array('label' => 'ibd-rrl-form.isolate-type', 'required' => false))
@@ -51,7 +51,7 @@ class BaseLabType extends AbstractType
             ->add('hpd3', new CTValueType(), array('label' => 'ibd-rrl-form.hpd3', 'required' => false))
             ->add('bexA', new CTValueType(), array('label' => 'ibd-rrl-form.bexA', 'required' => false))
             ->add('rNaseP', new CTValueType(), array('label' => 'ibd-rrl-form.rNasP', 'required' => false))
-            ->add('finalResult', 'FinalResult', array('label' => 'ibd-rrl-form.finalResult','required' => false))
+            ->add('finalResult', 'FinalResult', array('label' => 'ibd-rrl-form.finalResult', 'required' => false))
             ->add('spnSerotype', 'SpnSerotype', array('label' => 'ibd-rrl-form.spnSerotype', 'required' => false))
             ->add('hiSerotype', 'HiSerotype', array('label' => 'ibd-rrl-form.hiSerotype', 'required' => false))
             ->add('nmSerogroup', 'NmSerogroup', array('label' => 'ibd-rrl-form.nmSerogroup', 'required' => false))

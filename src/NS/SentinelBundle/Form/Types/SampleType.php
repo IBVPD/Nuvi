@@ -39,5 +39,4 @@ class SampleType extends TranslatableArrayChoice implements TranslationContainer
     {
         return 'SampleType';
     }
-
 }

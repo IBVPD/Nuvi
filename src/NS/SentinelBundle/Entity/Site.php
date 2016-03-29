@@ -8,7 +8,6 @@ use \NS\SecurityBundle\Annotation\Secured;
 use \NS\SecurityBundle\Annotation\SecuredCondition;
 use \NS\SentinelBundle\Form\Types\IBDIntenseSupport;
 use \NS\SentinelBundle\Form\Types\SurveillanceConducted;
-
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -91,7 +90,7 @@ class Site implements \Serializable
      * @Assert\Url()
      * @Groups({"user"})
      */
-    private $website;    
+    private $website;
 
     /**
      * @var integer
@@ -200,7 +199,7 @@ class Site implements \Serializable
      */
     public function __toString()
     {
-        if(mb_strlen($this->name,'UTF-8') > 20) {
+        if (mb_strlen($this->name, 'UTF-8') > 20) {
             return mb_substr($this->name, 0, 31, 'UTF-8') . "...";
         }
 

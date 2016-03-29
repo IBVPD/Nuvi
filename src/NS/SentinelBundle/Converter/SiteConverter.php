@@ -19,7 +19,7 @@ class SiteConverter extends AbstractBaseObjectConverter
         if (!$res) {
             throw new NonExistentSiteException("Unable to find site chain for $input");
         } elseif (!$res->isActive()) {
-            throw new NonExistentSiteException(sprintf('Site %s is inactive, import disabled!',$input));
+            throw new NonExistentSiteException(sprintf('Site %s is inactive, import disabled!', $input));
         }
 
         return $res;
@@ -30,7 +30,7 @@ class SiteConverter extends AbstractBaseObjectConverter
      */
     public function initialize()
     {
-        return $this->entityMgr->getRepository('NSSentinelBundle:Site')->getChain(null,true);
+        return $this->entityMgr->getRepository('NSSentinelBundle:Site')->getChain(null, true);
     }
 
     /**

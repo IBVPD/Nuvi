@@ -2,7 +2,6 @@
 
 namespace NS\ImportBundle\Tests\Entity;
 
-
 use NS\ImportBundle\Entity\Column;
 
 class ColumnTest extends \PHPUnit_Framework_TestCase
@@ -15,14 +14,14 @@ class ColumnTest extends \PHPUnit_Framework_TestCase
      *
      * @dataProvider getMapperColumns
      */
-    public function testHasMapper($name,$ignored,$mapper, $expectedResult)
+    public function testHasMapper($name, $ignored, $mapper, $expectedResult)
     {
         $col = new Column();
         $col->setName($name);
         $col->setIgnored($ignored);
         $col->setMapper($mapper);
 
-        $this->assertEquals($expectedResult,$col->hasMapper());
+        $this->assertEquals($expectedResult, $col->hasMapper());
     }
 
     public function getMapperColumns()
@@ -44,14 +43,14 @@ class ColumnTest extends \PHPUnit_Framework_TestCase
      *
      * @dataProvider getConverterColumns
      */
-    public function testHasConverter($name,$ignored,$converter, $expectedResult)
+    public function testHasConverter($name, $ignored, $converter, $expectedResult)
     {
         $col = new Column();
         $col->setName($name);
         $col->setIgnored($ignored);
         $col->setConverter($converter);
 
-        $this->assertEquals($expectedResult,$col->hasConverter());
+        $this->assertEquals($expectedResult, $col->hasConverter());
     }
 
     public function getConverterColumns()
@@ -72,15 +71,14 @@ class ColumnTest extends \PHPUnit_Framework_TestCase
      *
      * @dataProvider getPreProcessorColumns
      */
-    public function testHasPreProcessor($name,$ignored,$preProcessor,$expectedResult)
+    public function testHasPreProcessor($name, $ignored, $preProcessor, $expectedResult)
     {
         $col = new Column();
         $col->setName($name);
         $col->setIgnored($ignored);
         $col->setPreProcessor($preProcessor);
 
-        $this->assertEquals($expectedResult,$col->hasPreProcessor());
-
+        $this->assertEquals($expectedResult, $col->hasPreProcessor());
     }
 
     public function getPreProcessorColumns()

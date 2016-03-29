@@ -60,22 +60,22 @@ class ConditionTest extends \PHPUnit_Framework_TestCase
 
     public function testCondition()
     {
-        $json = json_decode($this->json,true);
+        $json = json_decode($this->json, true);
 
-        $this->assertCount(3,$json);
-        $this->assertArrayHasKey('condition',$json[0]['conditions']);
-        $this->assertArrayHasKey('rules',$json[0]['conditions']);
+        $this->assertCount(3, $json);
+        $this->assertArrayHasKey('condition', $json[0]['conditions']);
+        $this->assertArrayHasKey('rules', $json[0]['conditions']);
 
-        $cond = new Condition($json[0]['conditions'],$json[0]['output_value']);
-        $this->assertEquals(5,$cond->getValue());
+        $cond = new Condition($json[0]['conditions'], $json[0]['output_value']);
+        $this->assertEquals(5, $cond->getValue());
 
         $rule = $cond->getRule();
-        $this->assertInstanceOf('NS\ImportBundle\Converter\Expression\Rule',$rule);
-        $this->assertEquals(Rule::OR_CONDITION,$rule->getCondition());
+        $this->assertInstanceOf('NS\ImportBundle\Converter\Expression\Rule', $rule);
+        $this->assertEquals(Rule::OR_CONDITION, $rule->getCondition());
 
         $rules = $rule->getRules();
         $this->assertTrue(is_array($rules));
-        $this->assertCount(2,$rules);
-        $this->assertCount(2,$rules[1]->getRules());
+        $this->assertCount(2, $rules);
+        $this->assertCount(2, $rules[1]->getRules());
     }
 }

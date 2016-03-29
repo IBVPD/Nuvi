@@ -18,7 +18,7 @@ class UserType extends AbstractType
         $builder
             ->add('name')
             ->add('email')
-            ->add('plainPassword','repeated',
+            ->add('plainPassword', 'repeated',
                      array(
                          'type'            => 'password',
                          'invalid_message' => 'The password fields must match.',
@@ -28,7 +28,7 @@ class UserType extends AbstractType
                          'second_options'  => array('label' => 'Repeat Password'),
                          )
                  )
-            ->add('language','lunetics_locale',array('label'=>'Preferred Language'))
+            ->add('language', 'lunetics_locale', array('label'=>'Preferred Language'))
         ;
     }
     

@@ -33,7 +33,7 @@ class ReaderFactory
      * @param UploadedFile $file
      * @return CsvReader|ExcelReader
      */
-    static public function getUploadedFileExtension(UploadedFile $file)
+    public static function getUploadedFileExtension(UploadedFile $file)
     {
         return $file->getClientOriginalExtension();
     }

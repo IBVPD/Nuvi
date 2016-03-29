@@ -17,8 +17,8 @@ class CaseLinkerRegistry
      */
     public function __construct($caseLinkers = array())
     {
-        foreach($caseLinkers as $id => $linker) {
-            $this->addLinker($id,$linker);
+        foreach ($caseLinkers as $id => $linker) {
+            $this->addLinker($id, $linker);
         }
     }
 
@@ -38,11 +38,10 @@ class CaseLinkerRegistry
      */
     public function getLinker($linkerName)
     {
-        if(isset($this->caseLinkers[$linkerName])) {
+        if (isset($this->caseLinkers[$linkerName])) {
             return $this->caseLinkers[$linkerName];
         }
 
         throw new CaseLinkerNotFoundException($linkerName);
     }
-
 }

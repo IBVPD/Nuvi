@@ -17,12 +17,12 @@ class CaseTemplatesTest extends \PHPUnit_Framework_TestCase
         $twigMock->expects($this->never())
             ->method('render');
 
-        $twigExtension = new CaseTemplates($authMock,$twigMock);
+        $twigExtension = new CaseTemplates($authMock, $twigMock);
 
-        $this->assertEquals('twig_case_templates',$twigExtension->getName());
-        $this->assertCount(1,$twigExtension->getFunctions());
+        $this->assertEquals('twig_case_templates', $twigExtension->getName());
+        $this->assertCount(1, $twigExtension->getFunctions());
 
-        $res = $twigExtension->renderTable(array(),'myTable');
+        $res = $twigExtension->renderTable(array(), 'myTable');
         $this->assertNull($res);
     }
 
@@ -37,12 +37,12 @@ class CaseTemplatesTest extends \PHPUnit_Framework_TestCase
         $twigMock = $this->getMock('\Twig_Environment');
         $twigMock->expects($this->once())
             ->method('render')
-            ->with('NSSentinelBundle:Case:site.html.twig',array('results'=>array(),'tableId'=>'myTable'))
+            ->with('NSSentinelBundle:Case:site.html.twig', array('results'=>array(), 'tableId'=>'myTable'))
             ->willReturn('siterow');
 
-        $extension = new CaseTemplates($authMock,$twigMock);
-        $res = $extension->renderTable(array(),'myTable');
-        $this->assertEquals('siterow',$res);
+        $extension = new CaseTemplates($authMock, $twigMock);
+        $res = $extension->renderTable(array(), 'myTable');
+        $this->assertEquals('siterow', $res);
     }
 
     public function testCountryRoleRenderTable()
@@ -60,12 +60,12 @@ class CaseTemplatesTest extends \PHPUnit_Framework_TestCase
         $twigMock = $this->getMock('\Twig_Environment');
         $twigMock->expects($this->once())
             ->method('render')
-            ->with('NSSentinelBundle:Case:country.html.twig',array('results'=>array(),'tableId'=>'myTable'))
+            ->with('NSSentinelBundle:Case:country.html.twig', array('results'=>array(), 'tableId'=>'myTable'))
             ->willReturn('countryrow');
 
-        $extension = new CaseTemplates($authMock,$twigMock);
-        $res = $extension->renderTable(array(),'myTable');
-        $this->assertEquals('countryrow',$res);
+        $extension = new CaseTemplates($authMock, $twigMock);
+        $res = $extension->renderTable(array(), 'myTable');
+        $this->assertEquals('countryrow', $res);
     }
 
     public function testRegionRoleRenderTable()
@@ -87,11 +87,11 @@ class CaseTemplatesTest extends \PHPUnit_Framework_TestCase
         $twigMock = $this->getMock('\Twig_Environment');
         $twigMock->expects($this->once())
             ->method('render')
-            ->with('NSSentinelBundle:Case:region.html.twig',array('results'=>array(),'tableId'=>'myTable'))
+            ->with('NSSentinelBundle:Case:region.html.twig', array('results'=>array(), 'tableId'=>'myTable'))
             ->willReturn('regionrow');
 
-        $extension = new CaseTemplates($authMock,$twigMock);
-        $res = $extension->renderTable(array(),'myTable');
-        $this->assertEquals('regionrow',$res);
+        $extension = new CaseTemplates($authMock, $twigMock);
+        $res = $extension->renderTable(array(), 'myTable');
+        $this->assertEquals('regionrow', $res);
     }
 }

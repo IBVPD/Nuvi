@@ -34,7 +34,7 @@ class ExportController extends Controller
         $ibdForm = $this->createForm('IBDReportFilterType', null, $this->formParams);
         $rotaForm = $this->createForm('RotaVirusReportFilterType', null, $this->formParams);
 
-        return $this->render('NSImportBundle:Export:index.html.twig',array('ibdForm' => $ibdForm->createView(), 'rotaForm' => $rotaForm->createView()));
+        return $this->render('NSImportBundle:Export:index.html.twig', array('ibdForm' => $ibdForm->createView(), 'rotaForm' => $rotaForm->createView()));
     }
 
     /**

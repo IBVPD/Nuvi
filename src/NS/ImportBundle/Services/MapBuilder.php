@@ -114,7 +114,7 @@ class MapBuilder
      */
     public function process(Map $map)
     {
-        if(!$this->metaData || !$this->siteMetaData || !$this->nlMetaData) {
+        if (!$this->metaData || !$this->siteMetaData || !$this->nlMetaData) {
             throw new \InvalidArgumentException('Missing either class, site, national or reference lab metadata');
         }
 
@@ -147,23 +147,20 @@ class MapBuilder
     {
         $field = $this->camelCase($fieldName);
 
-        if (in_array($field,$this->metaData->getFieldNames())) {
+        if (in_array($field, $this->metaData->getFieldNames())) {
             $column->setMapper($field);
             $column->setConverter($this->converterRegistry->getConverterForField($this->metaData->getTypeOfField($field)));
             return;
-        }
-        elseif ($field == 'site') {
+        } elseif ($field == 'site') {
             $column->setMapper($field);
             $column->setConverter($this->converterRegistry->getConverterForField($field));
             return;
-        }
-        elseif(in_array($field,$this->siteMetaData->getFieldNames())) {
-            $column->setMapper(sprintf('siteLab.%s',$field));
+        } elseif (in_array($field, $this->siteMetaData->getFieldNames())) {
+            $column->setMapper(sprintf('siteLab.%s', $field));
             $column->setConverter($this->converterRegistry->getConverterForField($this->siteMetaData->getTypeOfField($field)));
             return;
-        }
-        elseif(in_array($field,$this->nlMetaData->getFieldNames())) {
-            $column->setMapper(sprintf('%s.%s',$labPreference,$field));
+        } elseif (in_array($field, $this->nlMetaData->getFieldNames())) {
+            $column->setMapper(sprintf('%s.%s', $labPreference, $field));
             $column->setConverter($this->converterRegistry->getConverterForField($this->nlMetaData->getTypeOfField($field)));
             return;
         }

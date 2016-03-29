@@ -71,14 +71,10 @@ class DoctrineCollectionSourceIterator implements SourceIteratorInterface
 
         $data = array();
 
-        foreach ($this->propertyPaths as $name => $propertyPath)
-        {
-            try
-            {
+        foreach ($this->propertyPaths as $name => $propertyPath) {
+            try {
                 $data[$name] = $this->getValue($this->propertyAccessor->getValue($current, $propertyPath));
-            }
-            catch (\Exception $e)
-            {
+            } catch (\Exception $e) {
                 $data[$name] = $e->getMessage();
             }
         }

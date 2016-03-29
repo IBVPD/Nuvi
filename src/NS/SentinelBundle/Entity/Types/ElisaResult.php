@@ -21,6 +21,5 @@ class ElisaResult extends ArrayChoice
     public function getName()
     {
         return 'ElisaResult';
-    }   
+    }
 }
-

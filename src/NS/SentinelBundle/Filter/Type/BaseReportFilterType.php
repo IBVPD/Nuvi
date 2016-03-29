@@ -53,10 +53,10 @@ class BaseReportFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('admDate', 'ns_filter_date_range', array('label' => 'report-filter-form.admitted-between',))
+            ->add('admDate', 'ns_filter_date_range', array('label' => 'report-filter-form.admitted-between', ))
             ->add('createdAt', 'ns_filter_date_range', array('label' => 'report-filter-form.created-between'));
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, array($this,'preSetData'));
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'preSetData'));
     }
 
     /**
@@ -66,7 +66,7 @@ class BaseReportFilterType extends AbstractType
     {
         $form     = $event->getForm();
         $options  = $form->getConfig()->getOptions();
-        $siteType = ( isset($options['site_type']) && $options['site_type'] == 'advanced') ? 'NS\SentinelBundle\Filter\Type\SiteFilterType' : 'NS\SentinelBundle\Filter\Type\SiteType';
+        $siteType = (isset($options['site_type']) && $options['site_type'] == 'advanced') ? 'NS\SentinelBundle\Filter\Type\SiteFilterType' : 'NS\SentinelBundle\Filter\Type\SiteType';
 
         if ($this->authChecker->isGranted('ROLE_REGION')) {
             $objectIds = $this->converter->getObjectIdsForRole($this->tokenStorage->getToken(), 'ROLE_REGION');
@@ -74,7 +74,7 @@ class BaseReportFilterType extends AbstractType
                 $form->add('region', 'NS\SentinelBundle\Filter\Type\RegionType');
             }
 
-            $form->add('country', 'NS\SentinelBundle\Filter\Type\CountryType', array('placeholder' => '','required' => false));
+            $form->add('country', 'NS\SentinelBundle\Filter\Type\CountryType', array('placeholder' => '', 'required' => false));
             $form->add('site', $siteType);
         } elseif ($this->authChecker->isGranted('ROLE_COUNTRY')) {
             $form->add('site', $siteType);

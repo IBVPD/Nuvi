@@ -29,30 +29,28 @@ class AuthorizeController extends Controller
      */
     public function authorizeAction(Request $request)
     {
-        if (!$request->get('client_id'))
+        if (!$request->get('client_id')) {
             throw new NotFoundHttpException(sprintf("Client id parameter %s is missing.", $request->get('client_id')));
+        }
 
         $clientManager = $this->get('fos_oauth_server.client_manager.default');
         $client        = $clientManager->findClientByPublicId($request->get('client_id'));
 
-        if (!$client instanceof Client)
+        if (!$client instanceof Client) {
             throw new NotFoundHttpException(sprintf("Client %s is not found. '%s'", $request->get('client_id'), get_class($client)));
+        }
 
         $authorize   = new Authorize();
         $form        = $this->createForm('api_oauth_server_authorize', $authorize);
         $oauthServer = $this->get('fos_oauth_server.server');
 
         $form->handleRequest($request);
-        if ($form->isValid())
-        {
-            try
-            {
+        if ($form->isValid()) {
+            try {
                 $this->get('fos_oauth_server.auth_code_manager')->deleteExpired();
                 $ref = $this->get('doctrine.orm.entity_manager')->getReference(get_class($this->getUser()), $this->getUser()->getId());
                 return $oauthServer->finishClientAuthorization(true, $ref, $request, null);
-            }
-            catch (OAuth2ServerException $e)
-            {
+            } catch (OAuth2ServerException $e) {
                 return $e->getHttpResponse();
             }
         }

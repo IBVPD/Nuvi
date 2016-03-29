@@ -2,7 +2,6 @@
 
 namespace NS\SentinelBundle\Tests\Converter;
 
-
 use NS\SentinelBundle\Converter\CountryConverter;
 use NS\SentinelBundle\Entity\Country;
 use NS\SentinelBundle\Entity\Region;
@@ -12,8 +11,8 @@ class CountryConverterTest extends \PHPUnit_Framework_TestCase
     public function testObjectKeys()
     {
         $objects = $this->getObjects();
-        $this->assertEquals(array('C1','C2','C3'),array_keys($objects));
-        $this->assertCount(3,$objects);
+        $this->assertEquals(array('C1', 'C2', 'C3'), array_keys($objects));
+        $this->assertCount(3, $objects);
     }
 
     public function testCountryConverter()
@@ -24,13 +23,13 @@ class CountryConverterTest extends \PHPUnit_Framework_TestCase
         $convertedObj = $converter->__invoke('C1');
         $this->assertInstanceOf('NS\SentinelBundle\Entity\Country', $convertedObj);
         $this->assertEquals('C1', $convertedObj->getCode());
-        $this->assertEquals('CName1',$convertedObj->getName());
+        $this->assertEquals('CName1', $convertedObj->getName());
 
         $convertedObj = $converter->__invoke('C2');
         $this->assertInstanceOf('NS\SentinelBundle\Entity\Country', $convertedObj);
         $this->assertEquals('C2', $convertedObj->getCode());
 
-        $this->assertEquals('Country',$converter->getName());
+        $this->assertEquals('Country', $converter->getName());
     }
 
     /**
@@ -63,9 +62,9 @@ class CountryConverterTest extends \PHPUnit_Framework_TestCase
         $converter = new CountryConverter($entityMgr);
 
         $obj = $converter->__invoke('CName2');
-        $this->assertInstanceOf('NS\SentinelBundle\Entity\Country',$obj);
-        $this->assertEquals('CName2',$obj->getName());
-        $this->assertEquals('C2',$obj->getCode());
+        $this->assertInstanceOf('NS\SentinelBundle\Entity\Country', $obj);
+        $this->assertEquals('CName2', $obj->getName());
+        $this->assertEquals('C2', $obj->getCode());
     }
 
     public function testCountryByCaseName()
@@ -92,7 +91,7 @@ class CountryConverterTest extends \PHPUnit_Framework_TestCase
         $objects = $this->getObjects();
         $repo->expects($this->any())
             ->method('getChain')
-            ->with(null,true)
+            ->with(null, true)
             ->willReturn($objects);
 
         $em->expects($this->any())
@@ -105,17 +104,17 @@ class CountryConverterTest extends \PHPUnit_Framework_TestCase
 
     private function getObjects()
     {
-        $region = new Region('RName','Region Name');
+        $region = new Region('RName', 'Region Name');
 
-        $country1 = new Country('C1','CName1');
+        $country1 = new Country('C1', 'CName1');
         $country1->setRegion($region);
         $country1->setActive(true);
 
-        $country2 = new Country('C2','CName2');
+        $country2 = new Country('C2', 'CName2');
         $country2->setRegion($region);
         $country2->setActive(true);
 
-        $country3 = new Country('C3','CName3');
+        $country3 = new Country('C3', 'CName3');
         $country3->setRegion($region);
         $country3->setActive(false);
 

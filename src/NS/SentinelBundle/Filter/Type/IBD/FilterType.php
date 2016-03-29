@@ -13,7 +13,7 @@ use \Lexik\Bundle\FormFilterBundle\Filter\Form\Type\EmbeddedFilterTypeInterface;
  */
 class FilterType extends AbstractType implements EmbeddedFilterTypeInterface
 {
-     /**
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -51,4 +51,3 @@ class FilterType extends AbstractType implements EmbeddedFilterTypeInterface
         return 'ibd_filter_form';
     }
 }
-

@@ -2,7 +2,6 @@
 
 namespace NS\ImportBundle\Converter;
 
-
 use Ddeboer\DataImport\ReporterInterface;
 
 class DateOfBirthConverter implements ReporterInterface

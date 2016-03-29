@@ -87,14 +87,14 @@ class BaseFilterType extends AbstractType
                     'condition_pattern' => FilterOperands::STRING_BOTH,
                     'label'             => 'db-generated-id')
                 )
-                ->add('country', 'NS\SentinelBundle\Filter\Type\CountryType',array('required'=>false,'placeholder'=>''))
+                ->add('country', 'NS\SentinelBundle\Filter\Type\CountryType', array('required'=>false, 'placeholder'=>''))
                 ->add('site', 'NS\SentinelBundle\Filter\Type\SiteType');
         }
 
         if ($this->authChecker->isGranted('ROLE_COUNTRY')) {
             $objectIds = $this->aclConverter->getObjectIdsForRole($token, 'ROLE_COUNTRY');
             if (count($objectIds) > 1) {
-                $form->add('country', 'NS\SentinelBundle\Filter\Type\CountryType',array('required'=>false,'placeholder'=>''));
+                $form->add('country', 'NS\SentinelBundle\Filter\Type\CountryType', array('required'=>false, 'placeholder'=>''));
             }
 
             $form->add('site', 'NS\SentinelBundle\Filter\Type\SiteType');

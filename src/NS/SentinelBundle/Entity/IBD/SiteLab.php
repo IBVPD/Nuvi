@@ -1475,10 +1475,10 @@ class SiteLab extends BaseSiteLab
      */
     public function getIncompleteField()
     {
-        foreach ($this->getMinimumRequiredFields() as $field)
-        {
-            if ($this->$field === null || empty($this->$field) || ($this->$field instanceof ArrayChoice && $this->$field->equal(-1)))
+        foreach ($this->getMinimumRequiredFields() as $field) {
+            if ($this->$field === null || empty($this->$field) || ($this->$field instanceof ArrayChoice && $this->$field->equal(-1))) {
                 return $field;
+            }
         }
 
         //Additional Tests as needed (result=other && other fields etc)

@@ -14,4 +14,3 @@ class NSSonataDoctrineORMAdminBundle extends Bundle
         return 'SonataDoctrineORMAdminBundle';
     }
 }
-

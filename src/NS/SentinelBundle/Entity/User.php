@@ -228,7 +228,7 @@ class User implements AdvancedUserInterface
      */
     public function getSalt()
     {
-        if($this->salt === null || empty($this->salt)) {
+        if ($this->salt === null || empty($this->salt)) {
             $this->resetSalt();
         }
 
@@ -286,7 +286,7 @@ class User implements AdvancedUserInterface
      */
     public function resetSalt()
     {
-        $this->salt = User::_resetSalt(array($this->name,$this->email));
+        $this->salt = User::_resetSalt(array($this->name, $this->email));
     }
 
     /**
@@ -294,9 +294,9 @@ class User implements AdvancedUserInterface
      * @param array $fields
      * @return string
      */
-    static public function _resetSalt($fields = array())
+    public static function _resetSalt($fields = array())
     {
-        return sha1(implode("",$fields).microtime());
+        return sha1(implode("", $fields).microtime());
     }
 
     /**
@@ -304,7 +304,6 @@ class User implements AdvancedUserInterface
      */
     public function eraseCredentials()
     {
-
     }
 
     /**
@@ -394,8 +393,8 @@ class User implements AdvancedUserInterface
         $roles = array();
 
         // what happens if this returns null??
-        foreach($this->acls as $acl) {
-            $roles = array_merge($roles,$acl->getType()->getAsCredential());
+        foreach ($this->acls as $acl) {
+            $roles = array_merge($roles, $acl->getType()->getAsCredential());
         }
 
         $this->adjustRoles($roles);
@@ -434,7 +433,7 @@ class User implements AdvancedUserInterface
     /**
      * @return boolean
      */
-    public function isAccountNonExpired() 
+    public function isAccountNonExpired()
     {
         return true;
     }
@@ -442,7 +441,7 @@ class User implements AdvancedUserInterface
     /**
      * @return type
      */
-    public function isAccountNonLocked() 
+    public function isAccountNonLocked()
     {
         return $this->active;
     }
@@ -450,7 +449,7 @@ class User implements AdvancedUserInterface
     /**
      * @return boolean
      */
-    public function isCredentialsNonExpired() 
+    public function isCredentialsNonExpired()
     {
         return true;
     }
@@ -458,7 +457,7 @@ class User implements AdvancedUserInterface
     /**
      * @return boolean
      */
-    public function isEnabled() 
+    public function isEnabled()
     {
         return $this->active;
     }

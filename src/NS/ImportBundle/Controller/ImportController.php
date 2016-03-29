@@ -35,7 +35,7 @@ class ImportController extends Controller
         if ($form->isValid()) {
             $queue = $this->get('ns_import.workqueue');
 
-            if($queue->submit($form->getData())) {
+            if ($queue->submit($form->getData())) {
                 $this->get('ns_flash')->addSuccess(null, null, "Import Added");
             } else {
                 $this->get('ns_flash')->addError(null, 'Unable to add import', 'There was an error communicating with the beanstalk server');
@@ -48,7 +48,7 @@ class ImportController extends Controller
         $query      = $entityMgr->getRepository('NSImportBundle:Import')->getResultsForUser($this->getUser(), 'r');
         $pagination = $paginator->paginate($query, $request->query->get('page', 1), 10);
 
-        return $this->render('NSImportBundle:Import:index.html.twig',array('form' => $form->createView(), 'results' => $pagination));
+        return $this->render('NSImportBundle:Import:index.html.twig', array('form' => $form->createView(), 'results' => $pagination));
     }
 
     /**
@@ -73,7 +73,7 @@ class ImportController extends Controller
     public function executeAction($id)
     {
         $worker = $this->get('ns_import.batch_worker');
-        $worker->consume($id,400);
+        $worker->consume($id, 400);
 
         return $this->redirect($this->generateUrl('importIndex'));
     }
@@ -86,10 +86,10 @@ class ImportController extends Controller
      */
     public function resubmitAction($id)
     {
-        $import = $this->get('doctrine.orm.entity_manager')->find('NSImportBundle:Import',$id);
+        $import = $this->get('doctrine.orm.entity_manager')->find('NSImportBundle:Import', $id);
         $queue = $this->get('ns_import.workqueue');
 
-        if($queue->reSubmit($import)) {
+        if ($queue->reSubmit($import)) {
             $this->get('ns_flash')->addSuccess(null, null, "Import Re-Submitted");
         } else {
             $this->get('ns_flash')->addWarning(null, 'Unable to re-submit import for background processing', 'There was an error communicating with the beanstalk server');
@@ -105,7 +105,7 @@ class ImportController extends Controller
      */
     public function deleteAction($id)
     {
-        $import = $this->get('doctrine.orm.entity_manager')->find('NSImportBundle:Import',$id);
+        $import = $this->get('doctrine.orm.entity_manager')->find('NSImportBundle:Import', $id);
         $queue = $this->get('ns_import.workqueue');
         $queue->delete($import);
         return $this->redirect($this->generateUrl('importIndex'));
@@ -118,7 +118,7 @@ class ImportController extends Controller
      */
     public function pauseAction($id)
     {
-        $import = $this->get('doctrine.orm.entity_manager')->find('NSImportBundle:Import',$id);
+        $import = $this->get('doctrine.orm.entity_manager')->find('NSImportBundle:Import', $id);
         $queue = $this->get('ns_import.workqueue');
         $queue->pause($import);
         return $this->redirect($this->generateUrl('importIndex'));
@@ -131,7 +131,7 @@ class ImportController extends Controller
      */
     public function resumeAction($id)
     {
-        $import = $this->get('doctrine.orm.entity_manager')->find('NSImportBundle:Import',$id);
+        $import = $this->get('doctrine.orm.entity_manager')->find('NSImportBundle:Import', $id);
         $queue = $this->get('ns_import.workqueue');
         $queue->resume($import);
         return $this->redirect($this->generateUrl('importIndex'));
@@ -165,7 +165,7 @@ class ImportController extends Controller
                     break;
             }
 
-            if($sourceFile) {
+            if ($sourceFile) {
                 BinaryFileResponse::trustXSendfileTypeHeader();
                 $response = new BinaryFileResponse($sourceFile);
                 $response->headers->set('Content-Type', 'text/plain');

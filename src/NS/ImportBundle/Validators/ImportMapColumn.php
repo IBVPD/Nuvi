@@ -4,7 +4,6 @@ namespace NS\ImportBundle\Validators;
 
 use Symfony\Component\Validator\Constraint;
 
-
 /**
  * Class ImportMapColumn
  * @package NS\ImportBundle\Validators

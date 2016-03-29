@@ -96,7 +96,7 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
      */
     public function findBySiteAndCaseId($site, $caseId)
     {
-        $siteParam = (!$site instanceOf Site) ? $this->_em->getReference('NS\SentinelBundle\Entity\Site', $site) : $site;
+        $siteParam = (!$site instanceof Site) ? $this->_em->getReference('NS\SentinelBundle\Entity\Site', $site) : $site;
         $queryB = $this->createQueryBuilder('sl')
             ->innerJoin('sl.caseFile', 'c')
             ->where('c.caseId = :caseId AND c.site = :site')

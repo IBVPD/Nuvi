@@ -1,6 +1,7 @@
 <?php
 
 namespace NS\SentinelBundle\Entity\Types;
+
 use NS\UtilBundle\Entity\Types\ArrayChoice;
 
 /**
@@ -20,6 +21,5 @@ class DischargeClassification extends ArrayChoice
     public function getName()
     {
         return 'DischargeClassification';
-    }   
+    }
 }
-

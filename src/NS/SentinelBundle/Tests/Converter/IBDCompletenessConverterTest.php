@@ -60,15 +60,15 @@ class IBDCompletenessConverterTest extends \PHPUnit_Framework_TestCase
             )
         );
 
-        $converter = new IBDCompletenessConverter($this->container->get('validator'),$config);
+        $converter = new IBDCompletenessConverter($this->container->get('validator'), $config);
 
         $data = array(
             'cxrDone' => null,
             'cxrResult' => new CXRResult(CXRResult::CONSISTENT),
         );
-        $this->assertInstanceOf('NS\SentinelBundle\Converter\IBDCompletenessConverter',$converter);
+        $this->assertInstanceOf('NS\SentinelBundle\Converter\IBDCompletenessConverter', $converter);
 
         $output = $converter->__invoke($data);
-        $this->assertInstanceOf('NS\SentinelBundle\Form\Types\TripleChoice',$output['cxrDone']);
+        $this->assertInstanceOf('NS\SentinelBundle\Form\Types\TripleChoice', $output['cxrDone']);
     }
 }

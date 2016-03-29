@@ -319,7 +319,7 @@ class ReferenceLab
     {
         $this->countries = new ArrayCollection();
 
-        foreach($countries as $country){
+        foreach ($countries as $country) {
             $this->addCountry($country);
         }
 
@@ -344,7 +344,7 @@ class ReferenceLab
      */
     public function removeCountry(Country $country)
     {
-        if($this->countries->contains($country)) {
+        if ($this->countries->contains($country)) {
             $this->countries->removeElement($country);
         }
 

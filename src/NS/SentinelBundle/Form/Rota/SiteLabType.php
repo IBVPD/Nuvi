@@ -83,7 +83,7 @@ class SiteLabType extends AbstractType
 
         if ($data && $data->getCaseFile() && $data->getCaseFile()->getCountry()) {
             $country = $data->getCaseFile()->getCountry();
-        } else if (!$this->siteSerializer->hasMultipleSites()) {
+        } elseif (!$this->siteSerializer->hasMultipleSites()) {
             $site = $this->siteSerializer->getSite();
             $country = ($site instanceof Site) ? $site->getCountry() : null;
         }

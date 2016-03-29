@@ -6,7 +6,6 @@ use \Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use \Symfony\Component\Console\Input\InputInterface;
 use \Symfony\Component\Console\Output\OutputInterface;
 use \Symfony\Component\Console\Input\InputArgument;
-
 use NS\SentinelBundle\Entity\Region;
 use NS\SentinelBundle\Entity\Country;
 use NS\SentinelBundle\Entity\Site;
@@ -36,7 +35,7 @@ class ImportCommand extends ContainerAwareCommand
                 InputArgument::REQUIRED,
                 'Directory with CSV Files'
             )
-        ; 
+        ;
     }
 
     /**
@@ -52,23 +51,21 @@ class ImportCommand extends ContainerAwareCommand
 
         $output->writeln("Added ".count($regions)." Regions");
 
-        if(isset($files['country']))
-        {
+        if (isset($files['country'])) {
             $countries = $this->processCountries($files['country'], $regions);
             $output->writeln("Added ".count($countries)." Countries");
         }
 
-        if(isset($files['site']))
-        {
+        if (isset($files['site'])) {
             $ret = $this->processSites($files['site'], $countries);
             $output->writeln("Added ".count($ret['sites'])." Sites");
 
-            if(isset($ret['errors']) && !empty($ret['errors']))
-            {
+            if (isset($ret['errors']) && !empty($ret['errors'])) {
                 $output->writeln("");
                 $output->writeln("Site import errors");
-                foreach($ret['errors'] as $error)
+                foreach ($ret['errors'] as $error) {
                     $output->writeln($error);
+                }
             }
         }
     }
@@ -81,16 +78,13 @@ class ImportCommand extends ContainerAwareCommand
     {
         $files = scandir($dir);
 
-        foreach ($files as $index => $file)
-        {
-            if($file[0] == '.')
-            {
+        foreach ($files as $index => $file) {
+            if ($file[0] == '.') {
                 unset($files[$index]);
                 continue;
             }
 
-            switch ($file)
-            {
+            switch ($file) {
                 case 'Regions.csv':
                     $files['region'] = $dir.'/'.$file;
                     unset($files[$index]);
@@ -114,15 +108,13 @@ class ImportCommand extends ContainerAwareCommand
      * @param $output
      * @return array
      */
-    private function processRegions($file,$output)
+    private function processRegions($file, $output)
     {
-        $fileId  = fopen($file,'r');
+        $fileId  = fopen($file, 'r');
         $regions = array();
 
-        while($row = fgetcsv($fileId))
-        {
-            if(!empty($row[1]))
-            {
+        while ($row = fgetcsv($fileId)) {
+            if (!empty($row[1])) {
                 $region = new Region();
                 $region->setName($row[1]);
                 $region->setCode($row[0]);
@@ -130,9 +122,9 @@ class ImportCommand extends ContainerAwareCommand
                 $this->entityMgr->persist($region);
                 $this->entityMgr->flush();
                 $regions[$row[0]] = $region;
-            }
-            else
+            } else {
                 $output->writeln("Row[1] is empty!");
+            }
         }
 
         fclose($fileId);
@@ -145,15 +137,13 @@ class ImportCommand extends ContainerAwareCommand
      * @param $regions
      * @return array
      */
-    private function processCountries($file,$regions)
+    private function processCountries($file, $regions)
     {
         $countries = array();
-        $fileId        = fopen($file,'r');
+        $fileId        = fopen($file, 'r');
 
-        while($row = fgetcsv($fileId))
-        {
-            if(isset($regions[$row[0]]) && !empty($row[2]) && !empty($row[0]) && !empty($row[1]))
-            {
+        while ($row = fgetcsv($fileId)) {
+            if (isset($regions[$row[0]]) && !empty($row[2]) && !empty($row[0]) && !empty($row[1])) {
                 $country = new Country();
                 $country->setName($row[1]);
                 $country->setCode($row[2]);
@@ -179,15 +169,14 @@ class ImportCommand extends ContainerAwareCommand
      * @return array
      * @throws \Exception
      */
-    private function processSites($file,$countries)
+    private function processSites($file, $countries)
     {
         $sites      = array();
-        $fileId     = fopen($file,'r');
+        $fileId     = fopen($file, 'r');
         $errorSites = array();
         fgetcsv($fileId);
 
-        while($row = fgetcsv($fileId))
-        {
+        while ($row = fgetcsv($fileId)) {
             $site = new Site();
             $site->setCode($row[2]);
             $site->setName($row[3]);
@@ -197,7 +186,7 @@ class ImportCommand extends ContainerAwareCommand
             $this->setSiteIbdLastAssessment($site, $row, $errorSites);
             $this->setSiteRvLastAssessment($site, $row, $errorSites);
 
-            if($row[13]) {
+            if ($row[13]) {
                 $site->setibdSiteAssessmentScore($row[13]);
             }
 
@@ -206,7 +195,7 @@ class ImportCommand extends ContainerAwareCommand
             $site->setibdEqaCode($row[17]);
             $site->setrvEqaCode($row[18]);
 
-            $this->modifyCountry($site,$row, $countries[$row[1]]);
+            $this->modifyCountry($site, $row, $countries[$row[1]]);
 
             $this->entityMgr->persist($site);
             $this->entityMgr->flush();
@@ -225,8 +214,7 @@ class ImportCommand extends ContainerAwareCommand
      */
     private function modifyCountry($site, $row, $country)
     {
-        if($country instanceof Country)
-        {
+        if ($country instanceof Country) {
             $country->setGaviEligible(new \NS\SentinelBundle\Form\Types\TripleChoice($row[5]));
             $country->setHibVaccineIntro($row[19]);
             $country->setPcvVaccineIntro($row[20]);
@@ -243,21 +231,15 @@ class ImportCommand extends ContainerAwareCommand
      */
     private function surveillanceAndSupport($site, $row, &$errorSites)
     {
-        try
-        {
+        try {
             $site->setSurveillanceConducted(new \NS\SentinelBundle\Form\Types\SurveillanceConducted($row[9]));
-        }
-        catch (\Exception $except)
-        {
+        } catch (\Exception $except) {
             throw new \Exception("Tried to pass '{$row[9]}' to SurveillanceConducted\n " . $except->getMessage());
         }
 
-        try
-        {
+        try {
             $site->setibdIntenseSupport(new \NS\SentinelBundle\Form\Types\IBDIntenseSupport($row[11]));
-        }
-        catch (\Exception $except)
-        {
+        } catch (\Exception $except) {
             $errorSites[] = "{$row[2]}:{$row[3]} - Has Invalid Intense Support Value {$row[11]}";
         }
     }
@@ -269,14 +251,10 @@ class ImportCommand extends ContainerAwareCommand
      */
     private function setSiteIbdLastAssessment($site, $row, &$errorSites)
     {
-        if($row[12])
-        {
-            try
-            {
+        if ($row[12]) {
+            try {
                 $site->setibdLastSiteAssessmentDate(new \DateTime($row[12]));
-            }
-            catch (\Exception $except)
-            {
+            } catch (\Exception $except) {
                 $errorSites[] = "{$row[2]}:{$row[3]} - Has Invalid IBD Last Site Assessment Date '{$row[12]}'";
             }
         }
@@ -289,14 +267,10 @@ class ImportCommand extends ContainerAwareCommand
      */
     private function setSiteRvLastAssessment($site, $row, &$errorSites)
     {
-        if($row[14])
-        {
-            try
-            {
+        if ($row[14]) {
+            try {
                 $site->setRvLastSiteAssessmentDate(new \DateTime($row[14]));
-            }
-            catch (\Exception $except)
-            {
+            } catch (\Exception $except) {
                 $errorSites[] = "{$row[2]}:{$row[3]} - Has Invalid RV Last Site Assessment Date '{$row[14]}'";
             }
         }

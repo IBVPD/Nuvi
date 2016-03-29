@@ -19,8 +19,8 @@ class RegionRepository extends CommonRepository
     {
         return $this->createQueryBuilder('r')
             ->addSelect('c,s')
-            ->leftJoin('r.countries','c')
-            ->leftJoin('c.sites','s')
+            ->leftJoin('r.countries', 'c')
+            ->leftJoin('c.sites', 's')
             ->getQuery();
     }
 }

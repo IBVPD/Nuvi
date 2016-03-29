@@ -21,4 +21,3 @@ class NSSonataDoctrineORMAdminExtension extends Extension
     {
     }
 }
-

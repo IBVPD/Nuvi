@@ -6,5 +6,4 @@ use Ddeboer\DataImport\Exception;
 
 class InvalidEncodingException extends \RuntimeException implements Exception
 {
-
 }

@@ -2,22 +2,20 @@
 
 namespace NS\ImportBundle\Tests\Twig;
 
-
 use NS\ImportBundle\Twig\ImportResultActions;
 
 class ImportResultActionsTest extends \PHPUnit_Framework_TestCase
 {
     public function testInititalization()
     {
-        list($router,$translator,$import) = $this->getArguments();
-        $twigAction = new ImportResultActions($router,$translator);
-        $this->assertCount(1,$twigAction->getFunctions());
-        $this->assertEquals('ImportResultAction',$twigAction->getName());
-
+        list($router, $translator, $import) = $this->getArguments();
+        $twigAction = new ImportResultActions($router, $translator);
+        $this->assertCount(1, $twigAction->getFunctions());
+        $this->assertEquals('ImportResultAction', $twigAction->getName());
     }
     public function testIsCompleteWithoutError()
     {
-        list($router,$translator,$import) = $this->getArguments();
+        list($router, $translator, $import) = $this->getArguments();
 
         $import->expects($this->once())
             ->method('isComplete')
@@ -32,13 +30,13 @@ class ImportResultActionsTest extends \PHPUnit_Framework_TestCase
             ->method('generate')
             ->willReturn('/path');
 
-        $twigAction = new ImportResultActions($router,$translator);
+        $twigAction = new ImportResultActions($router, $translator);
         $twigAction->importActions($import);
     }
 
     public function testIsNotCompleteUnqueuedNoError()
     {
-        list($router,$translator,$import) = $this->getArguments();
+        list($router, $translator, $import) = $this->getArguments();
 
         $import->expects($this->once())
             ->method('isComplete')
@@ -57,13 +55,13 @@ class ImportResultActionsTest extends \PHPUnit_Framework_TestCase
             ->method('generate')
             ->willReturn('/path');
 
-        $twigAction = new ImportResultActions($router,$translator);
+        $twigAction = new ImportResultActions($router, $translator);
         $twigAction->importActions($import);
     }
 
     public function testIsNotCompleteQueuedNoError()
     {
-        list($router,$translator,$import) = $this->getArguments();
+        list($router, $translator, $import) = $this->getArguments();
 
         $import->expects($this->once())
             ->method('isComplete')
@@ -82,13 +80,13 @@ class ImportResultActionsTest extends \PHPUnit_Framework_TestCase
             ->method('generate')
             ->willReturn('/path');
 
-        $twigAction = new ImportResultActions($router,$translator);
+        $twigAction = new ImportResultActions($router, $translator);
         $twigAction->importActions($import);
     }
 
     public function testIsNotCompleteNotQueuedWithError()
     {
-        list($router,$translator,$import) = $this->getArguments();
+        list($router, $translator, $import) = $this->getArguments();
 
         $import->expects($this->atLeast(2))
             ->method('isComplete')
@@ -107,15 +105,15 @@ class ImportResultActionsTest extends \PHPUnit_Framework_TestCase
             ->method('generate')
             ->willReturn('/path');
 
-        $twigAction = new ImportResultActions($router,$translator);
+        $twigAction = new ImportResultActions($router, $translator);
         $twigAction->importActions($import);
     }
 
     public function getArguments()
     {
         $translator = $this->getMock('Symfony\Component\Translation\TranslatorInterface');
-        $router = $this->getMock('Symfony\Component\Routing\RouterInterface',array(), array(), '', false);
-        $import = $this->getMock('NS\ImportBundle\Entity\Import',array(), array(), '', false);
+        $router = $this->getMock('Symfony\Component\Routing\RouterInterface', array(), array(), '', false);
+        $import = $this->getMock('NS\ImportBundle\Entity\Import', array(), array(), '', false);
         $import->expects($this->any())
             ->method('getId')
             ->willReturn(12);

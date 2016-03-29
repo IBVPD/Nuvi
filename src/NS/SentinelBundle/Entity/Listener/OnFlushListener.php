@@ -18,8 +18,8 @@ class OnFlushListener
         $uow = $entityMgr->getUnitOfWork();
 
         foreach ($uow->getScheduledEntityUpdates() as $entity) {
-            if($entity instanceof BaseCase) {
-                $this->checkLinking($entity,$entityMgr);
+            if ($entity instanceof BaseCase) {
+                $this->checkLinking($entity, $entityMgr);
             }
         }
     }

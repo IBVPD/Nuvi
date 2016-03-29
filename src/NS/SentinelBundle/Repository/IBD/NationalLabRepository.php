@@ -13,5 +13,4 @@ use NS\SentinelBundle\Repository\BaseLab;
 class NationalLabRepository extends BaseLab
 {
     protected $parentClass = 'NSSentinelBundle:IBD';
-
 }

@@ -47,5 +47,4 @@ class CsvReaderCommand extends Command
 
         $output->writeln(sprintf("%s has %d rows", $filePath, $csvReader->count()));
     }
-
 }

@@ -37,8 +37,7 @@ class CaseStatusListener implements EventSubscriberInterface
     {
         $values = $event->getValues();
 
-        if ($values['value'] instanceof CaseStatus && $values['value']->getValue() >= 0)
-        {
+        if ($values['value'] instanceof CaseStatus && $values['value']->getValue() >= 0) {
             $paramName = str_replace('.', '_', $event->getField());
             $qb        = $event->getQueryBuilder();
 

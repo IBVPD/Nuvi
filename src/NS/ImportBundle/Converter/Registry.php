@@ -95,7 +95,7 @@ class Registry extends AbstractType
      */
     public function get($id)
     {
-        if(!isset($this->converters[$id])) {
+        if (!isset($this->converters[$id])) {
             throw new ServiceNotFoundException($id);
         }
 

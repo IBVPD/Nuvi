@@ -58,8 +58,7 @@ class CaseAssociationListener implements EventSubscriberInterface
                 if (count($ids) > 0) {
                     $queryBuilder->andWhere($expr->in($event->getField(), $ids));
                 }
-            }
-            else {
+            } else {
                 if (!is_callable(array($values['value'], 'getId'))) {
                     throw new \Exception(sprintf('Can\'t call method "getId()" on an instance of "%s"', get_class($values['value'])));
                 }
