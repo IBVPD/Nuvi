@@ -33,7 +33,7 @@ class SiteConverterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \NS\SentinelBundle\Exceptions\NonExistentSiteException
-     * @expectedExceptionMessage Unable to find site chain for S5
+     * @expectedExceptionMessage Unable to find site for S5
      */
     public function testSiteConverterNonExistentSiteException()
     {
