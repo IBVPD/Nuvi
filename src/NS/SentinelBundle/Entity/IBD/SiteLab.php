@@ -11,7 +11,7 @@ use \NS\SentinelBundle\Form\Types\BinaxResult;
 use \NS\SentinelBundle\Form\Types\CaseStatus;
 use \NS\SentinelBundle\Form\Types\CultureResult;
 use \NS\SentinelBundle\Form\Types\GramStain;
-use \NS\SentinelBundle\Form\Types\GramStainOrganism;
+use \NS\SentinelBundle\Form\Types\GramStainResult;
 use \NS\SentinelBundle\Form\Types\HiSerotype;
 use \NS\SentinelBundle\Form\Types\LatResult;
 use \NS\SentinelBundle\Form\Types\NmSerogroup;
@@ -181,17 +181,17 @@ class SiteLab extends BaseSiteLab
 
     /**
      * @var GramStain
-     * @ORM\Column(name="csfGramResult",type="GramStain",nullable=true)
+     * @ORM\Column(name="csfGramStain",type="GramStain",nullable=true)
+     * @Groups({"api"})
+     */
+    private $csfGramStain;
+
+    /**
+     * @var GramStainResult $csfGramResult
+     * @ORM\Column(name="csfGramResult",type="GramStainResult",nullable=true)
      * @Groups({"api"})
      */
     private $csfGramResult;
-
-    /**
-     * @var GramStainOrganism $csfGramResultOrganism
-     * @ORM\Column(name="csfGramResultOrganism",type="GramStainOrganism",nullable=true)
-     * @Groups({"api"})
-     */
-    private $csfGramResultOrganism;
 
     /**
      * @var string $csfGramOther
@@ -373,17 +373,17 @@ class SiteLab extends BaseSiteLab
 
     /**
      * @var GramStain
-     * @ORM\Column(name="bloodGramResult",type="GramStain",nullable=true)
+     * @ORM\Column(name="bloodGramStain",type="GramStain",nullable=true)
+     * @Groups({"api"})
+     */
+    private $bloodGramStain;
+
+    /**
+     * @var GramStainResult $bloodGramResult
+     * @ORM\Column(name="bloodGramResult",type="GramStainResult",nullable=true)
      * @Groups({"api"})
      */
     private $bloodGramResult;
-
-    /**
-     * @var GramStainOrganism $bloodGramResultOrganism
-     * @ORM\Column(name="bloodGramResultOrganism",type="GramStainOrganism",nullable=true)
-     * @Groups({"api"})
-     */
-    private $bloodGramResultOrganism;
 
     /**
      * @var string $bloodGramOther
@@ -620,7 +620,7 @@ class SiteLab extends BaseSiteLab
     }
 
     /**
-     * @return GramStain
+     * @return GramStainResult
      */
     public function getCsfGramResult()
     {
@@ -628,11 +628,11 @@ class SiteLab extends BaseSiteLab
     }
 
     /**
-     * @return GramStainOrganism
+     * @return GramStain
      */
-    public function getCsfGramResultOrganism()
+    public function getCsfGramStain()
     {
-        return $this->csfGramResultOrganism;
+        return $this->csfGramStain;
     }
 
     /**
@@ -772,7 +772,7 @@ class SiteLab extends BaseSiteLab
     }
 
     /**
-     * @return GramStain
+     * @return GramStainResult
      */
     public function getBloodGramResult()
     {
@@ -780,11 +780,11 @@ class SiteLab extends BaseSiteLab
     }
 
     /**
-     * @return GramStainOrganism
+     * @return GramStain
      */
-    public function getBloodGramResultOrganism()
+    public function getBloodGramStain()
     {
-        return $this->bloodGramResultOrganism;
+        return $this->bloodGramStain;
     }
 
     /**
@@ -1091,22 +1091,22 @@ class SiteLab extends BaseSiteLab
     }
 
     /**
-     * @param GramStain $csfGramResult
+     * @param GramStainResult $csfGramResult
      * @return $this
      */
-    public function setCsfGramResult(GramStain $csfGramResult)
+    public function setCsfGramResult(GramStainResult $csfGramResult)
     {
         $this->csfGramResult = $csfGramResult;
         return $this;
     }
 
     /**
-     * @param GramStainOrganism $csfGramResultOrganism
+     * @param GramStain $csfGramStain
      * @return $this
      */
-    public function setCsfGramResultOrganism(GramStainOrganism $csfGramResultOrganism)
+    public function setCsfGramStain(GramStain $csfGramStain)
     {
-        $this->csfGramResultOrganism = $csfGramResultOrganism;
+        $this->csfGramStain = $csfGramStain;
         return $this;
     }
 
@@ -1281,22 +1281,22 @@ class SiteLab extends BaseSiteLab
     }
 
     /**
-     * @param GramStain $bloodGramResult
+     * @param GramStainResult $bloodGramResult
      * @return $this
      */
-    public function setBloodGramResult(GramStain $bloodGramResult)
+    public function setBloodGramResult(GramStainResult $bloodGramResult)
     {
         $this->bloodGramResult = $bloodGramResult;
         return $this;
     }
 
     /**
-     * @param GramStainOrganism $bloodGramResultOrganism
+     * @param GramStain $bloodGramStain
      * @return $this
      */
-    public function setBloodGramResultOrganism(GramStainOrganism $bloodGramResultOrganism)
+    public function setBloodGramStain(GramStain $bloodGramStain)
     {
-        $this->bloodGramResultOrganism = $bloodGramResultOrganism;
+        $this->bloodGramStain = $bloodGramStain;
         return $this;
     }
 
@@ -1475,10 +1475,10 @@ class SiteLab extends BaseSiteLab
      */
     public function getIncompleteField()
     {
-        foreach ($this->getMinimumRequiredFields() as $field)
-        {
-            if ($this->$field === null || empty($this->$field) || ($this->$field instanceof ArrayChoice && $this->$field->equal(-1)))
+        foreach ($this->getMinimumRequiredFields() as $field) {
+            if ($this->$field === null || empty($this->$field) || ($this->$field instanceof ArrayChoice && $this->$field->equal(-1))) {
                 return $field;
+            }
         }
 
         //Additional Tests as needed (result=other && other fields etc)

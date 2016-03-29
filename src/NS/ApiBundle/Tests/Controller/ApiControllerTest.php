@@ -16,7 +16,7 @@ class ApiControllerTest extends WebTestCase
         $route  = $this->getUrl('ns_api_api_test');
 
         $client = $this->getClient();
-        $client->request('GET',$route);
+        $client->request('GET', $route);
 
         $response = $client->getResponse();
         $this->assertJsonResponse($response, 200);
@@ -24,7 +24,7 @@ class ApiControllerTest extends WebTestCase
         $content = $response->getContent();
         $decoded = json_decode($content, true);
 
-        $this->assertTrue(isset($decoded['username']),print_r($decoded,true));
+        $this->assertTrue(isset($decoded['username']), print_r($decoded, true));
         $this->assertArrayHasKey('username', $decoded);
         $this->assertEquals('ca-api@noblet.ca', $decoded['username']);
     }
@@ -34,7 +34,7 @@ class ApiControllerTest extends WebTestCase
         $route  = $this->getUrl('ns_api_api_sites');
 
         $client = $this->getClient();
-        $client->request('GET',$route);
+        $client->request('GET', $route);
 
         $response = $client->getResponse();
         $this->assertJsonResponse($response, 200);
@@ -43,6 +43,6 @@ class ApiControllerTest extends WebTestCase
         $decoded = json_decode($content, true);
 
         $this->assertArrayHasKey('sites', $decoded);
-        $this->assertCount(3, $decoded['sites'],print_r($decoded,true));
+        $this->assertCount(3, $decoded['sites'], print_r($decoded, true));
     }
 }

@@ -32,7 +32,7 @@ class RotaVirusListener extends BaseCaseListener
     {
         return array(
             'caseId',
-            'dob',
+            'birthdate',
             'gender',
             'district',
             'admDate',

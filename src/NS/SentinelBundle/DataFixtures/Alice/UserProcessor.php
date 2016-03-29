@@ -27,10 +27,10 @@ class UserProcessor implements ProcessorInterface
 
     public function preProcess($object)
     {
-        if ($object instanceof \NS\SentinelBundle\Entity\User)
-        {
-            if (!$this->encoder)
+        if ($object instanceof \NS\SentinelBundle\Entity\User) {
+            if (!$this->encoder) {
                 $this->encoder = $this->encoderFactory->getEncoder($object);
+            }
 
             $object->resetSalt();
             $object->setPassword($this->encoder->encodePassword($object->getPlainPassword(), $object->getSalt()));

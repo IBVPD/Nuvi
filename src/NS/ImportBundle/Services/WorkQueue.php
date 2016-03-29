@@ -47,14 +47,13 @@ class WorkQueue
             $this->entityMgr->persist($import);
             $this->entityMgr->flush($import);
 
-            $jobId = $this->pheanstalk->useTube('import')->put($import->getId(),null,null,180);
+            $jobId = $this->pheanstalk->useTube('import')->put($import->getId(), null, null, 180);
 
             $import->setPheanstalkJobId($jobId);
             $import->setPheanstalkStatus(Import::STATUS_RUNNING);
 
             $this->entityMgr->persist($import);
             $this->entityMgr->flush($import);
-
         } catch (\Pheanstalk_Exception_ConnectionException $excep) {
             return false;
         } catch (DBALException $exception) {
@@ -70,14 +69,14 @@ class WorkQueue
      */
     public function reSubmit(Import $import)
     {
-        if($import->isBuried()) {
-            $this->pheanstalk->useTube('import')->kickJob(new \Pheanstalk_Job($import->getPheanstalkJobId(),$import->getId()));
+        if ($import->isBuried()) {
+            $this->pheanstalk->useTube('import')->kickJob(new \Pheanstalk_Job($import->getPheanstalkJobId(), $import->getId()));
             $import->setPheanstalkStatus(Import::STATUS_RUNNING);
             $this->entityMgr->persist($import);
             $this->entityMgr->flush($import);
 
             return true;
-        } elseif($import->getPheanstalkJobId()) {
+        } elseif ($import->getPheanstalkJobId()) {
             $newImport = new Import($import->getUser());
             $newImport->setMap($import->getMap());
             $newImport->setInputDateStart($import->getInputDateStart());
@@ -91,10 +90,10 @@ class WorkQueue
             $newImport->setWarningFile($this->fileCreator->createNewFile($newImport, 'warnings.csv', 'warningFile'));
             $newImport->setErrorFile($this->fileCreator->createNewFile($newImport, 'errors.csv', 'errorFile'));
             $newImport->setSuccessFile($this->fileCreator->createNewFile($newImport, 'successes.csv', 'successFile'));
-            $newImport->setSourceFile($this->fileCreator->createNewFile($newImport,$orgSourceFile->getFilename(),'sourceFile'));
+            $newImport->setSourceFile($this->fileCreator->createNewFile($newImport, $orgSourceFile->getFilename(), 'sourceFile'));
             $newImport->setSource($orgSourceFile->getFilename());
 
-            if(!copy($orgSourceFile->getPathname(),$newImport->getSourceFile())) {
+            if (!copy($orgSourceFile->getPathname(), $newImport->getSourceFile())) {
                 return false;
             }
 
@@ -103,5 +102,4 @@ class WorkQueue
 
         return $this->submit($import);
     }
-
 }

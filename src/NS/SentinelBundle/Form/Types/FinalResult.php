@@ -41,5 +41,4 @@ class FinalResult extends ArrayChoice
     {
         return 'FinalResult';
     }
-
 }

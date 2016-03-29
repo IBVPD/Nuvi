@@ -6,5 +6,4 @@ use Ddeboer\DataImport\Exception;
 
 class InvalidCaseException extends \RuntimeException implements Exception
 {
-
 }

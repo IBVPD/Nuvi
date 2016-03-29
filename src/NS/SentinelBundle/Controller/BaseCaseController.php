@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Controller;
 
+use NS\FilteredPaginationBundle\Form\Type\LimitSelectType;
 use \NS\SentinelBundle\Entity\BaseExternalLab;
 use \NS\SentinelBundle\Exceptions\NonExistentCaseException;
 use \Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -18,32 +19,22 @@ abstract class BaseCaseController extends Controller
      * @param Request $request
      * @param $class
      * @param $filterFormName
+     * @param $sessionKey
      * @return array
      */
-    protected function index(Request $request, $class, $filterFormName)
+    protected function index(Request $request, $class, $filterFormName, $sessionKey)
     {
-        $filterForm = $this->createForm($filterFormName);
-        $filterForm->handleRequest($request);
+        $query = $this->get('doctrine.orm.entity_manager')
+            ->getRepository($class)
+            ->getFilterQueryBuilder();
 
-        if ($filterForm->isValid()) {
-            $query = $this->get('doctrine.orm.entity_manager')
-                ->getRepository($class)
-                ->getFilterQueryBuilder();
-
-            // build the query from the given form object
-            $queryBuilderUpdater = $this->get('lexik_form_filter.query_builder_updater');
-            $queryBuilderUpdater->addFilterConditions($filterForm, $query, 'm');
-        } else {
-            $query = $this->get('doctrine.orm.entity_manager')->getRepository($class)->getLatestQuery();
-        }
-
-        $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($query, $request->query->get('page', 1), $request->getSession()->get('result_per_page', 10));
+        $filteredPager = $this->get('ns.filtered_pagination');
+        list($filterForm, $pagination, $redirect) = $filteredPager->process($request, $filterFormName, $query, $sessionKey);
         $createForm = ($this->get('security.authorization_checker')->isGranted('ROLE_CAN_CREATE')) ? $this->createForm('create_case')->createView() : null;
 
         return array(
             'pagination' => $pagination,
-            'form' => $this->createForm('results_per_page')->createView(),
+            'limitForm'  => $this->createForm(new LimitSelectType(), array('limit'=>$filteredPager->getPerPage()))->createView(),
             'filterForm' => $filterForm->createView(),
             'createForm' => $createForm);
     }
@@ -115,8 +106,15 @@ abstract class BaseCaseController extends Controller
             $entityMgr->persist($record);
             $entityMgr->flush();
 
-            $this->get('ns_flash')->addSuccess('Success!',null,'Case edited successfully');
-            return $this->redirect($this->generateUrl($indexRoute));
+            $this->get('ns_flash')->addSuccess('Success!', null, 'Case edited successfully');
+
+            if ($request->request->has('saveclose')) {
+                return $this->redirect($this->generateUrl($indexRoute));
+            }
+
+            return $this->redirect($this->generateUrl($editRoute, array('id'=>$objId)));
+        } elseif ($form->isSubmitted()) {
+            $this->get('ns_flash')->addWarning('Warning!', 'There were errors with saving the form.', 'Please review each tab for error messages');
         }
 
         return array('form' => $form->createView(), 'id' => $objId, 'editRoute' => $editRoute);
@@ -135,5 +133,4 @@ abstract class BaseCaseController extends Controller
             return $this->render('NSSentinelBundle:User:unknownCase.html.twig', array('message' => $ex->getMessage()));
         }
     }
-
 }

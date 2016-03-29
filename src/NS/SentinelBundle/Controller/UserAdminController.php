@@ -21,7 +21,6 @@ class UserAdminController extends Controller
         $secondaryTypeValue = $vars['secondary-field'];
         $role = new Role($secondaryTypeValue);
 
-        return $this->get('ns.ajax_autocompleter')->getAutocomplete($role->getClassMatch(),'name');
+        return $this->get('ns.ajax_autocompleter')->getAutocomplete($role->getClassMatch(), 'name');
     }
-
 }

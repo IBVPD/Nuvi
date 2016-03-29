@@ -64,4 +64,22 @@ class CsvReader extends BaseReader implements OffsetableReaderInterface
 
         return $this->count;
     }
+
+    /**
+     * @inheritDoc
+     */
+    protected function readHeaderRow($rowNumber)
+    {
+        $results = parent::readHeaderRow($rowNumber);
+        array_walk($results, array($this, 'trimColumn'));
+        return $results;
+    }
+
+    /**
+     * @param $item
+     */
+    public function trimColumn(&$item)
+    {
+        $item = trim($item);
+    }
 }

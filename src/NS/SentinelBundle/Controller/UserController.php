@@ -25,17 +25,17 @@ class UserController extends Controller
         $entityMgr = $this->get('doctrine.orm.entity_manager');
         $user = $entityMgr->getRepository('NSSentinelBundle:User')->find($this->getUser()->getId());
 
-        $form = $this->createForm(new \NS\SentinelBundle\Form\UserType(),$user);
+        $form = $this->createForm(new \NS\SentinelBundle\Form\UserType(), $user);
         $form->handleRequest($request);
 
-        if($form->isValid())
-        {
+        if ($form->isValid()) {
             $factory = $this->get('security.encoder_factory');
             $user    = $form->getData();
             $encoder = $factory->getEncoder($user);
 
-            if($user->getPlainPassword())
-                $user->setPassword( $encoder->encodePassword($user->getPlainPassword(),$user->getSalt()) );
+            if ($user->getPlainPassword()) {
+                $user->setPassword($encoder->encodePassword($user->getPlainPassword(), $user->getSalt()));
+            }
 
             $entityMgr->persist($user);
             $entityMgr->flush();
@@ -45,6 +45,6 @@ class UserController extends Controller
             return $this->redirect($this->generateUrl('userProfile'));
         }
 
-        return $this->render('NSSentinelBundle:User:profile.html.twig',array('form' => $form->createView(),'user'=>$this->getUser()));
+        return $this->render('NSSentinelBundle:User:profile.html.twig', array('form' => $form->createView(), 'user'=>$this->getUser()));
     }
 }

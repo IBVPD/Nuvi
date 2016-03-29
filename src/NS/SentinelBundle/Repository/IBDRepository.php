@@ -579,9 +579,10 @@ class IBDRepository extends Common
     public function exists(array $params)
     {
         $qb = $this->createQueryBuilder('i')->select('i.id');
-        foreach ($params as $field => $value)
+        foreach ($params as $field => $value) {
             $qb->andWhere(sprintf("%s.%s = :%s", 'i', $field, $field))
                 ->setParameter($field, $value);
+        }
 
         try {
             $qb->getQuery()->getSingleResult(Query::HYDRATE_SCALAR);
@@ -618,16 +619,16 @@ class IBDRepository extends Common
     {
         return $this->getByCountryCountQueryBuilder('cf', $countryCodes)
             ->select(sprintf('COUNT(%s) as caseCount,c.code', $alias, $alias))
-            ->innerJoin('cf.referenceLab','i')
-            ->innerJoin('cf.site','s');
+            ->innerJoin('cf.referenceLab', 'i')
+            ->innerJoin('cf.site', 's');
     }
 
     public function getFailedLinkedCount($alias, array $countryCodes)
     {
         return $this->getByCountryCountQueryBuilder('cf', $countryCodes)
             ->select(sprintf('COUNT(%s) as caseCount,c.code', $alias, $alias))
-            ->innerJoin('cf.referenceLab',$alias)
-            ->leftJoin('cf.site','s')
+            ->innerJoin('cf.referenceLab', $alias)
+            ->leftJoin('cf.site', 's')
             ->andWhere('s.code IS NULL');
     }
 
@@ -635,7 +636,7 @@ class IBDRepository extends Common
     {
         return $this->getByCountryCountQueryBuilder('cf', $countryCodes)
             ->select(sprintf('COUNT(%s) as caseCount,c.code', $alias, $alias))
-            ->leftJoin('cf.referenceLab',$alias)
+            ->leftJoin('cf.referenceLab', $alias)
             ->andWhere($alias.'.id IS NULL');
     }
 }

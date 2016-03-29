@@ -6,7 +6,6 @@ use \Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use \Symfony\Component\BrowserKit\Cookie;
 use \Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
-
 class ApplicationAvailabilityTest extends WebTestCase
 {
     /**
@@ -19,7 +18,7 @@ class ApplicationAvailabilityTest extends WebTestCase
         $client->followRedirects();
         $client->request('GET', $url);
 
-        $this->assertTrue($client->getResponse()->isSuccessful(),$client->getResponse());
+        $this->assertTrue($client->getResponse()->isSuccessful(), $client->getResponse());
     }
 
     public function urlProvider()

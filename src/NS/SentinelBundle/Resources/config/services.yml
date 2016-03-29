@@ -12,25 +12,25 @@ services:
 
   ns_sentinel.rotavirus_report:
     class: NS\SentinelBundle\Report\RotaVirusReporter
-    arguments: [@lexik_form_filter.query_builder_updater, @doctrine.orm.entity_manager, @router ]
+    arguments: [ "@lexik_form_filter.query_builder_updater", "@doctrine.orm.entity_manager", "@router" ]
 
   ns_sentinel.ibd_report:
     class: NS\SentinelBundle\Report\IBDReporter
-    arguments: [@lexik_form_filter.query_builder_updater, @doctrine.orm.entity_manager, @router ]
+    arguments: [ "@lexik_form_filter.query_builder_updater", "@doctrine.orm.entity_manager", "@router" ]
 
   ns.sentinel.services.homepage:
     class: NS\SentinelBundle\Services\Homepage
-    arguments: [ @security.token_storage, @router ]
+    arguments: [ "@security.token_storage", "@router" ]
 
   ns.sentinel.services.login_listener:
     class: NS\SentinelBundle\Services\LoginListener
-    arguments: [ @ns.sentinel.services.homepage, @event_dispatcher ]
+    arguments: [ "@ns.sentinel.services.homepage", "@event_dispatcher" ]
     tags:
       - { name: kernel.event_listener, event: security.interactive_login, method: onSecurityInteractiveLogin }
 
   ns.sentinel.locale_listener:
     class: NS\SentinelBundle\Locale\Login
-    arguments: [ @security.token_storage, %kernel.default_locale% ]
+    arguments: [ "@security.token_storage", %kernel.default_locale% ]
     tags:
       - { name: kernel.event_subscriber }
       - { name: kernel.event_listener, event: security.authentication.success, method: onLogin }
@@ -50,33 +50,16 @@ services:
     class: NS\SentinelBundle\Services\SerializedSites
     arguments: [ "@session", "@doctrine.orm.entity_manager" ]
 
-  ns.sentinel.result_per_page:
-    class: NS\SentinelBundle\Form\Listener\ResultPerPage
-    arguments: [ "@router","@form.factory" ]
-    tags:
-      - { name: kernel.event_listener, event: kernel.request, method: onRequest }
-
   ns.sentinel.menu_builder:
     class: NS\SentinelBundle\Menu\Builder
     arguments: [ "@knp_menu.factory", "@security.authorization_checker", "@request_stack" ]
 
-  ns.sentinel.menu.user:
-    class: Knp\Menu\MenuItem # the service definition requires setting the class
-    factory_service: ns.sentinel.menu_builder
-    factory_method: user
-    arguments: ["@request"]
-    scope: request # needed as we have the request as a dependency here
+  ns_sentinel.menu_builder:
+    class: NS\SentinelBundle\Menu\Builder
+    arguments: [ "@knp_menu.factory", "@security.authorization_checker", "@request_stack" ]
     tags:
-      - { name: knp_menu.menu, alias: user } # The alias is what is used to retrieve the menu
-
-  ns.sentinel.menu.sidebar:
-    class: Knp\Menu\MenuItem # the service definition requires setting the class
-    factory_service: ns.sentinel.menu_builder
-    factory_method: sidebar
-    arguments: ["@request"]
-    scope: request # needed as we have the request as a dependency here
-    tags:
-      - { name: knp_menu.menu, alias: sidebar } # The alias is what is used to retrieve the menu
+      - { name: knp_menu.menu_builder, method: user, alias: user }
+      - { name: knp_menu.menu_builder, method: sidebar, alias: sidebar }
 
   ns_sentinel.misc_provider:
     class: NS\SentinelBundle\DataFixtures\Alice\MiscProvider

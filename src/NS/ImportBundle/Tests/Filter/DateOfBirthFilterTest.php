@@ -11,45 +11,48 @@ class DateOfBirthFilterTest extends \PHPUnit_Framework_TestCase
      * @param $data
      * @param $retValue
      */
-    public function testNotIsset($data,$retValue)
+    public function testNotIsset($data, $retValue)
     {
         $filter = new DateOfBirthFilter();
-        if($retValue) {
+        if ($retValue) {
             $this->assertTrue($filter->__invoke($data));
+            $this->assertFalse($filter->hasMessage());
         } else {
             $this->assertFalse($filter->__invoke($data));
+            $this->assertTrue($filter->hasMessage());
+            $this->assertEquals('Admission date is before birthdate', $filter->getMessage());
         }
     }
 
     public function getNotSet()
     {
-        $dob = new \DateTime('2015-05-07');
+        $birthdate = new \DateTime('2015-05-07');
         $admDate = new \DateTime('2015-06-01');
 
         return array(
             array(
-                array('dob' => null), true
+                array('birthdate' => null), true
             ),
             array(
                 array('admDate' => null), true
             ),
             array(
-                array('dob' => null, 'admDate' => null), true
+                array('birthdate' => null, 'admDate' => null), true
             ),
             array(
-                array('dob' => null, 'admDate' => $admDate), true
+                array('birthdate' => null, 'admDate' => $admDate), true
             ),
             array(
-                array('dob' => $dob, 'admDate' => null), true
+                array('birthdate' => $birthdate, 'admDate' => null), true
             ),
             array(
-                array('dob' => $dob, 'admDate' => null), true
+                array('birthdate' => $birthdate, 'admDate' => null), true
             ),
             array(
-                array('dob' => $dob, 'admDate' => $admDate), true
+                array('birthdate' => $birthdate, 'admDate' => $admDate), true
             ),
             array(
-                array('dob' => $admDate, 'admDate' => $dob), false
+                array('birthdate' => $admDate, 'admDate' => $birthdate), false
             ),
         );
     }

@@ -20,7 +20,7 @@ class DuplicateTest extends \PHPUnit_Framework_TestCase
         $paramsOne    = array('site' => 'sitecode', 'caseId' => '12223');
         $paramsTwo    = array('site' => 'sIteCode', 'caseId' => '12223');
 
-        $duplicate    = new Duplicate($uniqueFields,$file);
+        $duplicate    = new Duplicate($uniqueFields, $file);
 
         $this->assertFalse($duplicate->hasMessage(), "There is no message ".$duplicate->getMessage());
 
@@ -29,7 +29,7 @@ class DuplicateTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($duplicate->__invoke($paramsTwo), "Second set of params is a duplicate");
         $this->assertTrue($duplicate->hasMessage(), "There is a message");
-        $this->assertEquals('Duplicate row detected with key \'SITECODE_12223\'',$duplicate->getMessage());
+        $this->assertEquals('Duplicate row detected with key \'SITECODE_12223\'', $duplicate->getMessage());
         unlink($file->getPathname());
     }
 
@@ -38,7 +38,7 @@ class DuplicateTest extends \PHPUnit_Framework_TestCase
         $file = new File(tempnam(sys_get_temp_dir(), 'duplicate_test'));
         $uniqueFields = array('site', 'caseId');
         $params       = array('site' => 'sitecode', 'caseId' => '12223');
-        $duplicate    = new Duplicate($uniqueFields,$file);
+        $duplicate    = new Duplicate($uniqueFields, $file);
         $this->assertTrue($duplicate->__invoke($params), "First set of params is not a duplicate");
         $this->assertFalse($duplicate->hasMessage(), "There is no message");
         $this->assertFalse($duplicate->__invoke($params), "Second set of params is a duplicate");
@@ -55,7 +55,7 @@ class DuplicateTest extends \PHPUnit_Framework_TestCase
 
         $uniqueFields = array('getcode' => 'site', 'caseId');
         $params       = array('site' => $site, 'caseId' => '12223');
-        $duplicate    = new Duplicate($uniqueFields,$file);
+        $duplicate    = new Duplicate($uniqueFields, $file);
         $this->assertTrue($duplicate->__invoke($params), "First set of params is not a duplicate");
         $this->assertFalse($duplicate->hasMessage(), "There is no message");
         $this->assertFalse($duplicate->__invoke($params), "Second set of params is a duplicate");
@@ -70,7 +70,7 @@ class DuplicateTest extends \PHPUnit_Framework_TestCase
 
     public function testDuplicateObjectStoresState()
     {
-        $file = new File(tempnam(sys_get_temp_dir(),'duptest'));
+        $file = new File(tempnam(sys_get_temp_dir(), 'duptest'));
         $uniqueFields = array('code','caseId');
 
         $params = array(
@@ -79,8 +79,8 @@ class DuplicateTest extends \PHPUnit_Framework_TestCase
             array('code'=>2,'caseId'=>2,),
             array('code'=>3,'caseId'=>1,),
         );
-        $duplicateOne = new Duplicate($uniqueFields,$file);
-        foreach($params as $param) {
+        $duplicateOne = new Duplicate($uniqueFields, $file);
+        foreach ($params as $param) {
             $this->assertTrue($duplicateOne->__invoke($param));
         }
         $duplicateOne->finish();
@@ -88,7 +88,7 @@ class DuplicateTest extends \PHPUnit_Framework_TestCase
         $this->assertNotNull(file_get_contents($file->getPathname()));
 
         $parameter = array('code'=>2,'caseId'=>3);
-        $duplicateTwo = new Duplicate($uniqueFields,$file);
+        $duplicateTwo = new Duplicate($uniqueFields, $file);
         $this->assertFalse($duplicateTwo->__invoke($parameter));
         $this->assertTrue($duplicateTwo->hasMessage());
 

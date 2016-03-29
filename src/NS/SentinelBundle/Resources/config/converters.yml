@@ -114,9 +114,9 @@ services:
     tags:
       - { name: ns_import.converter }
 
-  ns.sentinel.converter.gramStainOrganism:
+  ns.sentinel.converter.gramStainResult:
     class: NS\SentinelBundle\Converter\ArrayChoiceConverter
-    arguments: [ NS\SentinelBundle\Form\Types\GramStainOrganism ]
+    arguments: [ NS\SentinelBundle\Form\Types\GramStainResult ]
     tags:
       - { name: ns_import.converter }
 

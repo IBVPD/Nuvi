@@ -3,6 +3,7 @@
 namespace NS\SentinelBundle\Form\Types;
 
 use \Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use \Symfony\Component\Security\Core\SecurityContext;
 use \JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use \NS\UtilBundle\Form\Types\TranslatableArrayChoice;
@@ -14,7 +15,7 @@ use \NS\UtilBundle\Form\Types\TranslatableArrayChoice;
  */
 class Role extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    private $securityContext;
+    private $tokenStorage;
 
     const REGION = 1;
     const COUNTRY = 2;
@@ -149,14 +150,6 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
     }
 
     /**
-     * @param SecurityContext $context
-     */
-    public function setSecurityContext(SecurityContext $context)
-    {
-        $this->securityContext = $context;
-    }
-
-    /**
      *
      * @param array $roles
      * @return integer
@@ -179,11 +172,21 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
     }
 
     /**
+     * @param TokenStorageInterface $tokenStorage
+     * @return Role
+     */
+    public function setTokenStorage(TokenStorageInterface $tokenStorage)
+    {
+        $this->tokenStorage = $tokenStorage;
+        return $this;
+    }
+
+    /**
      * @inheritDoc
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $highest = $this->getHighest($this->securityContext->getToken()->getRoles());
+        $highest = $this->getHighest($this->tokenStorage->getToken()->getRoles());
 
         if (!is_null($highest) && $highest != self::REGION) {
             $values = $this->values;

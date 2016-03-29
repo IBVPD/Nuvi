@@ -9,8 +9,8 @@ class ImportBatchWorkerTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstructor()
     {
-        list($mockEntityMgr,$mockProcessor,$mockLinker) = $this->getConstructorArguments();
-        $worker = new ImportBatchWorker($mockEntityMgr,$mockProcessor,$mockLinker);
+        list($mockEntityMgr, $mockProcessor, $mockLinker) = $this->getConstructorArguments();
+        $worker = new ImportBatchWorker($mockEntityMgr, $mockProcessor, $mockLinker);
         $this->assertInstanceOf('NS\ImportBundle\Importer\ImportBatchWorker', $worker);
     }
 

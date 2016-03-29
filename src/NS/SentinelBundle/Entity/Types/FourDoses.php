@@ -23,5 +23,4 @@ class FourDoses extends ArrayChoice
     {
         return 'FourDoses';
     }
-    
 }

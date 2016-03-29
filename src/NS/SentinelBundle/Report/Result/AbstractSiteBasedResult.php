@@ -2,7 +2,6 @@
 
 namespace NS\SentinelBundle\Report\Result;
 
-
 use NS\SentinelBundle\Entity\Site;
 
 /**
@@ -71,5 +70,4 @@ abstract class AbstractSiteBasedResult
         $this->totalCases = $totalCases;
         return $this;
     }
-
 }

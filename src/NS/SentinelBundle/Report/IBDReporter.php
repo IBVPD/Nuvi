@@ -101,7 +101,7 @@ class IBDReporter extends AbstractReporter
     {
         $results = new ArrayCollection();
         $alias = 'i';
-        $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getWithCasesForDate($alias,'NS\SentinelBundle\Entity\IBD');
+        $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getWithCasesForDate($alias, 'NS\SentinelBundle\Entity\IBD');
 
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -218,7 +218,7 @@ class IBDReporter extends AbstractReporter
     {
         $results = new ArrayCollection();
         $alias = 'i';
-        $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getWithCasesForDate($alias,'NS\SentinelBundle\Entity\IBD');
+        $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getWithCasesForDate($alias, 'NS\SentinelBundle\Entity\IBD');
 
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -234,7 +234,7 @@ class IBDReporter extends AbstractReporter
                 return array('sites' => array(), 'form' => $form->createView());
             }
 
-            $this->populateSites($sites,$results,'NS\SentinelBundle\Report\Result\IBD\DataQualityResult');
+            $this->populateSites($sites, $results, 'NS\SentinelBundle\Report\Result\IBD\DataQualityResult');
 
             $repo = $this->entityMgr->getRepository('NSSentinelBundle:IBD');
             $columns = array(
@@ -276,7 +276,7 @@ class IBDReporter extends AbstractReporter
     {
         $results = new ArrayCollection();
         $alias = 'i';
-        $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getWithCasesForDate($alias,'NS\SentinelBundle\Entity\IBD');
+        $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getWithCasesForDate($alias, 'NS\SentinelBundle\Entity\IBD');
 
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -292,7 +292,7 @@ class IBDReporter extends AbstractReporter
                 return array('sites' => array(), 'form' => $form->createView());
             }
 
-            $this->populateSites($sites,$results,'NS\SentinelBundle\Report\Result\IBD\SitePerformanceResult');
+            $this->populateSites($sites, $results, 'NS\SentinelBundle\Report\Result\IBD\SitePerformanceResult');
 
             $repo = $this->entityMgr->getRepository('NSSentinelBundle:IBD');
             $columns = array(
@@ -305,7 +305,7 @@ class IBDReporter extends AbstractReporter
                 'getNumberOfSpecimenCollectedCount' => 'setSpecimenCollection',
             );
 
-            $this->processResult($columns,$repo,$alias,$results,$form);
+            $this->processResult($columns, $repo, $alias, $results, $form);
         }
 
         return array('sites' => $results, 'form' => $form->createView());
@@ -321,7 +321,7 @@ class IBDReporter extends AbstractReporter
     {
         $results = new ArrayCollection();
         $alias = 'i';
-        $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Country')->getWithCasesForDate($alias,'NS\SentinelBundle\Entity\IBD');
+        $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Country')->getWithCasesForDate($alias, 'NS\SentinelBundle\Entity\IBD');
 
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -337,7 +337,7 @@ class IBDReporter extends AbstractReporter
                 return array('sites' => array(), 'form' => $form->createView());
             }
 
-            $this->populateCountries($countries,$results,'NS\SentinelBundle\Report\Result\DataLinkingResult');
+            $this->populateCountries($countries, $results, 'NS\SentinelBundle\Report\Result\DataLinkingResult');
 
             $repo = $this->entityMgr->getRepository('NSSentinelBundle:IBD');
             $columns = array(
@@ -346,10 +346,9 @@ class IBDReporter extends AbstractReporter
                 'getNoLabCount' => 'setNoLab',
             );
 
-            $this->processLinkingResult($columns,$repo,$alias,$results,$form);
+            $this->processLinkingResult($columns, $repo, $alias, $results, $form);
         }
 
         return array('sites' => $results, 'form' => $form->createView());
     }
-
 }

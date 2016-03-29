@@ -23,11 +23,11 @@ class DoneValidatorTest extends \PHPUnit_Framework_TestCase
         $context->expects($this->never())
             ->method('buildViolation');
 
-        $constraint = new Done(array('resultField'=>'resultField','tripleChoiceField'=>'tripleChoiceField'));
+        $constraint = new Done(array('resultField'=>'resultField', 'tripleChoiceField'=>'tripleChoiceField'));
         $validator = new DoneValidator();
         $validator->initialize($context);
 
-        $validator->validate($data,$constraint);
+        $validator->validate($data, $constraint);
     }
 
     public function testTripleChoiceFieldIsSet()
@@ -44,10 +44,10 @@ class DoneValidatorTest extends \PHPUnit_Framework_TestCase
         $context->expects($this->never())
             ->method('buildViolation');
 
-        $constraint = new Done(array('resultField'=>'resultField','tripleChoiceField'=>'tripleChoiceField'));
+        $constraint = new Done(array('resultField'=>'resultField', 'tripleChoiceField'=>'tripleChoiceField'));
         $validator = new DoneValidator();
         $validator->initialize($context);
-        $validator->validate($data,$constraint);
+        $validator->validate($data, $constraint);
     }
 
     /**
@@ -76,13 +76,13 @@ class DoneValidatorTest extends \PHPUnit_Framework_TestCase
         $builder->expects($this->once())
             ->method('addViolation');
 
-        $constraint = new Done(array('resultField'=>'resultField','tripleChoiceField'=>'tripleChoiceField'));
+        $constraint = new Done(array('resultField'=>'resultField', 'tripleChoiceField'=>'tripleChoiceField'));
         $validator = new DoneValidator();
         $validator->initialize($context);
-        $validator->validate($data,$constraint);
+        $validator->validate($data, $constraint);
     }
 
-    static public function getInvalidStates()
+    public static function getInvalidStates()
     {
         return array(
             array(array(
@@ -116,9 +116,9 @@ class DoneValidatorTest extends \PHPUnit_Framework_TestCase
         $context->expects($this->never())
             ->method('buildViolation');
 
-        $constraint = new Done(array('resultField'=>'resultField','tripleChoiceField'=>'tripleChoiceField'));
+        $constraint = new Done(array('resultField'=>'resultField', 'tripleChoiceField'=>'tripleChoiceField'));
         $validator = new DoneValidator();
         $validator->initialize($context);
-        $validator->validate($data,$constraint);
+        $validator->validate($data, $constraint);
     }
 }

@@ -12,7 +12,7 @@ use NS\SentinelBundle\Converter\SiteConverter;
  *
  * @author gnat
  */
-class SiteTest extends \PHPUnit_Framework_TestCase
+class SiteConverterTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testSiteConverter()
@@ -28,12 +28,12 @@ class SiteTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('NS\SentinelBundle\Entity\Site', $convertedObj);
         $this->assertEquals('S2', $convertedObj->getCode());
 
-        $this->assertEquals('Site',$converter->getName());
+        $this->assertEquals('Site', $converter->getName());
     }
 
     /**
      * @expectedException \NS\SentinelBundle\Exceptions\NonExistentSiteException
-     * @expectedExceptionMessage Unable to find site chain for S5
+     * @expectedExceptionMessage Unable to find site for S5
      */
     public function testSiteConverterNonExistentSiteException()
     {
@@ -112,5 +112,4 @@ class SiteTest extends \PHPUnit_Framework_TestCase
 
         return array($site1->getCode() => $site1, $site2->getCode() => $site2, $site3->getCode() => $site3, $site4->getCode()=>$site4);
     }
-
 }

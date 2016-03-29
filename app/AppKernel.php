@@ -47,6 +47,7 @@ class AppKernel extends Kernel
 
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
+            new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
 
             new PunkAve\FileUploaderBundle\PunkAveFileUploaderBundle(),
             new Lexik\Bundle\FormFilterBundle\LexikFormFilterBundle(),
@@ -60,10 +61,11 @@ class AppKernel extends Kernel
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new NS\ImportBundle\NSImportBundle(),
 
-            new Hpatoio\DeployBundle\DeployBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
             new Leezy\PheanstalkBundle\LeezyPheanstalkBundle(),
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
+            new NS\SonataDoctrineORMAdminBundle\NSSonataDoctrineORMAdminBundle(),
+            new \NS\FilteredPaginationBundle\NSFilteredPaginationBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test','live'))) {

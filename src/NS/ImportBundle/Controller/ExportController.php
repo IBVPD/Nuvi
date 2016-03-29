@@ -34,7 +34,7 @@ class ExportController extends Controller
         $ibdForm = $this->createForm('IBDReportFilterType', null, $this->formParams);
         $rotaForm = $this->createForm('RotaVirusReportFilterType', null, $this->formParams);
 
-        return $this->render('NSImportBundle:Export:index.html.twig',array('ibdForm' => $ibdForm->createView(), 'rotaForm' => $rotaForm->createView()));
+        return $this->render('NSImportBundle:Export:index.html.twig', array('ibdForm' => $ibdForm->createView(), 'rotaForm' => $rotaForm->createView()));
     }
 
     /**
@@ -61,7 +61,7 @@ class ExportController extends Controller
 
             $query = $modelManager->getRepository('NSSentinelBundle:IBD')->exportQuery('i');
 
-            return $this->export('xls', $ibdForm, $query, $fields);
+            return $this->export('csv', $ibdForm, $query, $fields);
         }
     }
 
@@ -88,7 +88,7 @@ class ExportController extends Controller
             $this->adjustFields($meta, $fields);
             $query = $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:RotaVirus')->exportQuery('i');
 
-            return $this->export('xls', $rotaForm, $query, $fields);
+            return $this->export('csv', $rotaForm, $query, $fields);
         }
     }
 

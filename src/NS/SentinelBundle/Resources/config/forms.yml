@@ -138,19 +138,19 @@ services:
     class: NS\SentinelBundle\Filter\Type\CountryType
     arguments: [ "@doctrine.orm.entity_manager", "NSSentinelBundle:Country" ]
     tags:
-      - { name: form.type, alias: country }
+      - { name: form.type }
 
   ns.sentinel.form.filter.region:
     class: NS\SentinelBundle\Filter\Type\RegionType
     arguments: [ "@doctrine.orm.entity_manager", "NSSentinelBundle:Region" ]
     tags:
-      - { name: form.type, alias: region }
+      - { name: form.type }
 
   ns.sentinel.form.filter.site:
     class: NS\SentinelBundle\Filter\Type\SiteType
     arguments: [ "@doctrine.orm.entity_manager", "NSSentinelBundle:Site" ]
     tags:
-      - { name: form.type, alias: site }
+      - { name: form.type }
 
   ns.sentinel.form.type.createroles:
     class: NS\SentinelBundle\Form\Types\CreateRoles
@@ -175,15 +175,15 @@ services:
     tags:
       - { name: form.type, alias: DischargeOutcome }
 
-  ns.sentinel.form.type.gramstainorganism:
-    class: NS\SentinelBundle\Form\Types\GramStainOrganism
-    tags:
-      - { name: form.type, alias: GramStainOrganism }
-
   ns.sentinel.form.type.gramstain:
     class: NS\SentinelBundle\Form\Types\GramStain
     tags:
       - { name: form.type, alias: GramStain }
+
+  ns.sentinel.form.type.gramstain_result:
+    class: NS\SentinelBundle\Form\Types\GramStainResult
+    tags:
+      - { name: form.type, alias: GramStainResult }
 
   ns.sentinel.form.type.meningitisvaccinationtype:
     class: NS\SentinelBundle\Form\Types\MeningitisVaccinationType
@@ -234,12 +234,6 @@ services:
     class: NS\SentinelBundle\Form\Types\Rehydration
     tags:
       - { name: form.type, alias: Rehydration }
-
-  ns.sentinel.form.result_per_page:
-    class: NS\SentinelBundle\Form\ResultPerPage
-    arguments: [ "ibdIndex" ]
-    tags:
-      - { name: form.type, alias: results_per_page }
 
   ns.sentinel.base.filter:
     class: NS\SentinelBundle\Filter\Type\BaseFilterType
@@ -394,7 +388,7 @@ services:
   ns.sentinel.form.type.role:
       class: NS\SentinelBundle\Form\Types\Role
       calls:
-        - [ setSecurityContext, [ "@security.context" ] ]
+        - [ setTokenStorage, [ "@security.token_storage" ] ]
       tags:
         - { name: form.type, alias: role }
 

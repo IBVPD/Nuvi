@@ -8,8 +8,8 @@ class CountryTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstructor()
     {
-        $country = new Country('CODE','CountryName');
-        $this->assertEquals('CODE',$country->getCode());
-        $this->assertEquals('CountryName',$country->getName());
+        $country = new Country('CODE', 'CountryName');
+        $this->assertEquals('CODE', $country->getCode());
+        $this->assertEquals('CountryName', $country->getName());
     }
 }

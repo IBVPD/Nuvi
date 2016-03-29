@@ -53,10 +53,10 @@ class BaseReportFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('admDate', 'ns_filter_date_range', array('label' => 'report-filter-form.admitted-between',))
+            ->add('admDate', 'ns_filter_date_range', array('label' => 'report-filter-form.admitted-between', ))
             ->add('createdAt', 'ns_filter_date_range', array('label' => 'report-filter-form.created-between'));
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, array($this,'preSetData'));
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'preSetData'));
     }
 
     /**
@@ -66,15 +66,15 @@ class BaseReportFilterType extends AbstractType
     {
         $form     = $event->getForm();
         $options  = $form->getConfig()->getOptions();
-        $siteType = ( isset($options['site_type']) && $options['site_type'] == 'advanced') ? new SiteFilterType() : 'site';
+        $siteType = (isset($options['site_type']) && $options['site_type'] == 'advanced') ? 'NS\SentinelBundle\Filter\Type\SiteFilterType' : 'NS\SentinelBundle\Filter\Type\SiteType';
 
         if ($this->authChecker->isGranted('ROLE_REGION')) {
             $objectIds = $this->converter->getObjectIdsForRole($this->tokenStorage->getToken(), 'ROLE_REGION');
             if (count($objectIds) > 1) {
-                $form->add('region', 'region');
+                $form->add('region', 'NS\SentinelBundle\Filter\Type\RegionType');
             }
 
-            $form->add('country', 'country',array('placeholder' => '','required' => false));
+            $form->add('country', 'NS\SentinelBundle\Filter\Type\CountryType', array('placeholder' => '', 'required' => false));
             $form->add('site', $siteType);
         } elseif ($this->authChecker->isGranted('ROLE_COUNTRY')) {
             $form->add('site', $siteType);
@@ -87,19 +87,19 @@ class BaseReportFilterType extends AbstractType
         }
 
         if ($options['include_filter']) {
-            $form->add('filter', 'submit', array(
+            $form->add('filter', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
                 'icon' => 'fa fa-search',
                 'attr' => array('class' => 'btn btn-sm btn-success')));
         }
 
         if ($options['include_export']) {
-            $form->add('export', 'submit', array(
+            $form->add('export', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
                 'icon' => 'fa fa-cloud-download',
                 'attr' => array('class' => 'btn btn-sm btn-info')));
         }
 
         if ($options['include_reset']) {
-            $form->add('reset', 'submit', array(
+            $form->add('reset', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
                 'icon' => 'fa fa-times-circle',
                 'attr' => array('class' => 'btn btn-sm btn-danger')));
         }

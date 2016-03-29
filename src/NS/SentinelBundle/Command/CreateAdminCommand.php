@@ -37,8 +37,7 @@ class CreateAdminCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $pword = $input->getArgument('password');
-        if(strlen($pword) < 6)
-        {
+        if (strlen($pword) < 6) {
             $output->writeln("Password must be a minimum of 6 characters");
             return;
         }
@@ -52,18 +51,15 @@ class CreateAdminCommand extends ContainerAwareCommand
         $user->setAdmin(true);
 
         $encoder = $factory->getEncoder($user);
-        $user->setPassword($encoder->encodePassword($pword,$user->getSalt()));
+        $user->setPassword($encoder->encodePassword($pword, $user->getSalt()));
         
-        try
-        {
+        try {
             $entityMgr = $this->getContainer()->get('doctrine.orm.entity_manager');
             $entityMgr->persist($user);
             $entityMgr->flush();
 
             $output->writeln("User Created Successfully");
-        }
-        catch(\RuntimeException $e)
-        {
+        } catch (\RuntimeException $e) {
             $output->writeln("Unable to add user");
             $output->writeln($e->getMessage());
         }

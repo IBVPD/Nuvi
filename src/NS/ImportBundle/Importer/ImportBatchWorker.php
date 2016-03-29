@@ -53,12 +53,12 @@ class ImportBatchWorker
         $import = $this->entityMgr->getRepository('NSImportBundle:Import')->find($id);
 
         if (!$import) {
-            throw new \InvalidArgumentException(sprintf('Unable to find import %d',$id));
+            throw new \InvalidArgumentException(sprintf('Unable to find import %d', $id));
         }
 
-        $this->setup($import,$batchSize);
+        $this->setup($import, $batchSize);
         $result = $this->process($import);
-        $this->finish($import,$result);
+        $this->finish($import, $result);
 
         return $import->isComplete();
     }

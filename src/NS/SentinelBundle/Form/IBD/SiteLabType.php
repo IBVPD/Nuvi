@@ -15,9 +15,9 @@ use \NS\SentinelBundle\Form\Types\HiSerotype;
 use \NS\SentinelBundle\Form\Types\NmSerogroup;
 use \NS\SentinelBundle\Form\Types\PCRResult;
 use \NS\SentinelBundle\Form\Types\GramStain;
-use \NS\SentinelBundle\Form\Types\GramStainOrganism;
+use \NS\SentinelBundle\Form\Types\GramStainResult;
 use \NS\SentinelBundle\Entity\Country;
-use NS\SentinelBundle\Entity\Site;
+use \NS\SentinelBundle\Entity\Site;
 
 /**
  * Class SiteLabType
@@ -61,17 +61,26 @@ class SiteLabType extends AbstractType
                 'attr' => array('data-context-parent' => 'csfCultDoneOther', 'data-context-value' => CultureResult::CONTAMINANT)))
             ->add('csfGramDone', 'TripleChoice', array('required' => false, 'label' => 'ibd-form.csf-gram-done',
                 'attr' => array('data-context-child' => 'csfGramDone')))
-            ->add('csfGramResult', 'GramStain', array('required' => false, 'label' => 'ibd-form.csf-gram-result',
-                'attr' => array('data-context-parent' => 'csfGramDone', 'data-context-child' => 'csfGramResult',
+            ->add('csfGramStain', 'GramStain', array(
+                'required' => false,
+                'label' => 'ibd-form.csf-gram-result',
+                'attr' => array(
+                    'data-context-parent' => 'csfGramDone',
+                    'data-context-child' => 'csfGramStain',
                     'data-context-value' => TripleChoice::YES)))
-            ->add('csfGramResultOrganism', 'GramStainOrganism', array('required' => false,
-                'label' => 'ibd-form.csf-gram-result-organism', 'attr' => array(
-                    'data-context-parent' => 'csfGramResult', 'data-context-child' => 'csfGramResultOrganism',
-                    'data-context-value' => json_encode(array(GramStain::GM_NEGATIVE,
-                        GramStain::GM_POSITIVE)))))
-            ->add('csfGramOther', null, array('required' => false, 'label' => 'ibd-form.csf-gram-other',
-                'attr' => array('data-context-parent' => 'csfGramResultOrganism',
-                    'data-context-value' => GramStainOrganism::OTHER)))
+            ->add('csfGramResult', 'GramStainResult', array(
+                'required' => false,
+                'label' => 'ibd-form.csf-gram-result-organism',
+                'attr' => array(
+                    'data-context-parent' => 'csfGramStain',
+                    'data-context-child' => 'csfGramResult',
+                    'data-context-value' => json_encode(array(GramStain::GM_NEGATIVE, GramStain::GM_POSITIVE)))))
+            ->add('csfGramOther', null, array(
+                'required' => false,
+                'label' => 'ibd-form.csf-gram-other',
+                'attr' => array(
+                    'data-context-parent' => 'csfGramResult',
+                    'data-context-value' => GramStainResult::OTHER)))
             ->add('csfBinaxDone', 'TripleChoice', array('required' => false, 'label' => 'ibd-form.csf-binax-done',
                 'attr' => array('data-context-child' => 'csfBinaxDone')))
             ->add('csfBinaxResult', 'BinaxResult', array('required' => false, 'label' => 'ibd-form.csf-binax-result',
@@ -111,19 +120,29 @@ class SiteLabType extends AbstractType
                     'data-context-value' => TripleChoice::YES)))
             ->add('bloodCultOther', null, array('required' => false, 'label' => 'ibd-form.blood-cult-other',
                 'attr' => array('data-context-parent' => 'bloodCultDone', 'data-context-value' => TripleChoice::YES)))
-            ->add('bloodGramDone', 'TripleChoice', array('required' => false, 'label' => 'ibd-form.blood-gram-done',
+            ->add('bloodGramDone', 'TripleChoice', array(
+                'required' => false,
+                'label' => 'ibd-form.blood-gram-done',
                 'attr' => array('data-context-child' => 'bloodGramDone')))
-            ->add('bloodGramResult', 'GramStain', array('required' => false, 'label' => 'ibd-form.blood-gram-result',
-                'attr' => array('data-context-parent' => 'bloodGramDone', 'data-context-child' => 'bloodGramResult',
+            ->add('bloodGramStain', 'GramStain', array(
+                'required' => false,
+                'label' => 'ibd-form.blood-gram-result',
+                'attr' => array(
+                    'data-context-parent' => 'bloodGramDone',
+                    'data-context-child' => 'bloodGramStain',
                     'data-context-value' => TripleChoice::YES)))
-            ->add('bloodGramResultOrganism', 'GramStainOrganism', array('required' => false,
-                'label' => 'ibd-form.blood-gram-result-organism', 'attr' => array(
-                    'data-context-parent' => 'bloodGramResult', 'data-context-child' => 'bloodGramResultOther',
-                    'data-context-value' => json_encode(array(GramStain::GM_NEGATIVE,
-                        GramStain::GM_POSITIVE)))))
-            ->add('bloodGramOther', null, array('required' => false, 'label' => 'ibd-form.blood-gram-other',
+            ->add('bloodGramResult', 'GramStainResult', array(
+                'required' => false,
+                'label' => 'ibd-form.blood-gram-result-organism',
+                'attr' => array(
+                    'data-context-parent' => 'bloodGramStain',
+                    'data-context-child' => 'bloodGramResultOther',
+                    'data-context-value' => json_encode(array(GramStain::GM_NEGATIVE, GramStain::GM_POSITIVE)))))
+            ->add('bloodGramOther', null, array(
+                'required' => false,
+                'label' => 'ibd-form.blood-gram-other',
                 'attr' => array('data-context-parent' => 'bloodGramResultOther',
-                    'data-context-child' => '', 'data-context-value' => GramStainOrganism::OTHER)))
+                    'data-context-child' => '', 'data-context-value' => GramStainResult::OTHER)))
             ->add('bloodPcrDone', 'TripleChoice', array('required' => false, 'label' => 'ibd-form.blood-pcr-done',
                 'attr' => array('data-context-child' => 'bloodPcrDone')))
             ->add('bloodPcrResult', 'PCRResult', array('required' => false, 'label' => 'ibd-form.blood-pcr-result',
@@ -137,7 +156,7 @@ class SiteLabType extends AbstractType
             ->add('otherCultResult', 'CultureResult', array(
                 'required' => false,
                 'label' => 'ibd-form.other-cult-result',
-                'attr' => array('data-context-parent' => 'otherCultDone','data-context-child' => 'otherCultResult', 'data-context-value' => TripleChoice::YES)))
+                'attr' => array('data-context-parent' => 'otherCultDone', 'data-context-child' => 'otherCultResult', 'data-context-value' => TripleChoice::YES)))
             ->add('otherCultOther', null, array(
                 'required' => false,
                 'label' => 'ibd-form.other-cult-other',
@@ -149,15 +168,14 @@ class SiteLabType extends AbstractType
             ->add('otherTestResult', 'CultureResult', array(
                 'required' => false,
                 'label' => 'ibd-form.other-test-result',
-                'attr' => array('data-context-parent' => 'otherTestDone','data-context-child'=>'otherTestResult', 'data-context-value' => TripleChoice::YES)))
+                'attr' => array('data-context-parent' => 'otherTestDone', 'data-context-child'=>'otherTestResult', 'data-context-value' => TripleChoice::YES)))
             ->add('otherTestOther', null, array(
                 'required' => false,
                 'label' => 'ibd-form.other-test-other',
                 'attr' => array('data-context-parent' => 'otherTestResult', 'data-context-value' => CultureResult::OTHER)))
         ;
 
-        $builder->addEventListener(FormEvents::POST_SET_DATA,array($this,'postSetData'));
-
+        $builder->addEventListener(FormEvents::POST_SET_DATA, array($this, 'postSetData'));
     }
 
     /**
@@ -179,11 +197,11 @@ class SiteLabType extends AbstractType
         if ($country instanceof Country) {
             if ($country->hasReferenceLab()) {
                 $form
-                    ->add('sentToReferenceLab', 'switch', array('required' => false,'attr'=>array('data-context-child'=>'sentToReferenceLab')))
-                    ->add('csfSentToRRLDate','acedatepicker',array('label'=>'ibd-form.csf-sent-to-rrl-date','required'=>false,'attr'=>array('data-context-parent'=>'sentToReferenceLab','data-context-value'=>1)))
-                    ->add('csfIsolSentToRRLDate','acedatepicker',array('label'=>'ibd-form.csf-isol-sent-to-rrl-date','required'=>false,'attr'=>array('data-context-parent'=>'sentToReferenceLab','data-context-value'=>1)))
-                    ->add('bloodIsolSentToRRLDate','acedatepicker',array('label'=>'ibd-form.blood-sent-to-rrl-date','required'=>false,'attr'=>array('data-context-parent'=>'sentToReferenceLab','data-context-value'=>1)))
-                    ->add('brothSentToRRLDate','acedatepicker',array('label'=>'ibd-form.broth-sent-to-rrl-date','required'=>false,'attr'=>array('data-context-parent'=>'sentToReferenceLab','data-context-value'=>1)))
+                    ->add('sentToReferenceLab', 'switch', array('required' => false, 'attr'=>array('data-context-child'=>'sentToReferenceLab')))
+                    ->add('csfSentToRRLDate', 'acedatepicker', array('label'=>'ibd-form.csf-sent-to-rrl-date', 'required'=>false, 'attr'=>array('data-context-parent'=>'sentToReferenceLab', 'data-context-value'=>1)))
+                    ->add('csfIsolSentToRRLDate', 'acedatepicker', array('label'=>'ibd-form.csf-isol-sent-to-rrl-date', 'required'=>false, 'attr'=>array('data-context-parent'=>'sentToReferenceLab', 'data-context-value'=>1)))
+                    ->add('bloodIsolSentToRRLDate', 'acedatepicker', array('label'=>'ibd-form.blood-sent-to-rrl-date', 'required'=>false, 'attr'=>array('data-context-parent'=>'sentToReferenceLab', 'data-context-value'=>1)))
+                    ->add('brothSentToRRLDate', 'acedatepicker', array('label'=>'ibd-form.broth-sent-to-rrl-date', 'required'=>false, 'attr'=>array('data-context-parent'=>'sentToReferenceLab', 'data-context-value'=>1)))
                 ;
             }
 

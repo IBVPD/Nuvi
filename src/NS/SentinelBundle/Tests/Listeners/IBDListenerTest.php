@@ -234,7 +234,7 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
         $complete = $this->getSingleCompleteCaseWithoutPneunomia();
         $fields = array(
             'caseId',
-            'dob',
+            'birthdate',
             'gender',
             'district',
             'admDate',
@@ -280,7 +280,7 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
         $complete  = $this->getSingleCompleteCaseWithPneunomia();
         $fields = array(
             'caseId',
-            'dob',
+            'birthdate',
             'gender',
             'district',
             'admDate',
@@ -392,7 +392,7 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
         return array(
             'setcountry'              => $country,
             'setcaseId'               => 'blah',
-            'setdob'                  => new \DateTime(),
+            'setbirthdate'            => new \DateTime(),
             'setgender'               => new Gender(Gender::MALE),
             'setdistrict'             => 'The District',
             'setadmDate'              => new \DateTime(),
@@ -449,7 +449,7 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
             'setcountry'                => $country,
             'setcaseId'                 => 'blah',
             'setdistrict'               => 'The District',
-            'setdob'                    => new \DateTime(),
+            'setbirthdate'              => new \DateTime(),
             'setgender'                 => new Gender(Gender::MALE),
             'setadmDate'                => new \DateTime(),
             'setonsetDate'              => new \DateTime(),

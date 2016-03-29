@@ -1,6 +1,7 @@
 <?php
 
 namespace NS\SentinelBundle\Tests;
+
 use \Liip\FunctionalTestBundle\Test\WebTestCase;
 
 /**

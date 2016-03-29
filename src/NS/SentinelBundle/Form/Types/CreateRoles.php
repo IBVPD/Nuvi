@@ -91,8 +91,7 @@ class CreateRoles extends TranslatableArrayChoice implements TranslationContaine
      */
     public function getRoute($routeBase)
     {
-        switch ($this->getValue())
-        {
+        switch ($this->getValue()) {
             case CreateRoles::BASE:
                 return $routeBase . 'Edit';
             case CreateRoles::SITE:

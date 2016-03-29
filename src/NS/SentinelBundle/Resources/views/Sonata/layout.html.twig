@@ -38,8 +38,8 @@
 {% block stylesheets %}
     {{parent()}}
     <!-- base application asset -->
-    <link rel="stylesheet" href="{{ asset('bundles/sonataadmin/css/layout.css') }}" type="text/css" media="all" />
-    <link rel="stylesheet" href="{{ asset('bundles/sonataadmin/css/colors.css') }}" type="text/css" media="all" />
+    <link rel="stylesheet" href="{{ asset('/bundles/sonataadmin/css/layout.css') }}" type="text/css" media="all" />
+    <link rel="stylesheet" href="{{ asset('/bundles/sonataadmin/css/colors.css') }}" type="text/css" media="all" />
 {% endblock %}
 
 {% block javascripts %}
@@ -55,8 +55,8 @@
 
     {{parent()}}
 
-    <script src="{{ asset('bundles/sonataadmin/jquery/jquery.form.js') }}" type="text/javascript"></script>
-    {% if admin_pool is defined and admin_pool.getOption('confirm_exit') %}<script src="{{ asset('bundles/sonataadmin/jquery/jquery.confirmExit.js') }}" type="text/javascript"></script>{% endif %}
+    <script src="{{ asset('/bundles/sonataadmin/jquery/jquery.form.js') }}" type="text/javascript"></script>
+    {% if admin_pool is defined and admin_pool.getOption('confirm_exit') %}<script src="{{ asset('/bundles/sonataadmin/jquery/jquery.confirmExit.js') }}" type="text/javascript"></script>{% endif %}
 {% endblock %}
 
 {% block body %}
@@ -65,7 +65,7 @@
             {% for notice_level in ['success','error','info', 'warning'] %}
                 {% set session_var = 'sonata_flash_' ~ notice_level %}
                 {% for flash in app.session.flashbag.get(session_var) %}
-                    <div class="alert {{ 'alert-' ~ notice_level }}">
+                    <div class="alert {{ 'alert-' ~ (notice_level=='error'?'danger':notice_level) }}">
                         {{ flash|trans([], 'SonataAdminBundle') }}
                     </div>
                 {% endfor %}

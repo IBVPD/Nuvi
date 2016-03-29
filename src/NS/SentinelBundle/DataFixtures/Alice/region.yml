@@ -91,6 +91,7 @@ NS\SentinelBundle\Entity\Site:
 
 NS\SentinelBundle\Entity\ReferenceLab:
     lab1:
+        id: CA-RRL
         name: Canadian Reference Lab
         location: <address()>
         type: <surveillanceConducted()>

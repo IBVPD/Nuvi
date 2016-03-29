@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2015-11-17T13:53:27Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
+  <file date="2016-03-24T16:31:51Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -40,9 +40,9 @@
       <trans-unit id="8d2914d70c18b106105e778bbeba4b22c8415108" resname="Client Id">
         <source>Client Id</source>
         <target state="new">Client Id</target>
+        <jms:reference-file line="20">views/Client/dashboard.html.twig</jms:reference-file>
         <jms:reference-file line="44">ApiBundle/Admin/ClientAdmin.php</jms:reference-file>
         <jms:reference-file line="64">ApiBundle/Admin/ClientAdmin.php</jms:reference-file>
-        <jms:reference-file line="20">views/Client/dashboard.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="11086b4f8a7682cfc0a8ceff326c963e24c80ab7" resname="Client Id/Secret">
         <source>Client Id/Secret</source>
@@ -52,9 +52,9 @@
       <trans-unit id="2c4e1babc2d1448dfcfdd24fb92068644227d6f1" resname="Client Secret">
         <source>Client Secret</source>
         <target state="new">Client Secret</target>
+        <jms:reference-file line="21">views/Client/dashboard.html.twig</jms:reference-file>
         <jms:reference-file line="45">ApiBundle/Admin/ClientAdmin.php</jms:reference-file>
         <jms:reference-file line="65">ApiBundle/Admin/ClientAdmin.php</jms:reference-file>
-        <jms:reference-file line="21">views/Client/dashboard.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="6e157c5da4410b7e9de85f5c93026b9176e69064" resname="Create">
         <source>Create</source>
@@ -107,12 +107,6 @@
         <target state="new">Name</target>
         <jms:reference-file line="19">views/Client/dashboard.html.twig</jms:reference-file>
         <jms:reference-file line="60">views/Client/dashboard.html.twig</jms:reference-file>
-      </trans-unit>
-      <trans-unit id="1ddc4c9044f546bb068b7278a50bff494b12b425" resname="Please Select">
-        <source>Please Select</source>
-        <target state="new">Please Select</target>
-        <jms:reference-file line="27">ApiBundle/Admin/ClientAdmin.php</jms:reference-file>
-        <jms:reference-file line="58">ApiBundle/Admin/RemoteAdmin.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="eb781f028e2363134e21b09e22e75dfe2b64ac25" resname="Redirect Uris">
         <source>Redirect Uris</source>

@@ -39,10 +39,9 @@ class CreateType extends AbstractType
             ->add('type', 'CreateRoles', array('description' => 'This should always be "1"'))
         ;
 
-        if($this->siteSerializer->hasMultipleSites())
-        {
+        if ($this->siteSerializer->hasMultipleSites()) {
             $queryBuilder = $this->entityMgr->getRepository('NS\SentinelBundle\Entity\Site')->getChainQueryBuilder()->orderBy('s.name', 'ASC');
-            $builder->add('site','entity',array('required'        => true,
+            $builder->add('site', 'entity', array('required'        => true,
                                                 'mapped'          => false,
                                                 'placeholder'     => 'Please Select...',
                                                 'label'           => 'ibd-form.site',

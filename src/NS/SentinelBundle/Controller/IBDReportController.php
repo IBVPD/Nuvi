@@ -24,12 +24,12 @@ class IBDReportController extends Controller
     {
         $form    = $this->createForm('IBDReportFilterType');
         $service = $this->get('ns_sentinel.ibd_report');
-        $params  = $service->numberEnrolled($request,$form,'reportPercentEnrolled');
-        if($params instanceof Response) {
+        $params  = $service->numberEnrolled($request, $form, 'reportPercentEnrolled');
+        if ($params instanceof Response) {
             return $params;
         }
 
-        return $this->render('NSSentinelBundle:Report/IBD:percentEnrolled.html.twig',$params);
+        return $this->render('NSSentinelBundle:Report/IBD:percentEnrolled.html.twig', $params);
     }
 
     /**
@@ -41,12 +41,12 @@ class IBDReportController extends Controller
     {
         $form    = $this->createForm('IBDReportFilterType');
         $service = $this->get('ns_sentinel.ibd_report');
-        $params  = $service->getAnnualAgeDistribution($request,$form,'reportAnnualAgeDistribution');
-        if($params instanceof Response) {
+        $params  = $service->getAnnualAgeDistribution($request, $form, 'reportAnnualAgeDistribution');
+        if ($params instanceof Response) {
             return $params;
         }
 
-        return $this->render('NSSentinelBundle:Report/IBD:annualAgeDistribution.html.twig',$params);
+        return $this->render('NSSentinelBundle:Report/IBD:annualAgeDistribution.html.twig', $params);
     }
 
     /**
@@ -56,7 +56,7 @@ class IBDReportController extends Controller
     {
         $reports = $this->get('doctrine.orm.entity_manager')->getRepository("NSSentinelBundle:IBD")->getByCountry();
 
-        return $this->render('NSSentinelBundle:Report/IBD:byCountryGraph.html.twig',array('reports' => $reports));
+        return $this->render('NSSentinelBundle:Report/IBD:byCountryGraph.html.twig', array('reports' => $reports));
     }
 
     /**
@@ -66,7 +66,7 @@ class IBDReportController extends Controller
     {
         $reports = $this->get('doctrine.orm.entity_manager')->getRepository("NSSentinelBundle:IBD")->getBySite();
 
-        return $this->render('NSSentinelBundle:Report/IBD:bySiteGraph.html.twig',array('reports' => $reports));
+        return $this->render('NSSentinelBundle:Report/IBD:bySiteGraph.html.twig', array('reports' => $reports));
     }
 
     /**
@@ -76,7 +76,7 @@ class IBDReportController extends Controller
     {
         $reports = $this->get('doctrine.orm.entity_manager')->getRepository("NSSentinelBundle:IBD")->getStats();
        
-        return $this->render('NSSentinelBundle:Report/IBD:generalStats.html.twig',array('reports' => $reports));
+        return $this->render('NSSentinelBundle:Report/IBD:generalStats.html.twig', array('reports' => $reports));
     }
 
     /**
@@ -86,7 +86,7 @@ class IBDReportController extends Controller
     {
         $reports = $this->get('doctrine.orm.entity_manager')->getRepository("NSSentinelBundle:IBD")->getByDiagnosis();
        
-        return $this->render('NSSentinelBundle:Report/IBD:byDiagnosisGraph.html.twig',array('reports' => $reports));
+        return $this->render('NSSentinelBundle:Report/IBD:byDiagnosisGraph.html.twig', array('reports' => $reports));
     }
 
     /**
@@ -96,14 +96,14 @@ class IBDReportController extends Controller
      */
     public function fieldPopulationAction(Request $request)
     {
-        $form    = $this->createForm('IBDReportFilterType',null,array('site_type'=>'advanced','validation_groups'=>array('FieldPopulation')));
+        $form    = $this->createForm('IBDReportFilterType', null, array('site_type'=>'advanced', 'validation_groups'=>array('FieldPopulation')));
         $service = $this->get('ns_sentinel.ibd_report');
-        $params = $service->getFieldPopulation($request,$form,'reportFieldPopulation');
-        if($params instanceof Response) {
+        $params = $service->getFieldPopulation($request, $form, 'reportFieldPopulation');
+        if ($params instanceof Response) {
             return $params;
         }
 
-        return $this->render('NSSentinelBundle:Report/IBD:fieldPopulation.html.twig',$params);
+        return $this->render('NSSentinelBundle:Report/IBD:fieldPopulation.html.twig', $params);
     }
 
     /**
@@ -113,14 +113,14 @@ class IBDReportController extends Controller
      */
     public function culturePositiveAction(Request $request)
     {
-        $form    = $this->createForm('IBDReportFilterType',null,array('site_type'=>'advanced'));
+        $form    = $this->createForm('IBDReportFilterType', null, array('site_type'=>'advanced'));
         $service = $this->get('ns_sentinel.ibd_report');
-        $params  = $service->getCulturePositive($request,$form,'reportCulturePositive');
-        if($params instanceof Response) {
+        $params  = $service->getCulturePositive($request, $form, 'reportCulturePositive');
+        if ($params instanceof Response) {
             return $params;
         }
 
-        return $this->render('NSSentinelBundle:Report/IBD:culturePositive.html.twig',$params);
+        return $this->render('NSSentinelBundle:Report/IBD:culturePositive.html.twig', $params);
     }
 
     /*
@@ -144,14 +144,14 @@ class IBDReportController extends Controller
      */
     public function dataQualityAction(Request $request)
     {
-        $form    = $this->createForm('IBDReportFilterType',null,array('site_type'=>'advanced'));
+        $form    = $this->createForm('IBDReportFilterType', null, array('site_type'=>'advanced'));
         $service = $this->get('ns_sentinel.ibd_report');
-        $params  = $service->getDataQuality($request,$form,'reportIBDDataQuality');
-        if($params instanceof Response) {
+        $params  = $service->getDataQuality($request, $form, 'reportIBDDataQuality');
+        if ($params instanceof Response) {
             return $params;
         }
 
-        return $this->render('NSSentinelBundle:Report/IBD:dataQuality.html.twig',$params);
+        return $this->render('NSSentinelBundle:Report/IBD:dataQuality.html.twig', $params);
     }
 
     /**
@@ -161,10 +161,10 @@ class IBDReportController extends Controller
      */
     public function sitePerformanceAction(Request $request)
     {
-        $form    = $this->createForm('QuarterlyReportFilter',null,array('site_type'=>'advanced'));
+        $form    = $this->createForm('QuarterlyReportFilter', null, array('site_type'=>'advanced'));
         $service = $this->get('ns_sentinel.ibd_report');
-        $params  = $service->getSitePerformance($request,$form,'reportIBDDataQuality');
-        if($params instanceof Response) {
+        $params  = $service->getSitePerformance($request, $form, 'reportIBDDataQuality');
+        if ($params instanceof Response) {
             return $params;
         }
 
@@ -179,13 +179,13 @@ class IBDReportController extends Controller
      */
     public function dataLinking(Request $request)
     {
-        $form    = $this->createForm('IBDQuarterlyLinkingReportFilter',null,array('site_type'=>'advanced'));
+        $form    = $this->createForm('IBDQuarterlyLinkingReportFilter', null, array('site_type'=>'advanced'));
         $service = $this->get('ns_sentinel.ibd_report');
-        $params  = $service->getDataLinking($request,$form,'reportIbdDataLinking');
-        if($params instanceof Response) {
+        $params  = $service->getDataLinking($request, $form, 'reportIbdDataLinking');
+        if ($params instanceof Response) {
             return $params;
         }
 
-        return $this->render('NSSentinelBundle:Report/IBD:data-linking.html.twig',$params);
+        return $this->render('NSSentinelBundle:Report/IBD:data-linking.html.twig', $params);
     }
 }

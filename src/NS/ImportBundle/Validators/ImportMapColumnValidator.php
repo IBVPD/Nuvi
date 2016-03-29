@@ -38,7 +38,7 @@ class ImportMapColumnValidator extends ConstraintValidator
             throw new \InvalidArgumentException(sprintf('Expected object of class NS\ImportBundle\Entity\Column received %s', get_class($value)));
         }
 
-        if(empty($this->complexChoices)) {
+        if (empty($this->complexChoices)) {
             $this->initializeChoices($value->getMap()->getClass());
         }
 

@@ -6,7 +6,6 @@ use NS\ImportBundle\Entity\Import;
 use NS\ImportBundle\Reader\ReaderFactory;
 use Vich\UploaderBundle\Event\Event;
 
-
 /**
  * Class EventListener
  * @package NS\ImportBundle\Vich
@@ -31,7 +30,7 @@ class EventListener
         $obj      = $event->getObject();
         $property = $event->getMapping()->getFilePropertyName();
 
-        if($obj instanceof Import && $property == 'source' && $this->readerFactory->getExtension($obj->getSourceFile()) == 'csv') {
+        if ($obj instanceof Import && $property == 'source' && $this->readerFactory->getExtension($obj->getSourceFile()) == 'csv') {
             $this->convertToUtf8($obj->getSourceFile()->getPathname());
         }
     }
@@ -42,6 +41,6 @@ class EventListener
     public function convertToUtf8($path)
     {
         $fileContent = file_get_contents($path);
-        file_put_contents($path,mb_convert_encoding($fileContent,'UTF-8'));
+        file_put_contents($path, mb_convert_encoding($fileContent, 'UTF-8'));
     }
 }

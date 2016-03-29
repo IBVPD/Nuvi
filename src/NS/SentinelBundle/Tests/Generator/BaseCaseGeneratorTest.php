@@ -55,7 +55,7 @@ class BaseCaseGeneratorTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $country = new Country('CDN','Canada');
+        $country = new Country('CDN', 'Canada');
 
         $entity = new IBD();
         $entity->setAdmDate(new \DateTime('2015-11-13'));
@@ -63,7 +63,7 @@ class BaseCaseGeneratorTest extends \PHPUnit_Framework_TestCase
 
         $generator = new BaseCaseGenerator();
         $id = $generator->generate($entityMgr, $entity);
-        $this->assertEquals('CDN-XXX-15-',substr($id,0,11));
+        $this->assertEquals('CDN-XXX-15-', substr($id, 0, 11));
     }
 
     public function testCaseIdGeneration()
@@ -78,7 +78,7 @@ class BaseCaseGeneratorTest extends \PHPUnit_Framework_TestCase
 
         $entityMgr = $this->getMockBuilder('Doctrine\ORM\EntityManager')
             ->disableOriginalConstructor()
-            ->setMethods(array('beginTransaction', 'createNativeQuery', 'rollback', 'commit','createQuery','setParameter','execute'))
+            ->setMethods(array('beginTransaction', 'createNativeQuery', 'rollback', 'commit', 'createQuery', 'setParameter', 'execute'))
             ->getMock();
         $entityMgr->expects($this->once())
             ->method('createNativeQuery')
@@ -89,7 +89,7 @@ class BaseCaseGeneratorTest extends \PHPUnit_Framework_TestCase
             ->willReturnSelf();
         $entityMgr->expects($this->once())
             ->method('setParameter')
-            ->with('code','SITE')
+            ->with('code', 'SITE')
             ->willReturnSelf();
         $entityMgr->expects($this->once())
             ->method('execute');

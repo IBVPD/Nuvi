@@ -32,5 +32,4 @@ class FourDoses extends TranslatableArrayChoice implements TranslationContainerI
     {
         return 'FourDoses';
     }
-
 }

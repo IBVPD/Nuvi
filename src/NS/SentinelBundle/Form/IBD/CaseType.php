@@ -43,7 +43,7 @@ class CaseType extends AbstractType
             ->add('parentalName', null, array('required' => $required, 'label' => 'ibd-form.parental-name'))
             ->add('dobKnown', 'TripleChoice', array('required' => $required, 'label' => 'ibd-form.date-of-birth-known',
                 'attr' => array('data-context-child' => 'dob')))
-            ->add('dob', 'acedatepicker', array('required' => $required, 'label' => 'ibd-form.date-of-birth',
+            ->add('birthdate', 'acedatepicker', array('required' => $required, 'label' => 'ibd-form.date-of-birth',
                 'attr' => array('data-context-parent' => 'dob', 'data-context-value' => TripleChoice::YES),
                 'widget' => 'single_text'))
             ->add('dobYears', null, array('required' => $required, 'label' => 'ibd-form.date-of-birth-years',
@@ -105,7 +105,7 @@ class CaseType extends AbstractType
                     'data-context-value' => json_encode(array(VaccinationReceived::YES_CARD,
                         VaccinationReceived::YES_HISTORY)))))
             ->add('bloodCollected', 'TripleChoice', array('required' => $required,
-                'label' => 'ibd-form.blood-collected','attr' => array('data-context-child' => 'bloodCollected')))
+                'label' => 'ibd-form.blood-collected', 'attr' => array('data-context-child' => 'bloodCollected')))
             ->add('bloodCollectDate', 'acedatetime', array('required' => $required,
                 'label' => 'ibd-form.blood-collect-date', 'attr' => array('data-context-parent' => 'bloodCollected',
                     'data-context-value' => TripleChoice::YES)))
@@ -126,23 +126,20 @@ class CaseType extends AbstractType
 
         $siteSerializer = $this->siteSerializer;
 
-        $builder->addEventListener(FormEvents::POST_SET_DATA, function(FormEvent $event) use($siteSerializer,$required)
-                {
+        $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) use ($siteSerializer, $required) {
                     $data    = $event->getData();
                     $form    = $event->getForm();
                     $country = null;
 
-                    if($data && $data->getCountry())
+                    if ($data && $data->getCountry()) {
                         $country = $data->getCountry();
-                    else if(!$siteSerializer->hasMultipleSites())
-                    {
+                    } elseif (!$siteSerializer->hasMultipleSites()) {
                         $site    = $siteSerializer->getSite();
                         $country = ($site instanceof Site) ? $site->getCountry() : null;
                     }
 
-            if(!$country || ($country instanceof Country && $country->getTracksPneumonia()))
-                    {
-                        $form->add('pneuDiffBreathe', 'TripleChoice', array('required' => $required,
+            if (!$country || ($country instanceof Country && $country->getTracksPneumonia())) {
+                $form->add('pneuDiffBreathe', 'TripleChoice', array('required' => $required,
                         'label' => 'ibd-form.pneu-diff-breathe'))
                     ->add('pneuChestIndraw', 'TripleChoice', array('required' => $required,
                         'label' => 'ibd-form.pneu-chest-indraw'))
@@ -168,7 +165,7 @@ class CaseType extends AbstractType
                         'label' => 'ibd-form.cxr-additional-result', 'attr' => array(
                             'data-context-parent' => 'cxrResult', 'data-context-value' => CXRResult::CONSISTENT)))
                 ;
-                    }
+            }
                 });
     }
     

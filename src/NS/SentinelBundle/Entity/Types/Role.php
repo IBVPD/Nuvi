@@ -14,5 +14,5 @@ class Role extends ArrayChoice
     public function getName()
     {
         return 'Role';
-    }   
+    }
 }

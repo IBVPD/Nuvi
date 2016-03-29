@@ -52,6 +52,7 @@ assetic:
 # Doctrine Configuration
 doctrine:
     dbal:
+        server_version: 5.1
         driver:   %database_driver%
         host:     %database_host%
         port:     %database_port%
@@ -76,6 +77,7 @@ doctrine:
             LatResult: NS\SentinelBundle\Entity\Types\LatResult
             PCRResult: NS\SentinelBundle\Entity\Types\PCRResult
             GramStain: NS\SentinelBundle\Entity\Types\GramStain
+            GramStainResult: NS\SentinelBundle\Entity\Types\GramStainResult
             GramStainOrganism: NS\SentinelBundle\Entity\Types\GramStainOrganism
             IsolateType: NS\SentinelBundle\Entity\Types\IsolateType
             SerotypeIdentifier: NS\SentinelBundle\Entity\Types\SerotypeIdentifier
@@ -110,6 +112,7 @@ doctrine:
             SampleType: NS\SentinelBundle\Entity\Types\SampleType
             FinalResult: NS\SentinelBundle\Entity\Types\FinalResult
         mapping_types:
+            GramStainOrganism: GramStainOrganism
             TripleChoice: TripleChoice
             IsolateViable: IsolateViable
             FourDoses: FourDoses
@@ -134,7 +137,7 @@ doctrine:
             IBDCaseResult: IBDCaseResult
             VaccinationReceived: VaccinationReceived
             MeningitisVaccinationType: MeningitisVaccinationType
-            GramStainOrganism: GramStainOrganism
+            GramStainResult: GramStainResult
             DischargeClassification: DischargeClassification
             DischargeOutcome: DischargeOutcome
             CaseStatus: CaseStatus
@@ -203,11 +206,6 @@ sonata_admin:
         layout: NSSentinelBundle:Sonata:layout.html.twig
         pager_links: NSSentinelBundle:Sonata:pager.html.twig
         edit: NSSonataBundle:CRUD:edit.html.twig
-
-sonata_doctrine_orm_admin:
-  templates:
-    form:
-      - NSUtilBundle:Form:SonataDoctrineORM/form_admin_fields.html.twig
 
 jms_serializer:
     property_naming:
@@ -319,23 +317,6 @@ doctrine_cache:
     providers:
         my_phpfile_cache:
             type: php_file
-deploy:
-  prodwhodemo:
-    rsync-options: '-azC --force --delete --progress -h --checksum'
-    host: beryllium.noblet.ca
-    dir: /var/www/local/whodemo
-    user: apache
-    port: 22
-    timeout: 120 # Connection timeout in seconds. 0 for no timeout.
-    post_deploy_operations: 
-        - composer install --no-dev --optimize-autoloader
-        - app/console translation:extract --config=app
-        - app/console translation:extract --config=sentinel
-        - app/console translation:extract --config=import
-        - app/console translation:extract --config=api
-        - app/console doctrine:schema:update --force
-        - app/console cache:clear --env=prod
-        - app/console assets:install
 
 vich_uploader:
     db_driver: orm

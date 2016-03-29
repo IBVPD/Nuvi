@@ -53,9 +53,9 @@ class BaseQuarterlyFilterType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('year', 'filter_number', array('label' => 'report-filter-form.year','apply_filter'=>array($this,'filterYear')));
+        $builder->add('year', 'filter_number', array('label' => 'report-filter-form.year', 'apply_filter'=>array($this, 'filterYear')));
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, array($this,'preSetData'));
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'preSetData'));
     }
 
     /**
@@ -75,8 +75,8 @@ class BaseQuarterlyFilterType extends AbstractType
             $alias = $values['alias'];
 
             $queryBuilder
-                ->andWhere(sprintf('YEAR(%s.%s) = :%s_year',$alias, $this->fieldName, $alias))
-                ->setParameter($alias.'_year',$values['value']);
+                ->andWhere(sprintf('YEAR(%s.%s) = :%s_year', $alias, $this->fieldName, $alias))
+                ->setParameter($alias.'_year', $values['value']);
         }
     }
 
@@ -87,7 +87,7 @@ class BaseQuarterlyFilterType extends AbstractType
     {
         $form     = $event->getForm();
         $options  = $form->getConfig()->getOptions();
-        $siteType = ( isset($options['site_type']) && $options['site_type'] == 'advanced') ? new SiteFilterType() : 'site';
+        $siteType = (isset($options['site_type']) && $options['site_type'] == 'advanced') ? new SiteFilterType() : 'site';
         $siteOpt  = ($siteType instanceof SiteFilterType) ? array('include_intense'=>$options['include_intense'],'label'=>'Site'): array();
 
         $token    = $this->tokenStorage->getToken();
@@ -95,35 +95,35 @@ class BaseQuarterlyFilterType extends AbstractType
         if ($this->authChecker->isGranted('ROLE_REGION')) {
             $objectIds = $this->converter->getObjectIdsForRole($token, 'ROLE_REGION');
             if (count($objectIds) > 1) {
-                $form->add('region', 'region');
+                $form->add('region', 'NS\SentinelBundle\Filter\Type\RegionType');
             }
-            $form->add('country', 'country',array('required'=>false,'placeholder'=>''));
-            $form->add('site', $siteType,$siteOpt);
+            $form->add('country', 'NS\SentinelBundle\Filter\Type\CountryType', array('required'=>false, 'placeholder'=>''));
+            $form->add('site', $siteType, $siteOpt);
         } elseif ($this->authChecker->isGranted('ROLE_COUNTRY')) {
-            $form->add('site', $siteType,$siteOpt);
+            $form->add('site', $siteType, $siteOpt);
         } elseif ($this->authChecker->isGranted('ROLE_SITE')) {
             $objectIds = $this->converter->getObjectIdsForRole($token, 'ROLE_SITE');
             if (count($objectIds) > 1) {
-                $form->add('site', $siteType,$siteOpt);
+                $form->add('site', $siteType, $siteOpt);
             }
         }
 
         if ($options['include_filter']) {
-            $form->add('filter', 'submit', array(
+            $form->add('filter', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
                 'icon' => 'fa fa-search',
-                'attr' => array('class' => 'btn btn-sm btn-success','type'=>'submit')));
+                'attr' => array('class' => 'btn btn-sm btn-success', 'type'=>'submit')));
         }
 
         if ($options['include_export']) {
-            $form->add('export', 'submit', array(
+            $form->add('export', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
                 'icon' => 'fa fa-cloud-download',
-                'attr' => array('class' => 'btn btn-sm btn-info','type'=>'submit')));
+                'attr' => array('class' => 'btn btn-sm btn-info', 'type'=>'submit')));
         }
 
         if ($options['include_reset']) {
-            $form->add('reset', 'submit', array(
+            $form->add('reset', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
                 'icon' => 'fa fa-times-circle',
-                'attr' => array('class' => 'btn btn-sm btn-danger','type'=>'submit')));
+                'attr' => array('class' => 'btn btn-sm btn-danger', 'type'=>'submit')));
         }
     }
 
@@ -141,7 +141,7 @@ class BaseQuarterlyFilterType extends AbstractType
                 ));
 
         $resolver->setDefined(array('site_type'));
-        $resolver->setAllowedValues('site_type',array('simple', 'advanced'));
+        $resolver->setAllowedValues('site_type', array('simple', 'advanced'));
     }
 
     /**

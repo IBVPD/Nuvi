@@ -16,7 +16,7 @@ class ExcelReader extends BaseReader implements OffsetableReaderInterface
      */
     public function setOffset($offset)
     {
-        if($this->headerRowNumber !== null) {
+        if ($this->headerRowNumber !== null) {
             $offset--;
         }
 
@@ -38,7 +38,7 @@ class ExcelReader extends BaseReader implements OffsetableReaderInterface
     {
         parent::rewind();
 
-        if($this->offset > 0) {
+        if ($this->offset > 0) {
             $this->pointer += $this->offset;
         }
     }
@@ -56,7 +56,7 @@ class ExcelReader extends BaseReader implements OffsetableReaderInterface
      */
     public function setColumnHeaders(array $columnHeaders)
     {
-        array_walk($columnHeaders,array($this,'cleanColumnHeaders'));
+        array_walk($columnHeaders, array($this, 'cleanColumnHeaders'));
         parent::setColumnHeaders($columnHeaders);
     }
 

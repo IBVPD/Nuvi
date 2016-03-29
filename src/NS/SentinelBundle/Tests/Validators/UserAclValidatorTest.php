@@ -17,7 +17,7 @@ class UserAclValidatorTest extends \PHPUnit_Framework_TestCase
 {
     public function testHasACLButNotReferenceLab()
     {
-        list($constraint, $context,$builder,$validator) = $this->getValidator();
+        list($constraint, $context, $builder, $validator) = $this->getValidator();
         $acl = new ACL();
         $acl->setType(new Role(Role::NL_LAB));
         $user = new User();
@@ -29,12 +29,12 @@ class UserAclValidatorTest extends \PHPUnit_Framework_TestCase
             ->method('buildViolation');
 
         $validator->initialize($context);
-        $validator->validate($user,$constraint);
+        $validator->validate($user, $constraint);
     }
 
     public function testHasRRLACLButNoReferenceLab()
     {
-        list($constraint, $context,$builder,$validator) = $this->getValidator();
+        list($constraint, $context, $builder, $validator) = $this->getValidator();
         $acl = new ACL();
         $acl->setType(new Role(Role::RRL_LAB));
         $user = new User();
@@ -56,12 +56,12 @@ class UserAclValidatorTest extends \PHPUnit_Framework_TestCase
             ->willReturn($builder);
 
         $validator->initialize($context);
-        $validator->validate($user,$constraint);
+        $validator->validate($user, $constraint);
     }
 
     public function testNoAclWithRRLOverride()
     {
-        list($constraint, $context,$builder,$validator) = $this->getValidator();
+        list($constraint, $context, $builder, $validator) = $this->getValidator();
 
         $context->expects($this->at(0))
             ->method('buildViolation')
@@ -101,7 +101,7 @@ class UserAclValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testNoAclWithCreateOverride($userMethod, $message, $path)
     {
-        list($constraint, $context,$builder,$validator) = $this->getValidator();
+        list($constraint, $context, $builder, $validator) = $this->getValidator();
 
         $context->expects($this->once())
             ->method('buildViolation')
@@ -116,7 +116,7 @@ class UserAclValidatorTest extends \PHPUnit_Framework_TestCase
             ->method('addViolation');
 
         $user = new User();
-        call_user_func_array(array($user,$userMethod), array(true));
+        call_user_func_array(array($user, $userMethod), array(true));
         
         $validator->initialize($context);
         $validator->validate($user, $constraint);

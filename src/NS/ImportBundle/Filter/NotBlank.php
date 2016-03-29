@@ -27,7 +27,7 @@ class NotBlank implements ReporterInterface
     private $severity = ReporterInterface::ERROR;
 
     /**
-     * @param string $fields The field(s) that will be checked to not be empty
+     * @param string|array $fields The field(s) that will be checked to not be empty
      */
     public function __construct($fields)
     {
@@ -47,7 +47,7 @@ class NotBlank implements ReporterInterface
 
         foreach ($this->fields as $field) {
             if (empty($item[$field])) {
-                $this->message = sprintf('Field \'%s\' is blank',$field);
+                $this->message = sprintf('Field \'%s\' is blank', $field);
                 return false;
             }
         }
@@ -60,7 +60,7 @@ class NotBlank implements ReporterInterface
      */
     public function hasMessage()
     {
-        return ($this->message === null);
+        return ($this->message !== null);
     }
 
     /**

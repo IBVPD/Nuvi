@@ -2,7 +2,6 @@
 
 namespace NS\SentinelBundle\Filter\Type\RotaVirus;
 
-
 use NS\SentinelBundle\Filter\Type\BaseQuarterlyFilterType;
 
 class QuarterlyLinkingReportFilterType extends BaseQuarterlyFilterType

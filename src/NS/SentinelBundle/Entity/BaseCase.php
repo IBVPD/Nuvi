@@ -19,7 +19,7 @@ use \NS\SentinelBundle\Validators as LocalAssert;
  * @SuppressWarnings(PHPMD.ShortVariable)
  * @UniqueEntity(fields={"site","caseId"}, message="The case id already exists for this site!")
  *
- * @LocalAssert\GreaterThanDate(lessThanField="dob",greaterThanField="admDate",message="The date of birth is past the date of admission")
+ * @LocalAssert\GreaterThanDate(lessThanField="birthdate",greaterThanField="admDate",message="The date of birth is past the date of admission")
  */
 abstract class BaseCase
 {
@@ -83,12 +83,12 @@ abstract class BaseCase
     protected $state;
 
     /**
-     * @var \DateTime $dob
-     * @ORM\Column(name="dob",type="date",nullable=true)
+     * @var \DateTime $birthdate
+     * @ORM\Column(name="birthdate",type="date",nullable=true)
      * @Assert\Date
      * @Serializer\Groups({"api"})
      */
-    protected $dob;
+    protected $birthdate;
 
     /**
      * @var TripleChoice $dobKnown
@@ -233,15 +233,15 @@ abstract class BaseCase
     public function __clone()
     {
         $this->setId(null);
-        if(is_object($this->siteLab)) {
+        if (is_object($this->siteLab)) {
             $this->setSiteLab(clone $this->siteLab);
         }
 
-        if(is_object($this->referenceLab)) {
+        if (is_object($this->referenceLab)) {
             $this->setReferenceLab(clone $this->referenceLab);
         }
 
-        if(is_object($this->nationalLab)) {
+        if (is_object($this->nationalLab)) {
             $this->setNationalLab(clone $this->nationalLab);
         }
     }
@@ -375,7 +375,8 @@ abstract class BaseCase
      * @param BaseExternalLab $lab
      * @return $this
      */
-    public function setReferenceLab(BaseExternalLab $lab) {
+    public function setReferenceLab(BaseExternalLab $lab)
+    {
         $lab->setCaseFile($this);
         $this->referenceLab = $lab;
 
@@ -386,7 +387,8 @@ abstract class BaseCase
      * @param BaseExternalLab $lab
      * @return $this
      */
-    public function setNationalLab(BaseExternalLab $lab) {
+    public function setNationalLab(BaseExternalLab $lab)
+    {
         $lab->setCaseFile($this);
         $this->nationalLab = $lab;
 
@@ -536,7 +538,15 @@ abstract class BaseCase
      */
     public function getDob()
     {
-        return $this->dob;
+        return $this->birthdate;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getBirthdate()
+    {
+        return $this->birthdate;
     }
 
     /**
@@ -588,7 +598,7 @@ abstract class BaseCase
      */
     public function getDobYears()
     {
-        if(!$this->dobYears && $this->age) {
+        if (!$this->dobYears && $this->age) {
             $this->dobYears = (int)($this->age/12);
         }
 
@@ -645,13 +655,23 @@ abstract class BaseCase
     }
 
     /**
+     * @param \DateTime $birthdate
+     * @return BaseCase
+     */
+    public function setBirthdate($birthdate)
+    {
+        $this->birthdate = $birthdate;
+        return $this;
+    }
+
+    /**
      *
      * @param \DateTime $dob
      * @return \NS\SentinelBundle\Entity\BaseCase
      */
     public function setDob(\DateTime $dob = null)
     {
-        $this->dob = $dob;
+        $this->birthdate = $dob;
 
         return $this;
     }
@@ -851,6 +871,6 @@ abstract class BaseCase
      */
     public function isUnlinked()
     {
-        return (strpos($this->id,'-XXX-') !== false);
+        return (strpos($this->id, '-XXX-') !== false);
     }
 }

@@ -23,13 +23,13 @@ class AgeDistribution
     {
         $this->results = array();
 
-        foreach($results as $case)
-        {
+        foreach ($results as $case) {
             $this->results[$case['theYear']][$case['ageDistribution']] = $case['theCount'];
-            if(!isset($this->results[$case['theYear']]['total']))
+            if (!isset($this->results[$case['theYear']]['total'])) {
                 $this->results[$case['theYear']]['total'] = $case['theCount'];
-            else
+            } else {
                 $this->results[$case['theYear']]['total'] += $case['theCount'];
+            }
         }
     }
 
@@ -46,7 +46,7 @@ class AgeDistribution
      * @param $ageDistribution
      * @return int
      */
-    public function getResult($year,$ageDistribution)
+    public function getResult($year, $ageDistribution)
     {
         return (isset($this->results[$year][$ageDistribution])) ? $this->results[$year][$ageDistribution]:0;
     }
@@ -57,7 +57,7 @@ class AgeDistribution
      */
     public function getTotal($year)
     {
-        return $this->getResult($year,'total');
+        return $this->getResult($year, 'total');
     }
 
     /**
@@ -67,10 +67,10 @@ class AgeDistribution
     public function sumYears($ageDistribution)
     {
         $theSum = 0;
-        foreach($this->results as $values)
-        {
-            if(isset($values[$ageDistribution]))
+        foreach ($this->results as $values) {
+            if (isset($values[$ageDistribution])) {
                 $theSum+= $values[$ageDistribution];
+            }
         }
 
         return $theSum;
@@ -127,8 +127,9 @@ class AgeDistribution
      */
     public function getZeroToFivePercent($year)
     {
-        if(isset($this->results[$year]['total']) && $this->results[$year]['total'] > 0)
+        if (isset($this->results[$year]['total']) && $this->results[$year]['total'] > 0) {
             return ($this->getResult($year, BaseCase::AGE_DISTRIBUTION_00_TO_05)/$this->results[$year]['total'])*100;
+        }
 
         return 0;
     }
@@ -139,8 +140,9 @@ class AgeDistribution
      */
     public function getFiveToElevenPercent($year)
     {
-        if(isset($this->results[$year]['total']) && $this->results[$year]['total'] > 0)
+        if (isset($this->results[$year]['total']) && $this->results[$year]['total'] > 0) {
             return ($this->getResult($year, BaseCase::AGE_DISTRIBUTION_05_TO_11)/$this->results[$year]['total'])*100;
+        }
 
         return 0;
     }
@@ -151,8 +153,9 @@ class AgeDistribution
      */
     public function getElevenToTwentyThreePercent($year)
     {
-        if(isset($this->results[$year]['total']) && $this->results[$year]['total'] > 0)
+        if (isset($this->results[$year]['total']) && $this->results[$year]['total'] > 0) {
             return ($this->getResult($year, BaseCase::AGE_DISTRIBUTION_11_TO_23)/$this->results[$year]['total'])*100;
+        }
 
         return 0;
     }
@@ -163,8 +166,9 @@ class AgeDistribution
      */
     public function getTwentyThreeToFiftyNinePercent($year)
     {
-        if(isset($this->results[$year]['total']) && $this->results[$year]['total'] > 0)
+        if (isset($this->results[$year]['total']) && $this->results[$year]['total'] > 0) {
             return ($this->getResult($year, BaseCase::AGE_DISTRIBUTION_23_TO_59)/$this->results[$year]['total'])*100;
+        }
 
         return 0;
     }
@@ -175,8 +179,9 @@ class AgeDistribution
      */
     public function getUnknownPercent($year)
     {
-        if(isset($this->results[$year]['total']) && $this->results[$year]['total'] > 0)
+        if (isset($this->results[$year]['total']) && $this->results[$year]['total'] > 0) {
             return ($this->getResult($year, BaseCase::AGE_DISTRIBUTION_UNKNOWN)/$this->results[$year]['total'])*100;
+        }
 
         return 0;
     }
@@ -187,8 +192,7 @@ class AgeDistribution
     public function toArray()
     {
         $res = array();
-        foreach($this->results as $year => $values)
-        {
+        foreach ($this->results as $year => $values) {
             $res[] = array( 'year'    => $year,
                             'total'   => (isset($values['total'])?$values['total']:0),
                             '0-5'     => $this->getZeroToFive($year),

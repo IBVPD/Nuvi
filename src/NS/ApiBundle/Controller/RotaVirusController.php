@@ -38,7 +38,7 @@ class RotaVirusController extends CaseController
     */
     public function getRotaCaseAction($objId)
     {
-        return $this->getCase('rota',$objId);
+        return $this->getCase('rota', $objId);
     }
 
     /**

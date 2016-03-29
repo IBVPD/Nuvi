@@ -3,6 +3,7 @@
 namespace NS\ApiBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+
 /**
  * Description of Client
  *

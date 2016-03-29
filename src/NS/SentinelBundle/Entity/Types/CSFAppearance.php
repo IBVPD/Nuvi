@@ -23,5 +23,4 @@ class CSFAppearance extends ArrayChoice
     {
         return 'CSFAppearance';
     }
-    
 }

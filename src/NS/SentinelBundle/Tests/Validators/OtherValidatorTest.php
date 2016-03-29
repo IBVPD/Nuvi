@@ -97,11 +97,11 @@ class OtherValidatorTest extends \PHPUnit_Framework_TestCase
 
         $siteLab   = new SiteLab();
 
-        if($field){
+        if ($field) {
             $siteLab->setCsfCultDone(new TripleChoice($field));
         }
 
-        if($otherField) {
+        if ($otherField) {
             $siteLab->setCsfCultResult(new CultureResult($otherField));
         }
 

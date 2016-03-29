@@ -35,9 +35,9 @@ class NumberEnrolledResult
     {
         $this->diagnosis     = new Diagnosis();
         $this->dValues       = $this->diagnosis->getValues();
-        $this->empty         = array_fill_keys(array_keys($this->dValues),0);
-        $this->resultByMonth = array_fill(1,12,$this->empty);
-        $this->headers       = array_merge(array('month'=>'Month'),$this->dValues);
+        $this->empty         = array_fill_keys(array_keys($this->dValues), 0);
+        $this->resultByMonth = array_fill(1, 12, $this->empty);
+        $this->headers       = array_merge(array('month'=>'Month'), $this->dValues);
     }
 
     /**
@@ -45,7 +45,7 @@ class NumberEnrolledResult
      */
     public function load($inputResults)
     {
-        foreach($inputResults as $res) {
+        foreach ($inputResults as $res) {
             $this->resultByMonth[$res['AdmissionMonth']][$res['admDx']->getValue()] = $res['admDxCount'];
         }
     }
@@ -56,7 +56,7 @@ class NumberEnrolledResult
      */
     public function getHeaders($asStrings  = false)
     {
-        if($asStrings) {
+        if ($asStrings) {
             return array_flip($this->headers);
         }
 

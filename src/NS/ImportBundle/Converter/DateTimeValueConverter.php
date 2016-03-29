@@ -19,7 +19,7 @@ class DateTimeValueConverter extends BaseDateTimeValueConverter implements Named
      */
     public function __construct($inputFormat = null, $outputFormat = null)
     {
-        parent::__construct($inputFormat,$outputFormat);
+        parent::__construct($inputFormat, $outputFormat);
 
         $this->name = 'Date: '.$inputFormat;
     }

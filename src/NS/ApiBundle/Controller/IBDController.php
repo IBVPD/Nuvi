@@ -407,5 +407,4 @@ class IBDController extends CaseController
     {
         return $this->postCase($request, 'nsApiIbdGetCase', 'create_case', 'NSSentinelBundle:IBD');
     }
-
 }

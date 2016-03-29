@@ -25,7 +25,8 @@ class NSImportExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
 
-        if (isset($config['classes']))
-            $container->setParameter('ns_import.map.classes',$config['classes']);
+        if (isset($config['classes'])) {
+            $container->setParameter('ns_import.map.classes', $config['classes']);
+        }
     }
 }

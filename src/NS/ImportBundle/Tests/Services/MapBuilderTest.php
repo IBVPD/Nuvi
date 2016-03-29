@@ -78,7 +78,7 @@ class MapBuilderTest extends WebTestCase
             'ns.sentinel.converter.isolateType'                   => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\IsolateType'),
             'ns.sentinel.converter.ibdCaseResult'                 => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\IBDCaseResult'),
             'ns.sentinel.converter.hiSerotype'                    => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\HiSerotype'),
-            'ns.sentinel.converter.gramStainOrganism'             => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\GramStainOrganism'),
+            'ns.sentinel.converter.gramStainResult'               => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\GramStainResult'),
             'ns.sentinel.converter.gramStain'                     => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\GramStain'),
             'ns.sentinel.converter.genotypeResultP'               => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\GenotypeResultP'),
             'ns.sentinel.converter.genotypeResultG'               => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\GenotypeResultG'),
@@ -149,7 +149,7 @@ class MapBuilderTest extends WebTestCase
             ->with(0);
         $mockReader->expects($this->once())
             ->method('getColumnHeaders')
-            ->willReturn(array('columnOne','columnTwo'));
+            ->willReturn(array('columnOne', 'columnTwo'));
 
         $mockReaderFactory = $this->getMock('NS\ImportBundle\Reader\ReaderFactory');
         $mockReaderFactory->expects($this->once())
@@ -177,5 +177,4 @@ class MapBuilderTest extends WebTestCase
 
         $mapBuilder->process($map);
     }
-
 }

@@ -113,7 +113,7 @@ class DateRangeConverterTest extends \PHPUnit_Framework_TestCase
             'field4' => 'a string',
             'field5' => true,
         );
-        $converter = new DateRangeConverter(null,$today);
+        $converter = new DateRangeConverter(null, $today);
         $retData = $converter->__invoke($data);
         $this->assertEquals($data, $retData);
     }
@@ -128,7 +128,7 @@ class DateRangeConverterTest extends \PHPUnit_Framework_TestCase
             'field4' => 'a string',
             'field5' => true,
         );
-        $converter = new DateRangeConverter(null,$today);
+        $converter = new DateRangeConverter(null, $today);
         $retData = $converter->__invoke($data);
         $this->assertNotEquals($data, $retData);
         $this->assertNull($retData['field3']);
@@ -155,7 +155,7 @@ class DateRangeConverterTest extends \PHPUnit_Framework_TestCase
         $sub1['sub2'] = $sub2;
         $data['sub'] = $sub1;
 
-        $converter = new DateRangeConverter(null,$today);
+        $converter = new DateRangeConverter(null, $today);
         $retData = $converter->__invoke($data);
         $this->assertEquals($data, $retData);
     }
@@ -180,7 +180,7 @@ class DateRangeConverterTest extends \PHPUnit_Framework_TestCase
         $sub1['sub2'] = $sub2;
         $data['sub'] = $sub1;
 
-        $converter = new DateRangeConverter(null,$today);
+        $converter = new DateRangeConverter(null, $today);
         $retData = $converter->__invoke($data);
         $this->assertTrue($converter->hasMessage());
         $this->assertEquals('[sub.sub2.tom] has a date (2001-01-02) less than ('.$today->format('Y-m-d').'). ', $converter->getMessage());
@@ -191,7 +191,7 @@ class DateRangeConverterTest extends \PHPUnit_Framework_TestCase
     {
         $start = new \DateTime('2015-01-01');
         $end = new \DateTime('2015-12-31');
-        $converter = new DateRangeConverter($end,$start);
+        $converter = new DateRangeConverter($end, $start);
 
         $data = array(
             'field1' => null,
@@ -209,7 +209,7 @@ class DateRangeConverterTest extends \PHPUnit_Framework_TestCase
     {
         $start = new \DateTime('2015-01-01');
         $end = new \DateTime('2015-12-31');
-        $converter = new DateRangeConverter($end,$start);
+        $converter = new DateRangeConverter($end, $start);
 
         $data = array(
             'field1' => null,
@@ -231,7 +231,7 @@ class DateRangeConverterTest extends \PHPUnit_Framework_TestCase
     {
         $start = new \DateTime('2015-01-01');
         $end = new \DateTime('2015-12-31');
-        $converter = new DateRangeConverter($end,$start);
+        $converter = new DateRangeConverter($end, $start);
 
         $dateOne = new \DateTime('2015-09-01');
         $dateTwo = new \DateTime('2015-12-27');
@@ -256,14 +256,10 @@ class DateRangeConverterTest extends \PHPUnit_Framework_TestCase
     {
         $start = new \DateTime('2015-01-01');
         $end = new \DateTime('2015-12-31');
-        $converter = new DateRangeConverter($end,$start);
+        $converter = new DateRangeConverter($end, $start);
 
         $dateOne = new \DateTime('2015-09-01');
         $dateTwo = new \DateTime('2015-12-27');
-
-        $today = new \DateTime();
-        $yesterday = new \DateTime('tomorrow');
-        $tomorrow = new \DateTime('2001-01-02');
 
         $data = array(
             'field1' => null,
@@ -281,5 +277,34 @@ class DateRangeConverterTest extends \PHPUnit_Framework_TestCase
         $retData = $converter->__invoke($data);
         $this->assertTrue($converter->hasMessage());
         $this->assertEquals('[sub.sub2.out] has a date (2016-01-01) outside acceptable range (2015-01-01 - 2015-12-31). ', $converter->getMessage());
+        $this->assertNull($retData['sub']['sub2']['out']);
+    }
+
+    public function testWarningOnly()
+    {
+        $start = new \DateTime('2015-01-01');
+        $end = new \DateTime('2015-12-31');
+        $converter = new DateRangeConverter($end, $start, true);
+
+        $dateOne = new \DateTime('2015-09-01');
+        $dateTwo = new \DateTime('2015-12-27');
+
+        $data = array(
+            'field1' => null,
+            'field2' => $dateOne,
+            'field3' => $dateTwo,
+            'field4' => 'a string',
+            'field5' => true,
+        );
+        $sub1 = $data;
+        $sub2 = $data;
+        $sub2['out'] = new \DateTime('2016-01-01');
+        $sub1['sub2'] = $sub2;
+        $data['sub'] = $sub1;
+
+        $retData = $converter->__invoke($data);
+        $this->assertTrue($converter->hasMessage());
+        $this->assertEquals('[sub.sub2.out] has a date (2016-01-01) outside acceptable range (2015-01-01 - 2015-12-31). ', $converter->getMessage());
+        $this->assertNotNull($retData['sub']['sub2']['out']);
     }
 }

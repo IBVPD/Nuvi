@@ -19,7 +19,7 @@ class IBDCompletenessConverter extends BaseCompletenessConverter
     {
         $this->message = null;
 
-        $this->handleFields($item,$this->constraints['case']);
+        $this->handleFields($item, $this->constraints['case']);
 
         return $item;
     }
@@ -29,10 +29,10 @@ class IBDCompletenessConverter extends BaseCompletenessConverter
      * @param array $configs
      * @return array
      */
-    public function handleFields(array &$item,array $configs)
+    public function handleFields(array &$item, array $configs)
     {
         $constraints = array();
-        foreach($configs as $config) {
+        foreach ($configs as $config) {
             $constraints[] = new Done($config);
         }
 

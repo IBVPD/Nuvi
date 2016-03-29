@@ -17,7 +17,7 @@ class CountryConverter extends AbstractBaseObjectConverter
         if (!$res) {
             throw new NonExistentCountryException("Unable to find country for $input");
         } elseif (!$res->isActive()) {
-            throw new NonExistentCountryException(sprintf('Country %s is inactive, import disabled!',$input));
+            throw new NonExistentCountryException(sprintf('Country %s is inactive, import disabled!', $input));
         }
 
         return $res;
@@ -28,7 +28,7 @@ class CountryConverter extends AbstractBaseObjectConverter
      */
     public function initialize()
     {
-        return $this->entityMgr->getRepository('NSSentinelBundle:Country')->getChain(null,true);
+        return $this->entityMgr->getRepository('NSSentinelBundle:Country')->getChain(null, true);
     }
 
     /**

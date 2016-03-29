@@ -20,7 +20,7 @@ class RotaVirusController extends BaseCaseController
      */
     public function indexAction(Request $request)
     {
-        return $this->render('NSSentinelBundle:RotaVirus:index.html.twig',$this->index($request, 'NSSentinelBundle:RotaVirus', 'rotavirus_filter_form'));
+        return $this->render('NSSentinelBundle:RotaVirus:index.html.twig', $this->index($request, 'NSSentinelBundle:RotaVirus', 'rotavirus_filter_form', 'rota.index'));
     }
 
     /**
@@ -44,7 +44,7 @@ class RotaVirusController extends BaseCaseController
     public function editAction(Request $request, $id = null)
     {
         $response = $this->edit($request, 'rotavirus', "rotavirusIndex", "rotavirusEdit", $id);
-        return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:RotaVirus:edit.html.twig',$response);
+        return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:RotaVirus:edit.html.twig', $response);
     }
 
     /**
@@ -58,7 +58,7 @@ class RotaVirusController extends BaseCaseController
     {
         $response = $this->edit($request, 'rotavirus_lab', "rotavirusIndex", "rotavirusLabEdit", $id);
 
-        return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:RotaVirus:editLab.html.twig',$response);
+        return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:RotaVirus:editLab.html.twig', $response);
     }
 
     /**
@@ -71,7 +71,7 @@ class RotaVirusController extends BaseCaseController
     public function editRRLAction(Request $request, $id = null)
     {
         $response = $this->edit($request, 'rotavirus_referencelab', "rotavirusIndex", "rotavirusRRLEdit", $id);
-        return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:RotaVirus:editBaseLab.html.twig',$response);
+        return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:RotaVirus:editBaseLab.html.twig', $response);
     }
 
     /**
@@ -84,7 +84,7 @@ class RotaVirusController extends BaseCaseController
     public function editNLAction(Request $request, $id = null)
     {
         $response = $this->edit($request, 'rotavirus_nationallab', "rotavirusIndex", "rotavirusNLEdit", $id);
-        return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:RotaVirus:editBaseLab.html.twig',$response);
+        return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:RotaVirus:editBaseLab.html.twig', $response);
     }
 
     /**
@@ -97,7 +97,7 @@ class RotaVirusController extends BaseCaseController
     public function editOutcomeAction(Request $request, $id = null)
     {
         $response = $this->edit($request, 'rotavirus_outcome', "rotavirusIndex", "rotavirusOutcomeEdit", $id);
-        return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:RotaVirus:editOutcome.html.twig',$response);
+        return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:RotaVirus:editOutcome.html.twig', $response);
     }
 
     /**
@@ -111,10 +111,8 @@ class RotaVirusController extends BaseCaseController
     protected function getForm($type, $objId = null)
     {
         $record = null;
-        if ($objId)
-        {
-            switch ($type)
-            {
+        if ($objId) {
+            switch ($type) {
                 case 'rotavirus':
                 case 'rotavirus_outcome':
                     $record = $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:RotaVirus')->find($objId);
@@ -149,7 +147,7 @@ class RotaVirusController extends BaseCaseController
     public function showAction($id)
     {
         $ret = $this->show('NSSentinelBundle:RotaVirus', $id);
-        if( $ret instanceof Response ) {
+        if ($ret instanceof Response) {
             return $ret;
         }
 

@@ -2,7 +2,6 @@
 
 namespace NS\ImportBundle\Tests\Linker;
 
-
 use NS\ImportBundle\Linker\CaseLinker;
 
 class CaseLinkerTest extends \PHPUnit_Framework_TestCase
@@ -15,11 +14,11 @@ class CaseLinkerTest extends \PHPUnit_Framework_TestCase
      */
     public function testBasicFunctions(array $data, $method)
     {
-        $linker = new CaseLinker($data,$method);
+        $linker = new CaseLinker($data, $method);
 
-        $this->assertInstanceOf('NS\ImportBundle\Linker\CaseLinkerInterface',$linker);
-        $this->assertEquals($data,$linker->getCriteria());
-        $this->assertEquals($method,$linker->getRepositoryMethod());
+        $this->assertInstanceOf('NS\ImportBundle\Linker\CaseLinkerInterface', $linker);
+        $this->assertEquals($data, $linker->getCriteria());
+        $this->assertEquals($method, $linker->getRepositoryMethod());
     }
 
     public function getTestData()

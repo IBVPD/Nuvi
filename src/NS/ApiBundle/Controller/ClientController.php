@@ -26,14 +26,14 @@ class ClientController extends Controller
         $clients   = $entityMgr->getRepository('NSApiBundle:Client')
                       ->createQueryBuilder('c')
                       ->where('c.user = :user')
-                      ->setParameter('user',$entityMgr->getReference(get_class($user),$user->getId()))
+                      ->setParameter('user', $entityMgr->getReference(get_class($user), $user->getId()))
                       ->getQuery()
                       ->getResult();
 
         $remotes   = $entityMgr->getRepository('NSApiBundle:Remote')
                       ->createQueryBuilder('r')
                       ->where('r.user = :user')
-                      ->setParameter('user',$entityMgr->getReference(get_class($user),$user->getId()))
+                      ->setParameter('user', $entityMgr->getReference(get_class($user), $user->getId()))
                       ->getQuery()
                       ->getResult();
 
@@ -50,11 +50,10 @@ class ClientController extends Controller
     {
         $form = $this->createForm('CreateApiClient');
         $form->handleRequest($request);
-        if($form->isValid())
-        {
+        if ($form->isValid()) {
             $entityMgr     = $this->get('doctrine.orm.entity_manager');
             $client = $form->getData();
-            $client->setUser($entityMgr->getReference('NSSentinelBundle:User',$this->getUser()->getId()));
+            $client->setUser($entityMgr->getReference('NSSentinelBundle:User', $this->getUser()->getId()));
             $entityMgr->persist($client);
             $entityMgr->flush();
 
@@ -73,19 +72,18 @@ class ClientController extends Controller
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function editAction(Request $request,$objId)
+    public function editAction(Request $request, $objId)
     {
         $entityMgr = $this->get('doctrine.orm.entity_manager');
         $user      = $this->getUser();
         $client    = $entityMgr->getRepository('NSApiBundle:Client')
                      ->createQueryBuilder('c')->where('c.user = :user AND c.id = :id')
-                     ->setParameters(array('id'=>$objId, 'user'=>$entityMgr->getReference(get_class($user),$user->getId())))
+                     ->setParameters(array('id'=>$objId, 'user'=>$entityMgr->getReference(get_class($user), $user->getId())))
                      ->getQuery()
                      ->getSingleResult();
-        $form = $this->createForm('CreateApiClient',$client);
+        $form = $this->createForm('CreateApiClient', $client);
         $form->handleRequest($request);
-        if($form->isValid())
-        {
+        if ($form->isValid()) {
             $client = $form->getData();
             $entityMgr->persist($client);
             $entityMgr->flush();
@@ -109,18 +107,15 @@ class ClientController extends Controller
         $user   = $this->getUser();
         $client = $entityMgr->getRepository('NSApiBundle:Client')
                      ->createQueryBuilder('c')->where('c.user = :user AND c.id = :id')
-                     ->setParameters(array('id'=>$objId, 'user'=>$entityMgr->getReference(get_class($user),$user->getId())))
+                     ->setParameters(array('id'=>$objId, 'user'=>$entityMgr->getReference(get_class($user), $user->getId())))
                      ->getQuery()
                      ->getSingleResult();
 
-        try
-        {
+        try {
             $entityMgr->remove($client);
             $entityMgr->flush();
             $this->get('ns_flash')->addSuccess(null, null, "Successfully deleted api client");
-        }
-        catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             $this->get('ns_flash')->addError(null, null, "Unable to delete api client");
         }
 
@@ -137,11 +132,10 @@ class ClientController extends Controller
     {
         $form = $this->createForm('CreateApiRemote');
         $form->handleRequest($request);
-        if($form->isValid())
-        {
+        if ($form->isValid()) {
             $entityMgr     = $this->get('doctrine.orm.entity_manager');
             $client = $form->getData();
-            $client->setUser($entityMgr->getReference('NSSentinelBundle:User',$this->getUser()->getId()));
+            $client->setUser($entityMgr->getReference('NSSentinelBundle:User', $this->getUser()->getId()));
             $entityMgr->persist($client);
             $entityMgr->flush();
 
@@ -158,22 +152,21 @@ class ClientController extends Controller
      * @param $objId
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function editRemoteAction(Request $request,$objId)
+    public function editRemoteAction(Request $request, $objId)
     {
         $entityMgr = $this->get('doctrine.orm.entity_manager');
         $user   = $this->getUser();
         $remote = $entityMgr->getRepository('NSApiBundle:Remote')
                      ->createQueryBuilder('c')->where('c.user = :user AND c.id = :id')
-                     ->setParameters(array('id'=>$objId, 'user'=>$entityMgr->getReference(get_class($user),$user->getId())))
+                     ->setParameters(array('id'=>$objId, 'user'=>$entityMgr->getReference(get_class($user), $user->getId())))
                      ->getQuery()
                      ->getSingleResult();
 
-        $form = $this->createForm('CreateApiRemote',$remote);
+        $form = $this->createForm('CreateApiRemote', $remote);
         $form->handleRequest($request);
-        if($form->isValid())
-        {
+        if ($form->isValid()) {
             $client = $form->getData();
-            $client->setUser($entityMgr->getReference('NSSentinelBundle:User',$this->getUser()->getId()));
+            $client->setUser($entityMgr->getReference('NSSentinelBundle:User', $this->getUser()->getId()));
             $entityMgr->persist($client);
             $entityMgr->flush();
 
@@ -194,17 +187,14 @@ class ClientController extends Controller
         $user   = $this->getUser();
         $remote = $entityMgr->getRepository('NSApiBundle:Remote')
                      ->createQueryBuilder('c')->where('c.user = :user AND c.id = :id')
-                     ->setParameters(array('id'=>$objId, 'user'=>$entityMgr->getReference(get_class($user),$user->getId())))
+                     ->setParameters(array('id'=>$objId, 'user'=>$entityMgr->getReference(get_class($user), $user->getId())))
                      ->getQuery()
                      ->getSingleResult();
-        try
-        {
+        try {
             $entityMgr->remove($remote);
             $entityMgr->flush();
             $this->get('ns_flash')->addSuccess(null, null, "Successfully deleted remote server");
-        }
-        catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             $this->get('ns_flash')->addError(null, null, "Unable to delete remote server");
         }
 

@@ -35,11 +35,11 @@ class MapAdmin extends Admin
         $datagridMapper
             ->add('name')
             ->add('version')
-            ->add('class','doctrine_orm_callback',
+            ->add('class', 'doctrine_orm_callback',
                 array(
                     'field_type'=>'choice',
-                    'field_options'=> array('choices'=>array('NS\\SentinelBundle\\Entity\\IBD'=>'IBD','NS\\SentinelBundle\\Entity\\RotaVirus'=>'RotaVirus',),'placeholder'=>' '),
-                    'callback' => array($this,'filterClassType')
+                    'field_options'=> array('choices'=>array('NS\\SentinelBundle\\Entity\\IBD'=>'IBD', 'NS\\SentinelBundle\\Entity\\RotaVirus'=>'RotaVirus', ), 'placeholder'=>' '),
+                    'callback' => array($this, 'filterClassType')
                 )
             )
         ;
@@ -61,7 +61,7 @@ class MapAdmin extends Admin
 
         $queryBuilder
             ->andWhere(sprintf('%s.class = :class', $alias))
-            ->setParameter('class',$value['value']);
+            ->setParameter('class', $value['value']);
 
         return true;
     }
@@ -73,7 +73,7 @@ class MapAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('selectName')
-            ->add('description',null,array('label'=>'notes'))
+            ->add('description', null, array('label'=>'notes'))
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show'   => array(),
@@ -93,30 +93,30 @@ class MapAdmin extends Admin
         $isNew = ($this->getSubject()->getId() > 0);
 
         $formMapper
-            ->add('name',null,array('label_attr'=>array('class'=>'col-sm-2')))
-            ->add('description',null,array('label'=>'Notes','label_attr'=>array('class'=>'col-sm-2')))
-            ->add('class', 'ClassType',array('label_attr'=>array('class'=>'col-sm-2')))
-            ->add('version',null,array('required'=>true, 'label_attr'=>array('class'=>'col-sm-2')))
-            ->add('headerRow','integer', array('label_attr'=>array('class'=>'col-sm-2')))
-            ->add('caseLinker','choice',array(
+            ->add('name', null, array('label_attr'=>array('class'=>'col-sm-2')))
+            ->add('description', null, array('label'=>'Notes', 'label_attr'=>array('class'=>'col-sm-2')))
+            ->add('class', 'ClassType', array('label_attr'=>array('class'=>'col-sm-2')))
+            ->add('version', null, array('required'=>true, 'label_attr'=>array('class'=>'col-sm-2')))
+            ->add('headerRow', 'integer', array('label_attr'=>array('class'=>'col-sm-2')))
+            ->add('caseLinker', 'choice', array(
                 'label_attr' => array('class'=>'col-sm-2'),
-                'choices' => array('ns_import.standard_case_linker' => 'Case Id and Site Code','ns_import.reference_case_linker'=>'Case Id and Verify Country'),
+                'choices' => array('ns_import.standard_case_linker' => 'Case Id and Site Code', 'ns_import.reference_case_linker'=>'Case Id and Verify Country'),
                 'placeholder' => 'Please Select...',
                 'disabled'=>$isNew))
         ;
 
         if (!$isNew) {
             $formMapper
-                ->add('labPreference','choice',array(
+                ->add('labPreference', 'choice', array(
                     'label_attr' => array('class'=>'col-sm-2'),
-                    'choices'=>array('referenceLab'=>'RRL','nationalLab'=>'NL')
+                    'choices'=>array('referenceLab'=>'RRL', 'nationalLab'=>'NL')
                 ))
                 ->add('file', 'file', array(
                     'required' => false,
                     'label_attr' => array('class'=>'col-sm-2'),
                 ));
         } else {
-            $formMapper->add('columns', 'sonata_type_collection', array('error_bubbling'=>false, 'by_reference' => true, 'label_attr'=>array('class'=>'col-md-12 align-left')), array('edit'=>'inline','inline'=>'table', 'template'=>'NSImportBundle:edi_orm_one_to_many.html.twig'));
+            $formMapper->add('columns', 'sonata_type_collection', array('error_bubbling'=>false, 'by_reference' => true, 'label_attr'=>array('class'=>'col-md-12 align-left')), array('edit'=>'inline', 'inline'=>'table', 'template'=>'NSImportBundle:edi_orm_one_to_many.html.twig'));
         }
     }
 

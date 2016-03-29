@@ -24,12 +24,12 @@ class ClientAdmin extends Admin
             ->add('name')
             ->add('redirectUris',       'tag', array('arrayOutput'=>true))
             ->add('allowedGrantTypes',  'OAuthGrantTypes')
-            ->add('user',null,array('placeholder'=>'Please Select', 'query_builder'=>function(\Doctrine\ORM\EntityRepository $repo){
+            ->add('user', null, array('placeholder'=>'Please Select', 'query_builder'=>function (\Doctrine\ORM\EntityRepository $repo) {
                                                 return $repo->createQueryBuilder('u')
-                                                            ->leftJoin('u.acls','a')
+                                                            ->leftJoin('u.acls', 'a')
                                                             ->addSelect('a')
                                                             ->where('a.type IN (:apiType)')
-                                                            ->setParameter('apiType',array(Role::REGION_API,Role::COUNTRY_API,Role::SITE_API));
+                                                            ->setParameter('apiType', array(Role::REGION_API, Role::COUNTRY_API, Role::SITE_API));
             }))
         ;
     }
@@ -41,8 +41,8 @@ class ClientAdmin extends Admin
     {
         $listMapper
             ->add('name')
-            ->add('publicId',null,array('label'=>'Client Id'))
-            ->add('secret',null,array('label'=>'Client Secret'))
+            ->add('publicId', null, array('label'=>'Client Id'))
+            ->add('secret', null, array('label'=>'Client Secret'))
             ->add('user')
             ->add('_action', 'actions', array(
                 'actions' => array(
@@ -61,8 +61,8 @@ class ClientAdmin extends Admin
     {
         $showMapper
             ->add('name')
-            ->add('publicId',null,array('label'=>'Client Id'))
-            ->add('secret',null,array('label'=>'Client Secret'))
+            ->add('publicId', null, array('label'=>'Client Id'))
+            ->add('secret', null, array('label'=>'Client Secret'))
             ->add('redirectUris')
             ->add('allowedGrantTypes')
         ;

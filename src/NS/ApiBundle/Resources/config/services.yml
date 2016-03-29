@@ -25,6 +25,6 @@ services:
 
   oauth2.client:
     class: %ns_api.client.class%
-    arguments: [ @doctrine.orm.entity_manager ]
+    arguments: [ "@doctrine.orm.entity_manager" ]
     tags:
       - { name: twig.extension, alias: oauth_client }

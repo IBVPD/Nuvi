@@ -49,8 +49,8 @@ class CaseActions extends \Twig_Extension
     {
         $isSafe = array('is_safe' => array('html'));
         return array(
-            new \Twig_SimpleFunction('case_big_actions',array($this, 'getBigActions'),$isSafe),
-            new \Twig_SimpleFunction('case_sm_actions', array($this, 'getSmallActions'),$isSafe),
+            new \Twig_SimpleFunction('case_big_actions', array($this, 'getBigActions'), $isSafe),
+            new \Twig_SimpleFunction('case_sm_actions', array($this, 'getSmallActions'), $isSafe),
         );
     }
 
@@ -60,7 +60,7 @@ class CaseActions extends \Twig_Extension
      */
     public function getBaseRoute($object)
     {
-        return ($object instanceOf IBD) ? 'ibd' : 'rotavirus';
+        return ($object instanceof IBD) ? 'ibd' : 'rotavirus';
     }
 
     /**
@@ -74,30 +74,30 @@ class CaseActions extends \Twig_Extension
 
         $out = '';
         if ($includeIndex) {
-            $out .= sprintf('<a href="%s" class="btn btn-xs btn-info"><i class="fa fa-list bigger-120"></i></a>',$this->router->generate($baseRoute . 'Index'));
+            $out .= sprintf('<a href="%s" class="btn btn-xs btn-info"><i class="fa fa-list bigger-120"></i></a>', $this->router->generate($baseRoute . 'Index'));
         }
 
-        $out .= sprintf( '<a href="%s" class="btn btn-xs btn-info"><i class="fa fa-eye bigger-120"></i></a>',$this->router->generate($baseRoute . 'Show', array('id' => $row->getId()),UrlGeneratorInterface::ABSOLUTE_PATH));
+        $out .= sprintf('<a href="%s" class="btn btn-xs btn-info"><i class="fa fa-eye bigger-120"></i></a>', $this->router->generate($baseRoute . 'Show', array('id' => $row->getId()), UrlGeneratorInterface::ABSOLUTE_PATH));
 
         if ($this->authChecker->isGranted('ROLE_CAN_CREATE')) {
             if ($this->authChecker->isGranted('ROLE_CAN_CREATE_CASE')) {
-                $out .= sprintf('<a href="%s" class="btn btn-xs btn-info"><i class="fa fa-edit bigger-120"></i> %s</a>',$this->router->generate($baseRoute . 'Edit', array('id' => $row->getId()),UrlGeneratorInterface::ABSOLUTE_PATH),$this->translator->trans('EPI'));
+                $out .= sprintf('<a href="%s" class="btn btn-xs btn-info"><i class="fa fa-edit bigger-120"></i> %s</a>', $this->router->generate($baseRoute . 'Edit', array('id' => $row->getId()), UrlGeneratorInterface::ABSOLUTE_PATH), $this->translator->trans('EPI'));
             }
 
             if ($this->authChecker->isGranted('ROLE_CAN_CREATE_LAB')) {
-                $out .= sprintf('<a href="%s" class="btn btn-xs btn-info"><i class="%s bigger-120"></i> %s</a>',$this->router->generate($baseRoute . 'LabEdit', array('id' => $row->getId()),UrlGeneratorInterface::ABSOLUTE_PATH),($row->hasSiteLab() ? 'fa fa-edit' : 'fa fa-plus'),$this->translator->trans('Lab'));
+                $out .= sprintf('<a href="%s" class="btn btn-xs btn-info"><i class="%s bigger-120"></i> %s</a>', $this->router->generate($baseRoute . 'LabEdit', array('id' => $row->getId()), UrlGeneratorInterface::ABSOLUTE_PATH), ($row->hasSiteLab() ? 'fa fa-edit' : 'fa fa-plus'), $this->translator->trans('Lab'));
             }
 
             if ($this->authChecker->isGranted('ROLE_CAN_CREATE_NL_LAB') && $row->getSentToNationalLab()) {
-                $out .= sprintf('<a href="%s" class="btn btn-xs btn-info"><i class="%s bigger-120"></i> %s</a>',$this->router->generate($baseRoute . 'NLEdit', array('id' => $row->getId()),UrlGeneratorInterface::ABSOLUTE_PATH),($row->hasNationalLab() ? 'fa fa-edit' : 'fa fa-plus'),$this->translator->trans('NL'));
+                $out .= sprintf('<a href="%s" class="btn btn-xs btn-info"><i class="%s bigger-120"></i> %s</a>', $this->router->generate($baseRoute . 'NLEdit', array('id' => $row->getId()), UrlGeneratorInterface::ABSOLUTE_PATH), ($row->hasNationalLab() ? 'fa fa-edit' : 'fa fa-plus'), $this->translator->trans('NL'));
             }
 
             if ($this->authChecker->isGranted('ROLE_CAN_CREATE_RRL_LAB') && $row->getSentToReferenceLab()) {
-                $out .= sprintf('<a href="%s" class="btn btn-xs btn-info"><i class="%s bigger-120"></i> %s</a>',$this->router->generate($baseRoute . 'RRLEdit', array('id' => $row->getId()),UrlGeneratorInterface::ABSOLUTE_PATH),($row->hasReferenceLab() ? 'fa fa-edit' : 'fa fa-plus'),$this->translator->trans('RRL'));
+                $out .= sprintf('<a href="%s" class="btn btn-xs btn-info"><i class="%s bigger-120"></i> %s</a>', $this->router->generate($baseRoute . 'RRLEdit', array('id' => $row->getId()), UrlGeneratorInterface::ABSOLUTE_PATH), ($row->hasReferenceLab() ? 'fa fa-edit' : 'fa fa-plus'), $this->translator->trans('RRL'));
             }
 
             if ($this->authChecker->isGranted('ROLE_CAN_CREATE_CASE')) {
-                $out .= sprintf('<a href="%s" class="btn btn-xs btn-info"><i class="fa fa-edit bigger-120"></i> %s</a>',$this->router->generate($baseRoute . 'OutcomeEdit', array('id' => $row->getId()),UrlGeneratorInterface::ABSOLUTE_PATH),$this->translator->trans('Outcome'));
+                $out .= sprintf('<a href="%s" class="btn btn-xs btn-info"><i class="fa fa-edit bigger-120"></i> %s</a>', $this->router->generate($baseRoute . 'OutcomeEdit', array('id' => $row->getId()), UrlGeneratorInterface::ABSOLUTE_PATH), $this->translator->trans('Outcome'));
             }
         }
 
@@ -151,5 +151,4 @@ class CaseActions extends \Twig_Extension
     {
         return 'twig_case_actions';
     }
-
 }

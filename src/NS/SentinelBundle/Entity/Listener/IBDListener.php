@@ -35,12 +35,11 @@ class IBDListener extends BaseCaseListener
      */
     public function calculateResult(BaseCase $case)
     {
-        if($case->getStatus()->getValue() >= CaseStatus::CANCELLED) {
+        if ($case->getStatus()->getValue() >= CaseStatus::CANCELLED) {
             return;
         }
 
-        if($this->isSuspected($case))
-        {
+        if ($this->isSuspected($case)) {
             // Probable
             if ($case->getCsfAppearance() && $case->getCsfAppearance()->equal(CSFAppearance::TURBID)) {
                 $case->getResult()->setValue(IBDCaseResult::PROBABLE);
@@ -60,8 +59,7 @@ class IBDListener extends BaseCaseListener
     public function isSuspected(IBD $case)
     {
         // Test Suspected
-        if($case->getAge() < 60)
-        {
+        if ($case->getAge() < 60) {
             if ($case->getMenFever() && $case->getMenFever()->equal(TripleChoice::YES)) {
                 if (($case->getMenAltConscious() && $case->getMenAltConscious()->equal(TripleChoice::YES)) || ($case->getMenNeckStiff() && $case->getMenNeckStiff()->equal(TripleChoice::YES))) {
                     $case->getResult()->setValue(IBDCaseResult::SUSPECTED);
@@ -83,8 +81,8 @@ class IBDListener extends BaseCaseListener
     public function getIncompleteField(BaseCase $case)
     {
         foreach ($this->getMinimumRequiredFields($case) as $field) {
-            $method = sprintf('get%s',$field);
-            $value  = call_user_func(array($case,$method));
+            $method = sprintf('get%s', $field);
+            $value  = call_user_func(array($case, $method));
 
             if ($value === null || empty($value) || ($value instanceof ArrayChoice && $value->equal(-1))) {
                 return $field;
@@ -131,7 +129,6 @@ class IBDListener extends BaseCaseListener
         }
 
         if ($case->getCsfCollected() && $case->getCsfCollected()->equal(TripleChoice::YES)) {
-
             if ($case->getCsfCollectDateTime() === null) {
                 return 'csfCollectDateTime';
             }
@@ -160,7 +157,7 @@ class IBDListener extends BaseCaseListener
     {
         $fields = array(
             'caseId',
-            'dob',
+            'birthdate',
             'gender',
             'district',
             'admDate',
@@ -187,7 +184,7 @@ class IBDListener extends BaseCaseListener
             'cxrDone',
         );
 
-        return (!$case->getCountry() || ($case->getCountry() && $case->getCountry()->getTracksPneumonia())) ? array_merge($fields,$this->getPneumiaRequiredFields()) : $fields;
+        return (!$case->getCountry() || ($case->getCountry() && $case->getCountry()->getTracksPneumonia())) ? array_merge($fields, $this->getPneumiaRequiredFields()) : $fields;
     }
 
     /**

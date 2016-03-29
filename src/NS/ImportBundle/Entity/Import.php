@@ -599,7 +599,7 @@ class Import
      */
     public function setStartedAt(\DateTime $startedAt)
     {
-        if(!$this->startedAt) {
+        if (!$this->startedAt) {
             $this->startedAt = $startedAt;
         }
 

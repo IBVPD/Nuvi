@@ -24,9 +24,9 @@ class DateOfBirthFilter implements ReporterInterface
     {
         $this->message = null;
 
-        if(isset($item['dob']) && $item['dob'] instanceof \DateTime && isset($item['admDate']) && $item['admDate'] instanceof \DateTime) {
-            if($item['dob'] > $item['admDate']) {
-                $this->message = 'Admission date is before dob';
+        if (isset($item['birthdate']) && $item['birthdate'] instanceof \DateTime && isset($item['admDate']) && $item['admDate'] instanceof \DateTime) {
+            if ($item['birthdate'] > $item['admDate']) {
+                $this->message = 'Admission date is before birthdate';
 
                 return false;
             }
@@ -40,7 +40,7 @@ class DateOfBirthFilter implements ReporterInterface
      */
     public function hasMessage()
     {
-        return (!empty($this->message));
+        return ($this->message !== null);
     }
 
     /**
@@ -58,5 +58,4 @@ class DateOfBirthFilter implements ReporterInterface
     {
         return ReporterInterface::ERROR;
     }
-
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace NS\ApiBundle\Entity;
+
 use FOS\OAuthServerBundle\Entity\RefreshToken as BaseRefreshToken;
 use FOS\OAuthServerBundle\Model\ClientInterface;
 use Doctrine\ORM\Mapping as ORM;

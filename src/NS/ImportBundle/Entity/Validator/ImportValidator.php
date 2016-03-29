@@ -14,7 +14,7 @@ class ImportValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
-        if($value->getInputDateStart() > $value->getInputDateEnd()) {
+        if ($value->getInputDateStart() > $value->getInputDateEnd()) {
             $this->context->buildViolation('The end date cannot be before the start date')->addViolation();
         }
     }

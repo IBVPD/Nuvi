@@ -26,7 +26,7 @@ class RemoteType extends AbstractType
             ->add('tokenEndpoint',  null,   array('label'=>'form.remote-token-endpoint'))
             ->add('authEndpoint',   null,   array('label'=>'form.remote-auth-endpoint'))
             ->add('redirectUrl',    null,   array('label'=>'form.remote-redirect-url'))
-            ->add('create','submit',array('label'=>'form.remote-submit-button','attr'=>array('class'=> 'btn btn-sm btn-success')))
+            ->add('create', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array('label'=>'form.remote-submit-button', 'attr'=>array('class'=> 'btn btn-sm btn-success')))
         ;
     }
     

@@ -2,8 +2,8 @@
 
 namespace NS\SentinelBundle\Filter\Listener;
 
+use Lexik\Bundle\FormFilterBundle\Event\GetFilterConditionEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Lexik\Bundle\FormFilterBundle\Event\ApplyFilterEvent;
 use NS\SentinelBundle\Form\Types\CaseStatus;
 
 /**
@@ -31,14 +31,13 @@ class CaseStatusListener implements EventSubscriberInterface
      * Apply a filter for a filter_locale type.
      *
      * This method should work with both ORM and DBAL query builder.
-     * @param ApplyFilterEvent $event
+     * @param GetFilterConditionEvent $event
      */
-    public function filterCaseStatus(ApplyFilterEvent $event)
+    public function filterCaseStatus(GetFilterConditionEvent $event)
     {
         $values = $event->getValues();
 
-        if ($values['value'] instanceof CaseStatus && $values['value']->getValue() >= 0)
-        {
+        if ($values['value'] instanceof CaseStatus && $values['value']->getValue() >= 0) {
             $paramName = str_replace('.', '_', $event->getField());
             $qb        = $event->getQueryBuilder();
 

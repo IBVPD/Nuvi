@@ -27,10 +27,10 @@ class SitePerformanceTwig extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('consistentReporting',array($this,'renderConsistentReporting'),array('is_safe'=>array('html'))),
-            new \Twig_SimpleFunction('minimumCases',array($this,'renderMinimumCases'),array('is_safe'=>array('html'))),
-            new \Twig_SimpleFunction('specimenCollected',array($this,'renderSpecimenCollected'),array('is_safe'=>array('html'))),
-            new \Twig_SimpleFunction('labConfirmed',array($this,'renderLabConfirmed'),array('is_safe'=>array('html'))),
+            new \Twig_SimpleFunction('consistentReporting', array($this, 'renderConsistentReporting'), array('is_safe'=>array('html'))),
+            new \Twig_SimpleFunction('minimumCases', array($this, 'renderMinimumCases'), array('is_safe'=>array('html'))),
+            new \Twig_SimpleFunction('specimenCollected', array($this, 'renderSpecimenCollected'), array('is_safe'=>array('html'))),
+            new \Twig_SimpleFunction('labConfirmed', array($this, 'renderLabConfirmed'), array('is_safe'=>array('html'))),
             );
     }
 
@@ -40,7 +40,7 @@ class SitePerformanceTwig extends \Twig_Extension
      */
     public function renderMinimumCases(AbstractSitePerformanceResult $result)
     {
-        return $this->twig->render('NSSentinelBundle:Report:flag.html.twig',array('result'=>$result->getMinimumNumberOfCases()));
+        return $this->twig->render('NSSentinelBundle:Report:flag.html.twig', array('result'=>$result->getMinimumNumberOfCases()));
     }
 
     /**
@@ -49,7 +49,7 @@ class SitePerformanceTwig extends \Twig_Extension
      */
     public function renderConsistentReporting(AbstractSitePerformanceResult $result)
     {
-        return $this->twig->render('NSSentinelBundle:Report:flag.html.twig',array('result'=>$result->getConsistentReporting()));
+        return $this->twig->render('NSSentinelBundle:Report:flag.html.twig', array('result'=>$result->getConsistentReporting()));
     }
 
     /**
@@ -70,7 +70,7 @@ class SitePerformanceTwig extends \Twig_Extension
             'classification'=>$classification,
             'classificationString'=>$result->getMinimumSpecimenCollectedString(),
         );
-        return $this->twig->render('NSSentinelBundle:Report:infobox.html.twig',$params);
+        return $this->twig->render('NSSentinelBundle:Report:infobox.html.twig', $params);
     }
 
     /**
@@ -83,7 +83,7 @@ class SitePerformanceTwig extends \Twig_Extension
 
         $color = $this->getClassificationColor($classification);
 
-        if($classification !== AbstractSitePerformanceResult::BAD) {
+        if ($classification !== AbstractSitePerformanceResult::BAD) {
             $color = ($classification == AbstractSitePerformanceResult::GOOD ? 'infobox-green' : 'infobox-orange');
         }
         $params = array(
@@ -94,7 +94,7 @@ class SitePerformanceTwig extends \Twig_Extension
             'classification'=>$classification,
             'classificationString'=>$result->getMinimumLabConfirmedString(),
         );
-        return $this->twig->render('NSSentinelBundle:Report:infobox.html.twig',$params);
+        return $this->twig->render('NSSentinelBundle:Report:infobox.html.twig', $params);
     }
 
     /**
@@ -104,7 +104,7 @@ class SitePerformanceTwig extends \Twig_Extension
     public function getClassificationColor($classification)
     {
         $color = 'infobox-blue2';
-        if($classification !== AbstractSitePerformanceResult::BAD) {
+        if ($classification !== AbstractSitePerformanceResult::BAD) {
             $color = ($classification == AbstractSitePerformanceResult::GOOD ? 'infobox-green' : 'infobox-orange');
         }
 

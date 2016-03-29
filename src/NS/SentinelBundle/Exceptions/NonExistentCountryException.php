@@ -6,5 +6,4 @@ use Ddeboer\DataImport\Exception;
 
 class NonExistentCountryException extends NonExistentObjectException implements Exception
 {
-
 }

@@ -19,7 +19,7 @@ class ColumnChooserTest extends \PHPUnit_Framework_TestCase
         $cacheMock->expects($this->once())
             ->method('fetch')
             ->with('class')
-            ->willReturn(array('choices'=>true,'complex'=>false));
+            ->willReturn(array('choices'=>true, 'complex'=>false));
 
         $chooser = $this->getChooser($cacheMock);
         $this->assertTrue($chooser->getChoices('class'));
@@ -37,7 +37,7 @@ class ColumnChooserTest extends \PHPUnit_Framework_TestCase
         $cacheMock->expects($this->once())
             ->method('fetch')
             ->with('class')
-            ->willReturn(array('choices'=>true,'complex'=>false));
+            ->willReturn(array('choices'=>true, 'complex'=>false));
 
         $chooser = $this->getChooser($cacheMock);
         $this->assertFalse($chooser->getComplexChoices('class'));
@@ -60,7 +60,7 @@ class ColumnChooserTest extends \PHPUnit_Framework_TestCase
 
         $cache = new ArrayCache();
 
-        $chooser = $this->getMock('NS\ImportBundle\Converter\ColumnChooser',array('buildChoices','buildComplex'),array($mockEntityMgr,$cache));
+        $chooser = $this->getMock('NS\ImportBundle\Converter\ColumnChooser', array('buildChoices', 'buildComplex'), array($mockEntityMgr, $cache));
         $chooser->expects($this->once())
             ->method('buildChoices')
             ->with($meta)
@@ -73,20 +73,20 @@ class ColumnChooserTest extends \PHPUnit_Framework_TestCase
 
         $retValue = $chooser->getChoices('class');
 
-        $this->assertEquals(array('here'),$retValue);
-        $this->assertEquals(array('choices'=>array('here'),'complex'=>array('here'=>false)),$cache->fetch('class'));
+        $this->assertEquals(array('here'), $retValue);
+        $this->assertEquals(array('choices'=>array('here'), 'complex'=>array('here'=>false)), $cache->fetch('class'));
     }
 
     public function testMetaChoicesWithoutAssociationName()
     {
         $meta = $this->getMockBuilder('Doctrine\ORM\Mapping\ClassMetadata')
             ->disableOriginalConstructor()
-            ->setMethods(array('getFieldNames','getTypeOfField'))
+            ->setMethods(array('getFieldNames', 'getTypeOfField'))
             ->getMock();
 
         $meta->expects($this->once())
             ->method('getFieldNames')
-            ->willReturn(array('field1','field2','field3'));
+            ->willReturn(array('field1', 'field2', 'field3'));
 
         $map = array(
             array('field1','string'),
@@ -100,28 +100,28 @@ class ColumnChooserTest extends \PHPUnit_Framework_TestCase
 
         $choices = $chooser->getMetaChoices($meta);
         $this->assertTrue(is_array($choices));
-        $this->assertCount(3,$choices);
+        $this->assertCount(3, $choices);
 
-        $this->assertArrayHasKey('field1',$choices);
-        $this->assertEquals('field1 (string)',$choices['field1']);
+        $this->assertArrayHasKey('field1', $choices);
+        $this->assertEquals('field1 (string)', $choices['field1']);
 
-        $this->assertArrayHasKey('field2',$choices);
-        $this->assertEquals('field2 (integer)',$choices['field2']);
+        $this->assertArrayHasKey('field2', $choices);
+        $this->assertEquals('field2 (integer)', $choices['field2']);
 
-        $this->assertArrayHasKey('field3',$choices);
-        $this->assertEquals('field3 (TripleChoice)',$choices['field3']);
+        $this->assertArrayHasKey('field3', $choices);
+        $this->assertEquals('field3 (TripleChoice)', $choices['field3']);
     }
 
     public function testMetaChoicesWithoutAssociationNameSorted()
     {
         $meta = $this->getMockBuilder('Doctrine\ORM\Mapping\ClassMetadata')
             ->disableOriginalConstructor()
-            ->setMethods(array('getFieldNames','getTypeOfField'))
+            ->setMethods(array('getFieldNames', 'getTypeOfField'))
             ->getMock();
 
         $meta->expects($this->once())
             ->method('getFieldNames')
-            ->willReturn(array('field2','field1','field3'));
+            ->willReturn(array('field2', 'field1', 'field3'));
 
         $map = array(
             array('field1','string'),
@@ -135,29 +135,29 @@ class ColumnChooserTest extends \PHPUnit_Framework_TestCase
 
         $choices = $chooser->getMetaChoices($meta);
         $this->assertTrue(is_array($choices));
-        $this->assertCount(3,$choices);
+        $this->assertCount(3, $choices);
 
-        $this->assertArrayHasKey('field1',$choices);
-        $this->assertEquals('field1 (string)',$choices['field1']);
+        $this->assertArrayHasKey('field1', $choices);
+        $this->assertEquals('field1 (string)', $choices['field1']);
 
-        $this->assertArrayHasKey('field2',$choices);
-        $this->assertEquals('field2 (integer)',$choices['field2']);
+        $this->assertArrayHasKey('field2', $choices);
+        $this->assertEquals('field2 (integer)', $choices['field2']);
 
-        $this->assertArrayHasKey('field3',$choices);
-        $this->assertEquals('field3 (TripleChoice)',$choices['field3']);
-        $this->assertEquals(array('field1','field2','field3'),array_keys($choices));
+        $this->assertArrayHasKey('field3', $choices);
+        $this->assertEquals('field3 (TripleChoice)', $choices['field3']);
+        $this->assertEquals(array('field1', 'field2', 'field3'), array_keys($choices));
     }
 
     public function testMetaChoicesWithAssociationName()
     {
         $meta = $this->getMockBuilder('Doctrine\ORM\Mapping\ClassMetadata')
             ->disableOriginalConstructor()
-            ->setMethods(array('getFieldNames','getTypeOfField'))
+            ->setMethods(array('getFieldNames', 'getTypeOfField'))
             ->getMock();
 
         $meta->expects($this->once())
             ->method('getFieldNames')
-            ->willReturn(array('field1','field2','field3'));
+            ->willReturn(array('field1', 'field2', 'field3'));
 
         $map = array(
             array('field1','string'),
@@ -169,18 +169,18 @@ class ColumnChooserTest extends \PHPUnit_Framework_TestCase
 
         $chooser = $this->getChooser();
 
-        $choices = $chooser->getMetaChoices($meta,'assocName');
+        $choices = $chooser->getMetaChoices($meta, 'assocName');
         $this->assertTrue(is_array($choices));
-        $this->assertCount(3,$choices);
+        $this->assertCount(3, $choices);
 
-        $this->assertArrayHasKey('assocName.field1',$choices);
-        $this->assertEquals('assocName.field1 (string)',$choices['assocName.field1']);
+        $this->assertArrayHasKey('assocName.field1', $choices);
+        $this->assertEquals('assocName.field1 (string)', $choices['assocName.field1']);
 
-        $this->assertArrayHasKey('assocName.field2',$choices);
-        $this->assertEquals('assocName.field2 (integer)',$choices['assocName.field2']);
+        $this->assertArrayHasKey('assocName.field2', $choices);
+        $this->assertEquals('assocName.field2 (integer)', $choices['assocName.field2']);
 
-        $this->assertArrayHasKey('assocName.field3',$choices);
-        $this->assertEquals('assocName.field3 (TripleChoice)',$choices['assocName.field3']);
+        $this->assertArrayHasKey('assocName.field3', $choices);
+        $this->assertEquals('assocName.field3 (TripleChoice)', $choices['assocName.field3']);
     }
 
     public function getChooser($cache = null)
@@ -189,7 +189,7 @@ class ColumnChooserTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        return new ColumnChooser($mockEntityMgr,(!$cache)?new ArrayCache():$cache);
+        return new ColumnChooser($mockEntityMgr, (!$cache)?new ArrayCache():$cache);
     }
 
     /**
@@ -198,10 +198,10 @@ class ColumnChooserTest extends \PHPUnit_Framework_TestCase
      *
      * @dataProvider getTypes
      */
-    public function testIsComplex($type,$isComplex)
+    public function testIsComplex($type, $isComplex)
     {
         $chooser = $this->getChooser();
-        $this->assertEquals($isComplex,$chooser->isComplex($type));
+        $this->assertEquals($isComplex, $chooser->isComplex($type));
     }
 
     public function getTypes()
