@@ -67,6 +67,14 @@ th.field-ignored input.ace.ace-switch[type="checkbox"] + .lbl::before {
     background: #666666;
 }
 
+.progress-label {
+    position: absolute;
+    z-index: 100;
+    margin-left: 10px;
+    color: #ffffff;
+}
+
 .progress-row .progress {
     margin-bottom: 0;
+    height: 20px;
 }

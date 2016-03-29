@@ -77,27 +77,27 @@
                                         <td id="progress-{{ r.id }}-source"> {{ r.sourceCount }} ({{ r.percentComplete|number_format(0) }}%) </td>
                                         <td id="progress-{{ r.id }}-imported"> {{ r.importedCount }} </td>
                                         <td>
-                                            <a href="{{path('importResultDownload',{type:'success','id':r.id})}}" {{r.importedCount?'':'style="display:none;"'}}id="progress-{{ r.id }}-success" class="btn btn-xs btn-success">{{'Successful'|trans}} <i class="fa fa-cloud-download"></i></a>
+                                            <a href="{{path('importResultDownload',{type:'success','id':r.id})}}" id="progress-{{ r.id }}-success" class="btn btn-xs btn-success">{{'Successful'|trans}} <i class="fa fa-cloud-download"></i></a>
                                         </td>
                                         <td>
-                                            <a href="{{path('importResultDownload',{type:'warnings','id':r.id})}}" {{r.warningCount?'':'style="display:none;"'}} id="progress-{{ r.id }}-warnings" class="btn btn-xs btn-warning"><span>{{r.warningCount}}</span> {{'Warnings'|trans}} <i class="fa fa-cloud-download"></i></a>
+                                            <a href="{{path('importResultDownload',{type:'warnings','id':r.id})}}" id="progress-{{ r.id }}-warnings" class="btn btn-xs btn-warning"><span>{{r.warningCount}}</span> {{'Warnings'|trans}} <i class="fa fa-cloud-download"></i></a>
                                         </td>
                                         <td>
-                                            <a href="{{path('importResultDownload',{type:'errors','id':r.id})}}" {{r.errorCount?'':'style="display:none;"'}} id="progress-{{ r.id }}-errors" class="btn btn-xs btn-danger"><span>{{r.errorCount}}</span> {{'Errors'|trans}} <i class="fa fa-cloud-download"></i></a>
+                                            <a href="{{path('importResultDownload',{type:'errors','id':r.id})}}" id="progress-{{ r.id }}-errors" class="btn btn-xs btn-danger"><span>{{r.errorCount}}</span> {{'Errors'|trans}} <i class="fa fa-cloud-download"></i></a>
                                         </td>
                                         <td>{{ import_actions(r) }}</td>
                                     </tr>
 
                                     <tr>
                                         <td colspan="2">{{ r.inputDateStart.format('Y-m-d') }} - {{ r.inputDateEnd.format('Y-m-d') }}</td>
-                                        <td id="progress-{{ r.id }}-status">{{ r.pheanstalkStatus }}</td>
-                                        <td colspan="6">
-                                            {%  if r.running %}
-                                                <div id="progress-{{ r.id }}-row" class="progress-row">
-                                                    <div class="progress pos-rel progress-striped active" id="progress-{{ r.id }}-percent" data-percent="{{ r.percentComplete }}%">
-                                                        <div class="progress-bar" style="width:{{ r.percentComplete }}%;" id="progress-{{ r.id }}"></div>
-                                                    </div>
+                                        <td colspan="7">
+                                            <div class="progress-label"><i class="fa fa-{{ r.pheanstalkStatus == 'complete' ? 'check' }}{{ r.pheanstalkStatus == 'running' ? 'tasks' }}{{ r.pheanstalkStatus == 'error' ? 'exclamation-triangle' }}"></i> {{ r.pheanstalkStatus }}</div>
+                                            <div id="progress-{{ r.id }}-row" class="progress-row">
+                                                <div class="progress pos-rel progress-striped {{ r.pheanstalkStatus == 'running' ? 'active' }}" id="progress-{{ r.id }}-percent" data-percent="{{ r.percentComplete }}%">
+                                                    <div class="progress-bar {{ r.pheanstalkStatus == 'complete' ? 'progress-bar-success' }}{{ r.pheanstalkStatus == 'error' ? 'progress-bar-danger' }}" style="width:{{ r.percentComplete }}%;" id="progress-{{ r.id }}"></div>
                                                 </div>
+                                            </div>
+                                            {%  if r.running %}
                                                 <script type="text/javascript">
                                                     $(function() {
                                                         function pollLatestResponse() {
@@ -108,28 +108,11 @@
                                                                 $('#progress-{{r.id}}-processed').html(retValue['processedCount']);
                                                                 $('#progress-{{r.id}}-status').html(retValue['status']);
                                                                 $('#progress-{{r.id}}-imported').html(retValue['importedCount']);
-
-                                                                if(retValue['importedCount'])
-                                                                {
-                                                                    $('#progress-{{r.id}}-imported span').html(retValue['importedCount']);
-                                                                    $('#progress-{{r.id}}-imported').show();
-                                                                }
-
-                                                                if(retValue['warningCount'])
-                                                                {
-                                                                    $('#progress-{{ r.id }}-warnings span').html(retValue['warningCount']);
-                                                                    $('#progress-{{ r.id }}-warnings').show();
-                                                                }
-
-                                                                if(retValue['errorCount'])
-                                                                {
-                                                                    $('#progress-{{ r.id }}-errors span').html(retValue['errorCount']);
-                                                                    $('#progress-{{ r.id }}-errors').show();
-                                                                }
+                                                                $('#progress-{{ r.id }}-warnings span').html(retValue['warningCount']);
+                                                                $('#progress-{{ r.id }}-errors span').html(retValue['errorCount']);
 
                                                                 if (retValue['status'] !== '{{ constant('NS\\ImportBundle\\Entity\\Import::STATUS_RUNNING') }}' ) {
                                                                     clearInterval(pollTimer);
-                                                                    $('#progress-{{ r.id }}-row').hide();
                                                                 }
                                                             });
                                                         }
