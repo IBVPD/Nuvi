@@ -94,7 +94,7 @@
                                             <div class="progress-label"><i class="fa fa-{{ r.pheanstalkStatus == 'complete' ? 'check' }}{{ r.pheanstalkStatus == 'running' ? 'tasks' }}{{ r.pheanstalkStatus == 'error' ? 'exclamation-triangle' }}"></i> {{ r.pheanstalkStatus }}</div>
                                             <div id="progress-{{ r.id }}-row" class="progress-row">
                                                 <div class="progress pos-rel progress-striped {{ r.pheanstalkStatus == 'running' ? 'active' }}" id="progress-{{ r.id }}-percent" data-percent="{{ r.percentComplete }}%">
-                                                    <div class="progress-bar {{ r.pheanstalkStatus == 'complete' ? 'progress-bar-success' }}{{ r.pheanstalkStatus == 'error' ? 'progress-bar-danger' }}" style="width:{{ r.percentComplete }}%;" id="progress-{{ r.id }}"></div>
+                                                    <div class="progress-bar {{ r.pheanstalkStatus == 'complete' ? 'progress-bar-inverse' }}{{ r.pheanstalkStatus == 'error' ? 'progress-bar-danger' }}" style="width:{{ r.percentComplete }}%;" id="progress-{{ r.id }}"></div>
                                                 </div>
                                             </div>
                                             {%  if r.running %}
