@@ -17,7 +17,7 @@ class SiteConverter extends AbstractBaseObjectConverter
     {
         $res = $this->findObject($input);
         if (!$res) {
-            throw new NonExistentSiteException("Unable to find site chain for $input");
+            throw new NonExistentSiteException("Unable to find site for $input");
         } elseif (!$res->isActive()) {
             throw new NonExistentSiteException(sprintf('Site %s is inactive, import disabled!', $input));
         }
