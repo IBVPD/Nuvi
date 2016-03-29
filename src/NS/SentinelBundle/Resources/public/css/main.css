@@ -78,3 +78,7 @@ th.field-ignored input.ace.ace-switch[type="checkbox"] + .lbl::before {
     margin-bottom: 0;
     height: 20px;
 }
+
+.form-group.error {
+    background-color: #F2EAEA;
+}
