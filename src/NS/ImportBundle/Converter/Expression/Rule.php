@@ -46,10 +46,10 @@ class Rule
      */
     public function __construct(array $json)
     {
-        if(isset($json['condition']) && count($json['rules']) > 1)  {
+        if (isset($json['condition']) && count($json['rules']) > 1) {
             $this->condition = ($json['condition'] == 'AND') ? self::AND_CONDITION : self::OR_CONDITION;
             $this->complex = true;
-            foreach($json['rules'] as $jsonRule) {
+            foreach ($json['rules'] as $jsonRule) {
                 $this->rules[] = new Rule($jsonRule);
             }
         } else {

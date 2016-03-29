@@ -20,12 +20,12 @@ class GreaterThanDateValidator extends ConstraintValidator
     {
         $accessor = PropertyAccess::createPropertyAccessor();
 
-        $lessThanValue = $accessor->getValue($value,$constraint->lessThanField);
-        $greaterThanValue = $accessor->getValue($value,$constraint->greaterThanField);
+        $lessThanValue = $accessor->getValue($value, $constraint->lessThanField);
+        $greaterThanValue = $accessor->getValue($value, $constraint->greaterThanField);
 
-        if($lessThanValue instanceof \DateTime && $greaterThanValue instanceof \DateTime) {
-            if($lessThanValue > $greaterThanValue) {
-                $message = (!empty($constraint->message))? $constraint->message:sprintf("%s: %s is not greater than %s: %s",$constraint->greaterThanField,$greaterThanValue->format('Y-m-d'),$constraint->lessThanField,$lessThanValue->format('Y-m-d'));
+        if ($lessThanValue instanceof \DateTime && $greaterThanValue instanceof \DateTime) {
+            if ($lessThanValue > $greaterThanValue) {
+                $message = (!empty($constraint->message))? $constraint->message:sprintf("%s: %s is not greater than %s: %s", $constraint->greaterThanField, $greaterThanValue->format('Y-m-d'), $constraint->lessThanField, $lessThanValue->format('Y-m-d'));
                 $this->context
                     ->buildViolation($message)
                     ->addViolation();

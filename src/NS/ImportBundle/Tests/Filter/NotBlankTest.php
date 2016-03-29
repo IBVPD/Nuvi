@@ -8,7 +8,6 @@
 
 namespace NS\ImportBundle\Tests\Filter;
 
-
 use NS\ImportBundle\Filter\NotBlank;
 
 class NotBlankTest extends \PHPUnit_Framework_TestCase
@@ -19,7 +18,7 @@ class NotBlankTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($filter->hasMessage());
         $filter->__invoke(array('another'=>'thing'));
         $this->assertTrue($filter->hasMessage());
-        $this->assertEquals('Field \'something\' is blank',$filter->getMessage());
+        $this->assertEquals('Field \'something\' is blank', $filter->getMessage());
     }
 
     public function testHaveFieldHasNoMessage()

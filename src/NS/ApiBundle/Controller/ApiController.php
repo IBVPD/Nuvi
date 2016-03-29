@@ -65,5 +65,4 @@ class ApiController extends FOSRestController
             'ibd'      => $ibd,
         );
     }
-
 }

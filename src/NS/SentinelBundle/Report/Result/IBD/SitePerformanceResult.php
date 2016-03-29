@@ -12,12 +12,12 @@ class SitePerformanceResult extends AbstractSitePerformanceResult
     public function getMinimumNumberOfCases()
     {
         $total = $this->getTotalCases();
-        switch($this->getSite()->getIbdTier()) {
+        switch ($this->getSite()->getIbdTier()) {
             case 1:
-                return $this->getState($total,100,80);
+                return $this->getState($total, 100, 80);
             case 3:
             case 2:
-                return $this->getState($total,500,400);
+                return $this->getState($total, 500, 400);
             default:
                 return self::BAD;
         }
@@ -29,11 +29,11 @@ class SitePerformanceResult extends AbstractSitePerformanceResult
     public function hasMinimumSpecimenCollected()
     {
         $percent = $this->getSpecimenCollectionPercent();
-        switch($this->getSite()->getIbdTier()) {
+        switch ($this->getSite()->getIbdTier()) {
             case 1:
                 return $this->getState($percent);
             case 2:
-                return $this->getState($percent,75,70);
+                return $this->getState($percent, 75, 70);
         }
 
         return self::BAD;
@@ -44,7 +44,7 @@ class SitePerformanceResult extends AbstractSitePerformanceResult
 
     public function getMinimumNumberOfCasesString()
     {
-        switch($this->getSite()->getIbdTier()) {
+        switch ($this->getSite()->getIbdTier()) {
             case 1:
                 return self::TIER1_MIN_CASES_STR;
             case 2:
@@ -59,7 +59,7 @@ class SitePerformanceResult extends AbstractSitePerformanceResult
 
     public function getMinimumSpecimenCollectedString()
     {
-        switch($this->getSite()->getIbdTier()) {
+        switch ($this->getSite()->getIbdTier()) {
             case 1:
                 return self::TIER1_MIN_SPECIMEN_STR;
             case 2:
@@ -69,13 +69,10 @@ class SitePerformanceResult extends AbstractSitePerformanceResult
 
     public function getMinimumLabConfirmedString()
     {
-
     }
 
     public function hasMinimumLabConfirmed()
     {
         return 'N/A';
     }
-
-
 }

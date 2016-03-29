@@ -42,11 +42,11 @@ class ExpressionBuilder
         }
 
         $rules = array();
-        foreach($rule->getRules() as $subRule) {
+        foreach ($rule->getRules() as $subRule) {
             $rules[] = $this->convertRuleToExpression($subRule);
         }
 
-        return sprintf('(%s)',implode(sprintf(') %s (',$rule->getCondition()),$rules));
+        return sprintf('(%s)', implode(sprintf(') %s (', $rule->getCondition()), $rules));
     }
 
     /**
@@ -81,6 +81,6 @@ class ExpressionBuilder
             return $value;
         }
 
-        return sprintf('\'%s\'',$value);
+        return sprintf('\'%s\'', $value);
     }
 }

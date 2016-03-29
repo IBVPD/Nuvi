@@ -229,5 +229,4 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
         $this->assertContains('label-danger', $l4, "NL - lab data but no sent to lab");
         $this->assertContains('label-danger', $l41, "Case Error - NL - lab data but no sent to lab");
     }
-
 }

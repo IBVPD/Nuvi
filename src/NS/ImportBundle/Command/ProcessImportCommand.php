@@ -17,7 +17,7 @@ class ProcessImportCommand extends ContainerAwareCommand
     {
         $this->setName('nsimport:process-import')
             ->setDescription('Processes one batch of a given import')
-            ->addOption('batch-size','b',InputOption::VALUE_OPTIONAL,'Batch size to process',400)
+            ->addOption('batch-size', 'b', InputOption::VALUE_OPTIONAL, 'Batch size to process', 400)
             ->addArgument('id', InputArgument::REQUIRED);
     }
 
@@ -29,8 +29,8 @@ class ProcessImportCommand extends ContainerAwareCommand
         $batchSize = $input->getOption('batch-size');
 
         $worker = $this->getContainer()->get('ns_import.batch_worker');
-        $worker->consume($input->getArgument('id'),$batchSize);
+        $worker->consume($input->getArgument('id'), $batchSize);
 
-        $output->writeln(sprintf("Processed %d lines",$batchSize));
+        $output->writeln(sprintf("Processed %d lines", $batchSize));
     }
 }

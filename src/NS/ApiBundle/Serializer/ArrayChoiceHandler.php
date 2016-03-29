@@ -77,7 +77,7 @@ class ArrayChoiceHandler implements SubscribingHandlerInterface
             'NS\SentinelBundle\Form\Types\ThreeDoses',
         );
 
-        foreach($types as $type) {
+        foreach ($types as $type) {
             $ret[] = array(
                 'direction' => GraphNavigator::DIRECTION_SERIALIZATION,
                 'format'    => 'json',

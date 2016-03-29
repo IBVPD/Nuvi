@@ -19,7 +19,7 @@ class AuthorizeFormType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('allowAccess', 'checkbox', array('label' => 'Allow access',))
+        $builder->add('allowAccess', 'checkbox', array('label' => 'Allow access', ))
             ;
     }
 

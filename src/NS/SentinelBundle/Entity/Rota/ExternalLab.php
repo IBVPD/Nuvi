@@ -3,7 +3,6 @@
 namespace NS\SentinelBundle\Entity\Rota;
 
 use Doctrine\ORM\Mapping as ORM;
-
 use \Gedmo\Mapping\Annotation as Gedmo;
 use \NS\SecurityBundle\Annotation\Secured;
 use \NS\SecurityBundle\Annotation\SecuredCondition;

@@ -47,7 +47,7 @@ class NotBlank implements ReporterInterface
 
         foreach ($this->fields as $field) {
             if (empty($item[$field])) {
-                $this->message = sprintf('Field \'%s\' is blank',$field);
+                $this->message = sprintf('Field \'%s\' is blank', $field);
                 return false;
             }
         }

@@ -2,7 +2,6 @@
 
 namespace NS\ImportBundle\Linker;
 
-
 interface CaseLinkerInterface
 {
     /**

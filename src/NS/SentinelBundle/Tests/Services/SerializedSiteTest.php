@@ -22,10 +22,11 @@ class SerializedSiteTest extends \PHPUnit_Framework_TestCase
         $serializedSites = serialize($sites);
         $unSites         = unserialize($serializedSites);
 
-        $this->assertEquals(count($sites),count($unSites),"We have the same number of");
+        $this->assertEquals(count($sites), count($unSites), "We have the same number of");
 
-        foreach($unSites as $s)
+        foreach ($unSites as $s) {
             $this->assertGreaterThan(0, $s->getId(), "We still have an id");
+        }
     }
 
     public function testSerializedSitesHasMultipleSites()
@@ -33,11 +34,11 @@ class SerializedSiteTest extends \PHPUnit_Framework_TestCase
         $session        = new Session(new MockFileSessionStorage());
         $session->start();
         $em             = $this->getMockObjectManager();
-        $siteSerializer = new SerializedSites($session,$em);
+        $siteSerializer = new SerializedSites($session, $em);
         $site           = $siteSerializer->getSite();
 
-        $this->assertTrue($siteSerializer->hasMultipleSites(),"Has multiple sites");
-        $this->assertEquals($site->getId(),1);
+        $this->assertTrue($siteSerializer->hasMultipleSites(), "Has multiple sites");
+        $this->assertEquals($site->getId(), 1);
     }
 
     public function testSerializedSitesHasIds()
@@ -45,11 +46,12 @@ class SerializedSiteTest extends \PHPUnit_Framework_TestCase
         $session        = new Session(new MockFileSessionStorage());
         $session->start();
         $em             = $this->getMockObjectManager();
-        $siteSerializer = new SerializedSites($session,$em);
+        $siteSerializer = new SerializedSites($session, $em);
 
-        $this->assertTrue($siteSerializer->hasMultipleSites(),"Has multiple sites");
-        foreach($siteSerializer->getSites() as $s)
-            $this->assertGreaterThan(0,$s->getId(), "Id is greater than 0");
+        $this->assertTrue($siteSerializer->hasMultipleSites(), "Has multiple sites");
+        foreach ($siteSerializer->getSites() as $s) {
+            $this->assertGreaterThan(0, $s->getId(), "Id is greater than 0");
+        }
     }
 
     private function getMockObjectManager()
@@ -81,18 +83,18 @@ class SerializedSiteTest extends \PHPUnit_Framework_TestCase
 
     private function getObjects()
     {
-        $region = new Region(1,'Region Name');
+        $region = new Region(1, 'Region Name');
 
-        $country = new Country(1,'Country Name');
+        $country = new Country(1, 'Country Name');
         $country->setRegion($region);
 
         $site1 = new Site(1, 'Site 1');
         $site1->setCountry($country);
 
-        $site2 = new Site(2,'Site 2');
+        $site2 = new Site(2, 'Site 2');
         $site2->setCountry($country);
 
-        $site3 = new Site(3,'Site 3');
+        $site3 = new Site(3, 'Site 3');
         $site3->setCountry($country);
 
         return array($site1, $site2, $site3);
@@ -100,10 +102,10 @@ class SerializedSiteTest extends \PHPUnit_Framework_TestCase
 
     public function testRegisterSite()
     {
-        $region = new Region('rCode','RegionName');
-        $country = new Country('cCode','CountryName');
+        $region = new Region('rCode', 'RegionName');
+        $country = new Country('cCode', 'CountryName');
         $country->setRegion($region);
-        $site = new Site('sId','SiteName');
+        $site = new Site('sId', 'SiteName');
         $site->setCountry($country);
 
         $mockUoW = $this->getMockBuilder('Doctrine\ORM\UnitOfWork')
@@ -132,7 +134,7 @@ class SerializedSiteTest extends \PHPUnit_Framework_TestCase
         $session        = new Session(new MockFileSessionStorage());
         $session->start();
 
-        $serializedSites = new SerializedSites($session,$mockEntityMgr);
+        $serializedSites = new SerializedSites($session, $mockEntityMgr);
         $serializedSites->registerSite($site);
     }
 }

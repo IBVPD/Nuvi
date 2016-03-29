@@ -2,7 +2,6 @@
 
 namespace NS\SentinelBundle\Repository;
 
-
 use \Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query;
 use \Doctrine\ORM\QueryBuilder;
@@ -32,7 +31,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
      */
     public function getAll()
     {
-        return $this->getAllSecuredQueryBuilder()->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD,true)->getResult();
+        return $this->getAllSecuredQueryBuilder()->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult();
     }
 
     /**
@@ -44,7 +43,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
         return $this->secure($this->_em
             ->createQueryBuilder()
             ->select($alias)
-            ->from($this->getClassName(),$alias,sprintf('%s.code',$alias))
+            ->from($this->getClassName(), $alias, sprintf('%s.code', $alias))
             ->orderBy($alias.'.name', 'ASC'));
     }
 
@@ -123,7 +122,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
     {
         $qb = $this->createQueryBuilder('c')
             ->addSelect('sl,rl,nl,s')
-            ->leftJoin('c.site','s')
+            ->leftJoin('c.site', 's')
             ->leftJoin('c.siteLab', 'sl')
             ->leftJoin('c.referenceLab', 'rl')
             ->leftJoin('c.nationalLab', 'nl');
@@ -147,8 +146,8 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
             throw new \InvalidArgumentException(sprintf('Missing required "%s" parameter key', $requiredField));
         }
 
-        if($class !== null && !$criteria[$requiredField] instanceof $class) {
-            throw new \InvalidArgumentException(sprintf('Unexpected type! Expecting \'%s\' to be class \'%s\' got \'%s\' instead.',$requiredField,$class,get_class($criteria[$requiredField])));
+        if ($class !== null && !$criteria[$requiredField] instanceof $class) {
+            throw new \InvalidArgumentException(sprintf('Unexpected type! Expecting \'%s\' to be class \'%s\' got \'%s\' instead.', $requiredField, $class, get_class($criteria[$requiredField])));
         }
     }
 
@@ -158,8 +157,8 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
      */
     public function findBySiteAndCaseId(array $params)
     {
-        $this->checkRequiredField('site',$params,'NS\SentinelBundle\Entity\Site');
-        $this->checkRequiredField('caseId',$params);
+        $this->checkRequiredField('site', $params, 'NS\SentinelBundle\Entity\Site');
+        $this->checkRequiredField('caseId', $params);
 
         $cases = $this->findWithRelations(array('caseId'=> $params['caseId']));
 
@@ -174,7 +173,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
         $case = current($cases);
 
         if (!$case->isUnlinked() && $case->getSite() && $case->getSite()->getCode() !== $params['site']->getCode()) {
-            throw new InvalidCaseException(sprintf("Retrieved a single case '%s' with an existing site mis-match. caseSite: %s vs requestedSite: %s",$params['caseId'],$case->getSite(),$params['site']->getCode()));
+            throw new InvalidCaseException(sprintf("Retrieved a single case '%s' with an existing site mis-match. caseSite: %s vs requestedSite: %s", $params['caseId'], $case->getSite(), $params['site']->getCode()));
         }
 
         return $case;

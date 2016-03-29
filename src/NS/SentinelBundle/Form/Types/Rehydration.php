@@ -35,5 +35,4 @@ class Rehydration extends TranslatableArrayChoice implements TranslationContaine
     {
         return 'Rehydration';
     }
-
 }

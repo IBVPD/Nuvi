@@ -103,15 +103,12 @@ class HomepageTest extends \PHPUnit_Framework_TestCase
             ->willReturn($user);
 
         $router = $this->getMock('\Symfony\Component\Routing\RouterInterface');
-        if ($routerParam)
-        {
+        if ($routerParam) {
             $router->expects($this->once())
                 ->method('generate')
                 ->with($route, $routerParam)
                 ->willReturn(sprintf("/%s", $routerParam['_locale']));
-        }
-        else
-        {
+        } else {
             $router->expects($this->once())
                 ->method('generate')
                 ->with($route)

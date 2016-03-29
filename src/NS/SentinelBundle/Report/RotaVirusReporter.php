@@ -22,7 +22,7 @@ class RotaVirusReporter extends AbstractReporter
     {
         $results = new ArrayCollection();
         $alias = 'i';
-        $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getWithCasesForDate($alias,'NS\SentinelBundle\Entity\RotaVirus');
+        $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getWithCasesForDate($alias, 'NS\SentinelBundle\Entity\RotaVirus');
 
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -38,7 +38,7 @@ class RotaVirusReporter extends AbstractReporter
                 return array('sites' => array(), 'form' => $form->createView());
             }
 
-            $this->populateSites($sites,$results,'NS\SentinelBundle\Report\Result\RotaVirus\DataQualityResult');
+            $this->populateSites($sites, $results, 'NS\SentinelBundle\Report\Result\RotaVirus\DataQualityResult');
 
             $repo = $this->entityMgr->getRepository('NSSentinelBundle:RotaVirus');
             $columns = array(
@@ -75,7 +75,7 @@ class RotaVirusReporter extends AbstractReporter
     {
         $results = new ArrayCollection();
         $alias = 'i';
-        $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getWithCasesForDate($alias,'NS\SentinelBundle\Entity\RotaVirus');
+        $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getWithCasesForDate($alias, 'NS\SentinelBundle\Entity\RotaVirus');
 
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -91,7 +91,7 @@ class RotaVirusReporter extends AbstractReporter
                 return array('sites' => array(), 'form' => $form->createView());
             }
 
-            $this->populateSites($sites,$results,'NS\SentinelBundle\Report\Result\RotaVirus\SitePerformanceResult');
+            $this->populateSites($sites, $results, 'NS\SentinelBundle\Report\Result\RotaVirus\SitePerformanceResult');
 
             $repo = $this->entityMgr->getRepository('NSSentinelBundle:RotaVirus');
             $columns = array(
@@ -105,7 +105,7 @@ class RotaVirusReporter extends AbstractReporter
                 'getLabConfirmedCount' => 'setLabConfirmed',
             );
 
-            $this->processResult($columns,$repo,$alias,$results,$form);
+            $this->processResult($columns, $repo, $alias, $results, $form);
 
 //            if ($form->get('export')->isClicked()) {
 //                $fields = array(
@@ -132,7 +132,7 @@ class RotaVirusReporter extends AbstractReporter
     {
         $results = new ArrayCollection();
         $alias = 'i';
-        $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Country')->getWithCasesForDate($alias,'NS\SentinelBundle\Entity\RotaVirus');
+        $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Country')->getWithCasesForDate($alias, 'NS\SentinelBundle\Entity\RotaVirus');
 
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -149,7 +149,7 @@ class RotaVirusReporter extends AbstractReporter
                 return array('sites' => array(), 'form' => $form->createView());
             }
 
-            $this->populateCountries($countries,$results,'NS\SentinelBundle\Report\Result\DataLinkingResult');
+            $this->populateCountries($countries, $results, 'NS\SentinelBundle\Report\Result\DataLinkingResult');
 
             $repo = $this->entityMgr->getRepository('NSSentinelBundle:RotaVirus');
             $columns = array(
@@ -158,7 +158,7 @@ class RotaVirusReporter extends AbstractReporter
                 'getNoLabCount' => 'setNoLab',
             );
 
-            $this->processLinkingResult($columns,$repo,$alias,$results,$form);
+            $this->processLinkingResult($columns, $repo, $alias, $results, $form);
         }
 
         return array('sites' => $results, 'form' => $form->createView());

@@ -8,7 +8,6 @@
 
 namespace NS\ImportBundle\Tests;
 
-
 use NS\UtilBundle\Form\Types\ArrayChoice;
 
 class TestArrayChoice extends ArrayChoice

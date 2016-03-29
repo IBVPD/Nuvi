@@ -17,8 +17,8 @@ class TripleChoice extends TranslatableArrayChoice implements TranslationContain
     const UNKNOWN = 99;
 
     protected $values = array(
-                            self::NO      => 'No', 
-                            self::YES     => 'Yes', 
+                            self::NO      => 'No',
+                            self::YES     => 'Yes',
                             self::UNKNOWN => 'Unknown');
 
     /**

@@ -52,21 +52,21 @@ class ImportSelectType extends AbstractType
                 'property' => 'selectName',
                 )
             )
-            ->add('referenceLab','entity',array(
+            ->add('referenceLab', 'entity', array(
                 'class' => 'NS\SentinelBundle\Entity\ReferenceLab',
                 'placeholder' => 'Please Select...',
-                'query_builder'=> function(EntityRepository $repository) {
-                    return $repository->createQueryBuilder('r')->orderBy('r.name','ASC');
+                'query_builder'=> function (EntityRepository $repository) {
+                    return $repository->createQueryBuilder('r')->orderBy('r.name', 'ASC');
                 },
                 'required' => false,
             ))
-            ->add('sourceFile', 'vich_file',array('error_bubbling'=>false))
-            ->add('inputDateStart','acedatepicker',array('label'=>'Import file date start'))
-            ->add('inputDateEnd','acedatepicker',array('label'=>'Import file date end'))
+            ->add('sourceFile', 'vich_file', array('error_bubbling'=>false))
+            ->add('inputDateStart', 'acedatepicker', array('label'=>'Import file date start'))
+            ->add('inputDateEnd', 'acedatepicker', array('label'=>'Import file date end'))
             ->add('import', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array('attr' => array('class' => 'btn btn-xs btn-success pull-right')))
         ;
 
-        $builder->addEventListener(FormEvents::POST_SUBMIT,array($this,'postSubmit'));
+        $builder->addEventListener(FormEvents::POST_SUBMIT, array($this, 'postSubmit'));
     }
 
     /**
@@ -90,8 +90,8 @@ class ImportSelectType extends AbstractType
         $resolver->setRequired('user');
         $resolver->setDefaults(array(
             'data_class' => 'NS\ImportBundle\Entity\Import',
-            'empty_data' => function(\Symfony\Component\OptionsResolver\Options $options) {
-                return function() use ($options) {
+            'empty_data' => function (\Symfony\Component\OptionsResolver\Options $options) {
+                return function () use ($options) {
                     return new \NS\ImportBundle\Entity\Import($options['user']);
                 };
             }

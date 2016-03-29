@@ -62,7 +62,7 @@ class FieldCombinerConverter implements ReporterInterface
         }
 
         if (is_numeric($source)) {
-            $dest = round($dest+$source,10);
+            $dest = round($dest+$source, 10);
         } elseif (is_string($source)) {
             $dest = sprintf('%s %s', $dest, $source);
         } else {

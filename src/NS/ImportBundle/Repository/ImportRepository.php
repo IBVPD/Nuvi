@@ -25,9 +25,9 @@ class ImportRepository extends EntityRepository
     public function getResultsForUser(UserInterface $user, $alias ='r')
     {
         return $this->createQueryBuilder($alias)
-                    ->where(sprintf('%s.user = :user',$alias))
+                    ->where(sprintf('%s.user = :user', $alias))
                     ->setParameter('user', $this->_em->getReference(get_class($user), $user->getId()))
-                    ->orderBy($alias.'.id','DESC');
+                    ->orderBy($alias.'.id', 'DESC');
     }
 
     /**
@@ -42,7 +42,7 @@ class ImportRepository extends EntityRepository
     {
         return $this->createQueryBuilder('r')
                     ->where('r.user = :user AND r.id = :id')
-                    ->setParameters(array('user'=>$this->_em->getReference(get_class($user), $user->getId()),'id'=>$resultId))
+                    ->setParameters(array('user'=>$this->_em->getReference(get_class($user), $user->getId()), 'id'=>$resultId))
                     ->getQuery()
                     ->getSingleResult();
     }
@@ -62,12 +62,12 @@ class ImportRepository extends EntityRepository
                 ->getQuery()
                 ->setHydrationMode(Query::HYDRATE_ARRAY)
                 ->getSingleResult();
-            $result['percent'] = sprintf("%d%%",($result['sourceCount'] > 0) ? (($result['processedCount']/$result['sourceCount']) * 100):0);
+            $result['percent'] = sprintf("%d%%", ($result['sourceCount'] > 0) ? (($result['processedCount']/$result['sourceCount']) * 100):0);
             $result['errorCount'] = $result['processedCount'] - $result['importedCount'];
             $result['status'] = $result['pheanstalkStatus'];
 
             return $result;
-        } catch(UnexpectedResultException $exception) {
+        } catch (UnexpectedResultException $exception) {
             return array();
         }
     }
@@ -82,18 +82,18 @@ class ImportRepository extends EntityRepository
     {
         $exceptionStr = $exception->getMessage()."\n\n";
 
-        foreach($exception->getTrace() as $index => $trace) {
-            $exceptionStr .= sprintf("%d: %s::%s on line %d\n",$index,$trace['class'],$trace['function'],$trace['line']);
+        foreach ($exception->getTrace() as $index => $trace) {
+            $exceptionStr .= sprintf("%d: %s::%s on line %d\n", $index, $trace['class'], $trace['function'], $trace['line']);
         }
 
         return $this->_em->createQueryBuilder()
-            ->update($this->getClassName(),'i')
-            ->set('i.pheanstalkStackTrace',':exceptStr')
-            ->set('i.pheanstalkStatus',':status')
+            ->update($this->getClassName(), 'i')
+            ->set('i.pheanstalkStackTrace', ':exceptStr')
+            ->set('i.pheanstalkStatus', ':status')
             ->where('i.id = :id')
-            ->setParameter('id',$importId)
-            ->setParameter('exceptStr',$exceptionStr)
-            ->setParameter('status',Import::STATUS_BURIED)
+            ->setParameter('id', $importId)
+            ->setParameter('exceptStr', $exceptionStr)
+            ->setParameter('status', Import::STATUS_BURIED)
             ->getQuery()
             ->execute();
     }

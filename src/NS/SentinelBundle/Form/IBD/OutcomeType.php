@@ -46,7 +46,7 @@ class OutcomeType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getName() 
+    public function getName()
     {
         return 'ibd_outcome';
     }

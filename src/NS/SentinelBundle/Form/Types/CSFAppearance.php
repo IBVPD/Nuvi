@@ -1,6 +1,7 @@
 <?php
 
 namespace NS\SentinelBundle\Form\Types;
+
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 

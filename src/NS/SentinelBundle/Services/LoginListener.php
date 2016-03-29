@@ -34,8 +34,7 @@ class LoginListener
      */
     public function onSecurityInteractiveLogin(InteractiveLoginEvent $event)
     {
-        if ('apiLoginCheck' != $event->getRequest()->get('_route'))
-        {
+        if ('apiLoginCheck' != $event->getRequest()->get('_route')) {
             $this->dispatcher->addListener(KernelEvents::RESPONSE, array($this, 'onKernelResponse'));
         }
     }

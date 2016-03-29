@@ -26,7 +26,7 @@ class ExcelReaderCommand extends Command
             ->setName('nsimport:readexcel')
             ->setDescription('Reads and analysis a CSV')
             ->addArgument('file', InputArgument::REQUIRED)
-            ->addOption('headerRole','r',InputOption::VALUE_REQUIRED,'What header row to read from',0)
+            ->addOption('headerRole', 'r', InputOption::VALUE_REQUIRED, 'What header row to read from', 0)
         ;
     }
 

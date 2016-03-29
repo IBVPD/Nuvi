@@ -27,44 +27,44 @@ class RuleTest extends \PHPUnit_Framework_TestCase
 
     public function testSimpleRule()
     {
-        $json = \json_decode($this->simpleJson,true);
+        $json = \json_decode($this->simpleJson, true);
         $this->assertTrue(is_array($json));
-        $this->assertArrayHasKey('rules',$json);
-        $this->assertArrayHasKey('condition',$json);
-        $this->assertCount(1,$json['rules']);
+        $this->assertArrayHasKey('rules', $json);
+        $this->assertArrayHasKey('condition', $json);
+        $this->assertCount(1, $json['rules']);
         $rule = new Rule($json);
         $this->assertNull($rule->getCondition());
-        $this->assertEquals('name',$rule->getField());
-        $this->assertEquals('equal',$rule->getOperator());
-        $this->assertEquals('Mistic',$rule->getValue());
+        $this->assertEquals('name', $rule->getField());
+        $this->assertEquals('equal', $rule->getOperator());
+        $this->assertEquals('Mistic', $rule->getValue());
         $this->assertFalse($rule->isComplex());
     }
 
     public function testBuildRules()
     {
-        $json = \json_decode($this->json,true);
+        $json = \json_decode($this->json, true);
         $this->assertTrue(is_array($json));
-        $this->assertArrayHasKey('rules',$json);
-        $this->assertArrayHasKey('condition',$json);
-        $this->assertCount(2,$json['rules']);
+        $this->assertArrayHasKey('rules', $json);
+        $this->assertArrayHasKey('condition', $json);
+        $this->assertCount(2, $json['rules']);
 
         $rule = new Rule($json);
-        $this->assertEquals(Rule::AND_CONDITION,$rule->getCondition());
+        $this->assertEquals(Rule::AND_CONDITION, $rule->getCondition());
         $this->assertTrue($rule->isComplex());
 
         $subRules = $rule->getRules();
-        $this->assertCount(2,$subRules);
+        $this->assertCount(2, $subRules);
 
         $firstRule = $subRules[0];
         $this->assertNull($firstRule->getCondition());
-        $this->assertEquals('name',$firstRule->getField());
-        $this->assertEquals('equal',$firstRule->getOperator());
-        $this->assertEquals('Mistic',$firstRule->getValue());
+        $this->assertEquals('name', $firstRule->getField());
+        $this->assertEquals('equal', $firstRule->getOperator());
+        $this->assertEquals('Mistic', $firstRule->getValue());
         $this->assertFalse($firstRule->isComplex());
 
         $secondRules = $subRules[1];
-        $this->assertEquals(Rule::OR_CONDITION,$secondRules->getCondition());
-        $this->assertCount(2,$secondRules->getRules());
+        $this->assertEquals(Rule::OR_CONDITION, $secondRules->getCondition());
+        $this->assertCount(2, $secondRules->getRules());
         $this->assertTrue($secondRules->isComplex());
     }
 }

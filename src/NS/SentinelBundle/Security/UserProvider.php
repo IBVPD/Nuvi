@@ -48,11 +48,9 @@ class UserProvider implements UserProviderInterface
 
             $user->setTTL(time() + 3600);
             return $user;
-        }
-        catch (NonUniqueResultException $e) {
+        } catch (NonUniqueResultException $e) {
             throw new UsernameNotFoundException(sprintf("Username %s is not unique", $username), 0, $e);
-        }
-        catch (NoResultException $e) {
+        } catch (NoResultException $e) {
             throw new UsernameNotFoundException("User not found", 0, $e);
         }
     }

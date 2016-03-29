@@ -198,10 +198,10 @@ class ImportProcessorTest extends WebTestCase
             ->willReturn($meta);
 
         $registry  = new Registry();
-        $processor = new ImportProcessor($registry,$entityMgr,new CaseLinkerRegistry());
-        $writer    = $processor->getWriter('NS\SentinelBundle\Entity\IBD',array(),'method');
+        $processor = new ImportProcessor($registry, $entityMgr, new CaseLinkerRegistry());
+        $writer    = $processor->getWriter('NS\SentinelBundle\Entity\IBD', array(), 'method');
         $this->assertInstanceOf('\Ddeboer\DataImport\Writer\DoctrineWriter', $writer);
-        $writer2   = $processor->getWriter('NS\SentinelBundle\Entity\IBD',array(),'method');
+        $writer2   = $processor->getWriter('NS\SentinelBundle\Entity\IBD', array(), 'method');
 
         $this->assertEquals($writer, $writer2);
     }
@@ -257,7 +257,7 @@ class ImportProcessorTest extends WebTestCase
         $mockDuplicate
             ->expects($this->at(0))
             ->method('__invoke')
-            ->with(array('col1' => 1,'col2' => 2, 'Col3' => 3, 'Col4' => 4))
+            ->with(array('col1' => 1, 'col2' => 2, 'Col3' => 3, 'Col4' => 4))
             ->willReturn(true);
 
         $mockDuplicate
@@ -279,7 +279,7 @@ class ImportProcessorTest extends WebTestCase
             ->willReturn(true);
 
         $container = $this->getContainer();
-        $processor = new ImportProcessor($container->get('ns_import.converters'),$container->get('doctrine.orm.entity_manager'),$container->get('ns_import.linker_registry'));
+        $processor = new ImportProcessor($container->get('ns_import.converters'), $container->get('doctrine.orm.entity_manager'), $container->get('ns_import.linker_registry'));
         $processor->setDuplicate($mockDuplicate);
 
         $reader    = $processor->getReader($import);
@@ -289,7 +289,7 @@ class ImportProcessorTest extends WebTestCase
 
         $outputData = array();
 
-        $this->assertEquals(0,$import->getPosition());
+        $this->assertEquals(0, $import->getPosition());
 
         // Create the workflow from the reader
         $workflow   = new Workflow\StepAggregator($reader);
@@ -299,7 +299,7 @@ class ImportProcessorTest extends WebTestCase
         $processor->addSteps($workflow, $import);
 
         $workflow->process();
-        $this->assertCount(3, $outputData, print_r($outputData,true));
+        $this->assertCount(3, $outputData, print_r($outputData, true));
     }
 
     public function testDuplicates()
@@ -343,7 +343,7 @@ class ImportProcessorTest extends WebTestCase
         $duplicate    = new Duplicate($uniqueFields);
 
         $container = $this->getContainer();
-        $processor = new ImportProcessor($container->get('ns_import.converters'),$container->get('doctrine.orm.entity_manager'),$container->get('ns_import.linker_registry'));
+        $processor = new ImportProcessor($container->get('ns_import.converters'), $container->get('doctrine.orm.entity_manager'), $container->get('ns_import.linker_registry'));
         $processor->setDuplicate($duplicate);
         $processor->setNotBlank(new NotBlank('Col1'));
         $reader    = $processor->getReader($import);
@@ -392,7 +392,7 @@ class ImportProcessorTest extends WebTestCase
         $duplicate = new Duplicate(array());
         $container = $this->getContainer();
 
-        $processor = new ImportProcessor($container->get('ns_import.converters'),$container->get('doctrine.orm.entity_manager'),$container->get('ns_import.linker_registry'));
+        $processor = new ImportProcessor($container->get('ns_import.converters'), $container->get('doctrine.orm.entity_manager'), $container->get('ns_import.linker_registry'));
         $processor->setDuplicate($duplicate);
         $processor->setNotBlank(new NotBlank('date'));
         $reader    = $processor->getReader($import);
@@ -423,7 +423,7 @@ class ImportProcessorTest extends WebTestCase
             ->getMock();
 
         $registry  = new Registry();
-        $processor = new ImportProcessor($registry,$entityMgr, new CaseLinkerRegistry());
+        $processor = new ImportProcessor($registry, $entityMgr, new CaseLinkerRegistry());
         $processor->setNotBlank(new NotBlank("caseId"));
         $this->assertInstanceOf('NS\ImportBundle\Filter\NotBlank', $processor->getNotBlank());
         $this->assertTrue(is_array($processor->getNotBlank()->fields));
@@ -498,7 +498,7 @@ class ImportProcessorTest extends WebTestCase
         $import->setMap($this->getReferenceLabMap($columns));
 
         $converters = $import->getConverters();
-        $this->assertCount(1,$converters); // fields where ignored == true are completely dropped
+        $this->assertCount(1, $converters); // fields where ignored == true are completely dropped
 //        $this->assertEquals('Site',end($converters)->getName());
 
         $this->assertInstanceOf('\Ddeboer\DataImport\Reader\ArrayReader', $reader);
@@ -515,11 +515,11 @@ class ImportProcessorTest extends WebTestCase
         if ($res->getErrorCount() > 0) {
             $exceptions = $res->getExceptions();
             $this->assertInstanceOf('\SplObjectStorage', $exceptions);
-            $this->assertEquals($res->getErrorCount(),$exceptions->count());
+            $this->assertEquals($res->getErrorCount(), $exceptions->count());
             $object = $exceptions->current();
             $this->assertInstanceOf('\Exception', $object);
-            if($exceptions->valid()){
-//                $object = $exceptions->current();
+            if ($exceptions->valid()) {
+                //                $object = $exceptions->current();
                 $this->assertInstanceOf('\Exception', $object);
                 $this->fail($object->getMessage());
             }
@@ -573,12 +573,12 @@ class ImportProcessorTest extends WebTestCase
         $linkerRegistry = $container->get('ns_import.linker_registry');
         $linker = $linkerRegistry->getLinker($import->getCaseLinkerId());
 
-        $processor = new ImportProcessor($container->get('ns_import.converters'),$container->get('doctrine.orm.entity_manager'),$linkerRegistry);
+        $processor = new ImportProcessor($container->get('ns_import.converters'), $container->get('doctrine.orm.entity_manager'), $linkerRegistry);
         $processor->setDuplicate(new Duplicate($linker->getCriteria()));
-        $writer = $processor->getWriter($import->getClass(),$linker->getCriteria(),$linker->getRepositoryMethod());
+        $writer = $processor->getWriter($import->getClass(), $linker->getCriteria(), $linker->getRepositoryMethod());
         $repoMethod = $writer->getEntityRepositoryMethod();
         $this->assertTrue(is_callable($repoMethod));
-        $this->assertEquals($repoMethod[1],'findBySiteAndCaseId');
+        $this->assertEquals($repoMethod[1], 'findBySiteAndCaseId');
 
         $result    = $processor->process($import);
 
@@ -586,7 +586,7 @@ class ImportProcessorTest extends WebTestCase
             $this->fail("Error Count: ".$result->getErrorCount());
         }
 
-        $this->assertEquals(2,$result->getSuccessCount());
+        $this->assertEquals(2, $result->getSuccessCount());
     }
 
     public function testImportWithReferenceLabFields()
@@ -636,12 +636,12 @@ class ImportProcessorTest extends WebTestCase
         $linkerRegistry = $container->get('ns_import.linker_registry');
         $linker = $linkerRegistry->getLinker($import->getCaseLinkerId());
 
-        $processor = new ImportProcessor($container->get('ns_import.converters'),$container->get('doctrine.orm.entity_manager'),$linkerRegistry);
+        $processor = new ImportProcessor($container->get('ns_import.converters'), $container->get('doctrine.orm.entity_manager'), $linkerRegistry);
         $processor->setDuplicate(new Duplicate($linker->getCriteria()));
-        $writer = $processor->getWriter($import->getClass(),$linker->getCriteria(),$linker->getRepositoryMethod());
+        $writer = $processor->getWriter($import->getClass(), $linker->getCriteria(), $linker->getRepositoryMethod());
         $repoMethod = $writer->getEntityRepositoryMethod();
         $this->assertTrue(is_callable($repoMethod));
-        $this->assertEquals($repoMethod[1],'findBySiteAndCaseId');
+        $this->assertEquals($repoMethod[1], 'findBySiteAndCaseId');
 
         $result    = $processor->process($import);
 
@@ -649,7 +649,7 @@ class ImportProcessorTest extends WebTestCase
             $this->fail('Error Count: '.$result->getErrorCount());
         }
 
-        $this->assertEquals(2,$result->getSuccessCount());
+        $this->assertEquals(2, $result->getSuccessCount());
     }
 
     public function testWarningsAdded()
@@ -705,12 +705,12 @@ class ImportProcessorTest extends WebTestCase
         $linkerRegistry = $container->get('ns_import.linker_registry');
         $linker = $linkerRegistry->getLinker($import->getCaseLinkerId());
 
-        $processor = new ImportProcessor($container->get('ns_import.converters'),$container->get('doctrine.orm.entity_manager'),$linkerRegistry);
+        $processor = new ImportProcessor($container->get('ns_import.converters'), $container->get('doctrine.orm.entity_manager'), $linkerRegistry);
         $processor->setDuplicate(new Duplicate($linker->getCriteria()));
-        $writer = $processor->getWriter($import->getClass(),$linker->getCriteria(),$linker->getRepositoryMethod());
+        $writer = $processor->getWriter($import->getClass(), $linker->getCriteria(), $linker->getRepositoryMethod());
         $repoMethod = $writer->getEntityRepositoryMethod();
         $this->assertTrue(is_callable($repoMethod));
-        $this->assertEquals($repoMethod[1],'findBySiteAndCaseId');
+        $this->assertEquals($repoMethod[1], 'findBySiteAndCaseId');
 
         $result    = $processor->process($import);
 
@@ -718,11 +718,11 @@ class ImportProcessorTest extends WebTestCase
             $this->fail('Error Count: '.$result->getErrorCount());
         }
 
-        $this->assertEquals(2,$result->getSuccessCount());
+        $this->assertEquals(2, $result->getSuccessCount());
         $results = $writer->getResults();
-        $this->assertInstanceOf('NS\SentinelBundle\Entity\IBD',$results[0]);
+        $this->assertInstanceOf('NS\SentinelBundle\Entity\IBD', $results[0]);
         $this->assertTrue($results[0]->hasWarning());
-        $this->assertInstanceOf('NS\SentinelBundle\Entity\IBD',$results[1]);
+        $this->assertInstanceOf('NS\SentinelBundle\Entity\IBD', $results[1]);
         $this->assertFalse($results[1]->hasWarning());
     }
 
@@ -773,21 +773,21 @@ class ImportProcessorTest extends WebTestCase
         $linkerRegistry = $container->get('ns_import.linker_registry');
         $linker = $linkerRegistry->getLinker($import->getCaseLinkerId());
 
-        $processor = new ImportProcessor($container->get('ns_import.converters'),$container->get('doctrine.orm.entity_manager'),$linkerRegistry);
+        $processor = new ImportProcessor($container->get('ns_import.converters'), $container->get('doctrine.orm.entity_manager'), $linkerRegistry);
         $processor->setDuplicate(new Duplicate($linker->getCriteria()));
-        $writer = $processor->getWriter($import->getClass(),$linker->getCriteria(),$linker->getRepositoryMethod());
+        $writer = $processor->getWriter($import->getClass(), $linker->getCriteria(), $linker->getRepositoryMethod());
         $result = $processor->process($import);
 
         if (count($result->getExceptions()) > 0) {
             $this->fail('Error Count: '.$result->getErrorCount());
         }
 
-        $this->assertEquals(2,$result->getSuccessCount());
+        $this->assertEquals(2, $result->getSuccessCount());
         $results = $writer->getResults();
-        $this->assertInstanceOf('NS\SentinelBundle\Entity\IBD',$results[0]);
+        $this->assertInstanceOf('NS\SentinelBundle\Entity\IBD', $results[0]);
         $this->assertTrue($results[0]->hasWarning());
-        $this->assertInstanceOf('\DateTime',$results[0]->getReferenceLab()->getDateReceived());
-        $this->assertInstanceOf('NS\SentinelBundle\Entity\IBD',$results[1]);
+        $this->assertInstanceOf('\DateTime', $results[0]->getReferenceLab()->getDateReceived());
+        $this->assertInstanceOf('NS\SentinelBundle\Entity\IBD', $results[1]);
         $this->assertFalse($results[1]->hasWarning());
     }
 
@@ -848,21 +848,21 @@ class ImportProcessorTest extends WebTestCase
         $linkerRegistry = $container->get('ns_import.linker_registry');
         $linker = $linkerRegistry->getLinker($import->getCaseLinkerId());
 
-        $processor = new ImportProcessor($container->get('ns_import.converters'),$container->get('doctrine.orm.entity_manager'),$linkerRegistry);
+        $processor = new ImportProcessor($container->get('ns_import.converters'), $container->get('doctrine.orm.entity_manager'), $linkerRegistry);
         $processor->setDuplicate(new Duplicate($linker->getCriteria()));
-        $writer = $processor->getWriter($import->getClass(),$linker->getCriteria(),$linker->getRepositoryMethod());
+        $writer = $processor->getWriter($import->getClass(), $linker->getCriteria(), $linker->getRepositoryMethod());
         $result = $processor->process($import);
 
         if (count($result->getExceptions()) > 0) {
             $this->fail('Error Count: '.$result->getErrorCount());
         }
 
-        $this->assertEquals(2,$result->getSuccessCount());
+        $this->assertEquals(2, $result->getSuccessCount());
         $results = $writer->getResults();
-        $this->assertInstanceOf('NS\SentinelBundle\Entity\IBD',$results[0]);
+        $this->assertInstanceOf('NS\SentinelBundle\Entity\IBD', $results[0]);
         $this->assertTrue($results[0]->hasWarning());
-        $this->assertInstanceOf('\DateTime',$results[0]->getAdmDate());
-        $this->assertInstanceOf('NS\SentinelBundle\Entity\IBD',$results[1]);
+        $this->assertInstanceOf('\DateTime', $results[0]->getAdmDate());
+        $this->assertInstanceOf('NS\SentinelBundle\Entity\IBD', $results[1]);
         $this->assertFalse($results[1]->hasWarning());
     }
 
@@ -930,9 +930,9 @@ class ImportProcessorTest extends WebTestCase
         $linkerRegistry = $container->get('ns_import.linker_registry');
         $linker = $linkerRegistry->getLinker($import->getCaseLinkerId());
 
-        $processor = new ImportProcessor($container->get('ns_import.converters'),$container->get('doctrine.orm.entity_manager'),$linkerRegistry);
+        $processor = new ImportProcessor($container->get('ns_import.converters'), $container->get('doctrine.orm.entity_manager'), $linkerRegistry);
         $processor->setDuplicate(new Duplicate($linker->getCriteria()));
-        $writer = $processor->getWriter($import->getClass(),$linker->getCriteria(),$linker->getRepositoryMethod());
+        $writer = $processor->getWriter($import->getClass(), $linker->getCriteria(), $linker->getRepositoryMethod());
         $result = $processor->process($import);
 
         if (count($result->getExceptions()) > 0) {
@@ -943,28 +943,28 @@ class ImportProcessorTest extends WebTestCase
             $this->fail('Error Count: '.$result->getErrorCount().' '.$object->getMessage());
         }
 
-        $this->assertEquals(6,$result->getSuccessCount());
+        $this->assertEquals(6, $result->getSuccessCount());
         $results = $writer->getResults();
-        $this->assertInstanceOf('NS\SentinelBundle\Entity\IBD',$results[0]);
+        $this->assertInstanceOf('NS\SentinelBundle\Entity\IBD', $results[0]);
 
-        $this->assertInstanceOf('NS\SentinelBundle\Form\Types\Diagnosis',$results[0]->getAdmDx());
-        $this->assertTrue($results[0]->getAdmDx()->equal(3),sprintf('%d != %d',3,$results[0]->getAdmDx()->getValue()));
+        $this->assertInstanceOf('NS\SentinelBundle\Form\Types\Diagnosis', $results[0]->getAdmDx());
+        $this->assertTrue($results[0]->getAdmDx()->equal(3), sprintf('%d != %d', 3, $results[0]->getAdmDx()->getValue()));
 
-        $this->assertInstanceOf('NS\SentinelBundle\Form\Types\Diagnosis',$results[1]->getAdmDx());
-        $this->assertTrue($results[1]->getAdmDx()->equal(1),sprintf('%d != %d',1,$results[1]->getAdmDx()->getValue()));
-        $this->assertEquals('Second',$results[1]->getLastName());
+        $this->assertInstanceOf('NS\SentinelBundle\Form\Types\Diagnosis', $results[1]->getAdmDx());
+        $this->assertTrue($results[1]->getAdmDx()->equal(1), sprintf('%d != %d', 1, $results[1]->getAdmDx()->getValue()));
+        $this->assertEquals('Second', $results[1]->getLastName());
 
-        $this->assertInstanceOf('NS\SentinelBundle\Form\Types\Diagnosis',$results[2]->getAdmDx());
-        $this->assertTrue($results[2]->getAdmDx()->equal(4),sprintf('%d != %d',4,$results[2]->getAdmDx()->getValue()));
+        $this->assertInstanceOf('NS\SentinelBundle\Form\Types\Diagnosis', $results[2]->getAdmDx());
+        $this->assertTrue($results[2]->getAdmDx()->equal(4), sprintf('%d != %d', 4, $results[2]->getAdmDx()->getValue()));
 
-        $this->assertInstanceOf('NS\SentinelBundle\Form\Types\Diagnosis',$results[3]->getAdmDx());
-        $this->assertTrue($results[3]->getAdmDx()->equal(6),sprintf('%d != %d',6,$results[3]->getAdmDx()->getValue()));
+        $this->assertInstanceOf('NS\SentinelBundle\Form\Types\Diagnosis', $results[3]->getAdmDx());
+        $this->assertTrue($results[3]->getAdmDx()->equal(6), sprintf('%d != %d', 6, $results[3]->getAdmDx()->getValue()));
 
-        $this->assertInstanceOf('NS\SentinelBundle\Form\Types\Diagnosis',$results[4]->getAdmDx());
-        $this->assertTrue($results[4]->getAdmDx()->equal(99),sprintf('%d != %d',99,$results[4]->getAdmDx()->getValue()));
+        $this->assertInstanceOf('NS\SentinelBundle\Form\Types\Diagnosis', $results[4]->getAdmDx());
+        $this->assertTrue($results[4]->getAdmDx()->equal(99), sprintf('%d != %d', 99, $results[4]->getAdmDx()->getValue()));
 
-        $this->assertInstanceOf('NS\SentinelBundle\Form\Types\Diagnosis',$results[5]->getAdmDx());
-        $this->assertTrue($results[5]->getAdmDx()->equal(6),sprintf('%d != %d',6,$results[5]->getAdmDx()->getValue()));
+        $this->assertInstanceOf('NS\SentinelBundle\Form\Types\Diagnosis', $results[5]->getAdmDx());
+        $this->assertTrue($results[5]->getAdmDx()->equal(6), sprintf('%d != %d', 6, $results[5]->getAdmDx()->getValue()));
     }
 
     /**
@@ -1009,9 +1009,9 @@ class ImportProcessorTest extends WebTestCase
 
         $importer = $this->getContainer()->get('ns_import.processor');
         $result = $importer->process($import);
-        $this->assertEquals(2,$result->getTotalProcessedCount());
-        $this->assertEquals(2,$result->getSuccessCount());
-        $this->assertEquals(0,$result->getSkippedCount());
+        $this->assertEquals(2, $result->getTotalProcessedCount());
+        $this->assertEquals(2, $result->getSuccessCount());
+        $this->assertEquals(0, $result->getSkippedCount());
     }
 
     public function getReferenceLabMap(array $columns)
@@ -1037,7 +1037,7 @@ class ImportProcessorTest extends WebTestCase
             $column->setConverter($colArray['converter']);
             $column->setMapper($colArray['mapper']);
             $column->setIgnored($colArray['ignored']);
-            if(isset($colArray['preProcessor'])) {
+            if (isset($colArray['preProcessor'])) {
                 $column->setPreProcessor($colArray['preProcessor']);
             }
             $map->addColumn($column);

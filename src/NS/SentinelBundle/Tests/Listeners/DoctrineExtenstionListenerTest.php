@@ -33,7 +33,7 @@ class DoctrineExtenstionListenerTest extends \PHPUnit_Framework_TestCase
         $loggable->expects($this->never())
             ->method('setUsername');
 
-        $listener = new LoggableListener($tokenStorage,$authChecker,$loggable);
+        $listener = new LoggableListener($tokenStorage, $authChecker, $loggable);
         $listener->onKernelRequest($this->getEvent());
     }
 
@@ -62,7 +62,7 @@ class DoctrineExtenstionListenerTest extends \PHPUnit_Framework_TestCase
         $loggable->expects($this->never())
             ->method('setUsername');
 
-        $listener = new LoggableListener($tokenStorage,$authChecker,$loggable);
+        $listener = new LoggableListener($tokenStorage, $authChecker, $loggable);
         $listener->onKernelRequest($this->getEvent());
     }
 
@@ -100,7 +100,7 @@ class DoctrineExtenstionListenerTest extends \PHPUnit_Framework_TestCase
             ->method('setUsername')
             ->with('gnat');
 
-        $listener = new LoggableListener($tokenStorage,$authChecker,$loggable);
+        $listener = new LoggableListener($tokenStorage, $authChecker, $loggable);
         $listener->onKernelRequest($this->getEvent());
     }
 

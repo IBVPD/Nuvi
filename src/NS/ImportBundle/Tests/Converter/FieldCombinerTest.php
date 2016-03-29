@@ -10,30 +10,30 @@ class FieldCombinerTest extends \PHPUnit_Framework_TestCase
     public function testConverterMissingSource()
     {
         $data = array();
-        $converter = new FieldCombinerConverter('source','destination');
+        $converter = new FieldCombinerConverter('source', 'destination');
         $returned = $converter->__invoke($data);
-        $this->assertEquals($data,$returned);
+        $this->assertEquals($data, $returned);
         $this->assertTrue($converter->hasMessage());
-        $this->assertEquals('Unable to find source source field',$converter->getMessage());
-        $this->assertEquals(ReporterInterface::ERROR,$converter->getSeverity());
+        $this->assertEquals('Unable to find source source field', $converter->getMessage());
+        $this->assertEquals(ReporterInterface::ERROR, $converter->getSeverity());
     }
 
     public function testConverterMissingDestination()
     {
         $data = array('source'=>'data');
-        $converter = new FieldCombinerConverter('source','destination');
+        $converter = new FieldCombinerConverter('source', 'destination');
         $returned = $converter->__invoke($data);
-        $this->assertEquals($data,$returned);
+        $this->assertEquals($data, $returned);
         $this->assertTrue($converter->hasMessage());
-        $this->assertEquals('Unable to find destination destination field',$converter->getMessage());
+        $this->assertEquals('Unable to find destination destination field', $converter->getMessage());
     }
 
     public function testConverterEmptySource()
     {
         $data = array('s'=>'','d'=>'data');
-        $converter = new FieldCombinerConverter('s','d');
+        $converter = new FieldCombinerConverter('s', 'd');
         $returned = $converter->__invoke($data);
-        $this->assertEquals($data,$returned);
+        $this->assertEquals($data, $returned);
         $this->assertFalse($converter->hasMessage());
     }
 
@@ -42,11 +42,11 @@ class FieldCombinerTest extends \PHPUnit_Framework_TestCase
      * @param $expected
      * @dataProvider getNumberData
      */
-    public function testConverterTestSourceInteger($data,$expected)
+    public function testConverterTestSourceInteger($data, $expected)
     {
-        $converter = new FieldCombinerConverter('s','d');
+        $converter = new FieldCombinerConverter('s', 'd');
         $returned = $converter->__invoke($data);
-        $this->assertEquals($expected,$returned['d']);
+        $this->assertEquals($expected, $returned['d']);
         $this->assertFalse($converter->hasMessage());
     }
 
@@ -81,11 +81,11 @@ class FieldCombinerTest extends \PHPUnit_Framework_TestCase
      * @param $expected
      * @dataProvider getStringData
      */
-    public function testConverterTestSourceString($data,$expected)
+    public function testConverterTestSourceString($data, $expected)
     {
-        $converter = new FieldCombinerConverter('s','d');
+        $converter = new FieldCombinerConverter('s', 'd');
         $returned = $converter->__invoke($data);
-        $this->assertEquals($expected,$returned['d']);
+        $this->assertEquals($expected, $returned['d']);
         $this->assertFalse($converter->hasMessage());
     }
 
@@ -99,22 +99,22 @@ class FieldCombinerTest extends \PHPUnit_Framework_TestCase
     public function testConverterMisMatchedType()
     {
         $data= array('s'=>120,'d'=>'world');
-        $converter = new FieldCombinerConverter('s','d');
+        $converter = new FieldCombinerConverter('s', 'd');
         $returned = $converter->__invoke($data);
-        $this->assertEquals($data,$returned);
+        $this->assertEquals($data, $returned);
         $this->assertTrue($converter->hasMessage());
 
-        $this->assertEquals('Mismatched types source: integer != dest: string',$converter->getMessage());
+        $this->assertEquals('Mismatched types source: integer != dest: string', $converter->getMessage());
     }
 
     public function testConverterNotStringOrNumber()
     {
         $data= array('s'=>new \stdClass(),'d'=>new \stdClass());
-        $converter = new FieldCombinerConverter('s','d');
+        $converter = new FieldCombinerConverter('s', 'd');
         $returned = $converter->__invoke($data);
-        $this->assertEquals($data,$returned);
+        $this->assertEquals($data, $returned);
         $this->assertTrue($converter->hasMessage());
 
-        $this->assertEquals('Expected string or number, got object instead',$converter->getMessage());
+        $this->assertEquals('Expected string or number, got object instead', $converter->getMessage());
     }
 }

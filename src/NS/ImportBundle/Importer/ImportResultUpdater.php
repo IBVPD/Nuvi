@@ -40,7 +40,7 @@ class ImportResultUpdater
 
         $this->buildWarnings($import, $result->getReports(), $writeHeaders);
         $this->buildExceptions($import, $result->getExceptions(), $writeHeaders);
-        $this->buildErrors($import,$result->getReports(),($writeHeaders && $result->getExceptions()->count() > 0));
+        $this->buildErrors($import, $result->getReports(), ($writeHeaders && $result->getExceptions()->count() > 0));
         $this->buildSuccesses($import, $entities, $writeHeaders);
     }
 
@@ -123,7 +123,7 @@ class ImportResultUpdater
         }
     }
 
-    public function buildErrors(Import $import, \SplObjectStorage $reports,$writeHeader)
+    public function buildErrors(Import $import, \SplObjectStorage $reports, $writeHeader)
     {
         $first = true;
         $errorFile  = $import->getErrorFile();
@@ -168,9 +168,9 @@ class ImportResultUpdater
                 'country' => $entity->getCountry()->getCode(),
             );
 
-            if($entity->getSite()) {
+            if ($entity->getSite()) {
                 $item['site'] = $entity->getSite()->getCode();//:'Not linked to site',
-                $item['siteName'] = ($entity->getSite() instanceof Proxy ) ? null : $entity->getSite()->getName();
+                $item['siteName'] = ($entity->getSite() instanceof Proxy) ? null : $entity->getSite()->getName();
             } else {
                 $item['site'] = 'XXX';
                 $item['siteName'] = 'NOT LINKED!!';

@@ -23,7 +23,7 @@ class ClientType extends AbstractType
             ->add('name',               null,               array('label'=>'form.client-name'))
             ->add('redirectUris',       'tag',              array('label'=>'form.client.redirect-uris', 'arrayOutput'=>true))
             ->add('allowedGrantTypes',  'OAuthGrantTypes',  array('label'=>'form.client.allowed-grant-types'))
-            ->add('create',             'Symfony\Component\Form\Extension\Core\Type\SubmitType', array('label'=>'form.client.submit-button','attr'=>array('class'=> 'btn btn-sm btn-success')))
+            ->add('create',             'Symfony\Component\Form\Extension\Core\Type\SubmitType', array('label'=>'form.client.submit-button', 'attr'=>array('class'=> 'btn btn-sm btn-success')))
         ;
     }
 

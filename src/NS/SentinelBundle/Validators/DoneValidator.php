@@ -24,7 +24,7 @@ class DoneValidator extends ConstraintValidator
         $accessor = new PropertyAccessor();
         $doneFieldValue = $accessor->getValue($value, $doneField);
 
-        if($doneFieldValue instanceof TripleChoice) {
+        if ($doneFieldValue instanceof TripleChoice) {
             return;
         }
 

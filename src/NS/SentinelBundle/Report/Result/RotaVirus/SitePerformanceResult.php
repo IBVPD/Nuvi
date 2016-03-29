@@ -6,7 +6,7 @@ use NS\SentinelBundle\Report\Result\AbstractSitePerformanceResult;
 
 class SitePerformanceResult extends AbstractSitePerformanceResult
 {
-//    /**
+    //    /**
 //     * @return string
 //     */
 //    public function hasMinimumNumberOfCases()
@@ -33,7 +33,7 @@ class SitePerformanceResult extends AbstractSitePerformanceResult
     public function getMinimumNumberOfCases()
     {
         $total = $this->getTotalCases();
-        return $this->getState($total,100,80);
+        return $this->getState($total, 100, 80);
     }
 
     const MIN_CASES_STR = '≥ 100 cases';
@@ -66,5 +66,4 @@ class SitePerformanceResult extends AbstractSitePerformanceResult
     {
         return self::MIN_SPECIMEN__TESTED_STR;
     }
-
 }

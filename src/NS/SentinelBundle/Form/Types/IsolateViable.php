@@ -27,5 +27,4 @@ class IsolateViable extends TranslatableArrayChoice
     {
         return 'IsolateViable';
     }
-
 }

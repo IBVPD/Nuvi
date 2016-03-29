@@ -71,7 +71,7 @@ class AbstractReporter
             if ($fpr && method_exists($fpr, $function)) {
                 call_user_func(array($fpr, $function), $c['caseCount']);
             } else {
-                throw new \RunTimeException(sprintf('method error %s',$function));
+                throw new \RunTimeException(sprintf('method error %s', $function));
             }
         }
     }

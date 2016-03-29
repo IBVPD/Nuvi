@@ -23,7 +23,7 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
         $client->followRedirects();
         $client->request('GET', $url);
 
-        $this->assertTrue($client->getResponse()->isSuccessful(),$client->getResponse());
+        $this->assertTrue($client->getResponse()->isSuccessful(), $client->getResponse());
     }
 
     public function urlProvider()

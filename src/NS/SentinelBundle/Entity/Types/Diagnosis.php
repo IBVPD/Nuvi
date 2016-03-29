@@ -23,5 +23,4 @@ class Diagnosis extends ArrayChoice
     {
         return 'Diagnosis';
     }
-    
 }

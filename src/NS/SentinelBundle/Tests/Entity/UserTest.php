@@ -20,6 +20,6 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $acl->setType(new Role(Role::COUNTRY_API));
         $user->addAcl($acl);
 
-        $this->assertEquals(array('ROLE_COUNTRY_API','ROLE_CAN_CREATE_CASE', 'ROLE_CAN_CREATE_LAB', 'ROLE_CAN_CREATE_NL_LAB'),$user->getRoles());
+        $this->assertEquals(array('ROLE_COUNTRY_API', 'ROLE_CAN_CREATE_CASE', 'ROLE_CAN_CREATE_LAB', 'ROLE_CAN_CREATE_NL_LAB'), $user->getRoles());
     }
 }

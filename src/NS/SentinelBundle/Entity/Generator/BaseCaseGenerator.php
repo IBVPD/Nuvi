@@ -23,7 +23,7 @@ class BaseCaseGenerator extends AbstractIdGenerator
      */
     public function generate(EntityManager $entityMgr, $entity)
     {
-        if (!$entity instanceOf BaseCase) {
+        if (!$entity instanceof BaseCase) {
             throw new \InvalidArgumentException('Entity must extend NS\\SentinelBundle\\Entity\\BaseCase');
         }
 
@@ -38,12 +38,12 @@ class BaseCaseGenerator extends AbstractIdGenerator
 
         if ($site) {
             $newId = $this->getNextId($entityMgr, $site);
-            return $this->getFullIdentifier($newId, $year, $entity->getCountry()->getCode(),$site->getCode());
+            return $this->getFullIdentifier($newId, $year, $entity->getCountry()->getCode(), $site->getCode());
         }
 
         $newId = $this->getUUID();
 
-        return $this->getUuidIdentifier( $newId, $year, $entity->getCountry()->getCode());
+        return $this->getUuidIdentifier($newId, $year, $entity->getCountry()->getCode());
     }
 
     /**
@@ -74,7 +74,7 @@ class BaseCaseGenerator extends AbstractIdGenerator
             return $newId;
         } catch (\Exception $exception) {
             $entityMgr->rollback();
-            throw new \RuntimeException(sprintf('Site issue: %s %s %s',$site->getName(),$site->getId(),$exception->getMessage()));
+            throw new \RuntimeException(sprintf('Site issue: %s %s %s', $site->getName(), $site->getId(), $exception->getMessage()));
         }
     }
 
@@ -94,12 +94,12 @@ class BaseCaseGenerator extends AbstractIdGenerator
      */
     public function getUUID()
     {
-        return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
-            mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ),
-            mt_rand( 0, 0xffff ),
-            mt_rand( 0, 0x0fff ) | 0x4000,
-            mt_rand( 0, 0x3fff ) | 0x8000,
-            mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
+        return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+            mt_rand(0, 0xffff), mt_rand(0, 0xffff),
+            mt_rand(0, 0xffff),
+            mt_rand(0, 0x0fff) | 0x4000,
+            mt_rand(0, 0x3fff) | 0x8000,
+            mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
         );
     }
 

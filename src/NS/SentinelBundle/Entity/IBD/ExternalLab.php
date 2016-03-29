@@ -564,7 +564,7 @@ abstract class ExternalLab extends BaseExternalLab
     public function getIncompleteField()
     {
         $ret = parent::getIncompleteField();
-        if($ret) {
+        if ($ret) {
             return $ret;
         }
 

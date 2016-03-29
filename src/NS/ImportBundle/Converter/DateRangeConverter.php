@@ -95,8 +95,8 @@ class DateRangeConverter implements ReporterInterface
      */
     public function inRange(\DateTime $value, $key)
     {
-        if($this->lessThanDate && $this->greaterThanDate) {
-            if($value > $this->lessThanDate || $value < $this->greaterThanDate) {
+        if ($this->lessThanDate && $this->greaterThanDate) {
+            if ($value > $this->lessThanDate || $value < $this->greaterThanDate) {
                 $this->message .= sprintf('[%s] has a date (%s) outside acceptable range (%s - %s). ', $key, $value->format('Y-m-d'), $this->greaterThanDate->format('Y-m-d'), $this->lessThanDate->format('Y-m-d'));
                 return false;
             }

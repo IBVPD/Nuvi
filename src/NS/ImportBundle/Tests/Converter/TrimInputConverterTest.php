@@ -14,8 +14,8 @@ class TrimInputConverterTest extends \PHPUnit_Framework_TestCase
     public function testTrimInput(array $inputData, array $outputData)
     {
         $converter = new TrimInputConverter();
-        $retData = call_user_func($converter,$inputData);
-        $this->assertEquals($outputData,$retData);
+        $retData = call_user_func($converter, $inputData);
+        $this->assertEquals($outputData, $retData);
     }
 
     public function getData()

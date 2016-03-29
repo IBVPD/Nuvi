@@ -267,7 +267,7 @@ class RotaVirusRepository extends Common
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
             ->andWhere(sprintf('(%s.dischargeOutcome IS NULL OR %s.dischargeOutcome IN (:noSelection,:outOfRange))', $alias, $alias))
-            ->setParameter('noSelection',ArrayChoice::NO_SELECTION)
+            ->setParameter('noSelection', ArrayChoice::NO_SELECTION)
             ->setParameter('outOfRange', ArrayChoice::OUT_OF_RANGE);
     }
 
@@ -314,7 +314,7 @@ class RotaVirusRepository extends Common
 
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
-            ->andWhere(sprintf('DATEDIFF(%s.stoolCollectionDate,%s.admDate) <=2 ',$alias,$alias))
+            ->andWhere(sprintf('DATEDIFF(%s.stoolCollectionDate,%s.admDate) <=2 ', $alias, $alias))
             ;
     }
 
@@ -323,7 +323,7 @@ class RotaVirusRepository extends Common
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
             ->andWhere('sl.elisaDone = :tripleYes OR sl.elisaResult IS NOT NULL OR sl.elisaResult != \'\'')
-            ->setParameter('tripleYes',TripleChoice::YES)
+            ->setParameter('tripleYes', TripleChoice::YES)
             ;
     }
 
@@ -354,16 +354,16 @@ class RotaVirusRepository extends Common
     {
         return $this->getByCountryCountQueryBuilder($alias, $countryCodes)
             ->select(sprintf('COUNT(%s) as caseCount,c.code', $alias, $alias))
-            ->innerJoin('cf.referenceLab',$alias)
-            ->innerJoin('cf.site','s');
+            ->innerJoin('cf.referenceLab', $alias)
+            ->innerJoin('cf.site', 's');
     }
 
     public function getFailedLinkedCount($alias, array $countryCodes)
     {
         return $this->getByCountryCountQueryBuilder($alias, $countryCodes)
             ->select(sprintf('COUNT(%s) as caseCount,c.code', $alias, $alias))
-            ->innerJoin('cf.referenceLab',$alias)
-            ->leftJoin('cf.site','s')
+            ->innerJoin('cf.referenceLab', $alias)
+            ->leftJoin('cf.site', 's')
             ->andWhere('s.code IS NULL');
     }
 
@@ -371,7 +371,7 @@ class RotaVirusRepository extends Common
     {
         return $this->getByCountryCountQueryBuilder($alias, $countryCodes)
             ->select(sprintf('COUNT(%s) as caseCount,c.code', $alias, $alias))
-            ->leftJoin('cf.referenceLab',$alias)
+            ->leftJoin('cf.referenceLab', $alias)
             ->andWhere($alias.' IS NULL');
     }
 }

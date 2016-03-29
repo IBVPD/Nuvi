@@ -2,7 +2,6 @@
 
 namespace NS\SentinelBundle\Report\Result;
 
-
 abstract class AbstractSitePerformanceResult extends AbstractSiteBasedResult
 {
     const GOOD = 1;
@@ -67,11 +66,11 @@ abstract class AbstractSitePerformanceResult extends AbstractSiteBasedResult
      */
     public function getConsistentReporting()
     {
-        if(!$this->consistentReportingCount) {
+        if (!$this->consistentReportingCount) {
             $this->consistentReportingCount = count($this->consistentReporting);
         }
 
-        if($this->consistentReportingCount == 12) {
+        if ($this->consistentReportingCount == 12) {
             return self::GOOD;
         } elseif ($this->consistentReportingCount >= 10) {
             return self::WARN;
@@ -100,7 +99,6 @@ abstract class AbstractSitePerformanceResult extends AbstractSiteBasedResult
     {
         $this->consistentReporting[$consistentReporting['theMonth']] = $consistentReporting;
         $this->consistentReportingCount = count($this->consistentReporting);
-
     }
 
     /**
@@ -124,7 +122,7 @@ abstract class AbstractSitePerformanceResult extends AbstractSiteBasedResult
      */
     public function getSpecimenCollectionPercent()
     {
-        if($this->specimenCollectionPercent === null && $this->getTotalCases() > 0) {
+        if ($this->specimenCollectionPercent === null && $this->getTotalCases() > 0) {
             $this->specimenCollectionPercent  = ($this->getSpecimenCollection() / $this->getTotalCases())*100;
         }
 
@@ -152,7 +150,7 @@ abstract class AbstractSitePerformanceResult extends AbstractSiteBasedResult
      */
     public function getLabConfirmedPercent()
     {
-        if($this->labConfirmedPercent === null && $this->getTotalCases() > 0) {
+        if ($this->labConfirmedPercent === null && $this->getTotalCases() > 0) {
             $this->labConfirmedPercent  = ($this->getLabConfirmed() / $this->getTotalCases())*100;
         }
 
@@ -161,7 +159,7 @@ abstract class AbstractSitePerformanceResult extends AbstractSiteBasedResult
 
     public function getState($percent, $firstPercent = 90, $secondPercent = 80)
     {
-        if($percent >= $firstPercent) {
+        if ($percent >= $firstPercent) {
             return self::GOOD;
         } elseif ($percent >= $secondPercent) {
             return self::WARN;

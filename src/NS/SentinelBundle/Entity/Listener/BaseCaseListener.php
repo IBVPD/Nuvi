@@ -23,7 +23,6 @@ abstract class BaseCaseListener
         $this->calculateStatus($case);
         $this->calculateResult($case);
         $case->setUpdatedAt(new \DateTime());
-
     }
 
     /**
@@ -49,7 +48,7 @@ abstract class BaseCaseListener
             $case->setAge(($interval->format('%a') / 30.5));
         } elseif ($case->getAdmDate() && !$case->getDob()) {
             if (!$case->getAge() && $case->getDobYears() !== null && $case->getDobMonths() !== null) {
-                $case->setAge( (int) ( ($case->getDobYears() * 12) + $case->getDobMonths() ) );
+                $case->setAge((int) (($case->getDobYears() * 12) + $case->getDobMonths()));
             }
 
             if ($case->getAge() >= 0) {
@@ -81,7 +80,7 @@ abstract class BaseCaseListener
      */
     public function calculateStatus(BaseCase $case)
     {
-        if($case->getStatus()->equal(CaseStatus::CANCELLED)) {
+        if ($case->getStatus()->equal(CaseStatus::CANCELLED)) {
             return;
         }
 

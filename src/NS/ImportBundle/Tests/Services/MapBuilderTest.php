@@ -149,7 +149,7 @@ class MapBuilderTest extends WebTestCase
             ->with(0);
         $mockReader->expects($this->once())
             ->method('getColumnHeaders')
-            ->willReturn(array('columnOne','columnTwo'));
+            ->willReturn(array('columnOne', 'columnTwo'));
 
         $mockReaderFactory = $this->getMock('NS\ImportBundle\Reader\ReaderFactory');
         $mockReaderFactory->expects($this->once())
@@ -177,5 +177,4 @@ class MapBuilderTest extends WebTestCase
 
         $mapBuilder->process($map);
     }
-
 }

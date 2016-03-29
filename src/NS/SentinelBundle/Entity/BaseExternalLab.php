@@ -5,7 +5,6 @@ namespace NS\SentinelBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use NS\SentinelBundle\Form\Types\CaseStatus;
-
 use \JMS\Serializer\Annotation as Serializer;
 
 /**
@@ -179,13 +178,15 @@ abstract class BaseExternalLab
      */
     public function calculateStatus()
     {
-        if($this->status->getValue() >= CaseStatus::CANCELLED)
+        if ($this->status->getValue() >= CaseStatus::CANCELLED) {
             return;
+        }
 
-        if($this->getIncompleteField())
+        if ($this->getIncompleteField()) {
             $this->status = new CaseStatus(CaseStatus::OPEN);
-        else
+        } else {
             $this->status = new CaseStatus(CaseStatus::COMPLETE);
+        }
 
         return;
     }

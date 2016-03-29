@@ -20,7 +20,7 @@ class IBDController extends BaseCaseController
      */
     public function indexAction(Request $request)
     {
-        return $this->render('NSSentinelBundle:IBD:index.html.twig',$this->index($request, 'NSSentinelBundle:IBD', 'ibd_filter_form','ibd.index'));
+        return $this->render('NSSentinelBundle:IBD:index.html.twig', $this->index($request, 'NSSentinelBundle:IBD', 'ibd_filter_form', 'ibd.index'));
     }
 
     /**
@@ -45,7 +45,7 @@ class IBDController extends BaseCaseController
     {
         $response = $this->edit($request, 'ibd', "ibdIndex", "ibdEdit", $id);
 
-        return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:IBD:edit.html.twig',$response);
+        return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:IBD:edit.html.twig', $response);
     }
 
     /**
@@ -58,7 +58,7 @@ class IBDController extends BaseCaseController
     public function editRRLAction(Request $request, $id = null)
     {
         $response = $this->edit($request, 'ibd_referencelab', "ibdIndex", "ibdRRLEdit", $id);
-        return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:IBD:editBaseLab.html.twig',$response);
+        return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:IBD:editBaseLab.html.twig', $response);
     }
 
     /**
@@ -72,7 +72,7 @@ class IBDController extends BaseCaseController
     {
         $response = $this->edit($request, 'ibd_nationallab', "ibdIndex", "ibdNLEdit", $id);
 
-        return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:IBD:editBaseLab.html.twig',$response);
+        return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:IBD:editBaseLab.html.twig', $response);
     }
 
     /**
@@ -85,7 +85,7 @@ class IBDController extends BaseCaseController
     public function editLabAction(Request $request, $id = null)
     {
         $response = $this->edit($request, 'ibd_lab', "ibdIndex", "ibdLabEdit", $id);
-        return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:IBD:editLab.html.twig',$response);
+        return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:IBD:editLab.html.twig', $response);
     }
 
     /**
@@ -98,7 +98,7 @@ class IBDController extends BaseCaseController
     public function editOutcomeAction(Request $request, $id = null)
     {
         $response = $this->edit($request, 'ibd_outcome', "ibdIndex", "ibdOutcomeEdit", $id);
-        return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:IBD:editOutcome.html.twig',$response);
+        return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:IBD:editOutcome.html.twig', $response);
     }
 
     /**
@@ -112,10 +112,8 @@ class IBDController extends BaseCaseController
     {
         $record = null;
 
-        if ($objId)
-        {
-            switch ($type)
-            {
+        if ($objId) {
+            switch ($type) {
                 case 'ibd':
                 case 'ibd_outcome':
                     $record = $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:IBD')->find($objId);
@@ -146,7 +144,7 @@ class IBDController extends BaseCaseController
     public function showAction($id)
     {
         $ret = $this->show('NSSentinelBundle:IBD', $id);
-        if( $ret instanceof Response ) {
+        if ($ret instanceof Response) {
             return $ret;
         }
 

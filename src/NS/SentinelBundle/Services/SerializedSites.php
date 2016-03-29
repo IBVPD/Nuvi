@@ -87,7 +87,7 @@ class SerializedSites implements SerializedSitesInterface
      */
     public function initialize()
     {
-        if ($this->isInitialized) /* || !$this->session->isStarted() - Used to be required to pass behat/phpunit tests but breaks the API stateless access */ {
+        if ($this->isInitialized) {/* || !$this->session->isStarted() - Used to be required to pass behat/phpunit tests but breaks the API stateless access */
             return;
         }
 
@@ -125,12 +125,12 @@ class SerializedSites implements SerializedSitesInterface
     {
         $sites = array();
         foreach ($this->entityMgr->getRepository('NS\SentinelBundle\Entity\Site')->getChain() as $site) {
-            $region  = new Region($site->getCountry()->getRegion()->getCode(),$site->getCountry()->getRegion()->getName());
-            $country = new Country($site->getCountry()->getCode(),$site->getCountry()->getName());
+            $region  = new Region($site->getCountry()->getRegion()->getCode(), $site->getCountry()->getRegion()->getName());
+            $country = new Country($site->getCountry()->getCode(), $site->getCountry()->getName());
             $country->setLanguage($site->getCountry()->getLanguage());
             $country->setRegion($region);
 
-            $newSite = new Site($site->getCode(),$site->getName());
+            $newSite = new Site($site->getCode(), $site->getName());
             $newSite->setCountry($country);
 
             $sites[] = $newSite;

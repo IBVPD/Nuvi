@@ -242,5 +242,4 @@ class ArrayChoiceConverterTest extends \PHPUnit_Framework_TestCase
                 'name' => 'VaccinationReceived'),
         );
     }
-
 }

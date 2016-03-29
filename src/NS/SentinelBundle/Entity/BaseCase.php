@@ -233,15 +233,15 @@ abstract class BaseCase
     public function __clone()
     {
         $this->setId(null);
-        if(is_object($this->siteLab)) {
+        if (is_object($this->siteLab)) {
             $this->setSiteLab(clone $this->siteLab);
         }
 
-        if(is_object($this->referenceLab)) {
+        if (is_object($this->referenceLab)) {
             $this->setReferenceLab(clone $this->referenceLab);
         }
 
-        if(is_object($this->nationalLab)) {
+        if (is_object($this->nationalLab)) {
             $this->setNationalLab(clone $this->nationalLab);
         }
     }
@@ -375,7 +375,8 @@ abstract class BaseCase
      * @param BaseExternalLab $lab
      * @return $this
      */
-    public function setReferenceLab(BaseExternalLab $lab) {
+    public function setReferenceLab(BaseExternalLab $lab)
+    {
         $lab->setCaseFile($this);
         $this->referenceLab = $lab;
 
@@ -386,7 +387,8 @@ abstract class BaseCase
      * @param BaseExternalLab $lab
      * @return $this
      */
-    public function setNationalLab(BaseExternalLab $lab) {
+    public function setNationalLab(BaseExternalLab $lab)
+    {
         $lab->setCaseFile($this);
         $this->nationalLab = $lab;
 
@@ -596,7 +598,7 @@ abstract class BaseCase
      */
     public function getDobYears()
     {
-        if(!$this->dobYears && $this->age) {
+        if (!$this->dobYears && $this->age) {
             $this->dobYears = (int)($this->age/12);
         }
 
@@ -869,6 +871,6 @@ abstract class BaseCase
      */
     public function isUnlinked()
     {
-        return (strpos($this->id,'-XXX-') !== false);
+        return (strpos($this->id, '-XXX-') !== false);
     }
 }

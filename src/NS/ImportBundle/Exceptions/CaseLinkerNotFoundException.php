@@ -2,7 +2,6 @@
 
 namespace NS\ImportBundle\Exceptions;
 
-
 class CaseLinkerNotFoundException extends \RuntimeException
 {
     /**
@@ -13,6 +12,6 @@ class CaseLinkerNotFoundException extends \RuntimeException
      */
     public function __construct($id = "", $code = 0, \Exception $previous = null)
     {
-        parent::__construct(sprintf('Unable to locate case linker with service id "%s"',$id),$code,$previous);
+        parent::__construct(sprintf('Unable to locate case linker with service id "%s"', $id), $code, $previous);
     }
 }

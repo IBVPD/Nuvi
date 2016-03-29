@@ -23,5 +23,4 @@ class TripleChoice extends ArrayChoice
     {
         return 'TripleChoice';
     }
-    
 }

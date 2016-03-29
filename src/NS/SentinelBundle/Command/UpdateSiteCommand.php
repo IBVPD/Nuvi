@@ -28,7 +28,7 @@ class UpdateSiteCommand extends ContainerAwareCommand
         $this->setName('nssentinel:import:update-sites')
             ->setDescription('Update the system site list')
             ->setDefinition(array(
-                new InputArgument('file',InputArgument::REQUIRED),
+                new InputArgument('file', InputArgument::REQUIRED),
             ));
     }
 
@@ -43,8 +43,8 @@ class UpdateSiteCommand extends ContainerAwareCommand
         $this->support = new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\IBDIntenseSupport');
 
         $file = $input->getArgument('file');
-        if(!is_file($file)) {
-            $output->writeln(sprintf('Cannot open file %s',$file));
+        if (!is_file($file)) {
+            $output->writeln(sprintf('Cannot open file %s', $file));
         }
 
         $fileObj = new File($file);
@@ -58,30 +58,31 @@ class UpdateSiteCommand extends ContainerAwareCommand
             'ibdIntenseSupport'
         ));
 
-        $writer = new DoctrineWriter($entityMgr,'NS\SentinelBundle\Entity\Site',array('code'));
+        $writer = new DoctrineWriter($entityMgr, 'NS\SentinelBundle\Entity\Site', array('code'));
         $writer->setTruncate(false);
         $worker = new StepAggregator($reader);
         $worker->addWriter($writer);
 
 
         $converterStep = new ValueConverterStep();
-        $converterStep->add('[surveillanceConducted]',array($this,'convertSurveillance'));
-        $converterStep->add('[ibdIntenseSupport]',array($this,'convertSupport'));
-        $converterStep->add('[country]',array($this,'convertCountry'));
+        $converterStep->add('[surveillanceConducted]', array($this, 'convertSurveillance'));
+        $converterStep->add('[ibdIntenseSupport]', array($this, 'convertSupport'));
+        $converterStep->add('[country]', array($this, 'convertCountry'));
         $worker->addStep($converterStep);
 
         try {
             $result = $worker->process();
-            $output->writeln(sprintf('Processed %d records',$result->getSuccessCount()));
+            $output->writeln(sprintf('Processed %d records', $result->getSuccessCount()));
         } catch (\Exception $exception) {
             $output->writeln('Exception: '.$exception->getMessage());
-            foreach($exception->getTrace() as $index => $trace) {
-                $output->writeln(sprintf('%d: %s::%s on line %d',$index,$trace['class'],$trace['function'],$trace['line']));
+            foreach ($exception->getTrace() as $index => $trace) {
+                $output->writeln(sprintf('%d: %s::%s on line %d', $index, $trace['class'], $trace['function'], $trace['line']));
             }
         }
     }
 
-    public function convertSurveillance($value) {
+    public function convertSurveillance($value)
+    {
         return $this->surveillance->__invoke($value);
     }
 
@@ -92,12 +93,12 @@ class UpdateSiteCommand extends ContainerAwareCommand
 
     public function convertCountry($countryCode)
     {
-        if(isset($this->countries[$countryCode])) {
+        if (isset($this->countries[$countryCode])) {
             return $this->countries[$countryCode];
         }
 
         $country = $this->countryRepo->findOneBy(array('code'=>$countryCode));
-        if($country) {
+        if ($country) {
             $this->countries[$countryCode] = $country;
         }
 

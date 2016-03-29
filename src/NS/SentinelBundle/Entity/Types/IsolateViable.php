@@ -21,5 +21,5 @@ class IsolateViable extends ArrayChoice
     public function getName()
     {
         return 'IsolateViable';
-    }   
+    }
 }
