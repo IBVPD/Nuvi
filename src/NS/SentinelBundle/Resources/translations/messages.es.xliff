@@ -565,7 +565,7 @@
       </trans-unit>
       <trans-unit id="eede5d359286bb963ca85c2cdf35c36ca4e63945" resname="Email / Username">
         <source>Email / Username</source>
-        <target>Correo electrónico  / Nombre de usuario</target>
+        <target>Correo electrónico / Nombre de usuario</target>
         <jms:reference-file line="31">views/Security/forgotPassword.html.twig</jms:reference-file>
         <jms:reference-file line="32">views/Security/login.html.twig</jms:reference-file>
       </trans-unit>
@@ -1363,7 +1363,7 @@
       </trans-unit>
       <trans-unit id="1208423354693a4ecea29f76f0627bcf0eaa080d" resname="Total # of Cases">
         <source>Total # of Cases</source>
-        <target>Total # de casos</target>
+        <target>Número total de casos</target>
         <jms:reference-file line="18">views/Report/fieldPopulation.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="f76d1e2a50543a098caaec8da67e10271c0a83af" resname="Transferred">
@@ -1492,12 +1492,12 @@
       </trans-unit>
       <trans-unit id="cfcd821ea6e7348be0b6c0de8ed4a4383c1ae01e" resname="blood Equal">
         <source>blood Equal</source>
-        <target></target>
+        <target>Sangre Igual</target>
         <jms:reference-file line="23">views/Report/fieldPopulation.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="a53658753e1d351efc751c39527cd0994c80bf81" resname="blood Result">
         <source>blood Result</source>
-        <target>Resultados de Sangre</target>
+        <target>Resultado de Sangre</target>
         <jms:reference-file line="22">views/Report/fieldPopulation.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="84a516841ba77a5b4648de2cd0dfcb30ea46dbb4" resname="c">
@@ -1506,17 +1506,17 @@
       </trans-unit>
       <trans-unit id="e23e32ba593b3f97acca179a8075c1aab17ecf53" resname="csf Binax Result">
         <source>csf Binax Result</source>
-        <target>Resultados de csf Binax</target>
+        <target>Resultado de csf Binax</target>
         <jms:reference-file line="24">views/Report/fieldPopulation.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="abbbc28952e061627f8fd4ad474944cec585a2e7" resname="csf Collected">
         <source>csf Collected</source>
-        <target>Coleccionado de csf</target>
+        <target>Colectado del csf</target>
         <jms:reference-file line="19">views/Report/fieldPopulation.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="d933c100a3344322c1679817f118083d26a627a7" resname="csf Lat Recorded">
         <source>csf Lat Recorded</source>
-        <target>csf Lat Recorded</target>
+        <target>csf Lat Registrado</target>
         <jms:reference-file line="25">views/Report/fieldPopulation.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="78a8804d05d15573c53379b34f5c7febef6b507b" resname="csf Result">
@@ -1530,7 +1530,7 @@
       </trans-unit>
       <trans-unit id="b004dd487ac780ac1202f4229bbc88db68373fed" resname="db-generated-id">
         <source>db-generated-id</source>
-        <target>Sistema ID</target>
+        <target>Identificación del Sistema</target>
         <jms:reference-file line="61">SentinelBundle/Form/BaseFilter.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="58e6b3a414a1e090dfc6029add0f3555ccba127f" resname="e">
@@ -1561,13 +1561,13 @@
       </trans-unit>
       <trans-unit id="29e6614cb370fd5cc3ba0ae13ab9d311216dc47e" resname="external-lab-form.genotyping-result-g-specify">
         <source>external-lab-form.genotyping-result-g-specify</source>
-        <target>Resultado de Genotificación (especifique tipo G para Mixta u Otros)</target>
+        <target>Resultado de Genotipificación (especifique tipo G para Mixta u Otros)</target>
         <jms:reference-file line="242">views/RotaVirus/show.html.twig</jms:reference-file>
         <jms:reference-file line="24">Form/Rota/BaseLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e690505cbc06371ac9fcf55df23d84fd5623a284" resname="external-lab-form.genotyping-result-p">
         <source>external-lab-form.genotyping-result-p</source>
-        <target>Resultado  de Genotificación (tipo P)</target>
+        <target>Resultado  de Genotipificación (tipo P)</target>
         <jms:reference-file line="243">views/RotaVirus/show.html.twig</jms:reference-file>
         <jms:reference-file line="25">Form/Rota/BaseLabType.php</jms:reference-file>
       </trans-unit>
@@ -1598,7 +1598,7 @@
       </trans-unit>
       <trans-unit id="39fb48c066d7a79f2bd485ccabc87cdd9fb7cc12" resname="filter.admission-date">
         <source>filter.admission-date</source>
-        <target>Fecha de Ingreso</target>
+        <target>Fecha de admisión</target>
         <jms:reference-file line="42">SentinelBundle/Form/BaseFilter.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="6da3c939c937b6fbd2bf66c6ae49de543af70162" resname="ibd-form.adm-date">
@@ -1609,13 +1609,13 @@
       </trans-unit>
       <trans-unit id="0c754882743ea4d68accdb243e860ef6c9613576" resname="ibd-form.adm-dx">
         <source>ibd-form.adm-dx</source>
-        <target>Diagnostico en la fecha de admisión</target>
+        <target>Diagnóstico en la fecha de admisión</target>
         <jms:reference-file line="116">views/IBD/show.html.twig</jms:reference-file>
         <jms:reference-file line="59">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="39e83df6a2fb662a0a4eefc0e56eec1be7db70ad" resname="ibd-form.adm-dx-other">
         <source>ibd-form.adm-dx-other</source>
-        <target>Si el diagnostico en la fecha de admisión es "Otra", por favor especifique</target>
+        <target>Si el diagnóstico en la fecha de admisión es "Otro", por favor especifique</target>
         <jms:reference-file line="120">views/IBD/show.html.twig</jms:reference-file>
         <jms:reference-file line="61">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
@@ -1649,7 +1649,7 @@
       </trans-unit>
       <trans-unit id="ef31c56c7c7a3d6b1879e3b389e94787dc00b8c1" resname="ibd-form.blood-cult-other">
         <source>ibd-form.blood-cult-other</source>
-        <target>Cultivo de sangre Otro</target>
+        <target>Cultivo de sangre - Otro</target>
         <jms:reference-file line="236">views/IBD/show.html.twig</jms:reference-file>
         <jms:reference-file line="104">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
@@ -1677,7 +1677,7 @@
       </trans-unit>
       <trans-unit id="39b803df267a9438df20198b4ebd4acac75bd436" resname="ibd-form.blood-gram-result-organism">
         <source>ibd-form.blood-gram-result-organism</source>
-        <target>Si organismos fueron detectados en la tinción de Gram del cultivo de sangre, seleccione la opción que mejor describa</target>
+        <target>Si organismos fueron detectados en la tinción de Gram del cultivo de sangre, seleccione la opción que mejor describa los organismos</target>
         <jms:reference-file line="112">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="22e9fa5667ff6fbb177cb2ffd77f9c9643160c33" resname="ibd-form.blood-id">
@@ -1738,7 +1738,7 @@
       </trans-unit>
       <trans-unit id="55a3c923ddac91385faa6c9c10da684e9f63f4a8" resname="ibd-form.csf-collected">
         <source>ibd-form.csf-collected</source>
-        <target>¿Se colecciono CSF del caso?</target>
+        <target>¿Se colectó CSF del caso?</target>
         <jms:reference-file line="194">views/IBD/show.html.twig</jms:reference-file>
         <jms:reference-file line="114">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
@@ -1750,12 +1750,12 @@
       </trans-unit>
       <trans-unit id="165ff9e8b1253ff274bec7035629a17d6f7d73d2" resname="ibd-form.csf-cult-result">
         <source>ibd-form.csf-cult-result</source>
-        <target>Resultados del examen de cultivo de  CSF</target>
+        <target>Resultado del examen de cultivo de  CSF</target>
         <jms:reference-file line="47">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="592e81911f3db51a32610e8f0ba4421adc702f03" resname="ibd-form.csf-culture-contaminant">
         <source>ibd-form.csf-culture-contaminant</source>
-        <target>ibd-form.csf-cultivo-contaminante</target>
+        <target>Cultivo de CSF contaminante</target>
         <jms:reference-file line="52">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="3332d66e09ea8b6dd4eca625c491c87904e6aa2a" resname="ibd-form.csf-culture-other">
@@ -1766,7 +1766,7 @@
       </trans-unit>
       <trans-unit id="62b657fd64e41a1266bd381839ac793e57b29053" resname="ibd-form.csf-glucose">
         <source>ibd-form.csf-glucose</source>
-        <target>Medida de la glucosa en CSF</target>
+        <target>Medida de la glucosa en el CSF</target>
         <jms:reference-file line="218">views/IBD/show.html.twig</jms:reference-file>
         <jms:reference-file line="43">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
@@ -1783,12 +1783,12 @@
       </trans-unit>
       <trans-unit id="e92ff3e3870a9074fa68d05de217bf8b5b06f0e8" resname="ibd-form.csf-gram-result">
         <source>ibd-form.csf-gram-result</source>
-        <target>Resultados de la tinción de Gram del CSF</target>
+        <target>Resultado de la tinción de Gram del CSF</target>
         <jms:reference-file line="56">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="ba4d2096778797cc7b6d4798c880c485f95da9b9" resname="ibd-form.csf-gram-result-organism">
         <source>ibd-form.csf-gram-result-organism</source>
-        <target>Si organismos fueron detectados en la tinción de Gram del CSF, Po favor seleccione la opción que mejor describa</target>
+        <target>Si organismos fueron detectados en la tinción de Gram del CSF, por favor seleccione la opción que mejor describa el organismo</target>
         <jms:reference-file line="60">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="57fab7bb44f1759986e31232efcb884b8396d0ed" resname="ibd-form.csf-id">
@@ -2571,12 +2571,12 @@
       </trans-unit>
       <trans-unit id="95d23e2db9063b19c37c9c72a44051d882cee022" resname="rotavirus-form.csf-collect-datetime">
         <source>rotavirus-form.csf-collect-datetime</source>
-        <target>Fecha de recolección del LCR (ej: punción lumbar)</target>
+        <target>Fecha de colección del LCR (ej: punción lumbar)</target>
         <jms:reference-file line="158">views/RotaVirus/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="94ddb33c08760b5b4575b17ff1264fd97f671c4e" resname="rotavirus-form.csf-collected">
         <source>rotavirus-form.csf-collected</source>
-        <target>Se recolectó el LCR?</target>
+        <target>¿Se colectó el LCR?</target>
         <jms:reference-file line="154">views/RotaVirus/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="671f9bdf3c9ad70ecd4deeba41e965a0fdcc1a94" resname="rotavirus-form.dischargeClassOther">
@@ -2658,7 +2658,7 @@
       </trans-unit>
       <trans-unit id="3f06e396c7b7261960c4d0a0d2870f93288af9fb" resname="rotavirus-form.firstVaccinationDose">
         <source>rotavirus-form.firstVaccinationDose</source>
-        <target>Fecha de la primera dosis de la vacuna contra el rotavirus</target>
+        <target>Fecha de la primera dosis de la vacuna Rotavirus</target>
         <jms:reference-file line="79">views/RotaVirus/show.html.twig</jms:reference-file>
         <jms:reference-file line="63">Form/Rota/CaseType.php</jms:reference-file>
       </trans-unit>
@@ -2696,7 +2696,7 @@
       </trans-unit>
       <trans-unit id="c37f78a2cff542f4c8bc6b243e332820d2727ac1" resname="rotavirus-form.rehydration">
         <source>rotavirus-form.rehydration</source>
-        <target>Se le dió terapia de rehidratación?</target>
+        <target>¿Se le dió terapia de rehidratación?</target>
         <jms:reference-file line="137">views/RotaVirus/show.html.twig</jms:reference-file>
         <jms:reference-file line="48">Form/Rota/CaseType.php</jms:reference-file>
       </trans-unit>
@@ -2813,7 +2813,7 @@
       </trans-unit>
       <trans-unit id="d6f298f9d9d5298131f754d3f85315b13335341f" resname="rotavirus-form.symptomVomit">
         <source>rotavirus-form.symptomVomit</source>
-        <target>vomitó ?</target>
+        <target>¿vómito?</target>
         <jms:reference-file line="121">views/RotaVirus/show.html.twig</jms:reference-file>
         <jms:reference-file line="42">Form/Rota/CaseType.php</jms:reference-file>
       </trans-unit>
@@ -2857,7 +2857,7 @@
       </trans-unit>
       <trans-unit id="c405fde50a71cd2c0fa822a260d62d55d5e211cf" resname="site-assigned-case-id">
         <source>site-assigned-case-id</source>
-        <target>ID Sitio Sentinel</target>
+        <target>Caso ID</target>
         <jms:reference-file line="38">SentinelBundle/Form/CreateType.php</jms:reference-file>
         <jms:reference-file line="39">SentinelBundle/Form/BaseFilter.php</jms:reference-file>
       </trans-unit>
