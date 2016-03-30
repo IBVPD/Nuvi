@@ -2,8 +2,8 @@
 
 namespace NS\SentinelBundle\Filter\Listener;
 
+use Lexik\Bundle\FormFilterBundle\Event\GetFilterConditionEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Lexik\Bundle\FormFilterBundle\Event\ApplyFilterEvent;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Common\Collections\Collection;
 
@@ -30,10 +30,10 @@ class CaseAssociationListener implements EventSubscriberInterface
     }
 
     /**
-     * @param ApplyFilterEvent $event
+     * @param GetFilterConditionEvent $event
      * @throws \Exception
      */
-    public function filterObject(ApplyFilterEvent $event)
+    public function filterObject(GetFilterConditionEvent $event)
     {
         $queryBuilder = $event->getQueryBuilder();
         if (!$queryBuilder instanceof QueryBuilder) {

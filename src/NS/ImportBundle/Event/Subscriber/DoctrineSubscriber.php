@@ -2,7 +2,7 @@
 
 namespace NS\ImportBundle\Event\Subscriber;
 
-use \Lexik\Bundle\FormFilterBundle\Event\ApplyFilterEvent;
+use \Lexik\Bundle\FormFilterBundle\Event\GetFilterConditionEvent;
 use \Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -29,9 +29,9 @@ class DoctrineSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @param ApplyFilterEvent $event
+     * @param GetFilterConditionEvent $event
      */
-    public function filterDateRange(ApplyFilterEvent $event)
+    public function filterDateRange(GetFilterConditionEvent $event)
     {
         $qb     = $event->getQueryBuilder();
         $expr   = $event->getFilterQuery()->getExpressionBuilder();
