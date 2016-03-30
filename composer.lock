@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fc349116d1d88736c806bb1721cc5f1f",
-    "content-hash": "affe1d1b6569ee78f57e552bf7d25612",
+    "hash": "05cdd4eb817b1be2396aab23facbb88f",
+    "content-hash": "d7d8b0b565cff0674b1b9b5a2ec2263d",
     "packages": [
         {
             "name": "adoy/oauth2",
@@ -2533,7 +2533,7 @@
                     "email": "stof@notk.org"
                 },
                 {
-                    "name": "Knplabs",
+                    "name": "KnpLabs",
                     "homepage": "http://knplabs.com"
                 },
                 {
@@ -3472,6 +3472,94 @@
             "time": "2016-03-24 22:01:39"
         },
         {
+            "name": "ns/ace-sonata-bundle",
+            "version": "0.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/NobletSolutions/AceSonataBundle.git",
+                "reference": "165a7f98efe3e1da989dfe38fda296468e61a7f8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/NobletSolutions/AceSonataBundle/zipball/165a7f98efe3e1da989dfe38fda296468e61a7f8",
+                "reference": "165a7f98efe3e1da989dfe38fda296468e61a7f8",
+                "shasum": ""
+            },
+            "require": {
+                "ns/ace-bundle": "~1.4",
+                "php": ">=5.3.3",
+                "symfony/symfony": ">=2.3"
+            },
+            "require-dev": {
+                "liip/rmt": "~1.1",
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "NS\\AceSonataBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nathanael David Noblet",
+                    "email": "nathanael@noblet.ca"
+                },
+                {
+                    "name": "Mark Woynarski",
+                    "email": "mark.woynarski@nobletdesign.com"
+                }
+            ],
+            "description": "This bundle integrates the sonata admin panel and the ace bundle",
+            "time": "2016-03-30 22:38:44"
+        },
+        {
+            "name": "ns/ace-sonata-doctrine-orm-admin-bundle",
+            "version": "0.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/NobletSolutions/AceSonataDoctrineORMAdminBundle.git",
+                "reference": "ad14b70a14758a5ae6eed220c91990dc7ceda3ec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/NobletSolutions/AceSonataDoctrineORMAdminBundle/zipball/ad14b70a14758a5ae6eed220c91990dc7ceda3ec",
+                "reference": "ad14b70a14758a5ae6eed220c91990dc7ceda3ec",
+                "shasum": ""
+            },
+            "require": {
+                "ns/ace-sonata-bundle": "~0.3",
+                "php": ">=5.3.3",
+                "symfony/symfony": ">=2.3"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "NS\\AceSonataDoctrineORMAdminBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nathanael David Noblet",
+                    "email": "nathanael@noblet.ca"
+                },
+                {
+                    "name": "Mark Woynarski",
+                    "email": "mark.woynarski@nobletdesign.com"
+                }
+            ],
+            "description": "This bundle provides ace template overrides to sonata doctrine orm",
+            "time": "2016-03-30 22:43:08"
+        },
+        {
             "name": "ns/filtered-pagination-bundle",
             "version": "2.0.5",
             "source": {
@@ -3895,9 +3983,9 @@
             ],
             "authors": [
                 {
-                    "name": "Johannes M. Schmitt",
+                    "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
+                    "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -6141,7 +6229,7 @@
             ],
             "authors": [
                 {
-                    "name": "William DURAND",
+                    "name": "William Durand",
                     "email": "william.durand1@gmail.com",
                     "homepage": "http://www.willdurand.fr"
                 }

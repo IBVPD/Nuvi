@@ -33,7 +33,8 @@ class AppKernel extends Kernel
             new NS\UtilBundle\NSUtilBundle(),
             new NS\AceBundle\NSAceBundle(),
             new NS\TranslateBundle\NSTranslateBundle(),
-            new NS\SonataBundle\NSSonataBundle(),
+            new NS\AceSonataBundle\NSAceSonataBundle(),
+            new NS\AceSonataDoctrineORMAdminBundle\NSSonataDoctrineORMAdminBundle(),
             new NS\ApiDocBundle\NSApiDocBundle(),
             new NS\FlashBundle\NSFlashBundle(),
 
@@ -64,7 +65,6 @@ class AppKernel extends Kernel
             new Vich\UploaderBundle\VichUploaderBundle(),
             new Leezy\PheanstalkBundle\LeezyPheanstalkBundle(),
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
-            new NS\SonataDoctrineORMAdminBundle\NSSonataDoctrineORMAdminBundle(),
             new \NS\FilteredPaginationBundle\NSFilteredPaginationBundle(),
         );
 
