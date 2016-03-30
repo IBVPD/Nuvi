@@ -29,6 +29,7 @@
                 {% endif %}
                 <li><a data-toggle="tab" href="#nationalLab">{{'National Lab'|trans}}</a></li>
                 <li><a data-toggle="tab" href="#referenceLab">{{'Reference Lab'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#outcome">{{'Outcome'|trans}}</a></li>
             </ul>
 
             <div class="tab-content">
@@ -336,6 +337,15 @@
                     </table>
                 </div>
 
+                <div id="outcome" class="tab-pane">
+                    <table class="table table-striped table-bordered table-hover">
+                        <tr><th>{{'ibd-form.discharge-outcome'|trans}}</th><td>{{record.dischOutcome}}</td></tr>
+                        <tr><th>{{'ibd-form.discharge-diagnosis'|trans}}</th><td>{{record.dischDx}}</td></tr>
+                        <tr><th>{{'ibd-form.discharge-diagnosis-other'|trans}}</th><td>{{record.dischDxOther}}</td></tr>
+                        <tr><th>{{'ibd-form.discharge-class'|trans}}</th><td>{{record.dischClass}}</td></tr>
+                        <tr><th>{{'ibd-form.comment'|trans}}</th><td>{{record.comment}}</td></tr>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
