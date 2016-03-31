@@ -39,19 +39,6 @@ class UserAdmin extends Admin
     }
 
     /**
-     * @param string $name
-     * @return null|string|void
-     */
-    public function getTemplate($name)
-    {
-        if ($name == 'edit') {
-            return 'NSSentinelBundle:Admin:User/edit.html.twig';
-        }
-
-        return parent::getTemplate($name);
-    }
-
-    /**
      * @param DatagridMapper $datagridMapper
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
