@@ -1,25 +1,7 @@
 {% extends 'NSAceSonataBundle:CRUD:edit.html.twig' %}
 
 {% block javascripts %}
-  <!--[if !IE]> -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-  <script type="text/javascript">
-    window.jQuery || document.write("<script src='{{asset('/bundles/nsace/js/jquery-2.0.3.min.js')}}'>"+"<"+"/script>");
-  </script>
-  <!-- <![endif]-->
-
-  <!--[if IE]
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script type="text/javascript">
-    window.jQuery || document.write("<script src='{{asset('/bundles/nsace/js/jquery-1.10.2.min.js')}}'>"+"<"+"/script>");
-  </script>
-  <![endif]-->
-
-  <script src="{{ asset('/bundles/sonataadmin/Admin.js') }}" type="text/javascript"></script>
-
-  <script src="{{asset('/bundles/nsace/js/jquery-ui-1.10.3.custom.min.js')}}"></script>
-  <script src="{{ asset('/bundles/sonataadmin/jquery/jquery.form.js') }}" type="text/javascript"></script>
-  <script src="{{ asset('/bundles/sonataadmin/jquery/jquery.confirmExit.js') }}" type="text/javascript"></script>
+  {{parent()}}
   <script type="text/javascript">
     jQuery.noConflict();
   </script>

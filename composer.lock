@@ -3421,16 +3421,16 @@
         },
         {
             "name": "ns/ace-bundle",
-            "version": "1.4.3",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/AceBundle.git",
-                "reference": "8a6e95dfbb05f4f71205dbeb55e3a2984e5ceb0b"
+                "reference": "436d06168500db6413803a0136c3daa8c9396416"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/AceBundle/zipball/8a6e95dfbb05f4f71205dbeb55e3a2984e5ceb0b",
-                "reference": "8a6e95dfbb05f4f71205dbeb55e3a2984e5ceb0b",
+                "url": "https://api.github.com/repos/NobletSolutions/AceBundle/zipball/436d06168500db6413803a0136c3daa8c9396416",
+                "reference": "436d06168500db6413803a0136c3daa8c9396416",
                 "shasum": ""
             },
             "require": {
@@ -3469,7 +3469,7 @@
                 }
             ],
             "description": "This bundle provides bootstrap template",
-            "time": "2016-03-24 22:01:39"
+            "time": "2016-03-31 15:42:48"
         },
         {
             "name": "ns/ace-sonata-bundle",
@@ -4422,16 +4422,16 @@
         },
         {
             "name": "sonata-project/admin-bundle",
-            "version": "2.3.7",
+            "version": "2.3.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "41efdd80e18abd793fe4d1d7d936b2d5f5d8d6d8"
+                "reference": "154de7966e76a6e928527a1e5a1114b8ec3a18fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/41efdd80e18abd793fe4d1d7d936b2d5f5d8d6d8",
-                "reference": "41efdd80e18abd793fe4d1d7d936b2d5f5d8d6d8",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/154de7966e76a6e928527a1e5a1114b8ec3a18fe",
+                "reference": "154de7966e76a6e928527a1e5a1114b8ec3a18fe",
                 "shasum": ""
             },
             "require": {
@@ -4439,7 +4439,7 @@
                 "doctrine/inflector": "~1.0",
                 "knplabs/knp-menu": ">=1.1.0,<3.0.0",
                 "knplabs/knp-menu-bundle": ">=1.1.0,<3.0.0",
-                "sensio/generator-bundle": "~2.3",
+                "sensio/generator-bundle": "~2.3|^3.0",
                 "sonata-project/block-bundle": "~2.2,>=2.2.7,<2.3",
                 "sonata-project/core-bundle": "^2.2.1",
                 "sonata-project/exporter": "~1.0",
@@ -4451,23 +4451,26 @@
                 "symfony/http-foundation": "~2.3",
                 "symfony/property-access": "~2.3",
                 "symfony/routing": "~2.3",
+                "symfony/security-acl": "~2.4",
                 "symfony/security-bundle": "~2.3",
                 "symfony/twig-bridge": "~2.3",
+                "symfony/twig-bundle": "~2.3",
                 "symfony/validator": "~2.3",
                 "twig/extensions": "~1.0",
                 "twig/twig": "~1.15"
+            },
+            "conflict": {
+                "symfony/security": ">2.8.999"
             },
             "require-dev": {
                 "jms/translation-bundle": "~1.1",
                 "sonata-project/intl-bundle": "~2.1",
                 "symfony/phpunit-bridge": "~2.7|~3.0",
-                "symfony/security-acl": "~2.4",
                 "symfony/yaml": "~2.3"
             },
             "suggest": {
                 "jms/translation-bundle": "Extract message keys from Admins",
-                "sonata-project/intl-bundle": "Add localized date and number into the list",
-                "symfony/security-acl": "To make sonata working with Symfony >=2.8"
+                "sonata-project/intl-bundle": "Add localized date and number into the list"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -4503,7 +4506,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2015-10-27 07:29:41"
+            "time": "2016-03-31 12:46:26"
         },
         {
             "name": "sonata-project/block-bundle",
