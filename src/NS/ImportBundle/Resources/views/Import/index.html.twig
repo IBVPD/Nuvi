@@ -91,7 +91,7 @@
                                     <tr>
                                         <td colspan="2">{{ r.inputDateStart.format('Y-m-d') }} - {{ r.inputDateEnd.format('Y-m-d') }}</td>
                                         <td colspan="7">
-                                            <div class="progress-label"><i class="fa fa-{{ r.pheanstalkStatus == 'complete' ? 'check' }}{{ r.pheanstalkStatus == 'running' ? 'tasks' }}{{ r.pheanstalkStatus == 'error' ? 'exclamation-triangle' }}"></i> {{ r.pheanstalkStatus }}</div>
+                                            <div class="progress-label" id="progress-{{ r.id }}-label"><i class="fa fa-{{ r.pheanstalkStatus == 'complete' ? 'check' }}{{ r.pheanstalkStatus == 'running' ? 'tasks' }}{{ r.pheanstalkStatus == 'error' ? 'exclamation-triangle' }}"></i> {{ r.pheanstalkStatus|capitalize }}</div>
                                             <div id="progress-{{ r.id }}-row" class="progress-row">
                                                 <div class="progress pos-rel progress-striped {{ r.pheanstalkStatus == 'running' ? 'active' }}" id="progress-{{ r.id }}-percent" data-percent="{{ r.percentComplete }}%">
                                                     <div class="progress-bar {{ r.pheanstalkStatus == 'complete' ? 'progress-bar-inverse' }}{{ r.pheanstalkStatus == 'error' ? 'progress-bar-danger' }}" style="width:{{ r.percentComplete }}%;" id="progress-{{ r.id }}"></div>
@@ -110,6 +110,20 @@
                                                                 $('#progress-{{r.id}}-imported').html(retValue['importedCount']);
                                                                 $('#progress-{{ r.id }}-warnings span').html(retValue['warningCount']);
                                                                 $('#progress-{{ r.id }}-errors span').html(retValue['errorCount']);
+
+                                                                if(retValue['status'] == 'complete')
+                                                                {
+                                                                    $('#progress-{{ r.id }}-label').html('<i class="fa fa-check"></i> Complete');
+                                                                    $('#progress-{{ r.id }}-row .progress').removeClass('active');
+                                                                    $('#progress-{{ r.id }}-row .progress .progress-bar').addClass('progress-bar-inverse');
+                                                                }
+
+                                                                if(retValue['status'] == 'error')
+                                                                {
+                                                                    $('#progress-{{ r.id }}-label').html('<i class="fa fa-exclamation-triangle"></i> Error');
+                                                                    $('#progress-{{ r.id }}-row .progress').removeClass('active');
+                                                                    $('#progress-{{ r.id }}-row .progress .progress-bar').addClass('progress-bar-danger');
+                                                                }
 
                                                                 if (retValue['status'] !== '{{ constant('NS\\ImportBundle\\Entity\\Import::STATUS_RUNNING') }}' ) {
                                                                     clearInterval(pollTimer);
