@@ -36,8 +36,13 @@ class NumberEnrolledResult
         $this->diagnosis     = new Diagnosis();
         $this->dValues       = $this->diagnosis->getValues();
         $this->empty         = array_fill_keys(array_keys($this->dValues), 0);
+
+        // Special values (NOT_SET and OUT_OF_RANGE)
+        $this->empty[-1]     = 0;
+        $this->empty[-9999]  = 0;
+
         $this->resultByMonth = array_fill(1, 12, $this->empty);
-        $this->headers       = array_merge(array('month'=>'Month'), $this->dValues);
+        $this->headers       = array_merge(array('month'=>'Month'), $this->dValues,array(-1=>'Not set',-9999=>'Out of Range'));
     }
 
     /**
