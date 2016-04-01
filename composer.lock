@@ -3473,16 +3473,16 @@
         },
         {
             "name": "ns/ace-sonata-bundle",
-            "version": "0.3.3",
+            "version": "0.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/AceSonataBundle.git",
-                "reference": "0ef28f5524886ff1356ef21074ec49c0d0d20ccc"
+                "reference": "5e087b59387d9f7e5332e1eb443da98ef88ca9be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/AceSonataBundle/zipball/0ef28f5524886ff1356ef21074ec49c0d0d20ccc",
-                "reference": "0ef28f5524886ff1356ef21074ec49c0d0d20ccc",
+                "url": "https://api.github.com/repos/NobletSolutions/AceSonataBundle/zipball/5e087b59387d9f7e5332e1eb443da98ef88ca9be",
+                "reference": "5e087b59387d9f7e5332e1eb443da98ef88ca9be",
                 "shasum": ""
             },
             "require": {
@@ -3515,7 +3515,7 @@
                 }
             ],
             "description": "This bundle integrates the sonata admin panel and the ace bundle",
-            "time": "2016-04-01 16:20:48"
+            "time": "2016-04-01 18:32:58"
         },
         {
             "name": "ns/ace-sonata-doctrine-orm-admin-bundle",
@@ -3645,16 +3645,16 @@
         },
         {
             "name": "ns/security-bundle",
-            "version": "4.2.0",
+            "version": "4.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/SecurityBundle.git",
-                "reference": "30601e301f7fdd74e17fabc72a261ee9cdb459f8"
+                "reference": "8c611ac219402a1c7714a94eb0f186d515dc96b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/SecurityBundle/zipball/30601e301f7fdd74e17fabc72a261ee9cdb459f8",
-                "reference": "30601e301f7fdd74e17fabc72a261ee9cdb459f8",
+                "url": "https://api.github.com/repos/NobletSolutions/SecurityBundle/zipball/8c611ac219402a1c7714a94eb0f186d515dc96b2",
+                "reference": "8c611ac219402a1c7714a94eb0f186d515dc96b2",
                 "shasum": ""
             },
             "require": {
@@ -3685,7 +3685,7 @@
                 }
             ],
             "description": "This Bundle provides a basic database row level ACL system",
-            "time": "2016-04-01 03:56:18"
+            "time": "2016-04-01 17:45:52"
         },
         {
             "name": "ns/util-bundle",
