@@ -3421,16 +3421,16 @@
         },
         {
             "name": "ns/ace-bundle",
-            "version": "1.5.3",
+            "version": "1.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/AceBundle.git",
-                "reference": "995214878aa293b1878b66a62be5b6694738652b"
+                "reference": "50814f10c458eb0afcfc2def710905ddcb3f00fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/AceBundle/zipball/995214878aa293b1878b66a62be5b6694738652b",
-                "reference": "995214878aa293b1878b66a62be5b6694738652b",
+                "url": "https://api.github.com/repos/NobletSolutions/AceBundle/zipball/50814f10c458eb0afcfc2def710905ddcb3f00fb",
+                "reference": "50814f10c458eb0afcfc2def710905ddcb3f00fb",
                 "shasum": ""
             },
             "require": {
@@ -3469,24 +3469,24 @@
                 }
             ],
             "description": "This bundle provides bootstrap template",
-            "time": "2016-04-01 04:29:10"
+            "time": "2016-04-01 16:28:15"
         },
         {
             "name": "ns/ace-sonata-bundle",
-            "version": "0.3.0",
+            "version": "0.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/AceSonataBundle.git",
-                "reference": "165a7f98efe3e1da989dfe38fda296468e61a7f8"
+                "reference": "0ef28f5524886ff1356ef21074ec49c0d0d20ccc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/AceSonataBundle/zipball/165a7f98efe3e1da989dfe38fda296468e61a7f8",
-                "reference": "165a7f98efe3e1da989dfe38fda296468e61a7f8",
+                "url": "https://api.github.com/repos/NobletSolutions/AceSonataBundle/zipball/0ef28f5524886ff1356ef21074ec49c0d0d20ccc",
+                "reference": "0ef28f5524886ff1356ef21074ec49c0d0d20ccc",
                 "shasum": ""
             },
             "require": {
-                "ns/ace-bundle": "~1.4",
+                "ns/ace-bundle": "~1.5",
                 "php": ">=5.3.3",
                 "symfony/symfony": ">=2.3"
             },
@@ -3515,7 +3515,7 @@
                 }
             ],
             "description": "This bundle integrates the sonata admin panel and the ace bundle",
-            "time": "2016-03-30 22:38:44"
+            "time": "2016-04-01 16:20:48"
         },
         {
             "name": "ns/ace-sonata-doctrine-orm-admin-bundle",
@@ -3689,16 +3689,16 @@
         },
         {
             "name": "ns/util-bundle",
-            "version": "2.1.0",
+            "version": "2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/UtilBundle.git",
-                "reference": "d59889ea26cba4f84ec8c896d453d00058cd5edf"
+                "reference": "79904c6ed17f887a2fb3a6d1d64780906461b740"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/UtilBundle/zipball/d59889ea26cba4f84ec8c896d453d00058cd5edf",
-                "reference": "d59889ea26cba4f84ec8c896d453d00058cd5edf",
+                "url": "https://api.github.com/repos/NobletSolutions/UtilBundle/zipball/79904c6ed17f887a2fb3a6d1d64780906461b740",
+                "reference": "79904c6ed17f887a2fb3a6d1d64780906461b740",
                 "shasum": ""
             },
             "require": {
@@ -3731,7 +3731,7 @@
                 }
             ],
             "description": "Various Utilitity Services and Classes",
-            "time": "2016-04-01 04:39:25"
+            "time": "2016-04-01 04:45:42"
         },
         {
             "name": "ocramius/proxy-manager",
@@ -4425,16 +4425,16 @@
         },
         {
             "name": "sonata-project/admin-bundle",
-            "version": "2.3.9",
+            "version": "2.3.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "154de7966e76a6e928527a1e5a1114b8ec3a18fe"
+                "reference": "66cb40000d66c53aa9f2f4e8de80338e0ada67ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/154de7966e76a6e928527a1e5a1114b8ec3a18fe",
-                "reference": "154de7966e76a6e928527a1e5a1114b8ec3a18fe",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/66cb40000d66c53aa9f2f4e8de80338e0ada67ef",
+                "reference": "66cb40000d66c53aa9f2f4e8de80338e0ada67ef",
                 "shasum": ""
             },
             "require": {
@@ -4509,7 +4509,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2016-03-31 12:46:26"
+            "time": "2016-04-01 09:31:57"
         },
         {
             "name": "sonata-project/block-bundle",
