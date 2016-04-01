@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fc349116d1d88736c806bb1721cc5f1f",
-    "content-hash": "affe1d1b6569ee78f57e552bf7d25612",
+    "hash": "54354a034068936ea20e67f7fdbeaba8",
+    "content-hash": "61a05e2d6f8a296c5a5511a107a42f79",
     "packages": [
         {
             "name": "adoy/oauth2",
@@ -2533,7 +2533,7 @@
                     "email": "stof@notk.org"
                 },
                 {
-                    "name": "Knplabs",
+                    "name": "KnpLabs",
                     "homepage": "http://knplabs.com"
                 },
                 {
@@ -3421,16 +3421,16 @@
         },
         {
             "name": "ns/ace-bundle",
-            "version": "1.4.3",
+            "version": "1.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/AceBundle.git",
-                "reference": "8a6e95dfbb05f4f71205dbeb55e3a2984e5ceb0b"
+                "reference": "50814f10c458eb0afcfc2def710905ddcb3f00fb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/AceBundle/zipball/8a6e95dfbb05f4f71205dbeb55e3a2984e5ceb0b",
-                "reference": "8a6e95dfbb05f4f71205dbeb55e3a2984e5ceb0b",
+                "url": "https://api.github.com/repos/NobletSolutions/AceBundle/zipball/50814f10c458eb0afcfc2def710905ddcb3f00fb",
+                "reference": "50814f10c458eb0afcfc2def710905ddcb3f00fb",
                 "shasum": ""
             },
             "require": {
@@ -3469,7 +3469,95 @@
                 }
             ],
             "description": "This bundle provides bootstrap template",
-            "time": "2016-03-24 22:01:39"
+            "time": "2016-04-01 16:28:15"
+        },
+        {
+            "name": "ns/ace-sonata-bundle",
+            "version": "0.3.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/NobletSolutions/AceSonataBundle.git",
+                "reference": "0ef28f5524886ff1356ef21074ec49c0d0d20ccc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/NobletSolutions/AceSonataBundle/zipball/0ef28f5524886ff1356ef21074ec49c0d0d20ccc",
+                "reference": "0ef28f5524886ff1356ef21074ec49c0d0d20ccc",
+                "shasum": ""
+            },
+            "require": {
+                "ns/ace-bundle": "~1.5",
+                "php": ">=5.3.3",
+                "symfony/symfony": ">=2.3"
+            },
+            "require-dev": {
+                "liip/rmt": "~1.1",
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "NS\\AceSonataBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nathanael David Noblet",
+                    "email": "nathanael@noblet.ca"
+                },
+                {
+                    "name": "Mark Woynarski",
+                    "email": "mark.woynarski@nobletdesign.com"
+                }
+            ],
+            "description": "This bundle integrates the sonata admin panel and the ace bundle",
+            "time": "2016-04-01 16:20:48"
+        },
+        {
+            "name": "ns/ace-sonata-doctrine-orm-admin-bundle",
+            "version": "0.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/NobletSolutions/AceSonataDoctrineORMAdminBundle.git",
+                "reference": "ad14b70a14758a5ae6eed220c91990dc7ceda3ec"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/NobletSolutions/AceSonataDoctrineORMAdminBundle/zipball/ad14b70a14758a5ae6eed220c91990dc7ceda3ec",
+                "reference": "ad14b70a14758a5ae6eed220c91990dc7ceda3ec",
+                "shasum": ""
+            },
+            "require": {
+                "ns/ace-sonata-bundle": "~0.3",
+                "php": ">=5.3.3",
+                "symfony/symfony": ">=2.3"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "NS\\AceSonataDoctrineORMAdminBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nathanael David Noblet",
+                    "email": "nathanael@noblet.ca"
+                },
+                {
+                    "name": "Mark Woynarski",
+                    "email": "mark.woynarski@nobletdesign.com"
+                }
+            ],
+            "description": "This bundle provides ace template overrides to sonata doctrine orm",
+            "time": "2016-03-30 22:43:08"
         },
         {
             "name": "ns/filtered-pagination-bundle",
@@ -3557,25 +3645,28 @@
         },
         {
             "name": "ns/security-bundle",
-            "version": "2.7.x-dev",
+            "version": "4.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/SecurityBundle.git",
-                "reference": "4abc3aa4c6234aea820f30d81bf1cbb63608e68a"
+                "reference": "30601e301f7fdd74e17fabc72a261ee9cdb459f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/SecurityBundle/zipball/4abc3aa4c6234aea820f30d81bf1cbb63608e68a",
-                "reference": "4abc3aa4c6234aea820f30d81bf1cbb63608e68a",
+                "url": "https://api.github.com/repos/NobletSolutions/SecurityBundle/zipball/30601e301f7fdd74e17fabc72a261ee9cdb459f8",
+                "reference": "30601e301f7fdd74e17fabc72a261ee9cdb459f8",
                 "shasum": ""
             },
             "require": {
-                "doctrine/orm": "~2.4",
-                "php": ">=5.3.2",
-                "symfony/symfony": ">=2.7"
+                "doctrine/orm": ">=2.4",
+                "php": ">=5.3.3",
+                "symfony/symfony": "~2.7|~3.0"
             },
             "require-dev": {
                 "liip/rmt": "1.*"
+            },
+            "suggest": {
+                "ns/util-bundle": "The ACL autocompleter extends the UtilBundle Autocompleter form type"
             },
             "type": "symfony-bundle",
             "autoload": {
@@ -3594,26 +3685,26 @@
                 }
             ],
             "description": "This Bundle provides a basic database row level ACL system",
-            "time": "2015-09-10 20:35:59"
+            "time": "2016-04-01 03:56:18"
         },
         {
             "name": "ns/util-bundle",
-            "version": "1.0.10",
+            "version": "2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/UtilBundle.git",
-                "reference": "d6a3ccf458dc76cd088cff5a698fc18815047cd0"
+                "reference": "79904c6ed17f887a2fb3a6d1d64780906461b740"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/UtilBundle/zipball/d6a3ccf458dc76cd088cff5a698fc18815047cd0",
-                "reference": "d6a3ccf458dc76cd088cff5a698fc18815047cd0",
+                "url": "https://api.github.com/repos/NobletSolutions/UtilBundle/zipball/79904c6ed17f887a2fb3a6d1d64780906461b740",
+                "reference": "79904c6ed17f887a2fb3a6d1d64780906461b740",
                 "shasum": ""
             },
             "require": {
                 "ext-mbstring": "*",
                 "php": ">=5.3.2",
-                "symfony/symfony": ">=2.1"
+                "symfony/symfony": ">=2.7"
             },
             "require-dev": {
                 "liip/rmt": "^1.1",
@@ -3640,7 +3731,7 @@
                 }
             ],
             "description": "Various Utilitity Services and Classes",
-            "time": "2015-12-03 23:21:22"
+            "time": "2016-04-01 04:45:42"
         },
         {
             "name": "ocramius/proxy-manager",
@@ -3895,9 +3986,9 @@
             ],
             "authors": [
                 {
-                    "name": "Johannes M. Schmitt",
+                    "name": "Johannes Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "http://jmsyst.com",
+                    "homepage": "https://github.com/schmittjoh",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -4334,16 +4425,16 @@
         },
         {
             "name": "sonata-project/admin-bundle",
-            "version": "2.3.7",
+            "version": "2.3.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "41efdd80e18abd793fe4d1d7d936b2d5f5d8d6d8"
+                "reference": "66cb40000d66c53aa9f2f4e8de80338e0ada67ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/41efdd80e18abd793fe4d1d7d936b2d5f5d8d6d8",
-                "reference": "41efdd80e18abd793fe4d1d7d936b2d5f5d8d6d8",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/66cb40000d66c53aa9f2f4e8de80338e0ada67ef",
+                "reference": "66cb40000d66c53aa9f2f4e8de80338e0ada67ef",
                 "shasum": ""
             },
             "require": {
@@ -4351,7 +4442,7 @@
                 "doctrine/inflector": "~1.0",
                 "knplabs/knp-menu": ">=1.1.0,<3.0.0",
                 "knplabs/knp-menu-bundle": ">=1.1.0,<3.0.0",
-                "sensio/generator-bundle": "~2.3",
+                "sensio/generator-bundle": "~2.3|^3.0",
                 "sonata-project/block-bundle": "~2.2,>=2.2.7,<2.3",
                 "sonata-project/core-bundle": "^2.2.1",
                 "sonata-project/exporter": "~1.0",
@@ -4363,23 +4454,26 @@
                 "symfony/http-foundation": "~2.3",
                 "symfony/property-access": "~2.3",
                 "symfony/routing": "~2.3",
+                "symfony/security-acl": "~2.4",
                 "symfony/security-bundle": "~2.3",
                 "symfony/twig-bridge": "~2.3",
+                "symfony/twig-bundle": "~2.3",
                 "symfony/validator": "~2.3",
                 "twig/extensions": "~1.0",
                 "twig/twig": "~1.15"
+            },
+            "conflict": {
+                "symfony/security": ">2.8.999"
             },
             "require-dev": {
                 "jms/translation-bundle": "~1.1",
                 "sonata-project/intl-bundle": "~2.1",
                 "symfony/phpunit-bridge": "~2.7|~3.0",
-                "symfony/security-acl": "~2.4",
                 "symfony/yaml": "~2.3"
             },
             "suggest": {
                 "jms/translation-bundle": "Extract message keys from Admins",
-                "sonata-project/intl-bundle": "Add localized date and number into the list",
-                "symfony/security-acl": "To make sonata working with Symfony >=2.8"
+                "sonata-project/intl-bundle": "Add localized date and number into the list"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -4415,7 +4509,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2015-10-27 07:29:41"
+            "time": "2016-04-01 09:31:57"
         },
         {
             "name": "sonata-project/block-bundle",
@@ -6141,7 +6235,7 @@
             ],
             "authors": [
                 {
-                    "name": "William DURAND",
+                    "name": "William Durand",
                     "email": "william.durand1@gmail.com",
                     "homepage": "http://www.willdurand.fr"
                 }
@@ -7641,7 +7735,6 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "jms/security-extra-bundle": 20,
-        "ns/security-bundle": 20,
         "doctrine/doctrine-fixtures-bundle": 20,
         "punkave/symfony2-file-uploader-bundle": 20,
         "oneup/uploader-bundle": 20,

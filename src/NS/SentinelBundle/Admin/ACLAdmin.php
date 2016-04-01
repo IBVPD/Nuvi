@@ -45,13 +45,10 @@ class ACLAdmin extends Admin
     {
         $formMapper
             ->add('type', 'role')
-            ->add('object_id', 'ns_autocomplete', array(
+            ->add('object_id', 'acl_object_target_autocompleter', array(
                                                         'label'               => 'Target',
                                                         'route'               => 'adminACLAjaxAutocomplete',
-                                                        'class'               => '',
-                                                        'collection'          => false,
                                                         'required'            => false,
-                                                        'use_datatransformer' => true,
                                                         'secondary-field'     => array('s' => 'object_id', 'r' => 'type')))
         ;
     }

@@ -202,10 +202,6 @@ knp_menu:
 
 sonata_admin:
     title:      NUVI Sentinel Network Administration
-    templates:
-        layout: NSSentinelBundle:Sonata:layout.html.twig
-        pager_links: NSSentinelBundle:Sonata:pager.html.twig
-        edit: NSSonataBundle:CRUD:edit.html.twig
 
 jms_serializer:
     property_naming:

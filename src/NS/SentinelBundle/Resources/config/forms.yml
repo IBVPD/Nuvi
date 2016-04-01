@@ -1,25 +1,25 @@
 services:
   ns_sentinel.filter.type.rota_linking_quarterly:
     class: NS\SentinelBundle\Filter\Type\RotaVirus\QuarterlyLinkingReportFilterType
-    arguments: [ "@security.token_storage", "@security.authorization_checker", "@ns.security.acl_converter" ]
+    arguments: [ "@security.token_storage", "@security.authorization_checker", "@ns_security.acl_converter" ]
     tags:
       - { name: form.type, alias: RotaVirusQuarterlyLinkingReportFilter }
 
   ns_sentinel.filter.type.ibd_linking_quarterly:
     class: NS\SentinelBundle\Filter\Type\IBD\QuarterlyLinkingReportFilterType
-    arguments: [ "@security.token_storage", "@security.authorization_checker", "@ns.security.acl_converter" ]
+    arguments: [ "@security.token_storage", "@security.authorization_checker", "@ns_security.acl_converter" ]
     tags:
       - { name: form.type, alias: IBDQuarterlyLinkingReportFilter }
 
   ns_sentinel.filter.type.ibd_quarterly:
     class: NS\SentinelBundle\Filter\Type\IBD\QuarterlyReportFilterType
-    arguments: [ "@security.token_storage", "@security.authorization_checker", "@ns.security.acl_converter" ]
+    arguments: [ "@security.token_storage", "@security.authorization_checker", "@ns_security.acl_converter" ]
     tags:
       - { name: form.type, alias: QuarterlyReportFilter }
 
   ns_sentinel.filter.type.base_quarterly:
     class: NS\SentinelBundle\Filter\Type\BaseQuarterlyFilterType
-    arguments: [ "@security.token_storage", "@security.authorization_checker", "@ns.security.acl_converter" ]
+    arguments: [ "@security.token_storage", "@security.authorization_checker", "@ns_security.acl_converter" ]
     tags:
       - { name: form.type, alias: BaseQuarterlyFilter }
 
@@ -45,7 +45,7 @@ services:
 
   ns.sentinel.form.filters.base_report_filter:
     class: NS\SentinelBundle\Filter\Type\BaseReportFilterType
-    arguments: [ "@security.token_storage", "@security.authorization_checker", "@ns.security.acl_converter" ]
+    arguments: [ "@security.token_storage", "@security.authorization_checker", "@ns_security.acl_converter" ]
     tags:
       - { name: form.type, alias: BaseReportFilterType }
 
@@ -237,7 +237,7 @@ services:
 
   ns.sentinel.base.filter:
     class: NS\SentinelBundle\Filter\Type\BaseFilterType
-    arguments: [ "@security.token_storage", "@security.authorization_checker", "@ns.security.acl_converter" ]
+    arguments: [ "@security.token_storage", "@security.authorization_checker", "@ns_security.acl_converter" ]
     tags:
       - { name: form.type, alias: base_filter_form }
 
