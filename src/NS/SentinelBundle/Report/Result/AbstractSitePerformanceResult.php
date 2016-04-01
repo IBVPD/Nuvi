@@ -6,7 +6,7 @@ abstract class AbstractSitePerformanceResult extends AbstractSiteBasedResult
 {
     const GOOD = 1;
     const WARN = 2;
-    const BAD  = 3;
+    const BAD = 3;
 
     /**
      * @var int
@@ -40,17 +40,18 @@ abstract class AbstractSitePerformanceResult extends AbstractSiteBasedResult
 
 
     abstract public function getMinimumNumberOfCases();
-//    abstract public function getMinimumNumberOfCasesPercent();
 
     abstract public function hasMinimumSpecimenCollected();
+
     abstract public function hasMinimumLabConfirmed();
 
     abstract public function getMinimumNumberOfCasesString();
+
     abstract public function getMinimumSpecimenCollectedString();
+
     abstract public function getMinimumLabConfirmedString();
 
     const CONSISTENT_REPORTING_STR = '12 months or zero reporting';
-
 
     public function getConsistentReportingString()
     {
@@ -81,7 +82,7 @@ abstract class AbstractSitePerformanceResult extends AbstractSiteBasedResult
 
     public function getConsistentReportingPercent()
     {
-        return ($this->getConsistentReportingCount()/12)*100;
+        return ($this->getConsistentReportingCount() / 12) * 100;
     }
 
     /**
@@ -123,7 +124,7 @@ abstract class AbstractSitePerformanceResult extends AbstractSiteBasedResult
     public function getSpecimenCollectionPercent()
     {
         if ($this->specimenCollectionPercent === null && $this->getTotalCases() > 0) {
-            $this->specimenCollectionPercent  = ($this->getSpecimenCollection() / $this->getTotalCases())*100;
+            $this->specimenCollectionPercent = ($this->getSpecimenCollection() / $this->getTotalCases()) * 100;
         }
 
         return $this->specimenCollectionPercent;
@@ -151,7 +152,7 @@ abstract class AbstractSitePerformanceResult extends AbstractSiteBasedResult
     public function getLabConfirmedPercent()
     {
         if ($this->labConfirmedPercent === null && $this->getTotalCases() > 0) {
-            $this->labConfirmedPercent  = ($this->getLabConfirmed() / $this->getTotalCases())*100;
+            $this->labConfirmedPercent = ($this->getLabConfirmed() / $this->getTotalCases()) * 100;
         }
 
         return $this->labConfirmedPercent;
