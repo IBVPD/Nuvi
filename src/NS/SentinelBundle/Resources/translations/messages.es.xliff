@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2016-03-30T16:09:22Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
+  <file date="2016-04-01T17:17:26Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -2263,7 +2263,7 @@
       </trans-unit>
       <trans-unit id="d43f2018d33e252d8da538b46d2e64bdbd510dc1" resname="ibd-rrl-form.isolate-viable">
         <source>ibd-rrl-form.isolate-viable</source>
-        <target></target>
+        <target>Aislamiento Viable</target>
         <jms:reference-file line="26">Form/IBD/BaseLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="fd8f2ea74aed7b57ef8f097cfe9b4979bab20774" resname="ibd-rrl-form.lab-id">
@@ -2334,13 +2334,13 @@
       </trans-unit>
       <trans-unit id="61289dcc293d6f02ff71a837bb4581d20d1316f2" resname="ibd.bexA">
         <source>ibd.bexA</source>
-        <target>bexA</target>
+        <target>Resultados de bexA</target>
         <jms:reference-file line="291">views/IBD/show.html.twig</jms:reference-file>
         <jms:reference-file line="325">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="7b50728b4f1d1b8a67a7908e3baa16d62473af8e" resname="ibd.ctrA">
         <source>ibd.ctrA</source>
-        <target>ctrA</target>
+        <target>Resultados de ctrA</target>
         <jms:reference-file line="287">views/IBD/show.html.twig</jms:reference-file>
         <jms:reference-file line="321">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
@@ -2358,13 +2358,13 @@
       </trans-unit>
       <trans-unit id="0db7c9647874f109b059f6b651750b600d606026" resname="ibd.hpd1">
         <source>ibd.hpd1</source>
-        <target>ibd.hpd1</target>
+        <target>Resultados del hpd1</target>
         <jms:reference-file line="289">views/IBD/show.html.twig</jms:reference-file>
         <jms:reference-file line="323">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="9b4df6fb6dd0179349ae6c86df0ca0bfa6f708f5" resname="ibd.hpd3">
         <source>ibd.hpd3</source>
-        <target>hpd3</target>
+        <target>Resultados del hpd3</target>
         <jms:reference-file line="290">views/IBD/show.html.twig</jms:reference-file>
         <jms:reference-file line="324">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
@@ -2382,7 +2382,7 @@
       </trans-unit>
       <trans-unit id="d229fd5c48c36bce8d007a0dab2808643f24e316" resname="ibd.lytA">
         <source>ibd.lytA</source>
-        <target>lytA</target>
+        <target>Resultados del lytA</target>
         <jms:reference-file line="286">views/IBD/show.html.twig</jms:reference-file>
         <jms:reference-file line="320">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
@@ -2406,7 +2406,7 @@
       </trans-unit>
       <trans-unit id="b1ee9213cdfc0edaa8e803ff95618b0740b74e21" resname="ibd.rNaseP">
         <source>ibd.rNaseP</source>
-        <target>rNaseP</target>
+        <target>Resultados del rNaseP</target>
         <jms:reference-file line="292">views/IBD/show.html.twig</jms:reference-file>
         <jms:reference-file line="326">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
@@ -2430,7 +2430,7 @@
       </trans-unit>
       <trans-unit id="348d6dd2724fecb3c18ecdc8a685e75edf328c6f" resname="ibd.sodC">
         <source>ibd.sodC</source>
-        <target>sodC</target>
+        <target>Resultados del sodC</target>
         <jms:reference-file line="288">views/IBD/show.html.twig</jms:reference-file>
         <jms:reference-file line="322">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
