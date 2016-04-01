@@ -30,8 +30,8 @@
         "sonata-project/exporter": "~1.1",
         "sonata-project/core-bundle": "~2.3",
 
-        "ns/util-bundle": "^1.0",
-        "ns/security-bundle": "2.7.x-dev",
+        "ns/util-bundle": "~2.1",
+        "ns/security-bundle": "~4.2",
         "ns/ace-bundle": "~1.4",
         "ns/ace-sonata-bundle": "~0.3",
         "ns/ace-sonata-doctrine-orm-admin-bundle": "~0.1",

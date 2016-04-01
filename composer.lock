@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "05cdd4eb817b1be2396aab23facbb88f",
-    "content-hash": "d7d8b0b565cff0674b1b9b5a2ec2263d",
+    "hash": "54354a034068936ea20e67f7fdbeaba8",
+    "content-hash": "61a05e2d6f8a296c5a5511a107a42f79",
     "packages": [
         {
             "name": "adoy/oauth2",
@@ -3421,16 +3421,16 @@
         },
         {
             "name": "ns/ace-bundle",
-            "version": "1.5.0",
+            "version": "1.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/AceBundle.git",
-                "reference": "436d06168500db6413803a0136c3daa8c9396416"
+                "reference": "995214878aa293b1878b66a62be5b6694738652b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/AceBundle/zipball/436d06168500db6413803a0136c3daa8c9396416",
-                "reference": "436d06168500db6413803a0136c3daa8c9396416",
+                "url": "https://api.github.com/repos/NobletSolutions/AceBundle/zipball/995214878aa293b1878b66a62be5b6694738652b",
+                "reference": "995214878aa293b1878b66a62be5b6694738652b",
                 "shasum": ""
             },
             "require": {
@@ -3469,7 +3469,7 @@
                 }
             ],
             "description": "This bundle provides bootstrap template",
-            "time": "2016-03-31 15:42:48"
+            "time": "2016-04-01 04:29:10"
         },
         {
             "name": "ns/ace-sonata-bundle",
@@ -3645,25 +3645,28 @@
         },
         {
             "name": "ns/security-bundle",
-            "version": "2.7.x-dev",
+            "version": "4.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/SecurityBundle.git",
-                "reference": "4abc3aa4c6234aea820f30d81bf1cbb63608e68a"
+                "reference": "30601e301f7fdd74e17fabc72a261ee9cdb459f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/SecurityBundle/zipball/4abc3aa4c6234aea820f30d81bf1cbb63608e68a",
-                "reference": "4abc3aa4c6234aea820f30d81bf1cbb63608e68a",
+                "url": "https://api.github.com/repos/NobletSolutions/SecurityBundle/zipball/30601e301f7fdd74e17fabc72a261ee9cdb459f8",
+                "reference": "30601e301f7fdd74e17fabc72a261ee9cdb459f8",
                 "shasum": ""
             },
             "require": {
-                "doctrine/orm": "~2.4",
-                "php": ">=5.3.2",
-                "symfony/symfony": ">=2.7"
+                "doctrine/orm": ">=2.4",
+                "php": ">=5.3.3",
+                "symfony/symfony": "~2.7|~3.0"
             },
             "require-dev": {
                 "liip/rmt": "1.*"
+            },
+            "suggest": {
+                "ns/util-bundle": "The ACL autocompleter extends the UtilBundle Autocompleter form type"
             },
             "type": "symfony-bundle",
             "autoload": {
@@ -3682,26 +3685,26 @@
                 }
             ],
             "description": "This Bundle provides a basic database row level ACL system",
-            "time": "2015-09-10 20:35:59"
+            "time": "2016-04-01 03:56:18"
         },
         {
             "name": "ns/util-bundle",
-            "version": "1.0.10",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/UtilBundle.git",
-                "reference": "d6a3ccf458dc76cd088cff5a698fc18815047cd0"
+                "reference": "d59889ea26cba4f84ec8c896d453d00058cd5edf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/UtilBundle/zipball/d6a3ccf458dc76cd088cff5a698fc18815047cd0",
-                "reference": "d6a3ccf458dc76cd088cff5a698fc18815047cd0",
+                "url": "https://api.github.com/repos/NobletSolutions/UtilBundle/zipball/d59889ea26cba4f84ec8c896d453d00058cd5edf",
+                "reference": "d59889ea26cba4f84ec8c896d453d00058cd5edf",
                 "shasum": ""
             },
             "require": {
                 "ext-mbstring": "*",
                 "php": ">=5.3.2",
-                "symfony/symfony": ">=2.1"
+                "symfony/symfony": ">=2.7"
             },
             "require-dev": {
                 "liip/rmt": "^1.1",
@@ -3728,7 +3731,7 @@
                 }
             ],
             "description": "Various Utilitity Services and Classes",
-            "time": "2015-12-03 23:21:22"
+            "time": "2016-04-01 04:39:25"
         },
         {
             "name": "ocramius/proxy-manager",
@@ -7732,7 +7735,6 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "jms/security-extra-bundle": 20,
-        "ns/security-bundle": 20,
         "doctrine/doctrine-fixtures-bundle": 20,
         "punkave/symfony2-file-uploader-bundle": 20,
         "oneup/uploader-bundle": 20,
