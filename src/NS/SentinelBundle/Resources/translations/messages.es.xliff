@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2016-04-01T20:12:18Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
+  <file date="2016-04-01T20:28:54Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -2587,7 +2587,7 @@
       </trans-unit>
       <trans-unit id="63fe34e1c4936ca7d094647ec42ade02a6a08482" resname="ibd.isolateViable">
         <source>ibd.isolateViable</source>
-        <target>ibd.isolateViable</target>
+        <target>Aislamiento Viable</target>
         <jms:reference-file line="281">views/IBD/show.html.twig</jms:reference-file>
         <jms:reference-file line="315">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
