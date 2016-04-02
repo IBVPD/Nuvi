@@ -3421,16 +3421,16 @@
         },
         {
             "name": "ns/ace-bundle",
-            "version": "1.5.4",
+            "version": "1.5.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/AceBundle.git",
-                "reference": "50814f10c458eb0afcfc2def710905ddcb3f00fb"
+                "reference": "4bc1df016f01b3ac4de5690193722678b75917c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/AceBundle/zipball/50814f10c458eb0afcfc2def710905ddcb3f00fb",
-                "reference": "50814f10c458eb0afcfc2def710905ddcb3f00fb",
+                "url": "https://api.github.com/repos/NobletSolutions/AceBundle/zipball/4bc1df016f01b3ac4de5690193722678b75917c8",
+                "reference": "4bc1df016f01b3ac4de5690193722678b75917c8",
                 "shasum": ""
             },
             "require": {
@@ -3469,7 +3469,7 @@
                 }
             ],
             "description": "This bundle provides bootstrap template",
-            "time": "2016-04-01 16:28:15"
+            "time": "2016-04-02 00:57:22"
         },
         {
             "name": "ns/ace-sonata-bundle",
