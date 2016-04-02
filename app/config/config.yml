@@ -4,8 +4,8 @@ imports:
 
 framework:
     #esi:             ~
-    translator:      { fallback: %locale% }
-    secret:          %secret%
+    translator:      { fallback: "%locale%" }
+    secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
         strict_requirements: '%kernel.debug%'
@@ -25,8 +25,8 @@ framework:
 
 # Twig Configuration
 twig:
-    debug:            %kernel.debug%
-    strict_variables: %kernel.debug%
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
     form:
       resources:
         - NSUtilBundle:Form:fields.html.twig
@@ -38,7 +38,7 @@ twig:
 
 # Assetic Configuration
 assetic:
-    debug:          %kernel.debug%
+    debug:          "%kernel.debug%"
     use_controller: false
     bundles:        [ ]
     #java: /usr/bin/java
@@ -53,16 +53,16 @@ assetic:
 doctrine:
     dbal:
         server_version: 5.1
-        driver:   %database_driver%
-        host:     %database_host%
-        port:     %database_port%
-        dbname:   %database_name%
-        user:     %database_user%
-        password: %database_password%
+        driver:   "%database_driver%"
+        host:     "%database_host%"
+        port:     "%database_port%"
+        dbname:   "%database_name%"
+        user:     "%database_user%"
+        password: "%database_password%"
         charset:  UTF8
         # if using pdo_sqlite as your database driver, add the path in parameters.yml
         # e.g. database_path: %kernel.root_dir%/data/data.db3
-        # path:     %database_path%
+        # path:     "%database_path%"
         types:
             TripleChoice: NS\SentinelBundle\Entity\Types\TripleChoice
             IsolateViable: NS\SentinelBundle\Entity\Types\IsolateViable
@@ -160,7 +160,7 @@ doctrine:
             SampleType: SampleType
             FinalResult: FinalResult
     orm:
-        auto_generate_proxy_classes: %kernel.debug%
+        auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
         mappings:
           loggable:
@@ -171,10 +171,10 @@ doctrine:
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport: %mailer_transport%
-    host:      %mailer_host%
-    username:  %mailer_user%
-    password:  %mailer_password%
+    transport: "%mailer_transport%"
+    host:      "%mailer_host%"
+    username:  "%mailer_user%"
+    password:  "%mailer_password%"
     spool:     { type: memory }
 
 sonata_block:
@@ -215,28 +215,28 @@ jms_serializer:
             dir: "%kernel.cache_dir%/serializer"
 
 jms_translation:
-  locales: %locales%
+  locales: "%locales%"
   configs:
     app:
-      output_dir: %kernel.root_dir%/Resources/translations
+      output_dir: "%kernel.root_dir%/Resources/translations"
       dirs: [ "%kernel.root_dir%" ]
       excluded_names: [ "*TestCase.php", "*Test.php", "bootstrap.php.cache" ]
       excluded_dirs: [ cache, data, logs, Features ]
       output_format: xliff
     sentinel:
-      output_dir: %kernel.root_dir%/../src/NS/SentinelBundle/Resources/translations
+      output_dir: "%kernel.root_dir%/../src/NS/SentinelBundle/Resources/translations"
       dirs: [ "%kernel.root_dir%/../src/NS/SentinelBundle" ]
       excluded_names: [ "*TestCase.php", "*Test.php" ]
       excluded_dirs: [ Features, Tests ]
       output_format: xliff
     import:
-      output_dir: %kernel.root_dir%/../src/NS/ImportBundle/Resources/translations
+      output_dir: "%kernel.root_dir%/../src/NS/ImportBundle/Resources/translations"
       dirs: [ "%kernel.root_dir%/../src/NS/ImportBundle"]
       excluded_names: [ "*TestCase.php", "*Test.php" ]
       excluded_dirs: [ Tests ]
       output_format: xliff
     api:
-      output_dir: %kernel.root_dir%/../src/NS/ApiBundle/Resources/translations
+      output_dir: "%kernel.root_dir%/../src/NS/ApiBundle/Resources/translations"
       dirs: [ "%kernel.root_dir%/../src/NS/ApiBundle" ]
       excluded_names: [ "Test","*TestCase.php", "*Test.php" ]
       excluded_dirs: [ Tests ]
@@ -252,7 +252,7 @@ lunetics_locale:
         - router
         - cookie
         - browser
-    allowed_locales: %locales%
+    allowed_locales: "%locales%"
     switcher:
         show_current_locale: true
 
@@ -320,14 +320,14 @@ vich_uploader:
     mappings:
         import_file:
             uri_prefix:         /imports/files
-            upload_destination: %kernel.root_dir%/data/imports/files
+            upload_destination: "%kernel.root_dir%/data/imports/files"
             directory_namer:    ns_import.vich.directory_namer
             inject_on_load:     true
 
 leezy_pheanstalk:
     pheanstalks:
         primary:
-            server: %beanstalk_server%
+            server: "%beanstalk_server%"
             default: true
 
 services:
