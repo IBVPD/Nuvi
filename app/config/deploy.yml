@@ -8,5 +8,6 @@
     symfony_repo: https://github.com/IBVPD/Nuvi.git
     symfony_composer_path: /usr/local/bin/composer
     symfony_strategy: git
+    symfony_releases: 10
   roles:
     - blacklight.symfony-deploy
