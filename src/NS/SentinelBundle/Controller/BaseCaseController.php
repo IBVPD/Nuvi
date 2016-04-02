@@ -2,6 +2,8 @@
 
 namespace NS\SentinelBundle\Controller;
 
+use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use NS\FilteredPaginationBundle\Form\Type\LimitSelectType;
 use \NS\SentinelBundle\Entity\BaseExternalLab;
 use \NS\SentinelBundle\Exceptions\NonExistentCaseException;
@@ -13,7 +15,7 @@ use \Symfony\Component\HttpFoundation\Request;
  *
  * @author gnat
  */
-abstract class BaseCaseController extends Controller
+abstract class BaseCaseController extends Controller implements TranslationContainerInterface
 {
     /**
      * @param Request $request
@@ -132,5 +134,19 @@ abstract class BaseCaseController extends Controller
         } catch (NonExistentCaseException $ex) {
             return $this->render('NSSentinelBundle:User:unknownCase.html.twig', array('message' => $ex->getMessage()));
         }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    static function getTranslationMessages()
+    {
+        return array(
+            new Message('Warning!'),
+            new Message('There were errors with saving the form.'),
+            new Message('Please review each tab for error messages'),
+            new Message('Success!'),
+            new Message('Case edited successfully'),
+        );
     }
 }
