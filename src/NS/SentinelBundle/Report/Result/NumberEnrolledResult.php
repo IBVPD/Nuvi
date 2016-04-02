@@ -15,14 +15,17 @@ class NumberEnrolledResult
      * @var Diagnosis
      */
     private $diagnosis;
+
     /**
      * @var array
      */
     private $dValues;
+
     /**
      * @var array
      */
     private $resultByMonth;
+
     /**
      * @var array
      */
