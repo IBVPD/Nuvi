@@ -1,6 +1,7 @@
 <?php
 namespace NS\SentinelBundle\Controller;
 
+use NS\SentinelBundle\Form\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -25,7 +26,7 @@ class UserController extends Controller
         $entityMgr = $this->get('doctrine.orm.entity_manager');
         $user = $entityMgr->getRepository('NSSentinelBundle:User')->find($this->getUser()->getId());
 
-        $form = $this->createForm(new \NS\SentinelBundle\Form\UserType(), $user);
+        $form = $this->createForm(new UserType(), $user);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
