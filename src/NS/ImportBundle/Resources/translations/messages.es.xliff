@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2015-07-01T13:05:02Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
+  <file date="2016-04-01T20:35:17Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -33,7 +33,7 @@
       </trans-unit>
       <trans-unit id="889a9cca7b59b20e1a35bacd792adf966e23a88d" resname="Duplicates">
         <source>Duplicates</source>
-        <target state="new">Duplicates</target>
+        <target>duplicados</target>
         <jms:reference-file line="63">views/Import/index.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="c7b0939ce1622432fab1a9133b88e6e7e8b6dc99" resname="Error Count">
@@ -43,12 +43,12 @@
       </trans-unit>
       <trans-unit id="805e86a8cbf628e38e4c45612c005a504009e79a" resname="Errors">
         <source>Errors</source>
-        <target state="new">Errors</target>
+        <target>errores</target>
         <jms:reference-file line="62">views/Import/index.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="f3e4fadb9e370a1e2c0c622c01fc8c77daf93a2c" resname="Export">
         <source>Export</source>
-        <target state="new">Export</target>
+        <target>Exportar</target>
         <jms:reference-file line="2">views/Export/index.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="2c3cafa4db3f3e1e51b3dff4303502dbe42b7a89" resname="File">
@@ -68,7 +68,7 @@
       </trans-unit>
       <trans-unit id="d217a9ccfae4d788cc0e28efa68a879701a01277" resname="Import Cases">
         <source>Import Cases</source>
-        <target state="new">Import Cases</target>
+        <target>Importar Casos</target>
         <jms:reference-file line="2">views/Import/index.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="ab478f3efc840eebab919dff1b9512286f70c10c" resname="Map">

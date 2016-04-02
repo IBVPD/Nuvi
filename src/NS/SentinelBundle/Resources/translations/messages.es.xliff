@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2016-04-01T20:30:22Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
+  <file date="2016-04-01T20:35:39Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -2734,7 +2734,7 @@
       </trans-unit>
       <trans-unit id="ce6399d3bacfea49ed276b16f403667a7886d5b7" resname="menu.import">
         <source>menu.import</source>
-        <target>Importación de carpetas de datos</target>
+        <target>Importacion de datos</target>
         <jms:reference-file line="83">SentinelBundle/Menu/Builder.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="5a371a391a2d1a3b1d5ae22065144126a5fc6308" resname="menu.import-export">
