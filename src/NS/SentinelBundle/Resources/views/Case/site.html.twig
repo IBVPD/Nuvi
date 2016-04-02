@@ -15,7 +15,7 @@
                 <td>{{ row.caseId }}</td>
                 <td>{{ row.firstName }}</td>
                 <td>{{ row.lastName }}</td>
-                <td>{{ row.admDate|date('d/m/Y') }}</td>
+                <td>{% if row.admDate %}{{ row.admDate|date('d/m/Y') }}{% endif %}</td>
                 <td class='hidden-480'>
                     {{case_label(row,'EPI'|trans)}}
                     {{case_lab_label(row,'LAB'|trans)}}

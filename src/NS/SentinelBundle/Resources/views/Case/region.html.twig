@@ -15,7 +15,7 @@
             <tr>
                 <td>{{ row.id }}</td>
                 <td>{{ row.caseId}}</td>
-                <td>{{ row.admDate|date('d/m/Y') }}</td>
+                <td>{% if row.admDate %}{{ row.admDate|date('d/m/Y') }}{% endif %}</td>
                 <td>{{ row.site }}</td>
                 <td>{{ row.country }}</td>
                 <td class='hidden-480'>
