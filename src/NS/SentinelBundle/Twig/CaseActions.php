@@ -88,11 +88,11 @@ class CaseActions extends \Twig_Extension
                 $out .= sprintf('<a href="%s" class="btn btn-xs btn-info"><i class="%s bigger-120"></i> %s</a>', $this->router->generate($baseRoute . 'LabEdit', array('id' => $row->getId()), UrlGeneratorInterface::ABSOLUTE_PATH), ($row->hasSiteLab() ? 'fa fa-edit' : 'fa fa-plus'), $this->translator->trans('Lab'));
             }
 
-            if ($this->authChecker->isGranted('ROLE_CAN_CREATE_NL_LAB') && $row->getSentToNationalLab()) {
+            if ($this->authChecker->isGranted('ROLE_CAN_CREATE_NL_LAB') && ($row->getSentToNationalLab() || $row->hasNationalLab())) {
                 $out .= sprintf('<a href="%s" class="btn btn-xs btn-info"><i class="%s bigger-120"></i> %s</a>', $this->router->generate($baseRoute . 'NLEdit', array('id' => $row->getId()), UrlGeneratorInterface::ABSOLUTE_PATH), ($row->hasNationalLab() ? 'fa fa-edit' : 'fa fa-plus'), $this->translator->trans('NL'));
             }
 
-            if ($this->authChecker->isGranted('ROLE_CAN_CREATE_RRL_LAB') && $row->getSentToReferenceLab()) {
+            if ($this->authChecker->isGranted('ROLE_CAN_CREATE_RRL_LAB') && ($row->getSentToReferenceLab() || $row->hasReferenceLab())) {
                 $out .= sprintf('<a href="%s" class="btn btn-xs btn-info"><i class="%s bigger-120"></i> %s</a>', $this->router->generate($baseRoute . 'RRLEdit', array('id' => $row->getId()), UrlGeneratorInterface::ABSOLUTE_PATH), ($row->hasReferenceLab() ? 'fa fa-edit' : 'fa fa-plus'), $this->translator->trans('RRL'));
             }
 
@@ -112,30 +112,25 @@ class CaseActions extends \Twig_Extension
     {
         $baseRoute = $this->getBaseRoute($row);
 
-        $out = '<button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog fa fa-only bigger-110"></i></button>
+        $out = sprintf('<button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog fa fa-only bigger-110"></i></button>
             <ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
-            <li><a href="' . $this->router->generate($baseRoute . 'Show', array(
-                'id' => $row->getId())) . '" class="tooltip-info" data-rel="tooltip" title="View"><span class="blue"><i class="fa fa-eye bigger-120"></i></span></a></li>';
+            <li><a href="%s" class="tooltip-info" data-rel="tooltip" title="View"><span class="blue"><i class="fa fa-eye bigger-120"></i></span></a></li>',$this->router->generate($baseRoute . 'Show', array('id' => $row->getId())));
 
         if ($this->authChecker->isGranted('ROLE_CAN_CREATE')) {
             if ($this->authChecker->isGranted('ROLE_CAN_CREATE_CASE')) {
-                $out .= '<li><a href="' . $this->router->generate($baseRoute . 'Edit', array(
-                        'id' => $row->getId())) . '" class="tooltip-success" data-rel="tooltip" title="Edit"><span class="green"><i class="fa fa-edit bigger-120"></i> ' . $this->translator->trans('EPI') . '</span></a></li>';
+                $out .= sprintf('<li><a href="%s" class="tooltip-success" data-rel="tooltip" title="Edit"><span class="green"><i class="fa fa-edit bigger-120"></i> %s</span></a></li>',$this->router->generate($baseRoute . 'Edit', array('id' => $row->getId())),$this->translator->trans('EPI'));
             }
 
             if ($this->authChecker->isGranted('ROLE_CAN_CREATE_LAB')) {
-                $out .= '<li><a href="' . $this->router->generate($baseRoute . 'LabEdit', array(
-                        'id' => $row->getId())) . '" class="tooltip-success"><span class="green"><i class="' . ($row->hasSiteLab() ? 'fa fa-edit' : 'fa fa-plus') . ' bigger-120"></i> ' . $this->translator->trans('Lab') . '</span></a></li>';
+                $out .= sprintf('<li><a href="%s" class="tooltip-success"><span class="green"><i class="%s bigger-120"></i> %s</span></a></li>',$this->router->generate($baseRoute . 'LabEdit', array('id' => $row->getId())),($row->hasSiteLab() ? 'fa fa-edit' : 'fa fa-plus'),$this->translator->trans('Lab'));
             }
 
-            if ($this->authChecker->isGranted('ROLE_CAN_CREATE_NL_LAB') && $row->getSentToNationalLab()) {
-                $out .= '<li><a href="' . $this->router->generate($baseRoute . 'NLEdit', array(
-                        'id' => $row->getId())) . '" class="tooltip-success"><span class="green"><i class="' . ($row->hasNationalLab() ? 'fa fa-edit' : 'fa fa-plus') . ' bigger-120"></i> ' . $this->translator->trans('NL') . '</span></a></li>';
+            if ($this->authChecker->isGranted('ROLE_CAN_CREATE_NL_LAB') && ($row->getSentToNationalLab() || $row->hasNationalLab())) {
+                $out .= sprintf('<li><a href="%s" class="tooltip-success"><span class="green"><i class="%s bigger-120"></i> %s</span></a></li>',$this->router->generate($baseRoute . 'NLEdit', array('id' => $row->getId())),($row->hasNationalLab() ? 'fa fa-edit' : 'fa fa-plus'),$this->translator->trans('NL'));
             }
 
-            if ($this->authChecker->isGranted('ROLE_CAN_CREATE_RRL_LAB') && $row->getSentToReferenceLab()) {
-                $out .= '<li><a href="' . $this->router->generate($baseRoute . 'RRLEdit', array(
-                        'id' => $row->getId())) . '" class="tooltip-success"><span class="green"><i class="' . ($row->hasReferenceLab() ? 'fa fa-edit' : 'fa fa-plus') . ' bigger-120"></i> ' . $this->translator->trans('RRL') . '</span></a></li>';
+            if ($this->authChecker->isGranted('ROLE_CAN_CREATE_RRL_LAB') && ($row->getSentToReferenceLab() || $row->hasReferenceLab())) {
+                $out .= sprintf('<li><a href="%s" class="tooltip-success"><span class="green"><i class="%s bigger-120"></i> %s</span></a></li>',$this->router->generate($baseRoute . 'RRLEdit', array('id' => $row->getId())),($row->hasReferenceLab() ? 'fa fa-edit' : 'fa fa-plus'),$this->translator->trans('RRL'));
             }
         }
 
