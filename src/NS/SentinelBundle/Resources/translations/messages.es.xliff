@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2016-04-01T20:28:54Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
+  <file date="2016-04-01T20:30:22Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -2605,7 +2605,7 @@
       </trans-unit>
       <trans-unit id="ecdd9e5aef58c2090d94b2da337e4075230e92a5" resname="ibd.pathogenIdentifierMethod">
         <source>ibd.pathogenIdentifierMethod</source>
-        <target>ibd.pathogenIdentifierMethod</target>
+        <target>Métodos usados para la identificación de patógenos</target>
         <jms:reference-file line="283">views/IBD/show.html.twig</jms:reference-file>
         <jms:reference-file line="317">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
