@@ -1,3 +1,11 @@
+WEB Bugs:
+- Locale selection
+- Not translating 
+  - Flash message
+  - Please select
+  - handful of potentially mis-labeled forms
+
+
 TODO:
 
 - IDs updated when changed
