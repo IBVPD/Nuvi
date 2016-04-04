@@ -38,7 +38,7 @@
         "ns/flash-bundle": "~1.0",
         "ns/filtered-pagination-bundle": "~2.0",
 
-        "jms/translation-bundle": "~1.2",
+        "jms/translation-bundle": "1.2.*@dev",
         "doctrine/doctrine-fixtures-bundle": "dev-master",
         "gedmo/doctrine-extensions": "~2.3",
         "stof/doctrine-extensions-bundle": "~1.1",
