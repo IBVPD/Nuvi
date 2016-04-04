@@ -6,6 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use \Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use \Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use \Symfony\Component\HttpFoundation\RedirectResponse;
 use \Symfony\Component\HttpFoundation\Request;
@@ -166,18 +167,22 @@ class ImportController extends Controller
             }
 
             if ($sourceFile) {
-                BinaryFileResponse::trustXSendfileTypeHeader();
-                $response = new BinaryFileResponse($sourceFile);
-                $response->headers->set('Content-Type', 'text/plain');
-                $response->setContentDisposition(
-                    ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-                    $sourceFile->getFilename()
-                );
+                try {
+                    BinaryFileResponse::trustXSendfileTypeHeader();
+                    $response = new BinaryFileResponse($sourceFile);
+                    $response->headers->set('Content-Type', 'text/plain');
+                    $response->setContentDisposition(
+                        ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+                        $sourceFile->getFilename()
+                    );
 
-                return $response;
+                    return $response;
+                } catch (FileException $exception) {
+                    throw $this->createNotFoundException(sprintf('Unable to locate or read "%s" import result file',$sourceFile->getFilename()));
+                }
             }
         }
 
-        throw $this->createNotFoundException();
+        throw $this->createNotFoundException('Unable to find requested import result');
     }
 }
