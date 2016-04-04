@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2016-04-04T01:25:56Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
+  <file date="2016-04-04T01:05:18Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -488,12 +488,12 @@
       </trans-unit>
       <trans-unit id="5ebca3a6a2449f0bf89505b4220616f518244b2c" resname="Csf Pcr">
         <source>Csf Pcr</source>
-        <target>Csf Pcr</target>
+        <target>LCR Pcr</target>
         <jms:reference-file line="27">Report/IBD/fieldPopulation.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="daca76f341170488ecbef5e895d310588588cea6" resname="Csf spn pcr positive">
         <source>Csf spn pcr positive</source>
-        <target>Csf spn pcr positivo</target>
+        <target>LCR spn pcr positivo</target>
         <jms:reference-file line="26">Report/IBD/fieldPopulation.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="71f440a1dd4cf93fe583dd09db3c514d1b6820c4" resname="Culture Positive and Additional Lab Confirmed Cases By Diagnostic Test">
@@ -814,7 +814,7 @@
       </trans-unit>
       <trans-unit id="b6d7bccf87831fd638dec03fdbddc763b6c4647b" resname="Lab Confirmed">
         <source>Lab Confirmed</source>
-        <target state="new">Lab Confirmed</target>
+        <target>Confirmados por laboratorio</target>
         <jms:reference-file line="62">Report/RotaVirus/site-performance.html.twig</jms:reference-file>
         <jms:reference-file line="63">Report/IBD/site-performance.html.twig</jms:reference-file>
       </trans-unit>
@@ -916,7 +916,7 @@
       </trans-unit>
       <trans-unit id="5058bebbf04ebb7f2e9e6c7c8da960ffb5f9a7c7" resname="Minimum No. Cases">
         <source>Minimum No. Cases</source>
-        <target state="new">Minimum No. Cases</target>
+        <target>Numero de casos minimos</target>
         <jms:reference-file line="60">Report/RotaVirus/site-performance.html.twig</jms:reference-file>
         <jms:reference-file line="61">Report/IBD/site-performance.html.twig</jms:reference-file>
       </trans-unit>
@@ -1404,7 +1404,7 @@
       </trans-unit>
       <trans-unit id="54f52f84185da61ce5e187d916c2e972a0635bcf" resname="Specimen Collection">
         <source>Specimen Collection</source>
-        <target state="new">Specimen Collection</target>
+        <target>Recoleccion de muestra</target>
         <jms:reference-file line="61">Report/RotaVirus/site-performance.html.twig</jms:reference-file>
         <jms:reference-file line="62">Report/IBD/site-performance.html.twig</jms:reference-file>
       </trans-unit>
@@ -2010,12 +2010,12 @@
       </trans-unit>
       <trans-unit id="34df514064a1c99a4be13c40f837c8699b111d97" resname="ibd-form.csf-pcr-result">
         <source>ibd-form.csf-pcr-result</source>
-        <target>Resultados del examen de PCR del CSF</target>
+        <target>Resultados del examen de PCR del LCR</target>
         <jms:reference-file line="96">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="c9ed952e371bae224348f3f066f85d0f41092a2e" resname="ibd-form.csf-protein">
         <source>ibd-form.csf-protein</source>
-        <target>Proteína medida del CSF</target>
+        <target>Proteína medida del LCR</target>
         <jms:reference-file line="220">views/IBD/show.html.twig</jms:reference-file>
         <jms:reference-file line="52">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
@@ -2026,24 +2026,24 @@
       </trans-unit>
       <trans-unit id="6f3302e375553355129bf6ddd6e5e3ac374d6783" resname="ibd-form.csf-store">
         <source>ibd-form.csf-store</source>
-        <target>El laboratorio nacional  del sitio Sentinel, ¿conservó la cantidad restante del CSF?</target>
+        <target>El laboratorio nacional  del sitio Sentinel, ¿conservó la cantidad restante del LCR?</target>
         <jms:reference-file line="227">views/IBD/show.html.twig</jms:reference-file>
         <jms:reference-file line="101">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="c1a544dc9a388f31f5139dc7810ccd9cd26f2d3d" resname="ibd-form.csf-wcc">
         <source>ibd-form.csf-wcc</source>
-        <target>Recuento de glóbulos blancos en el CSF</target>
+        <target>Recuento de glóbulos blancos en el LCR</target>
         <jms:reference-file line="218">views/IBD/show.html.twig</jms:reference-file>
         <jms:reference-file line="50">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="1df7f169999de566518bcc5ce880d14ff589a65e" resname="ibd-form.csfDateTime">
         <source>ibd-form.csfDateTime</source>
-        <target>Fecha y hora cuando se coleccionó el CSF  (Ej. punción lumbar)</target>
+        <target>Fecha y hora cuando se coleccionó el LCR  (Ej. punción lumbar)</target>
         <jms:reference-file line="217">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="c92accbe22abf53acac506dcede212ab0b061bca" resname="ibd-form.csfSiteId">
         <source>ibd-form.csfSiteId</source>
-        <target>Identificación del espécimen CSF</target>
+        <target>Identificación del espécimen LCR</target>
         <jms:reference-file line="216">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="3f1d425f0ca33eb263656cd38f81245df12652d3" resname="ibd-form.cxr-additional-result">
@@ -2054,7 +2054,7 @@
       </trans-unit>
       <trans-unit id="15177e1c56b680c8d5a87969ec75f40977e4d323" resname="ibd-form.cxr-done">
         <source>ibd-form.cxr-done</source>
-        <target>ibd-form.cxr-done</target>
+        <target>Se hizo examen de rayos X</target>
         <jms:reference-file line="186">views/IBD/show.html.twig</jms:reference-file>
         <jms:reference-file line="160">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
