@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2016-04-04T02:17:42Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
+  <file date="2016-04-04T02:37:25Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -46,6 +46,10 @@
       <trans-unit id="3e66583593f4fe8a108bea0c093a8bfbea30be17" resname="11A/11D">
         <source>11A/11D</source>
         <target>11A/11D</target>
+      </trans-unit>
+      <trans-unit id="c0a53b78e70c7b285399b13265807270dabb5924" resname="12 months or zero reporting">
+        <source>12 months or zero reporting</source>
+        <target>12 meses</target>
       </trans-unit>
       <trans-unit id="b0b18ba89cd0608bdc21b8003cec554abbb180b9" resname="12-23">
         <source>12-23</source>
@@ -1720,6 +1724,7 @@
       <trans-unit id="51713409935576d63d066e104eb1ad0e37137da7" resname="export">
         <source>export</source>
         <target>Exportar</target>
+        <jms:reference-file line="120">Filter/Type/BaseQuarterlyFilterType.php</jms:reference-file>
         <jms:reference-file line="98">Filter/Type/BaseReportFilterType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="24b15c6d3fada6fede239bdff107834b3a0e9990" resname="external-lab-form.comment">
@@ -1774,6 +1779,7 @@
       <trans-unit id="4bb4ca75941b7bbc5bc6a12be44b22fc9c8d234e" resname="filter">
         <source>filter</source>
         <target>Filtrar</target>
+        <jms:reference-file line="113">Filter/Type/BaseQuarterlyFilterType.php</jms:reference-file>
         <jms:reference-file line="91">Filter/Type/BaseReportFilterType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="da519f31e23576fcbbfc965fe28a235a4531f5f1" resname="filter-case-lab-status">
@@ -2796,6 +2802,7 @@
       <trans-unit id="91ef0c1608b20c9c5bd9e003bbb600229c0dfeb1" resname="reset">
         <source>reset</source>
         <target>Limpiar</target>
+        <jms:reference-file line="127">Filter/Type/BaseQuarterlyFilterType.php</jms:reference-file>
         <jms:reference-file line="105">Filter/Type/BaseReportFilterType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="487ef4638703ce80913ffeb25a51fd0d889a1306" resname="rotavirus-form.adequate">
@@ -3119,6 +3126,10 @@
         <jms:reference-file line="60">Filter/Type/BaseFilterType.php</jms:reference-file>
         <jms:reference-file line="38">SentinelBundle/Form/CreateType.php</jms:reference-file>
       </trans-unit>
+      <trans-unit id="ca9cc8d69f176f7047b34801840f6d7d63886632" resname="≥ 100 cases">
+        <source>≥ 100 cases</source>
+        <target>≥ 100 casos</target>
+      </trans-unit>
       <trans-unit id="b6a5682540ec20058914fab553f3173c2dff9e8c" resname="≥ 3 doses">
         <source>≥ 3 doses</source>
         <target>≥ 3 dosis</target>
@@ -3126,6 +3137,18 @@
       <trans-unit id="82644e708e470590f7023607718d538df2d8becd" resname="≥ 4 doses">
         <source>≥ 4 doses</source>
         <target>≥ 4 dosis</target>
+      </trans-unit>
+      <trans-unit id="0d7d4a09eb55dd7b637d6a9f6d16d17e9469a37f" resname="≥ 500 cases">
+        <source>≥ 500 cases</source>
+        <target>≥ 500 casos</target>
+      </trans-unit>
+      <trans-unit id="3cb66cce0ae22c8b07cef2f58d293d9702047fd0" resname="≥ 75% with specimen">
+        <source>≥ 75% with specimen</source>
+        <target>≥ 75% con especimen</target>
+      </trans-unit>
+      <trans-unit id="a8d5cc6e48a09d5f1579f2d240149e45c574d1c3" resname="≥ 90% with specimen">
+        <source>≥ 90% with specimen</source>
+        <target>≥ 90% con especimen</target>
       </trans-unit>
     </body>
   </file>
