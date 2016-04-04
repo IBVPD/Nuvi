@@ -6,6 +6,7 @@ use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use NS\FilteredPaginationBundle\Form\Type\LimitSelectType;
 use \NS\SentinelBundle\Entity\BaseExternalLab;
+use NS\SentinelBundle\Entity\ReferenceLabResultInterface;
 use \NS\SentinelBundle\Exceptions\NonExistentCaseException;
 use \Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use \Symfony\Component\HttpFoundation\Request;
@@ -101,7 +102,7 @@ abstract class BaseCaseController extends Controller implements TranslationConta
             $entityMgr = $this->get('doctrine.orm.entity_manager');
             $record = $form->getData();
 
-            if ($record instanceof BaseExternalLab && $this->getUser()->hasReferenceLab()) {
+            if ($record instanceof ReferenceLabResultInterface && $this->getUser()->hasReferenceLab()) {
                 $record->setLab($entityMgr->getReference('NSSentinelBundle:ReferenceLab', $this->getUser()->getReferenceLab()->getId()));
             }
 
