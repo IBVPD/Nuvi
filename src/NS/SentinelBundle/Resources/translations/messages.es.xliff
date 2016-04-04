@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2016-04-04T01:58:53Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
+  <file date="2016-04-04T02:17:42Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -527,6 +527,12 @@
         <target>Data Linking</target>
         <jms:reference-file line="2">Report/IBD/data-linking.html.twig</jms:reference-file>
         <jms:reference-file line="2">Report/RotaVirus/data-linking.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="526e793c5277ba1636c41ed2e8fb08c7c37323f5" resname="Data Quality Checks">
+        <source>Data Quality Checks</source>
+        <target>Calidad de ingreso de datos</target>
+        <jms:reference-file line="2">Report/IBD/dataQuality.html.twig</jms:reference-file>
+        <jms:reference-file line="2">Report/RotaVirus/dataQuality.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="441bda6cd85689e476ebe10440f27967faef61a6" resname="Deleted">
         <source>Deleted</source>
@@ -1345,12 +1351,12 @@
       </trans-unit>
       <trans-unit id="ad55f3a19e907a67800778f138dc6dd398b32a86" resname="Sent To National Lab">
         <source>Sent To National Lab</source>
-        <target state="new">Sent To National Lab</target>
+        <target>Se envio muestra al laboratorio de referencia nacional</target>
         <jms:reference-file line="209">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="0250108cbef743882bec649bb6c96ffeb697addb" resname="Sent To Reference Lab">
         <source>Sent To Reference Lab</source>
-        <target state="new">Sent To Reference Lab</target>
+        <target>Se envio muestra al laboratorio de referencia regional</target>
         <jms:reference-file line="200">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="186238cccd6fdd63822aa5886b1950d4f8c61dc5" resname="Sepsis">
@@ -1711,6 +1717,11 @@
         <source>e</source>
         <target>e</target>
       </trans-unit>
+      <trans-unit id="51713409935576d63d066e104eb1ad0e37137da7" resname="export">
+        <source>export</source>
+        <target>Exportar</target>
+        <jms:reference-file line="98">Filter/Type/BaseReportFilterType.php</jms:reference-file>
+      </trans-unit>
       <trans-unit id="24b15c6d3fada6fede239bdff107834b3a0e9990" resname="external-lab-form.comment">
         <source>external-lab-form.comment</source>
         <target>Comentario</target>
@@ -1760,6 +1771,11 @@
         <source>f</source>
         <target>f</target>
       </trans-unit>
+      <trans-unit id="4bb4ca75941b7bbc5bc6a12be44b22fc9c8d234e" resname="filter">
+        <source>filter</source>
+        <target>Filtrar</target>
+        <jms:reference-file line="91">Filter/Type/BaseReportFilterType.php</jms:reference-file>
+      </trans-unit>
       <trans-unit id="da519f31e23576fcbbfc965fe28a235a4531f5f1" resname="filter-case-lab-status">
         <source>filter-case-lab-status</source>
         <target>Estado del filtro</target>
@@ -1774,6 +1790,11 @@
         <source>filter.admission-date</source>
         <target>Fecha de admisión</target>
         <jms:reference-file line="64">Filter/Type/BaseFilterType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="ded8dae5786fb0e9e6ffb657401fd861ba2efe11" resname="find">
+        <source>find</source>
+        <target>Buscar</target>
+        <jms:reference-file line="111">Filter/Type/BaseFilterType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="6da3c939c937b6fbd2bf66c6ae49de543af70162" resname="ibd-form.adm-date">
         <source>ibd-form.adm-date</source>
@@ -2771,6 +2792,11 @@
         <source>report-filter-form.year</source>
         <target>Año</target>
         <jms:reference-file line="56">Filter/Type/BaseQuarterlyFilterType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="91ef0c1608b20c9c5bd9e003bbb600229c0dfeb1" resname="reset">
+        <source>reset</source>
+        <target>Limpiar</target>
+        <jms:reference-file line="105">Filter/Type/BaseReportFilterType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="487ef4638703ce80913ffeb25a51fd0d889a1306" resname="rotavirus-form.adequate">
         <source>rotavirus-form.adequate</source>
