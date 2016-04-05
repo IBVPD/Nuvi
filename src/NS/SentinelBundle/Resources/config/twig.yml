@@ -8,18 +8,18 @@ services:
     class: NS\SentinelBundle\Twig\CaseActions
     arguments: [ "@security.authorization_checker", "@translator", "@router" ]
     tags:
-      - { name: twig.extension, alias: twig_case_actions }
+      - { name: twig.extension }
 
   ns.sentinel.twig.case_templates:
     class: NS\SentinelBundle\Twig\CaseTemplates
     arguments: [ "@security.authorization_checker", "@twig" ]
     tags:
-      - { name: twig.extension, alias: twig_case_templates }
+      - { name: twig.extension }
 
   ns.sentinel.twig.case_status:
     class: NS\SentinelBundle\Twig\CaseStatus
     tags:
-      - { name: twig.extension, alias: twig_case_status }
+      - { name: twig.extension }
 
   ns_sentinel.twig.report.site_performance:
     class: NS\SentinelBundle\Twig\Report\SitePerformanceTwig
