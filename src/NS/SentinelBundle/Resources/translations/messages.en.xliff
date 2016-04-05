@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2016-04-05T10:51:15Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
+  <file date="2016-04-05T15:32:13Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -2748,12 +2748,12 @@
       </trans-unit>
       <trans-unit id="be94702e69ad5f885645b80d5507abca1429148e" resname="menu.data-reports-age-distribution">
         <source>menu.data-reports-age-distribution</source>
-        <target>Age Distribution Report</target>
+        <target>Age Distribution</target>
         <jms:reference-file line="70">SentinelBundle/Menu/Builder.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="d32de6c30481b27aa39189778084a038b3fe7d42" resname="menu.data-reports-culture-positive">
         <source>menu.data-reports-culture-positive</source>
-        <target>Culture Positive Report</target>
+        <target>Culture Positive</target>
         <jms:reference-file line="73">SentinelBundle/Menu/Builder.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="da865c4243fe91be59d377cd68cbf511e3b7084f" resname="menu.data-reports-data-quality">
@@ -2764,12 +2764,12 @@
       </trans-unit>
       <trans-unit id="7957870acc95548d273cdbe96a5e710f52a7669f" resname="menu.data-reports-field-population">
         <source>menu.data-reports-field-population</source>
-        <target>Field Population Report</target>
+        <target>Field Population</target>
         <jms:reference-file line="72">SentinelBundle/Menu/Builder.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="6afede7b4c3bae0d1c32c37dcce812c05e0fe74c" resname="menu.data-reports-percent-enrolled">
         <source>menu.data-reports-percent-enrolled</source>
-        <target>Percent Enrolled Report</target>
+        <target>Percent Enrolled</target>
         <jms:reference-file line="71">SentinelBundle/Menu/Builder.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="c5fff3130e474d2b2862525f80fcfe762dafa2a0" resname="menu.data-reports-rrl-linking">
