@@ -114,7 +114,7 @@ class CaseActions extends \Twig_Extension
         $baseRoute = $this->getBaseRoute($row);
 
         $out = sprintf('<button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog fa fa-only bigger-110"></i></button>
-            <ul class="dropdown-menu dropdown-only-icon dropdown-yellow pull-right dropdown-caret dropdown-close">
+            <ul class="dropdown-menu dropdown-yellow pull-right dropdown-caret dropdown-close dropdown-menu-right">
             <li><a href="%s" class="tooltip-info" data-rel="tooltip" title="View"><span class="blue"><i class="fa fa-eye bigger-120"></i></span></a></li>', $this->router->generate($baseRoute . 'Show', array('id' => $row->getId())));
 
         if ($this->authChecker->isGranted('ROLE_CAN_CREATE')) {
