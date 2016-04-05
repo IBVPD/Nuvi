@@ -1,71 +1,105 @@
 {% extends "NSSentinelBundle::layout.html.twig" %}
 {% block pagetitle %}{{ 'Data Quality Checks'|trans }}{% endblock %}
+
 {% block body %}
     <div class="row">
-        <div class="col-xs-9">
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="widget-box widget-color-blue no-border">
-                        <div class="widget-header widget-header-small">
-                            <h5 class="widget-title">{{ 'Results'|trans }}</h5>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover">
-                                <thead>
-                                <tr>
-                                    <th rowspan="2">{{ 'Region'|trans }}</th>
-                                    <th rowspan="2">{{ 'Country'|trans }}</th>
-                                    <th rowspan="2">{{ 'Site'|trans }}</th>
-                                    <th rowspan="2">{{ 'Total Cases'|trans }}</th>
-                                    <th colspan="2">{{ 'Missing Admission Diagnosis'|trans }}</th>
-                                    <th colspan="2">{{ 'Missing Discharge Outcome'|trans }}</th>
-                                    <th colspan="2">{{ 'Missing Discharge Diagnosis'|trans }}</th>
-                                </tr>
-                                <tr><td>#</td><td>%</td><td>#</td><td>%</td><td>#</td><td>%</td></tr>
-                                </thead>
-                                <tbody>
-                                {% for result in sites %}
-                                    <tr>
-                                        <td>{{ result.site.country.region.code }}</td>
-                                        <td>{{ result.site.country.code }}</td>
-                                        <td>{{ result.site.code }}</td>
-                                        <td>{{ result.totalCases }}</td>
-
-                                        <td>{{ result.missingAdmissionDiagnosisCount }}</td>
-                                        <td>{{ result.missingAdmissionDiagnosisPercent|number_format }}%</td>
-
-                                        <td>{{ result.missingDischargeOutcomeCount }}</td>
-                                        <td>{{ result.missingDischargeOutcomePercent|number_format }}%</td>
-
-                                        <td>{{ result.missingDischargeDiagnosisCount }}</td>
-                                        <td>{{ result.missingDischargeDiagnosisPercent|number_format }}%</td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
+        <div class="col-xs-12">
+            <div class="widget-box widget-color-blue no-border">
+                <div class="widget-header widget-header-small">
+                    <h5 class="widget-title">{{ 'Results'|trans }}</h5>
+                    <div class="widget-toolbar">
+                        <a href="#filters" data-toggle="collapse" class="white small">
+                            <i class="ace-icon fa fa-plus" data-icon-hide="fa-minus" data-icon-show="fa-plus"></i>
+                            Filters
+                        </a>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <div id="lab-results"></div>
+                <div class="widget-body">
+                    <div class="widget-toolbox padding-8">
+                        <div class="collapse" id="filters">
+                            <form method="POST" action="{{ path('reportIbdDataQuality') }}" class="reportFilters">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        {{ form_row(form.admDate) }}
+                                        {{ form_row(form.createdAt) }}
+                                    </div>
+                                    <div class="col-xs-3">
+                                        {% if form.region is defined %}
+                                            {{ form_row(form.region) }}
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-xs-3">
+                                        {% if form.country is defined %}
+                                            {{ form_row(form.country) }}
+                                        {% endif %}
+
+                                    </div>
+                                    <div class="col-xs-3">
+                                        {% if form.site is defined %}
+                                            {{ form_row(form.site) }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        {{ form.filter is defined ? form_widget(form.filter) }}
+                                        {{ form.export is defined ? form_widget(form.export) }}
+                                        {{ form.reset is defined ? form_widget(form.reset) }}
+                                        {{ form_rest(form) }}
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="widget-main no-padding">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th rowspan="2">{{ 'Region'|trans }}</th>
+                                <th rowspan="2">{{ 'Country'|trans }}</th>
+                                <th rowspan="2">{{ 'Site'|trans }}</th>
+                                <th rowspan="2">{{ 'Total Cases'|trans }}</th>
+                                <th colspan="2">{{ 'Missing Admission Diagnosis'|trans }}</th>
+                                <th colspan="2">{{ 'Missing Discharge Outcome'|trans }}</th>
+                                <th colspan="2">{{ 'Missing Discharge Diagnosis'|trans }}</th>
+                            </tr>
+                            <tr>
+                                <td>#</td>
+                                <td>%</td>
+                                <td>#</td>
+                                <td>%</td>
+                                <td>#</td>
+                                <td>%</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for result in sites %}
+                                <tr>
+                                    <td>{{ result.site.country.region.code }}</td>
+                                    <td>{{ result.site.country.code }}</td>
+                                    <td>{{ result.site.code }}</td>
+                                    <td>{{ result.totalCases }}</td>
+
+                                    <td>{{ result.missingAdmissionDiagnosisCount }}</td>
+                                    <td>{{ result.missingAdmissionDiagnosisPercent|number_format }}%</td>
+
+                                    <td>{{ result.missingDischargeOutcomeCount }}</td>
+                                    <td>{{ result.missingDischargeOutcomePercent|number_format }}%</td>
+
+                                    <td>{{ result.missingDischargeDiagnosisCount }}</td>
+                                    <td>{{ result.missingDischargeDiagnosisPercent|number_format }}%</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-sm-3">
-            <div class="widget-box widget-color-blue">
-                <div class="widget-header widget-header-small">
-                    <h5 class="widget-title">{{ 'Filters'|trans }}</h5>
-                </div>
-                <div class="widget-body">
-                    <div class="widget-main">
-                        <form method="POST" action="{{ path('reportIbdDataQuality') }}" class="reportFilters">
-                            {{ form_rest(form) }}
-                        </form>
-                    </div>
-                </div>
-            </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div id="lab-results"></div>
         </div>
     </div>
 {% endblock %}

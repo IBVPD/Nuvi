@@ -1,110 +1,145 @@
-{%extends "NSSentinelBundle::layout.html.twig" %}
-{% block pagetitle %}{{'Age Distribution'|trans}}{% endblock %}
+{% extends "NSSentinelBundle::layout.html.twig" %}
+{% block pagetitle %}{{ 'Age Distribution'|trans }}{% endblock %}
+
 {% block body %}
-<div class="row">
-    <div class="col-xs-9">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="widget-box widget-color-blue no-border">
-                    <div class="widget-header widget-header-small">
-                        <h5 class="widget-title">{{'Results'|trans}}</h5>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="widget-box widget-color-blue no-border">
+                <div class="widget-header widget-header-small">
+                    <h5 class="widget-title">{{ 'Results'|trans }}</h5>
+                    <div class="widget-toolbar">
+                        <a href="#filters" data-toggle="collapse" class="white small">
+                            <i class="ace-icon fa fa-plus" data-icon-hide="fa-minus" data-icon-show="fa-plus"></i>
+                            Filters
+                        </a>
                     </div>
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover">
-                            <thead>
-                            <tr>
-                                <th colspan="2">{{'Year & Total'|trans}}</th>
-                                <td colspan="2">{{'0-5'|trans}}</td>
-                                <td colspan="2">{{'6-11'|trans}}</td>
-                                <td colspan="2">{{'12-23'|trans}}</td>
-                                <td colspan="2">{{'24-59'|trans}}</td>
-                                <td colspan="2">{{'Unknown'|trans}}</td>
-                            </tr>
-                            </thead>
-                            {% for year in results.getYears() %}
-                            <tr>
-                                <td>{{ year }}</td>
-                                <td>{{ results.getTotal(year) }}</td>
-                                <td>{{ results.getZeroToFive(year) }}</td>
-                                <td>{{ results.getZeroToFivePercent(year)|number_format }} %</td>
-                                <td>{{ results.getFiveToEleven(year) }}</td>
-                                <td>{{ results.getFiveToElevenPercent(year)|number_format }} %</td>
-                                <td>{{ results.getElevenToTwentyThree(year) }}</td>
-                                <td>{{ results.getElevenToTwentyThreePercent(year)|number_format }} %</td>
-                                <td>{{ results.getTwentyThreeToFiftyNine(year) }}</td>
-                                <td>{{ results.getTwentyThreeToFiftyNinePercent(year)|number_format }} %</td>
-                                <td>{{ results.getUnknown(year) }}</td>
-                                <td>{{ results.getUnknownPercent(year)|number_format }}%</td>
-                            </tr>
-                            {% endfor %}
-                        </table>
+                </div>
+                <div class="widget-body">
+                    <div class="widget-toolbox padding-8">
+                        <div class="collapse" id="filters">
+                            <form method="POST" action="{{ path('reportAnnualAgeDistribution') }}"
+                                  class="reportFilters">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        {{ form_row(form.admDate) }}
+                                        {{ form_row(form.createdAt) }}
+                                    </div>
+                                    <div class="col-xs-3">
+                                        {% if form.region is defined %}
+                                            {{ form_row(form.region) }}
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-xs-3">
+                                        {% if form.country is defined %}
+                                            {{ form_row(form.country) }}
+                                        {% endif %}
+
+                                    </div>
+                                    <div class="col-xs-3">
+                                        {% if form.site is defined %}
+                                            {{ form_row(form.site) }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        {{ form.filter is defined ? form_widget(form.filter) }}
+                                        {{ form.export is defined ? form_widget(form.export) }}
+                                        {{ form.reset is defined ? form_widget(form.reset) }}
+                                        {{ form_rest(form) }}
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="widget-main no-padding">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th colspan="2">{{ 'Year & Total'|trans }}</th>
+                                    <td colspan="2">{{ '0-5'|trans }}</td>
+                                    <td colspan="2">{{ '6-11'|trans }}</td>
+                                    <td colspan="2">{{ '12-23'|trans }}</td>
+                                    <td colspan="2">{{ '24-59'|trans }}</td>
+                                    <td colspan="2">{{ 'Unknown'|trans }}</td>
+                                </tr>
+                                </thead>
+                                {% for year in results.getYears() %}
+                                    <tr>
+                                        <td>{{ year }}</td>
+                                        <td>{{ results.getTotal(year) }}</td>
+                                        <td>{{ results.getZeroToFive(year) }}</td>
+                                        <td>{{ results.getZeroToFivePercent(year)|number_format }} %</td>
+                                        <td>{{ results.getFiveToEleven(year) }}</td>
+                                        <td>{{ results.getFiveToElevenPercent(year)|number_format }} %</td>
+                                        <td>{{ results.getElevenToTwentyThree(year) }}</td>
+                                        <td>{{ results.getElevenToTwentyThreePercent(year)|number_format }} %</td>
+                                        <td>{{ results.getTwentyThreeToFiftyNine(year) }}</td>
+                                        <td>{{ results.getTwentyThreeToFiftyNinePercent(year)|number_format }} %</td>
+                                        <td>{{ results.getUnknown(year) }}</td>
+                                        <td>{{ results.getUnknownPercent(year)|number_format }}%</td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-xs-6"><div id="totalPercent"></div></div>
-            <div class="col-xs-6"><div id="ageProgression"></div></div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <div id="totalPercent"></div>
+        </div>
+        <div class="col-xs-6">
+            <div id="ageProgression"></div>
         </div>
     </div>
-    <div class="col-sm-3">
-        <div class="widget-box widget-color-blue">
-            <div class="widget-header widget-header-small">
-                <h5 class="widget-title">{{'Filters'|trans}}</h5>
-            </div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    <form method="POST" action="{{path('reportAnnualAgeDistribution')}}" class="reportFilters">
-                        {{form_rest(form)}}
-                    </form>                        
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<script type="text/javascript">
-      google.load("visualization", "1", {packages:["corechart"]});
-      google.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-            ['Distribution','Count'],
-            ['0-5',{{results.getZeroToFive()}}],
-            ['6-11',{{results.getFiveToEleven()}}],
-            ['12-23',{{results.getElevenToTwentyThree()}}],
-            ['24-59',{{results.getTwentyThreeToFiftyNine()}}],
-            ['Unknown',{{results.getUnknown()}}]
+
+    <script type="text/javascript">
+        google.load("visualization", "1", {packages: ["corechart"]});
+        google.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Distribution', 'Count'],
+                ['0-5',{{ results.getZeroToFive() }}],
+                ['6-11',{{ results.getFiveToEleven() }}],
+                ['12-23',{{ results.getElevenToTwentyThree() }}],
+                ['24-59',{{ results.getTwentyThreeToFiftyNine() }}],
+                ['Unknown',{{ results.getUnknown() }}]
             ]);
 
-        var options = {
-          title: '{{'Number Enrolled By Month & Suspected Diagnosis'|trans|raw}}',
-          vAxis: { title: 'Occurances'},
-          hAxis: { title: 'Month'},
-          bar: {groupWidth: '90%'},
-          annotations: { boxStyle: { stroke: '#888', strokeWidth: 1} }
-        };
+            var options = {
+                title: '{{ 'Number Enrolled By Month & Suspected Diagnosis'|trans|raw }}',
+                vAxis: {title: 'Occurances'},
+                hAxis: {title: 'Month'},
+                bar: {groupWidth: '90%'},
+                annotations: {boxStyle: {stroke: '#888', strokeWidth: 1}}
+            };
 
-        var chart = new google.visualization.PieChart(document.getElementById('totalPercent'));
-        chart.draw(data, options);
-      }
-</script>
-<script type="text/javascript">
-      google.load("visualization", "1", {packages:["corechart"]});
-      google.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-            ['{{'Year'|trans}}','0-5','6-11','12-23','24-59','Unknown','{{'Total'|trans}}'],
-            {%for year in results.years %}
-                [{{year}},{{results.getZeroToFive(year)}},{{results.getFiveToEleven(year)}},{{results.getElevenToTwentyThree(year)}},{{results.getTwentyThreeToFiftyNine(year)}},{{results.getUnknown(year)}},{{results.getTotal(year)}}]{%if not loop.last%},{%endif%}
-            {%endfor%}
+            var chart = new google.visualization.PieChart(document.getElementById('totalPercent'));
+            chart.draw(data, options);
+        }
+    </script>
+    <script type="text/javascript">
+        google.load("visualization", "1", {packages: ["corechart"]});
+        google.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['{{ 'Year'|trans }}', '0-5', '6-11', '12-23', '24-59', 'Unknown', '{{ 'Total'|trans }}'],
+                {% for year in results.years %}
+                [{{ year }},{{ results.getZeroToFive(year) }},{{ results.getFiveToEleven(year) }},{{ results.getElevenToTwentyThree(year) }},{{ results.getTwentyThreeToFiftyNine(year) }},{{ results.getUnknown(year) }},{{ results.getTotal(year) }}]{% if not loop.last %},{% endif %}
+                {% endfor %}
             ]);
 
-        var options = {
-          title: '{{'Case Progression'|trans}}',
-          hAxis: { format: '####'}
-        };
+            var options = {
+                title: '{{ 'Case Progression'|trans }}',
+                hAxis: {format: '####'}
+            };
 
-        var chart = new google.visualization.LineChart(document.getElementById('ageProgression'));
-        chart.draw(data, options);
-      }
-</script>
+            var chart = new google.visualization.LineChart(document.getElementById('ageProgression'));
+            chart.draw(data, options);
+        }
+    </script>
 {% endblock %}

@@ -1,77 +1,112 @@
-{%extends "NSSentinelBundle::layout.html.twig" %}
-{%block pagetitle %}{{'Number and Percent Enrolled: Admit Diagnosis'|trans}}{%endblock %}
+{% extends "NSSentinelBundle::layout.html.twig" %}
+{% block pagetitle %}{{ 'Number and Percent Enrolled: Admit Diagnosis'|trans }}{% endblock %}
 
 {% block body %}
     <div class="row">
-        <div class="col-sm-9">
+        <div class="col-xs-12">
             <div class="widget-box widget-color-blue no-border">
                 <div class="widget-header widget-header-small">
-                    <h5 class="widget-title">{{'Results'|trans}}</h5>
-                </div>
-
-                <table class="table table-bordered table-striped">
-                    <thead class="thin-border-bottom">
-                        <tr>
-                            {% for r in results.headers %}
-                                <th>{{r}}</th>
-                                {% endfor %}
-
-                        </tr>
-                    </thead>
-                    {% for i in 1..12 %}
-                        <tr>
-                            <td>{{i}}</td>
-                            {%for c in results.getMonthResult(i) %}
-                                <td>{{c}}</td>
-                            {%endfor%}
-                        </tr>
-                    {% endfor %}
-                </table>
-            </div>
-
-            <div class="clear-fix"></div>
-            <div id="chart_div" style="width: 1024px; height: 500px;"></div>
-        </div>
-        <div class="col-sm-3">
-            <div class="widget-box widget-color-blue">
-                <div class="widget-header widget-header-small">
-                    <h5 class="widget-title">{{'Filters'|trans}}</h5>
+                    <h5 class="widget-title">{{ 'Results'|trans }}</h5>
+                    <div class="widget-toolbar">
+                        <a href="#filters" data-toggle="collapse" class="white small">
+                            <i class="ace-icon fa fa-plus" data-icon-hide="fa-minus" data-icon-show="fa-plus"></i>
+                            Filters
+                        </a>
+                    </div>
                 </div>
                 <div class="widget-body">
-                    <div class="widget-main">
-                        <form method="POST" action="{{path('reportPercentEnrolled')}}" class="reportFilters">
-                            {{form_rest(form)}}
-                        </form>                        
+                    <div class="widget-toolbox padding-8">
+                        <div class="collapse" id="filters">
+                            <form method="POST" action="{{ path('reportPercentEnrolled') }}" class="reportFilters">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        {{ form_row(form.admDate) }}
+                                        {{ form_row(form.createdAt) }}
+                                    </div>
+                                    <div class="col-xs-3">
+                                        {% if form.region is defined %}
+                                            {{ form_row(form.region) }}
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-xs-3">
+                                        {% if form.country is defined %}
+                                            {{ form_row(form.country) }}
+                                        {% endif %}
+
+                                    </div>
+                                    <div class="col-xs-3">
+                                        {% if form.site is defined %}
+                                            {{ form_row(form.site) }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        {{ form.filter is defined ? form_widget(form.filter) }}
+                                        {{ form.export is defined ? form_widget(form.export) }}
+                                        {{ form.reset is defined ? form_widget(form.reset) }}
+                                        {{ form_rest(form) }}
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="widget-main no-padding">
+                        <table class="table table-responsive">
+                            <thead class="thin-border-bottom">
+                            <tr>
+                                {% for r in results.headers %}
+                                    <th>{{ r }}</th>
+                                {% endfor %}
+
+                            </tr>
+                            </thead>
+                            {% for i in 1..12 %}
+                                <tr>
+                                    <td>{{ i }}</td>
+                                    {% for c in results.getMonthResult(i) %}
+                                        <td>{{ c }}</td>
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-<script type="text/javascript">
-    google.load("visualization", "1", {packages:["corechart"]});
-    google.setOnLoadCallback(drawChart);
-    function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-        [ 
-        {% for r in results.headers %}
-          '{{r}}'{%if not loop.last%},{%endif%}
-        {% endfor %}
-        ],
-        {% for i in 1..12 %}['{{i}}', {%for c in results.getMonthResult(i) %}{{c}}{%if not loop.last%},{%endif%}{%endfor%}]{%if not loop.last%},{%endif%}{% endfor %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div id="chart_div" style="width: 1024px; height: 500px;"></div>
+        </div>
+    </div>
 
-                                 ]);
+    <script type="text/javascript">
+        google.load("visualization", "1", {packages: ["corechart"]});
+        google.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                [
+                    {% for r in results.headers %}
+                    '{{ r }}'{% if not loop.last %},{% endif %}
+                    {% endfor %}
+                ],
+                    {% for i in 1..12 %}['{{ i }}', {% for c in results.getMonthResult(i) %}{{ c }}{% if not loop.last %},{% endif %}{% endfor %}]{% if not loop.last %},{% endif %}{% endfor %}
 
-        var options = {
-          title: 'Number Enrolled By Month & Suspected Diagnosis',
-          vAxis: { title: 'Occurances'},
-          hAxis: { title: 'Month'},
-          bar: {groupWidth: '90%'},
-          annotations: {boxStyle: {stroke: '#888', strokeWidth: 1 }}
-        };
+            ]);
 
-        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-    }
-</script>
+            var options = {
+                title: 'Number Enrolled By Month & Suspected Diagnosis',
+                vAxis: {title: 'Occurances'},
+                hAxis: {title: 'Month'},
+                bar: {groupWidth: '90%'},
+                annotations: {boxStyle: {stroke: '#888', strokeWidth: 1}}
+            };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+    </script>
 {% endblock %}
 
