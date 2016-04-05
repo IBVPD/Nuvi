@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2016-04-04T02:35:06Z" source-language="en" target-language="fr" datatype="plaintext" original="not.available">
+  <file date="2016-04-05T10:12:13Z" source-language="en" target-language="fr" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -9,6 +9,10 @@
       <trans-unit id="da39a3ee5e6b4b0d3255bfef95601890afd80709" resname="">
         <source></source>
         <target state="new"></target>
+        <jms:reference-file line="90">Filter/Type/BaseFilterType.php</jms:reference-file>
+        <jms:reference-file line="97">Filter/Type/BaseFilterType.php</jms:reference-file>
+        <jms:reference-file line="100">Filter/Type/BaseQuarterlyFilterType.php</jms:reference-file>
+        <jms:reference-file line="77">Filter/Type/BaseReportFilterType.php</jms:reference-file>
         <jms:reference-file line="32">Form/Types/CTValueType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="18ab4daacc3850d1f77d27057bb1ec6d69b46aa7" resname="%count% Results">
@@ -1200,6 +1204,14 @@
         <target state="new">Please Provide Your Email Address</target>
         <jms:reference-file line="25">views/Security/forgotPassword.html.twig</jms:reference-file>
       </trans-unit>
+      <trans-unit id="a7942f226ed1080246f2b2fde35b11e19a91e6a8" resname="Please Select...">
+        <source>Please Select...</source>
+        <target state="new">Please Select...</target>
+        <jms:reference-file line="46">SentinelBundle/Form/CreateType.php</jms:reference-file>
+        <jms:reference-file line="64">Form/Types/CreateRoles.php</jms:reference-file>
+        <jms:reference-file line="201">Form/Types/Role.php</jms:reference-file>
+        <jms:reference-file line="206">Form/Types/Role.php</jms:reference-file>
+      </trans-unit>
       <trans-unit id="6d8d3ee277015995a8faf994cfc772e581510f44" resname="Please review each tab for error messages">
         <source>Please review each tab for error messages</source>
         <target state="new">Please review each tab for error messages</target>
@@ -1634,6 +1646,11 @@
       <trans-unit id="909f99a779adb66a76fc53ab56c7dd1caf35d0fd" resname="Z">
         <source>Z</source>
         <target state="new">Z</target>
+      </trans-unit>
+      <trans-unit id="6e36913c5daaf91b67d2edb4a74f4c7bf70ffca7" resname="[Enter value]">
+        <source>[Enter value]</source>
+        <target state="new">[Enter value]</target>
+        <jms:reference-file line="31">Form/Types/CTValueType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="86f7e437faa5a7fce15d1ddcb9eaeaea377667b8" resname="a">
         <source>a</source>
