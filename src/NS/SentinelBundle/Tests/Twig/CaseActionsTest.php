@@ -28,6 +28,7 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $obj        = new IBD();
         $bigResults = $action->getBigActions($obj);
 
+        $this->assertContains('fa-list',$bigResults);
         $this->assertContains("Show IBD Case", $bigResults, "User who can't create can only see");
         $this->assertNotContains("Edit IBD Case", $bigResults, "Case Link Exists");
         $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
@@ -37,6 +38,7 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $obj        = new RotaVirus();
         $bigResults = $action->getBigActions($obj);
 
+        $this->assertContains('fa-list',$bigResults);
         $this->assertContains("Show Rota Case", $bigResults, "User who can't create can only see");
         $this->assertNotContains("Edit Rota Case", $bigResults, "Case Link Exists");
         $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
@@ -61,6 +63,7 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $obj        = new IBD();
         $bigResults = $action->getBigActions($obj);
 
+        $this->assertContains('fa-list',$bigResults);
         $this->assertContains("Show IBD Case", $bigResults, "User who can't create can only see");
         $this->assertContains("Edit IBD Case", $bigResults, "Case Link Exists");
         $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
@@ -69,6 +72,7 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         $obj        = new RotaVirus();
         $bigResults = $action->getBigActions($obj);
+        $this->assertContains('fa-list',$bigResults);
         $this->assertContains("Show Rota Case", $bigResults, "User who can't create can only see");
         $this->assertContains("Edit Rota Case", $bigResults, "Case Link Exists");
         $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
@@ -100,6 +104,7 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         $bigResults = $action->getBigActions($obj);
 
+        $this->assertContains('fa-list',$bigResults);
         $this->assertContains("Show IBD Case", $bigResults, "User who can't create can only see");
         $this->assertContains("Edit IBD Case", $bigResults, "Case Link Exists");
         $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
@@ -113,6 +118,8 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $obj->setSiteLab($lab);
 
         $bigResults = $action->getBigActions($obj);
+
+        $this->assertContains('fa-list',$bigResults);
         $this->assertContains("Show Rota Case", $bigResults, "User who can't create can only see");
         $this->assertContains("Edit Rota Case", $bigResults, "Case Link Exists");
         $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
@@ -146,6 +153,7 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         $bigResults = $action->getBigActions($obj);
 
+        $this->assertContains('fa-list',$bigResults);
         $this->assertContains("Show IBD Case", $bigResults, "User who can't create can only see");
         $this->assertContains("Edit IBD Case", $bigResults, "Case Link Exists");
         $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
@@ -160,6 +168,7 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         $bigResults = $action->getBigActions($obj);
 
+        $this->assertContains('fa-list',$bigResults);
         $this->assertContains("Show Rota Case", $bigResults, "User who can't create can only see");
         $this->assertContains("Edit Rota Case", $bigResults, "Case Link Exists");
         $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
@@ -192,6 +201,7 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         $bigResults = $action->getBigActions($obj);
 
+        $this->assertContains('fa-list',$bigResults);
         $this->assertContains("Show IBD Case", $bigResults, "User who can't create can only see");
         $this->assertContains("Edit IBD Case", $bigResults, "Case Link Exists");
         $this->assertContains("Edit Lab", $bigResults, "Lab Link");
@@ -205,11 +215,39 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $obj->setSiteLab($lab);
         $bigResults = $action->getBigActions($obj);
 
+        $this->assertContains('fa-list',$bigResults);
         $this->assertContains("Show Rota Case", $bigResults, "User who can't create can only see");
         $this->assertContains("Edit Rota Case", $bigResults, "Case Link Exists");
         $this->assertContains("Edit Lab", $bigResults, "Lab Link");
         $this->assertContains("Edit RRL", $bigResults, "RRL Link");
         $this->assertContains("Edit NL", $bigResults, "NL Link");
+    }
+
+    public function testBigActionsNoList()
+    {
+        list($securityContext, $trans, $router) = $this->getMockedObjects();
+
+        $map = array(
+            array('ROLE_CAN_CREATE', null, true),
+            array('ROLE_CAN_CREATE_CASE', null, true),
+            array('ROLE_CAN_CREATE_LAB', null, true),
+            array('ROLE_CAN_CREATE_RRL_LAB', null, true),
+            array('ROLE_CAN_CREATE_NL_LAB', null, true),
+        );
+
+        $securityContext->expects($this->any())
+            ->method('isGranted')
+            ->will($this->returnValueMap($map));
+
+        $action = new CaseActions($securityContext, $trans, $router);
+        $obj    = new IBD();
+        $lab    = new \NS\SentinelBundle\Entity\IBD\SiteLab();
+        $lab->setSentToReferenceLab(true);
+        $lab->setSentToNationalLab(true);
+        $obj->setSiteLab($lab);
+
+        $bigResults = $action->getBigActions($obj,false);
+        $this->assertNotContains('fa-list',$bigResults);
     }
 
     public function testSmallShowOnlyActions()

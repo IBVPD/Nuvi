@@ -80,6 +80,7 @@ abstract class BaseCaseController extends Controller implements TranslationConta
      * @return mixed
      */
     abstract protected function getForm($type, $objId = null);
+    abstract protected function getCaseRecord($objId);
 
     /**
      * @param Request $request
@@ -120,7 +121,9 @@ abstract class BaseCaseController extends Controller implements TranslationConta
             $this->get('ns_flash')->addWarning('Warning!', 'There were errors with saving the form.', 'Please review each tab for error messages');
         }
 
-        return array('form' => $form->createView(), 'id' => $objId, 'editRoute' => $editRoute);
+        $record = $this->getCaseRecord($objId);
+
+        return array('form' => $form->createView(), 'id' => $objId, 'editRoute' => $editRoute,'record' => $record);
     }
 
     /**

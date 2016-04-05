@@ -135,6 +135,11 @@ class IBDController extends BaseCaseController
         return $this->createForm($type, $record);
     }
 
+    protected function getCaseRecord($objId)
+    {
+        return $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:IBD')->findWithAssociations($objId);
+    }
+
     /**
      * @Route("/show/{id}",name="ibdShow")
      * @Method(methods={"GET"})

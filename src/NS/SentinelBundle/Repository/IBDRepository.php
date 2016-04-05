@@ -4,6 +4,7 @@ namespace NS\SentinelBundle\Repository;
 
 use \Doctrine\ORM\NoResultException;
 use \Doctrine\ORM\Query;
+use Doctrine\ORM\UnexpectedResultException;
 use \NS\SentinelBundle\Exceptions\NonExistentCaseException;
 use \NS\SentinelBundle\Form\Types\BinaxResult;
 use \NS\SentinelBundle\Form\Types\CultureResult;

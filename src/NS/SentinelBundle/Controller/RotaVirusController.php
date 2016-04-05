@@ -100,6 +100,11 @@ class RotaVirusController extends BaseCaseController
         return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:RotaVirus:editOutcome.html.twig', $response);
     }
 
+    protected function getCaseRecord($objId)
+    {
+        return $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:RotaVirus')->findWithAssociations($objId);
+    }
+
     /**
      * @param $type
      * @param null $objId
