@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2016-04-05T10:12:13Z" source-language="en" target-language="fr" datatype="plaintext" original="not.available">
+  <file date="2016-04-05T10:24:28Z" source-language="en" target-language="fr" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -1005,6 +1005,10 @@
         <jms:reference-file line="17">views/Report/infobox.html.twig</jms:reference-file>
         <jms:reference-file line="253">views/RotaVirus/show.html.twig</jms:reference-file>
       </trans-unit>
+      <trans-unit id="e468d4c026c011983076c699c569045396ad2fb7" resname="No CT Value">
+        <source>No CT Value</source>
+        <target state="new">No CT Value</target>
+      </trans-unit>
       <trans-unit id="723a14e871ddf3bf60648f448fbdeba31472edcd" resname="No Organism Detected">
         <source>No Organism Detected</source>
         <target state="new">No Organism Detected</target>
@@ -1566,6 +1570,10 @@
       <trans-unit id="05f86bc979ed4852564f07f80c6a08b06abbbf6f" resname="Turbid/Cloudy">
         <source>Turbid/Cloudy</source>
         <target state="new">Turbid/Cloudy</target>
+      </trans-unit>
+      <trans-unit id="9971e43169cfeacc901f1bf442391be9acddaab1" resname="Undetermined">
+        <source>Undetermined</source>
+        <target state="new">Undetermined</target>
       </trans-unit>
       <trans-unit id="bc7819b34ff87570745fbe461e36a16f80e562ce" resname="Unknown">
         <source>Unknown</source>
@@ -2643,7 +2651,6 @@
       <trans-unit id="d229fd5c48c36bce8d007a0dab2808643f24e316" resname="ibd.lytA">
         <source>ibd.lytA</source>
         <target state="new">ibd.lytA</target>
-        <jms:reference-file line="287">views/IBD/show.html.twig</jms:reference-file>
         <jms:reference-file line="321">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="d4714f4f356125d89d3d29c094f730b7a82fa414" resname="ibd.nmSerogroup">
