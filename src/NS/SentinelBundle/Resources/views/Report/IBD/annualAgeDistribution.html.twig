@@ -102,7 +102,7 @@
                 ['6-11',{{ results.getFiveToEleven() }}],
                 ['12-23',{{ results.getElevenToTwentyThree() }}],
                 ['24-59',{{ results.getTwentyThreeToFiftyNine() }}],
-                ['{{ 'Unknown'|trans }}'},{{ results.getUnknown() }}]
+                ['{{ 'Unknown'|trans }}',{{ results.getUnknown() }}]
             ]);
 
             var options = {
@@ -123,7 +123,7 @@
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
                 ['{{ 'Year'|trans }}', '0-5', '6-11', '12-23', '24-59', '{{ 'Unknown'|trans }}', '{{ 'Total'|trans }}'],
-                {% for year in results.years %}
+                {% for year in results.graphableYears %}
                 [{{ year }},{{ results.getZeroToFive(year) }},{{ results.getFiveToEleven(year) }},{{ results.getElevenToTwentyThree(year) }},{{ results.getTwentyThreeToFiftyNine(year) }},{{ results.getUnknown(year) }},{{ results.getTotal(year) }}]{% if not loop.last %},{% endif %}
                 {% endfor %}
             ]);
