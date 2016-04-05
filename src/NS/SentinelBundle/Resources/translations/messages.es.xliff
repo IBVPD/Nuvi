@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2016-04-05T10:24:26Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
+  <file date="2016-04-05T10:51:17Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -614,6 +614,11 @@
         <target>Correo electrónico / Nombre de usuario</target>
         <jms:reference-file line="31">views/Security/forgotPassword.html.twig</jms:reference-file>
         <jms:reference-file line="32">views/Security/login.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="bb29aa57f0fd2bfd1d9c91e9d1493059381eb5c9" resname="Enter value or Select">
+        <source>Enter value or Select</source>
+        <target state="new">Enter value or Select</target>
+        <jms:reference-file line="32">Form/Types/CTValueType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e53e6fb5399d13847fc4f477393f2acedc2ea223" resname="Failed Link">
         <source>Failed Link</source>
@@ -2656,6 +2661,7 @@
       <trans-unit id="d229fd5c48c36bce8d007a0dab2808643f24e316" resname="ibd.lytA">
         <source>ibd.lytA</source>
         <target>Resultados del lytA</target>
+        <jms:reference-file line="287">views/IBD/show.html.twig</jms:reference-file>
         <jms:reference-file line="321">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="d4714f4f356125d89d3d29c094f730b7a82fa414" resname="ibd.nmSerogroup">

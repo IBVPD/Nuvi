@@ -29,7 +29,7 @@ class CTValueType extends AbstractType
 
         $builder
             ->add('choice', 'choice', array('choices' => $choices, 'placeholder' => "[Enter value]", 'label' => 'Non-result choices', 'attr' => array('class' => 'inputOrSelect')))
-            ->add('number', 'number', array('precision' => 2, 'label' => '', 'attr' => array('class' => 'inputOrSelect')))
+            ->add('number', 'number', array('precision' => 2, 'label' => '', 'attr' => array('class' => 'inputOrSelect' ,'placeholder'=>'Enter value or Select')))
             ->addModelTransformer(new CTValueTransformer());
     }
 
