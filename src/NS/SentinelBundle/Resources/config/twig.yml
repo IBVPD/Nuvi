@@ -1,4 +1,9 @@
 services:
+  ns_sentinel.twig.widgets:
+    class: NS\SentinelBundle\Twig\WidgetExtension
+    tags:
+      - { name: twig.extension }
+
   ns_sentinel.twig.ct_value:
     class: NS\SentinelBundle\Twig\CTValueExtension
     tags:
