@@ -57,8 +57,17 @@
                                 <th colspan="2">{{ 'Stool Collection Date Errors'|trans }}</th>
                                 <th colspan="2">{{ 'Missing Discharge Date'|trans }}</th>
                                 <th colspan="2">{{ 'Missing Discharge Outcome'|trans }}</th>
+                                <th colspan="2">{{ 'Stool Collected'|trans }}</th>
+                                <th colspan="2">{{ 'ELISA Done'|trans }}</th>
+                                <th colspan="2">{{ 'Confirmed Positive'|trans }}</th>
                             </tr>
                             <tr>
+                                <td>#</td>
+                                <td>%</td>
+                                <td>#</td>
+                                <td>%</td>
+                                <td>#</td>
+                                <td>%</td>
                                 <td>#</td>
                                 <td>%</td>
                                 <td>#</td>
@@ -76,13 +85,22 @@
                                     <td>{{ result.totalCases }}</td>
 
                                     <td>{{ result.stoolCollectionDateErrorCount }}</td>
-                                    <td>{{ result.stoolCollectionDateErrorPercent|number_format }}%</td>
+                                    <td>{{ result.stoolCollectionDateErrorPercent|number_format }} %</td>
 
                                     <td>{{ result.missingDischargeDateCount }}</td>
-                                    <td>{{ result.missingDischargeDatePercent|number_format }}%</td>
+                                    <td>{{ result.missingDischargeDatePercent|number_format }} %</td>
 
                                     <td>{{ result.missingDischargeOutcomeCount }}</td>
-                                    <td>{{ result.missingDischargeOutcomePercent|number_format }}%</td>
+                                    <td>{{ result.missingDischargeOutcomePercent|number_format }} %</td>
+
+                                    <td>{{ result.stoolCollectedCount }}</td>
+                                    <td>{{ result.stoolCollectedPercent|number_format }} %</td>
+
+                                    <td>{{ result.elisaDoneCount }}</td>
+                                    <td>{{ result.elisaDonePercent }} %</td>
+
+                                    <td>{{ result.elisaPositiveCount }}</td>
+                                    <td>{{ result.elisaPositivePercent }} %</td>
                                 </tr>
                             {% endfor %}
                             </tbody>

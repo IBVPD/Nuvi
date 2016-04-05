@@ -45,6 +45,9 @@ class RotaVirusReporter extends AbstractReporter
                 'getStoolCollectionDateErrorCountBySites' => 'setStoolCollectionDateErrorCount',
                 'getMissingDischargeOutcomeCountBySites' => 'setMissingDischargeOutcomeCount',
                 'getMissingDischargeDateCountBySites' => 'setMissingDischargeDateCount',
+                'getStoolCollectedCountBySites' => 'setStoolCollectedCount',
+                'getElisaDoneCountBySites' => 'setElisaDoneCount',
+                'getElisaPositiveCountBySites' => 'setElisaPositiveCount',
             );
 
             $this->processResult($columns, $repo, $alias, $results, $form);
