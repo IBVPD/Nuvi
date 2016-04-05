@@ -84,7 +84,7 @@
             var data = google.visualization.arrayToDataTable([
                 [
                     {% for r in results.headers %}
-                    '{{ r }}'{% if not loop.last %},{% endif %}
+                    '{{ r|trans }}'{% if not loop.last %},{% endif %}
                     {% endfor %}
                 ],
                     {% for i in 1..12 %}['{{ i }}', {% for c in results.getMonthResult(i) %}{{ c }}{% if not loop.last %},{% endif %}{% endfor %}]{% if not loop.last %},{% endif %}{% endfor %}
@@ -92,9 +92,9 @@
             ]);
 
             var options = {
-                title: 'Number Enrolled By Month & Suspected Diagnosis',
-                vAxis: {title: 'Occurances'},
-                hAxis: {title: 'Month'},
+                title: '{{ 'Number Enrolled By Month & Suspected Diagnosis'|trans }}',
+                vAxis: {title: '{{ 'Occurances'|trans}}'},
+                hAxis: {title: '{{ 'Month'|trans }}'},
                 bar: {groupWidth: '90%'},
                 annotations: {boxStyle: {stroke: '#888', strokeWidth: 1}}
             };

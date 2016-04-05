@@ -84,7 +84,7 @@
         if (c['element']) {
             c['chart'] = new google.visualization.ColumnChart(c['element']);
             c['data'] = google.visualization.arrayToDataTable([
-                ['Year', 'Culture+', 'Culture- & Binax+', 'PCR+ & Binax Culture- & Culture-'],
+                ['{{ 'Year'|trans }}', '{{ 'Culture+'|trans }}', '{{ 'Culture- & Binax+'|trans }}', '{{ 'PCR+ & Binax Culture- & Culture-'|trans }}'],
                 {% for year in results.years %}
                 [{{ year }},{{ results.getCulturePositive(year) }},{{ results.getCultureNegative(year) }},{{ results.getPcrPositive(year) }}]{% if not loop.last %},{% endif %}
                 {% endfor %}

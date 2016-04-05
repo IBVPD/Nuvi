@@ -97,12 +97,12 @@
         google.setOnLoadCallback(drawChart);
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
-                ['Distribution', 'Count'],
+                ['{{ 'Distribution'|trans }}', '{{ 'Count'|trans }}'],
                 ['0-5',{{ results.getZeroToFive() }}],
                 ['6-11',{{ results.getFiveToEleven() }}],
                 ['12-23',{{ results.getElevenToTwentyThree() }}],
                 ['24-59',{{ results.getTwentyThreeToFiftyNine() }}],
-                ['Unknown',{{ results.getUnknown() }}]
+                ['{{ 'Unknown'|trans }}'},{{ results.getUnknown() }}]
             ]);
 
             var options = {
@@ -122,7 +122,7 @@
         google.setOnLoadCallback(drawChart);
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
-                ['{{ 'Year'|trans }}', '0-5', '6-11', '12-23', '24-59', 'Unknown', '{{ 'Total'|trans }}'],
+                ['{{ 'Year'|trans }}', '0-5', '6-11', '12-23', '24-59', '{{ 'Unknown'|trans }}', '{{ 'Total'|trans }}'],
                 {% for year in results.years %}
                 [{{ year }},{{ results.getZeroToFive(year) }},{{ results.getFiveToEleven(year) }},{{ results.getElevenToTwentyThree(year) }},{{ results.getTwentyThreeToFiftyNine(year) }},{{ results.getUnknown(year) }},{{ results.getTotal(year) }}]{% if not loop.last %},{% endif %}
                 {% endfor %}

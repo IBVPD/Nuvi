@@ -9,10 +9,10 @@
     c['element'] = $('byDiagnosisStatistics');
     c['chart']   = new google.visualization.PieChart(c['element']);
     c['data']    = google.visualization.arrayToDataTable([
-                    ['Diagnosis','Number Of Cases'],
+                    ['{{ 'Diagnosis'|trans }}','{{ 'Number Of Cases'|trans }}'],
                         {%spaceless%}
                         {%for r in reports %}
-                            ['{{r.0.dischDx|e('js')}}', {{r.numberOfCases}}]{%if not loop.last %},{%endif%}
+                            ['{{r.0.dischDx|trans|e('js')}}', {{r.numberOfCases}}]{%if not loop.last %},{%endif%}
                         {%endfor%}
                         {%endspaceless%}
                     ]);
