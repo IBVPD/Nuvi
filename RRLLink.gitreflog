@@ -1,0 +1,238 @@
+commit 0e5281acf9da7a891f8c603c564b744f7ee1b3c1
+Author: Nathanael d. Noblet <nathanael@noblet.ca>
+Date:   Tue Mar 22 08:42:28 2016 -0600
+
+    Release of new version 0.3.11
+
+diff --git a/CHANGELOG b/CHANGELOG
+index 13094b4..7d7e191 100644
+--- a/CHANGELOG
++++ b/CHANGELOG
+@@ -3,6 +3,7 @@ VERSION 0  INITIAL RELEASE
+ ==========================
+ 
+    Version 0.3 - Initial HQ Server release
++      22/03/2016 08:42  0.3.11  Adjusted migrations for already existing constraints
+       21/03/2016 15:35  0.3.10  Fix urls for proper proxy operation
+       01/03/2016 15:10  0.3.9  Modified field names to match core variables
+       29/02/2016 16:32  0.3.8  Fixed forms, exports and updated bundles
+diff --git a/NVSDMS_20160322.sql.zip b/NVSDMS_20160322.sql.zip
+new file mode 100644
+index 0000000..d59a1ca
+Binary files /dev/null and b/NVSDMS_20160322.sql.zip differ
+diff --git a/RRLLinking.patch b/RRLLinking.patch
+new file mode 100644
+index 0000000..ad628cb
+--- /dev/null
++++ b/RRLLinking.patch
+@@ -0,0 +1,160 @@
++diff --git a/src/NS/SentinelBundle/Entity/BaseCase.php b/src/NS/SentinelBundle/Entity/BaseCase.php
++index d487283..c528011 100644
++--- a/src/NS/SentinelBundle/Entity/BaseCase.php
+++++ b/src/NS/SentinelBundle/Entity/BaseCase.php
++@@ -826,4 +826,12 @@ abstract class BaseCase
++         $this->warning = $warning;
++         return $this;
++     }
+++
+++    /**
+++     * @return bool
+++     */
+++    public function isUnlinked()
+++    {
+++        return (strpos($this->id,'-XXX-') !== false);
+++    }
++ }
++diff --git a/src/NS/SentinelBundle/Entity/Listener/BaseCaseListener.php b/src/NS/SentinelBundle/Entity/Listener/BaseCaseListener.php
++index 1137da3..d1f3e4e 100644
++--- a/src/NS/SentinelBundle/Entity/Listener/BaseCaseListener.php
+++++ b/src/NS/SentinelBundle/Entity/Listener/BaseCaseListener.php
++@@ -2,8 +2,11 @@
++ 
++ namespace NS\SentinelBundle\Entity\Listener;
++ 
+++use Doctrine\Common\Persistence\ObjectManager;
++ use Doctrine\ORM\Event\LifecycleEventArgs;
++ use NS\SentinelBundle\Entity\BaseCase;
+++use NS\SentinelBundle\Entity\Generator\BaseCaseGenerator;
+++use NS\SentinelBundle\Entity\Site;
++ use NS\SentinelBundle\Form\Types\CaseStatus;
++ 
++ /**
++@@ -12,13 +15,23 @@ use NS\SentinelBundle\Form\Types\CaseStatus;
++  */
++ abstract class BaseCaseListener
++ {
+++    private $generator;
+++
+++    /**
+++     * BaseCaseListener constructor.
+++     */
+++    public function __construct()
+++    {
+++        $this->generator = new BaseCaseGenerator();
+++    }
+++
++     /**
++      * @param BaseCase $case
++      * @param LifecycleEventArgs $event
++-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
++      */
++     public function preUpdate(BaseCase $case, LifecycleEventArgs $event)
++     {
+++        $this->checkLinking($case,$event->getEntityManager());
++         $this->calculateAge($case);
++         $this->calculateStatus($case);
++         $this->calculateResult($case);
++@@ -89,6 +102,19 @@ abstract class BaseCaseListener
++         $case->setStatus($status);
++     }
++ 
+++    public function checkLinking(BaseCase $case, ObjectManager $manager)
+++    {
+++        if(!$case->getId()) {
+++            return;
+++        }
+++
+++        // Have a case with a newly assigned site
+++        if($case->getSite() instanceof Site && strpos($case->getId(),'-XXX-') !== false) {
+++            $newId = $this->generator->generate($manager,$case);
+++            $case->setId($newId);
+++        }
+++    }
+++
++     /**
++      * @param BaseCase $case
++      *
++diff --git a/src/NS/SentinelBundle/Exceptions/InvalidCaseException.php b/src/NS/SentinelBundle/Exceptions/InvalidCaseException.php
++new file mode 100644
++index 0000000..f8b061c
++--- /dev/null
+++++ b/src/NS/SentinelBundle/Exceptions/InvalidCaseException.php
++@@ -0,0 +1,10 @@
+++<?php
+++
+++namespace NS\SentinelBundle\Exceptions;
+++
+++use Ddeboer\DataImport\Exception;
+++
+++class InvalidCaseException extends \RuntimeException implements Exception
+++{
+++
+++}
++diff --git a/src/NS/SentinelBundle/Repository/Common.php b/src/NS/SentinelBundle/Repository/Common.php
++index 1895e3c..7c068af 100644
++--- a/src/NS/SentinelBundle/Repository/Common.php
+++++ b/src/NS/SentinelBundle/Repository/Common.php
++@@ -2,11 +2,13 @@
++ 
++ namespace NS\SentinelBundle\Repository;
++ 
+++use Doctrine\ORM\NonUniqueResultException;
++ use \Doctrine\ORM\NoResultException;
++ use Doctrine\ORM\Query;
++ use \Doctrine\ORM\QueryBuilder;
++ use NS\ImportBundle\Exceptions\DuplicateCaseException;
++ use \NS\SecurityBundle\Doctrine\SecuredEntityRepository;
+++use NS\SentinelBundle\Exceptions\InvalidCaseException;
++ use \NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
++ 
++ /**
++@@ -120,7 +122,8 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
++     public function findWithRelations(array $params)
++     {
++         $qb = $this->createQueryBuilder('c')
++-            ->addSelect('sl,rl,nl')
+++            ->addSelect('sl,rl,nl,s')
+++            ->leftJoin('c.site','s')
++             ->leftJoin('c.siteLab', 'sl')
++             ->leftJoin('c.referenceLab', 'rl')
++             ->leftJoin('c.nationalLab', 'nl');
++@@ -130,11 +133,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
++             $qb->andWhere(sprintf('c.%s = :%s', $field, $param))->setParameter($param, $value);
++         }
++ 
++-        try {
++-            return $qb->getQuery()->getSingleResult();
++-        } catch (NoResultException $exception) {
++-            return null;
++-        }
+++        return $qb->getQuery()->getResult();
++     }
++ 
++     /**
++@@ -162,7 +161,23 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
++         $this->checkRequiredField('site',$params,'NS\SentinelBundle\Entity\Site');
++         $this->checkRequiredField('caseId',$params);
++ 
++-        return $this->findWithRelations($params);
+++        $cases = $this->findWithRelations(array('caseId'=> $params['caseId']));
+++
+++        if (empty($cases)) {
+++            return null;
+++        }
+++
+++        if (count($cases) > 1) {
+++            throw new DuplicateCaseException(array('found' => count($cases), 'caseId' => $params['caseId']));
+++        }
+++
+++        $case = current($cases);
+++
+++        if (!$case->isUnlinked() && $case->getSite() && $case->getSite()->getCode() !== $params['site']->getCode()) {
+++            throw new InvalidCaseException(sprintf("Retrieved a single case '%s' with an existing site mis-match. caseSite: %s vs requestedSite: %s",$params['caseId'],$case->getSite(),$params['site']->getCode()));
+++        }
+++
+++        return $case;
++     }
++ 
++     /**
+diff --git a/src/NS/SentinelBundle/Entity/Types/GramStainOrganism.php b/src/NS/SentinelBundle/Entity/Types/GramStainOrganism.php
+new file mode 100644
+index 0000000..688fdd8
+--- /dev/null
++++ b/src/NS/SentinelBundle/Entity/Types/GramStainOrganism.php
+@@ -0,0 +1,15 @@
++<?php
++
++namespace NS\SentinelBundle\Entity\Types;
++use NS\UtilBundle\Entity\Types\ArrayChoice;
++
++class GramStainOrganism extends ArrayChoice
++{
++    protected $convert_class = 'NS\SentinelBundle\Form\Types\GramStainOrganism';
++
++    public function getName()
++    {
++        return 'GramStainOrganism';
++    }   
++}
++
+diff --git a/src/NS/SentinelBundle/Form/Types/GramStainOrganism.php b/src/NS/SentinelBundle/Form/Types/GramStainOrganism.php
+new file mode 100644
+index 0000000..8a18924
+--- /dev/null
++++ b/src/NS/SentinelBundle/Form/Types/GramStainOrganism.php
+@@ -0,0 +1,23 @@
++<?php
++
++namespace NS\SentinelBundle\Form\Types;
++
++use NS\UtilBundle\Form\Types\ArrayChoice;
++
++/**
++ * Description of GramStainOrganism
++ *
++ */
++class GramStainOrganism extends ArrayChoice
++{
++    const FIRST_VALUE = 1;
++
++    protected $values = array(
++                                self::FIRST_VALUE => 'First Value',
++                             );
++
++    public function getName()
++    {
++        return 'GramStainOrganism';
++    }
++}
