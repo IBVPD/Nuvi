@@ -3527,16 +3527,16 @@
         },
         {
             "name": "ns/ace-sonata-doctrine-orm-admin-bundle",
-            "version": "0.1.1",
+            "version": "0.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/AceSonataDoctrineORMAdminBundle.git",
-                "reference": "ad14b70a14758a5ae6eed220c91990dc7ceda3ec"
+                "reference": "09bfe7bc544eab1da9ebc2e28d715fc1dfd3e150"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/AceSonataDoctrineORMAdminBundle/zipball/ad14b70a14758a5ae6eed220c91990dc7ceda3ec",
-                "reference": "ad14b70a14758a5ae6eed220c91990dc7ceda3ec",
+                "url": "https://api.github.com/repos/NobletSolutions/AceSonataDoctrineORMAdminBundle/zipball/09bfe7bc544eab1da9ebc2e28d715fc1dfd3e150",
+                "reference": "09bfe7bc544eab1da9ebc2e28d715fc1dfd3e150",
                 "shasum": ""
             },
             "require": {
@@ -3565,7 +3565,7 @@
                 }
             ],
             "description": "This bundle provides ace template overrides to sonata doctrine orm",
-            "time": "2016-03-30 22:43:08"
+            "time": "2016-04-01 15:28:32"
         },
         {
             "name": "ns/filtered-pagination-bundle",
