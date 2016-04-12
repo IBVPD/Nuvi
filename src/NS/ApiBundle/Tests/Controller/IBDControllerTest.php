@@ -27,8 +27,8 @@ class IBDControllerTest extends WebTestCase
         $content = $response->getContent();
         $decoded = json_decode($content, true);
 
-        $this->assertArrayHasKey('Id', $decoded);
-        $this->assertEquals(self::ID, $decoded['Id']);
+        $this->assertArrayHasKey('id', $decoded);
+        $this->assertEquals(self::ID, $decoded['id']);
     }
 
     public function testPatchCase()
@@ -61,11 +61,14 @@ class IBDControllerTest extends WebTestCase
         $this->assertJsonResponse($response, 200);
         $decoded  = json_decode($response->getContent(), true);
 
-        $this->assertArrayHasKey('CaseId', $decoded);
-        $this->assertArrayNotHasKey('Lab', $decoded);
-        $this->assertEquals("ANewCaseId", $decoded['CaseId']);
+        $this->assertArrayHasKey('case_id', $decoded);
+        $this->assertArrayNotHasKey('lab', $decoded);
+        $this->assertEquals("ANewCaseId", $decoded['case_id']);
     }
 
+    /**
+     * @group lab
+     */
     public function testLabCase()
     {
         $route  = $this->getUrl('nsApiIbdPatchLab', array('objId' => self::ID));
@@ -81,8 +84,8 @@ class IBDControllerTest extends WebTestCase
         $this->assertJsonResponse($response, 200);
         $decoded  = json_decode($response->getContent(), true);
 
-        $this->assertArrayHasKey('CsfId', $decoded, print_r($decoded, true));
-        $this->assertEquals("ANewCaseId", $decoded['CsfId']);
+        $this->assertArrayHasKey('csf_id', $decoded);
+        $this->assertEquals("ANewCaseId", $decoded['csf_id']);
     }
 
     /**
@@ -95,6 +98,10 @@ class IBDControllerTest extends WebTestCase
         $client->request('GET', $this->getRoute('nsApiIbdGetRRL'));
 
         $response = $client->getResponse();
+        if ($response->getStatusCode() == 500) {
+            file_put_contents('/tmp/nsApiIbdGetRRL.log', $response->getContent());
+        }
+
         $this->assertEquals(200, $response->getStatusCode());
         json_decode($response->getContent(), true);
     }
@@ -150,7 +157,7 @@ class IBDControllerTest extends WebTestCase
         $this->assertJsonResponse($response, 200);
         $decoded  = json_decode($response->getContent(), true);
 
-        $this->assertArrayHasKey('Status', $decoded, print_r($decoded, true));
+        $this->assertArrayHasKey('status', $decoded);
     }
 
     public function testPatchNLCase()
@@ -160,7 +167,7 @@ class IBDControllerTest extends WebTestCase
         $client->request('PATCH', $route, array(), array(), array(), '{"ibd_nationallab":{"labId":"ANewCaseId","sampleType":1}}');
 
         $response = $client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode());
+        $this->assertEquals(204, $response->getStatusCode(),$response->getContent());
         $this->assertFalse($response->headers->has('Location'), "We have a location header");
 
         $client->request('GET', $this->getRoute('nsApiIbdGetNL'));
@@ -168,8 +175,8 @@ class IBDControllerTest extends WebTestCase
         $this->assertJsonResponse($response, 200);
         $decoded  = json_decode($response->getContent(), true);
 
-        $this->assertArrayHasKey('LabId', $decoded, print_r(array_keys($decoded), true));
-        $this->assertEquals("ANewCaseId", $decoded['LabId']);
+        $this->assertArrayHasKey('lab_id', $decoded,print_r($decoded,true));
+        $this->assertEquals("ANewCaseId", $decoded['lab_id']);
     }
 
     public function testPutNLCase()
@@ -187,9 +194,9 @@ class IBDControllerTest extends WebTestCase
         $this->assertJsonResponse($response, 200);
         $decoded  = json_decode($response->getContent(), true);
 
-        $this->assertArrayHasKey('LabId', $decoded);
-        $this->assertEquals("ANewCaseId", $decoded['LabId']);
-        $this->assertArrayHasKey('SampleType', $decoded);
+        $this->assertArrayHasKey('lab_id', $decoded);
+        $this->assertEquals("ANewCaseId", $decoded['lab_id']);
+        $this->assertArrayHasKey('type_sample_recd', $decoded,print_r($decoded,true));
     }
 
     public function testPutCase()

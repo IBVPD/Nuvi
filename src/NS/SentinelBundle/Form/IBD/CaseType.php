@@ -100,7 +100,7 @@ class CaseType extends AbstractType
                 'label' => 'ibd-form.men-type', 'attr' => array('data-context-parent' => 'meningReceived',
                     'data-context-value' => json_encode(array(VaccinationReceived::YES_CARD,
                         VaccinationReceived::YES_HISTORY)))))
-            ->add('meningMostRecentDose', 'acedatepicker', array('required' => $required,
+            ->add('meningDate', 'acedatepicker', array('required' => $required,
                 'label' => 'ibd-form.meningMostRecentDose', 'attr' => array('data-context-parent' => 'meningReceived',
                     'data-context-value' => json_encode(array(VaccinationReceived::YES_CARD,
                         VaccinationReceived::YES_HISTORY)))))
@@ -111,9 +111,21 @@ class CaseType extends AbstractType
                     'data-context-value' => TripleChoice::YES)))
             ->add('csfCollected', 'TripleChoice', array('required' => $required,
                 'label' => 'ibd-form.csf-collected', 'attr' => array('data-context-child' => 'csfCollected')))
-            ->add('csfCollectDateTime', 'acedatetime', array('required' => $required,
-                'label' => 'ibd-form.csf-collect-datetime', 'attr' => array('data-context-parent' => 'csfCollected',
-                    'data-context-value' => TripleChoice::YES)))
+            ->add('csfCollectDate', 'date', array(
+                'required' => $required,
+                'label' => 'ibd-form.csf-collect-datetime',
+                'attr' => array(
+                    'data-context-parent' => 'csfCollected',
+                    'data-context-value' => TripleChoice::YES)
+            ))
+            ->add('csfCollectTime', 'time', array(
+                'widget' => 'single_text',
+                'required' => $required,
+                'label' => 'ibd-form.csf-collect-datetime',
+                'attr' => array(
+                    'data-context-parent' => 'csfCollected',
+                    'data-context-value' => TripleChoice::YES)
+            ))
             ->add('csfAppearance', 'CSFAppearance', array('required' => $required,
                 'label' => 'ibd-form.csf-appearance', 'attr' => array('data-context-parent' => 'csfCollected',
                     'data-context-value' => TripleChoice::YES)))

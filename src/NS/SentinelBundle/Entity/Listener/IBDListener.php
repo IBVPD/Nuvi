@@ -123,14 +123,19 @@ class IBDListener extends BaseCaseListener
                 return 'meningType2';
             }
 
-            if ($case->getMeningMostRecentDose() === null) {
-                return 'meningMostRecentDose';
+            if ($case->getMeningDate() === null) {
+                return 'meningDate';
             }
         }
 
         if ($case->getCsfCollected() && $case->getCsfCollected()->equal(TripleChoice::YES)) {
-            if ($case->getCsfCollectDateTime() === null) {
-                return 'csfCollectDateTime';
+
+            if ($case->getCsfCollectDate() === null) {
+                return 'csfCollectDate';
+            }
+
+            if ($case->getCsfCollectTime() === null) {
+                return 'csfCollectTime';
             }
 
             if ($case->getCsfAppearance() === null) {

@@ -5,6 +5,8 @@ namespace NS\ImportBundle\Writer;
 use \Ddeboer\DataImport\Writer\DoctrineWriter as BaseWriter;
 use \Doctrine\Common\Collections\ArrayCollection;
 use \Doctrine\Common\Persistence\ObjectManager;
+use NS\ImportBundle\Services\CamelCaser;
+use NS\SentinelBundle\Entity\IBD\ReferenceLab;
 
 /**
  * Description of DoctrineWriter
@@ -80,6 +82,31 @@ class DoctrineWriter extends BaseWriter
 
         if (isset($item['nationalLab'])) {
             $this->updateAssociation($item, $entity, 'nationalLab', 'NS\SentinelBundle\Entity\IBD\NationalLab');
+        }
+    }
+
+    /**
+     * @param array  $item
+     * @param object $entity
+     */
+    protected function updateEntity(array $item, $entity)
+    {
+        $fieldNames = array_merge($this->entityMetadata->getFieldNames(), $this->entityMetadata->getAssociationNames());
+
+        foreach ($fieldNames as $fieldName) {
+            $value = null;
+            if (isset($item[$fieldName])) {
+                $value = $item[$fieldName];
+            }
+
+            if (null === $value) {
+                continue;
+            }
+
+            if ($value != $this->entityMetadata->getFieldValue($entity, $fieldName)) {
+                $setter = 'set' .CamelCaser::process($fieldName);
+                $this->setValue($entity, $value, $setter);
+            }
         }
     }
 }

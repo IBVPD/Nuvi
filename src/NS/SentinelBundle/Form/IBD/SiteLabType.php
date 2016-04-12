@@ -45,7 +45,8 @@ class SiteLabType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('csfDateTime', 'acedatetime', array('required' => false, 'label' => 'ibd-form.csf-lab-datetime'))
+            ->add('csfLabDate', 'acedatepicker', array('required' => false, 'label' => 'ibd-form.csf-lab-datetime'))
+            ->add('csfLabTime', 'time', array('required' => false, 'label' => 'ibd-form.csf-lab-datetime', 'widget' => 'single_text',))
             ->add('csfId', null, array('required' => false, 'label' => 'ibd-form.csf-id'))
             ->add('csfWcc', null, array('required' => false, 'label' => 'ibd-form.csf-wcc'))
             ->add('csfGlucose', null, array('required' => false, 'label' => 'ibd-form.csf-glucose'))
@@ -100,18 +101,6 @@ class SiteLabType extends AbstractType
                 'attr' => array('data-context-parent' => 'csfPcrDoneResult', 'data-context-value' => PCRResult::OTHER)))
             ->add('csfStore', 'TripleChoice', array('required' => false, 'label' => 'ibd-form.csf-store'))
             ->add('isolStore', 'TripleChoice', array('required' => false, 'label' => 'ibd-form.isol-store'))
-            ->add('spnSerotype', 'SpnSerotype', array('required' => false, 'label' => 'ibd-form.spn-serotype',
-                'attr' => array('data-context-child' => 'spnSerotype')))
-            ->add('spnSerotypeOther', null, array('required' => false, 'label' => 'ibd-form.spn-serotype-other',
-                'attr' => array('data-context-parent' => 'spnSerotype', 'data-context-value' => SpnSerotype::OTHER)))
-            ->add('hiSerotype', 'HiSerotype', array('required' => false, 'label' => 'ibd-form.hi-serotype',
-                'attr' => array('data-context-child' => 'hiSerotype')))
-            ->add('hiSerotypeOther', null, array('required' => false, 'label' => 'ibd-form.hi-serotype-other',
-                'attr' => array('data-context-parent' => 'hiSerotype', 'data-context-value' => HiSerotype::OTHER)))
-            ->add('nmSerogroup', 'NmSerogroup', array('required' => false, 'label' => 'ibd-form.nm-serogroup',
-                'attr' => array('data-context-child' => 'nmSerogroup')))
-            ->add('nmSerogroupOther', null, array('required' => false, 'label' => 'ibd-form.nm-serogroup-other',
-                'attr' => array('data-context-parent' => 'nmSerogroup', 'data-context-value' => NmSerogroup::OTHER)))
             ->add('bloodId', null, array('required' => false, 'label' => 'ibd-form.blood-id'))
             ->add('bloodCultDone', 'TripleChoice', array('required' => false, 'label' => 'ibd-form.blood-cult-done',
                 'attr' => array('data-context-child' => 'bloodCultDone')))

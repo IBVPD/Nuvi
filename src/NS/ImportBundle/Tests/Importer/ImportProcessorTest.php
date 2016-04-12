@@ -424,10 +424,10 @@ class ImportProcessorTest extends WebTestCase
 
         $registry  = new Registry();
         $processor = new ImportProcessor($registry, $entityMgr, new CaseLinkerRegistry());
-        $processor->setNotBlank(new NotBlank("caseId"));
+        $processor->setNotBlank(new NotBlank("case_id"));
         $this->assertInstanceOf('NS\ImportBundle\Filter\NotBlank', $processor->getNotBlank());
         $this->assertTrue(is_array($processor->getNotBlank()->fields));
-        $this->assertEquals(array('caseId'), $processor->getNotBlank()->fields);
+        $this->assertEquals(array('case_id'), $processor->getNotBlank()->fields);
     }
 
     public function testNotBlank()
@@ -473,7 +473,7 @@ class ImportProcessorTest extends WebTestCase
             array(
                 'name'      => 'case id',
                 'converter' => null,
-                'mapper'    => 'caseFile.caseId',
+                'mapper'    => 'caseFile.case_id',
                 'ignored'   => false,
             ),
         );
@@ -532,6 +532,9 @@ class ImportProcessorTest extends WebTestCase
 //        $this->fail($outputData[0]['caseFile']['site']->getName());
     }
 
+    /**
+     * @group repositoryTest
+     */
     public function testImportWithSiteLabFields()
     {
         $columns = array(
@@ -544,7 +547,7 @@ class ImportProcessorTest extends WebTestCase
             array(
                 'name'      => 'case_id',
                 'converter' => null,
-                'mapper'    => 'caseId',
+                'mapper'    => null,
                 'ignored'   => false,
             ),
             array(
@@ -556,7 +559,7 @@ class ImportProcessorTest extends WebTestCase
             array(
                 'name'      => 'csf Date',
                 'converter' => 'ns_import.converter.date.timestamp',
-                'mapper'    => 'siteLab.csfDateTime',
+                'mapper'    => 'siteLab.csf_lab_date',
                 'ignored'   => false,
             ),
         );
@@ -574,6 +577,7 @@ class ImportProcessorTest extends WebTestCase
         $linker = $linkerRegistry->getLinker($import->getCaseLinkerId());
 
         $processor = new ImportProcessor($container->get('ns_import.converters'), $container->get('doctrine.orm.entity_manager'), $linkerRegistry);
+        $this->assertEquals(array('site','case_id'),$linker->getCriteria());
         $processor->setDuplicate(new Duplicate($linker->getCriteria()));
         $writer = $processor->getWriter($import->getClass(), $linker->getCriteria(), $linker->getRepositoryMethod());
         $repoMethod = $writer->getEntityRepositoryMethod();
@@ -601,7 +605,7 @@ class ImportProcessorTest extends WebTestCase
             array(
                 'name'      => 'case_id',
                 'converter' => null,
-                'mapper'    => 'caseId',
+                'mapper'    => null,
                 'ignored'   => false,
             ),
             array(
@@ -613,13 +617,13 @@ class ImportProcessorTest extends WebTestCase
             array(
                 'name'      => 'date received',
                 'converter' => 'ns_import.converter.date.afr1',
-                'mapper'    => 'referenceLab.dateReceived',
+                'mapper'    => 'referenceLab.date_received',
                 'ignored'   => false,
             ),
             array(
                 'name'      => 'lab id',
                 'converter' => null,
-                'mapper'    => 'referenceLab.labId',
+                'mapper'    => 'referenceLab.lab_id',
                 'ignored'   => false,
             ),
         );
@@ -664,7 +668,7 @@ class ImportProcessorTest extends WebTestCase
             array(
                 'name'      => 'case_id',
                 'converter' => null,
-                'mapper'    => 'caseId',
+                'mapper'    => null,
                 'ignored'   => false,
             ),
             array(
@@ -682,13 +686,13 @@ class ImportProcessorTest extends WebTestCase
             array(
                 'name'      => 'date received',
                 'converter' => 'ns_import.converter.date.afr1',
-                'mapper'    => 'referenceLab.dateReceived',
+                'mapper'    => 'referenceLab.date_received',
                 'ignored'   => false,
             ),
             array(
                 'name'      => 'lab id',
                 'converter' => null,
-                'mapper'    => 'referenceLab.labId',
+                'mapper'    => 'referenceLab.lab_id',
                 'ignored'   => false,
             ),
         );
@@ -726,6 +730,9 @@ class ImportProcessorTest extends WebTestCase
         $this->assertFalse($results[1]->hasWarning());
     }
 
+    /**
+     * @group futureDate
+     */
     public function testNoFutureDate()
     {
         $columns = array(
@@ -738,7 +745,7 @@ class ImportProcessorTest extends WebTestCase
             array(
                 'name'      => 'case_id',
                 'converter' => null,
-                'mapper'    => 'caseId',
+                'mapper'    => null,
                 'ignored'   => false,
             ),
             array(
@@ -750,13 +757,13 @@ class ImportProcessorTest extends WebTestCase
             array(
                 'name'      => 'date received',
                 'converter' => 'ns_import.converter.date.year_month_day',
-                'mapper'    => 'referenceLab.dateReceived',
+                'mapper'    => 'referenceLab.dt_sample_recd',
                 'ignored'   => false,
             ),
             array(
                 'name'      => 'lab id',
                 'converter' => null,
-                'mapper'    => 'referenceLab.labId',
+                'mapper'    => 'referenceLab.lab_id',
                 'ignored'   => false,
             ),
         );
@@ -786,12 +793,16 @@ class ImportProcessorTest extends WebTestCase
         $results = $writer->getResults();
         $this->assertInstanceOf('NS\SentinelBundle\Entity\IBD', $results[0]);
         $this->assertTrue($results[0]->hasWarning());
+        $this->assertInstanceOf('NS\SentinelBundle\Entity\IBD\ReferenceLab',$results[0]->getReferenceLab());
+        $this->assertEquals('1125',$results[0]->getReferenceLab()->getLabId());
         $this->assertInstanceOf('\DateTime', $results[0]->getReferenceLab()->getDateReceived());
-        $this->assertInstanceOf('NS\SentinelBundle\Entity\IBD', $results[1]);
+        $this->assertInstanceOf('NS\SentinelBundle\Entity\IBD',$results[1]);
         $this->assertFalse($results[1]->hasWarning());
     }
 
-
+    /**
+     * @group futureDate
+     */
     public function testDatesInRange()
     {
         $columns = array(
@@ -804,13 +815,13 @@ class ImportProcessorTest extends WebTestCase
             array(
                 'name'      => 'case_id',
                 'converter' => null,
-                'mapper'    => 'caseId',
+                'mapper'    => null,
                 'ignored'   => false,
             ),
             array(
                 'name'      => 'AdmDate',
                 'converter' => 'ns_import.converter.date.year_month_day',
-                'mapper'    => 'admDate',
+                'mapper'    => 'adm_date',
                 'ignored'   => false,
             ),
             array(
@@ -822,13 +833,13 @@ class ImportProcessorTest extends WebTestCase
             array(
                 'name'      => 'date received',
                 'converter' => 'ns_import.converter.date.year_month_day',
-                'mapper'    => 'referenceLab.dateReceived',
+                'mapper'    => 'referenceLab.date_received',
                 'ignored'   => false,
             ),
             array(
                 'name'      => 'lab id',
                 'converter' => null,
-                'mapper'    => 'referenceLab.labId',
+                'mapper'    => 'referenceLab.lab_id',
                 'ignored'   => false,
             ),
         );
@@ -891,7 +902,7 @@ class ImportProcessorTest extends WebTestCase
             array(
                 'name'      => 'case_ID',
                 'converter' => null,
-                'mapper'    => 'caseId',
+                'mapper'    => 'case_id',
                 'ignored'   => false,
             ),
             array(
@@ -904,7 +915,7 @@ class ImportProcessorTest extends WebTestCase
                                      {"conditions":{"condition":"AND","rules":[{"id":"adm_dx","field":"adm_dx","type":"string","input":"text","operator":"equal","value":"9"}]},"output_value":"99"}
                                    ]',
                 'converter' => 'ns.sentinel.converter.diagnosis',
-                'mapper'    => 'admDx',
+                'mapper'    => 'adm_dx',
                 'ignored'   => false,
             ),
             array(
@@ -982,13 +993,13 @@ class ImportProcessorTest extends WebTestCase
             array(
                 'name'      => 'case_ID',
                 'converter' => null,
-                'mapper'    => 'caseId',
+                'mapper'    => 'case_id',
                 'ignored'   => false,
             ),
             array(
                 'name'      => 'adm_date',
                 'converter' => 'ns_import.converter.date.iso',
-                'mapper'    => 'admDate',
+                'mapper'    => 'adm_date',
                 'ignored'   => false,
             ),
             array(
@@ -1064,7 +1075,7 @@ class ImportProcessorTest extends WebTestCase
             array(
                 'name'      => 'case_ID',
                 'converter' => null,
-                'mapper'    => 'caseId',
+                'mapper'    => 'case_id',
                 'ignored'   => false,
             ),
             array(

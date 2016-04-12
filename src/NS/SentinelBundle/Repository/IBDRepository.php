@@ -35,10 +35,10 @@ class IBDRepository extends Common
         $config->addCustomDatetimeFunction('MONTH', 'DoctrineExtensions\Query\Mysql\Month');
 
         $queryBuilder = $this->createQueryBuilder($alias)
-            ->select(sprintf('MONTH(%s.admDate) as AdmissionMonth,COUNT(%s.admDx) as admDxCount,%s.admDx', $alias, $alias, $alias))
-            ->where(sprintf("(%s.admDx IS NOT NULL AND %s.age <= :age)", $alias, $alias))
+            ->select(sprintf('MONTH(%s.adm_date) as AdmissionMonth,COUNT(%s.adm_dx) as admDxCount,%s.adm_dx', $alias, $alias, $alias))
+            ->where(sprintf("(%s.adm_dx IS NOT NULL AND %s.age_months <= :age)", $alias, $alias))
             ->setParameter('age', $ageInMonths)
-            ->groupBy($alias . '.admDx,AdmissionMonth');
+            ->groupBy($alias . '.adm_dx,AdmissionMonth');
 
         return $this->secure($queryBuilder);
     }
@@ -51,19 +51,19 @@ class IBDRepository extends Common
         $results = array();
         $queryBuilder = $this->createQueryBuilder('m')
             ->select('COUNT(m.id) theCount')
-            ->where('m.cxrDone = :cxr')
+            ->where('m.cxr_done = :cxr')
             ->setParameter('cxr', TripleChoice::YES);
 
         $results['cxr'] = $this->secure($queryBuilder)->getQuery()->getSingleScalarResult();
 
         $queryBuilder = $this->createQueryBuilder('m')
-            ->select('m.csfCollected, COUNT(m.csfCollected) theCount')
-            ->groupBy('m.csfCollected');
+            ->select('m.csf_collected, COUNT(m.csf_collected) theCount')
+            ->groupBy('m.csf_collected');
 
         $res = $this->secure($queryBuilder)->getQuery()->getResult();
 
         foreach ($res as $row) {
-            if ($row['csfCollected']) {
+            if ($row['csf_collected']) {
                 $results['csfCollected'] = $row['theCount'];
             } else {
                 $results['csfNotCollected'] = $row['theCount'];
@@ -107,7 +107,7 @@ class IBDRepository extends Common
     public function getByCountry()
     {
         $queryBuilder = $this->createQueryBuilder('m')
-            ->select('COUNT(m) as numberOfCases, partial m.{id,admDate}, c')
+            ->select('COUNT(m) as numberOfCases, partial m.{id,adm_date}, c')
             ->innerJoin('m.country', 'c')
             ->groupBy('m.country');
 
@@ -120,8 +120,8 @@ class IBDRepository extends Common
     public function getByDiagnosis()
     {
         $queryBuilder = $this->createQueryBuilder('m')
-            ->select('COUNT(m) as numberOfCases, partial m.{id,dischDx}')
-            ->groupBy('m.dischDx');
+            ->select('COUNT(m) as numberOfCases, partial m.{id,disch_dx}')
+            ->groupBy('m.disch_dx');
 
         return $this->secure($queryBuilder)->getQuery()->getResult(Query::HYDRATE_ARRAY);
     }
@@ -132,7 +132,7 @@ class IBDRepository extends Common
     public function getBySite()
     {
         $queryBuilder = $this->createQueryBuilder('m')
-            ->select('COUNT(m) as numberOfCases, partial m.{id,admDate}, s ')
+            ->select('COUNT(m) as numberOfCases, partial m.{id,adm_date}, s ')
             ->innerJoin('m.site', 's')
             ->groupBy('m.site');
 
@@ -267,7 +267,7 @@ class IBDRepository extends Common
         $this->_em->getConfiguration()->addCustomDatetimeFunction('YEAR', 'DoctrineExtensions\Query\Mysql\Year');
 
         $queryBuilder = $this->createQueryBuilder($alias)
-            ->select(sprintf('YEAR(%s.admDate) as theYear, COUNT(%s.id) as theCount,%s.ageDistribution', $alias, $alias, $alias))
+            ->select(sprintf('YEAR(%s.adm_date) as theYear, COUNT(%s.id) as theCount,%s.ageDistribution', $alias, $alias, $alias))
             ->where(sprintf('(%s.result = :suspectedMening)', $alias))
             ->setParameter('suspectedMening', IBDCaseResult::PROBABLE)
             ->groupBy(sprintf('theYear,%s.ageDistribution', $alias))
@@ -312,8 +312,8 @@ class IBDRepository extends Common
     public function getCsfCollectedCountBySites($alias, array $siteCodes)
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
-            ->select(sprintf('%s.id,COUNT(%s.csfCollected) as caseCount,s.code', $alias, $alias))
-            ->andWhere(sprintf('%s.csfCollected = :csfCollected', $alias))
+            ->select(sprintf('%s.id,COUNT(%s.csf_collected) as caseCount,s.code', $alias, $alias))
+            ->andWhere(sprintf('%s.csf_collected = :csfCollected', $alias))
             ->setParameter('csfCollected', TripleChoice::YES);
     }
 
@@ -325,8 +325,8 @@ class IBDRepository extends Common
     public function getBloodCollectedCountBySites($alias, array $siteCodes)
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
-            ->select(sprintf('%s.id,COUNT(%s.bloodCollected) as caseCount,s.code', $alias, $alias))
-            ->andWhere(sprintf('%s.bloodCollected = :bloodCollected', $alias))
+            ->select(sprintf('%s.id,COUNT(%s.blood_collected) as caseCount,s.code', $alias, $alias))
+            ->andWhere(sprintf('%s.blood_collected = :bloodCollected', $alias))
             ->setParameter('bloodCollected', TripleChoice::YES);
     }
 
@@ -339,7 +339,7 @@ class IBDRepository extends Common
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
-            ->andWhere('(sl.bloodCultResult != :unknown OR sl.bloodGramResult != :unknown OR sl.bloodPcrResult != :unknown )')
+            ->andWhere('(sl.blood_cult_result != :unknown OR sl.blood_gram_result != :unknown OR sl.blood_pcr_result != :unknown )')
             ->setParameter('unknown', TripleChoice::UNKNOWN);
     }
 
@@ -352,7 +352,7 @@ class IBDRepository extends Common
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
-            ->andWhere('sl.csfCultResult != :unknown')
+            ->andWhere('sl.csf_cult_result != :unknown')
             ->setParameter('unknown', TripleChoice::UNKNOWN);
     }
 
@@ -365,7 +365,7 @@ class IBDRepository extends Common
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
-            ->andWhere('sl.csfBinaxResult != :unknown')
+            ->andWhere('sl.csf_binax_result != :unknown')
             ->setParameter('unknown', TripleChoice::UNKNOWN);
     }
 
@@ -378,7 +378,7 @@ class IBDRepository extends Common
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
-            ->andWhere('sl.csfBinaxDone = :yes')
+            ->andWhere('sl.csf_binax_done = :yes')
             ->setParameter('yes', TripleChoice::YES);
     }
 
@@ -391,7 +391,7 @@ class IBDRepository extends Common
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
-            ->andWhere('sl.csfLatResult != :unknown')
+            ->andWhere('sl.csf_lat_result != :unknown')
             ->setParameter('unknown', TripleChoice::UNKNOWN);
     }
 
@@ -404,7 +404,7 @@ class IBDRepository extends Common
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
-            ->andWhere('sl.csfLatDone = :yes')
+            ->andWhere('sl.csf_lat_done = :yes')
             ->setParameter('yes', TripleChoice::YES);
     }
 
@@ -417,7 +417,7 @@ class IBDRepository extends Common
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
-            ->andWhere('sl.csfPcrResult != :unknown')
+            ->andWhere('sl.csf_pcr_result != :unknown')
             ->setParameter('unknown', TripleChoice::UNKNOWN);
     }
 
@@ -430,7 +430,7 @@ class IBDRepository extends Common
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
-            ->andWhere('(sl.spnSerotype != :other OR sl.spnSerotype != :notDone)')
+            ->andWhere('(sl.spn_serotype != :other OR sl.spn_serotype != :notDone)')
             ->setParameter('other', SpnSerotype::OTHER)
             ->setParameter('notDone', SpnSerotype::_NOT_DONE);
     }
@@ -444,7 +444,7 @@ class IBDRepository extends Common
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
-            ->andWhere('(sl.hiSerotype != :other OR sl.hiSerotype != :notDone)')
+            ->andWhere('(sl.hi_serotype != :other OR sl.hi_serotype != :notDone)')
             ->setParameter('other', HiSerotype::OTHER)
             ->setParameter('notDone', HiSerotype::NOT_DONE);
     }
@@ -458,7 +458,7 @@ class IBDRepository extends Common
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
-            ->andWhere('sl.csfPcrResult = :spn')
+            ->andWhere('sl.csf_pcr_result = :spn')
             ->setParameter('spn', PCRResult::SPN);
     }
 
@@ -476,20 +476,20 @@ class IBDRepository extends Common
         $this->_em->getConfiguration()->addCustomDatetimeFunction('YEAR', 'DoctrineExtensions\Query\Mysql\Year');
 
         $queryBuilder = $this->getCountQueryBuilder($alias, $siteCodes)
-            ->select(sprintf('%s.id,COUNT(%s.id) as caseCount, s.code, YEAR(%s.admDate) as theYear', $alias, $alias, $alias));
+            ->select(sprintf('%s.id,COUNT(%s.id) as caseCount, s.code, YEAR(%s.adm_date) as theYear', $alias, $alias, $alias));
 
         if ($culture) {
-            $queryBuilder->andWhere('( sl.csfCultResult = :spn OR sl.csfCultResult = :hi OR sl.csfCultResult = :nm )')
+            $queryBuilder->andWhere('( sl.csf_cult_result = :spn OR sl.csf_cult_result = :hi OR sl.csf_cult_result = :nm )')
                 ->setParameter('spn', CultureResult::SPN)
                 ->setParameter('hi', CultureResult::HI)
                 ->setParameter('nm', CultureResult::NM);
         } else {
-            $queryBuilder->andWhere('( sl.csfCultResult = :negative )')
+            $queryBuilder->andWhere('( sl.csf_cult_result = :negative )')
                 ->setParameter('negative', CultureResult::NEGATIVE);
         }
 
         if ($binax !== null) {
-            $queryBuilder->andWhere('( sl.csfBinaxResult = :binax ) ');
+            $queryBuilder->andWhere('( sl.csf_binax_result = :binax ) ');
             if ($binax) {
                 $queryBuilder->setParameter('binax', BinaxResult::POSITIVE);
             } else {
@@ -499,12 +499,12 @@ class IBDRepository extends Common
 
         if ($pcr !== null) {
             if ($pcr) {
-                $queryBuilder->andWhere('( sl.csfPcrResult != :pcrNegative AND sl.csfPcrResult != :pcrContaminant AND sl.csfPcrResult != :pcrUnknown )')
+                $queryBuilder->andWhere('( sl.csf_pcr_result != :pcrNegative AND sl.csf_pcr_result != :pcrContaminant AND sl.csf_pcr_result != :pcrUnknown )')
                     ->setParameter('pcrNegative', CultureResult::NEGATIVE)
                     ->setParameter('pcrUnknown', CultureResult::UNKNOWN)
                     ->setParameter('pcrContaminant', CultureResult::CONTAMINANT);
             } else {
-                $queryBuilder->andWhere('( sl.csfPcrResult = :pcr )')->setParameter('pcr', CultureResult::NEGATIVE);
+                $queryBuilder->andWhere('( sl.csf_pcr_result = :pcr )')->setParameter('pcr', CultureResult::NEGATIVE);
             }
         }
 
@@ -520,7 +520,7 @@ class IBDRepository extends Common
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
-            ->andWhere(sprintf('(%s.admDx IS NULL OR %s.admDx IN (:noSelection,:outOfRange))', $alias, $alias))
+            ->andWhere(sprintf('(%s.adm_dx IS NULL OR %s.adm_dx IN (:noSelection,:outOfRange))', $alias, $alias))
             ->setParameter('noSelection', ArrayChoice::NO_SELECTION)
             ->setParameter('outOfRange', ArrayChoice::OUT_OF_RANGE);
     }
@@ -534,7 +534,7 @@ class IBDRepository extends Common
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
-            ->andWhere(sprintf('(%s.dischOutcome IS NULL OR %s.dischOutcome IN (:noSelection,:outOfRange))', $alias, $alias))
+            ->andWhere(sprintf('(%s.disch_outcome IS NULL OR %s.disch_outcome IN (:noSelection,:outOfRange))', $alias, $alias))
             ->setParameter('noSelection', ArrayChoice::NO_SELECTION)
             ->setParameter('outOfRange', ArrayChoice::OUT_OF_RANGE);
     }
@@ -548,7 +548,7 @@ class IBDRepository extends Common
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
-            ->andWhere(sprintf('(%s.dischDx IS NULL OR %s.dischDx IN (:noSelection,:outOfRange))', $alias, $alias))
+            ->andWhere(sprintf('(%s.disch_dx IS NULL OR %s.disch_dx IN (:noSelection,:outOfRange))', $alias, $alias))
             ->setParameter('noSelection', ArrayChoice::NO_SELECTION)
             ->setParameter('outOfRange', ArrayChoice::OUT_OF_RANGE);
     }
@@ -559,7 +559,7 @@ class IBDRepository extends Common
         $config->addCustomDatetimeFunction('MONTH', 'DoctrineExtensions\Query\Mysql\Month');
 
         return $this->getCountQueryBuilder($alias, $siteCodes)
-            ->select(sprintf('%s.id,MONTH(%s.admDate) as theMonth,COUNT(%s.id) as caseCount,s.code', $alias, $alias, $alias))
+            ->select(sprintf('%s.id,MONTH(%s.adm_date) as theMonth,COUNT(%s.id) as caseCount,s.code', $alias, $alias, $alias))
             ->addGroupBy('theMonth')
             ;
     }
@@ -568,7 +568,7 @@ class IBDRepository extends Common
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
-            ->andWhere(sprintf('(%s.csfCollected = :tripleYes OR %s.bloodCollected = :tripleYes)', $alias, $alias))
+            ->andWhere(sprintf('(%s.csf_collected = :tripleYes OR %s.blood_collected = :tripleYes)', $alias, $alias))
             ->setParameter('tripleYes', TripleChoice::YES);
     }
 

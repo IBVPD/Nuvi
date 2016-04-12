@@ -27,12 +27,19 @@ abstract class BaseExternalLab
     protected $caseFile;
 
     /**
-     * @var string $labId
-     * @ORM\Column(name="labId",type="string",nullable=true)
+     * @var string $lab_id
+     * @ORM\Column(name="lab_id",type="string",nullable=true)
      * @Assert\NotBlank
      * @Serializer\Groups({"api"})
      */
-    protected $labId;
+    protected $lab_id;
+
+    /**
+     * @var \DateTime $dateReceived
+     * @ORM\Column(name="dt_sample_recd", type="date",nullable=true)
+     * @Serializer\Groups({"api"})
+     */
+    protected $dt_sample_recd;
 
     /**
      * @var CaseStatus $status
@@ -81,6 +88,42 @@ abstract class BaseExternalLab
     }
 
     /**
+     * @return \DateTime
+     */
+    public function getDateReceived()
+    {
+        return $this->dt_sample_recd;
+    }
+
+    /**
+     * @param \DateTime|null $dateReceived
+     * @return $this
+     */
+    public function setDateReceived(\DateTime $dateReceived = null)
+    {
+        $this->dt_sample_recd = $dateReceived;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDtSampleRecd()
+    {
+        return $this->dt_sample_recd;
+    }
+
+    /**
+     * @param \DateTime $dt_sample_recd
+     * @return BaseExternalLab
+     */
+    public function setDtSampleRecd($dt_sample_recd)
+    {
+        $this->dt_sample_recd = $dt_sample_recd;
+        return $this;
+    }
+
+    /**
      * Set case
      *
      * @param  $case
@@ -124,7 +167,7 @@ abstract class BaseExternalLab
      */
     public function getLabId()
     {
-        return $this->labId;
+        return $this->lab_id;
     }
 
     /**
@@ -133,7 +176,7 @@ abstract class BaseExternalLab
      */
     public function setLabId($labId)
     {
-        $this->labId = $labId;
+        $this->lab_id = $labId;
         return $this;
     }
 

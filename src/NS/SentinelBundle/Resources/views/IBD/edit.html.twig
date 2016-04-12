@@ -1,7 +1,7 @@
 {%extends "NSSentinelBundle::layout.html.twig" %}
 
 {% block pagetitle %}
-{{'Edit Case %id%'|trans({'%id%': form.vars.value.caseId})}}
+{#{{'Edit Case %id%'|trans({'%id%': form.vars.value.caseId})}}#}
 {% endblock %}
 
 {%block pageactions %}
@@ -65,7 +65,7 @@
                     <div class="col-sm-3">
                         {{form_row(form.meningReceived)}}
                         {{form_row(form.meningType)}}
-                        {{form_row(form.meningMostRecentDose)}}
+                        {{form_row(form.meningDate)}}
                     </div>
                 </div>
             </div>
@@ -82,7 +82,8 @@
                 <div class="row">
                     <div class="col-sm-4">
                         {{form_row(form.csfCollected)}}
-                        {{form_row(form.csfCollectDateTime)}}
+                        {{form_row(form.csfCollectDate)}}
+                        {{form_row(form.csfCollectTime)}}
                         {{form_row(form.csfAppearance)}}
                     </div>
                     <div class="col-sm-4">

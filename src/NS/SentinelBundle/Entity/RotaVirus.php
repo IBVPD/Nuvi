@@ -20,7 +20,7 @@ use \JMS\Serializer\Annotation\Exclude;
  * Description of RotaVirus
  * @author gnat
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\RotaVirusRepository")
- * @ORM\Table(name="rotavirus_cases",uniqueConstraints={@ORM\UniqueConstraint(name="rotavirus_site_case_id_idx",columns={"site_id","caseId"})})
+ * @ORM\Table(name="rotavirus_cases",uniqueConstraints={@ORM\UniqueConstraint(name="rotavirus_site_case_id_idx",columns={"site_id","case_id"})})
  * @Gedmo\Loggable
  * @Secured(conditions={
  *      @SecuredCondition(roles={"ROLE_REGION"},relation="region",class="NSSentinelBundle:Region"),
@@ -72,7 +72,7 @@ class RotaVirus extends BaseCase
     /**
      * symp_diarrhoea
      * @var TripleChoice $symptomDiarrhea
-     * @ORM\Column(name="symptomDiarrhea",type="TripleChoice",nullable=true)
+     * @ORM\Column(name="symp_diarrhea",type="TripleChoice",nullable=true)
      * @Groups({"api"})
      */
     private $symptomDiarrhea;
@@ -80,7 +80,7 @@ class RotaVirus extends BaseCase
     /**
      * symp_dia_onset_date
      * @var \DateTime $symptomDiarrheaOnset
-     * @ORM\Column(name="symptomDiarrheaOnset",type="date",nullable=true)
+     * @ORM\Column(name="symp_dia_onset_date",type="date",nullable=true)
      * @Groups({"api"})
      */
     private $symptomDiarrheaOnset;
@@ -88,7 +88,7 @@ class RotaVirus extends BaseCase
     /**
      * symp_dia_episodes
      * @var integer $symptomDiarrheaEpisodes
-     * @ORM\Column(name="symptomDiarrheaEpisodes",type="integer",nullable=true)
+     * @ORM\Column(name="symp_dia_episodes",type="integer",nullable=true)
      * @Groups({"api"})
      */
     private $symptomDiarrheaEpisodes;
@@ -96,7 +96,7 @@ class RotaVirus extends BaseCase
     /**
      * symp_dia_duration
      * @var integer $symptomDiarrheaDuration
-     * @ORM\Column(name="symptomDiarrheaDuration",type="integer",nullable=true)
+     * @ORM\Column(name="symp_dia_duration",type="integer",nullable=true)
      * @Groups({"api"})
      */
     private $symptomDiarrheaDuration;
@@ -104,7 +104,7 @@ class RotaVirus extends BaseCase
     /**
      * symp_vomit
      * @var TripleChoice $symptomVomit
-     * @ORM\Column(name="symptomVomit",type="TripleChoice",nullable=true)
+     * @ORM\Column(name="symp_vomit",type="TripleChoice",nullable=true)
      * @Groups({"api"})
      */
     private $symptomVomit;
@@ -112,7 +112,7 @@ class RotaVirus extends BaseCase
     /**
      * symp_vomit_episodes
      * @var integer $symptomVomitEpisodes
-     * @ORM\Column(name="symptomVomitEpisodes",type="integer",nullable=true)
+     * @ORM\Column(name="symp_vomit_episodes",type="integer",nullable=true)
      * @Groups({"api"})
      */
     private $symptomVomitEpisodes;
@@ -120,7 +120,7 @@ class RotaVirus extends BaseCase
     /**
      * symp_vomit_duration
      * @var integer $symptomVomitDuration
-     * @ORM\Column(name="symptomVomitDuration",type="integer",nullable=true)
+     * @ORM\Column(name="symp_vomit_duration",type="integer",nullable=true)
      * @Groups({"api"})
      */
     private $symptomVomitDuration;
@@ -128,18 +128,10 @@ class RotaVirus extends BaseCase
     /**
      * symp_dehydration
      * @var TripleChoice $symptomDehydration
-     * @ORM\Column(name="symptomDehydration",type="TripleChoice",nullable=true)
+     * @ORM\Column(name="symp_dehydration",type="Dehydration",nullable=true)
      * @Groups({"api"})
      */
     private $symptomDehydration;
-
-    /**
-     * symp_dehydration
-     * @var Dehydration $symptomDehydration
-     * @ORM\Column(name="symptomDehydrationAmount",type="Dehydration",nullable=true)
-     * @Groups({"api"})
-     */
-    private $symptomDehydrationAmount;
 
 // Treatment
     /**
@@ -153,7 +145,7 @@ class RotaVirus extends BaseCase
     /**
      * rehydration_type
      * @var Rehydration $rehydrationType
-     * @ORM\Column(name="rehydrationType",type="Rehydration",nullable=true)
+     * @ORM\Column(name="rehydration_type",type="Rehydration",nullable=true)
      * @Groups({"api"})
      */
     private $rehydrationType;
@@ -161,7 +153,7 @@ class RotaVirus extends BaseCase
     /**
      * rehydration_type_other
      * @var string $rehydrationOther
-     * @ORM\Column(name="rehydrationOther",type="string",nullable=true)
+     * @ORM\Column(name="rehydration_other",type="string",nullable=true)
      * @Groups({"api"})
      */
     private $rehydrationOther;
@@ -169,7 +161,7 @@ class RotaVirus extends BaseCase
 //iv. Case-based Vaccination History
     /**
      * @var RotavirusVaccinationReceived $vaccinationReceived
-     * @ORM\Column(name="vaccinationReceived",type="RotavirusVaccinationReceived",nullable=true)
+     * @ORM\Column(name="rv_received",type="RotavirusVaccinationReceived",nullable=true)
      * @Groups({"api"})
      */
     private $vaccinationReceived;
@@ -177,7 +169,7 @@ class RotaVirus extends BaseCase
     /**
      * RV_type
      * @var RotavirusVaccinationType $vaccinationType
-     * @ORM\Column(name="vaccinationType",type="RotavirusVaccinationType",nullable=true)
+     * @ORM\Column(name="rv_type",type="RotavirusVaccinationType",nullable=true)
      * @Groups({"api"})
      */
     private $vaccinationType;
@@ -185,7 +177,7 @@ class RotaVirus extends BaseCase
     /**
      * RV_doses
      * @var ThreeDoses $doses
-     * @ORM\Column(name="doses",type="ThreeDoses",nullable=true)
+     * @ORM\Column(name="rv_doses",type="ThreeDoses",nullable=true)
      * @Groups({"api"})
      */
     private $doses;
@@ -193,7 +185,7 @@ class RotaVirus extends BaseCase
     /**
      * RV_dose1_date
      * @var \DateTime $firstVaccinationDose
-     * @ORM\Column(name="firstVaccinationDose",type="date",nullable=true)
+     * @ORM\Column(name="rv_dose1_date",type="date",nullable=true)
      * @Groups({"api"})
      */
     private $firstVaccinationDose;
@@ -201,7 +193,7 @@ class RotaVirus extends BaseCase
     /**
      * RV_dose2_date
      * @var \DateTime $secondVaccinationDose
-     * @ORM\Column(name="secondVaccinationDose",type="date",nullable=true)
+     * @ORM\Column(name="rv_dose2_date",type="date",nullable=true)
      * @Groups({"api"})
      */
     private $secondVaccinationDose;
@@ -209,7 +201,7 @@ class RotaVirus extends BaseCase
     /**
      * RV_dose3_date
      * @var \DateTime $thirdVaccinationDose
-     * @ORM\Column(name="thirdVaccinationDose",type="date",nullable=true)
+     * @ORM\Column(name="rv_dose3_date",type="date",nullable=true)
      * @Groups({"api"})
      */
     private $thirdVaccinationDose;
@@ -218,7 +210,7 @@ class RotaVirus extends BaseCase
     /**
      * stool_collected
      * @var TripleChoice $stoolCollected
-     * @ORM\Column(name="stoolCollected",type="TripleChoice",nullable=true)
+     * @ORM\Column(name="stool_collected",type="TripleChoice",nullable=true)
      * @Groups({"api"})
      */
     private $stoolCollected;
@@ -226,7 +218,7 @@ class RotaVirus extends BaseCase
     /**
      * stool_ID
      * @var string $stoolId
-     * @ORM\Column(name="stoolId",type="string",nullable=true)
+     * @ORM\Column(name="stool_id",type="string",nullable=true)
      * @Groups({"api"})
      */
     private $stoolId;
@@ -234,7 +226,7 @@ class RotaVirus extends BaseCase
     /**
      * stool_collect_date
      * @var \DateTime $stoolCollectionDate
-     * @ORM\Column(name="stoolCollectionDate",type="date",nullable=true)
+     * @ORM\Column(name="stool_collect_date",type="date",nullable=true)
      * @Groups({"api"})
      */
     private $stoolCollectionDate;
@@ -243,21 +235,21 @@ class RotaVirus extends BaseCase
     /**
      * disch_outcome
      * @var RotavirusDischargeOutcome $dischargeOutcome
-     * @ORM\Column(name="dischargeOutcome",type="RotavirusDischargeOutcome",nullable=true)
+     * @ORM\Column(name="disch_outcome",type="RotavirusDischargeOutcome",nullable=true)
      * @Groups({"api"})
      */
     private $dischargeOutcome;
 
     /**
      * @var \DateTime $dischargeDate
-     * @ORM\Column(name="dischargeDate",type="date",nullable=true)
+     * @ORM\Column(name="disch_date",type="date",nullable=true)
      * @Groups({"api"})
      */
     private $dischargeDate;
 
     /**
      * @var string $dischargeClassOther
-     * @ORM\Column(name="dischargeClassOther",type="string",nullable=true)
+     * @ORM\Column(name="disch_class_other",type="string",nullable=true)
      * @Groups({"api"})
      */
     private $dischargeClassOther;
@@ -332,14 +324,6 @@ class RotaVirus extends BaseCase
     public function getSymptomDehydration()
     {
         return $this->symptomDehydration;
-    }
-
-    /**
-     * @return Dehydration
-     */
-    public function getSymptomDehydrationAmount()
-    {
-        return $this->symptomDehydrationAmount;
     }
 
     /**
@@ -542,22 +526,12 @@ class RotaVirus extends BaseCase
     }
 
     /**
-     * @param TripleChoice $symptomDehydration
+     * @param Dehydration $symptomDehydration
      * @return $this
      */
-    public function setSymptomDehydration(TripleChoice $symptomDehydration = null)
+    public function setSymptomDehydration(Dehydration $symptomDehydration = null)
     {
         $this->symptomDehydration = $symptomDehydration;
-        return $this;
-    }
-
-    /**
-     * @param Dehydration $symptomDehydrationAmount
-     * @return $this
-     */
-    public function setSymptomDehydrationAmount(Dehydration $symptomDehydrationAmount = null)
-    {
-        $this->symptomDehydrationAmount = $symptomDehydrationAmount;
         return $this;
     }
 

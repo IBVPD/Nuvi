@@ -4,6 +4,7 @@ namespace NS\SentinelBundle\Repository;
 
 use \Doctrine\ORM\NoResultException;
 use \Doctrine\ORM\Query;
+use NS\SentinelBundle\Entity\RotaVirus;
 use \NS\SentinelBundle\Exceptions\NonExistentCaseException;
 use NS\SentinelBundle\Form\Types\ElisaResult;
 use NS\SentinelBundle\Form\Types\TripleChoice;
@@ -164,7 +165,7 @@ class RotaVirusRepository extends Common
             ->innerJoin('m.site', 's')
             ->innerJoin('s.country', 'c')
             ->innerJoin('m.region', 'r')
-            ->where('m.caseId = :caseId')
+            ->where('m.case_id = :caseId')
             ->setParameter('caseId', $caseId);
 
         if ($objId) {
@@ -174,7 +175,7 @@ class RotaVirusRepository extends Common
         try {
             return $this->secure($queryBuilder)->getQuery()->getSingleResult();
         } catch (NoResultException $exception) {
-            $res = new \NS\SentinelBundle\Entity\RotaVirus();
+            $res = new RotaVirus();
             $res->setCaseId($caseId);
 
             return $res;

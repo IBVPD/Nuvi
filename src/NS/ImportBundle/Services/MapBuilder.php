@@ -174,12 +174,6 @@ class MapBuilder
      */
     public function camelCase($input)
     {
-        if (empty($input)) {
-            return $input;
-        }
-
-        $output = preg_replace("/[^A-Za-z0-9 ]/", ' ', strtolower($input));
-
-        return str_replace(' ', '', lcfirst(ucwords($output)));
+        return CamelCaser::process($input);
     }
 }

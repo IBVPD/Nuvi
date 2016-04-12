@@ -159,12 +159,12 @@ class ImportResultUpdater
     {
         $successFile = $import->getSuccessFile();
         $fileWriter = $successFile->openFile('a');
-        $headers = array('id','caseId','country','site','siteName');
+        $headers = array('id','case_id','country','site','siteName');
         $first = false;
         foreach ($entities as $entity) {
             $item = array(
                 'id' => $entity->getId(),
-                'caseId' => $entity->getCaseId(),
+                'case_id' => $entity->getCaseId(),
                 'country' => $entity->getCountry()->getCode(),
             );
 

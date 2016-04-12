@@ -206,7 +206,7 @@ sonata_admin:
 jms_serializer:
     property_naming:
         separator:  ~
-        lower_case: false
+        lower_case: true
 
     metadata:
         cache: file

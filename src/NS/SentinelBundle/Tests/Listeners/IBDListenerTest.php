@@ -196,7 +196,7 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
         $row                            = $complete;
         $row['setmeningReceived']       = new MeningitisVaccinationReceived(MeningitisVaccinationReceived::YES_CARD);
         $row['setmeningType']           = new MeningitisVaccinationType(MeningitisVaccinationType::ACW135);
-        $row['setmeningMostRecentDose'] = new \DateTime();
+        $row['setmeningDate'] = new \DateTime();
         $data[]                         = array('data' => $row);
 
         $doses = new ThreeDoses();
@@ -220,7 +220,8 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
             $row = $complete;
             $row['setcsfCollected'] = $tripleYes;
             $row['setcsfId'] = 'null';
-            $row['setcsfCollectDateTime'] = new \DateTime();
+            $row['setcsfCollectDate'] = new \DateTime();
+            $row['setcsfCollectTime'] = $row['setcsfCollectDate'];
             $row['setcsfAppearance'] = new CSFAppearance($v);
             $data[] = array('data' => $row);
         }
@@ -424,10 +425,11 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
             'setpcvDoses'             => null,
             'setmeningReceived'       => new MeningitisVaccinationReceived(MeningitisVaccinationReceived::NO),
             'setmeningType'           => null,
-            'setmeningMostRecentDose' => null,
+            'setmeningDate' => null,
             'setcsfCollected'         => $tripleNo,
             'setcsfId'                => null,
-            'setcsfCollectDateTime'   => null,
+            'setcsfCollectDate'       => null,
+            'setcsfCollectTime'       => null,
             'setcsfAppearance'        => null,
             'setbloodCollected'       => $tripleNo,
             'setbloodId'              => null,
@@ -470,10 +472,11 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
             'setpcvDoses'               => null,
             'setmeningReceived'         => new MeningitisVaccinationReceived(MeningitisVaccinationReceived::NO),
             'setmeningType'             => null,
-            'setmeningMostRecentDose'   => null,
+            'setmeningDate'   => null,
             'setcsfCollected'           => $tripleNo,
 //                    'setcsfId'             => null,
-            'setcsfCollectDateTime'     => null,
+            'setcsfCollectDate'         => null,
+            'setcsfCollectTime'         => null,
             'setcsfAppearance'          => null,
             'setbloodCollected'         => $tripleNo,
             'setOtherSpecimenCollected' => new OtherSpecimen(OtherSpecimen::NONE),

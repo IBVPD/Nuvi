@@ -19,11 +19,11 @@ services:
 
   ns_import.standard_case_linker:
     class: NS\ImportBundle\Linker\CaseLinker
-    arguments: [ ['site', 'caseId'], 'findBySiteAndCaseId' ]
+    arguments: [ ['site', 'case_id'], 'findBySiteAndCaseId' ]
 
   ns_import.reference_case_linker:
     class: NS\ImportBundle\Linker\CaseLinker
-    arguments: [ ['country','caseId'], 'findByCaseIdAndCheckCountry' ]
+    arguments: [ ['country','case_id'], 'findByCaseIdAndCheckCountry' ]
 
   ns_import.reader_factory:
     class: NS\ImportBundle\Reader\ReaderFactory

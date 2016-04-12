@@ -80,9 +80,9 @@ class BaseCaseGenerator extends AbstractIdGenerator
 
     public function getYear(BaseCase $case)
     {
-        if (property_exists($case, 'admDate') && $case->getAdmDate() instanceof \DateTime) {
+        if (method_exists($case, 'getAdmDate') && $case->getAdmDate() instanceof \DateTime) {
             return $case->getAdmDate()->format('y');
-        } elseif (property_exists($case, 'onsetDate') && $case->getOnsetDate() instanceof \DateTime) {
+        } elseif (method_exists($case, 'getOnsetDate') && $case->getOnsetDate() instanceof \DateTime) {
             return $case->getOnsetDate()->format('y');
         } else {
             return date('y');

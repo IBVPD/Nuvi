@@ -19,13 +19,13 @@
                 <li><a data-toggle="tab" href="#csf">{{'CSF'|trans}}</a></li>
                 <li><a data-toggle="tab" href="#blood">{{'Blood'|trans}}</a></li>
                 <li><a data-toggle="tab" href="#other">{{'Other Fluids'|trans}}</a></li>
-                <li><a data-toggle="tab" href="#sero">{{'Serotype Results'|trans}}</a></li>
             </ul>
 
             <div class="tab-content">
 
                 <div id="collection" class="tab-pane active">
-                    {{form_row(form.csfDateTime)}}
+                    {{form_row(form.csfLabDate)}}
+                    {{form_row(form.csfLabTime)}}
                     {% if form.sentToReferenceLab is defined %}
                         <div class="row">
                             <div class="col-md-3">
@@ -179,15 +179,6 @@
                             {{form_row(form.bloodPcrOther)}}
                         </div>
                     </div>
-                </div>
-
-                <div id="sero" class="tab-pane">
-                    {{form_row(form.spnSerotype)}}
-                    {{form_row(form.spnSerotypeOther)}}
-                    {{form_row(form.hiSerotype)}}
-                    {{form_row(form.hiSerotypeOther)}}
-                    {{form_row(form.nmSerogroup)}}
-                    {{form_row(form.nmSerogroupOther)}}
                 </div>
 
                 <div id="other" class="tab-pane">

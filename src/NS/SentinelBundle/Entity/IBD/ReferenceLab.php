@@ -24,6 +24,7 @@ class ReferenceLab extends ExternalLab implements ReferenceLabResultInterface
     /**
      * @var \NS\SentinelBundle\Entity\ReferenceLab $lab
      * @ORM\ManyToOne(targetEntity="NS\SentinelBundle\Entity\ReferenceLab",inversedBy="ibdCases")
+     * @ORM\JoinColumn(name="rrl_id")
      */
     private $lab;
 

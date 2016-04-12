@@ -17,7 +17,7 @@ use \NS\SentinelBundle\Validators as LocalAssert;
  * @author gnat
  * @ORM\MappedSuperclass
  * @SuppressWarnings(PHPMD.ShortVariable)
- * @UniqueEntity(fields={"site","caseId"}, message="The case id already exists for this site!")
+ * @UniqueEntity(fields={"site","case_id"}, message="The case id already exists for this site!")
  *
  * @LocalAssert\GreaterThanDate(lessThanField="birthdate",greaterThanField="admDate",message="The date of birth is past the date of admission")
  */
@@ -62,12 +62,12 @@ abstract class BaseCase
 
     /**
      * case_ID
-     * @var string $caseId
-     * @ORM\Column(name="caseId",type="string",nullable=false)
+     * @var string $case_id
+     * @ORM\Column(name="case_id",type="string",nullable=false)
      * @Assert\NotBlank()
      * @Serializer\Groups({"api"})
      */
-    protected $caseId;
+    protected $case_id;
 
     /**
      * @var string $district
@@ -100,10 +100,10 @@ abstract class BaseCase
 
     /**
      * @var integer $age
-     * @ORM\Column(name="age",type="integer",nullable=true)
+     * @ORM\Column(name="age_months",type="integer",nullable=true)
      * @Serializer\Groups({"api"})
      */
-    protected $age;
+    protected $age_months;
 
     /**
      * @var integer $ageDistribution
@@ -120,10 +120,10 @@ abstract class BaseCase
 
     /**
      * @var \DateTime $admDate
-     * @ORM\Column(name="admDate",type="date",nullable=true)
+     * @ORM\Column(name="adm_date",type="date",nullable=true)
      * @Serializer\Groups({"api"})
      */
-    protected $admDate;
+    protected $adm_date;
 
     /**
      * @var CaseStatus $status
@@ -554,7 +554,7 @@ abstract class BaseCase
      */
     public function getAdmDate()
     {
-        return $this->admDate;
+        return $this->adm_date;
     }
 
     /**
@@ -562,7 +562,7 @@ abstract class BaseCase
      */
     public function getCaseId()
     {
-        return $this->caseId;
+        return $this->case_id;
     }
 
     /**
@@ -571,7 +571,15 @@ abstract class BaseCase
      */
     public function getAge()
     {
-        return $this->age;
+        return $this->age_months;
+    }
+
+    /**
+     * @return integer
+     */
+    public function getAgeMonths()
+    {
+        return $this->age_months;
     }
 
     /**
@@ -598,8 +606,8 @@ abstract class BaseCase
      */
     public function getDobYears()
     {
-        if (!$this->dobYears && $this->age) {
-            $this->dobYears = (int)($this->age/12);
+        if (!$this->dobYears && $this->age_months) {
+            $this->dobYears = (int)($this->age_months / 12);
         }
 
         return $this->dobYears;
@@ -611,9 +619,9 @@ abstract class BaseCase
      */
     public function getDobMonths()
     {
-        if (!$this->dobMonths && $this->age) {
+        if (!$this->dobMonths && $this->age_months) {
             $this->getDobYears();
-            $this->dobMonths = (int) ($this->age - ($this->dobYears * 12));
+            $this->dobMonths = (int) ($this->age_months - ($this->dobYears * 12));
         }
 
         return $this->dobMonths;
@@ -683,7 +691,7 @@ abstract class BaseCase
      */
     public function setAdmDate(\DateTime $admDate = null)
     {
-        $this->admDate = $admDate;
+        $this->adm_date = $admDate;
 
         return $this;
     }
@@ -695,7 +703,7 @@ abstract class BaseCase
      */
     public function setCaseId($caseId)
     {
-        $this->caseId = $caseId;
+        $this->case_id = $caseId;
 
         return $this;
     }
@@ -707,8 +715,18 @@ abstract class BaseCase
      */
     public function setAge($age)
     {
-        $this->age = $age;
+        $this->age_months = $age;
 
+        return $this;
+    }
+
+    /**
+     * @param int $age_months
+     * @return \NS\SentinelBundle\Entity\BaseCase
+     */
+    public function setAgeMonths($age_months)
+    {
+        $this->age_months = $age_months;
         return $this;
     }
 

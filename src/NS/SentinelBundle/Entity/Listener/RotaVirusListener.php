@@ -44,7 +44,6 @@ class RotaVirusListener extends BaseCaseListener
             'symptomVomitEpisodes',
             'symptomVomitDuration',
             'symptomDehydration',
-            'symptomDehydrationAmount',
             'rehydration',
             'rehydrationType',
             'rehydrationOther',

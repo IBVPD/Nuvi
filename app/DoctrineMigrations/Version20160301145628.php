@@ -22,8 +22,6 @@ class Version20160301145628 extends AbstractMigration
         $this->addSql('ALTER TABLE rotavirus_cases CHANGE dob birthdate DATE DEFAULT NULL');
         $this->addSql('ALTER TABLE ibd_cases CHANGE dob birthdate DATE DEFAULT NULL');
         $this->addSql('ALTER TABLE ibd_site_labs CHANGE csfGramResult csfGramStain INT DEFAULT NULL COMMENT \'(DC2Type:GramStain)\', CHANGE bloodGramResult bloodGramStain INT DEFAULT NULL COMMENT \'(DC2Type:GramStain)\', CHANGE csfGramResultOrganism csfGramResult INT DEFAULT NULL COMMENT \'(DC2Type:GramStainResult)\', CHANGE bloodGramResultOrganism bloodGramResult INT DEFAULT NULL COMMENT \'(DC2Type:GramStainResult)\'');
-//        $this->addSql('ALTER TABLE access_tokens ADD CONSTRAINT FK_58D184BC19EB6921 FOREIGN KEY (client_id) REFERENCES api_clients (id)');
-//        $this->addSql('ALTER TABLE access_tokens ADD CONSTRAINT FK_58D184BCA76ED395 FOREIGN KEY (user_id) REFERENCES users (id)');
     }
 
     /**

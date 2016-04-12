@@ -31,7 +31,8 @@ NS\SentinelBundle\Entity\IBD:
     hibMostRecentDose: <dateTimeBetween($birthdate,'now')>
     admDate: <dateTimeBetween('2015-01-01', '2015-01-05')>
     csfCollected: <done()>
-    csfCollectDateTime: <dateTimeBetween($admDate,'now')>
+    csfCollectDate: <dateTimeBetween($admDate,'now')>
+    csfCollectTime: <dateTimeBetween($admDate,'now')>
     csfAppearance: <csfAppearance($csfCollected)>
     site: @site0
   ibdNoSite:
@@ -67,7 +68,8 @@ NS\SentinelBundle\Entity\IBD:
     hibDoses: <fourDoses()>
     hibMostRecentDose: <dateTimeBetween($birthdate,'now')>
     csfCollected: <done()>
-    csfCollectDateTime: <dateTimeBetween($admDate,'now')>
+    csfCollectDate: <dateTimeBetween($admDate,'now')>
+    csfCollectTime: <dateTimeBetween($admDate,'now')>
     csfAppearance: <csfAppearance($csfCollected)>
     admDx: 75%? <ibdDiagnosis()>
     dischDx: 77%? <ibdDischargeDiagnosis()>

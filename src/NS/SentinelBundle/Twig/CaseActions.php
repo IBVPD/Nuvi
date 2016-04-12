@@ -66,6 +66,7 @@ class CaseActions extends \Twig_Extension
 
     /**
      * @param BaseCase $row
+     * @param bool $includeIndex
      * @return string
      */
     public function getBigActions(BaseCase $row, $includeIndex = true)

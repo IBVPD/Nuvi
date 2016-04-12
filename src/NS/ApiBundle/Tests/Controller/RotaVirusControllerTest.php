@@ -13,7 +13,7 @@ use \NS\UtilBundle\Form\Types\ArrayChoice;
  */
 class RotaVirusControllerTest extends WebTestCase
 {
-    const ID = 'CA-ALBCHLD-15-000081';
+    const ID = 'CA-ALBCHLD-15-000082';
 
     public function testGetCase()
     {
@@ -27,8 +27,8 @@ class RotaVirusControllerTest extends WebTestCase
         $content = $response->getContent();
         $decoded = json_decode($content, true);
 
-        $this->assertArrayHasKey('Id', $decoded);
-        $this->assertEquals(self::ID, $decoded['Id']);
+        $this->assertArrayHasKey('id', $decoded);
+        $this->assertEquals(self::ID, $decoded['id']);
     }
 
     public function testPatchCase()
@@ -38,6 +38,10 @@ class RotaVirusControllerTest extends WebTestCase
         $client->request('PATCH', $route, array(), array(), array(), '{"rotavirus":{"lastName":"Fabien","gender":"2"}}');
 
         $response = $client->getResponse();
+        if ($response->getStatusCode() == 500) {
+            file_put_contents('/tmp/nsApiRotaPatchCase.log', $response->getContent());
+        }
+
         $this->assertEquals(204, $response->getStatusCode());
         $this->assertFalse($response->headers->has('Location'), "We have a location header");
 
@@ -53,17 +57,21 @@ class RotaVirusControllerTest extends WebTestCase
         $client->request('POST', $route, array(), array(), array(), '{"create_case":{"caseId":"123","type":"1","site":"ALBCHLD"}}');
 
         $response = $client->getResponse();
+        if ($response->getStatusCode() != 201) {
+            file_put_contents('/tmp/nsApiRotaPostCase.log', print_r($response->headers,true).$response->getContent());
+        }
+
         $this->assertEquals(201, $response->getStatusCode());
-        $this->assertTrue($response->headers->has('Location'), "We have a location header");
+        $this->assertTrue($response->headers->has('Location'), "We have a location header ".print_r($response->headers,true));
 
         $client->request('GET', $response->headers->get('Location'));
         $response = $client->getResponse();
         $this->assertJsonResponse($response, 200);
         $decoded  = json_decode($response->getContent(), true);
 
-        $this->assertArrayHasKey('CaseId', $decoded);
-        $this->assertArrayNotHasKey('Lab', $decoded);
-        $this->assertEquals("123", $decoded['CaseId']);
+        $this->assertArrayHasKey('case_id', $decoded);
+        $this->assertArrayNotHasKey('lab', $decoded);
+        $this->assertEquals("123", $decoded['case_id']);
     }
 
     public function testLabCase()
@@ -73,6 +81,10 @@ class RotaVirusControllerTest extends WebTestCase
         $client->request('PATCH', $route, array(), array(), array(), '{"rotavirus_lab":{"adequate":1,"elisaDone":1}}');
 
         $response = $client->getResponse();
+        if ($response->getStatusCode() == 500) {
+            file_put_contents('/tmp/nsApiRotaPatchLab.log', $response->getContent());
+        }
+
         $this->assertEquals(204, $response->getStatusCode());
         $this->assertFalse($response->headers->has('Location'), "We have a location header");
 
@@ -81,7 +93,7 @@ class RotaVirusControllerTest extends WebTestCase
         $this->assertJsonResponse($response, 200);
         $decoded  = json_decode($response->getContent(), true);
 
-        $this->assertArrayHasKey('Adequate', $decoded, print_r($decoded, true));
+        $this->assertArrayHasKey('adequate', $decoded);
     }
 
     /**
@@ -94,6 +106,10 @@ class RotaVirusControllerTest extends WebTestCase
         $client->request('GET', $this->getRoute('nsApiRotaGetRRL'));
 
         $response = $client->getResponse();
+        if ($response->getStatusCode() == 500) {
+            file_put_contents('/tmp/nsApiRotaGetRRL.log', $response->getContent());
+        }
+
         $this->assertJsonResponse($response, 200);
         json_decode($response->getContent(), true);
     }
@@ -148,7 +164,7 @@ class RotaVirusControllerTest extends WebTestCase
         $this->assertJsonResponse($response, 200);
         $decoded  = json_decode($response->getContent(), true);
 
-        $this->assertArrayHasKey('Status', $decoded, print_r($decoded, true));
+        $this->assertArrayHasKey('status', $decoded);
     }
 
     public function testPatchNLCase()
@@ -166,8 +182,8 @@ class RotaVirusControllerTest extends WebTestCase
         $this->assertJsonResponse($response, 200);
         $decoded  = json_decode($response->getContent(), true);
 
-        $this->assertArrayHasKey('LabId', $decoded, print_r(array_keys($decoded), true));
-        $this->assertEquals("ANewCaseId", $decoded['LabId']);
+        $this->assertArrayHasKey('lab_id', $decoded, print_r(array_keys($decoded), true));
+        $this->assertEquals("ANewCaseId", $decoded['lab_id']);
     }
 
     public function testPutNLCase()
@@ -185,8 +201,8 @@ class RotaVirusControllerTest extends WebTestCase
         $this->assertJsonResponse($response, 200);
         $decoded  = json_decode($response->getContent(), true);
 
-        $this->assertArrayHasKey('LabId', $decoded);
-        $this->assertEquals("ANewCaseId", $decoded['LabId']);
+        $this->assertArrayHasKey('lab_id', $decoded);
+        $this->assertEquals("ANewCaseId", $decoded['lab_id']);
     }
 
     public function testPutCase()

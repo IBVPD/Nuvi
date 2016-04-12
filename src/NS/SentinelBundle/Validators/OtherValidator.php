@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Validators;
 
+use NS\UtilBundle\Form\Types\ArrayChoice;
 use \Symfony\Component\Validator\Constraint;
 use \Symfony\Component\Validator\ConstraintValidator;
 
@@ -27,7 +28,7 @@ class OtherValidator extends ConstraintValidator
 
         $const = constant($constraint->value);
 
-        if ($value->$fMethod() && $value->$fMethod()->equal($const) && ($value->$otherFMethod() === null || $value->$otherFMethod() == '')) {
+        if ($value->$fMethod() instanceof ArrayChoice && $value->$fMethod()->equal($const) && ($value->$otherFMethod() === null || $value->$otherFMethod() == '')) {
             $this->context->addViolation($constraint->message);
         }
     }

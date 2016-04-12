@@ -83,7 +83,7 @@ $(window).load(function()
                         ['Diagnosis','Number Of Cases'],
                             {%spaceless%}
                             {%for r in byDiagnosis %}
-                                ['{{r.0.dischDx|e('js')}}', {{r.numberOfCases}}]{%if not loop.last %},{%endif%}
+                                ['{{r.0.disch_dx|e('js')}}', {{r.numberOfCases}}]{%if not loop.last %},{%endif%}
                             {%endfor%}
                             {%endspaceless%}
                         ]);

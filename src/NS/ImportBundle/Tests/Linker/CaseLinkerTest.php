@@ -25,7 +25,7 @@ class CaseLinkerTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array(
-                array('getcode'=>'site','caseId'),
+                array('getcode'=>'site','case_id'),
                 'findBySiteAndCaseId',
             ),
         );

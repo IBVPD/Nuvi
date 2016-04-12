@@ -22,7 +22,6 @@
                     <li><a data-toggle="tab" href="#labData-CSF">{{'Lab CSF'|trans}}</a></li>
                     <li><a data-toggle="tab" href="#labData-Blood">{{'Lab Blood'|trans}}</a></li>
                     <li><a data-toggle="tab" href="#labData-Other">{{'Lab Other Fluid'|trans}}</a></li>
-                    <li><a data-toggle="tab" href="#labData-Serotype">{{'Lab Serotype'|trans}}</a></li>
                     {%else%}
                     <li><a data-toggle="tab" href="#labData">{{'Lab'|trans}}</a></li>
                     {% endif %}
@@ -102,7 +101,7 @@
                         </tr>
                         <tr>
                             <th>{{'ibd-form.meningMostRecentDose'|trans}}</th>
-                            <td>{{record.meningMostRecentDose|date}}</td>
+                            <td>{{record.meningDate|date}}</td>
                         </tr>
                     </table>
                 </div>
@@ -197,7 +196,7 @@
                         </tr>
                         <tr>
                             <th>{{'ibd-form.csf-collect-datetime'|trans}}</th>
-                            <td>{%if record.csfCollectDateTime %}{{record.csfCollectDateTime|date}}{%endif%}</td>
+                            <td>{% if record.csfCollectDate %}{{ record.csfCollectDate|date('Y-m-d') }} {{ record.csfCollectTime|date('H:i') }}{% endif %}</td>
                         </tr>
                         <tr>
                             <th>{{'ibd-form.csf-appearance'|trans}}</th>
@@ -214,7 +213,7 @@
                     <div id="labData-CSF" class="tab-pane">
                         <table class="table table-striped table-bordered table-hover">
                             <tr><th>{{'ibd-form.csfSiteId'|trans}}</th><td>{{record.siteLab.csfId}}</td></tr>
-                            <tr><th>{{'ibd-form.csfDateTime'|trans}}</th><td>{%if record.siteLab.csfDateTime %}{{record.siteLab.csfDateTime|date}}{%endif%}</td></tr>
+                            <tr><th>{{'ibd-form.csfDateTime'|trans}}</th><td>{%if record.siteLab.csfLabTime %}{{record.siteLab.csfLabDate|date('Y-m-d')}} {{record.siteLab.csfLabTime|date('H:i')}}{%endif%}</td></tr>
                             <tr><th>{{'ibd-form.csf-wcc'|trans}}</th><td>{{record.siteLab.csfWcc}}</td></tr>
                             <tr><th>{{'ibd-form.csf-glucose'|trans}}</th><td>{{record.siteLab.csfGlucose}}</td></tr>
                             <tr><th>{{'ibd-form.csf-protein'|trans}}</th><td>{{record.siteLab.csfProtein}}</td></tr>
@@ -247,17 +246,6 @@
                             <tr><th>{{'ibd-form.other-cult-other'|trans}}</th><td>{{record.siteLab.otherCultOther}}</td></tr>
                         </table>
                     </div>
-
-                    <div id="labData-Serotype" class="tab-pane">
-                        <table class="table table-striped table-bordered table-hover">
-                            <tr><th>{{'ibd-rrl-form.spnSerotype'|trans}}</th><td>{{record.siteLab.spnSerotype|trans}}</td></tr>
-                            <tr><th>{{'ibd-rrl-form.spnSerotype-other'|trans}}</th><td>{{record.siteLab.spnSerotypeOther}}</td></tr>
-                            <tr><th>{{'ibd-form.hi-serotype'|trans}}</th><td>{{record.siteLab.hiSerotype|trans}}</td></tr>
-                            <tr><th>{{'ibd-rrl-form.hiSerotype-other'|trans}}</th><td>{{record.siteLab.hiSerotypeOther}}</td></tr>
-                            <tr><th>{{'ibd-form.nm-serogroup'|trans}}</th><td>{{record.siteLab.nmSerogroup|trans}}</td></tr>
-                            <tr><th>{{'ibd-rrl-form.nmSerogroup-other'|trans}}</th><td>{{record.siteLab.nmSerogroupOther}}</td></tr>
-                        </table>
-                    </div>
                 {%else%}
                     <div id="labData" class="tab-pane">
                         <table class="table table-striped table-bordered table-hover">
@@ -272,33 +260,34 @@
                 <div id="nationalLab" class="tab-pane">
                     <table class="table table-striped table-bordered table-hover">
                 {% if record.hasNationalLab %}
-                        <tr>
-                            <th>{{'meningitis.has-site-national-lab'|trans}}</th>
-                            <td>{{'Yes'|trans}}</td>
-                        </tr>
-                        <tr><th>{{'ibd.sampleType'|trans}}</th><td>{{record.nationalLab.sampleType|trans}}</td></tr>
-                        <tr><th>{{'ibd.dateReceived'|trans}}</th><td>{%if record.nationalLab.dateReceived %}{{record.nationalLab.dateReceived| date('Y-m-d')}}{% endif %}</td></tr>
-                        <tr><th>{{'ibd.isolateViable'|trans}}</th><td>{{record.nationalLab.isolateViable|trans}}</td></tr>
-                        <tr><th>{{'ibd.isolateType'|trans}}</th><td>{{record.nationalLab.isolateType|trans}}</td></tr>
-                        <tr><th>{{'ibd.pathogenIdentifierMethod'|trans}}</th><td>{{record.nationalLab.pathogenIdentifierMethod|trans}}</td></tr>
-                        <tr><th>{{'ibd.pathogenIdentifierOther'|trans}}</th><td>{{record.nationalLab.pathogenIdentifierOther}}</td></tr>
-                        <tr><th>{{'ibd.serotypeIdentifier'|trans}}</th><td>{{record.nationalLab.serotypeIdentifier|trans}}</td></tr>
-                        <tr><th>{{'ibd.serotypeIdentifierOther'|trans}}</th><td>{{record.nationalLab.serotypeIdentifierOther}}</td></tr>
-                        <tr><th>{{'ibd.lytA'|trans}}</th><td>{{record.nationalLab.lytA|ct_value|trans}}</td></tr>
-                        <tr><th>{{'ibd.ctrA'|trans}}</th><td>{{record.nationalLab.ctrA|ct_value|trans}}</td></tr>
-                        <tr><th>{{'ibd.sodC'|trans}}</th><td>{{record.nationalLab.sodC|ct_value|trans}}</td></tr>
-                        <tr><th>{{'ibd.hpd1'|trans}}</th><td>{{record.nationalLab.hpd1|ct_value|trans}}</td></tr>
-                        <tr><th>{{'ibd.hpd3'|trans}}</th><td>{{record.nationalLab.hpd3|ct_value|trans}}</td></tr>
-                        <tr><th>{{'ibd.bexA'|trans}}</th><td>{{record.nationalLab.bexA|ct_value|trans}}</td></tr>
-                        <tr><th>{{'ibd.rNaseP'|trans}}</th><td>{{record.nationalLab.rNaseP|ct_value|trans}}</td></tr>
-                        <tr><th>{{'ibd.spnSerotype'|trans}}</th><td>{{record.nationalLab.spnSerotype|trans}}</td></tr>
-                        <tr><th>{{'ibd.hiSerotype'|trans}}</th><td>{{record.nationalLab.hiSerotype|trans}}</td></tr>
-                        <tr><th>{{'ibd.nmSerogroup'|trans}}</th><td>{{record.nationalLab.nmSerogroup|trans}}</td></tr>
+                    <tr>
+                        <th>{{'meningitis.has-site-national-lab'|trans}}</th>
+                        <td>{{'Yes'|trans}}</td>
+                    </tr>
+                    <tr><th>{{'ibd.sampleType'|trans}}</th><td>{{record.nationalLab.sampleType|trans}}</td></tr>
+                    <tr><th>{{'ibd.dateReceived'|trans}}</th><td>{%if record.nationalLab.dateReceived %}{{record.nationalLab.dateReceived| date('Y-m-d')}}{% endif %}</td></tr>
+                    <tr><th>{{'ibd.isolateViable'|trans}}</th><td>{{record.nationalLab.isolateViable|trans}}</td></tr>
+                    <tr><th>{{'ibd.isolateType'|trans}}</th><td>{{record.nationalLab.isolateType|trans}}</td></tr>
+                    <tr><th>{{'ibd.pathogenIdentifierMethod'|trans}}</th><td>{{record.nationalLab.pathogenIdentifierMethod|trans}}</td></tr>
+                    <tr><th>{{'ibd.pathogenIdentifierOther'|trans}}</th><td>{{record.nationalLab.pathogenIdentifierOther}}</td></tr>
+                    <tr><th>{{'ibd.serotypeIdentifier'|trans}}</th><td>{{record.nationalLab.serotypeIdentifier|trans}}</td></tr>
+                    <tr><th>{{'ibd.serotypeIdentifierOther'|trans}}</th><td>{{record.nationalLab.serotypeIdentifierOther}}</td></tr>
+                    <tr><th>{{'ibd.lytA'|trans}}</th><td>{{record.nationalLab.lytA|ct_value|trans}}</td></tr>
+                    <tr><th>{{'ibd.ctrA'|trans}}</th><td>{{record.nationalLab.ctrA|ct_value|trans}}</td></tr>
+                    <tr><th>{{'ibd.sodC'|trans}}</th><td>{{record.nationalLab.sodC|ct_value|trans}}</td></tr>
+                    <tr><th>{{'ibd.hpd1'|trans}}</th><td>{{record.nationalLab.hpd1|ct_value|trans}}</td></tr>
+                    <tr><th>{{'ibd.hpd3'|trans}}</th><td>{{record.nationalLab.hpd3|ct_value|trans}}</td></tr>
+                    <tr><th>{{'ibd.bexA'|trans}}</th><td>{{record.nationalLab.bexA|ct_value|trans}}</td></tr>
+                    <tr><th>{{'ibd.rNaseP'|trans}}</th><td>{{record.nationalLab.rNaseP|ct_value|trans}}</td></tr>
+                    <tr><th>{{'ibd.spnSerotype'|trans}}</th><td>{{record.nationalLab.spnSerotype|trans}}</td></tr>
+                    <tr><th>{{'ibd.hiSerotype'|trans}}</th><td>{{record.nationalLab.hiSerotype|trans}}</td></tr>
+                    <tr><th>{{'ibd.nmSerogroup'|trans}}</th><td>{{record.nationalLab.nmSerogroup|trans}}</td></tr>
+                    <tr><th>{{'ibd.comment'|trans}}</th><td>{{record.nationalLab.comment}}</td></tr>
                 {% else %}
-                        <tr>
-                            <th>{{'meningitis.has-site-national-lab'|trans}}</th>
-                            <td>{{'No'|trans}}</td>
-                        </tr>
+                    <tr>
+                        <th>{{'meningitis.has-site-national-lab'|trans}}</th>
+                        <td>{{'No'|trans}}</td>
+                    </tr>
                 {% endif %}
                     </table>
                 </div>
@@ -306,33 +295,34 @@
                 <div id="referenceLab" class="tab-pane">
                     <table class="table table-striped table-bordered table-hover">
                 {% if record.hasReferenceLab %}
-                        <tr>
-                            <th>{{'meningitis.has-site-national-lab'|trans}}</th>
-                            <td>{{'Yes'|trans}}</td>
-                        </tr>
-                        <tr><th>{{'ibd.sampleType'|trans}}</th><td>{{record.referenceLab.sampleType|trans}}</td></tr>
-                        <tr><th>{{'ibd.dateReceived'|trans}}</th><td>{%if record.referenceLab.dateReceived %}{{record.referenceLab.dateReceived| date('Y-m-d')}}{% endif %}</td></tr>
-                        <tr><th>{{'ibd.isolateViable'|trans}}</th><td>{{record.referenceLab.isolateViable|trans}}</td></tr>
-                        <tr><th>{{'ibd.isolateType'|trans}}</th><td>{{record.referenceLab.isolateType|trans}}</td></tr>
-                        <tr><th>{{'ibd.pathogenIdentifierMethod'|trans}}</th><td>{{record.referenceLab.pathogenIdentifierMethod|trans}}</td></tr>
-                        <tr><th>{{'ibd.pathogenIdentifierOther'|trans}}</th><td>{{record.referenceLab.pathogenIdentifierOther}}</td></tr>
-                        <tr><th>{{'ibd.serotypeIdentifier'|trans}}</th><td>{{record.referenceLab.serotypeIdentifier|trans}}</td></tr>
-                        <tr><th>{{'ibd.serotypeIdentifierOther'|trans}}</th><td>{{record.referenceLab.serotypeIdentifierOther}}</td></tr>
-                        <tr><th>{{'ibd.lytA'|trans}}</th><td>{{record.referenceLab.lytA|ct_value|trans}}</td></tr>
-                        <tr><th>{{'ibd.ctrA'|trans}}</th><td>{{record.referenceLab.ctrA|ct_value|trans}}</td></tr>
-                        <tr><th>{{'ibd.sodC'|trans}}</th><td>{{record.referenceLab.sodC|ct_value|trans}}</td></tr>
-                        <tr><th>{{'ibd.hpd1'|trans}}</th><td>{{record.referenceLab.hpd1|ct_value|trans}}</td></tr>
-                        <tr><th>{{'ibd.hpd3'|trans}}</th><td>{{record.referenceLab.hpd3|ct_value|trans}}</td></tr>
-                        <tr><th>{{'ibd.bexA'|trans}}</th><td>{{record.referenceLab.bexA|ct_value|trans}}</td></tr>
-                        <tr><th>{{'ibd.rNaseP'|trans}}</th><td>{{record.referenceLab.rNaseP|ct_value|trans}}</td></tr>
-                        <tr><th>{{'ibd.spnSerotype'|trans}}</th><td>{{record.referenceLab.spnSerotype|trans}}</td></tr>
-                        <tr><th>{{'ibd.hiSerotype'|trans}}</th><td>{{record.referenceLab.hiSerotype|trans}}</td></tr>
-                        <tr><th>{{'ibd.nmSerogroup'|trans}}</th><td>{{record.referenceLab.nmSerogroup|trans}}</td></tr>
+                    <tr>
+                        <th>{{'meningitis.has-site-national-lab'|trans}}</th>
+                        <td>{{'Yes'|trans}}</td>
+                    </tr>
+                    <tr><th>{{'ibd.sampleType'|trans}}</th><td>{{record.referenceLab.sampleType|trans}}</td></tr>
+                    <tr><th>{{'ibd.dateReceived'|trans}}</th><td>{%if record.referenceLab.dateReceived %}{{record.referenceLab.dateReceived| date('Y-m-d')}}{% endif %}</td></tr>
+                    <tr><th>{{'ibd.isolateViable'|trans}}</th><td>{{record.referenceLab.isolateViable|trans}}</td></tr>
+                    <tr><th>{{'ibd.isolateType'|trans}}</th><td>{{record.referenceLab.isolateType|trans}}</td></tr>
+                    <tr><th>{{'ibd.pathogenIdentifierMethod'|trans}}</th><td>{{record.referenceLab.pathogenIdentifierMethod|trans}}</td></tr>
+                    <tr><th>{{'ibd.pathogenIdentifierOther'|trans}}</th><td>{{record.referenceLab.pathogenIdentifierOther}}</td></tr>
+                    <tr><th>{{'ibd.serotypeIdentifier'|trans}}</th><td>{{record.referenceLab.serotypeIdentifier|trans}}</td></tr>
+                    <tr><th>{{'ibd.serotypeIdentifierOther'|trans}}</th><td>{{record.referenceLab.serotypeIdentifierOther}}</td></tr>
+                    <tr><th>{{'ibd.lytA'|trans}}</th><td>{{record.referenceLab.lytA|ct_value|trans}}</td></tr>
+                    <tr><th>{{'ibd.ctrA'|trans}}</th><td>{{record.referenceLab.ctrA|ct_value|trans}}</td></tr>
+                    <tr><th>{{'ibd.sodC'|trans}}</th><td>{{record.referenceLab.sodC|ct_value|trans}}</td></tr>
+                    <tr><th>{{'ibd.hpd1'|trans}}</th><td>{{record.referenceLab.hpd1|ct_value|trans}}</td></tr>
+                    <tr><th>{{'ibd.hpd3'|trans}}</th><td>{{record.referenceLab.hpd3|ct_value|trans}}</td></tr>
+                    <tr><th>{{'ibd.bexA'|trans}}</th><td>{{record.referenceLab.bexA|ct_value|trans}}</td></tr>
+                    <tr><th>{{'ibd.rNaseP'|trans}}</th><td>{{record.referenceLab.rNaseP|ct_value|trans}}</td></tr>
+                    <tr><th>{{'ibd.spnSerotype'|trans}}</th><td>{{record.referenceLab.spnSerotype|trans}}</td></tr>
+                    <tr><th>{{'ibd.hiSerotype'|trans}}</th><td>{{record.referenceLab.hiSerotype|trans}}</td></tr>
+                    <tr><th>{{'ibd.nmSerogroup'|trans}}</th><td>{{record.referenceLab.nmSerogroup|trans}}</td></tr>
+                    <tr><th>{{'ibd.comment'|trans}}</th><td>{{record.nationalLab.comment}}</td></tr>
                 {% else %}
-                        <tr>
-                            <th>{{'meningitis.has-site-reference-lab'|trans}}</th>
-                            <td>{{'No'|trans}}</td>
-                        </tr>
+                    <tr>
+                        <th>{{'meningitis.has-site-reference-lab'|trans}}</th>
+                        <td>{{'No'|trans}}</td>
+                    </tr>
                 {% endif %}
                     </table>
                 </div>

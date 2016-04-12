@@ -95,7 +95,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
             ->innerJoin('m.site', 's')
             ->innerJoin('s.country', 'c')
             ->innerJoin('m.region', 'r')
-            ->where('m.caseId = :caseId')
+            ->where('m.case_id = :caseId')
             ->setParameter('caseId', $caseId);
 
         if ($objId) {
@@ -175,22 +175,22 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
     public function findBySiteAndCaseId(array $params)
     {
         $this->checkRequiredField('site', $params, 'NS\SentinelBundle\Entity\Site');
-        $this->checkRequiredField('caseId', $params);
+        $this->checkRequiredField('case_id', $params);
 
-        $cases = $this->findWithRelations(array('caseId'=> $params['caseId']));
+        $cases = $this->findWithRelations(array('case_id'=> $params['case_id']));
 
         if (empty($cases)) {
             return null;
         }
 
         if (count($cases) > 1) {
-            throw new DuplicateCaseException(array('found' => count($cases), 'caseId' => $params['caseId']));
+            throw new DuplicateCaseException(array('found' => count($cases), 'case_id' => $params['case_d']), 1);
         }
 
         $case = current($cases);
 
         if (!$case->isUnlinked() && $case->getSite() && $case->getSite()->getCode() !== $params['site']->getCode()) {
-            throw new InvalidCaseException(sprintf("Retrieved a single case '%s' with an existing site mis-match. caseSite: %s vs requestedSite: %s", $params['caseId'], $case->getSite(), $params['site']->getCode()));
+            throw new InvalidCaseException(sprintf("Retrieved a single case '%s' with an existing site mis-match. caseSite: %s vs requestedSite: %s", $params['case_id'], $case->getSite(), $params['site']->getCode()));
         }
 
         return $case;
@@ -203,9 +203,9 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
     public function findByCaseIdAndCheckCountry(array $params)
     {
         $this->checkRequiredField('country', $params, 'NS\SentinelBundle\Entity\Country');
-        $this->checkRequiredField('caseId', $params);
+        $this->checkRequiredField('case_id', $params);
 
-        $ret = $this->findWithRelations(array('caseId' => $params['caseId']));
+        $ret = $this->findWithRelations(array('case_id' => $params['case_id']));
 
         if (empty($ret)) {
             return null;
@@ -221,7 +221,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
                 $caseRet = $case;
 
                 if ($found > 1) {
-                    throw new DuplicateCaseException(array('found' => $found, 'caseId' => $params['caseId'], 'country' => $params['country']));
+                    throw new DuplicateCaseException(array('found' => $found, 'case_id' => $params['case_id'], 'country' => $params['country']));
                 }
             }
         }

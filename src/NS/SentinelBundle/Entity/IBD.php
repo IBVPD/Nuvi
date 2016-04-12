@@ -29,7 +29,7 @@ use \NS\SentinelBundle\Validators as LocalAssert;
  * Description of IBD
  * @author gnat
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\IBDRepository")
- * @ORM\Table(name="ibd_cases",uniqueConstraints={@ORM\UniqueConstraint(name="ibd_site_case_id_idx",columns={"site_id","caseId"})})
+ * @ORM\Table(name="ibd_cases",uniqueConstraints={@ORM\UniqueConstraint(name="ibd_site_case_id_idx",columns={"site_id","case_id"})})
  * @ORM\HasLifecycleCallbacks
  * @Gedmo\Loggable
  * @Secured(conditions={
@@ -78,25 +78,25 @@ class IBD extends BaseCase
 //Case-based Clinical Data
     /**
      * @var \DateTime $onsetDate
-     * @ORM\Column(name="onsetDate",type="date",nullable=true)
+     * @ORM\Column(name="onset_date",type="date",nullable=true)
      * @Groups({"api"})
      * @Assert\DateTime
      */
-    protected $onsetDate;
+    protected $onset_date;
 
     /**
      * @var Diagnosis $admDx
-     * @ORM\Column(name="admDx",type="Diagnosis",nullable=true)
+     * @ORM\Column(name="adm_dx",type="Diagnosis",nullable=true)
      * @Groups({"api"})
      */
-    private $admDx;
+    private $adm_dx;
 
     /**
      * @var string $admDxOther
-     * @ORM\Column(name="admDxOther",type="string",nullable=true)
+     * @ORM\Column(name="adm_dx_other",type="string",nullable=true)
      * @Groups({"api"})
      */
-    private $admDxOther;
+    private $adm_dx_other;
 
     /**
      * @var TripleChoice $antibiotics
@@ -108,302 +108,309 @@ class IBD extends BaseCase
 //MENINGITIS
     /**
      * @var TripleChoice $menSeizures
-     * @ORM\Column(name="menSeizures",type="TripleChoice",nullable=true)
+     * @ORM\Column(name="men_seizures",type="TripleChoice",nullable=true)
      * @Groups({"api"})
      */
-    private $menSeizures;
+    private $men_seizures;
 
     /**
      * @var TripleChoice $menFever
-     * @ORM\Column(name="menFever",type="TripleChoice",nullable=true)
+     * @ORM\Column(name="men_fever",type="TripleChoice",nullable=true)
      * @Groups({"api"})
      */
-    private $menFever;
+    private $men_fever;
 
     /**
      * @var TripleChoice $menAltConscious
-     * @ORM\Column(name="menAltConscious",type="TripleChoice",nullable=true)
+     * @ORM\Column(name="men_alt_conscious",type="TripleChoice",nullable=true)
      * @Groups({"api"})
      */
-    private $menAltConscious;
+    private $men_alt_conscious;
 
     /**
      * @var TripleChoice $menInabilityFeed
-     * @ORM\Column(name="menInabilityFeed",type="TripleChoice",nullable=true)
+     * @ORM\Column(name="men_inability_feed",type="TripleChoice",nullable=true)
      * @Groups({"api"})
      */
-    private $menInabilityFeed;
+    private $men_inability_feed;
 
     /**
-     * @var TripleChoice $menNeckStiff
-     * @ORM\Column(name="menNeckStiff",type="TripleChoice",nullable=true)
+     * @var TripleChoice $men_neck_stiff
+     * @ORM\Column(name="men_neck_stiff",type="TripleChoice",nullable=true)
      * @Groups({"api"})
      */
-    private $menNeckStiff;
+    private $men_neck_stiff;
 
     /**
      * @var TripleChoice $menRash
-     * @ORM\Column(name="menRash",type="TripleChoice",nullable=true)
+     * @ORM\Column(name="men_rash",type="TripleChoice",nullable=true)
      * @Groups({"api"})
      */
-    private $menRash;
+    private $men_rash;
 
     /**
      * @var TripleChoice $menFontanelleBulge
-     * @ORM\Column(name="menFontanelleBulge",type="TripleChoice",nullable=true)
+     * @ORM\Column(name="men_fontanelle_bulge",type="TripleChoice",nullable=true)
      * @Groups({"api"})
      */
-    private $menFontanelleBulge;
+    private $men_fontanelle_bulge;
 
     /**
      * @var TripleChoice $menLethargy
-     * @ORM\Column(name="menLethargy",type="TripleChoice",nullable=true)
+     * @ORM\Column(name="men_lethargy",type="TripleChoice",nullable=true)
      * @Groups({"api"})
      */
-    private $menLethargy;
+    private $men_lethargy;
 
 //PNEUMONIA / SEPSIS
     /**
      * @var TripleChoice $pneuDiffBreathe
-     * @ORM\Column(name="pneuDiffBreathe",type="TripleChoice",nullable=true)
+     * @ORM\Column(name="pneu_diff_breathe",type="TripleChoice",nullable=true)
      * @Groups({"api"})
      */
-    private $pneuDiffBreathe;
+    private $pneu_diff_breathe;
 
     /**
      * @var TripleChoice $pneuChestIndraw
-     * @ORM\Column(name="pneuChestIndraw",type="TripleChoice",nullable=true)
+     * @ORM\Column(name="pneu_chest_indraw",type="TripleChoice",nullable=true)
      * @Groups({"api"})
      */
-    private $pneuChestIndraw;
+    private $pneu_chest_indraw;
 
     /**
      * @var TripleChoice $pneuCough
-     * @ORM\Column(name="pneuCough",type="TripleChoice",nullable=true)
+     * @ORM\Column(name="pneu_cough",type="TripleChoice",nullable=true)
      * @Groups({"api"})
      */
-    private $pneuCough;
+    private $pneu_cough;
 
     /**
      * @var TripleChoice $pneuCyanosis
-     * @ORM\Column(name="pneuCyanosis",type="TripleChoice",nullable=true)
+     * @ORM\Column(name="pneu_cyanosis",type="TripleChoice",nullable=true)
      * @Groups({"api"})
      */
-    private $pneuCyanosis;
+    private $pneu_cyanosis;
 
     /**
      * @var TripleChoice $pneuStridor
-     * @ORM\Column(name="pneuStridor",type="TripleChoice",nullable=true)
+     * @ORM\Column(name="pneu_stridor",type="TripleChoice",nullable=true)
      * @Groups({"api"})
      */
-    private $pneuStridor;
+    private $pneu_stridor;
 
     /**
      * @var integer $pneuRespRate
-     * @ORM\Column(name="pneuRespRate",type="integer",nullable=true)
+     * @ORM\Column(name="pneu_resp_rate",type="integer",nullable=true)
      * @Assert\Range(min=10,max=100,minMessage="Please provide a valid respiratory rate",maxMessage="Please provide a valid respiratory rate")
      * @Groups({"api"})
      */
-    private $pneuRespRate;
+    private $pneu_resp_rate;
 
     /**
      * @var TripleChoice $pneuVomit
-     * @ORM\Column(name="pneuVomit",type="TripleChoice",nullable=true)
+     * @ORM\Column(name="pneu_vomit",type="TripleChoice",nullable=true)
      * @Groups({"api"})
      */
-    private $pneuVomit;
+    private $pneu_vomit;
 
     /**
      * @var TripleChoice $pneuHypothermia
-     * @ORM\Column(name="pneuHypothermia",type="TripleChoice",nullable=true)
+     * @ORM\Column(name="pneu_hypothermia",type="TripleChoice",nullable=true)
      * @Groups({"api"})
      */
-    private $pneuHypothermia;
+    private $pneu_hypothermia;
 
     /**
      * @var TripleChoice $pneuMalnutrition
-     * @ORM\Column(name="pneuMalnutrition",type="TripleChoice",nullable=true)
+     * @ORM\Column(name="pneu_malnutrition",type="TripleChoice",nullable=true)
      * @Groups({"api"})
      */
-    private $pneuMalnutrition;
+    private $pneu_malnutrition;
 
     /**
      * @var TripleChoice $cxrDone
-     * @ORM\Column(name="cxrDone",type="TripleChoice",nullable=true)
+     * @ORM\Column(name="cxr_done",type="TripleChoice",nullable=true)
      * @Groups({"api"})
      */
-    private $cxrDone;
+    private $cxr_done;
 
     /**
      * @var CXRResult $cxrResult
-     * @ORM\Column(name="cxrResult",type="CXRResult",nullable=true)
+     * @ORM\Column(name="cxr_result",type="CXRResult",nullable=true)
      * @Groups({"api"})
      */
-    private $cxrResult;
+    private $cxr_result;
 
     /**
      * @var CXRAdditionalResult $cxrResult
-     * @ORM\Column(name="cxrAdditionalResult",type="CXRAdditionalResult",nullable=true)
+     * @ORM\Column(name="cxr_additional_result",type="CXRAdditionalResult",nullable=true)
      * @Groups({"api"})
      */
-    private $cxrAdditionalResult;
+    private $cxr_additional_result;
 
 //Case-based Vaccination History
     /**
      * @var VaccinationReceived $hibReceived
-     * @ORM\Column(name="hibReceived",type="VaccinationReceived",nullable=true)
+     * @ORM\Column(name="hib_received",type="VaccinationReceived",nullable=true)
      * @Groups({"api"})
      */
-    private $hibReceived;
+    private $hib_received;
 
     /**
      * @var FourDoses $hibDoses
-     * @ORM\Column(name="hibDoses",type="FourDoses",nullable=true)
+     * @ORM\Column(name="hib_doses",type="FourDoses",nullable=true)
      * @Groups({"api"})
      */
-    private $hibDoses;
+    private $hib_doses;
 
     /**
      * @var \DateTime $hibMostRecentDose
-     * @ORM\Column(name="hibMostRecentDose",type="date",nullable=true)
+     * @ORM\Column(name="hib_most_recent_dose",type="date",nullable=true)
      * @Groups({"api"})
      */
-    private $hibMostRecentDose;
+    private $hib_most_recent_dose;
 
     /**
      * @var VaccinationReceived $pcvReceived
-     * @ORM\Column(name="pcvReceived",type="VaccinationReceived",nullable=true)
+     * @ORM\Column(name="pcv_received",type="VaccinationReceived",nullable=true)
      * @Groups({"api"})
      */
-    private $pcvReceived;
+    private $pcv_received;
 
     /**
      * @var FourDoses $pcvDoses
-     * @ORM\Column(name="pcvDoses",type="FourDoses",nullable=true)
+     * @ORM\Column(name="pcv_doses",type="FourDoses",nullable=true)
      * @Groups({"api"})
      */
-    private $pcvDoses;
+    private $pcv_doses;
 
     /**
      * @var PCVType $pcvType
-     * @ORM\Column(name="pcvType",type="PCVType",nullable=true)
+     * @ORM\Column(name="pcv_type",type="PCVType",nullable=true)
      * @Groups({"api"})
      */
-    private $pcvType;
+    private $pcv_type;
 
     /**
      * @var \DateTime $pcvMostRecentDose
-     * @ORM\Column(name="pcvMostRecentDose",type="date",nullable=true)
+     * @ORM\Column(name="pcv_most_recent_dose",type="date",nullable=true)
      * @Groups({"api"})
      */
-    private $pcvMostRecentDose;
+    private $pcv_most_recent_dose;
 
     /**
      * @var VaccinationReceived $meningReceived
-     * @ORM\Column(name="meningReceived",type="VaccinationReceived",nullable=true)
+     * @ORM\Column(name="mening_received",type="VaccinationReceived",nullable=true)
      * @Groups({"api"})
      */
-    private $meningReceived;
+    private $mening_received;
 
     /**
      * @var MeningitisVaccinationType $meningType
-     * @ORM\Column(name="meningType",type="MeningitisVaccinationType",nullable=true)
+     * @ORM\Column(name="mening_type",type="MeningitisVaccinationType",nullable=true)
      * @Groups({"api"})
      */
-    private $meningType;
+    private $mening_type;
 
     /**
-     * @var \DateTime $meningMostRecentDose
-     * @ORM\Column(name="meningMostRecentDose",type="date",nullable=true)
+     * @var \DateTime $mening_date
+     * @ORM\Column(name="mening_date",type="date",nullable=true)
      * @Assert\Date
      * @Groups({"api"})
      */
-    private $meningMostRecentDose;
+    private $mening_date;
 
 //Case-based Specimen Collection Data
 
     /**
      * @var TripleChoice $csfCollected
-     * @ORM\Column(name="csfCollected",type="TripleChoice",nullable=true)
+     * @ORM\Column(name="csf_collected",type="TripleChoice",nullable=true)
      * @Groups({"api"})
      */
-    private $csfCollected;
+    private $csf_collected;
 
     /**
-     * @var \DateTime $csfCollectDateTime
-     * @ORM\Column(name="csfCollectDateTime",type="datetime",nullable=true)
+     * @var \DateTime $csfCollectDate
+     * @ORM\Column(name="csf_collect_date",type="date",nullable=true)
      * @Groups({"api"})
      */
-    private $csfCollectDateTime;
+    private $csf_collect_date;
+
+    /**
+     * @var \DateTime $csfCollectTime
+     * @ORM\Column(name="csf_collect_time",type="time",nullable=true)
+     * @Groups({"api"})
+     */
+    private $csf_collect_time;
 
     /**
      * @var CSFAppearance $csfAppearance
-     * @ORM\Column(name="csfAppearance",type="CSFAppearance",nullable=true)
+     * @ORM\Column(name="csf_appearance",type="CSFAppearance",nullable=true)
      * @Groups({"api"})
      */
-    private $csfAppearance;
+    private $csf_appearance;
 
     /**
      * @var TripleChoice $bloodCollected
-     * @ORM\Column(name="bloodCollected", type="TripleChoice",nullable=true)
+     * @ORM\Column(name="blood_collected", type="TripleChoice",nullable=true)
      * @Groups({"api"})
      */
-    private $bloodCollected;
+    private $blood_collected;
 
     /**
      * @var \DateTime $bloodCollectDate
-     * @ORM\Column(name="bloodCollectDate",type="date",nullable=true)
+     * @ORM\Column(name="blood_collect_date",type="date",nullable=true)
      */
-    private $bloodCollectDate;
+    private $blood_collect_date;
 
     /**
      * @var OtherSpecimen $otherSpecimenCollected
-     * @ORM\Column(name="otherSpecimenCollected",type="OtherSpecimen",nullable=true)
+     * @ORM\Column(name="other_specimen_collected",type="OtherSpecimen",nullable=true)
      * @Groups({"api"})
      */
-    private $otherSpecimenCollected;
+    private $other_specimen_collected;
 
     /**
      * @var string $otherSpecimenOther
-     * @ORM\Column(name="otherSpecimenOther",type="string",nullable=true)
+     * @ORM\Column(name="other_specimen_other",type="string",nullable=true)
      * @Groups({"api"})
      */
-    private $otherSpecimenOther;
+    private $other_specimen_other;
 
 //Case-based Outcome Data
     /**
      * @var DischargeOutcome $dischOutcome
-     * @ORM\Column(name="dischOutcome",type="DischargeOutcome",nullable=true)
+     * @ORM\Column(name="disch_outcome",type="DischargeOutcome",nullable=true)
      * @Groups({"api"})
      */
-    private $dischOutcome;
+    private $disch_outcome;
 
     /**
      * @var Diagnosis $dischDx
-     * @ORM\Column(name="dischDx",type="DischargeDiagnosis",nullable=true)
+     * @ORM\Column(name="disch_dx",type="DischargeDiagnosis",nullable=true)
      * @Groups({"api"})
      */
-    private $dischDx;
+    private $disch_dx;
 
     /**
      * @var $dischDxOther
-     * @ORM\Column(name="dischDxOther",type="string",nullable=true)
+     * @ORM\Column(name="disch_dx_other",type="string",nullable=true)
      * @Groups({"api"})
      */
-    private $dischDxOther;
+    private $disch_dx_other;
 
     /**
      * @var DischargeClassification $dischClass
-     * @ORM\Column(name="dischClass",type="DischargeClassification",nullable=true)
+     * @ORM\Column(name="disch_class",type="DischargeClassification",nullable=true)
      * @Groups({"api"})
      */
-    private $dischClass;
+    private $disch_class;
 
     /**
      * @var string $dischClassOther
-     * @ORM\Column(name="dischClassOther",type="string",nullable=true)
+     * @ORM\Column(name="disch_class_other",type="string",nullable=true)
      */
-    private $dischClassOther;
+    private $disch_class_other;
 
     /**
      * @var string $comment
@@ -433,7 +440,7 @@ class IBD extends BaseCase
      */
     public function getOnsetDate()
     {
-        return $this->onsetDate;
+        return $this->onset_date;
     }
 
     /**
@@ -441,7 +448,7 @@ class IBD extends BaseCase
      */
     public function getAdmDx()
     {
-        return $this->admDx;
+        return $this->adm_dx;
     }
 
     /**
@@ -449,7 +456,7 @@ class IBD extends BaseCase
      */
     public function getAdmDxOther()
     {
-        return $this->admDxOther;
+        return $this->adm_dx_other;
     }
 
     /**
@@ -465,7 +472,7 @@ class IBD extends BaseCase
      */
     public function getMenSeizures()
     {
-        return $this->menSeizures;
+        return $this->men_seizures;
     }
 
     /**
@@ -473,7 +480,7 @@ class IBD extends BaseCase
      */
     public function getMenFever()
     {
-        return $this->menFever;
+        return $this->men_fever;
     }
 
     /**
@@ -481,7 +488,7 @@ class IBD extends BaseCase
      */
     public function getMenAltConscious()
     {
-        return $this->menAltConscious;
+        return $this->men_alt_conscious;
     }
 
     /**
@@ -489,7 +496,7 @@ class IBD extends BaseCase
      */
     public function getMenInabilityFeed()
     {
-        return $this->menInabilityFeed;
+        return $this->men_inability_feed;
     }
 
     /**
@@ -497,7 +504,7 @@ class IBD extends BaseCase
      */
     public function getMenNeckStiff()
     {
-        return $this->menNeckStiff;
+        return $this->men_neck_stiff;
     }
 
     /**
@@ -505,7 +512,7 @@ class IBD extends BaseCase
      */
     public function getMenRash()
     {
-        return $this->menRash;
+        return $this->men_rash;
     }
 
     /**
@@ -513,7 +520,7 @@ class IBD extends BaseCase
      */
     public function getMenFontanelleBulge()
     {
-        return $this->menFontanelleBulge;
+        return $this->men_fontanelle_bulge;
     }
 
     /**
@@ -521,7 +528,7 @@ class IBD extends BaseCase
      */
     public function getMenLethargy()
     {
-        return $this->menLethargy;
+        return $this->men_lethargy;
     }
 
     /**
@@ -529,7 +536,7 @@ class IBD extends BaseCase
      */
     public function getPneuDiffBreathe()
     {
-        return $this->pneuDiffBreathe;
+        return $this->pneu_diff_breathe;
     }
 
     /**
@@ -537,7 +544,7 @@ class IBD extends BaseCase
      */
     public function getPneuChestIndraw()
     {
-        return $this->pneuChestIndraw;
+        return $this->pneu_chest_indraw;
     }
 
     /**
@@ -545,7 +552,7 @@ class IBD extends BaseCase
      */
     public function getPneuCough()
     {
-        return $this->pneuCough;
+        return $this->pneu_cough;
     }
 
     /**
@@ -553,7 +560,7 @@ class IBD extends BaseCase
      */
     public function getPneuCyanosis()
     {
-        return $this->pneuCyanosis;
+        return $this->pneu_cyanosis;
     }
 
     /**
@@ -561,7 +568,7 @@ class IBD extends BaseCase
      */
     public function getPneuStridor()
     {
-        return $this->pneuStridor;
+        return $this->pneu_stridor;
     }
 
     /**
@@ -569,7 +576,7 @@ class IBD extends BaseCase
      */
     public function getPneuRespRate()
     {
-        return $this->pneuRespRate;
+        return $this->pneu_resp_rate;
     }
 
     /**
@@ -577,7 +584,7 @@ class IBD extends BaseCase
      */
     public function getPneuVomit()
     {
-        return $this->pneuVomit;
+        return $this->pneu_vomit;
     }
 
     /**
@@ -585,7 +592,7 @@ class IBD extends BaseCase
      */
     public function getPneuHypothermia()
     {
-        return $this->pneuHypothermia;
+        return $this->pneu_hypothermia;
     }
 
     /**
@@ -593,7 +600,7 @@ class IBD extends BaseCase
      */
     public function getPneuMalnutrition()
     {
-        return $this->pneuMalnutrition;
+        return $this->pneu_malnutrition;
     }
 
     /**
@@ -601,7 +608,7 @@ class IBD extends BaseCase
      */
     public function getCxrDone()
     {
-        return $this->cxrDone;
+        return $this->cxr_done;
     }
 
     /**
@@ -609,7 +616,7 @@ class IBD extends BaseCase
      */
     public function getCxrResult()
     {
-        return $this->cxrResult;
+        return $this->cxr_result;
     }
 
     /**
@@ -617,7 +624,7 @@ class IBD extends BaseCase
      */
     public function getCxrAdditionalResult()
     {
-        return $this->cxrAdditionalResult;
+        return $this->cxr_additional_result;
     }
 
     /**
@@ -625,7 +632,7 @@ class IBD extends BaseCase
      */
     public function getHibReceived()
     {
-        return $this->hibReceived;
+        return $this->hib_received;
     }
 
     /**
@@ -633,7 +640,7 @@ class IBD extends BaseCase
      */
     public function getHibDoses()
     {
-        return $this->hibDoses;
+        return $this->hib_doses;
     }
 
     /**
@@ -641,7 +648,7 @@ class IBD extends BaseCase
      */
     public function getHibMostRecentDose()
     {
-        return $this->hibMostRecentDose;
+        return $this->hib_most_recent_dose;
     }
 
     /**
@@ -649,7 +656,7 @@ class IBD extends BaseCase
      */
     public function getPcvReceived()
     {
-        return $this->pcvReceived;
+        return $this->pcv_received;
     }
 
     /**
@@ -657,7 +664,7 @@ class IBD extends BaseCase
      */
     public function getPcvDoses()
     {
-        return $this->pcvDoses;
+        return $this->pcv_doses;
     }
 
     /**
@@ -665,7 +672,7 @@ class IBD extends BaseCase
      */
     public function getPcvType()
     {
-        return $this->pcvType;
+        return $this->pcv_type;
     }
 
     /**
@@ -673,7 +680,7 @@ class IBD extends BaseCase
      */
     public function getPcvMostRecentDose()
     {
-        return $this->pcvMostRecentDose;
+        return $this->pcv_most_recent_dose;
     }
 
     /**
@@ -681,7 +688,7 @@ class IBD extends BaseCase
      */
     public function getMeningReceived()
     {
-        return $this->meningReceived;
+        return $this->mening_received;
     }
 
     /**
@@ -689,15 +696,15 @@ class IBD extends BaseCase
      */
     public function getMeningType()
     {
-        return $this->meningType;
+        return $this->mening_type;
     }
 
     /**
      * @return \DateTime
      */
-    public function getMeningMostRecentDose()
+    public function getMeningDate()
     {
-        return $this->meningMostRecentDose;
+        return $this->mening_date;
     }
 
     /**
@@ -705,15 +712,23 @@ class IBD extends BaseCase
      */
     public function getCsfCollected()
     {
-        return $this->csfCollected;
+        return $this->csf_collected;
     }
 
     /**
      * @return \DateTime
      */
-    public function getCsfCollectDateTime()
+    public function getCsfCollectDate()
     {
-        return $this->csfCollectDateTime;
+        return $this->csf_collect_date;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCsfCollectTime()
+    {
+        return $this->csf_collect_time;
     }
 
     /**
@@ -721,7 +736,7 @@ class IBD extends BaseCase
      */
     public function getCsfAppearance()
     {
-        return $this->csfAppearance;
+        return $this->csf_appearance;
     }
 
     /**
@@ -729,7 +744,7 @@ class IBD extends BaseCase
      */
     public function getBloodCollected()
     {
-        return $this->bloodCollected;
+        return $this->blood_collected;
     }
 
     /**
@@ -738,7 +753,7 @@ class IBD extends BaseCase
      */
     public function getBloodCollectDate()
     {
-        return $this->bloodCollectDate;
+        return $this->blood_collect_date;
     }
 
     /**
@@ -746,7 +761,7 @@ class IBD extends BaseCase
      */
     public function getOtherSpecimenCollected()
     {
-        return $this->otherSpecimenCollected;
+        return $this->other_specimen_collected;
     }
 
     /**
@@ -754,7 +769,7 @@ class IBD extends BaseCase
      */
     public function getOtherSpecimenOther()
     {
-        return $this->otherSpecimenOther;
+        return $this->other_specimen_other;
     }
 
     /**
@@ -762,7 +777,7 @@ class IBD extends BaseCase
      */
     public function getDischOutcome()
     {
-        return $this->dischOutcome;
+        return $this->disch_outcome;
     }
 
     /**
@@ -770,7 +785,7 @@ class IBD extends BaseCase
      */
     public function getDischDx()
     {
-        return $this->dischDx;
+        return $this->disch_dx;
     }
 
     /**
@@ -778,7 +793,7 @@ class IBD extends BaseCase
      */
     public function getDischDxOther()
     {
-        return $this->dischDxOther;
+        return $this->disch_dx_other;
     }
 
     /**
@@ -786,7 +801,7 @@ class IBD extends BaseCase
      */
     public function getDischClass()
     {
-        return $this->dischClass;
+        return $this->disch_class;
     }
 
     /**
@@ -811,27 +826,27 @@ class IBD extends BaseCase
      */
     public function setOnsetDate(\DateTime $onsetDate = null)
     {
-        $this->onsetDate = $onsetDate;
+        $this->onset_date = $onsetDate;
         return $this;
     }
 
     /**
-     * @param Diagnosis $admDx
+     * @param Diagnosis $adm_dx
      * @return $this
      */
-    public function setAdmDx(Diagnosis $admDx = null)
+    public function setAdmDx(Diagnosis $adm_dx = null)
     {
-        $this->admDx = $admDx;
+        $this->adm_dx = $adm_dx;
         return $this;
     }
 
     /**
-     * @param $admDxOther
+     * @param $adm_dxOther
      * @return $this
      */
-    public function setAdmDxOther($admDxOther)
+    public function setAdmDxOther($adm_dxOther)
     {
-        $this->admDxOther = $admDxOther;
+        $this->adm_dx_other = $adm_dxOther;
         return $this;
     }
 
@@ -851,7 +866,7 @@ class IBD extends BaseCase
      */
     public function setMenSeizures(TripleChoice $menSeizures = null)
     {
-        $this->menSeizures = $menSeizures;
+        $this->men_seizures = $menSeizures;
         return $this;
     }
 
@@ -861,7 +876,7 @@ class IBD extends BaseCase
      */
     public function setMenFever(TripleChoice $menFever = null)
     {
-        $this->menFever = $menFever;
+        $this->men_fever = $menFever;
         return $this;
     }
 
@@ -871,7 +886,7 @@ class IBD extends BaseCase
      */
     public function setMenAltConscious(TripleChoice $menAltConscious = null)
     {
-        $this->menAltConscious = $menAltConscious;
+        $this->men_alt_conscious = $menAltConscious;
         return $this;
     }
 
@@ -881,7 +896,7 @@ class IBD extends BaseCase
      */
     public function setMenInabilityFeed(TripleChoice $menInabilityFeed = null)
     {
-        $this->menInabilityFeed = $menInabilityFeed;
+        $this->men_inability_feed = $menInabilityFeed;
         return $this;
     }
 
@@ -891,7 +906,7 @@ class IBD extends BaseCase
      */
     public function setMenNeckStiff(TripleChoice $menNeckStiff = null)
     {
-        $this->menNeckStiff = $menNeckStiff;
+        $this->men_neck_stiff = $menNeckStiff;
         return $this;
     }
 
@@ -901,7 +916,7 @@ class IBD extends BaseCase
      */
     public function setMenRash(TripleChoice $menRash = null)
     {
-        $this->menRash = $menRash;
+        $this->men_rash = $menRash;
         return $this;
     }
 
@@ -911,7 +926,7 @@ class IBD extends BaseCase
      */
     public function setMenFontanelleBulge(TripleChoice $menFontanelleBulge = null)
     {
-        $this->menFontanelleBulge = $menFontanelleBulge;
+        $this->men_fontanelle_bulge = $menFontanelleBulge;
         return $this;
     }
 
@@ -921,7 +936,7 @@ class IBD extends BaseCase
      */
     public function setMenLethargy(TripleChoice $menLethargy = null)
     {
-        $this->menLethargy = $menLethargy;
+        $this->men_lethargy = $menLethargy;
         return $this;
     }
 
@@ -931,7 +946,7 @@ class IBD extends BaseCase
      */
     public function setPneuDiffBreathe(TripleChoice $pneuDiffBreathe = null)
     {
-        $this->pneuDiffBreathe = $pneuDiffBreathe;
+        $this->pneu_diff_breathe = $pneuDiffBreathe;
         return $this;
     }
 
@@ -941,7 +956,7 @@ class IBD extends BaseCase
      */
     public function setPneuChestIndraw(TripleChoice $pneuChestIndraw = null)
     {
-        $this->pneuChestIndraw = $pneuChestIndraw;
+        $this->pneu_chest_indraw = $pneuChestIndraw;
         return $this;
     }
 
@@ -951,7 +966,7 @@ class IBD extends BaseCase
      */
     public function setPneuCough(TripleChoice $pneuCough = null)
     {
-        $this->pneuCough = $pneuCough;
+        $this->pneu_cough = $pneuCough;
         return $this;
     }
 
@@ -961,7 +976,7 @@ class IBD extends BaseCase
      */
     public function setPneuCyanosis(TripleChoice $pneuCyanosis = null)
     {
-        $this->pneuCyanosis = $pneuCyanosis;
+        $this->pneu_cyanosis = $pneuCyanosis;
         return $this;
     }
 
@@ -971,7 +986,7 @@ class IBD extends BaseCase
      */
     public function setPneuStridor(TripleChoice $pneuStridor = null)
     {
-        $this->pneuStridor = $pneuStridor;
+        $this->pneu_stridor = $pneuStridor;
         return $this;
     }
 
@@ -981,7 +996,7 @@ class IBD extends BaseCase
      */
     public function setPneuRespRate($pneuRespRate)
     {
-        $this->pneuRespRate = $pneuRespRate;
+        $this->pneu_resp_rate = $pneuRespRate;
         return $this;
     }
 
@@ -991,7 +1006,7 @@ class IBD extends BaseCase
      */
     public function setPneuVomit(TripleChoice $pneuVomit = null)
     {
-        $this->pneuVomit = $pneuVomit;
+        $this->pneu_vomit = $pneuVomit;
         return $this;
     }
 
@@ -1001,7 +1016,7 @@ class IBD extends BaseCase
      */
     public function setPneuHypothermia(TripleChoice $pneuHypothermia = null)
     {
-        $this->pneuHypothermia = $pneuHypothermia;
+        $this->pneu_hypothermia = $pneuHypothermia;
         return $this;
     }
 
@@ -1011,7 +1026,7 @@ class IBD extends BaseCase
      */
     public function setPneuMalnutrition(TripleChoice $pneuMalnutrition = null)
     {
-        $this->pneuMalnutrition = $pneuMalnutrition;
+        $this->pneu_malnutrition = $pneuMalnutrition;
         return $this;
     }
 
@@ -1021,7 +1036,7 @@ class IBD extends BaseCase
      */
     public function setCxrDone(TripleChoice $cxrDone = null)
     {
-        $this->cxrDone = $cxrDone;
+        $this->cxr_done = $cxrDone;
         return $this;
     }
 
@@ -1031,7 +1046,7 @@ class IBD extends BaseCase
      */
     public function setCxrResult(CXRResult $cxrResult = null)
     {
-        $this->cxrResult = $cxrResult;
+        $this->cxr_result = $cxrResult;
         return $this;
     }
 
@@ -1041,7 +1056,7 @@ class IBD extends BaseCase
      */
     public function setCxrAdditionalResult(CXRAdditionalResult $cxrAdditionalResult = null)
     {
-        $this->cxrAdditionalResult = $cxrAdditionalResult;
+        $this->cxr_additional_result = $cxrAdditionalResult;
         return $this;
     }
 
@@ -1051,7 +1066,7 @@ class IBD extends BaseCase
      */
     public function setHibReceived(VaccinationReceived $hibReceived = null)
     {
-        $this->hibReceived = $hibReceived;
+        $this->hib_received = $hibReceived;
         return $this;
     }
 
@@ -1061,7 +1076,7 @@ class IBD extends BaseCase
      */
     public function setHibDoses(FourDoses $hibDoses = null)
     {
-        $this->hibDoses = $hibDoses;
+        $this->hib_doses = $hibDoses;
         return $this;
     }
 
@@ -1071,7 +1086,7 @@ class IBD extends BaseCase
      */
     public function setHibMostRecentDose(\DateTime $hibMostRecentDose = null)
     {
-        $this->hibMostRecentDose = $hibMostRecentDose;
+        $this->hib_most_recent_dose = $hibMostRecentDose;
 
         return $this;
     }
@@ -1082,7 +1097,7 @@ class IBD extends BaseCase
      */
     public function setPcvReceived(VaccinationReceived $pcvReceived = null)
     {
-        $this->pcvReceived = $pcvReceived;
+        $this->pcv_received = $pcvReceived;
         return $this;
     }
 
@@ -1092,7 +1107,7 @@ class IBD extends BaseCase
      */
     public function setPcvDoses(FourDoses $pcvDoses = null)
     {
-        $this->pcvDoses = $pcvDoses;
+        $this->pcv_doses = $pcvDoses;
         return $this;
     }
 
@@ -1102,7 +1117,7 @@ class IBD extends BaseCase
      */
     public function setPcvType(PCVType $pcvType = null)
     {
-        $this->pcvType = $pcvType;
+        $this->pcv_type = $pcvType;
         return $this;
     }
 
@@ -1112,7 +1127,7 @@ class IBD extends BaseCase
      */
     public function setPcvMostRecentDose(\DateTime $pcvMostRecentDose = null)
     {
-        $this->pcvMostRecentDose = $pcvMostRecentDose;
+        $this->pcv_most_recent_dose = $pcvMostRecentDose;
 
         return $this;
     }
@@ -1123,7 +1138,7 @@ class IBD extends BaseCase
      */
     public function setMeningReceived(VaccinationReceived $meningReceived = null)
     {
-        $this->meningReceived = $meningReceived;
+        $this->mening_received = $meningReceived;
         return $this;
     }
 
@@ -1133,7 +1148,7 @@ class IBD extends BaseCase
      */
     public function setMeningType(MeningitisVaccinationType $meningType = null)
     {
-        $this->meningType = $meningType;
+        $this->mening_type = $meningType;
         return $this;
     }
 
@@ -1141,9 +1156,9 @@ class IBD extends BaseCase
      * @param $meningMostRecentDose
      * @return $this
      */
-    public function setMeningMostRecentDose(\DateTime $meningMostRecentDose = null)
+    public function setMeningDate(\DateTime $meningMostRecentDose = null)
     {
-        $this->meningMostRecentDose = $meningMostRecentDose;
+        $this->mening_date = $meningMostRecentDose;
 
         return $this;
     }
@@ -1154,17 +1169,27 @@ class IBD extends BaseCase
      */
     public function setCsfCollected(TripleChoice $csfCollected = null)
     {
-        $this->csfCollected = $csfCollected;
+        $this->csf_collected = $csfCollected;
         return $this;
     }
 
     /**
-     * @param \DateTime|null $csfCollectDateTime
-     * @return $this
+     * @param \DateTime $date
+     * @return IBD
      */
-    public function setCsfCollectDateTime(\DateTime $csfCollectDateTime = null)
+    public function setCsfCollectDate(\DateTime $date = null)
     {
-        $this->csfCollectDateTime = $csfCollectDateTime;
+        $this->csf_collect_date = $date;
+        return $this;
+    }
+
+    /**
+     * @param \DateTime $time
+     * @return IBD
+     */
+    public function setCsfCollectTime(\DateTime $time = null)
+    {
+        $this->csf_collect_time = $time;
         return $this;
     }
 
@@ -1174,7 +1199,7 @@ class IBD extends BaseCase
      */
     public function setCsfAppearance(CSFAppearance $csfAppearance = null)
     {
-        $this->csfAppearance = $csfAppearance;
+        $this->csf_appearance = $csfAppearance;
         return $this;
     }
 
@@ -1184,7 +1209,7 @@ class IBD extends BaseCase
      */
     public function setBloodCollectDate(\DateTime $date = null)
     {
-        $this->bloodCollectDate = $date;
+        $this->blood_collect_date = $date;
 
         return $this;
     }
@@ -1195,7 +1220,7 @@ class IBD extends BaseCase
      */
     public function setBloodCollected(TripleChoice $bloodCollected = null)
     {
-        $this->bloodCollected = $bloodCollected;
+        $this->blood_collected = $bloodCollected;
         return $this;
     }
 
@@ -1205,7 +1230,7 @@ class IBD extends BaseCase
      */
     public function setOtherSpecimenCollected(OtherSpecimen $otherSpecimenCollected = null)
     {
-        $this->otherSpecimenCollected = $otherSpecimenCollected;
+        $this->other_specimen_collected = $otherSpecimenCollected;
         return $this;
     }
 
@@ -1215,7 +1240,7 @@ class IBD extends BaseCase
      */
     public function setOtherSpecimenOther($otherSpecimenOther)
     {
-        $this->otherSpecimenOther = $otherSpecimenOther;
+        $this->other_specimen_other = $otherSpecimenOther;
         return $this;
     }
 
@@ -1225,7 +1250,7 @@ class IBD extends BaseCase
      */
     public function setDischOutcome(DischargeOutcome $dischOutcome = null)
     {
-        $this->dischOutcome = $dischOutcome;
+        $this->disch_outcome = $dischOutcome;
         return $this;
     }
 
@@ -1235,7 +1260,7 @@ class IBD extends BaseCase
      */
     public function setDischDx(DischargeDiagnosis $dischDx = null)
     {
-        $this->dischDx = $dischDx;
+        $this->disch_dx = $dischDx;
         return $this;
     }
 
@@ -1245,7 +1270,7 @@ class IBD extends BaseCase
      */
     public function setDischDxOther($dischDxOther)
     {
-        $this->dischDxOther = $dischDxOther;
+        $this->disch_dx_other = $dischDxOther;
         return $this;
     }
 
@@ -1255,7 +1280,7 @@ class IBD extends BaseCase
      */
     public function setDischClass(DischargeClassification $dischClass = null)
     {
-        $this->dischClass = $dischClass;
+        $this->disch_class = $dischClass;
         return $this;
     }
 
@@ -1284,7 +1309,7 @@ class IBD extends BaseCase
      */
     public function getDischClassOther()
     {
-        return $this->dischClassOther;
+        return $this->disch_class_other;
     }
 
     /**
@@ -1293,7 +1318,7 @@ class IBD extends BaseCase
      */
     public function setDischClassOther($dischClassOther)
     {
-        $this->dischClassOther = $dischClassOther;
+        $this->disch_class_other= $dischClassOther;
         return $this;
     }
 
@@ -1312,8 +1337,8 @@ class IBD extends BaseCase
 //
 // The following validations need to store errors in the object or force form validation prior to form submission
 //        // if admission diagnosis is other, enforce value in 'admission diagnosis other' field
-//        if($this->admDx && $this->admDx->equal(Diagnosis::OTHER) && empty($this->admDxOther))
-//            $context->addViolationAt('admDx',"form.validation.admissionDx-other-without-other-text");
+//        if($this->adm_dx && $this->adm_dx->equal(Diagnosis::OTHER) && empty($this->adm_dxOther))
+//            $context->addViolationAt('adm_dx',"form.validation.admissionDx-other-without-other-text");
 //
 //        // if discharge diagnosis is other, enforce value in 'discharge diagnosis other' field
 //        if($this->dischDx && $this->dischDx->equal(Diagnosis::OTHER) && empty($this->dischDxOther))
@@ -1333,7 +1358,7 @@ class IBD extends BaseCase
 //            if($this->meningType->equal(ArrayChoice::NO_SELECTION))
 //                $context->addViolationAt('meningType', "form.validation.meningReceived-meningType-empty");
 //
-//            if(is_null($this->meningMostRecentDose))
+//            if(is_null($this->mening_date))
 //                $context->addViolationAt('meningType', "form.validation.meningReceived-meningMostRecentDose-empty");
 //        }
 //
