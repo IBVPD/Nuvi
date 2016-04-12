@@ -2,6 +2,9 @@
 VERSION 0  INITIAL RELEASE
 ==========================
 
+   Version 0.6 - Rename database variables
+      12/04/2016 11:45  0.6.0  initial release
+
    Version 0.5 - Updated translations, reports and fix sonata
       06/04/2016 09:02  0.5.0  initial release
 
