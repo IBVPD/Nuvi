@@ -2,9 +2,11 @@
 
 namespace NS\SentinelBundle\Report\Result\IBD;
 
+use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use NS\SentinelBundle\Report\Result\AbstractSitePerformanceResult;
 
-class SitePerformanceResult extends AbstractSitePerformanceResult
+class SitePerformanceResult extends AbstractSitePerformanceResult implements TranslationContainerInterface
 {
     /**
      * @return bool
@@ -86,5 +88,19 @@ class SitePerformanceResult extends AbstractSitePerformanceResult
     public function hasMinimumLabConfirmed()
     {
         return 'N/A';
+    }
+
+    /**
+     * @inheritDoc
+     */
+    static function getTranslationMessages()
+    {
+        return array(
+            new Message(self::TIER1_MIN_CASES_STR),
+            new Message(self::TIER1_MIN_SPECIMEN_STR),
+            new Message(self::CONSISTENT_REPORTING_STR),
+            new Message(self::TIER2_MIN_CASES_STR),
+            new Message(self::TIER2_MIN_SPECIMEN_STR),
+        );
     }
 }

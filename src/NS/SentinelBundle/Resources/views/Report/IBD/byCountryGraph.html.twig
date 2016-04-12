@@ -9,7 +9,7 @@
     c['element'] = $('countryStatistics');
     c['chart']   = new google.visualization.BarChart(c['element']);
     c['data']    = google.visualization.arrayToDataTable([
-                    ['Country','Number Of Cases'],
+                    ['{{ 'Country'|trans }} ', '{{ 'Number Of Cases'|trans }}'],
                         {%spaceless%}
                         {%for r in reports %}
                             ['{{r.name|e('js')}}', {{r.numberOfCases}}]{%if not loop.last %},{%endif%}

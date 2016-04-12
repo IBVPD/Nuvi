@@ -8,7 +8,7 @@
     c['element'] = $('generalStatistics');
     c['chart']   = new google.visualization.BarChart(c['element']);
     c['data']    = google.visualization.arrayToDataTable([
-                    ['Type','Number'],
+                    ['{{ 'Type'|trans }}','{{ 'Number'|trans }}'],
                         {%spaceless%}
                         {%for k,s in reports %}
                             ['{{k|e('js')}}', {{s}}]{%if not loop.last %},{%endif%}

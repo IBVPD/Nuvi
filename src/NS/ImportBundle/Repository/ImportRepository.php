@@ -40,11 +40,14 @@ class ImportRepository extends EntityRepository
      */
     public function findForUser(UserInterface $user, $resultId)
     {
-        return $this->createQueryBuilder('r')
-                    ->where('r.user = :user AND r.id = :id')
-                    ->setParameters(array('user'=>$this->_em->getReference(get_class($user), $user->getId()), 'id'=>$resultId))
-                    ->getQuery()
-                    ->getSingleResult();
+        try {
+            return $this->createQueryBuilder('r')
+                ->where('r.user = :user AND r.id = :id')
+                ->setParameters(array('user'=>$this->_em->getReference(get_class($user), $user->getId()), 'id'=>$resultId))
+                ->getQuery()
+                ->getSingleResult();
+        } catch (UnexpectedResultException $exception) {
+        }
     }
 
     /**

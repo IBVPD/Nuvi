@@ -108,9 +108,10 @@ class BaseFilterType extends AbstractType
         }
 
         $form->add('find', 'NS\AceBundle\Form\IconButtonType', array(
+            'label'=> 'find',
             'type' => 'submit',
             'icon' => 'fa fa-search',
-            'attr' => array('class' => 'btn btn-sm btn-success')));
+            'attr' => array('class' => 'btn btn-xs btn-success')));
     }
 
     /**

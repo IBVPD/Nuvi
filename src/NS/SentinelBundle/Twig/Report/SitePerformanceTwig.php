@@ -43,7 +43,7 @@ class SitePerformanceTwig extends \Twig_Extension
         return $this->twig->render('NSSentinelBundle:Report:flag.html.twig',array(
             'flag'=>$result->getMinimumNumberOfCases(),
             'string'=>$result->getMinimumNumberOfCasesString(),
-            'result'=>$result->getMinimumNumberOfCases(),
+            'result'=>$result->getTotalCases(),
             ));
     }
 

@@ -2,6 +2,8 @@
 
 namespace NS\SentinelBundle\Report\Result;
 
+use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use NS\SentinelBundle\Entity\BaseCase;
 
 /**
@@ -9,8 +11,10 @@ use NS\SentinelBundle\Entity\BaseCase;
  *
  * @author gnat
  */
-class AgeDistribution
+class AgeDistribution implements TranslationContainerInterface
 {
+    const NO_ADM_DATE = 'No Adm Date';
+
     /**
      * @var array
      */
@@ -24,6 +28,9 @@ class AgeDistribution
         $this->results = array();
 
         foreach ($results as $case) {
+            if ($case['theYear'] == '') {
+                $case['theYear'] = self::NO_ADM_DATE;
+            }
             $this->results[$case['theYear']][$case['ageDistribution']] = $case['theCount'];
             if (!isset($this->results[$case['theYear']]['total'])) {
                 $this->results[$case['theYear']]['total'] = $case['theCount'];
@@ -39,6 +46,19 @@ class AgeDistribution
     public function getYears()
     {
         return array_keys($this->results);
+    }
+
+    /**
+     * @return array
+     */
+    public function getGraphableYears()
+    {
+        $years = $this->getYears();
+        if($years[0] == self::NO_ADM_DATE) {
+            unset($years[0]);
+        }
+
+        return $years;
     }
 
     /**
@@ -205,4 +225,14 @@ class AgeDistribution
 
         return $res;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public static function getTranslationMessages()
+    {
+        return array(new Message(self::NO_ADM_DATE));
+    }
+
+
 }

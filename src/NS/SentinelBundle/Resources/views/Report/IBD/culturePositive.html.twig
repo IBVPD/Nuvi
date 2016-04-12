@@ -1,80 +1,103 @@
-{%extends "NSSentinelBundle::layout.html.twig" %}
-{% block pagetitle %}{{'Culture Positive and Additional Lab Confirmed Cases By Diagnostic Test'|trans}}{% endblock %}
+{% extends "NSSentinelBundle::layout.html.twig" %}
+{% block pagetitle %}{{ 'Culture Positive and Additional Lab Confirmed Cases By Diagnostic Test'|trans }}{% endblock %}
+
 {% block body %}
-<div class="row">
-    <div class="col-xs-9">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="widget-box widget-color-blue no-border">
-                    <div class="widget-header widget-header-small">
-                        <h5 class="widget-title">{{'Results'|trans}}</h5>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="widget-box widget-color-blue no-border">
+                <div class="widget-header widget-header-small">
+                    <h5 class="widget-title">{{ 'Results'|trans }}</h5>
+                    {{ widget_filter_toolbox() }}
+                </div>
+                <div class="widget-body">
+                    <div class="widget-toolbox padding-8">
+                        <div class="collapse" id="filters">
+                            <form method="POST" action="{{ path('reportCulturePositive') }}" class="reportFilters">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        {{ form_row(form.admDate) }}
+                                        {{ form_row(form.createdAt) }}
+                                    </div>
+                                    <div class="col-xs-3">
+                                        {% if form.region is defined %}
+                                            {{ form_row(form.region) }}
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-xs-3">
+                                        {% if form.country is defined %}
+                                            {{ form_row(form.country) }}
+                                        {% endif %}
+
+                                    </div>
+                                    <div class="col-xs-3">
+                                        {% if form.site is defined %}
+                                            {{ form_row(form.site) }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        {{ form.filter is defined ? form_widget(form.filter) }}
+                                        {{ form.export is defined ? form_widget(form.export) }}
+                                        {{ form.reset is defined ? form_widget(form.reset) }}
+                                        {{ form_rest(form) }}
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover">
+                    <div class="widget-main no-padding">
+                        <table class="table table-responsive table-striped table-hover">
                             <thead>
                             <tr>
-                                <th>{{'Year'|trans}}</th>
-                                <td>{{'Culture+'|trans}}</td>
-                                <td>{{'Culture- & Binax+'|trans}}</td>
-                                <td>{{'PCR+ & Binax- & Culture-'|trans}}</td>
+                                <th>{{ 'Year'|trans }}</th>
+                                <td>{{ 'Culture+'|trans }}</td>
+                                <td>{{ 'Culture- & Binax+'|trans }}</td>
+                                <td>{{ 'PCR+ & Binax- & Culture-'|trans }}</td>
                             </tr>
                             </thead>
                             <tbody>
-                                {% for year in results.years %}
-                                    <tr>
-                                        <td>{{year}}</td>
-                                        <td>{{results.getCulturePositive(year)}}</td>
-                                        <td>{{results.getCultureNegative(year)}}</td>
-                                        <td>{{results.getPcrPositive(year)}}</td>
-                                    </tr>
-                                {% endfor %}
+                            {% for year in results.years %}
+                                <tr>
+                                    <td>{{ year }}</td>
+                                    <td>{{ results.getCulturePositive(year) }}</td>
+                                    <td>{{ results.getCultureNegative(year) }}</td>
+                                    <td>{{ results.getPcrPositive(year) }}</td>
+                                </tr>
+                            {% endfor %}
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-xs-12"><div id="lab-results"></div></div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div id="lab-results"></div>
         </div>
     </div>
-    <div class="col-sm-3">
-        <div class="widget-box widget-color-blue">
-            <div class="widget-header widget-header-small">
-                <h5 class="widget-title">{{'Filters'|trans}}</h5>
-            </div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    <form method="POST" action="{{path('reportCulturePositive')}}" class="reportFilters">
-                        {{form_rest(form)}}
-                    </form>                        
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-<script type="text/javascript">
-var c = new Array();
-    c['element'] = document.getElementById('lab-results');
-    if(c['element'])
-    {
-        c['chart'] = new google.visualization.ColumnChart(c['element']);
-        c['data'] = google.visualization.arrayToDataTable([
-            ['Year', 'Culture+', 'Culture- & Binax+', 'PCR+ & Binax Culture- & Culture-' ],
-            {% for year in results.years %}
-                [{{year}},{{results.getCulturePositive(year)}},{{results.getCultureNegative(year)}},{{results.getPcrPositive(year)}}]{%if not loop.last%},{%endif%}
-            {% endfor %}
-          ]);
+    <script type="text/javascript">
+        var c = new Array();
+        c['element'] = document.getElementById('lab-results');
+        if (c['element']) {
+            c['chart'] = new google.visualization.ColumnChart(c['element']);
+            c['data'] = google.visualization.arrayToDataTable([
+                ['{{ 'Year'|trans }}', '{{ 'Culture+'|trans }}', '{{ 'Culture- & Binax+'|trans }}', '{{ 'PCR+ & Binax Culture- & Culture-'|trans }}'],
+                {% for year in results.years %}
+                [{{ year }},{{ results.getCulturePositive(year) }},{{ results.getCultureNegative(year) }},{{ results.getPcrPositive(year) }}]{% if not loop.last %},{% endif %}
+                {% endfor %}
+            ]);
 
-        c['options'] = {
-          legend: { position: 'top', maxLines: 3 },
-          bar: { groupWidth: '75%' },
-          isStacked: true,
-          hAxis: { format: '####'}
-        };
+            c['options'] = {
+                legend: {position: 'top', maxLines: 3},
+                bar: {groupWidth: '75%'},
+                isStacked: true,
+                hAxis: {format: '####'}
+            };
 
-        c['chart'].draw(c['data'],c['options']);
-    }    
-</script>
+            c['chart'].draw(c['data'], c['options']);
+        }
+    </script>
 {% endblock %}

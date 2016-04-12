@@ -1,0 +1,280 @@
+diff --git a/app/Resources/translations/messages.en.xliff b/app/Resources/translations/messages.en.xliff
+index 0292f2e..b42b9a0 100644
+--- a/app/Resources/translations/messages.en.xliff
++++ b/app/Resources/translations/messages.en.xliff
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
+-  <file date="2016-03-24T16:19:11Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
++  <file date="2016-04-04T01:08:55Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
+     <header>
+       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
+       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
+diff --git a/src/NS/SentinelBundle/Resources/translations/messages.es.xliff b/src/NS/SentinelBundle/Resources/translations/messages.es.xliff
+index ace1332..1e9a9b6 100644
+--- a/src/NS/SentinelBundle/Resources/translations/messages.es.xliff
++++ b/src/NS/SentinelBundle/Resources/translations/messages.es.xliff
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
+-  <file date="2016-04-01T20:35:39Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
++  <file date="2016-04-04T01:25:56Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
+     <header>
+       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
+       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
+@@ -321,12 +321,12 @@
+       </trans-unit>
+       <trans-unit id="26a272d368f7a0ded2093637af1121af91bae4b3" resname="CSF">
+         <source>CSF</source>
+-        <target>CSF (LCR)</target>
++        <target>LCR</target>
+         <jms:reference-file line="19">views/IBD/editLab.html.twig</jms:reference-file>
+       </trans-unit>
+       <trans-unit id="075a704274c71eb4f91f3b8d6e34f3fea19765f9" resname="CSF + Isolate">
+         <source>CSF + Isolate</source>
+-        <target>CSF (LCR) + Aislamiento</target>
++        <target>LCR + Aislamiento</target>
+       </trans-unit>
+       <trans-unit id="775275cfc23d95b3976ef3bbea43f42a663ffdda" resname="CT Values From PCR">
+         <source>CT Values From PCR</source>
+@@ -809,7 +809,7 @@
+       </trans-unit>
+       <trans-unit id="2a8ec75786f2176977495776313819e8075bd734" resname="Lab CSF">
+         <source>Lab CSF</source>
+-        <target>Laboratorio  CSF</target>
++        <target>Laboratorio  LCR</target>
+         <jms:reference-file line="22">views/IBD/show.html.twig</jms:reference-file>
+       </trans-unit>
+       <trans-unit id="b6d7bccf87831fd638dec03fdbddc763b6c4647b" resname="Lab Confirmed">
+@@ -922,22 +922,22 @@
+       </trans-unit>
+       <trans-unit id="ff4c4b67c0baf582992069cac7d12b303e82ebad" resname="Missing Admission Diagnosis">
+         <source>Missing Admission Diagnosis</source>
+-        <target>El diagnóstico de admisión que falta</target>
++        <target>Sin diagnóstico de admisión</target>
+         <jms:reference-file line="20">Report/IBD/dataQuality.html.twig</jms:reference-file>
+       </trans-unit>
+       <trans-unit id="d2d71834b6d513867b0c2ddcb33aae6e19993d0a" resname="Missing Discharge Date">
+         <source>Missing Discharge Date</source>
+-        <target>Fecha de descarga faltante</target>
++        <target>Sin fecha de egreso</target>
+         <jms:reference-file line="21">Report/RotaVirus/dataQuality.html.twig</jms:reference-file>
+       </trans-unit>
+       <trans-unit id="e97ee4b4fe6d1b2bada9b2d5600b463a54732393" resname="Missing Discharge Diagnosis">
+         <source>Missing Discharge Diagnosis</source>
+-        <target>Diagnóstico de descarga faltante</target>
++        <target>Sin diagnóstico de egreso</target>
+         <jms:reference-file line="22">Report/IBD/dataQuality.html.twig</jms:reference-file>
+       </trans-unit>
+       <trans-unit id="b7033fa833c342cc2e62ce01f7593a4dbde7b098" resname="Missing Discharge Outcome">
+         <source>Missing Discharge Outcome</source>
+-        <target>Resultado de descarga faltante</target>
++        <target>Sin resultado de egreso</target>
+         <jms:reference-file line="22">Report/RotaVirus/dataQuality.html.twig</jms:reference-file>
+         <jms:reference-file line="21">Report/IBD/dataQuality.html.twig</jms:reference-file>
+       </trans-unit>
+@@ -1670,22 +1670,22 @@
+       </trans-unit>
+       <trans-unit id="e23e32ba593b3f97acca179a8075c1aab17ecf53" resname="csf Binax Result">
+         <source>csf Binax Result</source>
+-        <target>Resultado de csf Binax</target>
++        <target>Resultado de LCR Binax</target>
+         <jms:reference-file line="24">Report/IBD/fieldPopulation.html.twig</jms:reference-file>
+       </trans-unit>
+       <trans-unit id="abbbc28952e061627f8fd4ad474944cec585a2e7" resname="csf Collected">
+         <source>csf Collected</source>
+-        <target>Colectado del csf</target>
++        <target>Toma de muestra de LCR</target>
+         <jms:reference-file line="19">Report/IBD/fieldPopulation.html.twig</jms:reference-file>
+       </trans-unit>
+       <trans-unit id="d933c100a3344322c1679817f118083d26a627a7" resname="csf Lat Recorded">
+         <source>csf Lat Recorded</source>
+-        <target>csf Lat Registrado</target>
++        <target>LCR Lat Registrado</target>
+         <jms:reference-file line="25">Report/IBD/fieldPopulation.html.twig</jms:reference-file>
+       </trans-unit>
+       <trans-unit id="78a8804d05d15573c53379b34f5c7febef6b507b" resname="csf Result">
+         <source>csf Result</source>
+-        <target>Resultado de CSF</target>
++        <target>Resultado de LCR</target>
+         <jms:reference-file line="20">Report/IBD/fieldPopulation.html.twig</jms:reference-file>
+       </trans-unit>
+       <trans-unit id="3c363836cf4e16666669a25da280a1865c2d2874" resname="d">
+@@ -1890,85 +1890,85 @@
+       </trans-unit>
+       <trans-unit id="62bdde1207c8c4f2f2dbaec50543fd311e98b3e8" resname="ibd-form.csf-appearance">
+         <source>ibd-form.csf-appearance</source>
+-        <target>Apariencia del CSF</target>
++        <target>Apariencia del LCR</target>
+         <jms:reference-file line="203">views/IBD/show.html.twig</jms:reference-file>
+         <jms:reference-file line="118">Form/IBD/CaseType.php</jms:reference-file>
+       </trans-unit>
+       <trans-unit id="0f90b164aed657b3c7a0ba7b3800f81a315d6f78" resname="ibd-form.csf-binax-done">
+         <source>ibd-form.csf-binax-done</source>
+-        <target>¿Se hizo un examen de Binax en CSF?</target>
++        <target>¿Se hizo un examen de Binax en LCR?</target>
+         <jms:reference-file line="223">views/IBD/show.html.twig</jms:reference-file>
+         <jms:reference-file line="84">Form/IBD/SiteLabType.php</jms:reference-file>
+       </trans-unit>
+       <trans-unit id="310173f6b5e349ca4849484b0bac14f040c32614" resname="ibd-form.csf-binax-result">
+         <source>ibd-form.csf-binax-result</source>
+-        <target>Resultados del examen de Binax para CSF</target>
++        <target>Resultados del examen de Binax para LCR</target>
+         <jms:reference-file line="86">Form/IBD/SiteLabType.php</jms:reference-file>
+       </trans-unit>
+       <trans-unit id="357445ce7e2e38232bb0f39e5375dfc854d6831a" resname="ibd-form.csf-collect-datetime">
+         <source>ibd-form.csf-collect-datetime</source>
+-        <target>Fecha y hora de colección de CSF (ejemplo, punción lumbar) del caso</target>
++        <target>Fecha y hora de colección de LCR (ejemplo, punción lumbar) del caso</target>
+         <jms:reference-file line="199">views/IBD/show.html.twig</jms:reference-file>
+         <jms:reference-file line="115">Form/IBD/CaseType.php</jms:reference-file>
+       </trans-unit>
+       <trans-unit id="55a3c923ddac91385faa6c9c10da684e9f63f4a8" resname="ibd-form.csf-collected">
+         <source>ibd-form.csf-collected</source>
+-        <target>¿Se colectó CSF del caso?</target>
++        <target>¿Se colectó LCR del caso?</target>
+         <jms:reference-file line="195">views/IBD/show.html.twig</jms:reference-file>
+         <jms:reference-file line="113">Form/IBD/CaseType.php</jms:reference-file>
+       </trans-unit>
+       <trans-unit id="4e7365004c321f0f7ff7ab3852b3fdd4d3d2a23d" resname="ibd-form.csf-cult-done">
+         <source>ibd-form.csf-cult-done</source>
+-        <target>¿Se hizo cultivo en CSF?</target>
++        <target>¿Se hizo cultivo en LCR?</target>
+         <jms:reference-file line="221">views/IBD/show.html.twig</jms:reference-file>
+         <jms:reference-file line="53">Form/IBD/SiteLabType.php</jms:reference-file>
+       </trans-unit>
+       <trans-unit id="165ff9e8b1253ff274bec7035629a17d6f7d73d2" resname="ibd-form.csf-cult-result">
+         <source>ibd-form.csf-cult-result</source>
+-        <target>Resultado del examen de cultivo de  CSF</target>
++        <target>Resultado del examen de cultivo de  LCR</target>
+         <jms:reference-file line="55">Form/IBD/SiteLabType.php</jms:reference-file>
+       </trans-unit>
+       <trans-unit id="592e81911f3db51a32610e8f0ba4421adc702f03" resname="ibd-form.csf-culture-contaminant">
+         <source>ibd-form.csf-culture-contaminant</source>
+-        <target>Cultivo de CSF contaminante</target>
++        <target>Cultivo de LCR contaminante</target>
+         <jms:reference-file line="60">Form/IBD/SiteLabType.php</jms:reference-file>
+       </trans-unit>
+       <trans-unit id="3332d66e09ea8b6dd4eca625c491c87904e6aa2a" resname="ibd-form.csf-culture-other">
+         <source>ibd-form.csf-culture-other</source>
+-        <target>Si otros organismos fueron identificados en el cultivo de CSF, por favor especifique</target>
++        <target>Si otros organismos fueron identificados en el cultivo de LCR, por favor especifique</target>
+         <jms:reference-file line="226">views/IBD/show.html.twig</jms:reference-file>
+         <jms:reference-file line="58">Form/IBD/SiteLabType.php</jms:reference-file>
+       </trans-unit>
+       <trans-unit id="62b657fd64e41a1266bd381839ac793e57b29053" resname="ibd-form.csf-glucose">
+         <source>ibd-form.csf-glucose</source>
+-        <target>Medida de la glucosa en el CSF</target>
++        <target>Medida de la glucosa en el LCR</target>
+         <jms:reference-file line="219">views/IBD/show.html.twig</jms:reference-file>
+         <jms:reference-file line="51">Form/IBD/SiteLabType.php</jms:reference-file>
+       </trans-unit>
+       <trans-unit id="966e695a098f9080e0d713b2f577f27e6b14c0b8" resname="ibd-form.csf-gram-done">
+         <source>ibd-form.csf-gram-done</source>
+-        <target>¿Se hizo la tinción de Gram en el CSF?</target>
++        <target>¿Se hizo la tinción de Gram en el LCR?</target>
+         <jms:reference-file line="222">views/IBD/show.html.twig</jms:reference-file>
+         <jms:reference-file line="62">Form/IBD/SiteLabType.php</jms:reference-file>
+       </trans-unit>
+       <trans-unit id="5fc5be4ba1b86fc5db18c5973d5c726f682a3362" resname="ibd-form.csf-gram-other">
+         <source>ibd-form.csf-gram-other</source>
+-        <target>Si otros organismos fueron identificados en la tinción de Gram en el CSF, por favor especifique</target>
++        <target>Si otros organismos fueron identificados en la tinción de Gram en el LCR, por favor especifique</target>
+         <jms:reference-file line="80">Form/IBD/SiteLabType.php</jms:reference-file>
+       </trans-unit>
+       <trans-unit id="e92ff3e3870a9074fa68d05de217bf8b5b06f0e8" resname="ibd-form.csf-gram-result">
+         <source>ibd-form.csf-gram-result</source>
+-        <target>Resultado de la tinción de Gram del CSF</target>
++        <target>Resultado de la tinción de Gram del LCR</target>
+         <jms:reference-file line="66">Form/IBD/SiteLabType.php</jms:reference-file>
+       </trans-unit>
+       <trans-unit id="ba4d2096778797cc7b6d4798c880c485f95da9b9" resname="ibd-form.csf-gram-result-organism">
+         <source>ibd-form.csf-gram-result-organism</source>
+-        <target>Si organismos fueron detectados en la tinción de Gram del CSF, por favor seleccione la opción que mejor describa el organismo</target>
++        <target>Si organismos fueron detectados en la tinción de Gram del LCR, por favor seleccione la opción que mejor describa el organismo</target>
+         <jms:reference-file line="73">Form/IBD/SiteLabType.php</jms:reference-file>
+       </trans-unit>
+       <trans-unit id="57fab7bb44f1759986e31232efcb884b8396d0ed" resname="ibd-form.csf-id">
+         <source>ibd-form.csf-id</source>
+-        <target>Identificación de la muestra del CSF</target>
++        <target>Identificación de la muestra del LCR</target>
+         <jms:reference-file line="49">Form/IBD/SiteLabType.php</jms:reference-file>
+       </trans-unit>
+       <trans-unit id="75fb3d80d4a8e37fb9daf249e9197bed37ba6c96" resname="ibd-form.csf-isol-sent-to-rrl-date">
+@@ -1978,12 +1978,12 @@
+       </trans-unit>
+       <trans-unit id="5bd6a0e287156c72e1ca281ce63053256252457c" resname="ibd-form.csf-lab-datetime">
+         <source>ibd-form.csf-lab-datetime</source>
+-        <target>Fecha y hora cuando el CSF se recibió en el laboratorio</target>
++        <target>Fecha y hora cuando el LCR se recibió en el laboratorio</target>
+         <jms:reference-file line="48">Form/IBD/SiteLabType.php</jms:reference-file>
+       </trans-unit>
+       <trans-unit id="09822becef86dd896f55f4132c0039831a11910e" resname="ibd-form.csf-lat-done">
+         <source>ibd-form.csf-lat-done</source>
+-        <target>¿se hizo LAT (látex aglutinación test) en CSF?</target>
++        <target>¿se hizo LAT (látex aglutinación test) en LCR?</target>
+         <jms:reference-file line="224">views/IBD/show.html.twig</jms:reference-file>
+         <jms:reference-file line="88">Form/IBD/SiteLabType.php</jms:reference-file>
+       </trans-unit>
+@@ -1999,7 +1999,7 @@
+       </trans-unit>
+       <trans-unit id="62979686cc66be6b7d5e0ae6cdb418c262112eb8" resname="ibd-form.csf-pcr-done">
+         <source>ibd-form.csf-pcr-done</source>
+-        <target>¿Se hizo el PCR en el CSF?</target>
++        <target>¿Se hizo el PCR en el LCR?</target>
+         <jms:reference-file line="225">views/IBD/show.html.twig</jms:reference-file>
+         <jms:reference-file line="94">Form/IBD/SiteLabType.php</jms:reference-file>
+       </trans-unit>
+@@ -2707,12 +2707,12 @@
+       </trans-unit>
+       <trans-unit id="6afede7b4c3bae0d1c32c37dcce812c05e0fe74c" resname="menu.data-reports-percent-enrolled">
+         <source>menu.data-reports-percent-enrolled</source>
+-        <target>Informe de porcentaje reportados</target>
++        <target>Informe de porcentaje de casos reportados</target>
+         <jms:reference-file line="71">SentinelBundle/Menu/Builder.php</jms:reference-file>
+       </trans-unit>
+       <trans-unit id="c5fff3130e474d2b2862525f80fcfe762dafa2a0" resname="menu.data-reports-rrl-linking">
+         <source>menu.data-reports-rrl-linking</source>
+-        <target state="new">menu.data-reports-rrl-linking</target>
++        <target>Enlace de casos</target>
+         <jms:reference-file line="64">SentinelBundle/Menu/Builder.php</jms:reference-file>
+         <jms:reference-file line="68">SentinelBundle/Menu/Builder.php</jms:reference-file>
+       </trans-unit>
+diff --git a/src/NS/SentinelBundle/Resources/translations/validators.es.xliff b/src/NS/SentinelBundle/Resources/translations/validators.es.xliff
+index d5d5aff..98c073f 100644
+--- a/src/NS/SentinelBundle/Resources/translations/validators.es.xliff
++++ b/src/NS/SentinelBundle/Resources/translations/validators.es.xliff
+@@ -1,6 +1,6 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
+-  <file date="2016-04-01T19:12:36Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
++  <file date="2016-04-03T16:15:50Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
+     <header>
+       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
+       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
+@@ -16,19 +16,21 @@
+       </trans-unit>
+       <trans-unit id="28c1803981b5995e68f9e9fca3ac9f2b3329fa02" resname="Please provide a valid respiratory rate">
+         <source>Please provide a valid respiratory rate</source>
+-        <target state="new">Please provide a valid respiratory rate</target>
++        <target>Please provide a valid respiratory rate</target>
+       </trans-unit>
+       <trans-unit id="1f64f90c8120aa7a88c1bd1449492c4889868606" resname="The case id already exists for this site!">
+         <source>The case id already exists for this site!</source>
+-        <target state="new">The case id already exists for this site!</target>
++        <target>The case id already exists for this site!
++Este numero de caso ya existe para este sitio</target>
+       </trans-unit>
+       <trans-unit id="c8ffa100572b977cf323d768105e1ed26827e6b6" resname="The date of birth is past the date of admission">
+         <source>The date of birth is past the date of admission</source>
+-        <target state="new">The date of birth is past the date of admission</target>
++        <target>
++La fecha de nacimiento esta despues de la fecha de admision</target>
+       </trans-unit>
+       <trans-unit id="a29d6d5aa5131805e60ceac186b93963b5647b68" resname="The password fields must match.">
+         <source>The password fields must match.</source>
+-        <target state="new">The password fields must match.</target>
++        <target>los contraseñas Deben coincidir</target>
+         <jms:reference-file line="89">SentinelBundle/Admin/UserAdmin.php</jms:reference-file>
+         <jms:reference-file line="24">SentinelBundle/Form/UserType.php</jms:reference-file>
+       </trans-unit>

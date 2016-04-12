@@ -1,99 +1,122 @@
-{%extends "NSSentinelBundle::layout.html.twig" %}
-{%block pagetitle %}{{'Field Population'|trans}}{%endblock %}
+{% extends "NSSentinelBundle::layout.html.twig" %}
+{% block pagetitle %}{{ 'Field Population'|trans }}{% endblock %}
 
 {% block body %}
-    <div class="row-fluid">
-        <div class="col-sm-9">
+    <div class="row">
+        <div class="col-xs-12">
             <div class="widget-box widget-color-blue no-border">
                 <div class="widget-header widget-header-small">
-                    <h5 class="widget-title">{{'%count% Results'|trans({'%count%': sites|length})}}</h5>
-                </div>
-                <table class="table table-bordered table-striped">
-                    <thead class="thin-border-bottom">
-                        <tr>
-                            <th rowspan="2">{{'Region'|trans}}</th>
-                            <th rowspan="2">{{'Country'|trans}}</th>
-                            <th rowspan="2">{{'Site'|trans}}</th>
-                            <th rowspan="2">{{'Intense Support'|trans}}</th>
-                            <th rowspan="2">{{'Total # of Cases'|trans}}</th>
-                            <th colspan="2">{{'csf Collected'|trans}}</th>
-                            <th colspan="2">{{'csf Result'|trans}} %</th>
-                            <th colspan="2">{{'blood Collected'|trans}} %</th>
-                            <th colspan="2">{{'blood Result'|trans}} %</th>
-                            <th rowspan="2">{{'blood Equal'|trans}} %</th>
-                            <th rowspan="2">{{'csf Binax Result'|trans}} %</th>
-                            <th rowspan="2">{{'csf Lat Recorded'|trans}} %</th>
-                            <th rowspan="2">{{'Csf spn pcr positive'|trans}} %</th>
-                            <th colspan="2">{{'Csf Pcr'|trans}}</th>
-                            <th colspan="2">{{'Spn Result'|trans}}</th>
-                            <th colspan="2">{{'Hi Result'|trans}}</th>
-                        </tr>
-                        <tr>
-                            <th colspan="5"></th>
-                            <th>#</th>
-                            <th>%</th>
-                            <th>#</th>
-                            <th>%</th>
-                            <th>#</th>
-                            <th>%</th>
-                            <th>#</th>
-                            <th>%</th>
-                            <th colspan="4"></th>
-                            <th>#</th>
-                            <th>%</th>
-                            <th>#</th>
-                            <th>%</th>
-                            <th>#</th>
-                            <th>%</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {% for result in sites %}
-                        <tr>
-                            <td>{{result.site.country.region}}</td>
-                            <td>{{result.site.country}}</td>
-                            <td>{{result.site.name}}</td>
-                            <td>{{result.site.ibdIntenseSupport}}</td>
-                            <td>{{result.totalCases}}</td>
-                            <td>{{result.csfCollectedCount}}</td><td>{{result.csfCollectedPercent|number_format(1)}}</td>
-                            <td>{{result.csfResultCount}}</td><td>{{result.csfResultPercent|number_format(1)}}</td>
-                            <td>{{result.bloodCollectedCount}}</td><td>{{result.bloodCollectedPercent|number_format(1)}}</td>
-                            <td>{{result.bloodResultCount}}</td><td>{{result.bloodResultPercent|number_format(1)}}</td>
-                            <td>{{result.bloodEqual|number_format(1)}}</td>
-                            <td>{{result.csfBinaxResultPercent|number_format(1)}}</td>
-                            <td>{{result.csfLatResultPercent|number_format(1)}}</td>
-                            <td>{{result.pcrPositiveCount}}</td>
-                            <td>{{result.csfPcrRecordedCount}}</td>
-                            <td>{{result.csfPcrRecordedPercent|number_format(1)}} %</td>
-                            <td>{{result.csfSpnRecordedCount}}</td>
-                            <td>{{result.csfSpnRecordedPercent|number_format(1)}} %</td>
-                            <td>{{result.csfHiRecordedCount}}</td>
-                            <td>{{result.csfHiRecordedPercent|number_format(1)}} %</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <div class="widget-box widget-color-blue">
-                <div class="widget-header widget-header-small">
-                    <h5 class="widget-title">{{'Filters'|trans}}</h5>
+                    <h5 class="widget-title">{{ '%count% Results'|trans({'%count%': sites|length}) }}</h5>
+                    {{ widget_filter_toolbox() }}
                 </div>
                 <div class="widget-body">
-                    <div class="widget-main">
-                        <form method="POST" action="{{path('reportFieldPopulation')}}" class="reportFilters">
-                            {{form_errors(form)}}
-                            {{form_rest(form)}}
-                        </form>                        
+                    <div class="widget-toolbox padding-8">
+                        <div class="collapse" id="filters">
+                            <form method="POST" action="{{ path('reportFieldPopulation') }}" class="reportFilters">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        {{ form_row(form.admDate) }}
+                                        {{ form_row(form.createdAt) }}
+                                    </div>
+                                    <div class="col-xs-3">
+                                        {% if form.region is defined %}
+                                            {{ form_row(form.region) }}
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-xs-3">
+                                        {% if form.country is defined %}
+                                            {{ form_row(form.country) }}
+                                        {% endif %}
+
+                                    </div>
+                                    <div class="col-xs-3">
+                                        {% if form.site is defined %}
+                                            {{ form_row(form.site) }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        {{ form.filter is defined ? form_widget(form.filter) }}
+                                        {{ form.export is defined ? form_widget(form.export) }}
+                                        {{ form.reset is defined ? form_widget(form.reset) }}
+                                        {{ form_rest(form) }}
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="widget-main no-padding">
+                        <table class="table table-responsive">
+                            <thead>
+                            <tr>
+                                <th rowspan="2">{{ 'Region'|trans }}</th>
+                                <th rowspan="2">{{ 'Country'|trans }}</th>
+                                <th rowspan="2">{{ 'Site'|trans }}</th>
+                                <th rowspan="2">{{ 'Intense Support'|trans }}</th>
+                                <th rowspan="2">{{ 'Total # of Cases'|trans }}</th>
+                                <th colspan="2">{{ 'csf Collected'|trans }}</th>
+                                <th colspan="2">{{ 'csf Result'|trans }} %</th>
+                                <th colspan="2">{{ 'blood Collected'|trans }} %</th>
+                                <th colspan="2">{{ 'blood Result'|trans }} %</th>
+                                <th rowspan="2">{{ 'blood Equal'|trans }} %</th>
+                                <th rowspan="2">{{ 'csf Binax Result'|trans }} %</th>
+                                <th rowspan="2">{{ 'csf Lat Recorded'|trans }} %</th>
+                                <th rowspan="2">{{ 'Csf spn pcr positive'|trans }} %</th>
+                                <th colspan="2">{{ 'Csf Pcr'|trans }}</th>
+                                <th colspan="2">{{ 'Spn Result'|trans }}</th>
+                                <th colspan="2">{{ 'Hi Result'|trans }}</th>
+                            </tr>
+                            <tr>
+                                <th>#</th>
+                                <th>%</th>
+                                <th>#</th>
+                                <th>%</th>
+                                <th>#</th>
+                                <th>%</th>
+                                <th>#</th>
+                                <th>%</th>
+                                <th>#</th>
+                                <th>%</th>
+                                <th>#</th>
+                                <th>%</th>
+                                <th>#</th>
+                                <th>%</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for result in sites %}
+                                <tr>
+                                    <td>{{ result.site.country.region }}</td>
+                                    <td>{{ result.site.country }}</td>
+                                    <td>{{ result.site.name }}</td>
+                                    <td>{{ result.site.ibdIntenseSupport }}</td>
+                                    <td>{{ result.totalCases }}</td>
+                                    <td>{{ result.csfCollectedCount }}</td>
+                                    <td>{{ result.csfCollectedPercent|number_format(1) }}</td>
+                                    <td>{{ result.csfResultCount }}</td>
+                                    <td>{{ result.csfResultPercent|number_format(1) }}</td>
+                                    <td>{{ result.bloodCollectedCount }}</td>
+                                    <td>{{ result.bloodCollectedPercent|number_format(1) }}</td>
+                                    <td>{{ result.bloodResultCount }}</td>
+                                    <td>{{ result.bloodResultPercent|number_format(1) }}</td>
+                                    <td>{{ result.bloodEqual|number_format(1) }}</td>
+                                    <td>{{ result.csfBinaxResultPercent|number_format(1) }}</td>
+                                    <td>{{ result.csfLatResultPercent|number_format(1) }}</td>
+                                    <td>{{ result.pcrPositiveCount }}</td>
+                                    <td>{{ result.csfPcrRecordedCount }}</td>
+                                    <td>{{ result.csfPcrRecordedPercent|number_format(1) }} %</td>
+                                    <td>{{ result.csfSpnRecordedCount }}</td>
+                                    <td>{{ result.csfSpnRecordedPercent|number_format(1) }} %</td>
+                                    <td>{{ result.csfHiRecordedCount }}</td>
+                                    <td>{{ result.csfHiRecordedPercent|number_format(1) }} %</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="row-fluid">
-        <div class="col-sm-12">
-            <div id="chart_div" style="width: 1024px; height: 500px;"></div>
         </div>
     </div>
 {% endblock %}

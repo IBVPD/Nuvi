@@ -1,16 +1,13 @@
 {% extends "NSSentinelBundle::layout.html.twig" %}
 {% block pagetitle %}{{ 'Site Performance'|trans }}{% endblock %}
+
 {% block body %}
     <div class="row">
         <div class="col-xs-12">
             <div class="widget-box widget-color-blue no-border">
                 <div class="widget-header widget-header-small">
                     <h5 class="widget-title">{{ 'Results'|trans }}</h5>
-                    <div class="widget-toolbar">
-                        <a href="#performanceFilters" data-toggle="collapse" class="white small">
-                            <i class="ace-icon fa fa-plus" data-icon-hide="fa-minus" data-icon-show="fa-plus"></i> Filters
-                        </a>
-                    </div>
+                    {{ widget_filter_toolbox() }}
                 </div>
                 <div class="widget-body">
                     <div class="widget-toolbox padding-8">
@@ -79,11 +76,16 @@
                                         <td>{{ result.consistentReportingCount }}</td>
 
                                         {#2. ≥100 suspected diarrhea cases reported annually#}
-                                        <td>{{ minimumCases(result)}}<br/>{{ result.minimumNumberOfCasesString|trans }}</td>
+                                        <td>{{ minimumCases(result) }}<br/>{{ result.minimumNumberOfCasesString|trans }}
+                                        </td>
                                         {#3. ≥90% of suspect cases with specimen collected within 2 days of admission#}
-                                        <td class="no-padding specimenCollection"><div class="well no-margin no-padding">{{ specimenCollected(result) }}</div></td>
+                                        <td class="no-padding specimenCollection">
+                                            <div class="well no-margin no-padding">{{ specimenCollected(result) }}</div>
+                                        </td>
                                         {#4. ≥90% of specimens tested for rotavirus by EIA#}
-                                        <td class="no-padding specimenCollection"><div class="well no-margin no-padding">{{ labConfirmed(result) }}</div></td>
+                                        <td class="no-padding specimenCollection">
+                                            <div class="well no-margin no-padding">{{ labConfirmed(result) }}</div>
+                                        </td>
                                     </tr>
                                 {% endfor %}
                             </table>
@@ -93,42 +95,4 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-        jQuery(function($) {
-            $('.easy-pie-chart.percentage').each(function(){
-                var $box = $(this).closest('.infobox');
-                var barColor = $(this).data('color') || (!$box.hasClass('infobox-dark') ? $box.css('color') : 'rgba(255,255,255,0.95)');
-                var trackColor = barColor == 'rgba(255,255,255,0.95)' ? 'rgba(255,255,255,0.25)' : '#E2E2E2';
-                var size = parseInt($(this).data('size')) || 50;
-                $(this).easyPieChart({
-                    barColor: barColor,
-                    trackColor: trackColor,
-                    scaleColor: false,
-                    lineCap: 'butt',
-                    lineWidth: parseInt(size/10),
-                    animate: /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase()) ? false : 1000,
-                    size: size
-                });
-            })
-
-            $('.sparkline').each(function(){
-                var $box = $(this).closest('.infobox');
-                var barColor = !$box.hasClass('infobox-dark') ? $box.css('color') : '#FFF';
-                $(this).sparkline('html',
-                        {
-                            tagValuesAttribute:'data-values',
-                            type: 'bar',
-                            barColor: barColor ,
-                            chartRangeMin:$(this).data('min') || 0
-                        });
-            });
-        })
-    </script>
 {% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-    <script type="text/javascript" src="{{asset('/bundles/nsace/js/jquery.easypiechart.min.js')}}"></script>
-    <script type="text/javascript" src="{{asset('/bundles/nsace/js/jquery.sparkline.min.js')}}"></script>
-{% endblock %}
-

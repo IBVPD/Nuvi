@@ -5,6 +5,7 @@ namespace NS\SentinelBundle\Repository;
 use \Doctrine\ORM\NoResultException;
 use \Doctrine\ORM\Query;
 use \NS\SentinelBundle\Exceptions\NonExistentCaseException;
+use NS\SentinelBundle\Form\Types\ElisaResult;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\UtilBundle\Form\Types\ArrayChoice;
 
@@ -373,5 +374,30 @@ class RotaVirusRepository extends Common
             ->select(sprintf('COUNT(%s) as caseCount,c.code', $alias, $alias))
             ->leftJoin('cf.referenceLab', $alias)
             ->andWhere($alias.' IS NULL');
+    }
+
+    public function getStoolCollectedCountBySites($alias, array $siteCodes)
+    {
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+            ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
+            ->andWhere(sprintf('%s.stoolCollected = :collectedYes', $alias, $alias))
+            ->setParameter('collectedYes', TripleChoice::YES);
+    }
+
+    public function getElisaDoneCountBySites($alias, array $siteCodes)
+    {
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+            ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
+            ->andWhere(sprintf('%s.stoolCollected = :collectedYes AND sl.elisaDone = :collectedYes', $alias))
+            ->setParameter('collectedYes', TripleChoice::YES);
+    }
+
+    public function getElisaPositiveCountBySites($alias, array $siteCodes)
+    {
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+            ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
+            ->andWhere(sprintf('%s.stoolCollected = :collectedYes AND sl.elisaDone = :collectedYes AND sl.elisaResult = :elisaPositive', $alias))
+            ->setParameter('collectedYes', TripleChoice::YES)
+            ->setParameter('elisaPositive',ElisaResult::POSITIVE);
     }
 }

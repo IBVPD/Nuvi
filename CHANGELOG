@@ -2,6 +2,9 @@
 VERSION 0  INITIAL RELEASE
 ==========================
 
+   Version 0.5 - Updated translations, reports and fix sonata
+      06/04/2016 09:02  0.5.0  initial release
+
    Version 0.4 - Updated acebundle, sonata overrides, various translations and web interface fixes
       01/04/2016 19:18  0.4.2  Updated translations and fixed time picker
       01/04/2016 16:28  0.4.1  Fixed reports

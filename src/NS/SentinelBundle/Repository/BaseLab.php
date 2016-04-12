@@ -59,7 +59,6 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
      * @return mixed
      * @throws UnexpectedResultException
      * @throws \Doctrine\ORM\ORMException
-     * @throws \Exception
      */
     public function findOrCreateNew($id)
     {

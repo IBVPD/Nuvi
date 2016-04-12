@@ -6,6 +6,7 @@ use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use NS\FilteredPaginationBundle\Form\Type\LimitSelectType;
 use \NS\SentinelBundle\Entity\BaseExternalLab;
+use NS\SentinelBundle\Entity\ReferenceLabResultInterface;
 use \NS\SentinelBundle\Exceptions\NonExistentCaseException;
 use \Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use \Symfony\Component\HttpFoundation\Request;
@@ -79,6 +80,7 @@ abstract class BaseCaseController extends Controller implements TranslationConta
      * @return mixed
      */
     abstract protected function getForm($type, $objId = null);
+    abstract protected function getCaseRecord($objId);
 
     /**
      * @param Request $request
@@ -101,7 +103,7 @@ abstract class BaseCaseController extends Controller implements TranslationConta
             $entityMgr = $this->get('doctrine.orm.entity_manager');
             $record = $form->getData();
 
-            if ($record instanceof BaseExternalLab && $this->getUser()->hasReferenceLab()) {
+            if ($record instanceof ReferenceLabResultInterface && $this->getUser()->hasReferenceLab()) {
                 $record->setLab($entityMgr->getReference('NSSentinelBundle:ReferenceLab', $this->getUser()->getReferenceLab()->getId()));
             }
 
@@ -119,7 +121,9 @@ abstract class BaseCaseController extends Controller implements TranslationConta
             $this->get('ns_flash')->addWarning('Warning!', 'There were errors with saving the form.', 'Please review each tab for error messages');
         }
 
-        return array('form' => $form->createView(), 'id' => $objId, 'editRoute' => $editRoute);
+        $record = $this->getCaseRecord($objId);
+
+        return array('form' => $form->createView(), 'id' => $objId, 'editRoute' => $editRoute,'record' => $record);
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace NS\SentinelBundle\Entity\IBD;
 
 use Doctrine\ORM\Mapping as ORM;
+use NS\SentinelBundle\Entity\ReferenceLabResultInterface;
 
 /**
  * Description of ReferenceLab
@@ -12,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="ibd_reference_labs")
  * @ORM\HasLifecycleCallbacks
  */
-class ReferenceLab extends ExternalLab
+class ReferenceLab extends ExternalLab implements ReferenceLabResultInterface
 {
     /**
      * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\IBD",inversedBy="referenceLab")

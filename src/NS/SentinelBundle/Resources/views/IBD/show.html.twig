@@ -102,7 +102,7 @@
                         </tr>
                         <tr>
                             <th>{{'ibd-form.meningMostRecentDose'|trans}}</th>
-                            <td>{{record.meningMostRecentDose}}</td>
+                            <td>{{record.meningMostRecentDose|date}}</td>
                         </tr>
                     </table>
                 </div>
@@ -284,13 +284,13 @@
                         <tr><th>{{'ibd.pathogenIdentifierOther'|trans}}</th><td>{{record.nationalLab.pathogenIdentifierOther}}</td></tr>
                         <tr><th>{{'ibd.serotypeIdentifier'|trans}}</th><td>{{record.nationalLab.serotypeIdentifier|trans}}</td></tr>
                         <tr><th>{{'ibd.serotypeIdentifierOther'|trans}}</th><td>{{record.nationalLab.serotypeIdentifierOther}}</td></tr>
-                        <tr><th>{{'ibd.lytA'|trans}}</th><td>{{record.nationalLab.lytA}}</td></tr>
-                        <tr><th>{{'ibd.ctrA'|trans}}</th><td>{{record.nationalLab.ctrA}}</td></tr>
-                        <tr><th>{{'ibd.sodC'|trans}}</th><td>{{record.nationalLab.sodC}}</td></tr>
-                        <tr><th>{{'ibd.hpd1'|trans}}</th><td>{{record.nationalLab.hpd1}}</td></tr>
-                        <tr><th>{{'ibd.hpd3'|trans}}</th><td>{{record.nationalLab.hpd3}}</td></tr>
-                        <tr><th>{{'ibd.bexA'|trans}}</th><td>{{record.nationalLab.bexA}}</td></tr>
-                        <tr><th>{{'ibd.rNaseP'|trans}}</th><td>{{record.nationalLab.rNaseP}}</td></tr>
+                        <tr><th>{{'ibd.lytA'|trans}}</th><td>{{record.nationalLab.lytA|ct_value|trans}}</td></tr>
+                        <tr><th>{{'ibd.ctrA'|trans}}</th><td>{{record.nationalLab.ctrA|ct_value|trans}}</td></tr>
+                        <tr><th>{{'ibd.sodC'|trans}}</th><td>{{record.nationalLab.sodC|ct_value|trans}}</td></tr>
+                        <tr><th>{{'ibd.hpd1'|trans}}</th><td>{{record.nationalLab.hpd1|ct_value|trans}}</td></tr>
+                        <tr><th>{{'ibd.hpd3'|trans}}</th><td>{{record.nationalLab.hpd3|ct_value|trans}}</td></tr>
+                        <tr><th>{{'ibd.bexA'|trans}}</th><td>{{record.nationalLab.bexA|ct_value|trans}}</td></tr>
+                        <tr><th>{{'ibd.rNaseP'|trans}}</th><td>{{record.nationalLab.rNaseP|ct_value|trans}}</td></tr>
                         <tr><th>{{'ibd.spnSerotype'|trans}}</th><td>{{record.nationalLab.spnSerotype|trans}}</td></tr>
                         <tr><th>{{'ibd.hiSerotype'|trans}}</th><td>{{record.nationalLab.hiSerotype|trans}}</td></tr>
                         <tr><th>{{'ibd.nmSerogroup'|trans}}</th><td>{{record.nationalLab.nmSerogroup|trans}}</td></tr>
@@ -318,13 +318,13 @@
                         <tr><th>{{'ibd.pathogenIdentifierOther'|trans}}</th><td>{{record.referenceLab.pathogenIdentifierOther}}</td></tr>
                         <tr><th>{{'ibd.serotypeIdentifier'|trans}}</th><td>{{record.referenceLab.serotypeIdentifier|trans}}</td></tr>
                         <tr><th>{{'ibd.serotypeIdentifierOther'|trans}}</th><td>{{record.referenceLab.serotypeIdentifierOther}}</td></tr>
-                        <tr><th>{{'ibd.lytA'|trans}}</th><td>{{record.referenceLab.lytA}}</td></tr>
-                        <tr><th>{{'ibd.ctrA'|trans}}</th><td>{{record.referenceLab.ctrA}}</td></tr>
-                        <tr><th>{{'ibd.sodC'|trans}}</th><td>{{record.referenceLab.sodC}}</td></tr>
-                        <tr><th>{{'ibd.hpd1'|trans}}</th><td>{{record.referenceLab.hpd1}}</td></tr>
-                        <tr><th>{{'ibd.hpd3'|trans}}</th><td>{{record.referenceLab.hpd3}}</td></tr>
-                        <tr><th>{{'ibd.bexA'|trans}}</th><td>{{record.referenceLab.bexA}}</td></tr>
-                        <tr><th>{{'ibd.rNaseP'|trans}}</th><td>{{record.referenceLab.rNaseP}}</td></tr>
+                        <tr><th>{{'ibd.lytA'|trans}}</th><td>{{record.referenceLab.lytA|ct_value|trans}}</td></tr>
+                        <tr><th>{{'ibd.ctrA'|trans}}</th><td>{{record.referenceLab.ctrA|ct_value|trans}}</td></tr>
+                        <tr><th>{{'ibd.sodC'|trans}}</th><td>{{record.referenceLab.sodC|ct_value|trans}}</td></tr>
+                        <tr><th>{{'ibd.hpd1'|trans}}</th><td>{{record.referenceLab.hpd1|ct_value|trans}}</td></tr>
+                        <tr><th>{{'ibd.hpd3'|trans}}</th><td>{{record.referenceLab.hpd3|ct_value|trans}}</td></tr>
+                        <tr><th>{{'ibd.bexA'|trans}}</th><td>{{record.referenceLab.bexA|ct_value|trans}}</td></tr>
+                        <tr><th>{{'ibd.rNaseP'|trans}}</th><td>{{record.referenceLab.rNaseP|ct_value|trans}}</td></tr>
                         <tr><th>{{'ibd.spnSerotype'|trans}}</th><td>{{record.referenceLab.spnSerotype|trans}}</td></tr>
                         <tr><th>{{'ibd.hiSerotype'|trans}}</th><td>{{record.referenceLab.hiSerotype|trans}}</td></tr>
                         <tr><th>{{'ibd.nmSerogroup'|trans}}</th><td>{{record.referenceLab.nmSerogroup|trans}}</td></tr>

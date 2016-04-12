@@ -197,7 +197,7 @@ class SiteLabType extends AbstractType
         if ($country instanceof Country) {
             if ($country->hasReferenceLab()) {
                 $form
-                    ->add('sentToReferenceLab', 'switch', array('required' => false, 'attr'=>array('data-context-child'=>'sentToReferenceLab')))
+                    ->add('sentToReferenceLab', 'switch', array('label'=>'Sent To Reference Lab','required' => false, 'attr'=>array('data-context-child'=>'sentToReferenceLab')))
                     ->add('csfSentToRRLDate', 'acedatepicker', array('label'=>'ibd-form.csf-sent-to-rrl-date', 'required'=>false, 'attr'=>array('data-context-parent'=>'sentToReferenceLab', 'data-context-value'=>1)))
                     ->add('csfIsolSentToRRLDate', 'acedatepicker', array('label'=>'ibd-form.csf-isol-sent-to-rrl-date', 'required'=>false, 'attr'=>array('data-context-parent'=>'sentToReferenceLab', 'data-context-value'=>1)))
                     ->add('bloodIsolSentToRRLDate', 'acedatepicker', array('label'=>'ibd-form.blood-sent-to-rrl-date', 'required'=>false, 'attr'=>array('data-context-parent'=>'sentToReferenceLab', 'data-context-value'=>1)))
@@ -206,7 +206,7 @@ class SiteLabType extends AbstractType
             }
 
             if ($country->hasNationalLab()) {
-                $form->add('sentToNationalLab', 'switch', array('required' => false));
+                $form->add('sentToNationalLab', 'switch', array('required' => false,'label'=>'Sent To National Lab',));
             }
         }
     }

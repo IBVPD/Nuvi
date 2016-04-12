@@ -14,7 +14,7 @@ use \Symfony\Component\Form\FormBuilderInterface;
 class CTValueType extends AbstractType
 {
     /**
-     * 
+     *
      * @param FormBuilderInterface $builder
      * @param array $options
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
@@ -28,8 +28,8 @@ class CTValueType extends AbstractType
         );
 
         $builder
-            ->add('choice', 'choice', array('choices'=>$choices, 'placeholder'=>"[Enter value]", 'label'=>'Non-result choices', 'attr'=>array('class'=>'inputOrSelect')))
-            ->add('number', 'number', array('precision'=>2, 'label'=>'', 'attr'=>array('class'=>'inputOrSelect')))
+            ->add('choice', 'choice', array('choices' => $choices, 'placeholder' => "[Enter value]", 'label' => 'Non-result choices', 'attr' => array('class' => 'inputOrSelect')))
+            ->add('number', 'number', array('precision' => 2, 'label' => '', 'attr' => array('class' => 'inputOrSelect' ,'placeholder'=>'Enter value or Select')))
             ->addModelTransformer(new CTValueTransformer());
     }
 

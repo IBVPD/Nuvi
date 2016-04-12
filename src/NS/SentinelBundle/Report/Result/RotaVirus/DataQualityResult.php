@@ -26,6 +26,21 @@ class DataQualityResult extends AbstractSiteBasedResult
     private $missingDischargeOutcomeCount = 0;
 
     /**
+     * @var int
+     */
+    private $stoolCollectedCount = 0;
+
+    /**
+     * @var int
+     */
+    private $elisaDoneCount = 0;
+
+    /**
+     * @var int
+     */
+    private $elisaPositiveCount = 0;
+
+    /**
      * @return int
      */
     public function getStoolCollectionDateErrorCount()
@@ -100,6 +115,84 @@ class DataQualityResult extends AbstractSiteBasedResult
     public function setMissingDischargeOutcomeCount($missingDischargeOutcomeCount)
     {
         $this->missingDischargeOutcomeCount = $missingDischargeOutcomeCount;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStoolCollectedCount()
+    {
+        return $this->stoolCollectedCount;
+    }
+
+    /**
+     * @return float|int
+     */
+    public function getStoolCollectedPercent()
+    {
+        return $this->getTotalCases() > 0 ? $this->stoolCollectedCount/$this->getTotalCases()*100:0;
+    }
+
+    /**
+     * @param int $stoolCollectedCount
+     * @return DataQualityResult
+     */
+    public function setStoolCollectedCount($stoolCollectedCount)
+    {
+        $this->stoolCollectedCount = $stoolCollectedCount;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getElisaDoneCount()
+    {
+        return $this->elisaDoneCount;
+    }
+
+    /**
+     * @return float|int
+     */
+    public function getElisaDonePercent()
+    {
+        return ($this->stoolCollectedCount>0) ? $this->elisaDoneCount/$this->stoolCollectedCount * 100 : 0;
+    }
+
+    /**
+     * @param int $elisaDoneCount
+     * @return DataQualityResult
+     */
+    public function setElisaDoneCount($elisaDoneCount)
+    {
+        $this->elisaDoneCount = $elisaDoneCount;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getElisaPositiveCount()
+    {
+        return $this->elisaPositiveCount;
+    }
+
+    /**
+     * @return float|int
+     */
+    public function getElisaPositivePercent()
+    {
+        return ($this->elisaDoneCount > 0) ? $this->elisaPositiveCount/$this->elisaDoneCount * 100: 0;
+    }
+
+    /**
+     * @param int $elisaPositiveCount
+     * @return DataQualityResult
+     */
+    public function setElisaPositiveCount($elisaPositiveCount)
+    {
+        $this->elisaPositiveCount = $elisaPositiveCount;
         return $this;
     }
 }

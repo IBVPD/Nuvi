@@ -113,6 +113,23 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
         }
     }
 
+    public function findWithAssociations($caseId)
+    {
+        try {
+            return $this->createQueryBuilder('c')
+                ->addSelect('l,nl,rl')
+                ->leftJoin('c.siteLab', 'l')
+                ->leftJoin('c.nationalLab', 'nl')
+                ->leftJoin('c.referenceLab', 'rl')
+                ->where('c.id = :caseId')
+                ->setParameter('caseId', $caseId)
+                ->getQuery()
+                ->getSingleResult();
+        } catch (UnexpectedResultException $exception) {
+            return null;
+        }
+    }
+
     /**
      * @param array $params
      * @return mixed|null

@@ -1,68 +1,110 @@
 {% extends "NSSentinelBundle::layout.html.twig" %}
-{% block pagetitle %}Data Quality Checks{% endblock %}
+{% block pagetitle %}{{ 'Data Quality Checks'|trans }}{% endblock %}
 {% block body %}
     <div class="row">
-        <div class="col-xs-9">
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="widget-box widget-color-blue no-border">
-                        <div class="widget-header widget-header-small">
-                            <h5 class="widget-title">{{ 'Results'|trans }}</h5>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover">
-                                <thead>
-                                <tr>
-                                    <th rowspan="2">{{ 'Region'|trans }}</th>
-                                    <th rowspan="2">{{ 'Country'|trans }}</th>
-                                    <th rowspan="2">{{ 'Site'|trans }}</th>
-                                    <th rowspan="2">{{ 'Total Cases'|trans }}</th>
-                                    <th colspan="2">{{ 'Stool Collection Date Errors'|trans }}</th>
-                                    <th colspan="2">{{ 'Missing Discharge Date'|trans }}</th>
-                                    <th colspan="2">{{ 'Missing Discharge Outcome'|trans }}</th>
-                                </tr>
-                                <tr><td>#</td><td>%</td><td>#</td><td>%</td><td>#</td><td>%</td></tr>
-                                </thead>
-                                <tbody>
-                                {% for result in sites %}
-                                    <tr>
-                                        <td>{{ result.site.country.region.code }}</td>
-                                        <td>{{ result.site.country.code }}</td>
-                                        <td>{{ result.site.code }}</td>
-                                        <td>{{ result.totalCases }}</td>
-
-                                        <td>{{ result.stoolCollectionDateErrorCount }}</td>
-                                        <td>{{ result.stoolCollectionDateErrorPercent|number_format }}%</td>
-
-                                        <td>{{ result.missingDischargeDateCount }}</td>
-                                        <td>{{ result.missingDischargeDatePercent|number_format }}%</td>
-
-                                        <td>{{ result.missingDischargeOutcomeCount }}</td>
-                                        <td>{{ result.missingDischargeOutcomePercent|number_format }}%</td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <div id="lab-results"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <div class="widget-box widget-color-blue">
+        <div class="col-xs-12">
+            <div class="widget-box widget-color-blue no-border">
                 <div class="widget-header widget-header-small">
-                    <h5 class="widget-title">{{ 'Filters'|trans }}</h5>
+                    <h5 class="widget-title">{{ 'Results'|trans }}</h5>
+                    {{ widget_filter_toolbox() }}
                 </div>
                 <div class="widget-body">
-                    <div class="widget-main">
-                        <form method="POST" action="{{ path('reportRotaDataQuality') }}" class="reportFilters">
-                            {{ form_rest(form) }}
-                        </form>
+                    <div class="widget-toolbox padding-8">
+                        <div class="collapse" id="filters">
+                            <form method="POST" action="{{ path('reportRotaDataQuality') }}" class="reportFilters">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        {{ form_row(form.admDate) }}
+                                        {{ form_row(form.createdAt) }}
+                                    </div>
+                                    <div class="col-xs-3">
+                                        {% if form.region is defined %}
+                                            {{ form_row(form.region) }}
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-xs-3">
+                                        {% if form.country is defined %}
+                                            {{ form_row(form.country) }}
+                                        {% endif %}
+
+                                    </div>
+                                    <div class="col-xs-3">
+                                        {% if form.site is defined %}
+                                            {{ form_row(form.site) }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        {{ form.filter is defined ? form_widget(form.filter) }}
+                                        {{ form.export is defined ? form_widget(form.export) }}
+                                        {{ form.reset is defined ? form_widget(form.reset) }}
+                                        {{ form_rest(form) }}
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="widget-main no-padding">
+                        <table class="table table-responsive table-striped table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th rowspan="2">{{ 'Region'|trans }}</th>
+                                <th rowspan="2">{{ 'Country'|trans }}</th>
+                                <th rowspan="2">{{ 'Site'|trans }}</th>
+                                <th rowspan="2">{{ 'Total Cases'|trans }}</th>
+                                <th colspan="2">{{ 'Stool Collection Date Errors'|trans }}</th>
+                                <th colspan="2">{{ 'Missing Discharge Date'|trans }}</th>
+                                <th colspan="2">{{ 'Missing Discharge Outcome'|trans }}</th>
+                                <th colspan="2">{{ 'Stool Collected'|trans }}</th>
+                                <th colspan="2">{{ 'ELISA Done'|trans }}</th>
+                                <th colspan="2">{{ 'Confirmed Positive'|trans }}</th>
+                            </tr>
+                            <tr>
+                                <td>#</td>
+                                <td>%</td>
+                                <td>#</td>
+                                <td>%</td>
+                                <td>#</td>
+                                <td>%</td>
+                                <td>#</td>
+                                <td>%</td>
+                                <td>#</td>
+                                <td>%</td>
+                                <td>#</td>
+                                <td>%</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for result in sites %}
+                                <tr>
+                                    <td>{{ result.site.country.region.code }}</td>
+                                    <td>{{ result.site.country.code }}</td>
+                                    <td>{{ result.site.code }}</td>
+                                    <td>{{ result.totalCases }}</td>
+
+                                    <td>{{ result.stoolCollectionDateErrorCount }}</td>
+                                    <td>{{ result.stoolCollectionDateErrorPercent|number_format }} %</td>
+
+                                    <td>{{ result.missingDischargeDateCount }}</td>
+                                    <td>{{ result.missingDischargeDatePercent|number_format }} %</td>
+
+                                    <td>{{ result.missingDischargeOutcomeCount }}</td>
+                                    <td>{{ result.missingDischargeOutcomePercent|number_format }} %</td>
+
+                                    <td>{{ result.stoolCollectedCount }}</td>
+                                    <td>{{ result.stoolCollectedPercent|number_format }} %</td>
+
+                                    <td>{{ result.elisaDoneCount }}</td>
+                                    <td>{{ result.elisaDonePercent }} %</td>
+
+                                    <td>{{ result.elisaPositiveCount }}</td>
+                                    <td>{{ result.elisaPositivePercent }} %</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

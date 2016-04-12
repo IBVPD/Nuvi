@@ -6,35 +6,33 @@
             <div class="widget-box widget-color-blue no-border">
                 <div class="widget-header widget-header-small">
                     <h5 class="widget-title">{{ 'Results'|trans }}</h5>
-                    <div class="widget-toolbar">
-                        <a href="#performanceFilters" data-toggle="collapse" class="white small">
-                            <i class="ace-icon fa fa-plus" data-icon-hide="fa-minus" data-icon-show="fa-plus"></i> Filters
-                        </a>
-                    </div>
+                    {{ widget_filter_toolbox() }}
                 </div>
                 <div class="widget-body">
                     <div class="widget-toolbox padding-8">
                         <div class="collapse" id="performanceFilters">
                             <form method="POST" action="{{ path('reportIbdSitePerformance') }}">
                                 <div class="row">
-                                    <div class="col-lg-2 col-md-3">
+                                    <div class="col-xs-3">
                                         {{ form_row(form.year) }}
                                     </div>
-                                    {% if form.region is defined %}
-                                        <div class="col-lg-2 col-md-3">
+                                    <div class="col-xs-3">
+                                        {% if form.region is defined %}
                                             {{ form_row(form.region) }}
-                                        </div>
-                                    {% endif %}
-                                    {% if form.country is defined %}
-                                        <div class="col-lg-2 col-md-3">
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="col-xs-3">
+                                        {% if form.country is defined %}
                                             {{ form_row(form.country) }}
-                                        </div>
-                                    {% endif %}
-                                    {% if form.site is defined %}
-                                        <div class="col-lg-2 col-md-3">
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="col-xs-3">
+                                        {% if form.site is defined %}
                                             {{ form_widget(form.site) }}
-                                        </div>
-                                    {% endif %}
+                                        {% endif %}
+                                    </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
@@ -72,7 +70,7 @@
                                         <td>{{ result.site.ibdTier }}</td>
                                         <td>{{ result.totalCases }}</td>
                                         <td>{{ consistentReporting(result) }}</td>
-                                        <td>{{ minimumCases(result)}}</td>
+                                        <td>{{ minimumCases(result) }}</td>
                                         <td>{{ specimenCollected(result) }}</td>
                                         <td>{{ labConfirmed(result) }}</td>
                                     </tr>

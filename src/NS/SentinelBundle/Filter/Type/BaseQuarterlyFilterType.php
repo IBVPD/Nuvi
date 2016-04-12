@@ -110,18 +110,21 @@ class BaseQuarterlyFilterType extends AbstractType
 
         if ($options['include_filter']) {
             $form->add('filter', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
+                'label'=> 'filter',
                 'icon' => 'fa fa-search',
                 'attr' => array('class' => 'btn btn-sm btn-success', 'type'=>'submit')));
         }
 
         if ($options['include_export']) {
             $form->add('export', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
+                'label'=>'export',
                 'icon' => 'fa fa-cloud-download',
                 'attr' => array('class' => 'btn btn-sm btn-info', 'type'=>'submit')));
         }
 
         if ($options['include_reset']) {
             $form->add('reset', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
+                'label'=>'reset',
                 'icon' => 'fa fa-times-circle',
                 'attr' => array('class' => 'btn btn-sm btn-danger', 'type'=>'submit')));
         }
