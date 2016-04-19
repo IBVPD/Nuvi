@@ -71,67 +71,67 @@ class RotaVirus extends BaseCase
 
     /**
      * symp_diarrhoea
-     * @var TripleChoice $symptomDiarrhea
+     * @var TripleChoice $symp_diarrhea
      * @ORM\Column(name="symp_diarrhea",type="TripleChoice",nullable=true)
      * @Groups({"api"})
      */
-    private $symptomDiarrhea;
+    private $symp_diarrhea;
 
     /**
      * symp_dia_onset_date
-     * @var \DateTime $symptomDiarrheaOnset
+     * @var \DateTime $symp_dia_onset_date
      * @ORM\Column(name="symp_dia_onset_date",type="date",nullable=true)
      * @Groups({"api"})
      */
-    private $symptomDiarrheaOnset;
+    private $symp_dia_onset_date;
 
     /**
      * symp_dia_episodes
-     * @var integer $symptomDiarrheaEpisodes
+     * @var integer $symp_dia_episodes
      * @ORM\Column(name="symp_dia_episodes",type="integer",nullable=true)
      * @Groups({"api"})
      */
-    private $symptomDiarrheaEpisodes;
+    private $symp_dia_episodes;
 
     /**
      * symp_dia_duration
-     * @var integer $symptomDiarrheaDuration
+     * @var integer $symp_dia_duration
      * @ORM\Column(name="symp_dia_duration",type="integer",nullable=true)
      * @Groups({"api"})
      */
-    private $symptomDiarrheaDuration;
+    private $symp_dia_duration;
 
     /**
      * symp_vomit
-     * @var TripleChoice $symptomVomit
+     * @var TripleChoice $symp_vomit
      * @ORM\Column(name="symp_vomit",type="TripleChoice",nullable=true)
      * @Groups({"api"})
      */
-    private $symptomVomit;
+    private $symp_vomit;
 
     /**
      * symp_vomit_episodes
-     * @var integer $symptomVomitEpisodes
+     * @var integer $symp_vomit_episodes
      * @ORM\Column(name="symp_vomit_episodes",type="integer",nullable=true)
      * @Groups({"api"})
      */
-    private $symptomVomitEpisodes;
+    private $symp_vomit_episodes;
 
     /**
      * symp_vomit_duration
-     * @var integer $symptomVomitDuration
+     * @var integer $symp_vomit_duration
      * @ORM\Column(name="symp_vomit_duration",type="integer",nullable=true)
      * @Groups({"api"})
      */
-    private $symptomVomitDuration;
+    private $symp_vomit_duration;
 
     /**
      * symp_dehydration
-     * @var TripleChoice $symptomDehydration
+     * @var TripleChoice $symp_dehydration
      * @ORM\Column(name="symp_dehydration",type="Dehydration",nullable=true)
      * @Groups({"api"})
      */
-    private $symptomDehydration;
+    private $symp_dehydration;
 
 // Treatment
     /**
@@ -144,115 +144,115 @@ class RotaVirus extends BaseCase
 
     /**
      * rehydration_type
-     * @var Rehydration $rehydrationType
+     * @var Rehydration $rehydration_type
      * @ORM\Column(name="rehydration_type",type="Rehydration",nullable=true)
      * @Groups({"api"})
      */
-    private $rehydrationType;
+    private $rehydration_type;
 
     /**
      * rehydration_type_other
-     * @var string $rehydrationOther
+     * @var string $rehydration_other
      * @ORM\Column(name="rehydration_other",type="string",nullable=true)
      * @Groups({"api"})
      */
-    private $rehydrationOther;
+    private $rehydration_other;
 
 //iv. Case-based Vaccination History
     /**
-     * @var RotavirusVaccinationReceived $vaccinationReceived
+     * @var RotavirusVaccinationReceived $rv_received
      * @ORM\Column(name="rv_received",type="RotavirusVaccinationReceived",nullable=true)
      * @Groups({"api"})
      */
-    private $vaccinationReceived;
+    private $rv_received;
 
     /**
      * RV_type
-     * @var RotavirusVaccinationType $vaccinationType
+     * @var RotavirusVaccinationType $rv_type
      * @ORM\Column(name="rv_type",type="RotavirusVaccinationType",nullable=true)
      * @Groups({"api"})
      */
-    private $vaccinationType;
+    private $rv_type;
 
     /**
      * RV_doses
-     * @var ThreeDoses $doses
+     * @var ThreeDoses $rv_doses
      * @ORM\Column(name="rv_doses",type="ThreeDoses",nullable=true)
      * @Groups({"api"})
      */
-    private $doses;
+    private $rv_doses;
 
     /**
      * RV_dose1_date
-     * @var \DateTime $firstVaccinationDose
+     * @var \DateTime $rv_dose1_date
      * @ORM\Column(name="rv_dose1_date",type="date",nullable=true)
      * @Groups({"api"})
      */
-    private $firstVaccinationDose;
+    private $rv_dose1_date;
 
     /**
      * RV_dose2_date
-     * @var \DateTime $secondVaccinationDose
+     * @var \DateTime $rv_dose2_date
      * @ORM\Column(name="rv_dose2_date",type="date",nullable=true)
      * @Groups({"api"})
      */
-    private $secondVaccinationDose;
+    private $rv_dose2_date;
 
     /**
      * RV_dose3_date
-     * @var \DateTime $thirdVaccinationDose
+     * @var \DateTime $rv_dose3_date
      * @ORM\Column(name="rv_dose3_date",type="date",nullable=true)
      * @Groups({"api"})
      */
-    private $thirdVaccinationDose;
+    private $rv_dose3_date;
 
 //v. Case-based Specimen Collection Data
     /**
      * stool_collected
-     * @var TripleChoice $stoolCollected
+     * @var TripleChoice $stool_collected
      * @ORM\Column(name="stool_collected",type="TripleChoice",nullable=true)
      * @Groups({"api"})
      */
-    private $stoolCollected;
+    private $stool_collected;
 
     /**
      * stool_ID
-     * @var string $stoolId
+     * @var string $stool_id
      * @ORM\Column(name="stool_id",type="string",nullable=true)
      * @Groups({"api"})
      */
-    private $stoolId;
+    private $stool_id;
 
     /**
      * stool_collect_date
-     * @var \DateTime $stoolCollectionDate
+     * @var \DateTime $stool_collect_date
      * @ORM\Column(name="stool_collect_date",type="date",nullable=true)
      * @Groups({"api"})
      */
-    private $stoolCollectionDate;
+    private $stool_collect_date;
 
 //vii. Case-based Outcome Data
     /**
      * disch_outcome
-     * @var RotavirusDischargeOutcome $dischargeOutcome
+     * @var RotavirusDischargeOutcome $disch_outcome
      * @ORM\Column(name="disch_outcome",type="RotavirusDischargeOutcome",nullable=true)
      * @Groups({"api"})
      */
-    private $dischargeOutcome;
+    private $disch_outcome;
 
     /**
-     * @var \DateTime $dischargeDate
+     * @var \DateTime $disch_date
      * @ORM\Column(name="disch_date",type="date",nullable=true)
      * @Groups({"api"})
      */
-    private $dischargeDate;
+    private $disch_date;
 
     /**
-     * @var string $dischargeClassOther
+     * @var string $disch_class_other
      * @ORM\Column(name="disch_class_other",type="string",nullable=true)
      * @Groups({"api"})
      */
-    private $dischargeClassOther;
+    private $disch_class_other;
 
     /**
      * comment
@@ -267,7 +267,7 @@ class RotaVirus extends BaseCase
      */
     public function getSymptomDiarrhea()
     {
-        return $this->symptomDiarrhea;
+        return $this->symp_diarrhea;
     }
 
     /**
@@ -275,7 +275,7 @@ class RotaVirus extends BaseCase
      */
     public function getSymptomDiarrheaOnset()
     {
-        return $this->symptomDiarrheaOnset;
+        return $this->symp_dia_onset_date;
     }
 
     /**
@@ -283,7 +283,7 @@ class RotaVirus extends BaseCase
      */
     public function getSymptomDiarrheaEpisodes()
     {
-        return $this->symptomDiarrheaEpisodes;
+        return $this->symp_dia_episodes;
     }
 
     /**
@@ -291,7 +291,7 @@ class RotaVirus extends BaseCase
      */
     public function getSymptomDiarrheaDuration()
     {
-        return $this->symptomDiarrheaDuration;
+        return $this->symp_dia_duration;
     }
 
     /**
@@ -299,7 +299,7 @@ class RotaVirus extends BaseCase
      */
     public function getSymptomVomit()
     {
-        return $this->symptomVomit;
+        return $this->symp_vomit;
     }
 
     /**
@@ -307,7 +307,7 @@ class RotaVirus extends BaseCase
      */
     public function getSymptomVomitEpisodes()
     {
-        return $this->symptomVomitEpisodes;
+        return $this->symp_vomit_episodes;
     }
 
     /**
@@ -315,7 +315,7 @@ class RotaVirus extends BaseCase
      */
     public function getSymptomVomitDuration()
     {
-        return $this->symptomVomitDuration;
+        return $this->symp_dia_duration;
     }
 
     /**
@@ -323,7 +323,7 @@ class RotaVirus extends BaseCase
      */
     public function getSymptomDehydration()
     {
-        return $this->symptomDehydration;
+        return $this->symp_dehydration;
     }
 
     /**
@@ -339,7 +339,7 @@ class RotaVirus extends BaseCase
      */
     public function getRehydrationType()
     {
-        return $this->rehydrationType;
+        return $this->rehydration_type;
     }
 
     /**
@@ -347,7 +347,7 @@ class RotaVirus extends BaseCase
      */
     public function getRehydrationOther()
     {
-        return $this->rehydrationOther;
+        return $this->rehydration_other;
     }
 
     /**
@@ -355,7 +355,7 @@ class RotaVirus extends BaseCase
      */
     public function getVaccinationReceived()
     {
-        return $this->vaccinationReceived;
+        return $this->rv_received;
     }
 
     /**
@@ -363,7 +363,7 @@ class RotaVirus extends BaseCase
      */
     public function getVaccinationType()
     {
-        return $this->vaccinationType;
+        return $this->rv_type;
     }
 
     /**
@@ -371,7 +371,7 @@ class RotaVirus extends BaseCase
      */
     public function getDoses()
     {
-        return $this->doses;
+        return $this->rv_doses;
     }
 
     /**
@@ -379,7 +379,7 @@ class RotaVirus extends BaseCase
      */
     public function getFirstVaccinationDose()
     {
-        return $this->firstVaccinationDose;
+        return $this->rv_dose1_date;
     }
 
     /**
@@ -387,7 +387,7 @@ class RotaVirus extends BaseCase
      */
     public function getSecondVaccinationDose()
     {
-        return $this->secondVaccinationDose;
+        return $this->rv_dose2_date;
     }
 
     /**
@@ -395,7 +395,7 @@ class RotaVirus extends BaseCase
      */
     public function getThirdVaccinationDose()
     {
-        return $this->thirdVaccinationDose;
+        return $this->rv_dose3_date;
     }
 
     /**
@@ -403,7 +403,7 @@ class RotaVirus extends BaseCase
      */
     public function getStoolCollected()
     {
-        return $this->stoolCollected;
+        return $this->stool_collected;
     }
 
     /**
@@ -411,7 +411,7 @@ class RotaVirus extends BaseCase
      */
     public function getStoolId()
     {
-        return $this->stoolId;
+        return $this->stool_id;
     }
 
     /**
@@ -419,7 +419,7 @@ class RotaVirus extends BaseCase
      */
     public function getStoolCollectionDate()
     {
-        return $this->stoolCollectionDate;
+        return $this->stool_collect_date;
     }
 
     /**
@@ -427,7 +427,7 @@ class RotaVirus extends BaseCase
      */
     public function getDischargeOutcome()
     {
-        return $this->dischargeOutcome;
+        return $this->disch_outcome;
     }
 
     /**
@@ -435,7 +435,7 @@ class RotaVirus extends BaseCase
      */
     public function getDischargeDate()
     {
-        return $this->dischargeDate;
+        return $this->disch_date;
     }
 
     /**
@@ -443,7 +443,7 @@ class RotaVirus extends BaseCase
      */
     public function getDischargeClassOther()
     {
-        return $this->dischargeClassOther;
+        return $this->disch_class_other;
     }
 
     /**
@@ -460,7 +460,7 @@ class RotaVirus extends BaseCase
      */
     public function setSymptomDiarrhea(TripleChoice $symptomDiarrhea = null)
     {
-        $this->symptomDiarrhea = $symptomDiarrhea;
+        $this->symp_diarrhea = $symptomDiarrhea;
         return $this;
     }
 
@@ -470,7 +470,7 @@ class RotaVirus extends BaseCase
      */
     public function setSymptomDiarrheaOnset(\DateTime $symptomDiarrheaOnset = null)
     {
-        $this->symptomDiarrheaOnset = $symptomDiarrheaOnset;
+        $this->symp_dia_onset_date = $symptomDiarrheaOnset;
 
         return $this;
     }
@@ -481,7 +481,7 @@ class RotaVirus extends BaseCase
      */
     public function setSymptomDiarrheaEpisodes($symptomDiarrheaEpisodes)
     {
-        $this->symptomDiarrheaEpisodes = $symptomDiarrheaEpisodes;
+        $this->symp_dia_episodes = $symptomDiarrheaEpisodes;
         return $this;
     }
 
@@ -491,7 +491,7 @@ class RotaVirus extends BaseCase
      */
     public function setSymptomDiarrheaDuration($symptomDiarrheaDuration)
     {
-        $this->symptomDiarrheaDuration = $symptomDiarrheaDuration;
+        $this->symp_dia_duration = $symptomDiarrheaDuration;
         return $this;
     }
 
@@ -501,7 +501,7 @@ class RotaVirus extends BaseCase
      */
     public function setSymptomVomit(TripleChoice $symptomVomit = null)
     {
-        $this->symptomVomit = $symptomVomit;
+        $this->symp_vomit = $symptomVomit;
         return $this;
     }
 
@@ -511,7 +511,7 @@ class RotaVirus extends BaseCase
      */
     public function setSymptomVomitEpisodes($symptomVomitEpisodes)
     {
-        $this->symptomVomitEpisodes = $symptomVomitEpisodes;
+        $this->symp_dia_episodes = $symptomVomitEpisodes;
         return $this;
     }
 
@@ -521,7 +521,7 @@ class RotaVirus extends BaseCase
      */
     public function setSymptomVomitDuration($symptomVomitDuration)
     {
-        $this->symptomVomitDuration = $symptomVomitDuration;
+        $this->symp_vomit_duration = $symptomVomitDuration;
         return $this;
     }
 
@@ -531,7 +531,7 @@ class RotaVirus extends BaseCase
      */
     public function setSymptomDehydration(Dehydration $symptomDehydration = null)
     {
-        $this->symptomDehydration = $symptomDehydration;
+        $this->symp_dehydration = $symptomDehydration;
         return $this;
     }
 
@@ -551,7 +551,7 @@ class RotaVirus extends BaseCase
      */
     public function setRehydrationType(Rehydration $rehydrationType = null)
     {
-        $this->rehydrationType = $rehydrationType;
+        $this->rehydration_type = $rehydrationType;
         return $this;
     }
 
@@ -561,7 +561,7 @@ class RotaVirus extends BaseCase
      */
     public function setRehydrationOther($rehydrationOther)
     {
-        $this->rehydrationOther = $rehydrationOther;
+        $this->rehydration_other = $rehydrationOther;
         return $this;
     }
 
@@ -571,7 +571,7 @@ class RotaVirus extends BaseCase
      */
     public function setVaccinationReceived(RotavirusVaccinationReceived $vaccinationReceived = null)
     {
-        $this->vaccinationReceived = $vaccinationReceived;
+        $this->rv_received = $vaccinationReceived;
         return $this;
     }
 
@@ -581,7 +581,7 @@ class RotaVirus extends BaseCase
      */
     public function setVaccinationType(RotavirusVaccinationType $vaccinationType = null)
     {
-        $this->vaccinationType = $vaccinationType;
+        $this->rv_type = $vaccinationType;
         return $this;
     }
 
@@ -591,7 +591,7 @@ class RotaVirus extends BaseCase
      */
     public function setDoses(ThreeDoses $doses = null)
     {
-        $this->doses = $doses;
+        $this->rv_doses = $doses;
         return $this;
     }
 
@@ -601,7 +601,7 @@ class RotaVirus extends BaseCase
      */
     public function setFirstVaccinationDose(\DateTime $firstVaccinationDose = null)
     {
-        $this->firstVaccinationDose = $firstVaccinationDose;
+        $this->rv_dose1_date = $firstVaccinationDose;
 
         return $this;
     }
@@ -612,7 +612,7 @@ class RotaVirus extends BaseCase
      */
     public function setSecondVaccinationDose(\DateTime $secondVaccinationDose = null)
     {
-        $this->secondVaccinationDose = $secondVaccinationDose;
+        $this->rv_dose2_date = $secondVaccinationDose;
 
         return $this;
     }
@@ -623,7 +623,7 @@ class RotaVirus extends BaseCase
      */
     public function setThirdVaccinationDose(\DateTime $thirdVaccinationDose = null)
     {
-        $this->thirdVaccinationDose = $thirdVaccinationDose;
+        $this->rv_dose3_date = $thirdVaccinationDose;
 
         return $this;
     }
@@ -634,7 +634,7 @@ class RotaVirus extends BaseCase
      */
     public function setStoolCollected(TripleChoice $stoolCollected = null)
     {
-        $this->stoolCollected = $stoolCollected;
+        $this->stool_collected = $stoolCollected;
         return $this;
     }
 
@@ -644,7 +644,7 @@ class RotaVirus extends BaseCase
      */
     public function setStoolId($stoolId)
     {
-        $this->stoolId = $stoolId;
+        $this->stool_id = $stoolId;
         return $this;
     }
 
@@ -654,7 +654,7 @@ class RotaVirus extends BaseCase
      */
     public function setStoolCollectionDate(\DateTime $stoolCollectionDate = null)
     {
-        $this->stoolCollectionDate = $stoolCollectionDate;
+        $this->stool_collect_date = $stoolCollectionDate;
 
         return $this;
     }
@@ -665,7 +665,7 @@ class RotaVirus extends BaseCase
      */
     public function setDischargeOutcome(RotavirusDischargeOutcome $dischargeOutcome = null)
     {
-        $this->dischargeOutcome = $dischargeOutcome;
+        $this->disch_outcome = $dischargeOutcome;
         return $this;
     }
 
@@ -675,7 +675,7 @@ class RotaVirus extends BaseCase
      */
     public function setDischargeDate(\DateTime $dischargeDate = null)
     {
-        $this->dischargeDate = $dischargeDate;
+        $this->disch_date = $dischargeDate;
 
         return $this;
     }
@@ -686,7 +686,7 @@ class RotaVirus extends BaseCase
      */
     public function setDischargeClassOther($dischargeClassOther)
     {
-        $this->dischargeClassOther = $dischargeClassOther;
+        $this->disch_class_other = $dischargeClassOther;
         return $this;
     }
 

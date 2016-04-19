@@ -52,7 +52,7 @@ class BaseCase
     /**
      * @var $admDate
      */
-    private $admDate;
+    private $adm_date;
 
     /**
      * @var $status
@@ -125,7 +125,7 @@ class BaseCase
      */
     public function getAdmDate()
     {
-        return $this->admDate;
+        return $this->adm_date;
     }
 
     /**
@@ -220,7 +220,7 @@ class BaseCase
      */
     public function setAdmDate($admDate)
     {
-        $this->admDate = $admDate;
+        $this->adm_date = $admDate;
         return $this;
     }
 
@@ -249,7 +249,7 @@ class BaseCase
      */
     public function fieldPopulationValidation(ExecutionContextInterface $context)
     {
-        if (empty($this->admDate['left_date']) && empty($this->admDate['right_date']) && empty($this->createdAt['left_date']) && empty($this->createdAt['right_date'])) {
+        if (empty($this->adm_date['left_date']) && empty($this->adm_date['right_date']) && empty($this->createdAt['left_date']) && empty($this->createdAt['right_date'])) {
             $context->addViolation("You must select a date range for either created at or admission date");
         }
     }

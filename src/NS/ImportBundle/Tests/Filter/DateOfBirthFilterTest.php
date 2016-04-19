@@ -34,25 +34,25 @@ class DateOfBirthFilterTest extends \PHPUnit_Framework_TestCase
                 array('birthdate' => null), true
             ),
             array(
-                array('admDate' => null), true
+                array('adm_date' => null), true
             ),
             array(
-                array('birthdate' => null, 'admDate' => null), true
+                array('birthdate' => null, 'adm_date' => null), true
             ),
             array(
-                array('birthdate' => null, 'admDate' => $admDate), true
+                array('birthdate' => null, 'adm_date' => $admDate), true
             ),
             array(
-                array('birthdate' => $birthdate, 'admDate' => null), true
+                array('birthdate' => $birthdate, 'adm_date' => null), true
             ),
             array(
-                array('birthdate' => $birthdate, 'admDate' => null), true
+                array('birthdate' => $birthdate, 'adm_date' => null), true
             ),
             array(
-                array('birthdate' => $birthdate, 'admDate' => $admDate), true
+                array('birthdate' => $birthdate, 'adm_date' => $admDate), true
             ),
             array(
-                array('birthdate' => $admDate, 'admDate' => $birthdate), false
+                array('birthdate' => $admDate, 'adm_date' => $birthdate), false
             ),
         );
     }

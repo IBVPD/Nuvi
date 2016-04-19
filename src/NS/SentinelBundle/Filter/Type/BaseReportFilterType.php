@@ -53,7 +53,7 @@ class BaseReportFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('admDate', 'ns_filter_date_range', array('label' => 'report-filter-form.admitted-between', ))
+            ->add('adm_date', 'ns_filter_date_range', array('label' => 'report-filter-form.admitted-between', ))
             ->add('createdAt', 'ns_filter_date_range', array('label' => 'report-filter-form.created-between'));
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'preSetData'));

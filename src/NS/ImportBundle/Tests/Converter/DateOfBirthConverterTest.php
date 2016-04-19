@@ -33,13 +33,13 @@ class DateOfBirthConverterTest extends \PHPUnit_Framework_TestCase
 
         return array(
             array(array('birthdate' => null), false ),
-            array(array('admDate' => null), false),
-            array(array('birthdate' => null, 'admDate' => null), false),
-            array(array('birthdate' => null, 'admDate' => $admDate), false),
-            array(array('birthdate' => $birthdate, 'admDate' => null), false),
-            array(array('birthdate' => $birthdate, 'admDate' => null), false),
-            array(array('birthdate' => $birthdate, 'admDate' => $admDate), false),
-            array(array('birthdate' => $admDate, 'admDate' => $birthdate), true),
+            array(array('adm_date' => null), false),
+            array(array('birthdate' => null, 'adm_date' => null), false),
+            array(array('birthdate' => null, 'adm_date' => $admDate), false),
+            array(array('birthdate' => $birthdate, 'adm_date' => null), false),
+            array(array('birthdate' => $birthdate, 'adm_date' => null), false),
+            array(array('birthdate' => $birthdate, 'adm_date' => $admDate), false),
+            array(array('birthdate' => $admDate, 'adm_date' => $birthdate), true),
         );
     }
 }

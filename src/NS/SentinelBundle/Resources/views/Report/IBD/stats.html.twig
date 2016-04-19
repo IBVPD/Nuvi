@@ -1,0 +1,131 @@
+{% extends "NSSentinelBundle::layout.html.twig" %}
+
+{% block pagetitle %}{{ 'General Statistics'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="widget-box widget-color-blue no-border">
+                <div class="widget-header widget-header-small">
+                    <h5 class="widget-title">{{ 'Results'|trans }}</h5>
+                    {{ widget_filter_toolbox() }}
+                </div>
+                <div class="widget-body">
+                    <div class="widget-toolbox padding-8">
+                        <div class="collapse" id="filters">
+                            <form method="POST" action="{{ path('reportIbdStats') }}">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        {{ form_row(form.adm_date) }}
+                                        {{ form_row(form.createdAt) }}
+                                    </div>
+                                    <div class="col-xs-3">
+                                        {% if form.region is defined %}
+                                            {{ form_row(form.region) }}
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="col-xs-3">
+                                        {% if form.country is defined %}
+                                            {{ form_row(form.country) }}
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="col-xs-3">
+                                        {% if form.site is defined %}
+                                            {{ form_widget(form.site) }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        {{ form.filter is defined ? form_widget(form.filter) }}
+                                        {{ form.export is defined ? form_widget(form.export) }}
+                                        {{ form.reset is defined ? form_widget(form.reset) }}
+                                        {{ form_rest(form) }}
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="widget-main no-padding">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h4>Gender Distribution</h4>
+                                <table class="table table-responsive">
+                                    <tr><th>Outcome</th><th>Case Count</th></tr>
+                                    {% if result is defined %}
+                                        {% for gender,caseCount in result.genderDistribution %}
+                                            <tr>
+                                                <th>{{ gender|trans }}</th><td>{{ caseCount }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endif %}
+                                </table>
+                            </div>
+                            <div class="col-sm-6">
+                                <h4>Discharge Outcome Distribution</h4>
+                                <table class="table table-responsive">
+                                    <tr><th>Outcome</th><th>Case Count</th></tr>
+                                    {% if result is defined %}
+                                        {% for outcome,caseCount in result.dischargeOutcomeDistribution %}
+                                            <tr>
+                                                <th>{{ outcome|trans }}</th><td>{{ caseCount }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endif %}
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h4>Age In Months</h4>
+                                <table class="table table-responsive">
+                                    <tr><th>Age In Months</th><th>Case Count</th></tr>
+                                    {% if result is defined %}
+                                        {% for theMonth,caseCount in result.ageInMonthDistribution %}
+                                            <tr>
+                                                <th>{{ theMonth }}</th><td>{{ caseCount }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endif %}
+                                </table>
+                            </div>
+                            <div class="col-sm-6">
+                                <h4>Cases per Month Distribution</h4>
+                                <table class="table table-responsive">
+                                    <tr><th>Month</th><th>Case Count</th></tr>
+                                    {% if result is defined %}
+                                        {% for theMonth,caseCount in result.monthlyDistribution %}
+                                            <tr>
+                                                <th>{{ theMonth }}</th><td>{{ caseCount }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endif %}
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h4>Location Distribution</h4>
+                                {% if result is defined %}
+                                    {% for state,values in result.locationDistribution  %}
+                                        {{ state }}:<br />
+                                        {% set total = 0 %}
+                                        {% for district,count in values %}
+                                            {% set total = total+count %}
+                                            &nbsp;&nbsp;{{ district }}: {{ count }}<br/>
+                                        {% endfor %}
+                                        Total: {{ total }}<br/>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

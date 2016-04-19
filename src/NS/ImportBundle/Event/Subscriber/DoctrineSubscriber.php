@@ -21,9 +21,9 @@ class DoctrineSubscriber implements EventSubscriberInterface
         $dateRange = array('filterDateRange');
         return array(
             // Doctrine ORM - filter field types
-            'lexik_form_filter.apply.orm.IBDReportFilterType.admDate'           => $dateRange,
+            'lexik_form_filter.apply.orm.IBDReportFilterType.adm_date'           => $dateRange,
             'lexik_form_filter.apply.orm.IBDReportFilterType.createdDate'       => $dateRange,
-            'lexik_form_filter.apply.orm.RotaVirusReportFilterType.admDate'     => $dateRange,
+            'lexik_form_filter.apply.orm.RotaVirusReportFilterType.adm_date'     => $dateRange,
             'lexik_form_filter.apply.orm.RotaVirusReportFilterType.createdDate' => $dateRange,
         );
     }

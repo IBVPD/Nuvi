@@ -33,7 +33,7 @@ class BaseQuarterlyFilterType extends AbstractType
     /**
      * @var string
      */
-    protected $fieldName = 'admDate';
+    protected $fieldName = 'adm_date';
 
     /**
      * BaseQuarterlyFilterType constructor.
@@ -140,7 +140,7 @@ class BaseQuarterlyFilterType extends AbstractType
                 'include_export' => true,
                 'include_reset'  => true,
                 'include_intense'=> true,
-                'year_field'     => 'admDate',
+                'year_field'     => 'adm_date',
                 ));
 
         $resolver->setDefined(array('site_type'));
