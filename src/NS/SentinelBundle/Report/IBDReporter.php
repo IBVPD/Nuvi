@@ -9,6 +9,7 @@ use NS\SentinelBundle\Exporter\DoctrineCollectionSourceIterator;
 use NS\SentinelBundle\Report\Result\AgeDistribution;
 use NS\SentinelBundle\Report\Result\CulturePositive;
 use NS\SentinelBundle\Report\Result\DataQualityResult;
+use NS\SentinelBundle\Report\Result\IBD\GeneralStatisticResult;
 use NS\SentinelBundle\Report\Result\NumberEnrolledResult;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -39,9 +40,9 @@ class IBDReporter extends AbstractReporter
         if ($form->isValid()) {
             if ($form->get('reset')->isClicked()) {
                 return new RedirectResponse($this->router->generate($redirectRoute));
-            } else {
-                $this->filter->addFilterConditions($form, $queryBuilder, $alias);
             }
+
+            $this->filter->addFilterConditions($form, $queryBuilder, $alias);
 
             $export = ($form->get('export')->isClicked());
         }
@@ -73,9 +74,9 @@ class IBDReporter extends AbstractReporter
         if ($form->isValid()) {
             if ($form->get('reset')->isClicked()) {
                 return new RedirectResponse($this->router->generate($redirectRoute));
-            } else {
-                $this->filter->addFilterConditions($form, $queryBuilder, $alias);
             }
+
+            $this->filter->addFilterConditions($form, $queryBuilder, $alias);
 
             $export = ($form->get('export')->isClicked());
         }
@@ -350,5 +351,16 @@ class IBDReporter extends AbstractReporter
         }
 
         return array('sites' => $results, 'form' => $form->createView());
+    }
+
+    /**
+     * @param Request $request
+     * @param FormInterface $form
+     * @param $redirectRoute
+     * @return array|RedirectResponse
+     */
+    public function getStats(Request $request, FormInterface $form, $redirectRoute)
+    {
+        return parent::getStats('NSSentinelBundle:IBD',new GeneralStatisticResult(),$request,$form,$redirectRoute);
     }
 }

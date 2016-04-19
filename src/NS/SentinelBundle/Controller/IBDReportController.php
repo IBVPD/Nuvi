@@ -188,4 +188,22 @@ class IBDReportController extends Controller
 
         return $this->render('NSSentinelBundle:Report/IBD:data-linking.html.twig', $params);
     }
+
+    /**
+     * @param Request $request
+     * @return Response
+     *
+     * @Route("/stats",name="reportIbdStats")
+     */
+    public function statsAction(Request $request)
+    {
+        $form    = $this->createForm('IBDReportFilterType', null, array('site_type'=>'advanced'));
+        $service = $this->get('ns_sentinel.ibd_report');
+        $params  = $service->getStats($request, $form, 'reportIbdStats');
+        if ($params instanceof Response) {
+            return $params;
+        }
+
+        return $this->render('NSSentinelBundle:Report/IBD:stats.html.twig', $params);
+    }
 }

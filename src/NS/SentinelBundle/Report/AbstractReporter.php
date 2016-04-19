@@ -6,7 +6,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Query;
 use Exporter\Source\SourceIteratorInterface;
+use NS\SentinelBundle\Report\Result\AbstractGeneralStatisticResult;
+use NS\SentinelBundle\Report\Result\IBD\GeneralStatisticResult;
 use Sonata\CoreBundle\Exporter\Exporter;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -195,5 +200,46 @@ class AbstractReporter
                 $this->processColumn($results, $res, $pf);
             }
         }
+    }
+
+
+    /**
+     * @param string $repoClass
+     * @param AbstractGeneralStatisticResult $result
+     * @param Request $request
+     * @param FormInterface $form
+     * @param $redirectRoute
+     * @return array|RedirectResponse
+     */
+    public function getStats($repoClass, AbstractGeneralStatisticResult $result, Request $request, FormInterface $form, $redirectRoute)
+    {
+        $alias = 'i';
+
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            if ($form->get('reset')->isClicked()) {
+                return new RedirectResponse($this->router->generate($redirectRoute));
+            }
+
+            $repo = $this->entityMgr->getRepository($repoClass);
+            $columns = array(
+                'getGenderDistribution' => 'setGenderDistribution',
+                'getAgeInMonthDistribution' => 'setAgeInMonthDistribution',
+                'getLocationDistribution' => 'setLocationDistribution',
+                'getDischargeOutcomeDistribution' => 'setDischargeOutcomeDistribution',
+                'getMonthlyDistribution' => 'setMonthlyDistribution'
+            );
+
+            foreach ($columns as $repoFunction => $resultFunction) {
+                $query = $repo->$repoFunction($alias);
+                $this->filter->addFilterConditions($form, $query, $alias);
+                $results = $query->getQuery()->getScalarResult();
+                $result->$resultFunction($results);
+            }
+
+            return array('form' => $form->createView(), 'result' => $result);
+        }
+
+        return array('form' => $form->createView(), 'result' => $result);
     }
 }

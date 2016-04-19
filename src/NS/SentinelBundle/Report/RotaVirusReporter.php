@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query;
 use NS\SentinelBundle\Exporter\DoctrineCollectionSourceIterator;
 use NS\SentinelBundle\Report\Result\DataQualityResult;
+use NS\SentinelBundle\Report\Result\RotaVirus\GeneralStatisticResult;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -165,5 +166,17 @@ class RotaVirusReporter extends AbstractReporter
         }
 
         return array('sites' => $results, 'form' => $form->createView());
+    }
+
+
+    /**
+     * @param Request $request
+     * @param FormInterface $form
+     * @param $redirectRoute
+     * @return array|RedirectResponse
+     */
+    public function getStats(Request $request, FormInterface $form, $redirectRoute)
+    {
+        return parent::getStats('NSSentinelBundle:RotaVirus',new GeneralStatisticResult(),$request,$form,$redirectRoute);
     }
 }

@@ -90,4 +90,23 @@ class RotaVirusReportController extends Controller
             ->leftJoin('cf.referenceLab', $alias)
             ->andWhere($alias.' IS NULL');
     }
+
+
+    /**
+     * @param Request $request
+     * @return Response
+     *
+     * @Route("/stats",name="reportRotaStats")
+     */
+    public function statsAction(Request $request)
+    {
+        $form    = $this->createForm('IBDReportFilterType', null, array('site_type'=>'advanced'));
+        $service = $this->get('ns_sentinel.rotavirus_report');
+        $params  = $service->getStats($request, $form, 'reportRotaStats');
+        if ($params instanceof Response) {
+            return $params;
+        }
+
+        return $this->render('NSSentinelBundle:Report/RotaVirus:stats.html.twig', $params);
+    }
 }

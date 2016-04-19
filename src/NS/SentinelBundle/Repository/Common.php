@@ -5,6 +5,7 @@ namespace NS\SentinelBundle\Repository;
 use \Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query;
 use \Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\UnexpectedResultException;
 use NS\ImportBundle\Exceptions\DuplicateCaseException;
 use \NS\SecurityBundle\Doctrine\SecuredEntityRepository;
 use NS\SentinelBundle\Exceptions\InvalidCaseException;
@@ -214,6 +215,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
         }
 
         $found = 0;
+        $caseRet = null;
 
         foreach ($ret as $case) {
             if ($case->getCountry()->getCode() == $params['country']->getCode()) {
@@ -227,5 +229,42 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
         }
 
         return $caseRet;
+    }
+
+    public function getGenderDistribution($alias)
+    {
+        return $this->createQueryBuilder($alias)
+            ->select(sprintf('%s.gender, COUNT(%s.id) as caseCount',$alias,$alias))
+            ->groupBy(sprintf('%s.gender',$alias));
+    }
+
+    public function getAgeInMonthDistribution($alias)
+    {
+        return $this->createQueryBuilder($alias)
+            ->select(sprintf('%s.age_months, COUNT(%s.id) as caseCount',$alias,$alias))
+            ->groupBy(sprintf('%s.age_months',$alias));;
+    }
+
+    public function getLocationDistribution($alias)
+    {
+        return $this->createQueryBuilder($alias)
+            ->select(sprintf('%s.state, %s.district, COUNT(%s.id) as caseCount',$alias,$alias,$alias))
+            ->groupBy(sprintf('%s.state,%s.district',$alias,$alias));
+    }
+
+    public function getDischargeOutcomeDistribution($alias)
+    {
+        return $this->createQueryBuilder($alias)
+            ->select(sprintf('%s.disch_outcome as outcome, COUNT(%s.id) as caseCount',$alias,$alias))
+            ->groupBy(sprintf('%s.disch_outcome',$alias));
+    }
+
+    public function getMonthlyDistribution($alias)
+    {
+        $config = $this->_em->getConfiguration();
+        $config->addCustomDatetimeFunction('MONTH','DoctrineExtensions\Query\Mysql\Month');
+        return $this->createQueryBuilder($alias)
+            ->select(sprintf('MONTH(%s.adm_date) as theMonth, COUNT(%s.id) as caseCount',$alias,$alias))
+            ->groupBy('theMonth');
     }
 }
