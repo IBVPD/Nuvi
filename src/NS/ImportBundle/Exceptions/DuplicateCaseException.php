@@ -9,7 +9,7 @@ class DuplicateCaseException extends \RuntimeException implements Exception
     /**
      * @inheritDoc
      */
-    public function __construct($message, $code, \Exception $previous)
+    public function __construct($message, $code = null, \Exception $previous = null)
     {
         $args = $this->setDefaults($message);
         parent::__construct(sprintf('Duplicate case record detected: Country "%s" Case id: "%s. Found %d cases"', $args['country'], $args['case_id'], $args['count']), $code, $previous);
