@@ -18,7 +18,11 @@ class ApplicationAvailabilityTest extends WebTestCase
         $client->followRedirects();
         $client->request('GET', $url);
 
-        $this->assertTrue($client->getResponse()->isSuccessful(), $client->getResponse());
+	if(!$client->getResponse()->isSuccessful()) {
+          file_put_contents(sprintf('/tmp/%s.log',str_replace('/','-',$url)),$client->getResponse()->getContent());
+        }
+
+        $this->assertTrue($client->getResponse()->isSuccessful());
     }
 
     public function urlProvider()
