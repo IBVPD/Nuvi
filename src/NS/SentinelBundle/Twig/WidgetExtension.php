@@ -24,16 +24,16 @@ class WidgetExtension extends \Twig_Extension
     public function renderFilterToolbox()
     {
         return '<div class="widget-toolbar">
-                        <a href="#filters" data-toggle="collapse" class="white small">
-                            <i class="ace-icon fa fa-plus" data-icon-hide="fa-minus" data-icon-show="fa-plus"></i>
-                            Filters
-                        </a>
-                    </div>
-                    <div class="widget-toolbar no-border">
-                        <a href="#" data-action="fullscreen" class="white">
-                            <i class="ace-icon fa fa-expand"></i>
-                        </a>
-                    </div>';
+                    <a href="#filters" data-toggle="collapse" class="white small">
+                        <i class="ace-icon fa fa-plus" data-icon-hide="fa-minus" data-icon-show="fa-plus"></i>
+                        Filters
+                    </a>
+                </div>
+                <div class="widget-toolbar no-border">
+                    <a href="#" data-action="fullscreen" class="white">
+                        <i class="ace-icon fa fa-expand"></i>
+                    </a>
+                </div>';
     }
 
     /**
