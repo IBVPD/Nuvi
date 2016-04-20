@@ -288,20 +288,11 @@ class IBDRepository extends Common
             ->innerJoin($alias . '.site', 's')
             ->groupBy($alias . '.site');
 
-        $where = $params = array();
-        $index = 0;
-
         if (empty($siteCodes)) {
             return $queryBuilder;
         }
 
-        foreach ($siteCodes as $site) {
-            $where[] = "$alias.site = :site$index";
-            $params['site' . $index] = $site;
-            $index++;
-        }
-
-        return $queryBuilder->where("(" . implode(" OR ", $where) . ")")->setParameters($params);
+        return $queryBuilder->where("($alias.site IN (:sites) )")->setParameter('sites',$siteCodes);
     }
 
     /**
