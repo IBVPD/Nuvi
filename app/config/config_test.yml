@@ -22,11 +22,11 @@ doctrine:
         default_connection: default
         connections:
             default:
-              driver:   %database_driver%
-              host:     %database_host%
-              port:     %database_port%
-              dbname:   %database_name%
-              user:     %database_user%
-              password: %database_password%
+              driver:   "%database_driver%"
+              host:     "%database_host%"
+              port:     "%database_port%"
+              dbname:   "%database_name%"
+              user:     "%database_user%"
+              password: "%database_password%"
               charset:  UTF8
-              #path:     %kernel.cache_dir%/test.db
+              #path:    "%kernel.cache_dir%/test.db"

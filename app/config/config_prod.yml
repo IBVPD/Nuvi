@@ -29,7 +29,7 @@ monolog:
             handler: swift
         swift:
             type:       swift_mailer
-            from_email: %monolog.error.from_email%
-            to_email:   %monolog.error.to_email%
-            subject:    %monolog.error.subject%
+            from_email: "%monolog.error.from_email%"
+            to_email:   "%monolog.error.to_email%"
+            subject:    "%monolog.error.subject%"
             level:      debug
