@@ -202,7 +202,6 @@ class AbstractReporter
         }
     }
 
-
     /**
      * @param string $repoClass
      * @param AbstractGeneralStatisticResult $result
@@ -211,7 +210,7 @@ class AbstractReporter
      * @param $redirectRoute
      * @return array|RedirectResponse
      */
-    public function getStats($repoClass, AbstractGeneralStatisticResult $result, Request $request, FormInterface $form, $redirectRoute)
+    public function retrieveStats($repoClass, AbstractGeneralStatisticResult $result, Request $request, FormInterface $form, $redirectRoute)
     {
         $alias = 'i';
 

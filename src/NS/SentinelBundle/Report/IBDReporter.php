@@ -361,6 +361,6 @@ class IBDReporter extends AbstractReporter
      */
     public function getStats(Request $request, FormInterface $form, $redirectRoute)
     {
-        return parent::getStats('NSSentinelBundle:IBD',new GeneralStatisticResult(),$request,$form,$redirectRoute);
+        return $this->retrieveStats('NSSentinelBundle:IBD',new GeneralStatisticResult(),$request,$form,$redirectRoute);
     }
 }

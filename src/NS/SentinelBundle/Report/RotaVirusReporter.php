@@ -168,7 +168,6 @@ class RotaVirusReporter extends AbstractReporter
         return array('sites' => $results, 'form' => $form->createView());
     }
 
-
     /**
      * @param Request $request
      * @param FormInterface $form
@@ -177,6 +176,6 @@ class RotaVirusReporter extends AbstractReporter
      */
     public function getStats(Request $request, FormInterface $form, $redirectRoute)
     {
-        return parent::getStats('NSSentinelBundle:RotaVirus',new GeneralStatisticResult(),$request,$form,$redirectRoute);
+        return $this->retrieveStats('NSSentinelBundle:RotaVirus',new GeneralStatisticResult(),$request,$form,$redirectRoute);
     }
 }

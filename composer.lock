@@ -53,12 +53,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/beberlei/DoctrineExtensions.git",
-                "reference": "d21b82cd305bd06a97a9befa2c0c750d64c53ebb"
+                "reference": "e6236d8644252a0b7ec99d821a337bf656d8246e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/beberlei/DoctrineExtensions/zipball/d21b82cd305bd06a97a9befa2c0c750d64c53ebb",
-                "reference": "d21b82cd305bd06a97a9befa2c0c750d64c53ebb",
+                "url": "https://api.github.com/repos/beberlei/DoctrineExtensions/zipball/e6236d8644252a0b7ec99d821a337bf656d8246e",
+                "reference": "e6236d8644252a0b7ec99d821a337bf656d8246e",
                 "shasum": ""
             },
             "require": {
@@ -107,7 +107,7 @@
                 "doctrine",
                 "orm"
             ],
-            "time": "2016-03-24 18:00:50"
+            "time": "2016-04-16 22:10:08"
         },
         {
             "name": "behat/transliterator",
@@ -1980,21 +1980,22 @@
         },
         {
             "name": "jms/di-extra-bundle",
-            "version": "1.7.0",
+            "version": "1.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/JMSDiExtraBundle.git",
-                "reference": "85a989bedcf22495c03bf94339ddc5e856bd9b46"
+                "reference": "27c3fc7150550ccc0731290b2c1ceb57449f909d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/JMSDiExtraBundle/zipball/85a989bedcf22495c03bf94339ddc5e856bd9b46",
-                "reference": "85a989bedcf22495c03bf94339ddc5e856bd9b46",
+                "url": "https://api.github.com/repos/schmittjoh/JMSDiExtraBundle/zipball/27c3fc7150550ccc0731290b2c1ceb57449f909d",
+                "reference": "27c3fc7150550ccc0731290b2c1ceb57449f909d",
                 "shasum": ""
             },
             "require": {
                 "jms/aop-bundle": "~1.1",
                 "jms/metadata": "~1.0",
+                "php": "~5.3|~7.0",
                 "symfony/dependency-injection": "~2.3|~3.0",
                 "symfony/finder": "~2.3|~3.0",
                 "symfony/framework-bundle": "~2.3|~3.0",
@@ -2005,7 +2006,7 @@
             "require-dev": {
                 "doctrine/doctrine-bundle": "~1.5",
                 "doctrine/orm": "~2.3",
-                "jms/security-extra-bundle": "~1.0@dev",
+                "jms/security-extra-bundle": "~1.0",
                 "phpcollection/phpcollection": ">=0.2,<0.3-dev",
                 "sensio/framework-extra-bundle": "~2.0|~3.0",
                 "symfony/browser-kit": "~2.3|~3.0",
@@ -2044,7 +2045,7 @@
                 "annotations",
                 "dependency injection"
             ],
-            "time": "2016-02-21 22:14:09"
+            "time": "2016-04-18 22:27:09"
         },
         {
             "name": "jms/metadata",
@@ -2924,16 +2925,16 @@
         },
         {
             "name": "liip/rmt",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/liip/RMT.git",
-                "reference": "ee8b36dc5c221b1a42f0e71eabf3306e63321b42"
+                "reference": "9557443612e6ae74b319805acd14cfcc9742849a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/liip/RMT/zipball/ee8b36dc5c221b1a42f0e71eabf3306e63321b42",
-                "reference": "ee8b36dc5c221b1a42f0e71eabf3306e63321b42",
+                "url": "https://api.github.com/repos/liip/RMT/zipball/9557443612e6ae74b319805acd14cfcc9742849a",
+                "reference": "9557443612e6ae74b319805acd14cfcc9742849a",
                 "shasum": ""
             },
             "require": {
@@ -2979,7 +2980,7 @@
                 "vcs tag",
                 "version"
             ],
-            "time": "2015-12-08 13:31:10"
+            "time": "2016-04-18 13:03:33"
         },
         {
             "name": "liuggio/ExcelBundle",
@@ -3168,16 +3169,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "1.18.2",
+            "version": "1.19.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "064b38c16790249488e7a8b987acf1c9d7383c09"
+                "reference": "5f56ed5212dc509c8dc8caeba2715732abb32dbf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/064b38c16790249488e7a8b987acf1c9d7383c09",
-                "reference": "064b38c16790249488e7a8b987acf1c9d7383c09",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/5f56ed5212dc509c8dc8caeba2715732abb32dbf",
+                "reference": "5f56ed5212dc509c8dc8caeba2715732abb32dbf",
                 "shasum": ""
             },
             "require": {
@@ -3242,7 +3243,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2016-04-02 13:12:58"
+            "time": "2016-04-12 18:29:35"
         },
         {
             "name": "nelmio/alice",
@@ -3378,16 +3379,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v2.0.1",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "ce5be709d59b32dd8a88c80259028759991a4206"
+                "reference": "47b254ea51f1d6d5dc04b9b299e88346bf2369e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/ce5be709d59b32dd8a88c80259028759991a4206",
-                "reference": "ce5be709d59b32dd8a88c80259028759991a4206",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/47b254ea51f1d6d5dc04b9b299e88346bf2369e3",
+                "reference": "47b254ea51f1d6d5dc04b9b299e88346bf2369e3",
                 "shasum": ""
             },
             "require": {
@@ -3403,7 +3404,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0-dev"
+                    "dev-master": "2.1-dev"
                 }
             },
             "autoload": {
@@ -3425,20 +3426,20 @@
                 "parser",
                 "php"
             ],
-            "time": "2016-02-28 19:48:28"
+            "time": "2016-04-19 13:41:41"
         },
         {
             "name": "ns/ace-bundle",
-            "version": "1.5.5",
+            "version": "1.5.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/AceBundle.git",
-                "reference": "4bc1df016f01b3ac4de5690193722678b75917c8"
+                "reference": "72ef7f857561bddeb58ea21db4e87d12d467d035"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/AceBundle/zipball/4bc1df016f01b3ac4de5690193722678b75917c8",
-                "reference": "4bc1df016f01b3ac4de5690193722678b75917c8",
+                "url": "https://api.github.com/repos/NobletSolutions/AceBundle/zipball/72ef7f857561bddeb58ea21db4e87d12d467d035",
+                "reference": "72ef7f857561bddeb58ea21db4e87d12d467d035",
                 "shasum": ""
             },
             "require": {
@@ -3477,7 +3478,7 @@
                 }
             ],
             "description": "This bundle provides bootstrap template",
-            "time": "2016-04-02 00:57:22"
+            "time": "2016-04-18 21:29:04"
         },
         {
             "name": "ns/ace-sonata-bundle",
@@ -5218,20 +5219,20 @@
         },
         {
             "name": "symfony/monolog-bundle",
-            "version": "v2.10.0",
+            "version": "2.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/monolog-bundle.git",
-                "reference": "82fd8f36e2cccbe94faf237403c48052d4d4b77e"
+                "reference": "e7caf4936c7be82bc6d68df87f1d23a0d5bf6e00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/monolog-bundle/zipball/82fd8f36e2cccbe94faf237403c48052d4d4b77e",
-                "reference": "82fd8f36e2cccbe94faf237403c48052d4d4b77e",
+                "url": "https://api.github.com/repos/symfony/monolog-bundle/zipball/e7caf4936c7be82bc6d68df87f1d23a0d5bf6e00",
+                "reference": "e7caf4936c7be82bc6d68df87f1d23a0d5bf6e00",
                 "shasum": ""
             },
             "require": {
-                "monolog/monolog": "~1.12",
+                "monolog/monolog": "~1.18",
                 "php": ">=5.3.2",
                 "symfony/config": "~2.3|~3.0",
                 "symfony/dependency-injection": "~2.3|~3.0",
@@ -5246,7 +5247,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.9.x-dev"
+                    "dev-master": "2.x-dev"
                 }
             },
             "autoload": {
@@ -5274,7 +5275,7 @@
                 "log",
                 "logging"
             ],
-            "time": "2016-03-13 15:55:56"
+            "time": "2016-04-13 16:21:01"
         },
         {
             "name": "symfony/polyfill-apcu",
