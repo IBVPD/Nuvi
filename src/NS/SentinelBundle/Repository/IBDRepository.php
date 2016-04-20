@@ -563,6 +563,35 @@ class IBDRepository extends Common
             ->setParameter('tripleYes', TripleChoice::YES);
     }
 
+    public function getNumberOfLabConfirmedCount($alias, array $siteCodes)
+    {
+        $tier1Req = 'sl.csf_cult_result IN (:csfResult) OR sl.csf_pcr_result IN (:csfResult)';
+        $tier2Req = 'sl.csf_cult_result IN (:csfResult) OR sl.csf_pcr_result IN (:csfResult) OR sl.blood_cult_result IN (:csfResult) OR sl.blood_pcr_result IN (:csfResult)';
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+            ->leftJoin($alias.'.nationalLab','nl')
+            ->leftJoin($alias.'.referenceLab','rl')
+            ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
+            ->andWhere(sprintf('(
+            (nl.spn_serotype > 0 OR rl.spn_serotype > 0 OR nl.hi_serotype > 0 OR rl.hi_serotype > 0 OR nl.nm_serogroup > 0 OR rl.nm_serogroup > 0)
+            AND (
+                    (s.ibdTier = 1 AND ( %s ) ) OR (s.ibdTier = 2 AND ( %s ) )
+                )
+            )',$tier1Req,$tier2Req))
+            ->setParameter('csfResult', array(CultureResult::SPN,CultureResult::HI,CultureResult::NM));
+    }
+
+    public function getNumberOfConfirmedCount($alias, array $siteCodes)
+    {
+        $tier1Req = 'sl.csf_cult_result IN (:csfResult) OR sl.csf_pcr_result IN (:csfResult)';
+        $tier2Req = 'sl.csf_cult_result IN (:csfResult) OR sl.csf_pcr_result IN (:csfResult) OR sl.blood_cult_result IN (:csfResult) OR sl.blood_pcr_result IN (:csfResult)';
+        return $this->getCountQueryBuilder($alias, $siteCodes)
+            ->leftJoin($alias.'.nationalLab','nl')
+            ->leftJoin($alias.'.referenceLab','rl')
+            ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
+            ->andWhere(sprintf('(  (s.ibdTier = 1 AND ( %s ) ) OR (s.ibdTier = 2 AND ( %s ) ) )',$tier1Req,$tier2Req))
+            ->setParameter('csfResult', array(CultureResult::SPN,CultureResult::HI,CultureResult::NM));
+    }
+
     /**
      * @param array $params
      * @return bool

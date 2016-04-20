@@ -31,6 +31,11 @@ abstract class AbstractSitePerformanceResult extends AbstractSiteBasedResult
     /**
      * @var int
      */
+    private $confirmed = 0;
+
+    /**
+     * @var int
+     */
     private $labConfirmed = 0;
 
     /**
@@ -133,6 +138,22 @@ abstract class AbstractSitePerformanceResult extends AbstractSiteBasedResult
     /**
      * @return int
      */
+    public function getConfirmed()
+    {
+        return $this->confirmed;
+    }
+
+    /**
+     * @param int $confirmed
+     */
+    public function setConfirmed($confirmed)
+    {
+        $this->confirmed = $confirmed;
+    }
+
+    /**
+     * @return int
+     */
     public function getLabConfirmed()
     {
         return $this->labConfirmed;
@@ -151,8 +172,8 @@ abstract class AbstractSitePerformanceResult extends AbstractSiteBasedResult
      */
     public function getLabConfirmedPercent()
     {
-        if ($this->labConfirmedPercent === null && $this->getTotalCases() > 0) {
-            $this->labConfirmedPercent = ($this->getLabConfirmed() / $this->getTotalCases()) * 100;
+        if ($this->labConfirmedPercent === null && $this->getConfirmed() > 0) {
+            $this->labConfirmedPercent = ($this->getLabConfirmed() / $this->getConfirmed()) * 100;
         }
 
         return $this->labConfirmedPercent;

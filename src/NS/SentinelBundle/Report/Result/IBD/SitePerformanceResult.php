@@ -80,6 +80,7 @@ class SitePerformanceResult extends AbstractSitePerformanceResult implements Tra
      */
     public function getMinimumLabConfirmedString()
     {
+        return '≥ 80%';
     }
 
     /**
@@ -87,7 +88,15 @@ class SitePerformanceResult extends AbstractSitePerformanceResult implements Tra
      */
     public function hasMinimumLabConfirmed()
     {
-        return 'N/A';
+        $percent = $this->getLabConfirmedPercent();
+
+        if($percent>=80) {
+            return self::GOOD;
+        }
+
+        if($percent>=50) {
+            return self::WARN;
+        }
     }
 
     /**

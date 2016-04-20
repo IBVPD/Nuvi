@@ -304,6 +304,8 @@ class IBDReporter extends AbstractReporter
 
             $columns = array(
                 'getNumberOfSpecimenCollectedCount' => 'setSpecimenCollection',
+                'getNumberOfConfirmedCount' => 'setConfirmed',
+                'getNumberOfLabConfirmedCount' => 'setLabConfirmed',
             );
 
             $this->processResult($columns, $repo, $alias, $results, $form);
