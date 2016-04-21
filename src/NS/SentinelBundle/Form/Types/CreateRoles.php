@@ -95,13 +95,11 @@ class CreateRoles extends TranslatableArrayChoice implements TranslationContaine
             case CreateRoles::BASE:
                 return $routeBase . 'Edit';
             case CreateRoles::SITE:
-                return $routeBase . 'Edit';
+                return $routeBase . 'LabEdit';
             case CreateRoles::RRL:
                 return $routeBase . 'RRLEdit';
             case CreateRoles::NL:
                 return $routeBase . 'NLEdit';
-            case CreateRoles::LAB:
-                return $routeBase . 'LabEdit';
             default:
                 return $routeBase . 'Index';
         }

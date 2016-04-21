@@ -96,6 +96,30 @@ class CreateRolesTest extends TypeTestCase
         );
     }
 
+    /**
+     * @param $role
+     * @param $route
+     *
+     * @dataProvider getRoutes
+     */
+    public function testGetRoute($role, $route)
+    {
+        $form = new CreateRoles($role);
+        $baseRoute = 'base';
+        $this->assertEquals(sprintf('%s%s',$baseRoute,$route),$form->getRoute($baseRoute));
+    }
+
+    public function getRoutes()
+    {
+        return array(
+            array(CreateRoles::BASE,'Edit'),
+            array(CreateRoles::SITE,'LabEdit'),
+            array(CreateRoles::NL,'NLEdit'),
+            array(CreateRoles::RRL,'RRLEdit'),
+            array(null,'Index'),
+        );
+    }
+
     public function getAuthorizationChecker(array $calls = array())
     {
         $authChecker = $this->getMockBuilder('\Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface')
