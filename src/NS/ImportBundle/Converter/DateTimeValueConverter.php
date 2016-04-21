@@ -11,7 +11,15 @@ use Ddeboer\DataImport\ValueConverter\DateTimeValueConverter as BaseDateTimeValu
  */
 class DateTimeValueConverter extends BaseDateTimeValueConverter implements NamedValueConverterInterface
 {
-    private $name;
+    /**
+     * @var string
+     */
+    protected $name;
+
+    /**
+     * @var string
+     */
+    protected $description;
 
     /**
      * @param string $inputFormat
@@ -21,7 +29,7 @@ class DateTimeValueConverter extends BaseDateTimeValueConverter implements Named
     {
         parent::__construct($inputFormat, $outputFormat);
 
-        $this->name = 'Date: '.$inputFormat;
+        $this->name = 'Date: ' . $inputFormat;
     }
 
     /**
@@ -29,6 +37,18 @@ class DateTimeValueConverter extends BaseDateTimeValueConverter implements Named
      */
     public function getName()
     {
+        if ($this->description) {
+            return sprintf('%s (%s)', $this->name, $this->description);
+        }
+
         return $this->name;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
     }
 }

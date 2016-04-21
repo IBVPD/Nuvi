@@ -50,3 +50,35 @@ services:
     arguments: [ "m/d/Y|" ]
     tags:
       - { name: ns_import.converter }
+
+  ns_import.converter.time.24_hour_minute_second:
+    class: NS\ImportBundle\Converter\TimeValueConverter
+    arguments: [ "H:i:s" ]
+    calls:
+      - [ setDescription, [ '24 Hour format' ]]
+    tags:
+      - { name: ns_import.converter }
+
+  ns_import.converter.time.24_hour_minute:
+    class: NS\ImportBundle\Converter\TimeValueConverter
+    arguments: [ "H:i" ]
+    calls:
+      - [ setDescription, [ '24 Hour format' ]]
+    tags:
+      - { name: ns_import.converter }
+
+  ns_import.converter.time.12_hour_minute_second:
+    class: NS\ImportBundle\Converter\TimeValueConverter
+    arguments: [ "h:i:s a" ]
+    calls:
+      - [ setDescription, [ '12 Hour format a=AM/PM' ]]
+    tags:
+      - { name: ns_import.converter }
+
+  ns_import.converter.time.12_hour_minute:
+    class: NS\ImportBundle\Converter\TimeValueConverter
+    arguments: [ "h:i a" ]
+    calls:
+      - [ setDescription, [ '12 Hour format a=AM/PM' ]]
+    tags:
+      - { name: ns_import.converter }
