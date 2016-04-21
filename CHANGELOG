@@ -3,6 +3,7 @@ VERSION 0  INITIAL RELEASE
 ==========================
 
    Version 0.7 - Just a bump to help release management
+      21/04/2016 16:53  0.7.3  Updated filters/reports and additional map building tweaks
       19/04/2016 22:17  0.7.2  Fix function override
       19/04/2016 17:06  0.7.1  Some reports and a few variable renames
       14/04/2016 21:50  0.7.0  initial release
