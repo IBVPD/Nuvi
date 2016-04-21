@@ -3,11 +3,6 @@
     Author     : gnat
 */
 
-form.reportFilters > div:not(.form-group) {
-    margin-right: 0.5em;
-    display: inline-block;
-}
-
 input, select, textarea {
     max-width: 100%;
 }

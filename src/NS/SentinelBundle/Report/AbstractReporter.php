@@ -5,14 +5,12 @@ namespace NS\SentinelBundle\Report;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Query;
-use Exporter\Source\SourceIteratorInterface;
+use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
 use NS\SentinelBundle\Report\Result\AbstractGeneralStatisticResult;
-use NS\SentinelBundle\Report\Result\IBD\GeneralStatisticResult;
-use Sonata\CoreBundle\Exporter\Exporter;
+use NS\SentinelBundle\Report\Export\Exporter;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 
 /**
@@ -22,28 +20,37 @@ use Symfony\Component\Routing\RouterInterface;
 class AbstractReporter
 {
     /**
-     * @var type
+     * @var FilterBuilderUpdaterInterface
      */
     protected $filter;
+
     /**
      * @var ObjectManager
      */
     protected $entityMgr;
+
     /**
      * @var RouterInterface
      */
     protected $router;
 
     /**
-     * @param $filter
+     * @var Exporter $exporter
+     */
+    protected $exporter;
+
+    /**
+     * @param FilterBuilderUpdaterInterface $filter
      * @param ObjectManager $entityMgr
      * @param RouterInterface $router
+     * @param Exporter $exporter
      */
-    public function __construct($filter, ObjectManager $entityMgr, RouterInterface $router)
+    public function __construct(FilterBuilderUpdaterInterface $filter, ObjectManager $entityMgr, RouterInterface $router, Exporter $exporter)
     {
         $this->filter = $filter;
         $this->entityMgr = $entityMgr;
         $this->router = $router;
+        $this->exporter = $exporter;
     }
 
     /**
@@ -76,7 +83,7 @@ class AbstractReporter
             if ($fpr && method_exists($fpr, $function)) {
                 call_user_func(array($fpr, $function), $c['caseCount']);
             } else {
-                throw new \RunTimeException(sprintf('method error %s', $function));
+                throw new \RuntimeException(sprintf('method error %s', $function));
             }
         }
     }
@@ -102,20 +109,6 @@ class AbstractReporter
                 $this->processColumn($results, $res, $pf);
             }
         }
-    }
-
-    /**
-     *
-     * @param SourceIteratorInterface $source
-     * @param string $format
-     * @return Response
-     */
-    public function export(SourceIteratorInterface $source, $format = 'csv')
-    {
-        $filename = sprintf('export_%s.%s', date('Y_m_d_H_i_s'), $format);
-        $exporter = new Exporter();
-
-        return $exporter->getResponse($format, $filename, $source);
     }
 
     /**

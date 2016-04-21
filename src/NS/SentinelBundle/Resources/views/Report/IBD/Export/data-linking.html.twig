@@ -1,0 +1,37 @@
+<table class="table table-striped table-bordered table-hover">
+    <thead class="thin-border-bottom">
+    <tr>
+        <th>{{ 'Region'|trans }}</th>
+        <th colspan="2">{{ 'Country'|trans }}</th>
+        <th>{{ 'Case ID'|trans }}</th>
+        <th>{{ 'Gender'|trans }}</th>
+        <th>{{ 'Birthdate'|trans }}</th>
+        <th>{{ 'Age In Months'|trans }}</th>
+        <th>{{ 'District'|trans }}</th>
+        <th>{{ 'Admission Date'|trans }}</th>
+        <th>{{ 'Onset Date'|trans }}</th>
+        <th>{{ 'Reference Lab Sample ID'|trans }}</th>
+        <th>{{ 'Reference Lab Sample Collection Date'|trans }}</th>
+        <th>{{ 'Reference Lab Sample Type'|trans }}</th>
+        <th>{{ 'Reference Lab Isolate Type'|trans }}</th>
+    </tr>
+    </thead>
+    {% for result in results %}
+        <tr>
+            <td>{{ result.country.region.code }}</td>
+            <td>{{ result.country.code }}</td>
+            <td>{{ result.country.name }}</td>
+            <td>{{ result.caseId }}</td>
+            <td>{{ result.gender }}</td>
+            <td>{{ result.birthdate|date('Y-m-d') }}</td>
+            <td>{{ result.age }}</td>
+            <td>{{ result.district }}</td>
+            <td>{{ result.admDate|date('Y-m-d') }}</td>
+            <td>{{ result.onsetDate|date('Y-m-d') }}</td>
+            <td>{{ result.referenceLab.labId }}</td>
+            <td>{{ result.referenceLab.sampleCollectionDate|date('Y-m-d') }}</td>
+            <td>{{ result.referenceLab.sampleType }}</td>
+            <td>{{ result.referenceLab.isolateType }}</td>
+        </tr>
+    {% endfor %}
+</table>

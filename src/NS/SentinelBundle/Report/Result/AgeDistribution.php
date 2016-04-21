@@ -207,32 +207,10 @@ class AgeDistribution implements TranslationContainerInterface
     }
 
     /**
-     * @return array
-     */
-    public function toArray()
-    {
-        $res = array();
-        foreach ($this->results as $year => $values) {
-            $res[] = array( 'year'    => $year,
-                            'total'   => (isset($values['total'])?$values['total']:0),
-                            '0-5'     => $this->getZeroToFive($year),
-                            '5-11'    => $this->getFiveToEleven($year),
-                            '11-23'   => $this->getElevenToTwentyThree($year),
-                            '23-59'   => $this->getTwentyThreeToFiftyNine($year),
-                            'Unknown' => $this->getUnknown($year)
-                          );
-        }
-
-        return $res;
-    }
-
-    /**
      * @inheritDoc
      */
     public static function getTranslationMessages()
     {
         return array(new Message(self::NO_ADM_DATE));
     }
-
-
 }

@@ -4,11 +4,8 @@ namespace NS\SentinelBundle\Report;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query;
-use Exporter\Source\ArraySourceIterator;
-use NS\SentinelBundle\Exporter\DoctrineCollectionSourceIterator;
 use NS\SentinelBundle\Report\Result\AgeDistribution;
 use NS\SentinelBundle\Report\Result\CulturePositive;
-use NS\SentinelBundle\Report\Result\DataQualityResult;
 use NS\SentinelBundle\Report\Result\IBD\GeneralStatisticResult;
 use NS\SentinelBundle\Report\Result\NumberEnrolledResult;
 use Symfony\Component\Form\FormInterface;
@@ -51,7 +48,7 @@ class IBDReporter extends AbstractReporter
         $result->load($queryBuilder->getQuery()->getResult());
 
         if ($export) {
-            return $this->export(new ArraySourceIterator($result->all()), 'csv');
+            return $this->exporter->export('NSSentinelBundle:Report/IBD/Export:number-enrolled.html.twig',array('results'=>$result));
         }
 
         return array('results' => $result, 'form' => $form->createView());
@@ -85,7 +82,7 @@ class IBDReporter extends AbstractReporter
         $results = new AgeDistribution($result);
 
         if ($export) {
-            return $this->export(new ArraySourceIterator($results->toArray()), 'xls');
+            return $this->exporter->export('NSSentinelBundle:Report/IBD/Export:annual-age.html.twig',array('results'=>$results));
         }
 
         return array('results' => $results, 'form' => $form->createView());
@@ -137,33 +134,7 @@ class IBDReporter extends AbstractReporter
             $this->processResult($columns, $repo, $alias, $results, $form);
 
             if ($form->get('export')->isClicked()) {
-                $fields = array(
-                    'site.country.region',
-                    'site.country',
-                    'site',
-                    'site.ibdIntenseSupport',
-                    'totalCases',
-                    'csfCollectedCount',
-                    'csfCollectedPercent',
-                    'csfResultCount',
-                    'csfResultPercent',
-                    'bloodCollectedCount',
-                    'bloodCollectedPercent',
-                    'bloodResultCount',
-                    'bloodResultPercent',
-                    'bloodEqual',
-                    'csfBinaxResultPercent',
-                    'csfLatResultPercent',
-                    'pcrPositiveCount',
-                    'csfPcrRecordedCount',
-                    'csfPcrRecordedPercent',
-                    'csfSpnRecordedCount',
-                    'csfSpnRecordedPercent',
-                    'csfHiRecordedCount',
-                    'csfHiRecordedPercent',
-                );
-
-                return $this->export(new DoctrineCollectionSourceIterator($results, $fields));
+                return $this->exporter->export('NSSentinelBundle:Report/IBD/Export:field-population.html.twig',array('sites'=>$results));
             }
         }
 
@@ -203,7 +174,7 @@ class IBDReporter extends AbstractReporter
         $results = new CulturePositive($culturePositive, $cultureNegative, $pcrPositive);
 
         if ($form->get('export')->isClicked()) {
-            return $this->export(new ArraySourceIterator($results->toArray()));
+            return $this->exporter->export('NSSentinelBundle:Report/IBD/Export:culture-positive.html.twig',array('results'=>$results));
         }
 
         return array('results' => $results, 'form' => $form->createView());
@@ -247,20 +218,7 @@ class IBDReporter extends AbstractReporter
             $this->processResult($columns, $repo, $alias, $results, $form);
 
             if ($form->get('export')->isClicked()) {
-                $fields = array(
-                    'site.country.region.code',
-                    'site.country.code',
-                    'site.code',
-                    'totalCases',
-                    'missingAdmissionDiagnosisCount',
-                    'missingAdmissionDiagnosisPercent',
-                    'missingDischargeOutcomeCount',
-                    'missingDischargeOutcomePercent',
-                    'missingDischargeDiagnosisCount',
-                    'missingDischargeDiagnosisPercent'
-                );
-
-                return $this->export(new DoctrineCollectionSourceIterator($results, $fields));
+                return $this->exporter->export('NSSentinelBundle:Report/IBD/Export:data-quality.html.twig',array('sites'=>$results),'xls');
             }
         }
 
@@ -324,13 +282,14 @@ class IBDReporter extends AbstractReporter
     {
         $results = new ArrayCollection();
         $alias = 'i';
-        $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Country')->getWithCasesForDate($alias, 'NS\SentinelBundle\Entity\IBD');
 
         $form->handleRequest($request);
         if ($form->isValid()) {
             if ($form->get('reset')->isClicked()) {
                 return new RedirectResponse($this->router->generate($redirectRoute));
             }
+
+            $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Country')->getWithCasesForDate($alias, 'NS\SentinelBundle\Entity\IBD');
 
             $this->filter->addFilterConditions($form, $queryBuilder, $alias);
 
@@ -341,8 +300,13 @@ class IBDReporter extends AbstractReporter
             }
 
             $this->populateCountries($countries, $results, 'NS\SentinelBundle\Report\Result\DataLinkingResult');
-
             $repo = $this->entityMgr->getRepository('NSSentinelBundle:IBD');
+
+            if($form->get('export')->isClicked()) {
+                $results = $repo->getFailedLink($alias, $results->getKeys())->getQuery()->getResult();
+                return $this->exporter->export('NSSentinelBundle:Report/IBD/Export:data-linking.html.twig',array('results'=>$results));
+            }
+
             $columns = array(
                 'getLinkedCount' => 'setLinked',
                 'getFailedLinkedCount' => 'setNotLinked',

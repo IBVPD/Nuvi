@@ -5,6 +5,10 @@ imports:
     - { resource: twig.yml }
 
 services:
+  ns_sentinel.exporter:
+    class: NS\SentinelBundle\Report\Export\Exporter
+    arguments: [ "@twig", "@phpExcel" ]
+
   ns_sentinel.entity.listener:
     class: NS\SentinelBundle\Entity\Listener\OnFlushListener
     tags:
@@ -12,11 +16,11 @@ services:
 
   ns_sentinel.rotavirus_report:
     class: NS\SentinelBundle\Report\RotaVirusReporter
-    arguments: [ "@lexik_form_filter.query_builder_updater", "@doctrine.orm.entity_manager", "@router" ]
+    arguments: [ "@lexik_form_filter.query_builder_updater", "@doctrine.orm.entity_manager", "@router", "@ns_sentinel.exporter" ]
 
   ns_sentinel.ibd_report:
     class: NS\SentinelBundle\Report\IBDReporter
-    arguments: [ "@lexik_form_filter.query_builder_updater", "@doctrine.orm.entity_manager", "@router" ]
+    arguments: [ "@lexik_form_filter.query_builder_updater", "@doctrine.orm.entity_manager", "@router", "@ns_sentinel.exporter" ]
 
   ns.sentinel.services.homepage:
     class: NS\SentinelBundle\Services\Homepage
@@ -30,7 +34,7 @@ services:
 
   ns.sentinel.locale_listener:
     class: NS\SentinelBundle\Locale\Login
-    arguments: [ "@security.token_storage", %kernel.default_locale% ]
+    arguments: [ "@security.token_storage", "%kernel.default_locale%" ]
     tags:
       - { name: kernel.event_subscriber }
       - { name: kernel.event_listener, event: security.authentication.success, method: onLogin }

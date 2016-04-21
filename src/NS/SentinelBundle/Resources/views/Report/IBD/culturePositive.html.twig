@@ -12,7 +12,7 @@
                 <div class="widget-body">
                     <div class="widget-toolbox padding-8">
                         <div class="collapse" id="filters">
-                            <form method="POST" action="{{ path('reportCulturePositive') }}" class="reportFilters">
+                            <form method="POST" action="{{ path('reportCulturePositive') }}">
                                 <div class="row">
                                     <div class="col-xs-3">
                                         {{ form_row(form.adm_date) }}
@@ -47,26 +47,7 @@
                         </div>
                     </div>
                     <div class="widget-main no-padding">
-                        <table class="table table-responsive table-striped table-hover">
-                            <thead>
-                            <tr>
-                                <th>{{ 'Year'|trans }}</th>
-                                <td>{{ 'Culture+'|trans }}</td>
-                                <td>{{ 'Culture- & Binax+'|trans }}</td>
-                                <td>{{ 'PCR+ & Binax- & Culture-'|trans }}</td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for year in results.years %}
-                                <tr>
-                                    <td>{{ year }}</td>
-                                    <td>{{ results.getCulturePositive(year) }}</td>
-                                    <td>{{ results.getCultureNegative(year) }}</td>
-                                    <td>{{ results.getPcrPositive(year) }}</td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
+                        {% include 'NSSentinelBundle:Report/IBD/Export:culture-positive.html.twig' %}
                     </div>
                 </div>
             </div>

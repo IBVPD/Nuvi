@@ -4,8 +4,6 @@ namespace NS\SentinelBundle\Report;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query;
-use NS\SentinelBundle\Exporter\DoctrineCollectionSourceIterator;
-use NS\SentinelBundle\Report\Result\DataQualityResult;
 use NS\SentinelBundle\Report\Result\RotaVirus\GeneralStatisticResult;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -54,20 +52,7 @@ class RotaVirusReporter extends AbstractReporter
             $this->processResult($columns, $repo, $alias, $results, $form);
 
             if ($form->get('export')->isClicked()) {
-                $fields = array(
-                    'site.region.code',
-                    'site.country.code',
-                    'site.code',
-                    'totalCases',
-                    'missingAdmissionDiagnosisCount',
-                    'missingAdmissionDiagnosisPercent',
-                    'missingDischargeOutcomeCount',
-                    'missingDischargeOutcomePercent',
-                    'missingDischargeDiagnosisCount',
-                    'missingDischargeDiagnosisPercent'
-                );
-
-                return $this->export(new DoctrineCollectionSourceIterator($results, $fields));
+                $this->exporter->export('NSSentinelBundle:Report/RotaVirus/Export:data-quality.html.twig',array('sites'=>$results));
             }
         }
 
@@ -111,22 +96,9 @@ class RotaVirusReporter extends AbstractReporter
 
             $this->processResult($columns, $repo, $alias, $results, $form);
 
-//            if ($form->get('export')->isClicked()) {
-//                $fields = array(
-//                    'site.country.region.code',
-//                    'site.country.code',
-//                    'site.code',
-//                    'totalCases',
-//                    'missingAdmissionDiagnosisCount',
-//                    'missingAdmissionDiagnosisPercent',
-//                    'missingDischargeOutcomeCount',
-//                    'missingDischargeOutcomePercent',
-//                    'missingDischargeDiagnosisCount',
-//                    'missingDischargeDiagnosisPercent'
-//                );
-//
-//                return $this->export(new DoctrineCollectionSourceIterator($results, $fields));
-//            }
+            if($form->get('export')->isClicked()) {
+                $this->exporter->export('NSSentinelBundle:Report/RotaVirus/Export:site-performance.html.twig',array('sites'=>$results));
+            }
         }
 
         return array('sites' => $results, 'form' => $form->createView());

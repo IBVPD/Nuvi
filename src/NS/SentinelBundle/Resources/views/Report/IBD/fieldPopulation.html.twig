@@ -12,7 +12,7 @@
                 <div class="widget-body">
                     <div class="widget-toolbox padding-8">
                         <div class="collapse" id="filters">
-                            <form method="POST" action="{{ path('reportFieldPopulation') }}" class="reportFilters">
+                            <form method="POST" action="{{ path('reportFieldPopulation') }}">
                                 <div class="row">
                                     <div class="col-xs-3">
                                         {{ form_row(form.adm_date) }}
@@ -47,73 +47,7 @@
                         </div>
                     </div>
                     <div class="widget-main no-padding">
-                        <table class="table table-responsive">
-                            <thead>
-                            <tr>
-                                <th rowspan="2">{{ 'Region'|trans }}</th>
-                                <th rowspan="2">{{ 'Country'|trans }}</th>
-                                <th rowspan="2">{{ 'Site'|trans }}</th>
-                                <th rowspan="2">{{ 'Intense Support'|trans }}</th>
-                                <th rowspan="2">{{ 'Total # of Cases'|trans }}</th>
-                                <th colspan="2">{{ 'csf Collected'|trans }}</th>
-                                <th colspan="2">{{ 'csf Result'|trans }} %</th>
-                                <th colspan="2">{{ 'blood Collected'|trans }} %</th>
-                                <th colspan="2">{{ 'blood Result'|trans }} %</th>
-                                <th rowspan="2">{{ 'blood Equal'|trans }} %</th>
-                                <th rowspan="2">{{ 'csf Binax Result'|trans }} %</th>
-                                <th rowspan="2">{{ 'csf Lat Recorded'|trans }} %</th>
-                                <th rowspan="2">{{ 'Csf spn pcr positive'|trans }} %</th>
-                                <th colspan="2">{{ 'Csf Pcr'|trans }}</th>
-                                <th colspan="2">{{ 'Spn Result'|trans }}</th>
-                                <th colspan="2">{{ 'Hi Result'|trans }}</th>
-                            </tr>
-                            <tr>
-                                <th>#</th>
-                                <th>%</th>
-                                <th>#</th>
-                                <th>%</th>
-                                <th>#</th>
-                                <th>%</th>
-                                <th>#</th>
-                                <th>%</th>
-                                <th>#</th>
-                                <th>%</th>
-                                <th>#</th>
-                                <th>%</th>
-                                <th>#</th>
-                                <th>%</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for result in sites %}
-                                <tr>
-                                    <td>{{ result.site.country.region }}</td>
-                                    <td>{{ result.site.country }}</td>
-                                    <td>{{ result.site.name }}</td>
-                                    <td>{{ result.site.ibdIntenseSupport }}</td>
-                                    <td>{{ result.totalCases }}</td>
-                                    <td>{{ result.csfCollectedCount }}</td>
-                                    <td>{{ result.csfCollectedPercent|number_format(1) }}</td>
-                                    <td>{{ result.csfResultCount }}</td>
-                                    <td>{{ result.csfResultPercent|number_format(1) }}</td>
-                                    <td>{{ result.bloodCollectedCount }}</td>
-                                    <td>{{ result.bloodCollectedPercent|number_format(1) }}</td>
-                                    <td>{{ result.bloodResultCount }}</td>
-                                    <td>{{ result.bloodResultPercent|number_format(1) }}</td>
-                                    <td>{{ result.bloodEqual|number_format(1) }}</td>
-                                    <td>{{ result.csfBinaxResultPercent|number_format(1) }}</td>
-                                    <td>{{ result.csfLatResultPercent|number_format(1) }}</td>
-                                    <td>{{ result.pcrPositiveCount }}</td>
-                                    <td>{{ result.csfPcrRecordedCount }}</td>
-                                    <td>{{ result.csfPcrRecordedPercent|number_format(1) }} %</td>
-                                    <td>{{ result.csfSpnRecordedCount }}</td>
-                                    <td>{{ result.csfSpnRecordedPercent|number_format(1) }} %</td>
-                                    <td>{{ result.csfHiRecordedCount }}</td>
-                                    <td>{{ result.csfHiRecordedPercent|number_format(1) }} %</td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
+                        {% include 'NSSentinelBundle:Report/IBD/Export:field-population.html.twig' %}
                     </div>
                 </div>
             </div>

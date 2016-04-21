@@ -12,7 +12,7 @@
                 <div class="widget-body">
                     <div class="widget-toolbox padding-8">
                         <div class="collapse" id="filters">
-                            <form method="POST" action="{{ path('reportPercentEnrolled') }}" class="reportFilters">
+                            <form method="POST" action="{{ path('reportPercentEnrolled') }}">
                                 <div class="row">
                                     <div class="col-xs-3">
                                         {{ form_row(form.adm_date) }}
@@ -48,24 +48,7 @@
                     </div>
 
                     <div class="widget-main no-padding">
-                        <table class="table table-responsive">
-                            <thead class="thin-border-bottom">
-                            <tr>
-                                {% for r in results.headers %}
-                                    <th>{{ r }}</th>
-                                {% endfor %}
-
-                            </tr>
-                            </thead>
-                            {% for i in 1..12 %}
-                                <tr>
-                                    <td>{{ i }}</td>
-                                    {% for c in results.getMonthResult(i) %}
-                                        <td>{{ c }}</td>
-                                    {% endfor %}
-                                </tr>
-                            {% endfor %}
-                        </table>
+                        {% include 'NSSentinelBundle:Report/IBD/Export:number-enrolled.html.twig' %}
                     </div>
                 </div>
             </div>

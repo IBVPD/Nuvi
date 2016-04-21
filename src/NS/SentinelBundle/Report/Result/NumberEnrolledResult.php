@@ -12,11 +12,6 @@ use \NS\SentinelBundle\Form\Types\Diagnosis;
 class NumberEnrolledResult
 {
     /**
-     * @var Diagnosis
-     */
-    private $diagnosis;
-
-    /**
      * @var array
      */
     private $dValues;
@@ -31,14 +26,11 @@ class NumberEnrolledResult
      */
     private $headers;
 
-    /**
-     *
-     */
     public function __construct()
     {
-        $this->diagnosis     = new Diagnosis();
-        $this->dValues       = $this->diagnosis->getValues();
-        $this->empty         = array_fill_keys(array_keys($this->dValues), 0);
+        $diagnosis     = new Diagnosis();
+        $this->dValues = $diagnosis->getValues();
+        $this->empty   = array_fill_keys(array_keys($this->dValues), 0);
 
         // Special values (NOT_SET and OUT_OF_RANGE)
         $this->empty[-1]     = 0;

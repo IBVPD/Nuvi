@@ -421,7 +421,9 @@ class IBDRepository extends Common
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
-            ->andWhere('(sl.spn_serotype != :other OR sl.spn_serotype != :notDone)')
+            ->leftJoin(sprintf('%s.referenceLab',$alias),'rl')
+            ->leftJoin(sprintf('%s.nationalLab',$alias),'nl')
+            ->andWhere('(rl.spn_serotype != :other OR rl.spn_serotype != :notDone OR nl.spn_serotype != :other OR nl.spn_serotype != :notDone)')
             ->setParameter('other', SpnSerotype::OTHER)
             ->setParameter('notDone', SpnSerotype::_NOT_DONE);
     }
@@ -435,7 +437,9 @@ class IBDRepository extends Common
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
-            ->andWhere('(sl.hi_serotype != :other OR sl.hi_serotype != :notDone)')
+            ->leftJoin(sprintf('%s.referenceLab',$alias),'rl')
+            ->leftJoin(sprintf('%s.nationalLab',$alias),'nl')
+            ->andWhere('(rl.hi_serotype != :other OR rl.hi_serotype != :notDone OR nl.hi_serotype != :other OR nl.hi_serotype != :notDone)')
             ->setParameter('other', HiSerotype::OTHER)
             ->setParameter('notDone', HiSerotype::NOT_DONE);
     }
@@ -642,6 +646,25 @@ class IBDRepository extends Common
             ->innerJoin('cf.referenceLab', $alias)
             ->leftJoin('cf.site', 's')
             ->andWhere('s.code IS NULL');
+    }
+
+    public function getFailedLink($alias, array $countryCodes)
+    {
+        $queryBuilder = $this->createQueryBuilder($alias)
+            ->addSelect('sl,r,c,rl')
+            ->innerJoin($alias.'.country', 'c')
+            ->leftJoin($alias.'.region','r')
+            ->leftJoin($alias.'.siteLab','sl')
+            ->innerJoin($alias.'.referenceLab', 'rl')
+            ->where($alias.'.site IS NULL');
+
+        if (empty($countryCodes)) {
+            return $queryBuilder;
+        }
+
+        return $queryBuilder
+            ->andWhere("($alias.country IN (:countries) )")
+            ->setParameter('countries',array_unique($countryCodes));
     }
 
     public function getNoLabCount($alias, array $countryCodes)

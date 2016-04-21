@@ -46,30 +46,7 @@
                     </div>
                     <div class="widget-main no-padding">
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover">
-                                <thead class="thin-border-bottom">
-                                <tr>
-                                    <th>{{ 'Region'|trans }}</th>
-                                    <th>{{ 'Country'|trans }}</th>
-                                    <th>{{ 'Total Labs'|trans }}</th>
-                                    <th colspan="2">{{ 'Linked'|trans }}</th>
-                                    <th colspan="2">{{ 'Failed Link'|trans }}</th>
-                                    {#<th>{{ 'No Lab'|trans }}</th>#}
-                                </tr>
-                                </thead>
-                                {% for result in sites %}
-                                    <tr>
-                                        <td>{{ result.country.region.code }}</td>
-                                        <td>{{ result.country.code }}</td>
-                                        <td>{{ result.totalCases }}</td>
-                                        <td>{{ result.linked }}</td>
-                                        <td>{{ result.linkedPercent|number_format(0) }} %</td>
-                                        <td>{{ result.notLinked }}</td>
-                                        <td>{{ result.notLinkedPercent|number_format(0) }} %</td>
-                                        {#<td>{{ result.noLab }}</td>#}
-                                    </tr>
-                                {% endfor %}
-                            </table>
+                        {% include 'NSSentinelBundle:Report/RotaVirus/Export:data-linking.html.twig' %}
                         </div>
                     </div>
                 </div>
