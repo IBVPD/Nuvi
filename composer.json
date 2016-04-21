@@ -102,13 +102,6 @@
     "require-dev": {
         "phpunit/phpunit": "~4.0",
         "phpmd/phpmd": "@stable",
-
-        "behat/behat": "3.0.*",
-        "behat/mink":  "1.6.*",
-        "behat/symfony2-extension":      "2.0.*",
-        "behat/mink-extension":          "2.0.*",
-        "behat/mink-browserkit-driver":  "*",
-
         "sensio/generator-bundle": "~2.3"
     }
 }
