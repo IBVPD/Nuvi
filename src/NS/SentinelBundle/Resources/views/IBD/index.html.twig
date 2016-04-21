@@ -32,23 +32,11 @@
                             <a href="#modal-form" id="modal-form-create" data-toggle="modal" class="btn btn-sm btn-success pull-right">{{'Create/Edit'|trans}} <i class="fa fa-plus fa-on-right bigger-110"></i></a>
                         </div>
                     {% endif %}
-
                 </div>
             </div>
         </div>
         <div class="col-xs-3 widget-container-span">
-            <div class="widget-box widget-color-blue">
-                <div class="widget-header widget-header-small">
-                    <h5 class="widget-title">{{'Filters'|trans}}</h5>
-                </div>
-                <div class="widget-body">
-                    <div class="widget-main">
-                        <form method="GET" action="{{path('ibdIndex')}}" >
-                            {{form_rest(filterForm)}}
-                        </form>
-                    </div>
-                </div>
-            </div>
+            {% include 'NSSentinelBundle::filter.html.twig' with {'route': 'ibdIndex'} %}
         </div>
     </div>
     {% if is_granted('ROLE_CAN_CREATE') %}

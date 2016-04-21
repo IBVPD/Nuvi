@@ -36,18 +36,7 @@
             </div>
         </div>
         <div class="col-xs-3 widget-container-span">
-            <div class="widget-box widget-color-blue">
-                <div class="widget-header widget-header-small">
-                    <h5 class="widget-title">{{'Filters'|trans}}</h5>
-                </div>
-                <div class="widget-body">
-                    <div class="widget-main">
-                        <form method="GET" action="{{path('rotavirusIndex')}}" >
-                            {{form_rest(filterForm)}}
-                        </form>
-                    </div>
-                </div>
-            </div>
+            {% include 'NSSentinelBundle::filter.html.twig' with {'route':'rotavirusIndex'} %}
         </div>
     </div>
     {% if is_granted('ROLE_CAN_CREATE') %}

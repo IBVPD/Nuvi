@@ -1,0 +1,31 @@
+<div class="widget-box widget-color-blue">
+    <div class="widget-header widget-header-small">
+        <h5 class="widget-title">{{'Filters'|trans}}</h5>
+    </div>
+    <div class="widget-body">
+        <form method="GET" action="{{path(route)}}">
+            <div class="widget-main">
+                {% if filterForm.id is defined %}
+                    {{ form_row(filterForm.id ) }}
+                {% endif %}
+                {{ form_row(filterForm.case_id) }}
+                {{ form_row(filterForm.adm_date) }}
+                {% if filterForm.status is defined %}
+                    {{ form_row(filterForm.status) }}
+                {% endif %}
+                {% if filterForm.region is defined %}
+                    {{ form_row(filterForm.region) }}
+                {% endif %}
+                {% if filterForm.country is defined %}
+                    {{ form_row(filterForm.country) }}
+                {% endif %}
+                {% if filterForm.site is defined %}
+                    {{ form_row(filterForm.site) }}
+                {% endif %}
+            </div>
+            <div class="widget-toolbox padding-8 clearfix">
+                {{ form_rest(filterForm) }}
+            </div>
+        </form>
+    </div>
+</div>

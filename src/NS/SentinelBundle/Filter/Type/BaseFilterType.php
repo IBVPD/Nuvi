@@ -111,7 +111,13 @@ class BaseFilterType extends AbstractType
             'label'=> 'find',
             'type' => 'submit',
             'icon' => 'fa fa-search',
-            'attr' => array('class' => 'btn btn-xs btn-success')));
+            'attr' => array('class' => 'btn btn-xs btn-success pull-right')));
+
+        $form->add('reset', 'NS\AceBundle\Form\IconButtonType', array(
+            'label'=> 'reset',
+            'type' => 'reset',
+            'icon' => 'fa fa-times-circle',
+            'attr' => array('class' => 'btn btn-xs')));
     }
 
     /**
