@@ -1,7 +1,7 @@
 {%extends "NSSentinelBundle::layout.html.twig" %}
 
 {% block pagetitle %}
-    {{'Edit %type% For Case %id%'|trans({'%id%': form.vars.value.caseFile.caseId,'%type%': form.vars.value.type})}}
+    {{'Edit %type% For Case %id%'|trans({'%id%': record.caseId,'%type%': form.vars.value.type})}}
 {% endblock %}
 
 {%block pageactions %}
