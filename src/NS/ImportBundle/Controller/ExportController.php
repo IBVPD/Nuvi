@@ -86,7 +86,7 @@ class ExportController extends Controller
             );
 
             $this->adjustFields($meta, $fields);
-            $query = $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:RotaVirus')->exportQuery('i');
+            $query = $modelManager->getRepository('NSSentinelBundle:RotaVirus')->exportQuery('i');
 
             return $this->export('csv', $rotaForm, $query, $fields);
         }
