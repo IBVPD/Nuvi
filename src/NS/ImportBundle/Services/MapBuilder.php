@@ -145,24 +145,24 @@ class MapBuilder
      */
     public function updateMapper(Column $column, $fieldName, $labPreference = 'referenceLab')
     {
-        $field = $this->camelCase($fieldName);
-
-        if (in_array($field, $this->metaData->getFieldNames())) {
-            $column->setMapper($field);
-            $column->setConverter($this->converterRegistry->getConverterForField($this->metaData->getTypeOfField($field)));
-            return;
-        } elseif ($field == 'site') {
-            $column->setMapper($field);
-            $column->setConverter($this->converterRegistry->getConverterForField($field));
-            return;
-        } elseif (in_array($field, $this->siteMetaData->getFieldNames())) {
-            $column->setMapper(sprintf('siteLab.%s', $field));
-            $column->setConverter($this->converterRegistry->getConverterForField($this->siteMetaData->getTypeOfField($field)));
-            return;
-        } elseif (in_array($field, $this->nlMetaData->getFieldNames())) {
-            $column->setMapper(sprintf('%s.%s', $labPreference, $field));
-            $column->setConverter($this->converterRegistry->getConverterForField($this->nlMetaData->getTypeOfField($field)));
-            return;
+        foreach(array(strtolower($fieldName),$this->camelCase($fieldName)) as $field) {
+            if (in_array($field, $this->metaData->getFieldNames())) {
+                $column->setMapper($field);
+                $column->setConverter($this->converterRegistry->getConverterForField($this->metaData->getTypeOfField($field)));
+                return;
+            } elseif ($field == 'site') {
+                $column->setMapper($field);
+                $column->setConverter($this->converterRegistry->getConverterForField($field));
+                return;
+            } elseif (in_array($field, $this->siteMetaData->getFieldNames())) {
+                $column->setMapper(sprintf('siteLab.%s', $field));
+                $column->setConverter($this->converterRegistry->getConverterForField($this->siteMetaData->getTypeOfField($field)));
+                return;
+            } elseif (in_array($field, $this->nlMetaData->getFieldNames())) {
+                $column->setMapper(sprintf('%s.%s', $labPreference, $field));
+                $column->setConverter($this->converterRegistry->getConverterForField($this->nlMetaData->getTypeOfField($field)));
+                return;
+            }
         }
 
         $column->setIgnored(true);
