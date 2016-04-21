@@ -118,7 +118,6 @@ class AbstractReporter
         return $exporter->getResponse($format, $filename, $source);
     }
 
-
     /**
      * @param $columns
      * @param $repo
@@ -160,13 +159,13 @@ class AbstractReporter
     }
 
     /**
-     * @param $sites
+     * @param $countries
      * @param ArrayCollection $results
      * @param $resultClass
      */
-    public function populateCountries($sites, ArrayCollection &$results, $resultClass)
+    public function populateCountries($countries, ArrayCollection &$results, $resultClass)
     {
-        foreach ($sites as $values) {
+        foreach ($countries as $values) {
             $resultObj = new $resultClass;
             $resultObj->setCountry($values[0]->getCountry());
             $resultObj->setTotalCases($values['totalCases']);
