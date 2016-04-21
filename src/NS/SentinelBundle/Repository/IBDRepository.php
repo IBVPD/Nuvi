@@ -292,7 +292,7 @@ class IBDRepository extends Common
             return $queryBuilder;
         }
 
-        return $queryBuilder->where("($alias.site IN (:sites) )")->setParameter('sites',$siteCodes);
+        return $queryBuilder->where("($alias.site IN (:sites) )")->setParameter('sites', $siteCodes);
     }
 
     /**
@@ -620,20 +620,11 @@ class IBDRepository extends Common
             ->innerJoin($alias.'.country', 'c')
             ->groupBy($alias.'.country');
 
-        $where = $params = array();
-        $index = 0;
-
         if (empty($countryCodes)) {
             return $queryBuilder;
         }
 
-        foreach (array_unique($countryCodes) as $country) {
-            $where[] = "$alias.country = :country$index";
-            $params['country' . $index] = $country;
-            $index++;
-        }
-
-        return $queryBuilder->where('(' . implode(' OR ', $where) . ')')->setParameters($params);
+        return $queryBuilder->where("($alias.country IN (:countries) )")->setParameter('countries',array_unique($countryCodes));
     }
 
     public function getLinkedCount($alias, array $countryCodes)
