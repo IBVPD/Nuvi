@@ -5,16 +5,25 @@ Cases
 2. Finding cases
 3. Creating cases
 4. Modifying cases
-5. Case completion flags
 
 Recent Cases list
 -----------------
 
-To view the list of cases, click **Data Entry** on the sidebar menu, and then **IBD** or **Rotavirus**. Cases are listed in descending order of creation; i.e. newest cases at the top.
+To view the list of cases, click **Data Entry** on the sidebar menu, and then **IBD** or **Rotavirus**. Cases are listed in descending order of creation; i.e. newest cases at the top. Only cases that your user account has permission to access are included in the Recent Cases list.
 
-To view the details of a specific case in the list, click the eye icon [TODO: insert image] in the **Actions** column.
+**Actions buttons**
 
-Only cases that your user account has permission to access are included in the Recent Cases list. Your account permissions also determine which other buttons are displayed in the Actions column.
+To view the details of a specific case in the list, click the View icon [TODO: insert image] in the **Actions** column. To edit the case's epidemiology details or outcome, click the **Edit EPI** button [TODO: insert image] or **Edit Outcome** button [TODO: insert image], respectively.
+
+Your account permissions determine which other buttons, if any, are displayed in the **Actions** column. These additional buttons are displayed as either Add [TODO: insert image] or Edit [TODO: insert image] buttons, depending on whether or not the relevant details record already exists. Clicking an Add or Edit button in the **Actions** column takes you to an editing page for the indicated detail record of the case. For more information, see the **Modifying cases** section below.
+
+Note that if your browser screen is narrow, the Actions buttons may be combined into a single gear button [TODO: insert image]. Click the gear button in order to see all the Actions buttons.
+
+Actions buttons also appear in the upper-right corner of case editing pages. A **List** button [TODO: insert image] is included here for returning to the cases list.
+
+**Case completion flags**
+
+The **Status** column displays green, orange, or red **EPI** and **LAB** flags. A green flag indicates that the associated epidemiology or lab details are complete and have passed error checks. An orange flag indicates that data is incomplete. A red flag indicates that the details record is not present or an error has been found.
 
 Finding cases
 -------------
@@ -23,9 +32,9 @@ To find a specific case, enter or select criteria in the **Filters** panel to th
 
 You can enter partial values for **System ID** and **Case ID**. The result list will include all cases where the respective field contains whatever you type here.
 
-In the **Region**, **Country**, and **Site** fields, you can hold down `CTRL` and click to select multiple values. The result list will include results that match any of the selected values. Note that each of these fields only appears in the Filters panel if your user account has been administratively configured to allow access to cases with multiple possible values for that field; for example, if your account is restricted to cases in a particular country, the ability to filter on country would be irrelevant, so the Country field is not displayed.
+In the **Region**, **Country**, and **Site** fields, you can hold down `CTRL` and click to select multiple values. The result list will include results that match any of the selected values. Note that each of these fields only appears in the **Filters** panel if your user account has been administratively configured to allow access to cases with multiple possible values for that field; for example, if your account is restricted to cases in a particular country, the ability to filter on country would be irrelevant, so the Country field is not displayed.
 
-Any filters you apply remain in effect throughout case creation and editing operations. To clear the filters and return to the full list of cases, click the **Reset** button in the Filters panel.
+Any filters you apply remain in effect throughout case creation and editing operations. To clear the filters and return to the full list of cases, click the **Reset** button in the **Filters** panel.
 
 Creating cases
 --------------
@@ -34,11 +43,11 @@ IDB and Rotavirus cases are created via their respective entries on the **Data E
 
 1. Click the green **Create/Edit** button above the Recent Cases list.
 
-2. In the **Create Case** pop-up dialog, enter the Case ID.
+2. In the **Create Case** pop-up dialog, enter the **Case ID**.
 
 3. The options included in the **Type** drop-down list depend on your user account permissions. If **Case** is the only option displayed, select it.
   
-   If your user account permissions allow it, you may also see **Site Lab**, **RRL** (Regional Reference Lab), or **NL** (National Lab) options. If you select one of these options, you will be taken directly to the lab details editing page. Lab records can also be added later.
+   If your user account permissions allow it, you may also see **Site Lab**, **RRL** (Regional Reference Lab), or **NL** (National Lab) options. [TODO: insert images] If you select one of these options, you will be taken directly to the lab details editing page. Lab details can also be added later.
 
 4. In the **Site** drop-down list, select the site with which the case is associated.
 
@@ -47,18 +56,11 @@ IDB and Rotavirus cases are created via their respective entries on the **Data E
 Modifying cases
 ---------------
 
-If you know the Case ID and Site, you can go directly to the case editing page by the same procedure as above for creating a new case. Otherwise, locate the case in the Recent Cases list and use the buttons in the **Actions** column.
+If you know the Case ID and Site of the case you want to modify, you can go directly to the case editing page by the same procedure as described above in the *Creating cases* section. Otherwise, locate the case in the Recent Cases list and use the buttons in the **Actions** column, as described in **Recent Cases list: Actions buttons** above.
 
-At minimum, the Actions column includes a **Show** button [TODO: insert image] for viewing the case details, an **Edit EPI** button [TODO: insert image], and an **Edit Outcome** button [TODO: insert image]. Buttons for adding and editing lab results will also be displayed if your user account permissions allow you to perform these actions.
+**Adding or editing lab details**
 
-Action buttons are also displayed in the upper-right corner of case editing pages. Note that if your browser screen is narrow, the action buttons may be combined into a single gear button [TODO: insert image]. Click the gear button in order to see all the action buttons.
-
-** Adding lab results **
-
-The 
-
-Case completion flags
----------------------
+The **Add Lab** or **Edit Lab** button appears in the **Actions** column if your user account has permission to add and edit Site Lab details. The **Add RRL** and **Add NL** buttons appear if you have permission to add and edit Regional Reference Lab or National Lab details, respectively, *and* the relevant **Sent To Reference Lab** or **Sent To National Lab** setting has been turned on in the Site Lab details. Clicking an Add or Edit button takes you to the editing page for the relevant detail record of the case.
 
 Reports
 =======
