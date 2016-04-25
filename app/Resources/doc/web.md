@@ -13,7 +13,7 @@ To view the list of cases, click **Data Entry** on the sidebar menu, and then **
 
 ![Recent Cases list](images/recentCases.png)
 
-**Actions buttons**
+###Actions buttons
 
 Actions buttons are displayed in the **Actions** column. To view the details of a specific case in the list, click the View (eye) button. To edit the case's epidemiology details or outcome, click the **Edit EPI** button or **Edit Outcome**, respectively.
 
@@ -29,7 +29,7 @@ Actions buttons also appear in the upper-right corner of case editing pages. A *
 
 ![Actions buttons on edit page](images/actionsButtonsEdit.png)
 
-**Case completion flags**
+###Case completion flags
 
 The **Status** column displays green, orange, or red **EPI** and **LAB** flags. A green flag indicates that the associated epidemiology or lab details are complete and have passed error checks. An orange flag indicates that data is incomplete. A red flag indicates that the detail record is not present or an error has been found.
 
@@ -42,7 +42,7 @@ To find a specific case, enter or select criteria in the **Filters** panel to th
 
 ![Filters panel](images/filtersPanel.png)
 
-You can enter partial values for **System ID** and **Case ID**. The result list will include all cases where the respective field contains whatever you type here.
+You can enter partial values for **System ID** and **Case ID**. The result list will include all cases where the respective field contains whatever you type here. These fields are not case-sensitive.
 
 In the **Region**, **Country**, and **Site** fields, you can hold down `CTRL` and click to select multiple values. The result list will include results that match any of the selected values. Note that each of these fields only appears in the **Filters** panel if your user account has been administratively configured to allow access to cases with multiple possible values for that field; for example, if your account is restricted to cases in a particular country, the ability to filter on country would be irrelevant, so the Country field is not displayed.
 
@@ -76,7 +76,7 @@ Modifying cases
 
 If you know the Case ID and Site of the case you want to modify, you can go directly to the case editing page by the same procedure as described above in the *Creating cases* section. Otherwise, locate the case in the Recent Cases list and use the buttons in the **Actions** column, as described in **Recent Cases list: Actions buttons** above.
 
-**Adding or editing lab details**
+###Adding or editing lab details
 
 The **Add Lab** or **Edit Lab** button appears in the **Actions** column if your user account has permission to add and edit Site Lab details. The **Add RRL** and **Add NL** buttons appear if you have permission to add and edit Regional Reference Lab or National Lab details, respectively, *and* the relevant **Sent To Reference Lab** or **Sent To National Lab** setting has been turned on in the Site Lab details. Clicking an Add or Edit button takes you to the editing page for the relevant detail record of the case.
 
