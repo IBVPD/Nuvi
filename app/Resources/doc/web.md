@@ -15,7 +15,7 @@ To view the list of cases, click **Data Entry** on the sidebar menu, and then **
 
 ###Actions buttons
 
-Actions buttons are displayed in the **Actions** column. To view the details of a specific case in the list, click the View (eye) button. To edit the case's epidemiology details or outcome, click the **Edit EPI** button or **Edit Outcome**, respectively.
+Actions buttons are displayed in the **Actions** column. To view the details of a specific case in the list, click the **View** (eye) button. To edit the case's epidemiology details or outcome, click the **Edit EPI** button or **Edit Outcome**, respectively.
 
 ![Actions buttons](images/actionsButtons.png)
 
@@ -91,6 +91,6 @@ The report Results header includes **Maximize** and **Filters** buttons.
 
 The **Maximize** button expands the report to occupy your full browser window in order to make viewing crowded reports easier. Click it again to return to normal size.
 
-The **Filters** button displays a filter pane that allows you to limit results to parameters of your choice. It also includes an **Export** button that allows you to download the currently displayed results as a Microsoft Excel (.xls) file. Click the **Filters** button again to collapse the Filters pane.
+The **Filters** button displays a filter panel that allows you to limit results to parameters of your choice. It also includes an **Export** button that allows you to download the currently displayed results as a Microsoft Excel (.xls) file. Click the **Filters** button again to collapse the Filters pane.
 
 ![Results filter pane](images/reportResultsFilters.png)
