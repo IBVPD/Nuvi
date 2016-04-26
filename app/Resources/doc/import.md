@@ -58,7 +58,7 @@ Once a Pre-Processor has been attached to a column, you will see **Modify** and 
 DB Column
 ---------
 
-**DB Column** is the field in the case data to which the imported column data should be assigned. The selectable options are displayed as internal field names and types.
+**DB Column** is the field in the case data to which the imported column data should be assigned. The selectable options are displayed as internal field names and types. It is not necessary to scroll through all the options; you can type any part of the desired option and matching options will be displayed as autocomplete values.
 
 Validators
 ----------
@@ -68,7 +68,7 @@ Validators
 Drop
 ----
 
-Enable the **Drop** checkbox for a column if the data in that column should not be imported into the case record. Values in a dropped column can still be used in pre-processors.
+Enable the **Drop** checkbox for any column that is unrelated to the core data variables or if the data in that column should not be imported into the case record for any reason. Values in a dropped column can still be used in pre-processors.
 
 Reasons for skips or warnings
 -----------------------------
@@ -90,7 +90,7 @@ To import a file:
 
 2. Select the appropriate **Reference lab** if the file contains Reference lab data.
 
-3. Select a date range for import. Data outside this range will not be imported.
+3. Select a date range for import. Note that data outside this range will still be imported, but warnings will be generated.
 
 4. Click the **Source file** field to browse and select the file to upload.
 
