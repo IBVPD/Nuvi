@@ -4,6 +4,8 @@ namespace NS\SentinelBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use \NS\SecurityBundle\Entity\BaseACL;
+use NS\SentinelBundle\Form\Types\Role;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * ACL
@@ -32,13 +34,14 @@ class ACL extends BaseACL
      * @var string $object_id
      *
      * @ORM\Column(name="object_id",type="string",length=15)
+     * @Assert\NotBlank(message="Please select a target to restrict this role to")
      */
     protected $object_id;
 
     /**
      * Set type
      *
-     * @param \Role $type
+     * @param Role $type
      * @return ACL
      */
     public function setType($type)
@@ -51,7 +54,7 @@ class ACL extends BaseACL
     /**
      * Get type
      *
-     * @return \Role 
+     * @return Role
      */
     public function getType()
     {
@@ -61,10 +64,10 @@ class ACL extends BaseACL
     /**
      * Set user
      *
-     * @param \NS\SentinelBundle\Entity\User $user
+     * @param User $user
      * @return ACL
      */
-    public function setUser(\NS\SentinelBundle\Entity\User $user = null)
+    public function setUser(User $user = null)
     {
         $this->user = $user;
     
@@ -74,7 +77,7 @@ class ACL extends BaseACL
     /**
      * Get user
      *
-     * @return \NS\SentinelBundle\Entity\User 
+     * @return User
      */
     public function getUser()
     {
