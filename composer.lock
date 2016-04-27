@@ -3433,16 +3433,16 @@
         },
         {
             "name": "ns/ace-bundle",
-            "version": "1.5.8",
+            "version": "1.5.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/AceBundle.git",
-                "reference": "b21895116e727990ac8e82d2fb8f057f345cea25"
+                "reference": "e79aa75f1b15b8493c11dbe9a174f9669d1c09d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/AceBundle/zipball/b21895116e727990ac8e82d2fb8f057f345cea25",
-                "reference": "b21895116e727990ac8e82d2fb8f057f345cea25",
+                "url": "https://api.github.com/repos/NobletSolutions/AceBundle/zipball/e79aa75f1b15b8493c11dbe9a174f9669d1c09d4",
+                "reference": "e79aa75f1b15b8493c11dbe9a174f9669d1c09d4",
                 "shasum": ""
             },
             "require": {
@@ -3461,6 +3461,11 @@
                 "punkave/symfony2-file-uploader-bundle": "Allows for drag & drop or multiple file upload"
             },
             "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.5.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "NS\\AceBundle\\": ""
@@ -3481,7 +3486,7 @@
                 }
             ],
             "description": "This bundle provides bootstrap template",
-            "time": "2016-04-22 17:09:08"
+            "time": "2016-04-27 06:41:50"
         },
         {
             "name": "ns/ace-sonata-bundle",
