@@ -1,11 +1,6 @@
 Cases and Data Entry
 ====================
 
-1. Recent Cases list
-2. Finding cases
-3. Creating cases
-4. Modifying cases
-
 Recent Cases list
 -----------------
 
@@ -134,3 +129,4 @@ displayed results as a Microsoft Excel (.xls) file. Click the **Filters** button
 the Filters pane.
 
 ![Results filter pane](images/reportResultsFilters.png)
+

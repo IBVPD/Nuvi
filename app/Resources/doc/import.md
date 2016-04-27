@@ -1,11 +1,5 @@
 Map Building
 ===========
-1. Build map via file upload
-2. Pre-Processors
-3. DB Column
-4. Validators
-5. Drop
-6. Reasons for skips or warnings
 
 Build map via file upload
 -------------------------
@@ -91,10 +85,10 @@ for editing or removing the pre-processor.
 DB Column
 ---------
 
-**DB Column is the field in the case data to which the imported column data should be assigned. The
-**selectable options are displayed as internal field names and types. It is not necessary to scroll
-**through all the options; you can type any part of the desired option and matching options will be
-**displayed as autocomplete values.
+**DB Column** is the field in the case data to which the imported column data should be assigned. The
+selectable options are displayed as internal field names and types. It is not necessary to scroll
+through all the options; you can type any part of the desired option and matching options will be
+displayed as autocomplete values.
 
 Validators
 ----------
@@ -149,3 +143,4 @@ Interpreting output
 -------------------
 
 How to read outputs (warnings,errors,successes)
+
