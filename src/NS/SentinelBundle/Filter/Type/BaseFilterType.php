@@ -107,13 +107,13 @@ class BaseFilterType extends AbstractType
             }
         }
 
-        $form->add('find', 'NS\AceBundle\Form\IconButtonType', array(
+        $form->add('find', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
             'label'=> 'find',
             'type' => 'submit',
             'icon' => 'fa fa-search',
             'attr' => array('class' => 'btn btn-xs btn-success')));
 
-        $form->add('reset', 'NS\AceBundle\Form\IconButtonType', array(
+        $form->add('reset', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
             'label'=>'reset',
             'type' => 'reset',
             'icon' => 'fa fa-times-circle',

@@ -3433,27 +3433,26 @@
         },
         {
             "name": "ns/ace-bundle",
-            "version": "1.5.9",
+            "version": "1.5.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/AceBundle.git",
-                "reference": "e79aa75f1b15b8493c11dbe9a174f9669d1c09d4"
+                "reference": "b80370722278f37bbdb17ea0ddb82dc22d432940"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/AceBundle/zipball/e79aa75f1b15b8493c11dbe9a174f9669d1c09d4",
-                "reference": "e79aa75f1b15b8493c11dbe9a174f9669d1c09d4",
+                "url": "https://api.github.com/repos/NobletSolutions/AceBundle/zipball/b80370722278f37bbdb17ea0ddb82dc22d432940",
+                "reference": "b80370722278f37bbdb17ea0ddb82dc22d432940",
                 "shasum": ""
             },
             "require": {
                 "jms/translation-bundle": "~1.1",
                 "knplabs/knp-menu-bundle": "~2.0",
                 "php": ">=5.3.2",
-                "symfony/symfony": ">=2.1"
+                "symfony/symfony": ">=2.3,<3.0"
             },
             "require-dev": {
-                "liip/rmt": "~1.1",
-                "phpunit/phpunit": "~4.0"
+                "liip/rmt": "~1.1"
             },
             "suggest": {
                 "craue/formflow-bundle": "~3.0@dev",
@@ -3486,7 +3485,7 @@
                 }
             ],
             "description": "This bundle provides bootstrap template",
-            "time": "2016-04-27 06:41:50"
+            "time": "2016-04-28 16:55:39"
         },
         {
             "name": "ns/ace-sonata-bundle",
