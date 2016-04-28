@@ -35,7 +35,7 @@ class RoleTypeTest extends TypeTestCase
     public function testEmptyCredential()
     {
         $role = new Role();
-        $this->assertNull($role->getAsCredential());
+        $this->assertEquals(array(),$role->getAsCredential());
         $this->assertNull($role->getClassMatch());
     }
 

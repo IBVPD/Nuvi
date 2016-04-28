@@ -118,7 +118,7 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
             case self::SITE_IMPORT:
                 return array('ROLE_SITE_IMPORT');
             default:
-                return null;
+                return array();
         }
     }
 
