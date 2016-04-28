@@ -9,3 +9,8 @@ Full Documentation
 ==================
 
 [app/Resources/doc/index.md](app/Resources/doc/index.md)
+
+Build Status
+============
+
+[![Build Status](https://travis-ci.org/IBVPD/Nuvi.svg?branch=master)](https://travis-ci.org/IBVPD/Nuvi)
