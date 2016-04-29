@@ -59,7 +59,6 @@ class RotaVirusReporter extends AbstractReporter
         return array('sites' => $results, 'form' => $form->createView());
     }
 
-
     public function getSitePerformance(Request $request, FormInterface $form, $redirectRoute)
     {
         $results = new ArrayCollection();

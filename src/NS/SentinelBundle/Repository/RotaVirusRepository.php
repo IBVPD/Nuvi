@@ -329,7 +329,6 @@ class RotaVirusRepository extends Common
             ;
     }
 
-
     private function getByCountryCountQueryBuilder($alias, array $countryCodes)
     {
         $queryBuilder = $this->createQueryBuilder('cf')
