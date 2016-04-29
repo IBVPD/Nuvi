@@ -2,7 +2,8 @@
 
 {% block javascripts %}
     {{ parent() }}
-    
+    <script language="javascript" type="text/javascript" src="{{ asset("bundles/jmstranslation/js/trunk8.js") }}"></script>
+
     <script language="javascript" type="text/javascript">
         $(document).ready(function() {
             var updateMessagePath = {{ path("jms_translation_update_message", {"config": selectedConfig, "domain": selectedDomain, "locale": selectedLocale})|json_encode|raw }};
@@ -10,7 +11,17 @@
             $('#config select').change(function() {
                 $(this).parent().submit();
             });
-            
+
+            $('.truncate-left').trunk8({
+                side: 'left',
+                fill: '<a href="#" class="untruncate">&hellip;</a>'
+            });
+
+            $(document).on('click', '.untruncate', function (event) {
+                $(this).parent().trunk8('revert');
+                event.preventDefault();
+            });
+
             {% if isWriteable is sameas(true) %}
             $('textarea')
                 .blur(function() {
@@ -23,10 +34,15 @@
                             $(self).parent().closest('td').prev('td').children('.alert-message').remove();
                         },
                         error: function() {
-                            $(self).parent().closest('td').prev('td').append('<div class="alert alert-block alert-error"><button type="button" class="close" data-dismiss="alert"><i class="fa fa-remove"></i></button><p>Could not be saved.</p></div>');
+                            $(self).parent().closest('td').prev('td').append('<div class="alert alert-block alert-error alert-message"><button type="button" class="close" data-dismiss="alert"><i class="fa fa-remove"></i></button><p>Could not be saved.</p></div>');
                         },
-                        success: function() {
-                            $(self).parent().closest('td').prev('td').append('<div class="alert alert-block alert-success"><button type="button" class="close" data-dismiss="alert"><i class="fa fa-remove"></i></button><p>Translation was saved.</p></div>');
+                        success: function(data) {
+                            $(self).parent().closest('td').prev('td').append('<div class="alert alert-block alert-success alert-message"><button type="button" class="close" data-dismiss="alert"><i class="fa fa-remove"></i></button><p>Translation was saved.</p></div>');
+                            if (data == 'Translation was saved') {
+                                $(self).parent().closest('td').prev('td').append('<span class="alert-message label success alert-message">Translation was saved.</span>');
+                            } else {
+                                $(self).parent().closest('td').prev('td').append('<span class="alert-message label error alert-message">Could not be saved.</span>');
+                            }
                         },
                         complete: function() {
                             var parent = $(self).parent();

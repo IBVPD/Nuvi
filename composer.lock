@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "45b80fb29bc2672df1de7cc5a740bc6e",
-    "content-hash": "3aed77e1fcf860f559a54b5df7c8e87f",
+    "hash": "d34eff24df11c44aaca7cedca0dd08a1",
+    "content-hash": "5c456d8f191befc6b812ef3e0a942d16",
     "packages": [
         {
             "name": "adoy/oauth2",
@@ -1555,33 +1555,29 @@
         },
         {
             "name": "fzaninotto/faker",
-            "version": "v1.5.0",
+            "version": "v1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fzaninotto/Faker.git",
-                "reference": "d0190b156bcca848d401fb80f31f504f37141c8d"
+                "reference": "44f9a286a04b80c76a4e5fb7aad8bb539b920123"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/d0190b156bcca848d401fb80f31f504f37141c8d",
-                "reference": "d0190b156bcca848d401fb80f31f504f37141c8d",
+                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/44f9a286a04b80c76a4e5fb7aad8bb539b920123",
+                "reference": "44f9a286a04b80c76a4e5fb7aad8bb539b920123",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": "^5.3.3|^7.0"
             },
             "require-dev": {
+                "ext-intl": "*",
                 "phpunit/phpunit": "~4.0",
                 "squizlabs/php_codesniffer": "~1.5"
             },
-            "suggest": {
-                "ext-intl": "*"
-            },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-master": "1.5.x-dev"
-                }
+                "branch-alias": []
             },
             "autoload": {
                 "psr-4": {
@@ -1603,7 +1599,7 @@
                 "faker",
                 "fixtures"
             ],
-            "time": "2015-05-29 06:29:14"
+            "time": "2016-04-29 12:21:54"
         },
         {
             "name": "gedmo/doctrine-extensions",
@@ -2352,17 +2348,17 @@
         },
         {
             "name": "jms/translation-bundle",
-            "version": "1.2.2",
+            "version": "dev-master",
             "target-dir": "JMS/TranslationBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/JMSTranslationBundle.git",
-                "reference": "b025251eaf65b73a775fa22ec277e771cdba35d8"
+                "reference": "efca3833ab0bb55a1eb9aed5443b6d414f63e620"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/JMSTranslationBundle/zipball/b025251eaf65b73a775fa22ec277e771cdba35d8",
-                "reference": "b025251eaf65b73a775fa22ec277e771cdba35d8",
+                "url": "https://api.github.com/repos/schmittjoh/JMSTranslationBundle/zipball/efca3833ab0bb55a1eb9aed5443b6d414f63e620",
+                "reference": "efca3833ab0bb55a1eb9aed5443b6d414f63e620",
                 "shasum": ""
             },
             "require": {
@@ -2416,7 +2412,7 @@
                 "ui",
                 "webinterface"
             ],
-            "time": "2016-04-03 16:16:17"
+            "time": "2016-04-29 15:50:50"
         },
         {
             "name": "knplabs/knp-components",
