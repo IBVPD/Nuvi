@@ -44,6 +44,51 @@ class ApplicationAvailabilityTest extends WebTestCase
         );
     }
 
+    /**
+     * @param $url
+     * @param string $button
+     * @param array $params
+     *
+     * @dataProvider getFormUrls
+     * @group form
+     */
+    public function testFormSubmission($url, $button, array $params)
+    {
+        $client = $this->getClient();
+        $client->followRedirects();
+        $crawler = $client->request('GET', $url);
+
+        $form = $crawler->selectButton($button)->form();
+        foreach($params as $key=>$value) {
+            $form[$key] = $value;
+        }
+
+        $client->submit($form);
+
+        if(!$client->getResponse()->isSuccessful()) {
+            file_put_contents(sprintf('/tmp/%s-form.log',str_replace('/','-',$url)),$client->getResponse()->getContent());
+        }
+    }
+
+    public function getFormUrls()
+    {
+        return array(
+//            array('/en/ibd','ibd_filter_form[find]',array('ibd_filter_form[id]'=>'123')),
+//            array('/en/rota'),
+            array('/en/ibd/reports/data-quality','IBDReportFilterType[filter]', array('IBDReportFilterType[adm_date][left_date]'=>'01/01/2014','IBDReportFilterType[adm_date][right_date]'=>'12/31/2014')),
+            array('/en/ibd/reports/site-performance','QuarterlyReportFilter[filter]', array('QuarterlyReportFilter[year]'=>2014)),
+            array('/en/ibd/reports/data-linking','IBDQuarterlyLinkingReportFilter[filter]', array('IBDQuarterlyLinkingReportFilter[year]'=>2014)),
+            array('/en/ibd/reports/annual-age-distribution','IBDReportFilterType[filter]', array('IBDReportFilterType[adm_date][left_date]'=>'01/01/2014','IBDReportFilterType[adm_date][right_date]'=>'12/31/2014')),
+            array('/en/ibd/reports/percent-enrolled','IBDReportFilterType[filter]', array('IBDReportFilterType[adm_date][left_date]'=>'01/01/2014','IBDReportFilterType[adm_date][right_date]'=>'12/31/2014')),
+            array('/en/ibd/reports/field-population','IBDReportFilterType[filter]', array('IBDReportFilterType[adm_date][left_date]'=>'01/01/2014','IBDReportFilterType[adm_date][right_date]'=>'12/31/2014')),
+            array('/en/ibd/reports/culture-positive','IBDReportFilterType[filter]', array('IBDReportFilterType[adm_date][left_date]'=>'01/01/2014','IBDReportFilterType[adm_date][right_date]'=>'12/31/2014')),
+            array('/en/rota/reports/data-quality','RotaVirusReportFilterType[filter]', array('RotaVirusReportFilterType[adm_date][left_date]'=>'01/01/2014','RotaVirusReportFilterType[adm_date][right_date]'=>'12/31/2014')),
+            array('/en/rota/reports/site-performance','QuarterlyReportFilter[filter]', array('QuarterlyReportFilter[year]'=>2014)),
+            array('/en/rota/reports/data-linking','RotaVirusQuarterlyLinkingReportFilter[filter]', array('RotaVirusQuarterlyLinkingReportFilter[year]'=>2014)),
+//            array('/en/profile','submit',array('ns_sentinelbundle_user[name]'=>'Test User Name')),
+        );
+    }
+
     private function getClient()
     {
         $client    = self::createClient();
