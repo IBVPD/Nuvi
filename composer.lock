@@ -3433,16 +3433,16 @@
         },
         {
             "name": "ns/ace-bundle",
-            "version": "1.5.11",
+            "version": "1.5.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/AceBundle.git",
-                "reference": "b80370722278f37bbdb17ea0ddb82dc22d432940"
+                "reference": "df07151d2e04523b3787d43f3d9f4ec7c811dee3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/AceBundle/zipball/b80370722278f37bbdb17ea0ddb82dc22d432940",
-                "reference": "b80370722278f37bbdb17ea0ddb82dc22d432940",
+                "url": "https://api.github.com/repos/NobletSolutions/AceBundle/zipball/df07151d2e04523b3787d43f3d9f4ec7c811dee3",
+                "reference": "df07151d2e04523b3787d43f3d9f4ec7c811dee3",
                 "shasum": ""
             },
             "require": {
@@ -3485,24 +3485,24 @@
                 }
             ],
             "description": "This bundle provides bootstrap template",
-            "time": "2016-04-28 16:55:39"
+            "time": "2016-04-28 21:28:48"
         },
         {
             "name": "ns/ace-sonata-bundle",
-            "version": "0.3.4",
+            "version": "0.3.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/AceSonataBundle.git",
-                "reference": "5e087b59387d9f7e5332e1eb443da98ef88ca9be"
+                "reference": "74230cd368bdefa49fe3af661060cf33509f7585"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/AceSonataBundle/zipball/5e087b59387d9f7e5332e1eb443da98ef88ca9be",
-                "reference": "5e087b59387d9f7e5332e1eb443da98ef88ca9be",
+                "url": "https://api.github.com/repos/NobletSolutions/AceSonataBundle/zipball/74230cd368bdefa49fe3af661060cf33509f7585",
+                "reference": "74230cd368bdefa49fe3af661060cf33509f7585",
                 "shasum": ""
             },
             "require": {
-                "ns/ace-bundle": "~1.5",
+                "ns/ace-bundle": "^1.5|^2.0",
                 "php": ">=5.3.3",
                 "symfony/symfony": ">=2.3"
             },
@@ -3531,7 +3531,7 @@
                 }
             ],
             "description": "This bundle integrates the sonata admin panel and the ace bundle",
-            "time": "2016-04-01 18:32:58"
+            "time": "2016-04-28 21:38:56"
         },
         {
             "name": "ns/ace-sonata-doctrine-orm-admin-bundle",
