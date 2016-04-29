@@ -54,7 +54,7 @@ class AgeDistribution implements TranslationContainerInterface
     public function getGraphableYears()
     {
         $years = $this->getYears();
-        if($years[0] == self::NO_ADM_DATE) {
+        if(!empty($years) && $years[0] == self::NO_ADM_DATE) {
             unset($years[0]);
         }
 
