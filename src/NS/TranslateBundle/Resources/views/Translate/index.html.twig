@@ -8,7 +8,11 @@
         $(document).ready(function() {
             var updateMessagePath = {{ path("jms_translation_update_message", {"config": selectedConfig, "domain": selectedDomain, "locale": selectedLocale})|json_encode|raw }};
         
-            $('#config select').change(function() {
+            $('#newConfig select').change(function() {
+                $(this).parent().submit();
+            });
+
+            $('#existingConfig select').change(function() {
                 $(this).parent().submit();
             });
 
@@ -91,36 +95,9 @@
         </div>
     {% endif %}
     
+
+    {% if newMessages is empty and existingMessages is empty %}
     <div class="row">
-    {% if newMessages is not empty %}
-        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 widget-container-span ui-sortable">
-            <div class="widget-box widget-color-blue">
-                <div class="widget-header widget-header-small">
-                    <h5 class="widget-title bigger lighter">New Messages</h5>
-                </div>
-
-                <div class="widget-body">
-                    <div class="widget-main no-padding">
-                        <table class="table table-striped table-bordered table-hover">
-                            <thead class="thin-border-bottom">
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Translation</th>
-                                    <th class="hidden-480">Additional Information</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                {% include "JMSTranslationBundle:Translate:messages.html.twig" with {"messages": newMessages} %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    {% else %}
-        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 widget-container-span ui-sortable">&nbsp;</div>
-    {% endif %}
         <div class="col-sm-3 col-md-3 col-lg-3">
             <div class="widget-box widget-color-blue">
                 <div class="widget-header widget-header-small">
@@ -128,23 +105,23 @@
                 </div>
                 <div class="widget-body">
                     <div class="widget-main">
-                        <form id="config" action="{{ path("jms_translation_index") }}" method="get">
+                        <form id="newConfig" action="/app_live.php/_trans/" method="get">
                             <select name="config" class="span3">
-                                {% for config in configs %}
-                                <option value="{{ config }}"{% if config == selectedConfig %} selected="selected"{% endif %}>{{ config }}</option>
-                                {% endfor %}
+                                <option value="app" selected="selected">app</option>
+                                <option value="sentinel">sentinel</option>
+                                <option value="import">import</option>
+                                <option value="api">api</option>
                             </select>
 
                             <select name="domain" class="span3">
-                                {% for domain in domains %}
-                                <option value="{{ domain }}"{% if domain == selectedDomain %} selected="selected"{% endif %}>{{ domain }}</option>
-                                {% endfor %}
+                                <option value="LexikFormFilterBundle" selected="selected">LexikFormFilterBundle</option>
+                                <option value="messages">messages</option>
                             </select>
 
                             <select name="locale" class="span2">
-                                {% for locale in locales %}
-                                <option value="{{ locale }}"{% if locale == selectedLocale %} selected="selected"{% endif %}>{{ locale }}</option>
-                                {% endfor %}
+                                <option value="en" selected="selected">en</option>
+                                <option value="es">es</option>
+                                <option value="fr">fr</option>
                             </select>
                         </form>
                     </div>
@@ -152,16 +129,106 @@
             </div>
         </div>
     </div>
-    
+    {% endif %}
+
+    {% if newMessages is not empty %}
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 widget-container-span ui-sortable">
+                <div class="widget-box widget-color-blue">
+                    <div class="widget-header widget-header-small">
+                        <h5 class="widget-title bigger lighter">New Messages</h5>
+                        <div class="widget-toolbar">
+                            <a href="#newConfigFilter" data-toggle="collapse" class="white small">
+                                <i class="ace-icon fa fa-cog" data-icon-hide="fa-minus" data-icon-show="fa-cog"></i>
+                                Languages / Sources
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="widget-body">
+                        <div class="widget-toolbox padding-8">
+                            <div class="collapse" id="newConfigFilter">
+                                <form id="newConfig" action="{{ path("jms_translation_index") }}" method="get">
+                                    <select name="config" class="span3">
+                                        {% for config in configs %}
+                                            <option value="{{ config }}"{% if config == selectedConfig %} selected="selected"{% endif %}>{{ config }}</option>
+                                        {% endfor %}
+                                    </select>
+
+                                    <select name="domain" class="span3">
+                                        {% for domain in domains %}
+                                            <option value="{{ domain }}"{% if domain == selectedDomain %} selected="selected"{% endif %}>{{ domain }}</option>
+                                        {% endfor %}
+                                    </select>
+
+                                    <select name="locale" class="span2">
+                                        {% for locale in locales %}
+                                            <option value="{{ locale }}"{% if locale == selectedLocale %} selected="selected"{% endif %}>{{ locale }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="widget-main no-padding">
+                            <table class="table table-striped table-bordered table-hover">
+                                <thead class="thin-border-bottom">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Translation</th>
+                                        <th class="hidden-480">Additional Information</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    {% include "JMSTranslationBundle:Translate:messages.html.twig" with {"messages": newMessages} %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
     {% if existingMessages is not empty %}
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 widget-container-span ui-sortable">
             <div class="widget-box widget-color-blue">
                 <div class="widget-header widget-header-small">
                     <h5 class="widget-title bigger lighter">Existing Messages</h5>
+                    <div class="widget-toolbar">
+                        <a href="#existingConfigFilter" data-toggle="collapse" class="white small">
+                            <i class="ace-icon fa fa-cog" data-icon-hide="fa-minus" data-icon-show="fa-cog"></i>
+                            Languages / Sources
+                        </a>
+                    </div>
                 </div>
 
                 <div class="widget-body">
+                    <div class="widget-toolbox padding-8">
+                        <div class="collapse" id="existingConfigFilter">
+                            <form id="existingConfig" action="{{ path("jms_translation_index") }}" method="get">
+                                <select name="config" class="span3">
+                                    {% for config in configs %}
+                                        <option value="{{ config }}"{% if config == selectedConfig %} selected="selected"{% endif %}>{{ config }}</option>
+                                    {% endfor %}
+                                </select>
+
+                                <select name="domain" class="span3">
+                                    {% for domain in domains %}
+                                        <option value="{{ domain }}"{% if domain == selectedDomain %} selected="selected"{% endif %}>{{ domain }}</option>
+                                    {% endfor %}
+                                </select>
+
+                                <select name="locale" class="span2">
+                                    {% for locale in locales %}
+                                        <option value="{{ locale }}"{% if locale == selectedLocale %} selected="selected"{% endif %}>{{ locale }}</option>
+                                    {% endfor %}
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+
                     <div class="widget-main no-padding">
                         <table class="table table-striped table-bordered table-hover">
                             <thead class="thin-border-bottom">
