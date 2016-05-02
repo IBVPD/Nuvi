@@ -44,9 +44,9 @@
     {% block navbarheader %}
         <div class="navbar-header pull-right" role="navigation">
             <ul class="nav ace-nav">
-            {#{% if is_granted('ROLE_CAN_CHANGE_LANGUAGE') %}#}
+            {% if is_granted('ROLE_CAN_CHANGE_LANGUAGE') %}
             {{ locale_switcher(null,null,'::switcher_links.html.twig') }}
-            {#{% endif %}#}
+            {% endif %}
                 <li class="light-blue">
                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
                     <!--<img class="nav-user-photo" src="assets/avatars/user.jpg" alt="Jason's Photo">-->

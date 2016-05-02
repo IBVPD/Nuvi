@@ -32,13 +32,19 @@ services:
     tags:
       - { name: kernel.event_listener, event: security.interactive_login, method: onSecurityInteractiveLogin }
 
-  ns.sentinel.locale_listener:
-    class: NS\SentinelBundle\Locale\Login
-    arguments: [ "@security.token_storage", "%kernel.default_locale%" ]
+  ns_sentinel.locale.guesser:
+    class: NS\SentinelBundle\Locale\UserGuesser
+    arguments: [ "@lunetics_locale.validator.meta", "@security.token_storage", "@security.authorization_checker" ]
     tags:
-      - { name: kernel.event_subscriber }
-      - { name: kernel.event_listener, event: security.authentication.success, method: onLogin }
-      - { name: kernel.event_listener, event: security.switch_user, method: switchUser }
+      - { name: lunetics_locale.guesser, alias: sentinel_user }
+
+#  ns.sentinel.locale_listener:
+#    class: NS\SentinelBundle\Locale\Login
+#    arguments: [ "@security.token_storage", "%kernel.default_locale%" ]
+#    tags:
+#      - { name: kernel.event_subscriber }
+#      - { name: kernel.event_listener, event: security.authentication.success, method: onLogin }
+#      - { name: kernel.event_listener, event: security.switch_user, method: switchUser }
 
   ns.sentinel.filter.listener:
     class: NS\SentinelBundle\Filter\Listener\CaseAssociationListener
