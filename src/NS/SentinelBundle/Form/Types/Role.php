@@ -59,12 +59,12 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
         'ROLE_NL_LAB' => self::NL_LAB,
         // These are all deprecated and will be removed in a future version
 
-        'ROLE_REGION_API' => self::REGION,
-        'ROLE_COUNTRY_API' => self::COUNTRY,
-        'ROLE_SITE_API' => self::SITE,
-        'ROLE_REGION_IMPORT' => self::REGION,
-        'ROLE_COUNTRY_IMPORT' => self::COUNTRY,
-        'ROLE_SITE_IMPORT' => self::SITE,
+        'ROLE_REGION_API' => self::REGION_API,
+        'ROLE_COUNTRY_API' => self::COUNTRY_API,
+        'ROLE_SITE_API' => self::SITE_API,
+        'ROLE_REGION_IMPORT' => self::REGION_IMPORT,
+        'ROLE_COUNTRY_IMPORT' => self::COUNTRY_IMPORT,
+        'ROLE_SITE_IMPORT' => self::SITE_IMPORT,
     );
 
     /**
