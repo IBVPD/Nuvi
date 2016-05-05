@@ -23,9 +23,12 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
     const LAB = 4;
     const RRL_LAB = 5;
     const NL_LAB = 6;
+
+    // These are all deprecated and will be removed in a future version
     const REGION_API = 10;
     const COUNTRY_API = 11;
     const SITE_API = 12;
+
     const REGION_IMPORT = 20;
     const COUNTRY_IMPORT = 21;
     const SITE_IMPORT = 22;
@@ -37,6 +40,8 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
         self::LAB => 'Lab',
         self::RRL_LAB => 'RRL',
         self::NL_LAB => 'NL',
+        // These are all deprecated and will be removed in a future version
+
         self::REGION_API => 'Region API',
         self::COUNTRY_API => 'Country API',
         self::SITE_API => 'Site API',
@@ -45,19 +50,21 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
         self::SITE_IMPORT => 'Site Import/Export',
     );
 
-    protected $rolemapping = array(
+    protected $roleMap = array(
         'ROLE_REGION' => self::REGION,
         'ROLE_COUNTRY' => self::COUNTRY,
         'ROLE_SITE' => self::SITE,
         'ROLE_LAB' => self::LAB,
         'ROLE_RRL_LAB' => self::RRL_LAB,
         'ROLE_NL_LAB' => self::NL_LAB,
-        'ROLE_REGION_API' => self::REGION_API,
-        'ROLE_COUNTRY_API' => self::COUNTRY_API,
-        'ROLE_SITE_API' => self::SITE_API,
-        'ROLE_REGION_IMPORT' => self::REGION_IMPORT,
-        'ROLE_COUNTRY_IMPORT' => self::COUNTRY_IMPORT,
-        'ROLE_SITE_IMPORT' => self::SITE_IMPORT,
+        // These are all deprecated and will be removed in a future version
+
+        'ROLE_REGION_API' => self::REGION,
+        'ROLE_COUNTRY_API' => self::COUNTRY,
+        'ROLE_SITE_API' => self::SITE,
+        'ROLE_REGION_IMPORT' => self::REGION,
+        'ROLE_COUNTRY_IMPORT' => self::COUNTRY,
+        'ROLE_SITE_IMPORT' => self::SITE,
     );
 
     /**
@@ -69,8 +76,8 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
     public function __construct($value = null)
     {
         if (is_string($value) && strstr($value, 'ROLE_') !== false) {
-            if (isset($this->rolemapping[$value])) {
-                $value = $this->rolemapping[$value];
+            if (isset($this->roleMap[$value])) {
+                $value = $this->roleMap[$value];
             } else {
                 throw new \UnexpectedValueException("$value is not a valid role mapping");
             }
@@ -105,6 +112,7 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
                 return array('ROLE_RRL_LAB');
             case self::NL_LAB:
                 return array('ROLE_NL_LAB');
+            // These are all deprecated and will be removed in a future version
             case self::REGION_API:
                 return array('ROLE_REGION_API', 'ROLE_CAN_CREATE_CASE', 'ROLE_CAN_CREATE_LAB', 'ROLE_CAN_CREATE_NL_LAB');
             case self::COUNTRY_API:
@@ -132,18 +140,18 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
             case self::REGION:
             case self::REGION_API:
             case self::REGION_IMPORT:
-                return $class . "\Region";
+                return $class . '\Region';
             case self::COUNTRY:
             case self::COUNTRY_API:
             case self::COUNTRY_IMPORT:
             case self::NL_LAB:
             case self::RRL_LAB:
-                return $class . "\Country";
+                return $class . '\Country';
             case self::LAB:
             case self::SITE:
             case self::SITE_API:
             case self::SITE_IMPORT:
-                return $class . "\Site";
+                return $class . '\Site';
             default:
                 return null;
         }
@@ -159,11 +167,11 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
         $highest = null;
 
         foreach ($roles as $role) {
-            if (isset($this->rolemapping[$role->getRole()])) {
+            if (isset($this->roleMap[$role->getRole()])) {
                 if ($highest === null) {
-                    $highest = $this->rolemapping[$role->getRole()];
-                } elseif ($highest > $this->rolemapping[$role->getRole()]) { //highest is actually 1...
-                    $highest = $this->rolemapping[$role->getRole()];
+                    $highest = $this->roleMap[$role->getRole()];
+                } elseif ($highest > $this->roleMap[$role->getRole()]) { //highest is actually 1...
+                    $highest = $this->roleMap[$role->getRole()];
                 }
             }
         }

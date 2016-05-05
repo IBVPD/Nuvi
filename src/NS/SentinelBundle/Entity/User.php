@@ -73,6 +73,7 @@ class User implements AdvancedUserInterface
      * 
      * @ORM\OneToMany(targetEntity="\NS\SentinelBundle\Entity\ACL", mappedBy="user", fetch="EAGER",cascade={"persist"}, orphanRemoval=true)
      * @ORM\JoinColumn(name="id",referencedColumnName="user_id")
+     * @Assert\Valid()
      */
     private $acls;
 

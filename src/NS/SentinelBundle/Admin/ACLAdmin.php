@@ -45,6 +45,16 @@ class ACLAdmin extends Admin
     {
         $formMapper
             ->add('type', 'role')
+            ->add('options', 'choice', array(
+                'multiple' => true,
+                'choices' => array(
+                    'api' => 'Api Access',
+                    'import' => 'Import/Export Access',
+                    'case' => 'Can Create Case',
+                    'lab' => 'Can Create Site Lab',
+                    'nl' => 'Can Create NL',
+                    'rrl' => 'Can Create RRL'))
+            )
             ->add('object_id', 'acl_object_target_autocompleter', array(
                                                         'label'               => 'Target',
                                                         'route'               => 'adminACLAjaxAutocomplete',
@@ -61,6 +71,7 @@ class ACLAdmin extends Admin
         $showMapper
             ->add('user')
             ->add('object_id')
+            ->add('options')
             ->add('type')
         ;
     }

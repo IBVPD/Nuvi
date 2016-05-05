@@ -47,11 +47,8 @@ class UserAdmin extends Admin
         $datagridMapper
             ->add('name')
             ->add('email')
-            ->add('admin')
-            ->add('canCreateCases')
-            ->add('canCreateLabs')
-            ->add('canCreateRRLLabs')
-            ->add('canCreateNLLabs');
+            ->add('active')
+            ->add('admin');
     }
 
     /**
@@ -62,11 +59,8 @@ class UserAdmin extends Admin
         $listMapper
             ->add('name')
             ->add('email')
+            ->add('active')
             ->add('admin')
-            ->add('canCreateCases')
-            ->add('canCreateLabs')
-            ->add('canCreateRRLLabs')
-            ->add('canCreateNLLabs')
             ->add('_action', 'actions', array(
                 'actions' => array(
                     'show' => array(),
@@ -96,10 +90,6 @@ class UserAdmin extends Admin
             )
             ->add('active', null, array('required' => false))
             ->add('admin', null, array('required' => false))
-            ->add('canCreateCases', null, array('required' => false, 'label' => 'admin.form-can-create-case-record'))
-            ->add('canCreateLabs', null, array('required' => false, 'label' => 'admin.form-can-create-sitelab-record'))
-            ->add('canCreateRRLLabs', null, array('required' => false, 'label' => 'admin.form-can-create-reference-lab-record'))
-            ->add('canCreateNLLabs', null, array('required' => false, 'label' => 'admin.form-can-create-national-lab-record'))
             ->add('referenceLab', null, array('required' => false, 'label' => 'admin.form-reference-lab'))
             ->add('acls', 'sonata_type_collection', array('by_reference' => true), array('edit' => 'inline', 'inline' => 'table'));
     }
@@ -113,8 +103,7 @@ class UserAdmin extends Admin
             ->add('name')
             ->add('email')
             ->add('admin')
-            ->add('canCreateCases')
-            ->add('canCreateLabs');
+            ->add('active');
     }
 
     /**

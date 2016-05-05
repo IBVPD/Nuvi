@@ -6,12 +6,15 @@ use Doctrine\ORM\Mapping as ORM;
 use \NS\SecurityBundle\Entity\BaseACL;
 use NS\SentinelBundle\Form\Types\Role;
 use Symfony\Component\Validator\Constraints as Assert;
+use NS\SentinelBundle\Validators as LocalAssert;
 
 /**
  * ACL
  *
  * @ORM\Table(name="acls")
  * @ORM\Entity
+ *
+ * @LocalAssert\ACL
  */
 class ACL extends BaseACL
 {
@@ -39,6 +42,20 @@ class ACL extends BaseACL
     protected $object_id;
 
     /**
+     * @var array
+     * @ORM\Column(name="options",type="array",nullable=true)
+     */
+    protected $options = array();
+
+    /**
+     * @inheritDoc
+     */
+    public function __toString()
+    {
+        return sprintf('%s - %s (%d)',$this->type->__toString(), $this->getUser(), $this->object_id);
+    }
+
+    /**
      * Set type
      *
      * @param Role $type
@@ -47,7 +64,7 @@ class ACL extends BaseACL
     public function setType($type)
     {
         $this->type = $type;
-    
+
         return $this;
     }
 
@@ -82,5 +99,23 @@ class ACL extends BaseACL
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * @return array
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    /**
+     * @param array $options
+     * @return ACL
+     */
+    public function setOptions(array $options)
+    {
+        $this->options = $options;
+        return $this;
     }
 }
