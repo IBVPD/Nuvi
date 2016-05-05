@@ -125,8 +125,13 @@ class RotaVirusReporter extends AbstractReporter
             }
 
             $this->populateCountries($countries, $results, 'NS\SentinelBundle\Report\Result\DataLinkingResult');
-
             $repo = $this->entityMgr->getRepository('NSSentinelBundle:RotaVirus');
+
+            if ($form->get('export')->isClicked()) {
+                $results = $repo->getFailedLink($alias, $results->getKeys())->getQuery()->getResult();
+                return $this->exporter->export('NSSentinelBundle:Report/RotaVirus/Export:data-linking.html.twig', array('results' => $results));
+            }
+
             $columns = array(
                 'getLinkedCount' => 'setLinked',
                 'getFailedLinkedCount' => 'setNotLinked',
