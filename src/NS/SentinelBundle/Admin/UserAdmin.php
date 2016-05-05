@@ -7,20 +7,21 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use \Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
-use \Symfony\Component\Security\Core\SecurityContextInterface;
 use \NS\SentinelBundle\Form\Types\Role;
 
 class UserAdmin extends Admin
 {
     /**
-     * @var
+     * @var EncoderFactoryInterface
      */
     private $encoderFactory;
+
     /**
-     * @var
+     * @var TokenStorageInterface
      */
-    private $securityContext;
+    private $tokenStorage;
 
     /**
      * @param EncoderFactoryInterface $factory
@@ -31,11 +32,11 @@ class UserAdmin extends Admin
     }
 
     /**
-     * @param SecurityContextInterface $securityContext
+     * @param TokenStorageInterface $tokenStorage
      */
-    public function setSecurityContext(SecurityContextInterface $securityContext)
+    public function setTokenStorage($tokenStorage)
     {
-        $this->securityContext = $securityContext;
+        $this->tokenStorage = $tokenStorage;
     }
 
     /**
@@ -164,24 +165,24 @@ class UserAdmin extends Admin
     public function createQuery($context = 'list')
     {
         $query = parent::createQuery($context);
-        $user = $this->securityContext->getToken()->getUser();
+        $user = $this->tokenStorage->getToken()->getUser();
         $role = new Role();
 
         if ($user->isOnlyAdmin()) {
-            $ralias = $query->getRootAlias();
-            $query->leftJoin("$ralias.acls", 'a');
+            $rootAlias = $query->getRootAlias();
+            $query->leftJoin("$rootAlias.acls", 'a');
 
             return $query;
         }
 
-        $highest = $role->getHighest($this->securityContext->getToken()->getRoles());
+        $highest = $role->getHighest($this->tokenStorage->getToken()->getRoles());
 
         if ($highest === null) {
             throw new \RuntimeException("Unable to determine highest role");
         }
 
-        $ralias = $query->getRootAlias();
-        $query->leftJoin("$ralias.acls", 'a')
+        $rootAlias = $query->getRootAlias();
+        $query->leftJoin("$rootAlias.acls", 'a')
             ->where('a.type >= :type')
             ->setParameter('type', $highest);
 

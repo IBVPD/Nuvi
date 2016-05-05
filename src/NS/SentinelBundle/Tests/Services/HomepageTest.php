@@ -115,11 +115,11 @@ class HomepageTest extends \PHPUnit_Framework_TestCase
                 ->willReturn(str_replace("_", "/", $route));
         }
 
-        $securityContext = $this->getMock('\Symfony\Component\Security\Core\SecurityContextInterface');
-        $securityContext->expects($this->once())
+        $tokenStorage = $this->getMock('\Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface');
+        $tokenStorage->expects($this->once())
             ->method('getToken')
             ->willReturn($token);
 
-        return new Homepage($securityContext, $router);
+        return new Homepage($tokenStorage, $router);
     }
 }
