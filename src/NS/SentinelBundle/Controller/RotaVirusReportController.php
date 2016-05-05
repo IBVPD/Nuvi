@@ -66,32 +66,6 @@ class RotaVirusReportController extends Controller
         return $this->render('NSSentinelBundle:Report/RotaVirus:data-linking.html.twig', $params);
     }
 
-    public function getLinkedCount($alias, array $countryCodes)
-    {
-        return $this->getByCountryCountQueryBuilder($alias, $countryCodes)
-            ->select(sprintf('COUNT(%s) as caseCount,c.code', $alias, $alias))
-            ->innerJoin('cf.referenceLab', $alias)
-            ->innerJoin('cf.site', 's');
-    }
-
-    public function getFailedLinkedCount($alias, array $countryCodes)
-    {
-        return $this->getByCountryCountQueryBuilder($alias, $countryCodes)
-            ->select(sprintf('COUNT(%s) as caseCount,c.code', $alias, $alias))
-            ->innerJoin('cf.referenceLab', $alias)
-            ->leftJoin('cf.site', 's')
-            ->andWhere('s.code IS NULL');
-    }
-
-    public function getNoLabCount($alias, array $countryCodes)
-    {
-        return $this->getByCountryCountQueryBuilder($alias, $countryCodes)
-            ->select(sprintf('COUNT(%s) as caseCount,c.code', $alias, $alias))
-            ->leftJoin('cf.referenceLab', $alias)
-            ->andWhere($alias.' IS NULL');
-    }
-
-
     /**
      * @param Request $request
      * @return Response
