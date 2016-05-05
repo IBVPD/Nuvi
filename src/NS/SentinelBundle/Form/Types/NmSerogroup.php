@@ -20,10 +20,10 @@ class NmSerogroup extends TranslatableArrayChoice implements TranslationContaine
     const Y           = 7;
     const Y_W         = 8;
     const Z           = 9;
-    const NON_BY_PCR  = 10; //Non-groupable (NG) by PCR (negative for Serogroups A, B, C, W, X, and Y)
-    const NON_BY_SASG = 11; //Non-groupable (NG) by SASG
-    const NOT_DONE    = 12; //Not done
-    const OTHER       = 99; //Other (specify):
+    const NON_BY_PCR  = 10;
+    const NON_BY_SASG = 11;
+    const NOT_DONE    = 12;
+    const OTHER       = 99;
 
     protected $values = array(
         self::A           => 'A',
