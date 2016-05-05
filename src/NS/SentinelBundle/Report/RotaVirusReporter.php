@@ -107,7 +107,6 @@ class RotaVirusReporter extends AbstractReporter
     {
         $results = new ArrayCollection();
         $alias = 'i';
-        $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Country')->getWithCasesForDate($alias, 'NS\SentinelBundle\Entity\RotaVirus');
 
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -115,9 +114,10 @@ class RotaVirusReporter extends AbstractReporter
                 return new RedirectResponse($this->router->generate($redirectRoute));
             }
 
+            $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Country')->getWithCasesForDate($alias, 'NS\SentinelBundle\Entity\RotaVirus');
+
             $this->filter->addFilterConditions($form, $queryBuilder, $alias);
 
-            $sql = $queryBuilder->getQuery()->getSQL();
             $countries =  $queryBuilder->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult();
 
             if (empty($countries)) {
