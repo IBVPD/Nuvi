@@ -267,4 +267,23 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
             ->select(sprintf('MONTH(%s.adm_date) as theMonth, COUNT(%s.id) as caseCount',$alias,$alias))
             ->groupBy('theMonth');
     }
+
+    public function getFailedLink($alias, array $countryCodes)
+    {
+        $queryBuilder = $this->createQueryBuilder($alias)
+            ->addSelect('sl,r,c,rl')
+            ->innerJoin($alias.'.country', 'c')
+            ->leftJoin($alias.'.region','r')
+            ->leftJoin($alias.'.siteLab','sl')
+            ->innerJoin($alias.'.referenceLab', 'rl')
+            ->where($alias.'.site IS NULL');
+
+        if (empty($countryCodes)) {
+            return $queryBuilder;
+        }
+
+        return $queryBuilder
+            ->andWhere("($alias.country IN (:countries) )")
+            ->setParameter('countries',array_unique($countryCodes));
+    }
 }
