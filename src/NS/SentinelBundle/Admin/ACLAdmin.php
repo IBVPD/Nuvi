@@ -46,6 +46,7 @@ class ACLAdmin extends Admin
         $formMapper
             ->add('type', 'role')
             ->add('options', 'choice', array(
+                'required' => false,
                 'multiple' => true,
                 'choices' => array(
                     'api' => 'Api Access',
