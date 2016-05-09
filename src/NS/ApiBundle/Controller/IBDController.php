@@ -3,9 +3,11 @@
 namespace NS\ApiBundle\Controller;
 
 use \Nelmio\ApiDocBundle\Annotation as ApiDoc;
+use NS\SentinelBundle\Exceptions\NonExistentCaseException;
 use \Symfony\Component\HttpFoundation\Request;
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use \FOS\RestBundle\Controller\Annotations as REST;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Description of IBDController
@@ -66,7 +68,7 @@ class IBDController extends CaseController
      * @return array
      *
      * @throws NotFoundHttpException when case not exist
-     * @throws NonExistentCaseException when case doees not exist
+     * @throws NonExistentCaseException when case does not exist
      */
     public function getIbdCaseLabAction($objId)
     {
@@ -95,7 +97,7 @@ class IBDController extends CaseController
      * @return array
      *
      * @throws NotFoundHttpException when case not exist
-     * @throws NonExistentCaseException when case doees not exist
+     * @throws NonExistentCaseException when case does not exist
      */
     public function getIbdCaseRRLAction($objId)
     {
@@ -124,7 +126,7 @@ class IBDController extends CaseController
      * @return array
      *
      * @throws NotFoundHttpException when case not exist
-     * @throws NonExistentCaseException when case doees not exist
+     * @throws NonExistentCaseException when case does not exist
      */
     public function getIbdCaseNLAction($objId)
     {
@@ -137,7 +139,7 @@ class IBDController extends CaseController
      * @ApiDoc\ApiDoc(
      *   resource = true,
      *   description = "Patch IBD case",
-     *   input = "ibd",
+     *   input = "NS\SentinelBundle\Form\IBD\CaseType",
      *   statusCodes = {
      *         204 = "Returned when successful",
      *         400 = "Bad Request",
@@ -164,7 +166,7 @@ class IBDController extends CaseController
      * @ApiDoc\ApiDoc(
      *  resource = true,
      *  description = "Updates lab data for an IBD case",
-     *  input = "ibd_lab",
+     *  input = "NS\SentinelBundle\Form\IBD\SiteLabType",
      *  statusCodes={
      *         204 = "Returned when successful",
      *         406 = "Returned when there is an issue with the form data"
@@ -188,7 +190,7 @@ class IBDController extends CaseController
      * @ApiDoc\ApiDoc(
      *  resource = true,
      *  description = "Updates Reference Lab data for an IBD case",
-     *  input = "ibd_referencelab",
+     *  input = "NS\SentinelBundle\Form\IBD\ReferenceLabType",
      *  statusCodes={
      *         204 = "Returned when successful",
      *         406 = "Returned when there is an issue with the form data"
@@ -212,7 +214,7 @@ class IBDController extends CaseController
      * @ApiDoc\ApiDoc(
      *  resource = true,
      *  description = "Updates National Lab data for an IBD case",
-     *  input = "ibd_nationallab",
+     *  input = "NS\SentinelBundle\Form\IBD\NationalLabType",
      *  statusCodes={
      *         204 = "Returned when successful",
      *         406 = "Returned when there is an issue with the form data"
@@ -236,7 +238,7 @@ class IBDController extends CaseController
      * @ApiDoc\ApiDoc(
      *   resource = true,
      *   description = "Put IBD Outcome data",
-     *   input = "ibd_outcome",
+     *   input = "NS\SentinelBundle\Form\IBD\OutcomeType",
      *   statusCodes = {
      *         204 = "Returned when successful",
      *         406 = "Returned when there are validation issues with the case",
@@ -262,7 +264,7 @@ class IBDController extends CaseController
      * @ApiDoc\ApiDoc(
      *   resource = true,
      *   description = "Put IBD case",
-     *   input = "ibd",
+     *   input = "NS\SentinelBundle\Form\IBD\CaseType",
      *   statusCodes = {
      *         204 = "Returned when successful",
      *         400 = "Bad Request",
@@ -289,7 +291,7 @@ class IBDController extends CaseController
      * @ApiDoc\ApiDoc(
      *  resource = true,
      *  description = "Updates lab data for an IBD case",
-     *  input = "ibd_lab",
+     *  input = "NS\SentinelBundle\Form\IBD\SiteLabType",
      *  statusCodes={
      *         204 = "Returned when successful",
      *         406 = "Returned when there is an issue with the form data"
@@ -313,7 +315,7 @@ class IBDController extends CaseController
      * @ApiDoc\ApiDoc(
      *  resource = true,
      *  description = "Updates RRL data for an IBD case",
-     *  input = "ibd_referencelab",
+     *  input = "NS\SentinelBundle\Form\IBD\ReferenceLabType",
      *  statusCodes={
      *         204 = "Returned when successful",
      *         406 = "Returned when there is an issue with the form data"
@@ -337,7 +339,7 @@ class IBDController extends CaseController
      * @ApiDoc\ApiDoc(
      *  resource = true,
      *  description = "Updates NL data for an IBD case",
-     *  input = "ibd_nationallab",
+     *  input = "NS\SentinelBundle\Form\IBD\NationalLabType",
      *  statusCodes={
      *         204 = "Returned when successful",
      *         406 = "Returned when there is an issue with the form data"
@@ -361,7 +363,7 @@ class IBDController extends CaseController
      * @ApiDoc\ApiDoc(
      *   resource = true,
      *   description = "Put IBD Outcome data",
-     *   input = "ibd_outcome",
+     *   input = "NS\SentinelBundle\Form\IBD\OutcomeType",
      *   statusCodes = {
      *         204 = "Returned when successful",
      *         406 = "Returned when there are validation issues with the case",
@@ -390,7 +392,7 @@ class IBDController extends CaseController
      * @ApiDoc\ApiDoc(
      *   resource = true,
      *   description = "Creates a new IBD case",
-     *   input = "create_case",
+     *   input = "NS\SentinelBundle\Form\CreateType",
      *   statusCodes = {
      *      201 = "Returned when the case is created"
      *  }
@@ -405,6 +407,6 @@ class IBDController extends CaseController
      */
     public function postIbdCaseAction(Request $request)
     {
-        return $this->postCase($request, 'nsApiIbdGetCase', 'create_case', 'NSSentinelBundle:IBD');
+        return $this->postCase($request, 'nsApiIbdGetCase', 'NS\SentinelBundle\Form\CreateType', 'NSSentinelBundle:IBD');
     }
 }

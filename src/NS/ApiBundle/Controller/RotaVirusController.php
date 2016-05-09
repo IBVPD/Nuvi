@@ -3,9 +3,11 @@
 namespace NS\ApiBundle\Controller;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use NS\SentinelBundle\Exceptions\NonExistentCaseException;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use FOS\RestBundle\Controller\Annotations as REST;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Description of RotaVirusController
@@ -63,7 +65,7 @@ class RotaVirusController extends CaseController
      * @return array
      *
      * @throws NotFoundHttpException when case not exist
-     * @throws NonExistentCaseException when case doees not exist
+     * @throws NonExistentCaseException when case does not exist
     */
     public function getRotaCaseLabAction($objId)
     {
@@ -92,7 +94,7 @@ class RotaVirusController extends CaseController
      * @return array
      *
      * @throws NotFoundHttpException when case not exist
-     * @throws NonExistentCaseException when case doees not exist
+     * @throws NonExistentCaseException when case does not exist
      */
     public function getRotaCaseRRLAction($objId)
     {
@@ -121,7 +123,7 @@ class RotaVirusController extends CaseController
      * @return array
      *
      * @throws NotFoundHttpException when case not exist
-     * @throws NonExistentCaseException when case doees not exist
+     * @throws NonExistentCaseException when case does not exist
      */
     public function getRotaCaseNLAction($objId)
     {
@@ -134,7 +136,7 @@ class RotaVirusController extends CaseController
      * @ApiDoc(
      *   resource = true,
      *   description = "Patch RotaVirus case",
-     *   input = "rotavirus",
+     *   input = "NS\SentinelBundle\Form\Rota\CaseType",
      *   statusCodes = {
      *         204 = "Returned when successful",
      *         406 = "Returned when there are validation issues with the case",
@@ -160,7 +162,7 @@ class RotaVirusController extends CaseController
      * @ApiDoc(
      *  resource = true,
      *  description = "Updates a RotaVirus Lab data",
-     *  input = "rotavirus_lab",
+     *  input = "NS\SentinelBundle\Form\Rota\SiteLabType",
      *  statusCodes={
      *         204 = "Returned when successful",
      *         406 = "Returned when there is an issue with the form data"
@@ -184,7 +186,7 @@ class RotaVirusController extends CaseController
      * @ApiDoc(
      *  resource = true,
      *  description = "Updates a RotaVirus RRL data",
-     *  input = "rotavirus_referencelab",
+     *  input = "NS\SentinelBundle\Form\Rota\ReferenceLabType",
      *  statusCodes={
      *         204 = "Returned when successful",
      *         406 = "Returned when there is an issue with the form data"
@@ -208,7 +210,7 @@ class RotaVirusController extends CaseController
      * @ApiDoc(
      *  resource = true,
      *  description = "Updates a RotaVirus NL data",
-     *  input = "rotavirus_nationallab",
+     *  input = "NS\SentinelBundle\Form\Rota\NationalLabType",
      *  statusCodes={
      *         204 = "Returned when successful",
      *         406 = "Returned when there is an issue with the form data"
@@ -232,7 +234,7 @@ class RotaVirusController extends CaseController
      * @ApiDoc(
      *   resource = true,
      *   description = "Patch RotaVirus Outcome data",
-     *   input = "rotavirus_outcome",
+     *   input = "NS\SentinelBundle\Form\Rota\OutcomeType",
      *   statusCodes = {
      *         204 = "Returned when successful",
      *         406 = "Returned when there are validation issues with the case",
@@ -258,7 +260,7 @@ class RotaVirusController extends CaseController
      * @ApiDoc(
      *   resource = true,
      *   description = "Put RotaVirus case",
-     *   input = "rotavirus",
+     *   input = "NS\SentinelBundle\Form\Rota\CaseType",
      *   statusCodes = {
      *         204 = "Returned when successful",
      *         406 = "Returned when there are validation issues with the case",
@@ -284,7 +286,7 @@ class RotaVirusController extends CaseController
      * @ApiDoc(
      *  resource = true,
      *  description = "Updates a RotaVirus Lab data",
-     *  input = "rotavirus_lab",
+     *  input = "NS\SentinelBundle\Form\Rota\SiteLabType",
      *  statusCodes={
      *         204 = "Returned when successful",
      *         406 = "Returned when there is an issue with the form data"
@@ -309,7 +311,7 @@ class RotaVirusController extends CaseController
      * @ApiDoc(
      *  resource = true,
      *  description = "Updates a RotaVirus RRL data",
-     *  input = "rotavirus_referencelab",
+     *  input = "NS\SentinelBundle\Form\Rota\ReferenceLabType",
      *  statusCodes={
      *         204 = "Returned when successful",
      *         406 = "Returned when there is an issue with the form data"
@@ -334,7 +336,7 @@ class RotaVirusController extends CaseController
      * @ApiDoc(
      *  resource = true,
      *  description = "Updates a RotaVirus NL data",
-     *  input = "rotavirus_nationallab",
+     *  input = "NS\SentinelBundle\Form\Rota\NationalLabType",
      *  statusCodes={
      *         204 = "Returned when successful",
      *         406 = "Returned when there is an issue with the form data"
@@ -359,7 +361,7 @@ class RotaVirusController extends CaseController
      * @ApiDoc(
      *   resource = true,
      *   description = "Put RotaVirus Outcome data",
-     *   input = "rotavirus_outcome",
+     *   input = "NS\SentinelBundle\Form\Rota\OutcomeType",
      *   statusCodes = {
      *         204 = "Returned when successful",
      *         406 = "Returned when there are validation issues with the case",
@@ -385,7 +387,7 @@ class RotaVirusController extends CaseController
      * @ApiDoc(
      *   resource = true,
      *   description = "Creates a new Rotavirus case",
-     *   input = "create_case"
+     *   input = "NS\SentinelBundle\Form\CreateType"
      * )
      *
      * @REST\Post("/",name="nsApiRotaPostCase")
@@ -396,6 +398,6 @@ class RotaVirusController extends CaseController
      */
     public function postRotaCaseAction(Request $request)
     {
-        return $this->postCase($request, 'nsApiRotaGetCase', 'create_case', 'NSSentinelBundle:RotaVirus');
+        return $this->postCase($request, 'nsApiRotaGetCase', 'NS\SentinelBundle\Form\CreateType', 'NSSentinelBundle:RotaVirus');
     }
 }

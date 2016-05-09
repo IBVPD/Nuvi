@@ -152,18 +152,18 @@ services:
     tags:
       - { name: form.type }
 
-  ns.sentinel.form.type.createroles:
-    class: NS\SentinelBundle\Form\Types\CreateRoles
+  ns_sentinel.form.type.case_creation_type:
+    class: NS\SentinelBundle\Form\Types\CaseCreationType
     calls:
       - [ setAuthChecker, [ "@security.authorization_checker" ] ]
     tags:
-      - { name: form.type, alias: CreateRoles }
+      - { name: form.type }
 
   ns.sentinel.form.create:
     class: NS\SentinelBundle\Form\CreateType
     arguments: [ "@ns.sentinel.sites", "@doctrine.orm.entity_manager" ]
     tags:
-      - { name: form.type, alias: create_case }
+      - { name: form.type }
 
   ns.sentinel.form.type.casestatus:
     class: NS\SentinelBundle\Form\Types\CaseStatus

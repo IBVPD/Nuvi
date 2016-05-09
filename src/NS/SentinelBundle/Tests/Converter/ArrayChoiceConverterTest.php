@@ -7,7 +7,7 @@ use NS\SentinelBundle\Converter\ArrayChoiceConverter;
 use NS\SentinelBundle\Form\Types\IsolateViable;
 use NS\SentinelBundle\Form\Types\BinaxResult;
 use NS\SentinelBundle\Form\Types\CaseStatus;
-use NS\SentinelBundle\Form\Types\CreateRoles;
+use NS\SentinelBundle\Form\Types\CaseCreationType;
 use NS\SentinelBundle\Form\Types\CSFAppearance;
 use NS\SentinelBundle\Form\Types\CultureResult;
 use NS\SentinelBundle\Form\Types\CXRResult;
@@ -124,8 +124,8 @@ class ArrayChoiceConverterTest extends \PHPUnit_Framework_TestCase
                 'obj' => new CaseStatus(),
                 'name' => 'CaseStatus',),
             array(
-                'obj' => new CreateRoles(),
-                'name' => 'CreateRoles',),
+                'obj' => new CaseCreationType(),
+                'name' => 'CaseCreationType',),
             array(
                 'obj' => new CultureResult(),
                 'name' => 'CultureResult',),

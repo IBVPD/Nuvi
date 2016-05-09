@@ -54,7 +54,7 @@ class RotaVirusControllerTest extends WebTestCase
     {
         $route  = $this->getUrl('nsApiRotaPostCase');
         $client = $this->getClient();
-        $client->request('POST', $route, array(), array(), array(), '{"create_case":{"caseId":"123","type":"1","site":"ALBCHLD"}}');
+        $client->request('POST', $route, array(), array(), array(), '{"create":{"caseId":"123","type":"1","site":"ALBCHLD"}}');
 
         $response = $client->getResponse();
         if ($response->getStatusCode() != 201) {

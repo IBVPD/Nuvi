@@ -9,3 +9,20 @@
         </div>
     </div>
 {% endblock %}
+
+{% block case_creation_row %}
+    {% spaceless %}
+        <!-- START -->
+        {%- if choices|length == 1 -%}
+            {% set choiceValue = choices|first %}
+            <input type="hidden" name="{{ name }}" value="{{ choiceValue.value }}" />
+        {% else %}
+            <div class="form-group{% if not form.vars.valid %} has-error{% endif %}">
+                {{form_label(form)}}
+                {{form_widget(form)}}
+                {{form_errors(form)}}
+            </div>
+        {%- endif -%}
+        <!-- END -->
+    {% endspaceless %}
+{% endblock %}

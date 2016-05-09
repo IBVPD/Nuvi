@@ -14,7 +14,14 @@ use NS\SentinelBundle\Interfaces\SerializedSitesInterface;
  */
 class CreateType extends AbstractType
 {
+    /**
+     * @var SerializedSitesInterface
+     */
     private $siteSerializer;
+
+    /**
+     * @var ObjectManager
+     */
     private $entityMgr;
 
     /**
@@ -36,26 +43,19 @@ class CreateType extends AbstractType
     {
         $builder
             ->add('caseId', null,   array('label'=>'site-assigned-case-id'))
-            ->add('type', 'CreateRoles', array('description' => 'This should always be "1"'))
+            ->add('type', 'NS\SentinelBundle\Form\Types\CaseCreationType', array('description' => 'This should always be "1"'))
         ;
 
         if ($this->siteSerializer->hasMultipleSites()) {
             $queryBuilder = $this->entityMgr->getRepository('NS\SentinelBundle\Entity\Site')->getChainQueryBuilder()->orderBy('s.name', 'ASC');
-            $builder->add('site', 'entity', array('required'        => true,
-                                                'mapped'          => false,
-                                                'placeholder'     => 'Please Select...',
-                                                'label'           => 'ibd-form.site',
-                                                'query_builder'   => $queryBuilder,
-                                                'class'           => 'NS\SentinelBundle\Entity\Site',
-                                                'auto_initialize' => false));
+            $builder->add('site', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
+                'required'        => true,
+                'mapped'          => false,
+                'placeholder'     => 'Please Select...',
+                'label'           => 'ibd-form.site',
+                'query_builder'   => $queryBuilder,
+                'class'           => 'NS\SentinelBundle\Entity\Site',
+                'auto_initialize' => false));
         }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'create_case';
     }
 }

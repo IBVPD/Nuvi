@@ -1,0 +1,11 @@
+{% block case_creation_row %}
+    {% spaceless %}
+        <!-- START -->
+        {%- if preferred_choices|length > 0 or choices|length > 1 -%}
+            <input type="hidden" name="{{ name }}" value="{{ choices|first }}" />
+        {% else %}
+            {{ block('choice_widget') }}
+        {%- endif -%}
+        <!-- END -->
+    {% endspaceless %}
+{% endblock %}

@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: gnat
+ * Date: 09/05/16
+ * Time: 3:01 PM
+ */
 
 namespace NS\SentinelBundle\Form\Types;
 
@@ -7,12 +13,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 
-/**
- * Description of CreateRoles
- *
- * @author gnat
- */
-class CreateRoles extends TranslatableArrayChoice implements TranslationContainerInterface
+class CaseCreationType extends TranslatableArrayChoice implements TranslationContainerInterface
 {
     const BASE = 1;
     const SITE = 2;
@@ -20,7 +21,7 @@ class CreateRoles extends TranslatableArrayChoice implements TranslationContaine
     const NL   = 4;
 
     /**
-     * @var
+     * @var AuthorizationCheckerInterface
      */
     private $authChecker;
 
@@ -77,14 +78,6 @@ class CreateRoles extends TranslatableArrayChoice implements TranslationContaine
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'CreateRoles';
-    }
-
-    /**
      *
      * @param string $routeBase
      * @return string
@@ -92,13 +85,13 @@ class CreateRoles extends TranslatableArrayChoice implements TranslationContaine
     public function getRoute($routeBase)
     {
         switch ($this->getValue()) {
-            case CreateRoles::BASE:
+            case self::BASE:
                 return $routeBase . 'Edit';
-            case CreateRoles::SITE:
+            case self::SITE:
                 return $routeBase . 'LabEdit';
-            case CreateRoles::RRL:
+            case self::RRL:
                 return $routeBase . 'RRLEdit';
-            case CreateRoles::NL:
+            case self::NL:
                 return $routeBase . 'NLEdit';
             default:
                 return $routeBase . 'Index';

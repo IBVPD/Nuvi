@@ -4,7 +4,7 @@ namespace NS\SentinelBundle\Tests\Form;
 
 use \Nelmio\ApiDocBundle\Form\Extension\DescriptionFormTypeExtension;
 use \NS\SentinelBundle\Form\CreateType;
-use \NS\SentinelBundle\Form\Types\CreateRoles;
+use NS\SentinelBundle\Form\Types\CaseCreationType;
 use \Symfony\Component\Form\FormBuilder;
 use \Symfony\Component\Form\Forms;
 use \Symfony\Component\Form\PreloadedExtension;
@@ -74,7 +74,7 @@ class CreateTypeTest extends TypeTestCase
             ->method('isGranted')
             ->willReturn(true);
 
-        $childType = new CreateRoles();
+        $childType = new CaseCreationType();
         $childType->setAuthChecker($authChecker);
 
         return array(new PreloadedExtension(array(

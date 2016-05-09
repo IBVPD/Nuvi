@@ -93,7 +93,6 @@ doctrine:
             DischargeClassification: NS\SentinelBundle\Entity\Types\DischargeClassification
             DischargeOutcome: NS\SentinelBundle\Entity\Types\DischargeOutcome
             CaseStatus: NS\SentinelBundle\Entity\Types\CaseStatus
-            IBDCreateRoles: NS\SentinelBundle\Entity\Types\IBDCreateRoles
             GenotypeResultG: NS\SentinelBundle\Entity\Types\GenotypeResultG
             GenotypeResultP: NS\SentinelBundle\Entity\Types\GenotypeResultP
             NmSerogroup: NS\SentinelBundle\Entity\Types\NmSerogroup
@@ -141,7 +140,6 @@ doctrine:
             DischargeClassification: DischargeClassification
             DischargeOutcome: DischargeOutcome
             CaseStatus: CaseStatus
-            IBDCreateRoles: IBDCreateRoles
             GenotypeResultG: GenotypeResultG
             GenotypeResultP: GenotypeResultP
             NmSerogroup: NmSerogroup

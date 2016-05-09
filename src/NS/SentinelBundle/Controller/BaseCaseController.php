@@ -32,8 +32,8 @@ abstract class BaseCaseController extends Controller implements TranslationConta
             ->getFilterQueryBuilder();
 
         $filteredPager = $this->get('ns.filtered_pagination');
-        list($filterForm, $pagination, $redirect) = $filteredPager->process($request, $filterFormName, $query, $sessionKey);
-        $createForm = ($this->get('security.authorization_checker')->isGranted('ROLE_CAN_CREATE')) ? $this->createForm('create_case')->createView() : null;
+        list($filterForm, $pagination) = $filteredPager->process($request, $filterFormName, $query, $sessionKey);
+        $createForm = ($this->get('security.authorization_checker')->isGranted('ROLE_CAN_CREATE')) ? $this->createForm('NS\SentinelBundle\Form\CreateType')->createView() : null;
 
         return array(
             'pagination' => $pagination,
@@ -51,7 +51,7 @@ abstract class BaseCaseController extends Controller implements TranslationConta
      */
     protected function create(Request $request, $class, $indexRoute, $typeName)
     {
-        $form = $this->createForm('create_case');
+        $form = $this->createForm('NS\SentinelBundle\Form\CreateType');
         $form->handleRequest($request);
 
         if ($form->isValid()) {

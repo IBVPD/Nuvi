@@ -2,7 +2,7 @@
 
 namespace NS\SentinelBundle\Tests\Form\Types;
 
-use \NS\SentinelBundle\Form\Types\CreateRoles;
+use NS\SentinelBundle\Form\Types\CaseCreationType;
 use \Symfony\Component\Form\Test\TypeTestCase;
 
 /**
@@ -30,10 +30,10 @@ class CreateRolesTest extends TypeTestCase
     public function testByRoles($count, $data)
     {
         $authChecker = $this->getAuthorizationChecker($data);
-        $createRole  = new CreateRoles();
+        $createRole  = new CaseCreationType();
         $createRole->setAuthChecker($authChecker);
         $form        = $this->factory->create($createRole);
-        $this->assertEquals('CreateRoles', $form->getName());
+        $this->assertEquals('case_creation', $form->getName());
         $choices     = $form->getConfig()->getOption('choices');
         $this->assertCount($count, $choices);
     }
@@ -104,7 +104,7 @@ class CreateRolesTest extends TypeTestCase
      */
     public function testGetRoute($role, $route)
     {
-        $form = new CreateRoles($role);
+        $form = new CaseCreationType($role);
         $baseRoute = 'base';
         $this->assertEquals(sprintf('%s%s',$baseRoute,$route),$form->getRoute($baseRoute));
     }
@@ -112,10 +112,10 @@ class CreateRolesTest extends TypeTestCase
     public function getRoutes()
     {
         return array(
-            array(CreateRoles::BASE,'Edit'),
-            array(CreateRoles::SITE,'LabEdit'),
-            array(CreateRoles::NL,'NLEdit'),
-            array(CreateRoles::RRL,'RRLEdit'),
+            array(CaseCreationType::BASE,'Edit'),
+            array(CaseCreationType::SITE,'LabEdit'),
+            array(CaseCreationType::NL,'NLEdit'),
+            array(CaseCreationType::RRL,'RRLEdit'),
             array(null,'Index'),
         );
     }
