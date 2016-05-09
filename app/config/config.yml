@@ -221,13 +221,13 @@ jms_translation:
       output_dir: "%kernel.root_dir%/Resources/translations"
       dirs: [ "%kernel.root_dir%" ]
       excluded_names: [ "*TestCase.php", "*Test.php", "bootstrap.php.cache" ]
-      excluded_dirs: [ cache, data, logs, Features ]
+      excluded_dirs: [ cache, data, logs ]
       output_format: xliff
     sentinel:
       output_dir: "%kernel.root_dir%/../src/NS/SentinelBundle/Resources/translations"
       dirs: [ "%kernel.root_dir%/../src/NS/SentinelBundle" ]
       excluded_names: [ "*TestCase.php", "*Test.php" ]
-      excluded_dirs: [ Features, Tests ]
+      excluded_dirs: [ Tests ]
       output_format: xliff
     import:
       output_dir: "%kernel.root_dir%/../src/NS/ImportBundle/Resources/translations"
