@@ -105,19 +105,24 @@ class BaseFilterType extends AbstractType
             if (count($objectIds) > 1) {
                 $form->add('site', 'NS\SentinelBundle\Filter\Type\SiteType');
             }
+
+            $form
+                ->add('firstName','Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType',array('condition_pattern'=>FilterOperands::STRING_BOTH))
+                ->add('lastName','Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType',array('condition_pattern'=>FilterOperands::STRING_BOTH));
+
         }
 
         $form->add('find', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
             'label'=> 'find',
             'type' => 'submit',
             'icon' => 'fa fa-search',
-            'attr' => array('class' => 'btn btn-xs btn-success')));
+            'attr' => array('class' => 'btn btn-xs btn-success pull-right')));
 
         $form->add('reset', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
             'label'=>'reset',
             'type' => 'reset',
             'icon' => 'fa fa-times-circle',
-            'attr' => array('class' => 'btn btn-sm btn-danger', 'type'=>'submit')));
+            'attr' => array('class' => 'btn btn-xs btn-danger', 'type'=>'submit')));
     }
 
     /**
