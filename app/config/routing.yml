@@ -1,13 +1,13 @@
 home_redirect:
-    pattern: /
+    path: /
     defaults:
-        _controller: NSSentinelBundle:Security:homepageRedirect
+        _controller: 'NSSentinelBundle:Security:homepageRedirect'
 
 login_check:
-    pattern: /login_check
+    path: /login_check
 
 logout:
-    pattern: /logout
+    path: /logout
 
 JMSTranslationBundle_ui:
     resource: "@JMSTranslationBundle/Controller/"
