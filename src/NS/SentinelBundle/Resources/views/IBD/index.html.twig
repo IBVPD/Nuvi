@@ -13,11 +13,6 @@
             <div class="widget-box widget-color-blue no-border">
                 <div class="widget-header widget-header-small">
                     <h5 class="widget-title">{{'Latest IBD Cases'|trans}}</h5>
-                    {% if is_granted('ROLE_CAN_CREATE') %}
-                        <div class="widget-toolbar">
-                            <a href="#modal-form" id="modal-form-create" data-toggle="modal" class="btn btn-xs btn-success">{{'Create/Edit'|trans}} <i class="fa fa-plus fa-on-right bigger-110"></i></a>
-                        </div>
-                    {% endif %}
                     <div class="widget-toolbar">{{ form_widget(limitForm.limit) }} {{ 'Results per page'|trans }}</div>
                     <div class="widget-toolbar no-border">{{ knp_pagination_render(pagination) }}</div>
                 </div>
@@ -29,7 +24,7 @@
                     </div>
                     {% if is_granted('ROLE_CAN_CREATE') %}
                         <div class="widget-toolbox padding-8 clearfix">
-                            <a href="#modal-form" id="modal-form-create" data-toggle="modal" class="btn btn-sm btn-success pull-right">{{'Create/Edit'|trans}} <i class="fa fa-plus fa-on-right bigger-110"></i></a>
+                            <a href="#modal-form" id="modal-form-create" data-toggle="modal" class="btn btn-xs btn-success pull-right">{{'Create/Edit'|trans}}</a>
                         </div>
                     {% endif %}
                 </div>
@@ -62,8 +57,8 @@
                                 <i class="fa fa-remove"></i> {{'Cancel'|trans}}
                             </button>
 
-                            <button class="btn btn-sm btn-primary" id="ibd_create_submit">
-                                <i class="fa fa-check"></i> {{'Create/Edit'|trans}}
+                            <button class="btn btn-sm btn-success" id="ibd_create_submit">
+                                {{'Create/Edit'|trans}}
                             </button>
                         </div>
 
