@@ -53,6 +53,57 @@ NS\SentinelBundle\Entity\ACL:
         type: <countryExportRole()>
         objectId: @country0->id
         user: @ca-user5
+        options: [ 'rrl','nl','case', 'lab' ]
+    ca-user1Acl:
+        type: <countryRole()>
+        objectId: @country0->id
+        user: @ca-user1
+        options: [ 'case' ]
+    ca-user2Acl:
+        type: <countryRole()>
+        objectId: @country0->id
+        user: @ca-user2
+        options: [ 'case', 'lab' ]
+    ca-user3Acl:
+        type: <countryRole()>
+        objectId: @country0->id
+        user: @ca-user3
+        options: [ 'case', 'lab', 'rrl' ]
+    ca-user4Acl:
+        type: <countryRole()>
+        objectId: @country0->id
+        user: @ca-user4
+        options: [ 'case', 'lab', 'nl' ]
+    ca-user5Acl:
+        type: <countryRole()>
+        objectId: @country0->id
+        user: @ca-user5
+        options: [ 'case', 'lab', 'nl', 'rrl' ]
+    sUser0Acl:
+        type: <siteRole()>
+        objectId: @site0->id
+        user: @sUser0
+        options: [  ]
+    sUser1Acl:
+        type: <siteRole()>
+        objectId: @site1->id
+        user: @sUser1
+        options: [  ]
+    sUser2Acl:
+        type: <siteRole()>
+        objectId: @site2->id
+        user: @sUser2
+        options: [ 'case', 'lab' ]
+    sUser3Acl:
+        type: <siteRole()>
+        objectId: @site1->id
+        user: @sUser3
+        options: [  ]
+    sUser4Acl:
+        type: <siteRole()>
+        objectId: @site4->id
+        user: @sUser4
+        options: [ ]
 
 NS\SentinelBundle\Entity\User:
     user0:
@@ -75,119 +126,67 @@ NS\SentinelBundle\Entity\User:
         name: US User
         email: us@noblet.ca
         plainPassword: 1234567-us
-        canCreateCases: false
-        canCreateLabs: false
-        canCreateRrlLabs: false
-        canCreateNlLabs: false
     ca-user0:
         name: CA User
         email: ca@noblet.ca
         active: true
         plainPassword: 1234567-ca
-        canCreateCases: false
-        canCreateLabs: false
-        canCreateRrlLabs: false
-        canCreateNlLabs: false
     ca-user1:
         name: CA Create User
         email: ca-create@noblet.ca
         active: true
         plainPassword: 1234567-ca
-        canCreateCases: true
-        canCreateLabs: false
-        canCreateRrlLabs: false
-        canCreateNlLabs: false
     ca-user2:
         name: CA Lab User
         email: ca-clab@noblet.ca
         active: true
         plainPassword: 1234567-ca
-        canCreateCases: true
-        canCreateLabs: true
-        canCreateRrlLabs: false
-        canCreateNlLabs: false
     ca-user3:
         name: CA RRL User
         email: ca-crrl@noblet.ca
         active: true
         plainPassword: 1234567-ca
-        canCreateCases: true
-        canCreateLabs: true
-        canCreateRrlLabs: true
-        canCreateNlLabs: false
         referenceLab: @lab1
     ca-user4:
         name: CA NL User
         email: ca-cnl@noblet.ca
         active: true
         plainPassword: 1234567-ca
-        canCreateCases: true
-        canCreateLabs: true
-        canCreateRrlLabs: false
-        canCreateNlLabs: true
         referenceLab: @lab1
     ca-user5:
         name: CA Full User
         email: ca-full@noblet.ca
         active: true
         plainPassword: 1234567-ca
-        canCreateCases: true
-        canCreateLabs: true
-        canCreateRrlLabs: true
-        canCreateNlLabs: true
         referenceLab: @lab1
     ca-user6:
         name: CA Api User
         email: ca-api@noblet.ca
         active: true
         plainPassword: 1234567-ca
-        canCreateCases: false
-        canCreateLabs: false
-        canCreateRrlLabs: false
-        canCreateNlLabs: false
         referenceLab: @lab1
     sUser0:
         name: Alberta Site User
         email: site-alberta@noblet.ca
         active: true
         plainPassword: 1234567-alberta
-        canCreateCases: true
-        canCreateLabs: false
-        canCreateRrlLabs: false
-        canCreateNlLabs: false
     sUser1:
         name: Seattle Site User
         email: site-seattle@noblet.ca
         active: true
         plainPassword: 1234567-seattle
-        canCreateCases: true
-        canCreateLabs: false
-        canCreateRrlLabs: false
-        canCreateNlLabs: false
     sUser2:
         name: Shriners Site User
         email: site-shriner@noblet.ca
         active: true
         plainPassword: 1234567-shriner
-        canCreateCases: true
-        canCreateLabs: true
-        canCreateRrlLabs: false
-        canCreateNlLabs: false
     sUser3:
         name: Toronto Site User
         email: site-toronto@noblet.ca
         active: true
         plainPassword: 1234567-toronto
-        canCreateCases: true
-        canCreateLabs: false
-        canCreateRrlLabs: false
-        canCreateNlLabs: false
     sUser4:
         name: Mexico Site User
         email: site-mexico@noblet.ca
         active: true
         plainPassword: 1234567-mexico
-        canCreateCases: true
-        canCreateLabs: false
-        canCreateRrlLabs: false
-        canCreateNlLabs: false

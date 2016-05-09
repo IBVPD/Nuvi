@@ -118,4 +118,34 @@ class ACL extends BaseACL
         $this->options = $options;
         return $this;
     }
+
+    public function getCredentials()
+    {
+        $baseRoles = $this->type->getAsCredential();
+
+        foreach((array)$this->options as $option) {
+            switch ($option) {
+                case 'import':
+                    $baseRoles[] = 'ROLE_IMPORT';
+                    break;
+                case 'api';
+                    $baseRoles[] = 'ROLE_API';
+                    break;
+                case 'case';
+                    $baseRoles[] = 'ROLE_CAN_CREATE_CASE';
+                    break;
+                case 'lab';
+                    $baseRoles[] = 'ROLE_CAN_CREATE_LAB';
+                    break;
+                case 'nl';
+                    $baseRoles[] = 'ROLE_CAN_CREATE_NL_LAB';
+                    break;
+                case 'rrl';
+                    $baseRoles[] = 'ROLE_CAN_CREATE_RRL_LAB';
+                    break;
+            }
+        }
+
+        return $baseRoles;
+    }
 }

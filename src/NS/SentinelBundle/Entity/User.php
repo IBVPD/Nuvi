@@ -87,34 +87,6 @@ class User implements AdvancedUserInterface
     /**
      * @var boolean
      *
-     * @ORM\Column(name="canCreateCases", type="boolean")
-     */
-    private $canCreateCases = false;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="canCreateLabs", type="boolean")
-     */
-    private $canCreateLabs = false;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="canCreateRRLLabs", type="boolean")
-     */
-    private $canCreateRRLLabs = false;
-
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="canCreateNLLabs", type="boolean")
-     */
-    private $canCreateNLLabs = false;
-
-    /**
-     * @var boolean
-     *
      * @ORM\Column(name="active", type="boolean")
      */
     private $active = false;
@@ -364,60 +336,15 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     *
-     * @param array $roles
-     */
-    public function adjustRoles(array $roles)
-    {
-        if (in_array('ROLE_SITE', $roles)) {
-            $this->setCanCreateCases(true);
-        }
-
-        if (in_array('ROLE_RRL_LAB', $roles)) {
-            $this->setCanCreateRRLLabs(true);
-        }
-
-        if (in_array('ROLE_NL_LAB', $roles)) {
-            $this->setCanCreateNLLabs(true);
-        }
-
-        if (in_array('ROLE_LAB', $roles)) {
-            $this->setCanCreateLabs(true);
-        }
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function getRoles()
     {
-        $roles = array();
+        $roles = ($this->admin) ? array('ROLE_ADMIN'):array();
 
         // what happens if this returns null??
         foreach ($this->acls as $acl) {
-            $roles = array_merge($roles, $acl->getType()->getAsCredential());
-        }
-
-        $this->adjustRoles($roles);
-
-        if ($this->admin) {
-            $roles[] = 'ROLE_ADMIN';
-        }
-
-        if ($this->canCreateCases) {
-            $roles[] = 'ROLE_CAN_CREATE_CASE';
-        }
-
-        if ($this->canCreateLabs) {
-            $roles[] = 'ROLE_CAN_CREATE_LAB';
-        }
-
-        if ($this->canCreateRRLLabs) {
-            $roles[] = 'ROLE_CAN_CREATE_RRL_LAB';
-        }
-
-        if ($this->canCreateNLLabs) {
-            $roles[] = 'ROLE_CAN_CREATE_NL_LAB';
+            $roles = array_merge($roles, $acl->getCredentials());
         }
 
         return array_unique($roles);
@@ -440,7 +367,7 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * @return type
+     * @return bool
      */
     public function isAccountNonLocked()
     {
@@ -557,86 +484,6 @@ class User implements AdvancedUserInterface
     {
         $this->active = $active;
 
-        return $this;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function getCanCreate()
-    {
-        return ($this->canCreateCases || $this->canCreateLabs || $this->canCreateRRLLabs || $this->canCreateNLLabs);
-    }
-
-    /**
-     * @return boolean
-     */
-    public function getCanCreateCases()
-    {
-        return $this->canCreateCases;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function getCanCreateLabs()
-    {
-        return $this->canCreateLabs;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function getCanCreateRRLLabs()
-    {
-        return $this->canCreateRRLLabs;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function getCanCreateNLLabs()
-    {
-        return $this->canCreateNLLabs;
-    }
-
-    /**
-     * @param boolean $canCreateCases
-     * @return \NS\SentinelBundle\Entity\User
-     */
-    public function setCanCreateCases($canCreateCases)
-    {
-        $this->canCreateCases = $canCreateCases;
-        return $this;
-    }
-
-    /**
-     * @param boolean $canCreateLabs
-     * @return \NS\SentinelBundle\Entity\User
-     */
-    public function setCanCreateLabs($canCreateLabs)
-    {
-        $this->canCreateLabs = $canCreateLabs;
-        return $this;
-    }
-
-    /**
-     * @param boolean $canCreateRRLLabs
-     * @return \NS\SentinelBundle\Entity\User
-     */
-    public function setCanCreateRRLLabs($canCreateRRLLabs)
-    {
-        $this->canCreateRRLLabs = $canCreateRRLLabs;
-        return $this;
-    }
-
-    /**
-     * @param boolean $canCreateNLLabs
-     * @return \NS\SentinelBundle\Entity\User
-     */
-    public function setCanCreateNLLabs($canCreateNLLabs)
-    {
-        $this->canCreateNLLabs = $canCreateNLLabs;
         return $this;
     }
 
