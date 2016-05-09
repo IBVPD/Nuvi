@@ -130,12 +130,4 @@ class SiteLabType extends AbstractType
             'data_class' => 'NS\SentinelBundle\Entity\Rota\SiteLab'
         ));
     }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'rotavirus_lab';
-    }
 }

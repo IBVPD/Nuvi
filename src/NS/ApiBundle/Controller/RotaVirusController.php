@@ -153,7 +153,7 @@ class RotaVirusController extends CaseController
      */
     public function patchRotaCaseAction(Request $request, $objId)
     {
-        return $this->updateCase($request, $objId, 'PATCH', 'rotavirus', 'NSSentinelBundle:RotaVirus');
+        return $this->updateCase($request, $objId, 'PATCH', 'NS\SentinelBundle\Form\Rota\CaseType', 'NSSentinelBundle:RotaVirus');
     }
 
     /**
@@ -177,7 +177,7 @@ class RotaVirusController extends CaseController
      */
     public function patchRotaLabAction(Request $request, $objId)
     {
-        return $this->updateLab($request, $objId, 'PATCH', 'rotavirus_lab', 'NSSentinelBundle:Rota\SiteLab');
+        return $this->updateLab($request, $objId, 'PATCH', 'NS\SentinelBundle\Form\Rota\SiteLabType', 'NSSentinelBundle:Rota\SiteLab');
     }
 
     /**
@@ -201,7 +201,7 @@ class RotaVirusController extends CaseController
      */
     public function patchRotaRRLAction(Request $request, $objId)
     {
-        return $this->updateLab($request, $objId, 'PATCH', 'rotavirus_referencelab', 'NSSentinelBundle:Rota\ReferenceLab');
+        return $this->updateLab($request, $objId, 'PATCH', 'NS\SentinelBundle\Form\Rota\ReferenceLabType', 'NSSentinelBundle:Rota\ReferenceLab');
     }
 
     /**
@@ -225,7 +225,7 @@ class RotaVirusController extends CaseController
      */
     public function patchRotaNLAction(Request $request, $objId)
     {
-        return $this->updateLab($request, $objId, 'PATCH', 'rotavirus_nationallab', 'NSSentinelBundle:Rota\NationalLab');
+        return $this->updateLab($request, $objId, 'PATCH', 'NS\SentinelBundle\Form\Rota\NationalLabType', 'NSSentinelBundle:Rota\NationalLab');
     }
 
     /**
@@ -251,7 +251,7 @@ class RotaVirusController extends CaseController
      */
     public function patchRotaOutcomeAction(Request $request, $objId)
     {
-        return $this->updateCase($request, $objId, 'PATCH', 'rotavirus_outcome', 'NSSentinelBundle:RotaVirus');
+        return $this->updateCase($request, $objId, 'PATCH', 'NS\SentinelBundle\Form\Rota\OutcomeType', 'NSSentinelBundle:RotaVirus');
     }
 
     /**
@@ -277,7 +277,7 @@ class RotaVirusController extends CaseController
      */
     public function putRotaCaseAction(Request $request, $objId)
     {
-        return $this->updateCase($request, $objId, 'PUT', 'rotavirus', 'NSSentinelBundle:RotaVirus');
+        return $this->updateCase($request, $objId, 'PUT', 'NS\SentinelBundle\Form\Rota\CaseType', 'NSSentinelBundle:RotaVirus');
     }
 
     /**
@@ -302,7 +302,7 @@ class RotaVirusController extends CaseController
      */
     public function putRotaLabAction(Request $request, $objId)
     {
-        return $this->updateLab($request, $objId, 'PUT', 'rotavirus_lab', 'NSSentinelBundle:Rota\SiteLab');
+        return $this->updateLab($request, $objId, 'PUT', 'NS\SentinelBundle\Form\Rota\SiteLabType', 'NSSentinelBundle:Rota\SiteLab');
     }
 
     /**
@@ -327,7 +327,7 @@ class RotaVirusController extends CaseController
      */
     public function putRotaRRLAction(Request $request, $objId)
     {
-        return $this->updateLab($request, $objId, 'PUT', 'rotavirus_referencelab', 'NSSentinelBundle:Rota\ReferenceLab');
+        return $this->updateLab($request, $objId, 'PUT', 'NS\SentinelBundle\Form\Rota\ReferenceLabType', 'NSSentinelBundle:Rota\ReferenceLab');
     }
 
     /**
@@ -352,7 +352,7 @@ class RotaVirusController extends CaseController
      */
     public function putRotaNLAction(Request $request, $objId)
     {
-        return $this->updateLab($request, $objId, 'PUT', 'rotavirus_nationallab', 'NSSentinelBundle:Rota\NationalLab');
+        return $this->updateLab($request, $objId, 'PUT', 'NS\SentinelBundle\Form\Rota\NationalLabType', 'NSSentinelBundle:Rota\NationalLab');
     }
 
     /**
@@ -378,7 +378,7 @@ class RotaVirusController extends CaseController
      */
     public function putRotaOutcomeAction(Request $request, $objId)
     {
-        return $this->updateCase($request, $objId, 'PUT', 'rotavirus_outcome', 'NSSentinelBundle:RotaVirus');
+        return $this->updateCase($request, $objId, 'PUT', 'NS\SentinelBundle\Form\Rota\OutcomeType', 'NSSentinelBundle:RotaVirus');
     }
 
     /**

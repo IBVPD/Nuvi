@@ -157,7 +157,7 @@ class IBDController extends CaseController
      */
     public function patchIbdCaseAction(Request $request, $objId)
     {
-        return $this->updateCase($request, $objId, 'PATCH', 'ibd', 'NSSentinelBundle:IBD');
+        return $this->updateCase($request, $objId, 'PATCH', 'NS\SentinelBundle\Form\IBD\CaseType', 'NSSentinelBundle:IBD');
     }
 
     /**
@@ -181,7 +181,7 @@ class IBDController extends CaseController
      */
     public function patchIbdLabAction(Request $request, $objId)
     {
-        return $this->updateLab($request, $objId, 'PATCH', 'ibd_lab', 'NSSentinelBundle:IBD\SiteLab');
+        return $this->updateLab($request, $objId, 'PATCH', 'NS\SentinelBundle\Form\IBD\SiteLabType', 'NSSentinelBundle:IBD\SiteLab');
     }
 
     /**
@@ -205,7 +205,7 @@ class IBDController extends CaseController
      */
     public function patchIbdRRLAction(Request $request, $objId)
     {
-        return $this->updateLab($request, $objId, 'PATCH', 'ibd_referencelab', 'NSSentinelBundle:IBD\ReferenceLab');
+        return $this->updateLab($request, $objId, 'PATCH', 'NS\SentinelBundle\Form\IBD\ReferenceLabType', 'NSSentinelBundle:IBD\ReferenceLab');
     }
 
     /**
@@ -229,7 +229,7 @@ class IBDController extends CaseController
      */
     public function patchIbdNLAction(Request $request, $objId)
     {
-        return $this->updateLab($request, $objId, 'PATCH', 'ibd_nationallab', 'NSSentinelBundle:IBD\NationalLab');
+        return $this->updateLab($request, $objId, 'PATCH', 'NS\SentinelBundle\Form\IBD\NationalLabType', 'NSSentinelBundle:IBD\NationalLab');
     }
 
     /**
@@ -255,7 +255,7 @@ class IBDController extends CaseController
      */
     public function patchIbdOutcomeAction(Request $request, $objId)
     {
-        return $this->updateCase($request, $objId, 'PATCH', 'ibd_outcome', 'NSSentinelBundle:IBD');
+        return $this->updateCase($request, $objId, 'PATCH', 'NS\SentinelBundle\Form\IBD\OutcomeType', 'NSSentinelBundle:IBD');
     }
 
     /**
@@ -282,7 +282,7 @@ class IBDController extends CaseController
      */
     public function putIbdCaseAction(Request $request, $objId)
     {
-        return $this->updateCase($request, $objId, 'PUT', 'ibd', 'NSSentinelBundle:IBD');
+        return $this->updateCase($request, $objId, 'PUT', 'NS\SentinelBundle\Form\IBD\CaseType', 'NSSentinelBundle:IBD');
     }
 
     /**
@@ -306,7 +306,7 @@ class IBDController extends CaseController
      */
     public function putIbdLabAction(Request $request, $objId)
     {
-        return $this->updateLab($request, $objId, 'PUT', 'ibd_lab', 'NSSentinelBundle:IBD\SiteLab');
+        return $this->updateLab($request, $objId, 'PUT', 'NS\SentinelBundle\Form\IBD\SiteLabType', 'NSSentinelBundle:IBD\SiteLab');
     }
 
     /**
@@ -330,7 +330,7 @@ class IBDController extends CaseController
      */
     public function putIbdRRLAction(Request $request, $objId)
     {
-        return $this->updateLab($request, $objId, 'PUT', 'ibd_referencelab', 'NSSentinelBundle:IBD\ReferenceLab');
+        return $this->updateLab($request, $objId, 'PUT', 'NS\SentinelBundle\Form\IBD\ReferenceLabType', 'NSSentinelBundle:IBD\ReferenceLab');
     }
 
     /**
@@ -354,7 +354,7 @@ class IBDController extends CaseController
      */
     public function putIbdNLAction(Request $request, $objId)
     {
-        return $this->updateLab($request, $objId, 'PUT', 'ibd_nationallab', 'NSSentinelBundle:IBD\NationalLab');
+        return $this->updateLab($request, $objId, 'PUT', 'NS\SentinelBundle\Form\IBD\NationalLabType', 'NSSentinelBundle:IBD\NationalLab');
     }
 
     /**
@@ -380,7 +380,7 @@ class IBDController extends CaseController
      */
     public function putIbdOutcomeAction(Request $request, $objId)
     {
-        return $this->updateCase($request, $objId, 'PUT', 'ibd_outcome', 'NSSentinelBundle:IBD');
+        return $this->updateCase($request, $objId, 'PUT', 'NS\SentinelBundle\Form\IBD\OutcomeType', 'NSSentinelBundle:IBD');
     }
 
     /**

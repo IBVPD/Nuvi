@@ -22,14 +22,6 @@ class ReferenceLabType extends AbstractType
      */
     public function getParent()
     {
-        return 'ibd_base_lab';
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ibd_referencelab';
+        return 'NS\SentinelBundle\Form\IBD\BaseLabType';
     }
 }

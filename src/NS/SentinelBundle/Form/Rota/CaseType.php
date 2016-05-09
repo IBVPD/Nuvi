@@ -80,6 +80,10 @@ class CaseType extends AbstractType
             ->add('stoolCollected',             'TripleChoice',     array('required'=>$required, 'label'=>'rotavirus-form.stoolCollected',  'attr' => array('data-context-child'=>'stoolCollected')))
             ->add('stoolId',                    null,               array('required'=>$required, 'label'=>'rotavirus-form.stoolId',         'attr' => array('data-context-parent'=>'stoolCollected', 'data-context-value'=>  TripleChoice::YES)))
             ->add('stoolCollectionDate',        'acedatepicker',    array('required'=>$required, 'label'=>'rotavirus-form.stoolCollectionDate',         'attr' => array('data-context-parent'=>'stoolCollected', 'data-context-value'=>  TripleChoice::YES)))
+            ->add('dischargeOutcome',           'RotavirusDischargeOutcome', array('required'=>false, 'label'=>'rotavirus-form.dischargeOutcome'))
+            ->add('dischargeDate',              'acedatepicker',    array('required'=>false, 'label'=>'rotavirus-form.dischargeDate'))
+            ->add('dischargeClassOther',        null,               array('required'=>false, 'label'=>'rotavirus-form.dischargeClassOther'))
+            ->add('comment',                    null,               array('required'=>false, 'label'=>'rotavirus-form.comment'))
         ;
     }
     
@@ -91,13 +95,5 @@ class CaseType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'NS\SentinelBundle\Entity\RotaVirus'
         ));
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'rotavirus';
     }
 }

@@ -208,12 +208,4 @@ class SiteLabType extends AbstractType
             'data_class' => 'NS\SentinelBundle\Entity\IBD\SiteLab'
         ));
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'ibd_lab';
-    }
 }

@@ -19,6 +19,7 @@
                 <li><a data-toggle="tab" href="#clinical">{{'Clinical Data'|trans}}</a></li>
                 <li><a data-toggle="tab" href="#history">{{'Vaccination History'|trans}}</a></li>
                 <li><a data-toggle="tab" href="#specimen">{{'Specimen Collection Data'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#outcome">{{'Outcome'|trans}}</a></li>
             </ul>
         </div>
         <div class="tab-content">
@@ -113,6 +114,11 @@
                     </div>
                 </div>
             </div>
+
+            <div id="outcome" class="tab-pane">
+                {% include 'NSSentinelBundle:RotaVirus:_outcome.html.twig' %}
+            </div>
+
             {{form_rest(form)}}
         </div>
         <div class="form-actions center">

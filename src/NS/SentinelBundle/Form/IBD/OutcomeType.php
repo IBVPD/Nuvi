@@ -42,12 +42,4 @@ class OutcomeType extends AbstractType
             'data_class' => 'NS\SentinelBundle\Entity\IBD'
         ));
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'ibd_outcome';
-    }
 }

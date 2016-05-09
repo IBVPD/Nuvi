@@ -203,6 +203,10 @@ class Site implements \Serializable
             return mb_substr($this->name, 0, 31, 'UTF-8') . "...";
         }
 
+        if (empty($this->name)) {
+            return sprintf('No Name - %s', $this->code);
+        }
+
         return $this->name;
     }
 

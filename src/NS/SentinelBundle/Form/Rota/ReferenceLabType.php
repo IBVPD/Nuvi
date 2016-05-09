@@ -22,14 +22,6 @@ class ReferenceLabType extends AbstractType
      */
     public function getParent()
     {
-        return 'rotavirus_base_lab';
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'rotavirus_referencelab';
+        return 'NS\SentinelBundle\Form\Rota\BaseLabType';
     }
 }

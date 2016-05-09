@@ -32,12 +32,4 @@ class BaseLabType extends AbstractType
             ->add('comment', null, array('required'=>false, 'label'=>'external-lab-form.comment'))
         ;
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'rotavirus_base_lab';
-    }
 }

@@ -26,14 +26,6 @@ class NationalLabType extends AbstractType
      */
     public function getParent()
     {
-        return 'rotavirus_base_lab';
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'rotavirus_nationallab';
+        return 'NS\SentinelBundle\Form\Rota\BaseLabType';
     }
 }

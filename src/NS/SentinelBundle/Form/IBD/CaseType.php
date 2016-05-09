@@ -6,6 +6,7 @@ use \NS\SentinelBundle\Entity\Country;
 use \NS\SentinelBundle\Entity\Site;
 use \NS\SentinelBundle\Form\Types\CXRResult;
 use \NS\SentinelBundle\Form\Types\Diagnosis;
+use NS\SentinelBundle\Form\Types\DischargeDiagnosis;
 use \NS\SentinelBundle\Form\Types\OtherSpecimen;
 use \NS\SentinelBundle\Form\Types\TripleChoice;
 use \NS\SentinelBundle\Form\Types\VaccinationReceived;
@@ -134,51 +135,62 @@ class CaseType extends AbstractType
             ->add('otherSpecimenOther', null, array('required' => $required, 'label' => 'ibd-form.otherSpecimenOther',
                 'attr' => array('data-context-parent' => 'otherSpecimenCollected',
                     'data-context-value'  => OtherSpecimen::OTHER)))
+            ->add('dischOutcome', 'DischargeOutcome', array('required' => false,
+                'label' => 'ibd-form.discharge-outcome'))
+            ->add('dischDx', 'DischargeDiagnosis', array('required' => false, 'label' => 'ibd-form.discharge-diagnosis',
+                'attr' => array('data-context-child' => 'dischargeDiagnosis')))
+            ->add('dischDxOther', null, array('required' => false, 'label' => 'ibd-form.discharge-diagnosis-other',
+                'attr' => array('data-context-parent' => 'dischargeDiagnosis', 'data-context-value' => DischargeDiagnosis::OTHER)))
+            ->add('dischClass', 'DischargeClassification', array('required' => false,
+                'label' => 'ibd-form.discharge-class'))
+            ->add('comment', null, array('required' => false, 'label' => 'ibd-form.comment'));
         ;
 
-        $siteSerializer = $this->siteSerializer;
+        $builder->addEventListener(FormEvents::POST_SET_DATA, array($this,'postSetData'));
+    }
 
-        $builder->addEventListener(FormEvents::POST_SET_DATA, function (FormEvent $event) use ($siteSerializer, $required) {
-                    $data    = $event->getData();
-                    $form    = $event->getForm();
-                    $country = null;
+    public function postSetData(FormEvent $event)
+    {
+        $data     = $event->getData();
+        $form     = $event->getForm();
+        $required = ($form->getConfig()->getOption('method',false) === 'PUT');
+        $country  = null;
 
-                    if ($data && $data->getCountry()) {
-                        $country = $data->getCountry();
-                    } elseif (!$siteSerializer->hasMultipleSites()) {
-                        $site    = $siteSerializer->getSite();
-                        $country = ($site instanceof Site) ? $site->getCountry() : null;
-                    }
+        if ($data && $data->getCountry()) {
+            $country = $data->getCountry();
+        } elseif (!$this->siteSerializer->hasMultipleSites()) {
+            $site    = $this->siteSerializer->getSite();
+            $country = ($site instanceof Site) ? $site->getCountry() : null;
+        }
 
-            if (!$country || ($country instanceof Country && $country->getTracksPneumonia())) {
-                $form->add('pneuDiffBreathe', 'TripleChoice', array('required' => $required,
-                        'label' => 'ibd-form.pneu-diff-breathe'))
-                    ->add('pneuChestIndraw', 'TripleChoice', array('required' => $required,
-                        'label' => 'ibd-form.pneu-chest-indraw'))
-                    ->add('pneuCough', 'TripleChoice', array('required' => $required,
-                        'label' => 'ibd-form.pneu-cough'))
-                    ->add('pneuCyanosis', 'TripleChoice', array('required' => $required,
-                        'label' => 'ibd-form.pneu-cyanosis'))
-                    ->add('pneuStridor', 'TripleChoice', array('required' => $required,
-                        'label' => 'ibd-form.pneu-stridor'))
-                    ->add('pneuRespRate', null, array('required' => $required, 'label' => 'ibd-form.pneu-resp-rate'))
-                    ->add('pneuVomit', 'TripleChoice', array('required' => $required,
-                        'label' => 'ibd-form.pneu-vomit'))
-                    ->add('pneuHypothermia', 'TripleChoice', array('required' => $required,
-                        'label' => 'ibd-form.pneu-hypothermia'))
-                    ->add('pneuMalnutrition', 'TripleChoice', array('required' => $required,
-                        'label' => 'ibd-form.pneu-malnutrition'))
-                    ->add('cxrDone', 'TripleChoice', array('required' => $required,
-                        'label' => 'ibd-form.cxr-done', 'attr' => array('data-context-child' => 'cxrDone')))
-                    ->add('cxrResult', 'CXRResult', array('required' => $required,
-                        'label' => 'ibd-form.cxr-result', 'attr' => array('data-context-parent' => 'cxrDone',
-                            'data-context-child' => 'cxrResult', 'data-context-value' => TripleChoice::YES)))
-                    ->add('cxrAdditionalResult', 'CXRAdditionalResult', array('required' => $required,
-                        'label' => 'ibd-form.cxr-additional-result', 'attr' => array(
-                            'data-context-parent' => 'cxrResult', 'data-context-value' => CXRResult::CONSISTENT)))
-                ;
-            }
-                });
+        if (!$country || ($country instanceof Country && $country->getTracksPneumonia())) {
+            $form->add('pneuDiffBreathe', 'TripleChoice', array('required' => $required,
+                'label' => 'ibd-form.pneu-diff-breathe'))
+                ->add('pneuChestIndraw', 'TripleChoice', array('required' => $required,
+                    'label' => 'ibd-form.pneu-chest-indraw'))
+                ->add('pneuCough', 'TripleChoice', array('required' => $required,
+                    'label' => 'ibd-form.pneu-cough'))
+                ->add('pneuCyanosis', 'TripleChoice', array('required' => $required,
+                    'label' => 'ibd-form.pneu-cyanosis'))
+                ->add('pneuStridor', 'TripleChoice', array('required' => $required,
+                    'label' => 'ibd-form.pneu-stridor'))
+                ->add('pneuRespRate', null, array('required' => $required, 'label' => 'ibd-form.pneu-resp-rate'))
+                ->add('pneuVomit', 'TripleChoice', array('required' => $required,
+                    'label' => 'ibd-form.pneu-vomit'))
+                ->add('pneuHypothermia', 'TripleChoice', array('required' => $required,
+                    'label' => 'ibd-form.pneu-hypothermia'))
+                ->add('pneuMalnutrition', 'TripleChoice', array('required' => $required,
+                    'label' => 'ibd-form.pneu-malnutrition'))
+                ->add('cxrDone', 'TripleChoice', array('required' => $required,
+                    'label' => 'ibd-form.cxr-done', 'attr' => array('data-context-child' => 'cxrDone')))
+                ->add('cxrResult', 'CXRResult', array('required' => $required,
+                    'label' => 'ibd-form.cxr-result', 'attr' => array('data-context-parent' => 'cxrDone',
+                        'data-context-child' => 'cxrResult', 'data-context-value' => TripleChoice::YES)))
+                ->add('cxrAdditionalResult', 'CXRAdditionalResult', array('required' => $required,
+                    'label' => 'ibd-form.cxr-additional-result', 'attr' => array(
+                        'data-context-parent' => 'cxrResult', 'data-context-value' => CXRResult::CONSISTENT)))
+            ;
+        }
     }
     
     /**
@@ -189,13 +201,5 @@ class CaseType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'NS\SentinelBundle\Entity\IBD'
         ));
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ibd';
     }
 }

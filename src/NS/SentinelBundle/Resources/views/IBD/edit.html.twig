@@ -21,6 +21,7 @@
                 <li><a data-toggle="tab" href="#pneumonia">{{'Pneumonia / Sepsis'|trans}}</a></li>
                 <li><a data-toggle="tab" href="#history">{{'Vaccination History'|trans}}</a></li>
                 <li><a data-toggle="tab" href="#specimen">{{'Specimen Collection Data'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#outcome">{{'Outcome'|trans}}</a></li>
             </ul>
         </div>
         <div class="tab-content">
@@ -114,6 +115,7 @@
                     </div>
                 </div>                
             </div>
+
             {%if form.pneuDiffBreathe is defined %}
             <div id="pneumonia" class="tab-pane">
                 <h4>{{'Symptoms/signs related to pneumonia'|trans}}</h4>
@@ -137,6 +139,10 @@
                 </div>
             </div>
             {%endif%}
+
+            <div id="outcome" class="tab-pane">
+                {% include 'NSSentinelBundle:IBD:_outcome.html.twig' %}
+            </div>
         </div>
         {{form_rest(form)}}
         <div class="form-actions center">

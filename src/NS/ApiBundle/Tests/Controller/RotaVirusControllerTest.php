@@ -35,7 +35,7 @@ class RotaVirusControllerTest extends WebTestCase
     {
         $route  = $this->getRoute('nsApiRotaPatchCase');
         $client = $this->getClient();
-        $client->request('PATCH', $route, array(), array(), array(), '{"rotavirus":{"lastName":"Fabien","gender":"2"}}');
+        $client->request('PATCH', $route, array(), array(), array(), '{"case":{"lastName":"Fabien","gender":"2"}}');
 
         $response = $client->getResponse();
         if ($response->getStatusCode() == 500) {
@@ -78,7 +78,7 @@ class RotaVirusControllerTest extends WebTestCase
     {
         $route  = $this->getUrl('nsApiRotaPatchLab', array('objId' => self::ID));
         $client = $this->getClient();
-        $client->request('PATCH', $route, array(), array(), array(), '{"rotavirus_lab":{"adequate":1,"elisaDone":1}}');
+        $client->request('PATCH', $route, array(), array(), array(), '{"site_lab":{"adequate":1,"elisaDone":1}}');
 
         $response = $client->getResponse();
         if ($response->getStatusCode() == 500) {
@@ -118,7 +118,7 @@ class RotaVirusControllerTest extends WebTestCase
     {
         $route  = $this->getRoute('nsApiRotaPatchRRL');
         $client = $this->getClient();
-        $client->request('PATCH', $route, array(), array(), array(), '{"rotavirus_referencelab":{"labId":"ANewCaseId"}}');
+        $client->request('PATCH', $route, array(), array(), array(), '{"reference_lab":{"labId":"ANewCaseId"}}');
 
         $response = $client->getResponse();
         $this->assertEquals(403, $response->getStatusCode());
@@ -138,7 +138,7 @@ class RotaVirusControllerTest extends WebTestCase
     {
         $route  = $this->getRoute('nsApiRotaPutRRL');
         $client = $this->getClient();
-        $client->request('PUT', $route, array(), array(), array(), '{"rotavirus_referencelab":{"labId":"ANewCaseId"}}');
+        $client->request('PUT', $route, array(), array(), array(), '{"reference_lab":{"labId":"ANewCaseId"}}');
 
         $response = $client->getResponse();
         $this->assertEquals(403, $response->getStatusCode());
@@ -171,7 +171,7 @@ class RotaVirusControllerTest extends WebTestCase
     {
         $route  = $this->getRoute('nsApiRotaPatchNL');
         $client = $this->getClient();
-        $client->request('PATCH', $route, array(), array(), array(), '{"rotavirus_nationallab":{"labId":"ANewCaseId"}}');
+        $client->request('PATCH', $route, array(), array(), array(), '{"national_lab":{"labId":"ANewCaseId"}}');
 
         $response = $client->getResponse();
         $this->assertEquals(204, $response->getStatusCode());
@@ -190,7 +190,7 @@ class RotaVirusControllerTest extends WebTestCase
     {
         $route  = $this->getRoute('nsApiRotaPutNL');
         $client = $this->getClient();
-        $client->request('PUT', $route, array(), array(), array(), '{"rotavirus_nationallab":{"labId":"ANewCaseId"}}');
+        $client->request('PUT', $route, array(), array(), array(), '{"national_lab":{"labId":"ANewCaseId"}}');
 
         $response = $client->getResponse();
         $this->assertEquals(204, $response->getStatusCode());
@@ -209,10 +209,10 @@ class RotaVirusControllerTest extends WebTestCase
     {
         $route  = $this->getUrl('nsApiRotaPutCase', array('objId' => self::ID));
         $client = $this->getClient();
-        $client->request('PUT', $route, array(), array(), array(), '{"rotavirus":{"lastName":"Fabien","caseId":"122"}}');
+        $client->request('PUT', $route, array(), array(), array(), '{"case":{"lastName":"Fabien","caseId":"122"}}');
 
         $response = $client->getResponse();
-        $this->assertEquals(204, $response->getStatusCode(), $response->getContent());
+        $this->assertEquals(204, $response->getStatusCode());
         $this->assertFalse($response->headers->has('Location'), "We have a location header");
 
         $case = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:RotaVirus')->find(self::ID);
@@ -224,7 +224,7 @@ class RotaVirusControllerTest extends WebTestCase
     {
         $route  = $this->getUrl('nsApiRotaPutCase', array('objId' => self::ID));
         $client = $this->getClient();
-        $client->request('PUT', $route, array(), array(), array(), '{"rotavirus":{"lastName":"Fabien"}}');
+        $client->request('PUT', $route, array(), array(), array(), '{"case":{"lastName":"Fabien"}}');
 
         $response = $client->getResponse();
         $this->assertJsonResponse($response, 400);

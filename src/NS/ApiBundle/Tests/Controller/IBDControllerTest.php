@@ -35,9 +35,13 @@ class IBDControllerTest extends WebTestCase
     {
         $route  = $this->getRoute('nsApiIbdPatchCase');
         $client = $this->getClient();
-        $client->request('PATCH', $route, array(), array(), array(), '{"ibd":{"lastName":"Fabien","gender":"1"}}');
+        $client->request('PATCH', $route, array(), array(), array(), '{"case":{"lastName":"Fabien","gender":"1"}}');
 
         $response = $client->getResponse();
+        if($response->getStatusCode() !== 204) {
+            file_put_contents('/tmp/patchIbd.log', sprintf("%s\n\n%s",self::ID, $response->getContent()));
+        }
+
         $this->assertEquals(204, $response->getStatusCode());
         $this->assertFalse($response->headers->has('Location'), "We have a location header");
 
@@ -73,7 +77,7 @@ class IBDControllerTest extends WebTestCase
     {
         $route  = $this->getUrl('nsApiIbdPatchLab', array('objId' => self::ID));
         $client = $this->getClient();
-        $client->request('PATCH', $route, array(), array(), array(), '{"ibd_lab":{"csfId":"ANewCaseId","csfGramDone":0,"csfCultDone":0}}');
+        $client->request('PATCH', $route, array(), array(), array(), '{"site_lab":{"csfId":"ANewCaseId","csfGramDone":0,"csfCultDone":0}}');
 
         $response = $client->getResponse();
         $this->assertEquals(204, $response->getStatusCode(), $route);
@@ -110,7 +114,7 @@ class IBDControllerTest extends WebTestCase
     {
         $route  = $this->getRoute('nsApiIbdPatchRRL');
         $client = $this->getClient();
-        $client->request('PATCH', $route, array(), array(), array(), '{"ibd_referencelab":{"labId":"ANewCaseId","sampleType":1}}');
+        $client->request('PATCH', $route, array(), array(), array(), '{"reference_lab":{"labId":"ANewCaseId","sampleType":1}}');
 
         $response = $client->getResponse();
         $this->assertEquals(403, $response->getStatusCode());
@@ -130,7 +134,7 @@ class IBDControllerTest extends WebTestCase
     {
         $route  = $this->getRoute('nsApiIbdPutRRL');
         $client = $this->getClient();
-        $client->request('PUT', $route, array(), array(), array(), '{"ibd_referencelab":{"labId":"ANewCaseId","sampleType":2}}');
+        $client->request('PUT', $route, array(), array(), array(), '{"reference_lab":{"labId":"ANewCaseId","sampleType":2}}');
 
         $response = $client->getResponse();
         $this->assertEquals(403, $response->getStatusCode());
@@ -164,7 +168,7 @@ class IBDControllerTest extends WebTestCase
     {
         $route  = $this->getRoute('nsApiIbdPatchNL');
         $client = $this->getClient();
-        $client->request('PATCH', $route, array(), array(), array(), '{"ibd_nationallab":{"labId":"ANewCaseId","sampleType":1}}');
+        $client->request('PATCH', $route, array(), array(), array(), '{"national_lab":{"labId":"ANewCaseId","sampleType":1}}');
 
         $response = $client->getResponse();
         $this->assertEquals(204, $response->getStatusCode(),$response->getContent());
@@ -183,7 +187,7 @@ class IBDControllerTest extends WebTestCase
     {
         $route  = $this->getRoute('nsApiIbdPutNL');
         $client = $this->getClient();
-        $client->request('PUT', $route, array(), array(), array(), '{"ibd_nationallab":{"labId":"ANewCaseId","sampleType":2}}');
+        $client->request('PUT', $route, array(), array(), array(), '{"national_lab":{"labId":"ANewCaseId","sampleType":2}}');
 
         $response = $client->getResponse();
         $this->assertEquals(204, $response->getStatusCode());
@@ -203,7 +207,7 @@ class IBDControllerTest extends WebTestCase
     {
         $route  = $this->getRoute('nsApiIbdPutCase');
         $client = $this->getClient();
-        $client->request('PUT', $route, array(), array(), array(), '{"ibd":{"lastName":"Fabien","caseId":"12"}}');
+        $client->request('PUT', $route, array(), array(), array(), '{"case":{"lastName":"Fabien","caseId":"12"}}');
 
         $response = $client->getResponse();
         $this->assertEquals(204, $response->getStatusCode());
@@ -218,7 +222,7 @@ class IBDControllerTest extends WebTestCase
     {
         $route  = $this->getRoute('nsApiIbdPutCase');
         $client = $this->getClient();
-        $client->request('PUT', $route, array(), array(), array(), '{"rotavirus":{"lastName":"Fabien"}}');
+        $client->request('PUT', $route, array(), array(), array(), '{"case":{"lastName":"Fabien"}}');
 
         $response = $client->getResponse();
         $this->assertJsonResponse($response, 400);

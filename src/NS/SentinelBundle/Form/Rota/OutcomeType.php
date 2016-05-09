@@ -36,12 +36,4 @@ class OutcomeType extends AbstractType
             'data_class' => 'NS\SentinelBundle\Entity\RotaVirus'
         ));
     }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'rotavirus_outcome';
-    }
 }
