@@ -97,7 +97,10 @@ class BaseFilterType extends AbstractType
                 $form->add('country', 'NS\SentinelBundle\Filter\Type\CountryType', array('required'=>false, 'placeholder'=>''));
             }
 
-            $form->add('site', 'NS\SentinelBundle\Filter\Type\SiteType');
+            $form
+                ->add('firstName','Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType',array('condition_pattern'=>FilterOperands::STRING_BOTH))
+                ->add('lastName','Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType',array('condition_pattern'=>FilterOperands::STRING_BOTH))
+                ->add('site', 'NS\SentinelBundle\Filter\Type\SiteType');
         }
 
         if ($this->authChecker->isGranted('ROLE_SITE')) {

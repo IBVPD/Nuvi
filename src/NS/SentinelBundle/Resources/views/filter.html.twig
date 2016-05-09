@@ -9,6 +9,10 @@
                     {{ form_row(filterForm.id ) }}
                 {% endif %}
                 {{ form_row(filterForm.case_id) }}
+                {% if filterForm.firstName is defined %}
+                    {{ form_row(filterForm.firstName ) }}
+                    {{ form_row(filterForm.lastName ) }}
+                {% endif %}
                 {{ form_row(filterForm.adm_date) }}
                 {% if filterForm.status is defined %}
                     {{ form_row(filterForm.status) }}

@@ -26,7 +26,7 @@ class SiteFilterType extends AbstractType implements EmbeddedFilterTypeInterface
     {
         $label = (isset($options['label'])) ? $options['label'] : null;
 
-        $builder->add('name', 'filter_text', array('required' => false, 'label'=>$label));
+        $builder->add('name', 'filter_text', array('required' => false, 'label' => $label));
 
         if ($options['include_intense']) {
             $builder->add('ibdIntenseSupport', 'IBDIntenseSupport', array('required' => false, 'apply_filter' => array($this, 'applyFilter')));
