@@ -1,6 +1,6 @@
 <?php
 
-namespace NS\SentinelBundle\Repository\Rota;
+namespace NS\SentinelBundle\Repository\RotaVirus;
 
 use NS\SentinelBundle\Repository\BaseLab;
 

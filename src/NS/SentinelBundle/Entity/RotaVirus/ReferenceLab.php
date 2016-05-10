@@ -1,6 +1,6 @@
 <?php
 
-namespace NS\SentinelBundle\Entity\Rota;
+namespace NS\SentinelBundle\Entity\RotaVirus;
 
 use Doctrine\ORM\Mapping as ORM;
 use NS\SentinelBundle\Entity\ReferenceLabResultInterface;
@@ -8,7 +8,7 @@ use NS\SentinelBundle\Entity\ReferenceLabResultInterface;
 /**
  * Description of ReferenceLab
  * @author gnat
- * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\Rota\ReferenceLabRepository")
+ * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\RotaVirus\ReferenceLabRepository")
  * @ORM\Table(name="rota_reference_labs")
  */
 class ReferenceLab extends ExternalLab implements ReferenceLabResultInterface

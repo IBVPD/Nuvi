@@ -1,13 +1,13 @@
 <?php
 
-namespace NS\SentinelBundle\Entity\Rota;
+namespace NS\SentinelBundle\Entity\RotaVirus;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Description of ReferenceLab
  * @author gnat
- * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\Rota\NationalLabRepository")
+ * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\RotaVirus\NationalLabRepository")
  * @ORM\Table(name="rota_national_labs")
  */
 class NationalLab extends ExternalLab

@@ -102,7 +102,7 @@ NS\SentinelBundle\Entity\IBD\ReferenceLab:
     caseFile: @ibdNoSite
     sampleCollectionDate: <dateTimeBetween('2015-01-01', '2015-01-05')>
 
-NS\SentinelBundle\Entity\Rota\ReferenceLab:
+NS\SentinelBundle\Entity\RotaVirus\ReferenceLab:
   rotaRrlNoSite:
     caseFile: @rotaNoSite
     specimenCollectionDate: <dateTimeBetween('2015-01-01', '2015-01-05')>

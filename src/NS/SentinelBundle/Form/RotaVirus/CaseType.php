@@ -1,6 +1,6 @@
 <?php
 
-namespace NS\SentinelBundle\Form\Rota;
+namespace NS\SentinelBundle\Form\RotaVirus;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

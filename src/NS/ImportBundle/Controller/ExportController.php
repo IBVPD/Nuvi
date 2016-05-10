@@ -80,9 +80,9 @@ class ExportController extends Controller
             $fields = $this->baseField;
             $meta = array(
                 "%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\RotaVirus'),
-                "siteLab.%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\Rota\SiteLab'),
-                "referenceLab.%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\Rota\ReferenceLab'),
-                "nationalLab.%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\Rota\NationalLab'),
+                "siteLab.%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\RotaVirus\SiteLab'),
+                "referenceLab.%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\RotaVirus\ReferenceLab'),
+                "nationalLab.%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\RotaVirus\NationalLab'),
             );
 
             $this->adjustFields($meta, $fields);

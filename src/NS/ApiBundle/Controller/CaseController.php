@@ -55,13 +55,13 @@ class CaseController extends FOSRestController
                 $class = 'NSSentinelBundle:IBD\NationalLab';
                 break;
             case 'rota_sitelab':
-                $class = 'NSSentinelBundle:Rota\SiteLab';
+                $class = 'NSSentinelBundle:RotaVirus\SiteLab';
                 break;
             case 'rota_referencelab':
-                $class = 'NSSentinelBundle:Rota\ReferenceLab';
+                $class = 'NSSentinelBundle:RotaVirus\ReferenceLab';
                 break;
             case 'rota_nationallab':
-                $class = 'NSSentinelBundle:Rota\NationalLab';
+                $class = 'NSSentinelBundle:RotaVirus\NationalLab';
                 break;
             default:
                 throw new NotFoundHttpException("Invalid type: $type");

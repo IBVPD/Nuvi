@@ -1,6 +1,6 @@
 <?php
 
-namespace NS\SentinelBundle\Entity\Rota;
+namespace NS\SentinelBundle\Entity\RotaVirus;
 
 use \Doctrine\ORM\Mapping as ORM;
 use \Gedmo\Mapping\Annotation as Gedmo;
@@ -18,7 +18,7 @@ use \JMS\Serializer\Annotation\Groups;
 /**
  * Description of RotaVirusSiteLab
  * @author gnat
- * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\Rota\SiteLabRepository")
+ * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\RotaVirus\SiteLabRepository")
  * @ORM\Table(name="rotavirus_site_labs")
  * @Gedmo\Loggable
  * @Secured(conditions={

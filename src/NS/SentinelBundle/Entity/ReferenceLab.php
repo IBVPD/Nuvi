@@ -67,7 +67,7 @@ class ReferenceLab
 
     /**
      * @var Collection $rotaCases
-     * @ORM\OneToMany(targetEntity="NS\SentinelBundle\Entity\Rota\ReferenceLab",mappedBy="lab")
+     * @ORM\OneToMany(targetEntity="NS\SentinelBundle\Entity\RotaVirus\ReferenceLab",mappedBy="lab")
      */
     private $rotaCases;
 

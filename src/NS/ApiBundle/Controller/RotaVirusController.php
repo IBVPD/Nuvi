@@ -136,7 +136,7 @@ class RotaVirusController extends CaseController
      * @ApiDoc(
      *   resource = true,
      *   description = "Patch RotaVirus case",
-     *   input = "NS\SentinelBundle\Form\Rota\CaseType",
+     *   input = "NS\SentinelBundle\Form\RotaVirus\CaseType",
      *   statusCodes = {
      *         204 = "Returned when successful",
      *         406 = "Returned when there are validation issues with the case",
@@ -153,7 +153,7 @@ class RotaVirusController extends CaseController
      */
     public function patchRotaCaseAction(Request $request, $objId)
     {
-        return $this->updateCase($request, $objId, 'PATCH', 'NS\SentinelBundle\Form\Rota\CaseType', 'NSSentinelBundle:RotaVirus');
+        return $this->updateCase($request, $objId, 'PATCH', 'NS\SentinelBundle\Form\RotaVirus\CaseType', 'NSSentinelBundle:RotaVirus');
     }
 
     /**
@@ -162,7 +162,7 @@ class RotaVirusController extends CaseController
      * @ApiDoc(
      *  resource = true,
      *  description = "Updates a RotaVirus Lab data",
-     *  input = "NS\SentinelBundle\Form\Rota\SiteLabType",
+     *  input = "NS\SentinelBundle\Form\RotaVirus\SiteLabType",
      *  statusCodes={
      *         204 = "Returned when successful",
      *         406 = "Returned when there is an issue with the form data"
@@ -177,7 +177,7 @@ class RotaVirusController extends CaseController
      */
     public function patchRotaLabAction(Request $request, $objId)
     {
-        return $this->updateLab($request, $objId, 'PATCH', 'NS\SentinelBundle\Form\Rota\SiteLabType', 'NSSentinelBundle:Rota\SiteLab');
+        return $this->updateLab($request, $objId, 'PATCH', 'NS\SentinelBundle\Form\RotaVirus\SiteLabType', 'NSSentinelBundle:RotaVirus\SiteLab');
     }
 
     /**
@@ -186,7 +186,7 @@ class RotaVirusController extends CaseController
      * @ApiDoc(
      *  resource = true,
      *  description = "Updates a RotaVirus RRL data",
-     *  input = "NS\SentinelBundle\Form\Rota\ReferenceLabType",
+     *  input = "NS\SentinelBundle\Form\RotaVirus\ReferenceLabType",
      *  statusCodes={
      *         204 = "Returned when successful",
      *         406 = "Returned when there is an issue with the form data"
@@ -201,7 +201,7 @@ class RotaVirusController extends CaseController
      */
     public function patchRotaRRLAction(Request $request, $objId)
     {
-        return $this->updateLab($request, $objId, 'PATCH', 'NS\SentinelBundle\Form\Rota\ReferenceLabType', 'NSSentinelBundle:Rota\ReferenceLab');
+        return $this->updateLab($request, $objId, 'PATCH', 'NS\SentinelBundle\Form\RotaVirus\ReferenceLabType', 'NSSentinelBundle:RotaVirus\ReferenceLab');
     }
 
     /**
@@ -210,7 +210,7 @@ class RotaVirusController extends CaseController
      * @ApiDoc(
      *  resource = true,
      *  description = "Updates a RotaVirus NL data",
-     *  input = "NS\SentinelBundle\Form\Rota\NationalLabType",
+     *  input = "NS\SentinelBundle\Form\RotaVirus\NationalLabType",
      *  statusCodes={
      *         204 = "Returned when successful",
      *         406 = "Returned when there is an issue with the form data"
@@ -225,7 +225,7 @@ class RotaVirusController extends CaseController
      */
     public function patchRotaNLAction(Request $request, $objId)
     {
-        return $this->updateLab($request, $objId, 'PATCH', 'NS\SentinelBundle\Form\Rota\NationalLabType', 'NSSentinelBundle:Rota\NationalLab');
+        return $this->updateLab($request, $objId, 'PATCH', 'NS\SentinelBundle\Form\RotaVirus\NationalLabType', 'NSSentinelBundle:RotaVirus\NationalLab');
     }
 
     /**
@@ -234,7 +234,7 @@ class RotaVirusController extends CaseController
      * @ApiDoc(
      *   resource = true,
      *   description = "Patch RotaVirus Outcome data",
-     *   input = "NS\SentinelBundle\Form\Rota\OutcomeType",
+     *   input = "NS\SentinelBundle\Form\RotaVirus\OutcomeType",
      *   statusCodes = {
      *         204 = "Returned when successful",
      *         406 = "Returned when there are validation issues with the case",
@@ -251,7 +251,7 @@ class RotaVirusController extends CaseController
      */
     public function patchRotaOutcomeAction(Request $request, $objId)
     {
-        return $this->updateCase($request, $objId, 'PATCH', 'NS\SentinelBundle\Form\Rota\OutcomeType', 'NSSentinelBundle:RotaVirus');
+        return $this->updateCase($request, $objId, 'PATCH', 'NS\SentinelBundle\Form\RotaVirus\OutcomeType', 'NSSentinelBundle:RotaVirus');
     }
 
     /**
@@ -260,7 +260,7 @@ class RotaVirusController extends CaseController
      * @ApiDoc(
      *   resource = true,
      *   description = "Put RotaVirus case",
-     *   input = "NS\SentinelBundle\Form\Rota\CaseType",
+     *   input = "NS\SentinelBundle\Form\RotaVirus\CaseType",
      *   statusCodes = {
      *         204 = "Returned when successful",
      *         406 = "Returned when there are validation issues with the case",
@@ -277,7 +277,7 @@ class RotaVirusController extends CaseController
      */
     public function putRotaCaseAction(Request $request, $objId)
     {
-        return $this->updateCase($request, $objId, 'PUT', 'NS\SentinelBundle\Form\Rota\CaseType', 'NSSentinelBundle:RotaVirus');
+        return $this->updateCase($request, $objId, 'PUT', 'NS\SentinelBundle\Form\RotaVirus\CaseType', 'NSSentinelBundle:RotaVirus');
     }
 
     /**
@@ -286,7 +286,7 @@ class RotaVirusController extends CaseController
      * @ApiDoc(
      *  resource = true,
      *  description = "Updates a RotaVirus Lab data",
-     *  input = "NS\SentinelBundle\Form\Rota\SiteLabType",
+     *  input = "NS\SentinelBundle\Form\RotaVirus\SiteLabType",
      *  statusCodes={
      *         204 = "Returned when successful",
      *         406 = "Returned when there is an issue with the form data"
@@ -302,7 +302,7 @@ class RotaVirusController extends CaseController
      */
     public function putRotaLabAction(Request $request, $objId)
     {
-        return $this->updateLab($request, $objId, 'PUT', 'NS\SentinelBundle\Form\Rota\SiteLabType', 'NSSentinelBundle:Rota\SiteLab');
+        return $this->updateLab($request, $objId, 'PUT', 'NS\SentinelBundle\Form\RotaVirus\SiteLabType', 'NSSentinelBundle:RotaVirus\SiteLab');
     }
 
     /**
@@ -311,7 +311,7 @@ class RotaVirusController extends CaseController
      * @ApiDoc(
      *  resource = true,
      *  description = "Updates a RotaVirus RRL data",
-     *  input = "NS\SentinelBundle\Form\Rota\ReferenceLabType",
+     *  input = "NS\SentinelBundle\Form\RotaVirus\ReferenceLabType",
      *  statusCodes={
      *         204 = "Returned when successful",
      *         406 = "Returned when there is an issue with the form data"
@@ -327,7 +327,7 @@ class RotaVirusController extends CaseController
      */
     public function putRotaRRLAction(Request $request, $objId)
     {
-        return $this->updateLab($request, $objId, 'PUT', 'NS\SentinelBundle\Form\Rota\ReferenceLabType', 'NSSentinelBundle:Rota\ReferenceLab');
+        return $this->updateLab($request, $objId, 'PUT', 'NS\SentinelBundle\Form\RotaVirus\ReferenceLabType', 'NSSentinelBundle:RotaVirus\ReferenceLab');
     }
 
     /**
@@ -336,7 +336,7 @@ class RotaVirusController extends CaseController
      * @ApiDoc(
      *  resource = true,
      *  description = "Updates a RotaVirus NL data",
-     *  input = "NS\SentinelBundle\Form\Rota\NationalLabType",
+     *  input = "NS\SentinelBundle\Form\RotaVirus\NationalLabType",
      *  statusCodes={
      *         204 = "Returned when successful",
      *         406 = "Returned when there is an issue with the form data"
@@ -352,7 +352,7 @@ class RotaVirusController extends CaseController
      */
     public function putRotaNLAction(Request $request, $objId)
     {
-        return $this->updateLab($request, $objId, 'PUT', 'NS\SentinelBundle\Form\Rota\NationalLabType', 'NSSentinelBundle:Rota\NationalLab');
+        return $this->updateLab($request, $objId, 'PUT', 'NS\SentinelBundle\Form\RotaVirus\NationalLabType', 'NSSentinelBundle:RotaVirus\NationalLab');
     }
 
     /**
@@ -361,7 +361,7 @@ class RotaVirusController extends CaseController
      * @ApiDoc(
      *   resource = true,
      *   description = "Put RotaVirus Outcome data",
-     *   input = "NS\SentinelBundle\Form\Rota\OutcomeType",
+     *   input = "NS\SentinelBundle\Form\RotaVirus\OutcomeType",
      *   statusCodes = {
      *         204 = "Returned when successful",
      *         406 = "Returned when there are validation issues with the case",
@@ -378,7 +378,7 @@ class RotaVirusController extends CaseController
      */
     public function putRotaOutcomeAction(Request $request, $objId)
     {
-        return $this->updateCase($request, $objId, 'PUT', 'NS\SentinelBundle\Form\Rota\OutcomeType', 'NSSentinelBundle:RotaVirus');
+        return $this->updateCase($request, $objId, 'PUT', 'NS\SentinelBundle\Form\RotaVirus\OutcomeType', 'NSSentinelBundle:RotaVirus');
     }
 
     /**

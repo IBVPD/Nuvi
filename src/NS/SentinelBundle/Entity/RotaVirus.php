@@ -15,7 +15,7 @@ use \NS\SecurityBundle\Annotation\Secured;
 use \NS\SecurityBundle\Annotation\SecuredCondition;
 use \JMS\Serializer\Annotation\Groups;
 use \JMS\Serializer\Annotation\Exclude;
-use NSSentinelBundle\Form\Types\RotaVirusDischargeClassification;
+use \NS\SentinelBundle\Form\Types\RotaVirusDischargeClassification;
 
 /**
  * Description of RotaVirus
@@ -34,33 +34,33 @@ use NSSentinelBundle\Form\Types\RotaVirusDischargeClassification;
 class RotaVirus extends BaseCase
 {
     /**
-     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\Rota\SiteLab", mappedBy="caseFile", cascade={"persist","remove"}, orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\RotaVirus\SiteLab", mappedBy="caseFile", cascade={"persist","remove"}, orphanRemoval=true)
      */
     protected $siteLab;
 
     /**
-     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\Rota\NationalLab", mappedBy="caseFile", cascade={"persist","remove"}, orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\RotaVirus\NationalLab", mappedBy="caseFile", cascade={"persist","remove"}, orphanRemoval=true)
      */
     protected $nationalLab;
 
     /**
-     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\Rota\ReferenceLab", mappedBy="caseFile", cascade={"persist","remove"}, orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\RotaVirus\ReferenceLab", mappedBy="caseFile", cascade={"persist","remove"}, orphanRemoval=true)
      */
     protected $referenceLab;
 
     /**
      * @Exclude()
      */
-    protected $siteLabClass   = '\NS\SentinelBundle\Entity\Rota\SiteLab';
+    protected $siteLabClass   = '\NS\SentinelBundle\Entity\RotaVirus\SiteLab';
     /**
      * @Exclude()
      */
-    protected $referenceClass = '\NS\SentinelBundle\Entity\Rota\ReferenceLab';
+    protected $referenceClass = '\NS\SentinelBundle\Entity\RotaVirus\ReferenceLab';
 
     /**
      * @Exclude()
      */
-    protected $nationalClass  = '\NS\SentinelBundle\Entity\Rota\NationalLab';
+    protected $nationalClass  = '\NS\SentinelBundle\Entity\RotaVirus\NationalLab';
 
 //iii. Case-based Clinical Data
 

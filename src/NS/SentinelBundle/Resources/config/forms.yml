@@ -279,33 +279,33 @@ services:
       - { name: form.type }
 
   ns.sentinel.form.rotavirus_outcome:
-    class: NS\SentinelBundle\Form\Rota\OutcomeType
+    class: NS\SentinelBundle\Form\RotaVirus\OutcomeType
     tags:
       - { name: form.type }
 
   ns.sentinel.form.type.rota_base:
-    class: NS\SentinelBundle\Form\Rota\BaseLabType
+    class: NS\SentinelBundle\Form\RotaVirus\BaseLabType
     tags:
       - { name: form.type }
 
   ns.sentinel.form.type.rota_nl:
-    class: NS\SentinelBundle\Form\Rota\NationalLabType
+    class: NS\SentinelBundle\Form\RotaVirus\NationalLabType
     tags:
       - { name: form.type }
 
   ns.sentinel.form.type.rota_rrl:
-    class: NS\SentinelBundle\Form\Rota\ReferenceLabType
+    class: NS\SentinelBundle\Form\RotaVirus\ReferenceLabType
     tags:
       - { name: form.type }
 
   ns.sentinel.form.type.rotavirus_sitelab:
-    class: NS\SentinelBundle\Form\Rota\SiteLabType
+    class: NS\SentinelBundle\Form\RotaVirus\SiteLabType
     arguments: [ "@ns.sentinel.sites" ]
     tags:
       - { name: form.type }
 
   ns.sentinel.form.type.rotavirus:
-    class: NS\SentinelBundle\Form\Rota\CaseType
+    class: NS\SentinelBundle\Form\RotaVirus\CaseType
     arguments: [ "@ns.sentinel.sites", "@doctrine.orm.entity_manager" ]
     tags:
       - { name: form.type }
