@@ -3,7 +3,6 @@
 namespace NS\SentinelBundle\Twig;
 
 use NS\SentinelBundle\Entity\BaseCase;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Routing\RouterInterface;
