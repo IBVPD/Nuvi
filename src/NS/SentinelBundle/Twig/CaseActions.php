@@ -2,6 +2,8 @@
 
 namespace NS\SentinelBundle\Twig;
 
+use JMS\TranslationBundle\Model\Message;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use NS\SentinelBundle\Entity\BaseCase;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -13,8 +15,22 @@ use NS\SentinelBundle\Entity\IBD;
  *
  * @author gnat
  */
-class CaseActions extends \Twig_Extension
+class CaseActions extends \Twig_Extension implements TranslationContainerInterface
 {
+    const VIEW     = 'View';
+
+    const EDIT_EPI = 'Edit Epi Data';
+    const EDIT_LAB = 'Edit Site Lab Data';
+    const EDIT_NL  = 'Edit National Lab Data';
+    const EDIT_RRL = 'Edit Regional Reference Lab Data';
+    const EDIT_OUT = 'Edit Outcome Data';
+
+    const EPI      = 'EPI';
+    const LAB      = 'Lab';
+    const NL       = 'NL';
+    const RRL      = 'RRL';
+    const OUT      = 'Outcome';
+
     /**
      * @var AuthorizationCheckerInterface
      */
@@ -79,45 +95,45 @@ class CaseActions extends \Twig_Extension
 
         $out .= sprintf('<a href="%s" class="btn btn-xs btn-info" data-rel="tooltip" title="%s"><i class="fa fa-eye bigger-120"></i></a>',
             $this->generate($baseRoute.'Show',$row),
-            $this->translator->trans('View'));
+            $this->translator->trans(self::VIEW));
 
         if ($this->authChecker->isGranted('ROLE_CAN_CREATE')) {
             if ($this->authChecker->isGranted('ROLE_CAN_CREATE_CASE')) {
                 $out .= sprintf('<a href="%s" class="btn btn-xs btn-info" data-rel="tooltip" title="%s"><i class="fa fa-edit bigger-120"></i> %s</a>',
                     $this->generate($baseRoute.'Edit',$row),
-                    $this->translator->trans('Edit EPI Data'),
-                    $this->translator->trans('EPI'));
+                    $this->translator->trans(self::EDIT_EPI),
+                    $this->translator->trans(self::EPI));
             }
 
             if ($this->authChecker->isGranted('ROLE_CAN_CREATE_LAB')) {
                 $out .= sprintf('<a href="%s" class="btn btn-xs btn-info" data-rel="tooltip" title="%s"><i class="%s bigger-120"></i> %s</a>',
                     $this->generate($baseRoute.'LabEdit',$row),
-                    $this->translator->trans('Edit Site Lab Data'),
+                    $this->translator->trans(self::EDIT_LAB),
                     ($row->hasSiteLab() ? 'fa fa-edit' : 'fa fa-plus'),
-                    $this->translator->trans('Lab'));
+                    $this->translator->trans(self::LAB));
             }
 
             if ($this->authChecker->isGranted('ROLE_CAN_CREATE_NL_LAB') && ($row->getSentToNationalLab() || $row->hasNationalLab())) {
                 $out .= sprintf('<a href="%s" class="btn btn-xs btn-info" data-rel="tooltip" title="%s"><i class="%s bigger-120"></i> %s</a>',
                     $this->generate($baseRoute.'NLEdit',$row),
-                    $this->translator->trans('Edit National Lab Data'),
+                    $this->translator->trans(self::EDIT_NL),
                     ($row->hasNationalLab() ? 'fa fa-edit' : 'fa fa-plus'),
-                    $this->translator->trans('NL'));
+                    $this->translator->trans(self::NL));
             }
 
             if ($this->authChecker->isGranted('ROLE_CAN_CREATE_RRL_LAB') && ($row->getSentToReferenceLab() || $row->hasReferenceLab())) {
                 $out .= sprintf('<a href="%s" class="btn btn-xs btn-info" data-rel="tooltip" title="%s"><i class="%s bigger-120"></i> %s</a>',
                     $this->generate($baseRoute.'RRLEdit',$row),
-                    $this->translator->trans('Edit Regional Reference Lab Data'),
+                    $this->translator->trans(self::EDIT_RRL),
                     ($row->hasReferenceLab() ? 'fa fa-edit' : 'fa fa-plus'),
-                    $this->translator->trans('RRL'));
+                    $this->translator->trans(self::RRL));
             }
 
             if ($this->authChecker->isGranted('ROLE_CAN_CREATE_CASE')) {
                 $out .= sprintf('<a href="%s" class="btn btn-xs btn-info" data-rel="tooltip" title="%s"><i class="fa fa-edit bigger-120"></i> %s</a>',
                     $this->generate($baseRoute.'OutcomeEdit',$row),
-                    $this->translator->trans('Edit EPI Outcome Data'),
-                    $this->translator->trans('Outcome'));
+                    $this->translator->trans(self::EDIT_OUT),
+                    $this->translator->trans(self::OUT));
             }
         }
 
@@ -132,7 +148,7 @@ class CaseActions extends \Twig_Extension
     {
         $baseRoute = $this->getBaseRoute($row);
 
-        $view = $this->translator->trans('View');
+        $view = $this->translator->trans(self::VIEW);
 
         $out = sprintf('<button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog fa fa-only bigger-110"></i></button>
             <ul class="dropdown-menu dropdown-yellow pull-right dropdown-caret dropdown-close dropdown-menu-right">
@@ -142,32 +158,32 @@ class CaseActions extends \Twig_Extension
             if ($this->authChecker->isGranted('ROLE_CAN_CREATE_CASE')) {
                 $out .= sprintf('<li><a href="%s" title="%s"><span class="green"><i class="fa fa-edit bigger-120"></i> %s</span></a></li>',
                     $this->generate($baseRoute.'Edit',$row),
-                    $this->translator->trans('Edit EPI Data'),
-                    $this->translator->trans('EPI'));
+                    $this->translator->trans(self::EDIT_EPI),
+                    $this->translator->trans(self::EPI));
             }
 
             if ($this->authChecker->isGranted('ROLE_CAN_CREATE_LAB')) {
                 $out .= sprintf('<li><a href="%s" title="%s"><span class="green"><i class="%s bigger-120"></i> %s</span></a></li>',
                     $this->generate($baseRoute.'LabEdit',$row),
-                    $this->translator->trans('Edit Site Lab Data'),
+                    $this->translator->trans(self::EDIT_LAB),
                     ($row->hasSiteLab() ? 'fa fa-edit' : 'fa fa-plus'),
-                    $this->translator->trans('Lab'));
+                    $this->translator->trans(self::LAB));
             }
 
             if ($this->authChecker->isGranted('ROLE_CAN_CREATE_NL_LAB') && ($row->getSentToNationalLab() || $row->hasNationalLab())) {
                 $out .= sprintf('<li><a href="%s" title="%s"><span class="green"><i class="%s bigger-120"></i> %s</span></a></li>',
                     $this->generate($baseRoute.'NLEdit',$row),
-                    $this->translator->trans('Edit National Lab Data'),
+                    $this->translator->trans(self::EDIT_NL),
                     ($row->hasNationalLab() ? 'fa fa-edit' : 'fa fa-plus'),
-                    $this->translator->trans('NL'));
+                    $this->translator->trans(self::NL));
             }
 
             if ($this->authChecker->isGranted('ROLE_CAN_CREATE_RRL_LAB') && ($row->getSentToReferenceLab() || $row->hasReferenceLab())) {
                 $out .= sprintf('<li><a href="%s" title="%s"><span class="green"><i class="%s bigger-120"></i> %s</span></a></li>',
                     $this->generate($baseRoute.'RRLEdit',$row),
-                    $this->translator->trans('Edit Regional Reference Lab Data'),
+                    $this->translator->trans(self::EDIT_RRL),
                     ($row->hasReferenceLab() ? 'fa fa-edit' : 'fa fa-plus'),
-                    $this->translator->trans('RRL'));
+                    $this->translator->trans(self::RRL));
             }
         }
 
@@ -176,9 +192,34 @@ class CaseActions extends \Twig_Extension
         return $out;
     }
 
-    private function generate($route,$row)
+    /**
+     * @param $route
+     * @param $row
+     * @return string
+     */
+    private function generate($route, $row)
     {
         return $this->router->generate($route, array('id' => $row->getId()));
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public static function getTranslationMessages()
+    {
+        return array(
+            new Message(self::VIEW),
+            new Message(self::EPI),
+            new Message(self::LAB),
+            new Message(self::NL),
+            new Message(self::RRL),
+            new Message(self::OUT),
+            new Message(self::EDIT_EPI),
+            new Message(self::EDIT_LAB),
+            new Message(self::EDIT_NL),
+            new Message(self::EDIT_RRL),
+            new Message(self::EDIT_OUT),
+        );
     }
 
     /**
