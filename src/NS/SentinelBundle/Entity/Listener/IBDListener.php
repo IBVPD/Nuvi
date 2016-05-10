@@ -5,14 +5,13 @@ namespace NS\SentinelBundle\Entity\Listener;
 use \NS\SentinelBundle\Entity\BaseCase;
 use \NS\SentinelBundle\Entity\IBD;
 use \NS\SentinelBundle\Form\Types\CaseStatus;
-use \NS\SentinelBundle\Form\Types\CSFAppearance;
-use \NS\SentinelBundle\Form\Types\Diagnosis;
-use NS\SentinelBundle\Form\Types\DischargeDiagnosis;
-use \NS\SentinelBundle\Form\Types\IBDCaseResult;
-use NS\SentinelBundle\Form\Types\MeningitisVaccinationReceived;
-use NS\SentinelBundle\Form\Types\OtherSpecimen;
+use \NS\SentinelBundle\Form\IBD\Types\CSFAppearance;
+use \NS\SentinelBundle\Form\IBD\Types\Diagnosis;
+use \NS\SentinelBundle\Form\IBD\Types\DischargeDiagnosis;
+use \NS\SentinelBundle\Form\IBD\Types\CaseResult;
+use \NS\SentinelBundle\Form\IBD\Types\OtherSpecimen;
 use \NS\SentinelBundle\Form\Types\TripleChoice;
-use NS\SentinelBundle\Form\Types\VaccinationReceived;
+use \NS\SentinelBundle\Form\Types\VaccinationReceived;
 use \NS\UtilBundle\Form\Types\ArrayChoice;
 
 class IBDListener extends BaseCaseListener
@@ -42,14 +41,14 @@ class IBDListener extends BaseCaseListener
         if ($this->isSuspected($case)) {
             // Probable
             if ($case->getCsfAppearance() && $case->getCsfAppearance()->equal(CSFAppearance::TURBID)) {
-                $case->getResult()->setValue(IBDCaseResult::PROBABLE);
+                $case->getResult()->setValue(CaseResult::PROBABLE);
             } else {
                 if ($case->getSiteLab()) {
                     $lab = $case->getSiteLab();
                     if (($lab->getCsfWcc() > 10 && $lab->getCsfWcc() <= 100) && (($lab->getCsfGlucose() >= 0 && $lab->getCsfGlucose() < 40) || ($lab->getCsfProtein() > 100))) {
-                        $case->getResult()->setValue(IBDCaseResult::PROBABLE);
+                        $case->getResult()->setValue(CaseResult::PROBABLE);
                     } else {
-                        $case->getResult()->setValue(IBDCaseResult::CONFIRMED);
+                        $case->getResult()->setValue(CaseResult::CONFIRMED);
                     }
                 }
             } // Confirmed
@@ -62,11 +61,11 @@ class IBDListener extends BaseCaseListener
         if ($case->getAge() < 60) {
             if ($case->getMenFever() && $case->getMenFever()->equal(TripleChoice::YES)) {
                 if (($case->getMenAltConscious() && $case->getMenAltConscious()->equal(TripleChoice::YES)) || ($case->getMenNeckStiff() && $case->getMenNeckStiff()->equal(TripleChoice::YES))) {
-                    $case->getResult()->setValue(IBDCaseResult::SUSPECTED);
+                    $case->getResult()->setValue(CaseResult::SUSPECTED);
                     return true;
                 }
             } elseif ($case->getAdmDx() && $case->getAdmDx()->equal(Diagnosis::SUSPECTED_MENINGITIS)) {
-                $case->getResult()->setValue(IBDCaseResult::SUSPECTED);
+                $case->getResult()->setValue(CaseResult::SUSPECTED);
                 return true;
             }
         }
@@ -114,7 +113,7 @@ class IBDListener extends BaseCaseListener
             return 'cxrDone';
         }
 
-        if ($case->getMeningReceived() && ($case->getMeningReceived()->equal(MeningitisVaccinationReceived::YES_CARD) || $case->getMeningReceived()->equal(MeningitisVaccinationReceived::YES_HISTORY))) {
+        if ($case->getMeningReceived() && ($case->getMeningReceived()->equal(VaccinationReceived::YES_CARD) || $case->getMeningReceived()->equal(VaccinationReceived::YES_HISTORY))) {
             if ($case->getMeningType() === null) {
                 return 'meningType1';
             }

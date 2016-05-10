@@ -2,7 +2,7 @@
 
 namespace NS\SentinelBundle\Report\Result;
 
-use \NS\SentinelBundle\Form\Types\Diagnosis;
+use \NS\SentinelBundle\Form\IBD\Types\Diagnosis;
 
 /**
  * Description of NumberEnrolledResult

@@ -40,7 +40,7 @@ class UpdateSiteCommand extends ContainerAwareCommand
         $entityMgr = $this->getContainer()->get('doctrine.orm.entity_manager');
         $this->countryRepo = $entityMgr->getRepository('NSSentinelBundle:Country');
         $this->surveillance = new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\SurveillanceConducted');
-        $this->support = new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\IBDIntenseSupport');
+        $this->support = new ArrayChoiceConverter('NS\SentinelBundle\Form\IBD\Types\IntenseSupport');
 
         $file = $input->getArgument('file');
         if (!is_file($file)) {

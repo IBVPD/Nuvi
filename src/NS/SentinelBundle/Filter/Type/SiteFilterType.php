@@ -4,7 +4,7 @@ namespace NS\SentinelBundle\Filter\Type;
 
 use \Lexik\Bundle\FormFilterBundle\Filter\Form\Type\EmbeddedFilterTypeInterface;
 use \Lexik\Bundle\FormFilterBundle\Filter\Query\QueryInterface;
-use \NS\SentinelBundle\Form\Types\IBDIntenseSupport;
+use \NS\SentinelBundle\Form\IBD\Types\IntenseSupport;
 use \Symfony\Component\Form\AbstractType;
 use \Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -26,23 +26,23 @@ class SiteFilterType extends AbstractType implements EmbeddedFilterTypeInterface
     {
         $label = (isset($options['label'])) ? $options['label'] : null;
 
-        $builder->add('name', 'filter_text', array('required' => false, 'label' => $label));
+        $builder->add('name', 'Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType', array('required' => false, 'label' => $label));
 
         if ($options['include_intense']) {
-            $builder->add('ibdIntenseSupport', 'IBDIntenseSupport', array('required' => false, 'apply_filter' => array($this, 'applyFilter')));
+            $builder->add('ibdIntenseSupport', 'NS\SentinelBundle\Form\IBD\Types\IntenseSupport', array('required' => false, 'apply_filter' => array($this, 'applyFilter')));
         }
     }
 
     /**
      * @param QueryInterface $filterBuilder
      * @param string $field
-     * @param IBDIntenseSupport $values
+     * @param array $values
      * @throws \Exception
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function applyFilter(QueryInterface $filterBuilder, $field, $values)
     {
-        if ($values['value'] instanceof IBDIntenseSupport && $values['value']->getValue() >= 0) {
+        if ($values['value'] instanceof IntenseSupport && $values['value']->getValue() >= 0) {
             $queryBuilder = $filterBuilder->getQueryBuilder();
             $joins = $queryBuilder->getDQLPart('join');
             $alias = $values['alias'];

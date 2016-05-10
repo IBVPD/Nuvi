@@ -73,7 +73,7 @@ class SiteAdmin extends Admin
             ->add('numberOfBeds')
             ->add('website')
             ->add('ibdTier')
-            ->add('ibdIntenseSupport', 'IBDIntenseSupport')
+            ->add('ibdIntenseSupport', 'NS\SentinelBundle\Form\IBD\TypesIntenseSupport')
             ->add('ibdLastSiteAssessmentDate')
             ->add('ibdSiteAssessmentScore')
             ->add('rvLastSiteAssessmentDate')
@@ -81,7 +81,7 @@ class SiteAdmin extends Admin
             ->add('rvRl')
             ->add('ibdEqaCode')
             ->add('rvEqaCode')
-            ->add('surveillanceConducted', 'SurveillanceConducted')
+            ->add('surveillanceConducted', 'NS\SentinelBundle\Form\Types\SurveillanceConducted')
         ;
     }
 

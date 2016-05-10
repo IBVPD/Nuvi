@@ -3,8 +3,7 @@
 namespace NS\SentinelBundle\Tests\Converter;
 
 use NS\SentinelBundle\Converter\IBDCompletenessConverter;
-use NS\SentinelBundle\Form\Types\CXRResult;
-use NS\SentinelBundle\Form\Types\TripleChoice;
+use NS\SentinelBundle\Form\IBD\Types\CXRResult;
 
 require_once dirname(__DIR__).'/../../../../app/AppKernel.php';
 
@@ -23,8 +22,6 @@ class IBDCompletenessConverterTest extends \PHPUnit_Framework_TestCase
      * @var Symfony\Component\DependencyInjection\Container
      */
     protected $container;
-
-
 
     /**
      *

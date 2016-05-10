@@ -8,20 +8,20 @@ use \JMS\Serializer\Annotation\Groups;
 use \JMS\Serializer\Annotation\Exclude;
 use \NS\SecurityBundle\Annotation\Secured;
 use \NS\SecurityBundle\Annotation\SecuredCondition;
-use \NS\SentinelBundle\Form\Types\CSFAppearance;
-use \NS\SentinelBundle\Form\Types\CXRAdditionalResult;
-use \NS\SentinelBundle\Form\Types\CXRResult;
-use \NS\SentinelBundle\Form\Types\Diagnosis;
-use \NS\SentinelBundle\Form\Types\DischargeClassification;
-use \NS\SentinelBundle\Form\Types\DischargeDiagnosis;
-use \NS\SentinelBundle\Form\Types\DischargeOutcome;
 use \NS\SentinelBundle\Form\Types\FourDoses;
-use \NS\SentinelBundle\Form\Types\IBDCaseResult;
-use \NS\SentinelBundle\Form\Types\MeningitisVaccinationType;
-use \NS\SentinelBundle\Form\Types\OtherSpecimen;
-use \NS\SentinelBundle\Form\Types\PCVType;
 use \NS\SentinelBundle\Form\Types\TripleChoice;
 use \NS\SentinelBundle\Form\Types\VaccinationReceived;
+use \NS\SentinelBundle\Form\IBD\Types\CSFAppearance;
+use \NS\SentinelBundle\Form\IBD\Types\CXRAdditionalResult;
+use \NS\SentinelBundle\Form\IBD\Types\CXRResult;
+use \NS\SentinelBundle\Form\IBD\Types\Diagnosis;
+use \NS\SentinelBundle\Form\IBD\Types\DischargeClassification;
+use \NS\SentinelBundle\Form\IBD\Types\DischargeDiagnosis;
+use \NS\SentinelBundle\Form\IBD\Types\DischargeOutcome;
+use \NS\SentinelBundle\Form\IBD\Types\CaseResult;
+use \NS\SentinelBundle\Form\IBD\Types\VaccinationType;
+use \NS\SentinelBundle\Form\IBD\Types\OtherSpecimen;
+use \NS\SentinelBundle\Form\IBD\Types\PCVType;
 use \Symfony\Component\Validator\Constraints as Assert;
 use \NS\SentinelBundle\Validators as LocalAssert;
 
@@ -306,8 +306,8 @@ class IBD extends BaseCase
     private $mening_received;
 
     /**
-     * @var MeningitisVaccinationType $meningType
-     * @ORM\Column(name="mening_type",type="MeningitisVaccinationType",nullable=true)
+     * @var VaccinationType $meningType
+     * @ORM\Column(name="mening_type",type="IBDVaccinationType",nullable=true)
      * @Groups({"api"})
      */
     private $mening_type;
@@ -380,14 +380,14 @@ class IBD extends BaseCase
 //Case-based Outcome Data
     /**
      * @var DischargeOutcome $dischOutcome
-     * @ORM\Column(name="disch_outcome",type="DischargeOutcome",nullable=true)
+     * @ORM\Column(name="disch_outcome",type="IBDDischargeOutcome",nullable=true)
      * @Groups({"api"})
      */
     private $disch_outcome;
 
     /**
      * @var Diagnosis $dischDx
-     * @ORM\Column(name="disch_dx",type="DischargeDiagnosis",nullable=true)
+     * @ORM\Column(name="disch_dx",type="IBDDischargeDiagnosis",nullable=true)
      * @Groups({"api"})
      */
     private $disch_dx;
@@ -401,7 +401,7 @@ class IBD extends BaseCase
 
     /**
      * @var DischargeClassification $dischClass
-     * @ORM\Column(name="disch_class",type="DischargeClassification",nullable=true)
+     * @ORM\Column(name="disch_class",type="IBDDischargeClassification",nullable=true)
      * @Groups({"api"})
      */
     private $disch_class;
@@ -420,8 +420,8 @@ class IBD extends BaseCase
     private $comment;
 
     /**
-     * @var IBDCaseResult $result
-     * @ORM\Column(name="result",type="IBDCaseResult",nullable=true)
+     * @var CaseResult $result
+     * @ORM\Column(name="result",type="CaseResult",nullable=true)
      * @Groups({"api"})
      */
     private $result;
@@ -432,7 +432,7 @@ class IBD extends BaseCase
     public function __construct()
     {
         parent::__construct();
-        $this->result = new IBDCaseResult(IBDCaseResult::UNKNOWN);
+        $this->result = new CaseResult(CaseResult::UNKNOWN);
     }
 
     /**
@@ -692,7 +692,7 @@ class IBD extends BaseCase
     }
 
     /**
-     * @return MeningitisVaccinationType
+     * @return VaccinationType
      */
     public function getMeningType()
     {
@@ -813,7 +813,7 @@ class IBD extends BaseCase
     }
 
     /**
-     * @return IBDCaseResult
+     * @return CaseResult
      */
     public function getResult()
     {
@@ -1143,10 +1143,10 @@ class IBD extends BaseCase
     }
 
     /**
-     * @param MeningitisVaccinationType $meningType
+     * @param VaccinationType $meningType
      * @return $this
      */
-    public function setMeningType(MeningitisVaccinationType $meningType = null)
+    public function setMeningType(VaccinationType $meningType = null)
     {
         $this->mening_type = $meningType;
         return $this;
@@ -1295,10 +1295,10 @@ class IBD extends BaseCase
     }
 
     /**
-     * @param IBDCaseResult $result
+     * @param CaseResult $result
      * @return $this
      */
-    public function setResult(IBDCaseResult $result = null)
+    public function setResult(CaseResult $result = null)
     {
         $this->result = $result;
         return $this;

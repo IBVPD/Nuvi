@@ -6,9 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 use \Gedmo\Mapping\Annotation as Gedmo;
 use \NS\SecurityBundle\Annotation\Secured;
 use \NS\SecurityBundle\Annotation\SecuredCondition;
-use \NS\SentinelBundle\Form\Types\GenotypeResultG;
-use \NS\SentinelBundle\Form\Types\GenotypeResultP;
-use \NS\SentinelBundle\Form\Types\ElisaResult;
+use \NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultG;
+use \NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultP;
+use \NS\SentinelBundle\Form\RotaVirus\Types\ElisaResult;
 use \NS\SentinelBundle\Entity\BaseExternalLab;
 use \JMS\Serializer\Annotation as Serializer;
 

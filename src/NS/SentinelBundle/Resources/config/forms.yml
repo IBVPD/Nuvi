@@ -23,11 +23,6 @@ services:
     tags:
       - { name: form.type, alias: BaseQuarterlyFilter }
 
-  ns.sentinel.form.type.finalresult:
-    class: NS\SentinelBundle\Form\Types\FinalResult
-    tags:
-      - { name: form.type, alias: FinalResult }
-
   ns.sentinel.form.rota.report_filter:
     class: NS\SentinelBundle\Filter\Type\RotaVirus\FilterType
     tags:
@@ -49,86 +44,6 @@ services:
     tags:
       - { name: form.type, alias: BaseReportFilterType }
 
-  ns.sentinel.form.type.ibdintensesupport:
-    class: NS\SentinelBundle\Form\Types\IBDIntenseSupport
-    tags:
-      - { name: form.type, alias: IBDIntenseSupport }
-
-  ns.sentinel.form.type.surveillanceconducted:
-    class: NS\SentinelBundle\Form\Types\SurveillanceConducted
-    tags:
-      - { name: form.type, alias: SurveillanceConducted }
-
-  ns.sentinel.form.type.otherspecimen:
-    class: NS\SentinelBundle\Form\Types\OtherSpecimen
-    tags:
-      - { name: form.type, alias: OtherSpecimen }
-
-  ns.sentinel.form.type.cultureresult:
-    class: NS\SentinelBundle\Form\Types\CultureResult
-    tags:
-      - { name: form.type, alias: CultureResult }
-
-  ns.sentinel.form.type.rotavirusdischargeoutcome:
-    class: NS\SentinelBundle\Form\Types\RotavirusDischargeOutcome
-    tags:
-      - { name: form.type, alias: RotavirusDischargeOutcome }
-
-  ns_sentinel.form.type.rotavirusdischargeclassificataion:
-    class: NS\SentinelBundle\Form\Types\RotaVirusDischargeClassification
-    tags:
-      - { name: form.type, alias: RotaVirusDischargeClassification }
-
-  ns.sentinel.form.type.pcvtype:
-    class: NS\SentinelBundle\Form\Types\PCVType
-    tags:
-      - { name: form.type, alias: PCVType }
-
-  ns.sentinel.form.type.cxradditionalresult:
-    class: NS\SentinelBundle\Form\Types\CXRAdditionalResult
-    tags:
-      - { name: form.type, alias: CXRAdditionalResult }
-
-  ns.sentinel.form.type.dischargediagnosis:
-    class: NS\SentinelBundle\Form\Types\DischargeDiagnosis
-    tags:
-      - { name: form.type, alias: DischargeDiagnosis }
-
-  ns.sentinel.form.type.threedoses:
-    class: NS\SentinelBundle\Form\Types\ThreeDoses
-    tags:
-      - { name: form.type, alias: ThreeDoses }
-
-  ns.sentinel.form.type.spnserotype:
-    class: NS\SentinelBundle\Form\Types\SpnSerotype
-    tags:
-      - { name: form.type, alias: SpnSerotype }
-
-  ns.sentinel.form.type.hiserotype:
-    class: NS\SentinelBundle\Form\Types\HiSerotype
-    tags:
-      - { name: form.type, alias: HiSerotype }
-
-  ns.sentinel.form.type.nmserogroup:
-    class: NS\SentinelBundle\Form\Types\NmSerogroup
-    tags:
-      - { name: form.type, alias: NmSerogroup }
-
-  ns.sentinel.form.type.genotyperesultg:
-    class: NS\SentinelBundle\Form\Types\GenotypeResultG
-    tags:
-      - { name: form.type, alias: GenotypeResultG }
-
-  ns.sentinel.form.type.genotyperesultp:
-    class: NS\SentinelBundle\Form\Types\GenotypeResultP
-    tags:
-      - { name: form.type, alias: GenotypeResultP }
-
-  ns.sentinel.form.filters.lab_filter:
-    class: NS\SentinelBundle\Filter\Type\LabFilterType
-    tags:
-      - { name: form.type, alias: lab_filter }
-
   ns.sentinel.form.filter.country:
     class: NS\SentinelBundle\Filter\Type\CountryType
     arguments: [ "@doctrine.orm.entity_manager", "NSSentinelBundle:Country" ]
@@ -147,89 +62,6 @@ services:
     tags:
       - { name: form.type }
 
-  ns_sentinel.form.type.case_creation_type:
-    class: NS\SentinelBundle\Form\Types\CaseCreationType
-    calls:
-      - [ setAuthChecker, [ "@security.authorization_checker" ] ]
-    tags:
-      - { name: form.type }
-
-  ns.sentinel.form.create:
-    class: NS\SentinelBundle\Form\CreateType
-    arguments: [ "@ns.sentinel.sites", "@doctrine.orm.entity_manager" ]
-    tags:
-      - { name: form.type }
-
-  ns.sentinel.form.type.casestatus:
-    class: NS\SentinelBundle\Form\Types\CaseStatus
-    tags:
-      - { name: form.type, alias: CaseStatus }
-
-  ns.sentinel.form.type.dischargeoutcome:
-    class: NS\SentinelBundle\Form\Types\DischargeOutcome
-    tags:
-      - { name: form.type, alias: DischargeOutcome }
-
-  ns.sentinel.form.type.gramstain:
-    class: NS\SentinelBundle\Form\Types\GramStain
-    tags:
-      - { name: form.type, alias: GramStain }
-
-  ns.sentinel.form.type.gramstain_result:
-    class: NS\SentinelBundle\Form\Types\GramStainResult
-    tags:
-      - { name: form.type, alias: GramStainResult }
-
-  ns.sentinel.form.type.meningitisvaccinationtype:
-    class: NS\SentinelBundle\Form\Types\MeningitisVaccinationType
-    tags:
-      - { name: form.type, alias: MeningitisVaccinationType }
-
-  ns.sentinel.form.type.vaccinationreceived:
-    class: NS\SentinelBundle\Form\Types\VaccinationReceived
-    tags:
-      - { name: form.type, alias: VaccinationReceived }
-
-  ns.sentinel.form.type.dischargeclassification:
-    class: NS\SentinelBundle\Form\Types\DischargeClassification
-    tags:
-      - { name: form.type, alias: DischargeClassification }
-
-  ns.sentinel.form.type.ibdcaseresult:
-    class: NSSentinelBundle\Form\Types\IBDCaseResult
-    tags:
-      - { name: form.type, alias: IBDCaseResult }
-
-  ns.sentinel.form.type.elisakit:
-    class: NS\SentinelBundle\Form\Types\ElisaKit
-    tags:
-      - { name: form.type, alias: ElisaKit }
-
-  ns.sentinel.form.type.elisaresult:
-    class: NS\SentinelBundle\Form\Types\ElisaResult
-    tags:
-      - { name: form.type, alias: ElisaResult }
-
-  ns.sentinel.form.type.rotavirusvaccinationtype:
-    class: NS\SentinelBundle\Form\Types\RotavirusVaccinationType
-    tags:
-      - { name: form.type, alias: RotavirusVaccinationType }
-
-  ns.sentinel.form.type.rotavirusvaccinationreceived:
-    class: NS\SentinelBundle\Form\Types\RotavirusVaccinationReceived
-    tags:
-      - { name: form.type, alias: RotavirusVaccinationReceived }
-
-  ns.sentinel.form.type.dehydration:
-    class: NS\SentinelBundle\Form\Types\Dehydration
-    tags:
-      - { name: form.type, alias: Dehydration }
-
-  ns.sentinel.form.type.rehydration:
-    class: NS\SentinelBundle\Form\Types\Rehydration
-    tags:
-      - { name: form.type, alias: Rehydration }
-
   ns.sentinel.base.filter:
     class: NS\SentinelBundle\Filter\Type\BaseFilterType
     arguments: [ "@security.token_storage", "@security.authorization_checker", "@ns_security.acl_converter" ]
@@ -246,8 +78,82 @@ services:
     tags:
       - { name: form.type, alias: ibd_filter_form }
 
+  ns.sentinel.form.filters.lab_filter:
+    class: NS\SentinelBundle\Filter\Type\LabFilterType
+    tags:
+      - { name: form.type, alias: lab_filter }
+
+  ns_sentinel.form.type.case_creation_type:
+    class: NS\SentinelBundle\Form\Types\CaseCreationType
+    calls:
+      - [ setAuthChecker, [ "@security.authorization_checker" ] ]
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.create:
+    class: NS\SentinelBundle\Form\CreateType
+    arguments: [ "@ns.sentinel.sites", "@doctrine.orm.entity_manager" ]
+    tags:
+      - { name: form.type }
+
+############################################################################
+# Global Types
+############################################################################
+
+  ns.sentinel.form.type.role:
+    class: NS\SentinelBundle\Form\Types\Role
+    calls:
+      - [ setTokenStorage, [ "@security.token_storage" ] ]
+    tags:
+      - { name: form.type, alias: role }
+
+  ns.sentinel.form.type.surveillanceconducted:
+    class: NS\SentinelBundle\Form\Types\SurveillanceConducted
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.vaccinationreceived:
+    class: NS\SentinelBundle\Form\Types\VaccinationReceived
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.casestatus:
+    class: NS\SentinelBundle\Form\Types\CaseStatus
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.fourdoses:
+    class: NS\SentinelBundle\Form\Types\FourDoses
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.gender:
+    class: NS\SentinelBundle\Form\Types\Gender
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.triple_choice:
+    class: NS\SentinelBundle\Form\Types\TripleChoice
+    tags:
+      - { name: form.type }
+
+############################################################################
+# IBD Types
+############################################################################
+  ns.sentinel.form.type.ibd:
+    class: NS\SentinelBundle\Form\IBD\CaseType
+    arguments: [ "@ns.sentinel.sites" ]
+    tags:
+      - { name: form.type }
+
   ns.sentinel.form.type.ibd_base:
     class: NS\SentinelBundle\Form\IBD\BaseLabType
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.ibd_sitelab:
+    class: NS\SentinelBundle\Form\IBD\SiteLabType
+    arguments: [ "@ns.sentinel.sites" ]
     tags:
       - { name: form.type }
 
@@ -261,25 +167,164 @@ services:
     tags:
       - { name: form.type }
 
-  ns.sentinel.form.type.ibd_sitelab:
-    class: NS\SentinelBundle\Form\IBD\SiteLabType
-    arguments: [ "@ns.sentinel.sites" ]
-    tags:
-      - { name: form.type }
-
-  ns.sentinel.form.type.ibd:
-    class: NS\SentinelBundle\Form\IBD\CaseType
-    arguments: [ "@ns.sentinel.sites","@doctrine.orm.entity_manager" ]
-    tags:
-      - { name: form.type }
-
   ns.sentinel.form.ibd_outcome:
     class: NS\SentinelBundle\Form\IBD\OutcomeType
     tags:
       - { name: form.type }
 
-  ns.sentinel.form.rotavirus_outcome:
-    class: NS\SentinelBundle\Form\RotaVirus\OutcomeType
+  ns.sentinel.form.type.finalresult:
+    class: NS\SentinelBundle\Form\IBD\Types\FinalResult
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.ibdintensesupport:
+    class: NS\SentinelBundle\Form\IBD\Types\IntenseSupport
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.otherspecimen:
+    class: NS\SentinelBundle\Form\IBD\Types\OtherSpecimen
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.cultureresult:
+    class: NS\SentinelBundle\Form\IBD\Types\CultureResult
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.pcvtype:
+    class: NS\SentinelBundle\Form\IBD\Types\PCVType
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.cxradditionalresult:
+    class: NS\SentinelBundle\Form\IBD\Types\CXRAdditionalResult
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.dischargediagnosis:
+    class: NS\SentinelBundle\Form\IBD\Types\DischargeDiagnosis
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.threedoses:
+    class: NS\SentinelBundle\Form\Types\ThreeDoses
+    tags:
+      - { name: form.type, alias: ThreeDoses }
+
+  ns.sentinel.form.type.spnserotype:
+    class: NS\SentinelBundle\Form\IBD\Types\SpnSerotype
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.hiserotype:
+    class: NS\SentinelBundle\Form\IBD\Types\HiSerotype
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.nmserogroup:
+    class: NS\SentinelBundle\Form\IBD\Types\NmSerogroup
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.dischargeoutcome:
+    class: NS\SentinelBundle\Form\IBD\Types\DischargeOutcome
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.gramstain:
+    class: NS\SentinelBundle\Form\IBD\Types\GramStain
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.gramstain_result:
+    class: NS\SentinelBundle\Form\IBD\Types\GramStainResult
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.meningitisvaccinationtype:
+    class: NS\SentinelBundle\Form\IBD\Types\VaccinationType
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.dischargeclassification:
+    class: NS\SentinelBundle\Form\IBD\Types\DischargeClassification
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.ibdcaseresult:
+    class: NS\SentinelBundle\Form\IBD\Types\CaseResult
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.pathogenidentifier:
+    class: NS\SentinelBundle\Form\IBD\Types\PathogenIdentifier
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.serotypeidentifier:
+    class: NS\SentinelBundle\Form\IBD\Types\SerotypeIdentifier
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.sampletype:
+    class: NS\SentinelBundle\Form\IBD\Types\SampleType
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.isolatetype:
+    class: NS\SentinelBundle\Form\IBD\Types\IsolateType
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.latresult:
+    class: NS\SentinelBundle\Form\IBD\Types\LatResult
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.binaxresult:
+    class: NS\SentinelBundle\Form\IBD\Types\BinaxResult
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.pcrresult:
+    class: NS\SentinelBundle\Form\IBD\Types\PCRResult
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.isolateviable:
+    class: NS\SentinelBundle\Form\IBD\Types\IsolateViable
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.diagnosis:
+    class: NS\SentinelBundle\Form\IBD\Types\Diagnosis
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.cxr_result:
+    class: NS\SentinelBundle\Form\IBD\Types\CXRResult
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.csf_appearance:
+    class: NS\SentinelBundle\Form\IBD\Types\CSFAppearance
+    tags:
+      - { name: form.type }
+
+############################################################################
+# RotaVirus Types
+############################################################################
+
+  ns.sentinel.form.type.rotavirus:
+    class: NS\SentinelBundle\Form\RotaVirus\CaseType
+    arguments: [ "@ns.sentinel.sites" ]
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.rotavirus_sitelab:
+    class: NS\SentinelBundle\Form\RotaVirus\SiteLabType
+    arguments: [ "@ns.sentinel.sites" ]
     tags:
       - { name: form.type }
 
@@ -298,102 +343,52 @@ services:
     tags:
       - { name: form.type }
 
-  ns.sentinel.form.type.rotavirus_sitelab:
-    class: NS\SentinelBundle\Form\RotaVirus\SiteLabType
-    arguments: [ "@ns.sentinel.sites" ]
+  ns.sentinel.form.rotavirus_outcome:
+    class: NS\SentinelBundle\Form\RotaVirus\OutcomeType
     tags:
       - { name: form.type }
 
-  ns.sentinel.form.type.rotavirus:
-    class: NS\SentinelBundle\Form\RotaVirus\CaseType
-    arguments: [ "@ns.sentinel.sites", "@doctrine.orm.entity_manager" ]
+  ns.sentinel.form.type.rotavirusdischargeoutcome:
+    class: NS\SentinelBundle\Form\RotaVirus\Types\DischargeOutcome
     tags:
       - { name: form.type }
 
-  ns.sentinel.form.type.pathogenidentifier:
-    class: NS\SentinelBundle\Form\Types\PathogenIdentifier
+  ns_sentinel.form.type.rotavirusdischargeclassificataion:
+    class: NS\SentinelBundle\Form\RotaVirus\Types\DischargeClassification
     tags:
-      - { name: form.type, alias: PathogenIdentifier }
+      - { name: form.type }
 
-  ns.sentinel.form.type.serotypeidentifier:
-    class: NS\SentinelBundle\Form\Types\SerotypeIdentifier
+  ns.sentinel.form.type.genotyperesultg:
+    class: NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultG
     tags:
-      - { name: form.type, alias: SerotypeIdentifier }
+      - { name: form.type }
 
-  ns.sentinel.form.type.sampletype:
-    class: NS\SentinelBundle\Form\Types\SampleType
+  ns.sentinel.form.type.genotyperesultp:
+    class: NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultP
     tags:
-      - { name: form.type, alias: SampleType }
+      - { name: form.type }
 
-  ns.sentinel.form.type.isolatetype:
-    class: NS\SentinelBundle\Form\Types\IsolateType
+  ns.sentinel.form.type.elisakit:
+    class: NS\SentinelBundle\Form\RotaVirus\Types\ElisaKit
     tags:
-      - { name: form.type, alias: IsolateType }
+      - { name: form.type, alias: ElisaKit }
 
-  ns.sentinel.form.type.latresult:
-    class: NS\SentinelBundle\Form\Types\LatResult
+  ns.sentinel.form.type.elisaresult:
+    class: NS\SentinelBundle\Form\RotaVirus\Types\ElisaResult
     tags:
-      - { name: form.type, alias: LatResult }
+      - { name: form.type, alias: ElisaResult }
 
-  ns.sentinel.form.type.binaxresult:
-    class: NS\SentinelBundle\Form\Types\BinaxResult
+  ns.sentinel.form.type.rotavirusvaccinationtype:
+    class: NS\SentinelBundle\Form\RotaVirus\Types\VaccinationType
     tags:
-      - { name: form.type, alias: BinaxResult }
+      - { name: form.type }
 
-  ns.sentinel.form.type.pcrresult:
-    class: NS\SentinelBundle\Form\Types\PCRResult
+  ns.sentinel.form.type.dehydration:
+    class: NS\SentinelBundle\Form\RotaVirus\Types\Dehydration
     tags:
-      - { name: form.type, alias: PCRResult }
+      - { name: form.type }
 
-  ns.sentinel.form.type.isolateviable:
-    class: NS\SentinelBundle\Form\Types\IsolateViable
+  ns.sentinel.form.type.rehydration:
+    class: NS\SentinelBundle\Form\RotaVirus\Types\Rehydration
     tags:
-      - { name: form.type, alias: IsolateViable }
-
-  ns.sentinel.form.type.triple_choice:
-    class: NS\SentinelBundle\Form\Types\TripleChoice
-    tags:
-      - { name: form.type, alias: TripleChoice }
-
-  ns.sentinel.form.type.diagnosis:
-    class: NS\SentinelBundle\Form\Types\Diagnosis
-    tags:
-      - { name: form.type, alias: Diagnosis }
-
-  ns.sentinel.form.type.dischargeClassification:
-    class: NS\SentinelBundle\Form\Types\DischargeClassification
-    tags:
-      - { name: form.type, alias: DischargeClassification }
-
-  ns.sentinel.form.type.dischargeOutcome:
-    class: NS\SentinelBundle\Form\Types\DischargeOutcome
-    tags:
-      - { name: form.type, alias: DischargeOutcome }
-
-  ns.sentinel.form.type.fourdoses:
-    class: NS\SentinelBundle\Form\Types\FourDoses
-    tags:
-      - { name: form.type, alias: FourDoses }
-
-  ns.sentinel.form.type.gender:
-    class: NS\SentinelBundle\Form\Types\Gender
-    tags:
-      - { name: form.type, alias: Gender }
-
-  ns.sentinel.form.type.cxr_result:
-    class: NS\SentinelBundle\Form\Types\CXRResult
-    tags:
-      - { name: form.type, alias: CXRResult }
-
-  ns.sentinel.form.type.CSFAppearance:
-    class: NS\SentinelBundle\Form\Types\CSFAppearance
-    tags:
-      - { name: form.type, alias: CSFAppearance }
-
-  ns.sentinel.form.type.role:
-    class: NS\SentinelBundle\Form\Types\Role
-    calls:
-      - [ setTokenStorage, [ "@security.token_storage" ] ]
-    tags:
-      - { name: form.type, alias: role }
-
+      - { name: form.type }

@@ -3,13 +3,8 @@
 namespace NS\SentinelBundle\Report\Result;
 
 /**
- * Description of FieldPopulationResult
- *
- * @author gnat
- */
-/**
  * Class FieldPopulationResult
- * @package NS\SentinelBundle\Result
+ * @package NS\SentinelBundle\Report\Result
  */
 class FieldPopulationResult extends AbstractSiteBasedResult
 {

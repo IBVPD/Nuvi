@@ -69,7 +69,7 @@ class IBDControllerTest extends BaseWebTestCase
         $client   = $this->login();
         $crawler  = $client->request('GET', '/en/ibd/rrl/edit/' . self::ID);
         $response = $client->getResponse();
-        if ($response->getStatusCode() != 500) {
+        if ($response->getStatusCode() != 200) {
             file_put_contents('/tmp/ibdRRLEdit.log', $response->getContent());
         }
 

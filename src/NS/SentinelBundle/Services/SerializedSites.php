@@ -16,12 +16,24 @@ use \NS\SentinelBundle\Entity\Site;
  */
 class SerializedSites implements SerializedSitesInterface
 {
+    /**
+     * @var array
+     */
     private $sites;
 
+    /**
+     * @var ObjectManager
+     */
     private $entityMgr;
 
+    /**
+     * @var bool
+     */
     private $isInitialized = false;
 
+    /**
+     * @var SessionInterface
+     */
     private $session;
 
     /**

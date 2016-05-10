@@ -6,7 +6,7 @@ use \Doctrine\ORM\Mapping as ORM;
 use \JMS\Serializer\Annotation\Groups;
 use \NS\SecurityBundle\Annotation\Secured;
 use \NS\SecurityBundle\Annotation\SecuredCondition;
-use \NS\SentinelBundle\Form\Types\IBDIntenseSupport;
+use \NS\SentinelBundle\Form\IBD\Types\IntenseSupport;
 use \NS\SentinelBundle\Form\Types\SurveillanceConducted;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -113,8 +113,8 @@ class Site implements \Serializable
     private $ibdTier;
 
     /**
-     * @var IBDIntenseSupport $ibdIntenseSupport
-     * @ORM\Column(name="ibdIntenseSupport",type="IBDIntenseSupport",nullable=true)
+     * @var IntenseSupport $ibdIntenseSupport
+     * @ORM\Column(name="ibdIntenseSupport",type="IntenseSupport",nullable=true)
      */
     private $ibdIntenseSupport;
 
@@ -479,7 +479,7 @@ class Site implements \Serializable
 
     /**
      *
-     * @return IbdIntenseSupport
+     * @return IntenseSupport
      */
     public function getIbdIntenseSupport()
     {
@@ -582,10 +582,10 @@ class Site implements \Serializable
 
     /**
      *
-     * @param IBDIntenseSupport $ibdIntenseSupport
+     * @param IntenseSupport $ibdIntenseSupport
      * @return \NS\SentinelBundle\Entity\Site
      */
-    public function setIbdIntenseSupport(IBDIntenseSupport $ibdIntenseSupport)
+    public function setIbdIntenseSupport(IntenseSupport $ibdIntenseSupport)
     {
         $this->ibdIntenseSupport = $ibdIntenseSupport;
         return $this;

@@ -4,18 +4,18 @@ namespace NS\SentinelBundle\Entity;
 
 use \Doctrine\ORM\Mapping as ORM;
 use \NS\SentinelBundle\Form\Types\TripleChoice;
-use \NS\SentinelBundle\Form\Types\RotavirusVaccinationReceived;
-use \NS\SentinelBundle\Form\Types\RotavirusVaccinationType;
-use \NS\SentinelBundle\Form\Types\Dehydration;
-use \NS\SentinelBundle\Form\Types\Rehydration;
+use \NS\SentinelBundle\Form\Types\VaccinationReceived;
+use \NS\SentinelBundle\Form\RotaVirus\Types\VaccinationType;
+use \NS\SentinelBundle\Form\RotaVirus\Types\DischargeOutcome;
+use \NS\SentinelBundle\Form\RotaVirus\Types\DischargeClassification;
+use \NS\SentinelBundle\Form\RotaVirus\Types\Dehydration;
+use \NS\SentinelBundle\Form\RotaVirus\Types\Rehydration;
 use \NS\SentinelBundle\Form\Types\ThreeDoses;
-use \NS\SentinelBundle\Form\Types\RotavirusDischargeOutcome;
 use \Gedmo\Mapping\Annotation as Gedmo;
 use \NS\SecurityBundle\Annotation\Secured;
 use \NS\SecurityBundle\Annotation\SecuredCondition;
 use \JMS\Serializer\Annotation\Groups;
 use \JMS\Serializer\Annotation\Exclude;
-use \NS\SentinelBundle\Form\Types\RotaVirusDischargeClassification;
 
 /**
  * Description of RotaVirus
@@ -161,16 +161,16 @@ class RotaVirus extends BaseCase
 
 //iv. Case-based Vaccination History
     /**
-     * @var RotavirusVaccinationReceived $rv_received
-     * @ORM\Column(name="rv_received",type="RotavirusVaccinationReceived",nullable=true)
+     * @var VaccinationReceived $rv_received
+     * @ORM\Column(name="rv_received",type="VaccinationReceived",nullable=true)
      * @Groups({"api"})
      */
     private $rv_received;
 
     /**
      * RV_type
-     * @var RotavirusVaccinationType $rv_type
-     * @ORM\Column(name="rv_type",type="RotavirusVaccinationType",nullable=true)
+     * @var VaccinationType $rv_type
+     * @ORM\Column(name="rv_type",type="RVVaccinationType",nullable=true)
      * @Groups({"api"})
      */
     private $rv_type;
@@ -235,8 +235,8 @@ class RotaVirus extends BaseCase
 //vii. Case-based Outcome Data
     /**
      * disch_outcome
-     * @var RotavirusDischargeOutcome $disch_outcome
-     * @ORM\Column(name="disch_outcome",type="RotavirusDischargeOutcome",nullable=true)
+     * @var DischargeOutcome $disch_outcome
+     * @ORM\Column(name="disch_outcome",type="RVDischargeOutcome",nullable=true)
      * @Groups({"api"})
      */
     private $disch_outcome;
@@ -249,8 +249,8 @@ class RotaVirus extends BaseCase
     private $disch_date;
 
     /**
-     * @var RotaVirusDischargeClassification
-     * @ORM\Column(name="disch_class",type="RotaVirusDischargeClassification",nullable=true)
+     * @var DischargeClassification
+     * @ORM\Column(name="disch_class",type="RVDischargeClassification",nullable=true)
      */
     private $disch_class;
 
@@ -358,7 +358,7 @@ class RotaVirus extends BaseCase
     }
 
     /**
-     * @return RotavirusVaccinationReceived
+     * @return VaccinationReceived
      */
     public function getVaccinationReceived()
     {
@@ -366,7 +366,7 @@ class RotaVirus extends BaseCase
     }
 
     /**
-     * @return RotavirusVaccinationType
+     * @return VaccinationType
      */
     public function getVaccinationType()
     {
@@ -430,7 +430,7 @@ class RotaVirus extends BaseCase
     }
 
     /**
-     * @return RotavirusDischargeOutcome
+     * @return DischargeOutcome
      */
     public function getDischargeOutcome()
     {
@@ -573,20 +573,20 @@ class RotaVirus extends BaseCase
     }
 
     /**
-     * @param RotavirusVaccinationReceived $vaccinationReceived
+     * @param VaccinationReceived $vaccinationReceived
      * @return $this
      */
-    public function setVaccinationReceived(RotavirusVaccinationReceived $vaccinationReceived = null)
+    public function setVaccinationReceived(VaccinationReceived $vaccinationReceived = null)
     {
         $this->rv_received = $vaccinationReceived;
         return $this;
     }
 
     /**
-     * @param RotavirusVaccinationType $vaccinationType
+     * @param VaccinationType $vaccinationType
      * @return $this
      */
-    public function setVaccinationType(RotavirusVaccinationType $vaccinationType = null)
+    public function setVaccinationType(VaccinationType $vaccinationType = null)
     {
         $this->rv_type = $vaccinationType;
         return $this;
@@ -667,10 +667,10 @@ class RotaVirus extends BaseCase
     }
 
     /**
-     * @param RotavirusDischargeOutcome $dischargeOutcome
+     * @param DischargeOutcome $dischargeOutcome
      * @return $this
      */
-    public function setDischargeOutcome(RotavirusDischargeOutcome $dischargeOutcome = null)
+    public function setDischargeOutcome(DischargeOutcome $dischargeOutcome = null)
     {
         $this->disch_outcome = $dischargeOutcome;
         return $this;
@@ -688,7 +688,7 @@ class RotaVirus extends BaseCase
     }
 
     /**
-     * @return RotaVirusDischargeClassification
+     * @return DischargeClassification
      */
     public function getDischargeClassification()
     {
@@ -696,7 +696,7 @@ class RotaVirus extends BaseCase
     }
 
     /**
-     * @return RotaVirusDischargeClassification
+     * @return DischargeClassification
      */
     public function getDischClass()
     {
@@ -704,20 +704,20 @@ class RotaVirus extends BaseCase
     }
 
     /**
-     * @param RotaVirusDischargeClassification $disch_class
+     * @param DischargeClassification $disch_class
      * @return RotaVirus
      */
-    public function setDischClass(RotaVirusDischargeClassification $disch_class = null)
+    public function setDischClass(DischargeClassification $disch_class = null)
     {
         $this->disch_class = $disch_class;
         return $this;
     }
 
     /**
-     * @param RotaVirusDischargeClassification|null $disch_class
+     * @param DischargeClassification|null $disch_class
      * @return $this
      */
-    public function setDischargeClassification(RotaVirusDischargeClassification $disch_class = null)
+    public function setDischargeClassification(DischargeClassification $disch_class = null)
     {
         $this->disch_class = $disch_class;
         return $this;

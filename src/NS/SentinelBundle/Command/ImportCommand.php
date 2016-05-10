@@ -2,6 +2,9 @@
 
 namespace NS\SentinelBundle\Command;
 
+use NS\SentinelBundle\Form\IBD\Types\IntenseSupport;
+use NS\SentinelBundle\Form\Types\SurveillanceConducted;
+use NS\SentinelBundle\Form\Types\TripleChoice;
 use \Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use \Symfony\Component\Console\Input\InputInterface;
 use \Symfony\Component\Console\Output\OutputInterface;
@@ -215,7 +218,7 @@ class ImportCommand extends ContainerAwareCommand
     private function modifyCountry($site, $row, $country)
     {
         if ($country instanceof Country) {
-            $country->setGaviEligible(new \NS\SentinelBundle\Form\Types\TripleChoice($row[5]));
+            $country->setGaviEligible(new TripleChoice($row[5]));
             $country->setHibVaccineIntro($row[19]);
             $country->setPcvVaccineIntro($row[20]);
             $country->setRvVaccineIntro($row[21]);
@@ -232,13 +235,13 @@ class ImportCommand extends ContainerAwareCommand
     private function surveillanceAndSupport($site, $row, &$errorSites)
     {
         try {
-            $site->setSurveillanceConducted(new \NS\SentinelBundle\Form\Types\SurveillanceConducted($row[9]));
+            $site->setSurveillanceConducted(new SurveillanceConducted($row[9]));
         } catch (\Exception $except) {
             throw new \Exception("Tried to pass '{$row[9]}' to SurveillanceConducted\n " . $except->getMessage());
         }
 
         try {
-            $site->setibdIntenseSupport(new \NS\SentinelBundle\Form\Types\IBDIntenseSupport($row[11]));
+            $site->setibdIntenseSupport(new IntenseSupport($row[11]));
         } catch (\Exception $except) {
             $errorSites[] = "{$row[2]}:{$row[3]} - Has Invalid Intense Support Value {$row[11]}";
         }

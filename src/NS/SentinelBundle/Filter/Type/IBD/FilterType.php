@@ -19,7 +19,7 @@ class FilterType extends AbstractType implements EmbeddedFilterTypeInterface
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('status', 'CaseStatus', array('required'=>false, 'label' => 'filter-case-status'));
+        $builder->add('status', 'NS\SentinelBundle\Form\Types\CaseStatus', array('required'=>false, 'label' => 'filter-case-status'));
     }
 
     /**

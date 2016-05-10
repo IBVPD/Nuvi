@@ -3,10 +3,10 @@
 namespace NS\SentinelBundle\Tests\Entity;
 
 use \NS\SentinelBundle\Entity\IBD\SiteLab;
-use \NS\SentinelBundle\Form\Types\BinaxResult;
-use \NS\SentinelBundle\Form\Types\CultureResult;
-use \NS\SentinelBundle\Form\Types\LatResult;
-use \NS\SentinelBundle\Form\Types\PCRResult;
+use \NS\SentinelBundle\Form\IBD\Types\BinaxResult;
+use \NS\SentinelBundle\Form\IBD\Types\CultureResult;
+use \NS\SentinelBundle\Form\IBD\Types\LatResult;
+use \NS\SentinelBundle\Form\IBD\Types\PCRResult;
 use \NS\SentinelBundle\Form\Types\TripleChoice;
 use \Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

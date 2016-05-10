@@ -5,20 +5,19 @@ namespace NS\SentinelBundle\Tests\Listeners;
 use \NS\SentinelBundle\Entity\Country;
 use \NS\SentinelBundle\Entity\IBD;
 use \NS\SentinelBundle\Form\Types\CaseStatus;
-use \NS\SentinelBundle\Form\Types\CSFAppearance;
-use \NS\SentinelBundle\Form\Types\Diagnosis;
-use \NS\SentinelBundle\Form\Types\DischargeClassification;
-use NS\SentinelBundle\Form\Types\DischargeDiagnosis;
-use \NS\SentinelBundle\Form\Types\DischargeOutcome;
+use \NS\SentinelBundle\Form\IBD\Types\CSFAppearance;
+use \NS\SentinelBundle\Form\IBD\Types\Diagnosis;
+use \NS\SentinelBundle\Form\IBD\Types\DischargeClassification;
+use \NS\SentinelBundle\Form\IBD\Types\DischargeDiagnosis;
+use \NS\SentinelBundle\Form\IBD\Types\DischargeOutcome;
 use \NS\SentinelBundle\Form\Types\FourDoses;
 use \NS\SentinelBundle\Form\Types\Gender;
-use \NS\SentinelBundle\Form\Types\MeningitisVaccinationReceived;
-use \NS\SentinelBundle\Form\Types\MeningitisVaccinationType;
-use \NS\SentinelBundle\Form\Types\OtherSpecimen;
+use \NS\SentinelBundle\Form\Types\VaccinationReceived;
+use \NS\SentinelBundle\Form\IBD\Types\VaccinationType;
+use \NS\SentinelBundle\Form\IBD\Types\OtherSpecimen;
 use \NS\SentinelBundle\Form\Types\ThreeDoses;
 use \NS\SentinelBundle\Form\Types\TripleChoice;
-use \NS\SentinelBundle\Form\Types\VaccinationReceived;
-use NS\SentinelBundle\Entity\Listener\IBDListener;
+use \NS\SentinelBundle\Entity\Listener\IBDListener;
 
 class IBDListenerTest extends \PHPUnit_Framework_TestCase
 {
@@ -194,8 +193,8 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
 
         //meningReceived + meningDoses
         $row                            = $complete;
-        $row['setmeningReceived']       = new MeningitisVaccinationReceived(MeningitisVaccinationReceived::YES_CARD);
-        $row['setmeningType']           = new MeningitisVaccinationType(MeningitisVaccinationType::ACW135);
+        $row['setmeningReceived']       = new VaccinationReceived(VaccinationReceived::YES_CARD);
+        $row['setmeningType']           = new VaccinationType(VaccinationType::ACW135);
         $row['setmeningDate'] = new \DateTime();
         $data[]                         = array('data' => $row);
 
@@ -351,7 +350,7 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
 
         //meningReceived + meningDoses
         $d                      = $complete;
-        $d['setmeningReceived'] = new MeningitisVaccinationReceived(MeningitisVaccinationReceived::YES_CARD);
+        $d['setmeningReceived'] = new VaccinationReceived(VaccinationReceived::YES_CARD);
         $d['setmeningType']     = null;
         $data[]                 = array('data' => $d);
 
@@ -423,7 +422,7 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
             'sethibDoses'             => null,
             'setpcvReceived'            => new VaccinationReceived(VaccinationReceived::NO),
             'setpcvDoses'             => null,
-            'setmeningReceived'       => new MeningitisVaccinationReceived(MeningitisVaccinationReceived::NO),
+            'setmeningReceived'       => new VaccinationReceived(VaccinationReceived::NO),
             'setmeningType'           => null,
             'setmeningDate' => null,
             'setcsfCollected'         => $tripleNo,
@@ -470,7 +469,7 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
             'sethibDoses'               => null,
             'setpcvReceived'            => new VaccinationReceived(VaccinationReceived::UNKNOWN),
             'setpcvDoses'               => null,
-            'setmeningReceived'         => new MeningitisVaccinationReceived(MeningitisVaccinationReceived::NO),
+            'setmeningReceived'         => new VaccinationReceived(VaccinationReceived::NO),
             'setmeningType'             => null,
             'setmeningDate'   => null,
             'setcsfCollected'           => $tripleNo,

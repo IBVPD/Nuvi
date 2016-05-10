@@ -8,8 +8,7 @@
 
 namespace NS\SentinelBundle\Report\Result\IBD;
 
-
-use NS\SentinelBundle\Form\Types\DischargeOutcome;
+use NS\SentinelBundle\Form\IBD\Types\DischargeOutcome;
 use NS\SentinelBundle\Report\Result\AbstractGeneralStatisticResult;
 
 class GeneralStatisticResult extends AbstractGeneralStatisticResult

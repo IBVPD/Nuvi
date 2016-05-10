@@ -3,15 +3,15 @@
 namespace NS\SentinelBundle\DataFixtures\Alice;
 
 use \Nelmio\Alice\Fixtures;
-use \NS\SentinelBundle\Form\Types\CSFAppearance;
-use \NS\SentinelBundle\Form\Types\CXRResult;
-use \NS\SentinelBundle\Form\Types\Diagnosis;
-use NS\SentinelBundle\Form\Types\DischargeDiagnosis;
-use NS\SentinelBundle\Form\Types\DischargeOutcome;
+use \NS\SentinelBundle\Form\IBD\Types\CSFAppearance;
+use \NS\SentinelBundle\Form\IBD\Types\CXRResult;
+use \NS\SentinelBundle\Form\IBD\Types\Diagnosis;
+use NS\SentinelBundle\Form\IBD\Types\DischargeDiagnosis;
+use NS\SentinelBundle\Form\IBD\Types\DischargeOutcome;
 use \NS\SentinelBundle\Form\Types\FourDoses;
 use \NS\SentinelBundle\Form\Types\Gender;
 use \NS\SentinelBundle\Form\Types\Role;
-use \NS\SentinelBundle\Form\Types\RotavirusDischargeOutcome;
+use \NS\SentinelBundle\Form\RotaVirus\Types\DischargeOutcome as RVDischargeOutcome;
 use \NS\SentinelBundle\Form\Types\SurveillanceConducted;
 use \NS\SentinelBundle\Form\Types\TripleChoice;
 use \NS\SentinelBundle\Form\Types\VaccinationReceived;
@@ -68,11 +68,11 @@ class MiscProvider
     public function rotaDischargeOutcome()
     {
         $choices = array(
-            new RotavirusDischargeOutcome(RotavirusDischargeOutcome::DIED),
-            new RotavirusDischargeOutcome(RotavirusDischargeOutcome::DISCHARGED_ALIVE),
-            new RotavirusDischargeOutcome(RotavirusDischargeOutcome::TRANSFERRED),
-            new RotavirusDischargeOutcome(RotavirusDischargeOutcome::LEFT_AGAINST_ADVICE),
-            new RotavirusDischargeOutcome(RotavirusDischargeOutcome::UNKNOWN),
+            new RVDischargeOutcome(RVDischargeOutcome::DIED),
+            new RVDischargeOutcome(RVDischargeOutcome::DISCHARGED_ALIVE),
+            new RVDischargeOutcome(RVDischargeOutcome::TRANSFERRED),
+            new RVDischargeOutcome(RVDischargeOutcome::LEFT_AGAINST_ADVICE),
+            new RVDischargeOutcome(RVDischargeOutcome::UNKNOWN),
         );
 
         return $choices[array_rand($choices)];

@@ -958,23 +958,23 @@ class ImportProcessorTest extends WebTestCase
         $results = $writer->getResults();
         $this->assertInstanceOf('NS\SentinelBundle\Entity\IBD', $results[0]);
 
-        $this->assertInstanceOf('NS\SentinelBundle\Form\Types\Diagnosis', $results[0]->getAdmDx());
+        $this->assertInstanceOf('NS\SentinelBundle\Form\IBD\Types\Diagnosis', $results[0]->getAdmDx());
         $this->assertTrue($results[0]->getAdmDx()->equal(3), sprintf('%d != %d', 3, $results[0]->getAdmDx()->getValue()));
 
-        $this->assertInstanceOf('NS\SentinelBundle\Form\Types\Diagnosis', $results[1]->getAdmDx());
+        $this->assertInstanceOf('NS\SentinelBundle\Form\IBD\Types\Diagnosis', $results[1]->getAdmDx());
         $this->assertTrue($results[1]->getAdmDx()->equal(1), sprintf('%d != %d', 1, $results[1]->getAdmDx()->getValue()));
         $this->assertEquals('Second', $results[1]->getLastName());
 
-        $this->assertInstanceOf('NS\SentinelBundle\Form\Types\Diagnosis', $results[2]->getAdmDx());
+        $this->assertInstanceOf('NS\SentinelBundle\Form\IBD\Types\Diagnosis', $results[2]->getAdmDx());
         $this->assertTrue($results[2]->getAdmDx()->equal(4), sprintf('%d != %d', 4, $results[2]->getAdmDx()->getValue()));
 
-        $this->assertInstanceOf('NS\SentinelBundle\Form\Types\Diagnosis', $results[3]->getAdmDx());
+        $this->assertInstanceOf('NS\SentinelBundle\Form\IBD\Types\Diagnosis', $results[3]->getAdmDx());
         $this->assertTrue($results[3]->getAdmDx()->equal(6), sprintf('%d != %d', 6, $results[3]->getAdmDx()->getValue()));
 
-        $this->assertInstanceOf('NS\SentinelBundle\Form\Types\Diagnosis', $results[4]->getAdmDx());
+        $this->assertInstanceOf('NS\SentinelBundle\Form\IBD\Types\Diagnosis', $results[4]->getAdmDx());
         $this->assertTrue($results[4]->getAdmDx()->equal(99), sprintf('%d != %d', 99, $results[4]->getAdmDx()->getValue()));
 
-        $this->assertInstanceOf('NS\SentinelBundle\Form\Types\Diagnosis', $results[5]->getAdmDx());
+        $this->assertInstanceOf('NS\SentinelBundle\Form\IBD\Types\Diagnosis', $results[5]->getAdmDx());
         $this->assertTrue($results[5]->getAdmDx()->equal(6), sprintf('%d != %d', 6, $results[5]->getAdmDx()->getValue()));
     }
 

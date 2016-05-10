@@ -65,100 +65,115 @@ doctrine:
         # path:     "%database_path%"
         types:
             TripleChoice: NS\SentinelBundle\Entity\Types\TripleChoice
-            IsolateViable: NS\SentinelBundle\Entity\Types\IsolateViable
             FourDoses: NS\SentinelBundle\Entity\Types\FourDoses
-            Diagnosis: NS\SentinelBundle\Entity\Types\Diagnosis
-            CXRResult: NS\SentinelBundle\Entity\Types\CXRResult
-            DischargeClassification: NS\SentinelBundle\Entity\Types\DischargeClassification
-            CSFAppearance: NS\SentinelBundle\Entity\Types\CSFAppearance
             Role: NS\SentinelBundle\Entity\Types\Role
             Gender: NS\SentinelBundle\Entity\Types\Gender
-            BinaxResult: NS\SentinelBundle\Entity\Types\BinaxResult
-            LatResult: NS\SentinelBundle\Entity\Types\LatResult
-            PCRResult: NS\SentinelBundle\Entity\Types\PCRResult
-            GramStain: NS\SentinelBundle\Entity\Types\GramStain
-            GramStainResult: NS\SentinelBundle\Entity\Types\GramStainResult
-            GramStainOrganism: NS\SentinelBundle\Entity\Types\GramStainOrganism
-            IsolateType: NS\SentinelBundle\Entity\Types\IsolateType
-            SerotypeIdentifier: NS\SentinelBundle\Entity\Types\SerotypeIdentifier
-            PathogenIdentifier: NS\SentinelBundle\Entity\Types\PathogenIdentifier
-            Rehydration: NS\SentinelBundle\Entity\Types\Rehydration
-            Dehydration: NS\SentinelBundle\Entity\Types\Dehydration
-            RotavirusVaccinationReceived: NS\SentinelBundle\Entity\Types\RotavirusVaccinationReceived
-            RotavirusVaccinationType: NS\SentinelBundle\Entity\Types\RotavirusVaccinationType
-            ElisaResult: NS\SentinelBundle\Entity\Types\ElisaResult
-            IBDCaseResult: NS\SentinelBundle\Entity\Types\IBDCaseResult
-            VaccinationReceived: NS\SentinelBundle\Entity\Types\VaccinationReceived
-            MeningitisVaccinationType:  NS\SentinelBundle\Entity\Types\MeningitisVaccinationType
-            DischargeClassification: NS\SentinelBundle\Entity\Types\DischargeClassification
-            DischargeOutcome: NS\SentinelBundle\Entity\Types\DischargeOutcome
-            CaseStatus: NS\SentinelBundle\Entity\Types\CaseStatus
-            GenotypeResultG: NS\SentinelBundle\Entity\Types\GenotypeResultG
-            GenotypeResultP: NS\SentinelBundle\Entity\Types\GenotypeResultP
-            NmSerogroup: NS\SentinelBundle\Entity\Types\NmSerogroup
-            HiSerotype: NS\SentinelBundle\Entity\Types\HiSerotype
-            SpnSerotype: NS\SentinelBundle\Entity\Types\SpnSerotype
-            ThreeDoses: NS\SentinelBundle\Entity\Types\ThreeDoses
-            DischargeDiagnosis: NS\SentinelBundle\Entity\Types\DischargeDiagnosis
-            CXRAdditionalResult: NS\SentinelBundle\Entity\Types\CXRAdditionalResult
-            PCVType: NS\SentinelBundle\Entity\Types\PCVType
-            RotavirusDischargeOutcome: NS\SentinelBundle\Entity\Types\RotavirusDischargeOutcome
-            RotaVirusDischargeClassification: NS\SentinelBundle\Entity\Types\RotaVirusDischargeClassification
-            CultureResult: NS\SentinelBundle\Entity\Types\CultureResult
-            ElisaKit: NS\SentinelBundle\Entity\Types\ElisaKit
-            OtherSpecimen: NS\SentinelBundle\Entity\Types\OtherSpecimen
             SurveillanceConducted: NS\SentinelBundle\Entity\Types\SurveillanceConducted
-            IBDIntenseSupport: NS\SentinelBundle\Entity\Types\IBDIntenseSupport
-            SampleType: NS\SentinelBundle\Entity\Types\SampleType
-            FinalResult: NS\SentinelBundle\Entity\Types\FinalResult
+            CaseStatus: NS\SentinelBundle\Entity\Types\CaseStatus
+            ThreeDoses: NS\SentinelBundle\Entity\Types\ThreeDoses
+            VaccinationReceived: NS\SentinelBundle\Entity\Types\VaccinationReceived
+
+            BinaxResult: NS\SentinelBundle\Entity\IBD\Types\BinaxResult
+            CaseResult: NS\SentinelBundle\Entity\IBD\Types\CaseResult
+            CSFAppearance: NS\SentinelBundle\Entity\IBD\Types\CSFAppearance
+            CultureResult: NS\SentinelBundle\Entity\IBD\Types\CultureResult
+            CXRAdditionalResult: NS\SentinelBundle\Entity\IBD\Types\CXRAdditionalResult
+            CXRResult: NS\SentinelBundle\Entity\IBD\Types\CXRResult
+            Diagnosis: NS\SentinelBundle\Entity\IBD\Types\Diagnosis
+            IBDDischargeClassification: NS\SentinelBundle\Entity\IBD\Types\DischargeClassification
+            IBDDischargeDiagnosis: NS\SentinelBundle\Entity\IBD\Types\DischargeDiagnosis
+            IBDDischargeOutcome: NS\SentinelBundle\Entity\IBD\Types\DischargeOutcome
+            FinalResult: NS\SentinelBundle\Entity\IBD\Types\FinalResult
+            GramStain: NS\SentinelBundle\Entity\IBD\Types\GramStain
+            GramStainResult: NS\SentinelBundle\Entity\IBD\Types\GramStainResult
+            HiSerotype: NS\SentinelBundle\Entity\IBD\Types\HiSerotype
+            IntenseSupport: NS\SentinelBundle\Entity\IBD\Types\IntenseSupport
+            IsolateType: NS\SentinelBundle\Entity\IBD\Types\IsolateType
+            IsolateViable: NS\SentinelBundle\Entity\IBD\Types\IsolateViable
+            LatResult: NS\SentinelBundle\Entity\IBD\Types\LatResult
+            NmSerogroup: NS\SentinelBundle\Entity\IBD\Types\NmSerogroup
+            OtherSpecimen: NS\SentinelBundle\Entity\IBD\Types\OtherSpecimen
+            PathogenIdentifier: NS\SentinelBundle\Entity\IBD\Types\PathogenIdentifier
+            PCRResult: NS\SentinelBundle\Entity\IBD\Types\PCRResult
+            PCVType: NS\SentinelBundle\Entity\IBD\Types\PCVType
+            SampleType: NS\SentinelBundle\Entity\IBD\Types\SampleType
+            SerotypeIdentifier: NS\SentinelBundle\Entity\IBD\Types\SerotypeIdentifier
+            SpnSerotype: NS\SentinelBundle\Entity\IBD\Types\SpnSerotype
+            IBDVaccinationType:  NS\SentinelBundle\Entity\IBD\Types\VaccinationType
+
+            Rehydration: NS\SentinelBundle\Entity\RotaVirus\Types\Rehydration
+            Dehydration: NS\SentinelBundle\Entity\RotaVirus\Types\Dehydration
+            GenotypeResultG: NS\SentinelBundle\Entity\RotaVirus\Types\GenotypeResultG
+            GenotypeResultP: NS\SentinelBundle\Entity\RotaVirus\Types\GenotypeResultP
+            RVVaccinationType: NS\SentinelBundle\Entity\RotaVirus\Types\VaccinationType
+            RVDischargeOutcome: NS\SentinelBundle\Entity\RotaVirus\Types\DischargeOutcome
+            RVDischargeClassification: NS\SentinelBundle\Entity\RotaVirus\Types\DischargeClassification
+            ElisaKit: NS\SentinelBundle\Entity\RotaVirus\Types\ElisaKit
+            ElisaResult: NS\SentinelBundle\Entity\RotaVirus\Types\ElisaResult
+
+            #Depricated
+#            GramStainOrganism: NS\SentinelBundle\Entity\Types\GramStainOrganism
+
+#            MeningitisVaccinationType: NS\SentinelBundle\Entity\IBD\Types\VaccinationType
+#            DischargeOutcome: NS\SentinelBundle\Entity\IBD\Types\DischargeOutcome
+#            DischargeClassification: NS\SentinelBundle\Entity\IBD\Types\DischargeClassification
+#            DischargeDiagnosis: NS\SentinelBundle\Entity\IBD\Types\DischargeDiagnosis
+#            IBDCaseResult: NS\SentinelBundle\Entity\IBD\Types\CaseResult
+#            RotavirusVaccinationReceived: NS\SentinelBundle\Entity\Types\VaccinationReceived
+#            RotavirusVaccinationType: NS\SentinelBundle\Entity\RotaVirus\Types\VaccinationType
+#            RotavirusDischargeOutcome: NS\SentinelBundle\Entity\RotaVirus\Types\DischargeOutcome
+#            RotaVirusDischargeClassification: NS\SentinelBundle\Entity\RotaVirus\Types\DischargeClassification
+#            IBDIntenseSupport: NS\SentinelBundle\Entity\IBD\Types\IntenseSupport
+
         mapping_types:
-            GramStainOrganism: GramStainOrganism
             TripleChoice: TripleChoice
-            IsolateViable: IsolateViable
-            FourDoses: FourDoses
-            Diagnosis: Diagnosis
-            CXRResult: CXRResult
-            DischargeClassification: DischargeClassification
-            CSFAppearance: CSFAppearance
             Role: Role
             Gender: Gender
-            BinaxResult: BinaxResult
-            LatResult: LatResult
-            PCRResult: PCRResult
-            GramStain: GramStain
-            IsolateType: IsolateType
-            SerotypeIdentifier: SerotypeIdentifier
-            PathogenIdentifier: PathogenIdentifier
-            Rehydration: Rehydration
-            Dehydration: Dehydration
-            RotavirusVaccinationReceived: RotavirusVaccinationReceived
-            RotavirusVaccinationType: RotavirusVaccinationType
-            ElisaResult: ElisaResult
-            IBDCaseResult: IBDCaseResult
-            VaccinationReceived: VaccinationReceived
-            MeningitisVaccinationType: MeningitisVaccinationType
-            GramStainResult: GramStainResult
-            DischargeClassification: DischargeClassification
-            DischargeOutcome: DischargeOutcome
+            FourDoses: FourDoses
+            ThreeDoses: ThreeDoses
+            SurveillanceConducted: SurveillanceConducted
             CaseStatus: CaseStatus
+            VaccinationReceived: VaccinationReceived
+
+#            GramStainOrganism: GramStainOrganism
+
+            BinaxResult: BinaxResult
+            CaseResult: CaseResult
+            CSFAppearance: CSFAppearance
+            CultureResult: CultureResult
+            CXRAdditionalResult: CXRAdditionalResult
+            CXRResult: CXRResult
+            Diagnosis: Diagnosis
+            IBDDischargeClassification: IBDDischargeClassification
+            IBDDischargeDiagnosis: IBDDischargeDiagnosis
+            IBDDischargeOutcome: IBDDischargeOutcome
+            FinalResult: FinalResult
+            GramStain: GramStain
+            GramStainResult: GramStainResult
+            HiSerotype: HiSerotype
+            IntenseSupport: IntenseSupport
+            IsolateType: IsolateType
+            IsolateViable: IsolateViable
+            LatResult: LatResult
+            NmSerogroup: NmSerogroup
+            OtherSpecimen: OtherSpecimen
+            PathogenIdentifier: PathogenIdentifier
+            PCRResult: PCRResult
+            PCVType: PCVType
+            SampleType: SampleType
+            SerotypeIdentifier: SerotypeIdentifier
+            SpnSerotype: SpnSerotype
+            IBDVaccinationType: IBDVaccinationType
+
+            Rehydration: Rehydration
             GenotypeResultG: GenotypeResultG
             GenotypeResultP: GenotypeResultP
-            NmSerogroup: NmSerogroup
-            HiSerotype: HiSerotype
-            SpnSerotype: SpnSerotype
-            ThreeDoses: ThreeDoses
-            DischargeDiagnosis: DischargeDiagnosis
-            CXRAdditionalResult: CXRAdditionalResult
-            PCVType: PCVType
-            RotavirusDischargeOutcome: RotavirusDischargeOutcome
-            RotaVirusDischargeClassification: RotaVirusDischargeClassification
-            CultureResult: CultureResult
+            RVaccinationType: RVVaccinationType
+            Dehydration: Dehydration
+            ElisaResult: ElisaResult
             ElisaKit: ElisaKit
-            OtherSpecimen: OtherSpecimen
-            SurveillanceConducted: SurveillanceConducted
-            IBDIntenseSupport: IBDIntenseSupport
-            SampleType: SampleType
-            FinalResult: FinalResult
+            RVDischargeOutcome: RVDischargeOutcome
+            RVDischargeClassification: RVDischargeClassification
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true

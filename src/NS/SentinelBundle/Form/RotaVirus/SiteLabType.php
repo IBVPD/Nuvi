@@ -10,7 +10,7 @@ use \Symfony\Component\Form\FormEvent;
 use \NS\SentinelBundle\Services\SerializedSites;
 use \NS\SentinelBundle\Entity\Country;
 use \NS\SentinelBundle\Form\Types\TripleChoice;
-use \NS\SentinelBundle\Form\Types\ElisaKit;
+use \NS\SentinelBundle\Form\RotaVirus\Types\ElisaKit;
 use NS\SentinelBundle\Entity\Site;
 
 /**
@@ -48,25 +48,20 @@ class SiteLabType extends AbstractType
             'data-context-value'  => TripleChoice::YES);
 
         $builder
-            ->add('received', 'acedatepicker')
-            ->add('adequate', 'TripleChoice')
-            ->add('stored', 'TripleChoice')
-            ->add('elisaDone', 'TripleChoice', array('attr' => $attr1))
-            ->add('elisaKit', 'ElisaKit', array('attr' => array(
-                    'data-context-parent' => 'stool1Reminder',
-                    'data-context-child'  => 'elisaKit',
-                    'data-context-value'  => TripleChoice::YES)))
-            ->add('elisaKitOther', null, array('attr' => array(
-                    'data-context-parent' => 'elisaKit',
-                    'data-context-value'  => ElisaKit::OTHER)))
-            ->add('elisaLoadNumber', null, array('attr' => $attr1p1))
-            ->add('elisaExpiryDate', 'acedatepicker', array('attr' => $attr1p1))
-            ->add('elisaTestDate', 'acedatepicker', array('attr' => $attr1p1))
-            ->add('elisaResult', 'ElisaResult', array('attr' => $attr1p1))
-            ->add('genotypingDate', 'acedatepicker')
-            ->add('genotypingResultG', 'GenotypeResultG')
+            ->add('received',           'NS\AceBundle\Form\DatePickerType')
+            ->add('adequate',           'NS\SentinelBundle\Form\Types\TripleChoice')
+            ->add('stored',             'NS\SentinelBundle\Form\Types\TripleChoice')
+            ->add('elisaDone',          'NS\SentinelBundle\Form\Types\TripleChoice', array('attr' => $attr1))
+            ->add('elisaKit',           'NS\SentinelBundle\Form\RotaVirus\Types\ElisaKit', array('attr' => array('data-context-parent' => 'stool1Reminder', 'data-context-child' => 'elisaKit', 'data-context-value' => TripleChoice::YES)))
+            ->add('elisaKitOther',      null, array('attr' => array('data-context-parent' => 'elisaKit', 'data-context-value' => ElisaKit::OTHER)))
+            ->add('elisaLoadNumber',    null, array('attr' => $attr1p1))
+            ->add('elisaExpiryDate',    'NS\AceBundle\Form\DatePickerType', array('attr' => $attr1p1))
+            ->add('elisaTestDate',      'NS\AceBundle\Form\DatePickerType', array('attr' => $attr1p1))
+            ->add('elisaResult',        'NS\SentinelBundle\Form\RotaVirus\Types\ElisaResult', array('attr' => $attr1p1))
+            ->add('genotypingDate',     'NS\AceBundle\Form\DatePickerType')
+            ->add('genotypingResultG',  'NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultG')
             ->add('genotypingResultGSpecify')
-            ->add('genotypeResultP', 'GenotypeResultP')
+            ->add('genotypeResultP',    'NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultP')
             ->add('genotypeResultPSpecify');
 
         $builder->addEventListener(FormEvents::POST_SET_DATA, array($this, 'postSetData'));
@@ -90,33 +85,15 @@ class SiteLabType extends AbstractType
 
         if ($country instanceof Country) {
             if ($country->hasReferenceLab()) {
-                $form->add('stoolSentToRRL', 'TripleChoice', array(
-                    'required' => false,
-                    'label'    => 'rotavirus-form.stoolSentToRRL',
-                    'attr'     => array('data-context-child' => 'stoolSentToRRL')
-                    ))
-                    ->add('stoolSentToRRLDate', 'acedatepicker', array(
-                        'required' => false,
-                        'label'    => 'rotavirus-form.stoolSentToRRLDate',
-                        'attr'     => array(
-                            'data-context-parent' => 'stoolSentToRRL',
-                            'data-context-value' => TripleChoice::YES)
-                    ));
+                $form
+                    ->add('stoolSentToRRL', 'NS\SentinelBundle\Form\Types\TripleChoice', array('required' => false, 'label' => 'rotavirus-form.stoolSentToRRL', 'attr' => array('data-context-child' => 'stoolSentToRRL')))
+                    ->add('stoolSentToRRLDate', 'NS\AceBundle\Form\DatePickerType', array('required' => false, 'label' => 'rotavirus-form.stoolSentToRRLDate', 'attr' => array('data-context-parent' => 'stoolSentToRRL', 'data-context-value' => TripleChoice::YES)));
             }
 
             if ($country->hasNationalLab()) {
-                $form->add('stoolSentToNL', 'TripleChoice', array(
-                    'required' => false,
-                    'label'    => 'rotavirus-form.stoolSentToNL',
-                    'attr'     => array('data-context-child' => 'stoolSentToNL')
-                    ))
-                    ->add('stoolSentToNLDate', 'acedatepicker', array(
-                        'required' => false,
-                        'label'    => 'rotavirus-form.stoolSentToNLDate',
-                        'attr'     => array(
-                            'data-context-parent' => 'stoolSentToNL',
-                            'data-context-value' => TripleChoice::YES)
-                    ));
+                $form
+                    ->add('stoolSentToNL', 'NS\SentinelBundle\Form\Types\TripleChoice', array('required' => false, 'label' => 'rotavirus-form.stoolSentToNL', 'attr' => array('data-context-child' => 'stoolSentToNL')))
+                    ->add('stoolSentToNLDate', 'NS\AceBundle\Form\DatePickerType', array('required' => false, 'label' => 'rotavirus-form.stoolSentToNLDate', 'attr' => array('data-context-parent' => 'stoolSentToNL', 'data-context-value' => TripleChoice::YES)));
             }
         }
     }

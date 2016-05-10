@@ -4,17 +4,15 @@ namespace NS\SentinelBundle\Repository;
 
 use \Doctrine\ORM\NoResultException;
 use \Doctrine\ORM\Query;
-use Doctrine\ORM\UnexpectedResultException;
 use \NS\SentinelBundle\Exceptions\NonExistentCaseException;
-use \NS\SentinelBundle\Form\Types\BinaxResult;
-use \NS\SentinelBundle\Form\Types\CultureResult;
-use NS\SentinelBundle\Form\Types\Diagnosis;
-use \NS\SentinelBundle\Form\Types\HiSerotype;
-use \NS\SentinelBundle\Form\Types\IBDCaseResult;
-use \NS\SentinelBundle\Form\Types\PCRResult;
-use \NS\SentinelBundle\Form\Types\SpnSerotype;
+use \NS\SentinelBundle\Form\IBD\Types\BinaxResult;
+use \NS\SentinelBundle\Form\IBD\Types\CultureResult;
+use \NS\SentinelBundle\Form\IBD\Types\HiSerotype;
+use \NS\SentinelBundle\Form\IBD\Types\CaseResult;
+use \NS\SentinelBundle\Form\IBD\Types\PCRResult;
+use \NS\SentinelBundle\Form\IBD\Types\SpnSerotype;
 use \NS\SentinelBundle\Form\Types\TripleChoice;
-use NS\UtilBundle\Form\Types\ArrayChoice;
+use \NS\UtilBundle\Form\Types\ArrayChoice;
 
 /**
  * Description of Common
@@ -269,7 +267,7 @@ class IBDRepository extends Common
         $queryBuilder = $this->createQueryBuilder($alias)
             ->select(sprintf('YEAR(%s.adm_date) as theYear, COUNT(%s.id) as theCount,%s.ageDistribution', $alias, $alias, $alias))
             ->where(sprintf('(%s.result = :suspectedMening)', $alias))
-            ->setParameter('suspectedMening', IBDCaseResult::PROBABLE)
+            ->setParameter('suspectedMening', CaseResult::PROBABLE)
             ->groupBy(sprintf('theYear,%s.ageDistribution', $alias))
             ->orderBy('theYear', 'ASC');
 
