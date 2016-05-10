@@ -111,20 +111,6 @@ doctrine:
             ElisaKit: NS\SentinelBundle\Entity\RotaVirus\Types\ElisaKit
             ElisaResult: NS\SentinelBundle\Entity\RotaVirus\Types\ElisaResult
 
-            #Depricated
-#            GramStainOrganism: NS\SentinelBundle\Entity\Types\GramStainOrganism
-
-#            MeningitisVaccinationType: NS\SentinelBundle\Entity\IBD\Types\VaccinationType
-#            DischargeOutcome: NS\SentinelBundle\Entity\IBD\Types\DischargeOutcome
-#            DischargeClassification: NS\SentinelBundle\Entity\IBD\Types\DischargeClassification
-#            DischargeDiagnosis: NS\SentinelBundle\Entity\IBD\Types\DischargeDiagnosis
-#            IBDCaseResult: NS\SentinelBundle\Entity\IBD\Types\CaseResult
-#            RotavirusVaccinationReceived: NS\SentinelBundle\Entity\Types\VaccinationReceived
-#            RotavirusVaccinationType: NS\SentinelBundle\Entity\RotaVirus\Types\VaccinationType
-#            RotavirusDischargeOutcome: NS\SentinelBundle\Entity\RotaVirus\Types\DischargeOutcome
-#            RotaVirusDischargeClassification: NS\SentinelBundle\Entity\RotaVirus\Types\DischargeClassification
-#            IBDIntenseSupport: NS\SentinelBundle\Entity\IBD\Types\IntenseSupport
-
         mapping_types:
             TripleChoice: TripleChoice
             Role: Role
@@ -134,8 +120,6 @@ doctrine:
             SurveillanceConducted: SurveillanceConducted
             CaseStatus: CaseStatus
             VaccinationReceived: VaccinationReceived
-
-#            GramStainOrganism: GramStainOrganism
 
             BinaxResult: BinaxResult
             CaseResult: CaseResult
