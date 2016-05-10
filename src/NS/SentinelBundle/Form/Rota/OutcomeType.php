@@ -22,6 +22,7 @@ class OutcomeType extends AbstractType
         $builder
             ->add('dischargeOutcome',           'RotavirusDischargeOutcome', array('required'=>false, 'label'=>'rotavirus-form.dischargeOutcome'))
             ->add('dischargeDate',              'acedatepicker',    array('required'=>false, 'label'=>'rotavirus-form.dischargeDate'))
+            ->add('dischargeClassification',    'RotaVirusDischargeClassification', array('required'=>false,'label'=>'rotavirus-form.dischargeClassification'))
             ->add('dischargeClassOther',        null,               array('required'=>false, 'label'=>'rotavirus-form.dischargeClassOther'))
             ->add('comment',                    null,               array('required'=>false, 'label'=>'rotavirus-form.comment'))
         ;

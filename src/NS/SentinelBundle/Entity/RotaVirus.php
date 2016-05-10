@@ -15,6 +15,7 @@ use \NS\SecurityBundle\Annotation\Secured;
 use \NS\SecurityBundle\Annotation\SecuredCondition;
 use \JMS\Serializer\Annotation\Groups;
 use \JMS\Serializer\Annotation\Exclude;
+use NSSentinelBundle\Form\Types\RotaVirusDischargeClassification;
 
 /**
  * Description of RotaVirus
@@ -246,6 +247,12 @@ class RotaVirus extends BaseCase
      * @Groups({"api"})
      */
     private $disch_date;
+
+    /**
+     * @var RotaVirusDischargeClassification
+     * @ORM\Column(name="disch_class",type="RotaVirusDischargeClassification",nullable=true)
+     */
+    private $disch_class;
 
     /**
      * @var string $disch_class_other
@@ -677,6 +684,42 @@ class RotaVirus extends BaseCase
     {
         $this->disch_date = $dischargeDate;
 
+        return $this;
+    }
+
+    /**
+     * @return RotaVirusDischargeClassification
+     */
+    public function getDischargeClassification()
+    {
+        return $this->disch_class;
+    }
+
+    /**
+     * @return RotaVirusDischargeClassification
+     */
+    public function getDischClass()
+    {
+        return $this->disch_class;
+    }
+
+    /**
+     * @param RotaVirusDischargeClassification $disch_class
+     * @return RotaVirus
+     */
+    public function setDischClass(RotaVirusDischargeClassification $disch_class = null)
+    {
+        $this->disch_class = $disch_class;
+        return $this;
+    }
+
+    /**
+     * @param RotaVirusDischargeClassification|null $disch_class
+     * @return $this
+     */
+    public function setDischargeClassification(RotaVirusDischargeClassification $disch_class = null)
+    {
+        $this->disch_class = $disch_class;
         return $this;
     }
 
