@@ -74,6 +74,11 @@ services:
     tags:
       - { name: form.type, alias: RotavirusDischargeOutcome }
 
+  ns_sentinel.form.type.rotavirusdischargeclassificataion:
+    class: NS\SentinelBundle\Form\Types\RotaVirusDischargeClassification
+    tags:
+      - { name: form.type, alias: RotaVirusDischargeClassification }
+
   ns.sentinel.form.type.pcvtype:
     class: NS\SentinelBundle\Form\Types\PCVType
     tags:

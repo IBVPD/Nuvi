@@ -103,6 +103,7 @@ doctrine:
             CXRAdditionalResult: NS\SentinelBundle\Entity\Types\CXRAdditionalResult
             PCVType: NS\SentinelBundle\Entity\Types\PCVType
             RotavirusDischargeOutcome: NS\SentinelBundle\Entity\Types\RotavirusDischargeOutcome
+            RotaVirusDischargeClassification: NS\SentinelBundle\Entity\Types\RotaVirusDischargeClassification
             CultureResult: NS\SentinelBundle\Entity\Types\CultureResult
             ElisaKit: NS\SentinelBundle\Entity\Types\ElisaKit
             OtherSpecimen: NS\SentinelBundle\Entity\Types\OtherSpecimen
@@ -150,6 +151,7 @@ doctrine:
             CXRAdditionalResult: CXRAdditionalResult
             PCVType: PCVType
             RotavirusDischargeOutcome: RotavirusDischargeOutcome
+            RotaVirusDischargeClassification: RotaVirusDischargeClassification
             CultureResult: CultureResult
             ElisaKit: ElisaKit
             OtherSpecimen: OtherSpecimen
