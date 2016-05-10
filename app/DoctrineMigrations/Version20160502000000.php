@@ -53,19 +53,19 @@ class Version20160502000000 extends AbstractMigration implements ContainerAwareI
         foreach ($users as $user) {
             $options = array();
 
-            if ($user->getCanCreateCases()) {
+            if (method_exists($user, 'getCanCreateCases') && $user->getCanCreateCases()) {
                 $options[] = 'case';
             }
 
-            if ($user->getCanCreateLabs()) {
+            if (method_exists($user, 'getCanCreateLabs') && $user->getCanCreateLabs()) {
                 $options[] = 'lab';
             }
 
-            if ($user->getCanCreateNLLabs()) {
+            if (method_exists($user, 'getCanCreateNLLabs') && $user->getCanCreateNLLabs()) {
                 $options[] = 'nl';
             }
 
-            if ($user->getCanCreateRRLLabs()) {
+            if (method_exists($user, 'getCanCreateRRLLabs') && $user->getCanCreateRRLLabs()) {
                 $options[] = 'rrl';
             }
 
