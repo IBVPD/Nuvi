@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ffa438966c75260b8f830291bb595714",
-    "content-hash": "afef5e9839fec8ddbffb5d506f91565d",
+    "hash": "3fc6ff472c1ef24a3d80189052d9bc46",
+    "content-hash": "e4afd423916f07cdcc68dd7f671e454a",
     "packages": [
         {
             "name": "adoy/oauth2",
@@ -2348,7 +2348,7 @@
         },
         {
             "name": "jms/translation-bundle",
-            "version": "dev-master",
+            "version": "1.2.3",
             "target-dir": "JMS/TranslationBundle",
             "source": {
                 "type": "git",
@@ -2535,7 +2535,7 @@
                     "email": "stof@notk.org"
                 },
                 {
-                    "name": "KnpLabs",
+                    "name": "Knplabs",
                     "homepage": "http://knplabs.com"
                 },
                 {
@@ -7398,7 +7398,6 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "jms/security-extra-bundle": 20,
-        "jms/translation-bundle": 20,
         "doctrine/doctrine-fixtures-bundle": 20,
         "punkave/symfony2-file-uploader-bundle": 20,
         "oneup/uploader-bundle": 20,

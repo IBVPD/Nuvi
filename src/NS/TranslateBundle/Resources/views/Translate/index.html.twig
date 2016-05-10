@@ -2,74 +2,20 @@
 
 {% block javascripts %}
     {{ parent() }}
+    {#<script language="javascript" type="text/javascript" src="{{ asset("bundles/jmstranslation/js/jquery.js") }}"></script>#}
     <script language="javascript" type="text/javascript" src="{{ asset("bundles/jmstranslation/js/trunk8.js") }}"></script>
-
+    <script type="text/javascript" src="{{ asset("/bundles/jmstranslation/js/jms.js") }}"></script>
     <script language="javascript" type="text/javascript">
-        $(document).ready(function() {
-            var updateMessagePath = {{ path("jms_translation_update_message", {"config": selectedConfig, "domain": selectedDomain, "locale": selectedLocale})|json_encode|raw }};
-        
-            $('#newConfig select').change(function() {
-                $(this).parent().submit();
-            });
+        var updateMessagePath = {{ path("jms_translation_update_message", {"config": selectedConfig, "domain": selectedDomain, "locale": selectedLocale})|json_encode|raw }};
+        var isWritable        = {{ isWriteable is sameas(true) ? 'true' : 'false' }};
+        var JMS               = new JMSTranslationManager(updateMessagePath, isWritable);
 
-            $('#existingConfig select').change(function() {
-                $(this).parent().submit();
-            });
+        JMS.domain.selector = '#newConfig select, #existingConfig select';
+        JMS.translation.ajax.savedMessageContent = '<div class="alert alert-block alert-success alert-message"><button type="button" class="close" data-dismiss="alert"><i class="fa fa-remove"></i></button><p>Translation was saved.</p></div>';
+        JMS.translation.ajax.unsavedMessageContent = '<div class="alert alert-block alert-error alert-message"><button type="button" class="close" data-dismiss="alert"><i class="fa fa-remove"></i></button><p>Could not be saved.</p></div>';
+        JMS.translation.ajax.errorMessageContent = '<div class="alert alert-block alert-error alert-message"><button type="button" class="close" data-dismiss="alert"><i class="fa fa-remove"></i></button><p>Could not be saved.</p></div>';
 
-            $('.truncate-left').trunk8({
-                side: 'left',
-                fill: '<a href="#" class="untruncate">&hellip;</a>'
-            });
-
-            $(document).on('click', '.untruncate', function (event) {
-                $(this).parent().trunk8('revert');
-                event.preventDefault();
-            });
-
-            {% if isWriteable is sameas(true) %}
-            $('textarea')
-                .blur(function() {
-                    var self = this;
-                    $.ajax(updateMessagePath + '?id=' + encodeURIComponent($(this).data('id')), {
-                        type: 'POST',
-                        headers: {'X-HTTP-METHOD-OVERRIDE': 'PUT'},
-                        data: {'_method': 'PUT', 'message': $(this).val()},
-                        beforeSend: function() {
-                            $(self).parent().closest('td').prev('td').children('.alert-message').remove();
-                        },
-                        error: function() {
-                            $(self).parent().closest('td').prev('td').append('<div class="alert alert-block alert-error alert-message"><button type="button" class="close" data-dismiss="alert"><i class="fa fa-remove"></i></button><p>Could not be saved.</p></div>');
-                        },
-                        success: function(data) {
-                            if (data == 'Translation was saved') {
-                                $(self).parent().closest('td').prev('td').append('<div class="alert alert-block alert-success alert-message"><button type="button" class="close" data-dismiss="alert"><i class="fa fa-remove"></i></button><p>Translation was saved.</p></div>');
-                            } else {
-                                $(self).parent().closest('td').prev('td').append('<div class="alert alert-block alert-error alert-message"><button type="button" class="close" data-dismiss="alert"><i class="fa fa-remove"></i></button><p>Could not be saved.</p></div>');
-                            }
-                        },
-                        complete: function() {
-                            var parent = $(self).parent();
-                            $(self).data('timeoutId', setTimeout(function() {
-                                $(self).data('timeoutId', undefined);
-                                parent.closest('td').prev('td').children('.alert-message').fadeOut(300, function() { $(this).remove(); });
-                            }, 10000));
-                        }
-                    });
-                })
-                .focus(function() {
-                    this.select();
-                    
-                    var timeoutId = $(this).data('timeoutId');
-                    if (timeoutId) {
-                        clearTimeout(timeoutId);
-                        $(this).data('timeoutId', undefined);
-                    }
-                    
-                    $(this).parent().children('.alert-message').remove();
-                })
-            ;
-            {% endif %}
-        });
+        JMS.ready();
     </script>
 {% endblock %}
 
