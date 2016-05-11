@@ -73,8 +73,8 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
             if ($result) {
                 return $result;
             }
-        } catch (UnexpectedResultException $excep) {
-            if ($excep instanceof NoResultException || $excep instanceof NonExistentCaseException) {
+        } catch (UnexpectedResultException $exception) {
+            if ($exception instanceof NoResultException || $exception instanceof NonExistentCaseException) {
                 $class = $this->getClassName();
                 $record = new $class();
                 $case = $this->_em->getRepository($this->parentClass)->checkExistence($id);
@@ -83,7 +83,7 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
                 return $record;
             }
 
-            throw $excep;
+            throw $exception;
         }
     }
 

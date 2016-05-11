@@ -60,15 +60,9 @@ use \NS\SentinelBundle\Validators as NSValidators;
 class SiteLab extends BaseSiteLab
 {
     /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
      * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\IBD",inversedBy="siteLab",cascade={"persist"})
      * @ORM\JoinColumn(nullable=false,unique=true)
+     * @ORM\Id
      */
     protected $caseFile;
 

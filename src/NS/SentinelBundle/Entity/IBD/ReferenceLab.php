@@ -18,6 +18,7 @@ class ReferenceLab extends ExternalLab implements ReferenceLabResultInterface
     /**
      * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\IBD",inversedBy="referenceLab")
      * @ORM\JoinColumn(nullable=false)
+     * @ORM\Id
      */
     protected $caseFile;
 

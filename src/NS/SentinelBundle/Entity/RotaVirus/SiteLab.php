@@ -30,15 +30,9 @@ use \JMS\Serializer\Annotation\Groups;
 class SiteLab extends BaseSiteLab
 {
     /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
      * @ORM\OneToOne(targetEntity="NS\SentinelBundle\Entity\RotaVirus",inversedBy="siteLab")
      * @ORM\JoinColumn(nullable=false,unique=true)
+     * @ORM\Id
      */
     protected $caseFile;
 //---------------------------------

@@ -15,6 +15,7 @@ class NationalLab extends ExternalLab
     /**
      * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\RotaVirus",inversedBy="nationalLab")
      * @ORM\JoinColumn(nullable=false)
+     * @ORM\Id
      */
     protected $caseFile;
 

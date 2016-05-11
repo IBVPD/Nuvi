@@ -19,7 +19,7 @@ class Version20160510134847 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE rotavirus_cases CHANGE disch_class disch_class INT DEFAULT NULL COMMENT \'(DC2Type:RVDischargeClassification)\', CHANGE rv_received rv_received INT DEFAULT NULL COMMENT \'(DC2Type:VaccinationReceived)\', CHANGE rv_type rv_type INT DEFAULT NULL COMMENT \'(DC2Type:RVVaccinationType)\', CHANGE disch_outcome disch_outcome INT DEFAULT NULL COMMENT \'(DC2Type:RVDischargeOutcome)\'');
-        $this->addSql('ALTER TABLE ibd_cases CHANGE mening_type mening_type INT DEFAULT NULL COMMENT \'(DC2Type:IBDVaccinationType)\', CHANGE disch_outcome disch_outcome INT DEFAULT NULL COMMENT \'(DC2Type:IBDDischargeOutcome)\', CHANGE disch_dx disch_dx INT DEFAULT NULL COMMENT \'(DC2Type:IBDDischargeDiagnosis)\', CHANGE disch_class disch_class INT DEFAULT NULL COMMENT \'(DC2Type:IBDDischargeClassification)\'');
+        $this->addSql('ALTER TABLE ibd_cases CHANGE result result INT DEFAULT NULL COMMENT \'(DC2Type:CaseResult)\', CHANGE mening_type mening_type INT DEFAULT NULL COMMENT \'(DC2Type:IBDVaccinationType)\', CHANGE disch_outcome disch_outcome INT DEFAULT NULL COMMENT \'(DC2Type:IBDDischargeOutcome)\', CHANGE disch_dx disch_dx INT DEFAULT NULL COMMENT \'(DC2Type:IBDDischargeDiagnosis)\', CHANGE disch_class disch_class INT DEFAULT NULL COMMENT \'(DC2Type:IBDDischargeClassification)\'');
         $this->addSql('ALTER TABLE sites CHANGE ibdIntenseSupport ibdIntenseSupport INT DEFAULT NULL COMMENT \'(DC2Type:IntenseSupport)\'');
     }
 
@@ -32,7 +32,7 @@ class Version20160510134847 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE rotavirus_cases CHANGE disch_class disch_class INT DEFAULT NULL COMMENT \'(DC2Type:RotaVirusDischargeClassification)\', CHANGE rv_received rv_received INT DEFAULT NULL COMMENT \'(DC2Type:RotavirusVaccinationReceived)\', CHANGE rv_type rv_type INT DEFAULT NULL COMMENT \'(DC2Type:RotavirusVaccinationType)\', CHANGE disch_outcome disch_outcome INT DEFAULT NULL COMMENT \'(DC2Type:RotavirusDischargeOutcome)\'');
-        $this->addSql('ALTER TABLE ibd_cases CHANGE mening_type mening_type INT DEFAULT NULL COMMENT \'(DC2Type:MeningitisVaccinationType)\', CHANGE disch_outcome disch_outcome INT DEFAULT NULL COMMENT \'(DC2Type:DischargeOutcome)\', CHANGE disch_dx disch_dx INT DEFAULT NULL COMMENT \'(DC2Type:DischargeDiagnosis)\', CHANGE disch_class disch_class INT DEFAULT NULL COMMENT \'(DC2Type:DischargeClassification)\'');
+        $this->addSql('ALTER TABLE ibd_cases CHANGE result result INT DEFAULT NULL COMMENT \'(DC2Type:IBDCaseResult)\', CHANGE mening_type mening_type INT DEFAULT NULL COMMENT \'(DC2Type:MeningitisVaccinationType)\', CHANGE disch_outcome disch_outcome INT DEFAULT NULL COMMENT \'(DC2Type:DischargeOutcome)\', CHANGE disch_dx disch_dx INT DEFAULT NULL COMMENT \'(DC2Type:DischargeDiagnosis)\', CHANGE disch_class disch_class INT DEFAULT NULL COMMENT \'(DC2Type:DischargeClassification)\'');
         $this->addSql('ALTER TABLE sites CHANGE ibdIntenseSupport ibdIntenseSupport INT DEFAULT NULL COMMENT \'(DC2Type:IBDIntenseSupport)\'');
     }
 }

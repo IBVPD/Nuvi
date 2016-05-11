@@ -16,6 +16,7 @@ class ReferenceLab extends ExternalLab implements ReferenceLabResultInterface
     /**
      * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\RotaVirus",inversedBy="referenceLab")
      * @ORM\JoinColumn(nullable=false)
+     * @ORM\Id
      */
     protected $caseFile;
 
