@@ -86,7 +86,7 @@ class ImportRepository extends EntityRepository
         $exceptionStr = $exception->getMessage()."\n\n";
 
         foreach ($exception->getTrace() as $index => $trace) {
-            $exceptionStr .= sprintf("%d: %s::%s on line %d\n", $index, $trace['class'], $trace['function'], $trace['line']);
+            $exceptionStr .= sprintf("%d: %s::%s on line %d\n", $index, isset($trace['class'])?$trace['class']:'Unknown', isset($trace['function'])?$trace['function']:'Unknown', isset($trace['line'])?$trace['line']:-1);
         }
 
         return $this->_em->createQueryBuilder()
