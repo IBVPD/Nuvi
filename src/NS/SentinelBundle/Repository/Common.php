@@ -185,7 +185,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
         }
 
         if (count($cases) > 1) {
-            throw new DuplicateCaseException(array('found' => count($cases), 'case_id' => $params['case_d']), 1);
+            throw new DuplicateCaseException(array('found' => count($cases), 'case_id' => $params['case_id']), 1);
         }
 
         $case = current($cases);
