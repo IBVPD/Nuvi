@@ -48,6 +48,16 @@ class RotaVirusController extends BaseCaseController
     }
 
     /**
+     * @Route("/delete/{id}",name="rotavirusDelete")
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteAction($id)
+    {
+        return $this->delete('NS\SentinelBundle\Form\RotaVirus\CaseType', $id, 'rotavirusIndex');
+    }
+
+    /**
      * @Route("/lab/edit/{id}",name="rotavirusLabEdit",defaults={"id"=null})
      * @Method(methods={"GET","POST"})
      * @param Request $request
@@ -105,42 +115,29 @@ class RotaVirusController extends BaseCaseController
         return $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:RotaVirus')->findWithAssociations($objId);
     }
 
-    /**
-     * @param $type
-     * @param null $objId
-     * @return \Symfony\Component\Form\Form
-     * @throws \Doctrine\ORM\UnexpectedResultException
-     * @throws \Exception
-     * @throws \NS\SentinelBundle\Exceptions\NonExistentCaseException
-     */
-    protected function getForm($type, $objId = null)
+    protected function getObject($type, $objId, $forDelete = false)
     {
-        $record = null;
-        if ($objId) {
-            switch ($type) {
-                case 'NS\SentinelBundle\Form\RotaVirus\CaseType':
-                case 'NS\SentinelBundle\Form\RotaVirus\OutcomeType':
-                    $record = $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:RotaVirus')->find($objId);
-                    break;
+        switch ($type) {
+            case 'NS\SentinelBundle\Form\RotaVirus\CaseType':
+            case 'NS\SentinelBundle\Form\RotaVirus\OutcomeType':
+                if($forDelete) {
+                    return $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:RotaVirus')->findWithAssociations($objId);
+                }
 
-                case 'NS\SentinelBundle\Form\RotaVirus\SiteLabType':
-                    $record = $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:RotaVirus\SiteLab')->findOrCreateNew($objId);
-                    break;
+                return $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:RotaVirus')->find($objId);
 
-                case 'NS\SentinelBundle\Form\RotaVirus\ReferenceLabType':
-                    $record = $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:RotaVirus\ReferenceLab')->findOrCreateNew($objId);
-                    break;
+            case 'NS\SentinelBundle\Form\RotaVirus\SiteLabType':
+                return $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:RotaVirus\SiteLab')->findOrCreateNew($objId);
 
-                case 'NS\SentinelBundle\Form\RotaVirus\NationalLabType':
-                    $record = $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:RotaVirus\NationalLab')->findOrCreateNew($objId);
-                    break;
+            case 'NS\SentinelBundle\Form\RotaVirus\ReferenceLabType':
+                return $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:RotaVirus\ReferenceLab')->findOrCreateNew($objId);
 
-                default:
-                    throw new \Exception("Unknown type");
-            }
+            case 'NS\SentinelBundle\Form\RotaVirus\NationalLabType':
+                return $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:RotaVirus\NationalLab')->findOrCreateNew($objId);
+
+            default:
+                throw new \Exception("Unknown type");
         }
-
-        return $this->createForm($type, $record);
     }
 
     /**

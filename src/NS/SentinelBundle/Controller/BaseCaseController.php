@@ -75,12 +75,37 @@ abstract class BaseCaseController extends Controller implements TranslationConta
     }
 
     /**
-     * @param $type
-     * @param null $objId
-     * @return mixed
+     * @param string $type
+     * @param string|null $objId
+     * @return \Symfony\Component\Form\Form
+     * @throws \Doctrine\ORM\UnexpectedResultException
+     * @throws \Exception
+     * @throws \NS\SentinelBundle\Exceptions\NonExistentCaseException
      */
-    abstract protected function getForm($type, $objId = null);
+    protected function getForm($type, $objId = null)
+    {
+        return $this->createForm($type, ($objId)?$this->getObject($type, $objId):null);
+    }
+
     abstract protected function getCaseRecord($objId);
+    abstract protected function getObject($type, $objId, $forDelete = false);
+
+    /**
+     * @param string $type
+     * @param string $objId
+     * @param string $redirectRoute
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    protected function delete($type, $objId, $redirectRoute)
+    {
+        $record = $this->getObject($type, $objId, true);
+        $entityMgr = $this->get('doctrine.orm.entity_manager');
+        $entityMgr->remove($record);
+        $entityMgr->flush();
+        $this->get('ns_flash')->addSuccess('Success','Case removed successfully!');
+
+        return $this->redirect($this->generateUrl($redirectRoute));
+    }
 
     /**
      * @param Request $request

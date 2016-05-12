@@ -125,7 +125,8 @@
             <a href="{{path('rotavirusIndex')}}" class="btn btn-sm btn-danger">{{'Cancel'|trans}}</a>
             <button type="submit" name="save" class="btn btn-sm btn-success">{{'Save'|trans}} <i class="fa fa-arrow-right fa fa-on-right bigger-110"></i></button>
             <button type="submit" name="saveclose" class="btn btn-sm btn-success">{{'Save & Close'|trans}} <i class="fa fa-arrow-right fa fa-on-right bigger-110"></i></button>
-        </div>        
+            <a href="{{ path('rotavirusDelete',{'id': id}) }}" class="btn btn-sm btn-warning pull-right ns-confirm" data-confirm-message="Delete case {{ id }}? Operation is not reverseable."><i class="fa fa-times"></i> {{ 'Delete'|trans }}</a>
+        </div>
     </div>
 </div>
 

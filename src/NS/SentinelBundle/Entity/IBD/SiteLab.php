@@ -3,7 +3,6 @@
 namespace NS\SentinelBundle\Entity\IBD;
 
 use \Doctrine\ORM\Mapping as ORM;
-use \Gedmo\Mapping\Annotation as Gedmo;
 use \NS\SecurityBundle\Annotation as Security;
 use \NS\SentinelBundle\Entity\BaseSiteLab;
 use \NS\SentinelBundle\Entity\IBD;
@@ -29,7 +28,6 @@ use \NS\SentinelBundle\Validators as NSValidators;
  * @author gnat
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\IBD\SiteLabRepository")
  * @ORM\Table(name="ibd_site_labs")
- * @Gedmo\Loggable
  * @Security\Secured(conditions={
  *      @Security\SecuredCondition(roles={"ROLE_REGION"},through={"caseFile"},relation="region",class="NSSentinelBundle:Region"),
  *      @Security\SecuredCondition(roles={"ROLE_COUNTRY","ROLE_RRL_LAB","ROLE_NL_LAB"},through={"caseFile"},relation="country",class="NSSentinelBundle:Country"),
@@ -61,7 +59,7 @@ class SiteLab extends BaseSiteLab
 {
     /**
      * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\IBD",inversedBy="siteLab",cascade={"persist"})
-     * @ORM\JoinColumn(nullable=false,unique=true)
+     * @ORM\JoinColumn(nullable=false,unique=true,onDelete="CASCADE")
      * @ORM\Id
      */
     protected $caseFile;

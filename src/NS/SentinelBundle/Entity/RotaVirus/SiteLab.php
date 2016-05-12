@@ -3,15 +3,14 @@
 namespace NS\SentinelBundle\Entity\RotaVirus;
 
 use \Doctrine\ORM\Mapping as ORM;
-use \Gedmo\Mapping\Annotation as Gedmo;
 use \NS\SecurityBundle\Annotation\Secured;
 use \NS\SecurityBundle\Annotation\SecuredCondition;
 use \NS\SentinelBundle\Entity\BaseSiteLab;
-use NS\SentinelBundle\Entity\RotaVirus;
-use \NS\SentinelBundle\Form\Types\ElisaKit;
-use \NS\SentinelBundle\Form\Types\ElisaResult;
-use \NS\SentinelBundle\Form\Types\GenotypeResultG;
-use \NS\SentinelBundle\Form\Types\GenotypeResultP;
+use \NS\SentinelBundle\Entity\RotaVirus;
+use \NS\SentinelBundle\Form\RotaVirus\Types\ElisaKit;
+use \NS\SentinelBundle\Form\RotaVirus\Types\ElisaResult;
+use \NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultG;
+use \NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultP;
 use \NS\SentinelBundle\Form\Types\TripleChoice;
 use \JMS\Serializer\Annotation\Groups;
 
@@ -20,7 +19,6 @@ use \JMS\Serializer\Annotation\Groups;
  * @author gnat
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\RotaVirus\SiteLabRepository")
  * @ORM\Table(name="rotavirus_site_labs")
- * @Gedmo\Loggable
  * @Secured(conditions={
  *      @SecuredCondition(roles={"ROLE_REGION"},through={"caseFile"},relation="region",class="NSSentinelBundle:Region"),
  *      @SecuredCondition(roles={"ROLE_COUNTRY","ROLE_RRL_LAB","ROLE_NL_LAB"},through={"caseFile"},relation="country",class="NSSentinelBundle:Country"),
@@ -31,7 +29,7 @@ class SiteLab extends BaseSiteLab
 {
     /**
      * @ORM\OneToOne(targetEntity="NS\SentinelBundle\Entity\RotaVirus",inversedBy="siteLab")
-     * @ORM\JoinColumn(nullable=false,unique=true)
+     * @ORM\JoinColumn(nullable=false,unique=true,onDelete="CASCADE")
      * @ORM\Id
      */
     protected $caseFile;

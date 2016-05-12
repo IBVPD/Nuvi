@@ -49,6 +49,16 @@ class IBDController extends BaseCaseController
     }
 
     /**
+     * @Route("/delete/{id}",name="ibdDelete")
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function deleteAction($id)
+    {
+        return $this->delete('NS\SentinelBundle\Form\IBD\CaseType', $id, 'ibdIndex');
+    }
+
+    /**
      * @Route("/rrl/edit/{id}",name="ibdRRLEdit",defaults={"id"=null})
      * @Method(methods={"GET","POST"})
      * @param Request $request
@@ -104,35 +114,27 @@ class IBDController extends BaseCaseController
     /**
      * @param $type
      * @param null $objId
-     * @return \Symfony\Component\Form\Form
+     * @return mixed|\NS\SentinelBundle\Entity\IBD|null
      * @throws \Doctrine\ORM\UnexpectedResultException
-     * @throws \Exception
      */
-    protected function getForm($type, $objId = null)
+    protected function getObject($type, $objId, $forDelete = false)
     {
-        $record = null;
-
-        if ($objId) {
-            switch ($type) {
-                case 'NS\SentinelBundle\Form\IBD\CaseType':
-                case 'NS\SentinelBundle\Form\IBD\OutcomeType':
-                    $record = $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:IBD')->find($objId);
-                    break;
-                case 'NS\SentinelBundle\Form\IBD\SiteLabType':
-                    $record = $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:IBD\SiteLab')->findOrCreateNew($objId);
-                    break;
-                case 'NS\SentinelBundle\Form\IBD\ReferenceLabType':
-                    $record = $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:IBD\ReferenceLab')->findOrCreateNew($objId);
-                    break;
-                case 'NS\SentinelBundle\Form\IBD\NationalLabType':
-                    $record = $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:IBD\NationalLab')->findOrCreateNew($objId);
-                    break;
-                default:
-                    throw new \RuntimeException("Unknown type");
-            }
+        switch ($type) {
+            case 'NS\SentinelBundle\Form\IBD\CaseType':
+            case 'NS\SentinelBundle\Form\IBD\OutcomeType':
+                if($forDelete) {
+                    return $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:IBD')->findWithAssociations($objId);
+                }
+                return $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:IBD')->find($objId);
+            case 'NS\SentinelBundle\Form\IBD\SiteLabType':
+                return $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:IBD\SiteLab')->findOrCreateNew($objId);
+            case 'NS\SentinelBundle\Form\IBD\ReferenceLabType':
+                return $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:IBD\ReferenceLab')->findOrCreateNew($objId);
+            case 'NS\SentinelBundle\Form\IBD\NationalLabType':
+                return $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:IBD\NationalLab')->findOrCreateNew($objId);
+            default:
+                throw new \RuntimeException("Unknown type");
         }
-
-        return $this->createForm($type, $record);
     }
 
     protected function getCaseRecord($objId)
