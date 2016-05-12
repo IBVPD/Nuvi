@@ -10,10 +10,17 @@ use NS\SentinelBundle\Entity\Site;
 class OnFlushListener
 {
     /**
+     * @var bool
+     */
+    private $recomputeChangeSet = false;
+
+    /**
      * @param OnFlushEventArgs $eventArgs
      */
     public function onFlush(OnFlushEventArgs $eventArgs)
     {
+        $this->recomputeChangeSet = false;
+
         $entityMgr = $eventArgs->getEntityManager();
         $uow = $entityMgr->getUnitOfWork();
 
@@ -21,6 +28,10 @@ class OnFlushListener
             if ($entity instanceof BaseCase) {
                 $this->checkLinking($entity, $entityMgr);
             }
+        }
+
+        if ($this->recomputeChangeSet === true) {
+            $entityMgr->getUnitOfWork()->computeChangeSets();
         }
     }
 
@@ -34,9 +45,9 @@ class OnFlushListener
         if ($case->getSite() instanceof Site && $case->isUnlinked()) {
             $newCase = clone $case;
 
-            $manager->remove($case);
             $manager->persist($newCase);
-            $manager->getUnitOfWork()->computeChangeSets();
+            $manager->remove($case);
+            $this->recomputeChangeSet = true;
         }
     }
 }

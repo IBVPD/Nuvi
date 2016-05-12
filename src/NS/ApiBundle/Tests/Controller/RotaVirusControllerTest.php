@@ -13,7 +13,7 @@ use \NS\UtilBundle\Form\Types\ArrayChoice;
  */
 class RotaVirusControllerTest extends WebTestCase
 {
-    const ID = 'CA-ALBCHLD-15-000082';
+    const ID = 'CA-ALBCHLD-15-000086';
 
     public function testGetCase()
     {
