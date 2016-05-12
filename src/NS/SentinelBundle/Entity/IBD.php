@@ -3,9 +3,8 @@
 namespace NS\SentinelBundle\Entity;
 
 use \Doctrine\ORM\Mapping as ORM;
-use \Gedmo\Mapping\Annotation as Gedmo;
-use \JMS\Serializer\Annotation\Groups;
-use \JMS\Serializer\Annotation\Exclude;
+use \JMS\Serializer\Annotation as Serializer;
+
 use \NS\SecurityBundle\Annotation\Secured;
 use \NS\SecurityBundle\Annotation\SecuredCondition;
 use \NS\SentinelBundle\Form\Types\FourDoses;
@@ -31,7 +30,6 @@ use \NS\SentinelBundle\Validators as LocalAssert;
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\IBDRepository")
  * @ORM\Table(name="ibd_cases",uniqueConstraints={@ORM\UniqueConstraint(name="ibd_site_case_id_idx",columns={"site_id","case_id"})})
  * @ORM\HasLifecycleCallbacks
- * @Gedmo\Loggable
  * @Secured(conditions={
  *      @SecuredCondition(roles={"ROLE_REGION"},relation="region",class="NSSentinelBundle:Region"),
  *      @SecuredCondition(roles={"ROLE_COUNTRY","ROLE_RRL_LAB","ROLE_NL_LAB"},relation="country",class="NSSentinelBundle:Country"),
@@ -47,31 +45,34 @@ class IBD extends BaseCase
 {
     /**
      * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\IBD\NationalLab", mappedBy="caseFile", cascade={"persist","remove"}, orphanRemoval=true)
+     * @Serializer\Groups({"delete"})
      */
     protected $nationalLab;
 
     /**
      * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\IBD\ReferenceLab", mappedBy="caseFile", cascade={"persist","remove"}, orphanRemoval=true)
+     * @Serializer\Groups({"delete"})
      */
     protected $referenceLab;
 
     /**
      * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\IBD\SiteLab", mappedBy="caseFile", cascade={"persist","remove"}, orphanRemoval=true)
+     * @Serializer\Groups({"delete"})
      */
     protected $siteLab;
 
     /**
-     * @Exclude()
+     * @Serializer\Exclude()
      */
     protected $siteLabClass = '\NS\SentinelBundle\Entity\IBD\SiteLab';
 
     /**
-     * @Exclude()
+     * @Serializer\Exclude()
      */
     protected $referenceClass = '\NS\SentinelBundle\Entity\IBD\ReferenceLab';
 
     /**
-     * @Exclude()
+     * @Serializer\Exclude()
      */
     protected $nationalClass  = '\NS\SentinelBundle\Entity\IBD\NationalLab';
 
@@ -79,7 +80,7 @@ class IBD extends BaseCase
     /**
      * @var \DateTime $onsetDate
      * @ORM\Column(name="onset_date",type="date",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      * @Assert\DateTime
      */
     protected $onset_date;
@@ -87,21 +88,21 @@ class IBD extends BaseCase
     /**
      * @var Diagnosis $admDx
      * @ORM\Column(name="adm_dx",type="Diagnosis",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $adm_dx;
 
     /**
      * @var string $admDxOther
      * @ORM\Column(name="adm_dx_other",type="string",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $adm_dx_other;
 
     /**
      * @var TripleChoice $antibiotics
      * @ORM\Column(name="antibiotics",type="TripleChoice",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $antibiotics;
 
@@ -109,56 +110,56 @@ class IBD extends BaseCase
     /**
      * @var TripleChoice $menSeizures
      * @ORM\Column(name="men_seizures",type="TripleChoice",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $men_seizures;
 
     /**
      * @var TripleChoice $menFever
      * @ORM\Column(name="men_fever",type="TripleChoice",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $men_fever;
 
     /**
      * @var TripleChoice $menAltConscious
      * @ORM\Column(name="men_alt_conscious",type="TripleChoice",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $men_alt_conscious;
 
     /**
      * @var TripleChoice $menInabilityFeed
      * @ORM\Column(name="men_inability_feed",type="TripleChoice",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $men_inability_feed;
 
     /**
      * @var TripleChoice $men_neck_stiff
      * @ORM\Column(name="men_neck_stiff",type="TripleChoice",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $men_neck_stiff;
 
     /**
      * @var TripleChoice $menRash
      * @ORM\Column(name="men_rash",type="TripleChoice",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $men_rash;
 
     /**
      * @var TripleChoice $menFontanelleBulge
      * @ORM\Column(name="men_fontanelle_bulge",type="TripleChoice",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $men_fontanelle_bulge;
 
     /**
      * @var TripleChoice $menLethargy
      * @ORM\Column(name="men_lethargy",type="TripleChoice",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $men_lethargy;
 
@@ -166,35 +167,35 @@ class IBD extends BaseCase
     /**
      * @var TripleChoice $pneuDiffBreathe
      * @ORM\Column(name="pneu_diff_breathe",type="TripleChoice",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $pneu_diff_breathe;
 
     /**
      * @var TripleChoice $pneuChestIndraw
      * @ORM\Column(name="pneu_chest_indraw",type="TripleChoice",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $pneu_chest_indraw;
 
     /**
      * @var TripleChoice $pneuCough
      * @ORM\Column(name="pneu_cough",type="TripleChoice",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $pneu_cough;
 
     /**
      * @var TripleChoice $pneuCyanosis
      * @ORM\Column(name="pneu_cyanosis",type="TripleChoice",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $pneu_cyanosis;
 
     /**
      * @var TripleChoice $pneuStridor
      * @ORM\Column(name="pneu_stridor",type="TripleChoice",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $pneu_stridor;
 
@@ -202,49 +203,49 @@ class IBD extends BaseCase
      * @var integer $pneuRespRate
      * @ORM\Column(name="pneu_resp_rate",type="integer",nullable=true)
      * @Assert\Range(min=10,max=100,minMessage="Please provide a valid respiratory rate",maxMessage="Please provide a valid respiratory rate")
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $pneu_resp_rate;
 
     /**
      * @var TripleChoice $pneuVomit
      * @ORM\Column(name="pneu_vomit",type="TripleChoice",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $pneu_vomit;
 
     /**
      * @var TripleChoice $pneuHypothermia
      * @ORM\Column(name="pneu_hypothermia",type="TripleChoice",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $pneu_hypothermia;
 
     /**
      * @var TripleChoice $pneuMalnutrition
      * @ORM\Column(name="pneu_malnutrition",type="TripleChoice",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $pneu_malnutrition;
 
     /**
      * @var TripleChoice $cxrDone
      * @ORM\Column(name="cxr_done",type="TripleChoice",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $cxr_done;
 
     /**
      * @var CXRResult $cxrResult
      * @ORM\Column(name="cxr_result",type="CXRResult",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $cxr_result;
 
     /**
      * @var CXRAdditionalResult $cxrResult
      * @ORM\Column(name="cxr_additional_result",type="CXRAdditionalResult",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $cxr_additional_result;
 
@@ -252,63 +253,63 @@ class IBD extends BaseCase
     /**
      * @var VaccinationReceived $hibReceived
      * @ORM\Column(name="hib_received",type="VaccinationReceived",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $hib_received;
 
     /**
      * @var FourDoses $hibDoses
      * @ORM\Column(name="hib_doses",type="FourDoses",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $hib_doses;
 
     /**
      * @var \DateTime $hibMostRecentDose
      * @ORM\Column(name="hib_most_recent_dose",type="date",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $hib_most_recent_dose;
 
     /**
      * @var VaccinationReceived $pcvReceived
      * @ORM\Column(name="pcv_received",type="VaccinationReceived",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $pcv_received;
 
     /**
      * @var FourDoses $pcvDoses
      * @ORM\Column(name="pcv_doses",type="FourDoses",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $pcv_doses;
 
     /**
      * @var PCVType $pcvType
      * @ORM\Column(name="pcv_type",type="PCVType",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $pcv_type;
 
     /**
      * @var \DateTime $pcvMostRecentDose
      * @ORM\Column(name="pcv_most_recent_dose",type="date",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $pcv_most_recent_dose;
 
     /**
      * @var VaccinationReceived $meningReceived
      * @ORM\Column(name="mening_received",type="VaccinationReceived",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $mening_received;
 
     /**
      * @var VaccinationType $meningType
      * @ORM\Column(name="mening_type",type="IBDVaccinationType",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $mening_type;
 
@@ -316,7 +317,7 @@ class IBD extends BaseCase
      * @var \DateTime $mening_date
      * @ORM\Column(name="mening_date",type="date",nullable=true)
      * @Assert\Date
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $mening_date;
 
@@ -325,35 +326,35 @@ class IBD extends BaseCase
     /**
      * @var TripleChoice $csfCollected
      * @ORM\Column(name="csf_collected",type="TripleChoice",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $csf_collected;
 
     /**
      * @var \DateTime $csfCollectDate
      * @ORM\Column(name="csf_collect_date",type="date",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $csf_collect_date;
 
     /**
      * @var \DateTime $csfCollectTime
      * @ORM\Column(name="csf_collect_time",type="time",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $csf_collect_time;
 
     /**
      * @var CSFAppearance $csfAppearance
      * @ORM\Column(name="csf_appearance",type="CSFAppearance",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $csf_appearance;
 
     /**
      * @var TripleChoice $bloodCollected
      * @ORM\Column(name="blood_collected", type="TripleChoice",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $blood_collected;
 
@@ -366,14 +367,14 @@ class IBD extends BaseCase
     /**
      * @var OtherSpecimen $otherSpecimenCollected
      * @ORM\Column(name="other_specimen_collected",type="OtherSpecimen",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $other_specimen_collected;
 
     /**
      * @var string $otherSpecimenOther
      * @ORM\Column(name="other_specimen_other",type="string",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $other_specimen_other;
 
@@ -381,28 +382,28 @@ class IBD extends BaseCase
     /**
      * @var DischargeOutcome $dischOutcome
      * @ORM\Column(name="disch_outcome",type="IBDDischargeOutcome",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $disch_outcome;
 
     /**
      * @var Diagnosis $dischDx
      * @ORM\Column(name="disch_dx",type="IBDDischargeDiagnosis",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $disch_dx;
 
     /**
      * @var $dischDxOther
      * @ORM\Column(name="disch_dx_other",type="string",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $disch_dx_other;
 
     /**
      * @var DischargeClassification $dischClass
      * @ORM\Column(name="disch_class",type="IBDDischargeClassification",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $disch_class;
 
@@ -415,14 +416,14 @@ class IBD extends BaseCase
     /**
      * @var string $comment
      * @ORM\Column(name="comment",type="text",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $comment;
 
     /**
      * @var CaseResult $result
      * @ORM\Column(name="result",type="CaseResult",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api"})
      */
     private $result;
 

@@ -43,24 +43,24 @@ class ImportBatchWorker
     }
 
     /**
-     * @param int $id             Import id
+     * @param Import|int $import             Import id
      * @param int $batchSize      Number of rows to process at a time
      *
      * @return bool Returns true when the import has been completely processed
      */
-    public function consume($id, $batchSize = 500)
+    public function consume($import, $batchSize = 500)
     {
-        $import = $this->entityMgr->getRepository('NSImportBundle:Import')->find($id);
+        $importObj = ($import instanceof Import) ?$import:$this->entityMgr->getRepository('NSImportBundle:Import')->find($import);
 
-        if (!$import) {
-            throw new \InvalidArgumentException(sprintf('Unable to find import %d', $id));
+        if (!$importObj) {
+            throw new \InvalidArgumentException(sprintf('Unable to find import %d', $import));
         }
 
-        $this->setup($import, $batchSize);
-        $result = $this->process($import);
-        $this->finish($import, $result);
+        $this->setup($importObj, $batchSize);
+        $result = $this->process($importObj);
+        $this->finish($importObj, $result);
 
-        return $import->isComplete();
+        return $importObj->isComplete();
     }
 
     /**

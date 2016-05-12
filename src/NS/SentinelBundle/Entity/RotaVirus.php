@@ -11,7 +11,6 @@ use \NS\SentinelBundle\Form\RotaVirus\Types\DischargeClassification;
 use \NS\SentinelBundle\Form\RotaVirus\Types\Dehydration;
 use \NS\SentinelBundle\Form\RotaVirus\Types\Rehydration;
 use \NS\SentinelBundle\Form\Types\ThreeDoses;
-use \Gedmo\Mapping\Annotation as Gedmo;
 use \NS\SecurityBundle\Annotation\Secured;
 use \NS\SecurityBundle\Annotation\SecuredCondition;
 use \JMS\Serializer\Annotation\Groups;
@@ -22,7 +21,6 @@ use \JMS\Serializer\Annotation\Exclude;
  * @author gnat
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\RotaVirusRepository")
  * @ORM\Table(name="rotavirus_cases",uniqueConstraints={@ORM\UniqueConstraint(name="rotavirus_site_case_id_idx",columns={"site_id","case_id"})})
- * @Gedmo\Loggable
  * @Secured(conditions={
  *      @SecuredCondition(roles={"ROLE_REGION"},relation="region",class="NSSentinelBundle:Region"),
  *      @SecuredCondition(roles={"ROLE_COUNTRY","ROLE_RRL_LAB","ROLE_NL_LAB"},relation="country",class="NSSentinelBundle:Country"),

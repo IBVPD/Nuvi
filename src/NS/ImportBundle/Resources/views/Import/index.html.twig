@@ -11,14 +11,10 @@
 
     <div class="row">
         <div class="col-xs-12">
-            <div class="widget-box widget-color-blue">
+            <div class="widget-box widget-color-blue no-border">
                 <div class="widget-header widget-header-small">
                     <h5 class="widget-title">{{'Recent Uploads'|trans}}</h5>
-                    <div class="widget-toolbar">
-                        <a href="#importForm" data-toggle="collapse" class="white small">
-                            <i class="ace-icon fa fa-plus" data-icon-hide="fa-minus" data-icon-show="fa-plus"></i> New Upload
-                        </a>
-                    </div>
+                    {{ widget_filter_toolbox({'filter_id':'importForm','target_text': 'New Upload'}) }}
                     <div class="widget-toolbar no-border">{{ knp_pagination_render(results) }}</div>
                 </div>
                 <div class="widget-body">
@@ -49,8 +45,7 @@
                         </div>
                     </div>
                     <div class="widget-main no-padding">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover">
+                        <table class="table table-striped table-bordered table-hover">
                                 <thead class="thin-border-bottom">
                                 <tr>
                                     <th>{{'Created'|trans}}</th>
@@ -146,7 +141,6 @@
                                 {%endfor %}
                                 </tbody>
                             </table>
-                        </div>
                     </div>
                 </div>
             </div>

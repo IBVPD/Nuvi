@@ -15,13 +15,6 @@ use \JMS\Serializer\Annotation as Serializer;
 abstract class BaseExternalLab
 {
     /**
-     * @ORM\Id
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
-
-    /**
      * @var
      */
     protected $caseFile;

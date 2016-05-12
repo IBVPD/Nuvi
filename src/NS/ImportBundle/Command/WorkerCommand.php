@@ -49,28 +49,33 @@ class WorkerCommand extends ContainerAwareCommand
         if ($job) {
             $output->writeln(sprintf("Processing Job %d, ImportId: %d", $job->getId(), $job->getData()));
 
-            $this->setupUser($job->getData(), $entityMgr);
+            $import = $this->setupUser($job->getData(), $entityMgr);
 
-            try {
-                if (!$worker->consume($job->getData(), $batchSize)) {
-                    $pheanstalk->release($job);
-                    $output->writeln("Processed and returned for additional processing");
-                } else {
-                    $output->writeln("Import complete - Job removed");
-                    $pheanstalk->delete($job);
-                }
-            } catch (\Exception $exception) {
-                $pheanstalk->bury($job);
+            if($import)
+            {
+                try {
+                    if (!$worker->consume($import, $batchSize)) {
+                        $pheanstalk->release($job);
+                        $output->writeln("Processed and returned for additional processing");
+                    } else {
+                        $output->writeln("Import complete - Job removed");
+                        $pheanstalk->delete($job);
+                    }
+                } catch (\Exception $exception) {
+                    $pheanstalk->bury($job);
 
-                $errOutput->writeln('Error processing job');
-                if ($entityMgr->isOpen()) {
-                    $entityMgr->getRepository('NSImportBundle:Import')->setImportException($job->getData(), $exception);
-                }
+                    $errOutput->writeln('Error processing job');
+                    if ($entityMgr->isOpen()) {
+                        $entityMgr->getRepository('NSImportBundle:Import')->setImportException($job->getData(), $exception);
+                    }
 
-                $errOutput->writeln('Exception: '.$exception->getMessage());
-                foreach ($exception->getTrace() as $index => $trace) {
-                    $errOutput->writeln(sprintf('%d: %s::%s on line %d', $index, $trace['class'], $trace['function'], $trace['line']));
+                    $errOutput->writeln('Exception: '.$exception->getMessage());
+                    foreach ($exception->getTrace() as $index => $trace) {
+                        $errOutput->writeln(sprintf(sprintf("%d: %s::%s on line %d\n", $index, isset($trace['class'])?$trace['class']:'Unknown', isset($trace['function'])?$trace['function']:'Unknown', isset($trace['line'])?$trace['line']:-1)));
+                    }
                 }
+            } else {
+                $errOutput->writeln(sprintf('Import: %d doesn\'t exist',$job->getData()));
             }
         }
     }
@@ -78,9 +83,14 @@ class WorkerCommand extends ContainerAwareCommand
     protected function setupUser($importId, ObjectManager $entityMgr)
     {
         $import = $entityMgr->getRepository('NSImportBundle:Import')->find($importId);
-        $user = $import->getUser();
-        $user->getAcls();
-        $token = new UsernamePasswordToken($user, '', 'main_app', $user->getRoles());
-        $this->getContainer()->get('security.token_storage')->setToken($token);
+        if($import) {
+            $user = $import->getUser();
+            $user->getAcls();
+            $token = new UsernamePasswordToken($user, '', 'main_app', $user->getRoles());
+            $this->getContainer()->get('security.token_storage')->setToken($token);
+            $this->getContainer()->get('ns_sentinel.loggable_listener')->setUsername($user->getUsername());
+        }
+
+        return $import;
     }
 }

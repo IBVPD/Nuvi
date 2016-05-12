@@ -3,7 +3,6 @@
 namespace NS\SentinelBundle\Entity\RotaVirus;
 
 use Doctrine\ORM\Mapping as ORM;
-use \Gedmo\Mapping\Annotation as Gedmo;
 use \NS\SecurityBundle\Annotation\Secured;
 use \NS\SecurityBundle\Annotation\SecuredCondition;
 use \NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultG;
@@ -16,7 +15,6 @@ use \JMS\Serializer\Annotation as Serializer;
  * Description of ExternalLab
  * @author gnat
  *
- * @Gedmo\Loggable
  * @Secured(conditions={
  *      @SecuredCondition(roles={"ROLE_REGION"},through={"caseFile"},relation="region",class="NSSentinelBundle:Region"),
  *      @SecuredCondition(roles={"ROLE_COUNTRY","ROLE_RRL_LAB","ROLE_NL_LAB"},through={"caseFile"},relation="country",class="NSSentinelBundle:Country"),

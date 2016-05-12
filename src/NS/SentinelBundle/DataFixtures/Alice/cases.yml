@@ -35,8 +35,8 @@ NS\SentinelBundle\Entity\IBD:
     csfCollectTime: <dateTimeBetween($admDate,'now')>
     csfAppearance: <csfAppearance($csfCollected)>
     site: @site0
-  ibdNoSite:
-    caseId: 25
+  ibdNoSites{0..10}:
+    caseId: <bothify('NoSite-##??##')>
     country: @country0
   ibd{0..500}:
     caseId: <numberBetween(500, 20000000)>
@@ -76,6 +76,21 @@ NS\SentinelBundle\Entity\IBD:
     dischOutcome: 91%? <ibdDischargeOutcome()>
     site: @site*
 
+NS\SentinelBundle\Entity\IBD\SiteLab:
+  ibdSiteLabNoSite{3..10}:
+    caseFile: @ibdNoSites<current()>
+    csfId: <bothify('CSF##?#?')>
+
+NS\SentinelBundle\Entity\IBD\NationalLab:
+  ibdSiteLabNoSite{0..5}:
+    caseFile: @ibdNoSites<current()>
+    sampleCollectionDate: <dateTimeBetween('2015-01-01', '2015-01-05')>
+
+NS\SentinelBundle\Entity\IBD\ReferenceLab:
+  ibdRrlNoSite{0..10}:
+    caseFile: @ibdNoSites<current()>
+    sampleCollectionDate: <dateTimeBetween('2015-01-01', '2015-01-05')>
+
 NS\SentinelBundle\Entity\RotaVirus:
   rotaTest:
     caseId: 12
@@ -83,8 +98,8 @@ NS\SentinelBundle\Entity\RotaVirus:
     gender: <gender()>
     admDate: <dateTimeBetween('2015-01-01', '2015-01-05')>
     site: @site0
-  rotaNoSite:
-    caseId: 25
+  rotaNoSites{0..10}:
+    caseId: <bothify('NoSite-##??##')>
     country: @country0
   rota{0..500}:
     caseId: <numberBetween(500,90000000)>
@@ -97,12 +112,7 @@ NS\SentinelBundle\Entity\RotaVirus:
     gender: <gender()>
     site: @site*
 
-NS\SentinelBundle\Entity\IBD\ReferenceLab:
-  ibdRrlNoSite:
-    caseFile: @ibdNoSite
-    sampleCollectionDate: <dateTimeBetween('2015-01-01', '2015-01-05')>
-
 NS\SentinelBundle\Entity\RotaVirus\ReferenceLab:
-  rotaRrlNoSite:
-    caseFile: @rotaNoSite
+  rotaRrlNoSite{0..10}:
+    caseFile: @rotaNoSites<current()>
     specimenCollectionDate: <dateTimeBetween('2015-01-01', '2015-01-05')>

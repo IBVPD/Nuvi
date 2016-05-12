@@ -5,12 +5,17 @@ imports:
     - { resource: twig.yml }
 
 services:
+  ns_sentinel.loggable_listener:
+    class: NS\SentinelBundle\Loggable\LoggableListener
+    arguments: [ "@security.token_storage", "@jms_serializer.serializer" ]
+
   ns_sentinel.exporter:
     class: NS\SentinelBundle\Report\Export\Exporter
     arguments: [ "@twig", "@phpExcel" ]
 
   ns_sentinel.entity.listener:
     class: NS\SentinelBundle\Entity\Listener\OnFlushListener
+    arguments: [ "@ns_sentinel.loggable_listener" ]
     tags:
       - { name: doctrine.event_listener, event: onFlush, method: onFlush }
 
