@@ -3,6 +3,7 @@
 namespace NS\SentinelBundle\Tests\Validators;
 
 use \NS\SentinelBundle\Entity\ACL;
+use NS\SentinelBundle\Entity\ReferenceLab;
 use \NS\SentinelBundle\Entity\User;
 use \NS\SentinelBundle\Form\Types\Role;
 use \NS\SentinelBundle\Validators\UserAcl;
@@ -59,6 +60,66 @@ class UserAclValidatorTest extends \PHPUnit_Framework_TestCase
         $validator->validate($user, $constraint);
     }
 
+    /**
+     * @param User $user
+     * @param bool $expected
+     * @dataProvider getAdminUserProvider
+     * @group regionUser
+     */
+    public function testOnlyRegionalUsersCanBeAdmins($user, $expected)
+    {
+        list($constraint, $context, $builder, $validator) = $this->getValidator();
+
+        if ($expected) {
+            $context
+                ->expects($this->once())
+                ->method('buildViolation')
+                ->with('Only users with regional or no roles are allowed to be administrators')
+                ->willReturn($builder);
+
+            $builder
+                ->expects($this->once())
+                ->method('atPath')
+                ->with('admin')
+                ->willReturn($builder);
+
+            $builder
+                ->expects($this->once())
+                ->method('addViolation')
+                ->willReturn($builder);
+        } else {
+            $context
+                ->expects($this->never())
+                ->method('buildViolation');
+        }
+
+        $validator->initialize($context);
+        $validator->validate($user, $constraint);
+    }
+
+    public function getAdminUserProvider()
+    {
+        $adminUser = new User();
+        $adminUser->setAdmin(true);
+
+        $params = array(array($adminUser, false));
+
+        $role = new Role();
+        foreach (array_keys($role->getValues()) as $roleType) {
+            $acl = new ACL();
+            $acl->setType(new Role($roleType));
+
+            $user = new User();
+            $user->setReferenceLab(new ReferenceLab());
+            $user->setAdmin(true);
+            $user->addAcl($acl);
+
+            $params[] = array($user, $roleType !== Role::REGION);
+        }
+
+        return $params;
+    }
+
     public function getValidator()
     {
         $constraint = new UserAcl();
@@ -71,8 +132,8 @@ class UserAclValidatorTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $validator  = new UserAclValidator();
+        $validator = new UserAclValidator();
 
-        return array($constraint, $context,$builder,$validator);
+        return array($constraint, $context, $builder, $validator);
     }
 }
