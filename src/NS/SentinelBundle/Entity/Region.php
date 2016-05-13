@@ -16,6 +16,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass="\NS\SentinelBundle\Repository\RegionRepository")
  * @Security\Secured(conditions={
  *      @Security\SecuredCondition(roles={"ROLE_REGION"},field="code"),
+ *      @Security\SecuredCondition(roles={"ROLE_COUNTRY"},through={"countries"},field="code"),
  *      })
  * @SuppressWarnings(PHPMD.ShortVariable)
  * @UniqueEntity(fields={"code"})

@@ -76,7 +76,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
             }
         }
 
-        return $queryBuilder->getQuery();
+        return $this->secure($queryBuilder)->getQuery();
     }
 
     /**
