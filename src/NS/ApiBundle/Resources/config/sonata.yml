@@ -1,5 +1,5 @@
 services:
-  ns_sentinel.admin.api_client:
+  ns_api.admin.api_client:
     class: NS\ApiBundle\Admin\ClientAdmin
     arguments: [~, NS\ApiBundle\Entity\Client, SonataAdminBundle:CRUD]
     tags:
