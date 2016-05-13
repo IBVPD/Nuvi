@@ -3425,22 +3425,25 @@
         },
         {
             "name": "ns/ace-sonata-doctrine-orm-admin-bundle",
-            "version": "0.1.2",
+            "version": "0.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/AceSonataDoctrineORMAdminBundle.git",
-                "reference": "09bfe7bc544eab1da9ebc2e28d715fc1dfd3e150"
+                "reference": "2b2e99a19687a10415e373a16c8d80265597c271"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/AceSonataDoctrineORMAdminBundle/zipball/09bfe7bc544eab1da9ebc2e28d715fc1dfd3e150",
-                "reference": "09bfe7bc544eab1da9ebc2e28d715fc1dfd3e150",
+                "url": "https://api.github.com/repos/NobletSolutions/AceSonataDoctrineORMAdminBundle/zipball/2b2e99a19687a10415e373a16c8d80265597c271",
+                "reference": "2b2e99a19687a10415e373a16c8d80265597c271",
                 "shasum": ""
             },
             "require": {
                 "ns/ace-sonata-bundle": "~0.3",
                 "php": ">=5.3.3",
-                "symfony/symfony": ">=2.3"
+                "symfony/symfony": "~2.3|~2.7|~3.0"
+            },
+            "suggest": {
+                "ns/security-bundle": "Allows for securing queries automatically"
             },
             "type": "symfony-bundle",
             "autoload": {
@@ -3463,7 +3466,7 @@
                 }
             ],
             "description": "This bundle provides ace template overrides to sonata doctrine orm",
-            "time": "2016-04-01 15:28:32"
+            "time": "2016-05-13 15:48:46"
         },
         {
             "name": "ns/filtered-pagination-bundle",
@@ -3551,16 +3554,16 @@
         },
         {
             "name": "ns/security-bundle",
-            "version": "4.2.2",
+            "version": "4.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/SecurityBundle.git",
-                "reference": "7859b6a0cea6afe801ff18fedf688e4581e0120b"
+                "reference": "e962f3d88b2e20fa705aaf4e30beaee2657fdcdf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/SecurityBundle/zipball/7859b6a0cea6afe801ff18fedf688e4581e0120b",
-                "reference": "7859b6a0cea6afe801ff18fedf688e4581e0120b",
+                "url": "https://api.github.com/repos/NobletSolutions/SecurityBundle/zipball/e962f3d88b2e20fa705aaf4e30beaee2657fdcdf",
+                "reference": "e962f3d88b2e20fa705aaf4e30beaee2657fdcdf",
                 "shasum": ""
             },
             "require": {
@@ -3569,7 +3572,8 @@
                 "symfony/symfony": "~2.7|~3.0"
             },
             "require-dev": {
-                "liip/rmt": "1.*"
+                "liip/rmt": "1.*",
+                "phpunit/phpunit": "^4.8"
             },
             "suggest": {
                 "ns/util-bundle": "The ACL autocompleter extends the UtilBundle Autocompleter form type"
@@ -3591,7 +3595,7 @@
                 }
             ],
             "description": "This Bundle provides a basic database row level ACL system",
-            "time": "2016-04-26 16:20:00"
+            "time": "2016-05-13 16:14:17"
         },
         {
             "name": "ns/util-bundle",
