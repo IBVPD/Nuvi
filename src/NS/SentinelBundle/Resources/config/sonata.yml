@@ -23,6 +23,7 @@ services:
     calls:
       - [ setEncoderFactory, [ "@security.encoder_factory" ] ]
       - [ setTokenStorage, [ "@security.token_storage" ] ]
+      - [ setAclConverter, [ "@ns_security.acl_converter" ] ]
     tags:
       - {name: sonata.admin, manager_type: orm, group: Users, label: User}
 

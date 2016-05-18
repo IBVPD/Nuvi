@@ -3425,16 +3425,16 @@
         },
         {
             "name": "ns/ace-sonata-doctrine-orm-admin-bundle",
-            "version": "0.1.4",
+            "version": "0.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/AceSonataDoctrineORMAdminBundle.git",
-                "reference": "2b2e99a19687a10415e373a16c8d80265597c271"
+                "reference": "42324aaafcc63bba2e517b7b0328e2e0c7fc24fd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/AceSonataDoctrineORMAdminBundle/zipball/2b2e99a19687a10415e373a16c8d80265597c271",
-                "reference": "2b2e99a19687a10415e373a16c8d80265597c271",
+                "url": "https://api.github.com/repos/NobletSolutions/AceSonataDoctrineORMAdminBundle/zipball/42324aaafcc63bba2e517b7b0328e2e0c7fc24fd",
+                "reference": "42324aaafcc63bba2e517b7b0328e2e0c7fc24fd",
                 "shasum": ""
             },
             "require": {
@@ -3466,7 +3466,7 @@
                 }
             ],
             "description": "This bundle provides ace template overrides to sonata doctrine orm",
-            "time": "2016-05-13 15:48:46"
+            "time": "2016-05-13 22:51:35"
         },
         {
             "name": "ns/filtered-pagination-bundle",
@@ -3896,9 +3896,9 @@
             ],
             "authors": [
                 {
-                    "name": "Johannes Schmitt",
+                    "name": "Johannes M. Schmitt",
                     "email": "schmittjoh@gmail.com",
-                    "homepage": "https://github.com/schmittjoh",
+                    "homepage": "http://jmsyst.com",
                     "role": "Developer of wrapped JMSSerializerBundle"
                 }
             ],
@@ -6090,7 +6090,7 @@
             ],
             "authors": [
                 {
-                    "name": "William Durand",
+                    "name": "William DURAND",
                     "email": "william.durand1@gmail.com",
                     "homepage": "http://www.willdurand.fr"
                 }

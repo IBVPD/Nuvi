@@ -284,71 +284,42 @@ class User implements AdvancedUserInterface
      *
      * @return boolean
      */
-    public function isOnlyApi()
-    {
-        $roles = $this->getRoles();
-        foreach ($roles as $role) {
-            switch ($role) {
-                case 'ROLE_REGION_API':
-                case 'ROLE_COUNTRY_API':
-                case 'ROLE_SITE_API':
-                case 'ROLE_CAN_CREATE_CASE':
-                case 'ROLE_CAN_CREATE_LAB':
-                    break;
-                default:
-                    return false;
-            }
-        }
-
-        return true;
-    }
-
-    /**
-     *
-     * @return boolean
-     */
     public function isOnlyAdmin()
     {
-        $roles = $this->getRoles();
-        return (count($roles) == 1 && in_array('ROLE_ADMIN', $roles));
+        return ($this->getRoles() == array('ROLE_ADMIN', 'ROLE_SUPER_ADMIN'));
     }
 
     /**
-     *
-     * @return boolean
+     * @var array
      */
-    public function isOnlyImport()
-    {
-        $roles = $this->getRoles();
-        foreach ($roles as $role) {
-            switch ($role) {
-                case 'ROLE_REGION_IMPORT':
-                case 'ROLE_COUNTRY_IMPORT':
-                case 'ROLE_SITE_IMPORT':
-                case 'ROLE_CAN_CREATE_CASE':
-                case 'ROLE_CAN_CREATE_LAB':
-                    break;
-                default:
-                    return false;
-            }
-        }
-
-        return true;
-    }
+    private $roles;
 
     /**
      * {@inheritdoc}
      */
     public function getRoles()
     {
-        $roles = ($this->admin) ? array('ROLE_ADMIN'):array();
+        if (!$this->roles) {
+            $roles = array();
 
-        // what happens if this returns null??
-        foreach ($this->acls as $acl) {
-            $roles = array_merge($roles, $acl->getCredentials());
+            foreach ($this->acls as $acl) {
+                $roles = array_merge($roles, $acl->getCredentials());
+            }
+
+            if ($this->admin) {
+                if (empty($roles)) {
+                    $roles = array('ROLE_ADMIN', 'ROLE_SUPER_ADMIN');
+                } elseif (in_array('ROLE_REGION', $roles)) {
+                    $roles = array_merge($roles, array('ROLE_ADMIN', 'ROLE_SONATA_REGION_ADMIN'));
+                } elseif (in_array('ROLE_COUNTRY', $roles)) {
+                    $roles = array_merge($roles, array('ROLE_ADMIN', 'ROLE_SONATA_COUNTRY_ADMIN'));
+                }
+            }
+
+            $this->roles = array_unique($roles);
         }
 
-        return array_unique($roles);
+        return $this->roles;
     }
 
     /**

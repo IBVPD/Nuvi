@@ -86,7 +86,7 @@ NS\SentinelBundle\Entity\ACL:
         options: [  ]
     sUser1Acl:
         type: <siteRole()>
-        objectId: @site1->id
+        objectId: @site3->id
         user: @sUser1
         options: [  ]
     sUser2Acl:
@@ -104,6 +104,11 @@ NS\SentinelBundle\Entity\ACL:
         objectId: @site4->id
         user: @sUser4
         options: [ ]
+    nsUserAcl:
+        type: <countryRole()>
+        objectId: @country1->id
+        user: @us-user
+        options: [ ]
 
 NS\SentinelBundle\Entity\User:
     user0:
@@ -116,6 +121,7 @@ NS\SentinelBundle\Entity\User:
         email: na@noblet.ca
         name: NA User
         active: true
+        admin: true
         plainPassword: 1234567-na
     multiuser:
         email: site-multiple@noblet.ca
@@ -130,6 +136,7 @@ NS\SentinelBundle\Entity\User:
         name: CA User
         email: ca@noblet.ca
         active: true
+        admin: true
         plainPassword: 1234567-ca
     ca-user1:
         name: CA Create User

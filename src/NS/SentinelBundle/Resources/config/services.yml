@@ -5,6 +5,12 @@ imports:
     - { resource: twig.yml }
 
 services:
+  ns_sentinel.admin.user_validator:
+    class: NS\SentinelBundle\Validators\UserAclValidator
+    arguments: [ "@security.authorization_checker" ]
+    tags:
+      - { name: validator.constraint_validator }
+
   ns_sentinel.loggable_listener:
     class: NS\SentinelBundle\Loggable\LoggableListener
     arguments: [ "@security.token_storage", "@jms_serializer.serializer" ]

@@ -60,13 +60,108 @@ class UserAclValidatorTest extends \PHPUnit_Framework_TestCase
         $validator->validate($user, $constraint);
     }
 
+    public function testSuperAdminsCanCreateSuperAdmins()
+    {
+        $authChecker = $this->getMockBuilder('Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $authChecker->expects($this->at(0))
+            ->method('isGranted')
+            ->with('ROLE_SUPER_ADMIN')
+            ->willReturn(true);
+        $authChecker->expects($this->at(1))
+            ->method('isGranted')
+            ->with('ROLE_SONATA_COUNTRY_ADMIN')
+            ->willReturn(true);
+
+        $user = new User();
+        $user->setAdmin(true);
+
+        list($constraint, $context, $builder, $validator) = $this->getValidator($authChecker);
+
+        $validator->initialize($context);
+        $validator->validate($user, $constraint);
+    }
+
+    public function testNonSuperAdminsCannotCreateSuperAdmins()
+    {
+        $authChecker = $this->getMockBuilder('Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $authChecker->expects($this->at(0))
+            ->method('isGranted')
+            ->with('ROLE_SUPER_ADMIN')
+            ->willReturn(false);
+
+        $authChecker->expects($this->at(1))
+            ->method('isGranted')
+            ->with('ROLE_SONATA_COUNTRY_ADMIN')
+            ->willReturn(true);
+
+        $user = new User();
+        $user->setAdmin(true);
+
+        list($constraint, $context, $builder, $validator) = $this->getValidator($authChecker);
+
+        $context->expects($this->once())
+            ->method('buildViolation')
+            ->with('Only super administrators are allowed to create other super admins')
+            ->willReturn($builder);
+
+        $builder->expects($this->once())
+            ->method('atPath')
+            ->with('admin')
+            ->willReturn($builder);
+
+        $builder->expects($this->once())
+            ->method('addViolation');
+
+        $validator->initialize($context);
+        $validator->validate($user, $constraint);
+    }
+
+    public function testCountryAdminsCannotCreateRegionalAdmins()
+    {
+        $authChecker = $this->getMockBuilder('Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $authChecker->expects($this->once())
+            ->method('isGranted')
+            ->with('ROLE_SONATA_COUNTRY_ADMIN')
+            ->willReturn(true);
+
+        $acl = new ACL();
+        $acl->setType(new Role(Role::REGION));
+        $user = new User();
+        $user->addAcl($acl);
+
+        list($constraint, $context, $builder, $validator) = $this->getValidator($authChecker);
+        $context->expects($this->once())
+            ->method('buildViolation')
+            ->with('You may not create regional users')
+            ->willReturn($builder);
+
+        $builder->expects($this->never())
+            ->method('atPath')
+            ->willReturn($builder);
+
+        $builder->expects($this->once())
+            ->method('addViolation');
+
+        $validator->initialize($context);
+        $validator->validate($user,$constraint);
+    }
+
     /**
      * @param User $user
      * @param bool $expected
      * @dataProvider getAdminUserProvider
      * @group regionUser
      */
-    public function testOnlyRegionalUsersCanBeAdmins($user, $expected)
+    public function testOnlyRegionalOrCountryUsersCanBeAdmins($user, $expected)
     {
         list($constraint, $context, $builder, $validator) = $this->getValidator();
 
@@ -99,11 +194,6 @@ class UserAclValidatorTest extends \PHPUnit_Framework_TestCase
 
     public function getAdminUserProvider()
     {
-        $adminUser = new User();
-        $adminUser->setAdmin(true);
-
-        $params = array(array($adminUser, false));
-
         $role = new Role();
         foreach (array_keys($role->getValues()) as $roleType) {
             $acl = new ACL();
@@ -114,13 +204,13 @@ class UserAclValidatorTest extends \PHPUnit_Framework_TestCase
             $user->setAdmin(true);
             $user->addAcl($acl);
 
-            $params[] = array($user, $roleType !== Role::REGION);
+            $params[] = array($user, ($roleType !== Role::REGION && $roleType !== Role::COUNTRY));
         }
 
         return $params;
     }
 
-    public function getValidator()
+    public function getValidator($authChecker = null)
     {
         $constraint = new UserAcl();
 
@@ -132,7 +222,17 @@ class UserAclValidatorTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $validator = new UserAclValidator();
+        if(!$authChecker) {
+            $authChecker = $this->getMockBuilder('Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface')
+                ->disableOriginalConstructor()
+                ->getMock();
+
+            $authChecker->expects($this->any())
+                ->method('isGranted')
+                ->willReturn(false);
+        }
+
+        $validator  = new UserAclValidator($authChecker);
 
         return array($constraint, $context, $builder, $validator);
     }

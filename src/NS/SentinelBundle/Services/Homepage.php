@@ -46,8 +46,6 @@ class Homepage
 
         if ($user->isOnlyAdmin()) {
             return new RedirectResponse($this->router->generate('sonata_admin_dashboard'));
-        } elseif ($user->isOnlyApi()) {
-            return new RedirectResponse($this->router->generate('ns_api_dashboard'));
         }
 
         $locale = $request->attributes->get('_locale', $request->getLocale());

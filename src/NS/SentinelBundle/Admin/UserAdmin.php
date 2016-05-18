@@ -2,14 +2,18 @@
 
 namespace NS\SentinelBundle\Admin;
 
+use NS\SentinelBundle\Entity\User;
+use NS\SentinelBundle\Form\Types\Role;
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use \Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
-use \NS\SentinelBundle\Form\Types\Role;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use NS\SecurityBundle\Role\ACLConverter;
 
 class UserAdmin extends Admin
 {
@@ -22,6 +26,11 @@ class UserAdmin extends Admin
      * @var TokenStorageInterface
      */
     private $tokenStorage;
+
+    /**
+     * @var ACLConverter
+     */
+    private $aclConverter;
 
     /**
      * @param EncoderFactoryInterface $factory
@@ -37,6 +46,14 @@ class UserAdmin extends Admin
     public function setTokenStorage($tokenStorage)
     {
         $this->tokenStorage = $tokenStorage;
+    }
+
+    /**
+     * @param ACLConverter $aclConverter
+     */
+    public function setAclConverter($aclConverter)
+    {
+        $this->aclConverter = $aclConverter;
     }
 
     /**
@@ -154,27 +171,130 @@ class UserAdmin extends Admin
     public function createQuery($context = 'list')
     {
         $query = parent::createQuery($context);
+        $query->leftJoin(sprintf('%s.acls',$query->getRootAlias()),'a');
+
         $user = $this->tokenStorage->getToken()->getUser();
-        $role = new Role();
 
+        // Super admins see all
         if ($user->isOnlyAdmin()) {
-            $rootAlias = $query->getRootAlias();
-            $query->leftJoin("$rootAlias.acls", 'a');
-
             return $query;
         }
 
-        $highest = $role->getHighest($this->tokenStorage->getToken()->getRoles());
-
-        if ($highest === null) {
-            throw new \RuntimeException("Unable to determine highest role");
+        if(in_array('ROLE_SONATA_REGION_ADMIN',$user->getRoles())) {
+            return $this->adjustRegionAccess($query);
+        } elseif (in_array('ROLE_SONATA_COUNTRY_ADMIN', $user->getRoles())) {
+            return $this->adjustCountryAccess($query);
+        } else {
+            throw new AccessDeniedException('Unable to secure user list');
         }
+    }
 
-        $rootAlias = $query->getRootAlias();
-        $query->leftJoin("$rootAlias.acls", 'a')
-            ->where('a.type >= :type')
-            ->setParameter('type', $highest);
+    /**
+     * @param ProxyQueryInterface $query
+     * @return ProxyQueryInterface
+     */
+    private function adjustRegionAccess(ProxyQueryInterface $query)
+    {
+        $query->andWhere(' 
+            (
+                ( a.type = :regionType AND a.object_id IN (:regionIds) ) OR 
+                ( a.type = :countryType AND a.object_id IN (SELECT c.code FROM NS\SentinelBundle\Entity\Country c WHERE c.region IN (:regions) ) ) OR
+                ( a.type >= :siteType AND a.type <= :nlLabType AND a.object_id IN (SELECT s.code FROM NS\SentinelBundle\Entity\Site s INNER JOIN s.country ct WHERE ct.region IN (:regions) ) )
+            )
+          ')
+            ->setParameter('regionType', Role::REGION)
+            ->setParameter('regionIds', $this->getRegions())
+            ->setParameter('regions', $this->getRegions())
+            ->setParameter('countryType', Role::COUNTRY)
+            ->setParameter('siteType', Role::SITE)
+            ->setParameter('nlLabType', Role::NL_LAB);
 
         return $query;
+    }
+
+    /**
+     * @param ProxyQueryInterface $query
+     * @return ProxyQueryInterface
+     */
+    private function adjustCountryAccess(ProxyQueryInterface $query)
+    {
+        $query->andWhere('
+            (
+                (a.type = :countryType AND a.object_id IN (SELECT c.code FROM NS\SentinelBundle\Entity\Country c WHERE c.code IN (:countryIds) ) ) OR
+                (a.type >= :siteType AND a.type <= :nlLabType AND a.object_id IN (SELECT s.code FROM NS\SentinelBundle\Entity\Site s WHERE s.country IN (:countries) ) )
+            )
+          ')
+            ->setParameter('countryType', Role::COUNTRY)
+            ->setParameter('countryIds', $this->getCountryIds())
+            ->setParameter('countries', $this->getCountries())
+            ->setParameter('siteType', Role::SITE)
+            ->setParameter('nlLabType', Role::NL_LAB);
+
+        return $query;
+    }
+
+    const REGIONS = 'admin.regions';
+    const COUNTRIES = 'admin.countries';
+
+    /**
+     * @return array
+     */
+    private function getRegions()
+    {
+        $regions = array();
+        $modelManager = $this->getModelManager()->getEntityManager('NS\SentinelBundle\Entity\Region');
+        foreach ($this->getRegionsIds() as $regionId) {
+            $regions[] = $modelManager->getReference('NS\SentinelBundle\Entity\Region', $regionId);
+        }
+
+        return $regions;
+    }
+
+    /**
+     * @return array
+     */
+    private function getCountries()
+    {
+        $countries = array();
+        $modelManager = $this->getModelManager()->getEntityManager('NS\SentinelBundle\Entity\Country');
+
+        foreach ($this->getCountryIds() as $countryId) {
+            $countries[] = $modelManager->getReference('NS\SentinelBundle\Entity\Country', $countryId);
+        }
+
+        return $countries;
+
+    }
+
+    /**
+     * @return array|mixed
+     */
+    private function getRegionsIds()
+    {
+        $session = $this->getRequest()->getSession();
+        if (!$session->has(self::REGIONS)) {
+            $regionIds = $this->aclConverter->getObjectIdsForRole($this->tokenStorage->getToken(), 'ROLE_REGION');
+            $session->set(self::REGIONS, $regionIds);
+
+            return $regionIds;
+        }
+
+        return $session->get(self::REGIONS);
+    }
+
+    /**
+     * @return array|mixed
+     */
+    private function getCountryIds()
+    {
+        $session = $this->getRequest()->getSession();
+
+        if (!$session->has(self::COUNTRIES)) {
+            $countryIds = $this->aclConverter->getObjectIdsForRole($this->tokenStorage->getToken(), 'ROLE_COUNTRY');
+
+            return $countryIds;
+        }
+
+        return $session->get(self::COUNTRIES);
     }
 }

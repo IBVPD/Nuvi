@@ -12,7 +12,6 @@ use \Symfony\Component\HttpFoundation\Request;
  */
 class HomepageTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testOnlyAdmin()
     {
         $user = $this->getMock('\NS\SentinelBundle\Entity\User');
@@ -20,33 +19,11 @@ class HomepageTest extends \PHPUnit_Framework_TestCase
             ->method('isOnlyAdmin')
             ->willReturn(true);
 
-        $user->expects($this->never())
-            ->method('isOnlyApi');
-
         $homepage = $this->getHomepageService($user, 'sonata_admin_dashboard');
         $request  = new Request();
         $response = $homepage->getHomepageResponse($request);
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\RedirectResponse', $response);
         $this->assertEquals($response->getTargetUrl(), 'sonata/admin/dashboard');
-        $this->assertEquals(302, $response->getStatusCode());
-    }
-
-    public function testOnlyApi()
-    {
-        $user = $this->getMock('\NS\SentinelBundle\Entity\User');
-        $user->expects($this->once())
-            ->method('isOnlyAdmin')
-            ->willReturn(false);
-
-        $user->expects($this->once())
-            ->method('isOnlyApi')
-            ->willReturn(true);
-
-        $homepage = $this->getHomepageService($user, 'ns_api_dashboard');
-        $request  = new Request();
-        $response = $homepage->getHomepageResponse($request);
-        $this->assertInstanceOf('Symfony\Component\HttpFoundation\RedirectResponse', $response);
-        $this->assertEquals($response->getTargetUrl(), 'ns/api/dashboard');
         $this->assertEquals(302, $response->getStatusCode());
     }
 
@@ -60,10 +37,6 @@ class HomepageTest extends \PHPUnit_Framework_TestCase
         $user = $this->getMock('\NS\SentinelBundle\Entity\User');
         $user->expects($this->once())
             ->method('isOnlyAdmin')
-            ->willReturn(false);
-
-        $user->expects($this->once())
-            ->method('isOnlyApi')
             ->willReturn(false);
 
         $homepage = $this->getHomepageService($user, 'homepage', $locale);
