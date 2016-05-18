@@ -2,6 +2,9 @@
 VERSION 0  INITIAL RELEASE
 ==========================
 
+   Version 0.9 - Updated Site,NL,RRL tables to use caseId as PK, Improved admin, case deletion and audit logging
+      18/05/2016 15:17  0.9.0  initial release
+
    Version 0.8 - Modified user/acl structures
       09/05/2016 16:53  0.8.1  Handful of UI changes/fixes and PAHO requests
       05/05/2016 12:14  0.8.0  initial release
