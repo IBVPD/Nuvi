@@ -141,22 +141,6 @@ abstract class ExternalLab extends BaseExternalLab
     }
 
     /**
-     * @return \DateTime
-     */
-    public function getGenotypeResultSentToCountry()
-    {
-        return $this->genotypeResultSentToCountry;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getGenotypeResultSentToWHO()
-    {
-        return $this->genotypeResultSentToWHO;
-    }
-
-    /**
      * @param \DateTime $genotypingDate
      * @return $this
      */
