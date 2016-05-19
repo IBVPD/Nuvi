@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Form\RotaVirus;
 
+use NS\SentinelBundle\Form\ValidatorGroup\ValidatorGroupResolver;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,6 +17,20 @@ use NS\SentinelBundle\Form\RotaVirus\Types\Dehydration;
  */
 class CaseType extends AbstractType
 {
+    /**
+     * @var ValidatorGroupResolver
+     */
+    private $validatorResolver;
+
+    /**
+     * CaseType constructor.
+     * @param ValidatorGroupResolver $validatorResolver
+     */
+    public function __construct(ValidatorGroupResolver $validatorResolver)
+    {
+        $this->validatorResolver = $validatorResolver;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -94,7 +109,8 @@ class CaseType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'NS\SentinelBundle\Entity\RotaVirus'
+            'data_class' => 'NS\SentinelBundle\Entity\RotaVirus',
+            'validation_groups' => $this->validatorResolver,
         ));
     }
 }

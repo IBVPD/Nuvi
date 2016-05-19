@@ -44,6 +44,7 @@ abstract class BaseCase
      * @var string $lastName
      * @ORM\Column(name="lastName",type="string",nullable=true)
      * @Serializer\Groups({"api"})
+     * @Assert\NotBlank(groups={"AMR"})
      */
     protected $lastName;
 
@@ -58,6 +59,7 @@ abstract class BaseCase
      * @var string $firstName
      * @ORM\Column(name="firstName",type="string",nullable=true)
      * @Serializer\Groups({"api"})
+     * @Assert\NotBlank(groups={"AMR"})
      */
     protected $firstName;
 
@@ -116,6 +118,7 @@ abstract class BaseCase
      * @var Gender $gender
      * @ORM\Column(name="gender",type="Gender",nullable=true)
      * @Serializer\Groups({"api"})
+     * @Assert\NotBlank(groups={"AMR"})
      */
     protected $gender;
 
@@ -123,6 +126,8 @@ abstract class BaseCase
      * @var \DateTime $admDate
      * @ORM\Column(name="adm_date",type="date",nullable=true)
      * @Serializer\Groups({"api"})
+     * @Assert\NotBlank(groups={"AMR"})
+     * @Assert\Date()
      */
     protected $adm_date;
 

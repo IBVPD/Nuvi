@@ -10,6 +10,7 @@ use \NS\SentinelBundle\Form\IBD\Types\DischargeDiagnosis;
 use \NS\SentinelBundle\Form\IBD\Types\OtherSpecimen;
 use \NS\SentinelBundle\Form\Types\TripleChoice;
 use \NS\SentinelBundle\Form\Types\VaccinationReceived;
+use NS\SentinelBundle\Form\ValidatorGroup\ValidatorGroupResolver;
 use \NS\SentinelBundle\Interfaces\SerializedSitesInterface;
 use \Symfony\Component\Form\AbstractType;
 use \Symfony\Component\Form\FormBuilderInterface;
@@ -19,15 +20,24 @@ use \Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CaseType extends AbstractType
 {
+    /**
+     * @var SerializedSitesInterface
+     */
     private $siteSerializer;
+
+    /**
+     * @var ValidatorGroupResolver
+     */
+    private $validatorResolver;
 
     /**
      *
      * @param SerializedSitesInterface $siteSerializer
      */
-    public function __construct(SerializedSitesInterface $siteSerializer)
+    public function __construct(SerializedSitesInterface $siteSerializer, ValidatorGroupResolver $resolver)
     {
         $this->siteSerializer = $siteSerializer;
+        $this->validatorResolver = $resolver;
     }
 
     /**
@@ -128,7 +138,8 @@ class CaseType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'NS\SentinelBundle\Entity\IBD'
+            'data_class' => 'NS\SentinelBundle\Entity\IBD',
+            'validation_groups' => $this->validatorResolver,
         ));
     }
 }
