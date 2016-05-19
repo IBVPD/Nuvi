@@ -13,8 +13,8 @@ use \Symfony\Component\Validator\ConstraintValidator;
 class AllOtherValidator extends ConstraintValidator
 {
     /**
-     * @param type $value
-     * @param Constraint $constraintInput
+     * @param object $value
+     * @param AllOther|Constraint $constraintInput
      */
     public function validate($value, Constraint $constraintInput)
     {

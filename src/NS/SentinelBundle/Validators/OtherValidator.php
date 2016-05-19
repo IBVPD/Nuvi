@@ -15,7 +15,7 @@ class OtherValidator extends ConstraintValidator
 {
     /**
      * @param object $value
-     * @param Constraint $constraint
+     * @param Other|Constraint $constraint
      */
     public function validate($value, Constraint $constraint)
     {

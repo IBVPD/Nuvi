@@ -16,6 +16,8 @@ class ACLValidator extends ConstraintValidator
 {
     /**
      * @inheritDoc
+     * @param \NS\SentinelBundle\Entity\ACL $acl
+     * @param \NS\SentinelBundle\Validators\ACL $constraint
      */
     public function validate($acl, Constraint $constraint)
     {
