@@ -11,9 +11,8 @@ export https_proxy=http://proxy.who.int:3128
 command=$1
 
 function update() {
-    composer install -o
+    SYMFONY_ENV=prod composer install -o
     app/console doctrine:migrations:migrate --env=prod
-    rm -rf app/cache/*
 }
 
 function getLatest() {
