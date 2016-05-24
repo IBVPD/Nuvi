@@ -5,6 +5,10 @@ imports:
     - { resource: twig.yml }
 
 services:
+  ns_sentinel.zero_reporter:
+    class: NS\SentinelBundle\Report\ZeroReporter
+    arguments: [ "@doctrine.orm.entity_manager" ]
+
   ns_sentinel.admin.user_validator:
     class: NS\SentinelBundle\Validators\UserAclValidator
     arguments: [ "@security.authorization_checker" ]

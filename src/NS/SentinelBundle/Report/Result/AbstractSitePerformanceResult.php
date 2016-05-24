@@ -99,7 +99,7 @@ abstract class AbstractSitePerformanceResult extends AbstractSiteBasedResult
     }
 
     /**
-     * @param int $consistentReporting
+     * @param array $consistentReporting
      */
     public function addConsistentReporting($consistentReporting)
     {

@@ -256,6 +256,7 @@ class IBDReporter extends AbstractReporter
             $repo = $this->entityMgr->getRepository('NSSentinelBundle:IBD');
             $columns = array(
                 'getConsistentReporting' => 'addConsistentReporting',
+                'getZeroReporting' => 'addConsistentReporting',
             );
 
             $this->processSitePerformanceResult($columns, $repo, $alias, $results, $form);

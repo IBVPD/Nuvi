@@ -75,7 +75,7 @@ class SiteRepository extends CommonRepository
      */
     public function findAll()
     {
-        return $this->secure($this->createQueryBuilder('s')->where('s.active = :isActive')->setParameter('isActive', true)->orderBy('s.name', 'ASC'))->getQuery()->getResult();
+        return $this->secure($this->_em->createQueryBuilder('s')->select('s')->from('NS\SentinelBundle\Entity\Site','s','s.code')->where('s.active = :isActive')->setParameter('isActive', true)->orderBy('s.name', 'ASC'))->getQuery()->getResult();
     }
 
     /**

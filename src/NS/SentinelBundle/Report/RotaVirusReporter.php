@@ -84,6 +84,7 @@ class RotaVirusReporter extends AbstractReporter
             $repo = $this->entityMgr->getRepository('NSSentinelBundle:RotaVirus');
             $columns = array(
                 'getConsistentReporting' => 'addConsistentReporting',
+                'getZeroReporting' => 'addConsistentReporting',
             );
 
             $this->processSitePerformanceResult($columns, $repo, $alias, $results, $form);

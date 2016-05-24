@@ -41,6 +41,7 @@ class ApplicationAvailabilityTest extends WebTestCase
             array('/en/rota/reports/site-performance'),
             array('/en/rota/reports/data-linking'),
             array('/en/profile'),
+            array('/en/zero-report'),
         );
     }
 

@@ -61,8 +61,7 @@ class AbstractReporter
     public function populateSites($sites, ArrayCollection &$results, $resultClass)
     {
         foreach ($sites as $values) {
-            $resultObj = new $resultClass;
-            $resultObj->setSite($values[0]->getSite());
+            $resultObj = new $resultClass($values[0]->getSite());
             $resultObj->setTotalCases($values['totalCases']);
 
             $results->set($resultObj->getSite()->getCode(), $resultObj);

@@ -1,0 +1,71 @@
+{% extends "NSSentinelBundle::layout.html.twig" %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="widget-box widget-color-blue">
+                <div class="widget-header widget-header-small">
+                    <h5 class="widget-title">{{'Zero Reporting'|trans}}</h5>
+                    {{ widget_filter_toolbox() }}
+                </div>
+                <div class="widget-body">
+                    <div class="widget-toolbox padding-8">
+                        <div class="collapse" id="filters">
+                            <form method="POST" action="{{ path('zeroReportIndex') }}">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        {{ form_row(form.type) }}
+                                    </div>
+                                    <div class="col-xs-3">
+                                        {{ form_row(form.from) }}
+                                    </div>
+                                    <div class="col-xs-3">
+                                        {{ form_row(form.to) }}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-xs btn-success">{{ 'Submit'|trans }}</button>
+                                        {{ form_rest(form) }}
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    {% if results is defined %}
+                        <form action="{{ path('zeroReportUpdate') }}" method="POST">
+                            <div class="widget-main no-padding">
+                                <table class="table table-responsive">
+                                    <tr>
+                                        <th>Site</th>
+                                        {% for label,dates in results.dates %}
+                                            <th>{{ label }}</th>
+                                        {% endfor %}
+                                    </tr>
+
+                                    {% for result in results.zeroReportResults %}
+                                        <tr>
+                                            <th>{{ result.site }}</th>
+
+                                            {% for label,dates in results.dates %}
+                                                <td>{{ zero_report(result,label,dates.year,dates.month) }}</td>
+                                            {% endfor %}
+
+                                        </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                            <div class="widget-toolbox padding-8 clearfix">
+                                <button class="btn btn-xs btn-success pull-right">
+                                    <span class="bigger-110">{{ 'Save'|trans }}</span>
+
+                                    <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
+                                </button>
+                            </div>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

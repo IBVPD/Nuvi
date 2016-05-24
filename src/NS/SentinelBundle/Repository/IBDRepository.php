@@ -557,6 +557,24 @@ class IBDRepository extends Common
             ;
     }
 
+    public function getZeroReporting($alias, array $siteCodes)
+    {
+        $queryBuilder = $this->_em
+            ->getRepository('NS\SentinelBundle\Entity\ZeroReport')
+            ->createQueryBuilder($alias)
+            ->select(sprintf('SUBSTRING(%s.yearMonth,-2) as theMonth, s.code',$alias))
+            ->innerJoin($alias . '.site', 's');
+
+        if (empty($siteCodes)) {
+            return $queryBuilder;
+        }
+
+        return $queryBuilder->where("($alias.type = :type AND $alias.caseType = :classType AND $alias.site IN (:sites))")
+            ->setParameter('type', 'zero' )
+            ->setParameter('classType', 'NSSentinelBundle:IBD' )
+            ->setParameter('sites', $siteCodes);
+    }
+
     public function getNumberOfSpecimenCollectedCount($alias, array $siteCodes)
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)

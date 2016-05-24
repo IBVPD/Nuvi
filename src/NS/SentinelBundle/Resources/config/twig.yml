@@ -1,4 +1,9 @@
 services:
+  ns_sentinel.twig.report.zero_reports:
+    class: NS\SentinelBundle\Twig\Report\ZeroReportTwig
+    tags:
+      - { name: twig.extension }
+
   ns_sentinel.twig.ct_value:
     class: NS\SentinelBundle\Twig\CTValueExtension
     tags:

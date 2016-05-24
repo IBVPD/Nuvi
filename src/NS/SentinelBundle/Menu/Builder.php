@@ -54,6 +54,7 @@ class Builder
                 $data = $menu->addChild('Data Entry', array('label'=> 'menu.data-entry'))->setExtra('icon', 'fa fa-edit');
                 $data->addChild('Meningitis', array('label' => 'menu.ibd', 'route' => 'ibdIndex'));
                 $data->addChild('Rotavirus', array('route'=>'rotavirusIndex'))->setExtra('translation_domain', 'NSSentinelBundle');
+                $data->addChild('Zero Reporting',array('route'=>'zeroReportIndex'));
             }
 
             $reports   = $menu->addChild('Reports', array('label' => 'menu.data-reports'))->setExtra('icon', 'fa fa-dashboard');

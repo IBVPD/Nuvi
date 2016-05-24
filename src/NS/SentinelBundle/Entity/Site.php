@@ -2,6 +2,8 @@
 
 namespace NS\SentinelBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use \Doctrine\ORM\Mapping as ORM;
 use \JMS\Serializer\Annotation\Groups;
 use \NS\SecurityBundle\Annotation\Secured;
@@ -174,6 +176,12 @@ class Site implements \Serializable
      * @ORM\Column(name="active",type="boolean",nullable=false)
      */
     private $active = true;
+
+    /**
+     * @var Collection $zeroReports
+     * @ORM\OneToMany(targetEntity="NS\SentinelBundle\Entity\ZeroReport", mappedBy="site")
+     */
+    private $zeroReports;
 
     //Fields used for reporting etc...
 
@@ -685,6 +693,45 @@ class Site implements \Serializable
     public function setActive($active)
     {
         $this->active = $active;
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getZeroReports()
+    {
+        return $this->zeroReports;
+    }
+
+    /**
+     * @param Collection $zeroReports
+     * @return Site
+     */
+    public function setZeroReports($zeroReports)
+    {
+        $this->zeroReports = new ArrayCollection();
+        foreach ($zeroReports as $report) {
+            $this->addZeroReport($report);
+        }
+
+        return $this;
+    }
+
+    public function addZeroReport(ZeroReport $report)
+    {
+        $report->setSite($this);
+        $this->zeroReports->add($report);
+
+        return $this;
+    }
+
+    public function removeZeroReport(ZeroReport $report)
+    {
+        if ($this->zeroReports->contains($report)) {
+            $this->zeroReports->removeElement($report);
+        }
+
         return $this;
     }
 

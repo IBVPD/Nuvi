@@ -14,10 +14,20 @@ abstract class AbstractSiteBasedResult
      * @var Site
      */
     private $site;
+
     /**
      * @var int
      */
     private $totalCases = 0;
+
+    /**
+     * AbstractSiteBasedResult constructor.
+     * @param Site $site
+     */
+    public function __construct(Site $site)
+    {
+        $this->site = $site;
+    }
 
     /**
      * @return Site

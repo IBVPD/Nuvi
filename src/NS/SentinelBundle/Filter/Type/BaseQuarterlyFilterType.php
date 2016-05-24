@@ -9,7 +9,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use \Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 
@@ -69,14 +68,21 @@ class BaseQuarterlyFilterType extends AbstractType
         if ($values['value'] > 0) {
             $queryBuilder = $filterQuery->getQueryBuilder();
 
-            $config = $queryBuilder->getEntityManager()->getConfiguration();
-            $config->addCustomDatetimeFunction('YEAR', 'DoctrineExtensions\Query\Mysql\Year');
-
             $alias = $values['alias'];
+            $roots = $queryBuilder->getRootEntities();
 
-            $queryBuilder
-                ->andWhere(sprintf('YEAR(%s.%s) = :%s_year', $alias, $this->fieldName, $alias))
-                ->setParameter($alias.'_year', $values['value']);
+            if (in_array('NS\SentinelBundle\Entity\ZeroReport', $roots)) {
+                $queryBuilder
+                    ->andWhere(sprintf('%s.yearMonth BETWEEN :%sYearStart AND :%sYearEnd', $alias, $alias, $alias))
+                    ->setParameter($alias . 'YearStart', "{$values['value']}00")
+                    ->setParameter($alias . 'YearEnd', "{$values['value']}12");
+            } else {
+                $config = $queryBuilder->getEntityManager()->getConfiguration();
+                $config->addCustomDatetimeFunction('YEAR', 'DoctrineExtensions\Query\Mysql\Year');
+                $queryBuilder
+                    ->andWhere(sprintf('YEAR(%s.%s) = :%s_year', $alias, $this->fieldName, $alias))
+                    ->setParameter($alias . '_year', $values['value']);
+            }
         }
     }
 

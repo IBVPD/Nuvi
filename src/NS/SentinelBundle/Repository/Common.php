@@ -288,4 +288,24 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
             ->andWhere("($alias.country IN (:countries) )")
             ->setParameter('countries',array_unique($countryCodes));
     }
+
+    public function getCasesPerMonth(\DateTime $from, \DateTime $to)
+    {
+        $config = $this->_em->getConfiguration();
+        $config->addCustomDatetimeFunction('MONTH', 'DoctrineExtensions\Query\Mysql\Month');
+        $config->addCustomDatetimeFunction('YEAR', 'DoctrineExtensions\Query\Mysql\Year');
+
+        return $this->secure(
+                $this->_em->createQueryBuilder()
+                    ->select('partial c.{id,adm_date}, s, MONTH(c.adm_date) AS theMonth, YEAR(c.adm_date) as theYear, COUNT(c.id) AS caseCount')
+                    ->from($this->getEntityName(), 'c')
+                    ->innerJoin('c.site', 's')
+                    ->where('c.adm_date BETWEEN :start AND :end')
+                    ->setParameters(array('start' => $from, 'end' => $to))
+                    ->groupBy('s.code,theMonth,theYear')
+            )
+            ->getQuery()
+            ->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)
+            ->getResult();
+    }
 }
