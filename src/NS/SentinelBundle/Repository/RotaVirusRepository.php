@@ -6,7 +6,7 @@ use \Doctrine\ORM\NoResultException;
 use \Doctrine\ORM\Query;
 use NS\SentinelBundle\Entity\RotaVirus;
 use \NS\SentinelBundle\Exceptions\NonExistentCaseException;
-use NS\SentinelBundle\Form\Types\ElisaResult;
+use NS\SentinelBundle\Form\RotaVirus\Types\ElisaResult;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\UtilBundle\Form\Types\ArrayChoice;
 
@@ -51,7 +51,7 @@ class RotaVirusRepository extends Common
     public function getByCountry()
     {
         $queryBuilder = $this->_em->createQueryBuilder()
-            ->select('COUNT(m) as numberOfCases, partial m.{id,admDate}, c')
+            ->select('COUNT(m) as numberOfCases, partial m.{id,adm_date}, c')
             ->from($this->getClassName(), 'm')
             ->innerJoin('m.country', 'c')
             ->groupBy('m.country');
@@ -62,23 +62,10 @@ class RotaVirusRepository extends Common
     /**
      * @return array
      */
-    public function getByDiagnosis()
-    {
-        $queryBuilder = $this->_em->createQueryBuilder()
-            ->select('COUNT(m) as numberOfCases, partial m.{id,dischDx}')
-            ->from($this->getClassName(), 'm')
-            ->groupBy('m.dischDx');
-
-        return $this->secure($queryBuilder)->getQuery()->getResult(Query::HYDRATE_ARRAY);
-    }
-
-    /**
-     * @return array
-     */
     public function getBySite()
     {
         $queryBuilder = $this->_em->createQueryBuilder()
-            ->select('COUNT(m) as numberOfCases, partial m.{id,admDate}, s ')
+            ->select('COUNT(m) as numberOfCases, partial m.{id,adm_date}, s ')
             ->from($this->getClassName(), 'm')
             ->innerJoin('m.site', 's')
             ->groupBy('m.site');
@@ -268,7 +255,7 @@ class RotaVirusRepository extends Common
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
-            ->andWhere(sprintf('(%s.dischargeOutcome IS NULL OR %s.dischargeOutcome IN (:noSelection,:outOfRange))', $alias, $alias))
+            ->andWhere(sprintf('(%s.disch_outcome IS NULL OR %s.disch_outcome IN (:noSelection,:outOfRange))', $alias, $alias))
             ->setParameter('noSelection', ArrayChoice::NO_SELECTION)
             ->setParameter('outOfRange', ArrayChoice::OUT_OF_RANGE);
     }
@@ -282,7 +269,7 @@ class RotaVirusRepository extends Common
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
-            ->andWhere(sprintf('%s.stoolCollected = :collectedYes AND %s.stoolCollectionDate IS NULL', $alias, $alias))
+            ->andWhere(sprintf('%s.stool_collected = :collectedYes AND %s.stool_collect_date IS NULL', $alias, $alias))
             ->setParameter('collectedYes', TripleChoice::YES);
     }
 
@@ -295,7 +282,7 @@ class RotaVirusRepository extends Common
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
-            ->andWhere(sprintf('%s.dischargeDate IS NULL', $alias));
+            ->andWhere(sprintf('%s.disch_date IS NULL', $alias));
     }
 
     public function getConsistentReporting($alias, array $siteCodes)
@@ -304,7 +291,7 @@ class RotaVirusRepository extends Common
         $config->addCustomDatetimeFunction('MONTH', 'DoctrineExtensions\Query\Mysql\Month');
 
         return $this->getCountQueryBuilder($alias, $siteCodes)
-            ->select(sprintf('%s.id,MONTH(%s.admDate) as theMonth,COUNT(%s.id) as caseCount,s.code', $alias, $alias, $alias))
+            ->select(sprintf('%s.id,MONTH(%s.adm_date) as theMonth,COUNT(%s.id) as caseCount,s.code', $alias, $alias, $alias))
             ->addGroupBy('theMonth')
             ;
     }
@@ -316,7 +303,7 @@ class RotaVirusRepository extends Common
 
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
-            ->andWhere(sprintf('DATEDIFF(%s.stoolCollectionDate,%s.admDate) <=2 ', $alias, $alias))
+            ->andWhere(sprintf('DATEDIFF(%s.stool_collect_date,%s.adm_date) <=2 ', $alias, $alias))
             ;
     }
 
@@ -380,7 +367,7 @@ class RotaVirusRepository extends Common
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
-            ->andWhere(sprintf('%s.stoolCollected = :collectedYes', $alias, $alias))
+            ->andWhere(sprintf('%s.stool_collected = :collectedYes', $alias, $alias))
             ->setParameter('collectedYes', TripleChoice::YES);
     }
 
@@ -388,7 +375,7 @@ class RotaVirusRepository extends Common
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
-            ->andWhere(sprintf('%s.stoolCollected = :collectedYes AND sl.elisaDone = :collectedYes', $alias))
+            ->andWhere(sprintf('%s.stool_collected = :collectedYes AND sl.elisaDone = :collectedYes', $alias))
             ->setParameter('collectedYes', TripleChoice::YES);
     }
 
@@ -396,8 +383,8 @@ class RotaVirusRepository extends Common
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
-            ->andWhere(sprintf('%s.stoolCollected = :collectedYes AND sl.elisaDone = :collectedYes AND sl.elisaResult = :elisaPositive', $alias))
+            ->andWhere(sprintf('%s.stool_collected = :collectedYes AND sl.elisaDone = :collectedYes AND sl.elisaResult = :elisaPositive', $alias))
             ->setParameter('collectedYes', TripleChoice::YES)
-            ->setParameter('elisaPositive',ElisaResult::POSITIVE);
+            ->setParameter('elisaPositive', ElisaResult::POSITIVE);
     }
 }
