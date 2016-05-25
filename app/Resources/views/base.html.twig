@@ -67,10 +67,15 @@
                     </ul>
                 </li>
             </ul>
-{#
-            {% block topbar_tasks %}<ul class="nav ace-nav"><li>{ {> layout.topbar.tasks} }</li></ul>{%endblock%}
-            {% block topbar_notifications %}<ul class="nav ace-nav"><li>{ {> layout.topbar.notifications} }</li></ul>{%endblock%}
-            {% block topbar_messages %}<ul class="nav ace-nav"><li>{ {> layout.topbar.messages} }</li></ul>{%endblock%} #}
-            {#{% block topbar_user_menu%}<ul class="nav ace-nav"><li>{ {> layout.topbar.user_menu} }</li></ul>{%endblock%}#}
-        </div><!-- /.navbar-header -->    
+        </div><!-- /.navbar-header -->
     {%endblock %}
+
+    {% block footer %}
+        <div class="footer">
+            <div class="footer-inner">
+                <div class="footer-content">
+                    <span class="blue bolder">NUVI {{ current_version }}</span>&nbsp;Noblet Solutions © 2016
+                </div>
+            </div>
+        </div>
+    {% endblock %}

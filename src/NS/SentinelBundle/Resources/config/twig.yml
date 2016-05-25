@@ -1,4 +1,9 @@
 services:
+  ns_sentinel.current_version:
+    class: NS\SentinelBundle\Twig\VersionTwig
+    tags:
+      - { name: twig.extension }
+
   ns_sentinel.twig.report.zero_reports:
     class: NS\SentinelBundle\Twig\Report\ZeroReportTwig
     tags:
