@@ -15,16 +15,14 @@ class AllFormsTest extends TypeTestCase
 
     public function testClassType()
     {
-        $choices = array(
-            'FullyQualifiedClassName'  => 'Friendly Class Name',
-            'FullyQualifiedClassName1' => 'Friendly Class Name 1',
-            'FullyQualifiedClassName2' => 'Friendly Class Name 2',
-        );
+//        $choices = array(
+//            'FullyQualifiedClassName'  => 'Friendly Class Name',
+//            'FullyQualifiedClassName1' => 'Friendly Class Name 1',
+//            'FullyQualifiedClassName2' => 'Friendly Class Name 2',
+//        );
 
         $formData = array('FullyQualifiedClassName1');
-
-        $type = new ClassType($choices);
-        $form = $this->factory->create($type);
+        $form = $this->factory->create(ClassType::class);
         $form->submit($formData);
 
         $this->assertTrue($form->isValid());

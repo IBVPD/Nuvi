@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Controller;
 
+use NS\SentinelBundle\Filter\Type\IBD\ReportFilterType;
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use \Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -51,7 +52,7 @@ class SecurityController extends Controller
         $byCountry = $repo->getByCountry();
         $bySite = $repo->getBySite();
         $byDiagnosis = $repo->getByDiagnosis();
-        $form = $this->createForm('IBDReportFilterType', null, array('site_type' => 'advanced'));
+        $form = $this->createForm(ReportFilterType::class, null, array('site_type' => 'advanced'));
         $report = $this->get('ns_sentinel.ibd_report');
         $cResult = $report->getCulturePositive($request, $form, 'homepage');
 

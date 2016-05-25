@@ -9,11 +9,5 @@ namespace NS\SentinelBundle\Filter\Type;
  */
 class CountryType extends BaseObject
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'country';
-    }
+
 }

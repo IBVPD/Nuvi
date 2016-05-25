@@ -2,6 +2,12 @@
 
 namespace NS\SentinelBundle\Controller;
 
+use NS\SentinelBundle\Filter\Type\RotaVirus\FilterType;
+use NS\SentinelBundle\Form\RotaVirus\CaseType;
+use NS\SentinelBundle\Form\RotaVirus\NationalLabType;
+use NS\SentinelBundle\Form\RotaVirus\OutcomeType;
+use NS\SentinelBundle\Form\RotaVirus\ReferenceLabType;
+use NS\SentinelBundle\Form\RotaVirus\SiteLabType;
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use \Symfony\Component\HttpFoundation\Request;
@@ -20,7 +26,7 @@ class RotaVirusController extends BaseCaseController
      */
     public function indexAction(Request $request)
     {
-        return $this->render('NSSentinelBundle:RotaVirus:index.html.twig', $this->index($request, 'NSSentinelBundle:RotaVirus', 'rotavirus_filter_form', 'rota.index'));
+        return $this->render('NSSentinelBundle:RotaVirus:index.html.twig', $this->index($request, 'NSSentinelBundle:RotaVirus', FilterType::class, 'rota.index'));
     }
 
     /**
@@ -43,7 +49,7 @@ class RotaVirusController extends BaseCaseController
      */
     public function editAction(Request $request, $id = null)
     {
-        $response = $this->edit($request, 'NS\SentinelBundle\Form\RotaVirus\CaseType', "rotavirusIndex", "rotavirusEdit", $id);
+        $response = $this->edit($request, CaseType::class, 'rotavirusIndex', 'rotavirusEdit', $id);
         return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:RotaVirus:edit.html.twig', $response);
     }
 
@@ -54,7 +60,7 @@ class RotaVirusController extends BaseCaseController
      */
     public function deleteAction($id)
     {
-        return $this->delete('NS\SentinelBundle\Form\RotaVirus\CaseType', $id, 'rotavirusIndex');
+        return $this->delete(CaseType::class, $id, 'rotavirusIndex');
     }
 
     /**
@@ -66,7 +72,7 @@ class RotaVirusController extends BaseCaseController
      */
     public function editLabAction(Request $request, $id = null)
     {
-        $response = $this->edit($request, 'NS\SentinelBundle\Form\RotaVirus\SiteLabType', "rotavirusIndex", "rotavirusLabEdit", $id);
+        $response = $this->edit($request, SiteLabType::class, 'rotavirusIndex', 'rotavirusLabEdit', $id);
 
         return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:RotaVirus:editLab.html.twig', $response);
     }
@@ -80,7 +86,7 @@ class RotaVirusController extends BaseCaseController
      */
     public function editRRLAction(Request $request, $id = null)
     {
-        $response = $this->edit($request, 'NS\SentinelBundle\Form\RotaVirus\ReferenceLabType', "rotavirusIndex", "rotavirusRRLEdit", $id);
+        $response = $this->edit($request, ReferenceLabType::class, 'rotavirusIndex', 'rotavirusRRLEdit', $id);
         return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:RotaVirus:editBaseLab.html.twig', $response);
     }
 
@@ -93,7 +99,7 @@ class RotaVirusController extends BaseCaseController
      */
     public function editNLAction(Request $request, $id = null)
     {
-        $response = $this->edit($request, 'NS\SentinelBundle\Form\RotaVirus\NationalLabType', "rotavirusIndex", "rotavirusNLEdit", $id);
+        $response = $this->edit($request, NationalLabType::class, 'rotavirusIndex', 'rotavirusNLEdit', $id);
         return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:RotaVirus:editBaseLab.html.twig', $response);
     }
 
@@ -106,7 +112,7 @@ class RotaVirusController extends BaseCaseController
      */
     public function editOutcomeAction(Request $request, $id = null)
     {
-        $response = $this->edit($request, 'NS\SentinelBundle\Form\RotaVirus\OutcomeType', "rotavirusIndex", "rotavirusOutcomeEdit", $id);
+        $response = $this->edit($request, OutcomeType::class, 'rotavirusIndex', 'rotavirusOutcomeEdit', $id);
         return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:RotaVirus:editOutcome.html.twig', $response);
     }
 
@@ -118,21 +124,21 @@ class RotaVirusController extends BaseCaseController
     protected function getObject($type, $objId, $forDelete = false)
     {
         switch ($type) {
-            case 'NS\SentinelBundle\Form\RotaVirus\CaseType':
-            case 'NS\SentinelBundle\Form\RotaVirus\OutcomeType':
+            case CaseType::class:
+            case OutcomeType::class:
                 if($forDelete) {
                     return $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:RotaVirus')->findWithAssociations($objId);
                 }
 
                 return $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:RotaVirus')->find($objId);
 
-            case 'NS\SentinelBundle\Form\RotaVirus\SiteLabType':
+            case SiteLabType::class:
                 return $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:RotaVirus\SiteLab')->findOrCreateNew($objId);
 
-            case 'NS\SentinelBundle\Form\RotaVirus\ReferenceLabType':
+            case ReferenceLabType::class:
                 return $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:RotaVirus\ReferenceLab')->findOrCreateNew($objId);
 
-            case 'NS\SentinelBundle\Form\RotaVirus\NationalLabType':
+            case NationalLabType::class:
                 return $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:RotaVirus\NationalLab')->findOrCreateNew($objId);
 
             default:

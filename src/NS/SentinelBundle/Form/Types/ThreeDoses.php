@@ -23,11 +23,4 @@ class ThreeDoses extends TranslatableArrayChoice implements TranslationContainer
                             self::UNKNOWN => 'Unknown',
                              );
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'ThreeDoses';
-    }
 }

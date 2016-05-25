@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Filter\Type\RotaVirus;
 
+use NS\SentinelBundle\Filter\Type\BaseFilterType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -27,14 +28,6 @@ class FilterType extends AbstractType
      */
     public function getParent()
     {
-        return 'base_filter_form';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'rotavirus_filter_form';
+        return BaseFilterType::class;
     }
 }

@@ -20,12 +20,4 @@ class TripleChoice extends TranslatableArrayChoice implements TranslationContain
                             self::NO      => 'No',
                             self::YES     => 'Yes',
                             self::UNKNOWN => 'Unknown');
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'TripleChoice';
-    }
 }

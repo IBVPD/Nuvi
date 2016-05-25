@@ -2,8 +2,10 @@
 
 namespace NS\SentinelBundle\Filter\Type;
 
+use NS\AceBundle\Filter\Type\DateRangeFilterType;
 use \NS\SecurityBundle\Role\ACLConverter;
 use \Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use \Symfony\Component\Form\FormBuilderInterface;
 use \Symfony\Component\Form\FormEvent;
 use \Symfony\Component\Form\FormEvents;
@@ -53,8 +55,8 @@ class BaseReportFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('adm_date', 'ns_filter_date_range', array('label' => 'report-filter-form.admitted-between', ))
-            ->add('createdAt', 'ns_filter_date_range', array('label' => 'report-filter-form.created-between'));
+            ->add('adm_date', DateRangeFilterType::class, array('label' => 'report-filter-form.admitted-between', ))
+            ->add('createdAt', DateRangeFilterType::class, array('label' => 'report-filter-form.created-between'));
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'preSetData'));
     }
@@ -87,21 +89,21 @@ class BaseReportFilterType extends AbstractType
         }
 
         if ($options['include_filter']) {
-            $form->add('filter', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
+            $form->add('filter', SubmitType::class, array(
                 'label'=>'filter',
                 'icon' => 'fa fa-search',
                 'attr' => array('class' => 'btn btn-xs btn-success')));
         }
 
         if ($options['include_export']) {
-            $form->add('export', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
+            $form->add('export', SubmitType::class, array(
                 'label' => 'export',
                 'icon' => 'fa fa-cloud-download',
                 'attr' => array('class' => 'btn btn-xs btn-info')));
         }
 
         if ($options['include_reset']) {
-            $form->add('reset', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
+            $form->add('reset', SubmitType::class, array(
                 'label' => 'reset',
                 'icon' => 'fa fa-times-circle',
                 'attr' => array('class' => 'btn btn-xs btn-danger')));
@@ -122,13 +124,5 @@ class BaseReportFilterType extends AbstractType
         $resolver->setDefined(array('site_type'));
         $resolver->setAllowedValues('site_type', array('simple', 'advanced'));
         $resolver->setRequired('data_class');
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'BaseReportFilterType';
     }
 }

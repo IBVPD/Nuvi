@@ -9,11 +9,4 @@ namespace NS\SentinelBundle\Filter\Type;
  */
 class RegionType extends BaseObject
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'region';
-    }
 }

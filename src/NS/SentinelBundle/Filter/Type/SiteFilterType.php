@@ -3,6 +3,7 @@
 namespace NS\SentinelBundle\Filter\Type;
 
 use \Lexik\Bundle\FormFilterBundle\Filter\Form\Type\EmbeddedFilterTypeInterface;
+use Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType;
 use \Lexik\Bundle\FormFilterBundle\Filter\Query\QueryInterface;
 use \NS\SentinelBundle\Form\IBD\Types\IntenseSupport;
 use \Symfony\Component\Form\AbstractType;
@@ -26,10 +27,10 @@ class SiteFilterType extends AbstractType implements EmbeddedFilterTypeInterface
     {
         $label = (isset($options['label'])) ? $options['label'] : null;
 
-        $builder->add('name', 'Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType', array('required' => false, 'label' => $label));
+        $builder->add('name', TextFilterType::class, array('required' => false, 'label' => $label));
 
         if ($options['include_intense']) {
-            $builder->add('ibdIntenseSupport', 'NS\SentinelBundle\Form\IBD\Types\IntenseSupport', array('required' => false, 'apply_filter' => array($this, 'applyFilter')));
+            $builder->add('ibdIntenseSupport', IntenseSupport::class, array('required' => false, 'apply_filter' => array($this, 'applyFilter')));
         }
     }
 
@@ -65,12 +66,4 @@ class SiteFilterType extends AbstractType implements EmbeddedFilterTypeInterface
         $resolver->setDefault('include_intense', true);
     }
 
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'SiteFilterType';
-    }
 }

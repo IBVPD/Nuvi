@@ -22,6 +22,6 @@ class ReferenceLabType extends AbstractType
      */
     public function getParent()
     {
-        return 'NS\SentinelBundle\Form\RotaVirus\BaseLabType';
+        return BaseLabType::class;
     }
 }

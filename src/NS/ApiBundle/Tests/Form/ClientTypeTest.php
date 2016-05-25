@@ -25,8 +25,7 @@ class ClientTypeTest extends TypeTestCase
                 OAuth2::GRANT_TYPE_REFRESH_TOKEN)
         );
 
-        $type = new ClientType();
-        $form     = $this->factory->create($type);
+        $form     = $this->factory->create(ClientType::class);
 
         $form->submit($formData);
         $data = $form->getData();
@@ -41,9 +40,6 @@ class ClientTypeTest extends TypeTestCase
     {
         $oauthType = new OAuthGrantTypes();
         $tagType   = new TagType();
-        return array(new PreloadedExtension(array(
-                $oauthType->getName() => $oauthType,
-                $tagType->getName()   => $tagType,
-                ), array()));
+        return array(new PreloadedExtension(array($oauthType, $tagType), array()));
     }
 }

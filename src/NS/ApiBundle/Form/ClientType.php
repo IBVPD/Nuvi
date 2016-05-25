@@ -2,7 +2,10 @@
 
 namespace NS\ApiBundle\Form;
 
+use NS\AceBundle\Form\TagType;
+use NS\ApiBundle\Form\Types\OAuthGrantTypes;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -20,10 +23,10 @@ class ClientType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name',               null,               array('label'=>'form.client-name'))
-            ->add('redirectUris',       'tag',              array('label'=>'form.client.redirect-uris', 'arrayOutput'=>true))
-            ->add('allowedGrantTypes',  'OAuthGrantTypes',  array('label'=>'form.client.allowed-grant-types'))
-            ->add('create',             'Symfony\Component\Form\Extension\Core\Type\SubmitType', array('label'=>'form.client.submit-button', 'attr'=>array('class'=> 'btn btn-sm btn-success')))
+            ->add('name',               null,                   array('label'=>'form.client-name'))
+            ->add('redirectUris',       TagType::class,         array('label'=>'form.client.redirect-uris', 'arrayOutput'=>true))
+            ->add('allowedGrantTypes',  OAuthGrantTypes::class, array('label'=>'form.client.allowed-grant-types'))
+            ->add('create',             SubmitType::class,      array('label'=>'form.client.submit-button', 'attr'=>array('class'=> 'btn btn-sm btn-success')))
         ;
     }
 
@@ -35,13 +38,5 @@ class ClientType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'NS\ApiBundle\Entity\Client'
         ));
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'CreateApiClient';
     }
 }

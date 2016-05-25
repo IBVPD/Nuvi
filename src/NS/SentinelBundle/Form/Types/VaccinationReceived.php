@@ -22,12 +22,4 @@ class VaccinationReceived extends TranslatableArrayChoice implements Translation
                                 self::YES_CARD      => 'Yes-By-Card',
                                 self::UNKNOWN       => 'Unknown',
                              );
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'VaccinationReceived';
-    }
 }

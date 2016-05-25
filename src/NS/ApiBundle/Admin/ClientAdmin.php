@@ -2,6 +2,9 @@
 
 namespace NS\ApiBundle\Admin;
 
+use Doctrine\ORM\EntityRepository;
+use NS\AceBundle\Form\TagType;
+use NS\ApiBundle\Form\Types\OAuthGrantTypes;
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -22,9 +25,9 @@ class ClientAdmin extends Admin
     {
         $formMapper
             ->add('name')
-            ->add('redirectUris',       'tag', array('arrayOutput'=>true))
-            ->add('allowedGrantTypes',  'OAuthGrantTypes')
-            ->add('user', null, array('placeholder'=>'Please Select', 'query_builder'=>function (\Doctrine\ORM\EntityRepository $repo) {
+            ->add('redirectUris',       TagType::class, array('arrayOutput'=>true))
+            ->add('allowedGrantTypes',  OAuthGrantTypes::class)
+            ->add('user', null, array('placeholder'=>'Please Select', 'query_builder'=>function (EntityRepository $repo) {
                                                 return $repo->createQueryBuilder('u')
                                                             ->leftJoin('u.acls', 'a')
                                                             ->addSelect('a')

@@ -4,6 +4,7 @@ namespace NS\ImportBundle\Form\Type;
 
 use \NS\ImportBundle\Converter\ColumnChooser;
 use \Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use \Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -43,6 +44,6 @@ abstract class ColumnType extends AbstractType
      */
     public function getParent()
     {
-        return 'choice';
+        return ChoiceType::class;
     }
 }

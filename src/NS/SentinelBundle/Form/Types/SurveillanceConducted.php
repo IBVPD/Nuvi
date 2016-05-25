@@ -19,12 +19,4 @@ class SurveillanceConducted extends ArrayChoice
                                 self::ROTA => 'Rota',
                                 self::BOTH => 'Both',
                              );
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'SurveillanceConducted';
-    }
 }

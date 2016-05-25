@@ -2,7 +2,9 @@
 
 namespace NS\SentinelBundle\Form;
 
+use Lunetics\LocaleBundle\Form\Extension\Type\LocaleType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -18,7 +20,7 @@ class UserType extends AbstractType
         $builder
             ->add('name')
             ->add('email')
-            ->add('plainPassword', 'repeated',
+            ->add('plainPassword', RepeatedType::class,
                      array(
                          'type'            => 'password',
                          'invalid_message' => 'The password fields must match.',
@@ -28,7 +30,7 @@ class UserType extends AbstractType
                          'second_options'  => array('label' => 'Repeat Password'),
                          )
                  )
-            ->add('language', 'lunetics_locale', array('label'=>'Preferred Language'))
+            ->add('language', LocaleType::class, array('label'=>'Preferred Language'))
         ;
     }
     

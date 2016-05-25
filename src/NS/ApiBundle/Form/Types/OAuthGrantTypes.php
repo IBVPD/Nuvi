@@ -3,6 +3,7 @@
 namespace NS\ApiBundle\Form\Types;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use OAuth2\OAuth2;
 
@@ -36,14 +37,6 @@ class OAuthGrantTypes extends AbstractType
      */
     public function getParent()
     {
-        return 'choice';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'OAuthGrantTypes';
+        return ChoiceType::class;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Filter\Type;
 
+use Lexik\Bundle\FormFilterBundle\Filter\Form\Type\NumberFilterType;
 use Lexik\Bundle\FormFilterBundle\Filter\Query\QueryInterface;
 use \NS\SecurityBundle\Role\ACLConverter;
 use Symfony\Component\Form\AbstractType;
@@ -52,7 +53,7 @@ class BaseQuarterlyFilterType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('year', 'filter_number', array('label' => 'report-filter-form.year', 'apply_filter'=>array($this, 'filterYear')));
+        $builder->add('year', NumberFilterType::class, array('label' => 'report-filter-form.year', 'apply_filter'=>array($this, 'filterYear')));
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'preSetData'));
     }
@@ -151,13 +152,5 @@ class BaseQuarterlyFilterType extends AbstractType
 
         $resolver->setDefined(array('site_type'));
         $resolver->setAllowedValues('site_type', array('simple', 'advanced'));
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getName()
-    {
-        return 'BaseQuarterlyFilter';
     }
 }

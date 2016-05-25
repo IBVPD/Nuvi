@@ -2,6 +2,10 @@
 
 namespace NS\ImportBundle\Admin;
 
+use NS\ImportBundle\Converter\Registry;
+use NS\ImportBundle\Form\Type\IBDColumnType;
+use NS\ImportBundle\Form\Type\PreProcessorType;
+use NS\ImportBundle\Form\Type\RotavirusColumnType;
 use \Sonata\AdminBundle\Admin\Admin;
 use \Sonata\AdminBundle\Datagrid\DatagridMapper;
 use \Sonata\AdminBundle\Datagrid\ListMapper;
@@ -10,15 +14,12 @@ use \Sonata\AdminBundle\Show\ShowMapper;
 
 class ColumnAdmin extends Admin
 {
-
     /**
      * @param DatagridMapper $datagridMapper
      */
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        $datagridMapper
-            ->add('name')
-        ;
+        $datagridMapper->add('name');
     }
 
     /**
@@ -45,15 +46,15 @@ class ColumnAdmin extends Admin
     {
         $mapperType = null;
         if ($this->getSubject()) {
-            $mapperType = ($this->getSubject()->getMap()->getClass() == 'NS\SentinelBundle\Entity\IBD')  ? 'ibd_columns':'rota_columns';
+            $mapperType = ($this->getSubject()->getMap()->getClass() == 'NS\SentinelBundle\Entity\IBD')  ? IBDColumnType::class:RotavirusColumnType::class;
         }
 
         $formMapper
-            ->add('name', null, array('attr'=>array('data-queryBuilder'=>'columnName')))
-            ->add('preProcessor', 'PreProcessorType', array('required'=>false))
-            ->add('mapper', $mapperType, array('required'=>false, 'label' => 'DB Column'))
-            ->add('converter', 'ConverterChoice', array('required' => false, 'attr'=>array('class'=>'chosen-select'), 'label'=>'Validator'))
-            ->add('ignored', null, array('label' => 'Drop?', 'required' => false))
+            ->add('name',           null, array('attr'=>array('data-queryBuilder'=>'columnName')))
+            ->add('preProcessor',   PreProcessorType::class, array('required'=>false))
+            ->add('mapper',         $mapperType, array('required'=>false, 'label' => 'DB Column'))
+            ->add('converter',      Registry::class, array('required' => false, 'attr'=>array('class'=>'chosen-select'), 'label'=>'Validator'))
+            ->add('ignored',        null, array('label' => 'Drop?', 'required' => false))
         ;
     }
 

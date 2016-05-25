@@ -9,11 +9,4 @@ namespace NS\ImportBundle\Form\Type;
  */
 class RotavirusColumnType extends ColumnType
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'rota_columns';
-    }
 }

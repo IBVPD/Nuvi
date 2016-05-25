@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Filter\Type\RotaVirus;
 
+use NS\SentinelBundle\Filter\Type\BaseReportFilterType;
 use \Symfony\Component\Form\AbstractType;
 use \Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -25,14 +26,6 @@ class ReportFilterType extends AbstractType
      */
     public function getParent()
     {
-        return 'BaseReportFilterType';
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'RotaVirusReportFilterType';
+        return BaseReportFilterType::class;
     }
 }

@@ -58,7 +58,7 @@ class CountryRepository extends CommonRepository
     public function getWithCasesForDate($alias, $caseClass)
     {
         return $this->secure($this->_em->createQueryBuilder()
-            ->select("cf, $alias, s, c, r, COUNT($alias) as totalCases")
+            ->select("cf, $alias, s, c, r, COUNT(IDENTITY($alias)) as totalCases")
             ->from($caseClass, 'cf')
             ->innerJoin("cf.referenceLab", $alias)
             ->leftJoin('cf.site', 's')

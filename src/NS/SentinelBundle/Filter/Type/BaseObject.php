@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Filter\Type;
 
+use Lexik\Bundle\FormFilterBundle\Filter\Form\Type\EntityFilterType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Lexik\Bundle\FormFilterBundle\Filter\Doctrine\ORMQuery;
@@ -75,14 +76,6 @@ class BaseObject extends AbstractType //implements EmbeddedFilterTypeInterface
      */
     public function getParent()
     {
-        return 'filter_entity';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'filter_object';
+        return EntityFilterType::class;
     }
 }

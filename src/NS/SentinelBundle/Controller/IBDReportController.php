@@ -2,6 +2,9 @@
 
 namespace NS\SentinelBundle\Controller;
 
+use NS\SentinelBundle\Filter\Type\BaseQuarterlyFilterType;
+use NS\SentinelBundle\Filter\Type\IBD\QuarterlyLinkingReportFilterType;
+use NS\SentinelBundle\Filter\Type\IBD\ReportFilterType;
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use \Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use \Symfony\Component\HttpFoundation\Response;
@@ -22,7 +25,7 @@ class IBDReportController extends Controller
      */
     public function percentEnrolledAction(Request $request)
     {
-        $form    = $this->createForm('IBDReportFilterType');
+        $form    = $this->createForm(ReportFilterType::class);
         $service = $this->get('ns_sentinel.ibd_report');
         $params  = $service->numberEnrolled($request, $form, 'reportPercentEnrolled');
         if ($params instanceof Response) {
@@ -39,7 +42,7 @@ class IBDReportController extends Controller
      */
     public function annualAgeDistributionAction(Request $request)
     {
-        $form    = $this->createForm('IBDReportFilterType');
+        $form    = $this->createForm(ReportFilterType::class);
         $service = $this->get('ns_sentinel.ibd_report');
         $params  = $service->getAnnualAgeDistribution($request, $form, 'reportAnnualAgeDistribution');
         if ($params instanceof Response) {
@@ -96,7 +99,7 @@ class IBDReportController extends Controller
      */
     public function fieldPopulationAction(Request $request)
     {
-        $form    = $this->createForm('IBDReportFilterType', null, array('site_type'=>'advanced', 'validation_groups'=>array('FieldPopulation')));
+        $form    = $this->createForm(ReportFilterType::class, null, array('site_type'=>'advanced', 'validation_groups'=>array('FieldPopulation')));
         $service = $this->get('ns_sentinel.ibd_report');
         $params = $service->getFieldPopulation($request, $form, 'reportFieldPopulation');
         if ($params instanceof Response) {
@@ -113,7 +116,7 @@ class IBDReportController extends Controller
      */
     public function culturePositiveAction(Request $request)
     {
-        $form    = $this->createForm('IBDReportFilterType', null, array('site_type'=>'advanced'));
+        $form    = $this->createForm(ReportFilterType::class, null, array('site_type'=>'advanced'));
         $service = $this->get('ns_sentinel.ibd_report');
         $params  = $service->getCulturePositive($request, $form, 'reportCulturePositive');
         if ($params instanceof Response) {
@@ -144,7 +147,7 @@ class IBDReportController extends Controller
      */
     public function dataQualityAction(Request $request)
     {
-        $form    = $this->createForm('IBDReportFilterType', null, array('site_type'=>'advanced'));
+        $form    = $this->createForm(ReportFilterType::class, null, array('site_type'=>'advanced'));
         $service = $this->get('ns_sentinel.ibd_report');
         $params  = $service->getDataQuality($request, $form, 'reportIBDDataQuality');
         if ($params instanceof Response) {
@@ -161,7 +164,7 @@ class IBDReportController extends Controller
      */
     public function sitePerformanceAction(Request $request)
     {
-        $form    = $this->createForm('QuarterlyReportFilter', null, array('site_type'=>'advanced'));
+        $form    = $this->createForm(BaseQuarterlyFilterType::class, null, array('site_type'=>'advanced'));
         $service = $this->get('ns_sentinel.ibd_report');
         $params  = $service->getSitePerformance($request, $form, 'reportIBDDataQuality');
         if ($params instanceof Response) {
@@ -179,7 +182,7 @@ class IBDReportController extends Controller
      */
     public function dataLinking(Request $request)
     {
-        $form    = $this->createForm('IBDQuarterlyLinkingReportFilter', null, array('site_type'=>'advanced'));
+        $form    = $this->createForm(QuarterlyLinkingReportFilterType::class, null, array('site_type'=>'advanced'));
         $service = $this->get('ns_sentinel.ibd_report');
         $params  = $service->getDataLinking($request, $form, 'reportIbdDataLinking');
         if ($params instanceof Response) {
@@ -197,7 +200,7 @@ class IBDReportController extends Controller
      */
     public function statsAction(Request $request)
     {
-        $form    = $this->createForm('IBDReportFilterType', null, array('site_type'=>'advanced'));
+        $form    = $this->createForm(ReportFilterType::class, null, array('site_type'=>'advanced'));
         $service = $this->get('ns_sentinel.ibd_report');
         $params  = $service->getStats($request, $form, 'reportIbdStats');
         if ($params instanceof Response) {

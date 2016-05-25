@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4a44ece8b15a253bdf0aa9e72396d969",
-    "content-hash": "cd7a8671c739a5d298fba72cc013cabe",
+    "hash": "436e94d1d3349b8f6c0499bd31f39f85",
+    "content-hash": "9185f3de162d9e1f822586246d95689a",
     "packages": [
         {
             "name": "adoy/oauth2",
@@ -3323,36 +3323,37 @@
         },
         {
             "name": "ns/ace-bundle",
-            "version": "1.5.14",
+            "version": "2.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/AceBundle.git",
-                "reference": "7293c9f7aae295847e2fdf6cf411bed9044cb639"
+                "reference": "af29bc35c255fa599f33471b8eba8e059184954f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/AceBundle/zipball/7293c9f7aae295847e2fdf6cf411bed9044cb639",
-                "reference": "7293c9f7aae295847e2fdf6cf411bed9044cb639",
+                "url": "https://api.github.com/repos/NobletSolutions/AceBundle/zipball/af29bc35c255fa599f33471b8eba8e059184954f",
+                "reference": "af29bc35c255fa599f33471b8eba8e059184954f",
                 "shasum": ""
             },
             "require": {
+                "doctrine/common": "^2.5|^2.6",
                 "jms/translation-bundle": "~1.1",
                 "knplabs/knp-menu-bundle": "~2.0",
-                "php": ">=5.3.2",
-                "symfony/symfony": ">=2.3,<3.0"
+                "php": ">=5.5.9",
+                "symfony/symfony": "^2.8|^3.0"
             },
             "require-dev": {
-                "liip/rmt": "~1.1"
+                "lexik/form-filter-bundle": "~5.0"
             },
             "suggest": {
                 "craue/formflow-bundle": "~3.0@dev",
-                "lexik/form-filter-bundle": "",
+                "lexik/form-filter-bundle": "~5.0",
                 "punkave/symfony2-file-uploader-bundle": "Allows for drag & drop or multiple file upload"
             },
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.5.x-dev"
+                    "dev-master": "2.0.x-dev"
                 }
             },
             "autoload": {
@@ -3374,8 +3375,8 @@
                     "email": "mark.woynarski@nobletdesign.com"
                 }
             ],
-            "description": "This bundle provides bootstrap template",
-            "time": "2016-04-29 19:25:15"
+            "description": "This bundle provides the ace admin bootstrap template",
+            "time": "2016-05-24 22:20:54"
         },
         {
             "name": "ns/ace-sonata-bundle",

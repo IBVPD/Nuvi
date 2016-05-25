@@ -137,12 +137,4 @@ class BaseFilterType extends AbstractType
             'method' => 'GET',
         ));
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'base_filter_form';
-    }
 }

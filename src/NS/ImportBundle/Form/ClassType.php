@@ -3,6 +3,7 @@
 namespace NS\ImportBundle\Form;
 
 use \Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use \Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -40,14 +41,6 @@ class ClassType extends AbstractType
      */
     public function getParent()
     {
-        return 'choice';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'ClassType';
+        return ChoiceType::class;
     }
 }

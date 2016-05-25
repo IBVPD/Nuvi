@@ -2,6 +2,8 @@
 
 namespace NS\SentinelBundle\Filter\Type\IBD;
 
+use NS\SentinelBundle\Filter\Type\BaseFilterType;
+use NS\SentinelBundle\Form\Types\CaseStatus;
 use \Symfony\Component\Form\AbstractType;
 use \Symfony\Component\OptionsResolver\OptionsResolver;
 use \Symfony\Component\Form\FormBuilderInterface;
@@ -19,7 +21,7 @@ class FilterType extends AbstractType implements EmbeddedFilterTypeInterface
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('status', 'NS\SentinelBundle\Form\Types\CaseStatus', array('required'=>false, 'label' => 'filter-case-status'));
+        $builder->add('status', CaseStatus::class, array('required' => false, 'label' => 'filter-case-status'));
     }
 
     /**
@@ -28,7 +30,7 @@ class FilterType extends AbstractType implements EmbeddedFilterTypeInterface
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class'      => 'NS\SentinelBundle\Filter\Entity\IBD',
+            'data_class' => 'NS\SentinelBundle\Filter\Entity\IBD',
             'csrf_protection' => false,
         ));
     }
@@ -38,14 +40,6 @@ class FilterType extends AbstractType implements EmbeddedFilterTypeInterface
      */
     public function getParent()
     {
-        return 'base_filter_form';
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'ibd_filter_form';
+        return BaseFilterType::class;
     }
 }

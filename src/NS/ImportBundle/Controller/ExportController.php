@@ -6,6 +6,8 @@ use \Doctrine\ORM\QueryBuilder;
 use \Exporter\Source\DoctrineORMQuerySourceIterator;
 use \NS\SentinelBundle\Entity\IBD;
 use \NS\SentinelBundle\Entity\RotaVirus;
+use NS\SentinelBundle\Filter\Type\IBD\ReportFilterType as IBDReportFilterType;
+use NS\SentinelBundle\Filter\Type\RotaVirus\ReportFilterType as RotaVirusReportFilterType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sonata\CoreBundle\Exporter\Exporter;
@@ -31,8 +33,8 @@ class ExportController extends Controller
      */
     public function indexAction()
     {
-        $ibdForm = $this->createForm('IBDReportFilterType', null, $this->formParams);
-        $rotaForm = $this->createForm('RotaVirusReportFilterType', null, $this->formParams);
+        $ibdForm = $this->createForm(IBDReportFilterType::class, null, $this->formParams);
+        $rotaForm = $this->createForm(RotaVirusReportFilterType::class, null, $this->formParams);
 
         return $this->render('NSImportBundle:Export:index.html.twig', array('ibdForm' => $ibdForm->createView(), 'rotaForm' => $rotaForm->createView()));
     }
@@ -45,7 +47,7 @@ class ExportController extends Controller
      */
     public function exportIBD(Request $request)
     {
-        $ibdForm = $this->createForm('IBDReportFilterType', null, $this->formParams);
+        $ibdForm = $this->createForm(IBDReportFilterType::class, null, $this->formParams);
         $ibdForm->handleRequest($request);
         if ($ibdForm->isValid()) {
             $modelManager = $this->get('doctrine.orm.entity_manager');
@@ -73,7 +75,7 @@ class ExportController extends Controller
      */
     public function exportRotaVirus(Request $request)
     {
-        $rotaForm = $this->createForm('RotaVirusReportFilterType', null, $this->formParams);
+        $rotaForm = $this->createForm(RotaVirusReportFilterType::class, null, $this->formParams);
         $rotaForm->handleRequest($request);
         if ($rotaForm->isValid()) {
             $modelManager = $this->get('doctrine.orm.entity_manager');

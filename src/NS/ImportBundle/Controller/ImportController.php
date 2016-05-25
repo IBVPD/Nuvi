@@ -2,6 +2,7 @@
 
 namespace NS\ImportBundle\Controller;
 
+use NS\ImportBundle\Form\ImportSelectType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use \Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -30,7 +31,7 @@ class ImportController extends Controller
     public function indexAction(Request $request)
     {
         $entityMgr = $this->get('doctrine.orm.entity_manager');
-        $form      = $this->createForm('ImportSelect', null, array('user' => $entityMgr->getReference('NS\SentinelBundle\Entity\User', $this->getUser()->getId())));
+        $form      = $this->createForm(ImportSelectType::class, null, array('user' => $entityMgr->getReference('NS\SentinelBundle\Entity\User', $this->getUser()->getId())));
 
         $form->handleRequest($request);
         if ($form->isValid()) {

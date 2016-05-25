@@ -3,6 +3,7 @@
 namespace NS\ApiBundle\Form\Types;
 
 use \Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use \Symfony\Component\Form\FormBuilderInterface;
 use \Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -19,8 +20,7 @@ class AuthorizeFormType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('allowAccess', 'checkbox', array('label' => 'Allow access', ))
-            ;
+        $builder->add('allowAccess', CheckboxType::class, array('label' => 'Allow access'));
     }
 
     /**
@@ -29,13 +29,5 @@ class AuthorizeFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array('data_class' => 'NS\ApiBundle\Form\Model\Authorize'));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'api_oauth_server_authorize';
     }
 }

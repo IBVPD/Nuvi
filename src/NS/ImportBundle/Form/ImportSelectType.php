@@ -4,13 +4,18 @@ namespace NS\ImportBundle\Form;
 
 use \Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityRepository;
+use NS\AceBundle\Form\DatePickerType;
 use \NS\ImportBundle\Services\ImportFileCreator;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use \Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use \Symfony\Component\Form\FormBuilderInterface;
 use \Symfony\Component\Form\FormEvent;
 use \Symfony\Component\Form\FormEvents;
+use Symfony\Component\OptionsResolver\Options;
 use \Symfony\Component\OptionsResolver\OptionsResolver;
 use \NS\ImportBundle\Entity\Import;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 /**
  * Description of ImportSelectType
@@ -45,14 +50,14 @@ class ImportSelectType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('map', 'entity', array(
+        $builder->add('map', EntityType::class, array(
                 'class'         => 'NSImportBundle:Map',
                 'placeholder'   => 'Please Select...',
                 'query_builder' => $this->entityMgr->getRepository('NSImportBundle:Map')->getWithColumnsQuery(),
                 'property' => 'selectName',
                 )
             )
-            ->add('referenceLab', 'entity', array(
+            ->add('referenceLab', EntityType::class, array(
                 'class' => 'NS\SentinelBundle\Entity\ReferenceLab',
                 'placeholder' => 'Please Select...',
                 'query_builder'=> function (EntityRepository $repository) {
@@ -60,10 +65,10 @@ class ImportSelectType extends AbstractType
                 },
                 'required' => false,
             ))
-            ->add('sourceFile', 'vich_file', array('error_bubbling'=>false))
-            ->add('inputDateStart', 'acedatepicker', array('label'=>'Import file date start'))
-            ->add('inputDateEnd', 'acedatepicker', array('label'=>'Import file date end'))
-            ->add('import', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array('attr' => array('class' => 'btn btn-xs btn-success pull-right','label'=>'Import')))
+            ->add('sourceFile', VichFileType::class, array('error_bubbling'=>false))
+            ->add('inputDateStart', DatePickerType::class, array('label'=>'Import file date start'))
+            ->add('inputDateEnd', DatePickerType::class, array('label'=>'Import file date end'))
+            ->add('import', SubmitType::class, array('attr' => array('class' => 'btn btn-xs btn-success pull-right','label'=>'Import')))
         ;
 
         $builder->addEventListener(FormEvents::POST_SUBMIT, array($this, 'postSubmit'));
@@ -90,19 +95,11 @@ class ImportSelectType extends AbstractType
         $resolver->setRequired('user');
         $resolver->setDefaults(array(
             'data_class' => 'NS\ImportBundle\Entity\Import',
-            'empty_data' => function (\Symfony\Component\OptionsResolver\Options $options) {
+            'empty_data' => function (Options $options) {
                 return function () use ($options) {
-                    return new \NS\ImportBundle\Entity\Import($options['user']);
+                    return new Import($options['user']);
                 };
             }
         ));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'ImportSelect';
     }
 }

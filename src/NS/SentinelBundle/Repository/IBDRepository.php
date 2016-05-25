@@ -650,7 +650,7 @@ class IBDRepository extends Common
     public function getLinkedCount($alias, array $countryCodes)
     {
         return $this->getByCountryCountQueryBuilder('cf', $countryCodes)
-            ->select(sprintf('COUNT(%s) as caseCount,c.code', $alias, $alias))
+            ->select(sprintf('COUNT(IDENTITY(%s)) as caseCount,c.code', $alias, $alias))
             ->innerJoin('cf.referenceLab', 'i')
             ->innerJoin('cf.site', 's');
     }
@@ -658,7 +658,7 @@ class IBDRepository extends Common
     public function getFailedLinkedCount($alias, array $countryCodes)
     {
         return $this->getByCountryCountQueryBuilder('cf', $countryCodes)
-            ->select(sprintf('COUNT(%s) as caseCount,c.code', $alias, $alias))
+            ->select(sprintf('COUNT(IDENTITY(%s)) as caseCount,c.code', $alias, $alias))
             ->innerJoin('cf.referenceLab', $alias)
             ->leftJoin('cf.site', 's')
             ->andWhere('s.code IS NULL');
@@ -667,8 +667,8 @@ class IBDRepository extends Common
     public function getNoLabCount($alias, array $countryCodes)
     {
         return $this->getByCountryCountQueryBuilder('cf', $countryCodes)
-            ->select(sprintf('COUNT(%s) as caseCount,c.code', $alias, $alias))
+            ->select(sprintf('COUNT(IDENTITY(%s)) as caseCount,c.code', $alias, $alias))
             ->leftJoin('cf.referenceLab', $alias)
-            ->andWhere($alias.'.id IS NULL');
+            ->andWhere(sprintf('IDENTITY(%s) IS NULL',$alias));
     }
 }

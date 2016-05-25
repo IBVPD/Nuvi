@@ -86,7 +86,7 @@ class SiteRepository extends CommonRepository
     public function getWithCasesForDate($alias, $caseClass)
     {
         return $this->secure($this->_em->createQueryBuilder()
-            ->select("$alias ,s,c,r,COUNT($alias) as totalCases")
+            ->select("$alias, s, c, r, COUNT($alias) as totalCases")
             ->from($caseClass, $alias)
             ->innerJoin("$alias.site", 's', 's.code')
             ->innerJoin('s.country', 'c')

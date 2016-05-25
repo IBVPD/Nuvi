@@ -8,11 +8,4 @@ class QuarterlyLinkingReportFilterType extends BaseQuarterlyFilterType
 {
     protected $fieldName = 'specimenCollectionDate';
 
-    /**
-     * @inheritDoc
-     */
-    public function getName()
-    {
-        return 'RotaVirusQuarterlyLinkingReportFilter';
-    }
 }

@@ -2,6 +2,7 @@
 
 namespace NS\ImportBundle\Admin;
 
+use NS\ImportBundle\Form\ClassType;
 use \NS\ImportBundle\Services\MapBuilder;
 use \Sonata\AdminBundle\Admin\Admin;
 use \Sonata\AdminBundle\Datagrid\DatagridMapper;
@@ -9,6 +10,9 @@ use \Sonata\AdminBundle\Datagrid\ListMapper;
 use \Sonata\AdminBundle\Form\FormMapper;
 use \Sonata\AdminBundle\Route\RouteCollection;
 use \Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 /**
  * MapAdmin class
@@ -93,12 +97,12 @@ class MapAdmin extends Admin
         $isNew = ($this->getSubject()->getId() > 0);
 
         $formMapper
-            ->add('name', null, array('label_attr'=>array('class'=>'col-sm-2')))
-            ->add('description', null, array('label'=>'Notes', 'label_attr'=>array('class'=>'col-sm-2')))
-            ->add('class', 'ClassType', array('label_attr'=>array('class'=>'col-sm-2')))
-            ->add('version', null, array('required'=>true, 'label_attr'=>array('class'=>'col-sm-2')))
-            ->add('headerRow', 'integer', array('label_attr'=>array('class'=>'col-sm-2')))
-            ->add('caseLinker', 'choice', array(
+            ->add('name',           null, array('label_attr'=>array('class'=>'col-sm-2')))
+            ->add('description',    null, array('label'=>'Notes', 'label_attr'=>array('class'=>'col-sm-2')))
+            ->add('class',          ClassType::class, array('label_attr'=>array('class'=>'col-sm-2')))
+            ->add('version',        null, array('required'=>true, 'label_attr'=>array('class'=>'col-sm-2')))
+            ->add('headerRow',      IntegerType::class, array('label_attr'=>array('class'=>'col-sm-2')))
+            ->add('caseLinker',     ChoiceType::class, array(
                 'label_attr' => array('class'=>'col-sm-2'),
                 'choices' => array('ns_import.standard_case_linker' => 'Case Id and Site Code', 'ns_import.reference_case_linker'=>'Case Id and Verify Country'),
                 'placeholder' => 'Please Select...',
@@ -107,11 +111,11 @@ class MapAdmin extends Admin
 
         if (!$isNew) {
             $formMapper
-                ->add('labPreference', 'choice', array(
+                ->add('labPreference', ChoiceType::class, array(
                     'label_attr' => array('class'=>'col-sm-2'),
                     'choices'=>array('referenceLab'=>'RRL', 'nationalLab'=>'NL')
                 ))
-                ->add('file', 'file', array(
+                ->add('file', FileType::class, array(
                     'required' => false,
                     'label_attr' => array('class'=>'col-sm-2'),
                 ));

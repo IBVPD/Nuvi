@@ -87,14 +87,6 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'role';
-    }
-
-    /**
      * @return array
      */
     public function getAsCredential()

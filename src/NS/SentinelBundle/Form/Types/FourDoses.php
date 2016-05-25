@@ -25,11 +25,4 @@ class FourDoses extends TranslatableArrayChoice implements TranslationContainerI
                             self::FOUR    => "≥ 4 doses",
                             self::UNKNOWN => 'Unknown',
                             );
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'FourDoses';
-    }
 }

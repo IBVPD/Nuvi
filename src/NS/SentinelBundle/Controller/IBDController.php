@@ -2,6 +2,12 @@
 
 namespace NS\SentinelBundle\Controller;
 
+use NS\SentinelBundle\Filter\Type\IBD\FilterType;
+use NS\SentinelBundle\Form\IBD\CaseType;
+use NS\SentinelBundle\Form\IBD\NationalLabType;
+use NS\SentinelBundle\Form\IBD\OutcomeType;
+use NS\SentinelBundle\Form\IBD\ReferenceLabType;
+use NS\SentinelBundle\Form\IBD\SiteLabType;
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use \Symfony\Component\HttpFoundation\Request;
@@ -20,7 +26,7 @@ class IBDController extends BaseCaseController
      */
     public function indexAction(Request $request)
     {
-        return $this->render('NSSentinelBundle:IBD:index.html.twig', $this->index($request, 'NSSentinelBundle:IBD', 'ibd_filter_form', 'ibd.index'));
+        return $this->render('NSSentinelBundle:IBD:index.html.twig', $this->index($request, 'NSSentinelBundle:IBD', FilterType::class, 'ibd.index'));
     }
 
     /**
@@ -43,7 +49,7 @@ class IBDController extends BaseCaseController
      */
     public function editAction(Request $request, $id = null)
     {
-        $response = $this->edit($request, 'NS\SentinelBundle\Form\IBD\CaseType', "ibdIndex", "ibdEdit", $id);
+        $response = $this->edit($request, CaseType::class, 'ibdIndex', 'ibdEdit', $id);
 
         return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:IBD:edit.html.twig', $response);
     }
@@ -55,7 +61,7 @@ class IBDController extends BaseCaseController
      */
     public function deleteAction($id)
     {
-        return $this->delete('NS\SentinelBundle\Form\IBD\CaseType', $id, 'ibdIndex');
+        return $this->delete( CaseType::class, $id, 'ibdIndex');
     }
 
     /**
@@ -67,7 +73,7 @@ class IBDController extends BaseCaseController
      */
     public function editRRLAction(Request $request, $id = null)
     {
-        $response = $this->edit($request, 'NS\SentinelBundle\Form\IBD\ReferenceLabType', "ibdIndex", "ibdRRLEdit", $id);
+        $response = $this->edit($request, ReferenceLabType::class, 'ibdIndex', 'ibdRRLEdit', $id);
         return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:IBD:editBaseLab.html.twig', $response);
     }
 
@@ -80,7 +86,7 @@ class IBDController extends BaseCaseController
      */
     public function editNLAction(Request $request, $id = null)
     {
-        $response = $this->edit($request, 'NS\SentinelBundle\Form\IBD\NationalLabType', "ibdIndex", "ibdNLEdit", $id);
+        $response = $this->edit($request, NationalLabType::class, 'ibdIndex', 'ibdNLEdit', $id);
 
         return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:IBD:editBaseLab.html.twig', $response);
     }
@@ -94,7 +100,7 @@ class IBDController extends BaseCaseController
      */
     public function editLabAction(Request $request, $id = null)
     {
-        $response = $this->edit($request, 'NS\SentinelBundle\Form\IBD\SiteLabType', "ibdIndex", "ibdLabEdit", $id);
+        $response = $this->edit($request, SiteLabType::class, 'ibdIndex', 'ibdLabEdit', $id);
         return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:IBD:editLab.html.twig', $response);
     }
 
@@ -107,30 +113,31 @@ class IBDController extends BaseCaseController
      */
     public function editOutcomeAction(Request $request, $id = null)
     {
-        $response = $this->edit($request, 'NS\SentinelBundle\Form\IBD\OutcomeType', "ibdIndex", "ibdOutcomeEdit", $id);
+        $response = $this->edit($request, OutcomeType::class, 'ibdIndex', 'ibdOutcomeEdit', $id);
         return ($response instanceof Response) ? $response : $this->render('NSSentinelBundle:IBD:editOutcome.html.twig', $response);
     }
 
     /**
-     * @param $type
-     * @param null $objId
+     * @param string $type
+     * @param string $objId
+     * @param bool $forDelete
      * @return mixed|\NS\SentinelBundle\Entity\IBD|null
      * @throws \Doctrine\ORM\UnexpectedResultException
      */
     protected function getObject($type, $objId, $forDelete = false)
     {
         switch ($type) {
-            case 'NS\SentinelBundle\Form\IBD\CaseType':
-            case 'NS\SentinelBundle\Form\IBD\OutcomeType':
+            case CaseType::class:
+            case OutcomeType::class:
                 if($forDelete) {
                     return $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:IBD')->findWithAssociations($objId);
                 }
                 return $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:IBD')->find($objId);
-            case 'NS\SentinelBundle\Form\IBD\SiteLabType':
+            case SiteLabType::class:
                 return $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:IBD\SiteLab')->findOrCreateNew($objId);
-            case 'NS\SentinelBundle\Form\IBD\ReferenceLabType':
+            case ReferenceLabType::class:
                 return $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:IBD\ReferenceLab')->findOrCreateNew($objId);
-            case 'NS\SentinelBundle\Form\IBD\NationalLabType':
+            case NationalLabType::class:
                 return $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:IBD\NationalLab')->findOrCreateNew($objId);
             default:
                 throw new \RuntimeException("Unknown type");

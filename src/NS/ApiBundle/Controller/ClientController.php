@@ -2,6 +2,8 @@
 
 namespace NS\ApiBundle\Controller;
 
+use NS\ApiBundle\Form\ClientType;
+use NS\ApiBundle\Form\RemoteType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -48,7 +50,7 @@ class ClientController extends Controller
      */
     public function createAction(Request $request)
     {
-        $form = $this->createForm('CreateApiClient');
+        $form = $this->createForm(ClientType::class);
         $form->handleRequest($request);
         if ($form->isValid()) {
             $entityMgr     = $this->get('doctrine.orm.entity_manager');
@@ -81,7 +83,7 @@ class ClientController extends Controller
                      ->setParameters(array('id'=>$objId, 'user'=>$entityMgr->getReference(get_class($user), $user->getId())))
                      ->getQuery()
                      ->getSingleResult();
-        $form = $this->createForm('CreateApiClient', $client);
+        $form = $this->createForm(ClientType::class, $client);
         $form->handleRequest($request);
         if ($form->isValid()) {
             $client = $form->getData();
@@ -130,7 +132,7 @@ class ClientController extends Controller
      */
     public function createRemoteAction(Request $request)
     {
-        $form = $this->createForm('CreateApiRemote');
+        $form = $this->createForm(RemoteType::class);
         $form->handleRequest($request);
         if ($form->isValid()) {
             $entityMgr     = $this->get('doctrine.orm.entity_manager');
@@ -162,7 +164,7 @@ class ClientController extends Controller
                      ->getQuery()
                      ->getSingleResult();
 
-        $form = $this->createForm('CreateApiRemote', $remote);
+        $form = $this->createForm(RemoteType::class, $remote);
         $form->handleRequest($request);
         if ($form->isValid()) {
             $client = $form->getData();

@@ -2,6 +2,8 @@
 
 namespace NS\SentinelBundle\Form\IBD;
 
+use NS\AceBundle\Form\DatePickerType;
+use NS\AceBundle\Form\SwitchType;
 use \Symfony\Component\Form\AbstractType;
 use \Symfony\Component\Form\FormBuilderInterface;
 use \Symfony\Component\OptionsResolver\OptionsResolver;
@@ -107,16 +109,16 @@ class SiteLabType extends AbstractType
         if ($country instanceof Country) {
             if ($country->hasReferenceLab()) {
                 $form
-                    ->add('sentToReferenceLab', 'switch', array('label'=>'Sent To Reference Lab','required' => false, 'attr'=>array('data-context-child'=>'sentToReferenceLab')))
-                    ->add('csfSentToRRLDate', 'acedatepicker', array('label'=>'ibd-form.csf-sent-to-rrl-date', 'required'=>false, 'attr'=>array('data-context-parent'=>'sentToReferenceLab', 'data-context-value'=>1)))
-                    ->add('csfIsolSentToRRLDate', 'acedatepicker', array('label'=>'ibd-form.csf-isol-sent-to-rrl-date', 'required'=>false, 'attr'=>array('data-context-parent'=>'sentToReferenceLab', 'data-context-value'=>1)))
-                    ->add('bloodIsolSentToRRLDate', 'acedatepicker', array('label'=>'ibd-form.blood-sent-to-rrl-date', 'required'=>false, 'attr'=>array('data-context-parent'=>'sentToReferenceLab', 'data-context-value'=>1)))
-                    ->add('brothSentToRRLDate', 'acedatepicker', array('label'=>'ibd-form.broth-sent-to-rrl-date', 'required'=>false, 'attr'=>array('data-context-parent'=>'sentToReferenceLab', 'data-context-value'=>1)))
+                    ->add('sentToReferenceLab', SwitchType::class, array('label'=>'Sent To Reference Lab','required' => false, 'attr'=>array('data-context-child'=>'sentToReferenceLab')))
+                    ->add('csfSentToRRLDate', DatePickerType::class, array('label'=>'ibd-form.csf-sent-to-rrl-date', 'required'=>false, 'attr'=>array('data-context-parent'=>'sentToReferenceLab', 'data-context-value'=>1)))
+                    ->add('csfIsolSentToRRLDate', DatePickerType::class, array('label'=>'ibd-form.csf-isol-sent-to-rrl-date', 'required'=>false, 'attr'=>array('data-context-parent'=>'sentToReferenceLab', 'data-context-value'=>1)))
+                    ->add('bloodIsolSentToRRLDate', DatePickerType::class, array('label'=>'ibd-form.blood-sent-to-rrl-date', 'required'=>false, 'attr'=>array('data-context-parent'=>'sentToReferenceLab', 'data-context-value'=>1)))
+                    ->add('brothSentToRRLDate', DatePickerType::class, array('label'=>'ibd-form.broth-sent-to-rrl-date', 'required'=>false, 'attr'=>array('data-context-parent'=>'sentToReferenceLab', 'data-context-value'=>1)))
                 ;
             }
 
             if ($country->hasNationalLab()) {
-                $form->add('sentToNationalLab', 'switch', array('required' => false,'label'=>'Sent To National Lab',));
+                $form->add('sentToNationalLab', SwitchType::class, array('required' => false,'label'=>'Sent To National Lab',));
             }
         }
     }

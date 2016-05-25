@@ -37,11 +37,4 @@ class Gender extends TranslatableArrayChoice implements TranslationContainerInte
         parent::__construct($value);
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'Gender';
-    }
 }

@@ -2,6 +2,7 @@
 
 namespace NS\ImportBundle\Form;
 
+use NS\AceBundle\Form\DatePickerType;
 use \Symfony\Component\Form\AbstractType;
 use \Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -31,14 +32,6 @@ class DateFilterType extends AbstractType
      */
     public function getParent()
     {
-        return 'acedatepicker';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'ns_filter_date';
+        return DatePickerType::class;
     }
 }

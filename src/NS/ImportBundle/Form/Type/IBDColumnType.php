@@ -9,11 +9,4 @@ namespace NS\ImportBundle\Form\Type;
  */
 class IBDColumnType extends ColumnType
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'ibd_columns';
-    }
 }

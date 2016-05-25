@@ -3,6 +3,7 @@
 namespace NS\ApiBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -26,7 +27,7 @@ class RemoteType extends AbstractType
             ->add('tokenEndpoint',  null,   array('label'=>'form.remote-token-endpoint'))
             ->add('authEndpoint',   null,   array('label'=>'form.remote-auth-endpoint'))
             ->add('redirectUrl',    null,   array('label'=>'form.remote-redirect-url'))
-            ->add('create', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array('label'=>'form.remote-submit-button', 'attr'=>array('class'=> 'btn btn-sm btn-success')))
+            ->add('create', SubmitType::class, array('label'=>'form.remote-submit-button', 'attr'=>array('class'=> 'btn btn-sm btn-success')))
         ;
     }
     
@@ -38,13 +39,5 @@ class RemoteType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'NS\ApiBundle\Entity\Remote'
         ));
-    }
-
-    /**
-     * @return string
-     */
-    public function getName()
-    {
-        return 'CreateApiRemote';
     }
 }

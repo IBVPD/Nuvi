@@ -2,31 +2,31 @@ services:
   ns_import.form.ns_filter_date:
     class: NS\ImportBundle\Form\DateFilterType
     tags:
-      - { name: form.type, alias: ns_filter_date }
+      - { name: form.type }
 
   ns_import.form.ns_filter_date_range:
     class: NS\ImportBundle\Form\DateRangeFilterType
     tags:
-      - { name: form.type, alias: ns_filter_date_range }
+      - { name: form.type }
 
   ns_import.form.class:
     class: NS\ImportBundle\Form\ClassType
-    arguments: [ %ns_import.map.classes% ]
+    arguments: [ "%ns_import.map.classes%" ]
     tags:
-      - { name: form.type, alias: ClassType }
+      - { name: form.type }
 
   ns_import.converters:
     class: NS\ImportBundle\Converter\Registry
     tags:
-      - { name: form.type, alias: ConverterChoice }
+      - { name: form.type }
 
   ns_import.form.import_map_select:
     class: NS\ImportBundle\Form\ImportSelectType
-    arguments: [ @doctrine.orm.entity_manager, @ns_import.import_file_creator ]
+    arguments: [ "@doctrine.orm.entity_manager", "@ns_import.import_file_creator" ]
     tags:
-      - { name: form.type, alias: ImportSelect }
+      - { name: form.type }
 
   ns_import.form.pre_processor_type:
     class: NS\ImportBundle\Form\Type\PreProcessorType
     tags:
-      - { name: form.type, alias: PreProcessorType }
+      - { name: form.type }

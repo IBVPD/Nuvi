@@ -2,6 +2,8 @@
 
 namespace NS\SentinelBundle\Form;
 
+use NS\SentinelBundle\Form\Types\CaseCreationType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -42,13 +44,13 @@ class CreateType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('caseId', null,   array('label'=>'site-assigned-case-id'))
-            ->add('type', 'NS\SentinelBundle\Form\Types\CaseCreationType', array('description' => 'This should always be "1"'))
+            ->add('caseId', null, array('label'=>'site-assigned-case-id'))
+            ->add('type', CaseCreationType::class, array('description' => 'This should always be "1"'))
         ;
 
         if ($this->siteSerializer->hasMultipleSites()) {
             $queryBuilder = $this->entityMgr->getRepository('NS\SentinelBundle\Entity\Site')->getChainQueryBuilder()->orderBy('s.name', 'ASC');
-            $builder->add('site', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', array(
+            $builder->add('site', EntityType::class, array(
                 'required'        => true,
                 'mapped'          => false,
                 'placeholder'     => 'Please Select...',

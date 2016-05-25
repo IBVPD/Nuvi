@@ -2,6 +2,9 @@
 
 namespace NS\SentinelBundle\Form\RotaVirus;
 
+use NS\AceBundle\Form\DatePickerType;
+use NS\SentinelBundle\Form\RotaVirus\Types\DischargeClassification;
+use NS\SentinelBundle\Form\RotaVirus\Types\DischargeOutcome;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -20,9 +23,9 @@ class OutcomeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('dischargeOutcome',           'NS\SentinelBundle\Form\RotaVirus\Types\DischargeOutcome', array('required'=>false, 'label'=>'rotavirus-form.dischargeOutcome'))
-            ->add('dischargeDate',              'NS\AceBundle\Form\DatePickerType',    array('required'=>false, 'label'=>'rotavirus-form.dischargeDate'))
-            ->add('dischargeClassification',    'NS\SentinelBundle\Form\RotaVirus\Types\DischargeClassification', array('required'=>false,'label'=>'rotavirus-form.dischargeClassification'))
+            ->add('dischargeOutcome',           DischargeOutcome::class,        array('required'=>false, 'label'=>'rotavirus-form.dischargeOutcome'))
+            ->add('dischargeDate',              DatePickerType::class,          array('required'=>false, 'label'=>'rotavirus-form.dischargeDate'))
+            ->add('dischargeClassification',    DischargeClassification::class, array('required'=>false,'label'=>'rotavirus-form.dischargeClassification'))
             ->add('dischargeClassOther',        null,               array('required'=>false, 'label'=>'rotavirus-form.dischargeClassOther'))
             ->add('comment',                    null,               array('required'=>false, 'label'=>'rotavirus-form.comment'))
         ;

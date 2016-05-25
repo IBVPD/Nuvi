@@ -22,7 +22,7 @@ class LabFilterType extends AbstractType implements EmbeddedFilterTypeInterface
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('status', 'NS\SentinelBundle\Form\Types\CaseStatus', array('required' => false, 'label' => 'filter-case-lab-status', 'apply_filter' => array($this, 'labFilter')));
+        $builder->add('status', CaseStatus::class, array('required' => false, 'label' => 'filter-case-lab-status', 'apply_filter' => array($this, 'labFilter')));
     }
 
     /**
@@ -38,13 +38,5 @@ class LabFilterType extends AbstractType implements EmbeddedFilterTypeInterface
 
             $queryBuilder->andWhere($filterQuery->getExpr()->eq('l.status', $values['value']->getValue()));
         }
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getName()
-    {
-        return 'lab_filter';
     }
 }

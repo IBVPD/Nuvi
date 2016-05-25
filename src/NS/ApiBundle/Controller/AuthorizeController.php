@@ -5,6 +5,7 @@ namespace NS\ApiBundle\Controller;
 use \Doctrine\ORM\UnexpectedResultException;
 use \NS\ApiBundle\Entity\Client;
 use \NS\ApiBundle\Form\Model\Authorize;
+use NS\ApiBundle\Form\Types\AuthorizeFormType;
 use \OAuth2\OAuth2ServerException;
 use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use \Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -41,7 +42,7 @@ class AuthorizeController extends Controller
         }
 
         $authorize   = new Authorize();
-        $form        = $this->createForm('api_oauth_server_authorize', $authorize);
+        $form        = $this->createForm(AuthorizeFormType::class, $authorize);
         $oauthServer = $this->get('fos_oauth_server.server');
 
         $form->handleRequest($request);
