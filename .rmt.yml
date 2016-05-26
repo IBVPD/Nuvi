@@ -32,7 +32,7 @@ master:
             tag-prefix: ''         # No more prefix for tags
     pre-release-actions:
         update-version-class:
-            class: 'NS\SentinelBundle\Version'
+            class: 'src/NS/SentinelBundle/Version.php'
         changelog-update:          # Update a CHANGELOG file before the release
             format: semantic
         vcs-commit: ~              # Commit the CHANGELOG
