@@ -111,7 +111,7 @@ class UserAdmin extends Admin
             ->add('active', null, array('required' => false))
             ->add('admin', null, array('required' => false))
             ->add('referenceLab', null, array('required' => false, 'label' => 'admin.form-reference-lab'))
-            ->add('acls', 'sonata_type_collection', array('by_reference' => true), array('edit' => 'inline', 'inline' => 'table'));
+            ->add('acls', 'sonata_type_collection', array('by_reference' => true,'label'=>'Access Restrictions','required'=>false), array('edit' => 'inline', 'inline' => 'table'));
     }
 
     /**
