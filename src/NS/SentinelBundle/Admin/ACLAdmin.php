@@ -2,11 +2,14 @@
 
 namespace NS\SentinelBundle\Admin;
 
+use NS\SecurityBundle\Form\Types\ACLAutoCompleterType;
+use NS\SentinelBundle\Form\Types\Role;
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ACLAdmin extends Admin
 {
@@ -44,8 +47,8 @@ class ACLAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('type', 'role')
-            ->add('options', 'choice', array(
+            ->add('type', Role::class)
+            ->add('options', ChoiceType::class, array(
                 'required' => false,
                 'multiple' => true,
                 'choices' => array(
@@ -56,7 +59,7 @@ class ACLAdmin extends Admin
                     'nl' => 'Can Create NL',
                     'rrl' => 'Can Create RRL'))
             )
-            ->add('object_id', 'acl_object_target_autocompleter', array(
+            ->add('object_id', ACLAutoCompleterType::class, array(
                                                         'label'               => 'Target',
                                                         'route'               => 'adminACLAjaxAutocomplete',
                                                         'required'            => false,

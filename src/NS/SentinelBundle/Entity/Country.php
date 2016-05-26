@@ -17,6 +17,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table(name="countries")
  * @ORM\Entity(repositoryClass="\NS\SentinelBundle\Repository\CountryRepository")
  * @Secured(conditions={
+ *      @SecuredCondition(roles={"ROLE_SUPER_ADMIN"},enabled=false),
  *      @SecuredCondition(roles={"ROLE_REGION"},relation="region",class="NSSentinelBundle:Region"),
  *      @SecuredCondition(roles={"ROLE_COUNTRY","ROLE_RRL_LAB","ROLE_NL_LAB"},field="code"),
  *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},relation="site",class="NSSentinelBundle:Site"),

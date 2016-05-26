@@ -31,7 +31,7 @@
         "sonata-project/core-bundle": "~2.3",
 
         "ns/util-bundle": "~2.1",
-        "ns/security-bundle": "~4.2",
+        "ns/security-bundle": "~5.0",
         "ns/ace-bundle": "~2.0",
         "ns/ace-sonata-bundle": "~0.3",
         "ns/ace-sonata-doctrine-orm-admin-bundle": "~0.1",

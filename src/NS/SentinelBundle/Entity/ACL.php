@@ -48,6 +48,14 @@ class ACL extends BaseACL
     protected $options = array();
 
     /**
+     * ACL constructor.
+     */
+    public function __construct()
+    {
+        $this->type = new Role();
+    }
+
+    /**
      * @inheritDoc
      */
     public function __toString()
@@ -121,7 +129,7 @@ class ACL extends BaseACL
 
     public function getCredentials()
     {
-        $baseRoles = $this->type->getAsCredential();
+        $baseRoles = ($this->type) ? $this->type->getAsCredential() : array();
 
         foreach((array)$this->options as $option) {
             switch ($option) {

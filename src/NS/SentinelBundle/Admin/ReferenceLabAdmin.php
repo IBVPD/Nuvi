@@ -2,11 +2,13 @@
 
 namespace NS\SentinelBundle\Admin;
 
+use NS\SentinelBundle\Form\Types\SurveillanceConducted;
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ReferenceLabAdmin extends Admin
 {
@@ -51,13 +53,13 @@ class ReferenceLabAdmin extends Admin
     {
         $model = $this->getSubject();
         if (!$model->getId()) {
-            $formMapper->add('id', 'text', array('label' => 'Code'));
+            $formMapper->add('id', TextType::class, array('label' => 'Code'));
         }
 
         $formMapper
             ->add('name')
             ->add('location')
-            ->add('type', 'SurveillanceConducted')
+            ->add('type', SurveillanceConducted::class)
             ->add('countries')
         ;
     }

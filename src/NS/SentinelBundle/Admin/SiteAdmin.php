@@ -2,6 +2,8 @@
 
 namespace NS\SentinelBundle\Admin;
 
+use NS\SentinelBundle\Form\IBD\Types\IntenseSupport;
+use NS\SentinelBundle\Form\Types\SurveillanceConducted;
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -50,7 +52,6 @@ class SiteAdmin extends Admin
                 'actions' => array(
                     'show' => array(),
                     'edit' => array(),
-                    'delete' => array(),
                 )
             ))
         ;
@@ -73,7 +74,7 @@ class SiteAdmin extends Admin
             ->add('numberOfBeds')
             ->add('website')
             ->add('ibdTier')
-            ->add('ibdIntenseSupport', 'NS\SentinelBundle\Form\IBD\TypesIntenseSupport')
+            ->add('ibdIntenseSupport', IntenseSupport::class)
             ->add('ibdLastSiteAssessmentDate')
             ->add('ibdSiteAssessmentScore')
             ->add('rvLastSiteAssessmentDate')
@@ -81,7 +82,7 @@ class SiteAdmin extends Admin
             ->add('rvRl')
             ->add('ibdEqaCode')
             ->add('rvEqaCode')
-            ->add('surveillanceConducted', 'NS\SentinelBundle\Form\Types\SurveillanceConducted')
+            ->add('surveillanceConducted', SurveillanceConducted::class)
         ;
     }
 

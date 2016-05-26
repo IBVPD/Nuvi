@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "436e94d1d3349b8f6c0499bd31f39f85",
-    "content-hash": "9185f3de162d9e1f822586246d95689a",
+    "hash": "37c7ffe12cfb374603287d4550b33890",
+    "content-hash": "5b1be1e593d3d64cf896fc6bd5f40802",
     "packages": [
         {
             "name": "adoy/oauth2",
@@ -3555,29 +3555,29 @@
         },
         {
             "name": "ns/security-bundle",
-            "version": "4.2.5",
+            "version": "5.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/SecurityBundle.git",
-                "reference": "e962f3d88b2e20fa705aaf4e30beaee2657fdcdf"
+                "reference": "cb910ae610b32de867ad0b1af3173fd9822cb0e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/SecurityBundle/zipball/e962f3d88b2e20fa705aaf4e30beaee2657fdcdf",
-                "reference": "e962f3d88b2e20fa705aaf4e30beaee2657fdcdf",
+                "url": "https://api.github.com/repos/NobletSolutions/SecurityBundle/zipball/cb910ae610b32de867ad0b1af3173fd9822cb0e2",
+                "reference": "cb910ae610b32de867ad0b1af3173fd9822cb0e2",
                 "shasum": ""
             },
             "require": {
                 "doctrine/orm": ">=2.4",
                 "php": ">=5.3.3",
-                "symfony/symfony": "~2.7|~3.0"
+                "symfony/symfony": "~2.8|~3.0"
             },
             "require-dev": {
                 "liip/rmt": "1.*",
                 "phpunit/phpunit": "^4.8"
             },
             "suggest": {
-                "ns/util-bundle": "The ACL autocompleter extends the UtilBundle Autocompleter form type"
+                "ns/ace-bundle": "The ACL autocompleter extends the AceBundle Autocompleter form type"
             },
             "type": "symfony-bundle",
             "autoload": {
@@ -3596,7 +3596,7 @@
                 }
             ],
             "description": "This Bundle provides a basic database row level ACL system",
-            "time": "2016-05-13 16:14:17"
+            "time": "2016-05-26 15:21:41"
         },
         {
             "name": "ns/util-bundle",

@@ -2,6 +2,7 @@
 
 namespace NS\ApiBundle\Admin;
 
+use Doctrine\ORM\EntityRepository;
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -55,12 +56,12 @@ class RemoteAdmin extends Admin
             ->add('tokenEndpoint')
             ->add('authEndpoint')
             ->add('redirectUrl')
-            ->add('user', null, array('placeholder'=>'Please Select', 'query_builder'=>function (\Doctrine\ORM\EntityRepository $repo) {
+            ->add('user', null, array('placeholder'=>'Please Select', 'query_builder'=>function (EntityRepository $repo) {
                                                 return $repo->createQueryBuilder('u')
                                                             ->leftJoin('u.acls', 'a')
                                                             ->addSelect('a')
-                                                            ->where('a.type IN (:apiType)')
-                                                            ->setParameter('apiType', array(Role::REGION_API, Role::COUNTRY_API, Role::SITE_API));
+                                                            ->where('a.options LIKE :apiType')
+                                                            ->setParameter('apiType', '%api%');
             }))
         ;
     }

@@ -15,11 +15,11 @@ use \Sonata\AdminBundle\Show\ShowMapper;
 class ColumnAdmin extends Admin
 {
     /**
-     * @param DatagridMapper $datagridMapper
+     * @param DatagridMapper $mapper
      */
-    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    protected function configureDatagridFilters(DatagridMapper $mapper)
     {
-        $datagridMapper->add('name');
+        $mapper->add('name');
     }
 
     /**
@@ -35,8 +35,7 @@ class ColumnAdmin extends Admin
                     'edit'   => array(),
                     'delete' => array(),
                 )
-            ))
-        ;
+            ));
     }
 
     /**
@@ -45,17 +44,16 @@ class ColumnAdmin extends Admin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $mapperType = null;
-        if ($this->getSubject()) {
-            $mapperType = ($this->getSubject()->getMap()->getClass() == 'NS\SentinelBundle\Entity\IBD')  ? IBDColumnType::class:RotavirusColumnType::class;
+        if ($this->getSubject() && $this->getSubject()->getMap()) {
+            $mapperType = ($this->getSubject()->getMap()->getClass() == 'NS\SentinelBundle\Entity\IBD') ? IBDColumnType::class : RotavirusColumnType::class;
         }
 
         $formMapper
-            ->add('name',           null, array('attr'=>array('data-queryBuilder'=>'columnName')))
-            ->add('preProcessor',   PreProcessorType::class, array('required'=>false))
+            ->add('name', null, array('attr' => array('data-queryBuilder' => 'columnName')))
+            ->add('preProcessor', PreProcessorType::class, array('required' => false))
             ->add('mapper',         $mapperType, array('required'=>false, 'label' => 'DB Column'))
-            ->add('converter',      Registry::class, array('required' => false, 'attr'=>array('class'=>'chosen-select'), 'label'=>'Validator'))
-            ->add('ignored',        null, array('label' => 'Drop?', 'required' => false))
-        ;
+            ->add('converter', Registry::class, array('required' => false, 'attr' => array('class' => 'chosen-select'), 'label' => 'Validator'))
+            ->add('ignored', null, array('label' => 'Drop?', 'required' => false));
     }
 
     /**
@@ -67,7 +65,6 @@ class ColumnAdmin extends Admin
             ->add('name')
             ->add('converter')
             ->add('mapper')
-            ->add('ignored')
-        ;
+            ->add('ignored');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Admin;
 
+use Lunetics\LocaleBundle\Form\Extension\Type\LocaleType;
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -49,7 +50,6 @@ class CountryAdmin extends Admin
                 'actions' => array(
                     'show' => array(),
                     'edit' => array(),
-                    'delete' => array(),
                 )
             ));
     }
@@ -62,11 +62,11 @@ class CountryAdmin extends Admin
         $formMapper
             ->add('code')
             ->add('name')
-            ->add('language', 'lunetics_locale', array('required' => false))
+            ->add('language', LocaleType::class, array('required' => false))
             ->add('tracksPneumonia', null, array('required' => false))
             ->add('hasReferenceLab', null, array('required' => false))
             ->add('hasNationalLab', null, array('required' => false))
-            ->add('gaviEligible', 'TripleChoice', array('required' => false))
+            ->add('gaviEligible', TripleChoice::class, array('required' => false))
             ->add('hibVaccineIntro')
             ->add('pcvVaccineIntro')
             ->add('rvVaccineIntro')
