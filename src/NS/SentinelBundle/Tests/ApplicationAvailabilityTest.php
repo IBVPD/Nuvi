@@ -147,7 +147,7 @@ class ApplicationAvailabilityTest extends WebTestCase
 
             // Region
             array($region, '/en/admin/dashboard', 200),
-            array($region, '/en/admin/ns/sentinel/region/create', 200),
+            array($region, '/en/admin/ns/sentinel/region/create', 403),
             array($region, '/en/admin/ns/sentinel/region/list', 200),
             array($region, '/en/admin/ns/sentinel/region/NA/show', 200),
             array($region, '/en/admin/ns/sentinel/region/NA/delete', 403),
