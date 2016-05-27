@@ -122,20 +122,32 @@ remove from the field.
 Import Maps Specific
 --------------------
 
-Please refer to import.md for full documentation of import/export functions.
+Please refer to [import.md](import.md) for full documentation of import/export functions.
 
 Super, Regional, and Country Administrators
 -------------------------------------------
 
 There are three levels of administrator users:
 
-- **Super Administrator** users have no access restrictions, but cannot see case data. This role is
+###Super Administrator
+
+**Super Administrator** users have no access restrictions, but cannot see case data. This role is
 primarily intended to allow IT staff to create Regional and Country Administrator users. Super
 Administrators can administer the entire system, including Regions, Countries, Sites, Reference
-Labs, all Users, API Clients, Remotely Authorized Clients, and all Maps.
+Labs, all Users, API Clients, Remotely Authorized Clients, and all Maps:
 
-- **Regional Administrator** users can only access their assigned Region and the Countries, Sites,
-Reference Labs, and Users within it.
+![Super Administrator Dashboard](images/superAdminDashboard.png)
 
-- **Country Administrator** users can only access their assigned Country and the Sites and Users within
-it.
+###Regional Administrator
+
+**Regional Administrator** users can only access their assigned Region and the Countries, Sites,
+Reference Labs, and Users within it. They also have access to all Maps:
+
+![Regional Administrator Dashboard](images/regionalAdminDashboard.png)
+
+###Country Administrator
+
+**Country Administrator** users can only access their assigned Country and the Sites and Users within
+it:
+
+![Country Administrator Dashboard](images/countryAdminDashboard.png)
