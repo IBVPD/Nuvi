@@ -143,7 +143,7 @@ of cases *was not* reported.
 
 Click **Data Entry** and then **Zero Reporting** on the sidebar menu.
 
-![Sidebar Menu: Data Entry](images/sidebarDataEntry.png)
+![Sidebar Menu: Zero Reporting](images/sidebarZeroReporting.png)
 
 Click the **Filters** button on the **Zero Reporting** header.
 
