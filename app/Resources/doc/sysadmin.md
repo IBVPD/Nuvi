@@ -8,7 +8,6 @@ Access the system Administration page by clicking **Administration** in the side
 2. User specific
 3. Reference lab specific
 4. Import Map specific
-5. Super, Regional, and Country Administrators
 
 All sections
 ------------
@@ -112,6 +111,42 @@ access to multiple specific criteria in a given category, add additional restric
 **Access Restrictions** can be deleted by enabling the **Delete** checkbox next to them and then
 saving the user information with a **Create** or **Update** button.
 
+###Administrator User Types
+
+There are three levels of administrator users: **Super Administrators**, **Regional
+Administrators**, and **Country Administrators**.
+
+As shown below, **Super Administrator** users have no access restrictions, but cannot see case data.
+This role is primarily intended to allow IT staff to create Regional and Country Administrator
+users. Super Administrators can administer the entire system, including Regions, Countries, Sites,
+Reference Labs, all Users, API Clients, Remotely Authorized Clients, and all Maps.
+
+The initial Super Administrator user is created during the installation process. To create another
+Super Administrator, enable the **Admin** checkbox on the user create/edit page and do not add any
+Access Restrictions.
+
+![Super Administrator Dashboard](images/superAdminDashboard.png)
+
+---
+
+As shown below, **Regional Administrator** users can only access their assigned Region and the
+Countries, Sites, Reference Labs, and Users within it. They also have access to all Maps.
+
+To create a Regional Administrator, enable the **Admin** checkbox on the user create/edit page and
+add an Access Restriction to limit access to the appropriate Region.
+
+![Regional Administrator Dashboard](images/regionalAdminDashboard.png)
+
+---
+
+As shown below, **Country Administrator** users can only access their assigned Country and the Sites
+and Users within it.
+
+To create a Country Administrator, enable the **Admin** checkbox on the user create/edit page and
+add an Access Restriction to limit access to the appropriate Country.
+
+![Country Administrator Dashboard](images/countryAdminDashboard.png)
+
 Reference Labs Specific
 -----------------------
 
@@ -123,31 +158,3 @@ Import Maps Specific
 --------------------
 
 Please refer to [import.md](import.md) for full documentation of import/export functions.
-
-Super, Regional, and Country Administrators
--------------------------------------------
-
-There are three levels of administrator users:
-
-###Super Administrator
-
-**Super Administrator** users have no access restrictions, but cannot see case data. This role is
-primarily intended to allow IT staff to create Regional and Country Administrator users. Super
-Administrators can administer the entire system, including Regions, Countries, Sites, Reference
-Labs, all Users, API Clients, Remotely Authorized Clients, and all Maps:
-
-![Super Administrator Dashboard](images/superAdminDashboard.png)
-
-###Regional Administrator
-
-**Regional Administrator** users can only access their assigned Region and the Countries, Sites,
-Reference Labs, and Users within it. They also have access to all Maps:
-
-![Regional Administrator Dashboard](images/regionalAdminDashboard.png)
-
-###Country Administrator
-
-**Country Administrator** users can only access their assigned Country and the Sites and Users within
-it:
-
-![Country Administrator Dashboard](images/countryAdminDashboard.png)
