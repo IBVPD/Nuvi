@@ -79,9 +79,9 @@ of the list page or the **Delete** button below the item information in the **Ed
 Items can be deleted in bulk by selecting the checkboxes next to their names in the list page,
 selecting the **Delete** action at the bottom of the page, and clicking **OK**.
 
-**CAUTION: Enabling the All elements checkbox at the bottom of the list will apply the Delete
-**command to all items in the section, *including those that are not currently visible due to
-**filtering or pagination.*
+**CAUTION:** Enabling the All elements checkbox at the bottom of the list will apply the Delete
+command to all items in the section, *including those that are not currently visible due to
+filtering or pagination.*
 
 User Specific
 -------------
