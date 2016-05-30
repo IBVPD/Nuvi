@@ -1,11 +1,22 @@
 Cases and Data Entry
 ====================
 
+1. Recent Cases list
+2. Finding cases
+3. Creating cases
+4. Modifying cases
+5. Zero Reporting
+6. Reports
+
 Recent Cases list
 -----------------
 
 To view the list of cases, click **Data Entry** on the sidebar menu, and then **IBD** or
-**Rotavirus**. Cases are listed in descending order of creation; i.e. newest cases at the top. Only
+**Rotavirus**.
+
+![Sidebar Menu: Data Entry](images/sidebarDataEntry.png)
+
+Cases are listed in descending order of creation; i.e. newest cases at the top. Only
 cases that your user account has permission to access are included in the Recent Cases list.
 
 ![Recent Cases list](images/recentCases.png)
@@ -18,12 +29,6 @@ the **Edit EPI** button or **Edit Outcome**, respectively.
 
 ![Actions buttons](images/actionsButtons.png)
 
-Your account permissions determine which other buttons, if any, are displayed in the **Actions**
-column. These additional buttons are displayed as either Add or Edit buttons, depending on whether
-or not the relevant detail record already exists. Clicking an Add or Edit button in the **Actions**
-column takes you to an editing page for the indicated detail record of the case. For more
-information, see the **Modifying cases** section below.
-
 Note that if your browser screen is narrow, the Actions buttons may be combined into a single gear
 button. Click the gear button in order to see all the Actions buttons.
 
@@ -33,6 +38,17 @@ Actions buttons also appear in the upper-right corner of case editing pages. A *
 included here for returning to the cases list.
 
 ![Actions buttons on edit page](images/actionsButtonsEdit.png)
+
+Your account permissions determine which other buttons, if any, are displayed in the **Actions**
+column. These additional buttons are displayed as either Add or Edit buttons, depending on whether
+or not the relevant detail record already exists.
+
+Clicking an Add or Edit button in the **Actions** column takes you to an editing page for the
+indicated detail record of the case.
+
+![Case editing page](images/editCase.png)
+
+For more information on editing a case, see the **Modifying cases** section below.
 
 ###Case completion flags
 
@@ -69,10 +85,12 @@ filters and return to the full list of cases, click the **Reset** button in the 
 Creating cases
 --------------
 
-IDB and Rotavirus cases are created via their respective entries on the **Data Entry** item on the
-sidebar menu.
+IDB and Rotavirus cases are created from their respective Recent Cases list pages.
+
 
 1. Click the green **Create/Edit** button above the Recent Cases list.
+
+	![Recent Cases Create Button](images/recentCasesCreate.png)
 
 2. In the **Create Case** pop-up dialog, enter the **Case ID**.
 
@@ -83,7 +101,8 @@ sidebar menu.
   
    If your user account permissions allow it, you may also see **Site Lab**, **RRL** (Regional
    Reference Lab), or **NL** (National Lab) options. If you select one of these options, you will be
-   taken directly to the lab details editing page. Lab details can also be added later.
+   taken directly to the lab details editing page after you click the **Create/Edit** button. Lab
+   details can also be added later.
 
 4. In the **Site** drop-down list, select the site with which the case is associated.
 
@@ -101,6 +120,8 @@ editing page by the same procedure as described above in the *Creating cases* se
 locate the case in the Recent Cases list and use the buttons in the **Actions** column, as described
 in **Recent Cases list: Actions buttons** above.
 
+![Actions Buttons for Modifying Cases](images/modifyingCasesActionButtons.png)
+
 ###Adding or editing lab details
 
 The **Add Lab** or **Edit Lab** button appears in the **Actions** column if your user account has
@@ -109,6 +130,46 @@ have permission to add and edit Regional Reference Lab or National Lab details, 
 the relevant **Sent To Reference Lab** or **Sent To National Lab** setting has been turned on in the
 Site Lab details. Clicking an Add or Edit button takes you to the editing page for the relevant
 detail record of the case.
+
+![Actions Buttons for Lab Details](images/actionsButtonsLabDetails.png)
+
+Zero Reporting
+==============
+
+In order for **Consistent Reporting** column in **Site Performance** reports to be accurate, it is
+necessary to tell the system what happened for months with no reports. No reports in a month can
+indicate either that the number of cases *was* reported and the number was zero, or that the number
+of cases *was not* reported.
+
+Click **Data Entry** and then **Zero Reporting** on the sidebar menu.
+
+![Sidebar Menu: Zero Reporting](images/sidebarZeroReporting.png)
+
+Click the **Filters** button on the **Zero Reporting** header.
+
+![Zero Reporting Header](images/zeroReportingHeader.png)
+
+Select the desired **Type** of case (IBD or RotaVirus) and a range of dates, then click **Submit**.
+
+![Zero Reporting Filters](images/zeroReportingFilters.png)
+
+A list of Sites will be displayed, along with case counts for each month in the selected range.
+Wherever the number of cases for a site is zero for a given month, a drop-down selector is displayed
+with **Zero** and **Non Report** options available.
+
+Note that selecting a large date range may cause the table to overflow the right side of the browser
+window and not be displayed neatly.
+
+![Zero Reporting: Selecting Options](images/zeroReportingSelecting.png)
+
+In each drop-down, select **Zero** if the case count for that month was reported as zero or **Non
+Report** if the case count for that month was not reported. Click the **Save** button when you are
+finished. A success notification should be displayed.
+
+![Zero Reporting: Save Successful](images/zeroReportingSuccess.png)
+
+Note that it is not necessary to select an option for every drop-down displayed. Selections you have
+made will be saved and you can return to this area later to make additional selections.
 
 Reports
 =======
