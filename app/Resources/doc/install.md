@@ -205,6 +205,28 @@ To update the database schema run.
  app/console doctrine:schema:update --force
 ```
 
+Automatically Updating
+======================
+
+A script specifically setup for WHO is located in the project's bin path. So once logged in as the apache user
+and at the project's root one can run the following to automatically update the project.
+
+```shell
+  ./bin/update.sh latest-release
+```
+
+This will automatically pull the latest released version of the software. Run any necessary DB migration steps 
+and clear the project cache.
+
+The update script can also move the to latest code in the repository by running:
+
+```shell
+  ./bin/update.sh latest
+```
+
+Which will update to the very latest code whether a release has been made. This has the chance of including
+incomplete features or code that hasn't been thoroughly tested.
+
 Running Tests
 =============
 There are a number of unit and functional tests. They require a database and some fixtures. So as to not disturb live data 
