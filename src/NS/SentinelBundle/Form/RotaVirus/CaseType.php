@@ -52,66 +52,61 @@ class CaseType extends AbstractType
             ->add('parentalName',               null,               array('required'=>$required, 'label'=>'rotavirus-form.parental-name'))
             ->add('caseId',                     null,               array('required'=>true,      'label'=>'rotavirus-form.caseId'))
             ->add('gender',                     Gender::class,              array('required'=>$required, 'label'=>'rotavirus-form.gender'))
-            ->add('dobKnown',                   TripleChoice::class,        array('required'=>$required, 'label' => 'ibd-form.date-of-birth-known', 'attr' => array('data-context-child' => 'dob')))
-            ->add('birthdate',                  DatePickerType::class,      array('required'=>$required, 'label' => 'ibd-form.date-of-birth', 'attr' => array('data-context-parent' => 'dob', 'data-context-value' => TripleChoice::YES), 'widget' => 'single_text'))
-            ->add('dobYears',                   null,                       array('required'=>$required, 'label' => 'ibd-form.date-of-birth-years', 'attr' => array('data-context-parent' => 'dob', 'data-context-value' => TripleChoice::NO)))
-            ->add('dobMonths',                  null,                       array('required'=>$required, 'label' => 'ibd-form.date-of-birth-months', 'attr' => array('data-context-parent' => 'dob', 'data-context-value' => TripleChoice::NO)))
+            ->add('dobKnown',                   TripleChoice::class,        array('required'=>$required, 'label' => 'ibd-form.date-of-birth-known', 'hidden-child' => 'dob'))
+            ->add('birthdate',                  DatePickerType::class,      array('required'=>$required, 'label' => 'ibd-form.date-of-birth', 'hidden-parent' => 'dob', 'hidden-value' => TripleChoice::YES, 'widget' => 'single_text'))
+            ->add('dobYears',                   null,                       array('required'=>$required, 'label' => 'ibd-form.date-of-birth-years', 'hidden-parent' => 'dob', 'hidden-value' => TripleChoice::NO))
+            ->add('dobMonths',                  null,                       array('required'=>$required, 'label' => 'ibd-form.date-of-birth-months', 'hidden-parent' => 'dob', 'hidden-value' => TripleChoice::NO))
             ->add('district',                   null,                       array('required'=>$required, 'label'=>'rotavirus-form.district'))
             ->add('state',                      null,                       array('required'=>$required, 'label'=>'rotavirus-form.state'))
             ->add('admDate',                    DatePickerType::class,      array('required'=>$required, 'label'=>'rotavirus-form.admissionDate'))
 
             ->add('intensiveCare',              TripleChoice::class,        array('required'=>$required, 'label'=>'rotavirus-form.intensiveCare', ))
-            ->add('symptomDiarrhea',            TripleChoice::class,        array('required'=>$required, 'label'=>'rotavirus-form.symptomDiarrhea',         'attr' => array('data-context-child'=>'vaccineReceived')))
-            ->add('symptomDiarrheaOnset',       DatePickerType::class,      array('required'=>$required, 'label'=>'rotavirus-form.symptomDiarrheaOnset',    'attr' => array('data-context-parent'=>'vaccineReceived', 'data-context-value'=>  TripleChoice::YES)))
-            ->add('symptomDiarrheaEpisodes',    null,                       array('required'=>$required, 'label'=>'rotavirus-form.symptomDiarrheaEpisodes', 'attr' => array('data-context-parent'=>'vaccineReceived', 'data-context-value'=>  TripleChoice::YES)))
-            ->add('symptomDiarrheaDuration',    null,                       array('required'=>$required, 'label'=>'rotavirus-form.symptomDiarrheaDuration', 'attr' => array('data-context-parent'=>'vaccineReceived', 'data-context-value'=>  TripleChoice::YES)))
+            ->add('symptomDiarrhea',            TripleChoice::class,        array('required'=>$required, 'label'=>'rotavirus-form.symptomDiarrhea',         'hidden-child'=>'vaccineReceived'))
+            ->add('symptomDiarrheaOnset',       DatePickerType::class,      array('required'=>$required, 'label'=>'rotavirus-form.symptomDiarrheaOnset',    'hidden-parent'=>'vaccineReceived', 'hidden-value'=>  TripleChoice::YES))
+            ->add('symptomDiarrheaEpisodes',    null,                       array('required'=>$required, 'label'=>'rotavirus-form.symptomDiarrheaEpisodes', 'hidden-parent'=>'vaccineReceived', 'hidden-value'=>  TripleChoice::YES))
+            ->add('symptomDiarrheaDuration',    null,                       array('required'=>$required, 'label'=>'rotavirus-form.symptomDiarrheaDuration', 'hidden-parent'=>'vaccineReceived', 'hidden-value'=>  TripleChoice::YES))
 
-            ->add('symptomVomit',               TripleChoice::class,        array('required'=>$required, 'label'=>'rotavirus-form.symptomVomit',            'attr' => array('data-context-child'=>'symptomVomit')))
-            ->add('symptomVomitEpisodes',       null,                       array('required'=>$required, 'label'=>'rotavirus-form.symptomVomitEpisodes',    'attr' => array('data-context-parent'=>'symptomVomit', 'data-context-value'=>  TripleChoice::YES)))
-            ->add('symptomVomitDuration',       null,                       array('required'=>$required, 'label'=>'rotavirus-form.symptomVomitDuration',    'attr' => array('data-context-parent'=>'symptomVomit', 'data-context-value'=>  TripleChoice::YES)))
+            ->add('symptomVomit',               TripleChoice::class,        array('required'=>$required, 'label'=>'rotavirus-form.symptomVomit',            'hidden-child'=>'symptomVomit'))
+            ->add('symptomVomitEpisodes',       null,                       array('required'=>$required, 'label'=>'rotavirus-form.symptomVomitEpisodes',    'hidden-parent'=>'symptomVomit', 'hidden-value'=>  TripleChoice::YES))
+            ->add('symptomVomitDuration',       null,                       array('required'=>$required, 'label'=>'rotavirus-form.symptomVomitDuration',    'hidden-parent'=>'symptomVomit', 'hidden-value'=>  TripleChoice::YES))
 
-            ->add('symptomDehydration',         Dehydration::class,         array('required'=>$required, 'label'=>'rotavirus-form.symptomDehydration',       'attr' => array('data-context-child'=>'symptomDehydration')))
-            ->add('rehydration',                TripleChoice::class,        array('required'=>$required, 'label'=>'rotavirus-form.rehydration',              'attr' => array('data-context-parent'=>'symptomDehydration','data-context-value'=> json_encode(array(Dehydration::SOME,Dehydration::SEVERE)))))
-            ->add('rehydrationType',            Rehydration::class,         array('required'=>$required, 'label'=>'rotavirus-form.rehydrationType',          'attr' => array('data-context-parent'=>'symptomDehydration','data-context-value'=> json_encode(array(Dehydration::SOME,Dehydration::SEVERE)))))
-            ->add('rehydrationOther',           null,                       array('required'=>$required, 'label'=>'rotavirus-form.rehydrationOther',         'attr' => array('data-context-parent'=>'symptomDehydration','data-context-value'=> json_encode(array(Dehydration::SOME,Dehydration::SEVERE)))))
+            ->add('symptomDehydration',         Dehydration::class,         array('required'=>$required, 'label'=>'rotavirus-form.symptomDehydration',       'hidden-child'=>'symptomDehydration'))
+            ->add('rehydration',                TripleChoice::class,        array('required'=>$required, 'label'=>'rotavirus-form.rehydration',              'hidden-parent'=>'symptomDehydration','hidden-value'=> json_encode(array(Dehydration::SOME,Dehydration::SEVERE))))
+            ->add('rehydrationType',            Rehydration::class,         array('required'=>$required, 'label'=>'rotavirus-form.rehydrationType',          'hidden-parent'=>'symptomDehydration','hidden-value'=> json_encode(array(Dehydration::SOME,Dehydration::SEVERE))))
+            ->add('rehydrationOther',           null,                       array('required'=>$required, 'label'=>'rotavirus-form.rehydrationOther',         'hidden-parent'=>'symptomDehydration','hidden-value'=> json_encode(array(Dehydration::SOME,Dehydration::SEVERE))))
 
             ->add('vaccinationReceived',        VaccinationReceived::class, array(
                                                                                 'required'=>$required,
                                                                                 'label'=>'rotavirus-form.vaccinationReceived',
-                                                                                'attr' => array('data-context-child'=>'vaccineReceived')))
+                                                                                'hidden-child'=>'vaccineReceived'))
             ->add('vaccinationType',            VaccinationType::class,     array(
                                                                                 'required'=>$required,
                                                                                 'label'=>'rotavirus-form.vaccinationType',
-                                                                                'attr' => array(
-                                                                                            'data-context-parent'=>'vaccineReceived',
-                                                                                            'data-context-value'=>json_encode(array(VaccinationReceived::YES_CARD, VaccinationReceived::YES_HISTORY)))))
+                                                                                'hidden-parent'=>'vaccineReceived',
+                                                                                'hidden-value'=>json_encode(array(VaccinationReceived::YES_CARD, VaccinationReceived::YES_HISTORY))))
             ->add('doses',                      ThreeDoses::class,          array(
                                                                                 'required'=>$required, 'label'=>'rotavirus-form.doses',
-                                                                                'attr' => array(
-                                                                                            'data-context-parent'=>'vaccineReceived',
-                                                                                            'data-context-child'=>'vaccineReceivedDoses',
-                                                                                            'data-context-value'=>json_encode(array(VaccinationReceived::YES_CARD, VaccinationReceived::YES_HISTORY)))))
+                                                                                'hidden-parent'=>'vaccineReceived',
+                                                                                'hidden-child'=>'vaccineReceivedDoses',
+                                                                                'hidden-value'=>json_encode(array(VaccinationReceived::YES_CARD, VaccinationReceived::YES_HISTORY))))
             ->add('firstVaccinationDose',       DatePickerType::class,      array(
                                                                                 'required'=>$required,
                                                                                 'label'=>'rotavirus-form.firstVaccinationDose',
-                                                                                'attr' => array(
-                                                                                            'data-context-parent'=>'vaccineReceivedDoses',
-                                                                                            'data-context-value'=> json_encode(array(ThreeDoses::ONE, ThreeDoses::TWO, ThreeDoses::THREE)))))
+                                                                                'hidden-parent'=>'vaccineReceivedDoses',
+                                                                                'hidden-value'=> json_encode(array(ThreeDoses::ONE, ThreeDoses::TWO, ThreeDoses::THREE))))
             ->add('secondVaccinationDose',      DatePickerType::class,      array(
                                                                                 'required'=>$required,
                                                                                 'label'=>'rotavirus-form.secondVaccinationDose',
-                                                                                'attr' => array(
-                                                                                            'data-context-parent'=>'vaccineReceivedDoses',
-                                                                                            'data-context-value'=>json_encode(array(ThreeDoses::TWO, ThreeDoses::THREE)))))
+                                                                                'hidden-parent'=>'vaccineReceivedDoses',
+                                                                                'hidden-value'=>json_encode(array(ThreeDoses::TWO, ThreeDoses::THREE))))
             ->add('thirdVaccinationDose',       DatePickerType::class,      array(
                                                                                 'required'=>$required,
                                                                                 'label'=>'rotavirus-form.thirdVaccinationDose',
-                                                                                'attr' => array(
-                                                                                            'data-context-parent'=>'vaccineReceivedDoses',
-                                                                                            'data-context-value'=>ThreeDoses::THREE)))
-            ->add('stoolCollected',             TripleChoice::class,        array('required'=>$required, 'label'=>'rotavirus-form.stoolCollected',  'attr' => array('data-context-child'=>'stoolCollected')))
-            ->add('stoolId',                    null,                       array('required'=>$required, 'label'=>'rotavirus-form.stoolId',         'attr' => array('data-context-parent'=>'stoolCollected', 'data-context-value'=>  TripleChoice::YES)))
-            ->add('stoolCollectionDate',        DatePickerType::class,      array('required'=>$required, 'label'=>'rotavirus-form.stoolCollectionDate',         'attr' => array('data-context-parent'=>'stoolCollected', 'data-context-value'=>  TripleChoice::YES)))
+                                                                                'hidden-parent'=>'vaccineReceivedDoses',
+                                                                                'hidden-value'=>ThreeDoses::THREE))
+            ->add('stoolCollected',             TripleChoice::class,        array('required'=>$required, 'label'=>'rotavirus-form.stoolCollected',  'hidden-child'=>'stoolCollected'))
+            ->add('stoolId',                    null,                       array('required'=>$required, 'label'=>'rotavirus-form.stoolId',         'hidden-parent'=>'stoolCollected', 'hidden-value'=>  TripleChoice::YES))
+            ->add('stoolCollectionDate',        DatePickerType::class,      array('required'=>$required, 'label'=>'rotavirus-form.stoolCollectionDate', 'hidden-parent'=>'stoolCollected', 'hidden-value'=>  TripleChoice::YES))
             ->add('dischargeOutcome',           DischargeOutcome::class,    array('required'=>false, 'label'=>'rotavirus-form.dischargeOutcome'))
             ->add('dischargeDate',              DatePickerType::class,      array('required'=>false, 'label'=>'rotavirus-form.dischargeDate'))
             ->add('dischargeClassification',    DischargeClassification::class, array('required'=>false,'label'=>'rotavirus-form.dischargeClassification'))

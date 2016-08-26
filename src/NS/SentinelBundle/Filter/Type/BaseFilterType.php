@@ -54,12 +54,12 @@ class BaseFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('case_id', 'filter_text', array(
+            ->add('case_id', 'Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType', array(
                 'required'          => false,
-                'condition_pattern' => FilterOperands::STRING_BOTH,
+                'condition_pattern' => FilterOperands::STRING_CONTAINS,
                 'label'             => 'site-assigned-case-id'
             ))
-            ->add('adm_date', 'filter_date_range', array(
+            ->add('adm_date', 'Lexik\Bundle\FormFilterBundle\Filter\Form\Type\DateRangeFilterType', array(
                 'required' => false,
                 'label'    => 'filter.admission-date'
             ));

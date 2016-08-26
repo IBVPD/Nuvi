@@ -23,8 +23,8 @@ class OutcomeType extends AbstractType
     {
         $builder
             ->add('dischOutcome', 'NS\SentinelBundle\Form\IBD\Types\DischargeOutcome', array('required' => false, 'label' => 'ibd-form.discharge-outcome'))
-            ->add('dischDx', 'NS\SentinelBundle\Form\IBD\Types\DischargeDiagnosis', array('required' => false, 'label' => 'ibd-form.discharge-diagnosis', 'attr' => array('data-context-child' => 'dischargeDiagnosis')))
-            ->add('dischDxOther', null, array('required' => false, 'label' => 'ibd-form.discharge-diagnosis-other', 'attr' => array('data-context-parent' => 'dischargeDiagnosis', 'data-context-value' => DischargeDiagnosis::OTHER)))
+            ->add('dischDx', 'NS\SentinelBundle\Form\IBD\Types\DischargeDiagnosis', array('required' => false, 'label' => 'ibd-form.discharge-diagnosis', 'hidden-child' => 'dischargeDiagnosis'))
+            ->add('dischDxOther', null, array('required' => false, 'label' => 'ibd-form.discharge-diagnosis-other', 'hidden-parent' => 'dischargeDiagnosis', 'hidden-value' => DischargeDiagnosis::OTHER))
             ->add('dischClass', 'NS\SentinelBundle\Form\IBD\Types\DischargeClassification', array('required' => false, 'label' => 'ibd-form.discharge-class'))
             ->add('comment', null, array('required' => false, 'label' => 'ibd-form.comment'));
     }
