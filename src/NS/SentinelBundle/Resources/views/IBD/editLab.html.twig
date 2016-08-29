@@ -24,13 +24,25 @@
             <div class="tab-content">
 
                 <div id="collection" class="tab-pane active">
-                    {{form_row(form.csfLabDate)}}
-                    {{form_row(form.csfLabTime)}}
+                    <div class="row">
+                        <div class="col-md-3">
+                            {{form_row(form.csfLabDate)}}
+                        </div>
+                        <div class="col-md-3">
+                            {{form_row(form.csfLabTime)}}
+                        </div>
+                    </div>
+
                     {% if form.sentToReferenceLab is defined %}
                         <div class="row">
                             <div class="col-md-3">
                                 {{ form_row(form.sentToReferenceLab) }}
                             </div>
+                            {% if form.sentToNationalLab is defined %}
+                                <div class="col-md-3">
+                                    {{form_row(form.sentToNationalLab )}}
+                                </div>
+                            {% endif %}
                         </div>
                         <div class="row">
                             <div class="col-md-3">
@@ -46,9 +58,12 @@
                                 {{ form_row(form.brothSentToRRLDate) }}
                             </div>
                         </div>
-                    {% endif %}
-                    {% if form.sentToNationalLab is defined %}
-                        {{form_row(form.sentToNationalLab )}}
+                    {% elseif form.sentToNationalLab is defined %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{form_row(form.sentToNationalLab )}}
+                            </div>
+                        </div>
                     {% endif %}
                 </div>
 

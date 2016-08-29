@@ -44,8 +44,8 @@ class SiteLabType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('csfLabDate',         'NS\AceBundle\Form\DatePickerType', array('required' => false, 'label' => 'ibd-form.csf-lab-datetime'))
-            ->add('csfLabTime',         'NS\UtilBundle\Form\Types\TimeType', array('required' => false, 'label' => 'ibd-form.csf-lab-datetime', 'widget' => 'single_text',))
+            ->add('csfLabDate',         'NS\AceBundle\Form\DatePickerType', array('required' => false, 'label' => 'ibd-form.csf-lab-date'))
+            ->add('csfLabTime',         'NS\UtilBundle\Form\Types\TimeType', array('required' => false, 'label' => 'ibd-form.csf-lab-time', 'widget' => 'single_text',))
             ->add('csfId',              null, array('required' => false, 'label' => 'ibd-form.csf-id'))
             ->add('csfWcc',             null, array('required' => false, 'label' => 'ibd-form.csf-wcc'))
             ->add('csfGlucose',         null, array('required' => false, 'label' => 'ibd-form.csf-glucose'))
