@@ -82,9 +82,9 @@ class BaseFilterType extends AbstractType
             }
 
             $form
-                ->add('id', 'filter_text', array(
+                ->add('id', 'Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType', array(
                     'required'          => false,
-                    'condition_pattern' => FilterOperands::STRING_BOTH,
+                    'condition_pattern' => FilterOperands::STRING_CONTAINS,
                     'label'             => 'db-generated-id')
                 )
                 ->add('country', 'NS\SentinelBundle\Filter\Type\CountryType', array('required'=>false, 'placeholder'=>''))
@@ -98,8 +98,8 @@ class BaseFilterType extends AbstractType
             }
 
             $form
-                ->add('firstName','Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType',array('condition_pattern'=>FilterOperands::STRING_BOTH))
-                ->add('lastName','Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType',array('condition_pattern'=>FilterOperands::STRING_BOTH))
+                ->add('firstName','Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType',array('condition_pattern'=>FilterOperands::STRING_CONTAINS))
+                ->add('lastName','Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType',array('condition_pattern'=>FilterOperands::STRING_CONTAINS))
                 ->add('site', 'NS\SentinelBundle\Filter\Type\SiteType');
         }
 
@@ -110,8 +110,8 @@ class BaseFilterType extends AbstractType
             }
 
             $form
-                ->add('firstName','Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType',array('condition_pattern'=>FilterOperands::STRING_BOTH))
-                ->add('lastName','Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType',array('condition_pattern'=>FilterOperands::STRING_BOTH));
+                ->add('firstName','Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType',array('condition_pattern'=>FilterOperands::STRING_CONTAINS))
+                ->add('lastName','Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType',array('condition_pattern'=>FilterOperands::STRING_CONTAINS));
 
         }
 
