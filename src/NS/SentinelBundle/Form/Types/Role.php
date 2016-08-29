@@ -83,7 +83,7 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
             }
         }
 
-        return parent::__construct($value);
+        parent::__construct($value);
     }
 
     /**
