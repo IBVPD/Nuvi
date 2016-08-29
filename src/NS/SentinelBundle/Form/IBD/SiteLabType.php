@@ -109,16 +109,15 @@ class SiteLabType extends AbstractType
         if ($country instanceof Country) {
             if ($country->hasReferenceLab()) {
                 $form
-                    ->add('sentToReferenceLab', SwitchType::class, array('label'=>'Sent To Reference Lab','required' => false, 'hidden-child'=>'sentToReferenceLab'))
-                    ->add('csfSentToRRLDate', DatePickerType::class, array('label'=>'ibd-form.csf-sent-to-rrl-date', 'required'=>false, 'hidden-parent'=>'sentToReferenceLab', 'hidden-value'=>1))
-                    ->add('csfIsolSentToRRLDate', DatePickerType::class, array('label'=>'ibd-form.csf-isol-sent-to-rrl-date', 'required'=>false, 'hidden-parent'=>'sentToReferenceLab', 'hidden-value'=>1))
-                    ->add('bloodIsolSentToRRLDate', DatePickerType::class, array('label'=>'ibd-form.blood-sent-to-rrl-date', 'required'=>false, 'hidden-parent'=>'sentToReferenceLab', 'hidden-value'=>1))
-                    ->add('brothSentToRRLDate', DatePickerType::class, array('label'=>'ibd-form.broth-sent-to-rrl-date', 'required'=>false, 'hidden-parent'=>'sentToReferenceLab', 'hidden-value'=>1))
-                ;
+                    ->add('sentToReferenceLab', SwitchType::class, array('label' => 'Sent To Reference Lab', 'required' => false, 'hidden-child' => 'sentToReferenceLab', 'switch_type' => 2))
+                    ->add('csfSentToRRLDate', DatePickerType::class, array('label' => 'ibd-form.csf-sent-to-rrl-date', 'required' => false, 'hidden-parent' => 'sentToReferenceLab', 'hidden-value' => 1))
+                    ->add('csfIsolSentToRRLDate', DatePickerType::class, array('label' => 'ibd-form.csf-isol-sent-to-rrl-date', 'required' => false, 'hidden-parent' => 'sentToReferenceLab', 'hidden-value' => 1))
+                    ->add('bloodIsolSentToRRLDate', DatePickerType::class, array('label' => 'ibd-form.blood-sent-to-rrl-date', 'required' => false, 'hidden-parent' => 'sentToReferenceLab', 'hidden-value' => 1))
+                    ->add('brothSentToRRLDate', DatePickerType::class, array('label' => 'ibd-form.broth-sent-to-rrl-date', 'required' => false, 'hidden-parent' => 'sentToReferenceLab', 'hidden-value' => 1));
             }
 
             if ($country->hasNationalLab()) {
-                $form->add('sentToNationalLab', SwitchType::class, array('required' => false,'label'=>'Sent To National Lab',));
+                $form->add('sentToNationalLab', SwitchType::class, array('required' => false, 'label' => 'Sent To National Lab', 'switch_type' => 2));
             }
         }
     }
