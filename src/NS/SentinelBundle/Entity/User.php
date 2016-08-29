@@ -111,6 +111,14 @@ class User implements AdvancedUserInterface
     private $ttl = 0;
 
     /**
+     * @var Region
+     *
+     * @ORM\ManyToOne(targetEntity="NS\SentinelBundle\Entity\Region")
+     * @ORM\JoinColumn(referencedColumnName="code",nullable=true)
+     */
+    private $region;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -316,6 +324,10 @@ class User implements AdvancedUserInterface
                 }
             }
 
+            if ($this->region instanceof Region) {
+                $roles[] = sprintf('ROLE_%s',strtoupper($this->region->getCode()));
+            }
+
             $this->roles = array_unique($roles);
         }
 
@@ -499,5 +511,21 @@ class User implements AdvancedUserInterface
     public function hasReferenceLab()
     {
         return ($this->referenceLab instanceof ReferenceLab);
+    }
+
+    /**
+     * @return Region
+     */
+    public function getRegion()
+    {
+        return $this->region;
+    }
+
+    /**
+     * @param Region $region
+     */
+    public function setRegion($region)
+    {
+        $this->region = $region;
     }
 }

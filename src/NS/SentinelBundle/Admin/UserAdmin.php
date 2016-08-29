@@ -2,6 +2,8 @@
 
 namespace NS\SentinelBundle\Admin;
 
+use Doctrine\ORM\UnexpectedResultException;
+use NS\SentinelBundle\Entity\ACL;
 use NS\SentinelBundle\Entity\User;
 use NS\SentinelBundle\Form\Types\Role;
 use Sonata\AdminBundle\Admin\Admin;
@@ -111,7 +113,7 @@ class UserAdmin extends Admin
             ->add('active', null, array('required' => false))
             ->add('admin', null, array('required' => false))
             ->add('referenceLab', null, array('required' => false, 'label' => 'admin.form-reference-lab'))
-            ->add('acls', 'sonata_type_collection', array('by_reference' => true,'label'=>'Access Restrictions','required'=>false), array('edit' => 'inline', 'inline' => 'table'));
+            ->add('acls', 'sonata_type_collection', array('by_reference' => true, 'label' => 'Access Restrictions', 'required' => false), array('edit' => 'inline', 'inline' => 'table'));
     }
 
     /**
@@ -137,11 +139,7 @@ class UserAdmin extends Admin
         $user->resetSalt();
         $user->setPassword($encoder->encodePassword($user->getPlainPassword(), $user->getSalt()));
 
-        if ($user->getAcls()) {
-            foreach ($user->getAcls() as $a) {
-                $a->setUser($user);
-            }
-        }
+        $this->handleAcl($user);
 
         return $user;
     }
@@ -160,11 +158,64 @@ class UserAdmin extends Admin
             $user->setPassword($encoder->encodePassword($plainPw, $user->getSalt()));
         }
 
-        foreach ($user->getAcls() as $a) {
-            $a->setUser($user);
-        }
+        $this->handleAcl($user);
 
         return $user;
+    }
+
+    private function handleAcl(User $user)
+    {
+        if ($user->getAcls()) {
+            foreach ($user->getAcls() as $a) {
+                $a->setUser($user);
+            }
+
+            if (count($user->getAcls()) == 1) {
+                /** @var ACL $acl */
+                $acl = $user->getAcls()->first();
+                try {
+                    switch ($acl->getType()->getValue()) {
+                        case Role::SITE:
+                        case Role::LAB:
+                            $entityManager = $this->getModelManager()->getEntityManager('NS\SentinelBundle\Entity\Site');
+
+                            $site = $entityManager
+                                    ->getRepository('NS\SentinelBundle\Entity\Site')
+                                    ->createQuery('s')
+                                    ->addSelect('r,c')
+                                    ->innerJoin('s.country','c')
+                                    ->innerJoin('c.region','r')
+                                    ->where('s.id = :siteId')
+                                    ->setParameter('siteId',$acl->getObjectId())
+                                    ->getQuery()
+                                    ->getSingleResult();
+
+                            $user->setRegion($site->getCountry()->getRegion());
+                            break;
+                        case Role::NL_LAB:
+                        case Role::RRL_LAB:
+                        case Role::COUNTRY:
+                            $entityManager = $this->getModelManager()->getEntityManager('NS\SentinelBundle\Entity\Country');
+                            $country = $entityManager
+                                ->getRepository('NS\SentinelBundle\Entity\Country')
+                                ->createQuery('c')
+                                ->addSelect('r')
+                                ->innerJoin('c.region','r')
+                                ->where('c.id = :countryId')
+                                ->setParameter('countryId',$acl->getObjectId())
+                                ->getQuery()
+                                ->getSingleResult();
+
+                            $user->setRegion($country->getRegion());
+                            break;
+                        case Role::REGION:
+                            $user->setRegion($this->getModelManager()->getEntityManager('NS\SentinelBundle\Entity\Region')->getReference('NS\SentinelBundle\Entity\Region', $acl->getObjectId()));
+                    }
+                } catch(UnexpectedResultException $exception) {
+
+                }
+            }
+        }
     }
 
     /**
@@ -174,7 +225,7 @@ class UserAdmin extends Admin
     public function createQuery($context = 'list')
     {
         $query = parent::createQuery($context);
-        $query->leftJoin(sprintf('%s.acls',$query->getRootAlias()),'a');
+        $query->leftJoin(sprintf('%s.acls', $query->getRootAlias()), 'a');
 
         $user = $this->tokenStorage->getToken()->getUser();
 
@@ -183,7 +234,7 @@ class UserAdmin extends Admin
             return $query;
         }
 
-        if(in_array('ROLE_SONATA_REGION_ADMIN',$user->getRoles())) {
+        if (in_array('ROLE_SONATA_REGION_ADMIN', $user->getRoles())) {
             return $this->adjustRegionAccess($query);
         } elseif (in_array('ROLE_SONATA_COUNTRY_ADMIN', $user->getRoles())) {
             return $this->adjustCountryAccess($query);

@@ -38,7 +38,7 @@ class UserProvider implements UserProviderInterface
     public function loadUserByUsername($username)
     {
         try {
-            $user = $this->entityMgr->createQuery("SELECT u,a,l FROM NS\SentinelBundle\Entity\User u LEFT JOIN u.acls a LEFT JOIN u.referenceLab l WHERE u.email = :username")
+            $user = $this->entityMgr->createQuery("SELECT u,a,l,r FROM NS\SentinelBundle\Entity\User u LEFT JOIN u.acls a LEFT JOIN u.referenceLab l LEFT JOIN u.region r WHERE u.email = :username")
                 ->setParameter('username', $username)
                 ->getSingleResult();
 
