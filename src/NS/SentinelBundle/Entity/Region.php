@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use NS\SecurityBundle\Annotation as Security;
@@ -54,7 +55,6 @@ class Region implements \Serializable
      * 
      * @ORM\OneToMany(targetEntity="Country",mappedBy="region")
      */
-
     private $countries;
 
     /**
