@@ -52,7 +52,7 @@ class CaseType extends AbstractType
             ->add('lastName',           null, array('required' => $required, 'label' => 'ibd-form.last-name'))
             ->add('firstName',          null, array('required' => $required, 'label' => 'ibd-form.first-name'))
             ->add('parentalName',       null, array('required' => $required, 'label' => 'ibd-form.parental-name'))
-            ->add('dobKnown',           'Symfony\Component\Form\Extension\Core\Type\ChoiceType', array('required' => $required, 'label' => 'ibd-form.date-of-birth-known', 'hidden-child' => 'dob', 'choices' => array(true => 'Yes', false => 'No'), 'placeholder'=>''))
+            ->add('dobKnown',           'NS\SentinelBundle\Form\Types\TripleChoice', array('required' => $required, 'label' => 'ibd-form.date-of-birth-known', 'hidden-child' => 'dob'))
             ->add('birthdate',          'NS\AceBundle\Form\DatePickerType', array('required' => $required, 'label' => 'ibd-form.date-of-birth', 'hidden-parent' => 'dob', 'hidden-value' => TripleChoice::YES, 'widget' => 'single_text'))
             ->add('dobYears',           null, array('required' => $required, 'label' => 'ibd-form.date-of-birth-years', 'hidden-parent' => 'dob', 'hidden-value' => TripleChoice::NO))
             ->add('dobMonths',          null, array('required' => $required, 'label' => 'ibd-form.date-of-birth-months', 'hidden-parent' => 'dob', 'hidden-value' => TripleChoice::NO))
