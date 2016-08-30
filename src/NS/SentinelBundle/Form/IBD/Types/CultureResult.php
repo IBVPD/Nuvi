@@ -4,6 +4,8 @@ namespace NS\SentinelBundle\Form\IBD\Types;
 
 use \NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
  * Description of CultureResult
@@ -28,4 +30,27 @@ class CultureResult extends TranslatableArrayChoice implements TranslationContai
                                 self::CONTAMINANT   => 'Contaminant',
                                 self::UNKNOWN       => 'Unknown',
                              );
+
+    /** @var AuthorizationCheckerInterface */
+    private $authChecker;
+
+    /**
+     * @param AuthorizationCheckerInterface $authChecker
+     */
+    public function setAuthorizationChecker(AuthorizationCheckerInterface $authChecker)
+    {
+        $this->authChecker = $authChecker;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        if ($this->authChecker->isGranted('ROLE_AMR')) {
+            unset($this->values[self::UNKNOWN]);
+        }
+
+        parent::configureOptions($resolver);
+    }
 }

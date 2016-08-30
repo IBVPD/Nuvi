@@ -190,6 +190,8 @@ services:
 
   ns.sentinel.form.type.cultureresult:
     class: NS\SentinelBundle\Form\IBD\Types\CultureResult
+    calls:
+      - [ setAuthorizationChecker, [ "@security.authorization_checker" ]]
     tags:
       - { name: form.type }
 
