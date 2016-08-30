@@ -50,12 +50,13 @@ class CaseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $required = (isset($options['method']) && $options['method'] == 'PUT');
+        $isPaho = $this->authChecker->isGranted('ROLE_AMR');
 
         $builder
             ->add('lastName',           null, array('required' => $required, 'label' => 'ibd-form.last-name'))
             ->add('firstName',          null, array('required' => $required, 'label' => 'ibd-form.first-name'))
             ->add('parentalName',       null, array('required' => $required, 'label' => 'ibd-form.parental-name'))
-            ->add('dobKnown',           'NS\SentinelBundle\Form\Types\TripleChoice', array('required' => $required, 'label' => 'ibd-form.date-of-birth-known', 'hidden-child' => 'dob'))
+            ->add('dobKnown',           'NS\SentinelBundle\Form\Types\TripleChoice', array('required' => $required, 'label' => 'ibd-form.date-of-birth-known', 'hidden-child' => 'dob', 'exclude_unknown' => $isPaho))
             ->add('birthdate',          'NS\AceBundle\Form\DatePickerType', array('required' => $required, 'label' => 'ibd-form.date-of-birth', 'hidden-parent' => 'dob', 'hidden-value' => TripleChoice::YES, 'widget' => 'single_text'))
             ->add('dobYears',           null, array('required' => $required, 'label' => 'ibd-form.date-of-birth-years', 'hidden-parent' => 'dob', 'hidden-value' => TripleChoice::NO))
             ->add('dobMonths',          null, array('required' => $required, 'label' => 'ibd-form.date-of-birth-months', 'hidden-parent' => 'dob', 'hidden-value' => TripleChoice::NO))
@@ -89,7 +90,7 @@ class CaseType extends AbstractType
             ->add('bloodCollected',     'NS\SentinelBundle\Form\Types\TripleChoice', array('required' => $required, 'label' => 'ibd-form.blood-collected', 'hidden-child' => 'bloodCollected'))
             ->add('bloodCollectDate',   'NS\AceBundle\Form\DateTimePickerType', array('required' => $required, 'label' => 'ibd-form.blood-collect-date', 'hidden-parent' => 'bloodCollected', 'hidden-value' => TripleChoice::YES))
             ->add('bloodCollectTime',   'Symfony\Component\Form\Extension\Core\Type\TimeType', array('required' => $required, 'label' => 'ibd-form.blood-collect-time', 'hidden-parent' => 'bloodCollected', 'hidden-value' => TripleChoice::YES))
-            ->add('csfCollected',       'NS\SentinelBundle\Form\Types\TripleChoice', array('required' => $required, 'label' => 'ibd-form.csf-collected', 'hidden-child' => 'csfCollected'))
+            ->add('csfCollected',       'NS\SentinelBundle\Form\Types\TripleChoice', array('required' => $required, 'label' => 'ibd-form.csf-collected', 'hidden-child' => 'csfCollected','exclude_unknown'=>$isPaho))
             ->add('csfCollectDate',     'NS\AceBundle\Form\DatePickerType', array('required' => $required, 'label' => 'ibd-form.csf-collect-datetime', 'hidden-parent' => 'csfCollected', 'hidden-value' => TripleChoice::YES))
             ->add('csfCollectTime',     'Symfony\Component\Form\Extension\Core\Type\TimeType', array('widget' => 'single_text', 'required' => $required, 'label' => 'ibd-form.csf-collect-datetime', 'hidden-parent' => 'csfCollected', 'hidden-value' => TripleChoice::YES))
             ->add('csfAppearance',      'NS\SentinelBundle\Form\IBD\Types\CSFAppearance', array('required' => $required, 'label' => 'ibd-form.csf-appearance', 'hidden-parent' => 'csfCollected', 'hidden-value' => TripleChoice::YES))
