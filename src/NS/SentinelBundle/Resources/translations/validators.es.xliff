@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2016-04-04T02:35:03Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
+  <file date="2016-08-30T11:56:39Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -14,9 +14,17 @@
         <source>Invalid value - value must be greater than 0</source>
         <target state="new">Invalid value - value must be greater than 0</target>
       </trans-unit>
+      <trans-unit id="600a7e5324636bfbfa540517fc506feccf4bd337" resname="Please provide a valid oxygen saturation level">
+        <source>Please provide a valid oxygen saturation level</source>
+        <target state="new">Please provide a valid oxygen saturation level</target>
+      </trans-unit>
       <trans-unit id="28c1803981b5995e68f9e9fca3ac9f2b3329fa02" resname="Please provide a valid respiratory rate">
         <source>Please provide a valid respiratory rate</source>
         <target state="new">Please provide a valid respiratory rate</target>
+      </trans-unit>
+      <trans-unit id="bc00364ca8f6d715fd7839e88a552c3ee641247f" resname="Please select a target to restrict this role to">
+        <source>Please select a target to restrict this role to</source>
+        <target state="new">Please select a target to restrict this role to</target>
       </trans-unit>
       <trans-unit id="1f64f90c8120aa7a88c1bd1449492c4889868606" resname="The case id already exists for this site!">
         <source>The case id already exists for this site!</source>

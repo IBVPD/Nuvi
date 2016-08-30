@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2016-08-30T11:42:20Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
+  <file date="2016-08-30T12:46:41Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -246,12 +246,21 @@
         <source>ACYW135 (polysaccharide)</source>
         <target>ACYW135 (polysaccharide)</target>
       </trans-unit>
+      <trans-unit id="376e9046cc5fd2842ce29e30d9b75eab2742e487" resname="Access Restrictions">
+        <source>Access Restrictions</source>
+        <target>Access Restrictions</target>
+        <jms:reference-file line="116">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Admin/UserAdmin.php</jms:reference-file>
+      </trans-unit>
       <trans-unit id="c3cd636a585b20c40ac2df5ffb403e83cb2eef51" resname="Actions">
         <source>Actions</source>
         <target>Actions</target>
         <jms:reference-file line="8">views/Case/country.html.twig</jms:reference-file>
         <jms:reference-file line="10">views/Case/region.html.twig</jms:reference-file>
         <jms:reference-file line="9">views/Case/site.html.twig</jms:reference-file>
+      <trans-unit id="d84c3dede3448b582d09cf5d9738e31e70f3bf3b" resname="Admission Date">
+        <source>Admission Date</source>
+        <target>Admission Date</target>
+        <jms:reference-file line="11">views/Report/IBD/Export/data-linking.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="50c026300b52db9bf33a40131daac8a8c9fc341e" resname="Admitted">
         <source>Admitted</source>
@@ -263,11 +272,21 @@
       <trans-unit id="ba7c4c89ac2eab305c20fab797d0e7d5f83dbbf7" resname="Age Distribution">
         <source>Age Distribution</source>
         <target>Age Distribution</target>
-        <jms:reference-file line="2">Report/IBD/annualAgeDistribution.html.twig</jms:reference-file>
+        <jms:reference-file line="2">views/Report/IBD/annualAgeDistribution.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="64fed3e90d308e2a97b17bab99cd5c8e17e39754" resname="Age In Months">
+        <source>Age In Months</source>
+        <target>Age In Months</target>
+        <jms:reference-file line="9">views/Report/IBD/Export/data-linking.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="5f0404ee8d2a4c6592f295f92613e391ecad291d" resname="Air bronchogram">
         <source>Air bronchogram</source>
         <target>Air bronchogram</target>
+      </trans-unit>
+      <trans-unit id="394b85cbff8ab62eff46924a4dfe3a49b835024e" resname="Api Access">
+        <source>Api Access</source>
+        <target>Api Access</target>
+        <jms:reference-file line="55">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Admin/ACLAdmin.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e6a9bb4fd705c50b883a4ccfb7fdc2c4e47f13a5" resname="Api Resources">
         <source>Api Resources</source>
@@ -289,6 +308,11 @@
       <trans-unit id="d3187331a49581538947126ee48c73b537af3b42" resname="Bacterial pneumonia">
         <source>Bacterial pneumonia</source>
         <target>Bacterial pneumonia</target>
+      </trans-unit>
+      <trans-unit id="ab5815528f107fb73554828de0ec21098ccbc5a3" resname="Birthdate">
+        <source>Birthdate</source>
+        <target>Birthdate</target>
+        <jms:reference-file line="8">views/Report/IBD/Export/data-linking.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="24652e28b94087f3d087bba10c9603848262cafa" resname="Blood">
         <source>Blood</source>
@@ -340,6 +364,26 @@
         <source>CT Values From PCR</source>
         <target>CT Values From PCR</target>
         <jms:reference-file line="21">views/IBD/editBaseLab.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="4fa64afd9aa19fc25488cb8a19ca4649858c4ae5" resname="Can Create Case">
+        <source>Can Create Case</source>
+        <target>Can Create Case</target>
+        <jms:reference-file line="57">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Admin/ACLAdmin.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="42e2db8590ef3ff503dd1dc2c3820e9f11820275" resname="Can Create NL">
+        <source>Can Create NL</source>
+        <target>Can Create NL</target>
+        <jms:reference-file line="59">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Admin/ACLAdmin.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="8b1e4460032fdf8b19bb45b00da88b19e1f28e5e" resname="Can Create RRL">
+        <source>Can Create RRL</source>
+        <target>Can Create RRL</target>
+        <jms:reference-file line="60">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Admin/ACLAdmin.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="c6277a071f0ac9da4ca064348e5be01c652e8fa0" resname="Can Create Site Lab">
+        <source>Can Create Site Lab</source>
+        <target>Can Create Site Lab</target>
+        <jms:reference-file line="58">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Admin/ACLAdmin.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="77dfd2135f4db726c47299bb55be26f7f4525a46" resname="Cancel">
         <source>Cancel</source>
@@ -421,6 +465,11 @@
         <source>Confirmed</source>
         <target>Confirmed</target>
       </trans-unit>
+      <trans-unit id="6acd3bf3fe410fa06d864b2bf6a540536bcea388" resname="Confirmed Positive">
+        <source>Confirmed Positive</source>
+        <target>Confirmed Positive</target>
+        <jms:reference-file line="13">views/Report/RotaVirus/Export/data-quality.html.twig</jms:reference-file>
+      </trans-unit>
       <trans-unit id="3cc94cd8d335cbfd0e843409aee950a42f05ec59" resname="Consistent Reporting">
         <source>Consistent Reporting</source>
         <target>Consistent Reporting</target>
@@ -446,6 +495,11 @@
       <trans-unit id="f6612787aced51cf3ec644acb3b7bfb4c1cab695" resname="Conventional multiplex PCR">
         <source>Conventional multiplex PCR</source>
         <target>Conventional multiplex PCR</target>
+      </trans-unit>
+      <trans-unit id="66e12969c225cc6d65e18210488acb826eba907e" resname="Count">
+        <source>Count</source>
+        <target>Count</target>
+        <jms:reference-file line="73">views/Report/IBD/annualAgeDistribution.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="d523ebbd10146cdfd39dee077f04c9d08468d0bc" resname="Country">
         <source>Country</source>
@@ -542,13 +596,28 @@
         <jms:reference-file line="2">Report/IBD/dataQuality.html.twig</jms:reference-file>
         <jms:reference-file line="2">Report/RotaVirus/dataQuality.html.twig</jms:reference-file>
       </trans-unit>
+      <trans-unit id="f6fdbe48dc54dd86f63097a03bd24094dedd713a" resname="Delete">
+        <source>Delete</source>
+        <target>Delete</target>
+        <jms:reference-file line="128">views/RotaVirus/edit.html.twig</jms:reference-file>
+        <jms:reference-file line="156">views/IBD/edit.html.twig</jms:reference-file>
+      </trans-unit>
       <trans-unit id="441bda6cd85689e476ebe10440f27967faef61a6" resname="Deleted">
         <source>Deleted</source>
         <target>Deleted</target>
       </trans-unit>
+      <trans-unit id="3be0c08a7833f332cc75a539926dbfbd8ff1a55d" resname="Diagnosis">
+        <source>Diagnosis</source>
+        <target>Diagnosis</target>
+        <jms:reference-file line="12">views/Report/IBD/byDiagnosisGraph.html.twig</jms:reference-file>
+      </trans-unit>
       <trans-unit id="68316444b99c6ba68313bede5aa8603526904561" resname="Died">
         <source>Died</source>
         <target>Died</target>
+      </trans-unit>
+      <trans-unit id="7ecfbf0c1d2a9c0837c23acf899a82eb5a70436b" resname="Discarded">
+        <source>Discarded</source>
+        <target>Discarded</target>
       </trans-unit>
       <trans-unit id="5f908b6ce50290bfc23e76b191c2ef8b0aeb506c" resname="Discarded case">
         <source>Discarded case</source>
@@ -566,10 +635,25 @@
         <source>Discharged alive, without sequelae</source>
         <target>Discharged alive, without sequelae</target>
       </trans-unit>
+      <trans-unit id="1d3c457cbe3e35739086346e0a4048653efa42e7" resname="Distribution">
+        <source>Distribution</source>
+        <target>Distribution</target>
+        <jms:reference-file line="73">views/Report/IBD/annualAgeDistribution.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="c0cb139cce34769fb7ed9bafc15290e91cf7736c" resname="District">
+        <source>District</source>
+        <target>District</target>
+        <jms:reference-file line="10">views/Report/IBD/Export/data-linking.html.twig</jms:reference-file>
+      </trans-unit>
       <trans-unit id="9e9cf3221a30246219863f1d2366e36cb580debc" resname="Documentation">
         <source>Documentation</source>
         <target>Documentation</target>
         <jms:reference-file line="78">SentinelBundle/Menu/Builder.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="dacf097db6ba2d2d97348bafac260e7edc400134" resname="ELISA Done">
+        <source>ELISA Done</source>
+        <target>ELISA Done</target>
+        <jms:reference-file line="12">views/Report/RotaVirus/Export/data-quality.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="abb454f7083b889c5d49dedd8fca52d3e3a35e35" resname="EPI">
         <source>EPI</source>
@@ -598,11 +682,31 @@
         <jms:reference-file line="4">views/IBD/editOutcome.html.twig</jms:reference-file>
         <jms:reference-file line="4">views/RotaVirus/editOutcome.html.twig</jms:reference-file>
       </trans-unit>
+      <trans-unit id="8a47e285c4dedf53474dcabb2ac0b840d8d85b1f" resname="Edit Epi Data">
+        <source>Edit Epi Data</source>
+        <target>Edit Epi Data</target>
+      </trans-unit>
       <trans-unit id="feeffd2aa61ecb401219383148e8ba0fd67b1d2c" resname="Edit Lab For Case %id%">
         <source>Edit Lab For Case %id%</source>
         <target>Edit Lab For Case %id%</target>
         <jms:reference-file line="4">views/IBD/editLab.html.twig</jms:reference-file>
         <jms:reference-file line="4">views/RotaVirus/editLab.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="2ae42b1281c1541231bf0ccfef72080738a2f6d0" resname="Edit National Lab Data">
+        <source>Edit National Lab Data</source>
+        <target>Edit National Lab Data</target>
+      </trans-unit>
+      <trans-unit id="39a2c34312e5982235124bbafe28fc5624ca0d86" resname="Edit Outcome Data">
+        <source>Edit Outcome Data</source>
+        <target>Edit Outcome Data</target>
+      </trans-unit>
+      <trans-unit id="1aab4f3ff9198833320ce3684fe790a53092bc41" resname="Edit Regional Reference Lab Data">
+        <source>Edit Regional Reference Lab Data</source>
+        <target>Edit Regional Reference Lab Data</target>
+      </trans-unit>
+      <trans-unit id="022810a02fd4b3d8a609546d5656eee294176c35" resname="Edit Site Lab Data">
+        <source>Edit Site Lab Data</source>
+        <target>Edit Site Lab Data</target>
       </trans-unit>
       <trans-unit id="84add5b2952787581cb9a8851eef63d1ec75d22b" resname="Email">
         <source>Email</source>
@@ -706,6 +810,11 @@
         <source>G9</source>
         <target>G9</target>
       </trans-unit>
+      <trans-unit id="8a754c61c2ced0c5ff79a1827e02c9d643d6d926" resname="Gender">
+        <source>Gender</source>
+        <target>Gender</target>
+        <jms:reference-file line="7">views/Report/IBD/Export/data-linking.html.twig</jms:reference-file>
+      </trans-unit>
       <trans-unit id="76621d9ccafb198b80334481579fd89a1438be0c" resname="General Statistics">
         <source>General Statistics</source>
         <target>General Statistics</target>
@@ -768,9 +877,23 @@
         <target>I forgot my password</target>
         <jms:reference-file line="60">views/Security/login.html.twig</jms:reference-file>
       </trans-unit>
+      <trans-unit id="5cf2c55914c62a448334c6f264ec7223d032a277" resname="IBD">
+        <source>IBD</source>
+        <target>IBD</target>
+        <jms:reference-file line="25">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Filter/Type/ZeroReportFilterType.php</jms:reference-file>
+      </trans-unit>
       <trans-unit id="2a71f5e790a5bd16a54986e1eb5e7a3a69846528" resname="IV fluids">
         <source>IV fluids</source>
         <target>IV fluids</target>
+      </trans-unit>
+      <trans-unit id="20163528b46a6980e70e00ad65af7d2eb8276970" resname="Import/Export Access">
+        <source>Import/Export Access</source>
+        <target>Import/Export Access</target>
+        <jms:reference-file line="56">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Admin/ACLAdmin.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="7b45c02a3bed2f1275bc9171223a4f71c581c3dc" resname="Inadequately Investigated">
+        <source>Inadequately Investigated</source>
+        <target>Inadequately Investigated</target>
       </trans-unit>
       <trans-unit id="af4d4b42d93ccbd5d03b1cb5906ae3d47221bd45" resname="Incomplete investigation">
         <source>Incomplete investigation</source>
@@ -964,6 +1087,11 @@
         <source>Mixed (specify)</source>
         <target>Mixed (specify)</target>
       </trans-unit>
+      <trans-unit id="082bc378cd60e17a38d99898b21955299c5b60c8" resname="Month">
+        <source>Month</source>
+        <target>Month</target>
+        <jms:reference-file line="80">views/Report/IBD/percentEnrolled.html.twig</jms:reference-file>
+      </trans-unit>
       <trans-unit id="23c675e43706c4c645825a7c3921a55029f1c1ba" resname="Multiple (i.e. Meningitis and/or Pneumonia and/or Sepsis)">
         <source>Multiple (i.e. Meningitis and/or Pneumonia and/or Sepsis)</source>
         <target>Multiple (i.e. Meningitis and/or Pneumonia and/or Sepsis)</target>
@@ -1010,6 +1138,10 @@
         <jms:reference-file line="17">views/Report/infobox.html.twig</jms:reference-file>
         <jms:reference-file line="253">views/RotaVirus/show.html.twig</jms:reference-file>
       </trans-unit>
+      <trans-unit id="086e4415ef558dcb69edf83b6779bdc054bd2554" resname="No Adm Date">
+        <source>No Adm Date</source>
+        <target>No Adm Date</target>
+      </trans-unit>
       <trans-unit id="e468d4c026c011983076c699c569045396ad2fb7" resname="No CT Value">
         <source>No CT Value</source>
         <target>No CT Value</target>
@@ -1021,6 +1153,11 @@
       <trans-unit id="c6a298b49c23f4a978b99652b5b031f89263b850" resname="Non PCV 13 serotype**">
         <source>Non PCV 13 serotype**</source>
         <target>Non PCV 13 serotype**</target>
+      </trans-unit>
+      <trans-unit id="a167044241438ca563f2adfccdce087ef390b89a" resname="Non Report">
+        <source>Non Report</source>
+        <target>Non Report</target>
+        <jms:reference-file line="43">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Twig/Report/ZeroReportTwig.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="84689e8f9f36dbd6224a8e22479798947f0e6454" resname="Non-groupable (NG) by PCR (negative for Serogroups A, B, C, W, X, and Y)">
         <source>Non-groupable (NG) by PCR (negative for Serogroups A, B, C, W, X, and Y)</source>
@@ -1067,10 +1204,22 @@
         <source>Not done</source>
         <target>Not done</target>
       </trans-unit>
+      <trans-unit id="b7baa1d40c4ea29afc9098732bffee2a861a6c44" resname="Number">
+        <source>Number</source>
+        <target>Number</target>
+        <jms:reference-file line="11">views/Report/IBD/generalStats.html.twig</jms:reference-file>
+      </trans-unit>
       <trans-unit id="94ca3343bc35b6633fc5f605ae8e057de98a148f" resname="Number Enrolled By Month &amp; Suspected Diagnosis">
         <source><![CDATA[Number Enrolled By Month & Suspected Diagnosis]]></source>
         <target><![CDATA[Number Enrolled By Month & Suspected Diagnosis]]></target>
         <jms:reference-file line="79">Report/IBD/annualAgeDistribution.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="34921b8e2536a987fc8b3674f98fab5d2517c50d" resname="Number Of Cases">
+        <source>Number Of Cases</source>
+        <target>Number Of Cases</target>
+        <jms:reference-file line="12">views/Report/IBD/byDiagnosisGraph.html.twig</jms:reference-file>
+        <jms:reference-file line="12">views/Report/IBD/bySiteGraph.html.twig</jms:reference-file>
+        <jms:reference-file line="12">views/Report/IBD/byCountryGraph.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="e8c8fb09a83d86403479132c086fdf365be367fb" resname="Number and Percent Enrolled: Admit Diagnosis">
         <source>Number and Percent Enrolled: Admit Diagnosis</source>
@@ -1080,6 +1229,16 @@
       <trans-unit id="4c100b84b4ee887ba44105eb25d52e008800b694" resname="ORS/ORT and/or IV fluids and/or Other/Multiple">
         <source>ORS/ORT and/or IV fluids and/or Other/Multiple</source>
         <target>ORS/ORT and/or IV fluids and/or Other/Multiple</target>
+      </trans-unit>
+      <trans-unit id="4c2189a92e61858bf6ebb50c569b513645e4ab50" resname="Occurances">
+        <source>Occurances</source>
+        <target>Occurances</target>
+        <jms:reference-file line="79">views/Report/IBD/percentEnrolled.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="163c3df4e6160de63f30ff20007d0fd4069af120" resname="Onset Date">
+        <source>Onset Date</source>
+        <target>Onset Date</target>
+        <jms:reference-file line="12">views/Report/IBD/Export/data-linking.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="cf9b77061f7b3126b49d50a6fa68f7ca8c26b7a3" resname="Open">
         <source>Open</source>
@@ -1118,6 +1277,12 @@
         <jms:reference-file line="18">views/IBD/editOutcome.html.twig</jms:reference-file>
         <jms:reference-file line="18">views/RotaVirus/editOutcome.html.twig</jms:reference-file>
         <jms:reference-file line="21">views/RotaVirus/show.html.twig</jms:reference-file>
+        <jms:reference-file line="18">views/IBD/editOutcome.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="c9f27136991f4836a2edb06a435fb220fa6915e7" resname="PCR+ &amp; Binax Culture- &amp; Culture-">
+        <source><![CDATA[PCR+ & Binax Culture- & Culture-]]></source>
+        <target><![CDATA[PCR+ & Binax Culture- & Culture-]]></target>
+        <jms:reference-file line="68">views/Report/IBD/culturePositive.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="799618173f61bf5dc4b1ca23bbebeb2a226b4e68" resname="PCR+ &amp; Binax- &amp; Culture-">
         <source><![CDATA[PCR+ & Binax- & Culture-]]></source>
@@ -1281,6 +1446,26 @@
         <target>Reference Lab</target>
         <jms:reference-file line="31">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
+      <trans-unit id="3164f0d9ee7e8fd17c649bd27d837d195032d351" resname="Reference Lab Isolate Type">
+        <source>Reference Lab Isolate Type</source>
+        <target>Reference Lab Isolate Type</target>
+        <jms:reference-file line="16">views/Report/IBD/Export/data-linking.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="2eef541cd19165b5cea3a39b09bca0d078e05a62" resname="Reference Lab Sample Collection Date">
+        <source>Reference Lab Sample Collection Date</source>
+        <target>Reference Lab Sample Collection Date</target>
+        <jms:reference-file line="14">views/Report/IBD/Export/data-linking.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="6bd3701652fe35671e301d0ff174de30aa6f0229" resname="Reference Lab Sample ID">
+        <source>Reference Lab Sample ID</source>
+        <target>Reference Lab Sample ID</target>
+        <jms:reference-file line="13">views/Report/IBD/Export/data-linking.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="dd34d38c39cd17a06f957164f33553da1ea0fed1" resname="Reference Lab Sample Type">
+        <source>Reference Lab Sample Type</source>
+        <target>Reference Lab Sample Type</target>
+        <jms:reference-file line="15">views/Report/IBD/Export/data-linking.html.twig</jms:reference-file>
+      </trans-unit>
       <trans-unit id="0f217179940c6d89f5cb2c7002a58d91ab7286c1" resname="Region">
         <source>Region</source>
         <target>Region</target>
@@ -1333,6 +1518,11 @@
       <trans-unit id="793fee1e4269a5b4bf830a2daf4c5b8f5e45eb67" resname="RotaTeq, Merck">
         <source>RotaTeq, Merck</source>
         <target>RotaTeq, Merck</target>
+      </trans-unit>
+      <trans-unit id="1979a27db423101d398f8adf0cafb84c156c0e34" resname="RotaVirus">
+        <source>RotaVirus</source>
+        <target>RotaVirus</target>
+        <jms:reference-file line="25">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Filter/Type/ZeroReportFilterType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="b6a30e040e2c8bc16a3b2e95e725155b4b3fdce5" resname="Rotarix, GSK">
         <source>Rotarix, GSK</source>
@@ -1475,11 +1665,22 @@
         <jms:reference-file line="7">views/Case/country.html.twig</jms:reference-file>
         <jms:reference-file line="9">views/Case/region.html.twig</jms:reference-file>
         <jms:reference-file line="8">views/Case/site.html.twig</jms:reference-file>
+        <jms:reference-file line="9">views/Case/region.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="9d56332c7440a2b3622fdfd3be7c42b5aeb147be" resname="Stool Collected">
+        <source>Stool Collected</source>
+        <target>Stool Collected</target>
+        <jms:reference-file line="11">views/Report/RotaVirus/Export/data-quality.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="31d5759ef687c0a46f207e699fc0ba15945dd764" resname="Stool Collection Date Errors">
         <source>Stool Collection Date Errors</source>
         <target>Stool Collection Date Errors</target>
         <jms:reference-file line="20">Report/RotaVirus/dataQuality.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="2dacf65959849884a011f36f76a04eebea94c5ea" resname="Submit">
+        <source>Submit</source>
+        <target>Submit</target>
+        <jms:reference-file line="28">views/ZeroReport/index.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="7ce01f6381463362cf6aef2f843a59261e8f5587" resname="Success!">
         <source>Success!</source>
@@ -1576,6 +1777,11 @@
         <source>Turbid/Cloudy</source>
         <target>Turbid/Cloudy</target>
       </trans-unit>
+      <trans-unit id="3deb7456519697ecf4eefc455516c969a3681bae" resname="Type">
+        <source>Type</source>
+        <target>Type</target>
+        <jms:reference-file line="11">views/Report/IBD/generalStats.html.twig</jms:reference-file>
+      </trans-unit>
       <trans-unit id="9971e43169cfeacc901f1bf442391be9acddaab1" resname="Undetermined">
         <source>Undetermined</source>
         <target>Undetermined</target>
@@ -1592,6 +1798,10 @@
         <jms:reference-file line="13">views/IBD/show.html.twig</jms:reference-file>
         <jms:reference-file line="20">views/RotaVirus/edit.html.twig</jms:reference-file>
         <jms:reference-file line="13">views/RotaVirus/show.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="69bd4ef9fbd0894a22759c3766b859defbdedbc8" resname="View">
+        <source>View</source>
+        <target>View</target>
       </trans-unit>
       <trans-unit id="2e7bc7595d5a7654f4768fb73c6853b3df6a7c84" resname="View Case %id%">
         <source>View Case %id%</source>
@@ -1659,6 +1869,16 @@
       <trans-unit id="909f99a779adb66a76fc53ab56c7dd1caf35d0fd" resname="Z">
         <source>Z</source>
         <target>Z</target>
+      </trans-unit>
+      <trans-unit id="afc6c45769ec18ef9f8f79510ff88d4f56540059" resname="Zero">
+        <source>Zero</source>
+        <target>Zero</target>
+        <jms:reference-file line="42">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Twig/Report/ZeroReportTwig.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="7b9660d894292b69c897267eb9c52fb8c50f4daa" resname="Zero Reporting">
+        <source>Zero Reporting</source>
+        <target>Zero Reporting</target>
+        <jms:reference-file line="8">views/ZeroReport/index.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="6e36913c5daaf91b67d2edb4a74f4c7bf70ffca7" resname="[Enter value]">
         <source>[Enter value]</source>
@@ -1831,6 +2051,11 @@
         <target>Find</target>
         <jms:reference-file line="111">Filter/Type/BaseFilterType.php</jms:reference-file>
       </trans-unit>
+      <trans-unit id="ba43e43d54b6708af2f73dcc09dd18bd84cc5b7d" resname="for suspected meningitis cases">
+        <source>for suspected meningitis cases</source>
+        <target>for suspected meningitis cases</target>
+        <jms:reference-file line="3">views/Report/IBD/annualAgeDistribution.html.twig</jms:reference-file>
+      </trans-unit>
       <trans-unit id="6da3c939c937b6fbd2bf66c6ae49de543af70162" resname="ibd-form.adm-date">
         <source>ibd-form.adm-date</source>
         <target>Date of admission</target>
@@ -1864,6 +2089,11 @@
         <source>ibd-form.blood-collect-date</source>
         <target>Blood Collection Date</target>
         <jms:reference-file line="110">Form/IBD/CaseType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="246a98e17d55fb3bef23ea042e1aadacb9a90d3d" resname="ibd-form.blood-collect-time">
+        <source>ibd-form.blood-collect-time</source>
+        <target>Blood Collection Time</target>
+        <jms:reference-file line="91">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e112042fbc3747ae7f364fcef4d5cc4341558bba" resname="ibd-form.blood-collected">
         <source>ibd-form.blood-collected</source>
@@ -2046,6 +2276,11 @@
         <source>ibd-form.csf-lab-datetime</source>
         <target>Date when CSF was received at the lab</target>
         <jms:reference-file line="48">Form/IBD/SiteLabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="cebde7142f67edd386cff6d1a5ce16246c84cc95" resname="ibd-form.csf-lab-time">
+        <source>ibd-form.csf-lab-time</source>
+        <target>Time of CSF collection (i.e. lumbar puncture) from case</target>
+        <jms:reference-file line="48">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="09822becef86dd896f55f4132c0039831a11910e" resname="ibd-form.csf-lat-done">
         <source>ibd-form.csf-lat-done</source>
@@ -2443,6 +2678,11 @@
         <target>Did case present with severe malnutrition?</target>
         <jms:reference-file line="158">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
+      <trans-unit id="e930cdcb6c60a2d60911bfae953ffb93ad05acaa" resname="ibd-form.pneu-oxygen-level">
+        <source>ibd-form.pneu-oxygen-level</source>
+        <target>Oxygen saturation level</target>
+        <jms:reference-file line="138">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Form/IBD/CaseType.php</jms:reference-file>
+      </trans-unit>
       <trans-unit id="dfd2e55c201e5e40bbbecd5a0bf9dc02363f3f65" resname="ibd-form.pneu-resp-rate">
         <source>ibd-form.pneu-resp-rate</source>
         <target>Respiratory rate of case</target>
@@ -2608,8 +2848,14 @@
       <trans-unit id="61289dcc293d6f02ff71a837bb4581d20d1316f2" resname="ibd.bexA">
         <source>ibd.bexA</source>
         <target>Results of bexA (ct value)</target>
-        <jms:reference-file line="292">views/IBD/show.html.twig</jms:reference-file>
-        <jms:reference-file line="326">views/IBD/show.html.twig</jms:reference-file>
+        <jms:reference-file line="280">views/IBD/show.html.twig</jms:reference-file>
+        <jms:reference-file line="315">views/IBD/show.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="eacaf59289b746aed813ca03573bef34e179d847" resname="ibd.comment">
+        <source>ibd.comment</source>
+        <target state="new">ibd.comment</target>
+        <jms:reference-file line="285">views/IBD/show.html.twig</jms:reference-file>
+        <jms:reference-file line="320">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="7b50728b4f1d1b8a67a7908e3baa16d62473af8e" resname="ibd.ctrA">
         <source>ibd.ctrA</source>
@@ -2781,8 +3027,14 @@
       <trans-unit id="13b575dc5e2dcaded4684b380c42855082f4d2fb" resname="menu.data-reports-site-performance">
         <source>menu.data-reports-site-performance</source>
         <target>Site Performance</target>
-        <jms:reference-file line="63">SentinelBundle/Menu/Builder.php</jms:reference-file>
-        <jms:reference-file line="67">SentinelBundle/Menu/Builder.php</jms:reference-file>
+        <jms:reference-file line="64">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Menu/Builder.php</jms:reference-file>
+        <jms:reference-file line="69">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Menu/Builder.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="3c4ac446d065f8f8fe0596c962eda47ae1aa2c6e" resname="menu.data-reports-stats">
+        <source>menu.data-reports-stats</source>
+        <target state="new">menu.data-reports-stats</target>
+        <jms:reference-file line="66">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Menu/Builder.php</jms:reference-file>
+        <jms:reference-file line="71">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Menu/Builder.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="540cd0fc2fe5af1c6ee1e78f1ef303a5abc43171" resname="menu.export">
         <source>menu.export</source>
@@ -2871,6 +3123,14 @@
         <target>If case was lab-confirmed for other organism, please specify.</target>
         <jms:reference-file line="25">Form/Rota/OutcomeType.php</jms:reference-file>
         <jms:reference-file line="179">views/RotaVirus/show.html.twig</jms:reference-file>
+        <jms:reference-file line="29">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Form/RotaVirus/OutcomeType.php</jms:reference-file>
+        <jms:reference-file line="113">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Form/RotaVirus/CaseType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="370642bb05c0c4dff2f09692fc48af71c828fec3" resname="rotavirus-form.dischargeClassification">
+        <source>rotavirus-form.dischargeClassification</source>
+        <target state="new">rotavirus-form.dischargeClassification</target>
+        <jms:reference-file line="28">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Form/RotaVirus/OutcomeType.php</jms:reference-file>
+        <jms:reference-file line="112">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Form/RotaVirus/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="10d18337ba7ab241a25c8622c57200deca7bf904" resname="rotavirus-form.dischargeDate">
         <source>rotavirus-form.dischargeDate</source>

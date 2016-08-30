@@ -95,45 +95,45 @@ class CaseActions extends \Twig_Extension implements TranslationContainerInterfa
 
         $out .= sprintf('<a href="%s" class="btn btn-xs btn-info" data-rel="tooltip" title="%s"><i class="fa fa-eye bigger-120"></i></a>',
             $this->generate($baseRoute.'Show',$row),
-            $this->translator->trans(self::VIEW));
+            $this->translator->trans(/** @Ignore */self::VIEW));
 
         if ($this->authChecker->isGranted('ROLE_CAN_CREATE')) {
             if ($this->authChecker->isGranted('ROLE_CAN_CREATE_CASE')) {
                 $out .= sprintf('<a href="%s" class="btn btn-xs btn-info" data-rel="tooltip" title="%s"><i class="fa fa-edit bigger-120"></i> %s</a>',
                     $this->generate($baseRoute.'Edit',$row),
-                    $this->translator->trans(self::EDIT_EPI),
-                    $this->translator->trans(self::EPI));
+                    $this->translator->trans(/** @Ignore */self::EDIT_EPI),
+                    $this->translator->trans(/** @Ignore */self::EPI));
             }
 
             if ($this->authChecker->isGranted('ROLE_CAN_CREATE_LAB')) {
                 $out .= sprintf('<a href="%s" class="btn btn-xs btn-info" data-rel="tooltip" title="%s"><i class="%s bigger-120"></i> %s</a>',
                     $this->generate($baseRoute.'LabEdit',$row),
-                    $this->translator->trans(self::EDIT_LAB),
+                    $this->translator->trans(/** @Ignore */self::EDIT_LAB),
                     ($row->hasSiteLab() ? 'fa fa-edit' : 'fa fa-plus'),
-                    $this->translator->trans(self::LAB));
+                    $this->translator->trans(/** @Ignore */self::LAB));
             }
 
             if ($this->authChecker->isGranted('ROLE_CAN_CREATE_NL_LAB') && ($row->getSentToNationalLab() || $row->hasNationalLab())) {
                 $out .= sprintf('<a href="%s" class="btn btn-xs btn-info" data-rel="tooltip" title="%s"><i class="%s bigger-120"></i> %s</a>',
                     $this->generate($baseRoute.'NLEdit',$row),
-                    $this->translator->trans(self::EDIT_NL),
+                    $this->translator->trans(/** @Ignore */self::EDIT_NL),
                     ($row->hasNationalLab() ? 'fa fa-edit' : 'fa fa-plus'),
-                    $this->translator->trans(self::NL));
+                    $this->translator->trans(/** @Ignore */self::NL));
             }
 
             if ($this->authChecker->isGranted('ROLE_CAN_CREATE_RRL_LAB') && ($row->getSentToReferenceLab() || $row->hasReferenceLab())) {
                 $out .= sprintf('<a href="%s" class="btn btn-xs btn-info" data-rel="tooltip" title="%s"><i class="%s bigger-120"></i> %s</a>',
                     $this->generate($baseRoute.'RRLEdit',$row),
-                    $this->translator->trans(self::EDIT_RRL),
+                    $this->translator->trans(/** @Ignore */self::EDIT_RRL),
                     ($row->hasReferenceLab() ? 'fa fa-edit' : 'fa fa-plus'),
-                    $this->translator->trans(self::RRL));
+                    $this->translator->trans(/** @Ignore */self::RRL));
             }
 
             if ($this->authChecker->isGranted('ROLE_CAN_CREATE_CASE')) {
                 $out .= sprintf('<a href="%s" class="btn btn-xs btn-info" data-rel="tooltip" title="%s"><i class="fa fa-edit bigger-120"></i> %s</a>',
                     $this->generate($baseRoute.'OutcomeEdit',$row),
-                    $this->translator->trans(self::EDIT_OUT),
-                    $this->translator->trans(self::OUT));
+                    $this->translator->trans(/** @Ignore */self::EDIT_OUT),
+                    $this->translator->trans(/** @Ignore */self::OUT));
             }
         }
 
@@ -148,7 +148,7 @@ class CaseActions extends \Twig_Extension implements TranslationContainerInterfa
     {
         $baseRoute = $this->getBaseRoute($row);
 
-        $view = $this->translator->trans(self::VIEW);
+        $view = $this->translator->trans(/** @Ignore */self::VIEW);
 
         $out = sprintf('<button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog fa fa-only bigger-110"></i></button>
             <ul class="dropdown-menu dropdown-yellow pull-right dropdown-caret dropdown-close dropdown-menu-right">
@@ -158,32 +158,32 @@ class CaseActions extends \Twig_Extension implements TranslationContainerInterfa
             if ($this->authChecker->isGranted('ROLE_CAN_CREATE_CASE')) {
                 $out .= sprintf('<li><a href="%s" title="%s"><span class="green"><i class="fa fa-edit bigger-120"></i> %s</span></a></li>',
                     $this->generate($baseRoute.'Edit',$row),
-                    $this->translator->trans(self::EDIT_EPI),
-                    $this->translator->trans(self::EPI));
+                    $this->translator->trans(/** @Ignore */self::EDIT_EPI),
+                    $this->translator->trans(/** @Ignore */self::EPI));
             }
 
             if ($this->authChecker->isGranted('ROLE_CAN_CREATE_LAB')) {
                 $out .= sprintf('<li><a href="%s" title="%s"><span class="green"><i class="%s bigger-120"></i> %s</span></a></li>',
                     $this->generate($baseRoute.'LabEdit',$row),
-                    $this->translator->trans(self::EDIT_LAB),
+                    $this->translator->trans(/** @Ignore */self::EDIT_LAB),
                     ($row->hasSiteLab() ? 'fa fa-edit' : 'fa fa-plus'),
-                    $this->translator->trans(self::LAB));
+                    $this->translator->trans(/** @Ignore */self::LAB));
             }
 
             if ($this->authChecker->isGranted('ROLE_CAN_CREATE_NL_LAB') && ($row->getSentToNationalLab() || $row->hasNationalLab())) {
                 $out .= sprintf('<li><a href="%s" title="%s"><span class="green"><i class="%s bigger-120"></i> %s</span></a></li>',
                     $this->generate($baseRoute.'NLEdit',$row),
-                    $this->translator->trans(self::EDIT_NL),
+                    $this->translator->trans(/** @Ignore */self::EDIT_NL),
                     ($row->hasNationalLab() ? 'fa fa-edit' : 'fa fa-plus'),
-                    $this->translator->trans(self::NL));
+                    $this->translator->trans(/** @Ignore */self::NL));
             }
 
             if ($this->authChecker->isGranted('ROLE_CAN_CREATE_RRL_LAB') && ($row->getSentToReferenceLab() || $row->hasReferenceLab())) {
                 $out .= sprintf('<li><a href="%s" title="%s"><span class="green"><i class="%s bigger-120"></i> %s</span></a></li>',
                     $this->generate($baseRoute.'RRLEdit',$row),
-                    $this->translator->trans(self::EDIT_RRL),
+                    $this->translator->trans(/** @Ignore */self::EDIT_RRL),
                     ($row->hasReferenceLab() ? 'fa fa-edit' : 'fa fa-plus'),
-                    $this->translator->trans(self::RRL));
+                    $this->translator->trans(/** @Ignore */self::RRL));
             }
         }
 
