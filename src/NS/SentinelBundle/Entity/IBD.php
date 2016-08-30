@@ -365,6 +365,12 @@ class IBD extends BaseCase
     private $blood_collect_date;
 
     /**
+     * @var \DateTime $blood_collect_time
+     * @ORM\Column(name="blood_collect_time",type="time",nullable=true)
+     */
+    private $blood_collect_time;
+
+    /**
      * @var OtherSpecimen $otherSpecimenCollected
      * @ORM\Column(name="other_specimen_collected",type="OtherSpecimen",nullable=true)
      * @Serializer\Groups({"api"})
@@ -755,6 +761,22 @@ class IBD extends BaseCase
     public function getBloodCollectDate()
     {
         return $this->blood_collect_date;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getBloodCollectTime()
+    {
+        return $this->blood_collect_time;
+    }
+
+    /**
+     * @param \DateTime $blood_collect_time
+     */
+    public function setBloodCollectTime(\DateTime $blood_collect_time)
+    {
+        $this->blood_collect_time = $blood_collect_time;
     }
 
     /**
