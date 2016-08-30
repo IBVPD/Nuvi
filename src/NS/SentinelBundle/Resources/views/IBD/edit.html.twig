@@ -130,6 +130,9 @@
                     </div>
                     <div class="col-sm-6">
                         {{form_row(form.pneuRespRate)}}
+                        {% if form.pneuOxygenSaturation is defined %}
+                            {{form_row(form.pneuOxygenSaturation)}}
+                        {% endif %}
                         {{form_row(form.pneuVomit)}}
                         {{form_row(form.pneuHypothermia)}}
                         {{form_row(form.pneuMalnutrition)}}

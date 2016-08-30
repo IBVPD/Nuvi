@@ -143,7 +143,7 @@ services:
 ############################################################################
   ns.sentinel.form.type.ibd:
     class: NS\SentinelBundle\Form\IBD\CaseType
-    arguments: [ "@ns.sentinel.sites", "@ns_sentinel.validation_group_resolver" ]
+    arguments: [ "@ns.sentinel.sites", "@ns_sentinel.validation_group_resolver", "@security.authorization_checker" ]
     tags:
       - { name: form.type }
 

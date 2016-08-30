@@ -17,27 +17,30 @@ use \Symfony\Component\Form\FormBuilderInterface;
 use \Symfony\Component\Form\FormEvent;
 use \Symfony\Component\Form\FormEvents;
 use \Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class CaseType extends AbstractType
 {
-    /**
-     * @var SerializedSitesInterface
-     */
+    /** @var SerializedSitesInterface */
     private $siteSerializer;
 
-    /**
-     * @var ValidatorGroupResolver
-     */
+    /** @var ValidatorGroupResolver */
     private $validatorResolver;
 
+    /** @var AuthorizationCheckerInterface */
+    private $authChecker;
+
     /**
-     *
+     * CaseType constructor.
      * @param SerializedSitesInterface $siteSerializer
+     * @param ValidatorGroupResolver $resolver
+     * @param AuthorizationCheckerInterface $authorizationChecker
      */
-    public function __construct(SerializedSitesInterface $siteSerializer, ValidatorGroupResolver $resolver)
+    public function __construct(SerializedSitesInterface $siteSerializer, ValidatorGroupResolver $resolver, AuthorizationCheckerInterface $authorizationChecker)
     {
         $this->siteSerializer = $siteSerializer;
         $this->validatorResolver = $resolver;
+        $this->authChecker = $authorizationChecker;
     }
 
     /**
@@ -130,6 +133,10 @@ class CaseType extends AbstractType
                 ->add('cxrResult',              'NS\SentinelBundle\Form\IBD\Types\CXRResult', array('required' => $required, 'label' => 'ibd-form.cxr-result', 'hidden-parent' => 'cxrDone', 'hidden-child' => 'cxrResult', 'hidden-value' => TripleChoice::YES))
                 ->add('cxrAdditionalResult',    'NS\SentinelBundle\Form\IBD\Types\CXRAdditionalResult', array('required' => $required, 'label' => 'ibd-form.cxr-additional-result', 'hidden-parent' => 'cxrResult', 'hidden-value' => CXRResult::CONSISTENT))
             ;
+
+            if ($this->authChecker->isGranted('ROLE_AMR')) {
+                $form->add('pneuOxygenSaturation', null, array('required' => $required, 'label' => 'ibd-form.pneu-oxygen-level'));
+            }
         }
     }
     

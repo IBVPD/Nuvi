@@ -208,6 +208,15 @@ class IBD extends BaseCase
     private $pneu_resp_rate;
 
     /**
+     * @var integer $pneu_oxygen_saturation
+     * @ORM\Column(name="pneu_oxygen_saturation",type="integer",nullable=true)
+     * @Assert\Range(min=10,max=100,minMessage="Please provide a valid oxygen saturation level",maxMessage="Please provide a valid oxygen saturation level")
+     *
+     * @Serializer\Groups({"api"})
+     */
+    private $pneu_oxygen_saturation;
+
+    /**
      * @var TripleChoice $pneuVomit
      * @ORM\Column(name="pneu_vomit",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api"})
@@ -584,6 +593,22 @@ class IBD extends BaseCase
     public function getPneuRespRate()
     {
         return $this->pneu_resp_rate;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPneuOxygenSaturation()
+    {
+        return $this->pneu_oxygen_saturation;
+    }
+
+    /**
+     * @param int $pneu_oxygen_saturation
+     */
+    public function setPneuOxygenSaturation($pneu_oxygen_saturation)
+    {
+        $this->pneu_oxygen_saturation = $pneu_oxygen_saturation;
     }
 
     /**
