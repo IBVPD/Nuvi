@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2016-04-05T17:24:12Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
+  <file date="2016-08-30T11:42:20Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -53,7 +53,7 @@
       </trans-unit>
       <trans-unit id="c0a53b78e70c7b285399b13265807270dabb5924" resname="12 months or zero reporting">
         <source>12 months or zero reporting</source>
-        <target state="new">12 months or zero reporting</target>
+        <target>12 months or zero reporting</target>
       </trans-unit>
       <trans-unit id="b0b18ba89cd0608bdc21b8003cec554abbb180b9" resname="12-23">
         <source>12-23</source>
@@ -384,7 +384,7 @@
       </trans-unit>
       <trans-unit id="be53d936c683834c254add8d4fdf649d1ad95389" resname="Case edited successfully">
         <source>Case edited successfully</source>
-        <target state="new">Case edited successfully</target>
+        <target>Case edited successfully</target>
       </trans-unit>
       <trans-unit id="719ea396ad92e01b4757ec2b93bb1e5f270f771d" resname="Clear">
         <source>Clear</source>
@@ -538,7 +538,7 @@
       </trans-unit>
       <trans-unit id="526e793c5277ba1636c41ed2e8fb08c7c37323f5" resname="Data Quality Checks">
         <source>Data Quality Checks</source>
-        <target state="new">Data Quality Checks</target>
+        <target>Data Quality Checks</target>
         <jms:reference-file line="2">Report/IBD/dataQuality.html.twig</jms:reference-file>
         <jms:reference-file line="2">Report/RotaVirus/dataQuality.html.twig</jms:reference-file>
       </trans-unit>
@@ -617,7 +617,7 @@
       </trans-unit>
       <trans-unit id="bb29aa57f0fd2bfd1d9c91e9d1493059381eb5c9" resname="Enter value or Select">
         <source>Enter value or Select</source>
-        <target state="new">Enter value or Select</target>
+        <target>Enter value or Select</target>
         <jms:reference-file line="32">Form/Types/CTValueType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e53e6fb5399d13847fc4f477393f2acedc2ea223" resname="Failed Link">
@@ -1012,7 +1012,7 @@
       </trans-unit>
       <trans-unit id="e468d4c026c011983076c699c569045396ad2fb7" resname="No CT Value">
         <source>No CT Value</source>
-        <target state="new">No CT Value</target>
+        <target>No CT Value</target>
       </trans-unit>
       <trans-unit id="723a14e871ddf3bf60648f448fbdeba31472edcd" resname="No Organism Detected">
         <source>No Organism Detected</source>
@@ -1215,7 +1215,7 @@
       </trans-unit>
       <trans-unit id="a7942f226ed1080246f2b2fde35b11e19a91e6a8" resname="Please Select...">
         <source>Please Select...</source>
-        <target state="new">Please Select...</target>
+        <target>Please Select...</target>
         <jms:reference-file line="46">SentinelBundle/Form/CreateType.php</jms:reference-file>
         <jms:reference-file line="64">Form/Types/CreateRoles.php</jms:reference-file>
         <jms:reference-file line="201">Form/Types/Role.php</jms:reference-file>
@@ -1223,7 +1223,7 @@
       </trans-unit>
       <trans-unit id="6d8d3ee277015995a8faf994cfc772e581510f44" resname="Please review each tab for error messages">
         <source>Please review each tab for error messages</source>
-        <target state="new">Please review each tab for error messages</target>
+        <target>Please review each tab for error messages</target>
       </trans-unit>
       <trans-unit id="47658dced1ec37586a51bf23d66051c62ff85998" resname="Pleural Fluid">
         <source>Pleural Fluid</source>
@@ -1375,12 +1375,12 @@
       </trans-unit>
       <trans-unit id="ad55f3a19e907a67800778f138dc6dd398b32a86" resname="Sent To National Lab">
         <source>Sent To National Lab</source>
-        <target state="new">Sent To National Lab</target>
+        <target>Sent To National Lab?</target>
         <jms:reference-file line="209">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="0250108cbef743882bec649bb6c96ffeb697addb" resname="Sent To Reference Lab">
         <source>Sent To Reference Lab</source>
-        <target state="new">Sent To Reference Lab</target>
+        <target>Sent To Reference Lab?</target>
         <jms:reference-file line="200">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="186238cccd6fdd63822aa5886b1950d4f8c61dc5" resname="Sepsis">
@@ -1483,7 +1483,7 @@
       </trans-unit>
       <trans-unit id="7ce01f6381463362cf6aef2f843a59261e8f5587" resname="Success!">
         <source>Success!</source>
-        <target state="new">Success!</target>
+        <target>Success!</target>
       </trans-unit>
       <trans-unit id="ab646fbf4358000ca0b02c28ddb3bf3c76191963" resname="Suspect">
         <source>Suspect</source>
@@ -1537,7 +1537,7 @@
       </trans-unit>
       <trans-unit id="47dbf229a27d1cff3738428ac43f680317b0adcd" resname="There were errors with saving the form.">
         <source>There were errors with saving the form.</source>
-        <target state="new">There were errors with saving the form.</target>
+        <target>There were errors with saving the form.</target>
       </trans-unit>
       <trans-unit id="5bd44ebe63cd3b9445ca759f970513d78b28a61c" resname="Tier">
         <source>Tier</source>
@@ -1578,7 +1578,7 @@
       </trans-unit>
       <trans-unit id="9971e43169cfeacc901f1bf442391be9acddaab1" resname="Undetermined">
         <source>Undetermined</source>
-        <target state="new">Undetermined</target>
+        <target>Undetermined</target>
       </trans-unit>
       <trans-unit id="bc7819b34ff87570745fbe461e36a16f80e562ce" resname="Unknown">
         <source>Unknown</source>
@@ -1605,7 +1605,7 @@
       </trans-unit>
       <trans-unit id="c94e855e54cd9a7ccbadd695335791061fdec071" resname="Warning!">
         <source>Warning!</source>
-        <target state="new">Warning!</target>
+        <target>Warning!</target>
       </trans-unit>
       <trans-unit id="0c8186da01f87243ac37efa00fe66b84d4e0ce88" resname="Whole Blood">
         <source>Whole Blood</source>
@@ -1662,7 +1662,7 @@
       </trans-unit>
       <trans-unit id="6e36913c5daaf91b67d2edb4a74f4c7bf70ffca7" resname="[Enter value]">
         <source>[Enter value]</source>
-        <target state="new">[Enter value]</target>
+        <target>[Enter value]</target>
         <jms:reference-file line="31">Form/Types/CTValueType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="86f7e437faa5a7fce15d1ddcb9eaeaea377667b8" resname="a">
@@ -1752,7 +1752,7 @@
       </trans-unit>
       <trans-unit id="51713409935576d63d066e104eb1ad0e37137da7" resname="export">
         <source>export</source>
-        <target state="new">export</target>
+        <target>Export</target>
         <jms:reference-file line="120">Filter/Type/BaseQuarterlyFilterType.php</jms:reference-file>
         <jms:reference-file line="98">Filter/Type/BaseReportFilterType.php</jms:reference-file>
       </trans-unit>
@@ -1807,7 +1807,7 @@
       </trans-unit>
       <trans-unit id="4bb4ca75941b7bbc5bc6a12be44b22fc9c8d234e" resname="filter">
         <source>filter</source>
-        <target state="new">filter</target>
+        <target>Filter</target>
         <jms:reference-file line="113">Filter/Type/BaseQuarterlyFilterType.php</jms:reference-file>
         <jms:reference-file line="91">Filter/Type/BaseReportFilterType.php</jms:reference-file>
       </trans-unit>
@@ -1828,7 +1828,7 @@
       </trans-unit>
       <trans-unit id="ded8dae5786fb0e9e6ffb657401fd861ba2efe11" resname="find">
         <source>find</source>
-        <target state="new">find</target>
+        <target>Find</target>
         <jms:reference-file line="111">Filter/Type/BaseFilterType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="6da3c939c937b6fbd2bf66c6ae49de543af70162" resname="ibd-form.adm-date">
@@ -2826,7 +2826,7 @@
       </trans-unit>
       <trans-unit id="91ef0c1608b20c9c5bd9e003bbb600229c0dfeb1" resname="reset">
         <source>reset</source>
-        <target state="new">reset</target>
+        <target>Reset</target>
         <jms:reference-file line="127">Filter/Type/BaseQuarterlyFilterType.php</jms:reference-file>
         <jms:reference-file line="105">Filter/Type/BaseReportFilterType.php</jms:reference-file>
       </trans-unit>
@@ -3153,7 +3153,7 @@
       </trans-unit>
       <trans-unit id="ca9cc8d69f176f7047b34801840f6d7d63886632" resname="≥ 100 cases">
         <source>≥ 100 cases</source>
-        <target state="new">≥ 100 cases</target>
+        <target>≥ 100 cases</target>
       </trans-unit>
       <trans-unit id="b6a5682540ec20058914fab553f3173c2dff9e8c" resname="≥ 3 doses">
         <source>≥ 3 doses</source>
@@ -3165,15 +3165,15 @@
       </trans-unit>
       <trans-unit id="0d7d4a09eb55dd7b637d6a9f6d16d17e9469a37f" resname="≥ 500 cases">
         <source>≥ 500 cases</source>
-        <target state="new">≥ 500 cases</target>
+        <target>≥ 500 cases</target>
       </trans-unit>
       <trans-unit id="3cb66cce0ae22c8b07cef2f58d293d9702047fd0" resname="≥ 75% with specimen">
         <source>≥ 75% with specimen</source>
-        <target state="new">≥ 75% with specimen</target>
+        <target>≥ 75% with specimen</target>
       </trans-unit>
       <trans-unit id="a8d5cc6e48a09d5f1579f2d240149e45c574d1c3" resname="≥ 90% with specimen">
         <source>≥ 90% with specimen</source>
-        <target state="new">≥ 90% with specimen</target>
+        <target>≥ 90% with specimen</target>
       </trans-unit>
     </body>
   </file>
