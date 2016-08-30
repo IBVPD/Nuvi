@@ -774,7 +774,7 @@ class IBD extends BaseCase
     /**
      * @param \DateTime $blood_collect_time
      */
-    public function setBloodCollectTime(\DateTime $blood_collect_time)
+    public function setBloodCollectTime(\DateTime $blood_collect_time = null)
     {
         $this->blood_collect_time = $blood_collect_time;
     }
