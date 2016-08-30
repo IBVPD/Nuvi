@@ -257,6 +257,7 @@
         <jms:reference-file line="8">views/Case/country.html.twig</jms:reference-file>
         <jms:reference-file line="10">views/Case/region.html.twig</jms:reference-file>
         <jms:reference-file line="9">views/Case/site.html.twig</jms:reference-file>
+      </trans-unit>
       <trans-unit id="d84c3dede3448b582d09cf5d9738e31e70f3bf3b" resname="Admission Date">
         <source>Admission Date</source>
         <target>Admission Date</target>
