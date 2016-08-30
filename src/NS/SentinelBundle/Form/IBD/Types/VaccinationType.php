@@ -18,6 +18,8 @@ class VaccinationType extends TranslatableArrayChoice implements TranslationCont
     const ACW135          = 3;
     const ACYW135_CON     = 4;
     const OTHER           = 5;
+    const B               = 6;
+    const C               = 7;
     const UNKNOWN         = 99;
 
     protected $values = array(
@@ -48,6 +50,10 @@ class VaccinationType extends TranslatableArrayChoice implements TranslationCont
         if ($this->authChecker->isGranted('ROLE_AMR')) {
             unset($this->values[self::MEN_AFR_VAC]);
             unset($this->values[self::ACW135]);
+            $this->values[self::B] = 'B recombinante';
+            $this->values[self::C] = 'C (conjugada)';
+
+            sort($this->values);
         }
 
         parent::configureOptions($resolver);
