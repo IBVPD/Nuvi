@@ -4,6 +4,8 @@ namespace NS\SentinelBundle\Form\IBD\Types;
 
 use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
  * Description of DischargeClassification
@@ -32,6 +34,31 @@ class DischargeClassification extends TranslatableArrayChoice implements Transla
                             self::DISCARDED         => 'Discarded case',
                             self::UNKNOWN           => 'Unknown',
                              );
+
+    /** @var AuthorizationCheckerInterface */
+    private $authChecker;
+
+    /**
+     * @param AuthorizationCheckerInterface $authChecker
+     */
+    public function setAuthorizationChecker($authChecker)
+    {
+        $this->authChecker = $authChecker;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        if ($this->authChecker->isGranted('ROLE_AMR')) {
+            unset($this->values[self::SUSPECT]);
+            unset($this->values[self::UNKNOWN]);
+        }
+
+        parent::configureOptions($resolver);
+    }
+
     /**
      * {@inheritdoc}
      */
