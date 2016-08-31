@@ -3609,16 +3609,16 @@
         },
         {
             "name": "ns/util-bundle",
-            "version": "2.1.1",
+            "version": "2.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/UtilBundle.git",
-                "reference": "79904c6ed17f887a2fb3a6d1d64780906461b740"
+                "reference": "0cfe26bbf9e10f506f54c0a96c6810407c86f266"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/UtilBundle/zipball/79904c6ed17f887a2fb3a6d1d64780906461b740",
-                "reference": "79904c6ed17f887a2fb3a6d1d64780906461b740",
+                "url": "https://api.github.com/repos/NobletSolutions/UtilBundle/zipball/0cfe26bbf9e10f506f54c0a96c6810407c86f266",
+                "reference": "0cfe26bbf9e10f506f54c0a96c6810407c86f266",
                 "shasum": ""
             },
             "require": {
@@ -3651,7 +3651,7 @@
                 }
             ],
             "description": "Various Utilitity Services and Classes",
-            "time": "2016-04-01 04:45:42"
+            "time": "2016-08-31 22:26:19"
         },
         {
             "name": "ocramius/proxy-manager",
