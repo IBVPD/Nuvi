@@ -97,7 +97,8 @@ class SiteLab extends BaseSiteLab
 
     /**
      * @var integer $csfWcc
-     * @ORM\Column(name="csf_wcc", type="integer",nullable=true)
+     * @ORM\Column(name="csf_wcc", type="integer", nullable=true)
+     *
      * @Assert\Range(min=0,max=9999,minMessage="You cannot have a negative white blood cell count",maxMessage="Invalid value")
      * @Groups({"api"})
      */
@@ -105,8 +106,10 @@ class SiteLab extends BaseSiteLab
 
     /**
      * @var integer $csfGlucose
-     * @ORM\Column(name="csf_glucose", type="integer",nullable=true)
-     * @Assert\GreaterThanOrEqual(value=0,message="Invalid value - value must be greater than 0")
+     * @ORM\Column(name="csf_glucose", type="integer", nullable=true)
+     *
+     * @Assert\Type(type="integer", message="Invalid value. Must be a number")
+     * @Assert\GreaterThanOrEqual(value=0, message="Invalid value - value must be greater than 0")
      * @Groups({"api"})
      */
     private $csf_glucose;
@@ -114,7 +117,9 @@ class SiteLab extends BaseSiteLab
     /**
      * @var integer $csfProtein
      * @ORM\Column(name="csf_protein", type="integer",nullable=true)
-     * @Assert\GreaterThanOrEqual(value=0,message="Invalid value - value must be greater than 0")
+     *
+     * @Assert\Type(type="integer", message="Invalid value. Must be a number")
+     * @Assert\GreaterThanOrEqual(value=0, message="Invalid value - value must be greater than 0")
      * @Groups({"api"})
      */
     private $csf_protein;

@@ -17,6 +17,7 @@ use \NS\SentinelBundle\Form\IBD\Types\GramStain;
 use \NS\SentinelBundle\Form\IBD\Types\GramStainResult;
 use \NS\SentinelBundle\Entity\Country;
 use \NS\SentinelBundle\Entity\Site;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
  * Class SiteLabType
@@ -29,12 +30,17 @@ class SiteLabType extends AbstractType
      */
     private $siteSerializer;
 
+    /** @var AuthorizationCheckerInterface */
+    private $authChecker;
+
     /**
      * @param SerializedSites $siteSerializer
+     * @param AuthorizationCheckerInterface $authorizationChecker
      */
-    public function __construct(SerializedSites $siteSerializer)
+    public function __construct(SerializedSites $siteSerializer, AuthorizationCheckerInterface $authorizationChecker)
     {
         $this->siteSerializer = $siteSerializer;
+        $this->authChecker = $authorizationChecker;
     }
 
     /**
@@ -43,6 +49,8 @@ class SiteLabType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $isPaho = $this->authChecker->isGranted('ROLE_AMR');
+
         $builder
             ->add('csfLabDate',         'NS\AceBundle\Form\DatePickerType', array('required' => false, 'label' => 'ibd-form.csf-lab-date'))
             ->add('csfLabTime',         'Symfony\Component\Form\Extension\Core\Type\TimeType', array('required' => false, 'label' => 'ibd-form.csf-lab-time','minutes'=>[0,5,10,15,20,25,30,35,40,45,50,55]))
@@ -60,7 +68,7 @@ class SiteLabType extends AbstractType
             ->add('csfGramOther',       null, array('required' => false, 'label' => 'ibd-form.csf-gram-other', 'hidden-parent' => 'csfGramResult', 'hidden-value' => GramStainResult::OTHER))
             ->add('csfBinaxDone',       'NS\SentinelBundle\Form\Types\TripleChoice', array('required' => false, 'label' => 'ibd-form.csf-binax-done', 'hidden-child' => 'csfBinaxDone'))
             ->add('csfBinaxResult',     'NS\SentinelBundle\Form\IBD\Types\BinaxResult', array('required' => false, 'label' => 'ibd-form.csf-binax-result', 'hidden-parent' => 'csfBinaxDone', 'hidden-value' => TripleChoice::YES))
-            ->add('csfLatDone',         'NS\SentinelBundle\Form\Types\TripleChoice', array('required' => false, 'label' => 'ibd-form.csf-lat-done', 'hidden-child' => 'csfLatDone'))
+            ->add('csfLatDone',         'NS\SentinelBundle\Form\Types\TripleChoice', array('required' => false, 'label' => 'ibd-form.csf-lat-done', 'hidden-child' => 'csfLatDone','exclude_unknown'=>$isPaho))
             ->add('csfLatResult',       'NS\SentinelBundle\Form\IBD\Types\LatResult', array('required' => false, 'label' => 'ibd-form.csf-lat-result', 'hidden-parent' => 'csfLatDone', 'hidden-value' => TripleChoice::YES))
             ->add('csfLatOther',        null, array('required' => false, 'label' => 'ibd-form.csf-lat-other', 'hidden-parent' => 'csfLatDone', 'hidden-value' => TripleChoice::YES))
             ->add('csfPcrDone',         'NS\SentinelBundle\Form\Types\TripleChoice', array('required' => false, 'label' => 'ibd-form.csf-pcr-done', 'hidden-child' => 'csfPcrDone'))

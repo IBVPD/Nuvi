@@ -154,7 +154,7 @@ services:
 
   ns.sentinel.form.type.ibd_sitelab:
     class: NS\SentinelBundle\Form\IBD\SiteLabType
-    arguments: [ "@ns.sentinel.sites" ]
+    arguments: [ "@ns.sentinel.sites", "@security.authorization_checker" ]
     tags:
       - { name: form.type }
 
