@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2016-08-30T12:46:41Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
+  <file date="2016-08-31T15:41:28Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -1278,7 +1278,6 @@
         <jms:reference-file line="18">views/IBD/editOutcome.html.twig</jms:reference-file>
         <jms:reference-file line="18">views/RotaVirus/editOutcome.html.twig</jms:reference-file>
         <jms:reference-file line="21">views/RotaVirus/show.html.twig</jms:reference-file>
-        <jms:reference-file line="18">views/IBD/editOutcome.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="c9f27136991f4836a2edb06a435fb220fa6915e7" resname="PCR+ &amp; Binax Culture- &amp; Culture-">
         <source><![CDATA[PCR+ & Binax Culture- & Culture-]]></source>
@@ -1666,7 +1665,6 @@
         <jms:reference-file line="7">views/Case/country.html.twig</jms:reference-file>
         <jms:reference-file line="9">views/Case/region.html.twig</jms:reference-file>
         <jms:reference-file line="8">views/Case/site.html.twig</jms:reference-file>
-        <jms:reference-file line="9">views/Case/region.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="9d56332c7440a2b3622fdfd3be7c42b5aeb147be" resname="Stool Collected">
         <source>Stool Collected</source>
@@ -2280,7 +2278,7 @@
       </trans-unit>
       <trans-unit id="cebde7142f67edd386cff6d1a5ce16246c84cc95" resname="ibd-form.csf-lab-time">
         <source>ibd-form.csf-lab-time</source>
-        <target>Time of CSF collection (i.e. lumbar puncture) from case</target>
+        <target>Time when CSF was received at the lab</target>
         <jms:reference-file line="48">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="09822becef86dd896f55f4132c0039831a11910e" resname="ibd-form.csf-lat-done">
