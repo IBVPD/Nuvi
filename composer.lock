@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8e0e660d8537e09cef309cb691ee1ec4",
-    "content-hash": "a8986bd9f3d7c2fe93315f66a2f775bc",
+    "hash": "7ecb866ebc9a240eaa4b551f1e861e82",
+    "content-hash": "486d6989eb4f13bbcbe904608a259803",
     "packages": [
         {
             "name": "adoy/oauth2",
@@ -53,12 +53,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/beberlei/DoctrineExtensions.git",
-                "reference": "37173b6d39773b2855549744ad5a23ad4ad81c57"
+                "reference": "5d280cbc8039b7dbf09a9376d0f6001b5e4c781b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/beberlei/DoctrineExtensions/zipball/37173b6d39773b2855549744ad5a23ad4ad81c57",
-                "reference": "37173b6d39773b2855549744ad5a23ad4ad81c57",
+                "url": "https://api.github.com/repos/beberlei/DoctrineExtensions/zipball/5d280cbc8039b7dbf09a9376d0f6001b5e4c781b",
+                "reference": "5d280cbc8039b7dbf09a9376d0f6001b5e4c781b",
                 "shasum": ""
             },
             "require": {
@@ -107,7 +107,7 @@
                 "doctrine",
                 "orm"
             ],
-            "time": "2016-08-04 12:05:19"
+            "time": "2016-08-30 09:05:57"
         },
         {
             "name": "cocur/slugify",
@@ -925,23 +925,26 @@
         },
         {
             "name": "doctrine/doctrine-migrations-bundle",
-            "version": "1.1.1",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineMigrationsBundle.git",
-                "reference": "303a576e2124efb07ec215e34ea2480b841cf5e4"
+                "reference": "0b89ee55bceb53c60bc4ba32924ac5053e377abb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineMigrationsBundle/zipball/303a576e2124efb07ec215e34ea2480b841cf5e4",
-                "reference": "303a576e2124efb07ec215e34ea2480b841cf5e4",
+                "url": "https://api.github.com/repos/doctrine/DoctrineMigrationsBundle/zipball/0b89ee55bceb53c60bc4ba32924ac5053e377abb",
+                "reference": "0b89ee55bceb53c60bc4ba32924ac5053e377abb",
                 "shasum": ""
             },
             "require": {
                 "doctrine/doctrine-bundle": "~1.0",
-                "doctrine/migrations": "~1.0",
-                "php": ">=5.3.2",
+                "doctrine/migrations": "^1.1",
+                "php": ">=5.4.0",
                 "symfony/framework-bundle": "~2.3|~3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.8"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -979,7 +982,7 @@
                 "migrations",
                 "schema"
             ],
-            "time": "2015-11-04 13:45:30"
+            "time": "2016-06-30 19:26:35"
         },
         {
             "name": "doctrine/inflector",
@@ -3327,16 +3330,16 @@
         },
         {
             "name": "ns/ace-bundle",
-            "version": "2.0.27",
+            "version": "2.0.28",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/AceBundle.git",
-                "reference": "0b36e92663e10002110748d0584952297f8518f1"
+                "reference": "ecdc143d458738ac9b98980713ec47f9e7d1f191"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/AceBundle/zipball/0b36e92663e10002110748d0584952297f8518f1",
-                "reference": "0b36e92663e10002110748d0584952297f8518f1",
+                "url": "https://api.github.com/repos/NobletSolutions/AceBundle/zipball/ecdc143d458738ac9b98980713ec47f9e7d1f191",
+                "reference": "ecdc143d458738ac9b98980713ec47f9e7d1f191",
                 "shasum": ""
             },
             "require": {
@@ -3380,7 +3383,7 @@
                 }
             ],
             "description": "This bundle provides the ace admin bootstrap template",
-            "time": "2016-08-23 20:45:30"
+            "time": "2016-08-31 16:54:02"
         },
         {
             "name": "ns/ace-sonata-bundle",
@@ -5025,31 +5028,45 @@
             "time": "2015-12-28 13:12:39"
         },
         {
-            "name": "symfony/icu",
-            "version": "v1.1.2",
-            "target-dir": "Symfony/Component/Icu",
+            "name": "symfony/intl",
+            "version": "v3.1.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/icu.git",
-                "reference": "229730a14ccac63bb3c5d9f0494fcd27140c0dd3"
+                "url": "https://github.com/symfony/intl.git",
+                "reference": "8f3e7d2772173db99617a439f2104b092c51b3a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/icu/zipball/229730a14ccac63bb3c5d9f0494fcd27140c0dd3",
-                "reference": "229730a14ccac63bb3c5d9f0494fcd27140c0dd3",
+                "url": "https://api.github.com/repos/symfony/intl/zipball/8f3e7d2772173db99617a439f2104b092c51b3a1",
+                "reference": "8f3e7d2772173db99617a439f2104b092c51b3a1",
                 "shasum": ""
             },
             "require": {
-                "ext-intl": "*",
-                "lib-icu": ">=3.8",
-                "php": ">=5.3.3",
-                "symfony/intl": "~2.3"
+                "php": ">=5.5.9",
+                "symfony/polyfill-intl-icu": "~1.0"
+            },
+            "require-dev": {
+                "symfony/filesystem": "~2.8|~3.0"
+            },
+            "suggest": {
+                "ext-intl": "to use the component with locales other than \"en\""
             },
             "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Symfony\\Component\\Icu\\": ""
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.1-dev"
                 }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Intl\\": ""
+                },
+                "classmap": [
+                    "Resources/stubs"
+                ],
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -5057,22 +5074,33 @@
             ],
             "authors": [
                 {
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                },
-                {
                     "name": "Bernhard Schussek",
                     "email": "bschussek@gmail.com"
+                },
+                {
+                    "name": "Eriksen Costa",
+                    "email": "eriksen.costa@infranology.com.br"
+                },
+                {
+                    "name": "Igor Wiedler",
+                    "email": "igor@wiedler.ch"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
                 }
             ],
-            "description": "Contains an excerpt of the ICU data and classes to load it.",
-            "homepage": "http://symfony.com",
+            "description": "A PHP replacement layer for the C intl extension that includes additional data from the ICU library.",
+            "homepage": "https://symfony.com",
             "keywords": [
+                "i18n",
                 "icu",
-                "intl"
+                "internationalization",
+                "intl",
+                "l10n",
+                "localization"
             ],
-            "abandoned": "symfony/intl",
-            "time": "2014-07-25 10:00:11"
+            "time": "2016-07-26 08:04:17"
         },
         {
             "name": "symfony/monolog-bundle",
