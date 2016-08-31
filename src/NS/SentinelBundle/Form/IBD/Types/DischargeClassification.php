@@ -35,30 +35,6 @@ class DischargeClassification extends TranslatableArrayChoice implements Transla
                             self::UNKNOWN           => 'Unknown',
                              );
 
-    /** @var AuthorizationCheckerInterface */
-    private $authChecker;
-
-    /**
-     * @param AuthorizationCheckerInterface $authChecker
-     */
-    public function setAuthorizationChecker($authChecker)
-    {
-        $this->authChecker = $authChecker;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        if ($this->authChecker->isGranted('ROLE_AMR')) {
-            unset($this->values[self::SUSPECT]);
-            unset($this->values[self::UNKNOWN]);
-        }
-
-        parent::configureOptions($resolver);
-    }
-
     /**
      * {@inheritdoc}
      */

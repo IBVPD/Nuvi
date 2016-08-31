@@ -6,6 +6,7 @@ use \NS\SentinelBundle\Entity\Country;
 use \NS\SentinelBundle\Entity\Site;
 use \NS\SentinelBundle\Form\IBD\Types\CXRResult;
 use \NS\SentinelBundle\Form\IBD\Types\Diagnosis;
+use NS\SentinelBundle\Form\IBD\Types\DischargeClassification;
 use \NS\SentinelBundle\Form\IBD\Types\DischargeDiagnosis;
 use \NS\SentinelBundle\Form\IBD\Types\OtherSpecimen;
 use \NS\SentinelBundle\Form\Types\TripleChoice;
@@ -56,7 +57,7 @@ class CaseType extends AbstractType
             ->add('lastName',           null, array('required' => $required, 'label' => 'ibd-form.last-name'))
             ->add('firstName',          null, array('required' => $required, 'label' => 'ibd-form.first-name'))
             ->add('parentalName',       null, array('required' => $required, 'label' => 'ibd-form.parental-name'))
-            ->add('dobKnown',           'NS\SentinelBundle\Form\Types\TripleChoice', array('required' => $required, 'label' => 'ibd-form.date-of-birth-known', 'hidden-child' => 'dob', 'exclude_unknown' => $isPaho))
+            ->add('dobKnown',           'NS\SentinelBundle\Form\Types\TripleChoice', array('required' => $required, 'label' => 'ibd-form.date-of-birth-known', 'hidden-child' => 'dob', 'exclude_choices'=> ($isPaho ? [TripleChoice::UNKNOWN]:null)))
             ->add('birthdate',          'NS\AceBundle\Form\DatePickerType', array('required' => $required, 'label' => 'ibd-form.date-of-birth', 'hidden-parent' => 'dob', 'hidden-value' => TripleChoice::YES, 'widget' => 'single_text'))
             ->add('dobYears',           null, array('required' => $required, 'label' => 'ibd-form.date-of-birth-years', 'hidden-parent' => 'dob', 'hidden-value' => TripleChoice::NO))
             ->add('dobMonths',          null, array('required' => $required, 'label' => 'ibd-form.date-of-birth-months', 'hidden-parent' => 'dob', 'hidden-value' => TripleChoice::NO))
@@ -90,7 +91,7 @@ class CaseType extends AbstractType
             ->add('bloodCollected',     'NS\SentinelBundle\Form\Types\TripleChoice', array('required' => $required, 'label' => 'ibd-form.blood-collected', 'hidden-child' => 'bloodCollected'))
             ->add('bloodCollectDate',   'NS\AceBundle\Form\DateTimePickerType', array('required' => $required, 'label' => 'ibd-form.blood-collect-date', 'hidden-parent' => 'bloodCollected', 'hidden-value' => TripleChoice::YES))
             ->add('bloodCollectTime',   'Symfony\Component\Form\Extension\Core\Type\TimeType', array('required' => $required, 'label' => 'ibd-form.blood-collect-time', 'hidden-parent' => 'bloodCollected', 'hidden-value' => TripleChoice::YES))
-            ->add('csfCollected',       'NS\SentinelBundle\Form\Types\TripleChoice', array('required' => $required, 'label' => 'ibd-form.csf-collected', 'hidden-child' => 'csfCollected','exclude_unknown'=>$isPaho))
+            ->add('csfCollected',       'NS\SentinelBundle\Form\Types\TripleChoice', array('required' => $required, 'label' => 'ibd-form.csf-collected', 'hidden-child' => 'csfCollected','exclude_choices'=> ($isPaho ? [TripleChoice::UNKNOWN]:null)))
             ->add('csfCollectDate',     'NS\AceBundle\Form\DatePickerType', array('required' => $required, 'label' => 'ibd-form.csf-collect-datetime', 'hidden-parent' => 'csfCollected', 'hidden-value' => TripleChoice::YES))
             ->add('csfCollectTime',     'Symfony\Component\Form\Extension\Core\Type\TimeType', array('widget' => 'single_text', 'required' => $required, 'label' => 'ibd-form.csf-collect-datetime', 'hidden-parent' => 'csfCollected', 'hidden-value' => TripleChoice::YES))
             ->add('csfAppearance',      'NS\SentinelBundle\Form\IBD\Types\CSFAppearance', array('required' => $required, 'label' => 'ibd-form.csf-appearance', 'hidden-parent' => 'csfCollected', 'hidden-value' => TripleChoice::YES))
@@ -99,7 +100,7 @@ class CaseType extends AbstractType
             ->add('dischOutcome',       'NS\SentinelBundle\Form\IBD\Types\DischargeOutcome', array('required' => false, 'label' => 'ibd-form.discharge-outcome'))
             ->add('dischDx',            'NS\SentinelBundle\Form\IBD\Types\DischargeDiagnosis', array('required' => false, 'label' => 'ibd-form.discharge-diagnosis', 'hidden-child' => 'dischargeDiagnosis'))
             ->add('dischDxOther',       null, array('required' => false, 'label' => 'ibd-form.discharge-diagnosis-other', 'hidden-parent' => 'dischargeDiagnosis', 'hidden-value' => DischargeDiagnosis::OTHER))
-            ->add('dischClass',         'NS\SentinelBundle\Form\IBD\Types\DischargeClassification', array('required' => false, 'label' => 'ibd-form.discharge-class'))
+            ->add('dischClass',         'NS\SentinelBundle\Form\IBD\Types\DischargeClassification', array('required' => false, 'label' => 'ibd-form.discharge-class','exclude_choices'=> ($isPaho ? [DischargeClassification::UNKNOWN,DischargeClassification::SUSPECT]:null)))
             ->add('comment',            null, array('required' => false, 'label' => 'ibd-form.comment'));
         ;
 
