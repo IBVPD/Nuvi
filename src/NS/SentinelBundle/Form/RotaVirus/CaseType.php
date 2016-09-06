@@ -47,18 +47,18 @@ class CaseType extends AbstractType
         $required = (isset($options['method']) && $options['method'] == 'PUT');
 
         $builder
-            ->add('lastName',                   null,               array('required'=>$required, 'label'=>'rotavirus-form.last-name'))
-            ->add('firstName',                  null,               array('required'=>$required, 'label'=>'rotavirus-form.first-name'))
+            ->add('lastName',                   null,               array('required'=>$required, 'label'=>'rotavirus-form.last-name', 'property_path' => 'lastName'))
+            ->add('firstName',                  null,               array('required'=>$required, 'label'=>'rotavirus-form.first-name', 'property_path' => 'firstName'))
             ->add('parentalName',               null,               array('required'=>$required, 'label'=>'rotavirus-form.parental-name'))
-            ->add('caseId',                     null,               array('required'=>true,      'label'=>'rotavirus-form.caseId'))
-            ->add('gender',                     Gender::class,              array('required'=>$required, 'label'=>'rotavirus-form.gender'))
+            ->add('caseId',                     null,               array('required'=>true,      'label'=>'rotavirus-form.caseId', 'property_path' => 'case_id'))
+            ->add('gender',                     Gender::class,              array('required'=>$required, 'label'=>'rotavirus-form.gender', 'property_path' => 'gender'))
             ->add('dobKnown',                   TripleChoice::class,        array('required'=>$required, 'label' => 'ibd-form.date-of-birth-known', 'hidden-child' => 'dob'))
-            ->add('birthdate',                  DatePickerType::class,      array('required'=>$required, 'label' => 'ibd-form.date-of-birth', 'hidden-parent' => 'dob', 'hidden-value' => TripleChoice::YES, 'widget' => 'single_text'))
+            ->add('birthdate',                  DatePickerType::class,      array('required'=>$required, 'label' => 'ibd-form.date-of-birth', 'hidden-parent' => 'dob', 'hidden-value' => TripleChoice::YES, 'widget' => 'single_text', 'property_path' => 'birthdate'))
             ->add('dobYears',                   null,                       array('required'=>$required, 'label' => 'ibd-form.date-of-birth-years', 'hidden-parent' => 'dob', 'hidden-value' => TripleChoice::NO))
             ->add('dobMonths',                  null,                       array('required'=>$required, 'label' => 'ibd-form.date-of-birth-months', 'hidden-parent' => 'dob', 'hidden-value' => TripleChoice::NO))
             ->add('district',                   null,                       array('required'=>$required, 'label'=>'rotavirus-form.district'))
             ->add('state',                      null,                       array('required'=>$required, 'label'=>'rotavirus-form.state'))
-            ->add('admDate',                    DatePickerType::class,      array('required'=>$required, 'label'=>'rotavirus-form.admissionDate'))
+            ->add('admDate',                    DatePickerType::class,      array('required'=>$required, 'label'=>'rotavirus-form.admissionDate', 'property_path' => 'amd_date'))
 
             ->add('intensiveCare',              TripleChoice::class,        array('required'=>$required, 'label'=>'rotavirus-form.intensiveCare', ))
             ->add('symptomDiarrhea',            TripleChoice::class,        array('required'=>$required, 'label'=>'rotavirus-form.symptomDiarrhea',         'hidden-child'=>'vaccineReceived'))
@@ -114,7 +114,7 @@ class CaseType extends AbstractType
             ->add('comment',                    null,                       array('required'=>false, 'label'=>'rotavirus-form.comment'))
         ;
     }
-    
+
     /**
      * @param OptionsResolver $resolver
      */
