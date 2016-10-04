@@ -101,6 +101,13 @@ class RotaVirus extends BaseCase
     private $symp_dia_duration;
 
     /**
+     * @var TripleChoice $symp_dia_bloody
+     * @ORM\Column(name="symp_dia_bloody",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
+     */
+    private $symp_dia_bloody;
+
+    /**
      * symp_vomit
      * @var TripleChoice $symp_vomit
      * @ORM\Column(name="symp_vomit",type="TripleChoice",nullable=true)
@@ -297,6 +304,22 @@ class RotaVirus extends BaseCase
     public function getSymptomDiarrheaDuration()
     {
         return $this->symp_dia_duration;
+    }
+
+    /**
+     * @return TripleChoice
+     */
+    public function getSymptomDiarrheaBloody()
+    {
+        return $this->symp_dia_bloody;
+    }
+
+    /**
+     * @param TripleChoice $symp_dia_bloody
+     */
+    public function setSymptomDiarrheaBloody($symp_dia_bloody)
+    {
+        $this->symp_dia_bloody = $symp_dia_bloody;
     }
 
     /**

@@ -65,6 +65,7 @@ class CaseType extends AbstractType
             ->add('symptomDiarrheaOnset',       DatePickerType::class,      array('required'=>$required, 'label'=>'rotavirus-form.symptomDiarrheaOnset',    'hidden-parent'=>'vaccineReceived', 'hidden-value'=>  TripleChoice::YES))
             ->add('symptomDiarrheaEpisodes',    null,                       array('required'=>$required, 'label'=>'rotavirus-form.symptomDiarrheaEpisodes', 'hidden-parent'=>'vaccineReceived', 'hidden-value'=>  TripleChoice::YES))
             ->add('symptomDiarrheaDuration',    null,                       array('required'=>$required, 'label'=>'rotavirus-form.symptomDiarrheaDuration', 'hidden-parent'=>'vaccineReceived', 'hidden-value'=>  TripleChoice::YES))
+            ->add('symptomDiarrheaBloody',      TripleChoice::class,        array('required'=>$required, 'label'=>'rotavirus-form.symptomDiarrheaDuration', 'hidden-parent'=>'vaccineReceived', 'hidden-value'=>  TripleChoice::YES))
 
             ->add('symptomVomit',               TripleChoice::class,        array('required'=>$required, 'label'=>'rotavirus-form.symptomVomit',            'hidden-child'=>'symptomVomit'))
             ->add('symptomVomitEpisodes',       null,                       array('required'=>$required, 'label'=>'rotavirus-form.symptomVomitEpisodes',    'hidden-parent'=>'symptomVomit', 'hidden-value'=>  TripleChoice::YES))
