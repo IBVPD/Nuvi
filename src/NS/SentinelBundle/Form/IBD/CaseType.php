@@ -54,21 +54,21 @@ class CaseType extends AbstractType
         $isPaho = $this->authChecker->isGranted('ROLE_AMR');
 
         $builder
-            ->add('lastName',           null, array('required' => $required, 'label' => 'ibd-form.last-name'))
-            ->add('firstName',          null, array('required' => $required, 'label' => 'ibd-form.first-name'))
+            ->add('lastName',           null, array('required' => $required, 'label' => 'ibd-form.last-name', 'property_path' => 'lastName'))
+            ->add('firstName',          null, array('required' => $required, 'label' => 'ibd-form.first-name', 'property_path' => 'firstName'))
             ->add('parentalName',       null, array('required' => $required, 'label' => 'ibd-form.parental-name'))
             ->add('dobKnown',           'NS\SentinelBundle\Form\Types\TripleChoice', array('required' => $required, 'label' => 'ibd-form.date-of-birth-known', 'hidden-child' => 'dob', 'exclude_choices'=> ($isPaho ? [TripleChoice::UNKNOWN]:null)))
-            ->add('birthdate',          'NS\AceBundle\Form\DatePickerType', array('required' => $required, 'label' => 'ibd-form.date-of-birth', 'hidden-parent' => 'dob', 'hidden-value' => TripleChoice::YES, 'widget' => 'single_text'))
+            ->add('birthdate',          'NS\AceBundle\Form\DatePickerType', array('required' => $required, 'label' => 'ibd-form.date-of-birth', 'hidden-parent' => 'dob', 'hidden-value' => TripleChoice::YES, 'widget' => 'single_text', 'property_path' => 'birthdate'))
             ->add('dobYears',           null, array('required' => $required, 'label' => 'ibd-form.date-of-birth-years', 'hidden-parent' => 'dob', 'hidden-value' => TripleChoice::NO))
             ->add('dobMonths',          null, array('required' => $required, 'label' => 'ibd-form.date-of-birth-months', 'hidden-parent' => 'dob', 'hidden-value' => TripleChoice::NO))
-            ->add('gender',             'NS\SentinelBundle\Form\Types\Gender', array('required' => $required, 'label' => 'ibd-form.gender'))
+            ->add('gender',             'NS\SentinelBundle\Form\Types\Gender', array('required' => $required, 'label' => 'ibd-form.gender', 'property_path' => 'gender'))
             ->add('district',           null, array('required' => $required, 'label' => 'ibd-form.district'))
             ->add('state',              null, array('required' => $required, 'label' => 'ibd-form.state'))
-            ->add('caseId',             null, array('required' => true, 'label' => 'ibd-form.case-id'))
-            ->add('admDate',            'NS\AceBundle\Form\DatePickerType', array('required' => $required, 'label' => 'ibd-form.adm-date'))
+            ->add('caseId',             null, array('required' => true, 'label' => 'ibd-form.case-id', 'property_path' => 'case_id'))
+            ->add('admDate',            'NS\AceBundle\Form\DatePickerType', array('required' => $required, 'label' => 'ibd-form.adm-date', 'property_path' => 'adm_date'))
             ->add('admDx',              'NS\SentinelBundle\Form\IBD\Types\Diagnosis', array('required' => $required, 'label' => 'ibd-form.adm-dx', 'hidden-child' => 'admissionDiagnosis'))
             ->add('admDxOther',         null, array('required' => $required, 'label' => 'ibd-form.adm-dx-other', 'hidden-parent' => 'admissionDiagnosis', 'hidden-value' => Diagnosis::OTHER))
-            ->add('onsetDate',          'NS\AceBundle\Form\DatePickerType', array('required' => $required, 'label' => 'ibd-form.onset-date'))
+            ->add('onsetDate',          'NS\AceBundle\Form\DatePickerType', array('required' => $required, 'label' => 'ibd-form.onset-date', 'property_path' => 'onset_date'))
             ->add('antibiotics',        'NS\SentinelBundle\Form\Types\TripleChoice', array('required' => $required, 'label' => 'ibd-form.antibiotics'))
             ->add('menSeizures',        'NS\SentinelBundle\Form\Types\TripleChoice', array('required' => $required, 'label' => 'ibd-form.men-seizures'))
             ->add('menFever',           'NS\SentinelBundle\Form\Types\TripleChoice', array('required' => $required, 'label' => 'ibd-form.men-fever'))
@@ -87,7 +87,7 @@ class CaseType extends AbstractType
             ->add('pcvMostRecentDose',  'NS\AceBundle\Form\DatePickerType', array('required' => $required, 'label' => 'ibd-form.pcv-most-recent-dose', 'hidden-parent' => 'pcvReceived', 'hidden-value' => json_encode(array(VaccinationReceived::YES_CARD, VaccinationReceived::YES_HISTORY))))
             ->add('meningReceived',     'NS\SentinelBundle\Form\Types\VaccinationReceived', array('required' => $required, 'label' => 'ibd-form.men-received', 'hidden-child' => 'meningReceived'))
             ->add('meningType',         'NS\SentinelBundle\Form\IBD\Types\VaccinationType', array('required' => $required, 'label' => 'ibd-form.men-type', 'hidden-parent' => 'meningReceived', 'hidden-value' => json_encode(array(VaccinationReceived::YES_CARD, VaccinationReceived::YES_HISTORY))))
-            ->add('meningDate',         'NS\AceBundle\Form\DatePickerType', array('required' => $required, 'label' => 'ibd-form.meningMostRecentDose', 'hidden-parent' => 'meningReceived', 'hidden-value' => json_encode(array(VaccinationReceived::YES_CARD, VaccinationReceived::YES_HISTORY))))
+            ->add('meningDate',         'NS\AceBundle\Form\DatePickerType', array('required' => $required, 'label' => 'ibd-form.meningMostRecentDose', 'hidden-parent' => 'meningReceived', 'hidden-value' => json_encode(array(VaccinationReceived::YES_CARD, VaccinationReceived::YES_HISTORY)), 'property_path' => 'mening_date'))
             ->add('bloodCollected',     'NS\SentinelBundle\Form\Types\TripleChoice', array('required' => $required, 'label' => 'ibd-form.blood-collected', 'hidden-child' => 'bloodCollected'))
             ->add('bloodCollectDate',   'NS\AceBundle\Form\DateTimePickerType', array('required' => $required, 'label' => 'ibd-form.blood-collect-date', 'hidden-parent' => 'bloodCollected', 'hidden-value' => TripleChoice::YES))
             ->add('bloodCollectTime',   'Symfony\Component\Form\Extension\Core\Type\TimeType', array('required' => $required, 'label' => 'ibd-form.blood-collect-time', 'hidden-parent' => 'bloodCollected', 'hidden-value' => TripleChoice::YES))
@@ -127,7 +127,7 @@ class CaseType extends AbstractType
                 ->add('pneuCough',              'NS\SentinelBundle\Form\Types\TripleChoice', array('required' => $required, 'label' => 'ibd-form.pneu-cough'))
                 ->add('pneuCyanosis',           'NS\SentinelBundle\Form\Types\TripleChoice', array('required' => $required, 'label' => 'ibd-form.pneu-cyanosis'))
                 ->add('pneuStridor',            'NS\SentinelBundle\Form\Types\TripleChoice', array('required' => $required, 'label' => 'ibd-form.pneu-stridor'))
-                ->add('pneuRespRate',           null, array('required' => $required, 'label' => 'ibd-form.pneu-resp-rate'))
+                ->add('pneuRespRate',           null, array('required' => $required, 'label' => 'ibd-form.pneu-resp-rate', 'property_path' => 'pneu_resp_rate'))
                 ->add('pneuVomit',              'NS\SentinelBundle\Form\Types\TripleChoice', array('required' => $required, 'label' => 'ibd-form.pneu-vomit'))
                 ->add('pneuHypothermia',        'NS\SentinelBundle\Form\Types\TripleChoice', array('required' => $required, 'label' => 'ibd-form.pneu-hypothermia'))
                 ->add('pneuMalnutrition',       'NS\SentinelBundle\Form\Types\TripleChoice', array('required' => $required, 'label' => 'ibd-form.pneu-malnutrition'))
@@ -137,11 +137,11 @@ class CaseType extends AbstractType
             ;
 
             if ($this->authChecker->isGranted('ROLE_AMR')) {
-                $form->add('pneuOxygenSaturation', null, array('required' => $required, 'label' => 'ibd-form.pneu-oxygen-level'));
+                $form->add('pneuOxygenSaturation', null, array('required' => $required, 'label' => 'ibd-form.pneu-oxygen-level', 'property_path' => 'pneu_oxygen_saturation'));
             }
         }
     }
-    
+
     /**
      * @param OptionsResolver $resolver
      */
