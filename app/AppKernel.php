@@ -39,7 +39,6 @@ class AppKernel extends Kernel
             new NS\FlashBundle\NSFlashBundle(),
 
             new Sonata\CoreBundle\SonataCoreBundle(),
-            //new Sonata\CacheBundle\SonataCacheBundle(),
             new Sonata\BlockBundle\SonataBlockBundle(),
             new Sonata\AdminBundle\SonataAdminBundle(),
             new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
