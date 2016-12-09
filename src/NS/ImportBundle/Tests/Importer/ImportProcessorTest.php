@@ -30,7 +30,7 @@ class ImportProcessorTest extends WebTestCase
     {
         $file = new File(__DIR__ . '/../Fixtures/IBD-BadHeader.csv');
 
-        $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
+        $mockUser = $this->createMock('Symfony\Component\Security\Core\User\UserInterface');
         $import   = new Import($mockUser);
         $import->setSourceFile($file);
         $import->setMap($this->getIbdMap($this->getIbdColumns()));
@@ -46,7 +46,7 @@ class ImportProcessorTest extends WebTestCase
 //     */
 //    public function testGetReader($file, $interface)
 //    {
-//        $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
+//        $mockUser = $this->createMock('Symfony\Component\Security\Core\User\UserInterface');
 //        $columns = array(
 //            array(
 //                'name'      => 'Country',
@@ -68,9 +68,7 @@ class ImportProcessorTest extends WebTestCase
 //        $import->setMap($map);
 //
 //        $registry = new Registry();
-//        $mockEntityMgr = $this->getMockBuilder('\Doctrine\ORM\EntityManager')
-//            ->disableOriginalConstructor()
-//            ->getMock();
+//        $mockEntityMgr = $this->createMock('\Doctrine\ORM\EntityManager');
 //
 //
 //        $processor = new ImportProcessor($registry,$mockEntityMgr);
@@ -127,7 +125,7 @@ class ImportProcessorTest extends WebTestCase
             ),
         );
 
-        $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
+        $mockUser = $this->createMock('Symfony\Component\Security\Core\User\UserInterface');
         $import = new Import($mockUser);
         $import->setSourceFile($file);
         $import->setMap($this->getIbdMap($columns));
@@ -160,7 +158,7 @@ class ImportProcessorTest extends WebTestCase
             ),
         );
 
-        $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
+        $mockUser = $this->createMock('Symfony\Component\Security\Core\User\UserInterface');
         $import = new Import($mockUser);
         $import->setSourceFile($file);
         $import->setMap($this->getIbdMap($columns));
@@ -172,9 +170,7 @@ class ImportProcessorTest extends WebTestCase
 
     public function testGetDoctrineWriter()
     {
-        $meta = $this->getMockBuilder('Doctrine\ORM\Mapping\ClassMetadata')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $meta = $this->createMock('Doctrine\ORM\Mapping\ClassMetadata');
         $meta->expects($this->once())
             ->method('getName')
             ->willReturn('NS\SentinelBundle\Entity\IBD');
@@ -186,9 +182,7 @@ class ImportProcessorTest extends WebTestCase
         $mockRepo->expects($this->never())
             ->method('findBySiteAndCaseId');
 
-        $entityMgr = $this->getMockBuilder('\Doctrine\ORM\EntityManager')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $entityMgr = $this->createMock('\Doctrine\ORM\EntityManager');
         $entityMgr->expects($this->once())
             ->method('getRepository')
             ->willReturn($mockRepo);
@@ -243,7 +237,7 @@ class ImportProcessorTest extends WebTestCase
             ),
         );
 
-        $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
+        $mockUser = $this->createMock('Symfony\Component\Security\Core\User\UserInterface');
         $import = new Import($mockUser);
         $import->setInputDateStart(new \DateTime());
         $import->setInputDateEnd(new \DateTime());
@@ -332,7 +326,7 @@ class ImportProcessorTest extends WebTestCase
             ),
         );
 
-        $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
+        $mockUser = $this->createMock('Symfony\Component\Security\Core\User\UserInterface');
         $import = new Import($mockUser);
         $import->setInputDateStart(new \DateTime());
         $import->setInputDateEnd(new \DateTime());
@@ -382,7 +376,7 @@ class ImportProcessorTest extends WebTestCase
             ),
         );
 
-        $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
+        $mockUser = $this->createMock('Symfony\Component\Security\Core\User\UserInterface');
         $import = new Import($mockUser);
         $import->setInputDateStart(new \DateTime());
         $import->setInputDateEnd(new \DateTime());
@@ -418,9 +412,7 @@ class ImportProcessorTest extends WebTestCase
 
     public function testBlankFieldConversion()
     {
-        $entityMgr = $this->getMockBuilder('\Doctrine\ORM\EntityManager')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $entityMgr = $this->createMock('\Doctrine\ORM\EntityManager');
 
         $registry  = new Registry();
         $processor = new ImportProcessor($registry, $entityMgr, new CaseLinkerRegistry());
@@ -491,7 +483,7 @@ class ImportProcessorTest extends WebTestCase
 
         $processor = $this->getContainer()->get('ns_import.processor');
         $reader    = new ArrayReader($source);
-        $mockUser  = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
+        $mockUser  = $this->createMock('Symfony\Component\Security\Core\User\UserInterface');
         $import    = new Import($mockUser);
         $import->setInputDateStart(new \DateTime());
         $import->setInputDateEnd(new \DateTime());
@@ -565,7 +557,7 @@ class ImportProcessorTest extends WebTestCase
         );
 
         $file = new File(__DIR__ . '/../Fixtures/IBD-CasePlusSiteLab.csv');
-        $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
+        $mockUser = $this->createMock('Symfony\Component\Security\Core\User\UserInterface');
         $import = new Import($mockUser);
         $import->setInputDateStart(new \DateTime());
         $import->setInputDateEnd(new \DateTime());
@@ -629,7 +621,7 @@ class ImportProcessorTest extends WebTestCase
         );
 
         $file = new File(__DIR__ . '/../Fixtures/IBD-CasePlusRRL.csv');
-        $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
+        $mockUser = $this->createMock('Symfony\Component\Security\Core\User\UserInterface');
         $import = new Import($mockUser);
         $import->setInputDateStart(new \DateTime());
         $import->setInputDateEnd(new \DateTime());
@@ -698,7 +690,7 @@ class ImportProcessorTest extends WebTestCase
         );
 
         $file = new File(__DIR__ . '/../Fixtures/IBD-CasePlusRRL-WithWarning.csv');
-        $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
+        $mockUser = $this->createMock('Symfony\Component\Security\Core\User\UserInterface');
         $import = new Import($mockUser);
         $import->setInputDateStart(new \DateTime());
         $import->setInputDateEnd(new \DateTime());
@@ -769,7 +761,7 @@ class ImportProcessorTest extends WebTestCase
         );
 
         $file = new File(__DIR__ . '/../Fixtures/IBD-CasePlusRRL-FutureDate.csv');
-        $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
+        $mockUser = $this->createMock('Symfony\Component\Security\Core\User\UserInterface');
         $import = new Import($mockUser);
         $import->setInputDateStart(new \DateTime());
         $import->setInputDateEnd(new \DateTime());
@@ -848,7 +840,7 @@ class ImportProcessorTest extends WebTestCase
         $end = new \DateTime('2015-08-30');
 
         $file = new File(__DIR__ . '/../Fixtures/IBD-CasePlusRRL-DatesInRange.csv');
-        $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
+        $mockUser = $this->createMock('Symfony\Component\Security\Core\User\UserInterface');
         $import = new Import($mockUser);
         $import->setInputDateStart($start);
         $import->setInputDateEnd($end);
@@ -930,7 +922,7 @@ class ImportProcessorTest extends WebTestCase
         );
 
         $file = new File(__DIR__ . '/../Fixtures/IBD-PreProcess.csv');
-        $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
+        $mockUser = $this->createMock('Symfony\Component\Security\Core\User\UserInterface');
         $import = new Import($mockUser);
         $import->setInputDateStart(new \DateTime('2015-08-01'));
         $import->setInputDateEnd(new \DateTime('2015-08-30'));
@@ -1011,7 +1003,7 @@ class ImportProcessorTest extends WebTestCase
         );
 
         $file = new File(__DIR__ . '/../Fixtures/DobAdmDate.csv');
-        $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
+        $mockUser = $this->createMock('Symfony\Component\Security\Core\User\UserInterface');
         $import = new Import($mockUser);
         $import->setInputDateStart(new \DateTime('2014-01-01'));
         $import->setInputDateEnd(new \DateTime('2017-01-30'));

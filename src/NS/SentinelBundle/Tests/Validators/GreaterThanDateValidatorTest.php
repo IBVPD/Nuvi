@@ -14,9 +14,7 @@ class GreaterThanDateValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testNotDates($ibd)
     {
-        $context = $this->getMockBuilder('Symfony\Component\Validator\Context\ExecutionContextInterface')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $context = $this->createMock('Symfony\Component\Validator\Context\ExecutionContextInterface');
 
         $context->expects($this->never())
             ->method('buildViolation');
@@ -45,9 +43,7 @@ class GreaterThanDateValidatorTest extends \PHPUnit_Framework_TestCase
 
     public function testValidDates()
     {
-        $context = $this->getMockBuilder('Symfony\Component\Validator\Context\ExecutionContextInterface')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $context = $this->createMock('Symfony\Component\Validator\Context\ExecutionContextInterface');
 
         $context->expects($this->never())
             ->method('buildViolation');
@@ -66,15 +62,11 @@ class GreaterThanDateValidatorTest extends \PHPUnit_Framework_TestCase
 
     public function testInvalidDates()
     {
-        $builder = $this->getMockBuilder('Symfony\Component\Validator\Violation\ConstraintViolationBuilder')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $builder = $this->createMock('Symfony\Component\Validator\Violation\ConstraintViolationBuilder');
         $builder->expects($this->once())
             ->method('addViolation');
 
-        $context = $this->getMockBuilder('Symfony\Component\Validator\Context\ExecutionContextInterface')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $context = $this->createMock('Symfony\Component\Validator\Context\ExecutionContextInterface');
 
         $context->expects($this->once())
             ->method('buildViolation')

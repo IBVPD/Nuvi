@@ -14,7 +14,7 @@ class HomepageTest extends \PHPUnit_Framework_TestCase
 {
     public function testOnlyAdmin()
     {
-        $user = $this->getMock('\NS\SentinelBundle\Entity\User');
+        $user = $this->createMock('\NS\SentinelBundle\Entity\User');
         $user->expects($this->once())
             ->method('isOnlyAdmin')
             ->willReturn(true);
@@ -34,7 +34,7 @@ class HomepageTest extends \PHPUnit_Framework_TestCase
      */
     public function testNeitherOnlyAdminNorOnlyApi($request, $locale)
     {
-        $user = $this->getMock('\NS\SentinelBundle\Entity\User');
+        $user = $this->createMock('\NS\SentinelBundle\Entity\User');
         $user->expects($this->once())
             ->method('isOnlyAdmin')
             ->willReturn(false);
@@ -70,12 +70,12 @@ class HomepageTest extends \PHPUnit_Framework_TestCase
 
     private function getHomepageService($user, $route, $routerParam = null)
     {
-        $token = $this->getMock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface');
+        $token = $this->createMock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface');
         $token->expects($this->once())
             ->method('getUser')
             ->willReturn($user);
 
-        $router = $this->getMock('\Symfony\Component\Routing\RouterInterface');
+        $router = $this->createMock('\Symfony\Component\Routing\RouterInterface');
         if ($routerParam) {
             $router->expects($this->once())
                 ->method('generate')
@@ -88,7 +88,7 @@ class HomepageTest extends \PHPUnit_Framework_TestCase
                 ->willReturn(str_replace("_", "/", $route));
         }
 
-        $tokenStorage = $this->getMock('\Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface');
+        $tokenStorage = $this->createMock('\Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface');
         $tokenStorage->expects($this->once())
             ->method('getToken')
             ->willReturn($token);

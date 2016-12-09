@@ -8,12 +8,12 @@ class CaseTemplatesTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstruct()
     {
-        $authMock = $this->getMock('\Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface');
+        $authMock = $this->createMock('\Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface');
         $authMock->expects($this->atLeast(3))
             ->method('isGranted')
             ->willReturn(false);
 
-        $twigMock = $this->getMock('\Twig_Environment');
+        $twigMock = $this->createMock('\Twig_Environment');
         $twigMock->expects($this->never())
             ->method('render');
 
@@ -28,13 +28,13 @@ class CaseTemplatesTest extends \PHPUnit_Framework_TestCase
 
     public function testSiteRoleRenderTable()
     {
-        $authMock = $this->getMock('\Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface');
+        $authMock = $this->createMock('\Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface');
         $authMock->expects($this->once())
             ->method('isGranted')
             ->with('ROLE_SITE_LEVEL')
             ->willReturn(true);
 
-        $twigMock = $this->getMock('\Twig_Environment');
+        $twigMock = $this->createMock('\Twig_Environment');
         $twigMock->expects($this->once())
             ->method('render')
             ->with('NSSentinelBundle:Case:site.html.twig', array('results'=>array(), 'tableId'=>'myTable'))
@@ -47,7 +47,7 @@ class CaseTemplatesTest extends \PHPUnit_Framework_TestCase
 
     public function testCountryRoleRenderTable()
     {
-        $authMock = $this->getMock('\Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface');
+        $authMock = $this->createMock('\Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface');
         $authMock->expects($this->at(0))
             ->method('isGranted')
             ->with('ROLE_SITE_LEVEL')
@@ -57,7 +57,7 @@ class CaseTemplatesTest extends \PHPUnit_Framework_TestCase
             ->with('ROLE_COUNTRY_LEVEL')
             ->willReturn(true);
 
-        $twigMock = $this->getMock('\Twig_Environment');
+        $twigMock = $this->createMock('\Twig_Environment');
         $twigMock->expects($this->once())
             ->method('render')
             ->with('NSSentinelBundle:Case:country.html.twig', array('results'=>array(), 'tableId'=>'myTable'))
@@ -70,7 +70,7 @@ class CaseTemplatesTest extends \PHPUnit_Framework_TestCase
 
     public function testRegionRoleRenderTable()
     {
-        $authMock = $this->getMock('\Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface');
+        $authMock = $this->createMock('\Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface');
         $authMock->expects($this->at(0))
             ->method('isGranted')
             ->with('ROLE_SITE_LEVEL')
@@ -84,7 +84,7 @@ class CaseTemplatesTest extends \PHPUnit_Framework_TestCase
             ->with('ROLE_REGION_LEVEL')
             ->willReturn(true);
 
-        $twigMock = $this->getMock('\Twig_Environment');
+        $twigMock = $this->createMock('\Twig_Environment');
         $twigMock->expects($this->once())
             ->method('render')
             ->with('NSSentinelBundle:Case:region.html.twig', array('results'=>array(), 'tableId'=>'myTable'))

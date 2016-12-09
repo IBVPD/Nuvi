@@ -16,13 +16,9 @@ class ImportBatchWorkerTest extends \PHPUnit_Framework_TestCase
 
     public function getConstructorArguments()
     {
-        $entityMgr = $this->getMockBuilder('Doctrine\Common\Persistence\ObjectManager')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $entityMgr = $this->createMock('Doctrine\Common\Persistence\ObjectManager');
 
-        $processor = $this->getMockBuilder('NS\ImportBundle\Importer\ImportProcessor')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $processor = $this->createMock('NS\ImportBundle\Importer\ImportProcessor');
 
         $mockLinkerReg = new CaseLinkerRegistry();
         return array($entityMgr,$processor,$mockLinkerReg);

@@ -20,17 +20,13 @@ class LoggableListenerTest extends \PHPUnit_Framework_TestCase
 {
     public function getListener($expects,$returns = null)
     {
-        $tokenStorage = $this->getMockBuilder('Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $tokenStorage = $this->createMock('Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface');
 
         $tokenStorage->expects($expects)
             ->method('getToken')
             ->willReturn($returns);
 
-        $serializer = $this->getMockBuilder('JMS\Serializer\Serializer')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $serializer = $this->createMock('JMS\Serializer\Serializer');
 
         $serializer->expects($this->any())
             ->method('serialize')
@@ -107,17 +103,13 @@ class LoggableListenerTest extends \PHPUnit_Framework_TestCase
 
     public function testSerializationParameters()
     {
-        $tokenStorage = $this->getMockBuilder('Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $tokenStorage = $this->createMock('Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface');
 
         $tokenStorage->expects($this->once())
             ->method('getToken')
             ->willReturn(null);
 
-        $serializer = $this->getMockBuilder('JMS\Serializer\Serializer')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $serializer = $this->createMock('JMS\Serializer\Serializer');
 
         $ibd = $this->getIbdCase();
 

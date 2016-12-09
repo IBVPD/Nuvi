@@ -457,15 +457,11 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
     {
         //================================
         // AuthorizationCheckerInterface
-        $authChecker = $this->getMockBuilder('\Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $authChecker = $this->createMock('\Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface');
 
         //================================
         // Translator
-        $trans = $this->getMockBuilder('\Symfony\Component\Translation\TranslatorInterface')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $trans = $this->createMock('\Symfony\Component\Translation\TranslatorInterface');
 
         $tmap = array(
             array('EPI', array(), null, null, 'EPI'),
@@ -480,9 +476,7 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         //================================
         // Router
-        $router = $this->getMockBuilder('\Symfony\Component\Routing\RouterInterface')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $router = $this->createMock('\Symfony\Component\Routing\RouterInterface');
 
         $rmap = array(
             array('ibdShow', array('id' => null), UrlGeneratorInterface::ABSOLUTE_PATH, 'Show IBD Case'),

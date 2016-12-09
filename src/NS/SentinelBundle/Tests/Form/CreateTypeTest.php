@@ -28,9 +28,7 @@ class CreateTypeTest extends TypeTestCase
             ->method('hasMultipleSites')
             ->willReturn(false);
 
-        $entityMgr = $this->getMockBuilder('Doctrine\Common\Persistence\ObjectManager')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $entityMgr = $this->createMock('Doctrine\Common\Persistence\ObjectManager');
 
         $type = new CreateType($serializedSites, $entityMgr);
         $form = $this->factory->create($type);
@@ -60,7 +58,7 @@ class CreateTypeTest extends TypeTestCase
             ->addTypeExtension($formTypeExtension)
             ->getFormFactory();
 
-        $this->dispatcher = $this->getMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
+        $this->dispatcher = $this->createMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
         $this->builder    = new FormBuilder(null, null, $this->dispatcher, $this->factory);
     }
 

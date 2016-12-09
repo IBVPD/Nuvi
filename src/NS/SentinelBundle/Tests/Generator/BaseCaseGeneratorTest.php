@@ -23,9 +23,7 @@ class BaseCaseGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidInterface()
     {
-        $entityMgr = $this->getMockBuilder('Doctrine\ORM\EntityManager')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $entityMgr = $this->createMock('Doctrine\ORM\EntityManager');
 
         $entity = new \stdClass();
 
@@ -39,9 +37,7 @@ class BaseCaseGeneratorTest extends \PHPUnit_Framework_TestCase
      */
     public function testEntityNullSite()
     {
-        $entityMgr = $this->getMockBuilder('Doctrine\ORM\EntityManager')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $entityMgr = $this->createMock('Doctrine\ORM\EntityManager');
 
         $entity = new IBD();
 
@@ -51,9 +47,7 @@ class BaseCaseGeneratorTest extends \PHPUnit_Framework_TestCase
 
     public function testEntitySiteNullWithCountry()
     {
-        $entityMgr = $this->getMockBuilder('Doctrine\ORM\EntityManager')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $entityMgr = $this->createMock('Doctrine\ORM\EntityManager');
 
         $country = new Country('CDN', 'Canada');
 

@@ -98,7 +98,7 @@ class ValidatorGroupResolverTest extends \PHPUnit_Framework_TestCase
 
         $resolver = new ValidatorGroupResolver($this->entityMgr, $this->tokenStorage);
 
-        $form = $this->getMock('Symfony\Component\Form\FormInterface');
+        $form = $this->createMock('Symfony\Component\Form\FormInterface');
         $this->assertEquals(array('Default','AMRO'), call_user_func($resolver,$form));
     }
 
@@ -137,7 +137,7 @@ class ValidatorGroupResolverTest extends \PHPUnit_Framework_TestCase
 
         $resolver = new ValidatorGroupResolver($this->entityMgr, $this->tokenStorage);
 
-        $form = $this->getMock('Symfony\Component\Form\FormInterface');
+        $form = $this->createMock('Symfony\Component\Form\FormInterface');
         $this->assertEquals(array('Default','AMRO'), call_user_func($resolver,$form));
     }
 
@@ -174,7 +174,7 @@ class ValidatorGroupResolverTest extends \PHPUnit_Framework_TestCase
 
         $resolver = new ValidatorGroupResolver($this->entityMgr, $this->tokenStorage);
 
-        $form = $this->getMock('Symfony\Component\Form\FormInterface');
+        $form = $this->createMock('Symfony\Component\Form\FormInterface');
         $this->assertEquals(array('Default','AMRO'), call_user_func($resolver,$form));
     }
 
@@ -212,8 +212,8 @@ class ValidatorGroupResolverTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->tokenStorage = $this->getMock('Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface');
-        $this->entityMgr = $this->getMock('Doctrine\ORM\EntityManagerInterface');
+        $this->tokenStorage = $this->createMock('Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface');
+        $this->entityMgr = $this->createMock('Doctrine\ORM\EntityManagerInterface');
         $this->repository = $this->getMockBuilder('NS\SentinelBundle\Repository\RegionRepository')
             ->setMethods(array('getByCountryIds','getBySiteIds'))
             ->disableOriginalConstructor()

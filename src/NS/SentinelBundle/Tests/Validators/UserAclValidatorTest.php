@@ -62,9 +62,7 @@ class UserAclValidatorTest extends \PHPUnit_Framework_TestCase
 
     public function testSuperAdminsCanCreateSuperAdmins()
     {
-        $authChecker = $this->getMockBuilder('Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $authChecker = $this->createMock('Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface');
 
         $authChecker->expects($this->at(0))
             ->method('isGranted')
@@ -86,9 +84,7 @@ class UserAclValidatorTest extends \PHPUnit_Framework_TestCase
 
     public function testNonSuperAdminsCannotCreateSuperAdmins()
     {
-        $authChecker = $this->getMockBuilder('Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $authChecker = $this->createMock('Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface');
 
         $authChecker->expects($this->at(0))
             ->method('isGranted')
@@ -124,9 +120,7 @@ class UserAclValidatorTest extends \PHPUnit_Framework_TestCase
 
     public function testCountryAdminsCannotCreateRegionalAdmins()
     {
-        $authChecker = $this->getMockBuilder('Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $authChecker = $this->createMock('Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface');
 
         $authChecker->expects($this->once())
             ->method('isGranted')
@@ -214,18 +208,12 @@ class UserAclValidatorTest extends \PHPUnit_Framework_TestCase
     {
         $constraint = new UserAcl();
 
-        $context = $this->getMockBuilder('\Symfony\Component\Validator\Context\ExecutionContextInterface')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $context = $this->createMock('\Symfony\Component\Validator\Context\ExecutionContextInterface');
 
-        $builder = $this->getMockBuilder('\Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $builder = $this->createMock('\Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface');
 
         if(!$authChecker) {
-            $authChecker = $this->getMockBuilder('Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface')
-                ->disableOriginalConstructor()
-                ->getMock();
+            $authChecker = $this->createMock('Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface');
 
             $authChecker->expects($this->any())
                 ->method('isGranted')

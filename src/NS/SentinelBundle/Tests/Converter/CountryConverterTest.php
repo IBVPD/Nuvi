@@ -80,13 +80,9 @@ class CountryConverterTest extends \PHPUnit_Framework_TestCase
 
     private function getMockObjectManager()
     {
-        $repo = $this->getMockBuilder('NS\SentinelBundle\Repository\CountryRepository')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $repo = $this->createMock('NS\SentinelBundle\Repository\CountryRepository');
 
-        $em = $this->getMockBuilder('Doctrine\Common\Persistence\ObjectManager')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $em = $this->createMock('Doctrine\Common\Persistence\ObjectManager');
 
         $objects = $this->getObjects();
         $repo->expects($this->any())

@@ -138,9 +138,7 @@ class MapBuilderTest extends WebTestCase
 
     public function testSetHeaderIsCalled()
     {
-        $mockReader = $this->getMockBuilder('NS\ImportBundle\Reader\CsvReader')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $mockReader = $this->createMock('NS\ImportBundle\Reader\CsvReader');
 
         $mockReader->expects($this->once())
             ->method('setHeaderRowNumber')
@@ -149,7 +147,7 @@ class MapBuilderTest extends WebTestCase
             ->method('getColumnHeaders')
             ->willReturn(array('columnOne', 'columnTwo'));
 
-        $mockReaderFactory = $this->getMock('NS\ImportBundle\Reader\ReaderFactory');
+        $mockReaderFactory = $this->createMock('NS\ImportBundle\Reader\ReaderFactory');
         $mockReaderFactory->expects($this->once())
             ->method('getReader')
             ->willReturn($mockReader);

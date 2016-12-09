@@ -111,9 +111,9 @@ class ImportResultActionsTest extends \PHPUnit_Framework_TestCase
 
     public function getArguments()
     {
-        $translator = $this->getMock('Symfony\Component\Translation\TranslatorInterface');
-        $router = $this->getMock('Symfony\Component\Routing\RouterInterface', array(), array(), '', false);
-        $import = $this->getMock('NS\ImportBundle\Entity\Import', array(), array(), '', false);
+        $translator = $this->createMock('Symfony\Component\Translation\TranslatorInterface');
+        $router = $this->createMock('Symfony\Component\Routing\RouterInterface');
+        $import = $this->createMock('NS\ImportBundle\Entity\Import');
         $import->expects($this->any())
             ->method('getId')
             ->willReturn(12);

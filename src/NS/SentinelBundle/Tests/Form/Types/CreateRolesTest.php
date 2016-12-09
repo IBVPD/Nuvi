@@ -122,9 +122,7 @@ class CreateRolesTest extends TypeTestCase
 
     public function getAuthorizationChecker(array $calls = array())
     {
-        $authChecker = $this->getMockBuilder('\Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $authChecker = $this->createMock('\Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface');
 
         foreach ($calls as $index => $call) {
             $authChecker->expects($this->at($index))

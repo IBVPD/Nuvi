@@ -40,10 +40,10 @@ class BirthdayOrAgeValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testValidObject($object, $expected)
     {
-        $context = $this->getMock('Symfony\Component\Validator\Context\ExecutionContextInterface');
+        $context = $this->createMock('Symfony\Component\Validator\Context\ExecutionContextInterface');
 
         if($expected) {
-            $builder = $this->getMock('Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface');
+            $builder = $this->createMock('Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface');
 
             $context->expects($this->once())
                 ->method('buildViolation')

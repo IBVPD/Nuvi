@@ -58,13 +58,8 @@ class SiteConverterTest extends \PHPUnit_Framework_TestCase
     private function getMockObjectManager()
     {
         $obj  = $this->getObjects();
-        $repo = $this->getMockBuilder('NS\SentinelBundle\Repository\SiteRepository')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $em = $this->getMockBuilder('Doctrine\Common\Persistence\ObjectManager')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $repo = $this->createMock('NS\SentinelBundle\Repository\SiteRepository');
+        $em = $this->createMock('Doctrine\Common\Persistence\ObjectManager');
 
         $repo->expects($this->once())
             ->method('getChain')

@@ -16,9 +16,7 @@ class DoneValidatorTest extends \PHPUnit_Framework_TestCase
             'resultField' => '',
         );
 
-        $context = $this->getMockBuilder('Symfony\Component\Validator\Context\ExecutionContextInterface')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $context = $this->createMock('Symfony\Component\Validator\Context\ExecutionContextInterface');
 
         $context->expects($this->never())
             ->method('buildViolation');
@@ -37,9 +35,7 @@ class DoneValidatorTest extends \PHPUnit_Framework_TestCase
             'resultField' => new TripleChoice(1),
         );
 
-        $context = $this->getMockBuilder('Symfony\Component\Validator\Context\ExecutionContextInterface')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $context = $this->createMock('Symfony\Component\Validator\Context\ExecutionContextInterface');
 
         $context->expects($this->never())
             ->method('buildViolation');
@@ -56,13 +52,9 @@ class DoneValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testEmptyTripleChoiceField(array $data)
     {
-        $builder = $this->getMockBuilder('Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $builder = $this->createMock('Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface');
 
-        $context = $this->getMockBuilder('Symfony\Component\Validator\Context\ExecutionContextInterface')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $context = $this->createMock('Symfony\Component\Validator\Context\ExecutionContextInterface');
 
         $context->expects($this->once())
             ->method('buildViolation')
@@ -109,9 +101,7 @@ class DoneValidatorTest extends \PHPUnit_Framework_TestCase
             'tripleChoiceField' => new \stdClass(),
 
         );
-        $context = $this->getMockBuilder('Symfony\Component\Validator\Context\ExecutionContextInterface')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $context = $this->createMock('Symfony\Component\Validator\Context\ExecutionContextInterface');
 
         $context->expects($this->never())
             ->method('buildViolation');

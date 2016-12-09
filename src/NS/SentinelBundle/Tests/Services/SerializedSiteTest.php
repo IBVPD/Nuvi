@@ -57,17 +57,13 @@ class SerializedSiteTest extends \PHPUnit_Framework_TestCase
     private function getMockObjectManager()
     {
         $obj  = $this->getObjects();
-        $repo = $this->getMockBuilder('NS\SentinelBundle\Repository\SiteRepository')
-            ->disableOriginalConstructor()
-                     ->getMock();
+        $repo = $this->createMock('NS\SentinelBundle\Repository\SiteRepository');
 
         $repo->expects($this->any())
              ->method('getChain')
              ->will($this->returnValue($obj));
 
-        $em = $this->getMockBuilder('Doctrine\Common\Persistence\ObjectManager')
-                   ->disableOriginalConstructor()
-                   ->getMock();
+        $em = $this->createMock('Doctrine\Common\Persistence\ObjectManager');
 
         $em->expects($this->any())
            ->method('getRepository')
@@ -108,9 +104,7 @@ class SerializedSiteTest extends \PHPUnit_Framework_TestCase
         $site = new Site('sId', 'SiteName');
         $site->setCountry($country);
 
-        $mockUoW = $this->getMockBuilder('Doctrine\ORM\UnitOfWork')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $mockUoW = $this->createMock('Doctrine\ORM\UnitOfWork');
 
         $mockUoW->expects($this->at(0))
             ->method('registerManaged')
@@ -124,9 +118,8 @@ class SerializedSiteTest extends \PHPUnit_Framework_TestCase
             ->method('registerManaged')
             ->with($region, array('code' => 'rCode'), array('code'=>'rCode'));
 
-        $mockEntityMgr = $this->getMockBuilder('Doctrine\ORM\EntityManager')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $mockEntityMgr = $this->createMock('Doctrine\ORM\EntityManager');
+
         $mockEntityMgr->expects($this->once())
             ->method('getUnitOfWork')
             ->willReturn($mockUoW);

@@ -32,7 +32,7 @@ class EventListenerTest extends \PHPUnit_Framework_TestCase
 
         $listener->expects($this->never())->method('convertToUtf8');
 
-        $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
+        $mockUser = $this->createMock('Symfony\Component\Security\Core\User\UserInterface');
         $import = new Import($mockUser);
         $import->setSourceFile($file);
 
@@ -49,7 +49,7 @@ class EventListenerTest extends \PHPUnit_Framework_TestCase
         $listener->expects($this->never())->method('convertToUtf8');
 
 
-        $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
+        $mockUser = $this->createMock('Symfony\Component\Security\Core\User\UserInterface');
         $import = new Import($mockUser);
         $import->setSourceFile($file);
 
@@ -75,7 +75,7 @@ class EventListenerTest extends \PHPUnit_Framework_TestCase
 
         $listener = new EventListener();
 
-        $mockUser = $this->getMock('Symfony\Component\Security\Core\User\UserInterface');
+        $mockUser = $this->createMock('Symfony\Component\Security\Core\User\UserInterface');
         $import = new Import($mockUser);
         $import->setSourceFile($file);
 

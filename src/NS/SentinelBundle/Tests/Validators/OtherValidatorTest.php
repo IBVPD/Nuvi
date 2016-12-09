@@ -43,9 +43,7 @@ class OtherValidatorTest extends \PHPUnit_Framework_TestCase
             'field'      => 'csfCultDone',
             'otherField' => 'csfCultResult'));
 
-        $context = $this->getMockBuilder('\Symfony\Component\Validator\Context\ExecutionContextInterface')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $context = $this->createMock('\Symfony\Component\Validator\Context\ExecutionContextInterface');
 
         $context->expects($this->never())
             ->method('addViolation')
@@ -87,9 +85,7 @@ class OtherValidatorTest extends \PHPUnit_Framework_TestCase
             'field'      => 'csfCultDone',
             'otherField' => 'csfCultResult'));
 
-        $context = $this->getMockBuilder('\Symfony\Component\Validator\Context\ExecutionContextInterface')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $context = $this->createMock('\Symfony\Component\Validator\Context\ExecutionContextInterface');
 
         $context->expects($this->once())
             ->method('addViolation')

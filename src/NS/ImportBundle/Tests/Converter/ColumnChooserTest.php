@@ -10,7 +10,7 @@ class ColumnChooserTest extends \PHPUnit_Framework_TestCase
 {
     public function testCacheHitDoesNotBuildChoices()
     {
-        $cacheMock = $this->getMock('\Doctrine\Common\Cache\ArrayCache');
+        $cacheMock = $this->createMock('\Doctrine\Common\Cache\ArrayCache');
         $cacheMock->expects($this->once())
             ->method('contains')
             ->with('class')
@@ -28,7 +28,7 @@ class ColumnChooserTest extends \PHPUnit_Framework_TestCase
 
     public function testCacheHitDoesNotBuildComplex()
     {
-        $cacheMock = $this->getMock('\Doctrine\Common\Cache\ArrayCache');
+        $cacheMock = $this->createMock('\Doctrine\Common\Cache\ArrayCache');
         $cacheMock->expects($this->once())
             ->method('contains')
             ->with('class')
@@ -46,13 +46,10 @@ class ColumnChooserTest extends \PHPUnit_Framework_TestCase
 
     public function testCacheMissBuilds()
     {
-        $meta = $this->getMockBuilder('Doctrine\ORM\Mapping\ClassMetadata')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $meta = $this->createMock('Doctrine\ORM\Mapping\ClassMetadata');
 
-        $mockEntityMgr = $this->getMockBuilder('Doctrine\ORM\EntityManager')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $mockEntityMgr = $this->createMock('Doctrine\ORM\EntityManager');
+
         $mockEntityMgr
             ->expects($this->once())
             ->method('getClassMetadata')
@@ -60,7 +57,11 @@ class ColumnChooserTest extends \PHPUnit_Framework_TestCase
 
         $cache = new ArrayCache();
 
-        $chooser = $this->getMock('NS\ImportBundle\Converter\ColumnChooser', array('buildChoices', 'buildComplex'), array($mockEntityMgr, $cache));
+        $chooser = $this->getMockBuilder('NS\ImportBundle\Converter\ColumnChooser')
+            ->setMethods(array('buildChoices', 'buildComplex'))
+            ->setConstructorArgs(array($mockEntityMgr, $cache))
+            ->getMock();
+
         $chooser->expects($this->once())
             ->method('buildChoices')
             ->with($meta)
@@ -185,9 +186,7 @@ class ColumnChooserTest extends \PHPUnit_Framework_TestCase
 
     public function getChooser($cache = null)
     {
-        $mockEntityMgr = $this->getMockBuilder('Doctrine\ORM\EntityManager')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $mockEntityMgr = $this->createMock('Doctrine\ORM\EntityManager');
 
         return new ColumnChooser($mockEntityMgr, (!$cache)?new ArrayCache():$cache);
     }
