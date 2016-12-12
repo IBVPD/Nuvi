@@ -40,6 +40,7 @@ class EventListener
      */
     public function convertToUtf8($path)
     {
+        mb_detect_order(['UTF-8','UTF-16','ISO-8859-1']);
         $fileContent = file_get_contents($path);
         file_put_contents($path, mb_convert_encoding($fileContent, 'UTF-8'));
     }

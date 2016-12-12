@@ -56,13 +56,14 @@ class EventListenerTest extends \PHPUnit_Framework_TestCase
         $listener->onPostUpload(new Event($import, new PropertyMapping('source', 'source')));
     }
 
-    public function testCsvFile()
+    /**
+     * @param $filename
+     *
+     * @dataProvider getCsvFiles
+     */
+    public function testCsvFile($filename)
     {
-        if (PHP_VERSION_ID >= 50600) {
-            $this->markTestSkipped('Regression in 5.6');
-        }
-
-        $filePath = realpath(__DIR__ . '/../Fixtures/EMR-IBD-headers-utf16.csv');
+        $filePath = realpath(__DIR__ . $filename);
         $newFile = '/tmp/headers.csv';
         if (!copy($filePath, $newFile)) {
             $this->fail(sprintf('Unable to copy(%s,%s)', $filePath, $newFile));
@@ -83,5 +84,13 @@ class EventListenerTest extends \PHPUnit_Framework_TestCase
         $newEncoding = mb_detect_encoding(file_get_contents($newFile));
         $this->assertEquals('UTF-8', $newEncoding);
         unlink($newFile);
+    }
+
+    public function getCsvFiles()
+    {
+        return [
+            ['/../Fixtures/EMR-IBD-headers-utf16.csv'],
+            ['/../Fixtures/WHO-Binary.csv']
+        ];
     }
 }
