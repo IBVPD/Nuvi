@@ -4,6 +4,7 @@ namespace NS\ImportBundle\Vich;
 
 use NS\ImportBundle\Entity\Import;
 use NS\ImportBundle\Reader\ReaderFactory;
+use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Event\Event;
 
 /**
@@ -31,17 +32,19 @@ class EventListener
         $property = $event->getMapping()->getFilePropertyName();
 
         if ($obj instanceof Import && $property == 'sourceFile' && $this->readerFactory->getExtension($obj->getSourceFile()) == 'csv') {
-            $this->convertToUtf8($obj->getSourceFile()->getPathname());
+            $this->checkUtf8($obj->getSourceFile());
         }
     }
 
     /**
-     * @param $path
+     * @param File $file
      */
-    public function convertToUtf8($path)
+    private function checkUtf8(File $file)
     {
-        mb_detect_order(['UTF-8','UTF-16','ISO-8859-1']);
-        $fileContent = file_get_contents($path);
-        file_put_contents($path, mb_convert_encoding($fileContent, 'UTF-8'));
+        mb_detect_order(['UTF-8', 'UTF-16', 'ISO-8859-1', 'ASCII']);
+        $fileContent = file_get_contents($file->getPathname());
+        if (mb_detect_encoding($fileContent) !== 'UTF-8') {
+            throw new NonUTF8FileException();
+        }
     }
 }

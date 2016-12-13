@@ -20,7 +20,7 @@ class EventListenerTest extends \PHPUnit_Framework_TestCase
 
         $stdObj = new \stdClass();
 
-        $listener->onPostUpload(new Event($stdObj, new PropertyMapping('source', 'source')));
+        $listener->onPostUpload(new Event($stdObj, new PropertyMapping('sourceFile', 'sourceFile')));
     }
 
     public function testNonSourceProperty()
@@ -58,7 +58,7 @@ class EventListenerTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @param $filename
-     *
+     * @expectedException \NS\ImportBundle\Vich\NonUTF8FileException
      * @dataProvider getCsvFiles
      */
     public function testCsvFile($filename)
@@ -81,9 +81,6 @@ class EventListenerTest extends \PHPUnit_Framework_TestCase
         $import->setSourceFile($file);
 
         $listener->onPostUpload(new Event($import, new PropertyMapping('sourceFile', 'sourceFile')));
-        $newEncoding = mb_detect_encoding(file_get_contents($newFile));
-        $this->assertEquals('UTF-8', $newEncoding);
-        unlink($newFile);
     }
 
     public function getCsvFiles()

@@ -36,11 +36,11 @@ class ImportController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             $queue = $this->get('ns_import.workqueue');
-
-            if ($queue->submit($form->getData())) {
+            $ret = $queue->submit($form->getData());
+            if ($ret === true) {
                 $this->get('ns_flash')->addSuccess(null, null, "Import Added");
             } else {
-                $this->get('ns_flash')->addError(null, 'Unable to add import', 'There was an error communicating with the beanstalk server');
+                $this->get('ns_flash')->addError(null, 'Unable to add import', $ret);
             }
 
             return $this->redirect($this->generateUrl('importIndex'));

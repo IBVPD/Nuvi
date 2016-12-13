@@ -6,6 +6,7 @@ use Doctrine\DBAL\DBALException;
 use Leezy\PheanstalkBundle\Proxy\PheanstalkProxy;
 use Doctrine\Common\Persistence\ObjectManager;
 use NS\ImportBundle\Entity\Import;
+use NS\ImportBundle\Vich\NonUTF8FileException;
 
 class WorkQueue
 {
@@ -54,10 +55,12 @@ class WorkQueue
 
             $this->entityMgr->persist($import);
             $this->entityMgr->flush($import);
-        } catch (\Pheanstalk_Exception_ConnectionException $excep) {
-            return false;
+        } catch (NonUTF8FileException $exception) {
+            return 'The file is not UTF-8 encoded.';
+        } catch (\Pheanstalk_Exception_ConnectionException $exception) {
+            return 'There was an error communicating with the beanstalk server';
         } catch (DBALException $exception) {
-            return false;
+            return 'There was an error communicating with the backend database';
         }
 
         return true;
