@@ -24,6 +24,4 @@ class GramStainResult extends TranslatableArrayChoice implements TranslationCont
         self::OTHER                => 'Other',
         self::UNKNOWN              => 'Unknown',
     ];
-
-
 }

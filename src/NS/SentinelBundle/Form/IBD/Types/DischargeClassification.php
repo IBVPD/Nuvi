@@ -34,12 +34,4 @@ class DischargeClassification extends TranslatableArrayChoice implements Transla
                             self::DISCARDED         => 'Discarded case',
                             self::UNKNOWN           => 'Unknown',
     ];
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'DischargeClassification';
-    }
 }

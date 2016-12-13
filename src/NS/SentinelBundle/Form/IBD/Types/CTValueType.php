@@ -4,6 +4,8 @@ namespace NS\SentinelBundle\Form\IBD\Types;
 
 use \NS\SentinelBundle\Form\IBD\Transformer\CTValueTransformer;
 use \Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use \Symfony\Component\Form\FormBuilderInterface;
 
 /**
@@ -28,8 +30,8 @@ class CTValueType extends AbstractType
         ];
 
         $builder
-            ->add('choice', 'choice', ['choices' => $choices, 'placeholder' => "[Enter value]", 'label' => 'Non-result choices', 'attr' => ['class' => 'inputOrSelect']])
-            ->add('number', 'number', ['precision' => 2, 'label' => '', 'attr' => ['class' => 'inputOrSelect' ,'placeholder'=>'Enter value or Select']])
+            ->add('choice', ChoiceType::class, ['choices' => $choices, 'placeholder' => "[Enter value]", 'label' => 'Non-result choices', 'attr' => ['class' => 'inputOrSelect']])
+            ->add('number', NumberType::class, ['precision' => 2, 'label' => '', 'attr' => ['class' => 'inputOrSelect' ,'placeholder'=>'Enter value or Select']])
             ->addModelTransformer(new CTValueTransformer());
     }
 }

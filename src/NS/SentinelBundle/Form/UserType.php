@@ -4,6 +4,7 @@ namespace NS\SentinelBundle\Form;
 
 use Lunetics\LocaleBundle\Form\Extension\Type\LocaleType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,7 +23,7 @@ class UserType extends AbstractType
             ->add('email')
             ->add('plainPassword', RepeatedType::class,
                      [
-                         'type'            => 'password',
+                         'type'            => PasswordType::class,
                          'invalid_message' => 'The password fields must match.',
                          'options'         => ['attr' => ['class' => 'password-field', 'autocomplete'=>'off']],
                          'required'        => false,
@@ -42,13 +43,5 @@ class UserType extends AbstractType
         $resolver->setDefaults([
             'data_class' => 'NS\SentinelBundle\Entity\User'
         ]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'ns_sentinelbundle_user';
     }
 }

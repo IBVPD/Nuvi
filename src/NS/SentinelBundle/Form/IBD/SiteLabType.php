@@ -4,7 +4,10 @@ namespace NS\SentinelBundle\Form\IBD;
 
 use NS\AceBundle\Form\DatePickerType;
 use NS\AceBundle\Form\SwitchType;
+use NS\SentinelBundle\Form\IBD\Types\BinaxResult;
+use NS\SentinelBundle\Form\IBD\Types\LatResult;
 use \Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use \Symfony\Component\Form\FormBuilderInterface;
 use \Symfony\Component\OptionsResolver\OptionsResolver;
 use \Symfony\Component\Form\FormEvents;
@@ -52,14 +55,14 @@ class SiteLabType extends AbstractType
         $isPaho = $this->authChecker->isGranted('ROLE_AMR');
 
         $builder
-            ->add('csfLabDate',         'NS\AceBundle\Form\DatePickerType', ['required' => false, 'label' => 'ibd-form.csf-lab-datetime'])
-            ->add('csfLabTime',         'Symfony\Component\Form\Extension\Core\Type\TimeType', ['required' => false, 'label' => 'ibd-form.csf-lab-time','minutes'=>[0,5,10,15,20,25,30,35,40,45,50,55]])
+            ->add('csfLabDate',         DatePickerType::class, ['required' => false, 'label' => 'ibd-form.csf-lab-datetime'])
+            ->add('csfLabTime',         TimeType::class, ['required' => false, 'label' => 'ibd-form.csf-lab-time','minutes'=>[0,5,10,15,20,25,30,35,40,45,50,55]])
             ->add('csfId',              null, ['required' => false, 'label' => 'ibd-form.csf-id'])
             ->add('csfWcc',             null, ['required' => false, 'label' => 'ibd-form.csf-wcc', 'property_path' => 'csf_wcc'])
             ->add('csfGlucose',         null, ['required' => false, 'label' => 'ibd-form.csf-glucose', 'property_path' => 'csf_glucose'])
             ->add('csfProtein',         null, ['required' => false, 'label' => 'ibd-form.csf-protein', 'property_path' => 'csf_protein'])
-            ->add('csfCultDone',        'NS\SentinelBundle\Form\Types\TripleChoice', ['required' => false, 'label' => 'ibd-form.csf-cult-done','hidden-child' => 'csfCultDone'])
-            ->add('csfCultResult',      'NS\SentinelBundle\Form\IBD\Types\CultureResult', [
+            ->add('csfCultDone',        TripleChoice::class, ['required' => false, 'label' => 'ibd-form.csf-cult-done','hidden-child' => 'csfCultDone'])
+            ->add('csfCultResult',      CultureResult::class, [
                 'required' => false,
                 'label' => 'ibd-form.csf-cult-result',
                 'exclude_choices'=> ($isPaho ? [CultureResult::UNKNOWN]:null),
@@ -69,36 +72,36 @@ class SiteLabType extends AbstractType
             ])
             ->add('csfCultOther',       null, ['required' => false, 'label' => 'ibd-form.csf-culture-other','hidden-parent' => 'csfCultDoneOther', 'hidden-value' => CultureResult::OTHER])
             ->add('csfCultContaminant', null, ['required' => false, 'label' => 'ibd-form.csf-culture-contaminant', 'hidden-parent' => 'csfCultDoneOther', 'hidden-value' => CultureResult::CONTAMINANT])
-            ->add('csfGramDone',        'NS\SentinelBundle\Form\Types\TripleChoice', ['required' => false, 'label' => 'ibd-form.csf-gram-done', 'hidden-child' => 'csfGramDone'])
-            ->add('csfGramStain',       'NS\SentinelBundle\Form\IBD\Types\GramStain', ['required' => false, 'label' => 'ibd-form.csf-gram-result', 'hidden-parent' => 'csfGramDone', 'hidden-child' => 'csfGramStain', 'hidden-value' => TripleChoice::YES])
-            ->add('csfGramResult',      'NS\SentinelBundle\Form\IBD\Types\GramStainResult', ['required' => false, 'label' => 'ibd-form.csf-gram-result-organism', 'hidden-parent' => 'csfGramStain', 'hidden-child' => 'csfGramResult', 'hidden-value' => json_encode([GramStain::GM_NEGATIVE, GramStain::GM_POSITIVE])])
+            ->add('csfGramDone',        TripleChoice::class, ['required' => false, 'label' => 'ibd-form.csf-gram-done', 'hidden-child' => 'csfGramDone'])
+            ->add('csfGramStain',       GramStain::class, ['required' => false, 'label' => 'ibd-form.csf-gram-result', 'hidden-parent' => 'csfGramDone', 'hidden-child' => 'csfGramStain', 'hidden-value' => TripleChoice::YES])
+            ->add('csfGramResult',      GramStainResult::class, ['required' => false, 'label' => 'ibd-form.csf-gram-result-organism', 'hidden-parent' => 'csfGramStain', 'hidden-child' => 'csfGramResult', 'hidden-value' => json_encode([GramStain::GM_NEGATIVE, GramStain::GM_POSITIVE])])
             ->add('csfGramOther',       null, ['required' => false, 'label' => 'ibd-form.csf-gram-other', 'hidden-parent' => 'csfGramResult', 'hidden-value' => GramStainResult::OTHER])
-            ->add('csfBinaxDone',       'NS\SentinelBundle\Form\Types\TripleChoice', ['required' => false, 'label' => 'ibd-form.csf-binax-done', 'hidden-child' => 'csfBinaxDone'])
-            ->add('csfBinaxResult',     'NS\SentinelBundle\Form\IBD\Types\BinaxResult', ['required' => false, 'label' => 'ibd-form.csf-binax-result', 'hidden-parent' => 'csfBinaxDone', 'hidden-value' => TripleChoice::YES])
-            ->add('csfLatDone',         'NS\SentinelBundle\Form\Types\TripleChoice', ['required' => false, 'label' => 'ibd-form.csf-lat-done', 'hidden-child' => 'csfLatDone', 'exclude_choices'=> ($isPaho ? [TripleChoice::UNKNOWN]:null)])
-            ->add('csfLatResult',       'NS\SentinelBundle\Form\IBD\Types\LatResult', ['required' => false, 'label' => 'ibd-form.csf-lat-result', 'hidden-parent' => 'csfLatDone', 'hidden-value' => TripleChoice::YES])
+            ->add('csfBinaxDone',       TripleChoice::class, ['required' => false, 'label' => 'ibd-form.csf-binax-done', 'hidden-child' => 'csfBinaxDone'])
+            ->add('csfBinaxResult',     BinaxResult::class, ['required' => false, 'label' => 'ibd-form.csf-binax-result', 'hidden-parent' => 'csfBinaxDone', 'hidden-value' => TripleChoice::YES])
+            ->add('csfLatDone',         TripleChoice::class, ['required' => false, 'label' => 'ibd-form.csf-lat-done', 'hidden-child' => 'csfLatDone', 'exclude_choices'=> ($isPaho ? [TripleChoice::UNKNOWN]:null)])
+            ->add('csfLatResult',       LatResult::class, ['required' => false, 'label' => 'ibd-form.csf-lat-result', 'hidden-parent' => 'csfLatDone', 'hidden-value' => TripleChoice::YES])
             ->add('csfLatOther',        null, ['required' => false, 'label' => 'ibd-form.csf-lat-other', 'hidden-parent' => 'csfLatDone', 'hidden-value' => TripleChoice::YES])
-            ->add('csfPcrDone',         'NS\SentinelBundle\Form\Types\TripleChoice', ['required' => false, 'label' => 'ibd-form.csf-pcr-done', 'hidden-child' => 'csfPcrDone'])
-            ->add('csfPcrResult',       'NS\SentinelBundle\Form\IBD\Types\PCRResult', ['required' => false, 'label' => 'ibd-form.csf-pcr-result', 'hidden-parent' => 'csfPcrDone', 'hidden-child' => 'csfPcrDoneResult', 'hidden-value' => TripleChoice::YES])
+            ->add('csfPcrDone',         TripleChoice::class, ['required' => false, 'label' => 'ibd-form.csf-pcr-done', 'hidden-child' => 'csfPcrDone'])
+            ->add('csfPcrResult',       PCRResult::class, ['required' => false, 'label' => 'ibd-form.csf-pcr-result', 'hidden-parent' => 'csfPcrDone', 'hidden-child' => 'csfPcrDoneResult', 'hidden-value' => TripleChoice::YES])
             ->add('csfPcrOther',        null, ['required' => false, 'label' => 'ibd-form.csf-pcr-other', 'hidden-parent' => 'csfPcrDoneResult', 'hidden-value' => PCRResult::OTHER])
-            ->add('csfStore',           'NS\SentinelBundle\Form\Types\TripleChoice', ['required' => false, 'label' => 'ibd-form.csf-store'])
-            ->add('isolStore',          'NS\SentinelBundle\Form\Types\TripleChoice', ['required' => false, 'label' => 'ibd-form.isol-store'])
+            ->add('csfStore',           TripleChoice::class, ['required' => false, 'label' => 'ibd-form.csf-store'])
+            ->add('isolStore',          TripleChoice::class, ['required' => false, 'label' => 'ibd-form.isol-store'])
             ->add('bloodId',            null, ['required' => false, 'label' => 'ibd-form.blood-id'])
-            ->add('bloodCultDone',      'NS\SentinelBundle\Form\Types\TripleChoice', ['required' => false, 'label' => 'ibd-form.blood-cult-done', 'hidden-child' => 'bloodCultDone','exclude_choices'=> ($isPaho ? [TripleChoice::UNKNOWN]:null)])
-            ->add('bloodCultResult',    'NS\SentinelBundle\Form\IBD\Types\CultureResult', ['required' => false, 'label' => 'ibd-form.blood-cult-result', 'hidden-parent' => 'bloodCultDone', 'hidden-value' => TripleChoice::YES,'exclude_choices'=>($isPaho?[CultureResult::UNKNOWN]:null)])
+            ->add('bloodCultDone',      TripleChoice::class, ['required' => false, 'label' => 'ibd-form.blood-cult-done', 'hidden-child' => 'bloodCultDone','exclude_choices'=> ($isPaho ? [TripleChoice::UNKNOWN]:null)])
+            ->add('bloodCultResult',    CultureResult::class, ['required' => false, 'label' => 'ibd-form.blood-cult-result', 'hidden-parent' => 'bloodCultDone', 'hidden-value' => TripleChoice::YES,'exclude_choices'=>($isPaho?[CultureResult::UNKNOWN]:null)])
             ->add('bloodCultOther',     null, ['required' => false, 'label' => 'ibd-form.blood-cult-other', 'hidden-parent' => 'bloodCultDone', 'hidden-value' => TripleChoice::YES])
-            ->add('bloodGramDone',      'NS\SentinelBundle\Form\Types\TripleChoice', ['required' => false, 'label' => 'ibd-form.blood-gram-done', 'hidden-child' => 'bloodGramDone'])
-            ->add('bloodGramStain',     'NS\SentinelBundle\Form\IBD\Types\GramStain', ['required' => false, 'label' => 'ibd-form.blood-gram-result', 'hidden-parent' => 'bloodGramDone', 'hidden-child' => 'bloodGramStain', 'hidden-value' => TripleChoice::YES])
-            ->add('bloodGramResult',    'NS\SentinelBundle\Form\IBD\Types\GramStainResult', ['required' => false, 'label' => 'ibd-form.blood-gram-result-organism', 'hidden-parent' => 'bloodGramStain', 'hidden-child' => 'bloodGramResultOther', 'hidden-value' => json_encode([GramStain::GM_NEGATIVE, GramStain::GM_POSITIVE])])
+            ->add('bloodGramDone',      TripleChoice::class, ['required' => false, 'label' => 'ibd-form.blood-gram-done', 'hidden-child' => 'bloodGramDone'])
+            ->add('bloodGramStain',     GramStain::class, ['required' => false, 'label' => 'ibd-form.blood-gram-result', 'hidden-parent' => 'bloodGramDone', 'hidden-child' => 'bloodGramStain', 'hidden-value' => TripleChoice::YES])
+            ->add('bloodGramResult',    GramStainResult::class, ['required' => false, 'label' => 'ibd-form.blood-gram-result-organism', 'hidden-parent' => 'bloodGramStain', 'hidden-child' => 'bloodGramResultOther', 'hidden-value' => json_encode([GramStain::GM_NEGATIVE, GramStain::GM_POSITIVE])])
             ->add('bloodGramOther',     null, ['required' => false, 'label' => 'ibd-form.blood-gram-other', 'hidden-parent' => 'bloodGramResultOther', 'hidden-child' => '', 'hidden-value' => GramStainResult::OTHER])
-            ->add('bloodPcrDone',       'NS\SentinelBundle\Form\Types\TripleChoice', ['required' => false, 'label' => 'ibd-form.blood-pcr-done', 'hidden-child' => 'bloodPcrDone'])
-            ->add('bloodPcrResult',     'NS\SentinelBundle\Form\IBD\Types\PCRResult', ['required' => false, 'label' => 'ibd-form.blood-pcr-result', 'hidden-parent' => 'bloodPcrDone', 'hidden-value' => TripleChoice::YES])
+            ->add('bloodPcrDone',       TripleChoice::class, ['required' => false, 'label' => 'ibd-form.blood-pcr-done', 'hidden-child' => 'bloodPcrDone'])
+            ->add('bloodPcrResult',     PCRResult::class, ['required' => false, 'label' => 'ibd-form.blood-pcr-result', 'hidden-parent' => 'bloodPcrDone', 'hidden-value' => TripleChoice::YES])
             ->add('bloodPcrOther',      null, ['required' => false, 'label' => 'ibd-form.blood-pcr-other', 'hidden-parent' => 'bloodPcrDone', 'hidden-value' => TripleChoice::YES])
-            ->add('otherCultDone',      'NS\SentinelBundle\Form\Types\TripleChoice', ['required' => false, 'label' => 'ibd-form.other-cult-done1', 'hidden-child' => 'otherCultDone'])
-            ->add('otherCultResult',    'NS\SentinelBundle\Form\IBD\Types\CultureResult', ['required' => false, 'label' => 'ibd-form.other-cult-result', 'hidden-parent' => 'otherCultDone', 'hidden-child' => 'otherCultResult', 'hidden-value' => TripleChoice::YES])
+            ->add('otherCultDone',      TripleChoice::class, ['required' => false, 'label' => 'ibd-form.other-cult-done1', 'hidden-child' => 'otherCultDone'])
+            ->add('otherCultResult',    CultureResult::class, ['required' => false, 'label' => 'ibd-form.other-cult-result', 'hidden-parent' => 'otherCultDone', 'hidden-child' => 'otherCultResult', 'hidden-value' => TripleChoice::YES])
             ->add('otherCultOther',     null, ['required' => false, 'label' => 'ibd-form.other-cult-other', 'hidden-parent' => 'otherCultResult', 'hidden-value' => CultureResult::OTHER])
-            ->add('otherTestDone',      'NS\SentinelBundle\Form\Types\TripleChoice', ['required' => false, 'label' => 'ibd-form.other-test-done1', 'hidden-child' => 'otherTestDone'])
-            ->add('otherTestResult',    'NS\SentinelBundle\Form\IBD\Types\CultureResult', ['required' => false, 'label' => 'ibd-form.other-test-result', 'hidden-parent' => 'otherTestDone', 'hidden-child'=>'otherTestResult', 'hidden-value' => TripleChoice::YES])
+            ->add('otherTestDone',      TripleChoice::class, ['required' => false, 'label' => 'ibd-form.other-test-done1', 'hidden-child' => 'otherTestDone'])
+            ->add('otherTestResult',    CultureResult::class, ['required' => false, 'label' => 'ibd-form.other-test-result', 'hidden-parent' => 'otherTestDone', 'hidden-child'=>'otherTestResult', 'hidden-value' => TripleChoice::YES])
             ->add('otherTestOther',     null, ['required' => false, 'label' => 'ibd-form.other-test-other', 'hidden-parent' => 'otherTestResult', 'hidden-value' => CultureResult::OTHER])
         ;
 

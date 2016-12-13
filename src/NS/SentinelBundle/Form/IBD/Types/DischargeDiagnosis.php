@@ -26,11 +26,4 @@ class DischargeDiagnosis extends TranslatableArrayChoice implements TranslationC
                             self::OTHER                 => 'Other Diagnosis',
                             self::UNKNOWN               => 'Unknown',
     ];
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'DischargeDiagnosis';
-    }
 }
