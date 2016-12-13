@@ -2,8 +2,8 @@
 
 namespace NS\SentinelBundle\Tests\Services;
 
-use \NS\SentinelBundle\Services\Homepage;
-use \Symfony\Component\HttpFoundation\Request;
+use NS\SentinelBundle\Services\Homepage;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Description of HomepageTest

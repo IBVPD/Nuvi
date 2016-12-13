@@ -2,22 +2,22 @@
 
 namespace NS\SentinelBundle\Tests\Listeners;
 
-use \NS\SentinelBundle\Entity\Country;
-use \NS\SentinelBundle\Entity\IBD;
-use \NS\SentinelBundle\Form\Types\CaseStatus;
-use \NS\SentinelBundle\Form\IBD\Types\CSFAppearance;
-use \NS\SentinelBundle\Form\IBD\Types\Diagnosis;
-use \NS\SentinelBundle\Form\IBD\Types\DischargeClassification;
-use \NS\SentinelBundle\Form\IBD\Types\DischargeDiagnosis;
-use \NS\SentinelBundle\Form\IBD\Types\DischargeOutcome;
-use \NS\SentinelBundle\Form\Types\FourDoses;
-use \NS\SentinelBundle\Form\Types\Gender;
-use \NS\SentinelBundle\Form\Types\VaccinationReceived;
-use \NS\SentinelBundle\Form\IBD\Types\VaccinationType;
-use \NS\SentinelBundle\Form\IBD\Types\OtherSpecimen;
-use \NS\SentinelBundle\Form\Types\ThreeDoses;
-use \NS\SentinelBundle\Form\Types\TripleChoice;
-use \NS\SentinelBundle\Entity\Listener\IBDListener;
+use NS\SentinelBundle\Entity\Country;
+use NS\SentinelBundle\Entity\IBD;
+use NS\SentinelBundle\Form\Types\CaseStatus;
+use NS\SentinelBundle\Form\IBD\Types\CSFAppearance;
+use NS\SentinelBundle\Form\IBD\Types\Diagnosis;
+use NS\SentinelBundle\Form\IBD\Types\DischargeClassification;
+use NS\SentinelBundle\Form\IBD\Types\DischargeDiagnosis;
+use NS\SentinelBundle\Form\IBD\Types\DischargeOutcome;
+use NS\SentinelBundle\Form\Types\FourDoses;
+use NS\SentinelBundle\Form\Types\Gender;
+use NS\SentinelBundle\Form\Types\VaccinationReceived;
+use NS\SentinelBundle\Form\IBD\Types\VaccinationType;
+use NS\SentinelBundle\Form\IBD\Types\OtherSpecimen;
+use NS\SentinelBundle\Form\Types\ThreeDoses;
+use NS\SentinelBundle\Form\Types\TripleChoice;
+use NS\SentinelBundle\Entity\Listener\IBDListener;
 
 class IBDListenerTest extends \PHPUnit_Framework_TestCase
 {

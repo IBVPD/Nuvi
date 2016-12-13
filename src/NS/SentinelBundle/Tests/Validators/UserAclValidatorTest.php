@@ -2,12 +2,12 @@
 
 namespace NS\SentinelBundle\Tests\Validators;
 
-use \NS\SentinelBundle\Entity\ACL;
+use NS\SentinelBundle\Entity\ACL;
 use NS\SentinelBundle\Entity\ReferenceLab;
-use \NS\SentinelBundle\Entity\User;
-use \NS\SentinelBundle\Form\Types\Role;
-use \NS\SentinelBundle\Validators\UserAcl;
-use \NS\SentinelBundle\Validators\UserAclValidator;
+use NS\SentinelBundle\Entity\User;
+use NS\SentinelBundle\Form\Types\Role;
+use NS\SentinelBundle\Validators\UserAcl;
+use NS\SentinelBundle\Validators\UserAclValidator;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 

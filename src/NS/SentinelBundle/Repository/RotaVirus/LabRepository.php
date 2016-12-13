@@ -2,7 +2,7 @@
 
 namespace NS\SentinelBundle\Repository\RotaVirus;
 
-use \NS\SentinelBundle\Repository\BaseLab;
+use NS\SentinelBundle\Repository\BaseLab;
 
 /**
  * Lab

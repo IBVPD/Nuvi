@@ -2,11 +2,11 @@
 
 namespace NS\SentinelBundle\Form\Types;
 
-use \Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use \Symfony\Component\Security\Core\SecurityContext;
-use \JMS\TranslationBundle\Translation\TranslationContainerInterface;
-use \NS\UtilBundle\Form\Types\TranslatableArrayChoice;
+use Symfony\Component\Security\Core\SecurityContext;
+use JMS\TranslationBundle\Translation\TranslationContainerInterface;
+use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 
 /**
  * Description of Role

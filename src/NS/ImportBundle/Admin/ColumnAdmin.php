@@ -6,11 +6,11 @@ use NS\ImportBundle\Converter\Registry;
 use NS\ImportBundle\Form\Type\IBDColumnType;
 use NS\ImportBundle\Form\Type\PreProcessorType;
 use NS\ImportBundle\Form\Type\RotavirusColumnType;
-use \Sonata\AdminBundle\Admin\Admin;
-use \Sonata\AdminBundle\Datagrid\DatagridMapper;
-use \Sonata\AdminBundle\Datagrid\ListMapper;
-use \Sonata\AdminBundle\Form\FormMapper;
-use \Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Form\FormMapper;
+use Sonata\AdminBundle\Show\ShowMapper;
 
 class ColumnAdmin extends Admin
 {

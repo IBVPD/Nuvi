@@ -2,14 +2,14 @@
 
 namespace NS\SentinelBundle\Security;
 
-use \Doctrine\Common\Persistence\ObjectManager;
-use \Doctrine\ORM\NonUniqueResultException;
-use \Doctrine\ORM\NoResultException;
-use \NS\SentinelBundle\Entity\User;
-use \Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-use \Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
-use \Symfony\Component\Security\Core\User\UserInterface;
-use \Symfony\Component\Security\Core\User\UserProviderInterface;
+use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
+use NS\SentinelBundle\Entity\User;
+use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 /**
  * Description of UserProvider

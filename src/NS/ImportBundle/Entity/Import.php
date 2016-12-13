@@ -2,14 +2,14 @@
 
 namespace NS\ImportBundle\Entity;
 
-use \Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping as ORM;
 use NS\SentinelBundle\Entity\ReferenceLab;
-use \NS\SentinelBundle\Entity\User;
-use \Symfony\Component\HttpFoundation\File\File;
-use \Symfony\Component\Security\Core\User\UserInterface;
-use \Vich\UploaderBundle\Mapping\Annotation as Vich;
-use \Symfony\Component\Validator\Constraints as Assert;
-use \NS\ImportBundle\Entity\Validator as LocalAssert;
+use NS\SentinelBundle\Entity\User;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
+use NS\ImportBundle\Entity\Validator as LocalAssert;
 
 /**
  * Description of Result

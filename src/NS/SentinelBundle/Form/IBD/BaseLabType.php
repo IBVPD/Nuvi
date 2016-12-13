@@ -9,12 +9,12 @@ use NS\SentinelBundle\Form\IBD\Types\HiSerotype;
 use NS\SentinelBundle\Form\IBD\Types\IsolateType;
 use NS\SentinelBundle\Form\IBD\Types\IsolateViable;
 use NS\SentinelBundle\Form\IBD\Types\NmSerogroup;
-use \NS\SentinelBundle\Form\IBD\Types\PathogenIdentifier;
+use NS\SentinelBundle\Form\IBD\Types\PathogenIdentifier;
 use NS\SentinelBundle\Form\IBD\Types\SampleType;
-use \NS\SentinelBundle\Form\IBD\Types\SerotypeIdentifier;
+use NS\SentinelBundle\Form\IBD\Types\SerotypeIdentifier;
 use NS\SentinelBundle\Form\IBD\Types\SpnSerotype;
-use \Symfony\Component\Form\AbstractType;
-use \Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
 
 class BaseLabType extends AbstractType
 {

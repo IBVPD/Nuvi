@@ -4,8 +4,8 @@ namespace NS\ImportBundle\Tests\Converter;
 
 use Ddeboer\DataImport\Step\MappingStep;
 use NS\ImportBundle\Converter\UnsetMappingItemConverter;
-use \NS\ImportBundle\Entity\Column;
-use \NS\ImportBundle\Entity\Map;
+use NS\ImportBundle\Entity\Column;
+use NS\ImportBundle\Entity\Map;
 
 /**
  * Description of MappingItemConverterTest

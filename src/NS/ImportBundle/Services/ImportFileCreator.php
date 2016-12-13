@@ -5,7 +5,7 @@ namespace NS\ImportBundle\Services;
 use NS\ImportBundle\Entity\Import;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\PropertyMapping;
-use \Vich\UploaderBundle\Mapping\PropertyMappingFactory;
+use Vich\UploaderBundle\Mapping\PropertyMappingFactory;
 
 class ImportFileCreator
 {

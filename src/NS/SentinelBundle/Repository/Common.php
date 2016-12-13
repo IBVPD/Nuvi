@@ -2,15 +2,15 @@
 
 namespace NS\SentinelBundle\Repository;
 
-use \Doctrine\ORM\NoResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query;
-use \Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\UnexpectedResultException;
 use NS\ImportBundle\Exceptions\DuplicateCaseException;
-use \NS\SecurityBundle\Doctrine\SecuredEntityRepository;
+use NS\SecurityBundle\Doctrine\SecuredEntityRepository;
 use NS\SentinelBundle\Entity\BaseCase;
 use NS\SentinelBundle\Exceptions\InvalidCaseException;
-use \NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
+use NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
 
 /**
  * Description of Common

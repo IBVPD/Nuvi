@@ -2,19 +2,19 @@
 
 namespace NS\SentinelBundle\DataFixtures\Alice;
 
-use \Nelmio\Alice\Fixtures;
-use \NS\SentinelBundle\Form\IBD\Types\CSFAppearance;
-use \NS\SentinelBundle\Form\IBD\Types\CXRResult;
-use \NS\SentinelBundle\Form\IBD\Types\Diagnosis;
+use Nelmio\Alice\Fixtures;
+use NS\SentinelBundle\Form\IBD\Types\CSFAppearance;
+use NS\SentinelBundle\Form\IBD\Types\CXRResult;
+use NS\SentinelBundle\Form\IBD\Types\Diagnosis;
 use NS\SentinelBundle\Form\IBD\Types\DischargeDiagnosis;
 use NS\SentinelBundle\Form\IBD\Types\DischargeOutcome;
-use \NS\SentinelBundle\Form\Types\FourDoses;
-use \NS\SentinelBundle\Form\Types\Gender;
-use \NS\SentinelBundle\Form\Types\Role;
-use \NS\SentinelBundle\Form\RotaVirus\Types\DischargeOutcome as RVDischargeOutcome;
-use \NS\SentinelBundle\Form\Types\SurveillanceConducted;
-use \NS\SentinelBundle\Form\Types\TripleChoice;
-use \NS\SentinelBundle\Form\Types\VaccinationReceived;
+use NS\SentinelBundle\Form\Types\FourDoses;
+use NS\SentinelBundle\Form\Types\Gender;
+use NS\SentinelBundle\Form\Types\Role;
+use NS\SentinelBundle\Form\RotaVirus\Types\DischargeOutcome as RVDischargeOutcome;
+use NS\SentinelBundle\Form\Types\SurveillanceConducted;
+use NS\SentinelBundle\Form\Types\TripleChoice;
+use NS\SentinelBundle\Form\Types\VaccinationReceived;
 
 class MiscProvider
 {

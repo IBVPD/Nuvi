@@ -2,7 +2,7 @@
 
 namespace NS\SentinelBundle\Tests\Controller;
 
-use \NS\SentinelBundle\Tests\BaseWebTestCase;
+use NS\SentinelBundle\Tests\BaseWebTestCase;
 
 /**
  * Description of RotaVirusControllerTest

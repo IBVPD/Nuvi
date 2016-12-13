@@ -2,13 +2,13 @@
 
 namespace NS\SentinelBundle\Entity;
 
-use \Doctrine\Common\Collections\ArrayCollection;
-use \Doctrine\Common\Collections\Collection;
-use \Doctrine\ORM\Mapping as ORM;
-use \NS\SentinelBundle\Validators as LocalAssert;
-use \Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use \Symfony\Component\Security\Core\User\AdvancedUserInterface;
-use \Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+use NS\SentinelBundle\Validators as LocalAssert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User

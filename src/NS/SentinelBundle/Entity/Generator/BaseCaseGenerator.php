@@ -2,13 +2,13 @@
 
 namespace NS\SentinelBundle\Entity\Generator;
 
-use \Doctrine\Common\Persistence\ObjectManager;
-use \Doctrine\ORM\Id\AbstractIdGenerator;
-use \NS\SentinelBundle\Entity\BaseCase;
-use \Doctrine\ORM\EntityManager;
-use \Doctrine\ORM\Query\ResultSetMapping;
-use \Doctrine\ORM\Query;
-use \NS\SentinelBundle\Entity\Site;
+use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\Id\AbstractIdGenerator;
+use NS\SentinelBundle\Entity\BaseCase;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Query\ResultSetMapping;
+use Doctrine\ORM\Query;
+use NS\SentinelBundle\Entity\Site;
 
 /**
  *

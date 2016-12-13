@@ -3,8 +3,8 @@
 namespace NS\SentinelBundle\Validators;
 
 use NS\UtilBundle\Form\Types\ArrayChoice;
-use \Symfony\Component\Validator\Constraint;
-use \Symfony\Component\Validator\ConstraintValidator;
+use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\ConstraintValidator;
 
 /**
  * Description of OtherValidator

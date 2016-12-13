@@ -2,12 +2,12 @@
 
 namespace NS\ApiBundle\Tests\Form;
 
-use \NS\AceBundle\Form\TagType;
-use \NS\ApiBundle\Form\ClientType;
-use \NS\ApiBundle\Form\Types\OAuthGrantTypes;
-use \OAuth2\OAuth2;
-use \Symfony\Component\Form\PreloadedExtension;
-use \Symfony\Component\Form\Test\TypeTestCase;
+use NS\AceBundle\Form\TagType;
+use NS\ApiBundle\Form\ClientType;
+use NS\ApiBundle\Form\Types\OAuthGrantTypes;
+use OAuth2\OAuth2;
+use Symfony\Component\Form\PreloadedExtension;
+use Symfony\Component\Form\Test\TypeTestCase;
 
 /**
  * Description of ClientTypeTest

@@ -2,13 +2,13 @@
 
 namespace NS\SentinelBundle\Tests\Form;
 
-use \Nelmio\ApiDocBundle\Form\Extension\DescriptionFormTypeExtension;
-use \NS\SentinelBundle\Form\CreateType;
+use Nelmio\ApiDocBundle\Form\Extension\DescriptionFormTypeExtension;
+use NS\SentinelBundle\Form\CreateType;
 use NS\SentinelBundle\Form\Types\CaseCreationType;
-use \Symfony\Component\Form\FormBuilder;
-use \Symfony\Component\Form\Forms;
-use \Symfony\Component\Form\PreloadedExtension;
-use \Symfony\Component\Form\Test\TypeTestCase;
+use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\Forms;
+use Symfony\Component\Form\PreloadedExtension;
+use Symfony\Component\Form\Test\TypeTestCase;
 
 /**
  * Description of CreateTypeTest

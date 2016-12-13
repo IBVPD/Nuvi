@@ -2,7 +2,7 @@
 
 namespace NS\ImportBundle\Filter;
 
-use \Ddeboer\DataImport\ReporterInterface;
+use Ddeboer\DataImport\ReporterInterface;
 
 /**
  * Description of NotBlank

@@ -2,8 +2,8 @@
 
 namespace NS\SentinelBundle\DataFixtures\Alice;
 
-use \Nelmio\Alice\ProcessorInterface;
-use \Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Nelmio\Alice\ProcessorInterface;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 /**
  * Description of UserProcessor

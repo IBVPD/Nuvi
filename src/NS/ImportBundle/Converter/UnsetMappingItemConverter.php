@@ -2,9 +2,9 @@
 
 namespace NS\ImportBundle\Converter;
 
-use \Ddeboer\DataImport\Report;
-use \Ddeboer\DataImport\Step;
-use \Symfony\Component\PropertyAccess\PropertyAccessor;
+use Ddeboer\DataImport\Report;
+use Ddeboer\DataImport\Step;
+use Symfony\Component\PropertyAccess\PropertyAccessor;
 
 /**
  * Description of UnsetMappingItemConverter

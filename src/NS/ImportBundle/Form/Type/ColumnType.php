@@ -2,10 +2,10 @@
 
 namespace NS\ImportBundle\Form\Type;
 
-use \NS\ImportBundle\Converter\ColumnChooser;
-use \Symfony\Component\Form\AbstractType;
+use NS\ImportBundle\Converter\ColumnChooser;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use \Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Description of ColumnType

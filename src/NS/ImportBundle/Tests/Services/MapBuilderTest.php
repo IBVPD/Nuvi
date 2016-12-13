@@ -2,14 +2,14 @@
 
 namespace NS\ImportBundle\Tests\Services;
 
-use \Liip\FunctionalTestBundle\Test\WebTestCase;
-use \NS\ImportBundle\Converter\Registry;
-use \NS\ImportBundle\Entity\Map;
+use Liip\FunctionalTestBundle\Test\WebTestCase;
+use NS\ImportBundle\Converter\Registry;
+use NS\ImportBundle\Entity\Map;
 use NS\ImportBundle\Reader\ReaderFactory;
-use \NS\ImportBundle\Services\MapBuilder;
-use \NS\SentinelBundle\Converter\ArrayChoiceConverter;
-use \NS\SentinelBundle\Converter\DosesConverter;
-use \Symfony\Component\HttpFoundation\File\UploadedFile;
+use NS\ImportBundle\Services\MapBuilder;
+use NS\SentinelBundle\Converter\ArrayChoiceConverter;
+use NS\SentinelBundle\Converter\DosesConverter;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Description of MapBuilderTest

@@ -2,17 +2,17 @@
 
 namespace NS\SentinelBundle\Repository;
 
-use \Doctrine\ORM\NoResultException;
-use \Doctrine\ORM\Query;
-use \NS\SentinelBundle\Exceptions\NonExistentCaseException;
-use \NS\SentinelBundle\Form\IBD\Types\BinaxResult;
-use \NS\SentinelBundle\Form\IBD\Types\CultureResult;
-use \NS\SentinelBundle\Form\IBD\Types\HiSerotype;
-use \NS\SentinelBundle\Form\IBD\Types\CaseResult;
-use \NS\SentinelBundle\Form\IBD\Types\PCRResult;
-use \NS\SentinelBundle\Form\IBD\Types\SpnSerotype;
-use \NS\SentinelBundle\Form\Types\TripleChoice;
-use \NS\UtilBundle\Form\Types\ArrayChoice;
+use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\Query;
+use NS\SentinelBundle\Exceptions\NonExistentCaseException;
+use NS\SentinelBundle\Form\IBD\Types\BinaxResult;
+use NS\SentinelBundle\Form\IBD\Types\CultureResult;
+use NS\SentinelBundle\Form\IBD\Types\HiSerotype;
+use NS\SentinelBundle\Form\IBD\Types\CaseResult;
+use NS\SentinelBundle\Form\IBD\Types\PCRResult;
+use NS\SentinelBundle\Form\IBD\Types\SpnSerotype;
+use NS\SentinelBundle\Form\Types\TripleChoice;
+use NS\UtilBundle\Form\Types\ArrayChoice;
 
 /**
  * Description of Common

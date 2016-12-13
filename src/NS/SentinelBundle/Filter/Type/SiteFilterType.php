@@ -2,12 +2,12 @@
 
 namespace NS\SentinelBundle\Filter\Type;
 
-use \Lexik\Bundle\FormFilterBundle\Filter\Form\Type\EmbeddedFilterTypeInterface;
+use Lexik\Bundle\FormFilterBundle\Filter\Form\Type\EmbeddedFilterTypeInterface;
 use Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType;
-use \Lexik\Bundle\FormFilterBundle\Filter\Query\QueryInterface;
-use \NS\SentinelBundle\Form\IBD\Types\IntenseSupport;
-use \Symfony\Component\Form\AbstractType;
-use \Symfony\Component\Form\FormBuilderInterface;
+use Lexik\Bundle\FormFilterBundle\Filter\Query\QueryInterface;
+use NS\SentinelBundle\Form\IBD\Types\IntenseSupport;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**

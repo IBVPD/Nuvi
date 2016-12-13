@@ -8,9 +8,9 @@ use NS\SentinelBundle\Form\IBD\NationalLabType;
 use NS\SentinelBundle\Form\IBD\OutcomeType;
 use NS\SentinelBundle\Form\IBD\ReferenceLabType;
 use NS\SentinelBundle\Form\IBD\SiteLabType;
-use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use \Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

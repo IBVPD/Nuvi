@@ -2,11 +2,11 @@
 
 namespace NS\SentinelBundle\Form\IBD\Types;
 
-use \NS\SentinelBundle\Form\IBD\Transformer\CTValueTransformer;
-use \Symfony\Component\Form\AbstractType;
+use NS\SentinelBundle\Form\IBD\Transformer\CTValueTransformer;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use \Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormBuilderInterface;
 
 /**
  * Description of CTValue

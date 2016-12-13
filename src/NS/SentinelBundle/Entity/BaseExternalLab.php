@@ -5,7 +5,7 @@ namespace NS\SentinelBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use NS\SentinelBundle\Form\Types\CaseStatus;
-use \JMS\Serializer\Annotation as Serializer;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * Description of BaseLab

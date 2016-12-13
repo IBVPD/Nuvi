@@ -2,7 +2,7 @@
 
 namespace NS\ImportBundle\Entity;
 
-use \Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping as ORM;
 use NS\ImportBundle\Validators as LocalAssert;
 
 /**

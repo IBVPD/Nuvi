@@ -3,8 +3,8 @@
 namespace NS\ImportBundle\Form;
 
 use NS\AceBundle\Form\DatePickerType;
-use \Symfony\Component\Form\AbstractType;
-use \Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Description of DateFilterType

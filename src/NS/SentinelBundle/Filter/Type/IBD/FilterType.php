@@ -4,10 +4,10 @@ namespace NS\SentinelBundle\Filter\Type\IBD;
 
 use NS\SentinelBundle\Filter\Type\BaseFilterType;
 use NS\SentinelBundle\Form\Types\CaseStatus;
-use \Symfony\Component\Form\AbstractType;
-use \Symfony\Component\OptionsResolver\OptionsResolver;
-use \Symfony\Component\Form\FormBuilderInterface;
-use \Lexik\Bundle\FormFilterBundle\Filter\Form\Type\EmbeddedFilterTypeInterface;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\FormBuilderInterface;
+use Lexik\Bundle\FormFilterBundle\Filter\Form\Type\EmbeddedFilterTypeInterface;
 
 /**
  * Class FilterType

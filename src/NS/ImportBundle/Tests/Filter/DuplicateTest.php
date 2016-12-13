@@ -2,7 +2,7 @@
 
 namespace NS\ImportBundle\Tests\Filter;
 
-use \NS\ImportBundle\Filter\Duplicate;
+use NS\ImportBundle\Filter\Duplicate;
 use NS\SentinelBundle\Entity\Site;
 use Symfony\Component\HttpFoundation\File\File;
 

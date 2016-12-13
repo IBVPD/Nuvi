@@ -2,11 +2,11 @@
 
 namespace NS\ImportBundle\Importer;
 
-use \Ddeboer\DataImport\ReporterInterface;
-use \Ddeboer\DataImport\Result;
-use \Doctrine\ORM\Proxy\Proxy;
-use \NS\ImportBundle\Entity\Import;
-use \NS\SentinelBundle\Entity\BaseCase;
+use Ddeboer\DataImport\ReporterInterface;
+use Ddeboer\DataImport\Result;
+use Doctrine\ORM\Proxy\Proxy;
+use NS\ImportBundle\Entity\Import;
+use NS\SentinelBundle\Entity\BaseCase;
 
 /**
  * Class ImportResultUpdater

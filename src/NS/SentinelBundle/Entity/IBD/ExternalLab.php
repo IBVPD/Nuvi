@@ -15,9 +15,9 @@ use NS\SentinelBundle\Form\IBD\Types\SerotypeIdentifier;
 use NS\SentinelBundle\Form\IBD\Types\SpnSerotype;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use \NS\SecurityBundle\Annotation\Secured;
-use \NS\SecurityBundle\Annotation\SecuredCondition;
-use \JMS\Serializer\Annotation as Serializer;
+use NS\SecurityBundle\Annotation\Secured;
+use NS\SecurityBundle\Annotation\SecuredCondition;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * Description of ExternalLab

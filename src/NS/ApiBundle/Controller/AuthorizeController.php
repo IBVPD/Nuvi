@@ -2,17 +2,17 @@
 
 namespace NS\ApiBundle\Controller;
 
-use \Doctrine\ORM\UnexpectedResultException;
-use \NS\ApiBundle\Entity\Client;
-use \NS\ApiBundle\Form\Model\Authorize;
+use Doctrine\ORM\UnexpectedResultException;
+use NS\ApiBundle\Entity\Client;
+use NS\ApiBundle\Form\Model\Authorize;
 use NS\ApiBundle\Form\Types\AuthorizeFormType;
-use \OAuth2\OAuth2ServerException;
-use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use \Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use \Symfony\Component\HttpFoundation\RedirectResponse;
-use \Symfony\Component\HttpFoundation\Request;
-use \Symfony\Component\HttpFoundation\Response;
-use \Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use OAuth2\OAuth2ServerException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Description of AuthorizeController

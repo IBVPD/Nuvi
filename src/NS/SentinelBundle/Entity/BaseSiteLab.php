@@ -2,8 +2,8 @@
 
 namespace NS\SentinelBundle\Entity;
 
-use \Doctrine\ORM\Mapping as ORM;
-use \JMS\Serializer\Annotation\Groups;
+use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * Description of BaseSiteLab

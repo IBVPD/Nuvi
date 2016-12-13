@@ -2,9 +2,9 @@
 
 namespace NS\ImportBundle\Tests\Converter;
 
-use \NS\ImportBundle\Converter\DateTimeValueConverter;
-use \NS\ImportBundle\Converter\Registry;
-use \Symfony\Component\Form\Test\TypeTestCase;
+use NS\ImportBundle\Converter\DateTimeValueConverter;
+use NS\ImportBundle\Converter\Registry;
+use Symfony\Component\Form\Test\TypeTestCase;
 
 /**
  * Description of RegistryTest

@@ -3,7 +3,7 @@
 namespace NS\SentinelBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use \NS\SecurityBundle\Entity\BaseACL;
+use NS\SecurityBundle\Entity\BaseACL;
 use NS\SentinelBundle\Form\Types\Role;
 use Symfony\Component\Validator\Constraints as Assert;
 use NS\SentinelBundle\Validators as LocalAssert;

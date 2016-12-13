@@ -8,8 +8,8 @@
 
 namespace NS\ImportBundle\Vich;
 
-use \Vich\UploaderBundle\Mapping\PropertyMapping;
-use \Vich\UploaderBundle\Naming\DirectoryNamerInterface;
+use Vich\UploaderBundle\Mapping\PropertyMapping;
+use Vich\UploaderBundle\Naming\DirectoryNamerInterface;
 
 class DirectoryNamer implements DirectoryNamerInterface
 {

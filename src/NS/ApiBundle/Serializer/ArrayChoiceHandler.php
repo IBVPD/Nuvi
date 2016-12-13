@@ -2,10 +2,10 @@
 
 namespace NS\ApiBundle\Serializer;
 
-use \JMS\Serializer\GraphNavigator;
-use \JMS\Serializer\Handler\SubscribingHandlerInterface;
-use \JMS\Serializer\JsonSerializationVisitor;
-use \JMS\Serializer\SerializationContext;
+use JMS\Serializer\GraphNavigator;
+use JMS\Serializer\Handler\SubscribingHandlerInterface;
+use JMS\Serializer\JsonSerializationVisitor;
+use JMS\Serializer\SerializationContext;
 
 /**
  * Description of ArrayChoiceHandler

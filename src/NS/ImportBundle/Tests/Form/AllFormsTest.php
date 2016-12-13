@@ -2,8 +2,8 @@
 
 namespace NS\ImportBundle\Tests\Form;
 
-use \NS\ImportBundle\Form\ClassType;
-use \Symfony\Component\Form\Test\TypeTestCase;
+use NS\ImportBundle\Form\ClassType;
+use Symfony\Component\Form\Test\TypeTestCase;
 
 /**
  * Description of AllFormsTest

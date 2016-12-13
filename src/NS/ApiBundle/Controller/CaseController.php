@@ -4,11 +4,11 @@ namespace NS\ApiBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use \NS\SentinelBundle\Exceptions\NonExistentCaseException;
+use NS\SentinelBundle\Exceptions\NonExistentCaseException;
 use FOS\RestBundle\Util\Codes;
 use FOS\RestBundle\Controller\FOSRestController;
-use \Doctrine\Common\Persistence\ObjectManager;
-use \Symfony\Component\Form\FormInterface;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Form\FormInterface;
 
 /**
  * Description of CaseController

@@ -2,9 +2,9 @@
 
 namespace NS\ImportBundle\Converter;
 
-use \Doctrine\Common\Cache\CacheProvider;
-use \Doctrine\Common\Persistence\Mapping\ClassMetadata;
-use \Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\Cache\CacheProvider;
+use Doctrine\Common\Persistence\Mapping\ClassMetadata;
+use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\DBAL\Types\Type;
 
 /**

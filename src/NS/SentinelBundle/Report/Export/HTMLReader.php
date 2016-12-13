@@ -8,7 +8,7 @@
 
 namespace NS\SentinelBundle\Report\Export;
 
-use \PHPExcel_Reader_Exception;
+use PHPExcel_Reader_Exception;
 
 class HTMLReader extends \PHPExcel_Reader_HTML
 {

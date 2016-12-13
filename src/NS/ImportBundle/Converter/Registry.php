@@ -3,9 +3,9 @@
 namespace NS\ImportBundle\Converter;
 
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
-use \Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use \Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Description of Registry

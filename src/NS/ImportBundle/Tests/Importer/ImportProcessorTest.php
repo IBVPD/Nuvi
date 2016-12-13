@@ -2,19 +2,19 @@
 
 namespace NS\ImportBundle\Tests\Importer;
 
-use \Ddeboer\DataImport\Reader\ArrayReader;
-use \Ddeboer\DataImport\Workflow;
-use \Ddeboer\DataImport\Writer\ArrayWriter;
-use \Liip\FunctionalTestBundle\Test\WebTestCase;
+use Ddeboer\DataImport\Reader\ArrayReader;
+use Ddeboer\DataImport\Workflow;
+use Ddeboer\DataImport\Writer\ArrayWriter;
+use Liip\FunctionalTestBundle\Test\WebTestCase;
 use NS\ImportBundle\Converter\Registry;
-use \NS\ImportBundle\Entity\Column;
-use \NS\ImportBundle\Entity\Import;
-use \NS\ImportBundle\Entity\Map;
-use \NS\ImportBundle\Filter\Duplicate;
-use \NS\ImportBundle\Filter\NotBlank;
-use \NS\ImportBundle\Importer\ImportProcessor;
+use NS\ImportBundle\Entity\Column;
+use NS\ImportBundle\Entity\Import;
+use NS\ImportBundle\Entity\Map;
+use NS\ImportBundle\Filter\Duplicate;
+use NS\ImportBundle\Filter\NotBlank;
+use NS\ImportBundle\Importer\ImportProcessor;
 use NS\ImportBundle\Linker\CaseLinkerRegistry;
-use \Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Description of ImportProcessorTest

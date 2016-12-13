@@ -2,8 +2,8 @@
 
 namespace NS\SentinelBundle\Tests\Form\Types;
 
-use \NS\SentinelBundle\Form\Types\Role;
-use \Symfony\Component\Form\Test\TypeTestCase;
+use NS\SentinelBundle\Form\Types\Role;
+use Symfony\Component\Form\Test\TypeTestCase;
 
 /**
  * Description of RoleTypeTest

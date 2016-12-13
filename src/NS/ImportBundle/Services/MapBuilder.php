@@ -2,11 +2,11 @@
 
 namespace NS\ImportBundle\Services;
 
-use \Doctrine\ORM\Mapping\ClassMetadata;
-use \NS\ImportBundle\Converter\Registry;
-use \NS\ImportBundle\Entity\Column;
-use \NS\ImportBundle\Entity\Map;
-use \NS\ImportBundle\Reader\ReaderFactory;
+use Doctrine\ORM\Mapping\ClassMetadata;
+use NS\ImportBundle\Converter\Registry;
+use NS\ImportBundle\Entity\Column;
+use NS\ImportBundle\Entity\Map;
+use NS\ImportBundle\Reader\ReaderFactory;
 
 /**
  * Description of MapBuilder

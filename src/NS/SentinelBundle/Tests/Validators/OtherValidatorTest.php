@@ -2,11 +2,11 @@
 
 namespace NS\SentinelBundle\Tests\Validators;
 
-use \NS\SentinelBundle\Entity\IBD\SiteLab;
-use \NS\SentinelBundle\Form\IBD\Types\CultureResult;
-use \NS\SentinelBundle\Form\Types\TripleChoice;
-use \NS\SentinelBundle\Validators\Other;
-use \NS\SentinelBundle\Validators\OtherValidator;
+use NS\SentinelBundle\Entity\IBD\SiteLab;
+use NS\SentinelBundle\Form\IBD\Types\CultureResult;
+use NS\SentinelBundle\Form\Types\TripleChoice;
+use NS\SentinelBundle\Validators\Other;
+use NS\SentinelBundle\Validators\OtherValidator;
 
 /**
  * Description of OtherValidatorTest

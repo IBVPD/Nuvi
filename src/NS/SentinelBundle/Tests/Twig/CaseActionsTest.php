@@ -2,12 +2,12 @@
 
 namespace NS\SentinelBundle\Tests\Twig;
 
-use \NS\SentinelBundle\Twig\CaseActions;
-use \NS\SentinelBundle\Entity\IBD;
-use \NS\SentinelBundle\Entity\RotaVirus;
+use NS\SentinelBundle\Twig\CaseActions;
+use NS\SentinelBundle\Entity\IBD;
+use NS\SentinelBundle\Entity\RotaVirus;
 
-use \NS\SentinelBundle\Entity\IBD\SiteLab as IBDSiteLab;
-use \NS\SentinelBundle\Entity\RotaVirus\SiteLab as RVSiteLab;
+use NS\SentinelBundle\Entity\IBD\SiteLab as IBDSiteLab;
+use NS\SentinelBundle\Entity\RotaVirus\SiteLab as RVSiteLab;
 
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 

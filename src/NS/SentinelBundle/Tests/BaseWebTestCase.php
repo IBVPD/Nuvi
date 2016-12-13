@@ -2,7 +2,7 @@
 
 namespace NS\SentinelBundle\Tests;
 
-use \Liip\FunctionalTestBundle\Test\WebTestCase;
+use Liip\FunctionalTestBundle\Test\WebTestCase;
 
 /**
  * Description of BaseWebTestCase

@@ -5,10 +5,10 @@ namespace NS\SentinelBundle\Controller;
 use NS\SentinelBundle\Filter\Type\BaseQuarterlyFilterType;
 use NS\SentinelBundle\Filter\Type\RotaVirus\QuarterlyLinkingReportFilterType;
 use NS\SentinelBundle\Filter\Type\RotaVirus\ReportFilterType;
-use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use \Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use \Symfony\Component\HttpFoundation\Response;
-use \Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class RotaVirusReportController

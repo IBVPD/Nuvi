@@ -2,9 +2,9 @@
 
 namespace NS\SentinelBundle\Tests\Entity;
 
-use \NS\SentinelBundle\Entity\User;
-use \NS\SentinelBundle\Entity\ACL;
-use \NS\SentinelBundle\Form\Types\Role;
+use NS\SentinelBundle\Entity\User;
+use NS\SentinelBundle\Entity\ACL;
+use NS\SentinelBundle\Form\Types\Role;
 
 /**
  * Description of UserTest

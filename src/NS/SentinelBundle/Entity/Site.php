@@ -4,12 +4,12 @@ namespace NS\SentinelBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use \Doctrine\ORM\Mapping as ORM;
-use \JMS\Serializer\Annotation\Groups;
-use \NS\SecurityBundle\Annotation\Secured;
-use \NS\SecurityBundle\Annotation\SecuredCondition;
-use \NS\SentinelBundle\Form\IBD\Types\IntenseSupport;
-use \NS\SentinelBundle\Form\Types\SurveillanceConducted;
+use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\Groups;
+use NS\SecurityBundle\Annotation\Secured;
+use NS\SecurityBundle\Annotation\SecuredCondition;
+use NS\SentinelBundle\Form\IBD\Types\IntenseSupport;
+use NS\SentinelBundle\Form\Types\SurveillanceConducted;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 

@@ -2,11 +2,11 @@
 
 namespace NS\ApiBundle\Service;
 
-use \Doctrine\Common\Persistence\ObjectManager;
-use \FOS\RestBundle\Util\Codes;
-use \NS\ApiBundle\Entity\Remote;
-use \OAuth2\Client;
-use \OAuth2\Exception;
+use Doctrine\Common\Persistence\ObjectManager;
+use FOS\RestBundle\Util\Codes;
+use NS\ApiBundle\Entity\Remote;
+use OAuth2\Client;
+use OAuth2\Exception;
 
 /**
  * Description of OAuth2Client

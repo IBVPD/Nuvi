@@ -2,9 +2,9 @@
 
 namespace NS\ImportBundle\Tests\Converter;
 
-use \Doctrine\Common\Cache\ArrayCache;
+use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\DBAL\Types\Type;
-use \NS\ImportBundle\Converter\ColumnChooser;
+use NS\ImportBundle\Converter\ColumnChooser;
 
 class ColumnChooserTest extends \PHPUnit_Framework_TestCase
 {

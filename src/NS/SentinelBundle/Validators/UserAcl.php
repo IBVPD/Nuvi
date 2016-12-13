@@ -2,7 +2,7 @@
 
 namespace NS\SentinelBundle\Validators;
 
-use \Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\Constraint;
 
 /**
  * Description of UserAclValidator

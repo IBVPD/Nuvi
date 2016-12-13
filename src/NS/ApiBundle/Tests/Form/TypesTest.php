@@ -2,10 +2,10 @@
 
 namespace NS\ApiBundle\Tests\Form;
 
-use \NS\ApiBundle\Form\Types\AuthorizeFormType;
-use \NS\ApiBundle\Form\Types\OAuthGrantTypes;
-use \OAuth2\OAuth2;
-use \Symfony\Component\Form\Test\TypeTestCase;
+use NS\ApiBundle\Form\Types\AuthorizeFormType;
+use NS\ApiBundle\Form\Types\OAuthGrantTypes;
+use OAuth2\OAuth2;
+use Symfony\Component\Form\Test\TypeTestCase;
 
 /**
  * Description of TypesTest

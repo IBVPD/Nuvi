@@ -2,19 +2,19 @@
 
 namespace NS\SentinelBundle\Entity;
 
-use \Doctrine\ORM\Mapping as ORM;
-use \NS\SentinelBundle\Form\Types\TripleChoice;
-use \NS\SentinelBundle\Form\Types\VaccinationReceived;
-use \NS\SentinelBundle\Form\RotaVirus\Types\VaccinationType;
-use \NS\SentinelBundle\Form\RotaVirus\Types\DischargeOutcome;
-use \NS\SentinelBundle\Form\RotaVirus\Types\DischargeClassification;
-use \NS\SentinelBundle\Form\RotaVirus\Types\Dehydration;
-use \NS\SentinelBundle\Form\RotaVirus\Types\Rehydration;
-use \NS\SentinelBundle\Form\Types\ThreeDoses;
-use \NS\SecurityBundle\Annotation\Secured;
-use \NS\SecurityBundle\Annotation\SecuredCondition;
-use \JMS\Serializer\Annotation\Groups;
-use \JMS\Serializer\Annotation\Exclude;
+use Doctrine\ORM\Mapping as ORM;
+use NS\SentinelBundle\Form\Types\TripleChoice;
+use NS\SentinelBundle\Form\Types\VaccinationReceived;
+use NS\SentinelBundle\Form\RotaVirus\Types\VaccinationType;
+use NS\SentinelBundle\Form\RotaVirus\Types\DischargeOutcome;
+use NS\SentinelBundle\Form\RotaVirus\Types\DischargeClassification;
+use NS\SentinelBundle\Form\RotaVirus\Types\Dehydration;
+use NS\SentinelBundle\Form\RotaVirus\Types\Rehydration;
+use NS\SentinelBundle\Form\Types\ThreeDoses;
+use NS\SecurityBundle\Annotation\Secured;
+use NS\SecurityBundle\Annotation\SecuredCondition;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\Exclude;
 
 /**
  * Description of RotaVirus

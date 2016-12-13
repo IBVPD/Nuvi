@@ -2,19 +2,19 @@
 
 namespace NS\ImportBundle\Form;
 
-use \Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityRepository;
 use NS\AceBundle\Form\DatePickerType;
-use \NS\ImportBundle\Services\ImportFileCreator;
+use NS\ImportBundle\Services\ImportFileCreator;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use \Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use \Symfony\Component\Form\FormBuilderInterface;
-use \Symfony\Component\Form\FormEvent;
-use \Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\Options;
-use \Symfony\Component\OptionsResolver\OptionsResolver;
-use \NS\ImportBundle\Entity\Import;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use NS\ImportBundle\Entity\Import;
 use Vich\UploaderBundle\Form\Type\VichFileType;
 
 /**

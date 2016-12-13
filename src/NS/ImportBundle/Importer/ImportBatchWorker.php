@@ -2,12 +2,12 @@
 
 namespace NS\ImportBundle\Importer;
 
-use \Ddeboer\DataImport\Result;
-use \Doctrine\Common\Persistence\ObjectManager;
-use \NS\ImportBundle\Entity\Import;
-use \NS\ImportBundle\Filter\Duplicate;
-use \NS\ImportBundle\Filter\NotBlank;
-use \NS\ImportBundle\Linker\CaseLinkerRegistry;
+use Ddeboer\DataImport\Result;
+use Doctrine\Common\Persistence\ObjectManager;
+use NS\ImportBundle\Entity\Import;
+use NS\ImportBundle\Filter\Duplicate;
+use NS\ImportBundle\Filter\NotBlank;
+use NS\ImportBundle\Linker\CaseLinkerRegistry;
 
 /**
  * Class ImportBatchWorker

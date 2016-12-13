@@ -8,9 +8,9 @@ use NS\SentinelBundle\Form\RotaVirus\NationalLabType;
 use NS\SentinelBundle\Form\RotaVirus\OutcomeType;
 use NS\SentinelBundle\Form\RotaVirus\ReferenceLabType;
 use NS\SentinelBundle\Form\RotaVirus\SiteLabType;
-use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use \Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

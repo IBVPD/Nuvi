@@ -2,10 +2,10 @@
 
 namespace NS\SentinelBundle\Repository;
 
-use \Doctrine\ORM\NoResultException;
-use \Doctrine\ORM\Query;
+use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\Query;
 use NS\SentinelBundle\Entity\RotaVirus;
-use \NS\SentinelBundle\Exceptions\NonExistentCaseException;
+use NS\SentinelBundle\Exceptions\NonExistentCaseException;
 use NS\SentinelBundle\Form\RotaVirus\Types\ElisaResult;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\UtilBundle\Form\Types\ArrayChoice;

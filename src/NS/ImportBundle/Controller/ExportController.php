@@ -2,19 +2,19 @@
 
 namespace NS\ImportBundle\Controller;
 
-use \Doctrine\ORM\QueryBuilder;
-use \Exporter\Source\DoctrineORMQuerySourceIterator;
-use \NS\SentinelBundle\Entity\IBD;
-use \NS\SentinelBundle\Entity\RotaVirus;
+use Doctrine\ORM\QueryBuilder;
+use Exporter\Source\DoctrineORMQuerySourceIterator;
+use NS\SentinelBundle\Entity\IBD;
+use NS\SentinelBundle\Entity\RotaVirus;
 use NS\SentinelBundle\Filter\Type\IBD\ReportFilterType as IBDReportFilterType;
 use NS\SentinelBundle\Filter\Type\RotaVirus\ReportFilterType as RotaVirusReportFilterType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sonata\CoreBundle\Exporter\Exporter;
-use \Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use \Symfony\Component\Form\FormInterface;
-use \Symfony\Component\HttpFoundation\Request;
-use \Symfony\Component\HttpFoundation\Response;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Description of ExportController

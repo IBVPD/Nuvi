@@ -2,8 +2,8 @@
 
 namespace NS\ImportBundle\Form;
 
-use \Symfony\Component\Form\AbstractType;
-use \Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Lexik\Bundle\FormFilterBundle\Filter\Form\Type\DateRangeFilterType as BaseDateRangeFilter;
 
 /**

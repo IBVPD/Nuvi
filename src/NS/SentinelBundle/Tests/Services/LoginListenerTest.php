@@ -2,14 +2,14 @@
 
 namespace NS\SentinelBundle\Tests\Services;
 
-use \NS\SentinelBundle\Services\LoginListener;
-use \Symfony\Component\EventDispatcher\EventDispatcher;
+use NS\SentinelBundle\Services\LoginListener;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use \Symfony\Component\HttpFoundation\Request;
-use \Symfony\Component\HttpFoundation\Response;
-use \Symfony\Component\HttpKernel\Event\FilterResponseEvent;
-use \Symfony\Component\HttpKernel\HttpKernel;
-use \Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Symfony\Component\HttpKernel\HttpKernel;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 /**
  * Description of LoginListenerTest

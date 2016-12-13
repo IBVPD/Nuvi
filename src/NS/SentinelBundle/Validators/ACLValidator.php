@@ -9,8 +9,8 @@
 namespace NS\SentinelBundle\Validators;
 
 use NS\SentinelBundle\Form\Types\Role;
-use \Symfony\Component\Validator\Constraint;
-use \Symfony\Component\Validator\ConstraintValidator;
+use Symfony\Component\Validator\Constraint;
+use Symfony\Component\Validator\ConstraintValidator;
 
 class ACLValidator extends ConstraintValidator
 {

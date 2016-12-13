@@ -3,10 +3,10 @@
 namespace NS\SentinelBundle\Controller;
 
 use NS\SentinelBundle\Filter\Type\IBD\ReportFilterType;
-use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use \Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use \Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class SecurityController extends Controller
 {

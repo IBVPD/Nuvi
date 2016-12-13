@@ -2,8 +2,8 @@
 
 namespace NS\ApiBundle\Tests;
 
-use \Liip\FunctionalTestBundle\Test\WebTestCase as BaseWebTestCase;
-use \Symfony\Component\Security\Core\User\UserInterface;
+use Liip\FunctionalTestBundle\Test\WebTestCase as BaseWebTestCase;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Description of WebTestCase

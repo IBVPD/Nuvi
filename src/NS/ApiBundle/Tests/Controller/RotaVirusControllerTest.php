@@ -2,9 +2,9 @@
 
 namespace NS\ApiBundle\Tests\Controller;
 
-use \NS\ApiBundle\Tests\WebTestCase;
-use \NS\SentinelBundle\Form\Types\Gender;
-use \NS\UtilBundle\Form\Types\ArrayChoice;
+use NS\ApiBundle\Tests\WebTestCase;
+use NS\SentinelBundle\Form\Types\Gender;
+use NS\UtilBundle\Form\Types\ArrayChoice;
 
 /**
  * Description of RotaVirusController

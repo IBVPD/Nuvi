@@ -2,10 +2,10 @@
 
 namespace NS\SentinelBundle\Converter;
 
-use \Ddeboer\DataImport\Exception\UnexpectedValueException;
-use \Ddeboer\DataImport\ReporterInterface;
-use \NS\ImportBundle\Converter\NamedValueConverterInterface;
-use \UnexpectedValueException as UnexpectedValueException2;
+use Ddeboer\DataImport\Exception\UnexpectedValueException;
+use Ddeboer\DataImport\ReporterInterface;
+use NS\ImportBundle\Converter\NamedValueConverterInterface;
+use UnexpectedValueException as UnexpectedValueException2;
 
 /**
  * Description of ArrayChoiceConverter

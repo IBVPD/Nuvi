@@ -2,17 +2,17 @@
 
 namespace NS\SentinelBundle\Entity\RotaVirus;
 
-use \Doctrine\ORM\Mapping as ORM;
-use \NS\SecurityBundle\Annotation\Secured;
-use \NS\SecurityBundle\Annotation\SecuredCondition;
-use \NS\SentinelBundle\Entity\BaseSiteLab;
-use \NS\SentinelBundle\Entity\RotaVirus;
-use \NS\SentinelBundle\Form\RotaVirus\Types\ElisaKit;
-use \NS\SentinelBundle\Form\RotaVirus\Types\ElisaResult;
-use \NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultG;
-use \NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultP;
-use \NS\SentinelBundle\Form\Types\TripleChoice;
-use \JMS\Serializer\Annotation\Groups;
+use Doctrine\ORM\Mapping as ORM;
+use NS\SecurityBundle\Annotation\Secured;
+use NS\SecurityBundle\Annotation\SecuredCondition;
+use NS\SentinelBundle\Entity\BaseSiteLab;
+use NS\SentinelBundle\Entity\RotaVirus;
+use NS\SentinelBundle\Form\RotaVirus\Types\ElisaKit;
+use NS\SentinelBundle\Form\RotaVirus\Types\ElisaResult;
+use NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultG;
+use NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultP;
+use NS\SentinelBundle\Form\Types\TripleChoice;
+use JMS\Serializer\Annotation\Groups;
 
 /**
  * Description of RotaVirusSiteLab

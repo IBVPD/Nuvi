@@ -3,15 +3,15 @@
 namespace NS\SentinelBundle\Filter\Type;
 
 use NS\AceBundle\Filter\Type\DateRangeFilterType;
-use \NS\SecurityBundle\Role\ACLConverter;
-use \Symfony\Component\Form\AbstractType;
+use NS\SecurityBundle\Role\ACLConverter;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use \Symfony\Component\Form\FormBuilderInterface;
-use \Symfony\Component\Form\FormEvent;
-use \Symfony\Component\Form\FormEvents;
-use \Symfony\Component\OptionsResolver\OptionsResolver;
-use \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * Description of BaseReportFilterType

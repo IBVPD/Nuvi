@@ -2,9 +2,9 @@
 
 namespace NS\ImportBundle\Writer;
 
-use \Ddeboer\DataImport\Writer\DoctrineWriter as BaseWriter;
-use \Doctrine\Common\Collections\ArrayCollection;
-use \Doctrine\Common\Persistence\ObjectManager;
+use Ddeboer\DataImport\Writer\DoctrineWriter as BaseWriter;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Persistence\ObjectManager;
 use NS\ImportBundle\Services\CamelCaser;
 use NS\SentinelBundle\Entity\IBD\ReferenceLab;
 

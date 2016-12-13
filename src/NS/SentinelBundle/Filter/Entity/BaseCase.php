@@ -2,8 +2,8 @@
 
 namespace NS\SentinelBundle\Filter\Entity;
 
-use \Symfony\Component\Validator\Constraints as Assert;
-use \Symfony\Component\Validator\ExecutionContextInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\ExecutionContextInterface;
 
 /**
  * Description of BaseCase

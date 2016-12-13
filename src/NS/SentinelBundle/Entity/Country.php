@@ -2,12 +2,12 @@
 
 namespace NS\SentinelBundle\Entity;
 
-use \Doctrine\ORM\Mapping as ORM;
-use \Doctrine\Common\Collections\ArrayCollection;
-use \NS\SecurityBundle\Annotation\Secured;
-use \NS\SecurityBundle\Annotation\SecuredCondition;
-use \JMS\Serializer\Annotation\Groups;
-use \NS\SentinelBundle\Form\Types\TripleChoice;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use NS\SecurityBundle\Annotation\Secured;
+use NS\SecurityBundle\Annotation\SecuredCondition;
+use JMS\Serializer\Annotation\Groups;
+use NS\SentinelBundle\Form\Types\TripleChoice;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 

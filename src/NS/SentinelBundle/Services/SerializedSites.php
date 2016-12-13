@@ -2,12 +2,12 @@
 
 namespace NS\SentinelBundle\Services;
 
-use \Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use NS\SentinelBundle\Interfaces\SerializedSitesInterface;
-use \NS\SentinelBundle\Entity\Region;
-use \NS\SentinelBundle\Entity\Country;
-use \NS\SentinelBundle\Entity\Site;
+use NS\SentinelBundle\Entity\Region;
+use NS\SentinelBundle\Entity\Country;
+use NS\SentinelBundle\Entity\Site;
 
 /**
  * Description of SerializedSites

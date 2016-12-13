@@ -2,7 +2,7 @@
 
 namespace NS\ApiBundle\Tests\Form;
 
-use \Symfony\Component\Form\Test\TypeTestCase;
+use Symfony\Component\Form\Test\TypeTestCase;
 
 /**
  * Description of RemoteTypeTest

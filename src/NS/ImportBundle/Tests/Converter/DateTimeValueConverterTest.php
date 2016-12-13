@@ -2,8 +2,8 @@
 
 namespace NS\ImportBundle\Tests\Converter;
 
-use \Ddeboer\DataImport\Exception\UnexpectedValueException;
-use \NS\ImportBundle\Converter\DateTimeValueConverter;
+use Ddeboer\DataImport\Exception\UnexpectedValueException;
+use NS\ImportBundle\Converter\DateTimeValueConverter;
 
 /**
  * Description of DateTimeValueConverter

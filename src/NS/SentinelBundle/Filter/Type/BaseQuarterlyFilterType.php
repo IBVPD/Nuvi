@@ -4,7 +4,7 @@ namespace NS\SentinelBundle\Filter\Type;
 
 use Lexik\Bundle\FormFilterBundle\Filter\Form\Type\NumberFilterType;
 use Lexik\Bundle\FormFilterBundle\Filter\Query\QueryInterface;
-use \NS\SecurityBundle\Role\ACLConverter;
+use NS\SecurityBundle\Role\ACLConverter;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

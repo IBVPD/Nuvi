@@ -2,11 +2,11 @@
 
 namespace NS\ImportBundle\Filter;
 
-use \Ddeboer\DataImport\Exception\UnexpectedValueException;
-use \Ddeboer\DataImport\ReporterInterface;
-use \Doctrine\Common\Collections\ArrayCollection;
-use \NS\ImportBundle\Exceptions\InvalidEncodingException;
-use \Symfony\Component\HttpFoundation\File\File;
+use Ddeboer\DataImport\Exception\UnexpectedValueException;
+use Ddeboer\DataImport\ReporterInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use NS\ImportBundle\Exceptions\InvalidEncodingException;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Description of Duplicate

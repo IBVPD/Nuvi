@@ -2,13 +2,13 @@
 
 namespace NS\SentinelBundle\Tests\Generator;
 
-use \Doctrine\ORM\Query;
-use \InvalidArgumentException;
-use \NS\SentinelBundle\Entity\Generator\BaseCaseGenerator;
-use \NS\SentinelBundle\Entity\IBD;
-use \NS\SentinelBundle\Entity\Region;
-use \NS\SentinelBundle\Entity\Country;
-use \NS\SentinelBundle\Entity\Site;
+use Doctrine\ORM\Query;
+use InvalidArgumentException;
+use NS\SentinelBundle\Entity\Generator\BaseCaseGenerator;
+use NS\SentinelBundle\Entity\IBD;
+use NS\SentinelBundle\Entity\Region;
+use NS\SentinelBundle\Entity\Country;
+use NS\SentinelBundle\Entity\Site;
 
 /**
  * Description of EntityGeneratorTest

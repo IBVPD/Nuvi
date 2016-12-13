@@ -2,11 +2,11 @@
 
 namespace NS\ApiBundle\Controller;
 
-use \Nelmio\ApiDocBundle\Annotation as ApiDoc;
+use Nelmio\ApiDocBundle\Annotation as ApiDoc;
 use NS\SentinelBundle\Exceptions\NonExistentCaseException;
-use \Symfony\Component\HttpFoundation\Request;
-use \Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use \FOS\RestBundle\Controller\Annotations as REST;
+use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use FOS\RestBundle\Controller\Annotations as REST;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**

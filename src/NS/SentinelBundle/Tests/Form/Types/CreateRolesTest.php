@@ -3,7 +3,7 @@
 namespace NS\SentinelBundle\Tests\Form\Types;
 
 use NS\SentinelBundle\Form\Types\CaseCreationType;
-use \Symfony\Component\Form\Test\TypeTestCase;
+use Symfony\Component\Form\Test\TypeTestCase;
 
 /**
  * Description of CreateRolesTest

@@ -2,8 +2,8 @@
 
 namespace NS\ImportBundle\Event\Subscriber;
 
-use \Lexik\Bundle\FormFilterBundle\Event\GetFilterConditionEvent;
-use \Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Lexik\Bundle\FormFilterBundle\Event\GetFilterConditionEvent;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Description of DoctrineSubscriber

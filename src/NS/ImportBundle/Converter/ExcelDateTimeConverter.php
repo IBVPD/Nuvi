@@ -2,7 +2,7 @@
 
 namespace NS\ImportBundle\Converter;
 
-use \Ddeboer\DataImport\ValueConverter\ExcelDateTimeConverter as BaseDateConverter;
+use Ddeboer\DataImport\ValueConverter\ExcelDateTimeConverter as BaseDateConverter;
 
 /**
  * Class ExcelDateConverter

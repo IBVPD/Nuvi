@@ -2,8 +2,8 @@
 
 namespace NS\ImportBundle\Repository;
 
-use \Doctrine\ORM\EntityRepository;
-use \Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * Description of MapRepository

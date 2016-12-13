@@ -2,25 +2,25 @@
 
 namespace NS\SentinelBundle\Entity\IBD;
 
-use \Doctrine\ORM\Mapping as ORM;
-use \NS\SecurityBundle\Annotation as Security;
-use \NS\SentinelBundle\Entity\BaseSiteLab;
-use \NS\SentinelBundle\Entity\IBD;
-use \NS\SentinelBundle\Form\IBD\Types\BinaxResult;
-use \NS\SentinelBundle\Form\Types\TripleChoice;
-use \NS\SentinelBundle\Form\Types\CaseStatus;
+use Doctrine\ORM\Mapping as ORM;
+use NS\SecurityBundle\Annotation as Security;
+use NS\SentinelBundle\Entity\BaseSiteLab;
+use NS\SentinelBundle\Entity\IBD;
+use NS\SentinelBundle\Form\IBD\Types\BinaxResult;
+use NS\SentinelBundle\Form\Types\TripleChoice;
+use NS\SentinelBundle\Form\Types\CaseStatus;
 
-use \NS\SentinelBundle\Form\IBD\Types\CultureResult;
-use \NS\SentinelBundle\Form\IBD\Types\GramStain;
-use \NS\SentinelBundle\Form\IBD\Types\GramStainResult;
-use \NS\SentinelBundle\Form\IBD\Types\LatResult;
-use \NS\SentinelBundle\Form\IBD\Types\PCRResult;
+use NS\SentinelBundle\Form\IBD\Types\CultureResult;
+use NS\SentinelBundle\Form\IBD\Types\GramStain;
+use NS\SentinelBundle\Form\IBD\Types\GramStainResult;
+use NS\SentinelBundle\Form\IBD\Types\LatResult;
+use NS\SentinelBundle\Form\IBD\Types\PCRResult;
 
-use \NS\UtilBundle\Form\Types\ArrayChoice;
-use \Symfony\Component\Validator\Constraints as Assert;
-use \Symfony\Component\Validator\Constraints\DateTime;
-use \JMS\Serializer\Annotation\Groups;
-use \NS\SentinelBundle\Validators as NSValidators;
+use NS\UtilBundle\Form\Types\ArrayChoice;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\DateTime;
+use JMS\Serializer\Annotation\Groups;
+use NS\SentinelBundle\Validators as NSValidators;
 
 /**
  *
