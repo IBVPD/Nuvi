@@ -8,6 +8,8 @@ use \NS\SentinelBundle\Entity\User;
 use \NS\SentinelBundle\Form\Types\Role;
 use \NS\SentinelBundle\Validators\UserAcl;
 use \NS\SentinelBundle\Validators\UserAclValidator;
+use Symfony\Component\Validator\Context\ExecutionContext;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Description of UserAclValidatorTest
@@ -43,17 +45,18 @@ class UserAclValidatorTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue(in_array('ROLE_RRL_LAB', $user->getRoles()));
 
-        $context->expects($this->once())
-            ->method('buildViolation')
-            ->with('The user is designated as able to create reference lab records but no reference lab has been linked')
-            ->willReturn($builder);
-
         $builder->expects($this->once())
             ->method('atPath')
             ->with('referenceLab')
             ->willReturn($builder);
+
         $builder->expects($this->once())
             ->method('addViolation')
+            ->willReturn($builder);
+
+        $context->expects($this->once())
+            ->method('buildViolation')
+            ->with('The user is designated as able to create reference lab records but no reference lab has been linked')
             ->willReturn($builder);
 
         $validator->initialize($context);
@@ -208,9 +211,9 @@ class UserAclValidatorTest extends \PHPUnit_Framework_TestCase
     {
         $constraint = new UserAcl();
 
-        $context = $this->createMock('\Symfony\Component\Validator\Context\ExecutionContextInterface');
+        $context = $this->createMock(ExecutionContext::class);
 
-        $builder = $this->createMock('\Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface');
+        $builder = $this->createMock('Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface');
 
         if(!$authChecker) {
             $authChecker = $this->createMock('Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface');
