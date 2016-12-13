@@ -18,17 +18,17 @@ class OAuthGrantTypes extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
                                     'multiple' => true,
-                                    'choices'  => array(
+                                    'choices'  => [
                                                     OAuth2::GRANT_TYPE_AUTH_CODE          => 'authorization_code',
                                                     OAuth2::GRANT_TYPE_IMPLICIT           => 'token',
                                                     OAuth2::GRANT_TYPE_USER_CREDENTIALS   => 'password',
                                                     OAuth2::GRANT_TYPE_CLIENT_CREDENTIALS => 'client_credentials',
                                                     OAuth2::GRANT_TYPE_REFRESH_TOKEN      => 'refresh_token',
                                                     OAuth2::GRANT_TYPE_EXTENSIONS         => 'extensions',
-                                                        )
-                                    )
+                                    ]
+            ]
                                 );
     }
 

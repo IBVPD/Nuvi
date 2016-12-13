@@ -23,7 +23,7 @@ class HiSerotype extends TranslatableArrayChoice implements TranslationContainer
     const NOT_DONE             = 10;
     const OTHER                = 99;
 
-    protected $values = array(
+    protected $values = [
         self::A                    => 'a',
         self::B                    => 'b',
         self::C                    => 'c',
@@ -35,5 +35,5 @@ class HiSerotype extends TranslatableArrayChoice implements TranslationContainer
         self::NON_TYPEABLE_BY_SAST => 'Non-typeable (NT) by SAST',
         self::NOT_DONE             => 'Not done',
         self::OTHER                => 'Other (specify)',
-    );
+    ];
 }

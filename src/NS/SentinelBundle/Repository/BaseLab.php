@@ -99,7 +99,7 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
         $queryB = $this->createQueryBuilder('sl')
             ->innerJoin('sl.caseFile', 'c')
             ->where('c.case_id = :caseId AND c.site = :site')
-            ->setParameters(array('caseId' => $caseId, 'site' => $siteParam));
+            ->setParameters(['caseId' => $caseId, 'site' => $siteParam]);
 
         return $this->secure($queryB)->getQuery()->getSingleResult();
     }

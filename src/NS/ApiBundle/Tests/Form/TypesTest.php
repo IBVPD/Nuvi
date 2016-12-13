@@ -17,7 +17,7 @@ class TypesTest extends TypeTestCase
 
     public function testAuthorizeFormType()
     {
-        $formData = array('allowAccess' => 1);
+        $formData = ['allowAccess' => 1];
         $type     = new AuthorizeFormType();
         $form     = $this->factory->create($type);
         $form->submit($formData);
@@ -29,7 +29,7 @@ class TypesTest extends TypeTestCase
 
     public function testDontAuthorizeFormType()
     {
-        $formData = array();
+        $formData = [];
         $type     = new AuthorizeFormType();
         $form     = $this->factory->create($type);
         $form->submit($formData);
@@ -41,11 +41,11 @@ class TypesTest extends TypeTestCase
 
     public function testOAuthGrantTypes()
     {
-        $formData = array(
+        $formData = [
             OAuth2::GRANT_TYPE_AUTH_CODE          => 'authorization_code',
             OAuth2::GRANT_TYPE_CLIENT_CREDENTIALS => 'client_credentials',
             OAuth2::GRANT_TYPE_REFRESH_TOKEN      => 'refresh_token',
-        );
+        ];
 
         $type = new OAuthGrantTypes();
         $form = $this->factory->create($type);

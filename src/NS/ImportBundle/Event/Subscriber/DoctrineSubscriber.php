@@ -18,14 +18,14 @@ class DoctrineSubscriber implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        $dateRange = array('filterDateRange');
-        return array(
+        $dateRange = ['filterDateRange'];
+        return [
             // Doctrine ORM - filter field types
             'lexik_form_filter.apply.orm.IBDReportFilterType.adm_date'           => $dateRange,
             'lexik_form_filter.apply.orm.IBDReportFilterType.createdDate'       => $dateRange,
             'lexik_form_filter.apply.orm.RotaVirusReportFilterType.adm_date'     => $dateRange,
             'lexik_form_filter.apply.orm.RotaVirusReportFilterType.createdDate' => $dateRange,
-        );
+        ];
     }
 
     /**

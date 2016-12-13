@@ -28,7 +28,7 @@ class CaseController extends FOSRestController
         try {
             $repo = $this->get('doctrine.orm.entity_manager')->getRepository($class);
             if (method_exists($repo, $method)) {
-                return call_user_func(array($repo, $method), $objId);
+                return call_user_func([$repo, $method], $objId);
             }
 
             throw new NotFoundHttpException("System Error");
@@ -123,7 +123,7 @@ class CaseController extends FOSRestController
     {
         $entityMgr = $this->get('doctrine.orm.entity_manager');
         $obj = $entityMgr->getRepository($className)->find($objId);
-        $form = $this->createForm($formName, $obj, array('method' => $method));
+        $form = $this->createForm($formName, $obj, ['method' => $method]);
 
         return ($this->updateObject($request, $entityMgr, $form)) ?
             $this->view(null, Codes::HTTP_NO_CONTENT) :
@@ -142,7 +142,7 @@ class CaseController extends FOSRestController
     {
         $entityMgr = $this->get('doctrine.orm.entity_manager');
         $obj = $entityMgr->getRepository($className)->findOrCreateNew($objId);
-        $form = $this->createForm($formName, $obj, array('method' => $method));
+        $form = $this->createForm($formName, $obj, ['method' => $method]);
 
         return ($this->updateObject($request, $entityMgr, $form)) ?
             $this->view(null, Codes::HTTP_NO_CONTENT) :
@@ -178,9 +178,9 @@ class CaseController extends FOSRestController
             $entityMgr->persist($case);
             $entityMgr->flush();
 
-            return $this->routeRedirectView($route, array('objId' => $case->getId()));
+            return $this->routeRedirectView($route, ['objId' => $case->getId()]);
         } catch (\Exception $e) {
-            return array('exception' => $e->getMessage());
+            return ['exception' => $e->getMessage()];
         }
     }
 }

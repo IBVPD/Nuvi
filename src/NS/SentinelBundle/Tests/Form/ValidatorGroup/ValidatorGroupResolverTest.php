@@ -51,7 +51,7 @@ class ValidatorGroupResolverTest extends \PHPUnit_Framework_TestCase
 
         $resolver = new ValidatorGroupResolver($this->entityMgr,$this->tokenStorage);
         $results = $resolver->getObjectsFromAcls($user->getAcls());
-        $this->assertEquals(array('AMRO'),$results );
+        $this->assertEquals(['AMRO'],$results );
     }
 
     public function testObjectNames()
@@ -61,8 +61,8 @@ class ValidatorGroupResolverTest extends \PHPUnit_Framework_TestCase
         $region->setName('PAHO');
 
         $resolver = new ValidatorGroupResolver($this->entityMgr,$this->tokenStorage);
-        $results = $resolver->getObjectNames(array($region));
-        $this->assertEquals(array('AMRO'),$results);
+        $results = $resolver->getObjectNames([$region]);
+        $this->assertEquals(['AMRO'],$results);
     }
 
     /**
@@ -99,7 +99,7 @@ class ValidatorGroupResolverTest extends \PHPUnit_Framework_TestCase
         $resolver = new ValidatorGroupResolver($this->entityMgr, $this->tokenStorage);
 
         $form = $this->createMock('Symfony\Component\Form\FormInterface');
-        $this->assertEquals(array('Default','AMRO'), call_user_func($resolver,$form));
+        $this->assertEquals(['Default','AMRO'], call_user_func($resolver,$form));
     }
 
     /**
@@ -128,8 +128,8 @@ class ValidatorGroupResolverTest extends \PHPUnit_Framework_TestCase
         $this->repository
             ->expects($this->once())
             ->method('getByCountryIds')
-            ->with(array('CAN'))
-            ->willReturn(array($region));
+            ->with(['CAN'])
+            ->willReturn([$region]);
 
         $this->repository
             ->expects($this->never())
@@ -138,7 +138,7 @@ class ValidatorGroupResolverTest extends \PHPUnit_Framework_TestCase
         $resolver = new ValidatorGroupResolver($this->entityMgr, $this->tokenStorage);
 
         $form = $this->createMock('Symfony\Component\Form\FormInterface');
-        $this->assertEquals(array('Default','AMRO'), call_user_func($resolver,$form));
+        $this->assertEquals(['Default','AMRO'], call_user_func($resolver,$form));
     }
 
     /**
@@ -165,8 +165,8 @@ class ValidatorGroupResolverTest extends \PHPUnit_Framework_TestCase
         $this->repository
             ->expects($this->once())
             ->method('getBySiteIds')
-            ->with(array('CAN'))
-            ->willReturn(array($region));
+            ->with(['CAN'])
+            ->willReturn([$region]);
 
         $this->repository
             ->expects($this->never())
@@ -175,7 +175,7 @@ class ValidatorGroupResolverTest extends \PHPUnit_Framework_TestCase
         $resolver = new ValidatorGroupResolver($this->entityMgr, $this->tokenStorage);
 
         $form = $this->createMock('Symfony\Component\Form\FormInterface');
-        $this->assertEquals(array('Default','AMRO'), call_user_func($resolver,$form));
+        $this->assertEquals(['Default','AMRO'], call_user_func($resolver,$form));
     }
 
     /**
@@ -184,7 +184,7 @@ class ValidatorGroupResolverTest extends \PHPUnit_Framework_TestCase
      */
     public function getObjectsFromAcls($acls)
     {
-        $ids = array();
+        $ids = [];
         /** @var ACL $acl */
         foreach ($acls as $acl) {
             $ids[] = $acl->getObjectId();
@@ -199,7 +199,7 @@ class ValidatorGroupResolverTest extends \PHPUnit_Framework_TestCase
      */
     public function getObjectNames($objects)
     {
-        $names = array();
+        $names = [];
         foreach((array)$objects as $object) {
             $names[] = $object->getName();
         }
@@ -215,7 +215,7 @@ class ValidatorGroupResolverTest extends \PHPUnit_Framework_TestCase
         $this->tokenStorage = $this->createMock('Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface');
         $this->entityMgr = $this->createMock('Doctrine\ORM\EntityManagerInterface');
         $this->repository = $this->getMockBuilder('NS\SentinelBundle\Repository\RegionRepository')
-            ->setMethods(array('getByCountryIds','getBySiteIds'))
+            ->setMethods(['getByCountryIds','getBySiteIds'])
             ->disableOriginalConstructor()
             ->getMock();
         $this->entityMgr->expects($this->any())

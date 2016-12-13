@@ -35,7 +35,7 @@ class IBDControllerTest extends WebTestCase
     {
         $route  = $this->getRoute('nsApiIbdPatchCase');
         $client = $this->getClient();
-        $client->request('PATCH', $route, array(), array(), array(), '{"case":{"lastName":"Fabien","gender":"1"}}');
+        $client->request('PATCH', $route, [], [], [], '{"case":{"lastName":"Fabien","gender":"1"}}');
 
         $response = $client->getResponse();
         if($response->getStatusCode() !== 204) {
@@ -54,7 +54,7 @@ class IBDControllerTest extends WebTestCase
     {
         $route  = $this->getUrl('nsApiIbdPostCase');
         $client = $this->getClient();
-        $client->request('POST', $route, array(), array(), array(), '{"create":{"caseId":"ANewCaseId","type":1,"site":"ALBCHLD"}}');
+        $client->request('POST', $route, [], [], [], '{"create":{"caseId":"ANewCaseId","type":1,"site":"ALBCHLD"}}');
 
         $response = $client->getResponse();
         $this->assertEquals(201, $response->getStatusCode());
@@ -75,9 +75,9 @@ class IBDControllerTest extends WebTestCase
      */
     public function testLabCase()
     {
-        $route  = $this->getUrl('nsApiIbdPatchLab', array('objId' => self::ID));
+        $route  = $this->getUrl('nsApiIbdPatchLab', ['objId' => self::ID]);
         $client = $this->getClient();
-        $client->request('PATCH', $route, array(), array(), array(), '{"site_lab":{"csfId":"ANewCaseId","csfGramDone":0,"csfCultDone":0}}');
+        $client->request('PATCH', $route, [], [], [], '{"site_lab":{"csfId":"ANewCaseId","csfGramDone":0,"csfCultDone":0}}');
 
         $response = $client->getResponse();
         $this->assertEquals(204, $response->getStatusCode(), $route);
@@ -114,7 +114,7 @@ class IBDControllerTest extends WebTestCase
     {
         $route  = $this->getRoute('nsApiIbdPatchRRL');
         $client = $this->getClient();
-        $client->request('PATCH', $route, array(), array(), array(), '{"reference_lab":{"labId":"ANewCaseId","sampleType":1}}');
+        $client->request('PATCH', $route, [], [], [], '{"reference_lab":{"labId":"ANewCaseId","sampleType":1}}');
 
         $response = $client->getResponse();
         $this->assertEquals(403, $response->getStatusCode());
@@ -134,7 +134,7 @@ class IBDControllerTest extends WebTestCase
     {
         $route  = $this->getRoute('nsApiIbdPutRRL');
         $client = $this->getClient();
-        $client->request('PUT', $route, array(), array(), array(), '{"reference_lab":{"labId":"ANewCaseId","sampleType":2}}');
+        $client->request('PUT', $route, [], [], [], '{"reference_lab":{"labId":"ANewCaseId","sampleType":2}}');
 
         $response = $client->getResponse();
         $this->assertEquals(403, $response->getStatusCode());
@@ -168,7 +168,7 @@ class IBDControllerTest extends WebTestCase
     {
         $route  = $this->getRoute('nsApiIbdPatchNL');
         $client = $this->getClient();
-        $client->request('PATCH', $route, array(), array(), array(), '{"national_lab":{"labId":"ANewCaseId","sampleType":1}}');
+        $client->request('PATCH', $route, [], [], [], '{"national_lab":{"labId":"ANewCaseId","sampleType":1}}');
 
         $response = $client->getResponse();
         $this->assertEquals(204, $response->getStatusCode(),$response->getContent());
@@ -187,7 +187,7 @@ class IBDControllerTest extends WebTestCase
     {
         $route  = $this->getRoute('nsApiIbdPutNL');
         $client = $this->getClient();
-        $client->request('PUT', $route, array(), array(), array(), '{"national_lab":{"labId":"ANewCaseId","sampleType":2}}');
+        $client->request('PUT', $route, [], [], [], '{"national_lab":{"labId":"ANewCaseId","sampleType":2}}');
 
         $response = $client->getResponse();
         $this->assertEquals(204, $response->getStatusCode());
@@ -207,7 +207,7 @@ class IBDControllerTest extends WebTestCase
     {
         $route  = $this->getRoute('nsApiIbdPutCase');
         $client = $this->getClient();
-        $client->request('PUT', $route, array(), array(), array(), '{"case":{"lastName":"Fabien","caseId":"12"}}');
+        $client->request('PUT', $route, [], [], [], '{"case":{"lastName":"Fabien","caseId":"12"}}');
 
         $response = $client->getResponse();
         $this->assertEquals(204, $response->getStatusCode());
@@ -222,7 +222,7 @@ class IBDControllerTest extends WebTestCase
     {
         $route  = $this->getRoute('nsApiIbdPutCase');
         $client = $this->getClient();
-        $client->request('PUT', $route, array(), array(), array(), '{"case":{"lastName":"Fabien"}}');
+        $client->request('PUT', $route, [], [], [], '{"case":{"lastName":"Fabien"}}');
 
         $response = $client->getResponse();
         $this->assertJsonResponse($response, 400);
@@ -232,6 +232,6 @@ class IBDControllerTest extends WebTestCase
     {
         $objId = $id === null ? self::ID : $id;
 
-        return $this->getUrl($route, array('objId' => $objId));
+        return $this->getUrl($route, ['objId' => $objId]);
     }
 }

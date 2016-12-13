@@ -268,7 +268,7 @@ class User implements AdvancedUserInterface
      */
     public function resetSalt()
     {
-        $this->salt = User::_resetSalt(array($this->name, $this->email));
+        $this->salt = User::_resetSalt([$this->name, $this->email]);
     }
 
     /**
@@ -276,7 +276,7 @@ class User implements AdvancedUserInterface
      * @param array $fields
      * @return string
      */
-    public static function _resetSalt($fields = array())
+    public static function _resetSalt($fields = [])
     {
         return sha1(implode("", $fields).microtime());
     }
@@ -294,7 +294,7 @@ class User implements AdvancedUserInterface
      */
     public function isOnlyAdmin()
     {
-        return ($this->getRoles() == array('ROLE_ADMIN', 'ROLE_SUPER_ADMIN'));
+        return ($this->getRoles() == ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN']);
     }
 
     /**
@@ -308,7 +308,7 @@ class User implements AdvancedUserInterface
     public function getRoles()
     {
         if (!$this->roles) {
-            $roles = array();
+            $roles = [];
 
             foreach ($this->acls as $acl) {
                 $roles = array_merge($roles, $acl->getCredentials());
@@ -316,11 +316,11 @@ class User implements AdvancedUserInterface
 
             if ($this->admin) {
                 if (empty($roles)) {
-                    $roles = array('ROLE_ADMIN', 'ROLE_SUPER_ADMIN');
+                    $roles = ['ROLE_ADMIN', 'ROLE_SUPER_ADMIN'];
                 } elseif (in_array('ROLE_REGION', $roles)) {
-                    $roles = array_merge($roles, array('ROLE_ADMIN', 'ROLE_SONATA_REGION_ADMIN'));
+                    $roles = array_merge($roles, ['ROLE_ADMIN', 'ROLE_SONATA_REGION_ADMIN']);
                 } elseif (in_array('ROLE_COUNTRY', $roles)) {
-                    $roles = array_merge($roles, array('ROLE_ADMIN', 'ROLE_SONATA_COUNTRY_ADMIN'));
+                    $roles = array_merge($roles, ['ROLE_ADMIN', 'ROLE_SONATA_COUNTRY_ADMIN']);
                 }
             }
 

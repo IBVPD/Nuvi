@@ -35,11 +35,11 @@ abstract class BaseCaseController extends Controller implements TranslationConta
         list($filterForm, $pagination) = $filteredPager->process($request, $filterFormName, $query, $sessionKey);
         $createForm = ($this->get('security.authorization_checker')->isGranted('ROLE_CAN_CREATE')) ? $this->createForm('NS\SentinelBundle\Form\CreateType')->createView() : null;
 
-        return array(
+        return [
             'pagination' => $pagination,
-            'limitForm'  => $this->createForm(new LimitSelectType(), array('limit'=>$filteredPager->getPerPage()))->createView(),
+            'limitForm'  => $this->createForm(new LimitSelectType(), ['limit'=>$filteredPager->getPerPage()])->createView(),
             'filterForm' => $filterForm->createView(),
-            'createForm' => $createForm);
+            'createForm' => $createForm];
     }
 
     /**
@@ -68,7 +68,7 @@ abstract class BaseCaseController extends Controller implements TranslationConta
             $entityMgr->persist($case);
             $entityMgr->flush();
 
-            return $this->redirect($this->generateUrl($type->getRoute($typeName), array('id' => $case->getId())));
+            return $this->redirect($this->generateUrl($type->getRoute($typeName), ['id' => $case->getId()]));
         }
 
         return $this->redirect($this->generateUrl($indexRoute));
@@ -120,7 +120,7 @@ abstract class BaseCaseController extends Controller implements TranslationConta
         try {
             $form = $this->getForm($type, $objId);
         } catch (NonExistentCaseException $ex) {
-            return $this->render('NSSentinelBundle:User:unknownCase.html.twig', array('message' => $ex->getMessage()));
+            return $this->render('NSSentinelBundle:User:unknownCase.html.twig', ['message' => $ex->getMessage()]);
         }
 
         $form->handleRequest($request);
@@ -141,14 +141,14 @@ abstract class BaseCaseController extends Controller implements TranslationConta
                 return $this->redirect($this->generateUrl($indexRoute));
             }
 
-            return $this->redirect($this->generateUrl($editRoute, array('id'=>$objId)));
+            return $this->redirect($this->generateUrl($editRoute, ['id'=>$objId]));
         } elseif ($form->isSubmitted()) {
             $this->get('ns_flash')->addWarning('Warning!', 'There were errors with saving the form.', 'Please review each tab for error messages');
         }
 
         $record = $this->getCaseRecord($objId);
 
-        return array('form' => $form->createView(), 'id' => $objId, 'editRoute' => $editRoute,'record' => $record);
+        return ['form' => $form->createView(), 'id' => $objId, 'editRoute' => $editRoute,'record' => $record];
     }
 
     /**
@@ -159,9 +159,9 @@ abstract class BaseCaseController extends Controller implements TranslationConta
     protected function show($class, $id)
     {
         try {
-            return array('record' => $this->get('doctrine.orm.entity_manager')->getRepository($class)->get($id));
+            return ['record' => $this->get('doctrine.orm.entity_manager')->getRepository($class)->get($id)];
         } catch (NonExistentCaseException $ex) {
-            return $this->render('NSSentinelBundle:User:unknownCase.html.twig', array('message' => $ex->getMessage()));
+            return $this->render('NSSentinelBundle:User:unknownCase.html.twig', ['message' => $ex->getMessage()]);
         }
     }
 
@@ -170,12 +170,12 @@ abstract class BaseCaseController extends Controller implements TranslationConta
      */
     static function getTranslationMessages()
     {
-        return array(
+        return [
             new Message('Warning!'),
             new Message('There were errors with saving the form.'),
             new Message('Please review each tab for error messages'),
             new Message('Success!'),
             new Message('Case edited successfully'),
-        );
+        ];
     }
 }

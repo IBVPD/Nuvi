@@ -77,9 +77,9 @@ class CsvReaderTest extends \PHPUnit_Framework_TestCase
 
     public function getOffsets()
     {
-        return array(
-            array(2, 'MSD-GG-00875', 2),
-            array(5, 'MSD-GG-00872', 5),
-        );
+        return [
+            [2, 'MSD-GG-00875', 2],
+            [5, 'MSD-GG-00872', 5],
+        ];
     }
 }

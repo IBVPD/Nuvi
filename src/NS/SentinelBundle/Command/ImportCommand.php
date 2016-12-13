@@ -114,7 +114,7 @@ class ImportCommand extends ContainerAwareCommand
     private function processRegions($file, $output)
     {
         $fileId  = fopen($file, 'r');
-        $regions = array();
+        $regions = [];
 
         while ($row = fgetcsv($fileId)) {
             if (!empty($row[1])) {
@@ -142,7 +142,7 @@ class ImportCommand extends ContainerAwareCommand
      */
     private function processCountries($file, $regions)
     {
-        $countries = array();
+        $countries = [];
         $fileId        = fopen($file, 'r');
 
         while ($row = fgetcsv($fileId)) {
@@ -174,9 +174,9 @@ class ImportCommand extends ContainerAwareCommand
      */
     private function processSites($file, $countries)
     {
-        $sites      = array();
+        $sites      = [];
         $fileId     = fopen($file, 'r');
-        $errorSites = array();
+        $errorSites = [];
         fgetcsv($fileId);
 
         while ($row = fgetcsv($fileId)) {
@@ -207,7 +207,7 @@ class ImportCommand extends ContainerAwareCommand
 
         fclose($fileId);
 
-        return array('sites'=>$sites,'errors'=>$errorSites);
+        return ['sites'=>$sites,'errors'=>$errorSites];
     }
 
     /**

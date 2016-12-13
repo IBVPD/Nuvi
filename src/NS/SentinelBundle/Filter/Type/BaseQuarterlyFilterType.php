@@ -53,9 +53,9 @@ class BaseQuarterlyFilterType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('year', NumberFilterType::class, array('label' => 'report-filter-form.year', 'apply_filter'=>array($this, 'filterYear')));
+        $builder->add('year', NumberFilterType::class, ['label' => 'report-filter-form.year', 'apply_filter'=> [$this, 'filterYear']]);
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'preSetData'));
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, [$this, 'preSetData']);
     }
 
     /**
@@ -95,7 +95,7 @@ class BaseQuarterlyFilterType extends AbstractType
         $form     = $event->getForm();
         $options  = $form->getConfig()->getOptions();
         $siteType = (isset($options['site_type']) && $options['site_type'] == 'advanced') ? new SiteFilterType() : 'site';
-        $siteOpt  = ($siteType instanceof SiteFilterType) ? array('include_intense'=>$options['include_intense'],'label'=>'Site'): array();
+        $siteOpt  = ($siteType instanceof SiteFilterType) ? ['include_intense'=>$options['include_intense'],'label'=>'Site'] : [];
 
         $token    = $this->tokenStorage->getToken();
 
@@ -104,7 +104,7 @@ class BaseQuarterlyFilterType extends AbstractType
             if (count($objectIds) > 1) {
                 $form->add('region', 'NS\SentinelBundle\Filter\Type\RegionType');
             }
-            $form->add('country', 'NS\SentinelBundle\Filter\Type\CountryType', array('required'=>false, 'placeholder'=>''));
+            $form->add('country', 'NS\SentinelBundle\Filter\Type\CountryType', ['required'=>false, 'placeholder'=>'']);
             $form->add('site', $siteType, $siteOpt);
         } elseif ($this->authChecker->isGranted('ROLE_COUNTRY')) {
             $form->add('site', $siteType, $siteOpt);
@@ -116,24 +116,24 @@ class BaseQuarterlyFilterType extends AbstractType
         }
 
         if ($options['include_filter']) {
-            $form->add('filter', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
+            $form->add('filter', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', [
                 'label'=> 'filter',
                 'icon' => 'fa fa-search',
-                'attr' => array('class' => 'btn btn-sm btn-success', 'type'=>'submit')));
+                'attr' => ['class' => 'btn btn-sm btn-success', 'type'=>'submit']]);
         }
 
         if ($options['include_export']) {
-            $form->add('export', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
+            $form->add('export', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', [
                 'label'=>'export',
                 'icon' => 'fa fa-cloud-download',
-                'attr' => array('class' => 'btn btn-sm btn-info', 'type'=>'submit')));
+                'attr' => ['class' => 'btn btn-sm btn-info', 'type'=>'submit']]);
         }
 
         if ($options['include_reset']) {
-            $form->add('reset', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
+            $form->add('reset', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', [
                 'label'=>'reset',
                 'icon' => 'fa fa-times-circle',
-                'attr' => array('class' => 'btn btn-sm btn-danger', 'type'=>'submit')));
+                'attr' => ['class' => 'btn btn-sm btn-danger', 'type'=>'submit']]);
         }
     }
 
@@ -142,15 +142,15 @@ class BaseQuarterlyFilterType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
                 'include_filter' => true,
                 'include_export' => true,
                 'include_reset'  => true,
                 'include_intense'=> true,
                 'year_field'     => 'adm_date',
-                ));
+        ]);
 
-        $resolver->setDefined(array('site_type'));
-        $resolver->setAllowedValues('site_type', array('simple', 'advanced'));
+        $resolver->setDefined(['site_type']);
+        $resolver->setAllowedValues('site_type', ['simple', 'advanced']);
     }
 }

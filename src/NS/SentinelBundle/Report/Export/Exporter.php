@@ -50,12 +50,12 @@ class Exporter
         $htmlReader->loadFromString($html,$excelObj);
         $writer = $this->phpExcel->createWriter($excelObj);
 
-        $headers = array(
+        $headers = [
             'Content-type' => 'text/vnd.ms-excel; charset=utf-8',
             'Pragma'=>'public',
             'Cache-Control'=>'maxage=1',
             'Content-Disposition' => sprintf('attachment;filename=%s-%s.xls',$filename, date('Y_m_d_H_i_s')),
-        );
+        ];
 
         return $this->phpExcel->createStreamedResponse($writer, 200, $headers);
     }

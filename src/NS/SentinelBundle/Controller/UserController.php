@@ -46,6 +46,6 @@ class UserController extends Controller
             return $this->redirect($this->generateUrl('userProfile'));
         }
 
-        return $this->render('NSSentinelBundle:User:profile.html.twig', array('form' => $form->createView(), 'user'=>$this->getUser()));
+        return $this->render('NSSentinelBundle:User:profile.html.twig', ['form' => $form->createView(), 'user'=>$this->getUser()]);
     }
 }

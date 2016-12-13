@@ -55,7 +55,7 @@ class DoneValidator extends ConstraintValidator
     public function getFields($isArray, Constraint $constraint)
     {
         return ($isArray) ?
-            array(sprintf('[%s]', $constraint->resultField), sprintf('[%s]', $constraint->tripleChoiceField)) :
-            array($constraint->resultField, $constraint->tripleChoiceField);
+            [sprintf('[%s]', $constraint->resultField), sprintf('[%s]', $constraint->tripleChoiceField)] :
+            [$constraint->resultField, $constraint->tripleChoiceField];
     }
 }

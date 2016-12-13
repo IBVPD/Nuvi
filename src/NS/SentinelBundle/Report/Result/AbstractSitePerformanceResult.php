@@ -11,7 +11,7 @@ abstract class AbstractSitePerformanceResult extends AbstractSiteBasedResult
     /**
      * @var int
      */
-    private $consistentReporting = array();
+    private $consistentReporting = [];
 
     /**
      * @var integer

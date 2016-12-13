@@ -14,7 +14,7 @@ class Rule
     /**
      * @var array
      */
-    private $rules = array();
+    private $rules = [];
 
     /**
      * @var int

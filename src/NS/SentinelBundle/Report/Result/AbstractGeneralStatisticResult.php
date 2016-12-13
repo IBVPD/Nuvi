@@ -15,27 +15,27 @@ abstract class AbstractGeneralStatisticResult
     /**
      * @var array
      */
-    protected $genderDistribution = array();
+    protected $genderDistribution = [];
 
     /**
      * @var array
      */
-    protected $ageInMonthDistribution = array();
+    protected $ageInMonthDistribution = [];
 
     /**
      * @var array
      */
-    protected $locationDistribution = array();
+    protected $locationDistribution = [];
 
     /**
      * @var array
      */
-    protected $dischargeOutcomeDistribution = array();
+    protected $dischargeOutcomeDistribution = [];
 
     /**
      * @var array
      */
-    protected $monthlyDistribution = array(-1=>0);
+    protected $monthlyDistribution = [-1=>0];
 
     /**
      * @return array

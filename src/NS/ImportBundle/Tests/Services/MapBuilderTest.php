@@ -58,7 +58,7 @@ class MapBuilderTest extends WebTestCase
 
     private function getConverterRegistry()
     {
-        $converters = array(
+        $converters = [
             'ns.sentinel.converter.spnSerotype'                   => new ArrayChoiceConverter('NS\SentinelBundle\Form\IBD\Types\SpnSerotype'),
             'ns.sentinel.converter.serotypeIdentifier'            => new ArrayChoiceConverter('NS\SentinelBundle\Form\IBD\Types\SerotypeIdentifier'),
             'ns.sentinel.converter.VaccinationReceived'           => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\VaccinationReceived'),
@@ -94,7 +94,7 @@ class MapBuilderTest extends WebTestCase
             'ns.sentinel.converter.csfAppearance'                 => new ArrayChoiceConverter('NS\SentinelBundle\Form\IBD\Types\CSFAppearance'),
             'ns.sentinel.converter.gender'                        => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\Gender'),
             'ns.sentinel.converter.triple_choice'                 => new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\TripleChoice'),
-        );
+        ];
 
         $converterRegistry = new Registry();
         foreach ($converters as $id => $converter) {
@@ -118,22 +118,22 @@ class MapBuilderTest extends WebTestCase
 
     public function camelCaseProvider()
     {
-        return array(
-            array('expected' => 'caseId', 'input' => 'case_ID'),
-            array('expected' => 'menSeizures', 'input' => 'men_seizures'),
-            array('expected' => 'menInabilityFeed', 'input' => 'men_inability_feed'),
-            array('expected' => 'menNeckStiff', 'input' => 'men_neck_stiff'),
-            array('expected' => 'csfId', 'input' => 'CSF_ID'),
-            array('expected' => 'csfLabDate', 'input' => 'CSF_lab_date'),
-            array('expected' => 'csfWcc', 'input' => 'CSF_WCC'),
-            array('expected' => 'caseId', 'input' => 'cAse!ID'),
-            array('expected' => 'menSeizures', 'input' => 'men # seizures'),
-            array('expected' => 'menInabilityFeed', 'input' => 'men  inability  feed'),
-            array('expected' => 'menNeckStiff', 'input' => 'men  neck  stiff'),
-            array('expected' => 'csfId', 'input' => 'CSF  ID'),
-            array('expected' => 'csfLabDate', 'input' => 'CSF  lab  date'),
-            array('expected' => 'csfWcc', 'input' => 'CSF  WCC'),
-        );
+        return [
+            ['expected' => 'caseId', 'input' => 'case_ID'],
+            ['expected' => 'menSeizures', 'input' => 'men_seizures'],
+            ['expected' => 'menInabilityFeed', 'input' => 'men_inability_feed'],
+            ['expected' => 'menNeckStiff', 'input' => 'men_neck_stiff'],
+            ['expected' => 'csfId', 'input' => 'CSF_ID'],
+            ['expected' => 'csfLabDate', 'input' => 'CSF_lab_date'],
+            ['expected' => 'csfWcc', 'input' => 'CSF_WCC'],
+            ['expected' => 'caseId', 'input' => 'cAse!ID'],
+            ['expected' => 'menSeizures', 'input' => 'men # seizures'],
+            ['expected' => 'menInabilityFeed', 'input' => 'men  inability  feed'],
+            ['expected' => 'menNeckStiff', 'input' => 'men  neck  stiff'],
+            ['expected' => 'csfId', 'input' => 'CSF  ID'],
+            ['expected' => 'csfLabDate', 'input' => 'CSF  lab  date'],
+            ['expected' => 'csfWcc', 'input' => 'CSF  WCC'],
+        ];
     }
 
     public function testSetHeaderIsCalled()
@@ -145,7 +145,7 @@ class MapBuilderTest extends WebTestCase
             ->with(0);
         $mockReader->expects($this->once())
             ->method('getColumnHeaders')
-            ->willReturn(array('columnOne', 'columnTwo'));
+            ->willReturn(['columnOne', 'columnTwo']);
 
         $mockReaderFactory = $this->createMock('NS\ImportBundle\Reader\ReaderFactory');
         $mockReaderFactory->expects($this->once())

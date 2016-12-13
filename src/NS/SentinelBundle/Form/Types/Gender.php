@@ -16,11 +16,11 @@ class Gender extends TranslatableArrayChoice implements TranslationContainerInte
     const FEMALE  = 2;
     const UNKNOWN = 99;
 
-    protected $values = array(
+    protected $values = [
                             self::MALE    => "Male",
                             self::FEMALE  => "Female",
                             self::UNKNOWN => 'Unknown',
-                             );
+    ];
 
     /**
      *

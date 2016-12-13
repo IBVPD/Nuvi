@@ -14,18 +14,18 @@ class NotBlankTest extends \PHPUnit_Framework_TestCase
 {
     public function testInitialHasNoMessage()
     {
-        $filter = new NotBlank(array('something'));
+        $filter = new NotBlank(['something']);
         $this->assertFalse($filter->hasMessage());
-        $filter->__invoke(array('another'=>'thing'));
+        $filter->__invoke(['another'=>'thing']);
         $this->assertTrue($filter->hasMessage());
         $this->assertEquals('Field \'something\' is blank', $filter->getMessage());
     }
 
     public function testHaveFieldHasNoMessage()
     {
-        $filter = new NotBlank(array('something'));
+        $filter = new NotBlank(['something']);
         $this->assertFalse($filter->hasMessage());
-        $filter->__invoke(array('something'=>'thing'));
+        $filter->__invoke(['something'=>'thing']);
         $this->assertFalse($filter->hasMessage());
     }
 }

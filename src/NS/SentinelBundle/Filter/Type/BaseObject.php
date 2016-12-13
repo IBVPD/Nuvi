@@ -40,25 +40,25 @@ class BaseObject extends AbstractType //implements EmbeddedFilterTypeInterface
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'class' => $this->class,
             'multiple' => true,
             'query_builder' => $this->entityMgr->getRepository($this->class)->getAllSecuredQueryBuilder(),
-            'apply_filter' => array($this, 'applyFilter'),
-        ));
+            'apply_filter' => [$this, 'applyFilter'],
+        ]);
     }
 
     public function applyFilter(ORMQuery $filterBuilder, $field, $values)
     {
         if (!empty($values['value'])) {
-            $fieldName = str_replace(array('\\', ':'), array('_', '_'), $this->class);
+            $fieldName = str_replace(['\\', ':'], ['_', '_'], $this->class);
             $values = $values['value'];
             $queryBuilder = $filterBuilder->getQueryBuilder();
 
             if (count($values) == 1) {
                 $queryBuilder->andWhere(sprintf("%s = :%s", $field, $fieldName))->setParameter($fieldName, $values[0]);
             } elseif (count($values) > 0) {
-                $where = array();
+                $where = [];
 
                 foreach ($values as $x => $val) {
                     $fieldNameX = $fieldName . $x;

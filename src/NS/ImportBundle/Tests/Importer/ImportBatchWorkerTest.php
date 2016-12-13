@@ -21,6 +21,6 @@ class ImportBatchWorkerTest extends \PHPUnit_Framework_TestCase
         $processor = $this->createMock('NS\ImportBundle\Importer\ImportProcessor');
 
         $mockLinkerReg = new CaseLinkerRegistry();
-        return array($entityMgr,$processor,$mockLinkerReg);
+        return [$entityMgr,$processor,$mockLinkerReg];
     }
 }

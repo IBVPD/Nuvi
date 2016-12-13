@@ -15,7 +15,7 @@ class GramStainResult extends TranslatableArrayChoice implements TranslationCont
     const OTHER                = 6;
     const UNKNOWN              = 99;
 
-    protected $values = array(
+    protected $values = [
         self::GM_NEG_DIPLOCOCCI    => 'Gm neg diplococci',
         self::GM_NEG_COCCOBACILLI  => 'Gm neg coccobacilli',
         self::GM_NEG_RODS          => 'Gm neg rods',
@@ -23,7 +23,7 @@ class GramStainResult extends TranslatableArrayChoice implements TranslationCont
         self::GM_POS_COCCI_CLUSTER => 'Gm pos cocci clusters',
         self::OTHER                => 'Other',
         self::UNKNOWN              => 'Unknown',
-    );
+    ];
 
 
 }

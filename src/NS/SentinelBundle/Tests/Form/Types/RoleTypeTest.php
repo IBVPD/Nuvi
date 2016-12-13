@@ -35,7 +35,7 @@ class RoleTypeTest extends TypeTestCase
     public function testEmptyCredential()
     {
         $role = new Role();
-        $this->assertEquals(array(),$role->getAsCredential());
+        $this->assertEquals([],$role->getAsCredential());
         $this->assertNull($role->getClassMatch());
     }
 
@@ -68,37 +68,37 @@ class RoleTypeTest extends TypeTestCase
 
     public function getClassMatchProvider()
     {
-        return array(
-            array('roleStr' => 'ROLE_REGION', 'entity' => 'NS\SentinelBundle\Entity\Region'),
-            array('roleStr' => 'ROLE_REGION_API', 'entity' => 'NS\SentinelBundle\Entity\Region'),
-            array('roleStr' => 'ROLE_REGION_IMPORT', 'entity' => 'NS\SentinelBundle\Entity\Region'),
-            array('roleStr' => 'ROLE_COUNTRY', 'entity' => 'NS\SentinelBundle\Entity\Country'),
-            array('roleStr' => 'ROLE_COUNTRY_IMPORT', 'entity' => 'NS\SentinelBundle\Entity\Country'),
-            array('roleStr' => 'ROLE_COUNTRY_API', 'entity' => 'NS\SentinelBundle\Entity\Country'),
-            array('roleStr' => 'ROLE_SITE', 'entity' => 'NS\SentinelBundle\Entity\Site'),
-            array('roleStr' => 'ROLE_SITE_IMPORT', 'entity' => 'NS\SentinelBundle\Entity\Site'),
-            array('roleStr' => 'ROLE_SITE_API', 'entity' => 'NS\SentinelBundle\Entity\Site'),
-            array('roleStr' => 'ROLE_LAB', 'entity' => 'NS\SentinelBundle\Entity\Site'),
-            array('roleStr' => 'ROLE_NL_LAB', 'entity' => 'NS\SentinelBundle\Entity\Country'),
-            array('roleStr' => 'ROLE_RRL_LAB', 'entity' => 'NS\SentinelBundle\Entity\Country'),
-        );
+        return [
+            ['roleStr' => 'ROLE_REGION', 'entity' => 'NS\SentinelBundle\Entity\Region'],
+            ['roleStr' => 'ROLE_REGION_API', 'entity' => 'NS\SentinelBundle\Entity\Region'],
+            ['roleStr' => 'ROLE_REGION_IMPORT', 'entity' => 'NS\SentinelBundle\Entity\Region'],
+            ['roleStr' => 'ROLE_COUNTRY', 'entity' => 'NS\SentinelBundle\Entity\Country'],
+            ['roleStr' => 'ROLE_COUNTRY_IMPORT', 'entity' => 'NS\SentinelBundle\Entity\Country'],
+            ['roleStr' => 'ROLE_COUNTRY_API', 'entity' => 'NS\SentinelBundle\Entity\Country'],
+            ['roleStr' => 'ROLE_SITE', 'entity' => 'NS\SentinelBundle\Entity\Site'],
+            ['roleStr' => 'ROLE_SITE_IMPORT', 'entity' => 'NS\SentinelBundle\Entity\Site'],
+            ['roleStr' => 'ROLE_SITE_API', 'entity' => 'NS\SentinelBundle\Entity\Site'],
+            ['roleStr' => 'ROLE_LAB', 'entity' => 'NS\SentinelBundle\Entity\Site'],
+            ['roleStr' => 'ROLE_NL_LAB', 'entity' => 'NS\SentinelBundle\Entity\Country'],
+            ['roleStr' => 'ROLE_RRL_LAB', 'entity' => 'NS\SentinelBundle\Entity\Country'],
+        ];
     }
 
     public function getCredentialProvider()
     {
-        return array(
-            array('ROLE_REGION', array('ROLE_REGION')),
-            array('ROLE_REGION_API', array('ROLE_REGION_API','ROLE_CAN_CREATE_CASE','ROLE_CAN_CREATE_LAB','ROLE_CAN_CREATE_NL_LAB')),
-            array('ROLE_REGION_IMPORT', array('ROLE_REGION_IMPORT')),
-            array('ROLE_COUNTRY', array('ROLE_COUNTRY')),
-            array('ROLE_COUNTRY_IMPORT', array('ROLE_COUNTRY_IMPORT')),
-            array('ROLE_COUNTRY_API', array('ROLE_COUNTRY_API','ROLE_CAN_CREATE_CASE','ROLE_CAN_CREATE_LAB','ROLE_CAN_CREATE_NL_LAB')),
-            array('ROLE_SITE', array('ROLE_SITE')),
-            array('ROLE_SITE_IMPORT', array('ROLE_SITE_IMPORT')),
-            array('ROLE_SITE_API', array('ROLE_SITE_API','ROLE_CAN_CREATE_CASE','ROLE_CAN_CREATE_LAB')),
-            array('ROLE_LAB', array('ROLE_LAB')),
-            array('ROLE_NL_LAB', array('ROLE_NL_LAB')),
-            array('ROLE_RRL_LAB', array('ROLE_RRL_LAB')),
-        );
+        return [
+            ['ROLE_REGION', ['ROLE_REGION']],
+            ['ROLE_REGION_API', ['ROLE_REGION_API','ROLE_CAN_CREATE_CASE','ROLE_CAN_CREATE_LAB','ROLE_CAN_CREATE_NL_LAB']],
+            ['ROLE_REGION_IMPORT', ['ROLE_REGION_IMPORT']],
+            ['ROLE_COUNTRY', ['ROLE_COUNTRY']],
+            ['ROLE_COUNTRY_IMPORT', ['ROLE_COUNTRY_IMPORT']],
+            ['ROLE_COUNTRY_API', ['ROLE_COUNTRY_API','ROLE_CAN_CREATE_CASE','ROLE_CAN_CREATE_LAB','ROLE_CAN_CREATE_NL_LAB']],
+            ['ROLE_SITE', ['ROLE_SITE']],
+            ['ROLE_SITE_IMPORT', ['ROLE_SITE_IMPORT']],
+            ['ROLE_SITE_API', ['ROLE_SITE_API','ROLE_CAN_CREATE_CASE','ROLE_CAN_CREATE_LAB']],
+            ['ROLE_LAB', ['ROLE_LAB']],
+            ['ROLE_NL_LAB', ['ROLE_NL_LAB']],
+            ['ROLE_RRL_LAB', ['ROLE_RRL_LAB']],
+        ];
     }
 }

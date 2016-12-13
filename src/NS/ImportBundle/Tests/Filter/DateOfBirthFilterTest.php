@@ -29,31 +29,31 @@ class DateOfBirthFilterTest extends \PHPUnit_Framework_TestCase
         $birthdate = new \DateTime('2015-05-07');
         $admDate = new \DateTime('2015-06-01');
 
-        return array(
-            array(
-                array('birthdate' => null), true
-            ),
-            array(
-                array('adm_date' => null), true
-            ),
-            array(
-                array('birthdate' => null, 'adm_date' => null), true
-            ),
-            array(
-                array('birthdate' => null, 'adm_date' => $admDate), true
-            ),
-            array(
-                array('birthdate' => $birthdate, 'adm_date' => null), true
-            ),
-            array(
-                array('birthdate' => $birthdate, 'adm_date' => null), true
-            ),
-            array(
-                array('birthdate' => $birthdate, 'adm_date' => $admDate), true
-            ),
-            array(
-                array('birthdate' => $admDate, 'adm_date' => $birthdate), false
-            ),
-        );
+        return [
+            [
+                ['birthdate' => null], true
+            ],
+            [
+                ['adm_date' => null], true
+            ],
+            [
+                ['birthdate' => null, 'adm_date' => null], true
+            ],
+            [
+                ['birthdate' => null, 'adm_date' => $admDate], true
+            ],
+            [
+                ['birthdate' => $birthdate, 'adm_date' => null], true
+            ],
+            [
+                ['birthdate' => $birthdate, 'adm_date' => null], true
+            ],
+            [
+                ['birthdate' => $birthdate, 'adm_date' => $admDate], true
+            ],
+            [
+                ['birthdate' => $admDate, 'adm_date' => $birthdate], false
+            ],
+        ];
     }
 }

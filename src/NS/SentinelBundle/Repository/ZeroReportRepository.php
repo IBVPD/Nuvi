@@ -18,11 +18,11 @@ class ZeroReportRepository extends SecuredEntityRepository
                 $this->createQueryBuilder('z')
                 ->innerJoin('z.site', 's')
                 ->where('z.caseType = :caseType AND z.yearMonth >= :start AND z.yearMonth <= :end')
-                ->setParameters(array(
+                ->setParameters([
                     'caseType' => $type,
                     'start' => $from->format('Ym'),
                     'end' => $to->format('Ym'),
-                ))
+                ])
             )
             ->getQuery()
             ->getResult();

@@ -32,7 +32,7 @@ class ApiController extends FOSRestController
     public function sitesAction()
     {
         $sites = $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:Site')->findAll();
-        return array('sites' => $sites);
+        return ['sites' => $sites];
     }
 
     /**
@@ -57,12 +57,12 @@ class ApiController extends FOSRestController
         $ibd->setGender($mGender);
         $ibd->setCaseId(rand(500, 10000));
 
-        return array(
+        return [
             'username' => $this->getUser()->getUsername(),
             'roles'    => $this->getUser()->getRoles(),
             'hasToken' => ($this->get('security.token_storage')->getToken()) ? 'Yes' : 'No',
             'gender'   => $mGender,
             'ibd'      => $ibd,
-        );
+        ];
     }
 }

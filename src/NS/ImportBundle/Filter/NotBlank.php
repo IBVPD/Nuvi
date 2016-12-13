@@ -31,7 +31,7 @@ class NotBlank implements ReporterInterface
      */
     public function __construct($fields)
     {
-        $this->fields = ((is_array($fields)) ? array_values($fields) : array($fields));
+        $this->fields = ((is_array($fields)) ? array_values($fields) : [$fields]);
     }
 
     /**

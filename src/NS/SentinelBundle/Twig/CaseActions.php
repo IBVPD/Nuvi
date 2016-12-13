@@ -63,11 +63,11 @@ class CaseActions extends \Twig_Extension implements TranslationContainerInterfa
      */
     public function getFunctions()
     {
-        $isSafe = array('is_safe' => array('html'));
-        return array(
-            new \Twig_SimpleFunction('case_big_actions', array($this, 'getBigActions'), $isSafe),
-            new \Twig_SimpleFunction('case_sm_actions', array($this, 'getSmallActions'), $isSafe),
-        );
+        $isSafe = ['is_safe' => ['html']];
+        return [
+            new \Twig_SimpleFunction('case_big_actions', [$this, 'getBigActions'], $isSafe),
+            new \Twig_SimpleFunction('case_sm_actions', [$this, 'getSmallActions'], $isSafe),
+        ];
     }
 
     /**
@@ -199,7 +199,7 @@ class CaseActions extends \Twig_Extension implements TranslationContainerInterfa
      */
     private function generate($route, $row)
     {
-        return $this->router->generate($route, array('id' => $row->getId()));
+        return $this->router->generate($route, ['id' => $row->getId()]);
     }
 
     /**
@@ -207,7 +207,7 @@ class CaseActions extends \Twig_Extension implements TranslationContainerInterfa
      */
     public static function getTranslationMessages()
     {
-        return array(
+        return [
             new Message(self::VIEW),
             new Message(self::EPI),
             new Message(self::LAB),
@@ -219,7 +219,7 @@ class CaseActions extends \Twig_Extension implements TranslationContainerInterfa
             new Message(self::EDIT_NL),
             new Message(self::EDIT_RRL),
             new Message(self::EDIT_OUT),
-        );
+        ];
     }
 
     /**

@@ -32,11 +32,11 @@ abstract class ColumnType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'choices'     => $this->chooser->getChoices($this->type),
             'placeholder' => 'Please Select',
-            'attr'        => array('class' => 'chosen-select', 'data-search-contains'=>true)
-        ));
+            'attr'        => ['class' => 'chosen-select', 'data-search-contains'=>true]
+        ]);
     }
 
     /**

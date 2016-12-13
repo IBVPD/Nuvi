@@ -31,7 +31,7 @@ class GenotypeResultP extends TranslatableArrayChoice implements TranslationCont
     const MIXED = 40;
     const OTHER = 50;
 
-    protected $values = array(
+    protected $values = [
                                 self::P1 => 'P[1]',
                                 self::P2 => 'P[2]',
                                 self::P3 => 'P[3]',
@@ -51,6 +51,6 @@ class GenotypeResultP extends TranslatableArrayChoice implements TranslationCont
                                 self::NON_TYPEABLE => 'Non-typeable',
                                 self::MIXED => 'Mixed (specify)',
                                 self::OTHER => 'Other (specify)',
-                             );
+    ];
 
 }

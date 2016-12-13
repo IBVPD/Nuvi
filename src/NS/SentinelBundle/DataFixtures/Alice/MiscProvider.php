@@ -20,7 +20,7 @@ class MiscProvider
 {
     public function ibdDiagnosis()
     {
-        $choices = array(
+        $choices = [
             new Diagnosis(Diagnosis::OUT_OF_RANGE),
             new Diagnosis(Diagnosis::NO_SELECTION),
             new Diagnosis(Diagnosis::MULTIPLE),
@@ -30,14 +30,14 @@ class MiscProvider
             new Diagnosis(Diagnosis::SUSPECTED_SEPSIS),
             new Diagnosis(Diagnosis::SUSPECTED_SEVERE_PNEUMONIA),
             new Diagnosis(Diagnosis::UNKNOWN),
-        );
+        ];
 
         return $choices[array_rand($choices)];
     }
 
     public function ibdDischargeOutcome()
     {
-        $choices = array(
+        $choices = [
             new DischargeOutcome(DischargeOutcome::OUT_OF_RANGE),
             new DischargeOutcome(DischargeOutcome::NO_SELECTION),
             new DischargeOutcome(DischargeOutcome::DIED),
@@ -45,14 +45,14 @@ class MiscProvider
             new DischargeOutcome(DischargeOutcome::DISCHARGED_ALIVE_WITH_SEQUELAE),
             new DischargeOutcome(DischargeOutcome::DISCHARGED_ALIVE_WITHOUT_SEQUELAE),
             new DischargeOutcome(DischargeOutcome::LEFT_AGAINST_ADVICE),
-        );
+        ];
 
         return $choices[array_rand($choices)];
     }
 
     public function ibdDischargeDiagnosis()
     {
-        $choices = array(
+        $choices = [
             new DischargeDiagnosis(DischargeDiagnosis::OUT_OF_RANGE),
             new DischargeDiagnosis(DischargeDiagnosis::NO_SELECTION),
             new DischargeDiagnosis(DischargeDiagnosis::BACTERIAL_MENINGITIS),
@@ -60,20 +60,20 @@ class MiscProvider
             new DischargeDiagnosis(DischargeDiagnosis::MULTIPLE),
             new DischargeDiagnosis(DischargeDiagnosis::OTHER),
             new DischargeDiagnosis(DischargeDiagnosis::SEPSIS),
-        );
+        ];
 
         return $choices[array_rand($choices)];
     }
 
     public function rotaDischargeOutcome()
     {
-        $choices = array(
+        $choices = [
             new RVDischargeOutcome(RVDischargeOutcome::DIED),
             new RVDischargeOutcome(RVDischargeOutcome::DISCHARGED_ALIVE),
             new RVDischargeOutcome(RVDischargeOutcome::TRANSFERRED),
             new RVDischargeOutcome(RVDischargeOutcome::LEFT_AGAINST_ADVICE),
             new RVDischargeOutcome(RVDischargeOutcome::UNKNOWN),
-        );
+        ];
 
         return $choices[array_rand($choices)];
     }
@@ -91,11 +91,11 @@ class MiscProvider
      */
     public function done()
     {
-        $choices = array(
+        $choices = [
             new TripleChoice(TripleChoice::YES),
             new TripleChoice(TripleChoice::NO),
             new TripleChoice(TripleChoice::UNKNOWN),
-        );
+        ];
 
         return $choices[array_rand($choices)];
     }
@@ -105,10 +105,10 @@ class MiscProvider
      */
     public function gender()
     {
-        $choices = array(
+        $choices = [
             new Gender(Gender::MALE),
             new Gender(Gender::FEMALE),
-        );
+        ];
 
         return $choices[array_rand($choices)];
     }
@@ -118,12 +118,12 @@ class MiscProvider
      */
     public function diagnosis()
     {
-        $choices = array(
+        $choices = [
             new Diagnosis(Diagnosis::SUSPECTED_MENINGITIS),
             new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA),
             new Diagnosis(Diagnosis::SUSPECTED_SEPSIS),
             new Diagnosis(Diagnosis::OTHER),
-        );
+        ];
 
         return $choices[array_rand($choices)];
     }
@@ -133,13 +133,13 @@ class MiscProvider
      */
     public function cxrResult()
     {
-        $choices = array(
+        $choices = [
             new CXRResult(CXRResult::CONSISTENT),
             new CXRResult(CXRResult::NORMAL),
             new CXRResult(CXRResult::INCONCLUSIVE),
             new CXRResult(CXRResult::OTHER),
             new CXRResult(CXRResult::UNKNOWN),
-        );
+        ];
 
         return $choices[array_rand($choices)];
     }
@@ -149,12 +149,12 @@ class MiscProvider
      */
     public function vaccinationReceived()
     {
-        $choices = array(
+        $choices = [
             new VaccinationReceived(VaccinationReceived::NO),
             new VaccinationReceived(VaccinationReceived::YES_HISTORY),
             new VaccinationReceived(VaccinationReceived::YES_CARD),
             new VaccinationReceived(VaccinationReceived::UNKNOWN),
-        );
+        ];
 
         return $choices[array_rand($choices)];
     }
@@ -164,13 +164,13 @@ class MiscProvider
      */
     public function fourDoses()
     {
-        $choices = array(
+        $choices = [
             new FourDoses(FourDoses::ONE),
             new FourDoses(FourDoses::TWO),
             new FourDoses(FourDoses::THREE),
             new FourDoses(FourDoses::FOUR),
             new FourDoses(FourDoses::UNKNOWN),
-        );
+        ];
 
         return $choices[array_rand($choices)];
     }
@@ -180,7 +180,7 @@ class MiscProvider
      */
     public function csfAppearance()
     {
-        $choices = array(
+        $choices = [
             new CSFAppearance(CSFAppearance::CLEAR),
             new CSFAppearance(CSFAppearance::TURBID),
             new CSFAppearance(CSFAppearance::BLOODY),
@@ -188,7 +188,7 @@ class MiscProvider
             new CSFAppearance(CSFAppearance::OTHER),
             new CSFAppearance(CSFAppearance::NOT_ASSESSED),
             new CSFAppearance(CSFAppearance::UNKNOWN),
-        );
+        ];
 
         return $choices[array_rand($choices)];
     }

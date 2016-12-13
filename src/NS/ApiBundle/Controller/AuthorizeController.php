@@ -56,8 +56,8 @@ class AuthorizeController extends Controller
             }
         }
 
-        return $this->render('NSApiBundle:Authorize:authorize.html.twig', array(
-                'form'   => $form->createView(), 'client' => $client));
+        return $this->render('NSApiBundle:Authorize:authorize.html.twig', [
+                'form'   => $form->createView(), 'client' => $client]);
     }
 
     /**

@@ -23,10 +23,10 @@ class ClientType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name',               null,                   array('label'=>'form.client-name'))
-            ->add('redirectUris',       TagType::class,         array('label'=>'form.client.redirect-uris', 'arrayOutput'=>true))
-            ->add('allowedGrantTypes',  OAuthGrantTypes::class, array('label'=>'form.client.allowed-grant-types'))
-            ->add('create',             SubmitType::class,      array('label'=>'form.client.submit-button', 'attr'=>array('class'=> 'btn btn-sm btn-success')))
+            ->add('name',               null,                   ['label'=>'form.client-name'])
+            ->add('redirectUris',       TagType::class,         ['label'=>'form.client.redirect-uris', 'arrayOutput'=>true])
+            ->add('allowedGrantTypes',  OAuthGrantTypes::class, ['label'=>'form.client.allowed-grant-types'])
+            ->add('create',             SubmitType::class,      ['label'=>'form.client.submit-button', 'attr'=> ['class'=> 'btn btn-sm btn-success']])
         ;
     }
 
@@ -35,8 +35,8 @@ class ClientType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'NS\ApiBundle\Entity\Client'
-        ));
+        ]);
     }
 }

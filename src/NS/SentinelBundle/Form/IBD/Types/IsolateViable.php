@@ -14,9 +14,9 @@ class IsolateViable extends TranslatableArrayChoice
     const NO             = 2;
     const NOT_APPLICABLE = 3;
 
-    protected $values = array(
+    protected $values = [
         self::YES            => 'Yes',
         self::NO             => 'No',
         self::NOT_APPLICABLE => 'Not Applicable',
-    );
+    ];
 }

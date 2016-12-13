@@ -36,13 +36,13 @@ class ReferenceLabAdmin extends Admin
             ->add('name')
             ->add('location')
             ->add('type')
-            ->add('_action', 'actions', array(
-                'actions' => array(
-                    'show' => array(),
-                    'edit' => array(),
-                    'delete' => array(),
-                )
-            ))
+            ->add('_action', 'actions', [
+                'actions' => [
+                    'show' => [],
+                    'edit' => [],
+                    'delete' => [],
+                ]
+            ])
         ;
     }
 
@@ -53,7 +53,7 @@ class ReferenceLabAdmin extends Admin
     {
         $model = $this->getSubject();
         if (!$model->getId()) {
-            $formMapper->add('id', TextType::class, array('label' => 'Code'));
+            $formMapper->add('id', TextType::class, ['label' => 'Code']);
         }
 
         $formMapper

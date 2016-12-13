@@ -26,17 +26,17 @@ class PreprocessorStepTest extends \PHPUnit_Framework_TestCase
 
     public function getCondition()
     {
-        return array(
-            array(
-                'cond' => array(
+        return [
+            [
+                'cond' => [
                     'condition' => 'OR',
-                    'rules' => array(
-                        array('field' => 'fieldOne', 'operator' => 'equal', 'value' => '2'),
-                        array('field' => 'fieldOne', 'operator' => 'equal', 'value' => '3'),
-                    ),),
+                    'rules' => [
+                        ['field' => 'fieldOne', 'operator' => 'equal', 'value' => '2'],
+                        ['field' => 'fieldOne', 'operator' => 'equal', 'value' => '3'],
+                    ],],
                 'output' => 1,
-                'item' => array('fieldOne'=>2,'fieldTwo'=>2)
-            ),
-        );
+                'item' => ['fieldOne'=>2,'fieldTwo'=>2]
+            ],
+        ];
     }
 }

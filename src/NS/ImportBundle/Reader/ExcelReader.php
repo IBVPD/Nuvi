@@ -56,7 +56,7 @@ class ExcelReader extends BaseReader implements OffsetableReaderInterface
      */
     public function setColumnHeaders(array $columnHeaders)
     {
-        array_walk($columnHeaders, array($this, 'cleanColumnHeaders'));
+        array_walk($columnHeaders, [$this, 'cleanColumnHeaders']);
         parent::setColumnHeaders($columnHeaders);
     }
 

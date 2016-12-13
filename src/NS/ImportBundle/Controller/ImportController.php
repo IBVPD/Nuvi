@@ -31,7 +31,7 @@ class ImportController extends Controller
     public function indexAction(Request $request)
     {
         $entityMgr = $this->get('doctrine.orm.entity_manager');
-        $form      = $this->createForm(ImportSelectType::class, null, array('user' => $entityMgr->getReference('NS\SentinelBundle\Entity\User', $this->getUser()->getId())));
+        $form      = $this->createForm(ImportSelectType::class, null, ['user' => $entityMgr->getReference('NS\SentinelBundle\Entity\User', $this->getUser()->getId())]);
 
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -50,7 +50,7 @@ class ImportController extends Controller
         $query      = $entityMgr->getRepository('NSImportBundle:Import')->getResultsForUser($this->getUser(), 'r');
         $pagination = $paginator->paginate($query, $request->query->get('page', 1), 10);
 
-        return $this->render('NSImportBundle:Import:index.html.twig', array('form' => $form->createView(), 'results' => $pagination));
+        return $this->render('NSImportBundle:Import:index.html.twig', ['form' => $form->createView(), 'results' => $pagination]);
     }
 
     /**

@@ -21,7 +21,7 @@ class CreateTypeTest extends TypeTestCase
     {
         $serializedSites = $this->getMockBuilder('NS\SentinelBundle\Interfaces\SerializedSitesInterface')
             ->disableOriginalConstructor()
-            ->setMethods(array('hasMultipleSites', 'setSites', 'getSites', 'getSite'))
+            ->setMethods(['hasMultipleSites', 'setSites', 'getSites', 'getSite'])
             ->getMock();
 
         $serializedSites->expects($this->once())
@@ -38,7 +38,7 @@ class CreateTypeTest extends TypeTestCase
         $choices = $form['type']->getConfig()->getOption('choices');
         $this->assertCount(4, $choices);
 
-        $formData = array('caseId' => 12, 'type' => 1);
+        $formData = ['caseId' => 12, 'type' => 1];
         $form->submit($formData);
 
         $data = $form->getData();
@@ -65,7 +65,7 @@ class CreateTypeTest extends TypeTestCase
     public function getExtensions()
     {
         $authChecker = $this->getMockBuilder('\Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface')
-            ->setMethods(array('isGranted'))
+            ->setMethods(['isGranted'])
             ->getMock();
 
         $authChecker->expects($this->any())
@@ -75,8 +75,8 @@ class CreateTypeTest extends TypeTestCase
         $childType = new CaseCreationType();
         $childType->setAuthChecker($authChecker);
 
-        return array(new PreloadedExtension(array(
+        return [new PreloadedExtension([
                 $childType->getName() => $childType,
-                ), array()));
+        ], [])];
     }
 }

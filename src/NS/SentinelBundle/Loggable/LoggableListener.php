@@ -83,7 +83,7 @@ class LoggableListener
      */
     public function extractData(BaseCase $object)
     {
-        return $this->serializer->serialize($object, 'json', SerializationContext::create()->setGroups(array('api','delete')));
+        return $this->serializer->serialize($object, 'json', SerializationContext::create()->setGroups(['api','delete']));
     }
 
     /**

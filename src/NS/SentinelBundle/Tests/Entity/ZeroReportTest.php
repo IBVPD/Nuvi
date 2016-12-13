@@ -31,12 +31,12 @@ class ZeroReportTest extends \PHPUnit_Framework_TestCase
 
     public function getDates()
     {
-        return array(
-            array('2016', '05', 2016, '05'),
-            array('2016', 5, 2016, '05'),
-            array('2016', 10, 2016, '10'),
-            array('2016', 12, 2016, '12'),
-        );
+        return [
+            ['2016', '05', 2016, '05'],
+            ['2016', 5, 2016, '05'],
+            ['2016', 10, 2016, '10'],
+            ['2016', 12, 2016, '12'],
+        ];
     }
 
     public function testInvalidYear()
@@ -57,14 +57,14 @@ class ZeroReportTest extends \PHPUnit_Framework_TestCase
 
     public function getMonths()
     {
-        return array(
-            array('0'),
-            array(0),
-            array(-1),
-            array('-1'),
-            array('13'),
-            array(13),
-            array('some string'),
-        );
+        return [
+            ['0'],
+            [0],
+            [-1],
+            ['-1'],
+            ['13'],
+            [13],
+            ['some string'],
+        ];
     }
 }

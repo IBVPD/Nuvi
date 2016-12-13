@@ -21,13 +21,13 @@ class RemoteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name',           null,   array('label'=>'form.remote-name'))
-            ->add('clientId',       null,   array('label'=>'form.remote-client-id'))
-            ->add('clientSecret',   null,   array('label'=>'form.remote-client-secret'))
-            ->add('tokenEndpoint',  null,   array('label'=>'form.remote-token-endpoint'))
-            ->add('authEndpoint',   null,   array('label'=>'form.remote-auth-endpoint'))
-            ->add('redirectUrl',    null,   array('label'=>'form.remote-redirect-url'))
-            ->add('create', SubmitType::class, array('label'=>'form.remote-submit-button', 'attr'=>array('class'=> 'btn btn-sm btn-success')))
+            ->add('name',           null,   ['label'=>'form.remote-name'])
+            ->add('clientId',       null,   ['label'=>'form.remote-client-id'])
+            ->add('clientSecret',   null,   ['label'=>'form.remote-client-secret'])
+            ->add('tokenEndpoint',  null,   ['label'=>'form.remote-token-endpoint'])
+            ->add('authEndpoint',   null,   ['label'=>'form.remote-auth-endpoint'])
+            ->add('redirectUrl',    null,   ['label'=>'form.remote-redirect-url'])
+            ->add('create', SubmitType::class, ['label'=>'form.remote-submit-button', 'attr'=> ['class'=> 'btn btn-sm btn-success']])
         ;
     }
     
@@ -36,8 +36,8 @@ class RemoteType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'NS\ApiBundle\Entity\Remote'
-        ));
+        ]);
     }
 }

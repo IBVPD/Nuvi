@@ -71,9 +71,9 @@ class ExcelReaderTest extends \PHPUnit_Framework_TestCase
 
     public function getOffsets()
     {
-        return array(
-            array(2, 'MSD-GG-00875', 3),
-            array(5, 'MSD-GG-00872', 6),
-        );
+        return [
+            [2, 'MSD-GG-00875', 3],
+            [5, 'MSD-GG-00872', 6],
+        ];
     }
 }

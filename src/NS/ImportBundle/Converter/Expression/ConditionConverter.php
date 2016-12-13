@@ -29,7 +29,7 @@ class ConditionConverter
     public function convert(array $conditions)
     {
         $builder = new ExpressionBuilder();
-        $expr = array();
+        $expr = [];
 
         foreach ($conditions as $id=>$value) {
             $condition = new Condition($value['conditions'], $value['output_value']);

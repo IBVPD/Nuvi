@@ -33,7 +33,7 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
     const COUNTRY_IMPORT = 21;
     const SITE_IMPORT = 22;
 
-    protected $values = array(
+    protected $values = [
         self::REGION => 'Region',
         self::COUNTRY => 'Country',
         self::SITE => 'Site',
@@ -48,9 +48,9 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
         self::REGION_IMPORT => 'Region Import/Export',
         self::COUNTRY_IMPORT => 'Country Import/Export',
         self::SITE_IMPORT => 'Site Import/Export',
-    );
+    ];
 
-    protected $roleMap = array(
+    protected $roleMap = [
         'ROLE_REGION' => self::REGION,
         'ROLE_COUNTRY' => self::COUNTRY,
         'ROLE_SITE' => self::SITE,
@@ -65,7 +65,7 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
         'ROLE_REGION_IMPORT' => self::REGION_IMPORT,
         'ROLE_COUNTRY_IMPORT' => self::COUNTRY_IMPORT,
         'ROLE_SITE_IMPORT' => self::SITE_IMPORT,
-    );
+    ];
 
     /**
      *
@@ -93,32 +93,32 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
     {
         switch ($this->current) {
             case self::REGION:
-                return array('ROLE_REGION');
+                return ['ROLE_REGION'];
             case self::COUNTRY:
-                return array('ROLE_COUNTRY');
+                return ['ROLE_COUNTRY'];
             case self::SITE:
-                return array('ROLE_SITE');
+                return ['ROLE_SITE'];
             case self::LAB:
-                return array('ROLE_LAB');
+                return ['ROLE_LAB'];
             case self::RRL_LAB:
-                return array('ROLE_RRL_LAB');
+                return ['ROLE_RRL_LAB'];
             case self::NL_LAB:
-                return array('ROLE_NL_LAB');
+                return ['ROLE_NL_LAB'];
             // These are all deprecated and will be removed in a future version
             case self::REGION_API:
-                return array('ROLE_REGION_API', 'ROLE_CAN_CREATE_CASE', 'ROLE_CAN_CREATE_LAB', 'ROLE_CAN_CREATE_NL_LAB');
+                return ['ROLE_REGION_API', 'ROLE_CAN_CREATE_CASE', 'ROLE_CAN_CREATE_LAB', 'ROLE_CAN_CREATE_NL_LAB'];
             case self::COUNTRY_API:
-                return array('ROLE_COUNTRY_API', 'ROLE_CAN_CREATE_CASE', 'ROLE_CAN_CREATE_LAB', 'ROLE_CAN_CREATE_NL_LAB');
+                return ['ROLE_COUNTRY_API', 'ROLE_CAN_CREATE_CASE', 'ROLE_CAN_CREATE_LAB', 'ROLE_CAN_CREATE_NL_LAB'];
             case self::SITE_API:
-                return array('ROLE_SITE_API', 'ROLE_CAN_CREATE_CASE', 'ROLE_CAN_CREATE_LAB');
+                return ['ROLE_SITE_API', 'ROLE_CAN_CREATE_CASE', 'ROLE_CAN_CREATE_LAB'];
             case self::REGION_IMPORT:
-                return array('ROLE_REGION_IMPORT');
+                return ['ROLE_REGION_IMPORT'];
             case self::COUNTRY_IMPORT:
-                return array('ROLE_COUNTRY_IMPORT');
+                return ['ROLE_COUNTRY_IMPORT'];
             case self::SITE_IMPORT:
-                return array('ROLE_SITE_IMPORT');
+                return ['ROLE_SITE_IMPORT'];
             default:
-                return array();
+                return [];
         }
     }
 
@@ -196,15 +196,15 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
                 }
             }
 
-            $resolver->setDefaults(array(
+            $resolver->setDefaults([
                 'choices' => $values,
                 'placeholder' => 'Please Select...',
-            ));
+            ]);
         } else {
-            $resolver->setDefaults(array(
+            $resolver->setDefaults([
                 'choices' => $this->values,
                 'placeholder' => 'Please Select...',
-            ));
+            ]);
         }
     }
 
@@ -216,7 +216,7 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
         if (is_numeric($compared)) {
             return ($compared == $this->current);
         } elseif (is_string($compared)) {
-            return (array($compared) == $this->getAsCredential());
+            return ([$compared] == $this->getAsCredential());
         } elseif ($compared instanceof Role) {
             return ($compared->getValue() == $this->current);
         }

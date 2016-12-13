@@ -57,14 +57,14 @@ class ACLValidatorTest extends \PHPUnit_Framework_TestCase
         $aclRRL     = new ACL();
         $aclRRL->setType(new Role(Role::RRL_LAB));
 
-        return array(
-            array($aclRegion),
-            array($aclCountry),
-            array($aclSite),
-            array($aclLab),
-            array($aclNL),
-            array($aclRRL),
-        );
+        return [
+            [$aclRegion],
+            [$aclCountry],
+            [$aclSite],
+            [$aclLab],
+            [$aclNL],
+            [$aclRRL],
+        ];
     }
 
     /**
@@ -79,7 +79,7 @@ class ACLValidatorTest extends \PHPUnit_Framework_TestCase
         $constraint = new ACLConstraint();
 
         $builder = $this->getMockBuilder('Symfony\Component\Validator\Context\ConstraintViolationBuilderInterface')
-            ->setMethods(array('setParameter','atPath','addViolation'))
+            ->setMethods(['setParameter','atPath','addViolation'])
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -136,13 +136,13 @@ class ACLValidatorTest extends \PHPUnit_Framework_TestCase
         $aclSiteImport = new ACL();
         $aclSiteImport->setType(new Role(Role::SITE_IMPORT));
 
-        return array(
-            array($aclRegionApi,'REGION','Api Access'),
-            array($aclRegionImport,'REGION','Import Access'),
-            array($aclCountryApi,'COUNTRY','Api Access'),
-            array($aclCountryImport,'COUNTRY','Import Access'),
-            array($aclSiteApi,'SITE','Api Access'),
-            array($aclSiteImport,'SITE','Import Access'),
-        );
+        return [
+            [$aclRegionApi,'REGION','Api Access'],
+            [$aclRegionImport,'REGION','Import Access'],
+            [$aclCountryApi,'COUNTRY','Api Access'],
+            [$aclCountryImport,'COUNTRY','Import Access'],
+            [$aclSiteApi,'SITE','Api Access'],
+            [$aclSiteImport,'SITE','Import Access'],
+        ];
     }
 }

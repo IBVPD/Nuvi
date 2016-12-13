@@ -31,9 +31,9 @@ class PreProcessorType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'operators'     => array('equal', 'not_equal', 'in', 'not_in', 'less', 'less_or_equal', 'greater', 'greater_or_equal', 'is_empty', 'is_null'),
-        ));
+        $resolver->setDefaults([
+            'operators'     => ['equal', 'not_equal', 'in', 'not_in', 'less', 'less_or_equal', 'greater', 'greater_or_equal', 'is_empty', 'is_null'],
+        ]);
     }
 
     /**

@@ -25,7 +25,7 @@ class NmSerogroup extends TranslatableArrayChoice implements TranslationContaine
     const NOT_DONE    = 12;
     const OTHER       = 99;
 
-    protected $values = array(
+    protected $values = [
         self::A           => 'A',
         self::B           => 'B',
         self::B_E         => 'B/E. coli K1 (result from LA)',
@@ -39,5 +39,5 @@ class NmSerogroup extends TranslatableArrayChoice implements TranslationContaine
         self::NON_BY_SASG => 'Non-groupable (NG) by SASG',
         self::NOT_DONE    => 'Not done',
         self::OTHER       => 'Other',
-    );
+    ];
 }

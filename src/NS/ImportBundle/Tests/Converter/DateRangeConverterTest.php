@@ -22,13 +22,13 @@ class DateRangeConverterTest extends \PHPUnit_Framework_TestCase
     public function testNoFutureDate()
     {
         $today = new \DateTime();
-        $data = array(
+        $data = [
             'field1' => null,
             'field2' => $today,
             'field3' => new \DateTime('yesterday'),
             'field4' => 'a string',
             'field5' => true,
-        );
+        ];
         $converter = new DateRangeConverter($today);
         $retData = $converter->__invoke($data);
         $this->assertEquals($data, $retData);
@@ -37,13 +37,13 @@ class DateRangeConverterTest extends \PHPUnit_Framework_TestCase
     public function testFutureDate()
     {
         $today = new \DateTime();
-        $data = array(
+        $data = [
             'field1' => null,
             'field2' => new \DateTime('tomorrow'),
             'field3' => new \DateTime('yesterday'),
             'field4' => 'a string',
             'field5' => true,
-        );
+        ];
         $converter = new DateRangeConverter($today);
         $retData = $converter->__invoke($data);
         $this->assertNotEquals($data, $retData);
@@ -59,13 +59,13 @@ class DateRangeConverterTest extends \PHPUnit_Framework_TestCase
         $today = new \DateTime();
         $yester = new \DateTime('yesterday');
 
-        $data = array(
+        $data = [
             'field1' => null,
             'field2' => $today,
             'field3' => $yester,
             'field4' => 'a string',
             'field5' => true,
-        );
+        ];
         $sub1 = $data;
         $sub2 = $data;
         $sub1['sub2'] = $sub2;
@@ -82,13 +82,13 @@ class DateRangeConverterTest extends \PHPUnit_Framework_TestCase
         $yester = new \DateTime('yesterday');
         $tomorrow = new \DateTime('2999-01-02');
 
-        $data = array(
+        $data = [
             'field1' => null,
             'field2' => $today,
             'field3' => $yester,
             'field4' => 'a string',
             'field5' => true,
-        );
+        ];
         $sub1 = $data;
         $sub2 = $data;
         $sub2['tom'] = $tomorrow;
@@ -106,13 +106,13 @@ class DateRangeConverterTest extends \PHPUnit_Framework_TestCase
     public function testNoPastDate()
     {
         $today = new \DateTime();
-        $data = array(
+        $data = [
             'field1' => null,
             'field2' => $today,
             'field3' => new \DateTime('tomorrow'),
             'field4' => 'a string',
             'field5' => true,
-        );
+        ];
         $converter = new DateRangeConverter(null, $today);
         $retData = $converter->__invoke($data);
         $this->assertEquals($data, $retData);
@@ -121,13 +121,13 @@ class DateRangeConverterTest extends \PHPUnit_Framework_TestCase
     public function testPastDate()
     {
         $today = new \DateTime();
-        $data = array(
+        $data = [
             'field1' => null,
             'field2' => new \DateTime('tomorrow'),
             'field3' => new \DateTime('yesterday'),
             'field4' => 'a string',
             'field5' => true,
-        );
+        ];
         $converter = new DateRangeConverter(null, $today);
         $retData = $converter->__invoke($data);
         $this->assertNotEquals($data, $retData);
@@ -143,13 +143,13 @@ class DateRangeConverterTest extends \PHPUnit_Framework_TestCase
         $today = new \DateTime();
         $tomorrow = new \DateTime('tomorrow');
 
-        $data = array(
+        $data = [
             'field1' => null,
             'field2' => $today,
             'field3' => $tomorrow,
             'field4' => 'a string',
             'field5' => true,
-        );
+        ];
         $sub1 = $data;
         $sub2 = $data;
         $sub1['sub2'] = $sub2;
@@ -166,13 +166,13 @@ class DateRangeConverterTest extends \PHPUnit_Framework_TestCase
         $yesterday = new \DateTime('tomorrow');
         $tomorrow = new \DateTime('2001-01-02');
 
-        $data = array(
+        $data = [
             'field1' => null,
             'field2' => $today,
             'field3' => $yesterday,
             'field4' => 'a string',
             'field5' => true,
-        );
+        ];
         $sub1 = $data;
         $sub2 = $data;
         $sub2['tom'] = $tomorrow;
@@ -193,13 +193,13 @@ class DateRangeConverterTest extends \PHPUnit_Framework_TestCase
         $end = new \DateTime('2015-12-31');
         $converter = new DateRangeConverter($end, $start);
 
-        $data = array(
+        $data = [
             'field1' => null,
             'field2' => new \DateTime('2015-09-01'),
             'field3' => new \DateTime('2015-12-27'),
             'field4' => 'a string',
             'field5' => true,
-        );
+        ];
 
         $retData = $converter->__invoke($data);
         $this->assertEquals($data, $retData);
@@ -211,13 +211,13 @@ class DateRangeConverterTest extends \PHPUnit_Framework_TestCase
         $end = new \DateTime('2015-12-31');
         $converter = new DateRangeConverter($end, $start);
 
-        $data = array(
+        $data = [
             'field1' => null,
             'field2' => new \DateTime('2015-11-31'),
             'field3' => new \DateTime('2014-12-31'),
             'field4' => 'a string',
             'field5' => true,
-        );
+        ];
         $retData = $converter->__invoke($data);
         $this->assertNotEquals($data, $retData);
         $this->assertNull($retData['field3']);
@@ -236,13 +236,13 @@ class DateRangeConverterTest extends \PHPUnit_Framework_TestCase
         $dateOne = new \DateTime('2015-09-01');
         $dateTwo = new \DateTime('2015-12-27');
 
-        $data = array(
+        $data = [
             'field1' => null,
             'field2' => $dateOne,
             'field3' => $dateTwo,
             'field4' => 'a string',
             'field5' => true,
-        );
+        ];
         $sub1 = $data;
         $sub2 = $data;
         $sub1['sub2'] = $sub2;
@@ -261,13 +261,13 @@ class DateRangeConverterTest extends \PHPUnit_Framework_TestCase
         $dateOne = new \DateTime('2015-09-01');
         $dateTwo = new \DateTime('2015-12-27');
 
-        $data = array(
+        $data = [
             'field1' => null,
             'field2' => $dateOne,
             'field3' => $dateTwo,
             'field4' => 'a string',
             'field5' => true,
-        );
+        ];
         $sub1 = $data;
         $sub2 = $data;
         $sub2['out'] = new \DateTime('2016-01-01');
@@ -289,13 +289,13 @@ class DateRangeConverterTest extends \PHPUnit_Framework_TestCase
         $dateOne = new \DateTime('2015-09-01');
         $dateTwo = new \DateTime('2015-12-27');
 
-        $data = array(
+        $data = [
             'field1' => null,
             'field2' => $dateOne,
             'field3' => $dateTwo,
             'field4' => 'a string',
             'field5' => true,
-        );
+        ];
         $sub1 = $data;
         $sub2 = $data;
         $sub2['out'] = new \DateTime('2016-01-01');

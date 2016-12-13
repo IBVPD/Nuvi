@@ -1365,7 +1365,7 @@ class SiteLab extends BaseSiteLab
      */
     public function getMinimumRequiredFields()
     {
-        return array(
+        return [
             'csfLabDate',
             'csfLabTime',
             'csfWcc',
@@ -1382,6 +1382,6 @@ class SiteLab extends BaseSiteLab
             'bloodGramDone',
             'bloodPcrDone',
             'otherCultDone',
-        );
+        ];
     }
 }

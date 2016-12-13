@@ -13,14 +13,14 @@ class RemoteTypeTest extends TypeTestCase
 {
     public function testForm()
     {
-        $formData = array(
+        $formData = [
             'name'          => 'The Name',
             'clientId'      => 'TheClientId',
             'clientSecret'  => 'TheClientSecret',
             'tokenEndpoint' => 'tokenEndpoint',
             'authEndpoint'  => 'authEndpoint',
             'redirectUrl'   => 'redirectUrl',
-        );
+        ];
 
         $type = new \NS\ApiBundle\Form\RemoteType();
 

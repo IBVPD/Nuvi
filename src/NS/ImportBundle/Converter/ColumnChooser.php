@@ -27,7 +27,7 @@ class ColumnChooser
     /**
      * @var array
      */
-    private $simpleTypes = array(
+    private $simpleTypes = [
         Type::TARRAY,
         Type::SIMPLE_ARRAY,
         Type::JSON_ARRAY,
@@ -42,7 +42,7 @@ class ColumnChooser
         Type::BLOB,
         Type::FLOAT,
         Type::GUID,
-    );
+    ];
 
     private $results;
 
@@ -105,7 +105,7 @@ class ColumnChooser
         $metaData= $this->entityMgr->getClassMetadata($class);
         $choices = $this->buildChoices($metaData);
         $complex = $this->buildComplex($metaData);
-        $result  = array('choices' => $choices,'complex' => $complex);
+        $result  = ['choices' => $choices,'complex' => $complex];
 
         $this->cache->save($class, $result);
 
@@ -118,10 +118,10 @@ class ColumnChooser
      */
     public function buildChoices(ClassMetadata $metaData)
     {
-        $choices  = array('site'=>'site (Site)','country'=>'country (Country)');
+        $choices  = ['site'=>'site (Site)','country'=>'country (Country)'];
         $choices += $this->getMetaChoices($metaData);
 
-        foreach (array('siteLab', 'nationalLab', 'referenceLab') as $metaArg) {
+        foreach (['siteLab', 'nationalLab', 'referenceLab'] as $metaArg) {
             $associationClass = $metaData->getAssociationTargetClass($metaArg);
             $choices += $this->getMetaChoices($this->entityMgr->getClassMetadata($associationClass), $metaArg);
         }
@@ -136,7 +136,7 @@ class ColumnChooser
      */
     public function getMetaChoices(ClassMetadata $metadata, $associationName = null)
     {
-        $choices = array();
+        $choices = [];
 
         if ($associationName) {
             foreach ($metadata->getFieldNames() as $fieldName) {
@@ -161,10 +161,10 @@ class ColumnChooser
      */
     public function buildComplex(ClassMetadata $metaData)
     {
-        $choices = array('site'=>true,'country'=>true);
+        $choices = ['site'=>true,'country'=>true];
         $choices += $this->getMetaComplexChoices($metaData);
 
-        foreach (array('siteLab', 'nationalLab', 'referenceLab') as $metaArg) {
+        foreach (['siteLab', 'nationalLab', 'referenceLab'] as $metaArg) {
             $associationClass = $metaData->getAssociationTargetClass($metaArg);
             $choices += $this->getMetaComplexChoices($this->entityMgr->getClassMetadata($associationClass));
         }
@@ -178,7 +178,7 @@ class ColumnChooser
      */
     public function getMetaComplexChoices(ClassMetadata $metadata)
     {
-        $choices = array();
+        $choices = [];
 
         foreach ($metadata->getFieldNames() as $fieldName) {
             $fieldType = $metadata->getTypeOfField($fieldName);

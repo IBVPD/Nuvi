@@ -78,8 +78,8 @@ class OAuth2Client extends \Twig_Extension
      */
     public function getAccessTokenByAuthorizationCode($code)
     {
-        $this->getAccessToken(Client::GRANT_TYPE_AUTH_CODE, array('code' => $code,
-            'redirect_uri' => $this->remote->getRedirectUrl()));
+        $this->getAccessToken(Client::GRANT_TYPE_AUTH_CODE, ['code' => $code,
+            'redirect_uri' => $this->remote->getRedirectUrl()]);
 
         return true;
     }
@@ -95,7 +95,7 @@ class OAuth2Client extends \Twig_Extension
             throw new \RuntimeException("No refresh token");
         }
 
-        $this->getAccessToken(Client::GRANT_TYPE_REFRESH_TOKEN, array('refresh_token' => $this->remote->getRefreshToken()));
+        $this->getAccessToken(Client::GRANT_TYPE_REFRESH_TOKEN, ['refresh_token' => $this->remote->getRefreshToken()]);
 
         return true;
     }
@@ -106,7 +106,7 @@ class OAuth2Client extends \Twig_Extension
      */
     public function getAccessTokenByClientCredentials()
     {
-        $this->getAccessToken(Client::GRANT_TYPE_CLIENT_CREDENTIALS, array());
+        $this->getAccessToken(Client::GRANT_TYPE_CLIENT_CREDENTIALS, []);
 
         return true;
     }
@@ -145,7 +145,7 @@ class OAuth2Client extends \Twig_Extension
         }
 
         $this->client->setAccessToken($this->remote->getAccessToken());
-        $results = array($this->client->fetch($url));
+        $results = [$this->client->fetch($url)];
 
         if ($results[0]['code'] == Codes::HTTP_UNAUTHORIZED) {
             $this->getAccessTokenByRefreshToken();
@@ -179,9 +179,9 @@ class OAuth2Client extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return array(
-            new \Twig_SimpleFunction('oauth_authenticate_path', array($this, 'getAuthenticationPath'), array('is_safe' => array('html'))),
-        );
+        return [
+            new \Twig_SimpleFunction('oauth_authenticate_path', [$this, 'getAuthenticationPath'], ['is_safe' => ['html']]),
+        ];
     }
 
     /**

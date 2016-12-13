@@ -104,12 +104,12 @@ class SitePerformanceResult extends AbstractSitePerformanceResult implements Tra
      */
     static function getTranslationMessages()
     {
-        return array(
+        return [
             new Message(self::TIER1_MIN_CASES_STR),
             new Message(self::TIER1_MIN_SPECIMEN_STR),
             new Message(self::CONSISTENT_REPORTING_STR),
             new Message(self::TIER2_MIN_CASES_STR),
             new Message(self::TIER2_MIN_SPECIMEN_STR),
-        );
+        ];
     }
 }

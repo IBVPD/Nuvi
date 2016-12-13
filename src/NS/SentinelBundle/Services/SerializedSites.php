@@ -124,9 +124,9 @@ class SerializedSites implements SerializedSitesInterface
         $country = $site->getCountry();
         $region  = $country->getRegion();
 
-        $uow->registerManaged($site,    array('code' => $site->getCode()), array('code' => $site->getCode()));
-        $uow->registerManaged($country, array('code' => $country->getCode()), array('code' => $country->getCode()));
-        $uow->registerManaged($region,  array('code' => $region->getCode()), array('code' => $region->getCode()));
+        $uow->registerManaged($site,    ['code' => $site->getCode()], ['code' => $site->getCode()]);
+        $uow->registerManaged($country, ['code' => $country->getCode()], ['code' => $country->getCode()]);
+        $uow->registerManaged($region,  ['code' => $region->getCode()], ['code' => $region->getCode()]);
     }
 
     /**
@@ -135,7 +135,7 @@ class SerializedSites implements SerializedSitesInterface
      */
     private function populateSiteArray()
     {
-        $sites = array();
+        $sites = [];
         foreach ($this->entityMgr->getRepository('NS\SentinelBundle\Entity\Site')->getChain() as $site) {
             $region  = new Region($site->getCountry()->getRegion()->getCode(), $site->getCountry()->getRegion()->getName());
             $country = new Country($site->getCountry()->getCode(), $site->getCountry()->getName());

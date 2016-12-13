@@ -46,7 +46,7 @@ class IBDRepository extends Common
      */
     public function getStats()
     {
-        $results = array();
+        $results = [];
         $queryBuilder = $this->createQueryBuilder('m')
             ->select('COUNT(m.id) theCount')
             ->where('m.cxr_done = :cxr')
@@ -464,7 +464,7 @@ class IBDRepository extends Common
      * @return \Doctrine\ORM\QueryBuilder
      * @throws \Doctrine\ORM\ORMException
      */
-    public function getCountByCulture($alias, $culture, $binax = null, $pcr = null, array $siteCodes = array())
+    public function getCountByCulture($alias, $culture, $binax = null, $pcr = null, array $siteCodes = [])
     {
         $this->_em->getConfiguration()->addCustomDatetimeFunction('YEAR', 'DoctrineExtensions\Query\Mysql\Year');
 
@@ -597,7 +597,7 @@ class IBDRepository extends Common
                     (s.ibdTier = 1 AND ( %s ) ) OR (s.ibdTier = 2 AND ( %s ) )
                 )
             )',$tier1Req,$tier2Req))
-            ->setParameter('csfResult', array(CultureResult::SPN,CultureResult::HI,CultureResult::NM));
+            ->setParameter('csfResult', [CultureResult::SPN,CultureResult::HI,CultureResult::NM]);
     }
 
     public function getNumberOfConfirmedCount($alias, array $siteCodes)
@@ -609,7 +609,7 @@ class IBDRepository extends Common
             ->leftJoin($alias.'.referenceLab','rl')
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
             ->andWhere(sprintf('(  (s.ibdTier = 1 AND ( %s ) ) OR (s.ibdTier = 2 AND ( %s ) ) )',$tier1Req,$tier2Req))
-            ->setParameter('csfResult', array(CultureResult::SPN,CultureResult::HI,CultureResult::NM));
+            ->setParameter('csfResult', [CultureResult::SPN,CultureResult::HI,CultureResult::NM]);
     }
 
     /**

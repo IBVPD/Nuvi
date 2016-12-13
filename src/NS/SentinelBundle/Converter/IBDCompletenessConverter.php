@@ -31,12 +31,12 @@ class IBDCompletenessConverter extends BaseCompletenessConverter
      */
     public function handleFields(array &$item, array $configs)
     {
-        $constraints = array();
+        $constraints = [];
         foreach ($configs as $config) {
             $constraints[] = new Done($config);
         }
 
-        $violationList = $this->validator->validate($item, $constraints, array('Default'));
+        $violationList = $this->validator->validate($item, $constraints, ['Default']);
         if ($violationList) {
             $this->addMessages($item, $violationList);
         }

@@ -21,7 +21,7 @@ class DuplicateCaseException extends \RuntimeException implements Exception
      */
     private function setDefaults($message)
     {
-        $default = array('country' => 'NOT SET', 'case_id' => 'NOT SET', 'count' => 'NOT SET');
+        $default = ['country' => 'NOT SET', 'case_id' => 'NOT SET', 'count' => 'NOT SET'];
 
         if (is_array($message)) {
             return array_merge($message, $default);

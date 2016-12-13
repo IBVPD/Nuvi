@@ -115,8 +115,8 @@ class LoggableListenerTest extends \PHPUnit_Framework_TestCase
 
         $serializer->expects($this->any())
             ->method('serialize')
-            ->with($ibd,'json',SerializationContext::create()->setGroups(array('api','delete')))
-            ->willReturn(json_encode(array('something')));
+            ->with($ibd,'json',SerializationContext::create()->setGroups(['api','delete']))
+            ->willReturn(json_encode(['something']));
 
         $listener = new LoggableListener($tokenStorage,$serializer);
         $event = $listener->getLogEvent(LogEvent::DELETED, 'EVENTID', $ibd);
@@ -132,7 +132,7 @@ class LoggableListenerTest extends \PHPUnit_Framework_TestCase
         $serializer = SerializerBuilder::create()->build();
         $ibd = $this->getIbdCase();
         
-        $json = $serializer->serialize($ibd, 'json', SerializationContext::create()->setGroups(array('api','delete')));
+        $json = $serializer->serialize($ibd, 'json', SerializationContext::create()->setGroups(['api','delete']));
         $this->assertJson($json);
     }
 

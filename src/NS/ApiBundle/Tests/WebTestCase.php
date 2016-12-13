@@ -16,14 +16,14 @@ class WebTestCase extends BaseWebTestCase
 
     private $accessToken;
 
-    public function createApiClient(UserInterface $user, array $options = array(), array $server = array())
+    public function createApiClient(UserInterface $user, array $options = [], array $server = [])
     {
         $accessToken  = $this->getAccessToken($user);
-        $serverParams = array_merge(array(
+        $serverParams = array_merge([
             'HTTP_ACCEPT'        => 'application/json',
             'Content-Type'       => 'application/json',
             'CONTENT_TYPE'       => 'application/json',
-            'HTTP_AUTHORIZATION' => 'Bearer ' . $accessToken['access_token']), $server);
+            'HTTP_AUTHORIZATION' => 'Bearer ' . $accessToken['access_token']], $server);
 
         $this->assertContains($accessToken['access_token'], $serverParams['HTTP_AUTHORIZATION'], "Contains http authorization");
 
@@ -73,7 +73,7 @@ class WebTestCase extends BaseWebTestCase
     protected function getClient()
     {
         $user   = $this->getUser();
-        $client = $this->createApiClient($user, array('HTTPS' => true));
+        $client = $this->createApiClient($user, ['HTTPS' => true]);
         $client->followRedirects();
 
         return $client;
@@ -84,6 +84,6 @@ class WebTestCase extends BaseWebTestCase
         return $this->getContainer()
                 ->get('doctrine.orm.entity_manager')
                 ->getRepository('NSSentinelBundle:User')
-                ->findOneBy(array('email' => 'ca-api@noblet.ca'));
+                ->findOneBy(['email' => 'ca-api@noblet.ca']);
     }
 }

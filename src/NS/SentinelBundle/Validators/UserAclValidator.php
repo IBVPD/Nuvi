@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
  */
 class UserAclValidator extends ConstraintValidator
 {
-    protected $roleMap = array(
+    protected $roleMap = [
 //        'ROLE_REGION',
 //        'ROLE_COUNTRY',
         'ROLE_SITE',
@@ -29,7 +29,7 @@ class UserAclValidator extends ConstraintValidator
         'ROLE_REGION_IMPORT',
         'ROLE_COUNTRY_IMPORT',
         'ROLE_SITE_IMPORT'
-    );
+    ];
 
     /**
      * @var AuthorizationCheckerInterface

@@ -27,10 +27,10 @@ class SiteFilterType extends AbstractType implements EmbeddedFilterTypeInterface
     {
         $label = (isset($options['label'])) ? $options['label'] : null;
 
-        $builder->add('name', TextFilterType::class, array('required' => false, 'label' => $label));
+        $builder->add('name', TextFilterType::class, ['required' => false, 'label' => $label]);
 
         if ($options['include_intense']) {
-            $builder->add('ibdIntenseSupport', IntenseSupport::class, array('required' => false, 'apply_filter' => array($this, 'applyFilter')));
+            $builder->add('ibdIntenseSupport', IntenseSupport::class, ['required' => false, 'apply_filter' => [$this, 'applyFilter']]);
         }
     }
 

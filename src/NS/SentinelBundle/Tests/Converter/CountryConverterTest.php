@@ -11,7 +11,7 @@ class CountryConverterTest extends \PHPUnit_Framework_TestCase
     public function testObjectKeys()
     {
         $objects = $this->getObjects();
-        $this->assertEquals(array('C1', 'C2', 'C3'), array_keys($objects));
+        $this->assertEquals(['C1', 'C2', 'C3'], array_keys($objects));
         $this->assertCount(3, $objects);
     }
 
@@ -114,6 +114,6 @@ class CountryConverterTest extends \PHPUnit_Framework_TestCase
         $country3->setRegion($region);
         $country3->setActive(false);
 
-        return array($country1->getCode() => $country1, $country2->getCode() => $country2, $country3->getCode() => $country3);
+        return [$country1->getCode() => $country1, $country2->getCode() => $country2, $country3->getCode() => $country3];
     }
 }

@@ -24,8 +24,8 @@ use \Symfony\Component\HttpFoundation\Response;
  */
 class ExportController extends Controller
 {
-    private $baseField = array('region.code','country.code','site.code', 'id');
-    private $formParams = array('validation_groups' => array('FieldPopulation'), 'include_filter' => false);
+    private $baseField = ['region.code','country.code','site.code', 'id'];
+    private $formParams = ['validation_groups' => ['FieldPopulation'], 'include_filter' => false];
 
     /**
      * @Route("/",name="exportIndex")
@@ -36,7 +36,7 @@ class ExportController extends Controller
         $ibdForm = $this->createForm(IBDReportFilterType::class, null, $this->formParams);
         $rotaForm = $this->createForm(RotaVirusReportFilterType::class, null, $this->formParams);
 
-        return $this->render('NSImportBundle:Export:index.html.twig', array('ibdForm' => $ibdForm->createView(), 'rotaForm' => $rotaForm->createView()));
+        return $this->render('NSImportBundle:Export:index.html.twig', ['ibdForm' => $ibdForm->createView(), 'rotaForm' => $rotaForm->createView()]);
     }
 
     /**
@@ -52,12 +52,12 @@ class ExportController extends Controller
         if ($ibdForm->isValid()) {
             $modelManager = $this->get('doctrine.orm.entity_manager');
             $fields = $this->baseField;
-            $meta = array(
+            $meta = [
                 "%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\IBD'),
                 "siteLab.%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\IBD\SiteLab'),
                 "referenceLab.%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\IBD\ReferenceLab'),
                 "nationalLab.%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\IBD\NationalLab'),
-            );
+            ];
 
             $this->adjustFields($meta, $fields);
 
@@ -80,12 +80,12 @@ class ExportController extends Controller
         if ($rotaForm->isValid()) {
             $modelManager = $this->get('doctrine.orm.entity_manager');
             $fields = $this->baseField;
-            $meta = array(
+            $meta = [
                 "%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\RotaVirus'),
                 "siteLab.%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\RotaVirus\SiteLab'),
                 "referenceLab.%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\RotaVirus\ReferenceLab'),
                 "nationalLab.%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\RotaVirus\NationalLab'),
-            );
+            ];
 
             $this->adjustFields($meta, $fields);
             $query = $modelManager->getRepository('NSSentinelBundle:RotaVirus')->exportQuery('i');

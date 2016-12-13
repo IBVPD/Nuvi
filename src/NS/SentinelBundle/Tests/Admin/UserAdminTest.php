@@ -36,11 +36,11 @@ class UserAdminTest extends WebTestCase
 
     public function getAdmins()
     {
-        return array(
-            array('superadmin@noblet.ca',16),
-            array('na@noblet.ca', 15),
-            array('ca@noblet.ca', 11)
-        );
+        return [
+            ['superadmin@noblet.ca',16],
+            ['na@noblet.ca', 15],
+            ['ca@noblet.ca', 11]
+        ];
     }
 
     private function getClient($email)

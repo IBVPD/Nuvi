@@ -20,7 +20,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $acl->setType(new Role(Role::COUNTRY_API));
         $user->addAcl($acl);
 
-        $this->assertEquals(array('ROLE_COUNTRY_API', 'ROLE_CAN_CREATE_CASE', 'ROLE_CAN_CREATE_LAB', 'ROLE_CAN_CREATE_NL_LAB'), $user->getRoles());
+        $this->assertEquals(['ROLE_COUNTRY_API', 'ROLE_CAN_CREATE_CASE', 'ROLE_CAN_CREATE_LAB', 'ROLE_CAN_CREATE_NL_LAB'], $user->getRoles());
     }
 
     /**
@@ -59,13 +59,13 @@ class UserTest extends \PHPUnit_Framework_TestCase
         $siteUser->setAdmin(true);
         $siteUser->addAcl($acl);
 
-        return array(
-            array($superAdmin,array('ROLE_ADMIN','ROLE_SUPER_ADMIN'),true),
-            array($regionUser,array('ROLE_REGION'),false),
-            array($regionAdminUser,array('ROLE_REGION','ROLE_ADMIN','ROLE_SONATA_REGION_ADMIN'),false),
-            array($countryUser,array('ROLE_COUNTRY'),false),
-            array($countryAdminUser,array('ROLE_COUNTRY','ROLE_ADMIN','ROLE_SONATA_COUNTRY_ADMIN'),false),
-            array($siteUser,array('ROLE_LAB'),false),
-        );
+        return [
+            [$superAdmin, ['ROLE_ADMIN','ROLE_SUPER_ADMIN'],true],
+            [$regionUser, ['ROLE_REGION'],false],
+            [$regionAdminUser, ['ROLE_REGION','ROLE_ADMIN','ROLE_SONATA_REGION_ADMIN'],false],
+            [$countryUser, ['ROLE_COUNTRY'],false],
+            [$countryAdminUser, ['ROLE_COUNTRY','ROLE_ADMIN','ROLE_SONATA_COUNTRY_ADMIN'],false],
+            [$siteUser, ['ROLE_LAB'],false],
+        ];
     }
 }

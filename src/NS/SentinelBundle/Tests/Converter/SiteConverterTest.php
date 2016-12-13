@@ -105,6 +105,6 @@ class SiteConverterTest extends \PHPUnit_Framework_TestCase
         $site4->setCountry($country);
         $site4->setActive(false);
 
-        return array($site1->getCode() => $site1, $site2->getCode() => $site2, $site3->getCode() => $site3, $site4->getCode()=>$site4);
+        return [$site1->getCode() => $site1, $site2->getCode() => $site2, $site3->getCode() => $site3, $site4->getCode()=>$site4];
     }
 }

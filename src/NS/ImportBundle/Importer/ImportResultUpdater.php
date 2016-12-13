@@ -74,7 +74,7 @@ class ImportResultUpdater
         while ($reports->valid()) {
             $obj = $reports->current();
             foreach ($obj->getMessages($severity) as $message) {
-                $item = array('row' => $obj->getRow(), 'message' => $message->getMessage(),'column'=>($message->getColumn()?$message->getColumn():'unknown'));
+                $item = ['row' => $obj->getRow(), 'message' => $message->getMessage(),'column'=>($message->getColumn()?$message->getColumn():'unknown')];
 
                 if ($writeHeader && $first) {
                     $headers = array_keys($item);
@@ -109,7 +109,7 @@ class ImportResultUpdater
             $object = $exceptions->current(); // similar to current($s)
             $row = $exceptions->offsetGet($object);
 
-            $item = array('row' => $row, 'column' => $object->getMessage(), 'message' => ($object->getPrevious()) ? $object->getPrevious()->getMessage() : null);
+            $item = ['row' => $row, 'column' => $object->getMessage(), 'message' => ($object->getPrevious()) ? $object->getPrevious()->getMessage() : null];
             if ($writeHeader && $first) {
                 $headers = array_keys($item);
                 $fileWriter->fputcsv($headers);
@@ -133,7 +133,7 @@ class ImportResultUpdater
         while ($reports->valid()) {
             $obj = $reports->current();
             foreach ($obj->getMessages(ReporterInterface::ERROR) as $message) {
-                $item = array('row' => $obj->getRow(), 'message' => $message->getMessage(),'column'=>($message->getColumn()?$message->getColumn():'unknown'));
+                $item = ['row' => $obj->getRow(), 'message' => $message->getMessage(),'column'=>($message->getColumn()?$message->getColumn():'unknown')];
 
                 if ($writeHeader && $first) {
                     $headers = array_keys($item);
@@ -159,14 +159,14 @@ class ImportResultUpdater
     {
         $successFile = $import->getSuccessFile();
         $fileWriter = $successFile->openFile('a');
-        $headers = array('id','case_id','country','site','siteName');
+        $headers = ['id','case_id','country','site','siteName'];
         $first = false;
         foreach ($entities as $entity) {
-            $item = array(
+            $item = [
                 'id' => $entity->getId(),
                 'case_id' => $entity->getCaseId(),
                 'country' => $entity->getCountry()->getCode(),
-            );
+            ];
 
             if ($entity->getSite()) {
                 $item['site'] = $entity->getSite()->getCode();//:'Not linked to site',

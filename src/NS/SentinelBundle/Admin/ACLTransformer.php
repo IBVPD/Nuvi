@@ -22,12 +22,12 @@ class ACLTransformer implements DataTransformerInterface
     {
         //value should be an array of type, object_id
         if($value instanceof BaseACL && $value->getObjectId()) {
-            $objectStrg = json_encode(array(array('id'=>$value->getObjectId(),'name'=>'Gnat')));
+            $objectStrg = json_encode([['id'=>$value->getObjectId(),'name'=>'Gnat']]);
         } else {
-            $objectStrg = json_encode(array());
+            $objectStrg = json_encode([]);
         }
 
-        return array('type'=>$value->getType(),'object_id'=>$objectStrg);
+        return ['type'=>$value->getType(),'object_id'=>$objectStrg];
     }
 
     /**

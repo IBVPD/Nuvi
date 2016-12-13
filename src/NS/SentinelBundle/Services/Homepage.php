@@ -49,7 +49,7 @@ class Homepage
         }
 
         $locale = $request->attributes->get('_locale', $request->getLocale());
-        $route  = $this->router->generate('homepage', array('_locale' => $locale));
+        $route  = $this->router->generate('homepage', ['_locale' => $locale]);
 
         return new RedirectResponse($route);
     }

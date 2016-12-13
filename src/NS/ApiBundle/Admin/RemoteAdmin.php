@@ -35,13 +35,13 @@ class RemoteAdmin extends Admin
             ->add('user')
             ->add('tokenEndpoint')
             ->add('authEndpoint')
-            ->add('_action', 'actions', array(
-                'actions' => array(
-                    'show' => array(),
-                    'edit' => array(),
-                    'delete' => array(),
-                )
-            ))
+            ->add('_action', 'actions', [
+                'actions' => [
+                    'show' => [],
+                    'edit' => [],
+                    'delete' => [],
+                ]
+            ])
         ;
     }
 
@@ -56,13 +56,13 @@ class RemoteAdmin extends Admin
             ->add('tokenEndpoint')
             ->add('authEndpoint')
             ->add('redirectUrl')
-            ->add('user', null, array('placeholder'=>'Please Select', 'query_builder'=>function (EntityRepository $repo) {
+            ->add('user', null, ['placeholder'=>'Please Select', 'query_builder'=>function (EntityRepository $repo) {
                                                 return $repo->createQueryBuilder('u')
                                                             ->leftJoin('u.acls', 'a')
                                                             ->addSelect('a')
                                                             ->where('a.options LIKE :apiType')
                                                             ->setParameter('apiType', '%api%');
-            }))
+            }])
         ;
     }
 

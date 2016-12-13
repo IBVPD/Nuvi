@@ -19,14 +19,14 @@ class CaseAssociationListener implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return array(
-            'lexik_form_filter.apply.orm.ibd_filter_form.country'       => array('filterObject'),
-            'lexik_form_filter.apply.orm.ibd_filter_form.region'        => array('filterObject'),
-            'lexik_form_filter.apply.orm.ibd_filter_form.site'          => array('filterObject'),
-            'lexik_form_filter.apply.orm.rotavirus_filter_form.country' => array('filterObject'),
-            'lexik_form_filter.apply.orm.rotavirus_filter_form.region'  => array('filterObject'),
-            'lexik_form_filter.apply.orm.rotavirus_filter_form.site'    => array('filterObject'),
-        );
+        return [
+            'lexik_form_filter.apply.orm.ibd_filter_form.country'       => ['filterObject'],
+            'lexik_form_filter.apply.orm.ibd_filter_form.region'        => ['filterObject'],
+            'lexik_form_filter.apply.orm.ibd_filter_form.site'          => ['filterObject'],
+            'lexik_form_filter.apply.orm.rotavirus_filter_form.country' => ['filterObject'],
+            'lexik_form_filter.apply.orm.rotavirus_filter_form.region'  => ['filterObject'],
+            'lexik_form_filter.apply.orm.rotavirus_filter_form.site'    => ['filterObject'],
+        ];
     }
 
     /**
@@ -45,10 +45,10 @@ class CaseAssociationListener implements EventSubscriberInterface
 
         if (is_object($values['value'])) {
             if ($values['value'] instanceof Collection) {
-                $ids = array();
+                $ids = [];
 
                 foreach ($values['value'] as $value) {
-                    if (!is_callable(array($value, 'getId'))) {
+                    if (!is_callable([$value, 'getId'])) {
                         throw new \Exception(sprintf('Can\'t call method "getId()" on an instance of "%s"', get_class($value)));
                     }
 
@@ -59,7 +59,7 @@ class CaseAssociationListener implements EventSubscriberInterface
                     $queryBuilder->andWhere($expr->in($event->getField(), $ids));
                 }
             } else {
-                if (!is_callable(array($values['value'], 'getId'))) {
+                if (!is_callable([$values['value'], 'getId'])) {
                     throw new \Exception(sprintf('Can\'t call method "getId()" on an instance of "%s"', get_class($values['value'])));
                 }
 

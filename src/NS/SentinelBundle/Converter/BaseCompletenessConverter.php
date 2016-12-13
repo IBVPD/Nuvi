@@ -20,7 +20,7 @@ abstract class BaseCompletenessConverter implements ReporterInterface
     /**
      * @var array
      */
-    protected $constraints = array('case' => array(), 'siteLab' => array(), 'externalLab' => array());
+    protected $constraints = ['case' => [], 'siteLab' => [], 'externalLab' => []];
 
     /**
      * BaseCompletenessConverter constructor.

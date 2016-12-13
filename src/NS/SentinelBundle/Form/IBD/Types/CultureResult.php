@@ -22,7 +22,7 @@ class CultureResult extends TranslatableArrayChoice implements TranslationContai
     const CONTAMINANT   = 5;
     const UNKNOWN       = 99;
 
-    protected $values = array(
+    protected $values = [
                                 self::NEGATIVE      => 'Negative',
                                 self::SPN           => 'Spn',
                                 self::HI            => 'Hi',
@@ -30,5 +30,5 @@ class CultureResult extends TranslatableArrayChoice implements TranslationContai
                                 self::OTHER         => 'Other',
                                 self::CONTAMINANT   => 'Contaminant',
                                 self::UNKNOWN       => 'Unknown',
-                             );
+    ];
 }

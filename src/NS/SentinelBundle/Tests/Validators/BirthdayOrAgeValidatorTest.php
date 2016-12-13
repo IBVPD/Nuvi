@@ -87,13 +87,13 @@ class BirthdayOrAgeValidatorTest extends \PHPUnit_Framework_TestCase
         $rvTwo->setDobYears(2);
         $rvTwo->setDobMonths(9);
 
-        return array(
-            array($ibd, true),
-            array($rv, true),
-            array($ibdOne, false),
-            array($ibdTwo, false),
-            array($rvOne, false),
-            array($rvTwo, false),
-        );
+        return [
+            [$ibd, true],
+            [$rv, true],
+            [$ibdOne, false],
+            [$ibdTwo, false],
+            [$rvOne, false],
+            [$rvTwo, false],
+        ];
     }
 }

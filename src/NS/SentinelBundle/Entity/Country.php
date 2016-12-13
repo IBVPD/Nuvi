@@ -378,7 +378,7 @@ class Country implements \Serializable
      */
     public function serialize()
     {
-        return serialize(array(
+        return serialize([
             $this->code,
             $this->active,
             $this->name,
@@ -391,7 +391,7 @@ class Country implements \Serializable
             $this->hibVaccineIntro,
             $this->pcvVaccineIntro,
             $this->rvVaccineIntro,
-            ));
+        ]);
     }
 
     /**

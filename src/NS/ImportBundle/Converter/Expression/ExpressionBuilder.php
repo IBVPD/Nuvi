@@ -11,7 +11,7 @@ class ExpressionBuilder
     /**
      * @var array
      */
-    public $operatorMap = array(
+    public $operatorMap = [
         'equal' => '%s == %s',
         'not_equal' => '%s != %s',
         'in' => '%s in %s',
@@ -20,7 +20,7 @@ class ExpressionBuilder
         'less_or_equal' => '%s <= %s',
         'greater' => '%s > %s',
         'greater_or_equal' => '%s >= %s',
-    );
+    ];
 
     /**
      * @param Condition $condition
@@ -41,7 +41,7 @@ class ExpressionBuilder
             return sprintf($this->getOperator($rule), $this->getField($rule), $this->getValue($rule));
         }
 
-        $rules = array();
+        $rules = [];
         foreach ($rule->getRules() as $subRule) {
             $rules[] = $this->convertRuleToExpression($subRule);
         }

@@ -742,7 +742,7 @@ class Site implements \Serializable
      */
     public function serialize()
     {
-        return serialize(array(
+        return serialize([
             $this->code,
             $this->name,
             $this->website,
@@ -763,7 +763,7 @@ class Site implements \Serializable
             $this->surveillanceConducted,
             $this->country,
 
-        ));
+        ]);
     }
 
     /**

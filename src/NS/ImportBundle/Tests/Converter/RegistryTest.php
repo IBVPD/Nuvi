@@ -15,12 +15,12 @@ class RegistryTest extends TypeTestCase
 {
     public function testRegistry()
     {
-        $converters = array(
+        $converters = [
             'ns_import.converter.date.who'            => new DateTimeValueConverter("D M d H:i:s e Y"),
             'ns_import.converter.date.timestamp'      => new DateTimeValueConverter("Y-m-d H:i:s"),
             'ns_import.converter.date.year_month_day' => new DateTimeValueConverter("Y/m/d|"),
             'ns_import.converter.date.month_day_year' => new DateTimeValueConverter("m/d/Y|"),
-        );
+        ];
 
         $type = new Registry();
         foreach ($converters as $id => $converter) {

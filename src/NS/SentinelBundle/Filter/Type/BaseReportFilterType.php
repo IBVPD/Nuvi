@@ -55,10 +55,10 @@ class BaseReportFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('adm_date', DateRangeFilterType::class, array('label' => 'report-filter-form.admitted-between', ))
-            ->add('createdAt', DateRangeFilterType::class, array('label' => 'report-filter-form.created-between'));
+            ->add('adm_date', DateRangeFilterType::class, ['label' => 'report-filter-form.admitted-between',])
+            ->add('createdAt', DateRangeFilterType::class, ['label' => 'report-filter-form.created-between']);
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'preSetData'));
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, [$this, 'preSetData']);
     }
 
     /**
@@ -76,7 +76,7 @@ class BaseReportFilterType extends AbstractType
                 $form->add('region', 'NS\SentinelBundle\Filter\Type\RegionType');
             }
 
-            $form->add('country', 'NS\SentinelBundle\Filter\Type\CountryType', array('placeholder' => '', 'required' => false));
+            $form->add('country', 'NS\SentinelBundle\Filter\Type\CountryType', ['placeholder' => '', 'required' => false]);
             $form->add('site', $siteType);
         } elseif ($this->authChecker->isGranted('ROLE_COUNTRY')) {
             $form->add('site', $siteType);
@@ -89,24 +89,24 @@ class BaseReportFilterType extends AbstractType
         }
 
         if ($options['include_filter']) {
-            $form->add('filter', SubmitType::class, array(
+            $form->add('filter', SubmitType::class, [
                 'label'=>'filter',
                 'icon' => 'fa fa-search',
-                'attr' => array('class' => 'btn btn-xs btn-success')));
+                'attr' => ['class' => 'btn btn-xs btn-success']]);
         }
 
         if ($options['include_export']) {
-            $form->add('export', SubmitType::class, array(
+            $form->add('export', SubmitType::class, [
                 'label' => 'export',
                 'icon' => 'fa fa-cloud-download',
-                'attr' => array('class' => 'btn btn-xs btn-info')));
+                'attr' => ['class' => 'btn btn-xs btn-info']]);
         }
 
         if ($options['include_reset']) {
-            $form->add('reset', SubmitType::class, array(
+            $form->add('reset', SubmitType::class, [
                 'label' => 'reset',
                 'icon' => 'fa fa-times-circle',
-                'attr' => array('class' => 'btn btn-xs btn-danger')));
+                'attr' => ['class' => 'btn btn-xs btn-danger']]);
         }
     }
 
@@ -115,14 +115,14 @@ class BaseReportFilterType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'include_filter' => true,
             'include_export' => true,
-            'include_reset'  => true)
+            'include_reset'  => true]
         );
 
-        $resolver->setDefined(array('site_type'));
-        $resolver->setAllowedValues('site_type', array('simple', 'advanced'));
+        $resolver->setDefined(['site_type']);
+        $resolver->setAllowedValues('site_type', ['simple', 'advanced']);
         $resolver->setRequired('data_class');
     }
 }

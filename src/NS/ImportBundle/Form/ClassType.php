@@ -20,7 +20,7 @@ class ClassType extends AbstractType
      *
      * @param array $choices
      */
-    public function __construct(array $choices = array())
+    public function __construct(array $choices = [])
     {
         $this->choices = $choices;
     }
@@ -30,10 +30,10 @@ class ClassType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'choices'     => $this->choices,
             'placeholder' => ' '
-        ));
+        ]);
     }
 
     /**

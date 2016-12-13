@@ -42,7 +42,7 @@ class ZeroReportingController extends Controller
             return $this->redirect($this->generateUrl('zeroReportUpdate'));
         }
 
-        return $this->render('NSSentinelBundle:ZeroReport:index.html.twig', array('form' => $filterForm->createView()));
+        return $this->render('NSSentinelBundle:ZeroReport:index.html.twig', ['form' => $filterForm->createView()]);
     }
 
     /**
@@ -77,6 +77,6 @@ class ZeroReportingController extends Controller
         $results = $reporter->getZeroReports($data['type'], $data['from'], $data['to']);
         $filterForm = $this->createForm(ZeroReportFilterType::class);
 
-        return $this->render('NSSentinelBundle:ZeroReport:index.html.twig', array('form' => $filterForm->createView(), 'results' => $results));
+        return $this->render('NSSentinelBundle:ZeroReport:index.html.twig', ['form' => $filterForm->createView(), 'results' => $results]);
     }
 }

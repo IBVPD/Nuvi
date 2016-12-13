@@ -50,28 +50,28 @@ class ImportSelectType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('map', EntityType::class, array(
+        $builder->add('map', EntityType::class, [
                 'class'         => 'NSImportBundle:Map',
                 'placeholder'   => 'Please Select...',
                 'query_builder' => $this->entityMgr->getRepository('NSImportBundle:Map')->getWithColumnsQuery(),
                 'property' => 'selectName',
-                )
+            ]
             )
-            ->add('referenceLab', EntityType::class, array(
+            ->add('referenceLab', EntityType::class, [
                 'class' => 'NS\SentinelBundle\Entity\ReferenceLab',
                 'placeholder' => 'Please Select...',
                 'query_builder'=> function (EntityRepository $repository) {
                     return $repository->createQueryBuilder('r')->orderBy('r.name', 'ASC');
                 },
                 'required' => false,
-            ))
-            ->add('sourceFile', VichFileType::class, array('error_bubbling'=>false))
-            ->add('inputDateStart', DatePickerType::class, array('label'=>'Import file date start'))
-            ->add('inputDateEnd', DatePickerType::class, array('label'=>'Import file date end'))
-            ->add('import', SubmitType::class, array('attr' => array('class' => 'btn btn-xs btn-success pull-right','label'=>'Import')))
+            ])
+            ->add('sourceFile', VichFileType::class, ['error_bubbling'=>false])
+            ->add('inputDateStart', DatePickerType::class, ['label'=>'Import file date start'])
+            ->add('inputDateEnd', DatePickerType::class, ['label'=>'Import file date end'])
+            ->add('import', SubmitType::class, ['attr' => ['class' => 'btn btn-xs btn-success pull-right','label'=>'Import']])
         ;
 
-        $builder->addEventListener(FormEvents::POST_SUBMIT, array($this, 'postSubmit'));
+        $builder->addEventListener(FormEvents::POST_SUBMIT, [$this, 'postSubmit']);
     }
 
     /**
@@ -93,13 +93,13 @@ class ImportSelectType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setRequired('user');
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'NS\ImportBundle\Entity\Import',
             'empty_data' => function (Options $options) {
                 return function () use ($options) {
                     return new Import($options['user']);
                 };
             }
-        ));
+        ]);
     }
 }

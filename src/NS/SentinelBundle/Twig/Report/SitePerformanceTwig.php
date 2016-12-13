@@ -26,12 +26,12 @@ class SitePerformanceTwig extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return array(
-            new \Twig_SimpleFunction('consistentReporting', array($this, 'renderConsistentReporting'), array('is_safe'=>array('html'))),
-            new \Twig_SimpleFunction('minimumCases', array($this, 'renderMinimumCases'), array('is_safe'=>array('html'))),
-            new \Twig_SimpleFunction('specimenCollected', array($this, 'renderSpecimenCollected'), array('is_safe'=>array('html'))),
-            new \Twig_SimpleFunction('labConfirmed', array($this, 'renderLabConfirmed'), array('is_safe'=>array('html'))),
-            );
+        return [
+            new \Twig_SimpleFunction('consistentReporting', [$this, 'renderConsistentReporting'], ['is_safe'=> ['html']]),
+            new \Twig_SimpleFunction('minimumCases', [$this, 'renderMinimumCases'], ['is_safe'=> ['html']]),
+            new \Twig_SimpleFunction('specimenCollected', [$this, 'renderSpecimenCollected'], ['is_safe'=> ['html']]),
+            new \Twig_SimpleFunction('labConfirmed', [$this, 'renderLabConfirmed'], ['is_safe'=> ['html']]),
+        ];
     }
 
     /**
@@ -40,11 +40,11 @@ class SitePerformanceTwig extends \Twig_Extension
      */
     public function renderMinimumCases(AbstractSitePerformanceResult $result)
     {
-        return $this->twig->render('NSSentinelBundle:Report:flag.html.twig',array(
+        return $this->twig->render('NSSentinelBundle:Report:flag.html.twig', [
             'flag'=>$result->getMinimumNumberOfCases(),
             'string'=>$result->getMinimumNumberOfCasesString(),
             'result'=>$result->getTotalCases(),
-            ));
+        ]);
     }
 
     /**
@@ -53,11 +53,11 @@ class SitePerformanceTwig extends \Twig_Extension
      */
     public function renderConsistentReporting(AbstractSitePerformanceResult $result)
     {
-        return $this->twig->render('NSSentinelBundle:Report:flag.html.twig',array(
+        return $this->twig->render('NSSentinelBundle:Report:flag.html.twig', [
             'flag'=>$result->getConsistentReporting(),
             'string'=>$result->getConsistentReportingString(),
             'result'=>$result->getConsistentReportingCount(),
-            ));
+        ]);
     }
 
     /**
@@ -66,12 +66,12 @@ class SitePerformanceTwig extends \Twig_Extension
      */
     public function renderSpecimenCollected(AbstractSitePerformanceResult $result)
     {
-        $params = array(
+        $params = [
             'result' => sprintf('%d %%',(int)$result->getSpecimenCollectionPercent()),
             'value'  => $result->getSpecimenCollection(),
             'flag'   => $result->hasMinimumSpecimenCollected(),
             'string' => $result->getMinimumSpecimenCollectedString(),
-        );
+        ];
 
         return $this->twig->render('NSSentinelBundle:Report:flag.html.twig',$params);
     }
@@ -82,12 +82,12 @@ class SitePerformanceTwig extends \Twig_Extension
      */
     public function renderLabConfirmed(AbstractSitePerformanceResult $result)
     {
-        $params = array(
+        $params = [
             'result' => sprintf('%d %%',(int)$result->getLabConfirmedPercent()),
             'value'  => $result->getLabConfirmed(),
             'flag'   => $result->hasMinimumLabConfirmed(),
             'string' => $result->getMinimumLabConfirmedString(),
-        );
+        ];
 
         return $this->twig->render('NSSentinelBundle:Report:flag.html.twig',$params);
     }

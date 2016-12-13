@@ -37,11 +37,11 @@ class CaseTemplates extends \Twig_Extension
      */
     public function getFunctions()
     {
-        $isSafe = array('is_safe' => array('html'));
+        $isSafe = ['is_safe' => ['html']];
 
-        return array(
-            new \Twig_SimpleFunction('case_index_template', array($this, 'renderTable'), $isSafe),
-        );
+        return [
+            new \Twig_SimpleFunction('case_index_template', [$this, 'renderTable'], $isSafe),
+        ];
     }
 
     /**
@@ -52,7 +52,7 @@ class CaseTemplates extends \Twig_Extension
      */
     public function renderTable($results, $tableId)
     {
-        $params = array('results' => $results, 'tableId' => $tableId);
+        $params = ['results' => $results, 'tableId' => $tableId];
 
         if ($this->authChecker->isGranted('ROLE_SITE_LEVEL')) {
             return $this->twig->render('NSSentinelBundle:Case:site.html.twig', $params);

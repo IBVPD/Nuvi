@@ -23,33 +23,33 @@ class TrimInputConverterTest extends \PHPUnit_Framework_TestCase
         $date = new \DateTime();
         $stdClass = new \stdClass();
 
-        return array(
-            array(
-                'inputData' => array(),
-                'outputData' => array(),
-            ),
-            array(
-                'inputData' => array(
+        return [
+            [
+                'inputData' => [],
+                'outputData' => [],
+            ],
+            [
+                'inputData' => [
                     'field1' => '  0',
                     'field2' => ' 1 ',
-                    'subarray' => array(
+                    'subarray' => [
                         'field1' => 1,
                         'field2' => $date,
                         'field3'=> '  '.'1',
-                    ),
+                    ],
                     'field3'=> $stdClass
-                ),
-                'outputData' => array(
+                ],
+                'outputData' => [
                     'field1' => '0',
                     'field2' => '1',
-                    'subarray' => array(
+                    'subarray' => [
                         'field1' => 1,
                         'field2' => $date,
                         'field3'=> '1',
-                    ),
+                    ],
                     'field3'=> $stdClass
-                ),
-            ),
-        );
+                ],
+            ],
+        ];
     }
 }

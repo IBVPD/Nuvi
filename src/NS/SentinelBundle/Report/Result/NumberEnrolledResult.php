@@ -37,7 +37,7 @@ class NumberEnrolledResult
         $this->empty[-9999]  = 0;
 
         $this->resultByMonth = array_fill(1, 12, $this->empty);
-        $this->headers       = array_merge(array('month'=>'Month'), $this->dValues,array(-1=>'Not set',-9999=>'Out of Range'));
+        $this->headers       = array_merge(['month'=>'Month'], $this->dValues, [-1=>'Not set',-9999=>'Out of Range']);
     }
 
     /**

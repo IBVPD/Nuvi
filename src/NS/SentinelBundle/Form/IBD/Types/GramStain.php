@@ -16,10 +16,10 @@ class GramStain extends TranslatableArrayChoice implements TranslationContainerI
     const GM_NEGATIVE          = 2;
     const UNKNOWN              = 99;
 
-    protected $values = array(
+    protected $values = [
                                 self::NO_ORGANISM_DETECTED => 'No Organism Detected',
                                 self::GM_POSITIVE          => 'Gram-positive organism',
                                 self::GM_NEGATIVE          => 'Gram-negative organism',
                                 self::UNKNOWN              => 'Unknown',
-                             );
+    ];
 }

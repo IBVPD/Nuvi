@@ -48,12 +48,12 @@ class SiteAdmin extends Admin
             ->add('code')
             ->add('active')
             ->add('country')
-            ->add('_action', 'actions', array(
-                'actions' => array(
-                    'show' => array(),
-                    'edit' => array(),
-                )
-            ))
+            ->add('_action', 'actions', [
+                'actions' => [
+                    'show' => [],
+                    'edit' => [],
+                ]
+            ])
         ;
     }
 
@@ -66,7 +66,7 @@ class SiteAdmin extends Admin
             ->add('name')
             ->add('code')
             ->add('country')
-            ->add('active', null, array('required'=>false))
+            ->add('active', null, ['required'=>false])
             ->add('rvYearIntro')
             ->add('ibdYearIntro')
             ->add('street')

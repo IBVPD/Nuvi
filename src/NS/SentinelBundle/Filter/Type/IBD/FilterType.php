@@ -21,7 +21,7 @@ class FilterType extends AbstractType implements EmbeddedFilterTypeInterface
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('status', CaseStatus::class, array('required' => false, 'label' => 'filter-case-status'));
+        $builder->add('status', CaseStatus::class, ['required' => false, 'label' => 'filter-case-status']);
     }
 
     /**
@@ -29,10 +29,10 @@ class FilterType extends AbstractType implements EmbeddedFilterTypeInterface
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'NS\SentinelBundle\Filter\Entity\IBD',
             'csrf_protection' => false,
-        ));
+        ]);
     }
 
     /**

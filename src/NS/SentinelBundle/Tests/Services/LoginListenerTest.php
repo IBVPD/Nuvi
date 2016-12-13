@@ -27,7 +27,7 @@ class LoginListenerTest extends \PHPUnit_Framework_TestCase
             ->method('addListener');
 
         $listener            = new LoginListener($homepage, $dispatcher);
-        $request             = new Request(array(), array(), array('_route' => 'apiLoginCheck'));
+        $request             = new Request([], [], ['_route' => 'apiLoginCheck']);
         $authenticationToken = $this->createMock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface');
 
         $listener->onSecurityInteractiveLogin(new InteractiveLoginEvent($request, $authenticationToken));
@@ -41,7 +41,7 @@ class LoginListenerTest extends \PHPUnit_Framework_TestCase
             ->method('addListener');
 
         $listener            = new LoginListener($homepage, $dispatcher);
-        $request             = new Request(array(), array(), array('_route' => 'login_check'));
+        $request             = new Request([], [], ['_route' => 'login_check']);
         $authenticationToken = $this->createMock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface');
 
         $listener->onSecurityInteractiveLogin(new InteractiveLoginEvent($request, $authenticationToken));

@@ -31,13 +31,13 @@ class ACLAdmin extends Admin
         $listMapper
             ->add('type')
             ->add('object_id')
-            ->add('_action', 'actions', array(
-                'actions' => array(
-                    'show' => array(),
-                    'edit' => array(),
-                    'delete' => array(),
-                )
-            ))
+            ->add('_action', 'actions', [
+                'actions' => [
+                    'show' => [],
+                    'edit' => [],
+                    'delete' => [],
+                ]
+            ])
         ;
     }
 
@@ -48,22 +48,22 @@ class ACLAdmin extends Admin
     {
         $formMapper
             ->add('type', Role::class)
-            ->add('options', ChoiceType::class, array(
+            ->add('options', ChoiceType::class, [
                 'required' => false,
                 'multiple' => true,
-                'choices' => array(
+                'choices' => [
                     'api' => 'Api Access',
                     'import' => 'Import/Export Access',
                     'case' => 'Can Create Case',
                     'lab' => 'Can Create Site Lab',
                     'nl' => 'Can Create NL',
-                    'rrl' => 'Can Create RRL'))
+                    'rrl' => 'Can Create RRL']]
             )
-            ->add('object_id', ACLAutoCompleterType::class, array(
+            ->add('object_id', ACLAutoCompleterType::class, [
                                                         'label'               => 'Target',
                                                         'route'               => 'adminACLAjaxAutocomplete',
                                                         'required'            => false,
-                                                        'secondary-field'     => array('s' => 'object_id', 'r' => 'type')))
+                                                        'secondary-field'     => ['s' => 'object_id', 'r' => 'type']])
         ;
     }
 

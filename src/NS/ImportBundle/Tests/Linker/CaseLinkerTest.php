@@ -23,11 +23,11 @@ class CaseLinkerTest extends \PHPUnit_Framework_TestCase
 
     public function getTestData()
     {
-        return array(
-            array(
-                array('getcode'=>'site','case_id'),
+        return [
+            [
+                ['getcode'=>'site','case_id'],
                 'findBySiteAndCaseId',
-            ),
-        );
+            ],
+        ];
     }
 }

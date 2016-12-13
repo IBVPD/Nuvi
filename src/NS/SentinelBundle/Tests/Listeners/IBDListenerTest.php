@@ -150,28 +150,28 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
 
     public function getCompleteCaseWithPneunomiaData()
     {
-        $data     = array();
+        $data     = [];
         $complete = $this->getSingleCompleteCaseWithPneunomia();
         $country  = new Country('tId', 'TestCountry');
         $country->setTracksPneumonia(true);
         $case     = new IBD();
         $case->setCountry($country);
 
-        $data[] = array('data' => $complete);
+        $data[] = ['data' => $complete];
 
         return $this->_commonCompleteData($data, $complete);
     }
 
     public function getCompleteCaseWithoutPneunomiaData()
     {
-        $data     = array();
+        $data     = [];
         $complete = $this->getSingleCompleteCaseWithoutPneunomia();
         $country  = new Country('tId', 'TestCountry');
         $country->setTracksPneumonia(true);
         $case     = new IBD();
         $case->setCountry($country);
 
-        $data[] = array('data' => $complete);
+        $data[] = ['data' => $complete];
         return $this->_commonCompleteData($data, $complete);
     }
 
@@ -183,20 +183,20 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
         $row                  = $complete;
         $row['setadmDx']      = new Diagnosis(Diagnosis::OTHER);
         $row['setadmDxOther'] = 'null';
-        $data[]               = array('data' => $row);
+        $data[]               = ['data' => $row];
 
         //dischDx + dischDxOther
         $row                    = $complete;
         $row['setdischDx']      = new DischargeDiagnosis(DischargeDiagnosis::OTHER);
         $row['setdischDxOther'] = 'null';
-        $data[]                 = array('data' => $row);
+        $data[]                 = ['data' => $row];
 
         //meningReceived + meningDoses
         $row                            = $complete;
         $row['setmeningReceived']       = new VaccinationReceived(VaccinationReceived::YES_CARD);
         $row['setmeningType']           = new VaccinationType(VaccinationType::ACW135);
         $row['setmeningDate'] = new \DateTime();
-        $data[]                         = array('data' => $row);
+        $data[]                         = ['data' => $row];
 
         $doses = new ThreeDoses();
         foreach ($doses->getValues() as $x => $v) {
@@ -204,13 +204,13 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
             $row = $complete;
             $row['sethibReceived'] = new VaccinationReceived(VaccinationReceived::YES_CARD);
             $row['sethibDoses'] = new FourDoses($x);
-            $data[] = array('data' => $row);
+            $data[] = ['data' => $row];
 
             //pcvReceived + pcvDoses
             $row = $complete;
             $row['setpcvReceived'] = new VaccinationReceived(VaccinationReceived::YES_CARD);
             $row['setpcvDoses'] = new FourDoses($x);
-            $data[] = array('data' => $row);
+            $data[] = ['data' => $row];
         }
 
         //csfCollected + related
@@ -222,7 +222,7 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
             $row['setcsfCollectDate'] = new \DateTime();
             $row['setcsfCollectTime'] = $row['setcsfCollectDate'];
             $row['setcsfAppearance'] = new CSFAppearance($v);
-            $data[] = array('data' => $row);
+            $data[] = ['data' => $row];
         }
 
         return $data;
@@ -230,9 +230,9 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
 
     public function getIncompleteTestDataWithoutPneunomia()
     {
-        $data     = array();
+        $data     = [];
         $complete = $this->getSingleCompleteCaseWithoutPneunomia();
-        $fields = array(
+        $fields = [
             'caseId',
             'birthdate',
             'gender',
@@ -259,14 +259,14 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
             'dischDx',
             'dischClass',
             'cxrDone',
-        );
+        ];
         foreach ($fields as $field) {
             if (isset($complete["set$field"])) {
                 $d = $complete;
                 unset($d["set$field"]);
 
                 $d['removed'] = $field;
-                $data[] = array('data' => $d);
+                $data[] = ['data' => $d];
             }
         }
 
@@ -275,10 +275,10 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
 
     public function getIncompleteTestDataWithPneunomia()
     {
-        $data      = array();
+        $data      = [];
         $tripleYes = new TripleChoice(TripleChoice::YES);
         $complete  = $this->getSingleCompleteCaseWithPneunomia();
-        $fields = array(
+        $fields = [
             'caseId',
             'birthdate',
             'gender',
@@ -313,14 +313,14 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
             'pneuRespRate',
             'pneuVomit',
             'pneuHypothermia',
-            'pneuMalnutrition',);
+            'pneuMalnutrition',];
         foreach ($fields as $field) {
             if (isset($complete["set$field"])) {
                 $d = $complete;
                 unset($d["set$field"]);
 
                 $d['removed'] = $field;
-                $data[] = array('data' => $d);
+                $data[] = ['data' => $d];
             }
         }
 
@@ -328,57 +328,57 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
         $d                  = $complete;
         $d['setadmDx']      = new Diagnosis(Diagnosis::OTHER);
         $d['setadmDxOther'] = null;
-        $data[]             = array('data' => $d);
+        $data[]             = ['data' => $d];
 
         //dischDx + dischDxOther
         $d                    = $complete;
         $d['setdischDx']      = new DischargeDiagnosis(DischargeDiagnosis::OTHER);
         $d['setdischDxOther'] = null;
-        $data[]               = array('data' => $d);
+        $data[]               = ['data' => $d];
 
         //hibReceived + hibDoses
         $d                   = $complete;
         $d['sethibReceived'] = new VaccinationReceived(VaccinationReceived::YES_CARD);
         $d['sethibDoses']    = null;
-        $data[]              = array('data' => $d);
+        $data[]              = ['data' => $d];
 
         //pcvReceived + pcvDoses
         $d                   = $complete;
         $d['setpcvReceived'] = new VaccinationReceived(VaccinationReceived::YES_CARD);
         $d['setpcvDoses']    = null;
-        $data[]              = array('data' => $d);
+        $data[]              = ['data' => $d];
 
         //meningReceived + meningDoses
         $d                      = $complete;
         $d['setmeningReceived'] = new VaccinationReceived(VaccinationReceived::YES_CARD);
         $d['setmeningType']     = null;
-        $data[]                 = array('data' => $d);
+        $data[]                 = ['data' => $d];
 
         //csfCollected + related
         $d                    = $complete;
         $d['setcsfCollected'] = $tripleYes;
         $d['setcsfId']        = null;
-        $data[]               = array('data' => $d);
+        $data[]               = ['data' => $d];
 
         $d                    = $complete;
         $d['setcsfCollected'] = $tripleYes;
         $d['setcsfId']        = '';
-        $data[]               = array('data' => $d);
+        $data[]               = ['data' => $d];
 
         $d                          = $complete;
         $d['setcsfCollected']       = $tripleYes;
         $d['setcsfCollectDateTime'] = null;
-        $data[]                     = array('data' => $d);
+        $data[]                     = ['data' => $d];
 
         $d                    = $complete;
         $d['setcsfCollected'] = $tripleYes;
         $d['csfAppearance']   = null;
-        $data[]               = array('data' => $d);
+        $data[]               = ['data' => $d];
 
         $d                    = $complete;
         $d['setcsfCollected'] = $tripleYes;
         $d['csfAppearance']   = new CSFAppearance();
-        $data[]               = array('data' => $d);
+        $data[]               = ['data' => $d];
 
         return $data;
     }
@@ -389,7 +389,7 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
         $country  = new Country('tId', 'Test Country');
         $country->setTracksPneumonia(true);
 
-        return array(
+        return [
             'setcountry'              => $country,
             'setcaseId'               => 'blah',
             'setbirthdate'            => new \DateTime(),
@@ -437,7 +437,7 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
             'setdischDxOther'         => null,
             'setdischClass'           => new DischargeClassification(DischargeClassification::CONFIRMED_SPN),
             'setCxrDone'              => new TripleChoice(TripleChoice::NO),
-        );
+        ];
     }
 
     private function getSingleCompleteCaseWithoutPneunomia()
@@ -446,7 +446,7 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
         $country  = new Country('tId', 'Test Country');
         $country->setTracksPneumonia(false);
 
-        return array(
+        return [
             'setcountry'                => $country,
             'setcaseId'                 => 'blah',
             'setdistrict'               => 'The District',
@@ -485,7 +485,7 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
             'setdischDxOther'           => null,
             'setdischClass'             => new DischargeClassification(DischargeClassification::CONFIRMED_SPN),
             'setCxrDone'                => new TripleChoice(TripleChoice::NO),
-        );
+        ];
     }
 
     private function _updateCase($case, $data)

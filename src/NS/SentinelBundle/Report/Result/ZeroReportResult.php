@@ -93,7 +93,7 @@ class ZeroReportResult
             $period = new \DatePeriod($start, $interval, $end);
 
             foreach ($period as $dt) {
-                $this->dates[$dt->format('Y-m')] = array('month' => $dt->format('n'), 'year' => $dt->format('Y'));
+                $this->dates[$dt->format('Y-m')] = ['month' => $dt->format('n'), 'year' => $dt->format('Y')];
             }
         }
 

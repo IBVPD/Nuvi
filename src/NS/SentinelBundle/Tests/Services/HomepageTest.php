@@ -48,24 +48,24 @@ class HomepageTest extends \PHPUnit_Framework_TestCase
 
     public function getRequests()
     {
-        return array(
-            array(
-                'request' => new Request(array(), array(), array('_locale' => 'en')),
-                'locale'  => array('_locale' => 'en'),
-            ),
-            array(
-                'request' => new Request(array(), array(), array('_locale' => 'fr')),
-                'locale'  => array('_locale' => 'fr'),
-            ),
-            array(
-                'request' => new Request(array(), array(), array('_locale' => 'hi')),
-                'locale'  => array('_locale' => 'hi'),
-            ),
-            array(
-                'request' => new Request(array(), array(), array('_locale' => 'pt')),
-                'locale'  => array('_locale' => 'pt'),
-            ),
-        );
+        return [
+            [
+                'request' => new Request([], [], ['_locale' => 'en']),
+                'locale'  => ['_locale' => 'en'],
+            ],
+            [
+                'request' => new Request([], [], ['_locale' => 'fr']),
+                'locale'  => ['_locale' => 'fr'],
+            ],
+            [
+                'request' => new Request([], [], ['_locale' => 'hi']),
+                'locale'  => ['_locale' => 'hi'],
+            ],
+            [
+                'request' => new Request([], [], ['_locale' => 'pt']),
+                'locale'  => ['_locale' => 'pt'],
+            ],
+        ];
     }
 
     private function getHomepageService($user, $route, $routerParam = null)

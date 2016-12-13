@@ -17,13 +17,13 @@ class CXRAdditionalResult extends TranslatableSetChoice implements TranslationCo
     const INFILTRATE        = 4;
     const UNKNOWN           = 99;
 
-    protected $set = array(
+    protected $set = [
                                 self::CONSOLIDATION     => 'Consolidation',
                                 self::PLEURAL_EFFUSION  => 'Pleural effusion',
                                 self::AIR_BRONCHOGRAM   => 'Air bronchogram',
                                 self::INFILTRATE        => 'Interstitial infiltrate',
                                 self::UNKNOWN           => 'Unknown',
-                             );
+    ];
 
     /**
      * {@inheritdoc}

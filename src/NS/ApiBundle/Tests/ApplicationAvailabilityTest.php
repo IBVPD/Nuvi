@@ -27,10 +27,10 @@ class ApplicationAvailabilityTest extends WebTestCase
 
     public function urlProvider()
     {
-        return array(
-            array('/oauth/dashboard'),
-            array('/en/doc/api'),
-        );
+        return [
+            ['/oauth/dashboard'],
+            ['/en/doc/api'],
+        ];
     }
 
     private function getClient()

@@ -711,7 +711,7 @@ abstract class ExternalLab extends BaseExternalLab
      */
     public function getMandatoryFields()
     {
-        return array(
+        return [
                     'type_sample_recd',
                     'dt_sample_recd',
                     'isolate_viable',
@@ -721,7 +721,7 @@ abstract class ExternalLab extends BaseExternalLab
                     'spn_serotype',
                     'hi_serotype',
                     'nm_serogroup',
-        );
+        ];
     }
 
     /**

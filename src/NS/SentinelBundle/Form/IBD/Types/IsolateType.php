@@ -16,10 +16,10 @@ class IsolateType extends TranslatableArrayChoice implements TranslationContaine
     const NM    = 3;
     const OTHER = 4;
 
-    protected $values = array(
+    protected $values = [
                                 self::SPN   => 'Spn',
                                 self::HI    => 'Hi',
                                 self::NM    => 'Nm',
                                 self::OTHER => 'Other',
-                             );
+    ];
 }

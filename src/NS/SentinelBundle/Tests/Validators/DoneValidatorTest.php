@@ -11,17 +11,17 @@ class DoneValidatorTest extends \PHPUnit_Framework_TestCase
 
     public function testNoResultFieldValue()
     {
-        $data = array(
+        $data = [
             'tripleChoiceField' => '',
             'resultField' => '',
-        );
+        ];
 
         $context = $this->createMock('Symfony\Component\Validator\Context\ExecutionContextInterface');
 
         $context->expects($this->never())
             ->method('buildViolation');
 
-        $constraint = new Done(array('resultField'=>'resultField', 'tripleChoiceField'=>'tripleChoiceField'));
+        $constraint = new Done(['resultField'=>'resultField', 'tripleChoiceField'=>'tripleChoiceField']);
         $validator = new DoneValidator();
         $validator->initialize($context);
 
@@ -30,17 +30,17 @@ class DoneValidatorTest extends \PHPUnit_Framework_TestCase
 
     public function testTripleChoiceFieldIsSet()
     {
-        $data = array(
+        $data = [
             'tripleChoiceField' => new TripleChoice(1),
             'resultField' => new TripleChoice(1),
-        );
+        ];
 
         $context = $this->createMock('Symfony\Component\Validator\Context\ExecutionContextInterface');
 
         $context->expects($this->never())
             ->method('buildViolation');
 
-        $constraint = new Done(array('resultField'=>'resultField', 'tripleChoiceField'=>'tripleChoiceField'));
+        $constraint = new Done(['resultField'=>'resultField', 'tripleChoiceField'=>'tripleChoiceField']);
         $validator = new DoneValidator();
         $validator->initialize($context);
         $validator->validate($data, $constraint);
@@ -68,7 +68,7 @@ class DoneValidatorTest extends \PHPUnit_Framework_TestCase
         $builder->expects($this->once())
             ->method('addViolation');
 
-        $constraint = new Done(array('resultField'=>'resultField', 'tripleChoiceField'=>'tripleChoiceField'));
+        $constraint = new Done(['resultField'=>'resultField', 'tripleChoiceField'=>'tripleChoiceField']);
         $validator = new DoneValidator();
         $validator->initialize($context);
         $validator->validate($data, $constraint);
@@ -76,19 +76,19 @@ class DoneValidatorTest extends \PHPUnit_Framework_TestCase
 
     public static function getInvalidStates()
     {
-        return array(
-            array(array(
+        return [
+            [[
                 'tripleChoiceField' => '',
                 'resultField' => new TripleChoice(1),
-            )),
-            array(array(
+            ]],
+            [[
                 'tripleChoiceField' => null,
                 'resultField' => new TripleChoice(1),
-            )),
-            array(array(
+            ]],
+            [[
                 'resultField' => new TripleChoice(1),
-            ))
-        );
+            ]]
+        ];
     }
 
     /**
@@ -96,17 +96,17 @@ class DoneValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testNotArrayChoice()
     {
-        $data = array(
+        $data = [
             'resultField' => new TripleChoice(TripleChoice::NO),
             'tripleChoiceField' => new \stdClass(),
 
-        );
+        ];
         $context = $this->createMock('Symfony\Component\Validator\Context\ExecutionContextInterface');
 
         $context->expects($this->never())
             ->method('buildViolation');
 
-        $constraint = new Done(array('resultField'=>'resultField', 'tripleChoiceField'=>'tripleChoiceField'));
+        $constraint = new Done(['resultField'=>'resultField', 'tripleChoiceField'=>'tripleChoiceField']);
         $validator = new DoneValidator();
         $validator->initialize($context);
         $validator->validate($data, $constraint);

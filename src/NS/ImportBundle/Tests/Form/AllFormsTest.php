@@ -21,7 +21,7 @@ class AllFormsTest extends TypeTestCase
 //            'FullyQualifiedClassName2' => 'Friendly Class Name 2',
 //        );
 
-        $formData = array('FullyQualifiedClassName1');
+        $formData = ['FullyQualifiedClassName1'];
         $form = $this->factory->create(ClassType::class);
         $form->submit($formData);
 

@@ -39,7 +39,7 @@ class ClientController extends Controller
                       ->getQuery()
                       ->getResult();
 
-        return array('clients'=>$clients,'remotes'=>$remotes);
+        return ['clients'=>$clients,'remotes'=>$remotes];
     }
 
     /**
@@ -62,7 +62,7 @@ class ClientController extends Controller
             return $this->redirect($this->generateUrl('ns_api_dashboard'));
         }
 
-        return array('form'=>$form->createView(),'route'=>'ApiCreateClient');
+        return ['form'=>$form->createView(),'route'=>'ApiCreateClient'];
     }
 
     /**
@@ -80,7 +80,7 @@ class ClientController extends Controller
         $user      = $this->getUser();
         $client    = $entityMgr->getRepository('NSApiBundle:Client')
                      ->createQueryBuilder('c')->where('c.user = :user AND c.id = :id')
-                     ->setParameters(array('id'=>$objId, 'user'=>$entityMgr->getReference(get_class($user), $user->getId())))
+                     ->setParameters(['id'=>$objId, 'user'=>$entityMgr->getReference(get_class($user), $user->getId())])
                      ->getQuery()
                      ->getSingleResult();
         $form = $this->createForm(ClientType::class, $client);
@@ -93,7 +93,7 @@ class ClientController extends Controller
             return $this->redirect($this->generateUrl('ns_api_dashboard'));
         }
 
-        return array('form'=>$form->createView(),'route'=>'ApiEditClient','id'=>$objId);
+        return ['form'=>$form->createView(),'route'=>'ApiEditClient','id'=>$objId];
     }
 
     /**
@@ -109,7 +109,7 @@ class ClientController extends Controller
         $user   = $this->getUser();
         $client = $entityMgr->getRepository('NSApiBundle:Client')
                      ->createQueryBuilder('c')->where('c.user = :user AND c.id = :id')
-                     ->setParameters(array('id'=>$objId, 'user'=>$entityMgr->getReference(get_class($user), $user->getId())))
+                     ->setParameters(['id'=>$objId, 'user'=>$entityMgr->getReference(get_class($user), $user->getId())])
                      ->getQuery()
                      ->getSingleResult();
 
@@ -144,7 +144,7 @@ class ClientController extends Controller
             return $this->redirect($this->generateUrl('ns_api_dashboard'));
         }
 
-        return array('form'=>$form->createView(),'route'=>'ApiCreateRemote');
+        return ['form'=>$form->createView(),'route'=>'ApiCreateRemote'];
     }
 
     /**
@@ -160,7 +160,7 @@ class ClientController extends Controller
         $user   = $this->getUser();
         $remote = $entityMgr->getRepository('NSApiBundle:Remote')
                      ->createQueryBuilder('c')->where('c.user = :user AND c.id = :id')
-                     ->setParameters(array('id'=>$objId, 'user'=>$entityMgr->getReference(get_class($user), $user->getId())))
+                     ->setParameters(['id'=>$objId, 'user'=>$entityMgr->getReference(get_class($user), $user->getId())])
                      ->getQuery()
                      ->getSingleResult();
 
@@ -175,7 +175,7 @@ class ClientController extends Controller
             return $this->redirect($this->generateUrl('ns_api_dashboard'));
         }
 
-        return array('form'=>$form->createView(),'route'=>'ApiEditRemote','id'=>$objId);
+        return ['form'=>$form->createView(),'route'=>'ApiEditRemote','id'=>$objId];
     }
 
     /**
@@ -189,7 +189,7 @@ class ClientController extends Controller
         $user   = $this->getUser();
         $remote = $entityMgr->getRepository('NSApiBundle:Remote')
                      ->createQueryBuilder('c')->where('c.user = :user AND c.id = :id')
-                     ->setParameters(array('id'=>$objId, 'user'=>$entityMgr->getReference(get_class($user), $user->getId())))
+                     ->setParameters(['id'=>$objId, 'user'=>$entityMgr->getReference(get_class($user), $user->getId())])
                      ->getQuery()
                      ->getSingleResult();
         try {

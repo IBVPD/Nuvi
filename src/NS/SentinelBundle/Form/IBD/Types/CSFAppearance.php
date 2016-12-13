@@ -20,12 +20,12 @@ class CSFAppearance extends TranslatableArrayChoice implements TranslationContai
     const NOT_ASSESSED   = 6;
     const UNKNOWN        = 99;
 
-    protected $values = array(
+    protected $values = [
                             self::CLEAR => 'Clear',
                             self::TURBID =>'Turbid/Cloudy',
                             self::BLOODY => 'Bloody',
                             self::XANTHROCHROMIC => 'Xanthrochromic',
                             self::OTHER => 'Other',
                             self::NOT_ASSESSED => 'Not assessed',
-                            self::UNKNOWN => 'Unknown');
+                            self::UNKNOWN => 'Unknown'];
 }

@@ -40,6 +40,6 @@ class GreaterThanDate extends Constraint
      */
     public function getRequiredOptions()
     {
-        return array('lessThanField','greaterThanField');
+        return ['lessThanField','greaterThanField'];
     }
 }

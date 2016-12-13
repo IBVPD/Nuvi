@@ -16,9 +16,9 @@ class DuplicateTest extends \PHPUnit_Framework_TestCase
     public function testGetFieldKeyIsLowerCase()
     {
         $file = new File(tempnam(sys_get_temp_dir(), 'duplicate_test'));
-        $uniqueFields = array('site', 'case_id');
-        $paramsOne    = array('site' => 'sitecode', 'case_id' => '12223');
-        $paramsTwo    = array('site' => 'sIteCode', 'case_id' => '12223');
+        $uniqueFields = ['site', 'case_id'];
+        $paramsOne    = ['site' => 'sitecode', 'case_id' => '12223'];
+        $paramsTwo    = ['site' => 'sIteCode', 'case_id' => '12223'];
 
         $duplicate    = new Duplicate($uniqueFields, $file);
 
@@ -36,8 +36,8 @@ class DuplicateTest extends \PHPUnit_Framework_TestCase
     public function testDuplicateTextOnlyItemIsDetected()
     {
         $file = new File(tempnam(sys_get_temp_dir(), 'duplicate_test'));
-        $uniqueFields = array('site', 'case_id');
-        $params       = array('site' => 'sitecode', 'case_id' => '12223');
+        $uniqueFields = ['site', 'case_id'];
+        $params       = ['site' => 'sitecode', 'case_id' => '12223'];
         $duplicate    = new Duplicate($uniqueFields,$file);
 
         $this->assertTrue($duplicate->__invoke($params), "First set of params is not a duplicate");
@@ -54,8 +54,8 @@ class DuplicateTest extends \PHPUnit_Framework_TestCase
         $site->setCode('MY-CODE');
         $site->setName("My Code Site Tester");
 
-        $uniqueFields = array('getcode' => 'site', 'case_id');
-        $params       = array('site' => $site, 'case_id' => '12223');
+        $uniqueFields = ['getcode' => 'site', 'case_id'];
+        $params       = ['site' => $site, 'case_id' => '12223'];
         $duplicate    = new Duplicate($uniqueFields,$file);
 
         $this->assertTrue($duplicate->__invoke($params), "First set of params is not a duplicate");
@@ -73,14 +73,14 @@ class DuplicateTest extends \PHPUnit_Framework_TestCase
     public function testDuplicateObjectStoresState()
     {
         $file = new File(tempnam(sys_get_temp_dir(),'duptest'));
-        $uniqueFields = array('code','case_id');
+        $uniqueFields = ['code','case_id'];
 
-        $params = array(
-            array('code'=>1,'case_id'=>2,),
-            array('code'=>2,'case_id'=>3,),
-            array('code'=>2,'case_id'=>2,),
-            array('code'=>3,'case_id'=>1,),
-        );
+        $params = [
+            ['code'=>1,'case_id'=>2,],
+            ['code'=>2,'case_id'=>3,],
+            ['code'=>2,'case_id'=>2,],
+            ['code'=>3,'case_id'=>1,],
+        ];
         $duplicateOne = new Duplicate($uniqueFields, $file);
         foreach ($params as $param) {
             $this->assertTrue($duplicateOne->__invoke($param));
@@ -89,7 +89,7 @@ class DuplicateTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNotNull(file_get_contents($file->getPathname()));
 
-        $parameter = array('code'=>2,'case_id'=>3);
+        $parameter = ['code'=>2,'case_id'=>3];
         $duplicateTwo = new Duplicate($uniqueFields,$file);
         $this->assertFalse($duplicateTwo->__invoke($parameter));
         $this->assertTrue($duplicateTwo->hasMessage());

@@ -43,7 +43,7 @@ class ImportRepository extends EntityRepository
         try {
             return $this->createQueryBuilder('r')
                 ->where('r.user = :user AND r.id = :id')
-                ->setParameters(array('user'=>$this->_em->getReference(get_class($user), $user->getId()), 'id'=>$resultId))
+                ->setParameters(['user'=>$this->_em->getReference(get_class($user), $user->getId()), 'id'=>$resultId])
                 ->getQuery()
                 ->getSingleResult();
         } catch (UnexpectedResultException $exception) {
@@ -71,7 +71,7 @@ class ImportRepository extends EntityRepository
 
             return $result;
         } catch (UnexpectedResultException $exception) {
-            return array();
+            return [];
         }
     }
 

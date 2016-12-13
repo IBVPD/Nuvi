@@ -21,7 +21,7 @@ abstract class AbstractBaseObjectConverter implements NamedValueConverterInterfa
     /**
      * @var array
      */
-    protected $objects = array();
+    protected $objects = [];
 
     /**
      * This will likely call findObject and then can run additional tests

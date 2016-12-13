@@ -19,9 +19,9 @@ class WorkerCommand extends ContainerAwareCommand
     {
         $this->setName('nsimport:run-batch')
             ->setDescription('Check and run beanstalk batches')
-            ->setDefinition(array(
+            ->setDefinition([
                     new InputOption('batch-size', 'b', InputOption::VALUE_REQUIRED, 'Set the number of rows to process at a time', 250)
-                )
+                ]
 
             );
     }

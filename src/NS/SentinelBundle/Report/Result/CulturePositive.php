@@ -27,10 +27,10 @@ class CulturePositive
      * @param array $cultNeg
      * @param array $pcrPos
      */
-    public function __construct($cultPos = array(), $cultNeg = array(), $pcrPos = array())
+    public function __construct($cultPos = [], $cultNeg = [], $pcrPos = [])
     {
-        $this->results = array();
-        $tmp = array('year' => 0, self::CULTURE_POSITIVE => 0, self::CULTURE_NEGATIVE => 0, self::PCR_POSITIVE => 0);
+        $this->results = [];
+        $tmp = ['year' => 0, self::CULTURE_POSITIVE => 0, self::CULTURE_NEGATIVE => 0, self::PCR_POSITIVE => 0];
 
         foreach ($cultPos as $r) {
             if (!isset($this->results[$r['theYear']])) {

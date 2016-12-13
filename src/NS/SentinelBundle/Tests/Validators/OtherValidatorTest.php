@@ -21,10 +21,10 @@ class OtherValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testValidateInvalidArgument()
     {
-        $constraint = new Other(array(
+        $constraint = new Other([
             'value'      => '\NS\SentinelBundle\Form\Types\TripleChoice::YES',
             'field'      => 'unknownField',
-            'otherField' => 'unknownOtherField'));
+            'otherField' => 'unknownOtherField']);
 
         $siteLab   = new SiteLab();
         $validator = new OtherValidator();
@@ -38,10 +38,10 @@ class OtherValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testValidateNoViolation($field, $otherField)
     {
-        $constraint = new Other(array(
+        $constraint = new Other([
             'value'      => '\NS\SentinelBundle\Form\Types\TripleChoice::YES',
             'field'      => 'csfCultDone',
-            'otherField' => 'csfCultResult'));
+            'otherField' => 'csfCultResult']);
 
         $context = $this->createMock('\Symfony\Component\Validator\Context\ExecutionContextInterface');
 
@@ -59,18 +59,18 @@ class OtherValidatorTest extends \PHPUnit_Framework_TestCase
 
     public function getNoViolationFields()
     {
-        return array(
-            array(TripleChoice::NO, null),
-            array(TripleChoice::UNKNOWN, null),
-            array(null, null),
-            array(TripleChoice::YES, CultureResult::NEGATIVE),
-            array(TripleChoice::YES, CultureResult::SPN),
-            array(TripleChoice::YES, CultureResult::HI),
-            array(TripleChoice::YES, CultureResult::NM),
-            array(TripleChoice::YES, CultureResult::OTHER),
-            array(TripleChoice::YES, CultureResult::CONTAMINANT),
-            array(TripleChoice::YES, CultureResult::UNKNOWN),
-        );
+        return [
+            [TripleChoice::NO, null],
+            [TripleChoice::UNKNOWN, null],
+            [null, null],
+            [TripleChoice::YES, CultureResult::NEGATIVE],
+            [TripleChoice::YES, CultureResult::SPN],
+            [TripleChoice::YES, CultureResult::HI],
+            [TripleChoice::YES, CultureResult::NM],
+            [TripleChoice::YES, CultureResult::OTHER],
+            [TripleChoice::YES, CultureResult::CONTAMINANT],
+            [TripleChoice::YES, CultureResult::UNKNOWN],
+        ];
     }
 
     /**
@@ -80,10 +80,10 @@ class OtherValidatorTest extends \PHPUnit_Framework_TestCase
      */
     public function testValidateWithViolation($field, $otherField)
     {
-        $constraint = new Other(array(
+        $constraint = new Other([
             'value'      => '\NS\SentinelBundle\Form\Types\TripleChoice::YES',
             'field'      => 'csfCultDone',
-            'otherField' => 'csfCultResult'));
+            'otherField' => 'csfCultResult']);
 
         $context = $this->createMock('\Symfony\Component\Validator\Context\ExecutionContextInterface');
 
@@ -108,9 +108,9 @@ class OtherValidatorTest extends \PHPUnit_Framework_TestCase
 
     public function getViolationFields()
     {
-        return array(
-            array(TripleChoice::YES, null),
-            array(TripleChoice::YES, CultureResult::NO_SELECTION),
-        );
+        return [
+            [TripleChoice::YES, null],
+            [TripleChoice::YES, CultureResult::NO_SELECTION],
+        ];
     }
 }

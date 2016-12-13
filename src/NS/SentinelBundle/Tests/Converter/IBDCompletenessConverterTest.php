@@ -51,18 +51,18 @@ class IBDCompletenessConverterTest extends \PHPUnit_Framework_TestCase
 
     public function testIBDFields()
     {
-        $config = array(
-            'case'=>array(
-                array('resultField' => 'cxrResult', 'tripleChoiceField' => 'cxrDone',)
-            )
-        );
+        $config = [
+            'case'=> [
+                ['resultField' => 'cxrResult', 'tripleChoiceField' => 'cxrDone',]
+            ]
+        ];
 
         $converter = new IBDCompletenessConverter($this->container->get('validator'), $config);
 
-        $data = array(
+        $data = [
             'cxrDone' => null,
             'cxrResult' => new CXRResult(CXRResult::CONSISTENT),
-        );
+        ];
         $this->assertInstanceOf('NS\SentinelBundle\Converter\IBDCompletenessConverter', $converter);
 
         $output = $converter->__invoke($data);

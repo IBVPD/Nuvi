@@ -118,6 +118,6 @@ class ImportResultActionsTest extends \PHPUnit_Framework_TestCase
             ->method('getId')
             ->willReturn(12);
 
-        return array($router,$translator,$import);
+        return [$router,$translator,$import];
     }
 }

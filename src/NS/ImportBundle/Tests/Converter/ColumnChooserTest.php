@@ -19,7 +19,7 @@ class ColumnChooserTest extends \PHPUnit_Framework_TestCase
         $cacheMock->expects($this->once())
             ->method('fetch')
             ->with('class')
-            ->willReturn(array('choices'=>true, 'complex'=>false));
+            ->willReturn(['choices'=>true, 'complex'=>false]);
 
         $chooser = $this->getChooser($cacheMock);
         $this->assertTrue($chooser->getChoices('class'));
@@ -37,7 +37,7 @@ class ColumnChooserTest extends \PHPUnit_Framework_TestCase
         $cacheMock->expects($this->once())
             ->method('fetch')
             ->with('class')
-            ->willReturn(array('choices'=>true, 'complex'=>false));
+            ->willReturn(['choices'=>true, 'complex'=>false]);
 
         $chooser = $this->getChooser($cacheMock);
         $this->assertFalse($chooser->getComplexChoices('class'));
@@ -58,42 +58,42 @@ class ColumnChooserTest extends \PHPUnit_Framework_TestCase
         $cache = new ArrayCache();
 
         $chooser = $this->getMockBuilder('NS\ImportBundle\Converter\ColumnChooser')
-            ->setMethods(array('buildChoices', 'buildComplex'))
-            ->setConstructorArgs(array($mockEntityMgr, $cache))
+            ->setMethods(['buildChoices', 'buildComplex'])
+            ->setConstructorArgs([$mockEntityMgr, $cache])
             ->getMock();
 
         $chooser->expects($this->once())
             ->method('buildChoices')
             ->with($meta)
-            ->willReturn(array('here'));
+            ->willReturn(['here']);
 
         $chooser->expects($this->once())
             ->method('buildComplex')
             ->with($meta)
-            ->willReturn(array('here'=>false));
+            ->willReturn(['here'=>false]);
 
         $retValue = $chooser->getChoices('class');
 
-        $this->assertEquals(array('here'), $retValue);
-        $this->assertEquals(array('choices'=>array('here'), 'complex'=>array('here'=>false)), $cache->fetch('class'));
+        $this->assertEquals(['here'], $retValue);
+        $this->assertEquals(['choices'=> ['here'], 'complex'=> ['here'=>false]], $cache->fetch('class'));
     }
 
     public function testMetaChoicesWithoutAssociationName()
     {
         $meta = $this->getMockBuilder('Doctrine\ORM\Mapping\ClassMetadata')
             ->disableOriginalConstructor()
-            ->setMethods(array('getFieldNames', 'getTypeOfField'))
+            ->setMethods(['getFieldNames', 'getTypeOfField'])
             ->getMock();
 
         $meta->expects($this->once())
             ->method('getFieldNames')
-            ->willReturn(array('field1', 'field2', 'field3'));
+            ->willReturn(['field1', 'field2', 'field3']);
 
-        $map = array(
-            array('field1','string'),
-            array('field2','integer'),
-            array('field3','TripleChoice'),
-        );
+        $map = [
+            ['field1','string'],
+            ['field2','integer'],
+            ['field3','TripleChoice'],
+        ];
         $meta->method('getTypeOfField')
             ->will($this->returnValueMap($map));
 
@@ -117,18 +117,18 @@ class ColumnChooserTest extends \PHPUnit_Framework_TestCase
     {
         $meta = $this->getMockBuilder('Doctrine\ORM\Mapping\ClassMetadata')
             ->disableOriginalConstructor()
-            ->setMethods(array('getFieldNames', 'getTypeOfField'))
+            ->setMethods(['getFieldNames', 'getTypeOfField'])
             ->getMock();
 
         $meta->expects($this->once())
             ->method('getFieldNames')
-            ->willReturn(array('field2', 'field1', 'field3'));
+            ->willReturn(['field2', 'field1', 'field3']);
 
-        $map = array(
-            array('field1','string'),
-            array('field2','integer'),
-            array('field3','TripleChoice'),
-        );
+        $map = [
+            ['field1','string'],
+            ['field2','integer'],
+            ['field3','TripleChoice'],
+        ];
         $meta->method('getTypeOfField')
             ->will($this->returnValueMap($map));
 
@@ -146,25 +146,25 @@ class ColumnChooserTest extends \PHPUnit_Framework_TestCase
 
         $this->assertArrayHasKey('field3', $choices);
         $this->assertEquals('field3 (TripleChoice)', $choices['field3']);
-        $this->assertEquals(array('field1', 'field2', 'field3'), array_keys($choices));
+        $this->assertEquals(['field1', 'field2', 'field3'], array_keys($choices));
     }
 
     public function testMetaChoicesWithAssociationName()
     {
         $meta = $this->getMockBuilder('Doctrine\ORM\Mapping\ClassMetadata')
             ->disableOriginalConstructor()
-            ->setMethods(array('getFieldNames', 'getTypeOfField'))
+            ->setMethods(['getFieldNames', 'getTypeOfField'])
             ->getMock();
 
         $meta->expects($this->once())
             ->method('getFieldNames')
-            ->willReturn(array('field1', 'field2', 'field3'));
+            ->willReturn(['field1', 'field2', 'field3']);
 
-        $map = array(
-            array('field1','string'),
-            array('field2','integer'),
-            array('field3','TripleChoice'),
-        );
+        $map = [
+            ['field1','string'],
+            ['field2','integer'],
+            ['field3','TripleChoice'],
+        ];
         $meta->method('getTypeOfField')
             ->will($this->returnValueMap($map));
 
@@ -205,26 +205,26 @@ class ColumnChooserTest extends \PHPUnit_Framework_TestCase
 
     public function getTypes()
     {
-        return array(
-            array(Type::TARRAY,false),
-            array(Type::SIMPLE_ARRAY,false),
-            array(Type::JSON_ARRAY,false),
-            array(Type::BIGINT,false),
-            array(Type::BOOLEAN,false),
-            array(Type::DATETIME,true),
-            array(Type::DATETIMETZ,true),
-            array(Type::DATE,true),
-            array(Type::TIME,true),
-            array(Type::DECIMAL,false),
-            array(Type::INTEGER,false),
-            array(Type::OBJECT,false),
-            array(Type::SMALLINT,false),
-            array(Type::STRING,false),
-            array(Type::TEXT,false),
-            array(Type::BLOB,false),
-            array(Type::FLOAT,false),
-            array(Type::GUID,false),
-            array('SampleType',true),
-        );
+        return [
+            [Type::TARRAY,false],
+            [Type::SIMPLE_ARRAY,false],
+            [Type::JSON_ARRAY,false],
+            [Type::BIGINT,false],
+            [Type::BOOLEAN,false],
+            [Type::DATETIME,true],
+            [Type::DATETIMETZ,true],
+            [Type::DATE,true],
+            [Type::TIME,true],
+            [Type::DECIMAL,false],
+            [Type::INTEGER,false],
+            [Type::OBJECT,false],
+            [Type::SMALLINT,false],
+            [Type::STRING,false],
+            [Type::TEXT,false],
+            [Type::BLOB,false],
+            [Type::FLOAT,false],
+            [Type::GUID,false],
+            ['SampleType',true],
+        ];
     }
 }

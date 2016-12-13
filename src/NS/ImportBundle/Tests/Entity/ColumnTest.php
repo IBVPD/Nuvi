@@ -26,13 +26,13 @@ class ColumnTest extends \PHPUnit_Framework_TestCase
 
     public function getMapperColumns()
     {
-        return array(
-            array('column1',true,'column2',false),
-            array('column1',true, null, false),
-            array('column1',false,'',false),
-            array('column1',false,'column1',false),
-            array('column1',false,'column2',true),
-        );
+        return [
+            ['column1',true,'column2',false],
+            ['column1',true, null, false],
+            ['column1',false,'',false],
+            ['column1',false,'column1',false],
+            ['column1',false,'column2',true],
+        ];
     }
 
     /**
@@ -55,12 +55,12 @@ class ColumnTest extends \PHPUnit_Framework_TestCase
 
     public function getConverterColumns()
     {
-        return array(
-            array('column1',true,'column2',false),
-            array('column1',true, null, false),
-            array('column1',false,'',false),
-            array('column1',false,'column2',true),
-        );
+        return [
+            ['column1',true,'column2',false],
+            ['column1',true, null, false],
+            ['column1',false,'',false],
+            ['column1',false,'column2',true],
+        ];
     }
 
     /**
@@ -83,13 +83,13 @@ class ColumnTest extends \PHPUnit_Framework_TestCase
 
     public function getPreProcessorColumns()
     {
-        return array(
-            array('column1',true,'column2',false),
-            array('column1',true, null, false),
-            array('column1',true, '[]', false),
-            array('column1',false, null, false),
-            array('column1',false, '[]', false),
-            array('column1',false, '[{"conditions": {}}]', true),
-        );
+        return [
+            ['column1',true,'column2',false],
+            ['column1',true, null, false],
+            ['column1',true, '[]', false],
+            ['column1',false, null, false],
+            ['column1',false, '[]', false],
+            ['column1',false, '[{"conditions": {}}]', true],
+        ];
     }
 }

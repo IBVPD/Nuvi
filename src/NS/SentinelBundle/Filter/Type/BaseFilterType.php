@@ -54,17 +54,17 @@ class BaseFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('case_id', 'Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType', array(
+            ->add('case_id', 'Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType', [
                 'required'          => false,
                 'condition_pattern' => FilterOperands::STRING_CONTAINS,
                 'label'             => 'site-assigned-case-id'
-            ))
-            ->add('adm_date', 'Lexik\Bundle\FormFilterBundle\Filter\Form\Type\DateRangeFilterType', array(
+            ])
+            ->add('adm_date', 'Lexik\Bundle\FormFilterBundle\Filter\Form\Type\DateRangeFilterType', [
                 'required' => false,
                 'label'    => 'filter.admission-date'
-            ));
+            ]);
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'preSetData'));
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, [$this, 'preSetData']);
     }
 
     /**
@@ -82,24 +82,24 @@ class BaseFilterType extends AbstractType
             }
 
             $form
-                ->add('id', 'Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType', array(
+                ->add('id', 'Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType', [
                     'required'          => false,
                     'condition_pattern' => FilterOperands::STRING_CONTAINS,
-                    'label'             => 'db-generated-id')
+                    'label'             => 'db-generated-id']
                 )
-                ->add('country', 'NS\SentinelBundle\Filter\Type\CountryType', array('required'=>false, 'placeholder'=>''))
+                ->add('country', 'NS\SentinelBundle\Filter\Type\CountryType', ['required'=>false, 'placeholder'=>''])
                 ->add('site', 'NS\SentinelBundle\Filter\Type\SiteType');
         }
 
         if ($this->authChecker->isGranted('ROLE_COUNTRY')) {
             $objectIds = $this->aclConverter->getObjectIdsForRole($token, 'ROLE_COUNTRY');
             if (count($objectIds) > 1) {
-                $form->add('country', 'NS\SentinelBundle\Filter\Type\CountryType', array('required'=>false, 'placeholder'=>''));
+                $form->add('country', 'NS\SentinelBundle\Filter\Type\CountryType', ['required'=>false, 'placeholder'=>'']);
             }
 
             $form
-                ->add('firstName','Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType',array('condition_pattern'=>FilterOperands::STRING_CONTAINS))
-                ->add('lastName','Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType',array('condition_pattern'=>FilterOperands::STRING_CONTAINS))
+                ->add('firstName','Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType', ['condition_pattern'=>FilterOperands::STRING_CONTAINS])
+                ->add('lastName','Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType', ['condition_pattern'=>FilterOperands::STRING_CONTAINS])
                 ->add('site', 'NS\SentinelBundle\Filter\Type\SiteType');
         }
 
@@ -110,22 +110,22 @@ class BaseFilterType extends AbstractType
             }
 
             $form
-                ->add('firstName','Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType',array('condition_pattern'=>FilterOperands::STRING_CONTAINS))
-                ->add('lastName','Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType',array('condition_pattern'=>FilterOperands::STRING_CONTAINS));
+                ->add('firstName','Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType', ['condition_pattern'=>FilterOperands::STRING_CONTAINS])
+                ->add('lastName','Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType', ['condition_pattern'=>FilterOperands::STRING_CONTAINS]);
 
         }
 
-        $form->add('find', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
+        $form->add('find', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', [
             'label'=> 'find',
             'type' => 'submit',
             'icon' => 'fa fa-search',
-            'attr' => array('class' => 'btn btn-xs btn-success pull-right')));
+            'attr' => ['class' => 'btn btn-xs btn-success pull-right']]);
 
-        $form->add('reset', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', array(
+        $form->add('reset', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', [
             'label'=>'reset',
             'type' => 'reset',
             'icon' => 'fa fa-times-circle',
-            'attr' => array('class' => 'btn btn-xs btn-danger', 'type'=>'submit')));
+            'attr' => ['class' => 'btn btn-xs btn-danger', 'type'=>'submit']]);
     }
 
     /**
@@ -133,8 +133,8 @@ class BaseFilterType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'method' => 'GET',
-        ));
+        ]);
     }
 }

@@ -30,12 +30,12 @@ class RegionAdmin extends Admin
             ->addIdentifier('code')
             ->add('name')
             ->add('website')
-            ->add('_action', 'actions', array(
-                'actions' => array(
-                    'show' => array(),
-                    'edit' => array(),
-                )
-            ))
+            ->add('_action', 'actions', [
+                'actions' => [
+                    'show' => [],
+                    'edit' => [],
+                ]
+            ])
         ;
     }
 

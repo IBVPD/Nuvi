@@ -23,7 +23,7 @@ class DischargeClassification extends TranslatableArrayChoice implements Transla
     const DISCARDED         = 8;
     const UNKNOWN           = 99;
 
-    protected $values = array(
+    protected $values = [
                             self::CONFIRMED_HI      => 'Lab-confirmed for HI',
                             self::CONFIRMED_SPN     => 'Lab-confirmed for Spn',
                             self::CONFIRMED_NM      => 'Lab-confirmed for Nm',
@@ -33,7 +33,7 @@ class DischargeClassification extends TranslatableArrayChoice implements Transla
                             self::INCOMPLETE        => 'Incomplete investigation',
                             self::DISCARDED         => 'Discarded case',
                             self::UNKNOWN           => 'Unknown',
-                             );
+    ];
 
     /**
      * {@inheritdoc}

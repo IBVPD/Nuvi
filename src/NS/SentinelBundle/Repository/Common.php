@@ -179,14 +179,14 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
         $this->checkRequiredField('site', $params, 'NS\SentinelBundle\Entity\Site');
         $this->checkRequiredField('case_id', $params);
 
-        $cases = $this->findWithRelations(array('case_id'=> $params['case_id']));
+        $cases = $this->findWithRelations(['case_id'=> $params['case_id']]);
 
         if (empty($cases)) {
             return null;
         }
 
         if (count($cases) > 1) {
-            throw new DuplicateCaseException(array('found' => count($cases), 'case_id' => $params['case_id']), 1);
+            throw new DuplicateCaseException(['found' => count($cases), 'case_id' => $params['case_id']], 1);
         }
 
         $case = current($cases);
@@ -207,7 +207,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
         $this->checkRequiredField('country', $params, 'NS\SentinelBundle\Entity\Country');
         $this->checkRequiredField('case_id', $params);
 
-        $ret = $this->findWithRelations(array('case_id' => $params['case_id']));
+        $ret = $this->findWithRelations(['case_id' => $params['case_id']]);
 
         if (empty($ret)) {
             return null;
@@ -225,7 +225,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
                 $caseRet = $case;
 
                 if ($found > 1) {
-                    throw new DuplicateCaseException(array('found' => $found, 'case_id' => $params['case_id'], 'country' => $params['country']));
+                    throw new DuplicateCaseException(['found' => $found, 'case_id' => $params['case_id'], 'country' => $params['country']]);
                 }
             }
         }
@@ -301,7 +301,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
                     ->from($this->getEntityName(), 'c')
                     ->innerJoin('c.site', 's')
                     ->where('c.adm_date BETWEEN :start AND :end')
-                    ->setParameters(array('start' => $from, 'end' => $to))
+                    ->setParameters(['start' => $from, 'end' => $to])
                     ->groupBy('s.code,theMonth,theYear')
             )
             ->getQuery()

@@ -22,14 +22,14 @@ class VaccinationType extends TranslatableArrayChoice implements TranslationCont
     const C               = 7;
     const UNKNOWN         = 99;
 
-    protected $values = array(
+    protected $values = [
         self::MEN_AFR_VAC  => 'MenAfriVac (conjugate MenA)',
         self::ACYW135_POLY => 'ACYW135 (polysaccharide)',
         self::ACW135       => 'ACW135 (polysaccharide)',
         self::ACYW135_CON  => 'ACYW135 (conjugate)',
         self::OTHER        => 'Other',
         self::UNKNOWN      => 'Unknown',
-    );
+    ];
 
     /** @var AuthorizationCheckerInterface */
     private $authChecker;

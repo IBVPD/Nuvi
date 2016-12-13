@@ -32,8 +32,8 @@ class ArrayChoiceHandler implements SubscribingHandlerInterface
      */
     public static function getSubscribingMethods()
     {
-        $ret = array();
-        $types = array(
+        $ret = [];
+        $types = [
             'NS\SentinelBundle\Form\Types\VaccinationReceived',
             'NS\SentinelBundle\Form\Types\SampleType',
             'NS\SentinelBundle\Form\Types\TripleChoice',
@@ -83,15 +83,15 @@ class ArrayChoiceHandler implements SubscribingHandlerInterface
             'NS\SentinelBundle\Form\RotaVirus\Types\VaccinationType',
             'NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultG',
             'NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultP',
-        );
+        ];
 
         foreach ($types as $type) {
-            $ret[] = array(
+            $ret[] = [
                 'direction' => GraphNavigator::DIRECTION_SERIALIZATION,
                 'format'    => 'json',
                 'type'      => $type,
                 'method'    => 'serializeToJson',
-            );
+            ];
         }
 
         return $ret;

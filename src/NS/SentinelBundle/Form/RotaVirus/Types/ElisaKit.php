@@ -15,10 +15,10 @@ class ElisaKit extends TranslatableArrayChoice
     const ROTA     = 3;
     const OTHER    = 99;
 
-    protected $values = array(
+    protected $values = [
                                 self::PROSPECT    => 'ProspecT',
                                 self::RIDA        => 'Ridascreen',
                                 self::ROTA        => 'Rotaclone',
                                 self::OTHER       => 'Other',
-                             );
+    ];
 }

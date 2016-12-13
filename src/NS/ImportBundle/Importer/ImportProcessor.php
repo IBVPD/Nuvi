@@ -224,7 +224,7 @@ class ImportProcessor
     public function addCleaningStep(Workflow $workflow, $priority = 60)
     {
         // Trim all input
-        $workflow->addStep(new ConverterStep(array(new TrimInputConverter())), $priority);
+        $workflow->addStep(new ConverterStep([new TrimInputConverter()]), $priority);
     }
 
     /**
@@ -289,7 +289,7 @@ class ImportProcessor
             $this->lab = $import->getReferenceLab();
 
             $step = new ConverterStep();
-            $step->add(array($this, 'addReferenceLabConverter'));
+            $step->add([$this, 'addReferenceLabConverter']);
 
             $workflow->addStep($step, $priority);
         }

@@ -17,12 +17,12 @@ class Registry extends AbstractType
     /**
      * @var array
      */
-    private $values = array();
+    private $values = [];
 
     /**
      * @var array
      */
-    private $converters = array();
+    private $converters = [];
     /**
      * @var bool
      */
@@ -50,10 +50,10 @@ class Registry extends AbstractType
             $this->sorted = true;
         }
 
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'placeholder' => 'Please Select...',
             'choices'     => $this->values,
-        ));
+        ]);
     }
 
     /**

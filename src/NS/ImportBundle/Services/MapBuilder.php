@@ -145,7 +145,7 @@ class MapBuilder
      */
     public function updateMapper(Column $column, $fieldName, $labPreference = 'referenceLab')
     {
-        foreach(array(strtolower($fieldName),$this->camelCase($fieldName)) as $field) {
+        foreach([strtolower($fieldName),$this->camelCase($fieldName)] as $field) {
             if (in_array($field, $this->metaData->getFieldNames())) {
                 $column->setMapper($field);
                 $column->setConverter($this->converterRegistry->getConverterForField($this->metaData->getTypeOfField($field)));

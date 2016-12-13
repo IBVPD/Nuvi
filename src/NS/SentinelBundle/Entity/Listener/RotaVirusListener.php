@@ -30,7 +30,7 @@ class RotaVirusListener extends BaseCaseListener
      */
     public function getMinimumRequiredFields(BaseCase $case)
     {
-        return array(
+        return [
             'caseId',
             'birthdate',
             'gender',
@@ -60,6 +60,6 @@ class RotaVirusListener extends BaseCaseListener
             'dischargeDate',
             'dischargeClassOther',
             'comment',
-        );
+        ];
     }
 }

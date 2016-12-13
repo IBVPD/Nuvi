@@ -14,9 +14,9 @@ class VersionTwig extends \Twig_Extension
 {
     public function getGlobals()
     {
-        return array(
+        return [
             'current_version' => Version::VERSION,
-        );
+        ];
     }
 
     /**

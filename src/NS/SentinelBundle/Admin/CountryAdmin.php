@@ -27,7 +27,7 @@ class CountryAdmin extends Admin
             ->add('tracksPneumonia')
             ->add('hasReferenceLab')
             ->add('hasNationalLab')
-            ->add('gaviEligible', 'doctrine_orm_callback', array('callback' => array($this, 'filterGaviEligible'), 'field_type' => 'choice', 'field_options' => array('choices' => $type->getValues(), 'multiple' => true)))
+            ->add('gaviEligible', 'doctrine_orm_callback', ['callback' => [$this, 'filterGaviEligible'], 'field_type' => 'choice', 'field_options' => ['choices' => $type->getValues(), 'multiple' => true]])
             ->add('hibVaccineIntro')
             ->add('pcvVaccineIntro')
             ->add('rvVaccineIntro');
@@ -46,12 +46,12 @@ class CountryAdmin extends Admin
             ->add('hasReferenceLab')
             ->add('hasNationalLab')
             ->add('active')
-            ->add('_action', 'actions', array(
-                'actions' => array(
-                    'show' => array(),
-                    'edit' => array(),
-                )
-            ));
+            ->add('_action', 'actions', [
+                'actions' => [
+                    'show' => [],
+                    'edit' => [],
+                ]
+            ]);
     }
 
     /**
@@ -62,15 +62,15 @@ class CountryAdmin extends Admin
         $formMapper
             ->add('code')
             ->add('name')
-            ->add('language', LocaleType::class, array('required' => false))
-            ->add('tracksPneumonia', null, array('required' => false))
-            ->add('hasReferenceLab', null, array('required' => false))
-            ->add('hasNationalLab', null, array('required' => false))
-            ->add('gaviEligible', TripleChoice::class, array('required' => false))
+            ->add('language', LocaleType::class, ['required' => false])
+            ->add('tracksPneumonia', null, ['required' => false])
+            ->add('hasReferenceLab', null, ['required' => false])
+            ->add('hasNationalLab', null, ['required' => false])
+            ->add('gaviEligible', TripleChoice::class, ['required' => false])
             ->add('hibVaccineIntro')
             ->add('pcvVaccineIntro')
             ->add('rvVaccineIntro')
-            ->add('active', null, array('required' => false))
+            ->add('active', null, ['required' => false])
             ->add('region');
     }
 
@@ -106,7 +106,7 @@ class CountryAdmin extends Admin
             return;
         }
 
-        $out = $params = array();
+        $out = $params = [];
         foreach ($value['value'] as $x => $role) {
             $out[] = "$alias.gaviEligible = :type$x";
             $params["type$x"] = $role;

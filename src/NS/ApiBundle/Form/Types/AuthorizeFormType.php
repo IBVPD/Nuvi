@@ -20,7 +20,7 @@ class AuthorizeFormType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('allowAccess', CheckboxType::class, array('label' => 'Allow access'));
+        $builder->add('allowAccess', CheckboxType::class, ['label' => 'Allow access']);
     }
 
     /**
@@ -28,6 +28,6 @@ class AuthorizeFormType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array('data_class' => 'NS\ApiBundle\Form\Model\Authorize'));
+        $resolver->setDefaults(['data_class' => 'NS\ApiBundle\Form\Model\Authorize']);
     }
 }

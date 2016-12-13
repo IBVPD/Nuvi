@@ -16,9 +16,9 @@ class VaccinationType extends TranslatableArrayChoice implements TranslationCont
     const UNKNOWN = 99;
 
 
-    protected $values = array(
+    protected $values = [
                                 self::GSK     => 'Rotarix, GSK',
                                 self::MERK    => 'RotaTeq, Merck',
                                 self::UNKNOWN => 'Unknown',
-                             );
+    ];
 }

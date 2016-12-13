@@ -21,7 +21,7 @@ class ZeroReporter
     private $entityMgr;
 
     /** @var array */
-    private $zeroReports = array();
+    private $zeroReports = [];
 
     /**
      * ZeroReporter constructor.

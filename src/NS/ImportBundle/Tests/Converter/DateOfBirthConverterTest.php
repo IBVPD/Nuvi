@@ -31,15 +31,15 @@ class DateOfBirthConverterTest extends \PHPUnit_Framework_TestCase
         $birthdate = new \DateTime('2015-05-07');
         $admDate = new \DateTime('2015-06-01');
 
-        return array(
-            array(array('birthdate' => null), false ),
-            array(array('adm_date' => null), false),
-            array(array('birthdate' => null, 'adm_date' => null), false),
-            array(array('birthdate' => null, 'adm_date' => $admDate), false),
-            array(array('birthdate' => $birthdate, 'adm_date' => null), false),
-            array(array('birthdate' => $birthdate, 'adm_date' => null), false),
-            array(array('birthdate' => $birthdate, 'adm_date' => $admDate), false),
-            array(array('birthdate' => $admDate, 'adm_date' => $birthdate), true),
-        );
+        return [
+            [['birthdate' => null], false],
+            [['adm_date' => null], false],
+            [['birthdate' => null, 'adm_date' => null], false],
+            [['birthdate' => null, 'adm_date' => $admDate], false],
+            [['birthdate' => $birthdate, 'adm_date' => null], false],
+            [['birthdate' => $birthdate, 'adm_date' => null], false],
+            [['birthdate' => $birthdate, 'adm_date' => $admDate], false],
+            [['birthdate' => $admDate, 'adm_date' => $birthdate], true],
+        ];
     }
 }

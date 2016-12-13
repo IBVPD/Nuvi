@@ -45,7 +45,7 @@ class ACL extends BaseACL
      * @var array
      * @ORM\Column(name="options",type="array",nullable=true)
      */
-    protected $options = array();
+    protected $options = [];
 
     /**
      * ACL constructor.
@@ -129,7 +129,7 @@ class ACL extends BaseACL
 
     public function getCredentials()
     {
-        $baseRoles = ($this->type) ? $this->type->getAsCredential() : array();
+        $baseRoles = ($this->type) ? $this->type->getAsCredential() : [];
 
         foreach((array)$this->options as $option) {
             switch ($option) {

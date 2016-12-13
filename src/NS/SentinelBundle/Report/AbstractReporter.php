@@ -80,7 +80,7 @@ class AbstractReporter
             $fpr = $results->get($c['code']);
             // this should always be true.
             if ($fpr && method_exists($fpr, $function)) {
-                call_user_func(array($fpr, $function), $c['caseCount']);
+                call_user_func([$fpr, $function], $c['caseCount']);
             } else {
                 throw new \RuntimeException(sprintf('method error %s', $function));
             }
@@ -145,7 +145,7 @@ class AbstractReporter
             $fpr = $results->get($c['code']);
             // this should always be true.
             if ($fpr && method_exists($fpr, $function)) {
-                call_user_func(array($fpr, $function), $c);
+                call_user_func([$fpr, $function], $c);
             }
         }
     }
@@ -212,13 +212,13 @@ class AbstractReporter
             }
 
             $repo = $this->entityMgr->getRepository($repoClass);
-            $columns = array(
+            $columns = [
                 'getGenderDistribution' => 'setGenderDistribution',
                 'getAgeInMonthDistribution' => 'setAgeInMonthDistribution',
                 'getLocationDistribution' => 'setLocationDistribution',
                 'getDischargeOutcomeDistribution' => 'setDischargeOutcomeDistribution',
                 'getMonthlyDistribution' => 'setMonthlyDistribution'
-            );
+            ];
 
             foreach ($columns as $repoFunction => $resultFunction) {
                 $query = $repo->$repoFunction($alias);
@@ -227,9 +227,9 @@ class AbstractReporter
                 $result->$resultFunction($results);
             }
 
-            return array('form' => $form->createView(), 'result' => $result);
+            return ['form' => $form->createView(), 'result' => $result];
         }
 
-        return array('form' => $form->createView(), 'result' => $result);
+        return ['form' => $form->createView(), 'result' => $result];
     }
 }

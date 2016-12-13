@@ -71,7 +71,7 @@ class CsvReader extends BaseReader implements OffsetableReaderInterface
     protected function readHeaderRow($rowNumber)
     {
         $results = parent::readHeaderRow($rowNumber);
-        array_walk($results, array($this, 'trimColumn'));
+        array_walk($results, [$this, 'trimColumn']);
         return $results;
     }
 

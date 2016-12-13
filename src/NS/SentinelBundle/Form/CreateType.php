@@ -44,20 +44,20 @@ class CreateType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('caseId', null, array('label'=>'site-assigned-case-id'))
-            ->add('type', CaseCreationType::class, array('description' => 'This should always be "1"'))
+            ->add('caseId', null, ['label'=>'site-assigned-case-id'])
+            ->add('type', CaseCreationType::class, ['description' => 'This should always be "1"'])
         ;
 
         if ($this->siteSerializer->hasMultipleSites()) {
             $queryBuilder = $this->entityMgr->getRepository('NS\SentinelBundle\Entity\Site')->getChainQueryBuilder()->orderBy('s.name', 'ASC');
-            $builder->add('site', EntityType::class, array(
+            $builder->add('site', EntityType::class, [
                 'required'        => true,
                 'mapped'          => false,
                 'placeholder'     => 'Please Select...',
                 'label'           => 'ibd-form.site',
                 'query_builder'   => $queryBuilder,
                 'class'           => 'NS\SentinelBundle\Entity\Site',
-                'auto_initialize' => false));
+                'auto_initialize' => false]);
         }
     }
 }

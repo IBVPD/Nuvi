@@ -17,7 +17,7 @@ class UpdateSiteCommand extends ContainerAwareCommand
 {
     private $surveillance;
     private $support;
-    private $countries = array();
+    private $countries = [];
     private $countryRepo = null;
 
     /**
@@ -27,9 +27,9 @@ class UpdateSiteCommand extends ContainerAwareCommand
     {
         $this->setName('nssentinel:import:update-sites')
             ->setDescription('Update the system site list')
-            ->setDefinition(array(
+            ->setDefinition([
                 new InputArgument('file', InputArgument::REQUIRED),
-            ));
+            ]);
     }
 
     /**
@@ -49,25 +49,25 @@ class UpdateSiteCommand extends ContainerAwareCommand
 
         $fileObj = new File($file);
         $reader = new ExcelReader($fileObj->openFile());
-        $reader->setColumnHeaders(array(
+        $reader->setColumnHeaders([
             'country',
             'code',
             'name',
             'surveillanceConducted',
             'ibdTier',
             'ibdIntenseSupport'
-        ));
+        ]);
 
-        $writer = new DoctrineWriter($entityMgr, 'NS\SentinelBundle\Entity\Site', array('code'));
+        $writer = new DoctrineWriter($entityMgr, 'NS\SentinelBundle\Entity\Site', ['code']);
         $writer->setTruncate(false);
         $worker = new StepAggregator($reader);
         $worker->addWriter($writer);
 
 
         $converterStep = new ValueConverterStep();
-        $converterStep->add('[surveillanceConducted]', array($this, 'convertSurveillance'));
-        $converterStep->add('[ibdIntenseSupport]', array($this, 'convertSupport'));
-        $converterStep->add('[country]', array($this, 'convertCountry'));
+        $converterStep->add('[surveillanceConducted]', [$this, 'convertSurveillance']);
+        $converterStep->add('[ibdIntenseSupport]', [$this, 'convertSupport']);
+        $converterStep->add('[country]', [$this, 'convertCountry']);
         $worker->addStep($converterStep);
 
         try {
@@ -97,7 +97,7 @@ class UpdateSiteCommand extends ContainerAwareCommand
             return $this->countries[$countryCode];
         }
 
-        $country = $this->countryRepo->findOneBy(array('code'=>$countryCode));
+        $country = $this->countryRepo->findOneBy(['code'=>$countryCode]);
         if ($country) {
             $this->countries[$countryCode] = $country;
         }

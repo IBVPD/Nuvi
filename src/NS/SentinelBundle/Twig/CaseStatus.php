@@ -16,14 +16,14 @@ class CaseStatus extends \Twig_Extension
      */
     public function getFunctions()
     {
-        $isSafe = array('is_safe' => array('html'));
+        $isSafe = ['is_safe' => ['html']];
 
-        return array(
-            new \Twig_SimpleFunction('case_label', array($this, 'getLabel'), $isSafe),
-            new \Twig_SimpleFunction('case_lab_label', array($this, 'getLabLabel'), $isSafe),
-            new \Twig_SimpleFunction('case_rrl_label', array($this, 'getRRLLabel'), $isSafe),
-            new \Twig_SimpleFunction('case_nl_label', array($this, 'getNLLabel'), $isSafe),
-        );
+        return [
+            new \Twig_SimpleFunction('case_label', [$this, 'getLabel'], $isSafe),
+            new \Twig_SimpleFunction('case_lab_label', [$this, 'getLabLabel'], $isSafe),
+            new \Twig_SimpleFunction('case_rrl_label', [$this, 'getRRLLabel'], $isSafe),
+            new \Twig_SimpleFunction('case_nl_label', [$this, 'getNLLabel'], $isSafe),
+        ];
     }
 
     /**

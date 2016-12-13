@@ -204,11 +204,11 @@ class Region implements \Serializable
      */
     public function serialize()
     {
-        return serialize(array(
+        return serialize([
             $this->code,
             $this->name,
             $this->website,
-        ));
+        ]);
     }
 
     /**

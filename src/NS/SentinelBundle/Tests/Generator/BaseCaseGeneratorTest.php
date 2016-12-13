@@ -64,7 +64,7 @@ class BaseCaseGeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $nativeQuery = $this->getMockBuilder('Doctrine\ORM\AbstractQuery')
             ->disableOriginalConstructor()
-            ->setMethods(array('_doExecute', 'getSQL', 'getResult'))
+            ->setMethods(['_doExecute', 'getSQL', 'getResult'])
             ->getMock();
         $nativeQuery->expects($this->once())
             ->method('getResult')
@@ -72,7 +72,7 @@ class BaseCaseGeneratorTest extends \PHPUnit_Framework_TestCase
 
         $entityMgr = $this->getMockBuilder('Doctrine\ORM\EntityManager')
             ->disableOriginalConstructor()
-            ->setMethods(array('beginTransaction', 'createNativeQuery', 'rollback', 'commit', 'createQuery', 'setParameter', 'execute'))
+            ->setMethods(['beginTransaction', 'createNativeQuery', 'rollback', 'commit', 'createQuery', 'setParameter', 'execute'])
             ->getMock();
         $entityMgr->expects($this->once())
             ->method('createNativeQuery')

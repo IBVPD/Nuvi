@@ -83,13 +83,13 @@ class UserAdmin extends Admin
             ->add('email')
             ->add('active')
             ->add('admin')
-            ->add('_action', 'actions', array(
-                'actions' => array(
-                    'show' => array(),
-                    'edit' => array(),
-                    'delete' => array(),
-                )
-            ));
+            ->add('_action', 'actions', [
+                'actions' => [
+                    'show' => [],
+                    'edit' => [],
+                    'delete' => [],
+                ]
+            ]);
     }
 
     /**
@@ -101,19 +101,19 @@ class UserAdmin extends Admin
             ->add('name')
             ->add('email')
             ->add('plainPassword', RepeatedType::class,
-                array(
+                [
                     'type' => PasswordType::class,
                     'invalid_message' => 'The password fields must match.',
-                    'options' => array('attr' => array('class' => 'password-field')),
+                    'options' => ['attr' => ['class' => 'password-field']],
                     'required' => false,
-                    'first_options' => array('label' => 'Password'),
-                    'second_options' => array('label' => 'Repeat Password'),
-                )
+                    'first_options' => ['label' => 'Password'],
+                    'second_options' => ['label' => 'Repeat Password'],
+                ]
             )
-            ->add('active', null, array('required' => false))
-            ->add('admin', null, array('required' => false))
-            ->add('referenceLab', null, array('required' => false, 'label' => 'admin.form-reference-lab'))
-            ->add('acls', 'sonata_type_collection', array('by_reference' => true, 'label' => 'Access Restrictions', 'required' => false), array('edit' => 'inline', 'inline' => 'table'));
+            ->add('active', null, ['required' => false])
+            ->add('admin', null, ['required' => false])
+            ->add('referenceLab', null, ['required' => false, 'label' => 'admin.form-reference-lab'])
+            ->add('acls', 'sonata_type_collection', ['by_reference' => true, 'label' => 'Access Restrictions', 'required' => false], ['edit' => 'inline', 'inline' => 'table']);
     }
 
     /**
@@ -295,7 +295,7 @@ class UserAdmin extends Admin
      */
     private function getRegions()
     {
-        $regions = array();
+        $regions = [];
         $modelManager = $this->getModelManager()->getEntityManager('NS\SentinelBundle\Entity\Region');
         foreach ($this->getRegionsIds() as $regionId) {
             $regions[] = $modelManager->getReference('NS\SentinelBundle\Entity\Region', $regionId);
@@ -309,7 +309,7 @@ class UserAdmin extends Admin
      */
     private function getCountries()
     {
-        $countries = array();
+        $countries = [];
         $modelManager = $this->getModelManager()->getEntityManager('NS\SentinelBundle\Entity\Country');
 
         foreach ($this->getCountryIds() as $countryId) {

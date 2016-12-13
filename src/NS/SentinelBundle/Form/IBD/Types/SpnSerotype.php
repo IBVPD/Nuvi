@@ -74,7 +74,7 @@ class SpnSerotype extends TranslatableArrayChoice implements TranslationContaine
     const _NOT_DONE            = 92;
     const OTHER                = 99;
 
-    protected $values = array(
+    protected $values = [
         self::_1                   => '1',
         self::_2                   => '2',
         self::_3                   => '3',
@@ -137,5 +137,5 @@ class SpnSerotype extends TranslatableArrayChoice implements TranslationContaine
         self::_NON_PCV_13_SEROTYPE => 'Non PCV 13 serotype**',
         self::_NOT_DONE            => 'Not done',
         self::OTHER                => 'Other',
-    );
+    ];
 }

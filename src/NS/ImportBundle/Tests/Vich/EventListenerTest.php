@@ -13,7 +13,7 @@ class EventListenerTest extends \PHPUnit_Framework_TestCase
     public function testNonImport()
     {
         $listener = $this->getMockBuilder('NS\ImportBundle\Vich\EventListener')
-            ->setMethods(array('onPostUpload', 'convertToUtf8'))
+            ->setMethods(['onPostUpload', 'convertToUtf8'])
             ->getMock();
 
         $listener->expects($this->never())->method('convertToUtf8');
@@ -27,7 +27,7 @@ class EventListenerTest extends \PHPUnit_Framework_TestCase
     {
         $file = new File(__DIR__ . '/../Fixtures/EMR-IBD-headers.csv');
         $listener = $this->getMockBuilder('NS\ImportBundle\Vich\EventListener')
-            ->setMethods(array('onPostUpload', 'convertToUtf8'))
+            ->setMethods(['onPostUpload', 'convertToUtf8'])
             ->getMock();
 
         $listener->expects($this->never())->method('convertToUtf8');
@@ -43,7 +43,7 @@ class EventListenerTest extends \PHPUnit_Framework_TestCase
     {
         $file = new File(__DIR__ . '/../Fixtures/EMR-IBD-headers.xls');
         $listener = $this->getMockBuilder('NS\ImportBundle\Vich\EventListener')
-            ->setMethods(array('onPostUpload', 'convertToUtf8'))
+            ->setMethods(['onPostUpload', 'convertToUtf8'])
             ->getMock();
 
         $listener->expects($this->never())->method('convertToUtf8');

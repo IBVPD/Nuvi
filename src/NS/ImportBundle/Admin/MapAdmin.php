@@ -40,11 +40,11 @@ class MapAdmin extends Admin
             ->add('name')
             ->add('version')
             ->add('class', 'doctrine_orm_callback',
-                array(
+                [
                     'field_type'=>'choice',
-                    'field_options'=> array('choices'=>array('NS\\SentinelBundle\\Entity\\IBD'=>'IBD', 'NS\\SentinelBundle\\Entity\\RotaVirus'=>'RotaVirus', ), 'placeholder'=>' '),
-                    'callback' => array($this, 'filterClassType')
-                )
+                    'field_options'=> ['choices'=> ['NS\\SentinelBundle\\Entity\\IBD'=>'IBD', 'NS\\SentinelBundle\\Entity\\RotaVirus'=>'RotaVirus',], 'placeholder'=>' '],
+                    'callback' => [$this, 'filterClassType']
+                ]
             )
         ;
     }
@@ -77,15 +77,15 @@ class MapAdmin extends Admin
     {
         $listMapper
             ->addIdentifier('selectName')
-            ->add('description', null, array('label'=>'notes'))
-            ->add('_action', 'actions', array(
-                'actions' => array(
-                    'show'   => array(),
-                    'edit'   => array(),
-                    'delete' => array(),
-                    'clone'  => array('template' => 'NSImportBundle:MapAdmin:list__action_clone.html.twig'),
-                )
-            ))
+            ->add('description', null, ['label'=>'notes'])
+            ->add('_action', 'actions', [
+                'actions' => [
+                    'show'   => [],
+                    'edit'   => [],
+                    'delete' => [],
+                    'clone'  => ['template' => 'NSImportBundle:MapAdmin:list__action_clone.html.twig'],
+                ]
+            ])
         ;
     }
 
@@ -97,30 +97,30 @@ class MapAdmin extends Admin
         $isNew = ($this->getSubject()->getId() > 0);
 
         $formMapper
-            ->add('name',           null, array('label_attr'=>array('class'=>'col-sm-2')))
-            ->add('description',    null, array('label'=>'Notes', 'label_attr'=>array('class'=>'col-sm-2')))
-            ->add('class',          ClassType::class, array('label_attr'=>array('class'=>'col-sm-2')))
-            ->add('version',        null, array('required'=>true, 'label_attr'=>array('class'=>'col-sm-2')))
-            ->add('headerRow',      IntegerType::class, array('label_attr'=>array('class'=>'col-sm-2')))
-            ->add('caseLinker',     ChoiceType::class, array(
-                'label_attr' => array('class'=>'col-sm-2'),
-                'choices' => array('ns_import.standard_case_linker' => 'Case Id and Site Code', 'ns_import.reference_case_linker'=>'Case Id and Verify Country'),
+            ->add('name',           null, ['label_attr'=> ['class'=>'col-sm-2']])
+            ->add('description',    null, ['label'=>'Notes', 'label_attr'=> ['class'=>'col-sm-2']])
+            ->add('class',          ClassType::class, ['label_attr'=> ['class'=>'col-sm-2']])
+            ->add('version',        null, ['required'=>true, 'label_attr'=> ['class'=>'col-sm-2']])
+            ->add('headerRow',      IntegerType::class, ['label_attr'=> ['class'=>'col-sm-2']])
+            ->add('caseLinker',     ChoiceType::class, [
+                'label_attr' => ['class'=>'col-sm-2'],
+                'choices' => ['ns_import.standard_case_linker' => 'Case Id and Site Code', 'ns_import.reference_case_linker'=>'Case Id and Verify Country'],
                 'placeholder' => 'Please Select...',
-                'disabled'=>$isNew))
+                'disabled'=>$isNew])
         ;
 
         if (!$isNew) {
             $formMapper
-                ->add('labPreference', ChoiceType::class, array(
-                    'label_attr' => array('class'=>'col-sm-2'),
-                    'choices'=>array('referenceLab'=>'RRL', 'nationalLab'=>'NL')
-                ))
-                ->add('file', FileType::class, array(
+                ->add('labPreference', ChoiceType::class, [
+                    'label_attr' => ['class'=>'col-sm-2'],
+                    'choices'=> ['referenceLab'=>'RRL', 'nationalLab'=>'NL']
+                ])
+                ->add('file', FileType::class, [
                     'required' => false,
-                    'label_attr' => array('class'=>'col-sm-2'),
-                ));
+                    'label_attr' => ['class'=>'col-sm-2'],
+                ]);
         } else {
-            $formMapper->add('columns', 'sonata_type_collection', array('error_bubbling'=>false, 'by_reference' => true, 'label_attr'=>array('class'=>'col-md-12 align-left')), array('edit'=>'inline', 'inline'=>'table', 'template'=>'NSImportBundle:edi_orm_one_to_many.html.twig'));
+            $formMapper->add('columns', 'sonata_type_collection', ['error_bubbling'=>false, 'by_reference' => true, 'label_attr'=> ['class'=>'col-md-12 align-left']], ['edit'=>'inline', 'inline'=>'table', 'template'=>'NSImportBundle:edi_orm_one_to_many.html.twig']);
         }
     }
 

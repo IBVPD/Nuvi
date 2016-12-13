@@ -17,10 +17,10 @@ class CXRResult extends TranslatableArrayChoice implements TranslationContainerI
     const OTHER        = 3;
     const UNKNOWN      = 99;
  
-    protected $values = array(
+    protected $values = [
                             self::NORMAL       => 'Normal',
                             self::CONSISTENT   => 'Consistent with Bacterial Pneumonia',
                             self::INCONCLUSIVE => 'Inconclusive',
                             self::OTHER        => 'Other',
-                            self::UNKNOWN => 'Unknown');
+                            self::UNKNOWN => 'Unknown'];
 }

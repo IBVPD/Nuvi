@@ -27,7 +27,7 @@ class PreprocessorStep implements Step
     /**
      * @var array
      */
-    private $conditions = array();
+    private $conditions = [];
 
     /**
      * ExpressionConverter constructor.
@@ -46,7 +46,7 @@ class PreprocessorStep implements Step
      */
     public function add($property, $conditions)
     {
-        $this->conditions[$property] = (is_array($conditions)) ? $conditions : array($conditions);
+        $this->conditions[$property] = (is_array($conditions)) ? $conditions : [$conditions];
     }
 
     /**
@@ -59,7 +59,7 @@ class PreprocessorStep implements Step
         foreach ($this->conditions as $property => $conditions) {
             foreach ($conditions as $condition) {
                 $expr = $this->expressionBuilder->convertRuleToExpression($condition->getRule());
-                if ($this->language->evaluate($expr, array('item' => $item))) {
+                if ($this->language->evaluate($expr, ['item' => $item])) {
                     $accessor->setValue($item, sprintf('[%s]', $property), $condition->getValue());
                     break;
                 }

@@ -25,6 +25,6 @@ class Other extends Constraint
      */
     public function getRequiredOptions()
     {
-        return array('field', 'value', 'otherField');
+        return ['field', 'value', 'otherField'];
     }
 }

@@ -18,14 +18,14 @@ class DischargeDiagnosis extends TranslatableArrayChoice implements TranslationC
     const OTHER                      = 5;
     const UNKNOWN                    = 99;
 
-    protected $values = array(
+    protected $values = [
                             self::BACTERIAL_MENINGITIS  => 'Bacterial meningitis',
                             self::BACTERIAL_PNEUMONIA   => 'Bacterial pneumonia',
                             self::SEPSIS                => 'Sepsis',
                             self::MULTIPLE              => 'Multiple (i.e. Meningitis and/or Pneumonia and/or Sepsis)',
                             self::OTHER                 => 'Other Diagnosis',
                             self::UNKNOWN               => 'Unknown',
-                             );
+    ];
     /**
      * {@inheritdoc}
      */

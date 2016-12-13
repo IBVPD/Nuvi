@@ -36,10 +36,10 @@ class CaseLinkerRegistryTest extends \PHPUnit_Framework_TestCase
     public function getLinkers()
     {
         // the third item in this array is 0 because its the first non string based key
-        return array(
-            'id1' => new CaseLinker(array('one', 'two'), 'findOneBy'),
-            'id2' => new CaseLinker(array('three', 'four'), 'findOneBy'),
-            new CaseLinker(array('two', 'one'), 'findOneBy'),
-        );
+        return [
+            'id1' => new CaseLinker(['one', 'two'], 'findOneBy'),
+            'id2' => new CaseLinker(['three', 'four'], 'findOneBy'),
+            new CaseLinker(['two', 'one'], 'findOneBy'),
+        ];
     }
 }

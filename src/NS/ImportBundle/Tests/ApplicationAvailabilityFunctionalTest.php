@@ -31,11 +31,11 @@ class ApplicationAvailabilityFunctionalTest extends WebTestCase
 
     public function urlProvider()
     {
-        return array(
-            array('/en/import'),
-            array('/en/export'),
+        return [
+            ['/en/import'],
+            ['/en/export'],
             // ...
-        );
+        ];
     }
 
     private function getClient()

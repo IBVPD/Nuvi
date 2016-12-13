@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
  */
 class AllOther extends Constraint
 {
-    public $constraints = array();
+    public $constraints = [];
 
     /**
      * {@inheritdoc}
@@ -24,7 +24,7 @@ class AllOther extends Constraint
         parent::__construct($options);
 
         if (!is_array($this->constraints)) {
-            $this->constraints = array($this->constraints);
+            $this->constraints = [$this->constraints];
         }
 
         foreach ($this->constraints as $constraint) {
@@ -51,7 +51,7 @@ class AllOther extends Constraint
      */
     public function getRequiredOptions()
     {
-        return array('constraints');
+        return ['constraints'];
     }
 
     /**

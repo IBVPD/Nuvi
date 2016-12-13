@@ -16,10 +16,10 @@ class BinaxResult extends TranslatableArrayChoice implements TranslationContaine
     const INCONCLUSIVE = 2;
     const UNKNOWN      = 99;
 
-    protected $values = array(
+    protected $values = [
                                 self::NEGATIVE      => 'Negative',
                                 self::POSITIVE      => 'Positive',
                                 self::INCONCLUSIVE  => 'Inconclusive',
                                 self::UNKNOWN       => 'Unknown',
-                             );
+    ];
 }

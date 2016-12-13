@@ -33,7 +33,7 @@ class Duplicate implements ReporterInterface
      * @param array $fields
      * @param File $logFile
      */
-    public function __construct(array $fields = array(), File $logFile = null)
+    public function __construct(array $fields = [], File $logFile = null)
     {
         $this->initialized = false;
         $this->fields      = $fields;
@@ -173,8 +173,8 @@ class Duplicate implements ReporterInterface
         if ($this->logFile) {
             list($items, $duplicates) = json_decode(file_get_contents($this->logFile->getPathname()), true);
         }
-        $items = $items === null ? array() : $items;
-        $duplicates = $duplicates === null ? array() : $duplicates;
+        $items = $items === null ? [] : $items;
+        $duplicates = $duplicates === null ? [] : $duplicates;
 
         $this->items = new ArrayCollection($items);
         $this->duplicates = new ArrayCollection($duplicates);
@@ -191,9 +191,9 @@ class Duplicate implements ReporterInterface
         }
 
         if ($this->logFile) {
-            file_put_contents($this->logFile->getPathname(), json_encode(array(
+            file_put_contents($this->logFile->getPathname(), json_encode([
                 $this->items->toArray(),
-                $this->duplicates->toArray())
+                $this->duplicates->toArray()]
             ));
         }
     }

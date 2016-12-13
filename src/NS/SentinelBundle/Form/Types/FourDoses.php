@@ -18,11 +18,11 @@ class FourDoses extends TranslatableArrayChoice implements TranslationContainerI
     const FOUR    = 4;
     const UNKNOWN = 99;
 
-    protected $values = array(
+    protected $values = [
                             self::ONE     => "1 dose",
                             self::TWO     => "2 doses",
                             self::THREE   => "3 doses",
                             self::FOUR    => "≥ 4 doses",
                             self::UNKNOWN => 'Unknown',
-                            );
+    ];
 }

@@ -20,12 +20,12 @@ class Diagnosis extends TranslatableArrayChoice implements TranslationContainerI
     const OTHER                      = 6;
     const UNKNOWN                    = 99;
 
-    protected $values = array(
+    protected $values = [
                             self::SUSPECTED_MENINGITIS       => 'Suspected meningitis',
                             self::SUSPECTED_PNEUMONIA        => 'Suspected pneumonia',
                             self::SUSPECTED_SEVERE_PNEUMONIA => 'Suspected severe pneumonia',
                             self::SUSPECTED_SEPSIS           => 'Suspected sepsis',
                             self::MULTIPLE                   => 'Multiple (i.e. suspected meningitis and/or pneumonia and/or sepsis)',
                             self::OTHER                      => 'Other',
-                            self::UNKNOWN                    => 'Unknown');
+                            self::UNKNOWN                    => 'Unknown'];
 }

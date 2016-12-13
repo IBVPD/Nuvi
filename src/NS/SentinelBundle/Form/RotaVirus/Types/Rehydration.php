@@ -18,12 +18,12 @@ class Rehydration extends TranslatableArrayChoice implements TranslationContaine
     const MULTIPLE = 5;
     const UNKNOWN  = 99;
 
-    protected $values = array(
+    protected $values = [
         self::ORAL     => 'Oral - ORS/ORT',
         self::IV       => 'IV fluids',
         self::OTHER    => 'Other',
         self::BOTH     => 'Both (ORS/ORT and IV fluids)',
         self::MULTIPLE => 'ORS/ORT and/or IV fluids and/or Other/Multiple',
         self::UNKNOWN  => 'Unknown',
-    );
+    ];
 }

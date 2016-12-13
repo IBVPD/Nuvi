@@ -21,16 +21,16 @@ class UserType extends AbstractType
             ->add('name')
             ->add('email')
             ->add('plainPassword', RepeatedType::class,
-                     array(
+                     [
                          'type'            => 'password',
                          'invalid_message' => 'The password fields must match.',
-                         'options'         => array('attr' => array('class' => 'password-field', 'autocomplete'=>'off')),
+                         'options'         => ['attr' => ['class' => 'password-field', 'autocomplete'=>'off']],
                          'required'        => false,
-                         'first_options'   => array('label' => 'Password'),
-                         'second_options'  => array('label' => 'Repeat Password'),
-                         )
+                         'first_options'   => ['label' => 'Password'],
+                         'second_options'  => ['label' => 'Repeat Password'],
+                     ]
                  )
-            ->add('language', LocaleType::class, array('label'=>'Preferred Language'))
+            ->add('language', LocaleType::class, ['label'=>'Preferred Language'])
         ;
     }
     
@@ -39,9 +39,9 @@ class UserType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'NS\SentinelBundle\Entity\User'
-        ));
+        ]);
     }
 
     /**

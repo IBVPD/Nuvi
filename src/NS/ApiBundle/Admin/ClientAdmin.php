@@ -25,15 +25,15 @@ class ClientAdmin extends Admin
     {
         $formMapper
             ->add('name')
-            ->add('redirectUris',       TagType::class, array('arrayOutput'=>true))
+            ->add('redirectUris',       TagType::class, ['arrayOutput'=>true])
             ->add('allowedGrantTypes',  OAuthGrantTypes::class)
-            ->add('user', null, array('placeholder'=>'Please Select', 'query_builder'=>function (EntityRepository $repo) {
+            ->add('user', null, ['placeholder'=>'Please Select', 'query_builder'=>function (EntityRepository $repo) {
                                                 return $repo->createQueryBuilder('u')
                                                             ->leftJoin('u.acls', 'a')
                                                             ->addSelect('a')
                                                             ->where('a.type IN (:apiType)')
-                                                            ->setParameter('apiType', array(Role::REGION_API, Role::COUNTRY_API, Role::SITE_API));
-            }))
+                                                            ->setParameter('apiType', [Role::REGION_API, Role::COUNTRY_API, Role::SITE_API]);
+            }])
         ;
     }
 
@@ -44,16 +44,16 @@ class ClientAdmin extends Admin
     {
         $listMapper
             ->add('name')
-            ->add('publicId', null, array('label'=>'Client Id'))
-            ->add('secret', null, array('label'=>'Client Secret'))
+            ->add('publicId', null, ['label'=>'Client Id'])
+            ->add('secret', null, ['label'=>'Client Secret'])
             ->add('user')
-            ->add('_action', 'actions', array(
-                'actions' => array(
-                    'show' => array(),
-                    'edit' => array(),
-                    'delete' => array(),
-                )
-            ))
+            ->add('_action', 'actions', [
+                'actions' => [
+                    'show' => [],
+                    'edit' => [],
+                    'delete' => [],
+                ]
+            ])
         ;
     }
 
@@ -64,8 +64,8 @@ class ClientAdmin extends Admin
     {
         $showMapper
             ->add('name')
-            ->add('publicId', null, array('label'=>'Client Id'))
-            ->add('secret', null, array('label'=>'Client Secret'))
+            ->add('publicId', null, ['label'=>'Client Id'])
+            ->add('secret', null, ['label'=>'Client Secret'])
             ->add('redirectUris')
             ->add('allowedGrantTypes')
         ;

@@ -230,7 +230,7 @@ class RotaVirusRepository extends Common
             ->innerJoin("$alias.site", 's')
             ->groupBy("$alias.site");
 
-        $where = $params = array();
+        $where = $params = [];
         $index = 0;
 
         if (empty($siteCodes)) {
@@ -340,7 +340,7 @@ class RotaVirusRepository extends Common
             ->innerJoin('cf.country', 'c')
             ->groupBy('cf.country');
 
-        $where = $params = array();
+        $where = $params = [];
         $index = 0;
 
         if (empty($countryCodes)) {

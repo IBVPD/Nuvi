@@ -14,12 +14,12 @@ class ZeroReportSiteResult extends AbstractSiteBasedResult
     /**
      * @var array
      */
-    private $caseCounts = array();
+    private $caseCounts = [];
 
     /**
      * @var array
      */
-    private $zeroReports = array();
+    private $zeroReports = [];
 
     /**
      * @param int $year

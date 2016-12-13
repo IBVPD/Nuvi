@@ -81,7 +81,7 @@ class IBDListener extends BaseCaseListener
     {
         foreach ($this->getMinimumRequiredFields($case) as $field) {
             $method = sprintf('get%s', $field);
-            $value  = call_user_func(array($case, $method));
+            $value  = call_user_func([$case, $method]);
 
             if ($value === null || empty($value) || ($value instanceof ArrayChoice && $value->equal(-1))) {
                 return $field;
@@ -159,7 +159,7 @@ class IBDListener extends BaseCaseListener
      */
     public function getMinimumRequiredFields(BaseCase $case)
     {
-        $fields = array(
+        $fields = [
             'caseId',
             'birthdate',
             'gender',
@@ -186,7 +186,7 @@ class IBDListener extends BaseCaseListener
             'dischDx',
             'dischClass',
             'cxrDone',
-        );
+        ];
 
         return (!$case->getCountry() || ($case->getCountry() && $case->getCountry()->getTracksPneumonia())) ? array_merge($fields, $this->getPneumiaRequiredFields()) : $fields;
     }
@@ -196,7 +196,7 @@ class IBDListener extends BaseCaseListener
      */
     public function getPneumiaRequiredFields()
     {
-        return array('pneuDiffBreathe',
+        return ['pneuDiffBreathe',
             'pneuChestIndraw',
             'pneuCough',
             'pneuCyanosis',
@@ -204,6 +204,6 @@ class IBDListener extends BaseCaseListener
             'pneuRespRate',
             'pneuVomit',
             'pneuHypothermia',
-            'pneuMalnutrition',);
+            'pneuMalnutrition',];
     }
 }

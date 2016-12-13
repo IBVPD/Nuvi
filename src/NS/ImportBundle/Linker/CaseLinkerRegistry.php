@@ -15,7 +15,7 @@ class CaseLinkerRegistry
      * CaseLinkerRegistry constructor.
      * @param $caseLinkers
      */
-    public function __construct($caseLinkers = array())
+    public function __construct($caseLinkers = [])
     {
         foreach ($caseLinkers as $id => $linker) {
             $this->addLinker($id, $linker);

@@ -14,8 +14,8 @@ class PCVType extends TranslatableArrayChoice implements TranslationContainerInt
     const PCV10 = 1;
     const PCV13 = 2;
 
-    protected $values = array(
+    protected $values = [
                                 self::PCV10 => 'PCV10',
                                 self::PCV13 => 'PCV13',
-                             );
+    ];
 }

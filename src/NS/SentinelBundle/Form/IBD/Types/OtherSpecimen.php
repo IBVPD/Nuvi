@@ -15,10 +15,10 @@ class OtherSpecimen extends TranslatableArrayChoice
     const JOINT   = 2;
     const OTHER   = 3;
 
-    protected $values = array(
+    protected $values = [
                                 self::NONE    => 'None',
                                 self::PLEURAL => 'Pleural',
                                 self::JOINT   => 'Joint',
                                 self::OTHER   => 'Other',
-                             );
+    ];
 }

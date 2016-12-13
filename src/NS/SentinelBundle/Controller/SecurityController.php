@@ -18,10 +18,10 @@ class SecurityController extends Controller
     {
         $helper = $this->get('security.authentication_utils');
 
-        return $this->render('NSSentinelBundle:Security:login.html.twig', array(
+        return $this->render('NSSentinelBundle:Security:login.html.twig', [
             'last_username' => $helper->getLastUsername(),
             'error'         => $helper->getLastAuthenticationError(),
-        ));
+        ]);
     }
 
     /**
@@ -37,7 +37,7 @@ class SecurityController extends Controller
         $locale = ($currentLocale == 'en') ? 'fr' : 'en';
 
         $session->set('_locale', $locale);
-        return $this->redirect($this->generateUrl('homepage', array('_locale' => $locale)));
+        return $this->redirect($this->generateUrl('homepage', ['_locale' => $locale]));
     }
 
     /**
@@ -52,15 +52,15 @@ class SecurityController extends Controller
         $byCountry = $repo->getByCountry();
         $bySite = $repo->getBySite();
         $byDiagnosis = $repo->getByDiagnosis();
-        $form = $this->createForm(ReportFilterType::class, null, array('site_type' => 'advanced'));
+        $form = $this->createForm(ReportFilterType::class, null, ['site_type' => 'advanced']);
         $report = $this->get('ns_sentinel.ibd_report');
         $cResult = $report->getCulturePositive($request, $form, 'homepage');
 
-        return $this->render('NSSentinelBundle:Security:homepage.html.twig', array(
+        return $this->render('NSSentinelBundle:Security:homepage.html.twig', [
             'byCountry' => $byCountry,
             'bySite' => $bySite,
             'byDiagnosis' => $byDiagnosis,
-            'cResult' => $cResult['results']));
+            'cResult' => $cResult['results']]);
     }
 
     /**

@@ -15,9 +15,9 @@ class PathogenIdentifier extends TranslatableArrayChoice implements TranslationC
     const REALTIME     = 2;
     const OTHER        = 3;
 
-    protected $values = array(
+    protected $values = [
                                 self::CONVENTIONAL => 'Conventional PCR',
                                 self::REALTIME     => 'Realtime PCR',
                                 self::OTHER        => 'Other',
-                             );
+    ];
 }

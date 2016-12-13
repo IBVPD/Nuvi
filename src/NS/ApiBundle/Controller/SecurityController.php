@@ -23,10 +23,10 @@ class SecurityController extends Controller
     {
         $helper = $this->get('security.authentication_utils');
 
-        return $this->render('NSApiBundle:Security:login.html.twig', array(
+        return $this->render('NSApiBundle:Security:login.html.twig', [
             'last_username' => $helper->getLastUsername(),
             'error'         => $helper->getLastAuthenticationError(),
-        ));
+        ]);
     }
 
     /**

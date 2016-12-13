@@ -18,9 +18,9 @@ class ZeroReportTwig extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return array(
-            new \Twig_SimpleFunction('zero_report', array($this, 'renderZeroReport'), array('is_safe' => array('html'))),
-        );
+        return [
+            new \Twig_SimpleFunction('zero_report', [$this, 'renderZeroReport'], ['is_safe' => ['html']]),
+        ];
     }
 
     /**
@@ -37,11 +37,11 @@ class ZeroReportTwig extends \Twig_Extension
             return $result;
         }
 
-        $options = array(
-            '' => array('label' => 'Please Select...'),
-            'zero' => array('label' => 'Zero'),
-            'non' => array('label' => 'Non Report'),
-        );
+        $options = [
+            '' => ['label' => 'Please Select...'],
+            'zero' => ['label' => 'Zero'],
+            'non' => ['label' => 'Non Report'],
+        ];
 
         if (is_string($result) && isset($options[$result])) {
             $options[$result]['selected'] = true;

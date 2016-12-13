@@ -23,11 +23,11 @@ class OutcomeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('dischargeOutcome',           DischargeOutcome::class,        array('required'=>false, 'label'=>'rotavirus-form.dischargeOutcome'))
-            ->add('dischargeDate',              DatePickerType::class,          array('required'=>false, 'label'=>'rotavirus-form.dischargeDate'))
-            ->add('dischargeClassification',    DischargeClassification::class, array('required'=>false,'label'=>'rotavirus-form.dischargeClassification'))
-            ->add('dischargeClassOther',        null,               array('required'=>false, 'label'=>'rotavirus-form.dischargeClassOther'))
-            ->add('comment',                    null,               array('required'=>false, 'label'=>'rotavirus-form.comment'))
+            ->add('dischargeOutcome',           DischargeOutcome::class,        ['required'=>false, 'label'=>'rotavirus-form.dischargeOutcome'])
+            ->add('dischargeDate',              DatePickerType::class,          ['required'=>false, 'label'=>'rotavirus-form.dischargeDate'])
+            ->add('dischargeClassification',    DischargeClassification::class, ['required'=>false,'label'=>'rotavirus-form.dischargeClassification'])
+            ->add('dischargeClassOther',        null,               ['required'=>false, 'label'=>'rotavirus-form.dischargeClassOther'])
+            ->add('comment',                    null,               ['required'=>false, 'label'=>'rotavirus-form.comment'])
         ;
     }
     
@@ -36,8 +36,8 @@ class OutcomeType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'NS\SentinelBundle\Entity\RotaVirus'
-        ));
+        ]);
     }
 }

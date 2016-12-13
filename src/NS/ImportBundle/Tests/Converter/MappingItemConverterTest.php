@@ -16,32 +16,32 @@ class MappingItemConverterTest extends \PHPUnit_Framework_TestCase
 {
     public function testBlankMap()
     {
-        $columns = array(
-            array(
+        $columns = [
+            [
                 'name'      => 'Col1',
                 'converter' => null,
                 'mapper'    => null,
                 'ignored'   => true,
-            ),
-            array(
+            ],
+            [
                 'name'      => 'Col2',
                 'converter' => null,
                 'mapper'    => 'col2',
                 'ignored'   => false,
-            ),
-            array(
+            ],
+            [
                 'name'      => 'Col3',
                 'converter' => null,
                 'mapper'    => null,
                 'ignored'   => false,
-            ),
-            array(
+            ],
+            [
                 'name'      => 'Col4',
                 'converter' => null,
                 'mapper'    => null,
                 'ignored'   => true,
-            ),
-        );
+            ],
+        ];
 
         $map = new Map();
 
@@ -54,19 +54,19 @@ class MappingItemConverterTest extends \PHPUnit_Framework_TestCase
             $map->addColumn($column);
         }
 
-        $data = array(
+        $data = [
             'Col1' => 1,
             'Col2' => 2,
             'Col3' => 3,
             'Col4' => 4,
-        );
+        ];
 
-        $expected = array(
+        $expected = [
             'Col1' => 1,
             'Col3' => 3,
             'Col4' => 4,
             'col2' => 2,
-        );
+        ];
 
         $converter = new MappingStep($map->getMappedColumns());
         $converter->process($data);
@@ -75,18 +75,18 @@ class MappingItemConverterTest extends \PHPUnit_Framework_TestCase
 
     public function testDeepMapping()
     {
-        $data = array(
+        $data = [
             'Col1' => 1,
             'sub1' => 2,
             'sub2' => 3,
             'Col4' => 4,
-        );
+        ];
 
-        $expected = array(
+        $expected = [
             'Col1' => 1,
             'Col4' => 4,
-            'Col2' => array('sub1' => 2, 'sub2' => 3),
-        );
+            'Col2' => ['sub1' => 2, 'sub2' => 3],
+        ];
 
         $converter = new MappingStep();
         $converter->map('[sub1]', '[Col2][sub1]');
@@ -97,17 +97,17 @@ class MappingItemConverterTest extends \PHPUnit_Framework_TestCase
 
     public function testUnsetMappingConverter()
     {
-        $data = array(
+        $data = [
             'Col1' => 1,
             'sub1' => 2,
             'sub2' => 3,
             'Col4' => 4,
-        );
+        ];
 
-        $expected = array(
+        $expected = [
             'Col1' => 1,
             'Col4' => 4,
-        );
+        ];
 
         $converter = new UnsetMappingItemConverter();
         $converter->map('sub1', 'Col2.sub1');

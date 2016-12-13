@@ -21,7 +21,7 @@ class FinalResult extends ArrayChoice
     const HI_NM        = 9;
     const SPN_HI_NM    = 10;
 
-    protected $values = array(
+    protected $values = [
         self::SPN          => 'Spn',
         self::HI           => 'Hi',
         self::NM           => 'Nm',
@@ -32,5 +32,5 @@ class FinalResult extends ArrayChoice
         self::SPN_HI_NM    => 'Spn+Hi+Nm',
         self::INCONCLUSIVE => 'Inconclusive',
         self::NOT_DONE     => 'Not Done',
-    );
+    ];
 }

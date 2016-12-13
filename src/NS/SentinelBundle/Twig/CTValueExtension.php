@@ -17,20 +17,20 @@ class CTValueExtension extends \Twig_Extension implements TranslationContainerIn
     /**
      * @var array
      */
-    private $choices = array(
+    private $choices = [
         "-3.0" => 'No CT Value',
         "-2.0" => 'Negative',
         "-1.0" => 'Undetermined',
-    );
+    ];
 
     /**
      * @inheritDoc
      */
     public function getFilters()
     {
-        return array(
-            new \Twig_SimpleFilter('ct_value', array($this, 'renderCTValue'))
-        );
+        return [
+            new \Twig_SimpleFilter('ct_value', [$this, 'renderCTValue'])
+        ];
     }
 
     /**
@@ -59,10 +59,10 @@ class CTValueExtension extends \Twig_Extension implements TranslationContainerIn
      */
     public static function getTranslationMessages()
     {
-        return array(
+        return [
             new Message('No CT Value'),
             new Message('Negative'),
             new Message('Undetermined'),
-        );
+        ];
     }
 }

@@ -40,60 +40,60 @@ class CreateRolesTest extends TypeTestCase
 
     public function roleProvider()
     {
-        return array(
-            array('count' => 2, 'data'  => array(
-                    0 => array('param' => self::CREATE, 'ret' => true),
-                    1 => array('param' => self::CREATE_CASE, 'ret' => true),
-                    2 => array('param' => self::CREATE_LAB, 'ret' => true),
-                    3 => array('param' => self::CREATE_RRL, 'ret' => false),
-                    4 => array('param' => self::CREATE_NL, 'ret' => false),
-                )),
-            array('count' => 2, 'data'  => array(
-                    0 => array('param' => self::CREATE, 'ret' => true),
-                    1 => array('param' => self::CREATE_CASE, 'ret' => true),
-                    2 => array('param' => self::CREATE_LAB, 'ret' => false),
-                    3 => array('param' => self::CREATE_RRL, 'ret' => true),
-                    4 => array('param' => self::CREATE_NL, 'ret' => false),
-                )),
-            array('count' => 2, 'data'  => array(
-                    0 => array('param' => self::CREATE, 'ret' => true),
-                    1 => array('param' => self::CREATE_CASE, 'ret' => true),
-                    2 => array('param' => self::CREATE_LAB, 'ret' => false),
-                    3 => array('param' => self::CREATE_RRL, 'ret' => false),
-                    4 => array('param' => self::CREATE_NL, 'ret' => true),
-                )),
-            array('count' => 4, 'data'  => array(
-                    0 => array('param' => self::CREATE, 'ret' => true),
-                    1 => array('param' => self::CREATE_CASE, 'ret' => true),
-                    2 => array('param' => self::CREATE_LAB, 'ret' => true),
-                    3 => array('param' => self::CREATE_RRL, 'ret' => true),
-                    4 => array('param' => self::CREATE_NL, 'ret' => true),
-                )),
-            array('count' => 2, 'data'  => array(
-                    0 => array('param' => self::CREATE, 'ret' => true),
-                    1 => array('param' => self::CREATE_CASE, 'ret' => false),
-                    2 => array('param' => self::CREATE_LAB, 'ret' => false),
-                    3 => array('param' => self::CREATE_RRL, 'ret' => true),
-                    4 => array('param' => self::CREATE_NL, 'ret' => true),
-                )),
-            array('count' => 2, 'data'  => array(
-                    0 => array('param' => self::CREATE, 'ret' => true),
-                    1 => array('param' => self::CREATE_CASE, 'ret' => false),
-                    2 => array('param' => self::CREATE_LAB, 'ret' => true),
-                    3 => array('param' => self::CREATE_RRL, 'ret' => true),
-                    4 => array('param' => self::CREATE_NL, 'ret' => false),
-                )),
-            array('count' => 3, 'data'  => array(
-                    0 => array('param' => self::CREATE, 'ret' => true),
-                    1 => array('param' => self::CREATE_CASE, 'ret' => false),
-                    2 => array('param' => self::CREATE_LAB, 'ret' => true),
-                    3 => array('param' => self::CREATE_RRL, 'ret' => true),
-                    4 => array('param' => self::CREATE_NL, 'ret' => true),
-                )),
-            array('count' => 0, 'data'  => array(
-                    0 => array('param' => self::CREATE, 'ret' => false),
-                )),
-        );
+        return [
+            ['count' => 2, 'data'  => [
+                    0 => ['param' => self::CREATE, 'ret' => true],
+                    1 => ['param' => self::CREATE_CASE, 'ret' => true],
+                    2 => ['param' => self::CREATE_LAB, 'ret' => true],
+                    3 => ['param' => self::CREATE_RRL, 'ret' => false],
+                    4 => ['param' => self::CREATE_NL, 'ret' => false],
+            ]],
+            ['count' => 2, 'data'  => [
+                    0 => ['param' => self::CREATE, 'ret' => true],
+                    1 => ['param' => self::CREATE_CASE, 'ret' => true],
+                    2 => ['param' => self::CREATE_LAB, 'ret' => false],
+                    3 => ['param' => self::CREATE_RRL, 'ret' => true],
+                    4 => ['param' => self::CREATE_NL, 'ret' => false],
+            ]],
+            ['count' => 2, 'data'  => [
+                    0 => ['param' => self::CREATE, 'ret' => true],
+                    1 => ['param' => self::CREATE_CASE, 'ret' => true],
+                    2 => ['param' => self::CREATE_LAB, 'ret' => false],
+                    3 => ['param' => self::CREATE_RRL, 'ret' => false],
+                    4 => ['param' => self::CREATE_NL, 'ret' => true],
+            ]],
+            ['count' => 4, 'data'  => [
+                    0 => ['param' => self::CREATE, 'ret' => true],
+                    1 => ['param' => self::CREATE_CASE, 'ret' => true],
+                    2 => ['param' => self::CREATE_LAB, 'ret' => true],
+                    3 => ['param' => self::CREATE_RRL, 'ret' => true],
+                    4 => ['param' => self::CREATE_NL, 'ret' => true],
+            ]],
+            ['count' => 2, 'data'  => [
+                    0 => ['param' => self::CREATE, 'ret' => true],
+                    1 => ['param' => self::CREATE_CASE, 'ret' => false],
+                    2 => ['param' => self::CREATE_LAB, 'ret' => false],
+                    3 => ['param' => self::CREATE_RRL, 'ret' => true],
+                    4 => ['param' => self::CREATE_NL, 'ret' => true],
+            ]],
+            ['count' => 2, 'data'  => [
+                    0 => ['param' => self::CREATE, 'ret' => true],
+                    1 => ['param' => self::CREATE_CASE, 'ret' => false],
+                    2 => ['param' => self::CREATE_LAB, 'ret' => true],
+                    3 => ['param' => self::CREATE_RRL, 'ret' => true],
+                    4 => ['param' => self::CREATE_NL, 'ret' => false],
+            ]],
+            ['count' => 3, 'data'  => [
+                    0 => ['param' => self::CREATE, 'ret' => true],
+                    1 => ['param' => self::CREATE_CASE, 'ret' => false],
+                    2 => ['param' => self::CREATE_LAB, 'ret' => true],
+                    3 => ['param' => self::CREATE_RRL, 'ret' => true],
+                    4 => ['param' => self::CREATE_NL, 'ret' => true],
+            ]],
+            ['count' => 0, 'data'  => [
+                    0 => ['param' => self::CREATE, 'ret' => false],
+            ]],
+        ];
     }
 
     /**
@@ -111,16 +111,16 @@ class CreateRolesTest extends TypeTestCase
 
     public function getRoutes()
     {
-        return array(
-            array(CaseCreationType::BASE,'Edit'),
-            array(CaseCreationType::SITE,'LabEdit'),
-            array(CaseCreationType::NL,'NLEdit'),
-            array(CaseCreationType::RRL,'RRLEdit'),
-            array(null,'Index'),
-        );
+        return [
+            [CaseCreationType::BASE,'Edit'],
+            [CaseCreationType::SITE,'LabEdit'],
+            [CaseCreationType::NL,'NLEdit'],
+            [CaseCreationType::RRL,'RRLEdit'],
+            [null,'Index'],
+        ];
     }
 
-    public function getAuthorizationChecker(array $calls = array())
+    public function getAuthorizationChecker(array $calls = [])
     {
         $authChecker = $this->createMock('\Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface');
 

@@ -93,7 +93,7 @@ class SerializedSiteTest extends \PHPUnit_Framework_TestCase
         $site3 = new Site(3, 'Site 3');
         $site3->setCountry($country);
 
-        return array($site1, $site2, $site3);
+        return [$site1, $site2, $site3];
     }
 
     public function testRegisterSite()
@@ -108,15 +108,15 @@ class SerializedSiteTest extends \PHPUnit_Framework_TestCase
 
         $mockUoW->expects($this->at(0))
             ->method('registerManaged')
-            ->with($site,   array('code' => 'sId'), array('code' => 'sId'));
+            ->with($site,   ['code' => 'sId'], ['code' => 'sId']);
 
         $mockUoW->expects($this->at(1))
             ->method('registerManaged')
-            ->with($country, array('code' => 'cCode'), array('code'=>'cCode'));
+            ->with($country, ['code' => 'cCode'], ['code'=>'cCode']);
 
         $mockUoW->expects($this->at(2))
             ->method('registerManaged')
-            ->with($region, array('code' => 'rCode'), array('code'=>'rCode'));
+            ->with($region, ['code' => 'rCode'], ['code'=>'rCode']);
 
         $mockEntityMgr = $this->createMock('Doctrine\ORM\EntityManager');
 

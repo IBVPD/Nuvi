@@ -25,12 +25,12 @@ class CaseCreationType extends TranslatableArrayChoice implements TranslationCon
      */
     private $authChecker;
 
-    protected $values = array(
+    protected $values = [
         self::BASE => 'Case',
         self::SITE => 'Site Lab',
         self::RRL  => 'RRL',
         self::NL   => 'NL',
-    );
+    ];
 
     /**
      * {@inheritdoc}
@@ -38,7 +38,7 @@ class CaseCreationType extends TranslatableArrayChoice implements TranslationCon
     public function configureOptions(OptionsResolver $resolver)
     {
         if ($this->authChecker->isGranted('ROLE_CAN_CREATE')) {
-            $values = array();
+            $values = [];
             if ($this->authChecker->isGranted('ROLE_CAN_CREATE_CASE')) {
                 $values[self::BASE] = $this->values[self::BASE];
             }
@@ -57,16 +57,16 @@ class CaseCreationType extends TranslatableArrayChoice implements TranslationCon
 
             $this->values = $values;
         } else {
-            $this->values = array();
+            $this->values = [];
         }
 
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'choices'     => $this->values,
             'placeholder' => 'Please Select...',
-        ));
+        ]);
 
-        $resolver->setDefined(array('special_values'));
-        $resolver->addAllowedTypes(array('special_values'=>'array'));
+        $resolver->setDefined(['special_values']);
+        $resolver->addAllowedTypes(['special_values'=>'array']);
     }
 
     /**

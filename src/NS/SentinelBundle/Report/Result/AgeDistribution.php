@@ -23,9 +23,9 @@ class AgeDistribution implements TranslationContainerInterface
     /**
      * @param array $results
      */
-    public function __construct(array $results = array())
+    public function __construct(array $results = [])
     {
-        $this->results = array();
+        $this->results = [];
 
         foreach ($results as $case) {
             if ($case['theYear'] == '') {
@@ -211,6 +211,6 @@ class AgeDistribution implements TranslationContainerInterface
      */
     public static function getTranslationMessages()
     {
-        return array(new Message(self::NO_ADM_DATE));
+        return [new Message(self::NO_ADM_DATE)];
     }
 }

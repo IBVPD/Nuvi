@@ -22,10 +22,10 @@ class DateRangeFilterType extends AbstractType
         $builder->add('left_date', BaseDateRangeFilter::class, $options['left_date_options']);
         $builder->add('right_date', BaseDateRangeFilter::class, $options['right_date_options']);
 
-        $builder->setAttribute('filter_value_keys', array(
+        $builder->setAttribute('filter_value_keys', [
             'left_date'  => $options['left_date_options'],
             'right_date' => $options['right_date_options'],
-        ));
+        ]);
     }
 
     /**

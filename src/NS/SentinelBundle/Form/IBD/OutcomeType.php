@@ -22,11 +22,11 @@ class OutcomeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('dischOutcome', 'NS\SentinelBundle\Form\IBD\Types\DischargeOutcome', array('required' => false, 'label' => 'ibd-form.discharge-outcome'))
-            ->add('dischDx', 'NS\SentinelBundle\Form\IBD\Types\DischargeDiagnosis', array('required' => false, 'label' => 'ibd-form.discharge-diagnosis', 'hidden-child' => 'dischargeDiagnosis'))
-            ->add('dischDxOther', null, array('required' => false, 'label' => 'ibd-form.discharge-diagnosis-other', 'hidden-parent' => 'dischargeDiagnosis', 'hidden-value' => DischargeDiagnosis::OTHER))
-            ->add('dischClass', 'NS\SentinelBundle\Form\IBD\Types\DischargeClassification', array('required' => false, 'label' => 'ibd-form.discharge-class'))
-            ->add('comment', null, array('required' => false, 'label' => 'ibd-form.comment'));
+            ->add('dischOutcome', 'NS\SentinelBundle\Form\IBD\Types\DischargeOutcome', ['required' => false, 'label' => 'ibd-form.discharge-outcome'])
+            ->add('dischDx', 'NS\SentinelBundle\Form\IBD\Types\DischargeDiagnosis', ['required' => false, 'label' => 'ibd-form.discharge-diagnosis', 'hidden-child' => 'dischargeDiagnosis'])
+            ->add('dischDxOther', null, ['required' => false, 'label' => 'ibd-form.discharge-diagnosis-other', 'hidden-parent' => 'dischargeDiagnosis', 'hidden-value' => DischargeDiagnosis::OTHER])
+            ->add('dischClass', 'NS\SentinelBundle\Form\IBD\Types\DischargeClassification', ['required' => false, 'label' => 'ibd-form.discharge-class'])
+            ->add('comment', null, ['required' => false, 'label' => 'ibd-form.comment']);
     }
 
     /**
@@ -34,8 +34,8 @@ class OutcomeType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'data_class' => 'NS\SentinelBundle\Entity\IBD'
-        ));
+        ]);
     }
 }

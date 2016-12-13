@@ -59,7 +59,7 @@ class IBDReportController extends Controller
     {
         $reports = $this->get('doctrine.orm.entity_manager')->getRepository("NSSentinelBundle:IBD")->getByCountry();
 
-        return $this->render('NSSentinelBundle:Report/IBD:byCountryGraph.html.twig', array('reports' => $reports));
+        return $this->render('NSSentinelBundle:Report/IBD:byCountryGraph.html.twig', ['reports' => $reports]);
     }
 
     /**
@@ -69,7 +69,7 @@ class IBDReportController extends Controller
     {
         $reports = $this->get('doctrine.orm.entity_manager')->getRepository("NSSentinelBundle:IBD")->getBySite();
 
-        return $this->render('NSSentinelBundle:Report/IBD:bySiteGraph.html.twig', array('reports' => $reports));
+        return $this->render('NSSentinelBundle:Report/IBD:bySiteGraph.html.twig', ['reports' => $reports]);
     }
 
     /**
@@ -79,7 +79,7 @@ class IBDReportController extends Controller
     {
         $reports = $this->get('doctrine.orm.entity_manager')->getRepository("NSSentinelBundle:IBD")->getStats();
        
-        return $this->render('NSSentinelBundle:Report/IBD:generalStats.html.twig', array('reports' => $reports));
+        return $this->render('NSSentinelBundle:Report/IBD:generalStats.html.twig', ['reports' => $reports]);
     }
 
     /**
@@ -89,7 +89,7 @@ class IBDReportController extends Controller
     {
         $reports = $this->get('doctrine.orm.entity_manager')->getRepository("NSSentinelBundle:IBD")->getByDiagnosis();
        
-        return $this->render('NSSentinelBundle:Report/IBD:byDiagnosisGraph.html.twig', array('reports' => $reports));
+        return $this->render('NSSentinelBundle:Report/IBD:byDiagnosisGraph.html.twig', ['reports' => $reports]);
     }
 
     /**
@@ -99,7 +99,7 @@ class IBDReportController extends Controller
      */
     public function fieldPopulationAction(Request $request)
     {
-        $form    = $this->createForm(ReportFilterType::class, null, array('site_type'=>'advanced', 'validation_groups'=>array('FieldPopulation')));
+        $form    = $this->createForm(ReportFilterType::class, null, ['site_type'=>'advanced', 'validation_groups'=> ['FieldPopulation']]);
         $service = $this->get('ns_sentinel.ibd_report');
         $params = $service->getFieldPopulation($request, $form, 'reportFieldPopulation');
         if ($params instanceof Response) {
@@ -116,7 +116,7 @@ class IBDReportController extends Controller
      */
     public function culturePositiveAction(Request $request)
     {
-        $form    = $this->createForm(ReportFilterType::class, null, array('site_type'=>'advanced'));
+        $form    = $this->createForm(ReportFilterType::class, null, ['site_type'=>'advanced']);
         $service = $this->get('ns_sentinel.ibd_report');
         $params  = $service->getCulturePositive($request, $form, 'reportCulturePositive');
         if ($params instanceof Response) {
@@ -147,7 +147,7 @@ class IBDReportController extends Controller
      */
     public function dataQualityAction(Request $request)
     {
-        $form    = $this->createForm(ReportFilterType::class, null, array('site_type'=>'advanced'));
+        $form    = $this->createForm(ReportFilterType::class, null, ['site_type'=>'advanced']);
         $service = $this->get('ns_sentinel.ibd_report');
         $params  = $service->getDataQuality($request, $form, 'reportIBDDataQuality');
         if ($params instanceof Response) {
@@ -164,7 +164,7 @@ class IBDReportController extends Controller
      */
     public function sitePerformanceAction(Request $request)
     {
-        $form    = $this->createForm(BaseQuarterlyFilterType::class, null, array('site_type'=>'advanced'));
+        $form    = $this->createForm(BaseQuarterlyFilterType::class, null, ['site_type'=>'advanced']);
         $service = $this->get('ns_sentinel.ibd_report');
         $params  = $service->getSitePerformance($request, $form, 'reportIBDDataQuality');
         if ($params instanceof Response) {
@@ -182,7 +182,7 @@ class IBDReportController extends Controller
      */
     public function dataLinking(Request $request)
     {
-        $form    = $this->createForm(QuarterlyLinkingReportFilterType::class, null, array('site_type'=>'advanced'));
+        $form    = $this->createForm(QuarterlyLinkingReportFilterType::class, null, ['site_type'=>'advanced']);
         $service = $this->get('ns_sentinel.ibd_report');
         $params  = $service->getDataLinking($request, $form, 'reportIbdDataLinking');
         if ($params instanceof Response) {
@@ -200,7 +200,7 @@ class IBDReportController extends Controller
      */
     public function statsAction(Request $request)
     {
-        $form    = $this->createForm(ReportFilterType::class, null, array('site_type'=>'advanced'));
+        $form    = $this->createForm(ReportFilterType::class, null, ['site_type'=>'advanced']);
         $service = $this->get('ns_sentinel.ibd_report');
         $params  = $service->getStats($request, $form, 'reportIbdStats');
         if ($params instanceof Response) {

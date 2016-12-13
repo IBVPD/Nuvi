@@ -205,12 +205,12 @@ abstract class ExternalLab extends BaseExternalLab
      */
     public function getMandatoryFields()
     {
-        return array(
+        return [
             'dg_gt',
             'gt_result_g',
             'gt_result_g_specify',
             'gt_result_p',
             'gt_result_p_specify',
-            'pcr_vp6_result');
+            'pcr_vp6_result'];
     }
 }

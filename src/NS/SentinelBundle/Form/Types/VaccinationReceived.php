@@ -16,10 +16,10 @@ class VaccinationReceived extends TranslatableArrayChoice implements Translation
     const YES_CARD    = 2;
     const UNKNOWN     = 99;
 
-    protected $values = array(
+    protected $values = [
                                 self::NO            => 'No',
                                 self::YES_HISTORY   => 'Yes-By-History',
                                 self::YES_CARD      => 'Yes-By-Card',
                                 self::UNKNOWN       => 'Unknown',
-                             );
+    ];
 }

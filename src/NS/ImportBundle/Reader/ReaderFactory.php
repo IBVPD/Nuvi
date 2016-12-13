@@ -50,7 +50,7 @@ class ReaderFactory
             $extension = $file->guessExtension();
         }
 
-        if (in_array($extension, array('xlsx', 'ods'))) {
+        if (in_array($extension, ['xlsx', 'ods'])) {
             $extension = 'xls';
         }
 

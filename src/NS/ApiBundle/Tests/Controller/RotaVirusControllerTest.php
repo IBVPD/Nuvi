@@ -35,7 +35,7 @@ class RotaVirusControllerTest extends WebTestCase
     {
         $route  = $this->getRoute('nsApiRotaPatchCase');
         $client = $this->getClient();
-        $client->request('PATCH', $route, array(), array(), array(), '{"case":{"lastName":"Fabien","gender":"2"}}');
+        $client->request('PATCH', $route, [], [], [], '{"case":{"lastName":"Fabien","gender":"2"}}');
 
         $response = $client->getResponse();
         if ($response->getStatusCode() == 500) {
@@ -54,7 +54,7 @@ class RotaVirusControllerTest extends WebTestCase
     {
         $route  = $this->getUrl('nsApiRotaPostCase');
         $client = $this->getClient();
-        $client->request('POST', $route, array(), array(), array(), '{"create":{"caseId":"123","type":"1","site":"ALBCHLD"}}');
+        $client->request('POST', $route, [], [], [], '{"create":{"caseId":"123","type":"1","site":"ALBCHLD"}}');
 
         $response = $client->getResponse();
         if ($response->getStatusCode() != 201) {
@@ -76,9 +76,9 @@ class RotaVirusControllerTest extends WebTestCase
 
     public function testLabCase()
     {
-        $route  = $this->getUrl('nsApiRotaPatchLab', array('objId' => self::ID));
+        $route  = $this->getUrl('nsApiRotaPatchLab', ['objId' => self::ID]);
         $client = $this->getClient();
-        $client->request('PATCH', $route, array(), array(), array(), '{"site_lab":{"adequate":1,"elisaDone":1}}');
+        $client->request('PATCH', $route, [], [], [], '{"site_lab":{"adequate":1,"elisaDone":1}}');
 
         $response = $client->getResponse();
         if ($response->getStatusCode() == 500) {
@@ -118,7 +118,7 @@ class RotaVirusControllerTest extends WebTestCase
     {
         $route  = $this->getRoute('nsApiRotaPatchRRL');
         $client = $this->getClient();
-        $client->request('PATCH', $route, array(), array(), array(), '{"reference_lab":{"labId":"ANewCaseId"}}');
+        $client->request('PATCH', $route, [], [], [], '{"reference_lab":{"labId":"ANewCaseId"}}');
 
         $response = $client->getResponse();
         $this->assertEquals(403, $response->getStatusCode());
@@ -138,7 +138,7 @@ class RotaVirusControllerTest extends WebTestCase
     {
         $route  = $this->getRoute('nsApiRotaPutRRL');
         $client = $this->getClient();
-        $client->request('PUT', $route, array(), array(), array(), '{"reference_lab":{"labId":"ANewCaseId"}}');
+        $client->request('PUT', $route, [], [], [], '{"reference_lab":{"labId":"ANewCaseId"}}');
 
         $response = $client->getResponse();
         $this->assertEquals(403, $response->getStatusCode());
@@ -156,7 +156,7 @@ class RotaVirusControllerTest extends WebTestCase
 
     public function testGetNLCase()
     {
-        $route  = $this->getUrl('nsApiRotaGetNL', array('objId' => self::ID));
+        $route  = $this->getUrl('nsApiRotaGetNL', ['objId' => self::ID]);
         $client = $this->getClient();
         $client->request('GET', $route);
 
@@ -171,7 +171,7 @@ class RotaVirusControllerTest extends WebTestCase
     {
         $route  = $this->getRoute('nsApiRotaPatchNL');
         $client = $this->getClient();
-        $client->request('PATCH', $route, array(), array(), array(), '{"national_lab":{"labId":"ANewCaseId"}}');
+        $client->request('PATCH', $route, [], [], [], '{"national_lab":{"labId":"ANewCaseId"}}');
 
         $response = $client->getResponse();
         $this->assertEquals(204, $response->getStatusCode());
@@ -190,7 +190,7 @@ class RotaVirusControllerTest extends WebTestCase
     {
         $route  = $this->getRoute('nsApiRotaPutNL');
         $client = $this->getClient();
-        $client->request('PUT', $route, array(), array(), array(), '{"national_lab":{"labId":"ANewCaseId"}}');
+        $client->request('PUT', $route, [], [], [], '{"national_lab":{"labId":"ANewCaseId"}}');
 
         $response = $client->getResponse();
         $this->assertEquals(204, $response->getStatusCode());
@@ -207,9 +207,9 @@ class RotaVirusControllerTest extends WebTestCase
 
     public function testPutCase()
     {
-        $route  = $this->getUrl('nsApiRotaPutCase', array('objId' => self::ID));
+        $route  = $this->getUrl('nsApiRotaPutCase', ['objId' => self::ID]);
         $client = $this->getClient();
-        $client->request('PUT', $route, array(), array(), array(), '{"case":{"lastName":"Fabien","caseId":"122"}}');
+        $client->request('PUT', $route, [], [], [], '{"case":{"lastName":"Fabien","caseId":"122"}}');
 
         $response = $client->getResponse();
         $this->assertEquals(204, $response->getStatusCode());
@@ -222,9 +222,9 @@ class RotaVirusControllerTest extends WebTestCase
 
     public function testPutCaseWithoutCaseId()
     {
-        $route  = $this->getUrl('nsApiRotaPutCase', array('objId' => self::ID));
+        $route  = $this->getUrl('nsApiRotaPutCase', ['objId' => self::ID]);
         $client = $this->getClient();
-        $client->request('PUT', $route, array(), array(), array(), '{"case":{"lastName":"Fabien"}}');
+        $client->request('PUT', $route, [], [], [], '{"case":{"lastName":"Fabien"}}');
 
         $response = $client->getResponse();
         $this->assertJsonResponse($response, 400);
@@ -234,6 +234,6 @@ class RotaVirusControllerTest extends WebTestCase
     {
         $objId = $id === null ? self::ID : $id;
 
-        return $this->getUrl($route, array('objId' => $objId));
+        return $this->getUrl($route, ['objId' => $objId]);
     }
 }

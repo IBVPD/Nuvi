@@ -201,7 +201,7 @@ class UserAclValidatorTest extends \PHPUnit_Framework_TestCase
             $user->setAdmin(true);
             $user->addAcl($acl);
 
-            $params[] = array($user, ($roleType !== Role::REGION && $roleType !== Role::COUNTRY));
+            $params[] = [$user, ($roleType !== Role::REGION && $roleType !== Role::COUNTRY)];
         }
 
         return $params;
@@ -225,6 +225,6 @@ class UserAclValidatorTest extends \PHPUnit_Framework_TestCase
 
         $validator  = new UserAclValidator($authChecker);
 
-        return array($constraint, $context, $builder, $validator);
+        return [$constraint, $context, $builder, $validator];
     }
 }

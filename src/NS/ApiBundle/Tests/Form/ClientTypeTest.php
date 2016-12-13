@@ -18,12 +18,12 @@ class ClientTypeTest extends TypeTestCase
 {
     public function testForm()
     {
-        $formData = array(
+        $formData = [
             'name'              => 'ClientName',
             'redirectUris'      => 'https://localhost/,http://example.com/',
-            'allowedGrantTypes' => array(OAuth2::GRANT_TYPE_AUTH_CODE, OAuth2::GRANT_TYPE_CLIENT_CREDENTIALS,
-                OAuth2::GRANT_TYPE_REFRESH_TOKEN)
-        );
+            'allowedGrantTypes' => [OAuth2::GRANT_TYPE_AUTH_CODE, OAuth2::GRANT_TYPE_CLIENT_CREDENTIALS,
+                OAuth2::GRANT_TYPE_REFRESH_TOKEN]
+        ];
 
         $form     = $this->factory->create(ClientType::class);
 
@@ -31,15 +31,15 @@ class ClientTypeTest extends TypeTestCase
         $data = $form->getData();
         $this->assertInstanceOf('NS\ApiBundle\Entity\Client', $data);
         $this->assertEquals('ClientName', $data->getName());
-        $this->assertEquals(array('https://localhost/', 'http://example.com/'), $data->getRedirectUris());
-        $this->assertEquals(array(OAuth2::GRANT_TYPE_AUTH_CODE, OAuth2::GRANT_TYPE_CLIENT_CREDENTIALS,
-            OAuth2::GRANT_TYPE_REFRESH_TOKEN), $data->getAllowedGrantTypes());
+        $this->assertEquals(['https://localhost/', 'http://example.com/'], $data->getRedirectUris());
+        $this->assertEquals([OAuth2::GRANT_TYPE_AUTH_CODE, OAuth2::GRANT_TYPE_CLIENT_CREDENTIALS,
+            OAuth2::GRANT_TYPE_REFRESH_TOKEN], $data->getAllowedGrantTypes());
     }
 
     public function getExtensions()
     {
         $oauthType = new OAuthGrantTypes();
         $tagType   = new TagType();
-        return array(new PreloadedExtension(array($oauthType, $tagType), array()));
+        return [new PreloadedExtension([$oauthType, $tagType], [])];
     }
 }

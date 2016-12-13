@@ -46,7 +46,7 @@ class ValidatorGroupResolver
      */
     public function __invoke(FormInterface $form)
     {
-        return array_merge(array('Default'), $this->getRegionNames());
+        return array_merge(['Default'], $this->getRegionNames());
     }
 
     /**
@@ -79,7 +79,7 @@ class ValidatorGroupResolver
      */
     public function getObjectsFromAcls($acls)
     {
-        $ids = array();
+        $ids = [];
         /** @var ACL $acl */
         foreach ($acls as $acl) {
             $ids[] = $acl->getObjectId();
@@ -94,7 +94,7 @@ class ValidatorGroupResolver
      */
     public function getObjectNames($objects)
     {
-        $names = array();
+        $names = [];
         foreach ((array)$objects as $object) {
             $names[] = $object->getCode();
         }

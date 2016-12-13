@@ -39,14 +39,14 @@ class CTValueTransformer implements DataTransformerInterface
     {
         if (is_numeric($value)) {
             if ($value < 0) {
-                return array('choice' => (int) $value, 'number' => null);
+                return ['choice' => (int) $value, 'number' => null];
             }
 
             if ($value >= 0) {
-                return array('choice' => null, 'number' => $value);
+                return ['choice' => null, 'number' => $value];
             }
         }
 
-        return array('choice' => null, 'number' => null);
+        return ['choice' => null, 'number' => null];
     }
 }

@@ -97,7 +97,7 @@ class Map
         }
 
         if ($this->columns) {
-            $columns = array();
+            $columns = [];
 
             foreach ($this->columns as $col) {
                 $columns[] = clone $col;
@@ -366,7 +366,7 @@ class Map
      */
     public function getColumnHeaders()
     {
-        $headers = array();
+        $headers = [];
 
         foreach ($this->columns as $col) {
             $headers[] = $col->getName();
@@ -381,7 +381,7 @@ class Map
      */
     public function getConvertedColumns()
     {
-        $r = array();
+        $r = [];
         foreach ($this->columns as $col) {
             if ($col->hasConverter()) {
                 $r[] = $col;
@@ -396,7 +396,7 @@ class Map
      */
     public function getMappedColumns()
     {
-        $mappings = array();
+        $mappings = [];
 
         foreach ($this->columns as $col) {
             if ($col->hasMapper()) {
@@ -414,7 +414,7 @@ class Map
      */
     public function getIgnoredColumns()
     {
-        $mappings = array();
+        $mappings = [];
 
         foreach ($this->columns as $col) {
             if ($col->isIgnored()) {
@@ -430,11 +430,11 @@ class Map
      */
     public function getPreProcessorConditions()
     {
-        $allConditions = array();
+        $allConditions = [];
 
         foreach ($this->columns as $col) {
             if ($col->hasPreProcessor()) {
-                $conditions     = array();
+                $conditions     = [];
                 $preConditions  = json_decode($col->getPreProcessor(), true);
 
                 foreach ($preConditions as $json) {
