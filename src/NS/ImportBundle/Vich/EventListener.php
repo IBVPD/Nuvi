@@ -30,7 +30,7 @@ class EventListener
         $obj      = $event->getObject();
         $property = $event->getMapping()->getFilePropertyName();
 
-        if ($obj instanceof Import && $property == 'source' && $this->readerFactory->getExtension($obj->getSourceFile()) == 'csv') {
+        if ($obj instanceof Import && $property == 'sourceFile' && $this->readerFactory->getExtension($obj->getSourceFile()) == 'csv') {
             $this->convertToUtf8($obj->getSourceFile()->getPathname());
         }
     }

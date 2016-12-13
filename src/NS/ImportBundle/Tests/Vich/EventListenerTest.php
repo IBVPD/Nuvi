@@ -80,7 +80,7 @@ class EventListenerTest extends \PHPUnit_Framework_TestCase
         $import = new Import($mockUser);
         $import->setSourceFile($file);
 
-        $listener->onPostUpload(new Event($import, new PropertyMapping('source', 'source')));
+        $listener->onPostUpload(new Event($import, new PropertyMapping('sourceFile', 'sourceFile')));
         $newEncoding = mb_detect_encoding(file_get_contents($newFile));
         $this->assertEquals('UTF-8', $newEncoding);
         unlink($newFile);
