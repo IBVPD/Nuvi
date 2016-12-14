@@ -2136,7 +2136,7 @@
       </trans-unit>
       <trans-unit id="39b803df267a9438df20198b4ebd4acac75bd436" resname="ibd-form.blood-gram-result-organism">
         <source>ibd-form.blood-gram-result-organism</source>
-        <target>If organisms were detected in Gram stain of blood culture, please select the option that best describes the organism.</target>
+        <target>Organisms that were detected in Gram stain of blood culture, please select the option that best describes the organism.</target>
         <jms:reference-file line="136">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="22e9fa5667ff6fbb177cb2ffd77f9c9643160c33" resname="ibd-form.blood-id">
@@ -2202,7 +2202,7 @@
       </trans-unit>
       <trans-unit id="357445ce7e2e38232bb0f39e5375dfc854d6831a" resname="ibd-form.csf-collect-datetime">
         <source>ibd-form.csf-collect-datetime</source>
-        <target>Date and Time of CSF collection (i.e. lumbar puncture) from case</target>
+        <target>Date and Time of CSF collection from case</target>
         <jms:reference-file line="115">Form/IBD/CaseType.php</jms:reference-file>
         <jms:reference-file line="199">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
@@ -2258,7 +2258,7 @@
       </trans-unit>
       <trans-unit id="ba4d2096778797cc7b6d4798c880c485f95da9b9" resname="ibd-form.csf-gram-result-organism">
         <source>ibd-form.csf-gram-result-organism</source>
-        <target>If organisms were detected in Gram stain of CSF, please select the option that best describes the organism.</target>
+        <target>Organisms that were detected in Gram stain of CSF</target>
         <jms:reference-file line="73">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="57fab7bb44f1759986e31232efcb884b8396d0ed" resname="ibd-form.csf-id">
@@ -2326,7 +2326,7 @@
       </trans-unit>
       <trans-unit id="6f3302e375553355129bf6ddd6e5e3ac374d6783" resname="ibd-form.csf-store">
         <source>ibd-form.csf-store</source>
-        <target>Did the sentinel site/national lab store the remaining volume of CSF?</target>
+        <target>Did the lab store the remaining volume of CSF?</target>
         <jms:reference-file line="101">Form/IBD/SiteLabType.php</jms:reference-file>
         <jms:reference-file line="227">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
@@ -2439,7 +2439,7 @@
       </trans-unit>
       <trans-unit id="0da45bd56fa56862eebf9da5bebb9c33d58b4081" resname="ibd-form.hi-serotype-other">
         <source>ibd-form.hi-serotype-other</source>
-        <target>HiSerotype Other</target>
+        <target></target>
         <jms:reference-file line="109">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="49d1ec463de133d2d2ecb102a8f7f16395fbb0a3" resname="ibd-form.hib-doses">
@@ -2450,7 +2450,7 @@
       </trans-unit>
       <trans-unit id="35b71f69793e7ce665cc62c1b4f69665a9d20ee2" resname="ibd-form.hib-most-recent-dose">
         <source>ibd-form.hib-most-recent-dose</source>
-        <target>HIB Most Recent Dose</target>
+        <target>Last Hib dose received</target>
         <jms:reference-file line="82">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="889252566ba2c10b3e775d697365b8a8381a2597" resname="ibd-form.hib-received">
@@ -2466,7 +2466,7 @@
       </trans-unit>
       <trans-unit id="f74e6a891f81b39bd3022ad46a51937d90d20ad3" resname="ibd-form.isol-store">
         <source>ibd-form.isol-store</source>
-        <target>Did the sentinel site/national lab store the remaining isolate?</target>
+        <target>Did the  lab store the remaining isolate?</target>
         <jms:reference-file line="102">Form/IBD/SiteLabType.php</jms:reference-file>
         <jms:reference-file line="228">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>

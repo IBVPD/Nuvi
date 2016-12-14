@@ -236,15 +236,15 @@
       </trans-unit>
       <trans-unit id="05fcdf14c20820118b7c12ffc13c5fdf639790bb" resname="ACW135 (polysaccharide)">
         <source>ACW135 (polysaccharide)</source>
-        <target>ACW135 (polisacárido)</target>
+        <target>ACW(polisacárido)</target>
       </trans-unit>
       <trans-unit id="44708d6bef8db5753893523e34ea079d400e1e11" resname="ACYW135 (conjugate)">
         <source>ACYW135 (conjugate)</source>
-        <target>ACYW135 (conjugada)</target>
+        <target>ACYW (conjugada)</target>
       </trans-unit>
       <trans-unit id="61741390be197c1dd7ded938e4b990fb050a9d6b" resname="ACYW135 (polysaccharide)">
         <source>ACYW135 (polysaccharide)</source>
-        <target>ACYW135 (polisacárido)</target>
+        <target>ACYW (polisacárido)</target>
       </trans-unit>
       <trans-unit id="376e9046cc5fd2842ce29e30d9b75eab2742e487" resname="Access Restrictions">
         <source>Access Restrictions</source>
@@ -322,11 +322,11 @@
       </trans-unit>
       <trans-unit id="42b657c8bebf02e57f682d03428fbdc6bcae2837" resname="Blood culture broth">
         <source>Blood culture broth</source>
-        <target>Caldo de cultivo de sangre</target>
+        <target>Caldo del cultivo del hemocultivo</target>
       </trans-unit>
       <trans-unit id="0504fc68c397e6f1d5a2d8342b06e545a890d772" resname="Bloody">
         <source>Bloody</source>
-        <target>Sanguinolento</target>
+        <target>Hemorrágico</target>
       </trans-unit>
       <trans-unit id="c70830a91bab7a8b117d115cb089d45a9663de74" resname="Both (ORS/ORT and IV fluids)">
         <source>Both (ORS/ORT and IV fluids)</source>
@@ -450,7 +450,7 @@
       </trans-unit>
       <trans-unit id="22c36db366e95f54cde8dc00859b31205a7c19b8" resname="Collection Info">
         <source>Collection Info</source>
-        <target>Colección de información</target>
+        <target>Recolección de información</target>
         <jms:reference-file line="18">views/IBD/editLab.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="49252e62e00fc748d88e9116e4f339147369a405" resname="Common Reports">
@@ -479,7 +479,7 @@
       </trans-unit>
       <trans-unit id="084eb230cc2900a5573e5cf9cf7018bec845d01f" resname="Consistent with Bacterial Pneumonia">
         <source>Consistent with Bacterial Pneumonia</source>
-        <target>Consistencia con Neumonía Bacteriana</target>
+        <target>Compatible con Neumonía Bacteriana</target>
       </trans-unit>
       <trans-unit id="81ff41187d9a55a0a0d410b37e2a03ec4014258e" resname="Consolidation">
         <source>Consolidation</source>
@@ -487,7 +487,7 @@
       </trans-unit>
       <trans-unit id="788fdad853a2bf339a946805af34599d075210b9" resname="Contaminant">
         <source>Contaminant</source>
-        <target>Contaminante</target>
+        <target>Contaminado</target>
       </trans-unit>
       <trans-unit id="24fe3c2f2b08643838db3bfa02c5a96d8711b5f4" resname="Conventional PCR">
         <source>Conventional PCR</source>
@@ -614,7 +614,7 @@
       </trans-unit>
       <trans-unit id="68316444b99c6ba68313bede5aa8603526904561" resname="Died">
         <source>Died</source>
-        <target>Falleció</target>
+        <target>Fallecido</target>
       </trans-unit>
       <trans-unit id="7ecfbf0c1d2a9c0837c23acf899a82eb5a70436b" resname="Discarded">
         <source>Discarded</source>
@@ -622,7 +622,7 @@
       </trans-unit>
       <trans-unit id="5f908b6ce50290bfc23e76b191c2ef8b0aeb506c" resname="Discarded case">
         <source>Discarded case</source>
-        <target>Caso descartado</target>
+        <target> descartado</target>
       </trans-unit>
       <trans-unit id="f0750a96a5015fa6ef305bab6c098c7570710f30" resname="Discharged alive">
         <source>Discharged alive</source>
@@ -722,7 +722,7 @@
       </trans-unit>
       <trans-unit id="bb29aa57f0fd2bfd1d9c91e9d1493059381eb5c9" resname="Enter value or Select">
         <source>Enter value or Select</source>
-        <target state="new">Enter value or Select</target>
+        <target>Ingrese un valor o seleccione</target>
         <jms:reference-file line="32">Form/Types/CTValueType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e53e6fb5399d13847fc4f477393f2acedc2ea223" resname="Failed Link">
@@ -898,11 +898,11 @@
       </trans-unit>
       <trans-unit id="af4d4b42d93ccbd5d03b1cb5906ae3d47221bd45" resname="Incomplete investigation">
         <source>Incomplete investigation</source>
-        <target>Investigación incompleta</target>
+        <target>Inadecuadamente investigada</target>
       </trans-unit>
       <trans-unit id="4593dc6d892309c7864cf44c0226abbc2bf2c960" resname="Inconclusive">
         <source>Inconclusive</source>
-        <target>Inconcluyente</target>
+        <target>No concluyente</target>
       </trans-unit>
       <trans-unit id="dc400fa85066d64045bdb76a544ff0c4d68e922a" resname="Indeterminate">
         <source>Indeterminate</source>
@@ -928,7 +928,7 @@
       </trans-unit>
       <trans-unit id="28d67e9b9c3e281b3f42497b290ad4a803463042" resname="Isolate">
         <source>Isolate</source>
-        <target>Aislado</target>
+        <target>Cepa</target>
       </trans-unit>
       <trans-unit id="6475463840e57f1dc21360a72f14d2a1c25b2406" resname="LAB">
         <source>LAB</source>
@@ -969,7 +969,7 @@
       </trans-unit>
       <trans-unit id="18f17c05e2c86b15dc0c6b17fe2b8d184faaa33e" resname="Lab Other Fluid">
         <source>Lab Other Fluid</source>
-        <target>Otros fluidos de Laboratorio</target>
+        <target>Líquido Pleural </target>
         <jms:reference-file line="24">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="e3f535c7d82c4f97e1e3d09c16cfa3015b88d24b" resname="Lab Serotype">
@@ -1044,7 +1044,7 @@
       </trans-unit>
       <trans-unit id="d6de9f59c2cb1369385079580de553a940a1bf49" resname="MenAfriVac (conjugate MenA)">
         <source>MenAfriVac (conjugate MenA)</source>
-        <target>MenAfriVac (conjugada MenA)</target>
+        <target>MenAfriVac (conjugada MenA)  remove</target>
       </trans-unit>
       <trans-unit id="f16832de90bb82ee2e0c478d12b7006f7099aef4" resname="Meningitis">
         <source>Meningitis</source>
@@ -1145,7 +1145,7 @@
       </trans-unit>
       <trans-unit id="e468d4c026c011983076c699c569045396ad2fb7" resname="No CT Value">
         <source>No CT Value</source>
-        <target state="new">No CT Value</target>
+        <target>No hay Valor CT </target>
       </trans-unit>
       <trans-unit id="723a14e871ddf3bf60648f448fbdeba31472edcd" resname="No Organism Detected">
         <source>No Organism Detected</source>
@@ -1251,7 +1251,7 @@
       </trans-unit>
       <trans-unit id="6e6a6f2086bb5fe5dbfd17d8d5f502d48759834b" resname="Other">
         <source>Other</source>
-        <target>Otro</target>
+        <target>Otros</target>
       </trans-unit>
       <trans-unit id="4df715beb21380ad927c3f43a12ed1e0c2c549a4" resname="Other (specify)">
         <source>Other (specify)</source>
@@ -1263,18 +1263,18 @@
       </trans-unit>
       <trans-unit id="b572c8561b3a5f58713f0aa978cd62bbf8019e65" resname="Other Fluids">
         <source>Other Fluids</source>
-        <target>Otros fluidos biológicos</target>
+        <target>Liquido Pleural</target>
         <jms:reference-file line="21">views/IBD/editLab.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="d3f0610632bbef35bfaa389ca89023fd50c6dd62" resname="Outcome">
         <source>Outcome</source>
-        <target>Clasificacion</target>
+        <target>Clasifcación </target>
         <jms:reference-file line="32">views/IBD/show.html.twig</jms:reference-file>
         <jms:reference-file line="100">SentinelBundle/Twig/CaseActions.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e4ca9692c14c9061988606c1a12960262ad3ec37" resname="Outcome Data">
         <source>Outcome Data</source>
-        <target>Datos de los resultados</target>
+        <target>Datos de egreso del caso (resultados)</target>
         <jms:reference-file line="18">views/IBD/editOutcome.html.twig</jms:reference-file>
         <jms:reference-file line="18">views/RotaVirus/editOutcome.html.twig</jms:reference-file>
         <jms:reference-file line="21">views/RotaVirus/show.html.twig</jms:reference-file>
@@ -1380,7 +1380,7 @@
       </trans-unit>
       <trans-unit id="a7942f226ed1080246f2b2fde35b11e19a91e6a8" resname="Please Select...">
         <source>Please Select...</source>
-        <target state="new">Please Select...</target>
+        <target>Por favor selecione...</target>
         <jms:reference-file line="46">SentinelBundle/Form/CreateType.php</jms:reference-file>
         <jms:reference-file line="64">Form/Types/CreateRoles.php</jms:reference-file>
         <jms:reference-file line="201">Form/Types/Role.php</jms:reference-file>
@@ -1536,7 +1536,7 @@
       </trans-unit>
       <trans-unit id="cf3d11ff8a7b7eeb1a58d8bbfbbaf8311406e122" resname="Sample Information">
         <source>Sample Information</source>
-        <target>Muestra de información</target>
+        <target>Información de la muestra</target>
         <jms:reference-file line="19">views/IBD/editBaseLab.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="efc007a393f66cdb14d57d385822a3d9e36ef873" resname="Save">
@@ -1571,7 +1571,7 @@
       </trans-unit>
       <trans-unit id="0250108cbef743882bec649bb6c96ffeb697addb" resname="Sent To Reference Lab">
         <source>Sent To Reference Lab</source>
-        <target>Se envio muestra al laboratorio de referencia regional</target>
+        <target>Se envio muestra al laboratorio de referencia</target>
         <jms:reference-file line="200">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="186238cccd6fdd63822aa5886b1950d4f8c61dc5" resname="Sepsis">
@@ -1641,7 +1641,7 @@
       </trans-unit>
       <trans-unit id="8b679a66a85377a66234e35eb7c30900f0005b4b" resname="Specimen Collection Data">
         <source>Specimen Collection Data</source>
-        <target>Datos de colección de espécimen</target>
+        <target>Muestras biológicas</target>
         <jms:reference-file line="23">views/IBD/edit.html.twig</jms:reference-file>
         <jms:reference-file line="19">views/IBD/show.html.twig</jms:reference-file>
         <jms:reference-file line="21">views/RotaVirus/edit.html.twig</jms:reference-file>
@@ -1674,7 +1674,7 @@
       </trans-unit>
       <trans-unit id="31d5759ef687c0a46f207e699fc0ba15945dd764" resname="Stool Collection Date Errors">
         <source>Stool Collection Date Errors</source>
-        <target state="new">Stool Collection Date Errors</target>
+        <target>Hay errores de fechas de obtención </target>
         <jms:reference-file line="20">Report/RotaVirus/dataQuality.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="2dacf65959849884a011f36f76a04eebea94c5ea" resname="Submit">
@@ -1688,7 +1688,7 @@
       </trans-unit>
       <trans-unit id="ab646fbf4358000ca0b02c28ddb3bf3c76191963" resname="Suspect">
         <source>Suspect</source>
-        <target>Sospecha Clínica</target>
+        <target>Sospecha Clínica ( to delete)</target>
       </trans-unit>
       <trans-unit id="e2cbe6c8e35a0c06ef807e763165a5ca499b6237" resname="Suspected">
         <source>Suspected</source>
@@ -1738,7 +1738,7 @@
       </trans-unit>
       <trans-unit id="47dbf229a27d1cff3738428ac43f680317b0adcd" resname="There were errors with saving the form.">
         <source>There were errors with saving the form.</source>
-        <target>Hubo errores con guardar el formulario.</target>
+        <target>Hubo errores  guardando el  formulario.</target>
       </trans-unit>
       <trans-unit id="5bd44ebe63cd3b9445ca759f970513d78b28a61c" resname="Tier">
         <source>Tier</source>
@@ -1775,7 +1775,7 @@
       </trans-unit>
       <trans-unit id="05f86bc979ed4852564f07f80c6a08b06abbbf6f" resname="Turbid/Cloudy">
         <source>Turbid/Cloudy</source>
-        <target>Turbido  / Nublado</target>
+        <target>Turbio</target>
       </trans-unit>
       <trans-unit id="3deb7456519697ecf4eefc455516c969a3681bae" resname="Type">
         <source>Type</source>
@@ -1784,16 +1784,16 @@
       </trans-unit>
       <trans-unit id="9971e43169cfeacc901f1bf442391be9acddaab1" resname="Undetermined">
         <source>Undetermined</source>
-        <target state="new">Undetermined</target>
+        <target>Undeterminado</target>
       </trans-unit>
       <trans-unit id="bc7819b34ff87570745fbe461e36a16f80e562ce" resname="Unknown">
         <source>Unknown</source>
-        <target>Desconocido</target>
+        <target>Desconocido </target>
         <jms:reference-file line="21">Report/IBD/annualAgeDistribution.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="cfdb8ef53d3a4409936e1f8ba4992c8299f02e29" resname="Vaccination History">
         <source>Vaccination History</source>
-        <target>Historia Vacunal</target>
+        <target>Historia vacunal</target>
         <jms:reference-file line="22">views/IBD/edit.html.twig</jms:reference-file>
         <jms:reference-file line="13">views/IBD/show.html.twig</jms:reference-file>
         <jms:reference-file line="20">views/RotaVirus/edit.html.twig</jms:reference-file>
@@ -1819,7 +1819,7 @@
       </trans-unit>
       <trans-unit id="0c8186da01f87243ac37efa00fe66b84d4e0ce88" resname="Whole Blood">
         <source>Whole Blood</source>
-        <target>Sangre Pura</target>
+        <target>Sangre Completa</target>
       </trans-unit>
       <trans-unit id="c032adc1ff629c9b66f22749ad667e6beadf144b" resname="X">
         <source>X</source>
@@ -1860,11 +1860,11 @@
       </trans-unit>
       <trans-unit id="2ea017ce5c35ca511d4830fd39077bf8f0fc48f4" resname="Yes-By-Card">
         <source>Yes-By-Card</source>
-        <target>Sí, carnet</target>
+        <target>Sí,  por registro</target>
       </trans-unit>
       <trans-unit id="5047bc36cf02e48eafd58044a4a1b12874db9892" resname="Yes-By-History">
         <source>Yes-By-History</source>
-        <target>Sí, verbal</target>
+        <target>Sí/No, verbal</target>
       </trans-unit>
       <trans-unit id="909f99a779adb66a76fc53ab56c7dd1caf35d0fd" resname="Z">
         <source>Z</source>
@@ -1882,7 +1882,7 @@
       </trans-unit>
       <trans-unit id="6e36913c5daaf91b67d2edb4a74f4c7bf70ffca7" resname="[Enter value]">
         <source>[Enter value]</source>
-        <target state="new">[Enter value]</target>
+        <target>[Enter value]</target>
         <jms:reference-file line="31">Form/Types/CTValueType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="86f7e437faa5a7fce15d1ddcb9eaeaea377667b8" resname="a">
@@ -2082,12 +2082,12 @@
       </trans-unit>
       <trans-unit id="9525a42257a478984411e8019c976f84d268e78b" resname="ibd-form.antibiotics">
         <source>ibd-form.antibiotics</source>
-        <target>¿Ha sido el caso tratado con antibióticos la semana pasada?</target>
+        <target>¿Ha sido el caso tratado con antibióticos en las últimas 72 horas?</target>
         <jms:reference-file line="63">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="0e3575c28e3987ae260cba01da2624b9134ba7d1" resname="ibd-form.blood-collect-date">
         <source>ibd-form.blood-collect-date</source>
-        <target>Fecha de colección de sangre</target>
+        <target>Fecha de obtención de muestra de sangre</target>
         <jms:reference-file line="110">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="246a98e17d55fb3bef23ea042e1aadacb9a90d3d" resname="ibd-form.blood-collect-time">
@@ -2097,47 +2097,47 @@
       </trans-unit>
       <trans-unit id="e112042fbc3747ae7f364fcef4d5cc4341558bba" resname="ibd-form.blood-collected">
         <source>ibd-form.blood-collected</source>
-        <target>¿Se colección sangre del caso?</target>
+        <target>¿Se obtuvo muestra de sangre para hemocultivo?</target>
         <jms:reference-file line="108">Form/IBD/CaseType.php</jms:reference-file>
         <jms:reference-file line="207">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="da82c27a02bd989de3f189b25fa469f2e4cb2f28" resname="ibd-form.blood-cult-done">
         <source>ibd-form.blood-cult-done</source>
-        <target>¿Se hizo un cultivo de sangre?</target>
+        <target>¿Se hizo hemocultivo?</target>
         <jms:reference-file line="116">Form/IBD/SiteLabType.php</jms:reference-file>
         <jms:reference-file line="234">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="ef31c56c7c7a3d6b1879e3b389e94787dc00b8c1" resname="ibd-form.blood-cult-other">
         <source>ibd-form.blood-cult-other</source>
-        <target>Cultivo de sangre - Otro</target>
+        <target>Hemocultivo - Otro</target>
         <jms:reference-file line="121">Form/IBD/SiteLabType.php</jms:reference-file>
         <jms:reference-file line="237">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="a898996770506caf8b8cce56b5524c579f3fe285" resname="ibd-form.blood-cult-result">
         <source>ibd-form.blood-cult-result</source>
-        <target>Resultado del cultivo de sangre</target>
+        <target>Resultado del hemocultivo</target>
         <jms:reference-file line="119">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="183ff6def325d6c685501a6e7323de0233fbdf30" resname="ibd-form.blood-gram-done">
         <source>ibd-form.blood-gram-done</source>
-        <target>¿Se hizo una tinción de Gram en el cultivo de sangre?</target>
+        <target>¿Se hizo una tinción de Gram en el hemocultivo?</target>
         <jms:reference-file line="125">Form/IBD/SiteLabType.php</jms:reference-file>
         <jms:reference-file line="235">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="b08f0afa7b80ac58861e79763590ceb32034578d" resname="ibd-form.blood-gram-other">
         <source>ibd-form.blood-gram-other</source>
-        <target>Si otros organismos fueron identificados en la tinción de Gram en el cultivo de sangre, por favor especifique</target>
+        <target>Especifique, si otros organismos fueron identificados en la tinción de Gram en el hemocultivo </target>
         <jms:reference-file line="143">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="b680394bb3dd5435545848dda1ed19121637114b" resname="ibd-form.blood-gram-result">
         <source>ibd-form.blood-gram-result</source>
-        <target>Resultados de la tinción de Gram del cultivo de sangre</target>
+        <target>Resultados de la tinción de Gram del hemocultivo</target>
         <jms:reference-file line="129">Form/IBD/SiteLabType.php</jms:reference-file>
         <jms:reference-file line="238">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="39b803df267a9438df20198b4ebd4acac75bd436" resname="ibd-form.blood-gram-result-organism">
         <source>ibd-form.blood-gram-result-organism</source>
-        <target>Si organismos fueron detectados en la tinción de Gram del cultivo de sangre, seleccione la opción que mejor describa los organismos</target>
+        <target>Organismos detectados en la tinción de Gram del hemocultivo</target>
         <jms:reference-file line="136">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="22e9fa5667ff6fbb177cb2ffd77f9c9643160c33" resname="ibd-form.blood-id">
@@ -2147,29 +2147,29 @@
       </trans-unit>
       <trans-unit id="4a9d08ceeb111a063980989a052ea37fc26f4800" resname="ibd-form.blood-pcr-done">
         <source>ibd-form.blood-pcr-done</source>
-        <target>¿Se hizo PCR en el cultivo de sangre?</target>
+        <target>¿Se hizo PCR en el hemocultivo?</target>
         <jms:reference-file line="146">Form/IBD/SiteLabType.php</jms:reference-file>
         <jms:reference-file line="236">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="270acc56e8c3c3c7955a80eecf46886df992e854" resname="ibd-form.blood-pcr-other">
         <source>ibd-form.blood-pcr-other</source>
-        <target>Si otros organismos fueron identificados en PCR en el cultivo de sangre, por favor especifique</target>
+        <target>especificar otros organismos identificados en el hemocultivo por PCR</target>
         <jms:reference-file line="150">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="4b2ad5f493b7227cc5f880239f2c35e0fad2cf60" resname="ibd-form.blood-pcr-result">
         <source>ibd-form.blood-pcr-result</source>
-        <target>Resultados del examen PCR del cultivo de sangre</target>
+        <target>Resultados de PCR del hemocultivo</target>
         <jms:reference-file line="148">Form/IBD/SiteLabType.php</jms:reference-file>
         <jms:reference-file line="239">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="0263dfd0afae8ee3b162f51e20acde9abb221e9b" resname="ibd-form.blood-sent-to-rrl-date">
         <source>ibd-form.blood-sent-to-rrl-date</source>
-        <target>Fecha en que aislado de la sangre fue enviada a RL</target>
+        <target>Fecha en que la cepa del hemocultivo fue enviada a LR</target>
         <jms:reference-file line="203">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="47273c1794b96aa871e2d953555f1e69235cd108" resname="ibd-form.broth-sent-to-rrl-date">
         <source>ibd-form.broth-sent-to-rrl-date</source>
-        <target>Fecha en caldo de sangre fue enviada a RL</target>
+        <target>Fecha en caldo de sangre fue enviada a LR</target>
         <jms:reference-file line="204">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e5ba7a020342f19b8f355132f7dd2674f76c52e0" resname="ibd-form.case-id">
@@ -2192,24 +2192,24 @@
       </trans-unit>
       <trans-unit id="0f90b164aed657b3c7a0ba7b3800f81a315d6f78" resname="ibd-form.csf-binax-done">
         <source>ibd-form.csf-binax-done</source>
-        <target>¿Se hizo un examen de Binax en LCR?</target>
+        <target>¿Se hizo  Binax en LCR?</target>
         <jms:reference-file line="84">Form/IBD/SiteLabType.php</jms:reference-file>
         <jms:reference-file line="223">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="310173f6b5e349ca4849484b0bac14f040c32614" resname="ibd-form.csf-binax-result">
         <source>ibd-form.csf-binax-result</source>
-        <target>Resultados del examen de Binax para LCR</target>
+        <target>Resultados de Binax</target>
         <jms:reference-file line="86">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="357445ce7e2e38232bb0f39e5375dfc854d6831a" resname="ibd-form.csf-collect-datetime">
         <source>ibd-form.csf-collect-datetime</source>
-        <target>Fecha y hora de colección de LCR (ejemplo, punción lumbar) del caso</target>
+        <target>Fecha y hora de obtención de LCR  (DD/MM/YYYY)</target>
         <jms:reference-file line="115">Form/IBD/CaseType.php</jms:reference-file>
         <jms:reference-file line="199">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="55a3c923ddac91385faa6c9c10da684e9f63f4a8" resname="ibd-form.csf-collected">
         <source>ibd-form.csf-collected</source>
-        <target>¿Se colectó LCR del caso?</target>
+        <target>¿Se obtuvo  LCR del caso?</target>
         <jms:reference-file line="113">Form/IBD/CaseType.php</jms:reference-file>
         <jms:reference-file line="195">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
@@ -2231,13 +2231,13 @@
       </trans-unit>
       <trans-unit id="3332d66e09ea8b6dd4eca625c491c87904e6aa2a" resname="ibd-form.csf-culture-other">
         <source>ibd-form.csf-culture-other</source>
-        <target>Si otros organismos fueron identificados en el cultivo de LCR, por favor especifique</target>
+        <target>Especifique, si otros organismos fueron identificados en el cultivo de LCR</target>
         <jms:reference-file line="58">Form/IBD/SiteLabType.php</jms:reference-file>
         <jms:reference-file line="226">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="62b657fd64e41a1266bd381839ac793e57b29053" resname="ibd-form.csf-glucose">
         <source>ibd-form.csf-glucose</source>
-        <target>Medida de la glucosa en el LCR</target>
+        <target>Glucosa en el LCR  (mg/dL)</target>
         <jms:reference-file line="51">Form/IBD/SiteLabType.php</jms:reference-file>
         <jms:reference-file line="219">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
@@ -2249,7 +2249,7 @@
       </trans-unit>
       <trans-unit id="5fc5be4ba1b86fc5db18c5973d5c726f682a3362" resname="ibd-form.csf-gram-other">
         <source>ibd-form.csf-gram-other</source>
-        <target>Si otros organismos fueron identificados en la tinción de Gram en el LCR, por favor especifique</target>
+        <target>Especifique, si otros organismos fueron identificados en la tinción de Gram en el LCR</target>
         <jms:reference-file line="80">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e92ff3e3870a9074fa68d05de217bf8b5b06f0e8" resname="ibd-form.csf-gram-result">
@@ -2259,7 +2259,7 @@
       </trans-unit>
       <trans-unit id="ba4d2096778797cc7b6d4798c880c485f95da9b9" resname="ibd-form.csf-gram-result-organism">
         <source>ibd-form.csf-gram-result-organism</source>
-        <target>Si organismos fueron detectados en la tinción de Gram del LCR, por favor seleccione la opción que mejor describa el organismo</target>
+        <target>Organismos detectados en la tinción de Gram del LCR</target>
         <jms:reference-file line="73">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="57fab7bb44f1759986e31232efcb884b8396d0ed" resname="ibd-form.csf-id">
@@ -2279,18 +2279,18 @@
       </trans-unit>
       <trans-unit id="cebde7142f67edd386cff6d1a5ce16246c84cc95" resname="ibd-form.csf-lab-time">
         <source>ibd-form.csf-lab-time</source>
-        <target state="new">ibd-form.csf-lab-time</target>
+        <target state="new">fecha de recepción del  LCR en el laboratorio</target>
         <jms:reference-file line="48">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="09822becef86dd896f55f4132c0039831a11910e" resname="ibd-form.csf-lat-done">
         <source>ibd-form.csf-lat-done</source>
-        <target>¿se hizo LAT (látex aglutinación test) en LCR?</target>
+        <target>¿se hizo aglutinacion por latex?</target>
         <jms:reference-file line="88">Form/IBD/SiteLabType.php</jms:reference-file>
         <jms:reference-file line="224">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="e7a630fa4e6031cbbe8cb8dfd39f103289148eb0" resname="ibd-form.csf-lat-other">
         <source>ibd-form.csf-lat-other</source>
-        <target>Si otros organismos fueron identificados in LAT, por favor especifique</target>
+        <target>especificar, si otros organismos fueron identificados en latex</target>
         <jms:reference-file line="92">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="48051174eeb9db24836a6d415350864dd0fb3027" resname="ibd-form.csf-lat-result">
@@ -2306,40 +2306,40 @@
       </trans-unit>
       <trans-unit id="0d771aab23a8ae85f2f333ef19605a7dd566bd4a" resname="ibd-form.csf-pcr-other">
         <source>ibd-form.csf-pcr-other</source>
-        <target>Si otros organismos fueron identificados en el PCR, por favor especifique</target>
+        <target>Especificar, si otros organismos fueron identificados en el PCR</target>
         <jms:reference-file line="99">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="34df514064a1c99a4be13c40f837c8699b111d97" resname="ibd-form.csf-pcr-result">
         <source>ibd-form.csf-pcr-result</source>
-        <target>Resultados del examen de PCR del LCR</target>
+        <target>Resultados de PCR del LCR</target>
         <jms:reference-file line="96">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="c9ed952e371bae224348f3f066f85d0f41092a2e" resname="ibd-form.csf-protein">
         <source>ibd-form.csf-protein</source>
-        <target>Proteína medida del LCR</target>
+        <target>Proteína  en el LCR  (mg/dL)</target>
         <jms:reference-file line="52">Form/IBD/SiteLabType.php</jms:reference-file>
         <jms:reference-file line="220">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="917bd0ef3ef2d3df7e4c6185d959d676c56a5241" resname="ibd-form.csf-sent-to-rrl-date">
         <source>ibd-form.csf-sent-to-rrl-date</source>
-        <target>Fecha en la muestra de LCR fue enviado a RL</target>
+        <target>Fecha de envio de LCR al  RL</target>
         <jms:reference-file line="201">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="6f3302e375553355129bf6ddd6e5e3ac374d6783" resname="ibd-form.csf-store">
         <source>ibd-form.csf-store</source>
-        <target>El laboratorio nacional  del sitio Sentinel, ¿conservó la cantidad restante del LCR?</target>
+        <target>El laboratorio conservó  la cantidad restante  del LCR?</target>
         <jms:reference-file line="101">Form/IBD/SiteLabType.php</jms:reference-file>
         <jms:reference-file line="227">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="c1a544dc9a388f31f5139dc7810ccd9cd26f2d3d" resname="ibd-form.csf-wcc">
         <source>ibd-form.csf-wcc</source>
-        <target>Recuento de glóbulos blancos en el LCR</target>
+        <target>Recuento de glóbulos blancos en el LCR (N X mm3)</target>
         <jms:reference-file line="50">Form/IBD/SiteLabType.php</jms:reference-file>
         <jms:reference-file line="218">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="1df7f169999de566518bcc5ce880d14ff589a65e" resname="ibd-form.csfDateTime">
         <source>ibd-form.csfDateTime</source>
-        <target>Fecha y hora cuando se coleccionó el LCR  (Ej. punción lumbar)</target>
+        <target>Fecha cuando  el LCR se recibio en el laboratorio</target>
         <jms:reference-file line="217">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="c92accbe22abf53acac506dcede212ab0b061bca" resname="ibd-form.csfSiteId">
@@ -2349,19 +2349,19 @@
       </trans-unit>
       <trans-unit id="3f1d425f0ca33eb263656cd38f81245df12652d3" resname="ibd-form.cxr-additional-result">
         <source>ibd-form.cxr-additional-result</source>
-        <target>Resultado adicional de rayos X</target>
+        <target>Patron de Rx de torax</target>
         <jms:reference-file line="165">Form/IBD/CaseType.php</jms:reference-file>
         <jms:reference-file line="188">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="15177e1c56b680c8d5a87969ec75f40977e4d323" resname="ibd-form.cxr-done">
         <source>ibd-form.cxr-done</source>
-        <target>Se hizo examen de rayos X</target>
+        <target>Se hizo exámen de  Rx</target>
         <jms:reference-file line="160">Form/IBD/CaseType.php</jms:reference-file>
         <jms:reference-file line="186">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="a4e839aa28b58c472aa65b7799d40bd0fd471511" resname="ibd-form.cxr-result">
         <source>ibd-form.cxr-result</source>
-        <target>Resultado de los rayos X del pecho</target>
+        <target>Resultado de Rx  de torax</target>
         <jms:reference-file line="162">Form/IBD/CaseType.php</jms:reference-file>
         <jms:reference-file line="187">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
@@ -2387,25 +2387,25 @@
       </trans-unit>
       <trans-unit id="8760ea4199d8af55a9495e3c8121afbfb6e37d2a" resname="ibd-form.discharge-class">
         <source>ibd-form.discharge-class</source>
-        <target>Clasificación definitiva del caso</target>
+        <target>Clasificación final de caso</target>
         <jms:reference-file line="32">Form/IBD/OutcomeType.php</jms:reference-file>
         <jms:reference-file line="345">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="43b742aff24ad27b9663f69a87c048a32a7677a8" resname="ibd-form.discharge-diagnosis">
         <source>ibd-form.discharge-diagnosis</source>
-        <target>Diagnostico Medico cuando se dio de alta</target>
+        <target>Diagnostico de egreso</target>
         <jms:reference-file line="27">Form/IBD/OutcomeType.php</jms:reference-file>
         <jms:reference-file line="343">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="881adb5956f9bab1e8299d53b87a47af43066c64" resname="ibd-form.discharge-diagnosis-other">
         <source>ibd-form.discharge-diagnosis-other</source>
-        <target>Si el diagnostico dado cuando se dio de alta is "otra", por favor especifique</target>
+        <target>Si, diagnostico de egreso es otro, especifique</target>
         <jms:reference-file line="29">Form/IBD/OutcomeType.php</jms:reference-file>
         <jms:reference-file line="344">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="449eca1068df8c1eb5acfc2604630209c4806be8" resname="ibd-form.discharge-outcome">
         <source>ibd-form.discharge-outcome</source>
-        <target>Resultado del caso cuando se dio de alta</target>
+        <target>condicion de egreso</target>
         <jms:reference-file line="26">Form/IBD/OutcomeType.php</jms:reference-file>
         <jms:reference-file line="342">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
@@ -2447,13 +2447,13 @@
       </trans-unit>
       <trans-unit id="49d1ec463de133d2d2ecb102a8f7f16395fbb0a3" resname="ibd-form.hib-doses">
         <source>ibd-form.hib-doses</source>
-        <target>Si la respuesta es sí, indique el número de dosis de vacunas que contienen Hib</target>
+        <target>numero de dosis </target>
         <jms:reference-file line="78">Form/IBD/CaseType.php</jms:reference-file>
         <jms:reference-file line="84">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="35b71f69793e7ce665cc62c1b4f69665a9d20ee2" resname="ibd-form.hib-most-recent-dose">
         <source>ibd-form.hib-most-recent-dose</source>
-        <target>ibd-form.hib-most-recent-dose</target>
+        <target>fecha de la última dosis de Hib</target>
         <jms:reference-file line="82">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="889252566ba2c10b3e775d697365b8a8381a2597" resname="ibd-form.hib-received">
@@ -2469,7 +2469,7 @@
       </trans-unit>
       <trans-unit id="f74e6a891f81b39bd3022ad46a51937d90d20ad3" resname="ibd-form.isol-store">
         <source>ibd-form.isol-store</source>
-        <target>¿El laboratorio nacional del Sentinel local, conservó el resto de aislamiento?</target>
+        <target>¿El laboratorio conservó la cepa?</target>
         <jms:reference-file line="102">Form/IBD/SiteLabType.php</jms:reference-file>
         <jms:reference-file line="228">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
@@ -2539,18 +2539,18 @@
       </trans-unit>
       <trans-unit id="1d1c64818752598706df6d4e14dbe5b8c776ad5c" resname="ibd-form.men-type">
         <source>ibd-form.men-type</source>
-        <target>Si la respuesta es sí, seleccione el tipo de vacuna que recibió  contra el meningococo</target>
+        <target>Tipo de vacuna contra el meningococo</target>
         <jms:reference-file line="100">Form/IBD/CaseType.php</jms:reference-file>
         <jms:reference-file line="100">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="0209a43a47c9040d1b3548fe4ef3a438fec26cf3" resname="ibd-form.mening-received">
         <source>ibd-form.mening-received</source>
-        <target>¿Recibió la vacuna contra el meningococo?</target>
+        <target>¿Recibió  vacuna contra el meningococo?</target>
         <jms:reference-file line="96">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="e0e54ee64a1605a52d36f3f67073df73a735019f" resname="ibd-form.meningMostRecentDose">
         <source>ibd-form.meningMostRecentDose</source>
-        <target>Si la respuesta es sí, indique la fecha de la vacuna más reciente en contra el meningococo</target>
+        <target> fecha  ultima dosis de  vacuna  contra el meningococo</target>
         <jms:reference-file line="104">Form/IBD/CaseType.php</jms:reference-file>
         <jms:reference-file line="104">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
@@ -2611,12 +2611,12 @@
       </trans-unit>
       <trans-unit id="200fbe0f4392a0194affd6dada0367aa49ad8166" resname="ibd-form.otherSpecimenCollected">
         <source>ibd-form.otherSpecimenCollected</source>
-        <target>Otro espécimen coleccionado</target>
+        <target>se obtuvo liquido Pleural?</target>
         <jms:reference-file line="121">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="67cf1c3078f9ce891b406ec235255eeb5122a1ec" resname="ibd-form.otherSpecimenOther">
         <source>ibd-form.otherSpecimenOther</source>
-        <target>Otro espécimen - otro</target>
+        <target>Otro espécimen </target>
         <jms:reference-file line="122">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="a91a868a284701101932408cf82f74c98a512f1c" resname="ibd-form.parental-name">
@@ -2628,13 +2628,13 @@
       </trans-unit>
       <trans-unit id="e654aa73e9d5bf4f0bca9855f4733905bdd0fdb7" resname="ibd-form.pcv-doses">
         <source>ibd-form.pcv-doses</source>
-        <target>Si la respuesta es si, ¿ cuántas dosis de PCV?</target>
+        <target>Número de dosis de PCV?</target>
         <jms:reference-file line="87">Form/IBD/CaseType.php</jms:reference-file>
         <jms:reference-file line="92">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="29d00dea515e4b0b5e1edcd9dfd7116988414ace" resname="ibd-form.pcv-most-recent-dose">
         <source>ibd-form.pcv-most-recent-dose</source>
-        <target>La más reciente dosis de PCV</target>
+        <target>Última  dosis de PCV</target>
         <jms:reference-file line="94">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="edffc7b5bcbc1aae27611591b542bf92fc9def3e" resname="ibd-form.pcv-received">
@@ -2656,13 +2656,13 @@
       </trans-unit>
       <trans-unit id="cee97bdbcda81468703ffab178f32adf944044bc" resname="ibd-form.pneu-cough">
         <source>ibd-form.pneu-cough</source>
-        <target>¿Tenía tos?</target>
+        <target>¿tos?</target>
         <jms:reference-file line="147">Form/IBD/CaseType.php</jms:reference-file>
         <jms:reference-file line="175">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="371d8ce20eeca8a6d6b8a903b0e7305e7710103d" resname="ibd-form.pneu-cyanosis">
         <source>ibd-form.pneu-cyanosis</source>
-        <target>¿Se presentó con síntomas de cianosis central/coloración azul de la piel?</target>
+        <target>¿Cianosis ?</target>
         <jms:reference-file line="149">Form/IBD/CaseType.php</jms:reference-file>
         <jms:reference-file line="179">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
@@ -2674,12 +2674,12 @@
       </trans-unit>
       <trans-unit id="96fcdc48070a62f269a74895905465f02bd8664c" resname="ibd-form.pneu-hypothermia">
         <source>ibd-form.pneu-hypothermia</source>
-        <target><![CDATA[¿Se presentó con hipotermia (<36ºC)?]]></target>
+        <target><![CDATA[¿ hipotermia (<36ºC)?]]></target>
         <jms:reference-file line="156">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="92a7812093d74879b99c6e08a3f95d9578c8a24b" resname="ibd-form.pneu-malnutrition">
         <source>ibd-form.pneu-malnutrition</source>
-        <target>¿Se presentó con desnutrición severa?</target>
+        <target>¿desnutrición severa?</target>
         <jms:reference-file line="158">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e930cdcb6c60a2d60911bfae953ffb93ad05acaa" resname="ibd-form.pneu-oxygen-level">
@@ -2695,12 +2695,12 @@
       </trans-unit>
       <trans-unit id="ffbe7c62aaf100600d3814e89119ed21efd2db4b" resname="ibd-form.pneu-stridor">
         <source>ibd-form.pneu-stridor</source>
-        <target>¿Se presentó con estridor aún en estado de calma?</target>
+        <target>¿ Estridor?</target>
         <jms:reference-file line="151">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="9894592f6ab722886f3b1bc5f430d331b0091f0d" resname="ibd-form.pneu-vomit">
         <source>ibd-form.pneu-vomit</source>
-        <target>¿Se presentó vomitando todo?</target>
+        <target>¿Vómitos?</target>
         <jms:reference-file line="154">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="824fb0503c86c2f43cfb72ebc661b81a51aa307e" resname="ibd-form.site">
@@ -2720,7 +2720,7 @@
       </trans-unit>
       <trans-unit id="b906484ba1d128e05a45d71ec5a74cded6c4b8d3" resname="ibd-form.state">
         <source>ibd-form.state</source>
-        <target>Estado</target>
+        <target>Departamento / Provincia</target>
         <jms:reference-file line="55">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="71f1f4afb087a9789216f0ef7b49adbdf8019595" resname="ibd-rrl-form.bexA">
@@ -2730,7 +2730,7 @@
       </trans-unit>
       <trans-unit id="f084bc0e620fff925351a292995462e61b7d10d0" resname="ibd-rrl-form.comment">
         <source>ibd-rrl-form.comment</source>
-        <target>ibd-rrl-form.comment</target>
+        <target>Comentarios</target>
         <jms:reference-file line="58">Form/IBD/BaseLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e370d933ed03841f45bac3527ec3477fafc7cc6d" resname="ibd-rrl-form.ctrA">
@@ -2815,7 +2815,7 @@
       </trans-unit>
       <trans-unit id="d6fe0780dce1527df3ca7938556bb512e466249c" resname="ibd-rrl-form.sample-collection-date">
         <source>ibd-rrl-form.sample-collection-date</source>
-        <target>Recogida de muestras Fecha</target>
+        <target>fecha de recoleccion de la muestra</target>
         <jms:reference-file line="23">Form/IBD/BaseLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="9e530f08f9a9d01ac05a4ff86de08a2191847c48" resname="ibd-rrl-form.sample-type">
@@ -2869,7 +2869,7 @@
       </trans-unit>
       <trans-unit id="b61a460df5a5230752bd3907abd9b6cbb670f6d4" resname="ibd.dateReceived">
         <source>ibd.dateReceived</source>
-        <target></target>
+        <target>Fecha de  recepción</target>
         <jms:reference-file line="280">views/IBD/show.html.twig</jms:reference-file>
         <jms:reference-file line="314">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
@@ -2911,7 +2911,7 @@
       </trans-unit>
       <trans-unit id="d4714f4f356125d89d3d29c094f730b7a82fa414" resname="ibd.nmSerogroup">
         <source>ibd.nmSerogroup</source>
-        <target>Numero de resultados de serogrupos</target>
+        <target>Número de resultados de serogrupos</target>
         <jms:reference-file line="296">views/IBD/show.html.twig</jms:reference-file>
         <jms:reference-file line="330">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
@@ -3047,7 +3047,7 @@
       </trans-unit>
       <trans-unit id="a7a9a2039b03a8d5e569588adeae98caa145db3f" resname="menu.ibd">
         <source>menu.ibd</source>
-        <target>IBD</target>
+        <target>NMB</target>
         <jms:reference-file line="55">SentinelBundle/Menu/Builder.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="ce6399d3bacfea49ed276b16f403667a7886d5b7" resname="menu.import">
@@ -3161,7 +3161,7 @@
       </trans-unit>
       <trans-unit id="18a521a31e44f68188699fa2d9bef7b8dc001905" resname="rotavirus-form.doses">
         <source>rotavirus-form.doses</source>
-        <target>En caso afirmativo, especifique el número de dosis de vacuna contra el rotavirus</target>
+        <target>número de dosis de vacuna contra el rotavirus</target>
         <jms:reference-file line="62">Form/Rota/CaseType.php</jms:reference-file>
         <jms:reference-file line="76">views/RotaVirus/show.html.twig</jms:reference-file>
       </trans-unit>
@@ -3325,7 +3325,7 @@
       </trans-unit>
       <trans-unit id="3c00b6b0e793684bbb42fd8b24cd01e6ed62592e" resname="rotavirus-form.stored">
         <source>rotavirus-form.stored</source>
-        <target>Rotavirus guardado</target>
+        <target>Rotavirus almacenado</target>
         <jms:reference-file line="205">views/RotaVirus/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="e2433442af01ff86bd9ebdd2ef2fe6500a875ce3" resname="rotavirus-form.symptomDehydration">
@@ -3341,7 +3341,7 @@
       </trans-unit>
       <trans-unit id="387edb7f4d6393d323ba2bcd815a871fec3df82c" resname="rotavirus-form.symptomDiarrhea">
         <source>rotavirus-form.symptomDiarrhea</source>
-        <target>El caso tiene diarrea aguda?</target>
+        <target>diarrea aguda?</target>
         <jms:reference-file line="41">Form/Rota/CaseType.php</jms:reference-file>
         <jms:reference-file line="106">views/RotaVirus/show.html.twig</jms:reference-file>
       </trans-unit>

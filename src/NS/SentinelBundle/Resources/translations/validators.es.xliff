@@ -12,7 +12,7 @@
       </trans-unit>
       <trans-unit id="fe5b77135a52f12dc49ad323095141f1b72a1111" resname="Invalid value - value must be greater than 0">
         <source>Invalid value - value must be greater than 0</source>
-        <target state="new">Invalid value - value must be greater than 0</target>
+        <target>Valor inválido - valor debe ser mayor que 0</target>
       </trans-unit>
       <trans-unit id="600a7e5324636bfbfa540517fc506feccf4bd337" resname="Please provide a valid oxygen saturation level">
         <source>Please provide a valid oxygen saturation level</source>
@@ -20,7 +20,7 @@
       </trans-unit>
       <trans-unit id="28c1803981b5995e68f9e9fca3ac9f2b3329fa02" resname="Please provide a valid respiratory rate">
         <source>Please provide a valid respiratory rate</source>
-        <target state="new">Please provide a valid respiratory rate</target>
+        <target>Por favor ingresar un valor válido de la frecuencia respiratoria</target>
       </trans-unit>
       <trans-unit id="bc00364ca8f6d715fd7839e88a552c3ee641247f" resname="Please select a target to restrict this role to">
         <source>Please select a target to restrict this role to</source>
@@ -36,29 +36,29 @@
       </trans-unit>
       <trans-unit id="a29d6d5aa5131805e60ceac186b93963b5647b68" resname="The password fields must match.">
         <source>The password fields must match.</source>
-        <target>los contraseñas Deben coincidir</target>
+        <target>los contraseñas deben coincidir</target>
         <jms:reference-file line="89">SentinelBundle/Admin/UserAdmin.php</jms:reference-file>
         <jms:reference-file line="24">SentinelBundle/Form/UserType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="0aecaa75fde5ffe7bfdc1897d101ea48b7660160" resname="This field cannot be blank">
         <source>This field cannot be blank</source>
-        <target state="new">This field cannot be blank</target>
+        <target>  Esta variable no puede estar en blanco</target>
       </trans-unit>
       <trans-unit id="f4893b9d345e922a467b853b255dc32a0ade9e71" resname="You cannot have a negative white blood cell count">
         <source>You cannot have a negative white blood cell count</source>
-        <target state="new">You cannot have a negative white blood cell count</target>
+        <target>No puede tener un valor negativo - white blood cell count</target>
       </trans-unit>
       <trans-unit id="d7c86c070e8074cbf1a7710db0f2e543765d48c5" resname="Your password must be at least 6 characters">
         <source>Your password must be at least 6 characters</source>
-        <target state="new">Your password must be at least 6 characters</target>
+        <target> La contraseña debe tener al menos 6 caracteres</target>
       </trans-unit>
       <trans-unit id="6ec5ef144b9f2e30eb9289b4f439ab0bd8a453c4" resname="form.validation.admission-after-onset">
         <source>form.validation.admission-after-onset</source>
-        <target state="new">form.validation.admission-after-onset</target>
+        <target>form.validation.admission-after-onse    La fecha de inicio debe ser antes que la fecha de admisión </target>
       </trans-unit>
       <trans-unit id="f201efd9691822f928878aa1e2ec99044699eaf0" resname="form.validation.onset-after-dob">
         <source>form.validation.onset-after-dob</source>
-        <target state="new">form.validation.onset-after-dob</target>
+        <target>form.validation.onset-after-dob       Fecha de nacimiento debe ser antes que la fecha de inicio</target>
       </trans-unit>
     </body>
   </file>
