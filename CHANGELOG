@@ -3,6 +3,7 @@ VERSION 0  INITIAL RELEASE
 ==========================
 
    Version 0.9 - Updated Site,NL,RRL tables to use caseId as PK, Improved admin, case deletion and audit logging
+      13/01/2017 09:58  0.9.7  Added missing DB migration file
       14/12/2016 10:50  0.9.6  Various minor code updates and translations
       13/12/2016 15:42  0.9.5  Various updates/fixes
       26/05/2016 15:51  0.9.4  symfony-novice:  and let's say I use the denyAccessUnlessGranted()
