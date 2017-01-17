@@ -4,6 +4,7 @@ namespace NS\SentinelBundle\Form\IBD;
 
 use NS\AceBundle\Form\DatePickerType;
 use NS\SentinelBundle\Entity\Country;
+use NS\SentinelBundle\Entity\IBD;
 use NS\SentinelBundle\Entity\Site;
 use NS\SentinelBundle\Form\IBD\Types\CSFAppearance;
 use NS\SentinelBundle\Form\IBD\Types\CXRAdditionalResult;
@@ -102,7 +103,7 @@ class CaseType extends AbstractType
             ->add('bloodCollectTime',   TimeType::class, ['required' => $required, 'label' => 'ibd-form.blood-collect-time', 'hidden-parent' => 'bloodCollected', 'hidden-value' => TripleChoice::YES])
             ->add('csfCollected',       TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.csf-collected', 'hidden-child' => 'csfCollected','exclude_choices'=> ($isPaho ? [TripleChoice::UNKNOWN]:null)])
             ->add('csfCollectDate',     DatePickerType::class, ['required' => $required, 'label' => 'ibd-form.csf-collect-datetime', 'hidden-parent' => 'csfCollected', 'hidden-value' => TripleChoice::YES])
-            ->add('csfCollectTime',     'Symfony\Component\Form\Extension\Core\Type\TimeType', ['widget' => 'single_text', 'required' => $required, 'label' => 'ibd-form.csf-collect-datetime', 'hidden-parent' => 'csfCollected', 'hidden-value' => TripleChoice::YES])
+            ->add('csfCollectTime',     TimeType::class, ['widget' => 'single_text', 'required' => $required, 'label' => 'ibd-form.csf-collect-datetime', 'hidden-parent' => 'csfCollected', 'hidden-value' => TripleChoice::YES])
             ->add('csfAppearance',      CSFAppearance::class, ['required' => $required, 'label' => 'ibd-form.csf-appearance', 'hidden-parent' => 'csfCollected', 'hidden-value' => TripleChoice::YES])
             ->add('otherSpecimenCollected', OtherSpecimen::class, ['required' => $required, 'label' => 'ibd-form.otherSpecimenCollected', 'hidden-child' => 'otherSpecimenCollected'])
             ->add('otherSpecimenOther', null, ['required' => $required, 'label' => 'ibd-form.otherSpecimenOther', 'hidden-parent' => 'otherSpecimenCollected', 'hidden-value'  => OtherSpecimen::OTHER])
@@ -157,7 +158,7 @@ class CaseType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'NS\SentinelBundle\Entity\IBD',
+            'data_class' => IBD::class,
             'validation_groups' => $this->validatorResolver,
         ]);
     }

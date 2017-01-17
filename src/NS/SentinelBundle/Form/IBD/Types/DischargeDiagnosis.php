@@ -19,11 +19,11 @@ class DischargeDiagnosis extends TranslatableArrayChoice implements TranslationC
     const UNKNOWN                    = 99;
 
     protected $values = [
-                            self::BACTERIAL_MENINGITIS  => 'Bacterial meningitis',
-                            self::BACTERIAL_PNEUMONIA   => 'Bacterial pneumonia',
-                            self::SEPSIS                => 'Sepsis',
-                            self::MULTIPLE              => 'Multiple (i.e. Meningitis and/or Pneumonia and/or Sepsis)',
-                            self::OTHER                 => 'Other Diagnosis',
-                            self::UNKNOWN               => 'Unknown',
+        self::BACTERIAL_MENINGITIS => 'Bacterial meningitis',
+        self::BACTERIAL_PNEUMONIA => 'Bacterial pneumonia',
+        self::SEPSIS => 'Sepsis',
+        self::MULTIPLE => 'Multiple (i.e. Meningitis and/or Pneumonia and/or Sepsis)',
+        self::OTHER => 'Other Diagnosis',
+        self::UNKNOWN => 'Unknown',
     ];
 }

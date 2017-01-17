@@ -20,7 +20,7 @@
                 <div class="widget-body">
                     <div class="widget-toolbox padding-8">
                         <div class="collapse" id="importForm">
-                            <form method="POST" action="{{ path('importIndex') }}" {{ form_enctype(form) }} novalidate>
+                            <form method="POST" action="{{ path('importIndex') }}" enctype="multipart/form-data" novalidate>
 
                                 <div class="widget-main">
                                     <div class="row">

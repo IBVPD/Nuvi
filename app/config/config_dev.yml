@@ -24,8 +24,13 @@ monolog:
             type:  chromephp
             level: info
 
-assetic:
-    use_controller: true
-
 #swiftmailer:
 #    delivery_address: me@example.com
+
+hautelook_alice:
+  db_drivers:
+    orm: true
+    mongodb: false
+    phpcr: false
+  locale: en_US
+  seed: 4

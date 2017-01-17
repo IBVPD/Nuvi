@@ -17,9 +17,9 @@ class DischargeClassification  extends TranslatableArrayChoice implements Transl
     const UNKNOWN    = 99;
 
     protected $values = [
-                                self::CONFIRMED => 'Confirmed',
-                                self::DISCARDED => 'Discarded',
-                                self::INADEQUATE=> 'Inadequately Investigated',
-                                self::UNKNOWN   => 'Unknown',
+        self::CONFIRMED => 'Confirmed',
+        self::DISCARDED => 'Discarded',
+        self::INADEQUATE => 'Inadequately Investigated',
+        self::UNKNOWN   => 'Unknown',
     ];
 }

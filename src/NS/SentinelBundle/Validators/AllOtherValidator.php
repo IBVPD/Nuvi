@@ -23,9 +23,13 @@ class AllOtherValidator extends ConstraintValidator
         }
 
         $group = $this->context->getGroup();
+        $validator = $this->context->getValidator();
 
         foreach ($constraintInput->constraints as $constraint) {
-            $this->context->validateValue($value, $constraint, $constraint->field, $group);
+            $validator
+                ->inContext($this->context)
+                ->atPath($constraint->field)
+                ->validate($value, [$constraint], $group);
         }
     }
 }

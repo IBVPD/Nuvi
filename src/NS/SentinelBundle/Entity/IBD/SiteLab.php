@@ -82,7 +82,7 @@ class SiteLab extends BaseSiteLab
     private $csf_lab_time;
 
     /**
-     * @var string $csfId
+     * @var string $csf_id
      * @ORM\Column(name="csf_id",type="string",nullable=true)
      * @Groups({"api"})
      */

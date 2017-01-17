@@ -4,13 +4,13 @@ namespace NS\SentinelBundle\Admin;
 
 use NS\SentinelBundle\Form\IBD\Types\IntenseSupport;
 use NS\SentinelBundle\Form\Types\SurveillanceConducted;
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-class SiteAdmin extends Admin
+class SiteAdmin extends AbstractAdmin
 {
     /**
      * @param DatagridMapper $datagridMapper

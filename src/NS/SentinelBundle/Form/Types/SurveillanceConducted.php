@@ -15,8 +15,8 @@ class SurveillanceConducted extends ArrayChoice
     const BOTH = 3;
 
     protected $values = [
-                                self::IBD  => 'IBD',
-                                self::ROTA => 'Rota',
-                                self::BOTH => 'Both',
+        self::IBD => 'IBD',
+        self::ROTA => 'Rota',
+        self::BOTH => 'Both',
     ];
 }

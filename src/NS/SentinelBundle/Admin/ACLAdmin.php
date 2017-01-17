@@ -4,14 +4,14 @@ namespace NS\SentinelBundle\Admin;
 
 use NS\SecurityBundle\Form\Types\ACLAutoCompleterType;
 use NS\SentinelBundle\Form\Types\Role;
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class ACLAdmin extends Admin
+class ACLAdmin extends AbstractAdmin
 {
     /**
      * @param DatagridMapper $datagridMapper
@@ -52,12 +52,12 @@ class ACLAdmin extends Admin
                 'required' => false,
                 'multiple' => true,
                 'choices' => [
-                    'api' => 'Api Access',
-                    'import' => 'Import/Export Access',
-                    'case' => 'Can Create Case',
-                    'lab' => 'Can Create Site Lab',
-                    'nl' => 'Can Create NL',
-                    'rrl' => 'Can Create RRL']]
+                    'Api Access' => 'api',
+                    'Import/Export Access' => 'import',
+                    'Can Create Case' => 'case',
+                    'Can Create Site Lab' => 'lab',
+                    'Can Create NL' => 'nl',
+                    'Can Create RRL' => 'rrl']]
             )
             ->add('object_id', ACLAutoCompleterType::class, [
                                                         'label'               => 'Target',

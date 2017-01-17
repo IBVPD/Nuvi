@@ -1,0 +1,43 @@
+ISO3_Code,SentinelName,SentinelSiteID,PatientID/UniqueID,Patient_FName,Patient_LName,Sample_Collection_Date,Type_Sample_Recd,Dt_Sample_Recd,Isolate_viable,Isolate_Type,Method_used_pathogen_identify,Method_used_pathogen_identify_Other,Method_used_ST_SG,Method_used_ST_SG_Other,Final_rrl_result_detection,Spn_serotype,Hi_serotype,Nm_Serogroup,Dt_ST_Result_Sent_Country,Dt_ST_Result_Sent_WHO,Comments
+BOL,H S. BARBARA (BOL),BOL-23,1289,Sergio,Cuno Garnica,05/02/2015,3,11/02/2015,1,1,3,Cultivo,3,,1,1,,,,30/09/2015,
+BOL,H S. BARBARA (BOL),BOL-23,282019,Jhaneth ,Flores Uyuquipa,22/03/2015,3,,1,1,3,Cultivo,3,,1,19F,,,,30/09/2015,
+BOL,H S. BARBARA (BOL),BOL-23,30766,Jazmin,Cahuana Juchara,23/07/2015,5,10/08/2015,1,1,3,Cultivo,3,,1,6A,,,,30/09/2015,
+BOL,MARIO ORTIZ SC (BOL),BOL-63,12884,Adiel,Aguirre M‚ndez,09/03/2015,3,13/02/2015,1,1,3,Cultivo,3,,1,6A,,,,30/09/2015,
+BOL,MARIO ORTIZ SC (BOL),BOL-63,214471,Marta,Daza,08/04/2015,3,21/05/2015,1,1,3,Cultivo,3,,1,19C,,,,30/09/2015,
+HND,ESCUELA (HND),HND-12,264-0762,Angel David,C lix,,3,25/02/2014,1,1,3,Cultivo,3,,1,23F,,,06/03/2014,21/01/2015,
+HND,ESCUELA (HND),HND-12,264-1628,Daniel,Col¢n,12/02/2014,1,13/02/2014,2,1,3,Binax One,4,No serotipificado,1,,,,17/02/2015,21/01/2015,
+HND,ESCUELA (HND),HND-12,265-3607,Isaac A.,M‚ndez,24/04/2014,1,25/04/2014,1,1,3,Cultivo,3,,1,14,,,30/04/2014,21/01/2015,
+HND,IHSSTEGUCIGALP (HND),HND-17,1088864-184,Sof¡a ,Espinoza Garc¡a,,3,08/08/2014,2,1,3,L tex,4,No serotipificado ,1,,,,08/08/2014,29/06/2015,
+NIC,JRIVERA MASCOTA (NIC),NIC-61,245952,Carlos Josue,Obando,,2,11/11/2014,1,4,3,Cultivo,4,Aglutinaci¢n,5,,,,,28/11/2014,No meningitidis
+NIC,JRIVERA MASCOTA (NIC),NIC-61,287771,Lenin Antonio,Miranda,,2,03/10/2014,1,1,3,Cultivo,3,,1,Otro (especificar):,,,08/10/2014,30/10/2014,6*
+NIC,JRIVERA MASCOTA (NIC),NIC-61,334608,Brayan,Ortega Matamoros,,2,07/01/2014,1,2,3,Cultivo,3,,2,,a,,09/01/2014,31/01/2014,
+NIC,JRIVERA MASCOTA (NIC),NIC-61,337804,Nataly Paola,Caballero ,,2,29/08/2014,1,2,3,Cultivo,4,Aglutinaci¢n,2,,b,,02/09/2014,30/09/2014,
+NIC,JRIVERA MASCOTA (NIC),NIC-61,339115,BB Ligia,Largaespada Lopez,,2,11/12/2014,1,1,3,Cultivo,4,Aglutinaci¢n,1,,b,,18/12/2014,,
+NIC,JRIVERA MASCOTA (NIC),NIC-61,342231,Jaritza Jessenia ,Rivera,,2,15/08/2014,1,2,3,Cultivo,4,Aglutinaci¢n,2,,b,,26/08/2014,29/08/2014,
+NIC,JRIVERA MASCOTA (NIC),NIC-61,343184,Arlen ,¥urinda Avenda¤o,,2,09/09/2014,1,1,3,Cultivo,3,,1,Otro (especificar):,,,12/09/2014,30/09/2014,G
+NIC,JRIVERA MASCOTA (NIC),NIC-61,344785,Genesis ,Gago Loaisiga,,2,16/10/2014,1,2,3,Cultivo,4,Aglutinaci¢n,2,,Other (specify):,,,30/10/2014,NST
+NIC,JRIVERA MASCOTA (NIC),NIC-61,347170,Leonardo Alexander,Perez Flores,,2,26/12/2014,1,2,3,Cultivo,3,,2,Otro (especificar):,,,19/01/2015,,6*
+NIC,JRIVERA MASCOTA (NIC),NIC-61,573119,Evangelina,Manzanarez Moreira,07/08/2014,1,07/08/2014,1,1,3,Cultivo,3,,1,14,,,12/08/2014,29/08/2014,
+PRY,HGP (PRY),PRY-14,123762,MEL BIANCA,NOGUERA AVALOS,18/06/2016,2,21/06/2016,1,1,3,Cultivo microbiol¢gico,1,,spn,23B,,,26/06/2016,,
+PRY,HGP (PRY),PRY-14,6407,ROSARIO VALENTINA,GOMEZ IBARRA,11/05/2016,5,13/05/2016,2,1,2,,,,spn,No procesado,,,14/05/2016,,
+PRY,HGP (PRY),PRY-14,6441,LORENZO FERMIN,VALENZUELA MELGAREJO,10/01/2016,5,13/01/2016,2,1,2,,2,,spn,3,,,14/01/2016,,
+PRY,HGP (PRY),PRY-14,6648,MARCOS,KELLER,12/04/2016,5,18/04/2016,2,1,2,,2,,spn,nontypeable by real-time PCR (,,,20/04/2016,,
+PRY,HGP (PRY),PRY-14,6650,JESUS,CHENA,07/04/2016,2,11/04/2016,1,2,3,Cultivo microbiol¢gico,1,,Hi,,Non-typeable (NT) by PCR (nega,,13/04/2016,,
+PRY,HGP (PRY),PRY-14,6652,YORK,FIGUEREDO,15/04/2016,2,18/04/2016,1,1,3,Cultivo microbiol¢gico,1,,spn,14,,,23/04/2016,,
+PRY,HGP (PRY),PRY-14,6692,EDUARDO,SOSA,20/04/2016,2,02/05/2016,1,1,3,Cultivo microbiol¢gico,1,,spn,8,,,07/05/2016,,
+PRY,HGP (PRY),PRY-14,6733,MATIAS JOSUE,CANDIA MARTINEZ,20/06/2016,5,23/06/2016,2,1,2,,,,spn,No procesado,,,24/06/2016,,
+PRY,HGP (PRY),PRY-14,6792,AXEL  ,AGUILAR,14/05/2016,2,18/05/2016,1,1,3,Cultivo microbiol¢gico,1,,spn,3,,,23/06/2016,,
+PRY,HGP (PRY),PRY-14,7185,MARA AILEN,SANCHEZ,29/06/2016,2,04/07/2016,1,2,3,Cultivo microbiol¢gico,1,,Hi,,Non-typeable (NT) by PCR (nega,,07/07/2016,,
+PRY,HNI (PRY),PRY-21,1505031,LUANA,PERALTA,10/04/2016,2,18/04/2016,1,2,3,Cultivo microbiol¢gico,1,,Hi,,Non-typeable (NT) by PCR (nega,,21/04/2016,,
+PRY,HNI (PRY),PRY-21,6383,SHARON,QUI¥ONEZ,16/05/2016,2,20/05/2016,1,1,3,Cultivo microbiol¢gico,1,,spn,19A,,,26/05/2016,,
+PRY,HNI (PRY),PRY-21,6702,CAMILA,LIMA BENITEZ,05/06/2016,5,07/06/2016,2,1,2,,,,spn,No procesado,,,08/06/2016,,
+PRY,HNI (PRY),PRY-21,6702,SAMIRA SIOMARA,MENDEZ ARIAS,17/06/2016,5,23/06/2016,2,1,2,,,,spn,No procesado,,,22/06/2016,,
+PRY,IPS (PRY),PRY-20,6203,LUIS FERNANDO,JARA,19/04/2016,5,21/04/2016,2,1,2,,,,spn,No procesado,,,22/04/2016,,
+PRY,IPS (PRY),PRY-20,6224,FIORELLA ARAMI,FLEITAS CORONEL,27/04/2016,5,29/04/2016,2,1,2,,,,spn,No procesado,,,30/04/2016,,
+PRY,IPS (PRY),PRY-20,6383,ZOE MILAGROS,NU¥EZ TORRES,30/05/2016,5,31/05/2016,2,1,2,,,,spn,No procesado,,,31/05/2016,,
+PRY,IPS (PRY),PRY-20,6407,BRENDA SOFIA,AGUILERA ACOSTA,03/06/2016,5,16/06/2016,2,1,2,,,,spn,No procesado,,,17/06/2016,,
+PRY,IPS (PRY),PRY-20,6558,THAIS ,LEON NOCEDO,16/06/2016,5,17/06/2016,2,1,2,,,,spn,No procesado,,,18/06/2016,,
+PRY,IPS (PRY),PRY-20,6702,ROBERTO NICOLAS,BRIZUE¥A AREVALOS,27/06/2016,5,27/06/2016,2,1,2,,,,spn,No procesado,,,28/06/2016,,
+PRY,IPS (PRY),PRY-20,6733,AXEL GAEL,VERON VILLAMAYOR,28/06/2016,5,28/06/2016,2,1,2,,,,spn,No procesado,,,29/06/2016,,
+SLV,SJDSA (SLV),SLV-33,18580-13,,,,1,25/07/2016,1,2,3,MANUAL,4,,,15A,,,28/07/2015,,paciente edad 62 a¤os
+SLV,SJDSA (SLV),SLV-33,31379-16,,,,1,27/06/2016,1,1,3,MANUAL,3,,,10A,,,30/06/2015,,paciente edad 4 a¤os

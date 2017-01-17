@@ -3,14 +3,14 @@
 namespace NS\SentinelBundle\Admin;
 
 use NS\SentinelBundle\Form\Types\SurveillanceConducted;
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class ReferenceLabAdmin extends Admin
+class ReferenceLabAdmin extends AbstractAdmin
 {
     /**
      * @param DatagridMapper $datagridMapper

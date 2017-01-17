@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Form\IBD;
 
+use NS\SentinelBundle\Entity\IBD\NationalLab;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,7 +14,7 @@ class NationalLabType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'NS\SentinelBundle\Entity\IBD\NationalLab'
+            'data_class' => NationalLab::class
         ]);
     }
 

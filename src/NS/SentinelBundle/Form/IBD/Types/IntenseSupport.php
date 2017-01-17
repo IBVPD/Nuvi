@@ -15,8 +15,8 @@ class IntenseSupport extends ArrayChoice
     const NO_MONITORED = 2;
 
     protected $values = [
-                                self::NO            => 'No',
-                                self::NO_MONITORED  => 'No (But monitored by WHO)',
-                                self::YES           => 'Yes'
+        self::NO => 'No',
+        self::NO_MONITORED => 'No (But monitored by WHO)',
+        self::YES => 'Yes'
     ];
 }

@@ -3,7 +3,7 @@ services:
     class: NS\ImportBundle\Admin\MapAdmin
     arguments: [~, NS\ImportBundle\Entity\Map, NSImportBundle:MapAdmin ]
     calls:
-      - [ setMapBuilder, [ @ns_import.services.map_builder ]]
+      - [ setMapBuilder, [ "@ns_import.services.map_builder" ]]
     tags:
       - { name: sonata.admin, manager_type: orm, group: Import, label: Map }
 

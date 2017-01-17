@@ -18,10 +18,10 @@ class DischargeOutcome extends TranslatableArrayChoice implements TranslationCon
     const UNKNOWN              = 99;
 
     protected $values = [
-                                self::DISCHARGED_ALIVE      => 'Discharged alive',
-                                self::DIED                  => 'Died',
-                                self::TRANSFERRED           => 'Transferred',
-                                self::LEFT_AGAINST_ADVICE   => 'Left/Discharged against medical advice',
-                                self::UNKNOWN               => 'Unknown',
+        self::DISCHARGED_ALIVE      => 'Discharged alive',
+        self::DIED                  => 'Died',
+        self::TRANSFERRED           => 'Transferred',
+        self::LEFT_AGAINST_ADVICE   => 'Left/Discharged against medical advice',
+        self::UNKNOWN               => 'Unknown',
     ];
 }

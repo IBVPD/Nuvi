@@ -16,9 +16,9 @@ class OtherSpecimen extends TranslatableArrayChoice
     const OTHER   = 3;
 
     protected $values = [
-                                self::NONE    => 'None',
-                                self::PLEURAL => 'Pleural',
-                                self::JOINT   => 'Joint',
-                                self::OTHER   => 'Other',
+        self::NONE => 'None',
+        self::PLEURAL => 'Pleural',
+        self::JOINT => 'Joint',
+        self::OTHER => 'Other',
     ];
 }

@@ -52,7 +52,7 @@ class Registry extends AbstractType
 
         $resolver->setDefaults([
             'placeholder' => 'Please Select...',
-            'choices'     => $this->values,
+            'choices'     => array_flip($this->values),
         ]);
     }
 

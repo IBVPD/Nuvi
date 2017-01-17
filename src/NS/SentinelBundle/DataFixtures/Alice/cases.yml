@@ -34,10 +34,11 @@ NS\SentinelBundle\Entity\IBD:
     csfCollectDate: <dateTimeBetween($admDate,'now')>
     csfCollectTime: <dateTimeBetween($admDate,'now')>
     csfAppearance: <csfAppearance($csfCollected)>
-    site: @site0
+    site: "@site0"
   ibdNoSites{0..10}:
     caseId: <bothify('NoSite-##??##')>
-    country: @country0
+    admDate: <dateTimeBetween('2016-01-01', '2016-12-05')>
+    country: "@country0"
   ibd{0..500}:
     caseId: <numberBetween(500, 20000000)>
     birthdate: <dateTimeBetween('-1825 days', 'now')>
@@ -74,21 +75,21 @@ NS\SentinelBundle\Entity\IBD:
     admDx: 75%? <ibdDiagnosis()>
     dischDx: 77%? <ibdDischargeDiagnosis()>
     dischOutcome: 91%? <ibdDischargeOutcome()>
-    site: @site*
+    site: "@site*"
 
 NS\SentinelBundle\Entity\IBD\SiteLab:
   ibdSiteLabNoSite{3..10}:
-    caseFile: @ibdNoSites<current()>
-    csfId: <bothify('CSF##?#?')>
+    caseFile: "@ibdNoSites<current()>"
+    CsfId: <bothify('CSF##?#?')>
 
 NS\SentinelBundle\Entity\IBD\NationalLab:
-  ibdSiteLabNoSite{0..5}:
-    caseFile: @ibdNoSites<current()>
+  ibdNationalLabNoSite{0..5}:
+    caseFile: "@ibdNoSites<current()>"
     sampleCollectionDate: <dateTimeBetween('2015-01-01', '2015-01-05')>
 
 NS\SentinelBundle\Entity\IBD\ReferenceLab:
   ibdRrlNoSite{0..10}:
-    caseFile: @ibdNoSites<current()>
+    caseFile: "@ibdNoSites<current()>"
     sampleCollectionDate: <dateTimeBetween('2015-01-01', '2015-01-05')>
 
 NS\SentinelBundle\Entity\RotaVirus:
@@ -97,10 +98,11 @@ NS\SentinelBundle\Entity\RotaVirus:
     birthdate: <dateTimeBetween('2014-01-01', '2014-12-25')>
     gender: <gender()>
     admDate: <dateTimeBetween('2015-01-01', '2015-01-05')>
-    site: @site0
+    site: "@site0"
   rotaNoSites{0..10}:
     caseId: <bothify('NoSite-##??##')>
-    country: @country0
+    admDate: <dateTimeBetween('2015-01-01', '2015-12-05')>
+    country: "@country0"
   rota{0..500}:
     caseId: <numberBetween(500,90000000)>
     birthdate: <dateTimeBetween('-1825 days', 'now')>
@@ -110,9 +112,9 @@ NS\SentinelBundle\Entity\RotaVirus:
     dischargeDate: 67%? <dateTimeBetween($admDate,'now')>
     dischargeOutcome: 50%? <rotaDischargeOutcome()>
     gender: <gender()>
-    site: @site*
+    site: "@site*"
 
 NS\SentinelBundle\Entity\RotaVirus\ReferenceLab:
   rotaRrlNoSite{0..10}:
-    caseFile: @rotaNoSites<current()>
+    caseFile: "@rotaNoSites<current()>"
     specimenCollectionDate: <dateTimeBetween('2015-01-01', '2015-01-05')>

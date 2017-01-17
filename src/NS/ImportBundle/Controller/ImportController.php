@@ -34,7 +34,7 @@ class ImportController extends Controller
         $form      = $this->createForm(ImportSelectType::class, null, ['user' => $entityMgr->getReference('NS\SentinelBundle\Entity\User', $this->getUser()->getId())]);
 
         $form->handleRequest($request);
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $queue = $this->get('ns_import.workqueue');
             $ret = $queue->submit($form->getData());
             if ($ret === true) {

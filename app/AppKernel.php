@@ -19,7 +19,6 @@ class AppKernel extends Kernel
             new Symfony\Bundle\TwigBundle\TwigBundle(),
             new Symfony\Bundle\MonologBundle\MonologBundle(),
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
-            new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new JMS\AopBundle\JMSAopBundle(),
@@ -49,7 +48,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
 
-            new PunkAve\FileUploaderBundle\PunkAveFileUploaderBundle(),
+//            new PunkAve\FileUploaderBundle\PunkAveFileUploaderBundle(),
             new Lexik\Bundle\FormFilterBundle\LexikFormFilterBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Lunetics\LocaleBundle\LuneticsLocaleBundle(),
@@ -72,7 +71,7 @@ class AppKernel extends Kernel
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
             $bundles[] = new Liip\FunctionalTestBundle\LiipFunctionalTestBundle();
-            $bundles[] = new h4cc\AliceFixturesBundle\h4ccAliceFixturesBundle();
+            $bundles[] = new Hautelook\AliceBundle\HautelookAliceBundle();
         }
 
         return $bundles;

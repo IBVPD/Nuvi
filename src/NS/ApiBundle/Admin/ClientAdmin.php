@@ -5,6 +5,7 @@ namespace NS\ApiBundle\Admin;
 use Doctrine\ORM\EntityRepository;
 use NS\AceBundle\Form\TagType;
 use NS\ApiBundle\Form\Types\OAuthGrantTypes;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -16,7 +17,7 @@ use NS\SentinelBundle\Form\Types\Role;
  *
  * @author gnat
  */
-class ClientAdmin extends Admin
+class ClientAdmin extends AbstractAdmin
 {
     /**
      * @param FormMapper $formMapper

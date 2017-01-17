@@ -61,12 +61,12 @@ class CaseCreationType extends TranslatableArrayChoice implements TranslationCon
         }
 
         $resolver->setDefaults([
-            'choices'     => $this->values,
+            'choices'     => array_flip($this->values),
             'placeholder' => 'Please Select...',
         ]);
 
         $resolver->setDefined(['special_values']);
-        $resolver->addAllowedTypes(['special_values'=>'array']);
+        $resolver->addAllowedTypes('special_values','array');
     }
 
     /**

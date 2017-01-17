@@ -5,4 +5,4 @@ NS\ApiBundle\Entity\Client:
         name: Api Test Client
         redirectUris: [ http://localhost/authorize ]
         allowedGrantTypes: [ OAuth2::GRANT_TYPE_CLIENT_CREDENTIALS ]
-        user: @ca-user6
+        user: "@ca-user6"

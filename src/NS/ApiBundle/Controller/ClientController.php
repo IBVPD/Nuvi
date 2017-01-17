@@ -52,7 +52,7 @@ class ClientController extends Controller
     {
         $form = $this->createForm(ClientType::class);
         $form->handleRequest($request);
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityMgr     = $this->get('doctrine.orm.entity_manager');
             $client = $form->getData();
             $client->setUser($entityMgr->getReference('NSSentinelBundle:User', $this->getUser()->getId()));
@@ -85,7 +85,7 @@ class ClientController extends Controller
                      ->getSingleResult();
         $form = $this->createForm(ClientType::class, $client);
         $form->handleRequest($request);
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $client = $form->getData();
             $entityMgr->persist($client);
             $entityMgr->flush();
@@ -134,7 +134,7 @@ class ClientController extends Controller
     {
         $form = $this->createForm(RemoteType::class);
         $form->handleRequest($request);
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityMgr     = $this->get('doctrine.orm.entity_manager');
             $client = $form->getData();
             $client->setUser($entityMgr->getReference('NSSentinelBundle:User', $this->getUser()->getId()));
@@ -166,7 +166,7 @@ class ClientController extends Controller
 
         $form = $this->createForm(RemoteType::class, $remote);
         $form->handleRequest($request);
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $client = $form->getData();
             $client->setUser($entityMgr->getReference('NSSentinelBundle:User', $this->getUser()->getId()));
             $entityMgr->persist($client);

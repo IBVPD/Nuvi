@@ -31,7 +31,7 @@ class ClassType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'choices'     => $this->choices,
+            'choices'     => array_flip($this->choices),
             'placeholder' => ' '
         ]);
     }

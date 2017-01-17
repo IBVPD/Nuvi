@@ -4,13 +4,11 @@ namespace NS\ImportBundle\Controller;
 
 use Doctrine\ORM\QueryBuilder;
 use Exporter\Source\DoctrineORMQuerySourceIterator;
-use NS\SentinelBundle\Entity\IBD;
-use NS\SentinelBundle\Entity\RotaVirus;
 use NS\SentinelBundle\Filter\Type\IBD\ReportFilterType as IBDReportFilterType;
 use NS\SentinelBundle\Filter\Type\RotaVirus\ReportFilterType as RotaVirusReportFilterType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sonata\CoreBundle\Exporter\Exporter;
+use Exporter\Exporter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,7 +47,7 @@ class ExportController extends Controller
     {
         $ibdForm = $this->createForm(IBDReportFilterType::class, null, $this->formParams);
         $ibdForm->handleRequest($request);
-        if ($ibdForm->isValid()) {
+        if ($ibdForm->isSubmitted() && $ibdForm->isValid()) {
             $modelManager = $this->get('doctrine.orm.entity_manager');
             $fields = $this->baseField;
             $meta = [
@@ -77,7 +75,7 @@ class ExportController extends Controller
     {
         $rotaForm = $this->createForm(RotaVirusReportFilterType::class, null, $this->formParams);
         $rotaForm->handleRequest($request);
-        if ($rotaForm->isValid()) {
+        if ($rotaForm->isSubmitted() && $rotaForm->isValid()) {
             $modelManager = $this->get('doctrine.orm.entity_manager');
             $fields = $this->baseField;
             $meta = [

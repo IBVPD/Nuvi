@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Filter\Type\RotaVirus;
 
+use NS\SentinelBundle\Filter\Entity\RotaVirus;
 use NS\SentinelBundle\Filter\Type\BaseReportFilterType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,7 +19,9 @@ class ReportFilterType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(['data_class' => 'NS\SentinelBundle\Filter\Entity\RotaVirus']);
+        $resolver->setDefaults([
+            'data_class' => RotaVirus::class
+        ]);
     }
 
     /**

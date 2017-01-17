@@ -3,111 +3,111 @@
 NS\SentinelBundle\Entity\ACL:
     naregion:
         type: <regionRole()>
-        objectId: @region0->id
-        user: @user1
+        objectId: "@region0->id"
+        user: "@user1"
     albertaAcl:
         type: <siteRole()>
-        objectId: @site0->id
-        user: @multiuser
+        objectId: "@site0->id"
+        user: "@multiuser"
     torontoAcl:
         type: <siteRole()>
-        objectId: @site1->id
-        user: @multiuser
+        objectId: "@site1->id"
+        user: "@multiuser"
     countryAcl{0..6}:
         type: <countryRole()>
-        objectId: @country0->id
-        user: @ca-user<current()>
+        objectId: "@country0->id"
+        user: "@ca-user<current()>"
     albertaAcl1:
         type: <siteRole()>
-        objectId: @site0->id
-        user: @sUser0
+        objectId: "@site0->id"
+        user: "@sUser0"
     seattleAcl0:
         type: <siteRole()>
-        objectId: @site3->id
-        user: @sUser0
+        objectId: "@site3->id"
+        user: "@sUser0"
     shrinerAcl:
         type: <siteRole()>
-        objectId: @site2->id
-        user: @sUser0
+        objectId: "@site2->id"
+        user: "@sUser0"
     torontoAcl1:
         type: <siteRole()>
-        objectId: @site1->id
-        user: @sUser0
+        objectId: "@site1->id"
+        user: "@sUser0"
     mexicoAcl:
         type: <siteRole()>
-        objectId: @site4->id
-        user: @sUser0
+        objectId: "@site4->id"
+        user: "@sUser0"
     albertaAcl1:
         type: <siteRole()>
-        objectId: @site0->id
-        user: @sUser0
+        objectId: "@site0->id"
+        user: "@sUser0"
     canadaCountryAcl0:
         type: <countryApiRole()>
-        objectId: @country0->id
-        user: @ca-user6
+        objectId: "@country0->id"
+        user: "@ca-user6"
     canadaCountryAcl1:
         type: <countryApiRole()>
-        objectId: @country0->id
-        user: @ca-user5
+        objectId: "@country0->id"
+        user: "@ca-user5"
     canadaCountryAcl2:
         type: <countryExportRole()>
-        objectId: @country0->id
-        user: @ca-user5
+        objectId: "@country0->id"
+        user: "@ca-user5"
         options: [ 'rrl','nl','case', 'lab' ]
     ca-user1Acl:
         type: <countryRole()>
-        objectId: @country0->id
-        user: @ca-user1
+        objectId: "@country0->id"
+        user: "@ca-user1"
         options: [ 'case' ]
     ca-user2Acl:
         type: <countryRole()>
-        objectId: @country0->id
-        user: @ca-user2
+        objectId: "@country0->id"
+        user: "@ca-user2"
         options: [ 'case', 'lab' ]
     ca-user3Acl:
         type: <countryRole()>
-        objectId: @country0->id
-        user: @ca-user3
+        objectId: "@country0->id"
+        user: "@ca-user3"
         options: [ 'case', 'lab', 'rrl' ]
     ca-user4Acl:
         type: <countryRole()>
-        objectId: @country0->id
-        user: @ca-user4
+        objectId: "@country0->id"
+        user: "@ca-user4"
         options: [ 'case', 'lab', 'nl' ]
     ca-user5Acl:
         type: <countryRole()>
-        objectId: @country0->id
-        user: @ca-user5
+        objectId: "@country0->id"
+        user: "@ca-user5"
         options: [ 'case', 'lab', 'nl', 'rrl' ]
     sUser0Acl:
         type: <siteRole()>
-        objectId: @site0->id
-        user: @sUser0
+        objectId: "@site0->id"
+        user: "@sUser0"
         options: [  ]
     sUser1Acl:
         type: <siteRole()>
-        objectId: @site3->id
-        user: @sUser1
+        objectId: "@site3->id"
+        user: "@sUser1"
         options: [  ]
     sUser2Acl:
         type: <siteRole()>
-        objectId: @site2->id
-        user: @sUser2
+        objectId: "@site2->id"
+        user: "@sUser2"
         options: [ 'case', 'lab' ]
     sUser3Acl:
         type: <siteRole()>
-        objectId: @site1->id
-        user: @sUser3
+        objectId: "@site1->id"
+        user: "@sUser3"
         options: [  ]
     sUser4Acl:
         type: <siteRole()>
-        objectId: @site4->id
-        user: @sUser4
+        objectId: "@site4->id"
+        user: "@sUser4"
         options: [ ]
     nsUserAcl:
         type: <countryRole()>
-        objectId: @country1->id
-        user: @us-user
+        objectId: "@country1->id"
+        user: "@us-user"
         options: [ ]
 
 NS\SentinelBundle\Entity\User:
@@ -153,25 +153,25 @@ NS\SentinelBundle\Entity\User:
         email: ca-crrl@noblet.ca
         active: true
         plainPassword: 1234567-ca
-        referenceLab: @lab1
+        referenceLab: "@lab1"
     ca-user4:
         name: CA NL User
         email: ca-cnl@noblet.ca
         active: true
         plainPassword: 1234567-ca
-        referenceLab: @lab1
+        referenceLab: "@lab1"
     ca-user5:
         name: CA Full User
         email: ca-full@noblet.ca
         active: true
         plainPassword: 1234567-ca
-        referenceLab: @lab1
+        referenceLab: "@lab1"
     ca-user6:
         name: CA Api User
         email: ca-api@noblet.ca
         active: true
         plainPassword: 1234567-ca
-        referenceLab: @lab1
+        referenceLab: "@lab1"
     sUser0:
         name: Alberta Site User
         email: site-alberta@noblet.ca

@@ -4,6 +4,7 @@ namespace NS\SentinelBundle\Form\IBD;
 
 use NS\AceBundle\Form\DatePickerType;
 use NS\AceBundle\Form\SwitchType;
+use NS\SentinelBundle\Entity\IBD\SiteLab;
 use NS\SentinelBundle\Form\IBD\Types\BinaxResult;
 use NS\SentinelBundle\Form\IBD\Types\LatResult;
 use Symfony\Component\Form\AbstractType;
@@ -145,7 +146,7 @@ class SiteLabType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'NS\SentinelBundle\Entity\IBD\SiteLab'
+            'data_class' => SiteLab::class,
         ]);
     }
 }

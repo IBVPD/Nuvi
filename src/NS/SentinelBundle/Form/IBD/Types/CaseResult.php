@@ -17,9 +17,9 @@ class CaseResult extends TranslatableArrayChoice implements TranslationContainer
     const CONFIRMED = 3;
 
     protected $values = [
-                                self::UNKNOWN   => 'Unknown',
-                                self::SUSPECTED => 'Suspected',
-                                self::PROBABLE  => 'Probable',
-                                self::CONFIRMED => 'Confirmed',
+        self::UNKNOWN => 'Unknown',
+        self::SUSPECTED => 'Suspected',
+        self::PROBABLE => 'Probable',
+        self::CONFIRMED => 'Confirmed',
     ];
 }

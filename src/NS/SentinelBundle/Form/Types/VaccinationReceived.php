@@ -17,9 +17,9 @@ class VaccinationReceived extends TranslatableArrayChoice implements Translation
     const UNKNOWN     = 99;
 
     protected $values = [
-                                self::NO            => 'No',
-                                self::YES_HISTORY   => 'Yes-By-History',
-                                self::YES_CARD      => 'Yes-By-Card',
-                                self::UNKNOWN       => 'Unknown',
+        self::NO => 'No',
+        self::YES_HISTORY => 'Yes-By-History',
+        self::YES_CARD => 'Yes-By-Card',
+        self::UNKNOWN => 'Unknown',
     ];
 }

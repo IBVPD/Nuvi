@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Filter\Type\RotaVirus;
 
+use NS\SentinelBundle\Filter\Entity\RotaVirus;
 use NS\SentinelBundle\Filter\Type\BaseFilterType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,7 +19,7 @@ class FilterType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class'      => 'NS\SentinelBundle\Filter\Entity\RotaVirus',
+            'data_class'      => RotaVirus::class,
             'csrf_protection' => false,
         ]);
     }

@@ -5,6 +5,7 @@ namespace NS\ImportBundle\Form;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityRepository;
 use NS\AceBundle\Form\DatePickerType;
+use NS\ImportBundle\Entity\Import;
 use NS\ImportBundle\Services\ImportFileCreator;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -14,7 +15,6 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use NS\ImportBundle\Entity\Import;
 use Vich\UploaderBundle\Form\Type\VichFileType;
 
 /**
@@ -54,7 +54,7 @@ class ImportSelectType extends AbstractType
                 'class'         => 'NSImportBundle:Map',
                 'placeholder'   => 'Please Select...',
                 'query_builder' => $this->entityMgr->getRepository('NSImportBundle:Map')->getWithColumnsQuery(),
-                'property' => 'selectName',
+                'property_path' => 'selectName',
             ]
             )
             ->add('referenceLab', EntityType::class, [
@@ -94,7 +94,7 @@ class ImportSelectType extends AbstractType
     {
         $resolver->setRequired('user');
         $resolver->setDefaults([
-            'data_class' => 'NS\ImportBundle\Entity\Import',
+            'data_class' => Import::class,
             'empty_data' => function (Options $options) {
                 return function () use ($options) {
                     return new Import($options['user']);

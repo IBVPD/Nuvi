@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Filter\Type\IBD;
 
+use NS\SentinelBundle\Filter\Entity\IBD;
 use NS\SentinelBundle\Filter\Type\BaseFilterType;
 use NS\SentinelBundle\Form\Types\CaseStatus;
 use Symfony\Component\Form\AbstractType;
@@ -30,7 +31,7 @@ class FilterType extends AbstractType implements EmbeddedFilterTypeInterface
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'NS\SentinelBundle\Filter\Entity\IBD',
+            'data_class' => IBD::class,
             'csrf_protection' => false,
         ]);
     }

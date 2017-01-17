@@ -101,7 +101,7 @@ class CaseController extends FOSRestController
     {
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityMgr->persist($form->getData());
             $entityMgr->flush();
 
@@ -162,7 +162,7 @@ class CaseController extends FOSRestController
             $form = $this->createForm($formName);
             $form->handleRequest($request);
 
-            if (!$form->isValid()) {
+            if ($form->isSubmitted() && !$form->isValid()) {
                 return $this->view($form, Codes::HTTP_BAD_REQUEST);
             }
 

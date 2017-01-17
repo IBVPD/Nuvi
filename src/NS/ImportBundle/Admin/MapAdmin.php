@@ -4,7 +4,7 @@ namespace NS\ImportBundle\Admin;
 
 use NS\ImportBundle\Form\ClassType;
 use NS\ImportBundle\Services\MapBuilder;
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
@@ -17,7 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 /**
  * MapAdmin class
  */
-class MapAdmin extends Admin
+class MapAdmin extends AbstractAdmin
 {
     private $mapBuilder;
 

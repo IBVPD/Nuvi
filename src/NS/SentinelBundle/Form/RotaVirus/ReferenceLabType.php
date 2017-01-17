@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Form\RotaVirus;
 
+use NS\SentinelBundle\Entity\RotaVirus\ReferenceLab;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,7 +14,7 @@ class ReferenceLabType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'NS\SentinelBundle\Entity\RotaVirus\ReferenceLab'
+            'data_class' => ReferenceLab::class,
         ]);
     }
 

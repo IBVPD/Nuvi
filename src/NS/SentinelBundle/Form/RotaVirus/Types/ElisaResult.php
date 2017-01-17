@@ -17,9 +17,9 @@ class ElisaResult extends TranslatableArrayChoice implements TranslationContaine
     const UNKNOWN = 99;
 
     protected $values = [
-                                self::NEGATIVE => 'Negative',
-                                self::POSITIVE => 'Positive',
-                                self::INDETERMINATE => 'Indeterminate',
-                                self::UNKNOWN => 'Unknown',
+        self::NEGATIVE => 'Negative',
+        self::POSITIVE => 'Positive',
+        self::INDETERMINATE => 'Indeterminate',
+        self::UNKNOWN => 'Unknown',
     ];
 }

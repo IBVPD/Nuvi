@@ -17,9 +17,9 @@ class SerotypeIdentifier extends TranslatableArrayChoice implements TranslationC
     const OTHER        = 4;
 
     protected $values = [
-                                self::CONVENTIONAL => 'Conventional multiplex PCR',
-                                self::REALTIME     => 'Realtime multiplex PCR',
-                                self::QUELLUNG     => 'Quellung',
-                                self::OTHER        => 'Other',
+        self::CONVENTIONAL => 'Conventional multiplex PCR',
+        self::REALTIME => 'Realtime multiplex PCR',
+        self::QUELLUNG => 'Quellung',
+        self::OTHER => 'Other',
     ];
 }

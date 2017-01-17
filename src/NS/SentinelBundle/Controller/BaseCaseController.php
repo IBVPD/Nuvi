@@ -8,6 +8,7 @@ use NS\FilteredPaginationBundle\Form\Type\LimitSelectType;
 use NS\SentinelBundle\Entity\BaseExternalLab;
 use NS\SentinelBundle\Entity\ReferenceLabResultInterface;
 use NS\SentinelBundle\Exceptions\NonExistentCaseException;
+use NS\SentinelBundle\Form\CreateType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -33,11 +34,11 @@ abstract class BaseCaseController extends Controller implements TranslationConta
 
         $filteredPager = $this->get('ns.filtered_pagination');
         list($filterForm, $pagination) = $filteredPager->process($request, $filterFormName, $query, $sessionKey);
-        $createForm = ($this->get('security.authorization_checker')->isGranted('ROLE_CAN_CREATE')) ? $this->createForm('NS\SentinelBundle\Form\CreateType')->createView() : null;
+        $createForm = ($this->get('security.authorization_checker')->isGranted('ROLE_CAN_CREATE')) ? $this->createForm(CreateType::class)->createView() : null;
 
         return [
             'pagination' => $pagination,
-            'limitForm'  => $this->createForm(new LimitSelectType(), ['limit'=>$filteredPager->getPerPage()])->createView(),
+            'limitForm'  => $this->createForm(LimitSelectType::class, ['limit'=>$filteredPager->getPerPage()])->createView(),
             'filterForm' => $filterForm->createView(),
             'createForm' => $createForm];
     }
@@ -51,10 +52,10 @@ abstract class BaseCaseController extends Controller implements TranslationConta
      */
     protected function create(Request $request, $class, $indexRoute, $typeName)
     {
-        $form = $this->createForm('NS\SentinelBundle\Form\CreateType');
+        $form = $this->createForm(CreateType::class);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $caseId    = $form->get('caseId')->getData();
             $type      = $form->get('type')->getData();
             $entityMgr = $this->get('doctrine.orm.entity_manager');
@@ -124,7 +125,7 @@ abstract class BaseCaseController extends Controller implements TranslationConta
         }
 
         $form->handleRequest($request);
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $entityMgr = $this->get('doctrine.orm.entity_manager');
             $record = $form->getData();
 

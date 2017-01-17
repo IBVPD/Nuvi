@@ -14,7 +14,10 @@ use Symfony\Component\HttpKernel\KernelEvents;
  */
 class LoginListener
 {
+    /** @var Homepage */
     protected $homepage;
+
+    /** @var EventDispatcherInterface */
     protected $dispatcher;
 
     /**

@@ -18,14 +18,14 @@ class LatResult extends TranslatableArrayChoice implements TranslationContainerI
     const OTHER     = 4;
     const INCONCLUSIVE = 5;
     const UNKNOWN   = 99;
-    
+
     protected $values = [
-                                self::NEGATIVE      => 'Negative',
-                                self::SPN           => 'Spn',
-                                self::HI            => 'Hi',
-                                self::NM            => 'Nm',
-                                self::OTHER         => 'Other',
-                                self::INCONCLUSIVE  => 'Inconclusive',
-                                self::UNKNOWN       => 'Unknown',
+        self::NEGATIVE => 'Negative',
+        self::SPN => 'Spn',
+        self::HI => 'Hi',
+        self::NM => 'Nm',
+        self::OTHER => 'Other',
+        self::INCONCLUSIVE => 'Inconclusive',
+        self::UNKNOWN => 'Unknown',
     ];
 }

@@ -3,8 +3,11 @@
 namespace NS\SentinelBundle\Filter\Type;
 
 use Lexik\Bundle\FormFilterBundle\Filter\FilterOperands;
+use Lexik\Bundle\FormFilterBundle\Filter\Form\Type\DateRangeFilterType;
+use Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType;
 use NS\SecurityBundle\Role\ACLConverter;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -54,12 +57,12 @@ class BaseFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('case_id', 'Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType', [
+            ->add('case_id', TextFilterType::class, [
                 'required'          => false,
                 'condition_pattern' => FilterOperands::STRING_CONTAINS,
                 'label'             => 'site-assigned-case-id'
             ])
-            ->add('adm_date', 'Lexik\Bundle\FormFilterBundle\Filter\Form\Type\DateRangeFilterType', [
+            ->add('adm_date', DateRangeFilterType::class, [
                 'required' => false,
                 'label'    => 'filter.admission-date'
             ]);
@@ -78,29 +81,29 @@ class BaseFilterType extends AbstractType
         if ($this->authChecker->isGranted('ROLE_REGION')) {
             $objectIds = $this->aclConverter->getObjectIdsForRole($token, 'ROLE_REGION');
             if (count($objectIds) > 1) {
-                $form->add('region', 'NS\SentinelBundle\Filter\Type\RegionType');
+                $form->add('region', RegionType::class);
             }
 
             $form
-                ->add('id', 'Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType', [
+                ->add('id', TextFilterType::class, [
                     'required'          => false,
                     'condition_pattern' => FilterOperands::STRING_CONTAINS,
                     'label'             => 'db-generated-id']
                 )
-                ->add('country', 'NS\SentinelBundle\Filter\Type\CountryType', ['required'=>false, 'placeholder'=>''])
-                ->add('site', 'NS\SentinelBundle\Filter\Type\SiteType');
+                ->add('country', CountryType::class, ['required' => false, 'placeholder' => ''])
+                ->add('site', SiteType::class);
         }
 
         if ($this->authChecker->isGranted('ROLE_COUNTRY')) {
             $objectIds = $this->aclConverter->getObjectIdsForRole($token, 'ROLE_COUNTRY');
             if (count($objectIds) > 1) {
-                $form->add('country', 'NS\SentinelBundle\Filter\Type\CountryType', ['required'=>false, 'placeholder'=>'']);
+                $form->add('country', CountryType::class, ['required'=>false, 'placeholder'=>'']);
             }
 
             $form
-                ->add('firstName','Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType', ['condition_pattern'=>FilterOperands::STRING_CONTAINS])
-                ->add('lastName','Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType', ['condition_pattern'=>FilterOperands::STRING_CONTAINS])
-                ->add('site', 'NS\SentinelBundle\Filter\Type\SiteType');
+                ->add('firstName', TextFilterType::class, ['condition_pattern' => FilterOperands::STRING_CONTAINS])
+                ->add('lastName', TextFilterType::class, ['condition_pattern' => FilterOperands::STRING_CONTAINS])
+                ->add('site', SiteType::class);
         }
 
         if ($this->authChecker->isGranted('ROLE_SITE')) {
@@ -110,18 +113,18 @@ class BaseFilterType extends AbstractType
             }
 
             $form
-                ->add('firstName','Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType', ['condition_pattern'=>FilterOperands::STRING_CONTAINS])
-                ->add('lastName','Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType', ['condition_pattern'=>FilterOperands::STRING_CONTAINS]);
+                ->add('firstName', TextFilterType::class, ['condition_pattern' => FilterOperands::STRING_CONTAINS])
+                ->add('lastName', TextFilterType::class, ['condition_pattern' => FilterOperands::STRING_CONTAINS]);
 
         }
 
-        $form->add('find', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', [
+        $form->add('find', SubmitType::class, [
             'label'=> 'find',
             'type' => 'submit',
             'icon' => 'fa fa-search',
             'attr' => ['class' => 'btn btn-xs btn-success pull-right']]);
 
-        $form->add('reset', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', [
+        $form->add('reset', SubmitType::class, [
             'label'=>'reset',
             'type' => 'reset',
             'icon' => 'fa fa-times-circle',

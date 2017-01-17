@@ -28,7 +28,6 @@ use JMS\Serializer\Annotation as Serializer;
  *      @SecuredCondition(roles={"ROLE_COUNTRY","ROLE_RRL_LAB","ROLE_NL_LAB"},through={"caseFile"},relation="country",class="NSSentinelBundle:Country"),
  *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},through={"caseFile"},relation="site",class="NSSentinelBundle:Site"),
  *      })
- * @Assert\Callback(methods={"validate"})
  * @SuppressWarnings(PHPMD.LongVariable)
  * @ORM\MappedSuperclass
  */
@@ -726,6 +725,7 @@ abstract class ExternalLab extends BaseExternalLab
 
     /**
      * @param ExecutionContextInterface $context
+     * @Assert\Callback()
      */
     public function validate(ExecutionContextInterface $context)
     {

@@ -206,7 +206,7 @@ class AbstractReporter
         $alias = 'i';
 
         $form->handleRequest($request);
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             if ($form->get('reset')->isClicked()) {
                 return new RedirectResponse($this->router->generate($redirectRoute));
             }

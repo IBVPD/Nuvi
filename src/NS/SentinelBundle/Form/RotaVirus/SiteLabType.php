@@ -3,6 +3,7 @@
 namespace NS\SentinelBundle\Form\RotaVirus;
 
 use NS\AceBundle\Form\DatePickerType;
+use NS\SentinelBundle\Entity\RotaVirus\SiteLab;
 use NS\SentinelBundle\Form\RotaVirus\Types\ElisaResult;
 use NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultG;
 use NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultP;
@@ -108,7 +109,7 @@ class SiteLabType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'NS\SentinelBundle\Entity\RotaVirus\SiteLab'
+            'data_class' => SiteLab::class
         ]);
     }
 }

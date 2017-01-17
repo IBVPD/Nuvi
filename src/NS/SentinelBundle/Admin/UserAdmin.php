@@ -6,13 +6,12 @@ use Doctrine\ORM\UnexpectedResultException;
 use NS\SentinelBundle\Entity\ACL;
 use NS\SentinelBundle\Entity\User;
 use NS\SentinelBundle\Form\Types\Role;
-use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Sonata\CoreBundle\Form\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -20,7 +19,7 @@ use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use NS\SecurityBundle\Role\ACLConverter;
 
-class UserAdmin extends Admin
+class UserAdmin extends AbstractAdmin
 {
     /**
      * @var EncoderFactoryInterface
@@ -224,7 +223,7 @@ class UserAdmin extends Admin
      */
     public function createQuery($context = 'list')
     {
-        $query = parent::createQuery($context);
+        $query = parent::createQuery();
         $query->leftJoin(sprintf('%s.acls', $query->getRootAlias()), 'a');
 
         $user = $this->tokenStorage->getToken()->getUser();

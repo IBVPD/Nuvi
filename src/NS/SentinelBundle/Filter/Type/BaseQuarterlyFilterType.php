@@ -6,6 +6,7 @@ use Lexik\Bundle\FormFilterBundle\Filter\Form\Type\NumberFilterType;
 use Lexik\Bundle\FormFilterBundle\Filter\Query\QueryInterface;
 use NS\SecurityBundle\Role\ACLConverter;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -94,17 +95,17 @@ class BaseQuarterlyFilterType extends AbstractType
     {
         $form     = $event->getForm();
         $options  = $form->getConfig()->getOptions();
-        $siteType = (isset($options['site_type']) && $options['site_type'] == 'advanced') ? new SiteFilterType() : 'site';
-        $siteOpt  = ($siteType instanceof SiteFilterType) ? ['include_intense'=>$options['include_intense'],'label'=>'Site'] : [];
+        $siteType = (isset($options['site_type']) && $options['site_type'] == 'advanced') ? SiteFilterType::class : SiteType::class;
+        $siteOpt  = ($siteType == SiteFilterType::class) ? ['include_intense' => $options['include_intense'], 'label' => 'Site'] : [];
 
         $token    = $this->tokenStorage->getToken();
 
         if ($this->authChecker->isGranted('ROLE_REGION')) {
             $objectIds = $this->converter->getObjectIdsForRole($token, 'ROLE_REGION');
             if (count($objectIds) > 1) {
-                $form->add('region', 'NS\SentinelBundle\Filter\Type\RegionType');
+                $form->add('region', RegionType::class);
             }
-            $form->add('country', 'NS\SentinelBundle\Filter\Type\CountryType', ['required'=>false, 'placeholder'=>'']);
+            $form->add('country', CountryType::class, ['required'=>false, 'placeholder'=>'']);
             $form->add('site', $siteType, $siteOpt);
         } elseif ($this->authChecker->isGranted('ROLE_COUNTRY')) {
             $form->add('site', $siteType, $siteOpt);
@@ -116,21 +117,21 @@ class BaseQuarterlyFilterType extends AbstractType
         }
 
         if ($options['include_filter']) {
-            $form->add('filter', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', [
+            $form->add('filter', SubmitType::class, [
                 'label'=> 'filter',
                 'icon' => 'fa fa-search',
                 'attr' => ['class' => 'btn btn-sm btn-success', 'type'=>'submit']]);
         }
 
         if ($options['include_export']) {
-            $form->add('export', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', [
+            $form->add('export', SubmitType::class, [
                 'label'=>'export',
                 'icon' => 'fa fa-cloud-download',
                 'attr' => ['class' => 'btn btn-sm btn-info', 'type'=>'submit']]);
         }
 
         if ($options['include_reset']) {
-            $form->add('reset', 'Symfony\Component\Form\Extension\Core\Type\SubmitType', [
+            $form->add('reset', SubmitType::class, [
                 'label'=>'reset',
                 'icon' => 'fa fa-times-circle',
                 'attr' => ['class' => 'btn btn-sm btn-danger', 'type'=>'submit']]);

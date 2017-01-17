@@ -26,10 +26,10 @@ class UserController extends Controller
         $entityMgr = $this->get('doctrine.orm.entity_manager');
         $user = $entityMgr->getRepository('NSSentinelBundle:User')->find($this->getUser()->getId());
 
-        $form = $this->createForm(new UserType(), $user);
+        $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $factory = $this->get('security.encoder_factory');
             $user    = $form->getData();
             $encoder = $factory->getEncoder($user);

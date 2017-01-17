@@ -12,19 +12,8 @@ services:
     tags:
       - { name: jms_serializer.subscribing_handler }
 
-  ns_api_oauth_server.authorize.form:
-    factory-method: createNamed
-    factory-service: form.factory
-    class: Symfony\Component\Form\Form
-    arguments: [ "@ns_api_oauth_server.authorize.form_type", ns_api_oauth_server_auth ]
-
-  ns_api_oauth_server.authorize.form_handler:
-    class: NS\ApiBundle\Form\Handler\AuthorizeFormHandler
-    scope: request
-    arguments: [ "@ns_api_oauth_server.authorize.form", "@request", "@security.context", "@fos_oauth_server.server" ]
-
   oauth2.client:
-    class: %ns_api.client.class%
+    class: "%ns_api.client.class%"
     arguments: [ "@doctrine.orm.entity_manager" ]
     tags:
-      - { name: twig.extension, alias: oauth_client }
+      - { name: twig.extension }

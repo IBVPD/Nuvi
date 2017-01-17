@@ -16,9 +16,9 @@ class ElisaKit extends TranslatableArrayChoice
     const OTHER    = 99;
 
     protected $values = [
-                                self::PROSPECT    => 'ProspecT',
-                                self::RIDA        => 'Ridascreen',
-                                self::ROTA        => 'Rotaclone',
-                                self::OTHER       => 'Other',
+        self::PROSPECT    => 'ProspecT',
+        self::RIDA        => 'Ridascreen',
+        self::ROTA        => 'Rotaclone',
+        self::OTHER       => 'Other',
     ];
 }

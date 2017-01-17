@@ -24,14 +24,14 @@ class CTValueType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $choices = [
-            -3 => 'No CT Value',
-            -2 => 'Negative',
-            -1 => 'Undetermined',
+            'No CT Value' => -3,
+            'Negative' => -2,
+            'Undetermined' => -1,
         ];
 
         $builder
             ->add('choice', ChoiceType::class, ['choices' => $choices, 'placeholder' => "[Enter value]", 'label' => 'Non-result choices', 'attr' => ['class' => 'inputOrSelect']])
-            ->add('number', NumberType::class, ['precision' => 2, 'label' => '', 'attr' => ['class' => 'inputOrSelect' ,'placeholder'=>'Enter value or Select']])
+            ->add('number', NumberType::class, ['scale' => 2, 'label' => '', 'attr' => ['class' => 'inputOrSelect' ,'placeholder'=>'Enter value or Select']])
             ->addModelTransformer(new CTValueTransformer());
     }
 }

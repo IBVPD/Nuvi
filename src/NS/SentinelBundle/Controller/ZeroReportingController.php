@@ -36,7 +36,7 @@ class ZeroReportingController extends Controller
         $filterForm = $this->createForm(ZeroReportFilterType::class);
         $filterForm->handleRequest($request);
         $request->getSession()->remove('zero.reporting');
-        if ($filterForm->isValid()) {
+        if ($filterForm->isSubmitted() && $filterForm->isValid()) {
             $request->getSession()->set('zero.reporting', $filterForm->getData());
 
             return $this->redirect($this->generateUrl('zeroReportUpdate'));

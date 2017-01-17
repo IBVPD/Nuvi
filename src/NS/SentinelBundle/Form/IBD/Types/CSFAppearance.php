@@ -21,11 +21,12 @@ class CSFAppearance extends TranslatableArrayChoice implements TranslationContai
     const UNKNOWN        = 99;
 
     protected $values = [
-                            self::CLEAR => 'Clear',
-                            self::TURBID =>'Turbid/Cloudy',
-                            self::BLOODY => 'Bloody',
-                            self::XANTHROCHROMIC => 'Xanthrochromic',
-                            self::OTHER => 'Other',
-                            self::NOT_ASSESSED => 'Not assessed',
-                            self::UNKNOWN => 'Unknown'];
+        self::CLEAR => 'Clear',
+        self::TURBID => 'Turbid/Cloudy',
+        self::BLOODY => 'Bloody',
+        self::XANTHROCHROMIC => 'Xanthrochromic',
+        self::OTHER => 'Other',
+        self::NOT_ASSESSED => 'Not assessed',
+        self::UNKNOWN => 'Unknown'
+    ];
 }

@@ -3,6 +3,7 @@
 namespace NS\SentinelBundle\Form\RotaVirus;
 
 use NS\AceBundle\Form\DatePickerType;
+use NS\SentinelBundle\Entity\RotaVirus;
 use NS\SentinelBundle\Form\RotaVirus\Types\DischargeClassification;
 use NS\SentinelBundle\Form\RotaVirus\Types\DischargeOutcome;
 use Symfony\Component\Form\AbstractType;
@@ -37,7 +38,7 @@ class OutcomeType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'NS\SentinelBundle\Entity\RotaVirus'
+            'data_class' => RotaVirus::class
         ]);
     }
 }

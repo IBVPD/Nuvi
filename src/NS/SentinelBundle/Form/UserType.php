@@ -25,7 +25,7 @@ class UserType extends AbstractType
                      [
                          'type'            => PasswordType::class,
                          'invalid_message' => 'The password fields must match.',
-                         'options'         => ['attr' => ['class' => 'password-field', 'autocomplete'=>'off']],
+                         'options'         => ['attr' => ['class' => 'password-field', 'autocomplete' => 'off']],
                          'required'        => false,
                          'first_options'   => ['label' => 'Password'],
                          'second_options'  => ['label' => 'Repeat Password'],

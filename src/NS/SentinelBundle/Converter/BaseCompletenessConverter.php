@@ -4,6 +4,7 @@ namespace NS\SentinelBundle\Converter;
 
 use Ddeboer\DataImport\ReporterInterface;
 use Symfony\Component\Validator\Validator\RecursiveValidator;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class BaseCompletenessConverter implements ReporterInterface
 {
@@ -13,7 +14,7 @@ abstract class BaseCompletenessConverter implements ReporterInterface
     protected $message;
 
     /**
-     * @var RecursiveValidator
+     * @var ValidatorInterface
      */
     protected $validator;
 
@@ -24,13 +25,13 @@ abstract class BaseCompletenessConverter implements ReporterInterface
 
     /**
      * BaseCompletenessConverter constructor.
-     * @param RecursiveValidator $validator
-     * @param array $configration
+     * @param ValidatorInterface $validator
+     * @param array $constraints
      */
-    public function __construct(RecursiveValidator $validator, array $configration)
+    public function __construct(ValidatorInterface $validator, array $constraints)
     {
         $this->validator = $validator;
-        $this->constraints = $configration;
+        $this->constraints = $constraints;
     }
 
     /**

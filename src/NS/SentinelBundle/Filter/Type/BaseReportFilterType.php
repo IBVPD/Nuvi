@@ -68,15 +68,15 @@ class BaseReportFilterType extends AbstractType
     {
         $form     = $event->getForm();
         $options  = $form->getConfig()->getOptions();
-        $siteType = (isset($options['site_type']) && $options['site_type'] == 'advanced') ? 'NS\SentinelBundle\Filter\Type\SiteFilterType' : 'NS\SentinelBundle\Filter\Type\SiteType';
+        $siteType = (isset($options['site_type']) && $options['site_type'] == 'advanced') ? SiteFilterType::class : SiteType::class;
 
         if ($this->authChecker->isGranted('ROLE_REGION')) {
             $objectIds = $this->converter->getObjectIdsForRole($this->tokenStorage->getToken(), 'ROLE_REGION');
             if (count($objectIds) > 1) {
-                $form->add('region', 'NS\SentinelBundle\Filter\Type\RegionType');
+                $form->add('region', RegionType::class);
             }
 
-            $form->add('country', 'NS\SentinelBundle\Filter\Type\CountryType', ['placeholder' => '', 'required' => false]);
+            $form->add('country', CountryType::class, ['placeholder' => '', 'required' => false]);
             $form->add('site', $siteType);
         } elseif ($this->authChecker->isGranted('ROLE_COUNTRY')) {
             $form->add('site', $siteType);

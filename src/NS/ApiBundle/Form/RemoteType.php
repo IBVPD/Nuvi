@@ -2,6 +2,7 @@
 
 namespace NS\ApiBundle\Form;
 
+use NS\ApiBundle\Entity\Remote;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -37,7 +38,7 @@ class RemoteType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'NS\ApiBundle\Entity\Remote'
+            'data_class' => Remote::class,
         ]);
     }
 }

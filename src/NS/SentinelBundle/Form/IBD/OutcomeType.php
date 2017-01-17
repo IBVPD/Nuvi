@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Form\IBD;
 
+use NS\SentinelBundle\Entity\IBD;
 use NS\SentinelBundle\Form\IBD\Types\DischargeClassification;
 use NS\SentinelBundle\Form\IBD\Types\DischargeOutcome;
 use Symfony\Component\Form\AbstractType;
@@ -37,7 +38,7 @@ class OutcomeType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'NS\SentinelBundle\Entity\IBD'
+            'data_class' => IBD::class,
         ]);
     }
 }

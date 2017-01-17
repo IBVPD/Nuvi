@@ -81,7 +81,7 @@ services:
   ns_sentinel.misc_provider:
     class: NS\SentinelBundle\DataFixtures\Alice\MiscProvider
     tags:
-      - { name: h4cc_alice_fixtures.provider }
+      - { name: hautelook_alice.faker.provider }
 
   ns.sentinel.user_provider:
     class: NS\SentinelBundle\Security\UserProvider

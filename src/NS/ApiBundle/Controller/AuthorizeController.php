@@ -21,7 +21,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class AuthorizeController extends Controller
 {
-
     /**
      * @param Request $request
      * @return Response
@@ -46,7 +45,7 @@ class AuthorizeController extends Controller
         $oauthServer = $this->get('fos_oauth_server.server');
 
         $form->handleRequest($request);
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             try {
                 $this->get('fos_oauth_server.auth_code_manager')->deleteExpired();
                 $ref = $this->get('doctrine.orm.entity_manager')->getReference(get_class($this->getUser()), $this->getUser()->getId());

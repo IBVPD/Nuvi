@@ -17,9 +17,9 @@ class CaseStatus extends TranslatableArrayChoice implements TranslationContainer
     const DELETED   = 3;
 
     protected $values = [
-                                self::OPEN      => 'Open',
-                                self::COMPLETE  => 'Complete',
-                                self::CANCELLED => 'Cancelled',
-                                self::DELETED   => 'Deleted',
+        self::OPEN => 'Open',
+        self::COMPLETE => 'Complete',
+        self::CANCELLED => 'Cancelled',
+        self::DELETED => 'Deleted',
     ];
 }

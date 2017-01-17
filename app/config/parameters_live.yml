@@ -1,0 +1,21 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_driver: pdo_mysql
+    database_host: localhost
+    database_port: null
+    database_name: nuvilive
+    database_user: root
+    database_password: null
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    locale: en
+    locales:
+        - en
+        - es
+    secret: e24d2ace-dd63-4b42-950e-8c9ac77d44fb
+    beanstalk_server: 127.0.0.1
+    monolog.error.to_email: nathanael@noblet.ca
+    monolog.error.from_email: noreply@who.int
+    monolog.error.subject: 'NUVI HQ ERROR'
