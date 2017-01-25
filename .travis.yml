@@ -19,5 +19,5 @@ before_script:
   - bin/console doctrine:schema:create --env=test
   - bin/console doctrine:fixtures:load -n --env=test
 
-script: vendor/bin/simple-phpunit 
+script: vendor/bin/phpunit 
 
