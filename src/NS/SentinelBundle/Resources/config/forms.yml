@@ -240,6 +240,8 @@ services:
 
   ns.sentinel.form.type.gramstain_result:
     class: NS\SentinelBundle\Form\IBD\Types\GramStainResult
+    calls:
+      - [ setAuthorizationChecker, [ "@security.authorization_checker" ]]
     tags:
       - { name: form.type }
 

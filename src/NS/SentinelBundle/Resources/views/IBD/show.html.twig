@@ -229,10 +229,6 @@
                                 <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.blood-gram-result'|trans}}</th><td>{{record.siteLab.bloodGramResult|trans}}</td></tr>
                                 <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.blood-pcr-result'|trans}}</th><td>{{record.siteLab.bloodPcrResult|trans}}</td></tr>
                                 <tr style="display: none;"><td></td></tr>
-                                <tr><th colspan="3">{{ 'Other Fluids'|trans }}</th></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.other-culture'|trans}}</th><td>{{record.siteLab.otherCultDone|trans}}</td></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.other-cult-result'|trans}}</th><td>{{record.siteLab.otherCultResult|trans}}</td></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.other-cult-other'|trans}}</th><td>{{record.siteLab.otherCultOther}}</td></tr>
                                 {% if is_granted('ROLE_AMR') %}
                                     <tr><th colspan="3">{{ 'Pleural Fluid'|trans }}</th></tr>
                                     <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.pleural-fluid-culture-done'|trans}}</th><td>{{ record.siteLab.pleuralFluidCultureDone }}</td></tr>
@@ -241,11 +237,14 @@
                                     <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.pleural-fluid-gram-done'|trans}}</th><td>{{ record.siteLab.pleuralFluidGramDone }}</td></tr>
                                     <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.pleural-fluid-gram-result'|trans}}</th><td>{{ record.siteLab.pleuralFluidGramResult }}</td></tr>
                                     <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.pleural-fluid-gram-result-organism'|trans}}</th><td>{{ record.siteLab.pleuralFluidGramResultOrganism }}</td></tr>
-                                    <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.pleural-fluid-gram-result-other'|trans}}</th><td>{{ record.siteLab.pleuralFluidGramResultOther }}</td></tr>
                                     <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.pleural-fluid-pcr-done'|trans}}</th><td>{{ record.siteLab.pleuralFluidPcrDone }}</td></tr>
                                     <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.pleural-fluid-pcr-result'|trans}}</th><td>{{ record.siteLab.pleuralFluidPcrResult }}</td></tr>
                                     <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.pleural-fluid-pcr-other'|trans}}</th><td>{{ record.siteLab.pleuralFluidPcrOther }}</td></tr>
                                 {% endif %}
+                                <tr><th colspan="3">{{ 'Other Fluids'|trans }}</th></tr>
+                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.other-culture'|trans}}</th><td>{{record.siteLab.otherCultDone|trans}}</td></tr>
+                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.other-cult-result'|trans}}</th><td>{{record.siteLab.otherCultResult|trans}}</td></tr>
+                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.other-cult-other'|trans}}</th><td>{{record.siteLab.otherCultOther}}</td></tr>
                             </table>
                         </div>
                     {%else%}

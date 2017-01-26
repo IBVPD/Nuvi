@@ -454,12 +454,6 @@ class SiteLab extends BaseSiteLab
     private $pleural_fluid_gram_result_organism;
 
     /**
-     * @var string
-     * @ORM\Column(name="pleural_fluid_gram_result_other",type="string",nullable=true)
-     */
-    private $pleural_fluid_gram_result_other;
-
-    /**
      * @var TripleChoice
      * @ORM\Column(name="pleural_fluid_pcr_done",type="TripleChoice",nullable=true)
      */
@@ -1543,22 +1537,6 @@ class SiteLab extends BaseSiteLab
     public function setPleuralFluidGramResultOrganism($pleural_fluid_gram_result_organism)
     {
         $this->pleural_fluid_gram_result_organism = $pleural_fluid_gram_result_organism;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPleuralFluidGramResultOther()
-    {
-        return $this->pleural_fluid_gram_result_other;
-    }
-
-    /**
-     * @param string $pleural_fluid_gram_result_other
-     */
-    public function setPleuralFluidGramResultOther($pleural_fluid_gram_result_other)
-    {
-        $this->pleural_fluid_gram_result_other = $pleural_fluid_gram_result_other;
     }
 
     /**

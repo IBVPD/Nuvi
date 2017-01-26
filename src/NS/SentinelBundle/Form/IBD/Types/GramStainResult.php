@@ -2,8 +2,11 @@
 
 namespace NS\SentinelBundle\Form\IBD\Types;
 
+use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class GramStainResult extends TranslatableArrayChoice implements TranslationContainerInterface
 {
@@ -24,4 +27,36 @@ class GramStainResult extends TranslatableArrayChoice implements TranslationCont
         self::OTHER                => 'Other',
         self::UNKNOWN              => 'Unknown',
     ];
+
+    /** @var AuthorizationCheckerInterface */
+    private $authChecker;
+
+    /**
+     * @param AuthorizationCheckerInterface $authChecker
+     */
+    public function setAuthorizationChecker($authChecker)
+    {
+        $this->authChecker = $authChecker;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        if ($this->authChecker->isGranted('ROLE_AMR')) {
+            unset($this->values[self::OTHER]);
+            $this->values[self::UNKNOWN] = 'Undetermined';
+        }
+
+        parent::configureOptions($resolver);
+    }
+
+    static function getTranslationMessages()
+    {
+        $messages = parent::getTranslationMessages();
+        $messages[] = new Message('Undetermined');
+
+        return $messages;
+    }
 }

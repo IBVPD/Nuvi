@@ -106,15 +106,14 @@ class SiteLabType extends AbstractType
             ->add('otherTestOther',     null, ['required' => false, 'label' => 'ibd-form.other-test-other', 'hidden-parent' => 'otherTestResult', 'hidden-value' => CultureResult::OTHER])
         ;
 
-        if (true) {
+        if ($isPaho) {
             $builder
                 ->add('pleuralFluidCultureDone', TripleChoice::class, ['required' => false, 'hidden' => ['child' => 'pleuralFluidCultureDone'], 'label'=>'ibd-form.pleural-fluid-culture-done'])
                 ->add('pleuralFluidCultureResult', CultureResult::class, ['required' => false, 'hidden' => ['child'=>'pleuralFluidCultureResult','parent' => 'pleuralFluidCultureDone', 'value' => TripleChoice::YES], 'label'=>'ibd-form.pleural-fluid-culture-result'])
                 ->add('pleuralFluidCultureOther', null, ['required' => false, 'hidden' => ['parent' => 'pleuralFluidCultureResult', 'value' => CultureResult::OTHER], 'label'=>'ibd-form.pleural-fluid-culture-result-other'])
                 ->add('pleuralFluidGramDone', TripleChoice::class, ['required' => false, 'hidden' => ['child' => 'pleuralFluidGramDone'], 'label'=>'ibd-form.pleural-fluid-gram-done'])
                 ->add('pleuralFluidGramResult', GramStain::class, ['required' => false, 'hidden' => ['parent' => 'pleuralFluidGramDone', 'child'=>'pleuralFluidGramResult','value'=>TripleChoice::YES], 'label'=>'ibd-form.pleural-fluid-gram-result'])
-                ->add('pleuralFluidGramResultOrganism', GramStainResult::class, ['required' => false, 'hidden' => ['parent' => 'pleuralFluidGramResult', 'child' => 'pleuralFluidGramResultOrganism', 'value' => json_encode([GramStain::GM_NEGATIVE, GramStain::GM_POSITIVE])], 'label'=>'ibd-form.pleural-fluid-gram-result-organism'])
-                ->add('pleuralFluidGramResultOther', null, ['required' => false, 'hidden' => ['parent' => 'pleuralFluidGramResultOrganism', 'value' => GramStainResult::OTHER], 'label'=>'ibd-form.pleural-fluid-gram-result-other'])
+                ->add('pleuralFluidGramResultOrganism', GramStainResult::class, ['required' => false, 'hidden' => ['parent' => 'pleuralFluidGramResult', 'value' => json_encode([GramStain::GM_NEGATIVE, GramStain::GM_POSITIVE])], 'label'=>'ibd-form.pleural-fluid-gram-result-organism'])
                 ->add('pleuralFluidPcrDone', TripleChoice::class, ['required' => false, 'hidden' => ['child' => 'pleuralFluidPcrDone'], 'label'=>'ibd-form.pleural-fluid-pcr-done'])
                 ->add('pleuralFluidPcrResult', PCRResult::class, ['required' => false,'hidden' => ['parent' => 'pleuralFluidPcrDone', 'child' => 'pleuralFluidPcrResult', 'value' => TripleChoice::YES], 'label'=>'ibd-form.pleural-fluid-pcr-result'])
                 ->add('pleuralFluidPcrOther', null, ['required' => false, 'hidden' => ['parent' => 'pleuralFluidPcrResult', 'value' => PCRResult::OTHER], 'label'=>'ibd-form.pleural-fluid-pcr-other']);
