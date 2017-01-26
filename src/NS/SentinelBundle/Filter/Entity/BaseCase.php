@@ -3,14 +3,12 @@
 namespace NS\SentinelBundle\Filter\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\ExecutionContextInterface;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Description of BaseCase
  *
  * @author gnat
- * @Assert\Callback(methods={"fieldPopulationValidation"},groups={"FieldPopulation"})
- *
  */
 class BaseCase
 {
@@ -246,11 +244,12 @@ class BaseCase
 
     /**
      * @param ExecutionContextInterface $context
+     * @Assert\Callback(groups={"FieldPopulation"})
      */
     public function fieldPopulationValidation(ExecutionContextInterface $context)
     {
         if (empty($this->adm_date['left_date']) && empty($this->adm_date['right_date']) && empty($this->createdAt['left_date']) && empty($this->createdAt['right_date'])) {
-            $context->addViolation("You must select a date range for either created at or admission date");
+            $context->buildViolation('You must select a date range for either created at or admission date')->addViolation();
         }
     }
 }
