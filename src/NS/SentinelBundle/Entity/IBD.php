@@ -7,6 +7,7 @@ use JMS\Serializer\Annotation as Serializer;
 
 use NS\SecurityBundle\Annotation\Secured;
 use NS\SecurityBundle\Annotation\SecuredCondition;
+use NS\SentinelBundle\Form\IBD\Types\CultureResult;
 use NS\SentinelBundle\Form\Types\FourDoses;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Form\Types\VaccinationReceived;

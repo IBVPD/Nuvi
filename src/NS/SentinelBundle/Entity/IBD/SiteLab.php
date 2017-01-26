@@ -413,6 +413,70 @@ class SiteLab extends BaseSiteLab
      */
     private $status;
 
+//=================================
+// PAHO
+
+
+    /**
+     * @var TripleChoice
+     * @ORM\Column(name="pleural_fluid_culture_done",type="TripleChoice",nullable=true)
+     */
+    private $pleural_fluid_culture_done;
+
+    /**
+     * @var CultureResult
+     * @ORM\Column(name="pleural_fluid_culture_result",type="CultureResult",nullable=true)
+     */
+    private $pleural_fluid_culture_result;
+
+    /**
+     * @var string
+     * @ORM\Column(name="pleural_fluid_culture_other",type="string",nullable=true)
+     */
+    private $pleural_fluid_culture_other;
+
+    /**
+     * @var TripleChoice
+     * @ORM\Column(name="pleural_fluid_gram_done",type="TripleChoice",nullable=true)
+     */
+    private $pleural_fluid_gram_done;
+
+    /**
+     * @var GramStain
+     * @ORM\Column(name="pleural_fluid_gram_result",type="GramStain",nullable=true)
+     */
+    private $pleural_fluid_gram_result;
+
+    /**
+     * @var GramStainResult
+     * @ORM\Column(name="pleural_fluid_gram_result_organism",type="GramStainResult",nullable=true)
+     */
+    private $pleural_fluid_gram_result_organism;
+
+    /**
+     * @var string
+     * @ORM\Column(name="pleural_fluid_gram_result_other",type="string",nullable=true)
+     */
+    private $pleural_fluid_gram_result_other;
+
+    /**
+     * @var TripleChoice
+     * @ORM\Column(name="pleural_fluid_pcr_done",type="TripleChoice",nullable=true)
+     */
+    private $pleural_fluid_pcr_done;
+
+    /**
+     * @var PCRResult
+     * @ORM\Column(name="pleural_fluid_pcr_result",type="PCRResult",nullable=true)
+     */
+    private $pleural_fluid_pcr_result;
+
+    /**
+     * @var string
+     * @ORM\Column(name="pleural_fluid_pcr_other",type="string",nullable=true)
+     */
+    private $pleural_fluid_pcr_other;
+    
     /**
      * @param null $case
      */
@@ -1383,5 +1447,165 @@ class SiteLab extends BaseSiteLab
             'bloodPcrDone',
             'otherCultDone',
         ];
+    }
+
+    /**
+     * @return TripleChoice
+     */
+    public function getPleuralFluidCultureDone()
+    {
+        return $this->pleural_fluid_culture_done;
+    }
+
+    /**
+     * @param TripleChoice $pleural_fluid_culture_done
+     */
+    public function setPleuralFluidCultureDone($pleural_fluid_culture_done)
+    {
+        $this->pleural_fluid_culture_done = $pleural_fluid_culture_done;
+    }
+
+    /**
+     * @return CultureResult
+     */
+    public function getPleuralFluidCultureResult()
+    {
+        return $this->pleural_fluid_culture_result;
+    }
+
+    /**
+     * @param CultureResult $pleural_fluid_culture_result
+     */
+    public function setPleuralFluidCultureResult($pleural_fluid_culture_result)
+    {
+        $this->pleural_fluid_culture_result = $pleural_fluid_culture_result;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPleuralFluidCultureOther()
+    {
+        return $this->pleural_fluid_culture_other;
+    }
+
+    /**
+     * @param string $pleural_fluid_culture_other
+     */
+    public function setPleuralFluidCultureOther($pleural_fluid_culture_other)
+    {
+        $this->pleural_fluid_culture_other = $pleural_fluid_culture_other;
+    }
+
+    /**
+     * @return TripleChoice
+     */
+    public function getPleuralFluidGramDone()
+    {
+        return $this->pleural_fluid_gram_done;
+    }
+
+    /**
+     * @param TripleChoice $pleural_fluid_gram_done
+     */
+    public function setPleuralFluidGramDone($pleural_fluid_gram_done)
+    {
+        $this->pleural_fluid_gram_done = $pleural_fluid_gram_done;
+    }
+
+    /**
+     * @return GramStain
+     */
+    public function getPleuralFluidGramResult()
+    {
+        return $this->pleural_fluid_gram_result;
+    }
+
+    /**
+     * @param GramStain $pleural_fluid_gram_result
+     */
+    public function setPleuralFluidGramResult($pleural_fluid_gram_result)
+    {
+        $this->pleural_fluid_gram_result = $pleural_fluid_gram_result;
+    }
+
+    /**
+     * @return GramStainResult
+     */
+    public function getPleuralFluidGramResultOrganism()
+    {
+        return $this->pleural_fluid_gram_result_organism;
+    }
+
+    /**
+     * @param GramStainResult $pleural_fluid_gram_result_organism
+     */
+    public function setPleuralFluidGramResultOrganism($pleural_fluid_gram_result_organism)
+    {
+        $this->pleural_fluid_gram_result_organism = $pleural_fluid_gram_result_organism;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPleuralFluidGramResultOther()
+    {
+        return $this->pleural_fluid_gram_result_other;
+    }
+
+    /**
+     * @param string $pleural_fluid_gram_result_other
+     */
+    public function setPleuralFluidGramResultOther($pleural_fluid_gram_result_other)
+    {
+        $this->pleural_fluid_gram_result_other = $pleural_fluid_gram_result_other;
+    }
+
+    /**
+     * @return TripleChoice
+     */
+    public function getPleuralFluidPcrDone()
+    {
+        return $this->pleural_fluid_pcr_done;
+    }
+
+    /**
+     * @param TripleChoice $pleural_fluid_pcr_done
+     */
+    public function setPleuralFluidPcrDone($pleural_fluid_pcr_done)
+    {
+        $this->pleural_fluid_pcr_done = $pleural_fluid_pcr_done;
+    }
+
+    /**
+     * @return PCRResult
+     */
+    public function getPleuralFluidPcrResult()
+    {
+        return $this->pleural_fluid_pcr_result;
+    }
+
+    /**
+     * @param PCRResult $pleural_fluid_pcr_result
+     */
+    public function setPleuralFluidPcrResult($pleural_fluid_pcr_result)
+    {
+        $this->pleural_fluid_pcr_result = $pleural_fluid_pcr_result;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPleuralFluidPcrOther()
+    {
+        return $this->pleural_fluid_pcr_other;
+    }
+
+    /**
+     * @param string $pleural_fluid_pcr_other
+     */
+    public function setPleuralFluidPcrOther($pleural_fluid_pcr_other)
+    {
+        $this->pleural_fluid_pcr_other = $pleural_fluid_pcr_other;
     }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2017-01-26T15:00:05Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
+  <file date="2017-01-26T15:03:12Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -2667,6 +2667,51 @@
         <source>ibd-form.pleural-fluid-collection-time</source>
         <target state="new">ibd-form.pleural-fluid-collection-time</target>
         <jms:reference-file line="120">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Form/IBD/CaseType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="dd5cf11dd4589f07081ef803d70c503082e4d698" resname="ibd-form.pleural-fluid-culture-result">
+        <source>ibd-form.pleural-fluid-culture-result</source>
+        <target state="new">ibd-form.pleural-fluid-culture-result</target>
+        <jms:reference-file line="112">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Form/IBD/SiteLabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="c83b2dace17237fe4bae0cb072704caffd2373bc" resname="ibd-form.pleural-fluid-culture-result-other">
+        <source>ibd-form.pleural-fluid-culture-result-other</source>
+        <target state="new">ibd-form.pleural-fluid-culture-result-other</target>
+        <jms:reference-file line="113">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Form/IBD/SiteLabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="bebd6a7b08bf6c160a73a9a1240642d39b13eada" resname="ibd-form.pleural-fluid-gram-done">
+        <source>ibd-form.pleural-fluid-gram-done</source>
+        <target state="new">ibd-form.pleural-fluid-gram-done</target>
+        <jms:reference-file line="114">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Form/IBD/SiteLabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="b082948cc4d9bc158cd76567206237568d299140" resname="ibd-form.pleural-fluid-gram-result">
+        <source>ibd-form.pleural-fluid-gram-result</source>
+        <target state="new">ibd-form.pleural-fluid-gram-result</target>
+        <jms:reference-file line="115">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Form/IBD/SiteLabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="74b6bdf7fc08c2cb61b33815379540dfc6b8b120" resname="ibd-form.pleural-fluid-gram-result-organism">
+        <source>ibd-form.pleural-fluid-gram-result-organism</source>
+        <target state="new">ibd-form.pleural-fluid-gram-result-organism</target>
+        <jms:reference-file line="116">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Form/IBD/SiteLabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="887788be84c41aa48ad64a242fab3014fcf76afb" resname="ibd-form.pleural-fluid-gram-result-other">
+        <source>ibd-form.pleural-fluid-gram-result-other</source>
+        <target state="new">ibd-form.pleural-fluid-gram-result-other</target>
+        <jms:reference-file line="117">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Form/IBD/SiteLabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="1fffefe9f943067074e0ce3ac8706e2044e47f14" resname="ibd-form.pleural-fluid-pcr-other">
+        <source>ibd-form.pleural-fluid-pcr-other</source>
+        <target state="new">ibd-form.pleural-fluid-pcr-other</target>
+        <jms:reference-file line="120">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Form/IBD/SiteLabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="0024aece6fe911a1cbbe3560a0f5c8a462693751" resname="ibd-form.pleural-fluid-pcr-done">
+        <source>ibd-form.pleural-fluid-pcr-done</source>
+        <target state="new">ibd-form.pleural-fluid-pcr-done</target>
+        <jms:reference-file line="118">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Form/IBD/SiteLabType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="0d6d4459ee9a33582cd383c547fb87d43b6766ab" resname="ibd-form.pleural-fluid-pcr-result">
+        <source>ibd-form.pleural-fluid-pcr-result</source>
+        <target state="new">ibd-form.pleural-fluid-pcr-result</target>
+        <jms:reference-file line="119">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="b0449a1ff36c969abd8cf18b1487c88f3a293214" resname="ibd-form.pneu-chest-indraw">
         <source>ibd-form.pneu-chest-indraw</source>

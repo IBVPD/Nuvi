@@ -114,10 +114,10 @@ class CaseType extends AbstractType
 
         if ($isPaho) {
             $builder
-                ->add('bloodNumberOfSamples', null, ['required' => $required,'hidden'=>['parent' => 'bloodCollected', 'value' => TripleChoice::YES]])
-                ->add('pleuralFluidCollected', TripleChoice::class, ['required' => $required, 'hidden-child' => 'pleuralFluidCollected'])
-                ->add('pleuralFluidCollectDate', DatePickerType::class, ['required' => $required, 'hidden'=>['parent' => 'pleuralFluidCollected', 'value' => TripleChoice::YES]])
-                ->add('pleuralFluidCollectTime', TimeType::class, ['required' => $required,'hidden'=>['parent' => 'pleuralFluidCollected', 'value' => TripleChoice::YES]])
+                ->add('bloodNumberOfSamples', null, ['required' => $required,'hidden'=>['parent' => 'bloodCollected', 'value' => TripleChoice::YES, 'label' => 'ibd-form.blood-number-of-samples']])
+                ->add('pleuralFluidCollected', TripleChoice::class, ['required' => $required, 'hidden-child' => 'pleuralFluidCollected', 'label' => 'ibd-form.pleural-fluid-collected'])
+                ->add('pleuralFluidCollectDate', DatePickerType::class, ['required' => $required, 'hidden'=>['parent' => 'pleuralFluidCollected', 'value' => TripleChoice::YES], 'label' => 'ibd-form.pleural-fluid-collection-date'])
+                ->add('pleuralFluidCollectTime', TimeType::class, ['required' => $required,'hidden'=>['parent' => 'pleuralFluidCollected', 'value' => TripleChoice::YES], 'label' => 'ibd-form.pleural-fluid-collection-time'])
                 ;
         } else {
             $builder
