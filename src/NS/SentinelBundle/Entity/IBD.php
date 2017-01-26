@@ -442,9 +442,31 @@ class IBD extends BaseCase
      */
     private $result;
 
+    //PAHO/AMR Specific Variables
     /**
-     *
+     * @var integer
+     * @ORM\Column(name="blood_number_of_samples",type="integer",nullable=true)
      */
+    private $blood_number_of_samples;
+
+    /**
+     * @var TripleChoice
+     * @ORM\Column(name="pleural_fluid_collected",type="TripleChoice",nullable=true)
+     */
+    private $pleural_fluid_collected;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="pleural_fluid_collect_date",type="date",nullable=true)
+     */
+    private $pleural_fluid_collect_date;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="pleural_fluid_collect_time",type="time",nullable=true)
+     */
+    private $pleural_fluid_collect_time;
+
     public function __construct()
     {
         parent::__construct();
@@ -1368,6 +1390,73 @@ class IBD extends BaseCase
     {
         $this->disch_class_other= $dischClassOther;
         return $this;
+    }
+
+    //========================================
+    //PAHO/AMR specific fields
+
+    /**
+     * @return int
+     */
+    public function getBloodNumberOfSamples()
+    {
+        return $this->blood_number_of_samples;
+    }
+
+    /**
+     * @param int $blood_number_of_samples
+     */
+    public function setBloodNumberOfSamples($blood_number_of_samples)
+    {
+        $this->blood_number_of_samples = $blood_number_of_samples;
+    }
+
+    /**
+     * @return TripleChoice
+     */
+    public function getPleuralFluidCollected()
+    {
+        return $this->pleural_fluid_collected;
+    }
+
+    /**
+     * @param TripleChoice $pleural_fluid_collected
+     */
+    public function setPleuralFluidCollected($pleural_fluid_collected)
+    {
+        $this->pleural_fluid_collected = $pleural_fluid_collected;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getPleuralFluidCollectDate()
+    {
+        return $this->pleural_fluid_collect_date;
+    }
+
+    /**
+     * @param \DateTime $pleural_fluid_collect_date
+     */
+    public function setPleuralFluidCollectDate($pleural_fluid_collect_date)
+    {
+        $this->pleural_fluid_collect_date = $pleural_fluid_collect_date;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getPleuralFluidCollectTime()
+    {
+        return $this->pleural_fluid_collect_time;
+    }
+
+    /**
+     * @param \DateTime $pleural_fluid_collect_time
+     */
+    public function setPleuralFluidCollectTime($pleural_fluid_collect_time)
+    {
+        $this->pleural_fluid_collect_time = $pleural_fluid_collect_time;
     }
 
 //    /**

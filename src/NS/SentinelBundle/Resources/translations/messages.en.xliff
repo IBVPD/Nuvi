@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2016-08-31T15:51:24Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
+  <file date="2017-01-26T14:59:36Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -2144,6 +2144,11 @@
         <target>Blood specimen ID</target>
         <jms:reference-file line="115">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
+      <trans-unit id="8d2045ae5146f6fcb17eda11f4f0b168971d5ca9" resname="ibd-form.blood-number-of-samples">
+        <source>ibd-form.blood-number-of-samples</source>
+        <target>Number of blood samples</target>
+        <jms:reference-file line="117">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Form/IBD/CaseType.php</jms:reference-file>
+      </trans-unit>
       <trans-unit id="4a9d08ceeb111a063980989a052ea37fc26f4800" resname="ibd-form.blood-pcr-done">
         <source>ibd-form.blood-pcr-done</source>
         <target>Was PCR done on blood culture?</target>
@@ -2642,6 +2647,21 @@
         <source>ibd-form.pcv-type</source>
         <target>PCV Type</target>
         <jms:reference-file line="90">Form/IBD/CaseType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="663c3213865f0fa29b799bbb6b9bb5f39a281b79" resname="ibd-form.pleural-fluid-collected">
+        <source>ibd-form.pleural-fluid-collected</source>
+        <target>Was Pleural Fluid Collected?</target>
+        <jms:reference-file line="118">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Form/IBD/CaseType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="75f204826e6dbdcbe92ac4ab3d8a5be7e32820af" resname="ibd-form.pleural-fluid-collection-date">
+        <source>ibd-form.pleural-fluid-collection-date</source>
+        <target>Pleural Fluid Collection Date</target>
+        <jms:reference-file line="119">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Form/IBD/CaseType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="d49efc55ec05b51bb3df6ccb7b21f8d96e1ac18f" resname="ibd-form.pleural-fluid-collection-time">
+        <source>ibd-form.pleural-fluid-collection-time</source>
+        <target>Pleural Fluid Collection Time</target>
+        <jms:reference-file line="120">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="b0449a1ff36c969abd8cf18b1487c88f3a293214" resname="ibd-form.pneu-chest-indraw">
         <source>ibd-form.pneu-chest-indraw</source>

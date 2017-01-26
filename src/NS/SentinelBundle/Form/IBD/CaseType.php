@@ -105,14 +105,25 @@ class CaseType extends AbstractType
             ->add('csfCollectDate',     DatePickerType::class, ['required' => $required, 'label' => 'ibd-form.csf-collect-datetime', 'hidden-parent' => 'csfCollected', 'hidden-value' => TripleChoice::YES])
             ->add('csfCollectTime',     TimeType::class, ['widget' => 'single_text', 'required' => $required, 'label' => 'ibd-form.csf-collect-datetime', 'hidden-parent' => 'csfCollected', 'hidden-value' => TripleChoice::YES])
             ->add('csfAppearance',      CSFAppearance::class, ['required' => $required, 'label' => 'ibd-form.csf-appearance', 'hidden-parent' => 'csfCollected', 'hidden-value' => TripleChoice::YES])
-            ->add('otherSpecimenCollected', OtherSpecimen::class, ['required' => $required, 'label' => 'ibd-form.otherSpecimenCollected', 'hidden-child' => 'otherSpecimenCollected'])
-            ->add('otherSpecimenOther', null, ['required' => $required, 'label' => 'ibd-form.otherSpecimenOther', 'hidden-parent' => 'otherSpecimenCollected', 'hidden-value'  => OtherSpecimen::OTHER])
             ->add('dischOutcome',       DischargeOutcome::class, ['required' => false, 'label' => 'ibd-form.discharge-outcome'])
             ->add('dischDx',            DischargeDiagnosis::class, ['required' => false, 'label' => 'ibd-form.discharge-diagnosis', 'hidden-child' => 'dischargeDiagnosis'])
             ->add('dischDxOther',       null, ['required' => false, 'label' => 'ibd-form.discharge-diagnosis-other', 'hidden-parent' => 'dischargeDiagnosis', 'hidden-value' => DischargeDiagnosis::OTHER])
             ->add('dischClass',         DischargeClassification::class, ['required' => false, 'label' => 'ibd-form.discharge-class','exclude_choices'=> ($isPaho ? [DischargeClassification::UNKNOWN,DischargeClassification::SUSPECT]:null)])
             ->add('comment',            null, ['required' => false, 'label' => 'ibd-form.comment']);
         ;
+
+        if ($isPaho) {
+            $builder
+                ->add('bloodNumberOfSamples', null, ['required' => $required,'hidden'=>['parent' => 'bloodCollected', 'value' => TripleChoice::YES]])
+                ->add('pleuralFluidCollected', TripleChoice::class, ['required' => $required, 'hidden-child' => 'pleuralFluidCollected'])
+                ->add('pleuralFluidCollectDate', DatePickerType::class, ['required' => $required, 'hidden'=>['parent' => 'pleuralFluidCollected', 'value' => TripleChoice::YES]])
+                ->add('pleuralFluidCollectTime', TimeType::class, ['required' => $required,'hidden'=>['parent' => 'pleuralFluidCollected', 'value' => TripleChoice::YES]])
+                ;
+        } else {
+            $builder
+                ->add('otherSpecimenCollected', OtherSpecimen::class, ['required' => $required, 'label' => 'ibd-form.otherSpecimenCollected', 'hidden-child' => 'otherSpecimenCollected'])
+                ->add('otherSpecimenOther', null, ['required' => $required, 'label' => 'ibd-form.otherSpecimenOther', 'hidden-parent' => 'otherSpecimenCollected', 'hidden-value'  => OtherSpecimen::OTHER]);
+        }
 
         $builder->addEventListener(FormEvents::POST_SET_DATA, [$this,'postSetData']);
     }
@@ -151,7 +162,7 @@ class CaseType extends AbstractType
             }
         }
     }
-    
+
     /**
      * @param OptionsResolver $resolver
      */
