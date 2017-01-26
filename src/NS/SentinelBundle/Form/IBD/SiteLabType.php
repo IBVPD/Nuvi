@@ -108,7 +108,7 @@ class SiteLabType extends AbstractType
 
         if (true) {
             $builder
-                ->add('pleuralFluidCultureDone', TripleChoice::class, ['required' => false, 'hidden' => ['child' => 'pleuralFluidCultureDone'], 'label'=>'ibd-form.pleural-fluid-collected'])
+                ->add('pleuralFluidCultureDone', TripleChoice::class, ['required' => false, 'hidden' => ['child' => 'pleuralFluidCultureDone'], 'label'=>'ibd-form.pleural-fluid-culture-done'])
                 ->add('pleuralFluidCultureResult', CultureResult::class, ['required' => false, 'hidden' => ['child'=>'pleuralFluidCultureResult','parent' => 'pleuralFluidCultureDone', 'value' => TripleChoice::YES], 'label'=>'ibd-form.pleural-fluid-culture-result'])
                 ->add('pleuralFluidCultureOther', null, ['required' => false, 'hidden' => ['parent' => 'pleuralFluidCultureResult', 'value' => CultureResult::OTHER], 'label'=>'ibd-form.pleural-fluid-culture-result-other'])
                 ->add('pleuralFluidGramDone', TripleChoice::class, ['required' => false, 'hidden' => ['child' => 'pleuralFluidGramDone'], 'label'=>'ibd-form.pleural-fluid-gram-done'])

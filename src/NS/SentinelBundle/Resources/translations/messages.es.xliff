@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2017-01-26T15:03:12Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
+  <file date="2017-01-26T15:39:27Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -2667,6 +2667,12 @@
         <source>ibd-form.pleural-fluid-collection-time</source>
         <target state="new">ibd-form.pleural-fluid-collection-time</target>
         <jms:reference-file line="120">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Form/IBD/CaseType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="299fdd5b351d0b7f388601c221ba80ce6fac6664" resname="ibd-form.pleural-fluid-culture-done">
+        <source>ibd-form.pleural-fluid-culture-done</source>
+        <target state="new">ibd-form.pleural-fluid-culture-done</target>
+        <jms:reference-file line="232">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Resources/views/IBD/show.html.twig</jms:reference-file>
+        <jms:reference-file line="111">/var/www/local/nuvi/app/../src/NS/SentinelBundle/Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="dd5cf11dd4589f07081ef803d70c503082e4d698" resname="ibd-form.pleural-fluid-culture-result">
         <source>ibd-form.pleural-fluid-culture-result</source>
