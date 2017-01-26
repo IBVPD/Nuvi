@@ -17,7 +17,6 @@
                     <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
                         <li class="active"><a data-toggle="tab" href="#labinfo">{{'Lab Information'|trans}}</a></li>
                         <li><a data-toggle="tab" href="#sample">{{'Sample Information'|trans}}</a></li>
-                        <li><a data-toggle="tab" href="#methods">{{'Methods'|trans}}</a></li>
                         <li><a data-toggle="tab" href="#ctvalues">{{'CT Values From PCR'|trans}}</a></li>
                         <li><a data-toggle="tab" href="#serotype">{{'Serotype / Serogroup Results'|trans}}</a></li>
                     </ul>
@@ -39,13 +38,17 @@
                                 {{form_row(form.isolateType)}}
                             </div>
                         </div>
-                    </div>
-
-                    <div id="methods" class="tab-pane">
-                        {{form_row(form.pathogenIdentifierMethod)}}
-                        {{form_row(form.pathogenIdentifierOther)}}
-                        {{form_row(form.serotypeIdentifier)}}
-                        {{form_row(form.serotypeIdentifierOther)}}
+                        <hr/>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                {{form_row(form.pathogenIdentifierMethod)}}
+                                {{form_row(form.pathogenIdentifierOther)}}
+                            </div>
+                            <div class="col-sm-6">
+                                {{form_row(form.serotypeIdentifier)}}
+                                {{form_row(form.serotypeIdentifierOther)}}
+                            </div>
+                        </div>
                     </div>
 
                     <div id="ctvalues" class="tab-pane">
