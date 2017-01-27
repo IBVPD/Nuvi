@@ -12,6 +12,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * Description of CreateClientCommand
  *
  * @author gnat
+ * @codeCoverageIgnore
  */
 class CreateClientCommand extends ContainerAwareCommand
 {

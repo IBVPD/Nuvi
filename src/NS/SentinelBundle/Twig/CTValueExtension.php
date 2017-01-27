@@ -56,6 +56,7 @@ class CTValueExtension extends \Twig_Extension implements TranslationContainerIn
 
     /**
      * @inheritDoc
+     * @codeCoverageIgnore
      */
     public static function getTranslationMessages()
     {

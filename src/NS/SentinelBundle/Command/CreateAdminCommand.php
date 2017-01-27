@@ -12,6 +12,7 @@ use NS\SentinelBundle\Entity\User;
  * Description of CreateAdminCommand
  *
  * @author gnat
+ * @codeCoverageIgnore
  */
 class CreateAdminCommand extends ContainerAwareCommand
 {

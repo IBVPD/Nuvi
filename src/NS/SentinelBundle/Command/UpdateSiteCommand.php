@@ -13,6 +13,11 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\HttpFoundation\File\File;
 
+/**
+ * Class UpdateSiteCommand
+ * @package NS\SentinelBundle\Command
+ * @codeCoverageIgnore
+ */
 class UpdateSiteCommand extends ContainerAwareCommand
 {
     private $surveillance;

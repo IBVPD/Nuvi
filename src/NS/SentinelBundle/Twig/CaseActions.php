@@ -204,6 +204,7 @@ class CaseActions extends \Twig_Extension implements TranslationContainerInterfa
 
     /**
      * @inheritDoc
+     * @codeCoverageIgnore
      */
     public static function getTranslationMessages()
     {

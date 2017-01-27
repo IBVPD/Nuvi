@@ -17,6 +17,7 @@ use NS\SentinelBundle\Entity\Site;
  * Description of ImportCommand
  *
  * @author gnat
+ * @codeCoverageIgnore
  */
 class ImportCommand extends ContainerAwareCommand
 {
