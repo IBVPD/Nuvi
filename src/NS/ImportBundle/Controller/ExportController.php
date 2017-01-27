@@ -4,6 +4,8 @@ namespace NS\ImportBundle\Controller;
 
 use Doctrine\ORM\QueryBuilder;
 use Exporter\Source\DoctrineORMQuerySourceIterator;
+use Exporter\Writer\CsvWriter;
+use Exporter\Writer\XlsWriter;
 use NS\SentinelBundle\Filter\Type\IBD\ReportFilterType as IBDReportFilterType;
 use NS\SentinelBundle\Filter\Type\RotaVirus\ReportFilterType as RotaVirusReportFilterType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -126,7 +128,7 @@ class ExportController extends Controller
         $source = new DoctrineORMQuerySourceIterator($query, $fields);
         $filename = sprintf('export_%s.%s', date('Y_m_d_H_i_s'), $format);
 
-        $exporter = new Exporter();
+        $exporter = new Exporter([new CsvWriter('php://output'),new XlsWriter('php://output')]);
         return $exporter->getResponse($format, $filename, $source);
     }
 }

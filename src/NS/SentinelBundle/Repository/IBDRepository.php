@@ -220,7 +220,10 @@ class IBDRepository extends Common
     {
         return $this->secure(
             $this->createQueryBuilder($alias)
-                ->select($alias . ',s,c,r')
+                ->select($alias . ',sl,rl,nl,s,c,r')
+                ->leftJoin($alias.'.siteLab','sl')
+                ->leftJoin($alias.'.referenceLab','rl')
+                ->leftJoin($alias.'.nationalLab','nl')
                 ->innerJoin($alias . '.site', 's')
                 ->innerJoin($alias . '.country', 'c')
                 ->innerJoin($alias . '.region', 'r')

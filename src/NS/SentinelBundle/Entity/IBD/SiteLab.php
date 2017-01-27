@@ -1586,4 +1586,38 @@ class SiteLab extends BaseSiteLab
     {
         $this->pleural_fluid_pcr_other = $pleural_fluid_pcr_other;
     }
+
+    // ====================
+    // Export getters
+    /**
+     * @return \DateTime
+     */
+    public function getRlCsfDate()
+    {
+        return $this->rl_csf_date;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getRlIsolCsfDate()
+    {
+        return $this->rl_isol_csf_date;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getRlIsolBloodDate()
+    {
+        return $this->rl_isol_blood_date;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getRlBrothDate()
+    {
+        return $this->rl_broth_date;
+    }
 }
