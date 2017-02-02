@@ -1,12 +1,12 @@
 Cases and Data Entry
 ====================
 
-1. Recent Cases list
-2. Finding cases
-3. Creating cases
-4. Modifying cases
-5. Zero Reporting
-6. Reports
+1. [Recent Cases list](#recent-cases-list)
+2. [Finding cases](#finding-buttons)
+3. [Creating cases](#creating-cases)
+4. [Modifying cases](#modifying-cases)
+5. [Zero Reporting](#zero-reporting)
+6. [Reports](#reports)
 
 Recent Cases list
 -----------------
