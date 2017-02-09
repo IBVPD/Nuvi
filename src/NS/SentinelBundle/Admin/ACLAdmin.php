@@ -47,8 +47,9 @@ class ACLAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('type', Role::class)
+            ->add('type', Role::class, ['label' => 'Access Level'])
             ->add('options', ChoiceType::class, [
+                'label' => 'Creation Rights',
                 'required' => false,
                 'multiple' => true,
                 'choices' => [
@@ -60,7 +61,7 @@ class ACLAdmin extends AbstractAdmin
                     'Can Create RRL' => 'rrl']]
             )
             ->add('object_id', ACLAutoCompleterType::class, [
-                                                        'label'               => 'Target',
+                                                        'label'               => 'Specific - Site / Country / Region',
                                                         'route'               => 'adminACLAjaxAutocomplete',
                                                         'required'            => false,
                                                         'secondary-field'     => ['s' => 'object_id', 'r' => 'type']])
