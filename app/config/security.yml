@@ -156,10 +156,6 @@ security:
                 login_path: /oauth/v2/auth/login
                 use_referer: true
 
-        login:
-            pattern:  ^/login$
-            anonymous: ~
-
         api:
             pattern:    ^/api/.*
             fos_oauth:  true
@@ -176,6 +172,7 @@ security:
                 path:   /logout
                 target: /
             switch_user: true
+            anonymous: ~
 
     access_control:
         - { path: ^/oauth/v2/auth/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
