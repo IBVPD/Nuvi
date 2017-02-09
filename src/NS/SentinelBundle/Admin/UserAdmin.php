@@ -2,8 +2,12 @@
 
 namespace NS\SentinelBundle\Admin;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\UnexpectedResultException;
 use NS\SentinelBundle\Entity\ACL;
+use NS\SentinelBundle\Entity\Country;
+use NS\SentinelBundle\Entity\Region;
+use NS\SentinelBundle\Entity\Site;
 use NS\SentinelBundle\Entity\User;
 use NS\SentinelBundle\Form\Types\Role;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
@@ -176,15 +180,16 @@ class UserAdmin extends AbstractAdmin
                     switch ($acl->getType()->getValue()) {
                         case Role::SITE:
                         case Role::LAB:
-                            $entityManager = $this->getModelManager()->getEntityManager('NS\SentinelBundle\Entity\Site');
+                            $entityManager = $this->getModelManager()->getEntityManager(Site::class);
 
+                            /** @var Site $site */
                             $site = $entityManager
-                                    ->getRepository('NS\SentinelBundle\Entity\Site')
-                                    ->createQuery('s')
+                                    ->getRepository(Site::class)
+                                    ->createQueryBuilder('s')
                                     ->addSelect('r,c')
                                     ->innerJoin('s.country','c')
                                     ->innerJoin('c.region','r')
-                                    ->where('s.id = :siteId')
+                                    ->where('s.code = :siteId')
                                     ->setParameter('siteId',$acl->getObjectId())
                                     ->getQuery()
                                     ->getSingleResult();
@@ -194,13 +199,16 @@ class UserAdmin extends AbstractAdmin
                         case Role::NL_LAB:
                         case Role::RRL_LAB:
                         case Role::COUNTRY:
-                            $entityManager = $this->getModelManager()->getEntityManager('NS\SentinelBundle\Entity\Country');
+                            /** @var EntityManagerInterface $entityManager */
+                            $entityManager = $this->getModelManager()->getEntityManager(Country::class);
+
+                            /** @var Country $country */
                             $country = $entityManager
-                                ->getRepository('NS\SentinelBundle\Entity\Country')
-                                ->createQuery('c')
+                                ->getRepository(Country::class)
+                                ->createQueryBuilder('c')
                                 ->addSelect('r')
                                 ->innerJoin('c.region','r')
-                                ->where('c.id = :countryId')
+                                ->where('c.code = :countryId')
                                 ->setParameter('countryId',$acl->getObjectId())
                                 ->getQuery()
                                 ->getSingleResult();
@@ -208,7 +216,12 @@ class UserAdmin extends AbstractAdmin
                             $user->setRegion($country->getRegion());
                             break;
                         case Role::REGION:
-                            $user->setRegion($this->getModelManager()->getEntityManager('NS\SentinelBundle\Entity\Region')->getReference('NS\SentinelBundle\Entity\Region', $acl->getObjectId()));
+                            $region = $this->getModelManager()
+                                ->getEntityManager(Region::class)
+                                ->getReference(Region::class, $acl->getObjectId());
+
+                            $user->setRegion($region);
+                            break;
                     }
                 } catch(UnexpectedResultException $exception) {
 
