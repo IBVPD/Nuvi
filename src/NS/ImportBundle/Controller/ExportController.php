@@ -53,10 +53,10 @@ class ExportController extends Controller
             $modelManager = $this->get('doctrine.orm.entity_manager');
             $fields = $this->baseField;
             $meta = [
-                "%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\IBD'),
-                "siteLab.%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\IBD\SiteLab'),
-                "referenceLab.%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\IBD\ReferenceLab'),
-                "nationalLab.%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\IBD\NationalLab'),
+                '%s' => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\IBD'),
+                'siteLab.%s' => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\IBD\SiteLab'),
+                'referenceLab.%s' => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\IBD\ReferenceLab'),
+                'nationalLab.%s' => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\IBD\NationalLab'),
             ];
 
             $this->adjustFields($meta, $fields);
@@ -81,10 +81,10 @@ class ExportController extends Controller
             $modelManager = $this->get('doctrine.orm.entity_manager');
             $fields = $this->baseField;
             $meta = [
-                "%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\RotaVirus'),
-                "siteLab.%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\RotaVirus\SiteLab'),
-                "referenceLab.%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\RotaVirus\ReferenceLab'),
-                "nationalLab.%s" => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\RotaVirus\NationalLab'),
+                '%s' => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\RotaVirus'),
+                'siteLab.%s' => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\RotaVirus\SiteLab'),
+                'referenceLab.%s' => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\RotaVirus\ReferenceLab'),
+                'nationalLab.%s' => $modelManager->getClassMetadata('NS\SentinelBundle\Entity\RotaVirus\NationalLab'),
             ];
 
             $this->adjustFields($meta, $fields);
