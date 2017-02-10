@@ -177,6 +177,8 @@ security:
     access_control:
         - { path: ^/oauth/v2/auth/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/forgot-password, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/reset-password, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/authorize, roles: ROLE_API }
         - { path: ^/oauth, roles: ROLE_API }
         - { path: '^/[^/]+/doc/api', roles: [ ROLE_API, ROLE_USER ], requires_channel: https }

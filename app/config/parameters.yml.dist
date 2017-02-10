@@ -20,3 +20,7 @@ parameters:
     monolog.error.to_email: nathanael@noblet.ca
     monolog.error.from_email: noreply@who.int
     monolog.error.subject: NUVI HQ ERROR
+
+    ns_token_id: some_token_id
+    ns_token_key: some_token_key
+    ns_token_issuer: nuvi/ibvpd

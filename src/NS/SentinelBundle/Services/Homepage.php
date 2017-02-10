@@ -6,6 +6,8 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Description of Homepage
@@ -44,7 +46,7 @@ class Homepage
     {
         $user = $this->tokenStorage->getToken()->getUser();
 
-        if ($user->isOnlyAdmin()) {
+        if ($user instanceof UserInterface && $user->isOnlyAdmin()) {
             return new RedirectResponse($this->router->generate('sonata_admin_dashboard'));
         }
 

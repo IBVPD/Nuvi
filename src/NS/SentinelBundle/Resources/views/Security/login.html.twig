@@ -23,45 +23,49 @@
         <div id="login-box" class="login-box visible widget-box no-border">
             <div class="widget-body">
                  <div class="widget-main">
-                    <h4 class="header blue lighter bigger"><i class="fa fa-coffee green"></i> {{'Please Enter Your Information'|trans}}</h4>
-                        <div class="space-6"></div>
-                        <form id="login_form" action="{{ path('login_check') }}" method="post">
-                            <fieldset>
-                                <label class="block clearfix">
-                                    <span class="block input-icon input-icon-right">
-                                        <input type="text" id="username" name="_username" required class="form-control" placeholder="{{'Email / Username'|trans}}" value="{{ last_username }}" />
-                                        <i class="ace-icon fa fa-user"></i>
-                                    </span>
-                                </label>
+                     <h4 class="header blue lighter bigger">
+                        <span class="fa-stack">
+                            <i class="fa fa-square-o fa-stack-2x"></i>
+                            <i class="fa fa-sign-in fa-stack-1x"></i>
+                        </span> Please Login
+                     </h4>
+                    <div class="space-6"></div>
+                    <form id="login_form" action="{{ path('login_check') }}" method="post">
+                        <fieldset>
+                            <label class="block clearfix">
+                                <span class="block input-icon input-icon-right">
+                                    <input type="email" id="username" name="_username" required class="form-control" placeholder="{{'Email / Username'|trans}}" value="{{ last_username }}" />
+                                    <i class="ace-icon fa fa-user"></i>
+                                </span>
+                            </label>
 
-                                <label class="block clearfix">
-                                    <span class="block input-icon input-icon-right">
-                                        <input type="password" class="form-control" required name="_password" placeholder="{{'Password'|trans}}" autocomplete="off" />
-                                        <i class="ace-icon fa fa-lock"></i>
-                                    </span>
-                                </label>
+                            <label class="block clearfix">
+                                <span class="block input-icon input-icon-right">
+                                    <input type="password" class="form-control" required name="_password" placeholder="{{'Password'|trans}}" autocomplete="off" />
+                                    <i class="ace-icon fa fa-lock"></i>
+                                </span>
+                            </label>
 
-                                <div class="space"></div>
+                            <div class="space"></div>
 
-                                <div class="clearfix">
+                            <div class="clearfix">
 <!--                                <label class="inline"><input type="checkbox" class="ace" /><span class="lbl"> Remember Me</span></label>-->
-                                    <button type="submit" id="login" style="" class="width-35 pull-right btn btn-sm btn-primary">
-                                        <i class="fa fa-key"></i> {{'Login'|trans}}
-                                    </button>
-                                </div>
+                                <button type="submit" id="login" style="" class="width-35 pull-right btn btn-sm btn-primary">
+                                    <i class="fa fa-key"></i> {{'Login'|trans}}
+                                </button>
+                            </div>
 
-                                <div class="space-4"></div>
-                            </fieldset>
-                        </form>
-                 </div><!--/widget-main-->
-
+                            <div class="space-4"></div>
+                        </fieldset>
+                    </form>
+                 </div>
                  <div class="toolbar clearfix">
                     <div>
-                        <a href="#" class="forgot-password-link"><i class="ace-icon fa fa-arrow-left"></i> {{'I forgot my password'|trans}}</a>
+                        <a href="{{ path('forgotPassword') }}" class="forgot-password-link"><i class="ace-icon fa fa-arrow-left"></i> {{'I forgot my password'|trans}}</a>
                     </div>
                  </div>
-            </div><!--/widget-body-->
-        </div><!--/login-box-->
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

@@ -312,3 +312,7 @@ leezy_pheanstalk:
             server: "%beanstalk_server%"
             default: true
 
+ns_token:
+  id: '%ns_token_id%'
+  key: '%ns_token_key%'
+  issuer: '%ns_token_issuer%'

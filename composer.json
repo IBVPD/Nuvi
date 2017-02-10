@@ -61,7 +61,9 @@
         "vich/uploader-bundle": "1.0.0-beta7",
         "leezy/pheanstalk-bundle": "^3.2",
         "liuggio/excelbundle": "^2.0",
-        "doctrine/doctrine-migrations-bundle": "^1.1"
+        "doctrine/doctrine-migrations-bundle": "^1.1",
+        "twig/twig": "^1.0",
+        "ns/token-bundle": "^0.1"
     },
     "scripts": {
       "symfony-scripts": [
@@ -100,8 +102,8 @@
       }
     },
     "repositories": [ 
-                        { "type": "vcs", "url": "https://github.com/gnat42/data-import" }
-                    ],
+      { "type": "vcs", "url": "https://github.com/gnat42/data-import" }
+    ],
     "require-dev": {
       "sensio/generator-bundle": "^3.0",
       "symfony/phpunit-bridge": "^3.0",
@@ -109,6 +111,6 @@
       "phpmd/phpmd": "@stable",
       "liip/functional-test-bundle": "^1.7",
       "liip/rmt": "^1.1",
-    "hautelook/alice-bundle": "^1.4"
+      "hautelook/alice-bundle": "^1.4"
     }
 }

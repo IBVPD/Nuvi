@@ -64,6 +64,7 @@ class AppKernel extends Kernel
             new Leezy\PheanstalkBundle\LeezyPheanstalkBundle(),
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
             new \NS\FilteredPaginationBundle\NSFilteredPaginationBundle(),
+            new NS\TokenBundle\NSTokenBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test','live'))) {

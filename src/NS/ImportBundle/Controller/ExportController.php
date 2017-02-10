@@ -122,13 +122,14 @@ class ExportController extends Controller
      */
     private function export($format, FormInterface $form, QueryBuilder $queryBuilder, array $fields)
     {
-        $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $queryBuilder, $queryBuilder->getRootAlias());
+        $aliases = $queryBuilder->getRootAliases();
+        $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $queryBuilder, $aliases[0]);
 
         $query = $queryBuilder->getQuery();
         $source = new DoctrineORMQuerySourceIterator($query, $fields);
         $filename = sprintf('export_%s.%s', date('Y_m_d_H_i_s'), $format);
 
-        $exporter = new Exporter([new CsvWriter('php://output'),new XlsWriter('php://output')]);
+        $exporter = new Exporter([new CsvWriter('php://output'), new XlsWriter('php://output')]);
         return $exporter->getResponse($format, $filename, $source);
     }
 }
