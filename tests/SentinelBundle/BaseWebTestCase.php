@@ -3,6 +3,7 @@
 namespace NS\SentinelBundle\Tests;
 
 use Liip\FunctionalTestBundle\Test\WebTestCase;
+use NS\SentinelBundle\Entity\User;
 
 /**
  * Description of BaseWebTestCase
@@ -19,10 +20,16 @@ class BaseWebTestCase extends WebTestCase
             ->setParameter('email', 'ca-full@noblet.ca')
             ->getSingleResult();
 
+        $this->assertInstanceOf(User::class, $user);
+
         $this->loginAs($user, 'main_app');
         $client = $this->makeClient();
         $client->followRedirects();
         $client->request('GET', '/');
+
+        if ($client->getResponse()->getStatusCode() !== 200) {
+            file_put_contents('/tmp/login.err', $client->getResponse()->getContent());
+        }
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
