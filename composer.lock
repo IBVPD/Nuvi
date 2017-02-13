@@ -3040,16 +3040,16 @@
         },
         {
             "name": "ns/ace-bundle",
-            "version": "2.0.43",
+            "version": "2.0.45",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/AceBundle.git",
-                "reference": "a041a646019910192fc254189af5cf7f114047d5"
+                "reference": "ddb20c1a47de2b00b95b41478bfee7f41dd8ce8c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/AceBundle/zipball/a041a646019910192fc254189af5cf7f114047d5",
-                "reference": "a041a646019910192fc254189af5cf7f114047d5",
+                "url": "https://api.github.com/repos/NobletSolutions/AceBundle/zipball/ddb20c1a47de2b00b95b41478bfee7f41dd8ce8c",
+                "reference": "ddb20c1a47de2b00b95b41478bfee7f41dd8ce8c",
                 "shasum": ""
             },
             "require": {
@@ -3094,7 +3094,7 @@
                 }
             ],
             "description": "This bundle provides the ace admin bootstrap template",
-            "time": "2017-01-26T18:11:51+00:00"
+            "time": "2017-02-13T22:57:35+00:00"
         },
         {
             "name": "ns/ace-sonata-bundle",
@@ -3235,16 +3235,16 @@
         },
         {
             "name": "ns/flash-bundle",
-            "version": "1.0.4",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/FlashBundle.git",
-                "reference": "d2d33c1d7d333ba485554236a0fe519dc3b5fc86"
+                "reference": "110409ff9b977b704e762f738ea372a2f1ebc59a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/FlashBundle/zipball/d2d33c1d7d333ba485554236a0fe519dc3b5fc86",
-                "reference": "d2d33c1d7d333ba485554236a0fe519dc3b5fc86",
+                "url": "https://api.github.com/repos/NobletSolutions/FlashBundle/zipball/110409ff9b977b704e762f738ea372a2f1ebc59a",
+                "reference": "110409ff9b977b704e762f738ea372a2f1ebc59a",
                 "shasum": ""
             },
             "require": {
@@ -3272,7 +3272,7 @@
                 }
             ],
             "description": "This Bundle provides a flash message service and twig renderer",
-            "time": "2016-11-14T21:32:04+00:00"
+            "time": "2017-02-13T21:07:02+00:00"
         },
         {
             "name": "ns/security-bundle",
@@ -3362,16 +3362,16 @@
         },
         {
             "name": "ns/util-bundle",
-            "version": "3.0.2",
+            "version": "3.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/UtilBundle.git",
-                "reference": "d481aa66a46aa831b71cb55fc73874eb15a11deb"
+                "reference": "5b7448ddad6589a7e02bbea8fee59314d8eb7683"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/UtilBundle/zipball/d481aa66a46aa831b71cb55fc73874eb15a11deb",
-                "reference": "d481aa66a46aa831b71cb55fc73874eb15a11deb",
+                "url": "https://api.github.com/repos/NobletSolutions/UtilBundle/zipball/5b7448ddad6589a7e02bbea8fee59314d8eb7683",
+                "reference": "5b7448ddad6589a7e02bbea8fee59314d8eb7683",
                 "shasum": ""
             },
             "require": {
@@ -3381,12 +3381,12 @@
             },
             "require-dev": {
                 "liip/rmt": "^1.1",
-                "phpunit/phpunit": "^4.7"
+                "phpunit/phpunit": "^5.7"
             },
             "type": "symfony-bundle",
             "autoload": {
                 "psr-4": {
-                    "NS\\UtilBundle\\": ""
+                    "NS\\UtilBundle\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -3404,7 +3404,7 @@
                 }
             ],
             "description": "Various Utilitity Services and Classes",
-            "time": "2017-01-16T21:25:55+00:00"
+            "time": "2017-02-13T21:17:12+00:00"
         },
         {
             "name": "ocramius/proxy-manager",
@@ -4578,16 +4578,16 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v5.4.5",
+            "version": "v5.4.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "cd142238a339459b10da3d8234220963f392540c"
+                "reference": "81fdccfaf8bdc5d5d7a1ef6bb3a61bbb1a6c4a3e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/cd142238a339459b10da3d8234220963f392540c",
-                "reference": "cd142238a339459b10da3d8234220963f392540c",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/81fdccfaf8bdc5d5d7a1ef6bb3a61bbb1a6c4a3e",
+                "reference": "81fdccfaf8bdc5d5d7a1ef6bb3a61bbb1a6c4a3e",
                 "shasum": ""
             },
             "require": {
@@ -4628,7 +4628,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2016-12-29T10:02:40+00:00"
+            "time": "2017-02-13T07:52:53+00:00"
         },
         {
             "name": "symfony/monolog-bundle",
@@ -6353,16 +6353,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "5.7.12",
+            "version": "5.7.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "944600e244f80a5252679878553b95c63dbf978b"
+                "reference": "60ebeed87a35ea46fd7f7d8029df2d6f013ebb34"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/944600e244f80a5252679878553b95c63dbf978b",
-                "reference": "944600e244f80a5252679878553b95c63dbf978b",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/60ebeed87a35ea46fd7f7d8029df2d6f013ebb34",
+                "reference": "60ebeed87a35ea46fd7f7d8029df2d6f013ebb34",
                 "shasum": ""
             },
             "require": {
@@ -6431,7 +6431,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-02-08T05:54:05+00:00"
+            "time": "2017-02-10T09:05:10+00:00"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
