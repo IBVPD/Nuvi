@@ -12,7 +12,7 @@ command=$1
 
 function update() {
     SYMFONY_ENV=prod composer install -o
-    app/console doctrine:migrations:migrate --env=prod
+    bin/console doctrine:migrations:migrate --env=prod
 }
 
 function getLatest() {
