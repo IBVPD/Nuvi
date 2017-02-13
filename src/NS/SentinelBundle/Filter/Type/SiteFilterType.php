@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Filter\Type;
 
+use Doctrine\ORM\QueryBuilder;
 use Lexik\Bundle\FormFilterBundle\Filter\Form\Type\EmbeddedFilterTypeInterface;
 use Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType;
 use Lexik\Bundle\FormFilterBundle\Filter\Query\QueryInterface;
@@ -44,13 +45,19 @@ class SiteFilterType extends AbstractType implements EmbeddedFilterTypeInterface
     public function applyFilter(QueryInterface $filterBuilder, $field, $values)
     {
         if ($values['value'] instanceof IntenseSupport && $values['value']->getValue() >= 0) {
+            /** @var QueryBuilder $queryBuilder */
             $queryBuilder = $filterBuilder->getQueryBuilder();
             $joins = $queryBuilder->getDQLPart('join');
             $alias = $values['alias'];
 
-            foreach (current($joins) as $join) {
-                if ($join->getJoin() == $alias) {
-                    $alias = $join->getAlias();
+            if (empty($joins)) {
+                $queryBuilder->innerJoin(current($queryBuilder->getRootAliases()).'.site','s');
+                $alias = 's';
+            } else {
+                foreach (current($joins) as $join) {
+                    if ($join->getJoin() == $alias) {
+                        $alias = $join->getAlias();
+                    }
                 }
             }
 
