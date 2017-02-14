@@ -76,23 +76,17 @@
                                 {{ form_row(form.rNaseP) }}
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                {{ form_row(form.finalResult) }}
-                            </div>
-                            <div class="col-md-3">
-                                {{ form_row(form.comment) }}
-                            </div>
-                        </div>
                     </div>
 
                     <div id="serotype" class="tab-pane">
                         <div class="row">
-                            <div class="col-sm-6 col-md-6 col-lg-6">
+                            <div class="col-md-6">
+                                {{ form_row(form.finalResult) }}
+                                {{ form_row(form.comment) }}
+                            </div>
+                            <div class="col-md-6">
                                 {{ form_row(form.spnSerotype) }}
                                 {{ form_row(form.hiSerotype) }}
-                            </div>
-                            <div class="col-sm-6 col-md-6 col-lg-6">
                                 {{ form_row(form.nmSerogroup) }}
                             </div>
                         </div>

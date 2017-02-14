@@ -43,10 +43,10 @@ class BaseLabType extends AbstractType
             ->add('hpd3',                       CTValueType::class, ['label' => 'ibd-rrl-form.hpd3', 'required' => false])
             ->add('bexA',                       CTValueType::class, ['label' => 'ibd-rrl-form.bexA', 'required' => false])
             ->add('rNaseP',                     CTValueType::class, ['label' => 'ibd-rrl-form.rNasP', 'required' => false])
-            ->add('finalResult',                FinalResult::class, ['label' => 'ibd-rrl-form.finalResult', 'required' => false])
-            ->add('spnSerotype',                SpnSerotype::class, ['label' => 'ibd-rrl-form.spnSerotype', 'required' => false])
-            ->add('hiSerotype',                 HiSerotype::class, ['label' => 'ibd-rrl-form.hiSerotype', 'required' => false])
-            ->add('nmSerogroup',                NmSerogroup::class, ['label' => 'ibd-rrl-form.nmSerogroup', 'required' => false])
+            ->add('finalResult',                FinalResult::class, ['label' => 'ibd-rrl-form.finalResult', 'required' => false, 'hidden' => ['child'=>'finalResult']])
+            ->add('spnSerotype',                SpnSerotype::class, ['label' => 'ibd-rrl-form.spnSerotype', 'required' => false, 'hidden' => ['parent'=>'finalResult', 'value'=>[FinalResult::SPN,FinalResult::SPN_HI,FinalResult::SPN_HI_NM, FinalResult::SPN_NM]]])
+            ->add('hiSerotype',                 HiSerotype::class, ['label' => 'ibd-rrl-form.hiSerotype', 'required' => false, 'hidden' => ['parent'=>'finalResult', 'value'=>[FinalResult::HI,FinalResult::HI_NM,FinalResult::SPN_HI_NM, FinalResult::SPN_HI]]])
+            ->add('nmSerogroup',                NmSerogroup::class, ['label' => 'ibd-rrl-form.nmSerogroup', 'required' => false, 'hidden' => ['parent'=>'finalResult', 'value'=>[FinalResult::NM,FinalResult::HI_NM,FinalResult::SPN_HI_NM, FinalResult::SPN_NM]]])
             ->add('comment',                    null, ['label' => 'ibd-rrl-form.comment', 'required' => false]);
     }
 }
