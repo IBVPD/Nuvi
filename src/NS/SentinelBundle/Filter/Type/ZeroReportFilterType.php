@@ -22,7 +22,7 @@ class ZeroReportFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('type', ChoiceType::class, ['choices' => ['NSSentinelBundle:IBD' => 'IBD', 'NSSentinelBundle:RotaVirus' => 'RotaVirus'], 'placeholder' => 'Please Select...'])
+            ->add('type', ChoiceType::class, ['choices' => ['IBD' => 'NSSentinelBundle:IBD', 'RotaVirus' => 'NSSentinelBundle:RotaVirus'], 'placeholder' => 'Please Select...'])
             ->add('from', DatePickerType::class)
             ->add('to', DatePickerType::class);
     }
