@@ -24,7 +24,7 @@ class IBDListener extends BaseCaseListener
      * Probable: Suspected + CSF examination as one of the following
      *              - Turbid appearance
      *              - Leukocytosis ( > 100 cells/mm3)
-     *              - Leukocytosis ( 10-100 cells/mm3) AND either elevated protein (> 100mg/dl) or decreased glucose (< 400 mg/dl)
+     *              - Leukocytosis ( 10-100 cells/mm3) AND either elevated protein (> 100mg/dl) or decreased glucose (< 40 mg/dl)
      *
      * Confirmed: Suspected + culture or (Gram stain, antigen detection, immunochromotagraphy, PCR or other methods)
      *            a bacterial pathogen (Hib, pneumococcus or meningococcus) in the CSF or from the blood in a child with a clinical
