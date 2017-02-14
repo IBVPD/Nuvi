@@ -27,11 +27,11 @@ class BaseLabType extends AbstractType
     {
         $builder
             ->add('labId',                      null, ['label' => 'ibd-rrl-form.lab-id', 'required' => true])
-            ->add('sampleType',                 SampleType::class, ['label' => 'ibd-rrl-form.sample-type', 'required' => false])
+            ->add('sampleType',                 SampleType::class, ['label' => 'ibd-rrl-form.sample-type', 'required' => false, 'hidden'=>['child'=>'sampleType']])
             ->add('sampleCollectionDate',       DatePickerType::class, ['label'=>'ibd-rrl-form.sample-collection-date', 'required'=>false])
             ->add('dateReceived',               DatePickerType::class, ['label' => 'ibd-rrl-form.date-received', 'required' => false])
-            ->add('isolateViable',              IsolateViable::class, ['label' => 'ibd-rrl-form.isolate-viable', 'required' => false])
-            ->add('isolateType',                IsolateType::class, ['label' => 'ibd-rrl-form.isolate-type', 'required' => false])
+            ->add('isolateViable',              IsolateViable::class, ['label' => 'ibd-rrl-form.isolate-viable', 'required' => false, 'hidden' => ['parent' => 'sampleType', 'value' => [SampleType::ISOLATE, SampleType::CSF_ISOLATE]]])
+            ->add('isolateType',                IsolateType::class, ['label' => 'ibd-rrl-form.isolate-type', 'required' => false, 'hidden' => ['parent' => 'sampleType', 'value' => [SampleType::ISOLATE, SampleType::CSF_ISOLATE]]])
             ->add('pathogenIdentifierMethod',   PathogenIdentifier::class, ['label' => 'ibd-rrl-form.pathogen-id-method', 'required' => false, 'hidden-child' => 'pathogenIdentifierMethod'])
             ->add('pathogenIdentifierOther',    null, ['label' => 'ibd-rrl-form.pathogen-id-other', 'required' => false, 'hidden-parent' => 'pathogenIdentifierMethod', 'hidden-value' => PathogenIdentifier::OTHER])
             ->add('serotypeIdentifier',         SerotypeIdentifier::class, ['label' => 'ibd-rrl-form.serotype-id-method', 'required' => false, 'hidden-child' => 'serotypeIdentifier'])
