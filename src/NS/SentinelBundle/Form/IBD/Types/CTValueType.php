@@ -30,8 +30,8 @@ class CTValueType extends AbstractType
         ];
 
         $builder
-            ->add('choice', ChoiceType::class, ['choices' => $choices, 'placeholder' => "[Enter value]", 'label' => 'Non-result choices', 'attr' => ['class' => 'inputOrSelect']])
             ->add('number', NumberType::class, ['scale' => 2, 'label' => '', 'attr' => ['class' => 'inputOrSelect' ,'placeholder'=>'Enter value or Select']])
+            ->add('choice', ChoiceType::class, ['choices' => $choices, 'placeholder' => "[Enter value]", 'label' => 'Non-result choices', 'attr' => ['class' => 'inputOrSelect']])
             ->addModelTransformer(new CTValueTransformer());
     }
 }
