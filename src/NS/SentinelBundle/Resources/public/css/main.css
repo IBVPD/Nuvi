@@ -9,21 +9,23 @@ input, select, textarea {
 
 .input-group.inputOrSelect {
     width: 100%;
+    max-width: 400px;
 }
 
-input.inputOrSelect {
+.input-group.inputOrSelect input {
     position: absolute;
+    z-index: 10;
     width: 90%;
     border: none;
     margin: 1px 0 0 1px;
     height: 94%;
 }
 
-input.inputOrSelect + select.inputOrSelect {
+.input-group.inputOrSelect input + select {
     width: 100%;
 }
 
-input.inputOrSelect + select.inputOrSelect option[value=""] {
+.input-group.inputOrSelect input + select option[value=""] {
     padding: 3px 4px;
 }
 
