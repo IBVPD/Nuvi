@@ -33,7 +33,14 @@ abstract class BaseCaseController extends Controller implements TranslationConta
             ->getFilterQueryBuilder();
 
         $filteredPager = $this->get('ns.filtered_pagination');
-        list($filterForm, $pagination) = $filteredPager->process($request, $filterFormName, $query, $sessionKey);
+        $filterData = $request->query->get('filter',false);
+
+        if (isset($filterData['find']) || (!isset($filterData['reset']) && !empty($request->getSession()->get($sessionKey,[])))) {
+            list($filterForm, $pagination) = $filteredPager->process($request, $filterFormName, $query, $sessionKey);
+        } else {
+            list($filterForm, $pagination) = $filteredPager->handleForm($request, $filterFormName, $sessionKey);
+        }
+
         $createForm = ($this->get('security.authorization_checker')->isGranted('ROLE_CAN_CREATE')) ? $this->createForm(CreateType::class)->createView() : null;
 
         return [

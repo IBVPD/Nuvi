@@ -3041,16 +3041,16 @@
         },
         {
             "name": "ns/ace-bundle",
-            "version": "2.0.47",
+            "version": "2.0.48",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/AceBundle.git",
-                "reference": "30ffb622e35ec6144f1ba1ff3c701be990c73fe4"
+                "reference": "503eeb19dada530119b89a5e94a63c03602564f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/AceBundle/zipball/30ffb622e35ec6144f1ba1ff3c701be990c73fe4",
-                "reference": "30ffb622e35ec6144f1ba1ff3c701be990c73fe4",
+                "url": "https://api.github.com/repos/NobletSolutions/AceBundle/zipball/503eeb19dada530119b89a5e94a63c03602564f3",
+                "reference": "503eeb19dada530119b89a5e94a63c03602564f3",
                 "shasum": ""
             },
             "require": {
@@ -3095,7 +3095,7 @@
                 }
             ],
             "description": "This bundle provides the ace admin bootstrap template",
-            "time": "2017-02-17T00:35:13+00:00"
+            "time": "2017-02-17T18:06:16+00:00"
         },
         {
             "name": "ns/ace-sonata-bundle",
@@ -3188,27 +3188,27 @@
         },
         {
             "name": "ns/filtered-pagination-bundle",
-            "version": "2.0.8",
+            "version": "2.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/FilteredPaginationBundle.git",
-                "reference": "8177e829e8bf502ab370bab46c109fc8cf481ca0"
+                "reference": "0b44df0906ac4d581c614c8662d01fdf15c06353"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/FilteredPaginationBundle/zipball/8177e829e8bf502ab370bab46c109fc8cf481ca0",
-                "reference": "8177e829e8bf502ab370bab46c109fc8cf481ca0",
+                "url": "https://api.github.com/repos/NobletSolutions/FilteredPaginationBundle/zipball/0b44df0906ac4d581c614c8662d01fdf15c06353",
+                "reference": "0b44df0906ac4d581c614c8662d01fdf15c06353",
                 "shasum": ""
             },
             "require": {
-                "knplabs/knp-paginator-bundle": "~2.4",
+                "knplabs/knp-paginator-bundle": "^2.4",
                 "lexik/form-filter-bundle": "^3.0|^4.0|^5.0",
                 "php": ">=5.3.2",
-                "symfony/symfony": "^2.7|^3.0"
+                "symfony/symfony": "^2.8|^3.0"
             },
             "require-dev": {
                 "liip/rmt": "~1.1",
-                "phpunit/phpunit": "~4.0"
+                "phpunit/phpunit": "^4.0|^5.0"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -3218,7 +3218,7 @@
             },
             "autoload": {
                 "psr-4": {
-                    "NS\\FilteredPaginationBundle\\": ""
+                    "NS\\FilteredPaginationBundle\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -3232,7 +3232,7 @@
                 }
             ],
             "description": "This bundle provides a paginated filter handler",
-            "time": "2016-08-11T21:10:55+00:00"
+            "time": "2017-02-17T16:53:38+00:00"
         },
         {
             "name": "ns/flash-bundle",
