@@ -78,12 +78,30 @@
                             <td>{{record.hibDoses|trans}}</td>
                         </tr>
                         <tr>
+                            <th>{{'ibd-form.hib-most-recent-dose'|trans}}</th>
+                            <td>{% if record.hibMostRecentDose %}
+                                    {{ record.hibMostRecentDose|date }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
                             <th>{{'ibd-form.pcv-received'|trans}}</th>
                             <td>{{record.pcvReceived|trans}}</td>
                         </tr>
                         <tr>
                             <th>{{'ibd-form.pcv-doses'|trans}}</th>
                             <td>{{record.pcvDoses|trans}}</td>
+                        </tr>
+                        <tr>
+                            <th>{{'ibd-form.pcv-type'|trans}}</th>
+                            <td>{{record.pcvType|trans}}</td>
+                        </tr>
+                        <tr>
+                            <th>{{'ibd-form.pcv-most-recent-dose'|trans}}</th>
+                            <td>{% if record.pcvMostRecentDose %}
+                                    {{record.pcvMostRecentDose|date}}
+                                {% endif %}
+                            </td>
                         </tr>
                         <tr>
                             <th>{{'ibd-form.mening-received'|trans}}</th>
