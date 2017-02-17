@@ -96,4 +96,50 @@ class SiteRepository extends CommonRepository
             ->addOrderBy('c.name', 'ASC')
             ->addOrderBy('s.name', 'ASC'));
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getAllSecuredQueryBuilder($alias = 'o')
+    {
+        $countryAlias = ($alias == 'c') ? 'cntry':'c';
+        return parent::getAllSecuredQueryBuilder($alias)
+            ->addSelect($countryAlias)
+            ->innerJoin(sprintf('%s.country',$alias),$countryAlias)
+            ->orderBy("$countryAlias.name,$alias.name",'ASC');
+    }
+
+    /**
+     * @param $fields
+     * @param array $value
+     * @param $limit
+     * @return \Doctrine\ORM\Query
+     */
+    public function getForAutoComplete($fields, array $value, $limit)
+    {
+        $alias = 's';
+        $queryBuilder = $this->createQueryBuilder($alias)
+            ->addSelect('c')
+            ->innerJoin('s.country','c')
+            ->setMaxResults($limit);
+
+        if (!empty($value) && $value['value'][0] == '*') {
+            return $queryBuilder->getQuery();
+        }
+
+        if (!empty($value)) {
+            if (is_array($fields)) {
+                foreach ($fields as $f) {
+                    $field = "$alias.$f";
+                    $queryBuilder->addOrderBy($field)
+                        ->orWhere("$field LIKE :param")->setParameter('param', '%'.$value['value'].'%');
+                }
+            } else {
+                $field = "$alias.$fields";
+                $queryBuilder->orderBy($field)->andWhere("$field LIKE :param")->setParameter('param', '%'.$value['value'].'%');
+            }
+        }
+
+        return $this->secure($queryBuilder)->getQuery();
+    }
 }

@@ -109,7 +109,7 @@ class BaseFilterType extends AbstractType
         if ($this->authChecker->isGranted('ROLE_SITE')) {
             $objectIds = $this->aclConverter->getObjectIdsForRole($token, 'ROLE_SITE');
             if (count($objectIds) > 1) {
-                $form->add('site', 'NS\SentinelBundle\Filter\Type\SiteType');
+                $form->add('site', SiteType::class);
             }
 
             $form

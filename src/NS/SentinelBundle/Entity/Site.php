@@ -220,6 +220,14 @@ class Site implements \Serializable
     }
 
     /**
+     * @return string
+     */
+    public function getAjaxDisplay()
+    {
+        return sprintf('%s - %s',$this->country->getCode(),$this->__toString());
+    }
+
+    /**
      * Get id
      *
      * @return integer

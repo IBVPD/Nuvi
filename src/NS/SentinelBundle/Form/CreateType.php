@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Form;
 
+use NS\SentinelBundle\Entity\Site;
 use NS\SentinelBundle\Form\Types\CaseCreationType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -49,14 +50,18 @@ class CreateType extends AbstractType
         ;
 
         if ($this->siteSerializer->hasMultipleSites()) {
-            $queryBuilder = $this->entityMgr->getRepository('NS\SentinelBundle\Entity\Site')->getChainQueryBuilder()->orderBy('s.name', 'ASC');
+            $queryBuilder = $this->entityMgr->getRepository('NS\SentinelBundle\Entity\Site')->getChainQueryBuilder()->orderBy('c.name,s.name', 'ASC');
             $builder->add('site', EntityType::class, [
+                'choice_label'    => 'ajaxDisplay',
+                'group_by'        => function($val, $key, $index) {
+                    return (string)$val->getCountry();
+                },
                 'required'        => true,
                 'mapped'          => false,
                 'placeholder'     => 'Please Select...',
                 'label'           => 'ibd-form.site',
                 'query_builder'   => $queryBuilder,
-                'class'           => 'NS\SentinelBundle\Entity\Site',
+                'class'           => Site::class,
                 'auto_initialize' => false]);
         }
     }
