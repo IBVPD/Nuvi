@@ -8,17 +8,6 @@
     <div class="pull-right">{{case_big_actions(record)}}</div>
 {%endblock %}
 
-{% block ct_value_row %}
-    <div class="form-row">
-        {{ form_label(form) }}
-        <div class="input-group inputOrSelect">
-            {{form_widget(form.number)}} {{ form_widget(form.choice) }}
-        </div>
-    </div>
-{% endblock %}
-
-{% form_theme form _self %}
-
 {% block body %}
     {{form_errors(form)}}
     <form method="POST" action="{{path(editRoute,{'id':id})}}" novalidate>

@@ -1,11 +1,8 @@
-{% block CTValueType_row %}
-    {{form_label(form)}}
-    <div class="row">
-        <div class="col-md-4">
-            <div class="input-group inputOrSelect">
-                {{form_widget(form.number)}}
-                {{form_widget(form.choice)}}
-            </div>
+{% block ct_value_row %}
+    <div class="form-row">
+        {{ form_label(form) }}
+        <div class="input-group inputOrSelect">
+            {{form_widget(form.number)}} {{ form_widget(form.choice) }}
         </div>
     </div>
 {% endblock %}
@@ -25,4 +22,14 @@
         {%- endif -%}
         <!-- END -->
     {% endspaceless %}
+{% endblock %}
+
+{% block cxr_additional_result_row %}
+    <div class="form-group">0
+        <div {{ block('widget_container_attributes') }}>
+            {{ form_label(form) }}
+            {{ form_widget(form) }}
+            {{ form_errors(form) }}
+        </div>
+    </div>
 {% endblock %}
