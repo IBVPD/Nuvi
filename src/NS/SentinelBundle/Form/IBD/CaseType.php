@@ -23,6 +23,7 @@ use NS\SentinelBundle\Form\Types\VaccinationReceived;
 use NS\SentinelBundle\Form\ValidatorGroup\ValidatorGroupResolver;
 use NS\SentinelBundle\Interfaces\SerializedSitesInterface;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -148,7 +149,7 @@ class CaseType extends AbstractType
                 ->add('pneuCough',              TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-cough'])
                 ->add('pneuCyanosis',           TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-cyanosis'])
                 ->add('pneuStridor',            TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-stridor'])
-                ->add('pneuRespRate',           null, ['required' => $required, 'label' => 'ibd-form.pneu-resp-rate'])
+                ->add('pneuRespRate',           IntegerType::class, ['required' => $required, 'label' => 'ibd-form.pneu-resp-rate', 'attr' => ['min' => 10, 'max' => 100]])
                 ->add('pneuVomit',              TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-vomit'])
                 ->add('pneuHypothermia',        TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-hypothermia'])
                 ->add('pneuMalnutrition',       TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-malnutrition'])
