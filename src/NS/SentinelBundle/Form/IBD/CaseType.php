@@ -76,7 +76,7 @@ class CaseType extends AbstractType
             ->add('district',           null, ['required' => $required, 'label' => 'ibd-form.district'])
             ->add('state',              null, ['required' => $required, 'label' => 'ibd-form.state'])
             ->add('caseId',             null, ['required' => true, 'label' => 'ibd-form.case-id'])
-            ->add('admDate',            DatePickerType::class, ['required' => $required, 'label' => 'ibd-form.adm-date'])
+            ->add('admDate',            DatePickerType::class, ['required' => $required, 'label' => 'ibd-form.adm-date','property_path'=>'adm_date'])
             ->add('admDx',              Diagnosis::class, ['required' => $required, 'label' => 'ibd-form.adm-dx', 'hidden-child' => 'admissionDiagnosis'])
             ->add('admDxOther',         null, ['required' => $required, 'label' => 'ibd-form.adm-dx-other', 'hidden-parent' => 'admissionDiagnosis', 'hidden-value' => Diagnosis::OTHER])
             ->add('onsetDate',          DatePickerType::class, ['required' => $required, 'label' => 'ibd-form.onset-date'])
