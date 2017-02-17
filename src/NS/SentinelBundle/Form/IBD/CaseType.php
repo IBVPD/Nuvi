@@ -154,8 +154,8 @@ class CaseType extends AbstractType
                 ->add('pneuHypothermia',        TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-hypothermia'])
                 ->add('pneuMalnutrition',       TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-malnutrition'])
                 ->add('cxrDone',                TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.cxr-done', 'hidden-child' => 'cxrDone'])
-                ->add('cxrResult',              CXRResult::class, ['required' => $required, 'label' => 'ibd-form.cxr-result', 'hidden-parent' => 'cxrDone', 'hidden-child' => 'cxrResult', 'hidden-value' => TripleChoice::YES])
-                ->add('cxrAdditionalResult',    CXRAdditionalResult::class, ['required' => $required, 'label' => 'ibd-form.cxr-additional-result', 'hidden-parent' => 'cxrResult', 'hidden-value' => CXRResult::CONSISTENT])
+                ->add('cxrResult',              CXRResult::class, ['required' => $required, 'label' => 'ibd-form.cxr-result', 'hidden' => ['parent' => 'cxrDone', 'child' => 'cxrResult', 'value' => TripleChoice::YES]])
+                ->add('cxrAdditionalResult',    CXRAdditionalResult::class, ['required' => $required, 'label' => 'ibd-form.cxr-additional-result', 'expanded' => true, 'hidden' => ['parent' => 'cxrResult', 'value' => [CXRResult::CONSISTENT, CXRResult::INCONCLUSIVE]]])
             ;
 
             if ($this->authChecker->isGranted('ROLE_AMR')) {
