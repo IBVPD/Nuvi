@@ -95,7 +95,7 @@
                         </tr>
                         <tr>
                             <th>{{'ibd-form.meningMostRecentDose'|trans}}</th>
-                            <td>{{record.meningDate|date}}</td>
+                            <td>{% if record.meningDate %}{{ record.meningDate|date }}{% endif %}</td>
                         </tr>
                     </table>
                 </div>

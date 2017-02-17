@@ -78,15 +78,24 @@
                     </tr>
                     <tr>
                         <th>{{'rotavirus-form.firstVaccinationDose'|trans}}</th>
-                        <td>{{record.firstVaccinationDose|date('Y-m-d')}}</td>
+                        <td>{% if record.firstVaccinationDose %}
+                                {{ record.firstVaccinationDose|date('Y-m-d') }}
+                            {% endif %}
+                        </td>
                     </tr>
                     <tr>
-                        <th>{{'rotavirus-form.secondVaccinationDose'|trans}}</th>
-                        <td>{{record.secondVaccinationDose|date('Y-m-d')}}</td>
+                        <th>{{ 'rotavirus-form.secondVaccinationDose'|trans }}</th>
+                        <td>{% if record.secondVaccinationDose %}
+                                {{ record.secondVaccinationDose|date('Y-m-d') }}
+                            {% endif %}
+                        </td>
                     </tr>
                     <tr>
-                        <th>{{'rotavirus-form.thirdVaccinationDose'|trans}}</th>
-                        <td>{{record.thirdVaccinationDose|date('Y-m-d')}}</td>
+                        <th>{{ 'rotavirus-form.thirdVaccinationDose'|trans }}</th>
+                        <td>{% if record.secondVaccinationDose %}
+                                {{ record.thirdVaccinationDose|date('Y-m-d') }}
+                            {% endif %}
+                        </td>
                     </tr>
                 </table>
             </div>
@@ -108,7 +117,10 @@
                     </tr>
                     <tr>
                         <th>{{'rotavirus-form.symptomDiarrheaOnset'|trans}}</th>
-                        <td>{{record.symptomDiarrheaOnset|date('Y-m-d')}}</td>
+                        <td>{% if record.symptomDiarrheaOnset %}
+                                {{ record.symptomDiarrheaOnset|date('Y-m-d') }}
+                            {% endif %}
+                        </td>
                     </tr>
                     <tr>
                         <th>{{'rotavirus-form.symptomDiarrheaEpisodes'|trans}}</th>
