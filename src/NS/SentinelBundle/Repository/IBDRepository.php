@@ -147,9 +147,9 @@ class IBDRepository extends Common
     {
         $queryBuilder = $this->createQueryBuilder('m')
             ->select('m,s,c,r')
-            ->innerJoin('m.site', 's')
-            ->innerJoin('s.country', 'c')
-            ->innerJoin('m.region', 'r')
+            ->leftJoin('m.site', 's')
+            ->innerJoin('m.country', 'c')
+            ->innerJoin('c.region', 'r')
             ->where('m.id = :id')->setParameter('id', $objId);
         try {
             return $this->secure($queryBuilder)->getQuery()->getSingleResult();
