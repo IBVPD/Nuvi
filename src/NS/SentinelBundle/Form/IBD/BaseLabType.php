@@ -26,7 +26,7 @@ class BaseLabType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('labId',                      null, ['label' => 'ibd-rrl-form.lab-id', 'required' => true])
+            ->add('labId',                      null, ['label' => 'ibd-rrl-form.lab-id', 'required' => true, 'property_path' => 'lab_id'])
             ->add('sampleType',                 SampleType::class, ['label' => 'ibd-rrl-form.sample-type', 'required' => false, 'hidden'=>['child'=>'sampleType']])
             ->add('sampleCollectionDate',       DatePickerType::class, ['label'=>'ibd-rrl-form.sample-collection-date', 'required'=>false])
             ->add('dateReceived',               DatePickerType::class, ['label' => 'ibd-rrl-form.date-received', 'required' => false])
