@@ -1,0 +1,33 @@
+{% extends "NSSentinelBundle::layout.html.twig" %}
+
+{% block inlinestyles %}
+    {{ parent() }}
+    <style>
+        li.has-error {
+            border-top-color: #dd5a43;
+        }
+
+        li.has-error a.has-error:before {
+            font-family: "FontAwesome";
+            content: "";
+            color: #dd5a43;
+            vertical-align: baseline;
+            margin-right: 5px;
+            text-decoration: none;
+        }
+    </style>
+{% endblock %}
+
+{% block inlinescripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.tab-pane').each(function() {
+                $tab = $(this);
+                if($tab.find('.has-error').length) {
+                    $('.nav-tabs a[href="#'+$tab.attr('id')+'"]').addClass('has-error').parent().addClass('has-error');
+                }
+            });
+        });
+    </script>
+{% endblock %}
