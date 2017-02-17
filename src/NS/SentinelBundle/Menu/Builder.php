@@ -82,10 +82,10 @@ class Builder
             }
 
             if ($this->authChecker->isGranted('ROLE_IMPORT')) {
-                $import = $menu->addChild('Import', ['label' => 'menu.import-export'])->setExtra('icon', 'fa fa-cloud-upload');
-                $import->addChild('Import', ['label' => 'menu.import', 'route' => 'importIndex'])->setExtra('icon', 'fa fa-cloud-upload');
-                $import->addChild('Export', ['label' => 'menu.export', 'route' => 'exportIndex'])->setExtra('icon', 'fa fa-cloud-download');
+                $menu->addChild('Import', ['label' => 'menu.import', 'route' => 'importIndex'])->setExtra('icon', 'fa fa-cloud-upload');
             }
+
+            $menu->addChild('Export', ['label' => 'menu.export', 'route' => 'exportIndex'])->setExtra('icon', 'fa fa-cloud-download');
 
             if ($this->authChecker->isGranted('ROLE_ADMIN')) {
                 $admin = $menu->addChild('Admin', ['label' => 'menu.data-admin'])->setExtra('icon', 'fa fa-desktop');
