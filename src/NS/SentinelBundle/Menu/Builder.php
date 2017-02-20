@@ -3,6 +3,11 @@
 namespace NS\SentinelBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
+use Knp\Menu\Matcher\Matcher;
+use Knp\Menu\Matcher\Voter\RouteVoter;
+use Knp\Menu\Renderer\ListRenderer;
+use Knp\Menu\Renderer\TwigRenderer;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
@@ -24,21 +29,15 @@ class Builder
     private $authChecker;
 
     /**
-     * @var RequestStack
-     */
-    private $requestStack;
-
-    /**
      * @param FactoryInterface $factory
      * @param AuthorizationCheckerInterface $authChecker
-     * @param RequestStack $requestStack
+     *
      * @internal param SecurityContext $authChecker
      */
-    public function __construct(FactoryInterface $factory, AuthorizationCheckerInterface $authChecker, RequestStack $requestStack)
+    public function __construct(FactoryInterface $factory, AuthorizationCheckerInterface $authChecker)
     {
         $this->factory      = $factory;
         $this->authChecker  = $authChecker;
-        $this->requestStack = $requestStack;
     }
 
     /**
@@ -47,17 +46,17 @@ class Builder
     public function sidebar()
     {
         $menu = $this->factory->createItem('root');
-//        $menu->setCurrentUri($this->requestStack->getCurrentRequest()->getRequestUri());
         $menu->setChildrenAttribute('class', 'nav nav-list');
+
         if ($this->authChecker->isGranted('IS_AUTHENTICATED_FULLY')) {
             if ($this->authChecker->isGranted('ROLE_CAN_CREATE')) {
-                $data = $menu->addChild('Data Entry', ['label'=> 'menu.data-entry'])->setExtra('icon', 'fa fa-edit');
-                $data->addChild('Meningitis', ['label' => 'menu.ibd', 'route' => 'ibdIndex']);
-                $data->addChild('Rotavirus', ['route'=>'rotavirusIndex'])->setExtra('translation_domain', 'NSSentinelBundle');
-                $data->addChild('Zero Reporting', ['route'=>'zeroReportIndex']);
+                $data = $menu->addChild('Data Entry', ['label' => 'menu.data-entry', 'extras' => ['icon' => 'fa fa-edit']]);
+                $data->addChild('Meningitis', [ 'label' => 'menu.ibd', 'route' => 'ibdIndex' ]);
+                $data->addChild('Rotavirus', ['route' => 'rotavirusIndex', 'extras' => ['translation_domain' => 'NSSentinelBundle']]);
+                $data->addChild('Zero Reporting', ['route' => 'zeroReportIndex']);
             }
 
-            $reports   = $menu->addChild('Reports', ['label' => 'menu.data-reports'])->setExtra('icon', 'fa fa-dashboard');
+            $reports   = $menu->addChild('Reports', ['label' => 'menu.data-reports','extras' =>['icon'=>'fa fa-dashboard']]);
             $ibdReport = $reports->addChild('IBD');
             $rotaReport = $reports->addChild('Rota');
             $rotaReport->addChild('Data Quality Checks', ['label'=>'menu.data-reports-data-quality', 'route'=>'reportRotaDataQuality']);
@@ -76,19 +75,19 @@ class Builder
             $ibdReport->addChild('Culture Positive', ['label'=>'menu.data-reports-culture-positive', 'route'=>'reportCulturePositive']);
 
             if ($this->authChecker->isGranted('ROLE_API')) {
-                $api = $menu->addChild('Api Resources', ['label' => 'Api Resources'])->setExtra('icon', 'fa fa-book');
+                $api = $menu->addChild('Api Resources', ['label' => 'Api Resources', 'extras' => ['icon' => 'fa fa-book']]);
                 $api->addChild('Dashboard', ['label' => 'Dashboard', 'route' => 'ns_api_dashboard']);
                 $api->addChild('Documentation', ['label' => 'Documentation', 'route' => 'nelmio_api_doc_index']);
             }
 
             if ($this->authChecker->isGranted('ROLE_IMPORT')) {
-                $menu->addChild('Import', ['label' => 'menu.import', 'route' => 'importIndex'])->setExtra('icon', 'fa fa-cloud-upload');
+                $menu->addChild('Import', ['label' => 'menu.import', 'route' => 'importIndex','extras'=>['icon'=>'fa fa-cloud-upload']]);
             }
 
-            $menu->addChild('Export', ['label' => 'menu.export', 'route' => 'exportIndex'])->setExtra('icon', 'fa fa-cloud-download');
+            $menu->addChild('Export', ['label' => 'menu.export', 'route' => 'exportIndex','extras'=>['icon'=>'fa fa-cloud-download']]);
 
             if ($this->authChecker->isGranted('ROLE_ADMIN')) {
-                $admin = $menu->addChild('Admin', ['label' => 'menu.data-admin'])->setExtra('icon', 'fa fa-desktop');
+                $admin = $menu->addChild('Admin', ['label' => 'menu.data-admin','extras'=>['icon'=>'fa fa-desktop']]);
                 $admin->addChild('Admin', ['label' => 'menu.data-admin', 'route' => 'sonata_admin_dashboard']);
                 $admin->addChild('Translation', ['label' => 'menu.translation', 'route' => 'jms_translation_index']);
             }
@@ -105,12 +104,12 @@ class Builder
         $menu = $this->factory->createItem('root');
         $menu->setChildrenAttribute('class', 'nav ace-nav');
 
-        $profile = $menu->addChild('Profile')->setExtra('icon', 'fa fa-profile');
+        $profile = $menu->addChild('Profile', ['extras' => ['icon' => 'fa fa-profile']]);
         $profile->setChildrenAttribute('class', 'user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close');
 
-        $profile->addChild('Settings')->setExtra('icon', 'fa fa-cog');
+        $profile->addChild('Settings', ['extras' => ['icon' => 'fa fa-cog']]);
         $profile->addChild(' ')->setAttribute('class', 'divider');
-        $profile->addChild('Logout', ['route' => 'logout'])->setExtra('icon', 'fa fa-off');
+        $profile->addChild('Logout', ['route' => 'logout', 'extras' => ['icon' => 'fa fa-off']]);
 
         return $menu;
     }

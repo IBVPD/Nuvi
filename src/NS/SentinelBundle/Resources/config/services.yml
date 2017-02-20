@@ -67,13 +67,9 @@ services:
     class: NS\SentinelBundle\Services\SerializedSites
     arguments: [ "@session", "@doctrine.orm.entity_manager" ]
 
-  ns.sentinel.menu_builder:
-    class: NS\SentinelBundle\Menu\Builder
-    arguments: [ "@knp_menu.factory", "@security.authorization_checker", "@request_stack" ]
-
   ns_sentinel.menu_builder:
     class: NS\SentinelBundle\Menu\Builder
-    arguments: [ "@knp_menu.factory", "@security.authorization_checker", "@request_stack" ]
+    arguments: [ "@knp_menu.factory", "@security.authorization_checker" ]
     tags:
       - { name: knp_menu.menu_builder, method: user, alias: user }
       - { name: knp_menu.menu_builder, method: sidebar, alias: sidebar }

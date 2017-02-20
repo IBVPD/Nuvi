@@ -316,3 +316,8 @@ ns_token:
   id: '%ns_token_id%'
   key: '%ns_token_key%'
   issuer: '%ns_token_issuer%'
+
+parameters:
+    knp_menu.renderer.twig.options:
+        currentClass: active
+        ancestorClass: open
