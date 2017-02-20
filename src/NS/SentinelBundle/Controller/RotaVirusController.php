@@ -10,6 +10,7 @@ use NS\SentinelBundle\Form\RotaVirus\ReferenceLabType;
 use NS\SentinelBundle\Form\RotaVirus\SiteLabType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -33,11 +34,16 @@ class RotaVirusController extends BaseCaseController
      * @param Request $request
      * @Route("/create",name="rotavirusCreate")
      * @Method({"POST"})
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return Response|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function createAction(Request $request)
     {
-        return $this->create($request, 'NSSentinelBundle:RotaVirus', 'rotavirusIndex', 'rotavirus');
+        $returnValue = $this->create($request, 'NSSentinelBundle:RotaVirus', 'rotavirusIndex', 'rotavirus', FilterType::class, 'rota.index');
+        if ($returnValue instanceof RedirectResponse) {
+            return $returnValue;
+        }
+
+        return $this->render('NSSentinelBundle:RotaVirus:index.html.twig', $returnValue);
     }
 
     /**

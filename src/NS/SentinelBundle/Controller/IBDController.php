@@ -10,6 +10,7 @@ use NS\SentinelBundle\Form\IBD\ReferenceLabType;
 use NS\SentinelBundle\Form\IBD\SiteLabType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -33,11 +34,17 @@ class IBDController extends BaseCaseController
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @Route("/create",name="ibdCreate")
      * @Method({"POST"})
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return Response|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function createAction(Request $request)
     {
-        return $this->create($request, 'NSSentinelBundle:IBD', 'ibdIndex', 'ibd');
+        $returnValue = $this->create($request, 'NSSentinelBundle:IBD', 'ibdIndex', 'ibd', FilterType::class, 'ibd.index');
+
+        if ($returnValue instanceof RedirectResponse) {
+            return $returnValue;
+        }
+
+        return $this->render('NSSentinelBundle:IBD:index.html.twig', $returnValue);
     }
 
     /**

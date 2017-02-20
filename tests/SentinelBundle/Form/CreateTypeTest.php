@@ -5,10 +5,15 @@ namespace NS\SentinelBundle\Tests\Form;
 use Nelmio\ApiDocBundle\Form\Extension\DescriptionFormTypeExtension;
 use NS\SentinelBundle\Form\CreateType;
 use NS\SentinelBundle\Form\Types\CaseCreationType;
+use NS\SentinelBundle\Interfaces\SerializedSitesInterface;
+use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
 use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\FormExtensionInterface;
 use Symfony\Component\Form\Forms;
+use Symfony\Component\Form\FormTypeExtensionInterface;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Description of CreateTypeTest
@@ -17,8 +22,14 @@ use Symfony\Component\Form\Test\TypeTestCase;
  */
 class CreateTypeTest extends TypeTestCase
 {
+    private $validator;
+
     public function testSingleSiteForm()
     {
+        $this->validator->expects($this->any())
+            ->method('validate')
+            ->willReturn([]);
+
         $form = $this->factory->create(CreateType::class);
 
         $this->assertCount(2, $form);
@@ -39,20 +50,14 @@ class CreateTypeTest extends TypeTestCase
 
     protected function setUp()
     {
-        $formTypeExtension = new DescriptionFormTypeExtension();
+        $this->validator = $this->createMock(ValidatorInterface::class);
 
-        $this->factory = Forms::createFormFactoryBuilder()
-            ->addExtensions($this->getExtensions())
-            ->addTypeExtension($formTypeExtension)
-            ->getFormFactory();
-
-        $this->dispatcher = $this->createMock('Symfony\Component\EventDispatcher\EventDispatcherInterface');
-        $this->builder    = new FormBuilder(null, null, $this->dispatcher, $this->factory);
+        parent::setUp();
     }
 
     public function getExtensions()
     {
-        $serializedSites = $this->getMockBuilder('NS\SentinelBundle\Interfaces\SerializedSitesInterface')
+        $serializedSites = $this->getMockBuilder(SerializedSitesInterface::class)
             ->disableOriginalConstructor()
             ->setMethods(['hasMultipleSites', 'setSites', 'getSites', 'getSite'])
             ->getMock();
@@ -63,7 +68,7 @@ class CreateTypeTest extends TypeTestCase
 
         $entityMgr = $this->createMock('Doctrine\Common\Persistence\ObjectManager');
 
-        $type = new CreateType($serializedSites, $entityMgr);
+        $createType = new CreateType($serializedSites, $entityMgr);
 
         $authChecker = $this->getMockBuilder('\Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface')
             ->setMethods(['isGranted'])
@@ -76,6 +81,21 @@ class CreateTypeTest extends TypeTestCase
         $childType = new CaseCreationType();
         $childType->setAuthChecker($authChecker);
 
-        return [new PreloadedExtension([$childType, $type], [])];
+        $validatorExtension = new FormTypeValidatorExtension($this->validator);
+        $formTypeExtension = new DescriptionFormTypeExtension();
+        $extensions = [];
+
+        /** @var FormTypeExtensionInterface $type */
+        foreach ([$validatorExtension,$formTypeExtension] as $type) {
+            $extType = $type->getExtendedType();
+
+            if(!isset($extensions[$extType])) {
+                $extensions[$extType] = [];
+            }
+
+            $extensions[$extType][] = $type;
+        }
+
+        return [new PreloadedExtension([$childType, $createType], $extensions)];
     }
 }

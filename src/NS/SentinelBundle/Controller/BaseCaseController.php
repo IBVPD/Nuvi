@@ -55,28 +55,37 @@ abstract class BaseCaseController extends Controller implements TranslationConta
      * @param $class
      * @param $indexRoute
      * @param $typeName
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @param $filterFormName
+     * @param $sessionKey
+     *
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
-    protected function create(Request $request, $class, $indexRoute, $typeName)
+    protected function create(Request $request, $class, $indexRoute, $typeName, $filterFormName, $sessionKey)
     {
         $form = $this->createForm(CreateType::class);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $caseId    = $form->get('caseId')->getData();
-            $type      = $form->get('type')->getData();
-            $entityMgr = $this->get('doctrine.orm.entity_manager');
-            $case = $entityMgr->getRepository($class)->findOrCreate($caseId);
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $caseId = $form->get('caseId')->getData();
+                $type = $form->get('type')->getData();
+                $entityMgr = $this->get('doctrine.orm.entity_manager');
+                $case = $entityMgr->getRepository($class)->findOrCreate($caseId);
 
-            if (!$case->getId()) {
-                $site = ($form->has('site')) ? $form->get('site')->getData() : $this->get('ns.sentinel.sites')->getSite();
-                $case->setSite($site);
+                if (!$case->getId()) {
+                    $site = ($form->has('site')) ? $form->get('site')->getData() : $this->get('ns.sentinel.sites')->getSite();
+                    $case->setSite($site);
+                }
+
+                $entityMgr->persist($case);
+                $entityMgr->flush();
+
+                return $this->redirect($this->generateUrl($type->getRoute($typeName), ['id' => $case->getId()]));
+            } else {
+                $params = $this->index($request, $class, $filterFormName, $sessionKey);
+                $params['createForm'] = $form->createView();
+                return $params;
             }
-
-            $entityMgr->persist($case);
-            $entityMgr->flush();
-
-            return $this->redirect($this->generateUrl($type->getRoute($typeName), ['id' => $case->getId()]));
         }
 
         return $this->redirect($this->generateUrl($indexRoute));

@@ -9,6 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use NS\SentinelBundle\Interfaces\SerializedSitesInterface;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
  * Description of CreateIBDType
@@ -45,7 +46,7 @@ class CreateType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('caseId', null, ['label' => 'site-assigned-case-id', 'property_path' => 'case_id'])
+            ->add('caseId', null, ['label' => 'site-assigned-case-id', 'constraints' => [new NotBlank()]])
             ->add('type', CaseCreationType::class, ['description' => 'This should always be "1"'])
         ;
 
@@ -54,6 +55,7 @@ class CreateType extends AbstractType
             $builder->add('site', EntityType::class, [
                 'choice_label'    => 'ajaxDisplay',
                 'group_by'        => function($val, $key, $index) {
+                    /** @var Site $val */
                     return (string)$val->getCountry();
                 },
                 'required'        => true,
