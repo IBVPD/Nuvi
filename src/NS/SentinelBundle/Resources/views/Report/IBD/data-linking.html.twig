@@ -6,11 +6,11 @@
             <div class="widget-box widget-color-blue no-border">
                 <div class="widget-header widget-header-small">
                     <h5 class="widget-title">{{ 'Results'|trans }}</h5>
-                    {{ widget_filter_toolbox() }}
+                    {{ widget_filter_toolbox({'start_open': true}) }}
                 </div>
                 <div class="widget-body">
                     <div class="widget-toolbox padding-8">
-                        <div class="collapse" id="filters">
+                        <div class="collapse in" id="filters">
                             <form method="POST" action="{{ path('reportIbdDataLinking') }}">
                                 <div class="row">
                                     <div class="col-lg-2 col-md-3">
