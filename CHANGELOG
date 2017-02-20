@@ -3,6 +3,7 @@ VERSION 0  INITIAL RELEASE
 ==========================
 
    Version 0.10 - Updated to SF3.x
+      20/02/2017 11:05  0.10.8  Additional PAHO change requests
       14/02/2017 22:05  0.10.7  Handful of UI fixes
       14/02/2017 11:05  0.10.6  A couple more PAHO requests
       13/02/2017 16:02  0.10.5  Fix modals and PAHO inputs
