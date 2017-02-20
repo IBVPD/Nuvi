@@ -57,8 +57,8 @@ class SiteLabType extends AbstractType
         $isPaho = $this->authChecker->isGranted('ROLE_AMR');
 
         $builder
-            ->add('csfLabDate',         DatePickerType::class, ['required' => false, 'label' => 'ibd-form.csf-lab-datetime'])
-            ->add('csfLabTime',         TimeType::class, ['required' => false, 'label' => 'ibd-form.csf-lab-time','minutes'=>[0,5,10,15,20,25,30,35,40,45,50,55]])
+            ->add('csfLabDate',         DatePickerType::class, ['required' => false, 'label' => 'ibd-form.csf-lab-datetime', 'property_path' => 'csf_lab_date'])
+            ->add('csfLabTime',         TimeType::class, ['required' => false, 'label' => 'ibd-form.csf-lab-time','minutes'=>[0,5,10,15,20,25,30,35,40,45,50,55], 'property_path' => 'csf_lab_time'])
             ->add('csfId',              null, ['required' => false, 'label' => 'ibd-form.csf-id'])
             ->add('csfWcc',             IntegerType::class, ['required' => false, 'label' => 'ibd-form.csf-wcc', 'property_path' => 'csf_wcc', 'attr' => ['min' => 0]])
             ->add('csfGlucose',         IntegerType::class, ['required' => false, 'label' => 'ibd-form.csf-glucose', 'property_path' => 'csf_glucose', 'attr' => ['min' => 0]])

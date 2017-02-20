@@ -51,7 +51,7 @@ class CaseType extends AbstractType
             ->add('lastName',                   null,               ['required'=>$required, 'label'=>'rotavirus-form.last-name'])
             ->add('firstName',                  null,               ['required'=>$required, 'label'=>'rotavirus-form.first-name'])
             ->add('parentalName',               null,               ['required'=>$required, 'label'=>'rotavirus-form.parental-name'])
-            ->add('caseId',                     null,               ['required'=>true,      'label'=>'rotavirus-form.caseId'])
+            ->add('caseId',                     null,               ['required'=>true,      'label'=>'rotavirus-form.caseId','property_path' => 'case_id'])
             ->add('gender',                     Gender::class,              ['required'=>$required, 'label'=>'rotavirus-form.gender'])
             ->add('dobKnown',                   TripleChoice::class,        ['required'=>$required, 'label' => 'ibd-form.date-of-birth-known', 'hidden-child' => 'dob'])
             ->add('birthdate',                  DatePickerType::class,      ['required'=>$required, 'label' => 'ibd-form.date-of-birth', 'hidden-parent' => 'dob', 'hidden-value' => TripleChoice::YES, 'widget' => 'single_text'])

@@ -45,7 +45,7 @@ class CreateType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('caseId', null, ['label'=>'site-assigned-case-id'])
+            ->add('caseId', null, ['label' => 'site-assigned-case-id', 'property_path' => 'case_id'])
             ->add('type', CaseCreationType::class, ['description' => 'This should always be "1"'])
         ;
 

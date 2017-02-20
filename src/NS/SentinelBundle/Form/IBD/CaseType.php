@@ -75,11 +75,11 @@ class CaseType extends AbstractType
             ->add('gender',             Gender::class, ['required' => $required, 'label' => 'ibd-form.gender'])
             ->add('district',           null, ['required' => $required, 'label' => 'ibd-form.district'])
             ->add('state',              null, ['required' => $required, 'label' => 'ibd-form.state'])
-            ->add('caseId',             null, ['required' => true, 'label' => 'ibd-form.case-id'])
+            ->add('caseId',             null, ['required' => true, 'label' => 'ibd-form.case-id', 'property_path' => 'case_id'])
             ->add('admDate',            DatePickerType::class, ['required' => $required, 'label' => 'ibd-form.adm-date','property_path'=>'adm_date'])
             ->add('admDx',              Diagnosis::class, ['required' => $required, 'label' => 'ibd-form.adm-dx', 'hidden-child' => 'admissionDiagnosis'])
             ->add('admDxOther',         null, ['required' => $required, 'label' => 'ibd-form.adm-dx-other', 'hidden-parent' => 'admissionDiagnosis', 'hidden-value' => Diagnosis::OTHER])
-            ->add('onsetDate',          DatePickerType::class, ['required' => $required, 'label' => 'ibd-form.onset-date'])
+            ->add('onsetDate',          DatePickerType::class, ['required' => $required, 'label' => 'ibd-form.onset-date','property_path'=>'onset_date'])
             ->add('antibiotics',        TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.antibiotics'])
             ->add('menSeizures',        TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.men-seizures'])
             ->add('menFever',           TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.men-fever'])
@@ -98,7 +98,7 @@ class CaseType extends AbstractType
             ->add('pcvMostRecentDose',  DatePickerType::class, ['required' => $required, 'label' => 'ibd-form.pcv-most-recent-dose', 'hidden-parent' => 'pcvReceived', 'hidden-value' => json_encode([VaccinationReceived::YES_CARD, VaccinationReceived::YES_HISTORY])])
             ->add('meningReceived',     VaccinationReceived::class, ['required' => $required, 'label' => 'ibd-form.men-received', 'hidden-child' => 'meningReceived'])
             ->add('meningType',         VaccinationType::class, ['required' => $required, 'label' => 'ibd-form.men-type', 'hidden-parent' => 'meningReceived', 'hidden-value' => json_encode([VaccinationReceived::YES_CARD, VaccinationReceived::YES_HISTORY])])
-            ->add('meningDate',         DatePickerType::class, ['required' => $required, 'label' => 'ibd-form.meningMostRecentDose', 'hidden-parent' => 'meningReceived', 'hidden-value' => json_encode([VaccinationReceived::YES_CARD, VaccinationReceived::YES_HISTORY])])
+            ->add('meningDate',         DatePickerType::class, ['required' => $required, 'label' => 'ibd-form.meningMostRecentDose', 'hidden-parent' => 'meningReceived', 'property_path' => 'mening_date', 'hidden-value' => json_encode([VaccinationReceived::YES_CARD, VaccinationReceived::YES_HISTORY])])
             ->add('bloodCollected',     TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.blood-collected', 'hidden-child' => 'bloodCollected'])
             ->add('bloodCollectDate',   DatePickerType::class, ['required' => $required, 'label' => 'ibd-form.blood-collect-date', 'hidden-parent' => 'bloodCollected', 'hidden-value' => TripleChoice::YES])
             ->add('bloodCollectTime',   TimeType::class, ['required' => $required, 'label' => 'ibd-form.blood-collect-time', 'hidden-parent' => 'bloodCollected', 'hidden-value' => TripleChoice::YES])
@@ -149,7 +149,7 @@ class CaseType extends AbstractType
                 ->add('pneuCough',              TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-cough'])
                 ->add('pneuCyanosis',           TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-cyanosis'])
                 ->add('pneuStridor',            TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-stridor'])
-                ->add('pneuRespRate',           IntegerType::class, ['required' => $required, 'label' => 'ibd-form.pneu-resp-rate', 'attr' => ['min' => 10, 'max' => 100]])
+                ->add('pneuRespRate',           IntegerType::class, ['required' => $required, 'label' => 'ibd-form.pneu-resp-rate', 'attr' => ['min' => 10, 'max' => 100],'property_path' => 'pneu_resp_rate'])
                 ->add('pneuVomit',              TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-vomit'])
                 ->add('pneuHypothermia',        TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-hypothermia'])
                 ->add('pneuMalnutrition',       TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-malnutrition'])
@@ -159,7 +159,7 @@ class CaseType extends AbstractType
             ;
 
             if ($this->authChecker->isGranted('ROLE_AMR')) {
-                $form->add('pneuOxygenSaturation', null, ['required' => $required, 'label' => 'ibd-form.pneu-oxygen-level']);
+                $form->add('pneuOxygenSaturation', null, ['required' => $required, 'label' => 'ibd-form.pneu-oxygen-level', 'property_path' => 'pneu_oxygen_saturation']);
             }
         }
     }
