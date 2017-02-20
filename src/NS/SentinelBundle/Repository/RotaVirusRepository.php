@@ -28,7 +28,7 @@ class RotaVirusRepository extends Common
             ->leftJoin(sprintf('%s.siteLab', $alias), 'sl')
             ->leftJoin(sprintf('%s.nationalLab', $alias), 'nl')
             ->leftJoin(sprintf('%s.referenceLab', $alias), 'rl')
-            ->orderBy($alias . '.id', 'DESC');
+            ->orderBy($alias . '.createdAt', 'DESC');
 
         return $this->secure($queryBuilder);
     }

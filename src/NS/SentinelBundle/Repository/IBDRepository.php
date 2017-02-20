@@ -82,7 +82,7 @@ class IBDRepository extends Common
             ->leftJoin(sprintf('%s.siteLab', $alias), 'sl')
             ->leftJoin(sprintf('%s.referenceLab', $alias), 'rl')
             ->leftJoin(sprintf('%s.nationalLab', $alias), 'nl')
-            ->orderBy($alias . '.id', 'DESC');
+            ->orderBy($alias . '.createdAt', 'DESC');
 
         return $this->secure($queryBuilder);
     }

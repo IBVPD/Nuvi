@@ -1,9 +1,9 @@
 <table id="{{tableId}}" class="table table-striped table-bordered table-hover">
     <thead>
         <tr>
-            <th>{{'Case ID'|trans}}</th>
-            <th>{{'Site Case ID'|trans}}</th>
-            <th>{{'Admitted'|trans}}</th>
+            <th>{{ knp_pagination_sortable(results, 'Case ID', 'm.id') }}</th>
+            <th>{{ knp_pagination_sortable(results, 'Site Case ID', 'm.case_id') }}</th>
+            <th>{{ knp_pagination_sortable(results, 'Admitted', 'm.adm_date') }}</th>
             <th>{{'Site'|trans}}</th>
             <th>{{'Country'|trans}}</th>
             <th class="hidden-480">{{'Status'|trans}}</th>
