@@ -13,6 +13,7 @@ use NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultG;
 use NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultP;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use JMS\Serializer\Annotation\Groups;
+use NS\SentinelBundle\Validators as LocalAssert;
 
 /**
  * Description of RotaVirusSiteLab
@@ -39,6 +40,7 @@ class SiteLab extends BaseSiteLab
      * @var \DateTime $received
      * @ORM\Column(name="received",type="datetime",nullable=true)
      * @Groups({"api"})
+     * @LocalAssert\NoFutureDate
      */
     private $received;
 
@@ -96,6 +98,7 @@ class SiteLab extends BaseSiteLab
      * @var \DateTime $testDate
      * @ORM\Column(name="elisaTestDate",type="date",nullable=true)
      * @Groups({"api"})
+     * @LocalAssert\NoFutureDate
      */
     private $elisaTestDate;
 
@@ -110,6 +113,7 @@ class SiteLab extends BaseSiteLab
      * @var \DateTime $genotypingDate
      * @ORM\Column(name="genotypingDate",type="date", nullable=true)
      * @Groups({"api"})
+     * @LocalAssert\NoFutureDate
      */
     private $genotypingDate;
 
@@ -154,6 +158,7 @@ class SiteLab extends BaseSiteLab
      * @var \DateTime $stoolSentToRRLDate
      * @ORM\Column(name="stoolSentToRRLDate",type="date",nullable=true)
      * @Groups({"api"})
+     * @LocalAssert\NoFutureDate
      */
     private $stoolSentToRRLDate;
 
@@ -170,6 +175,7 @@ class SiteLab extends BaseSiteLab
      * @var \DateTime $stoolSentToNLDate
      * @ORM\Column(name="stoolSentToNLDate",type="date",nullable=true)
      * @Groups({"api"})
+     * @LocalAssert\NoFutureDate
      */
     private $stoolSentToNLDate;
 

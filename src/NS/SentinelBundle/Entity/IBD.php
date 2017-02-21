@@ -44,7 +44,6 @@ use NS\SentinelBundle\Validators as LocalAssert;
  * @LocalAssert\GreaterThanDate(lessThanField="admDate",greaterThanField="csfCollectDate",message="form.validation.onset-after-dob")
  * @LocalAssert\GreaterThanDate(lessThanField="admDate",greaterThanField="bloodCollectDate",message="form.validation.onset-after-dob")
  * @LocalAssert\GreaterThanDate(lessThanField="admDate",greaterThanField="pleuralFluidCollectDate",message="form.validation.onset-after-dob")
- *
  */
 class IBD extends BaseCase
 {
@@ -87,6 +86,7 @@ class IBD extends BaseCase
      * @ORM\Column(name="onset_date",type="date",nullable=true)
      * @Serializer\Groups({"api"})
      * @Assert\DateTime
+     * @LocalAssert\NoFutureDate()
      */
     protected $onset_date;
 
@@ -282,6 +282,7 @@ class IBD extends BaseCase
      * @var \DateTime $hibMostRecentDose
      * @ORM\Column(name="hib_most_recent_dose",type="date",nullable=true)
      * @Serializer\Groups({"api"})
+     * @LocalAssert\NoFutureDate()
      */
     private $hib_most_recent_dose;
 
@@ -310,6 +311,7 @@ class IBD extends BaseCase
      * @var \DateTime $pcvMostRecentDose
      * @ORM\Column(name="pcv_most_recent_dose",type="date",nullable=true)
      * @Serializer\Groups({"api"})
+     * @LocalAssert\NoFutureDate()
      */
     private $pcv_most_recent_dose;
 
@@ -331,6 +333,7 @@ class IBD extends BaseCase
      * @var \DateTime $mening_date
      * @ORM\Column(name="mening_date",type="date",nullable=true)
      * @Assert\Date
+     * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api"})
      */
     private $mening_date;
@@ -347,6 +350,7 @@ class IBD extends BaseCase
     /**
      * @var \DateTime $csfCollectDate
      * @ORM\Column(name="csf_collect_date",type="date",nullable=true)
+     * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api"})
      */
     private $csf_collect_date;
@@ -375,6 +379,8 @@ class IBD extends BaseCase
     /**
      * @var \DateTime $bloodCollectDate
      * @ORM\Column(name="blood_collect_date",type="date",nullable=true)
+     *
+     * @LocalAssert\NoFutureDate()
      */
     private $blood_collect_date;
 
@@ -463,6 +469,8 @@ class IBD extends BaseCase
     /**
      * @var \DateTime
      * @ORM\Column(name="pleural_fluid_collect_date",type="date",nullable=true)
+     *
+     * @LocalAssert\NoFutureDate()
      */
     private $pleural_fluid_collect_date;
 

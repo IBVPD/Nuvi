@@ -37,6 +37,7 @@ abstract class ExternalLab extends BaseExternalLab
      * @var \DateTime $sampleCollectionDate
      * @ORM\Column(name="sample_collection_date",type="date",nullable=true)
      * @Serializer\Groups({"api"})
+     * @LocalAssert\NoFutureDate()
      */
     protected $sample_collection_date;
 
@@ -751,11 +752,11 @@ abstract class ExternalLab extends BaseExternalLab
         }
 
         if ($this->method_used_pathogen_identify && $this->method_used_pathogen_identify->equal(PathogenIdentifier::OTHER) && empty($this->method_used_pathogen_identify_other)) {
-            return 'pathogenIdentier';
+            return 'pathogenIdentifier';
         }
 
         if ($this->method_used_st_sg && $this->method_used_st_sg->equal(SerotypeIdentifier::OTHER) && empty($this->method_used_st_sg_other)) {
-            return 'serotypeIdentier';
+            return 'serotypeIdentifier';
         }
 
         return null;

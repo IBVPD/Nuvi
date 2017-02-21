@@ -18,7 +18,7 @@ use NS\SentinelBundle\Form\IBD\Types\PCRResult;
 
 use NS\UtilBundle\Form\Types\ArrayChoice;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Constraints\DateTime;
+use NS\SentinelBundle\Validators as LocalAssert;
 use JMS\Serializer\Annotation\Groups;
 use NS\SentinelBundle\Validators as NSValidators;
 
@@ -69,6 +69,7 @@ class SiteLab extends BaseSiteLab
      * @var \DateTime $csfLabTime
      * @ORM\Column(name="csf_lab_date",type="date",nullable=true)
      * @Assert\DateTime
+     * @LocalAssert\NoFutureDate()
      * @Groups({"api"})
      */
     private $csf_lab_date;
@@ -371,6 +372,7 @@ class SiteLab extends BaseSiteLab
      *
      * @var \DateTime
      * @ORM\Column(name="rl_csf_date",type="date",nullable=true)
+     * @LocalAssert\NoFutureDate()
      */
     private $rl_csf_date;
 
@@ -379,6 +381,7 @@ class SiteLab extends BaseSiteLab
      *
      * @var \DateTime
      * @ORM\Column(name="rl_isol_csf_date",type="date",nullable=true)
+     * @LocalAssert\NoFutureDate()
      */
     private $rl_isol_csf_date;
 
@@ -387,6 +390,7 @@ class SiteLab extends BaseSiteLab
      *
      * @var \DateTime
      * @ORM\Column(name="rl_isol_blood_date",type="date",nullable=true)
+     * @LocalAssert\NoFutureDate()
      */
     private $rl_isol_blood_date;
 
@@ -395,12 +399,13 @@ class SiteLab extends BaseSiteLab
      *
      * @var \DateTime
      * @ORM\Column(name="rl_broth_date",type="date",nullable=true)
+     * @LocalAssert\NoFutureDate()
      */
     private $rl_broth_date;
 
 //==================================
     /**
-     * @var DateTime $updatedAt
+     * @var \DateTime $updatedAt
      * @ORM\Column(name="updatedAt",type="datetime")
      * @Groups({"api"})
      */
@@ -487,7 +492,7 @@ class SiteLab extends BaseSiteLab
     }
 
     /**
-     * @return \DateTime|DateTime
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {

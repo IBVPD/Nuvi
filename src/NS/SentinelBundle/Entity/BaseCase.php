@@ -90,6 +90,7 @@ abstract class BaseCase
      * @ORM\Column(name="birthdate",type="date",nullable=true)
      * @Assert\Date
      * @Serializer\Groups({"api"})
+     * @LocalAssert\NoFutureDate()
      */
     protected $birthdate;
 
@@ -128,6 +129,7 @@ abstract class BaseCase
      * @Serializer\Groups({"api"})
      * @Assert\NotBlank(groups={"AMR"})
      * @Assert\Date()
+     * @LocalAssert\NoFutureDate()
      */
     protected $adm_date;
 

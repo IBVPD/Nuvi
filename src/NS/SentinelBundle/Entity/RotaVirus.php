@@ -15,6 +15,7 @@ use NS\SecurityBundle\Annotation\Secured;
 use NS\SecurityBundle\Annotation\SecuredCondition;
 use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\Exclude;
+use NS\SentinelBundle\Validators as LocalAssert;
 
 /**
  * Description of RotaVirus
@@ -81,6 +82,7 @@ class RotaVirus extends BaseCase
      * @var \DateTime $symp_dia_onset_date
      * @ORM\Column(name="symp_dia_onset_date",type="date",nullable=true)
      * @Groups({"api"})
+     * @LocalAssert\NoFutureDate
      */
     private $symp_dia_onset_date;
 
@@ -193,6 +195,7 @@ class RotaVirus extends BaseCase
      * @var \DateTime $rv_dose1_date
      * @ORM\Column(name="rv_dose1_date",type="date",nullable=true)
      * @Groups({"api"})
+     * @LocalAssert\NoFutureDate
      */
     private $rv_dose1_date;
 
@@ -201,6 +204,7 @@ class RotaVirus extends BaseCase
      * @var \DateTime $rv_dose2_date
      * @ORM\Column(name="rv_dose2_date",type="date",nullable=true)
      * @Groups({"api"})
+     * @LocalAssert\NoFutureDate
      */
     private $rv_dose2_date;
 
@@ -209,6 +213,7 @@ class RotaVirus extends BaseCase
      * @var \DateTime $rv_dose3_date
      * @ORM\Column(name="rv_dose3_date",type="date",nullable=true)
      * @Groups({"api"})
+     * @LocalAssert\NoFutureDate
      */
     private $rv_dose3_date;
 
@@ -234,6 +239,7 @@ class RotaVirus extends BaseCase
      * @var \DateTime $stool_collect_date
      * @ORM\Column(name="stool_collect_date",type="date",nullable=true)
      * @Groups({"api"})
+     * @LocalAssert\NoFutureDate
      */
     private $stool_collect_date;
 
@@ -250,6 +256,7 @@ class RotaVirus extends BaseCase
      * @var \DateTime $disch_date
      * @ORM\Column(name="disch_date",type="date",nullable=true)
      * @Groups({"api"})
+     * @LocalAssert\NoFutureDate
      */
     private $disch_date;
 

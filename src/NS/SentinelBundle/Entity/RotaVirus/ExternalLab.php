@@ -10,6 +10,7 @@ use NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultP;
 use NS\SentinelBundle\Form\RotaVirus\Types\ElisaResult;
 use NS\SentinelBundle\Entity\BaseExternalLab;
 use JMS\Serializer\Annotation as Serializer;
+use NS\SentinelBundle\Validators as LocalAssert;
 
 /**
  * Description of ExternalLab
@@ -29,6 +30,7 @@ abstract class ExternalLab extends BaseExternalLab
      * @var \DateTime $specimenCollectionDate
      * @ORM\Column(name="specimenCollectionDate",type="date",nullable=true)
      * @Serializer\Groups({"api"})
+     * @LocalAssert\NoFutureDate
      */
     protected $specimenCollectionDate;
 
@@ -36,6 +38,7 @@ abstract class ExternalLab extends BaseExternalLab
      * @var \DateTime $genotypingDate
      * @ORM\Column(name="dt_gt",type="date", nullable=true)
      * @Serializer\Groups({"api"})
+     * @LocalAssert\NoFutureDate
      */
     protected $dt_gt;
 
