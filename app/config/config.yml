@@ -30,8 +30,8 @@ twig:
     form_themes:
       - NSUtilBundle:Form:fields.html.twig
       - NSAceBundle:Form:fields.html.twig
-      - NSSentinelBundle::form_fields.html.twig
-      - NSImportBundle::form_fields.html.twig
+      - NSSentinelBundle:Form:fields.html.twig
+      - NSImportBundle:Form:fields.html.twig
       - VichUploaderBundle:Form:fields.html.twig
     exception_controller: 'FOS\RestBundle\Controller\ExceptionController::showAction'
 
@@ -173,12 +173,6 @@ sonata_block:
         #sonata.media.block.gallery:
         #sonata.media.block.feature_media:
 
-knp_menu:
-    twig:  # use "twig: false" to disable the Twig extension and the TwigRenderer
-        template: NSAceBundle:Menu:menu.html.twig
-    templating: false # if true, enables the helper for PHP templates
-    default_renderer: twig # The renderer to use, list is also available by default
-
 sonata_admin:
     title:      NUVI Sentinel Network Administration
     security:
@@ -222,10 +216,6 @@ jms_translation:
       excluded_names: [ "Test","*TestCase.php", "*Test.php" ]
       excluded_dirs: [ Tests ]
       output_format: xliff
-
-knp_paginator:
-  template:
-    pagination: NSAceBundle:Form:pagination.html.twig
 
 lunetics_locale:
   strict_mode: true
@@ -316,8 +306,3 @@ ns_token:
   id: '%ns_token_id%'
   key: '%ns_token_key%'
   issuer: '%ns_token_issuer%'
-
-parameters:
-    knp_menu.renderer.twig.options:
-        currentClass: active
-        ancestorClass: open

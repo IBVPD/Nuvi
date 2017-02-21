@@ -1,11 +1,33 @@
+{% block ct_value_row %}
+    <div class="form-row">
+        {{ form_label(form) }}
+        <div class="input-group inputOrSelect">
+            {{form_widget(form.number)}} {{ form_widget(form.choice) }}
+        </div>
+    </div>
+{% endblock %}
+
 {% block case_creation_row %}
     {% spaceless %}
-        <!-- START -->
-        {%- if preferred_choices|length > 0 or choices|length > 1 -%}
-            <input type="hidden" name="{{ name }}" value="{{ choices|first }}" />
+        {%- if choices|length == 1 -%}
+            {% set choiceValue = choices|first %}
+            <input type="hidden" name="{{ full_name }}" value="{{ choiceValue.value }}" />
         {% else %}
-            {{ block('choice_widget') }}
+            <div class="form-group{% if not form.vars.valid %} has-error{% endif %}">
+                {{form_label(form)}}
+                {{form_widget(form)}}
+                {{form_errors(form)}}
+            </div>
         {%- endif -%}
-        <!-- END -->
     {% endspaceless %}
+{% endblock %}
+
+{% block cxr_additional_result_row %}
+    <div class="form-group">
+        <div {{ block('widget_container_attributes') }}>
+            {{ form_label(form) }}
+            {{ form_widget(form) }}
+            {{ form_errors(form) }}
+        </div>
+    </div>
 {% endblock %}
