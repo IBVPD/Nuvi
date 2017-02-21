@@ -19,7 +19,6 @@ class OtherValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
-//        throw new \RuntimeException("HERE ".__LINE__);
         $fMethod      = sprintf("get%s", $constraint->field);
         $otherFMethod = sprintf("get%s", $constraint->otherField);
 
@@ -30,9 +29,7 @@ class OtherValidator extends ConstraintValidator
         $const = constant($constraint->value);
 
         if ($value->$fMethod() instanceof ArrayChoice && $value->$fMethod()->equal($const) && ($value->$otherFMethod() === null || $value->$otherFMethod() == '')) {
-            $this->context->addViolation($constraint->message);
+            $this->context->buildViolation($constraint->message)->addViolation();
         }
-
-//        throw new \RuntimeException('HERE '.__LINE__);
     }
 }

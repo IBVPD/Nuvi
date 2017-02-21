@@ -7,6 +7,9 @@ use NS\SentinelBundle\Form\IBD\Types\CultureResult;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Validators\Other;
 use NS\SentinelBundle\Validators\OtherValidator;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
 /**
  * Description of OtherValidatorTest
@@ -15,6 +18,21 @@ use NS\SentinelBundle\Validators\OtherValidator;
  */
 class OtherValidatorTest extends \PHPUnit_Framework_TestCase
 {
+    /** @var ExecutionContextInterface|\PHPUnit_Framework_MockObject_MockObject */
+    private $context;
+
+    /** @var OtherValidator|\PHPUnit_Framework_MockObject_MockObject */
+    private $validator;
+
+    /**
+     * @inheritDoc
+     */
+    protected function setUp()
+    {
+        $this->context = $this->createMock(ExecutionContextInterface::class);
+        $this->validator = new OtherValidator();
+        $this->validator->initialize($this->context);
+    }
 
     /**
      * @expectedException \InvalidArgumentException
@@ -27,8 +45,7 @@ class OtherValidatorTest extends \PHPUnit_Framework_TestCase
             'otherField' => 'unknownOtherField']);
 
         $siteLab   = new SiteLab();
-        $validator = new OtherValidator();
-        $validator->validate($siteLab, $constraint);
+        $this->validator->validate($siteLab, $constraint);
     }
 
     /**
@@ -43,18 +60,16 @@ class OtherValidatorTest extends \PHPUnit_Framework_TestCase
             'field'      => 'csfCultDone',
             'otherField' => 'csfCultResult']);
 
-        $context = $this->createMock('\Symfony\Component\Validator\Context\ExecutionContextInterface');
 
-        $context->expects($this->never())
-            ->method('addViolation')
+        $this->context
+            ->expects($this->never())
+            ->method('buildViolation')
             ->with($constraint->message);
 
         $siteLab   = new SiteLab();
         $siteLab->setCsfCultDone(new TripleChoice($field));
         $siteLab->setCsfCultResult(new CultureResult($otherField));
-        $validator = new OtherValidator();
-        $validator->initialize($context);
-        $validator->validate($siteLab, $constraint);
+        $this->validator->validate($siteLab, $constraint);
     }
 
     public function getNoViolationFields()
@@ -85,13 +100,18 @@ class OtherValidatorTest extends \PHPUnit_Framework_TestCase
             'field'      => 'csfCultDone',
             'otherField' => 'csfCultResult']);
 
-        $context = $this->createMock('\Symfony\Component\Validator\Context\ExecutionContextInterface');
+        $builder = $this->createMock(ConstraintViolationBuilderInterface::class);
+        $builder
+            ->expects($this->once())
+            ->method('addViolation');
 
-        $context->expects($this->once())
-            ->method('addViolation')
-            ->with($constraint->message);
+        $this->context
+            ->expects($this->once())
+            ->method('buildViolation')
+            ->with($constraint->message)
+            ->willReturn($builder);
 
-        $siteLab   = new SiteLab();
+        $siteLab = new SiteLab();
 
         if ($field) {
             $siteLab->setCsfCultDone(new TripleChoice($field));
@@ -101,9 +121,7 @@ class OtherValidatorTest extends \PHPUnit_Framework_TestCase
             $siteLab->setCsfCultResult(new CultureResult($otherField));
         }
 
-        $validator = new OtherValidator();
-        $validator->initialize($context);
-        $validator->validate($siteLab, $constraint);
+        $this->validator->validate($siteLab, $constraint);
     }
 
     public function getViolationFields()
