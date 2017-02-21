@@ -3,6 +3,7 @@ VERSION 0  INITIAL RELEASE
 ==========================
 
    Version 0.10 - Updated to SF3.x
+      21/02/2017 11:13  0.10.10  Fixed Active Menu
       20/02/2017 15:37  0.10.9  Fix the active menu detection
       20/02/2017 11:05  0.10.8  Additional PAHO change requests
       14/02/2017 22:05  0.10.7  Handful of UI fixes
