@@ -41,6 +41,10 @@ use NS\SentinelBundle\Validators as LocalAssert;
  *
  * @LocalAssert\GreaterThanDate(lessThanField="onsetDate",greaterThanField="admDate",message="form.validation.admission-after-onset")
  * @LocalAssert\GreaterThanDate(lessThanField="birthdate",greaterThanField="onsetDate",message="form.validation.onset-after-dob")
+ * @LocalAssert\GreaterThanDate(lessThanField="admDate",greaterThanField="csfCollectDate",message="form.validation.onset-after-dob")
+ * @LocalAssert\GreaterThanDate(lessThanField="admDate",greaterThanField="bloodCollectDate",message="form.validation.onset-after-dob")
+ * @LocalAssert\GreaterThanDate(lessThanField="admDate",greaterThanField="pleuralFluidCollectDate",message="form.validation.onset-after-dob")
+ *
  */
 class IBD extends BaseCase
 {
