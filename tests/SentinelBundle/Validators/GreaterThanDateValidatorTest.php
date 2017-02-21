@@ -23,7 +23,7 @@ class GreaterThanDateValidatorTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->context = $this->createMock(ExecutionContextInterface::class);
-        $this->validator = new GreaterThanDateValidator($this->context);
+        $this->validator = new GreaterThanDateValidator();
         $this->validator->initialize($this->context);
     }
 
