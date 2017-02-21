@@ -34,7 +34,13 @@ if [[ -n "$command" ]]; then
    git fetch > /dev/null 2>&1 || { echo >&2 "git is required.  Aborting."; exit 1; }
 #   echo "Running: git stash";
 
-   git stash
+   git diff --quiet
+   NEEDSTASH=$?
+
+   if [ $NEEDSTASH -eq 1 ]; then
+      git stash
+   fi
+
    case "$command" in
      'latest')
         getLatest
@@ -47,7 +53,10 @@ if [[ -n "$command" ]]; then
         ;;
    esac
 #   echo "Running: git stash pop";
-   git stash pop
+
+   if [ $NEEDSTASH -eq 1 ]; then
+      git stash pop
+   fi
 else
     echo "Missing arguments [latest|latest-release]";
 fi
