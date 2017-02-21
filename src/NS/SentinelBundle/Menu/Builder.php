@@ -51,8 +51,8 @@ class Builder
         if ($this->authChecker->isGranted('IS_AUTHENTICATED_FULLY')) {
             if ($this->authChecker->isGranted('ROLE_CAN_CREATE')) {
                 $data = $menu->addChild('Data Entry', ['label' => 'menu.data-entry', 'extras' => ['icon' => 'fa fa-edit']]);
-                $data->addChild('Meningitis', [ 'label' => 'menu.ibd', 'route' => 'ibdIndex' ]);
-                $data->addChild('Rotavirus', ['route' => 'rotavirusIndex', 'extras' => ['translation_domain' => 'NSSentinelBundle']]);
+                $data->addChild('Meningitis', [ 'label' => 'menu.ibd', 'route' => 'ibdIndex', 'extras' => ['routes'=>['ibdEdit','ibdLabEdit','ibdNLEdit','ibdRRLEdit','ibdOutcomeEdit']] ]);
+                $data->addChild('Rotavirus', ['route' => 'rotavirusIndex', 'extras' => ['translation_domain' => 'NSSentinelBundle', 'routes'=>['rotavirusEdit','rotavirusLabEdit','rotavirusNLEdit','rotavirusRRLEdit','rotavirusOutcomeEdit']]]);
                 $data->addChild('Zero Reporting', ['route' => 'zeroReportIndex']);
             }
 
