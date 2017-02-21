@@ -149,7 +149,7 @@ class CaseType extends AbstractType
                 ->add('pneuCough',              TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-cough'])
                 ->add('pneuCyanosis',           TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-cyanosis'])
                 ->add('pneuStridor',            TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-stridor'])
-                ->add('pneuRespRate',           IntegerType::class, ['required' => $required, 'label' => 'ibd-form.pneu-resp-rate', 'attr' => ['min' => 10, 'max' => 100],'property_path' => 'pneu_resp_rate'])
+                ->add('pneuRespRate',           IntegerType::class, ['required' => $required, 'label' => 'ibd-form.pneu-resp-rate', 'attr' => ['min' => 10, 'max' => 150],'property_path' => 'pneu_resp_rate'])
                 ->add('pneuVomit',              TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-vomit'])
                 ->add('pneuHypothermia',        TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-hypothermia'])
                 ->add('pneuMalnutrition',       TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-malnutrition'])

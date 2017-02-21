@@ -203,7 +203,7 @@ class IBD extends BaseCase
     /**
      * @var integer $pneuRespRate
      * @ORM\Column(name="pneu_resp_rate",type="integer",nullable=true)
-     * @Assert\Range(min=10,max=100,minMessage="Please provide a valid respiratory rate",maxMessage="Please provide a valid respiratory rate")
+     * @Assert\Range(min=10,max=150,minMessage="Please provide a valid respiratory rate",maxMessage="Please provide a valid respiratory rate")
      * @Serializer\Groups({"api"})
      */
     private $pneu_resp_rate;
