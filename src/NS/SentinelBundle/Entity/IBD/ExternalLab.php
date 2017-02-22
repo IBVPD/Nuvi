@@ -18,6 +18,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use NS\SecurityBundle\Annotation\Secured;
 use NS\SecurityBundle\Annotation\SecuredCondition;
 use JMS\Serializer\Annotation as Serializer;
+use NS\SentinelBundle\Validators as LocalAssert;
 
 /**
  * Description of ExternalLab
