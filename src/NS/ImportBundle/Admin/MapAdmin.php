@@ -66,8 +66,6 @@ class MapAdmin extends AbstractAdmin
         $queryBuilder
             ->andWhere(sprintf('%s.class = :class', $alias))
             ->setParameter('class', $value['value']);
-
-        return true;
     }
 
     /**
@@ -104,7 +102,7 @@ class MapAdmin extends AbstractAdmin
             ->add('headerRow',      IntegerType::class, ['label_attr'=> ['class'=>'col-sm-2']])
             ->add('caseLinker',     ChoiceType::class, [
                 'label_attr' => ['class'=>'col-sm-2'],
-                'choices' => ['ns_import.standard_case_linker' => 'Case Id and Site Code', 'ns_import.reference_case_linker'=>'Case Id and Verify Country'],
+                'choices' => ['Case Id and Site Code' => 'ns_import.standard_case_linker', 'Case Id and Verify Country' => 'ns_import.reference_case_linker'],
                 'placeholder' => 'Please Select...',
                 'disabled'=>$isNew])
         ;
