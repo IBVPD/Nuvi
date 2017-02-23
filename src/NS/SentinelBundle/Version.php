@@ -11,5 +11,5 @@ namespace NS\SentinelBundle;
 
 class Version
 {
-    const VERSION = '0.10.13';
+    const VERSION = '0.10.14';
 }
