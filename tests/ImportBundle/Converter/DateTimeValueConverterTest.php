@@ -34,4 +34,11 @@ class DateTimeValueConverterTest extends \PHPUnit_Framework_TestCase
         $dateStr   = '2014/10/01';
         $this->assertEquals(new \DateTime('2014-10-01'), $converter->__invoke($dateStr));
     }
+
+    public function testExcelDate()
+    {
+        $converter = new DateTimeValueConverter('Y-m-d|');
+
+        $this->assertEquals(new \DateTime('2016-01-30'), $converter->__invoke(42399));
+    }
 }
