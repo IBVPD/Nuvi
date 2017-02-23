@@ -1,6 +1,6 @@
 {% block body %}
     <div class="form">
-        <form class="vertical" action="{{ path('fos_oauth_server_authorize', {'client_id': app.request.get('client_id'), 'response_type': app.request.get('response_type'), 'redirect_uri': app.request.get('redirect_uri'),'state': app.request.get('state'),'scope': app.request.get('scope')} ) }}" method="POST"  {{form_enctype(form)}}>
+        <form class="vertical" action="{{ path('fos_oauth_server_authorize', {'client_id': app.request.get('client_id'), 'response_type': app.request.get('response_type'), 'redirect_uri': app.request.get('redirect_uri'),'state': app.request.get('state'),'scope': app.request.get('scope')} ) }}" method="POST">
             <div class="form_title">
                 Grant access to {{ client.name }}?
             </div>
