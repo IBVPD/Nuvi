@@ -33,7 +33,7 @@ class RotaVirusController extends BaseCaseController
     /**
      * @param Request $request
      * @Route("/create",name="rotavirusCreate")
-     * @Method({"POST"})
+     * @Method({"POST","GET"})
      * @return Response|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function createAction(Request $request)

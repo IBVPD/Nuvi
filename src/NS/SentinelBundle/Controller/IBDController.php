@@ -33,7 +33,7 @@ class IBDController extends BaseCaseController
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @Route("/create",name="ibdCreate")
-     * @Method({"POST"})
+     * @Method({"POST","GET"})
      * @return Response|\Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function createAction(Request $request)
