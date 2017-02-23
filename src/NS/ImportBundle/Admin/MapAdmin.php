@@ -111,14 +111,14 @@ class MapAdmin extends AbstractAdmin
             $formMapper
                 ->add('labPreference', ChoiceType::class, [
                     'label_attr' => ['class'=>'col-sm-2'],
-                    'choices'=> ['referenceLab'=>'RRL', 'nationalLab'=>'NL']
+                    'choices'=> ['RRL' => 'referenceLab', 'NL' => 'nationalLab']
                 ])
                 ->add('file', FileType::class, [
                     'required' => false,
                     'label_attr' => ['class'=>'col-sm-2'],
                 ]);
         } else {
-            $formMapper->add('columns', 'sonata_type_collection', ['error_bubbling'=>false, 'by_reference' => true, 'label_attr'=> ['class'=>'col-md-12 align-left']], ['edit'=>'inline', 'inline'=>'table', 'template'=>'NSImportBundle:edi_orm_one_to_many.html.twig']);
+            $formMapper->add('columns', 'sonata_type_collection', ['error_bubbling' => false, 'by_reference' => true, 'label_attr' => ['class' => 'col-md-12 align-left']], ['edit' => 'inline', 'inline' => 'table', 'template' => 'NSImportBundle:edi_orm_one_to_many.html.twig']);
         }
     }
 
