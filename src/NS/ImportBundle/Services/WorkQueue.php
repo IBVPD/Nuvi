@@ -7,6 +7,8 @@ use Leezy\PheanstalkBundle\Proxy\PheanstalkProxy;
 use Doctrine\Common\Persistence\ObjectManager;
 use NS\ImportBundle\Entity\Import;
 use NS\ImportBundle\Vich\NonUTF8FileException;
+use Pheanstalk\Exception\ConnectionException;
+use Pheanstalk\Job;
 
 class WorkQueue
 {
@@ -57,7 +59,7 @@ class WorkQueue
             $this->entityMgr->flush($import);
         } catch (NonUTF8FileException $exception) {
             return 'The file is not UTF-8 encoded.';
-        } catch (\Pheanstalk_Exception_ConnectionException $exception) {
+        } catch (ConnectionException $exception) {
             return 'There was an error communicating with the beanstalk server';
         } catch (DBALException $exception) {
             return 'There was an error communicating with the backend database';
@@ -73,7 +75,7 @@ class WorkQueue
     public function reSubmit(Import $import)
     {
         if ($import->isBuried()) {
-            $this->pheanstalk->useTube('import')->kickJob(new \Pheanstalk_Job($import->getPheanstalkJobId(), $import->getId()));
+            $this->pheanstalk->useTube('import')->kickJob(new Job($import->getPheanstalkJobId(), $import->getId()));
             $import->setPheanstalkStatus(Import::STATUS_RUNNING);
             $this->entityMgr->persist($import);
             $this->entityMgr->flush($import);
