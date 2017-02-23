@@ -24,6 +24,6 @@ class ConditionController extends Controller
             $string = $converter->toArray($preConditions);
         }
 
-        return new JsonResponse(json_encode($string));
+        return new JsonResponse($string);
     }
 }
