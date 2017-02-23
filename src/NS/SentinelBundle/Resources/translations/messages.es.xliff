@@ -1278,7 +1278,7 @@
       </trans-unit>
       <trans-unit id="d3f0610632bbef35bfaa389ca89023fd50c6dd62" resname="Outcome">
         <source>Outcome</source>
-        <target>Clasifcación </target>
+        <target>Clasificación </target>
         <jms:reference-file line="22">views/RotaVirus/edit.html.twig</jms:reference-file>
         <jms:reference-file line="25">views/IBD/show.html.twig</jms:reference-file>
         <jms:reference-file line="24">views/IBD/edit.html.twig</jms:reference-file>
@@ -2466,7 +2466,7 @@
       </trans-unit>
       <trans-unit id="449eca1068df8c1eb5acfc2604630209c4806be8" resname="ibd-form.discharge-outcome">
         <source>ibd-form.discharge-outcome</source>
-        <target>condicion de egreso</target>
+        <target>Condición de egreso</target>
         <jms:reference-file line="351">views/IBD/show.html.twig</jms:reference-file>
         <jms:reference-file line="28">Form/IBD/OutcomeType.php</jms:reference-file>
         <jms:reference-file line="109">Form/IBD/CaseType.php</jms:reference-file>
