@@ -3,6 +3,7 @@ VERSION 0  INITIAL RELEASE
 ==========================
 
    Version 0.10 - Updated to SF3.x
+      23/02/2017 10:58  0.10.12  Updated translations and layout fixes
       23/02/2017 09:53  0.10.11  Various validation,import system and symfony version bug fixes
       21/02/2017 11:13  0.10.10  Fixed Active Menu
       20/02/2017 15:37  0.10.9  Fix the active menu detection
