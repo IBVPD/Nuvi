@@ -10,6 +10,7 @@ use NS\SentinelBundle\Form\RotaVirus\Types\Rehydration;
 use NS\SentinelBundle\Form\RotaVirus\Types\VaccinationType;
 use NS\SentinelBundle\Form\Types\Gender;
 use NS\SentinelBundle\Form\ValidatorGroup\ValidatorGroupResolver;
+use NS\SentinelBundle\Form\ValueObject\YearMonthType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -55,8 +56,7 @@ class CaseType extends AbstractType
             ->add('gender',                     Gender::class,              ['required'=>$required, 'label'=>'rotavirus-form.gender'])
             ->add('dobKnown',                   TripleChoice::class,        ['required'=>$required, 'label' => 'ibd-form.date-of-birth-known', 'hidden-child' => 'dob'])
             ->add('birthdate',                  DatePickerType::class,      ['required'=>$required, 'label' => 'ibd-form.date-of-birth', 'hidden-parent' => 'dob', 'hidden-value' => TripleChoice::YES, 'widget' => 'single_text'])
-            ->add('dobYears',                   null,                       ['required'=>$required, 'label' => 'ibd-form.date-of-birth-years', 'hidden-parent' => 'dob', 'hidden-value' => TripleChoice::NO])
-            ->add('dobMonths',                  null,                       ['required'=>$required, 'label' => 'ibd-form.date-of-birth-months', 'hidden-parent' => 'dob', 'hidden-value' => TripleChoice::NO])
+            ->add('dobYearMonths',              YearMonthType::class,       ['required'=>$required])
             ->add('district',                   null,                       ['required'=>$required, 'label'=>'rotavirus-form.district'])
             ->add('state',                      null,                       ['required'=>$required, 'label'=>'rotavirus-form.state'])
             ->add('admDate',                    DatePickerType::class,      ['required'=>$required, 'label'=>'rotavirus-form.admissionDate','property_path' => 'adm_date'])

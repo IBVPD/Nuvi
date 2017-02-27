@@ -8,28 +8,48 @@
 
 namespace NS\SentinelBundle\Tests\Validators;
 
+use NS\SentinelBundle\Entity\BaseCase;
 use NS\SentinelBundle\Entity\Country;
 use NS\SentinelBundle\Entity\IBD;
 use NS\SentinelBundle\Entity\RotaVirus;
+use NS\SentinelBundle\Entity\ValueObjects\YearMonth;
+use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Validators\BirthdayOrAge;
 use NS\SentinelBundle\Validators\BirthdayOrAgeValidator;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
 class BirthdayOrAgeValidatorTest extends \PHPUnit_Framework_TestCase
 {
+    private $context;
+
+    private $validator;
+
+    /**
+     * @inheritDoc
+     */
+    protected function setUp()
+    {
+        $this->context = $this->createMock(ExecutionContextInterface::class);
+
+        $this->validator = new BirthdayOrAgeValidator();
+        $this->validator->initialize($this->context);
+    }
+
     public function testValidateNonObject()
     {
-        $this->setExpectedException('\InvalidArgumentException', 'Expected object got string instead');
+        $this->expectException('\InvalidArgumentException');
+        $this->expectExceptionMessage('Expected object got string instead');
 
-        $validator = new BirthdayOrAgeValidator();
-        $validator->validate('some string', new BirthdayOrAge());
+        $this->validator->validate('some string', new BirthdayOrAge());
     }
 
     public function testValidateWrongObject()
     {
-        $this->setExpectedException('\InvalidArgumentException', 'Expected object of type NS\SentinelBundle\Entity\BaseCase got NS\SentinelBundle\Entity\Country instead');
+        $this->expectException('\InvalidArgumentException');
+        $this->expectExceptionMessage('Expected object of type NS\SentinelBundle\Entity\BaseCase got NS\SentinelBundle\Entity\Country instead');
 
-        $validator = new BirthdayOrAgeValidator();
-        $validator->validate(new Country(), new BirthdayOrAge());
+        $this->validator->validate(new Country(), new BirthdayOrAge());
     }
 
     /**
@@ -38,14 +58,12 @@ class BirthdayOrAgeValidatorTest extends \PHPUnit_Framework_TestCase
      *
      * @dataProvider getValidObjects
      */
-    public function testValidObject($object, $expected)
+    public function testValidObject(BaseCase $object, $expected)
     {
-        $context = $this->createMock('Symfony\Component\Validator\Context\ExecutionContextInterface');
+        if ($expected) {
+            $builder = $this->createMock(ConstraintViolationBuilderInterface::class);
 
-        if($expected) {
-            $builder = $this->createMock('Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface');
-
-            $context->expects($this->once())
+            $this->context->expects($this->once())
                 ->method('buildViolation')
                 ->willReturn($builder);
             
@@ -58,14 +76,12 @@ class BirthdayOrAgeValidatorTest extends \PHPUnit_Framework_TestCase
                 ->method('addViolation');
 
         } else {
-            $context->expects($this->never())->method('addViolation');
+            $this->context->expects($this->never())->method('buildViolation');
         }
 
         $constraint = new BirthdayOrAge();
-        $validator  = new BirthdayOrAgeValidator();
-        $validator->initialize($context);
 
-        $validator->validate($object, $constraint);
+        $this->validator->validate($object, $constraint);
     }
 
     public function getValidObjects()
@@ -76,16 +92,14 @@ class BirthdayOrAgeValidatorTest extends \PHPUnit_Framework_TestCase
         $ibdOne->setBirthdate(new \DateTime());
 
         $ibdTwo = clone $ibd;
-        $ibdTwo->setDobYears(3);
-        $ibdTwo->setDobMonths(6);
+        $ibdTwo->setDobYearMonths(new YearMonth(3,6));
 
         $rv = new RotaVirus();
         $rvOne = clone $rv;
         $rvOne->setBirthdate(new \DateTime());
 
         $rvTwo = clone $rv;
-        $rvTwo->setDobYears(2);
-        $rvTwo->setDobMonths(9);
+        $rvTwo->setDobYearMonths(new YearMonth(2,9));
 
         return [
             [$ibd, true],
@@ -94,6 +108,78 @@ class BirthdayOrAgeValidatorTest extends \PHPUnit_Framework_TestCase
             [$ibdTwo, false],
             [$rvOne, false],
             [$rvTwo, false],
+        ];
+    }
+
+    /**
+     * @param BaseCase $object
+     * @param boolean $birthDateExpected
+     * @param boolean $dobYearsExpected
+     *
+     * @dataProvider getObjects
+     */
+    public function testAgeIsLessThan5Years(BaseCase $object, $birthDateExpected, $dobYearsExpected)
+    {
+        if ($birthDateExpected) {
+            $builder = $this->createMock(ConstraintViolationBuilderInterface::class);
+
+            $this->context->expects($this->once())
+                ->method('buildViolation')
+                ->willReturn($builder);
+
+            $builder->expects($this->once())
+                ->method('atPath')
+                ->with('birthdate')
+                ->willReturn($builder);
+
+            $builder->expects($this->once())
+                ->method('addViolation');
+
+        } elseif ($dobYearsExpected) {
+            $builder = $this->createMock(ConstraintViolationBuilderInterface::class);
+
+            $this->context->expects($this->once())
+                ->method('buildViolation')
+                ->willReturn($builder);
+
+            $builder->expects($this->once())
+                ->method('atPath')
+                ->with('dobKnown')
+                ->willReturn($builder);
+
+            $builder->expects($this->once())
+                ->method('addViolation');
+        } else {
+            $this->context->expects($this->never())->method('buildViolation');
+        }
+
+        $constraint = new BirthdayOrAge();
+
+        $this->validator->validate($object, $constraint);
+    }
+
+    public function getObjects()
+    {
+        $ibdOne = new IBD();
+        $ibdOne->setBirthdate(new \DateTime('2016-07-12'));
+        $ibdOne->setAdmDate(new \DateTime('2016-01-31'));
+
+        $ibdTwo = clone $ibdOne;
+        $ibdTwo->setBirthdate(new \DateTime('2010-01-01'));
+
+        $ibdThree = new IBD();
+        $ibdThree->setDobKnown(new TripleChoice(TripleChoice::NO));
+        $ibdThree->setDobYearMonths(new YearMonth(5,0));
+
+        $ibdFour = new IBD();
+        $ibdFour->setDobKnown(new TripleChoice(TripleChoice::NO));
+        $ibdFour->setDobYearMonths(new YearMonth(4,11));
+
+        return [
+            [$ibdOne, false, false],
+            [$ibdTwo, true, false],
+            [$ibdThree, false, true],
+            [$ibdFour, false, false],
         ];
     }
 }

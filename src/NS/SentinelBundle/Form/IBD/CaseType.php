@@ -21,6 +21,7 @@ use NS\SentinelBundle\Form\Types\Gender;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Form\Types\VaccinationReceived;
 use NS\SentinelBundle\Form\ValidatorGroup\ValidatorGroupResolver;
+use NS\SentinelBundle\Form\ValueObject\YearMonthType;
 use NS\SentinelBundle\Interfaces\SerializedSitesInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -70,8 +71,7 @@ class CaseType extends AbstractType
             ->add('parentalName',       null, ['required' => $required, 'label' => 'ibd-form.parental-name'])
             ->add('dobKnown',           TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.date-of-birth-known', 'hidden-child' => 'dob', 'exclude_choices'=> ($isPaho ? [TripleChoice::UNKNOWN]:null)])
             ->add('birthdate',          DatePickerType::class, ['required' => $required, 'label' => 'ibd-form.date-of-birth', 'hidden-parent' => 'dob', 'hidden-value' => TripleChoice::YES, 'widget' => 'single_text'])
-            ->add('dobYears',           null, ['required' => $required, 'label' => 'ibd-form.date-of-birth-years', 'hidden-parent' => 'dob', 'hidden-value' => TripleChoice::NO])
-            ->add('dobMonths',          null, ['required' => $required, 'label' => 'ibd-form.date-of-birth-months', 'hidden-parent' => 'dob', 'hidden-value' => TripleChoice::NO])
+            ->add('dobYearMonths',      YearMonthType::class, [ 'required' => $required ])
             ->add('gender',             Gender::class, ['required' => $required, 'label' => 'ibd-form.gender'])
             ->add('district',           null, ['required' => $required, 'label' => 'ibd-form.district'])
             ->add('state',              null, ['required' => $required, 'label' => 'ibd-form.state'])

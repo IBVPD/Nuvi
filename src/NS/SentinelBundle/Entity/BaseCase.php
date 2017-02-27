@@ -4,6 +4,7 @@ namespace NS\SentinelBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
+use NS\SentinelBundle\Entity\ValueObjects\YearMonth;
 use NS\SentinelBundle\Form\Types\CaseStatus;
 use NS\SentinelBundle\Form\Types\Gender;
 use NS\SentinelBundle\Form\Types\TripleChoice;
@@ -99,8 +100,9 @@ abstract class BaseCase
      * @ORM\Column(name="dobKnown",type="TripleChoice",nullable=true)
      */
     protected $dobKnown;
-    protected $dobYears  = null;
-    protected $dobMonths = null;
+
+    /** @var  YearMonth */
+    protected $dobYearMonths;
 
     /**
      * @var integer $age
@@ -610,33 +612,6 @@ abstract class BaseCase
 
     /**
      *
-     * @return integer
-     */
-    public function getDobYears()
-    {
-        if (!$this->dobYears && $this->age_months) {
-            $this->dobYears = (int)($this->age_months / 12);
-        }
-
-        return $this->dobYears;
-    }
-
-    /**
-     *
-     * @return integer
-     */
-    public function getDobMonths()
-    {
-        if (!$this->dobMonths && $this->age_months) {
-            $this->getDobYears();
-            $this->dobMonths = (int) ($this->age_months - ($this->dobYears * 12));
-        }
-
-        return $this->dobMonths;
-    }
-
-    /**
-     *
      * @param TripleChoice $dobKnown
      * @return \NS\SentinelBundle\Entity\BaseCase
      */
@@ -647,27 +622,24 @@ abstract class BaseCase
     }
 
     /**
-     *
-     * @param integer $dobYears
-     * @return \NS\SentinelBundle\Entity\BaseCase
+     * @return YearMonth
      */
-    public function setDobYears($dobYears)
+    public function getDobYearMonths()
     {
-        $this->dobYears = $dobYears;
+        if ($this->age_months > 0) {
+            $this->dobYearMonths = new YearMonth($this->age_months / 12, $this->age_months % 12);
+        }
 
-        return $this;
+        return $this->dobYearMonths;
     }
 
     /**
-     *
-     * @param integer $dobMonths
-     * @return \NS\SentinelBundle\Entity\BaseCase
+     * @param YearMonth $dobMonthYears
      */
-    public function setDobMonths($dobMonths)
+    public function setDobYearMonths(YearMonth $dobMonthYears)
     {
-        $this->dobMonths = $dobMonths;
-
-        return $this;
+        $this->dobYearMonths = $dobMonthYears;
+        $this->age_months = $dobMonthYears->getMonths();
     }
 
     /**

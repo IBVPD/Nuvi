@@ -18,7 +18,7 @@
                 <li class="active"><a data-toggle="tab" href="#demographics">{{'Case Based Demographics'|trans}}</a></li>
                 <li><a data-toggle="tab" href="#clinical">{{'Clinical Data'|trans}}</a></li>
                 <li data-context-parent="admissionDiagnosis" data-context-value="1"><a data-toggle="tab" href="#meningitis">{{'Meningitis'|trans}}</a></li>
-                <li data-context-parent="admissionDiagnosis" data-context-value="[2,3]"><a data-toggle="tab" href="#pneumonia">{{'Pneumonia / Sepsis'|trans}}</a></li>
+                <li data-context-parent="admissionDiagnosis" data-context-value="[2,3,4]"><a data-toggle="tab" href="#pneumonia">{{'Pneumonia / Sepsis'|trans}}</a></li>
                 <li><a data-toggle="tab" href="#history">{{'Vaccination History'|trans}}</a></li>
                 <li><a data-toggle="tab" href="#specimen">{{'Specimen Collection Data'|trans}}</a></li>
                 <li><a data-toggle="tab" href="#outcome">{{'Outcome'|trans}}</a></li>
@@ -36,8 +36,7 @@
                     <div class="col-sm-4">
                         {{form_row(form.dobKnown)}}
                         {{form_row(form.birthdate)}}
-                        {{form_row(form.dobYears)}}
-                        {{form_row(form.dobMonths)}}
+                        {{ form_row(form.dobYearMonths) }}
                     </div>
                     <div class="col-sm-4">
                         {{form_row(form.caseId)}}
