@@ -3,6 +3,7 @@ VERSION 0  INITIAL RELEASE
 ==========================
 
    Version 0.10 - Updated to SF3.x
+      27/02/2017 09:48  0.10.15  Improve import date detection
       23/02/2017 14:13  0.10.14  Import bugs
       23/02/2017 11:09  0.10.13  Updated translations
       23/02/2017 10:58  0.10.12  Updated translations and layout fixes
