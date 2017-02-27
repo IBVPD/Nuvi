@@ -7,7 +7,6 @@ use JMS\Serializer\Annotation as Serializer;
 
 use NS\SecurityBundle\Annotation\Secured;
 use NS\SecurityBundle\Annotation\SecuredCondition;
-use NS\SentinelBundle\Form\IBD\Types\CultureResult;
 use NS\SentinelBundle\Form\Types\FourDoses;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Form\Types\VaccinationReceived;
@@ -44,6 +43,9 @@ use NS\SentinelBundle\Validators as LocalAssert;
  * @LocalAssert\GreaterThanDate(lessThanField="admDate",greaterThanField="csfCollectDate",message="form.validation.onset-after-dob")
  * @LocalAssert\GreaterThanDate(lessThanField="admDate",greaterThanField="bloodCollectDate",message="form.validation.onset-after-dob")
  * @LocalAssert\GreaterThanDate(lessThanField="admDate",greaterThanField="pleuralFluidCollectDate",message="form.validation.onset-after-dob")
+ *
+ * @LocalAssert\RelatedField(sourceField="admDx",sourceValue={"1"},fields={"menSeizures","menFever","menAltConscious","menInabilityFeed","menNeckStiff","menRash","menFontanelleBulge","menLethargy"})
+ * @LocalAssert\RelatedField(sourceField="admDx",sourceValue={"2","3"},fields={"pneuCyanosis","pneuVomit","pneuHypothermia","pneuMalnutrition","pneuDiffBreathe","pneuChestIndraw","pneuCough","pneuStridor","pneu_resp_rate","cxrDone",})
  */
 class IBD extends BaseCase
 {
