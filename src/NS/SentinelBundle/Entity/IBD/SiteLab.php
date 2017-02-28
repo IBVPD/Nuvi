@@ -64,6 +64,14 @@ class SiteLab extends BaseSiteLab
     protected $caseFile;
 
     //Case-based Laboratory Data
+
+    /**
+     * @var string $csf_id
+     * @ORM\Column(name="csf_id",type="string",nullable=true)
+     * @Groups({"api"})
+     */
+    private $csf_id;
+
     /**
      * @var \DateTime $csfLabTime
      * @ORM\Column(name="csf_lab_date",type="date",nullable=true)
@@ -80,20 +88,6 @@ class SiteLab extends BaseSiteLab
      * @Groups({"api"})
      */
     private $csf_lab_time;
-
-    /**
-     * @var string $csf_id
-     * @ORM\Column(name="csf_id",type="string",nullable=true)
-     * @Groups({"api"})
-     */
-    private $csf_id;
-
-    /**
-     * @var string $bloodId
-     * @ORM\Column(name="blood_id",type="string",nullable=true)
-     * @Groups({"api"})
-     */
-    private $blood_id;
 
     /**
      * @var integer $csfWcc
@@ -252,6 +246,29 @@ class SiteLab extends BaseSiteLab
 
 //==================
     //PNEUMONIA / SEPSIS (In addition to above)
+    /**
+     * @var string $bloodId
+     * @ORM\Column(name="blood_id",type="string",nullable=true)
+     * @Groups({"api"})
+     */
+    private $blood_id;
+
+    /**
+     * @var \DateTime $bloodLabTime
+     * @ORM\Column(name="blood_lab_date",type="date",nullable=true)
+     * @Assert\DateTime
+     * @LocalAssert\NoFutureDate()
+     * @Groups({"api"})
+     */
+    private $blood_lab_date;
+
+    /**
+     * @var \DateTime $bloodLabTime
+     * @ORM\Column(name="blood_lab_time",type="time",nullable=true)
+     * @Assert\DateTime
+     * @Groups({"api"})
+     */
+    private $blood_lab_time;
 
     /**
      * @var TripleChoice $bloodCultDone
@@ -273,48 +290,6 @@ class SiteLab extends BaseSiteLab
      * @Groups({"api"})
      */
     private $blood_pcr_done;
-
-    /**
-     * @var TripleChoice $otherCultDone
-     * @ORM\Column(name="other_cult_done",type="TripleChoice",nullable=true)
-     * @Groups({"api"})
-     */
-    private $other_cult_done;
-
-    /**
-     * @var CultureResult
-     * @ORM\Column(name="other_cult_result",type="CultureResult",nullable=true)
-     * @Groups({"api"})
-     */
-    private $other_cult_result;
-
-    /**
-     * @var string
-     * @ORM\Column(name="other_cult_other",type="string",nullable=true)
-     * @Groups({"api"})
-     */
-    private $other_cult_other;
-
-    /**
-     * @var TripleChoice $otherTestDone
-     * @ORM\Column(name="other_test_done",type="TripleChoice",nullable=true)
-     * @Groups({"api"})
-     */
-    private $other_test_done;
-
-    /**
-     * @var CultureResult
-     * @ORM\Column(name="other_test_result",type="CultureResult",nullable=true)
-     * @Groups({"api"})
-     */
-    private $other_test_result;
-
-    /**
-     * @var string $otherTestOther
-     * @ORM\Column(name="other_test_other",type="string",nullable=true)
-     * @Groups({"api"})
-     */
-    private $other_test_other;
 
     /**
      * @var CultureResult
@@ -365,6 +340,71 @@ class SiteLab extends BaseSiteLab
      */
     private $blood_pcr_other;
 
+    /**
+     * @var string $other_id
+     * @ORM\Column(name="other_id",type="string",nullable=true)
+     * @Groups({"api"})
+     */
+    private $other_id;
+
+    /**
+     * @var \DateTime $otherLabTime
+     * @ORM\Column(name="other_lab_date",type="date",nullable=true)
+     * @Assert\DateTime
+     * @LocalAssert\NoFutureDate()
+     * @Groups({"api"})
+     */
+    private $other_lab_date;
+
+    /**
+     * @var \DateTime $otherLabTime
+     * @ORM\Column(name="other_lab_time",type="time",nullable=true)
+     * @Assert\DateTime
+     * @Groups({"api"})
+     */
+    private $other_lab_time;
+
+    /**
+     * @var TripleChoice $otherCultDone
+     * @ORM\Column(name="other_cult_done",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
+     */
+    private $other_cult_done;
+
+    /**
+     * @var CultureResult
+     * @ORM\Column(name="other_cult_result",type="CultureResult",nullable=true)
+     * @Groups({"api"})
+     */
+    private $other_cult_result;
+
+    /**
+     * @var string
+     * @ORM\Column(name="other_cult_other",type="string",nullable=true)
+     * @Groups({"api"})
+     */
+    private $other_cult_other;
+
+    /**
+     * @var TripleChoice $otherTestDone
+     * @ORM\Column(name="other_test_done",type="TripleChoice",nullable=true)
+     * @Groups({"api"})
+     */
+    private $other_test_done;
+
+    /**
+     * @var CultureResult
+     * @ORM\Column(name="other_test_result",type="CultureResult",nullable=true)
+     * @Groups({"api"})
+     */
+    private $other_test_result;
+
+    /**
+     * @var string $otherTestOther
+     * @ORM\Column(name="other_test_other",type="string",nullable=true)
+     * @Groups({"api"})
+     */
+    private $other_test_other;
 //==================================
     /**
      * RL_CSF_date     Date when CSF sample was sent to RRL
@@ -474,7 +514,7 @@ class SiteLab extends BaseSiteLab
      * @ORM\Column(name="pleural_fluid_pcr_other",type="string",nullable=true)
      */
     private $pleural_fluid_pcr_other;
-    
+
     /**
      * @param null $case
      */
@@ -592,7 +632,7 @@ class SiteLab extends BaseSiteLab
     }
 
     /**
-     * 
+     *
      * @return string
      */
     public function getCsfCultContaminant()
@@ -1623,5 +1663,85 @@ class SiteLab extends BaseSiteLab
     public function getRlBrothDate()
     {
         return $this->rl_broth_date;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getBloodLabDate()
+    {
+        return $this->blood_lab_date;
+    }
+
+    /**
+     * @param \DateTime $blood_lab_date
+     */
+    public function setBloodLabDate($blood_lab_date)
+    {
+        $this->blood_lab_date = $blood_lab_date;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getBloodLabTime()
+    {
+        return $this->blood_lab_time;
+    }
+
+    /**
+     * @param \DateTime $blood_lab_time
+     */
+    public function setBloodLabTime($blood_lab_time)
+    {
+        $this->blood_lab_time = $blood_lab_time;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOtherId()
+    {
+        return $this->other_id;
+    }
+
+    /**
+     * @param string $other_id
+     */
+    public function setOtherId($other_id)
+    {
+        $this->other_id = $other_id;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getOtherLabDate()
+    {
+        return $this->other_lab_date;
+    }
+
+    /**
+     * @param \DateTime $other_lab_date
+     */
+    public function setOtherLabDate($other_lab_date)
+    {
+        $this->other_lab_date = $other_lab_date;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getOtherLabTime()
+    {
+        return $this->other_lab_time;
+    }
+
+    /**
+     * @param \DateTime $other_lab_time
+     */
+    public function setOtherLabTime($other_lab_time)
+    {
+        $this->other_lab_time = $other_lab_time;
     }
 }

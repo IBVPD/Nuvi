@@ -27,15 +27,6 @@
             <div class="tab-content">
 
                 <div id="collection" class="tab-pane active">
-                    <div class="row">
-                        <div class="col-md-3">
-                            {{form_row(form.csfLabDate)}}
-                        </div>
-                        <div class="col-md-3">
-                            {{form_row(form.csfLabTime)}}
-                        </div>
-                    </div>
-
                     {% if form.sentToReferenceLab is defined %}
                         <div class="row">
                             <div class="col-md-3">
@@ -61,7 +52,8 @@
                                 {{ form_row(form.brothSentToRRLDate) }}
                             </div>
                         </div>
-                    {% elseif form.sentToNationalLab is defined %}
+                    {% endif %}
+                    {% if form.sentToNationalLab is defined %}
                         <div class="row">
                             <div class="col-md-6">
                                 {{form_row(form.sentToNationalLab )}}
@@ -75,6 +67,15 @@
                         <div class="col-sm-3">
                             {{form_row(form.csfId)}}
                         </div>
+                        <div class="col-md-3">
+                            {{form_row(form.csfLabDate)}}
+                        </div>
+                        <div class="col-md-3">
+                            {{form_row(form.csfLabTime)}}
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-sm-3">
                             {{form_row(form.csfWcc)}}
                         </div>
@@ -162,6 +163,12 @@
                         <div class="col-sm-3">
                             {{form_row(form.bloodId)}}
                         </div>
+                        <div class="col-md-3">
+                            {{form_row(form.bloodLabDate)}}
+                        </div>
+                        <div class="col-md-3">
+                            {{form_row(form.bloodLabTime)}}
+                        </div>
                     </div>
                     <hr />
                     <div class="row">
@@ -245,6 +252,17 @@
                 {% endif %}
 
                 <div id="other" class="tab-pane">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            {{form_row(form.otherId)}}
+                        </div>
+                        <div class="col-md-3">
+                            {{form_row(form.otherLabDate)}}
+                        </div>
+                        <div class="col-md-3">
+                            {{form_row(form.otherLabTime)}}
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-4">
                             {{form_row(form.otherCultDone)}}
