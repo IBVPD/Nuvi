@@ -479,10 +479,10 @@ abstract class BaseCase
     }
 
     /**
-     * @param \NS\SentinelBundle\Entity\BaseSiteLab $siteLab
+     * @param $siteLab
      * @return \NS\SentinelBundle\Entity\BaseCase
      */
-    public function setSiteLab(BaseSiteLab $siteLab)
+    public function setSiteLab($siteLab)
     {
         $siteLab->setCaseFile($this);
         $this->siteLab = $siteLab;

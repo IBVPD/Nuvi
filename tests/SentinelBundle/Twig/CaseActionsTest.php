@@ -18,7 +18,6 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 class CaseActionsTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testBigShowOnlyActions()
     {
         list($authChecker, $trans, $router) = $this->getMockedObjects();
@@ -102,8 +101,8 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         $obj = new IBD();
         $lab = new IBDSiteLab();
-        $lab->setSentToReferenceLab(true);
-        $lab->setSentToNationalLab(true);
+        $lab->setRlBrothSent(true);
+        $lab->setNlBrothSent(true);
         $obj->setSiteLab($lab);
 
         $bigResults = $action->getBigActions($obj);
@@ -151,8 +150,8 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         $obj = new IBD();
         $lab = new IBDSiteLab();
-        $lab->setSentToReferenceLab(true);
-        $lab->setSentToNationalLab(true);
+        $lab->setRlCsfSent(true);
+        $lab->setNlCsfSent(true);
         $obj->setSiteLab($lab);
 
         $bigResults = $action->getBigActions($obj);
@@ -199,8 +198,8 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $action = new CaseActions($authChecker, $trans, $router);
         $obj    = new IBD();
         $lab    = new IBDSiteLab();
-        $lab->setSentToReferenceLab(true);
-        $lab->setSentToNationalLab(true);
+        $lab->setRlCsfSent(true);
+        $lab->setNlCsfSent(true);
         $obj->setSiteLab($lab);
 
         $bigResults = $action->getBigActions($obj);
@@ -246,8 +245,8 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $action = new CaseActions($authChecker, $trans, $router);
         $obj    = new IBD();
         $lab    = new IBDSiteLab();
-        $lab->setSentToReferenceLab(true);
-        $lab->setSentToNationalLab(true);
+        $lab->setRlCsfSent(true);
+        $lab->setNlCsfSent(true);
         $obj->setSiteLab($lab);
 
         $bigResults = $action->getBigActions($obj,false);
@@ -335,8 +334,8 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $action = new CaseActions($authChecker, $trans, $router);
         $obj    = new IBD();
         $lab    = new IBDSiteLab();
-        $lab->setSentToReferenceLab(true);
-        $lab->setSentToNationalLab(true);
+        $lab->setRlCsfSent(true);
+        $lab->setNlCsfSent(true);
         $obj->setSiteLab($lab);
 
         $bigResults = $action->getSmallActions($obj);
@@ -380,8 +379,8 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $action = new CaseActions($authChecker, $trans, $router);
         $obj    = new IBD();
         $lab    = new IBDSiteLab();
-        $lab->setSentToReferenceLab(true);
-        $lab->setSentToNationalLab(true);
+        $lab->setRlCsfSent(true);
+        $lab->setNlCsfSent(true);
         $obj->setSiteLab($lab);
 
         $bigResults = $action->getSmallActions($obj);
@@ -426,8 +425,8 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $action = new CaseActions($authChecker, $trans, $router);
         $obj    = new IBD();
         $lab    = new IBDSiteLab();
-        $lab->setSentToReferenceLab(true);
-        $lab->setSentToNationalLab(true);
+        $lab->setRlCsfSent(true);
+        $lab->setNlCsfSent(true);
         $obj->setSiteLab($lab);
 
         $bigResults = $action->getSmallActions($obj);

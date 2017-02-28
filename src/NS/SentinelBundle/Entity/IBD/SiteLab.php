@@ -54,9 +54,11 @@ use JMS\Serializer\Annotation\Groups;
  *                      @LocalAssert\Other(field="csfBinaxDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="csfBinaxResult",message="form.validation.ibd-sitelab-csfBinax-was-done-without-result"),
  *                      } )
  */
-class SiteLab extends BaseSiteLab
+class SiteLab
 {
     /**
+     * @var IBD
+     *
      * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\IBD",inversedBy="siteLab",cascade={"persist"})
      * @ORM\JoinColumn(nullable=false,unique=true,onDelete="CASCADE")
      * @ORM\Id
@@ -407,8 +409,13 @@ class SiteLab extends BaseSiteLab
     private $other_test_other;
 //==================================
     /**
-     * RL_CSF_date     Date when CSF sample was sent to RRL
-     *
+     * @var boolean
+     * @ORM\Column(name="rl_csf_sent",type="boolean",nullable=true)
+     * @LocalAssert\NoFutureDate()
+     */
+    private $rl_csf_sent;
+
+    /**
      * @var \DateTime
      * @ORM\Column(name="rl_csf_date",type="date",nullable=true)
      * @LocalAssert\NoFutureDate()
@@ -416,8 +423,13 @@ class SiteLab extends BaseSiteLab
     private $rl_csf_date;
 
     /**
-     * RL_isol_CSF_date	Date when isolate from CSF was sent to RRL
-     *
+     * @var boolean
+     * @ORM\Column(name="rl_isol_csf_sent",type="boolean",nullable=true)
+     * @LocalAssert\NoFutureDate()
+     */
+    private $rl_isol_csf_sent;
+
+    /**
      * @var \DateTime
      * @ORM\Column(name="rl_isol_csf_date",type="date",nullable=true)
      * @LocalAssert\NoFutureDate()
@@ -425,8 +437,13 @@ class SiteLab extends BaseSiteLab
     private $rl_isol_csf_date;
 
     /**
-     * RL_isol_blood_date	Date when isolate from blood was sent to RRL
-     *
+     * @var boolean
+     * @ORM\Column(name="rl_isol_blood_sent",type="boolean",nullable=true)
+     * @LocalAssert\NoFutureDate()
+     */
+    private $rl_isol_blood_sent;
+
+    /**
      * @var \DateTime
      * @ORM\Column(name="rl_isol_blood_date",type="date",nullable=true)
      * @LocalAssert\NoFutureDate()
@@ -434,13 +451,105 @@ class SiteLab extends BaseSiteLab
     private $rl_isol_blood_date;
 
     /**
-     * RL_broth_date	Date when blood broth was sent to RRL
-     *
+     * @var boolean
+     * @ORM\Column(name="rl_broth_sent",type="boolean",nullable=true)
+     * @LocalAssert\NoFutureDate()
+     */
+    private $rl_broth_sent;
+
+    /**
      * @var \DateTime
      * @ORM\Column(name="rl_broth_date",type="date",nullable=true)
      * @LocalAssert\NoFutureDate()
      */
     private $rl_broth_date;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="rl_other_sent",type="boolean",nullable=true)
+     * @LocalAssert\NoFutureDate()
+     */
+    private $rl_other_sent;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="rl_other_date",type="date",nullable=true)
+     * @LocalAssert\NoFutureDate()
+     */
+    private $rl_other_date;
+
+//=================================
+// NL
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="nl_csf_sent",type="boolean",nullable=true)
+     * @LocalAssert\NoFutureDate()
+     */
+    private $nl_csf_sent;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="nl_csf_date",type="date",nullable=true)
+     * @LocalAssert\NoFutureDate()
+     */
+    private $nl_csf_date;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="nl_isol_csf_sent",type="boolean",nullable=true)
+     * @LocalAssert\NoFutureDate()
+     */
+    private $nl_isol_csf_sent;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="nl_isol_csf_date",type="date",nullable=true)
+     * @LocalAssert\NoFutureDate()
+     */
+    private $nl_isol_csf_date;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="nl_isol_blood_sent",type="boolean",nullable=true)
+     * @LocalAssert\NoFutureDate()
+     */
+    private $nl_isol_blood_sent;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="nl_isol_blood_date",type="date",nullable=true)
+     * @LocalAssert\NoFutureDate()
+     */
+    private $nl_isol_blood_date;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="nl_broth_sent",type="boolean",nullable=true)
+     * @LocalAssert\NoFutureDate()
+     */
+    private $nl_broth_sent;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="nl_broth_date",type="date",nullable=true)
+     * @LocalAssert\NoFutureDate()
+     */
+    private $nl_broth_date;
+
+    /**
+     * @var boolean
+     * @ORM\Column(name="nl_other_sent",type="boolean",nullable=true)
+     * @LocalAssert\NoFutureDate()
+     */
+    private $nl_other_sent;
+
+    /**
+     * @var \DateTime
+     * @ORM\Column(name="nl_other_date",type="date",nullable=true)
+     * @LocalAssert\NoFutureDate()
+     */
+    private $nl_other_date;
 
 //==================================
     /**
@@ -459,8 +568,6 @@ class SiteLab extends BaseSiteLab
 
 //=================================
 // PAHO
-
-
     /**
      * @var TripleChoice
      * @ORM\Column(name="pleural_fluid_culture_done",type="TripleChoice",nullable=true)
@@ -528,6 +635,22 @@ class SiteLab extends BaseSiteLab
         $this->status    = new CaseStatus(CaseStatus::OPEN);
 
         return $this;
+    }
+
+    /**
+     * @return IBD
+     */
+    public function getCaseFile()
+    {
+        return $this->caseFile;
+    }
+
+    /**
+     * @param IBD $caseFile
+     */
+    public function setCaseFile(IBD $caseFile)
+    {
+        $this->caseFile = $caseFile;
     }
 
     /**
@@ -1328,75 +1451,323 @@ class SiteLab extends BaseSiteLab
     }
 
     /**
+     * @return boolean
+     */
+    public function getRlCsfSent()
+    {
+        return $this->rl_csf_sent;
+    }
+
+    /**
+     * @param boolean $rl_csf_sent
+     */
+    public function setRlCsfSent($rl_csf_sent = null)
+    {
+        $this->rl_csf_sent = $rl_csf_sent;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getRlIsolCsfSent()
+    {
+        return $this->rl_isol_csf_sent;
+    }
+
+    /**
+     * @param boolean $rl_isol_csf_sent
+     */
+    public function setRlIsolCsfSent($rl_isol_csf_sent = null)
+    {
+        $this->rl_isol_csf_sent = $rl_isol_csf_sent;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getRlIsolBloodSent()
+    {
+        return $this->rl_isol_blood_sent;
+    }
+
+    /**
+     * @param boolean $rl_isol_blood_sent
+     */
+    public function setRlIsolBloodSent($rl_isol_blood_sent = null)
+    {
+        $this->rl_isol_blood_sent = $rl_isol_blood_sent;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getRlBrothSent()
+    {
+        return $this->rl_broth_sent;
+    }
+
+    /**
+     * @param boolean $rl_broth_sent
+     */
+    public function setRlBrothSent($rl_broth_sent = null)
+    {
+        $this->rl_broth_sent = $rl_broth_sent;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getRlOtherSent()
+    {
+        return $this->rl_other_sent;
+    }
+
+    /**
+     * @param boolean $rl_other_sent
+     */
+    public function setRlOtherSent($rl_other_sent = null)
+    {
+        $this->rl_other_sent = $rl_other_sent;
+    }
+
+    /**
      * @return \DateTime
      */
-    public function getCsfSentToRRLDate()
+    public function getRlOtherDate()
+    {
+        return $this->rl_other_date;
+    }
+
+    /**
+     * @param \DateTime $rl_other_date
+     */
+    public function setRlOtherDate(\DateTime $rl_other_date = null)
+    {
+        $this->rl_other_date = $rl_other_date;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getNlCsfSent()
+    {
+        return $this->nl_csf_sent;
+    }
+
+    /**
+     * @param boolean $nl_csf_sent
+     */
+    public function setNlCsfSent($nl_csf_sent = null)
+    {
+        $this->nl_csf_sent = $nl_csf_sent;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getNlCsfDate()
+    {
+        return $this->nl_csf_date;
+    }
+
+    /**
+     * @param \DateTime $nl_csf_date
+     */
+    public function setNlCsfDate(\DateTime $nl_csf_date = null)
+    {
+        $this->nl_csf_date = $nl_csf_date;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getNlIsolCsfSent()
+    {
+        return $this->nl_isol_csf_sent;
+    }
+
+    /**
+     * @param boolean $nl_isol_csf_sent
+     */
+    public function setNlIsolCsfSent($nl_isol_csf_sent = null)
+    {
+        $this->nl_isol_csf_sent = $nl_isol_csf_sent;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getNlIsolCsfDate()
+    {
+        return $this->nl_isol_csf_date;
+    }
+
+    /**
+     * @param \DateTime $nl_isol_csf_date
+     */
+    public function setNlIsolCsfDate(\DateTime $nl_isol_csf_date = null)
+    {
+        $this->nl_isol_csf_date = $nl_isol_csf_date;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getNlIsolBloodSent()
+    {
+        return $this->nl_isol_blood_sent;
+    }
+
+    /**
+     * @param boolean $nl_isol_blood_sent
+     */
+    public function setNlIsolBloodSent($nl_isol_blood_sent = null)
+    {
+        $this->nl_isol_blood_sent = $nl_isol_blood_sent;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getNlIsolBloodDate()
+    {
+        return $this->nl_isol_blood_date;
+    }
+
+    /**
+     * @param \DateTime $nl_isol_blood_date
+     */
+    public function setNlIsolBloodDate(\DateTime $nl_isol_blood_date = null)
+    {
+        $this->nl_isol_blood_date = $nl_isol_blood_date;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getNlBrothSent()
+    {
+        return $this->nl_broth_sent;
+    }
+
+    /**
+     * @param boolean $nl_broth_sent
+     */
+    public function setNlBrothSent($nl_broth_sent = null)
+    {
+        $this->nl_broth_sent = $nl_broth_sent;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getNlBrothDate()
+    {
+        return $this->nl_broth_date;
+    }
+
+    /**
+     * @param \DateTime $nl_broth_date
+     */
+    public function setNlBrothDate(\DateTime $nl_broth_date = null)
+    {
+        $this->nl_broth_date = $nl_broth_date;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getNlOtherSent()
+    {
+        return $this->nl_other_sent;
+    }
+
+    /**
+     * @param boolean $nl_other_sent
+     */
+    public function setNlOtherSent($nl_other_sent = null)
+    {
+        $this->nl_other_sent = $nl_other_sent;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getNlOtherDate()
+    {
+        return $this->nl_other_date;
+    }
+
+    /**
+     * @param \DateTime $nl_other_date
+     */
+    public function setNlOtherDate(\DateTime $nl_other_date = null)
+    {
+        $this->nl_other_date = $nl_other_date;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getRlCsfDate()
     {
         return $this->rl_csf_date;
     }
 
     /**
-     * @param \DateTime $csfSentToRRLDate
-     * @return SiteLab
+     * @param \DateTime $rl_csf_date
      */
-    public function setCsfSentToRRLDate(\DateTime $csfSentToRRLDate = null)
+    public function setRlCsfDate(\DateTime $rl_csf_date = null)
     {
-        $this->rl_csf_date = $csfSentToRRLDate;
-        return $this;
+        $this->rl_csf_date = $rl_csf_date;
     }
 
     /**
      * @return \DateTime
      */
-    public function getCsfIsolSentToRRLDate()
+    public function getRlIsolCsfDate()
     {
         return $this->rl_isol_csf_date;
     }
 
     /**
-     * @param \DateTime $csfIsolSentToRRLDate
-     * @return SiteLab
+     * @param \DateTime $rl_isol_csf_date
      */
-    public function setCsfIsolSentToRRLDate(\DateTime $csfIsolSentToRRLDate = null)
+    public function setRlIsolCsfDate(\DateTime $rl_isol_csf_date = null)
     {
-        $this->rl_isol_csf_date = $csfIsolSentToRRLDate;
-        return $this;
+        $this->rl_isol_csf_date = $rl_isol_csf_date;
     }
 
     /**
      * @return \DateTime
      */
-    public function getBloodIsolSentToRRLDate()
+    public function getRlIsolBloodDate()
     {
         return $this->rl_isol_blood_date;
     }
 
     /**
-     * @param \DateTime $bloodIsolSentToRRLDate
-     * @return SiteLab
+     * @param \DateTime $rl_isol_blood_date
      */
-    public function setBloodIsolSentToRRLDate(\DateTime $bloodIsolSentToRRLDate = null)
+    public function setRlIsolBloodDate(\DateTime $rl_isol_blood_date = null)
     {
-        $this->rl_isol_blood_date = $bloodIsolSentToRRLDate;
-        return $this;
+        $this->rl_isol_blood_date = $rl_isol_blood_date;
     }
 
     /**
      * @return \DateTime
      */
-    public function getBrothSentToRRLDate()
+    public function getRlBrothDate()
     {
         return $this->rl_broth_date;
     }
 
     /**
-     * @param \DateTime $brothSentToRRLDate
-     * @return SiteLab
+     * @param \DateTime $rl_broth_date
      */
-    public function setBrothSentToRRLDate(\DateTime $brothSentToRRLDate = null)
+    public function setRlBrothDate(\DateTime $rl_broth_date = null)
     {
-        $this->rl_broth_date = $brothSentToRRLDate;
-        return $this;
+        $this->rl_broth_date = $rl_broth_date;
     }
 
     /**
@@ -1631,40 +2002,6 @@ class SiteLab extends BaseSiteLab
         $this->pleural_fluid_pcr_other = $pleural_fluid_pcr_other;
     }
 
-    // ====================
-    // Export getters
-    /**
-     * @return \DateTime
-     */
-    public function getRlCsfDate()
-    {
-        return $this->rl_csf_date;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getRlIsolCsfDate()
-    {
-        return $this->rl_isol_csf_date;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getRlIsolBloodDate()
-    {
-        return $this->rl_isol_blood_date;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getRlBrothDate()
-    {
-        return $this->rl_broth_date;
-    }
-
     /**
      * @return \DateTime
      */
@@ -1743,5 +2080,21 @@ class SiteLab extends BaseSiteLab
     public function setOtherLabTime($other_lab_time)
     {
         $this->other_lab_time = $other_lab_time;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getSentToReferenceLab()
+    {
+        return ($this->rl_csf_sent || $this->rl_isol_csf_sent || $this->rl_isol_blood_sent || $this->rl_broth_sent || $this->rl_other_sent);
+    }
+
+    /**
+     * @return bool
+     */
+    public function getSentToNationalLab()
+    {
+        return ($this->nl_csf_sent || $this->nl_isol_csf_sent || $this->nl_isol_blood_sent || $this->nl_broth_sent || $this->nl_other_sent);
     }
 }

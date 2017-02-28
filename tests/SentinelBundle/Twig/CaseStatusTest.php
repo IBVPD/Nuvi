@@ -5,6 +5,9 @@ namespace NS\SentinelBundle\Tests\Twig;
 use NS\SentinelBundle\Twig\CaseStatus;
 use NS\SentinelBundle\Entity\IBD;
 use NS\SentinelBundle\Form\Types\CaseStatus as FormCaseStatus;
+use NS\SentinelBundle\Entity\IBD\SiteLab;
+use NS\SentinelBundle\Entity\IBD\ReferenceLab;
+use NS\SentinelBundle\Entity\IBD\NationalLab;
 
 /**
  * Description of CaseStatusTest
@@ -39,8 +42,8 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
         $status = new CaseStatus();
 
         $case = new IBD();
-        $lab  = new \NS\SentinelBundle\Entity\IBD\SiteLab();
-        $lab->setSentToNationalLab(true);
+        $lab  = new SiteLab();
+        $lab->setNlBrothSent(true);
         $case->setSiteLab($lab);
 
         $label = $status->getLabel($case, 'nothing');
@@ -48,8 +51,8 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
         $this->assertContains('label-danger', $label, "Case with data sent to national lab but without a national lab has danger label");
 
         $case = new IBD();
-        $lab  = new \NS\SentinelBundle\Entity\IBD\SiteLab();
-        $lab->setSentToReferenceLab(true);
+        $lab  = new SiteLab();
+        $lab->setRlIsolCsfSent(true);
         $case->setSiteLab($lab);
 
         $label = $status->getLabel($case, 'nothing');
@@ -62,7 +65,7 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
         $status = new CaseStatus();
 
         $case = new IBD();
-        $lab  = new \NS\SentinelBundle\Entity\IBD\SiteLab();
+        $lab  = new SiteLab();
         $case->setSiteLab($lab);
 
         $label = $status->getLabLabel($case, 'nothing');
@@ -75,7 +78,7 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
         $status = new CaseStatus();
 
         $case = new IBD();
-        $lab  = new \NS\SentinelBundle\Entity\IBD\SiteLab();
+        $lab  = new SiteLab();
         $lab->setStatus(new FormCaseStatus(FormCaseStatus::COMPLETE));
         $case->setSiteLab($lab);
 
@@ -114,11 +117,11 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
         //---------------------------
         // RRL
         $case1 = new IBD();
-        $lab   = new \NS\SentinelBundle\Entity\IBD\SiteLab();
-        $lab->setSentToReferenceLab(true);
+        $lab   = new SiteLab();
+        $lab->setRlCsfSent(true);
         $case1->setSiteLab($lab);
 
-        $rrl = new \NS\SentinelBundle\Entity\IBD\ReferenceLab();
+        $rrl = new ReferenceLab();
         $case1->setReferenceLab($rrl);
 
         $l1 = $status->getRRLLabel($case1, 'nothing');
@@ -126,10 +129,10 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
         //---------------------------
         // NL
         $case2 = new IBD();
-        $lab   = new \NS\SentinelBundle\Entity\IBD\SiteLab();
-        $lab->setSentToNationalLab(true);
+        $lab   = new SiteLab();
+        $lab->setNlBrothSent(true);
         $case2->setSiteLab($lab);
-        $nl    = new \NS\SentinelBundle\Entity\IBD\NationalLab();
+        $nl    = new NationalLab();
         $case2->setNationalLab($nl);
 
         $l2 = $status->getNLLabel($case2, 'nothing');
@@ -145,11 +148,11 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
         //----------------------
         // RRL test
         $case1 = new IBD();
-        $lab   = new \NS\SentinelBundle\Entity\IBD\SiteLab();
-        $lab->setSentToReferenceLab(true);
+        $lab   = new SiteLab();
+        $lab->setRlCsfSent(true);
         $case1->setSiteLab($lab);
 
-        $rrl = new \NS\SentinelBundle\Entity\IBD\ReferenceLab();
+        $rrl = new ReferenceLab();
         $rrl->setStatus(new FormCaseStatus(FormCaseStatus::COMPLETE));
 
         $case1->setReferenceLab($rrl);
@@ -159,11 +162,11 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
         //----------------------
         // NL test
         $case2 = new IBD();
-        $lab   = new \NS\SentinelBundle\Entity\IBD\SiteLab();
-        $lab->setSentToNationalLab(true);
+        $lab   = new SiteLab();
+        $lab->setNlBrothSent(true);
         $case2->setSiteLab($lab);
 
-        $nl = new \NS\SentinelBundle\Entity\IBD\NationalLab();
+        $nl = new NationalLab();
         $nl->setStatus(new FormCaseStatus(FormCaseStatus::COMPLETE));
 
         $case2->setNationalLab($nl);
@@ -185,8 +188,8 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
         //----------------------
         // RRL - sent to lab but no lab data
         $case1 = new IBD();
-        $lab   = new \NS\SentinelBundle\Entity\IBD\SiteLab();
-        $lab->setSentToReferenceLab(true);
+        $lab   = new SiteLab();
+        $lab->setRlBrothSent(true);
         $case1->setSiteLab($lab);
 
         $l1  = $status->getRRLLabel($case1, 'nothing');
@@ -195,7 +198,7 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
         //----------------------
         // RRL - lab data but no sent to lab
         $case2 = new IBD();
-        $rrl   = new \NS\SentinelBundle\Entity\IBD\ReferenceLab();
+        $rrl   = new ReferenceLab();
         $case2->setReferenceLab($rrl);
 
         $l2  = $status->getRRLLabel($case2, 'nothing');
@@ -204,8 +207,8 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
         //----------------------
         // NL - sent to lab but no lab data
         $case3 = new IBD();
-        $lab   = new \NS\SentinelBundle\Entity\IBD\SiteLab();
-        $lab->setSentToNationalLab(true);
+        $lab   = new SiteLab();
+        $lab->setNlCsfSent(true);
         $case3->setSiteLab($lab);
 
         $l3  = $status->getNLLabel($case3, 'nothing');
@@ -214,7 +217,7 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
         //----------------------
         // NL - lab data but no sent to lab
         $case4 = new IBD();
-        $nl    = new \NS\SentinelBundle\Entity\IBD\NationalLab();
+        $nl    = new NationalLab();
         $case4->setNationalLab($nl);
 
         $l4  = $status->getNLLabel($case4, 'nothing');

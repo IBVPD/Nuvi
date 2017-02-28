@@ -15,8 +15,7 @@
     <div class="col-sm-12">
         <div class="tabbable">
             <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
-                <li class="active"><a data-toggle="tab" href="#collection">{{'Collection Info'|trans}}</a></li>
-                <li><a data-toggle="tab" href="#csf">{{'CSF'|trans}}</a></li>
+                <li class="active"><a data-toggle="tab" href="#csf">{{'CSF'|trans}}</a></li>
                 <li><a data-toggle="tab" href="#blood">{{'Blood'|trans}}</a></li>
                 {% if form.pleuralFluidCultureDone is defined %}
                 <li><a data-toggle="tab" href="#pleural">{{'Pleural Fluid'|trans}}</a></li>
@@ -25,44 +24,7 @@
             </ul>
 
             <div class="tab-content">
-
-                <div id="collection" class="tab-pane active">
-                    {% if form.sentToReferenceLab is defined %}
-                        <div class="row">
-                            <div class="col-md-3">
-                                {{ form_row(form.sentToReferenceLab) }}
-                            </div>
-                            {% if form.sentToNationalLab is defined %}
-                                <div class="col-md-3">
-                                    {{form_row(form.sentToNationalLab )}}
-                                </div>
-                            {% endif %}
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                {{ form_row(form.csfSentToRRLDate) }}
-                            </div>
-                            <div class="col-md-3">
-                                {{ form_row(form.csfIsolSentToRRLDate) }}
-                            </div>
-                            <div class="col-md-3">
-                                {{ form_row(form.bloodIsolSentToRRLDate) }}
-                            </div>
-                            <div class="col-md-3">
-                                {{ form_row(form.brothSentToRRLDate) }}
-                            </div>
-                        </div>
-                    {% endif %}
-                    {% if form.sentToNationalLab is defined %}
-                        <div class="row">
-                            <div class="col-md-6">
-                                {{form_row(form.sentToNationalLab )}}
-                            </div>
-                        </div>
-                    {% endif %}
-                </div>
-
-                <div id="csf" class="tab-pane">
+                <div id="csf" class="tab-pane active">
                     <div class="row">
                         <div class="col-sm-3">
                             {{form_row(form.csfId)}}
@@ -156,6 +118,23 @@
                             {{form_row(form.isolStore)}}
                         </div>
                     </div>
+                    <hr />
+                    {% if form.rlCsfSent is defined %}
+                        <div class="row">
+                            <div class="col-sm-3">{{ form_row(form.rlCsfSent) }}</div>
+                            <div class="col-sm-3">{{ form_row(form.rlCsfDate) }}</div>
+                            <div class="col-sm-3">{{ form_row(form.rlIsolCsfSent) }}</div>
+                            <div class="col-sm-3">{{ form_row(form.rlIsolCsfDate) }}</div>
+                        </div>
+                    {% endif %}
+                    {% if form.nlCsfSent is defined %}
+                        <div class="row">
+                            <div class="col-sm-3">{{ form_row(form.nlCsfSent) }}</div>
+                            <div class="col-sm-3">{{ form_row(form.nlCsfDate) }}</div>
+                            <div class="col-sm-3">{{ form_row(form.nlIsolCsfSent) }}</div>
+                            <div class="col-sm-3">{{ form_row(form.nlIsolCsfDate) }}</div>
+                        </div>
+                    {% endif %}
                 </div>
 
                 <div id="blood" class="tab-pane">
@@ -209,6 +188,23 @@
                             {{form_row(form.bloodPcrOther)}}
                         </div>
                     </div>
+                    <hr />
+                    {% if form.rlIsolBloodSent is defined %}
+                        <div class="row">
+                            <div class="col-sm-3">{{ form_row(form.rlIsolBloodSent) }}</div>
+                            <div class="col-sm-3">{{ form_row(form.rlIsolBloodDate) }}</div>
+                            <div class="col-sm-3">{{ form_row(form.rlBrothSent) }}</div>
+                            <div class="col-sm-3">{{ form_row(form.rlBrothDate) }}</div>
+                        </div>
+                    {% endif %}
+                    {% if form.nlIsolBloodSent is defined %}
+                        <div class="row">
+                            <div class="col-sm-3">{{ form_row(form.nlIsolBloodSent) }}</div>
+                            <div class="col-sm-3">{{ form_row(form.nlIsolBloodDate) }}</div>
+                            <div class="col-sm-3">{{ form_row(form.nlBrothSent) }}</div>
+                            <div class="col-sm-3">{{ form_row(form.nlBrothDate) }}</div>
+                        </div>
+                    {% endif %}
                 </div>
 
                 {% if form.pleuralFluidCultureDone is defined %}
@@ -285,6 +281,19 @@
                             {{form_row(form.otherTestOther)}}
                         </div>
                     </div>
+                    <hr />
+                    {% if form.rlOtherSent %}
+                        <div class="row">
+                            <div class="col-sm-3">{{ form_row(form.rlOtherSent) }}</div>
+                            <div class="col-sm-3">{{ form_row(form.rlOtherDate) }}</div>
+                        </div>
+                    {% endif %}
+                    {% if form.nlOtherSent %}
+                        <div class="row">
+                            <div class="col-sm-3">{{ form_row(form.nlOtherSent) }}</div>
+                            <div class="col-sm-3">{{ form_row(form.nlOtherDate) }}</div>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
