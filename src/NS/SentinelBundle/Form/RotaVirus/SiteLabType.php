@@ -45,20 +45,24 @@ class SiteLabType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $attr1 = [
-            'hidden-child'  => 'stool1Reminder',
-            'hidden-value'  => TripleChoice::YES];
+            'hidden' => [
+                'child'  => 'stool1Reminder',
+                'value'  => TripleChoice::YES]
+        ];
 
         $attr1p1 = [
-            'hidden-parent' => 'stool1Reminder',
-            'hidden-value'  => TripleChoice::YES];
+            'hidden' => [
+                'parent' => 'stool1Reminder',
+                'value'  => TripleChoice::YES]
+        ];
 
         $builder
             ->add('received',           DatePickerType::class)
             ->add('adequate',           TripleChoice::class)
             ->add('stored',             TripleChoice::class)
             ->add('elisaDone',          TripleChoice::class, $attr1)
-            ->add('elisaKit',           ElisaKit::class, ['hidden-parent' => 'stool1Reminder', 'hidden-child' => 'elisaKit', 'hidden-value' => TripleChoice::YES])
-            ->add('elisaKitOther',      null, ['hidden-parent' => 'elisaKit', 'hidden-value' => ElisaKit::OTHER])
+            ->add('elisaKit',           ElisaKit::class, ['hidden' => ['parent' => 'stool1Reminder', 'child' => 'elisaKit', 'value' => TripleChoice::YES]])
+            ->add('elisaKitOther',      null, ['hidden' => ['parent' => 'elisaKit', 'value' => ElisaKit::OTHER]])
             ->add('elisaLoadNumber',    null, $attr1p1)
             ->add('elisaExpiryDate',    DatePickerType::class, $attr1p1)
             ->add('elisaTestDate',      DatePickerType::class, $attr1p1)
@@ -91,14 +95,14 @@ class SiteLabType extends AbstractType
         if ($country instanceof Country) {
             if ($country->hasReferenceLab()) {
                 $form
-                    ->add('stoolSentToRRL', TripleChoice::class, ['required' => false, 'label' => 'rotavirus-form.stoolSentToRRL', 'hidden-child' => 'stoolSentToRRL'])
-                    ->add('stoolSentToRRLDate', DatePickerType::class, ['required' => false, 'label' => 'rotavirus-form.stoolSentToRRLDate', 'hidden-parent' => 'stoolSentToRRL', 'hidden-value' => TripleChoice::YES]);
+                    ->add('stoolSentToRRL', TripleChoice::class, ['required' => false, 'label' => 'rotavirus-form.stoolSentToRRL', 'hidden' => ['child' => 'stoolSentToRRL']])
+                    ->add('stoolSentToRRLDate', DatePickerType::class, ['required' => false, 'label' => 'rotavirus-form.stoolSentToRRLDate', 'hidden' => ['parent' => 'stoolSentToRRL', 'value' => TripleChoice::YES]]);
             }
 
             if ($country->hasNationalLab()) {
                 $form
-                    ->add('stoolSentToNL', TripleChoice::class, ['required' => false, 'label' => 'rotavirus-form.stoolSentToNL', 'hidden-child' => 'stoolSentToNL'])
-                    ->add('stoolSentToNLDate', DatePickerType::class, ['required' => false, 'label' => 'rotavirus-form.stoolSentToNLDate', 'hidden-parent' => 'stoolSentToNL', 'hidden-value' => TripleChoice::YES]);
+                    ->add('stoolSentToNL', TripleChoice::class, ['required' => false, 'label' => 'rotavirus-form.stoolSentToNL', 'hidden' => ['child' => 'stoolSentToNL']])
+                    ->add('stoolSentToNLDate', DatePickerType::class, ['required' => false, 'label' => 'rotavirus-form.stoolSentToNLDate', 'hidden' => ['parent' => 'stoolSentToNL', 'value' => TripleChoice::YES]]);
             }
         }
     }

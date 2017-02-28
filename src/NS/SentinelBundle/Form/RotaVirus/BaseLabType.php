@@ -24,12 +24,12 @@ class BaseLabType extends AbstractType
     {
         $builder
             ->add('labId')
-            ->add('dateReceived',               DatePickerType::class,       ['required'=>false, 'label'=>'external-lab-form.date-received'])
-            ->add('genotypingDate',             DatePickerType::class,     ['required'=>false, 'label'=>'external-lab-form.genotyping-date'])
-            ->add('genotypingResultG',          GenotypeResultG::class, ['required'=>false, 'label'=>'external-lab-form.genotyping-result-g', 'hidden-child' => 'genotypingResultG'])
-            ->add('genotypingResultGSpecify',   null,      ['required'=>false, 'label'=>'external-lab-form.genotyping-result-g-specify', 'hidden-parent' => 'genotypingResultG', 'hidden-value' => json_encode([GenotypeResultG::OTHER, GenotypeResultG::MIXED])])
-            ->add('genotypeResultP',            GenotypeResultP::class,  ['required'=>false, 'label'=>'external-lab-form.genotyping-result-p', 'hidden-child' => 'genotypingResultP'])
-            ->add('genotypeResultPSpecify',     null,        ['required'=>false, 'label'=>'external-lab-form.genotyping-result-p-specify', 'hidden-parent' => 'genotypingResultP', 'hidden-value' => json_encode([GenotypeResultP::OTHER, GenotypeResultP::MIXED])])
+            ->add('dateReceived',               DatePickerType::class, ['required' => false, 'label' => 'external-lab-form.date-received'])
+            ->add('genotypingDate',             DatePickerType::class, ['required' => false, 'label' => 'external-lab-form.genotyping-date'])
+            ->add('genotypingResultG',          GenotypeResultG::class, ['required' => false, 'label' => 'external-lab-form.genotyping-result-g', 'hidden' => ['child' => 'genotypingResultG']])
+            ->add('genotypingResultGSpecify',   null, ['required' => false, 'label' => 'external-lab-form.genotyping-result-g-specify', 'hidden' => ['parent' => 'genotypingResultG', 'value' => [GenotypeResultG::OTHER, GenotypeResultG::MIXED]]])
+            ->add('genotypeResultP',            GenotypeResultP::class, ['required' => false, 'label' => 'external-lab-form.genotyping-result-p', 'hidden' => ['child' => 'genotypingResultP']])
+            ->add('genotypeResultPSpecify',     null, ['required' => false, 'label' => 'external-lab-form.genotyping-result-p-specify', 'hidden' => ['parent' => 'genotypingResultP', 'value' => [GenotypeResultP::OTHER, GenotypeResultP::MIXED]]])
             ->add('pcrVp6Result',               ElisaResult::class, ['required' => false, 'label' => 'external-lab-form.pcr-vp6-result'])
             ->add('comment',                    null, ['required'=>false, 'label'=>'external-lab-form.comment'])
         ;
