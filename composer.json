@@ -35,7 +35,7 @@
 
         "ns/util-bundle": "^3.0",
         "ns/security-bundle": "~5.0",
-        "ns/ace-bundle": "~2.0",
+        "ns/ace-bundle": "^3.0",
         "ns/ace-sonata-bundle": "^2.1",
         "ns/ace-sonata-doctrine-orm-admin-bundle": "~0.1",
         "ns/flash-bundle": "~1.0",

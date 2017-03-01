@@ -9,162 +9,161 @@
 {%endblock %}
 
 {% block body %}
-{{form_errors(form)}}
-<form method="POST" action="{{path('ibdEdit',{'id':id})}}">
-<div class="row">
-    <div class="col-sm-12">
-        <div class="tabbable">
-            <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
-                <li class="active"><a data-toggle="tab" href="#demographics">{{'Case Based Demographics'|trans}}</a></li>
-                <li><a data-toggle="tab" href="#clinical">{{'Clinical Data'|trans}}</a></li>
-                <li data-context-parent="admissionDiagnosis" data-context-value="1"><a data-toggle="tab" href="#meningitis">{{'Meningitis'|trans}}</a></li>
-                <li data-context-parent="admissionDiagnosis" data-context-value="[2,3,4]"><a data-toggle="tab" href="#pneumonia">{{'Pneumonia / Sepsis'|trans}}</a></li>
-                <li><a data-toggle="tab" href="#history">{{'Vaccination History'|trans}}</a></li>
-                <li><a data-toggle="tab" href="#specimen">{{'Specimen Collection Data'|trans}}</a></li>
-                <li><a data-toggle="tab" href="#outcome">{{'Outcome'|trans}}</a></li>
-            </ul>
-        </div>
-        <div class="tab-content">
-            <div id="demographics" class="tab-pane active">
-                <div class="row">
-                    <div class="col-sm-4">
-                        {{form_row(form.firstName)}}
-                        {{form_row(form.lastName)}}
-                        {{form_row(form.parentalName)}}
-                        {{form_row(form.gender)}}
-                    </div>
-                    <div class="col-sm-4">
-                        {{form_row(form.dobKnown)}}
-                        {{form_row(form.birthdate)}}
-                        {{ form_row(form.dobYearMonths) }}
-                    </div>
-                    <div class="col-sm-4">
-                        {{form_row(form.caseId)}}
-                        {{form_row(form.state)}}
-                        {{form_row(form.district)}}
-                        <div class="form-group">
-                            <label for="ibd_id">{{'System Id'|trans}}</label>
-                            <div class="input-group">{{id}}</div>
+    {{ form_errors(form) }}
+    {{ form_start(form, {'action': path('ibdEdit',{'id':id})}) }}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="tabbable">
+                <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                    <li class="active"><a data-toggle="tab" href="#demographics">{{'Case Based Demographics'|trans}}</a></li>
+                    <li><a data-toggle="tab" href="#clinical">{{'Clinical Data'|trans}}</a></li>
+                    <li id="meningitisTab" data-context-parent="admissionDiagnosis" data-context-value="1"><a data-toggle="tab" href="#meningitis">{{'Meningitis'|trans}}</a></li>
+                    <li id="pneumoniaTab" data-context-parent="admissionDiagnosis" data-context-value="[2,3,4]"><a data-toggle="tab" href="#pneumonia">{{'Pneumonia / Sepsis'|trans}}</a></li>
+                    <li><a data-toggle="tab" href="#history">{{'Vaccination History'|trans}}</a></li>
+                    <li><a data-toggle="tab" href="#specimen">{{'Specimen Collection Data'|trans}}</a></li>
+                    <li><a data-toggle="tab" href="#outcome">{{'Outcome'|trans}}</a></li>
+                </ul>
+            </div>
+            <div class="tab-content">
+                <div id="demographics" class="tab-pane active">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            {{form_row(form.firstName)}}
+                            {{form_row(form.lastName)}}
+                            {{form_row(form.parentalName)}}
+                            {{form_row(form.gender)}}
+                        </div>
+                        <div class="col-sm-4">
+                            {{form_row(form.dobKnown)}}
+                            {{form_row(form.birthdate)}}
+                            {{ form_row(form.dobYearMonths) }}
+                        </div>
+                        <div class="col-sm-4">
+                            {{form_row(form.caseId)}}
+                            {{form_row(form.state)}}
+                            {{form_row(form.district)}}
+                            <div class="form-group">
+                                <label for="ibd_id">{{'System Id'|trans}}</label>
+                                <div class="input-group">{{id}}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div id="history" class="tab-pane">
-                <div class="row">
-                    <div class="col-sm-3">
-                        {{form_row(form.hibReceived)}}
-                        {{form_row(form.hibDoses)}}
-                        {{form_row(form.hibMostRecentDose)}}
-                    </div>
-                    <div class="col-sm-3">
-                        {{form_row(form.pcvReceived)}}
-                        {{form_row(form.pcvDoses)}}
-                        {{form_row(form.pcvType)}}
-                        {{form_row(form.pcvMostRecentDose)}}
-                    </div>
-                    <div class="col-sm-3">
-                        {{form_row(form.meningReceived)}}
-                        {{form_row(form.meningType)}}
-                        {{form_row(form.meningDate)}}
-                    </div>
-                </div>
-            </div>
-            
-            <div id="clinical" class="tab-pane">
-                {{form_row(form.onsetDate)}}
-                {{form_row(form.admDate)}}
-                {{form_row(form.admDx)}}
-                {{form_row(form.admDxOther)}}
-                {{form_row(form.antibiotics)}}                
-            </div>
-            
-            <div id="specimen" class="tab-pane">
-                <div class="row">
-                    <div class="col-sm-4">
-                        {{form_row(form.csfCollected)}}
-                        {{form_row(form.csfCollectDate)}}
-                        {{form_row(form.csfCollectTime)}}
-                        {{form_row(form.csfAppearance)}}
-                    </div>
-                    <div class="col-sm-4">
-                        {{form_row(form.bloodCollected)}}
-                        {% if form.bloodNumberOfSamples is defined %}
-                            {{ form_row(form.bloodNumberOfSamples) }}
-                        {% endif %}
-                        {{form_row(form.bloodCollectDate)}}
-                        {{form_row(form.bloodCollectTime)}}
-                    </div>
-                    <div class="col-sm-4">
-                        {% if form.pleuralFluidCollected is defined %}
-                            {{ form_row(form.pleuralFluidCollected) }}
-                            {{ form_row(form.pleuralFluidCollectDate) }}
-                            {{ form_row(form.pleuralFluidCollectTime) }}
-                        {% else %}
-                            {{form_row(form.otherSpecimenCollected)}}
-                            {{form_row(form.otherSpecimenOther)}}
-                        {% endif %}
+                <div id="history" class="tab-pane">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            {{form_row(form.hibReceived)}}
+                            {{form_row(form.hibDoses)}}
+                            {{form_row(form.hibMostRecentDose)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.pcvReceived)}}
+                            {{form_row(form.pcvDoses)}}
+                            {{form_row(form.pcvType)}}
+                            {{form_row(form.pcvMostRecentDose)}}
+                        </div>
+                        <div class="col-sm-3">
+                            {{form_row(form.meningReceived)}}
+                            {{form_row(form.meningType)}}
+                            {{form_row(form.meningDate)}}
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div id="meningitis" class="tab-pane">
-                <h4>{{'Symptoms/signs related to meningitis'|trans}}</h4>
-                <div class="row">
-                    <div class="col-sm-6">
-                        {{form_row(form.menSeizures)}}
-                        {{form_row(form.menFever)}}
-                        {{form_row(form.menAltConscious)}}
-                        {{form_row(form.menInabilityFeed)}}
-                    </div>
-                    <div class="col-sm-6">
-                        {{form_row(form.menNeckStiff)}}
-                        {{form_row(form.menRash)}}
-                        {{form_row(form.menFontanelleBulge)}}
-                        {{form_row(form.menLethargy)}}
-                    </div>
-                </div>                
-            </div>
+                <div id="clinical" class="tab-pane">
+                    {{form_row(form.onsetDate)}}
+                    {{form_row(form.admDate)}}
+                    {{form_row(form.admDx)}}
+                    {{form_row(form.admDxOther)}}
+                    {{form_row(form.antibiotics)}}
+                </div>
 
-            {%if form.pneuDiffBreathe is defined %}
-            <div id="pneumonia" class="tab-pane">
-                <h4>{{'Symptoms/signs related to pneumonia'|trans}}</h4>
-                <div class="row">
-                    <div class="col-sm-6">
-                        {{form_row(form.pneuDiffBreathe)}}
-                        {{form_row(form.pneuChestIndraw)}}
-                        {{form_row(form.pneuCough)}}
-                        {{form_row(form.pneuCyanosis)}}
-                        {{form_row(form.pneuStridor)}}
-                    </div>
-                    <div class="col-sm-6">
-                        {{form_row(form.pneuRespRate)}}
-                        {% if form.pneuOxygenSaturation is defined %}
-                            {{form_row(form.pneuOxygenSaturation)}}
-                        {% endif %}
-                        {{form_row(form.pneuVomit)}}
-                        {{form_row(form.pneuHypothermia)}}
-                        {{form_row(form.pneuMalnutrition)}}
-                        {{form_row(form.cxrDone)}}
-                        {{form_row(form.cxrResult)}}
-                        {{form_row(form.cxrAdditionalResult)}}
+                <div id="specimen" class="tab-pane">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            {{form_row(form.csfCollected)}}
+                            {{form_row(form.csfCollectDate)}}
+                            {{form_row(form.csfCollectTime)}}
+                            {{form_row(form.csfAppearance)}}
+                        </div>
+                        <div class="col-sm-4">
+                            {{form_row(form.bloodCollected)}}
+                            {% if form.bloodNumberOfSamples is defined %}
+                                {{ form_row(form.bloodNumberOfSamples) }}
+                            {% endif %}
+                            {{form_row(form.bloodCollectDate)}}
+                            {{form_row(form.bloodCollectTime)}}
+                        </div>
+                        <div class="col-sm-4">
+                            {% if form.pleuralFluidCollected is defined %}
+                                {{ form_row(form.pleuralFluidCollected) }}
+                                {{ form_row(form.pleuralFluidCollectDate) }}
+                                {{ form_row(form.pleuralFluidCollectTime) }}
+                            {% else %}
+                                {{form_row(form.otherSpecimenCollected)}}
+                                {{form_row(form.otherSpecimenOther)}}
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
-            </div>
-            {%endif%}
 
-            <div id="outcome" class="tab-pane">
-                {% include 'NSSentinelBundle:IBD:_outcome.html.twig' %}
+                <div id="meningitis" class="tab-pane">
+                    <h4>{{'Symptoms/signs related to meningitis'|trans}}</h4>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            {{form_row(form.menSeizures)}}
+                            {{form_row(form.menFever)}}
+                            {{form_row(form.menAltConscious)}}
+                            {{form_row(form.menInabilityFeed)}}
+                        </div>
+                        <div class="col-sm-6">
+                            {{form_row(form.menNeckStiff)}}
+                            {{form_row(form.menRash)}}
+                            {{form_row(form.menFontanelleBulge)}}
+                            {{form_row(form.menLethargy)}}
+                        </div>
+                    </div>
+                </div>
+
+                {%if form.pneuDiffBreathe is defined %}
+                <div id="pneumonia" class="tab-pane">
+                    <h4>{{'Symptoms/signs related to pneumonia'|trans}}</h4>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            {{form_row(form.pneuDiffBreathe)}}
+                            {{form_row(form.pneuChestIndraw)}}
+                            {{form_row(form.pneuCough)}}
+                            {{form_row(form.pneuCyanosis)}}
+                            {{form_row(form.pneuStridor)}}
+                        </div>
+                        <div class="col-sm-6">
+                            {{form_row(form.pneuRespRate)}}
+                            {% if form.pneuOxygenSaturation is defined %}
+                                {{form_row(form.pneuOxygenSaturation)}}
+                            {% endif %}
+                            {{form_row(form.pneuVomit)}}
+                            {{form_row(form.pneuHypothermia)}}
+                            {{form_row(form.pneuMalnutrition)}}
+                            {{form_row(form.cxrDone)}}
+                            {{form_row(form.cxrResult)}}
+                            {{form_row(form.cxrAdditionalResult)}}
+                        </div>
+                    </div>
+                </div>
+                {%endif%}
+
+                <div id="outcome" class="tab-pane">
+                    {% include 'NSSentinelBundle:IBD:_outcome.html.twig' %}
+                </div>
             </div>
-        </div>
-        {{form_rest(form)}}
-        <div class="form-actions center">
-            <a href="{{path('ibdIndex')}}" class="btn btn-sm btn-danger">{{'Cancel'|trans}}</a> 
-            <button type="submit" name="save" class="btn btn-sm btn-success">{{'Save'|trans}} <i class="fa fa-arrow-right fa fa-on-right bigger-110"></i></button>
-            <button type="submit" name="saveclose" class="btn btn-sm btn-success">{{'Save & Close'|trans}} <i class="fa fa-arrow-right fa fa-on-right bigger-110"></i></button>
-            <a href="{{ path('ibdDelete',{'id': id}) }}" class="btn btn-sm btn-warning pull-right ns-confirm" data-confirm-message="Delete case {{ id }}? Operation is not reverseable."><i class="fa fa-times"></i> {{ 'Delete'|trans }}</a>
+            {{form_rest(form)}}
+            <div class="form-actions center">
+                <a href="{{path('ibdIndex')}}" class="btn btn-sm btn-danger">{{'Cancel'|trans}}</a>
+                <button type="submit" name="save" class="btn btn-sm btn-success">{{'Save'|trans}} <i class="fa fa-arrow-right fa fa-on-right bigger-110"></i></button>
+                <button type="submit" name="saveclose" class="btn btn-sm btn-success">{{'Save & Close'|trans}} <i class="fa fa-arrow-right fa fa-on-right bigger-110"></i></button>
+                <a href="{{ path('ibdDelete',{'id': id}) }}" class="btn btn-sm btn-warning pull-right ns-confirm" data-confirm-message="Delete case {{ id }}? Operation is not reverseable."><i class="fa fa-times"></i> {{ 'Delete'|trans }}</a>
+            </div>
         </div>
     </div>
-</div>
-
-</form>
+    {{ form_end(form) }}
 {% endblock %}

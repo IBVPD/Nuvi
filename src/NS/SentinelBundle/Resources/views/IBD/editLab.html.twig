@@ -1,310 +1,311 @@
 {% extends "NSSentinelBundle::edit.html.twig" %}
 
 {% block pagetitle %}
-    {{'Edit Lab For Case %id%'|trans({'%id%': record.caseId})}}
+    {{ 'Edit Lab For Case %id%'|trans({'%id%': record.caseId}) }}
 {% endblock %}
 
-{%block pageactions %}
-    <div class="pull-right">{{case_big_actions(record)}}</div>
-{%endblock %}
+{% block pageactions %}
+    <div class="pull-right">{{ case_big_actions(record) }}</div>
+{% endblock %}
 
 {% block body %}
-{{form_errors(form)}}
-<form method="POST" action="{{path('ibdLabEdit',{'id':id})}}" novalidate>
-<div class="row">
-    <div class="col-sm-12">
-        <div class="tabbable">
-            <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
-                <li class="active"><a data-toggle="tab" href="#csf">{{'CSF'|trans}}</a></li>
-                <li><a data-toggle="tab" href="#blood">{{'Blood'|trans}}</a></li>
-                {% if form.pleuralFluidCultureDone is defined %}
-                <li><a data-toggle="tab" href="#pleural">{{'Pleural Fluid'|trans}}</a></li>
-                {% endif %}
-                <li><a data-toggle="tab" href="#other">{{'Other Fluids'|trans}}</a></li>
-            </ul>
+    {{ form_errors(form) }}
+    {{ form_start(form,{'action':path('ibdLabEdit',{'id':id}) }) }}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="tabbable">
+                <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                    <li class="active"><a data-toggle="tab" href="#csf">{{ 'CSF'|trans }}</a></li>
+                    <li><a data-toggle="tab" href="#blood">{{ 'Blood'|trans }}</a></li>
+                    {% if form.pleuralFluidCultureDone is defined %}
+                        <li><a data-toggle="tab" href="#pleural">{{ 'Pleural Fluid'|trans }}</a></li>
+                    {% endif %}
+                    <li><a data-toggle="tab" href="#other">{{ 'Other Fluids'|trans }}</a></li>
+                </ul>
 
-            <div class="tab-content">
-                <div id="csf" class="tab-pane active">
-                    <div class="row">
-                        <div class="col-sm-3">
-                            {{form_row(form.csfId)}}
+                <div class="tab-content">
+                    <div id="csf" class="tab-pane active">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfId) }}
+                            </div>
+                            <div class="col-md-3">
+                                {{ form_row(form.csfLabDate) }}
+                            </div>
+                            <div class="col-md-3">
+                                {{ form_row(form.csfLabTime) }}
+                            </div>
                         </div>
-                        <div class="col-md-3">
-                            {{form_row(form.csfLabDate)}}
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfWcc) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfGlucose) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfProtein) }}
+                            </div>
                         </div>
-                        <div class="col-md-3">
-                            {{form_row(form.csfLabTime)}}
+                        <hr/>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfGramDone) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfGramStain) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfGramResult) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfGramOther) }}
+                            </div>
                         </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfBinaxDone) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfBinaxResult) }}
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfLatDone) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfLatResult) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfLatOther) }}
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfCultDone) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfCultResult) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfCultOther) }}
+                                {{ form_row(form.csfCultContaminant) }}
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfPcrDone) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfPcrResult) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfPcrOther) }}
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfStore) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.isolStore) }}
+                            </div>
+                        </div>
+                        <hr/>
+                        {% if form.rlCsfSent is defined %}
+                            <div class="row">
+                                <div class="col-sm-3">{{ form_row(form.rlCsfSent) }}</div>
+                                <div class="col-sm-3">{{ form_row(form.rlCsfDate) }}</div>
+                                <div class="col-sm-3">{{ form_row(form.rlIsolCsfSent) }}</div>
+                                <div class="col-sm-3">{{ form_row(form.rlIsolCsfDate) }}</div>
+                            </div>
+                        {% endif %}
+                        {% if form.nlCsfSent is defined %}
+                            <div class="row">
+                                <div class="col-sm-3">{{ form_row(form.nlCsfSent) }}</div>
+                                <div class="col-sm-3">{{ form_row(form.nlCsfDate) }}</div>
+                                <div class="col-sm-3">{{ form_row(form.nlIsolCsfSent) }}</div>
+                                <div class="col-sm-3">{{ form_row(form.nlIsolCsfDate) }}</div>
+                            </div>
+                        {% endif %}
                     </div>
 
-                    <div class="row">
-                        <div class="col-sm-3">
-                            {{form_row(form.csfWcc)}}
-                        </div>
-                        <div class="col-sm-3">
-                            {{form_row(form.csfGlucose)}}
-                        </div>
-                        <div class="col-sm-3">
-                            {{form_row(form.csfProtein)}}
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col-sm-3">
-                            {{form_row(form.csfGramDone)}}
-                        </div>
-                        <div class="col-sm-3">
-                            {{form_row(form.csfGramStain)}}
-                        </div>
-                        <div class="col-sm-3">
-                            {{form_row(form.csfGramResult)}}
-                        </div>
-                        <div class="col-sm-3">
-                            {{form_row(form.csfGramOther)}}
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col-sm-3">
-                            {{form_row(form.csfBinaxDone)}}
-                        </div>
-                        <div class="col-sm-3">
-                            {{form_row(form.csfBinaxResult)}}
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col-sm-3">
-                            {{form_row(form.csfLatDone)}}
-                        </div>
-                        <div class="col-sm-3">
-                            {{form_row(form.csfLatResult)}}
-                        </div>
-                        <div class="col-sm-3">
-                            {{form_row(form.csfLatOther)}}
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col-sm-3">
-                            {{form_row(form.csfCultDone)}}
-                        </div>
-                        <div class="col-sm-3">
-                            {{form_row(form.csfCultResult)}}
-                        </div>
-                        <div class="col-sm-3">
-                            {{form_row(form.csfCultOther)}}
-                            {{form_row(form.csfCultContaminant)}}
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col-sm-3">
-                            {{form_row(form.csfPcrDone)}}
-                        </div>
-                        <div class="col-sm-3">
-                            {{form_row(form.csfPcrResult)}}
-                        </div>
-                        <div class="col-sm-3">
-                            {{form_row(form.csfPcrOther)}}
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col-sm-3">
-                            {{form_row(form.csfStore)}}
-                        </div>
-                        <div class="col-sm-3">
-                            {{form_row(form.isolStore)}}
-                        </div>
-                    </div>
-                    <hr />
-                    {% if form.rlCsfSent is defined %}
+                    <div id="blood" class="tab-pane">
                         <div class="row">
-                            <div class="col-sm-3">{{ form_row(form.rlCsfSent) }}</div>
-                            <div class="col-sm-3">{{ form_row(form.rlCsfDate) }}</div>
-                            <div class="col-sm-3">{{ form_row(form.rlIsolCsfSent) }}</div>
-                            <div class="col-sm-3">{{ form_row(form.rlIsolCsfDate) }}</div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodId) }}
+                            </div>
+                            <div class="col-md-3">
+                                {{ form_row(form.bloodLabDate) }}
+                            </div>
+                            <div class="col-md-3">
+                                {{ form_row(form.bloodLabTime) }}
+                            </div>
                         </div>
-                    {% endif %}
-                    {% if form.nlCsfSent is defined %}
+                        <hr/>
                         <div class="row">
-                            <div class="col-sm-3">{{ form_row(form.nlCsfSent) }}</div>
-                            <div class="col-sm-3">{{ form_row(form.nlCsfDate) }}</div>
-                            <div class="col-sm-3">{{ form_row(form.nlIsolCsfSent) }}</div>
-                            <div class="col-sm-3">{{ form_row(form.nlIsolCsfDate) }}</div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodCultDone) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodCultResult) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodCultOther) }}
+                            </div>
                         </div>
-                    {% endif %}
-                </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodGramDone) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodGramStain) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodGramResult) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodGramOther) }}
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodPcrDone) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodPcrResult) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodPcrOther) }}
+                            </div>
+                        </div>
+                        <hr/>
+                        {% if form.rlIsolBloodSent is defined %}
+                            <div class="row">
+                                <div class="col-sm-3">{{ form_row(form.rlIsolBloodSent) }}</div>
+                                <div class="col-sm-3">{{ form_row(form.rlIsolBloodDate) }}</div>
+                                <div class="col-sm-3">{{ form_row(form.rlBrothSent) }}</div>
+                                <div class="col-sm-3">{{ form_row(form.rlBrothDate) }}</div>
+                            </div>
+                        {% endif %}
+                        {% if form.nlIsolBloodSent is defined %}
+                            <div class="row">
+                                <div class="col-sm-3">{{ form_row(form.nlIsolBloodSent) }}</div>
+                                <div class="col-sm-3">{{ form_row(form.nlIsolBloodDate) }}</div>
+                                <div class="col-sm-3">{{ form_row(form.nlBrothSent) }}</div>
+                                <div class="col-sm-3">{{ form_row(form.nlBrothDate) }}</div>
+                            </div>
+                        {% endif %}
+                    </div>
 
-                <div id="blood" class="tab-pane">
-                    <div class="row">
-                        <div class="col-sm-3">
-                            {{form_row(form.bloodId)}}
-                        </div>
-                        <div class="col-md-3">
-                            {{form_row(form.bloodLabDate)}}
-                        </div>
-                        <div class="col-md-3">
-                            {{form_row(form.bloodLabTime)}}
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col-sm-3">
-                            {{form_row(form.bloodCultDone)}}
-                        </div>
-                        <div class="col-sm-3">
-                            {{form_row(form.bloodCultResult)}}
-                        </div>
-                        <div class="col-sm-3">
-                            {{form_row(form.bloodCultOther)}}
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col-sm-3">
-                            {{form_row(form.bloodGramDone)}}
-                        </div>
-                        <div class="col-sm-3">
-                            {{form_row(form.bloodGramStain)}}
-                        </div>
-                        <div class="col-sm-3">
-                            {{form_row(form.bloodGramResult)}}
-                        </div>
-                        <div class="col-sm-3">
-                            {{form_row(form.bloodGramOther)}}
-                        </div>
-                    </div>
-                    <hr />
-                    <div class="row">
-                        <div class="col-sm-3">
-                            {{form_row(form.bloodPcrDone)}}
-                        </div>
-                        <div class="col-sm-3">
-                            {{form_row(form.bloodPcrResult)}}
-                        </div>
-                        <div class="col-sm-3">
-                            {{form_row(form.bloodPcrOther)}}
-                        </div>
-                    </div>
-                    <hr />
-                    {% if form.rlIsolBloodSent is defined %}
-                        <div class="row">
-                            <div class="col-sm-3">{{ form_row(form.rlIsolBloodSent) }}</div>
-                            <div class="col-sm-3">{{ form_row(form.rlIsolBloodDate) }}</div>
-                            <div class="col-sm-3">{{ form_row(form.rlBrothSent) }}</div>
-                            <div class="col-sm-3">{{ form_row(form.rlBrothDate) }}</div>
+                    {% if form.pleuralFluidCultureDone is defined %}
+                        <div id="pleural" class="tab-pane">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    {{ form_row(form.pleuralFluidCultureDone) }}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{ form_row(form.pleuralFluidCultureResult) }}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{ form_row(form.pleuralFluidCultureOther) }}
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    {{ form_row(form.pleuralFluidGramDone) }}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{ form_row(form.pleuralFluidGramResult) }}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{ form_row(form.pleuralFluidGramResultOrganism) }}
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    {{ form_row(form.pleuralFluidPcrDone) }}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{ form_row(form.pleuralFluidPcrResult) }}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{ form_row(form.pleuralFluidPcrOther) }}
+                                </div>
+                            </div>
                         </div>
                     {% endif %}
-                    {% if form.nlIsolBloodSent is defined %}
-                        <div class="row">
-                            <div class="col-sm-3">{{ form_row(form.nlIsolBloodSent) }}</div>
-                            <div class="col-sm-3">{{ form_row(form.nlIsolBloodDate) }}</div>
-                            <div class="col-sm-3">{{ form_row(form.nlBrothSent) }}</div>
-                            <div class="col-sm-3">{{ form_row(form.nlBrothDate) }}</div>
-                        </div>
-                    {% endif %}
-                </div>
 
-                {% if form.pleuralFluidCultureDone is defined %}
-                    <div id="pleural" class="tab-pane">
+                    <div id="other" class="tab-pane">
                         <div class="row">
                             <div class="col-sm-3">
-                                {{form_row(form.pleuralFluidCultureDone)}}
+                                {{ form_row(form.otherId) }}
                             </div>
-                            <div class="col-sm-3">
-                                {{form_row(form.pleuralFluidCultureResult)}}
+                            <div class="col-md-3">
+                                {{ form_row(form.otherLabDate) }}
                             </div>
-                            <div class="col-sm-3">
-                                {{form_row(form.pleuralFluidCultureOther)}}
+                            <div class="col-md-3">
+                                {{ form_row(form.otherLabTime) }}
                             </div>
                         </div>
-                        <hr />
                         <div class="row">
-                            <div class="col-sm-3">
-                                {{form_row(form.pleuralFluidGramDone)}}
+                            <div class="col-md-4">
+                                {{ form_row(form.otherCultDone) }}
                             </div>
-                            <div class="col-sm-3">
-                                {{form_row(form.pleuralFluidGramResult)}}
+                            <div class="col-md-4">
+                                {{ form_row(form.otherCultResult) }}
                             </div>
-                            <div class="col-sm-3">
-                                {{form_row(form.pleuralFluidGramResultOrganism)}}
+                            <div class="col-md-4">
+                                {{ form_row(form.otherCultOther) }}
                             </div>
                         </div>
-                        <hr />
                         <div class="row">
-                            <div class="col-sm-3">
-                                {{form_row(form.pleuralFluidPcrDone)}}
+                            <div class="col-md-4">
+                                {{ form_row(form.otherTestDone) }}
                             </div>
-                            <div class="col-sm-3">
-                                {{form_row(form.pleuralFluidPcrResult)}}
+                            <div class="col-md-4">
+                                {{ form_row(form.otherTestResult) }}
                             </div>
-                            <div class="col-sm-3">
-                                {{form_row(form.pleuralFluidPcrOther)}}
+                            <div class="col-md-4">
+                                {{ form_row(form.otherTestOther) }}
                             </div>
                         </div>
+                        <hr/>
+                        {% if form.rlOtherSent %}
+                            <div class="row">
+                                <div class="col-sm-3">{{ form_row(form.rlOtherSent) }}</div>
+                                <div class="col-sm-3">{{ form_row(form.rlOtherDate) }}</div>
+                            </div>
+                        {% endif %}
+                        {% if form.nlOtherSent %}
+                            <div class="row">
+                                <div class="col-sm-3">{{ form_row(form.nlOtherSent) }}</div>
+                                <div class="col-sm-3">{{ form_row(form.nlOtherDate) }}</div>
+                            </div>
+                        {% endif %}
                     </div>
-                {% endif %}
-
-                <div id="other" class="tab-pane">
-                    <div class="row">
-                        <div class="col-sm-3">
-                            {{form_row(form.otherId)}}
-                        </div>
-                        <div class="col-md-3">
-                            {{form_row(form.otherLabDate)}}
-                        </div>
-                        <div class="col-md-3">
-                            {{form_row(form.otherLabTime)}}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            {{form_row(form.otherCultDone)}}
-                        </div>
-                        <div class="col-md-4">
-                            {{form_row(form.otherCultResult)}}
-                        </div>
-                        <div class="col-md-4">
-                            {{form_row(form.otherCultOther)}}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            {{form_row(form.otherTestDone)}}
-                        </div>
-                        <div class="col-md-4">
-                            {{form_row(form.otherTestResult)}}
-                        </div>
-                        <div class="col-md-4">
-                            {{form_row(form.otherTestOther)}}
-                        </div>
-                    </div>
-                    <hr />
-                    {% if form.rlOtherSent %}
-                        <div class="row">
-                            <div class="col-sm-3">{{ form_row(form.rlOtherSent) }}</div>
-                            <div class="col-sm-3">{{ form_row(form.rlOtherDate) }}</div>
-                        </div>
-                    {% endif %}
-                    {% if form.nlOtherSent %}
-                        <div class="row">
-                            <div class="col-sm-3">{{ form_row(form.nlOtherSent) }}</div>
-                            <div class="col-sm-3">{{ form_row(form.nlOtherDate) }}</div>
-                        </div>
-                    {% endif %}
                 </div>
             </div>
-        </div>
-        <div class="form-actions center">
-            <a href="{{path('ibdIndex')}}" class="btn btn-sm btn-danger">{{'Cancel'|trans}}</a>
-            <button type="submit" name="save" class="btn btn-sm btn-success">{{'Save'|trans}} <i class="fa fa-arrow-right fa fa-on-right bigger-110"></i></button>
-            <button type="submit" name="saveclose" class="btn btn-sm btn-success">{{'Save & Close'|trans}} <i class="fa fa-arrow-right fa fa-on-right bigger-110"></i></button>
+            <div class="form-actions center">
+                <a href="{{ path('ibdIndex') }}" class="btn btn-sm btn-danger">{{ 'Cancel'|trans }}</a>
+                <button type="submit" name="save" class="btn btn-sm btn-success">{{ 'Save'|trans }} <i
+                            class="fa fa-arrow-right fa fa-on-right bigger-110"></i></button>
+                <button type="submit" name="saveclose" class="btn btn-sm btn-success">{{ 'Save & Close'|trans }} <i
+                            class="fa fa-arrow-right fa fa-on-right bigger-110"></i></button>
+            </div>
         </div>
     </div>
-</div>
-{{form_rest(form)}}
-
-</form>
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
 {% endblock %}

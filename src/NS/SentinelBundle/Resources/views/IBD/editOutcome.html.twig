@@ -1,36 +1,34 @@
 {% extends "NSSentinelBundle::edit.html.twig" %}
 
 {% block pagetitle %}
-    {{'Edit Case Outcome %id%'|trans({'%id%': record.caseId})}}
+    {{ 'Edit Case Outcome %id%'|trans({'%id%': record.caseId}) }}
 {% endblock %}
 
-{%block pageactions %}
-    <div class="pull-right">{{case_big_actions(record)}}</div>
-{%endblock %}
+{% block pageactions %}
+    <div class="pull-right">{{ case_big_actions(record) }}</div>
+{% endblock %}
 
 {% block body %}
-{{form_errors(form)}}
-<form method="POST" action="{{path('ibdOutcomeEdit',{'id':id})}}">
-<div class="row">
-    <div class="col-sm-12">
-        <div class="tabbable">
-            <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
-                <li class="active"><a data-toggle="tab" href="#outcome">{{'Outcome Data'|trans}}</a></li>
-            </ul>
-        </div>
-        <div class="tab-content">
-            <div id="outcome" class="tab-pane active">
-                {% include 'NSSentinelBundle:IBD:_outcome.html.twig' %}
+    {{ form_errors(form) }}
+    {{ form_start(form, {'action': path('ibdOutcomeEdit',{'id':id}) }) }}
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="tabbable">
+                    <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                        <li class="active"><a data-toggle="tab" href="#outcome">{{ 'Outcome Data'|trans }}</a></li>
+                    </ul>
+                </div>
+                <div class="tab-content">
+                    <div id="outcome" class="tab-pane active">
+                        {% include 'NSSentinelBundle:IBD:_outcome.html.twig' %}
+                    </div>
+                </div>
+                <div class="form-actions center">
+                    <a href="{{ path('ibdIndex') }}" class="btn btn-sm btn-danger">{{ 'Cancel'|trans }}</a>
+                    <button type="submit" name="save" class="btn btn-sm btn-success">{{ 'Save'|trans }} <i class="fa fa-arrow-right fa fa-on-right bigger-110"></i></button>
+                    <button type="submit" name="saveclose" class="btn btn-sm btn-success">{{ 'Save & Close'|trans }} <i class="fa fa-arrow-right fa fa-on-right bigger-110"></i></button>
+                </div>
             </div>
         </div>
-        <div class="form-actions center">
-            <a href="{{path('ibdIndex')}}" class="btn btn-sm btn-danger">{{'Cancel'|trans}}</a>
-            <button type="submit" name="save" class="btn btn-sm btn-success">{{'Save'|trans}} <i class="fa fa-arrow-right fa fa-on-right bigger-110"></i></button>
-            <button type="submit" name="saveclose" class="btn btn-sm btn-success">{{'Save & Close'|trans}} <i class="fa fa-arrow-right fa fa-on-right bigger-110"></i></button>
-        </div>
-    </div>
-</div>
-
-
-</form>
+    {{ form_end(form) }}
 {% endblock %}

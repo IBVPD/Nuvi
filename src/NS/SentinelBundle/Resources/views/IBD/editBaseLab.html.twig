@@ -9,8 +9,8 @@
 {%endblock %}
 
 {% block body %}
-    {{form_errors(form)}}
-    <form method="POST" action="{{path(editRoute,{'id':id})}}" novalidate>
+    {{ form_errors(form) }}
+    {{ form_start(form,{'action': path(editRoute,{'id': id}) }) }}
         <div class="row">
             <div class="col-sm-12">
                 <div class="tabbable">
@@ -89,6 +89,5 @@
             </div>
             {{form_rest(form)}}
         </div>
-
-    </form>
+    {{ form_end(form) }}
 {% endblock %}

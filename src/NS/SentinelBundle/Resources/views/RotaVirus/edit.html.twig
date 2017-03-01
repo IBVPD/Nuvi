@@ -9,126 +9,125 @@
 {%endblock %}
 
 {% block body %}
-{{form_errors(form)}}
-<form method="POST" action="{{path('rotavirusEdit',{'id':id})}}">
-<div class="row">
-    <div class="col-sm-12">
-        <div class="tabbable">
-            <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
-                <li class="active"><a data-toggle="tab" href="#demographics">{{'Case Based Demographics'|trans}}</a></li>
-                <li><a data-toggle="tab" href="#clinical">{{'Clinical Data'|trans}}</a></li>
-                <li><a data-toggle="tab" href="#history">{{'Vaccination History'|trans}}</a></li>
-                <li><a data-toggle="tab" href="#specimen">{{'Specimen Collection Data'|trans}}</a></li>
-                <li><a data-toggle="tab" href="#outcome">{{'Outcome'|trans}}</a></li>
-            </ul>
-        </div>
-        <div class="tab-content">
-            <div id="demographics" class="tab-pane active">
-                <div class="row">
-                    <div class="col-sm-4">
-                        {{form_row(form.firstName)}}
-                        {{form_row(form.lastName)}}
-                        {{form_row(form.parentalName)}}
-                        {{form_row(form.gender)}}
-                    </div>
-                    <div class="col-sm-4">
-                        {{ form_row(form.dobKnown) }}
-                        {{ form_row(form.birthdate) }}
-                        {{ form_row(form.dobYearMonths) }}
-                    </div>
-                    <div class="col-sm-4">
-                        {{form_row(form.caseId)}}
-                        {{form_row(form.district)}}
-                        {{form_row(form.state)}}                        
-                        <div class="form-group">
-                            <label for="ibd_id">{{'System Id'|trans}}</label>
-                            <div class="input-group">{{id}}</div>
+    {{ form_errors(form) }}
+    {{ form_start(form, {'action': path('rotavirusEdit',{'id':id})}) }}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="tabbable">
+                <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                    <li class="active"><a data-toggle="tab" href="#demographics">{{'Case Based Demographics'|trans}}</a></li>
+                    <li><a data-toggle="tab" href="#clinical">{{'Clinical Data'|trans}}</a></li>
+                    <li><a data-toggle="tab" href="#history">{{'Vaccination History'|trans}}</a></li>
+                    <li><a data-toggle="tab" href="#specimen">{{'Specimen Collection Data'|trans}}</a></li>
+                    <li><a data-toggle="tab" href="#outcome">{{'Outcome'|trans}}</a></li>
+                </ul>
+            </div>
+            <div class="tab-content">
+                <div id="demographics" class="tab-pane active">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            {{form_row(form.firstName)}}
+                            {{form_row(form.lastName)}}
+                            {{form_row(form.parentalName)}}
+                            {{form_row(form.gender)}}
+                        </div>
+                        <div class="col-sm-4">
+                            {{ form_row(form.dobKnown) }}
+                            {{ form_row(form.birthdate) }}
+                            {{ form_row(form.dobYearMonths) }}
+                        </div>
+                        <div class="col-sm-4">
+                            {{form_row(form.caseId)}}
+                            {{form_row(form.district)}}
+                            {{form_row(form.state)}}
+                            <div class="form-group">
+                                <label for="ibd_id">{{'System Id'|trans}}</label>
+                                <div class="input-group">{{id}}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div id="history" class="tab-pane">
-                <div class="row">
-                    <div class="col-sm-4">
-                        {{form_row(form.vaccinationReceived)}}
+                <div id="history" class="tab-pane">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            {{form_row(form.vaccinationReceived)}}
+                        </div>
+                        <div class="col-sm-4">
+                            {{form_row(form.vaccinationType)}}
+                        </div>
+                        <div class="col-sm-4">
+                            {{form_row(form.doses)}}
+                        </div>
                     </div>
-                    <div class="col-sm-4">
-                        {{form_row(form.vaccinationType)}}
-                    </div>
-                    <div class="col-sm-4">
-                        {{form_row(form.doses)}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        {{form_row(form.firstVaccinationDose)}}
-                    </div>
-                    <div class="col-sm-4">
-                        {{form_row(form.secondVaccinationDose)}}
-                    </div>
-                    <div class="col-sm-4">
-                        {{form_row(form.thirdVaccinationDose)}}
-                    </div>
-                </div>
-            </div>
-            <div id="clinical" class="tab-pane">
-                <div class="row">
-                    <div class="col-sm-4">
-                         {{form_row(form.admDate)}}
-                    </div>
-                    <div class="col-sm-4">
-                         {{form_row(form.intensiveCare)}}
+                    <div class="row">
+                        <div class="col-sm-4">
+                            {{form_row(form.firstVaccinationDose)}}
+                        </div>
+                        <div class="col-sm-4">
+                            {{form_row(form.secondVaccinationDose)}}
+                        </div>
+                        <div class="col-sm-4">
+                            {{form_row(form.thirdVaccinationDose)}}
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        {{form_row(form.symptomDiarrhea)}}
-                        {{form_row(form.symptomDiarrheaOnset)}}
-                        {{form_row(form.symptomDiarrheaEpisodes)}}
-                        {{form_row(form.symptomDiarrheaDuration)}}
-                        {{form_row(form.symptomDiarrheaBloody)}}
+                <div id="clinical" class="tab-pane">
+                    <div class="row">
+                        <div class="col-sm-4">
+                             {{form_row(form.admDate)}}
+                        </div>
+                        <div class="col-sm-4">
+                             {{form_row(form.intensiveCare)}}
+                        </div>
                     </div>
-                    <div class="col-sm-4">
-                        {{form_row(form.symptomVomit)}}
-                        {{form_row(form.symptomVomitEpisodes)}}
-                        {{form_row(form.symptomVomitDuration)}}
-                    </div>
-                    <div class="col-sm-4">
-                        {{form_row(form.symptomDehydration)}}
-                        {{form_row(form.rehydration)}}
-                        {{form_row(form.rehydrationType)}}
-                        {{form_row(form.rehydrationOther)}}
-                    </div>
-                </div>
-            </div>
-            <div id="specimen" class="tab-pane">
-                <div class="row">
-                    <div class="col-sm-4">
-                        {{form_row(form.stoolCollected)}}
-                    </div>
-                    <div class="col-sm-4">
-                        {{form_row(form.stoolId)}}
-                    </div>
-                    <div class="col-sm-4">
-                        {{form_row(form.stoolCollectionDate)}}
+                    <div class="row">
+                        <div class="col-sm-4">
+                            {{form_row(form.symptomDiarrhea)}}
+                            {{form_row(form.symptomDiarrheaOnset)}}
+                            {{form_row(form.symptomDiarrheaEpisodes)}}
+                            {{form_row(form.symptomDiarrheaDuration)}}
+                            {{form_row(form.symptomDiarrheaBloody)}}
+                        </div>
+                        <div class="col-sm-4">
+                            {{form_row(form.symptomVomit)}}
+                            {{form_row(form.symptomVomitEpisodes)}}
+                            {{form_row(form.symptomVomitDuration)}}
+                        </div>
+                        <div class="col-sm-4">
+                            {{form_row(form.symptomDehydration)}}
+                            {{form_row(form.rehydration)}}
+                            {{form_row(form.rehydrationType)}}
+                            {{form_row(form.rehydrationOther)}}
+                        </div>
                     </div>
                 </div>
-            </div>
+                <div id="specimen" class="tab-pane">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            {{form_row(form.stoolCollected)}}
+                        </div>
+                        <div class="col-sm-4">
+                            {{form_row(form.stoolId)}}
+                        </div>
+                        <div class="col-sm-4">
+                            {{form_row(form.stoolCollectionDate)}}
+                        </div>
+                    </div>
+                </div>
 
-            <div id="outcome" class="tab-pane">
-                {% include 'NSSentinelBundle:RotaVirus:_outcome.html.twig' %}
-            </div>
+                <div id="outcome" class="tab-pane">
+                    {% include 'NSSentinelBundle:RotaVirus:_outcome.html.twig' %}
+                </div>
 
-            {{form_rest(form)}}
-        </div>
-        <div class="form-actions center">
-            <a href="{{path('rotavirusIndex')}}" class="btn btn-sm btn-danger">{{'Cancel'|trans}}</a>
-            <button type="submit" name="save" class="btn btn-sm btn-success">{{'Save'|trans}} <i class="fa fa-arrow-right fa fa-on-right bigger-110"></i></button>
-            <button type="submit" name="saveclose" class="btn btn-sm btn-success">{{'Save & Close'|trans}} <i class="fa fa-arrow-right fa fa-on-right bigger-110"></i></button>
-            <a href="{{ path('rotavirusDelete',{'id': id}) }}" class="btn btn-sm btn-warning pull-right ns-confirm" data-confirm-message="Delete case {{ id }}? Operation is not reverseable."><i class="fa fa-times"></i> {{ 'Delete'|trans }}</a>
+                {{form_rest(form)}}
+            </div>
+            <div class="form-actions center">
+                <a href="{{path('rotavirusIndex')}}" class="btn btn-sm btn-danger">{{'Cancel'|trans}}</a>
+                <button type="submit" name="save" class="btn btn-sm btn-success">{{'Save'|trans}} <i class="fa fa-arrow-right fa fa-on-right bigger-110"></i></button>
+                <button type="submit" name="saveclose" class="btn btn-sm btn-success">{{'Save & Close'|trans}} <i class="fa fa-arrow-right fa fa-on-right bigger-110"></i></button>
+                <a href="{{ path('rotavirusDelete',{'id': id}) }}" class="btn btn-sm btn-warning pull-right ns-confirm" data-confirm-message="Delete case {{ id }}? Operation is not reverseable."><i class="fa fa-times"></i> {{ 'Delete'|trans }}</a>
+            </div>
         </div>
     </div>
-</div>
-
-</form>
+    {{ form_end(form) }}
 {% endblock %}

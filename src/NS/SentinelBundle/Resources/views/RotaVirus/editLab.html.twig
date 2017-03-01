@@ -9,8 +9,8 @@
 {%endblock %}
 
 {% block body %}
-    {{form_errors(form)}}
-    <form method="POST" action="{{path('rotavirusLabEdit',{'id':id})}}" novalidate>
+    {{ form_errors(form) }}
+    {{ form_start(form, {'attr': {'novalidate':'novalidate'}, 'action': path('rotavirusLabEdit',{'id':id})}) }}
         <div class="row">
             <div class="col-sm-12">
                 <div class="tabbable">

@@ -26,10 +26,10 @@ class BaseLabType extends AbstractType
             ->add('labId')
             ->add('dateReceived',               DatePickerType::class, ['required' => false, 'label' => 'external-lab-form.date-received'])
             ->add('genotypingDate',             DatePickerType::class, ['required' => false, 'label' => 'external-lab-form.genotyping-date'])
-            ->add('genotypingResultG',          GenotypeResultG::class, ['required' => false, 'label' => 'external-lab-form.genotyping-result-g', 'hidden' => ['child' => 'genotypingResultG']])
+            ->add('genotypingResultG',          GenotypeResultG::class, ['required' => false, 'label' => 'external-lab-form.genotyping-result-g'])
             ->add('genotypingResultGSpecify',   null, ['required' => false, 'label' => 'external-lab-form.genotyping-result-g-specify', 'hidden' => ['parent' => 'genotypingResultG', 'value' => [GenotypeResultG::OTHER, GenotypeResultG::MIXED]]])
-            ->add('genotypeResultP',            GenotypeResultP::class, ['required' => false, 'label' => 'external-lab-form.genotyping-result-p', 'hidden' => ['child' => 'genotypingResultP']])
-            ->add('genotypeResultPSpecify',     null, ['required' => false, 'label' => 'external-lab-form.genotyping-result-p-specify', 'hidden' => ['parent' => 'genotypingResultP', 'value' => [GenotypeResultP::OTHER, GenotypeResultP::MIXED]]])
+            ->add('genotypeResultP',            GenotypeResultP::class, ['required' => false, 'label' => 'external-lab-form.genotyping-result-p'])
+            ->add('genotypeResultPSpecify',     null, ['required' => false, 'label' => 'external-lab-form.genotyping-result-p-specify', 'hidden' => ['parent' => 'genotypeResultP', 'value' => [GenotypeResultP::OTHER, GenotypeResultP::MIXED]]])
             ->add('pcrVp6Result',               ElisaResult::class, ['required' => false, 'label' => 'external-lab-form.pcr-vp6-result'])
             ->add('comment',                    null, ['required'=>false, 'label'=>'external-lab-form.comment'])
         ;
