@@ -3,6 +3,7 @@ VERSION 0  INITIAL RELEASE
 ==========================
 
    Version 0.10 - Updated to SF3.x
+      02/03/2017 14:52  0.10.18  new translations
       02/03/2017 12:28  0.10.17  Fixed compound field hidden configs
       01/03/2017 16:40  0.10.16  Additional fields, other validators etc
       27/02/2017 09:48  0.10.15  Improve import date detection
