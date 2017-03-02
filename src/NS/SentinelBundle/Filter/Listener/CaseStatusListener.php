@@ -20,10 +20,7 @@ class CaseStatusListener implements EventSubscriberInterface
     {
         return [
             // if a Doctrine\ORM\QueryBuilder is passed to the lexik_form_filter.query_builder_updater service
-            'lexik_form_filter.apply.orm.CaseStatus' => ['filterCaseStatus'],
-
-            // if a Doctrine\DBAL\Query\QueryBuilder is passed to the lexik_form_filter.query_builder_updater service
-            'lexik_form_filter.apply.dbal.CaseStatus' => ['filterCaseStatus'],
+            'lexik_form_filter.apply.orm.filter.status' => ['filterCaseStatus'],
         ];
     }
 
