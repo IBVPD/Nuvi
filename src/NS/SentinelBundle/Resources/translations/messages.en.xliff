@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2017-02-28T10:53:34Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
+  <file date="2017-03-02T14:48:49Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -248,7 +248,7 @@
       </trans-unit>
       <trans-unit id="2cdd20a60bce677b1d6ff78d6eca809ddbf8e04f" resname="Access Level">
         <source>Access Level</source>
-        <target state="new">Access Level</target>
+        <target>Access Level</target>
         <jms:reference-file line="50">Admin/ACLAdmin.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="376e9046cc5fd2842ce29e30d9b75eab2742e487" resname="Access Restrictions">
@@ -554,13 +554,13 @@
       </trans-unit>
       <trans-unit id="9dff9a5c61e3dff379a71026b0e8c9e4511b91eb" resname="Create/Edit Case">
         <source>Create/Edit Case</source>
-        <target state="new">Create/Edit Case</target>
+        <target>Create/Edit Case</target>
         <jms:reference-file line="16">views/RotaVirus/index.html.twig</jms:reference-file>
         <jms:reference-file line="16">views/IBD/index.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="20f2f4ae91f35442a8f3390902336d3838af1d71" resname="Creation Rights">
         <source>Creation Rights</source>
-        <target state="new">Creation Rights</target>
+        <target>Creation Rights</target>
         <jms:reference-file line="52">Admin/ACLAdmin.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="5ebca3a6a2449f0bf89505b4220616f518244b2c" resname="Csf Pcr">
@@ -1126,7 +1126,7 @@
       </trans-unit>
       <trans-unit id="4894cb39ee419a77b480060f3e4a6d0a4d0fa01f" resname="New Password">
         <source>New Password</source>
-        <target state="new">New Password</target>
+        <target>New Password</target>
         <jms:reference-file line="25">Form/ResetPasswordType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="1da1e764fd8d50a20d997b09a66e5f786519d41e" resname="Nm">
@@ -1443,7 +1443,7 @@
       </trans-unit>
       <trans-unit id="40cf6196e56e506188453de845ef1e1ef0e7d55c" resname="Re-Enter Password">
         <source>Re-Enter Password</source>
-        <target state="new">Re-Enter Password</target>
+        <target>Re-Enter Password</target>
         <jms:reference-file line="26">Form/ResetPasswordType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e7ec4476e3b6bfeaf98730dcb24de308ca089956" resname="Realtime PCR">
@@ -1660,7 +1660,7 @@
       </trans-unit>
       <trans-unit id="b363380beb05f416420c1010cce7aa35d6bd6125" resname="Specific - Site / Country / Region">
         <source>Specific - Site / Country / Region</source>
-        <target state="new">Specific - Site / Country / Region</target>
+        <target>Specific - Site / Country / Region</target>
         <jms:reference-file line="64">Admin/ACLAdmin.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="54f52f84185da61ce5e187d916c2e972a0635bcf" resname="Specimen Collection">
@@ -2180,12 +2180,12 @@
       </trans-unit>
       <trans-unit id="28c33763a4f0bedcffdc80c5b31a9074b1441740" resname="ibd-form.blood-lab-datetime">
         <source>ibd-form.blood-lab-datetime</source>
-        <target state="new">ibd-form.blood-lab-datetime</target>
+        <target>Date of blood collection from case</target>
         <jms:reference-file line="92">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="028389f0744ad83ea9a2778c0de2c514d0b8f8be" resname="ibd-form.blood-lab-time">
         <source>ibd-form.blood-lab-time</source>
-        <target state="new">ibd-form.blood-lab-time</target>
+        <target>Time of blood collection from case</target>
         <jms:reference-file line="93">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="8d2045ae5146f6fcb17eda11f4f0b168971d5ca9" resname="ibd-form.blood-number-of-samples">
@@ -2212,17 +2212,17 @@
       </trans-unit>
       <trans-unit id="a518e53d08a5c6629b460b171a8cec014f95eaea" resname="ibd-form.blood-sent-to-nl">
         <source>ibd-form.blood-sent-to-nl</source>
-        <target state="new">ibd-form.blood-sent-to-nl</target>
+        <target>Was isolate from blood sample sent to NL?</target>
         <jms:reference-file line="168">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="629ff1b879e8e4db34d89892f9a03303bf8fe526" resname="ibd-form.blood-sent-to-nl-date">
         <source>ibd-form.blood-sent-to-nl-date</source>
-        <target state="new">ibd-form.blood-sent-to-nl-date</target>
+        <target>Date when blood sample was sent to NL</target>
         <jms:reference-file line="169">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="efe6504b6fe9d0299e252023fb13b1ea7ff0b180" resname="ibd-form.blood-sent-to-rrl">
         <source>ibd-form.blood-sent-to-rrl</source>
-        <target state="new">ibd-form.blood-sent-to-rrl</target>
+        <target>Was isolate from blood sample sent to RRL?</target>
         <jms:reference-file line="154">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="0263dfd0afae8ee3b162f51e20acde9abb221e9b" resname="ibd-form.blood-sent-to-rrl-date">
@@ -2232,17 +2232,17 @@
       </trans-unit>
       <trans-unit id="114bf345a76e75fad60b568f1883e378f36ad675" resname="ibd-form.broth-sent-to-nl">
         <source>ibd-form.broth-sent-to-nl</source>
-        <target state="new">ibd-form.broth-sent-to-nl</target>
+        <target>Was blood broth sample sent to NL?</target>
         <jms:reference-file line="170">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e27dcdf6c8124a59bf1e31c66767af3509bd7a9c" resname="ibd-form.broth-sent-to-nl-date">
         <source>ibd-form.broth-sent-to-nl-date</source>
-        <target state="new">ibd-form.broth-sent-to-nl-date</target>
+        <target>Date when blood broth sample was sent to NL</target>
         <jms:reference-file line="171">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="d9d1daf9114d85b5adb7da2e504b7e43b35d3439" resname="ibd-form.broth-sent-to-rrl">
         <source>ibd-form.broth-sent-to-rrl</source>
-        <target state="new">ibd-form.broth-sent-to-rrl</target>
+        <target>Was blood broth sample sent to RRL?</target>
         <jms:reference-file line="156">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="47273c1794b96aa871e2d953555f1e69235cd108" resname="ibd-form.broth-sent-to-rrl-date">
@@ -2282,7 +2282,7 @@
       </trans-unit>
       <trans-unit id="866471f07c0959069be0a460caa4f7c9661edc5e" resname="ibd-form.csf-collect-date">
         <source>ibd-form.csf-collect-date</source>
-        <target state="new">ibd-form.csf-collect-date</target>
+        <target>Date of CSF collection (i.e. lumbar puncture) from case</target>
         <jms:reference-file line="106">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="357445ce7e2e38232bb0f39e5375dfc854d6831a" resname="ibd-form.csf-collect-datetime">
@@ -2292,7 +2292,7 @@
       </trans-unit>
       <trans-unit id="900b9fd6b5cc9bb2b357f1d02c112da63b2cd806" resname="ibd-form.csf-collect-time">
         <source>ibd-form.csf-collect-time</source>
-        <target state="new">ibd-form.csf-collect-time</target>
+        <target>Time of CSF collection (i.e. lumbar puncture) from case</target>
         <jms:reference-file line="107">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="55a3c923ddac91385faa6c9c10da684e9f63f4a8" resname="ibd-form.csf-collected">
@@ -2357,17 +2357,17 @@
       </trans-unit>
       <trans-unit id="ba452378540d345906d6ba5efe749f67c80ac774" resname="ibd-form.csf-isol-sent-to-nl">
         <source>ibd-form.csf-isol-sent-to-nl</source>
-        <target state="new">ibd-form.csf-isol-sent-to-nl</target>
+        <target>Was isolate from CSF sample sent to NL?</target>
         <jms:reference-file line="166">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="77e7fef4445ab110d9da666db2bf78f0be3e6b4e" resname="ibd-form.csf-isol-sent-to-nl-date">
         <source>ibd-form.csf-isol-sent-to-nl-date</source>
-        <target state="new">ibd-form.csf-isol-sent-to-nl-date</target>
+        <target>Date when isolate from CSF sample was sent to NL</target>
         <jms:reference-file line="167">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="58978ca51de759aa726103a03d214de3301b84d5" resname="ibd-form.csf-isol-sent-to-rrl">
         <source>ibd-form.csf-isol-sent-to-rrl</source>
-        <target state="new">ibd-form.csf-isol-sent-to-rrl</target>
+        <target>Was isolate from CSF sample sent to RRL?</target>
         <jms:reference-file line="152">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="75fb3d80d4a8e37fb9daf249e9197bed37ba6c96" resname="ibd-form.csf-isol-sent-to-rrl-date">
@@ -2425,17 +2425,17 @@
       </trans-unit>
       <trans-unit id="d43a84dbf483c6c9d635eb815c0a0df35c557dba" resname="ibd-form.csf-sent-to-nl">
         <source>ibd-form.csf-sent-to-nl</source>
-        <target state="new">ibd-form.csf-sent-to-nl</target>
+        <target>Was CSF sample sent to NL?</target>
         <jms:reference-file line="164">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="b224a7806d67226a2f21234fdbf7c355292346c0" resname="ibd-form.csf-sent-to-nl-date">
         <source>ibd-form.csf-sent-to-nl-date</source>
-        <target state="new">ibd-form.csf-sent-to-nl-date</target>
+        <target>Date when CSF sample was sent to NL</target>
         <jms:reference-file line="165">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="bdc95d0aaf85083e6542ebc9620363a3c4601952" resname="ibd-form.csf-sent-to-rrl">
         <source>ibd-form.csf-sent-to-rrl</source>
-        <target state="new">ibd-form.csf-sent-to-rrl</target>
+        <target>Was CSF sample sent to RRL?</target>
         <jms:reference-file line="150">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="917bd0ef3ef2d3df7e4c6185d959d676c56a5241" resname="ibd-form.csf-sent-to-rrl-date">
@@ -2717,37 +2717,37 @@
       </trans-unit>
       <trans-unit id="03a797d457310c422c00997af7289df5a013afb4" resname="ibd-form.other-id">
         <source>ibd-form.other-id</source>
-        <target state="new">ibd-form.other-id</target>
+        <target>Other fluid/specimen id</target>
         <jms:reference-file line="104">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="5def0cca3ad3dd9c4deac5aa56e5ac5ff366646d" resname="ibd-form.other-lab-datetime">
         <source>ibd-form.other-lab-datetime</source>
-        <target state="new">ibd-form.other-lab-datetime</target>
+        <target>Date of other fluid/specimen collection</target>
         <jms:reference-file line="105">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e1fb727318d99d1a324706127d635f106dd44ae5" resname="ibd-form.other-lab-time">
         <source>ibd-form.other-lab-time</source>
-        <target state="new">ibd-form.other-lab-time</target>
+        <target>Time of other fluid/specimen collection</target>
         <jms:reference-file line="106">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="f17933dab9c5d08a626d66523f31bcb8f08e3701" resname="ibd-form.other-sent-to-nl">
         <source>ibd-form.other-sent-to-nl</source>
-        <target state="new">ibd-form.other-sent-to-nl</target>
+        <target>Was other fluid/specimen sent to NL?</target>
         <jms:reference-file line="172">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="d46cb6d918ec1862c9fdf821de3586aea9c136df" resname="ibd-form.other-sent-to-nl-date">
         <source>ibd-form.other-sent-to-nl-date</source>
-        <target state="new">ibd-form.other-sent-to-nl-date</target>
+        <target>Date when other fluid/speciment was sent to NL</target>
         <jms:reference-file line="173">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="95ac0e6ffd262a99ef210412b5346b5bfad10742" resname="ibd-form.other-sent-to-rrl">
         <source>ibd-form.other-sent-to-rrl</source>
-        <target state="new">ibd-form.other-sent-to-rrl</target>
+        <target>Was other fluid/specimen sent to RRL?</target>
         <jms:reference-file line="158">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="2550471edef9b9c23751b135e1d6ea55521fd1ca" resname="ibd-form.other-sent-to-rrl-date">
         <source>ibd-form.other-sent-to-rrl-date</source>
-        <target state="new">ibd-form.other-sent-to-rrl-date</target>
+        <target>Date when other fluid/speciment was sent to RRL</target>
         <jms:reference-file line="159">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="025152f2d8874ff156c638b8d12c06e8675d774f" resname="ibd-form.other-test-done1">
