@@ -56,7 +56,7 @@ class CaseType extends AbstractType
             ->add('gender',                     Gender::class,                  ['required' => $required, 'label' => 'rotavirus-form.gender'])
             ->add('dobKnown',                   TripleChoice::class,            ['required' => $required, 'label' => 'ibd-form.date-of-birth-known'])
             ->add('birthdate',                  DatePickerType::class,          ['required' => $required, 'label' => 'ibd-form.date-of-birth', 'hidden' => ['parent' => 'dobKnown', 'value' => TripleChoice::YES], 'widget' => 'single_text'])
-            ->add('dobYearMonths',              YearMonthType::class,           ['required' => $required])
+            ->add('dobYearMonths',              YearMonthType::class,           ['required' => $required, 'hidden' => ['parent'=>'dobKnown', 'value' => TripleChoice::NO]])
             ->add('district',                   null,                           ['required' => $required, 'label' => 'rotavirus-form.district'])
             ->add('state',                      null,                           ['required' => $required, 'label' => 'rotavirus-form.state'])
             ->add('admDate',                    DatePickerType::class,          ['required' => $required, 'label' => 'rotavirus-form.admissionDate', 'property_path' => 'adm_date'])

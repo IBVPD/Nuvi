@@ -71,7 +71,7 @@ class CaseType extends AbstractType
             ->add('parentalName',       null, ['required' => $required, 'label' => 'ibd-form.parental-name'])
             ->add('dobKnown',           TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.date-of-birth-known', 'exclude_choices'=> ($isPaho ? [TripleChoice::UNKNOWN]:null)])
             ->add('birthdate',          DatePickerType::class, ['required' => $required, 'label' => 'ibd-form.date-of-birth', 'hidden' => ['parent' => 'dobKnown', 'value' => TripleChoice::YES], 'widget' => 'single_text'])
-            ->add('dobYearMonths',      YearMonthType::class, [ 'required' => $required ])
+            ->add('dobYearMonths',      YearMonthType::class, [ 'required' => $required, 'hidden' => ['parent'=>'dobKnown', 'value' => TripleChoice::NO]])
             ->add('gender',             Gender::class, ['required' => $required, 'label' => 'ibd-form.gender'])
             ->add('district',           null, ['required' => $required, 'label' => 'ibd-form.district'])
             ->add('state',              null, ['required' => $required, 'label' => 'ibd-form.state'])

@@ -24,8 +24,8 @@ class YearMonthType extends AbstractType implements DataMapperInterface
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('year', null, ['label' => 'ibd-form.date-of-birth-years', 'required' => $options['required'], 'hidden' => ['parent' => 'dobKnown', 'value' => TripleChoice::NO ]])
-            ->add('month', null, ['label' => 'ibd-form.date-of-birth-months', 'required' => $options['required'], 'hidden' => ['parent' => 'dobKnown', 'value' => TripleChoice::NO ]]);
+            ->add('year', null, ['label' => 'ibd-form.date-of-birth-years', 'required' => $options['required']])
+            ->add('month', null, ['label' => 'ibd-form.date-of-birth-months', 'required' => $options['required']]);
 
         $builder->setDataMapper($this);
     }
@@ -37,6 +37,7 @@ class YearMonthType extends AbstractType implements DataMapperInterface
     {
         $resolver->setDefaults([
             'data_class' => YearMonth::class,
+            'compound' => true,
             'empty_data' => function (FormInterface $form) {
                 return new YearMonth($form->get('year')->getData(), $form->get('month')->getData());
             }
