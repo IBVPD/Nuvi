@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2017-03-02T14:48:49Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
+  <file date="2017-03-02T15:00:36Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -2737,7 +2737,7 @@
       </trans-unit>
       <trans-unit id="d46cb6d918ec1862c9fdf821de3586aea9c136df" resname="ibd-form.other-sent-to-nl-date">
         <source>ibd-form.other-sent-to-nl-date</source>
-        <target>Date when other fluid/speciment was sent to NL</target>
+        <target>Date when other fluid/specimen was sent to NL</target>
         <jms:reference-file line="173">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="95ac0e6ffd262a99ef210412b5346b5bfad10742" resname="ibd-form.other-sent-to-rrl">
@@ -2747,7 +2747,7 @@
       </trans-unit>
       <trans-unit id="2550471edef9b9c23751b135e1d6ea55521fd1ca" resname="ibd-form.other-sent-to-rrl-date">
         <source>ibd-form.other-sent-to-rrl-date</source>
-        <target>Date when other fluid/speciment was sent to RRL</target>
+        <target>Date when other fluid/specimen was sent to RRL</target>
         <jms:reference-file line="159">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="025152f2d8874ff156c638b8d12c06e8675d774f" resname="ibd-form.other-test-done1">
