@@ -35,22 +35,26 @@ class RelatedFieldValidator extends ConstraintValidator
     {
         $value = $this->propertyAccessor->getValue($obj, $constraint->sourceField);
         foreach ($constraint->sourceValue as $varValue) {
-            if ( ($value instanceof ArrayChoice && $value->equal($varValue)) || $value == $varValue ) {
-                $this->validateFields($obj,$constraint->fields);
+            if (($value instanceof ArrayChoice && $value->equal($varValue)) || $value == $varValue) {
+                $this->validateFields($obj, $constraint);
             }
         }
     }
 
     /**
      * @param BaseCase $obj
-     * @param array $fields
+     * @param RelatedField $constraint
      */
-    private function validateFields(BaseCase $obj, array $fields)
+    private function validateFields(BaseCase $obj, RelatedField $constraint)
     {
-        foreach($fields as $field) {
-            $value = $this->propertyAccessor->getValue($obj,$field);
-            if($value === null || empty($value) || ($value instanceof ArrayChoice && $value->equal(ArrayChoice::NO_SELECTION))) {
-                $this->context->buildViolation('field-is-required-due-to-adm-diagnosis')->atPath($field)->addViolation();
+        foreach ($constraint->fields as $field) {
+            $value = $this->propertyAccessor->getValue($obj, $field);
+            if ($value === null || empty($value) || ($value instanceof ArrayChoice && $value->equal(ArrayChoice::NO_SELECTION))) {
+                $this->context
+                    ->buildViolation($constraint->message)
+                    ->setParameters(['%source%' => $constraint->sourceField, '%field%' => $field])
+                    ->atPath($field)
+                    ->addViolation();
             }
         }
     }

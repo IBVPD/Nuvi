@@ -27,6 +27,9 @@ class RelatedField extends Constraint
     /** @var array */
     public $fields = [];
 
+    /** @var string */
+    public $message = "Due to response for '%source%' field, related field '%field%' is required";
+
     /**
      * @inheritDoc
      */
