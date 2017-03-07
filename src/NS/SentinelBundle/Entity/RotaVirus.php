@@ -16,6 +16,7 @@ use NS\SecurityBundle\Annotation\SecuredCondition;
 use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\Exclude;
 use NS\SentinelBundle\Validators as LocalAssert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Description of RotaVirus
@@ -28,6 +29,15 @@ use NS\SentinelBundle\Validators as LocalAssert;
  *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},relation="site",class="NSSentinelBundle:Site"),
  *      })
  * @SuppressWarnings(PHPMD.ShortVariable)
+ *
+ * @LocalAssert\GreaterThanDate(lessThanField="firstVaccinationDose",greaterThanField="admDate",message="form.validation.vaccination-after-admission")
+ * @LocalAssert\GreaterThanDate(lessThanField="secondVaccinationDose",greaterThanField="admDate",message="form.validation.vaccination-after-admission")
+ * @LocalAssert\GreaterThanDate(lessThanField="thirdVaccinationDose",greaterThanField="admDate",message="form.validation.vaccination-after-admission")
+ * @LocalAssert\GreaterThanDate(lessThanField="admDate",greaterThanField="stoolCollectionDate",message="form.validation.stool-collection-before-admission")
+ * @LocalAssert\GreaterThanDate(lessThanField="admDate",greaterThanField="dischargeDate",message="form.validation.stool-collection-before-admission")
+ * @LocalAssert\RelatedField(sourceField="stoolCollected",sourceValue={"1"},fields={"stoolCollectionDate"})
+ *
+ *
  * @ORM\EntityListeners(value={"NS\SentinelBundle\Entity\Listener\RotaVirusListener"})
  */
 class RotaVirus extends BaseCase
@@ -223,6 +233,7 @@ class RotaVirus extends BaseCase
      * @var TripleChoice $stool_collected
      * @ORM\Column(name="stool_collected",type="TripleChoice",nullable=true)
      * @Groups({"api"})
+     * @Assert\NotBlank()
      */
     private $stool_collected;
 
