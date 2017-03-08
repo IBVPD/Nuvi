@@ -4,7 +4,8 @@ namespace NS\SentinelBundle\Entity\IBD;
 
 use Doctrine\ORM\Mapping as ORM;
 use NS\SecurityBundle\Annotation as Security;
-use NS\SentinelBundle\Entity\BaseSiteLab;
+use NS\SentinelBundle\Entity\BaseCase;
+use NS\SentinelBundle\Entity\BaseSiteLabInterface;
 use NS\SentinelBundle\Entity\IBD;
 use NS\SentinelBundle\Form\IBD\Types\BinaxResult;
 use NS\SentinelBundle\Form\Types\TripleChoice;
@@ -54,7 +55,7 @@ use JMS\Serializer\Annotation\Groups;
  *                      @LocalAssert\Other(field="csfBinaxDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="csfBinaxResult",message="form.validation.ibd-sitelab-csfBinax-was-done-without-result"),
  *                      } )
  */
-class SiteLab
+class SiteLab implements BaseSiteLabInterface
 {
     /**
      * @var IBD
@@ -623,11 +624,11 @@ class SiteLab
     private $pleural_fluid_pcr_other;
 
     /**
-     * @param null $case
+     * @param IBD $case
      */
-    public function __construct($case = null)
+    public function __construct(IBD $case = null)
     {
-        if ($case instanceof IBD) {
+        if ($case) {
             $this->caseFile = $case;
         }
 
@@ -646,9 +647,10 @@ class SiteLab
     }
 
     /**
-     * @param IBD $caseFile
+     * @param BaseCase|IBD $caseFile
+     * @return \NS\SentinelBundle\Entity\BaseSiteLabInterface|void
      */
-    public function setCaseFile(IBD $caseFile)
+    public function setCaseFile(BaseCase $caseFile)
     {
         $this->caseFile = $caseFile;
     }

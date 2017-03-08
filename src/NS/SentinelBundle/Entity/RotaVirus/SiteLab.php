@@ -5,7 +5,8 @@ namespace NS\SentinelBundle\Entity\RotaVirus;
 use Doctrine\ORM\Mapping as ORM;
 use NS\SecurityBundle\Annotation\Secured;
 use NS\SecurityBundle\Annotation\SecuredCondition;
-use NS\SentinelBundle\Entity\BaseSiteLab;
+use NS\SentinelBundle\Entity\BaseCase;
+use NS\SentinelBundle\Entity\BaseSiteLabInterface;
 use NS\SentinelBundle\Entity\RotaVirus;
 use NS\SentinelBundle\Form\RotaVirus\Types\ElisaKit;
 use NS\SentinelBundle\Form\RotaVirus\Types\ElisaResult;
@@ -29,7 +30,7 @@ use NS\SentinelBundle\Validators as LocalAssert;
  * @LocalAssert\GreaterThanDate(lessThanField="caseFile.stoolCollectionDate",greaterThanField="received",message="form.validation.vaccination-after-admission")
  *
  */
-class SiteLab extends BaseSiteLab
+class SiteLab implements BaseSiteLabInterface
 {
     /**
      * @ORM\OneToOne(targetEntity="NS\SentinelBundle\Entity\RotaVirus",inversedBy="siteLab")
@@ -183,15 +184,33 @@ class SiteLab extends BaseSiteLab
     private $stoolSentToNLDate;
 
     /**
-     * @param null $virus
+     * @param RotaVirus  $case
      */
-    public function __construct($virus = null)
+    public function __construct(RotaVirus $case = null)
     {
-        if ($virus instanceof RotaVirus) {
-            $this->caseFile = $virus;
+        if ($case) {
+            $this->caseFile = $case;
         }
 
         return $this;
+    }
+
+    /**
+     * @return BaseCase|RotaVirus
+     */
+    public function getCaseFile()
+    {
+        return $this->caseFile;
+    }
+
+    /**
+     * @param BaseCase $caseFile
+     *
+     * @return SiteLab
+     */
+    public function setCaseFile(BaseCase $caseFile)
+    {
+        $this->caseFile = $caseFile;
     }
 
     /**
@@ -548,6 +567,24 @@ class SiteLab extends BaseSiteLab
         $this->stoolSentToNLDate = $stoolSentToNLDate;
 
         return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSentToNationalLab()
+    {
+        $tripleChoice = $this->getStoolSentToNL();
+        return ($tripleChoice && $tripleChoice->equal(TripleChoice::YES));
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSentToReferenceLab()
+    {
+        $tripleChoice = $this->getStoolSentToRRL();
+        return ($tripleChoice && $tripleChoice->equal(TripleChoice::YES));
     }
 
     /**

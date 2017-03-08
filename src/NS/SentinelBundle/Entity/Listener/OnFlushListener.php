@@ -7,7 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use NS\SentinelBundle\Entity\BaseCase;
 use NS\SentinelBundle\Entity\BaseExternalLab;
-use NS\SentinelBundle\Entity\BaseSiteLab;
+use NS\SentinelBundle\Entity\BaseSiteLabInterface;
 use NS\SentinelBundle\Entity\Loggable\LogEvent;
 use NS\SentinelBundle\Entity\Site;
 use NS\SentinelBundle\Loggable\LoggableListener;
@@ -50,14 +50,14 @@ class OnFlushListener
         $uow = $this->entityMgr->getUnitOfWork();
 
         foreach ($uow->getScheduledEntityInsertions() as $entity) {
-            if ($entity instanceof BaseCase || $entity instanceof BaseSiteLab || $entity instanceof BaseExternalLab) {
+            if ($entity instanceof BaseCase || $entity instanceof BaseSiteLabInterface || $entity instanceof BaseExternalLab) {
                 $this->entityMgr->persist($this->logger->getLogEvent(LogEvent::CREATED, $uow->getSingleIdentifierValue($entity), $entity));
                 $this->recomputeChangeSet = true;
             }
         }
 
         foreach ($uow->getScheduledEntityUpdates() as $entity) {
-            if ($entity instanceof BaseCase || $entity instanceof BaseSiteLab || $entity instanceof BaseExternalLab) {
+            if ($entity instanceof BaseCase || $entity instanceof BaseSiteLabInterface || $entity instanceof BaseExternalLab) {
                 if ($entity instanceof BaseCase) {
                     $this->checkLinking($entity, $this->entityMgr);
                 }
