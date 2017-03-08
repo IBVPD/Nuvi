@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Tests\Twig;
 
+use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Twig\CaseActions;
 use NS\SentinelBundle\Entity\IBD;
 use NS\SentinelBundle\Entity\RotaVirus;
@@ -113,8 +114,8 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         $obj = new RotaVirus();
         $lab = new RotaVirus\SiteLab();
-        $lab->setSentToReferenceLab(true);
-        $lab->setSentToNationalLab(true);
+        $lab->setStoolSentToRRL(new TripleChoice(TripleChoice::YES));
+        $lab->setStoolSentToNL(new TripleChoice(TripleChoice::YES));
         $obj->setSiteLab($lab);
 
         $bigResults = $action->getBigActions($obj);
@@ -162,8 +163,8 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         $obj = new RotaVirus();
         $lab = new RotaVirus\SiteLab();
-        $lab->setSentToReferenceLab(true);
-        $lab->setSentToNationalLab(true);
+        $lab->setStoolSentToRRL(new TripleChoice(TripleChoice::YES));
+        $lab->setStoolSentToNL(new TripleChoice(TripleChoice::YES));
         $obj->setSiteLab($lab);
 
         $bigResults = $action->getBigActions($obj);
@@ -210,8 +211,8 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         $obj        = new RotaVirus();
         $lab        = new RotaVirus\SiteLab();
-        $lab->setSentToReferenceLab(true);
-        $lab->setSentToNationalLab(true);
+        $lab->setStoolSentToRRL(new TripleChoice(TripleChoice::YES));
+        $lab->setStoolSentToNL(new TripleChoice(TripleChoice::YES));
         $obj->setSiteLab($lab);
         $bigResults = $action->getBigActions($obj);
 
@@ -345,8 +346,8 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         $obj = new RotaVirus();
         $lab = new RotaVirus\SiteLab();
-        $lab->setSentToReferenceLab(true);
-        $lab->setSentToNationalLab(true);
+        $lab->setStoolSentToRRL(new TripleChoice(TripleChoice::YES));
+        $lab->setStoolSentToNL(new TripleChoice(TripleChoice::YES));
         $obj->setSiteLab($lab);
 
         $bigResults = $action->getSmallActions($obj);
@@ -390,8 +391,8 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         $obj = new RotaVirus();
         $lab = new RotaVirus\SiteLab();
-        $lab->setSentToReferenceLab(true);
-        $lab->setSentToNationalLab(true);
+        $lab->setStoolSentToRRL(new TripleChoice(TripleChoice::YES));
+        $lab->setStoolSentToNL(new TripleChoice(TripleChoice::YES));
         $obj->setSiteLab($lab);
 
         $bigResults = $action->getSmallActions($obj);
@@ -436,8 +437,8 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         $obj = new RotaVirus();
         $lab = new RotaVirus\SiteLab();
-        $lab->setSentToReferenceLab(true);
-        $lab->setSentToNationalLab(true);
+        $lab->setStoolSentToRRL(new TripleChoice(TripleChoice::YES));
+        $lab->setStoolSentToNL(new TripleChoice(TripleChoice::YES));
         $obj->setSiteLab($lab);
 
         $bigResults = $action->getSmallActions($obj);
