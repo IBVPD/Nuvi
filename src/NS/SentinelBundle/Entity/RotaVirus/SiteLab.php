@@ -15,6 +15,8 @@ use NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultP;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use JMS\Serializer\Annotation\Groups;
 use NS\SentinelBundle\Validators as LocalAssert;
+use Symfony\Component\Validator\Constraints as Assert;
+use NS\UtilBundle\Validator\Constraints as UtilAssert;
 
 /**
  * Description of RotaVirusSiteLab
@@ -28,7 +30,7 @@ use NS\SentinelBundle\Validators as LocalAssert;
  *      })
  *
  * @LocalAssert\GreaterThanDate(lessThanField="caseFile.stoolCollectionDate",greaterThanField="received",message="form.validation.vaccination-after-admission")
- *
+ * @LocalAssert\RelatedField(sourceField="elisaDone",sourceValue={"1"},fields={"elisaTestDate","elisaResult"})
  */
 class SiteLab implements BaseSiteLabInterface
 {
@@ -44,6 +46,8 @@ class SiteLab implements BaseSiteLabInterface
      * @var \DateTime $received
      * @ORM\Column(name="received",type="datetime",nullable=true)
      * @Groups({"api"})
+     * @Assert\NotBlank()
+     * @Assert\Date()
      * @LocalAssert\NoFutureDate
      */
     private $received;
@@ -52,6 +56,7 @@ class SiteLab implements BaseSiteLabInterface
      * stool_adequate
      * @var TripleChoice $adequate
      * @ORM\Column(name="adequate",type="TripleChoice",nullable=true)
+     * @Assert\NotBlank()
      * @Groups({"api"})
      */
     private $adequate;
@@ -59,6 +64,8 @@ class SiteLab implements BaseSiteLabInterface
     /**
      * @var TripleChoice $stored
      * @ORM\Column(name="stored",type="TripleChoice",nullable=true)
+     * @Assert\NotBlank()
+     * @UtilAssert\ArrayChoiceConstraint()
      * @Groups({"api"})
      */
     private $stored;
@@ -66,6 +73,8 @@ class SiteLab implements BaseSiteLabInterface
     /**
      * @var TripleChoice $elisaDone
      * @ORM\Column(name="elisaDone",type="TripleChoice",nullable=true)
+     * @Assert\NotBlank()
+     * @UtilAssert\ArrayChoiceConstraint()
      * @Groups({"api"})
      */
     private $elisaDone;
