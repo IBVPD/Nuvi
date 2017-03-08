@@ -12,7 +12,6 @@ use NS\UtilBundle\Form\Types\ArrayChoice;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-use NS\SentinelBundle\Entity\BaseCase;
 
 class RelatedFieldValidator extends ConstraintValidator
 {
@@ -28,7 +27,7 @@ class RelatedFieldValidator extends ConstraintValidator
     }
 
     /**
-     * @param BaseCase $obj
+     * @param object $obj
      * @param Constraint|RelatedField $constraint
      */
     public function validate($obj, Constraint $constraint)
@@ -42,10 +41,10 @@ class RelatedFieldValidator extends ConstraintValidator
     }
 
     /**
-     * @param BaseCase $obj
+     * @param object $obj
      * @param RelatedField $constraint
      */
-    private function validateFields(BaseCase $obj, RelatedField $constraint)
+    private function validateFields($obj, RelatedField $constraint)
     {
         foreach ($constraint->fields as $field) {
             $value = $this->propertyAccessor->getValue($obj, $field);
