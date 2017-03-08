@@ -44,28 +44,22 @@ class SiteLabType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $attr1p1 = [
-            'hidden' => [
-                'parent' => 'elisaDone',
-                'value'  => TripleChoice::YES]
-        ];
-
         $builder
-            ->add('received',           DatePickerType::class)
-            ->add('adequate',           TripleChoice::class)
-            ->add('stored',             TripleChoice::class)
-            ->add('elisaDone',          TripleChoice::class)
-            ->add('elisaKit',           ElisaKit::class, ['hidden' => ['parent' => 'elisaDone', 'value' => TripleChoice::YES],'placeholder'=> ' '])
-            ->add('elisaKitOther',      null, ['hidden' => ['parent' => 'elisaKit', 'value' => ElisaKit::OTHER]])
-            ->add('elisaLoadNumber',    null, $attr1p1)
-            ->add('elisaExpiryDate',    DatePickerType::class, $attr1p1)
-            ->add('elisaTestDate',      DatePickerType::class, $attr1p1)
-            ->add('elisaResult',        ElisaResult::class, ['hidden' => ['parent' => 'elisaDone', 'value' => TripleChoice::YES],'placeholder'=> ' '])
-            ->add('genotypingDate',     DatePickerType::class)
-            ->add('genotypingResultG',  GenotypeResultG::class,['placeholder'=>' '])
-            ->add('genotypingResultGSpecify', null, ['hidden' => ['parent' => 'genotypingResultG', 'value' => GenotypeResultG::OTHER]])
-            ->add('genotypeResultP',    GenotypeResultP::class, ['placeholder' => ' '])
-            ->add('genotypeResultPSpecify', null, ['hidden' => ['parent' => 'genotypeResultP', 'value' => GenotypeResultP::OTHER]]);
+            ->add('received', DatePickerType::class, ['required' => true, 'label' => 'rotavirus-form.site-lab-sample-received'])
+            ->add('adequate', TripleChoice::class, ['required' => true, 'label' => 'rotavirus-form.site-lab-adequate'])
+            ->add('stored', TripleChoice::class, ['required' => true, 'label' => 'rotavirus-form.site-lab-stored'])
+            ->add('elisaDone', TripleChoice::class, ['required' => true, 'label' => 'rotavirus-form.site-lab-elisa-done'])
+            ->add('elisaKit', ElisaKit::class, ['required' => false, 'label' => 'rotavirus-form.site-lab-elisa-kit', 'hidden' => ['parent' => 'elisaDone', 'value' => TripleChoice::YES]])
+            ->add('elisaKitOther', null, ['required' => false, 'label' => 'rotavirus-form.site-lab-elisa-kit-other', 'hidden' => ['parent' => 'elisaKit', 'value' => ElisaKit::OTHER]])
+            ->add('elisaLoadNumber', null, ['required' => false, 'label' => 'rotavirus-form.site-lab-elisa-load-number', 'hidden' => ['parent' => 'elisaDone', 'value' => TripleChoice::YES]])
+            ->add('elisaExpiryDate', DatePickerType::class, ['required' => false, 'label' => 'rotavirus-form.site-lab-elisa-kit-expiry-date', 'hidden' => ['parent' => 'elisaDone', 'value' => TripleChoice::YES]])
+            ->add('elisaTestDate', DatePickerType::class, ['required' => false, 'label' => 'rotavirus-form.site-lab-test-date', 'hidden' => ['parent' => 'elisaDone', 'value' => TripleChoice::YES]])
+            ->add('elisaResult', ElisaResult::class, ['required' => false, 'label' => 'rotavirus-form.site-lab-result', 'hidden' => ['parent' => 'elisaDone', 'value' => TripleChoice::YES]])
+            ->add('genotypingDate', DatePickerType::class, ['required' => false, 'label' => 'rotavirus-form.site-lab-genotyping-date',])
+            ->add('genotypingResultG', GenotypeResultG::class, ['required' => false, 'label' => 'rotavirus-form.site-lab-genotyping-result-g'])
+            ->add('genotypingResultGSpecify', null, ['required' => false, 'label' => 'rotavirus-form.site-lab-genotyping-result-g-specify', 'hidden' => ['parent' => 'genotypingResultG', 'value' => GenotypeResultG::OTHER]])
+            ->add('genotypeResultP', GenotypeResultP::class, ['required' => false, 'label' => 'rotavirus-form.site-lab-genotype-result-p'])
+            ->add('genotypeResultPSpecify', null, ['required' => false, 'label' => 'rotavirus-form.site-lab-genotype-result-p-specify', 'hidden' => ['parent' => 'genotypeResultP', 'value' => GenotypeResultP::OTHER]]);
 
         $builder->addEventListener(FormEvents::POST_SET_DATA, [$this, 'postSetData']);
     }
