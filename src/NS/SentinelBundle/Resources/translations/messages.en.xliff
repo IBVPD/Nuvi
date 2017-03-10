@@ -2558,7 +2558,7 @@
       </trans-unit>
       <trans-unit id="18d965d65f9a42f3d9e87d5d831a1bffe675b70b" resname="ibd-form.hi-serotype">
         <source>ibd-form.hi-serotype</source>
-        <target>H. influenzae serotype by PCR or non PCR </target>
+        <target>H. influenzae serotype by PCR or non PCR</target>
         <jms:reference-file line="107">Form/IBD/SiteLabType.php</jms:reference-file>
         <jms:reference-file line="255">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
@@ -3506,7 +3506,7 @@
       </trans-unit>
       <trans-unit id="9f05ea2ef3ea0a4f42b72b8ba3a885261c39d5ee" resname="rotavirus-form.secondVaccinationDose">
         <source>rotavirus-form.secondVaccinationDose</source>
-        <target>Date of second Rotavirus vaccine dose </target>
+        <target>Date of second Rotavirus vaccine dose</target>
         <jms:reference-file line="80">Form/RotaVirus/CaseType.php</jms:reference-file>
         <jms:reference-file line="87">views/RotaVirus/show.html.twig</jms:reference-file>
       </trans-unit>
@@ -3651,7 +3651,7 @@
       </trans-unit>
       <trans-unit id="387edb7f4d6393d323ba2bcd815a871fec3df82c" resname="rotavirus-form.symptomDiarrhea">
         <source>rotavirus-form.symptomDiarrhea</source>
-        <target>Did case have acute diarrohea? </target>
+        <target>Did case have acute diarrhea?</target>
         <jms:reference-file line="64">Form/RotaVirus/CaseType.php</jms:reference-file>
         <jms:reference-file line="115">views/RotaVirus/show.html.twig</jms:reference-file>
       </trans-unit>
@@ -3694,7 +3694,7 @@
       </trans-unit>
       <trans-unit id="0a801c7f465bc32cb28e157ce0391a25996851b3" resname="rotavirus-form.thirdVaccinationDose">
         <source>rotavirus-form.thirdVaccinationDose</source>
-        <target>Date of third Rotavirus vaccine dose </target>
+        <target>Date of third Rotavirus vaccine dose</target>
         <jms:reference-file line="81">Form/RotaVirus/CaseType.php</jms:reference-file>
         <jms:reference-file line="94">views/RotaVirus/show.html.twig</jms:reference-file>
       </trans-unit>
