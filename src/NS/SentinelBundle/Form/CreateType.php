@@ -47,7 +47,7 @@ class CreateType extends AbstractType
     {
         $builder
             ->add('caseId', null, ['label' => 'site-assigned-case-id', 'constraints' => [new NotBlank()]])
-            ->add('type', CaseCreationType::class, ['description' => 'This should always be "1"'])
+            ->add('type', CaseCreationType::class, ['description' => 'This should always be "1"', 'label' => 'What type of case data?'])
         ;
 
         if ($this->siteSerializer->hasMultipleSites()) {
