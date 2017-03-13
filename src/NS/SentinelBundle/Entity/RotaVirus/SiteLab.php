@@ -5,7 +5,8 @@ namespace NS\SentinelBundle\Entity\RotaVirus;
 use Doctrine\ORM\Mapping as ORM;
 use NS\SecurityBundle\Annotation\Secured;
 use NS\SecurityBundle\Annotation\SecuredCondition;
-use NS\SentinelBundle\Entity\BaseSiteLab;
+use NS\SentinelBundle\Entity\BaseCase;
+use NS\SentinelBundle\Entity\BaseSiteLabInterface;
 use NS\SentinelBundle\Entity\RotaVirus;
 use NS\SentinelBundle\Form\RotaVirus\Types\ElisaKit;
 use NS\SentinelBundle\Form\RotaVirus\Types\ElisaResult;
@@ -14,6 +15,8 @@ use NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultP;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use JMS\Serializer\Annotation\Groups;
 use NS\SentinelBundle\Validators as LocalAssert;
+use Symfony\Component\Validator\Constraints as Assert;
+use NS\UtilBundle\Validator\Constraints as UtilAssert;
 
 /**
  * Description of RotaVirusSiteLab
@@ -25,8 +28,11 @@ use NS\SentinelBundle\Validators as LocalAssert;
  *      @SecuredCondition(roles={"ROLE_COUNTRY","ROLE_RRL_LAB","ROLE_NL_LAB"},through={"caseFile"},relation="country",class="NSSentinelBundle:Country"),
  *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},through={"caseFile"},relation="site",class="NSSentinelBundle:Site"),
  *      })
+ *
+ * @LocalAssert\GreaterThanDate(lessThanField="caseFile.stoolCollectionDate",greaterThanField="received",message="form.validation.vaccination-after-admission")
+ * @LocalAssert\RelatedField(sourceField="elisaDone",sourceValue={"1"},fields={"elisaTestDate","elisaResult"})
  */
-class SiteLab extends BaseSiteLab
+class SiteLab implements BaseSiteLabInterface
 {
     /**
      * @ORM\OneToOne(targetEntity="NS\SentinelBundle\Entity\RotaVirus",inversedBy="siteLab")
@@ -40,6 +46,8 @@ class SiteLab extends BaseSiteLab
      * @var \DateTime $received
      * @ORM\Column(name="received",type="datetime",nullable=true)
      * @Groups({"api"})
+     * @Assert\NotBlank()
+     * @Assert\Date()
      * @LocalAssert\NoFutureDate
      */
     private $received;
@@ -48,6 +56,7 @@ class SiteLab extends BaseSiteLab
      * stool_adequate
      * @var TripleChoice $adequate
      * @ORM\Column(name="adequate",type="TripleChoice",nullable=true)
+     * @Assert\NotBlank()
      * @Groups({"api"})
      */
     private $adequate;
@@ -55,6 +64,8 @@ class SiteLab extends BaseSiteLab
     /**
      * @var TripleChoice $stored
      * @ORM\Column(name="stored",type="TripleChoice",nullable=true)
+     * @Assert\NotBlank()
+     * @UtilAssert\ArrayChoiceConstraint()
      * @Groups({"api"})
      */
     private $stored;
@@ -62,6 +73,8 @@ class SiteLab extends BaseSiteLab
     /**
      * @var TripleChoice $elisaDone
      * @ORM\Column(name="elisaDone",type="TripleChoice",nullable=true)
+     * @Assert\NotBlank()
+     * @UtilAssert\ArrayChoiceConstraint()
      * @Groups({"api"})
      */
     private $elisaDone;
@@ -180,15 +193,33 @@ class SiteLab extends BaseSiteLab
     private $stoolSentToNLDate;
 
     /**
-     * @param null $virus
+     * @param RotaVirus  $case
      */
-    public function __construct($virus = null)
+    public function __construct(RotaVirus $case = null)
     {
-        if ($virus instanceof RotaVirus) {
-            $this->caseFile = $virus;
+        if ($case) {
+            $this->caseFile = $case;
         }
 
         return $this;
+    }
+
+    /**
+     * @return BaseCase|RotaVirus
+     */
+    public function getCaseFile()
+    {
+        return $this->caseFile;
+    }
+
+    /**
+     * @param BaseCase $caseFile
+     *
+     * @return SiteLab
+     */
+    public function setCaseFile(BaseCase $caseFile)
+    {
+        $this->caseFile = $caseFile;
     }
 
     /**
@@ -545,6 +576,24 @@ class SiteLab extends BaseSiteLab
         $this->stoolSentToNLDate = $stoolSentToNLDate;
 
         return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSentToNationalLab()
+    {
+        $tripleChoice = $this->getStoolSentToNL();
+        return ($tripleChoice && $tripleChoice->equal(TripleChoice::YES));
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getSentToReferenceLab()
+    {
+        $tripleChoice = $this->getStoolSentToRRL();
+        return ($tripleChoice && $tripleChoice->equal(TripleChoice::YES));
     }
 
     /**

@@ -2,12 +2,10 @@
 
 namespace NS\SentinelBundle\Tests\Twig;
 
+use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Twig\CaseActions;
 use NS\SentinelBundle\Entity\IBD;
 use NS\SentinelBundle\Entity\RotaVirus;
-
-use NS\SentinelBundle\Entity\IBD\SiteLab as IBDSiteLab;
-use NS\SentinelBundle\Entity\RotaVirus\SiteLab as RVSiteLab;
 
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -100,7 +98,7 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $action = new CaseActions($authChecker, $trans, $router);
 
         $obj = new IBD();
-        $lab = new IBDSiteLab();
+        $lab = new IBD\SiteLab();
         $lab->setRlBrothSent(true);
         $lab->setNlBrothSent(true);
         $obj->setSiteLab($lab);
@@ -115,9 +113,9 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $this->assertNotContains("Edit NL", $bigResults, "NL Link");
 
         $obj = new RotaVirus();
-        $lab = new RVSiteLab();
-        $lab->setSentToReferenceLab(true);
-        $lab->setSentToNationalLab(true);
+        $lab = new RotaVirus\SiteLab();
+        $lab->setStoolSentToRRL(new TripleChoice(TripleChoice::YES));
+        $lab->setStoolSentToNL(new TripleChoice(TripleChoice::YES));
         $obj->setSiteLab($lab);
 
         $bigResults = $action->getBigActions($obj);
@@ -149,7 +147,7 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $action = new CaseActions($authChecker, $trans, $router);
 
         $obj = new IBD();
-        $lab = new IBDSiteLab();
+        $lab = new IBD\SiteLab();
         $lab->setRlCsfSent(true);
         $lab->setNlCsfSent(true);
         $obj->setSiteLab($lab);
@@ -164,9 +162,9 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $this->assertContains("Edit NL", $bigResults, "NL Link");
 
         $obj = new RotaVirus();
-        $lab = new RVSiteLab();
-        $lab->setSentToReferenceLab(true);
-        $lab->setSentToNationalLab(true);
+        $lab = new RotaVirus\SiteLab();
+        $lab->setStoolSentToRRL(new TripleChoice(TripleChoice::YES));
+        $lab->setStoolSentToNL(new TripleChoice(TripleChoice::YES));
         $obj->setSiteLab($lab);
 
         $bigResults = $action->getBigActions($obj);
@@ -197,7 +195,7 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         $action = new CaseActions($authChecker, $trans, $router);
         $obj    = new IBD();
-        $lab    = new IBDSiteLab();
+        $lab    = new IBD\SiteLab();
         $lab->setRlCsfSent(true);
         $lab->setNlCsfSent(true);
         $obj->setSiteLab($lab);
@@ -212,9 +210,9 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $this->assertContains("Edit NL", $bigResults, "NL Link");
 
         $obj        = new RotaVirus();
-        $lab        = new RVSiteLab();
-        $lab->setSentToReferenceLab(true);
-        $lab->setSentToNationalLab(true);
+        $lab        = new RotaVirus\SiteLab();
+        $lab->setStoolSentToRRL(new TripleChoice(TripleChoice::YES));
+        $lab->setStoolSentToNL(new TripleChoice(TripleChoice::YES));
         $obj->setSiteLab($lab);
         $bigResults = $action->getBigActions($obj);
 
@@ -244,7 +242,7 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         $action = new CaseActions($authChecker, $trans, $router);
         $obj    = new IBD();
-        $lab    = new IBDSiteLab();
+        $lab    = new IBD\SiteLab();
         $lab->setRlCsfSent(true);
         $lab->setNlCsfSent(true);
         $obj->setSiteLab($lab);
@@ -333,7 +331,7 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         $action = new CaseActions($authChecker, $trans, $router);
         $obj    = new IBD();
-        $lab    = new IBDSiteLab();
+        $lab    = new IBD\SiteLab();
         $lab->setRlCsfSent(true);
         $lab->setNlCsfSent(true);
         $obj->setSiteLab($lab);
@@ -347,9 +345,9 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $this->assertNotContains("Edit NL", $bigResults, "NL Link");
 
         $obj = new RotaVirus();
-        $lab = new RVSiteLab();
-        $lab->setSentToReferenceLab(true);
-        $lab->setSentToNationalLab(true);
+        $lab = new RotaVirus\SiteLab();
+        $lab->setStoolSentToRRL(new TripleChoice(TripleChoice::YES));
+        $lab->setStoolSentToNL(new TripleChoice(TripleChoice::YES));
         $obj->setSiteLab($lab);
 
         $bigResults = $action->getSmallActions($obj);
@@ -378,7 +376,7 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         $action = new CaseActions($authChecker, $trans, $router);
         $obj    = new IBD();
-        $lab    = new IBDSiteLab();
+        $lab    = new IBD\SiteLab();
         $lab->setRlCsfSent(true);
         $lab->setNlCsfSent(true);
         $obj->setSiteLab($lab);
@@ -392,9 +390,9 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $this->assertContains("Edit NL", $bigResults, "NL Link");
 
         $obj = new RotaVirus();
-        $lab = new RVSiteLab();
-        $lab->setSentToReferenceLab(true);
-        $lab->setSentToNationalLab(true);
+        $lab = new RotaVirus\SiteLab();
+        $lab->setStoolSentToRRL(new TripleChoice(TripleChoice::YES));
+        $lab->setStoolSentToNL(new TripleChoice(TripleChoice::YES));
         $obj->setSiteLab($lab);
 
         $bigResults = $action->getSmallActions($obj);
@@ -424,7 +422,7 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         $action = new CaseActions($authChecker, $trans, $router);
         $obj    = new IBD();
-        $lab    = new IBDSiteLab();
+        $lab    = new IBD\SiteLab();
         $lab->setRlCsfSent(true);
         $lab->setNlCsfSent(true);
         $obj->setSiteLab($lab);
@@ -438,9 +436,9 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $this->assertContains("Edit NL", $bigResults, "NL Link");
 
         $obj = new RotaVirus();
-        $lab = new RVSiteLab();
-        $lab->setSentToReferenceLab(true);
-        $lab->setSentToNationalLab(true);
+        $lab = new RotaVirus\SiteLab();
+        $lab->setStoolSentToRRL(new TripleChoice(TripleChoice::YES));
+        $lab->setStoolSentToNL(new TripleChoice(TripleChoice::YES));
         $obj->setSiteLab($lab);
 
         $bigResults = $action->getSmallActions($obj);

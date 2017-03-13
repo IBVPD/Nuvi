@@ -471,7 +471,7 @@ abstract class BaseCase
     }
 
     /**
-     * @return BaseSiteLab
+     * @return BaseSiteLabInterface
      */
     public function getSiteLab()
     {

@@ -5,6 +5,8 @@ namespace NS\SentinelBundle\Tests\Validators;
 use NS\SentinelBundle\Entity\IBD;
 use NS\SentinelBundle\Validators\GreaterThanDate;
 use NS\SentinelBundle\Validators\GreaterThanDateValidator;
+use Symfony\Component\PropertyAccess\Exception\UnexpectedTypeException;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
@@ -110,5 +112,23 @@ class GreaterThanDateValidatorTest extends \PHPUnit_Framework_TestCase
 
         $this->validator->validate($ibd, new GreaterThanDate(['lessThanField' => 'admDate', 'greaterThanField' => 'pleural_fluid_collect_date']));
         $this->validator->validate($ibd, new GreaterThanDate(['lessThanField' => 'admDate', 'greaterThanField' => 'pleuralFluidCollectDate']));
+    }
+
+    public function testNullGraph()
+    {
+        $ibd = new IBD();
+
+        $this->context
+            ->expects($this->never())
+            ->method('buildViolation');
+
+        $accessor = PropertyAccess::createPropertyAccessor();
+        try {
+            $accessor->getValue($ibd, 'siteLab.csfCultDone.value');
+            $this->fail('Accessor needed to throw an UnexpectedTypeException');
+        } catch (UnexpectedTypeException $exception) {
+            $constraint = new GreaterThanDate(['lessThanField' => 'siteLab.csfCultDone.value', 'greaterThanField' => 'admDate']);
+            $this->validator->validate($ibd, $constraint);
+        }
     }
 }

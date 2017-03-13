@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2017-02-23T10:14:15Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
+  <file date="2017-03-08T07:54:40Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -56,6 +56,10 @@
         <source>Your password must be at least 6 characters</source>
         <target> La contraseña debe tener al menos 6 caracteres</target>
       </trans-unit>
+      <trans-unit id="d705ef6477a31cceb4244c687a3a38f8031db0d4" resname="field-is-required-due-to-adm-diagnosis">
+        <source>field-is-required-due-to-adm-diagnosis</source>
+        <target state="new">field-is-required-due-to-adm-diagnosis</target>
+      </trans-unit>
       <trans-unit id="6ec5ef144b9f2e30eb9289b4f439ab0bd8a453c4" resname="form.validation.admission-after-onset">
         <source>form.validation.admission-after-onset</source>
         <target>form.validation.admission-after-onse    La fecha de inicio debe ser antes que la fecha de admisión </target>
@@ -63,6 +67,14 @@
       <trans-unit id="f201efd9691822f928878aa1e2ec99044699eaf0" resname="form.validation.onset-after-dob">
         <source>form.validation.onset-after-dob</source>
         <target>form.validation.onset-after-dob       Fecha de nacimiento debe ser antes que la fecha de inicio</target>
+      </trans-unit>
+      <trans-unit id="e0f798c230ecadc8c49331cc9ce4342250cf4e6c" resname="form.validation.stool-collection-before-admission">
+        <source>form.validation.stool-collection-before-admission</source>
+        <target state="new">form.validation.stool-collection-before-admission</target>
+      </trans-unit>
+      <trans-unit id="dccaba43c77fc24bc13003c93becde3569de8268" resname="form.validation.vaccination-after-admission">
+        <source>form.validation.vaccination-after-admission</source>
+        <target state="new">form.validation.vaccination-after-admission</target>
       </trans-unit>
     </body>
   </file>

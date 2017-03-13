@@ -3,12 +3,16 @@
 namespace NS\SentinelBundle\Entity\RotaVirus;
 
 use Doctrine\ORM\Mapping as ORM;
+use NS\SentinelBundle\Validators as LocalAssert;
 
 /**
  * Description of ReferenceLab
  * @author gnat
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\RotaVirus\NationalLabRepository")
  * @ORM\Table(name="rota_national_labs")
+ *
+ * @LocalAssert\GreaterThanDate(lessThanField="caseFile.siteLab.stoolSentToNLDate",greaterThanField="dateReceived",message="form.validation.vaccination-after-admission")
+ * @LocalAssert\GreaterThanDate(lessThanField="dateReceived",greaterThanField="genotypingDate",message="form.validation.vaccination-after-admission")
  */
 class NationalLab extends ExternalLab
 {

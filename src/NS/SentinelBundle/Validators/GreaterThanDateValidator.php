@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Validators;
 
+use Symfony\Component\PropertyAccess\Exception\UnexpectedTypeException;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -19,9 +20,14 @@ class GreaterThanDateValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
         $accessor = PropertyAccess::createPropertyAccessor();
+        $lessThanValue = $greaterThanValue = null;
 
-        $lessThanValue = $accessor->getValue($value, $constraint->lessThanField);
-        $greaterThanValue = $accessor->getValue($value, $constraint->greaterThanField);
+        try {
+            $lessThanValue = $accessor->getValue($value, $constraint->lessThanField);
+            $greaterThanValue = $accessor->getValue($value, $constraint->greaterThanField);
+        } catch (UnexpectedTypeException $exception) {
+
+        }
 
         if ($lessThanValue instanceof \DateTime && $greaterThanValue instanceof \DateTime) {
             if ($lessThanValue > $greaterThanValue) {
