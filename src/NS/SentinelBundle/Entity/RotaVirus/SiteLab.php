@@ -13,7 +13,7 @@ use NS\SentinelBundle\Form\RotaVirus\Types\ElisaResult;
 use NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultG;
 use NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultP;
 use NS\SentinelBundle\Form\Types\TripleChoice;
-use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation as Serializer;
 use NS\SentinelBundle\Validators as LocalAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 use NS\UtilBundle\Validator\Constraints as UtilAssert;
@@ -45,7 +45,7 @@ class SiteLab implements BaseSiteLabInterface
     /**
      * @var \DateTime $received
      * @ORM\Column(name="received",type="datetime",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      * @Assert\NotBlank()
      * @Assert\Date()
      * @LocalAssert\NoFutureDate
@@ -57,7 +57,7 @@ class SiteLab implements BaseSiteLabInterface
      * @var TripleChoice $adequate
      * @ORM\Column(name="adequate",type="TripleChoice",nullable=true)
      * @Assert\NotBlank()
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $adequate;
 
@@ -66,7 +66,7 @@ class SiteLab implements BaseSiteLabInterface
      * @ORM\Column(name="stored",type="TripleChoice",nullable=true)
      * @Assert\NotBlank()
      * @UtilAssert\ArrayChoiceConstraint()
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $stored;
 
@@ -75,42 +75,44 @@ class SiteLab implements BaseSiteLabInterface
      * @ORM\Column(name="elisaDone",type="TripleChoice",nullable=true)
      * @Assert\NotBlank()
      * @UtilAssert\ArrayChoiceConstraint()
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $elisaDone;
 
     /**
      * @var ElisaKit $elisaKit
      * @ORM\Column(name="elisaKit",type="ElisaKit",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $elisaKit;
 
     /**
      * @var string $elisaKitOther
      * @ORM\Column(name="elisaKitOther",type="string",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $elisaKitOther;
 
     /**
      * @var string $elisaLoadNumber
      * @ORM\Column(name="elisaLoadNumber",type="string",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $elisaLoadNumber;
 
     /**
      * @var \DateTime $elisaExpiryDate
      * @ORM\Column(name="elisaExpiryDate",type="date",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'Y-m-d'>")
      */
     private $elisaExpiryDate;
 
     /**
      * @var \DateTime $testDate
      * @ORM\Column(name="elisaTestDate",type="date",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'Y-m-d'>")
      * @LocalAssert\NoFutureDate
      */
     private $elisaTestDate;
@@ -118,14 +120,16 @@ class SiteLab implements BaseSiteLabInterface
     /**
      * @var ElisaResult $elisaResult
      * @ORM\Column(name="elisaResult",type="ElisaResult",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $elisaResult;
 
     /**
      * @var \DateTime $genotypingDate
      * @ORM\Column(name="genotypingDate",type="date", nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'Y-m-d'>")
+     * @Serializer\SerializedName("genotyping_date")
      * @LocalAssert\NoFutureDate
      */
     private $genotypingDate;
@@ -133,28 +137,28 @@ class SiteLab implements BaseSiteLabInterface
     /**
      * @var GenotypeResultG $genotypingResultG
      * @ORM\Column(name="genotypingResultG",type="GenotypeResultG", nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $genotypingResultG;
 
     /**
      * @var string $genotypingResultGSpecify
      * @ORM\Column(name="genotypingResultGSpecify",type="string", nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $genotypingResultGSpecify;
 
     /**
      * @var GenotypeResultP $genotypeResultP
      * @ORM\Column(name="genotypeResultP",type="GenotypeResultP", nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $genotypeResultP;
 
     /**
      * @var string $genotypeResultPSpecify
      * @ORM\Column(name="genotypeResultPSpecify",type="string", nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $genotypeResultPSpecify;
 
@@ -162,7 +166,7 @@ class SiteLab implements BaseSiteLabInterface
      * RRL_stool_sent
      * @var TripleChoice $stoolSentToRRL
      * @ORM\Column(name="stoolSentToRRL",type="TripleChoice",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $stoolSentToRRL; // These are duplicated from the boolean fields in the class we extend
 
@@ -170,7 +174,8 @@ class SiteLab implements BaseSiteLabInterface
      * RRL_stool_date
      * @var \DateTime $stoolSentToRRLDate
      * @ORM\Column(name="stoolSentToRRLDate",type="date",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'Y-m-d'>")
      * @LocalAssert\NoFutureDate
      */
     private $stoolSentToRRLDate;
@@ -179,7 +184,7 @@ class SiteLab implements BaseSiteLabInterface
      * NL_stool_sent
      * @var TripleChoice $stoolSentToNL
      * @ORM\Column(name="stoolSentToNL",type="TripleChoice",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $stoolSentToNL; // These are duplicated from the boolean fields in the class we extend
 
@@ -187,7 +192,8 @@ class SiteLab implements BaseSiteLabInterface
      * NL_stool_date
      * @var \DateTime $stoolSentToNLDate
      * @ORM\Column(name="stoolSentToNLDate",type="date",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'Y-m-d'>")
      * @LocalAssert\NoFutureDate
      */
     private $stoolSentToNLDate;

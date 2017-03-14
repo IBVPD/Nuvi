@@ -37,14 +37,14 @@ abstract class BaseCase
      * @ORM\CustomIdGenerator(class="\NS\SentinelBundle\Entity\Generator\BaseCaseGenerator")
      * @var string $id
      * @ORM\Column(name="id",type="string")
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     protected $id;
 
     /**
      * @var string $lastName
      * @ORM\Column(name="lastName",type="string",nullable=true)
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      * @Assert\NotBlank(groups={"AMR"})
      */
     protected $lastName;
@@ -52,14 +52,14 @@ abstract class BaseCase
     /**
      * @var string $parentalName
      * @ORM\Column(name="parentalName",type="string",nullable=true)
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     protected $parentalName;
 
     /**
      * @var string $firstName
      * @ORM\Column(name="firstName",type="string",nullable=true)
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      * @Assert\NotBlank(groups={"AMR"})
      */
     protected $firstName;
@@ -69,14 +69,14 @@ abstract class BaseCase
      * @var string $case_id
      * @ORM\Column(name="case_id",type="string",nullable=false)
      * @Assert\NotBlank()
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     protected $case_id;
 
     /**
      * @var string $district
      * @ORM\Column(name="district",type="string",nullable=true)
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     protected $district;
 
@@ -90,8 +90,9 @@ abstract class BaseCase
      * @var \DateTime $birthdate
      * @ORM\Column(name="birthdate",type="date",nullable=true)
      * @Assert\Date
-     * @Serializer\Groups({"api"})
      * @LocalAssert\NoFutureDate()
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'Y-m-d'>")
      */
     protected $birthdate;
 
@@ -107,7 +108,7 @@ abstract class BaseCase
     /**
      * @var integer $age
      * @ORM\Column(name="age_months",type="integer",nullable=true)
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     protected $age_months;
 
@@ -120,7 +121,7 @@ abstract class BaseCase
     /**
      * @var Gender $gender
      * @ORM\Column(name="gender",type="Gender",nullable=true)
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      * @Assert\NotBlank(groups={"AMR"})
      */
     protected $gender;
@@ -128,7 +129,8 @@ abstract class BaseCase
     /**
      * @var \DateTime $admDate
      * @ORM\Column(name="adm_date",type="date",nullable=true)
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'Y-m-d'>")
      * @Assert\NotBlank(groups={"AMR"})
      * @Assert\Date()
      * @LocalAssert\NoFutureDate()
@@ -138,7 +140,7 @@ abstract class BaseCase
     /**
      * @var CaseStatus $status
      * @ORM\Column(name="status",type="CaseStatus")
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     protected $status;
 
@@ -146,6 +148,7 @@ abstract class BaseCase
      * @var \DateTime $updatedAt
      * @ORM\Column(name="updatedAt",type="datetime")
      * @Serializer\Groups({"api"})
+     * @Serializer\Type(name="DateTime<'Y-m-d H:i:s'>")
      */
     protected $updatedAt;
 
@@ -153,6 +156,7 @@ abstract class BaseCase
      * @var \DateTime $createdAt
      * @ORM\Column(name="createdAt",type="datetime")
      * @Serializer\Groups({"api"})
+     * @Serializer\Type(name="DateTime<'Y-m-d H:i:s'>")
      */
     protected $createdAt;
 
@@ -160,7 +164,7 @@ abstract class BaseCase
      * @var Region $region
      * @ORM\ManyToOne(targetEntity="\NS\SentinelBundle\Entity\Region")
      * @ORM\JoinColumn(nullable=false,referencedColumnName="code")
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     protected $region;
 
@@ -168,7 +172,7 @@ abstract class BaseCase
      * @var Country $country
      * @ORM\ManyToOne(targetEntity="\NS\SentinelBundle\Entity\Country")
      * @ORM\JoinColumn(nullable=false,referencedColumnName="code")
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     protected $country;
 
@@ -176,7 +180,7 @@ abstract class BaseCase
      * @var Site $site
      * @ORM\ManyToOne(targetEntity="\NS\SentinelBundle\Entity\Site")
      * @ORM\JoinColumn(nullable=true,referencedColumnName="code")
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     protected $site;
 

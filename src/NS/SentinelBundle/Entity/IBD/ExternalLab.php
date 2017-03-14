@@ -37,7 +37,8 @@ abstract class ExternalLab extends BaseExternalLab
     /**
      * @var \DateTime $sampleCollectionDate
      * @ORM\Column(name="sample_collection_date",type="date",nullable=true)
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'Y-m-d'>")
      * @LocalAssert\NoFutureDate()
      */
     protected $sample_collection_date;
@@ -45,49 +46,49 @@ abstract class ExternalLab extends BaseExternalLab
     /**
      * @var SampleType
      * @ORM\Column(name="type_sample_recd",type="SampleType",nullable=true)
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     protected $type_sample_recd;
 
     /**
      * @var IsolateViable
      * @ORM\Column(name="isolate_viable",type="IsolateViable",nullable=true)
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     protected $isolate_viable;
 
     /**
      * @var IsolateType
      * @ORM\Column(name="isolate_type",type="IsolateType",nullable=true)
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     protected $isolate_type;
 
     /**
      * @var PathogenIdentifier
      * @ORM\Column(name="method_used_pathogen_identify",type="PathogenIdentifier",nullable=true)
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     protected $method_used_pathogen_identify;
 
     /**
      * @var string
      * @ORM\Column(name="method_used_pathogen_identify_other", type="string",nullable=true)
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     protected $method_used_pathogen_identify_other;
 
     /**
      * @var SerotypeIdentifier
      * @ORM\Column(name="method_used_st_sg",type="SerotypeIdentifier",nullable=true)
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     protected $method_used_st_sg;
 
     /**
      * @var string
      * @ORM\Column(name="method_used_st_sg_other",type="string",nullable=true)
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     protected $method_used_st_sg_other;
 
@@ -95,7 +96,7 @@ abstract class ExternalLab extends BaseExternalLab
      * @var double
      * @ORM\Column(name="Spn_lytA",type="decimal",precision=3, scale=1,nullable=true)
      * @Assert\Range(min=-10,max=50)
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     protected $spn_lytA;
 
@@ -103,7 +104,7 @@ abstract class ExternalLab extends BaseExternalLab
      * @var integer $ctrA
      * @ORM\Column(name="Nm_ctrA",type="decimal",precision=3, scale=1,nullable=true)
      * @Assert\Range(min=-10,max=50)
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     protected $nm_ctrA;
 
@@ -111,7 +112,7 @@ abstract class ExternalLab extends BaseExternalLab
      * @var double
      * @ORM\Column(name="nm_sodC",type="decimal",precision=3, scale=1,nullable=true)
      * @Assert\Range(min=-10,max=50)
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     protected $nm_sodC;
 
@@ -119,7 +120,7 @@ abstract class ExternalLab extends BaseExternalLab
      * @var double
      * @ORM\Column(name="hi_hpd1",type="decimal",precision=3, scale=1,nullable=true)
      * @Assert\Range(min=-10,max=50)
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     protected $hi_hpd1;
 
@@ -127,7 +128,7 @@ abstract class ExternalLab extends BaseExternalLab
      * @var double
      * @ORM\Column(name="hi_hpd3",type="decimal",precision=3, scale=1,nullable=true)
      * @Assert\Range(min=-10,max=50)
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     protected $hi_hpd3;
 
@@ -135,7 +136,7 @@ abstract class ExternalLab extends BaseExternalLab
      * @var double
      * @ORM\Column(name="hi_bexA",type="decimal",precision=3, scale=1,nullable=true)
      * @Assert\Range(min=-10,max=50)
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     protected $hi_bexA;
 
@@ -143,7 +144,7 @@ abstract class ExternalLab extends BaseExternalLab
      * @var double
      * @ORM\Column(name="humanDNA_RNAseP",type="decimal",precision=3, scale=1,nullable=true)
      * @Assert\Range(min=-10,max=50)
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     protected $humanDNA_RNAseP;
 
@@ -156,21 +157,21 @@ abstract class ExternalLab extends BaseExternalLab
     /**
      * @var double
      * @ORM\Column(name="spn_serotype",type="SpnSerotype",nullable=true)
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     protected $spn_serotype;
 
     /**
      * @var double
      * @ORM\Column(name="hi_serotype",type="HiSerotype",nullable=true)
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     protected $hi_serotype;
 
     /**
      * @var double
      * @ORM\Column(name="nm_serogroup",type="NmSerogroup",nullable=true)
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     protected $nm_serogroup;
 

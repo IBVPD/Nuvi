@@ -29,7 +29,8 @@ abstract class ExternalLab extends BaseExternalLab
     /**
      * @var \DateTime $specimenCollectionDate
      * @ORM\Column(name="specimenCollectionDate",type="date",nullable=true)
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'Y-m-d'>")
      * @LocalAssert\NoFutureDate
      */
     protected $specimenCollectionDate;
@@ -37,7 +38,8 @@ abstract class ExternalLab extends BaseExternalLab
     /**
      * @var \DateTime $genotypingDate
      * @ORM\Column(name="dt_gt",type="date", nullable=true)
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'Y-m-d'>")
      * @LocalAssert\NoFutureDate
      */
     protected $dt_gt;
@@ -45,35 +47,35 @@ abstract class ExternalLab extends BaseExternalLab
     /**
      * @var GenotypeResultG $genotypingResultg
      * @ORM\Column(name="gt_result_g",type="GenotypeResultG", nullable=true)
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     protected $gt_result_g;
 
     /**
      * @var string $genotypingResultGSpecify
      * @ORM\Column(name="gt_result_g_specify",type="string", nullable=true)
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     protected $gt_result_g_specify;
 
     /**
      * @var GenotypeResultP $genotypeResultP
      * @ORM\Column(name="gt_result_p",type="GenotypeResultP", nullable=true)
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     protected $gt_result_p;
 
     /**
      * @var string $genotypeResultPSpecify
      * @ORM\Column(name="gt_result_p_specify",type="string", nullable=true)
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     protected $gt_result_p_specify;
 
     /**
      * @var ElisaResult $pcrVp6Result
      * @ORM\Column(name="pcr_vp6_result",type="ElisaResult", nullable=true)
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     protected $pcr_vp6_result;
 
@@ -215,5 +217,85 @@ abstract class ExternalLab extends BaseExternalLab
             'gt_result_p',
             'gt_result_p_specify',
             'pcr_vp6_result'];
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDtGt()
+    {
+        return $this->dt_gt;
+    }
+
+    /**
+     * @param \DateTime $dt_gt
+     */
+    public function setDtGt($dt_gt)
+    {
+        $this->dt_gt = $dt_gt;
+    }
+
+    /**
+     * @return GenotypeResultG
+     */
+    public function getGtResultG()
+    {
+        return $this->gt_result_g;
+    }
+
+    /**
+     * @param GenotypeResultG $gt_result_g
+     */
+    public function setGtResultG($gt_result_g)
+    {
+        $this->gt_result_g = $gt_result_g;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGtResultGSpecify()
+    {
+        return $this->gt_result_g_specify;
+    }
+
+    /**
+     * @param string $gt_result_g_specify
+     */
+    public function setGtResultGSpecify($gt_result_g_specify)
+    {
+        $this->gt_result_g_specify = $gt_result_g_specify;
+    }
+
+    /**
+     * @return GenotypeResultP
+     */
+    public function getGtResultP()
+    {
+        return $this->gt_result_p;
+    }
+
+    /**
+     * @param GenotypeResultP $gt_result_p
+     */
+    public function setGtResultP($gt_result_p)
+    {
+        $this->gt_result_p = $gt_result_p;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGtResultPSpecify()
+    {
+        return $this->gt_result_p_specify;
+    }
+
+    /**
+     * @param string $gt_result_p_specify
+     */
+    public function setGtResultPSpecify($gt_result_p_specify)
+    {
+        $this->gt_result_p_specify = $gt_result_p_specify;
     }
 }

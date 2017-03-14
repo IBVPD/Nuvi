@@ -20,7 +20,7 @@ use NS\SentinelBundle\Form\IBD\Types\PCRResult;
 use NS\UtilBundle\Form\Types\ArrayChoice;
 use Symfony\Component\Validator\Constraints as Assert;
 use NS\SentinelBundle\Validators as LocalAssert;
-use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  *
@@ -71,7 +71,7 @@ class SiteLab implements BaseSiteLabInterface
     /**
      * @var string $csf_id
      * @ORM\Column(name="csf_id",type="string",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $csf_id;
 
@@ -80,7 +80,8 @@ class SiteLab implements BaseSiteLabInterface
      * @ORM\Column(name="csf_lab_date",type="date",nullable=true)
      * @Assert\DateTime
      * @LocalAssert\NoFutureDate()
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'Y-m-d'>")
      */
     private $csf_lab_date;
 
@@ -88,7 +89,8 @@ class SiteLab implements BaseSiteLabInterface
      * @var \DateTime $csfLabTime
      * @ORM\Column(name="csf_lab_time",type="time",nullable=true)
      * @Assert\DateTime
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'H:i:s'>")
      */
     private $csf_lab_time;
 
@@ -97,7 +99,7 @@ class SiteLab implements BaseSiteLabInterface
      * @ORM\Column(name="csf_wcc", type="integer", nullable=true)
      *
      * @Assert\Range(min=0,max=9999,minMessage="You cannot have a negative white blood cell count",maxMessage="Invalid value")
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $csf_wcc;
 
@@ -107,7 +109,7 @@ class SiteLab implements BaseSiteLabInterface
      *
      * @Assert\Type(type="numeric", message="Invalid value. Must be a number")
      * @Assert\GreaterThanOrEqual(value=0, message="Invalid value - value must be greater than 0")
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $csf_glucose;
 
@@ -117,56 +119,56 @@ class SiteLab implements BaseSiteLabInterface
      *
      * @Assert\Type(type="numeric", message="Invalid value. Must be a number")
      * @Assert\GreaterThanOrEqual(value=0, message="Invalid value - value must be greater than 0")
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $csf_protein;
 
     /**
      * @var TripleChoice $csfCultDone
      * @ORM\Column(name="csf_cult_done",type="TripleChoice",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $csf_cult_done;
 
     /**
      * @var TripleChoice $csfGramDone
      * @ORM\Column(name="csf_gram_done",type="TripleChoice",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $csf_gram_done;
 
     /**
      * @var TripleChoice $csfBinaxDone
      * @ORM\Column(name="csf_binax_done",type="TripleChoice",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $csf_binax_done;
 
     /**
      * @var TripleChoice $csfLatDone
      * @ORM\Column(name="csf_lat_done",type="TripleChoice",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $csf_lat_done;
 
     /**
      * @var TripleChoice $csfPcrDone
      * @ORM\Column(name="csf_pcr_done",type="TripleChoice",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $csf_pcr_done;
 
     /**
      * @var CultureResult $csfCultResult
      * @ORM\Column(name="csf_cult_result",type="CultureResult",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $csf_cult_result;
 
     /**
      * @var string $csfCultOther
      * @ORM\Column(name="csf_cult_other",type="string",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $csf_cult_other;
 
@@ -180,70 +182,70 @@ class SiteLab implements BaseSiteLabInterface
     /**
      * @var GramStain
      * @ORM\Column(name="csf_gram_stain",type="GramStain",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $csf_gram_stain;
 
     /**
      * @var GramStainResult $csfGramResult
      * @ORM\Column(name="csf_gram_result",type="GramStainResult",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $csf_gram_result;
 
     /**
      * @var string $csfGramOther
      * @ORM\Column(name="csf_gram_other",type="string",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $csf_gram_other;
 
     /**
      * @var BinaxResult
      * @ORM\Column(name="csf_binax_result",type="BinaxResult",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $csf_binax_result;
 
     /**
      * @var LatResult
      * @ORM\Column(name="csf_lat_result",type="LatResult",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $csf_lat_result;
 
     /**
      * @var string
      * @ORM\Column(name="csf_lat_other",type="string",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $csf_lat_other;
 
     /**
      * @var PCRResult
      * @ORM\Column(name="csf_pcr_result",type="PCRResult",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $csf_pcr_result;
 
     /**
      * @var string $csfPcrOther
      * @ORM\Column(name="csf_pcr_other",type="string",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $csf_pcr_other;
 
     /**
      * @var TripleChoice $csfStore
      * @ORM\Column(name="csf_store",type="TripleChoice",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $csf_store;
 
     /**
      * @var TripleChoice $csfStore
      * @ORM\Column(name="isol_store",type="TripleChoice",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $isol_store;
 
@@ -252,7 +254,7 @@ class SiteLab implements BaseSiteLabInterface
     /**
      * @var string $bloodId
      * @ORM\Column(name="blood_id",type="string",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $blood_id;
 
@@ -261,7 +263,8 @@ class SiteLab implements BaseSiteLabInterface
      * @ORM\Column(name="blood_lab_date",type="date",nullable=true)
      * @Assert\DateTime
      * @LocalAssert\NoFutureDate()
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'Y-m-d'>")
      */
     private $blood_lab_date;
 
@@ -269,84 +272,85 @@ class SiteLab implements BaseSiteLabInterface
      * @var \DateTime $bloodLabTime
      * @ORM\Column(name="blood_lab_time",type="time",nullable=true)
      * @Assert\DateTime
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'H:i:s'>")
      */
     private $blood_lab_time;
 
     /**
      * @var TripleChoice $bloodCultDone
      * @ORM\Column(name="blood_cult_done",type="TripleChoice",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $blood_cult_done;
 
     /**
      * @var TripleChoice $bloodGramDone
      * @ORM\Column(name="blood_gram_done",type="TripleChoice",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $blood_gram_done;
 
     /**
      * @var TripleChoice $bloodPcrDone
      * @ORM\Column(name="blood_pcr_done",type="TripleChoice",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $blood_pcr_done;
 
     /**
      * @var CultureResult
      * @ORM\Column(name="blood_cult_result",type="CultureResult",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $blood_cult_result;
 
     /**
      * @var string
      * @ORM\Column(name="blood_cult_other",type="string",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $blood_cult_other;
 
     /**
      * @var GramStain
      * @ORM\Column(name="blood_gram_stain",type="GramStain",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $blood_gram_stain;
 
     /**
      * @var GramStainResult $bloodGramResult
      * @ORM\Column(name="blood_gram_result",type="GramStainResult",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $blood_gram_result;
 
     /**
      * @var string $bloodGramOther
      * @ORM\Column(name="blood_gram_other",type="string",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $blood_gram_other;
 
     /**
      * @var PCRResult
      * @ORM\Column(name="blood_pcr_result",type="PCRResult",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $blood_pcr_result;
 
     /**
      * @var string $bloodPcrOther
      * @ORM\Column(name="blood_pcr_other",type="string",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $blood_pcr_other;
 
     /**
      * @var string $other_id
      * @ORM\Column(name="other_id",type="string",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $other_id;
 
@@ -355,7 +359,8 @@ class SiteLab implements BaseSiteLabInterface
      * @ORM\Column(name="other_lab_date",type="date",nullable=true)
      * @Assert\DateTime
      * @LocalAssert\NoFutureDate()
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'Y-m-d'>")
      */
     private $other_lab_date;
 
@@ -363,49 +368,50 @@ class SiteLab implements BaseSiteLabInterface
      * @var \DateTime $otherLabTime
      * @ORM\Column(name="other_lab_time",type="time",nullable=true)
      * @Assert\DateTime
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'H:i:s'>")
      */
     private $other_lab_time;
 
     /**
      * @var TripleChoice $otherCultDone
      * @ORM\Column(name="other_cult_done",type="TripleChoice",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $other_cult_done;
 
     /**
      * @var CultureResult
      * @ORM\Column(name="other_cult_result",type="CultureResult",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $other_cult_result;
 
     /**
      * @var string
      * @ORM\Column(name="other_cult_other",type="string",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $other_cult_other;
 
     /**
      * @var TripleChoice $otherTestDone
      * @ORM\Column(name="other_test_done",type="TripleChoice",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $other_test_done;
 
     /**
      * @var CultureResult
      * @ORM\Column(name="other_test_result",type="CultureResult",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $other_test_result;
 
     /**
      * @var string $otherTestOther
      * @ORM\Column(name="other_test_other",type="string",nullable=true)
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $other_test_other;
 //==================================
@@ -413,6 +419,7 @@ class SiteLab implements BaseSiteLabInterface
      * @var boolean
      * @ORM\Column(name="rl_csf_sent",type="boolean",nullable=true)
      * @LocalAssert\NoFutureDate()
+     * @Serializer\Groups({"api","export"})
      */
     private $rl_csf_sent;
 
@@ -420,6 +427,8 @@ class SiteLab implements BaseSiteLabInterface
      * @var \DateTime
      * @ORM\Column(name="rl_csf_date",type="date",nullable=true)
      * @LocalAssert\NoFutureDate()
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'Y-m-d'>")
      */
     private $rl_csf_date;
 
@@ -427,6 +436,7 @@ class SiteLab implements BaseSiteLabInterface
      * @var boolean
      * @ORM\Column(name="rl_isol_csf_sent",type="boolean",nullable=true)
      * @LocalAssert\NoFutureDate()
+     * @Serializer\Groups({"api","export"})
      */
     private $rl_isol_csf_sent;
 
@@ -434,6 +444,8 @@ class SiteLab implements BaseSiteLabInterface
      * @var \DateTime
      * @ORM\Column(name="rl_isol_csf_date",type="date",nullable=true)
      * @LocalAssert\NoFutureDate()
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'Y-m-d'>")
      */
     private $rl_isol_csf_date;
 
@@ -441,6 +453,7 @@ class SiteLab implements BaseSiteLabInterface
      * @var boolean
      * @ORM\Column(name="rl_isol_blood_sent",type="boolean",nullable=true)
      * @LocalAssert\NoFutureDate()
+     * @Serializer\Groups({"api","export"})
      */
     private $rl_isol_blood_sent;
 
@@ -448,6 +461,8 @@ class SiteLab implements BaseSiteLabInterface
      * @var \DateTime
      * @ORM\Column(name="rl_isol_blood_date",type="date",nullable=true)
      * @LocalAssert\NoFutureDate()
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'Y-m-d'>")
      */
     private $rl_isol_blood_date;
 
@@ -455,6 +470,7 @@ class SiteLab implements BaseSiteLabInterface
      * @var boolean
      * @ORM\Column(name="rl_broth_sent",type="boolean",nullable=true)
      * @LocalAssert\NoFutureDate()
+     * @Serializer\Groups({"api","export"})
      */
     private $rl_broth_sent;
 
@@ -462,6 +478,8 @@ class SiteLab implements BaseSiteLabInterface
      * @var \DateTime
      * @ORM\Column(name="rl_broth_date",type="date",nullable=true)
      * @LocalAssert\NoFutureDate()
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'Y-m-d'>")
      */
     private $rl_broth_date;
 
@@ -469,6 +487,7 @@ class SiteLab implements BaseSiteLabInterface
      * @var boolean
      * @ORM\Column(name="rl_other_sent",type="boolean",nullable=true)
      * @LocalAssert\NoFutureDate()
+     * @Serializer\Groups({"api","export"})
      */
     private $rl_other_sent;
 
@@ -476,6 +495,8 @@ class SiteLab implements BaseSiteLabInterface
      * @var \DateTime
      * @ORM\Column(name="rl_other_date",type="date",nullable=true)
      * @LocalAssert\NoFutureDate()
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'Y-m-d'>")
      */
     private $rl_other_date;
 
@@ -486,6 +507,7 @@ class SiteLab implements BaseSiteLabInterface
      * @var boolean
      * @ORM\Column(name="nl_csf_sent",type="boolean",nullable=true)
      * @LocalAssert\NoFutureDate()
+     * @Serializer\Groups({"api","export"})
      */
     private $nl_csf_sent;
 
@@ -493,6 +515,8 @@ class SiteLab implements BaseSiteLabInterface
      * @var \DateTime
      * @ORM\Column(name="nl_csf_date",type="date",nullable=true)
      * @LocalAssert\NoFutureDate()
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'Y-m-d'>")
      */
     private $nl_csf_date;
 
@@ -500,6 +524,7 @@ class SiteLab implements BaseSiteLabInterface
      * @var boolean
      * @ORM\Column(name="nl_isol_csf_sent",type="boolean",nullable=true)
      * @LocalAssert\NoFutureDate()
+     * @Serializer\Groups({"api","export"})
      */
     private $nl_isol_csf_sent;
 
@@ -507,6 +532,8 @@ class SiteLab implements BaseSiteLabInterface
      * @var \DateTime
      * @ORM\Column(name="nl_isol_csf_date",type="date",nullable=true)
      * @LocalAssert\NoFutureDate()
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'Y-m-d'>")
      */
     private $nl_isol_csf_date;
 
@@ -514,6 +541,7 @@ class SiteLab implements BaseSiteLabInterface
      * @var boolean
      * @ORM\Column(name="nl_isol_blood_sent",type="boolean",nullable=true)
      * @LocalAssert\NoFutureDate()
+     * @Serializer\Groups({"api","export"})
      */
     private $nl_isol_blood_sent;
 
@@ -521,6 +549,8 @@ class SiteLab implements BaseSiteLabInterface
      * @var \DateTime
      * @ORM\Column(name="nl_isol_blood_date",type="date",nullable=true)
      * @LocalAssert\NoFutureDate()
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'Y-m-d'>")
      */
     private $nl_isol_blood_date;
 
@@ -528,6 +558,7 @@ class SiteLab implements BaseSiteLabInterface
      * @var boolean
      * @ORM\Column(name="nl_broth_sent",type="boolean",nullable=true)
      * @LocalAssert\NoFutureDate()
+     * @Serializer\Groups({"api","export"})
      */
     private $nl_broth_sent;
 
@@ -535,6 +566,8 @@ class SiteLab implements BaseSiteLabInterface
      * @var \DateTime
      * @ORM\Column(name="nl_broth_date",type="date",nullable=true)
      * @LocalAssert\NoFutureDate()
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'Y-m-d'>")
      */
     private $nl_broth_date;
 
@@ -542,6 +575,7 @@ class SiteLab implements BaseSiteLabInterface
      * @var boolean
      * @ORM\Column(name="nl_other_sent",type="boolean",nullable=true)
      * @LocalAssert\NoFutureDate()
+     * @Serializer\Groups({"api","export"})
      */
     private $nl_other_sent;
 
@@ -549,6 +583,8 @@ class SiteLab implements BaseSiteLabInterface
      * @var \DateTime
      * @ORM\Column(name="nl_other_date",type="date",nullable=true)
      * @LocalAssert\NoFutureDate()
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'Y-m-d'>")
      */
     private $nl_other_date;
 
@@ -556,14 +592,15 @@ class SiteLab implements BaseSiteLabInterface
     /**
      * @var \DateTime $updatedAt
      * @ORM\Column(name="updatedAt",type="datetime")
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'Y-m-d H:i:s'>")
      */
     private $updatedAt;
 
     /**
      * @var CaseStatus $status
      * @ORM\Column(name="status",type="CaseStatus")
-     * @Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     private $status;
 
@@ -572,54 +609,63 @@ class SiteLab implements BaseSiteLabInterface
     /**
      * @var TripleChoice
      * @ORM\Column(name="pleural_fluid_culture_done",type="TripleChoice",nullable=true)
+     * @Serializer\Groups({"api","export"})
      */
     private $pleural_fluid_culture_done;
 
     /**
      * @var CultureResult
      * @ORM\Column(name="pleural_fluid_culture_result",type="CultureResult",nullable=true)
+     * @Serializer\Groups({"api","export"})
      */
     private $pleural_fluid_culture_result;
 
     /**
      * @var string
      * @ORM\Column(name="pleural_fluid_culture_other",type="string",nullable=true)
+     * @Serializer\Groups({"api","export"})
      */
     private $pleural_fluid_culture_other;
 
     /**
      * @var TripleChoice
      * @ORM\Column(name="pleural_fluid_gram_done",type="TripleChoice",nullable=true)
+     * @Serializer\Groups({"api","export"})
      */
     private $pleural_fluid_gram_done;
 
     /**
      * @var GramStain
      * @ORM\Column(name="pleural_fluid_gram_result",type="GramStain",nullable=true)
+     * @Serializer\Groups({"api","export"})
      */
     private $pleural_fluid_gram_result;
 
     /**
      * @var GramStainResult
      * @ORM\Column(name="pleural_fluid_gram_result_organism",type="GramStainResult",nullable=true)
+     * @Serializer\Groups({"api","export"})
      */
     private $pleural_fluid_gram_result_organism;
 
     /**
      * @var TripleChoice
      * @ORM\Column(name="pleural_fluid_pcr_done",type="TripleChoice",nullable=true)
+     * @Serializer\Groups({"api","export"})
      */
     private $pleural_fluid_pcr_done;
 
     /**
      * @var PCRResult
      * @ORM\Column(name="pleural_fluid_pcr_result",type="PCRResult",nullable=true)
+     * @Serializer\Groups({"api","export"})
      */
     private $pleural_fluid_pcr_result;
 
     /**
      * @var string
      * @ORM\Column(name="pleural_fluid_pcr_other",type="string",nullable=true)
+     * @Serializer\Groups({"api","export"})
      */
     private $pleural_fluid_pcr_other;
 

@@ -23,41 +23,44 @@ abstract class BaseExternalLab
      * @var string $lab_id
      * @ORM\Column(name="lab_id",type="string",nullable=true)
      * @Assert\NotBlank
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     protected $lab_id;
 
     /**
      * @var \DateTime $dateReceived
      * @ORM\Column(name="dt_sample_recd", type="date",nullable=true)
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'Y-m-d'>")
      */
     protected $dt_sample_recd;
 
     /**
      * @var CaseStatus $status
      * @ORM\Column(name="status",type="CaseStatus")
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     protected $status;
 
     /**
      * @var \DateTime $createdAt
      * @ORM\Column(name="createdAt", type="datetime")
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'Y-m-d'>")
      */
     protected $createdAt;
 
     /**
      * @var \DateTime $updatedAt
      * @ORM\Column(name="updatedAt",type="datetime")
-     * @Serializer\Groups({"api"})
+     * @Serializer\Groups({"api","export"})
      */
     protected $updatedAt;
 
     /**
      * @var string $comment
      * @ORM\Column(name="comment",type="text",nullable=true)
+     * @Serializer\Groups({"api","export"})
      */
     protected $comment;
 
