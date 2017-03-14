@@ -9,6 +9,7 @@ parameters:
 services:
   ns.api.serializer.array_choice_handler:
     class: NS\ApiBundle\Serializer\ArrayChoiceHandler
+    arguments: [ "@translator" ]
     tags:
       - { name: jms_serializer.subscribing_handler }
 

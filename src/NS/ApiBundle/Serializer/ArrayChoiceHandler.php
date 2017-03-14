@@ -6,6 +6,7 @@ use JMS\Serializer\GraphNavigator;
 use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\JsonSerializationVisitor;
 use JMS\Serializer\SerializationContext;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * Description of ArrayChoiceHandler
@@ -14,6 +15,18 @@ use JMS\Serializer\SerializationContext;
  */
 class ArrayChoiceHandler implements SubscribingHandlerInterface
 {
+    /** @var TranslatorInterface */
+    private $translator;
+
+    /**
+     * ArrayChoiceHandler constructor.
+     * @param TranslatorInterface $translator
+     */
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
     /**
      * @param JsonSerializationVisitor $visitor
      * @param mixed $data
@@ -24,7 +37,23 @@ class ArrayChoiceHandler implements SubscribingHandlerInterface
      */
     public function serializeToJson(JsonSerializationVisitor $visitor, $data, array $type, SerializationContext $context)
     {
-        return (int) $data->getValue();
+        $groups = $context->attributes->get('groups');
+        if (in_array('expanded', $groups->get())) {
+            return $this->translatedSerialization(get_class($data), $data->getValues());
+        }
+
+        return (int)$data->getValue();
+    }
+
+    protected function translatedSerialization($className, $values)
+    {
+        $result = [$className => ['options' => []]];
+
+        foreach ($values as $key => $label) {
+            $result[$className]['options'][$key] = $this->translator->trans($label);
+        }
+
+        return $result;
     }
 
     /**
@@ -88,9 +117,9 @@ class ArrayChoiceHandler implements SubscribingHandlerInterface
         foreach ($types as $type) {
             $ret[] = [
                 'direction' => GraphNavigator::DIRECTION_SERIALIZATION,
-                'format'    => 'json',
-                'type'      => $type,
-                'method'    => 'serializeToJson',
+                'format' => 'json',
+                'type' => $type,
+                'method' => 'serializeToJson',
             ];
         }
 
