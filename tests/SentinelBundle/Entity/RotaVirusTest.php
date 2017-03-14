@@ -143,14 +143,18 @@ class RotaVirusTest extends KernelTestCase
         $this->assertEquals("Due to response for 'stoolCollected' field, related field 'stoolCollectionDate' is required", $violationList[0]->getMessage());
     }
 // date of collection, date of local lab reception
-
     public function testSiteLabReceivedBeforeCollected()
     {
         $this->rotaVirusCase->setStoolCollected($this->tripleYes);
         $this->rotaVirusCase->setStoolCollectionDate($this->future);
+        $no = new TripleChoice(TripleChoice::NO);
         $siteLab = new RotaVirus\SiteLab();
         $siteLab->setCaseFile($this->rotaVirusCase);
         $siteLab->setReceived($this->past);
+        //Added as minimum required fields, but likely only for PAHO/AMR
+        $siteLab->setElisaDone($no);
+        $siteLab->setStored($no);
+        $siteLab->setAdequate($no);
         $violationConstraints = $this->validator->validate($siteLab);
         $this->assertCount(1,$violationConstraints);
         $this->assertEquals('caseFile.stoolCollectionDate',$violationConstraints[0]->getConstraint()->lessThanField);
