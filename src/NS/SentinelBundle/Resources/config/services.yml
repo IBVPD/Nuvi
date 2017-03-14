@@ -82,3 +82,7 @@ services:
   ns.sentinel.user_provider:
     class: NS\SentinelBundle\Security\UserProvider
     arguments: [ "@doctrine.orm.entity_manager" ]
+
+  ns_sentinel.object_initializer:
+    class: NS\SentinelBundle\Services\ObjectInitializer
+    arguments: [ "@doctrine.orm.entity_manager", "@jms_serializer", "@annotations.reader" ]
