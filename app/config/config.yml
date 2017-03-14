@@ -138,7 +138,7 @@ doctrine:
             Rehydration: Rehydration
             GenotypeResultG: GenotypeResultG
             GenotypeResultP: GenotypeResultP
-            RVaccinationType: RVVaccinationType
+            RVVaccinationType: RVVaccinationType
             Dehydration: Dehydration
             ElisaResult: ElisaResult
             ElisaKit: ElisaKit
