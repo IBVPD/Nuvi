@@ -4,6 +4,7 @@ namespace NS\SentinelBundle\Filter\Type\IBD;
 
 use NS\SentinelBundle\Filter\Entity\IBD;
 use NS\SentinelBundle\Filter\Type\BaseFilterType;
+use NS\SentinelBundle\Form\IBD\Types\CaseResult;
 use NS\SentinelBundle\Form\Types\CaseStatus;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,7 +23,10 @@ class FilterType extends AbstractType implements EmbeddedFilterTypeInterface
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('status', CaseStatus::class, ['required' => false, 'label' => 'filter-case-status']);
+        $builder
+            ->add('status', CaseStatus::class, ['required' => false, 'label' => 'filter-case-status'])
+            ->add('result', CaseResult::class, ['required' => false, 'label' => 'filter-case-result'])
+        ;
     }
 
     /**

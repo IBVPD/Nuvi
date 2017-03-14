@@ -14,8 +14,21 @@
                     {{ form_row(filterForm.lastName ) }}
                 {% endif %}
                 {{ form_row(filterForm.adm_date) }}
+                {% if filterForm.status is defined and filterForm.result is defined%}
+                    <div class="row">
+                        <div class="col-xs-6">
+                            {{ form_row(filterForm.status) }}
+                        </div>
+                        <div class="col-xs-6">
+                            {{ form_row(filterForm.result) }}
+                        </div>
+                    </div>
+                {% endif %}
                 {% if filterForm.status is defined %}
                     {{ form_row(filterForm.status) }}
+                {% endif %}
+                {% if filterForm.result is defined %}
+                    {{ form_row(filterForm.result) }}
                 {% endif %}
                 {% if filterForm.region is defined %}
                     {{ form_row(filterForm.region) }}
