@@ -85,7 +85,7 @@ class ObjectInitializer
         $this->processObject($obj->getNationalLab());
         $this->processObject($obj->getReferenceLab());
 
-        return $this->serializer->serialize([$type => $obj, 'siteLab' => $obj->getSiteLab(), 'nl' => $obj->getNationalLab(), 'rl' => $obj->getReferenceLab()], 'json', SerializationContext::create()->setGroups('export'));
+        return $this->serializer->serialize([$type => $obj, 'siteLab' => $obj->getSiteLab(), 'nl' => $obj->getNationalLab(), 'rl' => $obj->getReferenceLab()], 'json', SerializationContext::create()->setGroups(['export','expanded']));
     }
 
     private function initialize()
