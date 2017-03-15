@@ -10,6 +10,7 @@ namespace NS\SentinelBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -27,6 +28,6 @@ class ExportController extends Controller
      */
     public function fieldsAction($type)
     {
-        return new Response($this->get('ns_sentinel.object_initializer')->initializeObject($type));
+        return new JsonResponse($this->get('ns_sentinel.object_initializer')->initializeObject($type), 200, [], true);
     }
 }
