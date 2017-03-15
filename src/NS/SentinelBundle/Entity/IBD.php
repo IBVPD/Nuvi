@@ -468,12 +468,16 @@ class IBD extends BaseCase
     /**
      * @var integer
      * @ORM\Column(name="blood_number_of_samples",type="integer",nullable=true)
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'Y-m-d'>")
      */
     private $blood_number_of_samples;
 
     /**
      * @var TripleChoice
      * @ORM\Column(name="pleural_fluid_collected",type="TripleChoice",nullable=true)
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'Y-m-d'>")
      */
     private $pleural_fluid_collected;
 
