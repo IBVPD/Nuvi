@@ -2,8 +2,10 @@
 
 namespace NS\ImportBundle\Controller;
 
+use Doctrine\Common\Persistence\Mapping\ClassMetadata;
 use Doctrine\ORM\QueryBuilder;
 use Exporter\Source\DoctrineORMQuerySourceIterator;
+use NS\ImportBundle\Formatter\DateTimeFormatter;
 use Exporter\Writer\CsvWriter;
 use Exporter\Writer\XlsWriter;
 use NS\SentinelBundle\Filter\Type\IBD\ReportFilterType as IBDReportFilterType;
@@ -63,7 +65,7 @@ class ExportController extends Controller
 
             $query = $modelManager->getRepository('NSSentinelBundle:IBD')->exportQuery('i');
 
-            return $this->export('csv', $ibdForm, $query, $fields);
+            return $this->export('csv', $ibdForm, $query, $fields, [new DateTimeFormatter()]);
         }
     }
 
@@ -90,17 +92,17 @@ class ExportController extends Controller
             $this->adjustFields($meta, $fields);
             $query = $modelManager->getRepository('NSSentinelBundle:RotaVirus')->exportQuery('i');
 
-            return $this->export('csv', $rotaForm, $query, $fields);
+            return $this->export('csv', $rotaForm, $query, $fields, [new DateTimeFormatter()]);
         }
     }
 
     /**
-     *
      * @param array $metas
      * @param array $fields
      */
     private function adjustFields(array $metas, array &$fields)
     {
+        /** @var ClassMetadata $meta */
         foreach ($metas as $sprint => $meta) {
             foreach ($meta->getFieldNames() as $field) {
                 if ($field == 'id') {
@@ -113,20 +115,21 @@ class ExportController extends Controller
     }
 
     /**
-     *
      * @param string $format
      * @param FormInterface $form
      * @param QueryBuilder $queryBuilder
      * @param array $fields
+     * @param array $formatters
+     *
      * @return Response
      */
-    private function export($format, FormInterface $form, QueryBuilder $queryBuilder, array $fields)
+    private function export($format, FormInterface $form, QueryBuilder $queryBuilder, array $fields, array $formatters)
     {
         $aliases = $queryBuilder->getRootAliases();
         $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $queryBuilder, $aliases[0]);
 
-        $query = $queryBuilder->getQuery();
-        $source = new DoctrineORMQuerySourceIterator($query, $fields);
+        $source = new DoctrineORMQuerySourceIterator($queryBuilder->getQuery(), $fields, 'Y-m-d', $formatters);
+
         $filename = sprintf('export_%s.%s', date('Y_m_d_H_i_s'), $format);
 
         $exporter = new Exporter([new CsvWriter('php://output'), new XlsWriter('php://output')]);
