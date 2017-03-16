@@ -3,6 +3,7 @@ VERSION 0  INITIAL RELEASE
 ==========================
 
    Version 0.10 - Updated to SF3.x
+      16/03/2017 16:17  0.10.20  Lots of PAHO changes/fixes. Improved Map Builder and Export date formats
       02/03/2017 15:01  0.10.19  Fixed translation spelling
       02/03/2017 14:52  0.10.18  new translations
       02/03/2017 12:28  0.10.17  Fixed compound field hidden configs
