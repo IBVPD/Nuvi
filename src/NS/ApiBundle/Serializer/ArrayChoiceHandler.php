@@ -47,10 +47,10 @@ class ArrayChoiceHandler implements SubscribingHandlerInterface
 
     protected function translatedSerialization($className, $values)
     {
-        $result = [$className => ['options' => []]];
+        $result = ['class'=>$className, 'options' => []];
 
         foreach ($values as $key => $label) {
-            $result[$className]['options'][$key] = $this->translator->trans($label);
+            $result['options'][$key] = $this->translator->trans($label);
         }
 
         return $result;

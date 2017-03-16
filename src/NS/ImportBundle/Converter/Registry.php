@@ -5,6 +5,8 @@ namespace NS\ImportBundle\Converter;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -53,6 +55,10 @@ class Registry extends AbstractType
         $resolver->setDefaults([
             'placeholder' => 'Please Select...',
             'choices'     => array_flip($this->values),
+            'choice_attr' => function($val, $key, $index)
+            {
+                return ['data-converterref'=>$key];
+            }
         ]);
     }
 

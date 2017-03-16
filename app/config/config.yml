@@ -28,7 +28,6 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     form_themes:
-      - NSUtilBundle:Form:fields.html.twig
       - NSAceBundle:Form:fields.html.twig
       - NSSentinelBundle:Form:fields.html.twig
       - NSImportBundle:Form:fields.html.twig

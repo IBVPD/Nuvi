@@ -97,7 +97,7 @@ class MapAdmin extends AbstractAdmin
         $formMapper
             ->add('name',           null, ['label_attr'=> ['class'=>'col-sm-2']])
             ->add('description',    null, ['label'=>'Notes', 'label_attr'=> ['class'=>'col-sm-2']])
-            ->add('class',          ClassType::class, ['label_attr'=> ['class'=>'col-sm-2']])
+            ->add('class',          ClassType::class, ['label_attr'=> ['class'=>'col-sm-2'], 'attr'=>['data-Class'=>true]])
             ->add('version',        null, ['required'=>true, 'label_attr'=> ['class'=>'col-sm-2']])
             ->add('headerRow',      IntegerType::class, ['label_attr'=> ['class'=>'col-sm-2']])
             ->add('caseLinker',     ChoiceType::class, [
@@ -118,7 +118,7 @@ class MapAdmin extends AbstractAdmin
                     'label_attr' => ['class'=>'col-sm-2'],
                 ]);
         } else {
-            $formMapper->add('columns', 'sonata_type_collection', ['error_bubbling' => false, 'by_reference' => true, 'label_attr' => ['class' => 'col-md-12 align-left']], ['edit' => 'inline', 'inline' => 'table', 'template' => 'NSImportBundle:edi_orm_one_to_many.html.twig']);
+            $formMapper->add('columns', 'sonata_type_collection', ['error_bubbling' => false, 'by_reference' => true, 'label_attr' => ['class' => 'col-md-12 align-left']], ['edit' => 'inline', 'inline' => 'table']);
         }
     }
 

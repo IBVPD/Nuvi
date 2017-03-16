@@ -4,6 +4,7 @@ services:
     arguments: [~, NS\ImportBundle\Entity\Map, NSImportBundle:MapAdmin ]
     calls:
       - [ setMapBuilder, [ "@ns_import.services.map_builder" ]]
+      - [ setTemplate, ['edit', 'NSImportBundle:MapAdmin:edit.html.twig']]
     tags:
       - { name: sonata.admin, manager_type: orm, group: Import, label: Map }
 

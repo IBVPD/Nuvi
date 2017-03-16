@@ -99,6 +99,8 @@ abstract class BaseCase
     /**
      * @var TripleChoice $dobKnown
      * @ORM\Column(name="dobKnown",type="TripleChoice",nullable=true)
+     * @Serializer\Groups("export")
+     * @Serializer\SerializedName("dobKnown")
      */
     protected $dobKnown;
 

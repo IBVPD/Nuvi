@@ -43,7 +43,7 @@ class ArrayChoiceHandlerTest extends \PHPUnit_Framework_TestCase
 
     public function testExpanded()
     {
-        $expected = ['NS\ApiBundle\Tests\Serializer\ArrayChoiceTestType' => ['options' => [1 => 'One-Trans', 2 => 'Two-Trans', 3 => 'Three-Trans']]];
+        $expected = ['class'=>'NS\ApiBundle\Tests\Serializer\ArrayChoiceTestType', 'options' => [1 => 'One-Trans', 2 => 'Two-Trans', 3 => 'Three-Trans']];
         $map = [
             ['One', [], null, null, 'One-Trans'],
             ['Two', [], null, null, 'Two-Trans'],

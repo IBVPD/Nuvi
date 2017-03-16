@@ -1,0 +1,15 @@
+{% extends 'NSAceSonataBundle:CRUD:edit.html.twig' %}
+
+{% block inlinescripts %}
+    <script type="text/javascript" src="{{ asset('/bundles/nsimport/js/import-helper.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function()
+        {
+            new $.ImportHelper({ibd_conf_url: "{{ url('homepage') }}/fields/ibd", rota_conf_url: "{{ url('homepage') }}/fields/rotavirus"}, true);
+        });
+    </script>
+{% endblock %}
+
+{% block inlinestyles %}
+    <link rel="stylesheet" href="{{ asset('/bundles/nsimport/css/mapper.css') }}" type="text/css" />
+{% endblock inlinestyles %}
