@@ -1,0 +1,17 @@
+{% for class, fields in obj %}
+    <h2>{{ class }}</h2>
+    <dl class="exportFields">
+    {% for label, field in fields %}
+        <dt>{{ label }}</dt>
+        <dd>
+            {% if field.options is defined %}
+                {% for value, option in field.options %}
+                    {{ value }}: {{ option }} {{ not loop.last ? ' | '}} </em>
+                {% endfor %}
+            {% else %}
+                {{ field }}
+            {% endif %}
+        </dd>
+    {% endfor %}
+    </dl>
+{% endfor %}

@@ -11,6 +11,7 @@ namespace NS\SentinelBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -26,8 +27,55 @@ class ExportController extends Controller
      * @param $type
      * @return Response
      */
-    public function fieldsAction($type)
+    public function fieldsAction(Request $request, $type)
     {
-        return new JsonResponse($this->get('ns_sentinel.object_initializer')->initializeObject($type), 200, [], true);
+        $obj = $this->get('ns_sentinel.object_initializer')->initializeObject($type);
+        if($request->isXmlHttpRequest())
+        {
+            return new JsonResponse($obj, 200, [], true);
+        }
+        else
+        {
+            $out = [];
+            $obj = json_decode($obj);
+
+            if(isset($obj->ibd))
+            {
+                $out['IBD'] = get_object_vars($obj->ibd);
+            }
+
+            if(isset($obj->rota))
+            {
+                $out['Rotavirus'] = get_object_vars($obj->rota);
+            }
+
+            if(isset($obj->rl))
+            {
+                $out['Regional Lab'] = get_object_vars($obj->rl);
+            }
+
+            if(isset($obj->nl))
+            {
+                $out['National Lab'] = get_object_vars($obj->nl);
+            }
+
+            foreach($obj as &$fields)
+            {
+                foreach($fields as &$field)
+                {
+                    if($field instanceof \stdClass)
+                    {
+                        $field = get_object_vars($field);
+
+                        if($field['options'] instanceof \stdClass)
+                        {
+                            $field['options'] = get_object_vars($field['options']);
+                        }
+                    }
+                }
+            }
+
+            return $this->render('NSSentinelBundle:Export:fields.html.twig', ['obj'=>$out]);
+        }
     }
 }
