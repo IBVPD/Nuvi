@@ -248,12 +248,12 @@
       </trans-unit>
       <trans-unit id="2cdd20a60bce677b1d6ff78d6eca809ddbf8e04f" resname="Access Level">
         <source>Access Level</source>
-        <target state="new">Access Level</target>
+        <target>Access Level</target>
         <jms:reference-file line="50">Admin/ACLAdmin.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="376e9046cc5fd2842ce29e30d9b75eab2742e487" resname="Access Restrictions">
         <source>Access Restrictions</source>
-        <target state="new">Access Restrictions</target>
+        <target>Restricciones de acceso</target>
         <jms:reference-file line="119">Admin/UserAdmin.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="c3cd636a585b20c40ac2df5ffb403e83cb2eef51" resname="Actions">
@@ -265,7 +265,7 @@
       </trans-unit>
       <trans-unit id="d84c3dede3448b582d09cf5d9738e31e70f3bf3b" resname="Admission Date">
         <source>Admission Date</source>
-        <target state="new">Admission Date</target>
+        <target>Fecha de Admisión</target>
         <jms:reference-file line="11">views/Report/IBD/Export/data-linking.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="50c026300b52db9bf33a40131daac8a8c9fc341e" resname="Admitted">
@@ -282,7 +282,7 @@
       </trans-unit>
       <trans-unit id="64fed3e90d308e2a97b17bab99cd5c8e17e39754" resname="Age In Months">
         <source>Age In Months</source>
-        <target state="new">Age In Months</target>
+        <target>Edad en meses</target>
         <jms:reference-file line="9">views/Report/IBD/Export/data-linking.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="5f0404ee8d2a4c6592f295f92613e391ecad291d" resname="Air bronchogram">
@@ -291,7 +291,7 @@
       </trans-unit>
       <trans-unit id="394b85cbff8ab62eff46924a4dfe3a49b835024e" resname="Api Access">
         <source>Api Access</source>
-        <target state="new">Api Access</target>
+        <target>Acceso de API</target>
         <jms:reference-file line="56">Admin/ACLAdmin.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e6a9bb4fd705c50b883a4ccfb7fdc2c4e47f13a5" resname="Api Resources">
@@ -317,7 +317,7 @@
       </trans-unit>
       <trans-unit id="ab5815528f107fb73554828de0ec21098ccbc5a3" resname="Birthdate">
         <source>Birthdate</source>
-        <target state="new">Birthdate</target>
+        <target>Fecha de nacimiento</target>
         <jms:reference-file line="8">views/Report/IBD/Export/data-linking.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="24652e28b94087f3d087bba10c9603848262cafa" resname="Blood">
@@ -375,22 +375,22 @@
       </trans-unit>
       <trans-unit id="4fa64afd9aa19fc25488cb8a19ca4649858c4ae5" resname="Can Create Case">
         <source>Can Create Case</source>
-        <target state="new">Can Create Case</target>
+        <target>Puede crear casos</target>
         <jms:reference-file line="58">Admin/ACLAdmin.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="42e2db8590ef3ff503dd1dc2c3820e9f11820275" resname="Can Create NL">
         <source>Can Create NL</source>
-        <target state="new">Can Create NL</target>
+        <target>Puede ingresar datos de Laboratorio Nacional NL</target>
         <jms:reference-file line="60">Admin/ACLAdmin.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="8b1e4460032fdf8b19bb45b00da88b19e1f28e5e" resname="Can Create RRL">
         <source>Can Create RRL</source>
-        <target state="new">Can Create RRL</target>
+        <target>Puede ingresar datos en el laboratorio de referencia regional RRL</target>
         <jms:reference-file line="61">Admin/ACLAdmin.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="c6277a071f0ac9da4ca064348e5be01c652e8fa0" resname="Can Create Site Lab">
         <source>Can Create Site Lab</source>
-        <target state="new">Can Create Site Lab</target>
+        <target>Puede ingresar datos de laboratorio local (Site Lab)</target>
         <jms:reference-file line="59">Admin/ACLAdmin.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="77dfd2135f4db726c47299bb55be26f7f4525a46" resname="Cancel">
@@ -473,7 +473,7 @@
       </trans-unit>
       <trans-unit id="6acd3bf3fe410fa06d864b2bf6a540536bcea388" resname="Confirmed Positive">
         <source>Confirmed Positive</source>
-        <target state="new">Confirmed Positive</target>
+        <target>Confirmados Positivos</target>
         <jms:reference-file line="13">views/Report/RotaVirus/Export/data-quality.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="3cc94cd8d335cbfd0e843409aee950a42f05ec59" resname="Consistent Reporting">
@@ -504,7 +504,7 @@
       </trans-unit>
       <trans-unit id="66e12969c225cc6d65e18210488acb826eba907e" resname="Count">
         <source>Count</source>
-        <target state="new">Count</target>
+        <target>Cuenta</target>
         <jms:reference-file line="73">views/Report/IBD/annualAgeDistribution.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="d523ebbd10146cdfd39dee077f04c9d08468d0bc" resname="Country">
@@ -554,13 +554,13 @@
       </trans-unit>
       <trans-unit id="9dff9a5c61e3dff379a71026b0e8c9e4511b91eb" resname="Create/Edit Case">
         <source>Create/Edit Case</source>
-        <target state="new">Create/Edit Case</target>
+        <target>Crear/Editar Caso</target>
         <jms:reference-file line="16">views/IBD/index.html.twig</jms:reference-file>
         <jms:reference-file line="16">views/RotaVirus/index.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="20f2f4ae91f35442a8f3390902336d3838af1d71" resname="Creation Rights">
         <source>Creation Rights</source>
-        <target state="new">Creation Rights</target>
+        <target>Derechos de creación</target>
         <jms:reference-file line="52">Admin/ACLAdmin.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="5ebca3a6a2449f0bf89505b4220616f518244b2c" resname="Csf Pcr">
@@ -615,7 +615,7 @@
       </trans-unit>
       <trans-unit id="f6fdbe48dc54dd86f63097a03bd24094dedd713a" resname="Delete">
         <source>Delete</source>
-        <target state="new">Delete</target>
+        <target>Eliminar</target>
         <jms:reference-file line="164">views/IBD/edit.html.twig</jms:reference-file>
         <jms:reference-file line="128">views/RotaVirus/edit.html.twig</jms:reference-file>
       </trans-unit>
@@ -625,7 +625,7 @@
       </trans-unit>
       <trans-unit id="3be0c08a7833f332cc75a539926dbfbd8ff1a55d" resname="Diagnosis">
         <source>Diagnosis</source>
-        <target state="new">Diagnosis</target>
+        <target>Diagnosis</target>
         <jms:reference-file line="12">views/Report/IBD/byDiagnosisGraph.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="68316444b99c6ba68313bede5aa8603526904561" resname="Died">
@@ -634,7 +634,7 @@
       </trans-unit>
       <trans-unit id="7ecfbf0c1d2a9c0837c23acf899a82eb5a70436b" resname="Discarded">
         <source>Discarded</source>
-        <target state="new">Discarded</target>
+        <target>Descartado</target>
       </trans-unit>
       <trans-unit id="5f908b6ce50290bfc23e76b191c2ef8b0aeb506c" resname="Discarded case">
         <source>Discarded case</source>
@@ -654,12 +654,12 @@
       </trans-unit>
       <trans-unit id="1d3c457cbe3e35739086346e0a4048653efa42e7" resname="Distribution">
         <source>Distribution</source>
-        <target state="new">Distribution</target>
+        <target>Distribución</target>
         <jms:reference-file line="73">views/Report/IBD/annualAgeDistribution.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="c0cb139cce34769fb7ed9bafc15290e91cf7736c" resname="District">
         <source>District</source>
-        <target state="new">District</target>
+        <target>Districto</target>
         <jms:reference-file line="10">views/Report/IBD/Export/data-linking.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="9e9cf3221a30246219863f1d2366e36cb580debc" resname="Documentation">
@@ -669,7 +669,7 @@
       </trans-unit>
       <trans-unit id="dacf097db6ba2d2d97348bafac260e7edc400134" resname="ELISA Done">
         <source>ELISA Done</source>
-        <target state="new">ELISA Done</target>
+        <target>Se hizo ELISA</target>
         <jms:reference-file line="12">views/Report/RotaVirus/Export/data-quality.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="abb454f7083b889c5d49dedd8fca52d3e3a35e35" resname="EPI">
@@ -699,7 +699,7 @@
       </trans-unit>
       <trans-unit id="8a47e285c4dedf53474dcabb2ac0b840d8d85b1f" resname="Edit Epi Data">
         <source>Edit Epi Data</source>
-        <target state="new">Edit Epi Data</target>
+        <target>Editar datos Epi </target>
       </trans-unit>
       <trans-unit id="feeffd2aa61ecb401219383148e8ba0fd67b1d2c" resname="Edit Lab For Case %id%">
         <source>Edit Lab For Case %id%</source>
@@ -709,19 +709,19 @@
       </trans-unit>
       <trans-unit id="2ae42b1281c1541231bf0ccfef72080738a2f6d0" resname="Edit National Lab Data">
         <source>Edit National Lab Data</source>
-        <target state="new">Edit National Lab Data</target>
+        <target>Editar Datos de Laboratorio Nacional</target>
       </trans-unit>
       <trans-unit id="39a2c34312e5982235124bbafe28fc5624ca0d86" resname="Edit Outcome Data">
         <source>Edit Outcome Data</source>
-        <target state="new">Edit Outcome Data</target>
+        <target>Editar datos de Egreso</target>
       </trans-unit>
       <trans-unit id="1aab4f3ff9198833320ce3684fe790a53092bc41" resname="Edit Regional Reference Lab Data">
         <source>Edit Regional Reference Lab Data</source>
-        <target state="new">Edit Regional Reference Lab Data</target>
+        <target>Editar datos de Laboratiorio de Referencia Regional</target>
       </trans-unit>
       <trans-unit id="022810a02fd4b3d8a609546d5656eee294176c35" resname="Edit Site Lab Data">
         <source>Edit Site Lab Data</source>
-        <target state="new">Edit Site Lab Data</target>
+        <target>Editar datos de laboratorio del sitio centinela</target>
       </trans-unit>
       <trans-unit id="84add5b2952787581cb9a8851eef63d1ec75d22b" resname="Email">
         <source>Email</source>
@@ -818,7 +818,7 @@
       </trans-unit>
       <trans-unit id="8a754c61c2ced0c5ff79a1827e02c9d643d6d926" resname="Gender">
         <source>Gender</source>
-        <target state="new">Gender</target>
+        <target>Genero</target>
         <jms:reference-file line="7">views/Report/IBD/Export/data-linking.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="76621d9ccafb198b80334481579fd89a1438be0c" resname="General Statistics">
@@ -887,7 +887,7 @@
       </trans-unit>
       <trans-unit id="5cf2c55914c62a448334c6f264ec7223d032a277" resname="IBD">
         <source>IBD</source>
-        <target state="new">IBD</target>
+        <target>IBD</target>
         <jms:reference-file line="25">Filter/Type/ZeroReportFilterType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="2a71f5e790a5bd16a54986e1eb5e7a3a69846528" resname="IV fluids">
@@ -3387,7 +3387,7 @@
       </trans-unit>
       <trans-unit id="370642bb05c0c4dff2f09692fc48af71c828fec3" resname="rotavirus-form.dischargeClassification">
         <source>rotavirus-form.dischargeClassification</source>
-        <target state="new">rotavirus-form.dischargeClassification</target>
+        <target>Clasificación Final</target>
         <jms:reference-file line="87">Form/RotaVirus/CaseType.php</jms:reference-file>
         <jms:reference-file line="29">Form/RotaVirus/OutcomeType.php</jms:reference-file>
       </trans-unit>
@@ -3615,7 +3615,7 @@
       </trans-unit>
       <trans-unit id="64f3b473dfe49625d94e5f90b3d7bf17fd8df10b" resname="rotavirus-form.state">
         <source>rotavirus-form.state</source>
-        <target>Condición</target>
+        <target>Provincia</target>
         <jms:reference-file line="61">Form/RotaVirus/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="c207bb19c6d39e367a58e7a7bd6d78999d37ff2c" resname="rotavirus-form.stoolCollected">
@@ -3705,7 +3705,7 @@
       </trans-unit>
       <trans-unit id="d141e584176eecbb227530905663ee593cc6f119" resname="rotavirus-form.symptomVomitDuration">
         <source>rotavirus-form.symptomVomitDuration</source>
-        <target>Duración de los vómitos por día (antes del ingreso)</target>
+        <target>Número de días con vómitos (antes del ingreso)</target>
         <jms:reference-file line="71">Form/RotaVirus/CaseType.php</jms:reference-file>
         <jms:reference-file line="142">views/RotaVirus/show.html.twig</jms:reference-file>
       </trans-unit>
