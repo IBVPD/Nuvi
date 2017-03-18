@@ -20,7 +20,7 @@ use NS\SentinelBundle\Validators as LocalAssert;
  * @SuppressWarnings(PHPMD.ShortVariable)
  * @UniqueEntity(fields={"site","case_id"}, message="The case id already exists for this site!")
  *
- * @LocalAssert\GreaterThanDate(lessThanField="birthdate",greaterThanField="admDate",message="The date of birth is past the date of admission")
+ * @LocalAssert\GreaterThanDate(atPath="adm_date",lessThanField="birthdate",greaterThanField="admDate",message="The date of birth is past the date of admission")
  * @LocalAssert\BirthdayOrAge()
  */
 abstract class BaseCase

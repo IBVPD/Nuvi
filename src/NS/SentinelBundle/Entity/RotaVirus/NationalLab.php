@@ -11,8 +11,8 @@ use NS\SentinelBundle\Validators as LocalAssert;
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\RotaVirus\NationalLabRepository")
  * @ORM\Table(name="rota_national_labs")
  *
- * @LocalAssert\GreaterThanDate(lessThanField="caseFile.siteLab.stoolSentToNLDate",greaterThanField="dateReceived",message="form.validation.vaccination-after-admission")
- * @LocalAssert\GreaterThanDate(lessThanField="dateReceived",greaterThanField="genotypingDate",message="form.validation.vaccination-after-admission")
+ * @LocalAssert\GreaterThanDate(atPath="dt_sample_recd",lessThanField="caseFile.siteLab.stoolSentToNLDate",greaterThanField="dateReceived",message="form.validation.vaccination-after-admission")
+ * @LocalAssert\GreaterThanDate(atPath="dt_gt",lessThanField="dateReceived",greaterThanField="genotypingDate",message="form.validation.vaccination-after-admission")
  */
 class NationalLab extends ExternalLab
 {

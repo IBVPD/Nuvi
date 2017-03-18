@@ -30,11 +30,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @SuppressWarnings(PHPMD.ShortVariable)
  *
- * @LocalAssert\GreaterThanDate(lessThanField="firstVaccinationDose",greaterThanField="admDate",message="form.validation.vaccination-after-admission")
- * @LocalAssert\GreaterThanDate(lessThanField="secondVaccinationDose",greaterThanField="admDate",message="form.validation.vaccination-after-admission")
- * @LocalAssert\GreaterThanDate(lessThanField="thirdVaccinationDose",greaterThanField="admDate",message="form.validation.vaccination-after-admission")
- * @LocalAssert\GreaterThanDate(lessThanField="admDate",greaterThanField="stoolCollectionDate",message="form.validation.stool-collection-before-admission")
- * @LocalAssert\GreaterThanDate(lessThanField="admDate",greaterThanField="dischargeDate",message="form.validation.stool-collection-before-admission")
+ * @LocalAssert\GreaterThanDate(atPath="adm_date",lessThanField="firstVaccinationDose",greaterThanField="admDate",message="form.validation.vaccination-after-admission")
+ * @LocalAssert\GreaterThanDate(atPath="adm_date",lessThanField="secondVaccinationDose",greaterThanField="admDate",message="form.validation.vaccination-after-admission")
+ * @LocalAssert\GreaterThanDate(atPath="adm_date",lessThanField="thirdVaccinationDose",greaterThanField="admDate",message="form.validation.vaccination-after-admission")
+ * @LocalAssert\GreaterThanDate(atPath="stool_collect_date",lessThanField="admDate",greaterThanField="stoolCollectionDate",message="form.validation.stool-collection-before-admission")
+ * @LocalAssert\GreaterThanDate(atPath="disch_date",lessThanField="admDate",greaterThanField="dischargeDate",message="form.validation.stool-collection-before-admission")
  * @LocalAssert\RelatedField(sourceField="stoolCollected",sourceValue={"1"},fields={"stoolCollectionDate"})
  *
  * @ORM\EntityListeners(value={"NS\SentinelBundle\Entity\Listener\RotaVirusListener"})
