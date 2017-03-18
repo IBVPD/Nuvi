@@ -34,6 +34,7 @@ class GreaterThanDateValidator extends ConstraintValidator
                 $message = (!empty($constraint->message))? $constraint->message:sprintf("%s: %s is not greater than %s: %s", $constraint->greaterThanField, $greaterThanValue->format('Y-m-d'), $constraint->lessThanField, $lessThanValue->format('Y-m-d'));
                 $this->context
                     ->buildViolation($message)
+                    ->atPath($constraint->atPath !== null ? $constraint->atPath:$constraint->greaterThanField)
                     ->addViolation();
             }
         }

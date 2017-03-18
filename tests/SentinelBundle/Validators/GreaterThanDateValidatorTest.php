@@ -76,6 +76,11 @@ class GreaterThanDateValidatorTest extends \PHPUnit_Framework_TestCase
     public function testInvalidDates()
     {
         $builder = $this->createMock(ConstraintViolationBuilderInterface::class);
+        $builder->expects($this->once())
+            ->method('atPath')
+            ->with('admDate')
+            ->willReturnSelf();
+
         $builder
             ->expects($this->once())
             ->method('addViolation');
@@ -97,12 +102,17 @@ class GreaterThanDateValidatorTest extends \PHPUnit_Framework_TestCase
     public function testFieldNameDifferences()
     {
         $builder = $this->createMock(ConstraintViolationBuilderInterface::class);
+        $builder->expects($this->once())
+            ->method('atPath')
+            ->with('pleural_fluid_collect_date')
+            ->willReturnSelf();
+
         $builder
-            ->expects($this->atLeast(2))
+            ->expects($this->once())
             ->method('addViolation');
 
         $this->context
-            ->expects($this->atLeast(2))
+            ->expects($this->once())
             ->method('buildViolation')
             ->willReturn($builder);
 
@@ -111,7 +121,6 @@ class GreaterThanDateValidatorTest extends \PHPUnit_Framework_TestCase
         $ibd->setPleuralFluidCollectDate(new \DateTime('2015-07-15'));
 
         $this->validator->validate($ibd, new GreaterThanDate(['lessThanField' => 'admDate', 'greaterThanField' => 'pleural_fluid_collect_date']));
-        $this->validator->validate($ibd, new GreaterThanDate(['lessThanField' => 'admDate', 'greaterThanField' => 'pleuralFluidCollectDate']));
     }
 
     public function testNullGraph()
@@ -130,5 +139,31 @@ class GreaterThanDateValidatorTest extends \PHPUnit_Framework_TestCase
             $constraint = new GreaterThanDate(['lessThanField' => 'siteLab.csfCultDone.value', 'greaterThanField' => 'admDate']);
             $this->validator->validate($ibd, $constraint);
         }
+    }
+
+    public function testAtPath()
+    {
+        $builder = $this->createMock(ConstraintViolationBuilderInterface::class);
+        $builder->expects($this->once())
+            ->method('atPath')
+            ->with('dob')
+            ->willReturnSelf();
+
+        $builder
+            ->expects($this->once())
+            ->method('addViolation');
+
+        $this->context
+            ->expects($this->once())
+            ->method('buildViolation')
+            ->willReturn($builder);
+
+        $constraint = new GreaterThanDate(['lessThanField' => 'birthdate', 'greaterThanField' => 'admDate','atPath' => 'dob']);
+
+        $ibd = new IBD();
+        $ibd->setDob(new \DateTime('2016-07-15'));
+        $ibd->setAdmDate(new \DateTime('2015-12-27'));
+
+        $this->validator->validate($ibd, $constraint);
     }
 }

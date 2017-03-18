@@ -27,6 +27,9 @@ class GreaterThanDate extends Constraint
      */
     public $message;
 
+    /** @var string */
+    public $atPath;
+
     /**
      * @return string
      */
