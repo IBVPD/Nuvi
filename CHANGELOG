@@ -3,6 +3,7 @@ VERSION 0  INITIAL RELEASE
 ==========================
 
    Version 0.10 - Updated to SF3.x
+      19/03/2017 09:43  0.10.22  Fixed missing bundle
       19/03/2017 09:33  0.10.21  Fixed export formatting, added paho format, updated translations
       16/03/2017 16:17  0.10.20  Lots of PAHO changes/fixes. Improved Map Builder and Export date formats
       02/03/2017 15:01  0.10.19  Fixed translation spelling
