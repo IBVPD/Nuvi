@@ -5,6 +5,7 @@ namespace NS\SentinelBundle\Filter\Type;
 use NS\AceBundle\Filter\Type\DateRangeFilterType;
 use NS\SecurityBundle\Role\ACLConverter;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -57,6 +58,10 @@ class BaseReportFilterType extends AbstractType
         $builder
             ->add('adm_date', DateRangeFilterType::class, ['label' => 'report-filter-form.admitted-between',])
             ->add('createdAt', DateRangeFilterType::class, ['label' => 'report-filter-form.created-between']);
+
+        if ($options['include_paho_format_option']) {
+            $builder->add('pahoFormat', CheckboxType::class, ['label' => 'Use AMRO/PAHO format?', 'mapped' => false, 'apply_filter' => function () {}]);
+        }
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, [$this, 'preSetData']);
     }
@@ -118,7 +123,9 @@ class BaseReportFilterType extends AbstractType
         $resolver->setDefaults([
             'include_filter' => true,
             'include_export' => true,
-            'include_reset'  => true]
+            'include_reset'  => true,
+            'include_paho_format_option' => false,
+            ]
         );
 
         $resolver->setDefined(['site_type']);

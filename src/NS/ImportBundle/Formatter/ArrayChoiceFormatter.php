@@ -11,9 +11,25 @@ namespace NS\ImportBundle\Formatter;
 use Exporter\Formatter\DataFormatterInterface;
 use NS\UtilBundle\Form\Types\ArrayChoice;
 use Symfony\Component\PropertyAccess\PropertyPath;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class ArrayChoiceFormatter implements DataFormatterInterface
 {
+    /** @var TranslatorInterface */
+    private $translator;
+
+    /** @var bool */
+    private $pahoFormat = false;
+
+    /**
+     * ArrayChoiceFormatter constructor.
+     * @param TranslatorInterface $translator
+     */
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
     /**
      * @inheritDoc
      */
@@ -28,7 +44,11 @@ class ArrayChoiceFormatter implements DataFormatterInterface
      */
     public function format($data, PropertyPath $propertyPath)
     {
-        return $data->getValue();
+        if ($data->equal(ArrayChoice::NO_SELECTION)) {
+            return null;
+        }
+
+        return ($this->pahoFormat) ? sprintf('%d => %s',$data->getValue(), $this->translator->trans($data->__toString())): $data->getValue();
     }
 
     /**
@@ -36,6 +56,16 @@ class ArrayChoiceFormatter implements DataFormatterInterface
      */
     public function getPriority()
     {
-        return 75;
+        return 5;
+    }
+
+    public function usePahoFormat()
+    {
+        $this->pahoFormat = true;
+    }
+
+    public function useRegularFormat()
+    {
+        $this->pahoFormat = false;
     }
 }

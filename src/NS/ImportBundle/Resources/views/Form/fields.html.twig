@@ -325,3 +325,8 @@
         });
     </script>
 {% endblock %}
+
+{% block date_range_filter_row %}
+    {{ form_row(form.left_date) }}
+    {{ form_row(form.right_date) }}
+{% endblock %}

@@ -27,7 +27,7 @@ use Symfony\Component\HttpFoundation\Response;
 class ExportController extends Controller
 {
     private $baseField = ['region.code','country.code','site.code', 'id'];
-    private $formParams = ['validation_groups' => ['FieldPopulation'], 'include_filter' => false];
+    private $formParams = ['validation_groups' => ['FieldPopulation'], 'include_filter' => false, 'include_paho_format_option' => true];
 
     /**
      * @Route("/",name="exportIndex")
@@ -64,9 +64,19 @@ class ExportController extends Controller
             $this->adjustFields($meta, $fields);
 
             $query = $modelManager->getRepository('NSSentinelBundle:IBD')->exportQuery('i');
+            $arrayChoiceFormatter = $this->get('ns_import.array_choice_formatter');
 
-            return $this->export('csv', $ibdForm, $query, $fields, [new DateTimeFormatter()]);
+            if ($ibdForm->getData('pahoFormat')) {
+                $arrayChoiceFormatter->usePahoFormat();
+            }
+
+            return $this->export('csv', $ibdForm, $query, $fields, [$arrayChoiceFormatter, new DateTimeFormatter()]);
         }
+
+        $rotaForm = $this->createForm(RotaVirusReportFilterType::class, null, $this->formParams);
+
+        return $this->render('NSImportBundle:Export:index.html.twig', ['ibdForm' => $ibdForm->createView(), 'rotaForm' => $rotaForm->createView()]);
+
     }
 
     /**
@@ -91,9 +101,18 @@ class ExportController extends Controller
 
             $this->adjustFields($meta, $fields);
             $query = $modelManager->getRepository('NSSentinelBundle:RotaVirus')->exportQuery('i');
+            $arrayChoiceFormatter = $this->get('ns_import.array_choice_formatter');
 
-            return $this->export('csv', $rotaForm, $query, $fields, [new DateTimeFormatter()]);
+            if ($rotaForm->getData('pahoFormat')) {
+                $arrayChoiceFormatter->usePahoFormat();
+            }
+
+            return $this->export('csv', $rotaForm, $query, $fields, [$arrayChoiceFormatter, new DateTimeFormatter()]);
         }
+
+        $ibdForm = $this->createForm(IBDReportFilterType::class, null, $this->formParams);
+
+        return $this->render('NSImportBundle:Export:index.html.twig', ['ibdForm' => $ibdForm->createView(), 'rotaForm' => $rotaForm->createView()]);
     }
 
     /**

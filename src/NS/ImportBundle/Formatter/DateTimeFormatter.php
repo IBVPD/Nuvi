@@ -19,13 +19,21 @@ class DateTimeFormatter implements DataFormatterInterface
 
     /** @var array */
     private $fields = [
+        'createdAt' => 'Y-m-d H:i:s',
+        'updatedAt' => 'Y-m-d H:i:s',
+        'csf_collect_time' => 'H:i',
+        'blood_collect_time' => 'H:i',
+        'pleural_fluid_collect_time' => 'H:i',
         'siteLab.received' => 'Y-m-d H:i',
         'siteLab.csf_lab_time' => 'H:i',
         'siteLab.blood_lab_time' => 'H:i',
         'siteLab.other_lab_time' => 'H:i',
-        'csf_collect_time' => 'H:i',
-        'blood_collect_time' => 'H:i',
-        'pleural_fluid_collect_time' => 'H:i',
+        'siteLab.createdAt' => 'Y-m-d H:i:s',
+        'siteLab.updatedAt' => 'Y-m-d H:i:s',
+        'referenceLab.createdAt' => 'Y-m-d H:i:s',
+        'referenceLab.updatedAt' => 'Y-m-d H:i:s',
+        'nationalLab.createdAt' => 'Y-m-d H:i:s',
+        'nationalLab.updatedAt' => 'Y-m-d H:i:s',
     ];
 
     /**

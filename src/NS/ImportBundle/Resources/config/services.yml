@@ -87,3 +87,7 @@ services:
   ns_import.processor:
     class: NS\ImportBundle\Importer\ImportProcessor
     arguments: [ "@ns_import.converters", "@doctrine.orm.entity_manager", "@ns_import.linker_registry" ]
+
+  ns_import.array_choice_formatter:
+    class: NS\ImportBundle\Formatter\ArrayChoiceFormatter
+    arguments: [ "@translator" ]

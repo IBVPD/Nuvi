@@ -11,16 +11,16 @@
             <div class="widget-body">
                 <div class="widget-main">
                     <form action="{{path('exportIbd')}}" method="POST">
-                        {{form_errors(ibdForm)}}
+                        {{ form_errors(ibdForm) }}
                         <div class="row">
                             <div class="col col-sm-6">
-                                {{form_row(ibdForm.adm_date)}}
+                                {{ form_row(ibdForm.adm_date) }}
                             </div>
                             <div class="col col-sm-6">
-                                {{form_row(ibdForm.createdAt)}}
+                                {{ form_row(ibdForm.createdAt) }}
                             </div>
                         </div>
-                        {{form_rest(ibdForm)}}
+                        {{ form_rest(ibdForm) }}
                     </form>
                 </div>
             </div>
@@ -34,16 +34,16 @@
             <div class="widget-body">
                 <div class="widget-main">
                     <form action="{{path('exportRota')}}" method="POST">
-                        {{form_errors(rotaForm)}}
+                        {{ form_errors(rotaForm) }}
                         <div class="row">
                             <div class="col col-sm-6">
-                                {{form_row(rotaForm.adm_date)}}
+                                {{ form_row(rotaForm.adm_date) }}
                             </div>
                             <div class="col col-sm-6">
-                                {{form_row(rotaForm.createdAt)}}
+                                {{ form_row(rotaForm.createdAt) }}
                             </div>
                         </div>
-                        {{form_rest(rotaForm)}}
+                        {{ form_rest(rotaForm) }}
                     </form>
                 </div>
             </div>
