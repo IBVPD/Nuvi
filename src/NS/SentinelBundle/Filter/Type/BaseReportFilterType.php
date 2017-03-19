@@ -56,8 +56,16 @@ class BaseReportFilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('adm_date', DateRangeFilterType::class, ['label' => 'report-filter-form.admitted-between',])
-            ->add('createdAt', DateRangeFilterType::class, ['label' => 'report-filter-form.created-between']);
+            ->add('adm_date', DateRangeFilterType::class, [
+                'label' => 'report-filter-form.admitted-between',
+                'left_date_options' => ['label' => 'Admission Date - From'],
+                'right_date_options' => ['label' => 'Admission Date - To'],
+            ])
+            ->add('createdAt', DateRangeFilterType::class, [
+                'label' => 'report-filter-form.created-between',
+                'left_date_options' => ['label' => 'Record Creation Date - From'],
+                'right_date_options' => ['label' => 'Record Creation Date - To'],
+            ]);
 
         if ($options['include_paho_format_option']) {
             $builder->add('pahoFormat', CheckboxType::class, ['label' => 'Use AMRO/PAHO format?', 'mapped' => false, 'apply_filter' => function () {}]);

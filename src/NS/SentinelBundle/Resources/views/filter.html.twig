@@ -13,7 +13,8 @@
                     {{ form_row(filterForm.firstName ) }}
                     {{ form_row(filterForm.lastName ) }}
                 {% endif %}
-                {{ form_row(filterForm.adm_date) }}
+                {{ form_row(filterForm.adm_date.left_date) }}
+                {{ form_row(filterForm.adm_date.right_date) }}
                 {% if filterForm.status is defined and filterForm.result is defined%}
                     <div class="row">
                         <div class="col-xs-6">

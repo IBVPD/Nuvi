@@ -64,7 +64,9 @@ class BaseFilterType extends AbstractType
             ])
             ->add('adm_date', DateRangeFilterType::class, [
                 'required' => false,
-                'label'    => 'filter.admission-date'
+                'label'    => 'filter.admission-date',
+                'left_date_options' => ['label' => 'Admission Date - From'],
+                'right_date_options' => ['label' => 'Admission Date - To'],
             ]);
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, [$this, 'preSetData']);
