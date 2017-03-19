@@ -52,12 +52,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/beberlei/DoctrineExtensions.git",
-                "reference": "244909f8bbaf84d2b1fceaae3c7a3aef85fcb74b"
+                "reference": "79c7d232d0f876405e44f76fe39a91a415eb1008"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/beberlei/DoctrineExtensions/zipball/244909f8bbaf84d2b1fceaae3c7a3aef85fcb74b",
-                "reference": "244909f8bbaf84d2b1fceaae3c7a3aef85fcb74b",
+                "url": "https://api.github.com/repos/beberlei/DoctrineExtensions/zipball/79c7d232d0f876405e44f76fe39a91a415eb1008",
+                "reference": "79c7d232d0f876405e44f76fe39a91a415eb1008",
                 "shasum": ""
             },
             "require": {
@@ -106,7 +106,7 @@
                 "doctrine",
                 "orm"
             ],
-            "time": "2017-03-16 11:18:36"
+            "time": "2017-03-17 02:47:11"
         },
         {
             "name": "cocur/slugify",
@@ -4018,12 +4018,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "8165fcedcd6dbcfd18dff47b83ce56469f0d6489"
+                "reference": "91474b14f985837865fd7aa45137bce51ecaf8bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/8165fcedcd6dbcfd18dff47b83ce56469f0d6489",
-                "reference": "8165fcedcd6dbcfd18dff47b83ce56469f0d6489",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/91474b14f985837865fd7aa45137bce51ecaf8bb",
+                "reference": "91474b14f985837865fd7aa45137bce51ecaf8bb",
                 "shasum": ""
             },
             "require": {
@@ -4110,7 +4110,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2017-03-16 14:12:16"
+            "time": "2017-03-17 13:44:53"
         },
         {
             "name": "sonata-project/block-bundle",
@@ -4409,12 +4409,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/gnat42/exporter.git",
-                "reference": "c9bdc0877cb94e50cf586446abed5a8e0e1f2dd5"
+                "reference": "a34848335f943b14fc64ff511d85433220dea213"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gnat42/exporter/zipball/c9bdc0877cb94e50cf586446abed5a8e0e1f2dd5",
-                "reference": "c9bdc0877cb94e50cf586446abed5a8e0e1f2dd5",
+                "url": "https://api.github.com/repos/gnat42/exporter/zipball/a34848335f943b14fc64ff511d85433220dea213",
+                "reference": "a34848335f943b14fc64ff511d85433220dea213",
                 "shasum": ""
             },
             "require": {
@@ -4477,7 +4477,7 @@
             "support": {
                 "source": "https://github.com/gnat42/exporter/tree/patch-1"
             },
-            "time": "2017-03-16 19:43:08"
+            "time": "2017-03-17 17:14:45"
         },
         {
             "name": "sonata-project/intl-bundle",
@@ -5527,7 +5527,7 @@
             ],
             "authors": [
                 {
-                    "name": "William Durand",
+                    "name": "William DURAND",
                     "email": "william.durand1@gmail.com"
                 }
             ],
@@ -5958,26 +5958,27 @@
         },
         {
             "name": "nelmio/alice",
-            "version": "2.2.2",
+            "version": "v2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nelmio/alice.git",
-                "reference": "be940d30a450043c7991f2bc6ad19682db98c8cf"
+                "reference": "0abba027a2c97d71aef3563447fe2326671f4a9e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nelmio/alice/zipball/be940d30a450043c7991f2bc6ad19682db98c8cf",
-                "reference": "be940d30a450043c7991f2bc6ad19682db98c8cf",
+                "url": "https://api.github.com/repos/nelmio/alice/zipball/0abba027a2c97d71aef3563447fe2326671f4a9e",
+                "reference": "0abba027a2c97d71aef3563447fe2326671f4a9e",
                 "shasum": ""
             },
             "require": {
-                "fzaninotto/faker": "^1.0",
+                "fzaninotto/faker": "^1.5",
                 "php": "^5.6||^7.0",
+                "phpunit/phpunit": "^5.6",
                 "symfony/yaml": "^2.0||^3.0"
             },
             "require-dev": {
                 "doctrine/common": "^2.3",
-                "phpunit/phpunit": "^5.0||^4.0",
+                "phpspec/prophecy": "^1.5.0",
                 "symfony/phpunit-bridge": "^3.0",
                 "symfony/property-access": "^2.2||^3.0"
             },
@@ -6017,7 +6018,7 @@
                 "orm",
                 "test"
             ],
-            "time": "2016-07-15T19:50:38+00:00"
+            "time": "2017-03-18T16:19:10+00:00"
         },
         {
             "name": "pdepend/pdepend",
