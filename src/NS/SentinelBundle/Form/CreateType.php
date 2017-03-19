@@ -64,6 +64,7 @@ class CreateType extends AbstractType
                 'label'           => 'ibd-form.site',
                 'query_builder'   => $queryBuilder,
                 'class'           => Site::class,
+                'constraints'     => [new NotBlank()],
                 'auto_initialize' => false]);
         }
     }
