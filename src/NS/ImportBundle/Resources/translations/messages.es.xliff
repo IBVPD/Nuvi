@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2017-02-23T10:13:15Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
+  <file date="2017-03-17T19:29:29Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -14,22 +14,22 @@
       </trans-unit>
       <trans-unit id="c3cd636a585b20c40ac2df5ffb403e83cb2eef51" resname="Actions">
         <source>Actions</source>
-        <target state="new">Actions</target>
+        <target>Acciones</target>
         <jms:reference-file line="59">views/Import/index.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="03a870f31de5780dd1657152a7a8a97101a081ef" resname="Case Id and Site Code">
         <source>Case Id and Site Code</source>
-        <target state="new">Case Id and Site Code</target>
+        <target>Caso Id y Código del sitio</target>
         <jms:reference-file line="105">Admin/MapAdmin.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="2998a9a262038ba16b22bf2d64e86eae00ecd00a" resname="Case Id and Verify Country">
         <source>Case Id and Verify Country</source>
-        <target state="new">Case Id and Verify Country</target>
+        <target>Case Id y verificar pais</target>
         <jms:reference-file line="105">Admin/MapAdmin.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="accf40c89baa4fa88e6a7ff11e1f805beecafd3f" resname="Created">
         <source>Created</source>
-        <target state="new">Created</target>
+        <target>Created</target>
         <jms:reference-file line="51">views/Import/index.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="5c051b1bba7d22157050c9bf8d2bf196f0fab730" resname="DB Column">
