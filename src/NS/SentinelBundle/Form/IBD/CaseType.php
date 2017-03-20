@@ -77,7 +77,14 @@ class CaseType extends AbstractType
             ->add('state',              null, ['required' => $required, 'label' => 'ibd-form.state'])
             ->add('caseId',             null, ['required' => true, 'label' => 'ibd-form.case-id', 'property_path' => 'case_id'])
             ->add('admDate',            DatePickerType::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.adm-date','property_path'=>'adm_date'])
-            ->add('admDx',              Diagnosis::class, ['required' => $required, 'label' => 'ibd-form.adm-dx', 'hidden' => [ 'children' => ['#meningitisTab'=>[Diagnosis::SUSPECTED_MENINGITIS], '#pneumoniaTab' => [Diagnosis::SUSPECTED_PNEUMONIA,Diagnosis::SUSPECTED_SEVERE_PNEUMONIA,Diagnosis::SUSPECTED_SEPSIS]]]])
+            ->add('admDx',              Diagnosis::class, [
+                'required' => $required,
+                'label' => 'ibd-form.adm-dx',
+                'hidden' => [
+                    'children' => [
+                        '#meningitisTab'=> [Diagnosis::SUSPECTED_MENINGITIS,Diagnosis::MULTIPLE],
+                        '#pneumoniaTab' => [Diagnosis::SUSPECTED_PNEUMONIA,Diagnosis::SUSPECTED_SEVERE_PNEUMONIA,Diagnosis::SUSPECTED_SEPSIS,Diagnosis::MULTIPLE],
+                    ]]])
             ->add('admDxOther',         null, ['required' => $required, 'label' => 'ibd-form.adm-dx-other', 'hidden' => ['parent' => 'admDx', 'value' => Diagnosis::OTHER]])
             ->add('onsetDate',          DatePickerType::class, ['required' => $required, 'label' => 'ibd-form.onset-date','property_path'=>'onset_date'])
             ->add('antibiotics',        TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.antibiotics'])
