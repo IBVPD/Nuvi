@@ -66,17 +66,17 @@ class CaseType extends AbstractType
         $isPaho = $this->authChecker->isGranted('ROLE_AMR');
 
         $builder
-            ->add('lastName',           null, ['required' => $required, 'label' => 'ibd-form.last-name', 'attr' => ['autocomplete' => 'off']])
-            ->add('firstName',          null, ['required' => $required, 'label' => 'ibd-form.first-name', 'attr' => ['autocomplete' => 'off']])
+            ->add('lastName',           null, ['required' => $required || $isPaho, 'label' => 'ibd-form.last-name', 'attr' => ['autocomplete' => 'off']])
+            ->add('firstName',          null, ['required' => $required || $isPaho, 'label' => 'ibd-form.first-name', 'attr' => ['autocomplete' => 'off']])
             ->add('parentalName',       null, ['required' => $required, 'label' => 'ibd-form.parental-name', 'attr' => ['autocomplete' => 'off']])
-            ->add('dobKnown',           TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.date-of-birth-known', 'exclude_choices'=> ($isPaho ? [TripleChoice::UNKNOWN]:null)])
+            ->add('dobKnown',           TripleChoice::class, ['required' => $required  || $isPaho, 'label' => 'ibd-form.date-of-birth-known', 'exclude_choices'=> ($isPaho ? [TripleChoice::UNKNOWN]:null)])
             ->add('birthdate',          DatePickerType::class, ['required' => $required, 'label' => 'ibd-form.date-of-birth', 'hidden' => ['parent' => 'dobKnown', 'value' => TripleChoice::YES], 'widget' => 'single_text'])
             ->add('dobYearMonths',      YearMonthType::class, [ 'required' => $required, 'hidden' => ['parent'=>'dobKnown', 'value' => TripleChoice::NO]])
-            ->add('gender',             Gender::class, ['required' => $required, 'label' => 'ibd-form.gender'])
+            ->add('gender',             Gender::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.gender'])
             ->add('district',           null, ['required' => $required, 'label' => 'ibd-form.district'])
             ->add('state',              null, ['required' => $required, 'label' => 'ibd-form.state'])
             ->add('caseId',             null, ['required' => true, 'label' => 'ibd-form.case-id', 'property_path' => 'case_id'])
-            ->add('admDate',            DatePickerType::class, ['required' => $required, 'label' => 'ibd-form.adm-date','property_path'=>'adm_date'])
+            ->add('admDate',            DatePickerType::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.adm-date','property_path'=>'adm_date'])
             ->add('admDx',              Diagnosis::class, ['required' => $required, 'label' => 'ibd-form.adm-dx', 'hidden' => [ 'children' => ['#meningitisTab'=>[Diagnosis::SUSPECTED_MENINGITIS], '#pneumoniaTab' => [Diagnosis::SUSPECTED_PNEUMONIA,Diagnosis::SUSPECTED_SEVERE_PNEUMONIA,Diagnosis::SUSPECTED_SEPSIS]]]])
             ->add('admDxOther',         null, ['required' => $required, 'label' => 'ibd-form.adm-dx-other', 'hidden' => ['parent' => 'admDx', 'value' => Diagnosis::OTHER]])
             ->add('onsetDate',          DatePickerType::class, ['required' => $required, 'label' => 'ibd-form.onset-date','property_path'=>'onset_date'])

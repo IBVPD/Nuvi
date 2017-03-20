@@ -18,6 +18,7 @@ use NS\SentinelBundle\Form\Types\VaccinationReceived;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Form\Types\ThreeDoses;
 use NS\SentinelBundle\Form\RotaVirus\Types\Dehydration;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
  * Class CaseType
@@ -30,13 +31,18 @@ class CaseType extends AbstractType
      */
     private $validatorResolver;
 
+    /** @var AuthorizationCheckerInterface */
+    private $authChecker;
+
     /**
      * CaseType constructor.
      * @param ValidatorGroupResolver $validatorResolver
+     * @param AuthorizationCheckerInterface $authorizationChecker
      */
-    public function __construct(ValidatorGroupResolver $validatorResolver)
+    public function __construct(ValidatorGroupResolver $validatorResolver, AuthorizationCheckerInterface $authorizationChecker)
     {
         $this->validatorResolver = $validatorResolver;
+        $this->authChecker = $authorizationChecker;
     }
 
     /**
@@ -47,19 +53,20 @@ class CaseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $required = (isset($options['method']) && $options['method'] == 'PUT');
+        $isPaho = $this->authChecker->isGranted('ROLE_AMR');
 
         $builder
-            ->add('lastName',                   null,               ['required' => $required, 'label' => 'rotavirus-form.last-name', 'attr' => ['autocomplete' => 'off']])
-            ->add('firstName',                  null,               ['required' => $required, 'label' => 'rotavirus-form.first-name', 'attr' => ['autocomplete' => 'off']])
+            ->add('lastName',                   null,               ['required' => $required || $isPaho, 'label' => 'rotavirus-form.last-name', 'attr' => ['autocomplete' => 'off']])
+            ->add('firstName',                  null,               ['required' => $required || $isPaho, 'label' => 'rotavirus-form.first-name', 'attr' => ['autocomplete' => 'off']])
             ->add('parentalName',               null,               ['required' => $required, 'label' => 'rotavirus-form.parental-name', 'attr' => ['autocomplete' => 'off']])
             ->add('caseId',                     null,               ['required' => true,      'label' => 'rotavirus-form.caseId', 'property_path' => 'case_id'])
-            ->add('gender',                     Gender::class,                  ['required' => $required, 'label' => 'rotavirus-form.gender'])
-            ->add('dobKnown',                   TripleChoice::class,            ['required' => $required, 'label' => 'ibd-form.date-of-birth-known'])
+            ->add('gender',                     Gender::class,                  ['required' => $required || $isPaho, 'label' => 'rotavirus-form.gender'])
+            ->add('dobKnown',                   TripleChoice::class,            ['required' => $required || $isPaho, 'label' => 'ibd-form.date-of-birth-known'])
             ->add('birthdate',                  DatePickerType::class,          ['required' => $required, 'label' => 'ibd-form.date-of-birth', 'hidden' => ['parent' => 'dobKnown', 'value' => TripleChoice::YES], 'widget' => 'single_text'])
             ->add('dobYearMonths',              YearMonthType::class,           ['required' => $required, 'hidden' => ['parent'=>'dobKnown', 'value' => TripleChoice::NO]])
             ->add('district',                   null,                           ['required' => $required, 'label' => 'rotavirus-form.district'])
             ->add('state',                      null,                           ['required' => $required, 'label' => 'rotavirus-form.state'])
-            ->add('admDate',                    DatePickerType::class,          ['required' => $required, 'label' => 'rotavirus-form.admissionDate', 'property_path' => 'adm_date'])
+            ->add('admDate',                    DatePickerType::class,          ['required' => $required || $isPaho, 'label' => 'rotavirus-form.admissionDate', 'property_path' => 'adm_date'])
             ->add('intensiveCare',              TripleChoice::class,            ['required' => $required, 'label' => 'rotavirus-form.intensiveCare',])
             ->add('symptomDiarrhea',            TripleChoice::class,            ['required' => $required, 'label' => 'rotavirus-form.symptomDiarrhea'])
             ->add('symptomDiarrheaOnset',       DatePickerType::class,          ['required' => $required, 'label' => 'rotavirus-form.symptomDiarrheaOnset', 'hidden' => ['parent' => 'symptomDiarrhea', 'value' => TripleChoice::YES]])

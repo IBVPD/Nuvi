@@ -323,7 +323,7 @@ services:
 
   ns.sentinel.form.type.rotavirus:
     class: NS\SentinelBundle\Form\RotaVirus\CaseType
-    arguments: [ "@ns_sentinel.validation_group_resolver" ]
+    arguments: [ "@ns_sentinel.validation_group_resolver", "@security.authorization_checker" ]
     tags:
       - { name: form.type }
 
