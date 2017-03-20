@@ -109,14 +109,26 @@ NS\SentinelBundle\Entity\ACL:
         objectId: "@country1->id"
         user: "@us-user"
         options: [ ]
+    nsAMRUserAcl:
+        type: <countryRole()>
+        objectId: "@canadaPaho->id"
+        user: "@ca-paho"
+        options: [ 'nl', 'case', 'lab' ]
 
 NS\SentinelBundle\Entity\User:
+    ca-paho:
+      email: nathanael@paho.org
+      name: Nathanael PAHO
+      admin: false
+      active: true
+      plainPassword: 1234567
+      region: "@paho"
     user0:
         email: superadmin@noblet.ca
         name: NS Admin User
         admin: true
         active: true
-        plainPassword: GnatAndDaveInIndia
+        plainPassword: 1234567-admin
     user1:
         email: na@noblet.ca
         name: NA User

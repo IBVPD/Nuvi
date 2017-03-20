@@ -7,8 +7,18 @@ NS\SentinelBundle\Entity\Region:
     region1:
         name: South East Asia
         code: SEA
+    paho:
+        name: Regional Office for the Americas
+        code: AMR
 
 NS\SentinelBundle\Entity\Country:
+    canadaPaho:
+      name: Canada PAHO
+      code: CA-AMR
+      active: true
+      hasReferenceLab: true
+      hasNationalLab: true
+      region: "@paho"
     country0:
         name: Canada
         code: CA
@@ -46,6 +56,12 @@ NS\SentinelBundle\Entity\Country:
         region: "@region1"
 
 NS\SentinelBundle\Entity\Site:
+    sites{10..16}:
+      name: <company()>
+      code: <bothify('#?#?')>
+      active: true
+      country: "@canadaPaho"
+      surveillanceConducted: <surveillanceConducted()>
     site0:
         name: Alberta Childrens Hospital
         code: ALBCHLD
@@ -95,4 +111,4 @@ NS\SentinelBundle\Entity\ReferenceLab:
         name: Canadian Reference Lab
         location: <address()>
         type: <surveillanceConducted()>
-        countries: [ "@country0", "@country1" ]
+        countries: [ "@country0", "@country1", "@canadaPaho" ]
