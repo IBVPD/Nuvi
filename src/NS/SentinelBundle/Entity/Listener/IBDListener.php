@@ -44,6 +44,7 @@ class IBDListener extends BaseCaseListener
                 $case->getResult()->setValue(CaseResult::PROBABLE);
             } else {
                 if ($case->getSiteLab()) {
+                    /** @var IBD\SiteLab $lab */
                     $lab = $case->getSiteLab();
                     if (($lab->getCsfWcc() > 10 && $lab->getCsfWcc() <= 100) && (($lab->getCsfGlucose() >= 0 && $lab->getCsfGlucose() < 40) || ($lab->getCsfProtein() > 100))) {
                         $case->getResult()->setValue(CaseResult::PROBABLE);
