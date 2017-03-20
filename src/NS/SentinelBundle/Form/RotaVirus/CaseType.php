@@ -49,9 +49,9 @@ class CaseType extends AbstractType
         $required = (isset($options['method']) && $options['method'] == 'PUT');
 
         $builder
-            ->add('lastName',                   null,               ['required' => $required, 'label' => 'rotavirus-form.last-name'])
-            ->add('firstName',                  null,               ['required' => $required, 'label' => 'rotavirus-form.first-name'])
-            ->add('parentalName',               null,               ['required' => $required, 'label' => 'rotavirus-form.parental-name'])
+            ->add('lastName',                   null,               ['required' => $required, 'label' => 'rotavirus-form.last-name', 'attr' => ['autocomplete' => 'off']])
+            ->add('firstName',                  null,               ['required' => $required, 'label' => 'rotavirus-form.first-name', 'attr' => ['autocomplete' => 'off']])
+            ->add('parentalName',               null,               ['required' => $required, 'label' => 'rotavirus-form.parental-name', 'attr' => ['autocomplete' => 'off']])
             ->add('caseId',                     null,               ['required' => true,      'label' => 'rotavirus-form.caseId', 'property_path' => 'case_id'])
             ->add('gender',                     Gender::class,                  ['required' => $required, 'label' => 'rotavirus-form.gender'])
             ->add('dobKnown',                   TripleChoice::class,            ['required' => $required, 'label' => 'ibd-form.date-of-birth-known'])

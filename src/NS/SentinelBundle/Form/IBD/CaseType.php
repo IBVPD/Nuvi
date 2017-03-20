@@ -66,9 +66,9 @@ class CaseType extends AbstractType
         $isPaho = $this->authChecker->isGranted('ROLE_AMR');
 
         $builder
-            ->add('lastName',           null, ['required' => $required, 'label' => 'ibd-form.last-name'])
-            ->add('firstName',          null, ['required' => $required, 'label' => 'ibd-form.first-name'])
-            ->add('parentalName',       null, ['required' => $required, 'label' => 'ibd-form.parental-name'])
+            ->add('lastName',           null, ['required' => $required, 'label' => 'ibd-form.last-name', 'attr' => ['autocomplete' => 'off']])
+            ->add('firstName',          null, ['required' => $required, 'label' => 'ibd-form.first-name', 'attr' => ['autocomplete' => 'off']])
+            ->add('parentalName',       null, ['required' => $required, 'label' => 'ibd-form.parental-name', 'attr' => ['autocomplete' => 'off']])
             ->add('dobKnown',           TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.date-of-birth-known', 'exclude_choices'=> ($isPaho ? [TripleChoice::UNKNOWN]:null)])
             ->add('birthdate',          DatePickerType::class, ['required' => $required, 'label' => 'ibd-form.date-of-birth', 'hidden' => ['parent' => 'dobKnown', 'value' => TripleChoice::YES], 'widget' => 'single_text'])
             ->add('dobYearMonths',      YearMonthType::class, [ 'required' => $required, 'hidden' => ['parent'=>'dobKnown', 'value' => TripleChoice::NO]])
