@@ -28,7 +28,7 @@ class SiteFilterType extends AbstractType implements EmbeddedFilterTypeInterface
     {
         $label = (isset($options['label'])) ? $options['label'] : null;
 
-        $builder->add('name', TextFilterType::class, ['required' => false, 'label' => $label]);
+        $builder->add('name', TextFilterType::class, ['required' => false, 'label' => $label, 'apply_filter' => [$this,'applyFilter']]);
 
         if ($options['include_intense']) {
             $builder->add('ibdIntenseSupport', IntenseSupport::class, ['required' => false, 'apply_filter' => [$this, 'applyFilter']]);
@@ -62,6 +62,27 @@ class SiteFilterType extends AbstractType implements EmbeddedFilterTypeInterface
             }
 
             $queryBuilder->andWhere($filterBuilder->getExpr()->eq($alias . '.ibdIntenseSupport', $values['value']->getValue()));
+        }
+
+        if (!empty($values['value']) && is_string($values['value'])) {
+            /** @var QueryBuilder $queryBuilder */
+            $queryBuilder = $filterBuilder->getQueryBuilder();
+            $joins = $queryBuilder->getDQLPart('join');
+            $alias = $values['alias'];
+
+            if (empty($joins)) {
+                $queryBuilder->innerJoin(current($queryBuilder->getRootAliases()).'.site','s');
+                $alias = 's';
+            } else {
+                foreach (current($joins) as $join) {
+                    if ($join->getJoin() == $alias) {
+                        $alias = $join->getAlias();
+                    }
+                }
+            }
+
+            $queryBuilder->andWhere("$alias.name LIKE '%".$values['value']."%'");//$filterBuilder->getExpr()->like($alias . '.name', '"%'.$values['value'].'%"'));
+
         }
     }
 
