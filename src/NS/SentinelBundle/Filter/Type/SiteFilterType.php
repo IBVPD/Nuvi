@@ -81,7 +81,7 @@ class SiteFilterType extends AbstractType implements EmbeddedFilterTypeInterface
                 }
             }
 
-            $queryBuilder->andWhere("$alias.name LIKE '%".$values['value']."%'");//$filterBuilder->getExpr()->like($alias . '.name', '"%'.$values['value'].'%"'));
+            $queryBuilder->andWhere("$alias.name LIKE '%".$values['value']."%'");
 
         }
     }
