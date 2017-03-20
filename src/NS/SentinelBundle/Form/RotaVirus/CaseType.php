@@ -4,6 +4,7 @@ namespace NS\SentinelBundle\Form\RotaVirus;
 
 use NS\AceBundle\Form\DatePickerType;
 use NS\SentinelBundle\Entity\RotaVirus;
+use NS\SentinelBundle\Entity\Site;
 use NS\SentinelBundle\Form\RotaVirus\Types\DischargeClassification;
 use NS\SentinelBundle\Form\RotaVirus\Types\DischargeOutcome;
 use NS\SentinelBundle\Form\RotaVirus\Types\Rehydration;
@@ -11,8 +12,11 @@ use NS\SentinelBundle\Form\RotaVirus\Types\VaccinationType;
 use NS\SentinelBundle\Form\Types\Gender;
 use NS\SentinelBundle\Form\ValidatorGroup\ValidatorGroupResolver;
 use NS\SentinelBundle\Form\ValueObject\YearMonthType;
+use NS\SentinelBundle\Interfaces\SerializedSitesInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use NS\SentinelBundle\Form\Types\VaccinationReceived;
 use NS\SentinelBundle\Form\Types\TripleChoice;
@@ -26,23 +30,26 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
  */
 class CaseType extends AbstractType
 {
-    /**
-     * @var ValidatorGroupResolver
-     */
+    /** @var ValidatorGroupResolver */
     private $validatorResolver;
 
     /** @var AuthorizationCheckerInterface */
     private $authChecker;
 
+    /** @var SerializedSitesInterface */
+    private $siteSerializer;
+
     /**
      * CaseType constructor.
      * @param ValidatorGroupResolver $validatorResolver
      * @param AuthorizationCheckerInterface $authorizationChecker
+     * @param SerializedSitesInterface $siteSerializer
      */
-    public function __construct(ValidatorGroupResolver $validatorResolver, AuthorizationCheckerInterface $authorizationChecker)
+    public function __construct(ValidatorGroupResolver $validatorResolver, AuthorizationCheckerInterface $authorizationChecker, SerializedSitesInterface $siteSerializer)
     {
         $this->validatorResolver = $validatorResolver;
         $this->authChecker = $authorizationChecker;
+        $this->siteSerializer = $siteSerializer;
     }
 
     /**
@@ -72,7 +79,6 @@ class CaseType extends AbstractType
             ->add('symptomDiarrheaOnset',       DatePickerType::class,          ['required' => $required, 'label' => 'rotavirus-form.symptomDiarrheaOnset', 'hidden' => ['parent' => 'symptomDiarrhea', 'value' => TripleChoice::YES]])
             ->add('symptomDiarrheaEpisodes',    null,                           ['required' => $required, 'label' => 'rotavirus-form.symptomDiarrheaEpisodes', 'hidden' => ['parent' => 'symptomDiarrhea', 'value' => TripleChoice::YES]])
             ->add('symptomDiarrheaDuration',    null,                           ['required' => $required, 'label' => 'rotavirus-form.symptomDiarrheaDuration', 'hidden' => ['parent' => 'symptomDiarrhea', 'value' => TripleChoice::YES]])
-            ->add('symptomDiarrheaBloody',      TripleChoice::class,            ['required' => $required, 'label' => 'rotavirus-form.symptomDiarrheaDuration', 'hidden' => ['parent' => 'symptomDiarrhea', 'value' => TripleChoice::YES]])
             ->add('symptomVomit',               TripleChoice::class,            ['required' => $required, 'label' => 'rotavirus-form.symptomVomit'])
             ->add('symptomVomitEpisodes',       null,                           ['required' => $required, 'label' => 'rotavirus-form.symptomVomitEpisodes', 'hidden' => ['parent' => 'symptomVomit', 'value' => TripleChoice::YES]])
             ->add('symptomVomitDuration',       null,                           ['required' => $required, 'label' => 'rotavirus-form.symptomVomitDuration', 'hidden' => ['parent' => 'symptomVomit', 'value' => TripleChoice::YES]])
@@ -95,8 +101,26 @@ class CaseType extends AbstractType
             ->add('dischargeClassOther',        null,                           ['required' => false, 'label' => 'rotavirus-form.dischargeClassOther'])
             ->add('comment',                    null,                           ['required' => false, 'label' => 'rotavirus-form.comment'])
         ;
+
+        $builder->addEventListener(FormEvents::POST_SET_DATA,[$this,'postSetData']);
     }
-    
+
+    public function postSetData(FormEvent $event)
+    {
+        /** @var RotaVirus $data */
+        $data = $event->getData();
+        $add = ($data && $data->getSite()->isTacPhase2());
+        if (!$add && !$this->siteSerializer->hasMultipleSites()) {
+            $site = $this->siteSerializer->getSite();
+            $add = ($site instanceof Site && $site->isTacPhase2());
+        }
+
+        if ($add) {
+            $required = $event->getForm()->getConfig()->getOption('method', 'POST') == 'PUT';
+            $event->getForm()->add('symptomDiarrheaBloody', TripleChoice::class, ['required' => $required, 'label' => 'rotavirus-form.symptomDiarrheaDuration', 'hidden' => ['parent' => 'symptomDiarrhea', 'value' => TripleChoice::YES]]);
+        }
+    }
+
     /**
      * @param OptionsResolver $resolver
      */
