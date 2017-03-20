@@ -151,7 +151,8 @@ class CaseType extends AbstractType
         }
 
         if (!$country || ($country instanceof Country && $country->getTracksPneumonia())) {
-            $form->add('pneuDiffBreathe',       TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-diff-breathe'])
+            $form
+                ->add('pneuDiffBreathe',       TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-diff-breathe'])
                 ->add('pneuChestIndraw',        TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-chest-indraw'])
                 ->add('pneuCough',              TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-cough'])
                 ->add('pneuCyanosis',           TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-cyanosis'])

@@ -35,6 +35,7 @@ class SiteAdmin extends AbstractAdmin
             ->add('ibdEqaCode')
             ->add('rvEqaCode')
             ->add('surveillanceConducted')
+            ->add('tacPhase2')
         ;
     }
 
@@ -83,6 +84,7 @@ class SiteAdmin extends AbstractAdmin
             ->add('ibdEqaCode')
             ->add('rvEqaCode')
             ->add('surveillanceConducted', SurveillanceConducted::class)
+            ->add('tacPhase2')
         ;
     }
 
@@ -111,6 +113,7 @@ class SiteAdmin extends AbstractAdmin
             ->add('ibdEqaCode')
             ->add('rvEqaCode')
             ->add('surveillanceConducted')
+            ->add('tacPhase2')
         ;
     }
 }

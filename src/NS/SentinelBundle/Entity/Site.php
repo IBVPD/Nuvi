@@ -184,6 +184,12 @@ class Site implements \Serializable
      */
     private $zeroReports;
 
+    /**
+     * @var bool
+     * @ORM\Column(name="tac_phase2",type="boolean",nullable=true)
+     */
+    private $tacPhase2 = false;
+
     //Fields used for reporting etc...
 
     /**
@@ -742,6 +748,22 @@ class Site implements \Serializable
         }
 
         return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTacPhase2()
+    {
+        return $this->tacPhase2;
+    }
+
+    /**
+     * @param bool $tacPhase2
+     */
+    public function setTacPhase2($tacPhase2)
+    {
+        $this->tacPhase2 = $tacPhase2;
     }
 
     /**
