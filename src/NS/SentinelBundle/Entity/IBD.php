@@ -40,9 +40,9 @@ use NS\SentinelBundle\Validators as LocalAssert;
  *
  * @LocalAssert\GreaterThanDate(atPath="adm_date",lessThanField="onsetDate",greaterThanField="admDate",message="form.validation.admission-after-onset")
  * @LocalAssert\GreaterThanDate(atPath="onset_date",lessThanField="birthdate",greaterThanField="onsetDate",message="form.validation.onset-after-dob")
- * @LocalAssert\GreaterThanDate(atPath="csf_collect_date",lessThanField="admDate",greaterThanField="csfCollectDate",message="form.validation.onset-after-dob")
- * @LocalAssert\GreaterThanDate(atPath="blood_collect_date",lessThanField="admDate",greaterThanField="bloodCollectDate",message="form.validation.onset-after-dob")
- * @LocalAssert\GreaterThanDate(atPath="pleural_fluid_collect_date",lessThanField="admDate",greaterThanField="pleuralFluidCollectDate",message="form.validation.onset-after-dob")
+ * @LocalAssert\GreaterThanDate(lessThanField="admDate",greaterThanField="csfCollectDate",message="form.validation.admission-after-csf-collection")
+ * @LocalAssert\GreaterThanDate(lessThanField="admDate",greaterThanField="bloodCollectDate",message="form.validation.admission-after-blood-collection")
+ * @LocalAssert\GreaterThanDate(lessThanField="admDate",greaterThanField="pleuralFluidCollectDate",message="form.validation.admission-after-pleural-fluid-collection")
  *
  * @LocalAssert\RelatedField(sourceField="admDx",sourceValue={"1"},fields={"menSeizures","menFever","menAltConscious","menInabilityFeed","menNeckStiff","menRash","menFontanelleBulge","menLethargy"},message="field-is-required-due-to-adm-diagnosis")
  * @LocalAssert\RelatedField(sourceField="admDx",sourceValue={"2","3"},fields={"pneuCyanosis","pneuVomit","pneuHypothermia","pneuMalnutrition","pneuDiffBreathe","pneuChestIndraw","pneuCough","pneuStridor","pneu_resp_rate","cxrDone"},message="field-is-required-due-to-adm-diagnosis")
