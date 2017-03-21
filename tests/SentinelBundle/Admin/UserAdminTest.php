@@ -37,7 +37,7 @@ class UserAdminTest extends WebTestCase
     public function getAdmins()
     {
         return [
-            ['superadmin@noblet.ca',16],
+            ['superadmin@noblet.ca', 17],
             ['na@noblet.ca', 15],
             ['ca@noblet.ca', 11]
         ];
