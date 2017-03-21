@@ -11,7 +11,6 @@
         <th>{{ 'Admission Date'|trans }}</th>
         <th>{{ 'Onset Date'|trans }}</th>
         <th>{{ 'Reference Lab Sample ID'|trans }}</th>
-        <th>{{ 'Reference Lab Sample Collection Date'|trans }}</th>
         <th>{{ 'Reference Lab Sample Type'|trans }}</th>
         <th>{{ 'Reference Lab Isolate Type'|trans }}</th>
     </tr>
@@ -29,7 +28,6 @@
             <td>{{ result.admDate|date('Y-m-d') }}</td>
             <td>{{ result.onsetDate|date('Y-m-d') }}</td>
             <td>{{ result.referenceLab.labId }}</td>
-            <td>{{ result.referenceLab.sampleCollectionDate|date('Y-m-d') }}</td>
             <td>{{ result.referenceLab.sampleType }}</td>
             <td>{{ result.referenceLab.isolateType }}</td>
         </tr>

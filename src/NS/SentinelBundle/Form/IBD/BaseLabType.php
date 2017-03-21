@@ -28,7 +28,6 @@ class BaseLabType extends AbstractType
         $builder
             ->add('labId',                      null, ['label' => 'ibd-rrl-form.lab-id', 'required' => true, 'property_path' => 'lab_id'])
             ->add('sampleType',                 SampleType::class, ['label' => 'ibd-rrl-form.sample-type', 'required' => false])
-            ->add('sampleCollectionDate',       DatePickerType::class, ['label' => 'ibd-rrl-form.sample-collection-date', 'required' => false])
             ->add('dateReceived',               DatePickerType::class, ['label' => 'ibd-rrl-form.date-received', 'required' => false])
             ->add('isolateViable',              IsolateViable::class, ['label' => 'ibd-rrl-form.isolate-viable', 'required' => false, 'hidden' => ['parent' => 'sampleType', 'value' => [SampleType::ISOLATE, SampleType::CSF_ISOLATE]]])
             ->add('isolateType',                IsolateType::class, ['label' => 'ibd-rrl-form.isolate-type', 'required' => false, 'hidden' => ['parent' => 'sampleType', 'value' => [SampleType::ISOLATE, SampleType::CSF_ISOLATE]]])

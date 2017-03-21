@@ -85,12 +85,10 @@ NS\SentinelBundle\Entity\IBD\SiteLab:
 NS\SentinelBundle\Entity\IBD\NationalLab:
   ibdNationalLabNoSite{0..5}:
     caseFile: "@ibdNoSites<current()>"
-    sampleCollectionDate: <dateTimeBetween('2015-01-01', '2015-01-05')>
 
 NS\SentinelBundle\Entity\IBD\ReferenceLab:
   ibdRrlNoSite{0..10}:
     caseFile: "@ibdNoSites<current()>"
-    sampleCollectionDate: <dateTimeBetween('2015-01-01', '2015-01-05')>
 
 NS\SentinelBundle\Entity\RotaVirus:
   rotaTest:

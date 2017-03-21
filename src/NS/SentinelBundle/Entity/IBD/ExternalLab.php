@@ -35,15 +35,6 @@ use NS\SentinelBundle\Validators as LocalAssert;
 abstract class ExternalLab extends BaseExternalLab
 {
     /**
-     * @var \DateTime $sampleCollectionDate
-     * @ORM\Column(name="sample_collection_date",type="date",nullable=true)
-     * @Serializer\Groups({"api","export"})
-     * @Serializer\Type(name="DateTime<'Y-m-d'>")
-     * @LocalAssert\NoFutureDate()
-     */
-    protected $sample_collection_date;
-
-    /**
      * @var SampleType
      * @ORM\Column(name="type_sample_recd",type="SampleType",nullable=true)
      * @Serializer\Groups({"api","export"})
@@ -479,24 +470,6 @@ abstract class ExternalLab extends BaseExternalLab
     public function setNmSerogroup(NmSerogroup $nmSerogroup)
     {
         $this->nm_serogroup = $nmSerogroup;
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getSampleCollectionDate()
-    {
-        return $this->sample_collection_date;
-    }
-
-    /**
-     * @param \DateTime $sampleCollectionDate
-     * @return ExternalLab
-     */
-    public function setSampleCollectionDate(\DateTime $sampleCollectionDate = null)
-    {
-        $this->sample_collection_date = $sampleCollectionDate;
         return $this;
     }
 
