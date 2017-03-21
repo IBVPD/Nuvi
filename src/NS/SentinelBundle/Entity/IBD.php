@@ -218,7 +218,7 @@ class IBD extends BaseCase
     /**
      * @var integer $pneu_oxygen_saturation
      * @ORM\Column(name="pneu_oxygen_saturation",type="integer",nullable=true)
-     * @Assert\Range(min=10,max=100,minMessage="Please provide a valid oxygen saturation level",maxMessage="Please provide a valid oxygen saturation level")
+     * @Assert\Range(min=80,max=100,minMessage="Please provide a valid oxygen saturation level",maxMessage="Please provide a valid oxygen saturation level")
      *
      * @Serializer\Groups({"api","export"})
      */
