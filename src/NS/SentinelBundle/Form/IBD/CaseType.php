@@ -123,13 +123,15 @@ class CaseType extends AbstractType
         $country  = null;
 
         if ($data && $data->getCountry()) {
+            $region = $data->getRegion();
             $country = $data->getCountry();
         } elseif (!$this->siteSerializer->hasMultipleSites()) {
             $site    = $this->siteSerializer->getSite();
             $country = ($site instanceof Site) ? $site->getCountry() : null;
+            $region  = ($country instanceof Country) ? $country->getRegion(): null;
         }
 
-        $isPaho = ($country && $country->getRegion()->getCode() == 'AMR' || $this->authChecker->isGranted('ROLE_AMR'));
+        $isPaho = ($region && $region->getCode() == 'AMR' || $this->authChecker->isGranted('ROLE_AMR'));
 
         if (!$country || ($country instanceof Country && $country->getTracksPneumonia())) {
             $form
