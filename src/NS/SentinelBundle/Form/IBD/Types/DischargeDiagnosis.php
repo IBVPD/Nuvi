@@ -16,6 +16,8 @@ class DischargeDiagnosis extends TranslatableArrayChoice implements TranslationC
     const SEPSIS                     = 3;
     const MULTIPLE                   = 4;
     const OTHER                      = 5;
+    const OTHER_MENINGITIS           = 6;
+    const OTHER_PNEUMONIA            = 7;
     const UNKNOWN                    = 99;
 
     protected $values = [
@@ -24,6 +26,8 @@ class DischargeDiagnosis extends TranslatableArrayChoice implements TranslationC
         self::SEPSIS => 'Sepsis',
         self::MULTIPLE => 'Multiple (i.e. Meningitis and/or Pneumonia and/or Sepsis)',
         self::OTHER => 'Other Diagnosis',
+        self::OTHER_MENINGITIS => 'Other meningitis',
+        self::OTHER_PNEUMONIA => 'Other pneumonia',
         self::UNKNOWN => 'Unknown',
     ];
 }
