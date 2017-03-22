@@ -63,20 +63,14 @@ class CaseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $required = (isset($options['method']) && $options['method'] == 'PUT');
-        $isPaho = $this->authChecker->isGranted('ROLE_AMR');
 
         $builder
-            ->add('lastName',           null, ['required' => $required || $isPaho, 'label' => 'ibd-form.last-name', 'attr' => ['autocomplete' => 'off']])
-            ->add('firstName',          null, ['required' => $required || $isPaho, 'label' => 'ibd-form.first-name', 'attr' => ['autocomplete' => 'off']])
             ->add('parentalName',       null, ['required' => $required, 'label' => 'ibd-form.parental-name', 'attr' => ['autocomplete' => 'off']])
-            ->add('dobKnown',           TripleChoice::class, ['required' => $required  || $isPaho, 'label' => 'ibd-form.date-of-birth-known', 'exclude_choices'=> ($isPaho ? [TripleChoice::UNKNOWN]:null)])
             ->add('birthdate',          DatePickerType::class, ['required' => $required, 'label' => 'ibd-form.date-of-birth', 'hidden' => ['parent' => 'dobKnown', 'value' => TripleChoice::YES], 'widget' => 'single_text'])
             ->add('dobYearMonths',      YearMonthType::class, [ 'required' => $required, 'hidden' => ['parent'=>'dobKnown', 'value' => TripleChoice::NO]])
-            ->add('gender',             Gender::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.gender'])
             ->add('district',           null, ['required' => $required, 'label' => 'ibd-form.district'])
             ->add('state',              null, ['required' => $required, 'label' => 'ibd-form.state'])
             ->add('caseId',             null, ['required' => true, 'label' => 'ibd-form.case-id', 'property_path' => 'case_id'])
-            ->add('admDate',            DatePickerType::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.adm-date','property_path'=>'adm_date'])
             ->add('admDx',              Diagnosis::class, [
                 'required' => $required,
                 'label' => 'ibd-form.adm-dx',
@@ -109,29 +103,14 @@ class CaseType extends AbstractType
             ->add('bloodCollected',     TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.blood-collected'])
             ->add('bloodCollectDate',   DatePickerType::class, ['required' => $required, 'label' => 'ibd-form.blood-collect-date', 'hidden' => ['parent' => 'bloodCollected', 'value' => TripleChoice::YES]])
             ->add('bloodCollectTime',   TimeType::class, ['required' => $required, 'label' => 'ibd-form.blood-collect-time', 'hidden' => ['parent' => 'bloodCollected', 'value' => TripleChoice::YES]])
-            ->add('csfCollected',       TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.csf-collected', 'exclude_choices'=> ($isPaho ? [TripleChoice::UNKNOWN]:null)])
             ->add('csfCollectDate',     DatePickerType::class, ['required' => $required, 'label' => 'ibd-form.csf-collect-date', 'hidden' => ['parent' => 'csfCollected', 'value' => TripleChoice::YES]])
             ->add('csfCollectTime',     TimeType::class, ['required' => $required, 'label' => 'ibd-form.csf-collect-time', 'hidden' => ['parent' => 'csfCollected', 'value' => TripleChoice::YES]])
             ->add('csfAppearance',      CSFAppearance::class, ['required' => $required, 'label' => 'ibd-form.csf-appearance', 'hidden' => ['parent' => 'csfCollected', 'value' => TripleChoice::YES]])
             ->add('dischOutcome',       DischargeOutcome::class, ['required' => false, 'label' => 'ibd-form.discharge-outcome'])
             ->add('dischDx',            DischargeDiagnosis::class, ['required' => false, 'label' => 'ibd-form.discharge-diagnosis'])
             ->add('dischDxOther',       null, ['required' => false, 'label' => 'ibd-form.discharge-diagnosis-other', 'hidden' => ['parent' => 'dischDx', 'value' => DischargeDiagnosis::OTHER]])
-            ->add('dischClass',         DischargeClassification::class, ['required' => false, 'label' => 'ibd-form.discharge-class','exclude_choices'=> ($isPaho ? [DischargeClassification::UNKNOWN,DischargeClassification::SUSPECT]:null)])
             ->add('comment',            null, ['required' => false, 'label' => 'ibd-form.comment']);
         ;
-
-        if ($isPaho) {
-            $builder
-                ->add('bloodNumberOfSamples', null, ['required' => $required,'hidden'=>['parent' => 'bloodCollected', 'value' => TripleChoice::YES, 'label' => 'ibd-form.blood-number-of-samples']])
-                ->add('pleuralFluidCollected', TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pleural-fluid-collected'])
-                ->add('pleuralFluidCollectDate', DatePickerType::class, ['required' => $required, 'hidden'=>['parent' => 'pleuralFluidCollected', 'value' => TripleChoice::YES], 'label' => 'ibd-form.pleural-fluid-collection-date'])
-                ->add('pleuralFluidCollectTime', TimeType::class, ['required' => $required,'hidden'=>['parent' => 'pleuralFluidCollected', 'value' => TripleChoice::YES], 'label' => 'ibd-form.pleural-fluid-collection-time'])
-                ;
-        } else {
-            $builder
-                ->add('otherSpecimenCollected', OtherSpecimen::class, ['required' => $required, 'label' => 'ibd-form.otherSpecimenCollected'])
-                ->add('otherSpecimenOther', null, ['required' => $required, 'label' => 'ibd-form.otherSpecimenOther', 'hidden' => ['parent' => 'otherSpecimenCollected', 'value'  => OtherSpecimen::OTHER]]);
-        }
 
         $builder->addEventListener(FormEvents::POST_SET_DATA, [$this,'postSetData']);
     }
@@ -140,7 +119,7 @@ class CaseType extends AbstractType
     {
         $data     = $event->getData();
         $form     = $event->getForm();
-        $required = ($form->getConfig()->getOption('method',false) === 'PUT');
+        $required = ($form->getConfig()->getOption('method', false) === 'PUT');
         $country  = null;
 
         if ($data && $data->getCountry()) {
@@ -150,24 +129,48 @@ class CaseType extends AbstractType
             $country = ($site instanceof Site) ? $site->getCountry() : null;
         }
 
-        if (!$country || ($country instanceof Country && $country->getTracksPneumonia())) {
-            $form->add('pneuDiffBreathe',       TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-diff-breathe'])
-                ->add('pneuChestIndraw',        TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-chest-indraw'])
-                ->add('pneuCough',              TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-cough'])
-                ->add('pneuCyanosis',           TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-cyanosis'])
-                ->add('pneuStridor',            TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-stridor'])
-                ->add('pneuRespRate',           IntegerType::class, ['required' => $required, 'label' => 'ibd-form.pneu-resp-rate', 'attr' => ['min' => 10, 'max' => 120],'property_path' => 'pneu_resp_rate'])
-                ->add('pneuVomit',              TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-vomit'])
-                ->add('pneuHypothermia',        TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-hypothermia'])
-                ->add('pneuMalnutrition',       TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-malnutrition'])
-                ->add('cxrDone',                TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.cxr-done'])
-                ->add('cxrResult',              CXRResult::class, ['required' => $required, 'label' => 'ibd-form.cxr-result', 'hidden' => ['parent' => 'cxrDone', 'value' => TripleChoice::YES]])
-                ->add('cxrAdditionalResult',    CXRAdditionalResult::class, ['required' => $required, 'label' => 'ibd-form.cxr-additional-result', 'expanded' => true, 'hidden' => ['parent' => 'cxrResult', 'value' => [CXRResult::CONSISTENT, CXRResult::INCONCLUSIVE]]])
-            ;
+        $isPaho = ($country && $country->getRegion()->getCode() == 'AMR' || $this->authChecker->isGranted('ROLE_AMR'));
 
-            if ($this->authChecker->isGranted('ROLE_AMR')) {
-                $form->add('pneuOxygenSaturation', IntegerType::class, ['required' => $required, 'label' => 'ibd-form.pneu-oxygen-level', 'property_path' => 'pneu_oxygen_saturation', 'attr' => ['min' => 80, 'max' => 100]]);
+        if (!$country || ($country instanceof Country && $country->getTracksPneumonia())) {
+            $form
+                ->add('pneuDiffBreathe',     TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-diff-breathe'])
+                ->add('pneuChestIndraw',     TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-chest-indraw'])
+                ->add('pneuCough',           TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-cough'])
+                ->add('pneuCyanosis',        TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-cyanosis'])
+                ->add('pneuStridor',         TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-stridor'])
+                ->add('pneuRespRate',        IntegerType::class, ['required' => $required, 'label' => 'ibd-form.pneu-resp-rate', 'attr' => ['min' => 10, 'max' => 120],'property_path' => 'pneu_resp_rate'])
+                ->add('pneuVomit',           TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-vomit'])
+                ->add('pneuHypothermia',     TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-hypothermia'])
+                ->add('pneuMalnutrition',    TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-malnutrition'])
+                ->add('cxrDone',             TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.cxr-done'])
+                ->add('cxrResult',           CXRResult::class, ['required' => $required, 'label' => 'ibd-form.cxr-result', 'hidden' => ['parent' => 'cxrDone', 'value' => TripleChoice::YES]]);
+
+            if ($isPaho) {
+                $form
+                    ->add('cxrAdditionalResult', CXRAdditionalResult::class, ['required' => $required, 'label' => 'ibd-form.cxr-additional-result', 'expanded' => true, 'hidden' => ['parent' => 'cxrResult', 'value' => [CXRResult::CONSISTENT, CXRResult::INCONCLUSIVE]]])
+                    ->add('pneuOxygenSaturation', IntegerType::class, ['required' => $required, 'label' => 'ibd-form.pneu-oxygen-level', 'property_path' => 'pneu_oxygen_saturation', 'attr' => ['min' => 80, 'max' => 100]]);
             }
+        }
+
+        $form
+            ->add('lastName', null, ['required' => $required || $isPaho, 'label' => 'ibd-form.last-name', 'attr' => ['autocomplete' => 'off']])
+            ->add('firstName', null, ['required' => $required || $isPaho, 'label' => 'ibd-form.first-name', 'attr' => ['autocomplete' => 'off']])
+            ->add('dobKnown', TripleChoice::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.date-of-birth-known', 'exclude_choices' => ($isPaho ? [TripleChoice::UNKNOWN] : null)])
+            ->add('gender', Gender::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.gender'])
+            ->add('admDate', DatePickerType::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.adm-date', 'property_path' => 'adm_date'])
+            ->add('csfCollected', TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.csf-collected', 'exclude_choices' => ($isPaho ? [TripleChoice::UNKNOWN] : null)])
+            ->add('dischClass', DischargeClassification::class, ['required' => false, 'label' => 'ibd-form.discharge-class', 'exclude_choices' => ($isPaho ? [DischargeClassification::UNKNOWN, DischargeClassification::SUSPECT] : null)]);
+
+        if ($isPaho) {
+            $form
+                ->add('bloodNumberOfSamples', null, ['required' => $required, 'hidden' => ['parent' => 'bloodCollected', 'value' => TripleChoice::YES, 'label' => 'ibd-form.blood-number-of-samples']])
+                ->add('pleuralFluidCollected', TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pleural-fluid-collected'])
+                ->add('pleuralFluidCollectDate', DatePickerType::class, ['required' => $required, 'hidden' => ['parent' => 'pleuralFluidCollected', 'value' => TripleChoice::YES], 'label' => 'ibd-form.pleural-fluid-collection-date'])
+                ->add('pleuralFluidCollectTime', TimeType::class, ['required' => $required, 'hidden' => ['parent' => 'pleuralFluidCollected', 'value' => TripleChoice::YES], 'label' => 'ibd-form.pleural-fluid-collection-time']);
+        } else {
+            $form
+                ->add('otherSpecimenCollected', OtherSpecimen::class, ['required' => $required, 'label' => 'ibd-form.otherSpecimenCollected'])
+                ->add('otherSpecimenOther', null, ['required' => $required, 'label' => 'ibd-form.otherSpecimenOther', 'hidden' => ['parent' => 'otherSpecimenCollected', 'value' => OtherSpecimen::OTHER]]);
         }
     }
 
