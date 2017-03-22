@@ -3,6 +3,7 @@ VERSION 0  INITIAL RELEASE
 ==========================
 
    Version 0.10 - Updated to SF3.x
+      22/03/2017 16:59  0.10.24  Fix failing tests due to some bugs
       22/03/2017 15:21  0.10.23  More PAHO specific changes
       19/03/2017 09:43  0.10.22  Fixed missing bundle
       19/03/2017 09:33  0.10.21  Fixed export formatting, added paho format, updated translations
