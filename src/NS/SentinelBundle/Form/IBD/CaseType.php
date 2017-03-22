@@ -117,7 +117,7 @@ class CaseType extends AbstractType
         $data     = $event->getData();
         $form     = $event->getForm();
         $required = ($form->getConfig()->getOption('method', false) === 'PUT');
-        $country  = null;
+        $region = $country  = null;
 
         if ($data && $data->getCountry()) {
             $region = $data->getRegion();
