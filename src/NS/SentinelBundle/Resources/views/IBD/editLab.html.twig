@@ -35,6 +35,16 @@
                             <div class="col-md-3">
                                 {{ form_row(form.csfLabTime) }}
                             </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>{{ 'CSF Collection Date and Time'|trans }}</label>
+                                {% if form.vars.value.caseFile.csfCollectDate %}
+                                    {{ form.vars.value.caseFile.csfCollectDate|date('Y-m-d') }} {{ form.vars.value.caseFile.csfCollectTime|date('H:i') }}
+                                {% else %}
+                                    {{ 'Unknown'|trans }}
+                                {% endif %}
+                                </div>
+                            </div>
                         </div>
 
                         <div class="row">
@@ -148,6 +158,16 @@
                             <div class="col-md-3">
                                 {{ form_row(form.bloodLabTime) }}
                             </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>{{ 'Blood Collection Date and Time'|trans }}</label>
+                                    {% if form.vars.value.caseFile.bloodCollectDate %}
+                                        {{ form.vars.value.caseFile.bloodCollectDate|date('Y-m-d') }} {{ form.vars.value.caseFile.bloodCollectTime|date('H:i') }}
+                                    {% else %}
+                                        {{ 'Unknown'|trans }}
+                                    {% endif %}
+                                </div>
+                            </div>
                         </div>
                         <hr/>
                         <div class="row">
@@ -257,6 +277,16 @@
                             </div>
                             <div class="col-md-3">
                                 {{ form_row(form.otherLabTime) }}
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>{{ 'Other Fluid Collection Date and Time'|trans }}</label>
+                                    {% if form.vars.value.caseFile.bloodCollectDate %}
+                                        {{ form.vars.value.caseFile.otherLabDate|date('Y-m-d') }} {{ form.vars.value.caseFile.otherLabTime|date('H:i') }}
+                                    {% else %}
+                                        {{ 'Unknown'|trans }}
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
                         <div class="row">

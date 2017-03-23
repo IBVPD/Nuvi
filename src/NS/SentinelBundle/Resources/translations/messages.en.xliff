@@ -2230,12 +2230,12 @@
       </trans-unit>
       <trans-unit id="28c33763a4f0bedcffdc80c5b31a9074b1441740" resname="ibd-form.blood-lab-datetime">
         <source>ibd-form.blood-lab-datetime</source>
-        <target>Date of blood collection from case</target>
+        <target>Date when blood sample was received at the lab</target>
         <jms:reference-file line="92">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="028389f0744ad83ea9a2778c0de2c514d0b8f8be" resname="ibd-form.blood-lab-time">
         <source>ibd-form.blood-lab-time</source>
-        <target>Time of blood collection from case</target>
+        <target>Time when blood sample was received at the lab</target>
         <jms:reference-file line="93">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="8d2045ae5146f6fcb17eda11f4f0b168971d5ca9" resname="ibd-form.blood-number-of-samples">
@@ -2772,12 +2772,12 @@
       </trans-unit>
       <trans-unit id="5def0cca3ad3dd9c4deac5aa56e5ac5ff366646d" resname="ibd-form.other-lab-datetime">
         <source>ibd-form.other-lab-datetime</source>
-        <target>Date of other fluid/specimen collection</target>
+        <target>Date when other fluid/specimen was received at the lab</target>
         <jms:reference-file line="105">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e1fb727318d99d1a324706127d635f106dd44ae5" resname="ibd-form.other-lab-time">
         <source>ibd-form.other-lab-time</source>
-        <target>Time of other fluid/specimen collection</target>
+        <target>Time when other fluid/specimen was received at the lab</target>
         <jms:reference-file line="106">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="f17933dab9c5d08a626d66523f31bcb8f08e3701" resname="ibd-form.other-sent-to-nl">

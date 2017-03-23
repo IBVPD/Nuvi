@@ -1,114 +1,114 @@
 ## YAML Template.
 ---
 NS\SentinelBundle\Entity\Region:
-    region0:
-        name: North America
-        code: NA
-    region1:
-        name: South East Asia
-        code: SEA
-    paho:
-        name: Regional Office for the Americas
-        code: AMR
+  region0:
+    name: North America
+    code: NA
+  region1:
+    name: South East Asia
+    code: SEA
+  paho:
+    name: Regional Office for the Americas
+    code: AMR
 
 NS\SentinelBundle\Entity\Country:
-    canadaPaho:
-      name: Canada PAHO
-      code: CA-AMR
-      active: true
-      hasReferenceLab: true
-      hasNationalLab: true
-      region: "@paho"
-    country0:
-        name: Canada
-        code: CA
-        active: true
-        hasReferenceLab: true
-        hasNationalLab: true
-        region: "@region0"
-    country1:
-        name: United States of America
-        code: US
-        active: true
-        hasReferenceLab: true
-        hasNationalLab: true
-        region: "@region0"
-    country2:
-        name: Mexico
-        code: MX
-        active: true
-        hasReferenceLab: true
-        hasNationalLab: true
-        region: "@region0"
-    country3:
-        name: India
-        code: IN
-        active: true
-        hasReferenceLab: true
-        hasNationalLab: true
-        region: "@region1"
-    country4:
-        name: Thailand
-        code: TH
-        active: true
-        hasReferenceLab: true
-        hasNationalLab: true
-        region: "@region1"
+  canadaPaho:
+    name: Canada PAHO
+    code: CA-AMR
+    active: true
+    hasReferenceLab: true
+    hasNationalLab: true
+    region: "@paho"
+  country0:
+    name: Canada
+    code: CA
+    active: true
+    hasReferenceLab: true
+    hasNationalLab: true
+    region: "@region0"
+  country1:
+    name: United States of America
+    code: US
+    active: true
+    hasReferenceLab: true
+    hasNationalLab: true
+    region: "@region0"
+  country2:
+    name: Mexico
+    code: MX
+    active: true
+    hasReferenceLab: true
+    hasNationalLab: true
+    region: "@region0"
+  country3:
+    name: India
+    code: IN
+    active: true
+    hasReferenceLab: true
+    hasNationalLab: true
+    region: "@region1"
+  country4:
+    name: Thailand
+    code: TH
+    active: true
+    hasReferenceLab: true
+    hasNationalLab: true
+    region: "@region1"
 
 NS\SentinelBundle\Entity\Site:
-    sites{10..16}:
-      name: <company()>
-      code: <bothify('#?#?')>
-      active: true
-      country: "@canadaPaho"
-      surveillanceConducted: <surveillanceConducted()>
-    site0:
-        name: Alberta Childrens Hospital
-        code: ALBCHLD
-        active: true
-        country: "@country0"
-        surveillanceConducted: <surveillanceConducted()>
-    site1:
-        name: Toronto Childrens Hospital
-        code: TCHLD
-        active: true
-        country: "@country0"
-        surveillanceConducted: <surveillanceConducted()>
-    site2:
-        name: Shriners Childrens Hospital
-        code: SHCHLD
-        active: true
-        country: "@country0"
-        surveillanceConducted: <surveillanceConducted()>
-    site3:
-        name: Seattle Grace Hospital
-        code: SGH
-        active: true
-        country: "@country1"
-        surveillanceConducted: <surveillanceConducted()>
-    site4:
-        name: Mexico General Hospital
-        code: MGH
-        active: true
-        country: "@country2"
-        surveillanceConducted: <surveillanceConducted()>
-    site5:
-        name: New Dehli Main Hospital
-        code: NDMH
-        active: true
-        country: "@country3"
-        surveillanceConducted: <surveillanceConducted()>
-    site6:
-        name: Thailand Main Hospital
-        code: TMH
-        active: true
-        country: "@country4"
-        surveillanceConducted: <surveillanceConducted()>
+  sites{10..16}:
+    name: <company()>
+    code: <bothify('#?#?')>
+    active: true
+    country: "@canadaPaho"
+    surveillanceConducted: <surveillanceConducted()>
+  site0:
+    name: Alberta Childrens Hospital
+    code: ALBCHLD
+    active: true
+    country: "@country0"
+    surveillanceConducted: <surveillanceConducted()>
+  site1:
+    name: Toronto Childrens Hospital
+    code: TCHLD
+    active: true
+    country: "@country0"
+    surveillanceConducted: <surveillanceConducted()>
+  site2:
+    name: Shriners Childrens Hospital
+    code: SHCHLD
+    active: true
+    country: "@country0"
+    surveillanceConducted: <surveillanceConducted()>
+  site3:
+    name: Seattle Grace Hospital
+    code: SGH
+    active: true
+    country: "@country1"
+    surveillanceConducted: <surveillanceConducted()>
+  site4:
+    name: Mexico General Hospital
+    code: MGH
+    active: true
+    country: "@country2"
+    surveillanceConducted: <surveillanceConducted()>
+  site5:
+    name: New Dehli Main Hospital
+    code: NDMH
+    active: true
+    country: "@country3"
+    surveillanceConducted: <surveillanceConducted()>
+  site6:
+    name: Thailand Main Hospital
+    code: TMH
+    active: true
+    country: "@country4"
+    surveillanceConducted: <surveillanceConducted()>
 
 NS\SentinelBundle\Entity\ReferenceLab:
-    lab1:
-        id: CA-RRL
-        name: Canadian Reference Lab
-        location: <address()>
-        type: <surveillanceConducted()>
-        countries: [ "@country0", "@country1", "@canadaPaho" ]
+  lab1:
+    id: CA-RRL
+    name: Canadian Reference Lab
+    location: <address()>
+    type: <surveillanceConducted()>
+    countries: [ "@country0", "@country1", "@canadaPaho" ]
