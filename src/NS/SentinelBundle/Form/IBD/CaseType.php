@@ -24,6 +24,7 @@ use NS\SentinelBundle\Form\ValidatorGroup\ValidatorGroupResolver;
 use NS\SentinelBundle\Form\ValueObject\YearMonthType;
 use NS\SentinelBundle\Interfaces\SerializedSitesInterface;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -165,7 +166,9 @@ class CaseType extends AbstractType
 
         if ($isPaho) {
             $form
-                ->add('bloodNumberOfSamples', null, ['required' => $required, 'hidden' => ['parent' => 'bloodCollected', 'value' => TripleChoice::YES, 'label' => 'ibd-form.blood-number-of-samples']])
+                ->add('bloodNumberOfSamples', ChoiceType::class, ['required' => $required, 'choices' => ['One' => 1, 'Two' => 2], 'placeholder' => 'Please Select...', 'hidden' => ['parent' => 'bloodCollected', 'value' => TripleChoice::YES, 'label' => 'ibd-form.blood-number-of-samples']])
+                ->add('bloodSecondCollectDate',   DatePickerType::class, ['required' => $required, 'label' => 'ibd-form.blood-collect-date-second-sample', 'hidden' => ['parent' => 'bloodNumberOfSamples', 'value' => 2]])
+                ->add('bloodSecondCollectTime',   TimeType::class, ['required' => $required, 'label' => 'ibd-form.blood-collect-time-second-sample', 'hidden' => ['parent' => 'bloodNumberOfSamples', 'value' => 2]])
                 ->add('pleuralFluidCollected', TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pleural-fluid-collected'])
                 ->add('pleuralFluidCollectDate', DatePickerType::class, ['required' => $required, 'hidden' => ['parent' => 'pleuralFluidCollected', 'value' => TripleChoice::YES], 'label' => 'ibd-form.pleural-fluid-collection-date'])
                 ->add('pleuralFluidCollectTime', TimeType::class, ['required' => $required, 'hidden' => ['parent' => 'pleuralFluidCollected', 'value' => TripleChoice::YES], 'label' => 'ibd-form.pleural-fluid-collection-time']);

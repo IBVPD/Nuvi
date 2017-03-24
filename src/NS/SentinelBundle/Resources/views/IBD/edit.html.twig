@@ -90,9 +90,14 @@
                             {{form_row(form.bloodCollected)}}
                             {% if form.bloodNumberOfSamples is defined %}
                                 {{ form_row(form.bloodNumberOfSamples) }}
+                                {{ form_row(form.bloodCollectDate) }}
+                                {{ form_row(form.bloodCollectTime) }}
+                                {{ form_row(form.bloodSecondCollectDate) }}
+                                {{ form_row(form.bloodSecondCollectTime) }}
+                            {% else %}
+                                {{ form_row(form.bloodCollectDate) }}
+                                {{ form_row(form.bloodCollectTime) }}
                             {% endif %}
-                            {{ form_row(form.bloodCollectDate) }}
-                            {{ form_row(form.bloodCollectTime) }}
                         </div>
                         <div class="col-sm-4">
                             {% if form.pleuralFluidCollected is defined %}

@@ -473,6 +473,23 @@ class IBD extends BaseCase
     private $blood_number_of_samples;
 
     /**
+     * @var \DateTime $bloodCollectDate
+     * @ORM\Column(name="blood_second_collect_date",type="date",nullable=true)
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'Y-m-d'>")
+     * @LocalAssert\NoFutureDate()
+     */
+    private $blood_second_collect_date;
+
+    /**
+     * @var \DateTime $blood_collect_time
+     * @ORM\Column(name="blood_second_collect_time",type="time",nullable=true)
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'H:i:s'>")
+     */
+    private $blood_second_collect_time;
+
+    /**
      * @var TripleChoice
      * @ORM\Column(name="pleural_fluid_collected",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
@@ -1440,6 +1457,38 @@ class IBD extends BaseCase
     public function setBloodNumberOfSamples($blood_number_of_samples)
     {
         $this->blood_number_of_samples = $blood_number_of_samples;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getBloodSecondCollectDate()
+    {
+        return $this->blood_second_collect_date;
+    }
+
+    /**
+     * @param \DateTime $blood_second_collect_date
+     */
+    public function setBloodSecondCollectDate(\DateTime $blood_second_collect_date = null)
+    {
+        $this->blood_second_collect_date = $blood_second_collect_date;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getBloodSecondCollectTime()
+    {
+        return $this->blood_second_collect_time;
+    }
+
+    /**
+     * @param \DateTime $blood_second_collect_time
+     */
+    public function setBloodSecondCollectTime(\DateTime $blood_second_collect_time = null)
+    {
+        $this->blood_second_collect_time = $blood_second_collect_time;
     }
 
     /**
