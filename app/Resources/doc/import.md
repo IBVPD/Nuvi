@@ -11,7 +11,7 @@ database columns.
 When creating a new map the following fields are available: *name, notes, class, version, headerRow,
 caseLinker, labPreference, file*.
 
-###Lab Preference Field
+### Lab Preference Field
 
 The lab preference, and file upload fields are only available on new map creation. The lab
 preference field is used only when the map creation receives a file. The purpose of the field is to
@@ -19,7 +19,7 @@ tell the system what kind of serotype data to link to. The reason for this is th
 national lab result are identical to those in a reference lab. Thus this field tells the map builder
 to select by default one over the other when it finds matching field names.
 
-###Name, Class & Version Fields
+### Name, Class & Version Fields
 
 Everywhere else in the system the map will be referred to through the combination of the name, class
 and version fields. For example if you create a map with name EMR EPI, class IBD and version 1, the
@@ -32,12 +32,12 @@ region for whatever reason, or need to deal with a historical file. The version 
 you could put the year or something like 'missing X'. Thus you could get a map named 'EMR EPI (IBD
 2013-Missing DOB) for example.
 
-###Header Row Field
+### Header Row Field
 
 This tells the map builder which row of the source file contains the column names. All rows before
 this row will be ignored.
 
-###Case Linker Field
+### Case Linker Field
 
 The case linker field determines how the data gets linked to a particular case. The two choices are
 **Case Id and Site Code** and **Case Id and Verify Country**. The Case Id and Site Code will require
