@@ -145,20 +145,6 @@ class SiteLabType extends AbstractType
         }
 
         if ($country instanceof Country) {
-            if ($country->hasReferenceLab()) {
-                $form
-                    ->add('rlCsfSent', SwitchType::class, ['label' => 'ibd-form.csf-sent-to-rrl', 'required' => false, 'switch_type' => 2])
-                    ->add('rlCsfDate', DatePickerType::class, ['label' => 'ibd-form.csf-sent-to-rrl-date', 'required' => false, 'hidden' => ['parent' => 'rlCsfSent', 'value' => 1]])
-                    ->add('rlIsolCsfSent', SwitchType::class, ['label' => 'ibd-form.csf-isol-sent-to-rrl', 'required' => false])
-                    ->add('rlIsolCsfDate', DatePickerType::class, ['label' => 'ibd-form.csf-isol-sent-to-rrl-date', 'required' => false, 'hidden' => ['parent' => 'rlIsolCsfSent', 'value' => 1]])
-                    ->add('rlIsolBloodSent', SwitchType::class, ['label' => 'ibd-form.blood-sent-to-rrl', 'required' => false])
-                    ->add('rlIsolBloodDate', DatePickerType::class, ['label' => 'ibd-form.blood-sent-to-rrl-date', 'required' => false, 'hidden' => ['parent' => 'rlIsolBloodSent', 'value' => 1]])
-                    ->add('rlBrothSent', SwitchType::class, ['label' => 'ibd-form.broth-sent-to-rrl', 'required' => false])
-                    ->add('rlBrothDate', DatePickerType::class, ['label' => 'ibd-form.broth-sent-to-rrl-date', 'required' => false, 'hidden' => ['parent' => 'rlBrothSent', 'value' => 1]])
-                    ->add('rlOtherSent', SwitchType::class, ['label' => 'ibd-form.other-sent-to-rrl', 'required' => false])
-                    ->add('rlOtherDate', DatePickerType::class, ['label' => 'ibd-form.other-sent-to-rrl-date', 'required' => false, 'hidden' => ['parent' => 'rlOtherSent', 'value' => 1]]);
-            }
-
             if ($country->hasNationalLab()) {
                 $form
                     ->add('nlCsfSent', SwitchType::class, ['label' => 'ibd-form.csf-sent-to-nl', 'required' => false, 'switch_type' => 2])
@@ -167,8 +153,6 @@ class SiteLabType extends AbstractType
                     ->add('nlIsolCsfDate', DatePickerType::class, ['label' => 'ibd-form.csf-isol-sent-to-nl-date', 'required' => false, 'hidden' => ['parent' => 'nlIsolCsfSent', 'value' => 1]])
                     ->add('nlIsolBloodSent', SwitchType::class, ['label' => 'ibd-form.blood-sent-to-nl', 'required' => false])
                     ->add('nlIsolBloodDate', DatePickerType::class, ['label' => 'ibd-form.blood-sent-to-nl-date', 'required' => false, 'hidden' => ['parent' => 'nlIsolBloodSent', 'value' => 1]])
-                    ->add('nlBrothSent', SwitchType::class, ['label' => 'ibd-form.broth-sent-to-nl', 'required' => false])
-                    ->add('nlBrothDate', DatePickerType::class, ['label' => 'ibd-form.broth-sent-to-nl-date', 'required' => false, 'hidden' => ['parent' => 'nlBrothSent', 'value' => 1]])
                     ->add('nlOtherSent', SwitchType::class, ['label' => 'ibd-form.other-sent-to-nl', 'required' => false])
                     ->add('nlOtherDate', DatePickerType::class, ['label' => 'ibd-form.other-sent-to-nl-date', 'required' => false, 'hidden' => ['parent' => 'nlOtherSent', 'value' => 1]]);
             }

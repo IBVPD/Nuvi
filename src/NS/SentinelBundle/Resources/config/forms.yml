@@ -160,6 +160,7 @@ services:
 
   ns.sentinel.form.type.ibd_nl:
     class: NS\SentinelBundle\Form\IBD\NationalLabType
+    arguments: [ "@ns.sentinel.sites" ]
     tags:
       - { name: form.type }
 

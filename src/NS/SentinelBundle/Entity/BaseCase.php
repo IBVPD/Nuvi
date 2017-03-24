@@ -455,7 +455,7 @@ abstract class BaseCase
      */
     public function getSentToReferenceLab()
     {
-        return ($this->siteLab) ? $this->siteLab->getSentToReferenceLab() : false;
+        return (($this->siteLab && $this->siteLab->getSentToReferenceLab()) || ($this->nationalLab && $this->nationalLab->getSentToReferenceLab()));
     }
 
     /**
