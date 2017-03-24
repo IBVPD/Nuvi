@@ -717,7 +717,7 @@ abstract class ExternalLab extends BaseExternalLab
     }
 
     /**
-     * @return null|string|void
+     * @return null|string
      */
     public function getIncompleteField()
     {

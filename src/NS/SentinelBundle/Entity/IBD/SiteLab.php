@@ -1917,7 +1917,7 @@ class SiteLab implements BaseSiteLabInterface
     /**
      * @param TripleChoice $pleural_fluid_culture_done
      */
-    public function setPleuralFluidCultureDone($pleural_fluid_culture_done)
+    public function setPleuralFluidCultureDone(TripleChoice $pleural_fluid_culture_done)
     {
         $this->pleural_fluid_culture_done = $pleural_fluid_culture_done;
     }
@@ -1933,7 +1933,7 @@ class SiteLab implements BaseSiteLabInterface
     /**
      * @param CultureResult $pleural_fluid_culture_result
      */
-    public function setPleuralFluidCultureResult($pleural_fluid_culture_result)
+    public function setPleuralFluidCultureResult(CultureResult $pleural_fluid_culture_result)
     {
         $this->pleural_fluid_culture_result = $pleural_fluid_culture_result;
     }
@@ -1965,7 +1965,7 @@ class SiteLab implements BaseSiteLabInterface
     /**
      * @param TripleChoice $pleural_fluid_gram_done
      */
-    public function setPleuralFluidGramDone($pleural_fluid_gram_done)
+    public function setPleuralFluidGramDone(TripleChoice $pleural_fluid_gram_done)
     {
         $this->pleural_fluid_gram_done = $pleural_fluid_gram_done;
     }
@@ -1981,7 +1981,7 @@ class SiteLab implements BaseSiteLabInterface
     /**
      * @param GramStain $pleural_fluid_gram_result
      */
-    public function setPleuralFluidGramResult($pleural_fluid_gram_result)
+    public function setPleuralFluidGramResult(GramStain $pleural_fluid_gram_result)
     {
         $this->pleural_fluid_gram_result = $pleural_fluid_gram_result;
     }
@@ -1997,7 +1997,7 @@ class SiteLab implements BaseSiteLabInterface
     /**
      * @param GramStainResult $pleural_fluid_gram_result_organism
      */
-    public function setPleuralFluidGramResultOrganism($pleural_fluid_gram_result_organism)
+    public function setPleuralFluidGramResultOrganism(GramStainResult $pleural_fluid_gram_result_organism)
     {
         $this->pleural_fluid_gram_result_organism = $pleural_fluid_gram_result_organism;
     }
@@ -2013,7 +2013,7 @@ class SiteLab implements BaseSiteLabInterface
     /**
      * @param TripleChoice $pleural_fluid_pcr_done
      */
-    public function setPleuralFluidPcrDone($pleural_fluid_pcr_done)
+    public function setPleuralFluidPcrDone(TripleChoice $pleural_fluid_pcr_done)
     {
         $this->pleural_fluid_pcr_done = $pleural_fluid_pcr_done;
     }
@@ -2029,7 +2029,7 @@ class SiteLab implements BaseSiteLabInterface
     /**
      * @param PCRResult $pleural_fluid_pcr_result
      */
-    public function setPleuralFluidPcrResult($pleural_fluid_pcr_result)
+    public function setPleuralFluidPcrResult(PCRResult $pleural_fluid_pcr_result)
     {
         $this->pleural_fluid_pcr_result = $pleural_fluid_pcr_result;
     }
@@ -2061,7 +2061,7 @@ class SiteLab implements BaseSiteLabInterface
     /**
      * @param \DateTime $blood_lab_date
      */
-    public function setBloodLabDate($blood_lab_date)
+    public function setBloodLabDate(\DateTime $blood_lab_date = null)
     {
         $this->blood_lab_date = $blood_lab_date;
     }
@@ -2077,7 +2077,7 @@ class SiteLab implements BaseSiteLabInterface
     /**
      * @param \DateTime $blood_lab_time
      */
-    public function setBloodLabTime($blood_lab_time)
+    public function setBloodLabTime(\DateTime $blood_lab_time = null)
     {
         $this->blood_lab_time = $blood_lab_time;
     }
@@ -2109,7 +2109,7 @@ class SiteLab implements BaseSiteLabInterface
     /**
      * @param \DateTime $other_lab_date
      */
-    public function setOtherLabDate($other_lab_date)
+    public function setOtherLabDate(\DateTime $other_lab_date = null)
     {
         $this->other_lab_date = $other_lab_date;
     }
@@ -2125,7 +2125,7 @@ class SiteLab implements BaseSiteLabInterface
     /**
      * @param \DateTime $other_lab_time
      */
-    public function setOtherLabTime($other_lab_time)
+    public function setOtherLabTime(\DateTime $other_lab_time = null)
     {
         $this->other_lab_time = $other_lab_time;
     }

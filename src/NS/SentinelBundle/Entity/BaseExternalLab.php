@@ -15,7 +15,7 @@ use JMS\Serializer\Annotation as Serializer;
 abstract class BaseExternalLab
 {
     /**
-     * @var
+     * @var BaseCase
      */
     protected $caseFile;
 
@@ -64,23 +64,10 @@ abstract class BaseExternalLab
      */
     protected $comment;
 
-    /**
-     *
-     */
     public function __construct()
     {
         $this->status = new CaseStatus(0);
         $this->createdAt = $this->updatedAt = new \DateTime();
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**
