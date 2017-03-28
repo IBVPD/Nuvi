@@ -1,27 +1,48 @@
 Cases and Data Entry
 ====================
 
-1. [Recent Cases list](#recent-cases-list)
-2. [Finding cases](#finding-buttons)
-3. [Creating cases](#creating-cases)
-4. [Modifying cases](#modifying-cases)
+1. [Finding and listing cases](#finding-and-listing-cases)
+2. [Creating cases](#creating-cases)
+3. [Modifying cases](#modifying-cases)
+4. [Deleting cases](#deleting-cases)
 5. [Zero Reporting](#zero-reporting)
 6. [Reports](#reports)
 
-Recent Cases list
------------------
+Finding and listing Cases
+-------------------------
 
 To view the list of cases, click **Data Entry** on the sidebar menu, and then **IBD** or
 **Rotavirus**.
 
 ![Sidebar Menu: Data Entry](images/sidebarDataEntry.png)
 
-Cases are listed in descending order of creation; i.e. newest cases at the top. Only
-cases that your user account has permission to access are included in the Recent Cases list.
+The **Recent Cases** page will be displayed, showing **Create/Edit Case** and **Filters** panes.
+
+![Recent Cases page](images/recentCasesPage.png)
+
+Enter or select the criteria for cases you want to see in the **Filters** panel on the right side
+of the page. The result list will include all cases where the respective field contains whatever you
+type here. You can enter a partial value for **Case ID**.  These fields are not case-sensitive.
+
+In the **Region**, **Country**, and **Site** fields, you can hold down `CTRL` and click to select
+multiple values. The result list will include results that match any of the selected values. Note
+that each of these fields only appears in the **Filters** panel if your user account has been
+administratively configured to allow access to cases with multiple possible values for that field;
+for example, if your account is restricted to cases in a particular country, the ability to filter
+on country would be irrelevant, so the Country field is not displayed.
+
+You can view all recent cases by leaving all the filter fields blank or unselected.
+
+Click **Find** when you are ready to proceed. The page will refresh and the list of matching cases
+will be displayed. Cases are listed in descending order of creation; i.e. newest cases at the top.
+Only cases that your user account has permission to access are included in the Recent Cases list.
 
 ![Recent Cases list](images/recentCases.png)
 
-###Actions buttons
+Any filters you apply remain in effect throughout case creation and editing operations. To clear the
+filters, click the **Reset** button in the **Filters** panel.
+
+### Actions buttons
 
 Actions buttons are displayed in the **Actions** column. To view the details of a specific case in
 the list, click the **View** (eye) button. To edit the case's epidemiology details or outcome, click
@@ -34,8 +55,8 @@ button. Click the gear button in order to see all the Actions buttons.
 
 ![Gear button](images/gearButton.png)
 
-Actions buttons also appear in the upper-right corner of case editing pages. A **List** button is
-included here for returning to the cases list.
+Actions buttons also appear in the upper-right corner of case View and Edit pages. A **List** button
+is included here for returning to the cases list.
 
 ![Actions buttons on edit page](images/actionsButtonsEdit.png)
 
@@ -50,7 +71,7 @@ indicated detail record of the case.
 
 For more information on editing a case, see the **Modifying cases** section below.
 
-###Case completion flags
+### Case completion flags
 
 The **Status** column displays green, orange, or red **EPI** and **LAB** flags. A green flag
 indicates that the associated epidemiology or lab details are complete and have passed error checks.
@@ -59,45 +80,18 @@ present or an error has been found.
 
 ![Case completion flags](images/completionFlags.png)
 
-Finding cases
--------------
-
-To find a specific case, enter or select criteria in the **Filters** panel to the right of the
-Recent Cases list and click **Find**. The list will be refreshed, showing only cases that match your
-filter criteria.
-
-![Filters panel](images/filtersPanel.png)
-
-You can enter partial values for **System ID** and **Case ID**. The result list will include all
-cases where the respective field contains whatever you type here. These fields are not case-
-sensitive.
-
-In the **Region**, **Country**, and **Site** fields, you can hold down `CTRL` and click to select
-multiple values. The result list will include results that match any of the selected values. Note
-that each of these fields only appears in the **Filters** panel if your user account has been
-administratively configured to allow access to cases with multiple possible values for that field;
-for example, if your account is restricted to cases in a particular country, the ability to filter
-on country would be irrelevant, so the Country field is not displayed.
-
-Any filters you apply remain in effect throughout case creation and editing operations. To clear the
-filters and return to the full list of cases, click the **Reset** button in the **Filters** panel.
-
 Creating cases
 --------------
 
-IDB and Rotavirus cases are created from their respective Recent Cases list pages.
+IDB and Rotavirus cases are created from the **Recent Cases** page, which is accessed as described
+under [Finding and listing cases](#finding-and-listing-cases).
 
-
-1. Click the green **Create/Edit** button above the Recent Cases list.
-
-	![Recent Cases Create Button](images/recentCasesCreate.png)
-
-2. In the **Create Case** pop-up dialog, enter the **Case ID**.
+1. In the **Create Case** pane, enter the **Case ID**.
 
    ![Create case dialog](images/createCase.png)
 
-3. The options included in the **Type** drop-down list depend on your user account permissions. If
-**Case** is the only option displayed, select it.
+3. The options included in the **What type of case data?** drop-down list depend on your user
+account permissions. If **Case** is the only option displayed, select it.
   
    If your user account permissions allow it, you may also see **Site Lab**, **RRL** (Regional
    Reference Lab), or **NL** (National Lab) options. If you select one of these options, you will be
@@ -116,13 +110,13 @@ Modifying cases
 ---------------
 
 If you know the Case ID and Site of the case you want to modify, you can go directly to the case
-editing page by the same procedure as described above in the *Creating cases* section. Otherwise,
-locate the case in the Recent Cases list and use the buttons in the **Actions** column, as described
-in **Recent Cases list: Actions buttons** above.
+editing page by the same procedure as described above in the [Creating cases](#creating-cases)
+section. Otherwise, locate the case in the Recent Cases list and use the buttons in the **Actions**
+column, as described in **Recent Cases list: Actions buttons** above.
 
 ![Actions Buttons for Modifying Cases](images/modifyingCasesActionButtons.png)
 
-###Adding or editing lab details
+### Adding or editing lab details
 
 The **Add Lab** or **Edit Lab** button appears in the **Actions** column if your user account has
 permission to add and edit Site Lab details. The **Add RRL** and **Add NL** buttons appear if you
@@ -133,11 +127,22 @@ detail record of the case.
 
 ![Actions Buttons for Lab Details](images/actionsButtonsLabDetails.png)
 
+Deleting Cases
+==============
+
+To delete a case, find it in the Recent Cases list as [described above](#finding-and-listing-cases)
+and click on its EPI edit button. When the case is displayed, click the **Delete** button below the
+details.
+
+![Delete Case](images/caseDelete.png)
+
+A confirmation dialog will be displayed. Click **OK** to delete the case.
+
 Zero Reporting
 ==============
 
-In order for **Consistent Reporting** column in **Site Performance** reports to be accurate, it is
-necessary to tell the system what happened for months with no reports. No reports in a month can
+In order for the **Consistent Reporting** column in **Site Performance** reports to be accurate, it
+is necessary to tell the system what happened for months with no reports. No reports in a month can
 indicate either that the number of cases *was* reported and the number was zero, or that the number
 of cases *was not* reported.
 
@@ -145,20 +150,16 @@ Click **Data Entry** and then **Zero Reporting** on the sidebar menu.
 
 ![Sidebar Menu: Zero Reporting](images/sidebarZeroReporting.png)
 
-Click the **Filters** button on the **Zero Reporting** header.
-
-![Zero Reporting Header](images/zeroReportingHeader.png)
-
 Select the desired **Type** of case (IBD or RotaVirus) and a range of dates, then click **Submit**.
+
+Note that selecting a large date range may cause the table to overflow the right side of the browser
+window and not be displayed neatly.
 
 ![Zero Reporting Filters](images/zeroReportingFilters.png)
 
 A list of Sites will be displayed, along with case counts for each month in the selected range.
 Wherever the number of cases for a site is zero for a given month, a drop-down selector is displayed
 with **Zero** and **Non Report** options available.
-
-Note that selecting a large date range may cause the table to overflow the right side of the browser
-window and not be displayed neatly.
 
 ![Zero Reporting: Selecting Options](images/zeroReportingSelecting.png)
 

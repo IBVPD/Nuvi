@@ -4,10 +4,10 @@ Administration
 Access the system Administration page by clicking **Administration** in the sidebar menu and then
 **Administration** in the sub-menu.
 
-1. All sections
-2. User specific
-3. Reference lab specific
-4. Import Map specific
+1. [All sections](#all-sections)
+2. [User specific](#user-specific)
+3. [Reference lab specific](#reference-lab-specific)
+4. [Import Map specific](#import-map-specific)
 
 All sections
 ------------
@@ -34,14 +34,20 @@ search.
 The currently displayed list of items can be downloaded in json, xml, csv, or xls format using the
 Download links provided at the bottom of the list.
 
-###Adding and editing items
+![Admin List Download](images/adminListDownload.png)
+
+### Adding and editing items
 
 A new item can be added by clicking the **Add new** button in the appropriate section of the
 **Administration** page, the upper-right corner of the corresponding list page, or the upper-right
 corner of any corresponding **Create** or **Edit** page.
 
+![Add New Button](images/addNewButton.png)
+
 Items are edited by clicking their respective **Edit** buttons in the **Actions** column of the list
 page.
+
+![Edit Button](images/listEditButton.png)
 
 The field entry areas of **Create** and **Edit** pages are the same, and allow you to enter
 information related to the item.
@@ -67,7 +73,7 @@ confirmation.
 
 ![Edit user page buttons](images/editUserPageButtons.png)
 
-###Deleting items
+### Deleting items
 
 Note that **Country**, **Site**, and **User** items have an **Active** checkbox. These items cannot
 be deleted if there still exist case records with references to them, so the ability to deactivate
@@ -86,7 +92,7 @@ filtering or pagination.*
 User Specific
 -------------
 
-###Access Restrictions
+### Access Restrictions
 
 The **Access Restrictions** section of the **Create** or **Edit** user page can be used to limit
 user access to specific categories of cases or the ability to import and export data for specific
@@ -95,23 +101,23 @@ restrictions that apply to the user.
 
 ![Access Restrictions](images/accessRestrictions.png)
 
-Use the **Type** drop-down to select a category on which to limit access.
+Use the **Access Level** drop-down to select a category on which to limit access.
 
-Click the **Options**
-field to select one or more actions that the user will be allowed to perform on the **Target**. An
+Click the **Creation Rights** field to select one or more actions that the user will be allowed to
+perform on the item that you will select in the **Specific - Site /Country /Region** field. An
 option you have already added can be removed if necessary by clicking the **x** next to it. Leaving
-the **Options** field empty will give the user view-only access to the **Target**.
+the **Access Level** field empty will give the user view-only access to the **Target**.
 
-Begin typing the specific criterion under **Target**. Matching criteria from the relevant internal
-list will be offered as autocomplete suggestions.
+Begin typing the specific criterion under **Specific - Site /Country /Region**. Matching criteria
+from the relevant internal list will be offered as autocomplete suggestions.
 
 Logically, each Access Restriction should be thought of as an *allow only* limitation. To allow
 access to multiple specific criteria in a given category, add additional restrictions.
 
-**Access Restrictions** can be deleted by enabling the **Delete** checkbox next to them and then
-saving the user information with a **Create** or **Update** button.
+An Access Restriction can be deleted by enabling the **Delete** checkbox next to it and then
+saving the user information with the **Create** or **Update** button.
 
-###Administrator User Types
+### Administrator User Types
 
 There are three levels of administrator users: **Super Administrators**, **Regional
 Administrators**, and **Country Administrators**.
@@ -147,14 +153,14 @@ add an Access Restriction to limit access to the appropriate Country.
 
 ![Country Administrator Dashboard](images/countryAdminDashboard.png)
 
-Reference Labs Specific
------------------------
+Reference Lab Specific
+----------------------
 
 You can select multiple countries in the **Countries** drop-down list. Select one at a time, then
 click in the field again to select another. Click the **x** next to any country that you want to
 remove from the field.
 
-Import Maps Specific
---------------------
+Import Map Specific
+-------------------
 
 Please refer to [import.md](import.md) for full documentation of import/export functions.
