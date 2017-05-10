@@ -69,11 +69,13 @@ abstract class BaseCaseController extends Controller implements TranslationConta
             if ($form->isValid()) {
                 $caseId = $form->get('caseId')->getData();
                 $type = $form->get('type')->getData();
+                $site = $form->has('site') ? $form->get('site')->getData() : null;
+
                 $entityMgr = $this->get('doctrine.orm.entity_manager');
-                $case = $entityMgr->getRepository($class)->findOrCreate($caseId);
+                $case = $entityMgr->getRepository($class)->findOrCreate($caseId, null, $site);
 
                 if (!$case->getId()) {
-                    $site = ($form->has('site')) ? $form->get('site')->getData() : $this->get('ns.sentinel.sites')->getSite();
+                    $site = ($site) ? : $this->get('ns.sentinel.sites')->getSite();
                     $case->setSite($site);
                 }
 

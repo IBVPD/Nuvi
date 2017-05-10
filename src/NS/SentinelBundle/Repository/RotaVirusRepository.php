@@ -136,40 +136,6 @@ class RotaVirusRepository extends Common
     }
 
     /**
-     * @param $caseId
-     * @param null $objId
-     * @return mixed|\NS\SentinelBundle\Entity\RotaVirus
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     */
-    public function findOrCreate($caseId, $objId = null)
-    {
-        if ($objId === null && $caseId === null) {
-            throw new \InvalidArgumentException("Id or Case must be provided");
-        }
-
-        $queryBuilder = $this->createQueryBuilder('m')
-            ->select('m,s,c,r')
-            ->innerJoin('m.site', 's')
-            ->innerJoin('s.country', 'c')
-            ->innerJoin('m.region', 'r')
-            ->where('m.case_id = :caseId')
-            ->setParameter('caseId', $caseId);
-
-        if ($objId) {
-            $queryBuilder->orWhere('m.id = :id')->setParameter('id', $objId);
-        }
-
-        try {
-            return $this->secure($queryBuilder)->getQuery()->getSingleResult();
-        } catch (NoResultException $exception) {
-            $res = new RotaVirus();
-            $res->setCaseId($caseId);
-
-            return $res;
-        }
-    }
-
-    /**
      * @param mixed $objId
      * @return mixed
      * @throws NonExistentCaseException

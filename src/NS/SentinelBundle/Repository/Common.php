@@ -9,6 +9,7 @@ use Doctrine\ORM\UnexpectedResultException;
 use NS\ImportBundle\Exceptions\DuplicateCaseException;
 use NS\SecurityBundle\Doctrine\SecuredEntityRepository;
 use NS\SentinelBundle\Entity\BaseCase;
+use NS\SentinelBundle\Entity\Site;
 use NS\SentinelBundle\Exceptions\InvalidCaseException;
 use NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
 
@@ -82,11 +83,13 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
 
     /**
      * @param $caseId
-     * @param null $objId
+     * @param string|null $objId
+     * @param Site|null $site
+     *
      * @return mixed
-     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findOrCreate($caseId, $objId = null)
+    public function findOrCreate($caseId, $objId = null, Site $site = null)
     {
         if ($objId === null && $caseId === null) {
             throw new \InvalidArgumentException("Id or Case must be provided");
@@ -101,14 +104,18 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
             ->setParameter('caseId', $caseId);
 
         if ($objId) {
-            $queryBuilder->orWhere('m.id = :id')->setParameter('id', $objId);
+            $queryBuilder->andWhere('m.id = :id')->setParameter('id', $objId);
+        }
+
+        if ($site) {
+            $queryBuilder->andWhere('m.site = :site')->setParameter('site',$site);
         }
 
         try {
             return $this->secure($queryBuilder)->getQuery()->getSingleResult();
         } catch (NoResultException $exception) {
-            $cls = $this->getClassName();
-            $res = new $cls();
+            $className = $this->getClassName();
+            $res = new $className();
             $res->setCaseId($caseId);
 
             return $res;
