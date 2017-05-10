@@ -1,9 +1,9 @@
-Cases and Data Entry
+Entrada y modificación de casos
 ====================
 
 1. [Búsqueda y listado de casos](#búsqueda-y-listado-de-casos)
 2. [Crear Casos](#creación-de-casos)
-3. [Modificar casos](# modificación-de-casos)
+3. [Modificar casos](#modificación-de-casos)
 4. [Eliminar casos](#eliminar-casos)
 5. [Notificación negativa](#notificación-negativa)
 6. [Reportes](#reportes)
