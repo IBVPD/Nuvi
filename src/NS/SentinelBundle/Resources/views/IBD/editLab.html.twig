@@ -279,7 +279,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>{{ 'Other Fluid Collection Date and Time'|trans }}</label>
-                                    {% if form.vars.value.caseFile.bloodCollectDate %}
+                                    {% if form.vars.value.caseFile.otherLabDate %}
                                         {{ form.vars.value.caseFile.otherLabDate|date('Y-m-d') }} {{ form.vars.value.caseFile.otherLabTime|date('H:i') }}
                                     {% else %}
                                         {{ 'Unknown'|trans }}
