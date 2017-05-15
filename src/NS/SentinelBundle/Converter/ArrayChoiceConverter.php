@@ -33,7 +33,7 @@ class ArrayChoiceConverter implements NamedValueConverterInterface, ReporterInte
 
     /**
      * @param string $class
-     * @throws RuntimeException
+     * @throws \RuntimeException
      */
     public function __construct($class)
     {
