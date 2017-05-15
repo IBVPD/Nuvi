@@ -151,7 +151,7 @@ class ExportController extends Controller
 
         $filename = sprintf('export_%s.%s', date('Y_m_d_H_i_s'), $format);
 
-        $exporter = new Exporter([new CsvWriter('php://output'), new XlsWriter('php://output')]);
+        $exporter = new Exporter([new CsvWriter('php://output',',','"','\\',true,true), new XlsWriter('php://output')]);
         return $exporter->getResponse($format, $filename, $source);
     }
 }
