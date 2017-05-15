@@ -142,6 +142,7 @@ class CaseType extends AbstractType
                 ->add('pneuVomit',           TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-vomit'])
                 ->add('pneuHypothermia',     TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-hypothermia'])
                 ->add('pneuMalnutrition',    TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-malnutrition'])
+                ->add('pneuFever',           TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-fever'])
                 ->add('cxrDone',             TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.cxr-done'])
                 ->add('cxrResult',           CXRResult::class, ['required' => $required, 'label' => 'ibd-form.cxr-result', 'hidden' => ['parent' => 'cxrDone', 'value' => TripleChoice::YES]]);
 

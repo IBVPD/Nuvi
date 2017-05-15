@@ -246,6 +246,13 @@ class IBD extends BaseCase
     private $pneu_malnutrition;
 
     /**
+     * @var TripleChoice
+     * @ORM\Column(name="pneu_fever",type="TripleChoice",nullable=true)
+     * @Serializer\Groups({"api","export"})
+     */
+    private $pneu_fever;
+
+    /**
      * @var TripleChoice $cxrDone
      * @ORM\Column(name="cxr_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
@@ -703,6 +710,22 @@ class IBD extends BaseCase
     public function getPneuMalnutrition()
     {
         return $this->pneu_malnutrition;
+    }
+
+    /**
+     * @return TripleChoice
+     */
+    public function getPneuFever()
+    {
+        return $this->pneu_fever;
+    }
+
+    /**
+     * @param TripleChoice $pneu_fever
+     */
+    public function setPneuFever($pneu_fever)
+    {
+        $this->pneu_fever = $pneu_fever;
     }
 
     /**
