@@ -199,19 +199,19 @@ jms_translation:
       output_format: xliff
     sentinel:
       output_dir: "%kernel.root_dir%/../src/NS/SentinelBundle/Resources/translations"
-      dirs: [ "%kernel.root_dir%/../src/NS/SentinelBundle" ]
+      dirs: [ "@NSSentinelBundle" ]
       excluded_names: [ "*TestCase.php", "*Test.php" ]
       excluded_dirs: [ Tests ]
       output_format: xliff
     import:
       output_dir: "%kernel.root_dir%/../src/NS/ImportBundle/Resources/translations"
-      dirs: [ "%kernel.root_dir%/../src/NS/ImportBundle"]
+      dirs: [ "@NSImportBundle" ]
       excluded_names: [ "*TestCase.php", "*Test.php" ]
       excluded_dirs: [ Tests ]
       output_format: xliff
     api:
       output_dir: "%kernel.root_dir%/../src/NS/ApiBundle/Resources/translations"
-      dirs: [ "%kernel.root_dir%/../src/NS/ApiBundle" ]
+      dirs: [ "@NSApiBundle" ]
       excluded_names: [ "Test","*TestCase.php", "*Test.php" ]
       excluded_dirs: [ Tests ]
       output_format: xliff
