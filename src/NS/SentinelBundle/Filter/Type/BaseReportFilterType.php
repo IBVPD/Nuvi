@@ -68,7 +68,8 @@ class BaseReportFilterType extends AbstractType
             ]);
 
         if ($options['include_paho_format_option']) {
-            $builder->add('pahoFormat', CheckboxType::class, ['label' => 'Use AMRO/PAHO format?', 'mapped' => false, 'apply_filter' => function () {}]);
+            $builder->add('pahoFormat', CheckboxType::class, ['label' => 'Use AMRO/PAHO format?', 'required' => false, 'mapped' => false, 'apply_filter' => function () {
+            }]);
         }
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, [$this, 'preSetData']);
