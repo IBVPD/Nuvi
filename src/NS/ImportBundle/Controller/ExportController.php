@@ -66,7 +66,7 @@ class ExportController extends Controller
             $query = $modelManager->getRepository('NSSentinelBundle:IBD')->exportQuery('i');
             $arrayChoiceFormatter = $this->get('ns_import.array_choice_formatter');
 
-            if ($ibdForm->getData('pahoFormat')) {
+            if ($ibdForm->get('pahoFormat')->getData()) {
                 $arrayChoiceFormatter->usePahoFormat();
             }
 
@@ -103,7 +103,7 @@ class ExportController extends Controller
             $query = $modelManager->getRepository('NSSentinelBundle:RotaVirus')->exportQuery('i');
             $arrayChoiceFormatter = $this->get('ns_import.array_choice_formatter');
 
-            if ($rotaForm->getData('pahoFormat')) {
+            if ($rotaForm->get('pahoFormat')->getData()) {
                 $arrayChoiceFormatter->usePahoFormat();
             }
 
