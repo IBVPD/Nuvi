@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2017-05-12T17:01:07Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
+  <file date="2017-05-15T15:58:38Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -41,8 +41,8 @@
       <trans-unit id="a29d6d5aa5131805e60ceac186b93963b5647b68" resname="The password fields must match.">
         <source>The password fields must match.</source>
         <target>los contraseñas deben coincidir</target>
-        <jms:reference-file line="109">Admin/UserAdmin.php</jms:reference-file>
-        <jms:reference-file line="27">Form/UserType.php</jms:reference-file>
+        <jms:reference-file line="109">/../src/NS/SentinelBundle/Admin/UserAdmin.php</jms:reference-file>
+        <jms:reference-file line="27">/../src/NS/SentinelBundle/Form/UserType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="0aecaa75fde5ffe7bfdc1897d101ea48b7660160" resname="This field cannot be blank">
         <source>This field cannot be blank</source>
@@ -60,9 +60,21 @@
         <source>field-is-required-due-to-adm-diagnosis</source>
         <target state="new">field-is-required-due-to-adm-diagnosis</target>
       </trans-unit>
+      <trans-unit id="089dd998ead93df8d2e20005ffaa265af99dae6e" resname="form.validation.admission-after-blood-collection">
+        <source>form.validation.admission-after-blood-collection</source>
+        <target state="new">form.validation.admission-after-blood-collection</target>
+      </trans-unit>
+      <trans-unit id="7da7e0290de34382b956758523630907abe0f5ce" resname="form.validation.admission-after-csf-collection">
+        <source>form.validation.admission-after-csf-collection</source>
+        <target state="new">form.validation.admission-after-csf-collection</target>
+      </trans-unit>
       <trans-unit id="6ec5ef144b9f2e30eb9289b4f439ab0bd8a453c4" resname="form.validation.admission-after-onset">
         <source>form.validation.admission-after-onset</source>
         <target>form.validation.admission-after-onse    La fecha de inicio debe ser antes que la fecha de admisión </target>
+      </trans-unit>
+      <trans-unit id="b5f5c32855b5951fd5b9f43fc52a5071106b8740" resname="form.validation.admission-after-pleural-fluid-collection">
+        <source>form.validation.admission-after-pleural-fluid-collection</source>
+        <target state="new">form.validation.admission-after-pleural-fluid-collection</target>
       </trans-unit>
       <trans-unit id="f201efd9691822f928878aa1e2ec99044699eaf0" resname="form.validation.onset-after-dob">
         <source>form.validation.onset-after-dob</source>

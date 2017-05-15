@@ -50,7 +50,7 @@ class ArrayChoiceHandler implements SubscribingHandlerInterface
         $result = ['class'=>$className, 'options' => []];
 
         foreach ($values as $key => $label) {
-            $result['options'][$key] = $this->translator->trans($label);
+            $result['options'][$key] = $this->translator->trans(/** @Ignore */$label);
         }
 
         return $result;
