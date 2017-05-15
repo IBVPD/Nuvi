@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2017-03-09T20:42:05Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
+  <file date="2017-05-12T17:15:24Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -248,7 +248,7 @@
       </trans-unit>
       <trans-unit id="2cdd20a60bce677b1d6ff78d6eca809ddbf8e04f" resname="Access Level">
         <source>Access Level</source>
-        <target state="new">Access Level</target>
+        <target>Nivel de acceso</target>
         <jms:reference-file line="50">Admin/ACLAdmin.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="376e9046cc5fd2842ce29e30d9b75eab2742e487" resname="Access Restrictions">
@@ -1039,11 +1039,11 @@
       </trans-unit>
       <trans-unit id="ca67ae9d77b56f1ab590b86a232e67c836bf48b0" resname="Local Lab">
         <source>Local Lab</source>
-        <target state="new">Local Lab</target>
+        <target>Lab Local</target>
       </trans-unit>
       <trans-unit id="ad138176490530a834efeda9444029999b77b0ac" resname="Local Site">
         <source>Local Site</source>
-        <target state="new">Local Site</target>
+        <target>Sitio Local</target>
       </trans-unit>
       <trans-unit id="4e5a2893bdcc7d239c1db72e4c4ffbe4bea73174" resname="Login">
         <source>Login</source>
@@ -1701,7 +1701,7 @@
       </trans-unit>
       <trans-unit id="bae7d5be70820ed56467bd9a63744e23b47bd711" resname="Status">
         <source>Status</source>
-        <target>Condición</target>
+        <target>Estatus</target>
         <jms:reference-file line="7">views/Case/country.html.twig</jms:reference-file>
         <jms:reference-file line="9">views/Case/region.html.twig</jms:reference-file>
         <jms:reference-file line="8">views/Case/site.html.twig</jms:reference-file>
@@ -1860,7 +1860,7 @@
       </trans-unit>
       <trans-unit id="57c39f589ab2c8a182e1058be63fc095fda7b4a1" resname="What type of case data?">
         <source>What type of case data?</source>
-        <target state="new">What type of case data?</target>
+        <target>Que tipo de datos de caso?</target>
         <jms:reference-file line="50">Form/CreateType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="0c8186da01f87243ac37efa00fe66b84d4e0ce88" resname="Whole Blood">
@@ -2204,7 +2204,7 @@
       </trans-unit>
       <trans-unit id="8d2045ae5146f6fcb17eda11f4f0b168971d5ca9" resname="ibd-form.blood-number-of-samples">
         <source>ibd-form.blood-number-of-samples</source>
-        <target state="new">ibd-form.blood-number-of-samples</target>
+        <target>Número de muestras de sangre</target>
         <jms:reference-file line="118">Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="4a9d08ceeb111a063980989a052ea37fc26f4800" resname="ibd-form.blood-pcr-done">
@@ -2516,12 +2516,12 @@
       </trans-unit>
       <trans-unit id="3a97aff1bba318c7ba48e7b474619e12a0a6f5e7" resname="ibd-form.date-of-birth-months">
         <source>ibd-form.date-of-birth-months</source>
-        <target>Fecha de nacimiento en meses</target>
+        <target>Edad en meses</target>
         <jms:reference-file line="28">Form/ValueObject/YearMonthType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="6697feb3145f37df49ce8507aa55d9e426c0db00" resname="ibd-form.date-of-birth-years">
         <source>ibd-form.date-of-birth-years</source>
-        <target>Fecha de nacimiento en años</target>
+        <target>Edad en años</target>
         <jms:reference-file line="27">Form/ValueObject/YearMonthType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="8760ea4199d8af55a9495e3c8121afbfb6e37d2a" resname="ibd-form.discharge-class">
@@ -2882,7 +2882,7 @@
       </trans-unit>
       <trans-unit id="887788be84c41aa48ad64a242fab3014fcf76afb" resname="ibd-form.pleural-fluid-gram-result-other">
         <source>ibd-form.pleural-fluid-gram-result-other</source>
-         <target>otros resultados del tinción del gram en el liquido pleural</target>
+        <target>otros resultados del tinción del gram en el liquido pleural</target>
         <jms:reference-file line="117">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="0024aece6fe911a1cbbe3560a0f5c8a462693751" resname="ibd-form.pleural-fluid-pcr-done">
@@ -3290,7 +3290,7 @@
       </trans-unit>
       <trans-unit id="3c4ac446d065f8f8fe0596c962eda47ae1aa2c6e" resname="menu.data-reports-stats">
         <source>menu.data-reports-stats</source>
-        <target state="new">menu.data-reports-stats</target>
+        <target>Estadísticas</target>
         <jms:reference-file line="65">Menu/Builder.php</jms:reference-file>
         <jms:reference-file line="70">Menu/Builder.php</jms:reference-file>
       </trans-unit>
@@ -3535,77 +3535,77 @@
       </trans-unit>
       <trans-unit id="7a1d0961543b01627cd193974768586fb2c0a7e2" resname="rotavirus-form.site-lab-adequate">
         <source>rotavirus-form.site-lab-adequate</source>
-        <target state="new">rotavirus-form.site-lab-adequate</target>
+        <target>El volume del especimen de heces adecuado para ELISA</target>
         <jms:reference-file line="49">Form/RotaVirus/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="5c041d669b2b43a86da9af88ac66e6a6232d633e" resname="rotavirus-form.site-lab-elisa-done">
         <source>rotavirus-form.site-lab-elisa-done</source>
-        <target state="new">rotavirus-form.site-lab-elisa-done</target>
+        <target>Se proceso la prueba de ELISA en la muestra de heces en el laboratorio primario </target>
         <jms:reference-file line="51">Form/RotaVirus/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="8fb220527cb1e957cb950685dd467ab65459f2ea" resname="rotavirus-form.site-lab-elisa-kit">
         <source>rotavirus-form.site-lab-elisa-kit</source>
-        <target state="new">rotavirus-form.site-lab-elisa-kit</target>
+        <target>Se uso el kit de ELISA</target>
         <jms:reference-file line="52">Form/RotaVirus/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e75af283645106c1ed09abe4ad0306585c3d907f" resname="rotavirus-form.site-lab-elisa-kit-expiry-date">
         <source>rotavirus-form.site-lab-elisa-kit-expiry-date</source>
-        <target state="new">rotavirus-form.site-lab-elisa-kit-expiry-date</target>
+        <target>El kit de Elisa tiene fecha de expiración</target>
         <jms:reference-file line="55">Form/RotaVirus/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="9a4884c4073125c05a19f642bbc4bf2ce7391402" resname="rotavirus-form.site-lab-elisa-kit-other">
         <source>rotavirus-form.site-lab-elisa-kit-other</source>
-        <target state="new">rotavirus-form.site-lab-elisa-kit-other</target>
+        <target>Si el tipo del kit de  ELISA es otro, especificar</target>
         <jms:reference-file line="53">Form/RotaVirus/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="38ac0868451a96149ae995f4e0653af9bcd5a99f" resname="rotavirus-form.site-lab-elisa-load-number">
         <source>rotavirus-form.site-lab-elisa-load-number</source>
-        <target state="new">rotavirus-form.site-lab-elisa-load-number</target>
+        <target>Numero de Kit de ELISA </target>
         <jms:reference-file line="54">Form/RotaVirus/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="f0796f31e7b9de2adfc805eb83753b928240386f" resname="rotavirus-form.site-lab-genotype-result-p">
         <source>rotavirus-form.site-lab-genotype-result-p</source>
-        <target state="new">rotavirus-form.site-lab-genotype-result-p</target>
+        <target>Genotipo de resultado P</target>
         <jms:reference-file line="61">Form/RotaVirus/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="17e9391c16e94ec3df9559d6b7765ab527e047a3" resname="rotavirus-form.site-lab-genotype-result-p-specify">
         <source>rotavirus-form.site-lab-genotype-result-p-specify</source>
-        <target state="new">rotavirus-form.site-lab-genotype-result-p-specify</target>
+        <target>Si, el resultado de genotipo P es otro, especificar</target>
         <jms:reference-file line="62">Form/RotaVirus/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="6b8178f8056fa8fc83196ee2a823ede68cb47c6d" resname="rotavirus-form.site-lab-genotyping-date">
         <source>rotavirus-form.site-lab-genotyping-date</source>
-        <target state="new">rotavirus-form.site-lab-genotyping-date</target>
+        <target>Fecha de genotipificación</target>
         <jms:reference-file line="58">Form/RotaVirus/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="20c2140b236bc1f47d6b64f4a81149af4f1ed2e1" resname="rotavirus-form.site-lab-genotyping-result-g">
         <source>rotavirus-form.site-lab-genotyping-result-g</source>
-        <target state="new">rotavirus-form.site-lab-genotyping-result-g</target>
+        <target>Resultado de Genotipo G</target>
         <jms:reference-file line="59">Form/RotaVirus/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="db7bdfd9ba15a03722b52bda32bab61f04418cbe" resname="rotavirus-form.site-lab-genotyping-result-g-specify">
         <source>rotavirus-form.site-lab-genotyping-result-g-specify</source>
-        <target state="new">rotavirus-form.site-lab-genotyping-result-g-specify</target>
+        <target>Si, el resultado de genotipo G es otro, especificar</target>
         <jms:reference-file line="60">Form/RotaVirus/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e04172823192c3c22610ee09af4766aff4edf9f0" resname="rotavirus-form.site-lab-result">
         <source>rotavirus-form.site-lab-result</source>
-        <target state="new">rotavirus-form.site-lab-result</target>
+        <target>Resultado de ELISA del especimen de heces de el Lab. primario</target>
         <jms:reference-file line="57">Form/RotaVirus/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="c48082a0a9a1c60952f662af4712ed7cb57aaa08" resname="rotavirus-form.site-lab-sample-received">
         <source>rotavirus-form.site-lab-sample-received</source>
-        <target state="new">rotavirus-form.site-lab-sample-received</target>
+        <target>Fecha en que el especimen fue recibido en el Lab</target>
         <jms:reference-file line="48">Form/RotaVirus/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="470e124f89cc020a0541d58b369d213d2a67dd38" resname="rotavirus-form.site-lab-stored">
         <source>rotavirus-form.site-lab-stored</source>
-        <target state="new">rotavirus-form.site-lab-stored</target>
+        <target>Se almacenó la muestra de heces?</target>
         <jms:reference-file line="50">Form/RotaVirus/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="17c7468cc27e6e52c2fdad2d610a47a02522982b" resname="rotavirus-form.site-lab-test-date">
         <source>rotavirus-form.site-lab-test-date</source>
-        <target state="new">rotavirus-form.site-lab-test-date</target>
+        <target>Fecha de la prueba del ELISA en la muestra de heces</target>
         <jms:reference-file line="56">Form/RotaVirus/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="77425579abb56577a1458f490952f869e0824364" resname="rotavirus-form.siteReceivedDate">

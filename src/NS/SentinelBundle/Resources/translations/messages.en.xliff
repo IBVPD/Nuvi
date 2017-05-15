@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2017-03-21T08:02:44Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
+  <file date="2017-05-12T16:56:08Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -270,7 +270,7 @@
       </trans-unit>
       <trans-unit id="fd56cde4209a59bead8365ac7a76016cec1fb4e4" resname="Admission Date - From">
         <source>Admission Date - From</source>
-        <target state="new">Admission Date - From</target>
+        <target>Admission Date - From</target>
         <jms:reference-file line="68">Filter/Type/BaseFilterType.php</jms:reference-file>
         <jms:reference-file line="61">Filter/Type/BaseReportFilterType.php</jms:reference-file>
       </trans-unit>
