@@ -70,7 +70,9 @@ class ExportController extends Controller
                 $arrayChoiceFormatter->usePahoFormat();
             }
 
-            return $this->export('csv', $ibdForm, $query, $fields, [$arrayChoiceFormatter, new DateTimeFormatter()]);
+            $format = $ibdForm->get('exportFormat')->getData() ? 'xls':'csv';
+
+            return $this->export($format, $ibdForm, $query, $fields, [$arrayChoiceFormatter, new DateTimeFormatter()]);
         }
 
         $rotaForm = $this->createForm(RotaVirusReportFilterType::class, null, $this->formParams);
@@ -107,7 +109,9 @@ class ExportController extends Controller
                 $arrayChoiceFormatter->usePahoFormat();
             }
 
-            return $this->export('csv', $rotaForm, $query, $fields, [$arrayChoiceFormatter, new DateTimeFormatter()]);
+            $format = $rotaForm->get('exportFormat')->getData() ? 'xls':'csv';
+
+            return $this->export($format, $rotaForm, $query, $fields, [$arrayChoiceFormatter, new DateTimeFormatter()]);
         }
 
         $ibdForm = $this->createForm(IBDReportFilterType::class, null, $this->formParams);
