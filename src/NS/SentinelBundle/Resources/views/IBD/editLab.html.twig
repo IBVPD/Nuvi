@@ -38,7 +38,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>{{ 'CSF Collection Date and Time'|trans }}</label>
-                                {% if form.vars.value.caseFile.csfCollectDate %}
+                                {% if form.vars.value.caseFile.csfCollectDate is defined %}
                                     {{ form.vars.value.caseFile.csfCollectDate|date('Y-m-d') }} {{ form.vars.value.caseFile.csfCollectTime|date('H:i') }}
                                 {% else %}
                                     {{ 'Unknown'|trans }}
@@ -161,7 +161,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>{{ 'Blood Collection Date and Time'|trans }}</label>
-                                    {% if form.vars.value.caseFile.bloodCollectDate %}
+                                    {% if form.vars.value.caseFile.bloodCollectDate is defined %}
                                         {{ form.vars.value.caseFile.bloodCollectDate|date('Y-m-d') }} {{ form.vars.value.caseFile.bloodCollectTime|date('H:i') }}
                                     {% else %}
                                         {{ 'Unknown'|trans }}
@@ -279,7 +279,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>{{ 'Other Fluid Collection Date and Time'|trans }}</label>
-                                    {% if form.vars.value.caseFile.otherLabDate %}
+                                    {% if form.vars.value.caseFile.otherLabDate is defined %}
                                         {{ form.vars.value.caseFile.otherLabDate|date('Y-m-d') }} {{ form.vars.value.caseFile.otherLabTime|date('H:i') }}
                                     {% else %}
                                         {{ 'Unknown'|trans }}
@@ -287,6 +287,7 @@
                                 </div>
                             </div>
                         </div>
+                        <hr />
                         <div class="row">
                             <div class="col-md-4">
                                 {{ form_row(form.otherCultDone) }}
@@ -298,6 +299,7 @@
                                 {{ form_row(form.otherCultOther) }}
                             </div>
                         </div>
+                        <hr />
                         <div class="row">
                             <div class="col-md-4">
                                 {{ form_row(form.otherTestDone) }}
