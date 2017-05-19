@@ -15,6 +15,12 @@ services:
     tags:
       - { name: validator.constraint_validator }
 
+  ns_sentinel.validators.paho_pcv:
+    class: NS\SentinelBundle\Validators\PCVValidator
+    arguments: [ "@security.authorization_checker" ]
+    tags:
+      - { name: validator.constraint_validator }
+
   ns_sentinel.loggable_listener:
     class: NS\SentinelBundle\Loggable\LoggableListener
     arguments: [ "@security.token_storage", "@jms_serializer.serializer" ]
