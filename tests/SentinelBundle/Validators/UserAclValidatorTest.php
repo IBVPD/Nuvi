@@ -193,6 +193,7 @@ class UserAclValidatorTest extends \PHPUnit_Framework_TestCase
 
     public function getAdminUserProvider()
     {
+        $params = [];
         $role = new Role();
         foreach (array_keys($role->getValues()) as $roleType) {
             $acl = new ACL();
