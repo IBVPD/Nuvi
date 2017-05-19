@@ -54,7 +54,9 @@
         AddListeners: function()
         {
             var helper = this;
-            $('[data-dbcolumn]').on('change', function()
+            var firstRun = true;
+
+            $('[data-dbcolumn]').on('change', function(data, event)
             {
                 if($(this).parent().find('.help').length == 0)
                 {
@@ -73,18 +75,23 @@
 
                 var $validator_select = $('[data-converter][data-ref=' + $(this).data('ref')+']');
 
-                if(converter)
+                if(!firstRun || (firstRun && !$validator_select.val()))
                 {
-                    var $option = $validator_select.find('option[data-converterref="'+converter+'"]');
-                    $validator_select.val($option.attr('value')).change(); //Fire the change event so Select2 will catch it and update the pretty UI
-                }
-                else
-                {
-                    $validator_select.val('').change();
+                    if (converter)
+                    {
+                        var $option = $validator_select.find('option[data-converterref="' + converter + '"]');
+                        $validator_select.val($option.attr('value')).change(); //Fire the change event so Select2 will catch it and update the pretty UI
+                    }
+                    else
+                    {
+                        $validator_select.val('').change();
+                    }
                 }
 
                 $(this).parent().find('.help').html(help);
             }).change(); //Fire once on load for default values
+
+            firstRun = false;
         },
 
         GetDataClass: function()
