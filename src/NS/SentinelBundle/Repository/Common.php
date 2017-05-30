@@ -83,13 +83,13 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
 
     /**
      * @param $caseId
+     * @param Site $site
      * @param string|null $objId
-     * @param Site|null $site
      *
      * @return mixed
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function findOrCreate($caseId, $objId = null, Site $site = null)
+    public function findOrCreate($caseId, Site $site, $objId = null)
     {
         if ($objId === null && $caseId === null) {
             throw new \InvalidArgumentException("Id or Case must be provided");
@@ -100,15 +100,12 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
             ->innerJoin('m.site', 's')
             ->innerJoin('s.country', 'c')
             ->innerJoin('m.region', 'r')
-            ->where('m.case_id = :caseId')
-            ->setParameter('caseId', $caseId);
+            ->where('m.case_id = :caseId AND m.site = :site')
+            ->setParameter('caseId', $caseId)
+            ->setParameter('site', $site);
 
         if ($objId) {
             $queryBuilder->andWhere('m.id = :id')->setParameter('id', $objId);
-        }
-
-        if ($site) {
-            $queryBuilder->andWhere('m.site = :site')->setParameter('site',$site);
         }
 
         try {

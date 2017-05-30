@@ -168,7 +168,9 @@ class CaseController extends FOSRestController
 
             $entityMgr = $this->get('doctrine.orm.entity_manager');
             $caseId = $form->get('caseId')->getData();
-            $case = $entityMgr->getRepository($className)->findOrCreate($caseId, null);
+            $site = $form->has('site') ? $form->get('site')->getData() : $this->get('ns.sentinel.sites')->getSite();
+
+            $case = $entityMgr->getRepository($className)->findOrCreate($caseId, $site, null);
 
             if (!$case->getId()) {
                 $site = ($form->has('site')) ? $form->get('site')->getData() : $this->get('ns.sentinel.sites')->getSite();
