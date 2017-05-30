@@ -338,4 +338,61 @@
     </div>
     {{ form_rest(form) }}
     {{ form_end(form) }}
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            //Edit only these
+            var confs = {
+                'site_lab_csfGramStain': {
+                    childFieldId: 'site_lab_csfGramResult',
+                    conf: {
+                        '1':["4","5"],
+                        '2':["1","2","3"]
+                    }
+                },
+                'site_lab_bloodGramStain': {
+                    childFieldId: 'site_lab_bloodGramResult',
+                    conf: {
+                        '1':["4","5"],
+                        '2':["1","2","3"]
+                    }
+                },
+                'site_lab_pleuralFluidGramResult': {
+                    childFieldId: 'site_lab_pleuralFluidGramResult',
+                    conf: {
+                        '1':["4","5"],
+                        '2':["1","2","3"]
+                    }
+                }
+            };
+
+            var ids = [];
+
+            $.each(confs, function(parent, value) {
+                ids.push(parent);
+                confs[parent].allToggleable = [];
+                $.each(value.conf, function(index, val) {
+                        confs[parent].allToggleable = confs[parent].allToggleable.concat(val);
+                    }
+                );
+            });
+
+            $('#'+ids.join(', #')).change(function() {
+                var $parent = $(this);
+                var id      = $parent.attr('id');
+                var conf    = confs[id];
+                var $child = $('#'+conf.childFieldId);
+
+                $child.find('option').each(function(index) {
+                    var $option = $(this);
+
+                    if($.inArray($option.val(), conf.conf[$parent.val()]) >= 0) {
+                        $option.show();
+                    } else if($.inArray($option.val(), conf.allToggleable) >= 0) {
+                        $option.hide();
+                    }
+                });
+            }).change();
+        });
+    </script>
 {% endblock %}
