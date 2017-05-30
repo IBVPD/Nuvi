@@ -27,7 +27,7 @@ services:
 
   ns_sentinel.exporter:
     class: NS\SentinelBundle\Report\Export\Exporter
-    arguments: [ "@twig", "@phpExcel" ]
+    arguments: [ "@twig", "@phpexcel" ]
 
   ns_sentinel.entity.listener:
     class: NS\SentinelBundle\Entity\Listener\OnFlushListener
