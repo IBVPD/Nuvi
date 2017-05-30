@@ -3,6 +3,7 @@ VERSION 0  INITIAL RELEASE
 ==========================
 
    Version 0.10 - Updated to SF3.x
+      30/05/2017 16:34  0.10.26  Additional PAHO requests
       19/05/2017 11:25  0.10.25  Updated PAHO requirements
       22/03/2017 16:59  0.10.24  Fix failing tests due to some bugs
       22/03/2017 15:21  0.10.23  More PAHO specific changes
