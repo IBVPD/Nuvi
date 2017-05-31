@@ -1,6 +1,7 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+    - { resource: config_who.yml, ignore_errors: true }
 
 framework:
     #esi:             ~
