@@ -82,7 +82,7 @@ class BaseQuarterlyFilterType extends AbstractType
                 $config = $queryBuilder->getEntityManager()->getConfiguration();
                 $config->addCustomDatetimeFunction('YEAR', 'DoctrineExtensions\Query\Mysql\Year');
                 $queryBuilder
-                    ->andWhere(sprintf('YEAR(%s.%s) = :%s_year', $alias, $this->fieldName, $alias))
+                    ->andWhere(sprintf('YEAR(cf.%s) = :%s_year', $this->fieldName, $alias))
                     ->setParameter($alias . '_year', $values['value']);
             }
         }
