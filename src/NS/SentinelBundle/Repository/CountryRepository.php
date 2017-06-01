@@ -64,7 +64,7 @@ class CountryRepository extends CommonRepository
             ->leftJoin('cf.site', 's')
             ->innerJoin('cf.country', 'c')
             ->innerJoin('c.region', 'r')
-            ->groupBy("cf.country")
+            ->groupBy('cf.country')
             ->addOrderBy('r.name', 'ASC')
             ->addOrderBy('c.name', 'ASC'));
     }
