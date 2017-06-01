@@ -7,6 +7,7 @@ use NS\SentinelBundle\Filter\Type\IBD\QuarterlyLinkingReportFilterType;
 use NS\SentinelBundle\Filter\Type\IBD\ReportFilterType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -21,7 +22,7 @@ class IBDReportController extends Controller
     /**
      * @Route("/percent-enrolled",name="reportPercentEnrolled")
      * @param Request $request
-     * @return array|RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return array|RedirectResponse|Response
      */
     public function percentEnrolledAction(Request $request)
     {
@@ -38,7 +39,7 @@ class IBDReportController extends Controller
     /**
      * @Route("/annual-age-distribution",name="reportAnnualAgeDistribution")
      * @param Request $request
-     * @return array|RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return array|RedirectResponse|Response
      */
     public function annualAgeDistributionAction(Request $request)
     {
@@ -53,7 +54,7 @@ class IBDReportController extends Controller
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function byCountryGraphAction()
     {
@@ -63,7 +64,7 @@ class IBDReportController extends Controller
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function bySiteGraphAction()
     {
@@ -73,7 +74,7 @@ class IBDReportController extends Controller
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function generalStatsAction()
     {
@@ -83,7 +84,7 @@ class IBDReportController extends Controller
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function byDiagnosisGraphAction()
     {
@@ -95,7 +96,7 @@ class IBDReportController extends Controller
     /**
      * @Route("/field-population",name="reportFieldPopulation")
      * @param Request $request
-     * @return array|RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return array|RedirectResponse|Response
      */
     public function fieldPopulationAction(Request $request)
     {
@@ -112,7 +113,7 @@ class IBDReportController extends Controller
     /**
      * @Route("/culture-positive",name="reportCulturePositive")
      * @param Request $request
-     * @return array|RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return array|RedirectResponse|Response
      */
     public function culturePositiveAction(Request $request)
     {
@@ -143,7 +144,7 @@ class IBDReportController extends Controller
     /**
      * @Route("/data-quality",name="reportIbdDataQuality")
      * @param Request $request
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @return array|RedirectResponse|Response
      */
     public function dataQualityAction(Request $request)
     {
@@ -175,10 +176,10 @@ class IBDReportController extends Controller
     }
 
     /**
+     * @Route("/data-linking",name="reportIbdDataLinking")
+     *
      * @param Request $request
      * @return Response
-     *
-     * @Route("/data-linking",name="reportIbdDataLinking")
      */
     public function dataLinking(Request $request)
     {
@@ -193,10 +194,10 @@ class IBDReportController extends Controller
     }
 
     /**
+     * @Route("/stats",name="reportIbdStats")
+     *
      * @param Request $request
      * @return Response
-     *
-     * @Route("/stats",name="reportIbdStats")
      */
     public function statsAction(Request $request)
     {
