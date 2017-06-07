@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2017-06-07T09:21:22Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
+  <file date="2017-06-07T10:14:01Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -2218,7 +2218,7 @@
       </trans-unit>
       <trans-unit id="246a98e17d55fb3bef23ea042e1aadacb9a90d3d" resname="ibd-form.blood-collect-time">
         <source>ibd-form.blood-collect-time</source>
-        <target>Hora de recolección de muestra de sangre</target>
+        <target>Hora de coleción de muestra de sangre</target>
         <jms:reference-file line="103">/../src/NS/SentinelBundle/Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="4ef651b62d73e48f12229f7865bdbf40ba98881b" resname="ibd-form.blood-collect-time-second-sample">
@@ -2278,12 +2278,12 @@
       </trans-unit>
       <trans-unit id="28c33763a4f0bedcffdc80c5b31a9074b1441740" resname="ibd-form.blood-lab-datetime">
         <source>ibd-form.blood-lab-datetime</source>
-        <target>Fecha de recolección de muestra de sangre del caso</target>
+        <target>Fecha de recepción de muestra de sangre del caso</target>
         <jms:reference-file line="92">/../src/NS/SentinelBundle/Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="028389f0744ad83ea9a2778c0de2c514d0b8f8be" resname="ibd-form.blood-lab-time">
         <source>ibd-form.blood-lab-time</source>
-        <target>Hora de recolección de muestra de sangre del caso</target>
+        <target>Hora de recepción de muestra de sangre del caso</target>
         <jms:reference-file line="93">/../src/NS/SentinelBundle/Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="8d2045ae5146f6fcb17eda11f4f0b168971d5ca9" resname="ibd-form.blood-number-of-samples">
@@ -2827,12 +2827,12 @@
       </trans-unit>
       <trans-unit id="5def0cca3ad3dd9c4deac5aa56e5ac5ff366646d" resname="ibd-form.other-lab-datetime">
         <source>ibd-form.other-lab-datetime</source>
-        <target>Fecha de recolección otros fluidos / especimen</target>
+        <target>Fecha de recepción otros fluidos / especimen</target>
         <jms:reference-file line="105">/../src/NS/SentinelBundle/Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e1fb727318d99d1a324706127d635f106dd44ae5" resname="ibd-form.other-lab-time">
         <source>ibd-form.other-lab-time</source>
-        <target>Hora de recolección otros fluidos / especimen</target>
+        <target>Hora de recepción otros fluidos / especimen</target>
         <jms:reference-file line="106">/../src/NS/SentinelBundle/Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="f17933dab9c5d08a626d66523f31bcb8f08e3701" resname="ibd-form.other-sent-to-nl">
