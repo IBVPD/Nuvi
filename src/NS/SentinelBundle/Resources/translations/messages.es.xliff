@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2017-05-15T15:58:38Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
+  <file date="2017-06-07T09:21:22Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -8,7 +8,7 @@
     <body>
       <trans-unit id="da39a3ee5e6b4b0d3255bfef95601890afd80709" resname="">
         <source></source>
-        <target></target>
+        <target>ID</target>
         <jms:reference-file line="102">/../src/NS/SentinelBundle/Filter/Type/BaseFilterType.php</jms:reference-file>
         <jms:reference-file line="95">/../src/NS/SentinelBundle/Filter/Type/BaseFilterType.php</jms:reference-file>
         <jms:reference-file line="108">/../src/NS/SentinelBundle/Filter/Type/BaseQuarterlyFilterType.php</jms:reference-file>
@@ -27,7 +27,7 @@
       </trans-unit>
       <trans-unit id="1af02394da7d7d39dc96e77f52ea4b6923ae5966" resname="%count% months reported">
         <source>%count% months reported</source>
-        <target>%count% meses reportado</target>
+        <target>%count% meses reportados</target>
         <jms:reference-file line="20">/../src/NS/SentinelBundle/Resources/views/Report/infobox-months.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="c04cd8a70157ece1018ac829accacdeaeb9679c9" resname="0-5">
@@ -270,13 +270,13 @@
       </trans-unit>
       <trans-unit id="fd56cde4209a59bead8365ac7a76016cec1fb4e4" resname="Admission Date - From">
         <source>Admission Date - From</source>
-        <target state="new">Admission Date - From</target>
+        <target>Fecha de Admisión- Desde</target>
         <jms:reference-file line="68">/../src/NS/SentinelBundle/Filter/Type/BaseFilterType.php</jms:reference-file>
         <jms:reference-file line="61">/../src/NS/SentinelBundle/Filter/Type/BaseReportFilterType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="8a3dfa2dc1358222c737bac805290c10db6b9dda" resname="Admission Date - To">
         <source>Admission Date - To</source>
-        <target state="new">Admission Date - To</target>
+        <target>Admission Date - To</target>
         <jms:reference-file line="69">/../src/NS/SentinelBundle/Filter/Type/BaseFilterType.php</jms:reference-file>
         <jms:reference-file line="62">/../src/NS/SentinelBundle/Filter/Type/BaseReportFilterType.php</jms:reference-file>
       </trans-unit>
@@ -340,7 +340,7 @@
       </trans-unit>
       <trans-unit id="a91524f31602f33491dca42e858b9d5559c6e4d1" resname="Blood Collection Date and Time">
         <source>Blood Collection Date and Time</source>
-        <target state="new">Blood Collection Date and Time</target>
+        <target>Fecha  y hora de  Coleción de Sangre</target>
         <jms:reference-file line="163">/../src/NS/SentinelBundle/Resources/views/IBD/editLab.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="42b657c8bebf02e57f682d03428fbdc6bcae2837" resname="Blood culture broth">
@@ -387,7 +387,7 @@
       </trans-unit>
       <trans-unit id="97bfcdf6ff37facbd8f9ac1b6f1a09a87a611e67" resname="CSF Collection Date and Time">
         <source>CSF Collection Date and Time</source>
-        <target state="new">CSF Collection Date and Time</target>
+        <target>Fecha  y hora de  Coleción de LCR</target>
         <jms:reference-file line="40">/../src/NS/SentinelBundle/Resources/views/IBD/editLab.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="775275cfc23d95b3976ef3bbea43f42a663ffdda" resname="CT Values From PCR">
@@ -1277,7 +1277,7 @@
       </trans-unit>
       <trans-unit id="b58b5a8ced9db48b30e008b148004c1065ce53b1" resname="One">
         <source>One</source>
-        <target state="new">One</target>
+        <target>Uno</target>
         <jms:reference-file line="170">/../src/NS/SentinelBundle/Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="163c3df4e6160de63f30ff20007d0fd4069af120" resname="Onset Date">
@@ -1307,7 +1307,7 @@
       </trans-unit>
       <trans-unit id="304dc7e19fb693e3b2eebba90c5c66e67cb4da4a" resname="Other Fluid Collection Date and Time">
         <source>Other Fluid Collection Date and Time</source>
-        <target state="new">Other Fluid Collection Date and Time</target>
+        <target>Fecha  y hora de  Coleción de otros fluidos </target>
         <jms:reference-file line="281">/../src/NS/SentinelBundle/Resources/views/IBD/editLab.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="b572c8561b3a5f58713f0aa978cd62bbf8019e65" resname="Other Fluids">
@@ -1318,11 +1318,11 @@
       </trans-unit>
       <trans-unit id="7ac811caf6a4583042d603954fe7f56e2446cc11" resname="Other meningitis">
         <source>Other meningitis</source>
-        <target state="new">Other meningitis</target>
+        <target>Otra meningitis</target>
       </trans-unit>
       <trans-unit id="014bf69a151bbe4968d0b420db0343026108a454" resname="Other pneumonia">
         <source>Other pneumonia</source>
-        <target state="new">Other pneumonia</target>
+        <target>Otra neumonia</target>
       </trans-unit>
       <trans-unit id="d3f0610632bbef35bfaa389ca89023fd50c6dd62" resname="Outcome">
         <source>Outcome</source>
@@ -1434,7 +1434,7 @@
       </trans-unit>
       <trans-unit id="b26296a9331470d93731c586330efa8ca9f75b85" resname="Please Login">
         <source>Please Login</source>
-        <target state="new">Please Login</target>
+        <target>Por favor  Login</target>
         <jms:reference-file line="30">/../src/NS/SentinelBundle/Resources/views/Security/login.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="e3b21a540a718b7284f94d7105bb256a826d03ca" resname="Please Provide Your Email Address">
@@ -1460,7 +1460,7 @@
       </trans-unit>
       <trans-unit id="47658dced1ec37586a51bf23d66051c62ff85998" resname="Pleural Fluid">
         <source>Pleural Fluid</source>
-        <target>Fluido Pleural</target>
+        <target>Líquido Pleural</target>
         <jms:reference-file line="21">/../src/NS/SentinelBundle/Resources/views/IBD/editLab.html.twig</jms:reference-file>
         <jms:reference-file line="251">/../src/NS/SentinelBundle/Resources/views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
@@ -1517,12 +1517,12 @@
       </trans-unit>
       <trans-unit id="10e7cd5c43180ce85172bd09b81b2be6cc043101" resname="Record Creation Date - From">
         <source>Record Creation Date - From</source>
-        <target state="new">Record Creation Date - From</target>
+        <target>Fecha de creación de registro - Desde</target>
         <jms:reference-file line="66">/../src/NS/SentinelBundle/Filter/Type/BaseReportFilterType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="61bfc42381e6d87c1e8610b9e130f59d4b110574" resname="Record Creation Date - To">
         <source>Record Creation Date - To</source>
-        <target state="new">Record Creation Date - To</target>
+        <target>Record Creation Date - To</target>
         <jms:reference-file line="67">/../src/NS/SentinelBundle/Filter/Type/BaseReportFilterType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e53938a82e4c619e6efb6f1f7b65ff2d99368bd2" resname="Reference Lab">
@@ -1874,7 +1874,7 @@
       </trans-unit>
       <trans-unit id="16e018ece5a1d3b750531de58d16b961de23d629" resname="Two">
         <source>Two</source>
-        <target state="new">Two</target>
+        <target>dos</target>
         <jms:reference-file line="170">/../src/NS/SentinelBundle/Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="3deb7456519697ecf4eefc455516c969a3681bae" resname="Type">
@@ -1898,7 +1898,7 @@
       </trans-unit>
       <trans-unit id="5c9344d6aff660c66fb4a07d6663043dd56a8e83" resname="Use AMRO/PAHO format?">
         <source>Use AMRO/PAHO format?</source>
-        <target state="new">Use AMRO/PAHO format?</target>
+        <target>Usa formato AMRO/PAHO?</target>
         <jms:reference-file line="71">/../src/NS/SentinelBundle/Filter/Type/BaseReportFilterType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="cfdb8ef53d3a4409936e1f8ba4992c8299f02e29" resname="Vaccination History">
@@ -2154,7 +2154,7 @@
       </trans-unit>
       <trans-unit id="1785d51c1dd3f32e4466b95bdb55ade41e246b2c" resname="filter-case-result">
         <source>filter-case-result</source>
-        <target state="new">filter-case-result</target>
+        <target>Resultado de filtros de casos </target>
         <jms:reference-file line="28">/../src/NS/SentinelBundle/Filter/Type/IBD/FilterType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="202e5a722fa3890cb89a21040fa99b0e2ddaa44a" resname="filter-case-status">
@@ -2213,7 +2213,7 @@
       </trans-unit>
       <trans-unit id="a60564c56b3afff636d2058d684aebc3656697fc" resname="ibd-form.blood-collect-date-second-sample">
         <source>ibd-form.blood-collect-date-second-sample</source>
-        <target state="new">ibd-form.blood-collect-date-second-sample</target>
+        <target>Fecha de coleción de la segunda muestra de sangre</target>
         <jms:reference-file line="171">/../src/NS/SentinelBundle/Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="246a98e17d55fb3bef23ea042e1aadacb9a90d3d" resname="ibd-form.blood-collect-time">
@@ -2223,7 +2223,7 @@
       </trans-unit>
       <trans-unit id="4ef651b62d73e48f12229f7865bdbf40ba98881b" resname="ibd-form.blood-collect-time-second-sample">
         <source>ibd-form.blood-collect-time-second-sample</source>
-        <target state="new">ibd-form.blood-collect-time-second-sample</target>
+        <target>Hora de coleción de la segunda muestra de sangre</target>
         <jms:reference-file line="172">/../src/NS/SentinelBundle/Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e112042fbc3747ae7f364fcef4d5cc4341558bba" resname="ibd-form.blood-collected">
@@ -2710,7 +2710,7 @@
       </trans-unit>
       <trans-unit id="675cb3a0cff157bf7af9c9cc124e5b1f4f7c16fa" resname="ibd-form.men-alt-conscious">
         <source>ibd-form.men-alt-conscious</source>
-        <target>ibd-form.men-alt-conscious</target>
+        <target>conciencia alterada?</target>
         <jms:reference-file line="88">/../src/NS/SentinelBundle/Form/IBD/CaseType.php</jms:reference-file>
         <jms:reference-file line="149">/../src/NS/SentinelBundle/Resources/views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
@@ -2734,7 +2734,7 @@
       </trans-unit>
       <trans-unit id="7fb36591a7c5034b63e99f757c5281b0a9b445e0" resname="ibd-form.men-lethargy">
         <source>ibd-form.men-lethargy</source>
-        <target>ibd-form.men-lethargy</target>
+        <target>postración/letargia?</target>
         <jms:reference-file line="93">/../src/NS/SentinelBundle/Form/IBD/CaseType.php</jms:reference-file>
         <jms:reference-file line="169">/../src/NS/SentinelBundle/Resources/views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
@@ -3013,7 +3013,7 @@
       </trans-unit>
       <trans-unit id="415cbd75de753ac561a3521c20c38e4440b3b10a" resname="ibd-form.pneu-fever">
         <source>ibd-form.pneu-fever</source>
-        <target state="new">ibd-form.pneu-fever</target>
+        <target>Fiebre?</target>
         <jms:reference-file line="145">/../src/NS/SentinelBundle/Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="96fcdc48070a62f269a74895905465f02bd8664c" resname="ibd-form.pneu-hypothermia">
