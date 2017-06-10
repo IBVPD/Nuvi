@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2017-06-07T11:12:55Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
+  <file date="2017-06-08T12:34:25Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -340,7 +340,7 @@
       </trans-unit>
       <trans-unit id="a91524f31602f33491dca42e858b9d5559c6e4d1" resname="Blood Collection Date and Time">
         <source>Blood Collection Date and Time</source>
-        <target>Fecha  y hora de  Coleción de Sangre</target>
+        <target>Fecha y hora de  colección de Sangre</target>
         <jms:reference-file line="163">/../src/NS/SentinelBundle/Resources/views/IBD/editLab.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="42b657c8bebf02e57f682d03428fbdc6bcae2837" resname="Blood culture broth">
@@ -387,7 +387,7 @@
       </trans-unit>
       <trans-unit id="97bfcdf6ff37facbd8f9ac1b6f1a09a87a611e67" resname="CSF Collection Date and Time">
         <source>CSF Collection Date and Time</source>
-        <target>Fecha  y hora de  Coleción de LCR</target>
+        <target>Fecha y hora de  colección de LCR</target>
         <jms:reference-file line="40">/../src/NS/SentinelBundle/Resources/views/IBD/editLab.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="775275cfc23d95b3976ef3bbea43f42a663ffdda" resname="CT Values From PCR">
@@ -477,7 +477,7 @@
       </trans-unit>
       <trans-unit id="22c36db366e95f54cde8dc00859b31205a7c19b8" resname="Collection Info">
         <source>Collection Info</source>
-        <target>Recolección de información</target>
+        <target>información de colección</target>
         <jms:reference-file line="18">views/IBD/editLab.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="49252e62e00fc748d88e9116e4f339147369a405" resname="Common Reports">
@@ -763,7 +763,7 @@
       </trans-unit>
       <trans-unit id="203e7ef5f830441d0df7649683b35d0002b19b13" resname="Export as Excel (may have row limit issues)">
         <source>Export as Excel (may have row limit issues)</source>
-        <target state="new">Export as Excel (may have row limit issues)</target>
+        <target>Exportar en Excel (puede haber limitaciones en el numero de lineas)</target>
         <jms:reference-file line="72">/../src/NS/SentinelBundle/Filter/Type/BaseReportFilterType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e53e6fb5399d13847fc4f477393f2acedc2ea223" resname="Failed Link">
@@ -1000,7 +1000,7 @@
       </trans-unit>
       <trans-unit id="18f17c05e2c86b15dc0c6b17fe2b8d184faaa33e" resname="Lab Other Fluid">
         <source>Lab Other Fluid</source>
-        <target>Líquido Pleural</target>
+        <target>Otros fluidos</target>
         <jms:reference-file line="24">views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="e3f535c7d82c4f97e1e3d09c16cfa3015b88d24b" resname="Lab Serotype">
@@ -1312,12 +1312,12 @@
       </trans-unit>
       <trans-unit id="304dc7e19fb693e3b2eebba90c5c66e67cb4da4a" resname="Other Fluid Collection Date and Time">
         <source>Other Fluid Collection Date and Time</source>
-        <target>Fecha  y hora de  Coleción de otros fluidos </target>
+        <target>Fecha y hora de colección de otros fluidos </target>
         <jms:reference-file line="281">/../src/NS/SentinelBundle/Resources/views/IBD/editLab.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="b572c8561b3a5f58713f0aa978cd62bbf8019e65" resname="Other Fluids">
         <source>Other Fluids</source>
-        <target>Liquido Pleural</target>
+        <target>Otros fluidos</target>
         <jms:reference-file line="23">/../src/NS/SentinelBundle/Resources/views/IBD/editLab.html.twig</jms:reference-file>
         <jms:reference-file line="262">/../src/NS/SentinelBundle/Resources/views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
@@ -1735,7 +1735,7 @@
       </trans-unit>
       <trans-unit id="54f52f84185da61ce5e187d916c2e972a0635bcf" resname="Specimen Collection">
         <source>Specimen Collection</source>
-        <target>Recoleccion de muestra</target>
+        <target>Colección de muestra</target>
         <jms:reference-file line="60">/../src/NS/SentinelBundle/Resources/views/Report/IBD/site-performance.html.twig</jms:reference-file>
         <jms:reference-file line="10">/../src/NS/SentinelBundle/Resources/views/Report/RotaVirus/Export/site-performance.html.twig</jms:reference-file>
       </trans-unit>
@@ -2213,22 +2213,22 @@
       </trans-unit>
       <trans-unit id="0e3575c28e3987ae260cba01da2624b9134ba7d1" resname="ibd-form.blood-collect-date">
         <source>ibd-form.blood-collect-date</source>
-        <target>Fecha de obtención de muestra de sangre</target>
+        <target>Fecha de colección de muestra de sangre</target>
         <jms:reference-file line="102">/../src/NS/SentinelBundle/Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="a60564c56b3afff636d2058d684aebc3656697fc" resname="ibd-form.blood-collect-date-second-sample">
         <source>ibd-form.blood-collect-date-second-sample</source>
-        <target>Fecha de coleción de la segunda muestra de sangre</target>
+        <target>Fecha de colección de la segunda muestra de sangre</target>
         <jms:reference-file line="171">/../src/NS/SentinelBundle/Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="246a98e17d55fb3bef23ea042e1aadacb9a90d3d" resname="ibd-form.blood-collect-time">
         <source>ibd-form.blood-collect-time</source>
-        <target>Hora de coleción de muestra de sangre</target>
+        <target>Hora de colección de muestra de sangre</target>
         <jms:reference-file line="103">/../src/NS/SentinelBundle/Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="4ef651b62d73e48f12229f7865bdbf40ba98881b" resname="ibd-form.blood-collect-time-second-sample">
         <source>ibd-form.blood-collect-time-second-sample</source>
-        <target>Hora de coleción de la segunda muestra de sangre</target>
+        <target>Hora de colección de la segunda muestra de sangre</target>
         <jms:reference-file line="172">/../src/NS/SentinelBundle/Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e112042fbc3747ae7f364fcef4d5cc4341558bba" resname="ibd-form.blood-collected">
@@ -2385,17 +2385,17 @@
       </trans-unit>
       <trans-unit id="866471f07c0959069be0a460caa4f7c9661edc5e" resname="ibd-form.csf-collect-date">
         <source>ibd-form.csf-collect-date</source>
-        <target>Fecha de recolección de LCR del caso</target>
+        <target>Fecha de colección de LCR del caso</target>
         <jms:reference-file line="104">/../src/NS/SentinelBundle/Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="357445ce7e2e38232bb0f39e5375dfc854d6831a" resname="ibd-form.csf-collect-datetime">
         <source>ibd-form.csf-collect-datetime</source>
-        <target>Fecha y hora de obtención de LCR  (DD/MM/YYYY)</target>
+        <target>Fecha y hora de colección de LCR (DD/MM/YYYY)</target>
         <jms:reference-file line="210">/../src/NS/SentinelBundle/Resources/views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="900b9fd6b5cc9bb2b357f1d02c112da63b2cd806" resname="ibd-form.csf-collect-time">
         <source>ibd-form.csf-collect-time</source>
-        <target>Hora de recolección de LCR del caso</target>
+        <target>Hora de colección de LCR del caso</target>
         <jms:reference-file line="105">/../src/NS/SentinelBundle/Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="55a3c923ddac91385faa6c9c10da684e9f63f4a8" resname="ibd-form.csf-collected">
@@ -2485,12 +2485,12 @@
       </trans-unit>
       <trans-unit id="5bd6a0e287156c72e1ca281ce63053256252457c" resname="ibd-form.csf-lab-datetime">
         <source>ibd-form.csf-lab-datetime</source>
-        <target>Hora de recepción del LCR al Laboratorio</target>
+        <target>Fecha de recepción del LCR al Laboratorio</target>
         <jms:reference-file line="60">/../src/NS/SentinelBundle/Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="cebde7142f67edd386cff6d1a5ce16246c84cc95" resname="ibd-form.csf-lab-time">
         <source>ibd-form.csf-lab-time</source>
-        <target>fecha de recepción del LCR en el laboratorio</target>
+        <target>Hora de recepción del LCR en el laboratorio</target>
         <jms:reference-file line="61">/../src/NS/SentinelBundle/Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="09822becef86dd896f55f4132c0039831a11910e" resname="ibd-form.csf-lat-done">
@@ -2879,7 +2879,7 @@
       </trans-unit>
       <trans-unit id="200fbe0f4392a0194affd6dada0367aa49ad8166" resname="ibd-form.otherSpecimenCollected">
         <source>ibd-form.otherSpecimenCollected</source>
-        <target>se obtuvo liquido Pleural?</target>
+        <target>se obtuvo otros espicímenes?</target>
         <jms:reference-file line="178">/../src/NS/SentinelBundle/Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="67cf1c3078f9ce891b406ec235255eeb5122a1ec" resname="ibd-form.otherSpecimenOther">
@@ -2920,28 +2920,28 @@
       </trans-unit>
       <trans-unit id="663c3213865f0fa29b799bbb6b9bb5f39a281b79" resname="ibd-form.pleural-fluid-collected">
         <source>ibd-form.pleural-fluid-collected</source>
-        <target>Se recolectó liquido pleural?</target>
+        <target>Se colectó líquido pleural?</target>
         <jms:reference-file line="173">/../src/NS/SentinelBundle/Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="75f204826e6dbdcbe92ac4ab3d8a5be7e32820af" resname="ibd-form.pleural-fluid-collection-date">
         <source>ibd-form.pleural-fluid-collection-date</source>
-        <target>Fecha de recolección del liquido plural</target>
+        <target>Fecha de colección del líquido plural</target>
         <jms:reference-file line="174">/../src/NS/SentinelBundle/Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="d49efc55ec05b51bb3df6ccb7b21f8d96e1ac18f" resname="ibd-form.pleural-fluid-collection-time">
         <source>ibd-form.pleural-fluid-collection-time</source>
-        <target>Hora de recolección del liquido plural</target>
+        <target>Hora de colección del líquido plural</target>
         <jms:reference-file line="175">/../src/NS/SentinelBundle/Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="299fdd5b351d0b7f388601c221ba80ce6fac6664" resname="ibd-form.pleural-fluid-culture-done">
         <source>ibd-form.pleural-fluid-culture-done</source>
-        <target>Se hizo cultivo del liquido pleural?</target>
+        <target>Se hizo cultivo del líquido pleural?</target>
         <jms:reference-file line="117">/../src/NS/SentinelBundle/Form/IBD/SiteLabType.php</jms:reference-file>
         <jms:reference-file line="252">/../src/NS/SentinelBundle/Resources/views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="dd5cf11dd4589f07081ef803d70c503082e4d698" resname="ibd-form.pleural-fluid-culture-result">
         <source>ibd-form.pleural-fluid-culture-result</source>
-        <target>Resultado del liquido pleural</target>
+        <target>Resultado del líquido pleural</target>
         <jms:reference-file line="118">/../src/NS/SentinelBundle/Form/IBD/SiteLabType.php</jms:reference-file>
         <jms:reference-file line="253">/../src/NS/SentinelBundle/Resources/views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
@@ -2953,7 +2953,7 @@
       </trans-unit>
       <trans-unit id="bebd6a7b08bf6c160a73a9a1240642d39b13eada" resname="ibd-form.pleural-fluid-gram-done">
         <source>ibd-form.pleural-fluid-gram-done</source>
-        <target>se hizo tinción de gram en el liquido pleural?</target>
+        <target>se hizo tinción de gram en el líquido pleural?</target>
         <jms:reference-file line="120">/../src/NS/SentinelBundle/Form/IBD/SiteLabType.php</jms:reference-file>
         <jms:reference-file line="255">/../src/NS/SentinelBundle/Resources/views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
@@ -2971,12 +2971,12 @@
       </trans-unit>
       <trans-unit id="887788be84c41aa48ad64a242fab3014fcf76afb" resname="ibd-form.pleural-fluid-gram-result-other">
         <source>ibd-form.pleural-fluid-gram-result-other</source>
-        <target>otros resultados del tinción del gram en el liquido pleural</target>
+        <target>otros resultados del tinción del gram en el líquido pleural</target>
         <jms:reference-file line="117">Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="0024aece6fe911a1cbbe3560a0f5c8a462693751" resname="ibd-form.pleural-fluid-pcr-done">
         <source>ibd-form.pleural-fluid-pcr-done</source>
-        <target>se hizo PCR en el liquid pleural?</target>
+        <target>se hizo PCR en el líquido pleural?</target>
         <jms:reference-file line="123">/../src/NS/SentinelBundle/Form/IBD/SiteLabType.php</jms:reference-file>
         <jms:reference-file line="258">/../src/NS/SentinelBundle/Resources/views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
@@ -3164,7 +3164,7 @@
       </trans-unit>
       <trans-unit id="d6fe0780dce1527df3ca7938556bb512e466249c" resname="ibd-rrl-form.sample-collection-date">
         <source>ibd-rrl-form.sample-collection-date</source>
-        <target>fecha de recoleccion de la muestra</target>
+        <target>fecha de coleccion de la muestra</target>
         <jms:reference-file line="31">Form/IBD/BaseLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="9e530f08f9a9d01ac05a4ff86de08a2191847c48" resname="ibd-rrl-form.sample-type">
@@ -3714,13 +3714,13 @@
       </trans-unit>
       <trans-unit id="c207bb19c6d39e367a58e7a7bd6d78999d37ff2c" resname="rotavirus-form.stoolCollected">
         <source>rotavirus-form.stoolCollected</source>
-        <target>Se recolectó muestras de heces?</target>
+        <target>Se colectó muestras de heces?</target>
         <jms:reference-file line="95">/../src/NS/SentinelBundle/Form/RotaVirus/CaseType.php</jms:reference-file>
         <jms:reference-file line="167">/../src/NS/SentinelBundle/Resources/views/RotaVirus/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="b155612036b8b3cf8c44954a40ae2626f1f7d5d2" resname="rotavirus-form.stoolCollectionDate">
         <source>rotavirus-form.stoolCollectionDate</source>
-        <target>Fecha de recolección de heces</target>
+        <target>Fecha de colección de heces</target>
         <jms:reference-file line="97">/../src/NS/SentinelBundle/Form/RotaVirus/CaseType.php</jms:reference-file>
         <jms:reference-file line="175">/../src/NS/SentinelBundle/Resources/views/RotaVirus/show.html.twig</jms:reference-file>
       </trans-unit>
@@ -3774,7 +3774,7 @@
       </trans-unit>
       <trans-unit id="a96b97c985e167acda120864fcd97c326b9cd58a" resname="rotavirus-form.symptomDiarrheaBloody">
         <source>rotavirus-form.symptomDiarrheaBloody</source>
-        <target state="new">rotavirus-form.symptomDiarrheaBloody</target>
+        <target>Diarrea con sangre?</target>
         <jms:reference-file line="120">/../src/NS/SentinelBundle/Form/RotaVirus/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="f78f9a6b2b70a3d347d03c64eb1d148e43028ddf" resname="rotavirus-form.symptomDiarrheaDuration">
