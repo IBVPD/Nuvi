@@ -82,7 +82,7 @@ class SiteLabType extends AbstractType
             ->add('csfBinaxResult',     BinaxResult::class, ['required' => false, 'label' => 'ibd-form.csf-binax-result', 'hidden' => ['parent' => 'csfBinaxDone', 'value' => TripleChoice::YES]])
             ->add('csfLatDone',         TripleChoice::class, ['required' => false, 'label' => 'ibd-form.csf-lat-done', 'exclude_choices'=> ($isPaho ? [TripleChoice::UNKNOWN]:null)])
             ->add('csfLatResult',       LatResult::class, ['required' => false, 'label' => 'ibd-form.csf-lat-result', 'hidden' => ['parent' => 'csfLatDone', 'value' => TripleChoice::YES]])
-            ->add('csfLatOther',        null, ['required' => false, 'label' => 'ibd-form.csf-lat-other', 'hidden' => ['parent' => 'csfLatDone', 'value' => TripleChoice::YES]])
+            ->add('csfLatOther',        null, ['required' => false, 'label' => 'ibd-form.csf-lat-other', 'hidden' => ['parent' => 'csfLatResult', 'value' => LatResult::OTHER]])
             ->add('csfPcrDone',         TripleChoice::class, ['required' => false, 'label' => 'ibd-form.csf-pcr-done'])
             ->add('csfPcrResult',       PCRResult::class, ['required' => false, 'label' => 'ibd-form.csf-pcr-result', 'hidden' => ['parent' => 'csfPcrDone', 'value' => TripleChoice::YES]])
             ->add('csfPcrOther',        null, ['required' => false, 'label' => 'ibd-form.csf-pcr-other', 'hidden' => ['parent' => 'csfPcrResult', 'value' => PCRResult::OTHER]])
