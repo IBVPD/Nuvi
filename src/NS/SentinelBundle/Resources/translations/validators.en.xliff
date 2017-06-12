@@ -16,11 +16,11 @@
       </trans-unit>
       <trans-unit id="a63e1dad17b27e8ede5c11b3e3b9368c04b3104f" resname="Invalid value. Must be a number">
         <source>Invalid value. Must be a number</source>
-        <target state="new">Invalid value. Must be a number</target>
+        <target>Invalid value. Must be a number</target>
       </trans-unit>
       <trans-unit id="600a7e5324636bfbfa540517fc506feccf4bd337" resname="Please provide a valid oxygen saturation level">
         <source>Please provide a valid oxygen saturation level</source>
-        <target state="new">Please provide a valid oxygen saturation level</target>
+        <target>Please provide a valid oxygen saturation level</target>
       </trans-unit>
       <trans-unit id="28c1803981b5995e68f9e9fca3ac9f2b3329fa02" resname="Please provide a valid respiratory rate">
         <source>Please provide a valid respiratory rate</source>
@@ -28,7 +28,7 @@
       </trans-unit>
       <trans-unit id="bc00364ca8f6d715fd7839e88a552c3ee641247f" resname="Please select a target to restrict this role to">
         <source>Please select a target to restrict this role to</source>
-        <target state="new">Please select a target to restrict this role to</target>
+        <target>Please select a target to restrict this role to</target>
       </trans-unit>
       <trans-unit id="1f64f90c8120aa7a88c1bd1449492c4889868606" resname="The case id already exists for this site!">
         <source>The case id already exists for this site!</source>
@@ -58,15 +58,15 @@
       </trans-unit>
       <trans-unit id="d705ef6477a31cceb4244c687a3a38f8031db0d4" resname="field-is-required-due-to-adm-diagnosis">
         <source>field-is-required-due-to-adm-diagnosis</source>
-        <target state="new">field-is-required-due-to-adm-diagnosis</target>
+        <target>Due to the admission diagnosis this field is required</target>
       </trans-unit>
       <trans-unit id="089dd998ead93df8d2e20005ffaa265af99dae6e" resname="form.validation.admission-after-blood-collection">
         <source>form.validation.admission-after-blood-collection</source>
-        <target state="new">form.validation.admission-after-blood-collection</target>
+        <target>The admission date is after the blood collection date!</target>
       </trans-unit>
       <trans-unit id="7da7e0290de34382b956758523630907abe0f5ce" resname="form.validation.admission-after-csf-collection">
         <source>form.validation.admission-after-csf-collection</source>
-        <target state="new">form.validation.admission-after-csf-collection</target>
+        <target>The admission date is after the CSF collection date!</target>
       </trans-unit>
       <trans-unit id="6ec5ef144b9f2e30eb9289b4f439ab0bd8a453c4" resname="form.validation.admission-after-onset">
         <source>form.validation.admission-after-onset</source>
@@ -74,7 +74,7 @@
       </trans-unit>
       <trans-unit id="b5f5c32855b5951fd5b9f43fc52a5071106b8740" resname="form.validation.admission-after-pleural-fluid-collection">
         <source>form.validation.admission-after-pleural-fluid-collection</source>
-        <target state="new">form.validation.admission-after-pleural-fluid-collection</target>
+        <target>The admission date is after the pleural fluid collection date!</target>
       </trans-unit>
       <trans-unit id="f201efd9691822f928878aa1e2ec99044699eaf0" resname="form.validation.onset-after-dob">
         <source>form.validation.onset-after-dob</source>
@@ -82,11 +82,11 @@
       </trans-unit>
       <trans-unit id="e0f798c230ecadc8c49331cc9ce4342250cf4e6c" resname="form.validation.stool-collection-before-admission">
         <source>form.validation.stool-collection-before-admission</source>
-        <target state="new">form.validation.stool-collection-before-admission</target>
+        <target>Stool collection date was before admission date!</target>
       </trans-unit>
       <trans-unit id="dccaba43c77fc24bc13003c93becde3569de8268" resname="form.validation.vaccination-after-admission">
         <source>form.validation.vaccination-after-admission</source>
-        <target state="new">form.validation.vaccination-after-admission</target>
+        <target>Vaccination received date is after admission!</target>
       </trans-unit>
     </body>
   </file>
