@@ -23,6 +23,7 @@ use NS\SentinelBundle\Form\IBD\Types\OtherSpecimen;
 use NS\SentinelBundle\Form\IBD\Types\PCVType;
 use Symfony\Component\Validator\Constraints as Assert;
 use NS\SentinelBundle\Validators as LocalAssert;
+use NS\UtilBundle\Validator\Constraints\ArrayChoiceConstraint;
 
 /**
  * Description of IBD
@@ -98,6 +99,8 @@ class IBD extends BaseCase
      * @var Diagnosis $admDx
      * @ORM\Column(name="adm_dx",type="Diagnosis",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"AMR"})
+     * @ArrayChoiceConstraint(groups={"AMR"})
      */
     private $adm_dx;
 
@@ -279,6 +282,8 @@ class IBD extends BaseCase
      * @var VaccinationReceived $hibReceived
      * @ORM\Column(name="hib_received",type="VaccinationReceived",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"AMR"})
+     * @ArrayChoiceConstraint(groups={"AMR"})
      */
     private $hib_received;
 
@@ -302,6 +307,8 @@ class IBD extends BaseCase
      * @var VaccinationReceived $pcvReceived
      * @ORM\Column(name="pcv_received",type="VaccinationReceived",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"AMR"})
+     * @ArrayChoiceConstraint(groups={"AMR"})
      */
     private $pcv_received;
 
@@ -332,6 +339,8 @@ class IBD extends BaseCase
      * @var VaccinationReceived $meningReceived
      * @ORM\Column(name="mening_received",type="VaccinationReceived",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"AMR"})
+     * @ArrayChoiceConstraint(groups={"AMR"})
      */
     private $mening_received;
 

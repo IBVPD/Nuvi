@@ -72,14 +72,6 @@ class CaseType extends AbstractType
             ->add('district',           null, ['required' => $required, 'label' => 'ibd-form.district'])
             ->add('state',              null, ['required' => $required, 'label' => 'ibd-form.state'])
             ->add('caseId',             null, ['required' => true, 'label' => 'ibd-form.case-id', 'property_path' => 'case_id'])
-            ->add('admDx',              Diagnosis::class, [
-                'required' => $required,
-                'label' => 'ibd-form.adm-dx',
-                'hidden' => [
-                    'children' => [
-                        '#meningitisTab'=> [Diagnosis::SUSPECTED_MENINGITIS,Diagnosis::MULTIPLE],
-                        '#pneumoniaTab' => [Diagnosis::SUSPECTED_PNEUMONIA,Diagnosis::SUSPECTED_SEVERE_PNEUMONIA,Diagnosis::SUSPECTED_SEPSIS,Diagnosis::MULTIPLE],
-                    ]]])
             ->add('admDxOther',         null, ['required' => $required, 'label' => 'ibd-form.adm-dx-other', 'hidden' => ['parent' => 'admDx', 'value' => Diagnosis::OTHER]])
             ->add('onsetDate',          DatePickerType::class, ['required' => $required, 'label' => 'ibd-form.onset-date','property_path'=>'onset_date'])
             ->add('antibiotics',        TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.antibiotics'])
@@ -91,10 +83,8 @@ class CaseType extends AbstractType
             ->add('menRash',            TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.men-rash'])
             ->add('menFontanelleBulge', TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.men-fontanelle-bulge'])
             ->add('menLethargy',        TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.men-lethargy'])
-            ->add('hibReceived',        VaccinationReceived::class, ['required' => $required, 'label' => 'ibd-form.hib-received'])
             ->add('hibDoses',           FourDoses::class, ['required' => $required, 'label' => 'ibd-form.hib-doses', 'hidden' => ['parent' => 'hibReceived', 'value' => [VaccinationReceived::YES_CARD, VaccinationReceived::YES_HISTORY]]])
             ->add('hibMostRecentDose',  DatePickerType::class, ['required' => $required, 'label' => 'ibd-form.hib-most-recent-dose', 'hidden' => ['parent' => 'hibReceived', 'value' => [VaccinationReceived::YES_CARD, VaccinationReceived::YES_HISTORY]]])
-            ->add('pcvReceived',        VaccinationReceived::class, ['required' => $required, 'label' => 'ibd-form.pcv-received'])
             ->add('pcvDoses',           FourDoses::class, ['required' => $required, 'label' => 'ibd-form.pcv-doses', 'hidden' => ['parent' => 'pcvReceived', 'value' => [VaccinationReceived::YES_CARD, VaccinationReceived::YES_HISTORY]]])
             ->add('pcvType',            PCVType::class, ['required' => $required, 'label' => 'ibd-form.pcv-type', 'hidden' => ['parent' => 'pcvReceived', 'value' => [VaccinationReceived::YES_CARD, VaccinationReceived::YES_HISTORY]]])
             ->add('pcvMostRecentDose',  DatePickerType::class, ['required' => $required, 'label' => 'ibd-form.pcv-most-recent-dose', 'hidden' => ['parent' => 'pcvReceived', 'value' => [VaccinationReceived::YES_CARD, VaccinationReceived::YES_HISTORY]]])
@@ -158,12 +148,24 @@ class CaseType extends AbstractType
             ->add('firstName', null, ['required' => $required || $isPaho, 'label' => 'ibd-form.first-name', 'attr' => ['autocomplete' => 'off']])
             ->add('dobKnown', TripleChoice::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.date-of-birth-known', 'exclude_choices' => ($isPaho ? [TripleChoice::UNKNOWN] : null)])
             ->add('gender', Gender::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.gender'])
+            ->add('admDx',Diagnosis::class, [
+                'required' => $required || $isPaho,
+                'label' => 'ibd-form.adm-dx',
+                'property_path' => 'adm_dx',
+                'hidden' => [
+                    'children' => [
+                        '#meningitisTab' => [Diagnosis::SUSPECTED_MENINGITIS, Diagnosis::MULTIPLE],
+                        '#pneumoniaTab' => [Diagnosis::SUSPECTED_PNEUMONIA, Diagnosis::SUSPECTED_SEVERE_PNEUMONIA, Diagnosis::SUSPECTED_SEPSIS, Diagnosis::MULTIPLE],
+                    ]],
+            ])
             ->add('admDate', DatePickerType::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.adm-date', 'property_path' => 'adm_date'])
             ->add('csfCollected', TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.csf-collected', 'exclude_choices' => ($isPaho ? [TripleChoice::UNKNOWN] : null)])
             ->add('dischClass', DischargeClassification::class, ['required' => false, 'label' => 'ibd-form.discharge-class', 'exclude_choices' => ($isPaho ? [DischargeClassification::UNKNOWN, DischargeClassification::SUSPECT] : null)])
-            ->add('meningReceived',     VaccinationReceived::class, ['required' => $required, 'label' => 'ibd-form.men-received'])
-            ->add('meningType',         VaccinationType::class, ['required' => $required, 'label' => 'ibd-form.men-type', 'hidden' => ['parent' => 'meningReceived', 'value' => $isPaho ? [VaccinationReceived::YES_CARD]:[VaccinationReceived::YES_CARD, VaccinationReceived::YES_HISTORY] ]])
-            ->add('meningDate',         DatePickerType::class, ['required' => $required, 'label' => 'ibd-form.meningMostRecentDose', 'property_path' => 'mening_date', 'hidden' => ['parent' => 'meningReceived', 'value' => $isPaho ? [VaccinationReceived::YES_CARD]:[VaccinationReceived::YES_CARD, VaccinationReceived::YES_HISTORY] ]]);
+            ->add('hibReceived', VaccinationReceived::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.hib-received','property_path'=>'hib_received'])
+            ->add('pcvReceived', VaccinationReceived::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.pcv-received','property_path'=>'pcv_received'])
+            ->add('meningReceived', VaccinationReceived::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.men-received','property_path' => 'mening_received'])
+            ->add('meningType', VaccinationType::class, ['required' => $required, 'label' => 'ibd-form.men-type', 'hidden' => ['parent' => 'meningReceived', 'value' => $isPaho ? [VaccinationReceived::YES_CARD]:[VaccinationReceived::YES_CARD, VaccinationReceived::YES_HISTORY] ]])
+            ->add('meningDate', DatePickerType::class, ['required' => $required, 'label' => 'ibd-form.meningMostRecentDose', 'property_path' => 'mening_date', 'hidden' => ['parent' => 'meningReceived', 'value' => $isPaho ? [VaccinationReceived::YES_CARD]:[VaccinationReceived::YES_CARD, VaccinationReceived::YES_HISTORY] ]]);
 
         if ($isPaho) {
             $form
