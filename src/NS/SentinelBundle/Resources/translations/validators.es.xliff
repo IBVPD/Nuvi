@@ -46,7 +46,7 @@
       </trans-unit>
       <trans-unit id="0aecaa75fde5ffe7bfdc1897d101ea48b7660160" resname="This field cannot be blank">
         <source>This field cannot be blank</source>
-        <target>  Esta variable no puede estar en blanco</target>
+        <target>Esta variable no puede estar en blanco</target>
       </trans-unit>
       <trans-unit id="f4893b9d345e922a467b853b255dc32a0ade9e71" resname="You cannot have a negative white blood cell count">
         <source>You cannot have a negative white blood cell count</source>
@@ -54,7 +54,7 @@
       </trans-unit>
       <trans-unit id="d7c86c070e8074cbf1a7710db0f2e543765d48c5" resname="Your password must be at least 6 characters">
         <source>Your password must be at least 6 characters</source>
-        <target> La contraseña debe tener al menos 6 caracteres</target>
+        <target>La contraseña debe tener al menos 6 caracteres</target>
       </trans-unit>
       <trans-unit id="d705ef6477a31cceb4244c687a3a38f8031db0d4" resname="field-is-required-due-to-adm-diagnosis">
         <source>field-is-required-due-to-adm-diagnosis</source>
@@ -70,7 +70,7 @@
       </trans-unit>
       <trans-unit id="6ec5ef144b9f2e30eb9289b4f439ab0bd8a453c4" resname="form.validation.admission-after-onset">
         <source>form.validation.admission-after-onset</source>
-        <target>form.validation.admission-after-onse    La fecha de inicio debe ser antes que la fecha de admisión </target>
+        <target>La fecha de inicio debe ser antes que la fecha de admisión</target>
       </trans-unit>
       <trans-unit id="b5f5c32855b5951fd5b9f43fc52a5071106b8740" resname="form.validation.admission-after-pleural-fluid-collection">
         <source>form.validation.admission-after-pleural-fluid-collection</source>
@@ -78,7 +78,7 @@
       </trans-unit>
       <trans-unit id="f201efd9691822f928878aa1e2ec99044699eaf0" resname="form.validation.onset-after-dob">
         <source>form.validation.onset-after-dob</source>
-        <target>form.validation.onset-after-dob       Fecha de nacimiento debe ser antes que la fecha de inicio</target>
+        <target>Fecha de nacimiento debe ser antes que la fecha de inicio</target>
       </trans-unit>
       <trans-unit id="e0f798c230ecadc8c49331cc9ce4342250cf4e6c" resname="form.validation.stool-collection-before-admission">
         <source>form.validation.stool-collection-before-admission</source>
