@@ -111,7 +111,7 @@ class CaseTypeTest extends TypeTestCase
     private $requiredFields = ['caseId'];
 
     /** @var array */
-    private $pahoRequiredFields = ['lastName', 'firstName', 'admDate', 'dobKnown', 'gender'];
+    private $pahoRequiredFields = ['lastName', 'firstName', 'admDate', 'dobKnown', 'gender', 'admDx', 'hibReceived','meningReceived','pcvReceived'];
 
     /** @var SerializedSitesInterface|\PHPUnit_Framework_MockObject_MockObject */
     private $siteSerializer;
