@@ -3,6 +3,7 @@ VERSION 0  INITIAL RELEASE
 ==========================
 
    Version 0.10 - Updated to SF3.x
+      22/06/2017 14:36  0.10.34  Various PAHO fixes/changes
       12/06/2017 11:41  0.10.33  Import fix and updated translations
       07/06/2017 11:22  0.10.32  New translations
       07/06/2017 11:16  0.10.31  Bloody diarrhea
