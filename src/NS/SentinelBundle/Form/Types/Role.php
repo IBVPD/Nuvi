@@ -40,14 +40,6 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
         self::LAB => 'Lab',
         self::RRL_LAB => 'RRL',
         self::NL_LAB => 'NL',
-        // These are all deprecated and will be removed in a future version
-
-        self::REGION_API => 'Region API',
-        self::COUNTRY_API => 'Country API',
-        self::SITE_API => 'Site API',
-        self::REGION_IMPORT => 'Region Import/Export',
-        self::COUNTRY_IMPORT => 'Country Import/Export',
-        self::SITE_IMPORT => 'Site Import/Export',
     ];
 
     protected $roleMap = [

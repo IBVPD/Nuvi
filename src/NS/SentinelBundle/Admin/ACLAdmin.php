@@ -54,7 +54,7 @@ class ACLAdmin extends AbstractAdmin
                 'multiple' => true,
                 'choices' => [
                     'Api Access' => 'api',
-                    'Import/Export Access' => 'import',
+                    'Import Access' => 'import',
                     'Can Create Case' => 'case',
                     'Can Create Site Lab' => 'lab',
                     'Can Create NL' => 'nl',
