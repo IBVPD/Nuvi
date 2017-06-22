@@ -24,6 +24,7 @@
     symfony_project_shared_folders: # folders to be linked from shared directory to release dir
       - {name: logs, src: var/logs, path: var/logs}
       - {name: uploads, src: web/uploads, path: web/uploads}
+      - {name: data, src: app/data, path: app/data }
 
     symfony_project_managed_folders: # folders to be created/checked in release dir
       - {name: cache, path: var/cache}
