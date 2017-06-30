@@ -42,12 +42,12 @@ class ExportController extends Controller
                 $out['IBD'] = get_object_vars($obj->ibd);
             }
 
-            if (isset($obj->siteLab)) {
-                $out['Site Lab'] = get_object_vars($obj->siteLab);
+            if (isset($obj->rotavirus)) {
+                $out['Rotavirus'] = get_object_vars($obj->rotavirus);
             }
 
-            if (isset($obj->rotavirus)) {
-                $out['Rotavirus'] = get_object_vars($obj->rota);
+            if (isset($obj->siteLab)) {
+                $out['Site Lab'] = get_object_vars($obj->siteLab);
             }
 
             if (isset($obj->rl)) {
