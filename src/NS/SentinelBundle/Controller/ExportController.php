@@ -42,7 +42,11 @@ class ExportController extends Controller
                 $out['IBD'] = get_object_vars($obj->ibd);
             }
 
-            if (isset($obj->rota)) {
+            if (isset($obj->siteLab)) {
+                $out['Site Lab'] = get_object_vars($obj->siteLab);
+            }
+
+            if (isset($obj->rotavirus)) {
                 $out['Rotavirus'] = get_object_vars($obj->rota);
             }
 
@@ -59,7 +63,7 @@ class ExportController extends Controller
                     if ($field instanceof \stdClass) {
                         $field = get_object_vars($field);
 
-                        if ($field['options'] instanceof \stdClass) {
+                        if (isset($field['options']) && $field['options'] instanceof \stdClass) {
                             $field['options'] = get_object_vars($field['options']);
                         }
                     }
