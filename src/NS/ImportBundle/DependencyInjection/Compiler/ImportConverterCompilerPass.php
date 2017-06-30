@@ -28,7 +28,7 @@ class ImportConverterCompilerPass implements CompilerPassInterface
         $definition->setMethodCalls([]);
 
         foreach ($container->findTaggedServiceIds('ns_import.converter') as $id => $attributes) {
-            $definition->addMethodCall('addConverter', [$id, new Reference($id)]);
+            $definition->addMethodCall('addConverter', [strtolower($id), new Reference($id)]);
         }
 
         $definition->setMethodCalls(array_merge($definition->getMethodCalls(), $calls));

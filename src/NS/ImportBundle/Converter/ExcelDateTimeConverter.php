@@ -17,4 +17,12 @@ class ExcelDateTimeConverter extends BaseDateConverter implements NamedValueConv
     {
         return 'Excel DateTime';
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getType()
+    {
+        return $this->getName();
+    }
 }

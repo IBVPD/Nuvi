@@ -8,5 +8,13 @@ namespace NS\ImportBundle\Converter;
  */
 interface NamedValueConverterInterface
 {
+    /**
+     * @return string
+     */
     public function getName();
+
+    /**
+     * @return string
+     */
+    public function getType();
 }

@@ -16,18 +16,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class Registry extends AbstractType
 {
-    /**
-     * @var array
-     */
+    /** @var array */
     private $values = [];
 
-    /**
-     * @var array
-     */
+    /** @var array */
+    private $types = [];
+
+    /** @var array */
     private $converters = [];
-    /**
-     * @var bool
-     */
+
+    /** @var bool */
     private $sorted = false;
 
     /**
@@ -37,7 +35,8 @@ class Registry extends AbstractType
      */
     public function addConverter($id, NamedValueConverterInterface $converter)
     {
-        $this->values[$id]     = $converter->getName();
+        $this->values[$id] = $converter->getName();
+        $this->types[$id] = $converter->getType();
         $this->converters[$id] = $converter;
     }
 
@@ -55,9 +54,8 @@ class Registry extends AbstractType
         $resolver->setDefaults([
             'placeholder' => 'Please Select...',
             'choices'     => array_flip($this->values),
-            'choice_attr' => function($val, $key, $index)
-            {
-                return ['data-converterref'=>$key];
+            'choice_attr' => function($val, $key, $index) {
+                return ['data-converterref' => $key];
             }
         ]);
     }
@@ -69,7 +67,7 @@ class Registry extends AbstractType
      */
     public function getConverterForField($field)
     {
-        foreach ($this->values as $id => $converter) {
+        foreach ($this->types as $id => $converter) {
             if ($converter == $field) {
                 return $id;
             }

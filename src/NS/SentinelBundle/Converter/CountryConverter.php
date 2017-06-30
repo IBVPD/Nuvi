@@ -39,4 +39,9 @@ class CountryConverter extends AbstractBaseObjectConverter
     {
         return 'Country';
     }
+
+    public function getType()
+    {
+        return $this->getName();
+    }
 }

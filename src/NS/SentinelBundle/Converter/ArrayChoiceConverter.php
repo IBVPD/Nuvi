@@ -14,35 +14,34 @@ use UnexpectedValueException as UnexpectedValueException2;
  */
 class ArrayChoiceConverter implements NamedValueConverterInterface, ReporterInterface
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $class;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $name;
 
-    /**
-     * @var string
-     */
+    /** @var string */
+    private $type;
+
+    /** @var string */
     private $message = null;
 
     private $severity = ReporterInterface::WARNING;
 
     /**
      * @param string $class
+     * @param string $type
      * @throws \RuntimeException
      */
-    public function __construct($class)
+    public function __construct($class, $type)
     {
         if (!class_exists($class)) {
             throw new \RuntimeException(sprintf("Unable to find class %s", $class));
         }
 
         $this->class = $class;
-        $this->name  = join('', array_slice(explode('\\', $class), -1));
+        $this->type = join('', array_slice(explode('\\', $class), -1));
+        $this->name  = sprintf('%s (%s)', $this->type, $type);
     }
 
     /**
@@ -95,11 +94,18 @@ class ArrayChoiceConverter implements NamedValueConverterInterface, ReporterInte
     }
 
     /**
-     *
      * @return string
      */
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 }

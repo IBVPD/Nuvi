@@ -34,11 +34,15 @@ class SiteConverter extends AbstractBaseObjectConverter
     }
 
     /**
-     *
      * @return string
      */
     public function getName()
     {
         return 'Site';
+    }
+
+    public function getType()
+    {
+        return $this->getName();
     }
 }

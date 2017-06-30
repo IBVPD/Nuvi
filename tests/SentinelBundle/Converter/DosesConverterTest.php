@@ -2,6 +2,10 @@
 
 namespace NS\SentinelBundle\Tests\Converter;
 
+use NS\SentinelBundle\Converter\DosesConverter;
+use NS\SentinelBundle\Form\Types\FourDoses;
+use NS\SentinelBundle\Form\Types\ThreeDoses;
+
 /**
  * Description of DosesTest
  *
@@ -12,9 +16,9 @@ class DosesConverterTest extends \PHPUnit_Framework_TestCase
 
     public function testFourDoses()
     {
-        $four          = new \NS\SentinelBundle\Form\Types\FourDoses();
+        $four          = new FourDoses();
         $class         = get_class($four);
-        $doseConverter = new \NS\SentinelBundle\Converter\DosesConverter($class);
+        $doseConverter = new DosesConverter($class,'Both');
         $converted     = $doseConverter->__invoke(0);
 
         $this->assertNull($converted);
@@ -22,9 +26,9 @@ class DosesConverterTest extends \PHPUnit_Framework_TestCase
 
     public function testThreeDoses()
     {
-        $three = new \NS\SentinelBundle\Form\Types\ThreeDoses();
+        $three = new ThreeDoses();
         $class         = get_class($three);
-        $doseConverter = new \NS\SentinelBundle\Converter\DosesConverter($class);
+        $doseConverter = new DosesConverter($class,'Both');
         $converted     = $doseConverter->__invoke(0);
 
         $this->assertNull($converted);

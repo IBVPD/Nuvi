@@ -66,6 +66,14 @@ class DateTimeValueConverter extends BaseDateTimeValueConverter implements Named
     }
 
     /**
+     * @inheritDoc
+     */
+    public function getType()
+    {
+        return $this->getName();
+    }
+
+    /**
      * @param string $description
      */
     public function setDescription($description)

@@ -52,15 +52,14 @@ class ColumnAdmin extends AbstractAdmin
         $formMapper
             ->add('name', null, ['attr' => ['data-queryBuilder' => 'columnName']])
             ->add('preProcessor', PreProcessorType::class, ['required' => false])
-            ->add('mapper',         $mapperType, ['required'=>false, 'label' => 'DB Column', 'attr'=>['data-dbcolumn'=>true, 'data-ref'=>$id]])
+            ->add('mapper', $mapperType, ['required' => false, 'label' => 'DB Column', 'attr' => ['data-dbcolumn' => true, 'data-ref' => $id]])
             ->add('converter',
                 Registry::class,
                 [
                     'required' => false,
-                    'attr' => [],
                     'label' => 'Validator',
-                    'attr'=> [
-                        'data-converter'=>true, 'data-ref'=>$id
+                    'attr' => [
+                        'data-converter' => true, 'data-ref' => $id
                     ]
                 ])
             ->add('ignored', null, ['label' => 'Drop?', 'required' => false]);

@@ -62,7 +62,7 @@ class ArrayChoiceConverterTest extends \PHPUnit_Framework_TestCase
     public function testArrayChoiceConverterOutOfRange(ArrayChoice $obj)
     {
         $class = get_class($obj);
-        $converter = new ArrayChoiceConverter($class);
+        $converter = new ArrayChoiceConverter($class,'nothing');
 
         $obj->getValues();
         $ret = $converter->__invoke(-12);
@@ -78,7 +78,7 @@ class ArrayChoiceConverterTest extends \PHPUnit_Framework_TestCase
     public function testArrayChoiceConverter(ArrayChoice $obj)
     {
         $class = get_class($obj);
-        $converter = new ArrayChoiceConverter($class);
+        $converter = new ArrayChoiceConverter($class,'nothing');
         $values = $obj->getValues();
 
         foreach (array_keys($values) as $key) {
@@ -97,7 +97,7 @@ class ArrayChoiceConverterTest extends \PHPUnit_Framework_TestCase
      */
     public function testUnknownClass()
     {
-        new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\UnknownClass');
+        new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\UnknownClass','nothing');
     }
 
     public function converterProvider()
