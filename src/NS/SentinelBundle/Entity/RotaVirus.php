@@ -43,19 +43,19 @@ class RotaVirus extends BaseCase
 {
     /**
      * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\RotaVirus\SiteLab", mappedBy="caseFile", cascade={"persist","remove"}, orphanRemoval=true)
-     * @Serializer\Groups({"export"})
+     * @Serializer\Groups({"delete"})
      */
     protected $siteLab;
 
     /**
      * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\RotaVirus\NationalLab", mappedBy="caseFile", cascade={"persist","remove"}, orphanRemoval=true)
-     * @Serializer\Groups({"export"})
+     * @Serializer\Groups({"delete"})
      */
     protected $nationalLab;
 
     /**
      * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\RotaVirus\ReferenceLab", mappedBy="caseFile", cascade={"persist","remove"}, orphanRemoval=true)
-     * @Serializer\Groups({"export"})
+     * @Serializer\Groups({"delete"})
      */
     protected $referenceLab;
 
