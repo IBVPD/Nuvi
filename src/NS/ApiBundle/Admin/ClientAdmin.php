@@ -34,7 +34,8 @@ class ClientAdmin extends AbstractAdmin
                     return $repo->createQueryBuilder('u')
                         ->leftJoin('u.acls', 'a')
                         ->addSelect('a')
-                        ->where('a.options LIKE "%api%"');
+                        ->where('a.options LIKE :apiType')
+                        ->setParameter('apiType', '%api%');
             }]);
     }
 

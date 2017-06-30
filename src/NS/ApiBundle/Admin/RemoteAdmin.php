@@ -57,12 +57,14 @@ class RemoteAdmin extends AbstractAdmin
             ->add('tokenEndpoint')
             ->add('authEndpoint')
             ->add('redirectUrl')
-            ->add('user', null, ['placeholder'=>'Please Select', 'query_builder'=>function (EntityRepository $repo) {
-                                                return $repo->createQueryBuilder('u')
-                                                            ->leftJoin('u.acls', 'a')
-                                                            ->addSelect('a')
-                                                            ->where('a.options LIKE :apiType')
-                                                            ->setParameter('apiType', '%api%');
+            ->add('user', null, [
+                'placeholder' => 'Please Select',
+                'query_builder' => function (EntityRepository $repo) {
+                    return $repo->createQueryBuilder('u')
+                        ->leftJoin('u.acls', 'a')
+                        ->addSelect('a')
+                        ->where('a.options LIKE :apiType')
+                        ->setParameter('apiType', '%api%');
             }])
         ;
     }
