@@ -19,16 +19,15 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
  */
 class MapAdmin extends AbstractAdmin
 {
+    /** @var MapBuilder */
     private $mapBuilder;
 
     /**
      * @param MapBuilder $mapBuilder
-     * @return \NS\ImportBundle\Admin\MapAdmin
      */
     public function setMapBuilder(MapBuilder $mapBuilder)
     {
         $this->mapBuilder = $mapBuilder;
-        return $this;
     }
 
     /**
