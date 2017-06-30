@@ -34,6 +34,20 @@
             var helper = this;
             $.ajax(url).success(function(data)
             {
+                //Case consistency can't be assured here.  Make all the config indexes lowercase
+                $.each(data, function(name, value)
+                {
+                    delete data[name];
+                    var lname = name.toLowerCase();
+                    data[lname] = value;
+
+                    $.each(data[lname], function(name, value)
+                    {
+                        delete data[lname][name];
+                        data[lname][name.toLowerCase()] = value;
+                    });
+                });
+
                helper[conf].conf = data;
                helper._init();
             }).error(function(data, status, error)
@@ -66,8 +80,8 @@
                 var data_class = helper.GetDataClass(),
                     val     = $(this).val(),
                     split   = val.indexOf('.') != -1  ? val.indexOf('.') : 0,
-                    prefix  = helper[data_class].prefixes[val.substr(0, split)], //nl., rl., siteLab., || empty string if value is ibd or rotavirus
-                    field   = val.substr(split != 0 ?  split+1 : 0), //If the column name has a prefix, the "." will be included in the field name, so we have to move the string up character
+                    prefix  = helper[data_class].prefixes[val.substr(0, split)].toLowerCase(), //nl., rl., siteLab., || empty string if value is ibd or rotavirus
+                    field   = val.substr(split != 0 ?  split+1 : 0).toLowerCase(), //If the column name has a prefix, the "." will be included in the field name, so we have to move the string up character
                     conf    = helper[data_class].conf[prefix][field];
 
                 var help = helper.GetHelpText(conf),

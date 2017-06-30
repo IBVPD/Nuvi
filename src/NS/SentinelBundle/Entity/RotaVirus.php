@@ -79,6 +79,7 @@ class RotaVirus extends BaseCase
     /**
      * @var TripleChoice $intensiveCare
      * @ORM\Column(name="intensiveCare",type="TripleChoice",nullable=true)
+     * @Serializer\Groups({"api","export"})
      */
     private $intensiveCare;
 
@@ -94,6 +95,7 @@ class RotaVirus extends BaseCase
      * symp_dia_onset_date
      * @var \DateTime $symp_dia_onset_date
      * @ORM\Column(name="symp_dia_onset_date",type="date",nullable=true)
+     * @Serializer\Type(name="DateTime<'Y-m-d'>")
      * @Serializer\Groups({"api","export"})
      * @LocalAssert\NoFutureDate
      */
@@ -207,6 +209,7 @@ class RotaVirus extends BaseCase
      * RV_dose1_date
      * @var \DateTime $rv_dose1_date
      * @ORM\Column(name="rv_dose1_date",type="date",nullable=true)
+     * @Serializer\Type(name="DateTime<'Y-m-d'>")
      * @Serializer\Groups({"api","export"})
      * @LocalAssert\NoFutureDate
      */
@@ -216,6 +219,7 @@ class RotaVirus extends BaseCase
      * RV_dose2_date
      * @var \DateTime $rv_dose2_date
      * @ORM\Column(name="rv_dose2_date",type="date",nullable=true)
+     * @Serializer\Type(name="DateTime<'Y-m-d'>")
      * @Serializer\Groups({"api","export"})
      * @LocalAssert\NoFutureDate
      */
@@ -225,6 +229,7 @@ class RotaVirus extends BaseCase
      * RV_dose3_date
      * @var \DateTime $rv_dose3_date
      * @ORM\Column(name="rv_dose3_date",type="date",nullable=true)
+     * @Serializer\Type(name="DateTime<'Y-m-d'>")
      * @Serializer\Groups({"api","export"})
      * @LocalAssert\NoFutureDate
      */
@@ -252,6 +257,7 @@ class RotaVirus extends BaseCase
      * stool_collect_date
      * @var \DateTime $stool_collect_date
      * @ORM\Column(name="stool_collect_date",type="date",nullable=true)
+     * @Serializer\Type(name="DateTime<'Y-m-d'>")
      * @Serializer\Groups({"api","export"})
      * @LocalAssert\NoFutureDate
      */
@@ -269,6 +275,7 @@ class RotaVirus extends BaseCase
     /**
      * @var \DateTime $disch_date
      * @ORM\Column(name="disch_date",type="date",nullable=true)
+     * @Serializer\Type(name="DateTime<'Y-m-d'>")
      * @Serializer\Groups({"api","export"})
      * @LocalAssert\NoFutureDate
      */
