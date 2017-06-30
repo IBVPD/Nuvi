@@ -310,6 +310,7 @@ class User implements AdvancedUserInterface
         if (!$this->roles) {
             $roles = [];
 
+            /** @var ACL $acl */
             foreach ($this->acls as $acl) {
                 $roles = array_merge($roles, $acl->getCredentials());
             }

@@ -42,15 +42,18 @@ NS\SentinelBundle\Entity\ACL:
         objectId: "@site0->id"
         user: "@sUser0"
     canadaCountryAcl0:
-        type: <countryApiRole()>
+        type: <countryRole()>
+        options: [ 'api' ]
         objectId: "@country0->id"
         user: "@ca-user6"
     canadaCountryAcl1:
-        type: <countryApiRole()>
+        type: <countryRole()>
+        options: [ 'api' ]
         objectId: "@country0->id"
         user: "@ca-user5"
     canadaCountryAcl2:
-        type: <countryExportRole()>
+        type: <countryRole()>
+        options: [ 'import' ]
         objectId: "@country0->id"
         user: "@ca-user5"
         options: [ 'rrl','nl','case', 'lab' ]

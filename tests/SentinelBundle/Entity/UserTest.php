@@ -17,10 +17,11 @@ class UserTest extends \PHPUnit_Framework_TestCase
     {
         $user = new User();
         $acl = new ACL();
-        $acl->setType(new Role(Role::COUNTRY_API));
+        $acl->setType(new Role(Role::COUNTRY));
+        $acl->setOptions(['api']);
         $user->addAcl($acl);
 
-        $this->assertEquals(['ROLE_COUNTRY_API', 'ROLE_CAN_CREATE_CASE', 'ROLE_CAN_CREATE_LAB', 'ROLE_CAN_CREATE_NL_LAB'], $user->getRoles());
+        $this->assertEquals(['ROLE_COUNTRY', 'ROLE_API'], $user->getRoles());
     }
 
     /**

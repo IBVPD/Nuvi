@@ -70,14 +70,8 @@ class RoleTypeTest extends TypeTestCase
     {
         return [
             ['roleStr' => 'ROLE_REGION', 'entity' => 'NS\SentinelBundle\Entity\Region'],
-            ['roleStr' => 'ROLE_REGION_API', 'entity' => 'NS\SentinelBundle\Entity\Region'],
-            ['roleStr' => 'ROLE_REGION_IMPORT', 'entity' => 'NS\SentinelBundle\Entity\Region'],
             ['roleStr' => 'ROLE_COUNTRY', 'entity' => 'NS\SentinelBundle\Entity\Country'],
-            ['roleStr' => 'ROLE_COUNTRY_IMPORT', 'entity' => 'NS\SentinelBundle\Entity\Country'],
-            ['roleStr' => 'ROLE_COUNTRY_API', 'entity' => 'NS\SentinelBundle\Entity\Country'],
             ['roleStr' => 'ROLE_SITE', 'entity' => 'NS\SentinelBundle\Entity\Site'],
-            ['roleStr' => 'ROLE_SITE_IMPORT', 'entity' => 'NS\SentinelBundle\Entity\Site'],
-            ['roleStr' => 'ROLE_SITE_API', 'entity' => 'NS\SentinelBundle\Entity\Site'],
             ['roleStr' => 'ROLE_LAB', 'entity' => 'NS\SentinelBundle\Entity\Site'],
             ['roleStr' => 'ROLE_NL_LAB', 'entity' => 'NS\SentinelBundle\Entity\Country'],
             ['roleStr' => 'ROLE_RRL_LAB', 'entity' => 'NS\SentinelBundle\Entity\Country'],
@@ -88,14 +82,8 @@ class RoleTypeTest extends TypeTestCase
     {
         return [
             ['ROLE_REGION', ['ROLE_REGION']],
-            ['ROLE_REGION_API', ['ROLE_REGION_API','ROLE_CAN_CREATE_CASE','ROLE_CAN_CREATE_LAB','ROLE_CAN_CREATE_NL_LAB']],
-            ['ROLE_REGION_IMPORT', ['ROLE_REGION_IMPORT']],
             ['ROLE_COUNTRY', ['ROLE_COUNTRY']],
-            ['ROLE_COUNTRY_IMPORT', ['ROLE_COUNTRY_IMPORT']],
-            ['ROLE_COUNTRY_API', ['ROLE_COUNTRY_API','ROLE_CAN_CREATE_CASE','ROLE_CAN_CREATE_LAB','ROLE_CAN_CREATE_NL_LAB']],
             ['ROLE_SITE', ['ROLE_SITE']],
-            ['ROLE_SITE_IMPORT', ['ROLE_SITE_IMPORT']],
-            ['ROLE_SITE_API', ['ROLE_SITE_API','ROLE_CAN_CREATE_CASE','ROLE_CAN_CREATE_LAB']],
             ['ROLE_LAB', ['ROLE_LAB']],
             ['ROLE_NL_LAB', ['ROLE_NL_LAB']],
             ['ROLE_RRL_LAB', ['ROLE_RRL_LAB']],

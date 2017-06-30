@@ -28,14 +28,14 @@ class ClientAdmin extends AbstractAdmin
             ->add('name')
             ->add('redirectUris',       TagType::class, ['arrayOutput'=>true])
             ->add('allowedGrantTypes',  OAuthGrantTypes::class)
-            ->add('user', null, ['placeholder'=>'Please Select', 'query_builder'=>function (EntityRepository $repo) {
-                                                return $repo->createQueryBuilder('u')
-                                                            ->leftJoin('u.acls', 'a')
-                                                            ->addSelect('a')
-                                                            ->where('a.type IN (:apiType)')
-                                                            ->setParameter('apiType', [Role::REGION_API, Role::COUNTRY_API, Role::SITE_API]);
-            }])
-        ;
+            ->add('user', null, [
+                'placeholder' => 'Please Select',
+                'query_builder' => function (EntityRepository $repo) {
+                    return $repo->createQueryBuilder('u')
+                        ->leftJoin('u.acls', 'a')
+                        ->addSelect('a')
+                        ->where('a.options LIKE "%api%"');
+            }]);
     }
 
     /**

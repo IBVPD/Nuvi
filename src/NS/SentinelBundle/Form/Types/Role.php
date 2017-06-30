@@ -49,14 +49,6 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
         'ROLE_LAB' => self::LAB,
         'ROLE_RRL_LAB' => self::RRL_LAB,
         'ROLE_NL_LAB' => self::NL_LAB,
-        // These are all deprecated and will be removed in a future version
-
-        'ROLE_REGION_API' => self::REGION_API,
-        'ROLE_COUNTRY_API' => self::COUNTRY_API,
-        'ROLE_SITE_API' => self::SITE_API,
-        'ROLE_REGION_IMPORT' => self::REGION_IMPORT,
-        'ROLE_COUNTRY_IMPORT' => self::COUNTRY_IMPORT,
-        'ROLE_SITE_IMPORT' => self::SITE_IMPORT,
     ];
 
     /**
@@ -96,19 +88,6 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
                 return ['ROLE_RRL_LAB'];
             case self::NL_LAB:
                 return ['ROLE_NL_LAB'];
-            // These are all deprecated and will be removed in a future version
-            case self::REGION_API:
-                return ['ROLE_REGION_API', 'ROLE_CAN_CREATE_CASE', 'ROLE_CAN_CREATE_LAB', 'ROLE_CAN_CREATE_NL_LAB'];
-            case self::COUNTRY_API:
-                return ['ROLE_COUNTRY_API', 'ROLE_CAN_CREATE_CASE', 'ROLE_CAN_CREATE_LAB', 'ROLE_CAN_CREATE_NL_LAB'];
-            case self::SITE_API:
-                return ['ROLE_SITE_API', 'ROLE_CAN_CREATE_CASE', 'ROLE_CAN_CREATE_LAB'];
-            case self::REGION_IMPORT:
-                return ['ROLE_REGION_IMPORT'];
-            case self::COUNTRY_IMPORT:
-                return ['ROLE_COUNTRY_IMPORT'];
-            case self::SITE_IMPORT:
-                return ['ROLE_SITE_IMPORT'];
             default:
                 return [];
         }
@@ -122,19 +101,13 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
         $class = 'NS\SentinelBundle\Entity';
         switch ($this->current) {
             case self::REGION:
-            case self::REGION_API:
-            case self::REGION_IMPORT:
                 return $class . '\Region';
             case self::COUNTRY:
-            case self::COUNTRY_API:
-            case self::COUNTRY_IMPORT:
             case self::NL_LAB:
             case self::RRL_LAB:
                 return $class . '\Country';
             case self::LAB:
             case self::SITE:
-            case self::SITE_API:
-            case self::SITE_IMPORT:
                 return $class . '\Site';
             default:
                 return null;

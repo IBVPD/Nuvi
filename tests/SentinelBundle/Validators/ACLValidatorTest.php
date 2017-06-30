@@ -15,8 +15,6 @@ use NS\SentinelBundle\Validators\ACL as ACLConstraint;
 
 class ACLValidatorTest extends \PHPUnit_Framework_TestCase
 {
-
-
     /**
      * @param ACL $acl
      * @dataProvider getNonDeprecatedRoles
@@ -64,85 +62,6 @@ class ACLValidatorTest extends \PHPUnit_Framework_TestCase
             [$aclLab],
             [$aclNL],
             [$aclRRL],
-        ];
-    }
-
-    /**
-     * @param ACL $acl
-     * @param $firstParameter
-     * @param $secondParameter
-     *
-     * @dataProvider getDeprecatedRoles
-     */
-    public function testDeprecatedRoles(ACL $acl, $firstParameter, $secondParameter)
-    {
-        $constraint = new ACLConstraint();
-
-        $builder = $this->getMockBuilder('Symfony\Component\Validator\Context\ConstraintViolationBuilderInterface')
-            ->setMethods(['setParameter','atPath','addViolation'])
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $builder->expects($this->at(0))
-            ->method('setParameter')
-            ->with('%type%',$firstParameter)
-            ->willReturnSelf();
-
-        $builder->expects($this->at(1))
-            ->method('setParameter')
-            ->with('%option%',$secondParameter)
-            ->willReturnSelf();
-
-        $builder->expects($this->once())
-            ->method('atPath')
-            ->with('type')
-            ->willReturnSelf();
-
-        $builder->expects($this->once())
-            ->method('addViolation');
-
-        $context = $this->getMockBuilder('Symfony\Component\Validator\Context\ExecutionContextInterface')
-            ->disableOriginalConstructor()
-            ->getMock();
-
-        $context->expects($this->once())
-            ->method('buildViolation')
-            ->with($constraint->message)
-            ->willReturn($builder);
-
-        $validator = new ACLValidator();
-        $validator->initialize($context);
-
-        $validator->validate($acl, $constraint);
-    }
-
-    public function getDeprecatedRoles()
-    {
-        $aclRegionApi  = new ACL();
-        $aclRegionApi->setType(new Role(Role::REGION_API));
-
-        $aclCountryApi = new ACL();
-        $aclCountryApi->setType(new Role(Role::COUNTRY_API));
-
-        $aclSiteApi = new ACL();
-        $aclSiteApi->setType(new Role(Role::SITE_API));
-
-        $aclRegionImport = new ACL();
-        $aclRegionImport->setType(new Role(Role::REGION_IMPORT));
-
-        $aclCountryImport = new ACL();
-        $aclCountryImport->setType(new Role(Role::COUNTRY_IMPORT));
-
-        $aclSiteImport = new ACL();
-        $aclSiteImport->setType(new Role(Role::SITE_IMPORT));
-
-        return [
-            [$aclRegionApi,'REGION','Api Access'],
-            [$aclRegionImport,'REGION','Import Access'],
-            [$aclCountryApi,'COUNTRY','Api Access'],
-            [$aclCountryImport,'COUNTRY','Import Access'],
-            [$aclSiteApi,'SITE','Api Access'],
-            [$aclSiteImport,'SITE','Import Access'],
         ];
     }
 }

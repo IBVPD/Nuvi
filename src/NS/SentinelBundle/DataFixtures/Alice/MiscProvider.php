@@ -212,22 +212,6 @@ class MiscProvider
     /**
      * @return Role
      */
-    public function countryApiRole()
-    {
-        return new Role(Role::COUNTRY_API);
-    }
-
-    /**
-     * @return Role
-     */
-    public function countryExportRole()
-    {
-        return new Role(Role::COUNTRY_IMPORT);
-    }
-
-    /**
-     * @return Role
-     */
     public function siteRole()
     {
         return new Role(Role::SITE);

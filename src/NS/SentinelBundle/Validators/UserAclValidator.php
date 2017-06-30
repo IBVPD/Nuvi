@@ -21,14 +21,6 @@ class UserAclValidator extends ConstraintValidator
         'ROLE_LAB',
         'ROLE_RRL_LAB',
         'ROLE_NL_LAB',
-        // These are all deprecated and will be removed in a future version
-
-        'ROLE_REGION_API',
-        'ROLE_COUNTRY_API',
-        'ROLE_SITE_API',
-        'ROLE_REGION_IMPORT',
-        'ROLE_COUNTRY_IMPORT',
-        'ROLE_SITE_IMPORT'
     ];
 
     /**
