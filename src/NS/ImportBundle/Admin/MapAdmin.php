@@ -93,10 +93,14 @@ class MapAdmin extends AbstractAdmin
     {
         $isNew = ($this->getSubject()->getId() > 0);
 
+        $ibdRoute = $this->getRouteGenerator()->generate('exportFields',['type'=>'ibd']);
+        $rvRoute = $this->getRouteGenerator()->generate('exportFields',['type'=>'rotavirus']);
+
+        $help = sprintf('Field References:<br/>&nbsp;&nbsp;&nbsp;<a href="%s" target="_blank"><i class="fa fa-eye"></i> IBD</a><br/>&nbsp;&nbsp;&nbsp;<a href="%s" target="_blank"><i class="fa fa-eye"></i> RV </a>',$ibdRoute,$rvRoute);
         $formMapper
             ->add('name',           null, ['label_attr'=> ['class'=>'col-sm-2']])
             ->add('description',    null, ['label'=>'Notes', 'label_attr'=> ['class'=>'col-sm-2']])
-            ->add('class',          ClassType::class, ['label_attr'=> ['class'=>'col-sm-2'], 'attr'=>['data-Class'=>true]])
+            ->add('class',          ClassType::class, ['label_attr'=> ['class'=>'col-sm-2'], 'attr'=>['data-Class'=>true],'help'=>$help])
             ->add('version',        null, ['required'=>true, 'label_attr'=> ['class'=>'col-sm-2']])
             ->add('headerRow',      IntegerType::class, ['label_attr'=> ['class'=>'col-sm-2']])
             ->add('caseLinker',     ChoiceType::class, [
