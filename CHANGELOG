@@ -3,6 +3,7 @@ VERSION 0  INITIAL RELEASE
 ==========================
 
    Version 0.10 - Updated to SF3.x
+      17/07/2017 09:47  0.10.38  Fixed sorting error
       04/07/2017 14:08  0.10.37  Fixed hidden date
       30/06/2017 14:49  0.10.36  Fixed converters by class name
       30/06/2017 13:15  0.10.35  Import improvements / Removed deprecated role types
