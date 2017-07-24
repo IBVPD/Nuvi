@@ -4,8 +4,7 @@ namespace NS\SentinelBundle\Tests\Converter;
 
 use NS\SentinelBundle\Converter\IBDCompletenessConverter;
 use NS\SentinelBundle\Form\IBD\Types\CXRResult;
-
-require_once $_SERVER['KERNEL_DIR'].'/AppKernel.php';
+use Symfony\Component\Validator\Validation;
 
 /**
  * Class IBDCompletenessConverterTest
@@ -13,42 +12,6 @@ require_once $_SERVER['KERNEL_DIR'].'/AppKernel.php';
  */
 class IBDCompletenessConverterTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @var Symfony\Component\HttpKernel\AppKernel
-     */
-    protected $kernel;
-
-    /**
-     * @var Symfony\Component\DependencyInjection\Container
-     */
-    protected $container;
-
-    /**
-     *
-     */
-    public function setUp()
-    {
-        // Boot the AppKernel in the test environment and with the debug.
-        $this->kernel = new \AppKernel('test', true);
-        $this->kernel->boot();
-
-        // Store the container and the entity manager in test case properties
-        $this->container     = $this->kernel->getContainer();
-
-        parent::setUp();
-    }
-
-    /**
-     *
-     */
-    public function tearDown()
-    {
-        // Shutdown the kernel.
-        $this->kernel->shutdown();
-
-        parent::tearDown();
-    }
-
     public function testIBDFields()
     {
         $config = [
@@ -57,7 +20,9 @@ class IBDCompletenessConverterTest extends \PHPUnit_Framework_TestCase
             ]
         ];
 
-        $converter = new IBDCompletenessConverter($this->container->get('validator'), $config);
+        $validator = Validation::createValidatorBuilder()->enableAnnotationMapping()->getValidator();
+
+        $converter = new IBDCompletenessConverter($validator, $config);
 
         $data = [
             'cxrDone' => null,

@@ -5,9 +5,7 @@ namespace NS\SentinelBundle\Tests;
 use Doctrine\DBAL\Schema\SchemaException;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-
-require_once $_SERVER['KERNEL_DIR'].'/AppKernel.php';
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**
  * Description of BaseDBTestCase
@@ -16,45 +14,29 @@ require_once $_SERVER['KERNEL_DIR'].'/AppKernel.php';
  * @author Benjamin Grandfond
  * @since  2011-07-29
  */
-abstract class BaseDBTestCase extends \PHPUnit_Framework_TestCase
+abstract class BaseDBTestCase extends KernelTestCase
 {
-    /**
-     * @var \AppKernel
-     */
-    protected $kernel;
-
     /**
      * @var EntityManagerInterface
      */
     protected $entityManager;
 
-    /**
-     * @var ContainerInterface
-     */
-    protected $container;
-
     public function setUp()
     {
         // Boot the AppKernel in the test environment and with the debug.
-        $this->kernel = new \AppKernel('test', true);
-        $this->kernel->boot();
+        self::bootKernel();
 
         // Store the container and the entity manager in test case properties
-        $this->container     = $this->kernel->getContainer();
-        $this->entityManager = $this->container->get('doctrine.orm.entity_manager');
-
-        // Build the schema
-//        $this->generateSchema();
+        $this->entityManager = static::$kernel->getContainer()->get('doctrine.orm.entity_manager');
 
         parent::setUp();
     }
 
     public function tearDown()
     {
-        // Shutdown the kernel.
-        $this->kernel->shutdown();
-
         parent::tearDown();
+        $this->entityManager->close();
+        $this->entityManager = null;
     }
 
     protected function generateSchema()
