@@ -3,6 +3,7 @@ VERSION 0  INITIAL RELEASE
 ==========================
 
    Version 0.10 - Updated to SF3.x
+      24/07/2017 10:32  0.10.40  Fixes ACE issues and updates all vendors
       24/07/2017 10:24  0.10.39  Fix query alias bug
       17/07/2017 09:47  0.10.38  Fixed sorting error
       04/07/2017 14:08  0.10.37  Fixed hidden date
