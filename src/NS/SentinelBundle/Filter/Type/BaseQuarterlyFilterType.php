@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Filter\Type;
 
+use Doctrine\ORM\QueryBuilder;
 use Lexik\Bundle\FormFilterBundle\Filter\Form\Type\NumberFilterType;
 use Lexik\Bundle\FormFilterBundle\Filter\Query\QueryInterface;
 use NS\SecurityBundle\Role\ACLConverter;
@@ -68,6 +69,7 @@ class BaseQuarterlyFilterType extends AbstractType
     public function filterYear(QueryInterface $filterQuery, $field, $values)
     {
         if ($values['value'] > 0) {
+            /** @var QueryBuilder $queryBuilder */
             $queryBuilder = $filterQuery->getQueryBuilder();
 
             $alias = $values['alias'];
@@ -82,7 +84,7 @@ class BaseQuarterlyFilterType extends AbstractType
                 $config = $queryBuilder->getEntityManager()->getConfiguration();
                 $config->addCustomDatetimeFunction('YEAR', 'DoctrineExtensions\Query\Mysql\Year');
                 $queryBuilder
-                    ->andWhere(sprintf('YEAR(cf.%s) = :%s_year', $this->fieldName, $alias))
+                    ->andWhere(sprintf('YEAR(%s.%s) = :%s_year', key($queryBuilder->getDQLPart('join')), $this->fieldName, $alias))
                     ->setParameter($alias . '_year', $values['value']);
             }
         }
