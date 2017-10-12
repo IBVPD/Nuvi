@@ -3,12 +3,7 @@
 namespace NS\SentinelBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
-use Knp\Menu\Matcher\Matcher;
-use Knp\Menu\Matcher\Voter\RouteVoter;
-use Knp\Menu\Renderer\ListRenderer;
-use Knp\Menu\Renderer\TwigRenderer;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
+use Knp\Menu\ItemInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
@@ -18,21 +13,15 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
  */
 class Builder
 {
-    /**
-     * @var FactoryInterface
-     */
+    /** @var FactoryInterface */
     private $factory;
 
-    /**
-     * @var AuthorizationCheckerInterface
-     */
+    /** @var AuthorizationCheckerInterface */
     private $authChecker;
 
     /**
      * @param FactoryInterface $factory
      * @param AuthorizationCheckerInterface $authChecker
-     *
-     * @internal param SecurityContext $authChecker
      */
     public function __construct(FactoryInterface $factory, AuthorizationCheckerInterface $authChecker)
     {
@@ -41,7 +30,7 @@ class Builder
     }
 
     /**
-     * @return \Knp\Menu\ItemInterface
+     * @return ItemInterface
      */
     public function sidebar()
     {
@@ -97,7 +86,7 @@ class Builder
     }
 
     /**
-     * @return \Knp\Menu\ItemInterface
+     * @return ItemInterface
      */
     public function user()
     {
