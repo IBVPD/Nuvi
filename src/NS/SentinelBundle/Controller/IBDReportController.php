@@ -150,7 +150,7 @@ class IBDReportController extends Controller
     {
         $form    = $this->createForm(ReportFilterType::class, null, ['site_type'=>'advanced']);
         $service = $this->get('ns_sentinel.ibd_report');
-        $params  = $service->getDataQuality($request, $form, 'reportIBDDataQuality');
+        $params  = $service->getDataQuality($request, $form, 'reportIbdDataQuality');
         if ($params instanceof Response) {
             return $params;
         }
@@ -167,7 +167,7 @@ class IBDReportController extends Controller
     {
         $form    = $this->createForm(BaseQuarterlyFilterType::class, null, ['site_type'=>'advanced']);
         $service = $this->get('ns_sentinel.ibd_report');
-        $params  = $service->getSitePerformance($request, $form, 'reportIBDDataQuality');
+        $params  = $service->getSitePerformance($request, $form, 'reportIbdDataQuality');
         if ($params instanceof Response) {
             return $params;
         }
