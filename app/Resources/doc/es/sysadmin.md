@@ -106,9 +106,10 @@ Use the **Access Level** drop-down to select a category on which to limit access
 Click the **Creation Rights** field to select one or more actions that the user will be allowed to
 perform on the item that you will select in the **Specific - Site /Country /Region** field. An
 option you have already added can be removed if necessary by clicking the **x** next to it. Leaving
-the **Access Level** field empty will give the user view-only access to the **Target**.
+the **Creation Rights** field empty will give the user view-only access to the **Specific - Site / Country / Region** 
+selected.
 
-Begin typing the specific criterion under **Specific - Site /Country /Region**. Matching criteria
+Begin typing the specific criterion under **Specific - Site / Country / Region**. Matching criteria
 from the relevant internal list will be offered as autocomplete suggestions.
 
 Logically, each Access Restriction should be thought of as an *allow only* limitation. To allow
