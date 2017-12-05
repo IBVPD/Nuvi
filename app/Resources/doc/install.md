@@ -31,31 +31,6 @@ Keep composer up to date by periodically running the self-update command option 
 composer self-update
 ```
 
-Install Beanstalkd
-==================
-
-If using CentOS or a Fedora based distro beanstalkd the package is part of the distro packaging tools.
-
-```shell
-yum install beanstalkd
-```
-
-By default beanstalkd will listen on all interfaces on port 11300. It has no concept of user or authentication. You can
-change this by editing the BEANSTALK_ADDR line in '/etc/sysconfig/beanstalkd'.
-
-```shell
-...
-BEANSTALKD_ADDR=0.0.0.0
-...
-```
-
-Change the BEANSTALKD_ADDR line to whatever interface. If on the same machine as the webserver change it to 127.0.0.1.
-Enable and start the service.
-
-```shell
-chkconfig --level 345 beanstalkd on
-service beanstalkd start
-```
 
 Initial Project Install
 ======================
@@ -63,7 +38,7 @@ Initial Project Install
 Clone the project via git
 
 ```shell
-git clone https://gitlab.noblet.ca/who/nuvi.git /var/www/local/nuvi
+git clone https://github.com/IBVPD/Nuvi.git /var/www/local/nuvi
 ```
 
 Install the dependencies.
