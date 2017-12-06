@@ -34,8 +34,6 @@ class ImportRepository extends EntityRepository
      * @param UserInterface $user
      * @param $resultId
      * @return mixed
-     * @throws NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
      * @throws \Doctrine\ORM\ORMException
      */
     public function findForUser(UserInterface $user, $resultId)
@@ -53,13 +51,12 @@ class ImportRepository extends EntityRepository
     /**
      * @param $id
      * @return array
-     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function getStatistics($id)
     {
         try {
             $result = $this->createQueryBuilder('r')
-                ->select('r.id,r.importedCount, r.processedCount, r.sourceCount, r.warningCount, r.skippedCount, r.pheanstalkStatus')
+                ->select('r.id,r.importedCount, r.processedCount, r.sourceCount, r.warningCount, r.skippedCount, r.status')
                 ->where('r.id = :id')
                 ->setParameter('id', $id)
                 ->getQuery()
@@ -67,7 +64,7 @@ class ImportRepository extends EntityRepository
                 ->getSingleResult();
             $result['percent'] = sprintf("%d%%", ($result['sourceCount'] > 0) ? (($result['processedCount']/$result['sourceCount']) * 100):0);
             $result['errorCount'] = $result['processedCount'] - $result['importedCount'];
-            $result['status'] = $result['pheanstalkStatus'];
+            $result['status'] = $result['status'];
 
             return $result;
         } catch (UnexpectedResultException $exception) {
@@ -76,12 +73,11 @@ class ImportRepository extends EntityRepository
     }
 
     /**
-     * @param $importId
+     * @param Import $import
      * @param \Exception $exception
-     *
-     * @return mixed
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function setImportException($importId, \Exception $exception)
+    public function setImportException(Import $import, \Exception $exception)
     {
         $exceptionStr = $exception->getMessage()."\n\n";
 
@@ -89,15 +85,26 @@ class ImportRepository extends EntityRepository
             $exceptionStr .= sprintf("%d: %s::%s on line %d\n", $index, isset($trace['class'])?$trace['class']:'Unknown', isset($trace['function'])?$trace['function']:'Unknown', isset($trace['line'])?$trace['line']:-1);
         }
 
-        return $this->_em->createQueryBuilder()
-            ->update($this->getClassName(), 'i')
-            ->set('i.pheanstalkStackTrace', ':exceptStr')
-            ->set('i.pheanstalkStatus', ':status')
-            ->where('i.id = :id')
-            ->setParameter('id', $importId)
-            ->setParameter('exceptStr', $exceptionStr)
-            ->setParameter('status', Import::STATUS_BURIED)
-            ->getQuery()
-            ->execute();
+        $import->setStackTrace($exceptionStr);
+        $import->setStatus(Import::STATUS_BURIED);
+        $this->_em->persist($import);
+        $this->_em->flush($import);
+    }
+
+    public function getNewOrRunning()
+    {
+        try {
+            return $this->createQueryBuilder('i')
+                ->where('i.status = :new OR i.status = :running')
+                ->setParameters([
+                    'new' => Import::STATUS_NEW,
+                    'running' => Import::STATUS_RUNNING,
+                ])
+                ->setMaxResults(1)
+                ->getQuery()
+                ->getSingleResult();
+        } catch (UnexpectedResultException $exception) {
+            return null;
+        }
     }
 }

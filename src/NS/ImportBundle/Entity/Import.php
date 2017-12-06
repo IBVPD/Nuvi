@@ -26,6 +26,12 @@ use NS\ImportBundle\Entity\Validator as LocalAssert;
  */
 class Import
 {
+    const STATUS_NEW = 'new';
+    const STATUS_RUNNING = 'running';
+    const STATUS_PAUSED = 'paused';
+    const STATUS_COMPLETE = 'complete';
+    const STATUS_BURIED = 'buried';
+
     /**
      * @var integer $id
      * @ORM\Column(name="id",type="integer")
@@ -41,7 +47,7 @@ class Import
     private $map;
 
     /**
-     * @var array $mapName
+     * @var string $mapName
      * @ORM\Column(name="mapName",type="string")
      */
     private $mapName;
@@ -215,22 +221,16 @@ class Import
 
     // ---------------------------------------------------------------------------------------
     /**
-     * @var integer $pheanstalkJobId
-     * @ORM\Column(name="pheanstalkJobId",type="integer",nullable=true)
+     * @var string $status
+     * @ORM\Column(name="status",type="string")
      */
-    private $pheanstalkJobId;
-
-    /**
-     * @var string $pheanstalkStatus
-     * @ORM\Column(name="pheanstalkStatus",type="string",nullable=true)
-     */
-    private $pheanstalkStatus;
+    private $status;
 
     /**
      * @var string
-     * @ORM\Column(name="pheanstalkStackTrace",type="text",nullable=true)
+     * @ORM\Column(name="stackTrace",type="text",nullable=true)
      */
-    private $pheanstalkStackTrace;
+    private $stackTrace;
 
     /**
      * @var \NS\SentinelBundle\Entity\User $user
@@ -247,6 +247,7 @@ class Import
     {
         $this->createdAt = new \DateTime();
         $this->user      = $user;
+        $this->status    = self::STATUS_NEW;
     }
 
     /**
@@ -839,62 +840,35 @@ class Import
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getPheanstalkJobId()
+    public function getStatus()
     {
-        return $this->pheanstalkJobId;
+        return $this->status;
     }
 
     /**
-     * @param int $pheanstalkJobId
-     * @return Import
+     * @param string $status
      */
-    public function setPheanstalkJobId($pheanstalkJobId)
+    public function setStatus($status)
     {
-        $this->pheanstalkJobId = $pheanstalkJobId;
-        return $this;
+        $this->status = $status;
     }
 
     /**
      * @return string
      */
-    public function getPheanstalkStatus()
+    public function getStackTrace()
     {
-        return $this->pheanstalkStatus;
-    }
-
-    const STATUS_RUNNING = 'running';
-    const STATUS_PAUSED = 'paused';
-    const STATUS_COMPLETE = 'complete';
-    const STATUS_BURIED = 'buried';
-
-    /**
-     * @param string $pheanstalkStatus
-     * @return Import
-     */
-    public function setPheanstalkStatus($pheanstalkStatus)
-    {
-        $this->pheanstalkStatus = $pheanstalkStatus;
-        return $this;
+        return $this->stackTrace;
     }
 
     /**
-     * @return string
+     * @param string $stackTrace
      */
-    public function getPheanstalkStackTrace()
+    public function setStackTrace($stackTrace)
     {
-        return $this->pheanstalkStackTrace;
-    }
-
-    /**
-     * @param string $pheanstalkStackTrace
-     * @return Import
-     */
-    public function setPheanstalkStackTrace($pheanstalkStackTrace)
-    {
-        $this->pheanstalkStackTrace = $pheanstalkStackTrace;
-        return $this;
+        $this->stackTrace = $stackTrace;
     }
 
     /**
@@ -916,9 +890,17 @@ class Import
     /**
      * @return bool
      */
+    public function isNew()
+    {
+        return $this->status === self::STATUS_NEW;
+    }
+
+    /**
+     * @return bool
+     */
     public function isRunning()
     {
-        return (!$this->isComplete() && $this->pheanstalkJobId && $this->pheanstalkStatus == self::STATUS_RUNNING);
+        return (!$this->isComplete() && $this->status == self::STATUS_RUNNING);
     }
 
     /**
@@ -926,7 +908,7 @@ class Import
      */
     public function isPaused()
     {
-        return (!$this->isComplete() && $this->pheanstalkJobId && $this->pheanstalkStatus == self::STATUS_PAUSED);
+        return (!$this->isComplete() && $this->status == self::STATUS_PAUSED);
     }
 
     /**
@@ -934,7 +916,7 @@ class Import
      */
     public function isQueued()
     {
-        return ($this->pheanstalkJobId && ($this->pheanstalkStatus === self::STATUS_RUNNING || $this->pheanstalkStatus == self::STATUS_PAUSED));
+        return ($this->status === self::STATUS_RUNNING || $this->status == self::STATUS_PAUSED);
     }
 
     /**
@@ -942,7 +924,7 @@ class Import
      */
     public function isBuried()
     {
-        return ($this->pheanstalkStatus == self::STATUS_BURIED);
+        return ($this->status == self::STATUS_BURIED);
     }
 
     /**
@@ -950,7 +932,7 @@ class Import
      */
     public function hasError()
     {
-        return (!$this->isComplete() && $this->pheanstalkStatus == self::STATUS_BURIED);
+        return (!$this->isComplete() && $this->status == self::STATUS_BURIED);
     }
 
     // =================================================================================================================

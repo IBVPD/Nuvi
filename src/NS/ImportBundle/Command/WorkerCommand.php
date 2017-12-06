@@ -3,6 +3,7 @@
 namespace NS\ImportBundle\Command;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use NS\ImportBundle\Entity\Import;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -36,61 +37,47 @@ class WorkerCommand extends ContainerAwareCommand
         $errOutput = $output instanceof ConsoleOutputInterface ? $output->getErrorOutput() : $output;
 
         $container  = $this->getContainer();
-        $pheanstalk = $container->get("leezy.pheanstalk");
         $worker     = $container->get('ns_import.batch_worker');
         $entityMgr  = $container->get('doctrine.orm.entity_manager');
 
-        $pheanstalk
-            ->watch('import')
-            ->ignore('default');
 
-        $job = $pheanstalk->reserve(0);
+        $import = $entityMgr->getRepository(Import::class)->getNewOrRunning();
 
-        if ($job) {
-            $output->writeln(sprintf("Processing Job %d, ImportId: %d", $job->getId(), $job->getData()));
+        if ($import) {
+            $output->writeln(sprintf("Processing ImportId: %d", $import->getId()));
 
-            $import = $this->setupUser($job->getData(), $entityMgr);
+            $this->setupUser($import);
 
-            if($import)
-            {
-                try {
-                    if (!$worker->consume($import, $batchSize)) {
-                        $pheanstalk->release($job);
-                        $output->writeln("Processed and returned for additional processing");
-                    } else {
-                        $output->writeln("Import complete - Job removed");
-                        $pheanstalk->delete($job);
-                    }
-                } catch (\Exception $exception) {
-                    $pheanstalk->bury($job);
-
-                    $errOutput->writeln('Error processing job');
-                    if ($entityMgr->isOpen()) {
-                        $entityMgr->getRepository('NSImportBundle:Import')->setImportException($job->getData(), $exception);
-                    }
-
-                    $errOutput->writeln('Exception: '.$exception->getMessage());
-                    foreach ($exception->getTrace() as $index => $trace) {
-                        $errOutput->writeln(sprintf(sprintf("%d: %s::%s on line %d\n", $index, isset($trace['class'])?$trace['class']:'Unknown', isset($trace['function'])?$trace['function']:'Unknown', isset($trace['line'])?$trace['line']:-1)));
-                    }
+            try {
+                if (!$worker->consume($import, $batchSize)) {
+                    $output->writeln("Processed and returned for additional processing");
+                } else {
+                    $output->writeln("Import complete - Job removed");
                 }
-            } else {
-                $errOutput->writeln(sprintf('Import: %d doesn\'t exist',$job->getData()));
+            } catch (\Exception $exception) {
+                $errOutput->writeln('Error processing job');
+                if ($entityMgr->isOpen()) {
+                    $entityMgr->getRepository('NSImportBundle:Import')->setImportException($import, $exception);
+                } else {
+                    $output->writeln("Entity Manager Closed - Unable to save error message");
+                }
+
+                $errOutput->writeln('Exception: '.$exception->getMessage());
+                foreach ($exception->getTrace() as $index => $trace) {
+                    $errOutput->writeln(sprintf(sprintf("%d: %s::%s on line %d\n", $index, isset($trace['class'])?$trace['class']:'Unknown', isset($trace['function'])?$trace['function']:'Unknown', isset($trace['line'])?$trace['line']:-1)));
+                }
             }
+        } else {
+            $output->writeln("No job?");
         }
     }
 
-    protected function setupUser($importId, ObjectManager $entityMgr)
+    protected function setupUser(Import $import)
     {
-        $import = $entityMgr->getRepository('NSImportBundle:Import')->find($importId);
-        if($import) {
-            $user = $import->getUser();
-            $user->getAcls();
-            $token = new UsernamePasswordToken($user, '', 'main_app', $user->getRoles());
-            $this->getContainer()->get('security.token_storage')->setToken($token);
-            $this->getContainer()->get('ns_sentinel.loggable_listener')->setUsername($user->getUsername());
-        }
-
-        return $import;
+        $user = $import->getUser();
+        $user->getAcls();
+        $token = new UsernamePasswordToken($user, '', 'main_app', $user->getRoles());
+        $this->getContainer()->get('security.token_storage')->setToken($token);
+        $this->getContainer()->get('ns_sentinel.loggable_listener')->setUsername($user->getUsername());
     }
 }

@@ -30,7 +30,7 @@ services:
 
   ns_import.workqueue:
     class: NS\ImportBundle\Services\WorkQueue
-    arguments: [ "@leezy.pheanstalk", "@doctrine.orm.entity_manager", "@ns_import.import_file_creator" ]
+    arguments: [ "@doctrine.orm.entity_manager", "@ns_import.import_file_creator" ]
 
   ns_import.twig.import_actions:
     class: NS\ImportBundle\Twig\ImportResultActions

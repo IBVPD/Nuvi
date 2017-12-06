@@ -43,24 +43,19 @@ class ImportBatchWorker
     }
 
     /**
-     * @param Import|int $import             Import id
-     * @param int $batchSize      Number of rows to process at a time
+     * @param Import $import Import
+     * @param int $batchSize Number of rows to process at a time
      *
      * @return bool Returns true when the import has been completely processed
+     * @throws \NS\ImportBundle\Linker\CaseLinkerNotFoundException
      */
-    public function consume($import, $batchSize = 500)
+    public function consume(Import $import, $batchSize = 500)
     {
-        $importObj = ($import instanceof Import) ?$import:$this->entityMgr->getRepository('NSImportBundle:Import')->find($import);
-
-        if (!$importObj) {
-            throw new \InvalidArgumentException(sprintf('Unable to find import %d', $import));
-        }
-
-        $this->setup($importObj, $batchSize);
-        $result = $this->process($importObj);
-        $this->finish($importObj, $result);
-
-        return $importObj->isComplete();
+        $this->setup($import, $batchSize);
+        $result = $this->process($import);
+        $this->finish($import, $result);
+        if($import->isComplete()) {}
+        return $import->isComplete();
     }
 
     /**
@@ -97,12 +92,7 @@ class ImportBatchWorker
     {
         $updater = new ImportResultUpdater();
         $updater->update($import, $result, $this->processor->getWriter($import->getClass())->getResults());
-
-        if ($import->isComplete()) {
-            $import->setPheanstalkStatus(Import::STATUS_COMPLETE);
-        } else {
-            $import->setPheanstalkStatus(Import::STATUS_RUNNING);
-        }
+        $import->setStatus($import->isComplete() ? Import::STATUS_COMPLETE : Import::STATUS_RUNNING);
 
         $this->entityMgr->persist($import);
         $this->entityMgr->flush();

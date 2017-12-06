@@ -47,6 +47,10 @@ class ImportResultActions extends \Twig_Extension
     {
         $output = [];
 
+        if($import->isNew()) {
+            return '';
+        }
+
         if ($import->isComplete()) {
             $output[] = sprintf('<a class="btn btn-xs btn-success" href="%s">%s <i class="fa fa-recycle"></i></button>', $this->router->generate('importResubmit', ['id'=>$import->getId()]), 'Re-submit');
         } elseif (!$import->isQueued() && !$import->hasError()) {

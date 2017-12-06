@@ -74,8 +74,9 @@ class ImportController extends Controller
      */
     public function executeAction($id)
     {
+        $import = $this->get('doctrine.orm.entity_manager')->find('NSImportBundle:Import', $id);
         $worker = $this->get('ns_import.batch_worker');
-        $worker->consume($id, 400);
+        $worker->consume($import, 400);
 
         return $this->redirect($this->generateUrl('importIndex'));
     }

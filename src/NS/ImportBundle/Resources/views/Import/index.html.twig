@@ -86,13 +86,13 @@
                                     <tr>
                                         <td colspan="2">{{ r.inputDateStart.format('Y-m-d') }} - {{ r.inputDateEnd.format('Y-m-d') }}</td>
                                         <td colspan="7">
-                                            <div class="progress-label" id="progress-{{ r.id }}-label"><i class="fa fa-{{ r.pheanstalkStatus == 'complete' ? 'check' }}{{ r.pheanstalkStatus == 'running' ? 'tasks' }}{{ r.pheanstalkStatus == 'error' ? 'exclamation-triangle' }}"></i> {{ r.pheanstalkStatus|capitalize }}</div>
+                                            <div class="progress-label" id="progress-{{ r.id }}-label"><i class="fa fa-{{ r.status == 'complete' ? 'check' }}{{ r.status == 'running' ? 'tasks' }}{{ r.status == 'error' ? 'exclamation-triangle' }}"></i> {{ r.status|capitalize }}</div>
                                             <div id="progress-{{ r.id }}-row" class="progress-row">
-                                                <div class="progress pos-rel progress-striped {{ r.pheanstalkStatus == 'running' ? 'active' }}" id="progress-{{ r.id }}-percent" data-percent="{{ r.percentComplete }}%">
-                                                    <div class="progress-bar {{ r.pheanstalkStatus == 'complete' ? 'progress-bar-inverse' }}{{ r.pheanstalkStatus == 'error' ? 'progress-bar-danger' }}" style="width:{{ r.percentComplete }}%;" id="progress-{{ r.id }}"></div>
+                                                <div class="progress pos-rel progress-striped {{ r.status == 'running' or r.status == 'new' ? 'active' }}" id="progress-{{ r.id }}-percent" data-percent="{{ r.percentComplete }}%">
+                                                    <div class="progress-bar {{ r.status == 'complete' ? 'progress-bar-inverse' }}{{ r.status == 'error' ? 'progress-bar-danger' }}" style="width:{{ r.percentComplete }}%;" id="progress-{{ r.id }}"></div>
                                                 </div>
                                             </div>
-                                            {%  if r.running %}
+                                            {%  if r.running or r.new %}
                                                 <script type="text/javascript">
                                                     $(function() {
                                                         function pollLatestResponse() {
@@ -120,7 +120,7 @@
                                                                     $('#progress-{{ r.id }}-row .progress .progress-bar').addClass('progress-bar-danger');
                                                                 }
 
-                                                                if (retValue['status'] !== '{{ constant('NS\\ImportBundle\\Entity\\Import::STATUS_RUNNING') }}' ) {
+                                                                if (retValue['status'] !== '{{ constant('NS\\ImportBundle\\Entity\\Import::STATUS_RUNNING') }}' && retValue['status'] !== '{{ constant('NS\\ImportBundle\\Entity\\Import::STATUS_NEW') }}') {
                                                                     clearInterval(pollTimer);
                                                                 }
                                                             });
@@ -134,7 +134,7 @@
                                                 </script>
                                             {% endif %}
                                             <div id="progress-{{ r.id }}-exceptions" style="display: none;">
-                                                {{ r.pheanstalkStackTrace|nl2br }}
+                                                {{ r.stackTrace|nl2br }}
                                             </div>
                                         </td>
                                     </tr>

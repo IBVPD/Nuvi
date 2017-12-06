@@ -296,12 +296,6 @@ vich_uploader:
             directory_namer:    ns_import.vich.directory_namer
             inject_on_load:     true
 
-leezy_pheanstalk:
-    pheanstalks:
-        primary:
-            server: "%beanstalk_server%"
-            default: true
-
 ns_token:
   id: '%ns_token_id%'
   key: '%ns_token_key%'
