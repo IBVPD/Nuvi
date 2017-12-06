@@ -47,7 +47,7 @@
         "oneup/uploader-bundle": "1.0.*@dev",
 
         "knplabs/knp-paginator-bundle": "~2.4",
-        "lunetics/locale-bundle": "~2.4",
+        "lunetics/locale-bundle": "^2.4",
 
         "friendsofsymfony/oauth-server-bundle": "^1.5",
         "nelmio/api-doc-bundle": "^2.12",
