@@ -238,10 +238,10 @@ fos_oauth_server:
       user_provider: ns.sentinel.user_provider
 
 sensio_framework_extra:
-    view: { annotations: false }
+    view: { annotations: true }
     router: { annotations: true }
 #    request: { converters: true }
-    
+
 fos_rest:
     param_fetcher_listener: true
     serializer:
