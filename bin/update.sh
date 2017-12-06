@@ -15,6 +15,12 @@ function update() {
     bin/console doctrine:migrations:migrate --env=prod
 }
 
+function getVersion() {
+    git fetch > /dev/null 2>&1 || { echo >&2 "Unable to fetch upstream"; exit 1; }
+    git checkout $command
+    update
+}
+
 function getLatest() {
 #    echo "Running: git pull > /dev/null 2>&1";
     git pull > /dev/null 2>&1 || { echo >&2 "Unable to pull latest version"; exit 1; }
@@ -49,7 +55,7 @@ if [[ -n "$command" ]]; then
         getLatestRelease
         ;;
      *)
-        echo 'unknown command';
+        getVersion
         ;;
    esac
 #   echo "Running: git stash pop";
@@ -58,6 +64,6 @@ if [[ -n "$command" ]]; then
       git stash pop
    fi
 else
-    echo "Missing arguments [latest|latest-release]";
+    echo "Missing arguments [latest|latest-release|specific-version]";
 fi
 
