@@ -306,3 +306,8 @@ ns_token:
   id: '%ns_token_id%'
   key: '%ns_token_key%'
   issuer: '%ns_token_issuer%'
+
+knp_menu:
+    # use "twig: false" to disable the Twig extension and the TwigRenderer
+    twig:
+        template: NSSentinelBundle:Menu:menu.html.twig
