@@ -3,6 +3,7 @@ VERSION 0  INITIAL RELEASE
 ==========================
 
    Version 0.10 - Updated to SF3.x
+      06/12/2017 20:17  0.10.45  Removed duplicate migration
       06/12/2017 20:03  0.10.44  Menu conflict fixed
       06/12/2017 14:52  0.10.43  Updated bundles
       08/11/2017 10:12  0.10.42  Fixed IE11 issue with AceBundle
