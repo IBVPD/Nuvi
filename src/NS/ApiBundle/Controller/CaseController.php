@@ -3,9 +3,9 @@
 namespace NS\ApiBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use NS\SentinelBundle\Exceptions\NonExistentCaseException;
-use FOS\RestBundle\Util\Codes;
 use FOS\RestBundle\Controller\FOSRestController;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\FormInterface;
@@ -126,8 +126,8 @@ class CaseController extends FOSRestController
         $form = $this->createForm($formName, $obj, ['method' => $method]);
 
         return ($this->updateObject($request, $entityMgr, $form)) ?
-            $this->view(null, Codes::HTTP_NO_CONTENT) :
-            $this->view($form, Codes::HTTP_BAD_REQUEST);
+            $this->view(null, Response::HTTP_NO_CONTENT) :
+            $this->view($form, Response::HTTP_BAD_REQUEST);
     }
 
     /**
@@ -145,8 +145,8 @@ class CaseController extends FOSRestController
         $form = $this->createForm($formName, $obj, ['method' => $method]);
 
         return ($this->updateObject($request, $entityMgr, $form)) ?
-            $this->view(null, Codes::HTTP_NO_CONTENT) :
-            $this->view($form, Codes::HTTP_BAD_REQUEST);
+            $this->view(null, Response::HTTP_NO_CONTENT) :
+            $this->view($form, Response::HTTP_BAD_REQUEST);
     }
 
     /**
@@ -163,7 +163,7 @@ class CaseController extends FOSRestController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && !$form->isValid()) {
-                return $this->view($form, Codes::HTTP_BAD_REQUEST);
+                return $this->view($form, Response::HTTP_BAD_REQUEST);
             }
 
             $entityMgr = $this->get('doctrine.orm.entity_manager');
