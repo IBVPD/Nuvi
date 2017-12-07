@@ -3,8 +3,8 @@
     $.ImportHelper = function(options, autoinit)
     {
         this.options       = options !== undefined ? options: {};
-        this.ibd_conf_url  = options.ibd_conf_url ? options.ibd_conf_url : 'http://who-pan/%%lang%%/fields/ibd';
-        this.rota_conf_url = options.rota_conf_url ? options.rota_conf_url : 'http://who-pan/%%lang%%/fields/rotavirus';
+        this.ibd_conf_url  = options.ibd_conf_url ? options.ibd_conf_url : 'https://extranet.who.int/vpddms/%%lang%%/fields/ibd';
+        this.rota_conf_url = options.rota_conf_url ? options.rota_conf_url : 'https://extranet.who.int/vpddms/%%lang%%/fields/rotavirus';
 
         this.ibd  = {conf: {}, prefixes: {'':'ibd', 'siteLab': 'siteLab', 'referenceLab':'rl', 'nationalLab':'nl'}};
         this.rotavirus = {conf: {}, prefixes: {'':'rotavirus', 'siteLab': 'siteLab', 'referenceLab':'rl', 'nationalLab':'nl'}};

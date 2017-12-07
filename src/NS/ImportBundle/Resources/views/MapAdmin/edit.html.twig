@@ -5,7 +5,7 @@
     <script type="text/javascript">
         $(document).ready(function()
         {
-            new $.ImportHelper({ibd_conf_url: "{{ url('homepage') }}/fields/ibd", rota_conf_url: "{{ url('homepage') }}/fields/rotavirus"}, true);
+            new $.ImportHelper({ibd_conf_url: "{{ path('exportFields',{type:'ibd'}) }}", rota_conf_url: "{{ path('exportFields',{type:'rotavirus'}) }}"}, true);
         });
     </script>
 {% endblock %}
