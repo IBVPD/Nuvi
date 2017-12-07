@@ -87,4 +87,30 @@ class WorkQueue
 
         return $this->submit($newImport);
     }
+
+    public function pause(Import $import)
+    {
+        if (!$import->isComplete() && !$import->isBuried()) {
+            $import->setStatus(Import::STATUS_PAUSED);
+            $this->entityMgr->persist($import);
+            $this->entityMgr->flush($import);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public function resume(Import $import)
+    {
+        if ($import->isPaused()) {
+            $import->setStatus(Import::STATUS_RUNNING);
+            $this->entityMgr->persist($import);
+            $this->entityMgr->flush($import);
+
+            return true;
+        }
+
+        return false;
+    }
 }

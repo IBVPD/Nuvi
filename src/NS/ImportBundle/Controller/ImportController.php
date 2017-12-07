@@ -123,7 +123,12 @@ class ImportController extends Controller
     {
         $import = $this->get('doctrine.orm.entity_manager')->find('NSImportBundle:Import', $id);
         $queue = $this->get('ns_import.workqueue');
-        $queue->pause($import);
+        if ($queue->pause($import)) {
+            $this->get('ns_flash')->addSuccess(null, null, 'Import paused');
+        } else {
+            $this->get('ns_flash')->addWarning(null, null, 'Unable to pause import - it is either complete or in an error state');
+        }
+
         return $this->redirect($this->generateUrl('importIndex'));
     }
 
@@ -136,7 +141,13 @@ class ImportController extends Controller
     {
         $import = $this->get('doctrine.orm.entity_manager')->find('NSImportBundle:Import', $id);
         $queue = $this->get('ns_import.workqueue');
-        $queue->resume($import);
+
+        if ($queue->resume($import)) {
+            $this->get('ns_flash')->addSuccess(null, null, 'Import resumed');
+        } else {
+            $this->get('ns_flash')->addWarning(null, null, 'Unable to resume - it isn\'t paused');
+        }
+
         return $this->redirect($this->generateUrl('importIndex'));
     }
 
