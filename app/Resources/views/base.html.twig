@@ -4,6 +4,7 @@
         {{parent()}}
         <link rel="stylesheet" href="{{asset('/bundles/nsimport/css/query-builder.default.min.css')}}" />
         <link rel="stylesheet" href="{{asset('/bundles/nssentinel/css/main.css')}}" />
+        <link rel="stylesheet" href="{{asset('/bundles/nssentinel/css/jquery.toastmessage.css')}}" />
     {%endblock %}
 
     {% block javascripts %}
@@ -17,6 +18,7 @@
         <script type="text/javascript" src="{{asset('/bundles/nsimport/js/doT.min.js')}}"></script>
         <script type="text/javascript" src="{{asset('/bundles/nsimport/js/query-builder.min.js')}}"></script>
         <script type="text/javascript" src="{{asset('/bundles/nssentinel/js/main.js')}}"></script>
+        <script type="text/javascript" src="{{asset('/bundles/nssentinel/js/toast-message.js')}}"></script>
         <script type="text/javascript">
             $(document).ready(function()
             {
@@ -28,6 +30,12 @@
                         if (!isLost) {
                             $offlineIndicator.addClass('red').removeClass('green');
                             $offlineUp.addClass('icon-animated-bell');
+                            $().toastmessage('showToast', {
+                                text: "You have lost your connection",
+                                stayTime: 10000,
+                                position: 'top-center',
+                                type: 'error'
+                            });
                         }
 
                         isLost = true;
@@ -35,12 +43,18 @@
                         if (isLost) {
                             $offlineIndicator.addClass('green').removeClass('red');
                             $offlineUp.removeClass('icon-animated-bell');
+                            $().toastmessage('showToast', {
+                                text: "Your connection has been restored",
+                                stayTime: 10000,
+                                position: 'top-center',
+                                type: 'success'
+                            });
                         }
 
                         isLost = false;
 
                     });
-                }, 3000);
+                }, 15000);
             });
         </script>
     {% endblock %}
@@ -68,11 +82,18 @@
     {% endblock %}
 
     {% block navbarheader %}
+        {# here to preload toast images #}
+        <div style="left: -9999;">
+            <div class="toast-item-image-notice"></div>
+            <div class="toast-item-image-success"></div>
+            <div class="toast-item-image-warning"></div>
+            <div class="toast-item-image-error"></div>
+        </div>
         <div class="navbar-header pull-right" role="navigation">
             <ul class="nav ace-nav">
                 <li class="green" id="offline-notification">
                     <a href="#">
-                        <i class="fa fa-wifi" style="font-size: 1.65em;" id="offline-notification-up"></i>
+                        <i class="fa fa-wifi" style="font-size: 1.65em;vertical-align: middle;" id="offline-notification-up"></i>
                     </a>
                 </li>
                 {{ locale_switcher(null,null,'::switcher_links.html.twig') }}

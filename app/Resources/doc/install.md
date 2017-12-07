@@ -113,6 +113,13 @@ to function.
     deny from all
   </Directory>
   
+  # used for determining if the user has gone offline
+  <Location /offline-check>
+    RedirectMatch 204 .*
+    Header set Cache-Control "private, no-cache, no-store, proxy-revalidate, no-transform"
+    Header set Pragma "no-cache"
+  </Location>
+
   SSLEngine on
   SSLCertificateFile /etc/pki/tls/certs/server.crt
   SSLCertificateKeyFile /etc/pki/tls/private/server.key
