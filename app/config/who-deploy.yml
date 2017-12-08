@@ -1,0 +1,34 @@
+---
+- hosts: "{{target}}"
+  user: nuviuser
+  become: true
+  become_user: apache
+  roles:
+    - servergrove.symfony2
+  environment:
+    http_proxy: http://proxy.who.int:3128
+    https_proxy: http://proxy.who.int:3128
+  vars:
+    symfony_project_root: /services/nuvi-ansible
+    symfony_project_name: nuvi
+    symfony_project_composer_path: "{{symfony_project_root}}/shared/composer.phar"
+    symfony_project_repo: https://github.com/IBVPD/Nuvi.git
+    symfony_project_env: prod
+    symfony_project_console_command: bin/console
+
+    symfony_project_console_opts: '--no-debug'
+    symfony_project_keep_releases: 15
+
+    symfony_project_branch: master
+    symfony_project_php_path: php
+    symfony_project_php_options: ''
+
+    symfony_project_composer_opts: '--optimize-autoloader --no-interaction'
+    symfony_project_shared_folders: # folders to be linked from shared directory to release dir
+      - {name: logs, src: var/logs, path: var/logs}
+      - {name: uploads, src: web/uploads, path: web/uploads}
+      - {name: data, src: app/data, path: app/data }
+
+    symfony_project_managed_folders: # folders to be created/checked in release dir
+      - {name: cache, path: var/cache}
+      - {name: sessions, path: var/sessions}
