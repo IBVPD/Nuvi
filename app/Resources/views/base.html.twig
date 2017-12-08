@@ -26,7 +26,7 @@
                 window.setInterval(function () {
                     var $offlineIndicator = $('#offline-notification');
                     var $offlineUp = $('#offline-notification-up');
-                    $.get('/offline-check').fail(function () {
+                    $.get('{{ app.request.baseUrl }}/offline-check').fail(function () {
                         if (!isLost) {
                             $offlineIndicator.addClass('red').removeClass('green');
                             $offlineUp.addClass('icon-animated-bell');

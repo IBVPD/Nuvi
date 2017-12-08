@@ -10,7 +10,7 @@
 .toast-item {
     height: auto;
     background: #333;
-    opacity: 0.85;
+    opacity: 0.83;
     border-radius: 3px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
@@ -33,7 +33,7 @@
 }
 
 .toast-item-close {
-    background:url(/bundles/nssentinel/images/close.gif);
+    background:url('../images/close.gif');
     width:22px;
     height:22px;
     position: absolute;
@@ -51,19 +51,19 @@
 }
 
 .toast-item-image-notice {
-    background:url('/bundles/nssentinel/images/notice.png');
+    background:url('../images/notice.png');
 }
 
 .toast-item-image-success {
-    background:url('/bundles/nssentinel/images/success.png');
+    background:url('../images/success.png');
 }
 
 .toast-item-image-warning {
-    background:url('/bundles/nssentinel/images/warning.png');
+    background:url('../images/warning.png');
 }
 
 .toast-item-image-error {
-    background:url('/bundles/nssentinel/images/error.png');
+    background:url('../images/error.png');
 }
 
 
