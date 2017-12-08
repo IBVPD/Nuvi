@@ -3,6 +3,7 @@ VERSION 0  INITIAL RELEASE
 ==========================
 
    Version 0.10 - Updated to SF3.x
+      08/12/2017 15:44  0.10.49  Improved deployment and offline detection url
       07/12/2017 23:40  0.10.48  Offline notifications
       07/12/2017 15:17  0.10.47  Fixed proxy urls
       06/12/2017 22:46  0.10.46  Beanstalk is removed
