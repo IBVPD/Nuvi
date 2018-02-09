@@ -3034,16 +3034,16 @@
         },
         {
             "name": "ns/ace-bundle",
-            "version": "3.1.9",
+            "version": "3.1.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/AceBundle.git",
-                "reference": "caa62f9485de46829484f2c8acf15dbca756f56f"
+                "reference": "804ddc325c2a60b2fcd4fb30f2e77e7f1f55446c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/AceBundle/zipball/caa62f9485de46829484f2c8acf15dbca756f56f",
-                "reference": "caa62f9485de46829484f2c8acf15dbca756f56f",
+                "url": "https://api.github.com/repos/NobletSolutions/AceBundle/zipball/804ddc325c2a60b2fcd4fb30f2e77e7f1f55446c",
+                "reference": "804ddc325c2a60b2fcd4fb30f2e77e7f1f55446c",
                 "shasum": ""
             },
             "require": {
@@ -3088,7 +3088,7 @@
                 }
             ],
             "description": "This bundle provides the ace admin bootstrap template",
-            "time": "2017-12-04T18:35:29+00:00"
+            "time": "2018-02-09T18:15:09+00:00"
         },
         {
             "name": "ns/ace-sonata-bundle",
@@ -3233,16 +3233,16 @@
         },
         {
             "name": "ns/flash-bundle",
-            "version": "1.0.6",
+            "version": "1.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/FlashBundle.git",
-                "reference": "153568f5d65fc54f57e06ee0c9dffa4f3563869c"
+                "reference": "5f0f11db757e809521182578c3e7b8a764caae10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/FlashBundle/zipball/153568f5d65fc54f57e06ee0c9dffa4f3563869c",
-                "reference": "153568f5d65fc54f57e06ee0c9dffa4f3563869c",
+                "url": "https://api.github.com/repos/NobletSolutions/FlashBundle/zipball/5f0f11db757e809521182578c3e7b8a764caae10",
+                "reference": "5f0f11db757e809521182578c3e7b8a764caae10",
                 "shasum": ""
             },
             "require": {
@@ -3270,7 +3270,7 @@
                 }
             ],
             "description": "This Bundle provides a flash message service and twig renderer",
-            "time": "2017-08-18T05:08:56+00:00"
+            "time": "2018-02-09T18:40:20+00:00"
         },
         {
             "name": "ns/security-bundle",
@@ -3684,6 +3684,7 @@
                 "xls",
                 "xlsx"
             ],
+            "abandoned": "phpoffice/phpspreadsheet",
             "time": "2015-05-01T07:00:55+00:00"
         },
         {
