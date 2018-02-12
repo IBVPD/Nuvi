@@ -1,0 +1,8 @@
+---
+- name: hook | Check if config_who.yml file exists.
+  stat: path={{symfony_shared_config_dir}}/config_who.yml
+  register: config_who_parameters
+
+- name: hook | Create symlink for config_who file from shared directory.
+  file: state=link src={{symfony_shared_config_dir}}/config_who.yml path={{symfony_config_dir}}/config_who.yml
+  when: config_who_parameters.stat.exists
