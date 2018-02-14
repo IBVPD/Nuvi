@@ -48,6 +48,23 @@
                                 {{ form_row(form.serotypeIdentifierOther) }}
                             </div>
                         </div>
+                        {% if form.rlIsolCsfSent is defined %}
+                            <hr/>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    {{ form_row(form.rlIsolCsfSent) }}
+                                    {{ form_row(form.rlIsolCsfDate) }}
+                                </div>
+                                <div class="col-sm-4">
+                                    {{ form_row(form.rlIsolBloodSent) }}
+                                    {{ form_row(form.rlIsolBloodDate) }}
+                                </div>
+                                <div class="col-sm-4">
+                                    {{ form_row(form.rlOtherSent) }}
+                                    {{ form_row(form.rlOtherDate) }}
+                                </div>
+                            </div>
+                        {% endif %}
                     </div>
 
                     <div id="ctvalues" class="tab-pane">
