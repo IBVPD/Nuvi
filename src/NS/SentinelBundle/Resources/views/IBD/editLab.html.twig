@@ -38,7 +38,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>{{ 'CSF Collection Date and Time'|trans }}</label>
-                                {% if form.vars.value.caseFile.csfCollectDate is defined %}
+                                {% if form.vars.value.caseFile.csfCollectDate is defined and form.vars.value.caseFile.csfCollectDate %}
                                     {{ form.vars.value.caseFile.csfCollectDate|date('Y-m-d') }} {{ form.vars.value.caseFile.csfCollectTime|date('H:i') }}
                                 {% else %}
                                     {{ 'Unknown'|trans }}
@@ -161,7 +161,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>{{ 'Blood Collection Date and Time'|trans }}</label>
-                                    {% if form.vars.value.caseFile.bloodCollectDate is defined %}
+                                    {% if form.vars.value.caseFile.bloodCollectDate is defined and form.vars.value.caseFile.bloodCollectDate%}
                                         {{ form.vars.value.caseFile.bloodCollectDate|date('Y-m-d') }} {{ form.vars.value.caseFile.bloodCollectTime|date('H:i') }}
                                     {% else %}
                                         {{ 'Unknown'|trans }}
@@ -279,7 +279,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>{{ 'Other Fluid Collection Date and Time'|trans }}</label>
-                                    {% if form.vars.value.caseFile.otherLabDate is defined %}
+                                    {% if form.vars.value.caseFile.otherLabDate is defined and form.vars.value.caseFile.otherLabDate %}
                                         {{ form.vars.value.caseFile.otherLabDate|date('Y-m-d') }} {{ form.vars.value.caseFile.otherLabTime|date('H:i') }}
                                     {% else %}
                                         {{ 'Unknown'|trans }}
