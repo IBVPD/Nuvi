@@ -16,7 +16,7 @@
     symfony_project_env: prod
     symfony_project_console_command: bin/console
     symfony_project_pre_cache_warmup_tasks: "{{inventory_dir}}/hooks/pre_cache_warmup.yml"
-
+    symfony_project_cache_dir: var
     symfony_project_console_opts: '--no-debug'
     symfony_project_keep_releases: 15
 
