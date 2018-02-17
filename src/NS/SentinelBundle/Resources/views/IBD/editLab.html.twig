@@ -17,6 +17,9 @@
                 <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
                     <li class="active"><a data-toggle="tab" href="#csf">{{ 'CSF'|trans }}</a></li>
                     <li><a data-toggle="tab" href="#blood">{{ 'Blood'|trans }}</a></li>
+                    {% if form.bloodSecondId is defined %}
+                        <li><a data-toggle="tab" href="#bloodSecond">{{ '2nd Blood'|trans }}</a></li>
+                    {% endif %}
                     {% if form.pleuralFluidCultureDone is defined %}
                         <li><a data-toggle="tab" href="#pleural">{{ 'Pleural Fluid'|trans }}</a></li>
                     {% endif %}
@@ -224,7 +227,70 @@
                             </div>
                         {% endif %}
                     </div>
-
+                    {% if form.bloodSecondId is defined %}
+                        <div id="bloodSecond" class="tab-pane">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodSecondId) }}
+                            </div>
+                            <div class="col-md-3">
+                                {{ form_row(form.bloodSecondLabDate) }}
+                            </div>
+                            <div class="col-md-3">
+                                {{ form_row(form.bloodSecondLabTime) }}
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>{{ 'Blood Collection Date and Time'|trans }}</label>
+                                    {% if form.vars.value.caseFile.bloodSecondCollectDate is defined and form.vars.value.caseFile.bloodSecondCollectDate %}
+                                        {{ form.vars.value.caseFile.bloodSecondCollectDate|date('Y-m-d') }} {{ form.vars.value.caseFile.bloodSecondCollectTime|date('H:i') }}
+                                    {% else %}
+                                        {{ 'Unknown'|trans }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodSecondCultDone) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodSecondCultResult) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodSecondCultOther) }}
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodSecondGramDone) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodSecondGramStain) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodSecondGramResult) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodSecondGramOther) }}
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodSecondPcrDone) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodSecondPcrResult) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodSecondPcrOther) }}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
                     {% if form.pleuralFluidCultureDone is defined %}
                         <div id="pleural" class="tab-pane">
                             <div class="row">

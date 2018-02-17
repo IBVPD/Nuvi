@@ -144,6 +144,10 @@ class SiteLabType extends AbstractType
             $country = ($site instanceof Site) ? $site->getCountry() : null;
         }
 
+        $region  = ($country instanceof Country) ? $country->getRegion(): null;
+
+        $isPaho = ($region && $region->getCode() == 'AMR' || $this->authChecker->isGranted('ROLE_AMR'));
+
         if ($country instanceof Country) {
             if ($country->hasNationalLab()) {
                 $form
@@ -156,6 +160,23 @@ class SiteLabType extends AbstractType
                     ->add('nlOtherSent', SwitchType::class, ['label' => 'ibd-form.other-sent-to-nl', 'required' => false])
                     ->add('nlOtherDate', DatePickerType::class, ['label' => 'ibd-form.other-sent-to-nl-date', 'required' => false, 'hidden' => ['parent' => 'nlOtherSent', 'value' => 1]]);
             }
+        }
+
+        if ($isPaho) {
+            $form
+                ->add('bloodSecondId', null, ['required' => false, 'label' => 'ibd-form.blood-id'])
+                ->add('bloodSecondLabDate', DatePickerType::class, ['required' => false, 'label' => 'ibd-form.blood-lab-datetime'])
+                ->add('bloodSecondLabTime', TimeType::class, ['required' => false, 'label' => 'ibd-form.blood-lab-time', 'minutes' => [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55]])
+                ->add('bloodSecondCultDone', TripleChoice::class, ['required' => false, 'label' => 'ibd-form.blood-cult-done', 'exclude_choices' => ($isPaho ? [TripleChoice::UNKNOWN] : null)])
+                ->add('bloodSecondCultResult', CultureResult::class, ['required' => false, 'label' => 'ibd-form.blood-cult-result', 'hidden' => ['parent' => 'bloodSecondCultDone', 'child' => 'bloodSecondCultResult', 'value' => TripleChoice::YES], 'exclude_choices' => ($isPaho ? [CultureResult::UNKNOWN] : null)])
+                ->add('bloodSecondCultOther', null, ['required' => false, 'label' => 'ibd-form.blood-cult-other', 'hidden' => ['parent' => 'bloodSecondCultResult', 'value' => CultureResult::OTHER]])
+                ->add('bloodSecondGramDone', TripleChoice::class, ['required' => false, 'label' => 'ibd-form.blood-gram-done'])
+                ->add('bloodSecondGramStain', GramStain::class, ['required' => false, 'label' => 'ibd-form.blood-gram-result', 'hidden' => ['parent' => 'bloodSecondGramDone', 'value' => TripleChoice::YES]])
+                ->add('bloodSecondGramResult', GramStainResult::class, ['required' => false, 'label' => 'ibd-form.blood-gram-result-organism', 'hidden' => ['parent' => 'bloodSecondGramStain', 'value' => [GramStain::GM_NEGATIVE, GramStain::GM_POSITIVE]]])
+                ->add('bloodSecondGramOther', null, ['required' => false, 'label' => 'ibd-form.blood-gram-other', 'hidden' => ['parent' => 'bloodSecondGramResult', 'value' => GramStainResult::OTHER]])
+                ->add('bloodSecondPcrDone', TripleChoice::class, ['required' => false, 'label' => 'ibd-form.blood-pcr-done'])
+                ->add('bloodSecondPcrResult', PCRResult::class, ['required' => false, 'label' => 'ibd-form.blood-pcr-result', 'hidden' => ['parent' => 'bloodSecondPcrDone', 'value' => TripleChoice::YES]])
+                ->add('bloodSecondPcrOther', null, ['required' => false, 'label' => 'ibd-form.blood-pcr-other', 'hidden' => ['parent' => 'bloodSecondPcrResult', 'value' => PCRResult::OTHER]]);
         }
     }
 

@@ -347,6 +347,104 @@ class SiteLab implements BaseSiteLabInterface
      */
     private $blood_pcr_other;
 
+    //============
+    /**
+     * @var string
+     * @ORM\Column(name="blood_second_id",type="string",nullable=true)
+     * @Serializer\Groups({"api","export"})
+     */
+    private $blood_second_id;
+
+    /**
+     * @var \DateTime $blood_secondLabTime
+     * @ORM\Column(name="blood_second_lab_date",type="date",nullable=true)
+     * @Assert\DateTime
+     * @LocalAssert\NoFutureDate()
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'Y-m-d'>")
+     */
+    private $blood_second_lab_date;
+
+    /**
+     * @var \DateTime $blood_secondLabTime
+     * @ORM\Column(name="blood_second_lab_time",type="time",nullable=true)
+     * @Assert\DateTime
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'H:i:s'>")
+     */
+    private $blood_second_lab_time;
+
+    /**
+     * @var TripleChoice $blood_secondCultDone
+     * @ORM\Column(name="blood_second_cult_done",type="TripleChoice",nullable=true)
+     * @Serializer\Groups({"api","export"})
+     */
+    private $blood_second_cult_done;
+
+    /**
+     * @var TripleChoice $blood_secondGramDone
+     * @ORM\Column(name="blood_second_gram_done",type="TripleChoice",nullable=true)
+     * @Serializer\Groups({"api","export"})
+     */
+    private $blood_second_gram_done;
+
+    /**
+     * @var TripleChoice $blood_secondPcrDone
+     * @ORM\Column(name="blood_second_pcr_done",type="TripleChoice",nullable=true)
+     * @Serializer\Groups({"api","export"})
+     */
+    private $blood_second_pcr_done;
+
+    /**
+     * @var CultureResult
+     * @ORM\Column(name="blood_second_cult_result",type="CultureResult",nullable=true)
+     * @Serializer\Groups({"api","export"})
+     */
+    private $blood_second_cult_result;
+
+    /**
+     * @var string
+     * @ORM\Column(name="blood_second_cult_other",type="string",nullable=true)
+     * @Serializer\Groups({"api","export"})
+     */
+    private $blood_second_cult_other;
+
+    /**
+     * @var GramStain
+     * @ORM\Column(name="blood_second_gram_stain",type="GramStain",nullable=true)
+     * @Serializer\Groups({"api","export"})
+     */
+    private $blood_second_gram_stain;
+
+    /**
+     * @var GramStainResult $blood_secondGramResult
+     * @ORM\Column(name="blood_second_gram_result",type="GramStainResult",nullable=true)
+     * @Serializer\Groups({"api","export"})
+     */
+    private $blood_second_gram_result;
+
+    /**
+     * @var string $blood_secondGramOther
+     * @ORM\Column(name="blood_second_gram_other",type="string",nullable=true)
+     * @Serializer\Groups({"api","export"})
+     */
+    private $blood_second_gram_other;
+
+    /**
+     * @var PCRResult
+     * @ORM\Column(name="blood_second_pcr_result",type="PCRResult",nullable=true)
+     * @Serializer\Groups({"api","export"})
+     */
+    private $blood_second_pcr_result;
+
+    /**
+     * @var string $blood_secondPcrOther
+     * @ORM\Column(name="blood_second_pcr_other",type="string",nullable=true)
+     * @Serializer\Groups({"api","export"})
+     */
+    private $blood_second_pcr_other;
+
+    //============
     /**
      * @var string $other_id
      * @ORM\Column(name="other_id",type="string",nullable=true)
@@ -1125,16 +1223,6 @@ class SiteLab implements BaseSiteLabInterface
     public function setBloodId($bloodId)
     {
         $this->blood_id = $bloodId;
-    }
-
-    /**
-     * @param $id
-     * @return $this
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-        return $this;
     }
 
     /**
@@ -2144,5 +2232,214 @@ class SiteLab implements BaseSiteLabInterface
     public function getSentToNationalLab()
     {
         return ($this->nl_csf_sent || $this->nl_isol_csf_sent || $this->nl_isol_blood_sent || $this->nl_broth_sent || $this->nl_other_sent);
+    }
+
+    // Second blood sample results
+    /**
+     * @return string
+     */
+    public function getBloodSecondId()
+    {
+        return $this->blood_second_id;
+    }
+
+    /**
+     * @param string $blood_second_id
+     */
+    public function setBloodSecondId($blood_second_id)
+    {
+        $this->blood_second_id = $blood_second_id;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getBloodSecondLabDate()
+    {
+        return $this->blood_second_lab_date;
+    }
+
+    /**
+     * @param \DateTime $blood_second_lab_date
+     */
+    public function setBloodSecondLabDate(\DateTime $blood_second_lab_date = null)
+    {
+        $this->blood_second_lab_date = $blood_second_lab_date;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getBloodSecondLabTime()
+    {
+        return $this->blood_second_lab_time;
+    }
+
+    /**
+     * @param \DateTime $blood_second_lab_time
+     */
+    public function setBloodSecondLabTime(\DateTime $blood_second_lab_time = null)
+    {
+        $this->blood_second_lab_time = $blood_second_lab_time;
+    }
+
+    /**
+     * @return TripleChoice
+     */
+    public function getBloodSecondCultDone()
+    {
+        return $this->blood_second_cult_done;
+    }
+
+    /**
+     * @param TripleChoice $blood_second_cult_done
+     */
+    public function setBloodSecondCultDone(TripleChoice $blood_second_cult_done)
+    {
+        $this->blood_second_cult_done = $blood_second_cult_done;
+    }
+
+    /**
+     * @return TripleChoice
+     */
+    public function getBloodSecondGramDone()
+    {
+        return $this->blood_second_gram_done;
+    }
+
+    /**
+     * @param TripleChoice $blood_second_gram_done
+     */
+    public function setBloodSecondGramDone(TripleChoice $blood_second_gram_done)
+    {
+        $this->blood_second_gram_done = $blood_second_gram_done;
+    }
+
+    /**
+     * @return TripleChoice
+     */
+    public function getBloodSecondPcrDone()
+    {
+        return $this->blood_second_pcr_done;
+    }
+
+    /**
+     * @param TripleChoice $blood_second_pcr_done
+     */
+    public function setBloodSecondPcrDone(TripleChoice $blood_second_pcr_done)
+    {
+        $this->blood_second_pcr_done = $blood_second_pcr_done;
+    }
+
+    /**
+     * @return CultureResult
+     */
+    public function getBloodSecondCultResult()
+    {
+        return $this->blood_second_cult_result;
+    }
+
+    /**
+     * @param CultureResult $blood_second_cult_result
+     */
+    public function setBloodSecondCultResult(CultureResult $blood_second_cult_result)
+    {
+        $this->blood_second_cult_result = $blood_second_cult_result;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBloodSecondCultOther()
+    {
+        return $this->blood_second_cult_other;
+    }
+
+    /**
+     * @param string $blood_second_cult_other
+     */
+    public function setBloodSecondCultOther($blood_second_cult_other)
+    {
+        $this->blood_second_cult_other = $blood_second_cult_other;
+    }
+
+    /**
+     * @return GramStain
+     */
+    public function getBloodSecondGramStain()
+    {
+        return $this->blood_second_gram_stain;
+    }
+
+    /**
+     * @param GramStain $blood_second_gram_stain
+     */
+    public function setBloodSecondGramStain(GramStain $blood_second_gram_stain)
+    {
+        $this->blood_second_gram_stain = $blood_second_gram_stain;
+    }
+
+    /**
+     * @return GramStainResult
+     */
+    public function getBloodSecondGramResult()
+    {
+        return $this->blood_second_gram_result;
+    }
+
+    /**
+     * @param GramStainResult $blood_second_gram_result
+     */
+    public function setBloodSecondGramResult(GramStainResult $blood_second_gram_result)
+    {
+        $this->blood_second_gram_result = $blood_second_gram_result;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBloodSecondGramOther()
+    {
+        return $this->blood_second_gram_other;
+    }
+
+    /**
+     * @param string $blood_second_gram_other
+     */
+    public function setBloodSecondGramOther($blood_second_gram_other)
+    {
+        $this->blood_second_gram_other = $blood_second_gram_other;
+    }
+
+    /**
+     * @return PCRResult
+     */
+    public function getBloodSecondPcrResult()
+    {
+        return $this->blood_second_pcr_result;
+    }
+
+    /**
+     * @param PCRResult $blood_second_pcr_result
+     */
+    public function setBloodSecondPcrResult(PCRResult $blood_second_pcr_result)
+    {
+        $this->blood_second_pcr_result = $blood_second_pcr_result;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBloodSecondPcrOther()
+    {
+        return $this->blood_second_pcr_other;
+    }
+
+    /**
+     * @param string $blood_second_pcr_other
+     */
+    public function setBloodSecondPcrOther($blood_second_pcr_other)
+    {
+        $this->blood_second_pcr_other = $blood_second_pcr_other;
     }
 }
