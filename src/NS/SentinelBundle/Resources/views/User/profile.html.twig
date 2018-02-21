@@ -44,10 +44,11 @@
                     <div class="profile-info-row">
                         <div class="profile-info-name"> {{ 'Create Rights'|trans }} </div>
                         <div class="profile-info-value">
-                            <span><i class="fa {% if is_granted('ROLE_CAN_CREATE_CASES') %}fa-check{% else %}fa-times{% endif %} bigger-110"></i> {{ 'Case'|trans }}</span>
+                            <span><i class="fa {% if is_granted('ROLE_CAN_CREATE_CASE') %}fa-check{% else %}fa-times{% endif %} bigger-110"></i> {{ 'Case'|trans }}</span>
                             <span><i class="fa {% if is_granted('ROLE_CAN_CREATE_LAB') %}fa-check{% else %}fa-times{% endif %} bigger-110"></i> {{ 'Labs'|trans }}</span>
                             <span><i class="fa {% if is_granted('ROLE_CAN_CREATE_NL_LAB') %}fa-check{% else %}fa-times{% endif %} bigger-110"></i> {{ 'RRL'|trans }}</span>
                             <span><i class="fa {% if is_granted('ROLE_CAN_CREATE_RRL_LAB') %}fa-check{% else %}fa-times{% endif %} bigger-110"></i> {{ 'NL'|trans }}</span>
+                            <span><i class="fa {% if is_granted('ROLE_AMR') %}fa-check{% else %}fa-times{% endif %} bigger-110"></i> {{ 'PAHO Specific Fields'|trans }}</span>
                         </div>
                     </div>
                 </div>
