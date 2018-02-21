@@ -43,7 +43,6 @@ class Diagnosis extends TranslatableArrayChoice implements TranslationContainerI
         $this->authChecker = $authChecker;
     }
 
-
     /**
      * @inheritDoc
      */
