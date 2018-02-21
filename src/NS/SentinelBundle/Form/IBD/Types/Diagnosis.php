@@ -48,7 +48,7 @@ class Diagnosis extends TranslatableArrayChoice implements TranslationContainerI
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        if ($this->authChecker->isGranted('ROLE_AMR')) {
+        if ($this->authChecker && $this->authChecker->isGranted('ROLE_AMR')) {
             unset($this->values[self::SUSPECTED_SEVERE_PNEUMONIA]);
             unset($this->values[self::UNKNOWN]);
             unset($this->values[self::OTHER]);

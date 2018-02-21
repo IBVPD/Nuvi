@@ -295,18 +295,6 @@
                         <div id="pleural" class="tab-pane">
                             <div class="row">
                                 <div class="col-sm-3">
-                                    {{ form_row(form.pleuralFluidCultureDone) }}
-                                </div>
-                                <div class="col-sm-3">
-                                    {{ form_row(form.pleuralFluidCultureResult) }}
-                                </div>
-                                <div class="col-sm-3">
-                                    {{ form_row(form.pleuralFluidCultureOther) }}
-                                </div>
-                            </div>
-                            <hr/>
-                            <div class="row">
-                                <div class="col-sm-3">
                                     {{ form_row(form.pleuralFluidGramDone) }}
                                 </div>
                                 <div class="col-sm-3">
@@ -314,6 +302,18 @@
                                 </div>
                                 <div class="col-sm-3">
                                     {{ form_row(form.pleuralFluidGramResultOrganism) }}
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    {{ form_row(form.pleuralFluidCultureDone) }}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{ form_row(form.pleuralFluidCultureResult) }}
+                                </div>
+                                <div class="col-sm-3">
+                                    {{ form_row(form.pleuralFluidCultureOther) }}
                                 </div>
                             </div>
                             <hr/>
@@ -422,14 +422,15 @@
                         '1':["4","5"],
                         '2':["1","2","3"]
                     }
-                },
-                'site_lab_pleuralFluidGramResult': {
-                    childFieldId: 'site_lab_pleuralFluidGramResult',
-                    conf: {
-                        '1':["4","5"],
-                        '2':["1","2","3"]
-                    }
                 }
+                // ,
+                // 'site_lab_pleuralFluidGramResult': {
+                //     childFieldId: 'site_lab_pleuralFluidGramResult',
+                //     conf: {
+                //         '1':["4","5"],
+                //         '2':["1","2","3"]
+                //     }
+                // }
             };
 
             var ids = [];
