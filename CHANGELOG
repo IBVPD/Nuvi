@@ -3,6 +3,7 @@ VERSION 0  INITIAL RELEASE
 ==========================
 
    Version 0.10 - Updated to SF3.x
+      21/02/2018 15:54  0.10.53  Updated PAHO requests
       17/02/2018 12:38  0.10.52  Added second blood results
       14/02/2018 14:25  0.10.51  Minor layout fixes
       09/02/2018 12:08  0.10.50  Updated Ace/Flash vendor bundles
