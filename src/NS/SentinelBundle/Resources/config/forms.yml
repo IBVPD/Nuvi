@@ -255,8 +255,6 @@ services:
 
   ns.sentinel.form.type.dischargeclassification:
     class: NS\SentinelBundle\Form\IBD\Types\DischargeClassification
-    calls:
-      - [ setAuthorizationChecker, [ "@security.authorization_checker" ]]
     tags:
       - { name: form.type }
 
@@ -307,8 +305,6 @@ services:
 
   ns.sentinel.form.type.diagnosis:
     class: NS\SentinelBundle\Form\IBD\Types\Diagnosis
-    calls:
-      - [ setAuthorizationChecker, [ "@security.authorization_checker" ]]
     tags:
       - { name: form.type }
 

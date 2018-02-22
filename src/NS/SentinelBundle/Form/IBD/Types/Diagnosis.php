@@ -31,30 +31,4 @@ class Diagnosis extends TranslatableArrayChoice implements TranslationContainerI
         self::OTHER => 'Other',
         self::UNKNOWN => 'Unknown'
     ];
-
-    /** @var AuthorizationCheckerInterface */
-    private $authChecker;
-
-    /**
-     * @param AuthorizationCheckerInterface $authChecker
-     */
-    public function setAuthorizationChecker($authChecker)
-    {
-        $this->authChecker = $authChecker;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        if ($this->authChecker && $this->authChecker->isGranted('ROLE_AMR')) {
-            unset($this->values[self::SUSPECTED_SEVERE_PNEUMONIA]);
-            unset($this->values[self::UNKNOWN]);
-            unset($this->values[self::OTHER]);
-            unset($this->values[self::SUSPECTED_SEPSIS]);
-        }
-
-        parent::configureOptions($resolver);
-    }
 }

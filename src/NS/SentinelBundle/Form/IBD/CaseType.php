@@ -152,6 +152,7 @@ class CaseType extends AbstractType
                 'required' => $required || $isPaho,
                 'label' => 'ibd-form.adm-dx',
                 'property_path' => 'adm_dx',
+                'exclude_choices' => $isPaho ? [Diagnosis::SUSPECTED_SEVERE_PNEUMONIA, Diagnosis::UNKNOWN, Diagnosis::OTHER, Diagnosis::SUSPECTED_SEPSIS]:[],
                 'hidden' => [
                     'children' => [
                         '#meningitisTab' => [Diagnosis::SUSPECTED_MENINGITIS, Diagnosis::MULTIPLE],
