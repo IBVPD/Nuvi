@@ -18,7 +18,7 @@ class OnFlushListenerTest extends BaseDBTestCase
 {
     public function testLink()
     {
-        $case = $this->entityManager->getRepository('NSSentinelBundle:IBD')->findWithAssociations('CA-XXX-16-3e4c4ef0-ab23-4b79-8105-b1da807516ae');
+        $case = $this->entityManager->getRepository('NSSentinelBundle:IBD')->findWithAssociations('CA-XXX-16-f80fc7ad-ce31-4253-afb4-5b45d55c2cce');
         $this->assertInstanceOf(IBD::class, $case);
         $this->assertInstanceOf(Region::class, $case->getRegion());
 
