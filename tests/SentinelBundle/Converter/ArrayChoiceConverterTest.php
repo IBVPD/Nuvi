@@ -4,48 +4,20 @@ namespace NS\SentinelBundle\Tests\Converter;
 
 use NS\UtilBundle\Form\Types\ArrayChoice;
 use NS\SentinelBundle\Converter\ArrayChoiceConverter;
-use NS\SentinelBundle\Form\IBD\Types\IsolateViable;
-use NS\SentinelBundle\Form\IBD\Types\BinaxResult;
-use NS\SentinelBundle\Form\IBD\Types\CSFAppearance;
-use NS\SentinelBundle\Form\IBD\Types\CultureResult;
-use NS\SentinelBundle\Form\IBD\Types\CXRResult;
-use NS\SentinelBundle\Form\IBD\Types\Diagnosis;
-use NS\SentinelBundle\Form\IBD\Types\DischargeClassification as IBDDischargeClassification;
-use NS\SentinelBundle\Form\IBD\Types\DischargeDiagnosis as IBDDischargeDiagnosis;
-use NS\SentinelBundle\Form\IBD\Types\DischargeOutcome as IBDDischargeOutcome;
-use NS\SentinelBundle\Form\IBD\Types\GramStain;
-use NS\SentinelBundle\Form\IBD\Types\GramStainResult;
-use NS\SentinelBundle\Form\IBD\Types\HiSerotype;
-use NS\SentinelBundle\Form\IBD\Types\CaseResult;
-use NS\SentinelBundle\Form\IBD\Types\IntenseSupport;
-use NS\SentinelBundle\Form\IBD\Types\IsolateType;
-use NS\SentinelBundle\Form\IBD\Types\LatResult;
-use NS\SentinelBundle\Form\IBD\Types\VaccinationType;
-use NS\SentinelBundle\Form\IBD\Types\NmSerogroup;
-use NS\SentinelBundle\Form\IBD\Types\OtherSpecimen;
-use NS\SentinelBundle\Form\IBD\Types\PathogenIdentifier;
-use NS\SentinelBundle\Form\IBD\Types\PCRResult;
-use NS\SentinelBundle\Form\IBD\Types\PCVType;
-use NS\SentinelBundle\Form\IBD\Types\SampleType;
-use NS\SentinelBundle\Form\IBD\Types\SerotypeIdentifier;
-use NS\SentinelBundle\Form\IBD\Types\SpnSerotype;
-use NS\SentinelBundle\Form\RotaVirus\Types\DischargeOutcome as RVDischargeOutcome;
-use NS\SentinelBundle\Form\RotaVirus\Types\VaccinationType as RVVaccinationType;
-use NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultG;
-use NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultP;
-use NS\SentinelBundle\Form\RotaVirus\Types\Dehydration;
-use NS\SentinelBundle\Form\RotaVirus\Types\ElisaKit;
-use NS\SentinelBundle\Form\RotaVirus\Types\ElisaResult;
-use NS\SentinelBundle\Form\RotaVirus\Types\Rehydration;
-use NS\SentinelBundle\Form\Types\CaseStatus;
-use NS\SentinelBundle\Form\Types\CaseCreationType;
-use NS\SentinelBundle\Form\Types\FourDoses;
-use NS\SentinelBundle\Form\Types\Gender;
-use NS\SentinelBundle\Form\Types\VaccinationReceived;
-use NS\SentinelBundle\Form\Types\Role;
-use NS\SentinelBundle\Form\Types\ThreeDoses;
-use NS\SentinelBundle\Form\Types\TripleChoice;
-use NS\SentinelBundle\Form\Types\SurveillanceConducted;
+use NS\SentinelBundle\Form;
+//use NS\SentinelBundle\Form\Meningitis;
+//use NS\SentinelBundle\Form\Pneumonia;
+//use NS\SentinelBundle\Form\RotaVirus\Types\DischargeOutcome as RVDischargeOutcome;
+//use NS\SentinelBundle\Form\RotaVirus\Types\VaccinationType as RVVaccinationType;
+//use NS\SentinelBundle\Form\Types\CaseStatus;
+//use NS\SentinelBundle\Form\Types\CaseCreationType;
+//use NS\SentinelBundle\Form\Types\FourDoses;
+//use NS\SentinelBundle\Form\Types\Gender;
+//use NS\SentinelBundle\Form\Types\VaccinationReceived;
+//use NS\SentinelBundle\Form\Types\Role;
+//use NS\SentinelBundle\Form\Types\ThreeDoses;
+//use NS\SentinelBundle\Form\Types\TripleChoice;
+//use NS\SentinelBundle\Form\Types\SurveillanceConducted;
 
 /**
  * Description of ArrayChoiceConverterTest
@@ -103,49 +75,52 @@ class ArrayChoiceConverterTest extends \PHPUnit_Framework_TestCase
     public function converterProvider()
     {
         return [
-            ['obj' => new IsolateViable()],
-            ['obj' => new BinaxResult()],
-            ['obj' => new CSFAppearance()],
-            ['obj' => new CXRResult()],
-            ['obj' => new CaseStatus()],
-            ['obj' => new CaseCreationType()],
-            ['obj' => new CultureResult()],
-            ['obj' => new Dehydration()],
-            ['obj' => new Diagnosis()],
-            ['obj' => new IBDDischargeClassification()],
-            ['obj' => new IBDDischargeDiagnosis()],
-            ['obj' => new IBDDischargeOutcome()],
-            ['obj' => new ElisaKit()],
-            ['obj' => new ElisaResult()],
-            ['obj' => new FourDoses()],
-            ['obj' => new Gender()],
-            ['obj' => new GenotypeResultG()],
-            ['obj' => new GenotypeResultP()],
-            ['obj' => new GramStain()],
-            ['obj' => new GramStainResult()],
-            ['obj' => new HiSerotype()],
-            ['obj' => new CaseResult()],
-            ['obj' => new IntenseSupport()],
-            ['obj' => new IsolateType()],
-            ['obj' => new LatResult()],
-            ['obj' => new VaccinationReceived()],
-            ['obj' => new VaccinationType()],
-            ['obj' => new NmSerogroup()],
-            ['obj' => new OtherSpecimen()],
-            ['obj' => new PCRResult()],
-            ['obj' => new PCVType()],
-            ['obj' => new PathogenIdentifier()],
-            ['obj' => new Rehydration()],
-            ['obj' => new Role()],
-            ['obj' => new RVDischargeOutcome()],
-            ['obj' => new RVVaccinationType()],
-            ['obj' => new SampleType()],
-            ['obj' => new SerotypeIdentifier()],
-            ['obj' => new SpnSerotype()],
-            ['obj' => new SurveillanceConducted()],
-            ['obj' => new ThreeDoses()],
-            ['obj' => new TripleChoice()],
-            ['obj' => new VaccinationReceived()],
+            ['obj' => new Form\Types\VaccinationReceived()],
+            ['obj' => new Form\Types\CaseStatus()],
+            ['obj' => new Form\Types\FourDoses()],
+            ['obj' => new Form\Types\Gender()],
+            ['obj' => new Form\Types\CaseCreationType()],
+            ['obj' => new Form\Types\Role()],
+            ['obj' => new Form\Types\SurveillanceConducted()],
+            ['obj' => new Form\Types\ThreeDoses()],
+            ['obj' => new Form\Types\TripleChoice()],
+
+            ['obj' => new Form\IBD\Types\IsolateViable()],
+            ['obj' => new Form\IBD\Types\BinaxResult()],
+//            ['obj' => new Form\IBD\Types\CSFAppearance()],
+//            ['obj' => new Form\IBD\Types\CXRResult()],
+            ['obj' => new Form\IBD\Types\CultureResult()],
+            ['obj' => new Form\IBD\Types\Diagnosis()],
+            ['obj' => new Form\IBD\Types\DischargeClassification()],
+            ['obj' => new Form\IBD\Types\DischargeDiagnosis()],
+            ['obj' => new Form\IBD\Types\DischargeOutcome()],
+            ['obj' => new Form\IBD\Types\GramStain()],
+            ['obj' => new Form\IBD\Types\GramStainResult()],
+            ['obj' => new Form\IBD\Types\HiSerotype()],
+            ['obj' => new Form\IBD\Types\CaseResult()],
+            ['obj' => new Form\IBD\Types\IntenseSupport()],
+            ['obj' => new Form\IBD\Types\IsolateType()],
+            ['obj' => new Form\IBD\Types\LatResult()],
+            ['obj' => new Form\IBD\Types\VaccinationType()],
+            ['obj' => new Form\IBD\Types\NmSerogroup()],
+            ['obj' => new Form\IBD\Types\OtherSpecimen()],
+            ['obj' => new Form\IBD\Types\PCRResult()],
+            ['obj' => new Form\IBD\Types\PCVType()],
+            ['obj' => new Form\IBD\Types\PathogenIdentifier()],
+            ['obj' => new Form\IBD\Types\SampleType()],
+            ['obj' => new Form\IBD\Types\SerotypeIdentifier()],
+            ['obj' => new Form\IBD\Types\SpnSerotype()],
+
+            ['obj' => new Form\RotaVirus\Types\Dehydration()],
+            ['obj' => new Form\RotaVirus\Types\ElisaKit()],
+            ['obj' => new Form\RotaVirus\Types\ElisaResult()],
+            ['obj' => new Form\RotaVirus\Types\GenotypeResultG()],
+            ['obj' => new Form\RotaVirus\Types\GenotypeResultP()],
+            ['obj' => new Form\RotaVirus\Types\Rehydration()],
+            ['obj' => new Form\RotaVirus\Types\DischargeOutcome()],
+            ['obj' => new Form\RotaVirus\Types\VaccinationType()],
+
+            ['obj' => new Form\Meningitis\Types\CSFAppearance()],
         ];
     }
 }

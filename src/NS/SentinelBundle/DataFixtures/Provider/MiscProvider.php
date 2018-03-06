@@ -1,8 +1,7 @@
 <?php
 
-namespace NS\SentinelBundle\DataFixtures\Alice;
+namespace NS\SentinelBundle\DataFixtures\Provider;
 
-use Nelmio\Alice\Fixtures;
 use NS\SentinelBundle\Form\IBD\Types\CSFAppearance;
 use NS\SentinelBundle\Form\IBD\Types\CXRResult;
 use NS\SentinelBundle\Form\IBD\Types\Diagnosis;
@@ -116,37 +115,6 @@ class MiscProvider
     /**
      * @return mixed
      */
-    public function diagnosis()
-    {
-        $choices = [
-            new Diagnosis(Diagnosis::SUSPECTED_MENINGITIS),
-            new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA),
-            new Diagnosis(Diagnosis::SUSPECTED_SEPSIS),
-            new Diagnosis(Diagnosis::OTHER),
-        ];
-
-        return $choices[array_rand($choices)];
-    }
-
-    /**
-     * @return mixed
-     */
-    public function cxrResult()
-    {
-        $choices = [
-            new CXRResult(CXRResult::CONSISTENT),
-            new CXRResult(CXRResult::NORMAL),
-            new CXRResult(CXRResult::INCONCLUSIVE),
-            new CXRResult(CXRResult::OTHER),
-            new CXRResult(CXRResult::UNKNOWN),
-        ];
-
-        return $choices[array_rand($choices)];
-    }
-
-    /**
-     * @return mixed
-     */
     public function vaccinationReceived()
     {
         $choices = [
@@ -170,24 +138,6 @@ class MiscProvider
             new FourDoses(FourDoses::THREE),
             new FourDoses(FourDoses::FOUR),
             new FourDoses(FourDoses::UNKNOWN),
-        ];
-
-        return $choices[array_rand($choices)];
-    }
-
-    /**
-     * @return mixed
-     */
-    public function csfAppearance()
-    {
-        $choices = [
-            new CSFAppearance(CSFAppearance::CLEAR),
-            new CSFAppearance(CSFAppearance::TURBID),
-            new CSFAppearance(CSFAppearance::BLOODY),
-            new CSFAppearance(CSFAppearance::XANTHROCHROMIC),
-            new CSFAppearance(CSFAppearance::OTHER),
-            new CSFAppearance(CSFAppearance::NOT_ASSESSED),
-            new CSFAppearance(CSFAppearance::UNKNOWN),
         ];
 
         return $choices[array_rand($choices)];

@@ -6,6 +6,8 @@ use NS\UtilBundle\Entity\Types\ArrayChoice;
 
 /**
  * Class CXRResult
+ * TODO remove once all live and ibd_cases table has been deleted
+ *
  * @package NS\SentinelBundle\Entity\IBD\Types
  */
 class CXRResult extends ArrayChoice

@@ -29,6 +29,8 @@ class ApplicationAvailabilityTest extends WebTestCase
     {
         return [
             ['/en/ibd'],
+            ['/en/meningitis'],
+            ['/en/pneumonia'],
             ['/en/rota'],
             ['/en/ibd/reports/data-quality'],
             ['/en/ibd/reports/site-performance'],

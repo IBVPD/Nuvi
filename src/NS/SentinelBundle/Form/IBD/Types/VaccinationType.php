@@ -47,7 +47,7 @@ class VaccinationType extends TranslatableArrayChoice implements TranslationCont
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        if ($this->authChecker->isGranted('ROLE_AMR')) {
+        if ($this->authChecker && $this->authChecker->isGranted('ROLE_AMR')) {
             unset($this->values[self::MEN_AFR_VAC]);
             unset($this->values[self::ACW135]);
             $this->values[self::B] = 'B recombinante';

@@ -1,0 +1,66 @@
+---
+NS\SentinelBundle\Entity\Pneumonia\Pneumonia:
+  pneuTest:
+    caseId: 12
+    birthdate: <dateTimeBetween('2014-01-01', '2014-12-25')>
+    gender: <gender()>
+    admDx: <ibdDiagnosis()>
+    antibiotics: <done()>
+    pneuDiffBreathe: <done()>
+    pneuChestIndraw: <done()>
+    pneuCough: <done()>
+    pneuCyanosis: <done()>
+    pneuStridor: <done()>
+    pneuRespRate: <numberBetween(11,99)>
+    pneuVomit: <done()>
+    pneuHypothermia: <done()>
+    pneuMalnutrition: <done()>
+    cxrDone: <done()>
+    cxrResult: <cxrResult()>
+    hibReceived: <vaccinationReceived()>
+    hibDoses: <fourDoses()>
+    hibMostRecentDose: <dateTimeBetween($birthdate,'now')>
+    admDate: <dateTimeBetween('2015-01-01', '2015-01-05')>
+    site: "@site0"
+  pneuNoSites{0..10}:
+    caseId: <bothify('NoSite-##??##')>
+    admDate: <dateTimeBetween('2016-01-01', '2016-12-05')>
+    country: "@country0"
+  pneu{0..500}:
+    caseId: <numberBetween(500, 20000000)>
+    birthdate: <dateTimeBetween('-1825 days', 'now')>
+    admDate: <dateTimeBetween($birthdate, 'now')>
+    gender: <gender()>
+    admDx: <ibdDiagnosis()>
+    antibiotics: <done()>
+    pneuDiffBreathe: <done()>
+    pneuChestIndraw: <done()>
+    pneuCough: <done()>
+    pneuCyanosis: <done()>
+    pneuStridor: <done()>
+    pneuRespRate: <numberBetween(11,99)>
+    pneuVomit: <done()>
+    pneuHypothermia: <done()>
+    pneuMalnutrition: <done()>
+    cxrDone: <done()>
+    cxrResult: <cxrResult()>
+    hibReceived: <vaccinationReceived()>
+    hibDoses: <fourDoses()>
+    hibMostRecentDose: <dateTimeBetween($birthdate,'now')>
+    admDx: 75%? <ibdDiagnosis()>
+    dischDx: 77%? <ibdDischargeDiagnosis()>
+    dischOutcome: 91%? <ibdDischargeOutcome()>
+    site: "@site*"
+
+NS\SentinelBundle\Entity\Pneumonia\SiteLab:
+  pneuSiteLabNoSite{3..10}:
+    caseFile: "@pneuNoSites<current()>"
+    blood_Id: <bothify('CSF##?#?')>
+
+NS\SentinelBundle\Entity\Pneumonia\NationalLab:
+  pneuNationalLabNoSite{0..5}:
+    caseFile: "@pneuNoSites<current()>"
+
+NS\SentinelBundle\Entity\Pneumonia\ReferenceLab:
+  pneuRrlNoSite{0..10}:
+    caseFile: "@pneuNoSites<current()>"

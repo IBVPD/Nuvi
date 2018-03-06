@@ -30,10 +30,16 @@ class LoadFixtures implements FixtureInterface, ContainerAwareInterface
             __DIR__ . '/../Alice/region.yml',
             __DIR__ . '/../Alice/users.yml',
             __DIR__ . '/../Alice/cases.yml',
+            __DIR__ . '/../Alice/menigitis.yml',
+            __DIR__ . '/../Alice/pneumonia.yml',
             __DIR__ . '/../../../ApiBundle/DataFixtures/Alice/clients.yml',
         ];
 
-        $options    = ['providers' => [$this->container->get('ns_sentinel.misc_provider')]];
+        $options    = ['providers' => [
+            $this->container->get('ns_sentinel.fixtures.misc_provider'),
+            $this->container->get('ns_sentinel.fixtures.mening_provider'),
+            $this->container->get('ns_sentinel.fixtures.pneu_provider'),
+        ]];
         $processors = [new UserProcessor($this->container->get('security.encoder_factory'))];
 
         Fixtures::load($files, $manager, $options, $processors);

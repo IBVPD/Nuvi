@@ -5,7 +5,7 @@ NS\SentinelBundle\Entity\IBD:
     caseId: 12
     birthdate: <dateTimeBetween('2014-01-01', '2014-12-25')>
     gender: <gender()>
-    admDx: <diagnosis()>
+    admDx: <ibdDiagnosis()>
     antibiotics: <done()>
     menSeizures: <done()>
     menFever: <done()>
@@ -44,7 +44,7 @@ NS\SentinelBundle\Entity\IBD:
     birthdate: <dateTimeBetween('-1825 days', 'now')>
     admDate: <dateTimeBetween($birthdate, 'now')>
     gender: <gender()>
-    admDx: <diagnosis()>
+    admDx: <ibdDiagnosis()>
     antibiotics: <done()>
     menSeizures: <done()>
     menFever: <done()>

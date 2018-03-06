@@ -4,7 +4,6 @@ namespace NS\SentinelBundle\Form\Types;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\SecurityContext;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 
@@ -15,6 +14,7 @@ use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
  */
 class Role extends TranslatableArrayChoice implements TranslationContainerInterface
 {
+    /** @var TokenStorageInterface */
     private $tokenStorage;
 
     const REGION = 1;
@@ -52,10 +52,7 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
     ];
 
     /**
-     *
      * @param string $value
-     * @return Role
-     * @throws \UnexpectedValueException
      */
     public function __construct($value = null)
     {

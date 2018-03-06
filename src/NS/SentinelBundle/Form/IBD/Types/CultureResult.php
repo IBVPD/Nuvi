@@ -4,9 +4,6 @@ namespace NS\SentinelBundle\Form\IBD\Types;
 
 use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
-use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
-use Symfony\Component\OptionsResolver\Options;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Description of CultureResult

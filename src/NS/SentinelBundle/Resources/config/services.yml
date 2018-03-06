@@ -1,6 +1,8 @@
 imports:
     - { resource: converters.yml }
     - { resource: forms.yml }
+    - { resource: meningitis_forms.yml }
+    - { resource: pneumonia_forms.yml }
     - { resource: sonata.yml }
     - { resource: twig.yml }
 
@@ -90,8 +92,18 @@ services:
       - { name: knp_menu.menu_builder, method: user, alias: user }
       - { name: knp_menu.menu_builder, method: sidebar, alias: sidebar }
 
-  ns_sentinel.misc_provider:
-    class: NS\SentinelBundle\DataFixtures\Alice\MiscProvider
+  ns_sentinel.fixtures.misc_provider:
+    class: NS\SentinelBundle\DataFixtures\Provider\MiscProvider
+    tags:
+      - { name: hautelook_alice.faker.provider }
+
+  ns_sentinel.fixtures.mening_provider:
+    class: NS\SentinelBundle\DataFixtures\Provider\MeningitisProvider
+    tags:
+      - { name: hautelook_alice.faker.provider }
+
+  ns_sentinel.fixtures.pneu_provider:
+    class: NS\SentinelBundle\DataFixtures\Provider\PneumoniaProvider
     tags:
       - { name: hautelook_alice.faker.provider }
 

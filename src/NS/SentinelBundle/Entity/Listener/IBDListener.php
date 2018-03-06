@@ -4,6 +4,8 @@ namespace NS\SentinelBundle\Entity\Listener;
 
 use NS\SentinelBundle\Entity\BaseCase;
 use NS\SentinelBundle\Entity\IBD;
+use NS\SentinelBundle\Entity\Meningitis\Meningitis;
+use NS\SentinelBundle\Entity\Pneumonia\Pneumonia;
 use NS\SentinelBundle\Form\Types\CaseStatus;
 use NS\SentinelBundle\Form\IBD\Types\CSFAppearance;
 use NS\SentinelBundle\Form\IBD\Types\Diagnosis;
@@ -38,6 +40,10 @@ class IBDListener extends BaseCaseListener
             return;
         }
 
+        if($case instanceof Pneumonia) {
+            return;
+        }
+
         if ($this->isSuspected($case)) {
             // Probable
             if ($case->getCsfAppearance() && $case->getCsfAppearance()->equal(CSFAppearance::TURBID)) {
@@ -56,11 +62,11 @@ class IBDListener extends BaseCaseListener
         }
     }
 
-    public function isSuspected(IBD $case)
+    public function isSuspected(BaseCase $case)
     {
         // Test Suspected
         if ($case->getAge() < 60) {
-            if ($case->getMenFever() && $case->getMenFever()->equal(TripleChoice::YES)) {
+            if ($case instanceof Meningitis && $case->getMenFever() && $case->getMenFever()->equal(TripleChoice::YES)) {
                 if (($case->getMenAltConscious() && $case->getMenAltConscious()->equal(TripleChoice::YES)) || ($case->getMenNeckStiff() && $case->getMenNeckStiff()->equal(TripleChoice::YES))) {
                     $case->getResult()->setValue(CaseResult::SUSPECTED);
                     return true;

@@ -1,0 +1,66 @@
+services:
+####################
+# Filters
+####################
+  ns_sentinel.filter.type.pneumonia_linking_quarterly:
+    class: NS\SentinelBundle\Filter\Type\Pneumonia\QuarterlyLinkingReportFilterType
+    arguments: [ "@security.token_storage", "@security.authorization_checker", "@ns_security.acl_converter" ]
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.pneumonia.report_filter:
+    class: NS\SentinelBundle\Filter\Type\Pneumonia\ReportFilterType
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.pneumonia.filter:
+    class: NS\SentinelBundle\Filter\Type\Pneumonia\FilterType
+    tags:
+      - { name: form.type }
+
+############################################################################
+# Pneumonia Types
+############################################################################
+  ns.sentinel.form.type.pneumonia:
+    class: NS\SentinelBundle\Form\Pneumonia\CaseType
+    arguments: [ "@ns.sentinel.sites", "@ns_sentinel.validation_group_resolver", "@security.authorization_checker" ]
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.pneumonia_base:
+    class: NS\SentinelBundle\Form\Pneumonia\BaseLabType
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.pneumonia_sitelab:
+    class: NS\SentinelBundle\Form\Pneumonia\SiteLabType
+    arguments: [ "@ns.sentinel.sites", "@security.authorization_checker" ]
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.pneumonia_nl:
+    class: NS\SentinelBundle\Form\Pneumonia\NationalLabType
+    arguments: [ "@ns.sentinel.sites" ]
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.pneumonia_rrl:
+    class: NS\SentinelBundle\Form\Pneumonia\ReferenceLabType
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.pneumonia_outcome:
+    class: NS\SentinelBundle\Form\Pneumonia\OutcomeType
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.pneumonia_cxradditionalresult:
+    class: NS\SentinelBundle\Form\Pneumonia\Types\CXRAdditionalResult
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.pneumonia_cxr_result:
+    class: NS\SentinelBundle\Form\Pneumonia\Types\CXRResult
+    tags:
+      - { name: form.type }
+

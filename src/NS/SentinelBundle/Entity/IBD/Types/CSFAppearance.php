@@ -6,6 +6,7 @@ use NS\UtilBundle\Entity\Types\ArrayChoice;
 
 /**
  * Description of TripleChoice
+ * TODO remove once all live and ibd_cases table has been deleted
  *
  * @author gnat
  */

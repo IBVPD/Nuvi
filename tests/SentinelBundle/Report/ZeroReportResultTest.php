@@ -16,13 +16,13 @@ class ZeroReportResultTest extends \PHPUnit_Framework_TestCase
 {
     public function testInitialization()
     {
-        $report = new ZeroReportResult('NSSentinelBundle:IBD',new \DateTime(),new \DateTime());
+        $report = new ZeroReportResult('IBD',new \DateTime(),new \DateTime());
         $this->assertInstanceOf('NS\SentinelBundle\Report\Result\ZeroReportResult', $report);
     }
 
     public function testGetDates()
     {
-        $report = new ZeroReportResult('NSSentinelBundle:IBD',new \DateTime('2016-01-01'),new \DateTime('2016-05-31'));
+        $report = new ZeroReportResult('IBD',new \DateTime('2016-01-01'),new \DateTime('2016-05-31'));
 
         $dates = $report->getDates();
         $this->assertCount(5, $dates);
@@ -40,7 +40,7 @@ class ZeroReportResultTest extends \PHPUnit_Framework_TestCase
         $site = new Site();
         $site->setCode('SCODE');
 
-        $report = new ZeroReportResult('NSSentinelBundle:IBD', new \DateTime('2016-01-01'), new \DateTime('2016-05-31'));
+        $report = new ZeroReportResult('IBD', new \DateTime('2016-01-01'), new \DateTime('2016-05-31'));
         $report->addCaseCount($site, 2016, 2, 7);
 
         $this->assertCount(1, $report->getZeroReportResults());
@@ -53,7 +53,7 @@ class ZeroReportResultTest extends \PHPUnit_Framework_TestCase
         $site = new Site();
         $site->setCode('SCODE');
 
-        $report = new ZeroReportResult('NSSentinelBundle:IBD', new \DateTime('2016-01-01'), new \DateTime('2016-05-31'));
+        $report = new ZeroReportResult('IBD', new \DateTime('2016-01-01'), new \DateTime('2016-05-31'));
         $report->addZeroReport($site, 2016, 2, 'zero');
 
         $this->assertCount(1, $report->getZeroReportResults());
