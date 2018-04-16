@@ -93,5 +93,4 @@ class SiteFilterType extends AbstractType implements EmbeddedFilterTypeInterface
     {
         $resolver->setDefault('include_intense', true);
     }
-
 }

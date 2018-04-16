@@ -24,9 +24,9 @@ class RotaVirusReportController extends Controller
      */
     public function dataQualityAction(Request $request)
     {
-        $form    = $this->createForm(ReportFilterType::class, null, ['site_type'=>'advanced', 'validation_groups' => ['FieldPopulation']]);
+        $form = $this->createForm(ReportFilterType::class, null, ['site_type' => 'advanced', 'validation_groups' => ['FieldPopulation']]);
         $service = $this->get('ns_sentinel.rotavirus_report');
-        $params  = $service->getDataQuality($request, $form, 'reportRotaDataQuality');
+        $params = $service->getDataQuality($request, $form, 'reportRotaDataQuality');
         if ($params instanceof Response) {
             return $params;
         }
@@ -41,9 +41,9 @@ class RotaVirusReportController extends Controller
      */
     public function sitePerformanceAction(Request $request)
     {
-        $form    = $this->createForm(BaseQuarterlyFilterType::class, null, ['site_type'=>'advanced', 'include_intense'=>false]);
+        $form = $this->createForm(BaseQuarterlyFilterType::class, null, ['site_type' => 'advanced', 'include_intense' => false]);
         $service = $this->get('ns_sentinel.rotavirus_report');
-        $params  = $service->getSitePerformance($request, $form, 'reportRotaSitePerformance');
+        $params = $service->getSitePerformance($request, $form, 'reportRotaSitePerformance');
         if ($params instanceof Response) {
             return $params;
         }
@@ -59,9 +59,9 @@ class RotaVirusReportController extends Controller
      */
     public function dataLinking(Request $request)
     {
-        $form    = $this->createForm(QuarterlyLinkingReportFilterType::class, null, ['site_type'=>'advanced']);
+        $form = $this->createForm(QuarterlyLinkingReportFilterType::class, null, ['site_type' => 'advanced', 'include_intense' => false]);
         $service = $this->get('ns_sentinel.rotavirus_report');
-        $params  = $service->getDataLinking($request, $form, 'reportRotaDataLinking');
+        $params = $service->getDataLinking($request, $form, 'reportRotaDataLinking');
         if ($params instanceof Response) {
             return $params;
         }
@@ -77,9 +77,9 @@ class RotaVirusReportController extends Controller
      */
     public function statsAction(Request $request)
     {
-        $form    = $this->createForm(ReportFilterType::class, null, ['site_type'=>'advanced']);
+        $form = $this->createForm(ReportFilterType::class, null, ['site_type' => 'advanced']);
         $service = $this->get('ns_sentinel.rotavirus_report');
-        $params  = $service->getStats($request, $form, 'reportRotaStats');
+        $params = $service->getStats($request, $form, 'reportRotaStats');
         if ($params instanceof Response) {
             return $params;
         }

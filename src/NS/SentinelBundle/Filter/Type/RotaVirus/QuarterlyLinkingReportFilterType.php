@@ -6,6 +6,5 @@ use NS\SentinelBundle\Filter\Type\BaseQuarterlyFilterType;
 
 class QuarterlyLinkingReportFilterType extends BaseQuarterlyFilterType
 {
-    protected $fieldName = 'specimenCollectionDate';
-
+//    protected $fieldName = 'specimenCollectionDate';
 }

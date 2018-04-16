@@ -325,7 +325,7 @@ class RotaVirusRepository extends Common
     public function getLinkedCount($alias, array $countryCodes)
     {
         return $this->getByCountryCountQueryBuilder($alias, $countryCodes)
-            ->select(sprintf('COUNT(%s) as caseCount,c.code', $alias, $alias))
+            ->select(sprintf('IDENTITY(%s),COUNT(IDENTITY(%s)) as caseCount,c.code', $alias, $alias))
             ->innerJoin('cf.referenceLab', $alias)
             ->innerJoin('cf.site', 's');
     }
@@ -333,7 +333,7 @@ class RotaVirusRepository extends Common
     public function getFailedLinkedCount($alias, array $countryCodes)
     {
         return $this->getByCountryCountQueryBuilder($alias, $countryCodes)
-            ->select(sprintf('COUNT(%s) as caseCount,c.code', $alias, $alias))
+            ->select(sprintf('IDENTITY(%s),COUNT(IDENTITY(%s)) as caseCount,c.code', $alias, $alias))
             ->innerJoin('cf.referenceLab', $alias)
             ->leftJoin('cf.site', 's')
             ->andWhere('s.code IS NULL');
@@ -342,9 +342,9 @@ class RotaVirusRepository extends Common
     public function getNoLabCount($alias, array $countryCodes)
     {
         return $this->getByCountryCountQueryBuilder($alias, $countryCodes)
-            ->select(sprintf('COUNT(%s) as caseCount,c.code', $alias, $alias))
+            ->select(sprintf('IDENTITY(%s),COUNT(IDENTITY(%s)) as caseCount,c.code', $alias, $alias))
             ->leftJoin('cf.referenceLab', $alias)
-            ->andWhere($alias.' IS NULL');
+            ->andWhere("IDENTITY($alias) IS NULL");
     }
 
     public function getStoolCollectedCountBySites($alias, array $siteCodes)
