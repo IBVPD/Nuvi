@@ -13,17 +13,6 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
  */
 class DischargeClassification extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    /** @var AuthorizationCheckerInterface */
-    private $authChecker;
-
-    /**
-     * @param AuthorizationCheckerInterface $authChecker
-     */
-    public function setAuthorizationChecker($authChecker)
-    {
-        $this->authChecker = $authChecker;
-    }
-
     const CONFIRMED_HI      = 1;
     const CONFIRMED_SPN     = 2;
     const CONFIRMED_NM      = 3;
@@ -45,16 +34,4 @@ class DischargeClassification extends TranslatableArrayChoice implements Transla
         self::DISCARDED => 'Discarded case',
         self::UNKNOWN => 'Unknown',
     ];
-
-    /**
-     * @inheritDoc
-     */
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        if ($this->authChecker && $this->authChecker->isGranted('ROLE_AMR')) {
-            unset($this->values[self::SUSPECT]);
-        }
-
-        parent::configureOptions($resolver);
-    }
 }
