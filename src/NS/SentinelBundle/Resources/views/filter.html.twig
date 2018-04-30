@@ -25,6 +25,17 @@
                         </div>
                     </div>
                 {% endif %}
+
+                {% if filterForm.adm_dx is defined %}
+                    {{ form_row(filterForm.adm_dx) }}
+                {% endif %}
+                {% if filterForm.disch_dx is defined %}
+                    {{ form_row(filterForm.disch_dx) }}
+                {% endif %}
+                {% if filterForm.disch_class is defined %}
+                    {{ form_row(filterForm.disch_class) }}
+                {% endif %}
+
                 {% if filterForm.status is defined %}
                     {{ form_row(filterForm.status) }}
                 {% endif %}

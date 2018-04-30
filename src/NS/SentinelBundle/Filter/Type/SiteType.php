@@ -24,5 +24,4 @@ class SiteType extends BaseObject
             }
         ]);
     }
-
 }

@@ -74,6 +74,11 @@ services:
     tags:
       - { name: kernel.event_subscriber }
 
+  ns.sentinel.filter.ibd_filter_listener:
+    class: NS\SentinelBundle\Filter\Listener\IBDFilterListener
+    tags:
+      - { name: kernel.event_subscriber }
+
   ns.sentinel.sites:
     class: NS\SentinelBundle\Services\SerializedSites
     arguments: [ "@session", "@doctrine.orm.entity_manager" ]

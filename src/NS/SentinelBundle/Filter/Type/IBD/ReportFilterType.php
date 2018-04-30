@@ -20,7 +20,7 @@ class ReportFilterType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => IBD::class
+            'csrf_protection' => false
         ]);
     }
 
