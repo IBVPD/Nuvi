@@ -12,7 +12,6 @@
                 <li class="active"><a data-toggle="tab" href="#demographics">{{'Case Based Demographics'|trans}}</a></li>
                 <li><a data-toggle="tab" href="#vacination">{{'Vaccination History'|trans}}</a></li>
                 <li><a data-toggle="tab" href="#clinical">{{'Clinical Data'|trans}}</a></li>
-                <li><a data-toggle="tab" href="#pneumonia">{{'Pneumonia'|trans}}</a></li>
                 {% if record.country.getTracksPneumonia %}
                 <li><a data-toggle="tab" href="#pneumonia">{{'Pneumonia / Sepsis'|trans}}</a></li>
                 {% endif %}
@@ -103,18 +102,18 @@
                                 {% endif %}
                             </td>
                         </tr>
-                        <tr>
-                            <th>{{'ibd-form.mening-received'|trans}}</th>
-                            <td>{{record.meningReceived|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.men-type'|trans}}</th>
-                            <td>{{record.meningType|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.meningMostRecentDose'|trans}}</th>
-                            <td>{% if record.meningDate %}{{ record.meningDate|date }}{% endif %}</td>
-                        </tr>
+                        {#<tr>#}
+                            {#<th>{{'ibd-form.mening-received'|trans}}</th>#}
+                            {#<td>{{record.meningReceived|trans}}</td>#}
+                        {#</tr>#}
+                        {#<tr>#}
+                            {#<th>{{'ibd-form.men-type'|trans}}</th>#}
+                            {#<td>{{record.meningType|trans}}</td>#}
+                        {#</tr>#}
+                        {#<tr>#}
+                            {#<th>{{'ibd-form.meningMostRecentDose'|trans}}</th>#}
+                            {#<td>{% if record.meningDate %}{{ record.meningDate|date }}{% endif %}</td>#}
+                        {#</tr>#}
                     </table>
                 </div>
 
@@ -131,43 +130,6 @@
                         <tr>
                             <th>{{'ibd-form.adm-dx-other'|trans}}</th>
                             <td>{{record.admDxOther|trans}}</td>
-                        </tr>
-                    </table>
-                </div>
-
-                <div id="pneumonia" class="tab-pane">
-                    <table class="table table-striped table-bordered table-hover">
-                        <tr>
-                            <th>{{'ibd-form.men-seizures'|trans}}</th>
-                            <td>{{record.menSeizures|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.men-fever'|trans}}</th>
-                            <td>{{record.menFever|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.men-alt-conscious'|trans}}</th>
-                            <td>{{record.menAltConscious|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.men-inability-feed'|trans}}</th>
-                            <td>{{record.menInabilityFeed|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.men-neck-stiff'|trans}}</th>
-                            <td>{{record.menNeckStiff|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.men-rash'|trans}}</th>
-                            <td>{{record.menRash|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.men-fontanelle-bulge'|trans}}</th>
-                            <td>{{record.menFontanelleBulge|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.men-lethargy'|trans}}</th>
-                            <td>{{record.menLethargy|trans}}</td>
                         </tr>
                     </table>
                 </div>
@@ -202,18 +164,18 @@
 
                 <div id="collectionData" class="tab-pane">
                     <table class="table table-striped table-bordered table-hover">
-                        <tr>
-                            <th>{{'ibd-form.csf-collected'|trans}}</th>
-                            <td>{{record.csfCollected|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.csf-collect-datetime'|trans}}</th>
-                            <td>{% if record.csfCollectDate %}{{ record.csfCollectDate|date('Y-m-d') }} {{ record.csfCollectTime|date('H:i') }}{% endif %}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.csf-appearance'|trans}}</th>
-                            <td>{{record.csfAppearance|trans}}</td>
-                        </tr>
+                        {#<tr>#}
+                            {#<th>{{'ibd-form.csf-collected'|trans}}</th>#}
+                            {#<td>{{record.csfCollected|trans}}</td>#}
+                        {#</tr>#}
+                        {#<tr>#}
+                            {#<th>{{'ibd-form.csf-collect-datetime'|trans}}</th>#}
+                            {#<td>{% if record.csfCollectDate %}{{ record.csfCollectDate|date('Y-m-d') }} {{ record.csfCollectTime|date('H:i') }}{% endif %}</td>#}
+                        {#</tr>#}
+                        {#<tr>#}
+                            {#<th>{{'ibd-form.csf-appearance'|trans}}</th>#}
+                            {#<td>{{record.csfAppearance|trans}}</td>#}
+                        {#</tr>#}
                         <tr>
                             <th>{{'ibd-form.blood-collected'|trans}}</th>
                             <td>{{record.bloodCollected|trans}}</td>
@@ -224,20 +186,20 @@
                     {% if record.hasSiteLab %}
                         <div id="labData" class="tab-pane">
                             <table class="table table-striped table-bordered table-hover">
-                                <tr><th colspan="3">{{ 'CSF'|trans }}</th></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.csfSiteId'|trans}}</th><td>{{record.siteLab.csfId}}</td></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.csfDateTime'|trans}}</th><td>{%if record.siteLab.csfLabTime %}{{record.siteLab.csfLabDate|date('Y-m-d')}} {{record.siteLab.csfLabTime|date('H:i')}}{%endif%}</td></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.csf-wcc'|trans}}</th><td>{{record.siteLab.csfWcc}}</td></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.csf-glucose'|trans}}</th><td>{{record.siteLab.csfGlucose}}</td></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.csf-protein'|trans}}</th><td>{{record.siteLab.csfProtein}}</td></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.csf-cult-done'|trans}}</th><td>{{record.siteLab.csfCultDone|trans}}</td></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.csf-gram-done'|trans}}</th><td>{{record.siteLab.csfGramDone|trans}}</td></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.csf-binax-done'|trans}}</th><td>{{record.siteLab.csfBinaxDone|trans}}</td></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.csf-lat-done'|trans}}</th><td>{{record.siteLab.csfLatDone|trans}}</td></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.csf-pcr-done'|trans}}</th><td>{{record.siteLab.csfPcrDone|trans}}</td></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.csf-culture-other'|trans}}</th><td>{{record.siteLab.csfCultOther}}</td></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.csf-store'|trans}}</th><td>{{record.siteLab.csfStore|trans}}</td></tr>
-                                <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.isol-store'|trans}}</th><td>{{record.siteLab.isolStore|trans}}</td></tr>
+                                {#<tr><th colspan="3">{{ 'CSF'|trans }}</th></tr>#}
+                                {#<tr><td style="background-color: #fff;"></td><th>{{'ibd-form.csfSiteId'|trans}}</th><td>{{record.siteLab.csfId}}</td></tr>#}
+                                {#<tr><td style="background-color: #fff;"></td><th>{{'ibd-form.csfDateTime'|trans}}</th><td>{%if record.siteLab.csfLabTime %}{{record.siteLab.csfLabDate|date('Y-m-d')}} {{record.siteLab.csfLabTime|date('H:i')}}{%endif%}</td></tr>#}
+                                {#<tr><td style="background-color: #fff;"></td><th>{{'ibd-form.csf-wcc'|trans}}</th><td>{{record.siteLab.csfWcc}}</td></tr>#}
+                                {#<tr><td style="background-color: #fff;"></td><th>{{'ibd-form.csf-glucose'|trans}}</th><td>{{record.siteLab.csfGlucose}}</td></tr>#}
+                                {#<tr><td style="background-color: #fff;"></td><th>{{'ibd-form.csf-protein'|trans}}</th><td>{{record.siteLab.csfProtein}}</td></tr>#}
+                                {#<tr><td style="background-color: #fff;"></td><th>{{'ibd-form.csf-cult-done'|trans}}</th><td>{{record.siteLab.csfCultDone|trans}}</td></tr>#}
+                                {#<tr><td style="background-color: #fff;"></td><th>{{'ibd-form.csf-gram-done'|trans}}</th><td>{{record.siteLab.csfGramDone|trans}}</td></tr>#}
+                                {#<tr><td style="background-color: #fff;"></td><th>{{'ibd-form.csf-binax-done'|trans}}</th><td>{{record.siteLab.csfBinaxDone|trans}}</td></tr>#}
+                                {#<tr><td style="background-color: #fff;"></td><th>{{'ibd-form.csf-lat-done'|trans}}</th><td>{{record.siteLab.csfLatDone|trans}}</td></tr>#}
+                                {#<tr><td style="background-color: #fff;"></td><th>{{'ibd-form.csf-pcr-done'|trans}}</th><td>{{record.siteLab.csfPcrDone|trans}}</td></tr>#}
+                                {#<tr><td style="background-color: #fff;"></td><th>{{'ibd-form.csf-culture-other'|trans}}</th><td>{{record.siteLab.csfCultOther}}</td></tr>#}
+                                {#<tr><td style="background-color: #fff;"></td><th>{{'ibd-form.csf-store'|trans}}</th><td>{{record.siteLab.csfStore|trans}}</td></tr>#}
+                                {#<tr><td style="background-color: #fff;"></td><th>{{'ibd-form.isol-store'|trans}}</th><td>{{record.siteLab.isolStore|trans}}</td></tr>#}
                                 <tr><th colspan="3">{{ 'Blood'|trans }}</th></tr>
 
                                 <tr><td style="background-color: #fff;"></td><th>{{'ibd-form.blood-id'|trans}}</th><td>{{record.siteLab.bloodId}}</td></tr>

@@ -13,9 +13,6 @@
                 <li><a data-toggle="tab" href="#vacination">{{'Vaccination History'|trans}}</a></li>
                 <li><a data-toggle="tab" href="#clinical">{{'Clinical Data'|trans}}</a></li>
                 <li><a data-toggle="tab" href="#meningitis">{{'Meningitis'|trans}}</a></li>
-                {% if record.country.getTracksPneumonia %}
-                <li><a data-toggle="tab" href="#pneumonia">{{'Pneumonia / Sepsis'|trans}}</a></li>
-                {% endif %}
                 <li><a data-toggle="tab" href="#collectionData">{{'Specimen Collection Data'|trans}}</a></li>
                 {% if is_granted('ROLE_CAN_SEE_LAB') %}
                     <li><a data-toggle="tab" href="#labData">{{'Site Lab'|trans}}</a></li>
@@ -172,34 +169,6 @@
                     </table>
                 </div>
 
-                <div id="pneumonia" class="tab-pane">
-                    <table class="table table-striped table-bordered table-hover">
-                        <tr>
-                            <th>{{'ibd-form.pneu-diff-breathe'|trans}}</th>
-                            <td>{{record.pneuDiffBreathe|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.pneu-chest-indraw'|trans}}</th>
-                            <td>{{record.pneuChestIndraw|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.pneu-cough'|trans}}</th>
-                            <td>{{record.pneuCough|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.pneu-cyanosis'|trans}}</th>
-                            <td>{{record.pneuCyanosis|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'ibd-form.pneu-resp-rate'|trans}}</th>
-                            <td>{{record.pneuRespRate}}</td>
-                        </tr>
-                        <tr><th>{{'ibd-form.cxr-done'|trans}}</th><td>{{record.cxrDone|trans}}</td></tr>
-                        <tr><th>{{'ibd-form.cxr-result'|trans}}</th><td>{{record.cxrResult|trans}}</td></tr>
-                        <tr><th>{{'ibd-form.cxr-additional-result'|trans}}</th><td>{{record.cxrAdditionalResult|trans}}</td></tr>
-                    </table>
-                </div>
-
                 <div id="collectionData" class="tab-pane">
                     <table class="table table-striped table-bordered table-hover">
                         <tr>
@@ -217,6 +186,10 @@
                         <tr>
                             <th>{{'ibd-form.blood-collected'|trans}}</th>
                             <td>{{record.bloodCollected|trans}}</td>
+                        </tr>
+                        <tr>
+                            <th>{{'ibd-form.blood-collect-date'|trans}}</th>
+                            <td>{% if record.bloodCollectDate %}{{ record.bloodCollectDate|date('Y-m-d') }} {{ record.bloodCollectTime|date('H:i') }}{% endif %}</td>
                         </tr>
                     </table>
                 </div>
