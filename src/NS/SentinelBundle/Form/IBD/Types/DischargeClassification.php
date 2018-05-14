@@ -21,6 +21,7 @@ class DischargeClassification extends TranslatableArrayChoice implements Transla
     const SUSPECT           = 6;
     const INCOMPLETE        = 7;
     const DISCARDED         = 8;
+    const SEPSIS            = 9;
     const UNKNOWN           = 99;
 
     protected $values = [
@@ -28,6 +29,7 @@ class DischargeClassification extends TranslatableArrayChoice implements Transla
         self::CONFIRMED_SPN => 'Lab-confirmed for Spn',
         self::CONFIRMED_NM => 'Lab-confirmed for Nm',
         self::CONFIRMED_OTHER => 'Lab-confirmed for other organism',
+        self::SEPSIS => 'Sepsis',
         self::PROBABLE => 'Probable',
         self::SUSPECT => 'Suspect',
         self::INCOMPLETE => 'Incomplete investigation',
