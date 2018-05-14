@@ -83,7 +83,6 @@ class CaseType extends AbstractType
             ->add('bloodCollectDate',   DatePickerType::class, ['required' => $required, 'label' => 'ibd-form.blood-collect-date', 'hidden' => ['parent' => 'bloodCollected', 'value' => TripleChoice::YES]])
             ->add('bloodCollectTime',   TimeType::class, ['required' => $required, 'label' => 'ibd-form.blood-collect-time', 'hidden' => ['parent' => 'bloodCollected', 'value' => TripleChoice::YES]])
             ->add('dischOutcome',       DischargeOutcome::class, ['required' => false, 'label' => 'ibd-form.discharge-outcome'])
-            ->add('dischDx',            DischargeDiagnosis::class, ['required' => false, 'label' => 'ibd-form.discharge-diagnosis'])
             ->add('dischDxOther',       null, ['required' => false, 'label' => 'ibd-form.discharge-diagnosis-other', 'hidden' => ['parent' => 'dischDx', 'value' => DischargeDiagnosis::OTHER]])
             ->add('comment',            null, ['required' => false, 'label' => 'ibd-form.comment']);
         ;
@@ -143,7 +142,8 @@ class CaseType extends AbstractType
                 'exclude_choices' => $isPaho ? [Diagnosis::SUSPECTED_SEVERE_PNEUMONIA, Diagnosis::UNKNOWN, Diagnosis::OTHER, Diagnosis::SUSPECTED_SEPSIS,]:[],
             ])
             ->add('admDate', DatePickerType::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.adm-date', 'property_path' => 'adm_date'])
-            ->add('dischClass', DischargeClassification::class, ['required' => false, 'label' => 'ibd-form.discharge-class', 'exclude_choices' => ($isPaho ? [DischargeClassification::UNKNOWN, DischargeClassification::SUSPECT] : null)])
+            ->add('dischDx',    DischargeDiagnosis::class, ['required' => false, 'label' => 'ibd-form.discharge-diagnosis', 'exclude_choices' => $isPaho ? [DischargeDiagnosis::UNKNOWN]:null,])
+            ->add('dischClass', DischargeClassification::class, ['required' => false, 'label' => 'ibd-form.discharge-class', 'exclude_choices' => $isPaho ? [DischargeClassification::UNKNOWN, DischargeClassification::SUSPECT] : null])
             ->add('hibReceived', VaccinationReceived::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.hib-received','property_path'=>'hib_received'])
             ->add('pcvReceived', VaccinationReceived::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.pcv-received','property_path'=>'pcv_received'])
             ->add('meningReceived', VaccinationReceived::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.men-received','property_path' => 'mening_received'])

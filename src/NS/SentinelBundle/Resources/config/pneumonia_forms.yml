@@ -51,6 +51,7 @@ services:
 
   ns.sentinel.form.pneumonia_outcome:
     class: NS\SentinelBundle\Form\Pneumonia\OutcomeType
+    arguments: ['@security.authorization_checker']
     tags:
       - { name: form.type }
 

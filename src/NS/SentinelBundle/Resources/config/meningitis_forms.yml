@@ -51,6 +51,7 @@ services:
 
   ns.sentinel.form.meningitis_outcome:
     class: NS\SentinelBundle\Form\Meningitis\OutcomeType
+    arguments: [ "@security.authorization_checker"]
     tags:
       - { name: form.type }
 
