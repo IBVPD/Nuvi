@@ -95,7 +95,6 @@ class CaseType extends AbstractType
             ->add('csfCollectTime',     TimeType::class, ['required' => $required, 'label' => 'ibd-form.csf-collect-time', 'hidden' => ['parent' => 'csfCollected', 'value' => TripleChoice::YES]])
             ->add('csfAppearance',      CSFAppearance::class, ['required' => $required, 'label' => 'ibd-form.csf-appearance', 'hidden' => ['parent' => 'csfCollected', 'value' => TripleChoice::YES]])
             ->add('dischOutcome',       DischargeOutcome::class, ['required' => false, 'label' => 'ibd-form.discharge-outcome'])
-            ->add('dischDx',            DischargeDiagnosis::class, ['required' => false, 'label' => 'ibd-form.discharge-diagnosis'])
             ->add('dischDxOther',       null, ['required' => false, 'label' => 'ibd-form.discharge-diagnosis-other', 'hidden' => ['parent' => 'dischDx', 'value' => DischargeDiagnosis::OTHER]])
             ->add('comment',            null, ['required' => false, 'label' => 'ibd-form.comment']);
         ;
@@ -161,7 +160,8 @@ class CaseType extends AbstractType
             ])
             ->add('admDate', DatePickerType::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.adm-date', 'property_path' => 'adm_date'])
             ->add('csfCollected', TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.csf-collected', 'exclude_choices' => ($isPaho ? [TripleChoice::UNKNOWN] : null)])
-            ->add('dischClass', DischargeClassification::class, ['required' => false, 'label' => 'ibd-form.discharge-class', 'exclude_choices' => ($isPaho ? [DischargeClassification::UNKNOWN, DischargeClassification::SUSPECT] : null)])
+            ->add('dischDx',    DischargeDiagnosis::class, ['required' => false, 'label' => 'ibd-form.discharge-diagnosis', 'exclude_choices' => $isPaho ? [DischargeDiagnosis::UNKNOWN]:null,])
+            ->add('dischClass', DischargeClassification::class, ['required' => false, 'label' => 'ibd-form.discharge-class', 'exclude_choices' => $isPaho ? [DischargeClassification::UNKNOWN, DischargeClassification::SUSPECT] : null])
             ->add('hibReceived', VaccinationReceived::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.hib-received','property_path'=>'hib_received'])
             ->add('pcvReceived', VaccinationReceived::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.pcv-received','property_path'=>'pcv_received'])
             ->add('meningReceived', VaccinationReceived::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.men-received','property_path' => 'mening_received'])

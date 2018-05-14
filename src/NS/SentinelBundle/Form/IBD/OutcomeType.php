@@ -41,12 +41,16 @@ class OutcomeType extends AbstractType
 
         $builder
             ->add('dischOutcome', DischargeOutcome::class, ['required' => false, 'label' => 'ibd-form.discharge-outcome'])
-            ->add('dischDx', DischargeDiagnosis::class, ['required' => false, 'label' => 'ibd-form.discharge-diagnosis'])
+            ->add('dischDx', DischargeDiagnosis::class, [
+                'required' => false,
+                'label' => 'ibd-form.discharge-diagnosis',
+                'exclude_choices' => $isPaho ? [DischargeDiagnosis::UNKNOWN]:[],
+                ])
             ->add('dischDxOther', null, ['required' => false, 'label' => 'ibd-form.discharge-diagnosis-other', 'hidden' => ['parent' => 'dischDx', 'value' => DischargeDiagnosis::OTHER]])
             ->add('dischClass', DischargeClassification::class, [
                 'required' => false,
                 'label' => 'ibd-form.discharge-class',
-                'exclude_choices' => $isPaho ? [DischargeClassification::SUSPECT]:[],
+                'exclude_choices' => ($isPaho ? [DischargeClassification::UNKNOWN, DischargeClassification::SUSPECT] : null),
             ])
             ->add('comment', null, ['required' => false, 'label' => 'ibd-form.comment']);
     }
