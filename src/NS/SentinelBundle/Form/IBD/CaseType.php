@@ -6,7 +6,7 @@ use NS\AceBundle\Form\DatePickerType;
 use NS\SentinelBundle\Entity\Country;
 use NS\SentinelBundle\Entity\IBD;
 use NS\SentinelBundle\Entity\Site;
-use NS\SentinelBundle\Form\IBD\Types\CSFAppearance;
+use NS\SentinelBundle\Form\Meningitis\Types\CSFAppearance;
 use NS\SentinelBundle\Form\IBD\Types\CXRAdditionalResult;
 use NS\SentinelBundle\Form\IBD\Types\CXRResult;
 use NS\SentinelBundle\Form\IBD\Types\Diagnosis;
