@@ -171,6 +171,7 @@ services:
 
   ns.sentinel.form.ibd_outcome:
     class: NS\SentinelBundle\Form\IBD\OutcomeType
+    arguments: [ "@security.authorization_checker"]
     tags:
       - { name: form.type }
 
