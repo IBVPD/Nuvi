@@ -14,11 +14,13 @@ class Dehydration extends TranslatableArrayChoice implements TranslationContaine
     const NONE    = 0;
     const SEVERE  = 1;
     const SOME    = 2;
+    const MODERATE = 3;
     const UNKNOWN = 99;
 
     protected $values = [
         self::NONE => 'None',
         self::SEVERE => 'Severe',
+        self::MODERATE => 'Moderate',
         self::SOME => 'Some',
         self::UNKNOWN => 'Unknown',
     ];
