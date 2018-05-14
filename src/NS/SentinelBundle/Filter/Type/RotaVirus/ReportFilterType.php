@@ -31,4 +31,12 @@ class ReportFilterType extends AbstractType
     {
         return BaseReportFilterType::class;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getBlockPrefix()
+    {
+        return 'rota_report_filter';
+    }
 }
