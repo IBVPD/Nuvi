@@ -371,7 +371,7 @@ class RotaVirus extends BaseCase
      */
     public function getSymptomVomitDuration()
     {
-        return $this->symp_dia_duration;
+        return $this->symp_vomit_duration;
     }
 
     /**
@@ -567,7 +567,7 @@ class RotaVirus extends BaseCase
      */
     public function setSymptomVomitEpisodes($symptomVomitEpisodes)
     {
-        $this->symp_dia_episodes = $symptomVomitEpisodes;
+        $this->symp_vomit_episodes = $symptomVomitEpisodes;
         return $this;
     }
 
