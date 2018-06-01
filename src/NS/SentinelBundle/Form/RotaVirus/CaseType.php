@@ -109,7 +109,7 @@ class CaseType extends AbstractType
     {
         /** @var RotaVirus $data */
         $data = $event->getData();
-        $add = ($data && $data->getSite()->isTacPhase2());
+        $add = ($data && $data->getSite() && $data->getSite()->isTacPhase2());
         if (!$add && !$this->siteSerializer->hasMultipleSites()) {
             $site = $this->siteSerializer->getSite();
             $add = ($site instanceof Site && $site->isTacPhase2());
