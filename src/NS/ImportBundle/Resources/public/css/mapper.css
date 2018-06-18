@@ -2,3 +2,15 @@
     padding: 5px;
     color: #666666;
 }
+
+.mapperSelect {
+    max-width: 100px;
+}
+
+.mapperSelect + .select2 {
+    max-width: 150px;
+}
+
+.sonata-ba-tbody div.checkboc label {
+    margin-left: 0;
+}

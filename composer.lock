@@ -302,7 +302,7 @@
                 "issues": "https://github.com/ddeboer/data-import/issues",
                 "source": "https://github.com/ddeboer/data-import"
             },
-            "time": "2015-11-17T11:21:00+00:00"
+            "time": "2015-11-17 11:21:00"
         },
         {
             "name": "ddeboer/data-import-bundle",
@@ -3098,16 +3098,16 @@
         },
         {
             "name": "ns/ace-sonata-bundle",
-            "version": "2.1.5",
+            "version": "2.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/AceSonataBundle.git",
-                "reference": "ddf51717a37e07f3b6e7cff0394e50986c8bb1dc"
+                "reference": "eae2f9bd5167a6346141ce18b90fc60a81d239ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/AceSonataBundle/zipball/ddf51717a37e07f3b6e7cff0394e50986c8bb1dc",
-                "reference": "ddf51717a37e07f3b6e7cff0394e50986c8bb1dc",
+                "url": "https://api.github.com/repos/NobletSolutions/AceSonataBundle/zipball/eae2f9bd5167a6346141ce18b90fc60a81d239ae",
+                "reference": "eae2f9bd5167a6346141ce18b90fc60a81d239ae",
                 "shasum": ""
             },
             "require": {
@@ -3145,7 +3145,7 @@
                 }
             ],
             "description": "This bundle integrates the sonata admin panel and the ace bundle",
-            "time": "2017-11-06T17:53:01+00:00"
+            "time": "2018-06-18T18:06:33+00:00"
         },
         {
             "name": "ns/ace-sonata-doctrine-orm-admin-bundle",
@@ -4543,7 +4543,7 @@
             "support": {
                 "source": "https://github.com/gnat42/exporter/tree/patch-1"
             },
-            "time": "2017-11-30T16:11:43+00:00"
+            "time": "2017-11-30 16:11:43"
         },
         {
             "name": "sonata-project/intl-bundle",
