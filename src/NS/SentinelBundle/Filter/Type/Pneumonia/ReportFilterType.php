@@ -31,4 +31,9 @@ class ReportFilterType extends AbstractType
     {
         return BaseReportFilterType::class;
     }
+
+    public function getBlockPrefix()
+    {
+        return 'pneu_report_filter';
+    }
 }

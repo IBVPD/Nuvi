@@ -31,4 +31,9 @@ class ReportFilterType extends AbstractType
     {
         return BaseReportFilterType::class;
     }
+
+    public function getBlockPrefix()
+    {
+        return 'mening_report_filter';
+    }
 }

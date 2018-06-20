@@ -2,7 +2,6 @@
 
 namespace NS\SentinelBundle\Filter\Type\Meningitis;
 
-use NS\SentinelBundle\Filter\Entity\Meningitis;
 use NS\SentinelBundle\Filter\Type\BaseFilterType;
 use NS\SentinelBundle\Form\IBD\Types\CaseResult;
 use NS\SentinelBundle\Form\IBD\Types\Diagnosis;
