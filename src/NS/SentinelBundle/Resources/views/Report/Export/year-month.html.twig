@@ -1,0 +1,36 @@
+<table class="table table-striped table-bordered table-hover">
+    <thead class="thin-border-bottom">
+    <tr>
+        <th>{{ 'Region'|trans }}</th>
+        <th>{{ 'Country'|trans }}</th>
+        <th colspan="2" style="max-width: 25%; width: 20%;">{{ 'Site'|trans }}</th>
+        <th>{{ 'Tier'|trans }}</th>
+        <th>{{ 'Total Cases'|trans }}</th>
+        <th>{{ 'Jan' }}</th>
+        <th>{{ 'Feb' }}</th>
+        <th>{{ 'Mar' }}</th>
+        <th>{{ 'Apr' }}</th>
+        <th>{{ 'May' }}</th>
+        <th>{{ 'Jun' }}</th>
+        <th>{{ 'Jul' }}</th>
+        <th>{{ 'Aug' }}</th>
+        <th>{{ 'Sep' }}</th>
+        <th>{{ 'Oct' }}</th>
+        <th>{{ 'Nov' }}</th>
+        <th>{{ 'Dec' }}</th>
+    </tr>
+    </thead>
+    {% for result in sites %}
+        <tr>
+            <td>{{ result.site.country.region.code }}</td>
+            <td>{{ result.site.country.code }}</td>
+            <td>{{ result.site.code }}</td>
+            <td>{{ result.site.name }}</td>
+            <td>{{ result.site.ibdTier }}</td>
+            <td>{{ result.total }}</td>
+            {% for month,value in result.months %}
+                <td>{{ value }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>

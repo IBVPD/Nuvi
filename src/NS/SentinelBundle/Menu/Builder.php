@@ -52,11 +52,13 @@ class Builder
             $rotaReport->addChild('Site Performance', ['label'=>'menu.data-reports-site-performance', 'route'=>'reportRotaSitePerformance']);
             $rotaReport->addChild('RRL Linking', ['label'=>'menu.data-reports-rrl-linking', 'route'=>'reportRotaDataLinking']);
             $rotaReport->addChild('Stats', ['label' => 'menu.data-reports-stats', 'route' => 'reportRotaStats']);
+            $rotaReport->addChild('Year / Month', ['label' => 'menu.data-reports-year-month', 'route' => 'reportRotaYearMonth']);
 
             $ibdReport->addChild('Data Quality Checks', ['label'=>'menu.data-reports-data-quality', 'route'=>'reportIbdDataQuality']);
             $ibdReport->addChild('Site Performance', ['label'=>'menu.data-reports-site-performance', 'route'=>'reportIbdSitePerformance']);
             $ibdReport->addChild('RRL Linking', ['label'=>'menu.data-reports-rrl-linking', 'route' => 'reportIbdDataLinking']);
             $ibdReport->addChild('Stats', ['label' => 'menu.data-reports-stats', 'route' => 'reportIbdStats']);
+            $ibdReport->addChild('Year / Month', ['label' => 'menu.data-reports-year-month', 'route' => 'reportIbdYearMonth']);
 
             $ibdReport->addChild('Age Distribution', ['label'=> 'menu.data-reports-age-distribution', 'route'=>'reportAnnualAgeDistribution']);
             $ibdReport->addChild('Enrolment %', ['label'=> 'menu.data-reports-percent-enrolled', 'route'=>'reportPercentEnrolled']);

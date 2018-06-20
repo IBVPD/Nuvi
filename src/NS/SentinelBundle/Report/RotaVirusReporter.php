@@ -5,6 +5,7 @@ namespace NS\SentinelBundle\Report;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query;
 use NS\SentinelBundle\Report\Result\RotaVirus\GeneralStatisticResult;
+use NS\SentinelBundle\Report\Result\SiteMonthResult;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -52,7 +53,7 @@ class RotaVirusReporter extends AbstractReporter
             $this->processResult($columns, $repo, $alias, $results, $form);
 
             if ($form->get('export')->isClicked()) {
-                $this->exporter->export('NSSentinelBundle:Report/RotaVirus/Export:data-quality.html.twig', ['sites'=>$results]);
+                $this->exporter->export('NSSentinelBundle:Report:RotaVirus/Export/data-quality.html.twig', ['sites' => $results]);
             }
         }
 
@@ -96,8 +97,8 @@ class RotaVirusReporter extends AbstractReporter
 
             $this->processResult($columns, $repo, $alias, $results, $form);
 
-            if($form->get('export')->isClicked()) {
-                $this->exporter->export('NSSentinelBundle:Report/RotaVirus/Export:site-performance.html.twig', ['sites'=>$results]);
+            if ($form->get('export')->isClicked()) {
+                $this->exporter->export('NSSentinelBundle:Report:RotaVirus/Export/site-performance.html.twig', ['sites' => $results]);
             }
         }
 
@@ -119,7 +120,7 @@ class RotaVirusReporter extends AbstractReporter
 
             $this->filter->addFilterConditions($form, $queryBuilder, $alias);
 
-            $countries =  $queryBuilder->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult();
+            $countries = $queryBuilder->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult();
 
             if (empty($countries)) {
                 return ['sites' => [], 'form' => $form->createView()];
@@ -130,7 +131,7 @@ class RotaVirusReporter extends AbstractReporter
 
             if ($form->get('export')->isClicked()) {
                 $results = $repo->getFailedLink($alias, $results->getKeys())->getQuery()->getResult();
-                return $this->exporter->export('NSSentinelBundle:Report/RotaVirus/Export:data-linking.html.twig', ['results' => $results]);
+                return $this->exporter->export('NSSentinelBundle:Report:RotaVirus/Export/data-linking.html.twig', ['results' => $results]);
             }
 
             $columns = [
@@ -153,6 +154,37 @@ class RotaVirusReporter extends AbstractReporter
      */
     public function getStats(Request $request, FormInterface $form, $redirectRoute)
     {
-        return $this->retrieveStats('NSSentinelBundle:RotaVirus',new GeneralStatisticResult(),$request,$form,$redirectRoute);
+        return $this->retrieveStats('NSSentinelBundle:RotaVirus', new GeneralStatisticResult(), $request, $form, $redirectRoute);
+    }
+
+    public function getYearMonth(Request $request, FormInterface $form, $redirectRoute)
+    {
+        $results = new ArrayCollection();
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('reset')->isClicked()) {
+                return new RedirectResponse($this->router->generate($redirectRoute));
+            }
+
+            $alias = 'i';
+            $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getWithCasesForDate($alias, 'NS\SentinelBundle\Entity\RotaVirus');
+            $queryBuilder->addSelect('MONTH(i.adm_date) as admMonth');
+
+            $this->filter->addFilterConditions($form, $queryBuilder, $alias);
+
+            $sites = $queryBuilder->addGroupBy('admMonth')->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult();
+
+            if (empty($sites)) {
+                return ['sites' => [], 'form' => $form->createView()];
+            }
+
+            $this->populateYearMonth($sites, $results, SiteMonthResult::class);
+
+            if ($form->get('export')->isClicked()) {
+                return $this->exporter->export('NSSentinelBundle:Report:Export/year-month.html.twig', ['sites' => $results]);
+            }
+        }
+
+        return ['sites' => $results, 'form' => $form->createView()];
     }
 }

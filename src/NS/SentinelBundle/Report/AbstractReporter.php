@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Query;
 use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
+use NS\SentinelBundle\Entity\Site;
 use NS\SentinelBundle\Report\Result\AbstractGeneralStatisticResult;
 use NS\SentinelBundle\Report\Export\Exporter;
 use Symfony\Component\Form\FormInterface;
@@ -231,5 +232,21 @@ class AbstractReporter
         }
 
         return ['form' => $form->createView(), 'result' => $result];
+    }
+
+    protected function populateYearMonth($sites, ArrayCollection &$results, $resultClass)
+    {
+        $siteCodes = [];
+        foreach ($sites as $values) {
+            /** @var Site $site */
+            $site = $values[0]->getSite();
+
+            if(!isset($siteCodes[$site->getCode()])) {
+                $siteCodes[$site->getCode()] = new $resultClass($site);
+                $results->set($site->getCode(), $siteCodes[$site->getCode()]);
+            }
+
+            $siteCodes[$site->getCode()]->addMonth($values['admMonth'], $values['totalCases']);
+        }
     }
 }
