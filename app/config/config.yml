@@ -147,6 +147,10 @@ doctrine:
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
+        dql:
+          datetime_functions:
+            month: DoctrineExtensions\Query\Mysql\Month
+            year: DoctrineExtensions\Query\Mysql\Year
 
 # Swiftmailer Configuration
 swiftmailer:

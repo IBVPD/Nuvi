@@ -29,9 +29,6 @@ class IBDRepository extends Common
      */
     public function numberAndPercentEnrolledByAdmissionDiagnosis($alias = 'c', $ageInMonths = 59)
     {
-        $config = $this->_em->getConfiguration();
-        $config->addCustomDatetimeFunction('MONTH', 'DoctrineExtensions\Query\Mysql\Month');
-
         $queryBuilder = $this->createQueryBuilder($alias)
             ->select(sprintf('MONTH(%s.adm_date) as AdmissionMonth,COUNT(%s.adm_dx) as admDxCount,%s.adm_dx', $alias, $alias, $alias))
             ->where(sprintf("(%s.adm_dx IS NOT NULL AND %s.age_months <= :age)", $alias, $alias))
@@ -265,7 +262,7 @@ class IBDRepository extends Common
      */
     public function getAnnualAgeDistribution($alias = 'm')
     {
-        $this->_em->getConfiguration()->addCustomDatetimeFunction('YEAR', 'DoctrineExtensions\Query\Mysql\Year');
+//        $this->_em->getConfiguration()->addCustomDatetimeFunction('YEAR', 'DoctrineExtensions\Query\Mysql\Year');
 
         $queryBuilder = $this->createQueryBuilder($alias)
             ->select(sprintf('YEAR(%s.adm_date) as theYear, COUNT(%s.id) as theCount,%s.ageDistribution', $alias, $alias, $alias))
@@ -469,8 +466,6 @@ class IBDRepository extends Common
      */
     public function getCountByCulture($alias, $culture, $binax = null, $pcr = null, array $siteCodes = [])
     {
-        $this->_em->getConfiguration()->addCustomDatetimeFunction('YEAR', 'DoctrineExtensions\Query\Mysql\Year');
-
         $queryBuilder = $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount, s.code, YEAR(%s.adm_date) as theYear', $alias, $alias, $alias));
 
@@ -551,9 +546,6 @@ class IBDRepository extends Common
 
     public function getConsistentReporting($alias, array $siteCodes)
     {
-        $config = $this->_em->getConfiguration();
-        $config->addCustomDatetimeFunction('MONTH', 'DoctrineExtensions\Query\Mysql\Month');
-
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,MONTH(%s.adm_date) as theMonth,COUNT(%s.id) as caseCount,s.code', $alias, $alias, $alias))
             ->addGroupBy('theMonth')
