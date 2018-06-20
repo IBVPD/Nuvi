@@ -2,35 +2,37 @@
 
 namespace NS\ApiBundle\Controller;
 
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use NS\SentinelBundle\Entity\RotaVirus;
-use NS\SentinelBundle\Entity\RotaVirus\NationalLab;
-use NS\SentinelBundle\Entity\RotaVirus\ReferenceLab;
-use NS\SentinelBundle\Entity\RotaVirus\SiteLab;
+use Nelmio\ApiDocBundle\Annotation as ApiDoc;
+use NS\SentinelBundle\Entity\Meningitis\Meningitis;
+use NS\SentinelBundle\Entity\Meningitis\NationalLab;
+use NS\SentinelBundle\Entity\Meningitis\ReferenceLab;
+use NS\SentinelBundle\Entity\Meningitis\SiteLab;
 use NS\SentinelBundle\Exceptions\NonExistentCaseException;
 use NS\SentinelBundle\Form\CreateType;
-use NS\SentinelBundle\Form\RotaVirus\CaseType;
-use NS\SentinelBundle\Form\RotaVirus\NationalLabType;
-use NS\SentinelBundle\Form\RotaVirus\OutcomeType;
-use NS\SentinelBundle\Form\RotaVirus\ReferenceLabType;
-use NS\SentinelBundle\Form\RotaVirus\SiteLabType;
+use NS\SentinelBundle\Form\Meningitis\CaseType;
+use NS\SentinelBundle\Form\Meningitis\NationalLabType;
+use NS\SentinelBundle\Form\Meningitis\OutcomeType;
+use NS\SentinelBundle\Form\Meningitis\ReferenceLabType;
+use NS\SentinelBundle\Form\Meningitis\SiteLabType;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use FOS\RestBundle\Controller\Annotations as REST;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Description of RotaVirusController
+ * Description of MeningitisController
  *
  * @author gnat
- * @Route("/api/rota")
+ * @Route("/api/meningitis")
  */
-class RotaVirusController extends CaseController
+class MeningitisController extends CaseController
 {
     /**
-     * Get RotaVirus Case
+     * Retrieves an Meningitis case by id. Most fields are returned, however some fields
+     * if empty are excluded from the result set. For example the firstName and
+     * lastName fields are only returned when there is data in them.
      *
-     * @ApiDoc(
+     * @ApiDoc\ApiDoc(
      *   resource = true,
      *   description = "Gets a case for a given id",
      *   statusCodes = {
@@ -39,26 +41,27 @@ class RotaVirusController extends CaseController
      *   }
      * )
      *
-     * @REST\View(templateVar="case",serializerGroups={"api"})
-     * @REST\Get("/{objId}",name="nsApiRotaGetCase")
+     * @REST\View(serializerGroups={"api"})
+     * @REST\Get("/{objId}",name="nsApiMeningitisGetCase")
      *
      * @param string  $objId      the object id
      *
      * @return array
      *
      * @throws NotFoundHttpException when case not exist
-    */
-    public function getRotaCaseAction($objId)
+     * @throws NonExistentCaseException when case does not exist
+     */
+    public function getMeningitisCaseAction($objId)
     {
-        return $this->getCase(RotaVirus::class, $objId);
+        return $this->getCase(Meningitis::class, $objId);
     }
 
     /**
-     * Retrieves an RotaVirus case lab by id. Most fields are returned, however some fields
+     * Retrieves an Meningitis case lab by id. Most fields are returned, however some fields
      * if empty are excluded from the result set. For example the firstName and
      * lastName fields are only returned when there is data in them.
      *
-     * @ApiDoc(
+     * @ApiDoc\ApiDoc(
      *   resource = true,
      *   description = "Gets a case lab for a given id",
      *   statusCodes = {
@@ -68,7 +71,7 @@ class RotaVirusController extends CaseController
      * )
      *
      * @REST\View(templateVar="case",serializerGroups={"api"})
-     * @REST\Get("/{objId}/lab",name="nsApiRotaGetLab")
+     * @REST\Get("/{objId}/lab",name="nsApiMeningitisGetLab")
      *
      * @param string  $objId      the object id
      *
@@ -76,20 +79,20 @@ class RotaVirusController extends CaseController
      *
      * @throws NotFoundHttpException when case not exist
      * @throws NonExistentCaseException when case does not exist
-    */
-    public function getRotaCaseLabAction($objId)
+     */
+    public function getMeningitisCaseLabAction($objId)
     {
         return $this->getLab(SiteLab::class, $objId);
     }
 
     /**
-     * Retrieves an RotaVirus case RRL by id. Most fields are returned, however some fields
-     * if empty are excluded from the result set. For example the firstName and
-     * lastName fields are only returned when there is data in them.
+     * Retrieves an Meningitis case RRL lab by id. Most fields are returned, however some 
+     * fields if empty are excluded from the result set. For example the firstName
+     * and lastName fields are only returned when there is data in them.
      *
-     * @ApiDoc(
+     * @ApiDoc\ApiDoc(
      *   resource = true,
-     *   description = "Gets a case RRL for a given id",
+     *   description = "Gets a case RRL lab for a given id",
      *   statusCodes = {
      *     200 = "Returned when successful",
      *     404 = "Returned when the case is not found"
@@ -97,7 +100,7 @@ class RotaVirusController extends CaseController
      * )
      *
      * @REST\View(templateVar="case",serializerGroups={"api"})
-     * @REST\Get("/{objId}/rrl",name="nsApiRotaGetRRL")
+     * @REST\Get("/{objId}/rrl",name="nsApiMeningitisGetRRL")
      *
      * @param string  $objId      the object id
      *
@@ -106,19 +109,19 @@ class RotaVirusController extends CaseController
      * @throws NotFoundHttpException when case not exist
      * @throws NonExistentCaseException when case does not exist
      */
-    public function getRotaCaseRRLAction($objId)
+    public function getMeningitisCaseRRLAction($objId)
     {
         return $this->getLab(ReferenceLab::class, $objId);
     }
 
     /**
-     * Retrieves an RotaVirus case NL by id. Most fields are returned, however some fields
-     * if empty are excluded from the result set. For example the firstName and
-     * lastName fields are only returned when there is data in them.
+     * Retrieves an Meningitis case NL lab by id. Most fields are returned, however some
+     * fields if empty are excluded from the result set. For example the firstName
+     * and lastName fields are only returned when there is data in them.
      *
-     * @ApiDoc(
+     * @ApiDoc\ApiDoc(
      *   resource = true,
-     *   description = "Gets a case NL for a given id",
+     *   description = "Gets a case NL lab for a given id",
      *   statusCodes = {
      *     200 = "Returned when successful",
      *     404 = "Returned when the case is not found"
@@ -126,7 +129,7 @@ class RotaVirusController extends CaseController
      * )
      *
      * @REST\View(templateVar="case",serializerGroups={"api"})
-     * @REST\Get("/{objId}/nl",name="nsApiRotaGetNL")
+     * @REST\Get("/{objId}/nl",name="nsApiMeningitisGetNL")
      *
      * @param string  $objId      the object id
      *
@@ -135,25 +138,26 @@ class RotaVirusController extends CaseController
      * @throws NotFoundHttpException when case not exist
      * @throws NonExistentCaseException when case does not exist
      */
-    public function getRotaCaseNLAction($objId)
+    public function getMeningitisCaseNLAction($objId)
     {
         return $this->getLab(NationalLab::class, $objId);
     }
 
     /**
-     * Patch RotaVirus Case
+     * Patch Meningitis Case
      *
-     * @ApiDoc(
+     * @ApiDoc\ApiDoc(
      *   resource = true,
-     *   description = "Patch RotaVirus case",
-     *   input = "NS\SentinelBundle\Form\RotaVirus\CaseType",
+     *   description = "Patch Meningitis case",
+     *   input = "NS\SentinelBundle\Form\Meningitis\CaseType",
      *   statusCodes = {
      *         204 = "Returned when successful",
+     *         400 = "Bad Request",
      *         406 = "Returned when there are validation issues with the case",
      *          }
      * )
      *
-     * @REST\Patch("/{objId}",name="nsApiRotaPatchCase")
+     * @REST\Patch("/{objId}",name="nsApiMeningitisPatchCase")
      * @REST\View()
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -161,97 +165,97 @@ class RotaVirusController extends CaseController
      *
      * @return \FOS\RestBundle\View\View
      */
-    public function patchRotaCaseAction(Request $request, $objId)
+    public function patchMeningitisCaseAction(Request $request, $objId)
     {
-        return $this->updateCase($request, $objId, 'PATCH', CaseType::class, RotaVirus::class);
+        return $this->updateCase($request, $objId, 'PATCH', CaseType::class, Meningitis::class);
     }
 
     /**
-     * Patch RotaVirus Lab Data,
+     * Patch Meningitis Lab Data,
      *
-     * @ApiDoc(
+     * @ApiDoc\ApiDoc(
      *  resource = true,
-     *  description = "Updates a RotaVirus Lab data",
-     *  input = "NS\SentinelBundle\Form\RotaVirus\SiteLabType",
+     *  description = "Updates lab data for an Meningitis case",
+     *  input = "NS\SentinelBundle\Form\Meningitis\SiteLabType",
      *  statusCodes={
      *         204 = "Returned when successful",
      *         406 = "Returned when there is an issue with the form data"
      *         }
      * )
-     * @REST\Patch("/{objId}/lab",name="nsApiRotaPatchLab")
+     * @REST\Patch("/{objId}/lab",name="nsApiMeningitisPatchLab")
      * @REST\View()
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $objId
      * @return \FOS\RestBundle\View\View
      */
-    public function patchRotaLabAction(Request $request, $objId)
+    public function patchMeningitisLabAction(Request $request, $objId)
     {
         return $this->updateLab($request, $objId, 'PATCH', SiteLabType::class, SiteLab::class);
     }
 
     /**
-     * Patch RotaVirus RRL Data,
+     * Patch Meningitis RRL Data,
      *
-     * @ApiDoc(
+     * @ApiDoc\ApiDoc(
      *  resource = true,
-     *  description = "Updates a RotaVirus RRL data",
-     *  input = "NS\SentinelBundle\Form\RotaVirus\ReferenceLabType",
+     *  description = "Updates Reference Lab data for an Meningitis case",
+     *  input = "NS\SentinelBundle\Form\Meningitis\ReferenceLabType",
      *  statusCodes={
      *         204 = "Returned when successful",
      *         406 = "Returned when there is an issue with the form data"
      *         }
      * )
-     * @REST\Patch("/{objId}/rrl",name="nsApiRotaPatchRRL")
+     * @REST\Patch("/{objId}/rrl",name="nsApiMeningitisPatchRRL")
      * @REST\View()
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $objId
      * @return \FOS\RestBundle\View\View
      */
-    public function patchRotaRRLAction(Request $request, $objId)
+    public function patchMeningitisRRLAction(Request $request, $objId)
     {
         return $this->updateLab($request, $objId, 'PATCH', ReferenceLabType::class, ReferenceLab::class);
     }
 
     /**
-     * Patch RotaVirus NL Data,
+     * Patch Meningitis NL Data,
      *
-     * @ApiDoc(
+     * @ApiDoc\ApiDoc(
      *  resource = true,
-     *  description = "Updates a RotaVirus NL data",
-     *  input = "NS\SentinelBundle\Form\RotaVirus\NationalLabType",
+     *  description = "Updates National Lab data for an Meningitis case",
+     *  input = "NS\SentinelBundle\Form\Meningitis\NationalLabType",
      *  statusCodes={
      *         204 = "Returned when successful",
      *         406 = "Returned when there is an issue with the form data"
      *         }
      * )
-     * @REST\Patch("/{objId}/nl",name="nsApiRotaPatchNL")
+     * @REST\Patch("/{objId}/nl",name="nsApiMeningitisPatchNL")
      * @REST\View()
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $objId
      * @return \FOS\RestBundle\View\View
      */
-    public function patchRotaNLAction(Request $request, $objId)
+    public function patchMeningitisNLAction(Request $request, $objId)
     {
         return $this->updateLab($request, $objId, 'PATCH', NationalLabType::class, NationalLab::class);
     }
 
     /**
-     * Patch RotaVirus Outcome Data
+     * Put Meningitis Outcome Data
      *
-     * @ApiDoc(
+     * @ApiDoc\ApiDoc(
      *   resource = true,
-     *   description = "Patch RotaVirus Outcome data",
-     *   input = "NS\SentinelBundle\Form\RotaVirus\OutcomeType",
+     *   description = "Put Meningitis Outcome data",
+     *   input = "NS\SentinelBundle\Form\Meningitis\OutcomeType",
      *   statusCodes = {
      *         204 = "Returned when successful",
      *         406 = "Returned when there are validation issues with the case",
      *          }
      * )
      *
-     * @REST\Patch("/{objId}/outcome",name="nsApiRotaPatchOutcome")
+     * @REST\Patch("/{objId}/outcome",name="nsApiMeningitisPatchOutcome")
      * @REST\View()
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -259,25 +263,26 @@ class RotaVirusController extends CaseController
      *
      * @return \FOS\RestBundle\View\View
      */
-    public function patchRotaOutcomeAction(Request $request, $objId)
+    public function patchMeningitisOutcomeAction(Request $request, $objId)
     {
-        return $this->updateCase($request, $objId, 'PATCH', OutcomeType::class, RotaVirus::class);
+        return $this->updateCase($request, $objId, 'PATCH', OutcomeType::class, Meningitis::class);
     }
 
     /**
-     * Put RotaVirus Case
+     * Put Meningitis Case
      *
-     * @ApiDoc(
+     * @ApiDoc\ApiDoc(
      *   resource = true,
-     *   description = "Put RotaVirus case",
-     *   input = "NS\SentinelBundle\Form\RotaVirus\CaseType",
+     *   description = "Put Meningitis case",
+     *   input = "NS\SentinelBundle\Form\Meningitis\CaseType",
      *   statusCodes = {
      *         204 = "Returned when successful",
+     *         400 = "Bad Request",
      *         406 = "Returned when there are validation issues with the case",
      *          }
      * )
      *
-     * @REST\Put("/{objId}",name="nsApiRotaPutCase")
+     * @REST\Put("/{objId}",name="nsApiMeningitisPutCase")
      * @REST\View()
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -285,100 +290,97 @@ class RotaVirusController extends CaseController
      *
      * @return \FOS\RestBundle\View\View
      */
-    public function putRotaCaseAction(Request $request, $objId)
+    public function putMeningitisCaseAction(Request $request, $objId)
     {
-        return $this->updateCase($request, $objId, 'PUT', CaseType::class, RotaVirus::class);
+        return $this->updateCase($request, $objId, 'PUT', CaseType::class, Meningitis::class);
     }
 
     /**
-     * Put RotaVirus Lab Data,
+     * Put Meningitis Lab Data,
      *
-     * @ApiDoc(
+     * @ApiDoc\ApiDoc(
      *  resource = true,
-     *  description = "Updates a RotaVirus Lab data",
-     *  input = "NS\SentinelBundle\Form\RotaVirus\SiteLabType",
+     *  description = "Updates lab data for an Meningitis case",
+     *  input = "NS\SentinelBundle\Form\Meningitis\SiteLabType",
      *  statusCodes={
      *         204 = "Returned when successful",
      *         406 = "Returned when there is an issue with the form data"
      *         }
      * )
-     *
-     * @REST\Put("/{objId}/lab",name="nsApiRotaPutLab")
+     * @REST\Put("/{objId}/lab",name="nsApiMeningitisPutLab")
      * @REST\View()
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $objId
      * @return \FOS\RestBundle\View\View
      */
-    public function putRotaLabAction(Request $request, $objId)
+    public function putMeningitisLabAction(Request $request, $objId)
     {
         return $this->updateLab($request, $objId, 'PUT', SiteLabType::class, SiteLab::class);
     }
 
     /**
-     * Put RotaVirus RRL Data,
+     * Put Meningitis RRL Data,
      *
-     * @ApiDoc(
+     * @ApiDoc\ApiDoc(
      *  resource = true,
-     *  description = "Updates a RotaVirus RRL data",
-     *  input = "NS\SentinelBundle\Form\RotaVirus\ReferenceLabType",
+     *  description = "Updates RRL data for an Meningitis case",
+     *  input = "NS\SentinelBundle\Form\Meningitis\ReferenceLabType",
      *  statusCodes={
      *         204 = "Returned when successful",
      *         406 = "Returned when there is an issue with the form data"
      *         }
      * )
-     *
-     * @REST\Put("/{objId}/rrl",name="nsApiRotaPutRRL")
+     * @REST\Put("/{objId}/rrl",name="nsApiMeningitisPutRRL")
      * @REST\View()
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $objId
      * @return \FOS\RestBundle\View\View
      */
-    public function putRotaRRLAction(Request $request, $objId)
+    public function putMeningitisRRLAction(Request $request, $objId)
     {
         return $this->updateLab($request, $objId, 'PUT', ReferenceLabType::class, ReferenceLab::class);
     }
 
     /**
-     * Put RotaVirus NL Data,
+     * Put Meningitis NL Data,
      *
-     * @ApiDoc(
+     * @ApiDoc\ApiDoc(
      *  resource = true,
-     *  description = "Updates a RotaVirus NL data",
-     *  input = "NS\SentinelBundle\Form\RotaVirus\NationalLabType",
+     *  description = "Updates NL data for an Meningitis case",
+     *  input = "NS\SentinelBundle\Form\Meningitis\NationalLabType",
      *  statusCodes={
      *         204 = "Returned when successful",
      *         406 = "Returned when there is an issue with the form data"
      *         }
      * )
-     *
-     * @REST\Put("/{objId}/nl",name="nsApiRotaPutNL")
+     * @REST\Put("/{objId}/nl",name="nsApiMeningitisPutNL")
      * @REST\View()
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string $objId
      * @return \FOS\RestBundle\View\View
      */
-    public function putRotaNLAction(Request $request, $objId)
+    public function putMeningitisNLAction(Request $request, $objId)
     {
         return $this->updateLab($request, $objId, 'PUT', NationalLabType::class, NationalLab::class);
     }
 
     /**
-     * Put RotaVirus Outcome Data
+     * Put Meningitis Outcome Data
      *
-     * @ApiDoc(
+     * @ApiDoc\ApiDoc(
      *   resource = true,
-     *   description = "Put RotaVirus Outcome data",
-     *   input = "NS\SentinelBundle\Form\RotaVirus\OutcomeType",
+     *   description = "Put Meningitis Outcome data",
+     *   input = "NS\SentinelBundle\Form\Meningitis\OutcomeType",
      *   statusCodes = {
      *         204 = "Returned when successful",
      *         406 = "Returned when there are validation issues with the case",
      *          }
      * )
      *
-     * @REST\Put("/{objId}/outcome",name="nsApiRotaPutOutcome")
+     * @REST\Put("/{objId}/outcome",name="nsApiMeningitisPutOutcome")
      * @REST\View()
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -386,28 +388,35 @@ class RotaVirusController extends CaseController
      *
      * @return \FOS\RestBundle\View\View
      */
-    public function putRotaOutcomeAction(Request $request, $objId)
+    public function putMeningitisOutcomeAction(Request $request, $objId)
     {
-        return $this->updateCase($request, $objId, 'PUT', OutcomeType::class, RotaVirus::class);
+        return $this->updateCase($request, $objId, 'PUT', OutcomeType::class, Meningitis::class);
     }
 
     /**
-     * Create a RotaVirus Case,
+     * This method is used to create a new Meningitis case. This must be called prior to setting any data
+     * on the case. Although there is a 'type' field, the api should only ever set the field to 1.
+     * The case is created, the status code is 204 and the new case is specified in the returned
+     * 'Location' header.
      *
-     * @ApiDoc(
+     * @ApiDoc\ApiDoc(
      *   resource = true,
-     *   description = "Creates a new Rotavirus case",
-     *   input = "NS\SentinelBundle\Form\CreateType"
+     *   description = "Creates a new Meningitis case",
+     *   input = "NS\SentinelBundle\Form\CreateType",
+     *   statusCodes = {
+     *      201 = "Returned when the case is created"
+     *  }
      * )
      *
-     * @REST\Post("/",name="nsApiRotaPostCase")
+     * @REST\Post("/",name="nsApiMeningitisPostCase")
      * @REST\View()
      *
      * @param Request $request the request object
+     *
      * @return array|\FOS\RestBundle\View\View
      */
-    public function postRotaCaseAction(Request $request)
+    public function postMeningitisCaseAction(Request $request)
     {
-        return $this->postCase($request, 'nsApiRotaGetCase', CreateType::class, RotaVirus::class);
+        return $this->postCase($request, 'nsApiMeningitisGetCase', CreateType::class, Meningitis::class);
     }
 }
