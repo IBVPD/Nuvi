@@ -40,7 +40,7 @@ class OutcomeType extends AbstractType
         $isPaho = $this->authChecker->isGranted('ROLE_AMR');
 
         $builder
-            ->add('dischOutcome', DischargeOutcome::class, ['required' => false, 'label' => 'ibd-form.discharge-outcome'])
+            ->add('dischOutcome', DischargeOutcome::class, ['required' => false, 'label' => 'ibd-form.discharge-outcome', 'exclude_choices' => $isPaho ? [DischargeOutcome::UNKNOWN]:[]])
             ->add('dischDx', DischargeDiagnosis::class, ['required' => false, 'label' => 'ibd-form.discharge-diagnosis'])
             ->add('dischDxOther', null, ['required' => false, 'label' => 'ibd-form.discharge-diagnosis-other', 'hidden' => ['parent' => 'dischDx', 'value' => DischargeDiagnosis::OTHER]])
             ->add('dischClass', DischargeClassification::class, [
