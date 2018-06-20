@@ -126,6 +126,9 @@
                             {{ form_row(form.menRash) }}
                             {{ form_row(form.menFontanelleBulge) }}
                             {{ form_row(form.menLethargy) }}
+                            {% if form.menVomit is defined %}
+                                {{ form_row(form.menVomit) }}
+                            {% endif %}
                         </div>
                     </div>
                 </div>

@@ -532,6 +532,13 @@ class IBD extends BaseCase
      */
     private $pleural_fluid_collect_time;
 
+    /**
+     * @var TripleChoice
+     * @ORM\Column(name="men_vomit",type="TripleChoice",nullable=true)
+     * @Serializer\Groups({"api","export"})
+     */
+    private $men_vomit;
+
     public function __construct()
     {
         parent::__construct();
@@ -632,6 +639,14 @@ class IBD extends BaseCase
     public function getMenLethargy()
     {
         return $this->men_lethargy;
+    }
+
+    /**
+     * @return TripleChoice
+     */
+    public function getMenVomit()
+    {
+        return $this->men_vomit;
     }
 
     /**
@@ -1029,6 +1044,14 @@ class IBD extends BaseCase
     {
         $this->men_fever = $menFever;
         return $this;
+    }
+
+    /**
+     * @param TripleChoice $men_vomit
+     */
+    public function setMenVomit(TripleChoice $men_vomit = null)
+    {
+        $this->men_vomit = $men_vomit;
     }
 
     /**
