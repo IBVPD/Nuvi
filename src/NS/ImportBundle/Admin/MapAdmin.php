@@ -121,7 +121,7 @@ class MapAdmin extends AbstractAdmin
                     'label_attr' => ['class'=>'col-sm-2'],
                 ]);
         } else {
-            $formMapper->add('columns', 'sonata_type_collection', ['error_bubbling' => false, 'by_reference' => true, 'label_attr' => ['class' => 'col-md-12 align-left']], ['edit' => 'inline', 'inline' => 'table']);
+            $formMapper->add('columns', 'sonata_type_collection', ['error_bubbling' => false, 'by_reference' => true, 'attr'=>['class'=>'col-xs-12 col-sm-12 col-md-12'], 'label_attr' => ['class' => 'col-xs-12 col-sm-12 col-md-12 align-left']], ['edit' => 'inline', 'inline' => 'table']);
         }
     }
 
