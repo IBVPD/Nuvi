@@ -8,6 +8,7 @@ use NS\SentinelBundle\Report\Result\AgeDistribution;
 use NS\SentinelBundle\Report\Result\CulturePositive;
 use NS\SentinelBundle\Report\Result\IBD\GeneralStatisticResult;
 use NS\SentinelBundle\Report\Result\NumberEnrolledResult;
+use NS\SentinelBundle\Report\Result\SiteMonthResult;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,7 +49,7 @@ class IBDReporter extends AbstractReporter
         $result->load($queryBuilder->getQuery()->getResult());
 
         if ($export) {
-            return $this->exporter->export('NSSentinelBundle:Report/IBD/Export:number-enrolled.html.twig', ['results'=>$result]);
+            return $this->exporter->export('NSSentinelBundle:Report:IBD/Export/number-enrolled.html.twig', ['results' => $result]);
         }
 
         return ['results' => $result, 'form' => $form->createView()];
@@ -82,7 +83,7 @@ class IBDReporter extends AbstractReporter
         $results = new AgeDistribution($result);
 
         if ($export) {
-            return $this->exporter->export('NSSentinelBundle:Report/IBD/Export:annual-age.html.twig', ['results'=>$results]);
+            return $this->exporter->export('NSSentinelBundle:Report:IBD/Export/annual-age.html.twig', ['results' => $results]);
         }
 
         return ['results' => $results, 'form' => $form->createView()];
@@ -134,7 +135,7 @@ class IBDReporter extends AbstractReporter
             $this->processResult($columns, $repo, $alias, $results, $form);
 
             if ($form->get('export')->isClicked()) {
-                return $this->exporter->export('NSSentinelBundle:Report/IBD/Export:field-population.html.twig', ['sites'=>$results]);
+                return $this->exporter->export('NSSentinelBundle:Report:IBD/Export/field-population.html.twig', ['sites' => $results]);
             }
         }
 
@@ -174,7 +175,7 @@ class IBDReporter extends AbstractReporter
         $results = new CulturePositive($culturePositive, $cultureNegative, $pcrPositive);
 
         if ($form->get('export')->isClicked()) {
-            return $this->exporter->export('NSSentinelBundle:Report/IBD/Export:culture-positive.html.twig', ['results'=>$results]);
+            return $this->exporter->export('NSSentinelBundle:Report:IBD/Export/culture-positive.html.twig', ['results' => $results]);
         }
 
         return ['results' => $results, 'form' => $form->createView()];
@@ -218,7 +219,7 @@ class IBDReporter extends AbstractReporter
             $this->processResult($columns, $repo, $alias, $results, $form);
 
             if ($form->get('export')->isClicked()) {
-                return $this->exporter->export('NSSentinelBundle:Report/IBD/Export:data-quality.html.twig', ['sites'=>$results],'xls');
+                return $this->exporter->export('NSSentinelBundle:Report:IBD/Export/data-quality.html.twig', ['sites' => $results], 'xls');
             }
         }
 
@@ -303,9 +304,9 @@ class IBDReporter extends AbstractReporter
             $this->populateCountries($countries, $results, 'NS\SentinelBundle\Report\Result\DataLinkingResult');
             $repo = $this->entityMgr->getRepository('NSSentinelBundle:IBD');
 
-            if($form->get('export')->isClicked()) {
+            if ($form->get('export')->isClicked()) {
                 $results = $repo->getFailedLink($alias, $results->getKeys())->getQuery()->getResult();
-                return $this->exporter->export('NSSentinelBundle:Report/IBD/Export:data-linking.html.twig', ['results'=>$results]);
+                return $this->exporter->export('NSSentinelBundle:Report:IBD:Export/data-linking.html.twig', ['results' => $results]);
             }
 
             $columns = [
@@ -328,6 +329,37 @@ class IBDReporter extends AbstractReporter
      */
     public function getStats(Request $request, FormInterface $form, $redirectRoute)
     {
-        return $this->retrieveStats('NSSentinelBundle:IBD',new GeneralStatisticResult(),$request,$form,$redirectRoute);
+        return $this->retrieveStats('NSSentinelBundle:IBD', new GeneralStatisticResult(), $request, $form, $redirectRoute);
+    }
+
+    public function getYearMonth(Request $request, FormInterface $form, $redirectRoute)
+    {
+        $results = new ArrayCollection();
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('reset')->isClicked()) {
+                return new RedirectResponse($this->router->generate($redirectRoute));
+            }
+
+            $alias = 'i';
+            $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getWithCasesForDate($alias, 'NS\SentinelBundle\Entity\IBD');
+            $queryBuilder->addSelect('MONTH(i.adm_date) as admMonth');
+
+            $this->filter->addFilterConditions($form, $queryBuilder, $alias);
+
+            $sites = $queryBuilder->addGroupBy('admMonth')->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult();
+
+            if (empty($sites)) {
+                return ['sites' => [], 'form' => $form->createView()];
+            }
+
+            $this->populateYearMonth($sites, $results, SiteMonthResult::class);
+
+            if ($form->get('export')->isClicked()) {
+                return $this->exporter->export('NSSentinelBundle:Report:Export/year-month.html.twig', ['sites' => $results]);
+            }
+        }
+
+        return ['sites' => $results, 'form' => $form->createView()];
     }
 }

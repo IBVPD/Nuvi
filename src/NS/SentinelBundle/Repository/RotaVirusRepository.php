@@ -253,13 +253,9 @@ class RotaVirusRepository extends Common
 
     public function getConsistentReporting($alias, array $siteCodes)
     {
-        $config = $this->_em->getConfiguration();
-        $config->addCustomDatetimeFunction('MONTH', 'DoctrineExtensions\Query\Mysql\Month');
-
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,MONTH(%s.adm_date) as theMonth,COUNT(%s.id) as caseCount,s.code', $alias, $alias, $alias))
-            ->addGroupBy('theMonth')
-            ;
+            ->addGroupBy('theMonth');
     }
 
     public function getZeroReporting($alias, array $siteCodes)

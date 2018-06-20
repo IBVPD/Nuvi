@@ -251,8 +251,6 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
 
     public function getMonthlyDistribution($alias)
     {
-        $config = $this->_em->getConfiguration();
-        $config->addCustomDatetimeFunction('MONTH','DoctrineExtensions\Query\Mysql\Month');
         return $this->createQueryBuilder($alias)
             ->select(sprintf('MONTH(%s.adm_date) as theMonth, COUNT(%s.id) as caseCount',$alias,$alias))
             ->groupBy('theMonth');
@@ -279,10 +277,6 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
 
     public function getCasesPerMonth(\DateTime $from, \DateTime $to)
     {
-        $config = $this->_em->getConfiguration();
-        $config->addCustomDatetimeFunction('MONTH', 'DoctrineExtensions\Query\Mysql\Month');
-        $config->addCustomDatetimeFunction('YEAR', 'DoctrineExtensions\Query\Mysql\Year');
-
         return $this->secure(
                 $this->_em->createQueryBuilder()
                     ->select('partial c.{id,adm_date}, s, MONTH(c.adm_date) AS theMonth, YEAR(c.adm_date) as theYear, COUNT(c.id) AS caseCount')

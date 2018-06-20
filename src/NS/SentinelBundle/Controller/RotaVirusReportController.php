@@ -86,4 +86,23 @@ class RotaVirusReportController extends Controller
 
         return $this->render('NSSentinelBundle:Report/RotaVirus:stats.html.twig', $params);
     }
+
+
+    /**
+     * @Route("/year-month", name="reportRotaYearMonth")
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function yearAndMonthAction(Request $request)
+    {
+        $form    = $this->createForm(BaseQuarterlyFilterType::class, null, ['site_type'=>'advanced']);
+        $service = $this->get('ns_sentinel.rotavirus_report');
+        $params  = $service->getYearMonth($request, $form, 'reportRotaYearMonth');
+        if ($params instanceof Response) {
+            return $params;
+        }
+
+        return $this->render('NSSentinelBundle:Report:year-month.html.twig', $params);
+    }
 }

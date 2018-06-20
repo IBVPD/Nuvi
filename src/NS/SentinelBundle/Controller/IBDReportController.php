@@ -210,4 +210,22 @@ class IBDReportController extends Controller
 
         return $this->render('NSSentinelBundle:Report/IBD:stats.html.twig', $params);
     }
+
+    /**
+     * @Route("/year-month", name="reportIbdYearMonth")
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function yearAndMonthAction(Request $request)
+    {
+        $form    = $this->createForm(BaseQuarterlyFilterType::class, null, ['site_type'=>'advanced']);
+        $service = $this->get('ns_sentinel.ibd_report');
+        $params  = $service->getYearMonth($request, $form, 'reportIbdYearMonth');
+        if ($params instanceof Response) {
+            return $params;
+        }
+
+        return $this->render('NSSentinelBundle:Report:year-month.html.twig', $params);
+    }
 }
