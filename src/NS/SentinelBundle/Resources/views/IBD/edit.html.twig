@@ -4,9 +4,69 @@
     {{'Edit Case %id%'|trans({'%id%': record.caseId })}}
 {% endblock %}
 
-{%block pageactions %}
+{% block pageactions %}
     <div class="pull-right">{{case_big_actions(record)}}</div>
-{%endblock %}
+{% endblock %}
+
+{% block inlinescripts %}
+    {{ parent() }}
+    {% if form.cxrAdditionalResult is defined %}
+        <script type="text/javascript">
+            $(document).on('ready',function () {
+                $('#{{ form.cxrResult.vars.id }}').on('change',function() {
+                    var mainId = '#{{ form.cxrAdditionalResult.vars.id }}';
+                    var resultValue = $(this).val();
+
+                    if (resultValue === "{{ constant('NS\\SentinelBundle\\Form\\IBD\\Types\\CXRResult::CONSISTENT') }}") {
+                        console.log('CONSISTENT');
+                        $(mainId).find('div.checkbox>label').hide();
+
+                        $(mainId+'_0_hiddenLabel').show();
+                        $(mainId+'_1_hiddenLabel').show();
+                        $(mainId+'_2_hiddenLabel').show();
+                        $(mainId+'_3_hiddenLabel').show();
+                        $(mainId+'_5_hiddenLabel').show();
+                        $(mainId+'_6_hiddenLabel').show();
+                        return;
+                    }
+
+                    if (resultValue === "{{ constant('NS\\SentinelBundle\\Form\\IBD\\Types\\CXRResult::VIRAL_BACTERIAL') }}") {
+                        $(mainId).find('div.checkbox>label').hide();
+
+                        $(mainId+'_0_hiddenLabel').show();
+                        $(mainId+'_1_hiddenLabel').show();
+                        $(mainId+'_2_hiddenLabel').show();
+                        $(mainId+'_3_hiddenLabel').show();
+                        $(mainId+'_4_hiddenLabel').show();
+                        $(mainId+'_5_hiddenLabel').show();
+                        $(mainId+'_6_hiddenLabel').show();
+                        console.log('VIRAL + BACTERIAL');
+                        return;
+                    }
+
+                    if (resultValue === "{{ constant('NS\\SentinelBundle\\Form\\IBD\\Types\\CXRResult::VIRAL_PNEUMONIA') }}") {
+                        $(mainId).find('div.checkbox>label').hide();
+
+                        $(mainId+'_1_hiddenLabel').show();
+                        $(mainId+'_4_hiddenLabel').show();
+                        $(mainId+'_5_hiddenLabel').show();
+                        $(mainId+'_6_hiddenLabel').show();
+                        return;
+                    }
+
+                    if (resultValue === "{{ constant('NS\\SentinelBundle\\Form\\IBD\\Types\\CXRResult::INCONCLUSIVE') }}") {
+                        $(mainId).find('div.checkbox>label').show();
+                        return;
+                    }
+
+                    if (resultValue === "{{ constant('NS\\SentinelBundle\\Form\\IBD\\Types\\CXRResult::OTHER') }}") {
+                        $(mainId).find('div.checkbox>label').show();
+                    }
+                });
+            });
+        </script>
+    {% endif %}
+{% endblock %}
 
 {% block body %}
     {{ form_errors(form) }}
