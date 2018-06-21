@@ -137,7 +137,21 @@ class CaseType extends AbstractType
 
             if ($isPaho) {
                 $form
-                    ->add('cxrAdditionalResult', CXRAdditionalResult::class, ['required' => $required, 'label' => 'ibd-form.cxr-additional-result', 'expanded' => true, 'hidden' => ['parent' => 'cxrResult', 'value' => [CXRResult::CONSISTENT, CXRResult::INCONCLUSIVE]]])
+                    ->add('cxrAdditionalResult', CXRAdditionalResult::class, [
+                        'required' => $required,
+                        'label' => 'ibd-form.cxr-additional-result',
+                        'expanded' => true,
+                        'hidden' => [
+                            'parent' => 'cxrResult',
+                            'value' => [
+                                CXRResult::CONSISTENT,
+                                CXRResult::VIRAL_BACTERIAL,
+                                CXRResult::VIRAL_PNEUMONIA,
+                                CXRResult::INCONCLUSIVE,
+                                CXRResult::OTHER,
+                                ]
+                        ]
+                    ])
                     ->add('pneuOxygenSaturation', IntegerType::class, ['required' => $required, 'label' => 'ibd-form.pneu-oxygen-level', 'property_path' => 'pneu_oxygen_saturation', 'attr' => ['min' => 80, 'max' => 100]]);
             }
         }
