@@ -1,0 +1,22 @@
+<div class="formRow">
+    <h3>{{'By Diagnosis'|trans}}</h3>
+    <div id="byDiagnosisStatistics">
+
+    </div>
+</div>
+<script>
+    var c        = new Array();
+    c['element'] = $('byDiagnosisStatistics');
+    c['chart']   = new google.visualization.PieChart(c['element']);
+    c['data']    = google.visualization.arrayToDataTable([
+                    ['{{ 'Diagnosis'|trans }}','{{ 'Number Of Cases'|trans }}'],
+                        {%spaceless%}
+                        {%for r in reports %}
+                            ['{{r.0.dischDx|trans|e('js')}}', {{r.numberOfCases}}]{%if not loop.last %},{%endif%}
+                        {%endfor%}
+                        {%endspaceless%}
+                    ]);
+    var formatter    = new google.visualization.NumberFormat({negativeColor: 'red', negativeParens: true, fractionDigits: 0, groupingSymbol: ','});
+    formatter.format(c['data'], 1);
+    google_charts.push(c);
+</script>

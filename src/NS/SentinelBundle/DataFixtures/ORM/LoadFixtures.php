@@ -16,9 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class LoadFixtures implements FixtureInterface, ContainerAwareInterface
 {
-    /**
-     * @var
-     */
+    /** @var ContainerInterface */
     private $container;
 
     /**

@@ -15,42 +15,42 @@ use Symfony\Component\HttpFoundation\Request;
  * Description of ReportController
  *
  * @author gnat
- * @Route("/{_locale}/ibd/reports")
+ * @Route("/{_locale}/meningitis/reports")
  */
-class IBDReportController extends Controller
+class MeningitisReportController extends Controller
 {
     /**
-     * @Route("/percent-enrolled",name="ibdReportPercentEnrolled")
+     * @Route("/percent-enrolled",name="meningReportPercentEnrolled")
      * @param Request $request
      * @return array|RedirectResponse|Response
      */
     public function percentEnrolledAction(Request $request)
     {
         $form    = $this->createForm(ReportFilterType::class);
-        $service = $this->get('ns_sentinel.ibd_report');
-        $params  = $service->numberEnrolled($request, $form, 'ibdReportPercentEnrolled');
+        $service = $this->get('ns_sentinel.mening_report');
+        $params  = $service->numberEnrolled($request, $form, 'meningReportPercentEnrolled');
         if ($params instanceof Response) {
             return $params;
         }
 
-        return $this->render('NSSentinelBundle:Report:IBD/percentEnrolled.html.twig', $params);
+        return $this->render('NSSentinelBundle:Report/IBD:percentEnrolled.html.twig', $params);
     }
 
     /**
-     * @Route("/annual-age-distribution",name="ibdReportAnnualAgeDistribution")
+     * @Route("/annual-age-distribution",name="meningReportAnnualAgeDistribution")
      * @param Request $request
      * @return array|RedirectResponse|Response
      */
     public function annualAgeDistributionAction(Request $request)
     {
         $form    = $this->createForm(ReportFilterType::class);
-        $service = $this->get('ns_sentinel.ibd_report');
-        $params  = $service->getAnnualAgeDistribution($request, $form, 'ibdReportAnnualAgeDistribution');
+        $service = $this->get('ns_sentinel.mening_report');
+        $params  = $service->getAnnualAgeDistribution($request, $form, 'meningReportAnnualAgeDistribution');
         if ($params instanceof Response) {
             return $params;
         }
 
-        return $this->render('NSSentinelBundle:Report:IBD/annualAgeDistribution.html.twig', $params);
+        return $this->render('NSSentinelBundle:Report/IBD:annualAgeDistribution.html.twig', $params);
     }
 
     /**
@@ -60,7 +60,7 @@ class IBDReportController extends Controller
     {
         $reports = $this->get('doctrine.orm.entity_manager')->getRepository("NSSentinelBundle:IBD")->getByCountry();
 
-        return $this->render('NSSentinelBundle:Report:IBD/byCountryGraph.html.twig', ['reports' => $reports]);
+        return $this->render('NSSentinelBundle:Report/IBD:byCountryGraph.html.twig', ['reports' => $reports]);
     }
 
     /**
@@ -70,7 +70,7 @@ class IBDReportController extends Controller
     {
         $reports = $this->get('doctrine.orm.entity_manager')->getRepository("NSSentinelBundle:IBD")->getBySite();
 
-        return $this->render('NSSentinelBundle:Report:IBD/bySiteGraph.html.twig', ['reports' => $reports]);
+        return $this->render('NSSentinelBundle:Report/IBD:bySiteGraph.html.twig', ['reports' => $reports]);
     }
 
     /**
@@ -80,7 +80,7 @@ class IBDReportController extends Controller
     {
         $reports = $this->get('doctrine.orm.entity_manager')->getRepository("NSSentinelBundle:IBD")->getStats();
        
-        return $this->render('NSSentinelBundle:Report:IBD/generalStats.html.twig', ['reports' => $reports]);
+        return $this->render('NSSentinelBundle:Report/IBD:generalStats.html.twig', ['reports' => $reports]);
     }
 
     /**
@@ -90,41 +90,41 @@ class IBDReportController extends Controller
     {
         $reports = $this->get('doctrine.orm.entity_manager')->getRepository("NSSentinelBundle:IBD")->getByDiagnosis();
        
-        return $this->render('NSSentinelBundle:Report:IBD/byDiagnosisGraph.html.twig', ['reports' => $reports]);
+        return $this->render('NSSentinelBundle:Report/IBD:byDiagnosisGraph.html.twig', ['reports' => $reports]);
     }
 
     /**
-     * @Route("/field-population",name="ibdReportFieldPopulation")
+     * @Route("/field-population",name="meningReportFieldPopulation")
      * @param Request $request
      * @return array|RedirectResponse|Response
      */
     public function fieldPopulationAction(Request $request)
     {
         $form    = $this->createForm(ReportFilterType::class, null, ['site_type'=>'advanced', 'validation_groups'=> ['FieldPopulation']]);
-        $service = $this->get('ns_sentinel.ibd_report');
-        $params = $service->getFieldPopulation($request, $form, 'ibdReportFieldPopulation');
+        $service = $this->get('ns_sentinel.mening_report');
+        $params = $service->getFieldPopulation($request, $form, 'meningReportFieldPopulation');
         if ($params instanceof Response) {
             return $params;
         }
 
-        return $this->render('NSSentinelBundle:Report:IBD/fieldPopulation.html.twig', $params);
+        return $this->render('NSSentinelBundle:Report/IBD:fieldPopulation.html.twig', $params);
     }
 
     /**
-     * @Route("/culture-positive",name="ibdReportCulturePositive")
+     * @Route("/culture-positive",name="meningReportCulturePositive")
      * @param Request $request
      * @return array|RedirectResponse|Response
      */
     public function culturePositiveAction(Request $request)
     {
         $form    = $this->createForm(ReportFilterType::class, null, ['site_type'=>'advanced']);
-        $service = $this->get('ns_sentinel.ibd_report');
-        $params  = $service->getCulturePositive($request, $form, 'ibdReportCulturePositive');
+        $service = $this->get('ns_sentinel.mening_report');
+        $params  = $service->getCulturePositive($request, $form, 'meningReportCulturePositive');
         if ($params instanceof Response) {
             return $params;
         }
 
-        return $this->render('NSSentinelBundle:Report:IBD/culturePositive.html.twig', $params);
+        return $this->render('NSSentinelBundle:Report/IBD:culturePositive.html.twig', $params);
     }
 
     /*
@@ -142,41 +142,41 @@ class IBDReportController extends Controller
      */
 
     /**
-     * @Route("/data-quality",name="ibdReportDataQuality")
+     * @Route("/data-quality",name="meningReportDataQuality")
      * @param Request $request
      * @return array|RedirectResponse|Response
      */
     public function dataQualityAction(Request $request)
     {
         $form    = $this->createForm(ReportFilterType::class, null, ['site_type'=>'advanced']);
-        $service = $this->get('ns_sentinel.ibd_report');
-        $params  = $service->getDataQuality($request, $form, 'ibdReportDataQuality');
+        $service = $this->get('ns_sentinel.mening_report');
+        $params  = $service->getDataQuality($request, $form, 'meningReportDataQuality');
         if ($params instanceof Response) {
             return $params;
         }
 
-        return $this->render('NSSentinelBundle:Report:IBD/dataQuality.html.twig', $params);
+        return $this->render('NSSentinelBundle:Report/IBD:dataQuality.html.twig', $params);
     }
 
     /**
-     * @Route("/site-performance",name="ibdReportSitePerformance")
+     * @Route("/site-performance",name="meningReportSitePerformance")
      * @param Request $request
      * @return Response
      */
     public function sitePerformanceAction(Request $request)
     {
         $form    = $this->createForm(BaseQuarterlyFilterType::class, null, ['site_type'=>'advanced']);
-        $service = $this->get('ns_sentinel.ibd_report');
-        $params  = $service->getSitePerformance($request, $form, 'ibdReportSitePerformance');
+        $service = $this->get('ns_sentinel.mening_report');
+        $params  = $service->getSitePerformance($request, $form, 'meningReportSitePerformance');
         if ($params instanceof Response) {
             return $params;
         }
 
-        return $this->render('NSSentinelBundle:Report:IBD/site-performance.html.twig', $params);
+        return $this->render('NSSentinelBundle:Report/IBD:site-performance.html.twig', $params);
     }
 
     /**
-     * @Route("/data-linking",name="ibdReportDataLinking")
+     * @Route("/data-linking",name="meningReportDataLinking")
      *
      * @param Request $request
      * @return Response
@@ -184,17 +184,17 @@ class IBDReportController extends Controller
     public function dataLinking(Request $request)
     {
         $form    = $this->createForm(QuarterlyLinkingReportFilterType::class, null, ['site_type'=>'advanced']);
-        $service = $this->get('ns_sentinel.ibd_report');
-        $params  = $service->getDataLinking($request, $form, 'ibdReportDataLinking');
+        $service = $this->get('ns_sentinel.mening_report');
+        $params  = $service->getDataLinking($request, $form, 'meningReportDataLinking');
         if ($params instanceof Response) {
             return $params;
         }
 
-        return $this->render('NSSentinelBundle:Report:IBD/data-linking.html.twig', $params);
+        return $this->render('NSSentinelBundle:Report/IBD:data-linking.html.twig', $params);
     }
 
     /**
-     * @Route("/stats",name="ibdReportStats")
+     * @Route("/stats",name="meningReportStats")
      *
      * @param Request $request
      * @return Response
@@ -202,17 +202,17 @@ class IBDReportController extends Controller
     public function statsAction(Request $request)
     {
         $form    = $this->createForm(ReportFilterType::class, null, ['site_type'=>'advanced']);
-        $service = $this->get('ns_sentinel.ibd_report');
-        $params  = $service->getStats($request, $form, 'ibdReportStats');
+        $service = $this->get('ns_sentinel.mening_report');
+        $params  = $service->getStats($request, $form, 'meningReportStats');
         if ($params instanceof Response) {
             return $params;
         }
 
-        return $this->render('NSSentinelBundle:Report:IBD/stats.html.twig', $params);
+        return $this->render('NSSentinelBundle:Report/IBD:stats.html.twig', $params);
     }
 
     /**
-     * @Route("/year-month", name="ibdReportYearMonth")
+     * @Route("/year-month", name="meningReportYearMonth")
      *
      * @param Request $request
      * @return Response
@@ -220,8 +220,8 @@ class IBDReportController extends Controller
     public function yearAndMonthAction(Request $request)
     {
         $form    = $this->createForm(BaseQuarterlyFilterType::class, null, ['site_type'=>'advanced']);
-        $service = $this->get('ns_sentinel.ibd_report');
-        $params  = $service->getYearMonth($request, $form, 'ibdReportYearMonth');
+        $service = $this->get('ns_sentinel.mening_report');
+        $params  = $service->getYearMonth($request, $form, 'meningReportYearMonth');
         if ($params instanceof Response) {
             return $params;
         }

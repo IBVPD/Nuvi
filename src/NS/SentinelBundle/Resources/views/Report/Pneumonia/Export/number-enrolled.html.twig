@@ -1,0 +1,17 @@
+<table class="table table-responsive">
+    <thead class="thin-border-bottom">
+    <tr>
+        {% for r in results.headers %}
+            <th>{{ r }}</th>
+        {% endfor %}
+    </tr>
+    </thead>
+    {% for i in 1..12 %}
+        <tr>
+            <td>{{ i }}</td>
+            {% for c in results.getMonthResult(i) %}
+                <td>{{ c }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>

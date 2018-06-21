@@ -1,17 +1,17 @@
 {% extends "NSSentinelBundle::layout.html.twig" %}
-{% block pagetitle %}{{ 'Number and Percent Enrolled: Admit Diagnosis'|trans }}{% endblock %}
+{% block pagetitle %}{{ 'Field Population'|trans }}{% endblock %}
 
 {% block body %}
     <div class="row">
         <div class="col-xs-12">
             <div class="widget-box widget-color-blue no-border">
                 <div class="widget-header widget-header-small">
-                    <h5 class="widget-title">{{ 'Results'|trans }}</h5>
-                    {{ widget_filter_toolbox() }}
+                    <h5 class="widget-title">{{ '%count% Results'|trans({'%count%': sites|length}) }}</h5>
+                    {{ widget_filter_toolbox({'start_open': true}) }}
                 </div>
                 <div class="widget-body">
                     <div class="widget-toolbox padding-8">
-                        <div class="collapse" id="filters">
+                        <div class="collapse in" id="filters">
                             <form method="POST">
                                 <div class="row">
                                     <div class="col-xs-3">
@@ -46,45 +46,12 @@
                             </form>
                         </div>
                     </div>
-
                     <div class="widget-main no-padding">
-                        {% include 'NSSentinelBundle:Report/IBD/Export:number-enrolled.html.twig' %}
+                        {% include 'NSSentinelBundle:Report:Pneumonia/Export/field-population.html.twig' %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <div id="chart_div" style="width: 1024px; height: 500px;"></div>
-        </div>
-    </div>
-
-    <script type="text/javascript">
-        google.load("visualization", "1", {packages: ["corechart"]});
-        google.setOnLoadCallback(drawChart);
-        function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-                [
-                    {% for r in results.headers %}
-                    '{{ r|trans }}'{% if not loop.last %},{% endif %}
-                    {% endfor %}
-                ],
-                    {% for i in 1..12 %}['{{ i }}', {% for c in results.getMonthResult(i) %}{{ c }}{% if not loop.last %},{% endif %}{% endfor %}]{% if not loop.last %},{% endif %}{% endfor %}
-
-            ]);
-
-            var options = {
-                title: '{{ 'Number Enrolled By Month & Suspected Diagnosis'|trans }}',
-                vAxis: {title: '{{ 'Occurances'|trans}}'},
-                hAxis: {title: '{{ 'Month'|trans }}'},
-                bar: {groupWidth: '90%'},
-                annotations: {boxStyle: {stroke: '#888', strokeWidth: 1}}
-            };
-
-            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
-            chart.draw(data, options);
-        }
-    </script>
 {% endblock %}
 

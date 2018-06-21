@@ -6,7 +6,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query;
 use NS\SentinelBundle\Report\Result\AgeDistribution;
 use NS\SentinelBundle\Report\Result\CulturePositive;
+use NS\SentinelBundle\Report\Result\DataLinkingResult;
+use NS\SentinelBundle\Report\Result\FieldPopulationResult;
+use NS\SentinelBundle\Report\Result\IBD\DataQualityResult;
 use NS\SentinelBundle\Report\Result\IBD\GeneralStatisticResult;
+use NS\SentinelBundle\Report\Result\IBD\SitePerformanceResult;
 use NS\SentinelBundle\Report\Result\NumberEnrolledResult;
 use NS\SentinelBundle\Report\Result\SiteMonthResult;
 use Symfony\Component\Form\FormInterface;
@@ -20,6 +24,22 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class IBDReporter extends AbstractReporter
 {
+    /** @var string */
+    protected $class;
+
+    /** @var string */
+    protected $exportBasePath;
+
+    /**
+     * @param string $class
+     * @param $exportBasePath
+     */
+    public function initialize($class, $exportBasePath)
+    {
+        $this->class = $class;
+        $this->exportBasePath = $exportBasePath;
+    }
+
     /**
      *
      * @param Request $request
@@ -30,7 +50,7 @@ class IBDReporter extends AbstractReporter
     public function numberEnrolled(Request $request, FormInterface $form, $redirectRoute)
     {
         $alias = 'c';
-        $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:IBD')->numberAndPercentEnrolledByAdmissionDiagnosis($alias);
+        $queryBuilder = $this->entityMgr->getRepository($this->class)->numberAndPercentEnrolledByAdmissionDiagnosis($alias);
         $export = false;
 
         $form->handleRequest($request);
@@ -49,7 +69,7 @@ class IBDReporter extends AbstractReporter
         $result->load($queryBuilder->getQuery()->getResult());
 
         if ($export) {
-            return $this->exporter->export('NSSentinelBundle:Report:IBD/Export/number-enrolled.html.twig', ['results' => $result]);
+            return $this->exporter->export($this->exportBasePath.'/number-enrolled.html.twig', ['results' => $result]);
         }
 
         return ['results' => $result, 'form' => $form->createView()];
@@ -66,7 +86,7 @@ class IBDReporter extends AbstractReporter
     {
         $export = false;
         $alias = 'i';
-        $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:IBD')->getAnnualAgeDistribution($alias);
+        $queryBuilder = $this->entityMgr->getRepository($this->class)->getAnnualAgeDistribution($alias);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -83,7 +103,7 @@ class IBDReporter extends AbstractReporter
         $results = new AgeDistribution($result);
 
         if ($export) {
-            return $this->exporter->export('NSSentinelBundle:Report:IBD/Export/annual-age.html.twig', ['results' => $results]);
+            return $this->exporter->export($this->exportBasePath.'/annual-age.html.twig', ['results' => $results]);
         }
 
         return ['results' => $results, 'form' => $form->createView()];
@@ -100,7 +120,7 @@ class IBDReporter extends AbstractReporter
     {
         $results = new ArrayCollection();
         $alias = 'i';
-        $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getWithCasesForDate($alias, 'NS\SentinelBundle\Entity\IBD');
+        $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getWithCasesForDate($alias, $this->class);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -116,9 +136,9 @@ class IBDReporter extends AbstractReporter
                 return ['sites' => [], 'form' => $form->createView()];
             }
 
-            $this->populateSites($sites, $results, 'NS\SentinelBundle\Report\Result\FieldPopulationResult');
+            $this->populateSites($sites, $results, FieldPopulationResult::class);
 
-            $repo = $this->entityMgr->getRepository('NSSentinelBundle:IBD');
+            $repo = $this->entityMgr->getRepository($this->class);
             $columns = [
                 'getCsfCollectedCountBySites' => 'setCsfCollectedCount',
                 'getBloodCollectedCountBySites' => 'setBloodCollectedCount',
@@ -135,7 +155,7 @@ class IBDReporter extends AbstractReporter
             $this->processResult($columns, $repo, $alias, $results, $form);
 
             if ($form->get('export')->isClicked()) {
-                return $this->exporter->export('NSSentinelBundle:Report:IBD/Export/field-population.html.twig', ['sites' => $results]);
+                return $this->exporter->export($this->exportBasePath.'/field-population.html.twig', ['sites' => $results]);
             }
         }
 
@@ -152,7 +172,7 @@ class IBDReporter extends AbstractReporter
     public function getCulturePositive(Request $request, FormInterface $form, $redirectRoute)
     {
         $alias = 'c';
-        $repo = $this->entityMgr->getRepository('NSSentinelBundle:IBD');
+        $repo = $this->entityMgr->getRepository($this->class);
         $cultPositiveQB = $repo->getCountByCulture($alias, true, null, null);
         $cultNegativeQB = $repo->getCountByCulture($alias, false, true, null);
         $pcrPositiveQB = $repo->getCountByCulture($alias, false, false, true);
@@ -175,7 +195,7 @@ class IBDReporter extends AbstractReporter
         $results = new CulturePositive($culturePositive, $cultureNegative, $pcrPositive);
 
         if ($form->get('export')->isClicked()) {
-            return $this->exporter->export('NSSentinelBundle:Report:IBD/Export/culture-positive.html.twig', ['results' => $results]);
+            return $this->exporter->export($this->exportBasePath.'/culture-positive.html.twig', ['results' => $results]);
         }
 
         return ['results' => $results, 'form' => $form->createView()];
@@ -191,7 +211,7 @@ class IBDReporter extends AbstractReporter
     {
         $results = new ArrayCollection();
         $alias = 'i';
-        $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getWithCasesForDate($alias, 'NS\SentinelBundle\Entity\IBD');
+        $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getWithCasesForDate($alias, $this->class);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -207,9 +227,9 @@ class IBDReporter extends AbstractReporter
                 return ['sites' => [], 'form' => $form->createView()];
             }
 
-            $this->populateSites($sites, $results, 'NS\SentinelBundle\Report\Result\IBD\DataQualityResult');
+            $this->populateSites($sites, $results, DataQualityResult::class);
 
-            $repo = $this->entityMgr->getRepository('NSSentinelBundle:IBD');
+            $repo = $this->entityMgr->getRepository($this->class);
             $columns = [
                 'getMissingAdmissionDiagnosisCountBySites' => 'setMissingAdmissionDiagnosisCount',
                 'getMissingDischargeOutcomeCountBySites' => 'setMissingDischargeOutcomeCount',
@@ -219,7 +239,7 @@ class IBDReporter extends AbstractReporter
             $this->processResult($columns, $repo, $alias, $results, $form);
 
             if ($form->get('export')->isClicked()) {
-                return $this->exporter->export('NSSentinelBundle:Report:IBD/Export/data-quality.html.twig', ['sites' => $results], 'xls');
+                return $this->exporter->export($this->exportBasePath.'/data-quality.html.twig', ['sites' => $results], 'xls');
             }
         }
 
@@ -236,7 +256,7 @@ class IBDReporter extends AbstractReporter
     {
         $results = new ArrayCollection();
         $alias = 'i';
-        $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getWithCasesForDate($alias, 'NS\SentinelBundle\Entity\IBD');
+        $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getWithCasesForDate($alias, $this->class);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -252,9 +272,9 @@ class IBDReporter extends AbstractReporter
                 return ['sites' => [], 'form' => $form->createView()];
             }
 
-            $this->populateSites($sites, $results, 'NS\SentinelBundle\Report\Result\IBD\SitePerformanceResult');
+            $this->populateSites($sites, $results, SitePerformanceResult::class);
 
-            $repo = $this->entityMgr->getRepository('NSSentinelBundle:IBD');
+            $repo = $this->entityMgr->getRepository($this->class);
             $columns = [
                 'getConsistentReporting' => 'addConsistentReporting',
                 'getZeroReporting' => 'addConsistentReporting',
@@ -291,7 +311,7 @@ class IBDReporter extends AbstractReporter
                 return new RedirectResponse($this->router->generate($redirectRoute));
             }
 
-            $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Country')->getWithCasesForDate($alias, 'NS\SentinelBundle\Entity\IBD');
+            $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Country')->getWithCasesForDate($alias, $this->class);
 
             $this->filter->addFilterConditions($form, $queryBuilder, $alias);
 
@@ -301,12 +321,12 @@ class IBDReporter extends AbstractReporter
                 return ['sites' => [], 'form' => $form->createView()];
             }
 
-            $this->populateCountries($countries, $results, 'NS\SentinelBundle\Report\Result\DataLinkingResult');
-            $repo = $this->entityMgr->getRepository('NSSentinelBundle:IBD');
+            $this->populateCountries($countries, $results, DataLinkingResult::class);
+            $repo = $this->entityMgr->getRepository($this->class);
 
             if ($form->get('export')->isClicked()) {
                 $results = $repo->getFailedLink($alias, $results->getKeys())->getQuery()->getResult();
-                return $this->exporter->export('NSSentinelBundle:Report:IBD:Export/data-linking.html.twig', ['results' => $results]);
+                return $this->exporter->export($this->exportBasePath.'/data-linking.html.twig', ['results' => $results]);
             }
 
             $columns = [
@@ -329,7 +349,7 @@ class IBDReporter extends AbstractReporter
      */
     public function getStats(Request $request, FormInterface $form, $redirectRoute)
     {
-        return $this->retrieveStats('NSSentinelBundle:IBD', new GeneralStatisticResult(), $request, $form, $redirectRoute);
+        return $this->retrieveStats($this->class, new GeneralStatisticResult(), $request, $form, $redirectRoute);
     }
 
     public function getYearMonth(Request $request, FormInterface $form, $redirectRoute)
@@ -342,7 +362,7 @@ class IBDReporter extends AbstractReporter
             }
 
             $alias = 'i';
-            $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getWithCasesForDate($alias, 'NS\SentinelBundle\Entity\IBD');
+            $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getWithCasesForDate($alias, $this->class);
             $queryBuilder->addSelect('MONTH(i.adm_date) as admMonth');
 
             $this->filter->addFilterConditions($form, $queryBuilder, $alias);

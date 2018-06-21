@@ -48,24 +48,48 @@ class Builder
             }
 
             $reports   = $menu->addChild('Reports', ['label' => 'menu.data-reports','extras' =>['icon'=>'fa fa-dashboard']]);
-            $ibdReport = $reports->addChild('IBD');
+            $pneuReport = $reports->addChild('Pneumonia');
+            $meningReport = $reports->addChild('Meningitis');
             $rotaReport = $reports->addChild('Rota');
-            $rotaReport->addChild('Data Quality Checks', ['label'=>'menu.data-reports-data-quality', 'route'=>'reportRotaDataQuality']);
-            $rotaReport->addChild('Site Performance', ['label'=>'menu.data-reports-site-performance', 'route'=>'reportRotaSitePerformance']);
-            $rotaReport->addChild('RRL Linking', ['label'=>'menu.data-reports-rrl-linking', 'route'=>'reportRotaDataLinking']);
-            $rotaReport->addChild('Stats', ['label' => 'menu.data-reports-stats', 'route' => 'reportRotaStats']);
-            $rotaReport->addChild('Year / Month', ['label' => 'menu.data-reports-year-month', 'route' => 'reportRotaYearMonth']);
+            $ibdReport = $reports->addChild('IBD');
 
-            $ibdReport->addChild('Data Quality Checks', ['label'=>'menu.data-reports-data-quality', 'route'=>'reportIbdDataQuality']);
-            $ibdReport->addChild('Site Performance', ['label'=>'menu.data-reports-site-performance', 'route'=>'reportIbdSitePerformance']);
-            $ibdReport->addChild('RRL Linking', ['label'=>'menu.data-reports-rrl-linking', 'route' => 'reportIbdDataLinking']);
-            $ibdReport->addChild('Stats', ['label' => 'menu.data-reports-stats', 'route' => 'reportIbdStats']);
-            $ibdReport->addChild('Year / Month', ['label' => 'menu.data-reports-year-month', 'route' => 'reportIbdYearMonth']);
+            $rotaReport->addChild('Data Quality Checks', ['label'=>'menu.data-reports-data-quality', 'route'=>'rotaReportDataQuality']);
+            $rotaReport->addChild('Site Performance', ['label'=>'menu.data-reports-site-performance', 'route'=>'rotaReportSitePerformance']);
+            $rotaReport->addChild('RRL Linking', ['label'=>'menu.data-reports-rrl-linking', 'route'=>'rotaReportDataLinking']);
+            $rotaReport->addChild('Stats', ['label' => 'menu.data-reports-stats', 'route' => 'rotaReportStats']);
+            $rotaReport->addChild('Year / Month', ['label' => 'menu.data-reports-year-month', 'route' => 'rotaReportYearMonth']);
 
-            $ibdReport->addChild('Age Distribution', ['label'=> 'menu.data-reports-age-distribution', 'route'=>'reportAnnualAgeDistribution']);
-            $ibdReport->addChild('Enrolment %', ['label'=> 'menu.data-reports-percent-enrolled', 'route'=>'reportPercentEnrolled']);
-            $ibdReport->addChild('Field Population', ['label'=>'menu.data-reports-field-population', 'route'=>'reportFieldPopulation']);
-            $ibdReport->addChild('Culture Positive', ['label'=>'menu.data-reports-culture-positive', 'route'=>'reportCulturePositive']);
+            $ibdReport->addChild('Data Quality Checks', ['label'=>'menu.data-reports-data-quality', 'route'=>'ibdReportDataQuality']);
+            $ibdReport->addChild('Site Performance', ['label'=>'menu.data-reports-site-performance', 'route'=>'ibdReportSitePerformance']);
+            $ibdReport->addChild('RRL Linking', ['label'=>'menu.data-reports-rrl-linking', 'route' => 'ibdReportDataLinking']);
+            $ibdReport->addChild('Stats', ['label' => 'menu.data-reports-stats', 'route' => 'ibdReportStats']);
+            $ibdReport->addChild('Year / Month', ['label' => 'menu.data-reports-year-month', 'route' => 'ibdReportYearMonth']);
+
+            $ibdReport->addChild('Age Distribution', ['label'=> 'menu.data-reports-age-distribution', 'route'=>'ibdReportAnnualAgeDistribution']);
+            $ibdReport->addChild('Enrolment %', ['label'=> 'menu.data-reports-percent-enrolled', 'route'=>'ibdReportPercentEnrolled']);
+            $ibdReport->addChild('Field Population', ['label'=>'menu.data-reports-field-population', 'route'=>'ibdReportFieldPopulation']);
+            $ibdReport->addChild('Culture Positive', ['label'=>'menu.data-reports-culture-positive', 'route'=>'ibdReportCulturePositive']);
+
+            $pneuReport->addChild('Data Quality Checks', ['label'=>'menu.data-reports-data-quality', 'route'=>'pneuReportDataQuality']);
+            $pneuReport->addChild('Site Performance', ['label'=>'menu.data-reports-site-performance', 'route'=>'pneuReportSitePerformance']);
+            $pneuReport->addChild('RRL Linking', ['label'=>'menu.data-reports-rrl-linking', 'route' => 'pneuReportDataLinking']);
+            $pneuReport->addChild('Stats', ['label' => 'menu.data-reports-stats', 'route' => 'pneuReportStats']);
+            $pneuReport->addChild('Year / Month', ['label' => 'menu.data-reports-year-month', 'route' => 'pneuReportYearMonth']);
+
+            $pneuReport->addChild('Age Distribution', ['label'=> 'menu.data-reports-age-distribution', 'route'=>'pneuReportAnnualAgeDistribution']);
+            $pneuReport->addChild('Enrolment %', ['label'=> 'menu.data-reports-percent-enrolled', 'route'=>'pneuReportPercentEnrolled']);
+            $pneuReport->addChild('Field Population', ['label'=>'menu.data-reports-field-population', 'route'=>'pneuReportFieldPopulation']);
+
+            $meningReport->addChild('Data Quality Checks', ['label'=>'menu.data-reports-data-quality', 'route'=>'meningReportDataQuality']);
+            $meningReport->addChild('Site Performance', ['label'=>'menu.data-reports-site-performance', 'route'=>'meningReportSitePerformance']);
+            $meningReport->addChild('RRL Linking', ['label'=>'menu.data-reports-rrl-linking', 'route' => 'meningReportDataLinking']);
+            $meningReport->addChild('Stats', ['label' => 'menu.data-reports-stats', 'route' => 'meningReportStats']);
+            $meningReport->addChild('Year / Month', ['label' => 'menu.data-reports-year-month', 'route' => 'meningReportYearMonth']);
+
+            $meningReport->addChild('Age Distribution', ['label'=> 'menu.data-reports-age-distribution', 'route'=>'meningReportAnnualAgeDistribution']);
+            $meningReport->addChild('Enrolment %', ['label'=> 'menu.data-reports-percent-enrolled', 'route'=>'meningReportPercentEnrolled']);
+            $meningReport->addChild('Field Population', ['label'=>'menu.data-reports-field-population', 'route'=>'meningReportFieldPopulation']);
+            $meningReport->addChild('Culture Positive', ['label'=>'menu.data-reports-culture-positive', 'route'=>'meningReportCulturePositive']);
 
             if ($this->authChecker->isGranted('ROLE_API')) {
                 $api = $menu->addChild('Api Resources', ['label' => 'Api Resources', 'extras' => ['icon' => 'fa fa-book']]);

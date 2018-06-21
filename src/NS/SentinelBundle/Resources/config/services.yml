@@ -44,6 +44,20 @@ services:
   ns_sentinel.ibd_report:
     class: NS\SentinelBundle\Report\IBDReporter
     arguments: [ "@lexik_form_filter.query_builder_updater", "@doctrine.orm.entity_manager", "@router", "@ns_sentinel.exporter" ]
+    calls:
+      - [ 'initialize', ['NS\SentinelBundle\Entity\IBD', 'NSSentinelBundle:Report:IBD/Export']]
+
+  ns_sentinel.pneu_report:
+    class: NS\SentinelBundle\Report\PneumoniaReporter
+    arguments: [ "@lexik_form_filter.query_builder_updater", "@doctrine.orm.entity_manager", "@router", "@ns_sentinel.exporter" ]
+    calls:
+      - [ 'initialize', ['NS\SentinelBundle\Entity\Pneumonia\Pneumonia', 'NSSentinelBundle:Report:Pneumonia/Export']]
+
+  ns_sentinel.mening_report:
+    class: NS\SentinelBundle\Report\MeningitisReport
+    arguments: [ "@lexik_form_filter.query_builder_updater", "@doctrine.orm.entity_manager", "@router", "@ns_sentinel.exporter" ]
+    calls:
+      - [ 'initialize', ['NS\SentinelBundle\Entity\Meningitis\Meningitis', 'NSSentinelBundle:Report:Meningitis/Export']]
 
   ns.sentinel.services.homepage:
     class: NS\SentinelBundle\Services\Homepage

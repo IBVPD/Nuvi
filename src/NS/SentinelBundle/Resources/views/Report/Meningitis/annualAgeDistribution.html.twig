@@ -1,5 +1,6 @@
 {% extends "NSSentinelBundle::layout.html.twig" %}
-{% block pagetitle %}{{ 'Number and Percent Enrolled: Admit Diagnosis'|trans }}{% endblock %}
+{% block pagetitle %}{{ 'Age Distribution'|trans }}{% endblock %}
+{% block pagedescription %}{{ 'for suspected meningitis cases'|trans }}{% endblock %}
 
 {% block body %}
     <div class="row">
@@ -46,17 +47,21 @@
                             </form>
                         </div>
                     </div>
-
                     <div class="widget-main no-padding">
-                        {% include 'NSSentinelBundle:Report/IBD/Export:number-enrolled.html.twig' %}
+                        <div class="table-responsive">
+                            {% include 'NSSentinelBundle:Report:Meningitis/Export/annual-age.html.twig' %}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-12">
-            <div id="chart_div" style="width: 1024px; height: 500px;"></div>
+        <div class="col-xs-6">
+            <div id="totalPercent"></div>
+        </div>
+        <div class="col-xs-6">
+            <div id="ageProgression"></div>
         </div>
     </div>
 
@@ -65,26 +70,44 @@
         google.setOnLoadCallback(drawChart);
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
-                [
-                    {% for r in results.headers %}
-                    '{{ r|trans }}'{% if not loop.last %},{% endif %}
-                    {% endfor %}
-                ],
-                    {% for i in 1..12 %}['{{ i }}', {% for c in results.getMonthResult(i) %}{{ c }}{% if not loop.last %},{% endif %}{% endfor %}]{% if not loop.last %},{% endif %}{% endfor %}
-
+                ['{{ 'Distribution'|trans }}', '{{ 'Count'|trans }}'],
+                ['0-5',{{ results.getZeroToFive() }}],
+                ['6-11',{{ results.getFiveToEleven() }}],
+                ['12-23',{{ results.getElevenToTwentyThree() }}],
+                ['24-59',{{ results.getTwentyThreeToFiftyNine() }}],
+                ['{{ 'Unknown'|trans }}',{{ results.getUnknown() }}]
             ]);
 
             var options = {
-                title: '{{ 'Number Enrolled By Month & Suspected Diagnosis'|trans }}',
-                vAxis: {title: '{{ 'Occurances'|trans}}'},
-                hAxis: {title: '{{ 'Month'|trans }}'},
+                title: '{{ 'Number Enrolled By Month & Suspected Diagnosis'|trans|raw }}',
+                vAxis: {title: 'Occurances'},
+                hAxis: {title: 'Month'},
                 bar: {groupWidth: '90%'},
                 annotations: {boxStyle: {stroke: '#888', strokeWidth: 1}}
             };
 
-            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+            var chart = new google.visualization.PieChart(document.getElementById('totalPercent'));
+            chart.draw(data, options);
+        }
+    </script>
+    <script type="text/javascript">
+        google.load("visualization", "1", {packages: ["corechart"]});
+        google.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['{{ 'Year'|trans }}', '0-5', '6-11', '12-23', '24-59', '{{ 'Unknown'|trans }}', '{{ 'Total'|trans }}'],
+                {% for year in results.graphableYears %}
+                [{{ year }},{{ results.getZeroToFive(year) }},{{ results.getFiveToEleven(year) }},{{ results.getElevenToTwentyThree(year) }},{{ results.getTwentyThreeToFiftyNine(year) }},{{ results.getUnknown(year) }},{{ results.getTotal(year) }}]{% if not loop.last %},{% endif %}
+                {% endfor %}
+            ]);
+
+            var options = {
+                title: '{{ 'Case Progression'|trans }}',
+                hAxis: {format: '####'}
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('ageProgression'));
             chart.draw(data, options);
         }
     </script>
 {% endblock %}
-
