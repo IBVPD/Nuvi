@@ -95,12 +95,10 @@ class NationalLab extends ExternalLab
 
     /**
      * @param $type
-     * @return $this
      */
     public function setType($type)
     {
         $this->type = $type;
-        return $this;
     }
 
     /**
@@ -113,12 +111,10 @@ class NationalLab extends ExternalLab
 
     /**
      * @param mixed $caseFile
-     * @return NationalLab
      */
     public function setCaseFile($caseFile = null)
     {
         $this->caseFile = $caseFile;
-        return $this;
     }
 
     /**

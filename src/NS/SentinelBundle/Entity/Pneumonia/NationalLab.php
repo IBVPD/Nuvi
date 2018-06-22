@@ -64,7 +64,7 @@ class NationalLab extends ExternalLab
     /**
      * @var string
      */
-    private $type        = 'NL';
+    private $type = 'NL';
 
     /**
      * @return string
@@ -76,16 +76,14 @@ class NationalLab extends ExternalLab
 
     /**
      * @param $type
-     * @return $this
      */
     public function setType($type)
     {
         $this->type = $type;
-        return $this;
     }
 
     /**
-     * @return mixed
+     * @return Pneumonia
      */
     public function getCaseFile()
     {
@@ -99,7 +97,6 @@ class NationalLab extends ExternalLab
     public function setCaseFile($caseFile = null)
     {
         $this->caseFile = $caseFile;
-        return $this;
     }
 
     /**
