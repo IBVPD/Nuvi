@@ -642,10 +642,12 @@ abstract class BaseCase
     /**
      * @param YearMonth $dobMonthYears
      */
-    public function setDobYearMonths(YearMonth $dobMonthYears)
+    public function setDobYearMonths(YearMonth $dobMonthYears=null)
     {
         $this->dobYearMonths = $dobMonthYears;
-        $this->age_months = $dobMonthYears->getMonths();
+        if ($dobMonthYears) {
+            $this->age_months = $dobMonthYears->getMonths();
+        }
     }
 
     /**

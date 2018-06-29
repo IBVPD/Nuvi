@@ -27,7 +27,7 @@ use NS\UtilBundle\Validator\Constraints\ArrayChoiceConstraint;
  * Description of IBD
  * @author gnat
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\Meningitis\MeningitisRepository")
- * @ORM\Table(name="mening_cases",uniqueConstraints={@ORM\UniqueConstraint(name="ibd_site_case_id_idx",columns={"site_id","case_id"})})
+ * @ORM\Table(name="mening_cases",uniqueConstraints={@ORM\UniqueConstraint(name="mening_site_case_id_idx",columns={"site_id","case_id"})})
  * @ORM\HasLifecycleCallbacks
  * @Secured(conditions={
  *      @SecuredCondition(roles={"ROLE_REGION"},relation="region",class="NSSentinelBundle:Region"),
@@ -35,7 +35,7 @@ use NS\UtilBundle\Validator\Constraints\ArrayChoiceConstraint;
  *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},relation="site",class="NSSentinelBundle:Site"),
  *      })
  * @SuppressWarnings(PHPMD.ShortVariable)
- * @ORM\EntityListeners(value={"NS\SentinelBundle\Entity\Listener\IBDListener"})
+ * @ORM\EntityListeners(value={"NS\SentinelBundle\Entity\Listener\MeningitisListener"})
  *
  * @LocalAssert\GreaterThanDate(atPath="adm_date",lessThanField="onsetDate",greaterThanField="admDate",message="form.validation.admission-after-onset")
  * @LocalAssert\GreaterThanDate(atPath="onset_date",lessThanField="birthdate",greaterThanField="onsetDate",message="form.validation.onset-after-dob")

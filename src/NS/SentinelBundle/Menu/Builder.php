@@ -40,9 +40,9 @@ class Builder
         if ($this->authChecker->isGranted('IS_AUTHENTICATED_FULLY')) {
             if ($this->authChecker->isGranted('ROLE_CAN_CREATE')) {
                 $data = $menu->addChild('Data Entry', ['label' => 'menu.data-entry', 'extras' => ['icon' => 'fa fa-edit']]);
-//                $data->addChild('IBD', [ 'label' => 'menu.ibd', 'route' => 'ibdIndex', 'extras' => ['routes'=>['ibdEdit','ibdLabEdit','ibdNLEdit','ibdRRLEdit','ibdOutcomeEdit']] ]);
                 $data->addChild('Meningitis', [ 'label' => 'menu.meningitis', 'route' => 'meningitisIndex', 'extras' => ['routes'=>['meningitisEdit','meningitisLabEdit','meningitisNLEdit','meningitisRRLEdit','meningitisOutcomeEdit']] ]);
                 $data->addChild('Pneumonia', [ 'label' => 'menu.pneumonia', 'route' => 'pneumoniaIndex', 'extras' => ['routes'=>['pneumoniaEdit','pneumoniaLabEdit','pneumoniaNLEdit','pneumoniaRRLEdit','pneumoniaOutcomeEdit']] ]);
+                $data->addChild('IBD', [ 'label' => 'menu.ibd', 'route' => 'ibdIndex', 'extras' => ['routes'=>['ibdEdit','ibdLabEdit','ibdNLEdit','ibdRRLEdit','ibdOutcomeEdit']] ]);
                 $data->addChild('Rotavirus', ['route' => 'rotavirusIndex', 'extras' => ['translation_domain' => 'NSSentinelBundle', 'routes'=>['rotavirusEdit','rotavirusLabEdit','rotavirusNLEdit','rotavirusRRLEdit','rotavirusOutcomeEdit']]]);
                 $data->addChild('Zero Reporting', ['route' => 'zeroReportIndex']);
             }
