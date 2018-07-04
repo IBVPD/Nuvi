@@ -13,6 +13,7 @@ use Doctrine\ORM\QueryBuilder;
 use NS\SentinelBundle\Entity;
 use NS\SentinelBundle\Form\IBD\Types\Diagnosis;
 
+use NS\SentinelBundle\Form\IBD\Types\DischargeDiagnosis;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -61,7 +62,14 @@ class SplitDataCommand extends ContainerAwareCommand
         $processed = 0;
         /** @var Entity\IBD $case */
         foreach ($cases as $case) {
-            $output->writeln('Handling case '.$case->getId().' cId: '.$case->getCaseId());
+//            $output->writeln('Handling case '.$case->getId().' cId: '.$case->getCaseId());
+            if ($case->getDischDx()->equal(DischargeDiagnosis::MULTIPLE)) {
+                $this->getMeningitis($case);
+                $this->getPneumonia($case);
+                $processed++;
+                continue;
+            }
+
             switch ($case->getAdmDx()->getValue()) {
                 case Diagnosis::SUSPECTED_MENINGITIS:
                     $processed++;
