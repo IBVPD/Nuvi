@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2017-06-08T12:34:25Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
+  <file date="2018-07-06T15:44:08Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -340,7 +340,7 @@
       </trans-unit>
       <trans-unit id="a91524f31602f33491dca42e858b9d5559c6e4d1" resname="Blood Collection Date and Time">
         <source>Blood Collection Date and Time</source>
-        <target>Fecha y hora de  colección de Sangre</target>
+        <target>Fecha y hora de  obtención de Sangre</target>
         <jms:reference-file line="163">/../src/NS/SentinelBundle/Resources/views/IBD/editLab.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="42b657c8bebf02e57f682d03428fbdc6bcae2837" resname="Blood culture broth">
@@ -387,7 +387,7 @@
       </trans-unit>
       <trans-unit id="97bfcdf6ff37facbd8f9ac1b6f1a09a87a611e67" resname="CSF Collection Date and Time">
         <source>CSF Collection Date and Time</source>
-        <target>Fecha y hora de  colección de LCR</target>
+        <target>Fecha y hora de obtención de LCR</target>
         <jms:reference-file line="40">/../src/NS/SentinelBundle/Resources/views/IBD/editLab.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="775275cfc23d95b3976ef3bbea43f42a663ffdda" resname="CT Values From PCR">
@@ -477,7 +477,7 @@
       </trans-unit>
       <trans-unit id="22c36db366e95f54cde8dc00859b31205a7c19b8" resname="Collection Info">
         <source>Collection Info</source>
-        <target>información de colección</target>
+        <target>información de obtención</target>
         <jms:reference-file line="18">views/IBD/editLab.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="49252e62e00fc748d88e9116e4f339147369a405" resname="Common Reports">
@@ -1234,7 +1234,7 @@
       </trans-unit>
       <trans-unit id="6eef6648406c333a4035cd5e60d0bf2ecf2606d7" resname="None">
         <source>None</source>
-        <target>Ninguno</target>
+        <target>Ninguna</target>
       </trans-unit>
       <trans-unit id="45e118d0563ea8581f830f46e85b60ae714faae4" resname="Normal">
         <source>Normal</source>
@@ -1312,7 +1312,7 @@
       </trans-unit>
       <trans-unit id="304dc7e19fb693e3b2eebba90c5c66e67cb4da4a" resname="Other Fluid Collection Date and Time">
         <source>Other Fluid Collection Date and Time</source>
-        <target>Fecha y hora de colección de otros fluidos </target>
+        <target>Fecha y hora de obtención de otros fluidos </target>
         <jms:reference-file line="281">/../src/NS/SentinelBundle/Resources/views/IBD/editLab.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="b572c8561b3a5f58713f0aa978cd62bbf8019e65" resname="Other Fluids">
@@ -1542,7 +1542,7 @@
       </trans-unit>
       <trans-unit id="2eef541cd19165b5cea3a39b09bca0d078e05a62" resname="Reference Lab Sample Collection Date">
         <source>Reference Lab Sample Collection Date</source>
-        <target>Fecha de Obtencion de muestra en el Lab. de Referencia</target>
+        <target>Fecha de obtencion de muestra en el Lab. de Referencia</target>
         <jms:reference-file line="14">views/Report/IBD/Export/data-linking.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="6bd3701652fe35671e301d0ff174de30aa6f0229" resname="Reference Lab Sample ID">
@@ -1726,7 +1726,7 @@
       </trans-unit>
       <trans-unit id="00b2aad45d07b70e1b7eefea74316913901b6e42" resname="Some">
         <source>Some</source>
-        <target>Algunos</target>
+        <target>Leve</target>
       </trans-unit>
       <trans-unit id="b363380beb05f416420c1010cce7aa35d6bd6125" resname="Specific - Site / Country / Region">
         <source>Specific - Site / Country / Region</source>
@@ -1735,7 +1735,7 @@
       </trans-unit>
       <trans-unit id="54f52f84185da61ce5e187d916c2e972a0635bcf" resname="Specimen Collection">
         <source>Specimen Collection</source>
-        <target>Colección de muestra</target>
+        <target>Obtención de muestra</target>
         <jms:reference-file line="60">/../src/NS/SentinelBundle/Resources/views/Report/IBD/site-performance.html.twig</jms:reference-file>
         <jms:reference-file line="10">/../src/NS/SentinelBundle/Resources/views/Report/RotaVirus/Export/site-performance.html.twig</jms:reference-file>
       </trans-unit>
@@ -2065,7 +2065,7 @@
       </trans-unit>
       <trans-unit id="abbbc28952e061627f8fd4ad474944cec585a2e7" resname="csf Collected">
         <source>csf Collected</source>
-        <target>Toma de muestra de LCR</target>
+        <target>Obtención de muestra de LCR</target>
         <jms:reference-file line="9">/../src/NS/SentinelBundle/Resources/views/Report/IBD/Export/field-population.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="d933c100a3344322c1679817f118083d26a627a7" resname="csf Lat Recorded">
@@ -2213,22 +2213,22 @@
       </trans-unit>
       <trans-unit id="0e3575c28e3987ae260cba01da2624b9134ba7d1" resname="ibd-form.blood-collect-date">
         <source>ibd-form.blood-collect-date</source>
-        <target>Fecha de colección de muestra de sangre</target>
+        <target>Fecha de obtención de hemocultivo 1</target>
         <jms:reference-file line="102">/../src/NS/SentinelBundle/Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="a60564c56b3afff636d2058d684aebc3656697fc" resname="ibd-form.blood-collect-date-second-sample">
         <source>ibd-form.blood-collect-date-second-sample</source>
-        <target>Fecha de colección de la segunda muestra de sangre</target>
+        <target>Fecha de obtención de hemocultivo 2</target>
         <jms:reference-file line="171">/../src/NS/SentinelBundle/Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="246a98e17d55fb3bef23ea042e1aadacb9a90d3d" resname="ibd-form.blood-collect-time">
         <source>ibd-form.blood-collect-time</source>
-        <target>Hora de colección de muestra de sangre</target>
+        <target>Hora de obtención de hemocultivo 1</target>
         <jms:reference-file line="103">/../src/NS/SentinelBundle/Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="4ef651b62d73e48f12229f7865bdbf40ba98881b" resname="ibd-form.blood-collect-time-second-sample">
         <source>ibd-form.blood-collect-time-second-sample</source>
-        <target>Hora de colección de la segunda muestra de sangre</target>
+        <target>Hora de obtención de hemocultivo 2</target>
         <jms:reference-file line="172">/../src/NS/SentinelBundle/Form/IBD/CaseType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e112042fbc3747ae7f364fcef4d5cc4341558bba" resname="ibd-form.blood-collected">
@@ -2251,12 +2251,12 @@
       </trans-unit>
       <trans-unit id="a898996770506caf8b8cce56b5524c579f3fe285" resname="ibd-form.blood-cult-result">
         <source>ibd-form.blood-cult-result</source>
-        <target>Resultado del hemocultivo</target>
+        <target>Resultado del hemocultivo 1</target>
         <jms:reference-file line="95">/../src/NS/SentinelBundle/Form/IBD/SiteLabType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="183ff6def325d6c685501a6e7323de0233fbdf30" resname="ibd-form.blood-gram-done">
         <source>ibd-form.blood-gram-done</source>
-        <target>¿Se hizo una tinción de Gram en el hemocultivo?</target>
+        <target>¿Se hizo una tinción de Gram en el hemocultivo 1?</target>
         <jms:reference-file line="97">/../src/NS/SentinelBundle/Form/IBD/SiteLabType.php</jms:reference-file>
         <jms:reference-file line="244">/../src/NS/SentinelBundle/Resources/views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
@@ -2374,7 +2374,7 @@
       </trans-unit>
       <trans-unit id="0f90b164aed657b3c7a0ba7b3800f81a315d6f78" resname="ibd-form.csf-binax-done">
         <source>ibd-form.csf-binax-done</source>
-        <target>¿Se hizo  Binax en LCR?</target>
+        <target>¿Se hizo  Binax para Spn en LCR?</target>
         <jms:reference-file line="81">/../src/NS/SentinelBundle/Form/IBD/SiteLabType.php</jms:reference-file>
         <jms:reference-file line="235">/../src/NS/SentinelBundle/Resources/views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
@@ -2733,7 +2733,7 @@
       </trans-unit>
       <trans-unit id="795c97dad5ffdc4cd53335413bfbb5961dab1dac" resname="ibd-form.men-inability-feed">
         <source>ibd-form.men-inability-feed</source>
-        <target>¿Tuvo dificultad de beber, mamar o no poder chupar la mama?</target>
+        <target>Dificultad parar succionar/alimentarse</target>
         <jms:reference-file line="89">/../src/NS/SentinelBundle/Form/IBD/CaseType.php</jms:reference-file>
         <jms:reference-file line="153">/../src/NS/SentinelBundle/Resources/views/IBD/show.html.twig</jms:reference-file>
       </trans-unit>
@@ -3714,13 +3714,13 @@
       </trans-unit>
       <trans-unit id="c207bb19c6d39e367a58e7a7bd6d78999d37ff2c" resname="rotavirus-form.stoolCollected">
         <source>rotavirus-form.stoolCollected</source>
-        <target>Se colectó muestras de heces?</target>
+        <target>Se obtuvo muestra de heces?</target>
         <jms:reference-file line="95">/../src/NS/SentinelBundle/Form/RotaVirus/CaseType.php</jms:reference-file>
         <jms:reference-file line="167">/../src/NS/SentinelBundle/Resources/views/RotaVirus/show.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="b155612036b8b3cf8c44954a40ae2626f1f7d5d2" resname="rotavirus-form.stoolCollectionDate">
         <source>rotavirus-form.stoolCollectionDate</source>
-        <target>Fecha de colección de heces</target>
+        <target>Fecha de obtención de muestra de heces</target>
         <jms:reference-file line="97">/../src/NS/SentinelBundle/Form/RotaVirus/CaseType.php</jms:reference-file>
         <jms:reference-file line="175">/../src/NS/SentinelBundle/Resources/views/RotaVirus/show.html.twig</jms:reference-file>
       </trans-unit>

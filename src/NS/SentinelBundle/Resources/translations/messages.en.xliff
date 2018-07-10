@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2017-06-07T11:12:54Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
+  <file date="2018-07-06T19:14:28Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -763,7 +763,7 @@
       </trans-unit>
       <trans-unit id="203e7ef5f830441d0df7649683b35d0002b19b13" resname="Export as Excel (may have row limit issues)">
         <source>Export as Excel (may have row limit issues)</source>
-        <target state="new">Export as Excel (may have row limit issues)</target>
+        <target>Export as Excel (may have row limit issues)</target>
         <jms:reference-file line="72">/../src/NS/SentinelBundle/Filter/Type/BaseReportFilterType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="e53e6fb5399d13847fc4f477393f2acedc2ea223" resname="Failed Link">
@@ -1725,7 +1725,7 @@
       </trans-unit>
       <trans-unit id="00b2aad45d07b70e1b7eefea74316913901b6e42" resname="Some">
         <source>Some</source>
-        <target>Some</target>
+        <target>Mild</target>
       </trans-unit>
       <trans-unit id="b363380beb05f416420c1010cce7aa35d6bd6125" resname="Specific - Site / Country / Region">
         <source>Specific - Site / Country / Region</source>
