@@ -106,11 +106,12 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
 
     /**
      * @param mixed $objId
+     * @param null $lockMode
+     * @param null $lockVersion
      * @return mixed
-     * @throws NonExistentCaseException
      * @throws \Doctrine\ORM\ORMException
      */
-    public function find($objId)
+    public function find($objId, $lockMode = NULL, $lockVersion = NULL)
     {
         try {
             $queryBuilder = $this->createQueryBuilder('m')
