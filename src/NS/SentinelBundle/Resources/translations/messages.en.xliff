@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2018-07-06T19:14:28Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
+  <file date="2018-07-10T13:36:01Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -149,6 +149,12 @@
         <source>25F/25A/38</source>
         <target>25F/25A/38</target>
       </trans-unit>
+      <trans-unit id="8ca155f57bafddfd3ce3e92089e07e618206485d" resname="2nd Blood">
+        <source>2nd Blood</source>
+        <target state="new">2nd Blood</target>
+        <jms:reference-file line="21">/../src/NS/SentinelBundle/Resources/views/IBD/editLab.html.twig</jms:reference-file>
+        <jms:reference-file line="251">/../src/NS/SentinelBundle/Resources/views/IBD/show.html.twig</jms:reference-file>
+      </trans-unit>
       <trans-unit id="5c97f696e8043f8d321e8945a9e15ee00aab0e7b" resname="3 doses">
         <source>3 doses</source>
         <target>3 doses</target>
@@ -280,6 +286,11 @@
         <jms:reference-file line="69">/../src/NS/SentinelBundle/Filter/Type/BaseFilterType.php</jms:reference-file>
         <jms:reference-file line="62">/../src/NS/SentinelBundle/Filter/Type/BaseReportFilterType.php</jms:reference-file>
       </trans-unit>
+      <trans-unit id="cc43fa744e43a87e4a4ac309fbcfe54c8898b83a" resname="Admission Diagnosis">
+        <source>Admission Diagnosis</source>
+        <target state="new">Admission Diagnosis</target>
+        <jms:reference-file line="31">/../src/NS/SentinelBundle/Filter/Type/IBD/FilterType.php</jms:reference-file>
+      </trans-unit>
       <trans-unit id="50c026300b52db9bf33a40131daac8a8c9fc341e" resname="Admitted">
         <source>Admitted</source>
         <target>Admitted</target>
@@ -309,7 +320,11 @@
       <trans-unit id="e6a9bb4fd705c50b883a4ccfb7fdc2c4e47f13a5" resname="Api Resources">
         <source>Api Resources</source>
         <target>Api Resources</target>
-        <jms:reference-file line="78">/../src/NS/SentinelBundle/Menu/Builder.php</jms:reference-file>
+        <jms:reference-file line="69">/../src/NS/SentinelBundle/Menu/Builder.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="994514f7560d3ab01785b8195ec2a69916960184" resname="Atelectasis">
+        <source>Atelectasis</source>
+        <target state="new">Atelectasis</target>
       </trans-unit>
       <trans-unit id="ae4f281df5a5d0ff3cad6371f76d5c29b6d953ec" resname="B">
         <source>B</source>
@@ -508,6 +523,14 @@
         <source>Consistent with Bacterial Pneumonia</source>
         <target>Consistent with Bacterial Pneumonia</target>
       </trans-unit>
+      <trans-unit id="f135bbecea100ecfef38f9dd0cb53419b3a1a02a" resname="Consistent with Viral Pneumonia">
+        <source>Consistent with Viral Pneumonia</source>
+        <target state="new">Consistent with Viral Pneumonia</target>
+      </trans-unit>
+      <trans-unit id="d29785d91120bc186b67337ef94e05b00464af73" resname="Consistent with Viral/Bacterial Co-infection">
+        <source>Consistent with Viral/Bacterial Co-infection</source>
+        <target state="new">Consistent with Viral/Bacterial Co-infection</target>
+      </trans-unit>
       <trans-unit id="81ff41187d9a55a0a0d410b37e2a03ec4014258e" resname="Consolidation">
         <source>Consolidation</source>
         <target>Consolidation</target>
@@ -661,6 +684,17 @@
       <trans-unit id="5f908b6ce50290bfc23e76b191c2ef8b0aeb506c" resname="Discarded case">
         <source>Discarded case</source>
         <target>Discarded case</target>
+      </trans-unit>
+      <trans-unit id="203ea6831239342eb2de7cbaf2b857258eb06a87" resname="Discharge Classification">
+        <source>Discharge Classification</source>
+        <target state="new">Discharge Classification</target>
+        <jms:reference-file line="37">/../src/NS/SentinelBundle/Filter/Type/IBD/FilterType.php</jms:reference-file>
+        <jms:reference-file line="23">/../src/NS/SentinelBundle/Filter/Type/RotaVirus/FilterType.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="c82910669ac5da147a00c4ed416d11023983e1f5" resname="Discharge Diagnosis">
+        <source>Discharge Diagnosis</source>
+        <target state="new">Discharge Diagnosis</target>
+        <jms:reference-file line="34">/../src/NS/SentinelBundle/Filter/Type/IBD/FilterType.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="f0750a96a5015fa6ef305bab6c098c7570710f30" resname="Discharged alive">
         <source>Discharged alive</source>
@@ -921,6 +955,11 @@
         <source>IV fluids</source>
         <target>IV fluids</target>
       </trans-unit>
+      <trans-unit id="09d4090de309d885f21e6ef393e6594f89ae43ba" resname="Import Access">
+        <source>Import Access</source>
+        <target state="new">Import Access</target>
+        <jms:reference-file line="57">/../src/NS/SentinelBundle/Admin/ACLAdmin.php</jms:reference-file>
+      </trans-unit>
       <trans-unit id="20163528b46a6980e70e00ad65af7d2eb8276970" resname="Import/Export Access">
         <source>Import/Export Access</source>
         <target>Import/Export Access</target>
@@ -1126,6 +1165,10 @@
       <trans-unit id="543c11922fafa6bc94f9277ba87081eb9ac9f1dd" resname="Mixed (specify)">
         <source>Mixed (specify)</source>
         <target>Mixed (specify)</target>
+      </trans-unit>
+      <trans-unit id="ea8b09c2354b17c2a83673437d6380be0e7b8c73" resname="Moderate">
+        <source>Moderate</source>
+        <target state="new">Moderate</target>
       </trans-unit>
       <trans-unit id="082bc378cd60e17a38d99898b21955299c5b60c8" resname="Month">
         <source>Month</source>
@@ -1342,6 +1385,11 @@
         <jms:reference-file line="18">/../src/NS/SentinelBundle/Resources/views/IBD/editOutcome.html.twig</jms:reference-file>
         <jms:reference-file line="18">/../src/NS/SentinelBundle/Resources/views/RotaVirus/editOutcome.html.twig</jms:reference-file>
         <jms:reference-file line="21">/../src/NS/SentinelBundle/Resources/views/RotaVirus/show.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="904b78967b120153a1090e0d83967f44489067f7" resname="PAHO Specific Fields">
+        <source>PAHO Specific Fields</source>
+        <target state="new">PAHO Specific Fields</target>
+        <jms:reference-file line="51">/../src/NS/SentinelBundle/Resources/views/User/profile.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="c9f27136991f4836a2edb06a435fb220fa6915e7" resname="PCR+ &amp; Binax Culture- &amp; Culture-">
         <source><![CDATA[PCR+ & Binax Culture- & Culture-]]></source>
@@ -1962,6 +2010,11 @@
         <jms:reference-file line="4">/../src/NS/SentinelBundle/Resources/views/Report/IBD/Export/culture-positive.html.twig</jms:reference-file>
         <jms:reference-file line="98">/../src/NS/SentinelBundle/Resources/views/Report/IBD/annualAgeDistribution.html.twig</jms:reference-file>
         <jms:reference-file line="68">/../src/NS/SentinelBundle/Resources/views/Report/IBD/culturePositive.html.twig</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="9696e2ba982639632b31daf69230e45f7e759324" resname="Year &amp; Month">
+        <source><![CDATA[Year & Month]]></source>
+        <target state="new"><![CDATA[Year & Month]]></target>
+        <jms:reference-file line="2">/../src/NS/SentinelBundle/Resources/views/Report/year-month.html.twig</jms:reference-file>
       </trans-unit>
       <trans-unit id="28ca72dbc84242332b42d831148af36cd198fbf7" resname="Year &amp; Total">
         <source><![CDATA[Year & Total]]></source>
@@ -3375,8 +3428,14 @@
       <trans-unit id="3c4ac446d065f8f8fe0596c962eda47ae1aa2c6e" resname="menu.data-reports-stats">
         <source>menu.data-reports-stats</source>
         <target>Statistics</target>
-        <jms:reference-file line="65">/../src/NS/SentinelBundle/Menu/Builder.php</jms:reference-file>
-        <jms:reference-file line="70">/../src/NS/SentinelBundle/Menu/Builder.php</jms:reference-file>
+        <jms:reference-file line="54">/../src/NS/SentinelBundle/Menu/Builder.php</jms:reference-file>
+        <jms:reference-file line="60">/../src/NS/SentinelBundle/Menu/Builder.php</jms:reference-file>
+      </trans-unit>
+      <trans-unit id="d0dc8ec2dfefe49e7c1af633832f26d8952ba71d" resname="menu.data-reports-year-month">
+        <source>menu.data-reports-year-month</source>
+        <target state="new">menu.data-reports-year-month</target>
+        <jms:reference-file line="55">/../src/NS/SentinelBundle/Menu/Builder.php</jms:reference-file>
+        <jms:reference-file line="61">/../src/NS/SentinelBundle/Menu/Builder.php</jms:reference-file>
       </trans-unit>
       <trans-unit id="540cd0fc2fe5af1c6ee1e78f1ef303a5abc43171" resname="menu.export">
         <source>menu.export</source>
