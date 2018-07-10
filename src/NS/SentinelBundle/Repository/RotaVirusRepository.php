@@ -141,7 +141,7 @@ class RotaVirusRepository extends Common
      * @throws NonExistentCaseException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function find($objId)
+    public function find($objId, $lockMode = NULL, $lockVersion = NULL)
     {
         try {
             $queryBuilder = $this->createQueryBuilder('m')

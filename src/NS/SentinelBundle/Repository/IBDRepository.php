@@ -4,6 +4,7 @@ namespace NS\SentinelBundle\Repository;
 
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query;
+use NS\SentinelBundle\Entity\BaseCase;
 use NS\SentinelBundle\Exceptions\NonExistentCaseException;
 use NS\SentinelBundle\Form\IBD\Types\BinaxResult;
 use NS\SentinelBundle\Form\IBD\Types\CultureResult;
@@ -189,10 +190,12 @@ class IBDRepository extends Common
 
     /**
      * @param mixed $objId
-     * @return mixed|null
+     * @param null $lockMode
+     * @param null $lockVersion
+     * @return BaseCase|null
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function find($objId)
+    public function find($objId, $lockMode = NULL, $lockVersion = NULL)
     {
         try {
             $queryBuilder = $this->createQueryBuilder('m')
@@ -205,7 +208,7 @@ class IBDRepository extends Common
 
             return $this->secure($queryBuilder)->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getSingleResult();
         } catch (NoResultException $e) {
-            return null;
+            throw new NonExistentCaseException("This case does not exist!");
         }
     }
 
