@@ -84,22 +84,24 @@ abstract class BaseCaseListener
             return;
         }
 
-        $status = $this->getIncompleteField($case) ? new CaseStatus(CaseStatus::OPEN) :new CaseStatus(CaseStatus::COMPLETE);
+        $status = $this->getIncompleteField($case) ? new CaseStatus(CaseStatus::OPEN) : new CaseStatus(CaseStatus::COMPLETE);
         $case->setStatus($status);
     }
 
     /**
      * @param BaseCase $case
      *
-     * @return mixed
+     * @return string|null
      */
     abstract public function getIncompleteField(BaseCase $case);
 
     /**
      * @param BaseCase $case
-     * @return mixed
+     * @param string|null $regionCode
+     *
+     * @return array
      */
-    abstract public function getMinimumRequiredFields(BaseCase $case);
+    abstract public function getMinimumRequiredFields(BaseCase $case, $regionCode = null);
 
     /**
      * @param BaseCase $case

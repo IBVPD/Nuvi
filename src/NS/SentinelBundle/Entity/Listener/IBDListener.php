@@ -162,9 +162,10 @@ class IBDListener extends BaseCaseListener
 
     /**
      * @param BaseCase $case
+     * @param null $regionCode
      * @return array
      */
-    public function getMinimumRequiredFields(BaseCase $case)
+    public function getMinimumRequiredFields(BaseCase $case, $regionCode = null)
     {
         $fields = [
             'caseId',

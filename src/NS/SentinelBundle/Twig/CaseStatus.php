@@ -74,12 +74,12 @@ class CaseStatus extends \Twig_Extension
     public function getLabLabel(BaseCase $obj, $message)
     {
         if ($obj->hasSiteLab()) {
-            $class = $obj->getSiteLab()->isComplete() ? 'label-success fa fa-check' : 'label-warning fa fa-exclamation-sign';
+            $class = $obj->getSiteLab()->isComplete() ? 'label-success fa fa-check' : 'label-warning fa fa-exclamation';
         } else {
-            $class = 'label-danger fa fa-exclamation-sign';
+            $class = 'label-danger fa fa-exclamation';
         }
 
-        return '<span class="label label-sm ' . $class . '">' . $message . '</span>';
+        return '<span class="label label-sm ' . $class . '"> ' . $message . '</span>';
     }
 
     /**
@@ -108,12 +108,12 @@ class CaseStatus extends \Twig_Extension
         }
 
         if ($noError) {
-            $class = ($obj->isComplete()) ? 'label-success fa fa-check' : 'label-warning fa fa-exclamation-sign';
+            $class = ($obj->isComplete()) ? 'label-success fa fa-check' : 'label-warning fa fa-exclamation';
         } else {
-            $class = 'label-danger fa fa-exclamation-sign';
+            $class = 'label-danger fa fa-exclamation';
         }
 
-        return '<span class="label label-sm ' . $class . '">' . $message . '</span>';
+        return '<span class="label label-sm ' . $class . '"> ' . $message . '</span>';
     }
 
     /**

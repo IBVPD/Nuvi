@@ -116,11 +116,12 @@ class PneumoniaListener extends BaseCaseListener
 
     /**
      * @param BaseCase $case
+     * @param string|null $regionCode
      * @return array
      */
-    public function getMinimumRequiredFields(BaseCase $case)
+    public function getMinimumRequiredFields(BaseCase $case, $regionCode = null)
     {
-        return [
+        $fields = [
             'caseId',
             'birthdate',
             'gender',
@@ -146,7 +147,13 @@ class PneumoniaListener extends BaseCaseListener
             'pneuRespRate',
             'pneuVomit',
             'pneuHypothermia',
-            'pneuMalnutrition'
+            'pneuMalnutrition',
         ];
+
+        if ($regionCode == 'AMR') {
+            $fields = array_merge($fields, ['pneuOxygenSaturation', 'pneuFever',]);
+        }
+
+        return $fields;
     }
 }

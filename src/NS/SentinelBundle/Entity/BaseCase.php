@@ -66,7 +66,7 @@ abstract class BaseCase
 
     /**
      * case_ID
-     * @var string $case_id
+     * @var string
      * @ORM\Column(name="case_id",type="string",nullable=false)
      * @Assert\NotBlank()
      * @Serializer\Groups({"api","export"})

@@ -4,7 +4,9 @@ namespace NS\SentinelBundle\Tests\Listeners;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use NS\SentinelBundle\Entity\Country;
-use NS\SentinelBundle\Entity\IBD;
+use NS\SentinelBundle\Entity\Listener\MeningitisListener;
+use NS\SentinelBundle\Entity\Meningitis\Meningitis;
+use NS\SentinelBundle\Entity\Region;
 use NS\SentinelBundle\Form\Types\CaseStatus;
 use NS\SentinelBundle\Form\Types\FourDoses;
 use NS\SentinelBundle\Form\Types\Gender;
@@ -18,51 +20,16 @@ use NS\SentinelBundle\Form\IBD\Types\DischargeDiagnosis;
 use NS\SentinelBundle\Form\IBD\Types\DischargeOutcome;
 use NS\SentinelBundle\Form\IBD\Types\VaccinationType;
 use NS\SentinelBundle\Form\IBD\Types\OtherSpecimen;
-use NS\SentinelBundle\Entity\Listener\IBDListener;
 
-class IBDListenerTest extends \PHPUnit_Framework_TestCase
+class MeningitisListenerTest extends \PHPUnit_Framework_TestCase
 {
-    public function testMinimumRequiredFieldsWithPneunomia()
-    {
-        $country = new Country('tId', 'Test');
-        $country->setTracksPneumonia(true);
-        $case    = new IBD();
-        $case->setCountry($country);
-
-        $listener = new IBDListener();
-
-        $this->assertCount(35, $listener->getMinimumRequiredFields($case));
-    }
-
-    public function testMinimumRequiredFieldsWithoutPneunomia()
-    {
-        $country = new Country('tId', 'Test');
-        $country->setTracksPneumonia(false);
-        $case    = new IBD();
-        $case->setCountry($country);
-
-        $listener = new IBDListener();
-
-        $this->assertCount(26, $listener->getMinimumRequiredFields($case));
-    }
-
     //============================================================
     // Single complete cases
-    public function testSingleMinimumCompleteCaseWithPneunomia()
+    public function testSingleMinimumCompleteNonPahoCase()
     {
-        $case = new IBD();
-        $this->_updateCase($case, $this->getSingleCompleteCaseWithPneunomia());
-        $listener = new IBDListener();
-        $listener->prePersist($case, $this->createMock(LifecycleEventArgs::class));
-
-        $this->assertTrue($case->isComplete(), "New cases are incomplete " . $listener->getIncompleteField($case) . ' ' . $case->getStatus());
-    }
-
-    public function testSingleMinimumCompleteCaseWithoutPneunomia()
-    {
-        $case = new IBD();
-        $this->_updateCase($case, $this->getSingleCompleteCaseWithoutPneunomia());
-        $listener = new IBDListener();
+        $case = new Meningitis();
+        $this->_updateCase($case, $this->getSingleCompleteCase());
+        $listener = new MeningitisListener();
         $listener->prePersist($case, $this->createMock(LifecycleEventArgs::class));
 
         $this->assertTrue($case->isComplete(), "New cases are incomplete " . $listener->getIncompleteField($case) . ' ' . $case->getStatus());
@@ -71,81 +38,52 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
     //============================================================
     // Incomplete
     /**
-     * @depends      testSingleMinimumCompleteCaseWithPneunomia
-     * @dataProvider getIncompleteTestDataWithPneunomia
+     * @depends      testSingleMinimumCompleteNonPahoCase
+     * @dataProvider getIncompleteTestDataNonPaho
      * @param $data
      */
-    public function testCaseIsIncompleteWithPneunomia($data)
+    public function testCaseIsIncompleteNonPaho($data)
     {
-        $case = new IBD();
+        $case = new Meningitis();
         $this->_updateCase($case, $data);
-        $listener = new IBDListener();
+        $listener = new MeningitisListener();
         $listener->prePersist($case, $this->createMock(LifecycleEventArgs::class));
 
         $this->assertFalse($case->isComplete(), "New cases are incomplete data removed '" . (isset($data['removed']) ? $data['removed'] : 'no removed') . "'");
         $this->assertEquals($case->getStatus()->getValue(), CaseStatus::OPEN);
     }
 
-    /**
-     * @depends      testSingleMinimumCompleteCaseWithoutPneunomia
-     * @dataProvider getIncompleteTestDataWithoutPneunomia
-     * @param $data
-     */
-    public function testCaseIsIncompleteWithoutPneunomia($data)
-    {
-        $case = new IBD();
-        $this->_updateCase($case, $data);
-        $listener = new IBDListener();
-        $listener->prePersist($case, $this->createMock(LifecycleEventArgs::class));
-
-        $this->assertFalse($case->isComplete(), "New cases are incomplete " . (isset($data['removed']) ? $data['removed'] : 'no removed'));
-        $this->assertEquals($case->getStatus()->getValue(), CaseStatus::OPEN);
-    }
-
     //============================================================
     // Complete
     /**
-     * @depends      testSingleMinimumCompleteCaseWithPneunomia
-     * @dataProvider getCompleteCaseWithPneunomiaData
+     * @depends      testSingleMinimumCompleteNonPahoCase
+     * @dataProvider getCompleteCaseNonPahoData
      * @param $data
      */
     public function testCaseIsCompleteWithPneuomia($data)
     {
-        $case = new IBD();
+        $case = new Meningitis();
         $this->_updateCase($case, $data);
-        $listener = new IBDListener();
+        $listener = new MeningitisListener();
         $listener->prePersist($case, $this->createMock(LifecycleEventArgs::class));
 
         $this->assertTrue($case->isComplete(), "Cases with pneunomia are complete " . (!$case->isComplete()) ? $listener->getIncompleteField($case) : null);
         $this->assertEquals($case->getStatus()->getValue(), CaseStatus::COMPLETE);
     }
 
-    /**
-     * @depends      testSingleMinimumCompleteCaseWithPneunomia
-     * @dataProvider getCompleteCaseWithoutPneunomiaData
-     * @param $data
-     */
-    public function testCaseIsCompleteWithoutPneunomia($data)
-    {
-        $case = new IBD();
-        $this->_updateCase($case, $data);
-        $listener = new IBDListener();
-        $listener->prePersist($case, $this->createMock(LifecycleEventArgs::class));
-
-        $this->assertTrue($case->isComplete(), "Cases without pneunomia are complete " . (!$case->isComplete()) ? $listener->getIncompleteField($case) : null);
-        $this->assertEquals($case->getStatus()->getValue(), CaseStatus::COMPLETE);
-    }
-
     //=============================================================
     // data providers
 
-    public function getCompleteCaseWithPneunomiaData()
+    public function getCompleteCaseNonPahoData()
     {
         $data     = [];
-        $complete = $this->getSingleCompleteCaseWithPneunomia();
+        $complete = $this->getSingleCompleteCase();
         $country  = new Country('tId', 'TestCountry');
         $country->setTracksPneumonia(true);
-        $case     = new IBD();
+        $region  = new Region('RCODE','Region');
+        $country->setRegion($region);
+
+        $case     = new Meningitis();
         $case->setCountry($country);
 
         $data[] = ['data' => $complete];
@@ -153,18 +91,6 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
         return $this->_commonCompleteData($data, $complete);
     }
 
-    public function getCompleteCaseWithoutPneunomiaData()
-    {
-        $data     = [];
-        $complete = $this->getSingleCompleteCaseWithoutPneunomia();
-        $country  = new Country('tId', 'TestCountry');
-        $country->setTracksPneumonia(true);
-        $case     = new IBD();
-        $case->setCountry($country);
-
-        $data[] = ['data' => $complete];
-        return $this->_commonCompleteData($data, $complete);
-    }
 
     private function _commonCompleteData($data, $complete)
     {
@@ -219,56 +145,11 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
         return $data;
     }
 
-    public function getIncompleteTestDataWithoutPneunomia()
-    {
-        $data     = [];
-        $complete = $this->getSingleCompleteCaseWithoutPneunomia();
-        $fields = [
-            'caseId',
-            'birthdate',
-            'gender',
-            'district',
-            'admDate',
-            'onsetDate',
-            'admDx',
-            'antibiotics',
-            'menSeizures',
-            'menFever',
-            'menAltConscious',
-            'menInabilityFeed',
-            'menNeckStiff',
-            'menRash',
-            'menFontanelleBulge',
-            'menLethargy',
-            'hibReceived',
-            'pcvReceived',
-            'meningReceived',
-            'csfCollected',
-            'bloodCollected',
-            'otherSpecimenCollected',
-            'dischOutcome',
-            'dischDx',
-            'dischClass',
-            'cxrDone',
-        ];
-        foreach ($fields as $field) {
-            if (isset($complete["set$field"])) {
-                $d = $complete;
-                unset($d["set$field"]);
-
-                $d['removed'] = $field;
-                $data[] = ['data' => $d];
-            }
-        }
-
-        return $data;
-    }
-
-    public function getIncompleteTestDataWithPneunomia()
+    public function getIncompleteTestDataNonPaho()
     {
         $data      = [];
         $tripleYes = new TripleChoice(TripleChoice::YES);
-        $complete  = $this->getSingleCompleteCaseWithPneunomia();
+        $complete  = $this->getSingleCompleteCase();
         $fields = [
             'caseId',
             'birthdate',
@@ -374,11 +255,13 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
         return $data;
     }
 
-    private function getSingleCompleteCaseWithPneunomia()
+    private function getSingleCompleteCase()
     {
         $tripleNo = new TripleChoice(TripleChoice::NO);
         $country  = new Country('tId', 'Test Country');
         $country->setTracksPneumonia(true);
+        $region  = new Region('RCODE','Region');
+        $country->setRegion($region);
 
         return [
             'setcountry'              => $country,
@@ -399,15 +282,6 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
             'setmenRash'              => $tripleNo,
             'setmenFontanelleBulge'   => $tripleNo,
             'setmenLethargy'          => $tripleNo,
-            'setpneuDiffBreathe'      => $tripleNo,
-            'setpneuChestIndraw'      => $tripleNo,
-            'setpneuCough'            => $tripleNo,
-            'setpneuCyanosis'         => $tripleNo,
-            'setpneuStridor'          => $tripleNo,
-            'setpneuRespRate'         => 3,
-            'setpneuVomit'            => $tripleNo,
-            'setpneuHypothermia'      => $tripleNo,
-            'setpneuMalnutrition' => $tripleNo,
             'setotherspecimencollected' => new OtherSpecimen(OtherSpecimen::NONE),
             'sethibReceived'            => new VaccinationReceived(VaccinationReceived::UNKNOWN),
             'sethibDoses'             => null,
@@ -428,54 +302,6 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
             'setdischDxOther'         => null,
             'setdischClass'           => new DischargeClassification(DischargeClassification::CONFIRMED_SPN),
             'setCxrDone'              => new TripleChoice(TripleChoice::NO),
-        ];
-    }
-
-    private function getSingleCompleteCaseWithoutPneunomia()
-    {
-        $tripleNo = new TripleChoice(TripleChoice::NO);
-        $country  = new Country('tId', 'Test Country');
-        $country->setTracksPneumonia(false);
-
-        return [
-            'setcountry'                => $country,
-            'setcaseId'                 => 'blah',
-            'setdistrict'               => 'The District',
-            'setbirthdate'              => new \DateTime(),
-            'setgender'                 => new Gender(Gender::MALE),
-            'setadmDate'                => new \DateTime(),
-            'setonsetDate'              => new \DateTime(),
-            'setadmDx'                  => new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA),
-            'setadmDxOther'             => null,
-            'setantibiotics'            => $tripleNo,
-            'setmenSeizures'            => $tripleNo,
-            'setmenFever'               => $tripleNo,
-            'setmenAltConscious'        => $tripleNo,
-            'setmenInabilityFeed'       => $tripleNo,
-            'setmenNeckStiff'           => $tripleNo,
-            'setmenRash'                => $tripleNo,
-            'setmenFontanelleBulge'     => $tripleNo,
-            'setmenLethargy'            => $tripleNo,
-            'sethibReceived'            => new VaccinationReceived(VaccinationReceived::UNKNOWN),
-            'sethibDoses'               => null,
-            'setpcvReceived'            => new VaccinationReceived(VaccinationReceived::UNKNOWN),
-            'setpcvDoses'               => null,
-            'setmeningReceived'         => new VaccinationReceived(VaccinationReceived::NO),
-            'setmeningType'             => null,
-            'setmeningDate'   => null,
-            'setcsfCollected'           => $tripleNo,
-//                    'setcsfId'             => null,
-            'setcsfCollectDate'         => null,
-            'setcsfCollectTime'         => null,
-            'setcsfAppearance'          => null,
-            'setbloodCollected'         => $tripleNo,
-            'setOtherSpecimenCollected' => new OtherSpecimen(OtherSpecimen::NONE),
-            'setbloodId'                => null,
-            'setdischOutcome'           => new DischargeOutcome(DischargeOutcome::DISCHARGED_ALIVE_WITHOUT_SEQUELAE),
-            'setdischDx'                => new DischargeDiagnosis(DischargeDiagnosis::BACTERIAL_PNEUMONIA),
-            'setdischDxOther'           => null,
-            'setdischClass'             => new DischargeClassification(DischargeClassification::CONFIRMED_SPN),
-            'setCxrDone'                => new TripleChoice(TripleChoice::NO),
         ];
     }
 

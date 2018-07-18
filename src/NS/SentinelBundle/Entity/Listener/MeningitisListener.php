@@ -79,13 +79,13 @@ class MeningitisListener extends BaseCaseListener
     }
 
     /**
-     * @param BaseCase $case
+     * @param BaseCase|Meningitis\Meningitis $case
      * @return null|string
      */
     public function getIncompleteField(BaseCase $case)
     {
-        return null;
-        foreach ($this->getMinimumRequiredFields($case) as $field) {
+        $regionCode = $case->getRegion()->getCode();
+        foreach ($this->getMinimumRequiredFields($case, $regionCode) as $field) {
             $method = sprintf('get%s', $field);
             $value = call_user_func([$case, $method]);
 
@@ -113,10 +113,6 @@ class MeningitisListener extends BaseCaseListener
 
         if ($case->getPcvReceived() && ($case->getPcvReceived()->equal(VaccinationReceived::YES_HISTORY) || $case->getPcvReceived()->equal(VaccinationReceived::YES_CARD)) && ($case->getPcvDoses() === null || $case->getPcvDoses()->equal(ArrayChoice::NO_SELECTION))) {
             return 'pcvReceived';
-        }
-
-        if ($case->getCxrDone() && $case->getCxrDone()->equal(TripleChoice::YES) && ($case->getCxrResult() === null || $case->getCxrResult()->equal(ArrayChoice::NO_SELECTION))) {
-            return 'cxrDone';
         }
 
         if ($case->getMeningReceived() && ($case->getMeningReceived()->equal(VaccinationReceived::YES_CARD) || $case->getMeningReceived()->equal(VaccinationReceived::YES_HISTORY))) {
@@ -156,16 +152,27 @@ class MeningitisListener extends BaseCaseListener
             return 'otherSpecimenOther';
         }
 
+        if ($regionCode == 'AMR') {
+            if ($case->getBloodNumberOfSamples() > 1 && (!$case->getBloodSecondCollectDate() || !$case->getBloodSecondCollectTime())) {
+                return 'bloodSecondCollect';
+            }
+
+            if ($case->getPleuralFluidCollected() && (!$case->getPleuralFluidCollectDate() || !$case->getPleuralFluidCollectTime())) {
+                return 'pleuralFluidCollect';
+            }
+        }
+
         return null;
     }
 
     /**
      * @param BaseCase $case
+     * @param null $regionCode
      * @return array
      */
-    public function getMinimumRequiredFields(BaseCase $case)
+    public function getMinimumRequiredFields(BaseCase $case, $regionCode = null)
     {
-        return [
+        $fields = [
             'caseId',
             'birthdate',
             'gender',
@@ -185,12 +192,18 @@ class MeningitisListener extends BaseCaseListener
             'hibReceived',
             'pcvReceived',
             'meningReceived',
-//            'csfCollected',
+            'csfCollected',
             'bloodCollected',
             'otherSpecimenCollected',
             'dischOutcome',
             'dischDx',
             'dischClass',
         ];
+
+        if ($regionCode === 'AMR') {
+            $fields = array_merge($fields,['menIrritability', 'menVomit', 'menMalnutrition', 'bloodNumberOfSamples', 'pleuralFluidCollected',]);
+        }
+
+        return $fields;
     }
 }

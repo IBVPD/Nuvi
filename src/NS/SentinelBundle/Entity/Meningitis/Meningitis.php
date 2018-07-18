@@ -275,6 +275,7 @@ class Meningitis extends BaseCase
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
+     *
      */
     private $mening_date;
 
