@@ -3032,16 +3032,16 @@
         },
         {
             "name": "ns/ace-bundle",
-            "version": "3.1.33",
+            "version": "3.1.34",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/AceBundle.git",
-                "reference": "e9eacd4ec9105f3045784498b0e283b6986aba63"
+                "reference": "94cc39c83eb78ad8e729add9a3a1a894c9362d5e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/AceBundle/zipball/e9eacd4ec9105f3045784498b0e283b6986aba63",
-                "reference": "e9eacd4ec9105f3045784498b0e283b6986aba63",
+                "url": "https://api.github.com/repos/NobletSolutions/AceBundle/zipball/94cc39c83eb78ad8e729add9a3a1a894c9362d5e",
+                "reference": "94cc39c83eb78ad8e729add9a3a1a894c9362d5e",
                 "shasum": ""
             },
             "require": {
@@ -3086,7 +3086,7 @@
                 }
             ],
             "description": "This bundle provides the ace admin bootstrap template",
-            "time": "2018-05-17T16:50:56+00:00"
+            "time": "2018-07-18T16:26:20+00:00"
         },
         {
             "name": "ns/ace-sonata-bundle",
