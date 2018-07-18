@@ -48,16 +48,16 @@
         },
         {
             "name": "beberlei/DoctrineExtensions",
-            "version": "v1.1.2",
+            "version": "v1.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/beberlei/DoctrineExtensions.git",
-                "reference": "5b1d5e4d97cf908baa353755533f2f3174185769"
+                "reference": "51d93393ddced649da6066db233bc8e285a6588c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/beberlei/DoctrineExtensions/zipball/5b1d5e4d97cf908baa353755533f2f3174185769",
-                "reference": "5b1d5e4d97cf908baa353755533f2f3174185769",
+                "url": "https://api.github.com/repos/beberlei/DoctrineExtensions/zipball/51d93393ddced649da6066db233bc8e285a6588c",
+                "reference": "51d93393ddced649da6066db233bc8e285a6588c",
                 "shasum": ""
             },
             "require": {
@@ -98,7 +98,7 @@
                 "doctrine",
                 "orm"
             ],
-            "time": "2018-07-06T10:33:58+00:00"
+            "time": "2018-07-14T09:31:10+00:00"
         },
         {
             "name": "cocur/slugify",
@@ -3358,16 +3358,16 @@
         },
         {
             "name": "ns/util-bundle",
-            "version": "3.0.5",
+            "version": "3.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/NobletSolutions/UtilBundle.git",
-                "reference": "3102fd851924b519ccf25d4066732af7c6dbc775"
+                "reference": "ba3a9cbe54fff1552e9d280aac0ee77f6a1acfc7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/NobletSolutions/UtilBundle/zipball/3102fd851924b519ccf25d4066732af7c6dbc775",
-                "reference": "3102fd851924b519ccf25d4066732af7c6dbc775",
+                "url": "https://api.github.com/repos/NobletSolutions/UtilBundle/zipball/ba3a9cbe54fff1552e9d280aac0ee77f6a1acfc7",
+                "reference": "ba3a9cbe54fff1552e9d280aac0ee77f6a1acfc7",
                 "shasum": ""
             },
             "require": {
@@ -3400,7 +3400,7 @@
                 }
             ],
             "description": "Various Utilitity Services and Classes",
-            "time": "2017-03-08T04:37:07+00:00"
+            "time": "2018-07-18T15:44:54+00:00"
         },
         {
             "name": "ocramius/proxy-manager",
@@ -4246,16 +4246,16 @@
         },
         {
             "name": "sonata-project/core-bundle",
-            "version": "3.11.0",
+            "version": "3.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataCoreBundle.git",
-                "reference": "08148e007c92fefc4315483eece38acade01614f"
+                "reference": "fbd8c7842aad2326ac31657508fc9a2527e13275"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/08148e007c92fefc4315483eece38acade01614f",
-                "reference": "08148e007c92fefc4315483eece38acade01614f",
+                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/fbd8c7842aad2326ac31657508fc9a2527e13275",
+                "reference": "fbd8c7842aad2326ac31657508fc9a2527e13275",
                 "shasum": ""
             },
             "require": {
@@ -4319,7 +4319,7 @@
             "keywords": [
                 "sonata"
             ],
-            "time": "2018-07-07T22:27:10+00:00"
+            "time": "2018-07-12T06:08:25+00:00"
         },
         {
             "name": "sonata-project/datagrid-bundle",
@@ -4782,6 +4782,61 @@
                 "shim"
             ],
             "time": "2018-04-26T10:06:28+00:00"
+        },
+        {
+            "name": "symfony/polyfill-ctype",
+            "version": "v1.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-ctype.git",
+                "reference": "7cc359f1b7b80fc25ed7796be7d96adc9b354bae"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/7cc359f1b7b80fc25ed7796be7d96adc9b354bae",
+                "reference": "7cc359f1b7b80fc25ed7796be7d96adc9b354bae",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Polyfill\\Ctype\\": ""
+                },
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                },
+                {
+                    "name": "Gert de Pagter",
+                    "email": "BackEndTea@gmail.com"
+                }
+            ],
+            "description": "Symfony polyfill for ctype functions",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "ctype",
+                "polyfill",
+                "portable"
+            ],
+            "time": "2018-04-30T19:57:29+00:00"
         },
         {
             "name": "symfony/polyfill-intl-icu",
@@ -5389,20 +5444,21 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.35.3",
+            "version": "v1.35.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "b48680b6eb7d16b5025b9bfc4108d86f6b8af86f"
+                "reference": "7e081e98378a1e78c29cc9eba4aefa5d78a05d2a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/b48680b6eb7d16b5025b9bfc4108d86f6b8af86f",
-                "reference": "b48680b6eb7d16b5025b9bfc4108d86f6b8af86f",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/7e081e98378a1e78c29cc9eba4aefa5d78a05d2a",
+                "reference": "7e081e98378a1e78c29cc9eba4aefa5d78a05d2a",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": ">=5.3.3",
+                "symfony/polyfill-ctype": "^1.8"
             },
             "require-dev": {
                 "psr/container": "^1.0",
@@ -5441,16 +5497,16 @@
                 },
                 {
                     "name": "Twig Team",
-                    "homepage": "http://twig.sensiolabs.org/contributors",
+                    "homepage": "https://twig.symfony.com/contributors",
                     "role": "Contributors"
                 }
             ],
             "description": "Twig, the flexible, fast, and secure template language for PHP",
-            "homepage": "http://twig.sensiolabs.org",
+            "homepage": "https://twig.symfony.com",
             "keywords": [
                 "templating"
             ],
-            "time": "2018-03-20T04:25:58+00:00"
+            "time": "2018-07-13T07:12:17+00:00"
         },
         {
             "name": "vich/uploader-bundle",
@@ -5737,16 +5793,16 @@
     "packages-dev": [
         {
             "name": "fzaninotto/faker",
-            "version": "v1.7.1",
+            "version": "v1.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fzaninotto/Faker.git",
-                "reference": "d3ed4cc37051c1ca52d22d76b437d14809fc7e0d"
+                "reference": "f72816b43e74063c8b10357394b6bba8cb1c10de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/d3ed4cc37051c1ca52d22d76b437d14809fc7e0d",
-                "reference": "d3ed4cc37051c1ca52d22d76b437d14809fc7e0d",
+                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/f72816b43e74063c8b10357394b6bba8cb1c10de",
+                "reference": "f72816b43e74063c8b10357394b6bba8cb1c10de",
                 "shasum": ""
             },
             "require": {
@@ -5754,7 +5810,7 @@
             },
             "require-dev": {
                 "ext-intl": "*",
-                "phpunit/phpunit": "^4.0 || ^5.0",
+                "phpunit/phpunit": "^4.8.35 || ^5.7",
                 "squizlabs/php_codesniffer": "^1.5"
             },
             "type": "library",
@@ -5783,7 +5839,7 @@
                 "faker",
                 "fixtures"
             ],
-            "time": "2017-08-15T16:48:10+00:00"
+            "time": "2018-07-12T10:23:15+00:00"
         },
         {
             "name": "hautelook/alice-bundle",
