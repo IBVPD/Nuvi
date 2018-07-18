@@ -14,12 +14,14 @@ class GramStain extends TranslatableArrayChoice implements TranslationContainerI
     const NO_ORGANISM_DETECTED = 0;
     const GM_POSITIVE          = 1;
     const GM_NEGATIVE          = 2;
+    const GM_VARIABLE          = 3;
     const UNKNOWN              = 99;
 
     protected $values = [
         self::NO_ORGANISM_DETECTED => 'No Organism Detected',
         self::GM_POSITIVE => 'Gram-positive organism',
         self::GM_NEGATIVE => 'Gram-negative organism',
+        self::GM_VARIABLE => 'Gram-variable',
         self::UNKNOWN => 'Unknown',
     ];
 }
