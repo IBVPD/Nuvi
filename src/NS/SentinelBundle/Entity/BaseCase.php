@@ -280,12 +280,10 @@ abstract class BaseCase
 
     /**
      * @param string $id
-     * @return \NS\SentinelBundle\Entity\BaseCase
      */
     public function setId($id)
     {
         $this->id = $id;
-        return $this;
     }
 
     /**
@@ -379,36 +377,28 @@ abstract class BaseCase
 
     /**
      * @param CaseStatus $status
-     * @return \NS\SentinelBundle\Entity\BaseCase
      */
     public function setStatus(CaseStatus $status)
     {
         $this->status = $status;
-        return $this;
     }
 
     /**
      * @param BaseExternalLab $lab
-     * @return $this
      */
     public function setReferenceLab(BaseExternalLab $lab)
     {
         $lab->setCaseFile($this);
         $this->referenceLab = $lab;
-
-        return $this;
     }
 
     /**
      * @param BaseExternalLab $lab
-     * @return $this
      */
     public function setNationalLab(BaseExternalLab $lab)
     {
         $lab->setCaseFile($this);
         $this->nationalLab = $lab;
-
-        return $this;
     }
 
     /**
@@ -486,15 +476,12 @@ abstract class BaseCase
 
     /**
      * @param $siteLab
-     * @return \NS\SentinelBundle\Entity\BaseCase
      */
     public function setSiteLab($siteLab)
     {
         $siteLab->setCaseFile($this);
         $this->siteLab = $siteLab;
-        
-        return $this;
-    }
+        }
 
     /**
      * @return boolean
@@ -515,12 +502,10 @@ abstract class BaseCase
 
     /**
      * @param \DateTime $updatedAt
-     * @return \NS\SentinelBundle\Entity\BaseCase
      */
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
-        return $this;
     }
 
     /**
@@ -529,16 +514,6 @@ abstract class BaseCase
     public function getCreatedAt()
     {
         return $this->createdAt;
-    }
-
-    /**
-     * @param \DateTime $createdAt
-     * @return \NS\SentinelBundle\Entity\BaseCase
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-        return $this;
     }
 
     /**
@@ -619,12 +594,10 @@ abstract class BaseCase
     /**
      *
      * @param TripleChoice $dobKnown
-     * @return \NS\SentinelBundle\Entity\BaseCase
      */
     public function setDobKnown(TripleChoice $dobKnown)
     {
         $this->dobKnown = $dobKnown;
-        return $this;
     }
 
     /**
@@ -661,73 +634,52 @@ abstract class BaseCase
     }
 
     /**
-     *
      * @param \DateTime $dob
-     * @return \NS\SentinelBundle\Entity\BaseCase
      */
     public function setDob(\DateTime $dob = null)
     {
         $this->birthdate = $dob;
-
-        return $this;
     }
 
     /**
-     *
      * @param \DateTime $admDate
-     * @return \NS\SentinelBundle\Entity\BaseCase
      */
     public function setAdmDate(\DateTime $admDate = null)
     {
         $this->adm_date = $admDate;
-
-        return $this;
     }
 
     /**
-     *
      * @param string $caseId
-     * @return \NS\SentinelBundle\Entity\BaseCase
      */
     public function setCaseId($caseId)
     {
         $this->case_id = $caseId;
-
-        return $this;
     }
 
     /**
-     *
      * @param integer $age
-     * @return \NS\SentinelBundle\Entity\BaseCase
      */
     public function setAge($age)
     {
         $this->age_months = $age;
-
-        return $this;
     }
 
     /**
      * @param int $age_months
-     * @return \NS\SentinelBundle\Entity\BaseCase
      */
     public function setAgeMonths($age_months)
     {
         $this->age_months = $age_months;
-        return $this;
     }
 
     /**
      *
      * @param Gender $gender
-     * @return \NS\SentinelBundle\Entity\BaseCase
      */
     public function setGender(Gender $gender)
     {
         $this->gender = $gender;
-
-        return $this;
     }
 
     /**
@@ -758,39 +710,27 @@ abstract class BaseCase
     }
 
     /**
-     *
      * @param string $parentalName
-     * @return \NS\SentinelBundle\Entity\BaseCase
      */
     public function setParentalName($parentalName)
     {
         $this->parentalName = $parentalName;
-
-        return $this;
     }
 
     /**
-     *
      * @param string $lastName
-     * @return \NS\SentinelBundle\Entity\BaseCase
      */
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
-
-        return $this;
     }
 
     /**
-     *
      * @param string $firstName
-     * @return \NS\SentinelBundle\Entity\BaseCase
      */
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
-
-        return $this;
     }
 
     /**
@@ -805,13 +745,10 @@ abstract class BaseCase
     /**
      *
      * @param integer $ageDistribution
-     * @return \NS\SentinelBundle\Entity\BaseCase
      */
     public function setAgeDistribution($ageDistribution)
     {
         $this->ageDistribution = $ageDistribution;
-
-        return $this;
     }
 
     /**
@@ -831,27 +768,19 @@ abstract class BaseCase
     }
 
     /**
-     *
      * @param string $district
-     * @return \NS\SentinelBundle\Entity\BaseCase
      */
     public function setDistrict($district)
     {
         $this->district = $district;
-
-        return $this;
     }
 
     /**
-     *
      * @param string $state
-     * @return \NS\SentinelBundle\Entity\BaseCase
      */
     public function setState($state)
     {
         $this->state = $state;
-
-        return $this;
     }
 
     /**

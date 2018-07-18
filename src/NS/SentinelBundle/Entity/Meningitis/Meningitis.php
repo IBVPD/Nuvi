@@ -275,7 +275,6 @@ class Meningitis extends BaseCase
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
-     *
      */
     private $mening_date;
 
@@ -763,122 +762,98 @@ class Meningitis extends BaseCase
 
     /**
      * @param \DateTime|null $onsetDate
-     * @return $this
      */
     public function setOnsetDate(\DateTime $onsetDate = null)
     {
         $this->onset_date = $onsetDate;
-        return $this;
     }
 
     /**
      * @param Diagnosis $adm_dx
-     * @return $this
      */
     public function setAdmDx(Diagnosis $adm_dx = null)
     {
         $this->adm_dx = $adm_dx;
-        return $this;
     }
 
     /**
      * @param $adm_dxOther
-     * @return $this
      */
     public function setAdmDxOther($adm_dxOther)
     {
         $this->adm_dx_other = $adm_dxOther;
-        return $this;
     }
 
     /**
      * @param TripleChoice $antibiotics
-     * @return $this
      */
     public function setAntibiotics(TripleChoice $antibiotics = null)
     {
         $this->antibiotics = $antibiotics;
-        return $this;
     }
 
     /**
      * @param TripleChoice $menSeizures
-     * @return $this
      */
     public function setMenSeizures(TripleChoice $menSeizures = null)
     {
         $this->men_seizures = $menSeizures;
-        return $this;
     }
 
     /**
      * @param TripleChoice $menFever
-     * @return $this
      */
     public function setMenFever(TripleChoice $menFever = null)
     {
         $this->men_fever = $menFever;
-        return $this;
     }
 
     /**
      * @param TripleChoice $menAltConscious
-     * @return $this
      */
     public function setMenAltConscious(TripleChoice $menAltConscious = null)
     {
         $this->men_alt_conscious = $menAltConscious;
-        return $this;
     }
 
     /**
      * @param TripleChoice $menInabilityFeed
-     * @return $this
      */
     public function setMenInabilityFeed(TripleChoice $menInabilityFeed = null)
     {
         $this->men_inability_feed = $menInabilityFeed;
-        return $this;
     }
 
     /**
      * @param TripleChoice $menNeckStiff
-     * @return $this
      */
     public function setMenNeckStiff(TripleChoice $menNeckStiff = null)
     {
         $this->men_neck_stiff = $menNeckStiff;
-        return $this;
     }
 
     /**
      * @param TripleChoice $menRash
-     * @return $this
      */
     public function setMenRash(TripleChoice $menRash = null)
     {
         $this->men_rash = $menRash;
-        return $this;
     }
 
     /**
      * @param TripleChoice $menFontanelleBulge
-     * @return $this
      */
     public function setMenFontanelleBulge(TripleChoice $menFontanelleBulge = null)
     {
         $this->men_fontanelle_bulge = $menFontanelleBulge;
-        return $this;
     }
 
     /**
      * @param TripleChoice $menLethargy
-     * @return $this
      */
     public function setMenLethargy(TripleChoice $menLethargy = null)
     {
         $this->men_lethargy = $menLethargy;
-        return $this;
     }
 
     /**
@@ -931,105 +906,82 @@ class Meningitis extends BaseCase
 
     /**
      * @param VaccinationReceived $hibReceived
-     * @return $this
      */
     public function setHibReceived(VaccinationReceived $hibReceived = null)
     {
         $this->hib_received = $hibReceived;
-        return $this;
     }
 
     /**
      * @param FourDoses $hibDoses
-     * @return $this
      */
     public function setHibDoses(FourDoses $hibDoses = null)
     {
         $this->hib_doses = $hibDoses;
-        return $this;
     }
 
     /**
      * @param $hibMostRecentDose
-     * @return $this
      */
     public function setHibMostRecentDose(\DateTime $hibMostRecentDose = null)
     {
         $this->hib_most_recent_dose = $hibMostRecentDose;
-
-        return $this;
     }
 
     /**
      * @param VaccinationReceived $pcvReceived
-     * @return $this
      */
     public function setPcvReceived(VaccinationReceived $pcvReceived = null)
     {
         $this->pcv_received = $pcvReceived;
-        return $this;
     }
 
     /**
      * @param FourDoses $pcvDoses
-     * @return $this
      */
     public function setPcvDoses(FourDoses $pcvDoses = null)
     {
         $this->pcv_doses = $pcvDoses;
-        return $this;
     }
 
     /**
      * @param PCVType $pcvType
-     * @return $this
      */
     public function setPcvType(PCVType $pcvType = null)
     {
         $this->pcv_type = $pcvType;
-        return $this;
     }
 
     /**
      * @param $pcvMostRecentDose
-     * @return $this
      */
     public function setPcvMostRecentDose(\DateTime $pcvMostRecentDose = null)
     {
         $this->pcv_most_recent_dose = $pcvMostRecentDose;
-
-        return $this;
     }
 
     /**
      * @param VaccinationReceived $meningReceived
-     * @return $this
      */
     public function setMeningReceived(VaccinationReceived $meningReceived = null)
     {
         $this->mening_received = $meningReceived;
-        return $this;
     }
 
     /**
      * @param VaccinationType $meningType
-     * @return $this
      */
     public function setMeningType(VaccinationType $meningType = null)
     {
         $this->mening_type = $meningType;
-        return $this;
     }
 
     /**
      * @param $meningMostRecentDose
-     * @return $this
      */
     public function setMeningDate(\DateTime $meningMostRecentDose = null)
     {
         $this->mening_date = $meningMostRecentDose;
-
-        return $this;
     }
 
     /**
@@ -1066,103 +1018,82 @@ class Meningitis extends BaseCase
 
     /**
      * @param \DateTime|null $date
-     * @return $this
      */
     public function setBloodCollectDate(\DateTime $date = null)
     {
         $this->blood_collect_date = $date;
-
-        return $this;
     }
 
     /**
      * @param TripleChoice $bloodCollected
-     * @return $this
      */
     public function setBloodCollected(TripleChoice $bloodCollected = null)
     {
         $this->blood_collected = $bloodCollected;
-        return $this;
     }
 
     /**
      * @param OtherSpecimen $otherSpecimenCollected
-     * @return $this
      */
     public function setOtherSpecimenCollected(OtherSpecimen $otherSpecimenCollected = null)
     {
         $this->other_specimen_collected = $otherSpecimenCollected;
-        return $this;
     }
 
     /**
      * @param $otherSpecimenOther
-     * @return $this
      */
     public function setOtherSpecimenOther($otherSpecimenOther)
     {
         $this->other_specimen_other = $otherSpecimenOther;
-        return $this;
     }
 
     /**
      * @param DischargeOutcome $dischOutcome
-     * @return $this
      */
     public function setDischOutcome(DischargeOutcome $dischOutcome = null)
     {
         $this->disch_outcome = $dischOutcome;
-        return $this;
     }
 
     /**
      * @param DischargeDiagnosis $dischDx
-     * @return $this
      */
     public function setDischDx(DischargeDiagnosis $dischDx = null)
     {
         $this->disch_dx = $dischDx;
-        return $this;
     }
 
     /**
      * @param $dischDxOther
-     * @return $this
      */
     public function setDischDxOther($dischDxOther)
     {
         $this->disch_dx_other = $dischDxOther;
-        return $this;
     }
 
     /**
      * @param DischargeClassification $dischClass
-     * @return $this
      */
     public function setDischClass(DischargeClassification $dischClass = null)
     {
         $this->disch_class = $dischClass;
-        return $this;
     }
 
     /**
      * @param $comment
-     * @return $this
      */
     public function setComment($comment)
     {
         $this->comment = $comment;
-        return $this;
     }
 
     /**
      * @param CaseResult $result
-     * @return $this
      */
     public function setResult(CaseResult $result = null)
     {
         $this->result = $result;
-        return $this;
     }
 
     /**
@@ -1175,12 +1106,10 @@ class Meningitis extends BaseCase
 
     /**
      * @param string $dischClassOther
-     * @return \NS\SentinelBundle\Entity\IBD
      */
     public function setDischClassOther($dischClassOther)
     {
         $this->disch_class_other= $dischClassOther;
-        return $this;
     }
 
     //========================================
