@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2079e6b5c3276f26d8200f56b987e534",
+    "content-hash": "ff790eac24b5fe7a02f88c591c16644c",
     "packages": [
         {
             "name": "adoy/oauth2",
@@ -2702,32 +2702,32 @@
         },
         {
             "name": "lunetics/locale-bundle",
-            "version": "2.6.2",
+            "version": "2.5.4",
             "target-dir": "Lunetics/LocaleBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lunetics/LocaleBundle.git",
-                "reference": "7813c3fc7f98af03446f802a9112575d6dcb314c"
+                "reference": "7d0b4d1206f60b3a562e531ba79eb1641298bb23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lunetics/LocaleBundle/zipball/7813c3fc7f98af03446f802a9112575d6dcb314c",
-                "reference": "7813c3fc7f98af03446f802a9112575d6dcb314c",
+                "url": "https://api.github.com/repos/lunetics/LocaleBundle/zipball/7d0b4d1206f60b3a562e531ba79eb1641298bb23",
+                "reference": "7d0b4d1206f60b3a562e531ba79eb1641298bb23",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.6 || ^7.0",
+                "php": "^5.5.9 || ^7.0",
                 "psr/log": "~1.0",
-                "symfony/framework-bundle": "^2.8 || ^3.0 || ^4.0",
-                "symfony/intl": "^2.8 || ^3.0 || ^4.0",
-                "symfony/templating": "^2.8 || ^3.0 || ^4.0",
-                "symfony/validator": "^2.8 || ^3.0 || ^4.0",
-                "symfony/yaml": "^2.8 || ^3.0 || ^4.0"
+                "symfony/framework-bundle": "^2.8 || ^3.0",
+                "symfony/intl": "^2.8 || ^3.0",
+                "symfony/templating": "^2.8 || ^3.0",
+                "symfony/validator": "^2.8 || ^3.0",
+                "symfony/yaml": "^2.8 || ^3.0"
             },
             "require-dev": {
                 "ext-intl": "*",
-                "symfony/form": "^2.8 || ^3.0 || ^4.0",
-                "symfony/phpunit-bridge": "^3.3 || ^4.0",
+                "symfony/form": "^2.8 || ^3.0",
+                "symfony/phpunit-bridge": "^3.3",
                 "twig/twig": "1.* || 2.*"
             },
             "suggest": {
@@ -2736,7 +2736,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.6-dev"
+                    "dev-master": "2.5-dev"
                 }
             },
             "autoload": {
@@ -2768,7 +2768,7 @@
                 "multilanguage",
                 "router"
             ],
-            "time": "2018-02-03T20:14:11+00:00"
+            "time": "2017-11-18T09:47:46+00:00"
         },
         {
             "name": "michelf/php-markdown",
