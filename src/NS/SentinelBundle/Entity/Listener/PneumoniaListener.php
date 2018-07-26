@@ -59,7 +59,8 @@ class PneumoniaListener extends BaseCaseListener
      */
     public function getIncompleteField(BaseCase $case)
     {
-        foreach ($this->getMinimumRequiredFields($case) as $field) {
+        $regionCode = $case->getRegion()->getCode();
+        foreach ($this->getMinimumRequiredFields($case, $regionCode) as $field) {
             $method = sprintf('get%s', $field);
             $value = call_user_func([$case, $method]);
 
@@ -111,6 +112,12 @@ class PneumoniaListener extends BaseCaseListener
             return 'otherSpecimenOther';
         }
 
+        if ($regionCode === 'AMR') {
+            if ($case->getPleuralFluidCollected() && $case->getPleuralFluidCollected()->equal(TripleChoice::YES) && (!$case->getPleuralFluidCollectDate() || !$case->getPleuralFluidCollectTime())) {
+                return 'pleuralFluidCollected';
+            }
+        }
+
         return null;
     }
 
@@ -151,7 +158,8 @@ class PneumoniaListener extends BaseCaseListener
         ];
 
         if ($regionCode == 'AMR') {
-            $fields = array_merge($fields, ['pneuOxygenSaturation', 'pneuFever',]);
+            $fields = array_merge($fields, ['pneuOxygenSaturation', 'pneuFever', 'bloodNumberOfSamples', 'pleuralFluidCollected']);
+            unset($fields[12]); // removes otherSpecimenCollected
         }
 
         return $fields;
