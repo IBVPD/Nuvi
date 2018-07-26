@@ -103,11 +103,6 @@ class SplitDataCommand extends ContainerAwareCommand
         $output->writeln("Processed $processed cases");
     }
 
-    private function guessType(Entity\IBD $case)
-    {
-
-    }
-
     /**
      * @param Entity\IBD $ibdCase
      */
@@ -157,9 +152,6 @@ class SplitDataCommand extends ContainerAwareCommand
         $obj->setBloodNumberOfSamples($ibdCase->getBloodNumberOfSamples());
         $obj->setBloodSecondCollectDate($ibdCase->getBloodSecondCollectDate());
         $obj->setBloodSecondCollectTime($ibdCase->getBloodSecondCollectTime());
-        $obj->setPleuralFluidCollected($ibdCase->getPleuralFluidCollected());
-        $obj->setPleuralFluidCollectDate($ibdCase->getPleuralFluidCollectDate());
-        $obj->setPleuralFluidCollectTime($ibdCase->getPleuralFluidCollectTime());
 
         $this->entityMgr->persist($obj);
         $this->entityMgr->flush($obj);
