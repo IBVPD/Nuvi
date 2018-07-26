@@ -156,10 +156,6 @@ class MeningitisListener extends BaseCaseListener
             if ($case->getBloodNumberOfSamples() > 1 && (!$case->getBloodSecondCollectDate() || !$case->getBloodSecondCollectTime())) {
                 return 'bloodSecondCollect';
             }
-
-            if ($case->getPleuralFluidCollected() && (!$case->getPleuralFluidCollectDate() || !$case->getPleuralFluidCollectTime())) {
-                return 'pleuralFluidCollect';
-            }
         }
 
         return null;
@@ -201,7 +197,7 @@ class MeningitisListener extends BaseCaseListener
         ];
 
         if ($regionCode === 'AMR') {
-            $fields = array_merge($fields,['menIrritability', 'menVomit', 'menMalnutrition', 'bloodNumberOfSamples', 'pleuralFluidCollected',]);
+            $fields = array_merge($fields,['menIrritability', 'menVomit', 'menMalnutrition', 'bloodNumberOfSamples']);
         }
 
         return $fields;

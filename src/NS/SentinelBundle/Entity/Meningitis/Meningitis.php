@@ -41,7 +41,6 @@ use NS\UtilBundle\Validator\Constraints\ArrayChoiceConstraint;
  * @LocalAssert\GreaterThanDate(atPath="onset_date",lessThanField="birthdate",greaterThanField="onsetDate",message="form.validation.onset-after-dob")
  * @LocalAssert\GreaterThanDate(lessThanField="admDate",greaterThanField="csfCollectDate",message="form.validation.admission-after-csf-collection")
  * @LocalAssert\GreaterThanDate(lessThanField="admDate",greaterThanField="bloodCollectDate",message="form.validation.admission-after-blood-collection")
- * @LocalAssert\GreaterThanDate(lessThanField="admDate",greaterThanField="pleuralFluidCollectDate",message="form.validation.admission-after-pleural-fluid-collection")
  *
  * @LocalAssert\RelatedField(sourceField="admDx",sourceValue={"1"},fields={"menSeizures","menFever","menAltConscious","menInabilityFeed","menNeckStiff","menRash","menFontanelleBulge","menLethargy"},message="field-is-required-due-to-adm-diagnosis")
  * @LocalAssert\PCV()
@@ -422,32 +421,6 @@ class Meningitis extends BaseCase
      * @Serializer\Type(name="DateTime<'H:i:s'>")
      */
     private $blood_second_collect_time;
-
-    /**
-     * @var TripleChoice
-     * @ORM\Column(name="pleural_fluid_collected",type="TripleChoice",nullable=true)
-     * @Serializer\Groups({"api","export"})
-     */
-    private $pleural_fluid_collected;
-
-    /**
-     * @var \DateTime
-     * @ORM\Column(name="pleural_fluid_collect_date",type="date",nullable=true)
-     *
-     * @LocalAssert\NoFutureDate()
-     *
-     * @Serializer\Groups({"api","export"})
-     * @Serializer\Type(name="DateTime<'Y-m-d'>")
-     */
-    private $pleural_fluid_collect_date;
-
-    /**
-     * @var \DateTime
-     * @ORM\Column(name="pleural_fluid_collect_time",type="time",nullable=true)
-     * @Serializer\Groups({"api","export"})
-     * @Serializer\Type(name="DateTime<'H:i:s'>")
-     */
-    private $pleural_fluid_collect_time;
 
     public function __construct()
     {
@@ -1161,54 +1134,6 @@ class Meningitis extends BaseCase
     public function setBloodSecondCollectTime(\DateTime $blood_second_collect_time = null)
     {
         $this->blood_second_collect_time = $blood_second_collect_time;
-    }
-
-    /**
-     * @return TripleChoice
-     */
-    public function getPleuralFluidCollected()
-    {
-        return $this->pleural_fluid_collected;
-    }
-
-    /**
-     * @param TripleChoice $pleural_fluid_collected
-     */
-    public function setPleuralFluidCollected($pleural_fluid_collected)
-    {
-        $this->pleural_fluid_collected = $pleural_fluid_collected;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getPleuralFluidCollectDate()
-    {
-        return $this->pleural_fluid_collect_date;
-    }
-
-    /**
-     * @param \DateTime $pleural_fluid_collect_date
-     */
-    public function setPleuralFluidCollectDate($pleural_fluid_collect_date)
-    {
-        $this->pleural_fluid_collect_date = $pleural_fluid_collect_date;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getPleuralFluidCollectTime()
-    {
-        return $this->pleural_fluid_collect_time;
-    }
-
-    /**
-     * @param \DateTime $pleural_fluid_collect_time
-     */
-    public function setPleuralFluidCollectTime($pleural_fluid_collect_time)
-    {
-        $this->pleural_fluid_collect_time = $pleural_fluid_collect_time;
     }
 
 //    /**

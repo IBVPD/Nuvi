@@ -36,7 +36,7 @@ class PneumoniaListenerTest extends \PHPUnit_Framework_TestCase
         $listener = new PneumoniaListener();
 
         $this->assertCount(26, $listener->getMinimumRequiredFields($case));
-        $this->assertCount(28, $listener->getMinimumRequiredFields($case, 'AMR'));
+        $this->assertCount(29, $listener->getMinimumRequiredFields($case, 'AMR'));
     }
 
     //============================================================

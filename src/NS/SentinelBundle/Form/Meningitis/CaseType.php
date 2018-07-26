@@ -144,10 +144,7 @@ class CaseType extends AbstractType
                 ->add('menMalnutrition',    TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.men-malnutrition'])
                 ->add('bloodNumberOfSamples', ChoiceType::class, ['required' => $required, 'label' => 'ibd-form.blood-number-of-samples', 'choices' => ['One' => 1, 'Two' => 2], 'placeholder' => 'Please Select...', 'hidden' => ['parent' => 'bloodCollected', 'value' => TripleChoice::YES]])
                 ->add('bloodSecondCollectDate',   DatePickerType::class, ['required' => $required, 'label' => 'ibd-form.blood-collect-date-second-sample', 'hidden' => ['parent' => 'bloodNumberOfSamples', 'value' => 2]])
-                ->add('bloodSecondCollectTime',   TimeType::class, ['required' => $required, 'label' => 'ibd-form.blood-collect-time-second-sample', 'hidden' => ['parent' => 'bloodNumberOfSamples', 'value' => 2]])
-                ->add('pleuralFluidCollected', TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pleural-fluid-collected'])
-                ->add('pleuralFluidCollectDate', DatePickerType::class, ['required' => $required, 'hidden' => ['parent' => 'pleuralFluidCollected', 'value' => TripleChoice::YES], 'label' => 'ibd-form.pleural-fluid-collection-date'])
-                ->add('pleuralFluidCollectTime', TimeType::class, ['required' => $required, 'hidden' => ['parent' => 'pleuralFluidCollected', 'value' => TripleChoice::YES], 'label' => 'ibd-form.pleural-fluid-collection-time']);
+                ->add('bloodSecondCollectTime',   TimeType::class, ['required' => $required, 'label' => 'ibd-form.blood-collect-time-second-sample', 'hidden' => ['parent' => 'bloodNumberOfSamples', 'value' => 2]]);
         } else {
             $form
                 ->add('otherSpecimenCollected', OtherSpecimen::class, ['required' => $required, 'label' => 'ibd-form.otherSpecimenCollected'])
