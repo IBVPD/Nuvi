@@ -10,7 +10,7 @@
 
 {% block body %}
     {{ form_errors(form) }}
-    {{ form_start(form, {'action': path('meningitisOutcomeEdit',{'id':id}) }) }}
+    {{ form_start(form, {'action': path('meningitisOutcomeEdit',{'id':id}),'attr':{'novalidate': 'novalidate'} }) }}
         <div class="row">
             <div class="col-sm-12">
                 <div class="tabbable">
