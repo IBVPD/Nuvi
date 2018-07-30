@@ -44,7 +44,6 @@ class ApplicationAvailabilityTest extends WebTestCase
             ['/en/pneumonia/reports/data-linking'],
             ['/en/pneumonia/reports/annual-age-distribution'],
             ['/en/pneumonia/reports/percent-enrolled'],
-            ['/en/pneumonia/reports/field-population'],
             ['/en/meningitis/reports/data-quality'],
             ['/en/meningitis/reports/site-performance'],
             ['/en/meningitis/reports/data-linking'],
@@ -108,7 +107,6 @@ class ApplicationAvailabilityTest extends WebTestCase
             ['/en/pneumonia/reports/stats', 'ibd_report_filter_filter', ['ibd_report_filter[adm_date][left_date]' => '01/01/2014', 'ibd_report_filter[adm_date][right_date]' => '12/31/2014']],
             ['/en/pneumonia/reports/annual-age-distribution', 'ibd_report_filter_filter', ['ibd_report_filter[adm_date][left_date]' => '01/01/2014', 'ibd_report_filter[adm_date][right_date]' => '12/31/2014']],
             ['/en/pneumonia/reports/percent-enrolled', 'ibd_report_filter_filter', ['ibd_report_filter[adm_date][left_date]' => '01/01/2014', 'ibd_report_filter[adm_date][right_date]' => '12/31/2014']],
-            ['/en/pneumonia/reports/field-population', 'ibd_report_filter_filter', ['ibd_report_filter[adm_date][left_date]' => '01/01/2014', 'ibd_report_filter[adm_date][right_date]' => '12/31/2014']],
 
             ['/en/meningitis/reports/data-quality', 'ibd_report_filter_filter', ['ibd_report_filter[adm_date][left_date]' => '01/01/2014', 'ibd_report_filter[adm_date][right_date]' => '12/31/2014']],
             ['/en/meningitis/reports/site-performance', 'base_quarterly_filter_filter', ['base_quarterly_filter[year]' => 2014]],
