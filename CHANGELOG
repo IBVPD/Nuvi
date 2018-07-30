@@ -3,6 +3,7 @@ VERSION 0  INITIAL RELEASE
 ==========================
 
    Version 0.10 - Updated to SF3.x
+      30/07/2018 20:41  0.10.59  Updated translations and fixed validations
       18/07/2018 10:45  0.10.58  Various updates/fixes
       10/07/2018 14:28  0.10.57  Mostly updated translations
       21/06/2018 15:51  0.10.56  Added paho request
