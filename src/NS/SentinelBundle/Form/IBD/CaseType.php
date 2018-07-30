@@ -179,7 +179,12 @@ class CaseType extends AbstractType
             ->add('hibReceived', VaccinationReceived::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.hib-received','property_path'=>'hib_received'])
             ->add('pcvReceived', VaccinationReceived::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.pcv-received','property_path'=>'pcv_received'])
             ->add('meningReceived', VaccinationReceived::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.men-received','property_path' => 'mening_received'])
-            ->add('meningType', VaccinationType::class, ['required' => $required, 'label' => 'ibd-form.men-type', 'hidden' => ['parent' => 'meningReceived', 'value' => $isPaho ? [VaccinationReceived::YES_CARD]:[VaccinationReceived::YES_CARD, VaccinationReceived::YES_HISTORY] ]])
+            ->add('meningType', VaccinationType::class, [
+                'required' => $required,
+                'label' => 'ibd-form.men-type',
+                'hidden' => ['parent' => 'meningReceived', 'value' => $isPaho ? [VaccinationReceived::YES_CARD]:[VaccinationReceived::YES_CARD, VaccinationReceived::YES_HISTORY] ],
+                'exclude_choices' => $isPaho ? [VaccinationType::MEN_AFR_VAC, VaccinationType::ACW135]:[VaccinationType::B,VaccinationType::C],
+            ])
             ->add('meningDate', DatePickerType::class, ['required' => $required, 'label' => 'ibd-form.meningMostRecentDose', 'property_path' => 'mening_date', 'hidden' => ['parent' => 'meningReceived', 'value' => $isPaho ? [VaccinationReceived::YES_CARD]:[VaccinationReceived::YES_CARD, VaccinationReceived::YES_HISTORY] ]]);
 
         if ($isPaho) {

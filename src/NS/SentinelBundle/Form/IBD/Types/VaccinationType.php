@@ -27,35 +27,9 @@ class VaccinationType extends TranslatableArrayChoice implements TranslationCont
         self::ACYW135_POLY => 'ACYW135 (polysaccharide)',
         self::ACW135       => 'ACW135 (polysaccharide)',
         self::ACYW135_CON  => 'ACYW135 (conjugate)',
+        self::B            => 'B recombinante',
+        self::C            => 'C (conjugada)',
         self::OTHER        => 'Other',
         self::UNKNOWN      => 'Unknown',
     ];
-
-    /** @var AuthorizationCheckerInterface */
-    private $authChecker;
-
-    /**
-     * @param AuthorizationCheckerInterface $authChecker
-     */
-    public function setAuthorizationChecker($authChecker)
-    {
-        $this->authChecker = $authChecker;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        if ($this->authChecker && $this->authChecker->isGranted('ROLE_AMR')) {
-            unset($this->values[self::MEN_AFR_VAC]);
-            unset($this->values[self::ACW135]);
-            $this->values[self::B] = 'B recombinante';
-            $this->values[self::C] = 'C (conjugada)';
-
-            sort($this->values);
-        }
-
-        parent::configureOptions($resolver);
-    }
 }

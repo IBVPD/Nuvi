@@ -249,8 +249,6 @@ services:
 
   ns.sentinel.form.type.meningitisvaccinationtype:
     class: NS\SentinelBundle\Form\IBD\Types\VaccinationType
-    calls:
-      - [ setAuthorizationChecker, [ "@security.authorization_checker" ]]
     tags:
       - { name: form.type }
 
