@@ -450,6 +450,14 @@ class SiteLab implements BaseSiteLabInterface
     private $other_id;
 
     /**
+     * PAHO request
+     * @var string $other_type
+     * @ORM\Column(name="other_type",type="string",nullable=true)
+     * @Serializer\Groups({"api","export"})
+     */
+    private $other_type;
+
+    /**
      * @var \DateTime $otherLabTime
      * @ORM\Column(name="other_lab_date",type="date",nullable=true)
      * @Assert\DateTime
@@ -1972,6 +1980,22 @@ class SiteLab implements BaseSiteLabInterface
     public function setOtherId($other_id)
     {
         $this->other_id = $other_id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOtherType()
+    {
+        return $this->other_type;
+    }
+
+    /**
+     * @param string $other_type
+     */
+    public function setOtherType($other_type)
+    {
+        $this->other_type = $other_type;
     }
 
     /**

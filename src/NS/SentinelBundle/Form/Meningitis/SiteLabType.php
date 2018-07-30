@@ -112,6 +112,7 @@ class SiteLabType extends AbstractType
             ->add('bloodPcrResult',     PCRResult::class, ['required' => false, 'label' => 'ibd-form.blood-pcr-result', 'hidden' => ['parent' => 'bloodPcrDone', 'value' => TripleChoice::YES]])
             ->add('bloodPcrOther',      null, ['required' => false, 'label' => 'ibd-form.blood-pcr-other', 'hidden' => ['parent' => 'bloodPcrResult', 'value' => PCRResult::OTHER]])
             ->add('otherId',            null, ['required' => false, 'label' => 'ibd-form.other-id'])
+            ->add('otherType',            null, ['required' => false, 'label' => 'ibd-form.other-type'])
             ->add('otherLabDate',       DatePickerType::class, ['required' => false, 'label' => 'ibd-form.other-lab-datetime'])
             ->add('otherLabTime',       TimeType::class, ['required' => false, 'label' => 'ibd-form.other-lab-time','minutes'=>[0,5,10,15,20,25,30,35,40,45,50,55]])
             ->add('otherCultDone',      TripleChoice::class, ['required' => false, 'label' => 'ibd-form.other-cult-done1'])
