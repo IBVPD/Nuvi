@@ -29,7 +29,7 @@ class CaseTypeTest extends TypeTestCase
 {
     public function testConstruction()
     {
-        $this->authChecker->expects($this->atLeast(2))->method('isGranted')->with('ROLE_AMR')->willReturn(false);
+        $this->authChecker->expects($this->atLeast(1))->method('isGranted')->with('ROLE_AMR')->willReturn(false);
         $form = $this->factory->create(CaseType::class);
         foreach ($form as $name => $field) {
             $this->assertEquals(in_array($name, $this->requiredFields), $field->getConfig()->getOption('required'), sprintf('Field %s doesn\'t have properly required field', $name));
@@ -43,7 +43,7 @@ class CaseTypeTest extends TypeTestCase
     {
         $fields = array_merge($this->requiredFields,$this->pahoRequiredFields);
 
-        $this->authChecker->expects($this->atLeast(2))->method('isGranted')->with('ROLE_AMR')->willReturn(true);
+        $this->authChecker->expects($this->atLeast(1))->method('isGranted')->with('ROLE_AMR')->willReturn(true);
         $form = $this->factory->create(CaseType::class);
 
         foreach ($form as $name => $field) {
@@ -57,7 +57,7 @@ class CaseTypeTest extends TypeTestCase
     public function testNonPahoEditingPahoData()
     {
         $fields = array_merge($this->requiredFields,$this->pahoRequiredFields);
-        $this->authChecker->expects($this->once())->method('isGranted')->with('ROLE_AMR')->willReturn(false);
+        $this->authChecker->expects($this->never())->method('isGranted')->with('ROLE_AMR')->willReturn(false);
         $case = new Meningitis();
         $case->setSite($this->pahoSite);
 
@@ -76,7 +76,7 @@ class CaseTypeTest extends TypeTestCase
 
     public function testNonPneumoniaCountry()
     {
-        $this->authChecker->expects($this->atLeast(2))->method('isGranted')->with('ROLE_AMR')->willReturn(false);
+        $this->authChecker->expects($this->atLeast(1))->method('isGranted')->with('ROLE_AMR')->willReturn(false);
 
         $case = new Meningitis();
         $case->setSite($this->euroSite);
@@ -161,7 +161,6 @@ class CaseTypeTest extends TypeTestCase
     {
         $extension = new HiddenParentChildExtension();
         $vacType = new VaccinationType();
-        $vacType->setAuthorizationChecker($this->authChecker);
         $types = [new TripleChoice(), new Gender(), new CaseType($this->siteSerializer, $this->groupResolver, $this->authChecker),$vacType];
         return [new PreloadedExtension($types,[ $extension->getExtendedType()=>[$extension]])];
     }
