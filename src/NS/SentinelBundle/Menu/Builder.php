@@ -78,7 +78,6 @@ class Builder
 
             $pneuReport->addChild('Age Distribution', ['label'=> 'menu.data-reports-age-distribution', 'route'=>'pneuReportAnnualAgeDistribution']);
             $pneuReport->addChild('Enrolment %', ['label'=> 'menu.data-reports-percent-enrolled', 'route'=>'pneuReportPercentEnrolled']);
-            $pneuReport->addChild('Field Population', ['label'=>'menu.data-reports-field-population', 'route'=>'pneuReportFieldPopulation']);
 
             $meningReport->addChild('Data Quality Checks', ['label'=>'menu.data-reports-data-quality', 'route'=>'meningReportDataQuality']);
             $meningReport->addChild('Site Performance', ['label'=>'menu.data-reports-site-performance', 'route'=>'meningReportSitePerformance']);

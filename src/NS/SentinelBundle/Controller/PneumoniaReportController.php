@@ -93,23 +93,6 @@ class PneumoniaReportController extends Controller
         return $this->render('NSSentinelBundle:Report:Pneumonia/byDiagnosisGraph.html.twig', ['reports' => $reports]);
     }
 
-    /**
-     * @Route("/field-population",name="pneuReportFieldPopulation")
-     * @param Request $request
-     * @return array|RedirectResponse|Response
-     */
-    public function fieldPopulationAction(Request $request)
-    {
-        $form    = $this->createForm(ReportFilterType::class, null, ['site_type'=>'advanced', 'validation_groups'=> ['FieldPopulation']]);
-        $service = $this->get('ns_sentinel.pneu_report');
-        $params = $service->getFieldPopulation($request, $form, 'pneuReportFieldPopulation');
-        if ($params instanceof Response) {
-            return $params;
-        }
-
-        return $this->render('NSSentinelBundle:Report:Pneumonia/fieldPopulation.html.twig', $params);
-    }
-
     /*
      * 1 - Number And Percent Enrolled: Admission Diagnosis
      * 4 - Age Distribution - Suspect vs Probable based on admin diagnosis
