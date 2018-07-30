@@ -543,13 +543,10 @@ class SiteLab implements BaseSiteLabInterface
 
     /**
      * @param \DateTime $updatedAt
-     * @return $this
      */
     public function setUpdatedAt(\DateTime $updatedAt)
     {
         $this->updatedAt = $updatedAt;
-
-        return $this;
     }
 
     /**
@@ -562,16 +559,14 @@ class SiteLab implements BaseSiteLabInterface
 
     /**
      * @param CaseStatus $status
-     * @return $this
      */
     public function setStatus(CaseStatus $status)
     {
         $this->status = $status;
-        return $this;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getId()
     {
@@ -724,12 +719,10 @@ class SiteLab implements BaseSiteLabInterface
 
     /**
      * @param CultureResult $otherTestResult
-     * @return SiteLab
      */
     public function setOtherTestResult($otherTestResult)
     {
         $this->other_test_result = $otherTestResult;
-        return $this;
     }
 
     /**
@@ -742,12 +735,10 @@ class SiteLab implements BaseSiteLabInterface
 
     /**
      * @param string $otherTestOther
-     * @return SiteLab
      */
     public function setOtherTestOther($otherTestOther)
     {
         $this->other_test_other = $otherTestOther;
-        return $this;
     }
 
     /**
@@ -760,142 +751,114 @@ class SiteLab implements BaseSiteLabInterface
 
     /**
      * @param TripleChoice $isolStore
-     * @return $this
      */
     public function setIsolStore(TripleChoice $isolStore)
     {
         $this->isol_store = $isolStore;
-        return $this;
     }
 
     /**
      * @param TripleChoice $bloodCultDone
-     * @return $this
      */
     public function setBloodCultDone(TripleChoice $bloodCultDone)
     {
         $this->blood_cult_done = $bloodCultDone;
-        return $this;
     }
 
     /**
      * @param TripleChoice $bloodGramDone
-     * @return $this
      */
     public function setBloodGramDone(TripleChoice $bloodGramDone)
     {
         $this->blood_gram_done = $bloodGramDone;
-        return $this;
     }
 
     /**
      * @param TripleChoice $bloodPcrDone
-     * @return $this
      */
     public function setBloodPcrDone(TripleChoice $bloodPcrDone)
     {
         $this->blood_pcr_done = $bloodPcrDone;
-        return $this;
     }
 
     /**
      * @param TripleChoice $otherCultDone
-     * @return $this
      */
     public function setOtherCultDone(TripleChoice $otherCultDone)
     {
         $this->other_cult_done = $otherCultDone;
-        return $this;
     }
 
     /**
      * @param CultureResult $bloodCultResult
-     * @return $this
      */
     public function setBloodCultResult(CultureResult $bloodCultResult)
     {
         $this->blood_cult_result = $bloodCultResult;
-        return $this;
     }
 
     /**
      * @param $bloodCultOther
-     * @return $this
      */
     public function setBloodCultOther($bloodCultOther)
     {
         $this->blood_cult_other = $bloodCultOther;
-        return $this;
     }
 
     /**
      * @param GramStainResult $bloodGramResult
-     * @return $this
      */
     public function setBloodGramResult(GramStainResult $bloodGramResult)
     {
         $this->blood_gram_result = $bloodGramResult;
-        return $this;
     }
 
     /**
      * @param GramStain $bloodGramStain
-     * @return $this
      */
     public function setBloodGramStain(GramStain $bloodGramStain)
     {
         $this->blood_gram_stain = $bloodGramStain;
-        return $this;
     }
 
     /**
      * @param $bloodGramOther
-     * @return $this
      */
     public function setBloodGramOther($bloodGramOther)
     {
         $this->blood_gram_other = $bloodGramOther;
-        return $this;
     }
 
     /**
      * @param PCRResult $bloodPcrResult
-     * @return $this
      */
     public function setBloodPcrResult(PCRResult $bloodPcrResult)
     {
         $this->blood_pcr_result = $bloodPcrResult;
-        return $this;
     }
 
     /**
      * @param $bloodPcrOther
-     * @return $this
      */
     public function setBloodPcrOther($bloodPcrOther)
     {
         $this->blood_pcr_other = $bloodPcrOther;
-        return $this;
     }
 
     /**
      * @param CultureResult $otherCultResult
-     * @return $this
      */
     public function setOtherCultResult(CultureResult $otherCultResult)
     {
         $this->other_cult_result = $otherCultResult;
-        return $this;
     }
 
     /**
      * @param $otherCultOther
-     * @return $this
      */
     public function setOtherCultOther($otherCultOther)
     {
         $this->other_cult_other = $otherCultOther;
-        return $this;
     }
 
     /**
