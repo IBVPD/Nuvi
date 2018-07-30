@@ -32,7 +32,7 @@ class ExportController extends Controller
     public function fieldsAction(Request $request, $type)
     {
         $obj = $this->get('ns_sentinel.object_initializer')->initializeObject($type);
-        if($request->isXmlHttpRequest()) {
+        if ($request->isXmlHttpRequest()) {
             return new JsonResponse($obj, 200, [], true);
         } else {
             $out = [];
