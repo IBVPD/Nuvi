@@ -58,7 +58,7 @@ class CaseTypeTest extends TypeTestCase
 
     public function testNonPahoEditingPahoData()
     {
-        $fields = array_merge($this->requiredFields,$this->pahoRequiredFields);
+        $fields = array_merge($this->requiredFields, $this->pahoRequiredFields);
         $this->authChecker->expects($this->never())->method('isGranted')->with('ROLE_AMR')->willReturn(false);
         $case = new IBD();
         $case->setSite($this->pahoSite);
@@ -104,14 +104,13 @@ class CaseTypeTest extends TypeTestCase
         $this->assertFalse($form->has('cxrDone'));
         $this->assertFalse($form->has('cxrResult'));
         $this->assertFalse($form->has('cxrAdditionalResult'));
-
     }
 
     /** @var array */
     private $requiredFields = ['caseId'];
 
     /** @var array */
-    private $pahoRequiredFields = ['lastName', 'firstName', 'admDate', 'dobKnown', 'gender', 'admDx', 'hibReceived','meningReceived','pcvReceived'];
+    private $pahoRequiredFields = ['lastName', 'firstName', 'admDate', 'dobKnown', 'gender', 'admDx', 'hibReceived','meningReceived','pcvReceived','cxrDone'];
 
     /** @var SerializedSitesInterface|\PHPUnit_Framework_MockObject_MockObject */
     private $siteSerializer;
