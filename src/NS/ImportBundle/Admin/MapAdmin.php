@@ -40,12 +40,19 @@ class MapAdmin extends AbstractAdmin
             ->add('version')
             ->add('class', 'doctrine_orm_callback',
                 [
-                    'field_type'=>'choice',
-                    'field_options'=> ['choices'=> ['NS\\SentinelBundle\\Entity\\IBD'=>'IBD', 'NS\\SentinelBundle\\Entity\\RotaVirus'=>'RotaVirus',], 'placeholder'=>' '],
+                    'field_type' => 'choice',
+                    'field_options' => [
+                        'choices' => [
+                            'NS\\SentinelBundle\\Entity\\Pneumonia\\Pneumonia' => 'Pneumonia',
+                            'NS\\SentinelBundle\\Entity\\Meningitis\\Meningitis' => 'Meningitis',
+                            'NS\\SentinelBundle\\Entity\\RotaVirus' => 'RotaVirus',
+                            'NS\\SentinelBundle\\Entity\\IBD' => 'IBD',
+                        ],
+                        'placeholder' => ' '
+                    ],
                     'callback' => [$this, 'filterClassType']
                 ]
-            )
-        ;
+            );
     }
 
     /**
@@ -74,16 +81,15 @@ class MapAdmin extends AbstractAdmin
     {
         $listMapper
             ->addIdentifier('selectName')
-            ->add('description', null, ['label'=>'notes'])
+            ->add('description', null, ['label' => 'notes'])
             ->add('_action', 'actions', [
                 'actions' => [
-                    'show'   => [],
-                    'edit'   => [],
+                    'show' => [],
+                    'edit' => [],
                     'delete' => [],
-                    'clone'  => ['template' => 'NSImportBundle:MapAdmin:list__action_clone.html.twig'],
+                    'clone' => ['template' => 'NSImportBundle:MapAdmin:list__action_clone.html.twig'],
                 ]
-            ])
-        ;
+            ]);
     }
 
     /**
@@ -93,35 +99,36 @@ class MapAdmin extends AbstractAdmin
     {
         $isNew = ($this->getSubject()->getId() > 0);
 
-        $ibdRoute = $this->getRouteGenerator()->generate('exportFields',['type'=>'ibd']);
-        $rvRoute = $this->getRouteGenerator()->generate('exportFields',['type'=>'rotavirus']);
+        $ibdRoute = $this->getRouteGenerator()->generate('exportFields', ['type' => 'ibd']);
+        $pneuRoute = $this->getRouteGenerator()->generate('exportFields', ['type' => 'pneumonia']);
+        $meningRoute = $this->getRouteGenerator()->generate('exportFields', ['type' => 'meningitis']);
+        $rvRoute = $this->getRouteGenerator()->generate('exportFields', ['type' => 'rotavirus']);
 
-        $help = sprintf('Field References:<br/>&nbsp;&nbsp;&nbsp;<a href="%s" target="_blank"><i class="fa fa-eye"></i> IBD</a><br/>&nbsp;&nbsp;&nbsp;<a href="%s" target="_blank"><i class="fa fa-eye"></i> RV </a>',$ibdRoute,$rvRoute);
+        $help = sprintf('Field References:<br/>&nbsp;&nbsp;&nbsp;<a href="%s" target="_blank"><i class="fa fa-eye"></i> Pneumonia</a><br/>&nbsp;&nbsp;&nbsp;<a href="%s" target="_blank"><i class="fa fa-eye"></i> Meningitis</a><br/>&nbsp;&nbsp;&nbsp;<a href="%s" target="_blank"><i class="fa fa-eye"></i> IBD</a><br/>&nbsp;&nbsp;&nbsp;<a href="%s" target="_blank"><i class="fa fa-eye"></i> RV </a>', $pneuRoute, $meningRoute, $ibdRoute, $rvRoute);
         $formMapper
-            ->add('name',           null, ['label_attr'=> ['class'=>'col-sm-2']])
-            ->add('description',    null, ['label'=>'Notes', 'label_attr'=> ['class'=>'col-sm-2']])
-            ->add('class',          ClassType::class, ['label_attr'=> ['class'=>'col-sm-2'], 'attr'=>['data-Class'=>true],'help'=>$help])
-            ->add('version',        null, ['required'=>true, 'label_attr'=> ['class'=>'col-sm-2']])
-            ->add('headerRow',      IntegerType::class, ['label_attr'=> ['class'=>'col-sm-2']])
-            ->add('caseLinker',     ChoiceType::class, [
-                'label_attr' => ['class'=>'col-sm-2'],
+            ->add('name', null, ['label_attr' => ['class' => 'col-sm-2']])
+            ->add('description', null, ['label' => 'Notes', 'label_attr' => ['class' => 'col-sm-2']])
+            ->add('class', ClassType::class, ['label_attr' => ['class' => 'col-sm-2'], 'attr' => ['data-Class' => true], 'help' => $help])
+            ->add('version', null, ['required' => true, 'label_attr' => ['class' => 'col-sm-2']])
+            ->add('headerRow', IntegerType::class, ['label_attr' => ['class' => 'col-sm-2']])
+            ->add('caseLinker', ChoiceType::class, [
+                'label_attr' => ['class' => 'col-sm-2'],
                 'choices' => ['Case Id and Site Code' => 'ns_import.standard_case_linker', 'Case Id and Verify Country' => 'ns_import.reference_case_linker'],
                 'placeholder' => 'Please Select...',
-                'disabled'=>$isNew])
-        ;
+                'disabled' => $isNew]);
 
         if (!$isNew) {
             $formMapper
                 ->add('labPreference', ChoiceType::class, [
-                    'label_attr' => ['class'=>'col-sm-2'],
-                    'choices'=> ['RRL' => 'referenceLab', 'NL' => 'nationalLab']
+                    'label_attr' => ['class' => 'col-sm-2'],
+                    'choices' => ['RRL' => 'referenceLab', 'NL' => 'nationalLab']
                 ])
                 ->add('file', FileType::class, [
                     'required' => false,
-                    'label_attr' => ['class'=>'col-sm-2'],
+                    'label_attr' => ['class' => 'col-sm-2'],
                 ]);
         } else {
-            $formMapper->add('columns', 'sonata_type_collection', ['error_bubbling' => false, 'by_reference' => true, 'attr'=>['class'=>'col-xs-12 col-sm-12 col-md-12'], 'label_attr' => ['class' => 'col-xs-12 col-sm-12 col-md-12 align-left']], ['edit' => 'inline', 'inline' => 'table']);
+            $formMapper->add('columns', 'sonata_type_collection', ['error_bubbling' => false, 'by_reference' => true, 'attr' => ['class' => 'col-xs-12 col-sm-12 col-md-12'], 'label_attr' => ['class' => 'col-xs-12 col-sm-12 col-md-12 align-left']], ['edit' => 'inline', 'inline' => 'table']);
         }
     }
 
@@ -133,8 +140,7 @@ class MapAdmin extends AbstractAdmin
         $showMapper
             ->add('name')
             ->add('version')
-            ->add('columns')
-        ;
+            ->add('columns');
     }
 
     /**
@@ -144,7 +150,7 @@ class MapAdmin extends AbstractAdmin
     {
         // have a file so build the columns dynamically
         if (!$map->getId() && $map->getFile()) {
-            $metaData   = $this->modelManager->getMetadata($map->getClass());
+            $metaData = $this->modelManager->getMetadata($map->getClass());
             $this->mapBuilder->setMetaData($metaData);
             $this->mapBuilder->setSiteMetaData($this->modelManager->getMetadata($metaData->getAssociationTargetClass('siteLab')));
             $this->mapBuilder->setNlMetaData($this->modelManager->getMetadata($metaData->getAssociationTargetClass('nationalLab')));

@@ -36,3 +36,8 @@ services:
     arguments: [ "@twig" ]
     tags:
       - { name: twig.extension }
+
+  ns_sentinel.twig.class_type:
+    class: NS\SentinelBundle\Twig\InstanceOfExtension
+    tags:
+      - { name: twig.extension }

@@ -4,8 +4,14 @@ namespace NS\ImportBundle\Admin;
 
 use NS\ImportBundle\Converter\Registry;
 use NS\ImportBundle\Form\Type\IBDColumnType;
+use NS\ImportBundle\Form\Type\MeningitisColumnType;
+use NS\ImportBundle\Form\Type\PneumoniaColumnType;
 use NS\ImportBundle\Form\Type\PreProcessorType;
 use NS\ImportBundle\Form\Type\RotavirusColumnType;
+use NS\SentinelBundle\Entity\IBD;
+use NS\SentinelBundle\Entity\Meningitis\Meningitis;
+use NS\SentinelBundle\Entity\Pneumonia\Pneumonia;
+use NS\SentinelBundle\Entity\RotaVirus;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -45,7 +51,25 @@ class ColumnAdmin extends AbstractAdmin
     {
         $mapperType = null;
         if ($this->getSubject() && $this->getSubject()->getMap()) {
-            $mapperType = ($this->getSubject()->getMap()->getClass() == 'NS\SentinelBundle\Entity\IBD') ? IBDColumnType::class : RotavirusColumnType::class;
+            $mapperType = null;
+            switch($this->getSubject()->getMap()->getClass()) {
+                case IBD::class:
+                    $mapperType = IBDColumnType::class;
+                    break;
+                case Pneumonia::class:
+                    $mapperType = PneumoniaColumnType::class;
+                    break;
+                case Meningitis::class:
+                    $mapperType = MeningitisColumnType::class;
+                    break;
+                case RotaVirus::class:
+                    $mapperType = RotavirusColumnType::class;
+                    break;
+            }
+
+            if ($mapperType === null) {
+                throw new \RuntimeException("Unable to determine column mapper type");
+            }
         }
 
         $id = uniqid();

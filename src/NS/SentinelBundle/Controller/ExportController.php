@@ -32,7 +32,7 @@ class ExportController extends Controller
     public function fieldsAction(Request $request, $type)
     {
         $obj = $this->get('ns_sentinel.object_initializer')->initializeObject($type);
-        if ($request->isXmlHttpRequest()) {
+        if ($request->isXmlHttpRequest() || $request->query->has('json')) {
             return new JsonResponse($obj, 200, [], true);
         } else {
             $out = [];
@@ -40,6 +40,14 @@ class ExportController extends Controller
 
             if (isset($obj->ibd)) {
                 $out['IBD'] = get_object_vars($obj->ibd);
+            }
+
+            if (isset($obj->meningitis)) {
+                $out['Meningitis'] = get_object_vars($obj->meningitis);
+            }
+
+            if (isset($obj->pneumonia)) {
+                $out['Pneumonia'] = get_object_vars($obj->pneumonia);
             }
 
             if (isset($obj->rotavirus)) {
@@ -58,13 +66,14 @@ class ExportController extends Controller
                 $out['National Lab'] = get_object_vars($obj->nl);
             }
 
-            foreach ($obj as &$fields) {
-                foreach ($fields as &$field) {
+            foreach ($out as &$fields) {
+                foreach ($fields as $key => &$field) {
                     if ($field instanceof \stdClass) {
                         $field = get_object_vars($field);
 
                         if (isset($field['options']) && $field['options'] instanceof \stdClass) {
-                            $field['options'] = get_object_vars($field['options']);
+                            $options = get_object_vars($field['options']);
+                            $field['options'] = $options;
                         }
                     }
                 }

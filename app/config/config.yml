@@ -284,8 +284,10 @@ nelmio_api_doc:
 
 ns_import:
   classes:
-    NS\SentinelBundle\Entity\IBD: IBD
+    NS\SentinelBundle\Entity\Pneumonia\Pneumonia: Pneumonia
+    NS\SentinelBundle\Entity\Meningitis\Meningitis: Meningitis
     NS\SentinelBundle\Entity\RotaVirus: Rotavirus
+    NS\SentinelBundle\Entity\IBD: IBD
 
 doctrine_cache:
     providers:

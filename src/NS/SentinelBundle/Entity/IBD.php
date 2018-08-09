@@ -12,7 +12,7 @@ use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Form\Types\VaccinationReceived;
 use NS\SentinelBundle\Form\Meningitis\Types\CSFAppearance;
 use NS\SentinelBundle\Form\Pneumonia\Types\CXRResult;
-use NS\SentinelBundle\Form\IBD\Types\CXRAdditionalResult;
+use NS\SentinelBundle\Form\Pneumonia\Types\CXRAdditionalResult;
 use NS\SentinelBundle\Form\IBD\Types\Diagnosis;
 use NS\SentinelBundle\Form\IBD\Types\DischargeClassification;
 use NS\SentinelBundle\Form\IBD\Types\DischargeDiagnosis;
@@ -988,62 +988,50 @@ class IBD extends BaseCase
 
     /**
      * @param \DateTime|null $onsetDate
-     * @return $this
      */
     public function setOnsetDate(\DateTime $onsetDate = null)
     {
         $this->onset_date = $onsetDate;
-        return $this;
     }
 
     /**
      * @param Diagnosis $adm_dx
-     * @return $this
      */
     public function setAdmDx(Diagnosis $adm_dx = null)
     {
         $this->adm_dx = $adm_dx;
-        return $this;
     }
 
     /**
      * @param $adm_dxOther
-     * @return $this
      */
     public function setAdmDxOther($adm_dxOther)
     {
         $this->adm_dx_other = $adm_dxOther;
-        return $this;
     }
 
     /**
      * @param TripleChoice $antibiotics
-     * @return $this
      */
     public function setAntibiotics(TripleChoice $antibiotics = null)
     {
         $this->antibiotics = $antibiotics;
-        return $this;
     }
 
     /**
      * @param TripleChoice $menSeizures
-     * @return $this
      */
     public function setMenSeizures(TripleChoice $menSeizures = null)
     {
         $this->men_seizures = $menSeizures;
-        return $this;
     }
 
     /**
      * @param TripleChoice $menFever
-     * @return $this
      */
     public function setMenFever(TripleChoice $menFever = null)
     {
         $this->men_fever = $menFever;
-        return $this;
     }
 
     /**
@@ -1056,12 +1044,10 @@ class IBD extends BaseCase
 
     /**
      * @param TripleChoice $menAltConscious
-     * @return $this
      */
     public function setMenAltConscious(TripleChoice $menAltConscious = null)
     {
         $this->men_alt_conscious = $menAltConscious;
-        return $this;
     }
 
     /**
@@ -1071,411 +1057,326 @@ class IBD extends BaseCase
     public function setMenInabilityFeed(TripleChoice $menInabilityFeed = null)
     {
         $this->men_inability_feed = $menInabilityFeed;
-        return $this;
     }
 
     /**
      * @param TripleChoice $menNeckStiff
-     * @return $this
      */
     public function setMenNeckStiff(TripleChoice $menNeckStiff = null)
     {
         $this->men_neck_stiff = $menNeckStiff;
-        return $this;
     }
 
     /**
      * @param TripleChoice $menRash
-     * @return $this
      */
     public function setMenRash(TripleChoice $menRash = null)
     {
         $this->men_rash = $menRash;
-        return $this;
     }
 
     /**
      * @param TripleChoice $menFontanelleBulge
-     * @return $this
      */
     public function setMenFontanelleBulge(TripleChoice $menFontanelleBulge = null)
     {
         $this->men_fontanelle_bulge = $menFontanelleBulge;
-        return $this;
     }
 
     /**
      * @param TripleChoice $menLethargy
-     * @return $this
      */
     public function setMenLethargy(TripleChoice $menLethargy = null)
     {
         $this->men_lethargy = $menLethargy;
-        return $this;
     }
 
     /**
      * @param TripleChoice $pneuDiffBreathe
-     * @return $this
      */
     public function setPneuDiffBreathe(TripleChoice $pneuDiffBreathe = null)
     {
         $this->pneu_diff_breathe = $pneuDiffBreathe;
-        return $this;
     }
 
     /**
      * @param TripleChoice $pneuChestIndraw
-     * @return $this
      */
     public function setPneuChestIndraw(TripleChoice $pneuChestIndraw = null)
     {
         $this->pneu_chest_indraw = $pneuChestIndraw;
-        return $this;
     }
 
     /**
      * @param TripleChoice $pneuCough
-     * @return $this
      */
     public function setPneuCough(TripleChoice $pneuCough = null)
     {
         $this->pneu_cough = $pneuCough;
-        return $this;
     }
 
     /**
      * @param TripleChoice $pneuCyanosis
-     * @return $this
      */
     public function setPneuCyanosis(TripleChoice $pneuCyanosis = null)
     {
         $this->pneu_cyanosis = $pneuCyanosis;
-        return $this;
     }
 
     /**
      * @param TripleChoice $pneuStridor
-     * @return $this
      */
     public function setPneuStridor(TripleChoice $pneuStridor = null)
     {
         $this->pneu_stridor = $pneuStridor;
-        return $this;
     }
 
     /**
      * @param $pneuRespRate
-     * @return $this
      */
     public function setPneuRespRate($pneuRespRate)
     {
         $this->pneu_resp_rate = $pneuRespRate;
-        return $this;
     }
 
     /**
      * @param TripleChoice $pneuVomit
-     * @return $this
      */
     public function setPneuVomit(TripleChoice $pneuVomit = null)
     {
         $this->pneu_vomit = $pneuVomit;
-        return $this;
     }
 
     /**
      * @param TripleChoice $pneuHypothermia
-     * @return $this
      */
     public function setPneuHypothermia(TripleChoice $pneuHypothermia = null)
     {
         $this->pneu_hypothermia = $pneuHypothermia;
-        return $this;
     }
 
     /**
      * @param TripleChoice $pneuMalnutrition
-     * @return $this
      */
     public function setPneuMalnutrition(TripleChoice $pneuMalnutrition = null)
     {
         $this->pneu_malnutrition = $pneuMalnutrition;
-        return $this;
     }
 
     /**
      * @param TripleChoice $cxrDone
-     * @return $this
      */
     public function setCxrDone(TripleChoice $cxrDone = null)
     {
         $this->cxr_done = $cxrDone;
-        return $this;
     }
 
     /**
      * @param CXRResult $cxrResult
-     * @return $this
      */
     public function setCxrResult(CXRResult $cxrResult = null)
     {
         $this->cxr_result = $cxrResult;
-        return $this;
     }
 
     /**
      * @param CXRAdditionalResult $cxrAdditionalResult
-     * @return $this
      */
     public function setCxrAdditionalResult(CXRAdditionalResult $cxrAdditionalResult = null)
     {
         $this->cxr_additional_result = $cxrAdditionalResult;
-        return $this;
     }
 
     /**
      * @param VaccinationReceived $hibReceived
-     * @return $this
      */
     public function setHibReceived(VaccinationReceived $hibReceived = null)
     {
         $this->hib_received = $hibReceived;
-        return $this;
     }
 
     /**
      * @param FourDoses $hibDoses
-     * @return $this
      */
     public function setHibDoses(FourDoses $hibDoses = null)
     {
         $this->hib_doses = $hibDoses;
-        return $this;
     }
 
     /**
      * @param $hibMostRecentDose
-     * @return $this
      */
     public function setHibMostRecentDose(\DateTime $hibMostRecentDose = null)
     {
         $this->hib_most_recent_dose = $hibMostRecentDose;
-
-        return $this;
     }
 
     /**
      * @param VaccinationReceived $pcvReceived
-     * @return $this
      */
     public function setPcvReceived(VaccinationReceived $pcvReceived = null)
     {
         $this->pcv_received = $pcvReceived;
-        return $this;
     }
 
     /**
      * @param FourDoses $pcvDoses
-     * @return $this
      */
     public function setPcvDoses(FourDoses $pcvDoses = null)
     {
         $this->pcv_doses = $pcvDoses;
-        return $this;
     }
 
     /**
      * @param PCVType $pcvType
-     * @return $this
      */
     public function setPcvType(PCVType $pcvType = null)
     {
         $this->pcv_type = $pcvType;
-        return $this;
     }
 
     /**
      * @param $pcvMostRecentDose
-     * @return $this
      */
     public function setPcvMostRecentDose(\DateTime $pcvMostRecentDose = null)
     {
         $this->pcv_most_recent_dose = $pcvMostRecentDose;
-
-        return $this;
     }
 
     /**
      * @param VaccinationReceived $meningReceived
-     * @return $this
      */
     public function setMeningReceived(VaccinationReceived $meningReceived = null)
     {
         $this->mening_received = $meningReceived;
-        return $this;
     }
 
     /**
      * @param VaccinationType $meningType
-     * @return $this
      */
     public function setMeningType(VaccinationType $meningType = null)
     {
         $this->mening_type = $meningType;
-        return $this;
     }
 
     /**
      * @param $meningMostRecentDose
-     * @return $this
      */
     public function setMeningDate(\DateTime $meningMostRecentDose = null)
     {
         $this->mening_date = $meningMostRecentDose;
-
-        return $this;
     }
 
     /**
      * @param TripleChoice $csfCollected
-     * @return $this
      */
     public function setCsfCollected(TripleChoice $csfCollected = null)
     {
         $this->csf_collected = $csfCollected;
-        return $this;
     }
 
     /**
      * @param \DateTime $date
-     * @return IBD
      */
     public function setCsfCollectDate(\DateTime $date = null)
     {
         $this->csf_collect_date = $date;
-        return $this;
     }
 
     /**
      * @param \DateTime $time
-     * @return IBD
      */
     public function setCsfCollectTime(\DateTime $time = null)
     {
         $this->csf_collect_time = $time;
-        return $this;
     }
 
     /**
      * @param CSFAppearance $csfAppearance
-     * @return $this
      */
     public function setCsfAppearance(CSFAppearance $csfAppearance = null)
     {
         $this->csf_appearance = $csfAppearance;
-        return $this;
     }
 
     /**
      * @param \DateTime|null $date
-     * @return $this
      */
     public function setBloodCollectDate(\DateTime $date = null)
     {
         $this->blood_collect_date = $date;
-
-        return $this;
     }
 
     /**
      * @param TripleChoice $bloodCollected
-     * @return $this
      */
     public function setBloodCollected(TripleChoice $bloodCollected = null)
     {
         $this->blood_collected = $bloodCollected;
-        return $this;
     }
 
     /**
      * @param OtherSpecimen $otherSpecimenCollected
-     * @return $this
      */
     public function setOtherSpecimenCollected(OtherSpecimen $otherSpecimenCollected = null)
     {
         $this->other_specimen_collected = $otherSpecimenCollected;
-        return $this;
     }
 
     /**
      * @param $otherSpecimenOther
-     * @return $this
      */
     public function setOtherSpecimenOther($otherSpecimenOther)
     {
         $this->other_specimen_other = $otherSpecimenOther;
-        return $this;
     }
 
     /**
      * @param DischargeOutcome $dischOutcome
-     * @return $this
      */
     public function setDischOutcome(DischargeOutcome $dischOutcome = null)
     {
         $this->disch_outcome = $dischOutcome;
-        return $this;
     }
 
     /**
      * @param DischargeDiagnosis $dischDx
-     * @return $this
      */
     public function setDischDx(DischargeDiagnosis $dischDx = null)
     {
         $this->disch_dx = $dischDx;
-        return $this;
     }
 
     /**
      * @param $dischDxOther
-     * @return $this
      */
     public function setDischDxOther($dischDxOther)
     {
         $this->disch_dx_other = $dischDxOther;
-        return $this;
     }
 
     /**
      * @param DischargeClassification $dischClass
-     * @return $this
      */
     public function setDischClass(DischargeClassification $dischClass = null)
     {
         $this->disch_class = $dischClass;
-        return $this;
     }
 
     /**
      * @param $comment
-     * @return $this
      */
     public function setComment($comment)
     {
         $this->comment = $comment;
-        return $this;
     }
 
     /**
      * @param CaseResult $result
-     * @return $this
      */
     public function setResult(CaseResult $result = null)
     {
         $this->result = $result;
-        return $this;
     }
 
     /**
@@ -1488,12 +1389,10 @@ class IBD extends BaseCase
 
     /**
      * @param string $dischClassOther
-     * @return \NS\SentinelBundle\Entity\IBD
      */
     public function setDischClassOther($dischClassOther)
     {
         $this->disch_class_other= $dischClassOther;
-        return $this;
     }
 
     //========================================

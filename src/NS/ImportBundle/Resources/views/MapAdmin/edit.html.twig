@@ -3,9 +3,13 @@
 {% block inlinescripts %}
     <script type="text/javascript" src="{{ asset('/bundles/nsimport/js/import-helper.js') }}"></script>
     <script type="text/javascript">
-        $(document).ready(function()
-        {
-            new $.ImportHelper({ibd_conf_url: "{{ path('exportFields',{type:'ibd'}) }}", rota_conf_url: "{{ path('exportFields',{type:'rotavirus'}) }}"}, true);
+        $(document).ready(function() {
+            new $.ImportHelper({
+                pneu_conf_url: "{{ path('exportFields',{type:'pneumonia'}) }}",
+                mening_conf_url: "{{ path('exportFields',{type:'meningitis'}) }}",
+                rota_conf_url: "{{ path('exportFields',{type:'rotavirus'}) }}",
+                ibd_conf_url: "{{ path('exportFields',{type:'ibd'}) }}"
+            }, true);
         });
     </script>
 {% endblock %}

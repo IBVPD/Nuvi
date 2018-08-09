@@ -61,6 +61,18 @@ services:
     class: NS\ImportBundle\Converter\ColumnChooser
     arguments: [ "@doctrine.orm.entity_manager", "@doctrine_cache.providers.my_phpfile_cache" ]
 
+  ns_import.form.type.pneu_columns:
+    class: NS\ImportBundle\Form\Type\PneumoniaColumnType
+    arguments: [ "@ns_import.converter.columns", 'NS\SentinelBundle\Entity\Pneumonia\Pneumonia' ]
+    tags:
+    - { name: form.type, alias: ibd_columns }
+
+  ns_import.form.type.mening_columns:
+    class: NS\ImportBundle\Form\Type\MeningitisColumnType
+    arguments: [ "@ns_import.converter.columns", 'NS\SentinelBundle\Entity\Meningitis\Meningitis' ]
+    tags:
+    - { name: form.type, alias: ibd_columns }
+
   ns_import.form.type.ibd_columns:
     class: NS\ImportBundle\Form\Type\IBDColumnType
     arguments: [ "@ns_import.converter.columns", 'NS\SentinelBundle\Entity\IBD' ]
