@@ -83,7 +83,7 @@ class SiteLabType extends AbstractType
                 'required' => false,
                 'label' => 'ibd-form.csf-binax-result',
                 'hidden' => ['parent' => 'csfBinaxDone', 'value' => TripleChoice::YES],
-                'exclude_choices' => $isPaho ? [BinaxResult::UNKNOWN,BinaxResult::INCONCLUSIVE]:[],
+                'exclude_choices' => $isPaho ? [BinaxResult::UNKNOWN, BinaxResult::INCONCLUSIVE] : [],
             ])
             ->add('csfLatDone',         TripleChoice::class, ['required' => false, 'label' => 'ibd-form.csf-lat-done', 'exclude_choices'=> ($isPaho ? [TripleChoice::UNKNOWN]:null)])
             ->add('csfLatResult',       LatResult::class, [
