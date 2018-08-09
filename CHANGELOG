@@ -3,6 +3,7 @@ VERSION 0  INITIAL RELEASE
 ==========================
 
    Version 0.11 - Split IBD into Pneumonia/Meningitis
+      09/08/2018 15:11  0.11.1  Various consistency fixes
       09/08/2018 12:29  0.11.0  initial release
 
    Version 0.10 - Updated to SF3.x
