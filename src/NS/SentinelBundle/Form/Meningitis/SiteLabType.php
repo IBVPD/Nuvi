@@ -85,7 +85,6 @@ class SiteLabType extends AbstractType
                 'required' => false,
                 'label' => 'ibd-form.csf-gram-result-organism',
                 'hidden' => ['parent' => 'csfGramStain', 'value' => [GramStain::GM_NEGATIVE, GramStain::GM_POSITIVE]],
-                'exclude_choices' => $isPaho ? [GramStainResult::OTHER, GramStainResult::UNKNOWN] : [],
             ])
             ->add('csfGramOther',       null, ['required' => false, 'label' => 'ibd-form.csf-gram-other', 'hidden' => ['parent' => 'csfGramResult', 'value' => GramStainResult::OTHER]])
             ->add('csfBinaxDone',       TripleChoice::class, ['required' => false, 'label' => 'ibd-form.csf-binax-done'])
