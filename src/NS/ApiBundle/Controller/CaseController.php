@@ -38,56 +38,22 @@ class CaseController extends FOSRestController
     }
 
     /**
-     * @param $type
+     * @param $class
      * @param $objId
      * @return mixed
      */
-    protected function getLab($type, $objId)
+    protected function getLab($class, $objId)
     {
-        switch ($type) {
-            case 'ibd_sitelab':
-                $class = 'NSSentinelBundle:IBD\SiteLab';
-                break;
-            case 'ibd_referencelab':
-                $class = 'NSSentinelBundle:IBD\ReferenceLab';
-                break;
-            case 'ibd_nationallab':
-                $class = 'NSSentinelBundle:IBD\NationalLab';
-                break;
-            case 'rota_sitelab':
-                $class = 'NSSentinelBundle:RotaVirus\SiteLab';
-                break;
-            case 'rota_referencelab':
-                $class = 'NSSentinelBundle:RotaVirus\ReferenceLab';
-                break;
-            case 'rota_nationallab':
-                $class = 'NSSentinelBundle:RotaVirus\NationalLab';
-                break;
-            default:
-                throw new NotFoundHttpException("Invalid type: $type");
-        }
-
         return $this->getObject($class, $objId, 'findOrCreateNew');
     }
 
     /**
-     * @param $type
+     * @param $class
      * @param $objId
      * @return mixed
      */
-    protected function getCase($type, $objId)
+    protected function getCase($class, $objId)
     {
-        switch ($type) {
-            case 'ibd':
-                $class = 'NSSentinelBundle:IBD';
-                break;
-            case 'rota':
-                $class = 'NSSentinelBundle:RotaVirus';
-                break;
-            default:
-                throw new NotFoundHttpException("Invalid type: $type");
-        }
-
         return $this->getObject($class, $objId, 'find');
     }
 

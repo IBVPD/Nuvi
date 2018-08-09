@@ -31,4 +31,19 @@ class DiagnosisTest extends TypeTestCase
         $this->assertNotEmpty($choices);
         $this->assertEquals(array_flip($this->defaultChoices), $choices);
     }
+
+    public function testAmrOptions()
+    {
+        $form = $this->factory->create(Diagnosis::class,null,[
+            'exclude_choices' => [ Diagnosis::SUSPECTED_SEVERE_PNEUMONIA, Diagnosis::UNKNOWN, Diagnosis::OTHER, Diagnosis::SUSPECTED_SEPSIS,]
+        ]);
+        $choices = $form->getConfig()->getOption('choices');
+
+        $this->assertNotEmpty($choices);
+        unset($this->defaultChoices[Diagnosis::SUSPECTED_SEVERE_PNEUMONIA]);
+        unset($this->defaultChoices[Diagnosis::UNKNOWN]);
+        unset($this->defaultChoices[Diagnosis::OTHER]);
+        unset($this->defaultChoices[Diagnosis::SUSPECTED_SEPSIS]);
+        $this->assertEquals(array_flip($this->defaultChoices), $choices);
+    }
 }

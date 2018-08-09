@@ -183,6 +183,19 @@ security:
         - { path: '/api/ibd/[A-Z0-9-]+/lab', roles: [ ROLE_CAN_CREATE_LAB ], methods: [ PUT, POST, PATCH ], requires_channel: https }
         - { path: '/api/ibd/[A-Z0-9-]+/outcome', roles: [ ROLE_CAN_CREATE_CASE ], methods: [ PUT, POST, PATCH ], requires_channel: https }
         - { path: '/api/ibd/[A-Z0-9-]+', roles: [ ROLE_CAN_CREATE_CASE ], methods: [ PUT, POST, PATCH ], requires_channel: https }
+
+        - { path: '/api/pneumonia/[A-Z0-9-]+/rrl', roles: [ ROLE_CAN_CREATE_RRL_LAB ], methods: [ PUT, POST, PATCH ], requires_channel: https }
+        - { path: '/api/pneumonia/[A-Z0-9-]+/nl', roles: [ ROLE_CAN_CREATE_NL_LAB ], methods: [ PUT, POST, PATCH ], requires_channel: https }
+        - { path: '/api/pneumonia/[A-Z0-9-]+/lab', roles: [ ROLE_CAN_CREATE_LAB ], methods: [ PUT, POST, PATCH ], requires_channel: https }
+        - { path: '/api/pneumonia/[A-Z0-9-]+/outcome', roles: [ ROLE_CAN_CREATE_CASE ], methods: [ PUT, POST, PATCH ], requires_channel: https }
+        - { path: '/api/pneumonia/[A-Z0-9-]+', roles: [ ROLE_CAN_CREATE_CASE ], methods: [ PUT, POST, PATCH ], requires_channel: https }
+
+        - { path: '/api/meningitis/[A-Z0-9-]+/rrl', roles: [ ROLE_CAN_CREATE_RRL_LAB ], methods: [ PUT, POST, PATCH ], requires_channel: https }
+        - { path: '/api/meningitis/[A-Z0-9-]+/nl', roles: [ ROLE_CAN_CREATE_NL_LAB ], methods: [ PUT, POST, PATCH ], requires_channel: https }
+        - { path: '/api/meningitis/[A-Z0-9-]+/lab', roles: [ ROLE_CAN_CREATE_LAB ], methods: [ PUT, POST, PATCH ], requires_channel: https }
+        - { path: '/api/meningitis/[A-Z0-9-]+/outcome', roles: [ ROLE_CAN_CREATE_CASE ], methods: [ PUT, POST, PATCH ], requires_channel: https }
+        - { path: '/api/meningitis/[A-Z0-9-]+', roles: [ ROLE_CAN_CREATE_CASE ], methods: [ PUT, POST, PATCH ], requires_channel: https }
+
         - { path: '/api/rota/[A-Z0-9-]+/rrl', roles: [ ROLE_CAN_CREATE_RRL_LAB ], methods: [ PUT, POST, PATCH ], requires_channel: https }
         - { path: '/api/rota/[A-Z0-9-]+/nl', roles: [ ROLE_CAN_CREATE_NL_LAB ], methods: [ PUT, POST, PATCH ], requires_channel: https }
         - { path: '/api/rota/[A-Z0-9-]+/lab', roles: [ ROLE_CAN_CREATE_LAB ], methods: [ PUT, POST, PATCH ], requires_channel: https }

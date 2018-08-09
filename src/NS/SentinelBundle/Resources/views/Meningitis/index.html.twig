@@ -1,0 +1,51 @@
+{% extends "NSSentinelBundle::layout.html.twig" %}
+{% block pagetitle %}{{'Recent Cases'|trans}}{%endblock %}
+{% block pagedescription %}{{'Lists the last %count% Meningitis cases'|trans({'%count%':app.session.get('meningitis.index.limit',10)})}}{%endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+    <script type="text/javascript" src="{{ asset('/bundles/nsfilteredpagination/js/main.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-sm-9 col-md-9 col-lg-9">
+            {% if is_granted('ROLE_CAN_CREATE') %}
+                <div class="widget-box widget-color-blue">
+                    <div class="widget-header widget-header-small">
+                        <h5 class="widget-title">{{'Create/Edit Case'|trans}}</h5>
+                    </div>
+                    <div class="widget-body">
+                        <form method="post" action="{{ path('meningitisCreate') }}">
+                            <div class="widget-main">
+                                {{form_rest(createForm)}}
+                            </div>
+                            <div class="widget-toolbox padding-5 clearfix">
+                                <button class="btn btn-sm btn-success pull-right"> {{ 'Create/Edit'|trans }}</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            {% endif %}
+            {% if pagination %}
+                <div class="widget-box widget-color-blue no-border">
+                    <div class="widget-header widget-header-small">
+                        <h5 class="widget-title">{{'Latest Meningitis Cases'|trans}}</h5>
+                        <div class="widget-toolbar">{{ form_widget(limitForm.limit) }} {{ 'Results per page'|trans }}</div>
+                        <div class="widget-toolbar no-border">{{ knp_pagination_render(pagination) }}</div>
+                    </div>
+                    <div class="widget-body">
+                        <div class="widget-main no-padding">
+                            <div class="table">
+                                {{ case_index_template(pagination,'meningitisCases') }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="col-xs-3 widget-container-span">
+            {% include 'NSSentinelBundle::filter.html.twig' with {'route': 'meningitisIndex'} %}
+        </div>
+    </div>
+{% endblock %}

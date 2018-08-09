@@ -1,0 +1,416 @@
+{% extends "NSSentinelBundle::edit.html.twig" %}
+
+{% block pagetitle %}
+    {{ 'Edit Lab For Case %id%'|trans({'%id%': record.caseId}) }}
+{% endblock %}
+
+{% block pageactions %}
+    <div class="pull-right">{{ case_big_actions(record) }}</div>
+{% endblock %}
+
+{% block body %}
+    {{ form_errors(form) }}
+    {{ form_start(form,{'action':path('meningitisLabEdit',{'id':id}),'attr':{'novalidate': 'novalidate'} }) }}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="tabbable">
+                <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
+                    <li class="active"><a data-toggle="tab" href="#csf">{{ 'CSF'|trans }}</a></li>
+                    <li><a data-toggle="tab" href="#blood">{{ 'Blood'|trans }}</a></li>
+                    {% if form.bloodSecondId is defined %}
+                        <li><a data-toggle="tab" href="#bloodSecond">{{ '2nd Blood'|trans }}</a></li>
+                    {% endif %}
+                    <li><a data-toggle="tab" href="#other">{{ 'Other Fluids'|trans }}</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div id="csf" class="tab-pane active">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfId) }}
+                            </div>
+                            <div class="col-md-3">
+                                {{ form_row(form.csfLabDate) }}
+                            </div>
+                            <div class="col-md-3">
+                                {{ form_row(form.csfLabTime) }}
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>{{ 'CSF Collection Date and Time'|trans }}</label>
+                                {% if form.vars.value.caseFile.csfCollectDate is defined and form.vars.value.caseFile.csfCollectDate %}
+                                    {{ form.vars.value.caseFile.csfCollectDate|date('Y-m-d') }} {{ form.vars.value.caseFile.csfCollectTime|date('H:i') }}
+                                {% else %}
+                                    {{ 'Unknown'|trans }}
+                                {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfWcc) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfGlucose) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfProtein) }}
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfGramDone) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfGramStain) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfGramResult) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfGramOther) }}
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfBinaxDone) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfBinaxResult) }}
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfLatDone) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfLatResult) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfLatOther) }}
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfCultDone) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfCultResult) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfCultOther) }}
+                                {{ form_row(form.csfCultContaminant) }}
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfPcrDone) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfPcrResult) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfPcrOther) }}
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {{ form_row(form.csfStore) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.isolStore) }}
+                            </div>
+                        </div>
+                        <hr/>
+                        {% if form.rlCsfSent is defined %}
+                            <div class="row">
+                                <div class="col-sm-3">{{ form_row(form.rlCsfSent) }}</div>
+                                <div class="col-sm-3">{{ form_row(form.rlCsfDate) }}</div>
+                                <div class="col-sm-3">{{ form_row(form.rlIsolCsfSent) }}</div>
+                                <div class="col-sm-3">{{ form_row(form.rlIsolCsfDate) }}</div>
+                            </div>
+                        {% endif %}
+                        {% if form.nlCsfSent is defined %}
+                            <div class="row">
+                                <div class="col-sm-3">{{ form_row(form.nlCsfSent) }}</div>
+                                <div class="col-sm-3">{{ form_row(form.nlCsfDate) }}</div>
+                                <div class="col-sm-3">{{ form_row(form.nlIsolCsfSent) }}</div>
+                                <div class="col-sm-3">{{ form_row(form.nlIsolCsfDate) }}</div>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div id="blood" class="tab-pane">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodId) }}
+                            </div>
+                            <div class="col-md-3">
+                                {{ form_row(form.bloodLabDate) }}
+                            </div>
+                            <div class="col-md-3">
+                                {{ form_row(form.bloodLabTime) }}
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>{{ 'Blood Collection Date and Time'|trans }}</label>
+                                    {% if form.vars.value.caseFile.bloodCollectDate is defined and form.vars.value.caseFile.bloodCollectDate%}
+                                        {{ form.vars.value.caseFile.bloodCollectDate|date('Y-m-d') }} {{ form.vars.value.caseFile.bloodCollectTime|date('H:i') }}
+                                    {% else %}
+                                        {{ 'Unknown'|trans }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodCultDone) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodCultResult) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodCultOther) }}
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodGramDone) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodGramStain) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodGramResult) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodGramOther) }}
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodPcrDone) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodPcrResult) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodPcrOther) }}
+                            </div>
+                        </div>
+                        <hr/>
+                        {% if form.rlIsolBloodSent is defined %}
+                            <div class="row">
+                                <div class="col-sm-3">{{ form_row(form.rlIsolBloodSent) }}</div>
+                                <div class="col-sm-3">{{ form_row(form.rlIsolBloodDate) }}</div>
+                                <div class="col-sm-3">{{ form_row(form.rlBrothSent) }}</div>
+                                <div class="col-sm-3">{{ form_row(form.rlBrothDate) }}</div>
+                            </div>
+                        {% endif %}
+                        {% if form.nlIsolBloodSent is defined %}
+                            <div class="row">
+                                <div class="col-sm-3">{{ form_row(form.nlIsolBloodSent) }}</div>
+                                <div class="col-sm-3">{{ form_row(form.nlIsolBloodDate) }}</div>
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% if form.bloodSecondId is defined %}
+                        <div id="bloodSecond" class="tab-pane">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodSecondId) }}
+                            </div>
+                            <div class="col-md-3">
+                                {{ form_row(form.bloodSecondLabDate) }}
+                            </div>
+                            <div class="col-md-3">
+                                {{ form_row(form.bloodSecondLabTime) }}
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>{{ 'Blood Collection Date and Time'|trans }}</label>
+                                    {% if form.vars.value.caseFile.bloodSecondCollectDate is defined and form.vars.value.caseFile.bloodSecondCollectDate %}
+                                        {{ form.vars.value.caseFile.bloodSecondCollectDate|date('Y-m-d') }} {{ form.vars.value.caseFile.bloodSecondCollectTime|date('H:i') }}
+                                    {% else %}
+                                        {{ 'Unknown'|trans }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodSecondCultDone) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodSecondCultResult) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodSecondCultOther) }}
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodSecondGramDone) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodSecondGramStain) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodSecondGramResult) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodSecondGramOther) }}
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodSecondPcrDone) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodSecondPcrResult) }}
+                            </div>
+                            <div class="col-sm-3">
+                                {{ form_row(form.bloodSecondPcrOther) }}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <div id="other" class="tab-pane">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                {{ form_row(form.otherId) }}
+                                {{ form_row(form.otherType) }}
+                            </div>
+                            <div class="col-md-3">
+                                {{ form_row(form.otherLabDate) }}
+                            </div>
+                            <div class="col-md-3">
+                                {{ form_row(form.otherLabTime) }}
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>{{ 'Other Fluid Collection Date and Time'|trans }}</label>
+                                    {% if form.vars.value.caseFile.otherLabDate is defined and form.vars.value.caseFile.otherLabDate %}
+                                        {{ form.vars.value.caseFile.otherLabDate|date('Y-m-d') }} {{ form.vars.value.caseFile.otherLabTime|date('H:i') }}
+                                    {% else %}
+                                        {{ 'Unknown'|trans }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-4">
+                                {{ form_row(form.otherCultDone) }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form_row(form.otherCultResult) }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form_row(form.otherCultOther) }}
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-4">
+                                {{ form_row(form.otherTestDone) }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form_row(form.otherTestResult) }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form_row(form.otherTestOther) }}
+                            </div>
+                        </div>
+                        <hr/>
+                        {% if form.rlOtherSent is defined %}
+                            <div class="row">
+                                <div class="col-sm-3">{{ form_row(form.rlOtherSent) }}</div>
+                                <div class="col-sm-3">{{ form_row(form.rlOtherDate) }}</div>
+                            </div>
+                        {% endif %}
+                        {% if form.nlOtherSent is defined %}
+                            <div class="row">
+                                <div class="col-sm-3">{{ form_row(form.nlOtherSent) }}</div>
+                                <div class="col-sm-3">{{ form_row(form.nlOtherDate) }}</div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions center">
+                <a href="{{ path('meningitisIndex') }}" class="btn btn-sm btn-danger">{{ 'Cancel'|trans }}</a>
+                <button type="submit" name="save" class="btn btn-sm btn-success">{{ 'Save'|trans }} <i
+                            class="fa fa-arrow-right fa fa-on-right bigger-110"></i></button>
+                <button type="submit" name="saveclose" class="btn btn-sm btn-success">{{ 'Save & Close'|trans }} <i
+                            class="fa fa-arrow-right fa fa-on-right bigger-110"></i></button>
+            </div>
+        </div>
+    </div>
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            //Edit only these
+            var confs = {
+                'site_lab_csfGramStain': {
+                    childFieldId: 'site_lab_csfGramResult',
+                    conf: {
+                        '1':["4","5"],
+                        '2':["1","2","3"]
+                    }
+                },
+                'site_lab_bloodGramStain': {
+                    childFieldId: 'site_lab_bloodGramResult',
+                    conf: {
+                        '1':["4","5"],
+                        '2':["1","2","3"]
+                    }
+                }
+            };
+
+            var ids = [];
+
+            $.each(confs, function(parent, value) {
+                ids.push(parent);
+                confs[parent].allToggleable = [];
+                $.each(value.conf, function(index, val) {
+                        confs[parent].allToggleable = confs[parent].allToggleable.concat(val);
+                    }
+                );
+            });
+
+            $('#'+ids.join(', #')).change(function() {
+                var $parent = $(this);
+                var id      = $parent.attr('id');
+                var conf    = confs[id];
+                var $child = $('#'+conf.childFieldId);
+
+                $child.find('option').each(function(index) {
+                    var $option = $(this);
+
+                    if($.inArray($option.val(), conf.conf[$parent.val()]) >= 0) {
+                        $option.show();
+                    } else if($.inArray($option.val(), conf.allToggleable) >= 0) {
+                        $option.hide();
+                    }
+                });
+            }).change();
+        });
+    </script>
+{% endblock %}

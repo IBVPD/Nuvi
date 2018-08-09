@@ -8,6 +8,7 @@
 
 namespace NS\ApiBundle\Tests\Serializer;
 
+use JMS\Serializer\Handler\SubscribingHandlerInterface;
 use JMS\Serializer\JsonSerializationVisitor;
 use JMS\Serializer\SerializationContext;
 use NS\ApiBundle\Serializer\ArrayChoiceHandler;
@@ -34,6 +35,11 @@ class ArrayChoiceHandlerTest extends \PHPUnit_Framework_TestCase
         $this->handler = new ArrayChoiceHandler($this->translator);
     }
 
+    public function testInterface()
+    {
+        $this->assertInstanceOf(SubscribingHandlerInterface::class, $this->handler);
+    }
+
     public function testNonExport()
     {
         $this->translator->expects($this->never())->method('trans');
@@ -43,7 +49,7 @@ class ArrayChoiceHandlerTest extends \PHPUnit_Framework_TestCase
 
     public function testExpanded()
     {
-        $expected = ['class'=>'NS\ApiBundle\Tests\Serializer\ArrayChoiceTestType', 'options' => [1 => 'One-Trans', 2 => 'Two-Trans', 3 => 'Three-Trans']];
+        $expected = ['class' => 'NS\ApiBundle\Tests\Serializer\ArrayChoiceTestType', 'options' => [1 => 'One-Trans', 2 => 'Two-Trans', 3 => 'Three-Trans']];
         $map = [
             ['One', [], null, null, 'One-Trans'],
             ['Two', [], null, null, 'Two-Trans'],

@@ -51,7 +51,7 @@ class ZeroReport
     /**
      * @var int
      * @ORM\Column(name="caseType",type="string")
-     * @Assert\Choice(choices={"IBD","RotaVirus"})
+     * @Assert\Choice(choices={"Pneumonia","Meningitis","IBD","RotaVirus"})
      */
     private $caseType;
 

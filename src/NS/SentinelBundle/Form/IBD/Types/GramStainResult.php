@@ -44,7 +44,7 @@ class GramStainResult extends TranslatableArrayChoice implements TranslationCont
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        if ($this->authChecker->isGranted('ROLE_AMR')) {
+        if ($this->authChecker && $this->authChecker->isGranted('ROLE_AMR')) {
             unset($this->values[self::OTHER]);
             $this->values[self::UNKNOWN] = 'Undetermined';
         }

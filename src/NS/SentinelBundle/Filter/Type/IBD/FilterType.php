@@ -2,7 +2,6 @@
 
 namespace NS\SentinelBundle\Filter\Type\IBD;
 
-use NS\SentinelBundle\Filter\Entity\IBD;
 use NS\SentinelBundle\Filter\Type\BaseFilterType;
 use NS\SentinelBundle\Form\IBD\Types\CaseResult;
 use NS\SentinelBundle\Form\IBD\Types\Diagnosis;

@@ -66,7 +66,7 @@ abstract class BaseExternalLab
 
     public function __construct()
     {
-        $this->status = new CaseStatus(0);
+        $this->status = new CaseStatus(CaseStatus::OPEN);
         $this->createdAt = $this->updatedAt = new \DateTime();
     }
 

@@ -2,35 +2,26 @@
 
 namespace NS\SentinelBundle\Tests\Listeners;
 
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use NS\SentinelBundle\Entity\Country;
 use NS\SentinelBundle\Entity\IBD;
 use NS\SentinelBundle\Form\Types\CaseStatus;
-use NS\SentinelBundle\Form\IBD\Types\CSFAppearance;
+use NS\SentinelBundle\Form\Types\FourDoses;
+use NS\SentinelBundle\Form\Types\Gender;
+use NS\SentinelBundle\Form\Types\VaccinationReceived;
+use NS\SentinelBundle\Form\Types\ThreeDoses;
+use NS\SentinelBundle\Form\Types\TripleChoice;
+use NS\SentinelBundle\Form\Meningitis\Types\CSFAppearance;
 use NS\SentinelBundle\Form\IBD\Types\Diagnosis;
 use NS\SentinelBundle\Form\IBD\Types\DischargeClassification;
 use NS\SentinelBundle\Form\IBD\Types\DischargeDiagnosis;
 use NS\SentinelBundle\Form\IBD\Types\DischargeOutcome;
-use NS\SentinelBundle\Form\Types\FourDoses;
-use NS\SentinelBundle\Form\Types\Gender;
-use NS\SentinelBundle\Form\Types\VaccinationReceived;
 use NS\SentinelBundle\Form\IBD\Types\VaccinationType;
 use NS\SentinelBundle\Form\IBD\Types\OtherSpecimen;
-use NS\SentinelBundle\Form\Types\ThreeDoses;
-use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Entity\Listener\IBDListener;
 
 class IBDListenerTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @return \Doctrine\ORM\Event\LifecycleEventArgs
-     */
-    public function getEventArgs()
-    {
-        return $this->getMockBuilder('Doctrine\ORM\Event\LifecycleEventArgs')
-            ->disableOriginalConstructor()
-            ->getMock();
-    }
-
     public function testMinimumRequiredFieldsWithPneunomia()
     {
         $country = new Country('tId', 'Test');
@@ -62,7 +53,7 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
         $case = new IBD();
         $this->_updateCase($case, $this->getSingleCompleteCaseWithPneunomia());
         $listener = new IBDListener();
-        $listener->prePersist($case, $this->getEventArgs());
+        $listener->prePersist($case, $this->createMock(LifecycleEventArgs::class));
 
         $this->assertTrue($case->isComplete(), "New cases are incomplete " . $listener->getIncompleteField($case) . ' ' . $case->getStatus());
     }
@@ -72,7 +63,7 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
         $case = new IBD();
         $this->_updateCase($case, $this->getSingleCompleteCaseWithoutPneunomia());
         $listener = new IBDListener();
-        $listener->prePersist($case, $this->getEventArgs());
+        $listener->prePersist($case, $this->createMock(LifecycleEventArgs::class));
 
         $this->assertTrue($case->isComplete(), "New cases are incomplete " . $listener->getIncompleteField($case) . ' ' . $case->getStatus());
     }
@@ -89,7 +80,7 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
         $case = new IBD();
         $this->_updateCase($case, $data);
         $listener = new IBDListener();
-        $listener->prePersist($case, $this->getEventArgs());
+        $listener->prePersist($case, $this->createMock(LifecycleEventArgs::class));
 
         $this->assertFalse($case->isComplete(), "New cases are incomplete data removed '" . (isset($data['removed']) ? $data['removed'] : 'no removed') . "'");
         $this->assertEquals($case->getStatus()->getValue(), CaseStatus::OPEN);
@@ -105,7 +96,7 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
         $case = new IBD();
         $this->_updateCase($case, $data);
         $listener = new IBDListener();
-        $listener->prePersist($case, $this->getEventArgs());
+        $listener->prePersist($case, $this->createMock(LifecycleEventArgs::class));
 
         $this->assertFalse($case->isComplete(), "New cases are incomplete " . (isset($data['removed']) ? $data['removed'] : 'no removed'));
         $this->assertEquals($case->getStatus()->getValue(), CaseStatus::OPEN);
@@ -123,7 +114,7 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
         $case = new IBD();
         $this->_updateCase($case, $data);
         $listener = new IBDListener();
-        $listener->prePersist($case, $this->getEventArgs());
+        $listener->prePersist($case, $this->createMock(LifecycleEventArgs::class));
 
         $this->assertTrue($case->isComplete(), "Cases with pneunomia are complete " . (!$case->isComplete()) ? $listener->getIncompleteField($case) : null);
         $this->assertEquals($case->getStatus()->getValue(), CaseStatus::COMPLETE);
@@ -139,7 +130,7 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
         $case = new IBD();
         $this->_updateCase($case, $data);
         $listener = new IBDListener();
-        $listener->prePersist($case, $this->getEventArgs());
+        $listener->prePersist($case, $this->createMock(LifecycleEventArgs::class));
 
         $this->assertTrue($case->isComplete(), "Cases without pneunomia are complete " . (!$case->isComplete()) ? $listener->getIncompleteField($case) : null);
         $this->assertEquals($case->getStatus()->getValue(), CaseStatus::COMPLETE);

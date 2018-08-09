@@ -1,0 +1,61 @@
+services:
+####################
+# Filters
+####################
+  ns_sentinel.filter.type.meningitis_linking_quarterly:
+    class: NS\SentinelBundle\Filter\Type\Meningitis\QuarterlyLinkingReportFilterType
+    arguments: [ "@security.token_storage", "@security.authorization_checker", "@ns_security.acl_converter" ]
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.filter.type.meningitis_report_filter:
+    class: NS\SentinelBundle\Filter\Type\Meningitis\ReportFilterType
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.filter.meningitis:
+    class: NS\SentinelBundle\Filter\Type\Meningitis\FilterType
+    tags:
+      - { name: form.type }
+
+############################################################################
+# Meningitis Types
+############################################################################
+  ns.sentinel.form.type.meningitis:
+    class: NS\SentinelBundle\Form\Meningitis\CaseType
+    arguments: [ "@ns.sentinel.sites", "@ns_sentinel.validation_group_resolver", "@security.authorization_checker" ]
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.meningitis_base:
+    class: NS\SentinelBundle\Form\Meningitis\BaseLabType
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.meningitis_sitelab:
+    class: NS\SentinelBundle\Form\Meningitis\SiteLabType
+    arguments: [ "@ns.sentinel.sites", "@security.authorization_checker" ]
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.meningitis_nl:
+    class: NS\SentinelBundle\Form\Meningitis\NationalLabType
+    arguments: [ "@ns.sentinel.sites" ]
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.meningitis_rrl:
+    class: NS\SentinelBundle\Form\Meningitis\ReferenceLabType
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.meningitis_outcome:
+    class: NS\SentinelBundle\Form\Meningitis\OutcomeType
+    arguments: [ "@security.authorization_checker"]
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.form.type.meningitis_csf_appearance:
+    class: NS\SentinelBundle\Form\Meningitis\Types\CSFAppearance
+    tags:
+      - { name: form.type }

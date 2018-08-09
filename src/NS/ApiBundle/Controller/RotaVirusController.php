@@ -3,7 +3,17 @@
 namespace NS\ApiBundle\Controller;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use NS\SentinelBundle\Entity\RotaVirus;
+use NS\SentinelBundle\Entity\RotaVirus\NationalLab;
+use NS\SentinelBundle\Entity\RotaVirus\ReferenceLab;
+use NS\SentinelBundle\Entity\RotaVirus\SiteLab;
 use NS\SentinelBundle\Exceptions\NonExistentCaseException;
+use NS\SentinelBundle\Form\CreateType;
+use NS\SentinelBundle\Form\RotaVirus\CaseType;
+use NS\SentinelBundle\Form\RotaVirus\NationalLabType;
+use NS\SentinelBundle\Form\RotaVirus\OutcomeType;
+use NS\SentinelBundle\Form\RotaVirus\ReferenceLabType;
+use NS\SentinelBundle\Form\RotaVirus\SiteLabType;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use FOS\RestBundle\Controller\Annotations as REST;
@@ -40,7 +50,7 @@ class RotaVirusController extends CaseController
     */
     public function getRotaCaseAction($objId)
     {
-        return $this->getCase('rota', $objId);
+        return $this->getCase(RotaVirus::class, $objId);
     }
 
     /**
@@ -69,7 +79,7 @@ class RotaVirusController extends CaseController
     */
     public function getRotaCaseLabAction($objId)
     {
-        return $this->getLab('rota_sitelab', $objId);
+        return $this->getLab(SiteLab::class, $objId);
     }
 
     /**
@@ -98,7 +108,7 @@ class RotaVirusController extends CaseController
      */
     public function getRotaCaseRRLAction($objId)
     {
-        return $this->getLab('rota_referencelab', $objId);
+        return $this->getLab(ReferenceLab::class, $objId);
     }
 
     /**
@@ -127,7 +137,7 @@ class RotaVirusController extends CaseController
      */
     public function getRotaCaseNLAction($objId)
     {
-        return $this->getLab('rota_nationallab', $objId);
+        return $this->getLab(NationalLab::class, $objId);
     }
 
     /**
@@ -153,7 +163,7 @@ class RotaVirusController extends CaseController
      */
     public function patchRotaCaseAction(Request $request, $objId)
     {
-        return $this->updateCase($request, $objId, 'PATCH', 'NS\SentinelBundle\Form\RotaVirus\CaseType', 'NSSentinelBundle:RotaVirus');
+        return $this->updateCase($request, $objId, 'PATCH', CaseType::class, RotaVirus::class);
     }
 
     /**
@@ -177,7 +187,7 @@ class RotaVirusController extends CaseController
      */
     public function patchRotaLabAction(Request $request, $objId)
     {
-        return $this->updateLab($request, $objId, 'PATCH', 'NS\SentinelBundle\Form\RotaVirus\SiteLabType', 'NSSentinelBundle:RotaVirus\SiteLab');
+        return $this->updateLab($request, $objId, 'PATCH', SiteLabType::class, SiteLab::class);
     }
 
     /**
@@ -201,7 +211,7 @@ class RotaVirusController extends CaseController
      */
     public function patchRotaRRLAction(Request $request, $objId)
     {
-        return $this->updateLab($request, $objId, 'PATCH', 'NS\SentinelBundle\Form\RotaVirus\ReferenceLabType', 'NSSentinelBundle:RotaVirus\ReferenceLab');
+        return $this->updateLab($request, $objId, 'PATCH', ReferenceLabType::class, ReferenceLab::class);
     }
 
     /**
@@ -225,7 +235,7 @@ class RotaVirusController extends CaseController
      */
     public function patchRotaNLAction(Request $request, $objId)
     {
-        return $this->updateLab($request, $objId, 'PATCH', 'NS\SentinelBundle\Form\RotaVirus\NationalLabType', 'NSSentinelBundle:RotaVirus\NationalLab');
+        return $this->updateLab($request, $objId, 'PATCH', NationalLabType::class, NationalLab::class);
     }
 
     /**
@@ -251,7 +261,7 @@ class RotaVirusController extends CaseController
      */
     public function patchRotaOutcomeAction(Request $request, $objId)
     {
-        return $this->updateCase($request, $objId, 'PATCH', 'NS\SentinelBundle\Form\RotaVirus\OutcomeType', 'NSSentinelBundle:RotaVirus');
+        return $this->updateCase($request, $objId, 'PATCH', OutcomeType::class, RotaVirus::class);
     }
 
     /**
@@ -277,7 +287,7 @@ class RotaVirusController extends CaseController
      */
     public function putRotaCaseAction(Request $request, $objId)
     {
-        return $this->updateCase($request, $objId, 'PUT', 'NS\SentinelBundle\Form\RotaVirus\CaseType', 'NSSentinelBundle:RotaVirus');
+        return $this->updateCase($request, $objId, 'PUT', CaseType::class, RotaVirus::class);
     }
 
     /**
@@ -302,7 +312,7 @@ class RotaVirusController extends CaseController
      */
     public function putRotaLabAction(Request $request, $objId)
     {
-        return $this->updateLab($request, $objId, 'PUT', 'NS\SentinelBundle\Form\RotaVirus\SiteLabType', 'NSSentinelBundle:RotaVirus\SiteLab');
+        return $this->updateLab($request, $objId, 'PUT', SiteLabType::class, SiteLab::class);
     }
 
     /**
@@ -327,7 +337,7 @@ class RotaVirusController extends CaseController
      */
     public function putRotaRRLAction(Request $request, $objId)
     {
-        return $this->updateLab($request, $objId, 'PUT', 'NS\SentinelBundle\Form\RotaVirus\ReferenceLabType', 'NSSentinelBundle:RotaVirus\ReferenceLab');
+        return $this->updateLab($request, $objId, 'PUT', ReferenceLabType::class, ReferenceLab::class);
     }
 
     /**
@@ -352,7 +362,7 @@ class RotaVirusController extends CaseController
      */
     public function putRotaNLAction(Request $request, $objId)
     {
-        return $this->updateLab($request, $objId, 'PUT', 'NS\SentinelBundle\Form\RotaVirus\NationalLabType', 'NSSentinelBundle:RotaVirus\NationalLab');
+        return $this->updateLab($request, $objId, 'PUT', NationalLabType::class, NationalLab::class);
     }
 
     /**
@@ -378,7 +388,7 @@ class RotaVirusController extends CaseController
      */
     public function putRotaOutcomeAction(Request $request, $objId)
     {
-        return $this->updateCase($request, $objId, 'PUT', 'NS\SentinelBundle\Form\RotaVirus\OutcomeType', 'NSSentinelBundle:RotaVirus');
+        return $this->updateCase($request, $objId, 'PUT', OutcomeType::class, RotaVirus::class);
     }
 
     /**
@@ -398,6 +408,6 @@ class RotaVirusController extends CaseController
      */
     public function postRotaCaseAction(Request $request)
     {
-        return $this->postCase($request, 'nsApiRotaGetCase', 'NS\SentinelBundle\Form\CreateType', 'NSSentinelBundle:RotaVirus');
+        return $this->postCase($request, 'nsApiRotaGetCase', CreateType::class, RotaVirus::class);
     }
 }

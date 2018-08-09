@@ -3,51 +3,30 @@
 
 {%block body %}
 <div class="row">
-    <div class="col-sm-5">
-        <div class="widget-box widget-color-blue">
-            <div class="widget-header widget-header-small">
-                <h5 class="widget-title">{{'IBD Export Filters'|trans}}</h5>
-            </div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    <form action="{{path('exportIbd')}}" method="POST">
-                        {{ form_errors(ibdForm) }}
-                        <div class="row">
-                            <div class="col col-sm-6">
-                                {{ form_row(ibdForm.adm_date) }}
+    {% for route,values in forms %}
+        <div class="col-sm-5">
+            <div class="widget-box widget-color-blue">
+                <div class="widget-header widget-header-small">
+                    <h5 class="widget-title">{{values.title|trans}}</h5>
+                </div>
+                <div class="widget-body">
+                    <div class="widget-main">
+                        <form action="{{ path(route) }}" method="POST">
+                            {{ form_errors(values.form) }}
+                            <div class="row">
+                                <div class="col col-sm-6">
+                                    {{ form_row(values.form.adm_date) }}
+                                </div>
+                                <div class="col col-sm-6">
+                                    {{ form_row(values.form.createdAt) }}
+                                </div>
                             </div>
-                            <div class="col col-sm-6">
-                                {{ form_row(ibdForm.createdAt) }}
-                            </div>
-                        </div>
-                        {{ form_rest(ibdForm) }}
-                    </form>
+                            {{ form_rest(values.form) }}
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-sm-5">
-        <div class="widget-box widget-color-blue">
-            <div class="widget-header widget-header-small">
-                <h5 class="widget-title">{{'RotaVirus Export Filters'|trans}}</h5>
-            </div>
-            <div class="widget-body">
-                <div class="widget-main">
-                    <form action="{{path('exportRota')}}" method="POST">
-                        {{ form_errors(rotaForm) }}
-                        <div class="row">
-                            <div class="col col-sm-6">
-                                {{ form_row(rotaForm.adm_date) }}
-                            </div>
-                            <div class="col col-sm-6">
-                                {{ form_row(rotaForm.createdAt) }}
-                            </div>
-                        </div>
-                        {{ form_rest(rotaForm) }}
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    {% endfor %}
 </div>
 {%endblock%}

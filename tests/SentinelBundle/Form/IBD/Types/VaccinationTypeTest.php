@@ -11,7 +11,6 @@ namespace NS\SentinelBundle\Tests\Form\IBD\Types;
 use NS\SentinelBundle\Form\IBD\Types\VaccinationType;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class VaccinationTypeTest extends TypeTestCase
 {
@@ -34,13 +33,13 @@ class VaccinationTypeTest extends TypeTestCase
 
     public function testAmrOptions()
     {
-        $form = $this->factory->create(VaccinationType::class, null, ['exclude_choices' => [VaccinationType::MEN_AFR_VAC,VaccinationType::ACW135]]);
+        $form = $this->factory->create(VaccinationType::class, null, ['exclude_choices' => [VaccinationType::MEN_AFR_VAC, VaccinationType::ACW135]]);
         $choices = $form->getConfig()->getOption('choices');
-
-        $this->assertNotEmpty($choices);
 
         unset($this->defaultChoices[VaccinationType::MEN_AFR_VAC]);
         unset($this->defaultChoices[VaccinationType::ACW135]);
+
+        $this->assertNotEmpty($choices);
         $this->assertEquals(array_flip($this->defaultChoices), $choices);
     }
 }

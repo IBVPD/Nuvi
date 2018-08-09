@@ -214,7 +214,7 @@ services:
       - { name: ns_import.converter }
 
 #####################################################################
-# IBD
+# RV
 #####################################################################
 
   ns.sentinel.converter.rotavirusvaccinationtype:
@@ -271,3 +271,28 @@ services:
     tags:
       - { name: ns_import.converter }
 
+#####################################################################
+# Meningitis
+#####################################################################
+
+  ns.sentinel.converter.meningitis.csfappearance:
+    class: NS\SentinelBundle\Converter\ArrayChoiceConverter
+    arguments: [ NS\SentinelBundle\Form\Meningitis\Types\CSFAppearance, 'Meningitis' ]
+    tags:
+      - { name: ns_import.converter }
+
+#####################################################################
+# Pneumonia
+#####################################################################
+
+  ns.sentinel.converter.pneumonia.cxrresult:
+    class: NS\SentinelBundle\Converter\ArrayChoiceConverter
+    arguments: [ NS\SentinelBundle\Form\Pneumonia\Types\CXRResult, 'Pneumonia' ]
+    tags:
+      - { name: ns_import.converter }
+
+  ns.sentinel.converter.pneumonia.cxradditionalresult:
+    class: NS\SentinelBundle\Converter\ArrayChoiceConverter
+    arguments: [ NS\SentinelBundle\Form\Pneumonia\Types\CXRAdditionalResult, 'Pneumonia' ]
+    tags:
+      - { name: ns_import.converter }

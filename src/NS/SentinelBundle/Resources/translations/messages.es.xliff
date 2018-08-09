@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2018-07-30T11:42:57Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
+  <file date="2018-07-30T11:48:42Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -914,6 +914,14 @@
         <source>Latest IBD Cases</source>
         <target>Últimos casos de IBD</target>
       </trans-unit>
+      <trans-unit id="15a3133efaf10d95733f0567cf9b4485a5090aa7" resname="Latest Meningitis Cases">
+        <source>Latest Meningitis Cases</source>
+        <target state="new">Latest Meningitis Cases</target>
+      </trans-unit>
+      <trans-unit id="9e38fdd61490deb4328ae86a0ed22ce2f16ca06a" resname="Latest Pneumonia Cases">
+        <source>Latest Pneumonia Cases</source>
+        <target state="new">Latest Pneumonia Cases</target>
+      </trans-unit>
       <trans-unit id="dfb450c7e95da7c8d07b85a3f8e61d398ff68681" resname="Latest Rotavirus Cases">
         <source>Latest Rotavirus Cases</source>
         <target>Casos más recientes de Rotavirus</target>
@@ -929,6 +937,14 @@
       <trans-unit id="61d14bfd8db9302c47a91363bfc3c215f747d391" resname="Lists the last %count% IBD cases">
         <source>Lists the last %count% IBD cases</source>
         <target>Lista de últimos casos de IBD %count%</target>
+      </trans-unit>
+      <trans-unit id="2e65039079a90c32a25ea72b1fb08591f9a4673e" resname="Lists the last %count% Meningitis cases">
+        <source>Lists the last %count% Meningitis cases</source>
+        <target state="new">Lists the last %count% Meningitis cases</target>
+      </trans-unit>
+      <trans-unit id="520feb10773eaa9ca9b1a874f5d2b1e4b10a39e2" resname="Lists the last %count% Pneumonia cases">
+        <source>Lists the last %count% Pneumonia cases</source>
+        <target state="new">Lists the last %count% Pneumonia cases</target>
       </trans-unit>
       <trans-unit id="6f604eed838cef726bbc73efd2a61ab5d6b7bdd4" resname="Lists the last %count% rotavirus cases">
         <source>Lists the last %count% rotavirus cases</source>
@@ -1827,6 +1843,10 @@
         <source>for suspected meningitis cases</source>
         <target>for suspected meningitis cases</target>
       </trans-unit>
+      <trans-unit id="74f2078e16a4ab6ff46b127a03b215568a93690e" resname="for suspected pneumonia cases">
+        <source>for suspected pneumonia cases</source>
+        <target state="new">for suspected pneumonia cases</target>
+      </trans-unit>
       <trans-unit id="6da3c939c937b6fbd2bf66c6ae49de543af70162" resname="ibd-form.adm-date">
         <source>ibd-form.adm-date</source>
         <target>Fecha de admisión</target>
@@ -2230,9 +2250,17 @@
         <source>ibd-form.men-inability-feed</source>
         <target>¿Tuvo dificultad parar succionar/alimentarse?</target>
       </trans-unit>
+      <trans-unit id="d9be0842fd4297ed48ac4201adc06ce62699346a" resname="ibd-form.men-irritability">
+        <source>ibd-form.men-irritability</source>
+        <target state="new">ibd-form.men-irritability</target>
+      </trans-unit>
       <trans-unit id="7fb36591a7c5034b63e99f757c5281b0a9b445e0" resname="ibd-form.men-lethargy">
         <source>ibd-form.men-lethargy</source>
         <target>postración/letargia?</target>
+      </trans-unit>
+      <trans-unit id="1fa9724df81d9c8a87c995de238021e8fbb691da" resname="ibd-form.men-malnutrition">
+        <source>ibd-form.men-malnutrition</source>
+        <target state="new">ibd-form.men-malnutrition</target>
       </trans-unit>
       <trans-unit id="25d8e9216c230be4b56ee8695add622327bbce42" resname="ibd-form.men-neck-stiff">
         <source>ibd-form.men-neck-stiff</source>
@@ -2257,6 +2285,10 @@
       <trans-unit id="1d1c64818752598706df6d4e14dbe5b8c776ad5c" resname="ibd-form.men-type">
         <source>ibd-form.men-type</source>
         <target>Tipo de vacuna contra el meningococo</target>
+      </trans-unit>
+      <trans-unit id="f2eb52686ef7d81d802e9d00b9f98d18b168a8bc" resname="ibd-form.men-vomit">
+        <source>ibd-form.men-vomit</source>
+        <target state="new">ibd-form.men-vomit</target>
       </trans-unit>
       <trans-unit id="0209a43a47c9040d1b3548fe4ef3a438fec26cf3" resname="ibd-form.mening-received">
         <source>ibd-form.mening-received</source>
@@ -2335,6 +2367,10 @@
       <trans-unit id="dac15dc0e75761c8518c20cfd8b4c291e4ae66b9" resname="ibd-form.other-test-result">
         <source>ibd-form.other-test-result</source>
         <target>Los resultados de otras pruebas realizadas en el laboratorio</target>
+      </trans-unit>
+      <trans-unit id="0689c197bf5d397005bb12bc6120115a4140bed7" resname="ibd-form.other-type">
+        <source>ibd-form.other-type</source>
+        <target state="new">ibd-form.other-type</target>
       </trans-unit>
       <trans-unit id="200fbe0f4392a0194affd6dada0367aa49ad8166" resname="ibd-form.otherSpecimenCollected">
         <source>ibd-form.otherSpecimenCollected</source>
@@ -2728,9 +2764,29 @@
         <source>menu.import-export</source>
         <target>Importaciones y exportaciones</target>
       </trans-unit>
+      <trans-unit id="cc19664b64336d18c98237a18b15aa4c2eb352b7" resname="menu.meningitis">
+        <source>menu.meningitis</source>
+        <target state="new">menu.meningitis</target>
+      </trans-unit>
+      <trans-unit id="22f02923b2af77bf0b7045a959c9345c53161a8f" resname="menu.pneumonia">
+        <source>menu.pneumonia</source>
+        <target state="new">menu.pneumonia</target>
+      </trans-unit>
       <trans-unit id="c136d5b4518049cb39d5e06e6b8dc16619e7f7af" resname="menu.translation">
         <source>menu.translation</source>
         <target>Traducciones</target>
+      </trans-unit>
+      <trans-unit id="0f96dce4b9494fcc8d3bf22ebcb07069aa39ded7" resname="pneumonia.has-site-lab">
+        <source>pneumonia.has-site-lab</source>
+        <target state="new">pneumonia.has-site-lab</target>
+      </trans-unit>
+      <trans-unit id="4530eb50108bd5395fd532092e83a6effdd9dc56" resname="pneumonia.has-site-national-lab">
+        <source>pneumonia.has-site-national-lab</source>
+        <target state="new">pneumonia.has-site-national-lab</target>
+      </trans-unit>
+      <trans-unit id="f6c3c17992fe2a86e544c4315b34ec7253cce179" resname="pneumonia.has-site-reference-lab">
+        <source>pneumonia.has-site-reference-lab</source>
+        <target state="new">pneumonia.has-site-reference-lab</target>
       </trans-unit>
       <trans-unit id="eb33f39189da6e994faddf9398756c7ca05641e2" resname="report-filter-form.admitted-between">
         <source>report-filter-form.admitted-between</source>

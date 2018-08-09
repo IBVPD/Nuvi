@@ -146,21 +146,21 @@ abstract class ExternalLab extends BaseExternalLab
     protected $final_RL_result_detection;
 
     /**
-     * @var double
+     * @var SpnSerotype
      * @ORM\Column(name="spn_serotype",type="SpnSerotype",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     protected $spn_serotype;
 
     /**
-     * @var double
+     * @var HiSerotype
      * @ORM\Column(name="hi_serotype",type="HiSerotype",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     protected $hi_serotype;
 
     /**
-     * @var double
+     * @var NmSerogroup
      * @ORM\Column(name="nm_serogroup",type="NmSerogroup",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
@@ -280,7 +280,7 @@ abstract class ExternalLab extends BaseExternalLab
     }
 
     /**
-     * @return float
+     * @return SpnSerotype
      */
     public function getSpnSerotype()
     {
@@ -288,7 +288,7 @@ abstract class ExternalLab extends BaseExternalLab
     }
 
     /**
-     * @return float
+     * @return HiSerotype
      */
     public function getHiSerotype()
     {
@@ -296,7 +296,7 @@ abstract class ExternalLab extends BaseExternalLab
     }
 
     /**
-     * @return float
+     * @return NmSerogroup
      */
     public function getNmSerogroup()
     {
@@ -305,172 +305,138 @@ abstract class ExternalLab extends BaseExternalLab
 
     /**
      * @param SampleType $sampleType
-     * @return $this
      */
     public function setSampleType(SampleType $sampleType)
     {
         $this->type_sample_recd = $sampleType;
-        return $this;
     }
 
     /**
      * @param IsolateViable $isolateViable
-     * @return $this
      */
     public function setIsolateViable(IsolateViable $isolateViable)
     {
         $this->isolate_viable = $isolateViable;
-        return $this;
     }
 
     /**
      * @param IsolateType $isolateType
-     * @return $this
      */
     public function setIsolateType(IsolateType $isolateType)
     {
         $this->isolate_type = $isolateType;
-        return $this;
     }
 
     /**
      * @param PathogenIdentifier $pathogenIdentifierMethod
-     * @return $this
      */
     public function setPathogenIdentifierMethod(PathogenIdentifier $pathogenIdentifierMethod)
     {
         $this->method_used_pathogen_identify = $pathogenIdentifierMethod;
-        return $this;
     }
 
     /**
      * @param $pathogenIdentifierOther
-     * @return $this
      */
     public function setPathogenIdentifierOther($pathogenIdentifierOther)
     {
         $this->method_used_pathogen_identify_other = $pathogenIdentifierOther;
-        return $this;
     }
 
     /**
      * @param SerotypeIdentifier $serotypeIdentifier
-     * @return $this
      */
     public function setSerotypeIdentifier(SerotypeIdentifier $serotypeIdentifier)
     {
         $this->method_used_st_sg = $serotypeIdentifier;
-        return $this;
     }
 
     /**
      * @param $serotypeIdentifierOther
-     * @return $this
      */
     public function setSerotypeIdentifierOther($serotypeIdentifierOther)
     {
         $this->method_used_st_sg_other = $serotypeIdentifierOther;
-        return $this;
     }
 
     /**
      * @param $lytA
-     * @return $this
      */
     public function setLytA($lytA)
     {
         $this->spn_lytA = $lytA;
-        return $this;
     }
 
     /**
      * @param $ctrA
-     * @return $this
      */
     public function setCtrA($ctrA)
     {
         $this->nm_ctrA = $ctrA;
-        return $this;
     }
 
     /**
      * @param $sodC
-     * @return $this
      */
     public function setSodC($sodC)
     {
         $this->nm_sodC = $sodC;
-        return $this;
     }
 
     /**
      * @param $hpd1
-     * @return $this
      */
     public function setHpd1($hpd1)
     {
         $this->hi_hpd1 = $hpd1;
-        return $this;
     }
 
     /**
      * @param $hpd3
-     * @return $this
      */
     public function setHpd3($hpd3)
     {
         $this->hi_hpd3 = $hpd3;
-        return $this;
     }
 
     /**
      * @param $bexA
-     * @return $this
      */
     public function setBexA($bexA)
     {
         $this->hi_bexA = $bexA;
-        return $this;
     }
 
     /**
      * @param $rNaseP
-     * @return $this
      */
     public function setRNaseP($rNaseP)
     {
         $this->humanDNA_RNAseP = $rNaseP;
-        return $this;
     }
 
     /**
      * @param SpnSerotype $spnSerotype
-     * @return $this
      */
-    public function setSpnSerotype(SpnSerotype $spnSerotype)
+    public function setSpnSerotype(SpnSerotype $spnSerotype = null)
     {
         $this->spn_serotype = $spnSerotype;
-        return $this;
     }
 
     /**
      * @param HiSerotype $hiSerotype
-     * @return $this
      */
-    public function setHiSerotype(HiSerotype $hiSerotype)
+    public function setHiSerotype(HiSerotype $hiSerotype = null)
     {
         $this->hi_serotype = $hiSerotype;
-        return $this;
     }
 
     /**
      * @param NmSerogroup $nmSerogroup
-     * @return $this
      */
-    public function setNmSerogroup(NmSerogroup $nmSerogroup)
+    public function setNmSerogroup(NmSerogroup $nmSerogroup = null)
     {
         $this->nm_serogroup = $nmSerogroup;
-        return $this;
     }
 
     /**
@@ -687,15 +653,15 @@ abstract class ExternalLab extends BaseExternalLab
     public function getMandatoryFields()
     {
         return [
-                    'type_sample_recd',
-                    'dt_sample_recd',
-                    'isolate_viable',
-                    'isolate_type',
-                    'method_used_pathogen_identify',
-                    'method_used_st_sg',
-                    'spn_serotype',
-                    'hi_serotype',
-                    'nm_serogroup',
+            'type_sample_recd',
+            'dt_sample_recd',
+            'isolate_viable',
+            'isolate_type',
+            'method_used_pathogen_identify',
+            'method_used_st_sg',
+            'spn_serotype',
+            'hi_serotype',
+            'nm_serogroup',
         ];
     }
 
@@ -738,7 +704,7 @@ abstract class ExternalLab extends BaseExternalLab
     }
 
     /**
-     * 
+     *
      * @return FinalResult
      */
     public function getFinalResult()
@@ -747,13 +713,10 @@ abstract class ExternalLab extends BaseExternalLab
     }
 
     /**
-     * 
      * @param FinalResult $finalResult
-     * @return ExternalLab
      */
     public function setFinalResult(FinalResult $finalResult)
     {
         $this->final_RL_result_detection = $finalResult;
-        return $this;
     }
 }

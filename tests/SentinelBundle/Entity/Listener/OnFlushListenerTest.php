@@ -16,6 +16,7 @@ use NS\SentinelBundle\Tests\BaseDBTestCase;
 
 class OnFlushListenerTest extends BaseDBTestCase
 {
+
     public function testLink()
     {
         $case = $this->entityManager->getRepository('NSSentinelBundle:IBD')->findWithAssociations('CA-XXX-16-f80fc7ad-ce31-4253-afb4-5b45d55c2cce');

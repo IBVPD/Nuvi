@@ -1,0 +1,113 @@
+{% extends "NSSentinelBundle::layout.html.twig" %}
+{% block pagetitle %}{{ 'Age Distribution'|trans }}{% endblock %}
+{% block pagedescription %}{{ 'for suspected pneumonia cases'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="widget-box widget-color-blue no-border">
+                <div class="widget-header widget-header-small">
+                    <h5 class="widget-title">{{ 'Results'|trans }}</h5>
+                    {{ widget_filter_toolbox() }}
+                </div>
+                <div class="widget-body">
+                    <div class="widget-toolbox padding-8">
+                        <div class="collapse" id="filters">
+                            <form method="POST">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        {{ form_row(form.adm_date) }}
+                                        {{ form_row(form.createdAt) }}
+                                    </div>
+                                    <div class="col-xs-3">
+                                        {% if form.region is defined %}
+                                            {{ form_row(form.region) }}
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-xs-3">
+                                        {% if form.country is defined %}
+                                            {{ form_row(form.country) }}
+                                        {% endif %}
+
+                                    </div>
+                                    <div class="col-xs-3">
+                                        {% if form.site is defined %}
+                                            {{ form_row(form.site) }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        {{ form.filter is defined ? form_widget(form.filter) }}
+                                        {{ form.export is defined ? form_widget(form.export) }}
+                                        {{ form.reset is defined ? form_widget(form.reset) }}
+                                        {{ form_rest(form) }}
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="widget-main no-padding">
+                        <div class="table-responsive">
+                            {% include 'NSSentinelBundle:Report:Pneumonia/Export/annual-age.html.twig' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6">
+            <div id="totalPercent"></div>
+        </div>
+        <div class="col-xs-6">
+            <div id="ageProgression"></div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        google.load("visualization", "1", {packages: ["corechart"]});
+        google.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['{{ 'Distribution'|trans }}', '{{ 'Count'|trans }}'],
+                ['0-5',{{ results.getZeroToFive() }}],
+                ['6-11',{{ results.getFiveToEleven() }}],
+                ['12-23',{{ results.getElevenToTwentyThree() }}],
+                ['24-59',{{ results.getTwentyThreeToFiftyNine() }}],
+                ['{{ 'Unknown'|trans }}',{{ results.getUnknown() }}]
+            ]);
+
+            var options = {
+                title: '{{ 'Number Enrolled By Month & Suspected Diagnosis'|trans|raw }}',
+                vAxis: {title: 'Occurances'},
+                hAxis: {title: 'Month'},
+                bar: {groupWidth: '90%'},
+                annotations: {boxStyle: {stroke: '#888', strokeWidth: 1}}
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('totalPercent'));
+            chart.draw(data, options);
+        }
+    </script>
+    <script type="text/javascript">
+        google.load("visualization", "1", {packages: ["corechart"]});
+        google.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['{{ 'Year'|trans }}', '0-5', '6-11', '12-23', '24-59', '{{ 'Unknown'|trans }}', '{{ 'Total'|trans }}'],
+                {% for year in results.graphableYears %}
+                [{{ year }},{{ results.getZeroToFive(year) }},{{ results.getFiveToEleven(year) }},{{ results.getElevenToTwentyThree(year) }},{{ results.getTwentyThreeToFiftyNine(year) }},{{ results.getUnknown(year) }},{{ results.getTotal(year) }}]{% if not loop.last %},{% endif %}
+                {% endfor %}
+            ]);
+
+            var options = {
+                title: '{{ 'Case Progression'|trans }}',
+                hAxis: {format: '####'}
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('ageProgression'));
+            chart.draw(data, options);
+        }
+    </script>
+{% endblock %}

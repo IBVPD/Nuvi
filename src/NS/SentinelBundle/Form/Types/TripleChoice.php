@@ -4,8 +4,6 @@ namespace NS\SentinelBundle\Form\Types;
 
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
-use Symfony\Component\OptionsResolver\Options;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Description of TripleChoice

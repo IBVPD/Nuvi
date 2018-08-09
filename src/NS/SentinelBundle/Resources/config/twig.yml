@@ -36,3 +36,4 @@ services:
     arguments: [ "@twig" ]
     tags:
       - { name: twig.extension }
+

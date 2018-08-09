@@ -17,8 +17,11 @@ use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerInterface;
 use NS\SentinelBundle\Entity\IBD;
+use NS\SentinelBundle\Entity\Pneumonia;
+use NS\SentinelBundle\Entity\Meningitis;
 use NS\SentinelBundle\Entity\RotaVirus;
 use Symfony\Component\PropertyAccess\PropertyAccess;
+use Symfony\Component\PropertyAccess\PropertyAccessor;
 
 class ObjectInitializer
 {
@@ -36,6 +39,9 @@ class ObjectInitializer
 
     /** @var AbstractPlatform */
     private $dbPlatform;
+
+    /** @var PropertyAccessor  */
+    private $propertyAccessor;
 
     /**
      * ObjectInitializer constructor.
@@ -58,6 +64,20 @@ class ObjectInitializer
     public function initializeObject($type)
     {
         switch ($type) {
+            case 'pneumonia':
+                $obj = new Pneumonia\Pneumonia();
+                $obj->setSiteLab(new Pneumonia\SiteLab());
+                $obj->setNationalLab(new Pneumonia\NationalLab());
+                $obj->setReferenceLab(new Pneumonia\ReferenceLab());
+
+                break;
+            case 'meningitis':
+                $obj = new Meningitis\Meningitis();
+                $obj->setSiteLab(new Meningitis\SiteLab());
+                $obj->setNationalLab(new Meningitis\NationalLab());
+                $obj->setReferenceLab(new Meningitis\ReferenceLab());
+
+                break;
             case 'ibd':
                 $obj = new IBD();
                 $obj->setSiteLab(new IBD\SiteLab());

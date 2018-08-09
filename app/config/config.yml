@@ -14,7 +14,7 @@ framework:
     csrf_protection: true
     validation:      { enable_annotations: true }
     templating:
-        engines: ['twig']
+        engines: ['twig', 'php']
         #assets_version: SomeVersionScheme
     default_locale:  "%locale%"
     session:
@@ -61,10 +61,10 @@ doctrine:
 
             BinaxResult: NS\SentinelBundle\Entity\IBD\Types\BinaxResult
             CaseResult: NS\SentinelBundle\Entity\IBD\Types\CaseResult
-            CSFAppearance: NS\SentinelBundle\Entity\IBD\Types\CSFAppearance
+            CSFAppearance: NS\SentinelBundle\Entity\Meningitis\Types\CSFAppearance
             CultureResult: NS\SentinelBundle\Entity\IBD\Types\CultureResult
-            CXRAdditionalResult: NS\SentinelBundle\Entity\IBD\Types\CXRAdditionalResult
-            CXRResult: NS\SentinelBundle\Entity\IBD\Types\CXRResult
+            CXRAdditionalResult: NS\SentinelBundle\Entity\Pneumonia\Types\CXRAdditionalResult
+            CXRResult: NS\SentinelBundle\Entity\Pneumonia\Types\CXRResult
             Diagnosis: NS\SentinelBundle\Entity\IBD\Types\Diagnosis
             IBDDischargeClassification: NS\SentinelBundle\Entity\IBD\Types\DischargeClassification
             IBDDischargeDiagnosis: NS\SentinelBundle\Entity\IBD\Types\DischargeDiagnosis
@@ -284,8 +284,10 @@ nelmio_api_doc:
 
 ns_import:
   classes:
-    NS\SentinelBundle\Entity\IBD: IBD
+    NS\SentinelBundle\Entity\Pneumonia\Pneumonia: Pneumonia
+    NS\SentinelBundle\Entity\Meningitis\Meningitis: Meningitis
     NS\SentinelBundle\Entity\RotaVirus: Rotavirus
+    NS\SentinelBundle\Entity\IBD: IBD
 
 doctrine_cache:
     providers:

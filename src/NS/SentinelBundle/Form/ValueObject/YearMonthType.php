@@ -9,7 +9,6 @@
 namespace NS\SentinelBundle\Form\ValueObject;
 
 use NS\SentinelBundle\Entity\ValueObjects\YearMonth;
-use NS\SentinelBundle\Form\Types\TripleChoice;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\DataMapperInterface;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -50,6 +49,7 @@ class YearMonthType extends AbstractType implements DataMapperInterface
     public function mapDataToForms($data, $forms)
     {
         if ($data instanceof YearMonth) {
+            /** @var FormInterface[] $forms */
             $forms = iterator_to_array($forms);
 
             $forms['year']->setData($data->getYear());
@@ -62,8 +62,8 @@ class YearMonthType extends AbstractType implements DataMapperInterface
      */
     public function mapFormsToData($forms, &$data)
     {
+        /** @var FormInterface[] $forms */
         $forms = iterator_to_array($forms);
-
         $data = new YearMonth($forms['year']->getData(), $forms['month']->getData());
     }
 }

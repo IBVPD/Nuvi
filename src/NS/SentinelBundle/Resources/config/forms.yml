@@ -12,12 +12,6 @@ services:
     tags:
       - { name: form.type }
 
-  ns_sentinel.filter.type.ibd_linking_quarterly:
-    class: NS\SentinelBundle\Filter\Type\IBD\QuarterlyLinkingReportFilterType
-    arguments: [ "@security.token_storage", "@security.authorization_checker", "@ns_security.acl_converter" ]
-    tags:
-      - { name: form.type }
-
   ns_sentinel.filter.type.base_quarterly:
     class: NS\SentinelBundle\Filter\Type\BaseQuarterlyFilterType
     arguments: [ "@security.token_storage", "@security.authorization_checker", "@ns_security.acl_converter" ]
@@ -34,8 +28,19 @@ services:
     tags:
       - { name: form.type }
 
+  ns_sentinel.filter.type.ibd_linking_quarterly:
+    class: NS\SentinelBundle\Filter\Type\IBD\QuarterlyLinkingReportFilterType
+    arguments: [ "@security.token_storage", "@security.authorization_checker", "@ns_security.acl_converter" ]
+    tags:
+      - { name: form.type }
+
   ns.sentinel.form.ibd.report_filter:
     class: NS\SentinelBundle\Filter\Type\IBD\ReportFilterType
+    tags:
+      - { name: form.type }
+
+  ns.sentinel.meningitis.filter:
+    class: NS\SentinelBundle\Filter\Type\IBD\FilterType
     tags:
       - { name: form.type }
 
@@ -71,11 +76,6 @@ services:
 
   ns.sentinel.rotavirus.filter:
     class: NS\SentinelBundle\Filter\Type\RotaVirus\FilterType
-    tags:
-      - { name: form.type }
-
-  ns.sentinel.meningitis.filter:
-    class: NS\SentinelBundle\Filter\Type\IBD\FilterType
     tags:
       - { name: form.type }
 
@@ -137,6 +137,11 @@ services:
     class: NS\SentinelBundle\Form\Types\TripleChoice
     tags:
       - { name: form.type }
+
+  ns.sentinel.form.type.threedoses:
+    class: NS\SentinelBundle\Form\Types\ThreeDoses
+    tags:
+      - { name: form.type, alias: ThreeDoses }
 
 ############################################################################
 # IBD Types
@@ -209,11 +214,6 @@ services:
     class: NS\SentinelBundle\Form\IBD\Types\DischargeDiagnosis
     tags:
       - { name: form.type }
-
-  ns.sentinel.form.type.threedoses:
-    class: NS\SentinelBundle\Form\Types\ThreeDoses
-    tags:
-      - { name: form.type, alias: ThreeDoses }
 
   ns.sentinel.form.type.spnserotype:
     class: NS\SentinelBundle\Form\IBD\Types\SpnSerotype

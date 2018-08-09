@@ -19,7 +19,7 @@ interface BaseSiteLabInterface
     /**
      *
      * @param BaseCase $case
-     * @return \NS\SentinelBundle\Entity\BaseSiteLab
+     * @return BaseSiteLabInterface
      */
     public function setCaseFile(BaseCase $case);
 
