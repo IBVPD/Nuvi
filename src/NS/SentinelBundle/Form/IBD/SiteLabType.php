@@ -75,8 +75,18 @@ class SiteLabType extends AbstractType
             ->add('csfCultOther',       null, ['required' => false, 'label' => 'ibd-form.csf-culture-other', 'hidden' => ['parent' => 'csfCultResult', 'value' => CultureResult::OTHER]])
             ->add('csfCultContaminant', null, ['required' => false, 'label' => 'ibd-form.csf-culture-contaminant', 'hidden' => ['parent' => 'csfCultResult', 'value' => CultureResult::CONTAMINANT]])
             ->add('csfGramDone',        TripleChoice::class, ['required' => false, 'label' => 'ibd-form.csf-gram-done'])
-            ->add('csfGramStain',       GramStain::class, ['required' => false, 'label' => 'ibd-form.csf-gram-result', 'hidden' => ['parent' => 'csfGramDone', 'value' => TripleChoice::YES]])
-            ->add('csfGramResult',      GramStainResult::class, ['required' => false, 'label' => 'ibd-form.csf-gram-result-organism', 'hidden' => ['parent' => 'csfGramStain', 'value' => [GramStain::GM_NEGATIVE, GramStain::GM_POSITIVE]]])
+            ->add('csfGramStain',       GramStain::class, [
+                'required' => false,
+                'label' => 'ibd-form.csf-gram-result',
+                'hidden' => ['parent' => 'csfGramDone', 'value' => TripleChoice::YES],
+                'exclude_choices' => $isPaho ? [GramStain::UNKNOWN] : [],
+            ])
+            ->add('csfGramResult',      GramStainResult::class, [
+                'required' => false,
+                'label' => 'ibd-form.csf-gram-result-organism',
+                'hidden' => ['parent' => 'csfGramStain', 'value' => [GramStain::GM_NEGATIVE, GramStain::GM_POSITIVE]],
+                'exclude_choices' => $isPaho ? [GramStainResult::OTHER, GramStainResult::UNKNOWN] : [],
+            ])
             ->add('csfGramOther',       null, ['required' => false, 'label' => 'ibd-form.csf-gram-other', 'hidden' => ['parent' => 'csfGramResult', 'value' => GramStainResult::OTHER]])
             ->add('csfBinaxDone',       TripleChoice::class, ['required' => false, 'label' => 'ibd-form.csf-binax-done'])
             ->add('csfBinaxResult',     BinaxResult::class, [
