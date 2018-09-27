@@ -106,7 +106,7 @@ class CaseType extends AbstractType
             $region  = ($country instanceof Country) ? $country->getRegion(): null;
         }
 
-        $isPaho = ($region && $region->getCode() == 'AMR' || $this->authChecker->isGranted('ROLE_AMR'));
+        $isPaho = (($region && $region->getCode() === 'AMR') || $this->authChecker->isGranted('ROLE_AMR'));
 
         if (!$country || ($country instanceof Country && $country->getTracksPneumonia())) {
             $form
@@ -115,7 +115,7 @@ class CaseType extends AbstractType
                 ->add('pneuCough',           TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-cough'])
                 ->add('pneuCyanosis',        TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-cyanosis'])
                 ->add('pneuStridor',         TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-stridor'])
-                ->add('pneuRespRate',        IntegerType::class, ['required' => $required, 'label' => 'ibd-form.pneu-resp-rate', 'attr' => ['min' => 10, 'max' => 120],'property_path' => 'pneu_resp_rate'])
+                ->add('pneuRespRate',        IntegerType::class, ['required' => false, 'label' => 'ibd-form.pneu-resp-rate', 'attr' => ['min' => 10, 'max' => 120],'property_path' => 'pneu_resp_rate'])
                 ->add('pneuVomit',           TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-vomit'])
                 ->add('pneuHypothermia',     TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-hypothermia'])
                 ->add('pneuMalnutrition',    TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pneu-malnutrition'])
@@ -140,7 +140,7 @@ class CaseType extends AbstractType
                             ]
                         ]
                     ])
-                    ->add('pneuOxygenSaturation', IntegerType::class, ['required' => $required, 'label' => 'ibd-form.pneu-oxygen-level', 'property_path' => 'pneu_oxygen_saturation', 'attr' => ['min' => 80, 'max' => 100]]);
+                    ->add('pneuOxygenSaturation', IntegerType::class, ['required' => false, 'label' => 'ibd-form.pneu-oxygen-level', 'property_path' => 'pneu_oxygen_saturation', 'attr' => ['min' => 80, 'max' => 100]]);
             }
         }
 
