@@ -444,6 +444,7 @@ class Pneumonia extends BaseCase
     {
         parent::__construct();
         $this->result = new CaseResult(CaseResult::UNKNOWN);
+        $this->adm_dx = new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA);
     }
 
     /**
