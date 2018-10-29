@@ -55,8 +55,8 @@ on unix servers.
 Initiate the database
 
 ```shell
-app/console doctrine:database:create
-app/console doctrine:schema:create
+bin/console doctrine:database:create
+bin/console doctrine:schema:create
 ```
 
 Configure cronjob
@@ -68,7 +68,7 @@ and will run that one job. It will process the batch amount and then exit. There
 runs as in the project root. The command to run is.
 
 ```shell
-app/console nsimport:run-batch
+bin/console nsimport:run-batch
 ```
 
 which will output the jobs it is working on and will return when complete.
@@ -173,41 +173,31 @@ Whenever you move between releases or pull a new version it is prudent to run a 
 
 ```shell
 composer install -o
+
 ```
 
 If you'd like to check what changes will occur prior to making the changes you can run.
 
 ```shell
- app/console doctrine:schema:update --dump-sql
+ bin/console doctrine:migrations:migrate
 ```
 
-To update the database schema run.
-
-```shell
- app/console doctrine:schema:update --force
-```
+It will ask you if you want to apply the updates to the database.
 
 Automatically Updating
 ======================
 
-A script specifically setup for WHO is located in the project's bin path. So once logged in as the apache user
-and at the project's root one can run the following to automatically update the project.
+We typically use ansible to handle deployments.
 
 ```shell
-  ./bin/update.sh latest-release
+ansible-playbook -i app/config/hosts.ini -e target=SERVERNAME app/config/deploy.yml
 ```
 
-This will automatically pull the latest released version of the software. Run any necessary DB migration steps 
-and clear the project cache.
+The deploy.yml file follows the [servergrove.symfony2](https://github.com/servergrove/ansible-symfony2) ansible playbook 
+and is currently setup to deploy to our demo instance. Creating a copy of this and modifying it for your internal use 
+(adjusting paths etc) would allow you to deploy new versions automatically with the ability to roll back if there are 
+issues.
 
-The update script can also move the to latest code in the repository by running:
-
-```shell
-  ./bin/update.sh latest
-```
-
-Which will update to the very latest code whether a release has been made. This has the chance of including
-incomplete features or code that hasn't been thoroughly tested.
 
 Running Tests
 =============
@@ -219,10 +209,10 @@ against.
 Rebuild the test database and load the fixtures.
 
 ```shell
-app/console doctrine:database:drop --env=test --force
-app/console doctrine:database:create --env=test
-app/console doctrine:schema:create --env=test
-app/console doctrine:fixtures:load --env=test -n
+bin/console doctrine:database:drop --env=test --force
+bin/console doctrine:database:create --env=test
+bin/console doctrine:schema:create --env=test
+bin/console doctrine:fixtures:load --env=test -n
 ```
 
 Then run the tests
