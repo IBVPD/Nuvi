@@ -152,10 +152,8 @@ class MeningitisListener extends BaseCaseListener
             return 'otherSpecimenOther';
         }
 
-        if ($regionCode == 'AMR') {
-            if ($case->getBloodNumberOfSamples() > 1 && (!$case->getBloodSecondCollectDate() || !$case->getBloodSecondCollectTime())) {
-                return 'bloodSecondCollect';
-            }
+        if (($regionCode == 'AMR') && $case->getBloodNumberOfSamples() > 1 && (!$case->getBloodSecondCollectDate() || !$case->getBloodSecondCollectTime())) {
+            return 'bloodSecondCollect';
         }
 
         return null;

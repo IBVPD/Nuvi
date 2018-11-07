@@ -22,7 +22,7 @@ use NS\SentinelBundle\Entity\Listener\IBDListener;
 
 class IBDListenerTest extends \PHPUnit_Framework_TestCase
 {
-    public function testMinimumRequiredFieldsWithPneunomia()
+    public function testMinimumRequiredFieldsWithPneumonia()
     {
         $country = new Country('tId', 'Test');
         $country->setTracksPneumonia(true);
@@ -34,7 +34,7 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(35, $listener->getMinimumRequiredFields($case));
     }
 
-    public function testMinimumRequiredFieldsWithoutPneunomia()
+    public function testMinimumRequiredFieldsWithoutPneumonia()
     {
         $country = new Country('tId', 'Test');
         $country->setTracksPneumonia(false);
@@ -48,20 +48,20 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
 
     //============================================================
     // Single complete cases
-    public function testSingleMinimumCompleteCaseWithPneunomia()
+    public function testSingleMinimumCompleteCaseWithPneumonia()
     {
         $case = new IBD();
-        $this->_updateCase($case, $this->getSingleCompleteCaseWithPneunomia());
+        $this->_updateCase($case, $this->getSingleCompleteCaseWithPneumonia());
         $listener = new IBDListener();
         $listener->prePersist($case, $this->createMock(LifecycleEventArgs::class));
 
         $this->assertTrue($case->isComplete(), "New cases are incomplete " . $listener->getIncompleteField($case) . ' ' . $case->getStatus());
     }
 
-    public function testSingleMinimumCompleteCaseWithoutPneunomia()
+    public function testSingleMinimumCompleteCaseWithoutPneumonia()
     {
         $case = new IBD();
-        $this->_updateCase($case, $this->getSingleCompleteCaseWithoutPneunomia());
+        $this->_updateCase($case, $this->getSingleCompleteCaseWithoutPneumonia());
         $listener = new IBDListener();
         $listener->prePersist($case, $this->createMock(LifecycleEventArgs::class));
 
@@ -71,11 +71,11 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
     //============================================================
     // Incomplete
     /**
-     * @depends      testSingleMinimumCompleteCaseWithPneunomia
-     * @dataProvider getIncompleteTestDataWithPneunomia
+     * @depends      testSingleMinimumCompleteCaseWithPneumonia
+     * @dataProvider getIncompleteTestDataWithPneumonia
      * @param $data
      */
-    public function testCaseIsIncompleteWithPneunomia($data)
+    public function testCaseIsIncompleteWithPneumonia($data)
     {
         $case = new IBD();
         $this->_updateCase($case, $data);
@@ -87,11 +87,11 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @depends      testSingleMinimumCompleteCaseWithoutPneunomia
-     * @dataProvider getIncompleteTestDataWithoutPneunomia
+     * @depends      testSingleMinimumCompleteCaseWithoutPneumonia
+     * @dataProvider getIncompleteTestDataWithoutPneumonia
      * @param $data
      */
-    public function testCaseIsIncompleteWithoutPneunomia($data)
+    public function testCaseIsIncompleteWithoutPneumonia($data)
     {
         $case = new IBD();
         $this->_updateCase($case, $data);
@@ -105,8 +105,8 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
     //============================================================
     // Complete
     /**
-     * @depends      testSingleMinimumCompleteCaseWithPneunomia
-     * @dataProvider getCompleteCaseWithPneunomiaData
+     * @depends      testSingleMinimumCompleteCaseWithPneumonia
+     * @dataProvider getCompleteCaseWithPneumoniaData
      * @param $data
      */
     public function testCaseIsCompleteWithPneuomia($data)
@@ -121,11 +121,11 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @depends      testSingleMinimumCompleteCaseWithPneunomia
-     * @dataProvider getCompleteCaseWithoutPneunomiaData
+     * @depends      testSingleMinimumCompleteCaseWithPneumonia
+     * @dataProvider getCompleteCaseWithoutPneumoniaData
      * @param $data
      */
-    public function testCaseIsCompleteWithoutPneunomia($data)
+    public function testCaseIsCompleteWithoutPneumonia($data)
     {
         $case = new IBD();
         $this->_updateCase($case, $data);
@@ -139,10 +139,10 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
     //=============================================================
     // data providers
 
-    public function getCompleteCaseWithPneunomiaData()
+    public function getCompleteCaseWithPneumoniaData()
     {
         $data     = [];
-        $complete = $this->getSingleCompleteCaseWithPneunomia();
+        $complete = $this->getSingleCompleteCaseWithPneumonia();
         $country  = new Country('tId', 'TestCountry');
         $country->setTracksPneumonia(true);
         $case     = new IBD();
@@ -153,10 +153,10 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
         return $this->_commonCompleteData($data, $complete);
     }
 
-    public function getCompleteCaseWithoutPneunomiaData()
+    public function getCompleteCaseWithoutPneumoniaData()
     {
         $data     = [];
-        $complete = $this->getSingleCompleteCaseWithoutPneunomia();
+        $complete = $this->getSingleCompleteCaseWithoutPneumonia();
         $country  = new Country('tId', 'TestCountry');
         $country->setTracksPneumonia(true);
         $case     = new IBD();
@@ -219,10 +219,10 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
         return $data;
     }
 
-    public function getIncompleteTestDataWithoutPneunomia()
+    public function getIncompleteTestDataWithoutPneumonia()
     {
         $data     = [];
-        $complete = $this->getSingleCompleteCaseWithoutPneunomia();
+        $complete = $this->getSingleCompleteCaseWithoutPneumonia();
         $fields = [
             'caseId',
             'birthdate',
@@ -264,11 +264,11 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
         return $data;
     }
 
-    public function getIncompleteTestDataWithPneunomia()
+    public function getIncompleteTestDataWithPneumonia()
     {
         $data      = [];
         $tripleYes = new TripleChoice(TripleChoice::YES);
-        $complete  = $this->getSingleCompleteCaseWithPneunomia();
+        $complete  = $this->getSingleCompleteCaseWithPneumonia();
         $fields = [
             'caseId',
             'birthdate',
@@ -374,7 +374,7 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
         return $data;
     }
 
-    private function getSingleCompleteCaseWithPneunomia()
+    private function getSingleCompleteCaseWithPneumonia()
     {
         $tripleNo = new TripleChoice(TripleChoice::NO);
         $country  = new Country('tId', 'Test Country');
@@ -431,7 +431,7 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    private function getSingleCompleteCaseWithoutPneunomia()
+    private function getSingleCompleteCaseWithoutPneumonia()
     {
         $tripleNo = new TripleChoice(TripleChoice::NO);
         $country  = new Country('tId', 'Test Country');

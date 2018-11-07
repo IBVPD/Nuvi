@@ -170,7 +170,7 @@ class PneumoniaListenerTest extends \PHPUnit_Framework_TestCase
             'district',
             'admDate',
             'onsetDate',
-            'admDx',
+//            'admDx', this is set by default in the Pneumonia constructor now so can't ever be empty
             'antibiotics',
             'hibReceived',
             'pcvReceived',

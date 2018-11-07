@@ -49,7 +49,7 @@ class MeningitisListenerTest extends \PHPUnit_Framework_TestCase
         $listener = new MeningitisListener();
         $listener->prePersist($case, $this->createMock(LifecycleEventArgs::class));
 
-        $this->assertFalse($case->isComplete(), "New cases are incomplete data removed '" . (isset($data['removed']) ? $data['removed'] : 'no removed') . "'");
+        $this->assertFalse($case->isComplete(), print_r($data,true));//'New cases are incomplete data removed "' . (isset($data['removed']) ? $data['removed'] : 'no removed') . '"');
         $this->assertEquals($case->getStatus()->getValue(), CaseStatus::OPEN);
     }
 
@@ -60,14 +60,14 @@ class MeningitisListenerTest extends \PHPUnit_Framework_TestCase
      * @dataProvider getCompleteCaseNonPahoData
      * @param $data
      */
-    public function testCaseIsCompleteWithPneuomia($data)
+    public function testCaseIsCompleteWithPneumonia($data)
     {
         $case = new Meningitis();
         $this->_updateCase($case, $data);
         $listener = new MeningitisListener();
         $listener->prePersist($case, $this->createMock(LifecycleEventArgs::class));
 
-        $this->assertTrue($case->isComplete(), "Cases with pneunomia are complete " . (!$case->isComplete()) ? $listener->getIncompleteField($case) : null);
+        $this->assertTrue($case->isComplete(), 'Cases with pneunomia are complete ' . (!$case->isComplete() ? $listener->getIncompleteField($case) : null));
         $this->assertEquals($case->getStatus()->getValue(), CaseStatus::COMPLETE);
     }
 
@@ -90,7 +90,6 @@ class MeningitisListenerTest extends \PHPUnit_Framework_TestCase
 
         return $this->_commonCompleteData($data, $complete);
     }
-
 
     private function _commonCompleteData($data, $complete)
     {
@@ -157,7 +156,7 @@ class MeningitisListenerTest extends \PHPUnit_Framework_TestCase
             'district',
             'admDate',
             'onsetDate',
-            'admDx',
+//            'admDx', this is set by default in the Meningitis constructor now so can't ever be empty
             'antibiotics',
             'menSeizures',
             'menFever',
