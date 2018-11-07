@@ -43,7 +43,6 @@
         "ns/filtered-pagination-bundle": "~2.0",
 
         "jms/translation-bundle": "^1.2",
-        "doctrine/data-fixtures": "1.1.1",
         "doctrine/doctrine-fixtures-bundle": "^2.0",
         "oneup/uploader-bundle": "1.0.*@dev",
 
