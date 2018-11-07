@@ -19,21 +19,23 @@ class ImportRepository extends EntityRepository
 {
     /**
      * @param UserInterface $user
-     * @param string $alias
+     * @param string        $alias
+     *
      * @return \Doctrine\ORM\QueryBuilder
      * @throws \Doctrine\ORM\ORMException
      */
-    public function getResultsForUser(UserInterface $user, $alias ='r')
+    public function getResultsForUser(UserInterface $user, $alias = 'r')
     {
         return $this->createQueryBuilder($alias)
-                    ->where(sprintf('%s.user = :user', $alias))
-                    ->setParameter('user', $this->_em->getReference(get_class($user), $user->getId()))
-                    ->orderBy($alias.'.id', 'DESC');
+            ->where(sprintf('%s.user = :user', $alias))
+            ->setParameter('user', $this->_em->getReference(get_class($user), $user->getId()))
+            ->orderBy($alias . '.id', 'DESC');
     }
 
     /**
      * @param UserInterface $user
-     * @param $resultId
+     * @param               $resultId
+     *
      * @return mixed
      * @throws \Doctrine\ORM\ORMException
      */
@@ -42,7 +44,7 @@ class ImportRepository extends EntityRepository
         try {
             return $this->createQueryBuilder('r')
                 ->where('r.user = :user AND r.id = :id')
-                ->setParameters(['user'=>$this->_em->getReference(get_class($user), $user->getId()), 'id'=>$resultId])
+                ->setParameters(['user' => $this->_em->getReference(get_class($user), $user->getId()), 'id' => $resultId])
                 ->getQuery()
                 ->getSingleResult();
         } catch (UnexpectedResultException $exception) {
@@ -51,21 +53,22 @@ class ImportRepository extends EntityRepository
 
     /**
      * @param $id
+     *
      * @return array
      */
     public function getStatistics($id)
     {
         try {
-            $result = $this->createQueryBuilder('r')
+            $result               = $this->createQueryBuilder('r')
                 ->select('r.id,r.importedCount, r.processedCount, r.sourceCount, r.warningCount, r.skippedCount, r.status')
                 ->where('r.id = :id')
                 ->setParameter('id', $id)
                 ->getQuery()
                 ->setHydrationMode(Query::HYDRATE_ARRAY)
                 ->getSingleResult();
-            $result['percent'] = sprintf("%d%%", ($result['sourceCount'] > 0) ? (($result['processedCount']/$result['sourceCount']) * 100):0);
+            $result['percent']    = sprintf("%d%%", ($result['sourceCount'] > 0) ? (($result['processedCount'] / $result['sourceCount']) * 100) : 0);
             $result['errorCount'] = $result['processedCount'] - $result['importedCount'];
-            $result['status'] = $result['status'];
+            $result['status']     = $result['status'];
 
             return $result;
         } catch (UnexpectedResultException $exception) {
@@ -74,16 +77,20 @@ class ImportRepository extends EntityRepository
     }
 
     /**
-     * @param Import $import
-     * @param \Exception $exception
+     * @param Import                $import
+     * @param \Exception|\Throwable $exception
+     *
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function setImportException(Import $import, \Exception $exception)
+    public function setImportException(Import $import, $exception)
     {
-        $exceptionStr = $exception->getMessage()."\n\n";
+        $exceptionStr = 'Unknown error';
+        if ($exception instanceof \Throwable || $exception instanceof \Exception) {
+            $exceptionStr = $exception->getMessage() . "\n\n";
 
-        foreach ($exception->getTrace() as $index => $trace) {
-            $exceptionStr .= sprintf("%d: %s::%s on line %d\n", $index, isset($trace['class'])?$trace['class']:'Unknown', isset($trace['function'])?$trace['function']:'Unknown', isset($trace['line'])?$trace['line']:-1);
+            foreach ($exception->getTrace() as $index => $trace) {
+                $exceptionStr .= sprintf("%d: %s::%s on line %d\n", $index, isset($trace['class']) ? $trace['class'] : 'Unknown', isset($trace['function']) ? $trace['function'] : 'Unknown', isset($trace['line']) ? $trace['line'] : -1);
+            }
         }
 
         $import->setStackTrace($exceptionStr);

@@ -3,6 +3,7 @@
 namespace NS\ImportBundle\Command;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use NS\ImportBundle\Entity\Import;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
@@ -40,35 +41,43 @@ class WorkerCommand extends ContainerAwareCommand
         $worker     = $container->get('ns_import.batch_worker');
         $entityMgr  = $container->get('doctrine.orm.entity_manager');
 
-
         $import = $entityMgr->getRepository(Import::class)->getNewOrRunning();
 
         if ($import) {
-            $output->writeln(sprintf("Processing ImportId: %d", $import->getId()));
+            $output->writeln(sprintf('Processing ImportId: %d', $import->getId()));
 
             $this->setupUser($import);
 
             try {
                 if (!$worker->consume($import, $batchSize)) {
-                    $output->writeln("Processed and returned for additional processing");
+                    $output->writeln('Processed and returned for additional processing');
                 } else {
-                    $output->writeln("Import complete - Job removed");
+                    $output->writeln('Import complete - Job removed');
                 }
-            } catch (\Exception $exception) {
-                $errOutput->writeln('Error processing job');
-                if ($entityMgr->isOpen()) {
-                    $entityMgr->getRepository('NSImportBundle:Import')->setImportException($import, $exception);
-                } else {
-                    $output->writeln("Entity Manager Closed - Unable to save error message");
-                }
-
-                $errOutput->writeln('Exception: '.$exception->getMessage());
-                foreach ($exception->getTrace() as $index => $trace) {
-                    $errOutput->writeln(sprintf(sprintf("%d: %s::%s on line %d\n", $index, isset($trace['class'])?$trace['class']:'Unknown', isset($trace['function'])?$trace['function']:'Unknown', isset($trace['line'])?$trace['line']:-1)));
-                }
+            } // PHP7 only!
+            catch(\TypeError $exception) {
+                $this->handleError($errOutput, $entityMgr, $import, $exception);
+            }
+            catch (\Exception $exception) {
+                $this->handleError($errOutput, $entityMgr, $import, $exception);
             }
         } else {
-            $output->writeln("No job?");
+            $output->writeln('No job?');
+        }
+    }
+
+    private function handleError(OutputInterface $errOutput, EntityManagerInterface $entityMgr, Import $import, $exception)
+    {
+        $errOutput->writeln('Error processing job');
+        if ($entityMgr->isOpen()) {
+            $entityMgr->getRepository('NSImportBundle:Import')->setImportException($import, $exception);
+        } else {
+            $errOutput->writeln('Entity Manager Closed - Unable to save error message');
+        }
+
+        $errOutput->writeln('Exception: '.$exception->getMessage());
+        foreach ($exception->getTrace() as $index => $trace) {
+            $errOutput->writeln(sprintf(sprintf("%d: %s::%s on line %d\n", $index, isset($trace['class'])?$trace['class']:'Unknown', isset($trace['function'])?$trace['function']:'Unknown', isset($trace['line'])?$trace['line']:-1)));
         }
     }
 
