@@ -9,7 +9,12 @@ use NS\UtilBundle\Form\Types\ArrayChoice;
 
 class PneumoniaControllerTest extends WebTestCase
 {
-    const ID = 'CA-ALBCHLD-14-000118';
+    const ID = 'CA-ALBCHLD-14-000120';
+
+    public function setUp()
+    {
+        parent::setUp();
+    }
 
     public function testGetCase()
     {
@@ -39,10 +44,10 @@ class PneumoniaControllerTest extends WebTestCase
         }
 
         $this->assertEquals(204, $response->getStatusCode());
-        $this->assertFalse($response->headers->has('Location'), "We have a location header");
+        $this->assertFalse($response->headers->has('Location'), 'We have a location header');
 
         $case = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository(Pneumonia::class)->find(self::ID);
-        $this->assertEquals("Fabien", $case->getLastName(), "Change has occurred");
+        $this->assertEquals("Fabien", $case->getLastName(), 'Change has occurred');
         $this->assertTrue($case->getGender()->equal(Gender::MALE));
     }
 
@@ -58,7 +63,7 @@ class PneumoniaControllerTest extends WebTestCase
         }
 
         $this->assertEquals(201, $response->getStatusCode());
-        $this->assertTrue($response->headers->has('Location'), "We have a location header");
+        $this->assertTrue($response->headers->has('Location'), 'We have a location header');
 
         $client->request('GET', $response->headers->get('Location'));
         $response = $client->getResponse();
@@ -85,7 +90,7 @@ class PneumoniaControllerTest extends WebTestCase
         }
 
         $this->assertEquals(204, $response->getStatusCode(), $route);
-        $this->assertFalse($response->headers->has('Location'), "We have a location header");
+        $this->assertFalse($response->headers->has('Location'), 'We have a location header');
 
         $client->request('GET', $this->getRoute('nsApiPneumoniaGetLab'));
         $response = $client->getResponse();
@@ -93,7 +98,7 @@ class PneumoniaControllerTest extends WebTestCase
         $decoded  = json_decode($response->getContent(), true);
 
         $this->assertArrayHasKey('blood_id', $decoded);
-        $this->assertEquals("ANewCaseId", $decoded['blood_id']);
+        $this->assertEquals('ANewCaseId', $decoded['blood_id']);
     }
 
     /**
@@ -106,7 +111,7 @@ class PneumoniaControllerTest extends WebTestCase
         $client->request('GET', $this->getRoute('nsApiPneumoniaGetRRL'));
 
         $response = $client->getResponse();
-        if ($response->getStatusCode() == 500) {
+        if ($response->getStatusCode() === 500) {
             file_put_contents('/tmp/nsApiPneumoniaGetRRL.log', $response->getContent());
         }
 
@@ -122,7 +127,7 @@ class PneumoniaControllerTest extends WebTestCase
 
         $response = $client->getResponse();
         $this->assertEquals(403, $response->getStatusCode());
-        $this->assertFalse($response->headers->has('Location'), "We have a location header");
+        $this->assertFalse($response->headers->has('Location'), 'We have a location header');
 
 // Because our user can't patch the RRL, no data is set/changed.
 //        $client->request('GET', $this->getRoute('nsApiPneumoniaGetRRL'));
@@ -142,7 +147,7 @@ class PneumoniaControllerTest extends WebTestCase
 
         $response = $client->getResponse();
         $this->assertEquals(403, $response->getStatusCode());
-        $this->assertFalse($response->headers->has('Location'), "We have a location header");
+        $this->assertFalse($response->headers->has('Location'), 'We have a location header');
 
 // Because our user can't patch the RRL, no data is set/changed.
 //        $client->request('GET', $this->getRoute('nsApiPneumoniaGetRRL'));
@@ -176,7 +181,7 @@ class PneumoniaControllerTest extends WebTestCase
 
         $response = $client->getResponse();
         $this->assertEquals(204, $response->getStatusCode(),$response->getContent());
-        $this->assertFalse($response->headers->has('Location'), "We have a location header");
+        $this->assertFalse($response->headers->has('Location'), 'We have a location header');
 
         $client->request('GET', $this->getRoute('nsApiPneumoniaGetNL'));
         $response = $client->getResponse();
@@ -195,7 +200,7 @@ class PneumoniaControllerTest extends WebTestCase
 
         $response = $client->getResponse();
         $this->assertEquals(204, $response->getStatusCode());
-        $this->assertFalse($response->headers->has('Location'), "We have a location header");
+        $this->assertFalse($response->headers->has('Location'), 'We have a location header');
 
         $client->request('GET', $this->getRoute('nsApiPneumoniaGetNL'));
         $response = $client->getResponse();
@@ -219,10 +224,10 @@ class PneumoniaControllerTest extends WebTestCase
         }
 
         $this->assertEquals(204, $response->getStatusCode());
-        $this->assertFalse($response->headers->has('Location'), "We have a location header");
+        $this->assertFalse($response->headers->has('Location'), 'We have a location header');
 
         $case = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository(Pneumonia::class)->find(self::ID);
-        $this->assertEquals("Fabien", $case->getLastName(), "Change has occurred");
+        $this->assertEquals("Fabien", $case->getLastName(), 'Change has occurred');
         $this->assertEquals(ArrayChoice::NO_SELECTION, $case->getGender()->getValue());
     }
 
