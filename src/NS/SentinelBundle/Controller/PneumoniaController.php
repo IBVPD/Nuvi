@@ -140,7 +140,7 @@ class PneumoniaController extends BaseCaseController
         switch ($type) {
             case CaseType::class:
             case OutcomeType::class:
-                if($forDelete) {
+                if ($forDelete) {
                     return $this->get('doctrine.orm.entity_manager')->getRepository(Pneumonia::class)->findWithAssociations($objId);
                 }
                 return $this->get('doctrine.orm.entity_manager')->getRepository(Pneumonia::class)->find($objId);
@@ -151,7 +151,7 @@ class PneumoniaController extends BaseCaseController
             case NationalLabType::class:
                 return $this->get('doctrine.orm.entity_manager')->getRepository(NationalLab::class)->findOrCreateNew($objId);
             default:
-                throw new \RuntimeException("Unknown type");
+                throw new \RuntimeException('Unknown type');
         }
     }
 

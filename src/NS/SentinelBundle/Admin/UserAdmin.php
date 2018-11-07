@@ -173,7 +173,7 @@ class UserAdmin extends AbstractAdmin
                 $a->setUser($user);
             }
 
-            if (count($user->getAcls()) == 1) {
+            if (count($user->getAcls()) === 1) {
                 /** @var ACL $acl */
                 $acl = $user->getAcls()->first();
                 try {

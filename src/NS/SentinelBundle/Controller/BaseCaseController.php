@@ -11,6 +11,7 @@ use NS\SentinelBundle\Exceptions\NonExistentCaseException;
 use NS\SentinelBundle\Form\CreateType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Description of BaseCaseController
@@ -117,6 +118,10 @@ abstract class BaseCaseController extends Controller implements TranslationConta
     protected function delete($type, $objId, $redirectRoute)
     {
         $record = $this->getObject($type, $objId, true);
+        if (!$record) {
+            throw new NotFoundHttpException("Unable to locate case $objId");
+        }
+
         $entityMgr = $this->get('doctrine.orm.entity_manager');
         $entityMgr->remove($record);
         $entityMgr->flush();
