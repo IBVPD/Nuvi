@@ -67,7 +67,7 @@ class Duplicate implements ReporterInterface
 
     public function cleanValues($input)
     {
-        if (is_array($input)) {
+        if (\is_array($input)) {
             $output = '';
             foreach ($input as $value) {
                 $output .= sprintf('%s_', $this->cleanValues($value));
@@ -77,7 +77,7 @@ class Duplicate implements ReporterInterface
         }
 
         if (!mb_check_encoding($input, 'UTF-8')) {
-            throw new InvalidEncodingException(sprintf('Invalid UTF-8 key value %s', $value));
+            throw new InvalidEncodingException(sprintf('Invalid UTF-8 key value %s', $input));
         }
 
         return mb_strtoupper($input);
