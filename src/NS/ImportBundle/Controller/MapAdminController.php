@@ -5,6 +5,9 @@ namespace NS\ImportBundle\Controller;
 use NS\ImportBundle\Converter\Expression\Condition;
 use NS\ImportBundle\Converter\Expression\ConditionConverter;
 use NS\ImportBundle\Converter\Expression\ExpressionBuilder;
+use NS\ImportBundle\Entity\Import;
+use NS\ImportBundle\Entity\Map;
+use NS\ImportBundle\Repository\ImportRepository;
 use Sonata\AdminBundle\Controller\CRUDController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,5 +43,29 @@ class MapAdminController extends CRUDController
         $this->addFlash('sonata_flash_success', 'Cloned successfully');
 
         return new RedirectResponse($this->admin->generateUrl('list'));
+    }
+
+    /**
+     * @param Request $request
+     * @param Map $object
+     */
+    protected function preDelete(Request $request, $object)
+    {
+        /** @var ImportRepository $repo */
+        $repo = $this->admin->getModelManager()->getEntityManager(Import::class)->getRepository(Import::class);
+
+        if($repo->getMapResultCount($object) > 0) {
+            $object->setActive(false);
+            $this->admin->getModelManager()->update($object);
+
+            $this->addFlash(
+                'sonata_flash_info',
+                $this->trans('Map has import results so cannot be deleted. It has been marked inactive instead.')
+            );
+
+            return $this->redirectTo($object);
+        }
+
+        return null;
     }
 }

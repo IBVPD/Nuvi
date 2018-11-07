@@ -89,6 +89,13 @@ class Map
     private $labPreference = 'referenceLab';
 
     /**
+     * @var bool|null
+     *
+     * @ORM\Column(name="active", type="boolean", nullable=true)
+     */
+    private $active = true;
+
+    /**
      * {@inheritdoc}
      */
     public function __clone()
@@ -108,15 +115,25 @@ class Map
         }
     }
 
-    /**
-     *
-     * @return \NS\ImportBundle\Entity\Map
-     */
     public function __construct()
     {
         $this->columns = new ArrayCollection();
+    }
 
-        return $this;
+    /**
+     * @return bool|null
+     */
+    public function isActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param bool|null $active
+     */
+    public function setActive($active)
+    {
+        $this->active = (bool)$active;
     }
 
     /**

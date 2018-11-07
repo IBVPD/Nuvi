@@ -13,6 +13,10 @@ use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use NS\SentinelBundle\Entity\Pneumonia\Pneumonia;
+use NS\SentinelBundle\Entity\Meningitis\Meningitis;
+use NS\SentinelBundle\Entity\RotaVirus;
+use NS\SentinelBundle\Entity\IBD;
 
 /**
  * MapAdmin class
@@ -38,15 +42,16 @@ class MapAdmin extends AbstractAdmin
         $datagridMapper
             ->add('name')
             ->add('version')
+            ->add('active')
             ->add('class', 'doctrine_orm_callback',
                 [
                     'field_type' => 'choice',
                     'field_options' => [
                         'choices' => [
-                            'NS\\SentinelBundle\\Entity\\Pneumonia\\Pneumonia' => 'Pneumonia',
-                            'NS\\SentinelBundle\\Entity\\Meningitis\\Meningitis' => 'Meningitis',
-                            'NS\\SentinelBundle\\Entity\\RotaVirus' => 'RotaVirus',
-                            'NS\\SentinelBundle\\Entity\\IBD' => 'IBD',
+                            'Pneumonia' => Pneumonia::class,
+                            'Meningitis' => Meningitis::class,
+                            'RotaVirus' => RotaVirus::class,
+                            'IBD' => IBD::class,
                         ],
                         'placeholder' => ' '
                     ],
@@ -82,6 +87,7 @@ class MapAdmin extends AbstractAdmin
         $listMapper
             ->addIdentifier('selectName')
             ->add('description', null, ['label' => 'notes'])
+            ->add('active')
             ->add('_action', 'actions', [
                 'actions' => [
                     'show' => [],
@@ -139,6 +145,7 @@ class MapAdmin extends AbstractAdmin
     {
         $showMapper
             ->add('name')
+            ->add('active')
             ->add('version')
             ->add('columns');
     }

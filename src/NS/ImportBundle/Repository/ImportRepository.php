@@ -7,6 +7,7 @@ use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\UnexpectedResultException;
 use NS\ImportBundle\Entity\Import;
+use NS\ImportBundle\Entity\Map;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -105,6 +106,20 @@ class ImportRepository extends EntityRepository
                 ->getSingleResult();
         } catch (UnexpectedResultException $exception) {
             return null;
+        }
+    }
+
+    public function getMapResultCount(Map $map)
+    {
+        try {
+            return $this->createQueryBuilder('i')
+                ->select('COUNT(i.id)')
+                ->where('i.map = :map')
+                ->setParameter('map', $map)
+                ->getQuery()
+                ->getSingleScalarResult();
+        } catch (UnexpectedResultException $exception) {
+            return 0;
         }
     }
 }
