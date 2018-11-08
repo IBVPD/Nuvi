@@ -27,6 +27,10 @@ class BaseCaseGenerator extends AbstractIdGenerator
             throw new \InvalidArgumentException('Entity must extend NS\\SentinelBundle\\Entity\\BaseCase');
         }
 
+        if ($entity->getId()) {
+            return $entity->getId();
+        }
+
         $site = $entity->getSite();
         $country = $entity->getCountry();
 

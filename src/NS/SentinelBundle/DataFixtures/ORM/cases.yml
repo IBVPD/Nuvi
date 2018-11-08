@@ -3,6 +3,7 @@
 NS\SentinelBundle\Entity\IBD:
   ibdTest:
     caseId: 12
+    id: 'CA-ALBCHLD-15-000001'
     birthdate: <dateTimeBetween('2014-01-01', '2014-12-25')>
     gender: <gender()>
     admDx: <ibdDiagnosis()>
@@ -93,6 +94,7 @@ NS\SentinelBundle\Entity\IBD\ReferenceLab:
 NS\SentinelBundle\Entity\RotaVirus:
   rotaTest:
     caseId: 12
+    id: 'CA-ALBCHLD-15-000001'
     birthdate: <dateTimeBetween('2014-01-01', '2014-12-25')>
     gender: <gender()>
     admDate: <dateTimeBetween('2015-01-01', '2015-01-05')>

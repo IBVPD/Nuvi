@@ -1,6 +1,7 @@
 ---
 NS\SentinelBundle\Entity\Meningitis\Meningitis:
   pneuTest:
+    id: 'CA-ALBCHLD-15-000001'
     caseId: 12
     birthdate: <dateTimeBetween('2014-01-01', '2014-12-25')>
     gender: <gender()>
