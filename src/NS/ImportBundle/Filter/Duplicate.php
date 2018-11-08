@@ -76,7 +76,7 @@ class Duplicate implements ReporterInterface
             return $output;
         }
 
-        if (!mb_check_encoding($input, 'UTF-8')) {
+        if (\is_string($input) && !mb_check_encoding($input, 'UTF-8')) {
             throw new InvalidEncodingException(sprintf('Invalid UTF-8 key value %s', $input));
         }
 

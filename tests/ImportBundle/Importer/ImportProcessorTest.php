@@ -15,6 +15,7 @@ use NS\ImportBundle\Filter\NotBlank;
 use NS\ImportBundle\Importer\ImportProcessor;
 use NS\ImportBundle\Linker\CaseLinkerRegistry;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Description of ImportProcessorTest
@@ -557,7 +558,7 @@ class ImportProcessorTest extends WebTestCase
         ];
 
         $file = new File(__DIR__ . '/../Fixtures/IBD-CasePlusSiteLab.csv');
-        $mockUser = $this->createMock('Symfony\Component\Security\Core\User\UserInterface');
+        $mockUser = $this->createMock(UserInterface::class);
         $import = new Import($mockUser);
         $import->setInputDateStart(new \DateTime());
         $import->setInputDateEnd(new \DateTime());
@@ -573,13 +574,13 @@ class ImportProcessorTest extends WebTestCase
         $processor->setDuplicate(new Duplicate($linker->getCriteria()));
         $writer = $processor->getWriter($import->getClass(), $linker->getCriteria(), $linker->getRepositoryMethod());
         $repoMethod = $writer->getEntityRepositoryMethod();
-        $this->assertTrue(is_callable($repoMethod));
+        $this->assertInternalType('callable', $repoMethod);
         $this->assertEquals($repoMethod[1], 'findBySiteAndCaseId');
 
         $result    = $processor->process($import);
 
-        if (count($result->getExceptions()) > 0) {
-            $this->fail("Error Count: ".$result->getErrorCount());
+        if (\count($result->getExceptions()) > 0) {
+            $this->fail('Error Count: ' .$result->getErrorCount());
         }
 
         $this->assertEquals(2, $result->getSuccessCount());

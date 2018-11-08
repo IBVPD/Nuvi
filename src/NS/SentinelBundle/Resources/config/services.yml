@@ -128,3 +128,9 @@ services:
   ns_sentinel.object_initializer:
     class: NS\SentinelBundle\Services\ObjectInitializer
     arguments: [ "@doctrine.orm.entity_manager", "@jms_serializer", "@annotations.reader" ]
+
+  ns_sentinel.data_fixtures.processor.user:
+    class: NS\SentinelBundle\DataFixtures\Processor\UserProcessor
+    arguments: [ "@security.encoder_factory"]
+    tags:
+      - { name: hautelook_alice.alice.processor }

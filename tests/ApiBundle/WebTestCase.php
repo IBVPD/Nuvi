@@ -3,6 +3,7 @@
 namespace NS\ApiBundle\Tests;
 
 use Liip\FunctionalTestBundle\Test\WebTestCase as BaseWebTestCase;
+use NS\ApiBundle\Entity\Client;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -25,28 +26,28 @@ class WebTestCase extends BaseWebTestCase
             'CONTENT_TYPE'       => 'application/json',
             'HTTP_AUTHORIZATION' => 'Bearer ' . $accessToken['access_token']], $server);
 
-        $this->assertContains($accessToken['access_token'], $serverParams['HTTP_AUTHORIZATION'], "Contains http authorization");
+        $this->assertContains($accessToken['access_token'], $serverParams['HTTP_AUTHORIZATION'], 'Contains http authorization');
 
         return static::createClient($options, $serverParams);
     }
 
     public function getAccessToken(UserInterface $user)
     {
-        $uname = $user->getUsername();
-        if (isset($this->accessToken[$uname]) && $this->accessToken[$uname]['expires_at'] < time()) {
-            return $this->accessToken[$uname]['access_token'];
+        $username = $user->getUsername();
+        if (isset($this->accessToken[$username]) && $this->accessToken[$username]['expires_at'] < time()) {
+            return $this->accessToken[$username]['access_token'];
         }
 
         $cont        = $this->getContainer();
         $em          = $cont->get('doctrine.orm.entity_manager');
         $oauth       = $cont->get('fos_oauth_server.server');
-        $oauthClient = $em->getRepository('NSApiBundle:Client')->getForUser($user);
+        $oauthClient = $em->getRepository(Client::class)->getForUser($user);
 
         $cont->get('fos_oauth_server.auth_code_manager')->deleteExpired();
 
-        $this->assertNotNull($oauthClient, "OauthClient is not null");
-        $this->assertNotEmpty($oauthClient, "OauthClient is not empty");
-        $this->assertTrue(is_object($oauthClient[0]));
+        $this->assertNotNull($oauthClient, 'OauthClient is not null');
+        $this->assertNotEmpty($oauthClient, 'OauthClient is not empty');
+        $this->assertInternalType('object', $oauthClient[0]);
 
         $accessToken = $oauth->createAccessToken($oauthClient[0], $user);
 
@@ -54,7 +55,7 @@ class WebTestCase extends BaseWebTestCase
         $this->assertArrayHasKey('access_token', $accessToken);
 
         $accessToken['expires_at'] = time() + $accessToken['expires_in'];
-        $this->accessToken[$uname] = $accessToken;
+        $this->accessToken[$username] = $accessToken;
 
         return $accessToken;
     }

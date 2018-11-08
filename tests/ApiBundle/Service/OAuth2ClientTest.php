@@ -2,6 +2,8 @@
 
 namespace NS\ApiBundle\Tests\Service;
 
+use NS\ApiBundle\Service\OAuth2Client;
+
 /**
  * Description of OAuth2ClientTest
  *
@@ -9,11 +11,10 @@ namespace NS\ApiBundle\Tests\Service;
  */
 class OAuth2ClientTest extends \PHPUnit_Framework_TestCase
 {
-
     public function testGetName()
     {
         $entityMgr = $this->getEntityManager();
-        $authClient = new \NS\ApiBundle\Service\OAuth2Client($entityMgr);
+        $authClient = new OAuth2Client($entityMgr);
         $this->assertEquals('oauth_client', $authClient->getName());
     }
 
@@ -24,7 +25,7 @@ class OAuth2ClientTest extends \PHPUnit_Framework_TestCase
         $remote->setClientId('clientId1234156');
         $remote->setClientSecret(md5('clientId1234156'));
 
-        $authClient = new \NS\ApiBundle\Service\OAuth2Client($entityMgr);
+        $authClient = new OAuth2Client($entityMgr);
         $authClient->setRemote($remote);
 
         $client = $authClient->getClient();
@@ -39,10 +40,10 @@ class OAuth2ClientTest extends \PHPUnit_Framework_TestCase
         $remote    = new \NS\ApiBundle\Entity\Remote();
         $remote->setClientId('clientId1234156');
         $remote->setClientSecret(md5('clientId1234156'));
-        $remote->setAuthEndpoint("http://localhost/auth");
-        $remote->setTokenEndpoint("http://localhost/token");
+        $remote->setAuthEndpoint('http://localhost/auth');
+        $remote->setTokenEndpoint('http://localhost/token');
 
-        $authClient = new \NS\ApiBundle\Service\OAuth2Client($entityMgr);
+        $authClient = new OAuth2Client($entityMgr);
         $authClient->setRemote($remote);
 
         $url = $authClient->getAuthenticationUrl();
@@ -63,7 +64,7 @@ class OAuth2ClientTest extends \PHPUnit_Framework_TestCase
     {
         $entityMgr  = $this->getEntityManager();
         $remote     = new \NS\ApiBundle\Entity\Remote();
-        $authClient = new \NS\ApiBundle\Service\OAuth2Client($entityMgr);
+        $authClient = new OAuth2Client($entityMgr);
 
         $authClient->getAuthenticationUrl(null, $remote);
     }
@@ -75,7 +76,7 @@ class OAuth2ClientTest extends \PHPUnit_Framework_TestCase
     {
         $entityMgr  = $this->getEntityManager();
         $remote     = new \NS\ApiBundle\Entity\Remote();
-        $authClient = new \NS\ApiBundle\Service\OAuth2Client($entityMgr);
+        $authClient = new OAuth2Client($entityMgr);
         $authClient->setRemote($remote);
         $client     = $authClient->getClient();
 
@@ -91,7 +92,7 @@ class OAuth2ClientTest extends \PHPUnit_Framework_TestCase
         $remote->setAuthEndpoint("http://localhost/auth");
         $remote->setTokenEndpoint("http://localhost/token");
 
-        $authClient = new \NS\ApiBundle\Service\OAuth2Client($entityMgr);
+        $authClient = new OAuth2Client($entityMgr);
         $authClient->setRemote($remote);
 
         $urlOne = $authClient->getAuthenticationPath();

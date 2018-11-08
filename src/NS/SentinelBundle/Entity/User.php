@@ -124,6 +124,7 @@ class User implements AdvancedUserInterface
     public function __construct()
     {
         $this->acls = new ArrayCollection();
+        $this->resetSalt();
     }
 
     /**

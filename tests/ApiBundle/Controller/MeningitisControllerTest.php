@@ -9,7 +9,7 @@ use NS\UtilBundle\Form\Types\ArrayChoice;
 
 class MeningitisControllerTest extends WebTestCase
 {
-    const ID = 'CA-ALBCHLD-15-000078';
+    const ID = 'CA-ALBCHLD-14-000020';
 
     public function testGetCase()
     {

@@ -43,7 +43,6 @@
         "ns/filtered-pagination-bundle": "~2.0",
 
         "jms/translation-bundle": "^1.2",
-        "doctrine/doctrine-fixtures-bundle": "^2.0",
         "oneup/uploader-bundle": "1.0.*@dev",
 
         "knplabs/knp-paginator-bundle": "~2.4",
@@ -103,6 +102,7 @@
       "phpmd/phpmd": "@stable",
       "liip/functional-test-bundle": "^1.7",
       "liip/rmt": "^1.1",
+      "doctrine/data-fixtures": "^1.0",
       "hautelook/alice-bundle": "^1.4"
     }
 }

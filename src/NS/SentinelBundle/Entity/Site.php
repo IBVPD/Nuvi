@@ -215,14 +215,14 @@ class Site implements \Serializable
     public function __toString()
     {
         if (mb_strlen($this->name, 'UTF-8') > 20) {
-            return mb_substr($this->name, 0, 31, 'UTF-8') . "...";
+            return mb_substr($this->name, 0, 31, 'UTF-8') . '...';
         }
 
-        if (empty($this->name)) {
+        if ($this->name === null) {
             return sprintf('No Name - %s', $this->code);
         }
 
-        return $this->name;
+        return sprintf('%s', $this->name);
     }
 
     /**
@@ -249,7 +249,7 @@ class Site implements \Serializable
      */
     public function hasId()
     {
-        return (!empty($this->code) || (is_integer($this->code) && $this->code == 0) || $this->code !== null);
+        return (!empty($this->code) || (\is_integer($this->code) && $this->code == 0) || $this->code !== null);
     }
 
     /**

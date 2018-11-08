@@ -1,6 +1,6 @@
 <?php
 
-namespace NS\SentinelBundle\DataFixtures\Alice;
+namespace NS\SentinelBundle\DataFixtures\Processor;
 
 use Nelmio\Alice\ProcessorInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
