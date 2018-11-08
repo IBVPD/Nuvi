@@ -3,6 +3,7 @@ VERSION 0  INITIAL RELEASE
 ==========================
 
    Version 0.12 - Fix Import issues + Bump PHP version to 7.2
+      07/11/2018 18:40  0.12.1  Fixed tests/import issues
       07/11/2018 12:21  0.12.0  initial release
 
    Version 0.11 - Split IBD into Pneumonia/Meningitis
