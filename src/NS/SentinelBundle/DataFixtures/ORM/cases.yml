@@ -36,7 +36,12 @@ NS\SentinelBundle\Entity\IBD:
     csfCollectTime: <dateTimeBetween($admDate,'now')>
     csfAppearance: <csfAppearance($csfCollected)>
     site: "@site0"
-  ibdNoSites{0..10}:
+  ibdNoSites0:
+    id: 'CA-XXX-16-483C943D-47FE-4900-9BD4-BCAC2DA9EE22'
+    caseId: <bothify('NoSite-##??##')>
+    admDate: <dateTimeBetween('2016-01-01', '2016-12-05')>
+    country: "@country0"
+  ibdNoSites{1..10}:
     caseId: <bothify('NoSite-##??##')>
     admDate: <dateTimeBetween('2016-01-01', '2016-12-05')>
     country: "@country0"
