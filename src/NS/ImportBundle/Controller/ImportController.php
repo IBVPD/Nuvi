@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Description of ImportController
@@ -25,6 +26,7 @@ class ImportController extends Controller
     /**
      * @param Request $request
      * @Route("/",name="importIndex")
+     *
      * @return array|RedirectResponse
      * @Method(methods={"GET","POST"})
      */
@@ -36,7 +38,7 @@ class ImportController extends Controller
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $queue = $this->get('ns_import.workqueue');
-            $ret = $queue->submit($form->getData());
+            $ret   = $queue->submit($form->getData());
             if ($ret === true) {
                 $this->get('ns_flash')->addSuccess(null, null, "Import Added");
             } else {
@@ -55,6 +57,7 @@ class ImportController extends Controller
 
     /**
      * @param $id
+     *
      * @return Response
      *
      * @Route("/status/{id}",name="importStatus",requirements={"id"="\d+"})
@@ -70,11 +73,16 @@ class ImportController extends Controller
     /**
      * @param $id
      * @Route("/execute/{id}",name="importExecute",requirements={"id"="\d+"})
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function executeAction($id)
     {
         $import = $this->get('doctrine.orm.entity_manager')->find('NSImportBundle:Import', $id);
+        if (!$import) {
+            throw new NotFoundHttpException('Unable to locate import');
+        }
+
         $worker = $this->get('ns_import.batch_worker');
         $worker->consume($import, 400);
 
@@ -90,7 +98,7 @@ class ImportController extends Controller
     public function resubmitAction($id)
     {
         $import = $this->get('doctrine.orm.entity_manager')->find('NSImportBundle:Import', $id);
-        $queue = $this->get('ns_import.workqueue');
+        $queue  = $this->get('ns_import.workqueue');
 
         if ($queue->reSubmit($import)) {
             $this->get('ns_flash')->addSuccess(null, null, "Import Re-Submitted");
@@ -104,12 +112,13 @@ class ImportController extends Controller
     /**
      * @param $id
      * @Route("/pause/{id}",name="importDelete",requirements={"id"="\d+"})
+     *
      * @return RedirectResponse
      */
     public function deleteAction($id)
     {
         $import = $this->get('doctrine.orm.entity_manager')->find('NSImportBundle:Import', $id);
-        $queue = $this->get('ns_import.workqueue');
+        $queue  = $this->get('ns_import.workqueue');
         $queue->delete($import);
         return $this->redirect($this->generateUrl('importIndex'));
     }
@@ -117,12 +126,13 @@ class ImportController extends Controller
     /**
      * @param $id
      * @Route("/pause/{id}",name="importPause",requirements={"id"="\d+"})
+     *
      * @return RedirectResponse
      */
     public function pauseAction($id)
     {
         $import = $this->get('doctrine.orm.entity_manager')->find('NSImportBundle:Import', $id);
-        $queue = $this->get('ns_import.workqueue');
+        $queue  = $this->get('ns_import.workqueue');
         if ($queue->pause($import)) {
             $this->get('ns_flash')->addSuccess(null, null, 'Import paused');
         } else {
@@ -135,12 +145,13 @@ class ImportController extends Controller
     /**
      * @param $id
      * @Route("/resume/{id}",name="importResume",requirements={"id"="\d+"})
+     *
      * @return RedirectResponse
      */
     public function resumeAction($id)
     {
         $import = $this->get('doctrine.orm.entity_manager')->find('NSImportBundle:Import', $id);
-        $queue = $this->get('ns_import.workqueue');
+        $queue  = $this->get('ns_import.workqueue');
 
         if ($queue->resume($import)) {
             $this->get('ns_flash')->addSuccess(null, null, 'Import resumed');
@@ -156,6 +167,7 @@ class ImportController extends Controller
      * @param $type
      * @param $id
      * @Method(methods={"GET"})
+     *
      * @return BinaryFileResponse
      */
     public function resultDownloadAction($type, $id)
@@ -191,7 +203,7 @@ class ImportController extends Controller
 
                     return $response;
                 } catch (FileException $exception) {
-                    throw $this->createNotFoundException(sprintf('Unable to locate or read "%s" import result file',$sourceFile->getFilename()));
+                    throw $this->createNotFoundException(sprintf('Unable to locate or read "%s" import result file', $sourceFile->getFilename()));
                 }
             }
         }
