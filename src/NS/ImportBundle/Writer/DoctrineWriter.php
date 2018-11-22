@@ -103,7 +103,7 @@ class DoctrineWriter extends BaseWriter
                 continue;
             }
 
-            if ($value != $this->entityMetadata->getFieldValue($entity, $fieldName)) {
+            if ($value !== $this->entityMetadata->getFieldValue($entity, $fieldName)) {
                 $setter = 'set' .CamelCaser::process($fieldName);
                 $this->setValue($entity, $value, $setter);
             }
