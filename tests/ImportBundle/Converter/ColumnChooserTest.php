@@ -5,12 +5,14 @@ namespace NS\ImportBundle\Tests\Converter;
 use Doctrine\Common\Cache\ArrayCache;
 use Doctrine\DBAL\Types\Type;
 use NS\ImportBundle\Converter\ColumnChooser;
+use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\EntityManager;
 
 class ColumnChooserTest extends \PHPUnit_Framework_TestCase
 {
     public function testCacheHitDoesNotBuildChoices()
     {
-        $cacheMock = $this->createMock('\Doctrine\Common\Cache\ArrayCache');
+        $cacheMock = $this->createMock(ArrayCache::class);
         $cacheMock->expects($this->once())
             ->method('contains')
             ->with('class')
@@ -28,7 +30,7 @@ class ColumnChooserTest extends \PHPUnit_Framework_TestCase
 
     public function testCacheHitDoesNotBuildComplex()
     {
-        $cacheMock = $this->createMock('\Doctrine\Common\Cache\ArrayCache');
+        $cacheMock = $this->createMock(ArrayCache::class);
         $cacheMock->expects($this->once())
             ->method('contains')
             ->with('class')
@@ -46,9 +48,9 @@ class ColumnChooserTest extends \PHPUnit_Framework_TestCase
 
     public function testCacheMissBuilds()
     {
-        $meta = $this->createMock('Doctrine\ORM\Mapping\ClassMetadata');
+        $meta = $this->createMock(ClassMetadata::class);
 
-        $mockEntityMgr = $this->createMock('Doctrine\ORM\EntityManager');
+        $mockEntityMgr = $this->createMock(EntityManager::class);
 
         $mockEntityMgr
             ->expects($this->once())
@@ -57,7 +59,7 @@ class ColumnChooserTest extends \PHPUnit_Framework_TestCase
 
         $cache = new ArrayCache();
 
-        $chooser = $this->getMockBuilder('NS\ImportBundle\Converter\ColumnChooser')
+        $chooser = $this->getMockBuilder(ColumnChooser::class)
             ->setMethods(['buildChoices', 'buildComplex'])
             ->setConstructorArgs([$mockEntityMgr, $cache])
             ->getMock();
@@ -80,7 +82,7 @@ class ColumnChooserTest extends \PHPUnit_Framework_TestCase
 
     public function testMetaChoicesWithoutAssociationName()
     {
-        $meta = $this->getMockBuilder('Doctrine\ORM\Mapping\ClassMetadata')
+        $meta = $this->getMockBuilder(ClassMetadata::class)
             ->disableOriginalConstructor()
             ->setMethods(['getFieldNames', 'getTypeOfField'])
             ->getMock();
@@ -100,7 +102,7 @@ class ColumnChooserTest extends \PHPUnit_Framework_TestCase
         $chooser = $this->getChooser();
 
         $choices = $chooser->getMetaChoices($meta);
-        $this->assertTrue(is_array($choices));
+        $this->assertInternalType('array', $choices);
         $this->assertCount(3, $choices);
 
         $this->assertArrayHasKey('field1', $choices);
@@ -184,9 +186,9 @@ class ColumnChooserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('assocName.field3 (TripleChoice)', $choices['assocName.field3']);
     }
 
-    public function getChooser($cache = null)
+    public function getChooser($cache = null): ColumnChooser
     {
-        $mockEntityMgr = $this->createMock('Doctrine\ORM\EntityManager');
+        $mockEntityMgr = $this->createMock(EntityManager::class);
 
         return new ColumnChooser($mockEntityMgr, (!$cache)?new ArrayCache():$cache);
     }
