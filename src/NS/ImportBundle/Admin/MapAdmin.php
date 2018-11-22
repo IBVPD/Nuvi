@@ -114,7 +114,7 @@ class MapAdmin extends AbstractAdmin
         $formMapper
             ->add('name', null, ['label_attr' => ['class' => 'col-sm-2']])
             ->add('description', null, ['label' => 'Notes', 'label_attr' => ['class' => 'col-sm-2']])
-            ->add('class', ClassType::class, ['label_attr' => ['class' => 'col-sm-2'], 'attr' => ['data-Class' => true], 'help' => $help])
+            ->add('class', ClassType::class, ['label_attr' => ['class' => 'col-sm-2'], 'attr' => ['data-Class' => 'true'], 'help' => $help])
             ->add('version', null, ['required' => true, 'label_attr' => ['class' => 'col-sm-2']])
             ->add('headerRow', IntegerType::class, ['label_attr' => ['class' => 'col-sm-2']])
             ->add('caseLinker', ChoiceType::class, [
