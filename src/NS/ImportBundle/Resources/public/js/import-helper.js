@@ -8,22 +8,26 @@
 
         this.pneumonia = {
             conf: {},
-            prefixes: {'': 'pneumonia', 'siteLab': 'siteLab', 'referenceLab': 'rl', 'nationalLab': 'nl'}
+            prefixes: {'': 'pneumonia', 'siteLab': 'siteLab', 'referenceLab': 'rl', 'nationalLab': 'nl'},
+            loaded: false
         };
 
         this.meningitis = {
             conf: {},
-            prefixes: {'': 'meningitis', 'siteLab': 'siteLab', 'referenceLab': 'rl', 'nationalLab': 'nl'}
+            prefixes: {'': 'meningitis', 'siteLab': 'siteLab', 'referenceLab': 'rl', 'nationalLab': 'nl'},
+            loaded: false
         };
 
         this.ibd = {
             conf: {},
-            prefixes: {'': 'ibd', 'siteLab': 'siteLab', 'referenceLab': 'rl', 'nationalLab': 'nl'}
+            prefixes: {'': 'ibd', 'siteLab': 'siteLab', 'referenceLab': 'rl', 'nationalLab': 'nl'},
+            loaded: false
         };
 
         this.rotavirus = {
             conf: {},
-            prefixes: {'': 'rotavirus', 'siteLab': 'siteLab', 'referenceLab': 'rl', 'nationalLab': 'nl'}
+            prefixes: {'': 'rotavirus', 'siteLab': 'siteLab', 'referenceLab': 'rl', 'nationalLab': 'nl'},
+            loaded: false
         };
 
         this.initialized = false;
@@ -61,6 +65,7 @@
                 });
 
                 helper[conf].conf = data;
+                helper[conf].loaded = true;
                 helper._init();
             }).error(function (data, status, error) {
                 console.log('Unable to retrieve conf: ' + conf + ' - ' + status + ': "' + error + '"');
@@ -69,8 +74,11 @@
 
         _init: function () {
             if (!this.initialized) {
-                this.initialized = true;
-                this.AddListeners();
+                if(this.pneumonia.loaded && this.meningitis.loaded && this.ibd.loaded && this.rotavirus.loaded)
+                {
+                    this.initialized = true;
+                    this.AddListeners();
+                }
             }
         },
 
