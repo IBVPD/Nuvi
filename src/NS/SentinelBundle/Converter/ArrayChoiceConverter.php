@@ -54,8 +54,8 @@ class ArrayChoiceConverter implements NamedValueConverterInterface, ReporterInte
     {
         $this->message = null;
 
-        $input = (is_string($value)) ? trim($value) : $value;
-        if ($input !== 0 && empty($input)) {
+        $input = \is_string($value) ? trim($value) : $value;
+        if ($input !== 0 && $input != '0' && empty($input)) {
             return new $this->class();
         }
 
