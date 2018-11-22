@@ -1,3 +1,8 @@
+offline:
+  path: /offline-check
+  defaults:
+    _controller: 'NSSentinelBundle:Security:offlineCheck'
+
 home_redirect:
     path: /
     defaults:

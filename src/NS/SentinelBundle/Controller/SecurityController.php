@@ -31,6 +31,11 @@ class SecurityController extends Controller
         ]);
     }
 
+    public function offlineCheckAction()
+    {
+        return new Response(null,Response::HTTP_NO_CONTENT,['Cache-Control'=> 'private, no-cache, no-store, proxy-revalidate, no-transform','Pragma'=>'no-cache']);
+    }
+
     /**
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
