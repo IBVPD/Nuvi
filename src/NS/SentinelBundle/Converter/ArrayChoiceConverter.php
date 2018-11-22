@@ -36,11 +36,11 @@ class ArrayChoiceConverter implements NamedValueConverterInterface, ReporterInte
     public function __construct($class, $type)
     {
         if (!class_exists($class)) {
-            throw new \RuntimeException(sprintf("Unable to find class %s", $class));
+            throw new \RuntimeException(sprintf('Unable to find class %s', $class));
         }
 
         $this->class = $class;
-        $this->type = join('', array_slice(explode('\\', $class), -1));
+        $this->type = join('', \array_slice(explode('\\', $class), -1));
         $this->name  = sprintf('%s (%s)', $this->type, $type);
     }
 
@@ -62,7 +62,7 @@ class ArrayChoiceConverter implements NamedValueConverterInterface, ReporterInte
         try {
             return new $this->class(is_numeric($input) ? (int) $input : $input);
         } catch (UnexpectedValueException2 $ex) {
-            $cons = constant(sprintf('%s::OUT_OF_RANGE', $this->class));
+            $cons = \constant(sprintf('%s::OUT_OF_RANGE', $this->class));
 
             $this->message = sprintf('Invalid value (out of range). Set to %s to %d', $value, $cons);
             return new $this->class($cons);

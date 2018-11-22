@@ -947,7 +947,7 @@ class Import
     }
 
     /**
-     * @return array
+     * @return array|Column[]
      */
     public function getConverters()
     {
@@ -955,7 +955,7 @@ class Import
     }
 
     /**
-     * @return array
+     * @return array|Column[]
      */
     public function getMappings()
     {
@@ -963,7 +963,7 @@ class Import
     }
 
     /**
-     * @return array
+     * @return array|Column[]
      */
     public function getIgnoredMapper()
     {
@@ -971,7 +971,7 @@ class Import
     }
 
     /**
-     * @return mixed
+     * @return array
      */
     public function getPreprocessor()
     {

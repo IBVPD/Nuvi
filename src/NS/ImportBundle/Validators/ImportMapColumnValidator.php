@@ -9,15 +9,10 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class ImportMapColumnValidator extends ConstraintValidator
 {
-
-    /**
-     * @var ColumnChooser
-     */
+    /** @var ColumnChooser */
     private $columnChooser;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     private $complexChoices;
 
     /**
@@ -35,7 +30,7 @@ class ImportMapColumnValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
         if (!$value instanceof Column) {
-            throw new \InvalidArgumentException(sprintf('Expected object of class NS\ImportBundle\Entity\Column received %s', get_class($value)));
+            throw new \InvalidArgumentException(sprintf('Expected object of class %s received %s', Column::class, \get_class($value)));
         }
 
         if (empty($this->complexChoices)) {
@@ -46,7 +41,7 @@ class ImportMapColumnValidator extends ConstraintValidator
             // if db column is not scalar, ensure we have a 'validator'
             if (!$value->hasConverter() && isset($this->complexChoices[$value->getMapper()])) {
                 $this->context
-                    ->buildViolation("This column has a field that requires a validator, but none were selected")
+                    ->buildViolation('This column has a field that requires a validator, but none were selected')
                     ->atPath('converter')
                     ->addViolation();
             }

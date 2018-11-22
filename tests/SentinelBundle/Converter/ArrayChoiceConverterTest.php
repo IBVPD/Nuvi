@@ -33,7 +33,7 @@ class ArrayChoiceConverterTest extends \PHPUnit_Framework_TestCase
      */
     public function testArrayChoiceConverterOutOfRange(ArrayChoice $obj)
     {
-        $class = get_class($obj);
+        $class = \get_class($obj);
         $converter = new ArrayChoiceConverter($class,'nothing');
 
         $obj->getValues();
@@ -49,7 +49,7 @@ class ArrayChoiceConverterTest extends \PHPUnit_Framework_TestCase
      */
     public function testArrayChoiceConverter(ArrayChoice $obj)
     {
-        $class = get_class($obj);
+        $class = \get_class($obj);
         $converter = new ArrayChoiceConverter($class,'nothing');
         $values = $obj->getValues();
 

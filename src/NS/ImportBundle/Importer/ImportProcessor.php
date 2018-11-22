@@ -319,8 +319,9 @@ class ImportProcessor
         if (!empty($converters)) {
             $valueConverter = new ValueConverterStep();
 
+
             foreach ($converters as $column) {
-                $name = ($column->hasMapper()) ? $column->getMapper() : $column->getName();
+                $name = $column->hasMapper() ? $column->getMapper() : $column->getName();
                 $valueConverter->add(sprintf('[%s]', str_replace('.', '][', $name)), $this->registry->get($column->getConverter()));
             }
 

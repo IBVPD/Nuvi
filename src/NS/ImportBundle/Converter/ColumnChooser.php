@@ -61,7 +61,7 @@ class ColumnChooser
      * @param string $class
      * @return array
      */
-    public function getChoices($class)
+    public function getChoices($class): array
     {
         if (!isset($this->results[$class])) {
             $this->results[$class] = $this->getClassData($class);
@@ -100,7 +100,7 @@ class ColumnChooser
      * @param $class
      * @return array
      */
-    public function build($class)
+    public function build($class): array
     {
         $metaData= $this->entityMgr->getClassMetadata($class);
         $choices = $this->buildChoices($metaData);
@@ -116,7 +116,7 @@ class ColumnChooser
      * @param ClassMetadata $metaData
      * @return array
      */
-    public function buildChoices(ClassMetadata $metaData)
+    public function buildChoices(ClassMetadata $metaData): array
     {
         $choices  = ['site'=>'site (Site)','country'=>'country (Country)'];
         $choices += $this->getMetaChoices($metaData);
@@ -134,7 +134,7 @@ class ColumnChooser
      * @param null $associationName
      * @return array
      */
-    public function getMetaChoices(ClassMetadata $metadata, $associationName = null)
+    public function getMetaChoices(ClassMetadata $metadata, $associationName = null): array
     {
         $choices = [];
 
@@ -159,7 +159,7 @@ class ColumnChooser
      * @param ClassMetadata $metaData
      * @return array
      */
-    public function buildComplex(ClassMetadata $metaData)
+    public function buildComplex(ClassMetadata $metaData): array
     {
         $choices = ['site'=>true,'country'=>true];
         $choices += $this->getMetaComplexChoices($metaData);
@@ -176,7 +176,7 @@ class ColumnChooser
      * @param ClassMetadata $metadata
      * @return array
      */
-    public function getMetaComplexChoices(ClassMetadata $metadata)
+    public function getMetaComplexChoices(ClassMetadata $metadata): array
     {
         $choices = [];
 
@@ -196,7 +196,7 @@ class ColumnChooser
      * @param $fieldType
      * @return bool
      */
-    public function isComplex($fieldType)
+    public function isComplex($fieldType): bool
     {
         return !in_array($fieldType, $this->simpleTypes);
     }

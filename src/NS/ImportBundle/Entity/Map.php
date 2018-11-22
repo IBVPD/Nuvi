@@ -395,7 +395,7 @@ class Map
 
     /**
      *
-     * @return array
+     * @return array|Column[]
      */
     public function getConvertedColumns()
     {
@@ -410,7 +410,7 @@ class Map
     }
 
     /**
-     * @return array
+     * @return array|Column[]
      */
     public function getMappedColumns()
     {
@@ -428,7 +428,7 @@ class Map
     }
 
     /**
-     * @return array
+     * @return array|Column[]
      */
     public function getIgnoredColumns()
     {
@@ -444,7 +444,7 @@ class Map
     }
 
     /**
-     * @return array
+     * @return array|Column[]
      */
     public function getPreProcessorConditions()
     {
