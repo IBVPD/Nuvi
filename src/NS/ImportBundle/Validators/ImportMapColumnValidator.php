@@ -37,14 +37,12 @@ class ImportMapColumnValidator extends ConstraintValidator
             $this->initializeChoices($value->getMap()->getClass());
         }
 
-        if ($value->hasMapper()) {
-            // if db column is not scalar, ensure we have a 'validator'
-            if (!$value->hasConverter() && isset($this->complexChoices[$value->getMapper()])) {
-                $this->context
-                    ->buildViolation('This column has a field that requires a validator, but none were selected')
-                    ->atPath('converter')
-                    ->addViolation();
-            }
+        // if db column is not scalar, ensure we have a 'validator'
+        if (!$value->hasConverter() && isset($this->complexChoices[$value->getMapper()])) {
+            $this->context
+                ->buildViolation('This column has a field that requires a validator, but none were selected')
+                ->atPath('converter')
+                ->addViolation();
         }
     }
 
