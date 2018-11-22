@@ -9,6 +9,7 @@ use NS\ImportBundle\Converter\Expression\Condition;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
+use NS\ImportBundle\Validators as LocalAssert;
 
 /**
  * Description of Map
@@ -17,6 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="\NS\ImportBundle\Repository\MapRepository")
  * @ORM\Table(name="import_map")
  * @SuppressWarnings(PHPMD.ShortVariable)
+ * @LocalAssert\ImportMap()
  */
 class Map
 {
