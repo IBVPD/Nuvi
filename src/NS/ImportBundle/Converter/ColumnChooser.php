@@ -161,12 +161,12 @@ class ColumnChooser
      */
     public function buildComplex(ClassMetadata $metaData)
     {
-        $choices = ['site'=>true,'country'=>true];
+        $choices = ['site' => true, 'country' => true];
         $choices += $this->getMetaComplexChoices($metaData);
 
         foreach (['siteLab', 'nationalLab', 'referenceLab'] as $metaArg) {
             $associationClass = $metaData->getAssociationTargetClass($metaArg);
-            $choices += $this->getMetaComplexChoices($this->entityMgr->getClassMetadata($associationClass));
+            $choices += $this->getMetaComplexChoices($this->entityMgr->getClassMetadata($associationClass),"$metaArg.");
         }
 
         return $choices;
@@ -176,14 +176,14 @@ class ColumnChooser
      * @param ClassMetadata $metadata
      * @return array
      */
-    public function getMetaComplexChoices(ClassMetadata $metadata)
+    public function getMetaComplexChoices(ClassMetadata $metadata, $prefix= null)
     {
         $choices = [];
 
         foreach ($metadata->getFieldNames() as $fieldName) {
             $fieldType = $metadata->getTypeOfField($fieldName);
             if ($this->isComplex($fieldType)) {
-                $choices[$fieldName] = true;
+                $choices[$prefix.$fieldName] = true;
             }
         }
 
