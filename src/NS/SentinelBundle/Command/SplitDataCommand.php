@@ -34,7 +34,8 @@ class SplitDataCommand extends ContainerAwareCommand
             ->setDefinition([
                 new InputArgument('start-position',InputArgument::REQUIRED,'Start record index'),
                 new InputOption('batch-size', 'b', InputOption::VALUE_REQUIRED,'Batch size', 500),
-                new InputOption('case', 'c', InputOption::VALUE_REQUIRED,'Case id', null)
+                new InputOption('case', 'c', InputOption::VALUE_REQUIRED,'Case id', null),
+                new InputOption('id', 'i', InputOption::VALUE_REQUIRED,'System id', null),
             ]);
     }
 
@@ -46,7 +47,9 @@ class SplitDataCommand extends ContainerAwareCommand
         $this->entityMgr = $this->getContainer()->get('doctrine.orm.entity_manager');
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = $this->entityMgr->getRepository(Entity\IBD::class)->createQueryBuilder('i');
-        if ($input->getOption('case')) {
+        if($input->getOption('id')) {
+            $queryBuilder->where('i.id = :id')->setParameters(['id'=>$input->getOption('id')]);
+        } elseif ($input->getOption('case')) {
             $queryBuilder->where('i.case_id = :caseId')->setParameters(['caseId'=>$input->getOption('case')]);
         } else {
             $queryBuilder
@@ -57,7 +60,12 @@ class SplitDataCommand extends ContainerAwareCommand
 
         $cases = $queryBuilder->getQuery()->getResult();
 
-        $output->writeln("Retrieved ".count($cases)." cases");
+        if (!$cases) {
+            $output->writeln('<error>Unable to retrieve case(s)</error>');
+            return -1;
+        }
+
+        $output->writeln('Retrieved ' .\count($cases). ' cases');
 
         $processed = 0;
         /** @var Entity\IBD $case */
