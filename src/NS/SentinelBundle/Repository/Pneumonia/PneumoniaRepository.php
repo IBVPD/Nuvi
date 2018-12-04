@@ -4,17 +4,16 @@ namespace NS\SentinelBundle\Repository\Pneumonia;
 
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\UnexpectedResultException;
 use NS\SentinelBundle\Entity\Pneumonia\Pneumonia;
 use NS\SentinelBundle\Exceptions\NonExistentCaseException;
-use NS\SentinelBundle\Form\IBD\Types\BinaxResult;
-use NS\SentinelBundle\Form\IBD\Types\CultureResult;
-use NS\SentinelBundle\Form\IBD\Types\HiSerotype;
 use NS\SentinelBundle\Form\IBD\Types\CaseResult;
-use NS\SentinelBundle\Form\IBD\Types\PCRResult;
-use NS\SentinelBundle\Form\IBD\Types\SpnSerotype;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Repository\Common;
 use NS\UtilBundle\Form\Types\ArrayChoice;
+use DoctrineExtensions\Query\Mysql\Year;
+use DoctrineExtensions\Query\Mysql\Month;
 
 /**
  * Description of Common
@@ -27,16 +26,15 @@ class PneumoniaRepository extends Common
      * @param string $alias
      * @param int $ageInMonths
      * @return \Doctrine\ORM\QueryBuilder
-     * @throws \Doctrine\ORM\ORMException
      */
-    public function numberAndPercentEnrolledByAdmissionDiagnosis($alias = 'c', $ageInMonths = 59)
+    public function numberAndPercentEnrolledByAdmissionDiagnosis($alias = 'c', $ageInMonths = 59): QueryBuilder
     {
         $config = $this->_em->getConfiguration();
-        $config->addCustomDatetimeFunction('MONTH', 'DoctrineExtensions\Query\Mysql\Month');
+        $config->addCustomDatetimeFunction('MONTH', Month::class);
 
         $queryBuilder = $this->createQueryBuilder($alias)
             ->select(sprintf('MONTH(%s.adm_date) as AdmissionMonth,COUNT(%s.adm_dx) as admDxCount,%s.adm_dx', $alias, $alias, $alias))
-            ->where(sprintf("(%s.adm_dx IS NOT NULL AND %s.age_months <= :age)", $alias, $alias))
+            ->where(sprintf('(%s.adm_dx IS NOT NULL AND %s.age_months <= :age)', $alias, $alias))
             ->setParameter('age', $ageInMonths)
             ->groupBy($alias . '.adm_dx,AdmissionMonth');
 
@@ -46,15 +44,19 @@ class PneumoniaRepository extends Common
     /**
      * @return array
      */
-    public function getStats()
+    public function getStats(): array
     {
-        $results = [];
+        $results = ['cxr' => 0];
         $queryBuilder = $this->createQueryBuilder('m')
             ->select('COUNT(m.id) theCount')
             ->where('m.cxr_done = :cxr')
             ->setParameter('cxr', TripleChoice::YES);
 
-        $results['cxr'] = $this->secure($queryBuilder)->getQuery()->getSingleScalarResult();
+        try {
+            $results['cxr'] = $this->secure($queryBuilder)->getQuery()->getSingleScalarResult();
+        } catch (UnexpectedResultException $exception) {
+
+        }
 
         return $results;
     }
@@ -63,7 +65,7 @@ class PneumoniaRepository extends Common
      * @param string $alias
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function getLatestQuery($alias = 'm')
+    public function getLatestQuery($alias = 'm'): QueryBuilder
     {
         $queryBuilder = $this->createQueryBuilder($alias)
             ->addSelect('sl,rl,nl')
@@ -129,7 +131,6 @@ class PneumoniaRepository extends Common
      * @param $objId
      * @return mixed
      * @throws NonExistentCaseException
-     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function get($objId)
     {
@@ -141,8 +142,8 @@ class PneumoniaRepository extends Common
             ->where('m.id = :id')->setParameter('id', $objId);
         try {
             return $this->secure($queryBuilder)->getQuery()->getSingleResult();
-        } catch (NoResultException $e) {
-            throw new NonExistentCaseException("This case does not exist!");
+        } catch (UnexpectedResultException $e) {
+            throw new NonExistentCaseException('This case does not exist!');
         }
     }
 
@@ -163,7 +164,6 @@ class PneumoniaRepository extends Common
      * @param $objId
      * @return mixed
      * @throws NonExistentCaseException
-     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function checkExistence($objId)
     {
@@ -173,8 +173,8 @@ class PneumoniaRepository extends Common
                 ->setParameter('id', $objId);
 
             return $this->secure($queryBuilder)->getQuery()->getSingleResult();
-        } catch (NoResultException $e) {
-            throw new NonExistentCaseException("This case does not exist!");
+        } catch (UnexpectedResultException $e) {
+            throw new NonExistentCaseException('This case does not exist!');
         }
     }
 
@@ -183,7 +183,6 @@ class PneumoniaRepository extends Common
      * @param null $lockMode
      * @param null $lockVersion
      * @return Pneumonia
-     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function find($objId, $lockMode = NULL, $lockVersion = NULL)
     {
@@ -197,16 +196,12 @@ class PneumoniaRepository extends Common
                 ->setParameter('id', $objId);
 
             return $this->secure($queryBuilder)->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getSingleResult();
-        } catch (NoResultException $e) {
-            throw new NonExistentCaseException("This case does not exist!");
+        } catch (UnexpectedResultException $e) {
+            throw new NonExistentCaseException('This case does not exist!');
         }
     }
 
-    /**
-     * @param $alias
-     * @return \Doctrine\ORM\QueryBuilder
-     */
-    public function exportQuery($alias)
+    public function exportQuery($alias = 'p'): QueryBuilder
     {
         return $this->secure(
             $this->createQueryBuilder($alias)
@@ -220,11 +215,7 @@ class PneumoniaRepository extends Common
         );
     }
 
-    /**
-     * @param string $alias
-     * @return \Doctrine\ORM\QueryBuilder
-     */
-    public function getFilterQueryBuilder($alias = 'm')
+    public function getFilterQueryBuilder($alias = 'm'): QueryBuilder
     {
         return $this->getLatestQuery($alias);
     }
@@ -250,12 +241,12 @@ class PneumoniaRepository extends Common
      * status properly.
      *
      * @param string $alias
-     * @return array
-     * @throws \Doctrine\ORM\ORMException
+     *
+     * @return \Doctrine\ORM\QueryBuilder
      */
-    public function getAnnualAgeDistribution($alias = 'm')
+    public function getAnnualAgeDistribution($alias = 'm'): QueryBuilder
     {
-        $this->_em->getConfiguration()->addCustomDatetimeFunction('YEAR', 'DoctrineExtensions\Query\Mysql\Year');
+        $this->_em->getConfiguration()->addCustomDatetimeFunction('YEAR', Year::class);
 
         $queryBuilder = $this->createQueryBuilder($alias)
             ->select(sprintf('YEAR(%s.adm_date) as theYear, COUNT(%s.id) as theCount,%s.ageDistribution', $alias, $alias, $alias))
@@ -272,7 +263,7 @@ class PneumoniaRepository extends Common
      * @param array $siteCodes
      * @return \Doctrine\ORM\QueryBuilder
      */
-    private function getCountQueryBuilder($alias, array $siteCodes)
+    private function getCountQueryBuilder($alias, array $siteCodes): QueryBuilder
     {
         $queryBuilder = $this->createQueryBuilder($alias)
             ->leftJoin(sprintf("%s.siteLab", $alias), 'sl')
@@ -291,7 +282,7 @@ class PneumoniaRepository extends Common
      * @param array $siteCodes
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function getBloodCollectedCountBySites($alias, array $siteCodes)
+    public function getBloodCollectedCountBySites($alias, array $siteCodes): QueryBuilder
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.blood_collected) as caseCount,s.code', $alias, $alias))
@@ -304,7 +295,7 @@ class PneumoniaRepository extends Common
      * @param array $siteCodes
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function getBloodResultCountBySites($alias, array $siteCodes)
+    public function getBloodResultCountBySites($alias, array $siteCodes): QueryBuilder
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
@@ -317,7 +308,7 @@ class PneumoniaRepository extends Common
      * @param array $siteCodes
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function getMissingAdmissionDiagnosisCountBySites($alias, array $siteCodes)
+    public function getMissingAdmissionDiagnosisCountBySites($alias, array $siteCodes): QueryBuilder
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
@@ -331,7 +322,7 @@ class PneumoniaRepository extends Common
      * @param array $siteCodes
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function getMissingDischargeOutcomeCountBySites($alias, array $siteCodes)
+    public function getMissingDischargeOutcomeCountBySites($alias, array $siteCodes): QueryBuilder
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
@@ -345,7 +336,7 @@ class PneumoniaRepository extends Common
      * @param array $siteCodes
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function getMissingDischargeDiagnosisCountBySites($alias, array $siteCodes)
+    public function getMissingDischargeDiagnosisCountBySites($alias, array $siteCodes): QueryBuilder
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
@@ -354,10 +345,10 @@ class PneumoniaRepository extends Common
             ->setParameter('outOfRange', ArrayChoice::OUT_OF_RANGE);
     }
 
-    public function getConsistentReporting($alias, array $siteCodes)
+    public function getConsistentReporting($alias, array $siteCodes): QueryBuilder
     {
         $config = $this->_em->getConfiguration();
-        $config->addCustomDatetimeFunction('MONTH', 'DoctrineExtensions\Query\Mysql\Month');
+        $config->addCustomDatetimeFunction('MONTH', Month::class);
 
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,MONTH(%s.adm_date) as theMonth,COUNT(%s.id) as caseCount,s.code', $alias, $alias, $alias))
@@ -387,7 +378,7 @@ class PneumoniaRepository extends Common
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
-            ->andWhere(sprintf('%s.blood_collected = :tripleYes', $alias, $alias))
+            ->andWhere(sprintf('%s.blood_collected = :tripleYes', $alias))
             ->setParameter('tripleYes', TripleChoice::YES);
     }
 
@@ -429,7 +420,7 @@ class PneumoniaRepository extends Common
     public function getLinkedCount($alias, array $countryCodes)
     {
         return $this->getByCountryCountQueryBuilder('cf', $countryCodes)
-            ->select(sprintf('COUNT(IDENTITY(%s)) as caseCount,c.code', $alias, $alias))
+            ->select(sprintf('COUNT(IDENTITY(%s)) as caseCount,c.code', $alias))
             ->innerJoin('cf.referenceLab', 'i')
             ->innerJoin('cf.site', 's');
     }
@@ -437,7 +428,7 @@ class PneumoniaRepository extends Common
     public function getFailedLinkedCount($alias, array $countryCodes)
     {
         return $this->getByCountryCountQueryBuilder('cf', $countryCodes)
-            ->select(sprintf('COUNT(IDENTITY(%s)) as caseCount,c.code', $alias, $alias))
+            ->select(sprintf('COUNT(IDENTITY(%s)) as caseCount,c.code', $alias))
             ->innerJoin('cf.referenceLab', $alias)
             ->leftJoin('cf.site', 's')
             ->andWhere('s.code IS NULL');
@@ -446,7 +437,7 @@ class PneumoniaRepository extends Common
     public function getNoLabCount($alias, array $countryCodes)
     {
         return $this->getByCountryCountQueryBuilder('cf', $countryCodes)
-            ->select(sprintf('COUNT(IDENTITY(%s)) as caseCount,c.code', $alias, $alias))
+            ->select(sprintf('COUNT(IDENTITY(%s)) as caseCount,c.code', $alias))
             ->leftJoin('cf.referenceLab', $alias)
             ->andWhere(sprintf('IDENTITY(%s) IS NULL',$alias));
     }

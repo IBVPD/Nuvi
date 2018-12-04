@@ -2,8 +2,11 @@
 
 namespace NS\SentinelBundle\Repository\Meningitis;
 
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\UnexpectedResultException;
 use NS\SentinelBundle\Entity\Meningitis\Meningitis;
 use NS\SentinelBundle\Exceptions\NonExistentCaseException;
 use NS\SentinelBundle\Form\IBD\Types\BinaxResult;
@@ -15,6 +18,8 @@ use NS\SentinelBundle\Form\IBD\Types\SpnSerotype;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Repository\Common;
 use NS\UtilBundle\Form\Types\ArrayChoice;
+use DoctrineExtensions\Query\Mysql\Month;
+use DoctrineExtensions\Query\Mysql\Year;
 
 /**
  * Description of Common
@@ -26,35 +31,34 @@ class MeningitisRepository extends Common
     /**
      * @param string $alias
      * @param int $ageInMonths
-     * @return \Doctrine\ORM\QueryBuilder
-     * @throws \Doctrine\ORM\ORMException
+     * @return QueryBuilder
      */
-    public function numberAndPercentEnrolledByAdmissionDiagnosis($alias = 'c', $ageInMonths = 59)
+    public function numberAndPercentEnrolledByAdmissionDiagnosis($alias = 'c', $ageInMonths = 59): QueryBuilder
     {
         $config = $this->_em->getConfiguration();
-        $config->addCustomDatetimeFunction('MONTH', 'DoctrineExtensions\Query\Mysql\Month');
+        $config->addCustomDatetimeFunction('MONTH', Month::class);
 
         $queryBuilder = $this->createQueryBuilder($alias)
-            ->select(sprintf('MONTH(%s.adm_date) as AdmissionMonth,COUNT(%s.adm_dx) as admDxCount,%s.adm_dx', $alias, $alias, $alias))
-            ->where(sprintf("(%s.adm_dx IS NOT NULL AND %s.age_months <= :age)", $alias, $alias))
+            ->select(sprintf('MONTH(%s.adm_date) as AdmissionMonth, COUNT(%s.adm_dx) as admDxCount,%s.adm_dx', $alias, $alias, $alias))
+            ->where(sprintf('(%s.adm_dx IS NOT NULL AND %s.age_months <= :age)', $alias, $alias))
             ->setParameter('age', $ageInMonths)
             ->groupBy($alias . '.adm_dx,AdmissionMonth');
 
         return $this->secure($queryBuilder);
     }
 
-    /**
-     * @return array
-     */
-    public function getStats()
+    public function getStats(): array
     {
-        $results = [];
+        $results = ['cxr' => 0];
         $queryBuilder = $this->createQueryBuilder('m')
             ->select('COUNT(m.id) theCount')
             ->where('m.cxr_done = :cxr')
             ->setParameter('cxr', TripleChoice::YES);
 
-        $results['cxr'] = $this->secure($queryBuilder)->getQuery()->getSingleScalarResult();
+        try {
+            $results['cxr'] = $this->secure($queryBuilder)->getQuery()->getSingleScalarResult();
+        } catch (NonUniqueResultException $exception) {
+        }
 
         $queryBuilder = $this->createQueryBuilder('m')
             ->select('m.csf_collected, COUNT(m.csf_collected) theCount')
@@ -75,9 +79,9 @@ class MeningitisRepository extends Common
 
     /**
      * @param string $alias
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return QueryBuilder
      */
-    public function getLatestQuery($alias = 'm')
+    public function getLatestQuery($alias = 'm'): QueryBuilder
     {
         $queryBuilder = $this->createQueryBuilder($alias)
             ->addSelect('sl,rl,nl')
@@ -156,7 +160,7 @@ class MeningitisRepository extends Common
         try {
             return $this->secure($queryBuilder)->getQuery()->getSingleResult();
         } catch (NoResultException $e) {
-            throw new NonExistentCaseException("This case does not exist!");
+            throw new NonExistentCaseException('This case does not exist!');
         }
     }
 
@@ -177,7 +181,6 @@ class MeningitisRepository extends Common
      * @param $objId
      * @return mixed
      * @throws NonExistentCaseException
-     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function checkExistence($objId)
     {
@@ -187,8 +190,8 @@ class MeningitisRepository extends Common
                 ->setParameter('id', $objId);
 
             return $this->secure($queryBuilder)->getQuery()->getSingleResult();
-        } catch (NoResultException $e) {
-            throw new NonExistentCaseException("This case does not exist!");
+        } catch (UnexpectedResultException $e) {
+            throw new NonExistentCaseException('This case does not exist!');
         }
     }
 
@@ -197,7 +200,6 @@ class MeningitisRepository extends Common
      * @param null $lockMode
      * @param null $lockVersion
      * @return Meningitis
-     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function find($objId, $lockMode = NULL, $lockVersion = NULL)
     {
@@ -211,16 +213,16 @@ class MeningitisRepository extends Common
                 ->setParameter('id', $objId);
 
             return $this->secure($queryBuilder)->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getSingleResult();
-        } catch (NoResultException $e) {
-            throw new NonExistentCaseException("This case does not exist!");
+        } catch (UnexpectedResultException $e) {
+            throw new NonExistentCaseException('This case does not exist!');
         }
     }
 
     /**
      * @param $alias
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return QueryBuilder
      */
-    public function exportQuery($alias)
+    public function exportQuery($alias): QueryBuilder
     {
         return $this->secure(
             $this->createQueryBuilder($alias)
@@ -234,11 +236,7 @@ class MeningitisRepository extends Common
         );
     }
 
-    /**
-     * @param string $alias
-     * @return \Doctrine\ORM\QueryBuilder
-     */
-    public function getFilterQueryBuilder($alias = 'm')
+    public function getFilterQueryBuilder($alias = 'm'): QueryBuilder
     {
         return $this->getLatestQuery($alias);
     }
@@ -264,17 +262,16 @@ class MeningitisRepository extends Common
      * status properly.
      *
      * @param string $alias
-     * @return array
-     * @throws \Doctrine\ORM\ORMException
+     * @return QueryBuilder
      */
-    public function getAnnualAgeDistribution($alias = 'm')
+    public function getAnnualAgeDistribution($alias = 'm'): QueryBuilder
     {
-        $this->_em->getConfiguration()->addCustomDatetimeFunction('YEAR', 'DoctrineExtensions\Query\Mysql\Year');
+        $this->_em->getConfiguration()->addCustomDatetimeFunction('YEAR', Year::class);
 
         $queryBuilder = $this->createQueryBuilder($alias)
-            ->select(sprintf('YEAR(%s.adm_date) as theYear, COUNT(%s.id) as theCount,%s.ageDistribution', $alias, $alias, $alias))
-            ->where(sprintf('(%s.result = :suspectedMening)', $alias))
-            ->setParameter('suspectedMening', CaseResult::PROBABLE)
+            ->select(sprintf('YEAR(%s.adm_date) as theYear, COUNT(%s.id) as theCount, %s.ageDistribution', $alias, $alias, $alias))
+            ->where(sprintf('(%s.result = :suspectedResult)', $alias))
+            ->setParameter('suspectedResult', CaseResult::PROBABLE)
             ->groupBy(sprintf('theYear,%s.ageDistribution', $alias))
             ->orderBy('theYear', 'ASC');
 
@@ -284,12 +281,12 @@ class MeningitisRepository extends Common
     /**
      * @param $alias
      * @param array $siteCodes
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return QueryBuilder
      */
-    private function getCountQueryBuilder($alias, array $siteCodes)
+    private function getCountQueryBuilder($alias, array $siteCodes): QueryBuilder
     {
         $queryBuilder = $this->createQueryBuilder($alias)
-            ->leftJoin(sprintf("%s.siteLab", $alias), 'sl')
+            ->leftJoin(sprintf('%s.siteLab', $alias), 'sl')
             ->innerJoin($alias . '.site', 's')
             ->groupBy($alias . '.site');
 
@@ -303,9 +300,9 @@ class MeningitisRepository extends Common
     /**
      * @param $alias
      * @param array $siteCodes
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return QueryBuilder
      */
-    public function getCsfCollectedCountBySites($alias, array $siteCodes)
+    public function getCsfCollectedCountBySites($alias, array $siteCodes): QueryBuilder
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.csf_collected) as caseCount,s.code', $alias, $alias))
@@ -316,9 +313,9 @@ class MeningitisRepository extends Common
     /**
      * @param $alias
      * @param array $siteCodes
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return QueryBuilder
      */
-    public function getBloodCollectedCountBySites($alias, array $siteCodes)
+    public function getBloodCollectedCountBySites($alias, array $siteCodes): QueryBuilder
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.blood_collected) as caseCount,s.code', $alias, $alias))
@@ -329,9 +326,9 @@ class MeningitisRepository extends Common
     /**
      * @param $alias
      * @param array $siteCodes
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return QueryBuilder
      */
-    public function getBloodResultCountBySites($alias, array $siteCodes)
+    public function getBloodResultCountBySites($alias, array $siteCodes): QueryBuilder
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
@@ -342,9 +339,9 @@ class MeningitisRepository extends Common
     /**
      * @param $alias
      * @param array $siteCodes
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return QueryBuilder
      */
-    public function getCsfResultCountBySites($alias, array $siteCodes)
+    public function getCsfResultCountBySites($alias, array $siteCodes): QueryBuilder
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
@@ -355,9 +352,9 @@ class MeningitisRepository extends Common
     /**
      * @param $alias
      * @param array $siteCodes
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return QueryBuilder
      */
-    public function getCsfBinaxResultCountBySites($alias, array $siteCodes)
+    public function getCsfBinaxResultCountBySites($alias, array $siteCodes): QueryBuilder
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
@@ -368,9 +365,9 @@ class MeningitisRepository extends Common
     /**
      * @param $alias
      * @param array $siteCodes
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return QueryBuilder
      */
-    public function getCsfBinaxDoneCountBySites($alias, array $siteCodes)
+    public function getCsfBinaxDoneCountBySites($alias, array $siteCodes): QueryBuilder
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
@@ -381,9 +378,9 @@ class MeningitisRepository extends Common
     /**
      * @param $alias
      * @param array $siteCodes
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return QueryBuilder
      */
-    public function getCsfLatResultCountBySites($alias, array $siteCodes)
+    public function getCsfLatResultCountBySites($alias, array $siteCodes): QueryBuilder
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
@@ -394,9 +391,9 @@ class MeningitisRepository extends Common
     /**
      * @param $alias
      * @param array $siteCodes
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return QueryBuilder
      */
-    public function getCsfLatDoneCountBySites($alias, array $siteCodes)
+    public function getCsfLatDoneCountBySites($alias, array $siteCodes): QueryBuilder
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
@@ -407,9 +404,9 @@ class MeningitisRepository extends Common
     /**
      * @param $alias
      * @param array $siteCodes
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return QueryBuilder
      */
-    public function getCsfPcrCountBySites($alias, array $siteCodes)
+    public function getCsfPcrCountBySites($alias, array $siteCodes): QueryBuilder
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
@@ -420,9 +417,9 @@ class MeningitisRepository extends Common
     /**
      * @param $alias
      * @param array $siteCodes
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return QueryBuilder
      */
-    public function getCsfSpnCountBySites($alias, array $siteCodes)
+    public function getCsfSpnCountBySites($alias, array $siteCodes): QueryBuilder
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
@@ -436,9 +433,9 @@ class MeningitisRepository extends Common
     /**
      * @param $alias
      * @param array $siteCodes
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return QueryBuilder
      */
-    public function getCsfHiCountBySites($alias, array $siteCodes)
+    public function getCsfHiCountBySites($alias, array $siteCodes): QueryBuilder
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
@@ -452,9 +449,9 @@ class MeningitisRepository extends Common
     /**
      * @param $alias
      * @param array $siteCodes
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return QueryBuilder
      */
-    public function getPcrPositiveCountBySites($alias, array $siteCodes)
+    public function getPcrPositiveCountBySites($alias, array $siteCodes): QueryBuilder
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
@@ -468,12 +465,11 @@ class MeningitisRepository extends Common
      * @param null $binax
      * @param null $pcr
      * @param array $siteCodes
-     * @return \Doctrine\ORM\QueryBuilder
-     * @throws \Doctrine\ORM\ORMException
+     * @return QueryBuilder
      */
-    public function getCountByCulture($alias, $culture, $binax = null, $pcr = null, array $siteCodes = [])
+    public function getCountByCulture($alias, $culture, $binax = null, $pcr = null, array $siteCodes = []): QueryBuilder
     {
-        $this->_em->getConfiguration()->addCustomDatetimeFunction('YEAR', 'DoctrineExtensions\Query\Mysql\Year');
+        $this->_em->getConfiguration()->addCustomDatetimeFunction('YEAR', Year::class);
 
         $queryBuilder = $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount, s.code, YEAR(%s.adm_date) as theYear', $alias, $alias, $alias));
@@ -514,9 +510,9 @@ class MeningitisRepository extends Common
     /**
      * @param $alias
      * @param array $siteCodes
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return QueryBuilder
      */
-    public function getMissingAdmissionDiagnosisCountBySites($alias, array $siteCodes)
+    public function getMissingAdmissionDiagnosisCountBySites($alias, array $siteCodes): QueryBuilder
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
@@ -528,9 +524,9 @@ class MeningitisRepository extends Common
     /**
      * @param $alias
      * @param array $siteCodes
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return QueryBuilder
      */
-    public function getMissingDischargeOutcomeCountBySites($alias, array $siteCodes)
+    public function getMissingDischargeOutcomeCountBySites($alias, array $siteCodes): QueryBuilder
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
@@ -542,9 +538,9 @@ class MeningitisRepository extends Common
     /**
      * @param $alias
      * @param array $siteCodes
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return QueryBuilder
      */
-    public function getMissingDischargeDiagnosisCountBySites($alias, array $siteCodes)
+    public function getMissingDischargeDiagnosisCountBySites($alias, array $siteCodes): QueryBuilder
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
@@ -553,18 +549,17 @@ class MeningitisRepository extends Common
             ->setParameter('outOfRange', ArrayChoice::OUT_OF_RANGE);
     }
 
-    public function getConsistentReporting($alias, array $siteCodes)
+    public function getConsistentReporting($alias, array $siteCodes): QueryBuilder
     {
         $config = $this->_em->getConfiguration();
-        $config->addCustomDatetimeFunction('MONTH', 'DoctrineExtensions\Query\Mysql\Month');
+        $config->addCustomDatetimeFunction('MONTH', Month::class);
 
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,MONTH(%s.adm_date) as theMonth,COUNT(%s.id) as caseCount,s.code', $alias, $alias, $alias))
-            ->addGroupBy('theMonth')
-            ;
+            ->addGroupBy('theMonth');
     }
 
-    public function getZeroReporting($alias, array $siteCodes)
+    public function getZeroReporting($alias, array $siteCodes): QueryBuilder
     {
         $queryBuilder = $this->_em
             ->getRepository('NS\SentinelBundle\Entity\ZeroReport')
@@ -582,7 +577,7 @@ class MeningitisRepository extends Common
             ->setParameter('sites', $siteCodes);
     }
 
-    public function getNumberOfSpecimenCollectedCount($alias, array $siteCodes)
+    public function getNumberOfSpecimenCollectedCount($alias, array $siteCodes): QueryBuilder
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
@@ -590,7 +585,7 @@ class MeningitisRepository extends Common
             ->setParameter('tripleYes', TripleChoice::YES);
     }
 
-    public function getNumberOfLabConfirmedCount($alias, array $siteCodes)
+    public function getNumberOfLabConfirmedCount($alias, array $siteCodes): QueryBuilder
     {
         $tier1Req = 'sl.csf_cult_result IN (:csfResult) OR sl.csf_pcr_result IN (:csfResult)';
         $tier2Req = 'sl.csf_cult_result IN (:csfResult) OR sl.csf_pcr_result IN (:csfResult) OR sl.blood_cult_result IN (:csfResult) OR sl.blood_pcr_result IN (:csfResult)';
@@ -607,7 +602,7 @@ class MeningitisRepository extends Common
             ->setParameter('csfResult', [CultureResult::SPN,CultureResult::HI,CultureResult::NM]);
     }
 
-    public function getNumberOfConfirmedCount($alias, array $siteCodes)
+    public function getNumberOfConfirmedCount($alias, array $siteCodes): QueryBuilder
     {
         $tier1Req = 'sl.csf_cult_result IN (:csfResult) OR sl.csf_pcr_result IN (:csfResult)';
         $tier2Req = 'sl.csf_cult_result IN (:csfResult) OR sl.csf_pcr_result IN (:csfResult) OR sl.blood_cult_result IN (:csfResult) OR sl.blood_pcr_result IN (:csfResult)';
@@ -619,16 +614,11 @@ class MeningitisRepository extends Common
             ->setParameter('csfResult', [CultureResult::SPN,CultureResult::HI,CultureResult::NM]);
     }
 
-    /**
-     * @param array $params
-     * @return bool
-     * @throws \Doctrine\ORM\NonUniqueResultException
-     */
-    public function exists(array $params)
+    public function exists(array $params): bool
     {
         $qb = $this->createQueryBuilder('i')->select('i.id');
         foreach ($params as $field => $value) {
-            $qb->andWhere(sprintf("%s.%s = :%s", 'i', $field, $field))
+            $qb->andWhere(sprintf('%s.%s = :%s', 'i', $field, $field))
                 ->setParameter($field, $value);
         }
 
@@ -636,12 +626,12 @@ class MeningitisRepository extends Common
             $qb->getQuery()->getSingleResult(Query::HYDRATE_SCALAR);
 
             return true;
-        } catch (NoResultException $exception) {
+        } catch (UnexpectedResultException $exception) {
             return false;
         }
     }
 
-    private function getByCountryCountQueryBuilder($alias, array $countryCodes)
+    private function getByCountryCountQueryBuilder($alias, array $countryCodes): QueryBuilder
     {
         $queryBuilder = $this->createQueryBuilder($alias)
             ->innerJoin($alias.'.country', 'c')
@@ -654,27 +644,27 @@ class MeningitisRepository extends Common
         return $queryBuilder->where("($alias.country IN (:countries) )")->setParameter('countries',array_unique($countryCodes));
     }
 
-    public function getLinkedCount($alias, array $countryCodes)
+    public function getLinkedCount($alias, array $countryCodes): QueryBuilder
     {
         return $this->getByCountryCountQueryBuilder('cf', $countryCodes)
-            ->select(sprintf('COUNT(IDENTITY(%s)) as caseCount,c.code', $alias, $alias))
+            ->select(sprintf('COUNT(IDENTITY(%s)) as caseCount,c.code', $alias))
             ->innerJoin('cf.referenceLab', 'i')
             ->innerJoin('cf.site', 's');
     }
 
-    public function getFailedLinkedCount($alias, array $countryCodes)
+    public function getFailedLinkedCount($alias, array $countryCodes): QueryBuilder
     {
         return $this->getByCountryCountQueryBuilder('cf', $countryCodes)
-            ->select(sprintf('COUNT(IDENTITY(%s)) as caseCount,c.code', $alias, $alias))
+            ->select(sprintf('COUNT(IDENTITY(%s)) as caseCount,c.code', $alias))
             ->innerJoin('cf.referenceLab', $alias)
             ->leftJoin('cf.site', 's')
             ->andWhere('s.code IS NULL');
     }
 
-    public function getNoLabCount($alias, array $countryCodes)
+    public function getNoLabCount($alias, array $countryCodes): QueryBuilder
     {
         return $this->getByCountryCountQueryBuilder('cf', $countryCodes)
-            ->select(sprintf('COUNT(IDENTITY(%s)) as caseCount,c.code', $alias, $alias))
+            ->select(sprintf('COUNT(IDENTITY(%s)) as caseCount,c.code', $alias))
             ->leftJoin('cf.referenceLab', $alias)
             ->andWhere(sprintf('IDENTITY(%s) IS NULL',$alias));
     }

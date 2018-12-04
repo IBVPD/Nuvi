@@ -96,7 +96,7 @@ class IBDReporter extends AbstractReporter
 
             $this->filter->addFilterConditions($form, $queryBuilder, $alias);
 
-            $export = ($form->get('export')->isClicked());
+            $export = $form->get('export')->isClicked();
         }
 
         $result = $queryBuilder->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult(Query::HYDRATE_SCALAR);
