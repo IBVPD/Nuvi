@@ -80,7 +80,7 @@ abstract class ExternalLab extends BaseExternalLab
     protected $pcr_vp6_result;
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
     public function getSpecimenCollectionDate()
     {
@@ -98,7 +98,7 @@ abstract class ExternalLab extends BaseExternalLab
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
     public function getGenotypingDate()
     {
@@ -114,7 +114,7 @@ abstract class ExternalLab extends BaseExternalLab
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getGenotypingResultGSpecify()
     {

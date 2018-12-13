@@ -34,7 +34,7 @@ class RotaVirusController extends BaseCaseController
      * @param Request $request
      * @Route("/create",name="rotavirusCreate")
      * @Method({"POST","GET"})
-     * @return Response|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @return Response|RedirectResponse
      */
     public function createAction(Request $request)
     {
@@ -51,7 +51,7 @@ class RotaVirusController extends BaseCaseController
      * @Method(methods={"GET","POST"})
      * @param Request $request
      * @param null $id
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @return array|RedirectResponse|Response
      */
     public function editAction(Request $request, $id = null)
     {
@@ -74,7 +74,7 @@ class RotaVirusController extends BaseCaseController
      * @Method(methods={"GET","POST"})
      * @param Request $request
      * @param null $id
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @return array|RedirectResponse|Response
      */
     public function editLabAction(Request $request, $id = null)
     {
@@ -88,7 +88,7 @@ class RotaVirusController extends BaseCaseController
      * @Method(methods={"GET","POST"})
      * @param Request $request
      * @param null $id
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @return array|RedirectResponse|Response
      */
     public function editRRLAction(Request $request, $id = null)
     {
@@ -101,7 +101,7 @@ class RotaVirusController extends BaseCaseController
      * @Method(methods={"GET","POST"})
      * @param Request $request
      * @param null $id
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @return array|RedirectResponse|Response
      */
     public function editNLAction(Request $request, $id = null)
     {
@@ -114,7 +114,7 @@ class RotaVirusController extends BaseCaseController
      * @Method(methods={"GET","POST"})
      * @param Request $request
      * @param null $id
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @return array|RedirectResponse|Response
      */
     public function editOutcomeAction(Request $request, $id = null)
     {

@@ -16,6 +16,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\ProxyQueryInterface;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\Form\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -116,7 +117,7 @@ class UserAdmin extends AbstractAdmin
             ->add('active', null, ['required' => false])
             ->add('admin', null, ['required' => false])
             ->add('referenceLab', null, ['required' => false, 'label' => 'admin.form-reference-lab'])
-            ->add('acls', 'sonata_type_collection', ['by_reference' => true, 'label' => 'Access Restrictions', 'required' => false], ['edit' => 'inline', 'inline' => 'table']);
+            ->add('acls', CollectionType::class, ['by_reference' => true, 'label' => 'Access Restrictions', 'required' => false], ['edit' => 'inline', 'inline' => 'table']);
     }
 
     /**

@@ -76,10 +76,6 @@ class Registry extends AbstractType
         return null;
     }
 
-    /**
-     *
-     * @return string
-     */
     public function getParent()
     {
         return ChoiceType::class;

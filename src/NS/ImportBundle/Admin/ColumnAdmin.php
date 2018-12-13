@@ -68,11 +68,11 @@ class ColumnAdmin extends AbstractAdmin
             }
 
             if ($mapperType === null) {
-                throw new \RuntimeException("Unable to determine column mapper type");
+                throw new \RuntimeException('Unable to determine column mapper type');
             }
         }
 
-        $id = uniqid();
+        $id = \uniqid('columnId', true);
         $formMapper
             ->add('name', null, ['attr' => ['data-queryBuilder' => 'columnName']])
             ->add('preProcessor', PreProcessorType::class, ['required' => false])

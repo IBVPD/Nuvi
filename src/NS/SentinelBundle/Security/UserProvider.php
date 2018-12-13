@@ -5,6 +5,7 @@ namespace NS\SentinelBundle\Security;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\UnexpectedResultException;
 use NS\SentinelBundle\Entity\User;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
@@ -48,10 +49,8 @@ class UserProvider implements UserProviderInterface
 
             $user->setTTL(time() + 3600);
             return $user;
-        } catch (NonUniqueResultException $e) {
-            throw new UsernameNotFoundException(sprintf("Username %s is not unique", $username), 0, $e);
-        } catch (NoResultException $e) {
-            throw new UsernameNotFoundException("User not found", 0, $e);
+        } catch (UnexpectedResultException $e) {
+            throw new UsernameNotFoundException(sprintf('Username "%s" is not found or unique', $username), 0, $e);
         }
     }
 
