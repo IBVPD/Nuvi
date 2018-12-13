@@ -60,7 +60,7 @@ class CaseType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $required = (isset($options['method']) && $options['method'] == 'PUT');
+        $required = (isset($options['method']) && $options['method'] === 'PUT');
 
         $builder
             ->add('parentalName',       null, ['required' => $required, 'label' => 'ibd-form.parental-name', 'attr' => ['autocomplete' => 'off']])
@@ -93,7 +93,6 @@ class CaseType extends AbstractType
             ->add('dischOutcome',       DischargeOutcome::class, ['required' => false, 'label' => 'ibd-form.discharge-outcome'])
             ->add('dischDxOther',       null, ['required' => false, 'label' => 'ibd-form.discharge-diagnosis-other', 'hidden' => ['parent' => 'dischDx', 'value' => DischargeDiagnosis::OTHER]])
             ->add('comment',            null, ['required' => false, 'label' => 'ibd-form.comment']);
-        ;
 
         $builder->addEventListener(FormEvents::POST_SET_DATA, [$this,'postSetData']);
     }
@@ -113,12 +112,12 @@ class CaseType extends AbstractType
             $region  = ($country instanceof Country) ? $country->getRegion(): null;
         }
 
-        $isPaho = ($region && $region->getCode() == 'AMR' || $this->authChecker->isGranted('ROLE_AMR'));
+        $isPaho = ($region && $region->getCode() === 'AMR') || $this->authChecker->isGranted('ROLE_AMR');
 
         $form
             ->add('lastName', null, ['required' => $required || $isPaho, 'label' => 'ibd-form.last-name', 'attr' => ['autocomplete' => 'off']])
             ->add('firstName', null, ['required' => $required || $isPaho, 'label' => 'ibd-form.first-name', 'attr' => ['autocomplete' => 'off']])
-            ->add('dobKnown', TripleChoice::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.date-of-birth-known', 'exclude_choices' => ($isPaho ? [TripleChoice::UNKNOWN] : null)])
+            ->add('dobKnown', TripleChoice::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.date-of-birth-known', 'exclude_choices' => $isPaho ? [TripleChoice::UNKNOWN] : null])
             ->add('gender', Gender::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.gender'])
             ->add('admDx',Diagnosis::class, [
                 'required' => $required || $isPaho,
@@ -128,8 +127,8 @@ class CaseType extends AbstractType
             ])
             ->add('admDxOther',null, ['required' => $required, 'label' => 'ibd-form.adm-dx-other', 'hidden' => ['parent' => 'admDx', 'value' => Diagnosis::OTHER]])
             ->add('admDate', DatePickerType::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.adm-date', 'property_path' => 'adm_date'])
-            ->add('csfCollected', TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.csf-collected', 'exclude_choices' => ($isPaho ? [TripleChoice::UNKNOWN] : null)])
-            ->add('dischDx',    DischargeDiagnosis::class, ['required' => false, 'label' => 'ibd-form.discharge-diagnosis', 'exclude_choices' => $isPaho ? [DischargeDiagnosis::UNKNOWN]:null,])
+            ->add('csfCollected', TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.csf-collected', 'exclude_choices' => $isPaho ? [TripleChoice::UNKNOWN] : null])
+            ->add('dischDx',    DischargeDiagnosis::class, ['required' => false, 'label' => 'ibd-form.discharge-diagnosis', 'exclude_choices' => $isPaho ? [DischargeDiagnosis::UNKNOWN, DischargeDiagnosis::SEPSIS]:null,])
             ->add('dischClass', DischargeClassification::class, ['required' => false, 'label' => 'ibd-form.discharge-class', 'exclude_choices' => $isPaho ? [DischargeClassification::UNKNOWN, DischargeClassification::SUSPECT] : null])
             ->add('hibReceived', VaccinationReceived::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.hib-received','property_path'=>'hib_received'])
             ->add('pcvReceived', VaccinationReceived::class, ['required' => $required || $isPaho, 'label' => 'ibd-form.pcv-received','property_path'=>'pcv_received'])
