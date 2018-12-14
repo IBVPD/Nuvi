@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "13b3952036c765dca23d667df2077d71",
+    "content-hash": "1964b4edc8c6d1eb2d8e490904b1069b",
     "packages": [
         {
             "name": "adoy/oauth2",
@@ -4501,16 +4501,16 @@
         },
         {
             "name": "sonata-project/core-bundle",
-            "version": "3.13.1",
+            "version": "3.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataCoreBundle.git",
-                "reference": "91b0913bce76bb6e6686814526a9e060dad95d8a"
+                "reference": "4a4edf9c957e2a2dbe077d225d7af1693f3ea353"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/91b0913bce76bb6e6686814526a9e060dad95d8a",
-                "reference": "91b0913bce76bb6e6686814526a9e060dad95d8a",
+                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/4a4edf9c957e2a2dbe077d225d7af1693f3ea353",
+                "reference": "4a4edf9c957e2a2dbe077d225d7af1693f3ea353",
                 "shasum": ""
             },
             "require": {
@@ -4553,10 +4553,7 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Sonata\\CoreBundle\\": "src/CoreBundle/",
-                    "Sonata\\Form\\": "src/Form/",
-                    "Sonata\\Serializer\\": "src/Serializer/",
-                    "Sonata\\Twig\\": "src/Twig/"
+                    "Sonata\\CoreBundle\\": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -4578,7 +4575,7 @@
             "keywords": [
                 "sonata"
             ],
-            "time": "2018-12-11T21:21:55+00:00"
+            "time": "2018-11-19T19:01:36+00:00"
         },
         {
             "name": "sonata-project/datagrid-bundle",
