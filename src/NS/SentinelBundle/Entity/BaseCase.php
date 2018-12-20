@@ -455,15 +455,15 @@ abstract class BaseCase
      */
     public function getSentToNationalLab()
     {
-        return ($this->siteLab) ? $this->siteLab->getSentToNationalLab() : false;
+        return $this->siteLab ? $this->siteLab->getSentToNationalLab() : false;
     }
 
     /**
      * @return boolean
      */
-    public function hasSiteLab()
+    public function hasSiteLab(): bool
     {
-        return ($this->siteLab instanceof $this->siteLabClass);
+        return $this->siteLab instanceof $this->siteLabClass;
     }
 
     /**
@@ -481,7 +481,7 @@ abstract class BaseCase
     {
         $siteLab->setCaseFile($this);
         $this->siteLab = $siteLab;
-        }
+    }
 
     /**
      * @return boolean

@@ -80,16 +80,14 @@ abstract class BaseExternalLab
 
     /**
      * @param \DateTime|null $dateReceived
-     * @return $this
      */
     public function setDateReceived(\DateTime $dateReceived = null)
     {
         $this->dt_sample_recd = $dateReceived;
-        return $this;
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
     public function getDtSampleRecd()
     {
@@ -98,25 +96,20 @@ abstract class BaseExternalLab
 
     /**
      * @param \DateTime $dt_sample_recd
-     * @return BaseExternalLab
      */
     public function setDtSampleRecd($dt_sample_recd)
     {
         $this->dt_sample_recd = $dt_sample_recd;
-        return $this;
     }
 
     /**
      * Set case
      *
      * @param  $case
-     * @return $this
      */
     public function setCaseFile($case = null)
     {
         $this->caseFile = $case;
-
-        return $this;
     }
 
     /**
@@ -129,24 +122,18 @@ abstract class BaseExternalLab
         return $this->caseFile;
     }
 
-    /**
-     * @return bool
-     */
-    public function hasCase()
+    public function hasCase(): bool
     {
-        return ($this->caseFile !== null);
+        return $this->caseFile !== null;
+    }
+
+    public function isComplete(): bool
+    {
+        return $this->status->getValue() === CaseStatus::COMPLETE;
     }
 
     /**
-     * @return bool
-     */
-    public function isComplete()
-    {
-        return $this->status->getValue() == CaseStatus::COMPLETE;
-    }
-
-    /**
-     * @return string
+     * @return string|null
      */
     public function getLabId()
     {
@@ -155,12 +142,10 @@ abstract class BaseExternalLab
 
     /**
      * @param $labId
-     * @return $this
      */
     public function setLabId($labId)
     {
         $this->lab_id = $labId;
-        return $this;
     }
 
     /**
@@ -173,16 +158,14 @@ abstract class BaseExternalLab
 
     /**
      * @param CaseStatus $status
-     * @return $this
      */
     public function setStatus(CaseStatus $status)
     {
         $this->status = $status;
-        return $this;
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
     public function getUpdatedAt()
     {
@@ -191,17 +174,12 @@ abstract class BaseExternalLab
 
     /**
      * @param $updatedAt
-     * @return $this
      */
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
-        return $this;
     }
 
-    /**
-     *
-     */
     public function calculateStatus()
     {
         if ($this->status->getValue() >= CaseStatus::CANCELLED) {
@@ -213,13 +191,8 @@ abstract class BaseExternalLab
         } else {
             $this->status = new CaseStatus(CaseStatus::COMPLETE);
         }
-
-        return;
     }
 
-    /**
-     *
-     */
     public function getIncompleteField()
     {
         foreach ($this->getMandatoryFields() as $fieldName) {
@@ -246,7 +219,7 @@ abstract class BaseExternalLab
 
     /**
      *
-     * @return string
+     * @return string|null
      */
     public function getComment()
     {
@@ -256,16 +229,14 @@ abstract class BaseExternalLab
     /**
      *
      * @param string $comment
-     * @return $this
      */
     public function setComment($comment)
     {
         $this->comment = $comment;
-        return $this;
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
     public function getCreatedAt()
     {
@@ -274,11 +245,9 @@ abstract class BaseExternalLab
 
     /**
      * @param \DateTime $createdAt
-     * @return BaseExternalLab
      */
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
-        return $this;
     }
 }

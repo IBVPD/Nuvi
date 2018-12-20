@@ -206,8 +206,6 @@ class SiteLab implements BaseSiteLabInterface
         if ($case) {
             $this->caseFile = $case;
         }
-
-        return $this;
     }
 
     /**
@@ -218,18 +216,13 @@ class SiteLab implements BaseSiteLabInterface
         return $this->caseFile;
     }
 
-    /**
-     * @param BaseCase $caseFile
-     *
-     * @return SiteLab
-     */
     public function setCaseFile(BaseCase $caseFile)
     {
         $this->caseFile = $caseFile;
     }
 
     /**
-     * @return mixed
+     * @return int|null
      */
     public function getId()
     {
@@ -237,7 +230,7 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
     public function getReceived()
     {
@@ -245,7 +238,7 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @return TripleChoice
+     * @return TripleChoice|null
      */
     public function getAdequate()
     {
@@ -253,7 +246,7 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @return TripleChoice
+     * @return TripleChoice|null
      */
     public function getStored()
     {
@@ -261,7 +254,7 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @return TripleChoice
+     * @return TripleChoice|null
      */
     public function getElisaDone()
     {
@@ -269,7 +262,7 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @return ElisaKit
+     * @return ElisaKit|null
      */
     public function getElisaKit()
     {
@@ -277,7 +270,7 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getElisaKitOther()
     {
@@ -285,7 +278,7 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getElisaLoadNumber()
     {
@@ -293,7 +286,7 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
     public function getElisaExpiryDate()
     {
@@ -309,7 +302,7 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @return ElisaResult
+     * @return ElisaResult|null
      */
     public function getElisaResult()
     {
@@ -317,7 +310,7 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
     public function getGenotypingDate()
     {
@@ -325,7 +318,7 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @return GenotypeResultG
+     * @return GenotypeResultG|null
      */
     public function getGenotypingResultg()
     {
@@ -333,7 +326,7 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getGenotypingResultGSpecify()
     {
@@ -341,7 +334,7 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @return GenotypeResultP
+     * @return GenotypeResultP|null
      */
     public function getGenotypeResultP()
     {
@@ -349,7 +342,7 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getGenotypeResultPSpecify()
     {
@@ -357,7 +350,7 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @return TripleChoice
+     * @return TripleChoice|null
      */
     public function getStoolSentToRRL()
     {
@@ -365,7 +358,7 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
     public function getStoolSentToRRLDate()
     {
@@ -373,7 +366,7 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @return TripleChoice
+     * @return TripleChoice|null
      */
     public function getStoolSentToNL()
     {
@@ -381,7 +374,7 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
     public function getStoolSentToNLDate()
     {
@@ -390,204 +383,160 @@ class SiteLab implements BaseSiteLabInterface
 
     /**
      * @param \DateTime|null $received
-     * @return $this
      */
     public function setReceived(\DateTime $received = null)
     {
         $this->received = $received;
-
-        return $this;
     }
 
     /**
      * @param TripleChoice $adequate
-     * @return $this
      */
     public function setAdequate(TripleChoice $adequate)
     {
         $this->adequate = $adequate;
-        return $this;
     }
 
     /**
      * @param TripleChoice $stored
-     * @return $this
      */
     public function setStored(TripleChoice $stored)
     {
         $this->stored = $stored;
-        return $this;
     }
 
     /**
      * @param TripleChoice $elisaDone
-     * @return $this
      */
     public function setElisaDone(TripleChoice $elisaDone)
     {
         $this->elisaDone = $elisaDone;
-        return $this;
     }
 
     /**
      * @param ElisaKit $elisaKit
-     * @return $this
      */
     public function setElisaKit(ElisaKit $elisaKit)
     {
         $this->elisaKit = $elisaKit;
-        return $this;
     }
 
     /**
      * @param $elisaKitOther
-     * @return $this
      */
     public function setElisaKitOther($elisaKitOther)
     {
         $this->elisaKitOther = $elisaKitOther;
-        return $this;
     }
 
     /**
      * @param $elisaLoadNumber
-     * @return $this
      */
     public function setElisaLoadNumber($elisaLoadNumber)
     {
         $this->elisaLoadNumber = $elisaLoadNumber;
-        return $this;
     }
 
     /**
      * @param \DateTime|null $elisaExpiryDate
-     * @return $this
      */
     public function setElisaExpiryDate(\DateTime $elisaExpiryDate = null)
     {
         $this->elisaExpiryDate = $elisaExpiryDate;
-
-        return $this;
     }
 
     /**
      * @param \DateTime|null $elisaTestDate
-     * @return $this
      */
     public function setElisaTestDate(\DateTime $elisaTestDate = null)
     {
         $this->elisaTestDate = $elisaTestDate;
-
-        return $this;
     }
 
     /**
      * @param ElisaResult $elisaResult
-     * @return $this
      */
     public function setElisaResult(ElisaResult $elisaResult)
     {
         $this->elisaResult = $elisaResult;
-        return $this;
     }
 
     /**
      * @param \DateTime|null $genotypingDate
-     * @return $this
      */
     public function setGenotypingDate(\DateTime $genotypingDate = null)
     {
         $this->genotypingDate = $genotypingDate;
-
-        return $this;
     }
 
     /**
      * @param GenotypeResultG $genotypingResultG
-     * @return $this
      */
     public function setGenotypingResultg(GenotypeResultG $genotypingResultG)
     {
         $this->genotypingResultG = $genotypingResultG;
-        return $this;
     }
 
     /**
      * @param $genotypingResultGSpecify
-     * @return $this
      */
     public function setGenotypingResultGSpecify($genotypingResultGSpecify)
     {
         $this->genotypingResultGSpecify = $genotypingResultGSpecify;
-        return $this;
     }
 
     /**
      * @param GenotypeResultP $genotypeResultP
-     * @return $this
      */
     public function setGenotypeResultP(GenotypeResultP $genotypeResultP)
     {
         $this->genotypeResultP = $genotypeResultP;
-        return $this;
     }
 
     /**
      * @param $genotypeResultPSpecify
-     * @return $this
      */
     public function setGenotypeResultPSpecify($genotypeResultPSpecify)
     {
         $this->genotypeResultPSpecify = $genotypeResultPSpecify;
-        return $this;
     }
 
     /**
      * @param TripleChoice $stoolSentToRRL
-     * @return $this
      */
     public function setStoolSentToRRL(TripleChoice $stoolSentToRRL)
     {
         $this->stoolSentToRRL = $stoolSentToRRL;
-        return $this;
     }
 
     /**
      * @param \DateTime|null $stoolSentToRRLDate
-     * @return $this
      */
     public function setStoolSentToRRLDate(\DateTime $stoolSentToRRLDate = null)
     {
         $this->stoolSentToRRLDate = $stoolSentToRRLDate;
-
-        return $this;
     }
 
     /**
      * @param TripleChoice $stoolSentToNL
-     * @return $this
      */
     public function setStoolSentToNL(TripleChoice $stoolSentToNL)
     {
         $this->stoolSentToNL = $stoolSentToNL;
-        return $this;
     }
 
     /**
      * @param \DateTime|null $stoolSentToNLDate
-     * @return $this
      */
     public function setStoolSentToNLDate(\DateTime $stoolSentToNLDate = null)
     {
         $this->stoolSentToNLDate = $stoolSentToNLDate;
-
-        return $this;
     }
 
     /**
      * @inheritDoc
      */
-    public function getSentToNationalLab()
+    public function getSentToNationalLab(): bool
     {
         $tripleChoice = $this->getStoolSentToNL();
         return ($tripleChoice && $tripleChoice->equal(TripleChoice::YES));
@@ -596,7 +545,7 @@ class SiteLab implements BaseSiteLabInterface
     /**
      * @inheritDoc
      */
-    public function getSentToReferenceLab()
+    public function getSentToReferenceLab(): bool
     {
         $tripleChoice = $this->getStoolSentToRRL();
         return ($tripleChoice && $tripleChoice->equal(TripleChoice::YES));
