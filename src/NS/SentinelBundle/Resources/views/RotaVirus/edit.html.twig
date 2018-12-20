@@ -82,13 +82,13 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-4">
+                            {% if form.symptomDiarrheaBloody is defined %}
+                                {{form_row(form.symptomDiarrheaBloody)}}
+                            {% endif %}
                             {{form_row(form.symptomDiarrhea)}}
                             {{form_row(form.symptomDiarrheaOnset)}}
                             {{form_row(form.symptomDiarrheaEpisodes)}}
                             {{form_row(form.symptomDiarrheaDuration)}}
-                            {% if form.symptomDiarrheaBloody is defined %}
-                            {{form_row(form.symptomDiarrheaBloody)}}
-                            {% endif %}
                         </div>
                         <div class="col-sm-4">
                             {{form_row(form.symptomVomit)}}

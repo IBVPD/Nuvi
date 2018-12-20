@@ -36,6 +36,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @LocalAssert\GreaterThanDate(atPath="stool_collect_date",lessThanField="admDate",greaterThanField="stoolCollectionDate",message="form.validation.stool-collection-before-admission")
  * @LocalAssert\GreaterThanDate(atPath="disch_date",lessThanField="admDate",greaterThanField="dischargeDate",message="form.validation.stool-collection-before-admission")
  * @LocalAssert\RelatedField(sourceField="stoolCollected",sourceValue={"1"},fields={"stoolCollectionDate"})
+ * @LocalAssert\TacPhaseTwo()
  *
  * @ORM\EntityListeners(value={"NS\SentinelBundle\Entity\Listener\RotaVirusListener"})
  */

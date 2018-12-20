@@ -116,8 +116,10 @@ class CaseType extends AbstractType
         }
 
         if ($add) {
-            $required = $event->getForm()->getConfig()->getOption('method', 'POST') == 'PUT';
-            $event->getForm()->add('symptomDiarrheaBloody', TripleChoice::class, ['required' => $required, 'label' => 'rotavirus-form.symptomDiarrheaBloody', 'hidden' => ['parent' => 'symptomDiarrhea', 'value' => TripleChoice::YES]]);
+            $form = $event->getForm();
+            $form->add('symptomDiarrheaBloody', TripleChoice::class, ['required' => true, 'label' => 'rotavirus-form.symptomDiarrheaBloody']);
+            $form->remove('symptomDiarrhea');
+            $form->add('symptomDiarrhea', TripleChoice::class, ['required' => true, 'label' => 'rotavirus-form.symptomDiarrhea']);
         }
     }
 
