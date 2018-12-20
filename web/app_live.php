@@ -3,7 +3,7 @@
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Debug\Debug;
 
-if (!isset($_SERVER["PHP_AUTH_USER"])) {
+if (!isset($_SERVER['PHP_AUTH_USER'])) {
     header('HTTP/1.0 403 Forbidden');
     exit('You are not allowed to access this file. Ensure basic http digest authentication is configured.');
 }
@@ -15,7 +15,10 @@ $loader = require __DIR__.'/../app/autoload.php';
 Debug::enable();
 
 $kernel = new AppKernel('live', true);
-$kernel->loadClassCache();
+if (PHP_VERSION_ID < 70000) {
+    $kernel->loadClassCache();
+}
+
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
 $response->send();
