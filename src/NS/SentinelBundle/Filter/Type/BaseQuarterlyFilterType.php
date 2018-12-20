@@ -14,27 +14,21 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use DoctrineExtensions\Query\Mysql\Year;
+use NS\SentinelBundle\Entity\ZeroReport;
 
 class BaseQuarterlyFilterType extends AbstractType
 {
-    /**
-     * @var TokenStorageInterface
-     */
+    /** @var TokenStorageInterface */
     private $tokenStorage;
 
-    /**
-     * @var AuthorizationCheckerInterface
-     */
+    /** @var AuthorizationCheckerInterface */
     private $authChecker;
 
-    /**
-     * @var ACLConverter
-     */
+    /** @var ACLConverter */
     private $converter;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $fieldName = 'adm_date';
 
     /**
@@ -75,14 +69,14 @@ class BaseQuarterlyFilterType extends AbstractType
             $alias = $values['alias'];
             $roots = $queryBuilder->getRootEntities();
 
-            if (in_array('NS\SentinelBundle\Entity\ZeroReport', $roots)) {
+            if (in_array(ZeroReport::class, $roots, true)) {
                 $queryBuilder
                     ->andWhere(sprintf('%s.yearMonth BETWEEN :%sYearStart AND :%sYearEnd', $alias, $alias, $alias))
                     ->setParameter($alias . 'YearStart', "{$values['value']}00")
                     ->setParameter($alias . 'YearEnd', "{$values['value']}12");
             } else {
                 $config = $queryBuilder->getEntityManager()->getConfiguration();
-                $config->addCustomDatetimeFunction('YEAR', 'DoctrineExtensions\Query\Mysql\Year');
+                $config->addCustomDatetimeFunction('YEAR', Year::class);
                 $queryBuilder
                     ->andWhere(sprintf('YEAR(%s.%s) = :%s_year', key($queryBuilder->getDQLPart('join')), $this->fieldName, $alias))
                     ->setParameter($alias . '_year', $values['value']);
@@ -98,7 +92,7 @@ class BaseQuarterlyFilterType extends AbstractType
         $form     = $event->getForm();
         $options  = $form->getConfig()->getOptions();
         $siteType = (isset($options['site_type']) && $options['site_type'] == 'advanced') ? SiteFilterType::class : SiteType::class;
-        $siteOpt  = ($siteType == SiteFilterType::class) ? ['include_intense' => $options['include_intense'], 'label' => 'Site'] : [];
+        $siteOpt  = SiteFilterType::class === $siteType ? ['include_intense' => $options['include_intense'], 'label' => 'Site'] : [];
 
         $token    = $this->tokenStorage->getToken();
 

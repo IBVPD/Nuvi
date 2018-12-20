@@ -48,10 +48,10 @@
             <td>{{ result.stoolCollectedPercent|number_format }} %</td>
 
             <td>{{ result.elisaDoneCount }}</td>
-            <td>{{ result.elisaDonePercent }} %</td>
+            <td>{{ result.elisaDonePercent|number_format(1) }} %</td>
 
             <td>{{ result.elisaPositiveCount }}</td>
-            <td>{{ result.elisaPositivePercent }} %</td>
+            <td>{{ result.elisaPositivePercent|number_format(1) }} %</td>
         </tr>
     {% endfor %}
     </tbody>

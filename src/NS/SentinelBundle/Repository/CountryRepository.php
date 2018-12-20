@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Repository;
 
+use Doctrine\ORM\QueryBuilder;
 use NS\SentinelBundle\Repository\Common as CommonRepository;
 
 /**
@@ -33,7 +34,7 @@ class CountryRepository extends CommonRepository
     /**
      *
      * @param bool $includeInactive
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return QueryBuilder
      */
     public function getChainQueryBuilder($includeInactive = false)
     {
@@ -53,14 +54,14 @@ class CountryRepository extends CommonRepository
     /**
      * @param $alias
      * @param $caseClass
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return QueryBuilder
      */
-    public function getWithCasesForDate($alias, $caseClass)
+    public function getWithCasesForDate($alias, $caseClass): QueryBuilder
     {
         return $this->secure($this->_em->createQueryBuilder()
             ->select("cf, $alias, s, c, r, COUNT(IDENTITY($alias)) as totalCases")
             ->from($caseClass, 'cf')
-            ->innerJoin("cf.referenceLab", $alias)
+            ->innerJoin('cf.referenceLab', $alias)
             ->leftJoin('cf.site', 's')
             ->innerJoin('cf.country', 'c')
             ->innerJoin('c.region', 'r')

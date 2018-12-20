@@ -39,7 +39,7 @@ class RotaVirusReportController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function sitePerformanceAction(Request $request)
+    public function sitePerformanceAction(Request $request): Response
     {
         $form = $this->createForm(BaseQuarterlyFilterType::class, null, ['site_type' => 'advanced', 'include_intense' => false]);
         $service = $this->get('ns_sentinel.rotavirus_report');
@@ -57,7 +57,7 @@ class RotaVirusReportController extends Controller
      *
      * @Route("/data-linking",name="rotaReportDataLinking")
      */
-    public function dataLinking(Request $request)
+    public function dataLinking(Request $request): Response
     {
         $form = $this->createForm(QuarterlyLinkingReportFilterType::class, null, ['site_type' => 'advanced', 'include_intense' => false]);
         $service = $this->get('ns_sentinel.rotavirus_report');
@@ -75,7 +75,7 @@ class RotaVirusReportController extends Controller
      *
      * @Route("/stats",name="rotaReportStats")
      */
-    public function statsAction(Request $request)
+    public function statsAction(Request $request): Response
     {
         $form = $this->createForm(ReportFilterType::class, null, ['site_type' => 'advanced']);
         $service = $this->get('ns_sentinel.rotavirus_report');

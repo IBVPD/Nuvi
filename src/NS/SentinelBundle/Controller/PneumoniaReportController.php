@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Controller;
 
+use NS\SentinelBundle\Entity\Pneumonia\Pneumonia;
 use NS\SentinelBundle\Filter\Type\BaseQuarterlyFilterType;
 use NS\SentinelBundle\Filter\Type\IBD\QuarterlyLinkingReportFilterType;
 use NS\SentinelBundle\Filter\Type\IBD\ReportFilterType;
@@ -22,9 +23,9 @@ class PneumoniaReportController extends Controller
     /**
      * @Route("/percent-enrolled",name="pneuReportPercentEnrolled")
      * @param Request $request
-     * @return array|RedirectResponse|Response
+     * @return RedirectResponse|Response
      */
-    public function percentEnrolledAction(Request $request)
+    public function percentEnrolledAction(Request $request): Response
     {
         $form    = $this->createForm(ReportFilterType::class);
         $service = $this->get('ns_sentinel.pneu_report');
@@ -39,9 +40,9 @@ class PneumoniaReportController extends Controller
     /**
      * @Route("/annual-age-distribution",name="pneuReportAnnualAgeDistribution")
      * @param Request $request
-     * @return array|RedirectResponse|Response
+     * @return RedirectResponse|Response
      */
-    public function annualAgeDistributionAction(Request $request)
+    public function annualAgeDistributionAction(Request $request): Response
     {
         $form    = $this->createForm(ReportFilterType::class);
         $service = $this->get('ns_sentinel.pneu_report');
@@ -53,42 +54,30 @@ class PneumoniaReportController extends Controller
         return $this->render('NSSentinelBundle:Report:Pneumonia/annualAgeDistribution.html.twig', $params);
     }
 
-    /**
-     * @return Response
-     */
-    public function byCountryGraphAction()
+    public function byCountryGraphAction(): Response
     {
-        $reports = $this->get('doctrine.orm.entity_manager')->getRepository("NSSentinelBundle:IBD")->getByCountry();
+        $reports = $this->get('doctrine.orm.entity_manager')->getRepository(Pneumonia::class)->getByCountry();
 
         return $this->render('NSSentinelBundle:Report:Pneumonia/byCountryGraph.html.twig', ['reports' => $reports]);
     }
 
-    /**
-     * @return Response
-     */
-    public function bySiteGraphAction()
+    public function bySiteGraphAction(): Response
     {
-        $reports = $this->get('doctrine.orm.entity_manager')->getRepository("NSSentinelBundle:IBD")->getBySite();
+        $reports = $this->get('doctrine.orm.entity_manager')->getRepository(Pneumonia::class)->getBySite();
 
         return $this->render('NSSentinelBundle:Report:Pneumonia/bySiteGraph.html.twig', ['reports' => $reports]);
     }
 
-    /**
-     * @return Response
-     */
-    public function generalStatsAction()
+    public function generalStatsAction(): Response
     {
-        $reports = $this->get('doctrine.orm.entity_manager')->getRepository("NSSentinelBundle:IBD")->getStats();
+        $reports = $this->get('doctrine.orm.entity_manager')->getRepository(Pneumonia::class)->getStats();
        
         return $this->render('NSSentinelBundle:Report:Pneumonia/generalStats.html.twig', ['reports' => $reports]);
     }
 
-    /**
-     * @return Response
-     */
-    public function byDiagnosisGraphAction()
+    public function byDiagnosisGraphAction(): Response
     {
-        $reports = $this->get('doctrine.orm.entity_manager')->getRepository("NSSentinelBundle:IBD")->getByDiagnosis();
+        $reports = $this->get('doctrine.orm.entity_manager')->getRepository(Pneumonia::class)->getByDiagnosis();
        
         return $this->render('NSSentinelBundle:Report:Pneumonia/byDiagnosisGraph.html.twig', ['reports' => $reports]);
     }
@@ -110,9 +99,9 @@ class PneumoniaReportController extends Controller
     /**
      * @Route("/data-quality",name="pneuReportDataQuality")
      * @param Request $request
-     * @return array|RedirectResponse|Response
+     * @return RedirectResponse|Response
      */
-    public function dataQualityAction(Request $request)
+    public function dataQualityAction(Request $request): Response
     {
         $form    = $this->createForm(ReportFilterType::class, null, ['site_type'=>'advanced']);
         $service = $this->get('ns_sentinel.pneu_report');
@@ -129,7 +118,7 @@ class PneumoniaReportController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function sitePerformanceAction(Request $request)
+    public function sitePerformanceAction(Request $request): Response
     {
         $form    = $this->createForm(BaseQuarterlyFilterType::class, null, ['site_type'=>'advanced']);
         $service = $this->get('ns_sentinel.pneu_report');
@@ -147,7 +136,7 @@ class PneumoniaReportController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function dataLinking(Request $request)
+    public function dataLinking(Request $request): Response
     {
         $form    = $this->createForm(QuarterlyLinkingReportFilterType::class, null, ['site_type'=>'advanced']);
         $service = $this->get('ns_sentinel.pneu_report');
@@ -165,7 +154,7 @@ class PneumoniaReportController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function statsAction(Request $request)
+    public function statsAction(Request $request): Response
     {
         $form    = $this->createForm(ReportFilterType::class, null, ['site_type'=>'advanced']);
         $service = $this->get('ns_sentinel.pneu_report');
@@ -183,7 +172,7 @@ class PneumoniaReportController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function yearAndMonthAction(Request $request)
+    public function yearAndMonthAction(Request $request): Response
     {
         $form    = $this->createForm(BaseQuarterlyFilterType::class, null, ['site_type'=>'advanced']);
         $service = $this->get('ns_sentinel.pneu_report');

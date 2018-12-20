@@ -4,6 +4,8 @@ namespace NS\SentinelBundle\Report;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query;
+use NS\SentinelBundle\Entity\Country;
+use NS\SentinelBundle\Entity\Site;
 use NS\SentinelBundle\Report\Result\AgeDistribution;
 use NS\SentinelBundle\Report\Result\CulturePositive;
 use NS\SentinelBundle\Report\Result\DataLinkingResult;
@@ -120,7 +122,7 @@ class IBDReporter extends AbstractReporter
     {
         $results = new ArrayCollection();
         $alias = 'i';
-        $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getWithCasesForDate($alias, $this->class);
+        $queryBuilder = $this->entityMgr->getRepository(Site::class)->getWithCasesForDate($alias, $this->class);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -211,7 +213,7 @@ class IBDReporter extends AbstractReporter
     {
         $results = new ArrayCollection();
         $alias = 'i';
-        $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getWithCasesForDate($alias, $this->class);
+        $queryBuilder = $this->entityMgr->getRepository(Site::class)->getWithCasesForDate($alias, $this->class);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -256,7 +258,7 @@ class IBDReporter extends AbstractReporter
     {
         $results = new ArrayCollection();
         $alias = 'i';
-        $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getWithCasesForDate($alias, $this->class);
+        $queryBuilder = $this->entityMgr->getRepository(Site::class)->getWithCasesForDate($alias, $this->class);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -277,7 +279,7 @@ class IBDReporter extends AbstractReporter
             $repo = $this->entityMgr->getRepository($this->class);
             $columns = [
                 'getConsistentReporting' => 'addConsistentReporting',
-                'getZeroReporting' => 'addConsistentReporting',
+                'getZeroReporting' => ['method' => 'addConsistentReporting', 'alias' => 's'],
             ];
 
             $this->processSitePerformanceResult($columns, $repo, $alias, $results, $form);
@@ -311,7 +313,7 @@ class IBDReporter extends AbstractReporter
                 return new RedirectResponse($this->router->generate($redirectRoute));
             }
 
-            $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Country')->getWithCasesForDate($alias, $this->class);
+            $queryBuilder = $this->entityMgr->getRepository(Country::class)->getWithCasesForDate($alias, $this->class);
 
             $this->filter->addFilterConditions($form, $queryBuilder, $alias);
 
@@ -362,7 +364,7 @@ class IBDReporter extends AbstractReporter
             }
 
             $alias = 'i';
-            $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getWithCasesForDate($alias, $this->class);
+            $queryBuilder = $this->entityMgr->getRepository(Site::class)->getWithCasesForDate($alias, $this->class);
             $queryBuilder->addSelect('MONTH(i.adm_date) as admMonth');
 
             $this->filter->addFilterConditions($form, $queryBuilder, $alias);

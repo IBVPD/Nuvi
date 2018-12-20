@@ -15,14 +15,10 @@ use Doctrine\Common\Persistence\ObjectManager;
  */
 class BaseObject extends AbstractType //implements EmbeddedFilterTypeInterface
 {
-    /**
-     * @var
-     */
+    /** @var ObjectManager */
     protected $entityMgr;
 
-    /**
-     * @var
-     */
+    /** @var string|null */
     protected $class;
 
     /**
@@ -51,12 +47,12 @@ class BaseObject extends AbstractType //implements EmbeddedFilterTypeInterface
     public function applyFilter(ORMQuery $filterBuilder, $field, $values)
     {
         if (!empty($values['value'])) {
-            $fieldName = str_replace(['\\', ':'], ['_', '_'], $this->class);
+            $fieldName = str_replace(['\\', ':'], '_', $this->class);
             $values = $values['value'];
             $queryBuilder = $filterBuilder->getQueryBuilder();
 
-            if (count($values) == 1) {
-                $queryBuilder->andWhere(sprintf("%s = :%s", $field, $fieldName))->setParameter($fieldName, $values[0]);
+            if (count($values) === 1) {
+                $queryBuilder->andWhere(sprintf('%s = :%s', $field, $fieldName))->setParameter($fieldName, $values[0]);
             } elseif (count($values) > 0) {
                 $where = [];
 
@@ -66,7 +62,7 @@ class BaseObject extends AbstractType //implements EmbeddedFilterTypeInterface
                     $queryBuilder->setParameter($fieldNameX, $val);
                 }
 
-                $queryBuilder->andWhere("(" . implode(" OR ", $where) . ")");
+                $queryBuilder->andWhere('(' . implode(' OR ', $where) . ')');
             }
         }
     }

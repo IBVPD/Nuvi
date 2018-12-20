@@ -4,11 +4,17 @@ namespace NS\SentinelBundle\Report;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query;
+use NS\SentinelBundle\Entity\Country;
+use NS\SentinelBundle\Entity\Site;
 use NS\SentinelBundle\Report\Result\RotaVirus\GeneralStatisticResult;
 use NS\SentinelBundle\Report\Result\SiteMonthResult;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use NS\SentinelBundle\Entity\RotaVirus;
+use NS\SentinelBundle\Report\Result\DataLinkingResult;
+use NS\SentinelBundle\Report\Result\RotaVirus\SitePerformanceResult;
+use NS\SentinelBundle\Report\Result\RotaVirus\DataQualityResult;
 
 class RotaVirusReporter extends AbstractReporter
 {
@@ -22,7 +28,7 @@ class RotaVirusReporter extends AbstractReporter
     {
         $results = new ArrayCollection();
         $alias = 'i';
-        $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getWithCasesForDate($alias, 'NS\SentinelBundle\Entity\RotaVirus');
+        $queryBuilder = $this->entityMgr->getRepository(Site::class)->getWithCasesForDate($alias, RotaVirus::class);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -38,9 +44,9 @@ class RotaVirusReporter extends AbstractReporter
                 return ['sites' => [], 'form' => $form->createView()];
             }
 
-            $this->populateSites($sites, $results, 'NS\SentinelBundle\Report\Result\RotaVirus\DataQualityResult');
+            $this->populateSites($sites, $results, DataQualityResult::class);
 
-            $repo = $this->entityMgr->getRepository('NSSentinelBundle:RotaVirus');
+            $repo = $this->entityMgr->getRepository(RotaVirus::class);
             $columns = [
                 'getStoolCollectionDateErrorCountBySites' => 'setStoolCollectionDateErrorCount',
                 'getMissingDischargeOutcomeCountBySites' => 'setMissingDischargeOutcomeCount',
@@ -60,11 +66,18 @@ class RotaVirusReporter extends AbstractReporter
         return ['sites' => $results, 'form' => $form->createView()];
     }
 
+    /**
+     * @param Request       $request
+     * @param FormInterface $form
+     * @param               $redirectRoute
+     *
+     * @return array|RedirectResponse
+     */
     public function getSitePerformance(Request $request, FormInterface $form, $redirectRoute)
     {
         $results = new ArrayCollection();
         $alias = 'i';
-        $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getWithCasesForDate($alias, 'NS\SentinelBundle\Entity\RotaVirus');
+        $queryBuilder = $this->entityMgr->getRepository(Site::class)->getWithCasesForDate($alias, RotaVirus::class);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -80,12 +93,12 @@ class RotaVirusReporter extends AbstractReporter
                 return ['sites' => [], 'form' => $form->createView()];
             }
 
-            $this->populateSites($sites, $results, 'NS\SentinelBundle\Report\Result\RotaVirus\SitePerformanceResult');
+            $this->populateSites($sites, $results, SitePerformanceResult::class);
 
-            $repo = $this->entityMgr->getRepository('NSSentinelBundle:RotaVirus');
+            $repo = $this->entityMgr->getRepository(RotaVirus::class);
             $columns = [
                 'getConsistentReporting' => 'addConsistentReporting',
-                'getZeroReporting' => 'addConsistentReporting',
+                'getZeroReporting' => ['alias' => 's', 'method' => 'addConsistentReporting'],
             ];
 
             $this->processSitePerformanceResult($columns, $repo, $alias, $results, $form);
@@ -116,9 +129,9 @@ class RotaVirusReporter extends AbstractReporter
                 return new RedirectResponse($this->router->generate($redirectRoute));
             }
 
-            $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Country')->getWithCasesForDate($alias, 'NS\SentinelBundle\Entity\RotaVirus');
+            $queryBuilder = $this->entityMgr->getRepository(Country::class)->getWithCasesForDate($alias, RotaVirus::class);
 
-            $this->filter->addFilterConditions($form, $queryBuilder, $alias);
+            $this->filter->addFilterConditions($form, $queryBuilder, 'cf');
 
             $countries = $queryBuilder->getQuery()->setHint(Query::HINT_FORCE_PARTIAL_LOAD, true)->getResult();
 
@@ -126,8 +139,8 @@ class RotaVirusReporter extends AbstractReporter
                 return ['sites' => [], 'form' => $form->createView()];
             }
 
-            $this->populateCountries($countries, $results, 'NS\SentinelBundle\Report\Result\DataLinkingResult');
-            $repo = $this->entityMgr->getRepository('NSSentinelBundle:RotaVirus');
+            $this->populateCountries($countries, $results, DataLinkingResult::class);
+            $repo = $this->entityMgr->getRepository(RotaVirus::class);
 
             if ($form->get('export')->isClicked()) {
                 $results = $repo->getFailedLink($alias, $results->getKeys())->getQuery()->getResult();
@@ -167,7 +180,7 @@ class RotaVirusReporter extends AbstractReporter
             }
 
             $alias = 'i';
-            $queryBuilder = $this->entityMgr->getRepository('NSSentinelBundle:Site')->getWithCasesForDate($alias, 'NS\SentinelBundle\Entity\RotaVirus');
+            $queryBuilder = $this->entityMgr->getRepository(Site::class)->getWithCasesForDate($alias, RotaVirus::class);
             $queryBuilder->addSelect('MONTH(i.adm_date) as admMonth');
 
             $this->filter->addFilterConditions($form, $queryBuilder, $alias);

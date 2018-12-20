@@ -124,12 +124,13 @@ class AbstractReporter
             if (method_exists($repo, $func)) {
                 $query = $repo->$func($alias, $results->getKeys());
 
+
                 $res = $this->filter
-                    ->addFilterConditions($form, $query, $alias)
+                    ->addFilterConditions($form, $query, is_array($pf) ? $pf['alias']: $alias)
                     ->getQuery()
                     ->getResult(Query::HYDRATE_SCALAR);
 
-                $this->processSitePerformanceColumn($results, $res, $pf);
+                $this->processSitePerformanceColumn($results, $res, is_array($pf) ? $pf['method'] : $pf);
             }
         }
     }
@@ -182,7 +183,7 @@ class AbstractReporter
 
                 try {
                     $res = $this->filter
-                        ->addFilterConditions($form, $query, 'i')
+                        ->addFilterConditions($form, $query, 'cf')
                         ->getQuery()
                         ->getResult(Query::HYDRATE_SCALAR);
                 } catch (\Exception $exception) {
