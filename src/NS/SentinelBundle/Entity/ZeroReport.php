@@ -64,44 +64,42 @@ class ZeroReport
 
     /**
      * ZeroReport constructor.
-     * @param Site $site
-     * @param int $caseType
+     *
+     * @param Site   $site
+     * @param int    $caseType
      * @param string $type
-     * @param int $month
-     * @param int $year
+     * @param int    $month
+     * @param int    $year
      */
     public function __construct(Site $site, $caseType, $type, $month, $year)
     {
-        if($year < 2000) {
+        if ($year < 2000) {
             throw new \InvalidArgumentException('Expecting a year after 2000');
         }
 
-        if(!is_numeric($month) || $month <=0 || $month >12) {
+        if (!is_numeric($month) || $month <= 0 || $month > 12) {
             throw new \InvalidArgumentException('Expecting a month between 1 and 12');
         }
 
-        $this->site = $site;
-        $this->caseType = $caseType;
-        $this->type = $type;
-        $this->yearMonth = sprintf('%s%s', $year, (is_numeric($month) && $month < 10)? str_pad($month, 2,'0',STR_PAD_LEFT):$month);
+        $this->site      = $site;
+        $this->caseType  = $caseType;
+        $this->type      = $type;
+        $this->yearMonth = sprintf('%s%s', $year, (is_numeric($month) && $month < 10) ? str_pad($month, 2, '0', STR_PAD_LEFT) : $month);
     }
 
     /**
-     * @return int
+     * @return int|null
      */
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * @return int
-     */
-    public function getYear()
+    public function getYear(): int
     {
         if (!$this->year) {
-           $this->year  = substr($this->yearMonth, 0, -2);
-           $this->month = substr($this->yearMonth, -2);
+            $this->year  = substr($this->yearMonth, 0, -2);
+            $this->month = substr($this->yearMonth, -2);
         }
 
         return $this->year;
@@ -113,8 +111,8 @@ class ZeroReport
     public function getMonth()
     {
         if (!$this->month) {
-           $this->year  = substr($this->yearMonth, 0, -2);
-           $this->month = substr($this->yearMonth, -2);
+            $this->year  = substr($this->yearMonth, 0, -2);
+            $this->month = substr($this->yearMonth, -2);
         }
 
         return $this->month;

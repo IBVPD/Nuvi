@@ -8,12 +8,12 @@
 
 namespace NS\SentinelBundle\Controller;
 
-use Doctrine\DBAL\DBALException;
-use NS\SentinelBundle\Entity\ZeroReport;
 use NS\SentinelBundle\Filter\Type\ZeroReportFilterType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class ZeroReportingController
@@ -27,11 +27,11 @@ class ZeroReportingController extends Controller
 
     /**
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      *
      * @Route("/zero-report",name="zeroReportIndex")
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request): Response
     {
         $filterForm = $this->createForm(ZeroReportFilterType::class);
         $filterForm->handleRequest($request);
@@ -47,11 +47,12 @@ class ZeroReportingController extends Controller
 
     /**
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
+     * @return RedirectResponse|Response
      *
      * @Route("/zero-report/update",name="zeroReportUpdate")
      */
-    public function updateAction(Request $request)
+    public function updateAction(Request $request): Response
     {
         $data = $request->getSession()->get('zero.reporting', false);
         if ($data === false) {
