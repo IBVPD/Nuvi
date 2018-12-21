@@ -176,8 +176,7 @@ class RotaVirusTest extends KernelTestCase
         $nationalLab->setCaseFile($this->rotaVirusCase);
 
         $violationConstraints = $this->validator->validate($nationalLab);
-        // 3 because of the diarrhea
-        $this->assertCount(3, $violationConstraints);
+        $this->assertCount(1, $violationConstraints);
         $this->assertEquals('caseFile.siteLab.stoolSentToNLDate', $violationConstraints[0]->getConstraint()->lessThanField);
     }
 
@@ -190,8 +189,7 @@ class RotaVirusTest extends KernelTestCase
         $nationalLab->setGenotypingDate($this->past);
 
         $violationConstraints = $this->validator->validate($nationalLab);
-        // 3 because of the diarrhea
-        $this->assertCount(3, $violationConstraints);
+        $this->assertCount(1, $violationConstraints);
         $this->assertEquals('dateReceived', $violationConstraints[0]->getConstraint()->lessThanField);
     }
 }
