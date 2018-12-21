@@ -7,8 +7,6 @@ use NS\SentinelBundle\Form\RotaVirus\Types\ElisaKit;
 use NS\SentinelBundle\Form\RotaVirus\Types\ElisaResult;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Validators as LocalAssert;
-use Symfony\Component\Validator\Constraints as Assert;
-use NS\UtilBundle\Validator\Constraints as UtilAssert;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
