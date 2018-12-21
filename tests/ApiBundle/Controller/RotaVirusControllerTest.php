@@ -5,6 +5,7 @@ namespace NS\ApiBundle\Tests\Controller;
 use NS\ApiBundle\Tests\WebTestCase;
 use NS\SentinelBundle\Form\Types\Gender;
 use NS\UtilBundle\Form\Types\ArrayChoice;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Description of RotaVirusController
@@ -106,7 +107,7 @@ class RotaVirusControllerTest extends WebTestCase
         $client->request('GET', $this->getRoute('nsApiRotaGetRRL'));
 
         $response = $client->getResponse();
-        if ($response->getStatusCode() == 500) {
+        if ($response->getStatusCode() === Response::HTTP_INTERNAL_SERVER_ERROR) {
             file_put_contents('/tmp/nsApiRotaGetRRL.log', $response->getContent());
         }
 
@@ -122,7 +123,7 @@ class RotaVirusControllerTest extends WebTestCase
 
         $response = $client->getResponse();
         $this->assertEquals(403, $response->getStatusCode());
-        $this->assertFalse($response->headers->has('Location'), "We have a location header");
+        $this->assertFalse($response->headers->has('Location'), 'We have a location header');
 
 // Because our user can't patch the RRL, no data is set/changed.
 //        $client->request('GET', $this->getRoute('nsApiRotaGetRRL'));
@@ -142,7 +143,7 @@ class RotaVirusControllerTest extends WebTestCase
 
         $response = $client->getResponse();
         $this->assertEquals(403, $response->getStatusCode());
-        $this->assertFalse($response->headers->has('Location'), "We have a location header");
+        $this->assertFalse($response->headers->has('Location'), 'We have a location header');
 
 // Because our user can't patch the RRL, no data is set/changed.
 //        $client->request('GET', $this->getRoute('nsApiRotaGetRRL'));
@@ -175,7 +176,7 @@ class RotaVirusControllerTest extends WebTestCase
 
         $response = $client->getResponse();
         $this->assertEquals(204, $response->getStatusCode());
-        $this->assertFalse($response->headers->has('Location'), "We have a location header");
+        $this->assertFalse($response->headers->has('Location'), 'We have a location header');
 
         $client->request('GET', $this->getRoute('nsApiRotaGetNL'));
         $response = $client->getResponse();
@@ -183,9 +184,12 @@ class RotaVirusControllerTest extends WebTestCase
         $decoded  = json_decode($response->getContent(), true);
 
         $this->assertArrayHasKey('lab_id', $decoded, print_r(array_keys($decoded), true));
-        $this->assertEquals("ANewCaseId", $decoded['lab_id']);
+        $this->assertEquals('ANewCaseId', $decoded['lab_id']);
     }
 
+    /**
+     * @group testPut
+     */
     public function testPutNLCase()
     {
         $route  = $this->getRoute('nsApiRotaPutNL');
@@ -193,8 +197,13 @@ class RotaVirusControllerTest extends WebTestCase
         $client->request('PUT', $route, [], [], [], '{"national_lab":{"labId":"ANewCaseId"}}');
 
         $response = $client->getResponse();
+
+        if ($response->getStatusCode() !== Response::HTTP_OK) {
+            file_put_contents('/tmp/put-nl.json', $response->getContent());
+        }
+
         $this->assertEquals(204, $response->getStatusCode());
-        $this->assertFalse($response->headers->has('Location'), "We have a location header");
+        $this->assertFalse($response->headers->has('Location'), 'We have a location header');
 
         $client->request('GET', $this->getRoute('nsApiRotaGetNL'));
         $response = $client->getResponse();
@@ -202,7 +211,7 @@ class RotaVirusControllerTest extends WebTestCase
         $decoded  = json_decode($response->getContent(), true);
 
         $this->assertArrayHasKey('lab_id', $decoded);
-        $this->assertEquals("ANewCaseId", $decoded['lab_id']);
+        $this->assertEquals('ANewCaseId', $decoded['lab_id']);
     }
 
     public function testPutCase()
@@ -213,10 +222,10 @@ class RotaVirusControllerTest extends WebTestCase
 
         $response = $client->getResponse();
         $this->assertEquals(204, $response->getStatusCode());
-        $this->assertFalse($response->headers->has('Location'), "We have a location header");
+        $this->assertFalse($response->headers->has('Location'), 'We have a location header');
 
         $case = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:RotaVirus')->find(self::ID);
-        $this->assertEquals("Fabien", $case->getLastName(), "Change has occurred");
+        $this->assertEquals('Fabien', $case->getLastName(), 'Change has occurred');
         $this->assertEquals(ArrayChoice::NO_SELECTION, $case->getGender()->getValue());
     }
 
@@ -230,10 +239,8 @@ class RotaVirusControllerTest extends WebTestCase
         $this->assertJsonResponse($response, 400);
     }
 
-    private function getRoute($route = 'nsApiRotaGetCase', $id = null)
+    private function getRoute($route = 'nsApiRotaGetCase', $id = null): string
     {
-        $objId = $id === null ? self::ID : $id;
-
-        return $this->getUrl($route, ['objId' => $objId]);
+        return $this->getUrl($route, ['objId' => $id ?? self::ID]);
     }
 }

@@ -43,11 +43,11 @@ class RotaVirusTest extends KernelTestCase
         self::bootKernel();
 
         $this->validator = static::$kernel->getContainer()->get('validator');
-        $this->today = new \DateTime();
-        $this->past = new \DateTime('-10 days');
-        $this->future = new \DateTime('-5 days');
+        $this->today     = new \DateTime();
+        $this->past      = new \DateTime('-10 days');
+        $this->future    = new \DateTime('-5 days');
         $this->tripleYes = new TripleChoice(TripleChoice::YES);
-        $this->tripleNo = new TripleChoice(TripleChoice::NO);
+        $this->tripleNo  = new TripleChoice(TripleChoice::NO);
 
         $this->rotaVirusCase = new RotaVirus();
         $this->rotaVirusCase->setCaseId('caseId-1');
@@ -142,12 +142,13 @@ class RotaVirusTest extends KernelTestCase
         $this->assertCount(1, $violationList);
         $this->assertEquals("Due to response for 'stoolCollected' field, related field 'stoolCollectionDate' is required", $violationList[0]->getMessage());
     }
+
 // date of collection, date of local lab reception
     public function testSiteLabReceivedBeforeCollected()
     {
         $this->rotaVirusCase->setStoolCollected($this->tripleYes);
         $this->rotaVirusCase->setStoolCollectionDate($this->future);
-        $no = new TripleChoice(TripleChoice::NO);
+        $no      = new TripleChoice(TripleChoice::NO);
         $siteLab = new RotaVirus\SiteLab();
         $siteLab->setCaseFile($this->rotaVirusCase);
         $siteLab->setReceived($this->past);
@@ -156,8 +157,8 @@ class RotaVirusTest extends KernelTestCase
         $siteLab->setStored($no);
         $siteLab->setAdequate($no);
         $violationConstraints = $this->validator->validate($siteLab);
-        $this->assertCount(1,$violationConstraints);
-        $this->assertEquals('caseFile.stoolCollectionDate',$violationConstraints[0]->getConstraint()->lessThanField);
+        $this->assertCount(1, $violationConstraints);
+        $this->assertEquals('caseFile.stoolCollectionDate', $violationConstraints[0]->getConstraint()->lessThanField);
     }
 
     // date of sent to national lab, date of reception to the national lab
@@ -175,10 +176,11 @@ class RotaVirusTest extends KernelTestCase
         $nationalLab->setCaseFile($this->rotaVirusCase);
 
         $violationConstraints = $this->validator->validate($nationalLab);
-        $this->assertCount(1,$violationConstraints);
-        $this->assertEquals('caseFile.siteLab.stoolSentToNLDate',$violationConstraints[0]->getConstraint()->lessThanField);
+        // 3 because of the diarrhea
+        $this->assertCount(3, $violationConstraints);
+        $this->assertEquals('caseFile.siteLab.stoolSentToNLDate', $violationConstraints[0]->getConstraint()->lessThanField);
     }
-    
+
     //date of results at the national lab
     public function testNationalLabResultsBeforeReceived()
     {
@@ -188,7 +190,8 @@ class RotaVirusTest extends KernelTestCase
         $nationalLab->setGenotypingDate($this->past);
 
         $violationConstraints = $this->validator->validate($nationalLab);
-        $this->assertCount(1,$violationConstraints);
-        $this->assertEquals('dateReceived',$violationConstraints[0]->getConstraint()->lessThanField);
+        // 3 because of the diarrhea
+        $this->assertCount(3, $violationConstraints);
+        $this->assertEquals('dateReceived', $violationConstraints[0]->getConstraint()->lessThanField);
     }
 }

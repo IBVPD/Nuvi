@@ -35,8 +35,6 @@ class NationalLab extends ExternalLab
     /**
      * @var TripleChoice
      * @ORM\Column(name="elisaDone",type="TripleChoice",nullable=true)
-     * @Assert\NotBlank()
-     * @UtilAssert\ArrayChoiceConstraint()
      * @Serializer\Groups({"api","export"})
      */
     private $elisaDone;
