@@ -23,12 +23,15 @@ class NmSerogroup extends TranslatableArrayChoice implements TranslationContaine
     const NON_BY_PCR  = 10;
     const NON_BY_SASG = 11;
     const NOT_DONE    = 12;
+    const _29E        = 13;
+
     const OTHER       = 99;
 
     protected $values = [
         self::A           => 'A',
         self::B           => 'B',
         self::B_E         => 'B/E. coli K1 (result from LA)',
+        self::_29E        => '29E',
         self::C           => 'C',
         self::W           => 'W',
         self::X           => 'X',

@@ -39,8 +39,9 @@ class IBDController extends BaseController
 
             $this->adjustFields($meta, $fields);
 
-            $query = $modelManager->getRepository('NSSentinelBundle:IBD')->exportQuery('i');
+            $query = $modelManager->getRepository(IBD::class)->exportQuery('i');
             $arrayChoiceFormatter = $this->get('ns_import.array_choice_formatter');
+            $spnTypeGroupFormatter = $this->get('ns_import.serotype_group_formatter');
 
             if ($form->get('pahoFormat')->getData()) {
                 $arrayChoiceFormatter->usePahoFormat();
@@ -48,7 +49,7 @@ class IBDController extends BaseController
 
             $format = $form->get('exportFormat')->getData() ? 'xls' : 'csv';
 
-            return $this->export($format, $form, $query, $fields, [$arrayChoiceFormatter, new DateTimeFormatter()]);
+            return $this->export($format, $form, $query, $fields, [$spnTypeGroupFormatter, $arrayChoiceFormatter, new DateTimeFormatter()]);
         }
 
         $forms = $this->getForms();

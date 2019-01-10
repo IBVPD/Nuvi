@@ -103,3 +103,6 @@ services:
   ns_import.array_choice_formatter:
     class: NS\ImportBundle\Formatter\ArrayChoiceFormatter
     arguments: [ "@translator" ]
+
+  ns_import.serotype_group_formatter:
+    class: NS\ImportBundle\Formatter\SeroTypeGroupFormatter

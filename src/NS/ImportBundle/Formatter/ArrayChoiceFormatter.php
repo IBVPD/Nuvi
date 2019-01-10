@@ -48,13 +48,10 @@ class ArrayChoiceFormatter implements DataFormatterInterface
             return null;
         }
 
-        return ($this->pahoFormat) ? sprintf('%d => %s',$data->getValue(), /** @Ignore */$this->translator->trans($data->__toString())): $data->getValue();
+        return $this->pahoFormat ? sprintf('%d => %s',$data->getValue(), /** @Ignore */$this->translator->trans($data->__toString())): $data->getValue();
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getPriority()
+    public function getPriority(): int
     {
         return 5;
     }

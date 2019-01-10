@@ -4,6 +4,7 @@ namespace NS\ImportBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Description of ExportController
@@ -17,7 +18,7 @@ class ExportController extends BaseController
      * @Route("/",name="exportIndex")
      * @Method(methods={"GET","POST"})
      */
-    public function indexAction()
+    public function indexAction(): Response
     {
         $forms = $this->getForms();
 

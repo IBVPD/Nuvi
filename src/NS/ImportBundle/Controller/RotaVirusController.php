@@ -38,7 +38,7 @@ class RotaVirusController extends BaseController
             ];
 
             $this->adjustFields($meta, $fields);
-            $query = $modelManager->getRepository('NSSentinelBundle:RotaVirus')->exportQuery('i');
+            $query = $modelManager->getRepository(RotaVirus::class)->exportQuery('i');
             $arrayChoiceFormatter = $this->get('ns_import.array_choice_formatter');
 
             if ($form->get('pahoFormat')->getData()) {

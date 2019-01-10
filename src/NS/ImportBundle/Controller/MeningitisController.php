@@ -51,8 +51,9 @@ class MeningitisController extends BaseController
 
             $this->adjustFields($meta, $fields);
 
-            $query = $modelManager->getRepository('NSSentinelBundle:Meningitis\Meningitis')->exportQuery('i');
+            $query = $modelManager->getRepository(Meningitis::class)->exportQuery('i');
             $arrayChoiceFormatter = $this->get('ns_import.array_choice_formatter');
+            $spnTypeGroupFormatter = $this->get('ns_import.serotype_group_formatter');
 
             if ($form->get('pahoFormat')->getData()) {
                 $arrayChoiceFormatter->usePahoFormat();
@@ -60,7 +61,7 @@ class MeningitisController extends BaseController
 
             $format = $form->get('exportFormat')->getData() ? 'xls' : 'csv';
 
-            return $this->export($format, $form, $query, $fields, [$arrayChoiceFormatter, new DateTimeFormatter()]);
+            return $this->export($format, $form, $query, $fields, [$spnTypeGroupFormatter, $arrayChoiceFormatter, new DateTimeFormatter()]);
         }
 
         $forms = $this->getForms();

@@ -88,7 +88,7 @@ class BaseController extends Controller
      *
      * @return Response
      */
-    protected function export($format, FormInterface $form, QueryBuilder $queryBuilder, array $fields, array $formatters)
+    protected function export($format, FormInterface $form, QueryBuilder $queryBuilder, array $fields, array $formatters): Response
     {
         $aliases = $queryBuilder->getRootAliases();
         $this->get('lexik_form_filter.query_builder_updater')->addFilterConditions($form, $queryBuilder, $aliases[0]);

@@ -26,7 +26,7 @@ class PneumoniaController extends BaseController
      *
      * @Route("/pneumonia",name="exportPneu")
      */
-    public function exportAction(Request $request)
+    public function exportAction(Request $request): Response
     {
         $form = $this->createForm(ReportFilterType::class, null, $this->formParams);
         $form->handleRequest($request);
@@ -42,8 +42,9 @@ class PneumoniaController extends BaseController
 
             $this->adjustFields($meta, $fields);
 
-            $query = $modelManager->getRepository('NSSentinelBundle:Pneumonia\Pneumonia')->exportQuery('i');
+            $query = $modelManager->getRepository(Pneumonia::class)->exportQuery('i');
             $arrayChoiceFormatter = $this->get('ns_import.array_choice_formatter');
+            $spnTypeGroupFormatter = $this->get('ns_import.serotype_group_formatter');
 
             if ($form->get('pahoFormat')->getData()) {
                 $arrayChoiceFormatter->usePahoFormat();
@@ -51,7 +52,7 @@ class PneumoniaController extends BaseController
 
             $format = $form->get('exportFormat')->getData() ? 'xls' : 'csv';
 
-            return $this->export($format, $form, $query, $fields, [$arrayChoiceFormatter, new DateTimeFormatter()]);
+            return $this->export($format, $form, $query, $fields, [$spnTypeGroupFormatter, $arrayChoiceFormatter, new DateTimeFormatter()]);
         }
 
         $forms = $this->getForms();
