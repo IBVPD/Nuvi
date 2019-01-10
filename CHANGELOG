@@ -3,6 +3,7 @@ VERSION 0  INITIAL RELEASE
 ==========================
 
    Version 0.12 - Fix Import issues + Bump PHP version to 7.2
+      10/01/2019 12:23  0.12.8  Improved export values
       21/12/2018 08:57  0.12.7  Handful of PAHO requested changes/fixes
       14/12/2018 04:57  0.12.6  Fix some breakage
       13/12/2018 15:33  0.12.5  Additional PAHO features
