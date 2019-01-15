@@ -15,10 +15,10 @@ class HTMLReader extends \PHPExcel_Reader_HTML
     public function loadFromString($xmlString, \PHPExcel $objPHPExcel)
     {
         // Create new PHPExcel
-        while ($objPHPExcel->getSheetCount() <= $this->_sheetIndex) {
+        while ($objPHPExcel->getSheetCount() <= $this->sheetIndex) {
             $objPHPExcel->createSheet();
         }
-        $objPHPExcel->setActiveSheetIndex($this->_sheetIndex);
+        $sheet = $objPHPExcel->setActiveSheetIndex($this->sheetIndex);
 
         // Create a new DOM object
         $dom = new \DOMDocument();
@@ -34,7 +34,7 @@ class HTMLReader extends \PHPExcel_Reader_HTML
         $row = 0;
         $column = 'A';
         $content = '';
-        $this->_processDomElement($dom, $objPHPExcel->getActiveSheet(), $row, $column, $content);
+        $this->processDomElement($dom, $sheet, $row, $column, $content);
 
         // Return
         return $objPHPExcel;
