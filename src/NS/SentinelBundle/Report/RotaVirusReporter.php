@@ -98,7 +98,7 @@ class RotaVirusReporter extends AbstractReporter
             $repo = $this->entityMgr->getRepository(RotaVirus::class);
             $columns = [
                 'getConsistentReporting' => 'addConsistentReporting',
-                'getZeroReporting' => ['alias' => 's', 'method' => 'addConsistentReporting'],
+                'getZeroReporting' => ['alias' => 'i', 'method' => 'addConsistentReporting'],
             ];
 
             $this->processSitePerformanceResult($columns, $repo, $alias, $results, $form);

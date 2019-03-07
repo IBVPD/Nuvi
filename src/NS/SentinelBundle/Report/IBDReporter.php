@@ -279,7 +279,7 @@ class IBDReporter extends AbstractReporter
             $repo = $this->entityMgr->getRepository($this->class);
             $columns = [
                 'getConsistentReporting' => 'addConsistentReporting',
-                'getZeroReporting' => ['method' => 'addConsistentReporting', 'alias' => 's'],
+                'getZeroReporting' => ['method' => 'addConsistentReporting', 'alias' => 'i'],
             ];
 
             $this->processSitePerformanceResult($columns, $repo, $alias, $results, $form);
