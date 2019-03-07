@@ -11,10 +11,11 @@ use JMS\TranslationBundle\Translation\TranslationContainerInterface;
  */
 class VaccinationReceived extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    const NO          = 0;
-    const YES_HISTORY = 1;
-    const YES_CARD    = 2;
-    const UNKNOWN     = 99;
+    public const
+        NO          = 0,
+        YES_HISTORY = 1,
+        YES_CARD    = 2,
+        UNKNOWN     = 99;
 
     protected $values = [
         self::NO => 'No',

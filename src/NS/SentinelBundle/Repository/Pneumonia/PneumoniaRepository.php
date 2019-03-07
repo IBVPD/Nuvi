@@ -14,6 +14,7 @@ use NS\SentinelBundle\Repository\Common;
 use NS\UtilBundle\Form\Types\ArrayChoice;
 use DoctrineExtensions\Query\Mysql\Year;
 use DoctrineExtensions\Query\Mysql\Month;
+use NS\SentinelBundle\Entity\ZeroReport;
 
 /**
  * Description of Common
@@ -356,10 +357,10 @@ class PneumoniaRepository extends Common
             ;
     }
 
-    public function getZeroReporting($alias, array $siteCodes)
+    public function getZeroReporting($alias, array $siteCodes): QueryBuilder
     {
         $queryBuilder = $this->_em
-            ->getRepository('NS\SentinelBundle\Entity\ZeroReport')
+            ->getRepository(ZeroReport::class)
             ->createQueryBuilder($alias)
             ->select(sprintf('SUBSTRING(%s.yearMonth,-2) as theMonth, s.code',$alias))
             ->innerJoin($alias . '.site', 's');

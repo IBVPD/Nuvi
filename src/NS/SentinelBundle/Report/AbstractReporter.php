@@ -118,12 +118,11 @@ class AbstractReporter
      * @param $results
      * @param $form
      */
-    public function processSitePerformanceResult($columns, $repo, $alias, &$results, $form)
+    public function processSitePerformanceResult($columns, $repo, $alias, &$results, $form): void
     {
         foreach ($columns as $func => $pf) {
             if (method_exists($repo, $func)) {
                 $query = $repo->$func($alias, $results->getKeys());
-
 
                 $res = $this->filter
                     ->addFilterConditions($form, $query, is_array($pf) ? $pf['alias']: $alias)

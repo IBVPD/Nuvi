@@ -494,7 +494,7 @@ class MeningitisRepository extends Common
         $queryBuilder = $this->_em
             ->getRepository(ZeroReport::class)
             ->createQueryBuilder($alias)
-            ->select(sprintf('SUBSTRING(%s.yearMonth,-2) as theMonth, s.code',$alias))
+            ->select(sprintf('SUBSTRING(%s.yearMonth,-2) as theMonth, s.code', $alias))
             ->innerJoin($alias . '.site', 's');
 
         if (empty($siteCodes)) {

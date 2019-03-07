@@ -4,6 +4,7 @@ namespace NS\SentinelBundle\Repository;
 
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use NS\SentinelBundle\Entity\BaseCase;
 use NS\SentinelBundle\Exceptions\NonExistentCaseException;
 use NS\SentinelBundle\Form\IBD\Types\BinaxResult;
@@ -14,6 +15,7 @@ use NS\SentinelBundle\Form\IBD\Types\PCRResult;
 use NS\SentinelBundle\Form\IBD\Types\SpnSerotype;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\UtilBundle\Form\Types\ArrayChoice;
+use NS\SentinelBundle\Entity\ZeroReport;
 
 /**
  * Description of Common
@@ -555,12 +557,12 @@ class IBDRepository extends Common
             ;
     }
 
-    public function getZeroReporting($alias, array $siteCodes)
+    public function getZeroReporting($alias, array $siteCodes): QueryBuilder
     {
         $queryBuilder = $this->_em
-            ->getRepository('NS\SentinelBundle\Entity\ZeroReport')
+            ->getRepository(ZeroReport::class)
             ->createQueryBuilder($alias)
-            ->select(sprintf('SUBSTRING(%s.yearMonth,-2) as theMonth, s.code',$alias))
+            ->select(sprintf('SUBSTRING(%s.yearMonth,-2) as theMonth, s.code', $alias))
             ->innerJoin($alias . '.site', 's');
 
         if (empty($siteCodes)) {
@@ -573,7 +575,7 @@ class IBDRepository extends Common
             ->setParameter('sites', $siteCodes);
     }
 
-    public function getNumberOfSpecimenCollectedCount($alias, array $siteCodes)
+    public function getNumberOfSpecimenCollectedCount($alias, array $siteCodes): QueryBuilder
     {
         return $this->getCountQueryBuilder($alias, $siteCodes)
             ->select(sprintf('%s.id,COUNT(%s.id) as caseCount,s.code', $alias, $alias))
@@ -581,7 +583,7 @@ class IBDRepository extends Common
             ->setParameter('tripleYes', TripleChoice::YES);
     }
 
-    public function getNumberOfLabConfirmedCount($alias, array $siteCodes)
+    public function getNumberOfLabConfirmedCount($alias, array $siteCodes): QueryBuilder
     {
         $tier1Req = 'sl.csf_cult_result IN (:csfResult) OR sl.csf_pcr_result IN (:csfResult)';
         $tier2Req = 'sl.csf_cult_result IN (:csfResult) OR sl.csf_pcr_result IN (:csfResult) OR sl.blood_cult_result IN (:csfResult) OR sl.blood_pcr_result IN (:csfResult)';

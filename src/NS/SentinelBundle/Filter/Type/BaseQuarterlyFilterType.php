@@ -84,9 +84,6 @@ class BaseQuarterlyFilterType extends AbstractType
         }
     }
 
-    /**
-     * @param FormEvent $event
-     */
     public function preSetData(FormEvent $event)
     {
         $form     = $event->getForm();
@@ -134,9 +131,6 @@ class BaseQuarterlyFilterType extends AbstractType
         }
     }
 
-    /**
-     * @inheritDoc
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
