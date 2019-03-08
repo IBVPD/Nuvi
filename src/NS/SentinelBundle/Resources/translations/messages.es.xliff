@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2018-07-30T11:48:42Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
+  <file date="2019-03-05T16:41:59Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -648,7 +648,7 @@
       </trans-unit>
       <trans-unit id="022810a02fd4b3d8a609546d5656eee294176c35" resname="Edit Site Lab Data">
         <source>Edit Site Lab Data</source>
-        <target>Editar datos de laboratorio del sitio centinela</target>
+        <target>Editar datos de laboratorio local</target>
       </trans-unit>
       <trans-unit id="84add5b2952787581cb9a8851eef63d1ec75d22b" resname="Email">
         <source>Email</source>
@@ -756,7 +756,7 @@
       </trans-unit>
       <trans-unit id="f3dd4543ce161fe06cf1ba8fcc0bff7d6b1370a8" resname="Genotyping Results">
         <source>Genotyping Results</source>
-        <target>Resultados de genotipificación</target>
+        <target>Genotipificación</target>
       </trans-unit>
       <trans-unit id="4ff0ff91948f32f76ba7932b7290ac166d1cc17c" resname="Gm neg coccobacilli">
         <source>Gm neg coccobacilli</source>
@@ -916,11 +916,11 @@
       </trans-unit>
       <trans-unit id="15a3133efaf10d95733f0567cf9b4485a5090aa7" resname="Latest Meningitis Cases">
         <source>Latest Meningitis Cases</source>
-        <target state="new">Latest Meningitis Cases</target>
+        <target>Ultimos Casos de Meningitis</target>
       </trans-unit>
       <trans-unit id="9e38fdd61490deb4328ae86a0ed22ce2f16ca06a" resname="Latest Pneumonia Cases">
         <source>Latest Pneumonia Cases</source>
-        <target state="new">Latest Pneumonia Cases</target>
+        <target>Ultimos Casos de Neumonia</target>
       </trans-unit>
       <trans-unit id="dfb450c7e95da7c8d07b85a3f8e61d398ff68681" resname="Latest Rotavirus Cases">
         <source>Latest Rotavirus Cases</source>
@@ -940,11 +940,11 @@
       </trans-unit>
       <trans-unit id="2e65039079a90c32a25ea72b1fb08591f9a4673e" resname="Lists the last %count% Meningitis cases">
         <source>Lists the last %count% Meningitis cases</source>
-        <target state="new">Lists the last %count% Meningitis cases</target>
+        <target>Lista de los ultimos  %count%  casos de Meningitis</target>
       </trans-unit>
       <trans-unit id="520feb10773eaa9ca9b1a874f5d2b1e4b10a39e2" resname="Lists the last %count% Pneumonia cases">
         <source>Lists the last %count% Pneumonia cases</source>
-        <target state="new">Lists the last %count% Pneumonia cases</target>
+        <target>Lista de los ultimos  %count% casos de Neumonia</target>
       </trans-unit>
       <trans-unit id="6f604eed838cef726bbc73efd2a61ab5d6b7bdd4" resname="Lists the last %count% rotavirus cases">
         <source>Lists the last %count% rotavirus cases</source>
@@ -1685,7 +1685,7 @@
       </trans-unit>
       <trans-unit id="5047bc36cf02e48eafd58044a4a1b12874db9892" resname="Yes-By-History">
         <source>Yes-By-History</source>
-        <target>Sí, Verbal</target>
+        <target>No Aplica</target>
       </trans-unit>
       <trans-unit id="909f99a779adb66a76fc53ab56c7dd1caf35d0fd" resname="Z">
         <source>Z</source>
@@ -1845,7 +1845,7 @@
       </trans-unit>
       <trans-unit id="74f2078e16a4ab6ff46b127a03b215568a93690e" resname="for suspected pneumonia cases">
         <source>for suspected pneumonia cases</source>
-        <target state="new">for suspected pneumonia cases</target>
+        <target>para casos sospechosos de neumonia</target>
       </trans-unit>
       <trans-unit id="6da3c939c937b6fbd2bf66c6ae49de543af70162" resname="ibd-form.adm-date">
         <source>ibd-form.adm-date</source>
@@ -2252,7 +2252,7 @@
       </trans-unit>
       <trans-unit id="d9be0842fd4297ed48ac4201adc06ce62699346a" resname="ibd-form.men-irritability">
         <source>ibd-form.men-irritability</source>
-        <target state="new">ibd-form.men-irritability</target>
+        <target>ibd-form.men-irritability</target>
       </trans-unit>
       <trans-unit id="7fb36591a7c5034b63e99f757c5281b0a9b445e0" resname="ibd-form.men-lethargy">
         <source>ibd-form.men-lethargy</source>
@@ -2260,7 +2260,7 @@
       </trans-unit>
       <trans-unit id="1fa9724df81d9c8a87c995de238021e8fbb691da" resname="ibd-form.men-malnutrition">
         <source>ibd-form.men-malnutrition</source>
-        <target state="new">ibd-form.men-malnutrition</target>
+        <target>Desnutrición severa</target>
       </trans-unit>
       <trans-unit id="25d8e9216c230be4b56ee8695add622327bbce42" resname="ibd-form.men-neck-stiff">
         <source>ibd-form.men-neck-stiff</source>
@@ -2288,7 +2288,7 @@
       </trans-unit>
       <trans-unit id="f2eb52686ef7d81d802e9d00b9f98d18b168a8bc" resname="ibd-form.men-vomit">
         <source>ibd-form.men-vomit</source>
-        <target state="new">ibd-form.men-vomit</target>
+        <target>Vomitos</target>
       </trans-unit>
       <trans-unit id="0209a43a47c9040d1b3548fe4ef3a438fec26cf3" resname="ibd-form.mening-received">
         <source>ibd-form.mening-received</source>
@@ -2370,7 +2370,7 @@
       </trans-unit>
       <trans-unit id="0689c197bf5d397005bb12bc6120115a4140bed7" resname="ibd-form.other-type">
         <source>ibd-form.other-type</source>
-        <target state="new">ibd-form.other-type</target>
+        <target>otro tipo de enfermedad bacteriana invasiva</target>
       </trans-unit>
       <trans-unit id="200fbe0f4392a0194affd6dada0367aa49ad8166" resname="ibd-form.otherSpecimenCollected">
         <source>ibd-form.otherSpecimenCollected</source>
@@ -2766,11 +2766,11 @@
       </trans-unit>
       <trans-unit id="cc19664b64336d18c98237a18b15aa4c2eb352b7" resname="menu.meningitis">
         <source>menu.meningitis</source>
-        <target state="new">menu.meningitis</target>
+        <target>Meningitis</target>
       </trans-unit>
       <trans-unit id="22f02923b2af77bf0b7045a959c9345c53161a8f" resname="menu.pneumonia">
         <source>menu.pneumonia</source>
-        <target state="new">menu.pneumonia</target>
+        <target>Neumonia</target>
       </trans-unit>
       <trans-unit id="c136d5b4518049cb39d5e06e6b8dc16619e7f7af" resname="menu.translation">
         <source>menu.translation</source>
@@ -2778,7 +2778,7 @@
       </trans-unit>
       <trans-unit id="0f96dce4b9494fcc8d3bf22ebcb07069aa39ded7" resname="pneumonia.has-site-lab">
         <source>pneumonia.has-site-lab</source>
-        <target state="new">pneumonia.has-site-lab</target>
+        <target>pneumonia.has-site-lab</target>
       </trans-unit>
       <trans-unit id="4530eb50108bd5395fd532092e83a6effdd9dc56" resname="pneumonia.has-site-national-lab">
         <source>pneumonia.has-site-national-lab</source>
@@ -2886,7 +2886,7 @@
       </trans-unit>
       <trans-unit id="e9e7a5e4bb399367df45b6de3be393610f750d01" resname="rotavirus-form.elisaTestDate">
         <source>rotavirus-form.elisaTestDate</source>
-        <target>Fecha de la prueba de Elisa</target>
+        <target>Fecha que realizó  Elisa para rotavirus en el laboratorio local</target>
       </trans-unit>
       <trans-unit id="43691e7306e332f728c2b769b7868644e9734355" resname="rotavirus-form.first-name">
         <source>rotavirus-form.first-name</source>
@@ -2950,7 +2950,7 @@
       </trans-unit>
       <trans-unit id="5c041d669b2b43a86da9af88ac66e6a6232d633e" resname="rotavirus-form.site-lab-elisa-done">
         <source>rotavirus-form.site-lab-elisa-done</source>
-        <target>Se proceso la prueba de ELISA en la muestra de heces en el laboratorio primario </target>
+        <target>Se realizó prueba ELISA para rotavirus en el laboratorio local? </target>
       </trans-unit>
       <trans-unit id="8fb220527cb1e957cb950685dd467ab65459f2ea" resname="rotavirus-form.site-lab-elisa-kit">
         <source>rotavirus-form.site-lab-elisa-kit</source>
@@ -2990,7 +2990,7 @@
       </trans-unit>
       <trans-unit id="e04172823192c3c22610ee09af4766aff4edf9f0" resname="rotavirus-form.site-lab-result">
         <source>rotavirus-form.site-lab-result</source>
-        <target>Resultado de ELISA del especimen de heces de el Lab. primario</target>
+        <target>Resultado de ELISA para rotavirus en el laboratorio local</target>
       </trans-unit>
       <trans-unit id="c48082a0a9a1c60952f662af4712ed7cb57aaa08" resname="rotavirus-form.site-lab-sample-received">
         <source>rotavirus-form.site-lab-sample-received</source>
@@ -2998,7 +2998,7 @@
       </trans-unit>
       <trans-unit id="470e124f89cc020a0541d58b369d213d2a67dd38" resname="rotavirus-form.site-lab-stored">
         <source>rotavirus-form.site-lab-stored</source>
-        <target>Se almacenó la muestra de heces?</target>
+        <target>Se almacenó  muestra de heces en le laboratorio local?</target>
       </trans-unit>
       <trans-unit id="17c7468cc27e6e52c2fdad2d610a47a02522982b" resname="rotavirus-form.site-lab-test-date">
         <source>rotavirus-form.site-lab-test-date</source>
@@ -3022,11 +3022,11 @@
       </trans-unit>
       <trans-unit id="c0557c3d85944f3e1297bd53869950fb9f3df1e4" resname="rotavirus-form.stoolId">
         <source>rotavirus-form.stoolId</source>
-        <target>ID de la muestra de heces</target>
+        <target>ID de la muestra de heces - laboratorio Local</target>
       </trans-unit>
       <trans-unit id="71d799cbde3024700bf4b47e764f1932feb6f4bf" resname="rotavirus-form.stoolSentToNL">
         <source>rotavirus-form.stoolSentToNL</source>
-        <target>Envío al Laboratorio Nacional</target>
+        <target>Se envió muestra de heces al Laboratorio Nacional</target>
       </trans-unit>
       <trans-unit id="c2dfff1742b6fcc55dff65d629aba1a0e79fc1ad" resname="rotavirus-form.stoolSentToNLDate">
         <source>rotavirus-form.stoolSentToNLDate</source>
@@ -3054,11 +3054,11 @@
       </trans-unit>
       <trans-unit id="387edb7f4d6393d323ba2bcd815a871fec3df82c" resname="rotavirus-form.symptomDiarrhea">
         <source>rotavirus-form.symptomDiarrhea</source>
-        <target>diarrea aguda?</target>
+        <target>paciente con diarrea ?</target>
       </trans-unit>
       <trans-unit id="a96b97c985e167acda120864fcd97c326b9cd58a" resname="rotavirus-form.symptomDiarrheaBloody">
         <source>rotavirus-form.symptomDiarrheaBloody</source>
-        <target>Diarrea con sangre?</target>
+        <target>Diarrea con sangre visible?</target>
       </trans-unit>
       <trans-unit id="f78f9a6b2b70a3d347d03c64eb1d148e43028ddf" resname="rotavirus-form.symptomDiarrheaDuration">
         <source>rotavirus-form.symptomDiarrheaDuration</source>
