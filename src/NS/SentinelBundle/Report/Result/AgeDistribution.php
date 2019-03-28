@@ -28,7 +28,7 @@ class AgeDistribution implements TranslationContainerInterface
         $this->results = [];
 
         foreach ($results as $case) {
-            if ($case['theYear'] == '') {
+            if ($case['theYear'] === '') {
                 $case['theYear'] = self::NO_ADM_DATE;
             }
             $this->results[$case['theYear']][$case['ageDistribution']] = $case['theCount'];

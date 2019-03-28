@@ -64,11 +64,11 @@ class OAuth2Client extends \Twig_Extension
      */
     public function getAuthenticationUrl(Client $client = null, Remote $remote = null)
     {
-        if ($client !== null && $remote === null || $client === null && $remote !== null) {
+        if (($client !== null && $remote === null) || ($client === null && $remote !== null)) {
             throw new \UnexpectedValueException("You can't provide only one parameter. Either pass two or none");
         }
 
-        return ($client) ? $client->getAuthenticationUrl($remote->getAuthEndpoint(), $remote->getRedirectUrl()) : $this->client->getAuthenticationUrl($this->remote->getAuthEndpoint(), $this->remote->getRedirectUrl());
+        return $client ? $client->getAuthenticationUrl($remote->getAuthEndpoint(), $remote->getRedirectUrl()) : $this->client->getAuthenticationUrl($this->remote->getAuthEndpoint(), $this->remote->getRedirectUrl());
     }
 
     /**

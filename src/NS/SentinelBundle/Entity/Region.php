@@ -73,7 +73,7 @@ class Region implements \Serializable
      */
     public function __toString()
     {
-        return $this->name;
+        return $this->name ?? '';
     }
 
 
@@ -216,10 +216,6 @@ class Region implements \Serializable
      */
     public function unserialize($serialized)
     {
-        list(
-            $this->code,
-            $this->name,
-            $this->website,
-             ) = unserialize($serialized);
+        [$this->code, $this->name, $this->website] = unserialize($serialized, [__CLASS__]);
     }
 }

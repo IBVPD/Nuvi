@@ -520,8 +520,6 @@ class SiteLab implements BaseSiteLabInterface
 
         $this->updatedAt = new \DateTime();
         $this->status    = new CaseStatus(CaseStatus::OPEN);
-
-        return $this;
     }
 
     /**

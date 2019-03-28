@@ -4,6 +4,7 @@ namespace NS\ImportBundle\Writer;
 
 use Ddeboer\DataImport\Writer\DoctrineWriter as BaseWriter;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Persistence\ObjectManager;
 use NS\ImportBundle\Services\CamelCaser;
 use NS\SentinelBundle\Entity\IBD\ReferenceLab;
@@ -32,7 +33,7 @@ class DoctrineWriter extends BaseWriter
     }
 
     /**
-     * @return array
+     * @return array|Collection
      */
     public function getResults()
     {

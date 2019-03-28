@@ -137,7 +137,7 @@ class Country implements \Serializable
      */
     public function __toString()
     {
-        return $this->name;
+        return $this->name ?? '';
     }
 
     /**
@@ -399,7 +399,7 @@ class Country implements \Serializable
      */
     public function unserialize($serialized)
     {
-        list($this->code,
+        [$this->code,
             $this->active,
             $this->name,
             $this->gaviEligible,
@@ -411,7 +411,7 @@ class Country implements \Serializable
             $this->hibVaccineIntro,
             $this->pcvVaccineIntro,
             $this->rvVaccineIntro,
-            ) = unserialize($serialized);
+        ] = unserialize($serialized, [__CLASS__]);
     }
 
     /**

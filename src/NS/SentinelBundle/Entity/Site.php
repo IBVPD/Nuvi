@@ -802,7 +802,7 @@ class Site implements \Serializable
      */
     public function unserialize($serialized)
     {
-        list(
+        [
             $this->code,
             $this->name,
             $this->website,
@@ -822,7 +822,7 @@ class Site implements \Serializable
             $this->rvEqaCode,
             $this->surveillanceConducted,
             $this->country,
-             ) = unserialize($serialized);
+        ] = unserialize($serialized, [__CLASS__]);
     }
 
     /**

@@ -48,11 +48,7 @@ class SiteLabType extends AbstractType
         $this->authChecker = $authorizationChecker;
     }
 
-    /**
-     * {@inheritdoc}
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $isPaho = $this->authChecker->isGranted('ROLE_AMR');
 
@@ -67,7 +63,7 @@ class SiteLabType extends AbstractType
             ->add('csfCultResult',      CultureResult::class, [
                 'required' => false,
                 'label' => 'ibd-form.csf-cult-result',
-                'exclude_choices'=> ($isPaho ? [CultureResult::UNKNOWN]:null),
+                'exclude_choices'=> $isPaho ? [CultureResult::UNKNOWN]:null,
                 'hidden' => [
                     'parent' => 'csfCultDone',
                     'value' => TripleChoice::YES]
@@ -135,10 +131,7 @@ class SiteLabType extends AbstractType
         $builder->addEventListener(FormEvents::POST_SET_DATA, [$this, 'postSetData']);
     }
 
-    /**
-     * @param FormEvent $event
-     */
-    public function postSetData(FormEvent $event)
+    public function postSetData(FormEvent $event): void
     {
         $data = $event->getData();
         $form = $event->getForm();
@@ -153,20 +146,18 @@ class SiteLabType extends AbstractType
 
         $region  = ($country instanceof Country) ? $country->getRegion(): null;
 
-        $isPaho = ($region && $region->getCode() == 'AMR' || $this->authChecker->isGranted('ROLE_AMR'));
+        $isPaho = ($region && $region->getCode() === 'AMR') || $this->authChecker->isGranted('ROLE_AMR');
 
-        if ($country instanceof Country) {
-            if ($country->hasNationalLab()) {
-                $form
-                    ->add('nlCsfSent', SwitchType::class, ['label' => 'ibd-form.csf-sent-to-nl', 'required' => false, 'switch_type' => 2])
-                    ->add('nlCsfDate', DatePickerType::class, ['label' => 'ibd-form.csf-sent-to-nl-date', 'required' => false, 'hidden' => ['parent' => 'nlCsfSent', 'value' => 1]])
-                    ->add('nlIsolCsfSent', SwitchType::class, ['label' => 'ibd-form.csf-isol-sent-to-nl', 'required' => false])
-                    ->add('nlIsolCsfDate', DatePickerType::class, ['label' => 'ibd-form.csf-isol-sent-to-nl-date', 'required' => false, 'hidden' => ['parent' => 'nlIsolCsfSent', 'value' => 1]])
-                    ->add('nlIsolBloodSent', SwitchType::class, ['label' => 'ibd-form.blood-sent-to-nl', 'required' => false])
-                    ->add('nlIsolBloodDate', DatePickerType::class, ['label' => 'ibd-form.blood-sent-to-nl-date', 'required' => false, 'hidden' => ['parent' => 'nlIsolBloodSent', 'value' => 1]])
-                    ->add('nlOtherSent', SwitchType::class, ['label' => 'ibd-form.other-sent-to-nl', 'required' => false])
-                    ->add('nlOtherDate', DatePickerType::class, ['label' => 'ibd-form.other-sent-to-nl-date', 'required' => false, 'hidden' => ['parent' => 'nlOtherSent', 'value' => 1]]);
-            }
+        if (($country instanceof Country) && $country->hasNationalLab()) {
+            $form
+                ->add('nlCsfSent', SwitchType::class, ['label' => 'ibd-form.csf-sent-to-nl', 'required' => false, 'switch_type' => 2])
+                ->add('nlCsfDate', DatePickerType::class, ['label' => 'ibd-form.csf-sent-to-nl-date', 'required' => false, 'hidden' => ['parent' => 'nlCsfSent', 'value' => 1]])
+                ->add('nlIsolCsfSent', SwitchType::class, ['label' => 'ibd-form.csf-isol-sent-to-nl', 'required' => false])
+                ->add('nlIsolCsfDate', DatePickerType::class, ['label' => 'ibd-form.csf-isol-sent-to-nl-date', 'required' => false, 'hidden' => ['parent' => 'nlIsolCsfSent', 'value' => 1]])
+                ->add('nlIsolBloodSent', SwitchType::class, ['label' => 'ibd-form.blood-sent-to-nl', 'required' => false])
+                ->add('nlIsolBloodDate', DatePickerType::class, ['label' => 'ibd-form.blood-sent-to-nl-date', 'required' => false, 'hidden' => ['parent' => 'nlIsolBloodSent', 'value' => 1]])
+                ->add('nlOtherSent', SwitchType::class, ['label' => 'ibd-form.other-sent-to-nl', 'required' => false])
+                ->add('nlOtherDate', DatePickerType::class, ['label' => 'ibd-form.other-sent-to-nl-date', 'required' => false, 'hidden' => ['parent' => 'nlOtherSent', 'value' => 1]]);
         }
 
         if ($isPaho) {
@@ -187,10 +178,7 @@ class SiteLabType extends AbstractType
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => SiteLab::class,
