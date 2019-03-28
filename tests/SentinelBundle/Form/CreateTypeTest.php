@@ -11,6 +11,8 @@ use Symfony\Component\Form\FormTypeExtensionInterface;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 
 /**
  * Description of CreateTypeTest
@@ -63,11 +65,11 @@ class CreateTypeTest extends TypeTestCase
             ->method('hasMultipleSites')
             ->willReturn(false);
 
-        $entityMgr = $this->createMock('Doctrine\Common\Persistence\ObjectManager');
+        $entityMgr = $this->createMock(ObjectManager::class);
 
         $createType = new CreateType($serializedSites, $entityMgr);
 
-        $authChecker = $this->getMockBuilder('\Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface')
+        $authChecker = $this->getMockBuilder(AuthorizationCheckerInterface::class)
             ->setMethods(['isGranted'])
             ->getMock();
 

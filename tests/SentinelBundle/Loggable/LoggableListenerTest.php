@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gnat
- * Date: 12/05/16
- * Time: 12:51 PM
- */
 
 namespace NS\SentinelBundle\Tests\Loggable;
 
@@ -14,52 +8,55 @@ use NS\SentinelBundle\Entity\IBD;
 use NS\SentinelBundle\Entity\Loggable\LogEvent;
 use NS\SentinelBundle\Entity\User;
 use NS\SentinelBundle\Loggable\LoggableListener;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use JMS\Serializer\Serializer;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class LoggableListenerTest extends \PHPUnit_Framework_TestCase
+class LoggableListenerTest extends TestCase
 {
-    public function getListener($expects,$returns = null)
+    public function getListener($expects,$returns = null): LoggableListener
     {
-        $tokenStorage = $this->createMock('Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface');
+        $tokenStorage = $this->createMock(TokenStorageInterface::class);
 
         $tokenStorage->expects($expects)
             ->method('getToken')
             ->willReturn($returns);
 
-        $serializer = $this->createMock('JMS\Serializer\Serializer');
+        $serializer = $this->createMock(Serializer::class);
 
-        $serializer->expects($this->any())
+        $serializer
             ->method('serialize')
             ->willReturn('str');
 
         return new LoggableListener($tokenStorage,$serializer);
     }
 
-    public function testCreatedEvent()
+    public function testCreatedEvent(): void
     {
         $listener = $this->getListener($this->once());
         $ibdCase = new IBD();
         $event = $listener->getLogEvent(LogEvent::CREATED, 'EVENTID', $ibdCase);
         $this->assertEquals($event->getAction(), LogEvent::CREATED);
         $this->assertNull($event->getData());
-        $this->assertEquals($event->getObjectClass(), 'NS\SentinelBundle\Entity\IBD');
+        $this->assertEquals($event->getObjectClass(), IBD::class);
         $this->assertEquals($event->getObjectId(), 'EVENTID');
         $this->assertEquals($event->getUsername(), 'anon');
     }
 
-    public function testUpdatedEvent()
+    public function testUpdatedEvent(): void
     {
         $listener = $this->getListener($this->once());
         $ibdCase = new IBD();
         $event = $listener->getLogEvent(LogEvent::UPDATED, 'EVENTID', $ibdCase);
         $this->assertEquals($event->getAction(), LogEvent::UPDATED);
         $this->assertNull($event->getData());
-        $this->assertEquals($event->getObjectClass(), 'NS\SentinelBundle\Entity\IBD');
+        $this->assertEquals($event->getObjectClass(), IBD::class);
         $this->assertEquals($event->getObjectId(), 'EVENTID');
         $this->assertEquals($event->getUsername(), 'anon');
     }
 
-    public function testDeletedEvent()
+    public function testDeletedEvent(): void
     {
         $listener = $this->getListener($this->once());
         $ibdCase = new IBD();
@@ -67,12 +64,12 @@ class LoggableListenerTest extends \PHPUnit_Framework_TestCase
         $event = $listener->getLogEvent(LogEvent::DELETED, 'EVENTID', $ibdCase);
         $this->assertEquals($event->getAction(), LogEvent::DELETED);
         $this->assertNotNull($event->getData());
-        $this->assertEquals($event->getObjectClass(), 'NS\SentinelBundle\Entity\IBD');
+        $this->assertEquals($event->getObjectClass(), IBD::class);
         $this->assertEquals($event->getObjectId(), 'EVENTID');
         $this->assertEquals($event->getUsername(), 'anon');
     }
 
-    public function testSetUsername()
+    public function testSetUsername(): void
     {
         $listener = $this->getListener($this->never());
         $listener->setUsername('nathanael@gnat.ca');
@@ -80,12 +77,12 @@ class LoggableListenerTest extends \PHPUnit_Framework_TestCase
         $event = $listener->getLogEvent(LogEvent::CREATED, 'EVENTID', $ibdCase);
         $this->assertEquals($event->getAction(), LogEvent::CREATED);
         $this->assertNull($event->getData());
-        $this->assertEquals($event->getObjectClass(), 'NS\SentinelBundle\Entity\IBD');
+        $this->assertEquals($event->getObjectClass(), IBD::class);
         $this->assertEquals($event->getObjectId(), 'EVENTID');
         $this->assertEquals($event->getUsername(), 'nathanael@gnat.ca');
     }
 
-    public function testTokenHasUser()
+    public function testTokenHasUser(): void
     {
         $user = new User();
         $user->setEmail('nathanael@gnat.ca');
@@ -96,24 +93,24 @@ class LoggableListenerTest extends \PHPUnit_Framework_TestCase
         $event = $listener->getLogEvent(LogEvent::CREATED, 'EVENTID', $ibdCase);
         $this->assertEquals($event->getAction(), LogEvent::CREATED);
         $this->assertNull($event->getData());
-        $this->assertEquals($event->getObjectClass(), 'NS\SentinelBundle\Entity\IBD');
+        $this->assertEquals($event->getObjectClass(), IBD::class);
         $this->assertEquals($event->getObjectId(), 'EVENTID');
         $this->assertEquals($event->getUsername(), 'nathanael@gnat.ca');
     }
 
-    public function testSerializationParameters()
+    public function testSerializationParameters(): void
     {
-        $tokenStorage = $this->createMock('Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface');
+        $tokenStorage = $this->createMock(TokenStorageInterface::class);
 
         $tokenStorage->expects($this->once())
             ->method('getToken')
             ->willReturn(null);
 
-        $serializer = $this->createMock('JMS\Serializer\Serializer');
+        $serializer = $this->createMock(Serializer::class);
 
         $ibd = $this->getIbdCase();
 
-        $serializer->expects($this->any())
+        $serializer
             ->method('serialize')
             ->with($ibd,'json',SerializationContext::create()->setGroups(['api','delete']))
             ->willReturn(json_encode(['something']));
@@ -122,12 +119,12 @@ class LoggableListenerTest extends \PHPUnit_Framework_TestCase
         $event = $listener->getLogEvent(LogEvent::DELETED, 'EVENTID', $ibd);
         $this->assertEquals($event->getAction(), LogEvent::DELETED);
         $this->assertJson($event->getData());
-        $this->assertEquals($event->getObjectClass(), 'NS\SentinelBundle\Entity\IBD');
+        $this->assertEquals($event->getObjectClass(), IBD::class);
         $this->assertEquals($event->getObjectId(), 'EVENTID');
         $this->assertEquals($event->getUsername(), 'anon');
     }
 
-    public function testSerialization()
+    public function testSerialization(): void
     {
         $serializer = SerializerBuilder::create()->build();
         $ibd = $this->getIbdCase();
@@ -136,7 +133,7 @@ class LoggableListenerTest extends \PHPUnit_Framework_TestCase
         $this->assertJson($json);
     }
 
-    private function getIbdCase()
+    private function getIbdCase(): IBD
     {
         $nl = new IBD\NationalLab();
         $nl->setLabId('nl-labId-1');

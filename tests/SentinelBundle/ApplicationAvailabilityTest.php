@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Tests;
 
+use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -12,7 +13,7 @@ class ApplicationAvailabilityTest extends WebTestCase
      * @dataProvider urlProvider
      * @param $url
      */
-    public function testPageIsSuccessful($url)
+    public function testPageIsSuccessful($url): void
     {
         $client = $this->getClient('ca-full@noblet.ca');
         $client->followRedirects();
@@ -25,7 +26,7 @@ class ApplicationAvailabilityTest extends WebTestCase
         $this->assertTrue($client->getResponse()->isSuccessful());
     }
 
-    public function urlProvider()
+    public function urlProvider(): array
     {
         return [
             ['/en/ibd'],
@@ -67,7 +68,7 @@ class ApplicationAvailabilityTest extends WebTestCase
      * @dataProvider getFormUrls
      * @group form
      */
-    public function testFormSubmission($url, $button, array $params)
+    public function testFormSubmission($url, $button, array $params): void
     {
         $client = $this->getClient('ca-full@noblet.ca');
         $client->followRedirects();
@@ -85,7 +86,7 @@ class ApplicationAvailabilityTest extends WebTestCase
         }
     }
 
-    public function getFormUrls()
+    public function getFormUrls(): array
     {
         return [
 //            array('/en/ibd','ibd_filter_form[find]',array('ibd_filter_form[id]'=>'123')),
@@ -134,7 +135,7 @@ class ApplicationAvailabilityTest extends WebTestCase
      * @dataProvider getAdminUrls
      * @group adminUrls
      */
-    public function testAdminUrls($email, $url, $expectedResponseCode)
+    public function testAdminUrls($email, $url, $expectedResponseCode): void
     {
         $client = $this->getClient($email);
         $client->followRedirects();
@@ -148,7 +149,7 @@ class ApplicationAvailabilityTest extends WebTestCase
         $this->assertEquals($expectedResponseCode, $statusCode);
     }
 
-    public function getAdminUrls()
+    public function getAdminUrls(): array
     {
         $super   = 'superadmin@noblet.ca';
         $region  = 'na@noblet.ca';
@@ -235,7 +236,7 @@ class ApplicationAvailabilityTest extends WebTestCase
         ];
     }
 
-    private function getClient($email)
+    private function getClient($email): Client
     {
         $client    = self::createClient();
         $container = $client->getContainer();

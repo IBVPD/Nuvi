@@ -8,6 +8,7 @@
 
 namespace NS\SentinelBundle\Tests\Entity;
 
+use DateTime;
 use NS\SentinelBundle\Entity\RotaVirus;
 use NS\SentinelBundle\Entity\ValueObjects\YearMonth;
 use NS\SentinelBundle\Form\Types\TripleChoice;
@@ -20,13 +21,13 @@ class RotaVirusTest extends KernelTestCase
     /** @var ValidatorInterface */
     private $validator;
 
-    /** @var \DateTime */
+    /** @var DateTime */
     private $today;
 
-    /** @var \DateTime */
+    /** @var DateTime */
     private $past;
 
-    /** @var \DateTime */
+    /** @var DateTime */
     private $future;
 
     /** @var  RotaVirus */
@@ -43,9 +44,9 @@ class RotaVirusTest extends KernelTestCase
         self::bootKernel();
 
         $this->validator = static::$kernel->getContainer()->get('validator');
-        $this->today     = new \DateTime();
-        $this->past      = new \DateTime('-10 days');
-        $this->future    = new \DateTime('-5 days');
+        $this->today     = new DateTime();
+        $this->past      = new DateTime('-10 days');
+        $this->future    = new DateTime('-5 days');
         $this->tripleYes = new TripleChoice(TripleChoice::YES);
         $this->tripleNo  = new TripleChoice(TripleChoice::NO);
 

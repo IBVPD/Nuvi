@@ -3,19 +3,21 @@
 namespace NS\ImportBundle\Tests\Reader;
 
 use NS\ImportBundle\Reader\ExcelReader;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\File\File;
+use NS\ImportBundle\Reader\OffsetableReaderInterface;
 
-class ExcelReaderTest extends \PHPUnit_Framework_TestCase
+class ExcelReaderTest extends TestCase
 {
-    public function testImplementsInterface()
+    public function testImplementsInterface(): void
     {
         $file = new File(__DIR__ . '/../Fixtures/ReaderOffset.xls');
         $reader = new ExcelReader($file->openFile());
 
-        $this->assertInstanceOf('NS\ImportBundle\Reader\OffsetableReaderInterface', $reader);
+        $this->assertInstanceOf(OffsetableReaderInterface::class, $reader);
     }
 
-    public function testNoOffset()
+    public function testNoOffset(): void
     {
         $file = new File(__DIR__ . '/../Fixtures/ReaderOffset.xls');
         $reader = new ExcelReader($file->openFile());
@@ -50,7 +52,7 @@ class ExcelReaderTest extends \PHPUnit_Framework_TestCase
      *
      * @dataProvider getOffsets
      */
-    public function testOffset($offset, $value, $endIndex)
+    public function testOffset($offset, $value, $endIndex): void
     {
         $file = new File(__DIR__ . '/../Fixtures/ReaderOffset.xls');
         $readerTwo = new ExcelReader($file->openFile());
@@ -69,7 +71,7 @@ class ExcelReaderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($endIndex, $index);
     }
 
-    public function getOffsets()
+    public function getOffsets(): array
     {
         return [
             [2, 'MSD-GG-00875', 3],

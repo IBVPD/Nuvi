@@ -8,6 +8,7 @@ use NS\SentinelBundle\Form\Types\CaseStatus as FormCaseStatus;
 use NS\SentinelBundle\Entity\IBD\SiteLab;
 use NS\SentinelBundle\Entity\IBD\ReferenceLab;
 use NS\SentinelBundle\Entity\IBD\NationalLab;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Description of CaseStatusTest
@@ -15,29 +16,29 @@ use NS\SentinelBundle\Entity\IBD\NationalLab;
  * @author gnat
  * @SuppressWarnings(PHPMD.ShortVariable)
  */
-class CaseStatusTest extends \PHPUnit_Framework_TestCase
+class CaseStatusTest extends TestCase
 {
 
-    public function testIncompleteCase()
+    public function testIncompleteCase(): void
     {
         $case   = new IBD();
         $status = new CaseStatus();
         $label  = $status->getLabel($case, 'nothing');
 
-        $this->assertContains('label-warning', $label, "Incomplete case has warning label");
+        $this->assertContains('label-warning', $label, 'Incomplete case has warning label');
     }
 
-    public function testCompleteCase()
+    public function testCompleteCase(): void
     {
         $case   = new IBD();
         $case->setStatus(new FormCaseStatus(FormCaseStatus::COMPLETE));
         $status = new CaseStatus();
         $label  = $status->getLabel($case, 'nothing');
 
-        $this->assertContains('label-success', $label, "Complete case has success label");
+        $this->assertContains('label-success', $label, 'Complete case has success label');
     }
 
-    public function testErrorCase()
+    public function testErrorCase(): void
     {
         $status = new CaseStatus();
 
@@ -48,7 +49,7 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
 
         $label = $status->getLabel($case, 'nothing');
 
-        $this->assertContains('label-danger', $label, "Case with data sent to national lab but without a national lab has danger label");
+        $this->assertContains('label-danger', $label, 'Case with data sent to national lab but without a national lab has danger label');
 
         $case = new IBD();
         $lab  = new SiteLab();
@@ -57,10 +58,10 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
 
         $label = $status->getLabel($case, 'nothing');
 
-        $this->assertContains('label-danger', $label, "Case with data sent to reference lab but without a reference lab has danger label");
+        $this->assertContains('label-danger', $label, 'Case with data sent to reference lab but without a reference lab has danger label');
     }
 
-    public function testLabIncomplete()
+    public function testLabIncomplete(): void
     {
         $status = new CaseStatus();
 
@@ -70,10 +71,10 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
 
         $label = $status->getLabLabel($case, 'nothing');
 
-        $this->assertContains('label-warning', $label, "Incomplete lab has warning label");
+        $this->assertContains('label-warning', $label, 'Incomplete lab has warning label');
     }
 
-    public function testLabComplete()
+    public function testLabComplete(): void
     {
         $status = new CaseStatus();
 
@@ -84,10 +85,10 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
 
         $label = $status->getLabLabel($case, 'nothing');
 
-        $this->assertContains('label-success', $label, "Complete case has success label");
+        $this->assertContains('label-success', $label, 'Complete case has success label');
     }
 
-    public function testLabErrorCase()
+    public function testLabErrorCase(): void
     {
         $status = new CaseStatus();
 
@@ -95,22 +96,22 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
 
         $label = $status->getLabLabel($case, 'nothing');
 
-        $this->assertContains('label-danger', $label, "Case without lab record has danger label");
+        $this->assertContains('label-danger', $label, 'Case without lab record has danger label');
     }
 
-    public function testNoExternalLabs()
+    public function testNoExternalLabs(): void
     {
         $status = new CaseStatus();
         $case   = new IBD();
 
         $l1 = $status->getRRLLabel($case, 'nothing');
-        $this->assertNull($l1, "Case without RRL returns null");
+        $this->assertNull($l1, 'Case without RRL returns null');
 
         $l2 = $status->getNLLabel($case, 'nothing');
-        $this->assertNull($l2, "Case without RRL returns null");
+        $this->assertNull($l2, 'Case without RRL returns null');
     }
 
-    public function testExternalLabIncomplete()
+    public function testExternalLabIncomplete(): void
     {
         $status = new CaseStatus();
 
@@ -137,11 +138,11 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
 
         $l2 = $status->getNLLabel($case2, 'nothing');
 
-        $this->assertContains('label-warning', $l1, "Incomplete RRL lab has warning label");
-        $this->assertContains('label-warning', $l2, "Incomplete RRL lab has warning label");
+        $this->assertContains('label-warning', $l1, 'Incomplete RRL lab has warning label');
+        $this->assertContains('label-warning', $l2, 'Incomplete RRL lab has warning label');
     }
 
-    public function testExternalLabComplete()
+    public function testExternalLabComplete(): void
     {
         $status = new CaseStatus();
 
@@ -175,13 +176,13 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
 
 
         $this->assertTrue($rrl->isComplete(), 'rrl is complete');
-        $this->assertContains('label-success', $l1, "Complete RRL lab has success label");
+        $this->assertContains('label-success', $l1, 'Complete RRL lab has success label');
 
         $this->assertTrue($nl->isComplete(), 'nl is complete');
-        $this->assertContains('label-success', $l2, "Complete NL lab has success label");
+        $this->assertContains('label-success', $l2, 'Complete NL lab has success label');
     }
 
-    public function testExternalLabErrorCase()
+    public function testExternalLabErrorCase(): void
     {
         $status = new CaseStatus();
 
@@ -223,13 +224,13 @@ class CaseStatusTest extends \PHPUnit_Framework_TestCase
         $l4  = $status->getNLLabel($case4, 'nothing');
         $l41 = $status->getLabel($case4, 'nothing');
 
-        $this->assertContains('label-danger', $l1, "RRL - sent to lab but no lab data");
-        $this->assertContains('label-danger', $l11, "Case Error - RRL - sent to lab but no lab data");
-        $this->assertContains('label-danger', $l2, "RRL - lab data but no sent to lab");
-        $this->assertContains('label-danger', $l21, "Case Error - RRL - lab data but no sent to lab");
-        $this->assertContains('label-danger', $l3, "NL - sent to lab but no lab data");
-        $this->assertContains('label-danger', $l31, "Case Error - NL - sent to lab but no lab data");
-        $this->assertContains('label-danger', $l4, "NL - lab data but no sent to lab");
-        $this->assertContains('label-danger', $l41, "Case Error - NL - lab data but no sent to lab");
+        $this->assertContains('label-danger', $l1, 'RRL - sent to lab but no lab data');
+        $this->assertContains('label-danger', $l11, 'Case Error - RRL - sent to lab but no lab data');
+        $this->assertContains('label-danger', $l2, 'RRL - lab data but no sent to lab');
+        $this->assertContains('label-danger', $l21, 'Case Error - RRL - lab data but no sent to lab');
+        $this->assertContains('label-danger', $l3, 'NL - sent to lab but no lab data');
+        $this->assertContains('label-danger', $l31, 'Case Error - NL - sent to lab but no lab data');
+        $this->assertContains('label-danger', $l4, 'NL - lab data but no sent to lab');
+        $this->assertContains('label-danger', $l41, 'Case Error - NL - lab data but no sent to lab');
     }
 }

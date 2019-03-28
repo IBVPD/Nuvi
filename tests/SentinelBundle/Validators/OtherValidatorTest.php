@@ -2,13 +2,15 @@
 
 namespace NS\SentinelBundle\Tests\Validators;
 
+use InvalidArgumentException;
 use NS\SentinelBundle\Entity\IBD\SiteLab;
 use NS\SentinelBundle\Form\IBD\Types\CultureResult;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Validators\Other;
 use NS\SentinelBundle\Validators\OtherValidator;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
 /**
@@ -16,12 +18,12 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
  *
  * @author gnat
  */
-class OtherValidatorTest extends \PHPUnit_Framework_TestCase
+class OtherValidatorTest extends TestCase
 {
-    /** @var ExecutionContextInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var ExecutionContextInterface|MockObject */
     private $context;
 
-    /** @var OtherValidator|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var OtherValidator|MockObject */
     private $validator;
 
     /**
@@ -35,9 +37,9 @@ class OtherValidatorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \InvalidArgumentException
+     * @expectedException InvalidArgumentException
      */
-    public function testValidateInvalidArgument()
+    public function testValidateInvalidArgument(): void
     {
         $constraint = new Other([
             'value'      => '\NS\SentinelBundle\Form\Types\TripleChoice::YES',
@@ -53,7 +55,7 @@ class OtherValidatorTest extends \PHPUnit_Framework_TestCase
      * @param $field
      * @param $otherField
      */
-    public function testValidateNoViolation($field, $otherField)
+    public function testValidateNoViolation($field, $otherField): void
     {
         $constraint = new Other([
             'value'      => '\NS\SentinelBundle\Form\Types\TripleChoice::YES',
@@ -72,7 +74,7 @@ class OtherValidatorTest extends \PHPUnit_Framework_TestCase
         $this->validator->validate($siteLab, $constraint);
     }
 
-    public function getNoViolationFields()
+    public function getNoViolationFields(): array
     {
         return [
             [TripleChoice::NO, null],
@@ -93,7 +95,7 @@ class OtherValidatorTest extends \PHPUnit_Framework_TestCase
      * @param $field
      * @param $otherField
      */
-    public function testValidateWithViolation($field, $otherField)
+    public function testValidateWithViolation($field, $otherField): void
     {
         $constraint = new Other([
             'value'      => '\NS\SentinelBundle\Form\Types\TripleChoice::YES',
@@ -124,7 +126,7 @@ class OtherValidatorTest extends \PHPUnit_Framework_TestCase
         $this->validator->validate($siteLab, $constraint);
     }
 
-    public function getViolationFields()
+    public function getViolationFields(): array
     {
         return [
             [TripleChoice::YES, null],

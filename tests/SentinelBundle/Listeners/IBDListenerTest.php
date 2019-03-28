@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Tests\Listeners;
 
+use DateTime;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use NS\SentinelBundle\Entity\Country;
 use NS\SentinelBundle\Entity\IBD;
@@ -19,10 +20,11 @@ use NS\SentinelBundle\Form\IBD\Types\DischargeOutcome;
 use NS\SentinelBundle\Form\IBD\Types\VaccinationType;
 use NS\SentinelBundle\Form\IBD\Types\OtherSpecimen;
 use NS\SentinelBundle\Entity\Listener\IBDListener;
+use PHPUnit\Framework\TestCase;
 
-class IBDListenerTest extends \PHPUnit_Framework_TestCase
+class IBDListenerTest extends TestCase
 {
-    public function testMinimumRequiredFieldsWithPneumonia()
+    public function testMinimumRequiredFieldsWithPneumonia(): void
     {
         $country = new Country('tId', 'Test');
         $country->setTracksPneumonia(true);
@@ -34,7 +36,7 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(35, $listener->getMinimumRequiredFields($case));
     }
 
-    public function testMinimumRequiredFieldsWithoutPneumonia()
+    public function testMinimumRequiredFieldsWithoutPneumonia(): void
     {
         $country = new Country('tId', 'Test');
         $country->setTracksPneumonia(false);
@@ -48,24 +50,24 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
 
     //============================================================
     // Single complete cases
-    public function testSingleMinimumCompleteCaseWithPneumonia()
+    public function testSingleMinimumCompleteCaseWithPneumonia(): void
     {
         $case = new IBD();
         $this->_updateCase($case, $this->getSingleCompleteCaseWithPneumonia());
         $listener = new IBDListener();
         $listener->prePersist($case, $this->createMock(LifecycleEventArgs::class));
 
-        $this->assertTrue($case->isComplete(), "New cases are incomplete " . $listener->getIncompleteField($case) . ' ' . $case->getStatus());
+        $this->assertTrue($case->isComplete(), sprintf('New cases are incomplete %s %s', $listener->getIncompleteField($case), $case->getStatus()));
     }
 
-    public function testSingleMinimumCompleteCaseWithoutPneumonia()
+    public function testSingleMinimumCompleteCaseWithoutPneumonia(): void
     {
         $case = new IBD();
         $this->_updateCase($case, $this->getSingleCompleteCaseWithoutPneumonia());
         $listener = new IBDListener();
         $listener->prePersist($case, $this->createMock(LifecycleEventArgs::class));
 
-        $this->assertTrue($case->isComplete(), "New cases are incomplete " . $listener->getIncompleteField($case) . ' ' . $case->getStatus());
+        $this->assertTrue($case->isComplete(), sprintf('New cases are incomplete %s %s', $listener->getIncompleteField($case), $case->getStatus()));
     }
 
     //============================================================
@@ -75,14 +77,14 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
      * @dataProvider getIncompleteTestDataWithPneumonia
      * @param $data
      */
-    public function testCaseIsIncompleteWithPneumonia($data)
+    public function testCaseIsIncompleteWithPneumonia($data): void
     {
         $case = new IBD();
         $this->_updateCase($case, $data);
         $listener = new IBDListener();
         $listener->prePersist($case, $this->createMock(LifecycleEventArgs::class));
 
-        $this->assertFalse($case->isComplete(), "New cases are incomplete data removed '" . (isset($data['removed']) ? $data['removed'] : 'no removed') . "'");
+        $this->assertFalse($case->isComplete(), sprintf("New cases are incomplete data removed '%s'", $data['removed'] ?? 'no removed'));
         $this->assertEquals($case->getStatus()->getValue(), CaseStatus::OPEN);
     }
 
@@ -91,14 +93,14 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
      * @dataProvider getIncompleteTestDataWithoutPneumonia
      * @param $data
      */
-    public function testCaseIsIncompleteWithoutPneumonia($data)
+    public function testCaseIsIncompleteWithoutPneumonia($data): void
     {
         $case = new IBD();
         $this->_updateCase($case, $data);
         $listener = new IBDListener();
         $listener->prePersist($case, $this->createMock(LifecycleEventArgs::class));
 
-        $this->assertFalse($case->isComplete(), "New cases are incomplete " . (isset($data['removed']) ? $data['removed'] : 'no removed'));
+        $this->assertFalse($case->isComplete(), sprintf('New cases are incomplete %s', $data['removed'] ?? 'no removed'));
         $this->assertEquals($case->getStatus()->getValue(), CaseStatus::OPEN);
     }
 
@@ -109,14 +111,14 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
      * @dataProvider getCompleteCaseWithPneumoniaData
      * @param $data
      */
-    public function testCaseIsCompleteWithPneuomia($data)
+    public function testCaseIsCompleteWithPneuomia($data): void
     {
         $case = new IBD();
         $this->_updateCase($case, $data);
         $listener = new IBDListener();
         $listener->prePersist($case, $this->createMock(LifecycleEventArgs::class));
 
-        $this->assertTrue($case->isComplete(), "Cases with pneunomia are complete " . (!$case->isComplete()) ? $listener->getIncompleteField($case) : null);
+        $this->assertTrue($case->isComplete(), 'Cases with pneunomia are complete ' . (!$case->isComplete() ? $listener->getIncompleteField($case) : null));
         $this->assertEquals($case->getStatus()->getValue(), CaseStatus::COMPLETE);
     }
 
@@ -125,14 +127,14 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
      * @dataProvider getCompleteCaseWithoutPneumoniaData
      * @param $data
      */
-    public function testCaseIsCompleteWithoutPneumonia($data)
+    public function testCaseIsCompleteWithoutPneumonia($data): void
     {
         $case = new IBD();
         $this->_updateCase($case, $data);
         $listener = new IBDListener();
         $listener->prePersist($case, $this->createMock(LifecycleEventArgs::class));
 
-        $this->assertTrue($case->isComplete(), "Cases without pneunomia are complete " . (!$case->isComplete()) ? $listener->getIncompleteField($case) : null);
+        $this->assertTrue($case->isComplete(), 'Cases without pneunomia are complete ' . (!$case->isComplete() ? $listener->getIncompleteField($case) : null));
         $this->assertEquals($case->getStatus()->getValue(), CaseStatus::COMPLETE);
     }
 
@@ -186,7 +188,7 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
         $row                            = $complete;
         $row['setmeningReceived']       = new VaccinationReceived(VaccinationReceived::YES_CARD);
         $row['setmeningType']           = new VaccinationType(VaccinationType::ACW135);
-        $row['setmeningDate'] = new \DateTime();
+        $row['setmeningDate'] = new DateTime();
         $data[]                         = ['data' => $row];
 
         $doses = new ThreeDoses();
@@ -210,7 +212,7 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
             $row = $complete;
             $row['setcsfCollected'] = $tripleYes;
             $row['setcsfId'] = 'null';
-            $row['setcsfCollectDate'] = new \DateTime();
+            $row['setcsfCollectDate'] = new DateTime();
             $row['setcsfCollectTime'] = $row['setcsfCollectDate'];
             $row['setcsfAppearance'] = new CSFAppearance($v);
             $data[] = ['data' => $row];
@@ -219,7 +221,7 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
         return $data;
     }
 
-    public function getIncompleteTestDataWithoutPneumonia()
+    public function getIncompleteTestDataWithoutPneumonia(): array
     {
         $data     = [];
         $complete = $this->getSingleCompleteCaseWithoutPneumonia();
@@ -264,7 +266,7 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
         return $data;
     }
 
-    public function getIncompleteTestDataWithPneumonia()
+    public function getIncompleteTestDataWithPneumonia(): array
     {
         $data      = [];
         $tripleYes = new TripleChoice(TripleChoice::YES);
@@ -374,7 +376,7 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
         return $data;
     }
 
-    private function getSingleCompleteCaseWithPneumonia()
+    private function getSingleCompleteCaseWithPneumonia(): array
     {
         $tripleNo = new TripleChoice(TripleChoice::NO);
         $country  = new Country('tId', 'Test Country');
@@ -383,11 +385,11 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
         return [
             'setcountry'              => $country,
             'setcaseId'               => 'blah',
-            'setbirthdate'            => new \DateTime(),
+            'setbirthdate'            => new DateTime(),
             'setgender'               => new Gender(Gender::MALE),
             'setdistrict'             => 'The District',
-            'setadmDate'              => new \DateTime(),
-            'setonsetDate'            => new \DateTime(),
+            'setadmDate'              => new DateTime(),
+            'setonsetDate'            => new DateTime(),
             'setadmDx'                => new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA),
             'setadmDxOther'           => null,
             'setantibiotics'          => $tripleNo,
@@ -431,7 +433,7 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    private function getSingleCompleteCaseWithoutPneumonia()
+    private function getSingleCompleteCaseWithoutPneumonia(): array
     {
         $tripleNo = new TripleChoice(TripleChoice::NO);
         $country  = new Country('tId', 'Test Country');
@@ -441,10 +443,10 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
             'setcountry'                => $country,
             'setcaseId'                 => 'blah',
             'setdistrict'               => 'The District',
-            'setbirthdate'              => new \DateTime(),
+            'setbirthdate'              => new DateTime(),
             'setgender'                 => new Gender(Gender::MALE),
-            'setadmDate'                => new \DateTime(),
-            'setonsetDate'              => new \DateTime(),
+            'setadmDate'                => new DateTime(),
+            'setonsetDate'              => new DateTime(),
             'setadmDx'                  => new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA),
             'setadmDxOther'             => null,
             'setantibiotics'            => $tripleNo,
@@ -479,10 +481,10 @@ class IBDListenerTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    private function _updateCase($case, $data)
+    private function _updateCase($case, $data): void
     {
         foreach ($data as $method => $d) {
-            if (!is_null($d) && method_exists($case, $method)) {
+            if ($d !== null && method_exists($case, $method)) {
                 $case->$method($d);
             }
         }

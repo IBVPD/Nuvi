@@ -5,8 +5,9 @@ namespace NS\ImportBundle\Tests\Converter\Expression;
 use NS\ImportBundle\Converter\Expression\Condition;
 use NS\ImportBundle\Converter\Expression\ExpressionBuilder;
 use NS\ImportBundle\Converter\Expression\Rule;
+use PHPUnit\Framework\TestCase;
 
-class ExpressionBuilderTest extends \PHPUnit_Framework_TestCase
+class ExpressionBuilderTest extends TestCase
 {
     public $json = '{
               "condition":{
@@ -25,10 +26,10 @@ class ExpressionBuilderTest extends \PHPUnit_Framework_TestCase
               "output_value":5
            }';
 
-    public function testComplexRules()
+    public function testComplexRules(): void
     {
         $json = json_decode($this->json, true);
-        $this->assertTrue(is_array($json));
+        $this->assertInternalType('array', $json);
         $this->assertArrayHasKey('condition', $json);
         $this->assertArrayHasKey('output_value', $json);
 
@@ -45,7 +46,7 @@ class ExpressionBuilderTest extends \PHPUnit_Framework_TestCase
      * @param $operator
      * @param $expression
      */
-    public function testSimpleBuilderFunctions(Rule $rule, $fieldOutput, $operator, $expression)
+    public function testSimpleBuilderFunctions(Rule $rule, $fieldOutput, $operator, $expression): void
     {
         $builder = new ExpressionBuilder();
         $this->assertEquals($fieldOutput, $builder->getField($rule));
@@ -53,7 +54,7 @@ class ExpressionBuilderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expression, $builder->convertRuleToExpression($rule));
     }
 
-    public function getRules()
+    public function getRules(): array
     {
         return [
             [

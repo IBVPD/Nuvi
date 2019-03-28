@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gnat
- * Date: 10/01/19
- * Time: 11:16 AM
- */
 
 namespace NS\ImportBundle\Tests\Formatter;
 
@@ -12,9 +6,11 @@ use NS\ImportBundle\Formatter\SeroTypeGroupFormatter;
 use NS\SentinelBundle\Form\IBD\Types\HiSerotype;
 use NS\SentinelBundle\Form\IBD\Types\NmSerogroup;
 use NS\SentinelBundle\Form\IBD\Types\SpnSerotype;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 use Symfony\Component\PropertyAccess\PropertyPath;
 
-class SeroTypeGroupFormatterTest extends \PHPUnit_Framework_TestCase
+class SeroTypeGroupFormatterTest extends TestCase
 {
     /**
      * @param $data
@@ -22,7 +18,7 @@ class SeroTypeGroupFormatterTest extends \PHPUnit_Framework_TestCase
      *
      * @dataProvider getDataValues
      */
-    public function testSupports($data, $expected)
+    public function testSupports($data, $expected): void
     {
         $formatter = new SeroTypeGroupFormatter();
         self::assertEquals($expected, $formatter->supports($data));
@@ -37,7 +33,7 @@ class SeroTypeGroupFormatterTest extends \PHPUnit_Framework_TestCase
             [new HiSerotype(), true],
             ['', false],
             [null, false],
-            [new \stdClass(), false],
+            [new stdClass(), false],
         ];
     }
 
@@ -45,7 +41,7 @@ class SeroTypeGroupFormatterTest extends \PHPUnit_Framework_TestCase
      * @param $data
      * @dataProvider getData
      */
-    public function testNoSelection($data)
+    public function testNoSelection($data): void
     {
         $propertyPath = $this->createMock(PropertyPath::class);
         $formatter = new SeroTypeGroupFormatter();

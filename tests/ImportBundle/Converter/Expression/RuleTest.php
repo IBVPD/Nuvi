@@ -2,9 +2,11 @@
 
 namespace NS\ImportBundle\Tests\Converter\Expression;
 
+use function json_decode;
 use NS\ImportBundle\Converter\Expression\Rule;
+use PHPUnit\Framework\TestCase;
 
-class RuleTest extends \PHPUnit_Framework_TestCase
+class RuleTest extends TestCase
 {
     public $simpleJson = '{
                     "condition": "AND",
@@ -25,10 +27,10 @@ class RuleTest extends \PHPUnit_Framework_TestCase
                     ]
                 }';
 
-    public function testSimpleRule()
+    public function testSimpleRule(): void
     {
-        $json = \json_decode($this->simpleJson, true);
-        $this->assertTrue(is_array($json));
+        $json = json_decode($this->simpleJson, true);
+        $this->assertInternalType('array', $json);
         $this->assertArrayHasKey('rules', $json);
         $this->assertArrayHasKey('condition', $json);
         $this->assertCount(1, $json['rules']);
@@ -40,10 +42,10 @@ class RuleTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($rule->isComplex());
     }
 
-    public function testBuildRules()
+    public function testBuildRules(): void
     {
-        $json = \json_decode($this->json, true);
-        $this->assertTrue(is_array($json));
+        $json = json_decode($this->json, true);
+        $this->assertInternalType('array', $json);
         $this->assertArrayHasKey('rules', $json);
         $this->assertArrayHasKey('condition', $json);
         $this->assertCount(2, $json['rules']);

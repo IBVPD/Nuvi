@@ -9,10 +9,11 @@
 namespace NS\ImportBundle\Tests\Filter;
 
 use NS\ImportBundle\Filter\NotBlank;
+use PHPUnit\Framework\TestCase;
 
-class NotBlankTest extends \PHPUnit_Framework_TestCase
+class NotBlankTest extends TestCase
 {
-    public function testInitialHasNoMessage()
+    public function testInitialHasNoMessage(): void
     {
         $filter = new NotBlank(['something']);
         $this->assertFalse($filter->hasMessage());
@@ -21,7 +22,7 @@ class NotBlankTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Field \'something\' is blank', $filter->getMessage());
     }
 
-    public function testHaveFieldHasNoMessage()
+    public function testHaveFieldHasNoMessage(): void
     {
         $filter = new NotBlank(['something']);
         $this->assertFalse($filter->hasMessage());

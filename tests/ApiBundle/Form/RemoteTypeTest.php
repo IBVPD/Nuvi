@@ -4,6 +4,7 @@ namespace NS\ApiBundle\Tests\Form;
 
 use NS\ApiBundle\Form\RemoteType;
 use Symfony\Component\Form\Test\TypeTestCase;
+use NS\ApiBundle\Entity\Remote;
 
 /**
  * Description of RemoteTypeTest
@@ -12,7 +13,7 @@ use Symfony\Component\Form\Test\TypeTestCase;
  */
 class RemoteTypeTest extends TypeTestCase
 {
-    public function testForm()
+    public function testForm(): void
     {
         $formData = [
             'name'          => 'The Name',
@@ -27,7 +28,7 @@ class RemoteTypeTest extends TypeTestCase
         $form->submit($formData);
 
         $data = $form->getData();
-        $this->assertInstanceOf('NS\ApiBundle\Entity\Remote', $data);
+        $this->assertInstanceOf(Remote::class, $data);
         $this->assertEquals('The Name', $data->getName());
         $this->assertEquals('TheClientId', $data->getClientId());
         $this->assertEquals('TheClientSecret', $data->getClientSecret());

@@ -7,10 +7,11 @@ use Doctrine\DBAL\Types\Type;
 use NS\ImportBundle\Converter\ColumnChooser;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\EntityManager;
+use PHPUnit\Framework\TestCase;
 
-class ColumnChooserTest extends \PHPUnit_Framework_TestCase
+class ColumnChooserTest extends TestCase
 {
-    public function testCacheHitDoesNotBuildChoices()
+    public function testCacheHitDoesNotBuildChoices(): void
     {
         $cacheMock = $this->createMock(ArrayCache::class);
         $cacheMock->expects($this->once())
@@ -28,7 +29,7 @@ class ColumnChooserTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($chooser->getComplexChoices('class'));
     }
 
-    public function testCacheHitDoesNotBuildComplex()
+    public function testCacheHitDoesNotBuildComplex(): void
     {
         $cacheMock = $this->createMock(ArrayCache::class);
         $cacheMock->expects($this->once())
@@ -117,7 +118,7 @@ class ColumnChooserTest extends \PHPUnit_Framework_TestCase
 
     public function testMetaChoicesWithoutAssociationNameSorted()
     {
-        $meta = $this->getMockBuilder('Doctrine\ORM\Mapping\ClassMetadata')
+        $meta = $this->getMockBuilder(ClassMetadata::class)
             ->disableOriginalConstructor()
             ->setMethods(['getFieldNames', 'getTypeOfField'])
             ->getMock();
@@ -153,7 +154,7 @@ class ColumnChooserTest extends \PHPUnit_Framework_TestCase
 
     public function testMetaChoicesWithAssociationName()
     {
-        $meta = $this->getMockBuilder('Doctrine\ORM\Mapping\ClassMetadata')
+        $meta = $this->getMockBuilder(ClassMetadata::class)
             ->disableOriginalConstructor()
             ->setMethods(['getFieldNames', 'getTypeOfField'])
             ->getMock();

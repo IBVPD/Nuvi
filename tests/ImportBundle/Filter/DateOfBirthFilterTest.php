@@ -2,16 +2,19 @@
 
 namespace NS\ImportBundle\Tests\Filter;
 
+use DateTime;
 use NS\ImportBundle\Filter\DateOfBirthFilter;
+use PHPUnit\Framework\TestCase;
 
-class DateOfBirthFilterTest extends \PHPUnit_Framework_TestCase
+class DateOfBirthFilterTest extends TestCase
 {
     /**
      * @dataProvider getNotSet
+     *
      * @param $data
      * @param $retValue
      */
-    public function testNotIsset($data, $retValue)
+    public function testNotIsset($data, $retValue): void
     {
         $filter = new DateOfBirthFilter();
         if ($retValue) {
@@ -24,35 +27,35 @@ class DateOfBirthFilterTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    public function getNotSet()
+    public function getNotSet(): array
     {
-        $birthdate = new \DateTime('2015-05-07');
-        $admDate = new \DateTime('2015-06-01');
+        $birthdate = new DateTime('2015-05-07');
+        $admDate   = new DateTime('2015-06-01');
 
         return [
             [
-                ['birthdate' => null], true
+                ['birthdate' => null], true,
             ],
             [
-                ['adm_date' => null], true
+                ['adm_date' => null], true,
             ],
             [
-                ['birthdate' => null, 'adm_date' => null], true
+                ['birthdate' => null, 'adm_date' => null], true,
             ],
             [
-                ['birthdate' => null, 'adm_date' => $admDate], true
+                ['birthdate' => null, 'adm_date' => $admDate], true,
             ],
             [
-                ['birthdate' => $birthdate, 'adm_date' => null], true
+                ['birthdate' => $birthdate, 'adm_date' => null], true,
             ],
             [
-                ['birthdate' => $birthdate, 'adm_date' => null], true
+                ['birthdate' => $birthdate, 'adm_date' => null], true,
             ],
             [
-                ['birthdate' => $birthdate, 'adm_date' => $admDate], true
+                ['birthdate' => $birthdate, 'adm_date' => $admDate], true,
             ],
             [
-                ['birthdate' => $admDate, 'adm_date' => $birthdate], false
+                ['birthdate' => $admDate, 'adm_date' => $birthdate], false,
             ],
         ];
     }

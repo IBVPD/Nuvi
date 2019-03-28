@@ -5,92 +5,94 @@ namespace NS\SentinelBundle\Tests\Converter;
 use NS\SentinelBundle\Converter\CountryConverter;
 use NS\SentinelBundle\Entity\Country;
 use NS\SentinelBundle\Entity\Region;
+use NS\SentinelBundle\Exceptions\NonExistentObjectException;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
+use Doctrine\Common\Persistence\ObjectManager;
+use NS\SentinelBundle\Repository\CountryRepository;
 
-class CountryConverterTest extends \PHPUnit_Framework_TestCase
+class CountryConverterTest extends TestCase
 {
-    public function testObjectKeys()
+    public function testObjectKeys(): void
     {
         $objects = $this->getObjects();
         $this->assertEquals(['C1', 'C2', 'C3'], array_keys($objects));
         $this->assertCount(3, $objects);
     }
 
-    public function testCountryConverter()
+    public function testCountryConverter(): void
     {
         $entityMgr = $this->getMockObjectManager();
         $converter = new CountryConverter($entityMgr);
 
         $convertedObj = $converter->__invoke('C1');
-        $this->assertInstanceOf('NS\SentinelBundle\Entity\Country', $convertedObj);
+        $this->assertInstanceOf(Country::class, $convertedObj);
         $this->assertEquals('C1', $convertedObj->getCode());
         $this->assertEquals('CName1', $convertedObj->getName());
 
         $convertedObj = $converter->__invoke('C2');
-        $this->assertInstanceOf('NS\SentinelBundle\Entity\Country', $convertedObj);
+        $this->assertInstanceOf(Country::class, $convertedObj);
         $this->assertEquals('C2', $convertedObj->getCode());
 
         $this->assertEquals('Country', $converter->getName());
     }
 
-    /**
-     * @expectedException \NS\SentinelBundle\Exceptions\NonExistentObjectException
-     * @expectedExceptionMessage Unable to find country for C5
-     */
-    public function testCountryConverterNonExistentCountryException()
+    public function testCountryConverterNonExistentCountryException(): void
     {
+        $this->expectException(NonExistentObjectException::class);
+        $this->expectExceptionMessage('Unable to find country for C5');
+
         $entityMgr = $this->getMockObjectManager();
         $converter = new CountryConverter($entityMgr);
 
         $converter->__invoke('C5');
     }
 
-    /**
-     * @expectedException \NS\SentinelBundle\Exceptions\NonExistentObjectException
-     * @expectedExceptionMessage Country C3 is inactive, import disabled!
-     */
-    public function testCountryConverterInactiveCountryException()
+    public function testCountryConverterInactiveCountryException(): void
     {
+        $this->expectException(NonExistentObjectException::class);
+        $this->expectExceptionMessage('Country C3 is inactive, import disabled!');
+
         $entityMgr = $this->getMockObjectManager();
         $converter = new CountryConverter($entityMgr);
 
         $converter->__invoke('C3');
     }
 
-    public function testCountryByName()
+    public function testCountryByName(): void
     {
         $entityMgr = $this->getMockObjectManager();
         $converter = new CountryConverter($entityMgr);
 
         $obj = $converter->__invoke('CName2');
-        $this->assertInstanceOf('NS\SentinelBundle\Entity\Country', $obj);
+        $this->assertInstanceOf(Country::class, $obj);
         $this->assertEquals('CName2', $obj->getName());
         $this->assertEquals('C2', $obj->getCode());
     }
 
-    public function testCountryByCaseName()
+    public function testCountryByCaseName(): void
     {
         $entityMgr = $this->getMockObjectManager();
         $converter = new CountryConverter($entityMgr);
 
         $obj = $converter->__invoke('cname2');
-        $this->assertInstanceOf('NS\SentinelBundle\Entity\Country', $obj);
+        $this->assertInstanceOf(Country::class, $obj);
         $this->assertEquals('CName2', $obj->getName());
         $this->assertEquals('C2', $obj->getCode());
     }
 
-    private function getMockObjectManager()
+    private function getMockObjectManager(): MockObject
     {
-        $repo = $this->createMock('NS\SentinelBundle\Repository\CountryRepository');
-
-        $em = $this->createMock('Doctrine\Common\Persistence\ObjectManager');
-
+        $repo    = $this->createMock(CountryRepository::class);
+        $em      = $this->createMock(ObjectManager::class);
         $objects = $this->getObjects();
-        $repo->expects($this->any())
+
+        $repo
             ->method('getChain')
             ->with(null, true)
             ->willReturn($objects);
 
-        $em->expects($this->any())
+        $em
             ->method('getRepository')
             ->with('NSSentinelBundle:Country')
             ->willReturn($repo);
@@ -98,7 +100,7 @@ class CountryConverterTest extends \PHPUnit_Framework_TestCase
         return $em;
     }
 
-    private function getObjects()
+    private function getObjects(): array
     {
         $region = new Region('RName', 'Region Name');
 

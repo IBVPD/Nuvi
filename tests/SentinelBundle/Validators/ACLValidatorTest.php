@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gnat
- * Date: 05/05/16
- * Time: 11:20 AM
- */
 
 namespace NS\SentinelBundle\Tests\Validators;
 
@@ -12,20 +6,21 @@ use NS\SentinelBundle\Entity\ACL;
 use NS\SentinelBundle\Form\Types\Role;
 use NS\SentinelBundle\Validators\ACLValidator;
 use NS\SentinelBundle\Validators\ACL as ACLConstraint;
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
-class ACLValidatorTest extends \PHPUnit_Framework_TestCase
+class ACLValidatorTest extends TestCase
 {
     /**
      * @param ACL $acl
      * @dataProvider getNonDeprecatedRoles
      */
-    public function testNoDeprecatedRole(ACL $acl)
+    public function testNoDeprecatedRole(ACL $acl): void
     {
-        $context = $this->getMockBuilder('Symfony\Component\Validator\Context\ExecutionContextInterface')
-            ->disableOriginalConstructor()
-            ->getMock();
+        $context = $this->createMock(ExecutionContextInterface::class);
 
-        $context->expects($this->never())
+        $context
+            ->expects($this->never())
             ->method('buildViolation');
 
         $constraint = new ACLConstraint();
@@ -35,7 +30,7 @@ class ACLValidatorTest extends \PHPUnit_Framework_TestCase
         $validator->validate($acl, $constraint);
     }
 
-    public function getNonDeprecatedRoles()
+    public function getNonDeprecatedRoles(): array
     {
         $aclRegion  = new ACL();
         $aclRegion->setType(new Role(Role::REGION));

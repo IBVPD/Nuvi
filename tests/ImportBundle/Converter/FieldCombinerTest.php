@@ -4,10 +4,12 @@ namespace NS\ImportBundle\Tests\Converter;
 
 use Ddeboer\DataImport\ReporterInterface;
 use NS\ImportBundle\Converter\FieldCombinerConverter;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 
-class FieldCombinerTest extends \PHPUnit_Framework_TestCase
+class FieldCombinerTest extends TestCase
 {
-    public function testConverterMissingSource()
+    public function testConverterMissingSource(): void
     {
         $data = [];
         $converter = new FieldCombinerConverter('source', 'destination');
@@ -18,7 +20,7 @@ class FieldCombinerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(ReporterInterface::ERROR, $converter->getSeverity());
     }
 
-    public function testConverterMissingDestination()
+    public function testConverterMissingDestination(): void
     {
         $data = ['source'=>'data'];
         $converter = new FieldCombinerConverter('source', 'destination');
@@ -28,7 +30,7 @@ class FieldCombinerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Unable to find destination destination field', $converter->getMessage());
     }
 
-    public function testConverterEmptySource()
+    public function testConverterEmptySource(): void
     {
         $data = ['s'=>'','d'=>'data'];
         $converter = new FieldCombinerConverter('s', 'd');
@@ -42,7 +44,7 @@ class FieldCombinerTest extends \PHPUnit_Framework_TestCase
      * @param $expected
      * @dataProvider getNumberData
      */
-    public function testConverterTestSourceInteger($data, $expected)
+    public function testConverterTestSourceInteger($data, $expected): void
     {
         $converter = new FieldCombinerConverter('s', 'd');
         $returned = $converter->__invoke($data);
@@ -50,7 +52,7 @@ class FieldCombinerTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($converter->hasMessage());
     }
 
-    public function getNumberData()
+    public function getNumberData(): array
     {
         return [
             [['s'=>'0.3250','d'=>'3421'],'3421.325'],
@@ -81,7 +83,7 @@ class FieldCombinerTest extends \PHPUnit_Framework_TestCase
      * @param $expected
      * @dataProvider getStringData
      */
-    public function testConverterTestSourceString($data, $expected)
+    public function testConverterTestSourceString($data, $expected): void
     {
         $converter = new FieldCombinerConverter('s', 'd');
         $returned = $converter->__invoke($data);
@@ -89,14 +91,14 @@ class FieldCombinerTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($converter->hasMessage());
     }
 
-    public function getStringData()
+    public function getStringData(): array
     {
         return [
             [['s'=>'world','d'=>'hello'],'hello world'],
         ];
     }
 
-    public function testConverterMisMatchedType()
+    public function testConverterMisMatchedType(): void
     {
         $data= ['s'=>120,'d'=>'world'];
         $converter = new FieldCombinerConverter('s', 'd');
@@ -107,9 +109,9 @@ class FieldCombinerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Mismatched types source: integer != dest: string', $converter->getMessage());
     }
 
-    public function testConverterNotStringOrNumber()
+    public function testConverterNotStringOrNumber(): void
     {
-        $data= ['s'=>new \stdClass(),'d'=>new \stdClass()];
+        $data= ['s'=>new stdClass(),'d'=>new stdClass()];
         $converter = new FieldCombinerConverter('s', 'd');
         $returned = $converter->__invoke($data);
         $this->assertEquals($data, $returned);

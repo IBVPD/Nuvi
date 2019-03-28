@@ -2,16 +2,17 @@
 
 namespace NS\SentinelBundle\Tests\Form\Transformer;
 use NS\SentinelBundle\Form\IBD\Transformer\CTValueTransformer;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Description of CTValueTransformerTest
  *
  * @author gnat
  */
-class CTValueTransformerTest extends \PHPUnit_Framework_TestCase
+class CTValueTransformerTest extends TestCase
 {
 
-    public function testEmptyTransform()
+    public function testEmptyTransform(): void
     {
         $transformer = new CTValueTransformer();
 
@@ -23,7 +24,7 @@ class CTValueTransformerTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($transformer->reverseTransform(['choice' => '', 'number' => null]));
     }
 
-    public function testTransformChoice()
+    public function testTransformChoice(): void
     {
         $transformer = new CTValueTransformer();
 
@@ -37,7 +38,7 @@ class CTValueTransformerTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(-3, $transformer->reverseTransform(['choice' => -3.0, 'number' => null]));
     }
 
-    public function testTransformNumber()
+    public function testTransformNumber(): void
     {
         $transformer = new CTValueTransformer();
 

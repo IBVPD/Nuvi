@@ -11,7 +11,7 @@ use NS\ApiBundle\Tests\WebTestCase;
  */
 class ApiControllerTest extends WebTestCase
 {
-    public function testTest()
+    public function testTest(): void
     {
         $route  = $this->getUrl('ns_api_api_test');
 
@@ -29,7 +29,7 @@ class ApiControllerTest extends WebTestCase
         $this->assertEquals('ca-api@noblet.ca', $decoded['username']);
     }
 
-    public function testSites()
+    public function testSites(): void
     {
         $route  = $this->getUrl('ns_api_api_sites');
 

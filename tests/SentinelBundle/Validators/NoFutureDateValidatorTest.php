@@ -8,22 +8,24 @@
 
 namespace NS\SentinelBundle\Tests\Validators;
 
+use DateTime;
 use NS\SentinelBundle\Validators\NoFutureDate;
 use NS\SentinelBundle\Validators\NoFutureDateValidator;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilder;
-use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
-class NoFutureDateValidatorTest extends \PHPUnit_Framework_TestCase
+class NoFutureDateValidatorTest extends TestCase
 {
-    /** @var ExecutionContextInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var ExecutionContextInterface|MockObject */
     private $context;
 
-    /** @var  ValidatorInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var  ValidatorInterface|MockObject */
     private $validator;
 
-    public function testNotDate()
+    public function testNotDate(): void
     {
         $this->context
             ->expects($this->never())
@@ -35,16 +37,16 @@ class NoFutureDateValidatorTest extends \PHPUnit_Framework_TestCase
         $this->validator->validate('something',new NoFutureDate());
     }
 
-    public function testPastDate()
+    public function testPastDate(): void
     {
         $this->context
             ->expects($this->never())
             ->method('buildViolation');
 
-        $this->validator->validate(new \DateTime("yesterday"),new NoFutureDate());
+        $this->validator->validate(new DateTime('yesterday'),new NoFutureDate());
     }
 
-    public function testFutureDate()
+    public function testFutureDate(): void
     {
         $builder = $this->createMock(ConstraintViolationBuilder::class);
         $builder
@@ -57,7 +59,7 @@ class NoFutureDateValidatorTest extends \PHPUnit_Framework_TestCase
             ->with('This date is in the future')
             ->willReturn($builder);
 
-        $this->validator->validate(new \DateTime("+1 day"),new NoFutureDate());
+        $this->validator->validate(new DateTime('+1 day'),new NoFutureDate());
 
     }
 
@@ -70,6 +72,4 @@ class NoFutureDateValidatorTest extends \PHPUnit_Framework_TestCase
         $this->validator = new NoFutureDateValidator();
         $this->validator->initialize($this->context);
     }
-
-
 }

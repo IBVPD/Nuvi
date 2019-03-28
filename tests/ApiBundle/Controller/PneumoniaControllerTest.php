@@ -47,7 +47,7 @@ class PneumoniaControllerTest extends WebTestCase
         $this->assertFalse($response->headers->has('Location'), 'We have a location header');
 
         $case = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository(Pneumonia::class)->find(self::ID);
-        $this->assertEquals("Fabien", $case->getLastName(), 'Change has occurred');
+        $this->assertEquals('Fabien', $case->getLastName(), 'Change has occurred');
         $this->assertTrue($case->getGender()->equal(Gender::MALE));
     }
 
@@ -72,7 +72,7 @@ class PneumoniaControllerTest extends WebTestCase
 
         $this->assertArrayHasKey('case_id', $decoded);
         $this->assertArrayNotHasKey('lab', $decoded);
-        $this->assertEquals("ANewCaseId", $decoded['case_id']);
+        $this->assertEquals('ANewCaseId', $decoded['case_id']);
     }
 
     /**
@@ -189,7 +189,7 @@ class PneumoniaControllerTest extends WebTestCase
         $decoded  = json_decode($response->getContent(), true);
 
         $this->assertArrayHasKey('lab_id', $decoded,print_r($decoded,true));
-        $this->assertEquals("ANewCaseId", $decoded['lab_id']);
+        $this->assertEquals('ANewCaseId', $decoded['lab_id']);
     }
 
     public function testPutNLCase()
@@ -208,7 +208,7 @@ class PneumoniaControllerTest extends WebTestCase
         $decoded  = json_decode($response->getContent(), true);
 
         $this->assertArrayHasKey('lab_id', $decoded);
-        $this->assertEquals("ANewCaseId", $decoded['lab_id']);
+        $this->assertEquals('ANewCaseId', $decoded['lab_id']);
         $this->assertArrayHasKey('type_sample_recd', $decoded,print_r($decoded,true));
     }
 
@@ -227,7 +227,7 @@ class PneumoniaControllerTest extends WebTestCase
         $this->assertFalse($response->headers->has('Location'), 'We have a location header');
 
         $case = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository(Pneumonia::class)->find(self::ID);
-        $this->assertEquals("Fabien", $case->getLastName(), 'Change has occurred');
+        $this->assertEquals('Fabien', $case->getLastName(), 'Change has occurred');
         $this->assertEquals(ArrayChoice::NO_SELECTION, $case->getGender()->getValue());
     }
 
@@ -243,7 +243,7 @@ class PneumoniaControllerTest extends WebTestCase
 
     protected function getRoute($route = 'nsApiPneumoniaGetCase', $id = null)
     {
-        $objId = $id === null ? self::ID : $id;
+        $objId = $id ?? self::ID;
 
         return $this->getUrl($route, ['objId' => $objId]);
     }

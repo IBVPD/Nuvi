@@ -15,7 +15,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class GramStainResultTest extends TypeTestCase
 {
-    /** @var  AuthorizationCheckerInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var  AuthorizationCheckerInterface|MockObject */
     private $authChecker;
 
     private $defaultChoices = [];

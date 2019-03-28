@@ -3,8 +3,9 @@
 namespace NS\ImportBundle\Tests\Entity;
 
 use NS\ImportBundle\Entity\Column;
+use PHPUnit\Framework\TestCase;
 
-class ColumnTest extends \PHPUnit_Framework_TestCase
+class ColumnTest extends TestCase
 {
     /**
      * @param $name
@@ -14,7 +15,7 @@ class ColumnTest extends \PHPUnit_Framework_TestCase
      *
      * @dataProvider getMapperColumns
      */
-    public function testHasMapper($name, $ignored, $mapper, $expectedResult)
+    public function testHasMapper($name, $ignored, $mapper, $expectedResult): void
     {
         $col = new Column();
         $col->setName($name);
@@ -24,7 +25,7 @@ class ColumnTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedResult, $col->hasMapper());
     }
 
-    public function getMapperColumns()
+    public function getMapperColumns(): array
     {
         return [
             ['column1',true,'column2',false],
@@ -43,7 +44,7 @@ class ColumnTest extends \PHPUnit_Framework_TestCase
      *
      * @dataProvider getConverterColumns
      */
-    public function testHasConverter($name, $ignored, $converter, $expectedResult)
+    public function testHasConverter($name, $ignored, $converter, $expectedResult): void
     {
         $col = new Column();
         $col->setName($name);
@@ -53,7 +54,7 @@ class ColumnTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedResult, $col->hasConverter());
     }
 
-    public function getConverterColumns()
+    public function getConverterColumns(): array
     {
         return [
             ['column1',true,'column2',false],
@@ -71,7 +72,7 @@ class ColumnTest extends \PHPUnit_Framework_TestCase
      *
      * @dataProvider getPreProcessorColumns
      */
-    public function testHasPreProcessor($name, $ignored, $preProcessor, $expectedResult)
+    public function testHasPreProcessor($name, $ignored, $preProcessor, $expectedResult): void
     {
         $col = new Column();
         $col->setName($name);
@@ -81,7 +82,7 @@ class ColumnTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expectedResult, $col->hasPreProcessor());
     }
 
-    public function getPreProcessorColumns()
+    public function getPreProcessorColumns(): array
     {
         return [
             ['column1',true,'column2',false],

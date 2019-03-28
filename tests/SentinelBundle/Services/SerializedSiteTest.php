@@ -6,30 +6,36 @@ use NS\SentinelBundle\Entity\Site;
 use NS\SentinelBundle\Entity\Country;
 use NS\SentinelBundle\Entity\Region;
 use NS\SentinelBundle\Services\SerializedSites;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\UnitOfWork;
+use Doctrine\Common\Persistence\ObjectManager;
+use NS\SentinelBundle\Repository\SiteRepository;
 
 /**
  * Description of SerializedSiteTest
  *
  * @author gnat
  */
-class SerializedSiteTest extends \PHPUnit_Framework_TestCase
+class SerializedSiteTest extends TestCase
 {
-    public function testSitesCanBeSerialized()
+    public function testSitesCanBeSerialized(): void
     {
         $sites           = $this->getObjects();
         $serializedSites = serialize($sites);
         $unSites         = unserialize($serializedSites);
 
-        $this->assertEquals(count($sites), count($unSites), "We have the same number of");
+        $this->assertCount(count($sites), $unSites, 'We have the same number of');
 
         foreach ($unSites as $s) {
-            $this->assertGreaterThan(0, $s->getId(), "We still have an id");
+            $this->assertGreaterThan(0, $s->getId(), 'We still have an id');
         }
     }
 
-    public function testSerializedSitesHasMultipleSites()
+    public function testSerializedSitesHasMultipleSites(): void
     {
         $session        = new Session(new MockFileSessionStorage());
         $session->start();
@@ -37,47 +43,47 @@ class SerializedSiteTest extends \PHPUnit_Framework_TestCase
         $siteSerializer = new SerializedSites($session, $em);
         $site           = $siteSerializer->getSite();
 
-        $this->assertTrue($siteSerializer->hasMultipleSites(), "Has multiple sites");
+        $this->assertTrue($siteSerializer->hasMultipleSites(), 'Has multiple sites');
         $this->assertEquals($site->getId(), 1);
     }
 
-    public function testSerializedSitesHasIds()
+    public function testSerializedSitesHasIds(): void
     {
         $session        = new Session(new MockFileSessionStorage());
         $session->start();
         $em             = $this->getMockObjectManager();
         $siteSerializer = new SerializedSites($session, $em);
 
-        $this->assertTrue($siteSerializer->hasMultipleSites(), "Has multiple sites");
+        $this->assertTrue($siteSerializer->hasMultipleSites(), 'Has multiple sites');
         foreach ($siteSerializer->getSites() as $s) {
-            $this->assertGreaterThan(0, $s->getId(), "Id is greater than 0");
+            $this->assertGreaterThan(0, $s->getId(), 'Id is greater than 0');
         }
     }
 
-    private function getMockObjectManager()
+    private function getMockObjectManager(): MockObject
     {
         $obj  = $this->getObjects();
-        $repo = $this->createMock('NS\SentinelBundle\Repository\SiteRepository');
+        $repo = $this->createMock(SiteRepository::class);
 
-        $repo->expects($this->any())
+        $repo
              ->method('getChain')
-             ->will($this->returnValue($obj));
+             ->willReturn($obj);
 
-        $em = $this->createMock('Doctrine\Common\Persistence\ObjectManager');
+        $em = $this->createMock(ObjectManager::class);
 
-        $em->expects($this->any())
+        $em
            ->method('getRepository')
-           ->with('NS\SentinelBundle\Entity\Site')
-           ->will($this->returnValue($repo));
+           ->with(Site::class)
+           ->willReturn($repo);
 
-        $em->expects($this->any())
+        $em
            ->method('contains')
-           ->will($this->returnValue(true));
+           ->willReturn(true);
 
         return $em;
     }
 
-    private function getObjects()
+    private function getObjects(): array
     {
         $region = new Region(1, 'Region Name');
 
@@ -96,7 +102,7 @@ class SerializedSiteTest extends \PHPUnit_Framework_TestCase
         return [$site1, $site2, $site3];
     }
 
-    public function testRegisterSite()
+    public function testRegisterSite(): void
     {
         $region = new Region('rCode', 'RegionName');
         $country = new Country('cCode', 'CountryName');
@@ -104,7 +110,7 @@ class SerializedSiteTest extends \PHPUnit_Framework_TestCase
         $site = new Site('sId', 'SiteName');
         $site->setCountry($country);
 
-        $mockUoW = $this->createMock('Doctrine\ORM\UnitOfWork');
+        $mockUoW = $this->createMock(UnitOfWork::class);
 
         $mockUoW->expects($this->at(0))
             ->method('registerManaged')
@@ -118,7 +124,7 @@ class SerializedSiteTest extends \PHPUnit_Framework_TestCase
             ->method('registerManaged')
             ->with($region, ['code' => 'rCode'], ['code'=>'rCode']);
 
-        $mockEntityMgr = $this->createMock('Doctrine\ORM\EntityManager');
+        $mockEntityMgr = $this->createMock(EntityManager::class);
 
         $mockEntityMgr->expects($this->once())
             ->method('getUnitOfWork')

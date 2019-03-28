@@ -5,8 +5,9 @@ namespace NS\ImportBundle\Tests\Converter;
 use NS\ImportBundle\Converter\Expression\Condition;
 use NS\ImportBundle\Converter\Expression\ExpressionBuilder;
 use NS\ImportBundle\Converter\PreprocessorStep;
+use PHPUnit\Framework\TestCase;
 
-class PreprocessorStepTest extends \PHPUnit_Framework_TestCase
+class PreprocessorStepTest extends TestCase
 {
     /**
      * @dataProvider getCondition
@@ -14,7 +15,7 @@ class PreprocessorStepTest extends \PHPUnit_Framework_TestCase
      * @param $value
      * @param array $item
      */
-    public function testConverter(array $condParam, $value, array $item)
+    public function testConverter(array $condParam, $value, array $item): void
     {
         $condition = new Condition($condParam, $value);
 
@@ -24,7 +25,7 @@ class PreprocessorStepTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($value, $item['fieldOne']);
     }
 
-    public function getCondition()
+    public function getCondition(): array
     {
         return [
             [

@@ -3,18 +3,24 @@
 namespace NS\SentinelBundle\Tests\Services;
 
 use NS\SentinelBundle\Services\Homepage;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use NS\SentinelBundle\Entity\User;
 
 /**
  * Description of HomepageTest
  *
  * @author gnat
  */
-class HomepageTest extends \PHPUnit_Framework_TestCase
+class HomepageTest extends TestCase
 {
-    public function testOnlyAdmin()
+    public function testOnlyAdmin(): void
     {
-        $user = $this->createMock('\NS\SentinelBundle\Entity\User');
+        $user = $this->createMock(User::class);
         $user->expects($this->once())
             ->method('isOnlyAdmin')
             ->willReturn(true);
@@ -22,7 +28,7 @@ class HomepageTest extends \PHPUnit_Framework_TestCase
         $homepage = $this->getHomepageService($user, 'sonata_admin_dashboard');
         $request  = new Request();
         $response = $homepage->getHomepageResponse($request);
-        $this->assertInstanceOf('Symfony\Component\HttpFoundation\RedirectResponse', $response);
+        $this->assertInstanceOf(RedirectResponse::class, $response);
         $this->assertEquals($response->getTargetUrl(), 'sonata/admin/dashboard');
         $this->assertEquals(302, $response->getStatusCode());
     }
@@ -32,21 +38,21 @@ class HomepageTest extends \PHPUnit_Framework_TestCase
      * @param $request
      * @param $locale
      */
-    public function testNeitherOnlyAdminNorOnlyApi($request, $locale)
+    public function testNeitherOnlyAdminNorOnlyApi($request, $locale): void
     {
-        $user = $this->createMock('\NS\SentinelBundle\Entity\User');
+        $user = $this->createMock(User::class);
         $user->expects($this->once())
             ->method('isOnlyAdmin')
             ->willReturn(false);
 
         $homepage = $this->getHomepageService($user, 'homepage', $locale);
         $response = $homepage->getHomepageResponse($request);
-        $this->assertInstanceOf('Symfony\Component\HttpFoundation\RedirectResponse', $response);
-        $this->assertEquals($response->getTargetUrl(), sprintf("/%s", $locale['_locale']));
+        $this->assertInstanceOf(RedirectResponse::class, $response);
+        $this->assertEquals($response->getTargetUrl(), sprintf('/%s', $locale['_locale']));
         $this->assertEquals(302, $response->getStatusCode());
     }
 
-    public function getRequests()
+    public function getRequests(): array
     {
         return [
             [
@@ -68,27 +74,27 @@ class HomepageTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    private function getHomepageService($user, $route, $routerParam = null)
+    private function getHomepageService($user, $route, $routerParam = null): Homepage
     {
-        $token = $this->createMock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface');
+        $token = $this->createMock(TokenInterface::class);
         $token->expects($this->once())
             ->method('getUser')
             ->willReturn($user);
 
-        $router = $this->createMock('\Symfony\Component\Routing\RouterInterface');
+        $router = $this->createMock(RouterInterface::class);
         if ($routerParam) {
             $router->expects($this->once())
                 ->method('generate')
                 ->with($route, $routerParam)
-                ->willReturn(sprintf("/%s", $routerParam['_locale']));
+                ->willReturn(sprintf('/%s', $routerParam['_locale']));
         } else {
             $router->expects($this->once())
                 ->method('generate')
                 ->with($route)
-                ->willReturn(str_replace("_", "/", $route));
+                ->willReturn(str_replace('_', '/', $route));
         }
 
-        $tokenStorage = $this->createMock('\Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface');
+        $tokenStorage = $this->createMock(TokenStorageInterface::class);
         $tokenStorage->expects($this->once())
             ->method('getToken')
             ->willReturn($token);

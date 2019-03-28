@@ -1,28 +1,23 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gnat
- * Date: 23/05/16
- * Time: 4:30 PM
- */
 
 namespace NS\SentinelBundle\Tests\Report;
 
-
+use DateTime;
 use NS\SentinelBundle\Entity\Site;
 use NS\SentinelBundle\Report\Result\ZeroReportResult;
+use PHPUnit\Framework\TestCase;
 
-class ZeroReportResultTest extends \PHPUnit_Framework_TestCase
+class ZeroReportResultTest extends TestCase
 {
-    public function testInitialization()
+    public function testInitialization(): void
     {
-        $report = new ZeroReportResult('IBD',new \DateTime(),new \DateTime());
-        $this->assertInstanceOf('NS\SentinelBundle\Report\Result\ZeroReportResult', $report);
+        $report = new ZeroReportResult('IBD',new DateTime(),new DateTime());
+        $this->assertInstanceOf(ZeroReportResult::class, $report);
     }
 
-    public function testGetDates()
+    public function testGetDates(): void
     {
-        $report = new ZeroReportResult('IBD',new \DateTime('2016-01-01'),new \DateTime('2016-05-31'));
+        $report = new ZeroReportResult('IBD',new DateTime('2016-01-01'),new DateTime('2016-05-31'));
 
         $dates = $report->getDates();
         $this->assertCount(5, $dates);
@@ -35,12 +30,12 @@ class ZeroReportResultTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2016, $jan['year']);
     }
 
-    public function testAddCase()
+    public function testAddCase(): void
     {
         $site = new Site();
         $site->setCode('SCODE');
 
-        $report = new ZeroReportResult('IBD', new \DateTime('2016-01-01'), new \DateTime('2016-05-31'));
+        $report = new ZeroReportResult('IBD', new DateTime('2016-01-01'), new DateTime('2016-05-31'));
         $report->addCaseCount($site, 2016, 2, 7);
 
         $this->assertCount(1, $report->getZeroReportResults());
@@ -48,12 +43,12 @@ class ZeroReportResultTest extends \PHPUnit_Framework_TestCase
         $this->assertCount(1, $report->getZeroReportResults());
     }
 
-    public function testAddZeroReport()
+    public function testAddZeroReport(): void
     {
         $site = new Site();
         $site->setCode('SCODE');
 
-        $report = new ZeroReportResult('IBD', new \DateTime('2016-01-01'), new \DateTime('2016-05-31'));
+        $report = new ZeroReportResult('IBD', new DateTime('2016-01-01'), new DateTime('2016-05-31'));
         $report->addZeroReport($site, 2016, 2, 'zero');
 
         $this->assertCount(1, $report->getZeroReportResults());

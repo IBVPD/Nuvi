@@ -1,23 +1,17 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: gnat
- * Date: 2017-03-18
- * Time: 9:01 PM
- */
-
 namespace NS\ImportBundle\Tests\Formatter;
 
 use NS\ImportBundle\Formatter\ArrayChoiceFormatter;
 use NS\SentinelBundle\Form\IBD\Types\Diagnosis;
 use NS\UtilBundle\Form\Types\ArrayChoice;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\PropertyAccess\PropertyPath;
 use Symfony\Component\Translation\TranslatorInterface;
 
-class ArrayChoiceFormatterTest extends \PHPUnit_Framework_TestCase
+class ArrayChoiceFormatterTest extends TestCase
 {
-    /** @var TranslatorInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var TranslatorInterface|MockObject */
     private $translator;
 
     /** @var ArrayChoiceFormatter */

@@ -8,6 +8,7 @@ use NS\ApiBundle\Form\Types\OAuthGrantTypes;
 use OAuth2\OAuth2;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
+use NS\ApiBundle\Entity\Client;
 
 /**
  * Description of ClientTypeTest
@@ -16,7 +17,7 @@ use Symfony\Component\Form\Test\TypeTestCase;
  */
 class ClientTypeTest extends TypeTestCase
 {
-    public function testForm()
+    public function testForm(): void
     {
         $formData = [
             'name'              => 'ClientName',
@@ -29,14 +30,14 @@ class ClientTypeTest extends TypeTestCase
 
         $form->submit($formData);
         $data = $form->getData();
-        $this->assertInstanceOf('NS\ApiBundle\Entity\Client', $data);
+        $this->assertInstanceOf(Client::class, $data);
         $this->assertEquals('ClientName', $data->getName());
         $this->assertEquals(['https://localhost/', 'http://example.com/'], $data->getRedirectUris());
         $this->assertEquals([OAuth2::GRANT_TYPE_AUTH_CODE, OAuth2::GRANT_TYPE_CLIENT_CREDENTIALS,
             OAuth2::GRANT_TYPE_REFRESH_TOKEN], $data->getAllowedGrantTypes());
     }
 
-    public function getExtensions()
+    public function getExtensions(): array
     {
         $oauthType = new OAuthGrantTypes();
         $tagType   = new TagType();

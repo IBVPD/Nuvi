@@ -1,21 +1,15 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gnat
- * Date: 11/05/16
- * Time: 2:11 PM
- */
 
 namespace NS\SentinelBundle\Tests\Entity;
-
 
 use NS\SentinelBundle\Entity\Country;
 use NS\SentinelBundle\Entity\IBD;
 use NS\SentinelBundle\Entity\Region;
+use PHPUnit\Framework\TestCase;
 
-class BaseCaseTest extends \PHPUnit_Framework_TestCase
+class BaseCaseTest extends TestCase
 {
-    public function testClone()
+    public function testClone(): void
     {
         $region  = new Region('REG','Region');
         $country = new Country('CA','Canada');

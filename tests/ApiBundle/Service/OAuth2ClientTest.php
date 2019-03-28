@@ -2,26 +2,30 @@
 
 namespace NS\ApiBundle\Tests\Service;
 
+use NS\ApiBundle\Entity\Remote;
 use NS\ApiBundle\Service\OAuth2Client;
+use PHPUnit\Framework\TestCase;
+use Doctrine\Common\Persistence\ObjectManager;
+use UnexpectedValueException;
 
 /**
  * Description of OAuth2ClientTest
  *
  * @author gnat
  */
-class OAuth2ClientTest extends \PHPUnit_Framework_TestCase
+class OAuth2ClientTest extends TestCase
 {
-    public function testGetName()
+    public function testGetName(): void
     {
         $entityMgr = $this->getEntityManager();
         $authClient = new OAuth2Client($entityMgr);
         $this->assertEquals('oauth_client', $authClient->getName());
     }
 
-    public function testSetRemote()
+    public function testSetRemote(): void
     {
         $entityMgr = $this->getEntityManager();
-        $remote    = new \NS\ApiBundle\Entity\Remote();
+        $remote    = new Remote();
         $remote->setClientId('clientId1234156');
         $remote->setClientSecret(md5('clientId1234156'));
 
@@ -34,10 +38,10 @@ class OAuth2ClientTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($remote->getClientSecret(), $client->getClientSecret());
     }
 
-    public function testGetAuthenticationUrl()
+    public function testGetAuthenticationUrl(): void
     {
         $entityMgr = $this->getEntityManager();
-        $remote    = new \NS\ApiBundle\Entity\Remote();
+        $remote    = new Remote();
         $remote->setClientId('clientId1234156');
         $remote->setClientSecret(md5('clientId1234156'));
         $remote->setAuthEndpoint('http://localhost/auth');
@@ -58,24 +62,24 @@ class OAuth2ClientTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \UnexpectedValueException
+     * @expectedException UnexpectedValueException
      */
-    public function testGetAuthenticationUrlException()
+    public function testGetAuthenticationUrlException(): void
     {
         $entityMgr  = $this->getEntityManager();
-        $remote     = new \NS\ApiBundle\Entity\Remote();
+        $remote     = new Remote();
         $authClient = new OAuth2Client($entityMgr);
 
         $authClient->getAuthenticationUrl(null, $remote);
     }
 
     /**
-     * @expectedException \UnexpectedValueException
+     * @expectedException UnexpectedValueException
      */
-    public function testGetAuthenticationUrlSecondException()
+    public function testGetAuthenticationUrlSecondException(): void
     {
         $entityMgr  = $this->getEntityManager();
-        $remote     = new \NS\ApiBundle\Entity\Remote();
+        $remote     = new Remote();
         $authClient = new OAuth2Client($entityMgr);
         $authClient->setRemote($remote);
         $client     = $authClient->getClient();
@@ -83,14 +87,14 @@ class OAuth2ClientTest extends \PHPUnit_Framework_TestCase
         $authClient->getAuthenticationUrl($client);
     }
 
-    public function testGetAuthenticationPath()
+    public function testGetAuthenticationPath(): void
     {
         $entityMgr = $this->getEntityManager();
-        $remote    = new \NS\ApiBundle\Entity\Remote();
+        $remote    = new Remote();
         $remote->setClientId('clientId1234156');
         $remote->setClientSecret(md5('clientId1234156'));
-        $remote->setAuthEndpoint("http://localhost/auth");
-        $remote->setTokenEndpoint("http://localhost/token");
+        $remote->setAuthEndpoint('http://localhost/auth');
+        $remote->setTokenEndpoint('http://localhost/token');
 
         $authClient = new OAuth2Client($entityMgr);
         $authClient->setRemote($remote);
@@ -106,7 +110,7 @@ class OAuth2ClientTest extends \PHPUnit_Framework_TestCase
 
     private function getEntityManager()
     {
-        return $this->getMockBuilder('Doctrine\Common\Persistence\ObjectManager')
+        return $this->getMockBuilder(ObjectManager::class)
                 ->disableOriginalConstructor()
                 ->getMock();
     }

@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Tests\Listeners;
 
+use DateTime;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use NS\SentinelBundle\Entity\Country;
 use NS\SentinelBundle\Entity\Listener\MeningitisListener;
@@ -20,19 +21,20 @@ use NS\SentinelBundle\Form\IBD\Types\DischargeDiagnosis;
 use NS\SentinelBundle\Form\IBD\Types\DischargeOutcome;
 use NS\SentinelBundle\Form\IBD\Types\VaccinationType;
 use NS\SentinelBundle\Form\IBD\Types\OtherSpecimen;
+use PHPUnit\Framework\TestCase;
 
-class MeningitisListenerTest extends \PHPUnit_Framework_TestCase
+class MeningitisListenerTest extends TestCase
 {
     //============================================================
     // Single complete cases
-    public function testSingleMinimumCompleteNonPahoCase()
+    public function testSingleMinimumCompleteNonPahoCase(): void
     {
         $case = new Meningitis();
         $this->_updateCase($case, $this->getSingleCompleteCase());
         $listener = new MeningitisListener();
         $listener->prePersist($case, $this->createMock(LifecycleEventArgs::class));
 
-        $this->assertTrue($case->isComplete(), "New cases are incomplete " . $listener->getIncompleteField($case) . ' ' . $case->getStatus());
+        $this->assertTrue($case->isComplete(), sprintf('New cases are incomplete %s %s', $listener->getIncompleteField($case), $case->getStatus()));
     }
 
     //============================================================
@@ -42,7 +44,7 @@ class MeningitisListenerTest extends \PHPUnit_Framework_TestCase
      * @dataProvider getIncompleteTestDataNonPaho
      * @param $data
      */
-    public function testCaseIsIncompleteNonPaho($data)
+    public function testCaseIsIncompleteNonPaho($data): void
     {
         $case = new Meningitis();
         $this->_updateCase($case, $data);
@@ -60,14 +62,14 @@ class MeningitisListenerTest extends \PHPUnit_Framework_TestCase
      * @dataProvider getCompleteCaseNonPahoData
      * @param $data
      */
-    public function testCaseIsCompleteWithPneumonia($data)
+    public function testCaseIsCompleteWithPneumonia($data): void
     {
         $case = new Meningitis();
         $this->_updateCase($case, $data);
         $listener = new MeningitisListener();
         $listener->prePersist($case, $this->createMock(LifecycleEventArgs::class));
 
-        $this->assertTrue($case->isComplete(), 'Cases with pneunomia are complete ' . (!$case->isComplete() ? $listener->getIncompleteField($case) : null));
+        $this->assertTrue($case->isComplete(), sprintf('Cases with pneunomia are complete %s', !$case->isComplete() ? $listener->getIncompleteField($case) : null));
         $this->assertEquals($case->getStatus()->getValue(), CaseStatus::COMPLETE);
     }
 
@@ -111,7 +113,7 @@ class MeningitisListenerTest extends \PHPUnit_Framework_TestCase
         $row                            = $complete;
         $row['setmeningReceived']       = new VaccinationReceived(VaccinationReceived::YES_CARD);
         $row['setmeningType']           = new VaccinationType(VaccinationType::ACW135);
-        $row['setmeningDate'] = new \DateTime();
+        $row['setmeningDate'] = new DateTime();
         $data[]                         = ['data' => $row];
 
         $doses = new ThreeDoses();
@@ -135,7 +137,7 @@ class MeningitisListenerTest extends \PHPUnit_Framework_TestCase
             $row = $complete;
             $row['setcsfCollected'] = $tripleYes;
             $row['setcsfId'] = 'null';
-            $row['setcsfCollectDate'] = new \DateTime();
+            $row['setcsfCollectDate'] = new DateTime();
             $row['setcsfCollectTime'] = $row['setcsfCollectDate'];
             $row['setcsfAppearance'] = new CSFAppearance($v);
             $data[] = ['data' => $row];
@@ -144,7 +146,7 @@ class MeningitisListenerTest extends \PHPUnit_Framework_TestCase
         return $data;
     }
 
-    public function getIncompleteTestDataNonPaho()
+    public function getIncompleteTestDataNonPaho(): array
     {
         $data      = [];
         $tripleYes = new TripleChoice(TripleChoice::YES);
@@ -254,7 +256,7 @@ class MeningitisListenerTest extends \PHPUnit_Framework_TestCase
         return $data;
     }
 
-    private function getSingleCompleteCase()
+    private function getSingleCompleteCase(): array
     {
         $tripleNo = new TripleChoice(TripleChoice::NO);
         $country  = new Country('tId', 'Test Country');
@@ -265,11 +267,11 @@ class MeningitisListenerTest extends \PHPUnit_Framework_TestCase
         return [
             'setcountry'              => $country,
             'setcaseId'               => 'blah',
-            'setbirthdate'            => new \DateTime(),
+            'setbirthdate'            => new DateTime(),
             'setgender'               => new Gender(Gender::MALE),
             'setdistrict'             => 'The District',
-            'setadmDate'              => new \DateTime(),
-            'setonsetDate'            => new \DateTime(),
+            'setadmDate'              => new DateTime(),
+            'setonsetDate'            => new DateTime(),
             'setadmDx'                => new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA),
             'setadmDxOther'           => null,
             'setantibiotics'          => $tripleNo,
@@ -304,10 +306,10 @@ class MeningitisListenerTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    private function _updateCase($case, $data)
+    private function _updateCase($case, $data): void
     {
         foreach ($data as $method => $d) {
-            if (!is_null($d) && method_exists($case, $method)) {
+            if ($d !== null && method_exists($case, $method)) {
                 $case->$method($d);
             }
         }

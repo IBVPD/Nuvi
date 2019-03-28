@@ -3,19 +3,23 @@
 namespace NS\ImportBundle\Tests\Twig;
 
 use NS\ImportBundle\Twig\ImportResultActions;
+use PHPUnit\Framework\TestCase;
+use NS\ImportBundle\Entity\Import;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
-class ImportResultActionsTest extends \PHPUnit_Framework_TestCase
+class ImportResultActionsTest extends TestCase
 {
-    public function testInititalization()
+    public function testInititalization(): void
     {
-        list($router, $translator, $import) = $this->getArguments();
+        [$router, $translator, $import] = $this->getArguments();
         $twigAction = new ImportResultActions($router, $translator);
         $this->assertCount(1, $twigAction->getFunctions());
         $this->assertEquals('ImportResultAction', $twigAction->getName());
     }
-    public function testIsCompleteWithoutError()
+    public function testIsCompleteWithoutError(): void
     {
-        list($router, $translator, $import) = $this->getArguments();
+        [$router, $translator, $import] = $this->getArguments();
 
         $import->expects($this->once())
             ->method('isComplete')
@@ -34,9 +38,9 @@ class ImportResultActionsTest extends \PHPUnit_Framework_TestCase
         $twigAction->importActions($import);
     }
 
-    public function testIsNotCompleteUnqueuedNoError()
+    public function testIsNotCompleteUnqueuedNoError(): void
     {
-        list($router, $translator, $import) = $this->getArguments();
+        [$router, $translator, $import] = $this->getArguments();
 
         $import->expects($this->once())
             ->method('isComplete')
@@ -59,9 +63,9 @@ class ImportResultActionsTest extends \PHPUnit_Framework_TestCase
         $twigAction->importActions($import);
     }
 
-    public function testIsNotCompleteQueuedNoError()
+    public function testIsNotCompleteQueuedNoError(): void
     {
-        list($router, $translator, $import) = $this->getArguments();
+        [$router, $translator, $import] = $this->getArguments();
 
         $import->expects($this->once())
             ->method('isComplete')
@@ -84,9 +88,9 @@ class ImportResultActionsTest extends \PHPUnit_Framework_TestCase
         $twigAction->importActions($import);
     }
 
-    public function testIsNotCompleteNotQueuedWithError()
+    public function testIsNotCompleteNotQueuedWithError(): void
     {
-        list($router, $translator, $import) = $this->getArguments();
+        [$router, $translator, $import] = $this->getArguments();
 
         $import->expects($this->atLeast(2))
             ->method('isComplete')
@@ -109,11 +113,11 @@ class ImportResultActionsTest extends \PHPUnit_Framework_TestCase
         $twigAction->importActions($import);
     }
 
-    public function getArguments()
+    public function getArguments(): array
     {
-        $translator = $this->createMock('Symfony\Component\Translation\TranslatorInterface');
-        $router = $this->createMock('Symfony\Component\Routing\RouterInterface');
-        $import = $this->createMock('NS\ImportBundle\Entity\Import');
+        $translator = $this->createMock(TranslatorInterface::class);
+        $router = $this->createMock(RouterInterface::class);
+        $import = $this->createMock(Import::class);
         $import->expects($this->any())
             ->method('getId')
             ->willReturn(12);

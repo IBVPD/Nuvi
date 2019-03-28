@@ -7,7 +7,8 @@ use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Twig\CaseActions;
 use NS\SentinelBundle\Entity\IBD;
 use NS\SentinelBundle\Entity\RotaVirus;
-
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -18,15 +19,15 @@ use Symfony\Component\Translation\TranslatorInterface;
  *
  * @author gnat
  */
-class CaseActionsTest extends \PHPUnit_Framework_TestCase
+class CaseActionsTest extends TestCase
 {
-    /** @var AuthorizationCheckerInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var AuthorizationCheckerInterface|MockObject */
     private $authChecker;
 
-    /** @var TranslatorInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var TranslatorInterface|MockObject */
     private $trans;
 
-    /** @var RouterInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var RouterInterface|MockObject */
     private $router;
 
     public function setUp()
@@ -42,9 +43,9 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
             ['NL', [], null, null, 'NL'],
         ];
 
-        $this->trans->expects($this->any())
+        $this->trans
             ->method('trans')
-            ->will($this->returnValueMap($tmap));
+            ->willReturnMap($tmap);
 
         $rmap = [
             ['ibdShow', ['id' => null], UrlGeneratorInterface::ABSOLUTE_PATH, 'Show IBD Case'],
@@ -69,93 +70,93 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
             ['rotavirusLabEdit', ['id' => null], UrlGeneratorInterface::ABSOLUTE_PATH, 'Edit Lab'],
         ];
 
-        $this->router->expects($this->any())
+        $this->router
             ->method('generate')
-            ->will($this->returnValueMap($rmap));
+            ->willReturnMap($rmap);
     }
 
-    public function testBigShowOnlyActions()
+    public function testBigShowOnlyActions(): void
     {
-        $this->authChecker->expects($this->any())
+        $this->authChecker
             ->method('isGranted')
             ->with('ROLE_CAN_CREATE')
-            ->will($this->returnValue(false));
+            ->willReturn(false);
 
         $action     = new CaseActions($this->authChecker, $this->trans, $this->router);
         $obj        = new IBD();
         $bigResults = $action->getBigActions($obj);
 
         $this->assertContains('fa-list',$bigResults);
-        $this->assertContains("Show IBD Case", $bigResults, "User who can't create can only see");
-        $this->assertNotContains("Edit IBD Case", $bigResults, "Case Link Exists");
-        $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
-        $this->assertNotContains("Edit RRL", $bigResults, "RRL Link");
-        $this->assertNotContains("Edit NL", $bigResults, "NL Link");
+        $this->assertContains('Show IBD Case', $bigResults, "User who can't create can only see");
+        $this->assertNotContains('Edit IBD Case', $bigResults, 'Case Link Exists');
+        $this->assertNotContains('Edit Lab', $bigResults, 'Lab Link');
+        $this->assertNotContains('Edit RRL', $bigResults, 'RRL Link');
+        $this->assertNotContains('Edit NL', $bigResults, 'NL Link');
 
         $obj        = new Meningitis\Meningitis();
         $bigResults = $action->getBigActions($obj);
 
         $this->assertContains('fa-list',$bigResults);
-        $this->assertContains("Show Meningitis Case", $bigResults, "User who can't create can only see");
-        $this->assertNotContains("Edit Meningitis Case", $bigResults, "Case Link Exists");
-        $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
-        $this->assertNotContains("Edit RRL", $bigResults, "RRL Link");
-        $this->assertNotContains("Edit NL", $bigResults, "NL Link");
+        $this->assertContains('Show Meningitis Case', $bigResults, "User who can't create can only see");
+        $this->assertNotContains('Edit Meningitis Case', $bigResults, 'Case Link Exists');
+        $this->assertNotContains('Edit Lab', $bigResults, 'Lab Link');
+        $this->assertNotContains('Edit RRL', $bigResults, 'RRL Link');
+        $this->assertNotContains('Edit NL', $bigResults, 'NL Link');
 
         $obj        = new RotaVirus();
         $bigResults = $action->getBigActions($obj);
 
         $this->assertContains('fa-list',$bigResults);
-        $this->assertContains("Show Rota Case", $bigResults, "User who can't create can only see");
-        $this->assertNotContains("Edit Rota Case", $bigResults, "Case Link Exists");
-        $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
-        $this->assertNotContains("Edit RRL", $bigResults, "RRL Link");
-        $this->assertNotContains("Edit NL", $bigResults, "NL Link");
+        $this->assertContains('Show Rota Case', $bigResults, "User who can't create can only see");
+        $this->assertNotContains('Edit Rota Case', $bigResults, 'Case Link Exists');
+        $this->assertNotContains('Edit Lab', $bigResults, 'Lab Link');
+        $this->assertNotContains('Edit RRL', $bigResults, 'RRL Link');
+        $this->assertNotContains('Edit NL', $bigResults, 'NL Link');
     }
 
-    public function testBigCanCreateCaseActions()
+    public function testBigCanCreateCaseActions(): void
     {
         $map = [
             ['ROLE_CAN_CREATE', null, true],
             ['ROLE_CAN_CREATE_CASE', null, true],
         ];
 
-        $this->authChecker->expects($this->any())
+        $this->authChecker
             ->method('isGranted')
-            ->will($this->returnValueMap($map));
+            ->willReturnMap($map);
 
         $action     = new CaseActions($this->authChecker, $this->trans, $this->router);
         $obj        = new IBD();
         $bigResults = $action->getBigActions($obj);
 
         $this->assertContains('fa-list',$bigResults);
-        $this->assertContains("Show IBD Case", $bigResults, "User who can't create can only see");
-        $this->assertContains("Edit IBD Case", $bigResults, "Case Link Exists");
-        $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
-        $this->assertNotContains("Edit RRL", $bigResults, "RRL Link");
-        $this->assertNotContains("Edit NL", $bigResults, "NL Link");
+        $this->assertContains('Show IBD Case', $bigResults, "User who can't create can only see");
+        $this->assertContains('Edit IBD Case', $bigResults, 'Case Link Exists');
+        $this->assertNotContains('Edit Lab', $bigResults, 'Lab Link');
+        $this->assertNotContains('Edit RRL', $bigResults, 'RRL Link');
+        $this->assertNotContains('Edit NL', $bigResults, 'NL Link');
 
         $obj        = new Meningitis\Meningitis();
         $bigResults = $action->getBigActions($obj);
 
         $this->assertContains('fa-list',$bigResults);
-        $this->assertContains("Show Meningitis Case", $bigResults, "User who can't create can only see");
-        $this->assertContains("Edit Meningitis Case", $bigResults, "Case Link Exists");
-        $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
-        $this->assertNotContains("Edit RRL", $bigResults, "RRL Link");
-        $this->assertNotContains("Edit NL", $bigResults, "NL Link");
+        $this->assertContains('Show Meningitis Case', $bigResults, "User who can't create can only see");
+        $this->assertContains('Edit Meningitis Case', $bigResults, 'Case Link Exists');
+        $this->assertNotContains('Edit Lab', $bigResults, 'Lab Link');
+        $this->assertNotContains('Edit RRL', $bigResults, 'RRL Link');
+        $this->assertNotContains('Edit NL', $bigResults, 'NL Link');
 
         $obj        = new RotaVirus();
         $bigResults = $action->getBigActions($obj);
         $this->assertContains('fa-list',$bigResults);
-        $this->assertContains("Show Rota Case", $bigResults, "User who can't create can only see");
-        $this->assertContains("Edit Rota Case", $bigResults, "Case Link Exists");
-        $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
-        $this->assertNotContains("Edit RRL", $bigResults, "RRL Link");
-        $this->assertNotContains("Edit NL", $bigResults, "NL Link");
+        $this->assertContains('Show Rota Case', $bigResults, "User who can't create can only see");
+        $this->assertContains('Edit Rota Case', $bigResults, 'Case Link Exists');
+        $this->assertNotContains('Edit Lab', $bigResults, 'Lab Link');
+        $this->assertNotContains('Edit RRL', $bigResults, 'RRL Link');
+        $this->assertNotContains('Edit NL', $bigResults, 'NL Link');
     }
 
-    public function testBigCanCreateRRLActions()
+    public function testBigCanCreateRRLActions(): void
     {
         $map = [
             ['ROLE_CAN_CREATE', null, true],
@@ -163,9 +164,9 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
             ['ROLE_CAN_CREATE_RRL_LAB', null, true],
         ];
 
-        $this->authChecker->expects($this->any())
+        $this->authChecker
             ->method('isGranted')
-            ->will($this->returnValueMap($map));
+            ->willReturnMap($map);
 
         $action = new CaseActions($this->authChecker, $this->trans, $this->router);
 
@@ -178,11 +179,11 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $bigResults = $action->getBigActions($obj);
 
         $this->assertContains('fa-list',$bigResults);
-        $this->assertContains("Show IBD Case", $bigResults, "User who can't create can only see");
-        $this->assertContains("Edit IBD Case", $bigResults, "Case Link Exists");
-        $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
-        $this->assertContains("Edit RRL", $bigResults, "RRL Link");
-        $this->assertNotContains("Edit NL", $bigResults, "NL Link");
+        $this->assertContains('Show IBD Case', $bigResults, "User who can't create can only see");
+        $this->assertContains('Edit IBD Case', $bigResults, 'Case Link Exists');
+        $this->assertNotContains('Edit Lab', $bigResults, 'Lab Link');
+        $this->assertContains('Edit RRL', $bigResults, 'RRL Link');
+        $this->assertNotContains('Edit NL', $bigResults, 'NL Link');
 
         $obj = new Meningitis\Meningitis();
         $lab = new Meningitis\SiteLab();
@@ -193,11 +194,11 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $bigResults = $action->getBigActions($obj);
 
         $this->assertContains('fa-list',$bigResults);
-        $this->assertContains("Show Meningitis Case", $bigResults, "User who can't create can only see");
-        $this->assertContains("Edit Meningitis Case", $bigResults, "Case Link Exists");
-        $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
-        $this->assertContains("Edit RRL", $bigResults, "RRL Link");
-        $this->assertNotContains("Edit NL", $bigResults, "NL Link");
+        $this->assertContains('Show Meningitis Case', $bigResults, "User who can't create can only see");
+        $this->assertContains('Edit Meningitis Case', $bigResults, 'Case Link Exists');
+        $this->assertNotContains('Edit Lab', $bigResults, 'Lab Link');
+        $this->assertContains('Edit RRL', $bigResults, 'RRL Link');
+        $this->assertNotContains('Edit NL', $bigResults, 'NL Link');
 
         $obj = new RotaVirus();
         $lab = new RotaVirus\SiteLab();
@@ -208,14 +209,14 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $bigResults = $action->getBigActions($obj);
 
         $this->assertContains('fa-list',$bigResults);
-        $this->assertContains("Show Rota Case", $bigResults, "User who can't create can only see");
-        $this->assertContains("Edit Rota Case", $bigResults, "Case Link Exists");
-        $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
-        $this->assertContains("Edit RRL", $bigResults, "RRL Link");
-        $this->assertNotContains("Edit NL", $bigResults, "NL Link");
+        $this->assertContains('Show Rota Case', $bigResults, "User who can't create can only see");
+        $this->assertContains('Edit Rota Case', $bigResults, 'Case Link Exists');
+        $this->assertNotContains('Edit Lab', $bigResults, 'Lab Link');
+        $this->assertContains('Edit RRL', $bigResults, 'RRL Link');
+        $this->assertNotContains('Edit NL', $bigResults, 'NL Link');
     }
 
-    public function testBigCanCreateNLActions()
+    public function testBigCanCreateNLActions(): void
     {
         $map = [
             ['ROLE_CAN_CREATE', null, true],
@@ -225,9 +226,9 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
             ['ROLE_CAN_CREATE_NL_LAB', null, true],
         ];
 
-        $this->authChecker->expects($this->any())
+        $this->authChecker
             ->method('isGranted')
-            ->will($this->returnValueMap($map));
+            ->willReturnMap($map);
 
         $action = new CaseActions($this->authChecker, $this->trans, $this->router);
 
@@ -240,11 +241,11 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $bigResults = $action->getBigActions($obj);
 
         $this->assertContains('fa-list',$bigResults);
-        $this->assertContains("Show IBD Case", $bigResults, "User who can't create can only see");
-        $this->assertContains("Edit IBD Case", $bigResults, "Case Link Exists");
-        $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
-        $this->assertNotContains("Edit RRL", $bigResults, "RRL Link");
-        $this->assertContains("Edit NL", $bigResults, "NL Link");
+        $this->assertContains('Show IBD Case', $bigResults, "User who can't create can only see");
+        $this->assertContains('Edit IBD Case', $bigResults, 'Case Link Exists');
+        $this->assertNotContains('Edit Lab', $bigResults, 'Lab Link');
+        $this->assertNotContains('Edit RRL', $bigResults, 'RRL Link');
+        $this->assertContains('Edit NL', $bigResults, 'NL Link');
 
         $obj = new Meningitis\Meningitis();
         $lab = new Meningitis\SiteLab();
@@ -255,11 +256,11 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $bigResults = $action->getBigActions($obj);
 
         $this->assertContains('fa-list',$bigResults);
-        $this->assertContains("Show Meningitis Case", $bigResults, "User who can't create can only see");
-        $this->assertContains("Edit Meningitis Case", $bigResults, "Case Link Exists");
-        $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
-        $this->assertNotContains("Edit RRL", $bigResults, "RRL Link");
-        $this->assertContains("Edit NL", $bigResults, "NL Link");
+        $this->assertContains('Show Meningitis Case', $bigResults, "User who can't create can only see");
+        $this->assertContains('Edit Meningitis Case', $bigResults, 'Case Link Exists');
+        $this->assertNotContains('Edit Lab', $bigResults, 'Lab Link');
+        $this->assertNotContains('Edit RRL', $bigResults, 'RRL Link');
+        $this->assertContains('Edit NL', $bigResults, 'NL Link');
 
         $obj = new RotaVirus();
         $lab = new RotaVirus\SiteLab();
@@ -270,14 +271,14 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $bigResults = $action->getBigActions($obj);
 
         $this->assertContains('fa-list',$bigResults);
-        $this->assertContains("Show Rota Case", $bigResults, "User who can't create can only see");
-        $this->assertContains("Edit Rota Case", $bigResults, "Case Link Exists");
-        $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
-        $this->assertNotContains("Edit RRL", $bigResults, "RRL Link");
-        $this->assertContains("Edit NL", $bigResults, "NL Link");
+        $this->assertContains('Show Rota Case', $bigResults, "User who can't create can only see");
+        $this->assertContains('Edit Rota Case', $bigResults, 'Case Link Exists');
+        $this->assertNotContains('Edit Lab', $bigResults, 'Lab Link');
+        $this->assertNotContains('Edit RRL', $bigResults, 'RRL Link');
+        $this->assertContains('Edit NL', $bigResults, 'NL Link');
     }
 
-    public function testBigCanCreateAllActions()
+    public function testBigCanCreateAllActions(): void
     {
         $map = [
             ['ROLE_CAN_CREATE', null, true],
@@ -287,9 +288,9 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
             ['ROLE_CAN_CREATE_NL_LAB', null, true],
         ];
 
-        $this->authChecker->expects($this->any())
+        $this->authChecker
             ->method('isGranted')
-            ->will($this->returnValueMap($map));
+            ->willReturnMap($map);
 
         $action = new CaseActions($this->authChecker, $this->trans, $this->router);
         $obj    = new IBD();
@@ -301,11 +302,11 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $bigResults = $action->getBigActions($obj);
 
         $this->assertContains('fa-list',$bigResults);
-        $this->assertContains("Show IBD Case", $bigResults, "User who can't create can only see");
-        $this->assertContains("Edit IBD Case", $bigResults, "Case Link Exists");
-        $this->assertContains("Edit Lab", $bigResults, "Lab Link");
-        $this->assertContains("Edit RRL", $bigResults, "RRL Link");
-        $this->assertContains("Edit NL", $bigResults, "NL Link");
+        $this->assertContains('Show IBD Case', $bigResults, "User who can't create can only see");
+        $this->assertContains('Edit IBD Case', $bigResults, 'Case Link Exists');
+        $this->assertContains('Edit Lab', $bigResults, 'Lab Link');
+        $this->assertContains('Edit RRL', $bigResults, 'RRL Link');
+        $this->assertContains('Edit NL', $bigResults, 'NL Link');
 
         $obj    = new Meningitis\Meningitis();
         $lab    = new Meningitis\SiteLab();
@@ -316,11 +317,11 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $bigResults = $action->getBigActions($obj);
 
         $this->assertContains('fa-list',$bigResults);
-        $this->assertContains("Show Meningitis Case", $bigResults, "User who can't create can only see");
-        $this->assertContains("Edit Meningitis Case", $bigResults, "Case Link Exists");
-        $this->assertContains("Edit Lab", $bigResults, "Lab Link");
-        $this->assertContains("Edit RRL", $bigResults, "RRL Link");
-        $this->assertContains("Edit NL", $bigResults, "NL Link");
+        $this->assertContains('Show Meningitis Case', $bigResults, "User who can't create can only see");
+        $this->assertContains('Edit Meningitis Case', $bigResults, 'Case Link Exists');
+        $this->assertContains('Edit Lab', $bigResults, 'Lab Link');
+        $this->assertContains('Edit RRL', $bigResults, 'RRL Link');
+        $this->assertContains('Edit NL', $bigResults, 'NL Link');
 
         $obj        = new RotaVirus();
         $lab        = new RotaVirus\SiteLab();
@@ -330,14 +331,14 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $bigResults = $action->getBigActions($obj);
 
         $this->assertContains('fa-list',$bigResults);
-        $this->assertContains("Show Rota Case", $bigResults, "User who can't create can only see");
-        $this->assertContains("Edit Rota Case", $bigResults, "Case Link Exists");
-        $this->assertContains("Edit Lab", $bigResults, "Lab Link");
-        $this->assertContains("Edit RRL", $bigResults, "RRL Link");
-        $this->assertContains("Edit NL", $bigResults, "NL Link");
+        $this->assertContains('Show Rota Case', $bigResults, "User who can't create can only see");
+        $this->assertContains('Edit Rota Case', $bigResults, 'Case Link Exists');
+        $this->assertContains('Edit Lab', $bigResults, 'Lab Link');
+        $this->assertContains('Edit RRL', $bigResults, 'RRL Link');
+        $this->assertContains('Edit NL', $bigResults, 'NL Link');
     }
 
-    public function testBigActionsNoList()
+    public function testBigActionsNoList(): void
     {
         $map = [
             ['ROLE_CAN_CREATE', null, true],
@@ -347,9 +348,9 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
             ['ROLE_CAN_CREATE_NL_LAB', null, true],
         ];
 
-        $this->authChecker->expects($this->any())
+        $this->authChecker
             ->method('isGranted')
-            ->will($this->returnValueMap($map));
+            ->willReturnMap($map);
 
         $action = new CaseActions($this->authChecker, $this->trans, $this->router);
         $obj    = new IBD();
@@ -371,84 +372,84 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $this->assertNotContains('fa-list',$bigResults);
     }
 
-    public function testSmallShowOnlyActions()
+    public function testSmallShowOnlyActions(): void
     {
-        $this->authChecker->expects($this->any())
+        $this->authChecker
             ->method('isGranted')
             ->with('ROLE_CAN_CREATE')
-            ->will($this->returnValue(false));
+            ->willReturn(false);
 
         $action     = new CaseActions($this->authChecker, $this->trans, $this->router);
         $obj        = new IBD();
         $bigResults = $action->getSmallActions($obj);
 
-        $this->assertContains("Show IBD Case", $bigResults, "User who can't create can only see");
-        $this->assertNotContains("Edit IBD Case", $bigResults, "Case Link Exists");
-        $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
-        $this->assertNotContains("Edit RRL", $bigResults, "RRL Link");
-        $this->assertNotContains("Edit NL", $bigResults, "NL Link");
+        $this->assertContains('Show IBD Case', $bigResults, "User who can't create can only see");
+        $this->assertNotContains('Edit IBD Case', $bigResults, 'Case Link Exists');
+        $this->assertNotContains('Edit Lab', $bigResults, 'Lab Link');
+        $this->assertNotContains('Edit RRL', $bigResults, 'RRL Link');
+        $this->assertNotContains('Edit NL', $bigResults, 'NL Link');
 
         $obj        = new Meningitis\Meningitis();
         $bigResults = $action->getSmallActions($obj);
 
-        $this->assertContains("Show Meningitis Case", $bigResults, "User who can't create can only see");
-        $this->assertNotContains("Edit Meningitis Case", $bigResults, "Case Link Exists");
-        $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
-        $this->assertNotContains("Edit RRL", $bigResults, "RRL Link");
-        $this->assertNotContains("Edit NL", $bigResults, "NL Link");
+        $this->assertContains('Show Meningitis Case', $bigResults, "User who can't create can only see");
+        $this->assertNotContains('Edit Meningitis Case', $bigResults, 'Case Link Exists');
+        $this->assertNotContains('Edit Lab', $bigResults, 'Lab Link');
+        $this->assertNotContains('Edit RRL', $bigResults, 'RRL Link');
+        $this->assertNotContains('Edit NL', $bigResults, 'NL Link');
 
         $obj = new RotaVirus();
 
         $bigResults = $action->getSmallActions($obj);
 
-        $this->assertContains("Show Rota Case", $bigResults, "User who can't create can only see");
-        $this->assertNotContains("Edit Rota Case", $bigResults, "Case Link Exists");
-        $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
-        $this->assertNotContains("Edit RRL", $bigResults, "RRL Link");
-        $this->assertNotContains("Edit NL", $bigResults, "NL Link");
+        $this->assertContains('Show Rota Case', $bigResults, "User who can't create can only see");
+        $this->assertNotContains('Edit Rota Case', $bigResults, 'Case Link Exists');
+        $this->assertNotContains('Edit Lab', $bigResults, 'Lab Link');
+        $this->assertNotContains('Edit RRL', $bigResults, 'RRL Link');
+        $this->assertNotContains('Edit NL', $bigResults, 'NL Link');
     }
 
-    public function testSmallCanCreateCaseActions()
+    public function testSmallCanCreateCaseActions(): void
     {
         $map = [
             ['ROLE_CAN_CREATE', null, true],
             ['ROLE_CAN_CREATE_CASE', null, true],
         ];
 
-        $this->authChecker->expects($this->any())
+        $this->authChecker
             ->method('isGranted')
-            ->will($this->returnValueMap($map));
+            ->willReturnMap($map);
 
         $action     = new CaseActions($this->authChecker, $this->trans, $this->router);
         $obj        = new IBD();
         $bigResults = $action->getSmallActions($obj);
 
-        $this->assertContains("Show IBD Case", $bigResults, "User who can't create can only see");
-        $this->assertContains("Edit IBD Case", $bigResults, "Case Link Exists");
-        $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
-        $this->assertNotContains("Edit RRL", $bigResults, "RRL Link");
-        $this->assertNotContains("Edit NL", $bigResults, "NL Link");
+        $this->assertContains('Show IBD Case', $bigResults, "User who can't create can only see");
+        $this->assertContains('Edit IBD Case', $bigResults, 'Case Link Exists');
+        $this->assertNotContains('Edit Lab', $bigResults, 'Lab Link');
+        $this->assertNotContains('Edit RRL', $bigResults, 'RRL Link');
+        $this->assertNotContains('Edit NL', $bigResults, 'NL Link');
 
         $obj        = new Meningitis\Meningitis();
         $bigResults = $action->getSmallActions($obj);
 
-        $this->assertContains("Show Meningitis Case", $bigResults, "User who can't create can only see");
-        $this->assertContains("Edit Meningitis Case", $bigResults, "Case Link Exists");
-        $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
-        $this->assertNotContains("Edit RRL", $bigResults, "RRL Link");
-        $this->assertNotContains("Edit NL", $bigResults, "NL Link");
+        $this->assertContains('Show Meningitis Case', $bigResults, "User who can't create can only see");
+        $this->assertContains('Edit Meningitis Case', $bigResults, 'Case Link Exists');
+        $this->assertNotContains('Edit Lab', $bigResults, 'Lab Link');
+        $this->assertNotContains('Edit RRL', $bigResults, 'RRL Link');
+        $this->assertNotContains('Edit NL', $bigResults, 'NL Link');
 
         $obj = new RotaVirus();
 
         $bigResults = $action->getSmallActions($obj);
-        $this->assertContains("Show Rota Case", $bigResults, "User who can't create can only see");
-        $this->assertContains("Edit Rota Case", $bigResults, "Case Link Exists");
-        $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
-        $this->assertNotContains("Edit RRL", $bigResults, "RRL Link");
-        $this->assertNotContains("Edit NL", $bigResults, "NL Link");
+        $this->assertContains('Show Rota Case', $bigResults, "User who can't create can only see");
+        $this->assertContains('Edit Rota Case', $bigResults, 'Case Link Exists');
+        $this->assertNotContains('Edit Lab', $bigResults, 'Lab Link');
+        $this->assertNotContains('Edit RRL', $bigResults, 'RRL Link');
+        $this->assertNotContains('Edit NL', $bigResults, 'NL Link');
     }
 
-    public function testSmallCanCreateRRLActions()
+    public function testSmallCanCreateRRLActions(): void
     {
         $map = [
             ['ROLE_CAN_CREATE', null, true],
@@ -456,9 +457,9 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
             ['ROLE_CAN_CREATE_RRL_LAB', null, true],
         ];
 
-        $this->authChecker->expects($this->any())
+        $this->authChecker
             ->method('isGranted')
-            ->will($this->returnValueMap($map));
+            ->willReturnMap($map);
 
         $action = new CaseActions($this->authChecker, $this->trans, $this->router);
         $obj    = new IBD();
@@ -469,11 +470,11 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         $bigResults = $action->getSmallActions($obj);
 
-        $this->assertContains("Show IBD Case", $bigResults, "User who can't create can only see");
-        $this->assertContains("Edit IBD Case", $bigResults, "Case Link Exists");
-        $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
-        $this->assertContains("Edit RRL", $bigResults, "RRL Link");
-        $this->assertNotContains("Edit NL", $bigResults, "NL Link");
+        $this->assertContains('Show IBD Case', $bigResults, "User who can't create can only see");
+        $this->assertContains('Edit IBD Case', $bigResults, 'Case Link Exists');
+        $this->assertNotContains('Edit Lab', $bigResults, 'Lab Link');
+        $this->assertContains('Edit RRL', $bigResults, 'RRL Link');
+        $this->assertNotContains('Edit NL', $bigResults, 'NL Link');
 
         $obj    = new Meningitis\Meningitis();
         $lab    = new Meningitis\SiteLab();
@@ -483,11 +484,11 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         $bigResults = $action->getSmallActions($obj);
 
-        $this->assertContains("Show Meningitis Case", $bigResults, "User who can't create can only see");
-        $this->assertContains("Edit Meningitis Case", $bigResults, "Case Link Exists");
-        $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
-        $this->assertContains("Edit RRL", $bigResults, "RRL Link");
-        $this->assertNotContains("Edit NL", $bigResults, "NL Link");
+        $this->assertContains('Show Meningitis Case', $bigResults, "User who can't create can only see");
+        $this->assertContains('Edit Meningitis Case', $bigResults, 'Case Link Exists');
+        $this->assertNotContains('Edit Lab', $bigResults, 'Lab Link');
+        $this->assertContains('Edit RRL', $bigResults, 'RRL Link');
+        $this->assertNotContains('Edit NL', $bigResults, 'NL Link');
 
         $obj = new RotaVirus();
         $lab = new RotaVirus\SiteLab();
@@ -496,14 +497,14 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
         $obj->setSiteLab($lab);
 
         $bigResults = $action->getSmallActions($obj);
-        $this->assertContains("Show Rota Case", $bigResults, "User who can't create can only see");
-        $this->assertContains("Edit Rota Case", $bigResults, "Case Link Exists");
-        $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
-        $this->assertContains("Edit RRL", $bigResults, "RRL Link");
-        $this->assertNotContains("Edit NL", $bigResults, "NL Link");
+        $this->assertContains('Show Rota Case', $bigResults, "User who can't create can only see");
+        $this->assertContains('Edit Rota Case', $bigResults, 'Case Link Exists');
+        $this->assertNotContains('Edit Lab', $bigResults, 'Lab Link');
+        $this->assertContains('Edit RRL', $bigResults, 'RRL Link');
+        $this->assertNotContains('Edit NL', $bigResults, 'NL Link');
     }
 
-    public function testSmallCanCreateNLActions()
+    public function testSmallCanCreateNLActions(): void
     {
         $map = [
             ['ROLE_CAN_CREATE', null, true],
@@ -513,9 +514,9 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
             ['ROLE_CAN_CREATE_NL_LAB', null, true],
         ];
 
-        $this->authChecker->expects($this->any())
+        $this->authChecker
             ->method('isGranted')
-            ->will($this->returnValueMap($map));
+            ->willReturnMap($map);
 
         $action = new CaseActions($this->authChecker, $this->trans, $this->router);
         $obj    = new IBD();
@@ -526,11 +527,11 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         $bigResults = $action->getSmallActions($obj);
 
-        $this->assertContains("Show IBD Case", $bigResults, "User who can't create can only see");
-        $this->assertContains("Edit IBD Case", $bigResults, "Case Link Exists");
-        $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
-        $this->assertNotContains("Edit RRL", $bigResults, "RRL Link");
-        $this->assertContains("Edit NL", $bigResults, "NL Link");
+        $this->assertContains('Show IBD Case', $bigResults, "User who can't create can only see");
+        $this->assertContains('Edit IBD Case', $bigResults, 'Case Link Exists');
+        $this->assertNotContains('Edit Lab', $bigResults, 'Lab Link');
+        $this->assertNotContains('Edit RRL', $bigResults, 'RRL Link');
+        $this->assertContains('Edit NL', $bigResults, 'NL Link');
 
         $obj    = new Meningitis\Meningitis();
         $lab    = new Meningitis\SiteLab();
@@ -540,11 +541,11 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         $bigResults = $action->getSmallActions($obj);
 
-        $this->assertContains("Show Meningitis Case", $bigResults, "User who can't create can only see");
-        $this->assertContains("Edit Meningitis Case", $bigResults, "Case Link Exists");
-        $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
-        $this->assertNotContains("Edit RRL", $bigResults, "RRL Link");
-        $this->assertContains("Edit NL", $bigResults, "NL Link");
+        $this->assertContains('Show Meningitis Case', $bigResults, "User who can't create can only see");
+        $this->assertContains('Edit Meningitis Case', $bigResults, 'Case Link Exists');
+        $this->assertNotContains('Edit Lab', $bigResults, 'Lab Link');
+        $this->assertNotContains('Edit RRL', $bigResults, 'RRL Link');
+        $this->assertContains('Edit NL', $bigResults, 'NL Link');
 
         $obj = new RotaVirus();
         $lab = new RotaVirus\SiteLab();
@@ -554,14 +555,14 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         $bigResults = $action->getSmallActions($obj);
 
-        $this->assertContains("Show Rota Case", $bigResults, "User who can't create can only see");
-        $this->assertContains("Edit Rota Case", $bigResults, "Case Link Exists");
-        $this->assertNotContains("Edit Lab", $bigResults, "Lab Link");
-        $this->assertNotContains("Edit RRL", $bigResults, "RRL Link");
-        $this->assertContains("Edit NL", $bigResults, "NL Link");
+        $this->assertContains('Show Rota Case', $bigResults, "User who can't create can only see");
+        $this->assertContains('Edit Rota Case', $bigResults, 'Case Link Exists');
+        $this->assertNotContains('Edit Lab', $bigResults, 'Lab Link');
+        $this->assertNotContains('Edit RRL', $bigResults, 'RRL Link');
+        $this->assertContains('Edit NL', $bigResults, 'NL Link');
     }
 
-    public function testSmallCanCreateAllActions()
+    public function testSmallCanCreateAllActions(): void
     {
         $map = [
             ['ROLE_CAN_CREATE', null, true],
@@ -571,9 +572,9 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
             ['ROLE_CAN_CREATE_NL_LAB', null, true],
         ];
 
-        $this->authChecker->expects($this->any())
+        $this->authChecker
             ->method('isGranted')
-            ->will($this->returnValueMap($map));
+            ->willReturnMap($map);
 
         $action = new CaseActions($this->authChecker, $this->trans, $this->router);
         $obj    = new IBD();
@@ -584,11 +585,11 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         $bigResults = $action->getSmallActions($obj);
 
-        $this->assertContains("Show IBD Case", $bigResults, "User who can't create can only see");
-        $this->assertContains("Edit IBD Case", $bigResults, "Case Link Exists");
-        $this->assertContains("Edit Lab", $bigResults, "Lab Link");
-        $this->assertContains("Edit RRL", $bigResults, "RRL Link");
-        $this->assertContains("Edit NL", $bigResults, "NL Link");
+        $this->assertContains('Show IBD Case', $bigResults, "User who can't create can only see");
+        $this->assertContains('Edit IBD Case', $bigResults, 'Case Link Exists');
+        $this->assertContains('Edit Lab', $bigResults, 'Lab Link');
+        $this->assertContains('Edit RRL', $bigResults, 'RRL Link');
+        $this->assertContains('Edit NL', $bigResults, 'NL Link');
 
         $obj    = new Meningitis\Meningitis();
         $lab    = new Meningitis\SiteLab();
@@ -598,11 +599,11 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         $bigResults = $action->getSmallActions($obj);
 
-        $this->assertContains("Show Meningitis Case", $bigResults, "User who can't create can only see");
-        $this->assertContains("Edit Meningitis Case", $bigResults, "Case Link Exists");
-        $this->assertContains("Edit Lab", $bigResults, "Lab Link");
-        $this->assertContains("Edit RRL", $bigResults, "RRL Link");
-        $this->assertContains("Edit NL", $bigResults, "NL Link");
+        $this->assertContains('Show Meningitis Case', $bigResults, "User who can't create can only see");
+        $this->assertContains('Edit Meningitis Case', $bigResults, 'Case Link Exists');
+        $this->assertContains('Edit Lab', $bigResults, 'Lab Link');
+        $this->assertContains('Edit RRL', $bigResults, 'RRL Link');
+        $this->assertContains('Edit NL', $bigResults, 'NL Link');
 
         $obj = new RotaVirus();
         $lab = new RotaVirus\SiteLab();
@@ -612,10 +613,10 @@ class CaseActionsTest extends \PHPUnit_Framework_TestCase
 
         $bigResults = $action->getSmallActions($obj);
 
-        $this->assertContains("Show Rota Case", $bigResults, "User who can't create can only see");
-        $this->assertContains("Edit Rota Case", $bigResults, "Case Link Exists");
-        $this->assertContains("Edit Lab", $bigResults, "Lab Link");
-        $this->assertContains("Edit RRL", $bigResults, "RRL Link");
-        $this->assertContains("Edit NL", $bigResults, "NL Link");
+        $this->assertContains('Show Rota Case', $bigResults, "User who can't create can only see");
+        $this->assertContains('Edit Rota Case', $bigResults, 'Case Link Exists');
+        $this->assertContains('Edit Lab', $bigResults, 'Lab Link');
+        $this->assertContains('Edit RRL', $bigResults, 'RRL Link');
+        $this->assertContains('Edit NL', $bigResults, 'NL Link');
     }
 }

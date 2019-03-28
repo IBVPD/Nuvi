@@ -6,6 +6,7 @@ use NS\ApiBundle\Form\Types\AuthorizeFormType;
 use NS\ApiBundle\Form\Types\OAuthGrantTypes;
 use OAuth2\OAuth2;
 use Symfony\Component\Form\Test\TypeTestCase;
+use NS\ApiBundle\Form\Model\Authorize;
 
 /**
  * Description of TypesTest
@@ -14,19 +15,18 @@ use Symfony\Component\Form\Test\TypeTestCase;
  */
 class TypesTest extends TypeTestCase
 {
-
-    public function testAuthorizeFormType()
+    public function testAuthorizeFormType(): void
     {
         $formData = ['allowAccess' => 1];
         $form     = $this->factory->create(AuthorizeFormType::class);
         $form->submit($formData);
         $data     = $form->getData();
 
-        $this->assertInstanceOf('NS\ApiBundle\Form\Model\Authorize', $data);
+        $this->assertInstanceOf(Authorize::class, $data);
         $this->assertTrue($data->getAllowAccess());
     }
 
-    public function testDontAuthorizeFormType()
+    public function testDontAuthorizeFormType(): void
     {
         $formData = [];
 
@@ -34,11 +34,11 @@ class TypesTest extends TypeTestCase
         $form->submit($formData);
         $data     = $form->getData();
 
-        $this->assertInstanceOf('NS\ApiBundle\Form\Model\Authorize', $data);
+        $this->assertInstanceOf(Authorize::class, $data);
         $this->assertFalse($data->getAllowAccess());
     }
 
-    public function testOAuthGrantTypes()
+    public function testOAuthGrantTypes(): void
     {
         $formData = [
             OAuth2::GRANT_TYPE_AUTH_CODE          => 'authorization_code',

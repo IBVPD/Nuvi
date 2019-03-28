@@ -107,13 +107,13 @@ class CaseTypeTest extends TypeTestCase
     /** @var array */
     private $pahoRequiredFields = ['lastName', 'firstName', 'admDate', 'dobKnown', 'gender', 'admDx', 'hibReceived','meningReceived','pcvReceived'];
 
-    /** @var SerializedSitesInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var SerializedSitesInterface|MockObject */
     private $siteSerializer;
 
-    /** @var ValidatorGroupResolver|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var ValidatorGroupResolver|MockObject */
     private $groupResolver;
 
-    /** @var AuthorizationCheckerInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var AuthorizationCheckerInterface|MockObject */
     private $authChecker;
 
     /** @var Region */

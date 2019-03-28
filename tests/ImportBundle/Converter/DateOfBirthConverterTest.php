@@ -2,16 +2,18 @@
 
 namespace NS\ImportBundle\Tests\Converter;
 
+use DateTime;
 use NS\ImportBundle\Converter\DateOfBirthConverter;
+use PHPUnit\Framework\TestCase;
 
-class DateOfBirthConverterTest extends \PHPUnit_Framework_TestCase
+class DateOfBirthConverterTest extends TestCase
 {
     /**
      * @dataProvider getData
      * @param $data
      * @param $hasWarning
      */
-    public function testNotIsset($data, $hasWarning)
+    public function testNotIsset($data, $hasWarning): void
     {
         $filter = new DateOfBirthConverter();
         $this->assertFalse($filter->hasMessage());
@@ -26,10 +28,10 @@ class DateOfBirthConverterTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    public function getData()
+    public function getData(): array
     {
-        $birthdate = new \DateTime('2015-05-07');
-        $admDate = new \DateTime('2015-06-01');
+        $birthdate = new DateTime('2015-05-07');
+        $admDate = new DateTime('2015-06-01');
 
         return [
             [['birthdate' => null], false],

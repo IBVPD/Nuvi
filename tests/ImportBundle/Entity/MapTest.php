@@ -3,16 +3,18 @@
 namespace NS\ImportBundle\Tests\Entity;
 
 use NS\ImportBundle\Entity\Map;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use NS\SentinelBundle\Entity\IBD;
 
 /**
  * Description of MapTest
  *
  * @author gnat
  */
-class MapTest extends \PHPUnit_Framework_TestCase
+class MapTest extends TestCase
 {
-    public function testGetMappers()
+    public function testGetMappers(): void
     {
         $map = new Map();
 
@@ -20,9 +22,9 @@ class MapTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('[some][thing]', $map->adjustMappingTarget('some.thing'));
     }
 
-    public function testNameFields()
+    public function testNameFields(): void
     {
-        $ibdClass = 'NS\SentinelBundle\Entity\IBD';
+        $ibdClass = IBD::class;
         $file     = new UploadedFile(__DIR__ . '/../Fixtures/IBD.csv', 'IBD.csv');
 
         $map  = new Map();
@@ -34,9 +36,9 @@ class MapTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Test File', $map->getName());
         $this->assertEquals('1.0', $map->getVersion());
         $this->assertEquals($file, $map->getFile());
-        $this->assertEquals(sprintf("%s (%s %s)", $map->getName(), $map->getSimpleClass(), $map->getVersion()), $map->__toString());
+        $this->assertEquals(sprintf('%s (%s %s)', $map->getName(), $map->getSimpleClass(), $map->getVersion()), $map->__toString());
 
         $map->setName('Really Really Long Map Name');
-        $this->assertEquals(sprintf("%s (%s: ...)", $map->getName(), $map->getSimpleClass(), $map->getVersion()), $map->getSelectName());
+        $this->assertEquals(sprintf('%s (%s: ...)', $map->getName(), $map->getSimpleClass()), $map->getSelectName());
     }
 }

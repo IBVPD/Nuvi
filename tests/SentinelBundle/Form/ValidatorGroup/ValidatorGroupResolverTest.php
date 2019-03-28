@@ -14,24 +14,28 @@ use NS\SentinelBundle\Entity\Region;
 use NS\SentinelBundle\Entity\User;
 use NS\SentinelBundle\Form\Types\Role;
 use NS\SentinelBundle\Form\ValidatorGroup\ValidatorGroupResolver;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use NS\SentinelBundle\Repository\RegionRepository;
+use Symfony\Component\Form\FormInterface;
 
-class ValidatorGroupResolverTest extends \PHPUnit_Framework_TestCase
+class ValidatorGroupResolverTest extends TestCase
 {
     /**
-     * @var TokenStorageInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var TokenStorageInterface|MockObject
      */
     private $tokenStorage;
 
     /**
-     * @var EntityManagerInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var EntityManagerInterface|MockObject
      */
     private $entityMgr;
 
     /**
-     * @var ObjectRepository|\PHPUnit_Framework_MockObject_MockObject
+     * @var ObjectRepository|MockObject
      */
     private $repository;
 
@@ -98,8 +102,8 @@ class ValidatorGroupResolverTest extends \PHPUnit_Framework_TestCase
 
         $resolver = new ValidatorGroupResolver($this->entityMgr, $this->tokenStorage);
 
-        $form = $this->createMock('Symfony\Component\Form\FormInterface');
-        $this->assertEquals(['Default','AMRO'], call_user_func($resolver,$form));
+        $form = $this->createMock(FormInterface::class);
+        $this->assertEquals(['Default','AMRO'], $resolver($form));
     }
 
     /**
@@ -137,8 +141,8 @@ class ValidatorGroupResolverTest extends \PHPUnit_Framework_TestCase
 
         $resolver = new ValidatorGroupResolver($this->entityMgr, $this->tokenStorage);
 
-        $form = $this->createMock('Symfony\Component\Form\FormInterface');
-        $this->assertEquals(['Default','AMRO'], call_user_func($resolver,$form));
+        $form = $this->createMock(FormInterface::class);
+        $this->assertEquals(['Default','AMRO'], $resolver($form));
     }
 
     /**
@@ -174,8 +178,8 @@ class ValidatorGroupResolverTest extends \PHPUnit_Framework_TestCase
 
         $resolver = new ValidatorGroupResolver($this->entityMgr, $this->tokenStorage);
 
-        $form = $this->createMock('Symfony\Component\Form\FormInterface');
-        $this->assertEquals(['Default','AMRO'], call_user_func($resolver,$form));
+        $form = $this->createMock(FormInterface::class);
+        $this->assertEquals(['Default','AMRO'], $resolver($form));
     }
 
     /**
@@ -212,9 +216,9 @@ class ValidatorGroupResolverTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->tokenStorage = $this->createMock('Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface');
-        $this->entityMgr = $this->createMock('Doctrine\ORM\EntityManagerInterface');
-        $this->repository = $this->getMockBuilder('NS\SentinelBundle\Repository\RegionRepository')
+        $this->tokenStorage = $this->createMock(TokenStorageInterface::class);
+        $this->entityMgr = $this->createMock(EntityManagerInterface::class);
+        $this->repository = $this->getMockBuilder(RegionRepository::class)
             ->setMethods(['getByCountryIds','getBySiteIds'])
             ->disableOriginalConstructor()
             ->getMock();

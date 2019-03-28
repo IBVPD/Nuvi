@@ -1,18 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gnat
- * Date: 24/05/16
- * Time: 10:58 AM
- */
 
 namespace NS\SentinelBundle\Tests\Entity;
 
-
+use InvalidArgumentException;
 use NS\SentinelBundle\Entity\Site;
 use NS\SentinelBundle\Entity\ZeroReport;
+use PHPUnit\Framework\TestCase;
 
-class ZeroReportTest extends \PHPUnit_Framework_TestCase
+class ZeroReportTest extends TestCase
 {
     /**
      * @param $year
@@ -22,14 +17,14 @@ class ZeroReportTest extends \PHPUnit_Framework_TestCase
      *
      * @dataProvider getDates
      */
-    public function testYYMM($year, $month, $expectedYear, $expectedMonth)
+    public function testYYMM($year, $month, $expectedYear, $expectedMonth): void
     {
         $report = new ZeroReport(new Site(), 'NSSentinelBundle:IBD', 'zero', $month, $year);
         $this->assertEquals($expectedMonth, $report->getMonth());
         $this->assertEquals($expectedYear, $report->getYear());
     }
 
-    public function getDates()
+    public function getDates(): array
     {
         return [
             ['2016', '05', 2016, '05'],
@@ -39,9 +34,10 @@ class ZeroReportTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    public function testInvalidYear()
+    public function testInvalidYear(): void
     {
-        $this->setExpectedException('\InvalidArgumentException','Expecting a year after 2000');
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Expecting a year after 2000');
         new ZeroReport(new Site(), 'NSSentinelBundle:IBD', 'zero', 5, 1999);
     }
 
@@ -49,13 +45,14 @@ class ZeroReportTest extends \PHPUnit_Framework_TestCase
      * @param $month
      * @dataProvider getMonths
      */
-    public function testInvalidMonth($month)
+    public function testInvalidMonth($month): void
     {
-        $this->setExpectedException('\InvalidArgumentException','Expecting a month between 1 and 12');
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Expecting a month between 1 and 12');
         new ZeroReport(new Site(), 'NSSentinelBundle:IBD', 'zero', $month, 2016);
     }
 
-    public function getMonths()
+    public function getMonths(): array
     {
         return [
             ['0'],

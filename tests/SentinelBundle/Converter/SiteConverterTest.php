@@ -6,60 +6,63 @@ use NS\SentinelBundle\Entity\Country;
 use NS\SentinelBundle\Entity\Region;
 use NS\SentinelBundle\Entity\Site;
 use NS\SentinelBundle\Converter\SiteConverter;
+use NS\SentinelBundle\Exceptions\NonExistentSiteException;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
+use Doctrine\Common\Persistence\ObjectManager;
+use NS\SentinelBundle\Repository\SiteRepository;
 
 /**
  * Description of SiteTest
  *
  * @author gnat
  */
-class SiteConverterTest extends \PHPUnit_Framework_TestCase
+class SiteConverterTest extends TestCase
 {
 
-    public function testSiteConverter()
+    public function testSiteConverter(): void
     {
         $entityMgr = $this->getMockObjectManager();
         $converter = new SiteConverter($entityMgr);
 
         $convertedObj = $converter->__invoke('S1');
-        $this->assertInstanceOf('NS\SentinelBundle\Entity\Site', $convertedObj);
+        $this->assertInstanceOf(Site::class, $convertedObj);
         $this->assertEquals('S1', $convertedObj->getCode());
 
         $convertedObj = $converter->__invoke('S2');
-        $this->assertInstanceOf('NS\SentinelBundle\Entity\Site', $convertedObj);
+        $this->assertInstanceOf(Site::class, $convertedObj);
         $this->assertEquals('S2', $convertedObj->getCode());
 
         $this->assertEquals('Site', $converter->getName());
     }
 
-    /**
-     * @expectedException \NS\SentinelBundle\Exceptions\NonExistentSiteException
-     * @expectedExceptionMessage Unable to find site for S5
-     */
-    public function testSiteConverterNonExistentSiteException()
+    public function testSiteConverterNonExistentSiteException(): void
     {
+        $this->expectExceptionMessage(NonExistentSiteException::class);
+        $this->expectExceptionMessage('Unable to find site for S5');
+
         $entityMgr = $this->getMockObjectManager();
         $converter = new SiteConverter($entityMgr);
 
         $converter->__invoke('S5');
     }
 
-    /**
-     * @expectedException \NS\SentinelBundle\Exceptions\NonExistentSiteException
-     * @expectedExceptionMessage Site S4 is inactive, import disabled!
-     */
-    public function testSiteConverterInactiveSiteException()
+    public function testSiteConverterInactiveSiteException(): void
     {
+        $this->expectExceptionMessage(NonExistentSiteException::class);
+        $this->expectExceptionMessage('Site S4 is inactive, import disabled!');
+
         $entityMgr = $this->getMockObjectManager();
         $converter = new SiteConverter($entityMgr);
 
         $converter->__invoke('S4');
     }
 
-    private function getMockObjectManager()
+    private function getMockObjectManager(): MockObject
     {
         $obj  = $this->getObjects();
-        $repo = $this->createMock('NS\SentinelBundle\Repository\SiteRepository');
-        $em = $this->createMock('Doctrine\Common\Persistence\ObjectManager');
+        $repo = $this->createMock(SiteRepository::class);
+        $em = $this->createMock(ObjectManager::class);
 
         $repo->expects($this->once())
             ->method('getChain')
@@ -68,12 +71,12 @@ class SiteConverterTest extends \PHPUnit_Framework_TestCase
         $em->expects($this->once())
             ->method('getRepository')
             ->with('NSSentinelBundle:Site')
-            ->will($this->returnValue($repo));
+            ->willReturn($repo);
 
         return $em;
     }
 
-    private function getObjects()
+    private function getObjects(): array
     {
         $region = new Region();
         $region->setId('RName');

@@ -3,15 +3,14 @@
 namespace NS\ImportBundle\Tests\Exceptions;
 
 use NS\ImportBundle\Exceptions\CaseLinkerNotFoundException;
+use PHPUnit\Framework\TestCase;
 
-class CaseLinkerNotFoundExceptionTest extends \PHPUnit_Framework_TestCase
+class CaseLinkerNotFoundExceptionTest extends TestCase
 {
-    /**
-     * @expectedException \NS\ImportBundle\Exceptions\CaseLinkerNotFoundException
-     * @expectedExceptionMessage Unable to locate case linker with service id "ns_import.standard_linker"
-     */
-    public function testExceptionMessage()
+    public function testExceptionMessage(): void
     {
-        throw new CaseLinkerNotFoundException("ns_import.standard_linker");
+        $this->expectExceptionMessage(CaseLinkerNotFoundException::class);
+        $this->expectExceptionMessage('Unable to locate case linker with service id "ns_import.standard_linker"');
+        throw new CaseLinkerNotFoundException('ns_import.standard_linker');
     }
 }

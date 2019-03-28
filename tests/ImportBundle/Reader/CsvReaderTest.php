@@ -3,19 +3,21 @@
 namespace NS\ImportBundle\Tests\Reader;
 
 use NS\ImportBundle\Reader\CsvReader;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\File\File;
+use NS\ImportBundle\Reader\OffsetableReaderInterface;
 
-class CsvReaderTest extends \PHPUnit_Framework_TestCase
+class CsvReaderTest extends TestCase
 {
-    public function testImplementsInterface()
+    public function testImplementsInterface(): void
     {
         $file = new File(__DIR__ . '/../Fixtures/ReaderOffset.xls');
         $reader = new CsvReader($file->openFile());
 
-        $this->assertInstanceOf('NS\ImportBundle\Reader\OffsetableReaderInterface', $reader);
+        $this->assertInstanceOf(OffsetableReaderInterface::class, $reader);
     }
 
-    public function testNoOffset()
+    public function testNoOffset(): void
     {
         $file = new File(__DIR__ . '/../Fixtures/ReaderOffset.csv');
         $reader = new CsvReader($file->openFile());
@@ -29,7 +31,7 @@ class CsvReaderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, $index);
     }
 
-    public function testZeroOffset()
+    public function testZeroOffset(): void
     {
         $file = new File(__DIR__ . '/../Fixtures/ReaderOffset.csv');
         $readerTwo = new CsvReader($file->openFile());
@@ -56,7 +58,7 @@ class CsvReaderTest extends \PHPUnit_Framework_TestCase
      *
      * @dataProvider getOffsets
      */
-    public function testOffset($offset, $value, $endIndex)
+    public function testOffset($offset, $value, $endIndex): void
     {
         $file = new File(__DIR__ . '/../Fixtures/ReaderOffset.csv');
         $readerTwo = new CsvReader($file->openFile());
@@ -75,7 +77,7 @@ class CsvReaderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($endIndex, $index);
     }
 
-    public function getOffsets()
+    public function getOffsets(): array
     {
         return [
             [2, 'MSD-GG-00875', 2],

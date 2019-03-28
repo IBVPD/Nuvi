@@ -4,15 +4,17 @@ namespace NS\SentinelBundle\Tests\Converter;
 
 use NS\SentinelBundle\Converter\IBDCompletenessConverter;
 use NS\SentinelBundle\Form\IBD\Types\CXRResult;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
+use NS\SentinelBundle\Form\Types\TripleChoice;
 
 /**
  * Class IBDCompletenessConverterTest
  * @package NS\SentinelBundle\Tests\Converter
  */
-class IBDCompletenessConverterTest extends \PHPUnit_Framework_TestCase
+class IBDCompletenessConverterTest extends TestCase
 {
-    public function testIBDFields()
+    public function testIBDFields(): void
     {
         $config = [
             'case'=> [
@@ -28,9 +30,9 @@ class IBDCompletenessConverterTest extends \PHPUnit_Framework_TestCase
             'cxrDone' => null,
             'cxrResult' => new CXRResult(CXRResult::CONSISTENT),
         ];
-        $this->assertInstanceOf('NS\SentinelBundle\Converter\IBDCompletenessConverter', $converter);
+        $this->assertInstanceOf(IBDCompletenessConverter::class, $converter);
 
         $output = $converter->__invoke($data);
-        $this->assertInstanceOf('NS\SentinelBundle\Form\Types\TripleChoice', $output['cxrDone']);
+        $this->assertInstanceOf(TripleChoice::class, $output['cxrDone']);
     }
 }

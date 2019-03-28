@@ -1,32 +1,25 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gnat
- * Date: 23/05/16
- * Time: 4:21 PM
- */
 
 namespace NS\SentinelBundle\Tests\Report;
 
-
 use NS\SentinelBundle\Entity\Site;
-use NS\SentinelBundle\Entity\ZeroReport;
 use NS\SentinelBundle\Report\Result\ZeroReportSiteResult;
+use PHPUnit\Framework\TestCase;
 
-class ZeroReportSiteResultTest extends \PHPUnit_Framework_TestCase
+class ZeroReportSiteResultTest extends TestCase
 {
-    public function testInitialization()
+    public function testInitialization(): void
     {
         $site = new Site();
         $site->setCode('SCODE');
 
         $result = new ZeroReportSiteResult($site);
-        $this->assertInstanceOf('NS\SentinelBundle\Report\Result\ZeroReportSiteResult', $result);
+        $this->assertInstanceOf(ZeroReportSiteResult::class, $result);
 
         $this->assertEquals($site, $result->getSite());
     }
 
-    public function testAddCaseCount()
+    public function testAddCaseCount(): void
     {
         $site = new Site();
         $site->setCode('SCODE');
@@ -38,7 +31,7 @@ class ZeroReportSiteResultTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($result->getCountOrZeroReport(2016, 3));
     }
 
-    public function testAddZeroReport()
+    public function testAddZeroReport(): void
     {
         $site = new Site();
         $site->setCode('SCODE');

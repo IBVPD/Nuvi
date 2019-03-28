@@ -1,23 +1,20 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gnat
- * Date: 2017-03-18
- * Time: 9:09 PM
- */
 
 namespace NS\ImportBundle\Tests\Formatter;
 
+use DateTime;
+use DateTimeImmutable;
 use NS\ImportBundle\Formatter\DateTimeFormatter;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\PropertyAccess\PropertyPath;
 
-class DateTimeFormatterTest extends \PHPUnit_Framework_TestCase
+class DateTimeFormatterTest extends TestCase
 {
-    public function testDefaults()
+    public function testDefaults(): void
     {
         $formatter = new DateTimeFormatter();
-        $date = new \DateTime('2017-03-18');
-        $immutableDate = new \DateTimeImmutable('2017-03-18');
+        $date = new DateTime('2017-03-18');
+        $immutableDate = new DateTimeImmutable('2017-03-18');
 
         $this->assertEquals(50,$formatter->getPriority());
         $this->assertTrue($formatter->supports($date));
@@ -26,11 +23,11 @@ class DateTimeFormatterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('2017-03-18',$formatter->format($immutableDate, new PropertyPath('nothing')));
     }
 
-    public function testCustomDefaultDateFormat()
+    public function testCustomDefaultDateFormat(): void
     {
         $formatter = new DateTimeFormatter('Ymd');
-        $date = new \DateTime('2017-03-18');
-        $immutableDate = new \DateTimeImmutable('2017-03-18');
+        $date = new DateTime('2017-03-18');
+        $immutableDate = new DateTimeImmutable('2017-03-18');
 
         $this->assertTrue($formatter->supports($date));
         $this->assertTrue($formatter->supports($immutableDate));
@@ -44,15 +41,15 @@ class DateTimeFormatterTest extends \PHPUnit_Framework_TestCase
      *
      * @dataProvider getFields
      */
-    public function testDefaultFields($field, $expected)
+    public function testDefaultFields($field, $expected): void
     {
         $formatter = new DateTimeFormatter('Ymd');
-        $date = new \DateTimeImmutable('2017-03-17 11:16:30');
+        $date = new DateTimeImmutable('2017-03-17 11:16:30');
 
         $this->assertEquals($expected,$formatter->format($date,new PropertyPath($field)));
     }
 
-    public function getFields()
+    public function getFields(): array
     {
         return [
             [

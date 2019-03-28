@@ -2,26 +2,29 @@
 
 namespace NS\ImportBundle\Tests\Converter;
 
+use DateTime;
 use NS\ImportBundle\Converter\TrimInputConverter;
+use PHPUnit\Framework\TestCase;
+use stdClass;
 
-class TrimInputConverterTest extends \PHPUnit_Framework_TestCase
+class TrimInputConverterTest extends TestCase
 {
     /**
      * @param array $inputData
      * @param array $outputData
      * @dataProvider getData
      */
-    public function testTrimInput(array $inputData, array $outputData)
+    public function testTrimInput(array $inputData, array $outputData): void
     {
         $converter = new TrimInputConverter();
-        $retData = call_user_func($converter, $inputData);
+        $retData = $converter($inputData);
         $this->assertEquals($outputData, $retData);
     }
 
-    public function getData()
+    public function getData(): array
     {
-        $date = new \DateTime();
-        $stdClass = new \stdClass();
+        $date = new DateTime();
+        $stdClass = new stdClass();
 
         return [
             [

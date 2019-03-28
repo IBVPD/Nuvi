@@ -2,30 +2,34 @@
 
 namespace NS\SentinelBundle\Tests\Generator;
 
-use Doctrine\ORM\Query;
-use InvalidArgumentException;
+use DateTime;
 use NS\SentinelBundle\Entity\Generator\BaseCaseGenerator;
 use NS\SentinelBundle\Entity\IBD;
 use NS\SentinelBundle\Entity\Region;
 use NS\SentinelBundle\Entity\Country;
 use NS\SentinelBundle\Entity\Site;
+use PHPUnit\Framework\TestCase;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\AbstractQuery;
+use stdClass;
+use UnexpectedValueException;
 
 /**
  * Description of EntityGeneratorTest
  *
  * @author gnat
  */
-class BaseCaseGeneratorTest extends \PHPUnit_Framework_TestCase
+class BaseCaseGeneratorTest extends TestCase
 {
     /**
      * @expectedExceptionMessage Entity must extend NS\SentinelBundle\Entity\BaseCase
-     * @expectedException \InvalidArgumentException
+     * @expectedException InvalidArgumentException
      */
-    public function testInvalidInterface()
+    public function testInvalidInterface(): void
     {
-        $entityMgr = $this->createMock('Doctrine\ORM\EntityManager');
+        $entityMgr = $this->createMock(EntityManager::class);
 
-        $entity = new \stdClass();
+        $entity = new stdClass();
 
         $generator = new BaseCaseGenerator();
         $generator->generate($entityMgr, $entity);
@@ -33,11 +37,11 @@ class BaseCaseGeneratorTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedExceptionMessage Can't generate an id for entities without an site or country
-     * @expectedException \UnexpectedValueException
+     * @expectedException UnexpectedValueException
      */
-    public function testEntityNullSite()
+    public function testEntityNullSite(): void
     {
-        $entityMgr = $this->createMock('Doctrine\ORM\EntityManager');
+        $entityMgr = $this->createMock(EntityManager::class);
 
         $entity = new IBD();
 
@@ -45,14 +49,14 @@ class BaseCaseGeneratorTest extends \PHPUnit_Framework_TestCase
         $generator->generate($entityMgr, $entity);
     }
 
-    public function testEntitySiteNullWithCountry()
+    public function testEntitySiteNullWithCountry(): void
     {
-        $entityMgr = $this->createMock('Doctrine\ORM\EntityManager');
+        $entityMgr = $this->createMock(EntityManager::class);
 
         $country = new Country('CDN', 'Canada');
 
         $entity = new IBD();
-        $entity->setAdmDate(new \DateTime('2015-11-13'));
+        $entity->setAdmDate(new DateTime('2015-11-13'));
         $entity->setCountry($country);
 
         $generator = new BaseCaseGenerator();
@@ -60,9 +64,9 @@ class BaseCaseGeneratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('CDN-XXX-15-', substr($id, 0, 11));
     }
 
-    public function testCaseIdGeneration()
+    public function testCaseIdGeneration(): void
     {
-        $nativeQuery = $this->getMockBuilder('Doctrine\ORM\AbstractQuery')
+        $nativeQuery = $this->getMockBuilder(AbstractQuery::class)
             ->disableOriginalConstructor()
             ->setMethods(['_doExecute', 'getSQL', 'getResult'])
             ->getMock();
@@ -70,7 +74,7 @@ class BaseCaseGeneratorTest extends \PHPUnit_Framework_TestCase
             ->method('getResult')
             ->willReturn(12);
 
-        $entityMgr = $this->getMockBuilder('Doctrine\ORM\EntityManager')
+        $entityMgr = $this->getMockBuilder(EntityManager::class)
             ->disableOriginalConstructor()
             ->setMethods(['beginTransaction', 'createNativeQuery', 'rollback', 'commit', 'createQuery', 'setParameter', 'execute'])
             ->getMock();
@@ -104,6 +108,6 @@ class BaseCaseGeneratorTest extends \PHPUnit_Framework_TestCase
 
         $generator = new BaseCaseGenerator();
         $id        = $generator->generate($entityMgr, $entity);
-        $this->assertEquals(sprintf("CNT-SITE-%d-000012", date('y')), $id);
+        $this->assertEquals(sprintf('CNT-SITE-%d-000012', date('y')), $id);
     }
 }

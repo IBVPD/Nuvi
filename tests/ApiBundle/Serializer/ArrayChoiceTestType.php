@@ -8,7 +8,6 @@
 
 namespace NS\ApiBundle\Tests\Serializer;
 
-
 use NS\UtilBundle\Form\Types\ArrayChoice;
 
 class ArrayChoiceTestType extends ArrayChoice

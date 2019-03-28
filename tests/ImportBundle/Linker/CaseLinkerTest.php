@@ -3,29 +3,31 @@
 namespace NS\ImportBundle\Tests\Linker;
 
 use NS\ImportBundle\Linker\CaseLinker;
+use PHPUnit\Framework\TestCase;
+use NS\ImportBundle\Linker\CaseLinkerInterface;
 
-class CaseLinkerTest extends \PHPUnit_Framework_TestCase
+class CaseLinkerTest extends TestCase
 {
     /**
      * @param array $data
-     * @param $method
+     * @param       $method
      *
      * @dataProvider getTestData
      */
-    public function testBasicFunctions(array $data, $method)
+    public function testBasicFunctions(array $data, $method): void
     {
         $linker = new CaseLinker($data, $method);
 
-        $this->assertInstanceOf('NS\ImportBundle\Linker\CaseLinkerInterface', $linker);
+        $this->assertInstanceOf(CaseLinkerInterface::class, $linker);
         $this->assertEquals($data, $linker->getCriteria());
         $this->assertEquals($method, $linker->getRepositoryMethod());
     }
 
-    public function getTestData()
+    public function getTestData(): array
     {
         return [
             [
-                ['getcode'=>'site','case_id'],
+                ['getcode' => 'site', 'case_id'],
                 'findBySiteAndCaseId',
             ],
         ];

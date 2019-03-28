@@ -4,8 +4,9 @@ namespace NS\ImportBundle\Tests\Converter\Expression;
 
 use NS\ImportBundle\Converter\Expression\Condition;
 use NS\ImportBundle\Converter\Expression\Rule;
+use PHPUnit\Framework\TestCase;
 
-class ConditionTest extends \PHPUnit_Framework_TestCase
+class ConditionTest extends TestCase
 {
     public $json = '[
            {
@@ -58,7 +59,7 @@ class ConditionTest extends \PHPUnit_Framework_TestCase
            }
         ]';
 
-    public function testCondition()
+    public function testCondition(): void
     {
         $json = json_decode($this->json, true);
 
@@ -70,11 +71,11 @@ class ConditionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(5, $cond->getValue());
 
         $rule = $cond->getRule();
-        $this->assertInstanceOf('NS\ImportBundle\Converter\Expression\Rule', $rule);
+        $this->assertInstanceOf(Rule::class, $rule);
         $this->assertEquals(Rule::OR_CONDITION, $rule->getCondition());
 
         $rules = $rule->getRules();
-        $this->assertTrue(is_array($rules));
+        $this->assertInternalType('array', $rules);
         $this->assertCount(2, $rules);
         $this->assertCount(2, $rules[1]->getRules());
     }

@@ -8,6 +8,7 @@ use NS\SentinelBundle\Entity\User;
 use NS\SentinelBundle\Form\Types\Role;
 use NS\SentinelBundle\Validators\UserAcl;
 use NS\SentinelBundle\Validators\UserAclValidator;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
@@ -17,17 +18,17 @@ use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
  *
  * @author gnat
  */
-class UserAclValidatorTest extends \PHPUnit_Framework_TestCase
+class UserAclValidatorTest extends TestCase
 {
-    public function testHasACLButNotReferenceLab()
+    public function testHasACLButNotReferenceLab(): void
     {
-        list($constraint, $context, $builder, $validator) = $this->getValidator();
+        [$constraint, $context, $builder, $validator] = $this->getValidator();
         $acl = new ACL();
         $acl->setType(new Role(Role::NL_LAB));
         $user = new User();
         $user->addAcl($acl);
 
-        $this->assertFalse(in_array('ROLE_RRL_LAB', $user->getRoles()));
+        $this->assertNotContains('ROLE_RRL_LAB', $user->getRoles());
 
         $context
             ->expects($this->never())
@@ -37,15 +38,15 @@ class UserAclValidatorTest extends \PHPUnit_Framework_TestCase
         $validator->validate($user, $constraint);
     }
 
-    public function testHasRRLACLButNoReferenceLab()
+    public function testHasRRLACLButNoReferenceLab(): void
     {
-        list($constraint, $context, $builder, $validator) = $this->getValidator();
+        [$constraint, $context, $builder, $validator] = $this->getValidator();
         $acl = new ACL();
         $acl->setType(new Role(Role::RRL_LAB));
         $user = new User();
         $user->addAcl($acl);
 
-        $this->assertTrue(in_array('ROLE_RRL_LAB', $user->getRoles()));
+        $this->assertContains('ROLE_RRL_LAB', $user->getRoles());
 
         $builder->expects($this->once())
             ->method('atPath')
@@ -65,9 +66,9 @@ class UserAclValidatorTest extends \PHPUnit_Framework_TestCase
         $validator->validate($user, $constraint);
     }
 
-    public function testSuperAdminsCanCreateSuperAdmins()
+    public function testSuperAdminsCanCreateSuperAdmins(): void
     {
-        $authChecker = $this->createMock('Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface');
+        $authChecker = $this->createMock(AuthorizationCheckerInterface::class);
 
         $authChecker->expects($this->at(0))
             ->method('isGranted')
@@ -81,15 +82,15 @@ class UserAclValidatorTest extends \PHPUnit_Framework_TestCase
         $user = new User();
         $user->setAdmin(true);
 
-        list($constraint, $context, $builder, $validator) = $this->getValidator($authChecker);
+        [$constraint, $context, $builder, $validator] = $this->getValidator($authChecker);
 
         $validator->initialize($context);
         $validator->validate($user, $constraint);
     }
 
-    public function testNonSuperAdminsCannotCreateSuperAdmins()
+    public function testNonSuperAdminsCannotCreateSuperAdmins(): void
     {
-        $authChecker = $this->createMock('Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface');
+        $authChecker = $this->createMock(AuthorizationCheckerInterface::class);
 
         $authChecker->expects($this->at(0))
             ->method('isGranted')
@@ -104,7 +105,7 @@ class UserAclValidatorTest extends \PHPUnit_Framework_TestCase
         $user = new User();
         $user->setAdmin(true);
 
-        list($constraint, $context, $builder, $validator) = $this->getValidator($authChecker);
+        [$constraint, $context, $builder, $validator] = $this->getValidator($authChecker);
 
         $context->expects($this->once())
             ->method('buildViolation')
@@ -123,9 +124,9 @@ class UserAclValidatorTest extends \PHPUnit_Framework_TestCase
         $validator->validate($user, $constraint);
     }
 
-    public function testCountryAdminsCannotCreateRegionalAdmins()
+    public function testCountryAdminsCannotCreateRegionalAdmins(): void
     {
-        $authChecker = $this->createMock('Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface');
+        $authChecker = $this->createMock(AuthorizationCheckerInterface::class);
 
         $authChecker->expects($this->once())
             ->method('isGranted')
@@ -137,7 +138,7 @@ class UserAclValidatorTest extends \PHPUnit_Framework_TestCase
         $user = new User();
         $user->addAcl($acl);
 
-        list($constraint, $context, $builder, $validator) = $this->getValidator($authChecker);
+        [$constraint, $context, $builder, $validator] = $this->getValidator($authChecker);
         $context->expects($this->once())
             ->method('buildViolation')
             ->with('You may not create regional users')
@@ -160,9 +161,9 @@ class UserAclValidatorTest extends \PHPUnit_Framework_TestCase
      * @dataProvider getAdminUserProvider
      * @group regionUser
      */
-    public function testOnlyRegionalOrCountryUsersCanBeAdmins($user, $expected)
+    public function testOnlyRegionalOrCountryUsersCanBeAdmins($user, $expected): void
     {
-        list($constraint, $context, $builder, $validator) = $this->getValidator();
+        [$constraint, $context, $builder, $validator] = $this->getValidator();
 
         if ($expected) {
             $context
@@ -191,7 +192,7 @@ class UserAclValidatorTest extends \PHPUnit_Framework_TestCase
         $validator->validate($user, $constraint);
     }
 
-    public function getAdminUserProvider()
+    public function getAdminUserProvider(): array
     {
         $params = [];
         $role = new Role();
@@ -204,13 +205,13 @@ class UserAclValidatorTest extends \PHPUnit_Framework_TestCase
             $user->setAdmin(true);
             $user->addAcl($acl);
 
-            $params[] = [$user, ($roleType !== Role::REGION && $roleType !== Role::COUNTRY)];
+            $params[] = [$user, $roleType !== Role::REGION && $roleType !== Role::COUNTRY];
         }
 
         return $params;
     }
 
-    public function getValidator($authChecker = null)
+    public function getValidator($authChecker = null): array
     {
         $constraint = new UserAcl();
 
@@ -221,7 +222,7 @@ class UserAclValidatorTest extends \PHPUnit_Framework_TestCase
         if (!$authChecker) {
             $authChecker = $this->createMock(AuthorizationCheckerInterface::class);
 
-            $authChecker->expects($this->any())
+            $authChecker
                 ->method('isGranted')
                 ->willReturn(false);
         }

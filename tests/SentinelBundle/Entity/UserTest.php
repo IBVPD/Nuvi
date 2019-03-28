@@ -5,15 +5,16 @@ namespace NS\SentinelBundle\Tests\Entity;
 use NS\SentinelBundle\Entity\User;
 use NS\SentinelBundle\Entity\ACL;
 use NS\SentinelBundle\Form\Types\Role;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Description of UserTest
  *
  * @author gnat
  */
-class UserTest extends \PHPUnit_Framework_TestCase
+class UserTest extends TestCase
 {
-    public function testApiUser()
+    public function testApiUser(): void
     {
         $user = new User();
         $acl = new ACL();
@@ -31,13 +32,13 @@ class UserTest extends \PHPUnit_Framework_TestCase
      *
      * @dataProvider getUsersWithRoles
      */
-    public function testRoles(User $user, array $expectedRoles, $isOnlyAdmin)
+    public function testRoles(User $user, array $expectedRoles, $isOnlyAdmin): void
     {
         $this->assertEquals($expectedRoles, $user->getRoles());
         $this->assertEquals($isOnlyAdmin,$user->isOnlyAdmin());
     }
 
-    public function getUsersWithRoles()
+    public function getUsersWithRoles(): array
     {
         $superAdmin = new User();
         $superAdmin->setAdmin(true);

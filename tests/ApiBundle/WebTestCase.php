@@ -17,7 +17,7 @@ class WebTestCase extends BaseWebTestCase
 
     private $accessToken;
 
-    public function createApiClient(UserInterface $user, array $options = [], array $server = [])
+    public function createApiClient(UserInterface $user, array $options = [], array $server = []): \Symfony\Bundle\FrameworkBundle\Client
     {
         $accessToken  = $this->getAccessToken($user);
         $serverParams = array_merge([
@@ -60,7 +60,7 @@ class WebTestCase extends BaseWebTestCase
         return $accessToken;
     }
 
-    public function assertJsonResponse($response, $statusCode = 200)
+    public function assertJsonResponse($response, $statusCode = 200): void
     {
         $this->assertEquals(
             $statusCode, $response->getStatusCode(), $response->getContent()

@@ -11,7 +11,6 @@ namespace NS\SentinelBundle\Tests\Form\IBD\Types;
 use NS\SentinelBundle\Form\IBD\Types\Diagnosis;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class DiagnosisTest extends TypeTestCase
 {
@@ -40,10 +39,7 @@ class DiagnosisTest extends TypeTestCase
         $choices = $form->getConfig()->getOption('choices');
 
         $this->assertNotEmpty($choices);
-        unset($this->defaultChoices[Diagnosis::SUSPECTED_SEVERE_PNEUMONIA]);
-        unset($this->defaultChoices[Diagnosis::UNKNOWN]);
-        unset($this->defaultChoices[Diagnosis::OTHER]);
-        unset($this->defaultChoices[Diagnosis::SUSPECTED_SEPSIS]);
+        unset($this->defaultChoices[Diagnosis::SUSPECTED_SEVERE_PNEUMONIA], $this->defaultChoices[Diagnosis::UNKNOWN], $this->defaultChoices[Diagnosis::OTHER], $this->defaultChoices[Diagnosis::SUSPECTED_SEPSIS]);
         $this->assertEquals(array_flip($this->defaultChoices), $choices);
     }
 }

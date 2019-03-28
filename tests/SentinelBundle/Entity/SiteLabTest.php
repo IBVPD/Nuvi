@@ -3,10 +3,7 @@
 namespace NS\SentinelBundle\Tests\Entity;
 
 use NS\SentinelBundle\Entity\IBD\SiteLab;
-use NS\SentinelBundle\Form\IBD\Types\BinaxResult;
 use NS\SentinelBundle\Form\IBD\Types\CultureResult;
-use NS\SentinelBundle\Form\IBD\Types\LatResult;
-use NS\SentinelBundle\Form\IBD\Types\PCRResult;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -131,7 +128,7 @@ class SiteLabTest extends WebTestCase
 
     private function getKernel()
     {
-        $kernel = $this->createKernel();
+        $kernel = self::createKernel();
         $kernel->boot();
 
         return $kernel;

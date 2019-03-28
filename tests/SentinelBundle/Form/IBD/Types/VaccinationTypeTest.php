@@ -36,8 +36,7 @@ class VaccinationTypeTest extends TypeTestCase
         $form = $this->factory->create(VaccinationType::class, null, ['exclude_choices' => [VaccinationType::MEN_AFR_VAC, VaccinationType::ACW135]]);
         $choices = $form->getConfig()->getOption('choices');
 
-        unset($this->defaultChoices[VaccinationType::MEN_AFR_VAC]);
-        unset($this->defaultChoices[VaccinationType::ACW135]);
+        unset($this->defaultChoices[VaccinationType::MEN_AFR_VAC], $this->defaultChoices[VaccinationType::ACW135]);
 
         $this->assertNotEmpty($choices);
         $this->assertEquals(array_flip($this->defaultChoices), $choices);

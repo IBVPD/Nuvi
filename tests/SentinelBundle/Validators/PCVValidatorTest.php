@@ -1,30 +1,26 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gnat
- * Date: 19/05/17
- * Time: 10:13 AM
- */
 
 namespace NS\SentinelBundle\Tests\Validators;
 
-
+use DateTime;
 use NS\SentinelBundle\Entity\IBD;
 use NS\SentinelBundle\Form\IBD\Types\PCVType;
 use NS\SentinelBundle\Form\Types\FourDoses;
 use NS\SentinelBundle\Form\Types\VaccinationReceived;
 use NS\SentinelBundle\Validators\PCV;
 use NS\SentinelBundle\Validators\PCVValidator;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
-class PCVValidatorTest extends \PHPUnit_Framework_TestCase
+class PCVValidatorTest extends TestCase
 {
-    /** @var AuthorizationCheckerInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var AuthorizationCheckerInterface|MockObject */
     private $authChecker;
 
-    /** @var ExecutionContextInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var ExecutionContextInterface|MockObject */
     private $context;
 
     /** @var PCVValidator */
@@ -41,7 +37,7 @@ class PCVValidatorTest extends \PHPUnit_Framework_TestCase
         $this->validator->initialize($this->context);
     }
 
-    public function testNonPaho()
+    public function testNonPaho(): void
     {
         $this->authChecker->expects($this->once())->method('isGranted')->willReturn(false);
         $ibd = $this->getMockBuilder(IBD::class)->disableOriginalConstructor()->getMock();
@@ -51,9 +47,9 @@ class PCVValidatorTest extends \PHPUnit_Framework_TestCase
         $this->validator->validate($ibd, new PCV());
     }
 
-    public function testPahoPCVReceivedNotSelected()
+    public function testPahoPCVReceivedNotSelected(): void
     {
-        $this->authChecker->expects($this->any())->method('isGranted')->willReturn(true);
+        $this->authChecker->method('isGranted')->willReturn(true);
         $ibd = new IBD();
         $this->context->expects($this->never())->method('buildViolation');
         $this->validator->validate($ibd, new PCV());
@@ -67,20 +63,20 @@ class PCVValidatorTest extends \PHPUnit_Framework_TestCase
      *
      * @dataProvider getVaccinationReceived
      */
-    public function testValid($received)
+    public function testValid($received): void
     {
         $this->authChecker->expects($this->once())->method('isGranted')->willReturn(true);
         $ibd = new IBD();
         $ibd->setPcvReceived(new VaccinationReceived($received));
         $ibd->setPcvDoses(new FourDoses(FourDoses::FOUR));
         $ibd->setPcvType(new PCVType(PCVType::PCV13));
-        $ibd->setPcvMostRecentDose(new \DateTime());
+        $ibd->setPcvMostRecentDose(new DateTime());
 
         $this->context->expects($this->never())->method('buildViolation');
         $this->validator->validate($ibd, new PCV());
     }
 
-    public function getVaccinationReceived()
+    public function getVaccinationReceived(): array
     {
         return [
             [VaccinationReceived::YES_HISTORY],
@@ -88,47 +84,47 @@ class PCVValidatorTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    public function testInvalidPcvDoses()
+    public function testInvalidPcvDoses(): void
     {
         $ibd = new IBD();
         $ibd->setPcvReceived(new VaccinationReceived(VaccinationReceived::YES_CARD));
         $ibd->setPcvType(new PCVType(PCVType::PCV13));
-        $ibd->setPcvMostRecentDose(new \DateTime());
+        $ibd->setPcvMostRecentDose(new DateTime());
         $this->validator->validate($ibd, new PCV());
         $this->validator->validate($ibd, $this->expectViolation('pcvDoses'));
     }
 
-    public function testInvalidPcvType()
+    public function testInvalidPcvType(): void
     {
         $ibd = new IBD();
         $ibd->setPcvReceived(new VaccinationReceived(VaccinationReceived::YES_CARD));
         $ibd->setPcvDoses(new FourDoses(FourDoses::FOUR));
-        $ibd->setPcvMostRecentDose(new \DateTime());
+        $ibd->setPcvMostRecentDose(new DateTime());
         $this->validator->validate($ibd, $this->expectViolation('pcvType'));
     }
 
-    public function testNonSelectedPcvDoses()
+    public function testNonSelectedPcvDoses(): void
     {
         $ibd = new IBD();
         $ibd->setPcvReceived(new VaccinationReceived(VaccinationReceived::YES_CARD));
         $ibd->setPcvDoses(new FourDoses());
         $ibd->setPcvType(new PCVType(PCVType::PCV13));
-        $ibd->setPcvMostRecentDose(new \DateTime());
+        $ibd->setPcvMostRecentDose(new DateTime());
         $this->validator->validate($ibd, new PCV());
         $this->validator->validate($ibd, $this->expectViolation('pcvDoses'));
     }
 
-    public function testNonSelectedPcvType()
+    public function testNonSelectedPcvType(): void
     {
         $ibd = new IBD();
         $ibd->setPcvReceived(new VaccinationReceived(VaccinationReceived::YES_CARD));
         $ibd->setPcvDoses(new FourDoses(FourDoses::FOUR));
         $ibd->setPcvType(new PCVType());
-        $ibd->setPcvMostRecentDose(new \DateTime());
+        $ibd->setPcvMostRecentDose(new DateTime());
         $this->validator->validate($ibd, $this->expectViolation('pcvType'));
     }
 
-    public function testInvalidPcvMostRecentDose()
+    public function testInvalidPcvMostRecentDose(): void
     {
         $ibd = new IBD();
         $ibd->setPcvReceived(new VaccinationReceived(VaccinationReceived::YES_CARD));
@@ -138,7 +134,7 @@ class PCVValidatorTest extends \PHPUnit_Framework_TestCase
         $this->validator->validate($ibd, $this->expectViolation('pcvMostRecentDose'));
     }
 
-    private function expectViolation($atPath)
+    private function expectViolation($atPath): PCV
     {
         $constraint = new PCV();
         $this->authChecker->expects($this->once())->method('isGranted')->willReturn(true);

@@ -44,10 +44,10 @@ class RotaVirusControllerTest extends WebTestCase
         }
 
         $this->assertEquals(204, $response->getStatusCode());
-        $this->assertFalse($response->headers->has('Location'), "We have a location header");
+        $this->assertFalse($response->headers->has('Location'), 'We have a location header');
 
         $case = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:RotaVirus')->find(self::ID);
-        $this->assertEquals("Fabien", $case->getLastName(), "Change has occurred");
+        $this->assertEquals('Fabien', $case->getLastName(), 'Change has occurred');
         $this->assertTrue($case->getGender()->equal(Gender::FEMALE));
     }
 
@@ -63,7 +63,7 @@ class RotaVirusControllerTest extends WebTestCase
         }
 
         $this->assertEquals(201, $response->getStatusCode());
-        $this->assertTrue($response->headers->has('Location'), "We have a location header ".print_r($response->headers,true));
+        $this->assertTrue($response->headers->has('Location'), 'We have a location header ' .print_r($response->headers,true));
 
         $client->request('GET', $response->headers->get('Location'));
         $response = $client->getResponse();
@@ -72,7 +72,7 @@ class RotaVirusControllerTest extends WebTestCase
 
         $this->assertArrayHasKey('case_id', $decoded);
         $this->assertArrayNotHasKey('lab', $decoded);
-        $this->assertEquals("123", $decoded['case_id']);
+        $this->assertEquals('123', $decoded['case_id']);
     }
 
     public function testLabCase()
@@ -87,7 +87,7 @@ class RotaVirusControllerTest extends WebTestCase
         }
 
         $this->assertEquals(204, $response->getStatusCode());
-        $this->assertFalse($response->headers->has('Location'), "We have a location header");
+        $this->assertFalse($response->headers->has('Location'), 'We have a location header');
 
         $client->request('GET', $response->headers->get('Location'));
         $response = $client->getResponse();

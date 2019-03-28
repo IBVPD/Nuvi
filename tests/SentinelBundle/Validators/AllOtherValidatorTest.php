@@ -1,27 +1,20 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gnat
- * Date: 16/01/17
- * Time: 4:48 PM
- */
 
 namespace NS\SentinelBundle\Tests\Validators;
-
 
 use NS\SentinelBundle\Entity\IBD\SiteLab;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Validators\AllOther;
 use NS\SentinelBundle\Validators\AllOtherValidator;
 use NS\SentinelBundle\Validators\Other;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Validator\ContextualValidatorInterface;
-use Symfony\Component\Validator\Validator\RecursiveValidator;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class AllOtherValidatorTest extends \PHPUnit_Framework_TestCase
+class AllOtherValidatorTest extends TestCase
 {
-    public function testValueIsNullIsNull()
+    public function testValueIsNullIsNull(): void
     {
         $context = $this->createMock(ExecutionContextInterface::class);
         $context->expects($this->never())->method('getGroup');
@@ -32,7 +25,7 @@ class AllOtherValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($validator->validate(null, new AllOther(['constraints' => []])));
     }
 
-    public function testValidateOther()
+    public function testValidateOther(): void
     {
         $constraints = [
             new Other(['field'=>'csfCultDone','value'=>'\NS\SentinelBundle\Form\Types\TripleChoice::YES','otherField'=>'csfCultResult','message'=>'cult done']),

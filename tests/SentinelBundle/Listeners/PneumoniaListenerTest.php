@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Tests\Listeners;
 
+use DateTime;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use NS\SentinelBundle\Entity\Country;
 use NS\SentinelBundle\Entity\Listener\PneumoniaListener;
@@ -20,10 +21,11 @@ use NS\SentinelBundle\Form\IBD\Types\DischargeDiagnosis;
 use NS\SentinelBundle\Form\IBD\Types\DischargeOutcome;
 use NS\SentinelBundle\Form\IBD\Types\VaccinationType;
 use NS\SentinelBundle\Form\IBD\Types\OtherSpecimen;
+use PHPUnit\Framework\TestCase;
 
-class PneumoniaListenerTest extends \PHPUnit_Framework_TestCase
+class PneumoniaListenerTest extends TestCase
 {
-    public function testMinimumRequiredFieldsNonPaho()
+    public function testMinimumRequiredFieldsNonPaho(): void
     {
         $country = new Country('tId', 'Test');
         $country->setTracksPneumonia(true);
@@ -41,14 +43,14 @@ class PneumoniaListenerTest extends \PHPUnit_Framework_TestCase
 
     //============================================================
     // Single complete cases
-    public function testSingleMinimumCompleteCaseNonPaho()
+    public function testSingleMinimumCompleteCaseNonPaho(): void
     {
         $case = new Pneumonia();
         $this->_updateCase($case, $this->getSingleCompleteCaseNonPaho());
         $listener = new PneumoniaListener();
         $listener->prePersist($case, $this->createMock(LifecycleEventArgs::class));
 
-        $this->assertTrue($case->isComplete(), "New cases are incomplete " . $listener->getIncompleteField($case) . ' ' . $case->getStatus());
+        $this->assertTrue($case->isComplete(), sprintf('New cases are incomplete %s %s', $listener->getIncompleteField($case), $case->getStatus()));
     }
 
     //============================================================
@@ -58,14 +60,14 @@ class PneumoniaListenerTest extends \PHPUnit_Framework_TestCase
      * @dataProvider getIncompleteTestDataNonPaho
      * @param $data
      */
-    public function testCaseIsIncompleteNonPaho($data)
+    public function testCaseIsIncompleteNonPaho($data): void
     {
         $case = new Pneumonia();
         $this->_updateCase($case, $data);
         $listener = new PneumoniaListener();
         $listener->prePersist($case, $this->createMock(LifecycleEventArgs::class));
 
-        $this->assertFalse($case->isComplete(), "New cases are incomplete data removed '" . (isset($data['removed']) ? $data['removed'] : 'no removed') . "'");
+        $this->assertFalse($case->isComplete(), sprintf('New cases are incomplete data removed \'%s\'', isset($data['removed']) ? $data['removed'] : 'no removed'));
         $this->assertEquals($case->getStatus()->getValue(), CaseStatus::OPEN);
     }
 
@@ -76,14 +78,14 @@ class PneumoniaListenerTest extends \PHPUnit_Framework_TestCase
      * @dataProvider getCompleteCaseNonPahoData
      * @param $data
      */
-    public function testCaseIsCompleteWithPneuomia($data)
+    public function testCaseIsCompleteWithPneuomia($data): void
     {
         $case = new Pneumonia();
         $this->_updateCase($case, $data);
         $listener = new PneumoniaListener();
         $listener->prePersist($case, $this->createMock(LifecycleEventArgs::class));
 
-        $this->assertTrue($case->isComplete(), "Cases with pneunomia are complete " . (!$case->isComplete()) ? $listener->getIncompleteField($case) : null);
+        $this->assertTrue($case->isComplete(), sprintf('Cases with pneunomia are complete %s', !$case->isComplete()) ? $listener->getIncompleteField($case) : null);
         $this->assertEquals($case->getStatus()->getValue(), CaseStatus::COMPLETE);
     }
 
@@ -126,7 +128,7 @@ class PneumoniaListenerTest extends \PHPUnit_Framework_TestCase
         $row = $complete;
         $row['setmeningReceived'] = new VaccinationReceived(VaccinationReceived::YES_CARD);
         $row['setmeningType'] = new VaccinationType(VaccinationType::ACW135);
-        $row['setmeningDate'] = new \DateTime();
+        $row['setmeningDate'] = new DateTime();
         $data[] = ['data' => $row];
 
         $doses = new ThreeDoses();
@@ -150,7 +152,7 @@ class PneumoniaListenerTest extends \PHPUnit_Framework_TestCase
             $row = $complete;
             $row['setcsfCollected'] = $tripleYes;
             $row['setcsfId'] = 'null';
-            $row['setcsfCollectDate'] = new \DateTime();
+            $row['setcsfCollectDate'] = new DateTime();
             $row['setcsfCollectTime'] = $row['setcsfCollectDate'];
             $row['setcsfAppearance'] = new CSFAppearance($v);
             $data[] = ['data' => $row];
@@ -159,7 +161,7 @@ class PneumoniaListenerTest extends \PHPUnit_Framework_TestCase
         return $data;
     }
 
-    public function getIncompleteTestDataNonPaho()
+    public function getIncompleteTestDataNonPaho(): array
     {
         $data = [];
         $complete = $this->getSingleCompleteCaseNonPaho();
@@ -235,7 +237,7 @@ class PneumoniaListenerTest extends \PHPUnit_Framework_TestCase
         return $data;
     }
 
-    private function getSingleCompleteCaseNonPaho()
+    private function getSingleCompleteCaseNonPaho(): array
     {
         $tripleNo = new TripleChoice(TripleChoice::NO);
         $country = new Country('tId', 'Test Country');
@@ -247,11 +249,11 @@ class PneumoniaListenerTest extends \PHPUnit_Framework_TestCase
         return [
             'setcountry' => $country,
             'setcaseId' => 'blah',
-            'setbirthdate' => new \DateTime(),
+            'setbirthdate' => new DateTime(),
             'setgender' => new Gender(Gender::MALE),
             'setdistrict' => 'The District',
-            'setadmDate' => new \DateTime(),
-            'setonsetDate' => new \DateTime(),
+            'setadmDate' => new DateTime(),
+            'setonsetDate' => new DateTime(),
             'setadmDx' => new Diagnosis(Diagnosis::SUSPECTED_PNEUMONIA),
             'setadmDxOther' => null,
             'setantibiotics' => $tripleNo,
@@ -287,10 +289,10 @@ class PneumoniaListenerTest extends \PHPUnit_Framework_TestCase
         ];
     }
 
-    private function _updateCase($case, $data)
+    private function _updateCase($case, $data): void
     {
         foreach ($data as $method => $d) {
-            if (!is_null($d) && method_exists($case, $method)) {
+            if ($d !== null && method_exists($case, $method)) {
                 $case->$method($d);
             }
         }

@@ -2,38 +2,28 @@
 
 namespace NS\SentinelBundle\Tests\Converter;
 
+use function get_class;
 use NS\UtilBundle\Form\Types\ArrayChoice;
 use NS\SentinelBundle\Converter\ArrayChoiceConverter;
 use NS\SentinelBundle\Form;
-//use NS\SentinelBundle\Form\Meningitis;
-//use NS\SentinelBundle\Form\Pneumonia;
-//use NS\SentinelBundle\Form\RotaVirus\Types\DischargeOutcome as RVDischargeOutcome;
-//use NS\SentinelBundle\Form\RotaVirus\Types\VaccinationType as RVVaccinationType;
-//use NS\SentinelBundle\Form\Types\CaseStatus;
-//use NS\SentinelBundle\Form\Types\CaseCreationType;
-//use NS\SentinelBundle\Form\Types\FourDoses;
-//use NS\SentinelBundle\Form\Types\Gender;
-//use NS\SentinelBundle\Form\Types\VaccinationReceived;
-//use NS\SentinelBundle\Form\Types\Role;
-//use NS\SentinelBundle\Form\Types\ThreeDoses;
-//use NS\SentinelBundle\Form\Types\TripleChoice;
-//use NS\SentinelBundle\Form\Types\SurveillanceConducted;
+use PHPUnit\Framework\TestCase;
+use RuntimeException;
 
 /**
  * Description of ArrayChoiceConverterTest
  *
  * @author gnat
  */
-class ArrayChoiceConverterTest extends \PHPUnit_Framework_TestCase
+class ArrayChoiceConverterTest extends TestCase
 {
     /**
      *
      * @param ArrayChoice $obj
      * @dataProvider converterProvider
      */
-    public function testArrayChoiceConverterOutOfRange(ArrayChoice $obj)
+    public function testArrayChoiceConverterOutOfRange(ArrayChoice $obj): void
     {
-        $class = \get_class($obj);
+        $class = get_class($obj);
         $converter = new ArrayChoiceConverter($class,'nothing');
 
         $obj->getValues();
@@ -47,9 +37,9 @@ class ArrayChoiceConverterTest extends \PHPUnit_Framework_TestCase
      * @param ArrayChoice $obj
      * @dataProvider converterProvider
      */
-    public function testArrayChoiceConverter(ArrayChoice $obj)
+    public function testArrayChoiceConverter(ArrayChoice $obj): void
     {
-        $class = \get_class($obj);
+        $class = get_class($obj);
         $converter = new ArrayChoiceConverter($class,'nothing');
         $values = $obj->getValues();
 
@@ -65,14 +55,14 @@ class ArrayChoiceConverterTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \RuntimeException
+     * @expectedException RuntimeException
      */
-    public function testUnknownClass()
+    public function testUnknownClass(): void
     {
         new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\UnknownClass','nothing');
     }
 
-    public function converterProvider()
+    public function converterProvider(): array
     {
         return [
             ['obj' => new Form\Types\VaccinationReceived()],

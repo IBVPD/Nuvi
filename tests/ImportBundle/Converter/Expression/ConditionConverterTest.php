@@ -3,8 +3,9 @@
 namespace NS\ImportBundle\Tests\Converter\Expression;
 
 use NS\ImportBundle\Converter\Expression\ConditionConverter;
+use PHPUnit\Framework\TestCase;
 
-class ConditionConverterTest extends \PHPUnit_Framework_TestCase
+class ConditionConverterTest extends TestCase
 {
     /**
      * @param $json
@@ -13,7 +14,7 @@ class ConditionConverterTest extends \PHPUnit_Framework_TestCase
      * @param array $perRows
      * @dataProvider getJsonConditions
      */
-    public function testConversionToArray($json, $expectedResults, array $perRows)
+    public function testConversionToArray($json, $expectedResults, array $perRows): void
     {
         $conditions = json_decode($json, true);
         $converter = new ConditionConverter();
@@ -22,7 +23,7 @@ class ConditionConverterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($perRows[0], $results[0]);
     }
 
-    public function getJsonConditions()
+    public function getJsonConditions(): array
     {
         return [
             [

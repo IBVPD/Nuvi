@@ -2,9 +2,13 @@
 
 namespace NS\ImportBundle\Tests\Importer;
 
+use function count;
+use DateTime;
 use Ddeboer\DataImport\Reader\ArrayReader;
 use Ddeboer\DataImport\Workflow;
 use Ddeboer\DataImport\Writer\ArrayWriter;
+use Exception;
+use InvalidArgumentException;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 use NS\ImportBundle\Converter\Registry;
 use NS\ImportBundle\Entity\Column;
@@ -14,8 +18,19 @@ use NS\ImportBundle\Filter\Duplicate;
 use NS\ImportBundle\Filter\NotBlank;
 use NS\ImportBundle\Importer\ImportProcessor;
 use NS\ImportBundle\Linker\CaseLinkerRegistry;
+use SplObjectStorage;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\User\UserInterface;
+use NS\SentinelBundle\Entity\IBD;
+use NS\SentinelBundle\Entity\IBD\ReferenceLab;
+use NS\SentinelBundle\Form\IBD\Types\Diagnosis;
+use NS\SentinelBundle\Entity\Site;
+use Ddeboer\DataImport\Result;
+use Doctrine\ORM\EntityManager;
+use Ddeboer\DataImport\Reader\CsvReader;
+use Ddeboer\DataImport\Writer\DoctrineWriter;
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Mapping\ClassMetadata;
 
 /**
  * Description of ImportProcessorTest
@@ -27,11 +42,11 @@ class ImportProcessorTest extends WebTestCase
     /**
      * @expectedException InvalidArgumentException
      */
-    public function testInvalidImportReader()
+    public function testInvalidImportReader(): void
     {
         $file = new File(__DIR__ . '/../Fixtures/IBD-BadHeader.csv');
 
-        $mockUser = $this->createMock('Symfony\Component\Security\Core\User\UserInterface');
+        $mockUser = $this->createMock(UserInterface::class);
         $import   = new Import($mockUser);
         $import->setSourceFile($file);
         $import->setMap($this->getIbdMap($this->getIbdColumns()));
@@ -90,44 +105,44 @@ class ImportProcessorTest extends WebTestCase
     /**
      * @expectedException InvalidArgumentException
      */
-    public function testExtraColumnReader()
+    public function testExtraColumnReader(): void
     {
         $file    = new File(__DIR__ . '/../Fixtures/IBD-BadHeader.csv');
         $columns = [
             [
-                'name'      => 'Col1',
+                'name' => 'Col1',
                 'converter' => null,
-                'mapper'    => null,
-                'ignored'   => true,
+                'mapper' => null,
+                'ignored' => true,
             ],
             [
-                'name'      => 'Col3',
+                'name' => 'Col3',
                 'converter' => '',
-                'mapper'    => '',
-                'ignored'   => false,
+                'mapper' => '',
+                'ignored' => false,
             ],
             [
-                'name'      => 'Col2',
+                'name' => 'Col2',
                 'converter' => null,
-                'mapper'    => '',
-                'ignored'   => false,
+                'mapper' => '',
+                'ignored' => false,
             ],
             [
-                'name'      => 'gender',
+                'name' => 'gender',
                 'converter' => '',
-                'mapper'    => '',
-                'ignored'   => false,
+                'mapper' => '',
+                'ignored' => false,
             ],
             [
-                'name'      => 'birthday',
+                'name' => 'birthday',
                 'converter' => 'ns_import.converter.date.who',
-                'mapper'    => 'birthdate',
-                'ignored'   => false,
+                'mapper' => 'birthdate',
+                'ignored' => false,
             ],
         ];
 
-        $mockUser = $this->createMock('Symfony\Component\Security\Core\User\UserInterface');
-        $import = new Import($mockUser);
+        $mockUser = $this->createMock(UserInterface::class);
+        $import   = new Import($mockUser);
         $import->setSourceFile($file);
         $import->setMap($this->getIbdMap($columns));
 
@@ -135,55 +150,55 @@ class ImportProcessorTest extends WebTestCase
         $processor->getReader($import);
     }
 
-    public function testMatchingColumnsReader()
+    public function testMatchingColumnsReader(): void
     {
         $file    = new File(__DIR__ . '/../Fixtures/IBD-BadHeader.csv');
         $columns = [
             [
-                'name'      => 'Col1',
+                'name' => 'Col1',
                 'converter' => null,
-                'mapper'    => null,
-                'ignored'   => true,
+                'mapper' => null,
+                'ignored' => true,
             ],
             [
-                'name'      => 'Col2',
+                'name' => 'Col2',
                 'converter' => '',
-                'mapper'    => '',
-                'ignored'   => false,
+                'mapper' => '',
+                'ignored' => false,
             ],
             [
-                'name'      => 'Col3',
+                'name' => 'Col3',
                 'converter' => null,
-                'mapper'    => '',
-                'ignored'   => false,
+                'mapper' => '',
+                'ignored' => false,
             ],
         ];
 
-        $mockUser = $this->createMock('Symfony\Component\Security\Core\User\UserInterface');
-        $import = new Import($mockUser);
+        $mockUser = $this->createMock(UserInterface::class);
+        $import   = new Import($mockUser);
         $import->setSourceFile($file);
         $import->setMap($this->getIbdMap($columns));
 
         $processor = $this->getContainer()->get('ns_import.processor');
         $reader    = $processor->getReader($import);
-        $this->assertInstanceOf('\Ddeboer\DataImport\Reader\CsvReader', $reader);
+        $this->assertInstanceOf(CsvReader::class, $reader);
     }
 
-    public function testGetDoctrineWriter()
+    public function testGetDoctrineWriter(): void
     {
-        $meta = $this->createMock('Doctrine\ORM\Mapping\ClassMetadata');
+        $meta = $this->createMock(ClassMetadata::class);
         $meta->expects($this->once())
             ->method('getName')
-            ->willReturn('NS\SentinelBundle\Entity\IBD');
+            ->willReturn(IBD::class);
 
-        $mockRepo = $this->getMockBuilder('Doctrine\ORM\EntityRepository')
+        $mockRepo = $this->getMockBuilder(EntityRepository::class)
             ->setMethods(['findBySiteAndCaseId'])
             ->disableOriginalConstructor()
             ->getMock();
         $mockRepo->expects($this->never())
             ->method('findBySiteAndCaseId');
 
-        $entityMgr = $this->createMock('\Doctrine\ORM\EntityManager');
+        $entityMgr = $this->createMock(EntityManager::class);
         $entityMgr->expects($this->once())
             ->method('getRepository')
             ->willReturn($mockRepo);
@@ -194,9 +209,9 @@ class ImportProcessorTest extends WebTestCase
 
         $registry  = new Registry();
         $processor = new ImportProcessor($registry, $entityMgr, new CaseLinkerRegistry());
-        $writer    = $processor->getWriter('NS\SentinelBundle\Entity\IBD', [], 'method');
-        $this->assertInstanceOf('\Ddeboer\DataImport\Writer\DoctrineWriter', $writer);
-        $writer2   = $processor->getWriter('NS\SentinelBundle\Entity\IBD', [], 'method');
+        $writer    = $processor->getWriter(IBD::class, [], 'method');
+        $this->assertInstanceOf(DoctrineWriter::class, $writer);
+        $writer2 = $processor->getWriter(IBD::class, [], 'method');
 
         $this->assertEquals($writer, $writer2);
     }
@@ -208,44 +223,44 @@ class ImportProcessorTest extends WebTestCase
 //        $writer->prepare();
 //    }
 
-    public function testDuplicateFilterIsCalled()
+    public function testDuplicateFilterIsCalled(): void
     {
         $file    = new File(__DIR__ . '/../Fixtures/IBD-DuplicateRows.csv');
         $columns = [
             [
-                'name'      => 'Col1',
+                'name' => 'Col1',
                 'converter' => null,
-                'mapper'    => 'col1',
-                'ignored'   => false,
+                'mapper' => 'col1',
+                'ignored' => false,
             ],
             [
-                'name'      => 'Col2',
+                'name' => 'Col2',
                 'converter' => '',
-                'mapper'    => 'col2',
-                'ignored'   => false,
+                'mapper' => 'col2',
+                'ignored' => false,
             ],
             [
-                'name'      => 'Col3',
+                'name' => 'Col3',
                 'converter' => null,
-                'mapper'    => null,
-                'ignored'   => false,
+                'mapper' => null,
+                'ignored' => false,
             ],
             [
-                'name'      => 'Col4',
+                'name' => 'Col4',
                 'converter' => null,
-                'mapper'    => null,
-                'ignored'   => false,
+                'mapper' => null,
+                'ignored' => false,
             ],
         ];
 
-        $mockUser = $this->createMock('Symfony\Component\Security\Core\User\UserInterface');
-        $import = new Import($mockUser);
-        $import->setInputDateStart(new \DateTime());
-        $import->setInputDateEnd(new \DateTime());
+        $mockUser = $this->createMock(UserInterface::class);
+        $import   = new Import($mockUser);
+        $import->setInputDateStart(new DateTime());
+        $import->setInputDateEnd(new DateTime());
         $import->setSourceFile($file);
         $import->setMap($this->getIbdMap($columns));
 
-        $mockDuplicate = $this->getMockBuilder('NS\ImportBundle\Filter\Duplicate')
+        $mockDuplicate = $this->getMockBuilder(Duplicate::class)
             ->setMethods(['__invoke', 'getFieldKey'])
             ->getMock();
 
@@ -277,9 +292,9 @@ class ImportProcessorTest extends WebTestCase
         $processor = new ImportProcessor($container->get('ns_import.converters'), $container->get('doctrine.orm.entity_manager'), $container->get('ns_import.linker_registry'));
         $processor->setDuplicate($mockDuplicate);
 
-        $reader    = $processor->getReader($import);
+        $reader = $processor->getReader($import);
 
-        $this->assertInstanceOf('\Ddeboer\DataImport\Reader\CsvReader', $reader);
+        $this->assertInstanceOf(CsvReader::class, $reader);
         $this->assertCount(4, $reader);
 
         $outputData = [];
@@ -287,7 +302,7 @@ class ImportProcessorTest extends WebTestCase
         $this->assertEquals(0, $import->getPosition());
 
         // Create the workflow from the reader
-        $workflow   = new Workflow\StepAggregator($reader);
+        $workflow = new Workflow\StepAggregator($reader);
         $workflow->setSkipItemOnFailure(true);
         $workflow->addWriter(new ArrayWriter($outputData));
 
@@ -297,40 +312,40 @@ class ImportProcessorTest extends WebTestCase
         $this->assertCount(3, $outputData, print_r($outputData, true));
     }
 
-    public function testDuplicates()
+    public function testDuplicates(): void
     {
         $file    = new File(__DIR__ . '/../Fixtures/IBD-DuplicateRows.csv');
         $columns = [
             [
-                'name'      => 'Col1',
+                'name' => 'Col1',
                 'converter' => null,
-                'mapper'    => null,
-                'ignored'   => false,
+                'mapper' => null,
+                'ignored' => false,
             ],
             [
-                'name'      => 'Col2',
+                'name' => 'Col2',
                 'converter' => null,
-                'mapper'    => 'col2',
-                'ignored'   => false,
+                'mapper' => 'col2',
+                'ignored' => false,
             ],
             [
-                'name'      => 'Col3',
+                'name' => 'Col3',
                 'converter' => null,
-                'mapper'    => null,
-                'ignored'   => false,
+                'mapper' => null,
+                'ignored' => false,
             ],
             [
-                'name'      => 'Col4',
+                'name' => 'Col4',
                 'converter' => null,
-                'mapper'    => null,
-                'ignored'   => true,
+                'mapper' => null,
+                'ignored' => true,
             ],
         ];
 
-        $mockUser = $this->createMock('Symfony\Component\Security\Core\User\UserInterface');
-        $import = new Import($mockUser);
-        $import->setInputDateStart(new \DateTime());
-        $import->setInputDateEnd(new \DateTime());
+        $mockUser = $this->createMock(UserInterface::class);
+        $import   = new Import($mockUser);
+        $import->setInputDateStart(new DateTime());
+        $import->setInputDateEnd(new DateTime());
         $import->setSourceFile($file);
         $import->setMap($this->getIbdMap($columns));
 
@@ -341,9 +356,9 @@ class ImportProcessorTest extends WebTestCase
         $processor = new ImportProcessor($container->get('ns_import.converters'), $container->get('doctrine.orm.entity_manager'), $container->get('ns_import.linker_registry'));
         $processor->setDuplicate($duplicate);
         $processor->setNotBlank(new NotBlank('Col1'));
-        $reader    = $processor->getReader($import);
+        $reader = $processor->getReader($import);
 
-        $this->assertInstanceOf('\Ddeboer\DataImport\Reader\CsvReader', $reader);
+        $this->assertInstanceOf(CsvReader::class, $reader);
         $this->assertCount(4, $reader);
 
         $outputData = [];
@@ -359,28 +374,28 @@ class ImportProcessorTest extends WebTestCase
         $this->assertCount(1, $duplicate->toArray());
     }
 
-    public function testBadDateFormat()
+    public function testBadDateFormat(): void
     {
         $file    = new File(__DIR__ . '/../Fixtures/IBD-BadDate.csv');
         $columns = [
             [
-                'name'      => 'date',
+                'name' => 'date',
                 'converter' => 'ns_import.converter.date.who',
-                'mapper'    => null,
-                'ignored'   => false,
+                'mapper' => null,
+                'ignored' => false,
             ],
             [
-                'name'      => 'ignored',
+                'name' => 'ignored',
                 'converter' => null,
-                'mapper'    => null,
-                'ignored'   => true,
+                'mapper' => null,
+                'ignored' => true,
             ],
         ];
 
-        $mockUser = $this->createMock('Symfony\Component\Security\Core\User\UserInterface');
-        $import = new Import($mockUser);
-        $import->setInputDateStart(new \DateTime());
-        $import->setInputDateEnd(new \DateTime());
+        $mockUser = $this->createMock(UserInterface::class);
+        $import   = new Import($mockUser);
+        $import->setInputDateStart(new DateTime());
+        $import->setInputDateEnd(new DateTime());
         $import->setSourceFile($file);
         $import->setMap($this->getIbdMap($columns));
 
@@ -390,9 +405,9 @@ class ImportProcessorTest extends WebTestCase
         $processor = new ImportProcessor($container->get('ns_import.converters'), $container->get('doctrine.orm.entity_manager'), $container->get('ns_import.linker_registry'));
         $processor->setDuplicate($duplicate);
         $processor->setNotBlank(new NotBlank('date'));
-        $reader    = $processor->getReader($import);
+        $reader = $processor->getReader($import);
 
-        $this->assertInstanceOf('\Ddeboer\DataImport\Reader\CsvReader', $reader);
+        $this->assertInstanceOf(CsvReader::class, $reader);
         $this->assertCount(2, $reader);
 
         $outputData = [];
@@ -405,30 +420,30 @@ class ImportProcessorTest extends WebTestCase
         $result = $workflow->process();
         $except = $result->getExceptions();
         $this->assertCount(0, $outputData);
-        $this->assertInstanceOf('\SplObjectStorage', $except);
+        $this->assertInstanceOf(SplObjectStorage::class, $except);
 
         // THIS SHOULD BE 2 ???
         $this->assertEquals(2, $except->count());
     }
 
-    public function testBlankFieldConversion()
+    public function testBlankFieldConversion(): void
     {
-        $entityMgr = $this->createMock('\Doctrine\ORM\EntityManager');
+        $entityMgr = $this->createMock(EntityManager::class);
 
         $registry  = new Registry();
         $processor = new ImportProcessor($registry, $entityMgr, new CaseLinkerRegistry());
-        $processor->setNotBlank(new NotBlank("case_id"));
-        $this->assertInstanceOf('NS\ImportBundle\Filter\NotBlank', $processor->getNotBlank());
-        $this->assertTrue(is_array($processor->getNotBlank()->fields));
+        $processor->setNotBlank(new NotBlank('case_id'));
+        $this->assertInstanceOf(NotBlank::class, $processor->getNotBlank());
+        $this->assertInternalType('array', $processor->getNotBlank()->fields);
         $this->assertEquals(['case_id'], $processor->getNotBlank()->fields);
     }
 
-    public function testNotBlank()
+    public function testNotBlank(): void
     {
-        $notBlankStr = new NotBlank("field");
+        $notBlankStr = new NotBlank('field');
         $this->assertEquals(['field'], $notBlankStr->fields);
 
-        $notBlankArr = new NotBlank(["field"]);
+        $notBlankArr = new NotBlank(['field']);
         $this->assertEquals(['field'], $notBlankArr->fields);
 
         $this->assertTrue($notBlankArr->__invoke(['field' => '1', 'something' => 2]));
@@ -436,38 +451,38 @@ class ImportProcessorTest extends WebTestCase
         $this->assertFalse($notBlankArr->__invoke(['field' => '', 'something' => 2]));
     }
 
-    public function testDeepArrayMap()
+    public function testDeepArrayMap(): void
     {
         $columns = [
             [
-                'name'      => 'Date Sample received-RRL',
+                'name' => 'Date Sample received-RRL',
                 'converter' => 'ns_import.converter.date.year_month_day',
-                'mapper'    => 'dateReceived',
-                'ignored'   => true,
+                'mapper' => 'dateReceived',
+                'ignored' => true,
             ],
             [
-                'name'      => 'RRL lab #',
+                'name' => 'RRL lab #',
                 'converter' => null,
-                'mapper'    => 'labId',
-                'ignored'   => false,
+                'mapper' => 'labId',
+                'ignored' => false,
             ],
             [
-                'name'      => 'patient first name',
+                'name' => 'patient first name',
                 'converter' => null,
-                'mapper'    => 'caseFile.firstName',
-                'ignored'   => false,
+                'mapper' => 'caseFile.firstName',
+                'ignored' => false,
             ],
             [
-                'name'      => 'Site Code',
+                'name' => 'Site Code',
                 'converter' => 'ns.sentinel.converter.site',
-                'mapper'    => 'caseFile.site',
-                'ignored'   => false,
+                'mapper' => 'caseFile.site',
+                'ignored' => false,
             ],
             [
-                'name'      => 'case id',
+                'name' => 'case id',
                 'converter' => null,
-                'mapper'    => 'caseFile.case_id',
-                'ignored'   => false,
+                'mapper' => 'caseFile.case_id',
+                'ignored' => false,
             ],
         ];
 
@@ -484,17 +499,17 @@ class ImportProcessorTest extends WebTestCase
 
         $processor = $this->getContainer()->get('ns_import.processor');
         $reader    = new ArrayReader($source);
-        $mockUser  = $this->createMock('Symfony\Component\Security\Core\User\UserInterface');
+        $mockUser  = $this->createMock(UserInterface::class);
         $import    = new Import($mockUser);
-        $import->setInputDateStart(new \DateTime());
-        $import->setInputDateEnd(new \DateTime());
+        $import->setInputDateStart(new DateTime());
+        $import->setInputDateEnd(new DateTime());
         $import->setMap($this->getReferenceLabMap($columns));
 
         $converters = $import->getConverters();
         $this->assertCount(1, $converters); // fields where ignored == true are completely dropped
 //        $this->assertEquals('Site',end($converters)->getName());
 
-        $this->assertInstanceOf('\Ddeboer\DataImport\Reader\ArrayReader', $reader);
+        $this->assertInstanceOf(ArrayReader::class, $reader);
 
         $outputData = [];
         $workflow   = new Workflow\StepAggregator($reader);
@@ -504,23 +519,23 @@ class ImportProcessorTest extends WebTestCase
         $processor->addSteps($workflow, $import);
 
         $res = $workflow->process();
-        $this->assertInstanceOf("Ddeboer\DataImport\Result", $res);
+        $this->assertInstanceOf(Result::class, $res);
         if ($res->getErrorCount() > 0) {
             $exceptions = $res->getExceptions();
-            $this->assertInstanceOf('\SplObjectStorage', $exceptions);
+            $this->assertInstanceOf(SplObjectStorage::class, $exceptions);
             $this->assertEquals($res->getErrorCount(), $exceptions->count());
             $object = $exceptions->current();
-            $this->assertInstanceOf('\Exception', $object);
+            $this->assertInstanceOf(Exception::class, $object);
             if ($exceptions->valid()) {
                 //                $object = $exceptions->current();
-                $this->assertInstanceOf('\Exception', $object);
+                $this->assertInstanceOf(Exception::class, $object);
                 $this->fail($object->getMessage());
             }
             $this->fail('Got here!?');
         }
 
         $this->assertCount(4, $outputData, sprintf("Didn't receive proper output - Error count: %d", $res->getErrorCount()));
-        $this->assertInstanceOf('NS\SentinelBundle\Entity\Site', $outputData[0]['caseFile']['site']);
+        $this->assertInstanceOf(Site::class, $outputData[0]['caseFile']['site']);
 //        $this->fail(print_r(array_keys($outputData[0]['caseFile']),true));
 //        $this->fail($outputData[0]['caseFile']['site']->getName());
     }
@@ -528,250 +543,250 @@ class ImportProcessorTest extends WebTestCase
     /**
      * @group repositoryTest
      */
-    public function testImportWithSiteLabFields()
+    public function testImportWithSiteLabFields(): void
     {
         $columns = [
             [
-                'name'      => 'site_CODE',
+                'name' => 'site_CODE',
                 'converter' => 'ns.sentinel.converter.site',
-                'mapper'    => 'site',
-                'ignored'   => false,
+                'mapper' => 'site',
+                'ignored' => false,
             ],
             [
-                'name'      => 'case_id',
+                'name' => 'case_id',
                 'converter' => null,
-                'mapper'    => null,
-                'ignored'   => false,
+                'mapper' => null,
+                'ignored' => false,
             ],
             [
-                'name'      => 'firstName',
+                'name' => 'firstName',
                 'converter' => null,
-                'mapper'    => null,
-                'ignored'   => false,
+                'mapper' => null,
+                'ignored' => false,
             ],
             [
-                'name'      => 'csf Date',
+                'name' => 'csf Date',
                 'converter' => 'ns_import.converter.date.timestamp',
-                'mapper'    => 'siteLab.csf_lab_date',
-                'ignored'   => false,
+                'mapper' => 'siteLab.csf_lab_date',
+                'ignored' => false,
             ],
         ];
 
-        $file = new File(__DIR__ . '/../Fixtures/IBD-CasePlusSiteLab.csv');
+        $file     = new File(__DIR__ . '/../Fixtures/IBD-CasePlusSiteLab.csv');
         $mockUser = $this->createMock(UserInterface::class);
-        $import = new Import($mockUser);
-        $import->setInputDateStart(new \DateTime());
-        $import->setInputDateEnd(new \DateTime());
+        $import   = new Import($mockUser);
+        $import->setInputDateStart(new DateTime());
+        $import->setInputDateEnd(new DateTime());
         $import->setSourceFile($file);
         $import->setMap($this->getIbdMap($columns));
 
-        $container = $this->getContainer();
+        $container      = $this->getContainer();
         $linkerRegistry = $container->get('ns_import.linker_registry');
-        $linker = $linkerRegistry->getLinker($import->getCaseLinkerId());
+        $linker         = $linkerRegistry->getLinker($import->getCaseLinkerId());
 
         $processor = new ImportProcessor($container->get('ns_import.converters'), $container->get('doctrine.orm.entity_manager'), $linkerRegistry);
-        $this->assertEquals(['site','case_id'],$linker->getCriteria());
+        $this->assertEquals(['site', 'case_id'], $linker->getCriteria());
         $processor->setDuplicate(new Duplicate($linker->getCriteria()));
-        $writer = $processor->getWriter($import->getClass(), $linker->getCriteria(), $linker->getRepositoryMethod());
+        $writer     = $processor->getWriter($import->getClass(), $linker->getCriteria(), $linker->getRepositoryMethod());
         $repoMethod = $writer->getEntityRepositoryMethod();
         $this->assertInternalType('callable', $repoMethod);
         $this->assertEquals($repoMethod[1], 'findBySiteAndCaseId');
 
-        $result    = $processor->process($import);
+        $result = $processor->process($import);
 
-        if (\count($result->getExceptions()) > 0) {
-            $this->fail('Error Count: ' .$result->getErrorCount());
+        if (count($result->getExceptions()) > 0) {
+            $this->fail('Error Count: ' . $result->getErrorCount());
         }
 
         $this->assertEquals(2, $result->getSuccessCount());
     }
 
-    public function testImportWithReferenceLabFields()
+    public function testImportWithReferenceLabFields(): void
     {
         $columns = [
             [
-                'name'      => 'site_CODE',
+                'name' => 'site_CODE',
                 'converter' => 'ns.sentinel.converter.site',
-                'mapper'    => 'site',
-                'ignored'   => false,
+                'mapper' => 'site',
+                'ignored' => false,
             ],
             [
-                'name'      => 'case_id',
+                'name' => 'case_id',
                 'converter' => null,
-                'mapper'    => null,
-                'ignored'   => false,
+                'mapper' => null,
+                'ignored' => false,
             ],
             [
-                'name'      => 'lastName',
+                'name' => 'lastName',
                 'converter' => null,
-                'mapper'    => null,
-                'ignored'   => false,
+                'mapper' => null,
+                'ignored' => false,
             ],
             [
-                'name'      => 'date received',
+                'name' => 'date received',
                 'converter' => 'ns_import.converter.date.afr1',
-                'mapper'    => 'referenceLab.date_received',
-                'ignored'   => false,
+                'mapper' => 'referenceLab.date_received',
+                'ignored' => false,
             ],
             [
-                'name'      => 'lab id',
+                'name' => 'lab id',
                 'converter' => null,
-                'mapper'    => 'referenceLab.lab_id',
-                'ignored'   => false,
+                'mapper' => 'referenceLab.lab_id',
+                'ignored' => false,
             ],
         ];
 
-        $file = new File(__DIR__ . '/../Fixtures/IBD-CasePlusRRL.csv');
-        $mockUser = $this->createMock('Symfony\Component\Security\Core\User\UserInterface');
-        $import = new Import($mockUser);
-        $import->setInputDateStart(new \DateTime());
-        $import->setInputDateEnd(new \DateTime());
+        $file     = new File(__DIR__ . '/../Fixtures/IBD-CasePlusRRL.csv');
+        $mockUser = $this->createMock(UserInterface::class);
+        $import   = new Import($mockUser);
+        $import->setInputDateStart(new DateTime());
+        $import->setInputDateEnd(new DateTime());
         $import->setSourceFile($file);
         $import->setMap($this->getIbdMap($columns));
 
-        $container = $this->getContainer();
+        $container      = $this->getContainer();
         $linkerRegistry = $container->get('ns_import.linker_registry');
-        $linker = $linkerRegistry->getLinker($import->getCaseLinkerId());
+        $linker         = $linkerRegistry->getLinker($import->getCaseLinkerId());
 
         $processor = new ImportProcessor($container->get('ns_import.converters'), $container->get('doctrine.orm.entity_manager'), $linkerRegistry);
         $processor->setDuplicate(new Duplicate($linker->getCriteria()));
-        $writer = $processor->getWriter($import->getClass(), $linker->getCriteria(), $linker->getRepositoryMethod());
+        $writer     = $processor->getWriter($import->getClass(), $linker->getCriteria(), $linker->getRepositoryMethod());
         $repoMethod = $writer->getEntityRepositoryMethod();
-        $this->assertTrue(is_callable($repoMethod));
+        $this->assertInternalType('callable', $repoMethod);
         $this->assertEquals($repoMethod[1], 'findBySiteAndCaseId');
 
-        $result    = $processor->process($import);
+        $result = $processor->process($import);
 
         if (count($result->getExceptions()) > 0) {
-            $this->fail('Error Count: '.$result->getErrorCount());
+            $this->fail('Error Count: ' . $result->getErrorCount());
         }
 
         $this->assertEquals(2, $result->getSuccessCount());
     }
 
-    public function testWarningsAdded()
+    public function testWarningsAdded(): void
     {
         $columns = [
             [
-                'name'      => 'site_CODE',
+                'name' => 'site_CODE',
                 'converter' => 'ns.sentinel.converter.site',
-                'mapper'    => 'site',
-                'ignored'   => false,
+                'mapper' => 'site',
+                'ignored' => false,
             ],
             [
-                'name'      => 'case_id',
+                'name' => 'case_id',
                 'converter' => null,
-                'mapper'    => null,
-                'ignored'   => false,
+                'mapper' => null,
+                'ignored' => false,
             ],
             [
-                'name'      => 'lastName',
+                'name' => 'lastName',
                 'converter' => null,
-                'mapper'    => null,
-                'ignored'   => false,
+                'mapper' => null,
+                'ignored' => false,
             ],
             [
-                'name'      => 'anTibioTics',
+                'name' => 'anTibioTics',
                 'converter' => 'ns.sentinel.converter.triple_choice',
-                'mapper'    => 'antibiotics',
-                'ignored'   => false,
+                'mapper' => 'antibiotics',
+                'ignored' => false,
             ],
             [
-                'name'      => 'date received',
+                'name' => 'date received',
                 'converter' => 'ns_import.converter.date.afr1',
-                'mapper'    => 'referenceLab.date_received',
-                'ignored'   => false,
+                'mapper' => 'referenceLab.date_received',
+                'ignored' => false,
             ],
             [
-                'name'      => 'lab id',
+                'name' => 'lab id',
                 'converter' => null,
-                'mapper'    => 'referenceLab.lab_id',
-                'ignored'   => false,
+                'mapper' => 'referenceLab.lab_id',
+                'ignored' => false,
             ],
         ];
 
-        $file = new File(__DIR__ . '/../Fixtures/IBD-CasePlusRRL-WithWarning.csv');
-        $mockUser = $this->createMock('Symfony\Component\Security\Core\User\UserInterface');
-        $import = new Import($mockUser);
-        $import->setInputDateStart(new \DateTime());
-        $import->setInputDateEnd(new \DateTime());
+        $file     = new File(__DIR__ . '/../Fixtures/IBD-CasePlusRRL-WithWarning.csv');
+        $mockUser = $this->createMock(UserInterface::class);
+        $import   = new Import($mockUser);
+        $import->setInputDateStart(new DateTime());
+        $import->setInputDateEnd(new DateTime());
         $import->setSourceFile($file);
         $import->setMap($this->getIbdMap($columns));
 
-        $container = $this->getContainer();
+        $container      = $this->getContainer();
         $linkerRegistry = $container->get('ns_import.linker_registry');
-        $linker = $linkerRegistry->getLinker($import->getCaseLinkerId());
+        $linker         = $linkerRegistry->getLinker($import->getCaseLinkerId());
 
         $processor = new ImportProcessor($container->get('ns_import.converters'), $container->get('doctrine.orm.entity_manager'), $linkerRegistry);
         $processor->setDuplicate(new Duplicate($linker->getCriteria()));
-        $writer = $processor->getWriter($import->getClass(), $linker->getCriteria(), $linker->getRepositoryMethod());
+        $writer     = $processor->getWriter($import->getClass(), $linker->getCriteria(), $linker->getRepositoryMethod());
         $repoMethod = $writer->getEntityRepositoryMethod();
-        $this->assertTrue(is_callable($repoMethod));
+        $this->assertInternalType('callable', $repoMethod);
         $this->assertEquals($repoMethod[1], 'findBySiteAndCaseId');
 
-        $result    = $processor->process($import);
+        $result = $processor->process($import);
 
         if (count($result->getExceptions()) > 0) {
-            $this->fail('Error Count: '.$result->getErrorCount());
+            $this->fail('Error Count: ' . $result->getErrorCount());
         }
 
         $this->assertEquals(2, $result->getSuccessCount());
         $results = $writer->getResults();
-        $this->assertInstanceOf('NS\SentinelBundle\Entity\IBD', $results[0]);
+        $this->assertInstanceOf(IBD::class, $results[0]);
         $this->assertTrue($results[0]->hasWarning());
-        $this->assertInstanceOf('NS\SentinelBundle\Entity\IBD', $results[1]);
+        $this->assertInstanceOf(IBD::class, $results[1]);
         $this->assertFalse($results[1]->hasWarning());
     }
 
     /**
      * @group futureDate
      */
-    public function testNoFutureDate()
+    public function testNoFutureDate(): void
     {
         $columns = [
             [
-                'name'      => 'site_CODE',
+                'name' => 'site_CODE',
                 'converter' => 'ns.sentinel.converter.site',
-                'mapper'    => 'site',
-                'ignored'   => false,
+                'mapper' => 'site',
+                'ignored' => false,
             ],
             [
-                'name'      => 'case_id',
+                'name' => 'case_id',
                 'converter' => null,
-                'mapper'    => null,
-                'ignored'   => false,
+                'mapper' => null,
+                'ignored' => false,
             ],
             [
-                'name'      => 'lastName',
+                'name' => 'lastName',
                 'converter' => null,
-                'mapper'    => null,
-                'ignored'   => false,
+                'mapper' => null,
+                'ignored' => false,
             ],
             [
-                'name'      => 'date received',
+                'name' => 'date received',
                 'converter' => 'ns_import.converter.date.year_month_day',
-                'mapper'    => 'referenceLab.dt_sample_recd',
-                'ignored'   => false,
+                'mapper' => 'referenceLab.dt_sample_recd',
+                'ignored' => false,
             ],
             [
-                'name'      => 'lab id',
+                'name' => 'lab id',
                 'converter' => null,
-                'mapper'    => 'referenceLab.lab_id',
-                'ignored'   => false,
+                'mapper' => 'referenceLab.lab_id',
+                'ignored' => false,
             ],
         ];
 
-        $file = new File(__DIR__ . '/../Fixtures/IBD-CasePlusRRL-FutureDate.csv');
-        $mockUser = $this->createMock('Symfony\Component\Security\Core\User\UserInterface');
-        $import = new Import($mockUser);
-        $import->setInputDateStart(new \DateTime());
-        $import->setInputDateEnd(new \DateTime());
+        $file     = new File(__DIR__ . '/../Fixtures/IBD-CasePlusRRL-FutureDate.csv');
+        $mockUser = $this->createMock(UserInterface::class);
+        $import   = new Import($mockUser);
+        $import->setInputDateStart(new DateTime('2018-01-01'));
+        $import->setInputDateEnd(new DateTime('2023-12-31'));
         $import->setSourceFile($file);
         $import->setMap($this->getIbdMap($columns));
 
-        $container = $this->getContainer();
+        $container      = $this->getContainer();
         $linkerRegistry = $container->get('ns_import.linker_registry');
-        $linker = $linkerRegistry->getLinker($import->getCaseLinkerId());
+        $linker         = $linkerRegistry->getLinker($import->getCaseLinkerId());
 
         $processor = new ImportProcessor($container->get('ns_import.converters'), $container->get('doctrine.orm.entity_manager'), $linkerRegistry);
         $processor->setDuplicate(new Duplicate($linker->getCriteria()));
@@ -779,78 +794,78 @@ class ImportProcessorTest extends WebTestCase
         $result = $processor->process($import);
 
         if (count($result->getExceptions()) > 0) {
-            $this->fail('Error Count: '.$result->getErrorCount());
+            $this->fail('Error Count: ' . $result->getErrorCount());
         }
 
         $this->assertEquals(2, $result->getSuccessCount());
         $results = $writer->getResults();
-        $this->assertInstanceOf('NS\SentinelBundle\Entity\IBD', $results[0]);
+        $this->assertInstanceOf(IBD::class, $results[0]);
         $this->assertTrue($results[0]->hasWarning());
-        $this->assertInstanceOf('NS\SentinelBundle\Entity\IBD\ReferenceLab',$results[0]->getReferenceLab());
-        $this->assertEquals('1125',$results[0]->getReferenceLab()->getLabId());
-        $this->assertInstanceOf('\DateTime', $results[0]->getReferenceLab()->getDateReceived());
-        $this->assertInstanceOf('NS\SentinelBundle\Entity\IBD',$results[1]);
-        $this->assertFalse($results[1]->hasWarning());
+        $this->assertInstanceOf(ReferenceLab::class, $results[0]->getReferenceLab());
+        $this->assertEquals('1125', $results[0]->getReferenceLab()->getLabId());
+        $this->assertInstanceOf(DateTime::class, $results[0]->getReferenceLab()->getDateReceived());
+        $this->assertInstanceOf(IBD::class, $results[1]);
+        $this->assertFalse($results[1]->hasWarning()); // This starts to fail March 1, 2015?
     }
 
     /**
      * @group futureDate
      */
-    public function testDatesInRange()
+    public function testDatesInRange(): void
     {
         $columns = [
             [
-                'name'      => 'site_CODE',
+                'name' => 'site_CODE',
                 'converter' => 'ns.sentinel.converter.site',
-                'mapper'    => 'site',
-                'ignored'   => false,
+                'mapper' => 'site',
+                'ignored' => false,
             ],
             [
-                'name'      => 'case_id',
+                'name' => 'case_id',
                 'converter' => null,
-                'mapper'    => null,
-                'ignored'   => false,
+                'mapper' => null,
+                'ignored' => false,
             ],
             [
-                'name'      => 'AdmDate',
+                'name' => 'AdmDate',
                 'converter' => 'ns_import.converter.date.year_month_day',
-                'mapper'    => 'adm_date',
-                'ignored'   => false,
+                'mapper' => 'adm_date',
+                'ignored' => false,
             ],
             [
-                'name'      => 'lastName',
+                'name' => 'lastName',
                 'converter' => null,
-                'mapper'    => null,
-                'ignored'   => false,
+                'mapper' => null,
+                'ignored' => false,
             ],
             [
-                'name'      => 'date received',
+                'name' => 'date received',
                 'converter' => 'ns_import.converter.date.year_month_day',
-                'mapper'    => 'referenceLab.date_received',
-                'ignored'   => false,
+                'mapper' => 'referenceLab.date_received',
+                'ignored' => false,
             ],
             [
-                'name'      => 'lab id',
+                'name' => 'lab id',
                 'converter' => null,
-                'mapper'    => 'referenceLab.lab_id',
-                'ignored'   => false,
+                'mapper' => 'referenceLab.lab_id',
+                'ignored' => false,
             ],
         ];
 
-        $start = new \DateTime('2015-08-01');
-        $end = new \DateTime('2015-08-30');
+        $start = new DateTime('2015-08-01');
+        $end   = new DateTime('2015-08-30');
 
-        $file = new File(__DIR__ . '/../Fixtures/IBD-CasePlusRRL-DatesInRange.csv');
-        $mockUser = $this->createMock('Symfony\Component\Security\Core\User\UserInterface');
-        $import = new Import($mockUser);
+        $file     = new File(__DIR__ . '/../Fixtures/IBD-CasePlusRRL-DatesInRange.csv');
+        $mockUser = $this->createMock(UserInterface::class);
+        $import   = new Import($mockUser);
         $import->setInputDateStart($start);
         $import->setInputDateEnd($end);
         $import->setSourceFile($file);
         $import->setMap($this->getIbdMap($columns));
 
-        $container = $this->getContainer();
+        $container      = $this->getContainer();
         $linkerRegistry = $container->get('ns_import.linker_registry');
-        $linker = $linkerRegistry->getLinker($import->getCaseLinkerId());
+        $linker         = $linkerRegistry->getLinker($import->getCaseLinkerId());
 
         $processor = new ImportProcessor($container->get('ns_import.converters'), $container->get('doctrine.orm.entity_manager'), $linkerRegistry);
         $processor->setDuplicate(new Duplicate($linker->getCriteria()));
@@ -858,15 +873,15 @@ class ImportProcessorTest extends WebTestCase
         $result = $processor->process($import);
 
         if (count($result->getExceptions()) > 0) {
-            $this->fail('Error Count: '.$result->getErrorCount());
+            $this->fail('Error Count: ' . $result->getErrorCount());
         }
 
         $this->assertEquals(2, $result->getSuccessCount());
         $results = $writer->getResults();
-        $this->assertInstanceOf('NS\SentinelBundle\Entity\IBD', $results[0]);
+        $this->assertInstanceOf(IBD::class, $results[0]);
         $this->assertTrue($results[0]->hasWarning());
-        $this->assertInstanceOf('\DateTime', $results[0]->getAdmDate());
-        $this->assertInstanceOf('NS\SentinelBundle\Entity\IBD', $results[1]);
+        $this->assertInstanceOf(DateTime::class, $results[0]->getAdmDate());
+        $this->assertInstanceOf(IBD::class, $results[1]);
         $this->assertFalse($results[1]->hasWarning());
     }
 
@@ -883,23 +898,23 @@ class ImportProcessorTest extends WebTestCase
      * otherwise it will change it to 3, which matches the third condition which then changes it to 6. This would seem
      * like a nice feature, except a single condition can be individually complex enough to express something like that.
      */
-    public function testPreProcessor()
+    public function testPreProcessor(): void
     {
         $columns = [
             [
-                'name'      => 'site_CODE',
+                'name' => 'site_CODE',
                 'converter' => 'ns.sentinel.converter.site',
-                'mapper'    => 'site',
-                'ignored'   => false,
+                'mapper' => 'site',
+                'ignored' => false,
             ],
             [
-                'name'      => 'case_ID',
+                'name' => 'case_ID',
                 'converter' => null,
-                'mapper'    => 'case_id',
-                'ignored'   => false,
+                'mapper' => 'case_id',
+                'ignored' => false,
             ],
             [
-                'name'      => 'adm_dx',
+                'name' => 'adm_dx',
                 'preProcessor' => '[
                                      {"conditions":{"condition":"AND","rules":[{"id":"adm_dx","field":"adm_dx","type":"string","input":"text","operator":"equal","value":"1"}]},"output_value":"3"},
                                      {"conditions":{"condition":"AND","rules":[{"id":"adm_dx","field":"adm_dx","type":"string","input":"text","operator":"equal","value":"2"}]},"output_value":"1"},
@@ -908,31 +923,31 @@ class ImportProcessorTest extends WebTestCase
                                      {"conditions":{"condition":"AND","rules":[{"id":"adm_dx","field":"adm_dx","type":"string","input":"text","operator":"equal","value":"9"}]},"output_value":"99"}
                                    ]',
                 'converter' => 'ns.sentinel.converter.diagnosis',
-                'mapper'    => 'adm_dx',
-                'ignored'   => false,
+                'mapper' => 'adm_dx',
+                'ignored' => false,
             ],
             [
-                'name'      => 'lName',
-                'preProcessor'=> '[
+                'name' => 'lName',
+                'preProcessor' => '[
                                  {"conditions":{"condition":"AND","rules":[{"id":"lName","field":"lName","type":"string","input":"text","operator":"equal","value":"l Name2"}]},"output_value":"Second"}
                                 ]',
                 'converter' => null,
-                'mapper'    => 'lastName',
-                'ignored'   => false,
+                'mapper' => 'lastName',
+                'ignored' => false,
             ],
         ];
 
-        $file = new File(__DIR__ . '/../Fixtures/IBD-PreProcess.csv');
-        $mockUser = $this->createMock('Symfony\Component\Security\Core\User\UserInterface');
-        $import = new Import($mockUser);
-        $import->setInputDateStart(new \DateTime('2015-08-01'));
-        $import->setInputDateEnd(new \DateTime('2015-08-30'));
+        $file     = new File(__DIR__ . '/../Fixtures/IBD-PreProcess.csv');
+        $mockUser = $this->createMock(UserInterface::class);
+        $import   = new Import($mockUser);
+        $import->setInputDateStart(new DateTime('2015-08-01'));
+        $import->setInputDateEnd(new DateTime('2015-08-30'));
         $import->setSourceFile($file);
         $import->setMap($this->getIbdMap($columns));
 
-        $container = $this->getContainer();
+        $container      = $this->getContainer();
         $linkerRegistry = $container->get('ns_import.linker_registry');
-        $linker = $linkerRegistry->getLinker($import->getCaseLinkerId());
+        $linker         = $linkerRegistry->getLinker($import->getCaseLinkerId());
 
         $processor = new ImportProcessor($container->get('ns_import.converters'), $container->get('doctrine.orm.entity_manager'), $linkerRegistry);
         $processor->setDuplicate(new Duplicate($linker->getCriteria()));
@@ -944,75 +959,75 @@ class ImportProcessorTest extends WebTestCase
             $exceptions->rewind();
             $object = $exceptions->current();
 
-            $this->fail('Error Count: '.$result->getErrorCount().' '.$object->getMessage());
+            $this->fail('Error Count: ' . $result->getErrorCount() . ' ' . $object->getMessage());
         }
 
         $this->assertEquals(6, $result->getSuccessCount());
         $results = $writer->getResults();
-        $this->assertInstanceOf('NS\SentinelBundle\Entity\IBD', $results[0]);
+        $this->assertInstanceOf(IBD::class, $results[0]);
 
-        $this->assertInstanceOf('NS\SentinelBundle\Form\IBD\Types\Diagnosis', $results[0]->getAdmDx());
+        $this->assertInstanceOf(Diagnosis::class, $results[0]->getAdmDx());
         $this->assertTrue($results[0]->getAdmDx()->equal(3), sprintf('%d != %d', 3, $results[0]->getAdmDx()->getValue()));
 
-        $this->assertInstanceOf('NS\SentinelBundle\Form\IBD\Types\Diagnosis', $results[1]->getAdmDx());
+        $this->assertInstanceOf(Diagnosis::class, $results[1]->getAdmDx());
         $this->assertTrue($results[1]->getAdmDx()->equal(1), sprintf('%d != %d', 1, $results[1]->getAdmDx()->getValue()));
         $this->assertEquals('Second', $results[1]->getLastName());
 
-        $this->assertInstanceOf('NS\SentinelBundle\Form\IBD\Types\Diagnosis', $results[2]->getAdmDx());
+        $this->assertInstanceOf(Diagnosis::class, $results[2]->getAdmDx());
         $this->assertTrue($results[2]->getAdmDx()->equal(4), sprintf('%d != %d', 4, $results[2]->getAdmDx()->getValue()));
 
-        $this->assertInstanceOf('NS\SentinelBundle\Form\IBD\Types\Diagnosis', $results[3]->getAdmDx());
+        $this->assertInstanceOf(Diagnosis::class, $results[3]->getAdmDx());
         $this->assertTrue($results[3]->getAdmDx()->equal(6), sprintf('%d != %d', 6, $results[3]->getAdmDx()->getValue()));
 
-        $this->assertInstanceOf('NS\SentinelBundle\Form\IBD\Types\Diagnosis', $results[4]->getAdmDx());
+        $this->assertInstanceOf(Diagnosis::class, $results[4]->getAdmDx());
         $this->assertTrue($results[4]->getAdmDx()->equal(99), sprintf('%d != %d', 99, $results[4]->getAdmDx()->getValue()));
 
-        $this->assertInstanceOf('NS\SentinelBundle\Form\IBD\Types\Diagnosis', $results[5]->getAdmDx());
+        $this->assertInstanceOf(Diagnosis::class, $results[5]->getAdmDx());
         $this->assertTrue($results[5]->getAdmDx()->equal(6), sprintf('%d != %d', 6, $results[5]->getAdmDx()->getValue()));
     }
 
     /**
      * @group dobFilter
      */
-    public function testDateOfBirthFilter()
+    public function testDateOfBirthFilter(): void
     {
         $columns = [
             [
-                'name'      => 'site_CODE',
+                'name' => 'site_CODE',
                 'converter' => 'ns.sentinel.converter.site',
-                'mapper'    => 'site',
-                'ignored'   => false,
+                'mapper' => 'site',
+                'ignored' => false,
             ],
             [
-                'name'      => 'case_ID',
+                'name' => 'case_ID',
                 'converter' => null,
-                'mapper'    => 'case_id',
-                'ignored'   => false,
+                'mapper' => 'case_id',
+                'ignored' => false,
             ],
             [
-                'name'      => 'adm_date',
+                'name' => 'adm_date',
                 'converter' => 'ns_import.converter.date.iso',
-                'mapper'    => 'adm_date',
-                'ignored'   => false,
+                'mapper' => 'adm_date',
+                'ignored' => false,
             ],
             [
-                'name'      => 'birthday',
+                'name' => 'birthday',
                 'converter' => 'ns_import.converter.date.iso',
-                'mapper'    => 'birthdate',
-                'ignored'   => false,
+                'mapper' => 'birthdate',
+                'ignored' => false,
             ],
         ];
 
-        $file = new File(__DIR__ . '/../Fixtures/DobAdmDate.csv');
-        $mockUser = $this->createMock('Symfony\Component\Security\Core\User\UserInterface');
-        $import = new Import($mockUser);
-        $import->setInputDateStart(new \DateTime('2014-01-01'));
-        $import->setInputDateEnd(new \DateTime('2017-01-30'));
+        $file     = new File(__DIR__ . '/../Fixtures/DobAdmDate.csv');
+        $mockUser = $this->createMock(UserInterface::class);
+        $import   = new Import($mockUser);
+        $import->setInputDateStart(new DateTime('2014-01-01'));
+        $import->setInputDateEnd(new DateTime('2017-01-30'));
         $import->setSourceFile($file);
         $import->setMap($this->getIbdMap($columns));
 
         $importer = $this->getContainer()->get('ns_import.processor');
-        $result = $importer->process($import);
+        $result   = $importer->process($import);
         $this->assertEquals(2, $result->getTotalProcessedCount());
         $this->assertEquals(2, $result->getSuccessCount());
         $this->assertEquals(0, $result->getSkippedCount());
@@ -1020,15 +1035,15 @@ class ImportProcessorTest extends WebTestCase
 
     public function getReferenceLabMap(array $columns)
     {
-        return $this->getMap('NS\SentinelBundle\Entity\IBD\ReferenceLab', 'IBD Reference Lab', $columns);
+        return $this->getMap(ReferenceLab::class, 'IBD Reference Lab', $columns);
     }
 
     public function getIbdMap(array $columns)
     {
-        return $this->getMap('NS\SentinelBundle\Entity\IBD', 'IBD Clinical', $columns);
+        return $this->getMap(IBD::class, 'IBD Clinical', $columns);
     }
 
-    public function getMap($class, $name, $columns, $linker = 'ns_import.standard_case_linker')
+    public function getMap($class, $name, $columns, $linker = 'ns_import.standard_case_linker'): Map
     {
         $map = new Map();
         $map->setName($name);
@@ -1050,32 +1065,32 @@ class ImportProcessorTest extends WebTestCase
         return $map;
     }
 
-    public function getIbdColumns()
+    public function getIbdColumns(): array
     {
         return [
             [
-                'name'      => 'ISO3_code',
+                'name' => 'ISO3_code',
                 'converter' => null,
-                'mapper'    => null,
-                'ignored'   => true,
+                'mapper' => null,
+                'ignored' => true,
             ],
             [
-                'name'      => 'site_code',
+                'name' => 'site_code',
                 'converter' => 'ns.sentinel.converter.site',
-                'mapper'    => 'site',
-                'ignored'   => false,
+                'mapper' => 'site',
+                'ignored' => false,
             ],
             [
-                'name'      => 'case_ID',
+                'name' => 'case_ID',
                 'converter' => null,
-                'mapper'    => 'case_id',
-                'ignored'   => false,
+                'mapper' => 'case_id',
+                'ignored' => false,
             ],
             [
-                'name'      => 'gender',
+                'name' => 'gender',
                 'converter' => 'ns.sentinel.converter.gender',
-                'mapper'    => 'gender',
-                'ignored'   => false,
+                'mapper' => 'gender',
+                'ignored' => false,
             ],
         ];
     }

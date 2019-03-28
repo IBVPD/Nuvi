@@ -4,6 +4,10 @@ namespace NS\SentinelBundle\Tests\Form\Types;
 
 use NS\SentinelBundle\Form\Types\Role;
 use Symfony\Component\Form\Test\TypeTestCase;
+use UnexpectedValueException;
+use NS\SentinelBundle\Entity\Country;
+use NS\SentinelBundle\Entity\Site;
+use NS\SentinelBundle\Entity\Region;
 
 /**
  * Description of RoleTypeTest
@@ -14,7 +18,7 @@ class RoleTypeTest extends TypeTestCase
 {
 
     /**
-     * @expectedException \UnexpectedValueException
+     * @expectedException UnexpectedValueException
      */
     public function testInvalidRoleMap()
     {
@@ -69,12 +73,12 @@ class RoleTypeTest extends TypeTestCase
     public function getClassMatchProvider()
     {
         return [
-            ['roleStr' => 'ROLE_REGION', 'entity' => 'NS\SentinelBundle\Entity\Region'],
-            ['roleStr' => 'ROLE_COUNTRY', 'entity' => 'NS\SentinelBundle\Entity\Country'],
-            ['roleStr' => 'ROLE_SITE', 'entity' => 'NS\SentinelBundle\Entity\Site'],
-            ['roleStr' => 'ROLE_LAB', 'entity' => 'NS\SentinelBundle\Entity\Site'],
-            ['roleStr' => 'ROLE_NL_LAB', 'entity' => 'NS\SentinelBundle\Entity\Country'],
-            ['roleStr' => 'ROLE_RRL_LAB', 'entity' => 'NS\SentinelBundle\Entity\Country'],
+            ['roleStr' => 'ROLE_REGION', 'entity' => Region::class],
+            ['roleStr' => 'ROLE_COUNTRY', 'entity' => Country::class],
+            ['roleStr' => 'ROLE_SITE', 'entity' => Site::class],
+            ['roleStr' => 'ROLE_LAB', 'entity' => Site::class],
+            ['roleStr' => 'ROLE_NL_LAB', 'entity' => Country::class],
+            ['roleStr' => 'ROLE_RRL_LAB', 'entity' => Country::class],
         ];
     }
 

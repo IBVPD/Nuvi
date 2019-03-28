@@ -15,7 +15,7 @@ class IBDControllerTest extends WebTestCase
 {
     const ID = 'CA-ALBCHLD-15-000001';
 
-    public function testGetCase()
+    public function testGetCase(): void
     {
         $route  = $this->getRoute();
         $client = $this->getClient();
@@ -31,7 +31,7 @@ class IBDControllerTest extends WebTestCase
         $this->assertEquals(self::ID, $decoded['id']);
     }
 
-    public function testPatchCase()
+    public function testPatchCase(): void
     {
         $route  = $this->getRoute('nsApiIbdPatchCase');
         $client = $this->getClient();
@@ -43,14 +43,14 @@ class IBDControllerTest extends WebTestCase
         }
 
         $this->assertEquals(204, $response->getStatusCode());
-        $this->assertFalse($response->headers->has('Location'), "We have a location header");
+        $this->assertFalse($response->headers->has('Location'), 'We have a location header');
 
         $case = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:IBD')->find(self::ID);
-        $this->assertEquals("Fabien", $case->getLastName(), "Change has occurred");
+        $this->assertEquals('Fabien', $case->getLastName(), 'Change has occurred');
         $this->assertTrue($case->getGender()->equal(Gender::MALE));
     }
 
-    public function testPostCase()
+    public function testPostCase(): void
     {
         $route  = $this->getUrl('nsApiIbdPostCase');
         $client = $this->getClient();
@@ -62,7 +62,7 @@ class IBDControllerTest extends WebTestCase
         }
 
         $this->assertEquals(201, $response->getStatusCode());
-        $this->assertTrue($response->headers->has('Location'), "We have a location header");
+        $this->assertTrue($response->headers->has('Location'), 'We have a location header');
 
         $client->request('GET', $response->headers->get('Location'));
         $response = $client->getResponse();
@@ -71,13 +71,13 @@ class IBDControllerTest extends WebTestCase
 
         $this->assertArrayHasKey('case_id', $decoded);
         $this->assertArrayNotHasKey('lab', $decoded);
-        $this->assertEquals("ANewCaseId", $decoded['case_id']);
+        $this->assertEquals('ANewCaseId', $decoded['case_id']);
     }
 
     /**
      * @group lab
      */
-    public function testLabCase()
+    public function testLabCase(): void
     {
         $route  = $this->getUrl('nsApiIbdPatchLab', ['objId' => self::ID]);
         $client = $this->getClient();
@@ -85,7 +85,7 @@ class IBDControllerTest extends WebTestCase
 
         $response = $client->getResponse();
         $this->assertEquals(204, $response->getStatusCode(), $route);
-        $this->assertFalse($response->headers->has('Location'), "We have a location header");
+        $this->assertFalse($response->headers->has('Location'), 'We have a location header');
 
         $client->request('GET', $this->getRoute('nsApiIbdGetLab'));
         $response = $client->getResponse();
@@ -93,20 +93,20 @@ class IBDControllerTest extends WebTestCase
         $decoded  = json_decode($response->getContent(), true);
 
         $this->assertArrayHasKey('csf_id', $decoded);
-        $this->assertEquals("ANewCaseId", $decoded['csf_id']);
+        $this->assertEquals('ANewCaseId', $decoded['csf_id']);
     }
 
     /**
      * {@inheritdoc}
      * @SuppressWarnings(PHPMD.UnusedLocalVariable)
      */
-    public function testGetRRLCase()
+    public function testGetRRLCase(): void
     {
         $client = $this->getClient();
         $client->request('GET', $this->getRoute('nsApiIbdGetRRL'));
 
         $response = $client->getResponse();
-        if ($response->getStatusCode() == 500) {
+        if ($response->getStatusCode() === 500) {
             file_put_contents('/tmp/nsApiIbdGetRRL.log', $response->getContent());
         }
 
@@ -114,7 +114,7 @@ class IBDControllerTest extends WebTestCase
         json_decode($response->getContent(), true);
     }
 
-    public function testPatchRRLCase()
+    public function testPatchRRLCase(): void
     {
         $route  = $this->getRoute('nsApiIbdPatchRRL');
         $client = $this->getClient();
@@ -122,7 +122,7 @@ class IBDControllerTest extends WebTestCase
 
         $response = $client->getResponse();
         $this->assertEquals(403, $response->getStatusCode());
-        $this->assertFalse($response->headers->has('Location'), "We have a location header");
+        $this->assertFalse($response->headers->has('Location'), 'We have a location header');
 
 // Because our user can't patch the RRL, no data is set/changed.
 //        $client->request('GET', $this->getRoute('nsApiIbdGetRRL'));
@@ -134,7 +134,7 @@ class IBDControllerTest extends WebTestCase
 //        $this->assertEquals("ANewCaseId", $decoded['LabId']);
     }
 
-    public function testPutRRLCase()
+    public function testPutRRLCase(): void
     {
         $route  = $this->getRoute('nsApiIbdPutRRL');
         $client = $this->getClient();
@@ -142,7 +142,7 @@ class IBDControllerTest extends WebTestCase
 
         $response = $client->getResponse();
         $this->assertEquals(403, $response->getStatusCode());
-        $this->assertFalse($response->headers->has('Location'), "We have a location header");
+        $this->assertFalse($response->headers->has('Location'), 'We have a location header');
 
 // Because our user can't patch the RRL, no data is set/changed.
 //        $client->request('GET', $this->getRoute('nsApiIbdGetRRL'));
@@ -155,7 +155,7 @@ class IBDControllerTest extends WebTestCase
 //        $this->assertArrayHasKey('SampleType', $decoded);
     }
 
-    public function testGetNLCase()
+    public function testGetNLCase(): void
     {
         $route  = $this->getRoute('nsApiIbdGetNL');
         $client = $this->getClient();
@@ -168,7 +168,7 @@ class IBDControllerTest extends WebTestCase
         $this->assertArrayHasKey('status', $decoded);
     }
 
-    public function testPatchNLCase()
+    public function testPatchNLCase(): void
     {
         $route  = $this->getRoute('nsApiIbdPatchNL');
         $client = $this->getClient();
@@ -176,7 +176,7 @@ class IBDControllerTest extends WebTestCase
 
         $response = $client->getResponse();
         $this->assertEquals(204, $response->getStatusCode(),$response->getContent());
-        $this->assertFalse($response->headers->has('Location'), "We have a location header");
+        $this->assertFalse($response->headers->has('Location'), 'We have a location header');
 
         $client->request('GET', $this->getRoute('nsApiIbdGetNL'));
         $response = $client->getResponse();
@@ -184,10 +184,10 @@ class IBDControllerTest extends WebTestCase
         $decoded  = json_decode($response->getContent(), true);
 
         $this->assertArrayHasKey('lab_id', $decoded,print_r($decoded,true));
-        $this->assertEquals("ANewCaseId", $decoded['lab_id']);
+        $this->assertEquals('ANewCaseId', $decoded['lab_id']);
     }
 
-    public function testPutNLCase()
+    public function testPutNLCase(): void
     {
         $route  = $this->getRoute('nsApiIbdPutNL');
         $client = $this->getClient();
@@ -195,7 +195,7 @@ class IBDControllerTest extends WebTestCase
 
         $response = $client->getResponse();
         $this->assertEquals(204, $response->getStatusCode());
-        $this->assertFalse($response->headers->has('Location'), "We have a location header");
+        $this->assertFalse($response->headers->has('Location'), 'We have a location header');
 
         $client->request('GET', $this->getRoute('nsApiIbdGetNL'));
         $response = $client->getResponse();
@@ -203,11 +203,11 @@ class IBDControllerTest extends WebTestCase
         $decoded  = json_decode($response->getContent(), true);
 
         $this->assertArrayHasKey('lab_id', $decoded);
-        $this->assertEquals("ANewCaseId", $decoded['lab_id']);
+        $this->assertEquals('ANewCaseId', $decoded['lab_id']);
         $this->assertArrayHasKey('type_sample_recd', $decoded,print_r($decoded,true));
     }
 
-    public function testPutCase()
+    public function testPutCase(): void
     {
         $route  = $this->getRoute('nsApiIbdPutCase');
         $client = $this->getClient();
@@ -215,14 +215,14 @@ class IBDControllerTest extends WebTestCase
 
         $response = $client->getResponse();
         $this->assertEquals(204, $response->getStatusCode());
-        $this->assertFalse($response->headers->has('Location'), "We have a location header");
+        $this->assertFalse($response->headers->has('Location'), 'We have a location header');
 
         $case = $this->getContainer()->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:IBD')->find(self::ID);
-        $this->assertEquals("Fabien", $case->getLastName(), "Change has occurred");
+        $this->assertEquals('Fabien', $case->getLastName(), 'Change has occurred');
         $this->assertEquals(ArrayChoice::NO_SELECTION, $case->getGender()->getValue());
     }
 
-    public function testPutCaseWithoutCaseId()
+    public function testPutCaseWithoutCaseId(): void
     {
         $route  = $this->getRoute('nsApiIbdPutCase');
         $client = $this->getClient();
@@ -232,9 +232,9 @@ class IBDControllerTest extends WebTestCase
         $this->assertJsonResponse($response, 400);
     }
 
-    protected function getRoute($route = 'nsApiIbdGetCase', $id = null)
+    protected function getRoute($route = 'nsApiIbdGetCase', $id = null): string
     {
-        $objId = $id === null ? self::ID : $id;
+        $objId = $id ?? self::ID;
 
         return $this->getUrl($route, ['objId' => $objId]);
     }

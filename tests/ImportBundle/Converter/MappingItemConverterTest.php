@@ -6,15 +6,16 @@ use Ddeboer\DataImport\Step\MappingStep;
 use NS\ImportBundle\Converter\UnsetMappingItemConverter;
 use NS\ImportBundle\Entity\Column;
 use NS\ImportBundle\Entity\Map;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Description of MappingItemConverterTest
  *
  * @author gnat
  */
-class MappingItemConverterTest extends \PHPUnit_Framework_TestCase
+class MappingItemConverterTest extends TestCase
 {
-    public function testBlankMap()
+    public function testBlankMap(): void
     {
         $columns = [
             [
@@ -73,7 +74,7 @@ class MappingItemConverterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $data);
     }
 
-    public function testDeepMapping()
+    public function testDeepMapping(): void
     {
         $data = [
             'Col1' => 1,
@@ -95,7 +96,7 @@ class MappingItemConverterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $data);
     }
 
-    public function testUnsetMappingConverter()
+    public function testUnsetMappingConverter(): void
     {
         $data = [
             'Col1' => 1,

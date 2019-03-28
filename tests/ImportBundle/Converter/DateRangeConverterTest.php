@@ -2,14 +2,16 @@
 
 namespace NS\ImportBundle\Tests\Converter;
 
+use DateTime;
 use NS\ImportBundle\Converter\DateRangeConverter;
+use PHPUnit\Framework\TestCase;
 
-class DateRangeConverterTest extends \PHPUnit_Framework_TestCase
+class DateRangeConverterTest extends TestCase
 {
-    public function testGetKey()
+    public function testGetKey(): void
     {
         $converter = new DateRangeConverter();
-        $retOne = $converter->getKey('key');
+        $retOne    = $converter->getKey('key');
         $this->assertEquals('key', $retOne);
 
         $retTwo = $converter->getKey('child', 'parent');
@@ -19,184 +21,184 @@ class DateRangeConverterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('parent.child.subChild', $retThree);
     }
 
-    public function testNoFutureDate()
+    public function testNoFutureDate(): void
     {
-        $today = new \DateTime();
-        $data = [
+        $today     = new DateTime();
+        $data      = [
             'field1' => null,
             'field2' => $today,
-            'field3' => new \DateTime('yesterday'),
+            'field3' => new DateTime('yesterday'),
             'field4' => 'a string',
             'field5' => true,
         ];
         $converter = new DateRangeConverter($today);
-        $retData = $converter->__invoke($data);
+        $retData   = $converter->__invoke($data);
         $this->assertEquals($data, $retData);
     }
 
-    public function testFutureDate()
+    public function testFutureDate(): void
     {
-        $today = new \DateTime();
-        $data = [
+        $today     = new DateTime();
+        $data      = [
             'field1' => null,
-            'field2' => new \DateTime('tomorrow'),
-            'field3' => new \DateTime('yesterday'),
+            'field2' => new DateTime('tomorrow'),
+            'field3' => new DateTime('yesterday'),
             'field4' => 'a string',
             'field5' => true,
         ];
         $converter = new DateRangeConverter($today);
-        $retData = $converter->__invoke($data);
+        $retData   = $converter->__invoke($data);
         $this->assertNotEquals($data, $retData);
         $this->assertNull($retData['field2']);
         $this->assertArrayHasKey('warning', $retData);
         $this->assertTrue($retData['warning']);
         $this->assertTrue($converter->hasMessage());
-        $this->assertEquals('[field2] has a date (' . $data['field2']->format('Y-m-d') . ') greater than ('.$today->format('Y-m-d').'). ', $converter->getMessage());
+        $this->assertEquals('[field2] has a date (' . $data['field2']->format('Y-m-d') . ') greater than (' . $today->format('Y-m-d') . '). ', $converter->getMessage());
     }
 
-    public function testRecursionNoFutureDate()
+    public function testRecursionNoFutureDate(): void
     {
-        $today = new \DateTime();
-        $yester = new \DateTime('yesterday');
+        $today  = new DateTime();
+        $yester = new DateTime('yesterday');
 
-        $data = [
+        $data         = [
             'field1' => null,
             'field2' => $today,
             'field3' => $yester,
             'field4' => 'a string',
             'field5' => true,
         ];
-        $sub1 = $data;
-        $sub2 = $data;
+        $sub1         = $data;
+        $sub2         = $data;
         $sub1['sub2'] = $sub2;
-        $data['sub'] = $sub1;
+        $data['sub']  = $sub1;
 
         $converter = new DateRangeConverter($today);
-        $retData = $converter->__invoke($data);
+        $retData   = $converter->__invoke($data);
         $this->assertEquals($data, $retData);
     }
 
-    public function testRecursionFutureDate()
+    public function testRecursionFutureDate(): void
     {
-        $today = new \DateTime();
-        $yester = new \DateTime('yesterday');
-        $tomorrow = new \DateTime('2999-01-02');
+        $today    = new DateTime();
+        $yester   = new DateTime('yesterday');
+        $tomorrow = new DateTime('2999-01-02');
 
-        $data = [
+        $data        = [
             'field1' => null,
             'field2' => $today,
             'field3' => $yester,
             'field4' => 'a string',
             'field5' => true,
         ];
-        $sub1 = $data;
-        $sub2 = $data;
+        $sub1        = $data;
+        $sub2        = $data;
         $sub2['tom'] = $tomorrow;
 
         $sub1['sub2'] = $sub2;
-        $data['sub'] = $sub1;
+        $data['sub']  = $sub1;
 
         $converter = new DateRangeConverter($today);
-        $retData = $converter->__invoke($data);
+        $converter->__invoke($data);
         $this->assertTrue($converter->hasMessage());
-        $this->assertEquals('[sub.sub2.tom] has a date (2999-01-02) greater than ('.$today->format('Y-m-d').'). ', $converter->getMessage());
+        $this->assertEquals('[sub.sub2.tom] has a date (2999-01-02) greater than (' . $today->format('Y-m-d') . '). ', $converter->getMessage());
     }
 
     //=============
-    public function testNoPastDate()
+    public function testNoPastDate(): void
     {
-        $today = new \DateTime();
-        $data = [
+        $today     = new DateTime();
+        $data      = [
             'field1' => null,
             'field2' => $today,
-            'field3' => new \DateTime('tomorrow'),
+            'field3' => new DateTime('tomorrow'),
             'field4' => 'a string',
             'field5' => true,
         ];
         $converter = new DateRangeConverter(null, $today);
-        $retData = $converter->__invoke($data);
+        $retData   = $converter->__invoke($data);
         $this->assertEquals($data, $retData);
     }
 
-    public function testPastDate()
+    public function testPastDate(): void
     {
-        $today = new \DateTime();
-        $data = [
+        $today     = new DateTime();
+        $data      = [
             'field1' => null,
-            'field2' => new \DateTime('tomorrow'),
-            'field3' => new \DateTime('yesterday'),
+            'field2' => new DateTime('tomorrow'),
+            'field3' => new DateTime('yesterday'),
             'field4' => 'a string',
             'field5' => true,
         ];
         $converter = new DateRangeConverter(null, $today);
-        $retData = $converter->__invoke($data);
+        $retData   = $converter->__invoke($data);
         $this->assertNotEquals($data, $retData);
         $this->assertNull($retData['field3']);
         $this->assertArrayHasKey('warning', $retData);
         $this->assertTrue($retData['warning']);
         $this->assertTrue($converter->hasMessage());
-        $this->assertEquals('[field3] has a date (' . $data['field3']->format('Y-m-d') . ') less than ('.$today->format('Y-m-d').'). ', $converter->getMessage());
+        $this->assertEquals('[field3] has a date (' . $data['field3']->format('Y-m-d') . ') less than (' . $today->format('Y-m-d') . '). ', $converter->getMessage());
     }
 
-    public function testRecursionNoPastDate()
+    public function testRecursionNoPastDate(): void
     {
-        $today = new \DateTime();
-        $tomorrow = new \DateTime('tomorrow');
+        $today    = new DateTime();
+        $tomorrow = new DateTime('tomorrow');
 
-        $data = [
+        $data         = [
             'field1' => null,
             'field2' => $today,
             'field3' => $tomorrow,
             'field4' => 'a string',
             'field5' => true,
         ];
-        $sub1 = $data;
-        $sub2 = $data;
+        $sub1         = $data;
+        $sub2         = $data;
         $sub1['sub2'] = $sub2;
-        $data['sub'] = $sub1;
+        $data['sub']  = $sub1;
 
         $converter = new DateRangeConverter(null, $today);
-        $retData = $converter->__invoke($data);
+        $retData   = $converter->__invoke($data);
         $this->assertEquals($data, $retData);
     }
 
-    public function testRecursionPastDate()
+    public function testRecursionPastDate(): void
     {
-        $today = new \DateTime();
-        $yesterday = new \DateTime('tomorrow');
-        $tomorrow = new \DateTime('2001-01-02');
+        $today     = new DateTime();
+        $yesterday = new DateTime('tomorrow');
+        $tomorrow  = new DateTime('2001-01-02');
 
-        $data = [
+        $data        = [
             'field1' => null,
             'field2' => $today,
             'field3' => $yesterday,
             'field4' => 'a string',
             'field5' => true,
         ];
-        $sub1 = $data;
-        $sub2 = $data;
+        $sub1        = $data;
+        $sub2        = $data;
         $sub2['tom'] = $tomorrow;
 
         $sub1['sub2'] = $sub2;
-        $data['sub'] = $sub1;
+        $data['sub']  = $sub1;
 
         $converter = new DateRangeConverter(null, $today);
-        $retData = $converter->__invoke($data);
+        $converter->__invoke($data);
         $this->assertTrue($converter->hasMessage());
-        $this->assertEquals('[sub.sub2.tom] has a date (2001-01-02) less than ('.$today->format('Y-m-d').'). ', $converter->getMessage());
+        $this->assertEquals('[sub.sub2.tom] has a date (2001-01-02) less than (' . $today->format('Y-m-d') . '). ', $converter->getMessage());
     }
 
     //=============
-    public function testInRangeDate()
+    public function testInRangeDate(): void
     {
-        $start = new \DateTime('2015-01-01');
-        $end = new \DateTime('2015-12-31');
+        $start     = new DateTime('2015-01-01');
+        $end       = new DateTime('2015-12-31');
         $converter = new DateRangeConverter($end, $start);
 
         $data = [
             'field1' => null,
-            'field2' => new \DateTime('2015-09-01'),
-            'field3' => new \DateTime('2015-12-27'),
+            'field2' => new DateTime('2015-09-01'),
+            'field3' => new DateTime('2015-12-27'),
             'field4' => 'a string',
             'field5' => true,
         ];
@@ -205,16 +207,16 @@ class DateRangeConverterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($data, $retData);
     }
 
-    public function testOutOfRangeDate()
+    public function testOutOfRangeDate(): void
     {
-        $start = new \DateTime('2015-01-01');
-        $end = new \DateTime('2015-12-31');
+        $start     = new DateTime('2015-01-01');
+        $end       = new DateTime('2015-12-31');
         $converter = new DateRangeConverter($end, $start);
 
-        $data = [
+        $data    = [
             'field1' => null,
-            'field2' => new \DateTime('2015-11-31'),
-            'field3' => new \DateTime('2014-12-31'),
+            'field2' => new DateTime('2015-11-31'),
+            'field3' => new DateTime('2014-12-31'),
             'field4' => 'a string',
             'field5' => true,
         ];
@@ -227,52 +229,52 @@ class DateRangeConverterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('[field3] has a date (2014-12-31) outside acceptable range (2015-01-01 - 2015-12-31). ', $converter->getMessage());
     }
 
-    public function testRecursionInRangeDate()
+    public function testRecursionInRangeDate(): void
     {
-        $start = new \DateTime('2015-01-01');
-        $end = new \DateTime('2015-12-31');
+        $start     = new DateTime('2015-01-01');
+        $end       = new DateTime('2015-12-31');
         $converter = new DateRangeConverter($end, $start);
 
-        $dateOne = new \DateTime('2015-09-01');
-        $dateTwo = new \DateTime('2015-12-27');
+        $dateOne = new DateTime('2015-09-01');
+        $dateTwo = new DateTime('2015-12-27');
 
-        $data = [
+        $data         = [
             'field1' => null,
             'field2' => $dateOne,
             'field3' => $dateTwo,
             'field4' => 'a string',
             'field5' => true,
         ];
-        $sub1 = $data;
-        $sub2 = $data;
+        $sub1         = $data;
+        $sub2         = $data;
         $sub1['sub2'] = $sub2;
-        $data['sub'] = $sub1;
+        $data['sub']  = $sub1;
 
         $retData = $converter->__invoke($data);
         $this->assertEquals($data, $retData);
     }
 
-    public function testRecursionOutOfRangeDate()
+    public function testRecursionOutOfRangeDate(): void
     {
-        $start = new \DateTime('2015-01-01');
-        $end = new \DateTime('2015-12-31');
+        $start     = new DateTime('2015-01-01');
+        $end       = new DateTime('2015-12-31');
         $converter = new DateRangeConverter($end, $start);
 
-        $dateOne = new \DateTime('2015-09-01');
-        $dateTwo = new \DateTime('2015-12-27');
+        $dateOne = new DateTime('2015-09-01');
+        $dateTwo = new DateTime('2015-12-27');
 
-        $data = [
+        $data         = [
             'field1' => null,
             'field2' => $dateOne,
             'field3' => $dateTwo,
             'field4' => 'a string',
             'field5' => true,
         ];
-        $sub1 = $data;
-        $sub2 = $data;
-        $sub2['out'] = new \DateTime('2016-01-01');
+        $sub1         = $data;
+        $sub2         = $data;
+        $sub2['out']  = new DateTime('2016-01-01');
         $sub1['sub2'] = $sub2;
-        $data['sub'] = $sub1;
+        $data['sub']  = $sub1;
 
         $retData = $converter->__invoke($data);
         $this->assertTrue($converter->hasMessage());
@@ -280,27 +282,27 @@ class DateRangeConverterTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($retData['sub']['sub2']['out']);
     }
 
-    public function testWarningOnly()
+    public function testWarningOnly(): void
     {
-        $start = new \DateTime('2015-01-01');
-        $end = new \DateTime('2015-12-31');
+        $start     = new DateTime('2015-01-01');
+        $end       = new DateTime('2015-12-31');
         $converter = new DateRangeConverter($end, $start, true);
 
-        $dateOne = new \DateTime('2015-09-01');
-        $dateTwo = new \DateTime('2015-12-27');
+        $dateOne = new DateTime('2015-09-01');
+        $dateTwo = new DateTime('2015-12-27');
 
-        $data = [
+        $data         = [
             'field1' => null,
             'field2' => $dateOne,
             'field3' => $dateTwo,
             'field4' => 'a string',
             'field5' => true,
         ];
-        $sub1 = $data;
-        $sub2 = $data;
-        $sub2['out'] = new \DateTime('2016-01-01');
+        $sub1         = $data;
+        $sub2         = $data;
+        $sub2['out']  = new DateTime('2016-01-01');
         $sub1['sub2'] = $sub2;
-        $data['sub'] = $sub1;
+        $data['sub']  = $sub1;
 
         $retData = $converter->__invoke($data);
         $this->assertTrue($converter->hasMessage());
