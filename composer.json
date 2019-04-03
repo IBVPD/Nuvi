@@ -104,6 +104,8 @@
       "liip/functional-test-bundle": "^1.7",
       "liip/rmt": "^1.1",
       "doctrine/data-fixtures": "^1.0",
-      "hautelook/alice-bundle": "^1.4"
+      "hautelook/alice-bundle": "^1.4",
+    "phpstan/phpstan": "^0.11.5",
+    "phpstan/phpstan-doctrine": "^0.11.2"
     }
 }
