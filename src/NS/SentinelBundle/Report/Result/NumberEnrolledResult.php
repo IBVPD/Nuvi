@@ -4,46 +4,32 @@ namespace NS\SentinelBundle\Report\Result;
 
 use NS\SentinelBundle\Form\IBD\Types\Diagnosis;
 
-/**
- * Description of NumberEnrolledResult
- *
- * @author gnat
- */
 class NumberEnrolledResult
 {
-    /**
-     * @var array
-     */
-    private $dValues;
-
-    /**
-     * @var array
-     */
+    /** @var array */
     private $resultByMonth;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     private $headers;
+
+    /** @var array */
+    private $empty;
 
     public function __construct()
     {
-        $diagnosis     = new Diagnosis();
-        $this->dValues = $diagnosis->getValues();
-        $this->empty   = array_fill_keys(array_keys($this->dValues), 0);
+        $diagnosis   = new Diagnosis();
+        $dValues     = $diagnosis->getValues();
+        $this->empty = array_fill_keys(array_keys($dValues), 0);
 
         // Special values (NOT_SET and OUT_OF_RANGE)
-        $this->empty[-1]     = 0;
-        $this->empty[-9999]  = 0;
+        $this->empty[-1]    = 0;
+        $this->empty[-9999] = 0;
 
         $this->resultByMonth = array_fill(1, 12, $this->empty);
-        $this->headers       = array_merge(['month'=>'Month'], $this->dValues, [-1=>'Not set',-9999=>'Out of Range']);
+        $this->headers       = array_merge(['month' => 'Month'], $dValues, [-1 => 'Not set', -9999 => 'Out of Range']);
     }
 
-    /**
-     * @param $inputResults
-     */
-    public function load($inputResults)
+    public function load(array $inputResults): void
     {
         foreach ($inputResults as $res) {
             $this->resultByMonth[$res['AdmissionMonth']][$res['adm_dx']->getValue()] = $res['admDxCount'];
@@ -52,9 +38,10 @@ class NumberEnrolledResult
 
     /**
      * @param bool|false $asStrings
+     *
      * @return array
      */
-    public function getHeaders($asStrings  = false)
+    public function getHeaders($asStrings = false): array
     {
         if ($asStrings) {
             return array_flip($this->headers);
@@ -66,17 +53,18 @@ class NumberEnrolledResult
     /**
      * @return array
      */
-    public function all()
+    public function all(): array
     {
         return $this->resultByMonth;
     }
 
     /**
      * @param $month
+     *
      * @return array
      */
-    public function getMonthResult($month)
+    public function getMonthResult($month): array
     {
-        return (isset($this->resultByMonth[$month]))? $this->resultByMonth[$month]: $this->empty;
+        return $this->resultByMonth[$month] ?? $this->empty;
     }
 }

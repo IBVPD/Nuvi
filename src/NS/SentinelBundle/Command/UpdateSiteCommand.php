@@ -12,6 +12,9 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\HttpFoundation\File\File;
+use NS\SentinelBundle\Form\Types\SurveillanceConducted;
+use NS\SentinelBundle\Entity\Site;
+use NS\SentinelBundle\Form\IBD\Types\IntenseSupport;
 
 /**
  * Class UpdateSiteCommand
@@ -44,8 +47,8 @@ class UpdateSiteCommand extends ContainerAwareCommand
     {
         $entityMgr = $this->getContainer()->get('doctrine.orm.entity_manager');
         $this->countryRepo = $entityMgr->getRepository('NSSentinelBundle:Country');
-        $this->surveillance = new ArrayChoiceConverter('NS\SentinelBundle\Form\Types\SurveillanceConducted');
-        $this->support = new ArrayChoiceConverter('NS\SentinelBundle\Form\IBD\Types\IntenseSupport');
+        $this->surveillance = new ArrayChoiceConverter(SurveillanceConducted::class,'Both');
+        $this->support = new ArrayChoiceConverter(IntenseSupport::class,'Both');
 
         $file = $input->getArgument('file');
         if (!is_file($file)) {
@@ -63,7 +66,7 @@ class UpdateSiteCommand extends ContainerAwareCommand
             'ibdIntenseSupport'
         ]);
 
-        $writer = new DoctrineWriter($entityMgr, 'NS\SentinelBundle\Entity\Site', ['code']);
+        $writer = new DoctrineWriter($entityMgr, Site::class, ['code']);
         $writer->setTruncate(false);
         $worker = new StepAggregator($reader);
         $worker->addWriter($writer);

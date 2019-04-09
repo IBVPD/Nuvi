@@ -33,14 +33,14 @@ class ArrayChoiceConverter implements NamedValueConverterInterface, ReporterInte
      * @param string $type
      * @throws \RuntimeException
      */
-    public function __construct($class, $type)
+    public function __construct(string $class, string $type)
     {
         if (!class_exists($class)) {
             throw new \RuntimeException(sprintf('Unable to find class %s', $class));
         }
 
         $this->class = $class;
-        $this->type = join('', \array_slice(explode('\\', $class), -1));
+        $this->type = implode('', array_slice(explode('\\', $class), -1));
         $this->name  = sprintf('%s (%s)', $this->type, $type);
     }
 

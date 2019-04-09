@@ -2,14 +2,17 @@
 
 namespace NS\SentinelBundle\Entity;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use function is_integer;
 use JMS\Serializer\Annotation\Groups;
 use NS\SecurityBundle\Annotation\Secured;
 use NS\SecurityBundle\Annotation\SecuredCondition;
 use NS\SentinelBundle\Form\IBD\Types\IntenseSupport;
 use NS\SentinelBundle\Form\Types\SurveillanceConducted;
+use Serializable;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -28,7 +31,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity(fields={"code"})
  *
  */
-class Site implements \Serializable
+class Site implements Serializable
 {
     /**
      * @var string
@@ -110,55 +113,55 @@ class Site implements \Serializable
     private $surveillanceConducted;
 
     /**
-     * @var integer $ibdTier
+     * @var int|null
      * @ORM\Column(name="ibdTier",type="integer",nullable=true)
      */
     private $ibdTier;
 
     /**
-     * @var IntenseSupport $ibdIntenseSupport
+     * @var IntenseSupport|null
      * @ORM\Column(name="ibdIntenseSupport",type="IntenseSupport",nullable=true)
      */
     private $ibdIntenseSupport;
 
     /**
-     * @var \DateTime $ibdLastSiteAssessmentDate
+     * @var DateTime|null
      * @ORM\Column(name="ibdLastSiteAssessment",type="date",nullable=true)
      */
     private $ibdLastSiteAssessmentDate;
 
     /**
-     * @var integer $ibdSiteAssessmentScore
+     * @var int|null
      * @ORM\Column(name="ibdSiteAssessmentScore",type="integer",nullable=true)
      */
     private $ibdSiteAssessmentScore;
 
     /**
-     * @var \DateTime $rvLastSiteAssessmentDate
+     * @var DateTime|null
      * @ORM\Column(name="rvLastSiteAssessmentDate",type="date",nullable=true)
      */
     private $rvLastSiteAssessmentDate;
 
     /**
-     * @var string $ibvpdRl
+     * @var string|null
      * @ORM\Column(name="ibvpdRl",type="string",nullable=true)
      */
     private $ibvpdRl;
 
     /**
-     * @var string $rvRl
+     * @var string|null
      * @ORM\Column(name="rvRl",type="string",nullable=true)
      */
     private $rvRl;
 
     /**
-     * @var string $ibdEqaCode
+     * @var string|null
      * @ORM\Column(name="ibdEqaCode",type="string",nullable=true)
      */
     private $ibdEqaCode;
 
     /**
-     * @var string $rvEqaCode
+     * @var string|null
      * @ORM\Column(name="rvEqaCode",type="string",nullable=true)
      */
     private $rvEqaCode;
@@ -173,7 +176,7 @@ class Site implements \Serializable
     private $country;
 
     /**
-     * @var boolean $active
+     * @var boolean
      * @ORM\Column(name="active",type="boolean",nullable=false)
      */
     private $active = true;
@@ -185,23 +188,16 @@ class Site implements \Serializable
     private $zeroReports;
 
     /**
-     * @var bool
+     * @var bool|null
      * @ORM\Column(name="tac_phase2",type="boolean",nullable=true)
      */
     private $tacPhase2 = false;
 
     //Fields used for reporting etc...
 
-    /**
-     * @var
-     */
+    /** @var int|null */
     private $totalCases;
 
-    /**
-     * Site constructor.
-     * @param string $code
-     * @param string $name
-     */
     public function __construct($code = null, $name = null)
     {
         $this->code = $code;
@@ -249,7 +245,7 @@ class Site implements \Serializable
      */
     public function hasId()
     {
-        return (!empty($this->code) || (\is_integer($this->code) && $this->code == 0) || $this->code !== null);
+        return (!empty($this->code) || (is_integer($this->code) && $this->code == 0) || $this->code !== null);
     }
 
     /**
@@ -511,7 +507,7 @@ class Site implements \Serializable
 
     /**
      *
-     * @return \DateTime
+     * @return DateTime
      */
     public function getIbdLastSiteAssessmentDate()
     {
@@ -529,7 +525,7 @@ class Site implements \Serializable
 
     /**
      *
-     * @return \DateTime
+     * @return DateTime
      */
     public function getRvLastSiteAssessmentDate()
     {
@@ -592,15 +588,9 @@ class Site implements \Serializable
         return $this;
     }
 
-    /**
-     *
-     * @param type $ibdTier
-     * @return \NS\SentinelBundle\Entity\Site
-     */
-    public function setIbdTier($ibdTier)
+    public function setIbdTier(?int $ibdTier): void
     {
         $this->ibdTier = $ibdTier;
-        return $this;
     }
 
     /**
@@ -616,10 +606,10 @@ class Site implements \Serializable
 
     /**
      *
-     * @param \DateTime $ibdLastSiteAssessmentDate
+     * @param DateTime $ibdLastSiteAssessmentDate
      * @return \NS\SentinelBundle\Entity\Site
      */
-    public function setIbdLastSiteAssessmentDate(\DateTime $ibdLastSiteAssessmentDate = null)
+    public function setIbdLastSiteAssessmentDate(DateTime $ibdLastSiteAssessmentDate = null)
     {
         $this->ibdLastSiteAssessmentDate = $ibdLastSiteAssessmentDate;
         return $this;
@@ -638,10 +628,10 @@ class Site implements \Serializable
 
     /**
      *
-     * @param \DateTime $rvLastSiteAssessmentDate
+     * @param DateTime $rvLastSiteAssessmentDate
      * @return \NS\SentinelBundle\Entity\Site
      */
-    public function setRvLastSiteAssessmentDate(\DateTime $rvLastSiteAssessmentDate = null)
+    public function setRvLastSiteAssessmentDate(DateTime $rvLastSiteAssessmentDate = null)
     {
         $this->rvLastSiteAssessmentDate = $rvLastSiteAssessmentDate;
         return $this;
