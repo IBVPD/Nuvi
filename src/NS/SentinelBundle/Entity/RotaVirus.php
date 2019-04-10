@@ -1116,14 +1116,14 @@ class RotaVirus extends BaseCase
     {
         $this->disch_class_other = $disch_class_other;
     }
-
-    /**
-     * Get sentToReferenceLab
-     *
-     * @return boolean
-     */
-    public function getSentToReferenceLab()
-    {
-        return $this->siteLab && $this->siteLab->getSentToReferenceLab();
-    }
+//
+//    /**
+//     * Get sentToReferenceLab
+//     *
+//     * @return boolean
+//     */
+//    public function getSentToReferenceLab()
+//    {
+//        return $this->siteLab && $this->siteLab->getSentToReferenceLab();
+//    }
 }

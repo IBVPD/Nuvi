@@ -34,6 +34,16 @@
                                 {{form_row(form.dateReceived)}}
                             </div>
                         </div>
+                        {% if form.stoolSentToRRL is defined %}
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    {{ form_row(form.stoolSentToRRL) }}
+                                </div>
+                                <div class="col-sm-6">
+                                    {{ form_row(form.stoolSentToRRLDate) }}
+                                </div>
+                            </div>
+                        {% endif %}
                     </div>
                     {% if form.elisaDone is defined %}
                         <div id="elisa" class="tab-pane">

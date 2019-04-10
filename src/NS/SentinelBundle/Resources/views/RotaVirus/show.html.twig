@@ -286,6 +286,9 @@
                         </tr>
                         <tr><th>{{'rotavirus-form.labId'|trans}}</th><td>{{lab.labId|trans}}</td></tr>
                         <tr><th>{{'external-lab-form.date-received'|trans}}</th><td>{% if lab.dateReceived %}{{lab.dateReceived|date}}{% endif %}</td></tr>
+                        <tr><th>{{'rotavirus-form.stoolSentToRRL'|trans}}</th><td>{{ lab.stoolSentToRRL|trans }}</td></tr>
+                        <tr><th>{{'rotavirus-form.stoolSentToRRLDate'|trans}}</th><td>{% if lab.stoolSentToRRLDate %}{{lab.stoolSentToRRLDate|date}}{% endif %}</td></tr>
+
                         <tr><th>{{'rotavirus-form.elisaDone'|trans}}</th><td>{{lab.elisaDone|trans}}</td></tr>
                         <tr><th>{{'rotavirus-form.elisaKit'|trans}}</th><td>{{lab.elisaKit|trans}}</td></tr>
                         <tr><th>{{'rotavirus-form.elisaKitOther'|trans}}</th><td>{{lab.elisaKitOther}}</td></tr>

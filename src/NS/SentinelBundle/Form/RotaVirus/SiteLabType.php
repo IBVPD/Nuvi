@@ -64,11 +64,11 @@ class SiteLabType extends AbstractType
         }
 
         if ($country instanceof Country) {
-            if ($country->hasReferenceLab()) {
-                $form
-                    ->add('stoolSentToRRL', TripleChoice::class, ['required' => false, 'label' => 'rotavirus-form.stoolSentToRRL'])
-                    ->add('stoolSentToRRLDate', DatePickerType::class, ['required' => false, 'label' => 'rotavirus-form.stoolSentToRRLDate', 'hidden' => ['parent' => 'stoolSentToRRL', 'value' => TripleChoice::YES]]);
-            }
+//            if ($country->hasReferenceLab()) {
+//                $form
+//                    ->add('stoolSentToRRL', TripleChoice::class, ['required' => false, 'label' => 'rotavirus-form.stoolSentToRRL'])
+//                    ->add('stoolSentToRRLDate', DatePickerType::class, ['required' => false, 'label' => 'rotavirus-form.stoolSentToRRLDate', 'hidden' => ['parent' => 'stoolSentToRRL', 'value' => TripleChoice::YES]]);
+//            }
 
             if ($country->hasNationalLab()) {
                 $form

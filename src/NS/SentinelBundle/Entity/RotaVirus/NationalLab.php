@@ -84,9 +84,24 @@ class NationalLab extends ExternalLab
     private $elisaResult;
 
     /**
-     * @return string
+     * RRL_stool_sent
+     * @var TripleChoice|null $stoolSentToRRL
+     * @ORM\Column(name="stoolSentToRRL",type="TripleChoice",nullable=true)
+     * @Serializer\Groups({"api","export"})
      */
-    public function getType()
+    private $stoolSentToRRL; // These are duplicated from the boolean fields in the class we extend
+
+    /**
+     * RRL_stool_date
+     * @var DateTime|null $stoolSentToRRLDate
+     * @ORM\Column(name="stoolSentToRRLDate",type="date",nullable=true)
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'Y-m-d'>")
+     * @LocalAssert\NoFutureDate
+     */
+    private $stoolSentToRRLDate;
+
+    public function getType(): string
     {
         return $this->type;
     }
@@ -222,5 +237,30 @@ class NationalLab extends ExternalLab
     public function setElisaResult($elisaResult)
     {
         $this->elisaResult = $elisaResult;
+    }
+
+    public function getStoolSentToRRL(): ?TripleChoice
+    {
+        return $this->stoolSentToRRL;
+    }
+
+    public function setStoolSentToRRL(?TripleChoice $stoolSentToRRL): void
+    {
+        $this->stoolSentToRRL = $stoolSentToRRL;
+    }
+
+    public function getStoolSentToRRLDate(): ?DateTime
+    {
+        return $this->stoolSentToRRLDate;
+    }
+
+    public function setStoolSentToRRLDate(?DateTime $stoolSentToRRLDate): void
+    {
+        $this->stoolSentToRRLDate = $stoolSentToRRLDate;
+    }
+
+    public function getSentToReferenceLab(): bool
+    {
+        return $this->stoolSentToRRL && $this->stoolSentToRRL->equal(TripleChoice::YES);
     }
 }

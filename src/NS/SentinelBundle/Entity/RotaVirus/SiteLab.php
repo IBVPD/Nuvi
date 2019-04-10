@@ -163,6 +163,8 @@ class SiteLab implements BaseSiteLabInterface
     private $genotypeResultPSpecify;
 
     /**
+     * TODO remove once migration to national lab complete
+     *
      * RRL_stool_sent
      * @var TripleChoice $stoolSentToRRL
      * @ORM\Column(name="stoolSentToRRL",type="TripleChoice",nullable=true)
@@ -171,6 +173,8 @@ class SiteLab implements BaseSiteLabInterface
     private $stoolSentToRRL; // These are duplicated from the boolean fields in the class we extend
 
     /**
+     * TODO remove once migration to national lab complete
+     *
      * RRL_stool_date
      * @var \DateTime $stoolSentToRRLDate
      * @ORM\Column(name="stoolSentToRRLDate",type="date",nullable=true)

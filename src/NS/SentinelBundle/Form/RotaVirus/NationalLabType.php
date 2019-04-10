@@ -22,7 +22,9 @@ class NationalLabType extends AbstractType
             ->add('elisaLoadNumber', null, ['required' => false, 'label' => 'rotavirus-form.site-lab-elisa-load-number', 'hidden' => ['parent' => 'elisaDone', 'value' => TripleChoice::YES]])
             ->add('elisaExpiryDate', DatePickerType::class, ['required' => false, 'label' => 'rotavirus-form.site-lab-elisa-kit-expiry-date', 'hidden' => ['parent' => 'elisaDone', 'value' => TripleChoice::YES]])
             ->add('elisaTestDate', DatePickerType::class, ['required' => false, 'label' => 'rotavirus-form.site-lab-test-date', 'hidden' => ['parent' => 'elisaDone', 'value' => TripleChoice::YES]])
-            ->add('elisaResult', ElisaResult::class, ['required' => false, 'label' => 'rotavirus-form.site-lab-result', 'hidden' => ['parent' => 'elisaDone', 'value' => TripleChoice::YES]]);
+            ->add('elisaResult', ElisaResult::class, ['required' => false, 'label' => 'rotavirus-form.site-lab-result', 'hidden' => ['parent' => 'elisaDone', 'value' => TripleChoice::YES]])
+            ->add('stoolSentToRRL', TripleChoice::class, ['required' => false, 'label' => 'rotavirus-form.stoolSentToRRL'])
+            ->add('stoolSentToRRLDate', DatePickerType::class, ['required' => false, 'label' => 'rotavirus-form.stoolSentToRRLDate', 'hidden' => ['parent' => 'stoolSentToRRL', 'value' => TripleChoice::YES]]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
