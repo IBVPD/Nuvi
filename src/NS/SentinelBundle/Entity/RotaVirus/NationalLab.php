@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Entity\RotaVirus;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use NS\SentinelBundle\Form\RotaVirus\Types\ElisaKit;
 use NS\SentinelBundle\Form\RotaVirus\Types\ElisaResult;
@@ -59,7 +60,7 @@ class NationalLab extends ExternalLab
     private $elisaLoadNumber;
 
     /**
-     * @var \DateTime|null
+     * @var DateTime|null
      * @ORM\Column(name="elisaExpiryDate",type="date",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
@@ -67,7 +68,7 @@ class NationalLab extends ExternalLab
     private $elisaExpiryDate;
 
     /**
-     * @var \DateTime|null
+     * @var DateTime|null
      * @ORM\Column(name="elisaTestDate",type="date",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
@@ -182,7 +183,7 @@ class NationalLab extends ExternalLab
     }
 
     /**
-     * @return \DateTime|null
+     * @return DateTime|null
      */
     public function getElisaExpiryDate()
     {
@@ -190,7 +191,7 @@ class NationalLab extends ExternalLab
     }
 
     /**
-     * @param \DateTime|null $elisaExpiryDate
+     * @param DateTime|null $elisaExpiryDate
      */
     public function setElisaExpiryDate($elisaExpiryDate)
     {
@@ -198,7 +199,7 @@ class NationalLab extends ExternalLab
     }
 
     /**
-     * @return \DateTime|null
+     * @return DateTime|null
      */
     public function getElisaTestDate()
     {
@@ -206,7 +207,7 @@ class NationalLab extends ExternalLab
     }
 
     /**
-     * @param \DateTime|null $elisaTestDate
+     * @param DateTime|null $elisaTestDate
      */
     public function setElisaTestDate($elisaTestDate)
     {

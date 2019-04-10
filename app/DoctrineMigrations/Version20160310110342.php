@@ -5,15 +5,9 @@ namespace Application\Migrations;
 use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
 
-/**
- * Auto-generated Migration: Please modify to your needs!
- */
 class Version20160310110342 extends AbstractMigration
 {
-    /**
-     * @param Schema $schema
-     */
-    public function up(Schema $schema)
+    public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
@@ -45,10 +39,7 @@ class Version20160310110342 extends AbstractMigration
         $this->addSql('ALTER TABLE ibd_national_labs CHANGE labId lab_id VARCHAR(255) DEFAULT NULL, CHANGE sampleCollectionDate sample_collection_date DATE DEFAULT NULL, CHANGE dateReceived dt_sample_recd DATE DEFAULT NULL, CHANGE pathogenIdentifierOther method_used_pathogen_identify_other VARCHAR(255) DEFAULT NULL, CHANGE serotypeIdentifierOther method_used_st_sg_other VARCHAR(255) DEFAULT NULL, CHANGE sampletype type_sample_recd INT DEFAULT NULL COMMENT \'(DC2Type:SampleType)\', CHANGE isolateviable isolate_viable INT DEFAULT NULL COMMENT \'(DC2Type:IsolateViable)\', CHANGE isolatetype isolate_type INT DEFAULT NULL COMMENT \'(DC2Type:IsolateType)\', CHANGE pathogenidentifiermethod method_used_pathogen_identify INT DEFAULT NULL COMMENT \'(DC2Type:PathogenIdentifier)\', CHANGE serotypeidentifier method_used_st_sg INT DEFAULT NULL COMMENT \'(DC2Type:SerotypeIdentifier)\', CHANGE spnserotype spn_serotype INT DEFAULT NULL COMMENT \'(DC2Type:SpnSerotype)\', CHANGE hiserotype hi_serotype INT DEFAULT NULL COMMENT \'(DC2Type:HiSerotype)\', CHANGE nmserogroup nm_serogroup INT DEFAULT NULL COMMENT \'(DC2Type:NmSerogroup)\', CHANGE lytA Spn_lytA NUMERIC(3, 1) DEFAULT NULL, CHANGE ctrA Nm_ctrA NUMERIC(3, 1) DEFAULT NULL, CHANGE sodC nm_sodC NUMERIC(3, 1) DEFAULT NULL, CHANGE hpd1 hi_hpd1 NUMERIC(3, 1) DEFAULT NULL, CHANGE hpd3 hi_hpd3 NUMERIC(3, 1) DEFAULT NULL, CHANGE bexA hi_bexA NUMERIC(3, 1) DEFAULT NULL, CHANGE rNaseP humanDNA_RNAseP NUMERIC(3, 1) DEFAULT NULL, CHANGE finalresult final_RL_result_detection INT DEFAULT NULL COMMENT \'(DC2Type:FinalResult)\'');
     }
 
-    /**
-     * @param Schema $schema
-     */
-    public function down(Schema $schema)
+    public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql',  'Migration can only be executed safely on \'mysql\'.');

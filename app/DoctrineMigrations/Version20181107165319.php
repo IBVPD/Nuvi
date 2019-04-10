@@ -9,9 +9,6 @@ use NS\ImportBundle\Entity\Map;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
- * Auto-generated Migration: Please modify to your needs!
- */
 class Version20181107165319 extends AbstractMigration implements ContainerAwareInterface
 {
     /** @var ContainerInterface */
@@ -20,18 +17,12 @@ class Version20181107165319 extends AbstractMigration implements ContainerAwareI
     /** @var EntityManagerInterface */
     private $entityManager;
 
-    /**
-     * @inheritDoc
-     */
-    public function setContainer(ContainerInterface $container = null)
+    public function setContainer(ContainerInterface $container = null): void
     {
         $this->container = $container;
     }
 
-    /**
-     * @param Schema $schema
-     */
-    public function up(Schema $schema)
+    public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
@@ -39,7 +30,7 @@ class Version20181107165319 extends AbstractMigration implements ContainerAwareI
         $this->addSql('ALTER TABLE import_map ADD active TINYINT(1) DEFAULT NULL');
     }
 
-    public function postUp(Schema $schema)
+    public function postUp(Schema $schema): void
     {
         $this->entityManager = $this->container->get('doctrine.orm.entity_manager');
         $this->entityManager->createQueryBuilder()
@@ -48,10 +39,7 @@ class Version20181107165319 extends AbstractMigration implements ContainerAwareI
             ->getQuery()->execute();
     }
 
-    /**
-     * @param Schema $schema
-     */
-    public function down(Schema $schema)
+    public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');

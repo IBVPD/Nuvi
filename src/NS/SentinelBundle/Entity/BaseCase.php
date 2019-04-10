@@ -2,7 +2,9 @@
 
 namespace NS\SentinelBundle\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use InvalidArgumentException;
 use JMS\Serializer\Annotation as Serializer;
 use NS\SentinelBundle\Entity\ValueObjects\YearMonth;
 use NS\SentinelBundle\Form\Types\CaseStatus;
@@ -42,7 +44,7 @@ abstract class BaseCase
     protected $id;
 
     /**
-     * @var string $lastName
+     * @var string|null
      * @ORM\Column(name="lastName",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Assert\NotBlank(groups={"AMR"})
@@ -50,14 +52,14 @@ abstract class BaseCase
     protected $lastName;
 
     /**
-     * @var string $parentalName
+     * @var string|null
      * @ORM\Column(name="parentalName",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     protected $parentalName;
 
     /**
-     * @var string $firstName
+     * @var string|null
      * @ORM\Column(name="firstName",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Assert\NotBlank(groups={"AMR"})
@@ -74,20 +76,20 @@ abstract class BaseCase
     protected $case_id;
 
     /**
-     * @var string $district
+     * @var string|null
      * @ORM\Column(name="district",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     protected $district;
 
     /**
-     * @var string $state
+     * @var string|null
      * @ORM\Column(name="state",type="string",nullable=true)
      */
     protected $state;
 
     /**
-     * @var \DateTime $birthdate
+     * @var DateTime|null
      * @ORM\Column(name="birthdate",type="date",nullable=true)
      * @Assert\Date
      * @LocalAssert\NoFutureDate()
@@ -97,31 +99,31 @@ abstract class BaseCase
     protected $birthdate;
 
     /**
-     * @var TripleChoice $dobKnown
+     * @var TripleChoice|null
      * @ORM\Column(name="dobKnown",type="TripleChoice",nullable=true)
      * @Serializer\Groups("export")
      * @Serializer\SerializedName("dobKnown")
      */
     protected $dobKnown;
 
-    /** @var  YearMonth */
+    /** @var YearMonth */
     protected $dobYearMonths;
 
     /**
-     * @var integer $age
+     * @var int|null
      * @ORM\Column(name="age_months",type="integer",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     protected $age_months;
 
     /**
-     * @var integer $ageDistribution
+     * @var int|null
      * @ORM\Column(name="ageDistribution",type="integer",nullable=true)
      */
     protected $ageDistribution;
 
     /**
-     * @var Gender $gender
+     * @var Gender|null
      * @ORM\Column(name="gender",type="Gender",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Assert\NotBlank(groups={"AMR"})
@@ -129,7 +131,7 @@ abstract class BaseCase
     protected $gender;
 
     /**
-     * @var \DateTime $admDate
+     * @var DateTime|null
      * @ORM\Column(name="adm_date",type="date",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
@@ -140,14 +142,14 @@ abstract class BaseCase
     protected $adm_date;
 
     /**
-     * @var CaseStatus $status
+     * @var CaseStatus
      * @ORM\Column(name="status",type="CaseStatus")
      * @Serializer\Groups({"api","export"})
      */
     protected $status;
 
     /**
-     * @var \DateTime $updatedAt
+     * @var DateTime $updatedAt
      * @ORM\Column(name="updatedAt",type="datetime")
      * @Serializer\Groups({"api"})
      * @Serializer\Type(name="DateTime<'Y-m-d H:i:s'>")
@@ -155,7 +157,7 @@ abstract class BaseCase
     protected $updatedAt;
 
     /**
-     * @var \DateTime $createdAt
+     * @var DateTime
      * @ORM\Column(name="createdAt",type="datetime")
      * @Serializer\Groups({"api"})
      * @Serializer\Type(name="DateTime<'Y-m-d H:i:s'>")
@@ -163,7 +165,7 @@ abstract class BaseCase
     protected $createdAt;
 
     /**
-     * @var Region $region
+     * @var Region
      * @ORM\ManyToOne(targetEntity="\NS\SentinelBundle\Entity\Region")
      * @ORM\JoinColumn(nullable=false,referencedColumnName="code")
      * @Serializer\Groups({"api","export"})
@@ -171,7 +173,7 @@ abstract class BaseCase
     protected $region;
 
     /**
-     * @var Country $country
+     * @var Country
      * @ORM\ManyToOne(targetEntity="\NS\SentinelBundle\Entity\Country")
      * @ORM\JoinColumn(nullable=false,referencedColumnName="code")
      * @Serializer\Groups({"api","export"})
@@ -179,7 +181,7 @@ abstract class BaseCase
     protected $country;
 
     /**
-     * @var Site $site
+     * @var Site
      * @ORM\ManyToOne(targetEntity="\NS\SentinelBundle\Entity\Site")
      * @ORM\JoinColumn(nullable=true,referencedColumnName="code")
      * @Serializer\Groups({"api","export"})
@@ -189,19 +191,16 @@ abstract class BaseCase
     protected $siteLab;
 
     /**
-     * @var boolean $warning
+     * @var boolean
      * @ORM\Column(name="hasWarning",type="boolean")
      */
     protected $warning = false;
 
-    /**
-     * @var int|BaseExternalLab $referenceLab
-     */
+    // TODO evaluate if these could just be nullable??
+    /** @var int|BaseExternalLab $referenceLab */
     protected $referenceLab = -1;
 
-    /**
-     * @var int|BaseExternalLab $referenceLab
-     */
+    /** @var int|BaseExternalLab $referenceLab */
     protected $nationalLab  = -1;
 
     /**
@@ -221,26 +220,26 @@ abstract class BaseCase
 
     /**
      * Constructor
-     * 
-     * @throws \InvalidArgumentException
+     *
+     * @throws InvalidArgumentException
      */
     public function __construct()
     {
         if (!is_string($this->nationalClass) || empty($this->nationalClass)) {
-            throw new \InvalidArgumentException("The NationalLab class is not set");
+            throw new InvalidArgumentException("The NationalLab class is not set");
         }
 
         if (!is_string($this->referenceClass) || empty($this->referenceClass)) {
-            throw new \InvalidArgumentException("The ReferenceLab class is not set");
+            throw new InvalidArgumentException("The ReferenceLab class is not set");
         }
 
         if (!is_string($this->siteLabClass) || empty($this->siteLabClass)) {
-            throw new \InvalidArgumentException("The SiteLab class is not set");
+            throw new InvalidArgumentException("The SiteLab class is not set");
         }
 
         $this->status    = new CaseStatus(CaseStatus::OPEN);
-        $this->createdAt = new \DateTime();
-        $this->updatedAt = new \DateTime();
+        $this->createdAt = new DateTime();
+        $this->updatedAt = new DateTime();
     }
 
     /**
@@ -262,18 +261,12 @@ abstract class BaseCase
         }
     }
 
-    /**
-     * @return string
-     */
     public function __toString()
     {
-        return $this->id;
+        return $this->id ?? '';
     }
 
-    /**
-     * @return string
-     */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -281,256 +274,151 @@ abstract class BaseCase
     /**
      * @param string $id
      */
-    public function setId($id)
+    public function setId($id): void
     {
         $this->id = $id;
     }
 
-    /**
-     * @return boolean
-     */
-    public function hasId()
+    public function hasId(): bool
     {
         return !empty($this->id);
     }
 
-    /**
-     * Set region
-     *
-     * @param \NS\SentinelBundle\Entity\Region $region
-     * @return BaseCase
-     */
-    public function setRegion(Region $region = null)
+    public function setRegion(Region $region = null): void
     {
         $this->region = $region;
-
-        return $this;
     }
 
-    /**
-     * Get region
-     *
-     * @return \NS\SentinelBundle\Entity\Region
-     */
-    public function getRegion()
+    public function getRegion(): Region
     {
         return $this->region;
     }
 
-    /**
-     * Set country
-     *
-     * @param \NS\SentinelBundle\Entity\Country $country
-     * @return BaseCase
-     */
-    public function setCountry(Country $country = null)
+    public function setCountry(Country $country = null): void
     {
         $this->country = $country;
 
         $this->setRegion($country->getRegion());
-
-        return $this;
     }
 
-    /**
-     * Get country
-     *
-     * @return \NS\SentinelBundle\Entity\Country
-     */
-    public function getCountry()
+    public function getCountry(): ?Country
     {
         return $this->country;
     }
 
-    /**
-     * Set site
-     *
-     * @param \NS\SentinelBundle\Entity\Site $site
-     * @return BaseCase
-     */
-    public function setSite(Site $site = null)
+    public function setSite(Site $site = null): void
     {
         $this->site = $site;
 
         $this->setCountry($site->getCountry());
-
-        return $this;
     }
 
-    /**
-     * Get site
-     *
-     * @return \NS\SentinelBundle\Entity\Site
-     */
-    public function getSite()
+    public function getSite(): ?Site
     {
         return $this->site;
     }
 
-    /**
-     * @return CaseStatus
-     */
-    public function getStatus()
+    public function getStatus(): CaseStatus
     {
         return $this->status;
     }
 
-    /**
-     * @param CaseStatus $status
-     */
-    public function setStatus(CaseStatus $status)
+    public function setStatus(CaseStatus $status): void
     {
         $this->status = $status;
     }
 
-    /**
-     * @param BaseExternalLab $lab
-     */
-    public function setReferenceLab(BaseExternalLab $lab)
+    public function setReferenceLab(BaseExternalLab $lab): void
     {
         $lab->setCaseFile($this);
         $this->referenceLab = $lab;
     }
 
-    /**
-     * @param BaseExternalLab $lab
-     */
-    public function setNationalLab(BaseExternalLab $lab)
+    public function setNationalLab(BaseExternalLab $lab): void
     {
         $lab->setCaseFile($this);
         $this->nationalLab = $lab;
     }
 
     /**
-     * Get ReferenceLab
-     *
-     * @return \NS\SentinelBundle\Entity\BaseExternalLab
+     * @return int|BaseExternalLab
      */
     public function getReferenceLab()
     {
         return $this->referenceLab;
     }
 
-    /**
-     * @return boolean
-     */
-    public function hasReferenceLab()
+    public function hasReferenceLab(): bool
     {
-        return ($this->referenceLab instanceof $this->referenceClass);
+        return $this->referenceLab instanceof $this->referenceClass;
     }
 
     /**
-     * Get NationalLab
-     *
-     * @return \NS\SentinelBundle\Entity\BaseExternalLab
+     * @return int|BaseExternalLab
      */
     public function getNationalLab()
     {
         return $this->nationalLab;
     }
 
-    /**
-     *
-     * @return boolean
-     */
-    public function hasNationalLab()
+    public function hasNationalLab(): bool
     {
-        return ($this->nationalLab !== null);
+        return $this->nationalLab !== null;
     }
 
-    /**
-     * Get sentToReferenceLab
-     *
-     * @return boolean
-     */
-    public function getSentToReferenceLab()
+    public function getSentToReferenceLab(): bool
     {
-        return (($this->siteLab && $this->siteLab->getSentToReferenceLab()) || ($this->nationalLab && $this->nationalLab->getSentToReferenceLab()));
+        return (($this->siteLab && method_exists($this->siteLab, 'getSentToReferenceLab') && $this->siteLab->getSentToReferenceLab()) || ($this->nationalLab && $this->nationalLab->getSentToReferenceLab()));
     }
 
-    /**
-     * Get sentToNationalLab
-     *
-     * @return boolean
-     */
-    public function getSentToNationalLab()
+    public function getSentToNationalLab(): bool
     {
         return $this->siteLab ? $this->siteLab->getSentToNationalLab() : false;
     }
 
-    /**
-     * @return boolean
-     */
     public function hasSiteLab(): bool
     {
         return $this->siteLab instanceof $this->siteLabClass;
     }
 
-    /**
-     * @return BaseSiteLabInterface
-     */
-    public function getSiteLab()
+    public function getSiteLab(): BaseSiteLabInterface
     {
         return $this->siteLab;
     }
 
-    /**
-     * @param $siteLab
-     */
-    public function setSiteLab($siteLab)
+    public function setSiteLab(BaseSiteLabInterface $siteLab): void
     {
         $siteLab->setCaseFile($this);
         $this->siteLab = $siteLab;
     }
 
-    /**
-     * @return boolean
-     */
-    public function isComplete()
+    public function isComplete(): bool
     {
-        return $this->status->getValue() == CaseStatus::COMPLETE;
+        return $this->status->getValue() === CaseStatus::COMPLETE;
     }
 
-    /**
-     *
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
+    public function getUpdatedAt(): ?DateTime
     {
         return $this->updatedAt;
     }
 
-    /**
-     * @param \DateTime $updatedAt
-     */
-    public function setUpdatedAt($updatedAt)
+    public function setUpdatedAt(DateTime $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getCreatedAt()
+    public function getCreatedAt(): DateTime
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTime $createdAt)
-    {
-        $this->createdAt = $createdAt;
-    }
-
-    /**
-     * @return integer
-     */
-    public function getYear()
+    public function getYear(): string
     {
         return $this->createdAt->format('Y');
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getDob()
     {
@@ -538,7 +426,7 @@ abstract class BaseCase
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getBirthdate()
     {
@@ -546,7 +434,7 @@ abstract class BaseCase
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getAdmDate()
     {
@@ -629,7 +517,7 @@ abstract class BaseCase
     }
 
     /**
-     * @param \DateTime $birthdate
+     * @param DateTime $birthdate
      * @return BaseCase
      */
     public function setBirthdate($birthdate)
@@ -639,17 +527,17 @@ abstract class BaseCase
     }
 
     /**
-     * @param \DateTime $dob
+     * @param DateTime $dob
      */
-    public function setDob(\DateTime $dob = null)
+    public function setDob(DateTime $dob = null)
     {
         $this->birthdate = $dob;
     }
 
     /**
-     * @param \DateTime $admDate
+     * @param DateTime $admDate
      */
-    public function setAdmDate(\DateTime $admDate = null)
+    public function setAdmDate(DateTime $admDate = null)
     {
         $this->adm_date = $admDate;
     }

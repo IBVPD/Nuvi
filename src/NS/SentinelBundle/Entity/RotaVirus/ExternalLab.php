@@ -89,12 +89,10 @@ abstract class ExternalLab extends BaseExternalLab
 
     /**
      * @param \DateTime $specimenCollectionDate
-     * @return ExternalLab
      */
     public function setSpecimenCollectionDate($specimenCollectionDate)
     {
         $this->specimenCollectionDate = $specimenCollectionDate;
-        return $this;
     }
 
     /**

@@ -8,76 +8,55 @@ use NS\SentinelBundle\Entity\BaseCase;
 use NS\SentinelBundle\Entity\Meningitis\Meningitis;
 use NS\SentinelBundle\Entity\Pneumonia\Pneumonia;
 use NS\SentinelBundle\Entity\RotaVirus;
+use RuntimeException;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Routing\RouterInterface;
 use NS\SentinelBundle\Entity\IBD;
+use Twig_Extension;
+use Twig_SimpleFunction;
 
-/**
- * Description of CaseActions
- *
- * @author gnat
- */
-class CaseActions extends \Twig_Extension implements TranslationContainerInterface
+class CaseActions extends Twig_Extension implements TranslationContainerInterface
 {
-    const VIEW = 'View';
+    private const
+        VIEW = 'View',
+        EDIT_EPI = 'Edit Epi Data',
+        EDIT_LAB = 'Edit Site Lab Data',
+        EDIT_NL = 'Edit National Lab Data',
+        EDIT_RRL = 'Edit Regional Reference Lab Data',
+        EDIT_OUT = 'Edit Outcome Data',
+        EPI = 'EPI',
+        LAB = 'Lab',
+        NL = 'NL',
+        RRL = 'RRL',
+        OUT = 'Outcome';
 
-    const EDIT_EPI = 'Edit Epi Data';
-    const EDIT_LAB = 'Edit Site Lab Data';
-    const EDIT_NL = 'Edit National Lab Data';
-    const EDIT_RRL = 'Edit Regional Reference Lab Data';
-    const EDIT_OUT = 'Edit Outcome Data';
-
-    const EPI = 'EPI';
-    const LAB = 'Lab';
-    const NL = 'NL';
-    const RRL = 'RRL';
-    const OUT = 'Outcome';
-
-    /**
-     * @var AuthorizationCheckerInterface
-     */
+    /** @var AuthorizationCheckerInterface */
     private $authChecker;
 
-    /**
-     * @var TranslatorInterface
-     */
+    /** @var TranslatorInterface */
     private $translator;
 
-    /**
-     * @var RouterInterface
-     */
+    /** @var RouterInterface */
     private $router;
 
-    /**
-     * @param AuthorizationCheckerInterface $checkerInterface
-     * @param TranslatorInterface $trans
-     * @param RouterInterface $router
-     */
     public function __construct(AuthorizationCheckerInterface $checkerInterface, TranslatorInterface $trans, RouterInterface $router)
     {
         $this->authChecker = $checkerInterface;
-        $this->translator = $trans;
-        $this->router = $router;
+        $this->translator  = $trans;
+        $this->router      = $router;
     }
 
-    /**
-     * @return array
-     */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         $isSafe = ['is_safe' => ['html']];
         return [
-            new \Twig_SimpleFunction('case_big_actions', [$this, 'getBigActions'], $isSafe),
-            new \Twig_SimpleFunction('case_sm_actions', [$this, 'getSmallActions'], $isSafe),
+            new Twig_SimpleFunction('case_big_actions', [$this, 'getBigActions'], $isSafe),
+            new Twig_SimpleFunction('case_sm_actions', [$this, 'getSmallActions'], $isSafe),
         ];
     }
 
-    /**
-     * @param BaseCase $object
-     * @return string
-     */
-    public function getBaseRoute(BaseCase $object)
+    public function getBaseRoute(BaseCase $object): string
     {
         if ($object instanceof IBD) {
             return 'ibd';
@@ -95,12 +74,13 @@ class CaseActions extends \Twig_Extension implements TranslationContainerInterfa
             return 'pneumonia';
         }
 
-        throw new \RuntimeException("Unable to determine base route got object: " . get_class($object));
+        throw new RuntimeException('Unable to determine base route got object: ' . get_class($object));
     }
 
     /**
      * @param BaseCase $row
-     * @param bool $includeIndex
+     * @param bool     $includeIndex
+     *
      * @return string
      */
     public function getBigActions(BaseCase $row, $includeIndex = true)
@@ -114,7 +94,7 @@ class CaseActions extends \Twig_Extension implements TranslationContainerInterfa
 
         $out .= sprintf('<a href="%s" class="btn btn-xs btn-info" data-rel="tooltip" title="%s"><i class="fa fa-eye bigger-120"></i></a>',
             $this->generate("{$baseRoute}Show", $row),
-            $this->translator->trans(/** @Ignore */self::VIEW));
+            $this->translator->trans(/** @Ignore */ self::VIEW));
 
         if ($this->authChecker->isGranted('ROLE_CAN_CREATE')) {
             if ($this->authChecker->isGranted('ROLE_CAN_CREATE_CASE')) {
@@ -171,6 +151,7 @@ class CaseActions extends \Twig_Extension implements TranslationContainerInterfa
 
     /**
      * @param $row
+     *
      * @return string
      */
     public function getSmallActions($row)
@@ -233,6 +214,7 @@ class CaseActions extends \Twig_Extension implements TranslationContainerInterfa
     /**
      * @param $route
      * @param $row
+     *
      * @return string
      */
     private function generate($route, $row)

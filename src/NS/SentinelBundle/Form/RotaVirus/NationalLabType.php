@@ -11,13 +11,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use NS\AceBundle\Form\DatePickerType;
 
-/**
- * Class NationalLabType
- * @package NS\SentinelBundle\Form\Rota
- */
 class NationalLabType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('elisaDone', TripleChoice::class, ['required' => false, 'label' => 'rotavirus-form.site-lab-elisa-done'])
@@ -29,7 +25,7 @@ class NationalLabType extends AbstractType
             ->add('elisaResult', ElisaResult::class, ['required' => false, 'label' => 'rotavirus-form.site-lab-result', 'hidden' => ['parent' => 'elisaDone', 'value' => TripleChoice::YES]]);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => NationalLab::class,
@@ -37,7 +33,7 @@ class NationalLabType extends AbstractType
         ]);
     }
 
-    public function getParent()
+    public function getParent(): string
     {
         return BaseLabType::class;
     }

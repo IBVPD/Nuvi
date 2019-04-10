@@ -5,15 +5,9 @@ namespace Application\Migrations;
 use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
 
-/**
- * Auto-generated Migration: Please modify to your needs!
- */
 class Version20170228170131 extends AbstractMigration
 {
-    /**
-     * @param Schema $schema
-     */
-    public function up(Schema $schema)
+    public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
@@ -21,10 +15,7 @@ class Version20170228170131 extends AbstractMigration
         $this->addSql('ALTER TABLE ibd_site_labs ADD rl_csf_sent TINYINT(1) DEFAULT NULL, ADD rl_isol_csf_sent TINYINT(1) DEFAULT NULL, ADD rl_isol_blood_sent TINYINT(1) DEFAULT NULL, ADD rl_broth_sent TINYINT(1) DEFAULT NULL, ADD rl_other_sent TINYINT(1) DEFAULT NULL, ADD rl_other_date DATE DEFAULT NULL, ADD nl_csf_sent TINYINT(1) DEFAULT NULL, ADD nl_csf_date DATE DEFAULT NULL, ADD nl_isol_csf_sent TINYINT(1) DEFAULT NULL, ADD nl_isol_csf_date DATE DEFAULT NULL, ADD nl_isol_blood_sent TINYINT(1) DEFAULT NULL, ADD nl_isol_blood_date DATE DEFAULT NULL, ADD nl_broth_sent TINYINT(1) DEFAULT NULL, ADD nl_broth_date DATE DEFAULT NULL, ADD nl_other_sent TINYINT(1) DEFAULT NULL, ADD nl_other_date DATE DEFAULT NULL, DROP sentToReferenceLab, DROP sentToNationalLab');
     }
 
-    /**
-     * @param Schema $schema
-     */
-    public function down(Schema $schema)
+    public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');

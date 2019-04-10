@@ -11,33 +11,20 @@ use NS\SentinelBundle\Form\Types\Role;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-/**
- * Auto-generated Migration: Please modify to your needs!
- */
 class Version20160502000000 extends AbstractMigration implements ContainerAwareInterface
 {
-    /**
-     * @var ContainerInterface
-     */
+    /** @var ContainerInterface */
     private $container;
 
-    /**
-     * @var EntityManagerInterface
-     */
+    /** @var EntityManagerInterface */
     private $entityMgr;
 
-    /**
-     * @param ContainerInterface $container
-     */
-    public function setContainer(ContainerInterface $container = null)
+    public function setContainer(ContainerInterface $container = null): void
     {
         $this->container = $container;
     }
 
-    /**
-     * @param Schema $schema
-     */
-    public function up(Schema $schema)
+    public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
@@ -45,7 +32,7 @@ class Version20160502000000 extends AbstractMigration implements ContainerAwareI
         $this->addSql('ALTER TABLE acls ADD options LONGTEXT DEFAULT NULL COMMENT \'(DC2Type:array)\'');
     }
 
-    public function postUp(Schema $schema)
+    public function postUp(Schema $schema): void
     {
         $this->entityMgr = $this->container->get('doctrine.orm.entity_manager');
         $users = $this->entityMgr->getRepository('NSSentinelBundle:User')->createQueryBuilder('u')->leftJoin('u.acls', 'a')->getQuery()->getResult();
@@ -109,15 +96,12 @@ class Version20160502000000 extends AbstractMigration implements ContainerAwareI
         }
     }
 
-    public function preDown(Schema $schema)
+    public function preDown(Schema $schema): void
     {
 
     }
 
-    /**
-     * @param Schema $schema
-     */
-    public function down(Schema $schema)
+    public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
