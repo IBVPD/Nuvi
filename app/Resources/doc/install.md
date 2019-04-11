@@ -114,7 +114,7 @@ to function.
   </Directory>
   
   # used for determining if the user has gone offline
-  <Location /offline-check>
+  <LocationMatch "/offline-check$">
     RedirectMatch 204 .*
     Header set Cache-Control "private, no-cache, no-store, proxy-revalidate, no-transform"
     Header set Pragma "no-cache"

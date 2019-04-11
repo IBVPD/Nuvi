@@ -21,7 +21,7 @@ class SecurityController extends Controller
      * @Route("/login", name="login")
      * @Method(methods={"GET"})
      */
-    public function loginAction()
+    public function loginAction(): Response
     {
         $helper = $this->get('security.authentication_utils');
 
@@ -31,19 +31,19 @@ class SecurityController extends Controller
         ]);
     }
 
-    public function offlineCheckAction()
+    public function offlineCheckAction(): Response
     {
         return new Response(null,Response::HTTP_NO_CONTENT,['Cache-Control'=> 'private, no-cache, no-store, proxy-revalidate, no-transform','Pragma'=>'no-cache']);
     }
 
     /**
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      *
      * @Route("/forgot-password", name="forgotPassword")
      * @Method(methods={"GET","POST"})
      */
-    public function forgotPasswordAction(Request $request)
+    public function forgotPasswordAction(Request $request): Response
     {
         $form = $this->createForm(ForgotPasswordType::class);
         $form->handleRequest($request);
@@ -82,7 +82,7 @@ class SecurityController extends Controller
      * @param $token
      * @return RedirectResponse|Response
      */
-    public function resetPassword(Request $request, $token)
+    public function resetPassword(Request $request, $token): Response
     {
         $tokenGenerator = $this->get('ns_token.generator');
         try {
@@ -97,7 +97,7 @@ class SecurityController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $entityMgr = $this->get('doctrine.orm.entity_manager');
             $user = $entityMgr->find(User::class, $id);
-            if ($user && $user->getEmail() == $email) {
+            if ($user && $user->getEmail() === $email) {
                 $newPassword = $form->get('password')->getData();
                 $encoder = $this->get('security.encoder_factory')->getEncoder($user);
                 $user->setPassword($encoder->encodePassword($newPassword,$user->getSalt()));
@@ -116,10 +116,11 @@ class SecurityController extends Controller
     /**
      * @Route("/{_locale}",name="homepage")
      * @Method(methods={"GET"})
+     *
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function homepageAction(Request $request)
+    public function homepageAction(Request $request): Response
     {
         $repo = $this->get('doctrine.orm.entity_manager')->getRepository("NSSentinelBundle:IBD");
         $byCountry = $repo->getByCountry();
@@ -139,10 +140,11 @@ class SecurityController extends Controller
     /**
      * @Route("/",name="homepage_redirect")
      * @Method(methods={"GET"})
+     *
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
-    public function homepageRedirectAction(Request $request)
+    public function homepageRedirectAction(Request $request): RedirectResponse
     {
         return $this->get('ns.sentinel.services.homepage')->getHomepageResponse($request);
     }
