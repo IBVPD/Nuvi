@@ -8,7 +8,6 @@
 
 namespace NS\ImportBundle\Formatter;
 
-
 use Exporter\Formatter\DataFormatterInterface;
 use Symfony\Component\PropertyAccess\PropertyPath;
 
@@ -23,10 +22,12 @@ class DateTimeFormatter implements DataFormatterInterface
         'updatedAt' => 'Y-m-d H:i:s',
         'csf_collect_time' => 'H:i',
         'blood_collect_time' => 'H:i',
+        'blood_second_collect_time' => 'H:i',
         'pleural_fluid_collect_time' => 'H:i',
         'siteLab.received' => 'Y-m-d H:i',
         'siteLab.csf_lab_time' => 'H:i',
         'siteLab.blood_lab_time' => 'H:i',
+        'siteLab.blood_second_lab_time' => 'H:i',
         'siteLab.other_lab_time' => 'H:i',
         'siteLab.createdAt' => 'Y-m-d H:i:s',
         'siteLab.updatedAt' => 'Y-m-d H:i:s',
@@ -36,29 +37,18 @@ class DateTimeFormatter implements DataFormatterInterface
         'nationalLab.updatedAt' => 'Y-m-d H:i:s',
     ];
 
-    /**
-     * DateTimeFormatter constructor.
-     * @param string $defaultDateFormat
-     * @param array $fields
-     */
-    public function __construct($defaultDateFormat = 'Y-m-d', array $fields = [])
+    public function __construct(string $defaultDateFormat = 'Y-m-d', array $fields = [])
     {
         $this->defaultDateFormat = $defaultDateFormat;
         $this->fields = array_merge($this->fields, $fields);
     }
 
-    /**
-     * @inheritDoc
-     */
     public function supports($data)
     {
         return $data instanceof \DateTime || $data instanceof \DateTimeInterface;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function format($data, PropertyPath $propertyPath)
+    public function format($data, PropertyPath $propertyPath): string
     {
         if (isset($this->fields[(string)$propertyPath])) {
             return $data->format($this->fields[(string)$propertyPath]);
@@ -67,10 +57,7 @@ class DateTimeFormatter implements DataFormatterInterface
         return $data->format($this->defaultDateFormat);
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getPriority()
+    public function getPriority(): int
     {
         return 50;
     }

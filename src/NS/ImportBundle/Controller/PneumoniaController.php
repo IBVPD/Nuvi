@@ -22,6 +22,7 @@ class PneumoniaController extends BaseController
 {
     /**
      * @param Request $request
+     *
      * @return Response
      *
      * @Route("/pneumonia",name="exportPneu")
@@ -32,8 +33,8 @@ class PneumoniaController extends BaseController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $modelManager = $this->get('doctrine.orm.entity_manager');
-            $fields = $this->baseField;
-            $meta = [
+            $fields       = $this->baseField;
+            $meta         = [
                 '%s' => $modelManager->getClassMetadata(Pneumonia::class),
                 'siteLab.%s' => $modelManager->getClassMetadata(SiteLab::class),
                 'referenceLab.%s' => $modelManager->getClassMetadata(ReferenceLab::class),
@@ -42,8 +43,8 @@ class PneumoniaController extends BaseController
 
             $this->adjustFields($meta, $fields);
 
-            $query = $modelManager->getRepository(Pneumonia::class)->exportQuery('i');
-            $arrayChoiceFormatter = $this->get('ns_import.array_choice_formatter');
+            $query                 = $modelManager->getRepository(Pneumonia::class)->exportQuery('i');
+            $arrayChoiceFormatter  = $this->get('ns_import.array_choice_formatter');
             $spnTypeGroupFormatter = $this->get('ns_import.serotype_group_formatter');
 
             if ($form->get('pahoFormat')->getData()) {
@@ -55,7 +56,7 @@ class PneumoniaController extends BaseController
             return $this->export($format, $form, $query, $fields, [$spnTypeGroupFormatter, $arrayChoiceFormatter, new DateTimeFormatter()]);
         }
 
-        $forms = $this->getForms();
+        $forms                       = $this->getForms();
         $forms['exportPneu']['form'] = $form->createView();
         return $this->render('NSImportBundle:Export:index.html.twig', ['forms' => $forms]);
     }
