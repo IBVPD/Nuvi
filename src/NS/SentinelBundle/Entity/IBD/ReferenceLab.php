@@ -3,6 +3,7 @@
 namespace NS\SentinelBundle\Entity\IBD;
 
 use Doctrine\ORM\Mapping as ORM;
+use NS\SentinelBundle\Entity\ReferenceLab as RegionalReferenceLab;
 use NS\SentinelBundle\Entity\ReferenceLabResultInterface;
 
 /**
@@ -23,68 +24,27 @@ class ReferenceLab extends ExternalLab implements ReferenceLabResultInterface
     protected $caseFile;
 
     /**
-     * @var \NS\SentinelBundle\Entity\ReferenceLab $lab
+     * @var RegionalReferenceLab $lab
      * @ORM\ManyToOne(targetEntity="NS\SentinelBundle\Entity\ReferenceLab",inversedBy="ibdCases")
      * @ORM\JoinColumn(name="rrl_id")
      */
     private $lab;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $type = 'RRL';
 
-    /**
-     * @return \NS\SentinelBundle\Entity\ReferenceLab
-     */
-    public function getLab()
+    public function getLab(): ?RegionalReferenceLab
     {
         return $this->lab;
     }
 
-    /**
-     * @param \NS\SentinelBundle\Entity\ReferenceLab $lab
-     * @return $this
-     */
-    public function setLab(\NS\SentinelBundle\Entity\ReferenceLab $lab)
+    public function setLab(?RegionalReferenceLab $lab): void
     {
         $this->lab = $lab;
-        return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
-    }
-
-    /**
-     * @param $type
-     * @return $this
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCaseFile()
-    {
-        return $this->caseFile;
-    }
-
-    /**
-     * @param mixed $caseFile
-     * @return ReferenceLab
-     */
-    public function setCaseFile($caseFile = null)
-    {
-        $this->caseFile = $caseFile;
-        return $this;
     }
 }

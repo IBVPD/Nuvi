@@ -51,7 +51,7 @@ class Site implements Serializable
     private $name;
 
     /**
-     * @var integer $rvYearIntro
+     * @var integer|null
      * @ORM\Column(name="rvYearIntro",type="integer",nullable=true)
      * @Assert\GreaterThan(value=1900)
      * @Groups({"user"})
@@ -59,7 +59,7 @@ class Site implements Serializable
     private $rvYearIntro;
 
     /**
-     * @var integer $ibdYearIntro
+     * @var integer|null
      * @ORM\Column(name="ibdYearIntro",type="integer",nullable=true)
      * @Assert\GreaterThan(value=1900)
      * @Groups({"user"})
@@ -67,7 +67,7 @@ class Site implements Serializable
     private $ibdYearIntro;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(name="street", type="string", length=255,nullable=true)
      * @Groups({"user"})
@@ -75,7 +75,7 @@ class Site implements Serializable
     private $street;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(name="city", type="string", length=255,nullable=true)
      * @Groups({"user"})
@@ -83,14 +83,14 @@ class Site implements Serializable
     private $city;
 
     /**
-     * @var integer $numberOfBeds
+     * @var integer|null
      * @ORM\Column(name="numberOfBeds",type="integer",nullable=true)
      * @Groups({"user"})
      */
     private $numberOfBeds;
 
     /**
-     * @var string
+     * @var string|null
      *
      * @ORM\Column(name="website", type="string", length=255,nullable=true)
      * @Assert\Url()
@@ -107,7 +107,7 @@ class Site implements Serializable
     private $currentCaseId = 1;
 
     /**
-     * @var SurveillanceConducted $surveillanceConducted
+     * @var SurveillanceConducted|null
      * @ORM\Column(name="surveillanceConducted",type="SurveillanceConducted",nullable=false)
      */
     private $surveillanceConducted;
@@ -176,13 +176,13 @@ class Site implements Serializable
     private $country;
 
     /**
-     * @var boolean
+     * @var boolean|null
      * @ORM\Column(name="active",type="boolean",nullable=false)
      */
     private $active = true;
 
     /**
-     * @var Collection $zeroReports
+     * @var ZeroReport[]|Collection $zeroReports
      * @ORM\OneToMany(targetEntity="NS\SentinelBundle\Entity\ZeroReport", mappedBy="site")
      */
     private $zeroReports;
@@ -198,16 +198,12 @@ class Site implements Serializable
     /** @var int|null */
     private $totalCases;
 
-    public function __construct($code = null, $name = null)
+    public function __construct(?string $code = null, ?string $name = null)
     {
         $this->code = $code;
         $this->name = $name;
     }
 
-    /**
-     *
-     * @return string
-     */
     public function __toString()
     {
         if (mb_strlen($this->name, 'UTF-8') > 20) {
@@ -221,371 +217,179 @@ class Site implements Serializable
         return sprintf('%s', $this->name);
     }
 
-    /**
-     * @return string
-     */
-    public function getAjaxDisplay()
+    public function getAjaxDisplay(): string
     {
         return sprintf('%s - %s',$this->country->getCode(),$this->__toString());
     }
 
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
+    public function getId(): ?string
     {
         return $this->code;
     }
 
-    /**
-     *
-     * @return boolean
-     */
-    public function hasId()
+    public function hasId(): bool
     {
-        return (!empty($this->code) || (is_integer($this->code) && $this->code == 0) || $this->code !== null);
+        return (!empty($this->code) || $this->code !== null);
     }
 
-    /**
-     *
-     * @param string $id
-     * @return \NS\SentinelBundle\Entity\Site
-     */
-    public function setId($id)
+    public function setId(string $id): void
     {
         $this->code = $id;
-
-        return $this;
     }
 
-    /**
-     * Set name
-     *
-     * @param string $name
-     * @return Site
-     */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
-    
-        return $this;
     }
 
-    /**
-     * Get name
-     *
-     * @return string 
-     */
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    /**
-     * Set country
-     *
-     * @param Country $country
-     * @return Site
-     */
-    public function setCountry(Country $country = null)
+    public function setCountry(Country $country = null): void
     {
         $this->country = $country;
-    
-        return $this;
     }
 
-    /**
-     * Get country
-     *
-     * @return Country
-     */
-    public function getCountry()
+    public function getCountry(): ?Country
     {
         return $this->country;
     }
 
-    /**
-     * Set code
-     *
-     * @param string $code
-     * @return Site
-     */
-    public function setCode($code)
+    public function setCode(string $code): void
     {
         $this->code = $code;
-    
-        return $this;
     }
 
-    /**
-     * Get code
-     *
-     * @return string 
-     */
-    public function getCode()
+    public function getCode(): ?string
     {
         return $this->code;
     }
 
-    /**
-     * Set rvYearIntro
-     *
-     * @param integer $rvYearIntro
-     * @return Site
-     */
-    public function setRvYearIntro($rvYearIntro)
+    public function setRvYearIntro(int $rvYearIntro): void
     {
         $this->rvYearIntro = $rvYearIntro;
-    
-        return $this;
     }
 
-    /**
-     * Get rvYearIntro
-     *
-     * @return integer 
-     */
-    public function getRvYearIntro()
+    public function getRvYearIntro(): ?int
     {
         return $this->rvYearIntro;
     }
 
-    /**
-     * Set ibdYearIntro
-     *
-     * @param integer $ibdYearIntro
-     * @return Site
-     */
-    public function setIbdYearIntro($ibdYearIntro)
+    public function setIbdYearIntro(int $ibdYearIntro): void
     {
         $this->ibdYearIntro = $ibdYearIntro;
-    
-        return $this;
     }
 
-    /**
-     * Get ibdYearIntro
-     *
-     * @return integer 
-     */
-    public function getIbdYearIntro()
+    public function getIbdYearIntro(): ?int
     {
         return $this->ibdYearIntro;
     }
 
-    /**
-     * Set street
-     *
-     * @param string $street
-     * @return Site
-     */
-    public function setStreet($street)
+    public function setStreet(?string $street): void
     {
         $this->street = $street;
-    
-        return $this;
     }
 
-    /**
-     * Get street
-     *
-     * @return string 
-     */
-    public function getStreet()
+    public function getStreet(): ?string
     {
         return $this->street;
     }
 
-    /**
-     * Set city
-     *
-     * @param string $city
-     * @return Site
-     */
-    public function setCity($city)
+    public function setCity(?string $city): void
     {
         $this->city = $city;
-    
-        return $this;
     }
 
-    /**
-     * Get city
-     *
-     * @return string 
-     */
-    public function getCity()
+    public function getCity(): ?string
     {
         return $this->city;
     }
 
-    /**
-     * Set numberOfBeds
-     *
-     * @param integer $numberOfBeds
-     * @return Site
-     */
-    public function setNumberOfBeds($numberOfBeds)
+    public function setNumberOfBeds(?int $numberOfBeds): void
     {
         $this->numberOfBeds = $numberOfBeds;
-    
-        return $this;
     }
 
-    /**
-     * Get numberOfBeds
-     *
-     * @return integer 
-     */
-    public function getNumberOfBeds()
+    public function getNumberOfBeds(): ?int
     {
         return $this->numberOfBeds;
     }
 
-    /**
-     * Set website
-     *
-     * @param string $website
-     * @return Site
-     */
-    public function setWebsite($website)
+    public function setWebsite(?string $website): void
     {
         $this->website = $website;
-    
-        return $this;
     }
 
-    /**
-     * Get website
-     *
-     * @return string 
-     */
-    public function getWebsite()
+    public function getWebsite(): ?string
     {
         return $this->website;
     }
 
-    /**
-     *
-     * @return integer
-     */
-    public function getCurrentCaseId()
+    public function getCurrentCaseId(): ?int
     {
         return $this->currentCaseId;
     }
 
-    /**
-     *
-     * @param integer $currentCaseId
-     * @return \NS\SentinelBundle\Entity\Site
-     */
-    public function setCurrentCaseId($currentCaseId)
+    public function setCurrentCaseId(int $currentCaseId): void
     {
         $this->currentCaseId = $currentCaseId;
-        return $this;
     }
 
-    /**
-     *
-     * @return integer
-     */
-    public function getIbdTier()
+    public function getIbdTier(): ?int
     {
         return $this->ibdTier;
     }
 
-    /**
-     *
-     * @return IntenseSupport
-     */
-    public function getIbdIntenseSupport()
+    public function getIbdIntenseSupport(): ?IntenseSupport
     {
         return $this->ibdIntenseSupport;
     }
 
-    /**
-     *
-     * @return DateTime
-     */
-    public function getIbdLastSiteAssessmentDate()
+    public function getIbdLastSiteAssessmentDate(): ?DateTime
     {
         return $this->ibdLastSiteAssessmentDate;
     }
 
-    /**
-     *
-     * @return integer
-     */
-    public function getIbdSiteAssessmentScore()
+    public function getIbdSiteAssessmentScore(): ?int
     {
         return $this->ibdSiteAssessmentScore;
     }
 
-    /**
-     *
-     * @return DateTime
-     */
-    public function getRvLastSiteAssessmentDate()
+    public function getRvLastSiteAssessmentDate(): ?DateTime
     {
         return $this->rvLastSiteAssessmentDate;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getIbvpdRl()
+    public function getIbvpdRl(): ?string
     {
         return $this->ibvpdRl;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getRvRl()
+    public function getRvRl(): ?string
     {
         return $this->rvRl;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getIbdEqaCode()
+    public function getIbdEqaCode(): ?string
     {
         return $this->ibdEqaCode;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getRvEqaCode()
+    public function getRvEqaCode(): ?string
     {
         return $this->rvEqaCode;
     }
 
-    /**
-     *
-     * @return SurveillanceConducted
-     */
-    public function getSurveillanceConducted()
+    public function getSurveillanceConducted(): ?SurveillanceConducted
     {
         return $this->surveillanceConducted;
     }
 
-    /**
-     *
-     * @param SurveillanceConducted $surveillanceConducted
-     * @return \NS\SentinelBundle\Entity\Site
-     */
-    public function setSurveillanceConducted(SurveillanceConducted $surveillanceConducted)
+    public function setSurveillanceConducted(?SurveillanceConducted $surveillanceConducted): void
     {
         $this->surveillanceConducted = $surveillanceConducted;
-        return $this;
     }
 
     public function setIbdTier(?int $ibdTier): void
@@ -593,118 +397,57 @@ class Site implements Serializable
         $this->ibdTier = $ibdTier;
     }
 
-    /**
-     *
-     * @param IntenseSupport $ibdIntenseSupport
-     * @return \NS\SentinelBundle\Entity\Site
-     */
-    public function setIbdIntenseSupport(IntenseSupport $ibdIntenseSupport)
+    public function setIbdIntenseSupport(?IntenseSupport $ibdIntenseSupport): void
     {
         $this->ibdIntenseSupport = $ibdIntenseSupport;
-        return $this;
     }
 
-    /**
-     *
-     * @param DateTime $ibdLastSiteAssessmentDate
-     * @return \NS\SentinelBundle\Entity\Site
-     */
-    public function setIbdLastSiteAssessmentDate(DateTime $ibdLastSiteAssessmentDate = null)
+    public function setIbdLastSiteAssessmentDate(?DateTime $ibdLastSiteAssessmentDate = null): void
     {
         $this->ibdLastSiteAssessmentDate = $ibdLastSiteAssessmentDate;
-        return $this;
     }
 
-    /**
-     *
-     * @param string $ibdSiteAssessmentScore
-     * @return \NS\SentinelBundle\Entity\Site
-     */
-    public function setIbdSiteAssessmentScore($ibdSiteAssessmentScore)
+    public function setIbdSiteAssessmentScore(?int $ibdSiteAssessmentScore): void
     {
         $this->ibdSiteAssessmentScore = $ibdSiteAssessmentScore;
-        return $this;
     }
 
-    /**
-     *
-     * @param DateTime $rvLastSiteAssessmentDate
-     * @return \NS\SentinelBundle\Entity\Site
-     */
-    public function setRvLastSiteAssessmentDate(DateTime $rvLastSiteAssessmentDate = null)
+    public function setRvLastSiteAssessmentDate(?DateTime $rvLastSiteAssessmentDate = null): void
     {
         $this->rvLastSiteAssessmentDate = $rvLastSiteAssessmentDate;
-        return $this;
     }
 
-    /**
-     *
-     * @param string $ibvpdRl
-     * @return \NS\SentinelBundle\Entity\Site
-     */
-    public function setIbvpdRl($ibvpdRl)
+    public function setIbvpdRl(?string $ibvpdRl): void
     {
         $this->ibvpdRl = $ibvpdRl;
-        return $this;
     }
 
-    /**
-     *
-     * @param string $rvRl
-     * @return \NS\SentinelBundle\Entity\Site
-     */
-    public function setRvRl($rvRl)
+    public function setRvRl(?string $rvRl): void
     {
         $this->rvRl = $rvRl;
-        return $this;
     }
 
-    /**
-     *
-     * @param string $ibdEqaCode
-     * @return \NS\SentinelBundle\Entity\Site
-     */
-    public function setIbdEqaCode($ibdEqaCode)
+    public function setIbdEqaCode(?string $ibdEqaCode): void
     {
         $this->ibdEqaCode = $ibdEqaCode;
-        return $this;
     }
 
-    /**
-     *
-     * @param string $rvEqaCode
-     * @return \NS\SentinelBundle\Entity\Site
-     */
-    public function setRvEqaCode($rvEqaCode)
+    public function setRvEqaCode(?string $rvEqaCode): void
     {
         $this->rvEqaCode = $rvEqaCode;
-        return $this;
     }
 
-    /**
-     *
-     * @return boolean
-     */
-    public function isActive()
+    public function isActive(): ?bool
     {
         return $this->active;
     }
 
-    /**
-     *
-     * @param boolean $active
-     * @return \NS\SentinelBundle\Entity\Site
-     */
-    public function setActive($active)
+    public function setActive(bool $active): void
     {
         $this->active = $active;
-        return $this;
     }
 
-    /**
-     * @return Collection
-     */
-    public function getZeroReports()
+    public function getZeroReports(): ?Collection
     {
         return $this->zeroReports;
     }
@@ -713,54 +456,38 @@ class Site implements Serializable
      * @param Collection $zeroReports
      * @return Site
      */
-    public function setZeroReports($zeroReports)
+    public function setZeroReports($zeroReports): ?Site
     {
         $this->zeroReports = new ArrayCollection();
         foreach ($zeroReports as $report) {
             $this->addZeroReport($report);
         }
-
-        return $this;
     }
 
-    public function addZeroReport(ZeroReport $report)
+    public function addZeroReport(ZeroReport $report): void
     {
         $report->setSite($this);
         $this->zeroReports->add($report);
-
-        return $this;
     }
 
-    public function removeZeroReport(ZeroReport $report)
+    public function removeZeroReport(ZeroReport $report): void
     {
         if ($this->zeroReports->contains($report)) {
             $this->zeroReports->removeElement($report);
         }
-
-        return $this;
     }
 
-    /**
-     * @return bool
-     */
-    public function isTacPhase2()
+    public function isTacPhase2(): ?bool
     {
         return $this->tacPhase2;
     }
 
-    /**
-     * @param bool $tacPhase2
-     */
-    public function setTacPhase2($tacPhase2)
+    public function setTacPhase2(?bool $tacPhase2): void
     {
         $this->tacPhase2 = $tacPhase2;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function serialize()
+    public function serialize(): string
     {
         return serialize([
             $this->code,
@@ -786,11 +513,7 @@ class Site implements Serializable
         ]);
     }
 
-    /**
-     *
-     * @param string $serialized
-     */
-    public function unserialize($serialized)
+    public function unserialize($serialized): void
     {
         [
             $this->code,
@@ -815,23 +538,13 @@ class Site implements Serializable
         ] = unserialize($serialized, [__CLASS__]);
     }
 
-    /**
-     *
-     * @return integer
-     */
-    public function getTotalCases()
+    public function getTotalCases(): ?int
     {
         return $this->totalCases;
     }
 
-    /**
-     *
-     * @param integer $totalCases
-     * @return \NS\SentinelBundle\Entity\Site
-     */
-    public function setTotalCases($totalCases)
+    public function setTotalCases(int $totalCases): void
     {
         $this->totalCases = $totalCases;
-        return $this;
     }
 }

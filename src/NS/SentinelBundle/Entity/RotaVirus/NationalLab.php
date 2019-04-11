@@ -32,14 +32,14 @@ class NationalLab extends ExternalLab
     private $type = 'NL';
 
     /**
-     * @var TripleChoice
+     * @var TripleChoice|null
      * @ORM\Column(name="elisaDone",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $elisaDone;
 
     /**
-     * @var ElisaKit
+     * @var ElisaKit|null
      * @ORM\Column(name="elisaKit",type="ElisaKit",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
@@ -77,7 +77,7 @@ class NationalLab extends ExternalLab
     private $elisaTestDate;
 
     /**
-     * @var ElisaResult $elisaResult
+     * @var ElisaResult|null
      * @ORM\Column(name="elisaResult",type="ElisaResult",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
@@ -85,7 +85,7 @@ class NationalLab extends ExternalLab
 
     /**
      * RRL_stool_sent
-     * @var TripleChoice|null $stoolSentToRRL
+     * @var TripleChoice|null
      * @ORM\Column(name="stoolSentToRRL",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
@@ -93,7 +93,7 @@ class NationalLab extends ExternalLab
 
     /**
      * RRL_stool_date
-     * @var DateTime|null $stoolSentToRRLDate
+     * @var DateTime|null
      * @ORM\Column(name="stoolSentToRRLDate",type="date",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
@@ -106,135 +106,72 @@ class NationalLab extends ExternalLab
         return $this->type;
     }
 
-    /**
-     * @param $type
-     * @return $this
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCaseFile()
-    {
-        return $this->caseFile;
-    }
-
-    /**
-     * @param mixed $caseFile
-     * @return $this|void
-     */
-    public function setCaseFile($caseFile = null)
-    {
-        $this->caseFile = $caseFile;
-    }
-
-    /**
-     * @return TripleChoice
-     */
-    public function getElisaDone()
+    public function getElisaDone(): ?TripleChoice
     {
         return $this->elisaDone;
     }
 
-    /**
-     * @param TripleChoice $elisaDone
-     */
-    public function setElisaDone($elisaDone)
+    public function setElisaDone(?TripleChoice $elisaDone): void
     {
         $this->elisaDone = $elisaDone;
     }
 
-    /**
-     * @return ElisaKit
-     */
-    public function getElisaKit()
+    public function getElisaKit(): ?ElisaKit
     {
         return $this->elisaKit;
     }
 
-    /**
-     * @param ElisaKit $elisaKit
-     */
-    public function setElisaKit($elisaKit)
+    public function setElisaKit(?ElisaKit $elisaKit): void
     {
         $this->elisaKit = $elisaKit;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getElisaKitOther()
+    public function getElisaKitOther(): ?string
     {
         return $this->elisaKitOther;
     }
 
-    /**
-     * @param string|null $elisaKitOther
-     */
-    public function setElisaKitOther(string $elisaKitOther)
+    public function setElisaKitOther(?string $elisaKitOther): void
     {
         $this->elisaKitOther = $elisaKitOther;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getElisaLoadNumber()
+    public function getElisaLoadNumber(): ?string
     {
         return $this->elisaLoadNumber;
     }
 
-    /**
-     * @param string|null $elisaLoadNumber
-     */
-    public function setElisaLoadNumber(string $elisaLoadNumber)
+    public function setElisaLoadNumber(?string $elisaLoadNumber): void
     {
         $this->elisaLoadNumber = $elisaLoadNumber;
     }
 
-    /**
-     * @return DateTime|null
-     */
-    public function getElisaExpiryDate()
+    public function getElisaExpiryDate(): ?DateTime
     {
         return $this->elisaExpiryDate;
     }
 
-    /**
-     * @param DateTime|null $elisaExpiryDate
-     */
-    public function setElisaExpiryDate($elisaExpiryDate)
+    public function setElisaExpiryDate(?DateTime $elisaExpiryDate): void
     {
         $this->elisaExpiryDate = $elisaExpiryDate;
     }
 
-    /**
-     * @return DateTime|null
-     */
-    public function getElisaTestDate()
+    public function getElisaTestDate(): ?DateTime
     {
         return $this->elisaTestDate;
     }
 
-    /**
-     * @param DateTime|null $elisaTestDate
-     */
-    public function setElisaTestDate($elisaTestDate)
+    public function setElisaTestDate(?DateTime $elisaTestDate): void
     {
         $this->elisaTestDate = $elisaTestDate;
     }
 
-    public function getElisaResult()
+    public function getElisaResult(): ?ElisaResult
     {
         return $this->elisaResult;
     }
 
-    public function setElisaResult($elisaResult)
+    public function setElisaResult(?ElisaResult $elisaResult): void
     {
         $this->elisaResult = $elisaResult;
     }

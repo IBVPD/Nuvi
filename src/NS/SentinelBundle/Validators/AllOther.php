@@ -7,18 +7,12 @@ use Symfony\Component\Validator\Constraints\Valid;
 use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
 
 /**
- * Description of Other
- *
- * @author gnat
  * @Annotation
  */
 class AllOther extends Constraint
 {
     public $constraints = [];
 
-    /**
-     * {@inheritdoc}
-     */
     public function __construct($options = null)
     {
         parent::__construct($options);
@@ -38,26 +32,17 @@ class AllOther extends Constraint
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getDefaultOption()
+    public function getDefaultOption(): string
     {
         return 'constraints';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getRequiredOptions()
+    public function getRequiredOptions(): array
     {
         return ['constraints'];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getTargets()
+    public function getTargets(): string
     {
         return self::CLASS_CONSTRAINT;
     }

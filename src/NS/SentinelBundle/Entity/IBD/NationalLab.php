@@ -4,6 +4,7 @@ namespace NS\SentinelBundle\Entity\IBD;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
+use NS\SentinelBundle\Entity\BaseCase;
 use NS\SentinelBundle\Validators as LocalAssert;
 
 /**
@@ -100,24 +101,6 @@ class NationalLab extends ExternalLab
     public function setType($type)
     {
         $this->type = $type;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCaseFile()
-    {
-        return $this->caseFile;
-    }
-
-    /**
-     * @param mixed $caseFile
-     * @return NationalLab
-     */
-    public function setCaseFile($caseFile = null)
-    {
-        $this->caseFile = $caseFile;
         return $this;
     }
 

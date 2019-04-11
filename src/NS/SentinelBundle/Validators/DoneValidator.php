@@ -8,20 +8,17 @@ use Symfony\Component\PropertyAccess\PropertyAccessor;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
-/**
- * Class DoneValidator
- * @package NS\SentinelBundle\Validators
- */
 class DoneValidator extends ConstraintValidator
 {
     /**
-     * @inheritDoc
+     * @param mixed      $value
+     * @param Constraint|Done $constraint
      */
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
-        list($field, $doneField) = $this->getFields(is_array($value), $constraint);
+        [$field, $doneField] = $this->getFields(is_array($value), $constraint);
 
-        $accessor = new PropertyAccessor();
+        $accessor       = new PropertyAccessor();
         $doneFieldValue = $accessor->getValue($value, $doneField);
 
         if ($doneFieldValue instanceof TripleChoice) {
@@ -47,14 +44,9 @@ class DoneValidator extends ConstraintValidator
         }
     }
 
-    /**
-     * @param $isArray
-     * @param Constraint $constraint
-     * @return array
-     */
-    public function getFields($isArray, Constraint $constraint)
+    public function getFields(bool $isArray, Done $constraint): array
     {
-        return ($isArray) ?
+        return $isArray ?
             [sprintf('[%s]', $constraint->resultField), sprintf('[%s]', $constraint->tripleChoiceField)] :
             [$constraint->resultField, $constraint->tripleChoiceField];
     }

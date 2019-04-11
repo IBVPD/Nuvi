@@ -1,19 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gnat
- * Date: 05/05/16
- * Time: 11:06 AM
- */
 
 namespace NS\SentinelBundle\Validators;
 
 use Symfony\Component\Validator\Constraint;
 
 /**
- * Class ACL
- * @package NS\SentinelBundle\Validators
- *
  * @Annotation
  */
 class ACL extends Constraint

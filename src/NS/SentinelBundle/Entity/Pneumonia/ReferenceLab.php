@@ -3,6 +3,8 @@
 namespace NS\SentinelBundle\Entity\Pneumonia;
 
 use Doctrine\ORM\Mapping as ORM;
+use NS\SentinelBundle\Entity\BaseCase;
+use NS\SentinelBundle\Entity\ReferenceLab as RegionalReferenceLab;
 use NS\SentinelBundle\Entity\ReferenceLabResultInterface;
 
 /**
@@ -16,6 +18,8 @@ use NS\SentinelBundle\Entity\ReferenceLabResultInterface;
 class ReferenceLab extends ExternalLab implements ReferenceLabResultInterface
 {
     /**
+     * @var BaseCase|Pneumonia|null
+     *
      * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\Pneumonia\Pneumonia",inversedBy="referenceLab")
      * @ORM\JoinColumn(nullable=false,onDelete="CASCADE")
      * @ORM\Id
@@ -23,61 +27,34 @@ class ReferenceLab extends ExternalLab implements ReferenceLabResultInterface
     protected $caseFile;
 
     /**
-     * @var \NS\SentinelBundle\Entity\ReferenceLab $lab
+     * @var RegionalReferenceLab $lab
      * @ORM\ManyToOne(targetEntity="NS\SentinelBundle\Entity\ReferenceLab",inversedBy="ibdCases")
      * @ORM\JoinColumn(name="rrl_id")
      */
     private $lab;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $type = 'RRL';
 
     /**
-     * @return \NS\SentinelBundle\Entity\ReferenceLab
+     * @return RegionalReferenceLab
      */
-    public function getLab()
+    public function getLab(): ?RegionalReferenceLab
     {
         return $this->lab;
     }
 
-    /**
-     * @param \NS\SentinelBundle\Entity\ReferenceLab $lab
-     */
-    public function setLab(\NS\SentinelBundle\Entity\ReferenceLab $lab)
+    public function setLab(RegionalReferenceLab $lab): void
     {
         $this->lab = $lab;
     }
 
-    /**
-     * @return string
-     */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @param $type
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-    }
-
-    /**
-     * @return Pneumonia
-     */
-    public function getCaseFile()
-    {
-        return $this->caseFile;
-    }
-
-    /**
-     * @param mixed $caseFile
-     */
-    public function setCaseFile($caseFile = null)
+    public function setCaseFile(BaseCase $caseFile = null): void
     {
         $this->caseFile = $caseFile;
     }

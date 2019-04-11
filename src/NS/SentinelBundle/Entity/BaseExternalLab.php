@@ -14,9 +14,7 @@ use JMS\Serializer\Annotation as Serializer;
  */
 abstract class BaseExternalLab
 {
-    /**
-     * @var BaseCase
-     */
+    /** @var BaseCase */
     protected $caseFile;
 
     /**
@@ -102,12 +100,7 @@ abstract class BaseExternalLab
         $this->dt_sample_recd = $dt_sample_recd;
     }
 
-    /**
-     * Set case
-     *
-     * @param  $case
-     */
-    public function setCaseFile($case = null)
+    public function setCaseFile(?BaseCase $case = null): void
     {
         $this->caseFile = $case;
     }

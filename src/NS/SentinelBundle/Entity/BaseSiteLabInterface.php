@@ -1,39 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gnat
- * Date: 2017-03-07
- * Time: 7:36 PM
- */
 
 namespace NS\SentinelBundle\Entity;
 
-
 interface BaseSiteLabInterface
 {
-    /**
-     * @return BaseCase
-     */
-    public function getCaseFile();
+    public function getCaseFile(): BaseCase;
 
-    /**
-     *
-     * @param BaseCase $case
-     * @return BaseSiteLabInterface
-     */
-    public function setCaseFile(BaseCase $case);
+    public function setCaseFile(BaseCase $case): void;
 
-    /**
-     * Get sentToNationalLab
-     *
-     * @return boolean
-     */
-    public function getSentToNationalLab();
+    public function getSentToNationalLab(): bool;
 
-    /**
-     * Get sentToReferenceLab
-     *
-     * @return boolean
-     */
-    public function getSentToReferenceLab();
+    public function getSentToReferenceLab(): bool;
 }

@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Entity\RotaVirus;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use NS\SecurityBundle\Annotation\Secured;
 use NS\SecurityBundle\Annotation\SecuredCondition;
@@ -27,7 +28,7 @@ use NS\SentinelBundle\Validators as LocalAssert;
 abstract class ExternalLab extends BaseExternalLab
 {
     /**
-     * @var \DateTime $specimenCollectionDate
+     * @var DateTime|null
      * @ORM\Column(name="specimenCollectionDate",type="date",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
@@ -36,7 +37,7 @@ abstract class ExternalLab extends BaseExternalLab
     protected $specimenCollectionDate;
 
     /**
-     * @var \DateTime $genotypingDate
+     * @var DateTime|null
      * @ORM\Column(name="dt_gt",type="date", nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
@@ -45,168 +46,111 @@ abstract class ExternalLab extends BaseExternalLab
     protected $dt_gt;
 
     /**
-     * @var GenotypeResultG $genotypingResultg
+     * @var GenotypeResultG|null
      * @ORM\Column(name="gt_result_g",type="GenotypeResultG", nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     protected $gt_result_g;
 
     /**
-     * @var string $genotypingResultGSpecify
+     * @var string|null
      * @ORM\Column(name="gt_result_g_specify",type="string", nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     protected $gt_result_g_specify;
 
     /**
-     * @var GenotypeResultP $genotypeResultP
+     * @var GenotypeResultP|null
      * @ORM\Column(name="gt_result_p",type="GenotypeResultP", nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     protected $gt_result_p;
 
     /**
-     * @var string $genotypeResultPSpecify
+     * @var string|null
      * @ORM\Column(name="gt_result_p_specify",type="string", nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     protected $gt_result_p_specify;
 
     /**
-     * @var ElisaResult $pcrVp6Result
+     * @var ElisaResult|null
      * @ORM\Column(name="pcr_vp6_result",type="ElisaResult", nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     protected $pcr_vp6_result;
 
-    /**
-     * @return \DateTime|null
-     */
-    public function getSpecimenCollectionDate()
+    public function getSpecimenCollectionDate(): ?DateTime
     {
         return $this->specimenCollectionDate;
     }
 
-    /**
-     * @param \DateTime $specimenCollectionDate
-     */
-    public function setSpecimenCollectionDate($specimenCollectionDate)
+    public function setSpecimenCollectionDate(?DateTime $specimenCollectionDate): void
     {
         $this->specimenCollectionDate = $specimenCollectionDate;
     }
 
-    /**
-     * @return \DateTime|null
-     */
-    public function getGenotypingDate()
+    public function getGenotypingDate(): ?DateTime
     {
         return $this->dt_gt;
     }
 
-    /**
-     * @return GenotypeResultG
-     */
-    public function getGenotypingResultg()
+    public function getGenotypingResultg(): ?GenotypeResultG
     {
         return $this->gt_result_g;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getGenotypingResultGSpecify()
+    public function getGenotypingResultGSpecify(): ?string
     {
         return $this->gt_result_g_specify;
     }
 
-    /**
-     * @return GenotypeResultP
-     */
-    public function getGenotypeResultP()
+    public function getGenotypeResultP(): ?GenotypeResultP
     {
         return $this->gt_result_p;
     }
 
-    /**
-     * @return string
-     */
-    public function getGenotypeResultPSpecify()
+    public function getGenotypeResultPSpecify(): ?string
     {
         return $this->gt_result_p_specify;
     }
 
-    /**
-     * @return ElisaResult
-     */
-    public function getPcrVp6Result()
+    public function getPcrVp6Result(): ?ElisaResult
     {
         return $this->pcr_vp6_result;
     }
 
-    /**
-     * @param \DateTime $genotypingDate
-     * @return $this
-     */
-    public function setGenotypingDate(\DateTime $genotypingDate = null)
+    public function setGenotypingDate(?DateTime $genotypingDate = null): void
     {
         $this->dt_gt = $genotypingDate;
-        return $this;
     }
 
-    /**
-     * @param $genotypingResultg
-     * @return $this
-     */
-    public function setGenotypingResultg($genotypingResultg)
+    public function setGenotypingResultg(?GenotypeResultG $genotypingResultg): void
     {
         $this->gt_result_g = $genotypingResultg;
-        return $this;
     }
 
-    /**
-     * @param $genotypingResultGSpecify
-     * @return $this
-     */
-    public function setGenotypingResultGSpecify($genotypingResultGSpecify)
+    public function setGenotypingResultGSpecify(?string $genotypingResultGSpecify): void
     {
         $this->gt_result_g_specify = $genotypingResultGSpecify;
-        return $this;
     }
 
-    /**
-     * @param $genotypeResultP
-     * @return $this
-     */
-    public function setGenotypeResultP($genotypeResultP)
+    public function setGenotypeResultP(?GenotypeResultP $genotypeResultP): void
     {
         $this->gt_result_p = $genotypeResultP;
-        return $this;
     }
 
-    /**
-     * @param $genotypeResultPSpecify
-     * @return $this
-     */
-    public function setGenotypeResultPSpecify($genotypeResultPSpecify)
+    public function setGenotypeResultPSpecify(?string $genotypeResultPSpecify): void
     {
         $this->gt_result_p_specify = $genotypeResultPSpecify;
-        return $this;
     }
 
-    /**
-     * @param $pcrVp6Result
-     * @return $this
-     */
-    public function setPcrVp6Result($pcrVp6Result)
+    public function setPcrVp6Result(?ElisaResult $pcrVp6Result): void
     {
         $this->pcr_vp6_result = $pcrVp6Result;
-        return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function getMandatoryFields()
+    public function getMandatoryFields(): array
     {
         return [
             'dg_gt',
@@ -217,82 +161,52 @@ abstract class ExternalLab extends BaseExternalLab
             'pcr_vp6_result'];
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getDtGt()
+    public function getDtGt(): ?DateTime
     {
         return $this->dt_gt;
     }
 
-    /**
-     * @param \DateTime $dt_gt
-     */
-    public function setDtGt($dt_gt)
+    public function setDtGt(?DateTime $dt_gt): void
     {
         $this->dt_gt = $dt_gt;
     }
 
-    /**
-     * @return GenotypeResultG
-     */
-    public function getGtResultG()
+    public function getGtResultG(): ?GenotypeResultG
     {
         return $this->gt_result_g;
     }
 
-    /**
-     * @param GenotypeResultG $gt_result_g
-     */
-    public function setGtResultG($gt_result_g)
+    public function setGtResultG(?GenotypeResultG $gt_result_g): void
     {
         $this->gt_result_g = $gt_result_g;
     }
 
-    /**
-     * @return string
-     */
-    public function getGtResultGSpecify()
+    public function getGtResultGSpecify(): ?string
     {
         return $this->gt_result_g_specify;
     }
 
-    /**
-     * @param string $gt_result_g_specify
-     */
-    public function setGtResultGSpecify($gt_result_g_specify)
+    public function setGtResultGSpecify(?string $gt_result_g_specify): void
     {
         $this->gt_result_g_specify = $gt_result_g_specify;
     }
 
-    /**
-     * @return GenotypeResultP
-     */
-    public function getGtResultP()
+    public function getGtResultP(): ?GenotypeResultP
     {
         return $this->gt_result_p;
     }
 
-    /**
-     * @param GenotypeResultP $gt_result_p
-     */
-    public function setGtResultP($gt_result_p)
+    public function setGtResultP(?GenotypeResultP $gt_result_p): void
     {
         $this->gt_result_p = $gt_result_p;
     }
 
-    /**
-     * @return string
-     */
-    public function getGtResultPSpecify()
+    public function getGtResultPSpecify(): ?string
     {
         return $this->gt_result_p_specify;
     }
 
-    /**
-     * @param string $gt_result_p_specify
-     */
-    public function setGtResultPSpecify($gt_result_p_specify)
+    public function setGtResultPSpecify(?string $gt_result_p_specify): void
     {
         $this->gt_result_p_specify = $gt_result_p_specify;
     }

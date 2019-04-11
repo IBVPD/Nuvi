@@ -381,7 +381,7 @@ abstract class BaseCase
         return $this->siteLab instanceof $this->siteLabClass;
     }
 
-    public function getSiteLab(): BaseSiteLabInterface
+    public function getSiteLab(): ?BaseSiteLabInterface
     {
         return $this->siteLab;
     }

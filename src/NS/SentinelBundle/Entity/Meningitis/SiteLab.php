@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Entity\Meningitis;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use NS\SecurityBundle\Annotation as Security;
 use NS\SentinelBundle\Entity\BaseCase;
@@ -55,7 +56,7 @@ use JMS\Serializer\Annotation as Serializer;
 class SiteLab implements BaseSiteLabInterface
 {
     /**
-     * @var Meningitis
+     * @var Meningitis|BaseCase
      *
      * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\Meningitis\Meningitis",inversedBy="siteLab",cascade={"persist"})
      * @ORM\JoinColumn(nullable=false,unique=true,onDelete="CASCADE")
@@ -66,14 +67,14 @@ class SiteLab implements BaseSiteLabInterface
     //Case-based Laboratory Data
 
     /**
-     * @var string $csf_id
+     * @var string|null
      * @ORM\Column(name="csf_id",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $csf_id;
 
     /**
-     * @var \DateTime $csfLabTime
+     * @var DateTime|null
      * @ORM\Column(name="csf_lab_date",type="date",nullable=true)
      * @Assert\DateTime
      * @LocalAssert\NoFutureDate()
@@ -83,7 +84,7 @@ class SiteLab implements BaseSiteLabInterface
     private $csf_lab_date;
 
     /**
-     * @var \DateTime $csfLabTime
+     * @var DateTime|null
      * @ORM\Column(name="csf_lab_time",type="time",nullable=true)
      * @Assert\DateTime
      * @Serializer\Groups({"api","export"})
@@ -92,7 +93,7 @@ class SiteLab implements BaseSiteLabInterface
     private $csf_lab_time;
 
     /**
-     * @var integer $csfWcc
+     * @var int|null
      * @ORM\Column(name="csf_wcc", type="integer", nullable=true)
      *
      * @Assert\Range(min=0,max=9999,minMessage="You cannot have a negative white blood cell count",maxMessage="Invalid value")
@@ -101,7 +102,7 @@ class SiteLab implements BaseSiteLabInterface
     private $csf_wcc;
 
     /**
-     * @var integer $csfGlucose
+     * @var int|null
      * @ORM\Column(name="csf_glucose", type="integer", nullable=true)
      *
      * @Assert\Type(type="numeric", message="Invalid value. Must be a number")
@@ -111,7 +112,7 @@ class SiteLab implements BaseSiteLabInterface
     private $csf_glucose;
 
     /**
-     * @var integer $csfProtein
+     * @var int|null
      * @ORM\Column(name="csf_protein", type="integer",nullable=true)
      *
      * @Assert\Type(type="numeric", message="Invalid value. Must be a number")
@@ -121,49 +122,49 @@ class SiteLab implements BaseSiteLabInterface
     private $csf_protein;
 
     /**
-     * @var TripleChoice $csfCultDone
+     * @var TripleChoice|null
      * @ORM\Column(name="csf_cult_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $csf_cult_done;
 
     /**
-     * @var TripleChoice $csfGramDone
+     * @var TripleChoice|null
      * @ORM\Column(name="csf_gram_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $csf_gram_done;
 
     /**
-     * @var TripleChoice $csfBinaxDone
+     * @var TripleChoice|null
      * @ORM\Column(name="csf_binax_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $csf_binax_done;
 
     /**
-     * @var TripleChoice $csfLatDone
+     * @var TripleChoice|null
      * @ORM\Column(name="csf_lat_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $csf_lat_done;
 
     /**
-     * @var TripleChoice $csfPcrDone
+     * @var TripleChoice|null
      * @ORM\Column(name="csf_pcr_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $csf_pcr_done;
 
     /**
-     * @var CultureResult $csfCultResult
+     * @var CultureResult|null
      * @ORM\Column(name="csf_cult_result",type="CultureResult",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $csf_cult_result;
 
     /**
-     * @var string $csfCultOther
+     * @var string|null
      * @ORM\Column(name="csf_cult_other",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
@@ -171,76 +172,76 @@ class SiteLab implements BaseSiteLabInterface
 
     /**
      * TODO WHERE DOES THIS COME FROM??
-     * @var string $csfCultContaminant
+     * @var string|null
      * @ORM\Column(name="csf_cult_contaminant",type="string",nullable=true)
      */
     private $csf_cult_contaminant;
 
     /**
-     * @var GramStain
+     * @var GramStain|null
      * @ORM\Column(name="csf_gram_stain",type="GramStain",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $csf_gram_stain;
 
     /**
-     * @var GramStainResult $csfGramResult
+     * @var GramStainResult|null
      * @ORM\Column(name="csf_gram_result",type="GramStainResult",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $csf_gram_result;
 
     /**
-     * @var string $csfGramOther
+     * @var string|null
      * @ORM\Column(name="csf_gram_other",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $csf_gram_other;
 
     /**
-     * @var BinaxResult
+     * @var BinaxResult|null
      * @ORM\Column(name="csf_binax_result",type="BinaxResult",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $csf_binax_result;
 
     /**
-     * @var LatResult
+     * @var LatResult|null
      * @ORM\Column(name="csf_lat_result",type="LatResult",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $csf_lat_result;
 
     /**
-     * @var string
+     * @var string|null
      * @ORM\Column(name="csf_lat_other",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $csf_lat_other;
 
     /**
-     * @var PCRResult
+     * @var PCRResult|null
      * @ORM\Column(name="csf_pcr_result",type="PCRResult",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $csf_pcr_result;
 
     /**
-     * @var string $csfPcrOther
+     * @var string|null
      * @ORM\Column(name="csf_pcr_other",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $csf_pcr_other;
 
     /**
-     * @var TripleChoice $csfStore
+     * @var TripleChoice|null
      * @ORM\Column(name="csf_store",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $csf_store;
 
     /**
-     * @var TripleChoice $csfStore
+     * @var TripleChoice|null
      * @ORM\Column(name="isol_store",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
@@ -249,14 +250,14 @@ class SiteLab implements BaseSiteLabInterface
 //==================
     //PNEUMONIA / SEPSIS (In addition to above)
     /**
-     * @var string $bloodId
+     * @var string|null
      * @ORM\Column(name="blood_id",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $blood_id;
 
     /**
-     * @var \DateTime $bloodLabTime
+     * @var DateTime|null
      * @ORM\Column(name="blood_lab_date",type="date",nullable=true)
      * @Assert\DateTime
      * @LocalAssert\NoFutureDate()
@@ -266,7 +267,7 @@ class SiteLab implements BaseSiteLabInterface
     private $blood_lab_date;
 
     /**
-     * @var \DateTime $bloodLabTime
+     * @var DateTime|null
      * @ORM\Column(name="blood_lab_time",type="time",nullable=true)
      * @Assert\DateTime
      * @Serializer\Groups({"api","export"})
@@ -275,70 +276,70 @@ class SiteLab implements BaseSiteLabInterface
     private $blood_lab_time;
 
     /**
-     * @var TripleChoice $bloodCultDone
+     * @var TripleChoice|null
      * @ORM\Column(name="blood_cult_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $blood_cult_done;
 
     /**
-     * @var TripleChoice $bloodGramDone
+     * @var TripleChoice|null
      * @ORM\Column(name="blood_gram_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $blood_gram_done;
 
     /**
-     * @var TripleChoice $bloodPcrDone
+     * @var TripleChoice|null
      * @ORM\Column(name="blood_pcr_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $blood_pcr_done;
 
     /**
-     * @var CultureResult
+     * @var CultureResult|null
      * @ORM\Column(name="blood_cult_result",type="CultureResult",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $blood_cult_result;
 
     /**
-     * @var string
+     * @var string|null
      * @ORM\Column(name="blood_cult_other",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $blood_cult_other;
 
     /**
-     * @var GramStain
+     * @var GramStain|null
      * @ORM\Column(name="blood_gram_stain",type="GramStain",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $blood_gram_stain;
 
     /**
-     * @var GramStainResult $bloodGramResult
+     * @var GramStainResult|null
      * @ORM\Column(name="blood_gram_result",type="GramStainResult",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $blood_gram_result;
 
     /**
-     * @var string $bloodGramOther
+     * @var string|null
      * @ORM\Column(name="blood_gram_other",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $blood_gram_other;
 
     /**
-     * @var PCRResult
+     * @var PCRResult|null
      * @ORM\Column(name="blood_pcr_result",type="PCRResult",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $blood_pcr_result;
 
     /**
-     * @var string $bloodPcrOther
+     * @var string|null
      * @ORM\Column(name="blood_pcr_other",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
@@ -346,14 +347,14 @@ class SiteLab implements BaseSiteLabInterface
 
     //============
     /**
-     * @var string
+     * @var string|null
      * @ORM\Column(name="blood_second_id",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $blood_second_id;
 
     /**
-     * @var \DateTime $blood_secondLabTime
+     * @var DateTime|null
      * @ORM\Column(name="blood_second_lab_date",type="date",nullable=true)
      * @Assert\DateTime
      * @LocalAssert\NoFutureDate()
@@ -363,7 +364,7 @@ class SiteLab implements BaseSiteLabInterface
     private $blood_second_lab_date;
 
     /**
-     * @var \DateTime $blood_secondLabTime
+     * @var DateTime|null
      * @ORM\Column(name="blood_second_lab_time",type="time",nullable=true)
      * @Assert\DateTime
      * @Serializer\Groups({"api","export"})
@@ -372,70 +373,70 @@ class SiteLab implements BaseSiteLabInterface
     private $blood_second_lab_time;
 
     /**
-     * @var TripleChoice $blood_secondCultDone
+     * @var TripleChoice|null
      * @ORM\Column(name="blood_second_cult_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $blood_second_cult_done;
 
     /**
-     * @var TripleChoice $blood_secondGramDone
+     * @var TripleChoice|null
      * @ORM\Column(name="blood_second_gram_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $blood_second_gram_done;
 
     /**
-     * @var TripleChoice $blood_secondPcrDone
+     * @var TripleChoice|null
      * @ORM\Column(name="blood_second_pcr_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $blood_second_pcr_done;
 
     /**
-     * @var CultureResult
+     * @var CultureResult|null
      * @ORM\Column(name="blood_second_cult_result",type="CultureResult",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $blood_second_cult_result;
 
     /**
-     * @var string
+     * @var string|null
      * @ORM\Column(name="blood_second_cult_other",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $blood_second_cult_other;
 
     /**
-     * @var GramStain
+     * @var GramStain|null
      * @ORM\Column(name="blood_second_gram_stain",type="GramStain",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $blood_second_gram_stain;
 
     /**
-     * @var GramStainResult $blood_secondGramResult
+     * @var GramStainResult|null
      * @ORM\Column(name="blood_second_gram_result",type="GramStainResult",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $blood_second_gram_result;
 
     /**
-     * @var string $blood_secondGramOther
+     * @var string|null
      * @ORM\Column(name="blood_second_gram_other",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $blood_second_gram_other;
 
     /**
-     * @var PCRResult
+     * @var PCRResult|null
      * @ORM\Column(name="blood_second_pcr_result",type="PCRResult",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $blood_second_pcr_result;
 
     /**
-     * @var string $blood_secondPcrOther
+     * @var string|null
      * @ORM\Column(name="blood_second_pcr_other",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
@@ -443,7 +444,7 @@ class SiteLab implements BaseSiteLabInterface
 
     //============
     /**
-     * @var string $other_id
+     * @var string|null
      * @ORM\Column(name="other_id",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
@@ -451,14 +452,14 @@ class SiteLab implements BaseSiteLabInterface
 
     /**
      * PAHO request
-     * @var string $other_type
+     * @var string|null
      * @ORM\Column(name="other_type",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $other_type;
 
     /**
-     * @var \DateTime $otherLabTime
+     * @var DateTime|null
      * @ORM\Column(name="other_lab_date",type="date",nullable=true)
      * @Assert\DateTime
      * @LocalAssert\NoFutureDate()
@@ -468,7 +469,7 @@ class SiteLab implements BaseSiteLabInterface
     private $other_lab_date;
 
     /**
-     * @var \DateTime $otherLabTime
+     * @var DateTime|null
      * @ORM\Column(name="other_lab_time",type="time",nullable=true)
      * @Assert\DateTime
      * @Serializer\Groups({"api","export"})
@@ -477,49 +478,49 @@ class SiteLab implements BaseSiteLabInterface
     private $other_lab_time;
 
     /**
-     * @var TripleChoice $otherCultDone
+     * @var TripleChoice|null
      * @ORM\Column(name="other_cult_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $other_cult_done;
 
     /**
-     * @var CultureResult
+     * @var CultureResult|null
      * @ORM\Column(name="other_cult_result",type="CultureResult",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $other_cult_result;
 
     /**
-     * @var string
+     * @var string|null
      * @ORM\Column(name="other_cult_other",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $other_cult_other;
 
     /**
-     * @var TripleChoice $otherTestDone
+     * @var TripleChoice|null
      * @ORM\Column(name="other_test_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $other_test_done;
 
     /**
-     * @var CultureResult
+     * @var CultureResult|null
      * @ORM\Column(name="other_test_result",type="CultureResult",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $other_test_result;
 
     /**
-     * @var string $otherTestOther
+     * @var string|null
      * @ORM\Column(name="other_test_other",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $other_test_other;
 //==================================
     /**
-     * @var boolean
+     * @var boolean|null
      * @ORM\Column(name="rl_csf_sent",type="boolean",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
@@ -527,7 +528,7 @@ class SiteLab implements BaseSiteLabInterface
     private $rl_csf_sent;
 
     /**
-     * @var \DateTime
+     * @var DateTime|null
      * @ORM\Column(name="rl_csf_date",type="date",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
@@ -536,7 +537,7 @@ class SiteLab implements BaseSiteLabInterface
     private $rl_csf_date;
 
     /**
-     * @var boolean
+     * @var boolean|null
      * @ORM\Column(name="rl_isol_csf_sent",type="boolean",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
@@ -544,7 +545,7 @@ class SiteLab implements BaseSiteLabInterface
     private $rl_isol_csf_sent;
 
     /**
-     * @var \DateTime
+     * @var DateTime|null
      * @ORM\Column(name="rl_isol_csf_date",type="date",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
@@ -553,7 +554,7 @@ class SiteLab implements BaseSiteLabInterface
     private $rl_isol_csf_date;
 
     /**
-     * @var boolean
+     * @var boolean|null
      * @ORM\Column(name="rl_isol_blood_sent",type="boolean",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
@@ -561,7 +562,7 @@ class SiteLab implements BaseSiteLabInterface
     private $rl_isol_blood_sent;
 
     /**
-     * @var \DateTime
+     * @var DateTime|null
      * @ORM\Column(name="rl_isol_blood_date",type="date",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
@@ -570,7 +571,7 @@ class SiteLab implements BaseSiteLabInterface
     private $rl_isol_blood_date;
 
     /**
-     * @var boolean
+     * @var boolean|null
      * @ORM\Column(name="rl_broth_sent",type="boolean",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
@@ -578,7 +579,7 @@ class SiteLab implements BaseSiteLabInterface
     private $rl_broth_sent;
 
     /**
-     * @var \DateTime
+     * @var DateTime|null
      * @ORM\Column(name="rl_broth_date",type="date",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
@@ -587,7 +588,7 @@ class SiteLab implements BaseSiteLabInterface
     private $rl_broth_date;
 
     /**
-     * @var boolean
+     * @var boolean|null
      * @ORM\Column(name="rl_other_sent",type="boolean",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
@@ -595,7 +596,7 @@ class SiteLab implements BaseSiteLabInterface
     private $rl_other_sent;
 
     /**
-     * @var \DateTime
+     * @var DateTime|null
      * @ORM\Column(name="rl_other_date",type="date",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
@@ -607,7 +608,7 @@ class SiteLab implements BaseSiteLabInterface
 // NL
 
     /**
-     * @var boolean
+     * @var boolean|null
      * @ORM\Column(name="nl_csf_sent",type="boolean",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
@@ -615,7 +616,7 @@ class SiteLab implements BaseSiteLabInterface
     private $nl_csf_sent;
 
     /**
-     * @var \DateTime
+     * @var DateTime|null
      * @ORM\Column(name="nl_csf_date",type="date",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
@@ -624,7 +625,7 @@ class SiteLab implements BaseSiteLabInterface
     private $nl_csf_date;
 
     /**
-     * @var boolean
+     * @var boolean|null
      * @ORM\Column(name="nl_isol_csf_sent",type="boolean",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
@@ -632,7 +633,7 @@ class SiteLab implements BaseSiteLabInterface
     private $nl_isol_csf_sent;
 
     /**
-     * @var \DateTime
+     * @var DateTime|null
      * @ORM\Column(name="nl_isol_csf_date",type="date",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
@@ -641,7 +642,7 @@ class SiteLab implements BaseSiteLabInterface
     private $nl_isol_csf_date;
 
     /**
-     * @var boolean
+     * @var boolean|null
      * @ORM\Column(name="nl_isol_blood_sent",type="boolean",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
@@ -649,7 +650,7 @@ class SiteLab implements BaseSiteLabInterface
     private $nl_isol_blood_sent;
 
     /**
-     * @var \DateTime
+     * @var DateTime|null
      * @ORM\Column(name="nl_isol_blood_date",type="date",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
@@ -658,7 +659,7 @@ class SiteLab implements BaseSiteLabInterface
     private $nl_isol_blood_date;
 
     /**
-     * @var boolean
+     * @var boolean|null
      * @ORM\Column(name="nl_broth_sent",type="boolean",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
@@ -666,7 +667,7 @@ class SiteLab implements BaseSiteLabInterface
     private $nl_broth_sent;
 
     /**
-     * @var \DateTime
+     * @var DateTime|null
      * @ORM\Column(name="nl_broth_date",type="date",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
@@ -675,7 +676,7 @@ class SiteLab implements BaseSiteLabInterface
     private $nl_broth_date;
 
     /**
-     * @var boolean
+     * @var boolean|null
      * @ORM\Column(name="nl_other_sent",type="boolean",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
@@ -683,7 +684,7 @@ class SiteLab implements BaseSiteLabInterface
     private $nl_other_sent;
 
     /**
-     * @var \DateTime
+     * @var DateTime|null
      * @ORM\Column(name="nl_other_date",type="date",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
@@ -693,7 +694,7 @@ class SiteLab implements BaseSiteLabInterface
 
 //==================================
     /**
-     * @var \DateTime $updatedAt
+     * @var DateTime
      * @ORM\Column(name="updatedAt",type="datetime")
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d H:i:s'>")
@@ -701,1153 +702,677 @@ class SiteLab implements BaseSiteLabInterface
     private $updatedAt;
 
     /**
-     * @var CaseStatus $status
+     * @var CaseStatus
      * @ORM\Column(name="status",type="CaseStatus")
      * @Serializer\Groups({"api","export"})
      */
     private $status;
 
-    /**
-     * @param Meningitis $case
-     */
     public function __construct(Meningitis $case = null)
     {
         if ($case) {
             $this->caseFile = $case;
         }
 
-        $this->updatedAt = new \DateTime();
+        $this->updatedAt = new DateTime();
         $this->status    = new CaseStatus(CaseStatus::OPEN);
     }
 
     /**
-     * @return Meningitis
+     * @return Meningitis|BaseCase
      */
-    public function getCaseFile()
+    public function getCaseFile(): BaseCase
     {
         return $this->caseFile;
     }
 
     /**
      * @param BaseCase|Meningitis $caseFile
-     * @return \NS\SentinelBundle\Entity\BaseSiteLabInterface|void
      */
-    public function setCaseFile(BaseCase $caseFile)
+    public function setCaseFile(BaseCase $caseFile): void
     {
         $this->caseFile = $caseFile;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
+    public function getUpdatedAt(): DateTime
     {
         return $this->updatedAt;
     }
 
-    /**
-     * @param \DateTime $updatedAt
-     * @return $this
-     */
-    public function setUpdatedAt(\DateTime $updatedAt)
+    public function setUpdatedAt(DateTime $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
-
-        return $this;
     }
 
-    /**
-     * @return CaseStatus
-     */
-    public function getStatus()
+    public function getStatus(): CaseStatus
     {
         return $this->status;
     }
 
-    /**
-     * @param CaseStatus $status
-     * @return $this
-     */
-    public function setStatus(CaseStatus $status)
+    public function setStatus(CaseStatus $status): void
     {
         $this->status = $status;
-        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return bool
-     */
-    public function hasCase()
+    public function hasCase(): bool
     {
         return ($this->caseFile instanceof Meningitis);
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getCsfLabDate()
+    public function getCsfLabDate(): ?DateTime
     {
         return $this->csf_lab_date;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getCsfLabTime()
+    public function getCsfLabTime(): ?DateTime
     {
         return $this->csf_lab_time;
     }
 
-    /**
-     * @return integer
-     */
-    public function getCsfWcc()
+    public function getCsfWcc(): ?int
     {
         return $this->csf_wcc;
     }
 
-    /**
-     * @return integer
-     */
-    public function getCsfGlucose()
+    public function getCsfGlucose(): ?int
     {
         return $this->csf_glucose;
     }
 
-    /**
-     * @return integer
-     */
-    public function getCsfProtein()
+    public function getCsfProtein(): ?int
     {
         return $this->csf_protein;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getCsfCultDone()
+    public function getCsfCultDone(): ?TripleChoice
     {
         return $this->csf_cult_done;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getCsfCultContaminant()
+    public function getCsfCultContaminant(): ?string
     {
         return $this->csf_cult_contaminant;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getCsfGramDone()
+    public function getCsfGramDone(): ?TripleChoice
     {
         return $this->csf_gram_done;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getCsfBinaxDone()
+    public function getCsfBinaxDone(): ?TripleChoice
     {
         return $this->csf_binax_done;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getCsfLatDone()
+    public function getCsfLatDone(): ?TripleChoice
     {
         return $this->csf_lat_done;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getCsfPcrDone()
+    public function getCsfPcrDone(): ?TripleChoice
     {
         return $this->csf_pcr_done;
     }
 
-    /**
-     * @return CultureResult
-     */
-    public function getCsfCultResult()
+    public function getCsfCultResult(): ?CultureResult
     {
         return $this->csf_cult_result;
     }
 
-    /**
-     * @return string
-     */
-    public function getCsfCultOther()
+    public function getCsfCultOther(): ?string
     {
         return $this->csf_cult_other;
     }
 
-    /**
-     * @return GramStainResult
-     */
-    public function getCsfGramResult()
+    public function getCsfGramResult(): ?GramStainResult
     {
         return $this->csf_gram_result;
     }
 
-    /**
-     * @return GramStain
-     */
-    public function getCsfGramStain()
+    public function getCsfGramStain(): ?GramStain
     {
         return $this->csf_gram_stain;
     }
 
-    /**
-     * @return string
-     */
-    public function getCsfGramOther()
+    public function getCsfGramOther(): ?string
     {
         return $this->csf_gram_other;
     }
 
-    /**
-     * @return BinaxResult
-     */
-    public function getCsfBinaxResult()
+    public function getCsfBinaxResult(): ?BinaxResult
     {
         return $this->csf_binax_result;
     }
 
-    /**
-     * @return LatResult
-     */
-    public function getCsfLatResult()
+    public function getCsfLatResult(): ?LatResult
     {
         return $this->csf_lat_result;
     }
 
-    /**
-     * @return string
-     */
-    public function getCsfLatOther()
+    public function getCsfLatOther(): ?string
     {
         return $this->csf_lat_other;
     }
 
-    /**
-     * @return PCRResult
-     */
-    public function getCsfPcrResult()
+    public function getCsfPcrResult(): ?PCRResult
     {
         return $this->csf_pcr_result;
     }
 
-    /**
-     * @return string
-     */
-    public function getCsfPcrOther()
+    public function getCsfPcrOther(): ?string
     {
         return $this->csf_pcr_other;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getCsfStore()
+    public function getCsfStore(): ?TripleChoice
     {
         return $this->csf_store;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getIsolStore()
+    public function getIsolStore(): ?TripleChoice
     {
         return $this->isol_store;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getBloodCultDone()
+    public function getBloodCultDone(): ?TripleChoice
     {
         return $this->blood_cult_done;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getBloodGramDone()
+    public function getBloodGramDone(): ?TripleChoice
     {
         return $this->blood_gram_done;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getBloodPcrDone()
+    public function getBloodPcrDone(): ?TripleChoice
     {
         return $this->blood_pcr_done;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getOtherCultDone()
+    public function getOtherCultDone(): ?TripleChoice
     {
         return $this->other_cult_done;
     }
 
-    /**
-     * @return CultureResult
-     */
-    public function getBloodCultResult()
+    public function getBloodCultResult(): ?CultureResult
     {
         return $this->blood_cult_result;
     }
 
-    /**
-     * @return string
-     */
-    public function getBloodCultOther()
+    public function getBloodCultOther(): ?string
     {
         return $this->blood_cult_other;
     }
 
-    /**
-     * @return GramStainResult
-     */
-    public function getBloodGramResult()
+    public function getBloodGramResult(): ?GramStainResult
     {
         return $this->blood_gram_result;
     }
 
-    /**
-     * @return GramStain
-     */
-    public function getBloodGramStain()
+    public function getBloodGramStain(): ?GramStain
     {
         return $this->blood_gram_stain;
     }
 
-    /**
-     * @return string
-     */
-    public function getBloodGramOther()
+    public function getBloodGramOther(): ?string
     {
         return $this->blood_gram_other;
     }
 
-    /**
-     * @return PCRResult
-     */
-    public function getBloodPcrResult()
+    public function getBloodPcrResult(): ?PCRResult
     {
         return $this->blood_pcr_result;
     }
 
-    /**
-     * @return string
-     */
-    public function getBloodPcrOther()
+    public function getBloodPcrOther(): ?string
     {
         return $this->blood_pcr_other;
     }
 
-    /**
-     * @return CultureResult
-     */
-    public function getOtherCultResult()
+    public function getOtherCultResult(): ?CultureResult
     {
         return $this->other_cult_result;
     }
 
-    /**
-     * @return string
-     */
-    public function getOtherCultOther()
+    public function getOtherCultOther(): ?string
     {
         return $this->other_cult_other;
     }
 
-    /**
-     * @return string
-     */
-    public function getCsfId()
+    public function getCsfId(): ?string
     {
         return $this->csf_id;
     }
 
-    /**
-     * @return string
-     */
-    public function getBloodId()
+    public function getBloodId(): ?string
     {
         return $this->blood_id;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getOtherTestDone()
+    public function getOtherTestDone(): ?TripleChoice
     {
         return $this->other_test_done;
     }
 
-    /**
-     * @param TripleChoice $otherTestDone
-     */
-    public function setOtherTestDone(TripleChoice $otherTestDone)
+    public function setOtherTestDone(TripleChoice $otherTestDone): void
     {
         $this->other_test_done = $otherTestDone;
     }
 
-    /**
-     * @return CultureResult
-     */
-    public function getOtherTestResult()
+    public function getOtherTestResult(): ?CultureResult
     {
         return $this->other_test_result;
     }
 
-    /**
-     * @param CultureResult $otherTestResult
-     * @return SiteLab
-     */
-    public function setOtherTestResult($otherTestResult)
+    public function setOtherTestResult(?CultureResult $otherTestResult = null): void
     {
         $this->other_test_result = $otherTestResult;
-        return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getOtherTestOther()
+    public function getOtherTestOther(): ?string
     {
         return $this->other_test_other;
     }
 
-    /**
-     * @param string $otherTestOther
-     * @return SiteLab
-     */
-    public function setOtherTestOther($otherTestOther)
+    public function setOtherTestOther(?string $otherTestOther = null): void
     {
         $this->other_test_other = $otherTestOther;
-        return $this;
     }
 
-    /**
-     * @param $csfId
-     */
-    public function setCsfId($csfId)
+    public function setCsfId(?string $csfId = null): void
     {
         $this->csf_id = $csfId;
     }
 
-    /**
-     * @param $bloodId
-     */
-    public function setBloodId($bloodId)
+    public function setBloodId(?string $bloodId = null): void
     {
         $this->blood_id = $bloodId;
     }
 
-    /**
-     * @param \DateTime $csfLabDate
-     * @return SiteLab
-     */
-    public function setCsfLabDate($csfLabDate)
+    public function setCsfLabDate(?DateTime $csfLabDate): void
     {
         $this->csf_lab_date = $csfLabDate;
-        return $this;
     }
 
-    /**
-     * @param \DateTime $csfLabTime
-     * @return SiteLab
-     */
-    public function setCsfLabTime($csfLabTime)
+    public function setCsfLabTime(?DateTime $csfLabTime): void
     {
         $this->csf_lab_time= $csfLabTime;
-        return $this;
     }
 
-    /**
-     * @param $csfWcc
-     * @return $this
-     */
-    public function setCsfWcc($csfWcc)
+    public function setCsfWcc(?int $csfWcc = null): void
     {
         $this->csf_wcc = $csfWcc;
-        return $this;
     }
 
-    /**
-     * @param $csfGlucose
-     * @return $this
-     */
-    public function setCsfGlucose($csfGlucose)
+    public function setCsfGlucose(?int $csfGlucose = null): void
     {
         $this->csf_glucose = $csfGlucose;
-        return $this;
     }
 
-    /**
-     * @param $csfProtein
-     * @return $this
-     */
-    public function setCsfProtein($csfProtein)
+    public function setCsfProtein(?int $csfProtein = null): void
     {
         $this->csf_protein = $csfProtein;
-        return $this;
     }
 
-    /**
-     *
-     * @param string $csfCultContaminant
-     * @return \NS\SentinelBundle\Entity\Meningitis\SiteLab
-     */
-    public function setCsfCultContaminant($csfCultContaminant)
+    public function setCsfCultContaminant(?string $csfCultContaminant = null): void
     {
         $this->csf_cult_contaminant = $csfCultContaminant;
-        return $this;
     }
 
-    /**
-     * @param TripleChoice $csfCultDone
-     * @return $this
-     */
-    public function setCsfCultDone(TripleChoice $csfCultDone)
+    public function setCsfCultDone(?TripleChoice $csfCultDone): void
     {
         $this->csf_cult_done = $csfCultDone;
-        return $this;
     }
 
-    /**
-     * @param TripleChoice $csfGramDone
-     * @return $this
-     */
-    public function setCsfGramDone(TripleChoice $csfGramDone)
+    public function setCsfGramDone(?TripleChoice $csfGramDone): void
     {
         $this->csf_gram_done = $csfGramDone;
-        return $this;
     }
 
-    /**
-     * @param TripleChoice $csfBinaxDone
-     * @return $this
-     */
-    public function setCsfBinaxDone(TripleChoice $csfBinaxDone)
+    public function setCsfBinaxDone(?TripleChoice $csfBinaxDone): void
     {
         $this->csf_binax_done = $csfBinaxDone;
-        return $this;
     }
 
-    /**
-     * @param TripleChoice $csfLatDone
-     * @return $this
-     */
-    public function setCsfLatDone(TripleChoice $csfLatDone)
+    public function setCsfLatDone(?TripleChoice $csfLatDone): void
     {
         $this->csf_lat_done = $csfLatDone;
-        return $this;
     }
 
-    /**
-     * @param TripleChoice $csfPcrDone
-     * @return $this
-     */
-    public function setCsfPcrDone(TripleChoice $csfPcrDone)
+    public function setCsfPcrDone(?TripleChoice $csfPcrDone): void
     {
         $this->csf_pcr_done = $csfPcrDone;
-        return $this;
     }
 
-    /**
-     * @param CultureResult $csfCultResult
-     * @return $this
-     */
-    public function setCsfCultResult(CultureResult $csfCultResult)
+    public function setCsfCultResult(?CultureResult $csfCultResult): void
     {
         $this->csf_cult_result = $csfCultResult;
-        return $this;
     }
 
-    /**
-     * @param $csfCultOther
-     * @return $this
-     */
-    public function setCsfCultOther($csfCultOther)
+    public function setCsfCultOther(?string $csfCultOther = null): void
     {
         $this->csf_cult_other = $csfCultOther;
-        return $this;
     }
 
-    /**
-     * @param GramStainResult $csfGramResult
-     * @return $this
-     */
-    public function setCsfGramResult(GramStainResult $csfGramResult)
+    public function setCsfGramResult(?GramStainResult $csfGramResult): void
     {
         $this->csf_gram_result = $csfGramResult;
-        return $this;
     }
 
-    /**
-     * @param GramStain $csfGramStain
-     * @return $this
-     */
-    public function setCsfGramStain(GramStain $csfGramStain)
+    public function setCsfGramStain(?GramStain $csfGramStain): void
     {
         $this->csf_gram_stain = $csfGramStain;
-        return $this;
     }
 
-    /**
-     * @param $csfGramOther
-     * @return $this
-     */
-    public function setCsfGramOther($csfGramOther)
+    public function setCsfGramOther(?string $csfGramOther = null): void
     {
         $this->csf_gram_other = $csfGramOther;
-        return $this;
     }
 
-    /**
-     * @param BinaxResult $csfBinaxResult
-     * @return $this
-     */
-    public function setCsfBinaxResult(BinaxResult $csfBinaxResult)
+    public function setCsfBinaxResult(?BinaxResult $csfBinaxResult): void
     {
         $this->csf_binax_result = $csfBinaxResult;
-        return $this;
     }
 
-    /**
-     * @param LatResult $csfLatResult
-     * @return $this
-     */
-    public function setCsfLatResult(LatResult $csfLatResult)
+    public function setCsfLatResult(?LatResult $csfLatResult): void
     {
         $this->csf_lat_result = $csfLatResult;
-        return $this;
     }
 
-    /**
-     * @param $csfLatOther
-     * @return $this
-     */
-    public function setCsfLatOther($csfLatOther)
+    public function setCsfLatOther(?string $csfLatOther = null): void
     {
         $this->csf_lat_other = $csfLatOther;
-        return $this;
     }
 
-    /**
-     * @param PCRResult $csfPcrResult
-     * @return $this
-     */
-    public function setCsfPcrResult(PCRResult $csfPcrResult)
+    public function setCsfPcrResult(?PCRResult $csfPcrResult): void
     {
         $this->csf_pcr_result= $csfPcrResult;
-        return $this;
     }
 
-    /**
-     * @param $csfPcrOther
-     * @return $this
-     */
-    public function setCsfPcrOther($csfPcrOther)
+    public function setCsfPcrOther(?string $csfPcrOther = null): void
     {
         $this->csf_pcr_other = $csfPcrOther;
-        return $this;
     }
 
-    /**
-     * @param TripleChoice $csfStore
-     * @return $this
-     */
-    public function setCsfStore(TripleChoice $csfStore)
+    public function setCsfStore(?TripleChoice $csfStore): void
     {
         $this->csf_store = $csfStore;
-        return $this;
     }
 
-    /**
-     * @param TripleChoice $isolStore
-     * @return $this
-     */
-    public function setIsolStore(TripleChoice $isolStore)
+    public function setIsolStore(?TripleChoice $isolStore): void
     {
         $this->isol_store = $isolStore;
-        return $this;
     }
 
-    /**
-     * @param TripleChoice $bloodCultDone
-     * @return $this
-     */
-    public function setBloodCultDone(TripleChoice $bloodCultDone)
+    public function setBloodCultDone(?TripleChoice $bloodCultDone): void
     {
         $this->blood_cult_done = $bloodCultDone;
-        return $this;
     }
 
-    /**
-     * @param TripleChoice $bloodGramDone
-     * @return $this
-     */
-    public function setBloodGramDone(TripleChoice $bloodGramDone)
+    public function setBloodGramDone(?TripleChoice $bloodGramDone): void
     {
         $this->blood_gram_done = $bloodGramDone;
-        return $this;
     }
 
-    /**
-     * @param TripleChoice $bloodPcrDone
-     * @return $this
-     */
-    public function setBloodPcrDone(TripleChoice $bloodPcrDone)
+    public function setBloodPcrDone(?TripleChoice $bloodPcrDone): void
     {
         $this->blood_pcr_done = $bloodPcrDone;
-        return $this;
     }
 
-    /**
-     * @param TripleChoice $otherCultDone
-     * @return $this
-     */
-    public function setOtherCultDone(TripleChoice $otherCultDone)
+    public function setOtherCultDone(?TripleChoice $otherCultDone): void
     {
         $this->other_cult_done = $otherCultDone;
-        return $this;
     }
 
-    /**
-     * @param CultureResult $bloodCultResult
-     * @return $this
-     */
-    public function setBloodCultResult(CultureResult $bloodCultResult)
+    public function setBloodCultResult(?CultureResult $bloodCultResult): void
     {
         $this->blood_cult_result = $bloodCultResult;
-        return $this;
     }
 
-    /**
-     * @param $bloodCultOther
-     * @return $this
-     */
-    public function setBloodCultOther($bloodCultOther)
+    public function setBloodCultOther(?string $bloodCultOther): void
     {
         $this->blood_cult_other = $bloodCultOther;
-        return $this;
     }
 
-    /**
-     * @param GramStainResult $bloodGramResult
-     * @return $this
-     */
-    public function setBloodGramResult(GramStainResult $bloodGramResult)
+    public function setBloodGramResult(?GramStainResult $bloodGramResult): void
     {
         $this->blood_gram_result = $bloodGramResult;
-        return $this;
     }
 
-    /**
-     * @param GramStain $bloodGramStain
-     * @return $this
-     */
-    public function setBloodGramStain(GramStain $bloodGramStain)
+    public function setBloodGramStain(?GramStain $bloodGramStain): void
     {
         $this->blood_gram_stain = $bloodGramStain;
-        return $this;
     }
 
-    /**
-     * @param $bloodGramOther
-     * @return $this
-     */
-    public function setBloodGramOther($bloodGramOther)
+    public function setBloodGramOther(?string $bloodGramOther): void
     {
         $this->blood_gram_other = $bloodGramOther;
-        return $this;
     }
 
     /**
      * @param PCRResult $bloodPcrResult
-     * @return $this
      */
-    public function setBloodPcrResult(PCRResult $bloodPcrResult)
+    public function setBloodPcrResult(PCRResult $bloodPcrResult): void
     {
         $this->blood_pcr_result = $bloodPcrResult;
-        return $this;
     }
 
-    /**
-     * @param $bloodPcrOther
-     * @return $this
-     */
-    public function setBloodPcrOther($bloodPcrOther)
+    public function setBloodPcrOther(?string $bloodPcrOther): void
     {
         $this->blood_pcr_other = $bloodPcrOther;
-        return $this;
     }
 
-    /**
-     * @param CultureResult $otherCultResult
-     * @return $this
-     */
-    public function setOtherCultResult(CultureResult $otherCultResult)
+    public function setOtherCultResult(?CultureResult $otherCultResult): void
     {
         $this->other_cult_result = $otherCultResult;
-        return $this;
     }
 
-    /**
-     * @param $otherCultOther
-     * @return $this
-     */
-    public function setOtherCultOther($otherCultOther)
+    public function setOtherCultOther(?string $otherCultOther): void
     {
         $this->other_cult_other = $otherCultOther;
-        return $this;
     }
 
-    /**
-     * @return boolean
-     */
-    public function getRlCsfSent()
+    public function getRlCsfSent(): ?bool
     {
         return $this->rl_csf_sent;
     }
 
-    /**
-     * @param boolean $rl_csf_sent
-     */
-    public function setRlCsfSent($rl_csf_sent = null)
+    public function setRlCsfSent(?bool $rl_csf_sent = null): void
     {
         $this->rl_csf_sent = $rl_csf_sent;
     }
 
-    /**
-     * @return boolean
-     */
-    public function getRlIsolCsfSent()
+    public function getRlIsolCsfSent(): ?bool
     {
         return $this->rl_isol_csf_sent;
     }
 
-    /**
-     * @param boolean $rl_isol_csf_sent
-     */
-    public function setRlIsolCsfSent($rl_isol_csf_sent = null)
+    public function setRlIsolCsfSent(?bool $rl_isol_csf_sent = null): void
     {
         $this->rl_isol_csf_sent = $rl_isol_csf_sent;
     }
 
-    /**
-     * @return boolean
-     */
-    public function getRlIsolBloodSent()
+    public function getRlIsolBloodSent(): ?bool
     {
         return $this->rl_isol_blood_sent;
     }
 
-    /**
-     * @param boolean $rl_isol_blood_sent
-     */
-    public function setRlIsolBloodSent($rl_isol_blood_sent = null)
+    public function setRlIsolBloodSent(?bool $rl_isol_blood_sent = null): void
     {
         $this->rl_isol_blood_sent = $rl_isol_blood_sent;
     }
 
-    /**
-     * @return boolean
-     */
-    public function getRlBrothSent()
+    public function getRlBrothSent(): ?bool
     {
         return $this->rl_broth_sent;
     }
 
-    /**
-     * @param boolean $rl_broth_sent
-     */
-    public function setRlBrothSent($rl_broth_sent = null)
+    public function setRlBrothSent(?bool $rl_broth_sent = null): void
     {
         $this->rl_broth_sent = $rl_broth_sent;
     }
 
-    /**
-     * @return boolean
-     */
-    public function getRlOtherSent()
+    public function getRlOtherSent(): ?bool
     {
         return $this->rl_other_sent;
     }
 
-    /**
-     * @param boolean $rl_other_sent
-     */
-    public function setRlOtherSent($rl_other_sent = null)
+    public function setRlOtherSent(?bool $rl_other_sent = null): void
     {
         $this->rl_other_sent = $rl_other_sent;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getRlOtherDate()
+    public function getRlOtherDate(): ?DateTime
     {
         return $this->rl_other_date;
     }
 
-    /**
-     * @param \DateTime $rl_other_date
-     */
-    public function setRlOtherDate(\DateTime $rl_other_date = null)
+    public function setRlOtherDate(DateTime $rl_other_date = null): void
     {
         $this->rl_other_date = $rl_other_date;
     }
 
-    /**
-     * @return boolean
-     */
-    public function getNlCsfSent()
+    public function getNlCsfSent(): ?bool
     {
         return $this->nl_csf_sent;
     }
 
-    /**
-     * @param boolean $nl_csf_sent
-     */
-    public function setNlCsfSent($nl_csf_sent = null)
+    public function setNlCsfSent(?bool $nl_csf_sent = null): void
     {
         $this->nl_csf_sent = $nl_csf_sent;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getNlCsfDate()
+    public function getNlCsfDate(): ?DateTime
     {
         return $this->nl_csf_date;
     }
 
-    /**
-     * @param \DateTime $nl_csf_date
-     */
-    public function setNlCsfDate(\DateTime $nl_csf_date = null)
+    public function setNlCsfDate(?DateTime $nl_csf_date = null): void
     {
         $this->nl_csf_date = $nl_csf_date;
     }
 
-    /**
-     * @return boolean
-     */
-    public function getNlIsolCsfSent()
+    public function getNlIsolCsfSent(): ?bool
     {
         return $this->nl_isol_csf_sent;
     }
 
-    /**
-     * @param boolean $nl_isol_csf_sent
-     */
-    public function setNlIsolCsfSent($nl_isol_csf_sent = null)
+    public function setNlIsolCsfSent(?bool $nl_isol_csf_sent = null): void
     {
         $this->nl_isol_csf_sent = $nl_isol_csf_sent;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getNlIsolCsfDate()
+    public function getNlIsolCsfDate(): ?DateTime
     {
         return $this->nl_isol_csf_date;
     }
 
-    /**
-     * @param \DateTime $nl_isol_csf_date
-     */
-    public function setNlIsolCsfDate(\DateTime $nl_isol_csf_date = null)
+    public function setNlIsolCsfDate(?DateTime $nl_isol_csf_date = null): void
     {
         $this->nl_isol_csf_date = $nl_isol_csf_date;
     }
 
-    /**
-     * @return boolean
-     */
-    public function getNlIsolBloodSent()
+    public function getNlIsolBloodSent(): ?bool
     {
         return $this->nl_isol_blood_sent;
     }
 
-    /**
-     * @param boolean $nl_isol_blood_sent
-     */
-    public function setNlIsolBloodSent($nl_isol_blood_sent = null)
+    public function setNlIsolBloodSent(?bool $nl_isol_blood_sent = null): void
     {
         $this->nl_isol_blood_sent = $nl_isol_blood_sent;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getNlIsolBloodDate()
+    public function getNlIsolBloodDate(): ?DateTime
     {
         return $this->nl_isol_blood_date;
     }
 
-    /**
-     * @param \DateTime $nl_isol_blood_date
-     */
-    public function setNlIsolBloodDate(\DateTime $nl_isol_blood_date = null)
+    public function setNlIsolBloodDate(?DateTime $nl_isol_blood_date = null): void
     {
         $this->nl_isol_blood_date = $nl_isol_blood_date;
     }
 
-    /**
-     * @return boolean
-     */
-    public function getNlBrothSent()
+    public function getNlBrothSent(): ?bool
     {
         return $this->nl_broth_sent;
     }
 
-    /**
-     * @param boolean $nl_broth_sent
-     */
-    public function setNlBrothSent($nl_broth_sent = null)
+    public function setNlBrothSent(?bool $nl_broth_sent = null): void
     {
         $this->nl_broth_sent = $nl_broth_sent;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getNlBrothDate()
+    public function getNlBrothDate(): ?DateTime
     {
         return $this->nl_broth_date;
     }
 
-    /**
-     * @param \DateTime $nl_broth_date
-     */
-    public function setNlBrothDate(\DateTime $nl_broth_date = null)
+    public function setNlBrothDate(?DateTime $nl_broth_date = null): void
     {
         $this->nl_broth_date = $nl_broth_date;
     }
 
-    /**
-     * @return boolean
-     */
-    public function getNlOtherSent()
+    public function getNlOtherSent(): ?bool
     {
         return $this->nl_other_sent;
     }
 
-    /**
-     * @param boolean $nl_other_sent
-     */
-    public function setNlOtherSent($nl_other_sent = null)
+    public function setNlOtherSent(?bool $nl_other_sent = null): void
     {
         $this->nl_other_sent = $nl_other_sent;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getNlOtherDate()
+    public function getNlOtherDate(): ?DateTime
     {
         return $this->nl_other_date;
     }
 
-    /**
-     * @param \DateTime $nl_other_date
-     */
-    public function setNlOtherDate(\DateTime $nl_other_date = null)
+    public function setNlOtherDate(?DateTime $nl_other_date = null): void
     {
         $this->nl_other_date = $nl_other_date;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getRlCsfDate()
+    public function getRlCsfDate(): ?DateTime
     {
         return $this->rl_csf_date;
     }
 
-    /**
-     * @param \DateTime $rl_csf_date
-     */
-    public function setRlCsfDate(\DateTime $rl_csf_date = null)
+    public function setRlCsfDate(?DateTime $rl_csf_date = null): void
     {
         $this->rl_csf_date = $rl_csf_date;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getRlIsolCsfDate()
+    public function getRlIsolCsfDate(): ?DateTime
     {
         return $this->rl_isol_csf_date;
     }
 
-    /**
-     * @param \DateTime $rl_isol_csf_date
-     */
-    public function setRlIsolCsfDate(\DateTime $rl_isol_csf_date = null)
+    public function setRlIsolCsfDate(?DateTime $rl_isol_csf_date = null): void
     {
         $this->rl_isol_csf_date = $rl_isol_csf_date;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getRlIsolBloodDate()
+    public function getRlIsolBloodDate(): ?DateTime
     {
         return $this->rl_isol_blood_date;
     }
 
-    /**
-     * @param \DateTime $rl_isol_blood_date
-     */
-    public function setRlIsolBloodDate(\DateTime $rl_isol_blood_date = null)
+    public function setRlIsolBloodDate(?DateTime $rl_isol_blood_date = null): void
     {
         $this->rl_isol_blood_date = $rl_isol_blood_date;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getRlBrothDate()
+    public function getRlBrothDate(): ?DateTime
     {
         return $this->rl_broth_date;
     }
 
-    /**
-     * @param \DateTime $rl_broth_date
-     */
-    public function setRlBrothDate(\DateTime $rl_broth_date = null)
+    public function setRlBrothDate(?DateTime $rl_broth_date = null): void
     {
         $this->rl_broth_date = $rl_broth_date;
     }
 
-    /**
-     * @return bool
-     */
-    public function isComplete()
+    public function isComplete(): bool
     {
         return $this->status->equal(CaseStatus::COMPLETE);
     }
@@ -1855,27 +1380,24 @@ class SiteLab implements BaseSiteLabInterface
     /**
      * @ORM\PrePersist
      */
-    public function prePersist()
+    public function prePersist(): void
     {
         $this->_calculateStatus();
 
-        $this->updatedAt = new \DateTime();
+        $this->updatedAt = new DateTime();
     }
 
     /**
      * @ORM\PreUpdate
      */
-    public function preUpdate()
+    public function preUpdate(): void
     {
         $this->_calculateStatus();
 
-        $this->updatedAt = new \DateTime();
+        $this->updatedAt = new DateTime();
     }
 
-    /**
-     *
-     */
-    private function _calculateStatus()
+    private function _calculateStatus(): void
     {
         // Don't adjust cancelled or deleted records
         if ($this->status->getValue() >= CaseStatus::CANCELLED) {
@@ -1891,10 +1413,7 @@ class SiteLab implements BaseSiteLabInterface
         return;
     }
 
-    /**
-     * @return null
-     */
-    public function getIncompleteField()
+    public function getIncompleteField(): ?string
     {
         foreach ($this->getMinimumRequiredFields() as $field) {
             if ($this->$field === null || empty($this->$field) || ($this->$field instanceof ArrayChoice && $this->$field->equal(-1))) {
@@ -1907,10 +1426,7 @@ class SiteLab implements BaseSiteLabInterface
         return null;
     }
 
-    /**
-     * @return array
-     */
-    public function getMinimumRequiredFields()
+    public function getMinimumRequiredFields(): array
     {
         return [
             'csfLabDate',
@@ -1932,323 +1448,203 @@ class SiteLab implements BaseSiteLabInterface
         ];
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getBloodLabDate()
+    public function getBloodLabDate(): ?DateTime
     {
         return $this->blood_lab_date;
     }
 
-    /**
-     * @param \DateTime $blood_lab_date
-     */
-    public function setBloodLabDate(\DateTime $blood_lab_date = null)
+    public function setBloodLabDate(?DateTime $blood_lab_date = null): void
     {
         $this->blood_lab_date = $blood_lab_date;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getBloodLabTime()
+    public function getBloodLabTime(): ?DateTime
     {
         return $this->blood_lab_time;
     }
 
-    /**
-     * @param \DateTime $blood_lab_time
-     */
-    public function setBloodLabTime(\DateTime $blood_lab_time = null)
+    public function setBloodLabTime(?DateTime $blood_lab_time = null): void
     {
         $this->blood_lab_time = $blood_lab_time;
     }
 
-    /**
-     * @return string
-     */
-    public function getOtherId()
+    public function getOtherId(): ?string
     {
         return $this->other_id;
     }
 
-    /**
-     * @param string $other_id
-     */
-    public function setOtherId($other_id)
+    public function setOtherId(?string $other_id): void
     {
         $this->other_id = $other_id;
     }
 
-    /**
-     * @return string
-     */
-    public function getOtherType()
+    public function getOtherType(): ?string
     {
         return $this->other_type;
     }
 
-    /**
-     * @param string $other_type
-     */
-    public function setOtherType($other_type)
+    public function setOtherType(?string $other_type): void
     {
         $this->other_type = $other_type;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getOtherLabDate()
+    public function getOtherLabDate(): ?DateTime
     {
         return $this->other_lab_date;
     }
 
-    /**
-     * @param \DateTime $other_lab_date
-     */
-    public function setOtherLabDate(\DateTime $other_lab_date = null)
+    public function setOtherLabDate(?DateTime $other_lab_date = null): void
     {
         $this->other_lab_date = $other_lab_date;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getOtherLabTime()
+    public function getOtherLabTime(): ?DateTime
     {
         return $this->other_lab_time;
     }
 
-    /**
-     * @param \DateTime $other_lab_time
-     */
-    public function setOtherLabTime(\DateTime $other_lab_time = null)
+    public function setOtherLabTime(?DateTime $other_lab_time = null): void
     {
         $this->other_lab_time = $other_lab_time;
     }
 
-    /**
-     * @return bool
-     */
-    public function getSentToReferenceLab()
+    public function getSentToReferenceLab(): bool
     {
         return ($this->rl_csf_sent || $this->rl_isol_csf_sent || $this->rl_isol_blood_sent || $this->rl_broth_sent || $this->rl_other_sent);
     }
 
-    /**
-     * @return bool
-     */
-    public function getSentToNationalLab()
+    public function getSentToNationalLab(): bool
     {
         return ($this->nl_csf_sent || $this->nl_isol_csf_sent || $this->nl_isol_blood_sent || $this->nl_broth_sent || $this->nl_other_sent);
     }
 
     // Second blood sample results
-    /**
-     * @return string
-     */
-    public function getBloodSecondId()
+    public function getBloodSecondId(): ?string
     {
         return $this->blood_second_id;
     }
 
-    /**
-     * @param string $blood_second_id
-     */
-    public function setBloodSecondId($blood_second_id)
+    public function setBloodSecondId(?string $blood_second_id): void
     {
         $this->blood_second_id = $blood_second_id;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getBloodSecondLabDate()
+    public function getBloodSecondLabDate(): ?DateTime
     {
         return $this->blood_second_lab_date;
     }
 
-    /**
-     * @param \DateTime $blood_second_lab_date
-     */
-    public function setBloodSecondLabDate(\DateTime $blood_second_lab_date = null)
+    public function setBloodSecondLabDate(?DateTime $blood_second_lab_date = null): void
     {
         $this->blood_second_lab_date = $blood_second_lab_date;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getBloodSecondLabTime()
+    public function getBloodSecondLabTime(): ?DateTime
     {
         return $this->blood_second_lab_time;
     }
 
-    /**
-     * @param \DateTime $blood_second_lab_time
-     */
-    public function setBloodSecondLabTime(\DateTime $blood_second_lab_time = null)
+    public function setBloodSecondLabTime(?DateTime $blood_second_lab_time = null)
     {
         $this->blood_second_lab_time = $blood_second_lab_time;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getBloodSecondCultDone()
+    public function getBloodSecondCultDone(): ?TripleChoice
     {
         return $this->blood_second_cult_done;
     }
 
-    /**
-     * @param TripleChoice $blood_second_cult_done
-     */
-    public function setBloodSecondCultDone(TripleChoice $blood_second_cult_done)
+    public function setBloodSecondCultDone(?TripleChoice $blood_second_cult_done): void
     {
         $this->blood_second_cult_done = $blood_second_cult_done;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getBloodSecondGramDone()
+    public function getBloodSecondGramDone(): ?TripleChoice
     {
         return $this->blood_second_gram_done;
     }
 
-    /**
-     * @param TripleChoice $blood_second_gram_done
-     */
-    public function setBloodSecondGramDone(TripleChoice $blood_second_gram_done)
+    public function setBloodSecondGramDone(?TripleChoice $blood_second_gram_done): void
     {
         $this->blood_second_gram_done = $blood_second_gram_done;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getBloodSecondPcrDone()
+    public function getBloodSecondPcrDone(): ?TripleChoice
     {
         return $this->blood_second_pcr_done;
     }
 
-    /**
-     * @param TripleChoice $blood_second_pcr_done
-     */
-    public function setBloodSecondPcrDone(TripleChoice $blood_second_pcr_done)
+    public function setBloodSecondPcrDone(?TripleChoice $blood_second_pcr_done): void
     {
         $this->blood_second_pcr_done = $blood_second_pcr_done;
     }
 
-    /**
-     * @return CultureResult
-     */
-    public function getBloodSecondCultResult()
+    public function getBloodSecondCultResult(): ?CultureResult
     {
         return $this->blood_second_cult_result;
     }
 
-    /**
-     * @param CultureResult $blood_second_cult_result
-     */
-    public function setBloodSecondCultResult(CultureResult $blood_second_cult_result)
+    public function setBloodSecondCultResult(?CultureResult $blood_second_cult_result): void
     {
         $this->blood_second_cult_result = $blood_second_cult_result;
     }
 
-    /**
-     * @return string
-     */
-    public function getBloodSecondCultOther()
+    public function getBloodSecondCultOther(): ?string
     {
         return $this->blood_second_cult_other;
     }
 
-    /**
-     * @param string $blood_second_cult_other
-     */
-    public function setBloodSecondCultOther($blood_second_cult_other)
+    public function setBloodSecondCultOther(?string $blood_second_cult_other): void
     {
         $this->blood_second_cult_other = $blood_second_cult_other;
     }
 
-    /**
-     * @return GramStain
-     */
-    public function getBloodSecondGramStain()
+    public function getBloodSecondGramStain(): ?GramStain
     {
         return $this->blood_second_gram_stain;
     }
 
-    /**
-     * @param GramStain $blood_second_gram_stain
-     */
-    public function setBloodSecondGramStain(GramStain $blood_second_gram_stain)
+    public function setBloodSecondGramStain(?GramStain $blood_second_gram_stain): void
     {
         $this->blood_second_gram_stain = $blood_second_gram_stain;
     }
 
-    /**
-     * @return GramStainResult
-     */
-    public function getBloodSecondGramResult()
+    public function getBloodSecondGramResult(): ?GramStainResult
     {
         return $this->blood_second_gram_result;
     }
 
-    /**
-     * @param GramStainResult $blood_second_gram_result
-     */
-    public function setBloodSecondGramResult(GramStainResult $blood_second_gram_result)
+    public function setBloodSecondGramResult(?GramStainResult $blood_second_gram_result): void
     {
         $this->blood_second_gram_result = $blood_second_gram_result;
     }
 
-    /**
-     * @return string
-     */
-    public function getBloodSecondGramOther()
+    public function getBloodSecondGramOther(): ?string
     {
         return $this->blood_second_gram_other;
     }
 
-    /**
-     * @param string $blood_second_gram_other
-     */
-    public function setBloodSecondGramOther($blood_second_gram_other)
+    public function setBloodSecondGramOther(?string $blood_second_gram_other): void
     {
         $this->blood_second_gram_other = $blood_second_gram_other;
     }
 
-    /**
-     * @return PCRResult
-     */
-    public function getBloodSecondPcrResult()
+    public function getBloodSecondPcrResult(): ?PCRResult
     {
         return $this->blood_second_pcr_result;
     }
 
-    /**
-     * @param PCRResult $blood_second_pcr_result
-     */
-    public function setBloodSecondPcrResult(PCRResult $blood_second_pcr_result)
+    public function setBloodSecondPcrResult(?PCRResult $blood_second_pcr_result): void
     {
         $this->blood_second_pcr_result = $blood_second_pcr_result;
     }
 
-    /**
-     * @return string
-     */
-    public function getBloodSecondPcrOther()
+    public function getBloodSecondPcrOther(): ?string
     {
         return $this->blood_second_pcr_other;
     }
 
-    /**
-     * @param string $blood_second_pcr_other
-     */
-    public function setBloodSecondPcrOther($blood_second_pcr_other)
+    public function setBloodSecondPcrOther(?string $blood_second_pcr_other): void
     {
         $this->blood_second_pcr_other = $blood_second_pcr_other;
     }

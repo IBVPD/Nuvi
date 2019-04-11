@@ -2,14 +2,13 @@
 
 namespace NS\SentinelBundle\Entity\Pneumonia;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
+use NS\SentinelBundle\Entity\BaseCase;
 use NS\SentinelBundle\Validators as LocalAssert;
 
 /**
- * Description of ReferenceLab
- * @author gnat
- *
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\Pneumonia\NationalLabRepository")
  * @ORM\Table(name="pneu_national_labs")
  * @ORM\HasLifecycleCallbacks
@@ -24,7 +23,7 @@ class NationalLab extends ExternalLab
     protected $caseFile;
 
     /**
-     * @var boolean
+     * @var bool|null
      * @ORM\Column(name="rl_isol_blood_sent",type="boolean",nullable=true)
      *
      * @LocalAssert\NoFutureDate()
@@ -33,7 +32,7 @@ class NationalLab extends ExternalLab
     private $rl_isol_blood_sent;
 
     /**
-     * @var \DateTime
+     * @var DateTime|null
      * @ORM\Column(name="rl_isol_blood_date",type="date",nullable=true)
      *
      * @LocalAssert\NoFutureDate()
@@ -43,7 +42,7 @@ class NationalLab extends ExternalLab
     private $rl_isol_blood_date;
 
     /**
-     * @var boolean
+     * @var bool|null
      * @ORM\Column(name="rl_other_sent",type="boolean",nullable=true)
      *
      * @LocalAssert\NoFutureDate()
@@ -52,7 +51,7 @@ class NationalLab extends ExternalLab
     private $rl_other_sent;
 
     /**
-     * @var \DateTime
+     * @var DateTime|null
      * @ORM\Column(name="rl_other_date",type="date",nullable=true)
      *
      * @LocalAssert\NoFutureDate()
@@ -61,112 +60,60 @@ class NationalLab extends ExternalLab
      */
     private $rl_other_date;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $type = 'NL';
 
-    /**
-     * @return string
-     */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @param $type
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-    }
-
-    /**
-     * @return Pneumonia
-     */
-    public function getCaseFile()
-    {
-        return $this->caseFile;
-    }
-
-    /**
-     * @param mixed $caseFile
-     * @return NationalLab
-     */
-    public function setCaseFile($caseFile = null)
+    public function setCaseFile(?BaseCase $caseFile = null): void
     {
         $this->caseFile = $caseFile;
     }
 
-    /**
-     * @return bool
-     */
-    public function isRlIsolBloodSent()
+    public function isRlIsolBloodSent(): ?bool
     {
         return $this->rl_isol_blood_sent;
     }
 
-    /**
-     * @param bool $rl_isol_blood_sent
-     */
-    public function setRlIsolBloodSent($rl_isol_blood_sent)
+    public function setRlIsolBloodSent(?bool $rl_isol_blood_sent): void
     {
         $this->rl_isol_blood_sent = $rl_isol_blood_sent;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getRlIsolBloodDate()
+    public function getRlIsolBloodDate(): ?DateTime
     {
         return $this->rl_isol_blood_date;
     }
 
-    /**
-     * @param \DateTime $rl_isol_blood_date
-     */
-    public function setRlIsolBloodDate(\DateTime $rl_isol_blood_date = null)
+    public function setRlIsolBloodDate(?DateTime $rl_isol_blood_date = null): void
     {
         $this->rl_isol_blood_date = $rl_isol_blood_date;
     }
 
-    /**
-     * @return bool
-     */
-    public function isRlOtherSent()
+    public function isRlOtherSent(): ?bool
     {
         return $this->rl_other_sent;
     }
 
-    /**
-     * @param bool $rl_other_sent
-     */
-    public function setRlOtherSent($rl_other_sent)
+    public function setRlOtherSent(?bool $rl_other_sent): void
     {
         $this->rl_other_sent = $rl_other_sent;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getRlOtherDate()
+    public function getRlOtherDate(): ?DateTime
     {
         return $this->rl_other_date;
     }
 
-    /**
-     * @param \DateTime $rl_other_date
-     */
-    public function setRlOtherDate(\DateTime $rl_other_date = null)
+    public function setRlOtherDate(?DateTime $rl_other_date = null): void
     {
         $this->rl_other_date = $rl_other_date;
     }
 
-    /**
-     * @return bool
-     */
-    public function getSentToReferenceLab()
+    public function getSentToReferenceLab(): bool
     {
         return ($this->rl_isol_blood_sent || $this->rl_other_sent);
     }

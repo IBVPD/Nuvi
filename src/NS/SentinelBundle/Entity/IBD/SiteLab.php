@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Entity\IBD;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use NS\SecurityBundle\Annotation as Security;
 use NS\SentinelBundle\Entity\BaseCase;
@@ -76,7 +77,7 @@ class SiteLab implements BaseSiteLabInterface
     private $csf_id;
 
     /**
-     * @var \DateTime $csfLabTime
+     * @var DateTime $csfLabTime
      * @ORM\Column(name="csf_lab_date",type="date",nullable=true)
      * @Assert\DateTime
      * @LocalAssert\NoFutureDate()
@@ -86,7 +87,7 @@ class SiteLab implements BaseSiteLabInterface
     private $csf_lab_date;
 
     /**
-     * @var \DateTime $csfLabTime
+     * @var DateTime $csfLabTime
      * @ORM\Column(name="csf_lab_time",type="time",nullable=true)
      * @Assert\DateTime
      * @Serializer\Groups({"api","export"})
@@ -259,7 +260,7 @@ class SiteLab implements BaseSiteLabInterface
     private $blood_id;
 
     /**
-     * @var \DateTime $bloodLabTime
+     * @var DateTime $bloodLabTime
      * @ORM\Column(name="blood_lab_date",type="date",nullable=true)
      * @Assert\DateTime
      * @LocalAssert\NoFutureDate()
@@ -269,7 +270,7 @@ class SiteLab implements BaseSiteLabInterface
     private $blood_lab_date;
 
     /**
-     * @var \DateTime $bloodLabTime
+     * @var DateTime $bloodLabTime
      * @ORM\Column(name="blood_lab_time",type="time",nullable=true)
      * @Assert\DateTime
      * @Serializer\Groups({"api","export"})
@@ -356,7 +357,7 @@ class SiteLab implements BaseSiteLabInterface
     private $blood_second_id;
 
     /**
-     * @var \DateTime $blood_secondLabTime
+     * @var DateTime $blood_secondLabTime
      * @ORM\Column(name="blood_second_lab_date",type="date",nullable=true)
      * @Assert\DateTime
      * @LocalAssert\NoFutureDate()
@@ -366,7 +367,7 @@ class SiteLab implements BaseSiteLabInterface
     private $blood_second_lab_date;
 
     /**
-     * @var \DateTime $blood_secondLabTime
+     * @var DateTime $blood_secondLabTime
      * @ORM\Column(name="blood_second_lab_time",type="time",nullable=true)
      * @Assert\DateTime
      * @Serializer\Groups({"api","export"})
@@ -461,7 +462,7 @@ class SiteLab implements BaseSiteLabInterface
     private $other_type;
 
     /**
-     * @var \DateTime $otherLabTime
+     * @var DateTime $otherLabTime
      * @ORM\Column(name="other_lab_date",type="date",nullable=true)
      * @Assert\DateTime
      * @LocalAssert\NoFutureDate()
@@ -471,7 +472,7 @@ class SiteLab implements BaseSiteLabInterface
     private $other_lab_date;
 
     /**
-     * @var \DateTime $otherLabTime
+     * @var DateTime $otherLabTime
      * @ORM\Column(name="other_lab_time",type="time",nullable=true)
      * @Assert\DateTime
      * @Serializer\Groups({"api","export"})
@@ -530,7 +531,7 @@ class SiteLab implements BaseSiteLabInterface
     private $rl_csf_sent;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      * @ORM\Column(name="rl_csf_date",type="date",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
@@ -547,7 +548,7 @@ class SiteLab implements BaseSiteLabInterface
     private $rl_isol_csf_sent;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      * @ORM\Column(name="rl_isol_csf_date",type="date",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
@@ -564,7 +565,7 @@ class SiteLab implements BaseSiteLabInterface
     private $rl_isol_blood_sent;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      * @ORM\Column(name="rl_isol_blood_date",type="date",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
@@ -581,7 +582,7 @@ class SiteLab implements BaseSiteLabInterface
     private $rl_broth_sent;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      * @ORM\Column(name="rl_broth_date",type="date",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
@@ -598,7 +599,7 @@ class SiteLab implements BaseSiteLabInterface
     private $rl_other_sent;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      * @ORM\Column(name="rl_other_date",type="date",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
@@ -618,7 +619,7 @@ class SiteLab implements BaseSiteLabInterface
     private $nl_csf_sent;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      * @ORM\Column(name="nl_csf_date",type="date",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
@@ -635,7 +636,7 @@ class SiteLab implements BaseSiteLabInterface
     private $nl_isol_csf_sent;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      * @ORM\Column(name="nl_isol_csf_date",type="date",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
@@ -652,7 +653,7 @@ class SiteLab implements BaseSiteLabInterface
     private $nl_isol_blood_sent;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      * @ORM\Column(name="nl_isol_blood_date",type="date",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
@@ -669,7 +670,7 @@ class SiteLab implements BaseSiteLabInterface
     private $nl_broth_sent;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      * @ORM\Column(name="nl_broth_date",type="date",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
@@ -686,7 +687,7 @@ class SiteLab implements BaseSiteLabInterface
     private $nl_other_sent;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      * @ORM\Column(name="nl_other_date",type="date",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
@@ -696,7 +697,7 @@ class SiteLab implements BaseSiteLabInterface
 
 //==================================
     /**
-     * @var \DateTime $updatedAt
+     * @var DateTime $updatedAt
      * @ORM\Column(name="updatedAt",type="datetime")
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d H:i:s'>")
@@ -784,40 +785,39 @@ class SiteLab implements BaseSiteLabInterface
             $this->caseFile = $case;
         }
 
-        $this->updatedAt = new \DateTime();
+        $this->updatedAt = new DateTime();
         $this->status    = new CaseStatus(CaseStatus::OPEN);
     }
 
     /**
      * @return IBD
      */
-    public function getCaseFile()
+    public function getCaseFile(): BaseCase
     {
         return $this->caseFile;
     }
 
     /**
      * @param BaseCase|IBD $caseFile
-     * @return \NS\SentinelBundle\Entity\BaseSiteLabInterface|void
      */
-    public function setCaseFile(BaseCase $caseFile)
+    public function setCaseFile(BaseCase $caseFile): void
     {
         $this->caseFile = $caseFile;
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
-    public function getUpdatedAt()
+    public function getUpdatedAt(): DateTime
     {
         return $this->updatedAt;
     }
 
     /**
-     * @param \DateTime $updatedAt
+     * @param DateTime $updatedAt
      * @return $this
      */
-    public function setUpdatedAt(\DateTime $updatedAt)
+    public function setUpdatedAt(DateTime $updatedAt)
     {
         $this->updatedAt = $updatedAt;
 
@@ -842,24 +842,13 @@ class SiteLab implements BaseSiteLabInterface
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return bool
-     */
-    public function hasCase()
+    public function hasCase(): bool
     {
         return ($this->caseFile instanceof IBD);
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getCsfLabDate()
     {
@@ -867,7 +856,7 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getCsfLabTime()
     {
@@ -1232,7 +1221,7 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @param \DateTime $csfLabDate
+     * @param DateTime $csfLabDate
      * @return SiteLab
      */
     public function setCsfLabDate($csfLabDate)
@@ -1242,7 +1231,7 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @param \DateTime $csfLabTime
+     * @param DateTime $csfLabTime
      * @return SiteLab
      */
     public function setCsfLabTime($csfLabTime)
@@ -1673,7 +1662,7 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getRlOtherDate()
     {
@@ -1681,9 +1670,9 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @param \DateTime $rl_other_date
+     * @param DateTime $rl_other_date
      */
-    public function setRlOtherDate(\DateTime $rl_other_date = null)
+    public function setRlOtherDate(DateTime $rl_other_date = null)
     {
         $this->rl_other_date = $rl_other_date;
     }
@@ -1705,7 +1694,7 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getNlCsfDate()
     {
@@ -1713,9 +1702,9 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @param \DateTime $nl_csf_date
+     * @param DateTime $nl_csf_date
      */
-    public function setNlCsfDate(\DateTime $nl_csf_date = null)
+    public function setNlCsfDate(DateTime $nl_csf_date = null)
     {
         $this->nl_csf_date = $nl_csf_date;
     }
@@ -1737,7 +1726,7 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getNlIsolCsfDate()
     {
@@ -1745,9 +1734,9 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @param \DateTime $nl_isol_csf_date
+     * @param DateTime $nl_isol_csf_date
      */
-    public function setNlIsolCsfDate(\DateTime $nl_isol_csf_date = null)
+    public function setNlIsolCsfDate(DateTime $nl_isol_csf_date = null)
     {
         $this->nl_isol_csf_date = $nl_isol_csf_date;
     }
@@ -1769,7 +1758,7 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getNlIsolBloodDate()
     {
@@ -1777,9 +1766,9 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @param \DateTime $nl_isol_blood_date
+     * @param DateTime $nl_isol_blood_date
      */
-    public function setNlIsolBloodDate(\DateTime $nl_isol_blood_date = null)
+    public function setNlIsolBloodDate(DateTime $nl_isol_blood_date = null)
     {
         $this->nl_isol_blood_date = $nl_isol_blood_date;
     }
@@ -1801,7 +1790,7 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getNlBrothDate()
     {
@@ -1809,9 +1798,9 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @param \DateTime $nl_broth_date
+     * @param DateTime $nl_broth_date
      */
-    public function setNlBrothDate(\DateTime $nl_broth_date = null)
+    public function setNlBrothDate(DateTime $nl_broth_date = null)
     {
         $this->nl_broth_date = $nl_broth_date;
     }
@@ -1833,7 +1822,7 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getNlOtherDate()
     {
@@ -1841,15 +1830,15 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @param \DateTime $nl_other_date
+     * @param DateTime $nl_other_date
      */
-    public function setNlOtherDate(\DateTime $nl_other_date = null)
+    public function setNlOtherDate(DateTime $nl_other_date = null)
     {
         $this->nl_other_date = $nl_other_date;
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getRlCsfDate()
     {
@@ -1857,15 +1846,15 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @param \DateTime $rl_csf_date
+     * @param DateTime $rl_csf_date
      */
-    public function setRlCsfDate(\DateTime $rl_csf_date = null)
+    public function setRlCsfDate(DateTime $rl_csf_date = null)
     {
         $this->rl_csf_date = $rl_csf_date;
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getRlIsolCsfDate()
     {
@@ -1873,15 +1862,15 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @param \DateTime $rl_isol_csf_date
+     * @param DateTime $rl_isol_csf_date
      */
-    public function setRlIsolCsfDate(\DateTime $rl_isol_csf_date = null)
+    public function setRlIsolCsfDate(DateTime $rl_isol_csf_date = null)
     {
         $this->rl_isol_csf_date = $rl_isol_csf_date;
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getRlIsolBloodDate()
     {
@@ -1889,15 +1878,15 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @param \DateTime $rl_isol_blood_date
+     * @param DateTime $rl_isol_blood_date
      */
-    public function setRlIsolBloodDate(\DateTime $rl_isol_blood_date = null)
+    public function setRlIsolBloodDate(DateTime $rl_isol_blood_date = null)
     {
         $this->rl_isol_blood_date = $rl_isol_blood_date;
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getRlBrothDate()
     {
@@ -1905,9 +1894,9 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @param \DateTime $rl_broth_date
+     * @param DateTime $rl_broth_date
      */
-    public function setRlBrothDate(\DateTime $rl_broth_date = null)
+    public function setRlBrothDate(DateTime $rl_broth_date = null)
     {
         $this->rl_broth_date = $rl_broth_date;
     }
@@ -1927,7 +1916,7 @@ class SiteLab implements BaseSiteLabInterface
     {
         $this->_calculateStatus();
 
-        $this->updatedAt = new \DateTime();
+        $this->updatedAt = new DateTime();
     }
 
     /**
@@ -1937,7 +1926,7 @@ class SiteLab implements BaseSiteLabInterface
     {
         $this->_calculateStatus();
 
-        $this->updatedAt = new \DateTime();
+        $this->updatedAt = new DateTime();
     }
 
     /**
@@ -2145,7 +2134,7 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getBloodLabDate()
     {
@@ -2153,15 +2142,15 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @param \DateTime $blood_lab_date
+     * @param DateTime $blood_lab_date
      */
-    public function setBloodLabDate(\DateTime $blood_lab_date = null)
+    public function setBloodLabDate(DateTime $blood_lab_date = null)
     {
         $this->blood_lab_date = $blood_lab_date;
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getBloodLabTime()
     {
@@ -2169,9 +2158,9 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @param \DateTime $blood_lab_time
+     * @param DateTime $blood_lab_time
      */
-    public function setBloodLabTime(\DateTime $blood_lab_time = null)
+    public function setBloodLabTime(DateTime $blood_lab_time = null)
     {
         $this->blood_lab_time = $blood_lab_time;
     }
@@ -2209,7 +2198,7 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getOtherLabDate()
     {
@@ -2217,15 +2206,15 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @param \DateTime $other_lab_date
+     * @param DateTime $other_lab_date
      */
-    public function setOtherLabDate(\DateTime $other_lab_date = null)
+    public function setOtherLabDate(DateTime $other_lab_date = null)
     {
         $this->other_lab_date = $other_lab_date;
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getOtherLabTime()
     {
@@ -2233,9 +2222,9 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @param \DateTime $other_lab_time
+     * @param DateTime $other_lab_time
      */
-    public function setOtherLabTime(\DateTime $other_lab_time = null)
+    public function setOtherLabTime(DateTime $other_lab_time = null)
     {
         $this->other_lab_time = $other_lab_time;
     }
@@ -2243,7 +2232,7 @@ class SiteLab implements BaseSiteLabInterface
     /**
      * @return bool
      */
-    public function getSentToReferenceLab()
+    public function getSentToReferenceLab(): bool
     {
         return ($this->rl_csf_sent || $this->rl_isol_csf_sent || $this->rl_isol_blood_sent || $this->rl_broth_sent || $this->rl_other_sent);
     }
@@ -2251,7 +2240,7 @@ class SiteLab implements BaseSiteLabInterface
     /**
      * @return bool
      */
-    public function getSentToNationalLab()
+    public function getSentToNationalLab(): bool
     {
         return ($this->nl_csf_sent || $this->nl_isol_csf_sent || $this->nl_isol_blood_sent || $this->nl_broth_sent || $this->nl_other_sent);
     }
@@ -2274,7 +2263,7 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getBloodSecondLabDate()
     {
@@ -2282,15 +2271,15 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @param \DateTime $blood_second_lab_date
+     * @param DateTime $blood_second_lab_date
      */
-    public function setBloodSecondLabDate(\DateTime $blood_second_lab_date = null)
+    public function setBloodSecondLabDate(DateTime $blood_second_lab_date = null)
     {
         $this->blood_second_lab_date = $blood_second_lab_date;
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getBloodSecondLabTime()
     {
@@ -2298,9 +2287,9 @@ class SiteLab implements BaseSiteLabInterface
     }
 
     /**
-     * @param \DateTime $blood_second_lab_time
+     * @param DateTime $blood_second_lab_time
      */
-    public function setBloodSecondLabTime(\DateTime $blood_second_lab_time = null)
+    public function setBloodSecondLabTime(DateTime $blood_second_lab_time = null)
     {
         $this->blood_second_lab_time = $blood_second_lab_time;
     }

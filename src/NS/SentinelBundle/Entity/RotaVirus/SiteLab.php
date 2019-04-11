@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Entity\RotaVirus;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use NS\SecurityBundle\Annotation\Secured;
 use NS\SecurityBundle\Annotation\SecuredCondition;
@@ -43,7 +44,7 @@ class SiteLab implements BaseSiteLabInterface
 //---------------------------------
     // Global Variables
     /**
-     * @var \DateTime $received
+     * @var DateTime|null
      * @ORM\Column(name="received",type="datetime",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Assert\NotBlank()
@@ -54,7 +55,7 @@ class SiteLab implements BaseSiteLabInterface
 
     /**
      * stool_adequate
-     * @var TripleChoice $adequate
+     * @var TripleChoice|null
      * @ORM\Column(name="adequate",type="TripleChoice",nullable=true)
      * @Assert\NotBlank()
      * @Serializer\Groups({"api","export"})
@@ -62,7 +63,7 @@ class SiteLab implements BaseSiteLabInterface
     private $adequate;
 
     /**
-     * @var TripleChoice $stored
+     * @var TripleChoice|null
      * @ORM\Column(name="stored",type="TripleChoice",nullable=true)
      * @Assert\NotBlank()
      * @UtilAssert\ArrayChoiceConstraint()
@@ -71,7 +72,7 @@ class SiteLab implements BaseSiteLabInterface
     private $stored;
 
     /**
-     * @var TripleChoice $elisaDone
+     * @var TripleChoice|null
      * @ORM\Column(name="elisaDone",type="TripleChoice",nullable=true)
      * @Assert\NotBlank()
      * @UtilAssert\ArrayChoiceConstraint()
@@ -80,28 +81,28 @@ class SiteLab implements BaseSiteLabInterface
     private $elisaDone;
 
     /**
-     * @var ElisaKit $elisaKit
+     * @var ElisaKit|null
      * @ORM\Column(name="elisaKit",type="ElisaKit",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $elisaKit;
 
     /**
-     * @var string $elisaKitOther
+     * @var string|null
      * @ORM\Column(name="elisaKitOther",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $elisaKitOther;
 
     /**
-     * @var string $elisaLoadNumber
+     * @var string|null
      * @ORM\Column(name="elisaLoadNumber",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $elisaLoadNumber;
 
     /**
-     * @var \DateTime $elisaExpiryDate
+     * @var DateTime|null
      * @ORM\Column(name="elisaExpiryDate",type="date",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
@@ -109,7 +110,7 @@ class SiteLab implements BaseSiteLabInterface
     private $elisaExpiryDate;
 
     /**
-     * @var \DateTime $testDate
+     * @var DateTime|null
      * @ORM\Column(name="elisaTestDate",type="date",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
@@ -118,14 +119,14 @@ class SiteLab implements BaseSiteLabInterface
     private $elisaTestDate;
 
     /**
-     * @var ElisaResult $elisaResult
+     * @var ElisaResult|null
      * @ORM\Column(name="elisaResult",type="ElisaResult",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $elisaResult;
 
     /**
-     * @var \DateTime $genotypingDate
+     * @var DateTime|null
      * @ORM\Column(name="genotypingDate",type="date", nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
@@ -135,28 +136,28 @@ class SiteLab implements BaseSiteLabInterface
     private $genotypingDate;
 
     /**
-     * @var GenotypeResultG $genotypingResultG
+     * @var GenotypeResultG|null
      * @ORM\Column(name="genotypingResultG",type="GenotypeResultG", nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $genotypingResultG;
 
     /**
-     * @var string $genotypingResultGSpecify
+     * @var string|null
      * @ORM\Column(name="genotypingResultGSpecify",type="string", nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $genotypingResultGSpecify;
 
     /**
-     * @var GenotypeResultP $genotypeResultP
+     * @var GenotypeResultP|null
      * @ORM\Column(name="genotypeResultP",type="GenotypeResultP", nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $genotypeResultP;
 
     /**
-     * @var string $genotypeResultPSpecify
+     * @var string|null
      * @ORM\Column(name="genotypeResultPSpecify",type="string", nullable=true)
      * @Serializer\Groups({"api","export"})
      */
@@ -166,7 +167,7 @@ class SiteLab implements BaseSiteLabInterface
      * TODO remove once migration to national lab complete
      *
      * RRL_stool_sent
-     * @var TripleChoice $stoolSentToRRL
+     * @var TripleChoice|null
      * @ORM\Column(name="stoolSentToRRL",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
@@ -176,7 +177,7 @@ class SiteLab implements BaseSiteLabInterface
      * TODO remove once migration to national lab complete
      *
      * RRL_stool_date
-     * @var \DateTime $stoolSentToRRLDate
+     * @var DateTime|null
      * @ORM\Column(name="stoolSentToRRLDate",type="date",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
@@ -186,7 +187,7 @@ class SiteLab implements BaseSiteLabInterface
 
     /**
      * NL_stool_sent
-     * @var TripleChoice $stoolSentToNL
+     * @var TripleChoice|null
      * @ORM\Column(name="stoolSentToNL",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
@@ -194,7 +195,7 @@ class SiteLab implements BaseSiteLabInterface
 
     /**
      * NL_stool_date
-     * @var \DateTime $stoolSentToNLDate
+     * @var DateTime|null
      * @ORM\Column(name="stoolSentToNLDate",type="date",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
@@ -215,350 +216,219 @@ class SiteLab implements BaseSiteLabInterface
     /**
      * @return BaseCase|RotaVirus
      */
-    public function getCaseFile()
+    public function getCaseFile(): BaseCase
     {
         return $this->caseFile;
     }
 
-    public function setCaseFile(BaseCase $caseFile)
+    public function setCaseFile(BaseCase $caseFile): void
     {
         $this->caseFile = $caseFile;
     }
 
-    /**
-     * @return int|null
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return \DateTime|null
-     */
-    public function getReceived()
+    public function getReceived(): ?DateTime
     {
         return $this->received;
     }
 
-    /**
-     * @return TripleChoice|null
-     */
-    public function getAdequate()
+    public function getAdequate(): ?TripleChoice
     {
         return $this->adequate;
     }
 
-    /**
-     * @return TripleChoice|null
-     */
-    public function getStored()
+    public function getStored(): ?TripleChoice
     {
         return $this->stored;
     }
 
-    /**
-     * @return TripleChoice|null
-     */
-    public function getElisaDone()
+    public function getElisaDone(): ?TripleChoice
     {
         return $this->elisaDone;
     }
 
-    /**
-     * @return ElisaKit|null
-     */
-    public function getElisaKit()
+    public function getElisaKit(): ?ElisaKit
     {
         return $this->elisaKit;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getElisaKitOther()
+    public function getElisaKitOther(): ?string
     {
         return $this->elisaKitOther;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getElisaLoadNumber()
+    public function getElisaLoadNumber(): ?string
     {
         return $this->elisaLoadNumber;
     }
 
-    /**
-     * @return \DateTime|null
-     */
-    public function getElisaExpiryDate()
+    public function getElisaExpiryDate(): ?DateTime
     {
         return $this->elisaExpiryDate;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getElisaTestDate()
+    public function getElisaTestDate(): ?DateTime
     {
         return $this->elisaTestDate;
     }
 
-    /**
-     * @return ElisaResult|null
-     */
-    public function getElisaResult()
+    public function getElisaResult(): ?ElisaResult
     {
         return $this->elisaResult;
     }
 
-    /**
-     * @return \DateTime|null
-     */
-    public function getGenotypingDate()
+    public function getGenotypingDate(): ?DateTime
     {
         return $this->genotypingDate;
     }
 
-    /**
-     * @return GenotypeResultG|null
-     */
-    public function getGenotypingResultg()
+    public function getGenotypingResultg(): ?GenotypeResultG
     {
         return $this->genotypingResultG;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getGenotypingResultGSpecify()
+    public function getGenotypingResultGSpecify(): ?string
     {
         return $this->genotypingResultGSpecify;
     }
 
-    /**
-     * @return GenotypeResultP|null
-     */
-    public function getGenotypeResultP()
+    public function getGenotypeResultP(): ?GenotypeResultP
     {
         return $this->genotypeResultP;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getGenotypeResultPSpecify()
+    public function getGenotypeResultPSpecify(): ?string
     {
         return $this->genotypeResultPSpecify;
     }
 
-    /**
-     * @return TripleChoice|null
-     */
-    public function getStoolSentToRRL()
+    public function getStoolSentToRRL(): ?TripleChoice
     {
         return $this->stoolSentToRRL;
     }
 
-    /**
-     * @return \DateTime|null
-     */
-    public function getStoolSentToRRLDate()
+    public function getStoolSentToRRLDate(): ?DateTime
     {
         return $this->stoolSentToRRLDate;
     }
 
-    /**
-     * @return TripleChoice|null
-     */
-    public function getStoolSentToNL()
+    public function getStoolSentToNL(): ?TripleChoice
     {
         return $this->stoolSentToNL;
     }
 
-    /**
-     * @return \DateTime|null
-     */
-    public function getStoolSentToNLDate()
+    public function getStoolSentToNLDate(): ?DateTime
     {
         return $this->stoolSentToNLDate;
     }
 
-    /**
-     * @param \DateTime|null $received
-     */
-    public function setReceived(\DateTime $received = null)
+    public function setReceived(DateTime $received = null): void
     {
         $this->received = $received;
     }
 
-    /**
-     * @param TripleChoice $adequate
-     */
-    public function setAdequate(TripleChoice $adequate)
+    public function setAdequate(?TripleChoice $adequate): void
     {
         $this->adequate = $adequate;
     }
 
-    /**
-     * @param TripleChoice $stored
-     */
-    public function setStored(TripleChoice $stored)
+    public function setStored(?TripleChoice $stored): void
     {
         $this->stored = $stored;
     }
 
-    /**
-     * @param TripleChoice $elisaDone
-     */
-    public function setElisaDone(TripleChoice $elisaDone)
+    public function setElisaDone(?TripleChoice $elisaDone): void
     {
         $this->elisaDone = $elisaDone;
     }
 
-    /**
-     * @param ElisaKit $elisaKit
-     */
-    public function setElisaKit(ElisaKit $elisaKit)
+    public function setElisaKit(?ElisaKit $elisaKit): void
     {
         $this->elisaKit = $elisaKit;
     }
 
-    /**
-     * @param $elisaKitOther
-     */
-    public function setElisaKitOther($elisaKitOther)
+    public function setElisaKitOther(?string $elisaKitOther): void
     {
         $this->elisaKitOther = $elisaKitOther;
     }
 
-    /**
-     * @param $elisaLoadNumber
-     */
-    public function setElisaLoadNumber($elisaLoadNumber)
+    public function setElisaLoadNumber(?string $elisaLoadNumber): void
     {
         $this->elisaLoadNumber = $elisaLoadNumber;
     }
 
-    /**
-     * @param \DateTime|null $elisaExpiryDate
-     */
-    public function setElisaExpiryDate(\DateTime $elisaExpiryDate = null)
+    public function setElisaExpiryDate(?DateTime $elisaExpiryDate = null): void
     {
         $this->elisaExpiryDate = $elisaExpiryDate;
     }
 
-    /**
-     * @param \DateTime|null $elisaTestDate
-     */
-    public function setElisaTestDate(\DateTime $elisaTestDate = null)
+    public function setElisaTestDate(?DateTime $elisaTestDate = null): void
     {
         $this->elisaTestDate = $elisaTestDate;
     }
 
-    /**
-     * @param ElisaResult $elisaResult
-     */
-    public function setElisaResult(ElisaResult $elisaResult)
+    public function setElisaResult(?ElisaResult $elisaResult): void
     {
         $this->elisaResult = $elisaResult;
     }
 
-    /**
-     * @param \DateTime|null $genotypingDate
-     */
-    public function setGenotypingDate(\DateTime $genotypingDate = null)
+    public function setGenotypingDate(?DateTime $genotypingDate = null): void
     {
         $this->genotypingDate = $genotypingDate;
     }
 
-    /**
-     * @param GenotypeResultG $genotypingResultG
-     */
-    public function setGenotypingResultg(GenotypeResultG $genotypingResultG)
+    public function setGenotypingResultg(?GenotypeResultG $genotypingResultG): void
     {
         $this->genotypingResultG = $genotypingResultG;
     }
 
-    /**
-     * @param $genotypingResultGSpecify
-     */
-    public function setGenotypingResultGSpecify($genotypingResultGSpecify)
+    public function setGenotypingResultGSpecify(?string $genotypingResultGSpecify): void
     {
         $this->genotypingResultGSpecify = $genotypingResultGSpecify;
     }
 
-    /**
-     * @param GenotypeResultP $genotypeResultP
-     */
-    public function setGenotypeResultP(GenotypeResultP $genotypeResultP)
+    public function setGenotypeResultP(GenotypeResultP $genotypeResultP): void
     {
         $this->genotypeResultP = $genotypeResultP;
     }
 
-    /**
-     * @param $genotypeResultPSpecify
-     */
-    public function setGenotypeResultPSpecify($genotypeResultPSpecify)
+    public function setGenotypeResultPSpecify(?string $genotypeResultPSpecify): void
     {
         $this->genotypeResultPSpecify = $genotypeResultPSpecify;
     }
 
-    /**
-     * @param TripleChoice $stoolSentToRRL
-     */
-    public function setStoolSentToRRL(TripleChoice $stoolSentToRRL)
+    public function setStoolSentToRRL(?TripleChoice $stoolSentToRRL): void
     {
         $this->stoolSentToRRL = $stoolSentToRRL;
     }
 
-    /**
-     * @param \DateTime|null $stoolSentToRRLDate
-     */
-    public function setStoolSentToRRLDate(\DateTime $stoolSentToRRLDate = null)
+    public function setStoolSentToRRLDate(?DateTime $stoolSentToRRLDate = null): void
     {
         $this->stoolSentToRRLDate = $stoolSentToRRLDate;
     }
 
-    /**
-     * @param TripleChoice $stoolSentToNL
-     */
-    public function setStoolSentToNL(TripleChoice $stoolSentToNL)
+    public function setStoolSentToNL(?TripleChoice $stoolSentToNL): void
     {
         $this->stoolSentToNL = $stoolSentToNL;
     }
 
-    /**
-     * @param \DateTime|null $stoolSentToNLDate
-     */
-    public function setStoolSentToNLDate(\DateTime $stoolSentToNLDate = null)
+    public function setStoolSentToNLDate(?DateTime $stoolSentToNLDate = null): void
     {
         $this->stoolSentToNLDate = $stoolSentToNLDate;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getSentToNationalLab(): bool
     {
         $tripleChoice = $this->getStoolSentToNL();
         return ($tripleChoice && $tripleChoice->equal(TripleChoice::YES));
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getSentToReferenceLab(): bool
     {
         $tripleChoice = $this->getStoolSentToRRL();
         return ($tripleChoice && $tripleChoice->equal(TripleChoice::YES));
     }
 
-    /**
-     *
-     */
-    public function isComplete()
+    public function isComplete(): void
     {
     }
 }

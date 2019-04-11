@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Entity\Meningitis;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use NS\SecurityBundle\Annotation\Secured;
@@ -22,6 +23,9 @@ use NS\SentinelBundle\Form\IBD\Types\PCVType;
 use Symfony\Component\Validator\Constraints as Assert;
 use NS\SentinelBundle\Validators as LocalAssert;
 use NS\UtilBundle\Validator\Constraints\ArrayChoiceConstraint;
+use NS\SentinelBundle\Entity\Meningitis\SiteLab;
+use NS\SentinelBundle\Entity\Meningitis\ReferenceLab;
+use NS\SentinelBundle\Entity\Meningitis\NationalLab;
 
 /**
  * Description of IBD
@@ -68,21 +72,21 @@ class Meningitis extends BaseCase
     /**
      * @Serializer\Exclude()
      */
-    protected $siteLabClass = '\NS\SentinelBundle\Entity\Meningitis\SiteLab';
+    protected $siteLabClass = SiteLab::class;
 
     /**
      * @Serializer\Exclude()
      */
-    protected $referenceClass = '\NS\SentinelBundle\Entity\Meningitis\ReferenceLab';
+    protected $referenceClass = ReferenceLab::class;
 
     /**
      * @Serializer\Exclude()
      */
-    protected $nationalClass  = '\NS\SentinelBundle\Entity\Meningitis\NationalLab';
+    protected $nationalClass  = NationalLab::class;
 
 //Case-based Clinical Data
     /**
-     * @var \DateTime $onsetDate
+     * @var DateTime|null
      * @ORM\Column(name="onset_date",type="date",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
@@ -92,7 +96,7 @@ class Meningitis extends BaseCase
     private $onset_date;
 
     /**
-     * @var Diagnosis $admDx
+     * @var Diagnosis|null
      * @ORM\Column(name="adm_dx",type="Diagnosis",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Assert\NotBlank(groups={"AMR"})
@@ -101,14 +105,14 @@ class Meningitis extends BaseCase
     private $adm_dx;
 
     /**
-     * @var string $admDxOther
+     * @var string|null
      * @ORM\Column(name="adm_dx_other",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $adm_dx_other;
 
     /**
-     * @var TripleChoice $antibiotics
+     * @var TripleChoice|null
      * @ORM\Column(name="antibiotics",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
@@ -116,56 +120,56 @@ class Meningitis extends BaseCase
 
 //MENINGITIS
     /**
-     * @var TripleChoice $menSeizures
+     * @var TripleChoice|null
      * @ORM\Column(name="men_seizures",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $men_seizures;
 
     /**
-     * @var TripleChoice $menFever
+     * @var TripleChoice|null
      * @ORM\Column(name="men_fever",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $men_fever;
 
     /**
-     * @var TripleChoice $menAltConscious
+     * @var TripleChoice|null
      * @ORM\Column(name="men_alt_conscious",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $men_alt_conscious;
 
     /**
-     * @var TripleChoice $menInabilityFeed
+     * @var TripleChoice|null
      * @ORM\Column(name="men_inability_feed",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $men_inability_feed;
 
     /**
-     * @var TripleChoice $men_neck_stiff
+     * @var TripleChoice|null
      * @ORM\Column(name="men_neck_stiff",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $men_neck_stiff;
 
     /**
-     * @var TripleChoice $menRash
+     * @var TripleChoice|null
      * @ORM\Column(name="men_rash",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $men_rash;
 
     /**
-     * @var TripleChoice $menFontanelleBulge
+     * @var TripleChoice|null
      * @ORM\Column(name="men_fontanelle_bulge",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $men_fontanelle_bulge;
 
     /**
-     * @var TripleChoice $menLethargy
+     * @var TripleChoice|null
      * @ORM\Column(name="men_lethargy",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
@@ -173,21 +177,21 @@ class Meningitis extends BaseCase
 
 //PAHO Variables
     /**
-     * @var TripleChoice
+     * @var TripleChoice|null
      * @ORM\Column(name="men_irritability",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $men_irritability;
 
     /**
-     * @var TripleChoice
+     * @var TripleChoice|null
      * @ORM\Column(name="men_vomit",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $men_vomit;
 
     /**
-     * @var TripleChoice
+     * @var TripleChoice|null
      * @ORM\Column(name="men_malnutrition",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
@@ -195,7 +199,7 @@ class Meningitis extends BaseCase
 
 //Case-based Vaccination History
     /**
-     * @var VaccinationReceived $hibReceived
+     * @var VaccinationReceived|null
      * @ORM\Column(name="hib_received",type="VaccinationReceived",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Assert\NotBlank(groups={"AMR"})
@@ -204,14 +208,14 @@ class Meningitis extends BaseCase
     private $hib_received;
 
     /**
-     * @var FourDoses $hibDoses
+     * @var FourDoses|null
      * @ORM\Column(name="hib_doses",type="FourDoses",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $hib_doses;
 
     /**
-     * @var \DateTime $hibMostRecentDose
+     * @var DateTime|null
      * @ORM\Column(name="hib_most_recent_dose",type="date",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
@@ -220,7 +224,7 @@ class Meningitis extends BaseCase
     private $hib_most_recent_dose;
 
     /**
-     * @var VaccinationReceived $pcvReceived
+     * @var VaccinationReceived|null
      * @ORM\Column(name="pcv_received",type="VaccinationReceived",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Assert\NotBlank(groups={"AMR"})
@@ -229,21 +233,21 @@ class Meningitis extends BaseCase
     private $pcv_received;
 
     /**
-     * @var FourDoses $pcvDoses
+     * @var FourDoses|null
      * @ORM\Column(name="pcv_doses",type="FourDoses",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $pcv_doses;
 
     /**
-     * @var PCVType $pcvType
+     * @var PCVType|null
      * @ORM\Column(name="pcv_type",type="PCVType",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $pcv_type;
 
     /**
-     * @var \DateTime $pcvMostRecentDose
+     * @var DateTime|null
      * @ORM\Column(name="pcv_most_recent_dose",type="date",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
@@ -252,7 +256,7 @@ class Meningitis extends BaseCase
     private $pcv_most_recent_dose;
 
     /**
-     * @var VaccinationReceived $meningReceived
+     * @var VaccinationReceived|null
      * @ORM\Column(name="mening_received",type="VaccinationReceived",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Assert\NotBlank(groups={"AMR"})
@@ -261,14 +265,14 @@ class Meningitis extends BaseCase
     private $mening_received;
 
     /**
-     * @var VaccinationType $meningType
+     * @var VaccinationType|null
      * @ORM\Column(name="mening_type",type="IBDVaccinationType",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $mening_type;
 
     /**
-     * @var \DateTime $mening_date
+     * @var DateTime|null
      * @ORM\Column(name="mening_date",type="date",nullable=true)
      * @Assert\Date
      * @LocalAssert\NoFutureDate()
@@ -280,14 +284,14 @@ class Meningitis extends BaseCase
 //Case-based Specimen Collection Data
 
     /**
-     * @var TripleChoice $csfCollected
+     * @var TripleChoice|null
      * @ORM\Column(name="csf_collected",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $csf_collected;
 
     /**
-     * @var \DateTime $csfCollectDate
+     * @var DateTime|null
      * @ORM\Column(name="csf_collect_date",type="date",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
@@ -296,7 +300,7 @@ class Meningitis extends BaseCase
     private $csf_collect_date;
 
     /**
-     * @var \DateTime $csfCollectTime
+     * @var DateTime|null
      * @ORM\Column(name="csf_collect_time",type="time",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'H:i:s'>")
@@ -304,21 +308,21 @@ class Meningitis extends BaseCase
     private $csf_collect_time;
 
     /**
-     * @var CSFAppearance $csfAppearance
+     * @var CSFAppearance|null
      * @ORM\Column(name="csf_appearance",type="CSFAppearance",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $csf_appearance;
 
     /**
-     * @var TripleChoice $bloodCollected
+     * @var TripleChoice|null
      * @ORM\Column(name="blood_collected", type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $blood_collected;
 
     /**
-     * @var \DateTime $bloodCollectDate
+     * @var DateTime|null
      * @ORM\Column(name="blood_collect_date",type="date",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
@@ -327,7 +331,7 @@ class Meningitis extends BaseCase
     private $blood_collect_date;
 
     /**
-     * @var \DateTime $blood_collect_time
+     * @var DateTime|null
      * @ORM\Column(name="blood_collect_time",type="time",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'H:i:s'>")
@@ -335,14 +339,14 @@ class Meningitis extends BaseCase
     private $blood_collect_time;
 
     /**
-     * @var OtherSpecimen $otherSpecimenCollected
+     * @var OtherSpecimen|null
      * @ORM\Column(name="other_specimen_collected",type="OtherSpecimen",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $other_specimen_collected;
 
     /**
-     * @var string $otherSpecimenOther
+     * @var string|null
      * @ORM\Column(name="other_specimen_other",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
@@ -350,48 +354,48 @@ class Meningitis extends BaseCase
 
 //Case-based Outcome Data
     /**
-     * @var DischargeOutcome $dischOutcome
+     * @var DischargeOutcome|null
      * @ORM\Column(name="disch_outcome",type="IBDDischargeOutcome",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $disch_outcome;
 
     /**
-     * @var Diagnosis $dischDx
+     * @var DischargeDiagnosis|null
      * @ORM\Column(name="disch_dx",type="IBDDischargeDiagnosis",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $disch_dx;
 
     /**
-     * @var $dischDxOther
+     * @var string|null
      * @ORM\Column(name="disch_dx_other",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $disch_dx_other;
 
     /**
-     * @var DischargeClassification $dischClass
+     * @var DischargeClassification|null
      * @ORM\Column(name="disch_class",type="IBDDischargeClassification",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $disch_class;
 
     /**
-     * @var string $dischClassOther
+     * @var string|null
      * @ORM\Column(name="disch_class_other",type="string",nullable=true)
      */
     private $disch_class_other;
 
     /**
-     * @var string $comment
+     * @var string|null
      * @ORM\Column(name="comment",type="text",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $comment;
 
     /**
-     * @var CaseResult $result
+     * @var CaseResult|null
      * @ORM\Column(name="result",type="CaseResult",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
@@ -399,14 +403,14 @@ class Meningitis extends BaseCase
 
     //PAHO/AMR Specific Variables
     /**
-     * @var integer
+     * @var int|null
      * @ORM\Column(name="blood_number_of_samples",type="integer",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $blood_number_of_samples;
 
     /**
-     * @var \DateTime $bloodCollectDate
+     * @var DateTime|null
      * @ORM\Column(name="blood_second_collect_date",type="date",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
@@ -415,7 +419,7 @@ class Meningitis extends BaseCase
     private $blood_second_collect_date;
 
     /**
-     * @var \DateTime $blood_collect_time
+     * @var DateTime|null
      * @ORM\Column(name="blood_second_collect_time",type="time",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'H:i:s'>")
@@ -429,659 +433,412 @@ class Meningitis extends BaseCase
         $this->adm_dx = new Diagnosis(Diagnosis::SUSPECTED_MENINGITIS);
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getOnsetDate()
+    public function getOnsetDate(): ?DateTime
     {
         return $this->onset_date;
     }
 
-    /**
-     * @return Diagnosis
-     */
-    public function getAdmDx()
+    public function getAdmDx(): ?Diagnosis
     {
         return $this->adm_dx;
     }
 
-    /**
-     * @return string
-     */
-    public function getAdmDxOther()
+    public function getAdmDxOther(): ?string
     {
         return $this->adm_dx_other;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getAntibiotics()
+    public function getAntibiotics(): ?TripleChoice
     {
         return $this->antibiotics;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getMenSeizures()
+    public function getMenSeizures(): ?TripleChoice
     {
         return $this->men_seizures;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getMenFever()
+    public function getMenFever(): ?TripleChoice
     {
         return $this->men_fever;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getMenAltConscious()
+    public function getMenAltConscious(): ?TripleChoice
     {
         return $this->men_alt_conscious;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getMenInabilityFeed()
+    public function getMenInabilityFeed(): ?TripleChoice
     {
         return $this->men_inability_feed;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getMenNeckStiff()
+    public function getMenNeckStiff(): ?TripleChoice
     {
         return $this->men_neck_stiff;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getMenRash()
+    public function getMenRash(): ?TripleChoice
     {
         return $this->men_rash;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getMenFontanelleBulge()
+    public function getMenFontanelleBulge(): ?TripleChoice
     {
         return $this->men_fontanelle_bulge;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getMenLethargy()
+    public function getMenLethargy(): ?TripleChoice
     {
         return $this->men_lethargy;
     }
 
-    /**
-     * @return VaccinationReceived
-     */
-    public function getHibReceived()
+    public function getHibReceived(): ?VaccinationReceived
     {
         return $this->hib_received;
     }
 
-    /**
-     * @return FourDoses
-     */
-    public function getHibDoses()
+    public function getHibDoses(): ?FourDoses
     {
         return $this->hib_doses;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getHibMostRecentDose()
+    public function getHibMostRecentDose(): ?DateTime
     {
         return $this->hib_most_recent_dose;
     }
 
-    /**
-     * @return VaccinationReceived
-     */
-    public function getPcvReceived()
+    public function getPcvReceived(): ?VaccinationReceived
     {
         return $this->pcv_received;
     }
 
-    /**
-     * @return FourDoses
-     */
-    public function getPcvDoses()
+    public function getPcvDoses(): ?FourDoses
     {
         return $this->pcv_doses;
     }
 
-    /**
-     * @return PCVType
-     */
-    public function getPcvType()
+    public function getPcvType(): ?PCVType
     {
         return $this->pcv_type;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getPcvMostRecentDose()
+    public function getPcvMostRecentDose(): ?DateTime
     {
         return $this->pcv_most_recent_dose;
     }
 
-    /**
-     * @return VaccinationReceived
-     */
-    public function getMeningReceived()
+    public function getMeningReceived(): ?VaccinationReceived
     {
         return $this->mening_received;
     }
 
-    /**
-     * @return VaccinationType
-     */
-    public function getMeningType()
+    public function getMeningType(): ?VaccinationType
     {
         return $this->mening_type;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getMeningDate()
+    public function getMeningDate(): ?DateTime
     {
         return $this->mening_date;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getCsfCollected()
+    public function getCsfCollected(): ?TripleChoice
     {
         return $this->csf_collected;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getCsfCollectDate()
+    public function getCsfCollectDate(): ?DateTime
     {
         return $this->csf_collect_date;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getCsfCollectTime()
+    public function getCsfCollectTime(): ?DateTime
     {
         return $this->csf_collect_time;
     }
 
-    /**
-     * @return CSFAppearance
-     */
-    public function getCsfAppearance()
+    public function getCsfAppearance(): ?CSFAppearance
     {
         return $this->csf_appearance;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getBloodCollected()
+    public function getBloodCollected(): ?TripleChoice
     {
         return $this->blood_collected;
     }
 
-    /**
-     * 
-     * @return \DateTime
-     */
-    public function getBloodCollectDate()
+    public function getBloodCollectDate(): ?DateTime
     {
         return $this->blood_collect_date;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getBloodCollectTime()
+    public function getBloodCollectTime(): ?DateTime
     {
         return $this->blood_collect_time;
     }
 
-    /**
-     * @param \DateTime $blood_collect_time
-     */
-    public function setBloodCollectTime(\DateTime $blood_collect_time = null)
+    public function setBloodCollectTime(?DateTime $blood_collect_time = null): void
     {
         $this->blood_collect_time = $blood_collect_time;
     }
 
-    /**
-     * @return OtherSpecimen
-     */
-    public function getOtherSpecimenCollected()
+    public function getOtherSpecimenCollected(): ?OtherSpecimen
     {
         return $this->other_specimen_collected;
     }
 
-    /**
-     * @return string
-     */
-    public function getOtherSpecimenOther()
+    public function getOtherSpecimenOther(): ?string
     {
         return $this->other_specimen_other;
     }
 
-    /**
-     * @return DischargeOutcome
-     */
-    public function getDischOutcome()
+    public function getDischOutcome(): ?DischargeOutcome
     {
         return $this->disch_outcome;
     }
 
-    /**
-     * @return Diagnosis
-     */
-    public function getDischDx()
+    public function getDischDx(): ?DischargeDiagnosis
     {
         return $this->disch_dx;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getDischDxOther()
+    public function getDischDxOther(): ?string
     {
         return $this->disch_dx_other;
     }
 
-    /**
-     * @return DischargeClassification
-     */
-    public function getDischClass()
+    public function getDischClass(): ?DischargeClassification
     {
         return $this->disch_class;
     }
 
-    /**
-     * @return string
-     */
-    public function getComment()
+    public function getComment(): ?string
     {
         return $this->comment;
     }
 
-    /**
-     * @return CaseResult
-     */
-    public function getResult()
+    public function getResult(): ?CaseResult
     {
         return $this->result;
     }
 
-    /**
-     * @param \DateTime|null $onsetDate
-     */
-    public function setOnsetDate(\DateTime $onsetDate = null)
+    public function setOnsetDate(?DateTime $onsetDate = null): void
     {
         $this->onset_date = $onsetDate;
     }
 
-    /**
-     * @param Diagnosis $adm_dx
-     */
-    public function setAdmDx(Diagnosis $adm_dx = null)
+    public function setAdmDx(?Diagnosis $adm_dx = null): void
     {
         $this->adm_dx = $adm_dx;
     }
 
-    /**
-     * @param $adm_dxOther
-     */
-    public function setAdmDxOther($adm_dxOther)
+    public function setAdmDxOther(?string $adm_dxOther): void
     {
         $this->adm_dx_other = $adm_dxOther;
     }
 
-    /**
-     * @param TripleChoice $antibiotics
-     */
-    public function setAntibiotics(TripleChoice $antibiotics = null)
+    public function setAntibiotics(?TripleChoice $antibiotics = null): void
     {
         $this->antibiotics = $antibiotics;
     }
 
-    /**
-     * @param TripleChoice $menSeizures
-     */
-    public function setMenSeizures(TripleChoice $menSeizures = null)
+    public function setMenSeizures(?TripleChoice $menSeizures = null): void
     {
         $this->men_seizures = $menSeizures;
     }
 
-    /**
-     * @param TripleChoice $menFever
-     */
-    public function setMenFever(TripleChoice $menFever = null)
+    public function setMenFever(?TripleChoice $menFever = null): void
     {
         $this->men_fever = $menFever;
     }
 
-    /**
-     * @param TripleChoice $menAltConscious
-     */
-    public function setMenAltConscious(TripleChoice $menAltConscious = null)
+    public function setMenAltConscious(?TripleChoice $menAltConscious = null): void
     {
         $this->men_alt_conscious = $menAltConscious;
     }
 
-    /**
-     * @param TripleChoice $menInabilityFeed
-     */
-    public function setMenInabilityFeed(TripleChoice $menInabilityFeed = null)
+    public function setMenInabilityFeed(?TripleChoice $menInabilityFeed = null): void
     {
         $this->men_inability_feed = $menInabilityFeed;
     }
 
-    /**
-     * @param TripleChoice $menNeckStiff
-     */
-    public function setMenNeckStiff(TripleChoice $menNeckStiff = null)
+    public function setMenNeckStiff(?TripleChoice $menNeckStiff = null): void
     {
         $this->men_neck_stiff = $menNeckStiff;
     }
 
-    /**
-     * @param TripleChoice $menRash
-     */
-    public function setMenRash(TripleChoice $menRash = null)
+    public function setMenRash(?TripleChoice $menRash = null): void
     {
         $this->men_rash = $menRash;
     }
 
-    /**
-     * @param TripleChoice $menFontanelleBulge
-     */
-    public function setMenFontanelleBulge(TripleChoice $menFontanelleBulge = null)
+    public function setMenFontanelleBulge(?TripleChoice $menFontanelleBulge = null): void
     {
         $this->men_fontanelle_bulge = $menFontanelleBulge;
     }
 
-    /**
-     * @param TripleChoice $menLethargy
-     */
-    public function setMenLethargy(TripleChoice $menLethargy = null)
+    public function setMenLethargy(?TripleChoice $menLethargy = null): void
     {
         $this->men_lethargy = $menLethargy;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getMenIrritability()
+    public function getMenIrritability(): ?TripleChoice
     {
         return $this->men_irritability;
     }
 
-    /**
-     * @param TripleChoice $men_irritability
-     */
-    public function setMenIrritability($men_irritability)
+    public function setMenIrritability($men_irritability): void
     {
         $this->men_irritability = $men_irritability;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getMenVomit()
+    public function getMenVomit(): ?TripleChoice
     {
         return $this->men_vomit;
     }
 
-    /**
-     * @param TripleChoice $men_vomit
-     */
-    public function setMenVomit($men_vomit)
+    public function setMenVomit(?TripleChoice $men_vomit): void
     {
         $this->men_vomit = $men_vomit;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getMenMalnutrition()
+    public function getMenMalnutrition(): ?TripleChoice
     {
         return $this->men_malnutrition;
     }
 
-    /**
-     * @param TripleChoice $men_malnutrition
-     */
-    public function setMenMalnutrition($men_malnutrition)
+    public function setMenMalnutrition(?TripleChoice $men_malnutrition): void
     {
         $this->men_malnutrition = $men_malnutrition;
     }
 
-    /**
-     * @param VaccinationReceived $hibReceived
-     */
-    public function setHibReceived(VaccinationReceived $hibReceived = null)
+    public function setHibReceived(?VaccinationReceived $hibReceived = null): void
     {
         $this->hib_received = $hibReceived;
     }
 
-    /**
-     * @param FourDoses $hibDoses
-     */
-    public function setHibDoses(FourDoses $hibDoses = null)
+    public function setHibDoses(?FourDoses $hibDoses = null): void
     {
         $this->hib_doses = $hibDoses;
     }
 
-    /**
-     * @param $hibMostRecentDose
-     */
-    public function setHibMostRecentDose(\DateTime $hibMostRecentDose = null)
+    public function setHibMostRecentDose(?DateTime $hibMostRecentDose = null): void
     {
         $this->hib_most_recent_dose = $hibMostRecentDose;
     }
 
-    /**
-     * @param VaccinationReceived $pcvReceived
-     */
-    public function setPcvReceived(VaccinationReceived $pcvReceived = null)
+    public function setPcvReceived(?VaccinationReceived $pcvReceived = null): void
     {
         $this->pcv_received = $pcvReceived;
     }
 
-    /**
-     * @param FourDoses $pcvDoses
-     */
-    public function setPcvDoses(FourDoses $pcvDoses = null)
+    public function setPcvDoses(?FourDoses $pcvDoses = null): void
     {
         $this->pcv_doses = $pcvDoses;
     }
 
-    /**
-     * @param PCVType $pcvType
-     */
-    public function setPcvType(PCVType $pcvType = null)
+    public function setPcvType(?PCVType $pcvType = null): void
     {
         $this->pcv_type = $pcvType;
     }
 
-    /**
-     * @param $pcvMostRecentDose
-     */
-    public function setPcvMostRecentDose(\DateTime $pcvMostRecentDose = null)
+    public function setPcvMostRecentDose(?DateTime $pcvMostRecentDose = null): void
     {
         $this->pcv_most_recent_dose = $pcvMostRecentDose;
     }
 
-    /**
-     * @param VaccinationReceived $meningReceived
-     */
-    public function setMeningReceived(VaccinationReceived $meningReceived = null)
+    public function setMeningReceived(?VaccinationReceived $meningReceived = null): void
     {
         $this->mening_received = $meningReceived;
     }
 
-    /**
-     * @param VaccinationType $meningType
-     */
-    public function setMeningType(VaccinationType $meningType = null)
+    public function setMeningType(?VaccinationType $meningType = null): void
     {
         $this->mening_type = $meningType;
     }
 
-    /**
-     * @param $meningMostRecentDose
-     */
-    public function setMeningDate(\DateTime $meningMostRecentDose = null)
+    public function setMeningDate(?DateTime $meningMostRecentDose = null): void
     {
         $this->mening_date = $meningMostRecentDose;
     }
 
-    /**
-     * @param TripleChoice $csfCollected
-     */
-    public function setCsfCollected(TripleChoice $csfCollected = null)
+    public function setCsfCollected(?TripleChoice $csfCollected = null): void
     {
         $this->csf_collected = $csfCollected;
     }
 
-    /**
-     * @param \DateTime $date
-     */
-    public function setCsfCollectDate(\DateTime $date = null)
+    public function setCsfCollectDate(?DateTime $date = null): void
     {
         $this->csf_collect_date = $date;
     }
 
-    /**
-     * @param \DateTime $time
-     */
-    public function setCsfCollectTime(\DateTime $time = null)
+    public function setCsfCollectTime(?DateTime $time = null): void
     {
         $this->csf_collect_time = $time;
     }
 
-    /**
-     * @param CSFAppearance $csfAppearance
-     */
-    public function setCsfAppearance(CSFAppearance $csfAppearance = null)
+    public function setCsfAppearance(?CSFAppearance $csfAppearance = null): void
     {
         $this->csf_appearance = $csfAppearance;
     }
 
-    /**
-     * @param \DateTime|null $date
-     */
-    public function setBloodCollectDate(\DateTime $date = null)
+    public function setBloodCollectDate(?DateTime $date = null): void
     {
         $this->blood_collect_date = $date;
     }
 
-    /**
-     * @param TripleChoice $bloodCollected
-     */
-    public function setBloodCollected(TripleChoice $bloodCollected = null)
+    public function setBloodCollected(?TripleChoice $bloodCollected = null): void
     {
         $this->blood_collected = $bloodCollected;
     }
 
-    /**
-     * @param OtherSpecimen $otherSpecimenCollected
-     */
-    public function setOtherSpecimenCollected(OtherSpecimen $otherSpecimenCollected = null)
+    public function setOtherSpecimenCollected(?OtherSpecimen $otherSpecimenCollected = null): void
     {
         $this->other_specimen_collected = $otherSpecimenCollected;
     }
 
-    /**
-     * @param $otherSpecimenOther
-     */
-    public function setOtherSpecimenOther($otherSpecimenOther)
+    public function setOtherSpecimenOther(?string $otherSpecimenOther): void
     {
         $this->other_specimen_other = $otherSpecimenOther;
     }
 
-    /**
-     * @param DischargeOutcome $dischOutcome
-     */
-    public function setDischOutcome(DischargeOutcome $dischOutcome = null)
+    public function setDischOutcome(?DischargeOutcome $dischOutcome = null): void
     {
         $this->disch_outcome = $dischOutcome;
     }
 
-    /**
-     * @param DischargeDiagnosis $dischDx
-     */
-    public function setDischDx(DischargeDiagnosis $dischDx = null)
+    public function setDischDx(?DischargeDiagnosis $dischDx = null): void
     {
         $this->disch_dx = $dischDx;
     }
 
-    /**
-     * @param $dischDxOther
-     */
-    public function setDischDxOther($dischDxOther)
+    public function setDischDxOther(?string $dischDxOther): void
     {
         $this->disch_dx_other = $dischDxOther;
     }
 
-    /**
-     * @param DischargeClassification $dischClass
-     */
-    public function setDischClass(DischargeClassification $dischClass = null)
+    public function setDischClass(?DischargeClassification $dischClass = null): void
     {
         $this->disch_class = $dischClass;
     }
 
-    /**
-     * @param $comment
-     */
-    public function setComment($comment)
+    public function setComment(?string $comment): void
     {
         $this->comment = $comment;
     }
 
-    /**
-     * @param CaseResult $result
-     */
-    public function setResult(CaseResult $result = null)
+    public function setResult(?CaseResult $result = null): void
     {
         $this->result = $result;
     }
 
-    /**
-     * @return string
-     */
-    public function getDischClassOther()
+    public function getDischClassOther(): ?string
     {
         return $this->disch_class_other;
     }
 
-    /**
-     * @param string $dischClassOther
-     */
-    public function setDischClassOther($dischClassOther)
+    public function setDischClassOther(?string $dischClassOther): void
     {
         $this->disch_class_other= $dischClassOther;
     }
@@ -1089,50 +846,32 @@ class Meningitis extends BaseCase
     //========================================
     //PAHO/AMR specific fields
 
-    /**
-     * @return int
-     */
-    public function getBloodNumberOfSamples()
+    public function getBloodNumberOfSamples(): ?int
     {
         return $this->blood_number_of_samples;
     }
 
-    /**
-     * @param int $blood_number_of_samples
-     */
-    public function setBloodNumberOfSamples($blood_number_of_samples)
+    public function setBloodNumberOfSamples(?int $blood_number_of_samples): void
     {
         $this->blood_number_of_samples = $blood_number_of_samples;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getBloodSecondCollectDate()
+    public function getBloodSecondCollectDate(): ?DateTime
     {
         return $this->blood_second_collect_date;
     }
 
-    /**
-     * @param \DateTime $blood_second_collect_date
-     */
-    public function setBloodSecondCollectDate(\DateTime $blood_second_collect_date = null)
+    public function setBloodSecondCollectDate(?DateTime $blood_second_collect_date = null): void
     {
         $this->blood_second_collect_date = $blood_second_collect_date;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getBloodSecondCollectTime()
+    public function getBloodSecondCollectTime(): ?DateTime
     {
         return $this->blood_second_collect_time;
     }
 
-    /**
-     * @param \DateTime $blood_second_collect_time
-     */
-    public function setBloodSecondCollectTime(\DateTime $blood_second_collect_time = null)
+    public function setBloodSecondCollectTime(?DateTime $blood_second_collect_time = null): void
     {
         $this->blood_second_collect_time = $blood_second_collect_time;
     }
@@ -1159,10 +898,10 @@ class Meningitis extends BaseCase
 //        if($this->dischDx && $this->dischDx->equal(Diagnosis::OTHER) && empty($this->dischDxOther))
 //            $context->addViolationAt('dischDx',"form.validation.dischargeDx-other-without-other-text");
 //
-//        if($this->hibReceived && $this->hibReceived->equal(TripleChoice::YES) && (is_null($this->hibDoses) || $this->hibDoses->equal(ArrayChoice::NO_SELECTION)))
+//        if($this->hibReceived && $this->hibReceived->equal(?TripleChoice::YES) && (is_null($this->hibDoses) || $this->hibDoses->equal(ArrayChoice::NO_SELECTION)))
 //            $context->addViolationAt('hibDoses', "form.validation.hibReceived-other-hibDoses-unselected");
 //
-//        if($this->pcvReceived && $this->pcvReceived->equal(TripleChoice::YES) && (is_null($this->pcvDoses) || $this->pcvDoses->equal(ArrayChoice::NO_SELECTION)))
+//        if($this->pcvReceived && $this->pcvReceived->equal(?TripleChoice::YES) && (is_null($this->pcvDoses) || $this->pcvDoses->equal(ArrayChoice::NO_SELECTION)))
 //            $context->addViolationAt('pcvDoses', "form.validation.pcvReceived-other-pcvDoses-unselected '".$this->pcvReceived."'" );
 //
 //        if($this->meningReceived && ($this->meningReceived->equal(MeningitisVaccinationReceived::YES_CARD ) || $this->meningReceived->equal(MeningitisVaccinationReceived::YES_HISTORY)))
@@ -1177,7 +916,7 @@ class Meningitis extends BaseCase
 //                $context->addViolationAt('meningType', "form.validation.meningReceived-meningMostRecentDose-empty");
 //        }
 //
-//        if($this->csfCollected && $this->csfCollected->equal(TripleChoice::YES))
+//        if($this->csfCollected && $this->csfCollected->equal(?TripleChoice::YES))
 //        {
 //            if(is_null($this->csfId) || empty($this->csfId))
 //                $context->addViolationAt('csfId', "form.validation.csfCollected-csfId-empty");

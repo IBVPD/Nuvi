@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Entity\Meningitis;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use NS\SentinelBundle\Validators as LocalAssert;
@@ -24,7 +25,7 @@ class NationalLab extends ExternalLab
     protected $caseFile;
 
     /**
-     * @var boolean
+     * @var bool|null
      * @ORM\Column(name="rl_isol_csf_sent",type="boolean",nullable=true)
      *
      * @LocalAssert\NoFutureDate()
@@ -33,7 +34,7 @@ class NationalLab extends ExternalLab
     private $rl_isol_csf_sent;
 
     /**
-     * @var \DateTime
+     * @var DateTime|null
      * @ORM\Column(name="rl_isol_csf_date",type="date",nullable=true)
      *
      * @LocalAssert\NoFutureDate()
@@ -43,7 +44,7 @@ class NationalLab extends ExternalLab
     private $rl_isol_csf_date;
 
     /**
-     * @var boolean
+     * @var bool|null
      * @ORM\Column(name="rl_isol_blood_sent",type="boolean",nullable=true)
      *
      * @LocalAssert\NoFutureDate()
@@ -52,7 +53,7 @@ class NationalLab extends ExternalLab
     private $rl_isol_blood_sent;
 
     /**
-     * @var \DateTime
+     * @var DateTime|null
      * @ORM\Column(name="rl_isol_blood_date",type="date",nullable=true)
      *
      * @LocalAssert\NoFutureDate()
@@ -62,7 +63,7 @@ class NationalLab extends ExternalLab
     private $rl_isol_blood_date;
 
     /**
-     * @var boolean
+     * @var bool|null
      * @ORM\Column(name="rl_other_sent",type="boolean",nullable=true)
      *
      * @LocalAssert\NoFutureDate()
@@ -71,7 +72,7 @@ class NationalLab extends ExternalLab
     private $rl_other_sent;
 
     /**
-     * @var \DateTime
+     * @var DateTime|null
      * @ORM\Column(name="rl_other_date",type="date",nullable=true)
      *
      * @LocalAssert\NoFutureDate()
@@ -80,143 +81,75 @@ class NationalLab extends ExternalLab
      */
     private $rl_other_date;
 
-    /**
-     * @var string
-     */
-    private $type        = 'NL';
+    /** @var string */
+    private $type = 'NL';
 
-    /**
-     * @return string
-     */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @param $type
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCaseFile()
-    {
-        return $this->caseFile;
-    }
-
-    /**
-     * @param mixed $caseFile
-     */
-    public function setCaseFile($caseFile = null)
-    {
-        $this->caseFile = $caseFile;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isRlIsolCsfSent()
+    public function isRlIsolCsfSent(): ?bool
     {
         return $this->rl_isol_csf_sent;
     }
 
-    /**
-     * @param bool $rl_isol_csf_sent
-     */
-    public function setRlIsolCsfSent($rl_isol_csf_sent)
+    public function setRlIsolCsfSent(?bool $rl_isol_csf_sent)
     {
         $this->rl_isol_csf_sent = $rl_isol_csf_sent;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getRlIsolCsfDate()
+    public function getRlIsolCsfDate(): ?DateTime
     {
         return $this->rl_isol_csf_date;
     }
 
-    /**
-     * @param \DateTime $rl_isol_csf_date
-     */
-    public function setRlIsolCsfDate(\DateTime $rl_isol_csf_date = null)
+    public function setRlIsolCsfDate(?DateTime $rl_isol_csf_date = null)
     {
         $this->rl_isol_csf_date = $rl_isol_csf_date;
     }
 
-    /**
-     * @return bool
-     */
-    public function isRlIsolBloodSent()
+    public function isRlIsolBloodSent(): ?bool
     {
         return $this->rl_isol_blood_sent;
     }
 
-    /**
-     * @param bool $rl_isol_blood_sent
-     */
-    public function setRlIsolBloodSent($rl_isol_blood_sent)
+    public function setRlIsolBloodSent(?bool $rl_isol_blood_sent)
     {
         $this->rl_isol_blood_sent = $rl_isol_blood_sent;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getRlIsolBloodDate()
+    public function getRlIsolBloodDate(): ?DateTime
     {
         return $this->rl_isol_blood_date;
     }
 
-    /**
-     * @param \DateTime $rl_isol_blood_date
-     */
-    public function setRlIsolBloodDate(\DateTime $rl_isol_blood_date = null)
+    public function setRlIsolBloodDate(?DateTime $rl_isol_blood_date = null)
     {
         $this->rl_isol_blood_date = $rl_isol_blood_date;
     }
 
-    /**
-     * @return bool
-     */
-    public function isRlOtherSent()
+    public function isRlOtherSent(): ?bool
     {
         return $this->rl_other_sent;
     }
 
-    /**
-     * @param bool $rl_other_sent
-     */
-    public function setRlOtherSent($rl_other_sent)
+    public function setRlOtherSent(?bool $rl_other_sent)
     {
         $this->rl_other_sent = $rl_other_sent;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getRlOtherDate()
+    public function getRlOtherDate(): ?DateTime
     {
         return $this->rl_other_date;
     }
 
-    /**
-     * @param \DateTime $rl_other_date
-     */
-    public function setRlOtherDate(\DateTime $rl_other_date = null)
+    public function setRlOtherDate(?DateTime $rl_other_date = null)
     {
         $this->rl_other_date = $rl_other_date;
     }
 
-    /**
-     * @return bool
-     */
-    public function getSentToReferenceLab()
+    public function getSentToReferenceLab(): bool
     {
         return ($this->rl_isol_csf_sent || $this->rl_isol_blood_sent || $this->rl_other_sent);
     }

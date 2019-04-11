@@ -12,18 +12,18 @@ class GreaterThanDateValidator extends ConstraintValidator
     /**
      * Checks if the passed value is valid.
      *
-     * @param mixed $value The value that should be validated
+     * @param mixed                      $value      The value that should be validated
      * @param GreaterThanDate|Constraint $constraint The constraint for the validation
      *
      * @api
      */
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
-        $accessor = PropertyAccess::createPropertyAccessor();
+        $accessor      = PropertyAccess::createPropertyAccessor();
         $lessThanValue = $greaterThanValue = null;
 
         try {
-            $lessThanValue = $accessor->getValue($value, $constraint->lessThanField);
+            $lessThanValue    = $accessor->getValue($value, $constraint->lessThanField);
             $greaterThanValue = $accessor->getValue($value, $constraint->greaterThanField);
         } catch (UnexpectedTypeException $exception) {
 
@@ -31,10 +31,10 @@ class GreaterThanDateValidator extends ConstraintValidator
 
         if ($lessThanValue instanceof \DateTime && $greaterThanValue instanceof \DateTime) {
             if ($lessThanValue > $greaterThanValue) {
-                $message = (!empty($constraint->message))? $constraint->message:sprintf("%s: %s is not greater than %s: %s", $constraint->greaterThanField, $greaterThanValue->format('Y-m-d'), $constraint->lessThanField, $lessThanValue->format('Y-m-d'));
+                $message = !empty($constraint->message) ? $constraint->message : sprintf('%s: %s is not greater than %s: %s', $constraint->greaterThanField, $greaterThanValue->format('Y-m-d'), $constraint->lessThanField, $lessThanValue->format('Y-m-d'));
                 $this->context
                     ->buildViolation($message)
-                    ->atPath($constraint->atPath !== null ? $constraint->atPath:$constraint->greaterThanField)
+                    ->atPath($constraint->atPath ?? $constraint->greaterThanField)
                     ->addViolation();
             }
         }
