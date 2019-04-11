@@ -51,9 +51,9 @@
                     <div class="widget-main no-padding">
                         <div class="row">
                             <div class="col-sm-6">
-                                <h4>Gender Distribution</h4>
+                                <h4>{{ 'Gender Distribution'|trans }}</h4>
                                 <table class="table table-responsive">
-                                    <tr><th>Outcome</th><th>Case Count</th></tr>
+                                    <tr><th>{{ 'Outcome'|trans }}</th><th>{{ 'Case Count'|trans }}</th></tr>
                                     {% if result is defined %}
                                         {% for gender,caseCount in result.genderDistribution %}
                                             <tr>
@@ -64,9 +64,9 @@
                                 </table>
                             </div>
                             <div class="col-sm-6">
-                                <h4>Discharge Outcome Distribution</h4>
+                                <h4>{{ 'Discharge Outcome Distribution'|trans }}</h4>
                                 <table class="table table-responsive">
-                                    <tr><th>Outcome</th><th>Case Count</th></tr>
+                                    <tr><th>{{ 'Outcome'|trans }}</th><th>{{ 'Case Count'|trans }}</th></tr>
                                     {% if result is defined %}
                                         {% for outcome,caseCount in result.dischargeOutcomeDistribution %}
                                             <tr>
@@ -80,9 +80,9 @@
 
                         <div class="row">
                             <div class="col-sm-6">
-                                <h4>Age In Months</h4>
+                                <h4>{{ 'Age In Months'|trans }}</h4>
                                 <table class="table table-responsive">
-                                    <tr><th>Age In Months</th><th>Case Count</th></tr>
+                                    <tr><th>{{ 'Age In Months'|trans }}</th><th>{{ 'Case Count'|trans }}</th></tr>
                                     {% if result is defined %}
                                         {% for theMonth,caseCount in result.ageInMonthDistribution %}
                                             <tr>
@@ -93,9 +93,9 @@
                                 </table>
                             </div>
                             <div class="col-sm-6">
-                                <h4>Cases per Month Distribution</h4>
+                                <h4>{{ 'Cases per Month Distribution'|trans }}</h4>
                                 <table class="table table-responsive">
-                                    <tr><th>Month</th><th>Case Count</th></tr>
+                                    <tr><th>{{ 'Month'|trans }}</th><th>{{ 'Case Count'|trans }}</th></tr>
                                     {% if result is defined %}
                                         {% for theMonth,caseCount in result.monthlyDistribution %}
                                             <tr>
@@ -108,7 +108,7 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
-                                <h4>Location Distribution</h4>
+                                <h4>{{ 'Location Distribution'|trans }}</h4>
                                 {% if result is defined %}
                                     {% for state,values in result.locationDistribution  %}
                                         {{ state }}:<br />

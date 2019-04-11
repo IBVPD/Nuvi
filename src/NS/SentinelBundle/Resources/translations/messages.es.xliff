@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2019-04-11T00:42:30Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
+  <file date="2019-04-11T20:45:13Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -590,6 +590,10 @@
         <source>Case Based Demographics</source>
         <target>Demografía</target>
       </trans-unit>
+      <trans-unit id="3b1e4fef396463a3a3f832f8108b1186a4400d6e" resname="Case Count">
+        <source>Case Count</source>
+        <target>Casos Contados</target>
+      </trans-unit>
       <trans-unit id="a2c77e8741b8bda3439983fd14105607d2e54830" resname="Case ID">
         <source>Case ID</source>
         <target>Identificación de sistema</target>
@@ -601,6 +605,10 @@
       <trans-unit id="be53d936c683834c254add8d4fdf649d1ad95389" resname="Case edited successfully">
         <source>Case edited successfully</source>
         <target>Caso editado con éxito</target>
+      </trans-unit>
+      <trans-unit id="5e752850cf4bcb6c355ac6525614c15eeaa89010" resname="Cases per Month Distribution">
+        <source>Cases per Month Distribution</source>
+        <target>Distribucion mensual de casos</target>
       </trans-unit>
       <trans-unit id="719ea396ad92e01b4757ec2b93bb1e5f270f771d" resname="Clear">
         <source>Clear</source>
@@ -774,6 +782,10 @@
         <source>Discharge Diagnosis</source>
         <target>Diagnóstico de egreso</target>
       </trans-unit>
+      <trans-unit id="84f8605eea81e038ff0c7f5e317bae18703e7a39" resname="Discharge Outcome Distribution">
+        <source>Discharge Outcome Distribution</source>
+        <target>Distribucion por condición de egreso</target>
+      </trans-unit>
       <trans-unit id="f0750a96a5015fa6ef305bab6c098c7570710f30" resname="Discharged alive">
         <source>Discharged alive</source>
         <target>Egresó vivo</target>
@@ -941,6 +953,10 @@
       <trans-unit id="8a754c61c2ced0c5ff79a1827e02c9d643d6d926" resname="Gender">
         <source>Gender</source>
         <target>Genero</target>
+      </trans-unit>
+      <trans-unit id="309be665e14531037305b7d1d3a1c61ffedb81aa" resname="Gender Distribution">
+        <source>Gender Distribution</source>
+        <target>Distribución por género</target>
       </trans-unit>
       <trans-unit id="76621d9ccafb198b80334481579fd89a1438be0c" resname="General Statistics">
         <source>General Statistics</source>
@@ -1157,6 +1173,10 @@
       <trans-unit id="ad138176490530a834efeda9444029999b77b0ac" resname="Local Site">
         <source>Local Site</source>
         <target>Sitio Local</target>
+      </trans-unit>
+      <trans-unit id="fd19169a85fc7fa4467b1ab3524e9ea01f66f940" resname="Location Distribution">
+        <source>Location Distribution</source>
+        <target state="new">Location Distribution</target>
       </trans-unit>
       <trans-unit id="4e5a2893bdcc7d239c1db72e4c4ffbe4bea73174" resname="Login">
         <source>Login</source>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2019-04-11T00:36:25Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
+  <file date="2019-04-11T20:43:54Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -484,7 +484,7 @@
       </trans-unit>
       <trans-unit id="75d0a554e25e13049101585b8dfdb6d2b45e5bfd" resname="B recombinante">
         <source>B recombinante</source>
-        <target state="new">B recombinante</target>
+        <target>B recombinant</target>
       </trans-unit>
       <trans-unit id="14ca263c6670a6fa0615bc8ea5eacaaef1e2d8ea" resname="B/E. coli K1 (result from LA)">
         <source>B/E. coli K1 (result from LA)</source>
@@ -540,7 +540,7 @@
       </trans-unit>
       <trans-unit id="458ed6967cade3a766bdf6f97de2dbafb080cd4f" resname="C (conjugada)">
         <source>C (conjugada)</source>
-        <target state="new">C (conjugada)</target>
+        <target>C (conjugate)</target>
       </trans-unit>
       <trans-unit id="26a272d368f7a0ded2093637af1121af91bae4b3" resname="CSF">
         <source>CSF</source>
@@ -590,6 +590,10 @@
         <source>Case Based Demographics</source>
         <target>Demographics</target>
       </trans-unit>
+      <trans-unit id="3b1e4fef396463a3a3f832f8108b1186a4400d6e" resname="Case Count">
+        <source>Case Count</source>
+        <target>Case Count</target>
+      </trans-unit>
       <trans-unit id="a2c77e8741b8bda3439983fd14105607d2e54830" resname="Case ID">
         <source>Case ID</source>
         <target>System ID</target>
@@ -601,6 +605,10 @@
       <trans-unit id="be53d936c683834c254add8d4fdf649d1ad95389" resname="Case edited successfully">
         <source>Case edited successfully</source>
         <target>Case edited successfully</target>
+      </trans-unit>
+      <trans-unit id="5e752850cf4bcb6c355ac6525614c15eeaa89010" resname="Cases per Month Distribution">
+        <source>Cases per Month Distribution</source>
+        <target>Cases per Month Distribution</target>
       </trans-unit>
       <trans-unit id="719ea396ad92e01b4757ec2b93bb1e5f270f771d" resname="Clear">
         <source>Clear</source>
@@ -774,6 +782,10 @@
         <source>Discharge Diagnosis</source>
         <target>Discharge Diagnosis</target>
       </trans-unit>
+      <trans-unit id="84f8605eea81e038ff0c7f5e317bae18703e7a39" resname="Discharge Outcome Distribution">
+        <source>Discharge Outcome Distribution</source>
+        <target>Discharge Outcome Distribution</target>
+      </trans-unit>
       <trans-unit id="f0750a96a5015fa6ef305bab6c098c7570710f30" resname="Discharged alive">
         <source>Discharged alive</source>
         <target>Discharged alive</target>
@@ -876,7 +888,7 @@
       </trans-unit>
       <trans-unit id="d7decf1aa22b02ae8abf9a96849ee423eee838e4" resname="Filter">
         <source>Filter</source>
-        <target state="new">Filter</target>
+        <target>Filter</target>
       </trans-unit>
       <trans-unit id="96e578211aa295317cf257310712fa28ccd8f6c6" resname="Filters">
         <source>Filters</source>
@@ -941,6 +953,10 @@
       <trans-unit id="8a754c61c2ced0c5ff79a1827e02c9d643d6d926" resname="Gender">
         <source>Gender</source>
         <target>Gender</target>
+      </trans-unit>
+      <trans-unit id="309be665e14531037305b7d1d3a1c61ffedb81aa" resname="Gender Distribution">
+        <source>Gender Distribution</source>
+        <target>Gender Distribution</target>
       </trans-unit>
       <trans-unit id="76621d9ccafb198b80334481579fd89a1438be0c" resname="General Statistics">
         <source>General Statistics</source>
@@ -1157,6 +1173,10 @@
       <trans-unit id="ad138176490530a834efeda9444029999b77b0ac" resname="Local Site">
         <source>Local Site</source>
         <target>Local Site</target>
+      </trans-unit>
+      <trans-unit id="fd19169a85fc7fa4467b1ab3524e9ea01f66f940" resname="Location Distribution">
+        <source>Location Distribution</source>
+        <target>Location Distribution</target>
       </trans-unit>
       <trans-unit id="4e5a2893bdcc7d239c1db72e4c4ffbe4bea73174" resname="Login">
         <source>Login</source>
