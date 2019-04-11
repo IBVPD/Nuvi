@@ -527,15 +527,12 @@ abstract class BaseCase
         $this->birthdate = $dob;
     }
 
-    /**
-     * @param DateTime $admDate
-     */
-    public function setAdmDate(DateTime $admDate = null)
+    public function setAdmDate(?DateTime $admDate = null): void
     {
         $this->adm_date = $admDate;
     }
 
-    public function setCaseId(string $caseId)
+    public function setCaseId(?string $caseId): void
     {
         $this->case_id = $caseId;
     }
