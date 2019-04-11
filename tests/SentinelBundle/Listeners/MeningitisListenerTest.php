@@ -4,6 +4,8 @@ namespace NS\SentinelBundle\Tests\Listeners;
 
 use DateTime;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Exception;
+use NS\SentinelBundle\Entity\BaseCase;
 use NS\SentinelBundle\Entity\Country;
 use NS\SentinelBundle\Entity\Listener\MeningitisListener;
 use NS\SentinelBundle\Entity\Meningitis\Meningitis;
@@ -25,6 +27,33 @@ use PHPUnit\Framework\TestCase;
 
 class MeningitisListenerTest extends TestCase
 {
+    /**
+     * @param string $dob
+     * @param string $admDate
+     * @param int    $months
+     * @param int    $expected
+     *
+     * @dataProvider getAgeDistributionDates
+     */
+    public function testCalculateAgeDistribution(string $dob, string $admDate, int $months, int $expected): void
+    {
+        $case = new Meningitis();
+        try {
+            $case->setDob(new DateTime($dob));
+            $case->setAdmDate(new DateTime($admDate));
+        } catch (Exception $e) {
+            $this->fail($e->getMessage());
+        }
+
+        $interval = $case->getDob()->diff($case->getAdmDate());
+        $days     = $interval->format('%a');
+
+        $listener = new MeningitisListener();
+        $listener->calculateAge($case);
+        self::assertEquals($months, $case->getAge(), "Days: $days");
+        self::assertEquals($expected, $case->getAgeDistribution(), "Days: $days");
+    }
+
     //============================================================
     // Single complete cases
     public function testSingleMinimumCompleteNonPahoCase(): void
@@ -313,5 +342,23 @@ class MeningitisListenerTest extends TestCase
                 $case->$method($d);
             }
         }
+    }
+
+    public function getAgeDistributionDates(): array
+    {
+        return [
+            ['2019-01-01', '2019-02-01', 1, BaseCase::AGE_DISTRIBUTION_00_TO_05],
+            ['2019-01-01', '2019-05-31', 4, BaseCase::AGE_DISTRIBUTION_00_TO_05],
+            ['2019-01-01', '2019-06-01', 4, BaseCase::AGE_DISTRIBUTION_00_TO_05],
+            ['2019-01-01', '2019-06-02', 4, BaseCase::AGE_DISTRIBUTION_00_TO_05],
+            ['2019-01-01', '2019-06-03', 5, BaseCase::AGE_DISTRIBUTION_00_TO_05],
+            ['2019-01-01', '2019-07-01', 5, BaseCase::AGE_DISTRIBUTION_00_TO_05],
+            ['2019-01-01', '2019-07-03', 6, BaseCase::AGE_DISTRIBUTION_06_TO_11],
+            ['2019-01-01', '2019-12-31', 11, BaseCase::AGE_DISTRIBUTION_06_TO_11],
+            ['2019-01-01', '2020-01-06', 12, BaseCase::AGE_DISTRIBUTION_12_TO_23],
+            ['2019-01-01', '2021-01-01', 23, BaseCase::AGE_DISTRIBUTION_12_TO_23],
+            ['2019-01-01', '2021-01-02', 24, BaseCase::AGE_DISTRIBUTION_24_TO_59],
+            ['2019-01-01', '2024-01-05', 60, BaseCase::AGE_DISTRIBUTION_UNKNOWN],
+        ];
     }
 }

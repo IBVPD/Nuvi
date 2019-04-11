@@ -62,7 +62,7 @@ class IBDListener extends BaseCaseListener
         }
     }
 
-    public function isSuspected(BaseCase $case)
+    public function isSuspected(BaseCase $case): bool
     {
         // Test Suspected
         if ($case->getAge() < 60) {
@@ -84,7 +84,7 @@ class IBDListener extends BaseCaseListener
      * @param BaseCase $case
      * @return null|string
      */
-    public function getIncompleteField(BaseCase $case)
+    public function getIncompleteField(BaseCase $case): ?string
     {
         foreach ($this->getMinimumRequiredFields($case) as $field) {
             $method = sprintf('get%s', $field);
@@ -160,12 +160,7 @@ class IBDListener extends BaseCaseListener
         return null;
     }
 
-    /**
-     * @param BaseCase $case
-     * @param null $regionCode
-     * @return array
-     */
-    public function getMinimumRequiredFields(BaseCase $case, $regionCode = null)
+    public function getMinimumRequiredFields(BaseCase $case, $regionCode = null): array
     {
         $fields = [
             'caseId',
@@ -199,10 +194,7 @@ class IBDListener extends BaseCaseListener
         return (!$case->getCountry() || ($case->getCountry() && $case->getCountry()->getTracksPneumonia())) ? array_merge($fields, $this->getPneumiaRequiredFields()) : $fields;
     }
 
-    /**
-     * @return array
-     */
-    public function getPneumiaRequiredFields()
+    public function getPneumiaRequiredFields(): array
     {
         return ['pneuDiffBreathe',
             'pneuChestIndraw',

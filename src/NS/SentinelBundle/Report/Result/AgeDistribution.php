@@ -111,7 +111,7 @@ class AgeDistribution implements TranslationContainerInterface
      */
     public function getFiveToEleven($year = null)
     {
-        return $year === null ? $this->sumYears(BaseCase::AGE_DISTRIBUTION_05_TO_11):$this->getResult($year, BaseCase::AGE_DISTRIBUTION_05_TO_11);
+        return $year === null ? $this->sumYears(BaseCase::AGE_DISTRIBUTION_06_TO_11):$this->getResult($year, BaseCase::AGE_DISTRIBUTION_06_TO_11);
     }
 
     /**
@@ -120,7 +120,7 @@ class AgeDistribution implements TranslationContainerInterface
      */
     public function getElevenToTwentyThree($year = null)
     {
-        return $year === null ? $this->sumYears(BaseCase::AGE_DISTRIBUTION_11_TO_23):$this->getResult($year, BaseCase::AGE_DISTRIBUTION_11_TO_23);
+        return $year === null ? $this->sumYears(BaseCase::AGE_DISTRIBUTION_12_TO_23):$this->getResult($year, BaseCase::AGE_DISTRIBUTION_12_TO_23);
     }
 
     /**
@@ -129,7 +129,7 @@ class AgeDistribution implements TranslationContainerInterface
      */
     public function getTwentyThreeToFiftyNine($year = null)
     {
-        return $year === null ? $this->sumYears(BaseCase::AGE_DISTRIBUTION_23_TO_59):$this->getResult($year, BaseCase::AGE_DISTRIBUTION_23_TO_59);
+        return $year === null ? $this->sumYears(BaseCase::AGE_DISTRIBUTION_24_TO_59):$this->getResult($year, BaseCase::AGE_DISTRIBUTION_24_TO_59);
     }
 
     /**
@@ -161,7 +161,7 @@ class AgeDistribution implements TranslationContainerInterface
     public function getFiveToElevenPercent($year)
     {
         if (isset($this->results[$year]['total']) && $this->results[$year]['total'] > 0) {
-            return ($this->getResult($year, BaseCase::AGE_DISTRIBUTION_05_TO_11)/$this->results[$year]['total'])*100;
+            return ($this->getResult($year, BaseCase::AGE_DISTRIBUTION_06_TO_11)/$this->results[$year]['total'])*100;
         }
 
         return 0;
@@ -174,7 +174,7 @@ class AgeDistribution implements TranslationContainerInterface
     public function getElevenToTwentyThreePercent($year)
     {
         if (isset($this->results[$year]['total']) && $this->results[$year]['total'] > 0) {
-            return ($this->getResult($year, BaseCase::AGE_DISTRIBUTION_11_TO_23)/$this->results[$year]['total'])*100;
+            return ($this->getResult($year, BaseCase::AGE_DISTRIBUTION_12_TO_23)/$this->results[$year]['total'])*100;
         }
 
         return 0;
@@ -187,7 +187,7 @@ class AgeDistribution implements TranslationContainerInterface
     public function getTwentyThreeToFiftyNinePercent($year)
     {
         if (isset($this->results[$year]['total']) && $this->results[$year]['total'] > 0) {
-            return ($this->getResult($year, BaseCase::AGE_DISTRIBUTION_23_TO_59)/$this->results[$year]['total'])*100;
+            return ($this->getResult($year, BaseCase::AGE_DISTRIBUTION_24_TO_59)/$this->results[$year]['total'])*100;
         }
 
         return 0;

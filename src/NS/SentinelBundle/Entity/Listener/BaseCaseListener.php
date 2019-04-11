@@ -2,6 +2,8 @@
 
 namespace NS\SentinelBundle\Entity\Listener;
 
+use DateInterval;
+use DateTime;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use NS\SentinelBundle\Entity\BaseCase;
 use NS\SentinelBundle\Form\Types\CaseStatus;
@@ -12,40 +14,27 @@ use NS\SentinelBundle\Form\Types\CaseStatus;
  */
 abstract class BaseCaseListener
 {
-    /**
-     * @param BaseCase $case
-     * @param LifecycleEventArgs $event
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function preUpdate(BaseCase $case, LifecycleEventArgs $event)
+    public function preUpdate(BaseCase $case, LifecycleEventArgs $event): void
     {
         $this->calculateAge($case);
         $this->calculateStatus($case);
         $this->calculateResult($case);
-        $case->setUpdatedAt(new \DateTime());
+        $case->setUpdatedAt(new DateTime());
     }
 
-    /**
-     * @param BaseCase $case
-     * @param LifecycleEventArgs $event
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function prePersist(BaseCase $case, LifecycleEventArgs $event)
+    public function prePersist(BaseCase $case, LifecycleEventArgs $event): void
     {
         $this->calculateAge($case);
         $this->calculateStatus($case);
         $this->calculateResult($case);
-        $case->setUpdatedAt(new \DateTime());
+        $case->setUpdatedAt(new DateTime());
     }
 
-    /**
-     * @param BaseCase $case
-     */
-    public function calculateAge(BaseCase $case)
+    public function calculateAge(BaseCase $case): void
     {
         if ($case->getDob() && $case->getAdmDate()) {
             $interval = $case->getDob()->diff($case->getAdmDate());
-            $case->setAge(($interval->format('%a') / 30.5));
+            $case->setAge($interval->format('%a') / 30.5);
         } elseif ($case->getAdmDate() && !$case->getDob()) {
             if (!$case->getAge() && $case->getDobYearMonths() !== null) {
                 $case->setAge($case->getDobYearMonths()->getMonths());
@@ -53,19 +42,19 @@ abstract class BaseCaseListener
 
             if ($case->getAge() >= 0) {
                 $date = clone $case->getAdmDate();
-                $case->setDob($date->sub(new \DateInterval(sprintf('P%dM', (int)$case->getAge()))));
+                $case->setDob($date->sub(new DateInterval(sprintf('P%dM', $case->getAge()))));
             }
         }
 
         if ($case->getAge() >= 0) {
-            if ($case->getAge() < 6) {
+            if ($case->getAge() <= 5) {
                 $case->setAgeDistribution(BaseCase::AGE_DISTRIBUTION_00_TO_05);
-            } elseif ($case->getAge() < 12) {
-                $case->setAgeDistribution(BaseCase::AGE_DISTRIBUTION_05_TO_11);
-            } elseif ($case->getAge() < 24) {
-                $case->setAgeDistribution(BaseCase::AGE_DISTRIBUTION_11_TO_23);
-            } elseif ($case->getAge() < 60) {
-                $case->setAgeDistribution(BaseCase::AGE_DISTRIBUTION_23_TO_59);
+            } elseif ($case->getAge() <= 11) {
+                $case->setAgeDistribution(BaseCase::AGE_DISTRIBUTION_06_TO_11);
+            } elseif ($case->getAge() <= 23) {
+                $case->setAgeDistribution(BaseCase::AGE_DISTRIBUTION_12_TO_23);
+            } elseif ($case->getAge() <= 59) {
+                $case->setAgeDistribution(BaseCase::AGE_DISTRIBUTION_24_TO_59);
             } else {
                 $case->setAgeDistribution(BaseCase::AGE_DISTRIBUTION_UNKNOWN);
             }

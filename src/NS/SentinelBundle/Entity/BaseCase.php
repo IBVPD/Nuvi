@@ -27,11 +27,12 @@ use NS\SentinelBundle\Validators as LocalAssert;
  */
 abstract class BaseCase
 {
-    const AGE_DISTRIBUTION_UNKNOWN  = -1;
-    const AGE_DISTRIBUTION_00_TO_05 = 1;
-    const AGE_DISTRIBUTION_05_TO_11 = 2;
-    const AGE_DISTRIBUTION_11_TO_23 = 3;
-    const AGE_DISTRIBUTION_23_TO_59 = 4;
+    public const
+        AGE_DISTRIBUTION_UNKNOWN  = -1,
+        AGE_DISTRIBUTION_00_TO_05 = 1,
+        AGE_DISTRIBUTION_06_TO_11 = 2,
+        AGE_DISTRIBUTION_12_TO_23 = 3,
+        AGE_DISTRIBUTION_24_TO_59 = 4;
 
     /**
      * @ORM\Id
@@ -218,23 +219,18 @@ abstract class BaseCase
      */
     protected $nationalClass  = null;
 
-    /**
-     * Constructor
-     *
-     * @throws InvalidArgumentException
-     */
     public function __construct()
     {
         if (!is_string($this->nationalClass) || empty($this->nationalClass)) {
-            throw new InvalidArgumentException("The NationalLab class is not set");
+            throw new InvalidArgumentException('The NationalLab class is not set');
         }
 
         if (!is_string($this->referenceClass) || empty($this->referenceClass)) {
-            throw new InvalidArgumentException("The ReferenceLab class is not set");
+            throw new InvalidArgumentException('The ReferenceLab class is not set');
         }
 
         if (!is_string($this->siteLabClass) || empty($this->siteLabClass)) {
-            throw new InvalidArgumentException("The SiteLab class is not set");
+            throw new InvalidArgumentException('The SiteLab class is not set');
         }
 
         $this->status    = new CaseStatus(CaseStatus::OPEN);
@@ -242,9 +238,6 @@ abstract class BaseCase
         $this->updatedAt = new DateTime();
     }
 
-    /**
-     *
-     */
     public function __clone()
     {
         $this->setId(null);
@@ -542,104 +535,62 @@ abstract class BaseCase
         $this->adm_date = $admDate;
     }
 
-    /**
-     * @param string $caseId
-     */
-    public function setCaseId($caseId)
+    public function setCaseId(string $caseId)
     {
         $this->case_id = $caseId;
     }
 
-    /**
-     * @param integer $age
-     */
-    public function setAge($age)
+    public function setAge(?int $age): void
     {
         $this->age_months = $age;
     }
 
-    /**
-     * @param int $age_months
-     */
-    public function setAgeMonths($age_months)
+    public function setAgeMonths(?int $age_months): void
     {
         $this->age_months = $age_months;
     }
 
-    /**
-     *
-     * @param Gender $gender
-     */
-    public function setGender(Gender $gender)
+    public function setGender(?Gender $gender): void
     {
         $this->gender = $gender;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getLastName()
+    public function getLastName(): ?string
     {
         return $this->lastName;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getFirstName()
+    public function getFirstName(): ?string
     {
         return $this->firstName;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getParentalName()
+    public function getParentalName(): ?string
     {
         return $this->parentalName;
     }
 
-    /**
-     * @param string $parentalName
-     */
-    public function setParentalName($parentalName)
+    public function setParentalName(?string $parentalName)
     {
         $this->parentalName = $parentalName;
     }
 
-    /**
-     * @param string $lastName
-     */
-    public function setLastName($lastName)
+    public function setLastName(?string $lastName)
     {
         $this->lastName = $lastName;
     }
 
-    /**
-     * @param string $firstName
-     */
-    public function setFirstName($firstName)
+    public function setFirstName(?string $firstName)
     {
         $this->firstName = $firstName;
     }
 
-    /**
-     *
-     * @return integer
-     */
-    public function getAgeDistribution()
+    public function getAgeDistribution(): ?int
     {
         return $this->ageDistribution;
     }
 
-    /**
-     *
-     * @param integer $ageDistribution
-     */
-    public function setAgeDistribution($ageDistribution)
+    public function setAgeDistribution(?int $ageDistribution): void
     {
         $this->ageDistribution = $ageDistribution;
     }
