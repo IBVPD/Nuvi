@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Form\Types\VaccinationReceived;
@@ -16,6 +17,9 @@ use NS\SecurityBundle\Annotation\SecuredCondition;
 use JMS\Serializer\Annotation as Serializer;
 use NS\SentinelBundle\Validators as LocalAssert;
 use Symfony\Component\Validator\Constraints as Assert;
+use NS\SentinelBundle\Entity\RotaVirus\SiteLab;
+use NS\SentinelBundle\Entity\RotaVirus\ReferenceLab;
+use NS\SentinelBundle\Entity\RotaVirus\NationalLab;
 
 /**
  * Description of RotaVirus
@@ -63,22 +67,22 @@ class RotaVirus extends BaseCase
     /**
      * @Serializer\Exclude()
      */
-    protected $siteLabClass   = '\NS\SentinelBundle\Entity\RotaVirus\SiteLab';
+    protected $siteLabClass   = SiteLab::class;
 
     /**
      * @Serializer\Exclude()
      */
-    protected $referenceClass = '\NS\SentinelBundle\Entity\RotaVirus\ReferenceLab';
+    protected $referenceClass = ReferenceLab::class;
 
     /**
      * @Serializer\Exclude()
      */
-    protected $nationalClass  = '\NS\SentinelBundle\Entity\RotaVirus\NationalLab';
+    protected $nationalClass  = NationalLab::class;
 
 //iii. Case-based Clinical Data
 
     /**
-     * @var TripleChoice $intensiveCare
+     * @var TripleChoice|null
      * @ORM\Column(name="intensiveCare",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
@@ -86,7 +90,7 @@ class RotaVirus extends BaseCase
 
     /**
      * symp_diarrhoea
-     * @var TripleChoice $symp_diarrhea
+     * @var TripleChoice|null
      * @ORM\Column(name="symp_diarrhea",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
@@ -94,7 +98,7 @@ class RotaVirus extends BaseCase
 
     /**
      * symp_dia_onset_date
-     * @var \DateTime $symp_dia_onset_date
+     * @var DateTime|null
      * @ORM\Column(name="symp_dia_onset_date",type="date",nullable=true)
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
      * @Serializer\Groups({"api","export"})
@@ -104,7 +108,7 @@ class RotaVirus extends BaseCase
 
     /**
      * symp_dia_episodes
-     * @var integer $symp_dia_episodes
+     * @var int|null
      * @ORM\Column(name="symp_dia_episodes",type="integer",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
@@ -112,14 +116,14 @@ class RotaVirus extends BaseCase
 
     /**
      * symp_dia_duration
-     * @var integer $symp_dia_duration
+     * @var int|null
      * @ORM\Column(name="symp_dia_duration",type="integer",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $symp_dia_duration;
 
     /**
-     * @var TripleChoice $symp_dia_bloody
+     * @var TripleChoice|null
      * @ORM\Column(name="symp_dia_bloody",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
@@ -127,7 +131,7 @@ class RotaVirus extends BaseCase
 
     /**
      * symp_vomit
-     * @var TripleChoice $symp_vomit
+     * @var TripleChoice|null
      * @ORM\Column(name="symp_vomit",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
@@ -135,7 +139,7 @@ class RotaVirus extends BaseCase
 
     /**
      * symp_vomit_episodes
-     * @var integer $symp_vomit_episodes
+     * @var int|null
      * @ORM\Column(name="symp_vomit_episodes",type="integer",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
@@ -143,7 +147,7 @@ class RotaVirus extends BaseCase
 
     /**
      * symp_vomit_duration
-     * @var integer $symp_vomit_duration
+     * @var int|null
      * @ORM\Column(name="symp_vomit_duration",type="integer",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
@@ -151,7 +155,7 @@ class RotaVirus extends BaseCase
 
     /**
      * symp_dehydration
-     * @var TripleChoice $symp_dehydration
+     * @var Dehydration|null
      * @ORM\Column(name="symp_dehydration",type="Dehydration",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
@@ -160,7 +164,7 @@ class RotaVirus extends BaseCase
 // Treatment
     /**
      * rehydration
-     * @var TripleChoice $rehydration
+     * @var TripleChoice|null
      * @ORM\Column(name="rehydration",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
@@ -168,7 +172,7 @@ class RotaVirus extends BaseCase
 
     /**
      * rehydration_type
-     * @var Rehydration $rehydration_type
+     * @var Rehydration|null
      * @ORM\Column(name="rehydration_type",type="Rehydration",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
@@ -176,7 +180,7 @@ class RotaVirus extends BaseCase
 
     /**
      * rehydration_type_other
-     * @var string $rehydration_other
+     * @var string|null
      * @ORM\Column(name="rehydration_other",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
@@ -184,7 +188,7 @@ class RotaVirus extends BaseCase
 
 //iv. Case-based Vaccination History
     /**
-     * @var VaccinationReceived $rv_received
+     * @var VaccinationReceived|null
      * @ORM\Column(name="rv_received",type="VaccinationReceived",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
@@ -192,7 +196,7 @@ class RotaVirus extends BaseCase
 
     /**
      * RV_type
-     * @var VaccinationType $rv_type
+     * @var VaccinationType|null
      * @ORM\Column(name="rv_type",type="RVVaccinationType",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
@@ -200,7 +204,7 @@ class RotaVirus extends BaseCase
 
     /**
      * RV_doses
-     * @var ThreeDoses $rv_doses
+     * @var ThreeDoses|null
      * @ORM\Column(name="rv_doses",type="ThreeDoses",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
@@ -208,7 +212,7 @@ class RotaVirus extends BaseCase
 
     /**
      * RV_dose1_date
-     * @var \DateTime $rv_dose1_date
+     * @var DateTime|null
      * @ORM\Column(name="rv_dose1_date",type="date",nullable=true)
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
      * @Serializer\Groups({"api","export"})
@@ -218,7 +222,7 @@ class RotaVirus extends BaseCase
 
     /**
      * RV_dose2_date
-     * @var \DateTime $rv_dose2_date
+     * @var DateTime|null
      * @ORM\Column(name="rv_dose2_date",type="date",nullable=true)
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
      * @Serializer\Groups({"api","export"})
@@ -228,7 +232,7 @@ class RotaVirus extends BaseCase
 
     /**
      * RV_dose3_date
-     * @var \DateTime $rv_dose3_date
+     * @var DateTime|null
      * @ORM\Column(name="rv_dose3_date",type="date",nullable=true)
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
      * @Serializer\Groups({"api","export"})
@@ -239,7 +243,7 @@ class RotaVirus extends BaseCase
 //v. Case-based Specimen Collection Data
     /**
      * stool_collected
-     * @var TripleChoice $stool_collected
+     * @var TripleChoice|null
      * @ORM\Column(name="stool_collected",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Assert\NotBlank()
@@ -248,7 +252,7 @@ class RotaVirus extends BaseCase
 
     /**
      * stool_ID
-     * @var string $stool_id
+     * @var string|null
      * @ORM\Column(name="stool_id",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
@@ -256,7 +260,7 @@ class RotaVirus extends BaseCase
 
     /**
      * stool_collect_date
-     * @var \DateTime $stool_collect_date
+     * @var DateTime|null
      * @ORM\Column(name="stool_collect_date",type="date",nullable=true)
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
      * @Serializer\Groups({"api","export"})
@@ -267,14 +271,14 @@ class RotaVirus extends BaseCase
 //vii. Case-based Outcome Data
     /**
      * disch_outcome
-     * @var DischargeOutcome $disch_outcome
+     * @var DischargeOutcome|null
      * @ORM\Column(name="disch_outcome",type="RVDischargeOutcome",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $disch_outcome;
 
     /**
-     * @var \DateTime $disch_date
+     * @var DateTime|null
      * @ORM\Column(name="disch_date",type="date",nullable=true)
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
      * @Serializer\Groups({"api","export"})
@@ -283,13 +287,13 @@ class RotaVirus extends BaseCase
     private $disch_date;
 
     /**
-     * @var DischargeClassification
+     * @var DischargeClassification|null
      * @ORM\Column(name="disch_class",type="RVDischargeClassification",nullable=true)
      */
     private $disch_class;
 
     /**
-     * @var string $disch_class_other
+     * @var string|null
      * @ORM\Column(name="disch_class_other",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
@@ -297,822 +301,478 @@ class RotaVirus extends BaseCase
 
     /**
      * comment
-     * @var string $comment
+     * @var string|null
      * @ORM\Column(name="comment",type="text",nullable=true)
      * @Serializer\Groups({"api","export"})
      */
     private $comment;
 
-    /**
-     * @return TripleChoice
-     */
-    public function getSymptomDiarrhea()
+    public function getSymptomDiarrhea(): ?TripleChoice
     {
         return $this->symp_diarrhea;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getSymptomDiarrheaOnset()
+    public function getSymptomDiarrheaOnset(): ?DateTime
     {
         return $this->symp_dia_onset_date;
     }
 
-    /**
-     * @return int
-     */
-    public function getSymptomDiarrheaEpisodes()
+    public function getSymptomDiarrheaEpisodes(): ?int
     {
         return $this->symp_dia_episodes;
     }
 
-    /**
-     * @return int
-     */
-    public function getSymptomDiarrheaDuration()
+    public function getSymptomDiarrheaDuration(): ?int
     {
         return $this->symp_dia_duration;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getSymptomDiarrheaBloody()
+    public function getSymptomDiarrheaBloody(): ?TripleChoice
     {
         return $this->symp_dia_bloody;
     }
 
-    /**
-     * @param TripleChoice $symp_dia_bloody
-     */
-    public function setSymptomDiarrheaBloody($symp_dia_bloody)
+    public function setSymptomDiarrheaBloody(?TripleChoice $symp_dia_bloody): void
     {
         $this->symp_dia_bloody = $symp_dia_bloody;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getSymptomVomit()
+    public function getSymptomVomit(): ?TripleChoice
     {
         return $this->symp_vomit;
     }
 
-    /**
-     * @return int
-     */
-    public function getSymptomVomitEpisodes()
+    public function getSymptomVomitEpisodes(): ?int
     {
         return $this->symp_vomit_episodes;
     }
 
-    /**
-     * @return int
-     */
-    public function getSymptomVomitDuration()
+    public function getSymptomVomitDuration(): ?int
     {
         return $this->symp_vomit_duration;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getSymptomDehydration()
+    public function getSymptomDehydration(): ?Dehydration
     {
         return $this->symp_dehydration;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getRehydration()
+    public function getRehydration(): ?TripleChoice
     {
         return $this->rehydration;
     }
 
-    /**
-     * @return Rehydration
-     */
-    public function getRehydrationType()
+    public function getRehydrationType(): ?Rehydration
     {
         return $this->rehydration_type;
     }
 
-    /**
-     * @return string
-     */
-    public function getRehydrationOther()
+    public function getRehydrationOther(): ?string
     {
         return $this->rehydration_other;
     }
 
-    /**
-     * @return VaccinationReceived
-     */
-    public function getVaccinationReceived()
+    public function getVaccinationReceived(): ?VaccinationReceived
     {
         return $this->rv_received;
     }
 
-    /**
-     * @return VaccinationType
-     */
-    public function getVaccinationType()
+    public function getVaccinationType(): ?VaccinationType
     {
         return $this->rv_type;
     }
 
-    /**
-     * @return ThreeDoses
-     */
-    public function getDoses()
+    public function getDoses(): ?ThreeDoses
     {
         return $this->rv_doses;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getFirstVaccinationDose()
+    public function getFirstVaccinationDose(): ?DateTime
     {
         return $this->rv_dose1_date;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getSecondVaccinationDose()
+    public function getSecondVaccinationDose(): ?DateTime
     {
         return $this->rv_dose2_date;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getThirdVaccinationDose()
+    public function getThirdVaccinationDose(): ?DateTime
     {
         return $this->rv_dose3_date;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getStoolCollected()
+    public function getStoolCollected(): ?TripleChoice
     {
         return $this->stool_collected;
     }
 
-    /**
-     * @return string
-     */
-    public function getStoolId()
+    public function getStoolId(): ?string
     {
         return $this->stool_id;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getStoolCollectionDate()
+    public function getStoolCollectionDate(): ?DateTime
     {
         return $this->stool_collect_date;
     }
 
-    /**
-     * @return DischargeOutcome
-     */
-    public function getDischargeOutcome()
+    public function getDischargeOutcome(): ?DischargeOutcome
     {
         return $this->disch_outcome;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getDischargeDate()
+    public function getDischargeDate(): ?DateTime
     {
         return $this->disch_date;
     }
 
-    /**
-     * @return string
-     */
-    public function getDischargeClassOther()
+    public function getDischargeClassOther(): ?string
     {
         return $this->disch_class_other;
     }
 
-    /**
-     * @return string
-     */
-    public function getComment()
+    public function getComment(): ?string
     {
         return $this->comment;
     }
 
-    /**
-     * @param TripleChoice $symptomDiarrhea
-     * @return $this
-     */
-    public function setSymptomDiarrhea(TripleChoice $symptomDiarrhea = null)
+    public function setSymptomDiarrhea(?TripleChoice $symptomDiarrhea = null): void
     {
         $this->symp_diarrhea = $symptomDiarrhea;
-        return $this;
     }
 
-    /**
-     * @param \DateTime|null $symptomDiarrheaOnset
-     * @return $this
-     */
-    public function setSymptomDiarrheaOnset(\DateTime $symptomDiarrheaOnset = null)
+    public function setSymptomDiarrheaOnset(DateTime $symptomDiarrheaOnset = null): void
     {
         $this->symp_dia_onset_date = $symptomDiarrheaOnset;
-
-        return $this;
     }
 
-    /**
-     * @param $symptomDiarrheaEpisodes
-     * @return $this
-     */
-    public function setSymptomDiarrheaEpisodes($symptomDiarrheaEpisodes)
+    public function setSymptomDiarrheaEpisodes(?int $symptomDiarrheaEpisodes): void
     {
         $this->symp_dia_episodes = $symptomDiarrheaEpisodes;
-        return $this;
     }
 
-    /**
-     * @param $symptomDiarrheaDuration
-     * @return $this
-     */
-    public function setSymptomDiarrheaDuration($symptomDiarrheaDuration)
+    public function setSymptomDiarrheaDuration(?int $symptomDiarrheaDuration): void
     {
         $this->symp_dia_duration = $symptomDiarrheaDuration;
-        return $this;
     }
 
-    /**
-     * @param TripleChoice $symptomVomit
-     * @return $this
-     */
-    public function setSymptomVomit(TripleChoice $symptomVomit = null)
+    public function setSymptomVomit(TripleChoice $symptomVomit = null): void
     {
         $this->symp_vomit = $symptomVomit;
-        return $this;
     }
 
-    /**
-     * @param $symptomVomitEpisodes
-     * @return $this
-     */
-    public function setSymptomVomitEpisodes($symptomVomitEpisodes)
+    public function setSymptomVomitEpisodes(?int $symptomVomitEpisodes): void
     {
         $this->symp_vomit_episodes = $symptomVomitEpisodes;
-        return $this;
     }
 
-    /**
-     * @param $symptomVomitDuration
-     * @return $this
-     */
-    public function setSymptomVomitDuration($symptomVomitDuration)
+    public function setSymptomVomitDuration(?int $symptomVomitDuration): void
     {
         $this->symp_vomit_duration = $symptomVomitDuration;
-        return $this;
     }
 
-    /**
-     * @param Dehydration $symptomDehydration
-     * @return $this
-     */
-    public function setSymptomDehydration(Dehydration $symptomDehydration = null)
+    public function setSymptomDehydration(Dehydration $symptomDehydration = null): void
     {
         $this->symp_dehydration = $symptomDehydration;
-        return $this;
     }
 
-    /**
-     * @param TripleChoice $rehydration
-     * @return $this
-     */
-    public function setRehydration(TripleChoice $rehydration = null)
+    public function setRehydration(TripleChoice $rehydration = null): void
     {
         $this->rehydration = $rehydration;
-        return $this;
     }
 
-    /**
-     * @param Rehydration $rehydrationType
-     * @return $this
-     */
-    public function setRehydrationType(Rehydration $rehydrationType = null)
+    public function setRehydrationType(Rehydration $rehydrationType = null): void
     {
         $this->rehydration_type = $rehydrationType;
-        return $this;
     }
 
-    /**
-     * @param $rehydrationOther
-     * @return $this
-     */
-    public function setRehydrationOther($rehydrationOther)
+    public function setRehydrationOther(?string $rehydrationOther): void
     {
         $this->rehydration_other = $rehydrationOther;
-        return $this;
     }
 
-    /**
-     * @param VaccinationReceived $vaccinationReceived
-     * @return $this
-     */
-    public function setVaccinationReceived(VaccinationReceived $vaccinationReceived = null)
+    public function setVaccinationReceived(VaccinationReceived $vaccinationReceived = null): void
     {
         $this->rv_received = $vaccinationReceived;
-        return $this;
     }
 
-    /**
-     * @param VaccinationType $vaccinationType
-     * @return $this
-     */
-    public function setVaccinationType(VaccinationType $vaccinationType = null)
+    public function setVaccinationType(VaccinationType $vaccinationType = null): void
     {
         $this->rv_type = $vaccinationType;
-        return $this;
     }
 
-    /**
-     * @param ThreeDoses $doses
-     * @return $this
-     */
-    public function setDoses(ThreeDoses $doses = null)
+    public function setDoses(ThreeDoses $doses = null): void
     {
         $this->rv_doses = $doses;
-        return $this;
     }
 
-    /**
-     * @param \DateTime|null $firstVaccinationDose
-     * @return $this
-     */
-    public function setFirstVaccinationDose(\DateTime $firstVaccinationDose = null)
+    public function setFirstVaccinationDose(DateTime $firstVaccinationDose = null): void
     {
         $this->rv_dose1_date = $firstVaccinationDose;
-
-        return $this;
     }
 
-    /**
-     * @param \DateTime|null $secondVaccinationDose
-     * @return $this
-     */
-    public function setSecondVaccinationDose(\DateTime $secondVaccinationDose = null)
+    public function setSecondVaccinationDose(DateTime $secondVaccinationDose = null): void
     {
         $this->rv_dose2_date = $secondVaccinationDose;
-
-        return $this;
     }
 
-    /**
-     * @param \DateTime|null $thirdVaccinationDose
-     * @return $this
-     */
-    public function setThirdVaccinationDose(\DateTime $thirdVaccinationDose = null)
+    public function setThirdVaccinationDose(DateTime $thirdVaccinationDose = null): void
     {
         $this->rv_dose3_date = $thirdVaccinationDose;
-
-        return $this;
     }
 
-    /**
-     * @param TripleChoice $stoolCollected
-     * @return $this
-     */
-    public function setStoolCollected(TripleChoice $stoolCollected = null)
+    public function setStoolCollected(TripleChoice $stoolCollected = null): void
     {
         $this->stool_collected = $stoolCollected;
-        return $this;
     }
 
-    /**
-     * @param $stoolId
-     * @return $this
-     */
-    public function setStoolId($stoolId)
+    public function setStoolId(?string $stoolId): void
     {
         $this->stool_id = $stoolId;
-        return $this;
     }
 
-    /**
-     * @param \DateTime|null $stoolCollectionDate
-     * @return $this
-     */
-    public function setStoolCollectionDate(\DateTime $stoolCollectionDate = null)
+    public function setStoolCollectionDate(DateTime $stoolCollectionDate = null): void
     {
         $this->stool_collect_date = $stoolCollectionDate;
-
-        return $this;
     }
 
-    /**
-     * @param DischargeOutcome $dischargeOutcome
-     * @return $this
-     */
-    public function setDischargeOutcome(DischargeOutcome $dischargeOutcome = null)
+    public function setDischargeOutcome(DischargeOutcome $dischargeOutcome = null): void
     {
         $this->disch_outcome = $dischargeOutcome;
-        return $this;
     }
 
-    /**
-     * @param \DateTime|null $dischargeDate
-     * @return $this
-     */
-    public function setDischargeDate(\DateTime $dischargeDate = null)
+    public function setDischargeDate(DateTime $dischargeDate = null): void
     {
         $this->disch_date = $dischargeDate;
-
-        return $this;
     }
 
-    /**
-     * @return DischargeClassification
-     */
-    public function getDischargeClassification()
+    public function getDischargeClassification(): ?DischargeClassification
     {
         return $this->disch_class;
     }
 
-    /**
-     * @return DischargeClassification
-     */
-    public function getDischClass()
+    public function getDischClass(): ?DischargeClassification
     {
         return $this->disch_class;
     }
 
-    /**
-     * @param DischargeClassification $disch_class
-     * @return RotaVirus
-     */
-    public function setDischClass(DischargeClassification $disch_class = null)
+    public function setDischClass(DischargeClassification $disch_class = null): void
     {
         $this->disch_class = $disch_class;
-        return $this;
     }
 
-    /**
-     * @param DischargeClassification|null $disch_class
-     * @return $this
-     */
-    public function setDischargeClassification(DischargeClassification $disch_class = null)
+    public function setDischargeClassification(DischargeClassification $disch_class = null): void
     {
         $this->disch_class = $disch_class;
-        return $this;
     }
 
-    /**
-     * @param $dischargeClassOther
-     * @return $this
-     */
-    public function setDischargeClassOther($dischargeClassOther)
+    public function setDischargeClassOther(?string $dischargeClassOther): void
     {
         $this->disch_class_other = $dischargeClassOther;
-        return $this;
     }
 
-    /**
-     * @param $comment
-     * @return $this
-     */
-    public function setComment($comment)
+    public function setComment(?string $comment): void
     {
         $this->comment = $comment;
-        return $this;
     }
 
-    /**
-     * 
-     * @return TripleChoice
-     */
-    public function getIntensiveCare()
+    public function getIntensiveCare(): ?TripleChoice
     {
         return $this->intensiveCare;
     }
 
-    /**
-     *
-     * @param TripleChoice $intensiveCare
-     * @return \NS\SentinelBundle\Entity\RotaVirus
-     */
-    public function setIntensiveCare(TripleChoice $intensiveCare = null)
+    public function setIntensiveCare(TripleChoice $intensiveCare = null): void
     {
         $this->intensiveCare = $intensiveCare;
-        return $this;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getSympDiarrhea()
+    public function getSympDiarrhea(): ?TripleChoice
     {
         return $this->symp_diarrhea;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getSympDiaOnsetDate()
+    public function getSympDiaOnsetDate(): ?DateTime
     {
         return $this->symp_dia_onset_date;
     }
 
-    /**
-     * @return int
-     */
-    public function getSympDiaEpisodes()
+    public function getSympDiaEpisodes(): ?int
     {
         return $this->symp_dia_episodes;
     }
 
-    /**
-     * @return int
-     */
-    public function getSympDiaDuration()
+    public function getSympDiaDuration(): ?int
     {
         return $this->symp_dia_duration;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getSympDiaBloody()
+    public function getSympDiaBloody(): ?TripleChoice
     {
         return $this->symp_dia_bloody;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getSympVomit()
+    public function getSympVomit(): ?TripleChoice
     {
         return $this->symp_vomit;
     }
 
-    /**
-     * @return int
-     */
-    public function getSympVomitEpisodes()
+    public function getSympVomitEpisodes(): ?int
     {
         return $this->symp_vomit_episodes;
     }
 
-    /**
-     * @return int
-     */
-    public function getSympVomitDuration()
+    public function getSympVomitDuration(): ?int
     {
         return $this->symp_vomit_duration;
     }
 
-    /**
-     * @return TripleChoice
-     */
-    public function getSympDehydration()
+    public function getSympDehydration(): ?Dehydration
     {
         return $this->symp_dehydration;
     }
 
-    /**
-     * @return VaccinationReceived
-     */
-    public function getRvReceived()
+    public function getRvReceived(): ?VaccinationReceived
     {
         return $this->rv_received;
     }
 
-    /**
-     * @return VaccinationType
-     */
-    public function getRvType()
+    public function getRvType(): ?VaccinationType
     {
         return $this->rv_type;
     }
 
-    /**
-     * @return ThreeDoses
-     */
-    public function getRvDoses()
+    public function getRvDoses(): ?ThreeDoses
     {
         return $this->rv_doses;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getRvDose1Date()
+    public function getRvDose1Date(): ?DateTime
     {
         return $this->rv_dose1_date;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getRvDose2Date()
+    public function getRvDose2Date(): ?DateTime
     {
         return $this->rv_dose2_date;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getRvDose3Date()
+    public function getRvDose3Date(): ?DateTime
     {
         return $this->rv_dose3_date;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getStoolCollectDate()
+    public function getStoolCollectDate(): ?DateTime
     {
         return $this->stool_collect_date;
     }
 
-    /**
-     * @return DischargeOutcome
-     */
-    public function getDischOutcome()
+    public function getDischOutcome(): ?DischargeOutcome
     {
         return $this->disch_outcome;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getDischDate()
+    public function getDischDate(): ?DateTime
     {
         return $this->disch_date;
     }
 
-    /**
-     * @return string
-     */
-    public function getDischClassOther()
+    public function getDischClassOther(): ?string
     {
         return $this->disch_class_other;
     }
 
-    /**
-     * @param TripleChoice $symp_diarrhea
-     */
-    public function setSympDiarrhea($symp_diarrhea)
+    public function setSympDiarrhea(TripleChoice $symp_diarrhea): void
     {
         $this->symp_diarrhea = $symp_diarrhea;
     }
 
-    /**
-     * @param \DateTime $symp_dia_onset_date
-     */
-    public function setSympDiaOnsetDate($symp_dia_onset_date)
+    public function setSympDiaOnsetDate(?DateTime $symp_dia_onset_date): void
     {
         $this->symp_dia_onset_date = $symp_dia_onset_date;
     }
 
-    /**
-     * @param int $symp_dia_episodes
-     */
-    public function setSympDiaEpisodes($symp_dia_episodes)
+    public function setSympDiaEpisodes(?int $symp_dia_episodes): void
     {
         $this->symp_dia_episodes = $symp_dia_episodes;
     }
 
-    /**
-     * @param int $symp_dia_duration
-     */
-    public function setSympDiaDuration($symp_dia_duration)
+    public function setSympDiaDuration(?int $symp_dia_duration): void
     {
         $this->symp_dia_duration = $symp_dia_duration;
     }
 
-    /**
-     * @param TripleChoice $symp_dia_bloody
-     */
-    public function setSympDiaBloody($symp_dia_bloody)
+    public function setSympDiaBloody(TripleChoice $symp_dia_bloody): void
     {
         $this->symp_dia_bloody = $symp_dia_bloody;
     }
 
-    /**
-     * @param TripleChoice $symp_vomit
-     */
-    public function setSympVomit($symp_vomit)
+    public function setSympVomit(TripleChoice$symp_vomit): void
     {
         $this->symp_vomit = $symp_vomit;
     }
 
-    /**
-     * @param int $symp_vomit_episodes
-     */
-    public function setSympVomitEpisodes($symp_vomit_episodes)
+    public function setSympVomitEpisodes(?int $symp_vomit_episodes): void
     {
         $this->symp_vomit_episodes = $symp_vomit_episodes;
     }
 
-    /**
-     * @param int $symp_vomit_duration
-     */
-    public function setSympVomitDuration($symp_vomit_duration)
+    public function setSympVomitDuration(?int $symp_vomit_duration): void
     {
         $this->symp_vomit_duration = $symp_vomit_duration;
     }
 
-    /**
-     * @param TripleChoice $symp_dehydration
-     */
-    public function setSympDehydration($symp_dehydration)
+    public function setSympDehydration(?Dehydration $symp_dehydration): void
     {
         $this->symp_dehydration = $symp_dehydration;
     }
 
-    /**
-     * @param VaccinationReceived $rv_received
-     */
-    public function setRvReceived($rv_received)
+    public function setRvReceived(VaccinationReceived $rv_received): void
     {
         $this->rv_received = $rv_received;
     }
 
-    /**
-     * @param VaccinationType $rv_type
-     */
-    public function setRvType($rv_type)
+    public function setRvType(VaccinationType $rv_type): void
     {
         $this->rv_type = $rv_type;
     }
 
-    /**
-     * @param ThreeDoses $rv_doses
-     */
-    public function setRvDoses($rv_doses)
+    public function setRvDoses(ThreeDoses $rv_doses): void
     {
         $this->rv_doses = $rv_doses;
     }
 
-    /**
-     * @param \DateTime $rv_dose1_date
-     */
-    public function setRvDose1Date($rv_dose1_date)
+    public function setRvDose1Date(?DateTime $rv_dose1_date): void
     {
         $this->rv_dose1_date = $rv_dose1_date;
     }
 
-    /**
-     * @param \DateTime $rv_dose2_date
-     */
-    public function setRvDose2Date($rv_dose2_date)
+    public function setRvDose2Date(?DateTime $rv_dose2_date): void
     {
         $this->rv_dose2_date = $rv_dose2_date;
     }
 
-    /**
-     * @param \DateTime $rv_dose3_date
-     */
-    public function setRvDose3Date($rv_dose3_date)
+    public function setRvDose3Date(?DateTime $rv_dose3_date): void
     {
         $this->rv_dose3_date = $rv_dose3_date;
     }
 
-    /**
-     * @param \DateTime $stool_collect_date
-     */
-    public function setStoolCollectDate($stool_collect_date)
+    public function setStoolCollectDate(?DateTime $stool_collect_date): void
     {
         $this->stool_collect_date = $stool_collect_date;
     }
 
-    /**
-     * @param DischargeOutcome $disch_outcome
-     */
-    public function setDischOutcome($disch_outcome)
+    public function setDischOutcome(?DischargeOutcome $disch_outcome): void
     {
         $this->disch_outcome = $disch_outcome;
     }
 
-    /**
-     * @param \DateTime $disch_date
-     */
-    public function setDischDate($disch_date)
+    public function setDischDate(?DateTime $disch_date): void
     {
         $this->disch_date = $disch_date;
     }
 
-    /**
-     * @param string $disch_class_other
-     */
-    public function setDischClassOther($disch_class_other)
+    public function setDischClassOther(?string $disch_class_other): void
     {
         $this->disch_class_other = $disch_class_other;
     }
