@@ -25,6 +25,7 @@ use NS\SentinelBundle\Interfaces\SerializedSitesInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -43,12 +44,6 @@ class CaseType extends AbstractType
     /** @var AuthorizationCheckerInterface */
     private $authChecker;
 
-    /**
-     * CaseType constructor.
-     * @param SerializedSitesInterface $siteSerializer
-     * @param ValidatorGroupResolver $resolver
-     * @param AuthorizationCheckerInterface $authorizationChecker
-     */
     public function __construct(SerializedSitesInterface $siteSerializer, ValidatorGroupResolver $resolver, AuthorizationCheckerInterface $authorizationChecker)
     {
         $this->siteSerializer = $siteSerializer;
@@ -56,11 +51,7 @@ class CaseType extends AbstractType
         $this->authChecker = $authorizationChecker;
     }
 
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $required = (isset($options['method']) && $options['method'] === 'PUT');
 
@@ -74,6 +65,7 @@ class CaseType extends AbstractType
             ->add('admDxOther',         null, ['required' => $required, 'label' => 'ibd-form.adm-dx-other', 'hidden' => ['parent' => 'admDx', 'value' => Diagnosis::OTHER]])
             ->add('onsetDate',          DatePickerType::class, ['required' => $required, 'label' => 'ibd-form.onset-date','property_path'=>'onset_date'])
             ->add('antibiotics',        TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.antibiotics'])
+            ->add('antibiotic_name',    TextType::class, ['required' => $required, 'label' => 'ibd-form.antibiotic_name', 'hidden' => ['parent' => 'antibiotics', 'value' => TripleChoice::YES]])
             ->add('hibDoses',           FourDoses::class, ['required' => $required, 'label' => 'ibd-form.hib-doses', 'hidden' => ['parent' => 'hibReceived', 'value' => [VaccinationReceived::YES_CARD, VaccinationReceived::YES_HISTORY]]])
             ->add('hibMostRecentDose',  DatePickerType::class, ['required' => $required, 'label' => 'ibd-form.hib-most-recent-dose', 'hidden' => ['parent' => 'hibReceived', 'value' => [VaccinationReceived::YES_CARD, VaccinationReceived::YES_HISTORY]]])
             ->add('pcvDoses',           FourDoses::class, ['required' => $required, 'label' => 'ibd-form.pcv-doses', 'hidden' => ['parent' => 'pcvReceived', 'value' => [VaccinationReceived::YES_CARD, VaccinationReceived::YES_HISTORY]]])
@@ -89,12 +81,12 @@ class CaseType extends AbstractType
         $builder->addEventListener(FormEvents::POST_SET_DATA, [$this,'postSetData']);
     }
 
-    public function postSetData(FormEvent $event)
+    public function postSetData(FormEvent $event): void
     {
         $data     = $event->getData();
         $form     = $event->getForm();
         $required = ($form->getConfig()->getOption('method', false) === 'PUT');
-        $region = $country  = null;
+        $region = $country = null;
 
         if ($data && $data->getCountry()) {
             $region = $data->getRegion();
@@ -183,10 +175,7 @@ class CaseType extends AbstractType
         }
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Pneumonia::class,

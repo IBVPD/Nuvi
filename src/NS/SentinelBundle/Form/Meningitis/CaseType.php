@@ -23,6 +23,7 @@ use NS\SentinelBundle\Form\ValueObject\YearMonthType;
 use NS\SentinelBundle\Interfaces\SerializedSitesInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -41,12 +42,6 @@ class CaseType extends AbstractType
     /** @var AuthorizationCheckerInterface */
     private $authChecker;
 
-    /**
-     * CaseType constructor.
-     * @param SerializedSitesInterface $siteSerializer
-     * @param ValidatorGroupResolver $resolver
-     * @param AuthorizationCheckerInterface $authorizationChecker
-     */
     public function __construct(SerializedSitesInterface $siteSerializer, ValidatorGroupResolver $resolver, AuthorizationCheckerInterface $authorizationChecker)
     {
         $this->siteSerializer = $siteSerializer;
@@ -54,11 +49,7 @@ class CaseType extends AbstractType
         $this->authChecker = $authorizationChecker;
     }
 
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $required = (isset($options['method']) && $options['method'] === 'PUT');
 
@@ -71,6 +62,7 @@ class CaseType extends AbstractType
             ->add('caseId',             null, ['required' => true, 'label' => 'ibd-form.case-id', 'property_path' => 'case_id'])
             ->add('onsetDate',          DatePickerType::class, ['required' => $required, 'label' => 'ibd-form.onset-date','property_path'=>'onset_date'])
             ->add('antibiotics',        TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.antibiotics'])
+            ->add('antibiotic_name',    TextType::class, ['required' => false, 'label' => 'ibd-form.antibiotic_name', 'hidden' => ['parent' => 'antibiotics', 'value' => TripleChoice::YES]])
             ->add('menSeizures',        TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.men-seizures'])
             ->add('menFever',           TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.men-fever'])
             ->add('menAltConscious',    TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.men-alt-conscious'])

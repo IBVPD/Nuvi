@@ -118,6 +118,13 @@ class Meningitis extends BaseCase
      */
     private $antibiotics;
 
+    /**
+     * @var string|null
+     * @ORM\Column(name="antibiotic_name",type="string", nullable=true)
+     * @Serializer\Groups({"api","export"})
+     */
+    private $antibiotic_name;
+
 //MENINGITIS
     /**
      * @var TripleChoice|null
@@ -453,6 +460,11 @@ class Meningitis extends BaseCase
         return $this->antibiotics;
     }
 
+    public function getAntibioticName(): ?string
+    {
+        return $this->antibiotic_name;
+    }
+
     public function getMenSeizures(): ?TripleChoice
     {
         return $this->men_seizures;
@@ -641,6 +653,11 @@ class Meningitis extends BaseCase
     public function setAntibiotics(?TripleChoice $antibiotics = null): void
     {
         $this->antibiotics = $antibiotics;
+    }
+
+    public function setAntibioticName(?string $antibiotic_name): void
+    {
+        $this->antibiotic_name = $antibiotic_name;
     }
 
     public function setMenSeizures(?TripleChoice $menSeizures = null): void

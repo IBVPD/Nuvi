@@ -116,6 +116,13 @@ class Pneumonia extends BaseCase
      */
     private $antibiotics;
 
+    /**
+     * @var string|null
+     * @ORM\Column(name="antibiotic_name",type="string", nullable=true)
+     * @Serializer\Groups({"api","export"})
+     */
+    private $antibiotic_name;
+
 //PNEUMONIA / SEPSIS
     /**
      * @var TripleChoice|null
@@ -468,6 +475,11 @@ class Pneumonia extends BaseCase
         return $this->antibiotics;
     }
 
+    public function getAntibioticName(): ?string
+    {
+        return $this->antibiotic_name;
+    }
+
     public function getPneuDiffBreathe(): ?TripleChoice
     {
         return $this->pneu_diff_breathe;
@@ -661,6 +673,11 @@ class Pneumonia extends BaseCase
     public function setAntibiotics(?TripleChoice $antibiotics = null): void
     {
         $this->antibiotics = $antibiotics;
+    }
+
+    public function setAntibioticName(?string $antibiotic_name): void
+    {
+        $this->antibiotic_name = $antibiotic_name;
     }
 
     public function setPneuDiffBreathe(TripleChoice $pneuDiffBreathe = null): void

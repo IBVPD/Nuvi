@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
-  <file date="2019-03-05T16:41:59Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
+  <file date="2019-04-11T00:42:30Z" source-language="en" target-language="es" datatype="plaintext" original="not.available">
     <header>
       <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
       <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
@@ -34,13 +34,45 @@
         <source>10A</source>
         <target>10A</target>
       </trans-unit>
+      <trans-unit id="e67cd0e6a061772449d1fbb096d66a9580c28452" resname="10B">
+        <source>10B</source>
+        <target>10B</target>
+      </trans-unit>
+      <trans-unit id="787237712b86319e7c554d2618ee2dfba5464cd7" resname="10C">
+        <source>10C</source>
+        <target>10C</target>
+      </trans-unit>
+      <trans-unit id="4ea72b9f99a196581a8ed410dc3016fc74130b26" resname="10F">
+        <source>10F</source>
+        <target>10F</target>
+      </trans-unit>
       <trans-unit id="76228ccb58822c21371e110b8ef065f19d16dae0" resname="10F/10C/33C">
         <source>10F/10C/33C</source>
         <target>10F/10C/33C</target>
       </trans-unit>
+      <trans-unit id="2e64fcf0e1339f19c45e2a5df626684bb9bc9f00" resname="11A">
+        <source>11A</source>
+        <target>11A</target>
+      </trans-unit>
       <trans-unit id="3e66583593f4fe8a108bea0c093a8bfbea30be17" resname="11A/11D">
         <source>11A/11D</source>
         <target>11A/11D</target>
+      </trans-unit>
+      <trans-unit id="7dfc2cdfdb3cfdc1fcccdb095975ffa71af005fe" resname="11B">
+        <source>11B</source>
+        <target>11B</target>
+      </trans-unit>
+      <trans-unit id="f8e3157e3e4c70a90a61b24c8d8aeb9d01f91afe" resname="11C">
+        <source>11C</source>
+        <target>11C</target>
+      </trans-unit>
+      <trans-unit id="75526e07d772e9c6f85d295a2567481c49dcac12" resname="11D">
+        <source>11D</source>
+        <target>11D</target>
+      </trans-unit>
+      <trans-unit id="168050a1e44cce2bb2ef8ee29b2f48f516e733a7" resname="11F">
+        <source>11F</source>
+        <target>11F</target>
       </trans-unit>
       <trans-unit id="c0a53b78e70c7b285399b13265807270dabb5924" resname="12 months or zero reporting">
         <source>12 months or zero reporting</source>
@@ -53,6 +85,10 @@
       <trans-unit id="46a548c4f84f29214f382b268fbab0dfc6f72ca2" resname="12A">
         <source>12A</source>
         <target>12A</target>
+      </trans-unit>
+      <trans-unit id="fc484b23c33562d21cbbdda8af8e6a2e059c74fd" resname="12B">
+        <source>12B</source>
+        <target>12B</target>
       </trans-unit>
       <trans-unit id="56a81da85ea6ef2ee4516b1b92d0cc8f7e5f0aa2" resname="12F">
         <source>12F</source>
@@ -78,33 +114,77 @@
         <source>15C</source>
         <target>15C</target>
       </trans-unit>
+      <trans-unit id="a373b8a540dfa625099fff09ca83ce7c1c21f2bd" resname="15F">
+        <source>15F</source>
+        <target>15F</target>
+      </trans-unit>
+      <trans-unit id="6a17c2a60e4814cd0c624b7b4a0650fe0ae4e892" resname="16A">
+        <source>16A</source>
+        <target>16A</target>
+      </trans-unit>
       <trans-unit id="374e365fc2e14a2e74ffeadf8ac87e71a1707f4a" resname="16F">
         <source>16F</source>
         <target>16F</target>
+      </trans-unit>
+      <trans-unit id="0ef596807f82d41489fc857abc31bad19eb8ba7a" resname="17A">
+        <source>17A</source>
+        <target>17A</target>
       </trans-unit>
       <trans-unit id="f502d2cad84de3e907899407d35210b4b914c640" resname="17F">
         <source>17F</source>
         <target>17F</target>
       </trans-unit>
+      <trans-unit id="b359f2122160947474a72edf35dbb5a523ad9ad1" resname="18A">
+        <source>18A</source>
+        <target>18A</target>
+      </trans-unit>
       <trans-unit id="da30a382e415d9604f752226e98105986ca511e5" resname="18A/18B/18C/18F">
         <source>18A/18B/18C/18F</source>
         <target>18A/18B/18C/18F</target>
+      </trans-unit>
+      <trans-unit id="0e2601f362ff6a796e5e2055f8414109cd718ccf" resname="18B">
+        <source>18B</source>
+        <target>18B</target>
       </trans-unit>
       <trans-unit id="2ac9347abffc4f162c4c1a32d9eaeaa01a365b24" resname="18C">
         <source>18C</source>
         <target>18C</target>
       </trans-unit>
+      <trans-unit id="c194e4b6068f07ada9f5920ff9a9588040f4e876" resname="18F">
+        <source>18F</source>
+        <target>18F</target>
+      </trans-unit>
       <trans-unit id="4dcdc054e29dc81d3a46d70fb88b54ed12e989b3" resname="19A">
         <source>19A</source>
         <target>19A</target>
+      </trans-unit>
+      <trans-unit id="c911651f46fe461cf396542bb75e2a8a646ba742" resname="19B">
+        <source>19B</source>
+        <target>19B</target>
+      </trans-unit>
+      <trans-unit id="021701756383c62f19d77660b6e7cecf81c9c842" resname="19BF">
+        <source>19BF</source>
+        <target>19BF</target>
+      </trans-unit>
+      <trans-unit id="810f11ef546ab9afa7f1b263874453e0502f1cda" resname="19C">
+        <source>19C</source>
+        <target>19C</target>
       </trans-unit>
       <trans-unit id="34c3ecfe974733aa6a6eafb1728b5bdb0cd344e0" resname="19F">
         <source>19F</source>
         <target>19F</target>
       </trans-unit>
+      <trans-unit id="2d0020c3f02e3baea9091fe3a22ca49383b53a11" resname="19F Variant">
+        <source>19F Variant</source>
+        <target>19F Variant</target>
+      </trans-unit>
       <trans-unit id="41cfed5cc114b1a5d3df7a6cea7c1b7be9c9f258" resname="2 doses">
         <source>2 doses</source>
         <target>2 dosis</target>
+      </trans-unit>
+      <trans-unit id="ab6d34ff3d9c196963969eff68fb70e815338283" resname="22A">
+        <source>22A</source>
+        <target>22A</target>
       </trans-unit>
       <trans-unit id="4a3e5f6e4a7d3b665ac621d9042b958a38536aab" resname="22F">
         <source>22F</source>
@@ -130,13 +210,45 @@
         <source>24-59</source>
         <target>24-59</target>
       </trans-unit>
+      <trans-unit id="7b298a95ccbe921710eb93dde58f2fb10df44434" resname="24A">
+        <source>24A</source>
+        <target>24A</target>
+      </trans-unit>
       <trans-unit id="f6d456ab4c20b10f4f9dcdae6a2e3743aa4f9de3" resname="24A/24B/24F">
         <source>24A/24B/24F</source>
         <target>24A/24B/24F</target>
       </trans-unit>
+      <trans-unit id="577b2459826281051c52af202e38c64a05a85706" resname="24B">
+        <source>24B</source>
+        <target>24B</target>
+      </trans-unit>
+      <trans-unit id="fa0cb484839d74325c8e5da1847a591293d67139" resname="24F">
+        <source>24F</source>
+        <target>24F</target>
+      </trans-unit>
+      <trans-unit id="fabf1554bfb0b7347200c5df239615af4b043e15" resname="25A">
+        <source>25A</source>
+        <target>25A</target>
+      </trans-unit>
+      <trans-unit id="9abb13f78744f817fd2005f5072e45dd2fa98992" resname="25F">
+        <source>25F</source>
+        <target>25F</target>
+      </trans-unit>
       <trans-unit id="d0e733d030140b09518b8d74e7a8355f01969299" resname="25F/25A/38">
         <source>25F/25A/38</source>
         <target>25F/25A/38</target>
+      </trans-unit>
+      <trans-unit id="43cef4920c8add7d778bdc5774f4c779bfec3cbc" resname="28A">
+        <source>28A</source>
+        <target>28A</target>
+      </trans-unit>
+      <trans-unit id="5aed1d0ffb14b44f130087dfcc40b4a1706747fd" resname="28F">
+        <source>28F</source>
+        <target>28F</target>
+      </trans-unit>
+      <trans-unit id="4b3666157f0eb7dcebd0dcc6e0feb486b4ce0190" resname="29E">
+        <source>29E</source>
+        <target>29E</target>
       </trans-unit>
       <trans-unit id="8ca155f57bafddfd3ce3e92089e07e618206485d" resname="2nd Blood">
         <source>2nd Blood</source>
@@ -145,6 +257,30 @@
       <trans-unit id="5c97f696e8043f8d321e8945a9e15ee00aab0e7b" resname="3 doses">
         <source>3 doses</source>
         <target>3 dosis</target>
+      </trans-unit>
+      <trans-unit id="2a34553b432075215d1adc2bae14ecd8da11ee8a" resname="32A">
+        <source>32A</source>
+        <target>32A</target>
+      </trans-unit>
+      <trans-unit id="db60a2dc9bcd52f780a6693c4cabe42199aef93c" resname="32F">
+        <source>32F</source>
+        <target>32F</target>
+      </trans-unit>
+      <trans-unit id="1e1f8342aa56d4becffe9e3bc5b8504ad7b2c1cf" resname="33A">
+        <source>33A</source>
+        <target>33A</target>
+      </trans-unit>
+      <trans-unit id="30e020f7c6c16477c71321613486684c9d759baf" resname="33B">
+        <source>33B</source>
+        <target>33B</target>
+      </trans-unit>
+      <trans-unit id="dc41e83b9ff3156cdf59544ed7e66b13ac72c7ca" resname="33C">
+        <source>33C</source>
+        <target>33C</target>
+      </trans-unit>
+      <trans-unit id="1bbd932c630063e5824b2503153a9cebd3af1b5c" resname="33D">
+        <source>33D</source>
+        <target>33D</target>
       </trans-unit>
       <trans-unit id="d3d444e0ea5408600f7c7e9f6e0d85fca24d5154" resname="33F">
         <source>33F</source>
@@ -162,9 +298,33 @@
         <source>35B</source>
         <target>35B</target>
       </trans-unit>
+      <trans-unit id="218b7a02b93d90bb2f8dc245335cea131d0ac9c2" resname="35C">
+        <source>35C</source>
+        <target>35C</target>
+      </trans-unit>
       <trans-unit id="9cad606a1c04d07672124791d2aa88ab26220b93" resname="35F/47F">
         <source>35F/47F</source>
         <target>35F/47F</target>
+      </trans-unit>
+      <trans-unit id="ad441090bac0d211b800a481e6ef3bf9f53e6054" resname="38/25F/25A">
+        <source>38/25F/25A</source>
+        <target>38/25F/25A</target>
+      </trans-unit>
+      <trans-unit id="76fd22d34ec87525881cea5d0fe4dd444fcdf3e4" resname="41A">
+        <source>41A</source>
+        <target>41A</target>
+      </trans-unit>
+      <trans-unit id="bf8abd38ff511b1b7630dcb210b413efa267eb20" resname="41F">
+        <source>41F</source>
+        <target>41F</target>
+      </trans-unit>
+      <trans-unit id="af57759289e6b7ffcb5df2d164f69502479e6aa1" resname="47A">
+        <source>47A</source>
+        <target>47A</target>
+      </trans-unit>
+      <trans-unit id="d7fcefb48aebd83f0af1b90799ca6053c892cfd9" resname="47F">
+        <source>47F</source>
+        <target>47F</target>
       </trans-unit>
       <trans-unit id="ff7537e61ade4814f5afaa0d943fdf431e62c7d7" resname="6-11">
         <source>6-11</source>
@@ -178,13 +338,33 @@
         <source>6A/6B</source>
         <target>6A/6B</target>
       </trans-unit>
+      <trans-unit id="b8ee75ffe3770bfbd9b68873bcaf75e1a6b382b1" resname="6A/6B/6C/6D">
+        <source>6A/6B/6C/6D</source>
+        <target>6A/6B/6C/6D</target>
+      </trans-unit>
       <trans-unit id="c2aab356aa0b7989757bc4ffc8fc21b28caad1a5" resname="6B">
         <source>6B</source>
         <target>6B</target>
       </trans-unit>
+      <trans-unit id="ff2de622d81cc99fec4961884c1d68370e7d2180" resname="6C">
+        <source>6C</source>
+        <target>6C</target>
+      </trans-unit>
       <trans-unit id="85d3fd68ec146b10c67e0fc49667713620680eb2" resname="6C/6D">
         <source>6C/6D</source>
         <target>6C/6D</target>
+      </trans-unit>
+      <trans-unit id="9aa045dd995d5366c84c8de916e3f45e50f1fd60" resname="6D">
+        <source>6D</source>
+        <target>6D</target>
+      </trans-unit>
+      <trans-unit id="6e956e31476ccd6bea194a2d6e5e54d66bd3281b" resname="7A">
+        <source>7A</source>
+        <target>7A</target>
+      </trans-unit>
+      <trans-unit id="c274b3c0dad677526355847743c36dfa47899f46" resname="7B">
+        <source>7B</source>
+        <target>7B</target>
       </trans-unit>
       <trans-unit id="c6f4900f82df26c828f9465d95c5d89d8a45ad24" resname="7C">
         <source>7C</source>
@@ -205,6 +385,10 @@
       <trans-unit id="3428ca8aafbd46592fb5be560bdec9babbb33876" resname="9A">
         <source>9A</source>
         <target>9A</target>
+      </trans-unit>
+      <trans-unit id="f7a1893d3ec06a2ac1cccd43919bb5f1aa542943" resname="9L">
+        <source>9L</source>
+        <target>9L</target>
       </trans-unit>
       <trans-unit id="e7f4814d49c0c94ae531ac22407aff9a16b45422" resname="9N">
         <source>9N</source>
@@ -298,6 +482,10 @@
         <source>B</source>
         <target>B</target>
       </trans-unit>
+      <trans-unit id="75d0a554e25e13049101585b8dfdb6d2b45e5bfd" resname="B recombinante">
+        <source>B recombinante</source>
+        <target>B recombinante</target>
+      </trans-unit>
       <trans-unit id="14ca263c6670a6fa0615bc8ea5eacaaef1e2d8ea" resname="B/E. coli K1 (result from LA)">
         <source>B/E. coli K1 (result from LA)</source>
         <target>B/E. coli K1 (resultado de LA)</target>
@@ -349,6 +537,10 @@
       <trans-unit id="32096c2e0eff33d844ee6d675407ace18289357d" resname="C">
         <source>C</source>
         <target>C</target>
+      </trans-unit>
+      <trans-unit id="458ed6967cade3a766bdf6f97de2dbafb080cd4f" resname="C (conjugada)">
+        <source>C (conjugada)</source>
+        <target>C (conjugada)</target>
       </trans-unit>
       <trans-unit id="26a272d368f7a0ded2093637af1121af91bae4b3" resname="CSF">
         <source>CSF</source>
@@ -650,6 +842,10 @@
         <source>Edit Site Lab Data</source>
         <target>Editar datos de laboratorio local</target>
       </trans-unit>
+      <trans-unit id="21170a835b86f21e7c43e7cc4088998b44738461" resname="Elisa">
+        <source>Elisa</source>
+        <target>ELISA</target>
+      </trans-unit>
       <trans-unit id="84add5b2952787581cb9a8851eef63d1ec75d22b" resname="Email">
         <source>Email</source>
         <target>Correo electrónico</target>
@@ -677,6 +873,10 @@
       <trans-unit id="183f6c9b5b650d03aa4ae7c8d7c6ba7b81567727" resname="Field Population">
         <source>Field Population</source>
         <target>Datos completos</target>
+      </trans-unit>
+      <trans-unit id="d7decf1aa22b02ae8abf9a96849ee423eee838e4" resname="Filter">
+        <source>Filter</source>
+        <target>Filter</target>
       </trans-unit>
       <trans-unit id="96e578211aa295317cf257310712fa28ccd8f6c6" resname="Filters">
         <source>Filters</source>
@@ -1747,6 +1947,10 @@
         <source>c</source>
         <target>c</target>
       </trans-unit>
+      <trans-unit id="56153612719d9d6d1187a58b68762a147d178b07" resname="creation-date">
+        <source>creation-date</source>
+        <target>Fecha de creación</target>
+      </trans-unit>
       <trans-unit id="e23e32ba593b3f97acca179a8075c1aab17ecf53" resname="csf Binax Result">
         <source>csf Binax Result</source>
         <target>Resultado de LCR Binax</target>
@@ -1862,6 +2066,10 @@
       <trans-unit id="db64888ca4c5614e098060779e93897f40999089" resname="ibd-form.age">
         <source>ibd-form.age</source>
         <target>Edad en meses</target>
+      </trans-unit>
+      <trans-unit id="74d5b73ef06660007156a4c2324026f381efa072" resname="ibd-form.antibiotic_name">
+        <source>ibd-form.antibiotic_name</source>
+        <target>Nombre de antibiotico</target>
       </trans-unit>
       <trans-unit id="9525a42257a478984411e8019c976f84d268e78b" resname="ibd-form.antibiotics">
         <source>ibd-form.antibiotics</source>
@@ -2688,6 +2896,10 @@
         <source>ibd.spnSerotype</source>
         <target>Spn serotipo</target>
       </trans-unit>
+      <trans-unit id="2a8b8db3379653c6aed5b901633c5f1c2dff62b5" resname="last-updated">
+        <source>last-updated</source>
+        <target>Última actualización</target>
+      </trans-unit>
       <trans-unit id="a7fcf675152dbce01f9712db2f25ad606debf919" resname="meningitis.has-site-lab">
         <source>meningitis.has-site-lab</source>
         <target>Tiene Lab Sitio</target>
@@ -2782,11 +2994,11 @@
       </trans-unit>
       <trans-unit id="4530eb50108bd5395fd532092e83a6effdd9dc56" resname="pneumonia.has-site-national-lab">
         <source>pneumonia.has-site-national-lab</source>
-        <target state="new">pneumonia.has-site-national-lab</target>
+        <target>El lugar tiene un laboratorio nacional</target>
       </trans-unit>
       <trans-unit id="f6c3c17992fe2a86e544c4315b34ec7253cce179" resname="pneumonia.has-site-reference-lab">
         <source>pneumonia.has-site-reference-lab</source>
-        <target state="new">pneumonia.has-site-reference-lab</target>
+        <target>El lugar tiene un laboratorio de referencia</target>
       </trans-unit>
       <trans-unit id="eb33f39189da6e994faddf9398756c7ca05641e2" resname="report-filter-form.admitted-between">
         <source>report-filter-form.admitted-between</source>
@@ -2911,6 +3123,10 @@
       <trans-unit id="3391eade9b690848d61a8b32d787176a9cda2ced" resname="rotavirus-form.intensiveCare">
         <source>rotavirus-form.intensiveCare</source>
         <target>Cuidado Intensivo</target>
+      </trans-unit>
+      <trans-unit id="daa1e47cb07610dbfa6706ee7d33073181dd54ae" resname="rotavirus-form.labId">
+        <source>rotavirus-form.labId</source>
+        <target>Identificación de laboratorio</target>
       </trans-unit>
       <trans-unit id="bf322c247ab6e7d0b56c21a6fd2730f786dd001a" resname="rotavirus-form.last-name">
         <source>rotavirus-form.last-name</source>
