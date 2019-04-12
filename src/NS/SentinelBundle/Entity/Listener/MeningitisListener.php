@@ -32,7 +32,7 @@ class MeningitisListener extends BaseCaseListener
      * @param Meningitis\Meningitis|BaseCase $case
      * @return mixed|void
      */
-    public function calculateResult(BaseCase $case)
+    public function calculateResult(BaseCase $case): void
     {
         if ($case->getStatus()->getValue() >= CaseStatus::CANCELLED) {
             return;
@@ -60,7 +60,7 @@ class MeningitisListener extends BaseCaseListener
         }
     }
 
-    public function isSuspected(BaseCase $case)
+    public function isSuspected(BaseCase $case): bool
     {
         // Test Suspected
         if ($case->getAge() < 60) {
@@ -82,12 +82,12 @@ class MeningitisListener extends BaseCaseListener
      * @param BaseCase|Meningitis\Meningitis $case
      * @return null|string
      */
-    public function getIncompleteField(BaseCase $case)
+    public function getIncompleteField(BaseCase $case): ?string
     {
         $regionCode = $case->getRegion()->getCode();
         foreach ($this->getMinimumRequiredFields($case, $regionCode) as $field) {
             $method = sprintf('get%s', $field);
-            $value = call_user_func([$case, $method]);
+            $value = $case->$method();
 
             if ($value === null || empty($value) || ($value instanceof ArrayChoice && $value->equal(-1))) {
                 return $field;
@@ -152,19 +152,14 @@ class MeningitisListener extends BaseCaseListener
             return 'otherSpecimenOther';
         }
 
-        if (($regionCode == 'AMR') && $case->getBloodNumberOfSamples() > 1 && (!$case->getBloodSecondCollectDate() || !$case->getBloodSecondCollectTime())) {
+        if (($regionCode === 'AMR') && $case->getBloodNumberOfSamples() > 1 && (!$case->getBloodSecondCollectDate() || !$case->getBloodSecondCollectTime())) {
             return 'bloodSecondCollect';
         }
 
         return null;
     }
 
-    /**
-     * @param BaseCase $case
-     * @param null $regionCode
-     * @return array
-     */
-    public function getMinimumRequiredFields(BaseCase $case, $regionCode = null)
+    public function getMinimumRequiredFields(BaseCase $case, ?string $regionCode = null): array
     {
         $fields = [
             'caseId',

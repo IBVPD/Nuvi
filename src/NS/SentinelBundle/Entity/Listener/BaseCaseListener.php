@@ -63,11 +63,7 @@ abstract class BaseCaseListener
         }
     }
 
-    /**
-     * @param BaseCase $case
-     * @return null
-     */
-    public function calculateStatus(BaseCase $case)
+    public function calculateStatus(BaseCase $case): void
     {
         if ($case->getStatus()->equal(CaseStatus::CANCELLED)) {
             return;
@@ -77,24 +73,9 @@ abstract class BaseCaseListener
         $case->setStatus($status);
     }
 
-    /**
-     * @param BaseCase $case
-     *
-     * @return string|null
-     */
-    abstract public function getIncompleteField(BaseCase $case);
+    abstract public function getIncompleteField(BaseCase $case): ?string;
 
-    /**
-     * @param BaseCase $case
-     * @param string|null $regionCode
-     *
-     * @return array
-     */
-    abstract public function getMinimumRequiredFields(BaseCase $case, $regionCode = null);
+    abstract public function getMinimumRequiredFields(BaseCase $case, ?string $regionCode = null): array;
 
-    /**
-     * @param BaseCase $case
-     * @return mixed
-     */
-    abstract public function calculateResult(BaseCase $case);
+    abstract public function calculateResult(BaseCase $case): void;
 }

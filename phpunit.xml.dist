@@ -4,14 +4,7 @@
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.8/phpunit.xsd"
     backupGlobals               = "false"
-    backupStaticAttributes      = "false"
     colors                      = "true"
-    convertErrorsToExceptions   = "true"
-    convertNoticesToExceptions  = "true"
-    convertWarningsToExceptions = "true"
-    processIsolation            = "false"
-    stopOnFailure               = "false"
-    syntaxCheck                 = "false"
     bootstrap                   = "app/autoload.php" >
 
     <testsuites>
@@ -24,7 +17,7 @@
         <ini name="memory_limit" value="768M" />
         <ini name="error_reporting" value="-1" />
 	    <server name="KERNEL_DIR" value="app/" />
-	    <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak"/>
+	    <env name="SYMFONY_DEPRECATIONS_HELPER" value="weak" />
     </php>
 
     <filter>

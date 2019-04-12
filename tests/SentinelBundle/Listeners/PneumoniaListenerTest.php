@@ -78,14 +78,14 @@ class PneumoniaListenerTest extends TestCase
      * @dataProvider getCompleteCaseNonPahoData
      * @param $data
      */
-    public function testCaseIsCompleteWithPneuomia($data): void
+    public function testCaseIsCompleteWithPneumonia($data): void
     {
         $case = new Pneumonia();
         $this->_updateCase($case, $data);
         $listener = new PneumoniaListener();
         $listener->prePersist($case, $this->createMock(LifecycleEventArgs::class));
 
-        $this->assertTrue($case->isComplete(), sprintf('Cases with pneunomia are complete %s', !$case->isComplete()) ? $listener->getIncompleteField($case) : null);
+        $this->assertTrue($case->isComplete());
         $this->assertEquals($case->getStatus()->getValue(), CaseStatus::COMPLETE);
     }
 
@@ -244,7 +244,6 @@ class PneumoniaListenerTest extends TestCase
         $country->setTracksPneumonia(true);
         $region = new Region('RCODE', 'Region');
         $country->setRegion($region);
-
 
         return [
             'setcountry' => $country,

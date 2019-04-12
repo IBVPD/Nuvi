@@ -6,30 +6,16 @@ use NS\SentinelBundle\Entity\BaseCase;
 
 class RotaVirusListener extends BaseCaseListener
 {
-    /**
-     * @param BaseCase $case
-     * @return mixed|null
-     */
-    public function calculateResult(BaseCase $case)
+    public function calculateResult(BaseCase $case): void
+    {
+    }
+
+    public function getIncompleteField(BaseCase $case): ?string
     {
         return null;
     }
 
-    /**
-     * @param BaseCase $case
-     * @return null
-     */
-    public function getIncompleteField(BaseCase $case)
-    {
-        return null;
-    }
-
-    /**
-     * @param BaseCase $case
-     * @param null $regionCode
-     * @return array
-     */
-    public function getMinimumRequiredFields(BaseCase $case, $regionCode = null)
+    public function getMinimumRequiredFields(BaseCase $case, ?string $regionCode = null): array
     {
         return [
             'caseId',

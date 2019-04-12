@@ -3,15 +3,9 @@
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
-/**
- * Class AppKernel
- */
 class AppKernel extends Kernel
 {
-    /**
-     * @return array
-     */
-    public function registerBundles()
+    public function registerBundles(): array
     {
         $bundles = array(
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
@@ -61,11 +55,11 @@ class AppKernel extends Kernel
 
             new Vich\UploaderBundle\VichUploaderBundle(),
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
-            new \NS\FilteredPaginationBundle\NSFilteredPaginationBundle(),
+            new NS\FilteredPaginationBundle\NSFilteredPaginationBundle(),
             new NS\TokenBundle\NSTokenBundle(),
         );
 
-        if (in_array($this->getEnvironment(), array('dev', 'test','live'))) {
+        if (in_array($this->getEnvironment(), ['dev', 'test','live'])) {
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
@@ -76,25 +70,22 @@ class AppKernel extends Kernel
         return $bundles;
     }
 
-    public function getRootDir()
+    public function getRootDir(): string
     {
         return __DIR__;
     }
 
-    public function getCacheDir()
+    public function getCacheDir(): string
     {
         return dirname(__DIR__).'/var/cache/'.$this->getEnvironment();
     }
 
-    public function getLogDir()
+    public function getLogDir(): string
     {
         return dirname(__DIR__).'/var/logs';
     }
 
-    /**
-     * @param LoaderInterface $loader
-     */
-    public function registerContainerConfiguration(LoaderInterface $loader)
+    public function registerContainerConfiguration(LoaderInterface $loader): void
     {
         $loader->load(__DIR__ . '/config/config_' . $this->getEnvironment() . '.yml');
     }

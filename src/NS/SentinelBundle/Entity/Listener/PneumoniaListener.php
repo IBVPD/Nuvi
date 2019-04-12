@@ -29,18 +29,17 @@ class PneumoniaListener extends BaseCaseListener
      *            syndrome consistent with bacterial meningitis
      *
      * @param Pneumonia\Pneumonia|BaseCase $case
-     * @return mixed|void
+     * @return void
      */
-    public function calculateResult(BaseCase $case)
+    public function calculateResult(BaseCase $case): void
     {
-        return;
     }
 
     /**
      * @param Pneumonia\Pneumonia|BaseCase $case
      * @return bool
      */
-    public function isSuspected(BaseCase $case)
+    public function isSuspected(BaseCase $case): ?bool
     {
         // Test Suspected
         if ($case->getAge() < 60) {
@@ -57,12 +56,12 @@ class PneumoniaListener extends BaseCaseListener
      * @param Pneumonia\Pneumonia|BaseCase $case
      * @return null|string
      */
-    public function getIncompleteField(BaseCase $case)
+    public function getIncompleteField(BaseCase $case): ?string
     {
         $regionCode = $case->getRegion()->getCode();
         foreach ($this->getMinimumRequiredFields($case, $regionCode) as $field) {
             $method = sprintf('get%s', $field);
-            $value = call_user_func([$case, $method]);
+            $value = $case->$method();
 
             if ($value === null || empty($value) || ($value instanceof ArrayChoice && $value->equal(-1))) {
                 return $field;
@@ -121,12 +120,7 @@ class PneumoniaListener extends BaseCaseListener
         return null;
     }
 
-    /**
-     * @param BaseCase $case
-     * @param string|null $regionCode
-     * @return array
-     */
-    public function getMinimumRequiredFields(BaseCase $case, $regionCode = null)
+    public function getMinimumRequiredFields(BaseCase $case, ?string $regionCode = null): array
     {
         $fields = [
             'caseId',
@@ -157,7 +151,7 @@ class PneumoniaListener extends BaseCaseListener
             'pneuMalnutrition',
         ];
 
-        if ($regionCode == 'AMR') {
+        if ($regionCode === 'AMR') {
             $fields = array_merge($fields, ['pneuOxygenSaturation', 'pneuFever', 'bloodNumberOfSamples', 'pleuralFluidCollected']);
             unset($fields[12]); // removes otherSpecimenCollected
         }

@@ -32,9 +32,9 @@ class IBDListener extends BaseCaseListener
      *            a bacterial pathogen (Hib, pneumococcus or meningococcus) in the CSF or from the blood in a child with a clinical
      *            syndrome consistent with bacterial meningitis
      * @param IBD|BaseCase $case
-     * @return mixed|void
+     * @return void
      */
-    public function calculateResult(BaseCase $case)
+    public function calculateResult(BaseCase $case): void
     {
         if ($case->getStatus()->getValue() >= CaseStatus::CANCELLED) {
             return;
@@ -81,14 +81,15 @@ class IBDListener extends BaseCaseListener
     }
 
     /**
-     * @param BaseCase $case
-     * @return null|string
+     * @param BaseCase|IBD $case
+     *
+     * @return string|null
      */
     public function getIncompleteField(BaseCase $case): ?string
     {
         foreach ($this->getMinimumRequiredFields($case) as $field) {
             $method = sprintf('get%s', $field);
-            $value  = call_user_func([$case, $method]);
+            $value  = $case->$method();
 
             if ($value === null || empty($value) || ($value instanceof ArrayChoice && $value->equal(-1))) {
                 return $field;
@@ -135,7 +136,6 @@ class IBDListener extends BaseCaseListener
         }
 
         if ($case->getCsfCollected() && $case->getCsfCollected()->equal(TripleChoice::YES)) {
-
             if ($case->getCsfCollectDate() === null) {
                 return 'csfCollectDate';
             }
@@ -160,7 +160,7 @@ class IBDListener extends BaseCaseListener
         return null;
     }
 
-    public function getMinimumRequiredFields(BaseCase $case, $regionCode = null): array
+    public function getMinimumRequiredFields(BaseCase $case, ?string $regionCode = null): array
     {
         $fields = [
             'caseId',
@@ -191,10 +191,10 @@ class IBDListener extends BaseCaseListener
             'cxrDone',
         ];
 
-        return (!$case->getCountry() || ($case->getCountry() && $case->getCountry()->getTracksPneumonia())) ? array_merge($fields, $this->getPneumiaRequiredFields()) : $fields;
+        return (!$case->getCountry() || ($case->getCountry() && $case->getCountry()->getTracksPneumonia())) ? array_merge($fields, $this->getPneumoniaRequiredFields()) : $fields;
     }
 
-    public function getPneumiaRequiredFields(): array
+    public function getPneumoniaRequiredFields(): array
     {
         return ['pneuDiffBreathe',
             'pneuChestIndraw',
