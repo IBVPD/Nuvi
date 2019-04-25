@@ -13,19 +13,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Description of ExportController
- *
- * @author gnat
  * @Route("/{_locale}/export")
  */
 class PneumoniaController extends BaseController
 {
+    protected $class = Pneumonia::class;
+
     /**
+     * @Route("/pneumonia",name="exportPneu")
+     *
      * @param Request $request
      *
      * @return Response
-     *
-     * @Route("/pneumonia",name="exportPneu")
      */
     public function exportAction(Request $request): Response
     {
@@ -41,8 +40,7 @@ class PneumoniaController extends BaseController
                 'nationalLab.%s' => $modelManager->getClassMetadata(NationalLab::class),
             ];
 
-            $this->adjustFields($meta, $fields);
-
+            $fields                = $this->adjustFields($meta, $fields);
             $query                 = $modelManager->getRepository(Pneumonia::class)->exportQuery('i');
             $arrayChoiceFormatter  = $this->get('ns_import.array_choice_formatter');
             $spnTypeGroupFormatter = $this->get('ns_import.serotype_group_formatter');

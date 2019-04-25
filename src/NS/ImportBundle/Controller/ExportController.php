@@ -7,9 +7,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Description of ExportController
- *
- * @author gnat
  * @Route("/{_locale}/export")
  */
 class ExportController extends BaseController
@@ -26,5 +23,4 @@ class ExportController extends BaseController
             'forms' => $forms,
         ]);
     }
-
 }

@@ -1,13 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gnat
- * Date: 20/06/18
- * Time: 1:45 PM
- */
 
 namespace NS\ImportBundle\Controller;
 
+use JMS\Serializer\Annotation\AccessorOrder;
+use ReflectionClass;
+use ReflectionException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\Common\Persistence\Mapping\ClassMetadata;
 use Doctrine\ORM\QueryBuilder;
@@ -18,35 +15,32 @@ use Exporter\Exporter;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
 use NS\SentinelBundle\Filter\Type as FilterType;
-//\IBD\ReportFilterType as IBDReportFilterType;
-//use NS\SentinelBundle\Filter\Type\Pneumonia\ReportFilterType as PneumoniaReportFilterType;
-//use NS\SentinelBundle\Filter\Type\Meningitis\ReportFilterType as MeningitisReportFilterType;
-//use NS\SentinelBundle\Filter\Type\RotaVirus\ReportFilterType as RotaVirusReportFilterType;
 
 class BaseController extends Controller
 {
+    protected $class;
     protected $baseField = ['region.code', 'country.code', 'site.code', 'id'];
     protected $formParams = ['validation_groups' => ['FieldPopulation'], 'include_filter' => false, 'include_paho_format_option' => true];
 
-    protected function getMeningForm()
+    protected function getMeningForm(): array
     {
         $meningForm = $this->createForm(FilterType\Meningitis\ReportFilterType::class, null, $this->formParams);
         return ['exportMening' => ['form' => $meningForm->createView(), 'title' => 'Meningitis Export Filters']];
     }
 
-    protected function getPneumoniaForm()
+    protected function getPneumoniaForm(): array
     {
         $pneuForm = $this->createForm(FilterType\Pneumonia\ReportFilterType::class, null, $this->formParams);
         return ['exportPneu' => ['form' => $pneuForm->createView(), 'title' => 'Pneumonia Export Filters']];
     }
 
-    protected function getRotaForm()
+    protected function getRotaForm(): array
     {
         $rotaForm = $this->createForm(FilterType\RotaVirus\ReportFilterType::class, null, $this->formParams);
         return ['exportRota' => ['form' => $rotaForm->createView(), 'title' => 'RotaVirus Export Filters']];
     }
 
-    protected function getIbdForm()
+    protected function getIbdForm(): array
     {
         $ibdForm = $this->createForm(FilterType\IBD\ReportFilterType::class, null, $this->formParams);
         return ['exportIbd' => ['form' => $ibdForm->createView(), 'title' => 'IBD Export Filters']];
@@ -58,33 +52,63 @@ class BaseController extends Controller
         $results += $this->getPneumoniaForm();
         $results += $this->getRotaForm();
 
-        return array_merge($results,$this->getIbdForm());
+        return array_merge($results, $this->getIbdForm());
     }
 
-    /**
-     * @param array $metas
-     * @param array $fields
-     */
-    protected function adjustFields(array $metas, array &$fields)
+    protected function adjustFields(array $metas, array $fields): array
     {
         /** @var ClassMetadata $meta */
         foreach ($metas as $sprint => $meta) {
             foreach ($meta->getFieldNames() as $field) {
-                if ($field == 'id') {
+                if ($field === 'id') {
                     continue;
                 }
 
                 $fields[] = sprintf($sprint, $field);
             }
         }
+
+        return $this->sortFields($fields);
+    }
+
+    protected function sortFields(array $fields): array
+    {
+        if ($this->class === null) {
+            return $fields;
+        }
+
+        $reader = $this->get('annotation_reader');
+        try {
+            $reflectedClass = new ReflectionClass($this->class);
+        } catch (ReflectionException $e) {
+            return $fields;
+        }
+
+        /** @var AccessorOrder|null $annotation */
+        $annotation = $reader->getClassAnnotation($reflectedClass, AccessorOrder::class);
+        if ($annotation) {
+            $order     = $annotation->custom;
+            $newFields = [];
+            foreach ($order as $key => $field) {
+                if (in_array($field, $fields, true)) {
+                    $newFields[] = $field;
+                }
+            }
+
+            $newFields += array_diff($newFields, $fields);
+
+            return $newFields;
+        }
+
+        return $fields;
     }
 
     /**
-     * @param string $format
+     * @param string        $format
      * @param FormInterface $form
-     * @param QueryBuilder $queryBuilder
-     * @param array $fields
-     * @param array $formatters
+     * @param QueryBuilder  $queryBuilder
+     * @param array         $fields
+     * @param array         $formatters
      *
      * @return Response
      */

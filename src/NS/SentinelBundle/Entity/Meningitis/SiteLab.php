@@ -1409,8 +1409,6 @@ class SiteLab implements BaseSiteLabInterface
         } else {
             $this->status->setValue(CaseStatus::COMPLETE);
         }
-
-        return;
     }
 
     public function getIncompleteField(): ?string
@@ -1544,7 +1542,7 @@ class SiteLab implements BaseSiteLabInterface
         return $this->blood_second_lab_time;
     }
 
-    public function setBloodSecondLabTime(?DateTime $blood_second_lab_time = null)
+    public function setBloodSecondLabTime(?DateTime $blood_second_lab_time = null): void
     {
         $this->blood_second_lab_time = $blood_second_lab_time;
     }

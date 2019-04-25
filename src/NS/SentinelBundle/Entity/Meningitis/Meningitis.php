@@ -28,8 +28,6 @@ use NS\SentinelBundle\Entity\Meningitis\ReferenceLab;
 use NS\SentinelBundle\Entity\Meningitis\NationalLab;
 
 /**
- * Description of IBD
- * @author gnat
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\Meningitis\MeningitisRepository")
  * @ORM\Table(name="mening_cases",uniqueConstraints={@ORM\UniqueConstraint(name="mening_site_case_id_idx",columns={"site_id","case_id"})})
  * @ORM\HasLifecycleCallbacks
@@ -48,6 +46,61 @@ use NS\SentinelBundle\Entity\Meningitis\NationalLab;
  *
  * @LocalAssert\RelatedField(sourceField="admDx",sourceValue={"1"},fields={"menSeizures","menFever","menAltConscious","menInabilityFeed","menNeckStiff","menRash","menFontanelleBulge","menLethargy"},message="field-is-required-due-to-adm-diagnosis")
  * @LocalAssert\PCV()
+ * @Serializer\AccessorOrder("custom", custom = {"region.code", "country.code", "site.code", "case_id","firstName","lastName","parentalName","gender","dobKnown","birthdate","district","state","id","age_months","ageDistribution","adm_date",
+ *     "adm_dx","adm_dx_other","onset_date","antibiotics",
+ *     "men_seizures","men_fever","men_alt_conscious","men_inability_feed","men_neck_stiff","men_rash","men_fontanelle_bulge","men_lethargy","men_irritability","men_vomit","men_malnutrition",
+ *     "hib_received","hib_doses","hib_most_recent_dose",
+ *     "pcv_received","pcv_doses","pcv_type","pcv_most_recent_dose",
+ *     "mening_received","mening_type","mening_date",
+ *     "csf_collected","csf_collect_date","csf_collect_time","csf_appearance",
+ *     "blood_collected","blood_collect_date","blood_collect_time",
+ *     "blood_number_of_samples","blood_second_collect_date","blood_second_collect_time",
+ *     "other_specimen_collected","other_specimen_other",
+ *     "disch_outcome","disch_dx","disch_dx_other","disch_class","disch_class_other","comment","result",
+ *     "siteLab.csf_id","siteLab.csf_lab_date","siteLab.csf_lab_time","siteLab.wcc","siteLab.glucose","siteLab.protein",
+ *     "siteLab.csf_cult_done","siteLab.csf_cult_result","siteLab.csf_cult_other","siteLab.csf_cult_contaminant",
+ *     "siteLab.csf_gram_done","siteLab.csf_gram_stain","siteLab.csf_gram_result","siteLab.csf_gram_other",
+ *     "siteLab.csf_binax_done","siteLab.csf_binax_result","siteLab.csf_binax_other",
+ *     "siteLab.csf_lat_done","siteLab.csf_lat_result","siteLab.csf_lat_other",
+ *     "siteLab.csf_pcr_done","siteLab.csf_pcr_result","siteLab.csf_pcr_result_other",
+ *     "siteLab.csf_store","siteLab.isol_store",
+ *     "siteLab.blood_id","siteLab.blood_lab_date","siteLab.blood_lab_time",
+ *     "siteLab.blood_cult_done","siteLab.blood_cult_result","siteLab.blood_cult_other",
+ *     "siteLab.blood_gram_done","siteLab.blood_gram_stain","siteLab.blood_gram_result","siteLab.blood_gram_other",
+ *     "siteLab.blood_pcr_done","siteLab.blood_pcr_result","siteLab.blood_pcr_other",
+ *     "siteLab.blood_second_id","siteLab.blood_second_lab_date","siteLab.blood_second_lab_time",
+ *     "siteLab.blood_second_cult_done","siteLab.blood_second_cult_result","siteLab.blood_second_cult_other",
+ *     "siteLab.blood_second_gram_done","siteLab.blood_second_gram_stain","siteLab.blood_second_gram_result","siteLab.blood_second_gram_other",
+ *     "siteLab.blood_second_pcr_done","siteLab.blood_second_pcr_result","siteLab.blood_second_pcr_result_other",
+ *     "siteLab.other_id","siteLab.other_type","siteLab.other_lab_time",
+ *     "siteLab.other_cult_done","siteLab.other_cult_result","siteLab.other_cult_other",
+ *     "siteLab.other_test_done","siteLab.other_test_result","siteLab.other_test_other",
+ *     "siteLab.nl_csf_sent","siteLab.nl_csf_date",
+ *     "siteLab.nl_isol_csf_sent","siteLab.nl_csf_blood_date",
+ *     "siteLab.nl_isol_blood_sent","siteLab.nl_isol_blood_date",
+ *     "siteLab.nl_broth_sent","siteLab.nl_broth_date",
+ *     "siteLab.nl_other_sent","siteLab.nl_other_date",
+ *     "siteLab.rl_csf_sent","siteLab.rl_csf_date",
+ *     "siteLab.rl_isol_csf_sent","siteLab.rl_csf_blood_date",
+ *     "siteLab.rl_isol_blood_sent","siteLab.rl_isol_blood_date",
+ *     "siteLab.rl_broth_sent","siteLab.rl_broth_date",
+ *     "siteLab.rl_other_sent","siteLab.rl_other_date",
+ *     "siteLab.updatedAt","siteLab.status",
+ *     "siteLab.adequate","siteLab.elisaDone","siteLab.elisaKit","siteLab.elisaKitOther","siteLab.elisaLoadNumber","siteLab.elisaExpiryDate","siteLab.elisaTestDate","siteLab.elisaResult","siteLab.stored","siteLab.genotypingDate","siteLab.genotypingResultG","siteLab.genotypeResultP","siteLab.genotypingResultGSpecify","siteLab.genotypeResultPSpecify","siteLab.stoolSentToNL","siteLab.stoolSentToNLDate","siteLab.stoolSentTo3RRL","siteLab.stoolSentTo3RRLDate",
+ *     "nationalLab.lab_id","nationalLab.dt_sample_recd","nationalLab.type_sample_recd","nationalLab.isolate_viable","nationalLab.isolate_type",
+ *     "nationalLab.method_used_pathogen_identify","nationalLab.method_used_pathogen_identify_other",
+ *     "nationalLab.method_used_st_sg","nationalLab.method_used_st_sg_other",
+ *     "nationalLab.spn_lytA","nationalLab.nm_ctrA","nationalLab.nm_sodC","nationalLab.hi_hpd1","nationalLab.hi_hpd3","nationalLab.hi_bexA","nationalLab.humanDNA_RNAseP",
+ *     "nationalLab.final_RL_result_detection","nationalLab.spn_serotype","nationalLab.hi_serotype","nationalLab.nm_serogroup",
+ *     "nationalLab.rl_isol_csf_sent","nationalLab.rl_isol_csf_date",
+ *     "nationalLab.rl_isol_blood_sent","nationalLab.rl_isol_blood_date","nationalLab.rl_other_sent","nationalLab.rl_other_date",
+ *     "nationalLab.comment","nationalLab.status","nationalLab.createdAt","nationalLab.updatedAt",
+ *     "referenceLab.lab_id","referenceLab.dt_sample_recd","referenceLab.type_sample_recd","referenceLab.isolate_viable","referenceLab.isolate_type",
+ *     "referenceLab.method_used_pathogen_identify","referenceLab.method_used_pathogen_identify_other",
+ *     "referenceLab.method_used_st_sg","referenceLab.method_used_st_sg_other",
+ *     "referenceLab.spn_lytA","referenceLab.nm_ctrA","referenceLab.nm_sodC","referenceLab.hi_hpd1","referenceLab.hi_hpd3","referenceLab.hi_bexA","referenceLab.humanDNA_RNAseP",
+ *     "referenceLab.final_RL_result_detection","referenceLab.spn_serotype","referenceLab.hi_serotype","referenceLab.nm_serogroup",
+ *     "referenceLab.comment","referenceLab.status","referenceLab.createdAt","referenceLab.updatedAt"})
  */
 class Meningitis extends BaseCase
 {
@@ -223,6 +276,7 @@ class Meningitis extends BaseCase
 
     /**
      * @var DateTime|null
+
      * @ORM\Column(name="hib_most_recent_dose",type="date",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")

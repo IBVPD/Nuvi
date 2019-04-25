@@ -26,7 +26,6 @@ use NS\SentinelBundle\Validators as LocalAssert;
 use NS\UtilBundle\Validator\Constraints\ArrayChoiceConstraint;
 
 /**
- * Description of IBD
  * @author gnat
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\Pneumonia\PneumoniaRepository")
  * @ORM\Table(name="pneu_cases",uniqueConstraints={@ORM\UniqueConstraint(name="pneu_site_case_id_idx",columns={"site_id","case_id"})})
@@ -46,6 +45,52 @@ use NS\UtilBundle\Validator\Constraints\ArrayChoiceConstraint;
  *
  * @LocalAssert\RelatedField(sourceField="admDx",sourceValue={"2","3"},fields={"pneuCyanosis","pneuVomit","pneuHypothermia","pneuMalnutrition","pneuDiffBreathe","pneuChestIndraw","pneuCough","pneuStridor","pneu_resp_rate","cxrDone"},message="field-is-required-due-to-adm-diagnosis")
  * @LocalAssert\PCV()
+ * @Serializer\AccessorOrder("custom", custom = {"region.code", "country.code", "site.code", "case_id","firstName","lastName","parentalName","gender","dobKnown","birthdate","district","state","id","age_months","ageDistribution","adm_date",
+ *     "adm_dx","adm_dx_other","onset_date","antibiotics",
+ *     "pneu_diff_breathe","pneu_chest_indraw","pneu_cough","pneu_cyanosis","pneu_stridor","pneu_resp_rate","pneu_oxygen_saturation","pneu_vomit","pneu_hypothermia","pneu_malnutrition","pneu_fever","cxr_done","cxr_result","cxr_additional_result",
+ *     "hib_received","hib_doses","hib_most_recent_dose",
+ *     "pcv_received","pcv_doses","pcv_type","pcv_most_recent_dose",
+ *     "mening_received","mening_type","mening_date",
+ *     "blood_collected","blood_collect_date","blood_collect_time",
+ *     "blood_number_of_samples","blood_second_collect_date","blood_second_collect_time",
+ *     "pleural_collected","pleural_collect_date","pleural_collect_time",
+ *     "other_specimen_collected","other_specimen_other",
+ *     "disch_outcome","disch_dx","disch_dx_other","disch_class","disch_class_other","comment","result",
+ *     "siteLab.blood_id","siteLab.blood_lab_date","siteLab.blood_lab_time",
+ *     "siteLab.blood_cult_done","siteLab.blood_cult_result","siteLab.blood_cult_other",
+ *     "siteLab.blood_gram_done","siteLab.blood_gram_stain","siteLab.blood_gram_result","siteLab.blood_gram_other",
+ *     "siteLab.blood_pcr_done","siteLab.blood_pcr_result","siteLab.blood_pcr_result_other",
+ *     "siteLab.blood_second_id","siteLab.blood_second_lab_date","siteLab.blood_second_lab_time",
+ *     "siteLab.blood_second_cult_done","siteLab.blood_second_cult_result","siteLab.blood_second_cult_other",
+ *     "siteLab.blood_second_gram_done","siteLab.blood_second_gram_stain","siteLab.blood_second_gram_result","siteLab.blood_second_gram_other",
+ *     "siteLab.blood_second_pcr_done","siteLab.blood_second_pcr_result","siteLab.blood_second_pcr_result_other",
+ *     "siteLab.other_id","siteLab.other_type","siteLab.other_lab_time",
+ *     "siteLab.other_cult_done","siteLab.other_cult_result","siteLab.other_cult_other",
+ *     "siteLab.other_test_done","siteLab.other_test_result","siteLab.other_test_other",
+ *     "siteLab.pleural_fluid_culture_done","siteLab.pleural_fluid_culture_result","siteLab.pleural_fluid_culture_other",
+ *     "siteLab.pleural_fluid_gram_done","siteLab.pleural_fluid_gram_result","siteLab.pleural_fluid_gram_result_organism",
+ *     "siteLab.pleural_fluid_pcr_done","siteLab.pleural_fluid_pcr_result","siteLab.pleural_fluid_pcr_other",
+ *     "siteLab.nl_isol_blood_sent","siteLab.nl_isol_blood_date",
+ *     "siteLab.nl_broth_sent","siteLab.nl_broth_date",
+ *     "siteLab.nl_other_sent","siteLab.nl_other_date",
+ *     "siteLab.rl_isol_blood_sent","siteLab.rl_isol_blood_date",
+ *     "siteLab.rl_broth_sent","siteLab.rl_broth_date",
+ *     "siteLab.rl_other_sent","siteLab.rl_other_date",
+ *     "siteLab.updatedAt","siteLab.status",
+ *     "siteLab.adequate","siteLab.elisaDone","siteLab.elisaKit","siteLab.elisaKitOther","siteLab.elisaLoadNumber","siteLab.elisaExpiryDate","siteLab.elisaTestDate","siteLab.elisaResult","siteLab.stored","siteLab.genotypingDate","siteLab.genotypingResultG","siteLab.genotypeResultP","siteLab.genotypingResultGSpecify","siteLab.genotypeResultPSpecify","siteLab.stoolSentToNL","siteLab.stoolSentToNLDate","siteLab.stoolSentTo3RRL","siteLab.stoolSentTo3RRLDate",
+ *     "nationalLab.lab_id","nationalLab.dt_sample_recd","nationalLab.type_sample_recd","nationalLab.isolate_viable","nationalLab.isolate_type",
+ *     "nationalLab.method_used_pathogen_identify","nationalLab.method_used_pathogen_identify_other",
+ *     "nationalLab.method_used_st_sg","nationalLab.method_used_st_sg_other",
+ *     "nationalLab.spn_lytA","nationalLab.nm_ctrA","nationalLab.nm_sodC","nationalLab.hi_hpd1","nationalLab.hi_hpd3","nationalLab.hi_bexA","nationalLab.humanDNA_RNAseP",
+ *     "nationalLab.final_RL_result_detection","nationalLab.spn_serotype","nationalLab.hi_serotype","nationalLab.nm_serogroup",
+ *     "nationalLab.rl_isol_blood_sent","nationalLab.rl_isol_blood_date","nationalLab.rl_other_sent","nationalLab.rl_other_date",
+ *     "nationalLab.comment","nationalLab.status","nationalLab.createdAt","nationalLab.updatedAt",
+ *     "referenceLab.lab_id","referenceLab.dt_sample_recd","referenceLab.type_sample_recd","referenceLab.isolate_viable","referenceLab.isolate_type",
+ *     "referenceLab.method_used_pathogen_identify","referenceLab.method_used_pathogen_identify_other",
+ *     "referenceLab.method_used_st_sg","referenceLab.method_used_st_sg_other",
+ *     "referenceLab.spn_lytA","referenceLab.nm_ctrA","referenceLab.nm_sodC","referenceLab.hi_hpd1","referenceLab.hi_hpd3","referenceLab.hi_bexA","referenceLab.humanDNA_RNAseP",
+ *     "referenceLab.final_RL_result_detection","referenceLab.spn_serotype","referenceLab.hi_serotype","referenceLab.nm_serogroup",
+ *     "referenceLab.comment","referenceLab.status","referenceLab.createdAt","referenceLab.updatedAt"})
  */
 class Pneumonia extends BaseCase
 {
