@@ -6,8 +6,10 @@ use NS\ImportBundle\Entity\Import;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\TranslatorInterface;
+use Twig_Extension;
+use Twig_SimpleFunction;
 
-class ImportResultActions extends \Twig_Extension
+class ImportResultActions extends Twig_Extension
 {
     /**
      * @var RouterInterface
@@ -35,7 +37,7 @@ class ImportResultActions extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return [new \Twig_SimpleFunction('import_actions', [$this, 'importActions'], ['is_safe'=> ['html', 'js']])];
+        return [new Twig_SimpleFunction('import_actions', [$this, 'importActions'], ['is_safe'=> ['html', 'js']])];
     }
 
     /**

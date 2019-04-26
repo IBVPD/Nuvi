@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Controller;
 
+use Doctrine\ORM\UnexpectedResultException;
 use NS\SentinelBundle\Entity\Pneumonia\NationalLab;
 use NS\SentinelBundle\Entity\Pneumonia\Pneumonia;
 use NS\SentinelBundle\Entity\Pneumonia\ReferenceLab;
@@ -12,6 +13,7 @@ use NS\SentinelBundle\Form\Pneumonia\NationalLabType;
 use NS\SentinelBundle\Form\Pneumonia\OutcomeType;
 use NS\SentinelBundle\Form\Pneumonia\ReferenceLabType;
 use NS\SentinelBundle\Form\Pneumonia\SiteLabType;
+use RuntimeException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -35,10 +37,11 @@ class PneumoniaController extends BaseCaseController
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @Route("/create",name="pneumoniaCreate")
      * @Method({"POST","GET"})
-     * @return Response|\Symfony\Component\HttpFoundation\RedirectResponse
+     *
+     * @return Response|RedirectResponse
      */
     public function createAction(Request $request)
     {
@@ -56,7 +59,8 @@ class PneumoniaController extends BaseCaseController
      * @Method(methods={"GET","POST"})
      * @param Request $request
      * @param null $id
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse|Response
+     *
+     * @return array|RedirectResponse|Response
      */
     public function editAction(Request $request, $id = null)
     {
@@ -68,7 +72,8 @@ class PneumoniaController extends BaseCaseController
     /**
      * @Route("/delete/{id}",name="pneumoniaDelete")
      * @param $id
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     *
+     * @return RedirectResponse
      */
     public function deleteAction($id)
     {
@@ -80,7 +85,8 @@ class PneumoniaController extends BaseCaseController
      * @Method(methods={"GET","POST"})
      * @param Request $request
      * @param null $id
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse|Response
+     *
+     * @return array|RedirectResponse|Response
      */
     public function editRRLAction(Request $request, $id = null)
     {
@@ -92,8 +98,9 @@ class PneumoniaController extends BaseCaseController
      * @Route("/nl/edit/{id}",name="pneumoniaNLEdit",defaults={"id"=null})
      * @Method(methods={"GET","POST"})
      * @param Request $request
-     * @param null $id
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @param null    $id
+     *
+     * @return array|RedirectResponse|Response
      */
     public function editNLAction(Request $request, $id = null)
     {
@@ -106,8 +113,9 @@ class PneumoniaController extends BaseCaseController
      * @Route("/lab/edit/{id}",name="pneumoniaLabEdit",defaults={"id"=null})
      * @Method(methods={"GET","POST"})
      * @param Request $request
-     * @param null $id
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @param null    $id
+     *
+     * @return array|RedirectResponse|Response
      */
     public function editLabAction(Request $request, $id = null)
     {
@@ -119,8 +127,9 @@ class PneumoniaController extends BaseCaseController
      * @Route("/outcome/edit/{id}",name="pneumoniaOutcomeEdit",defaults={"id"=null})
      * @Method(methods={"GET","POST"})
      * @param Request $request
-     * @param null $id
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @param null    $id
+     *
+     * @return array|RedirectResponse|Response
      */
     public function editOutcomeAction(Request $request, $id = null)
     {
@@ -133,7 +142,7 @@ class PneumoniaController extends BaseCaseController
      * @param string $objId
      * @param bool $forDelete
      * @return mixed|\NS\SentinelBundle\Entity\Pneumonia|null
-     * @throws \Doctrine\ORM\UnexpectedResultException
+     * @throws UnexpectedResultException
      */
     protected function getObject($type, $objId, $forDelete = false)
     {
@@ -151,7 +160,7 @@ class PneumoniaController extends BaseCaseController
             case NationalLabType::class:
                 return $this->get('doctrine.orm.entity_manager')->getRepository(NationalLab::class)->findOrCreateNew($objId);
             default:
-                throw new \RuntimeException('Unknown type');
+                throw new RuntimeException('Unknown type');
         }
     }
 

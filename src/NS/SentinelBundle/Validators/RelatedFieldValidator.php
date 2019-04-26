@@ -10,12 +10,13 @@ namespace NS\SentinelBundle\Validators;
 
 use NS\UtilBundle\Form\Types\ArrayChoice;
 use Symfony\Component\PropertyAccess\PropertyAccess;
+use Symfony\Component\PropertyAccess\PropertyAccessor;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 class RelatedFieldValidator extends ConstraintValidator
 {
-    /** @var \Symfony\Component\PropertyAccess\PropertyAccessor */
+    /** @var PropertyAccessor */
     private $propertyAccessor;
 
     /**

@@ -11,8 +11,10 @@ namespace NS\SentinelBundle\Twig;
 
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
+use Twig_Extension;
+use Twig_SimpleFilter;
 
-class CTValueExtension extends \Twig_Extension implements TranslationContainerInterface
+class CTValueExtension extends Twig_Extension implements TranslationContainerInterface
 {
     /**
      * @var array
@@ -29,7 +31,7 @@ class CTValueExtension extends \Twig_Extension implements TranslationContainerIn
     public function getFilters()
     {
         return [
-            new \Twig_SimpleFilter('ct_value', [$this, 'renderCTValue'])
+            new Twig_SimpleFilter('ct_value', [$this, 'renderCTValue'])
         ];
     }
 

@@ -2,7 +2,9 @@
 
 namespace NS\SentinelBundle\Repository;
 
+use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
+use InvalidArgumentException;
 use NS\SentinelBundle\Repository\Common as CommonRepository;
 
 class SiteRepository extends CommonRepository
@@ -59,7 +61,7 @@ class SiteRepository extends CommonRepository
         } elseif (is_string($codes)) {
             $queryBuilder->andWhere('s.code = :codes')->setParameter('codes', $codes);
         } else {
-            throw new \InvalidArgumentException(sprintf('Must provide an array of codes or single code. Received: %s', gettype($codes)));
+            throw new InvalidArgumentException(sprintf('Must provide an array of codes or single code. Received: %s', gettype($codes)));
         }
 
         return $this->secure($queryBuilder)->getQuery()->getResult();
@@ -108,7 +110,7 @@ class SiteRepository extends CommonRepository
      * @param $fields
      * @param array $value
      * @param $limit
-     * @return \Doctrine\ORM\Query
+     * @return Query
      */
     public function getForAutoComplete($fields, array $value, $limit)
     {

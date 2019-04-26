@@ -9,6 +9,7 @@ use NS\SentinelBundle\Form\ResetPasswordType;
 use NS\TokenBundle\Generator\InvalidTokenException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Swift_Message;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -58,7 +59,7 @@ class SecurityController extends Controller
                 $fpHtml = $this->renderView('NSSentinelBundle:Mail:forgot-password.html.twig', ['user' => $user]);
                 $fpText = $this->renderView('NSSentinelBundle:Mail:forgot-password.text.twig', ['user' => $user]);
 
-                $message = new \Swift_Message('Forgotten Password');
+                $message = new Swift_Message('Forgotten Password');
                 $message->setTo($user->getEmail(),$user->getName());
                 $message->setFrom('noreply@who.int');
                 $message->setBody($fpHtml,'text/html');

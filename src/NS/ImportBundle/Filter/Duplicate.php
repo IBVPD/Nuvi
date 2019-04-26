@@ -5,6 +5,8 @@ namespace NS\ImportBundle\Filter;
 use Ddeboer\DataImport\Exception\UnexpectedValueException;
 use Ddeboer\DataImport\ReporterInterface;
 use Doctrine\Common\Collections\ArrayCollection;
+use function is_array;
+use function is_string;
 use NS\ImportBundle\Exceptions\InvalidEncodingException;
 use Symfony\Component\HttpFoundation\File\File;
 
@@ -67,7 +69,7 @@ class Duplicate implements ReporterInterface
 
     public function cleanValues($input)
     {
-        if (\is_array($input)) {
+        if (is_array($input)) {
             $output = '';
             foreach ($input as $value) {
                 $output .= sprintf('%s_', $this->cleanValues($value));
@@ -76,7 +78,7 @@ class Duplicate implements ReporterInterface
             return $output;
         }
 
-        if (\is_string($input) && !mb_check_encoding($input, 'UTF-8')) {
+        if (is_string($input) && !mb_check_encoding($input, 'UTF-8')) {
             throw new InvalidEncodingException(sprintf('Invalid UTF-8 key value %s', $input));
         }
 
@@ -147,7 +149,7 @@ class Duplicate implements ReporterInterface
 
     /**
      * @param array $fields
-     * @return \NS\ImportBundle\Filter\Duplicate
+     * @return Duplicate
      */
     public function setFields(array $fields)
     {

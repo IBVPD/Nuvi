@@ -43,9 +43,11 @@ class MapAdminController extends CRUDController
 
     /**
      * @param Request $request
-     * @param Map $object
+     * @param Map     $object
+     *
+     * @return RedirectResponse|null
      */
-    protected function preDelete(Request $request, $object)
+    protected function preDelete(Request $request, $object): ?RedirectResponse
     {
         /** @var ImportRepository $repo */
         $repo = $this->admin->getModelManager()->getEntityManager(Import::class)->getRepository(Import::class);

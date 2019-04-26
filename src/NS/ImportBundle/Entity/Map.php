@@ -226,7 +226,8 @@ class Map
     /**
      *
      * @param string $description
-     * @return \NS\ImportBundle\Entity\Map
+     *
+     * @return Map
      */
     public function setDescription($description)
     {
@@ -237,7 +238,8 @@ class Map
     /**
      *
      * @param UploadedFile $file
-     * @return \NS\ImportBundle\Entity\Map
+     *
+     * @return Map
      */
     public function setFile(UploadedFile $file)
     {
@@ -248,7 +250,8 @@ class Map
     /**
      *
      * @param string $class
-     * @return \NS\ImportBundle\Entity\Map
+     *
+     * @return Map
      */
     public function setClass($class)
     {
@@ -260,7 +263,8 @@ class Map
     /**
      *
      * @param string $version
-     * @return \NS\ImportBundle\Entity\Map
+     *
+     * @return Map
      */
     public function setVersion($version)
     {
@@ -272,7 +276,8 @@ class Map
     /**
      *
      * @param string $name
-     * @return \NS\ImportBundle\Entity\Map
+     *
+     * @return Map
      */
     public function setName($name)
     {
@@ -284,7 +289,8 @@ class Map
     /**
      *
      * @param Collection $columns
-     * @return \NS\ImportBundle\Entity\Map
+     *
+     * @return Map
      */
     public function setColumns(Collection $columns)
     {
@@ -299,8 +305,9 @@ class Map
 
     /**
      *
-     * @param \NS\ImportBundle\Entity\Column $column
-     * @return \NS\ImportBundle\Entity\Map
+     * @param Column $column
+     *
+     * @return Map
      */
     public function addColumn(Column $column)
     {
@@ -313,8 +320,9 @@ class Map
 
     /**
      *
-     * @param \NS\ImportBundle\Entity\Column $column
-     * @return \NS\ImportBundle\Entity\Map
+     * @param Column $column
+     *
+     * @return Map
      */
     public function removeColumn(Column $column)
     {

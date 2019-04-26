@@ -74,7 +74,7 @@ class ImportController extends Controller
      * @param $id
      * @Route("/execute/{id}",name="importExecute",requirements={"id"="\d+"})
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
     public function executeAction($id)
     {

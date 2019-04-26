@@ -3,13 +3,15 @@
 namespace NS\SentinelBundle\Twig;
 
 use NS\SentinelBundle\Entity\BaseCase;
+use Twig_Extension;
+use Twig_SimpleFunction;
 
 /**
  * Description of CaseStatus
  *
  * @author gnat
  */
-class CaseStatus extends \Twig_Extension
+class CaseStatus extends Twig_Extension
 {
     /**
      * @return array
@@ -19,10 +21,10 @@ class CaseStatus extends \Twig_Extension
         $isSafe = ['is_safe' => ['html']];
 
         return [
-            new \Twig_SimpleFunction('case_label', [$this, 'getLabel'], $isSafe),
-            new \Twig_SimpleFunction('case_lab_label', [$this, 'getLabLabel'], $isSafe),
-            new \Twig_SimpleFunction('case_rrl_label', [$this, 'getRRLLabel'], $isSafe),
-            new \Twig_SimpleFunction('case_nl_label', [$this, 'getNLLabel'], $isSafe),
+            new Twig_SimpleFunction('case_label', [$this, 'getLabel'], $isSafe),
+            new Twig_SimpleFunction('case_lab_label', [$this, 'getLabLabel'], $isSafe),
+            new Twig_SimpleFunction('case_rrl_label', [$this, 'getRRLLabel'], $isSafe),
+            new Twig_SimpleFunction('case_nl_label', [$this, 'getNLLabel'], $isSafe),
         ];
     }
 

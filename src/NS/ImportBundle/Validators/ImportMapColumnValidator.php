@@ -2,6 +2,8 @@
 
 namespace NS\ImportBundle\Validators;
 
+use function get_class;
+use InvalidArgumentException;
 use NS\ImportBundle\Converter\ColumnChooser;
 use NS\ImportBundle\Entity\Column;
 use Symfony\Component\Validator\Constraint;
@@ -30,7 +32,7 @@ class ImportMapColumnValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
         if (!$value instanceof Column) {
-            throw new \InvalidArgumentException(sprintf('Expected object of class %s received %s', Column::class, \get_class($value)));
+            throw new InvalidArgumentException(sprintf('Expected object of class %s received %s', Column::class, get_class($value)));
         }
 
         if (empty($this->complexChoices)) {

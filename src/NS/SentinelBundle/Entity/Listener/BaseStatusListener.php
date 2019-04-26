@@ -1,41 +1,27 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: gnat
- * Date: 27/07/18
- * Time: 8:31 AM
- */
 
 namespace NS\SentinelBundle\Entity\Listener;
 
+use DateTime;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use NS\SentinelBundle\Entity\BaseCase;
 use NS\SentinelBundle\Form\Types\CaseStatus;
 
 abstract class BaseStatusListener
 {
-    /**
-     * @param BaseCase $case
-     * @param LifecycleEventArgs $event
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function preUpdate($case, LifecycleEventArgs $event)
+    public function preUpdate(BaseCase $case, LifecycleEventArgs $event): void
     {
         $this->calculateStatus($case);
-        $case->setUpdatedAt(new \DateTime());
+        $case->setUpdatedAt(new DateTime());
     }
 
-    /**
-     * @param $case
-     * @param LifecycleEventArgs $event
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     */
-    public function prePersist($case, LifecycleEventArgs $event)
+    public function prePersist(BaseCase $case, LifecycleEventArgs $event): void
     {
         $this->calculateStatus($case);
-        $case->setUpdatedAt(new \DateTime());
+        $case->setUpdatedAt(new DateTime());
     }
 
-    public function calculateStatus($case)
+    public function calculateStatus($case): void
     {
         if ($case->getStatus()->equal(CaseStatus::CANCELLED)) {
             return;
@@ -47,5 +33,5 @@ abstract class BaseStatusListener
 
     abstract public function getIncompleteField($case);
 
-    abstract protected function getMinimumRequiredFields($case, $regionCode = null);
+    abstract protected function getMinimumRequiredFields($case, ?string $regionCode = null);
 }

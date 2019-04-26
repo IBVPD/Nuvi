@@ -15,7 +15,7 @@ class GeneralStatisticResult extends AbstractGeneralStatisticResult
 {
     /**
      * @param array $dischargeOutcomeDistribution
-     * @return \NS\SentinelBundle\Report\Result\RotaVirus\GeneralStatisticResult
+     * @return GeneralStatisticResult
      */
     public function setDischargeOutcomeDistribution($dischargeOutcomeDistribution)
     {

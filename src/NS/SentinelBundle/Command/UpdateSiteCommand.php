@@ -5,6 +5,7 @@ namespace NS\SentinelBundle\Command;
 use Ddeboer\DataImport\Step\ValueConverterStep;
 use Ddeboer\DataImport\Workflow\StepAggregator;
 use Ddeboer\DataImport\Writer\DoctrineWriter;
+use Exception;
 use NS\ImportBundle\Reader\ExcelReader;
 use NS\SentinelBundle\Converter\ArrayChoiceConverter;
 use NS\SentinelBundle\Entity\Site;
@@ -81,7 +82,7 @@ class UpdateSiteCommand extends ContainerAwareCommand
         try {
             $result = $worker->process();
             $output->writeln(sprintf('Processed %d records', $result->getSuccessCount()));
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $output->writeln('Exception: '.$exception->getMessage());
             foreach ($exception->getTrace() as $index => $trace) {
                 $output->writeln(sprintf('%d: %s::%s on line %d', $index, $trace['class'], $trace['function'], $trace['line']));

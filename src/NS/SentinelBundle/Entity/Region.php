@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Groups;
 use NS\SecurityBundle\Annotation as Security;
+use Serializable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -23,7 +24,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @SuppressWarnings(PHPMD.ShortVariable)
  * @UniqueEntity(fields={"code"})
  */
-class Region implements \Serializable
+class Region implements Serializable
 {
     /**
      * @var string

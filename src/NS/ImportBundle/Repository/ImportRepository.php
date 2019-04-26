@@ -3,27 +3,27 @@
 namespace NS\ImportBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\UnexpectedResultException;
+use Exception;
 use NS\ImportBundle\Entity\Import;
 use NS\ImportBundle\Entity\Map;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Throwable;
 
-/**
- * Description of Result
- *
- * @author gnat
- */
 class ImportRepository extends EntityRepository
 {
     /**
      * @param UserInterface $user
      * @param string        $alias
      *
-     * @return \Doctrine\ORM\QueryBuilder
-     * @throws \Doctrine\ORM\ORMException
+     * @return QueryBuilder
+     * @throws ORMException
      */
-    public function getResultsForUser(UserInterface $user, $alias = 'r')
+    public function getResultsForUser(UserInterface $user, $alias = 'r'): QueryBuilder
     {
         return $this->createQueryBuilder($alias)
             ->where(sprintf('%s.user = :user', $alias))
@@ -31,14 +31,7 @@ class ImportRepository extends EntityRepository
             ->orderBy($alias . '.id', 'DESC');
     }
 
-    /**
-     * @param UserInterface $user
-     * @param               $resultId
-     *
-     * @return mixed
-     * @throws \Doctrine\ORM\ORMException
-     */
-    public function findForUser(UserInterface $user, $resultId)
+    public function findForUser(UserInterface $user, int $resultId): ?Import
     {
         try {
             return $this->createQueryBuilder('r')
@@ -47,6 +40,7 @@ class ImportRepository extends EntityRepository
                 ->getQuery()
                 ->getSingleResult();
         } catch (UnexpectedResultException $exception) {
+            return null;
         }
     }
 
@@ -55,7 +49,7 @@ class ImportRepository extends EntityRepository
      *
      * @return array
      */
-    public function getStatistics($id)
+    public function getStatistics($id): ?array
     {
         try {
             $result               = $this->createQueryBuilder('r')
@@ -76,19 +70,19 @@ class ImportRepository extends EntityRepository
     }
 
     /**
-     * @param Import                $import
-     * @param \Exception|\Throwable $exception
+     * @param Import              $import
+     * @param Exception|Throwable $exception
      *
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws OptimisticLockException
      */
-    public function setImportException(Import $import, $exception)
+    public function setImportException(Import $import, $exception): void
     {
         $exceptionStr = 'Unknown error';
-        if ($exception instanceof \Throwable || $exception instanceof \Exception) {
+        if ($exception instanceof Throwable || $exception instanceof Exception) {
             $exceptionStr = $exception->getMessage() . "\n\n";
 
             foreach ($exception->getTrace() as $index => $trace) {
-                $exceptionStr .= sprintf("%d: %s::%s on line %d\n", $index, isset($trace['class']) ? $trace['class'] : 'Unknown', isset($trace['function']) ? $trace['function'] : 'Unknown', isset($trace['line']) ? $trace['line'] : -1);
+                $exceptionStr .= sprintf("%d: %s::%s on line %d\n", $index, $trace['class'] ?? 'Unknown', $trace['function'] ?? 'Unknown', $trace['line'] ?? -1);
             }
         }
 
@@ -98,7 +92,7 @@ class ImportRepository extends EntityRepository
         $this->_em->flush($import);
     }
 
-    public function getNewOrRunning()
+    public function getNewOrRunning(): ?Import
     {
         try {
             return $this->createQueryBuilder('i')
@@ -115,7 +109,7 @@ class ImportRepository extends EntityRepository
         }
     }
 
-    public function getMapResultCount(Map $map)
+    public function getMapResultCount(Map $map): int
     {
         try {
             return $this->createQueryBuilder('i')

@@ -2,6 +2,7 @@
 
 namespace NS\ImportBundle\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use NS\ImportBundle\Entity\Validator as LocalAssert;
 use NS\SentinelBundle\Entity\ReferenceLab;
@@ -59,7 +60,7 @@ class Import
     private $position = 0;
 
     /**
-     * @var \DateTime $inputDateStart
+     * @var DateTime $inputDateStart
      * @ORM\Column(name="inputDateStart",type="date")
      * @Assert\NotBlank()
      * @Assert\Date()
@@ -67,7 +68,7 @@ class Import
     private $inputDateStart;
 
     /**
-     * @var \DateTime $inputDateEnd
+     * @var DateTime $inputDateEnd
      * @ORM\Column(name="inputDateEnd",type="date")
      * @Assert\NotBlank()
      * @Assert\Date()
@@ -75,7 +76,7 @@ class Import
     private $inputDateEnd;
 
     /**
-     * @var \NS\SentinelBundle\Entity\ReferenceLab $referenceLab
+     * @var ReferenceLab $referenceLab
      * @ORM\ManyToOne(targetEntity="NS\SentinelBundle\Entity\ReferenceLab")
      */
     private $referenceLab;
@@ -83,19 +84,19 @@ class Import
     // ---------------------------------------------------------------------------------------
 
     /**
-     * @var \DateTime $createdAt
+     * @var DateTime $createdAt
      * @ORM\Column(name="createdAt",type="datetime")
      */
     private $createdAt;
 
     /**
-     * @var \DateTime $startedAt
+     * @var DateTime $startedAt
      * @ORM\Column(name="startedAt",type="datetime",nullable=true)
      */
     private $startedAt;
 
     /**
-     * @var \DateTime $endedAt
+     * @var DateTime $endedAt
      * @ORM\Column(name="endedAt",type="datetime",nullable=true)
      */
     private $endedAt;
@@ -233,7 +234,7 @@ class Import
     private $stackTrace;
 
     /**
-     * @var \NS\SentinelBundle\Entity\User $user
+     * @var User $user
      * @ORM\ManyToOne(targetEntity="NS\SentinelBundle\Entity\User")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -245,7 +246,7 @@ class Import
      */
     public function __construct(UserInterface $user)
     {
-        $this->createdAt = new \DateTime();
+        $this->createdAt = new DateTime();
         $this->user      = $user;
         $this->status    = self::STATUS_NEW;
     }
@@ -278,7 +279,7 @@ class Import
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getInputDateStart()
     {
@@ -286,17 +287,17 @@ class Import
     }
 
     /**
-     * @param \DateTime $inputDateStart
+     * @param DateTime $inputDateStart
      * @return Import
      */
-    public function setInputDateStart(\DateTime $inputDateStart = null)
+    public function setInputDateStart(DateTime $inputDateStart = null)
     {
         $this->inputDateStart = $inputDateStart;
         return $this;
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getInputDateEnd()
     {
@@ -304,17 +305,17 @@ class Import
     }
 
     /**
-     * @param \DateTime $inputDateEnd
+     * @param DateTime $inputDateEnd
      * @return Import
      */
-    public function setInputDateEnd(\DateTime $inputDateEnd = null)
+    public function setInputDateEnd(DateTime $inputDateEnd = null)
     {
         $this->inputDateEnd = $inputDateEnd;
         return $this;
     }
 
     /**
-     * @return \NS\SentinelBundle\Entity\ReferenceLab
+     * @return ReferenceLab
      */
     public function getReferenceLab()
     {
@@ -322,7 +323,8 @@ class Import
     }
 
     /**
-     * @param \NS\SentinelBundle\Entity\ReferenceLab $referenceLab
+     * @param ReferenceLab $referenceLab
+     *
      * @return Import
      */
     public function setReferenceLab(ReferenceLab $referenceLab = null)
@@ -456,7 +458,8 @@ class Import
     /**
      *
      * @param integer $sourceCount
-     * @return \NS\ImportBundle\Entity\Import
+     *
+     * @return Import
      */
     public function setSourceCount($sourceCount)
     {
@@ -484,8 +487,9 @@ class Import
 
     /**
      *
-     * @param \NS\SentinelBundle\Entity\User $user
-     * @return \NS\ImportBundle\Entity\Import
+     * @param User $user
+     *
+     * @return Import
      */
     public function setUser(User $user)
     {
@@ -496,7 +500,8 @@ class Import
     /**
      *
      * @param integer $processedCount
-     * @return \NS\ImportBundle\Entity\Import
+     *
+     * @return Import
      */
     public function setProcessedCount($processedCount)
     {
@@ -517,7 +522,8 @@ class Import
     /**
      *
      * @param integer $importedCount
-     * @return \NS\ImportBundle\Entity\Import
+     *
+     * @return Import
      */
     public function setImportedCount($importedCount)
     {
@@ -528,7 +534,8 @@ class Import
     /**
      *
      * @param string $mapName
-     * @return \NS\ImportBundle\Entity\Import
+     *
+     * @return Import
      */
     public function setMapName($mapName)
     {
@@ -547,8 +554,9 @@ class Import
 
     /**
      *
-     * @param \NS\ImportBundle\Entity\Map $map
-     * @return \NS\ImportBundle\Entity\Import
+     * @param Map $map
+     *
+     * @return Import
      */
     public function setMap(Map $map)
     {
@@ -559,7 +567,7 @@ class Import
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getCreatedAt()
     {
@@ -567,7 +575,7 @@ class Import
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getStartedAt()
     {
@@ -575,7 +583,7 @@ class Import
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getEndedAt()
     {
@@ -584,10 +592,11 @@ class Import
 
     /**
      *
-     * @param \DateTime $createdAt
-     * @return \NS\ImportBundle\Entity\Import
+     * @param DateTime $createdAt
+     *
+     * @return Import
      */
-    public function setCreatedAt(\DateTime $createdAt)
+    public function setCreatedAt(DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
         return $this;
@@ -595,10 +604,11 @@ class Import
 
     /**
      *
-     * @param \DateTime $startedAt
-     * @return \NS\ImportBundle\Entity\Import
+     * @param DateTime $startedAt
+     *
+     * @return Import
      */
-    public function setStartedAt(\DateTime $startedAt)
+    public function setStartedAt(DateTime $startedAt)
     {
         if (!$this->startedAt) {
             $this->startedAt = $startedAt;
@@ -609,10 +619,10 @@ class Import
 
     /**
      *
-     * @param \DateTime $endedAt
-     * @return \NS\ImportBundle\Entity\Import
+     * @param DateTime $endedAt
+     * @return Import
      */
-    public function setEndedAt(\DateTime $endedAt)
+    public function setEndedAt(DateTime $endedAt)
     {
         $this->endedAt = $endedAt;
         return $this;
@@ -630,7 +640,7 @@ class Import
     /**
      *
      * @param File $sourceFile
-     * @return \NS\ImportBundle\Entity\Import
+     * @return Import
      */
     public function setSourceFile(File $sourceFile)
     {
@@ -651,7 +661,7 @@ class Import
     /**
      *
      * @param string $source
-     * @return \NS\ImportBundle\Entity\Import
+     * @return Import
      */
     public function setSource($source)
     {

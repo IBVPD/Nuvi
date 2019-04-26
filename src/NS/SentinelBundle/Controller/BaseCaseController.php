@@ -2,6 +2,8 @@
 
 namespace NS\SentinelBundle\Controller;
 
+use Doctrine\ORM\UnexpectedResultException;
+use Exception;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use NS\FilteredPaginationBundle\Form\Type\LimitSelectType;
@@ -9,7 +11,10 @@ use NS\SentinelBundle\Entity\ReferenceLabResultInterface;
 use NS\SentinelBundle\Exceptions\NonExistentCaseException;
 use NS\SentinelBundle\Form\CreateType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
@@ -58,7 +63,7 @@ abstract class BaseCaseController extends Controller implements TranslationConta
      * @param $filterFormName
      * @param $sessionKey
      *
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     * @return array|RedirectResponse
      */
     protected function create(Request $request, $class, $indexRoute, $typeName, $filterFormName, $sessionKey)
     {
@@ -95,10 +100,10 @@ abstract class BaseCaseController extends Controller implements TranslationConta
     /**
      * @param string $type
      * @param string|null $objId
-     * @return \Symfony\Component\Form\Form
-     * @throws \Doctrine\ORM\UnexpectedResultException
-     * @throws \Exception
-     * @throws \NS\SentinelBundle\Exceptions\NonExistentCaseException
+     * @return Form
+     * @throws UnexpectedResultException
+     * @throws Exception
+     * @throws NonExistentCaseException
      */
     protected function getForm($type, $objId = null)
     {
@@ -112,7 +117,7 @@ abstract class BaseCaseController extends Controller implements TranslationConta
      * @param string $type
      * @param string $objId
      * @param string $redirectRoute
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
     protected function delete($type, $objId, $redirectRoute)
     {
@@ -135,7 +140,8 @@ abstract class BaseCaseController extends Controller implements TranslationConta
      * @param $indexRoute
      * @param $editRoute
      * @param null $objId
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
+     * @return array|RedirectResponse|Response
      */
     protected function edit(Request $request, $type, $indexRoute, $editRoute, $objId = null)
     {
@@ -176,7 +182,8 @@ abstract class BaseCaseController extends Controller implements TranslationConta
     /**
      * @param $class
      * @param $id
-     * @return array|\Symfony\Component\HttpFoundation\Response
+     *
+     * @return array|Response
      */
     protected function show($class, $id)
     {

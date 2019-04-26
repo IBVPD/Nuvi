@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Validators;
 
+use InvalidArgumentException;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\UtilBundle\Form\Types\ArrayChoice;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
@@ -39,7 +40,7 @@ class DoneValidator extends ConstraintValidator
                     ->atPath($constraint->tripleChoiceField)
                     ->addViolation();
             } elseif (!$doneFieldValue instanceof ArrayChoice) {
-                throw new \InvalidArgumentException(sprintf('Expected ArrayChoice. Field %s is of type %s', $doneField, gettype($doneFieldValue)));
+                throw new InvalidArgumentException(sprintf('Expected ArrayChoice. Field %s is of type %s', $doneField, gettype($doneFieldValue)));
             }
         }
     }

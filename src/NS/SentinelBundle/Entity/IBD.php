@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use NS\SecurityBundle\Annotation\Secured;
@@ -85,7 +86,7 @@ class IBD extends BaseCase
 
 //Case-based Clinical Data
     /**
-     * @var \DateTime $onsetDate
+     * @var DateTime $onsetDate
      * @ORM\Column(name="onset_date",type="date",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
@@ -294,7 +295,7 @@ class IBD extends BaseCase
     private $hib_doses;
 
     /**
-     * @var \DateTime $hibMostRecentDose
+     * @var DateTime $hibMostRecentDose
      * @ORM\Column(name="hib_most_recent_dose",type="date",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
@@ -326,7 +327,7 @@ class IBD extends BaseCase
     private $pcv_type;
 
     /**
-     * @var \DateTime $pcvMostRecentDose
+     * @var DateTime $pcvMostRecentDose
      * @ORM\Column(name="pcv_most_recent_dose",type="date",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
@@ -351,7 +352,7 @@ class IBD extends BaseCase
     private $mening_type;
 
     /**
-     * @var \DateTime $mening_date
+     * @var DateTime $mening_date
      * @ORM\Column(name="mening_date",type="date",nullable=true)
      * @Assert\Date
      * @LocalAssert\NoFutureDate()
@@ -370,7 +371,7 @@ class IBD extends BaseCase
     private $csf_collected;
 
     /**
-     * @var \DateTime $csfCollectDate
+     * @var DateTime $csfCollectDate
      * @ORM\Column(name="csf_collect_date",type="date",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
@@ -379,7 +380,7 @@ class IBD extends BaseCase
     private $csf_collect_date;
 
     /**
-     * @var \DateTime $csfCollectTime
+     * @var DateTime $csfCollectTime
      * @ORM\Column(name="csf_collect_time",type="time",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'H:i:s'>")
@@ -401,7 +402,7 @@ class IBD extends BaseCase
     private $blood_collected;
 
     /**
-     * @var \DateTime $bloodCollectDate
+     * @var DateTime $bloodCollectDate
      * @ORM\Column(name="blood_collect_date",type="date",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
@@ -410,7 +411,7 @@ class IBD extends BaseCase
     private $blood_collect_date;
 
     /**
-     * @var \DateTime $blood_collect_time
+     * @var DateTime $blood_collect_time
      * @ORM\Column(name="blood_collect_time",type="time",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'H:i:s'>")
@@ -489,7 +490,7 @@ class IBD extends BaseCase
     private $blood_number_of_samples;
 
     /**
-     * @var \DateTime $bloodCollectDate
+     * @var DateTime $bloodCollectDate
      * @ORM\Column(name="blood_second_collect_date",type="date",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
@@ -498,7 +499,7 @@ class IBD extends BaseCase
     private $blood_second_collect_date;
 
     /**
-     * @var \DateTime $blood_collect_time
+     * @var DateTime $blood_collect_time
      * @ORM\Column(name="blood_second_collect_time",type="time",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'H:i:s'>")
@@ -513,7 +514,7 @@ class IBD extends BaseCase
     private $pleural_fluid_collected;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      * @ORM\Column(name="pleural_fluid_collect_date",type="date",nullable=true)
      *
      * @LocalAssert\NoFutureDate()
@@ -524,7 +525,7 @@ class IBD extends BaseCase
     private $pleural_fluid_collect_date;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      * @ORM\Column(name="pleural_fluid_collect_time",type="time",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'H:i:s'>")
@@ -545,7 +546,7 @@ class IBD extends BaseCase
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getOnsetDate()
     {
@@ -793,7 +794,7 @@ class IBD extends BaseCase
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getHibMostRecentDose()
     {
@@ -825,7 +826,7 @@ class IBD extends BaseCase
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getPcvMostRecentDose()
     {
@@ -849,7 +850,7 @@ class IBD extends BaseCase
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getMeningDate()
     {
@@ -865,7 +866,7 @@ class IBD extends BaseCase
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getCsfCollectDate()
     {
@@ -873,7 +874,7 @@ class IBD extends BaseCase
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getCsfCollectTime()
     {
@@ -898,7 +899,7 @@ class IBD extends BaseCase
 
     /**
      * 
-     * @return \DateTime
+     * @return DateTime
      */
     public function getBloodCollectDate()
     {
@@ -906,7 +907,7 @@ class IBD extends BaseCase
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getBloodCollectTime()
     {
@@ -914,9 +915,9 @@ class IBD extends BaseCase
     }
 
     /**
-     * @param \DateTime $blood_collect_time
+     * @param DateTime $blood_collect_time
      */
-    public function setBloodCollectTime(\DateTime $blood_collect_time = null)
+    public function setBloodCollectTime(DateTime $blood_collect_time = null)
     {
         $this->blood_collect_time = $blood_collect_time;
     }
@@ -986,9 +987,9 @@ class IBD extends BaseCase
     }
 
     /**
-     * @param \DateTime|null $onsetDate
+     * @param DateTime|null $onsetDate
      */
-    public function setOnsetDate(\DateTime $onsetDate = null)
+    public function setOnsetDate(DateTime $onsetDate = null)
     {
         $this->onset_date = $onsetDate;
     }
@@ -1051,9 +1052,8 @@ class IBD extends BaseCase
 
     /**
      * @param TripleChoice $menInabilityFeed
-     * @return $this
      */
-    public function setMenInabilityFeed(TripleChoice $menInabilityFeed = null)
+    public function setMenInabilityFeed(TripleChoice $menInabilityFeed = null): void
     {
         $this->men_inability_feed = $menInabilityFeed;
     }
@@ -1205,7 +1205,7 @@ class IBD extends BaseCase
     /**
      * @param $hibMostRecentDose
      */
-    public function setHibMostRecentDose(\DateTime $hibMostRecentDose = null)
+    public function setHibMostRecentDose(DateTime $hibMostRecentDose = null)
     {
         $this->hib_most_recent_dose = $hibMostRecentDose;
     }
@@ -1237,7 +1237,7 @@ class IBD extends BaseCase
     /**
      * @param $pcvMostRecentDose
      */
-    public function setPcvMostRecentDose(\DateTime $pcvMostRecentDose = null)
+    public function setPcvMostRecentDose(DateTime $pcvMostRecentDose = null)
     {
         $this->pcv_most_recent_dose = $pcvMostRecentDose;
     }
@@ -1261,7 +1261,7 @@ class IBD extends BaseCase
     /**
      * @param $meningMostRecentDose
      */
-    public function setMeningDate(\DateTime $meningMostRecentDose = null)
+    public function setMeningDate(DateTime $meningMostRecentDose = null)
     {
         $this->mening_date = $meningMostRecentDose;
     }
@@ -1275,17 +1275,17 @@ class IBD extends BaseCase
     }
 
     /**
-     * @param \DateTime $date
+     * @param DateTime $date
      */
-    public function setCsfCollectDate(\DateTime $date = null)
+    public function setCsfCollectDate(DateTime $date = null)
     {
         $this->csf_collect_date = $date;
     }
 
     /**
-     * @param \DateTime $time
+     * @param DateTime $time
      */
-    public function setCsfCollectTime(\DateTime $time = null)
+    public function setCsfCollectTime(DateTime $time = null)
     {
         $this->csf_collect_time = $time;
     }
@@ -1299,9 +1299,9 @@ class IBD extends BaseCase
     }
 
     /**
-     * @param \DateTime|null $date
+     * @param DateTime|null $date
      */
-    public function setBloodCollectDate(\DateTime $date = null)
+    public function setBloodCollectDate(DateTime $date = null)
     {
         $this->blood_collect_date = $date;
     }
@@ -1414,7 +1414,7 @@ class IBD extends BaseCase
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getBloodSecondCollectDate()
     {
@@ -1422,15 +1422,15 @@ class IBD extends BaseCase
     }
 
     /**
-     * @param \DateTime $blood_second_collect_date
+     * @param DateTime $blood_second_collect_date
      */
-    public function setBloodSecondCollectDate(\DateTime $blood_second_collect_date = null)
+    public function setBloodSecondCollectDate(DateTime $blood_second_collect_date = null)
     {
         $this->blood_second_collect_date = $blood_second_collect_date;
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getBloodSecondCollectTime()
     {
@@ -1438,9 +1438,9 @@ class IBD extends BaseCase
     }
 
     /**
-     * @param \DateTime $blood_second_collect_time
+     * @param DateTime $blood_second_collect_time
      */
-    public function setBloodSecondCollectTime(\DateTime $blood_second_collect_time = null)
+    public function setBloodSecondCollectTime(DateTime $blood_second_collect_time = null)
     {
         $this->blood_second_collect_time = $blood_second_collect_time;
     }
@@ -1462,7 +1462,7 @@ class IBD extends BaseCase
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getPleuralFluidCollectDate()
     {
@@ -1470,7 +1470,7 @@ class IBD extends BaseCase
     }
 
     /**
-     * @param \DateTime $pleural_fluid_collect_date
+     * @param DateTime $pleural_fluid_collect_date
      */
     public function setPleuralFluidCollectDate($pleural_fluid_collect_date)
     {
@@ -1478,7 +1478,7 @@ class IBD extends BaseCase
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getPleuralFluidCollectTime()
     {
@@ -1486,7 +1486,7 @@ class IBD extends BaseCase
     }
 
     /**
-     * @param \DateTime $pleural_fluid_collect_time
+     * @param DateTime $pleural_fluid_collect_time
      */
     public function setPleuralFluidCollectTime($pleural_fluid_collect_time)
     {

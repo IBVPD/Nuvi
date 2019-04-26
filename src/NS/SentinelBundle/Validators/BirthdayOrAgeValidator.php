@@ -8,6 +8,7 @@
 
 namespace NS\SentinelBundle\Validators;
 
+use InvalidArgumentException;
 use NS\SentinelBundle\Entity\BaseCase;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -22,9 +23,9 @@ class BirthdayOrAgeValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
         if (!is_object($value)) {
-            throw new \InvalidArgumentException(sprintf('Expected object got %s instead', gettype($value)));
+            throw new InvalidArgumentException(sprintf('Expected object got %s instead', gettype($value)));
         } elseif (!$value instanceof BaseCase) {
-            throw new \InvalidArgumentException(sprintf('Expected object of type NS\SentinelBundle\Entity\BaseCase got %s instead', get_class($value)));
+            throw new InvalidArgumentException(sprintf('Expected object of type NS\SentinelBundle\Entity\BaseCase got %s instead', get_class($value)));
         }
 
         if (!$value->getBirthdate() && !$value->getDobYearMonths()) {

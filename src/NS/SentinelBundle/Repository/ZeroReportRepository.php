@@ -8,11 +8,12 @@
 
 namespace NS\SentinelBundle\Repository;
 
+use DateTime;
 use NS\SecurityBundle\Doctrine\SecuredEntityRepository;
 
 class ZeroReportRepository extends SecuredEntityRepository
 {
-    public function getExistingReports($type, \DateTime $from, \DateTime $to)
+    public function getExistingReports($type, DateTime $from, DateTime $to)
     {
         return $this->secure(
                 $this->createQueryBuilder('z')

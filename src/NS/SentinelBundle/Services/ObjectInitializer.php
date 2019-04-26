@@ -8,6 +8,7 @@
 
 namespace NS\SentinelBundle\Services;
 
+use DateTime;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
@@ -20,6 +21,7 @@ use NS\SentinelBundle\Entity\IBD;
 use NS\SentinelBundle\Entity\Meningitis;
 use NS\SentinelBundle\Entity\Pneumonia;
 use NS\SentinelBundle\Entity\RotaVirus;
+use ReflectionClass;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
 
@@ -57,11 +59,7 @@ class ObjectInitializer
         $this->propertyAccessor = PropertyAccess::createPropertyAccessor();
     }
 
-    /**
-     * @param $type
-     * @return null|string
-     */
-    public function initializeObject($type)
+    public function initializeObject($type): ?string
     {
         switch ($type) {
             case 'pneumonia':
@@ -108,7 +106,7 @@ class ObjectInitializer
         return $this->serializer->serialize([$type => $obj, 'siteLab' => $obj->getSiteLab(), 'nl' => $obj->getNationalLab(), 'rl' => $obj->getReferenceLab()], 'json', SerializationContext::create()->setGroups(['export','expanded']));
     }
 
-    private function initialize()
+    private function initialize(): void
     {
         $this->dbPlatform = $this->entityManager->getConnection()->getDatabasePlatform();
         $this->initialized = true;
@@ -119,7 +117,7 @@ class ObjectInitializer
      */
     private function processObject($obj)
     {
-        $reflectionClass = new \ReflectionClass($obj);
+        $reflectionClass = new ReflectionClass($obj);
         $properties = $reflectionClass->getProperties();
         foreach ($properties as $property) {
             $annotations = $this->annotationReader->getPropertyAnnotations($property);
@@ -154,11 +152,7 @@ class ObjectInitializer
         }
     }
 
-    /**
-     * @param $type
-     * @return bool|\DateTime|string
-     */
-    private function getDefaultScalar($type)
+    private function getDefaultScalar(string $type)
     {
         switch ($type) {
             case 'decimal':
@@ -173,16 +167,14 @@ class ObjectInitializer
             case 'date':
             case 'time':
             case 'datetime':
-                return new \DateTime();
+                return new DateTime();
         }
+
+        return null;
     }
 
-    /**
-     * @param $type
-     * @return bool
-     */
-    private function isNonScalar($type)
+    private function isNonScalar($type): bool
     {
-        return (!in_array($type, ['integer', 'string', 'text', 'date', 'datetime', 'time', 'boolean']));
+        return !in_array($type, ['integer', 'string', 'text', 'date', 'datetime', 'time', 'boolean']);
     }
 }

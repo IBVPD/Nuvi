@@ -8,12 +8,15 @@
 
 namespace NS\SentinelBundle\Twig;
 
-class InstanceOfExtension extends \Twig_Extension
+use Twig_Extension;
+use Twig_SimpleFunction;
+
+class InstanceOfExtension extends Twig_Extension
 {
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('class_type', function ($value) { return is_object($value) ? get_class($value): null; }),
+            new Twig_SimpleFunction('class_type', function ($value) { return is_object($value) ? get_class($value): null; }),
         ];
     }
 }

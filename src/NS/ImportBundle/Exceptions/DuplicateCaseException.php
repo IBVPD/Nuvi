@@ -3,8 +3,9 @@
 namespace NS\ImportBundle\Exceptions;
 
 use Ddeboer\DataImport\Exception;
+use RuntimeException;
 
-class DuplicateCaseException extends \RuntimeException implements Exception
+class DuplicateCaseException extends RuntimeException implements Exception
 {
     /**
      * @inheritDoc

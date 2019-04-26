@@ -3,6 +3,7 @@
 namespace NS\SentinelBundle\Repository;
 
 use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\ORMException;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\UnexpectedResultException;
 use NS\SecurityBundle\Doctrine\SecuredEntityRepository;
@@ -58,7 +59,7 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
      * @param $id
      * @return mixed
      * @throws UnexpectedResultException
-     * @throws \Doctrine\ORM\ORMException
+     * @throws ORMException
      */
     public function findOrCreateNew($id)
     {
@@ -91,7 +92,7 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
      * @param $site
      * @param $caseId
      * @return mixed
-     * @throws \Doctrine\ORM\ORMException
+     * @throws ORMException
      */
     public function findBySiteAndCaseId($site, $caseId)
     {
@@ -109,7 +110,7 @@ class BaseLab extends SecuredEntityRepository implements AjaxAutocompleteReposit
      * @param null $lockMode
      * @param null $lockVersion
      * @return mixed
-     * @throws \Doctrine\ORM\ORMException
+     * @throws ORMException
      */
     public function find($objId, $lockMode = NULL, $lockVersion = NULL)
     {

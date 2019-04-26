@@ -3,6 +3,7 @@
 namespace NS\ApiBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations as REST;
+use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation as ApiDoc;
 use NS\SentinelBundle\Entity\IBD;
 use NS\SentinelBundle\Entity\IBD\NationalLab;
@@ -160,10 +161,10 @@ class IBDController extends CaseController
      * @REST\Patch("/{objId}",name="nsApiIbdPatchCase")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param string $objId
+     * @param Request $request
+     * @param string  $objId
      *
-     * @return \FOS\RestBundle\View\View
+     * @return View
      */
     public function patchIbdCaseAction(Request $request, $objId)
     {
@@ -185,9 +186,10 @@ class IBDController extends CaseController
      * @REST\Patch("/{objId}/lab",name="nsApiIbdPatchLab")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param string $objId
-     * @return \FOS\RestBundle\View\View
+     * @param Request $request
+     * @param string  $objId
+     *
+     * @return View
      */
     public function patchIbdLabAction(Request $request, $objId)
     {
@@ -209,9 +211,10 @@ class IBDController extends CaseController
      * @REST\Patch("/{objId}/rrl",name="nsApiIbdPatchRRL")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param string $objId
-     * @return \FOS\RestBundle\View\View
+     * @param Request $request
+     * @param string  $objId
+     *
+     * @return View
      */
     public function patchIbdRRLAction(Request $request, $objId)
     {
@@ -233,9 +236,10 @@ class IBDController extends CaseController
      * @REST\Patch("/{objId}/nl",name="nsApiIbdPatchNL")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @param string $objId
-     * @return \FOS\RestBundle\View\View
+     *
+     * @return View
      */
     public function patchIbdNLAction(Request $request, $objId)
     {
@@ -258,10 +262,10 @@ class IBDController extends CaseController
      * @REST\Patch("/{objId}/outcome",name="nsApiIbdPatchOutcome")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @param string $objId
      *
-     * @return \FOS\RestBundle\View\View
+     * @return View
      */
     public function patchIbdOutcomeAction(Request $request, $objId)
     {
@@ -285,10 +289,10 @@ class IBDController extends CaseController
      * @REST\Put("/{objId}",name="nsApiIbdPutCase")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @param string $objId
      *
-     * @return \FOS\RestBundle\View\View
+     * @return View
      */
     public function putIbdCaseAction(Request $request, $objId)
     {
@@ -310,9 +314,10 @@ class IBDController extends CaseController
      * @REST\Put("/{objId}/lab",name="nsApiIbdPutLab")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @param string $objId
-     * @return \FOS\RestBundle\View\View
+     *
+     * @return View
      */
     public function putIbdLabAction(Request $request, $objId)
     {
@@ -334,9 +339,10 @@ class IBDController extends CaseController
      * @REST\Put("/{objId}/rrl",name="nsApiIbdPutRRL")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @param string $objId
-     * @return \FOS\RestBundle\View\View
+     *
+     * @return View
      */
     public function putIbdRRLAction(Request $request, $objId)
     {
@@ -358,9 +364,10 @@ class IBDController extends CaseController
      * @REST\Put("/{objId}/nl",name="nsApiIbdPutNL")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @param string $objId
-     * @return \FOS\RestBundle\View\View
+     *
+     * @return View
      */
     public function putIbdNLAction(Request $request, $objId)
     {
@@ -383,10 +390,10 @@ class IBDController extends CaseController
      * @REST\Put("/{objId}/outcome",name="nsApiIbdPutOutcome")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @param string $objId
      *
-     * @return \FOS\RestBundle\View\View
+     * @return View
      */
     public function putIbdOutcomeAction(Request $request, $objId)
     {
@@ -413,7 +420,7 @@ class IBDController extends CaseController
      *
      * @param Request $request the request object
      *
-     * @return array|\FOS\RestBundle\View\View
+     * @return array|View
      */
     public function postIbdCaseAction(Request $request)
     {

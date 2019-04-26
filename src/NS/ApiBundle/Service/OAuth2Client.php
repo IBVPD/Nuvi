@@ -7,13 +7,17 @@ use FOS\RestBundle\Util\Codes;
 use NS\ApiBundle\Entity\Remote;
 use OAuth2\Client;
 use OAuth2\Exception;
+use RuntimeException;
+use Twig_Extension;
+use Twig_SimpleFunction;
+use UnexpectedValueException;
 
 /**
  * Description of OAuth2Client
  *
  * @author gnat
  */
-class OAuth2Client extends \Twig_Extension
+class OAuth2Client extends Twig_Extension
 {
     private $entityMgr;
 
@@ -44,7 +48,8 @@ class OAuth2Client extends \Twig_Extension
     /**
      *
      * @param Remote $remote
-     * @return \NS\ApiBundle\Service\OAuth2Client
+     *
+     * @return OAuth2Client
      */
     public function setRemote(Remote $remote)
     {
@@ -60,12 +65,12 @@ class OAuth2Client extends \Twig_Extension
      * @param Client $client
      * @param Remote $remote
      * @return string
-     * @throws \UnexpectedValueException
+     * @throws UnexpectedValueException
      */
     public function getAuthenticationUrl(Client $client = null, Remote $remote = null)
     {
         if (($client !== null && $remote === null) || ($client === null && $remote !== null)) {
-            throw new \UnexpectedValueException("You can't provide only one parameter. Either pass two or none");
+            throw new UnexpectedValueException("You can't provide only one parameter. Either pass two or none");
         }
 
         return $client ? $client->getAuthenticationUrl($remote->getAuthEndpoint(), $remote->getRedirectUrl()) : $this->client->getAuthenticationUrl($this->remote->getAuthEndpoint(), $this->remote->getRedirectUrl());
@@ -87,12 +92,12 @@ class OAuth2Client extends \Twig_Extension
     /**
      *
      * @return boolean
-     * @throws \RuntimeException
+     * @throws RuntimeException
      */
     public function getAccessTokenByRefreshToken()
     {
         if (!$this->remote->hasRefreshToken()) {
-            throw new \RuntimeException("No refresh token");
+            throw new RuntimeException("No refresh token");
         }
 
         $this->getAccessToken(Client::GRANT_TYPE_REFRESH_TOKEN, ['refresh_token' => $this->remote->getRefreshToken()]);
@@ -180,7 +185,7 @@ class OAuth2Client extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('oauth_authenticate_path', [$this, 'getAuthenticationPath'], ['is_safe' => ['html']]),
+            new Twig_SimpleFunction('oauth_authenticate_path', [$this, 'getAuthenticationPath'], ['is_safe' => ['html']]),
         ];
     }
 
@@ -195,7 +200,7 @@ class OAuth2Client extends \Twig_Extension
 
     /**
      *
-     * @return \OAuth2\Client
+     * @return Client
      */
     public function getClient()
     {

@@ -3,19 +3,22 @@
 namespace NS\SentinelBundle\Twig\Report;
 
 use NS\SentinelBundle\Report\Result\AbstractSitePerformanceResult;
+use Twig_Environment;
+use Twig_Extension;
+use Twig_SimpleFunction;
 
-class SitePerformanceTwig extends \Twig_Extension
+class SitePerformanceTwig extends Twig_Extension
 {
     /**
-     * @var \Twig_Environment
+     * @var Twig_Environment
      */
     private $twig;
 
     /**
      * SitePerformanceTwig constructor.
-     * @param \Twig_Environment $environment
+     * @param Twig_Environment $environment
      */
-    public function __construct(\Twig_Environment $environment)
+    public function __construct(Twig_Environment $environment)
     {
         $this->twig = $environment;
     }
@@ -27,10 +30,10 @@ class SitePerformanceTwig extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('consistentReporting', [$this, 'renderConsistentReporting'], ['is_safe'=> ['html']]),
-            new \Twig_SimpleFunction('minimumCases', [$this, 'renderMinimumCases'], ['is_safe'=> ['html']]),
-            new \Twig_SimpleFunction('specimenCollected', [$this, 'renderSpecimenCollected'], ['is_safe'=> ['html']]),
-            new \Twig_SimpleFunction('labConfirmed', [$this, 'renderLabConfirmed'], ['is_safe'=> ['html']]),
+            new Twig_SimpleFunction('consistentReporting', [$this, 'renderConsistentReporting'], ['is_safe'=> ['html']]),
+            new Twig_SimpleFunction('minimumCases', [$this, 'renderMinimumCases'], ['is_safe'=> ['html']]),
+            new Twig_SimpleFunction('specimenCollected', [$this, 'renderSpecimenCollected'], ['is_safe'=> ['html']]),
+            new Twig_SimpleFunction('labConfirmed', [$this, 'renderLabConfirmed'], ['is_safe'=> ['html']]),
         ];
     }
 

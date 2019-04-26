@@ -4,6 +4,7 @@ namespace NS\ApiBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\OAuthServerBundle\Entity\Client as BaseClient;
+use NS\SentinelBundle\Entity\User;
 
 /**
  * Description of Client
@@ -69,7 +70,8 @@ class Client extends BaseClient
     /**
      *
      * @param string $name
-     * @return \NS\ApiBundle\Entity\Client
+     *
+     * @return Client
      */
     public function setName($name)
     {
@@ -88,10 +90,10 @@ class Client extends BaseClient
 
     /**
      *
-     * @param \NS\SentinelBundle\Entity\User $user
+     * @param User $user
      * @return Client
      */
-    public function setUser(\NS\SentinelBundle\Entity\User $user)
+    public function setUser(User $user)
     {
         $this->user = $user;
         return $this;
@@ -109,7 +111,8 @@ class Client extends BaseClient
     /**
      *
      * @param array $accessTokens
-     * @return \NS\ApiBundle\Entity\Client
+     *
+     * @return Client
      */
     public function setAccessTokens(array $accessTokens)
     {
@@ -120,8 +123,9 @@ class Client extends BaseClient
 
     /**
      *
-     * @param \NS\ApiBundle\Entity\AccessToken $token
-     * @return \NS\ApiBundle\Entity\Client
+     * @param AccessToken $token
+     *
+     * @return Client
      */
     public function addAccessToken(AccessToken $token)
     {
@@ -132,8 +136,9 @@ class Client extends BaseClient
 
     /**
      *
-     * @param \NS\ApiBundle\Entity\AccessToken $token
-     * @return \NS\ApiBundle\Entity\Client
+     * @param AccessToken $token
+     *
+     * @return Client
      */
     public function removeAccessToken(AccessToken $token)
     {

@@ -6,6 +6,7 @@ use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use UnexpectedValueException;
 
 /**
  * Description of Role
@@ -60,7 +61,7 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
             if (isset($this->roleMap[$value])) {
                 $value = $this->roleMap[$value];
             } else {
-                throw new \UnexpectedValueException("$value is not a valid role mapping");
+                throw new UnexpectedValueException("$value is not a valid role mapping");
             }
         }
 

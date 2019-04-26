@@ -2,9 +2,12 @@
 
 namespace NS\SentinelBundle\Converter;
 
+use function constant;
 use Ddeboer\DataImport\Exception\UnexpectedValueException;
 use Ddeboer\DataImport\ReporterInterface;
+use function is_string;
 use NS\ImportBundle\Converter\NamedValueConverterInterface;
+use RuntimeException;
 use UnexpectedValueException as UnexpectedValueException2;
 
 /**
@@ -31,12 +34,12 @@ class ArrayChoiceConverter implements NamedValueConverterInterface, ReporterInte
     /**
      * @param string $class
      * @param string $type
-     * @throws \RuntimeException
+     * @throws RuntimeException
      */
     public function __construct(string $class, string $type)
     {
         if (!class_exists($class)) {
-            throw new \RuntimeException(sprintf('Unable to find class %s', $class));
+            throw new RuntimeException(sprintf('Unable to find class %s', $class));
         }
 
         $this->class = $class;
@@ -54,7 +57,7 @@ class ArrayChoiceConverter implements NamedValueConverterInterface, ReporterInte
     {
         $this->message = null;
 
-        $input = \is_string($value) ? trim($value) : $value;
+        $input = is_string($value) ? trim($value) : $value;
         if ($input !== 0 && $input != '0' && empty($input)) {
             return new $this->class();
         }
@@ -62,7 +65,7 @@ class ArrayChoiceConverter implements NamedValueConverterInterface, ReporterInte
         try {
             return new $this->class(is_numeric($input) ? (int) $input : $input);
         } catch (UnexpectedValueException2 $ex) {
-            $cons = \constant(sprintf('%s::OUT_OF_RANGE', $this->class));
+            $cons = constant(sprintf('%s::OUT_OF_RANGE', $this->class));
 
             $this->message = sprintf('Invalid value (out of range). Set to %s to %d', $value, $cons);
             return new $this->class($cons);

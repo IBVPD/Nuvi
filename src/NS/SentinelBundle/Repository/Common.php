@@ -2,10 +2,13 @@
 
 namespace NS\SentinelBundle\Repository;
 
+use DateTime;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\UnexpectedResultException;
+use InvalidArgumentException;
 use NS\ImportBundle\Exceptions\DuplicateCaseException;
 use NS\SecurityBundle\Doctrine\SecuredEntityRepository;
 use NS\SentinelBundle\Entity\BaseCase;
@@ -53,7 +56,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
      * @param $fields
      * @param array $value
      * @param $limit
-     * @return \Doctrine\ORM\Query
+     * @return Query
      */
     public function getForAutoComplete($fields, array $value, $limit)
     {
@@ -86,12 +89,12 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
      * @param string|null $objId
      *
      * @return mixed
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function findOrCreate($caseId, Site $site, $objId = null)
     {
         if ($objId === null && $caseId === null) {
-            throw new \InvalidArgumentException("Id or Case must be provided");
+            throw new InvalidArgumentException("Id or Case must be provided");
         }
 
         $queryBuilder = $this->createQueryBuilder('m')
@@ -138,7 +141,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
     /**
      * @param array $params
      * @return mixed|null
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function findWithRelations(array $params)
     {
@@ -165,11 +168,11 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
     private function checkRequiredField($requiredField, array $criteria, $class = null)
     {
         if (!isset($criteria[$requiredField])) {
-            throw new \InvalidArgumentException(sprintf('Missing required "%s" parameter key', $requiredField));
+            throw new InvalidArgumentException(sprintf('Missing required "%s" parameter key', $requiredField));
         }
 
         if ($class !== null && !$criteria[$requiredField] instanceof $class) {
-            throw new \InvalidArgumentException(sprintf('Unexpected type! Expecting \'%s\' to be class \'%s\' got \'%s\' instead.', $requiredField, $class, get_class($criteria[$requiredField])));
+            throw new InvalidArgumentException(sprintf('Unexpected type! Expecting \'%s\' to be class \'%s\' got \'%s\' instead.', $requiredField, $class, get_class($criteria[$requiredField])));
         }
     }
 
@@ -274,7 +277,7 @@ class Common extends SecuredEntityRepository implements AjaxAutocompleteReposito
             ->setParameter('countries',array_unique($countryCodes));
     }
 
-    public function getCasesPerMonth(\DateTime $from, \DateTime $to)
+    public function getCasesPerMonth(DateTime $from, DateTime $to)
     {
         return $this->secure(
                 $this->_em->createQueryBuilder()

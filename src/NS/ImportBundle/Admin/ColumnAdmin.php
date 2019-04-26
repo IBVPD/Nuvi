@@ -12,11 +12,13 @@ use NS\SentinelBundle\Entity\IBD;
 use NS\SentinelBundle\Entity\Meningitis\Meningitis;
 use NS\SentinelBundle\Entity\Pneumonia\Pneumonia;
 use NS\SentinelBundle\Entity\RotaVirus;
+use RuntimeException;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use function uniqid;
 
 class ColumnAdmin extends AbstractAdmin
 {
@@ -68,11 +70,11 @@ class ColumnAdmin extends AbstractAdmin
             }
 
             if ($mapperType === null) {
-                throw new \RuntimeException('Unable to determine column mapper type');
+                throw new RuntimeException('Unable to determine column mapper type');
             }
         }
 
-        $id = \uniqid('columnId', true);
+        $id = uniqid('columnId', true);
         $formMapper
             ->add('name', null, ['attr' => ['data-queryBuilder' => 'columnName']])
             ->add('preProcessor', PreProcessorType::class, ['required' => false])

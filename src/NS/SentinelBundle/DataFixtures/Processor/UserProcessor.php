@@ -3,6 +3,7 @@
 namespace NS\SentinelBundle\DataFixtures\Processor;
 
 use Nelmio\Alice\ProcessorInterface;
+use NS\SentinelBundle\Entity\User;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 /**
@@ -27,7 +28,7 @@ class UserProcessor implements ProcessorInterface
 
     public function preProcess($object)
     {
-        if ($object instanceof \NS\SentinelBundle\Entity\User) {
+        if ($object instanceof User) {
             if (!$this->encoder) {
                 $this->encoder = $this->encoderFactory->getEncoder($object);
             }

@@ -2,6 +2,7 @@
 
 namespace NS\ImportBundle\Converter;
 
+use DateTime;
 use Ddeboer\DataImport\ReporterInterface;
 
 /**
@@ -16,12 +17,12 @@ class DateRangeConverter implements ReporterInterface
     private $message;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      */
     private $lessThanDate;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      */
     private $greaterThanDate;
 
@@ -32,11 +33,11 @@ class DateRangeConverter implements ReporterInterface
 
     /**
      * NoFutureDateConverter constructor.
-     * @param \DateTime $lessThanDate
-     * @param \DateTime $greaterThanDate
+     * @param DateTime $lessThanDate
+     * @param DateTime $greaterThanDate
      * @param bool $warningOnly
      */
-    public function __construct(\DateTime $lessThanDate = null, \DateTime $greaterThanDate = null, $warningOnly = false)
+    public function __construct(DateTime $lessThanDate = null, DateTime $greaterThanDate = null, $warningOnly = false)
     {
         $this->lessThanDate = $lessThanDate;
         $this->greaterThanDate = $greaterThanDate;
@@ -68,7 +69,7 @@ class DateRangeConverter implements ReporterInterface
         foreach ($item as $key => $value) {
             if (is_array($value)) {
                 $item[$key] = $this->findDate($value, $this->getKey($key, $parent));
-            } elseif ($value instanceof \DateTime) {
+            } elseif ($value instanceof DateTime) {
                 if (!$this->inRange($value, $this->getKey($key, $parent))) {
                     $this->handleNotInRange($item[$key]);//$item[$key] = null;
                 }
@@ -89,11 +90,11 @@ class DateRangeConverter implements ReporterInterface
     }
 
     /**
-     * @param \DateTime $value
+     * @param DateTime $value
      * @param $key
      * @return bool
      */
-    public function inRange(\DateTime $value, $key)
+    public function inRange(DateTime $value, $key)
     {
         if ($this->lessThanDate && $this->greaterThanDate) {
             if ($value > $this->lessThanDate || $value < $this->greaterThanDate) {
@@ -112,7 +113,7 @@ class DateRangeConverter implements ReporterInterface
     }
 
     /**
-     * @param \DateTime $lessThanDate
+     * @param DateTime $lessThanDate
      * @return DateRangeConverter
      */
     public function setLessThanDate($lessThanDate)
@@ -122,7 +123,7 @@ class DateRangeConverter implements ReporterInterface
     }
 
     /**
-     * @param \DateTime $greaterThanDate
+     * @param DateTime $greaterThanDate
      * @return DateRangeConverter
      */
     public function setGreaterThanDate($greaterThanDate)

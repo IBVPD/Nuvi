@@ -8,6 +8,7 @@
 
 namespace NS\SentinelBundle\Entity\Loggable;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -45,7 +46,7 @@ class LogEvent
     private $action;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      * @ORM\Column(name="logged_at",type="datetime")
      */
     private $logged_at;
@@ -79,7 +80,7 @@ class LogEvent
     {
         $this->username = $username;
         $this->action = $action;
-        $this->logged_at = new \DateTime();
+        $this->logged_at = new DateTime();
         $this->object_id = $object_id;
         $this->object_class = $object_class;
     }
@@ -94,7 +95,7 @@ class LogEvent
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getLoggedAt()
     {

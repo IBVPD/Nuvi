@@ -93,19 +93,15 @@ class SerializedSites implements SerializedSitesInterface
         return $site;
     }
 
-    /**
-     *
-     * @return null
-     */
-    public function initialize()
+    public function initialize(): void
     {
         if ($this->isInitialized) {/* || !$this->session->isStarted() - Used to be required to pass behat/phpunit tests but breaks the API stateless access */
             return;
         }
 
-        $sites = unserialize($this->session->get('sites'));
+        $sites = unserialize($this->session->get('sites'),[Site::class,Region::class,Country::class]);
 
-        if (!$sites || count($sites) == 0) { // empty session site array so build and store
+        if (!$sites || count($sites) === 0) { // empty session site array so build and store
             $sites = $this->populateSiteArray();
             $this->session->set('sites', serialize($sites));
         }
@@ -114,11 +110,7 @@ class SerializedSites implements SerializedSitesInterface
         $this->isInitialized = true;
     }
 
-    /**
-     *
-     * @param Site $site
-     */
-    public function registerSite(Site $site)
+    public function registerSite(Site $site): void
     {
         $uow     = $this->entityMgr->getUnitOfWork();
         $country = $site->getCountry();
@@ -130,10 +122,9 @@ class SerializedSites implements SerializedSitesInterface
     }
 
     /**
-     *
-     * @return Site
+     * @return Site[]
      */
-    private function populateSiteArray()
+    private function populateSiteArray(): array
     {
         $sites = [];
         foreach ($this->entityMgr->getRepository('NS\SentinelBundle\Entity\Site')->getChain() as $site) {

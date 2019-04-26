@@ -8,6 +8,7 @@
 
 namespace NS\SentinelBundle\Report;
 
+use RuntimeException;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -15,6 +16,6 @@ class PneumoniaReporter extends IBDReporter
 {
     public function getFieldPopulation(Request $request, FormInterface $form, $redirectRoute)
     {
-        throw new \RuntimeException("This report doesn't make sense for pneumonia");
+        throw new RuntimeException("This report doesn't make sense for pneumonia");
     }
 }

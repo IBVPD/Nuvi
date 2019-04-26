@@ -2,6 +2,7 @@
 
 namespace NS\ImportBundle\Reader;
 
+use InvalidArgumentException;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -26,7 +27,7 @@ class ReaderFactory
                 return new ExcelReader($file->openFile('r'));
         }
 
-        throw new \InvalidArgumentException(sprintf('Unable to find reader for file with extension "%s"', $extension));
+        throw new InvalidArgumentException(sprintf('Unable to find reader for file with extension "%s"', $extension));
     }
 
     /**

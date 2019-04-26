@@ -9,6 +9,7 @@
 namespace NS\SentinelBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use stdClass;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -69,10 +70,10 @@ class ExportController extends Controller
 
         foreach ($out as &$fields) {
             foreach ($fields as $key => &$field) {
-                if ($field instanceof \stdClass) {
+                if ($field instanceof stdClass) {
                     $field = get_object_vars($field);
 
-                    if (isset($field['options']) && $field['options'] instanceof \stdClass) {
+                    if (isset($field['options']) && $field['options'] instanceof stdClass) {
                         $options = get_object_vars($field['options']);
                         $field['options'] = $options;
                     }

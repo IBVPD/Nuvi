@@ -51,7 +51,7 @@ class UserGuesser implements LocaleGuesserInterface
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      *
      * @return bool
      */

@@ -2,6 +2,7 @@
 
 namespace NS\ImportBundle\Converter;
 
+use DateTime;
 use Ddeboer\DataImport\ReporterInterface;
 
 class DateOfBirthConverter implements ReporterInterface
@@ -18,7 +19,7 @@ class DateOfBirthConverter implements ReporterInterface
     {
         $this->message = null;
 
-        if (isset($item['birthdate']) && $item['birthdate'] instanceof \DateTime && isset($item['adm_date']) && $item['adm_date'] instanceof \DateTime) {
+        if (isset($item['birthdate']) && $item['birthdate'] instanceof DateTime && isset($item['adm_date']) && $item['adm_date'] instanceof DateTime) {
             if ($item['birthdate'] > $item['adm_date']) {
                 $item['warning'] = true;
                 $this->message = 'Admission date is before birthdate';

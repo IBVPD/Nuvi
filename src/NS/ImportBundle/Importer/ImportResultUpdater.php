@@ -7,6 +7,8 @@ use Ddeboer\DataImport\Result;
 use Doctrine\ORM\Proxy\Proxy;
 use NS\ImportBundle\Entity\Import;
 use NS\SentinelBundle\Entity\BaseCase;
+use SplFileObject;
+use SplObjectStorage;
 
 /**
  * Class ImportResultUpdater
@@ -46,13 +48,13 @@ class ImportResultUpdater
 
     /**
      * @param Import $import
-     * @param \SplObjectStorage $reports
+     * @param SplObjectStorage $reports
      * @param boolean $writeHeader
      *
      * todo This really should handle everything the reports have (errors and any other messages of any other severity)
      *      It would alleviate the call to buildErrors above.
      */
-    public function buildWarnings(Import $import, \SplObjectStorage $reports, $writeHeader)
+    public function buildWarnings(Import $import, SplObjectStorage $reports, $writeHeader)
     {
         $warningFile = $import->getWarningFile();
         $warningCount = $this->updateWarning($reports, $warningFile->openFile('a'), ReporterInterface::WARNING, $writeHeader);
@@ -60,13 +62,13 @@ class ImportResultUpdater
     }
 
     /**
-     * @param \SplObjectStorage $reports
-     * @param \SplFileObject $writer
+     * @param SplObjectStorage $reports
+     * @param SplFileObject $writer
      * @param int $severity
      * @param boolean $writeHeader
      * @return int
      */
-    public function updateWarning(\SplObjectStorage $reports, \SplFileObject $writer, $severity = null, $writeHeader = false)
+    public function updateWarning(SplObjectStorage $reports, SplFileObject $writer, $severity = null, $writeHeader = false)
     {
         $rowCount = 0;
         $first = true;
@@ -95,10 +97,10 @@ class ImportResultUpdater
 
     /**
      * @param Import $import
-     * @param \SplObjectStorage $exceptions
+     * @param SplObjectStorage $exceptions
      * @param boolean $writeHeader
      */
-    public function buildExceptions(Import $import, \SplObjectStorage $exceptions, $writeHeader)
+    public function buildExceptions(Import $import, SplObjectStorage $exceptions, $writeHeader)
     {
         $first      = true;
         $errorFile  = $import->getErrorFile();
@@ -123,7 +125,7 @@ class ImportResultUpdater
         }
     }
 
-    public function buildErrors(Import $import, \SplObjectStorage $reports, $writeHeader)
+    public function buildErrors(Import $import, SplObjectStorage $reports, $writeHeader)
     {
         $first = true;
         $errorFile  = $import->getErrorFile();

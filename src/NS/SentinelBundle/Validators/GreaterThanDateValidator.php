@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Validators;
 
+use DateTime;
 use Symfony\Component\PropertyAccess\Exception\UnexpectedTypeException;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Validator\Constraint;
@@ -29,7 +30,7 @@ class GreaterThanDateValidator extends ConstraintValidator
 
         }
 
-        if ($lessThanValue instanceof \DateTime && $greaterThanValue instanceof \DateTime) {
+        if ($lessThanValue instanceof DateTime && $greaterThanValue instanceof DateTime) {
             if ($lessThanValue > $greaterThanValue) {
                 $message = !empty($constraint->message) ? $constraint->message : sprintf('%s: %s is not greater than %s: %s', $constraint->greaterThanField, $greaterThanValue->format('Y-m-d'), $constraint->lessThanField, $lessThanValue->format('Y-m-d'));
                 $this->context

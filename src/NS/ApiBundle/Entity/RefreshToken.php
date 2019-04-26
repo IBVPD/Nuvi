@@ -66,7 +66,8 @@ class RefreshToken extends BaseRefreshToken
     /**
      *
      * @param UserInterface $user
-     * @return \NS\ApiBundle\Entity\RefreshToken
+     *
+     * @return RefreshToken
      */
     public function setUser(UserInterface $user)
     {
@@ -78,7 +79,8 @@ class RefreshToken extends BaseRefreshToken
     /**
      *
      * @param ClientInterface $client
-     * @return \NS\ApiBundle\Entity\RefreshToken
+     *
+     * @return RefreshToken
      */
     public function setClient(ClientInterface $client)
     {

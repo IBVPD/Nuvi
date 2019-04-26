@@ -2,6 +2,7 @@
 
 namespace NS\ImportBundle\Converter;
 
+use DateTime;
 use Ddeboer\DataImport\ValueConverter\DateTimeValueConverter as BaseDateTimeValueConverter;
 
 /**
@@ -44,7 +45,7 @@ class DateTimeValueConverter extends BaseDateTimeValueConverter implements Named
         // Try ExcelDate
         if (is_numeric($input)) {
             $result = $this->excelConverter->__invoke($input);
-            if ($result instanceof \DateTime) {
+            if ($result instanceof DateTime) {
                 return $result;
             }
         }

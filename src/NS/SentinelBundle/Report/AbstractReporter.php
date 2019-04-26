@@ -5,10 +5,12 @@ namespace NS\SentinelBundle\Report;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Query;
+use Exception;
 use Lexik\Bundle\FormFilterBundle\Filter\FilterBuilderUpdaterInterface;
 use NS\SentinelBundle\Entity\Site;
 use NS\SentinelBundle\Report\Export\Exporter;
 use NS\SentinelBundle\Report\Result\AbstractGeneralStatisticResult;
+use RuntimeException;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -83,7 +85,7 @@ class AbstractReporter
             if ($fpr && method_exists($fpr, $function)) {
                 call_user_func([$fpr, $function], $c['caseCount']);
             } else {
-                throw new \RuntimeException(sprintf('method error %s', $function));
+                throw new RuntimeException(sprintf('method error %s', $function));
             }
         }
     }
@@ -185,8 +187,8 @@ class AbstractReporter
                         ->addFilterConditions($form, $query, 'cf')
                         ->getQuery()
                         ->getResult(Query::HYDRATE_SCALAR);
-                } catch (\Exception $exception) {
-                    throw new \RuntimeException('SQL Exception with func: '.$func, null, $exception);
+                } catch (Exception $exception) {
+                    throw new RuntimeException('SQL Exception with func: '.$func, null, $exception);
                 }
 
                 $this->processColumn($results, $res, $pf);

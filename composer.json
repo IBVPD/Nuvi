@@ -62,8 +62,9 @@
         "liuggio/excelbundle": "^2.0",
         "doctrine/doctrine-migrations-bundle": "^1.1",
         "twig/twig": "^1.0",
-        "ns/token-bundle": "^0.1"
-    },
+        "ns/token-bundle": "^0.1",
+    "ext-dom": "*"
+  },
     "scripts": {
       "symfony-scripts": [
         "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
@@ -105,7 +106,7 @@
       "liip/rmt": "^1.1",
       "doctrine/data-fixtures": "^1.0",
       "hautelook/alice-bundle": "^1.4",
-    "phpstan/phpstan": "^0.11.5",
-    "phpstan/phpstan-doctrine": "^0.11.2"
+      "phpstan/phpstan": "^0.11.5",
+      "phpstan/phpstan-doctrine": "^0.11.2"
     }
 }

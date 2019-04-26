@@ -8,9 +8,11 @@
 
 namespace NS\SentinelBundle\Command;
 
+use function count;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use NS\SentinelBundle\Entity;
+use NS\SentinelBundle\Entity\BaseCase;
 use NS\SentinelBundle\Form\IBD\Types\Diagnosis;
 use NS\SentinelBundle\Form\IBD\Types\DischargeDiagnosis;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -31,10 +33,10 @@ class SplitDataCommand extends ContainerAwareCommand
     {
         $this->setName('nssentinel:split-ibd')
             ->setDefinition([
-                new InputArgument('start-position',InputArgument::REQUIRED,'Start record index'),
-                new InputOption('batch-size', 'b', InputOption::VALUE_REQUIRED,'Batch size', 500),
-                new InputOption('case', 'c', InputOption::VALUE_REQUIRED,'Case id', null),
-                new InputOption('id', 'i', InputOption::VALUE_REQUIRED,'System id', null),
+                new InputArgument('start-position', InputArgument::REQUIRED, 'Start record index'),
+                new InputOption('batch-size', 'b', InputOption::VALUE_REQUIRED, 'Batch size', 500),
+                new InputOption('case', 'c', InputOption::VALUE_REQUIRED, 'Case id', null),
+                new InputOption('id', 'i', InputOption::VALUE_REQUIRED, 'System id', null),
             ]);
     }
 
@@ -46,10 +48,10 @@ class SplitDataCommand extends ContainerAwareCommand
         $this->entityMgr = $this->getContainer()->get('doctrine.orm.entity_manager');
         /** @var QueryBuilder $queryBuilder */
         $queryBuilder = $this->entityMgr->getRepository(Entity\IBD::class)->createQueryBuilder('i');
-        if($input->getOption('id')) {
-            $queryBuilder->where('i.id = :id')->setParameters(['id'=>$input->getOption('id')]);
+        if ($input->getOption('id')) {
+            $queryBuilder->where('i.id = :id')->setParameters(['id' => $input->getOption('id')]);
         } elseif ($input->getOption('case')) {
-            $queryBuilder->where('i.case_id = :caseId')->setParameters(['caseId'=>$input->getOption('case')]);
+            $queryBuilder->where('i.case_id = :caseId')->setParameters(['caseId' => $input->getOption('case')]);
         } else {
             $queryBuilder
                 ->setMaxResults($input->getOption('batch-size'))
@@ -64,7 +66,7 @@ class SplitDataCommand extends ContainerAwareCommand
             return -1;
         }
 
-        $output->writeln('Retrieved ' .\count($cases). ' cases');
+        $output->writeln('Retrieved ' . count($cases) . ' cases');
 
         $processed = 0;
         /** @var Entity\IBD $case */
@@ -88,9 +90,9 @@ class SplitDataCommand extends ContainerAwareCommand
                     $this->getPneumonia($case);
                     break;
                 default:
-                    $explodedId = explode('-',$case->getCaseId());
+                    $explodedId = explode('-', $case->getCaseId());
                     if (count($explodedId) > 1 && strlen($explodedId[1]) === 1) {
-                        switch($explodedId[1]) {
+                        switch ($explodedId[1]) {
                             case 'M':
                                 $processed++;
                                 $this->getMeningitis($case);
@@ -100,7 +102,7 @@ class SplitDataCommand extends ContainerAwareCommand
                                 $this->getPneumonia($case);
                                 break;
                             default:
-                                $output->writeln(sprintf('1 - Unable to determine type for id:%s, adm: %s',$case->getCaseId(),(string)$case->getAdmDx()));
+                                $output->writeln(sprintf('1 - Unable to determine type for id:%s, adm: %s', $case->getCaseId(), (string)$case->getAdmDx()));
                         }
                     }
                     break;
@@ -166,7 +168,7 @@ class SplitDataCommand extends ContainerAwareCommand
         if ($ibdCase->getSiteLab()) {
             /** @var Entity\IBD\SiteLab $orgLab */
             $orgLab = $ibdCase->getSiteLab();
-            $lab = new Entity\Meningitis\SiteLab($obj);
+            $lab    = new Entity\Meningitis\SiteLab($obj);
 
             $lab->setUpdatedAt($orgLab->getUpdatedAt());
             $lab->setStatus($orgLab->getStatus());
@@ -257,7 +259,7 @@ class SplitDataCommand extends ContainerAwareCommand
         if ($ibdCase->getNationalLab()) {
             /** @var Entity\IBD\NationalLab $orgLab */
             $orgLab = $ibdCase->getNationalLab();
-            $lab = new Entity\Meningitis\NationalLab();
+            $lab    = new Entity\Meningitis\NationalLab();
             $lab->setCaseFile($obj);
             $this->updateMeningitisExternalLab($orgLab, $lab);
             $this->entityMgr->persist($lab);
@@ -267,7 +269,7 @@ class SplitDataCommand extends ContainerAwareCommand
         if ($ibdCase->getReferenceLab()) {
             /** @var Entity\IBD\ReferenceLab $orgLab */
             $orgLab = $ibdCase->getReferenceLab();
-            $lab = new Entity\Meningitis\ReferenceLab();
+            $lab    = new Entity\Meningitis\ReferenceLab();
             $lab->setCaseFile($obj);
             $this->updateMeningitisExternalLab($orgLab, $lab);
             $this->entityMgr->persist($lab);
@@ -276,7 +278,7 @@ class SplitDataCommand extends ContainerAwareCommand
     }
 
     /**
-     * @param Entity\IBD\NationalLab|Entity\IBD\ReferenceLab $orgLab
+     * @param Entity\IBD\NationalLab|Entity\IBD\ReferenceLab               $orgLab
      * @param Entity\Meningitis\NationalLab|Entity\Meningitis\ReferenceLab $lab
      */
     private function updateMeningitisExternalLab($orgLab, $lab)
@@ -383,7 +385,7 @@ class SplitDataCommand extends ContainerAwareCommand
         if ($ibdCase->getSiteLab()) {
             /** @var Entity\IBD\SiteLab $orgLab */
             $orgLab = $ibdCase->getSiteLab();
-            $lab = new Entity\Pneumonia\SiteLab($obj);
+            $lab    = new Entity\Pneumonia\SiteLab($obj);
 
             $lab->setCaseFile($obj);
             $lab->setUpdatedAt($orgLab->getUpdatedAt());
@@ -453,7 +455,7 @@ class SplitDataCommand extends ContainerAwareCommand
         if ($ibdCase->getNationalLab()) {
             /** @var Entity\IBD\NationalLab $orgLab */
             $orgLab = $ibdCase->getNationalLab();
-            $lab = new Entity\Pneumonia\NationalLab();
+            $lab    = new Entity\Pneumonia\NationalLab();
             $lab->setCaseFile($obj);
             $this->updatePneumoniaExternalLab($orgLab, $lab);
             $this->entityMgr->persist($lab);
@@ -463,7 +465,7 @@ class SplitDataCommand extends ContainerAwareCommand
         if ($ibdCase->getReferenceLab()) {
             /** @var Entity\IBD\ReferenceLab $orgLab */
             $orgLab = $ibdCase->getReferenceLab();
-            $lab = new Entity\Pneumonia\ReferenceLab();
+            $lab    = new Entity\Pneumonia\ReferenceLab();
             $lab->setCaseFile($obj);
             $this->updatePneumoniaExternalLab($orgLab, $lab);
             $this->entityMgr->persist($lab);
@@ -472,7 +474,7 @@ class SplitDataCommand extends ContainerAwareCommand
     }
 
     /**
-     * @param Entity\IBD\NationalLab|Entity\IBD\ReferenceLab $orgLab
+     * @param Entity\IBD\NationalLab|Entity\IBD\ReferenceLab             $orgLab
      * @param Entity\Pneumonia\NationalLab|Entity\Pneumonia\ReferenceLab $lab
      */
     private function updatePneumoniaExternalLab($orgLab, $lab)
@@ -519,11 +521,13 @@ class SplitDataCommand extends ContainerAwareCommand
 
     /**
      * @param Entity\IBD $ibdCase
-     * @param $newCaseClass
+     * @param string     $newCaseClass
+     *
+     * @return BaseCase
      */
-    private function getBaseCase($ibdCase, $newCaseClass)
+    private function getBaseCase($ibdCase, $newCaseClass): BaseCase
     {
-        /** @var Entity\BaseCase $obj */
+        /** @var BaseCase $obj */
         $obj = new $newCaseClass();
         $obj->setId($ibdCase->getId());
         if ($ibdCase->getSite()) {

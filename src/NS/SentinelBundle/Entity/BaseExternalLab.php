@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use NS\SentinelBundle\Form\Types\CaseStatus;
@@ -26,7 +27,7 @@ abstract class BaseExternalLab
     protected $lab_id;
 
     /**
-     * @var \DateTime $dateReceived
+     * @var DateTime $dateReceived
      * @ORM\Column(name="dt_sample_recd", type="date",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
@@ -41,7 +42,7 @@ abstract class BaseExternalLab
     protected $status;
 
     /**
-     * @var \DateTime $createdAt
+     * @var DateTime $createdAt
      * @ORM\Column(name="createdAt", type="datetime")
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
@@ -49,7 +50,7 @@ abstract class BaseExternalLab
     protected $createdAt;
 
     /**
-     * @var \DateTime $updatedAt
+     * @var DateTime $updatedAt
      * @ORM\Column(name="updatedAt",type="datetime")
      * @Serializer\Groups({"api","export"})
      */
@@ -65,11 +66,11 @@ abstract class BaseExternalLab
     public function __construct()
     {
         $this->status = new CaseStatus(CaseStatus::OPEN);
-        $this->createdAt = $this->updatedAt = new \DateTime();
+        $this->createdAt = $this->updatedAt = new DateTime();
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getDateReceived()
     {
@@ -77,15 +78,15 @@ abstract class BaseExternalLab
     }
 
     /**
-     * @param \DateTime|null $dateReceived
+     * @param DateTime|null $dateReceived
      */
-    public function setDateReceived(\DateTime $dateReceived = null)
+    public function setDateReceived(DateTime $dateReceived = null)
     {
         $this->dt_sample_recd = $dateReceived;
     }
 
     /**
-     * @return \DateTime|null
+     * @return DateTime|null
      */
     public function getDtSampleRecd()
     {
@@ -93,7 +94,7 @@ abstract class BaseExternalLab
     }
 
     /**
-     * @param \DateTime $dt_sample_recd
+     * @param DateTime $dt_sample_recd
      */
     public function setDtSampleRecd($dt_sample_recd)
     {
@@ -108,7 +109,7 @@ abstract class BaseExternalLab
     /**
      * Get case
      *
-     * @return \NS\SentinelBundle\Entity\BaseCase
+     * @return BaseCase
      */
     public function getCaseFile()
     {
@@ -158,7 +159,7 @@ abstract class BaseExternalLab
     }
 
     /**
-     * @return \DateTime|null
+     * @return DateTime|null
      */
     public function getUpdatedAt()
     {
@@ -207,7 +208,7 @@ abstract class BaseExternalLab
     public function preUpdateAndPersist()
     {
         $this->calculateStatus();
-        $this->setUpdatedAt(new \DateTime());
+        $this->setUpdatedAt(new DateTime());
     }
 
     /**
@@ -229,7 +230,7 @@ abstract class BaseExternalLab
     }
 
     /**
-     * @return \DateTime|null
+     * @return DateTime|null
      */
     public function getCreatedAt()
     {
@@ -237,7 +238,7 @@ abstract class BaseExternalLab
     }
 
     /**
-     * @param \DateTime $createdAt
+     * @param DateTime $createdAt
      */
     public function setCreatedAt($createdAt)
     {

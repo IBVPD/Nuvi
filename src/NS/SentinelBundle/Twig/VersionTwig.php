@@ -9,8 +9,10 @@
 namespace NS\SentinelBundle\Twig;
 
 use NS\SentinelBundle\Version;
+use Twig_Extension;
+use Twig_Extension_GlobalsInterface;
 
-class VersionTwig extends \Twig_Extension implements \Twig_Extension_GlobalsInterface
+class VersionTwig extends Twig_Extension implements Twig_Extension_GlobalsInterface
 {
     public function getGlobals()
     {

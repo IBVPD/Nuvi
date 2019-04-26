@@ -9,6 +9,7 @@
 namespace NS\SentinelBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use InvalidArgumentException;
 use NS\SecurityBundle\Annotation as Security;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -74,11 +75,11 @@ class ZeroReport
     public function __construct(Site $site, $caseType, $type, $month, $year)
     {
         if ($year < 2000) {
-            throw new \InvalidArgumentException('Expecting a year after 2000');
+            throw new InvalidArgumentException('Expecting a year after 2000');
         }
 
         if (!is_numeric($month) || $month <= 0 || $month > 12) {
-            throw new \InvalidArgumentException('Expecting a month between 1 and 12');
+            throw new InvalidArgumentException('Expecting a month between 1 and 12');
         }
 
         $this->site      = $site;

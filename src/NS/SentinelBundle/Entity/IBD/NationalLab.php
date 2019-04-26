@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Entity\IBD;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use NS\SentinelBundle\Validators as LocalAssert;
@@ -33,7 +34,7 @@ class NationalLab extends ExternalLab
     private $rl_isol_csf_sent;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      * @ORM\Column(name="rl_isol_csf_date",type="date",nullable=true)
      *
      * @LocalAssert\NoFutureDate()
@@ -52,7 +53,7 @@ class NationalLab extends ExternalLab
     private $rl_isol_blood_sent;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      * @ORM\Column(name="rl_isol_blood_date",type="date",nullable=true)
      *
      * @LocalAssert\NoFutureDate()
@@ -71,7 +72,7 @@ class NationalLab extends ExternalLab
     private $rl_other_sent;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      * @ORM\Column(name="rl_other_date",type="date",nullable=true)
      *
      * @LocalAssert\NoFutureDate()
@@ -120,7 +121,7 @@ class NationalLab extends ExternalLab
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getRlIsolCsfDate()
     {
@@ -128,9 +129,9 @@ class NationalLab extends ExternalLab
     }
 
     /**
-     * @param \DateTime $rl_isol_csf_date
+     * @param DateTime $rl_isol_csf_date
      */
-    public function setRlIsolCsfDate(\DateTime $rl_isol_csf_date = null)
+    public function setRlIsolCsfDate(DateTime $rl_isol_csf_date = null)
     {
         $this->rl_isol_csf_date = $rl_isol_csf_date;
     }
@@ -152,7 +153,7 @@ class NationalLab extends ExternalLab
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getRlIsolBloodDate()
     {
@@ -160,9 +161,9 @@ class NationalLab extends ExternalLab
     }
 
     /**
-     * @param \DateTime $rl_isol_blood_date
+     * @param DateTime $rl_isol_blood_date
      */
-    public function setRlIsolBloodDate(\DateTime $rl_isol_blood_date = null)
+    public function setRlIsolBloodDate(DateTime $rl_isol_blood_date = null)
     {
         $this->rl_isol_blood_date = $rl_isol_blood_date;
     }
@@ -184,7 +185,7 @@ class NationalLab extends ExternalLab
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getRlOtherDate()
     {
@@ -192,9 +193,9 @@ class NationalLab extends ExternalLab
     }
 
     /**
-     * @param \DateTime $rl_other_date
+     * @param DateTime $rl_other_date
      */
-    public function setRlOtherDate(\DateTime $rl_other_date = null)
+    public function setRlOtherDate(DateTime $rl_other_date = null)
     {
         $this->rl_other_date = $rl_other_date;
     }

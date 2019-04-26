@@ -3,7 +3,8 @@
 namespace NS\SentinelBundle\Exceptions;
 
 use Ddeboer\DataImport\Exception;
+use RuntimeException;
 
-class InvalidCaseException extends \RuntimeException implements Exception
+class InvalidCaseException extends RuntimeException implements Exception
 {
 }

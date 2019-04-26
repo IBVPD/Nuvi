@@ -66,7 +66,8 @@ class AuthCode extends BaseAuthCode
     /**
      *
      * @param UserInterface $user
-     * @return \NS\ApiBundle\Entity\AuthCode
+     *
+     * @return AuthCode
      */
     public function setUser(UserInterface $user)
     {
@@ -78,7 +79,8 @@ class AuthCode extends BaseAuthCode
     /**
      *
      * @param ClientInterface $client
-     * @return \NS\ApiBundle\Entity\AuthCode
+     *
+     * @return AuthCode
      */
     public function setClient(ClientInterface $client)
     {

@@ -3,29 +3,32 @@
 namespace NS\SentinelBundle\Twig;
 
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Twig_Environment;
+use Twig_Extension;
+use Twig_SimpleFunction;
 
 /**
  * Description of Templates
  *
  * @author gnat
  */
-class CaseTemplates extends \Twig_Extension
+class CaseTemplates extends Twig_Extension
 {
     /**
      * @var AuthorizationCheckerInterface
      */
     private $authChecker;
     /**
-     * @var \Twig_Environment
+     * @var Twig_Environment
      */
     private $twig;
 
     /**
      *
      * @param AuthorizationCheckerInterface $checkerInterface
-     * @param \Twig_Environment $twig
+     * @param Twig_Environment $twig
      */
-    public function __construct(AuthorizationCheckerInterface $checkerInterface, \Twig_Environment $twig)
+    public function __construct(AuthorizationCheckerInterface $checkerInterface, Twig_Environment $twig)
     {
         $this->authChecker = $checkerInterface;
         $this->twig        = $twig;
@@ -40,7 +43,7 @@ class CaseTemplates extends \Twig_Extension
         $isSafe = ['is_safe' => ['html']];
 
         return [
-            new \Twig_SimpleFunction('case_index_template', [$this, 'renderTable'], $isSafe),
+            new Twig_SimpleFunction('case_index_template', [$this, 'renderTable'], $isSafe),
         ];
     }
 

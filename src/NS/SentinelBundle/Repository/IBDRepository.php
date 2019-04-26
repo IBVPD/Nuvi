@@ -406,7 +406,8 @@ class IBDRepository extends Common
     /**
      * @param $alias
      * @param array $siteCodes
-     * @return \Doctrine\ORM\QueryBuilder
+     *
+     * @return QueryBuilder
      */
     public function getMissingAdmissionDiagnosisCountBySites($alias, array $siteCodes): QueryBuilder
     {
@@ -420,7 +421,8 @@ class IBDRepository extends Common
     /**
      * @param $alias
      * @param array $siteCodes
-     * @return \Doctrine\ORM\QueryBuilder
+     *
+     * @return QueryBuilder
      */
     public function getMissingDischargeOutcomeCountBySites($alias, array $siteCodes): QueryBuilder
     {
@@ -434,7 +436,8 @@ class IBDRepository extends Common
     /**
      * @param $alias
      * @param array $siteCodes
-     * @return \Doctrine\ORM\QueryBuilder
+     *
+     * @return QueryBuilder
      */
     public function getMissingDischargeDiagnosisCountBySites($alias, array $siteCodes): QueryBuilder
     {

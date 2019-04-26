@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Repository;
 
+use Doctrine\ORM\Query;
 use NS\SentinelBundle\Repository\Common as CommonRepository;
 
 /**
@@ -13,7 +14,7 @@ use NS\SentinelBundle\Repository\Common as CommonRepository;
 class RegionRepository extends CommonRepository
 {
     /**
-     * @return \Doctrine\ORM\Query
+     * @return Query
      */
     public function getAllForTree()
     {

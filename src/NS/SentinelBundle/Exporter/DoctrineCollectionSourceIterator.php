@@ -2,10 +2,14 @@
 
 namespace NS\SentinelBundle\Exporter;
 
+use ArrayIterator;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
+use Exception;
 use Exporter\Source\SourceIteratorInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyPath;
+use Traversable;
 
 /**
  * Read data from a Doctrine ArrayCollection
@@ -21,7 +25,7 @@ class DoctrineCollectionSourceIterator implements SourceIteratorInterface
     protected $collection;
 
     /**
-     * @var \ArrayIterator
+     * @var ArrayIterator
      */
     protected $iterator;
 
@@ -74,7 +78,7 @@ class DoctrineCollectionSourceIterator implements SourceIteratorInterface
         foreach ($this->propertyPaths as $name => $propertyPath) {
             try {
                 $data[$name] = $this->getValue($this->propertyAccessor->getValue($current, $propertyPath));
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 $data[$name] = $e->getMessage();
             }
         }
@@ -89,9 +93,9 @@ class DoctrineCollectionSourceIterator implements SourceIteratorInterface
      */
     protected function getValue($value)
     {
-        if (is_array($value) || $value instanceof \Traversable) {
+        if (is_array($value) || $value instanceof Traversable) {
             $value = null;
-        } elseif ($value instanceof \DateTime) {
+        } elseif ($value instanceof DateTime) {
             $value = $value->format($this->dateTimeFormat);
         } elseif (is_object($value)) {
             $value = (string) $value;

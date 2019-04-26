@@ -8,6 +8,7 @@
 
 namespace NS\SentinelBundle\Report;
 
+use DateTime;
 use Doctrine\DBAL\DBALException;
 use Doctrine\ORM\EntityManagerInterface;
 use NS\SentinelBundle\Entity\ZeroReport;
@@ -34,11 +35,11 @@ class ZeroReporter
 
     /**
      * @param string $type
-     * @param \DateTime $from
-     * @param \DateTime $to
+     * @param DateTime $from
+     * @param DateTime $to
      * @return ZeroReportResult
      */
-    public function getZeroReports($type, \DateTime $from, \DateTime $to)
+    public function getZeroReports($type, DateTime $from, DateTime $to)
     {
         $result = new ZeroReportResult($type, $from, $to);
         $casesPerMonth = $this->entityMgr->getRepository($type)->getCasesPerMonth($from, $to);

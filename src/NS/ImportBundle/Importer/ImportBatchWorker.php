@@ -7,6 +7,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use NS\ImportBundle\Entity\Import;
 use NS\ImportBundle\Filter\Duplicate;
 use NS\ImportBundle\Filter\NotBlank;
+use NS\ImportBundle\Linker\CaseLinkerNotFoundException;
 use NS\ImportBundle\Linker\CaseLinkerRegistry;
 
 /**
@@ -47,7 +48,7 @@ class ImportBatchWorker
      * @param int $batchSize Number of rows to process at a time
      *
      * @return bool Returns true when the import has been completely processed
-     * @throws \NS\ImportBundle\Linker\CaseLinkerNotFoundException
+     * @throws CaseLinkerNotFoundException
      */
     public function consume(Import $import, $batchSize = 500)
     {
@@ -61,7 +62,7 @@ class ImportBatchWorker
     /**
      * @param Import $import
      * @param $batchSize
-     * @throws \NS\ImportBundle\Linker\CaseLinkerNotFoundException
+     * @throws CaseLinkerNotFoundException
      */
     public function setup(Import $import, $batchSize)
     {

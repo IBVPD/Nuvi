@@ -4,6 +4,7 @@ namespace NS\SentinelBundle\Filter\Listener;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\QueryBuilder;
+use Exception;
 use Lexik\Bundle\FormFilterBundle\Event\GetFilterConditionEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -31,7 +32,7 @@ class CaseAssociationListener implements EventSubscriberInterface
 
     /**
      * @param GetFilterConditionEvent $event
-     * @throws \Exception
+     * @throws Exception
      */
     public function filterObject(GetFilterConditionEvent $event)
     {
@@ -49,7 +50,7 @@ class CaseAssociationListener implements EventSubscriberInterface
 
                 foreach ($values['value'] as $value) {
                     if (!is_callable([$value, 'getId'])) {
-                        throw new \Exception(sprintf('Can\'t call method "getId()" on an instance of "%s"', get_class($value)));
+                        throw new Exception(sprintf('Can\'t call method "getId()" on an instance of "%s"', get_class($value)));
                     }
 
                     $ids[] = $value->getId();
@@ -60,7 +61,7 @@ class CaseAssociationListener implements EventSubscriberInterface
                 }
             } else {
                 if (!is_callable([$values['value'], 'getId'])) {
-                    throw new \Exception(sprintf('Can\'t call method "getId()" on an instance of "%s"', get_class($values['value'])));
+                    throw new Exception(sprintf('Can\'t call method "getId()" on an instance of "%s"', get_class($values['value'])));
                 }
 
                 $fieldAlias = 'p_' . substr($event->getField(), strpos($event->getField(), '.') + 1);

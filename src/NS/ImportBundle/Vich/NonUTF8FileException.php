@@ -8,7 +8,9 @@
 
 namespace NS\ImportBundle\Vich;
 
-class NonUTF8FileException extends \RuntimeException
+use RuntimeException;
+
+class NonUTF8FileException extends RuntimeException
 {
 
 }

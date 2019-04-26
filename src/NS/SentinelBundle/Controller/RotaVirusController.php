@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Controller;
 
+use Exception;
 use NS\SentinelBundle\Filter\Type\RotaVirus\FilterType;
 use NS\SentinelBundle\Form\RotaVirus\CaseType;
 use NS\SentinelBundle\Form\RotaVirus\NationalLabType;
@@ -62,7 +63,7 @@ class RotaVirusController extends BaseCaseController
     /**
      * @Route("/delete/{id}",name="rotavirusDelete")
      * @param $id
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
     public function deleteAction($id)
     {
@@ -148,7 +149,7 @@ class RotaVirusController extends BaseCaseController
                 return $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:RotaVirus\NationalLab')->findOrCreateNew($objId);
 
             default:
-                throw new \Exception("Unknown type");
+                throw new Exception("Unknown type");
         }
     }
 

@@ -2,13 +2,19 @@
 
 namespace NS\SentinelBundle\Entity\Generator;
 
+use DateTime;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Id\AbstractIdGenerator;
+use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\Query\ResultSetMapping;
+use Exception;
+use InvalidArgumentException;
 use NS\SentinelBundle\Entity\BaseCase;
 use NS\SentinelBundle\Entity\Site;
+use RuntimeException;
+use UnexpectedValueException;
 
 /**
  *
@@ -18,13 +24,13 @@ class BaseCaseGenerator extends AbstractIdGenerator
 {
     /**
      * @param EntityManager $entityMgr
-     * @param \Doctrine\ORM\Mapping\Entity $entity
+     * @param Entity $entity
      * @return mixed
      */
     public function generate(EntityManager $entityMgr, $entity)
     {
         if (!$entity instanceof BaseCase) {
-            throw new \InvalidArgumentException('Entity must extend NS\\SentinelBundle\\Entity\\BaseCase');
+            throw new InvalidArgumentException('Entity must extend NS\\SentinelBundle\\Entity\\BaseCase');
         }
 
         if ($entity->getId()) {
@@ -35,7 +41,7 @@ class BaseCaseGenerator extends AbstractIdGenerator
         $country = $entity->getCountry();
 
         if ($site === null && $country == null) {
-            throw new \UnexpectedValueException("Can't generate an id for entities without an site or country");
+            throw new UnexpectedValueException("Can't generate an id for entities without an site or country");
         }
 
         $year = $this->getYear($entity);
@@ -76,17 +82,17 @@ class BaseCaseGenerator extends AbstractIdGenerator
             $entityMgr->commit();
 
             return $newId;
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $entityMgr->rollback();
-            throw new \RuntimeException(sprintf('Site issue: %s %s %s', $site->getName(), $site->getId(), $exception->getMessage()));
+            throw new RuntimeException(sprintf('Site issue: %s %s %s', $site->getName(), $site->getId(), $exception->getMessage()));
         }
     }
 
     public function getYear(BaseCase $case)
     {
-        if (method_exists($case, 'getAdmDate') && $case->getAdmDate() instanceof \DateTime) {
+        if (method_exists($case, 'getAdmDate') && $case->getAdmDate() instanceof DateTime) {
             return $case->getAdmDate()->format('y');
-        } elseif (method_exists($case, 'getOnsetDate') && $case->getOnsetDate() instanceof \DateTime) {
+        } elseif (method_exists($case, 'getOnsetDate') && $case->getOnsetDate() instanceof DateTime) {
             return $case->getOnsetDate()->format('y');
         } else {
             return date('y');

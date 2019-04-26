@@ -3,6 +3,7 @@
 namespace NS\ImportBundle\Command;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use NS\ImportBundle\Entity\Import;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
@@ -10,6 +11,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use TypeError;
 
 class WorkerCommand extends ContainerAwareCommand
 {
@@ -54,10 +56,10 @@ class WorkerCommand extends ContainerAwareCommand
                     $output->writeln('Import complete - Job removed');
                 }
             } // PHP7 only!
-            catch(\TypeError $exception) {
+            catch(TypeError $exception) {
                 $this->handleError($errOutput, $entityMgr, $import, $exception);
             }
-            catch (\Exception $exception) {
+            catch (Exception $exception) {
                 $this->handleError($errOutput, $entityMgr, $import, $exception);
             }
         } else {

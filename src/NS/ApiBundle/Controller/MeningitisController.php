@@ -3,6 +3,7 @@
 namespace NS\ApiBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations as REST;
+use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation as ApiDoc;
 use NS\SentinelBundle\Entity\Meningitis\Meningitis;
 use NS\SentinelBundle\Entity\Meningitis\NationalLab;
@@ -160,10 +161,10 @@ class MeningitisController extends CaseController
      * @REST\Patch("/{objId}",name="nsApiMeningitisPatchCase")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param string $objId
+     * @param Request $request
+     * @param string  $objId
      *
-     * @return \FOS\RestBundle\View\View
+     * @return View
      */
     public function patchMeningitisCaseAction(Request $request, $objId)
     {
@@ -185,9 +186,10 @@ class MeningitisController extends CaseController
      * @REST\Patch("/{objId}/lab",name="nsApiMeningitisPatchLab")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param string $objId
-     * @return \FOS\RestBundle\View\View
+     * @param Request $request
+     * @param string  $objId
+     *
+     * @return View
      */
     public function patchMeningitisLabAction(Request $request, $objId)
     {
@@ -209,9 +211,10 @@ class MeningitisController extends CaseController
      * @REST\Patch("/{objId}/rrl",name="nsApiMeningitisPatchRRL")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param string $objId
-     * @return \FOS\RestBundle\View\View
+     * @param Request $request
+     * @param string  $objId
+     *
+     * @return View
      */
     public function patchMeningitisRRLAction(Request $request, $objId)
     {
@@ -233,9 +236,10 @@ class MeningitisController extends CaseController
      * @REST\Patch("/{objId}/nl",name="nsApiMeningitisPatchNL")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @param string $objId
-     * @return \FOS\RestBundle\View\View
+     *
+     * @return View
      */
     public function patchMeningitisNLAction(Request $request, $objId)
     {
@@ -258,10 +262,10 @@ class MeningitisController extends CaseController
      * @REST\Patch("/{objId}/outcome",name="nsApiMeningitisPatchOutcome")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @param string $objId
      *
-     * @return \FOS\RestBundle\View\View
+     * @return View
      */
     public function patchMeningitisOutcomeAction(Request $request, $objId)
     {
@@ -285,10 +289,10 @@ class MeningitisController extends CaseController
      * @REST\Put("/{objId}",name="nsApiMeningitisPutCase")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @param string $objId
      *
-     * @return \FOS\RestBundle\View\View
+     * @return View
      */
     public function putMeningitisCaseAction(Request $request, $objId)
     {
@@ -310,9 +314,10 @@ class MeningitisController extends CaseController
      * @REST\Put("/{objId}/lab",name="nsApiMeningitisPutLab")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @param string $objId
-     * @return \FOS\RestBundle\View\View
+     *
+     * @return View
      */
     public function putMeningitisLabAction(Request $request, $objId)
     {
@@ -334,9 +339,10 @@ class MeningitisController extends CaseController
      * @REST\Put("/{objId}/rrl",name="nsApiMeningitisPutRRL")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @param string $objId
-     * @return \FOS\RestBundle\View\View
+     *
+     * @return View
      */
     public function putMeningitisRRLAction(Request $request, $objId)
     {
@@ -358,9 +364,10 @@ class MeningitisController extends CaseController
      * @REST\Put("/{objId}/nl",name="nsApiMeningitisPutNL")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @param string $objId
-     * @return \FOS\RestBundle\View\View
+     *
+     * @return View
      */
     public function putMeningitisNLAction(Request $request, $objId)
     {
@@ -383,10 +390,10 @@ class MeningitisController extends CaseController
      * @REST\Put("/{objId}/outcome",name="nsApiMeningitisPutOutcome")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @param string $objId
      *
-     * @return \FOS\RestBundle\View\View
+     * @return View
      */
     public function putMeningitisOutcomeAction(Request $request, $objId)
     {
@@ -413,7 +420,7 @@ class MeningitisController extends CaseController
      *
      * @param Request $request the request object
      *
-     * @return array|\FOS\RestBundle\View\View
+     * @return array|View
      */
     public function postMeningitisCaseAction(Request $request)
     {

@@ -3,6 +3,7 @@
 namespace NS\SentinelBundle\Filter\Type;
 
 use Doctrine\ORM\QueryBuilder;
+use Exception;
 use Lexik\Bundle\FormFilterBundle\Filter\Form\Type\EmbeddedFilterTypeInterface;
 use Lexik\Bundle\FormFilterBundle\Filter\Form\Type\TextFilterType;
 use Lexik\Bundle\FormFilterBundle\Filter\Query\QueryInterface;
@@ -39,7 +40,7 @@ class SiteFilterType extends AbstractType implements EmbeddedFilterTypeInterface
      * @param QueryInterface $filterBuilder
      * @param string $field
      * @param array $values
-     * @throws \Exception
+     * @throws Exception
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function applyFilter(QueryInterface $filterBuilder, $field, $values)

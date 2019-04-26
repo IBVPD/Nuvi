@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Validators;
 
+use InvalidArgumentException;
 use NS\UtilBundle\Form\Types\ArrayChoice;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -23,7 +24,7 @@ class OtherValidator extends ConstraintValidator
         $otherFMethod = sprintf("get%s", $constraint->otherField);
 
         if (!method_exists($value, $fMethod) || !method_exists($value, $otherFMethod)) {
-            throw new \InvalidArgumentException(sprintf("Either %s or %s doesn't exist for object %s", $constraint->field, $constraint->otherField, get_class($value)));
+            throw new InvalidArgumentException(sprintf("Either %s or %s doesn't exist for object %s", $constraint->field, $constraint->otherField, get_class($value)));
         }
 
         $const = constant($constraint->value);

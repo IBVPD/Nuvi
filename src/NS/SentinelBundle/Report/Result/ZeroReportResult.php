@@ -9,6 +9,9 @@
 namespace NS\SentinelBundle\Report\Result;
 
 
+use DateInterval;
+use DatePeriod;
+use DateTime;
 use NS\SentinelBundle\Entity\Site;
 
 class ZeroReportResult
@@ -19,12 +22,12 @@ class ZeroReportResult
     private $type;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      */
     private $from;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      */
     private $to;
 
@@ -33,7 +36,7 @@ class ZeroReportResult
      */
     private $zeroReportResults;
 
-    public function __construct($type, \DateTime $from, \DateTime $to)
+    public function __construct($type, DateTime $from, DateTime $to)
     {
         $this->type = $type;
         $this->from = $from;
@@ -88,8 +91,8 @@ class ZeroReportResult
             $start = $from->modify('first day of this month');
             $end = $to->modify('first day of next month');
 
-            $interval = \DateInterval::createFromDateString('1 month');
-            $period = new \DatePeriod($start, $interval, $end);
+            $interval = DateInterval::createFromDateString('1 month');
+            $period = new DatePeriod($start, $interval, $end);
 
             foreach ($period as $dt) {
                 $this->dates[$dt->format('Y-m')] = ['month' => $dt->format('n'), 'year' => $dt->format('Y')];

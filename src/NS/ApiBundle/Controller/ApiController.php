@@ -5,6 +5,8 @@ namespace NS\ApiBundle\Controller;
 use FOS\RestBundle\Controller\Annotations as REST;
 use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use NS\SentinelBundle\Entity\IBD;
+use NS\SentinelBundle\Form\Types\Gender;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
@@ -29,7 +31,7 @@ class ApiController extends FOSRestController
      *
      * @return array
      */
-    public function sitesAction()
+    public function sitesAction(): array
     {
         $sites = $this->get('doctrine.orm.entity_manager')->getRepository('NSSentinelBundle:Site')->findAll();
         return ['sites' => $sites];
@@ -50,10 +52,10 @@ class ApiController extends FOSRestController
      * @REST\GET("/test")
      * @Rest\View(serializerGroups={"api"})
      */
-    public function testAction()
+    public function testAction(): array
     {
-        $mGender = new \NS\SentinelBundle\Form\Types\Gender(\NS\SentinelBundle\Form\Types\Gender::MALE);
-        $ibd     = new \NS\SentinelBundle\Entity\IBD();
+        $mGender = new Gender(Gender::MALE);
+        $ibd     = new IBD();
         $ibd->setGender($mGender);
         $ibd->setCaseId(rand(500, 10000));
 

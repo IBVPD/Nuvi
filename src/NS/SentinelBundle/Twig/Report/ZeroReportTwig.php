@@ -10,8 +10,10 @@ namespace NS\SentinelBundle\Twig\Report;
 
 
 use NS\SentinelBundle\Report\Result\ZeroReportSiteResult;
+use Twig_Extension;
+use Twig_SimpleFunction;
 
-class ZeroReportTwig extends \Twig_Extension
+class ZeroReportTwig extends Twig_Extension
 {
     /**
      * @inheritDoc
@@ -19,7 +21,7 @@ class ZeroReportTwig extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('zero_report', [$this, 'renderZeroReport'], ['is_safe' => ['html']]),
+            new Twig_SimpleFunction('zero_report', [$this, 'renderZeroReport'], ['is_safe' => ['html']]),
         ];
     }
 

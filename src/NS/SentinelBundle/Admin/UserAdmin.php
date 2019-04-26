@@ -232,7 +232,7 @@ class UserAdmin extends AbstractAdmin
 
     /**
      * @param string $context
-     * @return \Sonata\AdminBundle\Datagrid\ProxyQueryInterface
+     * @return ProxyQueryInterface
      */
     public function createQuery($context = 'list')
     {

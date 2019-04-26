@@ -3,11 +3,13 @@
 namespace NS\SentinelBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\Groups;
 use NS\SecurityBundle\Annotation\Secured;
 use NS\SecurityBundle\Annotation\SecuredCondition;
 use NS\SentinelBundle\Form\Types\TripleChoice;
+use Serializable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -25,7 +27,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @SuppressWarnings(PHPMD.ShortVariable)
  * @UniqueEntity(fields={"code"})
  */
-class Country implements \Serializable
+class Country implements Serializable
 {
     /**
      * @var string
@@ -207,10 +209,11 @@ class Country implements \Serializable
     /**
      * Add sites
      *
-     * @param \NS\SentinelBundle\Entity\Site $sites
+     * @param Site $sites
+     *
      * @return Country
      */
-    public function addSite(\NS\SentinelBundle\Entity\Site $sites)
+    public function addSite(Site $sites)
     {
         $this->sites[] = $sites;
     
@@ -220,9 +223,9 @@ class Country implements \Serializable
     /**
      * Remove sites
      *
-     * @param \NS\SentinelBundle\Entity\Site $sites
+     * @param Site $sites
      */
-    public function removeSite(\NS\SentinelBundle\Entity\Site $sites)
+    public function removeSite(Site $sites)
     {
         $this->sites->removeElement($sites);
     }
@@ -230,7 +233,7 @@ class Country implements \Serializable
     /**
      * Get sites
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return Collection
      */
     public function getSites()
     {
@@ -240,10 +243,11 @@ class Country implements \Serializable
     /**
      * Set region
      *
-     * @param \NS\SentinelBundle\Entity\Region $region
+     * @param Region $region
+     *
      * @return Country
      */
-    public function setRegion(\NS\SentinelBundle\Entity\Region $region = null)
+    public function setRegion(Region $region = null)
     {
         $this->region = $region;
     
@@ -253,7 +257,7 @@ class Country implements \Serializable
     /**
      * Get region
      *
-     * @return \NS\SentinelBundle\Entity\Region 
+     * @return Region
      */
     public function getRegion()
     {

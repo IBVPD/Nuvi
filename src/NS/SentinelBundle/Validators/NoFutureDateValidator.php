@@ -8,17 +8,18 @@
 
 namespace NS\SentinelBundle\Validators;
 
+use DateTime;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
 class NoFutureDateValidator extends ConstraintValidator
 {
-    /** @var \DateTime */
+    /** @var DateTime */
     private $today;
 
     public function __construct()
     {
-        $this->today = new \DateTime();
+        $this->today = new DateTime();
     }
 
     /**
@@ -26,7 +27,7 @@ class NoFutureDateValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
-        if ($value instanceof \DateTime) {
+        if ($value instanceof DateTime) {
             if($value > $this->today) {
                 $this->context->buildViolation('This date is in the future')->addViolation();
 

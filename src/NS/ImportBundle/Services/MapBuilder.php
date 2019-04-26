@@ -3,6 +3,7 @@
 namespace NS\ImportBundle\Services;
 
 use Doctrine\ORM\Mapping\ClassMetadata;
+use InvalidArgumentException;
 use NS\ImportBundle\Converter\Registry;
 use NS\ImportBundle\Entity\Column;
 use NS\ImportBundle\Entity\Map;
@@ -70,7 +71,8 @@ class MapBuilder
     /**
      *
      * @param Registry $converterRegistry
-     * @return \NS\ImportBundle\Services\MapBuilder
+     *
+     * @return MapBuilder
      */
     public function setConverterRegistry(Registry $converterRegistry)
     {
@@ -81,7 +83,8 @@ class MapBuilder
     /**
      *
      * @param ClassMetadata $metaData
-     * @return \NS\ImportBundle\Services\MapBuilder
+     *
+     * @return MapBuilder
      */
     public function setMetaData(ClassMetadata $metaData)
     {
@@ -91,7 +94,8 @@ class MapBuilder
 
     /**
      * @param ClassMetadata $siteMetaData
-     * @return \NS\ImportBundle\Services\MapBuilder
+     *
+     * @return MapBuilder
      */
     public function setSiteMetaData(ClassMetadata $siteMetaData)
     {
@@ -115,12 +119,12 @@ class MapBuilder
     public function process(Map $map)
     {
         if (!$this->metaData || !$this->siteMetaData || !$this->nlMetaData) {
-            throw new \InvalidArgumentException('Missing either class, site, national or reference lab metadata');
+            throw new InvalidArgumentException('Missing either class, site, national or reference lab metadata');
         }
 
         try {
             $reader = $this->readerFactory->getReader($map->getFile());
-        } catch (\InvalidArgumentException $exception) {
+        } catch (InvalidArgumentException $exception) {
             return;
         }
 

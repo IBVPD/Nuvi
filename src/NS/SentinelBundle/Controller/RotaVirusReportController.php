@@ -7,6 +7,7 @@ use NS\SentinelBundle\Filter\Type\RotaVirus\QuarterlyLinkingReportFilterType;
 use NS\SentinelBundle\Filter\Type\RotaVirus\ReportFilterType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -20,7 +21,8 @@ class RotaVirusReportController extends Controller
     /**
      * @Route("/data-quality",name="rotaReportDataQuality")
      * @param Request $request
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse|Response
+     *
+     * @return array|RedirectResponse|Response
      */
     public function dataQualityAction(Request $request)
     {

@@ -1271,7 +1271,7 @@ class SiteLab implements BaseSiteLabInterface
     /**
      *
      * @param string $csfCultContaminant
-     * @return \NS\SentinelBundle\Entity\IBD\SiteLab
+     * @return SiteLab
      */
     public function setCsfCultContaminant($csfCultContaminant)
     {

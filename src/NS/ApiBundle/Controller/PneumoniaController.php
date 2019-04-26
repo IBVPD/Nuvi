@@ -3,6 +3,7 @@
 namespace NS\ApiBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations as REST;
+use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation as ApiDoc;
 use NS\SentinelBundle\Entity\Pneumonia\NationalLab;
 use NS\SentinelBundle\Entity\Pneumonia\Pneumonia;
@@ -160,10 +161,10 @@ class PneumoniaController extends CaseController
      * @REST\Patch("/{objId}",name="nsApiPneumoniaPatchCase")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param string $objId
+     * @param Request $request
+     * @param string  $objId
      *
-     * @return \FOS\RestBundle\View\View
+     * @return View
      */
     public function patchPneumoniaCaseAction(Request $request, $objId)
     {
@@ -185,9 +186,10 @@ class PneumoniaController extends CaseController
      * @REST\Patch("/{objId}/lab",name="nsApiPneumoniaPatchLab")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param string $objId
-     * @return \FOS\RestBundle\View\View
+     * @param Request $request
+     * @param string  $objId
+     *
+     * @return View
      */
     public function patchPneumoniaLabAction(Request $request, $objId)
     {
@@ -209,9 +211,10 @@ class PneumoniaController extends CaseController
      * @REST\Patch("/{objId}/rrl",name="nsApiPneumoniaPatchRRL")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param string $objId
-     * @return \FOS\RestBundle\View\View
+     * @param Request $request
+     * @param string  $objId
+     *
+     * @return View
      */
     public function patchPneumoniaRRLAction(Request $request, $objId)
     {
@@ -233,9 +236,10 @@ class PneumoniaController extends CaseController
      * @REST\Patch("/{objId}/nl",name="nsApiPneumoniaPatchNL")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @param string $objId
-     * @return \FOS\RestBundle\View\View
+     *
+     * @return View
      */
     public function patchPneumoniaNLAction(Request $request, $objId)
     {
@@ -258,10 +262,10 @@ class PneumoniaController extends CaseController
      * @REST\Patch("/{objId}/outcome",name="nsApiPneumoniaPatchOutcome")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @param string $objId
      *
-     * @return \FOS\RestBundle\View\View
+     * @return View
      */
     public function patchPneumoniaOutcomeAction(Request $request, $objId)
     {
@@ -285,10 +289,10 @@ class PneumoniaController extends CaseController
      * @REST\Put("/{objId}",name="nsApiPneumoniaPutCase")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @param string $objId
      *
-     * @return \FOS\RestBundle\View\View
+     * @return View
      */
     public function putPneumoniaCaseAction(Request $request, $objId)
     {
@@ -310,9 +314,10 @@ class PneumoniaController extends CaseController
      * @REST\Put("/{objId}/lab",name="nsApiPneumoniaPutLab")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @param string $objId
-     * @return \FOS\RestBundle\View\View
+     *
+     * @return View
      */
     public function putPneumoniaLabAction(Request $request, $objId)
     {
@@ -334,9 +339,10 @@ class PneumoniaController extends CaseController
      * @REST\Put("/{objId}/rrl",name="nsApiPneumoniaPutRRL")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @param string $objId
-     * @return \FOS\RestBundle\View\View
+     *
+     * @return View
      */
     public function putPneumoniaRRLAction(Request $request, $objId)
     {
@@ -358,9 +364,10 @@ class PneumoniaController extends CaseController
      * @REST\Put("/{objId}/nl",name="nsApiPneumoniaPutNL")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @param string $objId
-     * @return \FOS\RestBundle\View\View
+     *
+     * @return View
      */
     public function putPneumoniaNLAction(Request $request, $objId)
     {
@@ -383,10 +390,10 @@ class PneumoniaController extends CaseController
      * @REST\Put("/{objId}/outcome",name="nsApiPneumoniaPutOutcome")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @param string $objId
      *
-     * @return \FOS\RestBundle\View\View
+     * @return View
      */
     public function putPneumoniaOutcomeAction(Request $request, $objId)
     {
@@ -413,7 +420,7 @@ class PneumoniaController extends CaseController
      *
      * @param Request $request the request object
      *
-     * @return array|\FOS\RestBundle\View\View
+     * @return array|View
      */
     public function postPneumoniaCaseAction(Request $request)
     {

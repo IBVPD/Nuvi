@@ -3,6 +3,7 @@
 namespace NS\SentinelBundle\Command;
 
 use NS\SentinelBundle\Entity\User;
+use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -60,7 +61,7 @@ class CreateAdminCommand extends ContainerAwareCommand
             $entityMgr->flush();
 
             $output->writeln("User Created Successfully");
-        } catch (\RuntimeException $e) {
+        } catch (RuntimeException $e) {
             $output->writeln("Unable to add user");
             $output->writeln($e->getMessage());
         }

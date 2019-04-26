@@ -70,7 +70,7 @@ class User implements AdvancedUserInterface
 
     /**
      *
-     * @var \NS\SentinelBundle\Entity\ACL $acls
+     * @var ACL $acls
      * 
      * @ORM\OneToMany(targetEntity="\NS\SentinelBundle\Entity\ACL", mappedBy="user", fetch="EAGER",cascade={"persist"}, orphanRemoval=true)
      * @ORM\JoinColumn(name="id",referencedColumnName="user_id")
@@ -379,10 +379,11 @@ class User implements AdvancedUserInterface
     /**
      * Add acls
      *
-     * @param \NS\SentinelBundle\Entity\ACL $acls
+     * @param ACL $acls
+     *
      * @return User
      */
-    public function addAcl(\NS\SentinelBundle\Entity\ACL $acls)
+    public function addAcl(ACL $acls)
     {
         $this->acls[] = $acls;
 
@@ -392,9 +393,9 @@ class User implements AdvancedUserInterface
     /**
      * Remove acls
      *
-     * @param \NS\SentinelBundle\Entity\ACL $acls
+     * @param ACL $acls
      */
-    public function removeAcl(\NS\SentinelBundle\Entity\ACL $acls)
+    public function removeAcl(ACL $acls)
     {
         $this->acls->removeElement($acls);
     }
@@ -444,7 +445,8 @@ class User implements AdvancedUserInterface
     /**
      *
      * @param integer $ttl
-     * @return \NS\SentinelBundle\Entity\User
+     *
+     * @return User
      */
     public function setTTL($ttl)
     {
@@ -464,7 +466,8 @@ class User implements AdvancedUserInterface
     /**
      *
      * @param boolean $active
-     * @return \NS\SentinelBundle\Entity\User
+     *
+     * @return User
      */
     public function setActive($active)
     {
@@ -490,7 +493,7 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * @return \NS\SentinelBundle\Entity\ReferenceLab
+     * @return ReferenceLab
      */
     public function getReferenceLab()
     {
@@ -498,8 +501,9 @@ class User implements AdvancedUserInterface
     }
 
     /**
-     * @param \NS\SentinelBundle\Entity\ReferenceLab $referenceLab
-     * @return \NS\SentinelBundle\Entity\User
+     * @param ReferenceLab $referenceLab
+     *
+     * @return User
      */
     public function setReferenceLab(ReferenceLab $referenceLab)
     {

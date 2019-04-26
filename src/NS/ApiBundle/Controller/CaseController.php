@@ -3,7 +3,9 @@
 namespace NS\ApiBundle\Controller;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Exception;
 use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\View\View;
 use NS\SentinelBundle\Exceptions\NonExistentCaseException;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -83,7 +85,7 @@ class CaseController extends FOSRestController
      * @param $method
      * @param $formName
      * @param $className
-     * @return \FOS\RestBundle\View\View
+     * @return View
      */
     protected function updateCase(Request $request, $objId, $method, $formName, $className)
     {
@@ -102,7 +104,7 @@ class CaseController extends FOSRestController
      * @param $method
      * @param $formName
      * @param $className
-     * @return \FOS\RestBundle\View\View
+     * @return View
      */
     protected function updateLab(Request $request, $objId, $method, $formName, $className)
     {
@@ -120,7 +122,8 @@ class CaseController extends FOSRestController
      * @param $route
      * @param $formName
      * @param $className
-     * @return array|\FOS\RestBundle\View\View
+     *
+     * @return array|View
      */
     protected function postCase(Request $request, $route, $formName, $className)
     {
@@ -147,7 +150,7 @@ class CaseController extends FOSRestController
             $entityMgr->flush();
 
             return $this->routeRedirectView($route, ['objId' => $case->getId()]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return ['exception' => $e->getMessage()];
         }
     }

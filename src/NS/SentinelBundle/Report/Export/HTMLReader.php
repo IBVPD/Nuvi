@@ -8,11 +8,14 @@
 
 namespace NS\SentinelBundle\Report\Export;
 
+use DOMDocument;
+use PHPExcel;
 use PHPExcel_Reader_Exception;
+use PHPExcel_Reader_HTML;
 
-class HTMLReader extends \PHPExcel_Reader_HTML
+class HTMLReader extends PHPExcel_Reader_HTML
 {
-    public function loadFromString($xmlString, \PHPExcel $objPHPExcel)
+    public function loadFromString($xmlString, PHPExcel $objPHPExcel)
     {
         // Create new PHPExcel
         while ($objPHPExcel->getSheetCount() <= $this->sheetIndex) {
@@ -21,7 +24,7 @@ class HTMLReader extends \PHPExcel_Reader_HTML
         $sheet = $objPHPExcel->setActiveSheetIndex($this->sheetIndex);
 
         // Create a new DOM object
-        $dom = new \DOMDocument();
+        $dom = new DOMDocument();
         // Reload the HTML file into the DOM object
         $loaded = $dom->loadHTML($this->securityScan($xmlString));
         if ($loaded === FALSE) {

@@ -2,6 +2,8 @@
 
 namespace NS\SentinelBundle\Report\Result;
 
+use NS\SentinelBundle\Entity\Country;
+use NS\SentinelBundle\Entity\Region;
 use NS\SentinelBundle\Entity\Site;
 
 /**
@@ -48,7 +50,7 @@ abstract class AbstractSiteBasedResult
     }
 
     /**
-     * @return \NS\SentinelBundle\Entity\Country
+     * @return Country
      */
     public function getCountry()
     {
@@ -56,7 +58,7 @@ abstract class AbstractSiteBasedResult
     }
 
     /**
-     * @return \NS\SentinelBundle\Entity\Region
+     * @return Region
      */
     public function getRegion()
     {

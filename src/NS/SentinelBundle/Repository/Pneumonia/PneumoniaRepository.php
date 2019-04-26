@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Repository\Pneumonia;
 
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
@@ -26,7 +27,8 @@ class PneumoniaRepository extends Common
     /**
      * @param string $alias
      * @param int $ageInMonths
-     * @return \Doctrine\ORM\QueryBuilder
+     *
+     * @return QueryBuilder
      */
     public function numberAndPercentEnrolledByAdmissionDiagnosis($alias = 'c', $ageInMonths = 59): QueryBuilder
     {
@@ -64,7 +66,8 @@ class PneumoniaRepository extends Common
 
     /**
      * @param string $alias
-     * @return \Doctrine\ORM\QueryBuilder
+     *
+     * @return QueryBuilder
      */
     public function getLatestQuery($alias = 'm'): QueryBuilder
     {
@@ -243,7 +246,7 @@ class PneumoniaRepository extends Common
      *
      * @param string $alias
      *
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return QueryBuilder
      */
     public function getAnnualAgeDistribution($alias = 'm'): QueryBuilder
     {
@@ -262,7 +265,8 @@ class PneumoniaRepository extends Common
     /**
      * @param $alias
      * @param array $siteCodes
-     * @return \Doctrine\ORM\QueryBuilder
+     *
+     * @return QueryBuilder
      */
     private function getCountQueryBuilder($alias, array $siteCodes): QueryBuilder
     {
@@ -281,7 +285,8 @@ class PneumoniaRepository extends Common
     /**
      * @param $alias
      * @param array $siteCodes
-     * @return \Doctrine\ORM\QueryBuilder
+     *
+     * @return QueryBuilder
      */
     public function getBloodCollectedCountBySites($alias, array $siteCodes): QueryBuilder
     {
@@ -294,7 +299,8 @@ class PneumoniaRepository extends Common
     /**
      * @param $alias
      * @param array $siteCodes
-     * @return \Doctrine\ORM\QueryBuilder
+     *
+     * @return QueryBuilder
      */
     public function getBloodResultCountBySites($alias, array $siteCodes): QueryBuilder
     {
@@ -307,7 +313,8 @@ class PneumoniaRepository extends Common
     /**
      * @param $alias
      * @param array $siteCodes
-     * @return \Doctrine\ORM\QueryBuilder
+     *
+     * @return QueryBuilder
      */
     public function getMissingAdmissionDiagnosisCountBySites($alias, array $siteCodes): QueryBuilder
     {
@@ -321,7 +328,8 @@ class PneumoniaRepository extends Common
     /**
      * @param $alias
      * @param array $siteCodes
-     * @return \Doctrine\ORM\QueryBuilder
+     *
+     * @return QueryBuilder
      */
     public function getMissingDischargeOutcomeCountBySites($alias, array $siteCodes): QueryBuilder
     {
@@ -335,7 +343,8 @@ class PneumoniaRepository extends Common
     /**
      * @param $alias
      * @param array $siteCodes
-     * @return \Doctrine\ORM\QueryBuilder
+     *
+     * @return QueryBuilder
      */
     public function getMissingDischargeDiagnosisCountBySites($alias, array $siteCodes): QueryBuilder
     {
@@ -386,7 +395,7 @@ class PneumoniaRepository extends Common
     /**
      * @param array $params
      * @return bool
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function exists(array $params)
     {

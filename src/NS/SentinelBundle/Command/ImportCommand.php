@@ -2,6 +2,8 @@
 
 namespace NS\SentinelBundle\Command;
 
+use DateTime;
+use Exception;
 use NS\SentinelBundle\Entity\Country;
 use NS\SentinelBundle\Entity\Region;
 use NS\SentinelBundle\Entity\Site;
@@ -171,7 +173,7 @@ class ImportCommand extends ContainerAwareCommand
      * @param $file
      * @param $countries
      * @return array
-     * @throws \Exception
+     * @throws Exception
      */
     private function processSites($file, $countries)
     {
@@ -231,19 +233,19 @@ class ImportCommand extends ContainerAwareCommand
      * @param $site
      * @param $row
      * @param $errorSites
-     * @throws \Exception
+     * @throws Exception
      */
     private function surveillanceAndSupport($site, $row, &$errorSites)
     {
         try {
             $site->setSurveillanceConducted(new SurveillanceConducted($row[9]));
-        } catch (\Exception $except) {
-            throw new \Exception("Tried to pass '{$row[9]}' to SurveillanceConducted\n " . $except->getMessage());
+        } catch (Exception $except) {
+            throw new Exception("Tried to pass '{$row[9]}' to SurveillanceConducted\n " . $except->getMessage());
         }
 
         try {
             $site->setibdIntenseSupport(new IntenseSupport($row[11]));
-        } catch (\Exception $except) {
+        } catch (Exception $except) {
             $errorSites[] = "{$row[2]}:{$row[3]} - Has Invalid Intense Support Value {$row[11]}";
         }
     }
@@ -257,8 +259,8 @@ class ImportCommand extends ContainerAwareCommand
     {
         if ($row[12]) {
             try {
-                $site->setibdLastSiteAssessmentDate(new \DateTime($row[12]));
-            } catch (\Exception $except) {
+                $site->setibdLastSiteAssessmentDate(new DateTime($row[12]));
+            } catch (Exception $except) {
                 $errorSites[] = "{$row[2]}:{$row[3]} - Has Invalid IBD Last Site Assessment Date '{$row[12]}'";
             }
         }
@@ -273,8 +275,8 @@ class ImportCommand extends ContainerAwareCommand
     {
         if ($row[14]) {
             try {
-                $site->setRvLastSiteAssessmentDate(new \DateTime($row[14]));
-            } catch (\Exception $except) {
+                $site->setRvLastSiteAssessmentDate(new DateTime($row[14]));
+            } catch (Exception $except) {
                 $errorSites[] = "{$row[2]}:{$row[3]} - Has Invalid RV Last Site Assessment Date '{$row[14]}'";
             }
         }

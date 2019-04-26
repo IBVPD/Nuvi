@@ -2,6 +2,8 @@
 
 namespace NS\SentinelBundle\Exceptions;
 
-class NonExistentObjectException extends \RuntimeException
+use RuntimeException;
+
+class NonExistentObjectException extends RuntimeException
 {
 }

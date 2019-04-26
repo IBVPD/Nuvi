@@ -3,6 +3,7 @@
 namespace NS\ApiBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use NS\SentinelBundle\Entity\User;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -81,7 +82,7 @@ class Remote
     private $expiry;
 
     /**
-     * @var \NS\SentinelBundle\Entity\User $user
+     * @var User $user
      * @ORM\ManyToOne(targetEntity="\NS\SentinelBundle\Entity\User")
      * @ORM\JoinColumn(nullable=false,onDelete="CASCADE")
      */
@@ -189,7 +190,8 @@ class Remote
     /**
      *
      * @param string $name
-     * @return \NS\ApiBundle\Entity\Remote
+     *
+     * @return Remote
      */
     public function setName($name)
     {
@@ -200,7 +202,8 @@ class Remote
     /**
      *
      * @param string $accessToken
-     * @return \NS\ApiBundle\Entity\Remote
+     *
+     * @return Remote
      */
     public function setAccessToken($accessToken)
     {
@@ -211,7 +214,8 @@ class Remote
     /**
      *
      * @param string $refreshToken
-     * @return \NS\ApiBundle\Entity\Remote
+     *
+     * @return Remote
      */
     public function setRefreshToken($refreshToken)
     {
@@ -222,7 +226,8 @@ class Remote
     /**
      *
      * @param integer $expiry
-     * @return \NS\ApiBundle\Entity\Remote
+     *
+     * @return Remote
      */
     public function setExpiry($expiry)
     {
@@ -233,7 +238,8 @@ class Remote
     /**
      *
      * @param string $clientSecret
-     * @return \NS\ApiBundle\Entity\Remote
+     *
+     * @return Remote
      */
     public function setClientSecret($clientSecret)
     {
@@ -244,7 +250,8 @@ class Remote
     /**
      *
      * @param string $clientId
-     * @return \NS\ApiBundle\Entity\Remote
+     *
+     * @return Remote
      */
     public function setClientId($clientId)
     {
@@ -255,7 +262,8 @@ class Remote
     /**
      *
      * @param string $tokenEndpoint
-     * @return \NS\ApiBundle\Entity\Remote
+     *
+     * @return Remote
      */
     public function setTokenEndpoint($tokenEndpoint)
     {
@@ -266,7 +274,8 @@ class Remote
     /**
      *
      * @param string $authEndpoint
-     * @return \NS\ApiBundle\Entity\Remote
+     *
+     * @return Remote
      */
     public function setAuthEndpoint($authEndpoint)
     {
@@ -277,7 +286,8 @@ class Remote
     /**
      *
      * @param string $redirectUrl
-     * @return \NS\ApiBundle\Entity\Remote
+     *
+     * @return Remote
      */
     public function setRedirectUrl($redirectUrl)
     {
@@ -287,10 +297,10 @@ class Remote
 
     /**
      *
-     * @param \NS\SentinelBundle\Entity\User $user
-     * @return \NS\ApiBundle\Entity\Remote
+     * @param User $user
+     * @return Remote
      */
-    public function setUser(\NS\SentinelBundle\Entity\User $user)
+    public function setUser(User $user)
     {
         $this->user = $user;
         return $this;
@@ -326,7 +336,7 @@ class Remote
     /**
      *
      * @param array $result
-     * @return \NS\ApiBundle\Entity\Remote
+     * @return Remote
      */
     public function updateFromArray(array $result)
     {

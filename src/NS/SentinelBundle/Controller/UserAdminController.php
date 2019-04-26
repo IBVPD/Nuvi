@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Controller;
 
+use Exception;
 use NS\SentinelBundle\Form\Types\Role;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -13,8 +14,8 @@ class UserAdminController extends Controller
     /**
      * @Route("/ajax/acls", name="adminACLAjaxAutocomplete")
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @throws \Exception
+     * @return Response
+     * @throws Exception
      */
     public function ajaxAccountContactAction(Request $request)
     {

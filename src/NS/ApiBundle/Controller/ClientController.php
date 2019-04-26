@@ -2,11 +2,15 @@
 
 namespace NS\ApiBundle\Controller;
 
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
+use Exception;
 use NS\ApiBundle\Form\ClientType;
 use NS\ApiBundle\Form\RemoteType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -46,7 +50,8 @@ class ClientController extends Controller
      * @Route("/client/create",name="ApiCreateClient")
      * @Template()
      * @param Request $request
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     *
+     * @return array|RedirectResponse
      */
     public function createAction(Request $request)
     {
@@ -70,9 +75,10 @@ class ClientController extends Controller
      * @Template("NSApiBundle:Client:create.html.twig")
      * @param Request $request
      * @param $objId
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     *
+     * @return array|RedirectResponse
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function editAction(Request $request, $objId)
     {
@@ -99,9 +105,9 @@ class ClientController extends Controller
     /**
      * @Route("/client/delete/{objId}",name="ApiDeleteClient")
      * @param $objId
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @return RedirectResponse
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function deleteAction($objId)
     {
@@ -117,7 +123,7 @@ class ClientController extends Controller
             $entityMgr->remove($client);
             $entityMgr->flush();
             $this->get('ns_flash')->addSuccess(null, null, "Successfully deleted api client");
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->get('ns_flash')->addError(null, null, "Unable to delete api client");
         }
 
@@ -128,7 +134,8 @@ class ClientController extends Controller
      * @Route("/remote/create",name="ApiCreateRemote")
      * @Template()
      * @param Request $request
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     *
+     * @return array|RedirectResponse
      */
     public function createRemoteAction(Request $request)
     {
@@ -152,7 +159,8 @@ class ClientController extends Controller
      * @Template("NSApiBundle:Client:createRemote.html.twig")
      * @param Request $request
      * @param $objId
-     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+     *
+     * @return array|RedirectResponse
      */
     public function editRemoteAction(Request $request, $objId)
     {
@@ -181,7 +189,7 @@ class ClientController extends Controller
     /**
      * @Route("/remote/delete/{objId}",name="ApiDeleteRemote")
      * @param $objId
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
     public function deleteRemoteAction($objId)
     {
@@ -196,7 +204,7 @@ class ClientController extends Controller
             $entityMgr->remove($remote);
             $entityMgr->flush();
             $this->get('ns_flash')->addSuccess(null, null, "Successfully deleted remote server");
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->get('ns_flash')->addError(null, null, "Unable to delete remote server");
         }
 

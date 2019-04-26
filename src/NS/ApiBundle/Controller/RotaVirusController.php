@@ -3,6 +3,7 @@
 namespace NS\ApiBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations as REST;
+use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use NS\SentinelBundle\Entity\RotaVirus;
 use NS\SentinelBundle\Entity\RotaVirus\NationalLab;
@@ -156,10 +157,10 @@ class RotaVirusController extends CaseController
      * @REST\Patch("/{objId}",name="nsApiRotaPatchCase")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param string $objId
+     * @param Request $request
+     * @param string  $objId
      *
-     * @return \FOS\RestBundle\View\View
+     * @return View
      */
     public function patchRotaCaseAction(Request $request, $objId)
     {
@@ -181,9 +182,10 @@ class RotaVirusController extends CaseController
      * @REST\Patch("/{objId}/lab",name="nsApiRotaPatchLab")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param string $objId
-     * @return \FOS\RestBundle\View\View
+     * @param Request $request
+     * @param string  $objId
+     *
+     * @return View
      */
     public function patchRotaLabAction(Request $request, $objId)
     {
@@ -205,9 +207,10 @@ class RotaVirusController extends CaseController
      * @REST\Patch("/{objId}/rrl",name="nsApiRotaPatchRRL")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param string $objId
-     * @return \FOS\RestBundle\View\View
+     * @param Request $request
+     * @param string  $objId
+     *
+     * @return View
      */
     public function patchRotaRRLAction(Request $request, $objId)
     {
@@ -229,9 +232,10 @@ class RotaVirusController extends CaseController
      * @REST\Patch("/{objId}/nl",name="nsApiRotaPatchNL")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @param string $objId
-     * @return \FOS\RestBundle\View\View
+     *
+     * @return View
      */
     public function patchRotaNLAction(Request $request, $objId)
     {
@@ -254,10 +258,10 @@ class RotaVirusController extends CaseController
      * @REST\Patch("/{objId}/outcome",name="nsApiRotaPatchOutcome")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @param string $objId
      *
-     * @return \FOS\RestBundle\View\View
+     * @return View
      */
     public function patchRotaOutcomeAction(Request $request, $objId)
     {
@@ -280,10 +284,10 @@ class RotaVirusController extends CaseController
      * @REST\Put("/{objId}",name="nsApiRotaPutCase")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @param string $objId
      *
-     * @return \FOS\RestBundle\View\View
+     * @return View
      */
     public function putRotaCaseAction(Request $request, $objId)
     {
@@ -306,9 +310,10 @@ class RotaVirusController extends CaseController
      * @REST\Put("/{objId}/lab",name="nsApiRotaPutLab")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @param string $objId
-     * @return \FOS\RestBundle\View\View
+     *
+     * @return View
      */
     public function putRotaLabAction(Request $request, $objId)
     {
@@ -331,9 +336,10 @@ class RotaVirusController extends CaseController
      * @REST\Put("/{objId}/rrl",name="nsApiRotaPutRRL")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @param string $objId
-     * @return \FOS\RestBundle\View\View
+     *
+     * @return View
      */
     public function putRotaRRLAction(Request $request, $objId)
     {
@@ -356,9 +362,10 @@ class RotaVirusController extends CaseController
      * @REST\Put("/{objId}/nl",name="nsApiRotaPutNL")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @param string $objId
-     * @return \FOS\RestBundle\View\View
+     *
+     * @return View
      */
     public function putRotaNLAction(Request $request, $objId)
     {
@@ -381,10 +388,10 @@ class RotaVirusController extends CaseController
      * @REST\Put("/{objId}/outcome",name="nsApiRotaPutOutcome")
      * @REST\View()
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Request $request
      * @param string $objId
      *
-     * @return \FOS\RestBundle\View\View
+     * @return View
      */
     public function putRotaOutcomeAction(Request $request, $objId)
     {
@@ -404,7 +411,8 @@ class RotaVirusController extends CaseController
      * @REST\View()
      *
      * @param Request $request the request object
-     * @return array|\FOS\RestBundle\View\View
+     *
+     * @return array|View
      */
     public function postRotaCaseAction(Request $request)
     {

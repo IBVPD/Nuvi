@@ -8,6 +8,8 @@
 
 namespace NS\ImportBundle\Formatter;
 
+use DateTime;
+use DateTimeInterface;
 use Exporter\Formatter\DataFormatterInterface;
 use Symfony\Component\PropertyAccess\PropertyPath;
 
@@ -45,7 +47,7 @@ class DateTimeFormatter implements DataFormatterInterface
 
     public function supports($data)
     {
-        return $data instanceof \DateTime || $data instanceof \DateTimeInterface;
+        return $data instanceof DateTime || $data instanceof DateTimeInterface;
     }
 
     public function format($data, PropertyPath $propertyPath): string

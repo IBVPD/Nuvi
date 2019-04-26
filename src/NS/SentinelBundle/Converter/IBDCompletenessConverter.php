@@ -6,10 +6,6 @@ use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Validators\Done;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
-/**
- * Class IBDCompletenessConverter
- * @package NS\SentinelBundle\Converter
- */
 class IBDCompletenessConverter extends BaseCompletenessConverter
 {
     /**
@@ -24,12 +20,7 @@ class IBDCompletenessConverter extends BaseCompletenessConverter
         return $item;
     }
 
-    /**
-     * @param array $item
-     * @param array $configs
-     * @return array
-     */
-    public function handleFields(array &$item, array $configs)
+    public function handleFields(array &$item, array $configs): void
     {
         $constraints = [];
         foreach ($configs as $config) {
@@ -42,11 +33,7 @@ class IBDCompletenessConverter extends BaseCompletenessConverter
         }
     }
 
-    /**
-     * @param array $item
-     * @param ConstraintViolationListInterface $violations
-     */
-    public function addMessages(array &$item, ConstraintViolationListInterface $violations)
+    public function addMessages(array &$item, ConstraintViolationListInterface $violations): void
     {
         foreach ($violations as $violation) {
             $this->message = $violation->getMessage();

@@ -22,7 +22,7 @@ class LoginListener
 
     /**
      *
-     * @param \NS\SentinelBundle\Services\Homepage $homepage
+     * @param Homepage                 $homepage
      * @param EventDispatcherInterface $dispatcher
      */
     public function __construct(Homepage $homepage, EventDispatcherInterface $dispatcher)
