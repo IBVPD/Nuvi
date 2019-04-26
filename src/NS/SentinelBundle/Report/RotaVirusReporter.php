@@ -5,16 +5,16 @@ namespace NS\SentinelBundle\Report;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query;
 use NS\SentinelBundle\Entity\Country;
+use NS\SentinelBundle\Entity\RotaVirus;
 use NS\SentinelBundle\Entity\Site;
+use NS\SentinelBundle\Report\Result\DataLinkingResult;
+use NS\SentinelBundle\Report\Result\RotaVirus\DataQualityResult;
 use NS\SentinelBundle\Report\Result\RotaVirus\GeneralStatisticResult;
+use NS\SentinelBundle\Report\Result\RotaVirus\SitePerformanceResult;
 use NS\SentinelBundle\Report\Result\SiteMonthResult;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use NS\SentinelBundle\Entity\RotaVirus;
-use NS\SentinelBundle\Report\Result\DataLinkingResult;
-use NS\SentinelBundle\Report\Result\RotaVirus\SitePerformanceResult;
-use NS\SentinelBundle\Report\Result\RotaVirus\DataQualityResult;
 
 class RotaVirusReporter extends AbstractReporter
 {

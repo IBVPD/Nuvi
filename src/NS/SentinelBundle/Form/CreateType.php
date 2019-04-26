@@ -2,13 +2,13 @@
 
 namespace NS\SentinelBundle\Form;
 
+use Doctrine\Common\Persistence\ObjectManager;
 use NS\SentinelBundle\Entity\Site;
 use NS\SentinelBundle\Form\Types\CaseCreationType;
+use NS\SentinelBundle\Interfaces\SerializedSitesInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Doctrine\Common\Persistence\ObjectManager;
-use NS\SentinelBundle\Interfaces\SerializedSitesInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**

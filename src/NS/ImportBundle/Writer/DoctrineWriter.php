@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Persistence\ObjectManager;
 use NS\ImportBundle\Services\CamelCaser;
-use NS\SentinelBundle\Entity\IBD\ReferenceLab;
 
 /**
  * Description of DoctrineWriter

@@ -11,7 +11,6 @@ namespace NS\SentinelBundle\Admin;
 
 use NS\SecurityBundle\Entity\BaseACL;
 use Symfony\Component\Form\DataTransformerInterface;
-use Symfony\Component\Form\Exception\TransformationFailedException;
 
 class ACLTransformer implements DataTransformerInterface
 {

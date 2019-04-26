@@ -4,6 +4,7 @@ namespace NS\SentinelBundle\Admin;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\UnexpectedResultException;
+use NS\SecurityBundle\Role\ACLConverter;
 use NS\SentinelBundle\Entity\ACL;
 use NS\SentinelBundle\Entity\Country;
 use NS\SentinelBundle\Entity\Region;
@@ -21,7 +22,6 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use NS\SecurityBundle\Role\ACLConverter;
 
 class UserAdmin extends AbstractAdmin
 {

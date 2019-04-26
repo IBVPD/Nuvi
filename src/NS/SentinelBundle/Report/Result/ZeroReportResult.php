@@ -10,7 +10,6 @@ namespace NS\SentinelBundle\Report\Result;
 
 
 use NS\SentinelBundle\Entity\Site;
-use NS\SentinelBundle\Entity\ZeroReport;
 
 class ZeroReportResult
 {

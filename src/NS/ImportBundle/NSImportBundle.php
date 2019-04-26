@@ -2,9 +2,9 @@
 
 namespace NS\ImportBundle;
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use NS\ImportBundle\DependencyInjection\Compiler\ImportConverterCompilerPass;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
  * Class NSImportBundle

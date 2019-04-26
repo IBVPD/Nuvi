@@ -3,11 +3,14 @@
 namespace NS\SentinelBundle\Entity\IBD;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
+use NS\SecurityBundle\Annotation\Secured;
+use NS\SecurityBundle\Annotation\SecuredCondition;
 use NS\SentinelBundle\Entity\BaseExternalLab;
-use NS\SentinelBundle\Form\IBD\Types\IsolateViable;
 use NS\SentinelBundle\Form\IBD\Types\FinalResult;
 use NS\SentinelBundle\Form\IBD\Types\HiSerotype;
 use NS\SentinelBundle\Form\IBD\Types\IsolateType;
+use NS\SentinelBundle\Form\IBD\Types\IsolateViable;
 use NS\SentinelBundle\Form\IBD\Types\NmSerogroup;
 use NS\SentinelBundle\Form\IBD\Types\PathogenIdentifier;
 use NS\SentinelBundle\Form\IBD\Types\SampleType;
@@ -15,10 +18,6 @@ use NS\SentinelBundle\Form\IBD\Types\SerotypeIdentifier;
 use NS\SentinelBundle\Form\IBD\Types\SpnSerotype;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
-use NS\SecurityBundle\Annotation\Secured;
-use NS\SecurityBundle\Annotation\SecuredCondition;
-use JMS\Serializer\Annotation as Serializer;
-use NS\SentinelBundle\Validators as LocalAssert;
 
 /**
  * Description of ExternalLab

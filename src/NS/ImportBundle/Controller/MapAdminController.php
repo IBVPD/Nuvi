@@ -2,9 +2,6 @@
 
 namespace NS\ImportBundle\Controller;
 
-use NS\ImportBundle\Converter\Expression\Condition;
-use NS\ImportBundle\Converter\Expression\ConditionConverter;
-use NS\ImportBundle\Converter\Expression\ExpressionBuilder;
 use NS\ImportBundle\Entity\Import;
 use NS\ImportBundle\Entity\Map;
 use NS\ImportBundle\Repository\ImportRepository;
@@ -12,7 +9,6 @@ use Sonata\AdminBundle\Controller\CRUDController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
  * Description of MapAdminController

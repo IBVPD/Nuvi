@@ -6,11 +6,9 @@ use Doctrine\ORM\EntityRepository;
 use NS\AceBundle\Form\TagType;
 use NS\ApiBundle\Form\Types\OAuthGrantTypes;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
-use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-use NS\SentinelBundle\Form\Types\Role;
 
 /**
  * Description of ClientAdmin

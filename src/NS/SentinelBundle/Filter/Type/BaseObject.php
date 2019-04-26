@@ -2,11 +2,11 @@
 
 namespace NS\SentinelBundle\Filter\Type;
 
+use Doctrine\Common\Persistence\ObjectManager;
+use Lexik\Bundle\FormFilterBundle\Filter\Doctrine\ORMQuery;
 use Lexik\Bundle\FormFilterBundle\Filter\Form\Type\EntityFilterType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Lexik\Bundle\FormFilterBundle\Filter\Doctrine\ORMQuery;
-use Doctrine\Common\Persistence\ObjectManager;
 
 /**
  * Description of BaseObject

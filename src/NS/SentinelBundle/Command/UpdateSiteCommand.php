@@ -4,17 +4,17 @@ namespace NS\SentinelBundle\Command;
 
 use Ddeboer\DataImport\Step\ValueConverterStep;
 use Ddeboer\DataImport\Workflow\StepAggregator;
-use NS\ImportBundle\Reader\ExcelReader;
 use Ddeboer\DataImport\Writer\DoctrineWriter;
+use NS\ImportBundle\Reader\ExcelReader;
 use NS\SentinelBundle\Converter\ArrayChoiceConverter;
+use NS\SentinelBundle\Entity\Site;
+use NS\SentinelBundle\Form\IBD\Types\IntenseSupport;
+use NS\SentinelBundle\Form\Types\SurveillanceConducted;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\HttpFoundation\File\File;
-use NS\SentinelBundle\Form\Types\SurveillanceConducted;
-use NS\SentinelBundle\Entity\Site;
-use NS\SentinelBundle\Form\IBD\Types\IntenseSupport;
 
 /**
  * Class UpdateSiteCommand

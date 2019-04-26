@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Form\RotaVirus;
 
+use NS\AceBundle\Form\DatePickerType;
 use NS\SentinelBundle\Entity\RotaVirus\NationalLab;
 use NS\SentinelBundle\Form\RotaVirus\Types\ElisaKit;
 use NS\SentinelBundle\Form\RotaVirus\Types\ElisaResult;
@@ -9,7 +10,6 @@ use NS\SentinelBundle\Form\Types\TripleChoice;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use NS\AceBundle\Form\DatePickerType;
 
 class NationalLabType extends AbstractType
 {

@@ -4,23 +4,21 @@ namespace NS\SentinelBundle\Form\Pneumonia;
 
 use NS\AceBundle\Form\DatePickerType;
 use NS\AceBundle\Form\SwitchType;
-use NS\SentinelBundle\Entity\Pneumonia\SiteLab;
 use NS\SentinelBundle\Entity\Country;
+use NS\SentinelBundle\Entity\Pneumonia\SiteLab;
 use NS\SentinelBundle\Entity\Site;
-use NS\SentinelBundle\Services\SerializedSites;
-use NS\SentinelBundle\Form\Types\TripleChoice;
-use NS\SentinelBundle\Form\IBD\Types\PCRResult;
 use NS\SentinelBundle\Form\IBD\Types\CultureResult;
 use NS\SentinelBundle\Form\IBD\Types\GramStain;
 use NS\SentinelBundle\Form\IBD\Types\GramStainResult;
-use NS\SentinelBundle\Form\IBD\Types\BinaxResult;
-use NS\SentinelBundle\Form\IBD\Types\LatResult;
+use NS\SentinelBundle\Form\IBD\Types\PCRResult;
+use NS\SentinelBundle\Form\Types\TripleChoice;
+use NS\SentinelBundle\Services\SerializedSites;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**

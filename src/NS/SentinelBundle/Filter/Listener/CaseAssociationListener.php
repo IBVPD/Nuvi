@@ -2,10 +2,10 @@
 
 namespace NS\SentinelBundle\Filter\Listener;
 
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\QueryBuilder;
 use Lexik\Bundle\FormFilterBundle\Event\GetFilterConditionEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Doctrine\ORM\QueryBuilder;
-use Doctrine\Common\Collections\Collection;
 
 /**
  * Description of Listener

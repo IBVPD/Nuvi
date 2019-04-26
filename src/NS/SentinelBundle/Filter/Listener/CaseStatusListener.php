@@ -3,8 +3,8 @@
 namespace NS\SentinelBundle\Filter\Listener;
 
 use Lexik\Bundle\FormFilterBundle\Event\GetFilterConditionEvent;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use NS\SentinelBundle\Form\Types\CaseStatus;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
  * Description of CaseStatusListener

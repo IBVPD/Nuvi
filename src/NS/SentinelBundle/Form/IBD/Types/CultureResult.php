@@ -2,8 +2,8 @@
 
 namespace NS\SentinelBundle\Form\IBD\Types;
 
-use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
+use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 
 /**
  * Description of CultureResult

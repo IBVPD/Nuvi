@@ -2,12 +2,11 @@
 
 namespace NS\SentinelBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use NS\SentinelBundle\Form\Types\Role;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\HttpKernel;
 
 class UserAdminController extends Controller
 {

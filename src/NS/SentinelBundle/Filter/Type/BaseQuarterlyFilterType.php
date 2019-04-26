@@ -3,19 +3,19 @@
 namespace NS\SentinelBundle\Filter\Type;
 
 use Doctrine\ORM\QueryBuilder;
+use DoctrineExtensions\Query\Mysql\Year;
 use Lexik\Bundle\FormFilterBundle\Filter\Form\Type\NumberFilterType;
 use Lexik\Bundle\FormFilterBundle\Filter\Query\QueryInterface;
 use NS\SecurityBundle\Role\ACLConverter;
+use NS\SentinelBundle\Entity\ZeroReport;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use DoctrineExtensions\Query\Mysql\Year;
-use NS\SentinelBundle\Entity\ZeroReport;
 
 class BaseQuarterlyFilterType extends AbstractType
 {

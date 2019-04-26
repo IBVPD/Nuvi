@@ -2,19 +2,19 @@
 
 namespace NS\ImportBundle\Controller;
 
-use JMS\Serializer\Annotation\AccessorOrder;
-use ReflectionClass;
-use ReflectionException;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\Common\Persistence\Mapping\ClassMetadata;
 use Doctrine\ORM\QueryBuilder;
+use Exporter\Exporter;
 use Exporter\Source\DoctrineORMQuerySourceIterator;
 use Exporter\Writer\CsvWriter;
 use Exporter\Writer\XlsWriter;
-use Exporter\Exporter;
+use JMS\Serializer\Annotation\AccessorOrder;
+use NS\SentinelBundle\Filter\Type as FilterType;
+use ReflectionClass;
+use ReflectionException;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Response;
-use NS\SentinelBundle\Filter\Type as FilterType;
 
 class BaseController extends Controller
 {

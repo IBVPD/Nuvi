@@ -4,7 +4,6 @@ namespace NS\SentinelBundle\Entity\IBD;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
-use NS\SentinelBundle\Entity\BaseCase;
 use NS\SentinelBundle\Validators as LocalAssert;
 
 /**

@@ -2,8 +2,6 @@
 
 namespace NS\SentinelBundle\Converter;
 
-use Doctrine\Common\Persistence\ObjectManager;
-use NS\ImportBundle\Converter\NamedValueConverterInterface;
 use NS\SentinelBundle\Exceptions\NonExistentSiteException;
 
 /**

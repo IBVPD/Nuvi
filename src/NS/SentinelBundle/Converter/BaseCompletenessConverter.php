@@ -3,7 +3,6 @@
 namespace NS\SentinelBundle\Converter;
 
 use Ddeboer\DataImport\ReporterInterface;
-use Symfony\Component\Validator\Validator\RecursiveValidator;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class BaseCompletenessConverter implements ReporterInterface

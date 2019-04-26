@@ -2,10 +2,10 @@
 
 namespace NS\SentinelBundle\Validators;
 
+use NS\SentinelBundle\Entity\ACL as AclObject;
 use NS\SentinelBundle\Form\Types\Role;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-use NS\SentinelBundle\Entity\ACL as AclObject;
 
 class ACLValidator extends ConstraintValidator
 {

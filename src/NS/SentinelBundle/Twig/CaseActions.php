@@ -5,14 +5,14 @@ namespace NS\SentinelBundle\Twig;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use NS\SentinelBundle\Entity\BaseCase;
+use NS\SentinelBundle\Entity\IBD;
 use NS\SentinelBundle\Entity\Meningitis\Meningitis;
 use NS\SentinelBundle\Entity\Pneumonia\Pneumonia;
 use NS\SentinelBundle\Entity\RotaVirus;
 use RuntimeException;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
-use Symfony\Component\Routing\RouterInterface;
-use NS\SentinelBundle\Entity\IBD;
 use Twig_Extension;
 use Twig_SimpleFunction;
 

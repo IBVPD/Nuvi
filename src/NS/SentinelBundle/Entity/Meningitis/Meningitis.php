@@ -8,24 +8,21 @@ use JMS\Serializer\Annotation as Serializer;
 use NS\SecurityBundle\Annotation\Secured;
 use NS\SecurityBundle\Annotation\SecuredCondition;
 use NS\SentinelBundle\Entity\BaseCase;
-use NS\SentinelBundle\Form\Types\FourDoses;
-use NS\SentinelBundle\Form\Types\TripleChoice;
-use NS\SentinelBundle\Form\Types\VaccinationReceived;
-use NS\SentinelBundle\Form\Meningitis\Types\CSFAppearance;
+use NS\SentinelBundle\Form\IBD\Types\CaseResult;
 use NS\SentinelBundle\Form\IBD\Types\Diagnosis;
 use NS\SentinelBundle\Form\IBD\Types\DischargeClassification;
 use NS\SentinelBundle\Form\IBD\Types\DischargeDiagnosis;
 use NS\SentinelBundle\Form\IBD\Types\DischargeOutcome;
-use NS\SentinelBundle\Form\IBD\Types\CaseResult;
-use NS\SentinelBundle\Form\IBD\Types\VaccinationType;
 use NS\SentinelBundle\Form\IBD\Types\OtherSpecimen;
 use NS\SentinelBundle\Form\IBD\Types\PCVType;
-use Symfony\Component\Validator\Constraints as Assert;
+use NS\SentinelBundle\Form\IBD\Types\VaccinationType;
+use NS\SentinelBundle\Form\Meningitis\Types\CSFAppearance;
+use NS\SentinelBundle\Form\Types\FourDoses;
+use NS\SentinelBundle\Form\Types\TripleChoice;
+use NS\SentinelBundle\Form\Types\VaccinationReceived;
 use NS\SentinelBundle\Validators as LocalAssert;
 use NS\UtilBundle\Validator\Constraints\ArrayChoiceConstraint;
-use NS\SentinelBundle\Entity\Meningitis\SiteLab;
-use NS\SentinelBundle\Entity\Meningitis\ReferenceLab;
-use NS\SentinelBundle\Entity\Meningitis\NationalLab;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\Meningitis\MeningitisRepository")

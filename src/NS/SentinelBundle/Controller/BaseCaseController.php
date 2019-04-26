@@ -5,7 +5,6 @@ namespace NS\SentinelBundle\Controller;
 use JMS\TranslationBundle\Model\Message;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use NS\FilteredPaginationBundle\Form\Type\LimitSelectType;
-use NS\SentinelBundle\Entity\BaseExternalLab;
 use NS\SentinelBundle\Entity\ReferenceLabResultInterface;
 use NS\SentinelBundle\Exceptions\NonExistentCaseException;
 use NS\SentinelBundle\Form\CreateType;

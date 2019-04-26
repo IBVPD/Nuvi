@@ -8,8 +8,6 @@
 
 namespace NS\SentinelBundle\Twig;
 
-use Twig\TwigTest;
-
 class InstanceOfExtension extends \Twig_Extension
 {
     public function getFunctions()

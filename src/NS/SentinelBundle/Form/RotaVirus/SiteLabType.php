@@ -3,20 +3,20 @@
 namespace NS\SentinelBundle\Form\RotaVirus;
 
 use NS\AceBundle\Form\DatePickerType;
+use NS\SentinelBundle\Entity\Country;
 use NS\SentinelBundle\Entity\RotaVirus\SiteLab;
+use NS\SentinelBundle\Entity\Site;
+use NS\SentinelBundle\Form\RotaVirus\Types\ElisaKit;
 use NS\SentinelBundle\Form\RotaVirus\Types\ElisaResult;
 use NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultG;
 use NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultP;
+use NS\SentinelBundle\Form\Types\TripleChoice;
+use NS\SentinelBundle\Services\SerializedSites;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormEvent;
-use NS\SentinelBundle\Services\SerializedSites;
-use NS\SentinelBundle\Entity\Country;
-use NS\SentinelBundle\Form\Types\TripleChoice;
-use NS\SentinelBundle\Form\RotaVirus\Types\ElisaKit;
-use NS\SentinelBundle\Entity\Site;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SiteLabType extends AbstractType
 {

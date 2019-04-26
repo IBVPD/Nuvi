@@ -4,13 +4,13 @@ namespace NS\SentinelBundle\Entity\RotaVirus;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 use NS\SecurityBundle\Annotation\Secured;
 use NS\SecurityBundle\Annotation\SecuredCondition;
+use NS\SentinelBundle\Entity\BaseExternalLab;
+use NS\SentinelBundle\Form\RotaVirus\Types\ElisaResult;
 use NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultG;
 use NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultP;
-use NS\SentinelBundle\Form\RotaVirus\Types\ElisaResult;
-use NS\SentinelBundle\Entity\BaseExternalLab;
-use JMS\Serializer\Annotation as Serializer;
 use NS\SentinelBundle\Validators as LocalAssert;
 
 /**

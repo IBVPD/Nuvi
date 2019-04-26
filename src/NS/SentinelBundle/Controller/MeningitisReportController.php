@@ -2,7 +2,6 @@
 
 namespace NS\SentinelBundle\Controller;
 
-use NS\SentinelBundle\Entity\IBD;
 use NS\SentinelBundle\Entity\Meningitis\Meningitis;
 use NS\SentinelBundle\Filter\Type\BaseQuarterlyFilterType;
 use NS\SentinelBundle\Filter\Type\IBD\QuarterlyLinkingReportFilterType;
@@ -10,8 +9,8 @@ use NS\SentinelBundle\Filter\Type\IBD\ReportFilterType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Description of ReportController

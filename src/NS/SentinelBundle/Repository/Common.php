@@ -10,7 +10,6 @@ use NS\ImportBundle\Exceptions\DuplicateCaseException;
 use NS\SecurityBundle\Doctrine\SecuredEntityRepository;
 use NS\SentinelBundle\Entity\BaseCase;
 use NS\SentinelBundle\Entity\Site;
-use NS\SentinelBundle\Exceptions\InvalidCaseException;
 use NS\UtilBundle\Service\AjaxAutocompleteRepositoryInterface;
 
 /**

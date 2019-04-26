@@ -2,8 +2,8 @@
 
 namespace NS\ImportBundle\Services;
 
-use Doctrine\DBAL\DBALException;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\DBAL\DBALException;
 use NS\ImportBundle\Entity\Import;
 use NS\ImportBundle\Vich\NonUTF8FileException;
 use Pheanstalk\Exception\ConnectionException;

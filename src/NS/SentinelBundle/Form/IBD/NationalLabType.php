@@ -2,8 +2,8 @@
 
 namespace NS\SentinelBundle\Form\IBD;
 
-use NS\AceBundle\Form\SwitchType;
 use NS\AceBundle\Form\DatePickerType;
+use NS\AceBundle\Form\SwitchType;
 use NS\SentinelBundle\Entity\Country;
 use NS\SentinelBundle\Entity\IBD\NationalLab;
 use NS\SentinelBundle\Entity\Site;

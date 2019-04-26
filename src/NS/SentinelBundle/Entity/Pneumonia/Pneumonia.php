@@ -8,22 +8,22 @@ use JMS\Serializer\Annotation as Serializer;
 use NS\SecurityBundle\Annotation\Secured;
 use NS\SecurityBundle\Annotation\SecuredCondition;
 use NS\SentinelBundle\Entity\BaseCase;
-use NS\SentinelBundle\Form\Types\FourDoses;
-use NS\SentinelBundle\Form\Types\TripleChoice;
-use NS\SentinelBundle\Form\Types\VaccinationReceived;
-use NS\SentinelBundle\Form\Pneumonia\Types\CXRAdditionalResult;
-use NS\SentinelBundle\Form\Pneumonia\Types\CXRResult;
+use NS\SentinelBundle\Form\IBD\Types\CaseResult;
 use NS\SentinelBundle\Form\IBD\Types\Diagnosis;
 use NS\SentinelBundle\Form\IBD\Types\DischargeClassification;
 use NS\SentinelBundle\Form\IBD\Types\DischargeDiagnosis;
 use NS\SentinelBundle\Form\IBD\Types\DischargeOutcome;
-use NS\SentinelBundle\Form\IBD\Types\CaseResult;
-use NS\SentinelBundle\Form\IBD\Types\VaccinationType;
 use NS\SentinelBundle\Form\IBD\Types\OtherSpecimen;
 use NS\SentinelBundle\Form\IBD\Types\PCVType;
-use Symfony\Component\Validator\Constraints as Assert;
+use NS\SentinelBundle\Form\IBD\Types\VaccinationType;
+use NS\SentinelBundle\Form\Pneumonia\Types\CXRAdditionalResult;
+use NS\SentinelBundle\Form\Pneumonia\Types\CXRResult;
+use NS\SentinelBundle\Form\Types\FourDoses;
+use NS\SentinelBundle\Form\Types\TripleChoice;
+use NS\SentinelBundle\Form\Types\VaccinationReceived;
 use NS\SentinelBundle\Validators as LocalAssert;
 use NS\UtilBundle\Validator\Constraints\ArrayChoiceConstraint;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @author gnat

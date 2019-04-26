@@ -2,8 +2,8 @@
 
 namespace NS\SentinelBundle\Form\Pneumonia;
 
-use NS\AceBundle\Form\SwitchType;
 use NS\AceBundle\Form\DatePickerType;
+use NS\AceBundle\Form\SwitchType;
 use NS\SentinelBundle\Entity\Country;
 use NS\SentinelBundle\Entity\Pneumonia\NationalLab;
 use NS\SentinelBundle\Entity\Site;

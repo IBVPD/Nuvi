@@ -2,9 +2,9 @@
 
 namespace NS\ApiBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 use FOS\OAuthServerBundle\Entity\AuthCode as BaseAuthCode;
 use FOS\OAuthServerBundle\Model\ClientInterface;
-use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**

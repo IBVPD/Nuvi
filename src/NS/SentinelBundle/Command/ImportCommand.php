@@ -2,16 +2,16 @@
 
 namespace NS\SentinelBundle\Command;
 
+use NS\SentinelBundle\Entity\Country;
+use NS\SentinelBundle\Entity\Region;
+use NS\SentinelBundle\Entity\Site;
 use NS\SentinelBundle\Form\IBD\Types\IntenseSupport;
 use NS\SentinelBundle\Form\Types\SurveillanceConducted;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
-use NS\SentinelBundle\Entity\Region;
-use NS\SentinelBundle\Entity\Country;
-use NS\SentinelBundle\Entity\Site;
 
 /**
  * Description of ImportCommand

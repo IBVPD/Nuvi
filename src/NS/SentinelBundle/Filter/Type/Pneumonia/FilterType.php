@@ -2,6 +2,7 @@
 
 namespace NS\SentinelBundle\Filter\Type\Pneumonia;
 
+use Lexik\Bundle\FormFilterBundle\Filter\Form\Type\EmbeddedFilterTypeInterface;
 use NS\SentinelBundle\Filter\Type\BaseFilterType;
 use NS\SentinelBundle\Form\IBD\Types\CaseResult;
 use NS\SentinelBundle\Form\IBD\Types\Diagnosis;
@@ -9,9 +10,8 @@ use NS\SentinelBundle\Form\IBD\Types\DischargeClassification;
 use NS\SentinelBundle\Form\IBD\Types\DischargeDiagnosis;
 use NS\SentinelBundle\Form\Types\CaseStatus;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormBuilderInterface;
-use Lexik\Bundle\FormFilterBundle\Filter\Form\Type\EmbeddedFilterTypeInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class FilterType

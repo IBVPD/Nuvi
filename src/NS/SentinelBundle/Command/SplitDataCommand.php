@@ -12,7 +12,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use NS\SentinelBundle\Entity;
 use NS\SentinelBundle\Form\IBD\Types\Diagnosis;
-
 use NS\SentinelBundle\Form\IBD\Types\DischargeDiagnosis;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;

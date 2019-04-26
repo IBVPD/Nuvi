@@ -6,10 +6,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use NS\ImportBundle\Converter\Expression\Condition;
+use NS\ImportBundle\Validators as LocalAssert;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
-use NS\ImportBundle\Validators as LocalAssert;
 
 /**
  * Description of Map

@@ -3,11 +3,11 @@
 namespace NS\SentinelBundle\Entity\Generator;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\ORM\Id\AbstractIdGenerator;
-use NS\SentinelBundle\Entity\BaseCase;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Query\ResultSetMapping;
+use Doctrine\ORM\Id\AbstractIdGenerator;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\Query\ResultSetMapping;
+use NS\SentinelBundle\Entity\BaseCase;
 use NS\SentinelBundle\Entity\Site;
 
 /**

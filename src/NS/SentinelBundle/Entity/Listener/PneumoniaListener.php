@@ -4,9 +4,9 @@ namespace NS\SentinelBundle\Entity\Listener;
 
 use NS\SentinelBundle\Entity\BaseCase;
 use NS\SentinelBundle\Entity\Pneumonia;
+use NS\SentinelBundle\Form\IBD\Types\CaseResult;
 use NS\SentinelBundle\Form\IBD\Types\Diagnosis;
 use NS\SentinelBundle\Form\IBD\Types\DischargeDiagnosis;
-use NS\SentinelBundle\Form\IBD\Types\CaseResult;
 use NS\SentinelBundle\Form\IBD\Types\OtherSpecimen;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Form\Types\VaccinationReceived;

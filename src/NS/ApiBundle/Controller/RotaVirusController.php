@@ -2,6 +2,7 @@
 
 namespace NS\ApiBundle\Controller;
 
+use FOS\RestBundle\Controller\Annotations as REST;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use NS\SentinelBundle\Entity\RotaVirus;
 use NS\SentinelBundle\Entity\RotaVirus\NationalLab;
@@ -14,9 +15,8 @@ use NS\SentinelBundle\Form\RotaVirus\NationalLabType;
 use NS\SentinelBundle\Form\RotaVirus\OutcomeType;
 use NS\SentinelBundle\Form\RotaVirus\ReferenceLabType;
 use NS\SentinelBundle\Form\RotaVirus\SiteLabType;
-use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use FOS\RestBundle\Controller\Annotations as REST;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**

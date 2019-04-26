@@ -6,15 +6,14 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use function is_integer;
 use JMS\Serializer\Annotation\Groups;
 use NS\SecurityBundle\Annotation\Secured;
 use NS\SecurityBundle\Annotation\SecuredCondition;
 use NS\SentinelBundle\Form\IBD\Types\IntenseSupport;
 use NS\SentinelBundle\Form\Types\SurveillanceConducted;
 use Serializable;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Site

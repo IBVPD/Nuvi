@@ -2,6 +2,7 @@
 
 namespace NS\ApiBundle\Controller;
 
+use FOS\RestBundle\Controller\Annotations as REST;
 use Nelmio\ApiDocBundle\Annotation as ApiDoc;
 use NS\SentinelBundle\Entity\Meningitis\Meningitis;
 use NS\SentinelBundle\Entity\Meningitis\NationalLab;
@@ -14,9 +15,8 @@ use NS\SentinelBundle\Form\Meningitis\NationalLabType;
 use NS\SentinelBundle\Form\Meningitis\OutcomeType;
 use NS\SentinelBundle\Form\Meningitis\ReferenceLabType;
 use NS\SentinelBundle\Form\Meningitis\SiteLabType;
-use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use FOS\RestBundle\Controller\Annotations as REST;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**

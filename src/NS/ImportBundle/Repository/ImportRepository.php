@@ -3,7 +3,6 @@
 namespace NS\ImportBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\UnexpectedResultException;
 use NS\ImportBundle\Entity\Import;

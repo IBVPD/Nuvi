@@ -4,22 +4,22 @@ namespace NS\SentinelBundle\Entity;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-use NS\SentinelBundle\Form\Types\TripleChoice;
-use NS\SentinelBundle\Form\Types\VaccinationReceived;
-use NS\SentinelBundle\Form\RotaVirus\Types\VaccinationType;
-use NS\SentinelBundle\Form\RotaVirus\Types\DischargeOutcome;
-use NS\SentinelBundle\Form\RotaVirus\Types\DischargeClassification;
-use NS\SentinelBundle\Form\RotaVirus\Types\Dehydration;
-use NS\SentinelBundle\Form\RotaVirus\Types\Rehydration;
-use NS\SentinelBundle\Form\Types\ThreeDoses;
+use JMS\Serializer\Annotation as Serializer;
 use NS\SecurityBundle\Annotation\Secured;
 use NS\SecurityBundle\Annotation\SecuredCondition;
-use JMS\Serializer\Annotation as Serializer;
+use NS\SentinelBundle\Entity\RotaVirus\NationalLab;
+use NS\SentinelBundle\Entity\RotaVirus\ReferenceLab;
+use NS\SentinelBundle\Entity\RotaVirus\SiteLab;
+use NS\SentinelBundle\Form\RotaVirus\Types\Dehydration;
+use NS\SentinelBundle\Form\RotaVirus\Types\DischargeClassification;
+use NS\SentinelBundle\Form\RotaVirus\Types\DischargeOutcome;
+use NS\SentinelBundle\Form\RotaVirus\Types\Rehydration;
+use NS\SentinelBundle\Form\RotaVirus\Types\VaccinationType;
+use NS\SentinelBundle\Form\Types\ThreeDoses;
+use NS\SentinelBundle\Form\Types\TripleChoice;
+use NS\SentinelBundle\Form\Types\VaccinationReceived;
 use NS\SentinelBundle\Validators as LocalAssert;
 use Symfony\Component\Validator\Constraints as Assert;
-use NS\SentinelBundle\Entity\RotaVirus\SiteLab;
-use NS\SentinelBundle\Entity\RotaVirus\ReferenceLab;
-use NS\SentinelBundle\Entity\RotaVirus\NationalLab;
 
 /**
  * Description of RotaVirus

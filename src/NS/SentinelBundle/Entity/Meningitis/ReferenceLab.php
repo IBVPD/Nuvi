@@ -3,7 +3,6 @@
 namespace NS\SentinelBundle\Entity\Meningitis;
 
 use Doctrine\ORM\Mapping as ORM;
-use NS\SentinelBundle\Entity\BaseCase;
 use NS\SentinelBundle\Entity\ReferenceLab as RegionalReferenceLab;
 use NS\SentinelBundle\Entity\ReferenceLabResultInterface;
 

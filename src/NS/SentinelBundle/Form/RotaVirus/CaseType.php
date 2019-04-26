@@ -5,11 +5,15 @@ namespace NS\SentinelBundle\Form\RotaVirus;
 use NS\AceBundle\Form\DatePickerType;
 use NS\SentinelBundle\Entity\RotaVirus;
 use NS\SentinelBundle\Entity\Site;
+use NS\SentinelBundle\Form\RotaVirus\Types\Dehydration;
 use NS\SentinelBundle\Form\RotaVirus\Types\DischargeClassification;
 use NS\SentinelBundle\Form\RotaVirus\Types\DischargeOutcome;
 use NS\SentinelBundle\Form\RotaVirus\Types\Rehydration;
 use NS\SentinelBundle\Form\RotaVirus\Types\VaccinationType;
 use NS\SentinelBundle\Form\Types\Gender;
+use NS\SentinelBundle\Form\Types\ThreeDoses;
+use NS\SentinelBundle\Form\Types\TripleChoice;
+use NS\SentinelBundle\Form\Types\VaccinationReceived;
 use NS\SentinelBundle\Form\ValidatorGroup\ValidatorGroupResolver;
 use NS\SentinelBundle\Form\ValueObject\YearMonthType;
 use NS\SentinelBundle\Interfaces\SerializedSitesInterface;
@@ -18,10 +22,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use NS\SentinelBundle\Form\Types\VaccinationReceived;
-use NS\SentinelBundle\Form\Types\TripleChoice;
-use NS\SentinelBundle\Form\Types\ThreeDoses;
-use NS\SentinelBundle\Form\RotaVirus\Types\Dehydration;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**

@@ -4,21 +4,21 @@ namespace NS\SentinelBundle\Entity\Meningitis;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 use NS\SecurityBundle\Annotation as Security;
 use NS\SentinelBundle\Entity\BaseCase;
 use NS\SentinelBundle\Entity\BaseSiteLabInterface;
-use NS\SentinelBundle\Form\Types\TripleChoice;
-use NS\SentinelBundle\Form\Types\CaseStatus;
 use NS\SentinelBundle\Form\IBD\Types\BinaxResult;
 use NS\SentinelBundle\Form\IBD\Types\CultureResult;
 use NS\SentinelBundle\Form\IBD\Types\GramStain;
 use NS\SentinelBundle\Form\IBD\Types\GramStainResult;
 use NS\SentinelBundle\Form\IBD\Types\LatResult;
 use NS\SentinelBundle\Form\IBD\Types\PCRResult;
+use NS\SentinelBundle\Form\Types\CaseStatus;
+use NS\SentinelBundle\Form\Types\TripleChoice;
+use NS\SentinelBundle\Validators as LocalAssert;
 use NS\UtilBundle\Form\Types\ArrayChoice;
 use Symfony\Component\Validator\Constraints as Assert;
-use NS\SentinelBundle\Validators as LocalAssert;
-use JMS\Serializer\Annotation as Serializer;
 
 /**
  *

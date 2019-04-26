@@ -2,17 +2,16 @@
 
 namespace NS\SentinelBundle\Repository;
 
-use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\UnexpectedResultException;
+use DoctrineExtensions\Query\Mysql\DateDiff;
 use NS\SentinelBundle\Entity\RotaVirus;
+use NS\SentinelBundle\Entity\ZeroReport;
 use NS\SentinelBundle\Exceptions\NonExistentCaseException;
 use NS\SentinelBundle\Form\RotaVirus\Types\ElisaResult;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\UtilBundle\Form\Types\ArrayChoice;
-use NS\SentinelBundle\Entity\ZeroReport;
-use DoctrineExtensions\Query\Mysql\DateDiff;
 
 /**
  * Description of Common

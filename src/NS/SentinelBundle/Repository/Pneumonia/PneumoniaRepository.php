@@ -6,15 +6,15 @@ use Doctrine\ORM\NoResultException;
 use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\UnexpectedResultException;
+use DoctrineExtensions\Query\Mysql\Month;
+use DoctrineExtensions\Query\Mysql\Year;
 use NS\SentinelBundle\Entity\Pneumonia\Pneumonia;
+use NS\SentinelBundle\Entity\ZeroReport;
 use NS\SentinelBundle\Exceptions\NonExistentCaseException;
 use NS\SentinelBundle\Form\IBD\Types\CaseResult;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Repository\Common;
 use NS\UtilBundle\Form\Types\ArrayChoice;
-use DoctrineExtensions\Query\Mysql\Year;
-use DoctrineExtensions\Query\Mysql\Month;
-use NS\SentinelBundle\Entity\ZeroReport;
 
 /**
  * Description of Common

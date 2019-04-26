@@ -4,11 +4,11 @@ namespace NS\SentinelBundle\Entity\RotaVirus;
 
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 use NS\SentinelBundle\Form\RotaVirus\Types\ElisaKit;
 use NS\SentinelBundle\Form\RotaVirus\Types\ElisaResult;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Validators as LocalAssert;
-use JMS\Serializer\Annotation as Serializer;
 
 /**
  * Description of ReferenceLab

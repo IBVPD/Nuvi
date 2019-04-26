@@ -4,10 +4,10 @@ namespace NS\SentinelBundle\Form\RotaVirus;
 
 use NS\AceBundle\Form\DatePickerType;
 use NS\SentinelBundle\Form\RotaVirus\Types\ElisaResult;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
 use NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultG;
 use NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultP;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**

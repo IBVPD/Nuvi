@@ -3,12 +3,12 @@
 namespace NS\SentinelBundle\Admin;
 
 use Lunetics\LocaleBundle\Form\Extension\Type\LocaleType;
+use NS\SentinelBundle\Form\Types\TripleChoice;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-use NS\SentinelBundle\Form\Types\TripleChoice;
 
 class CountryAdmin extends AbstractAdmin
 {

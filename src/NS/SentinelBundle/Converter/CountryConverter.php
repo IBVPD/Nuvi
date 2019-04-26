@@ -2,7 +2,6 @@
 
 namespace NS\SentinelBundle\Converter;
 
-use NS\SentinelBundle\Entity\Country;
 use NS\SentinelBundle\Exceptions\NonExistentCountryException;
 
 class CountryConverter extends AbstractBaseObjectConverter

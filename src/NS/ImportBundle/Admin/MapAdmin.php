@@ -4,6 +4,10 @@ namespace NS\ImportBundle\Admin;
 
 use NS\ImportBundle\Form\ClassType;
 use NS\ImportBundle\Services\MapBuilder;
+use NS\SentinelBundle\Entity\IBD;
+use NS\SentinelBundle\Entity\Meningitis\Meningitis;
+use NS\SentinelBundle\Entity\Pneumonia\Pneumonia;
+use NS\SentinelBundle\Entity\RotaVirus;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -13,10 +17,6 @@ use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use NS\SentinelBundle\Entity\Pneumonia\Pneumonia;
-use NS\SentinelBundle\Entity\Meningitis\Meningitis;
-use NS\SentinelBundle\Entity\RotaVirus;
-use NS\SentinelBundle\Entity\IBD;
 
 /**
  * MapAdmin class

@@ -4,9 +4,9 @@ namespace NS\ApiBundle\Controller;
 
 use NS\ApiBundle\Form\ClientType;
 use NS\ApiBundle\Form\RemoteType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 /**

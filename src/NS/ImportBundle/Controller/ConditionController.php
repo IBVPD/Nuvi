@@ -2,11 +2,11 @@
 
 namespace NS\ImportBundle\Controller;
 
+use NS\ImportBundle\Converter\Expression\ConditionConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use NS\ImportBundle\Converter\Expression\ConditionConverter;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class ConditionController extends Controller
 {

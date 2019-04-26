@@ -2,10 +2,10 @@
 
 namespace NS\SentinelBundle\Exporter;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Exporter\Source\SourceIteratorInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyPath;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Read data from a Doctrine ArrayCollection
