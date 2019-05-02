@@ -11,9 +11,9 @@ use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
  */
 class PathogenIdentifier extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    const CONVENTIONAL = 1;
-    const REALTIME     = 2;
-    const OTHER        = 3;
+    public const CONVENTIONAL = 1;
+    public const REALTIME     = 2;
+    public const OTHER        = 3;
 
     protected $values = [
         self::CONVENTIONAL => 'Conventional PCR',

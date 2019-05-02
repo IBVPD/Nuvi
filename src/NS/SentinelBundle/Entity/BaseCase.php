@@ -71,7 +71,7 @@ abstract class BaseCase
      * case_ID
      * @var string
      * @ORM\Column(name="case_id",type="string",nullable=false)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(groups={"Default","AMR","Completeness"})
      * @Serializer\Groups({"api","export"})
      */
     protected $case_id;
@@ -80,6 +80,7 @@ abstract class BaseCase
      * @var string|null
      * @ORM\Column(name="district",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
      */
     protected $district;
 
@@ -93,6 +94,7 @@ abstract class BaseCase
      * @var DateTime|null
      * @ORM\Column(name="birthdate",type="date",nullable=true)
      * @Assert\Date
+     * @Assert\NotBlank(groups={"Completeness"})
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
@@ -114,6 +116,7 @@ abstract class BaseCase
      * @var int|null
      * @ORM\Column(name="age_months",type="integer",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
      */
     protected $age_months;
 
@@ -127,7 +130,7 @@ abstract class BaseCase
      * @var Gender|null
      * @ORM\Column(name="gender",type="Gender",nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @Assert\NotBlank(groups={"AMR"})
+     * @Assert\NotBlank(groups={"AMR","Completeness"})
      */
     protected $gender;
 
@@ -136,7 +139,7 @@ abstract class BaseCase
      * @ORM\Column(name="adm_date",type="date",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
-     * @Assert\NotBlank(groups={"AMR"})
+     * @Assert\NotBlank(groups={"AMR","Completeness"})
      * @Assert\Date()
      * @LocalAssert\NoFutureDate()
      */
@@ -387,7 +390,7 @@ abstract class BaseCase
 
     public function isComplete(): bool
     {
-        return $this->status->getValue() === CaseStatus::COMPLETE;
+        return (int)$this->status->getValue() === CaseStatus::COMPLETE;
     }
 
     public function getUpdatedAt(): ?DateTime

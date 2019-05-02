@@ -23,7 +23,7 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ZeroReportingController extends Controller
 {
-    const SESSION_KEY = 'zero.reporting';
+    public const SESSION_KEY = 'zero.reporting';
 
     /**
      * @param Request $request

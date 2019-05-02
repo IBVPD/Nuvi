@@ -9,12 +9,13 @@ use NS\SentinelBundle\Form\RotaVirus\Types\ElisaKit;
 use NS\SentinelBundle\Form\RotaVirus\Types\ElisaResult;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Validators as LocalAssert;
+use Symfony\Component\Validator\Constraints as Assert;
+use NS\UtilBundle\Validator\Constraints\ArrayChoiceConstraint;
 
 /**
- * Description of ReferenceLab
- * @author gnat
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\RotaVirus\NationalLabRepository")
  * @ORM\Table(name="rota_national_labs")
+ * @ORM\EntityListeners(value={"NS\SentinelBundle\Entity\Listener\BaseExternalLabListener"})
  *
  * @LocalAssert\GreaterThanDate(atPath="dt_sample_recd",lessThanField="caseFile.siteLab.stoolSentToNLDate",greaterThanField="dateReceived",message="form.validation.vaccination-after-admission")
  * @LocalAssert\GreaterThanDate(atPath="dt_gt",lessThanField="dateReceived",greaterThanField="genotypingDate",message="form.validation.vaccination-after-admission")
@@ -35,6 +36,8 @@ class NationalLab extends ExternalLab
      * @var TripleChoice|null
      * @ORM\Column(name="elisaDone",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $elisaDone;
 
@@ -88,6 +91,8 @@ class NationalLab extends ExternalLab
      * @var TripleChoice|null
      * @ORM\Column(name="stoolSentToRRL",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $stoolSentToRRL; // These are duplicated from the boolean fields in the class we extend
 

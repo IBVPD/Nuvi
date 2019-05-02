@@ -5,17 +5,13 @@ namespace NS\SentinelBundle\Form\IBD\Types;
 use JMS\TranslationBundle\Translation\TranslationContainerInterface;
 use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 
-/**
- * Description of GramStain
- *
- */
 class GramStain extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    const NO_ORGANISM_DETECTED = 0;
-    const GM_POSITIVE          = 1;
-    const GM_NEGATIVE          = 2;
-    const GM_VARIABLE          = 3;
-    const UNKNOWN              = 99;
+    public const NO_ORGANISM_DETECTED = 0;
+    public const GM_POSITIVE          = 1;
+    public const GM_NEGATIVE          = 2;
+    public const GM_VARIABLE          = 3;
+    public const UNKNOWN              = 99;
 
     protected $values = [
         self::NO_ORGANISM_DETECTED => 'No Organism Detected',

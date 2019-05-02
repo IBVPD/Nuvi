@@ -23,7 +23,7 @@ class BaseLabType extends AbstractType
      * @param array $options
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('labId',                      null, ['label' => 'ibd-rrl-form.lab-id', 'required' => true, 'property_path' => 'lab_id'])

@@ -49,19 +49,23 @@ class CaseTemplates extends Twig_Extension
 
     /**
      *
-     * @param array $results
+     * @param object|array|mixed $results
      * @param string $tableId
      * @return string
      */
-    public function renderTable($results, $tableId)
+    public function renderTable($results, $tableId): ?string
     {
         $params = ['results' => $results, 'tableId' => $tableId];
 
         if ($this->authChecker->isGranted('ROLE_SITE_LEVEL')) {
             return $this->twig->render('NSSentinelBundle:Case:site.html.twig', $params);
-        } elseif ($this->authChecker->isGranted('ROLE_COUNTRY_LEVEL')) {
+        }
+
+        if ($this->authChecker->isGranted('ROLE_COUNTRY_LEVEL')) {
             return $this->twig->render('NSSentinelBundle:Case:country.html.twig', $params);
-        } elseif ($this->authChecker->isGranted('ROLE_REGION_LEVEL')) {
+        }
+
+        if ($this->authChecker->isGranted('ROLE_REGION_LEVEL')) {
             return $this->twig->render('NSSentinelBundle:Case:region.html.twig', $params);
         }
     }

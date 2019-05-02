@@ -299,8 +299,8 @@ class UserAdmin extends AbstractAdmin
         return $query;
     }
 
-    const REGIONS = 'admin.regions';
-    const COUNTRIES = 'admin.countries';
+    public const REGIONS = 'admin.regions';
+    public const COUNTRIES = 'admin.countries';
 
     /**
      * @return array

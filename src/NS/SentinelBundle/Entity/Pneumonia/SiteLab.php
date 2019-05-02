@@ -8,6 +8,7 @@ use JMS\Serializer\Annotation as Serializer;
 use NS\SecurityBundle\Annotation as Security;
 use NS\SentinelBundle\Entity\BaseCase;
 use NS\SentinelBundle\Entity\BaseSiteLabInterface;
+use NS\SentinelBundle\Entity\Listener\BaseStatusListener;
 use NS\SentinelBundle\Form\IBD\Types\CultureResult;
 use NS\SentinelBundle\Form\IBD\Types\GramStain;
 use NS\SentinelBundle\Form\IBD\Types\GramStainResult;
@@ -17,28 +18,39 @@ use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Validators as LocalAssert;
 use NS\UtilBundle\Form\Types\ArrayChoice;
 use Symfony\Component\Validator\Constraints as Assert;
+use NS\UtilBundle\Validator\Constraints\ArrayChoiceConstraint;
 
 /**
- *
- * Description of SiteLab
- * @author gnat
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\Pneumonia\SiteLabRepository")
  * @ORM\Table(name="pneu_site_labs")
+ * @ORM\EntityListeners(value={"NS\SentinelBundle\Entity\Listener\BaseStatusListener"})
  * @Security\Secured(conditions={
  *      @Security\SecuredCondition(roles={"ROLE_REGION"},through={"caseFile"},relation="region",class="NSSentinelBundle:Region"),
  *      @Security\SecuredCondition(roles={"ROLE_COUNTRY","ROLE_RRL_LAB","ROLE_NL_LAB"},through={"caseFile"},relation="country",class="NSSentinelBundle:Country"),
  *      @Security\SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},through={"caseFile"},relation="site",class="NSSentinelBundle:Site"),
  *      })
- * @LocalAssert\AllOther( {
- *                      @LocalAssert\Other(field="bloodCultDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="bloodCultResult",message="form.validation.ibd-sitelab-bloodCult-was-done-without-result"),
- *                      @LocalAssert\Other(field="bloodCultResult",value="\NS\SentinelBundle\Form\IBD\Types\CultureResult::OTHER",otherField="bloodCultOther",message="form.validation.ibd-sitelab-bloodCult-was-done-without-result-other"),
+ * @LocalAssert\Other(groups={"Completeness"},field="bloodCultDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="bloodCultResult")
+ * @LocalAssert\Other(groups={"Completeness"},field="bloodCultResult",value="\NS\SentinelBundle\Form\IBD\Types\CultureResult::OTHER",otherField="bloodCultOther")
  *
- *                      @LocalAssert\Other(field="otherCultDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="otherCultResult",message="form.validation.ibd-sitelab-otherCult-was-done-without-result"),
- *                      @LocalAssert\Other(field="otherCultResult",value="\NS\SentinelBundle\Form\IBD\Types\CultureResult::OTHER",otherField="otherCultOther",message="form.validation.ibd-sitelab-otherCult-was-done-without-result-other"),
+ * @LocalAssert\Other(groups={"Completeness"},field="bloodGramDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="bloodCultResult")
+ * @LocalAssert\Other(groups={"Completeness"},field="bloodGramStain",value={"\NS\SentinelBundle\Form\IBD\Types\GramStain::GM_POSITIVE","\NS\SentinelBundle\Form\IBD\Types\GramStain::GM_NEGATIVE","\NS\SentinelBundle\Form\IBD\Types\GramStain::GM_VARIABLE"},otherField="bloodGramResult")
+ * @LocalAssert\Other(groups={"Completeness"},field="bloodGramResult",value="\NS\SentinelBundle\Form\IBD\Types\GramStainResult::OTHER",otherField="bloodGramOther")
  *
- *                      @LocalAssert\Other(field="otherTestDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="otherTestResult",message="form.validation.ibd-sitelab-otherTest-was-done-without-result"),
- *                      @LocalAssert\Other(field="otherTestResult",value="\NS\SentinelBundle\Form\IBD\Types\CultureResult::OTHER",otherField="otherTestOther",message="form.validation.ibd-sitelab-otherTest-was-done-without-result-other"),
- *                      } )
+ * @LocalAssert\Other(groups={"Completeness"},field="bloodPcrDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="bloodPcrResult")
+ * @LocalAssert\Other(groups={"Completeness"},field="bloodPcrResult",value="\NS\SentinelBundle\Form\IBD\Types\PCRResult::OTHER",otherField="bloodPcrOther")
+ *
+ * @LocalAssert\Other(groups={"Completeness"},field="otherCultDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="otherCultResult")
+ * @LocalAssert\Other(groups={"Completeness"},field="otherCultResult",value="\NS\SentinelBundle\Form\IBD\Types\CultureResult::OTHER",otherField="otherCultOther")
+ *
+ * @LocalAssert\Other(groups={"Completeness"},field="otherTestDone",value="\NS\SentinelBundle\Form\Types\TripleChoice::YES",otherField="otherTestResult")
+ * @LocalAssert\Other(groups={"Completeness"},field="otherTestResult",value="\NS\SentinelBundle\Form\IBD\Types\CultureResult::OTHER",otherField="otherTestOther")
+ *
+ * @LocalAssert\Other(groups={"AMR+Completeness"},field="pleuralFluidCultureDone", value="\NS\SentinelBundle\Form\Types\TripleChoice::YES", otherField="pleuralFluidCultureResult")
+ * @LocalAssert\Other(groups={"AMR+Completeness"},field="pleuralFluidCultureResult", value="\NS\SentinelBundle\Form\IBD\Types\CultureResult::OTHER", otherField="pleuralFluidCultureOther")
+ * @LocalAssert\Other(groups={"AMR+Completeness"},field="pleuralFluidGramDone", value="\NS\SentinelBundle\Form\Types\TripleChoice::YES", otherField="pleuralFluidGramResult")
+ * @LocalAssert\Other(groups={"AMR+Completeness"},field="pleuralFluidGramResult", value={"\NS\SentinelBundle\Form\IBD\Types\GramStain::GM_POSITIVE","\NS\SentinelBundle\Form\IBD\Types\GramStain::GM_NEGATIVE","\NS\SentinelBundle\Form\IBD\Types\GramStain::GM_VARIABLE"}, otherField="pleuralFluidGramResultOrganism")
+ * @LocalAssert\Other(groups={"AMR+Completeness"},field="pleuralFluidPcrDone", value="\NS\SentinelBundle\Form\Types\TripleChoice::YES", otherField="pleuralFluidPcrResult")
+ * @LocalAssert\Other(groups={"AMR+Completeness"},field="pleuralFluidPcrResult", value="\NS\SentinelBundle\Form\IBD\Types\PCRResult::OTHER", otherField="pleuralFluidPcrOther")
  */
 class SiteLab implements BaseSiteLabInterface
 {
@@ -59,6 +71,7 @@ class SiteLab implements BaseSiteLabInterface
      * @var string|null
      * @ORM\Column(name="blood_id",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
      */
     private $blood_id;
 
@@ -69,6 +82,7 @@ class SiteLab implements BaseSiteLabInterface
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
+     * @Assert\NotBlank(groups={"Completeness"})
      */
     private $blood_lab_date;
 
@@ -78,6 +92,7 @@ class SiteLab implements BaseSiteLabInterface
      * @Assert\DateTime
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'H:i:s'>")
+     * @Assert\NotBlank(groups={"Completeness"})
      */
     private $blood_lab_time;
 
@@ -85,6 +100,8 @@ class SiteLab implements BaseSiteLabInterface
      * @var TripleChoice|null
      * @ORM\Column(name="blood_cult_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $blood_cult_done;
 
@@ -92,6 +109,8 @@ class SiteLab implements BaseSiteLabInterface
      * @var TripleChoice|null
      * @ORM\Column(name="blood_gram_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $blood_gram_done;
 
@@ -99,6 +118,8 @@ class SiteLab implements BaseSiteLabInterface
      * @var TripleChoice|null
      * @ORM\Column(name="blood_pcr_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $blood_pcr_done;
 
@@ -156,6 +177,9 @@ class SiteLab implements BaseSiteLabInterface
      * @var string|null
      * @ORM\Column(name="blood_second_id",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\Expression(groups={"AMR+Completeness"},
+     *     expression="this.getCaseFile().getBloodNumberOfSamples() === 2 and value === null",
+     *     message="There were two blood samples but only one blood id")
      */
     private $blood_second_id;
 
@@ -166,6 +190,9 @@ class SiteLab implements BaseSiteLabInterface
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
+     * @Assert\Expression(groups={"AMR+Completeness"},
+     *     expression="this.getCaseFile().getBloodNumberOfSamples() === 2 and value === null",
+     *     message="There were two blood samples but only one blood date entered")
      */
     private $blood_second_lab_date;
 
@@ -175,6 +202,9 @@ class SiteLab implements BaseSiteLabInterface
      * @Assert\DateTime
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'H:i:s'>")
+     * @Assert\Expression(groups={"AMR+Completeness"},
+     *     expression="this.getCaseFile().getBloodNumberOfSamples() === 2 and value === null",
+     *     message="There were two blood samples but only one blood time entered")
      */
     private $blood_second_lab_time;
 
@@ -182,6 +212,9 @@ class SiteLab implements BaseSiteLabInterface
      * @var TripleChoice|null
      * @ORM\Column(name="blood_second_cult_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\Expression(groups={"AMR+Completeness"},
+     *     expression="this.getCaseFile().getBloodNumberOfSamples() === 2 and (value === null or value.current === -1) ",
+     *     message="There were two blood samples however no answer was given")
      */
     private $blood_second_cult_done;
 
@@ -347,6 +380,7 @@ class SiteLab implements BaseSiteLabInterface
      * @ORM\Column(name="rl_broth_sent",type="boolean",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
      */
     private $rl_broth_sent;
 
@@ -383,6 +417,7 @@ class SiteLab implements BaseSiteLabInterface
      * @ORM\Column(name="nl_isol_blood_sent",type="boolean",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
      */
     private $nl_isol_blood_sent;
 
@@ -392,6 +427,7 @@ class SiteLab implements BaseSiteLabInterface
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
+     * @Assert\Expression(groups={"Completeness"}, expression="this.getNlIsolBloodSent() and value === null", message="When the isol is marked as sent the date is required")
      */
     private $nl_isol_blood_date;
 
@@ -400,6 +436,7 @@ class SiteLab implements BaseSiteLabInterface
      * @ORM\Column(name="nl_broth_sent",type="boolean",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
      */
     private $nl_broth_sent;
 
@@ -409,6 +446,7 @@ class SiteLab implements BaseSiteLabInterface
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
+     * @Assert\Expression(groups={"Completeness"}, expression="this.getNlBrothSent() and value === null", message="When the isol is marked as sent the date is required")
      */
     private $nl_broth_date;
 
@@ -417,6 +455,7 @@ class SiteLab implements BaseSiteLabInterface
      * @ORM\Column(name="nl_other_sent",type="boolean",nullable=true)
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
      */
     private $nl_other_sent;
 
@@ -426,6 +465,7 @@ class SiteLab implements BaseSiteLabInterface
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
+     * @Assert\Expression(groups={"Completeness"}, expression="this.getNlOtherSent() and value === null", message="When the isol is marked as sent the date is required")
      */
     private $nl_other_date;
 
@@ -451,6 +491,8 @@ class SiteLab implements BaseSiteLabInterface
      * @var TripleChoice|null
      * @ORM\Column(name="pleural_fluid_culture_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"AMR+Completeness"})
+     * @ArrayChoiceConstraint(groups={"AMR+Completeness"})
      */
     private $pleural_fluid_culture_done;
 
@@ -472,6 +514,8 @@ class SiteLab implements BaseSiteLabInterface
      * @var TripleChoice|null
      * @ORM\Column(name="pleural_fluid_gram_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"AMR+Completeness"})
+     * @ArrayChoiceConstraint(groups={"AMR+Completeness"})
      */
     private $pleural_fluid_gram_done;
 
@@ -493,6 +537,8 @@ class SiteLab implements BaseSiteLabInterface
      * @var TripleChoice|null
      * @ORM\Column(name="pleural_fluid_pcr_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"AMR+Completeness"})
+     * @ArrayChoiceConstraint(groups={"AMR+Completeness"})
      */
     private $pleural_fluid_pcr_done;
 
@@ -860,64 +906,6 @@ class SiteLab implements BaseSiteLabInterface
     public function isComplete(): bool
     {
         return $this->status->equal(CaseStatus::COMPLETE);
-    }
-
-    /**
-     * @ORM\PrePersist
-     */
-    public function prePersist(): void
-    {
-        $this->_calculateStatus();
-
-        $this->updatedAt = new DateTime();
-    }
-
-    /**
-     * @ORM\PreUpdate
-     */
-    public function preUpdate(): void
-    {
-        $this->_calculateStatus();
-
-        $this->updatedAt = new DateTime();
-    }
-
-    private function _calculateStatus(): void
-    {
-        // Don't adjust cancelled or deleted records
-        if ($this->status->getValue() >= CaseStatus::CANCELLED) {
-            return;
-        }
-
-        if ($this->getIncompleteField()) {
-            $this->status->setValue(CaseStatus::OPEN);
-        } else {
-            $this->status->setValue(CaseStatus::COMPLETE);
-        }
-    }
-
-    public function getIncompleteField(): ?string
-    {
-        foreach ($this->getMinimumRequiredFields() as $field) {
-            if ($this->$field === null || empty($this->$field) || ($this->$field instanceof ArrayChoice && $this->$field->equal(-1))) {
-                return $field;
-            }
-        }
-
-        //Additional Tests as needed (result=other && other fields etc)
-
-        return null;
-    }
-
-    public function getMinimumRequiredFields(): array
-    {
-        return [
-            'isolStore',
-            'bloodCultDone',
-            'bloodGramDone',
-            'bloodPcrDone',
-            'otherCultDone',
-        ];
     }
 
     public function getPleuralFluidCultureDone(): ?TripleChoice

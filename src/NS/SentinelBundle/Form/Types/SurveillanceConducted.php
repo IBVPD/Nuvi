@@ -10,9 +10,9 @@ use NS\UtilBundle\Form\Types\ArrayChoice;
  */
 class SurveillanceConducted extends ArrayChoice
 {
-    const IBD  = 1;
-    const ROTA = 2;
-    const BOTH = 3;
+    public const IBD  = 1;
+    public const ROTA = 2;
+    public const BOTH = 3;
 
     protected $values = [
         self::IBD => 'IBD',

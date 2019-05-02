@@ -26,7 +26,6 @@ use NS\UtilBundle\Validator\Constraints\ArrayChoiceConstraint;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @author gnat
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\Pneumonia\PneumoniaRepository")
  * @ORM\Table(name="pneu_cases",uniqueConstraints={@ORM\UniqueConstraint(name="pneu_site_case_id_idx",columns={"site_id","case_id"})})
  * @ORM\HasLifecycleCallbacks
@@ -35,17 +34,25 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      @SecuredCondition(roles={"ROLE_COUNTRY","ROLE_RRL_LAB","ROLE_NL_LAB"},relation="country",class="NSSentinelBundle:Country"),
  *      @SecuredCondition(roles={"ROLE_SITE","ROLE_LAB"},relation="site",class="NSSentinelBundle:Site"),
  *      })
- * @SuppressWarnings(PHPMD.ShortVariable)
  * @ORM\EntityListeners(value={"NS\SentinelBundle\Entity\Listener\PneumoniaListener"})
  *
- * @LocalAssert\GreaterThanDate(atPath="adm_date",lessThanField="onsetDate",greaterThanField="admDate",message="form.validation.admission-after-onset")
- * @LocalAssert\GreaterThanDate(atPath="onset_date",lessThanField="birthdate",greaterThanField="onsetDate",message="form.validation.onset-after-dob")
- * @LocalAssert\GreaterThanDate(lessThanField="admDate",greaterThanField="bloodCollectDate",message="form.validation.admission-after-blood-collection")
- * @LocalAssert\GreaterThanDate(lessThanField="admDate",greaterThanField="pleuralFluidCollectDate",message="form.validation.admission-after-pleural-fluid-collection")
+ * @LocalAssert\GreaterThanDate(atPath="adm_date",lessThanField="onsetDate",greaterThanField="admDate",message="form.validation.admission-after-onset",groups={"Default","Completeness"})
+ * @LocalAssert\GreaterThanDate(atPath="onset_date",lessThanField="birthdate",greaterThanField="onsetDate",message="form.validation.onset-after-dob",groups={"Default","Completeness"})
+ * @LocalAssert\GreaterThanDate(lessThanField="admDate",greaterThanField="bloodCollectDate",message="form.validation.admission-after-blood-collection",groups={"Default","Completeness"})
+ * @LocalAssert\GreaterThanDate(lessThanField="admDate",greaterThanField="pleuralFluidCollectDate",message="form.validation.admission-after-pleural-fluid-collection",groups={"Default","Completeness"})
  *
- * @LocalAssert\RelatedField(sourceField="admDx",sourceValue={"2","3"},fields={"pneuCyanosis","pneuVomit","pneuHypothermia","pneuMalnutrition","pneuDiffBreathe","pneuChestIndraw","pneuCough","pneuStridor","pneu_resp_rate","cxrDone"},message="field-is-required-due-to-adm-diagnosis")
+ * @LocalAssert\RelatedField(sourceField="admDx",sourceValue={"2","3"},fields={"pneuCyanosis","pneuVomit","pneuHypothermia","pneuMalnutrition","pneuDiffBreathe","pneuChestIndraw","pneuCough","pneuStridor","pneu_resp_rate","cxrDone"},message="field-is-required-due-to-adm-diagnosis",groups={"Default","Completeness"})
  * @LocalAssert\PCV()
- * @Serializer\AccessorOrder("custom", custom = {"region.code", "country.code", "site.code", "case_id","firstName","lastName","parentalName","gender","dobKnown","birthdate","district","state","id","age_months","ageDistribution","adm_date",
+ * @LocalAssert\Other(groups={"Completeness"},field="admDx",otherField="admDxOther",value="NS\SentinelBundle\Form\IBD\Types\Diagnosis::OTHER")
+ * @LocalAssert\Other(groups={"Completeness"},field="dischDx",otherField="dischDxOther",value={"NS\SentinelBundle\Form\IBD\Types\DischargeDiagnosis::OTHER","NS\SentinelBundle\Form\IBD\Types\DischargeDiagnosis::OTHER_MENINGITIS","NS\SentinelBundle\Form\IBD\Types\DischargeDiagnosis::OTHER_PNEUMONIA"})
+ * @LocalAssert\Other(groups={"Completeness"},field="otherSpecimenCollected",otherField="otherSpecimenOther",value={"NS\SentinelBundle\Form\IBD\Types\OtherSpecimen::OTHER"})
+ * @LocalAssert\Other(groups={"Completeness"},field="pleuralFluidCollected",otherField="pleuralFluidCollectDate",value={"NS\SentinelBundle\Form\Types\TripleChoice::YES"})
+ * @LocalAssert\Other(groups={"Completeness"},field="pleuralFluidCollected",otherField="pleuralFluidCollectTime",value={"NS\SentinelBundle\Form\Types\TripleChoice::YES"})
+ * @LocalAssert\Other(groups={"Completeness"},field="hibReceived",otherField="hibDoses",value={"NS\SentinelBundle\Form\Types\VaccinationReceived::YES_HISTORY","NS\SentinelBundle\Form\Types\VaccinationReceived::YES_CARD"})
+ * @LocalAssert\Other(groups={"Completeness"},field="hibReceived",otherField="hibMostRecentDose",value={"NS\SentinelBundle\Form\Types\VaccinationReceived::YES_HISTORY","NS\SentinelBundle\Form\Types\VaccinationReceived::YES_CARD"})
+ *
+ * @Serializer\AccessorOrder("custom", custom = {"region.code", "country.code", "site.code",
+ *     "case_id","firstName","lastName","parentalName","gender","dobKnown","birthdate","district","state","id","age_months","ageDistribution","adm_date",
  *     "adm_dx","adm_dx_other","onset_date","antibiotics",
  *     "pneu_diff_breathe","pneu_chest_indraw","pneu_cough","pneu_cyanosis","pneu_stridor","pneu_resp_rate","pneu_oxygen_saturation","pneu_vomit","pneu_hypothermia","pneu_malnutrition","pneu_fever","cxr_done","cxr_result","cxr_additional_result",
  *     "hib_received","hib_doses","hib_most_recent_dose",
@@ -95,19 +102,25 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Pneumonia extends BaseCase
 {
     /**
-     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\Pneumonia\NationalLab", mappedBy="caseFile", cascade={"persist","remove"}, orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\Pneumonia\NationalLab", mappedBy="caseFile",
+     *                                                                               cascade={"persist","remove"},
+     *                                                                               orphanRemoval=true)
      * @Serializer\Groups({"delete"})
      */
     protected $nationalLab;
 
     /**
-     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\Pneumonia\ReferenceLab", mappedBy="caseFile", cascade={"persist","remove"}, orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\Pneumonia\ReferenceLab", mappedBy="caseFile",
+     *                                                                                cascade={"persist","remove"},
+     *                                                                                orphanRemoval=true)
      * @Serializer\Groups({"delete"})
      */
     protected $referenceLab;
 
     /**
-     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\Pneumonia\SiteLab", mappedBy="caseFile", cascade={"persist","remove"}, orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity="\NS\SentinelBundle\Entity\Pneumonia\SiteLab", mappedBy="caseFile",
+     *                                                                           cascade={"persist","remove"},
+     *                                                                           orphanRemoval=true)
      * @Serializer\Groups({"delete"})
      */
     protected $siteLab;
@@ -125,7 +138,7 @@ class Pneumonia extends BaseCase
     /**
      * @Serializer\Exclude()
      */
-    protected $nationalClass  = NationalLab::class;
+    protected $nationalClass = NationalLab::class;
 
 //Case-based Clinical Data
     /**
@@ -134,6 +147,7 @@ class Pneumonia extends BaseCase
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
      * @Assert\DateTime
+     * @Assert\NotBlank(groups={"Completeness"}, message="Missing onset date")
      * @LocalAssert\NoFutureDate()
      */
     private $onset_date;
@@ -142,8 +156,8 @@ class Pneumonia extends BaseCase
      * @var Diagnosis|null
      * @ORM\Column(name="adm_dx",type="Diagnosis",nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @Assert\NotBlank(groups={"AMR"})
-     * @ArrayChoiceConstraint(groups={"AMR"})
+     * @Assert\NotBlank(groups={"AMR","Completeness"}, message="Missing adm diagnosis")
+     * @ArrayChoiceConstraint(groups={"AMR","Completeness"}, message="Missing adm diagnosis")
      */
     private $adm_dx;
 
@@ -158,6 +172,8 @@ class Pneumonia extends BaseCase
      * @var TripleChoice|null
      * @ORM\Column(name="antibiotics",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"}, message="Missing antibiotics")
+     * @ArrayChoiceConstraint(groups={"Completeness"}, message="Missing antibiotics")
      */
     private $antibiotics;
 
@@ -173,6 +189,8 @@ class Pneumonia extends BaseCase
      * @var TripleChoice|null
      * @ORM\Column(name="pneu_diff_breathe",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"}, message="Missing difficulty breathing")
+     * @ArrayChoiceConstraint(groups={"Completeness"}, message="Missing difficulty breathing")
      */
     private $pneu_diff_breathe;
 
@@ -180,6 +198,8 @@ class Pneumonia extends BaseCase
      * @var TripleChoice|null
      * @ORM\Column(name="pneu_chest_indraw",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"}, message="Missing chest indraw")
+     * @ArrayChoiceConstraint(groups={"Completeness"}, message="Missing chest indraw")
      */
     private $pneu_chest_indraw;
 
@@ -187,6 +207,8 @@ class Pneumonia extends BaseCase
      * @var TripleChoice|null
      * @ORM\Column(name="pneu_cough",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"}, message="Missing cough")
+     * @ArrayChoiceConstraint(groups={"Completeness"}, message="Missing cough")
      */
     private $pneu_cough;
 
@@ -194,6 +216,8 @@ class Pneumonia extends BaseCase
      * @var TripleChoice|null
      * @ORM\Column(name="pneu_cyanosis",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"}, message="Missing cyanosis")
+     * @ArrayChoiceConstraint(groups={"Completeness"}, message="Missing cyanosis")
      */
     private $pneu_cyanosis;
 
@@ -201,23 +225,29 @@ class Pneumonia extends BaseCase
      * @var TripleChoice|null
      * @ORM\Column(name="pneu_stridor",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"}, message="Missing stridor")
+     * @ArrayChoiceConstraint(groups={"Completeness"}, message="Missing stridor")
      */
     private $pneu_stridor;
 
     /**
      * @var integer|null
      * @ORM\Column(name="pneu_resp_rate",type="integer",nullable=true)
-     * @Assert\Range(min=10,max=150,minMessage="Please provide a valid respiratory rate",maxMessage="Please provide a valid respiratory rate")
+     * @Assert\Range(groups={"Default","Completeness"}, min=10,max=150,minMessage="Please provide a valid respiratory rate",maxMessage="Please provide a
+     *                                                 valid respiratory rate")
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
      */
     private $pneu_resp_rate;
 
     /**
      * @var integer|null
      * @ORM\Column(name="pneu_oxygen_saturation",type="integer",nullable=true)
-     * @Assert\Range(min=80,max=100,minMessage="Please provide a valid oxygen saturation level",maxMessage="Please provide a valid oxygen saturation level")
+     * @Assert\Range(groups={"Default","AMR+Completeness"},min=80,max=100,minMessage="Please provide a valid oxygen saturation level",maxMessage="Please
+     *                                                 provide a valid oxygen saturation level")
      *
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"AMR+Completeness"})
      */
     private $pneu_oxygen_saturation;
 
@@ -225,6 +255,8 @@ class Pneumonia extends BaseCase
      * @var TripleChoice|null
      * @ORM\Column(name="pneu_vomit",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $pneu_vomit;
 
@@ -232,6 +264,8 @@ class Pneumonia extends BaseCase
      * @var TripleChoice|null
      * @ORM\Column(name="pneu_hypothermia",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $pneu_hypothermia;
 
@@ -239,6 +273,8 @@ class Pneumonia extends BaseCase
      * @var TripleChoice|null
      * @ORM\Column(name="pneu_malnutrition",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $pneu_malnutrition;
 
@@ -246,6 +282,8 @@ class Pneumonia extends BaseCase
      * @var TripleChoice|null
      * @ORM\Column(name="pneu_fever",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"AMR+Completeness"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $pneu_fever;
 
@@ -253,6 +291,8 @@ class Pneumonia extends BaseCase
      * @var TripleChoice|null
      * @ORM\Column(name="cxr_done",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $cxr_done;
 
@@ -275,8 +315,8 @@ class Pneumonia extends BaseCase
      * @var VaccinationReceived|null
      * @ORM\Column(name="hib_received",type="VaccinationReceived",nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @Assert\NotBlank(groups={"AMR"})
-     * @ArrayChoiceConstraint(groups={"AMR"})
+     * @Assert\NotBlank(groups={"Completeness"})
+     * @ArrayChoiceConstraint(groups={"AMR","Completeness"})
      */
     private $hib_received;
 
@@ -300,8 +340,8 @@ class Pneumonia extends BaseCase
      * @var VaccinationReceived|null
      * @ORM\Column(name="pcv_received",type="VaccinationReceived",nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @Assert\NotBlank(groups={"AMR"})
-     * @ArrayChoiceConstraint(groups={"AMR"})
+     * @Assert\NotBlank(groups={"AMR","Completeness"})
+     * @ArrayChoiceConstraint(groups={"AMR","AMR+Completeness"})
      */
     private $pcv_received;
 
@@ -332,8 +372,8 @@ class Pneumonia extends BaseCase
      * @var VaccinationReceived|null
      * @ORM\Column(name="mening_received",type="VaccinationReceived",nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @Assert\NotBlank(groups={"AMR"})
-     * @ArrayChoiceConstraint(groups={"AMR"})
+     * @Assert\NotBlank(groups={"AMR","AMR+Completeness"})
+     * @ArrayChoiceConstraint(groups={"AMR","AMR+Completeness"})
      */
     private $mening_received;
 
@@ -359,6 +399,7 @@ class Pneumonia extends BaseCase
      * @var TripleChoice|null
      * @ORM\Column(name="blood_collected", type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
      */
     private $blood_collected;
 
@@ -383,6 +424,8 @@ class Pneumonia extends BaseCase
      * @var OtherSpecimen|null
      * @ORM\Column(name="other_specimen_collected",type="OtherSpecimen",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $other_specimen_collected;
 
@@ -398,6 +441,8 @@ class Pneumonia extends BaseCase
      * @var DischargeOutcome|null
      * @ORM\Column(name="disch_outcome",type="IBDDischargeOutcome",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $disch_outcome;
 
@@ -405,6 +450,8 @@ class Pneumonia extends BaseCase
      * @var DischargeDiagnosis|null
      * @ORM\Column(name="disch_dx",type="IBDDischargeDiagnosis",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $disch_dx;
 
@@ -419,6 +466,8 @@ class Pneumonia extends BaseCase
      * @var DischargeClassification|null
      * @ORM\Column(name="disch_class",type="IBDDischargeClassification",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $disch_class;
 
@@ -447,6 +496,7 @@ class Pneumonia extends BaseCase
      * @var int|null
      * @ORM\Column(name="blood_number_of_samples",type="integer",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"AMR+Completeness"})
      */
     private $blood_number_of_samples;
 
@@ -471,6 +521,8 @@ class Pneumonia extends BaseCase
      * @var TripleChoice|null
      * @ORM\Column(name="pleural_fluid_collected",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"AMR+Completeness"})
+     * @ArrayChoiceConstraint(groups={"AMR+Completeness"})
      */
     private $pleural_fluid_collected;
 
@@ -907,7 +959,7 @@ class Pneumonia extends BaseCase
 
     public function setDischClassOther(?string $dischClassOther): void
     {
-        $this->disch_class_other= $dischClassOther;
+        $this->disch_class_other = $dischClassOther;
     }
 
     //========================================
@@ -972,57 +1024,4 @@ class Pneumonia extends BaseCase
     {
         $this->pleural_fluid_collect_time = $pleural_fluid_collect_time;
     }
-
-//    /**
-//     * @param ExecutionContextInterface $context
-//     */
-//    public function validate(ExecutionContextInterface $context)
-//    {
-//        // with both an admission date and onset date, ensure the admission happened after onset
-//        if($this->admDate && $this->onsetDate && $this->admDate < $this->onsetDate)
-//            $context->addViolationAt('admDate', "form.validation.admission-after-onset");
-//
-//        // with both an birthdate and onset date, ensure the onset is after birthdate
-//        if($this->birthdate && $this->onsetDate && $this->onsetDate < $this->birthdate)
-//            $context->addViolationAt ('birthdate', "form.validation.onset-after-dob");
-//
-// The following validations need to store errors in the object or force form validation prior to form submission
-//        // if admission diagnosis is other, enforce value in 'admission diagnosis other' field
-//        if($this->adm_dx && $this->adm_dx->equal(Diagnosis::OTHER) && empty($this->adm_dxOther))
-//            $context->addViolationAt('adm_dx',"form.validation.admissionDx-other-without-other-text");
-//
-//        // if discharge diagnosis is other, enforce value in 'discharge diagnosis other' field
-//        if($this->dischDx && $this->dischDx->equal(Diagnosis::OTHER) && empty($this->dischDxOther))
-//            $context->addViolationAt('dischDx',"form.validation.dischargeDx-other-without-other-text");
-//
-//        if($this->hibReceived && $this->hibReceived->equal(TripleChoice::YES) && (is_null($this->hibDoses) || $this->hibDoses->equal(ArrayChoice::NO_SELECTION)))
-//            $context->addViolationAt('hibDoses', "form.validation.hibReceived-other-hibDoses-unselected");
-//
-//        if($this->pcvReceived && $this->pcvReceived->equal(TripleChoice::YES) && (is_null($this->pcvDoses) || $this->pcvDoses->equal(ArrayChoice::NO_SELECTION)))
-//            $context->addViolationAt('pcvDoses', "form.validation.pcvReceived-other-pcvDoses-unselected '".$this->pcvReceived."'" );
-//
-//        if($this->meningReceived && ($this->meningReceived->equal(MeningitisVaccinationReceived::YES_CARD ) || $this->meningReceived->equal(MeningitisVaccinationReceived::YES_HISTORY)))
-//        {
-//            if(is_null($this->meningType))
-//                $context->addViolationAt('meningType', "form.validation.meningReceived-meningType-empty");
-//
-//            if($this->meningType->equal(ArrayChoice::NO_SELECTION))
-//                $context->addViolationAt('meningType', "form.validation.meningReceived-meningType-empty");
-//
-//            if(is_null($this->mening_date))
-//                $context->addViolationAt('meningType', "form.validation.meningReceived-meningMostRecentDose-empty");
-//        }
-//
-//        if($this->csfCollected && $this->csfCollected->equal(TripleChoice::YES))
-//        {
-//            if(is_null($this->csfId) || empty($this->csfId))
-//                $context->addViolationAt('csfId', "form.validation.csfCollected-csfId-empty");
-//
-//            if(is_null($this->csfCollectDateTime))
-//                $context->addViolationAt('csfId', "form.validation.csfCollected-csfCollectDateTime-empty");
-//
-//            if(is_null($this->csfAppearance) || $this->csfAppearance->equal(ArrayChoice::NO_SELECTION))
-//                $context->addViolationAt('csfId', "form.validation.csfCollected-csfAppearance-empty");
-//        }
-//    }
 }

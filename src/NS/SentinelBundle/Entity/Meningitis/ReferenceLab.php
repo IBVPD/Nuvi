@@ -7,12 +7,9 @@ use NS\SentinelBundle\Entity\ReferenceLab as RegionalReferenceLab;
 use NS\SentinelBundle\Entity\ReferenceLabResultInterface;
 
 /**
- * Description of ReferenceLab
- * @author gnat
- *
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\Meningitis\ReferenceLabRepository")
  * @ORM\Table(name="mening_reference_labs")
- * @ORM\HasLifecycleCallbacks
+ * @ORM\EntityListeners(value={"NS\SentinelBundle\Entity\Listener\BaseExternalLabListener"})
  */
 class ReferenceLab extends ExternalLab implements ReferenceLabResultInterface
 {

@@ -11,10 +11,10 @@ use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
  */
 class SerotypeIdentifier extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    const CONVENTIONAL = 1;
-    const REALTIME     = 2;
-    const QUELLUNG     = 3;
-    const OTHER        = 4;
+    public const CONVENTIONAL = 1;
+    public const REALTIME     = 2;
+    public const QUELLUNG     = 3;
+    public const OTHER        = 4;
 
     protected $values = [
         self::CONVENTIONAL => 'Conventional multiplex PCR',

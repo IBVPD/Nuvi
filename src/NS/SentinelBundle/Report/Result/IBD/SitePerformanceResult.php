@@ -41,8 +41,8 @@ class SitePerformanceResult extends AbstractSitePerformanceResult implements Tra
         return self::BAD;
     }
 
-    const TIER1_MIN_CASES_STR = '≥ 100 cases';
-    const TIER2_MIN_CASES_STR = '≥ 500 cases';
+    public const TIER1_MIN_CASES_STR = '≥ 100 cases';
+    public const TIER2_MIN_CASES_STR = '≥ 500 cases';
 
     /**
      * @return string
@@ -59,8 +59,8 @@ class SitePerformanceResult extends AbstractSitePerformanceResult implements Tra
         return 'Unknown';
     }
 
-    const TIER1_MIN_SPECIMEN_STR = '≥ 90% with specimen';
-    const TIER2_MIN_SPECIMEN_STR = '≥ 75% with specimen';
+    public const TIER1_MIN_SPECIMEN_STR = '≥ 90% with specimen';
+    public const TIER2_MIN_SPECIMEN_STR = '≥ 75% with specimen';
 
     /**
      * @return string
@@ -102,7 +102,7 @@ class SitePerformanceResult extends AbstractSitePerformanceResult implements Tra
     /**
      * @inheritDoc
      */
-    static function getTranslationMessages()
+    public static function getTranslationMessages()
     {
         return [
             new Message(self::TIER1_MIN_CASES_STR),

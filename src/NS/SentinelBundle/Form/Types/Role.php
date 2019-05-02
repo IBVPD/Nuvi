@@ -18,21 +18,21 @@ class Role extends TranslatableArrayChoice implements TranslationContainerInterf
     /** @var TokenStorageInterface */
     private $tokenStorage;
 
-    const REGION = 1;
-    const COUNTRY = 2;
-    const SITE = 3;
-    const LAB = 4;
-    const RRL_LAB = 5;
-    const NL_LAB = 6;
+    public const REGION = 1;
+    public const COUNTRY = 2;
+    public const SITE = 3;
+    public const LAB = 4;
+    public const RRL_LAB = 5;
+    public const NL_LAB = 6;
 
     // These are all deprecated and will be removed in a future version
-    const REGION_API = 10;
-    const COUNTRY_API = 11;
-    const SITE_API = 12;
+    public const REGION_API = 10;
+    public const COUNTRY_API = 11;
+    public const SITE_API = 12;
 
-    const REGION_IMPORT = 20;
-    const COUNTRY_IMPORT = 21;
-    const SITE_IMPORT = 22;
+    public const REGION_IMPORT = 20;
+    public const COUNTRY_IMPORT = 21;
+    public const SITE_IMPORT = 22;
 
     protected $values = [
         self::REGION => 'Region',

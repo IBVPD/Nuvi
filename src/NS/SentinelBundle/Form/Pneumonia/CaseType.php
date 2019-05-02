@@ -168,11 +168,12 @@ class CaseType extends AbstractType
                 ->add('pleuralFluidCollected', TripleChoice::class, ['required' => $required, 'label' => 'ibd-form.pleural-fluid-collected'])
                 ->add('pleuralFluidCollectDate', DatePickerType::class, ['required' => $required, 'hidden' => ['parent' => 'pleuralFluidCollected', 'value' => TripleChoice::YES], 'label' => 'ibd-form.pleural-fluid-collection-date'])
                 ->add('pleuralFluidCollectTime', TimeType::class, ['required' => $required, 'hidden' => ['parent' => 'pleuralFluidCollected', 'value' => TripleChoice::YES], 'label' => 'ibd-form.pleural-fluid-collection-time']);
-        } else {
-            $form
-                ->add('otherSpecimenCollected', OtherSpecimen::class, ['required' => $required, 'label' => 'ibd-form.otherSpecimenCollected'])
-                ->add('otherSpecimenOther', null, ['required' => $required, 'label' => 'ibd-form.otherSpecimenOther', 'hidden' => ['parent' => 'otherSpecimenCollected', 'value' => OtherSpecimen::OTHER]]);
+            return;
         }
+
+        $form
+            ->add('otherSpecimenCollected', OtherSpecimen::class, ['required' => $required, 'label' => 'ibd-form.otherSpecimenCollected'])
+            ->add('otherSpecimenOther', null, ['required' => $required, 'label' => 'ibd-form.otherSpecimenOther', 'hidden' => ['parent' => 'otherSpecimenCollected', 'value' => OtherSpecimen::OTHER]]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

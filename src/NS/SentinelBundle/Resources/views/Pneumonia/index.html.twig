@@ -3,8 +3,13 @@
 {% block pagedescription %}{{'Lists the last %count% Pneumonia cases'|trans({'%count%':app.session.get('pneumonia.index.limit',10)})}}{%endblock %}
 
 {% block javascripts %}
-{{ parent() }}
+    {{ parent() }}
     <script type="text/javascript" src="{{ asset('/bundles/nsfilteredpagination/js/main.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('[data-toggle="popover"]').popover();
+        })
+    </script>
 {% endblock %}
 
 {% block body %}

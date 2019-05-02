@@ -13,9 +13,9 @@ namespace NS\SentinelBundle\Report\Result;
  */
 class CulturePositive
 {
-    const CULTURE_POSITIVE = 'cultPositive';
-    const CULTURE_NEGATIVE = 'cultNegative';
-    const PCR_POSITIVE = 'pcrPositive';
+    public const CULTURE_POSITIVE = 'cultPositive';
+    public const CULTURE_NEGATIVE = 'cultNegative';
+    public const PCR_POSITIVE = 'pcrPositive';
 
     /**
      * @var array

@@ -7,11 +7,12 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use NS\SentinelBundle\Entity\BaseCase;
 use NS\SentinelBundle\Validators as LocalAssert;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\Pneumonia\NationalLabRepository")
  * @ORM\Table(name="pneu_national_labs")
- * @ORM\HasLifecycleCallbacks
+ * @ORM\EntityListeners(value={"NS\SentinelBundle\Entity\Listener\BaseExternalLabListener"})
  */
 class NationalLab extends ExternalLab
 {
@@ -28,6 +29,7 @@ class NationalLab extends ExternalLab
      *
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
      */
     private $rl_isol_blood_sent;
 
@@ -38,6 +40,9 @@ class NationalLab extends ExternalLab
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
+     * @Assert\Expression(groups={"Completeness"},
+     *     expression="this.isRlIsolBloodSent() and value === null",
+     *     message="Blood Isol sample was sent to the RRL but date sent was not provided")
      */
     private $rl_isol_blood_date;
 
@@ -47,6 +52,7 @@ class NationalLab extends ExternalLab
      *
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
      */
     private $rl_other_sent;
 
@@ -57,6 +63,9 @@ class NationalLab extends ExternalLab
      * @LocalAssert\NoFutureDate()
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
+     * @Assert\Expression(groups={"Completeness"},
+     *     expression="this.isRlOtherSent() and value === null",
+     *     message="Other sample was sent to the RRL but date sent was not provided")
      */
     private $rl_other_date;
 

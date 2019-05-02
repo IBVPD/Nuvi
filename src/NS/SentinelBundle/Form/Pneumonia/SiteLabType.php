@@ -113,6 +113,8 @@ class SiteLabType extends AbstractType
             $form
                 ->add('nlIsolBloodSent', SwitchType::class, ['label' => 'ibd-form.blood-sent-to-nl', 'required' => false])
                 ->add('nlIsolBloodDate', DatePickerType::class, ['label' => 'ibd-form.blood-sent-to-nl-date', 'required' => false, 'hidden' => ['parent' => 'nlIsolBloodSent', 'value' => 1]])
+                ->add('nlBrothSent', SwitchType::class, ['label' => 'ibd-form.broth-sent-to-nl', 'required' => false])
+                ->add('nlBrothDate', DatePickerType::class, ['label' => 'ibd-form.broth-sent-to-nl-date', 'required' => false, 'hidden' => ['parent' => 'nlBrothSent', 'value' => 1]])
                 ->add('nlOtherSent', SwitchType::class, ['label' => 'ibd-form.other-sent-to-nl', 'required' => false])
                 ->add('nlOtherDate', DatePickerType::class, ['label' => 'ibd-form.other-sent-to-nl-date', 'required' => false, 'hidden' => ['parent' => 'nlOtherSent', 'value' => 1]]);
         }

@@ -15,10 +15,10 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class CaseCreationType extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    const BASE = 1;
-    const SITE = 2;
-    const RRL  = 3;
-    const NL   = 4;
+    public const BASE = 1;
+    public const SITE = 2;
+    public const RRL  = 3;
+    public const NL   = 4;
 
     /**
      * @var AuthorizationCheckerInterface

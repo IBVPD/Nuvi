@@ -26,9 +26,10 @@ abstract class BaseCaseController extends Controller implements TranslationConta
 {
     /**
      * @param Request $request
-     * @param $class
-     * @param $filterFormName
-     * @param $sessionKey
+     * @param         $class
+     * @param         $filterFormName
+     * @param         $sessionKey
+     *
      * @return array
      */
     protected function index(Request $request, $class, $filterFormName, $sessionKey)
@@ -38,9 +39,9 @@ abstract class BaseCaseController extends Controller implements TranslationConta
             ->getFilterQueryBuilder();
 
         $filteredPager = $this->get('ns.filtered_pagination');
-        $filterData = $request->query->get('filter',false);
+        $filterData    = $request->query->get('filter', false);
 
-        if (isset($filterData['find']) || (!isset($filterData['reset']) && !empty($request->getSession()->get($sessionKey,[])))) {
+        if (isset($filterData['find']) || (!isset($filterData['reset']) && !empty($request->getSession()->get($sessionKey, [])))) {
             list($filterForm, $pagination) = $filteredPager->process($request, $filterFormName, $query, $sessionKey);
         } else {
             list($filterForm, $pagination) = $filteredPager->handleForm($request, $filterFormName, $sessionKey);
@@ -50,18 +51,18 @@ abstract class BaseCaseController extends Controller implements TranslationConta
 
         return [
             'pagination' => $pagination,
-            'limitForm'  => $this->createForm(LimitSelectType::class, ['limit'=>$filteredPager->getPerPage()])->createView(),
+            'limitForm' => $this->createForm(LimitSelectType::class, ['limit' => $filteredPager->getPerPage()])->createView(),
             'filterForm' => $filterForm->createView(),
             'createForm' => $createForm];
     }
 
     /**
      * @param Request $request
-     * @param $class
-     * @param $indexRoute
-     * @param $typeName
-     * @param $filterFormName
-     * @param $sessionKey
+     * @param         $class
+     * @param         $indexRoute
+     * @param         $typeName
+     * @param         $filterFormName
+     * @param         $sessionKey
      *
      * @return array|RedirectResponse
      */
@@ -73,11 +74,11 @@ abstract class BaseCaseController extends Controller implements TranslationConta
         if ($form->isSubmitted()) {
             if ($form->isValid()) {
                 $caseId = $form->get('caseId')->getData();
-                $type = $form->get('type')->getData();
-                $site = $form->has('site') ? $form->get('site')->getData() : $this->get('ns.sentinel.sites')->getSite();
+                $type   = $form->get('type')->getData();
+                $site   = $form->has('site') ? $form->get('site')->getData() : $this->get('ns.sentinel.sites')->getSite();
 
                 $entityMgr = $this->get('doctrine.orm.entity_manager');
-                $case = $entityMgr->getRepository($class)->findOrCreate($caseId, $site);
+                $case      = $entityMgr->getRepository($class)->findOrCreate($caseId, $site);
 
                 if (!$case->getId()) {
                     $case->setSite($site);
@@ -88,7 +89,7 @@ abstract class BaseCaseController extends Controller implements TranslationConta
 
                 return $this->redirect($this->generateUrl($type->getRoute($typeName), ['id' => $case->getId()]));
             } else {
-                $params = $this->index($request, $class, $filterFormName, $sessionKey);
+                $params               = $this->index($request, $class, $filterFormName, $sessionKey);
                 $params['createForm'] = $form->createView();
                 return $params;
             }
@@ -98,28 +99,30 @@ abstract class BaseCaseController extends Controller implements TranslationConta
     }
 
     /**
-     * @param string $type
+     * @param string      $type
      * @param string|null $objId
+     *
      * @return Form
-     * @throws UnexpectedResultException
      * @throws Exception
      * @throws NonExistentCaseException
      */
-    protected function getForm($type, $objId = null)
+    protected function getForm($type, $objId = null): Form
     {
-        return $this->createForm($type, ($objId)?$this->getObject($type, $objId):null);
+        return $this->createForm($type, $objId ? $this->getObject($type, $objId) : null);
     }
 
     abstract protected function getCaseRecord($objId);
+
     abstract protected function getObject($type, $objId, $forDelete = false);
 
     /**
      * @param string $type
      * @param string $objId
      * @param string $redirectRoute
+     *
      * @return RedirectResponse
      */
-    protected function delete($type, $objId, $redirectRoute)
+    protected function delete($type, $objId, $redirectRoute): RedirectResponse
     {
         $record = $this->getObject($type, $objId, true);
         if (!$record) {
@@ -129,17 +132,17 @@ abstract class BaseCaseController extends Controller implements TranslationConta
         $entityMgr = $this->get('doctrine.orm.entity_manager');
         $entityMgr->remove($record);
         $entityMgr->flush();
-        $this->get('ns_flash')->addSuccess('Success','Case removed successfully!');
+        $this->get('ns_flash')->addSuccess('Success', 'Case removed successfully!');
 
         return $this->redirect($this->generateUrl($redirectRoute));
     }
 
     /**
      * @param Request $request
-     * @param $type
-     * @param $indexRoute
-     * @param $editRoute
-     * @param null $objId
+     * @param         $type
+     * @param         $indexRoute
+     * @param         $editRoute
+     * @param null    $objId
      *
      * @return array|RedirectResponse|Response
      */
@@ -154,7 +157,7 @@ abstract class BaseCaseController extends Controller implements TranslationConta
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $entityMgr = $this->get('doctrine.orm.entity_manager');
-            $record = $form->getData();
+            $record    = $form->getData();
 
             if ($record instanceof ReferenceLabResultInterface && $this->getUser()->hasReferenceLab()) {
                 $record->setLab($entityMgr->getReference('NSSentinelBundle:ReferenceLab', $this->getUser()->getReferenceLab()->getId()));
@@ -169,14 +172,16 @@ abstract class BaseCaseController extends Controller implements TranslationConta
                 return $this->redirect($this->generateUrl($indexRoute));
             }
 
-            return $this->redirect($this->generateUrl($editRoute, ['id'=>$objId]));
-        } elseif ($form->isSubmitted()) {
+            return $this->redirect($this->generateUrl($editRoute, ['id' => $objId]));
+        }
+
+        if ($form->isSubmitted()) {
             $this->get('ns_flash')->addWarning('Warning!', 'There were errors with saving the form.', 'Please review each tab for error messages');
         }
 
         $record = $this->getCaseRecord($objId);
 
-        return ['form' => $form->createView(), 'id' => $objId, 'editRoute' => $editRoute,'record' => $record];
+        return ['form' => $form->createView(), 'id' => $objId, 'editRoute' => $editRoute, 'record' => $record];
     }
 
     /**
@@ -194,10 +199,7 @@ abstract class BaseCaseController extends Controller implements TranslationConta
         }
     }
 
-    /**
-     * @inheritDoc
-     */
-    static function getTranslationMessages()
+    public static function getTranslationMessages(): array
     {
         return [
             new Message('Warning!'),

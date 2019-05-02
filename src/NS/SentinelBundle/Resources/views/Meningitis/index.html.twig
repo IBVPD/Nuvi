@@ -5,6 +5,11 @@
 {% block javascripts %}
 {{ parent() }}
     <script type="text/javascript" src="{{ asset('/bundles/nsfilteredpagination/js/main.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('[data-toggle="popover"]').popover();
+        })
+    </script>
 {% endblock %}
 
 {% block body %}

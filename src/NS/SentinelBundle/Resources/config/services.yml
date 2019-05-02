@@ -134,3 +134,43 @@ services:
     arguments: [ "@security.encoder_factory"]
     tags:
       - { name: hautelook_alice.alice.processor }
+
+  ns_sentinel.cached_validator:
+    class: NS\SentinelBundle\Validators\Cache\CachedValidations
+    arguments: [ '@cache.app','@validator']
+
+  ns_sentinel.pneumonia_listener:
+    class: NS\SentinelBundle\Entity\Listener\PneumoniaListener
+    arguments: [ '@ns_sentinel.cached_validator']
+    tags:
+      - { name: doctrine.orm.entity_listener }
+
+  ns_sentinel.ibd_listener:
+    class: NS\SentinelBundle\Entity\Listener\IBDListener
+    arguments: [ '@ns_sentinel.cached_validator']
+    tags:
+      - { name: doctrine.orm.entity_listener }
+
+  ns_sentinel.meningitis_listener:
+    class: NS\SentinelBundle\Entity\Listener\MeningitisListener
+    arguments: [ '@ns_sentinel.cached_validator']
+    tags:
+      - { name: doctrine.orm.entity_listener }
+
+  ns_sentinel.rotavirus_listener:
+    class: NS\SentinelBundle\Entity\Listener\RotaVirusListener
+    arguments: [ '@ns_sentinel.cached_validator']
+    tags:
+      - { name: doctrine.orm.entity_listener }
+
+  ns_sentinel.sitelab_listener:
+    class: NS\SentinelBundle\Entity\Listener\BaseStatusListener
+    arguments: [ '@ns_sentinel.cached_validator']
+    tags:
+      - { name: doctrine.orm.entity_listener }
+
+  ns_sentinel.external_listener:
+    class: NS\SentinelBundle\Entity\Listener\BaseExternalLabListener
+    arguments: [ '@ns_sentinel.cached_validator']
+    tags:
+      - { name: doctrine.orm.entity_listener }

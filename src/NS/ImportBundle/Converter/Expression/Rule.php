@@ -8,8 +8,8 @@ namespace NS\ImportBundle\Converter\Expression;
  */
 class Rule
 {
-    const AND_CONDITION = '&&';
-    const OR_CONDITION  = '||';
+    public const AND_CONDITION = '&&';
+    public const OR_CONDITION  = '||';
 
     /**
      * @var array

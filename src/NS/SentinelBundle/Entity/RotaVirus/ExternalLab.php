@@ -12,6 +12,8 @@ use NS\SentinelBundle\Form\RotaVirus\Types\ElisaResult;
 use NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultG;
 use NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultP;
 use NS\SentinelBundle\Validators as LocalAssert;
+use Symfony\Component\Validator\Constraints as Assert;
+use NS\UtilBundle\Validator\Constraints\ArrayChoiceConstraint;
 
 /**
  * Description of ExternalLab
@@ -33,6 +35,7 @@ abstract class ExternalLab extends BaseExternalLab
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
      * @LocalAssert\NoFutureDate
+     * @Assert\NotBlank(groups={"Completeness"})
      */
     protected $specimenCollectionDate;
 
@@ -49,6 +52,8 @@ abstract class ExternalLab extends BaseExternalLab
      * @var GenotypeResultG|null
      * @ORM\Column(name="gt_result_g",type="GenotypeResultG", nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     protected $gt_result_g;
 

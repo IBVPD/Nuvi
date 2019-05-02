@@ -11,17 +11,17 @@ use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
  */
 class HiSerotype extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    const A                    = 1;
-    const B                    = 2;
-    const C                    = 3;
-    const D                    = 4;
-    const E                    = 5;
-    const F                    = 6;
-    const NON_TYPE_B           = 7;
-    const NON_TYPEABLE_BY_PCR  = 8;
-    const NON_TYPEABLE_BY_SAST = 9;
-    const NOT_DONE             = 10;
-    const OTHER                = 99;
+    public const A                    = 1;
+    public const B                    = 2;
+    public const C                    = 3;
+    public const D                    = 4;
+    public const E                    = 5;
+    public const F                    = 6;
+    public const NON_TYPE_B           = 7;
+    public const NON_TYPEABLE_BY_PCR  = 8;
+    public const NON_TYPEABLE_BY_SAST = 9;
+    public const NOT_DONE             = 10;
+    public const OTHER                = 99;
 
     protected $values = [
         self::A                    => 'a',

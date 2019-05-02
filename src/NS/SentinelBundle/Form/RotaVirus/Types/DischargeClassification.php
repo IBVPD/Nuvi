@@ -11,10 +11,10 @@ use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
  */
 class DischargeClassification  extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    const CONFIRMED  = 1;
-    const DISCARDED  = 2;
-    const INADEQUATE = 3;
-    const UNKNOWN    = 99;
+    public const CONFIRMED  = 1;
+    public const DISCARDED  = 2;
+    public const INADEQUATE = 3;
+    public const UNKNOWN    = 99;
 
     protected $values = [
         self::CONFIRMED => 'Confirmed',

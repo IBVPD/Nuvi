@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2a5b20dfdc1022985a89d7abc7e440e5",
+    "content-hash": "1deb0b0aee5c7df0d99f5ad738bc86a4",
     "packages": [
         {
             "name": "adoy/oauth2",
@@ -2899,32 +2899,32 @@
         },
         {
             "name": "lunetics/locale-bundle",
-            "version": "2.5.4",
+            "version": "2.6.4",
             "target-dir": "Lunetics/LocaleBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lunetics/LocaleBundle.git",
-                "reference": "7d0b4d1206f60b3a562e531ba79eb1641298bb23"
+                "reference": "ee0aad152179d63136b6aa7d3857887cce57974a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lunetics/LocaleBundle/zipball/7d0b4d1206f60b3a562e531ba79eb1641298bb23",
-                "reference": "7d0b4d1206f60b3a562e531ba79eb1641298bb23",
+                "url": "https://api.github.com/repos/lunetics/LocaleBundle/zipball/ee0aad152179d63136b6aa7d3857887cce57974a",
+                "reference": "ee0aad152179d63136b6aa7d3857887cce57974a",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.5.9 || ^7.0",
+                "php": "^5.6 || ^7.0",
                 "psr/log": "~1.0",
-                "symfony/framework-bundle": "^2.8 || ^3.0",
-                "symfony/intl": "^2.8 || ^3.0",
-                "symfony/templating": "^2.8 || ^3.0",
-                "symfony/validator": "^2.8 || ^3.0",
-                "symfony/yaml": "^2.8 || ^3.0"
+                "symfony/framework-bundle": "^2.8 || ^3.0 || ^4.0",
+                "symfony/intl": "^2.8 || ^3.0 || ^4.0",
+                "symfony/templating": "^2.8 || ^3.0 || ^4.0",
+                "symfony/validator": "^2.8 || ^3.0 || ^4.0",
+                "symfony/yaml": "^2.8 || ^3.0 || ^4.0"
             },
             "require-dev": {
                 "ext-intl": "*",
-                "symfony/form": "^2.8 || ^3.0",
-                "symfony/phpunit-bridge": "^3.3",
+                "symfony/form": "^2.8 || ^3.0 || ^4.0",
+                "symfony/phpunit-bridge": "^3.3 || ^4.0",
                 "twig/twig": "1.* || 2.*"
             },
             "suggest": {
@@ -2933,7 +2933,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.5-dev"
+                    "dev-master": "2.6-dev"
                 }
             },
             "autoload": {
@@ -2965,7 +2965,7 @@
                 "multilanguage",
                 "router"
             ],
-            "time": "2017-11-18T09:47:46+00:00"
+            "time": "2019-01-05T17:12:19+00:00"
         },
         {
             "name": "michelf/php-markdown",
@@ -4650,16 +4650,16 @@
         },
         {
             "name": "sonata-project/doctrine-extensions",
-            "version": "1.2.0",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/sonata-doctrine-extensions.git",
-                "reference": "a22ab48341d1a704cdb823d1d721383bf2feba24"
+                "reference": "aab1ede164095afcb1f40253c5d97258b930a433"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/sonata-doctrine-extensions/zipball/a22ab48341d1a704cdb823d1d721383bf2feba24",
-                "reference": "a22ab48341d1a704cdb823d1d721383bf2feba24",
+                "url": "https://api.github.com/repos/sonata-project/sonata-doctrine-extensions/zipball/aab1ede164095afcb1f40253c5d97258b930a433",
+                "reference": "aab1ede164095afcb1f40253c5d97258b930a433",
                 "shasum": ""
             },
             "require": {
@@ -4715,7 +4715,7 @@
                 "doctrine2",
                 "json"
             ],
-            "time": "2019-03-08T06:51:52+00:00"
+            "time": "2019-04-29T17:07:46+00:00"
         },
         {
             "name": "sonata-project/doctrine-orm-admin-bundle",
@@ -5785,21 +5785,22 @@
         },
         {
             "name": "twig/twig",
-            "version": "v1.39.1",
+            "version": "v2.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "23e7b6f0cfa1d7ba3de69f30d8e05cf957412fec"
+                "reference": "82a1c055c8ed4c4705023bfd0405f3c74db6e3ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/23e7b6f0cfa1d7ba3de69f30d8e05cf957412fec",
-                "reference": "23e7b6f0cfa1d7ba3de69f30d8e05cf957412fec",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/82a1c055c8ed4c4705023bfd0405f3c74db6e3ae",
+                "reference": "82a1c055c8ed4c4705023bfd0405f3c74db6e3ae",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.4.0",
-                "symfony/polyfill-ctype": "^1.8"
+                "php": "^7.0",
+                "symfony/polyfill-ctype": "^1.8",
+                "symfony/polyfill-mbstring": "^1.3"
             },
             "require-dev": {
                 "psr/container": "^1.0",
@@ -5809,7 +5810,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.39-dev"
+                    "dev-master": "2.9-dev"
                 }
             },
             "autoload": {
@@ -5847,7 +5848,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2019-04-16T17:12:57+00:00"
+            "time": "2019-04-28T06:57:38+00:00"
         },
         {
             "name": "vich/uploader-bundle",

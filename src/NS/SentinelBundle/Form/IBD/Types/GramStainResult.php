@@ -10,13 +10,13 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class GramStainResult extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    const GM_NEG_DIPLOCOCCI    = 1;
-    const GM_NEG_COCCOBACILLI  = 2;
-    const GM_NEG_RODS          = 3;
-    const GM_POS_COCCI_PAIRS   = 4;
-    const GM_POS_COCCI_CLUSTER = 5;
-    const OTHER                = 6;
-    const UNKNOWN              = 99;
+    public const GM_NEG_DIPLOCOCCI    = 1;
+    public const GM_NEG_COCCOBACILLI  = 2;
+    public const GM_NEG_RODS          = 3;
+    public const GM_POS_COCCI_PAIRS   = 4;
+    public const GM_POS_COCCI_CLUSTER = 5;
+    public const OTHER                = 6;
+    public const UNKNOWN              = 99;
 
     protected $values = [
         self::GM_NEG_DIPLOCOCCI    => 'Gm neg diplococci',
@@ -52,7 +52,7 @@ class GramStainResult extends TranslatableArrayChoice implements TranslationCont
         parent::configureOptions($resolver);
     }
 
-    static function getTranslationMessages()
+    public static function getTranslationMessages()
     {
         $messages = parent::getTranslationMessages();
         $messages[] = new Message('Undetermined');

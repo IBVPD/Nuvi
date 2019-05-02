@@ -22,13 +22,15 @@ class PneumoniaListener extends BaseCaseListener
      * Probable: Suspected + CSF examination as one of the following
      *              - Turbid appearance
      *              - Leukocytosis ( > 100 cells/mm3)
-     *              - Leukocytosis ( 10-100 cells/mm3) AND either elevated protein (> 100mg/dl) or decreased glucose (< 40 mg/dl)
+     *              - Leukocytosis ( 10-100 cells/mm3) AND either elevated protein (> 100mg/dl) or decreased glucose (<
+     *              40 mg/dl)
      *
      * Confirmed: Suspected + culture or (Gram stain, antigen detection, immunochromotagraphy, PCR or other methods)
-     *            a bacterial pathogen (Hib, pneumococcus or meningococcus) in the CSF or from the blood in a child with a clinical
-     *            syndrome consistent with bacterial meningitis
+     *            a bacterial pathogen (Hib, pneumococcus or meningococcus) in the CSF or from the blood in a child
+     *            with a clinical syndrome consistent with bacterial meningitis
      *
      * @param Pneumonia\Pneumonia|BaseCase $case
+     *
      * @return void
      */
     public function calculateResult(BaseCase $case): void
@@ -37,16 +39,15 @@ class PneumoniaListener extends BaseCaseListener
 
     /**
      * @param Pneumonia\Pneumonia|BaseCase $case
+     *
      * @return bool
      */
     public function isSuspected(BaseCase $case): ?bool
     {
         // Test Suspected
-        if ($case->getAge() < 60) {
-            if ($case->getAdmDx() && $case->getAdmDx()->equal(Diagnosis::SUSPECTED_MENINGITIS)) {
-                $case->getResult()->setValue(CaseResult::SUSPECTED);
-                return true;
-            }
+        if (($case->getAge() < 60) && $case->getAdmDx() && $case->getAdmDx()->equal(Diagnosis::SUSPECTED_MENINGITIS)) {
+            $case->getResult()->setValue(CaseResult::SUSPECTED);
+            return true;
         }
 
         return false;
@@ -54,16 +55,17 @@ class PneumoniaListener extends BaseCaseListener
 
     /**
      * @param Pneumonia\Pneumonia|BaseCase $case
+     *
      * @return null|string
      */
-    public function getIncompleteField(BaseCase $case): ?string
+    public function getIncompleteField(BaseCase $case)
     {
         $regionCode = $case->getRegion()->getCode();
         foreach ($this->getMinimumRequiredFields($case, $regionCode) as $field) {
             $method = sprintf('get%s', $field);
-            $value = $case->$method();
+            $value  = $case->$method();
 
-            if ($value === null || empty($value) || ($value instanceof ArrayChoice && $value->equal(-1))) {
+            if ($value === null || empty($value) || ($value instanceof ArrayChoice && $value->equal(ArrayChoice::NO_SELECTION))) {
                 return $field;
             }
         }
@@ -71,14 +73,6 @@ class PneumoniaListener extends BaseCaseListener
         // this isn't covered by the above loop because its valid for age == 0 but 0 == empty
         if ($case->getAge() === null) {
             return 'age';
-        }
-
-        if ($case->getAdmDx() && $case->getAdmDx()->equal(Diagnosis::OTHER) && !$case->getAdmDxOther()) {
-            return 'admDx';
-        }
-
-        if ($case->getDischDx() && $case->getDischDx()->equal(DischargeDiagnosis::OTHER) && !$case->getDischDxOther()) {
-            return 'dischDx';
         }
 
         if ($case->getHibReceived() && ($case->getHibReceived()->equal(VaccinationReceived::YES_HISTORY) || $case->getHibReceived()->equal(VaccinationReceived::YES_CARD)) && ($case->getHibDoses() === null || $case->getHibDoses()->equal(ArrayChoice::NO_SELECTION))) {
@@ -111,10 +105,8 @@ class PneumoniaListener extends BaseCaseListener
             return 'otherSpecimenOther';
         }
 
-        if ($regionCode === 'AMR') {
-            if ($case->getPleuralFluidCollected() && $case->getPleuralFluidCollected()->equal(TripleChoice::YES) && (!$case->getPleuralFluidCollectDate() || !$case->getPleuralFluidCollectTime())) {
-                return 'pleuralFluidCollected';
-            }
+        if (($regionCode === 'AMR') && $case->getPleuralFluidCollected() && $case->getPleuralFluidCollected()->equal(TripleChoice::YES) && (!$case->getPleuralFluidCollectDate() || !$case->getPleuralFluidCollectTime())) {
+            return 'pleuralFluidCollected';
         }
 
         return null;
@@ -130,25 +122,25 @@ class PneumoniaListener extends BaseCaseListener
             'admDate',
             'onsetDate',
             'admDx',
-            'antibiotics',
-            'hibReceived',
-            'pcvReceived',
-            'meningReceived',
-            'bloodCollected',
-            'otherSpecimenCollected',
-            'dischOutcome',
-            'dischDx',
-            'dischClass',
-            'cxrDone',
-            'pneuDiffBreathe',
-            'pneuChestIndraw',
-            'pneuCough',
-            'pneuCyanosis',
-            'pneuStridor',
-            'pneuRespRate',
-            'pneuVomit',
-            'pneuHypothermia',
-            'pneuMalnutrition',
+//            'antibiotics',
+//            'hibReceived',
+//            'pcvReceived',
+//            'meningReceived',
+//            'bloodCollected',
+//            'otherSpecimenCollected',
+//            'dischOutcome',
+//            'dischDx',
+//            'dischClass',
+//            'cxrDone',
+//            'pneuDiffBreathe',
+//            'pneuChestIndraw',
+//            'pneuCough',
+//            'pneuCyanosis',
+//            'pneuStridor',
+//            'pneuRespRate',
+//            'pneuVomit',
+//            'pneuHypothermia',
+//            'pneuMalnutrition',
         ];
 
         if ($regionCode === 'AMR') {

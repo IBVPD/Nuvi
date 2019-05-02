@@ -7,13 +7,18 @@ use DateTime;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use NS\SentinelBundle\Entity\BaseCase;
 use NS\SentinelBundle\Form\Types\CaseStatus;
+use NS\SentinelBundle\Validators\Cache\CachedValidations;
 
-/**
- * Class BaseCaseListener
- * @package NS\SentinelBundle\Entity\Listener
- */
 abstract class BaseCaseListener
 {
+    /** @var CachedValidations */
+    protected $validator;
+
+    public function __construct(CachedValidations $validator)
+    {
+        $this->validator = $validator;
+    }
+
     public function preUpdate(BaseCase $case, LifecycleEventArgs $event): void
     {
         $this->calculateAge($case);
@@ -69,13 +74,13 @@ abstract class BaseCaseListener
             return;
         }
 
-        $status = $this->getIncompleteField($case) ? new CaseStatus(CaseStatus::OPEN) : new CaseStatus(CaseStatus::COMPLETE);
-        $case->setStatus($status);
+        $groups = [$case->getRegion()->getCode() . '+Completeness', 'Completeness'];
+        if (!$case->getId()) {
+            return;
+        }
+        $violations = $this->validator->validate($case->getId(), $case, $groups, true);
+        $case->setStatus(!empty($violations) ? new CaseStatus(CaseStatus::OPEN) : new CaseStatus(CaseStatus::COMPLETE));
     }
-
-    abstract public function getIncompleteField(BaseCase $case): ?string;
-
-    abstract public function getMinimumRequiredFields(BaseCase $case, ?string $regionCode = null): array;
 
     abstract public function calculateResult(BaseCase $case): void;
 }

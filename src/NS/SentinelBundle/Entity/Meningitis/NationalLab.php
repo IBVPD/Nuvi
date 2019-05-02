@@ -8,12 +8,9 @@ use JMS\Serializer\Annotation as Serializer;
 use NS\SentinelBundle\Validators as LocalAssert;
 
 /**
- * Description of ReferenceLab
- * @author gnat
- *
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\Meningitis\NationalLabRepository")
  * @ORM\Table(name="mening_national_labs")
- * @ORM\HasLifecycleCallbacks
+ * @ORM\EntityListeners(value={"NS\SentinelBundle\Entity\Listener\BaseExternalLabListener"})
  */
 class NationalLab extends ExternalLab
 {

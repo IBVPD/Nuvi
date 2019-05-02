@@ -11,10 +11,10 @@ use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
  */
 class CaseResult extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    const UNKNOWN   = 0;
-    const SUSPECTED = 1;
-    const PROBABLE  = 2;
-    const CONFIRMED = 3;
+    public const UNKNOWN   = 0;
+    public const SUSPECTED = 1;
+    public const PROBABLE  = 2;
+    public const CONFIRMED = 3;
 
     protected $values = [
         self::UNKNOWN => 'Unknown',

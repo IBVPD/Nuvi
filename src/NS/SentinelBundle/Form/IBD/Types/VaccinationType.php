@@ -11,14 +11,14 @@ use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
  */
 class VaccinationType extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    const MEN_AFR_VAC     = 1;
-    const ACYW135_POLY    = 2;
-    const ACW135          = 3;
-    const ACYW135_CON     = 4;
-    const OTHER           = 5;
-    const B               = 6;
-    const C               = 7;
-    const UNKNOWN         = 99;
+    public const MEN_AFR_VAC     = 1;
+    public const ACYW135_POLY    = 2;
+    public const ACW135          = 3;
+    public const ACYW135_CON     = 4;
+    public const OTHER           = 5;
+    public const B               = 6;
+    public const C               = 7;
+    public const UNKNOWN         = 99;
 
     protected $values = [
         self::MEN_AFR_VAC  => 'MenAfriVac (conjugate MenA)',

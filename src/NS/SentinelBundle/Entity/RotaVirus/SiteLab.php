@@ -14,16 +14,17 @@ use NS\SentinelBundle\Form\RotaVirus\Types\ElisaKit;
 use NS\SentinelBundle\Form\RotaVirus\Types\ElisaResult;
 use NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultG;
 use NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultP;
+use NS\SentinelBundle\Form\Types\CaseStatus;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Validators as LocalAssert;
 use NS\UtilBundle\Validator\Constraints as UtilAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Description of RotaVirusSiteLab
- * @author gnat
  * @ORM\Entity(repositoryClass="NS\SentinelBundle\Repository\RotaVirus\SiteLabRepository")
  * @ORM\Table(name="rotavirus_site_labs")
+ * @ORM\EntityListeners(value={"NS\SentinelBundle\Entity\Listener\BaseStatusListener"})
+ *
  * @Secured(conditions={
  *      @SecuredCondition(roles={"ROLE_REGION"},through={"caseFile"},relation="region",class="NSSentinelBundle:Region"),
  *      @SecuredCondition(roles={"ROLE_COUNTRY","ROLE_RRL_LAB","ROLE_NL_LAB"},through={"caseFile"},relation="country",class="NSSentinelBundle:Country"),
@@ -47,8 +48,8 @@ class SiteLab implements BaseSiteLabInterface
      * @var DateTime|null
      * @ORM\Column(name="received",type="datetime",nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @Assert\NotBlank()
-     * @Assert\Date()
+     * @Assert\NotBlank(groups={"Default","Completeness"})
+     * @Assert\Date(groups={"Default","Completeness"})
      * @LocalAssert\NoFutureDate
      */
     private $received;
@@ -57,16 +58,17 @@ class SiteLab implements BaseSiteLabInterface
      * stool_adequate
      * @var TripleChoice|null
      * @ORM\Column(name="adequate",type="TripleChoice",nullable=true)
-     * @Assert\NotBlank()
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Default","Completeness"})
+     * @UtilAssert\ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $adequate;
 
     /**
      * @var TripleChoice|null
      * @ORM\Column(name="stored",type="TripleChoice",nullable=true)
-     * @Assert\NotBlank()
-     * @UtilAssert\ArrayChoiceConstraint()
+     * @Assert\NotBlank(groups={"Default","Completeness"})
+     * @UtilAssert\ArrayChoiceConstraint(groups={"Default","Completeness"})
      * @Serializer\Groups({"api","export"})
      */
     private $stored;
@@ -74,8 +76,8 @@ class SiteLab implements BaseSiteLabInterface
     /**
      * @var TripleChoice|null
      * @ORM\Column(name="elisaDone",type="TripleChoice",nullable=true)
-     * @Assert\NotBlank()
-     * @UtilAssert\ArrayChoiceConstraint()
+     * @Assert\NotBlank(groups={"Default","Completeness"})
+     * @UtilAssert\ArrayChoiceConstraint(groups={"Default","Completeness"})
      * @Serializer\Groups({"api","export"})
      */
     private $elisaDone;
@@ -139,6 +141,8 @@ class SiteLab implements BaseSiteLabInterface
      * @var GenotypeResultG|null
      * @ORM\Column(name="genotypingResultG",type="GenotypeResultG", nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
+     * @UtilAssert\ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $genotypingResultG;
 
@@ -153,6 +157,8 @@ class SiteLab implements BaseSiteLabInterface
      * @var GenotypeResultP|null
      * @ORM\Column(name="genotypeResultP",type="GenotypeResultP", nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
+     * @UtilAssert\ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $genotypeResultP;
 
@@ -203,8 +209,24 @@ class SiteLab implements BaseSiteLabInterface
      */
     private $stoolSentToNLDate;
 
+    //==================================
     /**
-     * @param RotaVirus  $case
+     * @var DateTime
+     * @ORM\Column(name="updatedAt",type="datetime")
+     * @Serializer\Groups({"api","export"})
+     * @Serializer\Type(name="DateTime<'Y-m-d H:i:s'>")
+     */
+    private $updatedAt;
+
+    /**
+     * @var CaseStatus
+     * @ORM\Column(name="status",type="CaseStatus")
+     * @Serializer\Groups({"api","export"})
+     */
+    private $status;
+
+    /**
+     * @param RotaVirus $case
      */
     public function __construct(RotaVirus $case = null)
     {
@@ -430,5 +452,25 @@ class SiteLab implements BaseSiteLabInterface
 
     public function isComplete(): void
     {
+    }
+
+    public function getUpdatedAt(): DateTime
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(DateTime $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
+    public function getStatus(): CaseStatus
+    {
+        return $this->status;
+    }
+
+    public function setStatus(CaseStatus $status): void
+    {
+        $this->status = $status;
     }
 }

@@ -5,14 +5,11 @@ namespace NS\SentinelBundle\Validators;
 use Symfony\Component\Validator\Constraint;
 
 /**
- * Description of Other
- *
- * @author gnat
  * @Annotation
  */
 class Other extends Constraint
 {
-    public $message = 'The other fields should have content.';
+    public $message = "Because of the response to '{{ field }}' the '{{ otherField }}' field should have content.";
 
     public $field;
 
@@ -20,11 +17,21 @@ class Other extends Constraint
 
     public $otherField;
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getRequiredOptions()
+    public function __construct($options = null)
+    {
+        parent::__construct($options);
+        if (!is_array($this->value)) {
+            $this->value = [$this->value];
+        }
+    }
+
+    public function getRequiredOptions(): array
     {
         return ['field', 'value', 'otherField'];
+    }
+
+    public function getTargets()
+    {
+        return self::CLASS_CONSTRAINT;
     }
 }

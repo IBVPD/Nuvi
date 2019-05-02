@@ -12,14 +12,14 @@ use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
 class SampleType extends TranslatableArrayChoice implements TranslationContainerInterface
 {
 
-    const CSF         = 1;
-    const ISOLATE     = 2;
-    const WHOLE       = 3;
-    const BROTH       = 4;
-    const PLEURAL     = 5;
-    const INOCULATED  = 6;
-    const DNA         = 7;
-    const CSF_ISOLATE = 8;
+    public const CSF         = 1;
+    public const ISOLATE     = 2;
+    public const WHOLE       = 3;
+    public const BROTH       = 4;
+    public const PLEURAL     = 5;
+    public const INOCULATED  = 6;
+    public const DNA         = 7;
+    public const CSF_ISOLATE = 8;
 
     protected $values = [
         self::CSF         => 'CSF',

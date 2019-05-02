@@ -13,7 +13,7 @@ use NS\SentinelBundle\Entity\BaseCase;
  */
 class AgeDistribution implements TranslationContainerInterface
 {
-    const NO_ADM_DATE = 'No Adm Date';
+    public const NO_ADM_DATE = 'No Adm Date';
 
     /**
      * @var array

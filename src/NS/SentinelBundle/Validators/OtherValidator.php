@@ -4,33 +4,45 @@ namespace NS\SentinelBundle\Validators;
 
 use InvalidArgumentException;
 use NS\UtilBundle\Form\Types\ArrayChoice;
+use Symfony\Component\PropertyAccess\PropertyAccess;
+use Symfony\Component\PropertyAccess\PropertyAccessor;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
-/**
- * Description of OtherValidator
- *
- * @author gnat
- */
 class OtherValidator extends ConstraintValidator
 {
+    /** @var PropertyAccessor */
+    private $propertyAccessor;
+
     /**
-     * @param object $value
+     * @param object           $value
      * @param Other|Constraint $constraint
      */
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
-        $fMethod      = sprintf("get%s", $constraint->field);
-        $otherFMethod = sprintf("get%s", $constraint->otherField);
-
-        if (!method_exists($value, $fMethod) || !method_exists($value, $otherFMethod)) {
-            throw new InvalidArgumentException(sprintf("Either %s or %s doesn't exist for object %s", $constraint->field, $constraint->otherField, get_class($value)));
+        if (!$this->propertyAccessor) {
+            $this->propertyAccessor = PropertyAccess::createPropertyAccessor();
         }
 
-        $const = constant($constraint->value);
+        $fieldValue = $this->propertyAccessor->getValue($value,$constraint->field);
+        if ($fieldValue instanceof ArrayChoice) {
+            $otherFieldValue        = $this->propertyAccessor->getValue($value, $constraint->otherField);
+            $otherFieldValueIsEmpty = ($otherFieldValue === null || $otherFieldValue == '');
 
-        if ($value->$fMethod() instanceof ArrayChoice && $value->$fMethod()->equal($const) && ($value->$otherFMethod() === null || $value->$otherFMethod() == '')) {
-            $this->context->buildViolation($constraint->message)->addViolation();
+            foreach ($constraint->value as $constVar) {
+                $const = constant($constVar);
+                if ($otherFieldValueIsEmpty && $fieldValue->equal($const)) {
+                    $this->context
+                        ->buildViolation($constraint->message)
+                        ->setParameters([
+                            '{{ field }}' => $constraint->field,
+                            '{{ otherField }}' => $constraint->otherField,
+                        ])
+                        ->atPath($constraint->otherField)
+                        ->addViolation();
+                    break;
+                }
+            }
         }
     }
 }

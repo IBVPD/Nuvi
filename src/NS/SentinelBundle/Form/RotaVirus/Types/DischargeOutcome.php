@@ -11,11 +11,11 @@ use NS\UtilBundle\Form\Types\TranslatableArrayChoice;
  */
 class DischargeOutcome extends TranslatableArrayChoice implements TranslationContainerInterface
 {
-    const DISCHARGED_ALIVE     = 1;
-    const DIED                 = 2;
-    const TRANSFERRED          = 3;
-    const LEFT_AGAINST_ADVICE  = 4;
-    const UNKNOWN              = 99;
+    public const DISCHARGED_ALIVE     = 1;
+    public const DIED                 = 2;
+    public const TRANSFERRED          = 3;
+    public const LEFT_AGAINST_ADVICE  = 4;
+    public const UNKNOWN              = 99;
 
     protected $values = [
         self::DISCHARGED_ALIVE      => 'Discharged alive',
