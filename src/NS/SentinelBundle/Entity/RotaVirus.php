@@ -44,6 +44,23 @@ use NS\UtilBundle\Validator\Constraints\ArrayChoiceConstraint;
  * @Serializer\AccessorOrder("custom", custom = {"region.code", "country.code", "site.code",
  *                                     "case_id","firstName","lastName","parentalName","gender","dobKnown","birthdate","district","state","id","age_months","ageDistribution","adm_date",
  *     "symp_dia_bloody","symp_diarrhea","symp_dia_onset_date","symp_dia_episodes","symp_dia_duration","intensiveCare","symp_vomit","symp_vomit_episodes","symp_vomit_duration","symp_dehydration","rehydration","rehydration_type","rehydration_other","status","updatedAt","createdAt","warning","rv_received","rv_type","rv_doses","rv_dose1_date","rv_dose2_date","rv_dose3_date","stool_collected","stool_id","stool_collect_date","disch_outcome","disch_date","disch_class","disch_class_other","comment","siteLab.received","siteLab.adequate","siteLab.elisaDone","siteLab.elisaKit","siteLab.elisaKitOther","siteLab.elisaLoadNumber","siteLab.elisaExpiryDate","siteLab.elisaTestDate","siteLab.elisaResult","siteLab.stored","siteLab.genotypingDate","siteLab.genotypingResultG","siteLab.genotypeResultP","siteLab.genotypingResultGSpecify","siteLab.genotypeResultPSpecify","siteLab.stoolSentToNL","siteLab.stoolSentToNLDate","siteLab.stoolSentTo3RRL","siteLab.stoolSentTo3RRLDate","nationalLab.lab_id","nationalLab.dt_sample_recd","nationalLab.elisaDone","nationalLab.elisaTestDate","nationalLab.elisaResult","nationalLab.elisaKit","nationalLab.elisaKitOther","nationalLab.elisaLoadNumber","nationalLab.elisaExpiryDate","nationalLab.specimenCollectionDate","nationalLab.dt_gt","nationalLab.gt_result_g","nationalLab.gt_result_p","nationalLab.pcr_vp6_result","nationalLab.gt_result_g_specify","nationalLab.gt_result_p_specify","nationalLab.comment","nationalLab.status","nationalLab.createdAt","nationalLab.updatedAt","referenceLab.specimenCollectionDate","referenceLab.lab_id","referenceLab.dt_sample_recd","referenceLab.dt_gt","referenceLab.gt_result_g","referenceLab.gt_result_p","referenceLab.pcr_vp6_result","referenceLab.gt_result_g_specify","referenceLab.gt_result_p_specify","referenceLab.comment","referenceLab.status","referenceLab.createdAt","referenceLab.updatedAt"})
+ *
+ * @LocalAssert\Other(groups={"Completeness"},field="symp_diarrhea",otherField="symp_dia_onset_date",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ * @LocalAssert\Other(groups={"Completeness"},field="symp_diarrhea",otherField="symp_dia_episodes",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ * @LocalAssert\Other(groups={"Completeness"},field="symp_diarrhea",otherField="symp_dia_duration",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ * @LocalAssert\Other(groups={"Completeness"},field="symp_diarrhea",otherField="symp_dia_bloody",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ * @LocalAssert\Other(groups={"Completeness"},field="symp_vomit",otherField="symp_vomit_episodes",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ * @LocalAssert\Other(groups={"Completeness"},field="symp_vomit",otherField="symp_vomit_duration",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ * @LocalAssert\Other(groups={"Completeness"},field="symp_dehydration",otherField="rehydration",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ * @LocalAssert\Other(groups={"Completeness"},field="rehydration",otherField="rehydration_type",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ * @LocalAssert\Other(groups={"Completeness"},field="rehydration",otherField="rehydration_other",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ * @LocalAssert\Other(groups={"Completeness"},field="rv_received",otherField="rv_type",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ * @LocalAssert\Other(groups={"Completeness"},field="rv_received",otherField="rv_doses",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ * @LocalAssert\Other(groups={"Completeness"},field="rv_doses",otherField="rv_dose1_date",value={"NS\SentinelBundle\Form\Types\ThreeDoses::ONE","NS\SentinelBundle\Form\Types\ThreeDoses::TWO","NS\SentinelBundle\Form\Types\ThreeDoses::THREE"})
+ * @LocalAssert\Other(groups={"Completeness"},field="rv_doses",otherField="rv_dose2_date",value={"NS\SentinelBundle\Form\Types\ThreeDoses::TWO","NS\SentinelBundle\Form\Types\ThreeDoses::THREE"})
+ * @LocalAssert\Other(groups={"Completeness"},field="rv_doses",otherField="rv_dose3_date",value="NS\SentinelBundle\Form\Types\ThreeDoses::THREE")
+ * @LocalAssert\Other(groups={"Completeness"},field="stool_collected",otherField="stool_id",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ * @LocalAssert\Other(groups={"Completeness"},field="stool_collected",otherField="stool_collect_date",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
  */
 class RotaVirus extends BaseCase
 {
@@ -114,7 +131,6 @@ class RotaVirus extends BaseCase
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
      * @Serializer\Groups({"api","export"})
      * @LocalAssert\NoFutureDate
-     * @Assert\NotBlank(groups={"Completeness"})
      */
     private $symp_dia_onset_date;
 
@@ -123,7 +139,6 @@ class RotaVirus extends BaseCase
      * @var int|null
      * @ORM\Column(name="symp_dia_episodes",type="integer",nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @Assert\NotBlank(groups={"Completeness"})
      */
     private $symp_dia_episodes;
 
@@ -132,7 +147,6 @@ class RotaVirus extends BaseCase
      * @var int|null
      * @ORM\Column(name="symp_dia_duration",type="integer",nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @Assert\NotBlank(groups={"Completeness"})
      *
      */
     private $symp_dia_duration;
@@ -141,8 +155,6 @@ class RotaVirus extends BaseCase
      * @var TripleChoice|null
      * @ORM\Column(name="symp_dia_bloody",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @Assert\NotBlank(groups={"Completeness"})
-     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $symp_dia_bloody;
 
@@ -161,7 +173,6 @@ class RotaVirus extends BaseCase
      * @var int|null
      * @ORM\Column(name="symp_vomit_episodes",type="integer",nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @Assert\NotBlank(groups={"Completeness"})
      */
     private $symp_vomit_episodes;
 
@@ -170,7 +181,6 @@ class RotaVirus extends BaseCase
      * @var int|null
      * @ORM\Column(name="symp_vomit_duration",type="integer",nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @Assert\NotBlank(groups={"Completeness"})
      */
     private $symp_vomit_duration;
 
@@ -179,7 +189,6 @@ class RotaVirus extends BaseCase
      * @var Dehydration|null
      * @ORM\Column(name="symp_dehydration",type="Dehydration",nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @Assert\NotBlank(groups={"Completeness"})
      * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $symp_dehydration;
@@ -190,7 +199,6 @@ class RotaVirus extends BaseCase
      * @var TripleChoice|null
      * @ORM\Column(name="rehydration",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @Assert\NotBlank(groups={"Completeness"})
      * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $rehydration;
@@ -200,8 +208,6 @@ class RotaVirus extends BaseCase
      * @var Rehydration|null
      * @ORM\Column(name="rehydration_type",type="Rehydration",nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @Assert\NotBlank(groups={"Completeness"})
-     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $rehydration_type;
 
@@ -276,6 +282,7 @@ class RotaVirus extends BaseCase
      * @ORM\Column(name="stool_collected",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Assert\NotBlank(groups={"Default","Completeness"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $stool_collected;
 

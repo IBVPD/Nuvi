@@ -26,6 +26,8 @@ use NS\UtilBundle\Validator\Constraints\ArrayChoiceConstraint;
  *      })
  * @SuppressWarnings(PHPMD.LongVariable)
  * @ORM\MappedSuperclass
+ * @LocalAssert\Other(groups={"Completeness"},field="gt_result_g",otherField="gt_result_g_specify",value={"NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultG::OTHER", "NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultG::MIXED"})
+ * @LocalAssert\Other(groups={"Completeness"},field="gt_result_p",otherField="gt_result_p_specify",value={"NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultP::OTHER", "NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultP::MIXED"})
  */
 abstract class ExternalLab extends BaseExternalLab
 {
@@ -45,6 +47,7 @@ abstract class ExternalLab extends BaseExternalLab
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
      * @LocalAssert\NoFutureDate
+     * @Assert\NotBlank(groups={"Completeness"})
      */
     protected $dt_gt;
 
@@ -52,7 +55,6 @@ abstract class ExternalLab extends BaseExternalLab
      * @var GenotypeResultG|null
      * @ORM\Column(name="gt_result_g",type="GenotypeResultG", nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @Assert\NotBlank(groups={"Completeness"})
      * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     protected $gt_result_g;
@@ -68,6 +70,7 @@ abstract class ExternalLab extends BaseExternalLab
      * @var GenotypeResultP|null
      * @ORM\Column(name="gt_result_p",type="GenotypeResultP", nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     protected $gt_result_p;
 
@@ -82,6 +85,7 @@ abstract class ExternalLab extends BaseExternalLab
      * @var ElisaResult|null
      * @ORM\Column(name="pcr_vp6_result",type="ElisaResult", nullable=true)
      * @Serializer\Groups({"api","export"})
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     protected $pcr_vp6_result;
 

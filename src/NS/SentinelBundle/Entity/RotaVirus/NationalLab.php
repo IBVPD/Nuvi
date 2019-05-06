@@ -19,6 +19,15 @@ use NS\UtilBundle\Validator\Constraints\ArrayChoiceConstraint;
  *
  * @LocalAssert\GreaterThanDate(atPath="dt_sample_recd",lessThanField="caseFile.siteLab.stoolSentToNLDate",greaterThanField="dateReceived",message="form.validation.vaccination-after-admission")
  * @LocalAssert\GreaterThanDate(atPath="dt_gt",lessThanField="dateReceived",greaterThanField="genotypingDate",message="form.validation.vaccination-after-admission")
+ *
+ * @LocalAssert\Other(groups={"Completeness"},field="elisaDone",otherField="elisaKit",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ * @LocalAssert\Other(groups={"Completeness"},field="elisaDone",otherField="elisaLoadNumber",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ * @LocalAssert\Other(groups={"Completeness"},field="elisaDone",otherField="elisaExpiryDate",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ * @LocalAssert\Other(groups={"Completeness"},field="elisaDone",otherField="elisaTestDate",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ * @LocalAssert\Other(groups={"Completeness"},field="elisaDone",otherField="elisaResult",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ * @LocalAssert\Other(groups={"Completeness"},field="elisaDone",otherField="stoolSentToRRL",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ * @LocalAssert\Other(groups={"Completeness"},field="elisaKit",otherField="elisaKitOther",value="NS\SentinelBundle\Form\RotaVirus\Types\ElisaKit::OTHER")
+ * @LocalAssert\Other(groups={"Completeness"},field="stoolSentToRRL",otherField="stoolSentToRRLDate",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
  */
 class NationalLab extends ExternalLab
 {
@@ -36,7 +45,6 @@ class NationalLab extends ExternalLab
      * @var TripleChoice|null
      * @ORM\Column(name="elisaDone",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @Assert\NotBlank(groups={"Completeness"})
      * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $elisaDone;
@@ -91,7 +99,6 @@ class NationalLab extends ExternalLab
      * @var TripleChoice|null
      * @ORM\Column(name="stoolSentToRRL",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @Assert\NotBlank(groups={"Completeness"})
      * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $stoolSentToRRL; // These are duplicated from the boolean fields in the class we extend
@@ -103,6 +110,7 @@ class NationalLab extends ExternalLab
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
      * @LocalAssert\NoFutureDate
+     * @Assert\NotBlank(groups={"Completeness"})
      */
     private $stoolSentToRRLDate;
 

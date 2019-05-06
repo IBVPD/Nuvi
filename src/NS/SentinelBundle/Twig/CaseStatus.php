@@ -160,14 +160,14 @@ class CaseStatus extends AbstractExtension
     /** @var array|null */
     private $issues;
 
-    public function getCaseFieldIssue(BaseCase $obj, string $field): ?array
+    public function getCaseFieldIssue(BaseCase $obj, string $field): ?string
     {
-        $caseId = $obj->getId();
-        if (!isset($this->issues[$caseId])) {
-            $this->issues[$caseId] = $this->cachedValidator->collect($caseId);
+        $errors = $this->getField($obj->getId(), get_class($obj), $field);
+        if ($errors === null) {
+            return null;
         }
 
-        return $this->getField($caseId, get_class($obj), $field);
+        return sprintf('<ul class="complete"><li>%s</li></ul>', implode('</li><li>', $errors));
     }
 
     public function getCaseLabFieldIssue(BaseSiteLabInterface $siteLab, string $field): ?string
@@ -180,9 +180,14 @@ class CaseStatus extends AbstractExtension
         return sprintf('<ul class="complete"><li>%s</li></ul>', implode('</li><li>', $errors));
     }
 
-    public function getExternalLabFieldIssue(BaseExternalLab $siteLab, string $field): ?array
+    public function getExternalLabFieldIssue(BaseExternalLab $siteLab, string $field): ?string
     {
-        return $this->getField($siteLab->getCaseFile()->getId(), get_class($siteLab), $field);
+        $errors =  $this->getField($siteLab->getCaseFile()->getId(), get_class($siteLab), $field);
+        if ($errors === null) {
+            return null;
+        }
+
+        return sprintf('<ul class="complete"><li>%s</li></ul>', implode('</li><li>', $errors));
     }
 
     private function getField(string $key, string $subKey, string $field): ?array

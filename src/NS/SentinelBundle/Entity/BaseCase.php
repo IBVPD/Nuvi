@@ -11,6 +11,7 @@ use NS\SentinelBundle\Form\Types\CaseStatus;
 use NS\SentinelBundle\Form\Types\Gender;
 use NS\SentinelBundle\Form\Types\TripleChoice;
 use NS\SentinelBundle\Validators as LocalAssert;
+use NS\UtilBundle\Validator\Constraints\ArrayChoiceConstraint;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -106,6 +107,7 @@ abstract class BaseCase
      * @ORM\Column(name="dobKnown",type="TripleChoice",nullable=true)
      * @Serializer\Groups("export")
      * @Serializer\SerializedName("dobKnown")
+     * @ArrayChoiceConstraint(groups={"Completeness"})
      */
     protected $dobKnown;
 
@@ -130,7 +132,7 @@ abstract class BaseCase
      * @var Gender|null
      * @ORM\Column(name="gender",type="Gender",nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @Assert\NotBlank(groups={"AMR","Completeness"})
+     * @ArrayChoiceConstraint(groups={"AMR","Completeness"})
      */
     protected $gender;
 

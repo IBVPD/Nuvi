@@ -21,6 +21,7 @@ abstract class BaseExternalLab
      * @ORM\Column(name="lab_id",type="string",nullable=true)
      * @Assert\NotBlank
      * @Serializer\Groups({"api","export"})
+     * @Assert\NotBlank(groups={"Completeness"})
      */
     protected $lab_id;
 

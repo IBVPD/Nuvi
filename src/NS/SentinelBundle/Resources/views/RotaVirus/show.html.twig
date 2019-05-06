@@ -2,264 +2,134 @@
 {% block pagetitle %}{{'View Case %id%'|trans({'%id%': record.id})}}{%endblock %}
 
 {%block pageactions %}
-<div class="pull-right">{{case_big_actions(record,true)}}</div>
+    <div class="pull-right">{{case_big_actions(record,true)}}</div>
 {%endblock %}
 
+{% block inlinestyles %}
+    {{ parent() }}
+    <style>
+        ul.complete {
+            list-style: none;
+            color: red;
+        }
+    </style>
+{% endblock %}
+
+{% import 'NSSentinelBundle:Case:show-macros.html.twig' as macros %}
+
 {% block body %}
-<div class="col-sm-12">
-    <div class="tabbable tabs-left">
-        <ul class="nav nav-tabs" id="myTab2">
-            <li class="active"><a data-toggle="tab" href="#demographics">{{'Case Based Demographics'|trans}}</a></li>
-            <li><a data-toggle="tab" href="#vacination">{{'Vaccination History'|trans}}</a></li>
-            <li><a data-toggle="tab" href="#clinical">{{'Clinical Data'|trans}}</a></li>
-            <li><a data-toggle="tab" href="#rotavirus">{{'Symptoms'|trans}}</a></li>
-            <li><a data-toggle="tab" href="#collectionData">{{'Specimen Collection Data'|trans}}</a></li>
-            <li><a data-toggle="tab" href="#labData">{{'Lab'|trans}}</a></li>
-            <li><a data-toggle="tab" href="#labData-genotype">{{'Genotype'|trans}}</a></li>
-            <li><a data-toggle="tab" href="#nationalLab">{{'National Lab'|trans}}</a></li>
-            <li><a data-toggle="tab" href="#referenceLab">{{'Reference Lab'|trans}}</a></li>
-            <li><a data-toggle="tab" href="#outcome">{{'Outcome Data'|trans}}</a></li>
-        </ul>
-        <div class="tab-content">
-            <div id="demographics" class="tab-pane active">
-                <table class="table table-striped table-bordered table-hover">
-                    <tr>
-                        <th>{{'rotavirus-form.id'|trans}}</th>
-                        <td>{{record.id}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'rotavirus-form.case-id'|trans}}</th>
-                        <td>{{record.caseId}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'rotavirus-form.dob'|trans}}</th>
-                        <td>{%if record.birthdate %}{{record.birthdate|date}}{% endif %}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'ibd-form.age'|trans}}</th>
-                        <td>{{record.age}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'rotavirus-form.gender'|trans}}</th>
-                        <td>{{record.gender|trans}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'ibd-form.first-name'|trans}}</th>
-                        <td>{{record.firstName}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'ibd-form.last-name'|trans}}</th>
-                        <td>{{record.lastName}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'ibd-form.parental-name'|trans}}</th>
-                        <td>{{record.parentalName}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'rotavirus-form.district'|trans}}</th>
-                        <td>{{record.district}}</td>
-                    </tr>
-                    <tr><th>{{'last-updated'|trans}}</th><td>{{record.updatedAt|date}}</td></tr>
-                    <tr><th>{{'creation-date'|trans}}</th><td>{{record.createdAt|date}}</td></tr>
-                </table>
-            </div>
-
-            <div id="vacination" class="tab-pane">
-                <table class="table table-striped table-bordered table-hover">
-                    <tr>
-                        <th>{{'rotavirus-form.vaccination-received'|trans}}</th>
-                        <td>{{record.vaccinationReceived|trans}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'rotavirus-form.vaccination-type'|trans}}</th>
-                        <td>{{record.vaccinationType|trans}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'rotavirus-form.doses'|trans}}</th>
-                        <td>{{record.doses|trans}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'rotavirus-form.firstVaccinationDose'|trans}}</th>
-                        <td>{% if record.firstVaccinationDose %}
-                                {{ record.firstVaccinationDose|date('Y-m-d') }}
-                            {% endif %}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>{{ 'rotavirus-form.secondVaccinationDose'|trans }}</th>
-                        <td>{% if record.secondVaccinationDose %}
-                                {{ record.secondVaccinationDose|date('Y-m-d') }}
-                            {% endif %}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>{{ 'rotavirus-form.thirdVaccinationDose'|trans }}</th>
-                        <td>{% if record.secondVaccinationDose %}
-                                {{ record.thirdVaccinationDose|date('Y-m-d') }}
-                            {% endif %}
-                        </td>
-                    </tr>
-                </table>
-            </div>
-
-            <div id="clinical" class="tab-pane">
-                <table class="table table-striped table-bordered table-hover">
-                    <tr>
-                        <th>{{'rotavirus-form.adm-date'|trans}}</th>
-                        <td>{%if record.admDate %}{{record.admDate|date}}{%endif%}</td>
-                    </tr>
-                </table>
-            </div>
-
-            <div id="rotavirus" class="tab-pane">
-                <table class="table table-striped table-bordered table-hover">
-                    <tr>
-                        <th>{{'rotavirus-form.symptomDiarrhea'|trans}}</th>
-                        <td>{{record.symptomDiarrhea|trans}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'rotavirus-form.symptomDiarrheaOnset'|trans}}</th>
-                        <td>{% if record.symptomDiarrheaOnset %}
-                                {{ record.symptomDiarrheaOnset|date('Y-m-d') }}
-                            {% endif %}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>{{'rotavirus-form.symptomDiarrheaEpisodes'|trans}}</th>
-                        <td>{{record.symptomDiarrheaEpisodes|trans}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'rotavirus-form.symptomDiarrheaDuration'|trans}}</th>
-                        <td>{{record.symptomDiarrheaDuration|trans}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'rotavirus-form.symptomVomit'|trans}}</th>
-                        <td>{{record.symptomVomit|trans}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'rotavirus-form.symptomVomitEpisodes'|trans}}</th>
-                        <td>{{record.symptomVomitEpisodes|trans}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'rotavirus-form.symptomVomitDuration'|trans}}</th>
-                        <td>{{record.symptomVomitDuration|trans}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'rotavirus-form.symptomDehydration'|trans}}</th>
-                        <td>{{record.symptomDehydration|trans}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'rotavirus-form.rehydration'|trans}}</th>
-                        <td>{{record.rehydration|trans}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'rotavirus-form.rehydration-type'|trans}}</th>
-                        <td>{{record.rehydrationType|trans}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'rotavirus-form.rehydration-other'|trans}}</th>
-                        <td>{{record.rehydrationOther}}</td>
-                    </tr>
-                </table>
-            </div>
-
-            <div id="collectionData" class="tab-pane">
-                <table class="table table-striped table-bordered table-hover">
-                    <tr>
-                        <th>{{'rotavirus-form.stoolCollected'|trans}}</th>
-                        <td>{{record.stoolCollected|trans}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'rotavirus-form.stoolId'|trans}}</th>
-                        <td>{{record.stoolId}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'rotavirus-form.stoolCollectionDate'|trans}}</th>
-                        <td>{%if record.stoolCollectionDate %}{{record.stoolCollectionDate|date}}{%endif%}</td>
-                    </tr>
-                </table>
-            </div>
-
-            <div id="outcome" class="tab-pane">
-                <table class="table table-striped table-bordered table-hover">
-                    <tr>
-                        <th>{{'rotavirus-form.dischargeOutcome'|trans}}</th>
-                        <td>{{record.dischargeOutcome|trans}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'rotavirus-form.dischargeDate'|trans}}</th>
-                        <td>{%if record.dischargeDate %}{{record.dischargeDate|date}}{%endif%}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'rotavirus-form.dischargeClassOther'|trans}}</th>
-                        <td>{{record.dischargeClassOther}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'rotavirus-form.comment'|trans}}</th>
-                        <td>{{record.comment}}</td>
-                    </tr>
-                </table>
-            </div>
-
-        {%if record.hasSiteLab %}
-            {% set lab = record.siteLab %}
-            <div id="labData" class="tab-pane">
+    <div class="col-sm-12">
+        <div class="tabbable tabs-left">
+            <ul class="nav nav-tabs" id="myTab2">
+                <li class="active"><a data-toggle="tab" href="#demographics">{{'Case Based Demographics'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#vacination">{{'Vaccination History'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#clinical">{{'Clinical Data'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#rotavirus">{{'Symptoms'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#collectionData">{{'Specimen Collection Data'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#labData">{{'Lab'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#labData-genotype">{{'Genotype'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#nationalLab">{{'National Lab'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#referenceLab">{{'Reference Lab'|trans}}</a></li>
+                <li><a data-toggle="tab" href="#outcome">{{'Outcome Data'|trans}}</a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="demographics" class="tab-pane active">
                     <table class="table table-striped table-bordered table-hover">
-                        <tr>
-                            <th>{{'rotavirus-form.hasLab'|trans}}</th>
-                            <td>{{'Yes'|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'rotavirus-form.siteReceivedDate'|trans}}</th>
-                            <td>{%if lab.received %}{{lab.received|date}}{%endif%}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'rotavirus-form.adequate'|trans}}</th>
-                            <td>{{lab.adequate|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'rotavirus-form.stored'|trans}}</th>
-                            <td>{{lab.stored|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'rotavirus-form.elisaDone'|trans}}</th>
-                            <td>{{lab.elisaDone|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'rotavirus-form.elisaKit'|trans}}</th>
-                            <td>{{lab.elisaKit|trans}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'rotavirus-form.elisaKitOther'|trans}}</th>
-                            <td>{{lab.elisaKitOther}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'rotavirus-form.elisaLoadNumber'|trans}}</th>
-                            <td>{{lab.elisaLoadNumber}}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'rotavirus-form.elisaExpiryDate'|trans}}</th>
-                            <td>{%if lab.elisaExpiryDate %}{{lab.elisaExpiryDate|date}}{%endif%}</td>
-                        </tr>
+                        {{ macros.case_row(record,'id', 'rotavirus-form.id', false) }}
 
-                        <tr>
-                            <th>{{'rotavirus-form.elisaTestDate'|trans}}</th>
-                            <td>{%if lab.elisaTestDate %}{{lab.elisaTestDate|date}}{%endif%}</td>
-                        </tr>
-                        <tr>
-                            <th>{{'rotavirus-form.elisaResult'|trans}}</th>
-                            <td>{{lab.elisaResult|trans}}</td>
-                        </tr>
+                        {{ macros.case_row(record, 'caseId', 'rotavirus-form.case-id')}}
+                        {{ macros.case_row(record, 'birthdate', 'rotavirus-form.dob')}}
+                        {{ macros.case_row(record, 'age', 'ibd-form.age')}}
+                        {{ macros.case_row(record, 'gender', 'rotavirus-form.gender')}}
+                        {{ macros.case_row(record, 'firstName', 'ibd-form.first-name')}}
+                        {{ macros.case_row(record, 'lastName', 'ibd-form.last-name')}}
+                        {{ macros.case_row(record, 'parentalName', 'ibd-form.parental-name')}}
+                        {{ macros.case_row(record, 'district', 'rotavirus-form.district')}}
+                        {{ macros.case_row(record, 'state', 'rotavirus-form.state')}}
+                        {{ macros.case_row(record, 'updatedAt', 'last-updated')}}
+                        {{ macros.case_row(record, 'createdAt', 'creation-date')}}
                     </table>
                 </div>
 
+                <div id="vacination" class="tab-pane">
+                    <table class="table table-striped table-bordered table-hover">
+                        {{ macros.case_row(record, 'rvReceived', 'rotavirus-form.vaccination-received')}}
+                        {{ macros.case_row(record, 'rvType', 'rotavirus-form.vaccination-type')}}
+                        {{ macros.case_row(record, 'rvDoses', 'rotavirus-form.doses')}}
+                        {{ macros.case_row(record, 'rvDose1Date', 'rotavirus-form.firstVaccinationDose', 'Y-m-d')}}
+                        {{ macros.case_row(record, 'rvDose2Date',  'rotavirus-form.secondVaccinationDose', 'Y-m-d') }}
+                        {{ macros.case_row(record, 'rvDose3Date',  'rotavirus-form.thirdVaccinationDose', 'Y-m-d') }}
+                    </table>
+                </div>
+
+                <div id="clinical" class="tab-pane">
+                    <table class="table table-striped table-bordered table-hover">
+                        {{ macros.case_row(record, 'admDate', 'rotavirus-form.adm-date')}}
+                        {{ macros.case_row(record, 'intensiveCare', 'rotavirus-form.intensiveCare')}}
+                    </table>
+                </div>
+
+                <div id="rotavirus" class="tab-pane">
+                    <table class="table table-striped table-bordered table-hover">
+                        {{ macros.case_row(record, 'sympDiarrhea', 'rotavirus-form.symptomDiarrhea')}}
+                        {{ macros.case_row(record, 'sympDiaOnsetDate', 'rotavirus-form.symptomDiarrheaOnset', 'Y-m-d')}}
+                        {{ macros.case_row(record, 'sympDiaEpisodes', 'rotavirus-form.symptomDiarrheaEpisodes')}}
+                        {{ macros.case_row(record, 'sympDiaDuration', 'rotavirus-form.symptomDiarrheaDuration')}}
+                        {{ macros.case_row(record, 'sympVomit', 'rotavirus-form.symptomVomit')}}
+                        {{ macros.case_row(record, 'sympVomitEpisodes', 'rotavirus-form.symptomVomitEpisodes')}}
+                        {{ macros.case_row(record, 'sympVomitDuration', 'rotavirus-form.symptomVomitDuration')}}
+                        {{ macros.case_row(record, 'sympDehydration', 'rotavirus-form.symptomDehydration')}}
+                        {{ macros.case_row(record, 'rehydration', 'rotavirus-form.rehydration')}}
+                        {{ macros.case_row(record, 'rehydrationType', 'rotavirus-form.rehydration-type')}}
+                        {{ macros.case_row(record, 'rehydrationOther', 'rotavirus-form.rehydration-other')}}
+                    </table>
+                </div>
+
+                <div id="collectionData" class="tab-pane">
+                    <table class="table table-striped table-bordered table-hover">
+                        {{ macros.case_row(record, 'stoolCollected', 'rotavirus-form.stoolCollected')}}
+                        {{ macros.case_row(record, 'stoolId', 'rotavirus-form.stoolId')}}
+                        {{ macros.case_row(record, 'stoolCollectDate', 'rotavirus-form.stoolCollectionDate')}}
+                    </table>
+                </div>
+
+                <div id="outcome" class="tab-pane">
+                    <table class="table table-striped table-bordered table-hover">
+                        {{ macros.case_row(record, 'dischargeOutcome', 'rotavirus-form.dischargeOutcome')}}
+                        {{ macros.case_row(record, 'dischargeDate', 'rotavirus-form.dischargeDate')}}
+                        {{ macros.case_row(record, 'dischargeClassOther', 'rotavirus-form.dischargeClassOther')}}
+                        {{ macros.case_row(record, 'comment', 'rotavirus-form.comment')}}
+                    </table>
+                </div>
+
+                {%if record.hasSiteLab %}
+                    {% set lab = record.siteLab %}
+                    <div id="labData" class="tab-pane">
+                        <table class="table table-striped table-bordered table-hover">
+                            <tr>
+                                <th>{{ 'rotavirus-form.hasLab'|trans }}</th>
+                                <td>{{'Yes'|trans}}</td>
+                            </tr>
+                            {{ macros.lab_row(lab, 'received', 'rotavirus-form.siteReceivedDate')}}
+                            {{ macros.lab_row(lab, 'adequate', 'rotavirus-form.adequate')}}
+                            {{ macros.lab_row(lab, 'stored', 'rotavirus-form.stored')}}
+                            {{ macros.lab_row(lab, 'elisaDone', 'rotavirus-form.elisaDone')}}
+                            {{ macros.lab_row(lab, 'elisaKit', 'rotavirus-form.elisaKit')}}
+                            {{ macros.lab_row(lab, 'elisaKitOther', 'rotavirus-form.elisaKitOther')}}
+                            {{ macros.lab_row(lab, 'elisaLoadNumber', 'rotavirus-form.elisaLoadNumber')}}
+                            {{ macros.lab_row(lab, 'elisaExpiryDate', 'rotavirus-form.elisaExpiryDate')}}
+                            {{ macros.lab_row(lab, 'elisaTestDate', 'rotavirus-form.elisaTestDate')}}
+                            {{ macros.lab_row(lab, 'elisaResult', 'rotavirus-form.elisaResult')}}
+                        </table>
+                    </div>
+
             <div id="labData-genotype" class="tab-pane">
                     <table class="table table-striped table-bordered table-hover">
-                        <tr><th>{{'external-lab-form.genotyping-date'|trans}}</th><td>{%if lab.genotypingDate %}{{lab.genotypingDate|date}}{%endif%}</td></tr>
-                        <tr><th>{{'external-lab-form.genotyping-result-g'|trans}}</th><td>{{lab.genotypingResultG|trans}}</td></tr>
-                        <tr><th>{{'external-lab-form.genotyping-result-g-specify'|trans}}</th><td>{{lab.genotypingResultGSpecify|trans}}</td></tr>
-                        <tr><th>{{'external-lab-form.genotyping-result-p'|trans}}</th><td>{{lab.genotypeResultP|trans}}</td></tr>
-                        <tr><th>{{'external-lab-form.genotyping-result-p-specify'|trans}}</th><td>{{lab.genotypeResultPSpecify|trans}}</td></tr>
+                        {{ macros.lab_row(lab, 'genotypingDate', 'external-lab-form.genotyping-date')}}
+                        {{ macros.lab_row(lab, 'genotypingResultG', 'external-lab-form.genotyping-result-g')}}
+                        {{ macros.lab_row(lab, 'genotypingResultGSpecify', 'external-lab-form.genotyping-result-g-specify')}}
+                        {{ macros.lab_row(lab, 'genotypeResultP', 'external-lab-form.genotyping-result-p')}}
+                        {{ macros.lab_row(lab, 'genotypeResultPSpecify', 'external-lab-form.genotyping-result-p-specify')}}
                     </table>
                 </div>
         {% else %}
@@ -284,26 +154,26 @@
                             <th>{{'meningitis.has-site-national-lab'|trans}}</th>
                             <td>{{'Yes'|trans}}</td>
                         </tr>
-                        <tr><th>{{'rotavirus-form.labId'|trans}}</th><td>{{lab.labId|trans}}</td></tr>
-                        <tr><th>{{'external-lab-form.date-received'|trans}}</th><td>{% if lab.dateReceived %}{{lab.dateReceived|date}}{% endif %}</td></tr>
-                        <tr><th>{{'rotavirus-form.stoolSentToRRL'|trans}}</th><td>{{ lab.stoolSentToRRL|trans }}</td></tr>
-                        <tr><th>{{'rotavirus-form.stoolSentToRRLDate'|trans}}</th><td>{% if lab.stoolSentToRRLDate %}{{lab.stoolSentToRRLDate|date}}{% endif %}</td></tr>
+                        {{ macros.external_lab_row(lab, 'labId', 'rotavirus-form.labId')}}
+                        {{ macros.external_lab_row(lab, 'dtSampleRecd', 'external-lab-form.date-received')}}
+                        {{ macros.external_lab_row(lab, 'stoolSentToRRL', 'rotavirus-form.stoolSentToRRL')}}
+                        {{ macros.external_lab_row(lab, 'stoolSentToRRLDate', 'rotavirus-form.stoolSentToRRLDate')}}
 
-                        <tr><th>{{'rotavirus-form.elisaDone'|trans}}</th><td>{{lab.elisaDone|trans}}</td></tr>
-                        <tr><th>{{'rotavirus-form.elisaKit'|trans}}</th><td>{{lab.elisaKit|trans}}</td></tr>
-                        <tr><th>{{'rotavirus-form.elisaKitOther'|trans}}</th><td>{{lab.elisaKitOther}}</td></tr>
-                        <tr><th>{{'rotavirus-form.elisaLoadNumber'|trans}}</th><td>{{lab.elisaLoadNumber}}</td></tr>
-                        <tr><th>{{'rotavirus-form.elisaExpiryDate'|trans}}</th><td>{%if lab.elisaExpiryDate %}{{lab.elisaExpiryDate|date}}{%endif%}</td></tr>
-                        <tr><th>{{'rotavirus-form.elisaTestDate'|trans}}</th><td>{%if lab.elisaTestDate %}{{lab.elisaTestDate|date}}{%endif%}</td></tr>
-                        <tr><th>{{'rotavirus-form.elisaResult'|trans}}</th><td>{{lab.elisaResult|trans}}</td></tr>
-                        <tr><th>{{'external-lab-form.genotyping-date'|trans}}</th><td>{%if lab.genotypingDate %}{{lab.genotypingDate|date}}{%endif%}</td></tr>
-                        <tr><th>{{'external-lab-form.genotyping-result-g'|trans}}</th><td>{{lab.genotypingResultG|trans}}</td></tr>
-                        <tr><th>{{'external-lab-form.genotyping-result-g-specify'|trans}}</th><td>{{lab.genotypingResultGSpecify|trans}}</td></tr>
-                        <tr><th>{{'external-lab-form.genotyping-result-p'|trans}}</th><td>{{lab.genotypeResultP|trans}}</td></tr>
-                        <tr><th>{{'external-lab-form.genotyping-result-p-specify'|trans}}</th><td>{{lab.genotypeResultPSpecify|trans}}</td></tr>
-                        <tr><th>{{'external-lab-form.comment'|trans}}</th><td>{{lab.comment}}</td></tr>
-                        <tr><th>{{'last-updated'|trans}}</th><td>{{lab.updatedAt|date}}</td></tr>
-                        <tr><th>{{'creation-date'|trans}}</th><td>{{lab.createdAt|date}}</td></tr>
+                        {{ macros.external_lab_row(lab, 'elisaDone', 'rotavirus-form.elisaDone')}}
+                        {{ macros.external_lab_row(lab, 'elisaKit', 'rotavirus-form.elisaKit')}}
+                        {{ macros.external_lab_row(lab, 'elisaKitOther', 'rotavirus-form.elisaKitOther')}}
+                        {{ macros.external_lab_row(lab, 'elisaLoadNumber', 'rotavirus-form.elisaLoadNumber')}}
+                        {{ macros.external_lab_row(lab, 'elisaExpiryDate', 'rotavirus-form.elisaExpiryDate')}}
+                        {{ macros.external_lab_row(lab, 'elisaTestDate', 'rotavirus-form.elisaTestDate')}}
+                        {{ macros.external_lab_row(lab, 'elisaResult', 'rotavirus-form.elisaResult')}}
+                        {{ macros.external_lab_row(lab, 'dtGt', 'external-lab-form.genotyping-date')}}
+                        {{ macros.external_lab_row(lab, 'gtResultG', 'external-lab-form.genotyping-result-g')}}
+                        {{ macros.external_lab_row(lab, 'gtResultGSpecify', 'external-lab-form.genotyping-result-g-specify')}}
+                        {{ macros.external_lab_row(lab, 'gtResultP', 'external-lab-form.genotyping-result-p')}}
+                        {{ macros.external_lab_row(lab, 'gtResultPSpecify', 'external-lab-form.genotyping-result-p-specify')}}
+                        {{ macros.external_lab_row(lab, 'comment', 'external-lab-form.comment')}}
+                        {{ macros.external_lab_row(lab, 'updatedAt', 'last-updated')}}
+                        {{ macros.external_lab_row(lab, 'createdAt', 'creation-date')}}
                     {% else %}
                         <tr>
                             <th>{{'meningitis.has-site-national-lab'|trans}}</th>
@@ -321,16 +191,16 @@
                             <th>{{'meningitis.has-site-reference-lab'|trans}}</th>
                             <td>{{'Yes'|trans}}</td>
                         </tr>
-                        <tr><th>{{'rotavirus-form.labId'|trans}}</th><td>{{lab.labId|trans}}</td></tr>
-                        <tr><th>{{'external-lab-form.date-received'|trans}}</th><td>{% if lab.dateReceived %}{{lab.dateReceived|date}}{% endif %}</td></tr>
-                        <tr><th>{{'external-lab-form.genotyping-date'|trans}}</th><td>{%if lab.genotypingDate %}{{lab.genotypingDate|date}}{%endif%}</td></tr>
-                        <tr><th>{{'external-lab-form.genotyping-result-g'|trans}}</th><td>{{lab.genotypingResultG|trans}}</td></tr>
-                        <tr><th>{{'external-lab-form.genotyping-result-g-specify'|trans}}</th><td>{{lab.genotypingResultGSpecify|trans}}</td></tr>
-                        <tr><th>{{'external-lab-form.genotyping-result-p'|trans}}</th><td>{{lab.genotypeResultP|trans}}</td></tr>
-                        <tr><th>{{'external-lab-form.genotyping-result-p-specify'|trans}}</th><td>{{lab.genotypeResultPSpecify|trans}}</td></tr>
-                        <tr><th>{{'external-lab-form.comment'|trans}}</th><td>{{lab.comment}}</td></tr>
-                        <tr><th>{{'last-updated'|trans}}</th><td>{{lab.updatedAt|date}}</td></tr>
-                        <tr><th>{{'creation-date'|trans}}</th><td>{{lab.createdAt|date}}</td></tr>
+                        {{ macros.external_lab_row(lab, 'labId', 'rotavirus-form.labId')}}
+                        {{ macros.external_lab_row(lab, 'specimenCollectionDate', 'external-lab-form.date-received')}}
+                        {{ macros.external_lab_row(lab, 'dtGt', 'external-lab-form.genotyping-date')}}
+                        {{ macros.external_lab_row(lab, 'gtResultG', 'external-lab-form.genotyping-result-g')}}
+                        {{ macros.external_lab_row(lab, 'gtResultGSpecify', 'external-lab-form.genotyping-result-g-specify')}}
+                        {{ macros.external_lab_row(lab, 'gtResultP', 'external-lab-form.genotyping-result-p')}}
+                        {{ macros.external_lab_row(lab, 'gtResultPSpecify', 'external-lab-form.genotyping-result-p-specify')}}
+                        {{ macros.external_lab_row(lab, 'comment', 'external-lab-form.comment')}}
+                        {{ macros.external_lab_row(lab, 'updatedAt', 'last-updated')}}
+                        {{ macros.external_lab_row(lab, 'createdAt', 'creation-date')}}
                     {% else %}
                         <tr>
                             <th>{{'meningitis.has-site-reference-lab'|trans}}</th>
