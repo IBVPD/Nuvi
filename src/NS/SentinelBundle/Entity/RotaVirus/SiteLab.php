@@ -35,6 +35,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @LocalAssert\GreaterThanDate(lessThanField="caseFile.stoolCollectionDate",greaterThanField="received",message="form.validation.vaccination-after-admission")
  * @LocalAssert\RelatedField(sourceField="elisaDone",sourceValue={"1"},fields={"elisaTestDate","elisaResult"})
  *
+ * @LocalAssert\Other(groups={"Completeness"},field="elisaDone",otherField="elisaKit",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ * @LocalAssert\Other(groups={"Completeness"},field="elisaDone",otherField="elisaLoadNumber",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ * @LocalAssert\Other(groups={"Completeness"},field="elisaDone",otherField="elisaExpiryDate",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ * @LocalAssert\Other(groups={"Completeness"},field="elisaDone",otherField="elisaTestDate",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
+ * @LocalAssert\Other(groups={"Completeness"},field="elisaDone",otherField="elisaResult",value="NS\SentinelBundle\Form\Types\TripleChoice::YES")
  * @LocalAssert\Other(groups={"Completeness"},field="elisaKit",otherField="elisaKitOther",value="NS\SentinelBundle\Form\RotaVirus\Types\ElisaKit::OTHER")
  * @LocalAssert\Other(groups={"Completeness"},field="genotypingResultG",otherField="genotypingResultGSpecify",value={"NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultG::OTHER", "NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultG::MIXED"})
  * @LocalAssert\Other(groups={"Completeness"},field="genotypeResultP",otherField="genotypeResultPSpecify",value={"NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultP::OTHER", "NS\SentinelBundle\Form\RotaVirus\Types\GenotypeResultP::MIXED"})
@@ -57,7 +62,6 @@ class SiteLab implements BaseSiteLabInterface
      * @Serializer\Groups({"api","export"})
      * @Assert\NotBlank(groups={"Default","Completeness"})
      * @Assert\Date(groups={"Default","Completeness"})
-     * @Assert\NotBlank(groups={"Completeness"})
      * @LocalAssert\NoFutureDate
      */
     private $received;
@@ -67,29 +71,23 @@ class SiteLab implements BaseSiteLabInterface
      * @var TripleChoice|null
      * @ORM\Column(name="adequate",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @Assert\NotBlank(groups={"Default","Completeness"})
      * @UtilAssert\ArrayChoiceConstraint(groups={"Completeness"})
-     * @Assert\NotBlank(groups={"Completeness"})
      */
     private $adequate;
 
     /**
      * @var TripleChoice|null
      * @ORM\Column(name="stored",type="TripleChoice",nullable=true)
-     * @Assert\NotBlank(groups={"Default","Completeness"})
      * @UtilAssert\ArrayChoiceConstraint(groups={"Default","Completeness"})
      * @Serializer\Groups({"api","export"})
-     * @Assert\NotBlank(groups={"Completeness"})
      */
     private $stored;
 
     /**
      * @var TripleChoice|null
      * @ORM\Column(name="elisaDone",type="TripleChoice",nullable=true)
-     * @Assert\NotBlank(groups={"Default","Completeness"})
      * @UtilAssert\ArrayChoiceConstraint(groups={"Default","Completeness"})
      * @Serializer\Groups({"api","export"})
-     * @Assert\NotBlank(groups={"Completeness"})
      */
     private $elisaDone;
 
@@ -97,7 +95,6 @@ class SiteLab implements BaseSiteLabInterface
      * @var ElisaKit|null
      * @ORM\Column(name="elisaKit",type="ElisaKit",nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @Assert\NotBlank(groups={"Completeness"})
      */
     private $elisaKit;
 
@@ -112,7 +109,6 @@ class SiteLab implements BaseSiteLabInterface
      * @var string|null
      * @ORM\Column(name="elisaLoadNumber",type="string",nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @Assert\NotBlank(groups={"Completeness"})
      */
     private $elisaLoadNumber;
 
@@ -129,7 +125,6 @@ class SiteLab implements BaseSiteLabInterface
      * @ORM\Column(name="elisaTestDate",type="date",nullable=true)
      * @Serializer\Groups({"api","export"})
      * @Serializer\Type(name="DateTime<'Y-m-d'>")
-     * @Assert\NotBlank(groups={"Completeness"})
      * @LocalAssert\NoFutureDate
      */
     private $elisaTestDate;
@@ -138,7 +133,6 @@ class SiteLab implements BaseSiteLabInterface
      * @var ElisaResult|null
      * @ORM\Column(name="elisaResult",type="ElisaResult",nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @Assert\NotBlank(groups={"Completeness"})
      */
     private $elisaResult;
 
@@ -157,9 +151,7 @@ class SiteLab implements BaseSiteLabInterface
      * @var GenotypeResultG|null
      * @ORM\Column(name="genotypingResultG",type="GenotypeResultG", nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @Assert\NotBlank(groups={"Completeness"})
      * @UtilAssert\ArrayChoiceConstraint(groups={"Completeness"})
-     * @Assert\NotBlank(groups={"Completeness"})
      */
     private $genotypingResultG;
 
@@ -174,9 +166,7 @@ class SiteLab implements BaseSiteLabInterface
      * @var GenotypeResultP|null
      * @ORM\Column(name="genotypeResultP",type="GenotypeResultP", nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @Assert\NotBlank(groups={"Completeness"})
      * @UtilAssert\ArrayChoiceConstraint(groups={"Completeness"})
-     * @Assert\NotBlank(groups={"Completeness"})
      */
     private $genotypeResultP;
 
@@ -214,7 +204,7 @@ class SiteLab implements BaseSiteLabInterface
      * @var TripleChoice|null
      * @ORM\Column(name="stoolSentToNL",type="TripleChoice",nullable=true)
      * @Serializer\Groups({"api","export"})
-     * @Assert\NotBlank(groups={"Completeness"})
+     * @UtilAssert\ArrayChoiceConstraint(groups={"Completeness"})
      */
     private $stoolSentToNL; // These are duplicated from the boolean fields in the class we extend
 
